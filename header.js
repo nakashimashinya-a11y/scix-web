@@ -73,7 +73,7 @@
     '}',
     '.scix-lang a{',
     '  text-decoration:none;color:rgba(255,255,255,.6);',
-    '  font-size:.75rem;font-weight:600;letter-spacing:.3px;',
+    '  font-size:.85rem;font-weight:600;letter-spacing:.3px;',
     '  padding:5px 12px;border-radius:16px;transition:all .25s;',
     '  display:flex;align-items:center;gap:5px;',
     '}',
