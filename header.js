@@ -1,8 +1,16 @@
 (function () {
   /* ======================================================
-     ScienceX — Shared Navigation Header
-     Single source of truth for all 26 pages.
+     ScienceX — Shared Navigation Header (JP + EN)
+     Single source of truth for all pages.
      ====================================================== */
+
+  // --------------- 0. Language detection ---------------
+  var path = window.location.pathname
+    .replace(/\.html$/, '')
+    .replace(/\/+$/, '') || '/';
+  var isEn = path === '/en' || path.indexOf('/en/') === 0;
+  var prefix = isEn ? '/en' : '';
+  var localPath = isEn ? path.replace(/^\/en/, '') || '/' : path;
 
   // --------------- 1. CSS ---------------
   var css = [
@@ -56,6 +64,20 @@
     '}',
     '.scix-header-nav a.scix-cta:hover{background:#D4AD5A}',
     '.scix-header-nav a.scix-cta.active{background:#D4AD5A;color:#fff}',
+
+    '/* === Language switcher === */',
+    '.scix-lang{',
+    '  display:flex;align-items:center;gap:2px;',
+    '  margin-left:12px;border:1px solid rgba(255,255,255,.2);',
+    '  border-radius:4px;overflow:hidden;flex-shrink:0;',
+    '}',
+    '.scix-lang a{',
+    '  text-decoration:none;color:rgba(255,255,255,.5);',
+    '  font-size:.7rem;font-weight:600;letter-spacing:.5px;',
+    '  padding:5px 10px;transition:all .25s;',
+    '}',
+    '.scix-lang a:hover{color:#fff;background:rgba(255,255,255,.08)}',
+    '.scix-lang a.active{color:#fff;background:rgba(196,154,60,.3)}',
 
     '/* === Hamburger button (mobile only) === */',
     '.scix-header-burger{',
@@ -111,6 +133,7 @@
     '    padding:14px 20px;',
     '  }',
     '  .scix-header-burger{display:block}',
+    '  .scix-lang{margin-left:auto;margin-right:12px}',
     '}'
   ].join('\n');
 
@@ -119,22 +142,41 @@
   style.textContent = css;
   document.head.appendChild(style);
 
-  // --------------- 2. HTML ---------------
+  // --------------- 2. HTML (language-aware) ---------------
+  var nav = isEn ? [
+    '<a href="/en"          data-page="/">Home</a>',
+    '<a href="/en/bss"       data-page="/bss">Battery Storage</a>',
+    '<a href="/en/knowledge" data-page="/knowledge">Knowledge</a>',
+    '<a href="/en/company"   data-page="/company">Company</a>',
+    '<a href="/en/contact"   data-page="/contact" class="scix-cta">Contact</a>'
+  ] : [
+    '<a href="/"          data-page="/">ホーム</a>',
+    '<a href="/bss"       data-page="/bss">蓄電池事業</a>',
+    '<a href="/knowledge" data-page="/knowledge">ナレッジ</a>',
+    '<a href="/company"   data-page="/company">会社案内</a>',
+    '<a href="/contact"   data-page="/contact" class="scix-cta">お問い合わせ</a>'
+  ];
+
+  // Language switch URL
+  var switchPath = isEn
+    ? (localPath === '/' ? '/' : localPath)
+    : (path === '/' ? '/en' : '/en' + path);
+
   var header = document.createElement('header');
   header.className = 'scix-header';
   header.id = 'scix-header';
   header.innerHTML = [
     '<div class="scix-header-overlay" id="scix-header-overlay"></div>',
     '<div class="scix-header-inner">',
-    '  <a href="/" class="scix-header-logo"><img src="/img/logo-white.png" alt="ScienceX サイエンスエックス株式会社"></a>',
+    '  <a href="' + prefix + '/" class="scix-header-logo"><img src="/img/logo-white.png" alt="ScienceX"></a>',
     '  <nav class="scix-header-nav" id="scix-header-nav">',
-    '    <a href="/"          data-page="/">ホーム</a>',
-    '    <a href="/bss"       data-page="/bss">蓄電池事業</a>',
-    '    <a href="/knowledge" data-page="/knowledge">ナレッジ</a>',
-    '    <a href="/company"   data-page="/company">会社案内</a>',
-    '    <a href="/contact"   data-page="/contact" class="scix-cta">お問い合わせ</a>',
+         nav.join('\n'),
     '  </nav>',
-    '  <button class="scix-header-burger" id="scix-header-burger" aria-label="メニューを開く" aria-expanded="false">',
+    '  <div class="scix-lang">',
+    '    <a href="' + (isEn ? (localPath === '/' ? '/' : localPath) : path) + '"' + (!isEn ? ' class="active"' : '') + '>JP</a>',
+    '    <a href="' + (isEn ? path : (path === '/' ? '/en' : '/en' + path)) + '"' + (isEn ? ' class="active"' : '') + '>EN</a>',
+    '  </div>',
+    '  <button class="scix-header-burger" id="scix-header-burger" aria-label="' + (isEn ? 'Open menu' : 'メニューを開く') + '" aria-expanded="false">',
     '    <span></span><span></span><span></span>',
     '  </button>',
     '</div>'
@@ -143,23 +185,16 @@
   document.body.insertBefore(header, document.body.firstChild);
 
   // --------------- 3. Active page detection ---------------
-  var path = window.location.pathname
-    .replace(/\.html$/, '')
-    .replace(/\/+$/, '') || '/';
-
   var links = header.querySelectorAll('.scix-header-nav a');
   for (var i = 0; i < links.length; i++) {
     var page = links[i].getAttribute('data-page');
-    // Exact match
-    if (path === page) {
+    if (localPath === page) {
       links[i].classList.add('active');
     }
-    // Home aliases
-    if (page === '/' && (path === '' || path === '/index')) {
+    if (page === '/' && (localPath === '' || localPath === '/index')) {
       links[i].classList.add('active');
     }
-    // Column articles → highlight ナレッジ
-    if (page === '/knowledge' && path.indexOf('/column-') === 0) {
+    if (page === '/knowledge' && localPath.indexOf('/column-') === 0) {
       links[i].classList.add('active');
     }
   }
@@ -167,30 +202,30 @@
   // --------------- 4. Hamburger toggle ---------------
   var burger = document.getElementById('scix-header-burger');
   var overlay = document.getElementById('scix-header-overlay');
+  var openLabel = isEn ? 'Open menu' : 'メニューを開く';
+  var closeLabel = isEn ? 'Close menu' : 'メニューを閉じる';
 
   function toggleMenu() {
     var isOpen = header.classList.toggle('scix-header-open');
     document.body.style.overflow = isOpen ? 'hidden' : '';
     burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    burger.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+    burger.setAttribute('aria-label', isOpen ? closeLabel : openLabel);
   }
 
   function closeMenu() {
     header.classList.remove('scix-header-open');
     document.body.style.overflow = '';
     burger.setAttribute('aria-expanded', 'false');
-    burger.setAttribute('aria-label', 'メニューを開く');
+    burger.setAttribute('aria-label', openLabel);
   }
 
   burger.addEventListener('click', toggleMenu);
   overlay.addEventListener('click', closeMenu);
 
-  // Close on nav link click (mobile)
   for (var j = 0; j < links.length; j++) {
     links[j].addEventListener('click', closeMenu);
   }
 
-  // Close on Escape key
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && header.classList.contains('scix-header-open')) {
       closeMenu();
