@@ -61,10 +61,10 @@ p{margin-bottom:20px}
 <body>
 <script src="/header.js"></script>
 <div class="seo-note">
-  title: 需給調整市場の商品構造を理解する — 5商品の設計思想とオンライン・オフラインの違い｜ScienceX
-  description: 系統用Batteryが参加する需給調整市場の一次〜三次調整力の商品設計、オンライン・オフライン接続の違い、2026年度の前日取引化・30分コマ化の影響を、EPRX公表データに基づき解説。
+  title: Understanding the Balancing Market Product Structure — Design Philosophy of 5 Products and Online vs Offline Differences | ScienceX
+  description: Explaining the product design of Primary through Tertiary reserves in the Balancing Market where grid-scale batteries participate, the differences between Online and Offline connections, and the impact of FY2026 day-ahead trading and 30-minute slot transitions, based on EPRX published data.
   slug: /column-balancing-market
-  keywords: 需給調整市場, Primary Reserve, 二次調整力, 三次調整力, オンライン オフライン, Battery, EPRX, 前日取引
+  keywords: Balancing Market, Primary Reserve, Secondary Reserve, Tertiary Reserve, Online Offline, Battery, EPRX, Day-Ahead Trading
 </div>
 <div class="article-header">
   <div class="header-inner">
@@ -73,127 +73,127 @@ p{margin-bottom:20px}
       <span class="header-tag">Policy</span>
     </div>
     <h1>Understanding Balancing Market Product Structure<br>— <em>5 Products, Composite Bidding & Online Connection</em> Overview</h1>
-    <p class="header-desc">Batteryにとって最も有利な商品はどれか。一次〜三次調整力の商品設計、接続方式による設備要件の違い、2026年度の前日取引化がBatteryの運用にどう影響するかを整理する。</p>
+    <p class="header-desc">Which product is most advantageous for batteries? We organize the product design of Primary through Tertiary reserves, the differences in equipment requirements by connection type, and how FY2026 day-ahead trading affects battery operations.</p>
   </div>
 </div>
 <div class="article-body">
 <a target="_top" href="/en/knowledge" class="back-link">← Back to Knowledge</a>
 <h2>The Balancing Market Trades "Power Insurance"</h2>
-<p>電力系統は、需要と供給を常に一致させなければ周波数が乱れ、最悪の場合は大規模停電に至る。需給調整市場は、この「ズレ」を埋める調整力を取引する市場である。</p>
-<p>買い手は一般送配電事業者（東北電力ネットワーク、東京電力パワーグリッド等）、売り手は発電事業者やBattery事業者。売り手は「指定された時間帯に、指定された出力で、いつでも動ける状態で待機する」ことに対して報酬を受け取る。</p>
-<p>2024年4月に全商品の取引が開始された。需給調整市場には5つの商品がある。Primary Reserve、Secondary Reserve 1、Secondary Reserve 2、Tertiary Reserve 1、Tertiary Reserve 2である。商品間の違いは「どれだけ速く反応できるか」と「どれだけ長く持続するか」の2軸で決まる。さらに、一次〜三次①の4商品を束ねた「複合商品」という入札方式があり、1つの入札で複数の商品に同時にエントリーできる。Primary Reserveにはオンライン（専用線接続）とオフライン（簡易指令システム）の2つの参加方式が存在する。</p>
+<p>The power grid must constantly balance supply and demand; otherwise, frequency deviates, leading to large-scale blackouts in the worst case. The Balancing Market is a market for trading the balancing capacity that fills this "gap."</p>
+<p>The buyers are general transmission and distribution operators (Tohoku Electric Power Network, TEPCO Power Grid, etc.), and the sellers are generation companies and battery operators. Sellers receive compensation for "standing by ready to operate at a specified output during specified time periods."</p>
+<p>Trading of all products began in April 2024. The Balancing Market has five products: Primary Reserve, Secondary Reserve 1, Secondary Reserve 2, Tertiary Reserve 1, and Tertiary Reserve 2. Differences between products are determined by two axes: "how quickly can it respond" and "how long can it sustain." Additionally, there is a "Composite" bidding method that bundles four products from Primary through Tertiary 1, allowing simultaneous entry into multiple products with a single bid. Primary Reserve has two participation methods: Online (dedicated line connection) and Offline (simple command system).</p>
 <h2>Design Philosophy of 5 Products — Divided by Speed and Purpose</h2>
 <table class="comparison-table">
   <tr><th>Product</th><th>Response Time</th><th>Duration</th><th>Grid Phenomenon</th><th>Battery Suitability</th></tr>
-  <tr><td class="em">Primary Reserve<br><small style="color:#6C7A89">オンライン</small></td><td>10秒以内</td><td>5分以上</td><td>Instantaneous frequency fluctuation<br><small style="color:#6C7A89">（GF: 自動応答）</small></td><td>Excellent — Most suited</td></tr>
-  <tr><td class="em">Primary Reserve<br><small style="color:#6C7A89">オフライン</small></td><td>10秒以内<br><small style="color:#6C7A89">（監視時30秒以内）</small></td><td>5分以上<br><small style="color:#6C7A89">（監視時は設定なし）</small></td><td>Instantaneous frequency fluctuation<br><small style="color:#6C7A89">（GF: 簡易指令）</small></td><td>◎</td></tr>
-  <tr><td class="em">Secondary Reserve 1</td><td>5分以内</td><td>30分</td><td>Short-cycle supply/demand fluctuation<br><small style="color:#6C7A89">（LFC: 中央制御）</small></td><td>◎</td></tr>
-  <tr><td class="em">Secondary Reserve 2</td><td>5分以内</td><td>30分</td><td>Economic load dispatch<br><small style="color:#6C7A89">（EDC: 高速応動型）</small></td><td>○</td></tr>
-  <tr><td class="em">Tertiary Reserve 1</td><td>15分以内</td><td>30分</td><td>Economic load dispatch<br><small style="color:#6C7A89">（EDC: 低速応動型）</small></td><td>○</td></tr>
-  <tr><td class="em">Tertiary Reserve 2</td><td>60分以内</td><td>30分</td><td>Responding to RE forecast errors<br><small style="color:#6C7A89">（GC後の需給調整）</small></td><td>△</td></tr>
+  <tr><td class="em">Primary Reserve<br><small style="color:#6C7A89">Online</small></td><td>Within 10 sec</td><td>5+ min</td><td>Instantaneous frequency fluctuation<br><small style="color:#6C7A89">(GF: Auto response)</small></td><td>Excellent — Most suited</td></tr>
+  <tr><td class="em">Primary Reserve<br><small style="color:#6C7A89">Offline</small></td><td>Within 10 sec<br><small style="color:#6C7A89">(30 sec during monitoring)</small></td><td>5+ min<br><small style="color:#6C7A89">(No setting during monitoring)</small></td><td>Instantaneous frequency fluctuation<br><small style="color:#6C7A89">(GF: Simple command)</small></td><td>Excellent</td></tr>
+  <tr><td class="em">Secondary Reserve 1</td><td>Within 5 min</td><td>30 min</td><td>Short-cycle supply/demand fluctuation<br><small style="color:#6C7A89">(LFC: Central control)</small></td><td>Excellent</td></tr>
+  <tr><td class="em">Secondary Reserve 2</td><td>Within 5 min</td><td>30 min</td><td>Economic load dispatch<br><small style="color:#6C7A89">(EDC: Fast response type)</small></td><td>Good</td></tr>
+  <tr><td class="em">Tertiary Reserve 1</td><td>Within 15 min</td><td>30 min</td><td>Economic load dispatch<br><small style="color:#6C7A89">(EDC: Slow response type)</small></td><td>Good</td></tr>
+  <tr><td class="em">Tertiary Reserve 2</td><td>Within 60 min</td><td>30 min</td><td>Responding to RE forecast errors<br><small style="color:#6C7A89">(Post-GC supply/demand adjustment)</small></td><td>Fair</td></tr>
 </table>
-<p><small style="color:var(--text-light)">※ 継続時間は2026年度の現行仕様。制度創設時は二次①②が「30分以上」、三次①②が「3時間」だったが、前日取引化・30分コマ化に伴い全商品「30分」に統一された（三次②は2025年度から先行変更）。Primary Reserveのオフライン監視時の仕様は2025年度から適用。</small></p>
+<p><small style="color:var(--text-light)">* Duration is the current FY2026 specification. At system creation, Secondary 1 & 2 were "30+ min" and Tertiary 1 & 2 were "3 hours," but all products were unified to "30 min" with the transition to day-ahead trading and 30-min slots (Tertiary 2 was changed in advance from FY2025). Primary Reserve Offline monitoring specifications apply from FY2025.</small></p>
 <h3>What Are GF, LFC, EDC & GC?</h3>
-<p>表中の略語は、電力系統の周波数を維持するための制御機能と、市場の時間的区切りを示す用語である。Battery事業者が各商品の位置づけを理解するうえで押さえておく必要がある。</p>
-<p><strong>GF（Governor Free：ガバナフリー）</strong>は、発電機が周波数の変動を検知して自動的に出力を調整する機能である。人間の判断を介さず、機械が瞬時に反応する。電力系統の周波数は常に50Hz（東日本）または60Hz（西日本）に保たれるべきだが、需要と供給が一瞬でもずれると周波数が上下する。GFはこの「秒単位のズレ」を自動で吸収する最初の防波堤であり、Primary Reserveがこの機能に該当する。</p>
-<p><strong>LFC（Load Frequency Control：負荷周波数制御）</strong>は、中央給電指令所が周波数の偏差を監視し、発電機に出力の増減を指令する機能である。GFが吸収しきれない「数分単位の変動」に対応する。GFが自動的な個別対応だとすれば、LFCは司令塔が全体を見ながら調整する仕組みである。Secondary Reserve 1がこの機能に該当する。</p>
-<p><strong>EDC（Economic Dispatch Control：経済負荷配分制御）</strong>は、複数の発電機の出力配分を、コストが最も安くなるように最適化する機能である。GFやLFCが「周波数を守ること」を最優先にするのに対し、EDCは「安定供給を維持しつつ、なるべく安い電源から使う」という経済性も加味して出力を配分する。より長い時間軸（数十分〜数時間）での需給調整を担い、Secondary Reserve 2（高速応動型：EDC-H）とTertiary Reserve 1（低速応動型：EDC-L）の2つに分かれている。</p>
-<p><strong>GC（Gate Close：ゲートクローズ）</strong>は、電力取引における「締め切り時刻」を意味する。GF・LFC・EDCが発電制御の機能であるのに対し、GCは市場の時間的区切りであり、性質が異なる。実需給の1時間前に設定されており、この時刻以降は発電事業者・小売電気事業者による発電計画・需要計画の変更ができなくなる。GC後に残った「予測と実績のズレ」は、送配電事業者が調整力を使って埋める。Tertiary Reserve 2は、このGC後に生じる再エネ発電量の予測誤差などに対応するための商品である。</p>
-<p>Batteryは物理的に「ミリ秒単位で出力を変えられる」ため、応動速度が速い一次（GF）・二次①（LFC）で圧倒的な優位性を持つ。Thermal発電やガスタービンでは10秒以内の応動は技術的に難しく、Batteryにとって構造的な競争優位がある。</p>
-<div class="source">出典: 一般社団法人 電力需給調整力取引所「需給調整市場かいせつ資料」第2版（2026年3月13日）<br>
+<p>The abbreviations in the table represent control functions for maintaining grid frequency and terms indicating market time divisions. Battery operators need to understand these to grasp the positioning of each product.</p>
+<p><strong>GF (Governor Free)</strong> is a function where generators detect frequency fluctuations and automatically adjust output. Machines respond instantaneously without human judgment. Grid frequency should always be maintained at 50 Hz (eastern Japan) or 60 Hz (western Japan), but even momentary supply-demand mismatches cause frequency to fluctuate. GF is the first line of defense that automatically absorbs these "second-level gaps," and Primary Reserve corresponds to this function.</p>
+<p><strong>LFC (Load Frequency Control)</strong> is a function where the central dispatching center monitors frequency deviation and instructs generators to increase or decrease output. It handles "multi-minute fluctuations" that GF cannot fully absorb. If GF is an automatic individual response, LFC is a system where a command center adjusts while monitoring the whole picture. Secondary Reserve 1 corresponds to this function.</p>
+<p><strong>EDC (Economic Dispatch Control)</strong> is a function that optimizes the output allocation of multiple generators to minimize cost. While GF and LFC prioritize "maintaining frequency," EDC allocates output with economic efficiency in mind — "using the cheapest power sources while maintaining stable supply." It handles supply-demand adjustment over longer time horizons (tens of minutes to hours) and is divided into Secondary Reserve 2 (fast response: EDC-H) and Tertiary Reserve 1 (slow response: EDC-L).</p>
+<p><strong>GC (Gate Close)</strong> means the "deadline" in electricity trading. Unlike GF, LFC, and EDC which are generation control functions, GC is a market time division with a different nature. It is set one hour before actual supply and demand, and after this time, generation and demand plans can no longer be changed by generators or retail electricity providers. The "gap between forecasts and actuals" remaining after GC is filled by transmission operators using balancing capacity. Tertiary Reserve 2 is the product for addressing RE generation forecast errors that arise after GC.</p>
+<p>Because batteries can physically "change output in milliseconds," they have an overwhelming advantage in fast-response products like Primary (GF) and Secondary 1 (LFC). Response within 10 seconds is technically difficult for thermal plants and gas turbines, giving batteries a structural competitive advantage.</p>
+<div class="source">Source: Electric Power Reserve Exchange (EPRX), "Balancing Market Explanatory Materials" 2nd Edition (March 13, 2026)<br>
 <a href="https://www.eprx.or.jp/outline/docs/kaisetsu.pdf" target="_blank">https://www.eprx.or.jp/outline/docs/kaisetsu.pdf</a></div>
 <h2>Online vs Offline — Participation Conditions Change by Connection Type</h2>
-<p>Primary Reserveには「オンライン」と「オフライン」の2つの参加方式がある。これはBatteryの設備構成とコストに直結する重要な区分であり、市場実績においても大きな差が生じている。なお、二次調整力以降は全てオンライン接続が前提となる。</p>
+<p>Primary Reserve has two participation methods: "Online" and "Offline." This is an important classification directly linked to battery equipment configuration and costs, with significant differences in market performance. Note that all products from Secondary Reserve onward require Online connection.</p>
 <h3>Online (Dedicated Line Connection)</h3>
-<p>送配電事業者と専用通信回線で接続し、リアルタイムで指令を受けて応動する方式。周波数変動を検知して自動的に出力を調整する。専用線の敷設には数千万円単位のコストがかかるが、全時間帯・全コマでの入札が可能になる。</p>
+<p>A method of connecting with the transmission operator via a dedicated communication line and responding to real-time commands. Frequency fluctuations are detected and output is adjusted automatically. Installation of the dedicated line costs tens of millions of yen, but enables bidding in all time periods and all slots.</p>
 <h3>Offline (Simple Command System)</h3>
-<p>専用線は不要で、簡易指令システム経由で応動する方式。専用線のコストがかからない分、参入障壁が低い。ただし、Batteryの場合、設備容量10MW以上（特別高圧接続）はPrimary Reserveのオンライン接続が必須であり、オフラインで参入できるのは10MW未満のBatteryに限られる（EPRX取引規程）。なお、発電機の場合は単機容量1MW未満がオフライン対象となり、Batteryとは閾値が異なる。オフライン枠の調達上限はPrimary Reserveの所要量の4%に設定されており、2026年度から募集量も引き下げられた（後述する1σ相当値への変更）。</p>
+<p>A method that requires no dedicated line and responds via a simple command system. The barrier to entry is lower since dedicated line costs are not incurred. However, for batteries with installed capacity of 10 MW or more (extra-high voltage connection), Online connection is mandatory for Primary Reserve participation, and Offline entry is limited to batteries under 10 MW (per EPRX trading rules). Note that for generators, Offline applies to single-unit capacity under 1 MW, with a different threshold than batteries. The procurement cap for the Offline frame is set at 4% of the Primary Reserve requirement, and from FY2026, the solicitation volume has also been reduced (changed to 1-sigma equivalent, discussed below).</p>
 <div class="highlight-box">
-  <strong>オンラインとオフラインの市場実績（2025年度）：</strong><br>
-  一次オンラインの年間充足率は全国加重平均で40.8%。Batteryのシェアは19.7%で、Thermal発電（72.2%）に次ぐ第2位。<br>
-  一次オフラインの年間充足率はわずか3.4%。Batteryが落札量の97.8%を独占し、Thermal・水力の参入はゼロ。落札単価は15〜19円/ΔkW・30分と、オンライン（3〜10円）の2〜3倍に達する。<br><br>
-  <strong>Battery事業者にとってのポイント：</strong><br>
-  オンライン接続は専用線コストがかかるが、応札コマ数が多く収益機会が広がる。オフラインは初期投資を抑えて参入でき、単価も高いが、オフライン枠の縮小が進んでおり、中長期的にはオンライン接続が有利になる方向にある。エリア別の詳細データは<a target="_top" href="/en/column-area-data" style="color:var(--accent);font-weight:600">COLUMN 16</a>を参照。
+  <strong>Online vs Offline Market Results (FY2025):</strong><br>
+  The Primary Online annual fulfillment rate is 40.8% (weighted national average). Battery share is 19.7%, second behind Thermal (72.2%).<br>
+  The Primary Offline annual fulfillment rate is just 3.4%. Batteries monopolize 97.8% of awarded volume, with zero Thermal or Hydro participation. Awarded unit prices reach 15-19 yen/delta-kW per 30 min, 2-3 times Online (3-10 yen).<br><br>
+  <strong>Key Points for Battery Operators:</strong><br>
+  Online connection incurs dedicated line costs but offers more bidding slots and broader revenue opportunities. Offline allows entry with lower initial investment and higher unit prices, but the Offline frame is shrinking, and Online connection will become more advantageous in the medium to long term. See <a target="_top" href="/en/column-area-data" style="color:var(--accent);font-weight:600">COLUMN 16</a> for detailed area-level data.
 </div>
-<div class="source">出典: 資源エネルギー庁「需給調整市場について」第110回制度検討作業部会資料（2026年1月23日）<br>
+<div class="source">Source: Agency for Natural Resources and Energy, "On the Balancing Market," 110th System Review Working Group Materials (January 23, 2026)<br>
 <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_review/pdf/110_04_00.pdf" target="_blank">https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_review/pdf/110_04_00.pdf</a></div>
 <h2>Composite Products — Bundled Bidding from Primary to Tertiary 1</h2>
-<p>2024年4月から、一次・二次①②・三次①は「週間商品」として一括で取引されていた（2026年3月13日以降は前日取引に移行）。複合商品は、この4商品を束ねた入札方式（複合約定ロジック）であり、独立した商品区分ではない。</p>
-<p>複合商品への応札は、1つの入札で複数の調整力商品に同時にエントリーできる仕組みである。例えば、Batteryが複合商品に応札すると、一次から三次①までのいずれかに約定する可能性がある。約定は「安い順」に積み上げられ、最も高速な商品（一次）から順に充足されていく。</p>
-<p>一方、Tertiary Reserve 2は「前日商品」として独立した市場で取引される。複合商品の対象には含まれない。</p>
+<p>From April 2024, Primary, Secondary 1 & 2, and Tertiary 1 were traded as "weekly products" in bulk (transitioning to day-ahead trading from March 13, 2026). The Composite product is a bundled bidding method (composite clearing logic) combining these four products, not an independent product category.</p>
+<p>Bidding on the Composite product allows simultaneous entry into multiple balancing products with a single bid. For example, when a battery bids on the Composite product, it may be awarded in any product from Primary through Tertiary 1. Awards are stacked "from lowest price," filling the fastest product (Primary) first.</p>
+<p>Meanwhile, Tertiary Reserve 2 is traded in an independent market as a "day-ahead product" and is not included in the Composite product scope.</p>
 <div class="data-box">
-  <strong>2025年度の年間充足率（TSO別、加重平均）</strong><br><br>
-  一次オンライン: 充足率 <span class="num">40.8%</span>（大幅な供給不足が継続）<br>
-  一次オフライン: 充足率 <span class="num">3.4%</span>（ほぼ全量が未充足）<br>
-  Secondary Reserve 1: 充足率 <span class="num">77.7%</span>（東京・東北で不足）<br>
-  Secondary Reserve 2: 充足率 <span class="num">220%</span>（大幅な供給過剰）<br>
-  Tertiary Reserve 1: 充足率 <span class="num">108%</span>（供給過剰）<br>
-  Tertiary Reserve 2: 充足率 <span class="num">98.6%</span>（ほぼ充足）<br>
-  複合: 充足率 <span class="num">83.7%</span>（東京・中部・九州で不足）
-  <div class="source">出典: EPRX 取引実績（確報値）2025年4月〜2026年2月 TSO別 システム約定結果<br>
-  ※ 充足率 = 落札量 ÷ 募集量 × 100。100%超は応札量が募集量を上回ったことを示す。EPRXの取引実績とりまとめ文書では「不足率」（= 調達不足量 ÷ 募集量 × 100）が使用されており、定義が異なる。</div>
+  <strong>FY2025 Annual Fulfillment Rate (by TSO, weighted average)</strong><br><br>
+  Primary Online: Fulfillment Rate <span class="num">40.8%</span> (Significant supply shortage continues)<br>
+  Primary Offline: Fulfillment Rate <span class="num">3.4%</span> (Nearly all volume unfulfilled)<br>
+  Secondary Reserve 1: Fulfillment Rate <span class="num">77.7%</span> (Shortage in Tokyo/Tohoku)<br>
+  Secondary Reserve 2: Fulfillment Rate <span class="num">220%</span> (Significant oversupply)<br>
+  Tertiary Reserve 1: Fulfillment Rate <span class="num">108%</span> (Oversupply)<br>
+  Tertiary Reserve 2: Fulfillment Rate <span class="num">98.6%</span> (Nearly fulfilled)<br>
+  Composite: Fulfillment Rate <span class="num">83.7%</span> (Shortage in Tokyo/Chubu/Kyushu)
+  <div class="source">Source: EPRX Trading Results (Final Values) April 2025 - February 2026, by TSO, System Award Results<br>
+  * Fulfillment Rate = Awarded Volume / Solicited Volume x 100. Values over 100% indicate bid volume exceeded solicited volume. EPRX summary documents use "shortage rate" (= procurement shortfall / solicited volume x 100), which has a different definition.</div>
 </div>
-<p>一次オンラインの充足率が40.8%、一次オフラインはわずか3.4%と、Primary Reserveの供給不足が突出して深刻である。Batteryにとっては、参入すれば高い確率で約定できる市場環境が続いていることを意味する。</p>
+<p>With the Primary Online fulfillment rate at 40.8% and Primary Offline at just 3.4%, the supply shortage for Primary Reserve is outstandingly severe. For batteries, this means the market environment continues to offer high probability of winning awards upon entry.</p>
 <h2>Battery Contract Prices — 3-6x Higher Than Thermal</h2>
-<p>Batteryは応動速度が速い分、Thermalよりも高い単価で約定している。</p>
+<p>Batteries are awarded at higher unit prices than Thermal precisely because of their faster response speed.</p>
 <table class="comparison-table">
-  <tr><th>Power Source Type</th><th>Primary Reserve</th><th>二次①</th><th>二次②</th><th>三次①</th></tr>
-  <tr><td class="em">Battery</td><td>9.6〜13.5円</td><td>7.4〜18.7円</td><td>8.1〜18.8円</td><td>7.9〜18.2円</td></tr>
-  <tr><td>Thermal</td><td>2.1〜3.4円</td><td>2.5〜3.5円</td><td>2.3〜3.5円</td><td>2.2〜3.5円</td></tr>
-  <tr><td>Pumped Hydro</td><td>1.3〜2.7円</td><td>1.1〜2.5円</td><td>1.6〜3.4円</td><td>1.5〜3.3円</td></tr>
-  <tr><td>VPP（DR等）</td><td>19.2〜19.5円</td><td>—</td><td>—</td><td>—</td></tr>
+  <tr><th>Power Source Type</th><th>Primary Reserve</th><th>Secondary 1</th><th>Secondary 2</th><th>Tertiary 1</th></tr>
+  <tr><td class="em">Battery</td><td>9.6-13.5 yen</td><td>7.4-18.7 yen</td><td>8.1-18.8 yen</td><td>7.9-18.2 yen</td></tr>
+  <tr><td>Thermal</td><td>2.1-3.4 yen</td><td>2.5-3.5 yen</td><td>2.3-3.5 yen</td><td>2.2-3.5 yen</td></tr>
+  <tr><td>Pumped Hydro</td><td>1.3-2.7 yen</td><td>1.1-2.5 yen</td><td>1.6-3.4 yen</td><td>1.5-3.3 yen</td></tr>
+  <tr><td>VPP (DR, etc.)</td><td>19.2-19.5 yen</td><td>--</td><td>--</td><td>--</td></tr>
 </table>
-<p>（単位: 円/ΔkW・30分、2025年度上期の月別レンジ）</p>
-<p>Batteryの約定単価はThermalの3〜6倍に達している。VPP（デマンドリスポンス等）は上限価格付近での応札が多く、最も高単価だが、落札量は限られている。Batteryは「量」と「価格」の両面で、需給調整市場の主力リソースになりつつある。</p>
-<div class="source">出典: EPRX「2025年度上期の取引実績について」電源種別別の平均落札単価（2025年12月11日公表）</div>
+<p>(Unit: yen/delta-kW per 30 min, monthly range for FY2025 first half)</p>
+<p>Battery awarded unit prices are 3-6 times those of Thermal. VPP (Demand Response, etc.) frequently bids near the price cap and commands the highest unit prices, but awarded volumes are limited. Batteries are becoming the primary resource in the Balancing Market in terms of both "volume" and "price."</p>
+<div class="source">Source: EPRX "On FY2025 First Half Trading Results," Average Awarded Unit Price by Power Source Type (Published December 11, 2025)</div>
 <h2>FY2026 Policy Changes — Day-Ahead Trading and Price Cap Reduction</h2>
-<p>2026年3月13日の取引分から、需給調整市場は大きく2つの変更が実施された。</p>
+<p>Starting with transactions from March 13, 2026, two major changes were implemented in the Balancing Market.</p>
 <h3>1. Day-Ahead Trading and 30-Min Slot Transition</h3>
-<p>従来は「週間商品」として1週間分をまとめて入札していた一次〜三次①が、前日14時に翌日分を入札する「前日取引」に移行した。取引単位も3時間ブロックから30分コマに細分化された。これに伴い、全商品の継続時間が30分に統一された（三次②は2025年度から先行して30分に変更済み）。</p>
-<p>これにより、事業者は毎日、翌日の48コマそれぞれについて「JEPX（卸電力市場）で売るか、需給調整市場で待機するか」を判断する必要がある。JEPXのスポット市場に入札した売れ残り分だけが需給調整市場に応札できるルールのため、2つの市場の使い分けがより戦略的になった。</p>
+<p>Primary through Tertiary 1, which were previously bid as "weekly products" in bulk for one week, transitioned to "day-ahead trading" where bids are placed at 2 PM the day before for the next day. The trading unit was also subdivided from 3-hour blocks to 30-minute slots. Accordingly, the duration for all products was unified to 30 minutes (Tertiary 2 had already been changed to 30 minutes in advance from FY2025).</p>
+<p>This means operators must now make daily decisions for each of the next day's 48 slots: "sell on JEPX (wholesale electricity market) or stand by for the Balancing Market." Since only unsold portions from JEPX spot market bids can be bid into the Balancing Market, the strategic allocation between the two markets has become more important.</p>
 <h3>2. Price Cap Reduction</h3>
 <table class="comparison-table">
-  <tr><th>Item</th><th>2025年度まで</th><th>2026年度〜</th></tr>
-  <tr><td class="em">一次・二次①・複合商品の上限価格</td><td>19.51円/ΔkW・30分</td><td>15円/ΔkW・30分</td></tr>
-  <tr><td class="em">二次②・三次①の上限価格</td><td>7.21円/ΔkW・30分</td><td>7.21円/ΔkW・30分（据え置き）</td></tr>
-  <tr><td class="em">募集量（一次・二次①）</td><td>3σ相当</td><td>1σ相当</td></tr>
-  <tr><td class="em">将来的な引下げ見通し</td><td>—</td><td>10円 → 7.21円と段階的に検討</td></tr>
+  <tr><th>Item</th><th>Through FY2025</th><th>FY2026 onward</th></tr>
+  <tr><td class="em">Price cap for Primary, Secondary 1, Composite</td><td>19.51 yen/delta-kW per 30 min</td><td>15 yen/delta-kW per 30 min</td></tr>
+  <tr><td class="em">Price cap for Secondary 2, Tertiary 1</td><td>7.21 yen/delta-kW per 30 min</td><td>7.21 yen/delta-kW per 30 min (unchanged)</td></tr>
+  <tr><td class="em">Solicitation volume (Primary, Secondary 1)</td><td>3-sigma equivalent</td><td>1-sigma equivalent</td></tr>
+  <tr><td class="em">Future reduction outlook</td><td>--</td><td>Phased consideration of 10 yen then 7.21 yen</td></tr>
 </table>
-<p>σ（シグマ）は統計学の標準偏差を表す。送配電事業者は需要予測誤差の統計的なばらつきを基準に、確保すべき調整力の量を決めている。3σは予測誤差の99.7%をカバーする水準（＝ほぼ最悪のケースまで備える量）であり、1σは68%をカバーする水準（＝平常時の変動に対応する量）である。Primary ReserveとSecondary Reserve 1の募集量が3σから1σに変更されたことは、市場で調達するこれらの調整力の総量が大幅に削減されたことを意味する。なお、二次②・三次①は従前から1σで調達されていた。</p>
-<p>上限価格は当初案の7.21円から15円に緩和されたものの、従来の19.51円からは約23%の引下げとなった。さらに、市場における競争状況に改善が見られない場合は10円、7.21円と段階的に引き下げる方針が示されている。</p>
+<p>Sigma represents the statistical standard deviation. Transmission operators determine the volume of balancing capacity to secure based on the statistical variability of demand forecast errors. 3-sigma covers 99.7% of forecast errors (= preparing for nearly the worst case), while 1-sigma covers 68% (= handling normal fluctuations). The change from 3-sigma to 1-sigma in solicitation volumes for Primary Reserve and Secondary Reserve 1 means a significant reduction in the total balancing capacity procured through the market. Note that Secondary 2 and Tertiary 1 were already procured at 1-sigma.</p>
+<p>While the price cap was relaxed from the initial proposal of 7.21 yen to 15 yen, it still represents approximately a 23% reduction from the previous 19.51 yen. Furthermore, if no improvement is seen in market competitive conditions, the policy is to reduce in phases to 10 yen then 7.21 yen.</p>
 <div class="warning-box">
-  <strong>⚠ Battery事業者への影響：</strong><br>
-  上限価格の引下げは収益の天井を下げることを意味する。一方で、Primary Reserveの充足率はオンラインで40.8%、オフラインで3.4%と極めて低く、即座に競争激化に転じるわけではない。2026年度の応札動向を見極めたうえで、さらなる引下げの可否が判断される。
+  <strong>Impact on Battery Operators:</strong><br>
+  The price cap reduction means lowering the revenue ceiling. On the other hand, Primary Reserve fulfillment rates are extremely low at 40.8% for Online and 3.4% for Offline, meaning competition will not intensify immediately. Further reductions will be evaluated after observing FY2026 bidding trends.
 </div>
-<div class="source">出典: 資源エネルギー庁「需給調整市場について」第110回制度検討作業部会資料（2026年1月23日）</div>
+<div class="source">Source: Agency for Natural Resources and Energy, "On the Balancing Market," 110th System Review Working Group Materials (January 23, 2026)</div>
 <h2>48 Time Slots and Bid Rate — Operating Strategy Determining Battery Revenue</h2>
-<p>JEPXは1日を30分刻みの48コマで取引する。需給調整市場も2026年度から30分コマに移行した。Batteryにとって「48コマのうち何コマを市場に出せるか」が収益を直接左右する。</p>
-<p>Batteryは充電中に市場に応札できない。通常の運用では、安値の時間帯（深夜・昼間の太陽光余剰時間）に充電し、高値の時間帯に放電する。このため、48コマすべてに入札することはできず、充電に使うコマ分だけ収益機会が減る。</p>
-<p>この制約に対する技術的な解は、アグリゲーターが提供する高度な運用アルゴリズムにある。充電タイミングを最適化し、需給調整市場とJEPXの両方に最大限のコマ数を配分する運用が可能になりつつある。アグリゲーターの選択が、同じBattery設備でも年間収益に大きな差を生む要因になっている。</p>
+<p>JEPX trades in 48 slots of 30 minutes per day. The Balancing Market also transitioned to 30-minute slots from FY2026. For batteries, "how many of the 48 slots can be put into the market" directly affects revenue.</p>
+<p>Batteries cannot bid into the market while charging. In normal operations, they charge during low-price periods (late night, daytime solar surplus hours) and discharge during high-price periods. Therefore, it is impossible to bid on all 48 slots, with revenue opportunities reduced by the number of slots used for charging.</p>
+<p>The technical solution to this constraint lies in advanced operational algorithms provided by aggregators. Operations are becoming possible that optimize charging timing and allocate the maximum number of slots to both the Balancing Market and JEPX. The choice of aggregator is a factor that creates significant differences in annual revenue even for the same battery equipment.</p>
 <h2>Key Points for Battery Operators</h2>
 <div class="highlight-box">
-  <strong>① 商品選択：</strong>一次・二次①がBatteryにとって最も有利な商品。充足率が低く（＝不足が大きく）、単価もThermalの数倍。複合商品への応札で自動的にこれらの商品に約定する可能性が高い。<br><br>
-  <strong>② 接続方式：</strong>オンライン接続は専用線コストがかかるが、中長期的にはオフライン枠の縮小が進む方向。Batteryの場合、設備容量10MW以上はオンライン接続が必須であり（EPRX取引規程）、オフラインでPrimary Reserveに参入できるのは10MW未満に限られる。二次調整力以降は全てオンライン接続が前提となる。なお、一次オフラインはBatteryがシェア97.8%を独占し、全エリアで充足率10%未満が続いている。<br><br>
-  <strong>③ 運用戦略：</strong>前日取引化により、JEPX vs 需給調整市場の配分判断が毎日必要に。アグリゲーターの運用能力が収益格差を生む。<br><br>
-  <strong>④ 制度変更リスク：</strong>一次・二次①・複合の上限価格は15円に引下げ済み（二次②・三次①は7.21円で据え置き）。さらなる引下げの可能性はあるが、充足率が低い現状では即座に競争激化にはならない。
+  <strong>(1) Product Selection:</strong> Primary and Secondary 1 are the most advantageous products for batteries. Fulfillment rates are low (= large shortages), and unit prices are several times those of Thermal. Bidding on the Composite product gives a high probability of being automatically awarded in these products.<br><br>
+  <strong>(2) Connection Method:</strong> Online connection incurs dedicated line costs, but in the medium to long term, the Offline frame is shrinking. For batteries, Online connection is mandatory for installed capacity of 10 MW or more (per EPRX trading rules), and Offline entry to Primary Reserve is limited to under 10 MW. All products from Secondary Reserve onward require Online connection. Note that batteries monopolize 97.8% share in Primary Offline, with fulfillment rates below 10% continuing in all areas.<br><br>
+  <strong>(3) Operational Strategy:</strong> With the transition to day-ahead trading, daily decisions on JEPX vs. Balancing Market allocation are required. Aggregator operational capability creates revenue differentials.<br><br>
+  <strong>(4) Regulatory Change Risk:</strong> Price caps for Primary, Secondary 1, and Composite have been reduced to 15 yen (Secondary 2 and Tertiary 1 held at 7.21 yen). While further reductions are possible, given the current low fulfillment rates, competition will not intensify immediately.
 </div>
 
 <a target="_top" href="/en/column-area-data" class="next-link">
   <div>
     <div class="next-link-label">NEXT → COLUMN 16</div>
-    <div class="next-link-title">需給調整市場のエリア別約定実績 — 9電力エリア・7商品のデータから読むBatteryの事業環境</div>
+    <div class="next-link-title">Balancing Market Award Results by Area — Reading the Battery Business Environment from 9 Power Area and 7 Product Data</div>
   </div>
   <span class="next-link-arrow">→</span>
 </a>
 
 <div class="cta-section">
   <h3>Energy Business Consultation</h3>
-  <p>記事だけでは判断できない案件固有の情報は、<br>お問い合わせ後にNDA締結のうえご開示します。</p>
+  <p>Project-specific information not covered in our articles<br>will be disclosed after NDA execution following your inquiry.</p>
   <a target="_top" href="/en/contact" class="cta-btn">Contact Us →</a>
 </div>
 </div>
 
-<!-- ScienceX Footer — Wix HTML embed用 self-contained -->
+<!-- ScienceX Footer — Wix HTML embed self-contained -->
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
 
