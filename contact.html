@@ -562,7 +562,7 @@
         <h2>お問い合わせフォーム</h2>
         <p class="form-lead">以下のフォームにご記入ください。内容を確認の上、担当よりご連絡いたします。</p>
 
-        <form id="contactForm" action="https://formsubmit.co/s@scix.co.jp" method="POST">
+        <form id="contactForm" action="https://formsubmit.co/ajax/s@scix.co.jp" method="POST">
           <!-- Inquiry Type -->
           <div class="inquiry-types">
             <label>ご用件<span class="required">*</span></label>
@@ -719,14 +719,18 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
 
   fetch(form.action, {
     method: 'POST',
-    body: new FormData(form),
-    headers: { 'Accept': 'application/json' }
+    body: JSON.stringify(Object.fromEntries(new FormData(form))),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
   })
-  .then(function(res) {
-    if (res.ok) {
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.success) {
       window.location.href = '/thanks';
     } else {
-      throw new Error('送信エラー: ' + res.status);
+      throw new Error(data.message || '送信エラー');
     }
   })
   .catch(function(err) {
