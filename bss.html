@@ -147,7 +147,10 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
 .proj-note{font-size:0.78rem;color:var(--text-light);margin-top:20px;text-align:center;}
 .rep{padding:100px 0;background:var(--white);}
 .rep-header{text-align:center;margin-bottom:48px;}
-.rep-inner{max-width:760px;margin:0 auto;}
+.rep-inner{max-width:760px;margin:0 auto;display:grid;grid-template-columns:200px 1fr;gap:40px;align-items:start;}
+.rep-photo{border-radius:8px;overflow:hidden;}
+.rep-photo img{width:100%;height:auto;display:block;}
+@media(max-width:768px){.rep-inner{grid-template-columns:1fr;}.rep-photo{max-width:200px;margin:0 auto;}}
 .rep-name{font-family:var(--font-serif);font-size:1.6rem;font-weight:700;color:var(--navy);margin-bottom:4px;}
 .rep-name-en{font-size:0.78rem;color:var(--text-light);letter-spacing:1px;margin-bottom:20px;}
 .rep-bio{font-size:0.88rem;color:var(--text-secondary);line-height:2;margin-bottom:16px;}
@@ -382,12 +385,16 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
       <h2 class="section-title">代表者プロフィール</h2>
     </div>
     <div class="rep-inner">
-      <div class="rep-name">中島 晋也</div>
-      <div class="rep-name-en">Shinya Nakashima, Ph.D. ｜ サイエンスエックス株式会社 代表取締役</div>
-      <p class="rep-bio">分析化学ソフトウェアの開発エンジニアとして約27年。データ解析と品質管理の技術を武器に、在職中に博士課程へ進学し工学博士号を取得。バイオマスエネルギーの研究開発を経て、エネルギー事業の開発に転身。</p>
-      <p class="rep-bio">土地選定、行政許認可、事業性評価 — エネルギープロジェクトの「最上流」で必要なスキルセットを実務で磨き、現在は系統用蓄電池の適地発掘に従事しています。</p>
-      <p class="rep-bio">Science Xは特定の蓄電池メーカーやEPCと資本関係を持ちません。これは意図的な設計です。完工責任を負わないからこそ、中立的な技術評価が可能になります。</p>
-      <div class="rep-tags"><span class="rep-tag">分析化学 27年</span><span class="rep-tag">エネルギー開発</span><span class="rep-tag">中立的技術PM</span></div>
+      <div class="rep-photo">
+        <img src="https://static.wixstatic.com/media/14db5d_a0371e49ef144e799c8237b5aba46a49~mv2.png" alt="中島 晋也 — 代表取締役（工学博士）" loading="lazy">
+      </div>
+      <div class="rep-content">
+        <div class="rep-name">中島 晋也</div>
+        <div class="rep-name-en">Shinya Nakashima, Ph.D. ｜ サイエンスエックス株式会社 代表取締役</div>
+        <p class="rep-bio">化学プラントの設計・制御と分析化学ソフトウェアの開発に約27年。大規模プラントの計装設計、プロセス制御、運転データ解析という現場を知る工学者として、在職中に博士課程へ進学し工学博士号を取得しました。バイオマスエネルギーの研究開発を経てエネルギー事業の開発に転身。プラントエンジニアリングで身につけた設備投資判断とリスク評価の視座を、土地選定、行政許認可、事業性評価といったプロジェクト最上流の実務に活かしています。現在は系統用蓄電池の適地発掘と開発権の流通に従事。</p>
+        <p class="rep-bio">Science Xは特定の蓄電池メーカーやEPCと資本関係を持ちません。これは意図的な設計です。完工責任を負わないからこそ、中立的な技術評価が可能になります。</p>
+        <div class="rep-tags"><span class="rep-tag">プラントエンジニアリング 27年</span><span class="rep-tag">エネルギー開発</span><span class="rep-tag">中立的技術PM</span></div>
+      </div>
     </div>
   </div>
 </section>
