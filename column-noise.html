@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蓄電所の騒音リスク — 用地選定で見落としがちな「夜間基準」</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B2A4A;
+    --gold: #C49A3C;
+    --green: #1A7A4C;
+    --body: #555555;
+    --note: #666666;
+    --bg: #F8F7F4;
+    --card-bg: #FFFFFF;
+    --border: #E0DCD4;
+    --highlight-bg: #F0EDE6;
+    --table-header: #1B2A4A;
+    --table-even: #E8EDF2;
+    --red-soft: #B94A48;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--body);
+    background: var(--bg);
+    line-height: 1.85;
+    font-size: 15.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+  .column-meta {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .column-meta .tag {
+    display: inline-block;
+    background: var(--navy);
+    color: #fff;
+    font-size: 10.5px;
+    padding: 2px 10px;
+    border-radius: 2px;
+    margin-left: 12px;
+    letter-spacing: 0.06em;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+  h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 700;
+    font-size: clamp(22px, 4.5vw, 30px);
+    color: var(--navy);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: var(--note);
+    margin-bottom: 40px;
+    line-height: 1.7;
+  }
+  .gold-line {
+    width: 48px;
+    height: 2.5px;
+    background: var(--gold);
+    margin-bottom: 40px;
+  }
+  h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 700;
+    font-size: 19px;
+    color: var(--navy);
+    margin: 48px 0 16px;
+    padding-left: 16px;
+    border-left: 3px solid var(--gold);
+    line-height: 1.55;
+  }
+  h3 {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--navy);
+    margin: 32px 0 12px;
+  }
+  p { margin-bottom: 18px; }
+  .callout {
+    background: var(--highlight-bg);
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+    margin: 28px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 14.5px;
+    line-height: 1.85;
+  }
+  .callout strong { color: var(--navy); }
+  .callout-red {
+    background: #FDF4F4;
+    border-left-color: var(--red-soft);
+  }
+  .callout-green {
+    background: #EFF7F2;
+    border-left-color: var(--green);
+  }
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0 28px;
+    font-size: 14px;
+  }
+  .data-table th {
+    background: var(--table-header);
+    color: #fff;
+    font-weight: 700;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 13px;
+  }
+  .data-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .data-table tr:nth-child(even) td { background: var(--table-even); }
+  .data-table .em { color: var(--navy); font-weight: 700; }
+  .data-table .warn { color: var(--red-soft); font-weight: 700; }
+  .source {
+    font-size: 12.5px;
+    color: var(--note);
+    margin: 8px 0 24px;
+    line-height: 1.7;
+  }
+  .source a { color: var(--note); text-decoration: underline; }
+  /* noise scale visual */
+  .noise-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 24px 0 32px;
+    font-size: 13.5px;
+  }
+  .noise-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .noise-bar:last-child { border-bottom: none; }
+  .noise-db {
+    width: 70px;
+    font-weight: 700;
+    color: var(--navy);
+    flex-shrink: 0;
+  }
+  .noise-meter {
+    flex: 1;
+    height: 10px;
+    background: #eee;
+    border-radius: 5px;
+    margin: 0 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .noise-meter-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.5s;
+  }
+  .noise-label {
+    width: 180px;
+    flex-shrink: 0;
+    font-size: 13px;
+    color: var(--note);
+    text-align: right;
+  }
+  ul.compact {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 24px;
+  }
+  ul.compact li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 10px;
+    line-height: 1.75;
+  }
+  ul.compact li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .related {
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .related h3 { font-size: 14px; color: var(--note); margin-bottom: 16px; }
+  .related a {
+    display: block;
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14.5px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.2s;
+  }
+  .related a:hover { color: var(--gold); }
+  .related a span { color: var(--note); font-size: 12px; margin-right: 8px; }
+  .cta-block {
+    margin-top: 48px;
+    text-align: center;
+    padding: 36px 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .cta-block p {
+    font-size: 14px;
+    color: var(--note);
+    margin-bottom: 8px;
+  }
+  .cta-block a {
+    color: var(--navy);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+  }
+  @media (max-width: 600px) {
+    .container { padding: 32px 16px 48px; }
+    h2 { font-size: 17px; }
+    .data-table { font-size: 13px; }
+    .data-table th, .data-table td { padding: 8px 10px; }
+    .noise-label { width: 130px; font-size: 12px; }
+    .noise-db { width: 55px; font-size: 12.5px; }
+  }
+</style>
+<meta name="description" content="系統用蓄電池の冷却ファン・PCSの騒音問題と対策を解説。用途地域別の夜間規制値、騒音シミュレーションの活用、防音壁のコスト感覚、住民説明のポイントまで、用地デューデリジェンスの実務を整理。">
+</head>
+<body>
+<div class="container">
+
+<div class="column-meta">COLUMN 10 <span class="tag">用地選定</span></div>
+<h1>蓄電所の騒音リスク<br>— 用地選定で見落としがちな「夜間基準」</h1>
+<p class="subtitle">系統用蓄電池の大型化に伴い、冷却ファンやPCSの騒音が住民トラブルの火種になるケースが増えている。用途地域別の夜間規制値、騒音源の種類、防音対策のコスト感覚を整理する。</p>
+<div class="gold-line"></div>
+
+<!-- Section 1 -->
+<h2>1. なぜ蓄電所で騒音が問題になるのか</h2>
+<p>蓄電池セル自体は音を出さない。問題は周辺設備にある。リチウムイオン電池は温度管理が性能と安全の生命線であり、充放電に伴う発熱を処理するために大型の冷却装置が必要になる。加えて、パワーコンディショナ（PCS）にもファンが内蔵されている。</p>
+<p>系統用蓄電池は24時間運転が基本である。昼間のJEPXアービトラージ、夜間の需給調整市場への応札 — 収益を最大化するには休みなく充放電を繰り返す。「夜間は止める」という選択肢はビジネスモデル上ほぼ存在しない。</p>
+
+<h3>主な騒音源と音量レベル（単体・1m地点での音圧レベル）</h3>
+<div class="noise-scale">
+  <div class="noise-bar">
+    <div class="noise-db">70–80 dB</div>
+    <div class="noise-meter"><div class="noise-meter-fill" style="width:80%; background: var(--red-soft);"></div></div>
+    <div class="noise-label">PCS冷却ファン（全開時）</div>
+  </div>
+  <div class="noise-bar">
+    <div class="noise-db">72–75 dB</div>
+    <div class="noise-meter"><div class="noise-meter-fill" style="width:73%; background: #D97C3B;"></div></div>
+    <div class="noise-label">蓄電コンテナ冷却装置</div>
+  </div>
+  <div class="noise-bar">
+    <div class="noise-db">65–75 dB</div>
+    <div class="noise-meter"><div class="noise-meter-fill" style="width:65%; background: var(--gold);"></div></div>
+    <div class="noise-label">変圧器（うなり音）</div>
+  </div>
+  <div class="noise-bar">
+    <div class="noise-db">50 dB</div>
+    <div class="noise-meter"><div class="noise-meter-fill" style="width:40%; background: var(--green);"></div></div>
+    <div class="noise-label">エアコン室外機（参考）</div>
+  </div>
+  <div class="noise-bar">
+    <div class="noise-db">45 dB</div>
+    <div class="noise-meter"><div class="noise-meter-fill" style="width:33%; background: #7BA7C2;"></div></div>
+    <div class="noise-label">夜間 第二種区域 規制値</div>
+  </div>
+</div>
+
+<p>主要メーカーのデータシートによると、蓄電コンテナ単体（BYD MC Cube等）の冷却装置は1m地点で72〜75dBA程度である。ただし、大規模サイトではコンテナが数十台並ぶため、合成音圧レベルは個々の機器よりも大幅に上昇する。PCSのファンも機種により70〜80dBA程度になる。住宅が50m以内に隣接していれば苦情が出る水準である。</p>
+
+<div class="callout">
+<strong>音響パワーレベル（LWA）と音圧レベル（SPL）の違いに注意。</strong>メーカーのデータシートには音響パワーレベル（音源から放射されるエネルギーの総量を表す指標）で記載されている場合がある。例えばSMA製PCSの仕様書には93dB(A)と記載されているが、これは音響パワーレベルであり、1m地点での音圧レベルに換算すると概ね75〜80dBA程度となる。仕様書を確認する際は、どちらの値かを必ず確認する必要がある。
+</div>
+
+<div class="callout-red callout">
+<strong>騒音規制法に「蓄電所」の施設区分は存在しない。</strong>しかし、蓄電所の冷却装置は騒音規制法施行令の「送風機」（原動機の定格出力7.5kW以上）に該当する可能性が高い。該当する場合、設置場所は「特定工場等」として規制基準の適用を受ける。また、仮に直接の対象外であっても、多くの自治体が独自の条例で規制値を定めている。計画段階で自治体の環境担当部署への事前相談が不可欠である。
+</div>
+
+<p class="source">出典：テュフ ラインランド ジャパン「蓄電所の騒音評価」（2025年8月）/ 環境省 騒音規制法パンフレット / BYD MC Cube・SMA Sunny Central Storage データシート</p>
+
+<!-- Section 2 -->
+<h2>2. 規制基準と用途地域別の規制値</h2>
+<p>騒音規制法に基づく規制基準は、都道府県知事（または政令市・特別区の長）が用途地域・時間帯ごとに設定している。蓄電所の用地選定で最も見落とされやすいのが「夜間基準」である。昼間の基準値が55〜70dBであるのに対し、夜間は40〜65dBまで大幅に厳しくなる。</p>
+
+<table class="data-table">
+  <tr>
+    <th>用途地域区分</th>
+    <th>昼間</th>
+    <th>朝・夕</th>
+    <th>夜間</th>
+  </tr>
+  <tr>
+    <td class="em">第一種区域<br><span style="font-weight:400; font-size:12.5px; color:var(--note);">第一種・第二種低層住居専用地域等</span></td>
+    <td>45〜50 dB</td>
+    <td>40〜45 dB</td>
+    <td class="warn">40〜45 dB</td>
+  </tr>
+  <tr>
+    <td class="em">第二種区域<br><span style="font-weight:400; font-size:12.5px; color:var(--note);">第一種・第二種中高層住居専用地域等</span></td>
+    <td>50〜60 dB</td>
+    <td>45〜50 dB</td>
+    <td class="warn">40〜50 dB</td>
+  </tr>
+  <tr>
+    <td class="em">第三種区域<br><span style="font-weight:400; font-size:12.5px; color:var(--note);">近隣商業地域、商業地域等</span></td>
+    <td>60〜65 dB</td>
+    <td>55〜65 dB</td>
+    <td class="warn">50〜55 dB</td>
+  </tr>
+  <tr>
+    <td class="em">第四種区域<br><span style="font-weight:400; font-size:12.5px; color:var(--note);">準工業地域、工業地域等</span></td>
+    <td>65〜70 dB</td>
+    <td>60〜70 dB</td>
+    <td class="warn">55〜65 dB</td>
+  </tr>
+</table>
+
+<p class="source">※ 上記は騒音規制法第4条に基づく「規制基準」であり、都道府県知事が範囲内で具体的な値を定める。これとは別に、環境基本法に基づく「環境基準」（一般地域で昼間55dB・夜間45dB等）があり、より厳しい値が設定されている。<br>
+※ 時間帯の区分は自治体により異なる。夜間の開始は21時・22時・23時、終了は5時・6時など、自治体ごとに確認が必要。<br>
+出典：環境省「特定工場等において発生する騒音の規制に関する基準」/ 環境省「騒音に係る環境基準について」</p>
+
+<p>蓄電所用地は「工業地域の空き地」が理想だが、現実には第二種区域や第三種区域に隣接するケースが多い。変電所の近く、国道沿い — 一見すると背景騒音が高いが、住宅側の敷地境界で夜間基準値をクリアできるかは別の問題である。</p>
+
+<div class="callout">
+<strong>「規制基準」と「環境基準」は別物である。</strong>規制基準は騒音規制法に基づく法的義務であり、違反すると改善勧告・改善命令の対象になる。一方、環境基準は環境基本法に基づく行政上の目標値であり、直接の罰則はないが、住民訴訟や自治体の行政指導の根拠になりうる。テュフ ラインランドジャパンは、BESS開発においてはより厳しい環境基準を管理目標とすることを推奨している。
+</div>
+
+<!-- Section 3 -->
+<h2>3. 敷地境界での音量をどう予測するか</h2>
+<p>機器からの距離減衰は、点音源を仮定した自由空間では距離が2倍になるごとに約6dB低下する（逆二乗則）。しかし実際の蓄電所では、コンテナの配置、地面の反射、壁面の回折、気温勾配による屈折など複合要因が加わるため、単純な距離計算では不十分である。</p>
+
+<div class="callout">
+<strong>大規模サイトでは「線音源」的な挙動に注意。</strong>コンテナが一列に並ぶ大規模サイトでは、近距離において音源が線状に振る舞い、距離2倍あたり約3dBしか低下しないケースがある。点音源の6dB減衰に切り替わるのは、音源列の全長の5倍以上離れてからとされる。加えて、夜間は上空の気温逆転層により音が下方に屈折し、自由空間の予測値より減衰が小さくなることがある。
+</div>
+
+<div class="callout">
+<strong>騒音シミュレーション（CadnA等）の活用。</strong>テュフ ラインランドジャパン等がCadnAを用いた簡易シミュレーションサービスを提供している。騒音源のスペック・配置・防音壁の位置をインプットし、敷地境界での予測値をISO 9613-2に準拠して算出する。費用は規模によるが、数十万円からで事業性に対して十分にペイする投資である。
+</div>
+
+<p>シミュレーションなしに「たぶん大丈夫」で進めると、稼働後に住民苦情が出た場合、後付けの防音壁工事で数百万〜千万円単位の追加コストが発生する。最悪の場合は稼働停止を余儀なくされるリスクもある。</p>
+
+<!-- Section 4 -->
+<h2>4. 防音対策の実務とコスト感覚</h2>
+
+<h3>設計段階で検討すべき4つの対策</h3>
+<ul class="compact">
+  <li><strong>低騒音型機器の選定：</strong>PCSやコンテナの冷却装置は、メーカーによって騒音スペックが大きく異なる。調達仕様書に音圧レベル（SPL）の上限値を明記し、音響パワーレベル（LWA）との混同を避ける。</li>
+  <li><strong>配置計画の工夫：</strong>騒音源となるPCS・コンテナを住宅側から最も離れた位置に配置する。これだけで距離減衰による5〜10dBの低減が見込める。</li>
+  <li><strong>防音壁・防音フェンスの設置：</strong>敷地境界や騒音源の周囲に防音壁を設置。見通し線を遮断するだけで約5dBの低減があり、壁高を確保すれば10〜15dB、最適設計で最大20dB程度の低減が可能。ただし低周波のうなり音（変圧器由来、100〜200Hz帯）に対しては効果が5〜8dB程度に限られる点に留意する。</li>
+  <li><strong>運用時間帯の制御：</strong>夜間の充放電を需給調整市場への応札に限定し、PCSの出力を夜間に絞る制御も選択肢。ただし収益への影響が大きいため最終手段。</li>
+</ul>
+
+<table class="data-table">
+  <tr>
+    <th>対策</th>
+    <th>低減効果（目安）</th>
+    <th>コスト感覚</th>
+  </tr>
+  <tr>
+    <td>低騒音型PCS・冷却装置の選定</td>
+    <td>5〜15 dB</td>
+    <td>機器価格差として吸収</td>
+  </tr>
+  <tr>
+    <td>配置計画の最適化</td>
+    <td>5〜10 dB</td>
+    <td>設計費のみ（追加コスト小）</td>
+  </tr>
+  <tr>
+    <td>防音壁・フェンス設置</td>
+    <td>10〜20 dB</td>
+    <td>数百万円〜（規模による）</td>
+  </tr>
+  <tr>
+    <td>後付け防音工事（稼働後）</td>
+    <td>10〜15 dB</td>
+    <td class="warn">数百万〜千万円超</td>
+  </tr>
+</table>
+
+<p>設計段階であれば数百万円で済む対策が、稼働後の後付けでは桁が変わる。騒音対策は「用地デューデリジェンスの一部」として最初から織り込むべきコストである。</p>
+
+<!-- Section 5 -->
+<h2>5. 住民説明のポイント</h2>
+<p>騒音トラブルが深刻化する最大の原因は「説明不足」である。突然工事が始まり、見慣れない巨大コンテナが並ぶ光景は住民にとって大きな不安要素になる。</p>
+
+<p>太陽光発電の二の舞を踏まないためにも、以下は最低限押さえたい。</p>
+<ul class="compact">
+  <li><strong>事前説明会の開催：</strong>設備の目的・運用方法・安全対策・騒音の予測値を資料で説明する。可能であれば同型設備の稼働現場の見学機会を提供する。</li>
+  <li><strong>連絡窓口の設置：</strong>施工期間・運転開始時期・緊急時の連絡先を書面で提示。「何かあれば連絡できる」体制が住民の安心感に直結する。</li>
+  <li><strong>稼働後のモニタリング：</strong>騒音計による継続的な実測データの蓄積。異常値が出た場合の対応フローを事前に定めておく。</li>
+</ul>
+
+<!-- Section 6 -->
+<h2>6. 用地選定チェックリスト（騒音観点）</h2>
+
+<div class="callout-green callout">
+<strong>現地確認の際に、最低限以下を確認する：</strong><br><br>
+① 用途地域の区分と、該当自治体の騒音規制基準値（特に夜間・朝夕）<br>
+② 敷地境界から最も近い住宅までの直線距離（50m以内は要注意）<br>
+③ 住宅側の方角（PCS・コンテナの配置で住宅側を回避できるか）<br>
+④ 背景騒音の実測値（周辺に国道・鉄道・工場等があるか）<br>
+⑤ 自治体の環境担当部署への事前相談結果（条例の適用有無・夜間時間帯の定義）<br>
+⑥ 冷却装置の定格出力が7.5kW以上か（送風機として特定施設に該当する可能性）
+</div>
+
+<p>工事費負担金と並んで、騒音対策コストは「土地が安い理由」に隠れていることがある。空き容量マップ上は好条件でも、住宅近接地であれば防音壁のコストがIRRを押し下げる。用地選定の初期段階で騒音リスクを評価し、設計に織り込むことが、蓄電池事業を長期安定的に運営するための条件である。</p>
+
+<!-- Related -->
+<div class="related">
+  <h3>関連コラム</h3>
+  <a href="/column-grid" target="_top"><span>COLUMN 04</span>系統連系工事費が10倍違う理由 — 蓄電池事業の「立地」が全てを決める</a>
+  <a href="/column-scale" target="_top"><span>COLUMN 05</span>30MW超 vs 2MW — 規模で全く異なる蓄電池ビジネスモデル</a>
+  <a href="/column-land-value" target="_top"><span>COLUMN 06</span>あなたの土地は蓄電池用地として価値があるか？ — 5つの判定基準</a>
+</div>
+
+<!-- CTA -->
+<div class="cta-block">
+  <p>記事だけでは判断できない案件固有の情報は、<br>お問い合わせ後にNDA締結のうえご開示します。</p>
+  <a href="/contact" target="_top">お問い合わせ →</a>
+</div>
+
+</div>
+
+<!-- ScienceX Footer — Wix HTML embed用 self-contained -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1B2A4A;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0 auto;
+  }
+</style>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img
+        src="https://static.wixstatic.com/media/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png/v1/fill/w_300,h_118,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png"
+        alt="ScienceX サイエンスエックス株式会社"
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町801<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:x@scix.co.jp">x@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>

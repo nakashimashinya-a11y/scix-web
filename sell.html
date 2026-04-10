@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蓄電池用地の査定 — あなたの土地の価値を無料診断｜ScienceX</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B2A4A;
+    --navy-deep: #0F1A2E;
+    --navy-light: #2A3D5F;
+    --gold: #C49A3C;
+    --gold-light: #D4AF5C;
+    --gold-pale: #F5ECD7;
+    --green: #1A7A4C;
+    --green-light: #238C5A;
+    --white: #FFFFFF;
+    --off-white: #FAFAF8;
+    --gray-50: #F7F7F5;
+    --gray-100: #EDEDEB;
+    --gray-200: #D4D4D0;
+    --gray-400: #9C9C96;
+    --gray-600: #6B6B65;
+    --gray-800: #3A3A36;
+    --text-primary: #1B2A4A;
+    --text-secondary: #4A5568;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--text-primary);
+    background: var(--white);
+    line-height: 1.8;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(165deg, var(--navy-deep) 0%, var(--navy) 45%, var(--navy-light) 100%);
+    padding: 100px 24px 90px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 70%; height: 200%;
+    background: radial-gradient(ellipse, rgba(196,154,60,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.4;
+  }
+  .hero-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-label {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.2em;
+    color: var(--gold); margin-bottom: 28px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+  .hero h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(26px, 4.5vw, 40px);
+    font-weight: 600; color: var(--white);
+    line-height: 1.5; margin-bottom: 28px; letter-spacing: 0.02em;
+  }
+  .hero h1 em { font-style: normal; color: var(--gold-light); }
+  .hero-sub {
+    font-size: 15px; font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.9; margin-bottom: 44px; max-width: 640px;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--gold); color: var(--navy-deep);
+    font-size: 14px; font-weight: 700;
+    padding: 16px 36px; border: none; cursor: pointer;
+    letter-spacing: 0.06em; text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .hero-cta:hover {
+    background: var(--gold-light); transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(196,154,60,0.3);
+  }
+  .hero-cta svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
+  .hero-cta:hover svg { transform: translateX(3px); }
+
+  /* ===== STATS BAR ===== */
+  .stats-bar { background: var(--gray-50); border-bottom: 1px solid var(--gray-100); padding: 40px 24px; }
+  .stats-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .stat-item { text-align: center; }
+  .stat-number { font-family: 'Noto Serif JP', serif; font-size: clamp(28px, 4vw, 38px); font-weight: 700; color: var(--navy); line-height: 1.2; }
+  .stat-number span { font-size: 0.5em; font-weight: 400; color: var(--gray-600); }
+  .stat-label { font-size: 12px; color: var(--gray-600); margin-top: 6px; letter-spacing: 0.04em; line-height: 1.6; }
+
+  /* ===== SECTION COMMON ===== */
+  .section { padding: 80px 24px; }
+  .section-inner { max-width: 820px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.2em;
+    color: var(--gold); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+  .section h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(22px, 3.5vw, 30px);
+    font-weight: 600; color: var(--navy); line-height: 1.5; margin-bottom: 20px;
+  }
+  .section-lead { font-size: 15px; color: var(--text-secondary); line-height: 1.9; margin-bottom: 40px; }
+
+  /* ===== MARKET ===== */
+  .market { background: var(--white); border-bottom: 1px solid var(--gray-100); }
+  .market-highlight {
+    background: var(--navy); border-left: 3px solid var(--gold);
+    padding: 28px 32px; margin: 32px 0;
+  }
+  .market-highlight p { font-family: 'Noto Serif JP', serif; font-size: 16px; font-weight: 400; color: var(--white); line-height: 1.8; }
+  .market-highlight p em { font-style: normal; color: var(--gold-light); font-weight: 600; }
+  .market-body p { font-size: 15px; color: var(--text-secondary); line-height: 1.9; margin-bottom: 20px; }
+
+  /* ===== CHECKLIST ===== */
+  .checklist { background: var(--gray-50); }
+  .check-group { margin-bottom: 40px; }
+  .check-group:last-child { margin-bottom: 0; }
+  .check-group-title {
+    font-family: 'Noto Serif JP', serif; font-size: 17px; font-weight: 600;
+    color: var(--navy); margin-bottom: 20px; padding-bottom: 12px;
+    border-bottom: 1px solid var(--gray-200);
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .check-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    padding: 4px 10px; border-radius: 2px;
+  }
+  .check-badge.high { background: var(--gold); color: var(--navy-deep); }
+  .check-badge.potential { background: var(--navy); color: var(--white); }
+  .check-badge.kouatsu { background: var(--green); color: var(--white); }
+  .check-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 0; border-bottom: 1px solid var(--gray-100);
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-icon { flex-shrink: 0; width: 22px; height: 22px; margin-top: 2px; color: var(--green); }
+  .check-text { font-size: 15px; color: var(--text-primary); line-height: 1.7; }
+  .check-text strong { color: var(--navy); font-weight: 700; }
+  .check-note { font-size: 13px; color: var(--gray-600); display: block; margin-top: 4px; }
+
+  /* ===== VOLTAGE CARDS ===== */
+  .voltage-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 32px 0;
+  }
+  .voltage-card {
+    border: 1px solid var(--gray-200); padding: 28px 24px;
+    background: var(--white);
+  }
+  .voltage-card h3 {
+    font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 600;
+    color: var(--navy); margin-bottom: 6px;
+  }
+  .voltage-card .voltage-spec {
+    font-size: 13px; color: var(--gray-600); margin-bottom: 16px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--gray-100);
+  }
+  .voltage-card ul {
+    list-style: none; padding: 0;
+  }
+  .voltage-card li {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.7;
+    padding: 6px 0; padding-left: 20px; position: relative;
+  }
+  .voltage-card li::before {
+    content: '✓'; position: absolute; left: 0;
+    color: var(--green); font-weight: 700;
+  }
+
+  /* ===== DISTANCE ===== */
+  .distance { background: var(--white); border-bottom: 1px solid var(--gray-100); }
+  .distance-table { width: 100%; border-collapse: collapse; margin: 32px 0; }
+  .distance-table th, .distance-table td {
+    text-align: left; padding: 18px 20px; font-size: 14px;
+    border-bottom: 1px solid var(--gray-100); vertical-align: top;
+  }
+  .distance-table thead th {
+    background: var(--navy); color: var(--white);
+    font-weight: 500; font-size: 12px; letter-spacing: 0.06em; border-bottom: none;
+  }
+  .distance-table thead th:first-child { width: 28%; }
+  .distance-table tbody tr:hover { background: var(--gray-50); }
+  .distance-table .row-best td { background: rgba(196,154,60,0.06); }
+  .distance-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; padding: 3px 8px; margin-top: 6px; }
+  .distance-tag.best { background: var(--gold); color: var(--navy-deep); }
+  .distance-tag.ok { background: var(--navy); color: var(--white); }
+  .distance-tag.difficult { background: var(--gray-200); color: var(--gray-600); }
+  .distance-note { font-size: 13px; color: var(--gray-600); line-height: 1.7; margin-top: 16px; }
+
+  /* ===== PROCESS ===== */
+  .process { background: var(--gray-50); }
+  .process-steps { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
+  .process-step {
+    display: grid; grid-template-columns: 64px 1fr; gap: 24px;
+    padding: 32px 0; border-bottom: 1px solid var(--gray-200); align-items: start;
+  }
+  .process-step:last-child { border-bottom: none; }
+  .step-number { font-family: 'Noto Serif JP', serif; font-size: 32px; font-weight: 700; color: var(--gold); line-height: 1; padding-top: 4px; }
+  .step-content h3 { font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+  .step-content p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+  .step-detail {
+    font-size: 13px; color: var(--gray-600); background: var(--white);
+    padding: 12px 16px; margin-top: 12px; border-left: 2px solid var(--gold);
+  }
+
+  /* ===== TRUST ===== */
+  .trust { background: var(--navy); color: var(--white); position: relative; overflow: hidden; }
+  .trust::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.4;
+  }
+  .trust .section-label { color: var(--gold-light); }
+  .trust .section-label::before { background: var(--gold-light); }
+  .trust h2 { color: var(--white); }
+  .trust-points { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; margin-top: 40px; }
+  .trust-point { padding: 28px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+  .trust-point h3 { font-family: 'Noto Serif JP', serif; font-size: 16px; font-weight: 600; color: var(--gold-light); margin-bottom: 10px; }
+  .trust-point p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.8; }
+
+  /* ===== KNOWLEDGE ===== */
+  .knowledge { background: var(--gray-50); border-bottom: 1px solid var(--gray-100); }
+  .knowledge-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 28px; }
+  .knowledge-link {
+    display: block; background: var(--white); border: 1px solid var(--gray-100);
+    border-radius: 8px; padding: 18px 16px; text-decoration: none; color: inherit;
+    transition: all 0.3s ease;
+  }
+  .knowledge-link:hover { border-color: var(--gold); box-shadow: 0 4px 14px rgba(0,0,0,0.04); transform: translateY(-2px); }
+  .knowledge-num { font-size: 10px; font-weight: 600; color: var(--green); letter-spacing: 0.1em; margin-bottom: 5px; }
+  .knowledge-title { font-weight: 700; font-size: 13px; color: var(--navy); line-height: 1.6; }
+
+  /* ===== CTA ===== */
+  .cta-section { background: var(--white); padding: 80px 24px; text-align: center; }
+  .cta-inner { max-width: 640px; margin: 0 auto; }
+  .cta-section h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(22px, 3.5vw, 28px); font-weight: 600; color: var(--navy); line-height: 1.5; margin-bottom: 16px; }
+  .cta-section .cta-lead { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 36px; }
+  .cta-box { background: var(--gray-50); border: 1px solid var(--gray-100); padding: 40px 36px; text-align: left; margin-bottom: 32px; }
+  .cta-box h3 { font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 600; color: var(--navy); margin-bottom: 20px; text-align: center; }
+  .cta-items { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+  .cta-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--text-primary); line-height: 1.7; }
+  .cta-item-num { flex-shrink: 0; width: 24px; height: 24px; background: var(--navy); color: var(--white); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+  .cta-contact { text-align: center; padding-top: 24px; border-top: 1px solid var(--gray-200); }
+  .cta-email {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--gold); color: var(--navy-deep);
+    font-size: 14px; font-weight: 700; padding: 16px 40px;
+    border: none; cursor: pointer; letter-spacing: 0.06em;
+    text-decoration: none; transition: all 0.3s ease; margin-bottom: 16px;
+  }
+  .cta-email:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(196,154,60,0.3); }
+  .cta-tel { font-size: 13px; color: var(--gray-600); line-height: 1.8; }
+  .cta-tel a { color: var(--navy); text-decoration: none; font-weight: 500; }
+  .cta-promise { display: flex; justify-content: center; gap: 24px; margin-top: 24px; flex-wrap: wrap; }
+  .cta-promise-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray-600); }
+  .cta-promise-item svg { width: 14px; height: 14px; color: var(--green); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .hero { padding: 72px 20px 64px; }
+    .stats-inner { grid-template-columns: 1fr; gap: 20px; }
+    .stat-item { display: flex; align-items: baseline; gap: 12px; text-align: left; }
+    .stat-label { margin-top: 0; }
+    .section { padding: 56px 20px; }
+    .voltage-cards { grid-template-columns: 1fr; }
+    .distance-table { font-size: 13px; }
+    .distance-table th, .distance-table td { padding: 14px 12px; }
+    .process-step { grid-template-columns: 48px 1fr; gap: 16px; }
+    .trust-points { grid-template-columns: 1fr; }
+    .knowledge-grid { grid-template-columns: 1fr; }
+    .cta-box { padding: 28px 20px; }
+    .cta-promise { flex-direction: column; align-items: center; gap: 12px; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero h1, .hero-sub, .hero-cta { animation: fadeUp 0.8s ease-out both; }
+    .hero-sub { animation-delay: 0.15s; }
+    .hero-cta { animation-delay: 0.3s; }
+    .hero-label { animation: fadeUp 0.6s ease-out both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  }
+</style>
+<meta name="description" content="系統用蓄電池の用地として土地の価値を無料で査定。接続検討回答書の有無、連系点からの距離、空き容量から、土地のポテンシャルと想定価格をお伝えします。">
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">用地・権利の売却</div>
+    <h1>系統連系の接続権・事業用地を<br>お持ちの方へ。<br><em>いま、過去最高値で取引されています。</em></h1>
+    <p class="hero-sub">
+      特別高圧から高圧まで——接続検討回答済みの案件、<br>
+      変電所・電柱近くの事業用地の価値が急騰しています。<br>
+      Science Xは、適正価格での迅速な査定・買取を行っています。
+    </p>
+    <a href="mailto:x@scix.co.jp?subject=%E8%93%84%E9%9B%BB%E6%B1%A0%E7%94%A8%E5%9C%B0%E3%81%AE%E6%9F%BB%E5%AE%9A%E3%81%AE%E3%81%94%E4%BE%9D%E9%A0%BC&body=%E2%96%A0%20%E3%81%8A%E5%90%8D%E5%89%8D%EF%BC%9A%0A%E2%96%A0%20%E4%BC%9A%E7%A4%BE%E5%90%8D%EF%BC%88%E4%BB%BB%E6%84%8F%EF%BC%89%EF%BC%9A%0A%E2%96%A0%20%E5%9C%9F%E5%9C%B0%E3%81%AE%E6%89%80%E5%9C%A8%E5%9C%B0%EF%BC%9A%0A%E2%96%A0%20%E5%9C%9F%E5%9C%B0%E9%9D%A2%E7%A9%8D%EF%BC%88%E6%A6%82%E7%AE%97%EF%BC%89%EF%BC%9A%0A%E2%96%A0%20%E6%8E%A5%E7%B6%9A%E6%A4%9C%E8%A8%8E%E5%9B%9E%E7%AD%94%E6%9B%B8%EF%BC%9A%E3%81%82%E3%82%8A%20%2F%20%E3%81%AA%E3%81%97%0A%E2%96%A0%20%E9%9B%BB%E5%9C%A7%E9%9A%8E%E7%B4%9A%EF%BC%9A%E7%89%B9%E5%88%A5%E9%AB%98%E5%9C%A7%20%2F%20%E9%AB%98%E5%9C%A7%20%2F%20%E4%B8%8D%E6%98%8E%0A%0A%E2%80%BB%E6%8E%A5%E7%B6%9A%E6%A4%9C%E8%A8%8E%E5%9B%9E%E7%AD%94%E6%9B%B8%E3%82%92%E3%81%8A%E6%8C%81%E3%81%A1%E3%81%AE%E5%A0%B4%E5%90%88%E3%81%AFPDF%E3%82%92%E6%B7%BB%E4%BB%98%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84" class="hero-cta">
+      無料査定を依頼する
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ===== STATS BAR ===== -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-number">143<span>GW</span></div>
+      <div class="stat-label">接続検討申込の総量<br>（2025年6月末・前年比2.4倍）</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">0.02<span>%</span></div>
+      <div class="stat-label">実際に連系済みの割合<br>（250MW / 143GW）</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">9,544<span>件</span></div>
+      <div class="stat-label">2024年度の接続検討申込件数<br>（前年度の約6倍）</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MARKET CONTEXT ===== -->
+<section class="section market">
+  <div class="section-inner">
+    <div class="section-label">市場背景</div>
+    <h2>なぜ今、蓄電池用地の価値が<br>急騰しているのか</h2>
+
+    <div class="market-body">
+      <p>
+        系統用蓄電池の接続検討申込は2025年6月末時点で約143GWに達し、半年前（約95GW）からさらに急増しました。特別高圧（50MW級）だけでなく、高圧（2MW級）の案件も爆発的に増加しています。一方、系統の空き容量は有限です。条件の良い連系点は急速に枯渇しており、回答済み案件の希少性は日増しに高まっています。
+      </p>
+    </div>
+
+    <div class="market-highlight">
+      <p>
+        特別高圧でも高圧でも、事業の利益構造は同じです。<em>連系工事費が安い案件ほど利益が大きい</em>。接続検討回答済みの権利と事業用地は、買い手にとって「利益を押し上げる資産」であり、高値がつきます。
+      </p>
+    </div>
+
+    <div class="market-body">
+      <p>
+        特別高圧では系統連系工事費が20億〜30億円かかるところ、至近の案件なら数億円で済むことがあります。高圧でも工事負担金の差が数百万〜数千万円のレベルで事業採算を左右します。この「浮いたコスト」がそのまま事業利益になるため、買い手企業は全国で好条件の案件を探し求めています。
+      </p>
+      <p>
+        あなたが取得した接続検討回答や、変電所・配電用変電所近くの土地は、この市場において大きな経済的価値を持っています。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CHECKLIST ===== -->
+<section class="section checklist">
+  <div class="section-inner">
+    <div class="section-label">買取対象</div>
+    <h2>このような案件・土地を探しています</h2>
+    <p class="section-lead">
+      特別高圧・高圧を問わず、以下の条件に該当する場合は高い評価額での買取が可能です。<br>
+      1つでも当てはまれば、まずはご相談ください。
+    </p>
+
+    <!-- 特高・高圧 2カード -->
+    <div class="voltage-cards">
+      <div class="voltage-card">
+        <h3>特別高圧（66kV以上）</h3>
+        <div class="voltage-spec">30〜200MW級 ｜ 送電線鉄塔・変電所に接続</div>
+        <ul>
+          <li>接続検討回答済みで工事負担金が確定している案件</li>
+          <li>送電線鉄塔・変電所から300m以内の土地</li>
+          <li>土地面積1万㎡以上（50MW級に対応可能な規模）</li>
+          <li>事業化の予定がなくなった接続検討回答</li>
+        </ul>
+      </div>
+      <div class="voltage-card">
+        <h3>高圧（6.6kV）</h3>
+        <div class="voltage-spec">2MW級 ｜ 配電用変電所・配電線に接続</div>
+        <ul>
+          <li>接続検討回答済みで工事負担金が確定している案件</li>
+          <li>配電用変電所・配電柱の近くの土地</li>
+          <li>土地面積1,000〜3,000㎡程度（2MW級に対応）</li>
+          <li>連系工期12ヶ月以内の案件は特に高評価</li>
+          <li>複数案件のまとめ売りも歓迎</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">
+        <span class="check-badge high">高価買取</span>
+        特に高い評価額が見込める案件
+      </div>
+      <div class="check-item">
+        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <div class="check-text">
+          <strong>接続検討回答済み</strong>で工事費負担金が確定している
+          <span class="check-note">特別高圧・高圧いずれも対象。工事費負担金の確定額は案件価値を決定する最重要ファクターです</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <div class="check-text">
+          連系点（鉄塔・変電所・配電柱）から<strong>至近距離</strong>に土地がある
+          <span class="check-note">特高：鉄塔から300m以内 ／ 高圧：配電用変電所から近い立地</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <div class="check-text">
+          高圧案件で<strong>連系工期が12ヶ月以内</strong>
+          <span class="check-note">すぐに着工できる案件は買い手の需要が非常に高く、プレミアムがつきます</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <div class="check-text">
+          <strong>保証金支払済み</strong>で契約申込の権利が確保されている
+          <span class="check-note">保証金未払いの案件と比べて、買い手にとってのリスクが大幅に低くなります</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">
+        <span class="check-badge potential">ご相談歓迎</span>
+        ご相談いただく価値がある案件
+      </div>
+      <div class="check-item">
+        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <div class="check-text">
+          接続検討は未申込だが、<strong>系統の空き容量があるエリア</strong>の土地
+        </div>
+      </div>
+      <div class="check-item">
+        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <div class="check-text">
+          太陽光発電所に隣接する土地（既存の系統接続点を活用できる可能性）
+        </div>
+      </div>
+      <div class="check-item">
+        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <div class="check-text">
+          接続検討回答は取得したが、<strong>事業化の予定がなくなった</strong>案件
+        </div>
+      </div>
+      <div class="check-item">
+        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <div class="check-text">
+          <strong>複数の高圧案件をまとめて</strong>売却したい
+          <span class="check-note">10件以上のまとめ売りにも対応します。一括での査定・買取が可能です</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DISTANCE IMPACT ===== -->
+<section class="section distance">
+  <div class="section-inner">
+    <div class="section-label">査定の考え方</div>
+    <h2>連系点からの距離で、<br>これだけ変わる</h2>
+    <p class="section-lead">
+      蓄電池用地の価値を最も大きく左右するのは、連系点までの距離です。特別高圧は送電線鉄塔・変電所、高圧は配電用変電所・配電線が連系点となります。距離が近いほど工事費が安くなり、土地の経済的価値が高くなります。
+    </p>
+
+    <table class="distance-table">
+      <thead>
+        <tr>
+          <th>連系点からの距離</th>
+          <th>工事負担金の目安</th>
+          <th>評価</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-best">
+          <td>
+            <strong>300m以内</strong>
+            <br><span class="distance-tag best">最高評価</span>
+          </td>
+          <td>特高：2〜5億円<br>高圧：数十万〜数百万円</td>
+          <td>鉄塔・柱上変圧器への直接接続が可能。買い手にとってコスト優位性が最も大きく、高い買取価格を提示できます</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>300m〜1km</strong>
+            <br><span class="distance-tag ok">条件次第</span>
+          </td>
+          <td>特高：5〜15億円<br>高圧：数百万〜数千万円</td>
+          <td>自営線ルートの用地が連続して確保できれば検討対象。途中の障害物・第三者土地の有無がカギ</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>1km超</strong>
+            <br><span class="distance-tag difficult">要個別判断</span>
+          </td>
+          <td>特高：20億円以上<br>高圧：事業性困難</td>
+          <td>特高は鉄塔新設が必要で工事費が大幅増。高圧は距離に見合うコストを回収できない場合が多い</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="distance-note">
+      ※上記は一般的な目安です。実際の工事負担金は送配電事業者の接続検討回答によって確定します。系統の構成、電圧階級、既存設備の状況等により大幅に異なるため、個別の査定ではこれらの要素を総合的に評価いたします。
+    </p>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="section process">
+  <div class="section-inner">
+    <div class="section-label">査定の流れ</div>
+    <h2>お問い合わせから査定額ご提示まで</h2>
+
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <h3>案件情報のご送付</h3>
+          <p>土地の位置情報（住所または座標）と面積をお送りください。接続検討回答書をお持ちの場合は、あわせてご送付いただければ、より正確な査定が可能です。</p>
+          <div class="step-detail">
+            メール1通で結構です。Google Earthのスクリーンショットでも構いません。高圧案件は電柱番号がわかると助かります。
+          </div>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <h3>概算査定（48時間以内）</h3>
+          <p>系統の空き容量、連系点までの距離、土地の法規制等を調査し、概算の査定額をお伝えします。この段階で費用は一切かかりません。</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <h3>現地確認・詳細査定</h3>
+          <p>概算査定額にご納得いただけた場合、現地確認と詳細な技術評価を行い、正式な買取価格をご提示します。</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <h3>売買契約・お支払い</h3>
+          <p>条件合意の上、売買契約を締結します。権利の譲渡・名義変更手続きはScience X側で行います。</p>
+          <div class="step-detail">
+            不動産（土地）の売買は売主様・買主様間で直接契約となります。Science Xが買い取るのは「接続検討の回答に紐づく事業権利」部分です。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUST ===== -->
+<section class="section trust">
+  <div class="section-inner">
+    <div class="section-label">Science Xについて</div>
+    <h2>技術的根拠に基づく、適正な査定</h2>
+
+    <div class="trust-points">
+      <div class="trust-point">
+        <h3>系統連系の技術を理解した査定</h3>
+        <p>接続検討回答の技術的妥当性、系統構成、工事負担金の構造まで踏み込んで案件の価値を評価します。表面的な面積と立地だけで値段をつけることはしません。</p>
+      </div>
+      <div class="trust-point">
+        <h3>特高から高圧まで幅広い買い手ネットワーク</h3>
+        <p>上場企業・大手エネルギー企業から新規参入企業まで、特高・高圧それぞれの買い手を多数抱えています。案件の規模に合った最適な買い手をマッチングします。</p>
+      </div>
+      <div class="trust-point">
+        <h3>迅速な意思決定</h3>
+        <p>大組織の稟議プロセスはありません。代表が直接対応し、査定から買取条件のご提示まで最短1週間で完了します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 関連コラム ===== -->
+<section class="section knowledge">
+  <div class="section-inner">
+    <div class="section-label">ナレッジ</div>
+    <h2>用地売却をご検討中の方へ</h2>
+    <p class="section-lead">
+      蓄電池用地の価値の決まり方、売却の選択肢、譲渡手続きについて解説しています。<br>
+      査定のご依頼前にお読みいただくと、打ち合わせがスムーズです。
+    </p>
+    <div class="knowledge-grid">
+      <a target="_top" href="/column-land-value" class="knowledge-link">
+        <div class="knowledge-num">COLUMN 06</div>
+        <div class="knowledge-title">あなたの土地は蓄電池用地として価値があるか？ — 5つの判定基準</div>
+      </a>
+      <a target="_top" href="/column-options" class="knowledge-link">
+        <div class="knowledge-num">COLUMN 07</div>
+        <div class="knowledge-title">接続検討回答を取得したが事業化しない場合の3つの選択肢</div>
+      </a>
+      <a target="_top" href="/column-transfer" class="knowledge-link">
+        <div class="knowledge-num">COLUMN 08</div>
+        <div class="knowledge-title">蓄電池開発権の譲渡 — 手続きと注意点</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <div class="section-label" style="justify-content: center;">無料査定</div>
+    <h2>まずは、査定額をお確かめください</h2>
+    <p class="cta-lead">
+      接続検討回答済みの案件をお送りいただければ、48時間以内に概算の査定額をお伝えします。<br>
+      費用は無料、売却義務はありません。
+    </p>
+
+    <div class="cta-box">
+      <h3>お送りいただきたい情報</h3>
+      <div class="cta-items">
+        <div class="cta-item">
+          <div class="cta-item-num">1</div>
+          <div>土地の位置情報（住所、地番、または座標）</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-item-num">2</div>
+          <div>土地面積（概算で結構です）</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-item-num">3</div>
+          <div>接続検討回答書（お持ちの場合・PDF添付）</div>
+        </div>
+        <div class="cta-item">
+          <div class="cta-item-num">4</div>
+          <div>電圧階級（特別高圧 / 高圧 / 不明）</div>
+        </div>
+      </div>
+      <div class="cta-contact">
+        <a href="mailto:x@scix.co.jp?subject=%E8%93%84%E9%9B%BB%E6%B1%A0%E7%94%A8%E5%9C%B0%E3%81%AE%E6%9F%BB%E5%AE%9A%E3%81%AE%E3%81%94%E4%BE%9D%E9%A0%BC&body=%E2%96%A0%20%E3%81%8A%E5%90%8D%E5%89%8D%EF%BC%9A%0A%E2%96%A0%20%E4%BC%9A%E7%A4%BE%E5%90%8D%EF%BC%88%E4%BB%BB%E6%84%8F%EF%BC%89%EF%BC%9A%0A%E2%96%A0%20%E5%9C%9F%E5%9C%B0%E3%81%AE%E6%89%80%E5%9C%A8%E5%9C%B0%EF%BC%9A%0A%E2%96%A0%20%E5%9C%9F%E5%9C%B0%E9%9D%A2%E7%A9%8D%EF%BC%88%E6%A6%82%E7%AE%97%EF%BC%89%EF%BC%9A%0A%E2%96%A0%20%E6%8E%A5%E7%B6%9A%E6%A4%9C%E8%A8%8E%E5%9B%9E%E7%AD%94%E6%9B%B8%EF%BC%9A%E3%81%82%E3%82%8A%20%2F%20%E3%81%AA%E3%81%97%0A%E2%96%A0%20%E9%9B%BB%E5%9C%A7%E9%9A%8E%E7%B4%9A%EF%BC%9A%E7%89%B9%E5%88%A5%E9%AB%98%E5%9C%A7%20%2F%20%E9%AB%98%E5%9C%A7%20%2F%20%E4%B8%8D%E6%98%8E%0A%0A%E2%80%BB%E6%8E%A5%E7%B6%9A%E6%A4%9C%E8%A8%8E%E5%9B%9E%E7%AD%94%E6%9B%B8%E3%82%92%E3%81%8A%E6%8C%81%E3%81%A1%E3%81%AE%E5%A0%B4%E5%90%88%E3%81%AFPDF%E3%82%92%E6%B7%BB%E4%BB%98%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84" class="cta-email">
+          査定を依頼する（メールが開きます）
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <p class="cta-tel">
+          お電話でのご相談：<a href="tel:03-6403-4095">03-6403-4095</a><br>
+          サイエンスエックス株式会社　代表取締役　中島晋也（工学博士）
+        </p>
+      </div>
+    </div>
+
+    <div class="cta-promise">
+      <div class="cta-promise-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        査定費用は無料
+      </div>
+      <div class="cta-promise-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        秘密厳守
+      </div>
+      <div class="cta-promise-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        48時間以内にご回答
+      </div>
+      <div class="cta-promise-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        売却義務なし
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ScienceX Footer — Wix HTML embed用 self-contained -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1B2A4A;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0 auto;
+  }
+</style>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img
+        src="https://static.wixstatic.com/media/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png/v1/fill/w_300,h_118,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png"
+        alt="ScienceX サイエンスエックス株式会社"
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町801<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:x@scix.co.jp">x@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>

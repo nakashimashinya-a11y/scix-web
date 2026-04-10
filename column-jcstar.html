@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JC-STAR制度と蓄電池事業 — サイバーセキュリティ認証が機器選定を変える｜ScienceX</title>
+<meta name="description" content="2027年4月のグリッドコード改定でJC-STAR★1が系統接続の必須要件に。系統用蓄電池の機器選定・PCS調達・EMS構成への影響と、海外製ハードウェアとの両立策を実務者視点で解説。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--off-white:#F8F7F4;--border:#E2E6EC;--white:#FFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.8;background:var(--white)}
+.article-hero{background:linear-gradient(160deg,var(--white) 0%,var(--off-white) 50%,#EDE8DF 100%);border-bottom:3px solid var(--accent);padding:72px 32px 60px;text-align:center;position:relative;overflow:hidden}
+.article-hero::before{content:'';position:absolute;top:-80px;right:-160px;width:500px;height:500px;background:radial-gradient(circle,rgba(196,154,60,0.06) 0%,transparent 70%);pointer-events:none}
+.hero-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.hero-num{font-family:'Noto Serif JP',serif;font-size:.8em;font-weight:700;color:var(--accent);letter-spacing:.5px}
+.hero-tag{display:inline-block;padding:3px 12px;background:rgba(27,42,74,.06);color:var(--navy);font-size:.7em;font-weight:600;letter-spacing:.5px;border-radius:3px}
+.hero-new{display:inline-block;padding:3px 12px;background:rgba(196,154,60,.12);color:var(--accent);font-size:.7em;font-weight:700;border-radius:3px}
+.article-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(1.4em,3.5vw,2em);font-weight:700;color:var(--navy);line-height:1.6;margin-bottom:18px;max-width:760px;margin-left:auto;margin-right:auto}
+.article-hero .lead{font-size:.92em;color:var(--text-light);max-width:640px;margin:0 auto;line-height:2}
+.article-body{max-width:760px;margin:0 auto;padding:56px 32px 80px}
+.article-body h2{font-family:'Noto Serif JP',serif;font-size:1.3em;font-weight:700;color:var(--navy);margin:52px 0 18px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.6}
+.article-body h3{font-family:'Noto Serif JP',serif;font-size:1.1em;font-weight:700;color:var(--navy);margin:36px 0 14px;line-height:1.6}
+.article-body p{font-size:.92em;color:var(--text);line-height:2.05;margin-bottom:20px}
+.article-body strong{color:var(--navy);font-weight:700}
+.article-body a{color:var(--green);text-decoration:underline;text-underline-offset:3px}
+.article-body a:hover{color:var(--navy)}
+.key-point{background:var(--off-white);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:24px 28px;margin:28px 0}
+.key-point p{margin-bottom:0;font-size:.88em;line-height:1.95}
+.key-point p:not(:last-child){margin-bottom:12px}
+.warning-box{background:#FDF6F0;border-left:4px solid #D35400;border-radius:0 8px 8px 0;padding:24px 28px;margin:28px 0}
+.warning-box p{margin-bottom:0;font-size:.88em;line-height:1.95;color:#5D3A1A}
+.warning-box strong{color:#D35400}
+.confirmed-box{background:#F0F7F4;border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:24px 28px;margin:28px 0}
+.confirmed-box p{margin-bottom:0;font-size:.88em;line-height:1.95;color:#1A3A2C}
+.confirmed-box p:not(:last-child){margin-bottom:12px}
+.confirmed-box strong{color:var(--green)}
+.info-table{width:100%;border-collapse:collapse;margin:24px 0 32px;font-size:.85em}
+.info-table thead{background:var(--navy);color:var(--white)}
+.info-table th{padding:12px 16px;font-weight:500;text-align:left;font-size:.82em;letter-spacing:.3px}
+.info-table td{padding:14px 16px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.7}
+.info-table tr:last-child td{border-bottom:none}
+.info-table tr:nth-child(even){background:var(--light-bg)}
+.level-badge{display:inline-block;padding:2px 10px;border-radius:3px;font-size:.78em;font-weight:700}
+.level-1{background:rgba(26,122,76,.1);color:var(--green)}
+.level-2{background:rgba(196,154,60,.12);color:var(--accent)}
+.level-3{background:rgba(27,42,74,.08);color:var(--navy)}
+.level-4{background:rgba(211,84,0,.08);color:#D35400}
+.diagram-box{background:var(--light-bg);border:1px solid var(--border);border-radius:10px;padding:32px 28px;margin:32px 0;text-align:center}
+.diagram-box .diagram-title{font-family:'Noto Serif JP',serif;font-size:.9em;font-weight:700;color:var(--navy);margin-bottom:20px}
+.arch-flow{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.arch-block{border-radius:8px;padding:14px 16px;text-align:center;min-width:130px}
+.arch-block.external{background:var(--navy);color:var(--white)}
+.arch-block.gateway{background:var(--green);color:var(--white);border:2px solid #156B41}
+.arch-block.internal{background:var(--white);color:var(--navy);border:1px solid var(--border)}
+.arch-block .ab-label{font-size:.68em;font-weight:600;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.arch-block .ab-name{font-size:.82em;font-weight:700;line-height:1.4}
+.arch-arrow{font-size:1.2em;color:var(--text-light)}
+.arch-arrow.secure{color:var(--green);font-weight:700}
+.diagram-note{font-size:.75em;color:var(--text-light);margin-top:16px;line-height:1.6}
+.source-note{font-size:.78em;color:var(--text-light);margin-top:4px;line-height:1.6}
+.source-note a{color:var(--text-light);text-decoration:underline}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:.85em;color:var(--accent);text-decoration:none;margin-bottom:32px;transition:color .3s}
+.back-link:hover{color:var(--navy)}
+.article-cta{padding:56px 32px;background:linear-gradient(160deg,var(--navy),var(--navy-light));text-align:center}
+.article-cta h2{font-family:'Noto Serif JP',serif;font-size:clamp(1.1em,2.5vw,1.5em);color:#fff;font-weight:700;margin-bottom:12px}
+.article-cta p{font-size:.85em;color:rgba(255,255,255,.55);margin-bottom:24px;line-height:1.8}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:13px 32px;border-radius:4px;font-weight:700;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:#D4AD5A;box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.update-badge{display:inline-block;padding:2px 8px;background:var(--green);color:#fff;font-size:.65em;font-weight:700;border-radius:3px;vertical-align:middle;margin-left:6px}
+@media(max-width:768px){
+  .article-hero{padding:56px 20px 44px}
+  .article-body{padding:40px 20px 60px}
+  .info-table{font-size:.78em}
+  .info-table th,.info-table td{padding:10px 10px}
+  .arch-flow{flex-direction:column}
+  .arch-arrow{transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+
+<div class="article-hero">
+  <div class="hero-meta">
+    <span class="hero-num">COLUMN 14</span>
+    <span class="hero-tag">サイバーセキュリティ</span>
+  </div>
+  <h1>JC-STAR制度と蓄電池事業<br>— サイバーセキュリティ認証が機器選定を変える</h1>
+  <p class="lead">2027年4月、グリッドコード改定によりJC-STAR★1が系統接続の必須要件となる。系統用蓄電池のPCS・EMS・ゲートウェイの選定に直結する制度の全容と、海外製ハードウェアとの実務的な両立策を整理する。</p>
+</div>
+
+<div class="article-body">
+  <a target="_top" href="/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
+
+  <p class="source-note" style="margin-bottom:32px">最終更新：2026年4月｜出典に基づくファクトは各セクション末のリンクで確認可能</p>
+
+  <h2>なぜ蓄電池にサイバーセキュリティなのか</h2>
+
+  <p>系統用蓄電池は、もはや「電気を溜める箱」ではない。アグリゲーターのクラウドプラットフォームとインターネット経由で常時通信し、JEPX・需給調整市場・容量市場への応札と充放電をリアルタイムで繰り返す、高度にネットワーク化されたアセットである。</p>
+
+  <p>この「外部との通信の必須化」が、新たなリスクを生んでいる。もし蓄電池を制御するIoTゲートウェイやEMSがサイバー攻撃を受け、不正な充放電が一斉に実行されれば、局地的な停電にとどまらず、周波数変動による大規模ブラックアウトに直結する。国家安全保障上の脅威である。</p>
+
+  <p>この脅威に対処するために経済産業省が2024年に制度設計を公表し、情報処理推進機構（IPA）が2025年3月に運用を開始したのが、<strong>JC-STAR（Japan Cyber-Security Technical Assessment Requirements）</strong>——IoT製品に対するセキュリティ適合性評価制度だ。</p>
+
+  <h2>2027年4月：グリッドコード改定による義務化</h2>
+
+  <div class="confirmed-box">
+    <p><strong>方針決定（第20回グリッドコード検討会、2025年12月16日）：</strong></p>
+    <p>太陽光発電および蓄電池について、<strong>2027年4月の系統連系技術要件改定においてJC-STAR★1取得製品の使用を必須要件とする</strong>方針が決定された。技術要件の改定以降に連系契約申し込みを行う案件は、要件に適合しない設備での系統接続に支障が生じる可能性がある。</p>
+    <p>50kW未満の低圧連系製品については、流通網の在庫消化を考慮し経過措置期間を設定。<strong>適用開始は2027年10月</strong>。</p>
+    <p>風力発電や燃料電池等への適用拡大、およびPCS独自のJC-STAR★2以上の適合基準整備は、引き続き国の審議会で検討が進められる。</p>
+  </div>
+
+  <p class="source-note">出典：<a href="https://project.nikkeibp.co.jp/ms/atcl/19/news/00001/05640/?ST=msb" target="_blank" rel="noopener">日経BP メガソーラービジネス「グリッドコード見直し、系統用蓄電池向け新要件」（2026年2月）</a>｜<a href="https://www.occto.or.jp/iinkai/gridcode/index.html" target="_blank" rel="noopener">OCCTO グリッドコード検討会</a></p>
+
+  <h3>蓄電池の「どこ」が対象か——PCSは確定、EMS層は整理中</h3>
+
+  <p>蓄電池は太陽光と異なり、制御システムが層構造になっている。BMS（バッテリーマネジメントシステム） → PCS → ローカルEMS → 上位EMS（アグリゲーター）と、複数のレイヤーがネットワークに関与する。</p>
+
+  <p><strong>PCS（パワーコンディショナ）の通信モジュール</strong>がJC-STARの対象であることは確定している。PCSは出力制御指令の受信・実行を担うネットワーク接続された制御中枢であり、サイバー攻撃のリスクが最も高い。</p>
+
+  <p>一方、<strong>ローカルEMSや上位EMSがJC-STARの対象になる可能性は高い</strong>と整理されているが、蓄電池の制御システム全体の中でどこまでを義務対象とするかは、現時点では最終決定に至っていない。ただし、EMSはインターネット経由でアグリゲーターや市場運用者から制御指令を受信する最もネットに露出したコンポーネントであり、実務上はJC-STAR対応を前提に機器選定を進めるべきである。</p>
+
+  <p>なお、蓄電池セル・パック（バッテリー本体）はBMS経由のローカル通信のみで動作し、インターネットと直接通信しないため、JC-STARの対象外である。</p>
+
+  <h3>既存設備も無関係ではない</h3>
+
+  <p>新設案件だけの話ではない。<strong>既存の設備であっても、制御システム（PCS・EMS等）を更新するタイミングではJC-STAR適合製品の使用が求められる方向にある。</strong>グリッドコード改定は新規の連系契約申し込みを主な対象としているが、PCSのリプレースやEMSの刷新を行う際にも本要件への対応が必要になる可能性が高い。今後の制度詳細の確定を注視すべきである。</p>
+
+  <h2>JC-STARの基本構造</h2>
+
+  <p>JC-STARは、IoT機器が備えるべきセキュリティ機能（暗号化通信、アクセス制御、ファームウェアの安全なアップデート機能、脆弱性対応プロセスなど）を評価し、適合状況を★の数で表すラベリング制度である。★1と★2はメーカーの自己適合宣言（外部検証事業者への委託も可能）、★3以上は第三者評価機関による認証となる。</p>
+
+  <table class="info-table">
+    <thead><tr><th>レベル</th><th>セキュリティ水準</th><th>申請開始</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="level-badge level-1">★</span></td>
+        <td>ベースライン要件（16項目）。初期パスワード変更強制、セキュアな通信プロトコル、既知の脆弱性を持たないことの証明など。自己適合宣言。<strong>2027年4月のグリッドコード義務化対象。</strong></td>
+        <td>2025年3月</td>
+      </tr>
+      <tr>
+        <td><span class="level-badge level-2">★★</span></td>
+        <td>製品類型ごとの追加要件。データの高度な暗号化保存、厳格なユーザー権限の分離。自己適合宣言。PCS独自の★2基準を検討中。</td>
+        <td>2026年1月〜</td>
+      </tr>
+      <tr>
+        <td><span class="level-badge level-3">★★★</span></td>
+        <td>重要インフラ向け。第三者評価機関による客観的評価。耐改ざん性、ハードウェアレベルでのセキュリティ要素の実装。</td>
+        <td>2026年度以降</td>
+      </tr>
+      <tr>
+        <td><span class="level-badge level-4">★★★★</span></td>
+        <td>APT攻撃耐性。設計段階からの厳密な検証、未知の脆弱性への高度なレジリエンス。第三者評価。</td>
+        <td>2026年度以降</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="source-note">出典：<a href="https://www.ipa.go.jp/security/jc-star/detail.html" target="_blank" rel="noopener">IPA「JC-STAR制度についての詳細情報」</a></p>
+
+  <h2>ERABガイドラインによる先行義務化</h2>
+
+  <p>グリッドコード改定（2027年4月）に先立ち、アグリゲーション事業においてはすでにJC-STARへの対応が求められている。2025年5月22日に改定された<strong>「ERABに関するサイバーセキュリティガイドライン Ver3.0」</strong>において、リソースアグリゲーターが制御対象としてIoT機器を新規導入する場合、JC-STAR★1以上を満たす製品を選択することが要件に加わった。具体的には、アグリゲーター・ゲートウェイ間（R4）およびアグリゲーター・エネルギー機器間の直接通信（R6）では「勧告」（実質必須）、ゲートウェイ・エネルギー機器間（R5）では「推奨」（努力義務）として整理されている。</p>
+
+  <p>さらに、将来的に★2以上の詳細要件が決定した場合には★2以上を満たすことが望ましいとされている。経済産業省のDR・VPP関連補助金（DRリソース導入支援事業等）でもERABガイドライン準拠が交付要件とされており、これらの補助金を活用する場合はJC-STAR適合機器の選定が事実上必須となっている。</p>
+
+  <p class="source-note">出典：<a href="https://www.meti.go.jp/press/2025/05/20250522001/20250522001.html" target="_blank" rel="noopener">経済産業省「ERABに関するサイバーセキュリティガイドライン Ver3.0」（2025年5月22日）</a></p>
+
+  <h2>蓄電池事業者にとって何が変わるのか</h2>
+
+  <h3>1. 系統接続の可否に直結する</h3>
+
+  <p>2027年4月以降に連系契約申し込みを行う案件は、JC-STAR★1取得製品の使用が必須要件となる。非適合機器での系統接続に支障が生じる可能性がある。</p>
+
+  <div class="warning-box">
+    <p><strong>事業崩壊リスク：</strong>巨額の投資で蓄電所を建設しても、系統接続が許可されなければ売電も市場参加も一切不可能。プロジェクトのキャッシュフローが完全に絶たれる「ストランデッド・アセット化」に直結する。</p>
+  </div>
+
+  <h3>2. 補助金の適用要件になっている</h3>
+
+  <p>DR・VPP関連の導入補助金において、ERABガイドライン準拠（JC-STAR適合機器の使用）が交付の必須要件として組み込まれている。非適合機器を選択した場合、補助金の対象外となり、プロジェクトの経済的合理性が大幅に悪化する。</p>
+
+  <h3>3. 政府調達での義務化</h3>
+
+  <p>政府機関が調達するIoTデバイスに対して★1以上が必須要件化される方向で進んでいる。地方公共団体にも同様の方針が波及している。</p>
+
+  <div class="key-point">
+    <p>蓄電池事業者にとってのJC-STARは、「あれば望ましい品質マーク」ではない。<strong>系統接続（グリッドコード）・補助金（ERABガイドライン）・調達要件の3つの経路で、すでに実質的な義務となっている。</strong></p>
+  </div>
+
+  <h2>JC-STAR適合製品の現状<span class="update-badge">2026年4月更新</span></h2>
+
+  <p>IPAが公開する<a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener"><strong>「JC-STAR適合ラベル取得製品リスト」</strong></a>で、認証取得済みの全製品を確認できる（Excel形式でのダウンロードも可能）。以下は系統用蓄電池に関連する主要な取得企業の抜粋である。</p>
+
+  <h3>PCS・蓄電池システム</h3>
+
+  <table class="info-table">
+    <thead><tr><th>企業名</th><th>適合製品</th><th>レベル</th><th>備考</th></tr></thead>
+    <tbody>
+      <tr><td>富士電機</td><td>大規模蓄電池型パワーコンディショナ / 蓄電システムコントローラ（PMS）</td><td><span class="level-badge level-1">★</span></td><td>PCS＋制御装置の双方で取得。複数製品登録</td></tr>
+      <tr><td>日新電機</td><td>蓄電池用PCS / 系統用蓄電池制御装置</td><td><span class="level-badge level-1">★</span></td><td>PCS＋制御装置</td></tr>
+      <tr><td>ダイヘン</td><td>蓄電池パッケージ</td><td><span class="level-badge level-1">★</span></td><td>ハードウェア＋通信制御部を一体で認証</td></tr>
+      <tr><td>TMEIC（東芝三菱電機産業システム）</td><td>TMBCS</td><td><span class="level-badge level-1">★</span></td><td>大規模BESS向け</td></tr>
+      <tr><td>SMA Japan</td><td>Sunny Central / Sunny Central Storage</td><td><span class="level-badge level-1">★</span></td><td>海外PCSメーカーとして日本向け認証を取得</td></tr>
+      <tr><td>Power Electronics（スペイン）</td><td>HEMK / PCSK</td><td><span class="level-badge level-1">★</span></td><td>海外インバータメーカー。日本で23件のBESSプロジェクトを展開（10件納入済み・13件建設中）</td></tr>
+      <tr><td>GSユアサ</td><td>GYES2 / GYES3 / GYES4 蓄電システム / STARELINKシリーズ</td><td><span class="level-badge level-1">★</span></td><td>蓄電池パッケージ＋EMS系で複数取得</td></tr>
+      <tr><td>Samsung SDI</td><td>SBB 1.0</td><td><span class="level-badge level-1">★</span></td><td>韓国メーカー</td></tr>
+      <tr><td>Tesla Japan</td><td>Tesla System Controller</td><td><span class="level-badge level-1">★</span></td><td>Megapack制御系</td></tr>
+      <tr><td>パワーエックス（PowerX）</td><td>Mega Power Series</td><td><span class="level-badge level-1">★</span></td><td>系統用蓄電システム</td></tr>
+      <tr><td>住友電工</td><td>レドックスフロー電池システム</td><td><span class="level-badge level-1">★</span></td><td>長時間放電（RF電池）</td></tr>
+      <tr><td>日本碍子（NGK）</td><td>コンテナ型NAS電池用制御部</td><td><span class="level-badge level-1">★</span></td><td>NAS電池</td></tr>
+      <tr><td>NExT-e Solutions</td><td>水冷式蓄電池コンテナ</td><td><span class="level-badge level-1">★</span></td><td>コンテナ型蓄電池</td></tr>
+      <tr><td>本田技研</td><td>BESSコンテナ用BMS NeS</td><td><span class="level-badge level-1">★</span></td><td>BMS通信制御</td></tr>
+      <tr><td>サフトジャパン</td><td>ESS-CUBE</td><td><span class="level-badge level-1">★</span></td><td>フランスSaft系</td></tr>
+    </tbody>
+  </table>
+
+  <h3>EMS・ゲートウェイ・アグリゲーター</h3>
+
+  <table class="info-table">
+    <thead><tr><th>企業名</th><th>適合製品</th><th>レベル</th><th>備考</th></tr></thead>
+    <tbody>
+      <tr><td>Shizen Connect</td><td>Shizen Box / Shizen Box 2</td><td><span class="level-badge level-1">★</span></td><td>DR/VPPプラットフォーム市場シェアNo.1（2023年度・法人契約数ベース、富士経済調べ）。系統用蓄電池の監視・制御用IoT端末</td></tr>
+      <tr><td>デジタルグリッド</td><td>蓄電池用ゲートウェイ</td><td><span class="level-badge level-1">★</span></td><td>多メーカーの蓄電池に対応。全市場参入可能</td></tr>
+      <tr><td>Kraken Technologies Japan</td><td>Kraken 制御システム / Kraken SHV BESS制御システム</td><td><span class="level-badge level-1">★</span></td><td>オクトパスエナジー系。特高BESS制御も取得</td></tr>
+      <tr><td>エナジーフロー</td><td>ハイブリッドパワープラントコントローラー</td><td><span class="level-badge level-1">★</span></td><td>PCS制御統合型</td></tr>
+      <tr><td>しろくま電力</td><td>サイトEMS / 蓄電池制御システム</td><td><span class="level-badge level-1">★</span></td><td>複数バージョンで取得</td></tr>
+      <tr><td>dots energy</td><td>QUANTUM 2.0（PMS）</td><td><span class="level-badge level-1">★</span></td><td>台湾系BESS制御プラットフォーム</td></tr>
+      <tr><td>三菱電機</td><td>BLEnDer RE</td><td><span class="level-badge level-1">★</span></td><td>エネルギーマネジメントシステム</td></tr>
+      <tr><td>日新システムズ</td><td>需給調整市場対応GW / 屋外型IoTゲートウェイ</td><td><span class="level-badge level-1">★</span></td><td>需給調整市場特化</td></tr>
+      <tr><td>NextDrive</td><td>Cube / EDGE エネルギーマネジメントコントローラー</td><td><span class="level-badge level-1">★</span></td><td>台湾系。EMS機器</td></tr>
+    </tbody>
+  </table>
+
+  <p class="source-note">※ 2026年4月3日時点のIPAリストに基づく抜粋。最新情報は<a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPA 適合ラベル取得製品リスト</a>で確認のこと。</p>
+
+  <div class="warning-box">
+    <p><strong>確認すべきポイント：</strong>上記リストに掲載されていないPCSメーカーも存在する。グローバルに大きなシェアを持つメーカーであっても、JET認証（電気安全）を取得済みでJC-STAR（サイバーセキュリティ）は未取得というケースがある。2027年4月のグリッドコード改定後、JC-STAR未取得のPCSは新規の系統接続に支障が生じる可能性があるため、採用予定のPCSメーカーのJC-STAR対応状況は必ず確認が必要である。<a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPAの適合製品リスト</a>で最新の取得状況を確認できる。</p>
+  </div>
+
+  <h2>海外製ハードウェアとの両立策</h2>
+
+  <p>系統用蓄電池市場では、海外メーカーが圧倒的なコスト競争力を持っている。プロジェクトのIRRを左右するCAPEXの観点から、コスト競争力のある海外製ハードウェアを選択肢から排除することは現実的ではない。</p>
+
+  <div class="key-point">
+    <p><strong>重要な区別：JC-STARの対象は「インターネットと通信するIoT機器」であり、蓄電池セル・パック（バッテリー本体）は対象外である。</strong>バッテリー本体はBMSで管理される電気化学ハードウェアであり、インターネットとの直接通信は行わない。したがって、海外製バッテリーの採用自体はJC-STARの制約を受けない。</p>
+    <p>JC-STARが問われるのは、外部ネットワークと通信する<strong>PCSの通信モジュール</strong>、およびその上位に配置される<strong>EMS・ゲートウェイ機器</strong>である。</p>
+  </div>
+
+  <p>海外メーカーのPCSがJC-STAR未取得の場合に機能するのが、<strong>「ゲートウェイ分離アーキテクチャ」</strong>である。</p>
+
+  <div class="diagram-box">
+    <div class="diagram-title">ゲートウェイ分離によるハイブリッド構成</div>
+    <div class="arch-flow">
+      <div class="arch-block external">
+        <div class="ab-label">外部ネットワーク</div>
+        <div class="ab-name">電力系統<br>クラウド（JEPX等）</div>
+      </div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-block gateway">
+        <div class="ab-label">JC-STAR ★1 認証済</div>
+        <div class="ab-name">JC-STAR適合<br>EMS/ゲートウェイ</div>
+      </div>
+      <div class="arch-arrow secure">⇄</div>
+      <div class="arch-block internal">
+        <div class="ab-label">ローカルネットワーク</div>
+        <div class="ab-name">PCS<br>（通信モジュール）</div>
+      </div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-block internal">
+        <div class="ab-label">JC-STAR対象外</div>
+        <div class="ab-name">蓄電池セル・パック<br>BMS</div>
+      </div>
+    </div>
+    <p class="diagram-note">JC-STAR★1認証済みEMS/ゲートウェイをセキュリティの境界線として配置。<br>PCSはローカル通信（MODBUS等）でゲートウェイと接続。蓄電池本体はJC-STARの対象外。</p>
+  </div>
+
+  <p>具体的には、Shizen Connect社やデジタルグリッド社、Kraken社などが提供するJC-STAR適合ゲートウェイを通信の最前線（関所）として配置する。そのゲートウェイのファイアウォールと暗号化通信の保護下で、ローカル通信プロトコル（MODBUS等）を用いてPCSを制御する。蓄電池セル・パック自体はBMS経由のローカル通信のみで動作するため、JC-STARとは無関係にコスト最適なメーカーを選定できる。</p>
+
+  <p>ただし、PCS自体の通信モジュールもグリッドコード上はJC-STAR対象となる可能性が高いため、PCSメーカー側のJC-STAR取得ロードマップの確認は引き続き重要である。ゲートウェイ分離はリスクヘッジの手段であり、PCSメーカーの認証取得が不要になるわけではない点に留意が必要だ。</p>
+
+  <h2>機器選定時のデューデリジェンス</h2>
+
+  <p>蓄電池プロジェクトの機器調達において、従来の物理的な電気安全認証（JET認証等）に加えて、以下の確認が不可欠になっている。</p>
+
+  <h3>PCSメーカーに対して</h3>
+  <p>PCSの通信モジュールがJC-STARの評価スキームにおいてどのようなステータスにあるか。取得済みか、取得プロセス中か、ロードマップはどうか。これを日本法人に対して明確に確認する必要がある。<a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPAの適合製品リスト</a>で公開情報を事前に確認したうえで、メーカーに照会するのが効率的である。</p>
+
+  <h3>アグリゲーター / EMSに対して</h3>
+  <p>使用するゲートウェイ・EMS機器のJC-STAR適合状況。多メーカーの蓄電池に対応可能か。どの市場（一次調整力を含むか否か）に参入可能なアーキテクチャか。EMS層はJC-STARの対象範囲がまだ整理中であるため、取得済みの事業者を選定することがリスクヘッジとなる。</p>
+
+  <h3>IPAの適合製品リストの定期監視</h3>
+  <p>ステータスは「有効」だけでなく「失効猶予（延長申請中）」「失効（有効期限切れ）」「失効（自主取下げ）」「取消し」がありうる。適合ラベルの有効期間は発行日から最長2年間であり（★1は2年単位で延長申請が可能）、調達決定後にステータスが変更されるリスクも念頭に置き、定期的なモニタリングが必要である。</p>
+
+  <h2>JC-STARの「非関税障壁」としての側面</h2>
+
+  <p>率直に言えば、JC-STARのような国家独自のセキュリティ認証制度は、海外メーカーに対する技術的な参入障壁（非関税障壁）として機能する側面がある。グローバル市場で圧倒的な実績を持つ企業であっても、日本独自の要件に準拠するためには、通信プロトコルの改修、ファームウェアの再設計、ソースコードの監査、そして認証取得のリードタイムとコストを負担しなければならない。</p>
+
+  <p>しかし、これは逆に、JC-STAR適合を取得した海外メーカーにとっては、日本市場における信頼性とブランド価値を劇的に向上させるゲームチェンジャーにもなる。実際にSMA（ドイツ）、Power Electronics（スペイン）、Samsung SDI（韓国）、dots energy（台湾）などの海外メーカーはすでに★1を取得しており、IPAの公的データベースで客観的にセキュリティ耐性が証明されたことで、国内重電メーカーと対等に競争できるポジションを獲得している。</p>
+
+  <p>なお、JC-STARの国際相互承認は着実に進展している。英国PSTI法とは2025年11月に協力覚書が署名され2026年1月から相互承認が発効済み、シンガポールCLSとも2026年6月発効の覚書が締結されている。米国Cyber Trust Mark、EUのCyber Resilience Act（CRA）についても作業部会レベルで調整が進んでおり、2025年10月には11カ国による「グローバル・サイバーセキュリティ・ラベリング・イニシアティブ（GCLI）」の共同声明が発表された。将来的にはグローバルな認証連携の一環として位置付けられる見通しである。</p>
+
+  <p class="source-note">出典：<a href="https://www.meti.go.jp/press/2025/11/20251106003/20251106003.html" target="_blank" rel="noopener">経産省「JC-STARと英国PSTI法の相互承認に関する覚書に署名」（2025年11月）</a>｜<a href="https://www.meti.go.jp/english/press/2025/1023_001.html" target="_blank" rel="noopener">METI「GCLI共同声明」（2025年10月）</a></p>
+
+  <h2>蓄電池事業者が今やるべきこと</h2>
+
+  <p>JC-STARは2024年に制度設計が公表され2025年3月に運用が開始されたばかりの制度だが、ERABガイドラインでの義務化、2027年4月のグリッドコード改定、補助金要件への組み込みと、すでに複数の経路で強制力を持っている。</p>
+
+  <div class="key-point">
+    <p><strong>① 採用予定のPCSメーカーのJC-STAR対応状況を確認する</strong>——<a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPAの適合製品リスト</a>で取得状況を確認し、未取得の場合はメーカーに取得ロードマップを照会する。蓄電池セル・パック自体はJC-STARの対象外であり、コスト最適なメーカーを自由に選定できる。</p>
+    <p><strong>② アグリゲーター / EMSのJC-STAR適合状況を確認する</strong>——PCSメーカーが未取得でも、認証済みEMS/ゲートウェイとの組み合わせでシステム全体の適合が可能か検討する。</p>
+    <p><strong>③ 補助金申請の公募要領をJC-STARの観点で再確認する</strong>——ERABガイドライン準拠が交付要件になっていないか。適合機器の使用が必須要件または加点要素になっていないか。</p>
+    <p><strong>④ 2027年4月の連系契約申し込みを見据えたスケジュールを確認する</strong>——機器調達・据付・連系手続きの全体工程において、JC-STAR適合製品の手配が間に合うかを確認する。</p>
+  </div>
+
+  <p>ハードウェアのスペックシートとkWhあたりの単価だけで機器を選定する時代は終わった。サイバーセキュリティのコンプライアンスが、プロジェクトの成否を分ける変数になっている。</p>
+
+  <h2>参考リンク</h2>
+  <p>
+    <a href="https://www.ipa.go.jp/security/jc-star/index.html" target="_blank" rel="noopener">IPA — JC-STAR制度 総合サイト</a><br>
+    <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPA — JC-STAR 適合ラベル取得製品リスト</a><br>
+    <a href="https://www.ipa.go.jp/security/jc-star/detail.html" target="_blank" rel="noopener">IPA — JC-STAR制度 詳細情報</a><br>
+    <a href="https://www.occto.or.jp/iinkai/gridcode/index.html" target="_blank" rel="noopener">OCCTO — グリッドコード検討会</a><br>
+    <a href="https://www.meti.go.jp/press/2025/05/20250522001/20250522001.html" target="_blank" rel="noopener">経産省 — ERABサイバーセキュリティガイドライン Ver3.0</a><br>
+    <a href="https://www.occto.or.jp/assets/iinkai/gridcode/2025/files/gridcode_19_06.pdf" target="_blank" rel="noopener">OCCTO — 分散型電源のサイバーセキュリティ対策の要件化に係る今後の対応（第19回グリッドコード検討会 資料6）</a><br>
+    <a href="https://www.meti.go.jp/press/2025/11/20251106003/20251106003.html" target="_blank" rel="noopener">経産省 — JC-STARと英国PSTI法の相互承認に関する覚書</a>
+  </p>
+
+</div>
+
+<div class="article-cta">
+  <h2>蓄電池の機器選定・制度対応に関するご相談</h2>
+  <p>JC-STAR対応を含む機器調達戦略について、<br>中立的な技術PMの立場からご支援します。</p>
+  <a target="_top" href="/contact" class="cta-btn">お問い合わせ →</a>
+</div>
+
+
+<!-- ScienceX Footer — Wix HTML embed用 self-contained -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1B2A4A;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0 auto;
+  }
+</style>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img
+        src="https://static.wixstatic.com/media/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png/v1/fill/w_300,h_118,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png"
+        alt="ScienceX サイエンスエックス株式会社"
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町801<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:x@scix.co.jp">x@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>

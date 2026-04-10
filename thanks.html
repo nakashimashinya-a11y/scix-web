@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせありがとうございます | ScienceX</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy: #1B2A4A;
+    --navy-deep: #0F1A2E;
+    --navy-light: #2A3D62;
+    --gold: #C49A3C;
+    --gold-light: #D4AF5C;
+    --gold-pale: rgba(196, 154, 60, 0.08);
+    --green: #1A7A4C;
+    --green-light: rgba(26, 122, 76, 0.08);
+    --white: #FFFFFF;
+    --off-white: #F8F7F4;
+    --gray-100: #F3F2EF;
+    --gray-300: #D1CFC9;
+    --gray-500: #8A8780;
+    --text-primary: #1B2A4A;
+    --text-secondary: #5A6577;
+  }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--text-primary);
+    background: var(--off-white);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== HEADER BAR ===== */
+  .top-bar {
+    background: var(--navy);
+    padding: 20px 0;
+    position: relative;
+  }
+
+  .top-bar::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.4;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .thanks-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 32px;
+  }
+
+  .thanks-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 60px 56px;
+    max-width: 640px;
+    width: 100%;
+    text-align: center;
+    box-shadow:
+      0 1px 3px rgba(27, 42, 74, 0.04),
+      0 12px 40px rgba(27, 42, 74, 0.07);
+    border: 1px solid rgba(27, 42, 74, 0.05);
+    animation: fadeUp 0.6s ease-out;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Check Circle */
+  .check-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--green-light);
+    border: 2px solid rgba(26, 122, 76, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    animation: scaleIn 0.5s ease-out 0.2s both;
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .check-circle svg {
+    width: 32px;
+    height: 32px;
+    color: var(--green);
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+    animation: drawCheck 0.5s ease-out 0.5s forwards;
+  }
+
+  @keyframes drawCheck {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .thanks-card h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+
+  .thanks-card .lead {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.9;
+    margin-bottom: 36px;
+  }
+
+  .thanks-card .lead strong {
+    color: var(--navy);
+    font-weight: 500;
+  }
+
+  /* Divider */
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    margin: 0 auto 32px;
+    border-radius: 1px;
+  }
+
+  /* Next Steps */
+  .next-steps {
+    text-align: left;
+    background: var(--off-white);
+    border-radius: 10px;
+    padding: 28px 28px;
+    margin-bottom: 36px;
+  }
+
+  .next-steps h3 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 10px 0;
+  }
+
+  .step-item:not(:last-child) {
+    border-bottom: 1px solid var(--gray-100);
+    padding-bottom: 14px;
+    margin-bottom: 4px;
+  }
+
+  .step-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .step-text strong {
+    color: var(--navy);
+    font-weight: 500;
+  }
+
+  /* CTA Buttons */
+  .cta-group {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--white);
+    background: var(--navy);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: var(--navy-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(27, 42, 74, 0.2);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--navy);
+    background: transparent;
+    border: 1.5px solid var(--gray-300);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    background: var(--gold-pale);
+  }
+
+  .btn-primary svg,
+  .btn-secondary svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .thanks-card {
+      padding: 44px 28px;
+    }
+    .thanks-card h1 {
+      font-size: 22px;
+    }
+    .cta-group {
+      flex-direction: column;
+    }
+    .btn-primary, .btn-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+  <div class="container"></div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<main class="thanks-main">
+  <div class="thanks-card">
+
+    <div class="check-circle">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+
+    <h1>お問い合わせありがとうございます</h1>
+    <p class="lead">お問い合わせ内容を受け付けました。<br>原則<strong>1営業日以内</strong>に、担当よりご連絡いたします。</p>
+
+    <div class="divider"></div>
+
+    <div class="next-steps">
+      <h3>今後の流れ</h3>
+      <div class="step-item">
+        <span class="step-num">1</span>
+        <span class="step-text">内容を確認の上、<strong>担当者よりメールまたはお電話</strong>でご連絡いたします</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num">2</span>
+        <span class="step-text">ご要望に応じて<strong>詳細資料・収支シミュレーション</strong>をお送りします</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num">3</span>
+        <span class="step-text">オンラインまたは対面での<strong>個別ご説明</strong>も承ります</span>
+      </div>
+    </div>
+
+    <div class="cta-group">
+      <a href="https://scix.co.jp" class="btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        トップページへ戻る
+      </a>
+      <a href="https://scix.co.jp/bss" class="btn-secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        系統蓄電池事業を見る
+      </a>
+    </div>
+
+  </div>
+</main>
+
+
+<!-- ScienceX Footer — Wix HTML embed用 self-contained -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1B2A4A;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0 auto;
+  }
+</style>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img
+        src="https://static.wixstatic.com/media/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png/v1/fill/w_300,h_118,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png"
+        alt="ScienceX サイエンスエックス株式会社"
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町801<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:x@scix.co.jp">x@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>
