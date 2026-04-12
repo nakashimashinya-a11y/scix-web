@@ -59,12 +59,12 @@ p{margin-bottom:20px}
 /* Checklist */
 .checklist{list-style:none;margin:28px 0}
 .checklist li{padding:10px 0 10px 32px;position:relative;font-size:.92em;border-bottom:1px solid var(--border);line-height:2}
-.checklist li::before{content:"☐";position:absolute;left:0;color:var(--accent);font-size:16px}
+.checklist li::before{content:"\2610";position:absolute;left:0;color:var(--accent);font-size:16px}
 
 /* Simulator */
 .sim-container{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:28px;margin:28px 0;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
 .sim-title{font-size:15px;font-weight:700;margin-bottom:20px;color:var(--navy);display:flex;align-items:center;gap:8px}
-.sim-title::before{content:"▶";font-size:11px;color:var(--accent)}
+.sim-title::before{content:"\25B6";font-size:11px;color:var(--accent)}
 .sim-row{display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
 .sim-label{min-width:180px;font-size:13.5px;font-weight:600}
 .sim-slider{flex:1;min-width:140px;-webkit-appearance:none;appearance:none;height:6px;background:var(--border);border-radius:3px;outline:none}
@@ -297,61 +297,66 @@ p{margin-bottom:20px}
 
 <h2>海外の運用委託契約 — 「歩合」以外の選択肢を知っておく</h2>
 
-<p>日本のアグリゲーター契約はほぼ全て「売上に応じた歩合制」だが、海外では契約の形が5つに分かれている。不動産に例えると分かりやすい。</p>
+<p>日本のアグリゲーター契約はほぼ全て「売上に応じた歩合制（レベニューシェア）」だが、海外では契約の形が5つに分かれている。</p>
 
 <!-- Model tabs -->
 <div class="model-tabs" id="model-tabs">
-  <div class="model-tab active" data-panel="m1">❶ 歩合制</div>
-  <div class="model-tab" data-panel="m2">❷ 最低保証付き歩合</div>
-  <div class="model-tab" data-panel="m3">❸ 定額借り上げ</div>
-  <div class="model-tab" data-panel="m4">❹ 一部固定＋一部歩合</div>
-  <div class="model-tab" data-panel="m5">❺ ソフト利用料</div>
+  <div class="model-tab active" data-panel="m1">❶ レベニューシェア</div>
+  <div class="model-tab" data-panel="m2">❷ フロア付き</div>
+  <div class="model-tab" data-panel="m3">❸ トーリング</div>
+  <div class="model-tab" data-panel="m4">❹ ハイブリッド</div>
+  <div class="model-tab" data-panel="m5">❺ SaaS</div>
 </div>
 
 <div class="model-panel active" id="m1">
-<h4>❶ 歩合制（日本の標準）</h4>
+<h4>❶ レベニューシェア（Revenue Share / 歩合制）</h4>
 <div class="model-meta">相場: 市場利益の5〜15% ｜ 日本のほぼ全アグリゲーターがこの方式</div>
-<p><strong>不動産で言えば：</strong>サブリース業者に「入居者が付いたら家賃の○%をください」と言われるのと同じ構造。蓄電池が市場で稼いだ分の一部をアグリゲーターが受け取る。市場が好調ならアグリゲーターも儲かるので、収益最大化のインセンティブが一致する。ただし本記事で解説した通り、「何に対する○%か」の定義が曖昧だとトラブルの元になる。</p>
+<p>アグリゲーターが蓄電池の充放電を最適化し、市場で得た収益の一定割合を報酬として受け取る契約。市場が好調ならアグリゲーターの取り分も増えるため、収益最大化のインセンティブがオーナーと一致する。ただし本記事で解説した通り、「何に対する○%か」（グロスかネットか）の定義が曖昧だとトラブルの元になる。</p>
+<p style="font-size:14px; color:var(--text-light);"><strong>不動産で言えば：</strong>サブリース業者に「入居者が付いたら家賃の○%をください」と言われるのと同じ構造。</p>
 <div class="risk-bar"><div class="owner-risk" style="width:70%"></div><div class="agg-risk" style="width:30%"></div></div>
 <div class="risk-labels"><span>← オーナーが市場リスクを負う</span><span>アグリゲーター側リスク: 小 →</span></div>
 </div>
 
 <div class="model-panel" id="m2">
-<h4>❷ 最低保証付き歩合</h4>
+<h4>❷ フロア付きレベニューシェア（Floor + Revenue Share）</h4>
 <div class="model-meta">英国で拡大中 ｜ 2MWに換算すると最低保証 年1,640〜1,760万円程度 ＋ 超過分を折半</div>
-<p><strong>不動産で言えば：</strong>「空室でも毎月○万円は保証します。満室になったら超えた分は折半しましょう」というサブリース契約。オーナーの収入に下限が設定される代わりに、市場が好調な年のアグリゲーター取り分は歩合制より大きくなる（取り分50%程度）。英国ではStatkraft社が412MW分のBESSに対し、総額&pound;135M（約270億円）を2035年9月まで保証するフロア価格契約を締結した（1MWあたり年間約&pound;41,000〜44,000に相当）。</p>
+<p>アグリゲーターがオーナーに対し、年間収益の下限額（フロア）を保証する契約。市場収益がフロアを超えた場合、超過分をオーナーとアグリゲーターで折半（50:50が一般的）する。オーナーの収入に下限が設定される代わりに、市場が好調な年のアグリゲーター取り分はレベニューシェアより大きくなる。英国ではStatkraft社が412MW分のBESSに対し、総額&pound;135M（約270億円）を2035年9月まで保証するフロア価格契約を締結した（1MWあたり年間約&pound;41,000〜44,000に相当）。</p>
+<p style="font-size:14px; color:var(--text-light);"><strong>不動産で言えば：</strong>「空室でも毎月○万円は保証します。満室になったら超えた分は折半しましょう」というサブリース契約。</p>
 <div class="risk-bar"><div class="owner-risk" style="width:40%"></div><div class="agg-risk" style="width:60%"></div></div>
 <div class="risk-labels"><span>← オーナーのリスク軽減</span><span>アグリゲーターが下振れリスクを負う →</span></div>
 <p class="source">出典: Statkraft/Gresham House Energy Storage Fund契約（2025年7月発表）、Sympower公開資料</p>
 </div>
 
 <div class="model-panel" id="m3">
-<h4>❸ 定額借り上げ（トーリング）</h4>
+<h4>❸ トーリング契約（Tolling Agreement）</h4>
 <div class="model-meta">英国・米テキサスで主流化 ｜ 欧州相場 &euro;110,000〜150,000/MW/年（2MWで約3,500〜4,800万円）</div>
-<p><strong>不動産で言えば：</strong>建物丸ごとの一括借り上げ。「毎年○○万円を払いますので、運用は全部こちらでやらせてください」という契約。アグリゲーターが蓄電池の充放電を完全に管理し、市場で稼いだ分は全てアグリゲーターのもの。オーナーは市場価格に関係なく固定収入を得られるので、銀行融資が組みやすい。英国ではOctopus Energy社がGresham House Energy Storage Fundの568MW分のBESSについて2年間のトーリング契約を締結した（MW単価の料率は非公開）。</p>
+<p>アグリゲーターが蓄電池の充放電権を一定期間「借り上げ」、オーナーに固定のトーリング料を支払う契約。市場で稼いだ分は全てアグリゲーターの収益となり、オーナーは市場価格に関係なく固定収入を得る。収益の予測可能性が高いため、プロジェクトファイナンス（銀行融資）が組みやすい。英国ではOctopus Energy社がGresham House Energy Storage Fundの568MW分のBESSについて2年間のトーリング契約を締結した（MW単価の料率は非公開）。</p>
+<p style="font-size:14px; color:var(--text-light);"><strong>不動産で言えば：</strong>建物丸ごとの一括借り上げ（マスターリース）。「毎年○○万円を払いますので、運用は全部こちらでやらせてください」という契約。</p>
 <div class="risk-bar"><div class="owner-risk" style="width:15%"></div><div class="agg-risk" style="width:85%"></div></div>
 <div class="risk-labels"><span>← オーナーのリスク最小</span><span>市場リスクはほぼアグリゲーター →</span></div>
 <p class="source">出典: Solar Power Portal（2024年6月）、Modo Energy、Aurora Energy Research</p>
 </div>
 
 <div class="model-panel" id="m4">
-<h4>❹ 一部固定＋一部歩合</h4>
-<div class="model-meta">蓄電池の容量を分割 ｜ 例：50%を定額借り上げ ＋ 50%を歩合制で運用</div>
-<p><strong>不動産で言えば：</strong>5階建てビルの1〜3階は一括借り上げ、4〜5階はテナント歩合。安定収入を確保しつつ、市場が好調なときの上振れにも参加できる折衷案。蓄電池の容量を2つに分けて、半分を固定料金、半分を歩合制で運用する。Tesla社は豪州Genex Powerとの50MW案件で、最低保証付きの収益分配契約を締結した（業界初の事例とされる）。固定料金部分でキャッシュフローを安定させつつ、変動部分で市場の上振れを取る設計だ。</p>
+<h4>❹ ハイブリッド契約（Hybrid / Partial Toll + Merchant）</h4>
+<div class="model-meta">蓄電池の容量を分割 ｜ 例：50%をトーリング ＋ 50%をレベニューシェアで運用</div>
+<p>蓄電池の容量を分割し、一部をトーリング（固定収入）、残りをレベニューシェア（市場連動）で運用する折衷型の契約。固定部分でキャッシュフローを安定させつつ、変動部分で市場の上振れを取る設計になる。Tesla社は豪州Genex Powerとの50MW案件で、最低保証付きの収益分配契約を締結した（業界初の事例とされる）。</p>
+<p style="font-size:14px; color:var(--text-light);"><strong>不動産で言えば：</strong>5階建てビルの1〜3階は一括借り上げ（固定賃料）、4〜5階はテナント歩合。安定収入と上振れの両取りを狙う構造。</p>
 <div class="risk-bar"><div class="owner-risk" style="width:50%"></div><div class="agg-risk" style="width:50%"></div></div>
 <div class="risk-labels"><span>← リスク半分</span><span>リスク半分 →</span></div>
 <p class="source">出典: Enspired blog、RenewEconomy Tesla/Genex Power契約報道（豪州50MW Bouldercombe案件）</p>
 </div>
 
 <div class="model-panel" id="m5">
-<h4>❺ ソフトウェア利用料（定額課金）</h4>
+<h4>❺ SaaS / ソフトウェアライセンス（Optimization-as-a-Service）</h4>
 <div class="model-meta">オーナーが自分で運用 ｜ 最適化ソフトに年間利用料を支払う</div>
-<p><strong>不動産で言えば：</strong>不動産管理ソフトだけ契約して、入居者募集も管理も全部自分でやるパターン。アグリゲーターではなく、市場取引を最適化するソフトウェアにライセンス料を支払い、充放電の判断はオーナー（または別の取引業者）が行う。市場運用のノウハウを持つ事業者向け。日本ではShizen Connectが運用代行とソフトウェア提供の両方を手がけている。</p>
+<p>アグリゲーターに運用を委託するのではなく、市場取引を最適化するソフトウェアにライセンス料（月額または年額の定額課金）を支払い、充放電の判断はオーナー自身（または別の取引業者）が行うモデル。市場運用のノウハウを持つ事業者向け。日本ではShizen Connectが運用代行とSaaS提供の両方を手がけている。</p>
+<p style="font-size:14px; color:var(--text-light);"><strong>不動産で言えば：</strong>不動産管理ソフトだけ契約して、入居者募集も管理も全部自分でやるパターン。</p>
 <div class="risk-bar"><div class="owner-risk" style="width:90%"></div><div class="agg-risk" style="width:10%"></div></div>
 <div class="risk-labels"><span>← 市場リスクは全てオーナー</span><span>ソフト会社はリスクなし →</span></div>
 </div>
 
-<p>日本ではまだ❶の歩合制が圧倒的だが、GridBeyond（アイルランド系）は米国ERCOT・CAISO市場で❷最低保証付きや❸定額借り上げ型の提供を開始している。同社は日本法人（グリッドビヨンド合同会社）を通じてBESS運用にも参入しており、今後、日本の蓄電池市場が成熟するにつれ、海外で主流になりつつある❷❸の契約形態が選択肢に入ってくる可能性がある。</p>
+<p>日本ではまだ❶のレベニューシェアが圧倒的だが、GridBeyond（アイルランド系）は米国ERCOT・CAISO市場で❷フロア付きや❸トーリング型の提供を開始している。同社は日本法人（グリッドビヨンド合同会社）を通じてBESS運用にも参入しており、今後、日本の蓄電池市場が成熟するにつれ、海外で主流になりつつある❷❸の契約形態が選択肢に入ってくる可能性がある。</p>
 
 <h2>手数料率よりも大事なこと — アグリゲーターの「腕」で年間数千万円変わる</h2>
 
@@ -460,11 +465,11 @@ p{margin-bottom:20px}
 
 <script>
 // === Fee Simulator ===
-const slRevenue = document.getElementById('sl-revenue');
-const slCost = document.getElementById('sl-cost');
-const slFee = document.getElementById('sl-fee');
-const slCap = document.getElementById('sl-cap');
-const chkCap = document.getElementById('chk-cap');
+var slRevenue = document.getElementById('sl-revenue');
+var slCost = document.getElementById('sl-cost');
+var slFee = document.getElementById('sl-fee');
+var slCap = document.getElementById('sl-cap');
+var chkCap = document.getElementById('chk-cap');
 
 function fmt(n) {
   if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/,'') + '億';
@@ -526,7 +531,7 @@ document.querySelectorAll('.model-tab').forEach(function(tab) {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.contentWindow.min.js"></script>
 
-<!-- ScienceX Footer — Wix HTML embed用 self-contained -->
+<!-- ScienceX Footer -->
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
 
