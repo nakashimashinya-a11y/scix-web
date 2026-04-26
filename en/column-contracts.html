@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:24px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:560px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+
+.layer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:28px 0}
+.layer-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;padding:14px 12px;text-align:center;position:relative;display:flex;flex-direction:column;min-height:170px}
+.layer-card .l-num{font-family:'Noto Serif JP',serif;font-size:.74em;color:var(--accent);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.layer-card h4{font-size:.86em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.45;border:none}
+.layer-card .l-counter{font-size:.74em;color:var(--text-light);margin-bottom:6px;line-height:1.55;font-style:italic}
+.layer-card p{font-size:.78em;line-height:1.7;margin:0;color:var(--text)}
+.layer-grid .layer-core{grid-column:1/-1;margin-top:6px;padding:14px 18px;background:var(--navy);color:#fff;border-radius:6px;font-family:'Noto Serif JP',serif;font-size:.92em;text-align:center;letter-spacing:.04em;border-top:none}
+
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
+.compare-card{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 22px}
+.compare-card.before{border-left:3px solid #c44}
+.compare-card.after{border-left:3px solid var(--green)}
+.compare-card h4{font-size:.92em;font-weight:700;margin:0 0 8px;color:var(--navy);border:none;padding:0}
+.compare-card .lbl{font-size:.72em;color:var(--text-light);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.compare-card .big{font-family:'Noto Serif JP',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:6px}
+.compare-card .big .u{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:6px 0 0}
+
+pre{background:var(--light-bg);border:1px solid var(--border);border-radius:4px;padding:14px 18px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.82em;line-height:1.7;overflow-x:auto;margin:18px 0;color:var(--navy)}
+code{background:var(--light-bg);padding:2px 6px;border-radius:3px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;color:var(--navy)}
+
+.timeline{margin:28px 0;position:relative;padding-left:24px;border-left:2px solid var(--border)}
+.tl-item{position:relative;padding-bottom:24px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:'';position:absolute;left:-30px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--white);box-shadow:0 0 0 1px var(--accent)}
+.tl-date{font-family:'Noto Serif JP',serif;font-size:.82em;color:var(--accent);font-weight:700;margin-bottom:4px;letter-spacing:.04em}
+.tl-body h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 4px;line-height:1.5;border:none;padding:0}
+.tl-capacity{font-size:.78em;color:var(--text-light);margin-bottom:8px;font-style:italic}
+.tl-body p{font-size:.88em;line-height:1.9;margin:0}
+.tl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tl-tag{display:inline-block;font-size:.7em;color:var(--accent);background:rgba(196,154,60,.1);padding:2px 8px;border-radius:3px;letter-spacing:.04em;font-weight:600}
+
+.sim-container{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:28px;margin:28px 0;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.sim-title{font-size:15px;font-weight:700;margin-bottom:20px;color:var(--navy);display:flex;align-items:center;gap:8px}
+.sim-title::before{content:"\25B6";font-size:11px;color:var(--accent)}
+.sim-title .tag{margin-left:auto;font-size:10px;letter-spacing:.1em;color:var(--accent);background:rgba(196,154,60,.1);padding:3px 8px;border-radius:2px;font-weight:600}
+.sim-row{display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.sim-label{min-width:220px;font-size:13.5px;font-weight:600}
+.sim-slider{flex:1;min-width:140px;-webkit-appearance:none;appearance:none;height:6px;background:var(--border);border-radius:3px;outline:none}
+.sim-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;background:var(--navy);border-radius:50%;cursor:pointer}
+.sim-slider::-moz-range-thumb{width:20px;height:20px;background:var(--navy);border-radius:50%;cursor:pointer;border:none}
+.sim-value{min-width:140px;text-align:right;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--navy)}
+.sim-select{flex:1;min-width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;background:var(--white);font-family:inherit;font-size:13.5px;color:var(--navy);font-weight:600}
+.sim-results{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sim-res-cell{background:var(--light-bg);border:1px solid var(--border);padding:16px 18px;border-radius:6px}
+.sim-res-cell .rc-label{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:6px;text-transform:uppercase}
+.sim-res-cell .rc-val{font-family:'Noto Serif JP',serif;font-size:1.6em;font-weight:700;color:var(--navy);line-height:1.2}
+.sim-res-cell .rc-val .u{font-size:.56em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.sim-res-cell .rc-sub{font-size:.78em;color:var(--text-light);margin-top:6px;line-height:1.5}
+.sim-res-cell.hl{background:rgba(196,154,60,.08);border-color:var(--accent)}
+
+.ops-timeline{margin:28px 0;display:grid;grid-template-columns:1fr;gap:12px}
+.ops-slot{display:grid;grid-template-columns:80px 1fr;gap:18px;padding:16px 18px;background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+.ops-slot .ops-time{font-family:'Noto Serif JP',serif;font-size:1.05em;font-weight:700;color:var(--navy);line-height:1.3}
+.ops-slot .ops-time .ops-tag{display:block;font-size:.65em;color:var(--text-light);font-family:'Noto Sans JP',sans-serif;font-weight:500;letter-spacing:.04em;text-transform:uppercase;margin-top:2px}
+.ops-slot .ops-body h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 6px;border:none;padding:0}
+.ops-slot .ops-body p{font-size:.86em;line-height:1.85;margin:0 0 8px;color:var(--text)}
+.ops-slot .ops-layers{display:flex;flex-wrap:wrap;gap:5px}
+.ops-slot .ops-layer{display:inline-block;font-size:.72em;color:#fff;background:var(--navy);padding:2px 10px;border-radius:3px;letter-spacing:.03em;font-weight:600}
+.ops-slot .ops-layer.idle{background:var(--text-light);opacity:.7}
+
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .ci-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px}
+
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .sim-row{flex-direction:column;gap:8px;align-items:stretch}
+  .sim-label{min-width:auto}
+  .sim-value{min-width:auto;text-align:left}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .diff-grid{grid-template-columns:1fr}
+  .layer-grid{grid-template-columns:repeat(2,1fr)}
+  .compare-row{grid-template-columns:1fr}
+  .sim-results{grid-template-columns:1fr}
+  .ops-slot{grid-template-columns:1fr;gap:8px}
+}
+</style>
+
+<title>Contract Design That Decides ¥200M Over 20 Years — The 5-Layer Power Contract Stack | ScienceX</title>
+<meta name="description" content="How a grid-scale battery storage's 5 power contract layers (wheeling, GSA, retail, BG, market participation) cumulatively determine ¥200M business value differential over 20 years. Includes 11-item pre-transfer checklist.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-contracts">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-contracts">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-contracts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Contract Design That Decides ¥200M Over 20 Years — The 5-Layer Power Contract Stack | ScienceX">
+<meta property="og:description" content="How a grid-scale battery storage's 5 power contract layers (wheeling, GSA, retail, BG, market participation) cumulatively determine ¥200M business value differential over 20 years. Includes 11-item pre-transfer checklist.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-contracts">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contract Design That Decides ¥200M Over 20 Years — The 5-Layer Power Contract Stack | ScienceX">
+<meta name="twitter:description" content="How a grid-scale battery storage's 5 power contract layers (wheeling, GSA, retail, BG, market participation) cumulatively determine ¥200M business value differential over 20 years. Includes 11-item pre-transfer checklist.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-04-26">
+</head>
+<body>
+<script src="/header.js"></script>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 19</span>
+      <span class="header-tag">Contract Design</span>
+      <time class="header-date" datetime="2026-04-26">2026.04.26</time>
+    </div>
+    <h1>Contract Design That Decides <em>¥200M Over 20 Years</em> — The <em>5-Layer Power Contract Stack</em> of a Grid-Scale Battery Storage</h1>
+    <p class="header-desc">What ultimately decides a grid-scale battery storage's economics is not the equipment spec or the EPC. It's the design of the five layered power contracts — wheeling, generation supply adjustment, retail, BG, and market participation. Layer-by-layer choices accumulate into a roughly ¥200M business-value differential over 20 years. This column maps the entire contract stack and walks through to the 11-item pre-transfer checklist.</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="/en/knowledge" class="back-link">&larr; Back to Knowledge Hub</a>
+
+<p>Power contracts for grid-scale battery storage are a notch more complex than those for solar PV. Within the same site, the facility behaves at one moment as a demand customer "buying electricity," and at the next as a generation plant "selling electricity." This dual-faced facility only functions when five contract layers — wheeling, generation supply adjustment (GSA), retail, BG, and market participation — run in parallel.</p>
+
+<p>How those five layers are assembled can shift business economics by roughly ¥10M per year, or ¥200M cumulative over 20 years. For example, whether the wheeling contract demand is set on a maximum-output basis (1,999 kW) or compressed down to the ~100 kW range by applying the pumped-storage special measure changes annual cost by more than ¥10M. With the same project, the same equipment, and the same operating plan, total 20-year revenue can become an entirely different number depending on contract design.</p>
+
+<p>This is the issue to settle before debating EPC selection or equipment specs — yet a holistic walkthrough of the 5-layer contract structure is surprisingly rare. This column first draws the full map, then digs into each layer, and finally lands on an 11-item checklist that battery storage owners should confirm before signing.</p>
+
+<div class="data-box">
+<div class="db-head">Reference Project (Throughout)</div>
+<dl class="premise-grid">
+  <div><dt>PCS Output</dt><dd>2<span class="unit">MW</span></dd></div>
+  <div><dt>Storage Capacity</dt><dd>8<span class="unit">MWh</span></dd></div>
+  <div><dt>Operation Period</dt><dd>20<span class="unit">years</span></dd></div>
+  <div><dt>Contract Layers</dt><dd>5<span class="unit">layers / 21 contracts</span></dd></div>
+  <div><dt>Connection Voltage</dt><dd>HV / EHV<span class="unit">case-by-case</span></dd></div>
+  <div><dt>Battery Special Measure</dt><dd>Effective<span class="unit">from 2024-04-01</span></dd></div>
+</dl>
+</div>
+
+<h2>01 — The 5-Layer Map of Power Contracts</h2>
+
+<p>The decisive difference from solar lies in the number and variety of counterparties. A solar power plant essentially closes out with two contract families — the generation supply adjustment contract (GSA) and the offtake contract. By contrast, a grid-scale battery storage operates in <strong>both directions on the same site — charging (receiving power from the grid as demand) and discharging (sending power to the grid as generation)</strong> — so the counterparties and contract types more than double.</p>
+
+<p>The figure below organizes that complexity into a single picture.</p>
+
+<div class="layer-grid">
+  <div class="layer-card">
+    <span class="l-num">LAYER 1</span>
+    <h4>Wheeling Contract</h4>
+    <span class="l-counter">Counterparty: TSO</span>
+    <p>Connection supply contract on the charging side. Whether the battery special measure (pumped-storage measure) applies is decided here.</p>
+  </div>
+  <div class="layer-card">
+    <span class="l-num">LAYER 2</span>
+    <h4>GSA Contract</h4>
+    <span class="l-counter">Counterparty: TSO</span>
+    <p>Generation supply adjustment on the discharge side. Planned-actual matching, imbalance settlement, and the generation-side charge attach here.</p>
+  </div>
+  <div class="layer-card">
+    <span class="l-num">LAYER 3</span>
+    <h4>Retail Supply Contract</h4>
+    <span class="l-counter">Counterparty: Retailer</span>
+    <p>Procurement of the electricity to be charged into the battery. Currently treated as retail supply; "indirect demand" reframing is under deliberation.</p>
+  </div>
+  <div class="layer-card">
+    <span class="l-num">LAYER 4</span>
+    <h4>BG Contract</h4>
+    <span class="l-counter">Counterparty: Aggregator / OCCTO</span>
+    <p>Balancing Group. Dual-BG structure: simultaneously belongs to a generation BG (discharge) and a demand BG (charge).</p>
+  </div>
+  <div class="layer-card">
+    <span class="l-num">LAYER 5</span>
+    <h4>Market Participation</h4>
+    <span class="l-counter">Counterparty: JEPX / EPRX / OCCTO / TSO</span>
+    <p>Five revenue streams: JEPX, EPRX, capacity market, LDA, and the Reserve Capacity Utilization Contract with the TSO.</p>
+  </div>
+  <div class="layer-core">CORE: Grid-Scale Battery Storage (1 site, dual identity as demand and generation)</div>
+</div>
+
+<p class="note-small">Fig 1. The 5-layer map of contracts a grid-scale battery storage signs. The five layers are not independent — they cascade as preconditions for one another.</p>
+
+<h3>1-1 The Role of Each Layer</h3>
+
+<p><strong>Layer 1 — Wheeling contract (charging side / connection supply contract).</strong> The counterparty is the TSO (transmission and distribution system operator). It is the contract under which wheeling supply is committed when the battery receives electricity from the grid for charging, and it is also where the eligibility for the battery special measure is decided. Contract demand (kW) and the wheeling unit price feed directly into project economics — so this is where Chapter 2 starts the deep-dive.</p>
+
+<p><strong>Layer 2 — Generation supply adjustment contract (GSA, discharge side).</strong> The counterparty is again the TSO. The GSA covers planned-actual matching for discharge (which is reverse power flow / generation from the TSO's perspective) on a 30-minute basis, plus imbalance settlement of the gap between plan and actual. The generation-side charge (the "connection-side receiving service charge") introduced on April 1, 2024 also hangs off this layer. Under the Electricity Business Act, the formal name was changed to "Electricity Volume Adjustment Supply" by <strong>Act No. 47 of 2015</strong> (the third-stage power system reform amendment, promulgated June 24, 2015 and enforced April 1, 2020); however, the contract name in each utility's wheeling supply tariff is still "Generation Supply Adjustment Contract" (GSA).</p>
+
+<p><strong>Layer 3 — Retail supply contract (procurement of charging electricity).</strong> Disciplines "from whom and how" the electricity to be charged is purchased. Material 4 of the 68th Electricity and Gas Basic Policy Subcommittee (December 26, 2023) summarizes that battery charging via the grid is currently treated, in principle, as "retail supply," and the standard form is for the storage operator to purchase electricity from a retail electricity provider. The same material then takes one step further: "supply (charging) to a battery is not necessarily supply of electricity to the final customer," and raises the question of <strong>repositioning it as supply to "indirect demand."</strong> As of April 2026, this remains under deliberation — no final regulatory amendment has been adopted.</p>
+
+<p><strong>Layer 4 — BG contract (Balancing Group).</strong> The layer that clarifies who bears responsibility for planned-actual matching. A grid-scale battery is, on a single site, <strong>simultaneously belonging to both a generation BG (when discharging) and a demand BG (when charging) — the dual-BG structure</strong>. This is closer to "primary/secondary swap under dual membership" than to "switching." Two options exist: forming a standalone BG, or sitting under an aggregator (specified wholesale supply operator). In practice, first-of-its-kind projects often start under an aggregator, build operational experience, accumulate know-how, and migrate to a standalone BG. METI / OCCTO policy documents do not codify this migration path, but the pattern shows through in operator disclosures. The specified-wholesale-supply-operator scheme itself was created by the Electricity Business Act amendment under <strong>Act No. 49 of 2020</strong> (effective April 1, 2022).</p>
+
+<p><strong>Layer 5 — Market participation / monetization contracts.</strong> A bundle of contracts required per revenue source: the JEPX (Japan Electric Power Exchange) trading-participant contract, the EPRX (Electric Power Procurement Exchange — the balancing market) trading-member contract, the prerequisite contracts for capacity-market main-auction bidding, the LDA (Long-term Decarbonized Power Source Auction) capacity-securing contract, and the Reserve Capacity Utilization Contract signed directly with the TSO. The last — the Reserve Capacity Utilization Contract — sits in parallel with the balancing market and is dispatched in merit-order when balancing-market-procured ΔkW falls short. It is also embedded as a <strong>required component for capacity-market and LDA awards</strong> and forms the core of the supply-balancing scheme for grid-scale batteries.</p>
+
+<p><strong>The five layers are not independent — they cascade as preconditions for one another.</strong> JEPX participation, for instance, requires the wheeling-related contracts (Layers 1 and 2) as a prerequisite. EPRX participation requires the GSA and connection supply contract <em>plus</em> a "Balancing Market Contract" with the local TSO. LDA bidding is conditional on a connection study response (the precursor to Layers 1 and 2) and secured land at the bid stage; once awarded, the obligation to maintain the GSA, the Reserve Capacity Utilization Contract, the JEPX contract, and the EPRX contract continues for the full 20-year operation period.</p>
+
+<p>From Chapter 2 onward, we walk through these five layers in order — starting with Layer 1 and the pumped-storage special measure.</p>
+
+
+<h2>02 — Layer 1: Why the Pumped-Storage Measure Allows "100 kW Contract Demand"</h2>
+
+<h3>2-1 A Battery Is a "Demand Customer That Is Also a Power Plant"</h3>
+
+<p>Brought into the world of wheeling contracts, a grid-scale battery becomes a slightly awkward fit.</p>
+
+<p>For a normal demand customer — say, a factory — the contracted wheeling demand is sized by the maximum simultaneous power (kW) the facility consumes. A factory using 1,999 kW signs a wheeling contract demand close to 1,999 kW.</p>
+
+<p>A grid-scale battery, however, draws up to 1,999 kW into storage and is built to wheel essentially all of it out to other demand locations later. More than 99% of the electricity passing through the receiving point is not "consumed in-house" but "stored and forwarded to somewhere else." Applying the standard demand-customer logic to wheeling charges would, as with pumped-storage hydro, double-charge the same electrons.</p>
+
+<p>To avoid this double-charging, pumped-storage hydro has long had access to <strong>Annex 4 of the Wheeling Supply Tariff: "Special Measures for Connection Supply to Demand Locations Where Pumped-Storage Generation Equipment Is Installed."</strong> Grid-scale batteries were formally folded into the scope of this annex on April 1, 2024. The path:</p>
+
+<div class="compare-row">
+  <div class="compare-card before">
+    <div class="lbl">Before — Standard Demand Logic</div>
+    <h4>Contract Demand ≈ 1,999 kW</h4>
+    <p>The full PCS rated power becomes the chargeable contract demand. Wheeling charges are calculated as if the storage facility consumes that power in-house — the same electricity is double-charged on the way in and the way out.</p>
+  </div>
+  <div class="compare-card after">
+    <div class="lbl">After — Battery Special Measure (Annex 4)</div>
+    <h4>Contract Demand ~100 kW</h4>
+    <p>Only the storage-loss portion (PCS rated × loss rate) is treated as "consumed electricity." The body of the charge electricity passes through tax-free, and only the loss component plus minimal in-house consumption is subject to wheeling charges.</p>
+  </div>
+</div>
+<p class="note-small">Fig 2. Comparison of wheeling chargeable demand before and after the battery special measure is applied. Effective from April 1, 2024.</p>
+
+<p>The Electricity Business Act amendment (<strong>Act No. 46 of 2022</strong>, promulgated May 20, 2022 and enforced April 1, 2023) classified discharge from grid-scale storage above 10,000 kW as a generation business. Following this, on <strong>December 1, 2023, all 10 TSOs simultaneously filed for tariff approval</strong> (only Hokkaido Electric Power Network re-filed on December 5), approval was granted on January 17, 2024, and the revised Annex 4 took effect on April 1, 2024 — a three-step sequence that explicitly built batteries into the annex. The text reads "pumped-storage generation equipment or battery storage (hereafter 'pumped-storage generation equipment, etc.')" — the two are written in parallel, meaning <strong>grid-scale storage is built into the scope of application head-on, not by analogy</strong>.</p>
+
+<p>A note on naming. The official METI / Electricity-Gas Subcommittee abbreviation is "battery special measure"; the tariff text uses the prefix "pumped-storage, etc." (as in "pumped-storage-etc. loss rate"). This column uses the industry shorthand "pumped-storage measure" and the official "battery special measure" interchangeably depending on context.</p>
+
+<h3>2-2 The Formula: What Falls Outside the Charge Base</h3>
+
+<p>The core of Annex 4 is a redefinition of the chargeable demand and energy for wheeling purposes (the operators are written in full-width "×", "+", "=" in the tariff text):</p>
+
+<pre>
+Chargeable Demand   = Pumped-Storage Max Demand × Pumped-Storage-etc. Loss Rate + Other Max Demand
+Chargeable Energy   = Pumped-Storage Connection Supply Energy × Pumped-Storage-etc. Loss Rate + Other Connection Supply Energy
+</pre>
+
+<p>"Pumped-storage max demand" refers to the power the battery receives for charging; "pumped-storage connection supply energy" refers to that energy. "Other max demand" and "other connection supply energy" cover electricity used on the storage site for purposes other than charging — that is, in-house consumption beyond ancillary equipment.</p>
+
+<p>The "pumped-storage-etc. loss rate" is what does the work. Of the electricity charged into the battery, what eventually returns to the grid and reaches another demand location is the residual after losses. Only that loss portion is treated as "electricity consumed as demand" and folded into the charge base — that is the heart of the Annex 4 logic. <strong>The body of the charged electricity (~90%) drops out of the charge base; only the loss-equivalent portion (~10%) plus in-house consumption remains chargeable.</strong></p>
+
+<p>The specific value of the loss rate is not standardized in the tariff. Each tariff states "the pumped-storage-etc. loss rate shall be set per supply point through annual consultation between the contractor and the utility" — handling it as an annually negotiated item. METI's "FY2024 3rd Stationary Storage System Diffusion Expansion Study Group" material (August 29, 2024) adopts <strong>round-trip efficiency of 90% (loss rate equivalent to 10%)</strong> as the assumption in its profitability projections for grid-scale batteries — and this has become the de facto industry reference.</p>
+
+<p>That said, it is worth digging one level deeper. State-of-the-art lithium-ion batteries can deliver actual round-trip efficiency of <strong>95% or higher</strong>, and there is room in the annual consultation to reflect the actual measured efficiency (a loss rate equivalent to <strong>5%</strong>). When this column refers to "contract demand around 100 kW" in subsequent passages, the assumption is the case where <strong>the negotiated loss rate based on actual efficiency (5% loss) is combined with minimized in-house consumption ("Other Max Demand" ≈ zero)</strong>. If the METI assumption of 10% loss is taken at face value, contract demand lands closer to 200 kW.</p>
+
+
+<h3>2-3 Contract Demand Is Driven by "Other Max Demand"</h3>
+
+<p>The basis for the 100 kW contract demand design becomes visible from here.</p>
+
+<p>The basic charge for wheeling is calculated as contract demand (kW) × basic-charge unit price × 12 months. Without the pumped-storage measure, contract demand has to be set close to the receiving point's overall maximum demand — the battery's 1,999 kW peak charging power plus in-house consumption.</p>
+
+<p>With the pumped-storage measure applied, the chargeable demand follows the Annex 4 structure:</p>
+
+<pre>Chargeable Demand = Pumped-Storage Max Demand × Loss Rate + Other Max Demand</pre>
+
+<p>If the battery's peak charging demand is 1,999 kW, multiply by the negotiated loss rate (typical 10%) and add in-house consumption ("Other Max Demand"). Assuming peak in-house consumption of 50 kW:</p>
+
+<pre>1,999 kW × 10% + 50 kW = 199.9 kW + 50 kW ≈ 250 kW</pre>
+
+<p>This 250 kW does not, however, automatically become the contract demand. <strong>In practice, two further rounds of compression follow</strong> (the three-step framing below is this column's own organization, derived from the tariff text and operating practice).</p>
+
+<h4>Step 1: Treatment of In-House Consumption</h4>
+
+<p>For a standalone grid-scale battery storage, the treatment of ancillary equipment (PCS power supply, HVAC, lighting, etc.) was clarified in 2023. <strong>Tokyo Electric Power Grid's "Procedures for Special High-Voltage / High-Voltage Generation Supply Adjustment Contract Application," p.21,</strong> states in the body: "The Agency for Natural Resources and Energy clarified that ancillary equipment for grid-scale batteries shall be treated as part of the battery. ... 'Other electricity' no longer exists, and multiple meters are no longer needed." A separate explanation box lists "PCS power supply, HVAC, lighting, etc." as examples of ancillary equipment (combined here for clarity). In short, for a standalone grid-scale battery, ancillary equipment is now subsumed into "pumped-storage generation equipment, etc." under the pumped-storage measure and is removed from the separate-classification scope.</p>
+
+<p>For renewables-co-located or load-co-located cases, however, "other loads" exist beyond ancillary equipment, so their simultaneous-maximum demand must be fixed through individual consultation between the operator and the TSO. The negotiation centers on how much the simultaneous peak of the other loads overlaps in time with the battery's peak charging window. In practice, "Other Max Demand" converges to near zero or negligible levels in standalone storage projects, and stays in the tens of kW to ~100 kW range even in co-located cases.</p>
+
+<h4>Step 2: Loss-Rate Negotiation for Pumped-Storage Max Demand</h4>
+
+<p>The leading term in the Annex 4 formula — "pumped-storage max demand × loss rate" — moves materially with the loss rate. METI's projection assumption of 90% round-trip efficiency (10% loss) is not a regulated value; it is set by annual consultation between the contractor and the TSO and reset every year.</p>
+
+<p>The negotiation can, in industry practice, be decomposed into roughly three sub-points (the tariff treats it as a single loss-rate consultation; what follows is a breakdown of points typically discussed inside that consultation):</p>
+
+<p>First, the <strong>battery RTE (round-trip efficiency)</strong> itself. Lithium-ion cells alone deliver ~95%+ RTE, but the system as a whole (AC round-trip, including PCS) drops to ~85-90% in actual operation. New-equipment manufacturer-stated values are typically 90-95%, and there is degradation over time depending on operating conditions (an industry rule of thumb cites ~85% after 2-3 years, though this depends heavily on operating conditions, cell temperature, and SOC range). Whether to negotiate at the new-equipment value or the 20-year operational average changes the loss rate.</p>
+
+<p>Second, the treatment of <strong>conversion-system losses</strong>. PCS conversion losses, substation losses, and in-station wiring losses — whether these are folded into the loss rate is itself a point of discussion, since the boundary with "electricity consumed as demand" (the wheeling-chargeable category) is fuzzy and the treatment may differ by TSO.</p>
+
+<p>Third, the <strong>incorporation of degradation</strong>. Capacity degradation depends strongly on operating temperature, SOC, and DOD; for stationary applications, the industry-typical range is roughly 0.5-3.5% per year (higher in the early years, declining thereafter). For LDA-awarded projects, around 2% per year is often assumed. Whether to use an operating-period-average loss rate that bakes in degradation, or to renegotiate every year on actual measurements — institutionally, the annual-consultation framework leans toward the latter, but in practice some operators run with the former (a fixed value) for the time being.</p>
+
+<p>Once the loss rate is fixed at around 10% with these points settled, the chargeable demand becomes:</p>
+
+<pre>1,999 kW × 10% + 50 kW ≈ 250 kW</pre>
+
+<p>Whether this 250 kW lands as the actual "contract demand" is yet another question. <strong>From here, a third step follows — how to design the operational maximum demand.</strong></p>
+
+<h4>Step 3: Operational Design and Contract Demand</h4>
+
+<p>Depending on operational design, the simultaneous peak of charging and in-house consumption can, by construction, be made not to occur.</p>
+
+<p>First, <strong>using charging restrictions</strong>. By agreeing to early-connection-additional measures (newly introduced April 2025) that throttle charging in specific time windows, one can avoid charging during peak hours. This is less a grid-side constraint than a self-imposed operational plan: "do not charge during the windows when in-house consumption peaks." That allows further compression of the chargeable demand. (Note: the early-connection-additional measure was originally aimed at curbing charging on the forward-flow side, so its direct effect on cutting wheeling contract demand is limited.)</p>
+
+<p>Second, <strong>separating the in-house power source</strong>. Loads that can be decoupled from the battery itself (HVAC, lighting) could in principle be supplied by an independent power line (a separate retail contract). However, since the 2023 ancillary-equipment clarification (above) folded ancillary equipment into "pumped-storage generation equipment, etc." for standalone storage, the incentive to bother with a separate power source is thin. This option becomes meaningful only in renewables / load co-location cases where "other loads" actually exist.</p>
+
+<p>The third technique is <strong>using discharge to cover in-house consumption</strong>. During discharge, design the system so in-house consumption is covered by the battery's own discharge — no current is drawn from the grid. This pushes the in-house consumption's contribution to the chargeable demand toward zero. (Note: wheeling contract demand = receiving contract demand and the kW basis for the generation-side charge = simultaneous maximum receiving demand are different concepts; do not conflate them.)</p>
+
+<p>Reflecting these operational designs in the tariff's application via individual TSO consultation, an industry conversation has emerged around <strong>designing the site's overall wheeling contract demand (receiving contract demand) as low as possible</strong>. The specific threshold depends on project size, receiving voltage, and ancillary-equipment configuration; standardized public numbers from operator disclosures have not been confirmed. The design philosophy of minimizing in-house consumption is, however, consistent with the 2023 clarification that "ancillary equipment is part of the battery."</p>
+
+<p>The flip side: if the pumped-storage measure is granted but the in-house estimate, the loss-rate negotiation, and the operational design are not all closely tightened, contract demand can balloon to several hundred kW. <strong>A low contract demand is not a value that "happens automatically" — it is a number realized as the result of explicit pursuit as a design target.</strong> That is the practical core of this issue.</p>
+
+
+<h3>2-4 1,999 kW vs 100 kW — What Is the Annual Difference?</h3>
+
+<p>The differential can be calculated mechanically as basic-charge unit price × demand difference × 12 months. Based on the wheeling supply tariffs of the 10 TSOs (under the first revenue-cap regulation period; unit prices in effect as of April 1, 2026; Hokkaido Electric Power Network and Tohoku Electric Power Network reflect their October 1, 2025 revisions), the results are below. All listed unit prices are stated on a tax-included basis. <strong>Note: under the current rules, "high voltage" tops out at contract demand below 2,000 kW, so the "2,000 kW → 100 kW" headline in the HV column should be read as a hypothetical compression from near-the-cap 1,999 kW down to 100 kW.</strong></p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>TSO</th><th style="text-align:right">EHV — Annual Difference</th><th style="text-align:right">HV — Annual Difference</th></tr>
+</thead>
+<tbody>
+<tr><td>Hokkaido Electric Power Network</td><td class="num">~¥11.76<span class="u">M</span></td><td class="num em">~¥19.20<span class="u">M</span></td></tr>
+<tr><td>Tohoku Electric Power Network</td><td class="num">~¥10.53<span class="u">M</span></td><td class="num">~¥16.59<span class="u">M</span></td></tr>
+<tr><td>Tokyo Electric Power Grid (TEPCO PG)</td><td class="num">~¥9.65<span class="u">M</span></td><td class="num">~¥14.90<span class="u">M</span></td></tr>
+<tr><td>Chubu Electric Power Grid</td><td class="num em">~¥8.15<span class="u">M</span></td><td class="num em">~¥10.65<span class="u">M</span></td></tr>
+<tr><td>Hokuriku Electric Power T&amp;D</td><td class="num em">~¥13.03<span class="u">M</span></td><td class="num">~¥17.05<span class="u">M</span></td></tr>
+<tr><td>Kansai Transmission &amp; Distribution</td><td class="num">~¥10.03<span class="u">M</span></td><td class="num">~¥15.12<span class="u">M</span></td></tr>
+<tr><td>Chugoku Electric Power Network</td><td class="num">~¥8.75<span class="u">M</span></td><td class="num">~¥15.02<span class="u">M</span></td></tr>
+<tr><td>Shikoku Electric Power T&amp;D</td><td class="num">~¥11.63<span class="u">M</span></td><td class="num">~¥16.24<span class="u">M</span></td></tr>
+<tr><td>Kyushu Electric Power T&amp;D</td><td class="num">~¥10.99<span class="u">M</span></td><td class="num">~¥12.61<span class="u">M</span></td></tr>
+<tr><td>Okinawa Electric Power</td><td class="num">~¥10.77<span class="u">M</span></td><td class="num">~¥16.27<span class="u">M</span></td></tr>
+<tr class="hl"><td class="em">10-TSO Average</td><td class="num em">~¥10.53<span class="u">M</span></td><td class="num em">~¥15.36<span class="u">M</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>For EHV, the range is <strong>~¥8.15M to ~¥13.03M per year</strong>; for HV, <strong>~¥10.65M to ~¥19.20M per year</strong>. The 10-TSO average is approximately ¥10.53M (EHV) and ¥15.36M (HV). Cumulated over the 20-year operating period, even an average area exceeds ¥200M, and an HV project in Hokkaido Electric Power Network's territory differs by roughly ¥380M.</p>
+
+<div class="sim-container" id="wheeling-calculator">
+  <div class="sim-title">Interactive Wheeling Charge Calculator<span class="tag">INTERACTIVE</span></div>
+  <div class="sim-row">
+    <span class="sim-label">TSO area</span>
+    <select class="sim-select" id="wcTSO">
+      <option value="hokkaido">Hokkaido Electric Power Network</option>
+      <option value="tohoku">Tohoku Electric Power Network</option>
+      <option value="tepco" selected>Tokyo Electric Power Grid (TEPCO PG)</option>
+      <option value="chubu">Chubu Electric Power Grid</option>
+      <option value="hokuriku">Hokuriku Electric Power T&amp;D</option>
+      <option value="kansai">Kansai Transmission &amp; Distribution</option>
+      <option value="chugoku">Chugoku Electric Power Network</option>
+      <option value="shikoku">Shikoku Electric Power T&amp;D</option>
+      <option value="kyushu">Kyushu Electric Power T&amp;D</option>
+      <option value="okinawa">Okinawa Electric Power</option>
+    </select>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">Voltage class</span>
+    <select class="sim-select" id="wcVoltage">
+      <option value="ehv">Extra-high voltage (EHV)</option>
+      <option value="hv" selected>High voltage (HV, &lt;2,000 kW)</option>
+    </select>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">PCS rated output</span>
+    <input type="range" class="sim-slider" id="wcPCS" min="500" max="5000" value="1999" step="1">
+    <span class="sim-value"><span id="wcPCSVal">1,999</span> kW</span>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">Loss rate (negotiated)</span>
+    <input type="range" class="sim-slider" id="wcLoss" min="3" max="15" value="10" step="1">
+    <span class="sim-value"><span id="wcLossVal">10</span>%</span>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">Other Max Demand (in-house)</span>
+    <input type="range" class="sim-slider" id="wcOther" min="0" max="200" value="50" step="5">
+    <span class="sim-value"><span id="wcOtherVal">50</span> kW</span>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">Operating years</span>
+    <input type="range" class="sim-slider" id="wcYears" min="1" max="20" value="20" step="1">
+    <span class="sim-value"><span id="wcYearsVal">20</span> years</span>
+  </div>
+  <div class="sim-results">
+    <div class="sim-res-cell">
+      <div class="rc-label">Theoretical chargeable demand</div>
+      <div class="rc-val"><span id="wcChargeable">~250</span><span class="u">kW</span></div>
+      <div class="rc-sub">PCS × loss rate + Other Max Demand</div>
+    </div>
+    <div class="sim-res-cell">
+      <div class="rc-label">Monthly basic charge (with measure)</div>
+      <div class="rc-val">¥<span id="wcMonthly">163,468</span></div>
+      <div class="rc-sub">Chargeable demand × unit price (tax-incl.)</div>
+    </div>
+    <div class="sim-res-cell">
+      <div class="rc-label">Annual saving vs. no measure</div>
+      <div class="rc-val">¥<span id="wcAnnual">14.90</span><span class="u">M</span></div>
+      <div class="rc-sub">(PCS - chargeable) × unit price × 12</div>
+    </div>
+    <div class="sim-res-cell hl">
+      <div class="rc-label">Cumulative saving over period</div>
+      <div class="rc-val">¥<span id="wcTotal">298.0</span><span class="u">M</span></div>
+      <div class="rc-sub">Annual saving × operating years</div>
+    </div>
+  </div>
+</div>
+
+<p class="note-small">Unit prices used (tax-incl., ¥/kW/month): Hokkaido EHV 515.90 / HV 842.60; Tohoku 462.00 / 728.20; TEPCO PG 423.39 / 653.87; Chubu 357.50 / 467.50; Hokuriku 572.00 / 748.00; Kansai 440.00 / 663.30; Chugoku 383.90 / 658.90; Shikoku 510.40 / 712.80; Kyushu 482.05 / 553.28; Okinawa 472.49 / 713.93. The chargeable demand is calculated as PCS × loss rate + Other Max Demand. Actual contract demand depends on TSO consultation and operational design.</p>
+
+<h3>2-5 Eligibility and Application Practice</h3>
+
+<p>The pumped-storage measure operates on prior-application: the entry point is the special-remarks field of Form 1(9) of the connection study application. "Battery special measure application: Yes" must be filled in — that is the common starting point across all 10 TSOs. Detailed form-completion rules (charging-as-negative / discharging-as-positive sign conventions, treatment of in-house consumption, loss-rate consultation procedure) are picked up in Chapter 8's checklist.</p>
+
+<p>Three points to keep in mind during the application phase:</p>
+
+<p>First, <strong>missing the entry on Form 1(9) can be terminal</strong>. Without explicit declaration of the battery special measure at the connection study stage, claiming it later at the GSA stage requires re-consultation. Second, <strong>the loss-rate consultation is an annual process</strong> per the tariff text, and the year-one negotiated value tends to anchor the project's economic model. Third, <strong>application forms differ slightly by TSO</strong>. Kyushu Electric Power T&amp;D's low-voltage Form 1-3 splits into two formats — "Grid Connection Documents (Other than Solar)" and "Grid Connection Documents (Solar + Battery Co-located)" (updated April 2025; for HV / EHV, the special-remarks field carries the battery-special-measure declaration). Kansai T&amp;D additionally requires submission of a "Confirmation Letter on Special Measures for Pumped-Storage Generation Equipment and Storage Batteries" when reverse power flow is involved.</p>
+
+
+<h2>03 — Layer 2: GSA Contract and the Generation-Side Charge</h2>
+
+<p>If Layer 1 is the contract for "drawing electricity from the grid for charging," Layer 2 is the contract for "putting discharged electricity back onto the grid." Under the Electricity Business Act, a grid-scale battery is treated as a power plant the moment it discharges, so it must — like a solar plant — sign a <strong>Generation Supply Adjustment Contract (GSA)</strong> with the local TSO.</p>
+
+<p>The GSA commits to three things. First, submission of 30-minute generation sales plans under planned-actual matching. Second, settlement of the gap between plan and actual (imbalance). Third, payment of the generation-side charge (the connection-side receiving service fee) that accompanies discharge.</p>
+
+<p>What is unique to grid-scale storage in this layer is the <strong>battery exemption built into the generation-side charge</strong>.</p>
+
+<h3>3-1 Generation-Side Charge: kW Charge Yes, kWh Charge No</h3>
+
+<p>The generation-side charge was introduced on April 1, 2024, allocating a portion of the upper-grid fixed costs to generators. In principle, all generators bear both the kW component (basic charge) and the kWh component (energy charge).</p>
+
+<p>However, <strong>for storage and pumped-storage, the kWh component is exempt</strong>. The Electricity and Gas Market Surveillance Commission's "Introduction of Generation-Side Charge — Interim Summary" (published April 2023, revised April 2025), p.10, organizes the rationale as follows: "In light of the burden of the generation-side charge that arises when electricity passes through pumped-storage / battery storage, and in the interest of fairness with other power sources, it has been organized in the Agency for Natural Resources and Energy's deliberations that the kWh charge for pumped-storage and battery storage shall be exempted."</p>
+
+<p>The electricity charged into a battery is, traced back upstream, simply electricity generated by some other source. The kWh generation-side charge has already been levied at the original generation point, so charging again on discharge would double-charge the same kWh. The exemption exists to prevent that.</p>
+
+<p>The combination of Layer 1's pumped-storage measure (treating only the storage-loss portion as chargeable on the wheeling side at charging time) and Layer 2's kWh-exemption (no re-charge on discharge) seals off double-charging for electricity passing through the battery as a system-wide property.</p>
+
+<h3>3-2 The kW Charge Is Levied Normally</h3>
+
+<p>While the kWh component is exempted, <strong>the kW component (basic charge) is levied as usual</strong>. The formula:</p>
+
+<pre>
+Chargeable kW = max(Simultaneous Maximum Receiving Demand - Demand-Side Connection Service Contract Demand, 0)
+Basic Charge  = Chargeable kW × Basic-Charge Unit Price
+</pre>
+
+<p>"Simultaneous maximum receiving demand" is fixed per generation site by consultation between the generator and the TSO; there is no rule that automatically uses the PCS rated output. In practice, the application-stage consultation aligns it with the PCS AC rated output.</p>
+
+<p>For a standalone battery storage project with PCS 2 MW / 8 MWh and demand-side contract demand = 0 kW, the rough annual basic-charge load is as follows (unit prices tax-included):</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>TSO</th><th style="text-align:right">Monthly Basic Charge</th><th style="text-align:right">Annual</th></tr>
+</thead>
+<tbody>
+<tr><td>Tokyo Electric Power Grid (TEPCO PG)</td><td class="num">¥174,000</td><td class="num">~¥2.09<span class="u">M</span></td></tr>
+<tr><td>Chubu Electric Power Grid</td><td class="num">¥161,000</td><td class="num">~¥1.93<span class="u">M</span></td></tr>
+<tr><td>Kansai Transmission &amp; Distribution</td><td class="num">¥196,000</td><td class="num">~¥2.35<span class="u">M</span></td></tr>
+<tr><td>Kyushu Electric Power T&amp;D</td><td class="num">¥170,000</td><td class="num">~¥2.04<span class="u">M</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>This is a conservative projection (without applying Discount A or Discount B). Depending on site conditions, eligibility for discounts may bring this down further.</p>
+
+<h3>3-3 Special Treatment for Batteries Co-Located with Approved FIT/FIP Sources</h3>
+
+<p>The most easily confused area from an owner's perspective is the <strong>treatment of batteries co-located with already-approved FIT / FIP sources</strong>. FIT / FIP sources approved on or before March 31, 2024 are exempt from the generation-side charge during their feed-in / supply periods. For batteries co-located with these sources, however, a separate organization applies.</p>
+
+<p>The interim summary (revised), p.11, states: "From the perspective of fairness with other power sources, the kWh charge for batteries has been organized as exempt; therefore, in principle, the kWh charge on a generation-co-located battery applies to discharge based on charging from sources other than the co-located generator's output (i.e., charging via the grid)." In short, for batteries co-located with already-approved FIT / FIP sources, <strong>only the grid-charging-to-discharge portion</strong> is subject to the kW charge.</p>
+
+<p>One caveat on FIP-co-located batteries: <strong>the relaxation allowing grid-charging is restricted in scope</strong>. Newly approved FIP-co-located batteries (paired with sources approved on or after April 2024) have been allowed grid-charging since April 2024; already-approved FIP-co-located batteries (paired with FY2023 or earlier approved sources) since April 2025. <strong>FIT-co-located batteries are not eligible for this transitional measure</strong> and grid-charging is not allowed. <strong>Standalone grid-scale storage is also outside this transitional measure</strong>: projects starting commercial operation on or after April 2024 are subject to the kW charge from day one.</p>
+
+
+<h2>04 — Layer 3: Where Does the Charging Electricity Come From?</h2>
+
+<p>Among the contracts a battery storage signs, the area where the regulatory framework is least settled is <strong>how the charging electricity is procured</strong>.</p>
+
+<p>Material 4 of the 68th Electricity and Gas Basic Policy Subcommittee (December 26, 2023), p.11, organizes it as follows: "Currently, the supply of electricity to batteries via the grid (transmission and distribution network) is basically supplied as 'retail supply,' and obtaining a retail electricity provider license is required."</p>
+
+<p>The same material, p.11, also states: "The electricity supplied (charged) to a battery is ultimately supplied (discharged) as electricity used by demand customers; the supply (charging) to the battery itself cannot necessarily be said to be supply of electricity to the final demand customer." Then on p.14, it goes one step further, raising as <strong>a deliberation point</strong> the possibility of repositioning this as supply to "<strong>indirect demand</strong>" and noting "we may need to consider an organization under the Electricity Business Act."</p>
+
+<p>In other words, as of April 2026, the regulatory positioning is in a transitional state: "<strong>currently operated as retail supply, but reframing as indirect demand remains under deliberation</strong>." No final regulatory amendment has been adopted, and new procurement routes — including via specified wholesale supply operators — are not yet "established institutionally."</p>
+
+<h3>4-1 Three Procurement Routes</h3>
+
+<p>In practice, the routes by which a battery storage procures charging electricity divide into three.</p>
+
+<p><strong>Route 1: Via a retail electricity provider.</strong> The storage operator purchases electricity from a retail electricity provider — this is the form Material 4 describes as "basically retail supply." The storage side does not need a license; the supply side needs to be registered as a retail electricity provider. <strong>The current standard form</strong> falls here.</p>
+
+<p><strong>Route 2: Direct procurement via JEPX.</strong> The storage operator obtains JEPX (Japan Electric Power Exchange) trading-member status and procures electricity directly from the spot and intraday markets. This works when the storage operator itself is registered as a generation business or holds another applicable business license. Material 4 of the 68th Subcommittee does not explicitly address this form in the body text.</p>
+
+<p><strong>Route 3: Via an aggregator.</strong> Using the specified wholesale supply operator (Article 27-30 of the Electricity Business Act) scheme created under the Act No. 49 of 2020 amendment (effective April 2022). However, the specified wholesale supply operator is defined under the Electricity Business Act as a business that supplies aggregated electricity to "retail electricity providers, TSOs, distribution operators, and specified transmission operators" — it is not a scheme that directly governs procurement routes for battery charging (which sits one stage before final demand). Given that the indirect-demand reframing is still under deliberation, the application of this route to battery charging is <strong>left to future institutional design</strong>.</p>
+
+<h3>4-2 Regulatory Uncertainty and Practical Judgment</h3>
+
+<p>Of the three routes, Route 1 (via a retailer) is clearly the current regulatory standard. <strong>Routes 2 and 3 remain thin on primary-source institutional organization</strong>, and operators currently mix and match based on their own business form (whether registered as a generator, whether they have an aggregator partnership, whether they have the scale to justify direct JEPX participation).</p>
+
+<p>From an owner's decision-making standpoint, two points stand out:</p>
+
+<p>First, <strong>for first-of-its-kind projects, Route 1 (via a retailer) is the institutionally safest choice</strong>. Until the indirect-demand reframing is finalized, picking anything other than Route 1 means absorbing legal interpretation risk. Second, <strong>migration to direct JEPX procurement after operational maturity is a reasonable trajectory</strong>, contingent on both scale and operational capability being in place. Coordination with Layers 4 and 5 (BG design, JEPX trading-member contract) is a precondition.</p>
+
+
+<h2>05 — Layer 4: BG Contract and the Dual-BG Structure</h2>
+
+<p>The BG (Balancing Group) contract for a grid-scale battery has a structure decisively different from solar's.</p>
+
+<p><strong>A grid-scale battery, on a single site, simultaneously belongs to a demand BG (the connection supply contract during charging) and a generation BG (the generation supply adjustment contract during discharging).</strong> The image is one where, time-slot by time-slot, the primary and secondary roles swap within each BG's submitted plan / actual values — closer to "primary/secondary swap under dual membership" than to "switching." That is the actual nature of the so-called dual-BG structure.</p>
+
+<p>The EPRX "Guide to Treatment When Pumped-Storage Generation Equipment or Battery Storage Equipment Participates in the Balancing Market" (1st edition published November 18, 2024; 3rd edition effective March 14, 2026), p.6 / p.10, requires on the discharge side the GSA with the local TSO plus the submission of a generation sales plan to OCCTO, and on the charge side the connection supply contract plus a demand-procurement plan submission to OCCTO (with a separately issued operator code). When consulting the latest, refer to the 3rd edition.</p>
+
+<h3>5-1 Standalone BG vs. Aggregator-Affiliated</h3>
+
+<p>Two options exist for operating the dual-BG structure.</p>
+
+<p><strong>Standalone BG</strong> means the storage operator itself runs both the generation BG and the demand BG. All planned-actual matching responsibility and imbalance risk are kept in-house, in exchange for capturing all revenue. For a resource with deliverable output of 1,000 kW or more, standalone bidding into the balancing market under the "pumped-storage / battery" classification is also possible. In practice, a 24-hour supply-balancing operating room, system investment, and staffing are presupposed.</p>
+
+<p><strong>Aggregator-affiliated</strong> means the storage operator delegates BG operation to an aggregator (specified wholesale supply operator). The EPRX Guide notes in its p.6 footnote, "the GSA contract holder and the trading member need not be the same," and in its p.10 footnote, "the connection supply contract holder and the trading member need not be the same" — so the storage operator can keep contract-holder status on the GSA / connection supply contract while delegating market participation and BG operation to the aggregator. Resource classification depends on capacity, connection method, and pumped-storage-etc.-measure status: below 1,000 kW, choose from "VPP (generation) / VPP (demand) / VPP (generation+demand)"; at or above 1,000 kW without the pumped-storage-etc. measure, "VPP (generation+demand)" also becomes available (see Guide 3rd edition p.20 table).</p>
+
+<h3>5-2 The Phased Migration Pattern in Industry Practice</h3>
+
+<p>METI / OCCTO policy documents do not codify a phase-by-phase framework, but in industry practice — Tokyu Land Corporation's TENOHA Higashi-Matsuyama (operated by Shizen Connect, the Shizen Energy group's specified wholesale supply operator) and other first-of-their-kind projects — operation under an aggregator has gone first. The latent tendency for operators to migrate to a standalone BG after operational maturity has been pointed to by industry participants, but explicit case examples in public IR remain limited.</p>
+
+<p>Under the Electricity Business Act, projects of 10 MW or more are also classified as "generation business," and at scales of around 10 MW or more in owned assets, standalone BG starts to come into consideration (this is an industry rule of thumb; explicit threshold disclosures in public IR are limited). It is not a question of which is correct. The owned-asset scale, the level of operational organization, the scope of market participation (JEPX only / through balancing / extending to capacity market and LDA), and the firm's capacity to absorb imbalance risk — these are the variables that decide the choice.</p>
+
+
+<h2>06 — Layer 5: Market Participation and Monetization</h2>
+
+<p>Where Layers 1-4 are "the prerequisite contracts for the battery to operate," Layer 5 is "the contracts that generate revenue." There are five revenue streams.</p>
+
+<h3>6-1 JEPX Spot and Intraday Markets</h3>
+
+<p>The most basic revenue source: trading 30-minute blocks and capturing price arbitrage by buying low and selling high. Participation requires a <strong>JEPX trading-participant contract</strong>, with a net-asset requirement of at least ¥10M for direct participation (admission fee / annual fee per JEPX's latest official disclosure). Without direct participation, trade via a retailer or aggregator under Trading Member Regulations <strong>Article 2(1)(iv)</strong>: "a person commissioned by any of those listed in the preceding three items (provided that the commissioning party is not a trading member)."</p>
+
+<p>JEPX participation is conditional on the wheeling-related contracts (connection supply contract / GSA) with the local TSO. Without Layers 1 and 2 in place, the Layer 5 JEPX contract does not function.</p>
+
+<h3>6-2 EPRX Balancing Market</h3>
+
+<p>Five products, from primary control reserve (FCR) through tertiary control reserve II. Participation requires both an <strong>EPRX trading-member contract</strong> and a <strong>"Balancing Market Contract" with the local TSO</strong>. <strong>The minimum bid quantity is 1,000 kW (1 MW) common across all five products</strong>, as specified in EPRX Trading Regulations Article 13(2)(i)(c) and Annex Article 29. Inter-product differences appear not in the minimum bid quantity but in the connection method (dedicated-line online / via simplified command system) and in the details of metering and dispatch handling. Refer to the regulations and product-specific guidelines.</p>
+
+<p>Entry into the balancing market diverges in metering / bidding handling depending on whether the battery is classified as "pumped-storage / battery" or "VPP (generation+demand)." Standard practice is the former for 10 MW or more on dedicated-line online connection, the latter for sub-1 MW aggregations.</p>
+
+<p>The balancing market price ceiling: at the 110th meeting of the Working Group on Institutional Design (January 23, 2026), Material 4, p.6, presented <strong>a reduction of the ceiling from ¥19.51 to ¥15 / ΔkW per 30 minutes (Phase 1)</strong> and concurrently signaled "if the competitive situation in the market does not improve, a phased reduction down to ¥10 and then ¥7.21 / ΔkW per 30 minutes" (the initial ¥7.21 proposal itself was put forward at the 108th meeting, October 29, 2025). The Phase-1 reduction alone could materially shift the assumptions in profitability projections.</p>
+
+<h3>6-3 Capacity Market Main Auction</h3>
+
+<p>An auction market that trades capacity value (kW value) four years forward. Batteries participate from <strong>the FY2027 main auction onward</strong> as either a <strong>Stable Power Source</strong> (per measurement unit, expected capacity 1,000 kW or more, capable of continuous discharge of 3 hours or more at least once per day) or as a Dispatch-Order Power Source. Bid documents require: operator code, client certificate, participation registration affidavit; for new builds, a connection study response or a construction plan filing; and if the adjustment-capability flag is "Yes," <strong>the contract evidence for the Reserve Capacity Utilization Contract</strong>.</p>
+
+<h3>6-4 Long-Term Decarbonized Power Source Auction (LDA)</h3>
+
+<p>A long-term contract market that guarantees fixed income for 20 years. The bid eligibility for the battery category was unified from FY2025 (the 3rd round) at installed capacity 30 MW or more and continuous dischargeable duration 6 hours or more (for reference: FY2023's 1st round was 10 MW or more / 3 hours or more; FY2024's 2nd round was 30 MW or more in two splits — 3-6 hours / 6 hours or more). Only pre-COD new builds are eligible to bid.</p>
+
+<p>The LDA <strong>refunds other-market revenues in a three-tier structure</strong>. Per OCCTO's "Outline of the Long-Term Decarbonized Power Source Auction (FY2025 Bidding)," p.28, and Article 28(1) of the capacity-securing contract terms: (i) the portion up to the capital-cost component built into the bid price (referred to here as "Zone A") refunds at <strong>95%</strong>; (ii) the portion exceeding the differential between (contract unit price × contract capacity) and (main-auction price × contract capacity) ("Zone B") refunds at <strong>85%</strong>; (iii) the portion between (i) and (ii) ("Zone C") refunds at <strong>90%</strong>. In exchange, the 20-year capacity-securing contract amount is, in principle, locked in. It is built as a 95% / 85% / 90% three-tier structure rather than a single "~90%" refund rate — a point that directly affects bid-price design (note: "capital cost" is the term used from the 3rd round (FY2025) onward; rounds 1-2 used "business return"; "Zone A / B / C" are explanatory shorthand, not in the contract text — the contract uses "(i) / (ii) / (iii)" notation).</p>
+
+<p>The LDA layers contracts to be lined up at each phase — bid, award, COD, operation. At the bid stage: connection study response, secured land, business plan, technical specifications. After award: the capacity-securing contract plus, with the local TSO within the deadline, <strong>(i) a power-dispatch agreement, (ii) a Reserve Capacity Utilization Contract</strong> (under the capacity-securing contract terms, failure to conclude / cancellation triggers full market exit at the contracted capacity and economic penalties). The GSA is a precondition for the eligible source, and an unfavorable connection-cost surcharge that materially worsens economics relative to the bid-stage estimate is treated as a justified withdrawal cause. Before COD: BG contract, JEPX trading-member contract, EPRX trading-member contract, PPA. During operation: monthly receipt of the capacity-securing contract amount, three-tier refund of other-market revenues, continued listing in the supply plan, requirement compliance — a layered structure.</p>
+
+<h3>6-5 Reserve Capacity Utilization Contract</h3>
+
+<p>A bilateral contract signed directly between the TSO and the generator, allowing the TSO to dispatch reserve capacity post-gate-closure via online command. It sits in <strong>parallel and complementary</strong> relation to the balancing market, and is dispatched in merit-order when balancing-market-procured ΔkW is insufficient. <strong>For Stable Power Sources registered with the adjustment-capability flag "Yes" in the capacity market or LDA, it is built in as a required component</strong>: failure to conclude triggers market exit plus an economic penalty of contract capacity × unit price × 10% (the calculation structure is set out in Articles 13 / 17 of the main-auction capacity-securing contract terms and Articles 11 / 12 of the LDA capacity-securing contract terms).</p>
+
+<p>OCCTO's 105th Adjustment Capability Committee Material 2, "Future Operation of the Reserve Capacity Utilization Contract for Batteries" (January 28, 2025), proposes a two-way split between storage-style and non-storage-style operation, which METI's "Study Group on the Future of the Simultaneous Market" 15th meeting Material 6-2 (April 22, 2025) re-organizes into three classifications. Per this column's reading, the storage-style operation scope splits into three: (i) LDA-awarded batteries (10 MW or more, dedicated-line online); (ii) capacity-market-main-auction-awarded batteries (10 MW or more, dedicated-line online, Stable Power Source); (iii) other 10 MW or more, dedicated-line online batteries (eligible via individual consultation).</p>
+
+
+<h2>07 — One Day's Operation, Mapped to the Contracts</h2>
+
+<p>The 5-layer contract structure is complex when listed abstractly but becomes easier to grasp along a typical day's operating scenario. Below, a representative grid-scale battery storage's one-day timeline.</p>
+
+<div class="ops-timeline">
+  <div class="ops-slot">
+    <div class="ops-time">02:00<span class="ops-tag">Charging</span></div>
+    <div class="ops-body">
+      <h4>Late-night charging at low JEPX spot prices</h4>
+      <p>The battery draws power from the grid for charging. Four contracts are simultaneously in motion: Layer 3 retail supply (procurement of charge electricity), Layer 1 wheeling (with pumped-storage measure applied to the connection supply), Layer 4 demand BG (managing charging under planned-actual matching), and Layer 5 JEPX (spot fill). Most of the charging power is excluded from the chargeable demand under the pumped-storage measure, so the wheeling cost burden is held very low.</p>
+      <div class="ops-layers">
+        <span class="ops-layer">L1 Wheeling</span>
+        <span class="ops-layer idle">L2 GSA</span>
+        <span class="ops-layer">L3 Retail</span>
+        <span class="ops-layer">L4 Demand BG</span>
+        <span class="ops-layer">L5 JEPX</span>
+      </div>
+    </div>
+  </div>
+  <div class="ops-slot">
+    <div class="ops-time">08:00<span class="ops-tag">Standby</span></div>
+    <div class="ops-body">
+      <h4>Mid-range spot prices — neither charging nor discharging is economic</h4>
+      <p>Spot prices sit at intermediate levels; neither charge nor discharge delivers economic value. The battery suspends cycling and only takes in-house consumption from the grid. Layers 3, 1, and 4 are running; Layer 5 is idle. Only the "Other Max Demand" portion is chargeable under the pumped-storage measure.</p>
+      <div class="ops-layers">
+        <span class="ops-layer">L1 Wheeling</span>
+        <span class="ops-layer idle">L2 GSA</span>
+        <span class="ops-layer">L3 Retail</span>
+        <span class="ops-layer">L4 Demand BG</span>
+        <span class="ops-layer idle">L5 Market</span>
+      </div>
+    </div>
+  </div>
+  <div class="ops-slot">
+    <div class="ops-time">14:00<span class="ops-tag">Dispatch</span></div>
+    <div class="ops-body">
+      <h4>Balancing-market dispatch instruction during afternoon peak</h4>
+      <p>Area supply-demand tightens during afternoon peak; the TSO issues a balancing dispatch instruction (primary through tertiary control). The battery discharges to the grid. Three contracts are active: Layer 5 EPRX (balancing market clearance), Layer 2 GSA (planned-actual matching and imbalance settlement on discharge), and Layer 4 generation BG (dual membership in primary mode on the generation side). The kW component of the generation-side charge applies; the kWh component is exempt. Note: balancing market entry generally requires the storage to be a standalone BG.</p>
+      <div class="ops-layers">
+        <span class="ops-layer idle">L1 Wheeling</span>
+        <span class="ops-layer">L2 GSA</span>
+        <span class="ops-layer idle">L3 Retail</span>
+        <span class="ops-layer">L4 Generation BG</span>
+        <span class="ops-layer">L5 EPRX</span>
+      </div>
+    </div>
+  </div>
+  <div class="ops-slot">
+    <div class="ops-time">18:00<span class="ops-tag">Discharging</span></div>
+    <div class="ops-body">
+      <h4>Evening peak — additional discharge into elevated JEPX prices</h4>
+      <p>JEPX spot prices spike during evening peak; additional discharge is dispatched. Layer 5 JEPX, Layer 2 GSA, and Layer 4 generation BG (dual membership in primary mode on the generation side) are in motion.</p>
+      <div class="ops-layers">
+        <span class="ops-layer idle">L1 Wheeling</span>
+        <span class="ops-layer">L2 GSA</span>
+        <span class="ops-layer idle">L3 Retail</span>
+        <span class="ops-layer">L4 Generation BG</span>
+        <span class="ops-layer">L5 JEPX</span>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="note-small">Fig 3. Through the day, the battery swaps primary/secondary roles between demand and generation, activating different contract layers at different hours. <strong>At any given moment, 3-4 contracts are concurrently active; over 24 hours, 8-10 distinct contracts run</strong> — the actual reality of grid-scale battery storage operation.</p>
+
+
+<h2>08 — 11-Item Pre-Transfer Checklist: Contract State to Verify at Development-Right Transfer</h2>
+
+<p>For development-right transfers of grid-scale battery storage projects (projects with the connection study response and GSA approval already in hand, or projects with deposit payments already settled), here is a checklist of contract-state items both buyer and seller should verify. Every item is a practical line item to be reconciled in the post-NDA due-diligence phase.</p>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">A</span>Pre-Transfer Contract State (11-Item Checklist)</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="ci-num">01</span><strong>Battery special measure declared on the connection study application.</strong> The OCCTO connection study form (latest, post-April-2025) has a dedicated field for "Special Measure Application." Confirm this is set to "Yes" and consistent with the rest of the application. A blank field or "No" can lead to the battery special measure not being applied at the connection-supply-contract stage, exposing the project to demand-based charging post-transfer.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="ci-num">02</span><strong>Validity period of the connection study response and GSA application deadline.</strong> The connection study response carries a validity period; a GSA application not made within that period causes lapse. If GSA application is filed, confirm the receipt date and the expected approval date; if not, confirm the remaining window. Verify that the post-transfer schedule from execution to GSA application fits inside the deadline.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="ci-num">03</span><strong>Deposit payment status and refund conditions.</strong> Whether the connection-cost surcharge deposit (prepaid at the utility's specified ratio) has been paid; if paid, the treatment at transfer (buyer reimburses seller / pro-rate at closing, etc.). For EMC-core-origin HV projects, deposit-paid status has been organized for 77 projects, and presentation of the status document is the standard practice.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="ci-num">04</span><strong>Consistency between the connection study application body and attachments.</strong> Confirm the application follows the OCCTO official examples (Form AP2 for HV, Form AK1 for EHV; AP2K / AK1T are filename shorthand — full filenames carry an update-date suffix), and that equipment specifications (PCS rating, battery capacity, operation mode, etc.) do not contradict the subsequent GSA application and connection supply application. Post-transfer equipment changes require re-running the technical consultation with the grid-connection operator, so the spec should be locked down before transfer.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="ci-num">05</span><strong>Land rights status.</strong> Whether the land sale, lease, or surface-right contract is in place, and whether the parcel area, shape, frontage, and access road align with the equipment layout. For urbanization-adjustment-zone projects, confirm progress of zoning permits and farmland-conversion approvals; for urbanization-zone projects, confirm zoning restrictions (industrial-only / quasi-industrial / neighborhood-commercial, etc.) and Building Standards Act treatment.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="ci-num">06</span><strong>Status of relevant permits.</strong> METI-format related-laws confirmation, farmland-conversion approval (incl. agricultural-promotion-zone exclusion), development-act permit, forest-land-development permit, fire-department consent, local ordinances (environmental impact assessment, landscape, etc.). Separate already-issued from pending; for pending, organize the schedule and likelihood.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="ci-num">07</span><strong>Local-residents consent and municipal coordination status.</strong> Records of public information sessions, local-residents consent letters (if obtained), municipal coordination minutes. Local reception to battery storage siting varies materially by region; the buyer must regard the risk of latent opposition surfacing post-transfer as a key verification point.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="ci-num">08</span><strong>Planned BG affiliation.</strong> Which BG the battery will join post-transfer in operation phase (standalone BG / under an aggregator / folded into an existing BG). If under an aggregator, organize candidate aggregator pre-discussions, expected fee level, and inter-BG migration constraints. The principal point is whether the choice is consistent with the buyer's operational capability (whether they have in-house operations).</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="ci-num">09</span><strong>Market-participation policy and required memberships.</strong> Plans for JEPX (Japan Electric Power Exchange) trading-member status acquisition, eligibility verification for EPRX balancing-market participation, and the necessity decision for capacity market / LDA bidding. If the buyer is already a JEPX member, the policy on reusing membership; if new, the acquisition timeline.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="ci-num">10</span><strong>EPC selection status and aggregator candidate.</strong> Whether the EPC (engineering, procurement, construction) contract is signed, in selection, or unstarted. If signed: EPC name, contract amount, construction period, battery / PCS manufacturer; if in selection, candidates and quote-comparison status. Same for the aggregator candidate — clarify whether contract is signed, candidate list is organized, or it is unstarted.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="ci-num">11</span><strong>Main-application acceptance status (TEPCO PG area) / Surcharge-response-date notification email (Chubu PG area).</strong> In TEPCO PG's territory the "main application acceptance" status, in Chubu PG's territory the "surcharge response date notification email," is each the key document indicating progress on grid-connection construction. If issued at transfer, confirm by document presentation; if not, confirm the expected issuance window.</span></label>
+</div>
+
+<p class="note-small">The 11 items above are ScienceX's standard verification items when assembling buyer-facing project packages. A project meeting all items is judged "ready for immediate transfer"; any unmet item is treated as a point for negotiation on transfer conditions, transfer price, and transfer timing.</p>
+
+
+<h2>09 — Regulatory Uncertainty and Open Questions</h2>
+
+<h3>9-1 FY2026 Tariff Revision and Ceiling-Price Reduction</h3>
+
+<p>The FY2026 wheeling tariff revision (the final year of the first revenue-cap period) and the balancing-market ceiling-price revision feed directly into a grid-scale battery's revenue outlook. At the 110th meeting of the Working Group on Institutional Design (January 23, 2026), <strong>a reduction of the balancing market ceiling price for primary control reserve and secondary control reserve I from ¥19.51 to ¥15 / ΔkW per 30 minutes (Phase 1)</strong> was tabled, with a follow-on policy of phased reductions to ¥10 and then ¥7.21 / ΔkW per 30 minutes if competitive conditions do not improve. If a project's revenue projection leans heavily on balancing market revenue, sensitivity analysis incorporating this stepped reduction scenario is essential.</p>
+
+<p>The direction of unit-price revisions in the second revenue-cap period (FY2027-2031) and beyond will be set through each TSO's business-plan approval application. The pumped-storage-measure framework itself is, under the approval-deliberation framework, almost certainly preserved into the second period; details around the "kWh-portion" coefficient values and the application scope, however, remain open points.</p>
+
+<h3>9-2 Deliberation on the 2nd Interim Report's "6.6 Treatment of Pumped-Storage and DERs"</h3>
+
+<p>In the 2nd interim report of the Working Group on Institutional Design, Section 6.6 remains as a continuing-deliberation item on "procurement of adjustment capability from pumped-storage hydro via discretionary contracts." This is a separate point from the wheeling-tariff Annex 4 pumped-storage measure (and its application to grid-scale storage); it concerns the contract method and price-determination method for procuring pumped-storage hydro as a balancing resource. From a grid-scale storage owner's perspective, the direct impact is limited, but it can ripple into the formation mechanism of balancing-market prices.</p>
+
+<p>The direction of transitional measures for existing projects under the wheeling special measure (pumped-storage measure) for grid-scale storage itself is, within the primary-source confirmation scope, not yet recorded as a settled decision. Given the technical-deliberation character of the issue, however, it may be raised as a point during the detailed institutional design for the second revenue-cap period.</p>
+
+<h3>9-3 Open Items Specific to Battery Storage</h3>
+
+<p>Open items specific to battery storage include: (i) treatment of non-fossil value on charging electricity (the assignment of non-fossil certificates differs between procurement via a retailer and direct generator-to-generator bilateral procurement); (ii) relaxation of operational constraints on FIP-co-located batteries (priority order between non-fossil certification of the charging source and direct charging from the generation source); (iii) duration requirements for batteries in the capacity market (validation of the continuous-3-hour-operation requirement against actual demand); (iv) operational refinement of the Reserve Capacity Utilization Contract (consistency between actual operation and contract clauses for projects registered with the adjustment-capability flag "Yes"). These are expected to feature on the agendas of the Working Group on Institutional Design, the Balancing Market Subcommittee, and the Capacity Market Subcommittee through FY2026-2027.</p>
+
+
+<h2>Closing — The Contract Stack Is the Business Itself</h2>
+
+<p>A grid-scale battery's economics are not decided by equipment specifications or site conditions alone. <strong>The combination of 5 layers and 21 contracts, and the structure of money, electricity, and dispatch flowing through each layer</strong> — that is what shapes total revenue and total cost over 20 years. The "100 kW contract demand" that the pumped-storage measure permits creates a difference of roughly ¥10M per year on wheeling charges. The kWh exemption on the generation-side charge creates a difference of several to ten-plus yen per MWh discharged. The phased reduction of the balancing market ceiling from ¥19.51 to ¥15, ¥10, and ¥7.21 fundamentally rewrites the revenue outlook. These accumulate over 20 years into a ¥200M differential.</p>
+
+<p>When ScienceX transfers a project to a buyer, the basis of price is not "site" or "capacity" alone. <strong>The state of contract organization, the projected operational-phase revenue sensitivity, and the level at which regulatory uncertainty is incorporated</strong> — the entire economic picture is what we present. The 5-layer / 21-contract framework laid out in this column serves as the common language for conveying that basis.</p>
+
+<p>Investment decisions for grid-scale battery storage are decided by the ability to read 20 years of contract design.</p>
+
+<a target="_top" href="/en/column-bess-insurance" class="next-link">
+  <div>
+    <div class="next-link-label">PREVIOUS &larr; COLUMN 18</div>
+    <div class="next-link-title">BESS Insurance Design — The Six Insurance Layers Owners Must Arrange During Operation</div>
+  </div>
+  <span class="next-link-arrow">&larr;</span>
+</a>
+
+<div class="cta-section">
+  <h3>Consulting on Contract Design and Battery Storage Business</h3>
+  <p>Project-specific information that cannot be covered in articles alone<br>will be disclosed after NDA execution following your inquiry.</p>
+  <a target="_top" href="/en/contact" class="cta-btn">Contact Us &rarr;</a>
+</div>
+
+</div>
+
+<script>
+// === Wheeling Charge Calculator ===
+(function(){
+  var tsoData = {
+    hokkaido: { ehv: 515.90, hv: 842.60 },
+    tohoku:   { ehv: 462.00, hv: 728.20 },
+    tepco:    { ehv: 423.39, hv: 653.87 },
+    chubu:    { ehv: 357.50, hv: 467.50 },
+    hokuriku: { ehv: 572.00, hv: 748.00 },
+    kansai:   { ehv: 440.00, hv: 663.30 },
+    chugoku:  { ehv: 383.90, hv: 658.90 },
+    shikoku:  { ehv: 510.40, hv: 712.80 },
+    kyushu:   { ehv: 482.05, hv: 553.28 },
+    okinawa:  { ehv: 472.49, hv: 713.93 }
+  };
+
+  var tsoEl    = document.getElementById('wcTSO');
+  var voltEl   = document.getElementById('wcVoltage');
+  var pcsEl    = document.getElementById('wcPCS');
+  var lossEl   = document.getElementById('wcLoss');
+  var otherEl  = document.getElementById('wcOther');
+  var yearsEl  = document.getElementById('wcYears');
+
+  var pcsValEl    = document.getElementById('wcPCSVal');
+  var lossValEl   = document.getElementById('wcLossVal');
+  var otherValEl  = document.getElementById('wcOtherVal');
+  var yearsValEl  = document.getElementById('wcYearsVal');
+
+  var chargeableEl = document.getElementById('wcChargeable');
+  var monthlyEl    = document.getElementById('wcMonthly');
+  var annualEl     = document.getElementById('wcAnnual');
+  var totalEl      = document.getElementById('wcTotal');
+
+  function fmt(n){ return n.toLocaleString('en-US'); }
+
+  function update(){
+    var tso = tsoEl.value;
+    var voltage = voltEl.value;
+    var pcs = parseInt(pcsEl.value);
+    var lossPct = parseInt(lossEl.value);
+    var other = parseInt(otherEl.value);
+    var years = parseInt(yearsEl.value);
+
+    var unitPrice = tsoData[tso][voltage];
+
+    var chargeable = pcs * (lossPct / 100) + other;
+    var demandSaving = pcs - chargeable;
+
+    var monthlyWith = chargeable * unitPrice;
+    var annualSaving = demandSaving * unitPrice * 12;
+    var totalSaving = annualSaving * years;
+
+    pcsValEl.textContent   = fmt(pcs);
+    lossValEl.textContent  = lossPct;
+    otherValEl.textContent = other;
+    yearsValEl.textContent = years;
+
+    chargeableEl.textContent = '~' + Math.round(chargeable);
+    monthlyEl.textContent    = fmt(Math.round(monthlyWith));
+    annualEl.textContent     = (annualSaving / 1000000).toFixed(2);
+    totalEl.textContent      = (totalSaving / 1000000).toFixed(1);
+  }
+
+  [tsoEl, voltEl, pcsEl, lossEl, otherEl, yearsEl].forEach(function(el){
+    el.addEventListener('input', update);
+    el.addEventListener('change', update);
+  });
+  update();
+})();
+</script>
+
+<!-- ScienceX Footer -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo img { height:48px; width:auto; display:block; opacity:0.95; }
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img src="https://static.wixstatic.com/media/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png/v1/fill/w_300,h_118,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png" alt="ScienceX - Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:x@scix.co.jp">x@scix.co.jp</a>
+        <div class="representative">CEO: Shinya Nakashima, Ph.D.</div>
+      </div>
+      <div class="scix-footer-copyright">&copy; 2025 Science X Inc. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

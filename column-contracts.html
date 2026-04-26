@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+pre{background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);padding:14px 18px;margin:18px 0;font-family:'Menlo','Monaco','Courier New',monospace;font-size:.86em;line-height:1.7;color:var(--navy);white-space:pre-wrap;border-radius:0 4px 4px 0;overflow-x:auto}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:560px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+
+/* Premise grid */
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+
+/* Differentiator grid */
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+
+/* 5-layer map */
+.layer-map{display:grid;grid-template-columns:1fr;gap:12px;margin:28px 0}
+.layer-card{display:grid;grid-template-columns:64px 1fr;gap:18px;background:var(--white);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;padding:18px 22px;align-items:start}
+.layer-card .layer-no{font-family:'Noto Serif JP',serif;font-size:1.6em;font-weight:700;color:var(--accent);line-height:1;letter-spacing:.04em;text-align:center;padding-top:4px}
+.layer-card .layer-no .layer-no-sub{display:block;font-size:.45em;color:var(--text-light);font-family:'Noto Sans JP',sans-serif;font-weight:600;letter-spacing:.1em;margin-top:6px}
+.layer-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 6px;line-height:1.5}
+.layer-card .layer-counter{font-size:.8em;color:var(--text-light);margin-bottom:6px;letter-spacing:.04em}
+.layer-card p{font-size:.86em;line-height:1.85;margin:0}
+
+/* Comparison cards (Fig 2 style) */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif JP',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+
+/* Stat row */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.6em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+
+/* Timeline (1日運用) */
+.timeline{margin:28px 0;position:relative;padding-left:24px;border-left:2px solid var(--border)}
+.tl-item{position:relative;padding-bottom:24px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:'';position:absolute;left:-30px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--white);box-shadow:0 0 0 1px var(--accent)}
+.tl-time{font-family:'Noto Serif JP',serif;font-size:.85em;color:var(--accent);font-weight:700;margin-bottom:4px;letter-spacing:.04em}
+.tl-body h4{font-size:.95em;font-weight:700;color:var(--navy);margin-bottom:4px;line-height:1.5}
+.tl-layers{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+.tl-layers .layer-pill{display:inline-block;font-size:.7em;font-weight:700;letter-spacing:.04em;padding:3px 9px;background:rgba(196,154,60,.12);color:var(--accent);border-radius:12px}
+.tl-body p{font-size:.86em;line-height:1.9;margin:0}
+
+/* Simulator */
+.sim-container{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:28px;margin:28px 0;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.sim-title{font-size:15px;font-weight:700;margin-bottom:20px;color:var(--navy);display:flex;align-items:center;gap:8px}
+.sim-title::before{content:"\25B6";font-size:11px;color:var(--accent)}
+.sim-title .tag{margin-left:auto;font-size:10px;letter-spacing:.1em;color:var(--accent);background:rgba(196,154,60,.1);padding:3px 8px;border-radius:2px;font-weight:600}
+.sim-row{display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.sim-label{min-width:180px;font-size:13.5px;font-weight:600}
+.sim-slider{flex:1;min-width:140px;-webkit-appearance:none;appearance:none;height:6px;background:var(--border);border-radius:3px;outline:none}
+.sim-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;background:var(--navy);border-radius:50%;cursor:pointer}
+.sim-slider::-moz-range-thumb{width:20px;height:20px;background:var(--navy);border-radius:50%;cursor:pointer;border:none}
+.sim-input,.sim-select{flex:1;min-width:140px;font-family:inherit;font-size:13.5px;padding:8px 10px;border:1px solid var(--border);border-radius:4px;background:var(--white);color:var(--navy)}
+.sim-input{font-variant-numeric:tabular-nums}
+.sim-value{min-width:100px;text-align:right;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--navy)}
+.sim-results{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sim-res-cell{background:var(--light-bg);border:1px solid var(--border);padding:16px 18px;border-radius:6px}
+.sim-res-cell .rc-label{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:6px;text-transform:uppercase}
+.sim-res-cell .rc-val{font-family:'Noto Serif JP',serif;font-size:1.6em;font-weight:700;color:var(--navy);line-height:1.2}
+.sim-res-cell .rc-val .u{font-size:.56em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.sim-res-cell .rc-sub{font-size:.78em;color:var(--text-light);margin-top:6px;line-height:1.5}
+
+/* Checklist */
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+
+/* Layer SVG figure */
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .sim-row{flex-direction:column;gap:8px;align-items:stretch}
+  .sim-label{min-width:auto}
+  .sim-value{min-width:auto;text-align:left}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .diff-grid{grid-template-columns:1fr}
+  .stat-row{grid-template-columns:1fr}
+  .sim-results{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .layer-card{grid-template-columns:48px 1fr;gap:12px;padding:16px 18px}
+  .layer-card .layer-no{font-size:1.3em}
+}
+</style>
+
+<title>契約設計が20年で2億円を分ける — 系統用蓄電所が結ぶ5層の電力契約 | ScienceX</title>
+<meta name="description" content="系統用蓄電所の事業性を決める5層の電力契約構造を解説。揚水特措・発電側課金・BG・市場参加の各層が20年累計2億円規模の差を生む。譲渡前11項目チェックリスト付き。">
+<link rel="canonical" href="https://www.scix.co.jp/column-contracts">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-contracts">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-contracts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="契約設計が20年で2億円を分ける — 系統用蓄電所が結ぶ5層の電力契約｜ScienceX">
+<meta property="og:description" content="系統用蓄電所の事業性を決める5層の電力契約構造を解説。揚水特措・発電側課金・BG・市場参加の各層が20年累計2億円規模の差を生む。譲渡前11項目チェックリスト付き。">
+<meta property="og:url" content="https://www.scix.co.jp/column-contracts">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="契約設計が20年で2億円を分ける — 系統用蓄電所が結ぶ5層の電力契約｜ScienceX">
+<meta name="twitter:description" content="系統用蓄電所の事業性を決める5層の電力契約構造を解説。揚水特措・発電側課金・BG・市場参加の各層が20年累計2億円規模の差を生む。譲渡前11項目チェックリスト付き。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-04-26">
+</head>
+<body>
+<script src="/header.js"></script>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 19</span>
+      <span class="header-tag">契約設計</span>
+      <time class="header-date" datetime="2026-04-26">2026.04.26</time>
+    </div>
+    <h1>契約設計が<em>20年で2億円</em>を分ける —<br>系統用蓄電所が結ぶ<em>5層の電力契約</em></h1>
+    <p class="header-desc">機器スペックでもEPCでもない。事業性を決めるのは託送・発調・小売・BG・市場参加という5層の契約設計。各層の選択が積み重なって、20年累計で2億円規模の差につながる。譲渡前11項目チェックリストとあわせて、契約レイヤーの全体像を整理する。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
+
+<p>系統用蓄電所の事業性を最終的に決めるのは、機器スペックでもEPC選定でもない。託送・発調・小売・BG・市場参加という5層に重なる電力契約をどう組み立てるか——その一点に尽きる。層ごとの選択が積み重なって、20年累計で2億円規模の差につながっていく。本稿ではまず契約レイヤー全体を俯瞰し、調印前に押さえておきたい11項目のチェックリストまでを一気通貫で見ていく。</p>
+
+<p>系統用蓄電所が結ぶ電力契約は、太陽光発電所のそれより一段複雑になる。同じ敷地のなかで、ある瞬間には「電気を買う」需要家として振る舞い、次の瞬間には「電気を売る」発電所として振る舞う。二つの顔を持つこの施設は、託送・発調・小売・BG・市場参加という5層の契約を同時並行で動かして、はじめて回っていく。</p>
+
+<p>5層の組み立て方ひとつで、年間1,000万円、20年で2億円規模の事業性差が出てくる。たとえば託送契約電力を最大出力ベース（1,999kW）で結ぶか、揚水特措を適用して100kW近辺まで絞り込むか——この違いだけで年1,000万円超が動く。同じ案件、同じ機器、同じ運用でも、契約をどう設計したかで20年トータルの収益はまったく別物になる。</p>
+
+<p>EPC選定や機器スペックの議論より先に押さえるべき論点でありながら、5層の契約構造をひととおり俯瞰した解説は意外なほど少ない。そこで本稿では、まず地図として全体像を引いたうえで、各層の論点を順番に掘り下げていく。最後に、蓄電所オーナーが調印前に確認しておきたい11項目のチェックリストへとつなげる。</p>
+
+<div class="data-box">
+<div class="db-head">本稿の射程</div>
+<dl class="premise-grid">
+  <div><dt>対象</dt><dd>系統用蓄電所<span class="unit">単独 / 併設</span></dd></div>
+  <div><dt>契約レイヤー</dt><dd>5<span class="unit">層 / 21契約</span></dd></div>
+  <div><dt>事業性差の目線</dt><dd>2<span class="unit">億円 / 20年累計</span></dd></div>
+  <div><dt>譲渡前チェック</dt><dd>11<span class="unit">項目</span></dd></div>
+  <div><dt>制度参照時点</dt><dd>2026.04<span class="unit">時点</span></dd></div>
+  <div><dt>主たる読者</dt><dd style="font-size:13px">蓄電所オーナー・買主企業</dd></div>
+</dl>
+</div>
+
+<h2>01 — 系統用蓄電所が結ぶ電力契約の5層マップ</h2>
+
+<p>系統用蓄電所が太陽光と決定的に違うのは、契約相手の数と種類だろう。太陽光発電所の電力契約は、発電量調整供給契約（発調契約）と売電契約の2系統で基本的にケリがつく。これに対して系統用蓄電所は、同じ敷地で<strong>充電（系統からの受電＝需要側）と放電（系統への送電＝発電側）の双方向動作</strong>をこなすので、契約相手も契約類型も倍以上にふくらむ。</p>
+
+<p>この複雑さをひとつの絵に整理してみた。次の図を見てほしい。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図1 — 系統用蓄電所が結ぶ5層の電力契約マップ">
+  <defs>
+    <linearGradient id="coreGrad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1B2A4A"/>
+      <stop offset="100%" stop-color="#2A3D66"/>
+    </linearGradient>
+  </defs>
+  <!-- Core -->
+  <ellipse cx="360" cy="210" rx="92" ry="56" fill="url(#coreGrad)"/>
+  <text x="360" y="205" text-anchor="middle" fill="#fff" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700">系統用蓄電所</text>
+  <text x="360" y="226" text-anchor="middle" fill="#D4AF5C" font-family="'Noto Sans JP',sans-serif" font-size="10" letter-spacing="2">BESS</text>
+
+  <!-- Layer 1: 託送（充電側）left top -->
+  <rect x="40" y="40" width="220" height="88" rx="6" fill="#fff" stroke="#C49A3C" stroke-width="2"/>
+  <text x="55" y="62" font-family="'Noto Serif JP',serif" font-size="11" fill="#C49A3C" font-weight="700" letter-spacing="1">第1層 LAYER 1</text>
+  <text x="55" y="82" font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#1B2A4A" font-weight="700">託送契約（充電側）</text>
+  <text x="55" y="102" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">接続供給契約／揚水特措の適用</text>
+  <text x="55" y="118" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">相手：一般送配電事業者（TSO）</text>
+  <line x1="240" y1="128" x2="290" y2="180" stroke="#C49A3C" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Layer 2: 発調（放電側）right top -->
+  <rect x="460" y="40" width="220" height="88" rx="6" fill="#fff" stroke="#C49A3C" stroke-width="2"/>
+  <text x="475" y="62" font-family="'Noto Serif JP',serif" font-size="11" fill="#C49A3C" font-weight="700" letter-spacing="1">第2層 LAYER 2</text>
+  <text x="475" y="82" font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#1B2A4A" font-weight="700">発電量調整供給契約</text>
+  <text x="475" y="102" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">放電（逆潮流）／発電側課金</text>
+  <text x="475" y="118" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">相手：一般送配電事業者（TSO）</text>
+  <line x1="480" y1="128" x2="430" y2="180" stroke="#C49A3C" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Layer 3: 小売 left middle -->
+  <rect x="20" y="180" width="200" height="76" rx="6" fill="#fff" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="35" y="201" font-family="'Noto Serif JP',serif" font-size="11" fill="#C49A3C" font-weight="700" letter-spacing="1">第3層 LAYER 3</text>
+  <text x="35" y="220" font-family="'Noto Sans JP',sans-serif" font-size="12.5" fill="#1B2A4A" font-weight="700">小売供給契約（充電電気）</text>
+  <text x="35" y="238" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">相手：小売電気事業者／JEPX</text>
+  <line x1="220" y1="218" x2="270" y2="210" stroke="#1B2A4A" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Layer 4: BG right middle -->
+  <rect x="500" y="180" width="200" height="76" rx="6" fill="#fff" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="515" y="201" font-family="'Noto Serif JP',serif" font-size="11" fill="#C49A3C" font-weight="700" letter-spacing="1">第4層 LAYER 4</text>
+  <text x="515" y="220" font-family="'Noto Sans JP',sans-serif" font-size="12.5" fill="#1B2A4A" font-weight="700">BG契約（ダブルBG）</text>
+  <text x="515" y="238" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">単独BG／アグリゲーター傘下</text>
+  <line x1="500" y1="218" x2="450" y2="210" stroke="#1B2A4A" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Layer 5: 市場参加 bottom center -->
+  <rect x="180" y="310" width="360" height="80" rx="6" fill="#fff" stroke="#C49A3C" stroke-width="2"/>
+  <text x="200" y="332" font-family="'Noto Serif JP',serif" font-size="11" fill="#C49A3C" font-weight="700" letter-spacing="1">第5層 LAYER 5</text>
+  <text x="200" y="352" font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#1B2A4A" font-weight="700">市場参加契約・収益化契約</text>
+  <text x="200" y="370" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">JEPX／EPRX需給調整／容量市場／LDA／余力活用</text>
+  <text x="200" y="384" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">相手：JEPX・EPRX・OCCTO・TSO</text>
+  <line x1="360" y1="310" x2="360" y2="266" stroke="#C49A3C" stroke-width="1.5" stroke-dasharray="3,3"/>
+</svg>
+<div class="fig-cap">図1 — 系統用蓄電所が結ぶ5層の電力契約マップ</div>
+</div>
+
+<h3>1-1 各層の役割</h3>
+
+<div class="layer-map">
+  <div class="layer-card">
+    <div class="layer-no">01<span class="layer-no-sub">LAYER</span></div>
+    <div>
+      <h4>託送契約（充電側／接続供給契約）</h4>
+      <p>契約相手は一般送配電事業者（TSO）。蓄電池に充電するため系統から電気を受電するときの託送供給を約束する契約で、揚水特措を適用できるかどうかもここで決まる。契約電力（kW）と託送料金単価が事業性に直接効いてくる層なので、本稿でもまず第2章で深掘りする。</p>
+    </div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-no">02<span class="layer-no-sub">LAYER</span></div>
+    <div>
+      <h4>発電量調整供給契約（放電側／発調契約）</h4>
+      <p>契約相手は同じくTSO。放電（一般送配電事業者から見れば逆潮流＝発電）にともなう計画値同時同量と、計画と実績のズレ（インバランス）の精算関係を約束する契約で、2024年4月導入の発電側課金（系統連系受電サービス料金）もこの層にぶら下がる。電気事業法上の正式呼称は<strong>平成27年法律第47号</strong>（電力システム改革第3段階改正、2015年6月24日公布、2020年4月1日施行）により「電力量調整供給」へ改められたが、各社託送供給等約款の契約名としては従来どおり「発電量調整供給契約」（発調契約）が使われている。</p>
+    </div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-no">03<span class="layer-no-sub">LAYER</span></div>
+    <div>
+      <h4>小売供給契約（充電電気の調達）</h4>
+      <p>充電する電気を「誰から、どのように買うか」を規律する層。第68回電力・ガス基本政策小委員会 資料4（2023年12月26日）は、系統経由の蓄電池充電は現状基本的に「小売供給」として取りあつかわれ、蓄電所側は小売電気事業者から電気を購入する形が標準だと整理している。同資料は同時に「蓄電池への蓄電は必ずしも最終需要家への電気の供給とはいえない」と踏み込み、「間接需要」への電気供給として位置づけ直す論点も提起した。この論点は2026年4月時点で継続検討段階にあり、確定した制度改正にはまだ至っていない。</p>
+    </div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-no">04<span class="layer-no-sub">LAYER</span></div>
+    <div>
+      <h4>BG契約（バランシンググループ）</h4>
+      <p>計画値同時同量の責任主体を明確にする層。系統用蓄電所は1つの設備で<strong>放電時には発電BG、充電時には需要BGに同時両属するダブルBG構造</strong>を持つ。「切替」というよりは、両属下で主従が入れ替わるイメージに近い。自社で単独BG化するか、アグリゲーター（特定卸供給事業者）の傘下に入るか——選択肢は二つ。実態としては、初号案件はアグリゲーター傘下で運用に習熟したのち、ノウハウを蓄積してから単独BG化へ移行するパスがよく見られる。経産省・OCCTOの政策文書でこの移行パスが体系化されているわけではないが、各事業者の発信からはそうした流れが透けて見える。なお特定卸供給事業者の制度自体は、令和2年法律第49号（2022年4月1日施行）による電気事業法改正で創設された。</p>
+    </div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-no">05<span class="layer-no-sub">LAYER</span></div>
+    <div>
+      <h4>市場参加契約・収益化契約</h4>
+      <p>収益源ごとに必要となる契約群で、JEPX（卸電力市場）取引参加者契約、EPRX（需給調整市場）取引会員契約、容量市場メインオークション応札に必要な前提契約、長期脱炭素電源オークション（LDA）容量確保契約、そしてTSOと直接結ぶ余力活用契約からなる。最後の余力活用契約は需給調整市場と並列の関係にあり、需給調整市場で調達したΔkWで足りない場合等にメリットオーダー順で活用される仕組みだが、容量市場・LDA落札の必須リクワイアメントとしても組み込まれており、系統用蓄電池の調整力提供スキームの中核を成している。</p>
+    </div>
+  </div>
+</div>
+
+<div class="info-box">
+<strong>5層は独立しているわけではなく、相互に前提条件として連鎖している。</strong><br><br>
+たとえばJEPX参加には託送関係契約（第1・第2層）が前提条件。EPRX参加には発調契約・接続供給契約に加えて、属地TSOとの「需給調整市場に関する契約」が要る。LDA応札では接続検討回答書（第1・第2層の前段）と土地確保が事前要件として課され、落札後は20年間の運用期間中、発調契約・余力活用契約・JEPX契約・EPRX契約のすべてを維持する義務が続く。
+</div>
+
+<p>第2章以降では、この5層を順に掘り下げていく。最初は第1層、それも揚水特措の論点から踏み込んでいきたい。</p>
+
+
+<h2>02 — 第1層：揚水特措が「契約電力100kW」を許す理由</h2>
+
+<h3>2-1 蓄電池は「需要家でありながら発電所」</h3>
+
+<p>託送契約の世界に持ち込まれると、系統用蓄電所はやや収まりの悪い存在になる。</p>
+
+<p>通常の需要家——たとえば工場——の託送契約電力は、その施設が同時に使う電気の最大値（kW）で設計される。1,999kWを使う工場であれば、託送契約電力もおおむね1,999kWに近い値で結ばれる。</p>
+
+<p>ところが系統用蓄電所は、最大1,999kWの電気を引き込んで蓄電し、そのほぼ全量をやがて別の需要場所へ託送供給することを目的に動く。受電点を通過する電気の99%以上は「自家で消費する電気」ではなく「いったん蓄えて他所へ送り返す電気」が占める。これを通常の需要家ロジックで託送料金課金にかけてしまうと、揚水発電所と同じく、同じ電気が二重に課金されてしまう。</p>
+
+<p>この二重課金問題を回避するため、揚水発電所には古くから託送供給等約款 附則4の「揚水発電設備等が設置された需要場所に接続供給を行なう場合の特別措置」が用意されてきた。系統用蓄電池がこの附則の対象に正式に組み込まれたのは2024年4月1日のこと。経緯はこうだ。<strong>2022年5月20日公布（令和4年法律第46号）・2023年4月1日施行</strong>の電気事業法改正によって、1万kWを超える系統用蓄電池からの放電事業が発電事業として位置づけられた。これを受けて<strong>2023年12月1日に10社一斉認可申請（北海道電力NWのみ12月5日に再申請）</strong>、2024年1月17日認可、2024年4月1日施行という3ステップで附則4が改定され、蓄電池が明示的に組み込まれた。条文上は「揚水発電設備または蓄電池（以下『揚水発電設備等』）」と並列規定されており、<strong>系統用蓄電池は類推適用ではなく、正面から適用対象に組み込まれている</strong>。</p>
+
+<p>なお呼称について少しだけ整理しておく。経産省・電ガ小委の公式略称は「蓄電池特措」、約款条文では「揚水等損失率」のように「揚水等」の接頭辞が使われる。本稿では業界通称の「揚水特措」と公式略称の「蓄電池特措」を、文脈に応じて使い分けていく。</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">揚水特措 適用なし</span>
+    <h4>受電点最大電力で契約</h4>
+    <div class="cc-figure">≒ 1,999<span class="u">kW</span></div>
+    <p>蓄電池の最大充電電力1,999kWに自家消費分を足した値が、そのまま託送契約電力になる。同じ電気を「需要として消費」と「発電として送出」で二重に課金される構造。</p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">揚水特措 適用あり</span>
+    <h4>損失率＋自家消費分のみ</h4>
+    <div class="cc-figure">≒ 100<span class="u">kW</span></div>
+    <p>附則4により「揚水最大電力等×揚水等損失率＋その他最大電力等」へ再定義。実機効率ベースの損失率5%協議＋自家消費極小化で100kW近辺まで圧縮可能。</p>
+  </div>
+</div>
+<div class="fig-cap" style="font-size:.78em;color:var(--text-light);text-align:center;margin:-12px 0 24px">図2 — 揚水特措の有無による託送契約電力の違い（イメージ）</div>
+
+<h3>2-2 計算式：何が課金対象から外れるのか</h3>
+
+<p>附則4の中核は、託送料金の課金対象電力・電力量を再定義する次の式である（演算記号は約款本文では全角の「×」「＋」「＝」が用いられている）。</p>
+
+<pre>接続供給課金対象電力   = 揚水最大電力等 × 揚水等損失率 + その他最大電力等
+接続供給課金対象電力量 = 揚水等接続供給電力量 × 揚水等損失率 + その他接続供給電力量</pre>
+
+<p>「揚水最大電力等」は蓄電池が充電のために受電する電力、「揚水等接続供給電力量」はその電力量を指す。「その他最大電力等」「その他接続供給電力量」は、蓄電所敷地内で蓄電池の充電以外に使われる電気——つまり付随設備以外の自家消費分を指す。</p>
+
+<p>ここで効いてくるのが「揚水等損失率」。蓄電池が充電した電気のうち、最終的に系統へ放電して別需要場所に届けられる電気は、損失分を除いた残りになる。その損失分のみを「需要として消費された電気」とみなして課金対象に組み込む——これが附則4の発想の核心になる。<strong>結果として、充電した電気の本体（≒90%前後）は課金対象から外れ、損失相当分（≒10%前後）と自家消費分だけが課金対象として残る</strong>。</p>
+
+<p>損失率の具体値は、約款で標準値が示されているわけではない。各約款は「供給地点ごとに、あらかじめ1年ごとに契約者と当社との協議により揚水等損失率を定める」と規定し、年次協議事項として扱っている。経産省「2024年度第3回定置用蓄電システム普及拡大検討会」（2024年8月29日）資料は、系統用蓄電池の収益性試算で<strong>充放電効率90%（損失率10%相当）</strong>を前提値として採用しており、これが事実上の業界参考値となっている。</p>
+
+<p>ただし、ここで一段踏み込んで考えておきたい。最新のリチウムイオン蓄電池では実機の充放電効率が<strong>95%以上</strong>に達することも珍しくなく、年次協議で実機効率を反映した数値（<strong>損失率5%相当</strong>）まで絞り込める余地がある。本稿で以降「契約電力100kW近辺」と表現するのは、<strong>この実機効率ベースの協議値（損失率5%相当）と、自家消費極小化（「その他最大電力等」≒ゼロ）を組み合わせたケース</strong>を想定している。経産省試算前提の損失率10%をそのまま採用した場合は、契約電力は約200kW近辺に着地する計算になる。</p>
+
+
+<h3>2-3 契約電力は「その他最大電力等」で決まる</h3>
+
+<p>ここから、契約電力100kW設計の根拠が見えてくる。</p>
+
+<p>託送料金の基本料金は、契約電力（kW）×基本料金単価×12ヶ月で算定される。揚水特措を適用しない場合、契約電力は受電点全体の最大電力——蓄電池の最大充電電力1,999kWに自家消費分を足した値——に近い水準で結ぶしかない。</p>
+
+<p>一方、揚水特措を適用すると、課金対象電力は附則4の式により次の構造になる。</p>
+
+<pre>接続供給課金対象電力 = 揚水最大電力等 × 揚水等損失率 + その他最大電力等</pre>
+
+<p>蓄電池の最大充電電力（揚水最大電力等）が1,999kWだとして、これに損失率（協議で決まる、典型値10%）を掛け、自家消費分（その他最大電力等）を足す。仮に自家消費の最大値を50kWと見積もると、計算上の課金対象電力はこうなる。</p>
+
+<pre>1,999kW × 10% + 50kW = 199.9kW + 50kW ≒ 250kW</pre>
+
+<p>この250kWがそのまま託送契約電力になるわけではない。<strong>実務的にはここからさらに2段階の絞り込みが入る</strong>（以下の3段階整理は、約款本文の構造と運用実務をもとにした本稿独自の整理）。</p>
+
+<h4>第1段階：自家消費の取りあつかい</h4>
+
+<p>スタンドアロンの系統用蓄電所では、PCS電源・空調・照明等の付随設備の取りあつかいが2023年に整理された。<strong>東京電力PG「特別高圧・高圧発電量調整供給契約申込に関する手続きについて」</strong>p.21は、主文で「資源エネルギー庁より系統用蓄電池の付随設備については、蓄電池の一部として取り扱うことと整理されました。…『それ以外の電気』が無くなり計量器の複数設置が不要となります」と明記し、別途説明ボックスで付随設備の例として「PCS電源、空調、照明等」を挙げている（本稿では主文と説明ボックスを合成的に引用）。要するに単独の系統用蓄電所では、付随設備は揚水特措における「揚水発電設備等」の一部として包含され、独立区分の対象から外れた。</p>
+
+<p>一方、再エネ併設・需要負荷併設のケースでは、付随設備以外の「その他負荷」が存在するため、その同時最大電力等を事業者とTSOの個別協議で確定する必要がある。協議の論点は、その他負荷の同時最大が立つタイミングと蓄電池の充電が最大値に近づくタイミングが、時間帯としてどれだけ重なるかという点に集約される。実務上、スタンドアロン蓄電所では「その他最大電力等」がほぼゼロまたは僅少に収束し、併設ケースでも数十kW〜100kW程度に収まることが多くなっている。</p>
+
+<h4>第2段階：揚水最大電力等のロス率協議</h4>
+
+<p>附則4の式の前段「揚水最大電力等×揚水等損失率」は、損失率次第で大きく動く。経産省の試算前提は充放電効率90%（損失率10%）だが、これは規制値ではなく、契約者と一般送配電事業者の年次協議で毎年決め直す値。</p>
+
+<p>協議の論点は、業界実務上、おおむね次の3つに分解できる（約款上は単一のロス率協議だが、その内訳としての論点整理）。</p>
+
+<p>第一に、<strong>蓄電池本体のRTE（往復効率）</strong>。リチウムイオン電池のRTEは、セル単体ではおおむね95%以上ある一方、PCS等を含むシステム全体（AC往復）では実運用で85〜90%程度まで下がる。新品時のメーカー公称値で90〜95%が示されることが多いものの、運用条件次第で経年低下する（2〜3年で85%程度との業界一般値もあり、運用条件・セル温度・SOCレンジに大きく依存する）。新品時の値で協議するか、20年運用平均値で協議するかで損失率が変わってくる。</p>
+
+<p>第二に、<strong>変換系統のロス</strong>のあつかいがある。PCS変換損失、受変電設備のロス、所内配線損失を損失率に含めるかどうかという論点で、これらは託送料金の対象となる「需要として消費された電気」と区別が曖昧で、TSOによってあつかいが分かれる可能性がある。</p>
+
+<p>第三に、<strong>経年劣化の織込み</strong>がある。容量劣化率は運用温度・SOC・DODに強く依存し、定置用途で年0.5〜3.5%程度（初期数年は高め、その後低下）が業界一般のレンジとなっている。長期脱炭素オークション案件等では年率2%程度の劣化を想定するケースが多い。これを織り込んだ運用平均ロス率にするか、毎年実測ベースで再協議するか——年次協議の枠組みでは後者が制度設計上の建前であるが、運用実務としては前者の固定値で当面運用するケースもある。</p>
+
+<p>これらの論点を踏まえて損失率が10%前後で確定すると、課金対象電力はこうなる。</p>
+
+<pre>1,999kW × 10% + 50kW ≒ 250kW</pre>
+
+<p>この250kWが「契約電力」として確定するかというと、そうではない。<strong>ここからさらに、運用上の最大電力をどう設計するかという第3段階の議論がある。</strong></p>
+
+<h4>第3段階：運用設計と契約電力</h4>
+
+<p>蓄電池の運用設計次第では、充電動作と自家消費の同時最大を制度的に発生させない設計が可能になる。</p>
+
+<p>第一に、<strong>充電制限の活用</strong>。早期連系追加対策（2025年4月新設）として特定時間帯の充電制限に同意することで、ピーク時間帯の充電を回避できる。系統側からの制約というより、自社の事業設計として「自家消費が最大化する時間帯には充電しない」という運用計画を組めば、課金対象電力をさらに圧縮できる。なお早期連系追加対策はもともと順潮流側の充電制限を狙った制度なので、託送契約電力削減への直接的な効きは限定的とみておきたい。</p>
+
+<p>第二に、<strong>自家消費の電源分離</strong>という選択肢。空調・照明など蓄電池本体の動作と切り離せる負荷については、独立した電源系統（小売電気事業者からの別契約）でまかなう設計が考えられる。ただし2023年の付随設備整理（前述）で、スタンドアロン蓄電所では付随設備が蓄電池の一部として包含されるようになったので、わざわざ電源分離をするインセンティブは薄い。再エネ・需要併設で「その他負荷」が存在するケースで、はじめて意味を持ってくる設計選択肢——という位置づけになる。</p>
+
+<p>第三の手法は、<strong>逆潮流時の自家消費活用</strong>。放電中は自家消費分を蓄電池の放電からまかなう設計とし、系統からの受電を発生させない運用とすれば、自家消費の課金対象電力上の計上を実質ゼロに近づけられる（なお託送契約電力＝受電契約電力と、発電側課金の対象kW＝同時最大受電電力は別概念であり、両者を混同しないことが重要だ）。</p>
+
+<p>これらの運用設計をTSOとの個別協議で約款の運用に反映させた結果、<strong>敷地全体の託送契約電力（受電契約電力）を可能なかぎり低く設計するアプローチ</strong>が業界で議論されている。具体的閾値は案件規模・受電電圧・付随設備構成に依存するため、業界事業者の公表事例で標準化された数値は確認できていないが、自家消費を最小化する設計思想自体は2023年の「付随設備＝蓄電池の一部」整理と整合している。</p>
+
+<p>逆にいえば、揚水特措の適用を受けたうえで自家消費の見積もり・損失率協議・運用設計の3点を緻密に詰めなかった場合、契約電力は数百kWまで膨らむ可能性がある。<strong>低い契約電力は「自動的に達成される値」ではなく、「設計目標として明示的に追求した結果」</strong>として実現する数字——本論点の実務上の核心は、ここに尽きる。</p>
+
+
+<h3>2-4 1,999kW vs 100kW、年間でいくら違うのか</h3>
+
+<p>差額は基本料金単価×契約電力差×12ヶ月で機械的に試算できる。10社の託送供給等約款（レベニューキャップ第1規制期間下、2026年4月1日時点で有効な単価。北海道電力NW・東北電力NWは2025年10月1日改定値）に基づく試算結果は次のとおり。記載単価はいずれも消費税等相当額を含む税込ベースで揃えている。<strong>なお現行制度では高圧は契約電力2,000kW未満が上限となるため、本表における高圧の「2,000kW→100kW」表記は、高圧上限近傍（1,999kW相当）を100kWに圧縮した想定値として読み替えてほしい。</strong></p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+  <thead>
+    <tr><th>TSO</th><th style="text-align:right">特別高圧 年間差</th><th style="text-align:right">高圧 年間差</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="em">北海道電力NW</td><td class="num">約 1,176<span class="u">万円</span></td><td class="num"><strong>約 1,920</strong><span class="u">万円</span></td></tr>
+    <tr><td class="em">東北電力NW</td><td class="num">約 1,053<span class="u">万円</span></td><td class="num">約 1,659<span class="u">万円</span></td></tr>
+    <tr><td class="em">東京電力PG</td><td class="num">約 965<span class="u">万円</span></td><td class="num">約 1,490<span class="u">万円</span></td></tr>
+    <tr><td class="em">中部電力PG</td><td class="num"><strong>約 815</strong><span class="u">万円</span></td><td class="num"><strong>約 1,065</strong><span class="u">万円</span></td></tr>
+    <tr><td class="em">北陸電力送配電</td><td class="num"><strong>約 1,303</strong><span class="u">万円</span></td><td class="num">約 1,705<span class="u">万円</span></td></tr>
+    <tr><td class="em">関西電力送配電</td><td class="num">約 1,003<span class="u">万円</span></td><td class="num">約 1,512<span class="u">万円</span></td></tr>
+    <tr><td class="em">中国電力NW</td><td class="num">約 875<span class="u">万円</span></td><td class="num">約 1,502<span class="u">万円</span></td></tr>
+    <tr><td class="em">四国電力送配電</td><td class="num">約 1,163<span class="u">万円</span></td><td class="num">約 1,624<span class="u">万円</span></td></tr>
+    <tr><td class="em">九州電力送配電</td><td class="num">約 1,099<span class="u">万円</span></td><td class="num">約 1,261<span class="u">万円</span></td></tr>
+    <tr><td class="em">沖縄電力</td><td class="num">約 1,077<span class="u">万円</span></td><td class="num">約 1,627<span class="u">万円</span></td></tr>
+    <tr class="hl"><td class="em">10社平均</td><td class="num em">約 1,053<span class="u">万円</span></td><td class="num em">約 1,536<span class="u">万円</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>特別高圧で<strong>年間815万〜1,303万円</strong>、高圧で<strong>年間1,065万〜1,920万円</strong>のレンジに収まる。10社平均は特別高圧で約1,053万円、高圧で約1,536万円。20年運用期間で累計すると、平均的なエリアでも2億円超、北海道電力NW管内の高圧案件では3.8億円規模の事業性差になる。</p>
+
+<div class="sim-container" id="tso-calculator">
+  <div class="sim-title">託送料金差シミュレーター（10社×電圧階級）<span class="tag">INTERACTIVE</span></div>
+  <div class="sim-row">
+    <span class="sim-label">TSO（一般送配電事業者）</span>
+    <select class="sim-select" id="tsoSelect">
+      <option value="hokkaido">北海道電力NW</option>
+      <option value="tohoku">東北電力NW</option>
+      <option value="tepco" selected>東京電力PG</option>
+      <option value="chubu">中部電力PG</option>
+      <option value="hokuriku">北陸電力送配電</option>
+      <option value="kansai">関西電力送配電</option>
+      <option value="chugoku">中国電力NW</option>
+      <option value="shikoku">四国電力送配電</option>
+      <option value="kyushu">九州電力送配電</option>
+      <option value="okinawa">沖縄電力</option>
+    </select>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">電圧階級</span>
+    <select class="sim-select" id="voltSelect">
+      <option value="ehv">特別高圧（EHV）</option>
+      <option value="hv" selected>高圧（HV）</option>
+    </select>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">PCS出力（最大充電電力 kW）</span>
+    <input type="number" class="sim-input" id="pcsKw" min="100" max="50000" step="1" value="1999">
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">目標契約電力（kW）</span>
+    <input type="number" class="sim-input" id="targetKw" min="0" max="50000" step="1" value="100">
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">損失率（%）</span>
+    <input type="range" class="sim-slider" id="lossPct" min="3" max="15" value="5" step="0.5">
+    <span class="sim-value"><span id="lossPctVal">5.0</span>%</span>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">運用年数</span>
+    <input type="number" class="sim-input" id="years" min="1" max="30" step="1" value="20">
+  </div>
+  <div class="sim-results">
+    <div class="sim-res-cell">
+      <div class="rc-label">月額の差</div>
+      <div class="rc-val"><span id="resMonthly">1,242,353</span><span class="u">円/月</span></div>
+      <div class="rc-sub">（PCS出力 − 目標契約電力）× 単価</div>
+    </div>
+    <div class="sim-res-cell">
+      <div class="rc-label">年額の差</div>
+      <div class="rc-val"><span id="resAnnual">1,490</span><span class="u">万円/年</span></div>
+      <div class="rc-sub">月額 × 12ヶ月</div>
+    </div>
+    <div class="sim-res-cell">
+      <div class="rc-label">運用期間累計</div>
+      <div class="rc-val"><span id="resTotal">2.98</span><span class="u">億円</span></div>
+      <div class="rc-sub">年額 × 運用年数</div>
+    </div>
+    <div class="sim-res-cell">
+      <div class="rc-label">参考：理論上の課金対象kW</div>
+      <div class="rc-val"><span id="resTheory">150</span><span class="u">kW</span></div>
+      <div class="rc-sub">PCS出力 × 損失率 + 自家消費50kW</div>
+    </div>
+  </div>
+</div>
+
+<p class="note-small">※ 単価は各TSOの2026年4月1日時点託送供給等約款の基本料金単価（税込）。北海道電力NW・東北電力NWは2025年10月1日改定値。実額は契約条件・割引適用・年次改定により変動する。理論上kWは附則4の式（揚水最大電力等×損失率＋その他最大電力等）から自家消費50kW固定で算出した参考値。</p>
+
+<h3>2-5 適用条件と申請実務</h3>
+
+<p>揚水特措は事前申出制であり、入口は接続検討申込書 様式1(9)の特記事項欄になる。「蓄電池特別措置適用の有無（予定）：有り」と記載することが、全TSO共通の出発点。詳細な様式記入ルール（充電マイナス・放電プラス表記、自家消費電力の取りあつかい、ロス率協議の進め方）は、第8章のチェックリストで取り上げる。</p>
+
+<p>申請実務で押さえておきたい点は3つだけ。</p>
+
+<p>第一に、<strong>様式1(9)への記載漏れは致命傷</strong>になりかねない。接続検討段階で揚水特措適用を明示していないと、後段の発調契約段階で蓄電池特措の適用を主張するために再協議が必要になってしまう。第二に、<strong>ロス率協議は1年ごとの年次見直し</strong>が約款上の建前で、運用初年度の協議値が事業性試算の前提を縛る。第三に、<strong>TSOによって申請様式に微差がある</strong>。九州電力送配電の低圧用様式1-3は「系統連系資料（太陽光発電以外）」と「系統連系資料（太陽光発電・蓄電池設備同時併設）」で別様式に分かれており（2025年4月更新。高圧・特高では特記事項欄に蓄電池特措適用の希望有無を記載する）、関西電力送配電は逆潮流を伴う場合に別途「揚水発電設備および蓄電池の特別措置に関する確認書」の提出を求める。</p>
+
+
+<h2>03 — 第2層：発電量調整供給契約と発電側課金</h2>
+
+<p>第1層が「充電のために系統から電気を引き込む」契約だとすれば、第2層は「放電した電気を系統に流す」ための契約。系統用蓄電所は電気事業法上、放電する瞬間は発電所として扱われるため、太陽光発電所と同じく<strong>発電量調整供給契約（発調契約）</strong>を一般送配電事業者と結ぶ必要がある。</p>
+
+<p>発調契約が約束する内容は3つある。第一に、計画値同時同量制度のもとで30分単位の発電販売計画を提出すること。第二に、計画と実績のズレ（インバランス）を精算すること。第三に、放電にともなう発電側課金（系統連系受電サービス料金）を負担すること。</p>
+
+<p>このうち系統用蓄電所に固有の論点となるのが、<strong>発電側課金の蓄電池特例</strong>。</p>
+
+<h3>3-1 発電側課金の蓄電池特例：kW課金あり、kWh課金なし</h3>
+
+<p>発電側課金は2024年4月1日に導入された制度で、上位系統の固定費を発電者にも按分する仕組みになっている。基本的には全発電者がkW部分（基本料金）とkWh部分（電力量料金）の両方を負担する。</p>
+
+<p>ただし<strong>蓄電池と揚水発電については、kWh部分が免除される</strong>。電力・ガス取引監視等委員会「発電側課金の導入について 中間とりまとめ」（2023年4月公表、2025年4月改定）本文p.10は、その理由を次のように整理している。「揚水発電・蓄電池を経由した際の発電側課金の負担に鑑み、他の電源との公平性の観点から、揚水発電・蓄電池のkWh課金については免除することとして、資源エネルギー庁の審議会において整理された」。</p>
+
+<p>蓄電池に充電される電気は、もとをたどれば他の電源で発電された電気にすぎない。発電時点ですでにkWh発電側課金が課されているので、放電時にもう一度kWh課金してしまうと、同じ電気量に二重で課金してしまうことになる。それを避けるために、この特例が用意された。</p>
+
+<div class="highlight-box">
+<strong>二重課金回避の二段構え</strong><br><br>
+第1層の揚水特措（充電時の託送料金で蓄電ロス分のみを課金対象とする措置）と、第2層のkWh課金免除（放電時に再課金しない措置）の組み合わせによって、蓄電池を通る電気の二重課金は制度全体として封じ込められている。
+</div>
+
+<h3>3-2 kW課金は通常どおり課金される</h3>
+
+<p>kWh課金が免除される一方、<strong>kW課金（基本料金）はそのまま通常どおり乗ってくる</strong>。算定式は次のとおり。</p>
+
+<pre>課金対象kW = max(同時最大受電電力 − 需要側接続送電サービス契約電力, 0)
+基本料金   = 課金対象kW × 基本料金単価</pre>
+
+<p>「同時最大受電電力」は、発電者と一般送配電事業者の協議で発電場所ごとにあらかじめ決める値で、PCS定格を自動的に用いるという規定はない。実務上は申込時の協議で、PCS交流定格と整合させる形を取るのが一般的なやり方になっている。</p>
+
+<p>PCS 2MW・蓄電容量8MWh級の単独蓄電所で需要側契約kW=0の場合、基本料金部分の年間負担額の概算は次の水準になる（単価は消費税等相当額を含む税込値）。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+  <thead>
+    <tr><th>TSO</th><th style="text-align:right">月額基本料金</th><th style="text-align:right">年額</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="em">東京電力PG</td><td class="num">17.4<span class="u">万円</span></td><td class="num">約 209<span class="u">万円</span></td></tr>
+    <tr><td class="em">中部電力PG</td><td class="num">16.1<span class="u">万円</span></td><td class="num">約 193<span class="u">万円</span></td></tr>
+    <tr><td class="em">関西電力送配電</td><td class="num">19.6<span class="u">万円</span></td><td class="num">約 235<span class="u">万円</span></td></tr>
+    <tr><td class="em">九州電力送配電</td><td class="num">17.0<span class="u">万円</span></td><td class="num">約 204<span class="u">万円</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>これは保守的な前提（割引A・割引Bを適用しない場合）の試算で、立地条件次第では割引適用により低減する余地もある。</p>
+
+<h3>3-3 既認定FIT/FIP併設蓄電池の特例</h3>
+
+<p>蓄電所オーナー視点でいちばん混乱しやすいのが、<strong>既認定FIT/FIP電源に併設される蓄電池の取りあつかい</strong>。2024年3月31日以前に認定を受けたFIT/FIP電源は、調達期間／交付期間中、発電側課金の対象外に置かれる。一方で、これに併設される蓄電池については別の整理が走る。</p>
+
+<p>中間とりまとめ改定版p.11は「他の電源との公平性の観点から蓄電池のkWh課金については免除と整理されているため、基本的には、発電併設蓄電池を設置した場合のkWh課金は、蓄電池の系統からの引き込みによる充電に基づく放電以外（＝発電設備からの発電分）が対象となる」と書いている。要するに既認定FIT/FIP併設蓄電池では、<strong>系統充電→放電部分のみがkW課金対象</strong>になる、という結論で着地している。</p>
+
+<div class="warning-box">
+<strong>FIP併設蓄電池の系統充電解禁は対象が限定されている</strong><br><br>
+新規FIP併設蓄電池（2024年4月以降に認定された電源に併設）は2024年4月から、既認定FIP併設蓄電池（2023年度以前に認定された電源に併設）は2025年4月から、それぞれ系統からの充電が解禁されている。一方で、<strong>FIT併設蓄電池はこの経過措置の対象外</strong>であり、系統充電は認められていない。<strong>単独系統用蓄電池もこの経過措置の枠外</strong>にあり、2024年4月以降に運開する案件は最初からkW課金の対象になる。
+</div>
+
+
+<h2>04 — 第3層：充電する電気は誰から買うのか</h2>
+
+<p>蓄電所が結ぶ契約のうち、いちばん整理が進んでいない領域が、<strong>充電電気の調達ルート</strong>。</p>
+
+<p>第68回電力・ガス基本政策小委員会 資料4（2023年12月26日）p.11はこう整理している。「現在、系統（送配電ネットワーク）を通じた蓄電池への電気の供給は、基本的に『小売供給』により供給されており、小売電気事業ライセンスの取得が必要となっている」。</p>
+
+<p>一方、同資料p.11はこうも述べる。「蓄電池に供給（蓄電）された電気は、最終的に需要家が使用する電気として供給（放電）されるものであり、蓄電池への電気の供給（蓄電）自体は、必ずしも最終需要家に対する電気の供給とは言えないものと考えられる」。さらに同資料p.14では、これを「<strong>間接需要</strong>」として位置づけ直す方向で「電気事業法上の整理を検討する必要があるのではないか」と<strong>論点として提起された</strong>。</p>
+
+<p>つまり2026年4月時点の制度的位置づけは、「<strong>現行は小売供給として運用されているが、間接需要として整理し直す論点が継続検討中</strong>」という過渡期にある。確定した制度改正には至っておらず、特定卸供給事業者ルートを含む新たな調達ルートが「制度として確立した」ものではない点には留意しておく必要がある。</p>
+
+<h3>4-1 3つの調達ルート</h3>
+
+<p>実務上、蓄電所が充電電気を調達するルートは大きく3つに分かれる。</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">ルート ①</span>
+    <h4>小売電気事業者経由</h4>
+    <p>蓄電所事業者が小売電気事業者から電気を買う形で、第68回電ガ小委資料4が「基本的に小売供給」と述べたのもこの形を指している。蓄電所側にライセンスは要らず、供給側に小売電気事業者の登録が要る。<strong>現行の標準形態</strong>はここに該当する。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">ルート ②</span>
+    <h4>JEPX直接調達</h4>
+    <p>蓄電所事業者がJEPX（日本卸電力取引所）の取引会員資格を取得し、スポット市場・時間前市場から直接電気を調達する形を指す。蓄電所事業者自身が発電事業者として届出ている場合、または別途事業者ライセンスを取得している場合に成立する。第68回電ガ小委資料4の本文中では、この形態への明示的言及はない。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">ルート ③</span>
+    <h4>アグリゲーター経由</h4>
+    <p>令和2年法律第49号による電気事業法改正（2022年4月施行）で新設された特定卸供給事業者（電事法第27条の30）の制度を活用する形態。ただし特定卸供給事業者は電事法上、集約した電気を「小売電気事業者・一般送配電事業者・配電事業者・特定送配電事業者」に対して供給する事業として定義されており、蓄電池への充電（最終需要前段階）の調達ルートを直接規定する制度ではない。間接需要としての制度整理が継続検討段階である現状では、本ルートの蓄電池充電への適用は<strong>今後の制度設計に委ねられている</strong>。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">実務上の判断</span>
+    <h4>初号は小売経由、習熟後JEPX直接</h4>
+    <p>初号案件では小売電気事業者経由が制度的に最も安全。間接需要としての制度整理が確定するまでは、ルート①以外を選ぶと法的解釈リスクを抱え込んでしまう。運用習熟後のJEPX直接調達への移行は、規模メリットと運用体制の両方が揃った段階で検討するのが妥当な道筋。</p>
+  </div>
+</div>
+
+<h3>4-2 制度の不確実性と実務的判断</h3>
+
+<p>3ルートのうち、ルート①（小売経由）が現行の標準であることは制度文書からも明確。一方で<strong>ルート②・③については一次資料での詳細な制度整理が薄い</strong>のが実情で、各事業者は自社の事業形態（発電事業者として届出済みか、アグリゲーターとの提携があるか、JEPX直接参加の規模メリットがあるか）に応じて使い分けているのが現状。</p>
+
+<p>蓄電所オーナー視点での意思決定ポイントは2つ。</p>
+
+<p>第一に、<strong>初号案件では小売電気事業者経由が制度的に最も安全</strong>といえる。間接需要としての制度整理が確定するまでは、ルート①以外を選ぶと法的解釈リスクを抱え込んでしまう。第二に、<strong>運用習熟後のJEPX直接調達への移行は、規模メリットと運用体制の両方が揃った段階で検討する</strong>のが妥当な道筋。第4層・第5層との整合（BG設計、JEPX取引会員契約）が前提条件として効いてくる。</p>
+
+
+<h2>05 — 第4層：BG契約とダブルBG構造</h2>
+
+<p>系統用蓄電所のBG（バランシンググループ）契約は、太陽光発電所のそれと決定的に異なる構造を持つ。</p>
+
+<p><strong>系統用蓄電池は1つの設備で、需要BG（充電時の接続供給契約）と発電BG（放電時の発電量調整供給契約）の両方に同時両属している。</strong>時間帯ごとに各BGで提出される計画値・実績値の主体側面が入れ替わるイメージで、「切替」というよりは「両属下での主従入替」が制度実態に近い——これがダブルBG構造と呼ばれているものの正体になる。</p>
+
+<p>EPRX「揚水発電設備または蓄電池設備を用いて需給調整市場に参入する場合の取扱いガイド」（初版2024年11月18日公表、第3版2026年3月14日実施）p.6・p.10は、放電側に属地TSOとの発調契約＋広域機関への発電販売計画提出を、充電側に接続供給契約＋広域機関への需要調達計画提出（事業者コードを別途発番）を、それぞれ求めている。最新版を見るときは第3版に当たってほしい。</p>
+
+<h3>5-1 単独BG化とアグリゲーター傘下</h3>
+
+<p>ダブルBG構造を運用する選択肢は2つある。</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">選択肢 A</span>
+    <h4>単独BG化</h4>
+    <p>蓄電所事業者自身が発電BGと需要BGの両方を運営する形を指す。すべての計画値同時同量責任とインバランスリスクを内製する代わりに、収益はすべて自社で取り込める。供出可能量1,000kW以上のリソースであれば、需給調整市場に「揚水・蓄電池」種別で単独入札もできる。実務上は24時間の需給管理体制、システム投資、人材確保が前提に置かれる。</p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">選択肢 B</span>
+    <h4>アグリゲーター傘下</h4>
+    <p>蓄電所事業者がアグリゲーター（特定卸供給事業者）にBG運営を委託する形態を指す。EPRXガイドはp.6脚注「発調契約の締結者と取引会員は、同一である必要はありません」、p.10脚注「接続供給契約の締結者と取引会員は、同一である必要はありません」と注記しており、蓄電所事業者が発調・接続供給契約の名義人を維持したまま、市場参加とBG運営をアグリゲーターに委ねる構造が成立する。</p>
+  </div>
+</div>
+
+<p>なお、リソース種別の選択は容量・接続方式・揚水等特措の適用有無等で決まり、1,000kW未満は「VPP（発電）／VPP（需要）／VPP（発電+需要）」の3種から選択、1,000kW以上で揚水等特措非適用の蓄電池等は「VPP（発電+需要）」も選択肢となる（ガイド第3版 p.20表参照）。</p>
+
+<h3>5-2 業界実態としてのフェーズ移行</h3>
+
+<p>経産省・OCCTOの政策文書ではフェーズ別の体系化はされていないが、業界実態として、東急不動産TENOHA東松山（自然電力グループのShizen Connectが特定卸供給事業者として運用代行）等の初号案件ではアグリゲーター傘下での運用が先行している。事業者が運用習熟後に単独BG化へ移行する潜在的傾向が業界関係者から指摘されているものの、公表IRでの明示的事例はまだ限定的な状況にある。</p>
+
+<p>電気事業法上、10MW以上は「発電事業」に分類されることもあり、保有資産が10MW程度を超える規模では単独BG化が検討対象になるとされる（業界経験則レベルの目安で、公表IR等での明示的閾値表明は限られる）。どちらが正解という議論ではない。保有資産の規模、運用体制の整備度、市場参加スコープ（JEPXのみか、需給調整市場まで含むか、容量市場・LDA落札を狙うか）、そしてインバランスリスクの自社吸収能力——これらが選択を決める変数になる。</p>
+
+
+<h2>06 — 第5層：市場参加契約と収益化</h2>
+
+<p>第1〜4層が「系統用蓄電所が動作するための前提契約」であるのに対し、第5層は「収益を生むための契約」という位置づけになる。収益源は5つある。</p>
+
+<h3>6-1 JEPXスポット・時間前市場</h3>
+
+<p>もっとも基本的な収益源で、30分コマで電気を売買し、安く買って高く売る価格裁定を取りにいく。参加には<strong>JEPX取引参加者契約</strong>が必要で、直接参加するには純資産1,000万円以上の要件がある（入会金・年会費はJEPX公式の最新公表値を要参照）。直接参加しない場合は、取引会員規程<strong>第2条1項4号</strong>「前三号に該当する者から依頼を受けた者（ただし、依頼した者は取引会員であってはならない）」として小売電気事業者やアグリゲーター経由で取引する形を取る。</p>
+
+<p>JEPX参加には、属地TSOとの託送関係契約（接続供給契約・発調契約）が前提条件として絡んでくる点に注意したい。第1・第2層の契約が成立していなければ、第5層のJEPX契約は機能しない。</p>
+
+<h3>6-2 EPRX需給調整市場</h3>
+
+<p>一次調整力（FCR）から三次調整力②までの5商品があり、参加には<strong>EPRX取引会員契約</strong>と<strong>属地TSOとの「需給調整市場に関する契約」</strong>の両方が要る。<strong>需給調整市場の最低入札量は全5商品共通で1,000kW（1MW）</strong>で、EPRX取引規程第13条(2)イ(ハ)および別冊第29条で規定されている。商品別の差は最低入札量ではなく、接続方式（専用線オンライン接続／簡易指令システム経由）や計量・指令のあつかいの細目に出てくる。詳細は同規程および各商品の取扱要綱を当たってほしい。</p>
+
+<p>需給調整市場への参入は、蓄電池が「揚水・蓄電池」種別を選ぶか「VPP（発電+需要）」種別を選ぶかで計量・入札の取りあつかいが分岐する。10MW以上の専用線オンライン接続なら前者、1MW未満アグリゲートなら後者を選ぶのが標準的な運用。</p>
+
+<p>需給調整市場の上限価格は、次世代電力・ガス事業基盤構築小委員会 制度検討作業部会（第110回、2026年1月23日）資料4 p.6で<strong>19.51円→15円/ΔkW・30分への引下げ（第一段階）</strong>が提示され、同時に「市場における競争状況に改善が見られない場合には10円・7.21円/ΔkW・30分まで段階的に引き下げる」方針も併せて示された（なお初期7.21円案の提示自体は第108回・2025年10月29日資料でなされている）。第一段階での引下げだけでも収益性試算の前提が大きく変わる可能性がある。</p>
+
+<h3>6-3 容量市場メインオークション</h3>
+
+<p>容量価値（kW価値）を4年先で取引する応札市場。蓄電池は<strong>2027年度向けメインオークション以降</strong>、<strong>安定電源</strong>（計量単位で期待容量1,000kW以上、1日1回以上連続3時間以上運転継続可能）か<strong>発動指令電源</strong>として参加する。応札に必要な書類は、事業者コード、クライアント証明書、参加登録誓約書、新設電源の場合は接続検討回答書または工事計画届出書、そして調整機能「有」の場合は<strong>余力活用に関する契約の締結証憑</strong>が要る。</p>
+
+<h3>6-4 長期脱炭素電源オークション（LDA）</h3>
+
+<p>20年間の固定収入を保証する長期契約市場。蓄電池区分の応札要件は2025年度（第3回）から設備容量30MW以上、放電可能時間連続6時間以上に統一された（参考：第1回2023年度は10MW以上・3時間以上、第2回2024年度は30MW以上、3-6時間／6時間以上の2区分で募集）。応札できるのは運転開始前の新設のみ。</p>
+
+<p>LDAは<strong>他市場収益を3層構造で還付</strong>する仕組み。OCCTO「長期脱炭素電源オークションの概要について（応札年度：2025年度）」p.28および容量確保契約約款第28条第1項によれば、①応札価格に織り込まれている資本コスト部分まで（便宜上「領域A」）は<strong>95%還付</strong>、②（契約単価×契約容量）と（メインオークション価格×契約容量）の差額を超える部分（同「領域B」）は<strong>85%還付</strong>、③(A)と(B)の間（同「領域C」）は<strong>90%還付</strong>。これと引き換えに、原則20年間の容量確保契約金額が確保される建付け。「約9割」という単一還付率ではなく、95%/85%/90%の3層構造で組まれている点が応札価格設計に直結する（なお「資本コスト」は第3回（2025年度）以降の用語で、第1〜2回までは「事業報酬」と表記されていた。「領域A/B/C」も約款本文ではなく解説上の便宜呼称で、約款本文では「①／②／③」表記が使われている）。</p>
+
+<p>LDAは応札→落札→運開→運用の各フェーズで揃える契約が階層化されている。応札時点では接続検討回答書、土地確保、事業計画書、技術仕様書。落札後は容量確保契約に加え、属地TSOとの<strong>①給電申合書、②余力活用に関する契約</strong>を期限内に締結する必要がある（容量確保契約約款上、未締結・解約時は契約容量全量の市場退出と経済的ペナルティが課される）。なお、発電量調整供給契約は参加対象電源の前提要件であり、工事費負担金については応札時見積より大幅増となり経済性悪化した場合の辞退事由として整理されている。運開前にBG契約、JEPX取引会員契約、EPRX取引会員契約、PPA。運用期間中は、容量確保契約金額の月次受領、他市場収益の3層還付、供給計画への継続計上、リクワイアメント遵守——という階層構造になる。</p>
+
+<h3>6-5 余力活用契約</h3>
+
+<p>TSOがゲートクローズ後の余力をオンライン指令で直接活用するために、発電事業者と直接結ぶ二者間契約。需給調整市場とは<strong>並列的・相互補完的</strong>な関係にあり、需給調整市場で調達したΔkWで足りない場合等にメリットオーダー順で活用される仕組みになっている。<strong>容量市場・LDAで調整機能「有」として登録した安定電源にとっての必須リクワイアメント</strong>として組み込まれており、未締結だと市場退出＋契約容量×単価×10%の経済的ペナルティが課される（メインオークション容量確保契約約款 第13条／第17条、LDA容量確保契約約款 第11条／第12条で算定構造を確認できる）。</p>
+
+<p>OCCTO第105回調整力委員会資料2「今後の蓄電池の余力活用契約における運用について」（2025年1月28日）はストレージ式運用と非ストレージ式運用の二分整理を提示しており、これを基に経産省「同時市場の在り方等に関する検討会」第15回資料6-2（2025年4月22日）が3類型として整理し直したと読める。本稿の整理によれば、ストレージ式運用の対象は、①LDA落札蓄電池（10MW以上・専用線オンライン）、②容量市場メイン落札蓄電池（10MW以上・専用線オンライン・安定電源）、③それ以外の10MW以上・専用線オンライン蓄電池（個別協議で対象化可）の3つに分かれる。</p>
+
+
+<h2>07 — 1日の運用と契約の対応</h2>
+
+<p>5層の契約構造は、抽象的に並べると複雑だが、1日の運用シナリオに沿って見ると整理しやすくなる。典型的な系統用蓄電所の1日を、時系列で追ってみよう。</p>
+
+<div class="timeline">
+  <div class="tl-item">
+    <div class="tl-time">02:00</div>
+    <div class="tl-body">
+      <h4>充電シーン（深夜帯のJEPXスポット低価格）</h4>
+      <div class="tl-layers">
+        <span class="layer-pill">第3層 小売</span>
+        <span class="layer-pill">第1層 託送</span>
+        <span class="layer-pill">第4層 需要BG</span>
+        <span class="layer-pill">第5層 JEPX</span>
+      </div>
+      <p>JEPXスポット価格が安い深夜帯。蓄電所は系統から電気を引き込んで蓄電する。動いている契約は4つ——第3層の小売供給契約（充電電気の調達）、第1層の託送契約（揚水特措が適用された接続供給）、第4層の需要BG契約（充電を計画値同時同量で管理）、第5層のJEPX取引参加者契約（スポット約定）。蓄電池の充電電力は揚水特措下の課金対象から大半が外れるので、託送料金負担はぐっと小さく抑え込める。</p>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">08:00 — 12:00</div>
+    <div class="tl-body">
+      <h4>待機（充放電いずれも経済合理性なし）</h4>
+      <div class="tl-layers">
+        <span class="layer-pill">第3層 小売</span>
+        <span class="layer-pill">第1層 託送</span>
+        <span class="layer-pill">第4層 需要BG</span>
+      </div>
+      <p>スポット価格が中間水準で、蓄電・放電のいずれも経済合理性が立たない時間帯。蓄電池は充放電を停止し、自家消費分のみ系統から受電する。動いている契約は第3層・第1層・第4層のみで、第5層は休止のまま。揚水特措下の「その他最大電力等」だけが課金対象に乗る。</p>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">14:00</div>
+    <div class="tl-body">
+      <h4>需給調整指令（午後ピーク時間帯の逼迫）</h4>
+      <div class="tl-layers">
+        <span class="layer-pill">第5層 EPRX</span>
+        <span class="layer-pill">第2層 発調</span>
+        <span class="layer-pill">第4層 発電BG</span>
+      </div>
+      <p>午後ピーク時間帯にエリア需給が逼迫し、TSOから需給調整指令（一次〜三次調整力）が発令される。蓄電所は放電して系統に電気を供給する。動いている契約は3つ——第5層のEPRX契約（需給調整市場約定）、第2層の発調契約（放電にともなう計画値同時同量とインバランス精算）、第4層の発電BG（両属下で発電側が主の状態）。発電側課金のkW部分が課金されるが、kWh部分は免除される。なお需給調整市場へ参入する場合は、原則として当該蓄電所を単独BG化する必要がある。</p>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-time">18:00 — 22:00</div>
+    <div class="tl-body">
+      <h4>夕方放電（JEPXスポット価格高騰局面）</h4>
+      <div class="tl-layers">
+        <span class="layer-pill">第5層 JEPX</span>
+        <span class="layer-pill">第2層 発調</span>
+        <span class="layer-pill">第4層 発電BG</span>
+      </div>
+      <p>夕方ピーク時間帯のJEPXスポット価格高騰局面で、追加放電を行う。第5層のJEPX契約と第2層の発調契約、第4層の発電BG（両属下で発電側が主）が動作する。</p>
+    </div>
+  </div>
+</div>
+
+<div class="info-box">
+こうして見てくると、1日のなかで蓄電所は需要家と発電者の間で主従を入れ替えながら、時間ごとに違う契約レイヤーを稼働させていることが分かる。<strong>ある瞬間に同時稼働している契約は3〜4本、24時間で延べ8〜10種類の契約が稼働する</strong>——これが系統用蓄電所の運用の実像。
+</div>
+
+
+<h2>08 — 11項目チェックリスト：開発権譲渡時に確認すべき契約状態</h2>
+
+<p>系統用蓄電所の開発権譲渡（接続検討回答書および発調認可済み案件、または保証金支払済み案件の譲渡）にあたって、買主・売主双方が確認しておきたい契約状態のチェックリストを並べておく。すべての項目はNDA締結後の精査段階で実際にすり合わせる実務項目になる。</p>
+
+<div class="checklist-group" id="contract-checklist">
+  <h5><span class="cl-num">11</span>開発権譲渡前に確認すべき契約状態</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01.</span><strong>揚水特措の適用予定が接続検討申込書に明記されているか</strong>。OCCTO接続検討申込書（2025年4月以降の最新様式）には「特別措置の適用予定」を選択する専用欄が設けられている。この欄が「適用予定あり」となっており、かつ申込内容と整合していることを確認する。空欄または「適用予定なし」のまま進行している案件は、接続供給契約締結時に揚水特措が適用されない可能性があり、譲渡後に契約電力ベースの課金が発生するリスクがある。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02.</span><strong>接続検討回答書の有効期限と発調申込み期限</strong>。接続検討回答書には有効期限が設定されており、期限内に発調申込みを行わなければ失効する。発調申込み済みの場合は受付日と認可予定日を、未申込みの場合は残期間を確認する。譲渡実行から発調申込みまでの想定スケジュールが期限内に収まるかを必ず検証する。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03.</span><strong>保証金支払の有無と還付条件</strong>。系統連系工事費負担金の保証金（電力会社所定の比率で前払い）が支払済みかどうか、支払済みの場合は譲渡時の取りあつかい（買主が売主へ立替弁済する／決済時に按分する等）を確認する。EMC core由来の高圧案件では77件で保証金支払済みステータスが整理されており、ステータス書面の提示を受けることが標準のやり方になっている。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04.</span><strong>接続検討申込書本紙と添付資料の整合</strong>。OCCTO公式記載例（接続検討申込書様式AP2高圧・様式AK1特高。AP2K/AK1Tはファイル名上の略号で、完全ファイル名は更新日付サフィックス付き）に準拠した記載になっているか、機器仕様（PCS定格、蓄電池容量、運転モード等）が後段の発調申込書および接続供給申込書と矛盾していないかを確認する。譲渡後の機器変更には系統連系事業者との技術協議の再実施が要るので、機器仕様は譲渡前に固めておきたい。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05.</span><strong>土地権利の確保状況</strong>。土地売買契約・賃貸借契約・地上権設定契約のいずれかが締結済みで、用地面積・形状・接道・進入路が機器配置図と整合しているか。市街化調整区域案件では用途地域上の許可・農地転用許可の進捗を、市街化区域案件では用途地域上の制限（工業専用・準工業・近隣商業等）と建築基準法上のあつかいを確認する。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06.</span><strong>関係法令許認可の取得状況</strong>。経産省書式の関係法令確認書、農地転用許可（農振除外含む）、開発行為許可、林地開発許可、消防同意、自治体条例（環境影響評価条例・景観条例等）への対応を確認する。許可取得済みのものと取得予定のものを区分し、取得予定のものについてはスケジュールと取得確度を整理する。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07.</span><strong>近隣住民同意・自治体協議の状況</strong>。住民説明会の実施記録、近隣住民同意書（取得済みの場合）、自治体協議議事録の有無を確認する。蓄電所立地に対する地元の反応は地域差が大きく、譲渡後に予期せぬ反対運動が顕在化するリスクは買主にとって重要な検証ポイントになる。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">08.</span><strong>BG加入予定の整理</strong>。譲渡後の運用フェーズで蓄電所をどのBGに加入させるか（独自BG化／アグリゲーター傘下／既存BGへの組入れ）を確認する。アグリゲーター傘下を選ぶ場合は、候補アグリゲーターとの事前協議の有無、想定手数料水準、BG間移管の制約を整理する。買主の運用体制（自社オペレーション能力の有無）と整合した選択になっているかが、ここでの主な論点になる。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">09.</span><strong>市場参加方針と必要会員資格</strong>。JEPX（卸電力取引所）会員資格の取得予定、EPRX需給調整市場参加に向けた事業者要件適合性の検証、容量市場・LDA応札の要否判断を確認する。買主が既にJEPX会員である場合は会員資格の流用方針、新規取得の場合は取得スケジュールを整理する。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">10.</span><strong>EPC選定状況とアグリゲーター候補</strong>。EPC（設計・調達・施工）契約締結済み・選定中・未選定のいずれの段階かを確認する。締結済みなら EPC社名・契約金額・工期・蓄電池/PCSメーカー、選定中なら候補社と相見積状況を整理する。アグリゲーター候補についても同様に、契約締結済み・候補リスト整理段階・未着手のいずれかをはっきりさせておきたい。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">11.</span><strong>本申請受付の有無（東電PG管内）／負担金回答予定日記載メール（中部電力PG管内）</strong>。東京電力PG管内では「本申請受付」のステータス、中部電力PG管内では「負担金回答予定日記載メール」が、それぞれ系統連系工事の進捗を示す重要書類になる。譲渡時に発行済みなら書面の提示を、未発行なら発行見込み時期を確認しておく。</span></label>
+  <div class="check-progress">
+    <span class="bar"><span class="bar-fill" id="checkBarFill"></span></span>
+    <span class="count"><span id="checkCount">0</span> / 11</span>
+  </div>
+</div>
+
+<p>以上11項目は、ScienceXが買主向け資料パッケージを作るときの標準確認項目になっている。すべてを満たした案件のみが「即譲渡可能」と判断され、いずれかが未充足のときは譲渡条件・譲渡価格・譲渡時期の調整論点として整理していく。</p>
+
+<p class="note-small">※ チェック項目はブラウザのセッション中のみ保持される。印刷用に確定する場合は、ブラウザの印刷機能からPDF化できる。</p>
+
+
+<h2>09 — 制度の不確実性と今後の論点</h2>
+
+<h3>9-1 2026年度料金改定と上限価格引下げ</h3>
+
+<p>2026年度の託送料金（レベニューキャップ第1期最終年度）と需給調整市場上限価格の改定は、系統用蓄電所の収益見通しに直接効いてくる。第110回制度検討作業部会（2026年1月23日）では、需給調整市場の上限価格を一次・二次調整力①について19.51円から15円/ΔkW・30分（第一段階）へ引き下げ、市場における競争状況に改善が見られない場合には10円・7.21円/ΔkW・30分まで段階的に引き下げる方針が示された。事業計画上の収益試算で需給調整市場収益を主要源泉に置いているのなら、この上限価格の段階的引下げシナリオを織り込んだ感度分析が欠かせない。</p>
+
+<p>2026年度以降のレベニューキャップ第2期（2027〜2031年度）における託送料金単価の改定方向性は、各一般送配電事業者の事業計画認可申請を経て決定される。揚水特措の特例構造そのものが第2期で維持されることは認可諮問の枠組み上ほぼ確実視されるが、特例適用下の「kWh部分」係数値や対象範囲の細部については論点として残る。</p>
+
+<h3>9-2 第二次中間取りまとめ「6.6 揚水発電・DERの取扱い」の検討動向</h3>
+
+<p>制度検討作業部会の第二次中間取りまとめにおいて、6.6節は「揚水発電の随意契約による調整力調達」に関する継続検討事項として残されている。これは託送約款附則4の揚水特措（系統用蓄電池への適用）とは別の論点で、揚水発電を需給調整リソースとして調達するときの契約方式・価格決定方式をどうするか——という論点を整理した節。系統用蓄電所オーナーから見た直接的影響は限定的だが、需給調整市場価格の形成メカニズムには波及しうる。</p>
+
+<p>系統用蓄電池そのものに対する託送特措（揚水特措）のあつかいについて、既存案件の経過措置の方向性は一次資料の確認範囲では具体的決定事項として記載されていない。ただし技術的検討論点としての性格上、レベニューキャップ第2期に向けた制度詳細設計のなかで論点化される可能性がある。</p>
+
+<h3>9-3 蓄電所固有論点としての継続検討事項</h3>
+
+<p>蓄電所固有の継続検討事項としては、(i) 充電電力に対する非化石価値の取りあつかい（小売電気事業者経由調達と発電者直接相対調達で非化石証書の付与関係が変わってくる論点）、(ii) FIP併設蓄電池の運用上の制約緩和（充電源の非化石証明と発電源からの直接充電の優先順位）、(iii) 容量市場における蓄電所の持続時間要件（連続3時間運転継続要件の実需要に対する妥当性検証）、(iv) 余力活用契約の運用適正化（調整機能「有」登録案件の実運用と契約条項の整合）が挙がる。これらは2026〜2027年度の制度検討作業部会・需給調整市場検討小委員会・容量市場小委員会の議題に乗っていく見込み。</p>
+
+
+<h2>結 — 契約は事業性そのもの</h2>
+
+<p>系統用蓄電所の事業性は、機器スペックや立地条件だけで決まるものではない。<strong>5層21契約の組み合わせと、それぞれの層に流れる金銭・電気・指令の構造</strong>が、20年の総収益と総費用を形成する。揚水特措が許す「契約電力100kW」は、託送料金に対して年間1,000万円規模の差を生む。発電側課金のkWh免除は、放電量1MWhあたり数円〜十数円の差を生む。需給調整市場の上限価格が19.51円から15円・10円・7.21円へと段階的に引き下げられる方針は、収益見通しを根本から書き換える。これらが20年積み重なって、2億円の差になる。</p>
+
+<p>ScienceXが買主企業へ案件を譲渡するとき、価格の根拠として差し出すのは「立地」や「容量」だけではない。<strong>契約状態の整理度・将来運用フェーズの想定収益感度・制度不確実性に対する織り込み水準</strong>のすべてを含んだ事業性そのものを提示する。本コラムで整理した5層21契約のフレームワークは、その根拠を伝えるための共通言語の役目を果たす。</p>
+
+<p>系統用蓄電所への投資判断は、20年の契約設計を読み解く力で決まる。</p>
+
+<a target="_top" href="/column-bess-insurance" class="next-link">
+  <div>
+    <div class="next-link-label">前の記事 / Previous</div>
+    <div class="next-link-title">COLUMN 18 — 系統用蓄電所の保険設計</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="cta-section">
+  <h3>契約設計を含む蓄電池事業のご相談</h3>
+  <p>記事だけでは判断できない案件固有の情報は、<br>お問い合わせ後にNDA締結のうえご開示します。</p>
+  <a target="_top" href="/contact" class="cta-btn">お問い合わせ →</a>
+</div>
+
+</div>
+
+<script>
+// === TSO Calculator (託送料金差シミュレーター) ===
+(function(){
+  // 税込 円/kW （月額単価）
+  var tsoData = {
+    hokkaido: { ehv: 515.90, hv: 842.60, name: '北海道電力NW' },
+    tohoku:   { ehv: 462.00, hv: 728.20, name: '東北電力NW' },
+    tepco:    { ehv: 423.39, hv: 653.87, name: '東京電力PG' },
+    chubu:    { ehv: 357.50, hv: 467.50, name: '中部電力PG' },
+    hokuriku: { ehv: 572.00, hv: 748.00, name: '北陸電力送配電' },
+    kansai:   { ehv: 440.00, hv: 663.30, name: '関西電力送配電' },
+    chugoku:  { ehv: 383.90, hv: 658.90, name: '中国電力NW' },
+    shikoku:  { ehv: 510.40, hv: 712.80, name: '四国電力送配電' },
+    kyushu:   { ehv: 482.05, hv: 553.28, name: '九州電力送配電' },
+    okinawa:  { ehv: 472.49, hv: 713.93, name: '沖縄電力' }
+  };
+
+  var tsoEl     = document.getElementById('tsoSelect');
+  var voltEl    = document.getElementById('voltSelect');
+  var pcsEl     = document.getElementById('pcsKw');
+  var targetEl  = document.getElementById('targetKw');
+  var lossEl    = document.getElementById('lossPct');
+  var lossValEl = document.getElementById('lossPctVal');
+  var yearsEl   = document.getElementById('years');
+
+  var monthlyEl = document.getElementById('resMonthly');
+  var annualEl  = document.getElementById('resAnnual');
+  var totalEl   = document.getElementById('resTotal');
+  var theoryEl  = document.getElementById('resTheory');
+
+  function update(){
+    var tso   = tsoEl.value;
+    var volt  = voltEl.value;
+    var pcs   = parseFloat(pcsEl.value)    || 0;
+    var tgt   = parseFloat(targetEl.value) || 0;
+    var loss  = parseFloat(lossEl.value)   || 0;
+    var years = parseFloat(yearsEl.value)  || 0;
+
+    var unit  = tsoData[tso][volt]; // 円/kW・月
+    var diffKW   = Math.max(pcs - tgt, 0);
+    var monthly  = diffKW * unit;
+    var annual   = monthly * 12;
+    var total    = annual * years;
+    var theoryKW = pcs * (loss / 100) + 50;
+
+    lossValEl.textContent  = loss.toFixed(1);
+    monthlyEl.textContent  = Math.round(monthly).toLocaleString();
+    annualEl.textContent   = (annual / 10000).toLocaleString(undefined,{maximumFractionDigits:0});
+    totalEl.textContent    = (total / 100000000).toLocaleString(undefined,{maximumFractionDigits:2});
+    theoryEl.textContent   = Math.round(theoryKW).toLocaleString();
+  }
+
+  ['change','input'].forEach(function(ev){
+    [tsoEl, voltEl, pcsEl, targetEl, lossEl, yearsEl].forEach(function(el){
+      el.addEventListener(ev, update);
+    });
+  });
+  update();
+})();
+
+// === Checklist Progress ===
+(function(){
+  var group   = document.getElementById('contract-checklist');
+  if (!group) return;
+  var checks  = group.querySelectorAll('input[type=checkbox]');
+  var countEl = document.getElementById('checkCount');
+  var fillEl  = document.getElementById('checkBarFill');
+  var total   = checks.length;
+
+  function update(){
+    var done = 0;
+    checks.forEach(function(c){ if (c.checked) done++; });
+    countEl.textContent = done;
+    fillEl.style.width = (done / total * 100) + '%';
+  }
+  checks.forEach(function(c){ c.addEventListener('change', update); });
+  update();
+})();
+</script>
+
+<!-- ScienceX Footer -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo img { height:48px; width:auto; display:block; opacity:0.95; }
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img src="https://static.wixstatic.com/media/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png/v1/fill/w_300,h_118,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png" alt="ScienceX サイエンスエックス株式会社" loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:x@scix.co.jp">x@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
