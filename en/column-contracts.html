@@ -224,41 +224,116 @@ code{background:var(--light-bg);padding:2px 6px;border-radius:3px;font-family:ui
 
 <p>The figure below organizes that complexity into a single picture.</p>
 
-<div class="layer-grid">
-  <div class="layer-card">
-    <span class="l-num">LAYER 1</span>
-    <h4>Wheeling Contract</h4>
-    <span class="l-counter">Counterparty: TSO</span>
-    <p>Connection supply contract on the charging side. Whether the battery special measure (pumped-storage measure) applies is decided here.</p>
-  </div>
-  <div class="layer-card">
-    <span class="l-num">LAYER 2</span>
-    <h4>GSA Contract</h4>
-    <span class="l-counter">Counterparty: TSO</span>
-    <p>Generation supply adjustment on the discharge side. Planned-actual matching, imbalance settlement, and the generation-side charge attach here.</p>
-  </div>
-  <div class="layer-card">
-    <span class="l-num">LAYER 3</span>
-    <h4>Retail Supply Contract</h4>
-    <span class="l-counter">Counterparty: Retailer</span>
-    <p>Procurement of the electricity to be charged into the battery. Currently treated as retail supply; "indirect demand" reframing is under deliberation.</p>
-  </div>
-  <div class="layer-card">
-    <span class="l-num">LAYER 4</span>
-    <h4>BG Contract</h4>
-    <span class="l-counter">Counterparty: Aggregator / OCCTO</span>
-    <p>Balancing Group. Dual-BG structure: simultaneously belongs to a generation BG (discharge) and a demand BG (charge).</p>
-  </div>
-  <div class="layer-card">
-    <span class="l-num">LAYER 5</span>
-    <h4>Market Participation</h4>
-    <span class="l-counter">Counterparty: JEPX / EPRX / OCCTO / TSO</span>
-    <p>Five revenue streams: JEPX, EPRX, capacity market, LDA, and the Reserve Capacity Utilization Contract with the TSO.</p>
-  </div>
-  <div class="layer-core">CORE: Grid-Scale Battery Storage (1 site, dual identity as demand and generation)</div>
-</div>
+<div class="fig-wrap fig1-wrap">
+<svg viewBox="0 0 900 880" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fig 1 — The 5-layer map of power contracts a grid-scale battery storage signs">
+  <defs>
+    <filter id="f1Shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="3" result="offset"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.10"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2A3D66"/>
+      <stop offset="100%" stop-color="#0F1A2E"/>
+    </linearGradient>
+    <linearGradient id="layerSoftGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C49A3C" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#C49A3C" stop-opacity="0.03"/>
+    </linearGradient>
+    <linearGradient id="layerSoftNavy" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1B2A4A" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#1B2A4A" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
 
-<p class="note-small">Fig 1. The 5-layer map of contracts a grid-scale battery storage signs. The five layers are not independent — they cascade as preconditions for one another.</p>
+  <rect width="900" height="880" fill="#FFFFFF"/>
+
+  <line x1="370" y1="50" x2="370" y2="410" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="530" y1="50" x2="530" y2="410" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="370" y1="510" x2="370" y2="830" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="530" y1="510" x2="530" y2="830" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <g transform="translate(370, 410)">
+    <rect x="0" y="0" width="160" height="100" rx="10" fill="url(#coreGrad)" filter="url(#f1Shadow)"/>
+    <rect x="0" y="0" width="160" height="3" fill="#C49A3C"/>
+    <text x="80" y="32" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#D4AF5C" letter-spacing="2.5" font-weight="700">CORE ASSET</text>
+    <text x="80" y="58" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#FFFFFF">Battery Storage</text>
+    <text x="80" y="82" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="rgba(255,255,255,0.7)" font-style="italic">demand &amp; generation in one</text>
+  </g>
+
+  <g>
+    <rect x="40" y="40" width="320" height="130" rx="8" fill="url(#layerSoftGold)" stroke="#C49A3C" stroke-width="1.5"/>
+    <rect x="40" y="40" width="6" height="130" fill="#C49A3C"/>
+    <text x="64" y="66" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="800" fill="#A07916" letter-spacing="2.5">LAYER 01</text>
+    <text x="64" y="96" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">Wheeling Contract</text>
+    <text x="64" y="120" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#6C7A89">Counterparty: TSO</text>
+    <text x="64" y="142" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">Battery special measure eligibility</text>
+    <path d="M 360 105 Q 400 105, 400 410" fill="none" stroke="#C49A3C" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <rect x="540" y="40" width="320" height="130" rx="8" fill="url(#layerSoftGold)" stroke="#C49A3C" stroke-width="1.5"/>
+    <rect x="854" y="40" width="6" height="130" fill="#C49A3C"/>
+    <text x="836" y="66" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="800" fill="#A07916" letter-spacing="2.5">LAYER 02</text>
+    <text x="836" y="96" text-anchor="end" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">GSA Contract</text>
+    <text x="836" y="120" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#6C7A89">Discharge side / generation-side charge</text>
+    <text x="836" y="142" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">Planned-actual matching, imbalance</text>
+    <path d="M 540 105 Q 500 105, 500 410" fill="none" stroke="#C49A3C" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <rect x="40" y="220" width="320" height="130" rx="8" fill="url(#layerSoftNavy)" stroke="#2A3D66" stroke-width="1.5"/>
+    <rect x="40" y="220" width="6" height="130" fill="#2A3D66"/>
+    <text x="64" y="246" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="800" fill="#2A3D66" letter-spacing="2.5">LAYER 03</text>
+    <text x="64" y="276" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">Retail Supply Contract</text>
+    <text x="64" y="300" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#6C7A89">Retailer / Aggregator</text>
+    <text x="64" y="322" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">Procurement of charge electricity</text>
+    <path d="M 360 285 Q 400 285, 400 410" fill="none" stroke="#2A3D66" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <rect x="540" y="220" width="320" height="130" rx="8" fill="url(#layerSoftNavy)" stroke="#2A3D66" stroke-width="1.5"/>
+    <rect x="854" y="220" width="6" height="130" fill="#2A3D66"/>
+    <text x="836" y="246" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="800" fill="#2A3D66" letter-spacing="2.5">LAYER 04</text>
+    <text x="836" y="276" text-anchor="end" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">BG Contract (dual)</text>
+    <text x="836" y="300" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#6C7A89">Demand BG + Generation BG</text>
+    <text x="836" y="322" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">Planned-actual matching responsibility</text>
+    <path d="M 540 285 Q 500 285, 500 410" fill="none" stroke="#2A3D66" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <g font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">
+    <text x="240" y="395" text-anchor="middle">Charge Flow</text>
+    <text x="660" y="395" text-anchor="middle">Discharge Flow</text>
+  </g>
+
+  <g>
+    <rect x="40" y="600" width="820" height="180" rx="8" fill="url(#layerSoftGold)" stroke="#C49A3C" stroke-width="1.5"/>
+    <rect x="40" y="600" width="6" height="180" fill="#C49A3C"/>
+    <text x="64" y="628" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="800" fill="#A07916" letter-spacing="2.5">LAYER 05  /  REVENUE LAYER</text>
+    <text x="64" y="660" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">Market Participation Contracts</text>
+
+    <g font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700">
+      <rect x="64" y="685" width="84" height="34" rx="17" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.5"/>
+      <text x="106" y="707" text-anchor="middle" fill="#A07916">JEPX</text>
+      <rect x="158" y="685" width="84" height="34" rx="17" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.5"/>
+      <text x="200" y="707" text-anchor="middle" fill="#A07916">EPRX</text>
+      <rect x="252" y="685" width="120" height="34" rx="17" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="1.5"/>
+      <text x="312" y="707" text-anchor="middle" fill="#1B2A4A">Capacity Mkt</text>
+      <rect x="382" y="685" width="84" height="34" rx="17" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="1.5"/>
+      <text x="424" y="707" text-anchor="middle" fill="#1B2A4A">LDA</text>
+      <rect x="476" y="685" width="200" height="34" rx="17" fill="#FFFFFF" stroke="#2A3D66" stroke-width="1.5"/>
+      <text x="576" y="707" text-anchor="middle" fill="#2A3D66">Reserve Capacity Util.</text>
+    </g>
+
+    <text x="64" y="755" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#6C7A89">Functional only after Layers 1–4 are all in place — the monetization layer</text>
+    <path d="M 450 600 Q 450 555, 450 510" fill="none" stroke="#C49A3C" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <text x="450" y="850" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#8A92A0" font-style="italic">The five layers are not independent — they cascade as preconditions for one another</text>
+</svg>
+<div class="fig-cap">Fig 1 — The 5-layer map of power contracts a grid-scale battery storage signs</div>
+</div>
 
 <h3>1-1 The Role of Each Layer</h3>
 

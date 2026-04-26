@@ -239,56 +239,113 @@ pre{background:var(--light-bg);border:1px solid var(--border);border-left:3px so
 
 <p>この複雑さをひとつの絵に整理してみた。次の図を見てほしい。</p>
 
-<div class="fig-wrap">
-<svg viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図1 — 系統用蓄電所が結ぶ5層の電力契約マップ">
+<div class="fig-wrap fig1-wrap">
+<svg viewBox="0 0 900 880" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図1 — 系統用蓄電所が結ぶ5層の電力契約マップ">
   <defs>
-    <linearGradient id="coreGrad" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#1B2A4A"/>
-      <stop offset="100%" stop-color="#2A3D66"/>
+    <filter id="f1Shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="3" result="offset"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.10"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2A3D66"/>
+      <stop offset="100%" stop-color="#0F1A2E"/>
+    </linearGradient>
+    <linearGradient id="layerSoftGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C49A3C" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#C49A3C" stop-opacity="0.03"/>
+    </linearGradient>
+    <linearGradient id="layerSoftNavy" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1B2A4A" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#1B2A4A" stop-opacity="0.02"/>
     </linearGradient>
   </defs>
-  <!-- Core -->
-  <ellipse cx="360" cy="210" rx="92" ry="56" fill="url(#coreGrad)"/>
-  <text x="360" y="205" text-anchor="middle" fill="#fff" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700">系統用蓄電所</text>
-  <text x="360" y="226" text-anchor="middle" fill="#D4AF5C" font-family="'Noto Sans JP',sans-serif" font-size="10" letter-spacing="2">BESS</text>
 
-  <!-- Layer 1: 託送（充電側）left top -->
-  <rect x="40" y="40" width="220" height="88" rx="6" fill="#fff" stroke="#C49A3C" stroke-width="2"/>
-  <text x="55" y="62" font-family="'Noto Serif JP',serif" font-size="11" fill="#C49A3C" font-weight="700" letter-spacing="1">第1層 LAYER 1</text>
-  <text x="55" y="82" font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#1B2A4A" font-weight="700">託送契約（充電側）</text>
-  <text x="55" y="102" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">接続供給契約／揚水特措の適用</text>
-  <text x="55" y="118" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">相手：一般送配電事業者（TSO）</text>
-  <line x1="240" y1="128" x2="290" y2="180" stroke="#C49A3C" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect width="900" height="880" fill="#FFFFFF"/>
 
-  <!-- Layer 2: 発調（放電側）right top -->
-  <rect x="460" y="40" width="220" height="88" rx="6" fill="#fff" stroke="#C49A3C" stroke-width="2"/>
-  <text x="475" y="62" font-family="'Noto Serif JP',serif" font-size="11" fill="#C49A3C" font-weight="700" letter-spacing="1">第2層 LAYER 2</text>
-  <text x="475" y="82" font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#1B2A4A" font-weight="700">発電量調整供給契約</text>
-  <text x="475" y="102" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">放電（逆潮流）／発電側課金</text>
-  <text x="475" y="118" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">相手：一般送配電事業者（TSO）</text>
-  <line x1="480" y1="128" x2="430" y2="180" stroke="#C49A3C" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="370" y1="50" x2="370" y2="410" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="530" y1="50" x2="530" y2="410" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="370" y1="510" x2="370" y2="830" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="530" y1="510" x2="530" y2="830" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="3 3"/>
 
-  <!-- Layer 3: 小売 left middle -->
-  <rect x="20" y="180" width="200" height="76" rx="6" fill="#fff" stroke="#1B2A4A" stroke-width="1.5"/>
-  <text x="35" y="201" font-family="'Noto Serif JP',serif" font-size="11" fill="#C49A3C" font-weight="700" letter-spacing="1">第3層 LAYER 3</text>
-  <text x="35" y="220" font-family="'Noto Sans JP',sans-serif" font-size="12.5" fill="#1B2A4A" font-weight="700">小売供給契約（充電電気）</text>
-  <text x="35" y="238" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">相手：小売電気事業者／JEPX</text>
-  <line x1="220" y1="218" x2="270" y2="210" stroke="#1B2A4A" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <g transform="translate(370, 410)">
+    <rect x="0" y="0" width="160" height="100" rx="10" fill="url(#coreGrad)" filter="url(#f1Shadow)"/>
+    <rect x="0" y="0" width="160" height="3" fill="#C49A3C"/>
+    <text x="80" y="32" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#D4AF5C" letter-spacing="2.5" font-weight="700">CORE ASSET</text>
+    <text x="80" y="60" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="18" font-weight="700" fill="#FFFFFF">系統用蓄電所</text>
+    <text x="80" y="83" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="rgba(255,255,255,0.7)" font-style="italic">需要家でありながら発電所</text>
+  </g>
 
-  <!-- Layer 4: BG right middle -->
-  <rect x="500" y="180" width="200" height="76" rx="6" fill="#fff" stroke="#1B2A4A" stroke-width="1.5"/>
-  <text x="515" y="201" font-family="'Noto Serif JP',serif" font-size="11" fill="#C49A3C" font-weight="700" letter-spacing="1">第4層 LAYER 4</text>
-  <text x="515" y="220" font-family="'Noto Sans JP',sans-serif" font-size="12.5" fill="#1B2A4A" font-weight="700">BG契約（ダブルBG）</text>
-  <text x="515" y="238" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">単独BG／アグリゲーター傘下</text>
-  <line x1="500" y1="218" x2="450" y2="210" stroke="#1B2A4A" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <g>
+    <rect x="40" y="40" width="320" height="130" rx="8" fill="url(#layerSoftGold)" stroke="#C49A3C" stroke-width="1.5"/>
+    <rect x="40" y="40" width="6" height="130" fill="#C49A3C"/>
+    <text x="64" y="66" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="800" fill="#A07916" letter-spacing="2.5">LAYER 01</text>
+    <text x="64" y="96" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">託送契約（充電側）</text>
+    <text x="64" y="120" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#6C7A89">一般送配電事業者（TSO）</text>
+    <text x="64" y="142" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">揚水特措の適用可否がここで決まる</text>
+    <path d="M 360 105 Q 400 105, 400 410" fill="none" stroke="#C49A3C" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
 
-  <!-- Layer 5: 市場参加 bottom center -->
-  <rect x="180" y="310" width="360" height="80" rx="6" fill="#fff" stroke="#C49A3C" stroke-width="2"/>
-  <text x="200" y="332" font-family="'Noto Serif JP',serif" font-size="11" fill="#C49A3C" font-weight="700" letter-spacing="1">第5層 LAYER 5</text>
-  <text x="200" y="352" font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#1B2A4A" font-weight="700">市場参加契約・収益化契約</text>
-  <text x="200" y="370" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">JEPX／EPRX需給調整／容量市場／LDA／余力活用</text>
-  <text x="200" y="384" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">相手：JEPX・EPRX・OCCTO・TSO</text>
-  <line x1="360" y1="310" x2="360" y2="266" stroke="#C49A3C" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <g>
+    <rect x="540" y="40" width="320" height="130" rx="8" fill="url(#layerSoftGold)" stroke="#C49A3C" stroke-width="1.5"/>
+    <rect x="854" y="40" width="6" height="130" fill="#C49A3C"/>
+    <text x="836" y="66" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="800" fill="#A07916" letter-spacing="2.5">LAYER 02</text>
+    <text x="836" y="96" text-anchor="end" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">発電量調整供給契約</text>
+    <text x="836" y="120" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#6C7A89">放電側／発電側課金の対象</text>
+    <text x="836" y="142" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">計画値同時同量・インバランス精算</text>
+    <path d="M 540 105 Q 500 105, 500 410" fill="none" stroke="#C49A3C" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <rect x="40" y="220" width="320" height="130" rx="8" fill="url(#layerSoftNavy)" stroke="#2A3D66" stroke-width="1.5"/>
+    <rect x="40" y="220" width="6" height="130" fill="#2A3D66"/>
+    <text x="64" y="246" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="800" fill="#2A3D66" letter-spacing="2.5">LAYER 03</text>
+    <text x="64" y="276" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">小売供給契約</text>
+    <text x="64" y="300" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#6C7A89">小売電気事業者／アグリゲーター</text>
+    <text x="64" y="322" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">充電する電気の調達ルート</text>
+    <path d="M 360 285 Q 400 285, 400 410" fill="none" stroke="#2A3D66" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <rect x="540" y="220" width="320" height="130" rx="8" fill="url(#layerSoftNavy)" stroke="#2A3D66" stroke-width="1.5"/>
+    <rect x="854" y="220" width="6" height="130" fill="#2A3D66"/>
+    <text x="836" y="246" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="800" fill="#2A3D66" letter-spacing="2.5">LAYER 04</text>
+    <text x="836" y="276" text-anchor="end" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">BG契約(同時両属)</text>
+    <text x="836" y="300" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#6C7A89">需要BG ＋ 発電BG</text>
+    <text x="836" y="322" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">計画値同時同量の責任主体</text>
+    <path d="M 540 285 Q 500 285, 500 410" fill="none" stroke="#2A3D66" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <g font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">
+    <text x="240" y="395" text-anchor="middle">充電フロー</text>
+    <text x="660" y="395" text-anchor="middle">放電フロー</text>
+  </g>
+
+  <g>
+    <rect x="40" y="600" width="820" height="180" rx="8" fill="url(#layerSoftGold)" stroke="#C49A3C" stroke-width="1.5"/>
+    <rect x="40" y="600" width="6" height="180" fill="#C49A3C"/>
+    <text x="64" y="628" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="800" fill="#A07916" letter-spacing="2.5">LAYER 05  ／  REVENUE LAYER</text>
+    <text x="64" y="660" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">市場参加契約・収益化契約</text>
+
+    <g font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700">
+      <rect x="64" y="685" width="84" height="34" rx="17" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.5"/>
+      <text x="106" y="707" text-anchor="middle" fill="#A07916">JEPX</text>
+      <rect x="158" y="685" width="84" height="34" rx="17" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.5"/>
+      <text x="200" y="707" text-anchor="middle" fill="#A07916">EPRX</text>
+      <rect x="252" y="685" width="120" height="34" rx="17" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="1.5"/>
+      <text x="312" y="707" text-anchor="middle" fill="#1B2A4A">容量市場</text>
+      <rect x="382" y="685" width="84" height="34" rx="17" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="1.5"/>
+      <text x="424" y="707" text-anchor="middle" fill="#1B2A4A">LDA</text>
+      <rect x="476" y="685" width="160" height="34" rx="17" fill="#FFFFFF" stroke="#2A3D66" stroke-width="1.5"/>
+      <text x="556" y="707" text-anchor="middle" fill="#2A3D66">余力活用契約</text>
+    </g>
+
+    <text x="64" y="755" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#6C7A89">第1〜4層がすべて成立して初めて機能する、収益化レイヤー</text>
+    <path d="M 450 600 Q 450 555, 450 510" fill="none" stroke="#C49A3C" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <text x="450" y="850" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#8A92A0" font-style="italic">5層は独立ではなく、相互に前提条件として連鎖している</text>
 </svg>
 <div class="fig-cap">図1 — 系統用蓄電所が結ぶ5層の電力契約マップ</div>
 </div>
