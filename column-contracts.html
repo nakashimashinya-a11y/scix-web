@@ -412,21 +412,117 @@ pre{background:var(--light-bg);border:1px solid var(--border);border-left:3px so
 
 <p>なお呼称について少しだけ整理しておく。経産省・電ガ小委の公式略称は「蓄電池特措」、約款条文では「揚水等損失率」のように「揚水等」の接頭辞が使われる。本稿では業界通称の「揚水特措」と公式略称の「蓄電池特措」を、文脈に応じて使い分けていく。</p>
 
-<div class="compare-grid">
-  <div class="compare-card no-special">
-    <span class="cc-tag">揚水特措 適用なし</span>
-    <h4>受電点最大電力で契約</h4>
-    <div class="cc-figure">≒ 1,999<span class="u">kW</span></div>
-    <p>蓄電池の最大充電電力1,999kWに自家消費分を足した値が、そのまま託送契約電力になる。同じ電気を「需要として消費」と「発電として送出」で二重に課金される構造。</p>
-  </div>
-  <div class="compare-card with-special">
-    <span class="cc-tag">揚水特措 適用あり</span>
-    <h4>損失率＋自家消費分のみ</h4>
-    <div class="cc-figure">≒ 100<span class="u">kW</span></div>
-    <p>附則4により「揚水最大電力等×揚水等損失率＋その他最大電力等」へ再定義。実機効率ベースの損失率5%協議＋自家消費極小化で100kW近辺まで圧縮可能。</p>
-  </div>
+<div class="fig-wrap fig2-wrap">
+<svg viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig2-title">
+  <title id="fig2-title">揚水特措の有無による託送料金課金対象の違い</title>
+  <defs>
+    <filter id="f2Shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="2" result="offset"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.10"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="f2OffBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1B2A4A"/><stop offset="100%" stop-color="#0F1A2E"/>
+    </linearGradient>
+    <linearGradient id="f2OnBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C49A3C"/><stop offset="100%" stop-color="#A07916"/>
+    </linearGradient>
+    <linearGradient id="f2OffBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F8F9FB"/><stop offset="100%" stop-color="#EEF1F5"/>
+    </linearGradient>
+    <linearGradient id="f2OnBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDF7EA"/><stop offset="100%" stop-color="#F8EFD7"/>
+    </linearGradient>
+    <marker id="arrF2jp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 L 2 5 z" fill="#1B2A4A"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="700" fill="#FFFFFF"/>
+
+  <g>
+    <rect x="0" y="0" width="900" height="320" fill="url(#f2OffBg)"/>
+    <rect x="20" y="20" width="180" height="32" rx="4" fill="#5B6675"/>
+    <text x="110" y="42" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="1.5">揚水特措 適用なし</text>
+    <text x="216" y="42" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#1B2A4A">受電点全電力量が課金対象</text>
+
+    <g transform="translate(60, 90)">
+      <circle cx="40" cy="80" r="40" fill="#FFFFFF" stroke="#2A3D66" stroke-width="2.5"/>
+      <path d="M 22 70 L 32 90 M 32 70 L 42 90 M 42 70 L 52 90 M 52 70 L 62 90" stroke="#2A3D66" stroke-width="2" fill="none"/>
+      <text x="40" y="148" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#1B2A4A">系統</text>
+      <line x1="80" y1="80" x2="155" y2="80" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF2jp)"/>
+      <circle cx="180" cy="80" r="24" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2.5"/>
+      <text x="180" y="86" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="800" fill="#1B2A4A">M</text>
+      <text x="180" y="125" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#5B6675">受電点（計量）</text>
+      <line x1="204" y1="80" x2="245" y2="80" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF2jp)"/>
+      <rect x="250" y="50" width="200" height="80" rx="6" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2.5" filter="url(#f2Shadow)"/>
+      <rect x="250" y="50" width="200" height="4" fill="#5B6675"/>
+      <text x="350" y="80" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="16" font-weight="800" fill="#1B2A4A">蓄電池</text>
+      <text x="350" y="100" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#5B6675">最大充電 1,999kW</text>
+      <text x="350" y="118" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#5B6675" font-weight="700">→ 全量が課金対象</text>
+      <rect x="-10" y="-10" width="475" height="170" rx="10" fill="none" stroke="#5B6675" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+      <rect x="0" y="-30" width="240" height="22" rx="11" fill="#5B6675"/>
+      <text x="120" y="-14" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" letter-spacing="0.5">課金対象＝受電点全電力量</text>
+    </g>
+
+    <g transform="translate(580, 90)">
+      <text x="0" y="20" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#8896A6" letter-spacing="2">CALCULATION</text>
+      <text x="0" y="46" font-family="'SF Mono','Menlo',monospace" font-size="13" fill="#1B2A4A">課金額 = 受電点全電力量</text>
+      <text x="0" y="66" font-family="'SF Mono','Menlo',monospace" font-size="13" fill="#1B2A4A">       × 託送料金単価</text>
+      <text x="0" y="100" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#8896A6" letter-spacing="2">課金額イメージ</text>
+      <rect x="0" y="115" width="280" height="50" rx="4" fill="url(#f2OffBar)"/>
+      <text x="20" y="148" font-family="'Noto Serif JP',serif" font-size="26" font-weight="800" fill="#FFFFFF">1.00</text>
+      <text x="80" y="148" font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#FFFFFF" opacity="0.85">（基準）</text>
+    </g>
+  </g>
+
+  <line x1="40" y1="340" x2="860" y2="340" stroke="#D8DEE6" stroke-width="1.5"/>
+  <text x="450" y="335" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#8896A6" letter-spacing="3" font-weight="600">VS</text>
+
+  <g>
+    <rect x="0" y="360" width="900" height="320" fill="url(#f2OnBg)"/>
+    <rect x="20" y="380" width="180" height="32" rx="4" fill="#C49A3C"/>
+    <text x="110" y="402" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="1.5">揚水特措 適用あり</text>
+    <text x="216" y="402" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#1B2A4A">揚水分×損失率＋その他分のみ課金対象</text>
+
+    <g transform="translate(60, 450)">
+      <circle cx="40" cy="80" r="40" fill="#FFFFFF" stroke="#2A3D66" stroke-width="2.5"/>
+      <path d="M 22 70 L 32 90 M 32 70 L 42 90 M 42 70 L 52 90 M 52 70 L 62 90" stroke="#2A3D66" stroke-width="2" fill="none"/>
+      <text x="40" y="148" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#1B2A4A">系統</text>
+      <line x1="80" y1="80" x2="155" y2="80" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF2jp)"/>
+      <circle cx="180" cy="80" r="24" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2.5"/>
+      <text x="180" y="86" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="800" fill="#1B2A4A">M</text>
+      <text x="180" y="125" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#5B6675">受電点（計量）</text>
+      <line x1="204" y1="80" x2="245" y2="80" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF2jp)"/>
+      <rect x="250" y="50" width="200" height="80" rx="6" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2.5" filter="url(#f2Shadow)"/>
+      <rect x="250" y="50" width="200" height="4" fill="#C49A3C"/>
+      <text x="350" y="80" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="16" font-weight="800" fill="#1B2A4A">蓄電池</text>
+      <text x="350" y="100" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#5B6675">最大充電 1,999kW</text>
+      <text x="350" y="118" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#A07916" font-weight="700">→ 契約電力 ≒ 100kW近辺</text>
+      <rect x="-10" y="-10" width="475" height="170" rx="10" fill="none" stroke="#C49A3C" stroke-width="2" stroke-dasharray="6 4" opacity="0.7"/>
+      <rect x="0" y="-30" width="290" height="22" rx="11" fill="#C49A3C"/>
+      <text x="145" y="-14" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" letter-spacing="0.5">課金対象＝揚水分×損失率＋その他分</text>
+    </g>
+
+    <g transform="translate(580, 450)">
+      <text x="0" y="20" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#8896A6" letter-spacing="2">CALCULATION</text>
+      <text x="0" y="44" font-family="'SF Mono','Menlo',monospace" font-size="11.5" fill="#1B2A4A">課金額 = （揚水等接続供給</text>
+      <text x="0" y="60" font-family="'SF Mono','Menlo',monospace" font-size="11.5" fill="#1B2A4A">       × 損失率 ＋ その他）</text>
+      <text x="0" y="76" font-family="'SF Mono','Menlo',monospace" font-size="11.5" fill="#1B2A4A">       × 託送料金単価</text>
+      <text x="0" y="105" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#8896A6" letter-spacing="2">課金額イメージ</text>
+      <rect x="0" y="118" width="280" height="50" rx="4" fill="#F0F2F5" stroke="#D8DEE6" stroke-width="1" stroke-dasharray="3 3"/>
+      <rect x="0" y="118" width="14" height="50" rx="4" fill="url(#f2OnBar)"/>
+      <text x="50" y="151" font-family="'Noto Serif JP',serif" font-size="22" font-weight="800" fill="#1B2A4A">0.05</text>
+      <text x="200" y="151" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="14" fill="#1B2A4A" font-weight="700">▲約95%減</text>
+    </g>
+  </g>
+
+  <text x="450" y="694" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#8896A6" font-style="italic">※ 課金額イメージは説明のための例示。実際の比率は損失率と充放電量・自家消費量の構成比で変動する。</text>
+</svg>
+<div class="fig-cap">図2 — 揚水特措の有無による託送料金課金対象の違い</div>
 </div>
-<div class="fig-cap" style="font-size:.78em;color:var(--text-light);text-align:center;margin:-12px 0 24px">図2 — 揚水特措の有無による託送契約電力の違い（イメージ）</div>
+
 
 <h3>2-2 計算式：何が課金対象から外れるのか</h3>
 
@@ -465,6 +561,105 @@ pre{background:var(--light-bg);border:1px solid var(--border);border-left:3px so
 <p>スタンドアロンの系統用蓄電所では、PCS電源・空調・照明等の付随設備の取りあつかいが2023年に整理された。<strong>東京電力PG「特別高圧・高圧発電量調整供給契約申込に関する手続きについて」</strong>p.21は、主文で「資源エネルギー庁より系統用蓄電池の付随設備については、蓄電池の一部として取り扱うことと整理されました。…『それ以外の電気』が無くなり計量器の複数設置が不要となります」と明記し、別途説明ボックスで付随設備の例として「PCS電源、空調、照明等」を挙げている（本稿では主文と説明ボックスを合成的に引用）。要するに単独の系統用蓄電所では、付随設備は揚水特措における「揚水発電設備等」の一部として包含され、独立区分の対象から外れた。</p>
 
 <p>一方、再エネ併設・需要負荷併設のケースでは、付随設備以外の「その他負荷」が存在するため、その同時最大電力等を事業者とTSOの個別協議で確定する必要がある。協議の論点は、その他負荷の同時最大が立つタイミングと蓄電池の充電が最大値に近づくタイミングが、時間帯としてどれだけ重なるかという点に集約される。実務上、スタンドアロン蓄電所では「その他最大電力等」がほぼゼロまたは僅少に収束し、併設ケースでも数十kW〜100kW程度に収まることが多くなっている。</p>
+
+<div class="fig-wrap fig3-wrap">
+<svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig3meter-title">
+  <title id="fig3meter-title">付随設備の有無による計量器構成の違い</title>
+  <defs>
+    <marker id="arrF3m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1B2A4A"/></marker>
+    <linearGradient id="f3LeftBg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#C49A3C" stop-opacity="0.08"/><stop offset="100%" stop-color="#C49A3C" stop-opacity="0.02"/></linearGradient>
+    <linearGradient id="f3RightBg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1B2A4A" stop-opacity="0.06"/><stop offset="100%" stop-color="#1B2A4A" stop-opacity="0.02"/></linearGradient>
+  </defs>
+
+  <rect width="900" height="540" fill="#FFFFFF"/>
+
+  <g>
+    <rect x="20" y="20" width="420" height="500" rx="10" fill="url(#f3LeftBg)"/>
+    <rect x="40" y="40" width="200" height="32" rx="4" fill="#C49A3C"/>
+    <text x="140" y="62" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="1">スタンドアロン蓄電所</text>
+    <text x="40" y="92" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#1B2A4A">付随設備＝蓄電池の一部 → 計量器1器でOK</text>
+
+    <circle cx="80" cy="200" r="32" fill="#FFFFFF" stroke="#2A3D66" stroke-width="2.5"/>
+    <path d="M 64 192 L 72 208 M 72 192 L 80 208 M 80 192 L 88 208 M 88 192 L 96 208" stroke="#2A3D66" stroke-width="2" fill="none"/>
+    <text x="80" y="252" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">系統</text>
+
+    <line x1="112" y1="200" x2="170" y2="200" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+    <rect x="175" y="180" width="55" height="40" rx="4" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2"/>
+    <text x="202" y="205" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#1B2A4A">Wh</text>
+    <text x="202" y="240" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#5B6675">受電点計量器</text>
+
+    <rect x="250" y="120" width="170" height="280" rx="8" fill="none" stroke="#C49A3C" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="335" y="140" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#A07916" letter-spacing="0.5">蓄電池＋付随設備（一括）</text>
+
+    <line x1="230" y1="200" x2="265" y2="200" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+
+    <rect x="270" y="170" width="135" height="60" rx="6" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2"/>
+    <text x="337" y="195" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="800" fill="#1B2A4A">蓄電池本体</text>
+    <text x="337" y="215" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#5B6675">最大充電 1,999kW</text>
+
+    <rect x="270" y="265" width="40" height="38" rx="4" fill="#FDF7EA" stroke="#C49A3C" stroke-width="1.4"/>
+    <text x="290" y="282" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#1B2A4A">PCS</text>
+    <text x="290" y="295" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#1B2A4A">電源</text>
+    <rect x="318" y="265" width="40" height="38" rx="4" fill="#FDF7EA" stroke="#C49A3C" stroke-width="1.4"/>
+    <text x="338" y="282" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#1B2A4A">空調</text>
+    <text x="338" y="295" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#1B2A4A">ファン</text>
+    <rect x="366" y="265" width="40" height="38" rx="4" fill="#FDF7EA" stroke="#C49A3C" stroke-width="1.4"/>
+    <text x="386" y="287" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#1B2A4A">照明等</text>
+
+    <text x="337" y="328" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#A07916" font-weight="700">付随設備（蓄電池の一部）</text>
+
+    <rect x="40" y="430" width="380" height="70" rx="6" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.5"/>
+    <text x="55" y="453" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#A07916" letter-spacing="0.3">RESULT</text>
+    <text x="55" y="475" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#1B2A4A">「その他最大電力等」≒ ゼロ</text>
+    <text x="55" y="491" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#5B6675">→ 揚水特措下で契約電力を100kW近辺に圧縮できる</text>
+  </g>
+
+  <g>
+    <rect x="460" y="20" width="420" height="500" rx="10" fill="url(#f3RightBg)"/>
+    <rect x="480" y="40" width="220" height="32" rx="4" fill="#2A3D66"/>
+    <text x="590" y="62" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="1">併設ケース（その他負荷あり）</text>
+    <text x="480" y="92" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#1B2A4A">付随設備以外を設置 → 計量器3器で物理的に区分</text>
+
+    <circle cx="520" cy="200" r="32" fill="#FFFFFF" stroke="#2A3D66" stroke-width="2.5"/>
+    <path d="M 504 192 L 512 208 M 512 192 L 520 208 M 520 192 L 528 208 M 528 192 L 536 208" stroke="#2A3D66" stroke-width="2" fill="none"/>
+    <text x="520" y="252" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">系統</text>
+
+    <line x1="552" y1="200" x2="600" y2="200" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+    <rect x="605" y="180" width="55" height="40" rx="4" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2"/>
+    <text x="632" y="205" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#1B2A4A">Wh①</text>
+    <text x="632" y="240" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#5B6675">受電点計量器</text>
+
+    <line x1="660" y1="200" x2="700" y2="200" stroke="#1B2A4A" stroke-width="2.2"/>
+    <line x1="700" y1="140" x2="700" y2="320" stroke="#1B2A4A" stroke-width="2.2"/>
+
+    <line x1="700" y1="155" x2="725" y2="155" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+    <rect x="730" y="135" width="48" height="40" rx="4" fill="#FFFFFF" stroke="#2A3D66" stroke-width="2"/>
+    <text x="754" y="160" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="800" fill="#2A3D66">Wh②</text>
+    <line x1="778" y1="155" x2="800" y2="155" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+    <rect x="803" y="125" width="68" height="60" rx="6" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2"/>
+    <text x="837" y="150" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="800" fill="#1B2A4A">蓄電池</text>
+    <text x="837" y="166" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#5B6675">＋付随設備</text>
+    <text x="754" y="195" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#2A3D66" font-weight="700">蓄電池への充電分</text>
+
+    <line x1="700" y1="305" x2="725" y2="305" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+    <rect x="730" y="285" width="48" height="40" rx="4" fill="#FFFFFF" stroke="#2A3D66" stroke-width="2"/>
+    <text x="754" y="310" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="800" fill="#2A3D66">Wh③</text>
+    <line x1="778" y1="305" x2="800" y2="305" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+    <rect x="803" y="275" width="68" height="60" rx="6" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2"/>
+    <text x="837" y="300" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="800" fill="#1B2A4A">その他</text>
+    <text x="837" y="316" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="800" fill="#1B2A4A">負荷</text>
+    <text x="754" y="345" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#2A3D66" font-weight="700">需要場所内消費分</text>
+
+    <text x="480" y="390" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#5B6675" font-style="italic">※ 区分計量器（Wh②・Wh③）は原則TSO所有・TSO負担で取付</text>
+
+    <rect x="480" y="430" width="380" height="70" rx="6" fill="#FFFFFF" stroke="#2A3D66" stroke-width="1.5"/>
+    <text x="495" y="453" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#2A3D66" letter-spacing="0.3">RESULT</text>
+    <text x="495" y="475" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#1B2A4A">「その他最大電力等」を個別協議で確定</text>
+    <text x="495" y="491" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#5B6675">→ 同時最大の重なり方しだいで数十〜100kW程度</text>
+  </g>
+</svg>
+<div class="fig-cap">図3 — 付随設備の有無による計量器構成の違い</div>
+</div>
 
 <h4>第2段階：揚水最大電力等のロス率協議</h4>
 
@@ -797,7 +992,7 @@ pre{background:var(--light-bg);border:1px solid var(--border);border-left:3px so
 </style>
 
 <figure class="fig3-block">
-  <div class="fig-eyebrow">FIG. 03 — DAILY OPERATIONS</div>
+  <div class="fig-eyebrow">FIG. 04 — DAILY OPERATIONS</div>
   <div class="fig-title">典型的な1日の充放電と稼働中の契約レイヤー</div>
 
   <svg viewBox="0 0 900 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig3-title">
@@ -950,7 +1145,7 @@ pre{background:var(--light-bg);border:1px solid var(--border);border-left:3px so
     <input type="range" id="fig3-slider" min="0" max="24" value="2" step="0.5">
     <div class="fig3-meta">時刻：<strong id="fig3-time">02:00</strong>　／　<span class="scene" id="fig3-scene">充電シーン（深夜・JEPX安価帯）</span></div>
   </div>
-  <p class="fig-caption"><strong>図3：</strong>02:00の充電は小売・託送・需要BG・JEPXの4契約が、14:00の調整指令は発調・発電BG・EPRXの3契約が同時稼働する。蓄電池は需要BGと発電BGに同時両属しており、図中の帯は各時間帯で「主」となる側面（充電時は需要、放電時は発電）を示している。スライダーで時刻を動かして確認できる。</p>
+  <p class="fig-caption"><strong>図4：</strong>02:00の充電は小売・託送・需要BG・JEPXの4契約が、14:00の調整指令は発調・発電BG・EPRXの3契約が同時稼働する。蓄電池は需要BGと発電BGに同時両属しており、図中の帯は各時間帯で「主」となる側面（充電時は需要、放電時は発電）を示している。スライダーで時刻を動かして確認できる。</p>
 </figure>
 
 <script>
