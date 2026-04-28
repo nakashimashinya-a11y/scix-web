@@ -11,7 +11,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>蓄電池用地 査定依頼 | ScienceX — 無料査定のお申込み</title>
+<title>蓄電池事業権利・用地の査定依頼 | ScienceX — 無料査定のお申込み</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,6 +24,7 @@
     --gold-light: #D4AF5C;
     --gold-pale: rgba(196, 154, 60, 0.08);
     --green: #1A7A4C;
+    --red: #C04848;
     --white: #FFFFFF;
     --off-white: #F8F7F4;
     --gray-100: #F3F2EF;
@@ -49,7 +50,6 @@
     position: relative;
     overflow: hidden;
   }
-
   .contact-hero::before {
     content: '';
     position: absolute;
@@ -59,7 +59,6 @@
       radial-gradient(ellipse at 80% 80%, rgba(26, 122, 76, 0.04) 0%, transparent 50%);
     pointer-events: none;
   }
-
   .contact-hero::after {
     content: '';
     position: absolute;
@@ -68,71 +67,71 @@
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
     opacity: 0.4;
   }
-
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 32px;
-  }
-
-  .hero-inner {
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+  .hero-inner { text-align: center; position: relative; z-index: 1; }
   .hero-label {
     font-family: 'Noto Sans JP', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gold);
+    font-size: 12px; font-weight: 500; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
     margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
   }
-
-  .hero-label::before,
-  .hero-label::after {
-    content: '';
-    width: 24px;
-    height: 1px;
-    background: var(--gold);
-    opacity: 0.5;
+  .hero-label::before, .hero-label::after {
+    content: ''; width: 24px; height: 1px; background: var(--gold); opacity: 0.5;
   }
-
   .hero-title {
     font-family: 'Noto Serif JP', serif;
-    font-size: 36px;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 16px;
-    letter-spacing: 2px;
+    font-size: 36px; font-weight: 600; color: var(--white);
+    margin-bottom: 16px; letter-spacing: 2px;
   }
-
   .hero-subtitle {
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.65);
-    font-weight: 300;
-    line-height: 1.9;
-    max-width: 600px;
-    margin: 0 auto;
+    font-size: 15px; color: rgba(255, 255, 255, 0.65);
+    font-weight: 300; line-height: 1.9; max-width: 600px; margin: 0 auto;
   }
 
   /* ===== MAIN CONTENT ===== */
-  .contact-main {
-    padding: 64px 0 80px;
-    background: var(--off-white);
+  .contact-main { padding: 64px 0 80px; background: var(--off-white); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 340px;
+    gap: 48px; align-items: start;
   }
 
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 48px;
-    align-items: start;
+  /* ===== PERSONA TABS ===== */
+  .persona-tabs {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-bottom: 28px;
+  }
+  .persona-tab {
+    background: var(--white);
+    border: 1.5px solid var(--gray-300);
+    border-radius: 10px;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: left;
+    font-family: inherit;
+  }
+  .persona-tab:hover {
+    border-color: var(--gold);
+    background: var(--gold-pale);
+  }
+  .persona-tab.active {
+    border-color: var(--gold);
+    background: var(--gold-pale);
+    box-shadow: 0 0 0 3px rgba(196, 154, 60, 0.12);
+  }
+  .persona-tab-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    color: var(--gold); margin-bottom: 6px;
+  }
+  .persona-tab-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 15px; font-weight: 600;
+    color: var(--navy); line-height: 1.4;
+  }
+  .persona-tab-sub {
+    font-size: 12px; color: var(--gray-500);
+    margin-top: 4px; line-height: 1.5;
   }
 
   /* ===== FORM SECTION ===== */
@@ -140,68 +139,40 @@
     background: var(--white);
     border-radius: 12px;
     padding: 48px 44px;
-    box-shadow:
-      0 1px 3px rgba(27, 42, 74, 0.04),
-      0 8px 32px rgba(27, 42, 74, 0.06);
+    box-shadow: 0 1px 3px rgba(27, 42, 74, 0.04), 0 8px 32px rgba(27, 42, 74, 0.06);
     border: 1px solid rgba(27, 42, 74, 0.06);
   }
-
   .form-card h2 {
     font-family: 'Noto Serif JP', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--navy);
-    margin-bottom: 8px;
+    font-size: 22px; font-weight: 600;
+    color: var(--navy); margin-bottom: 8px;
   }
-
   .form-card .form-lead {
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin-bottom: 36px;
-    line-height: 1.8;
+    font-size: 14px; color: var(--text-secondary);
+    margin-bottom: 28px; line-height: 1.8;
   }
 
-  .form-group {
-    margin-bottom: 28px;
-  }
-
+  .form-group { margin-bottom: 24px; }
   .form-group label {
     display: block;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--navy);
-    margin-bottom: 8px;
-    letter-spacing: 0.5px;
+    font-size: 13px; font-weight: 500;
+    color: var(--navy); margin-bottom: 8px; letter-spacing: 0.5px;
   }
-
-  .form-group label .required {
-    color: var(--gold);
-    margin-left: 4px;
-    font-size: 11px;
-  }
-
-  .form-group label .optional {
-    color: var(--gray-500);
-    margin-left: 6px;
-    font-size: 11px;
-    font-weight: 400;
-  }
+  .form-group label .required { color: var(--gold); margin-left: 4px; font-size: 11px; }
+  .form-group label .optional { color: var(--gray-500); margin-left: 6px; font-size: 11px; font-weight: 400; }
 
   .form-group input,
   .form-group textarea,
   .form-group select {
-    width: 100%;
-    padding: 14px 16px;
+    width: 100%; padding: 14px 16px;
     font-family: 'Noto Sans JP', sans-serif;
-    font-size: 15px;
-    color: var(--text-primary);
+    font-size: 15px; color: var(--text-primary);
     background: var(--off-white);
     border: 1.5px solid var(--gray-300);
     border-radius: 8px;
     transition: all 0.25s ease;
     outline: none;
   }
-
   .form-group input:focus,
   .form-group textarea:focus,
   .form-group select:focus {
@@ -209,306 +180,223 @@
     background: var(--white);
     box-shadow: 0 0 0 3px rgba(196, 154, 60, 0.1);
   }
-
-  .form-group input::placeholder,
-  .form-group textarea::placeholder {
-    color: var(--gray-500);
-    font-size: 14px;
+  .form-group input::placeholder, .form-group textarea::placeholder {
+    color: var(--gray-500); font-size: 14px;
   }
-
-  .form-group textarea {
-    min-height: 120px;
-    resize: vertical;
-  }
-
+  .form-group textarea { min-height: 120px; resize: vertical; }
   .form-help {
-    display: block;
-    font-size: 12px;
-    color: var(--gray-500);
-    margin-top: 6px;
-    line-height: 1.7;
+    display: block; font-size: 12px; color: var(--gray-500);
+    margin-top: 6px; line-height: 1.7;
   }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+  /* ===== UPLOAD ZONE ===== */
+  .upload-zone {
+    border: 2px dashed var(--gray-300);
+    border-radius: 10px;
+    padding: 28px 20px;
+    background: var(--off-white);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
   }
+  .upload-zone:hover, .upload-zone.dragover {
+    border-color: var(--gold);
+    background: var(--gold-pale);
+  }
+  .upload-zone input[type="file"] { display: none; }
+  .upload-zone-icon {
+    width: 32px; height: 32px;
+    color: var(--gold);
+    margin: 0 auto 10px;
+  }
+  .upload-zone-title {
+    font-size: 14px; font-weight: 600;
+    color: var(--navy); margin-bottom: 4px;
+  }
+  .upload-zone-sub {
+    font-size: 12px; color: var(--gray-500); line-height: 1.6;
+  }
+  .file-list {
+    margin-top: 14px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .file-item {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--white); border: 1px solid var(--gray-300);
+    border-radius: 6px; padding: 10px 14px;
+    font-size: 13px;
+  }
+  .file-item.uploading { background: var(--gold-pale); border-color: var(--gold); }
+  .file-item.done { border-color: var(--green); }
+  .file-item.error { border-color: var(--red); background: rgba(192, 72, 72, 0.05); }
+  .file-item .file-icon { width: 18px; height: 18px; color: var(--gold); flex-shrink: 0; }
+  .file-item.done .file-icon { color: var(--green); }
+  .file-item.error .file-icon { color: var(--red); }
+  .file-item .file-name {
+    flex: 1; color: var(--text-primary);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .file-item .file-size { color: var(--gray-500); font-size: 12px; flex-shrink: 0; }
+  .file-item .file-status { color: var(--gray-500); font-size: 12px; flex-shrink: 0; }
+  .file-item.done .file-status { color: var(--green); font-weight: 600; }
+  .file-item.error .file-status { color: var(--red); font-weight: 600; }
+  .file-item .file-remove {
+    background: none; border: none; cursor: pointer;
+    color: var(--gray-500); padding: 0; line-height: 1;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .file-item .file-remove:hover { color: var(--red); }
 
   /* Submit Button */
   .submit-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: 16px 32px;
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 10px; width: 100%; padding: 16px 32px;
     font-family: 'Noto Sans JP', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    color: var(--white);
-    background: var(--navy);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    font-size: 15px; font-weight: 500; letter-spacing: 1px;
+    color: var(--white); background: var(--navy);
+    border: none; border-radius: 8px; cursor: pointer;
+    transition: all 0.3s ease; position: relative; overflow: hidden;
     margin-top: 8px;
   }
-
   .submit-btn::before {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 3px;
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
     background: linear-gradient(90deg, var(--gold), var(--gold-light));
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
+    transform: scaleX(0); transition: transform 0.3s ease;
   }
-
   .submit-btn:hover {
     background: var(--navy-light);
     transform: translateY(-1px);
     box-shadow: 0 4px 16px rgba(27, 42, 74, 0.2);
   }
-
-  .submit-btn:hover::before {
-    transform: scaleX(1);
-  }
-
-  .submit-btn svg {
-    width: 18px;
-    height: 18px;
-    transition: transform 0.3s ease;
-  }
-
-  .submit-btn:hover svg {
-    transform: translateX(3px);
-  }
-
+  .submit-btn:hover::before { transform: scaleX(1); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .submit-btn svg { width: 18px; height: 18px; transition: transform 0.3s ease; }
+  .submit-btn:hover svg { transform: translateX(3px); }
   .form-note {
-    text-align: center;
-    font-size: 12px;
-    color: var(--gray-500);
-    margin-top: 16px;
-    line-height: 1.7;
+    text-align: center; font-size: 12px; color: var(--gray-500);
+    margin-top: 16px; line-height: 1.7;
   }
+
+  /* Persona-driven visibility */
+  [data-persona-section] { display: none; }
+  [data-persona-section].active { display: block; }
 
   /* ===== SIDEBAR ===== */
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
+  .sidebar { display: flex; flex-direction: column; gap: 24px; }
   .sidebar-card {
-    background: var(--white);
-    border-radius: 12px;
-    padding: 32px 28px;
-    box-shadow:
-      0 1px 3px rgba(27, 42, 74, 0.04),
-      0 8px 32px rgba(27, 42, 74, 0.06);
+    background: var(--white); border-radius: 12px; padding: 32px 28px;
+    box-shadow: 0 1px 3px rgba(27, 42, 74, 0.04), 0 8px 32px rgba(27, 42, 74, 0.06);
     border: 1px solid rgba(27, 42, 74, 0.06);
   }
-
   .sidebar-card h3 {
     font-family: 'Noto Serif JP', serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--navy);
+    font-size: 16px; font-weight: 600; color: var(--navy);
     margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display: flex; align-items: center; gap: 10px;
   }
-
   .sidebar-card h3 .icon-circle {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--gold-pale);
-    border: 1px solid rgba(196, 154, 60, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--gold-pale); border: 1px solid rgba(196, 154, 60, 0.15);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
+  .sidebar-card h3 svg { width: 15px; height: 15px; color: var(--gold); }
 
-  .sidebar-card h3 svg {
-    width: 15px;
-    height: 15px;
-    color: var(--gold);
-  }
-
-  /* Contact Info */
   .contact-info-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--gray-100);
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 0; border-bottom: 1px solid var(--gray-100);
   }
-
-  .contact-info-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .contact-info-item .ci-icon {
-    width: 20px;
-    height: 20px;
-    color: var(--gold);
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
+  .contact-info-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .contact-info-item .ci-icon { width: 20px; height: 20px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
   .contact-info-item .ci-label {
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--gray-500);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 3px;
+    font-size: 11px; font-weight: 500; color: var(--gray-500);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px;
   }
-
-  .contact-info-item .ci-value {
-    font-size: 14px;
-    color: var(--text-primary);
-    line-height: 1.6;
-  }
-
+  .contact-info-item .ci-value { font-size: 14px; color: var(--text-primary); line-height: 1.6; }
   .contact-info-item a {
-    color: var(--navy);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s;
+    color: var(--navy); text-decoration: none;
+    border-bottom: 1px solid transparent; transition: border-color 0.2s;
   }
+  .contact-info-item a:hover { border-bottom-color: var(--gold); }
 
-  .contact-info-item a:hover {
-    border-bottom-color: var(--gold);
-  }
-
-  /* Expect Card */
-  .expect-list {
-    list-style: none;
-  }
-
+  .expect-list { list-style: none; }
   .expect-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px 0;
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.7;
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 0; font-size: 14px; color: var(--text-secondary); line-height: 1.7;
   }
-
-  .expect-list li:not(:last-child) {
-    border-bottom: 1px solid var(--gray-100);
-  }
-
+  .expect-list li:not(:last-child) { border-bottom: 1px solid var(--gray-100); }
   .expect-list li .check {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+    width: 20px; height: 20px; border-radius: 50%;
     background: rgba(26, 122, 76, 0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
   }
+  .expect-list li .check svg { width: 12px; height: 12px; color: var(--green); }
 
-  .expect-list li .check svg {
-    width: 12px;
-    height: 12px;
-    color: var(--green);
+  .nda-card {
+    background: var(--gold-pale); border: 1px solid rgba(196, 154, 60, 0.25);
+    border-radius: 12px; padding: 24px; text-align: center;
   }
+  .nda-card .nda-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 14px; font-weight: 600;
+    color: var(--navy); margin-bottom: 8px;
+  }
+  .nda-card p {
+    font-size: 12px; color: var(--text-secondary); line-height: 1.7;
+    margin-bottom: 14px;
+  }
+  .nda-card a {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--navy); color: var(--white);
+    text-decoration: none; padding: 10px 20px; border-radius: 6px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+    transition: all 0.2s ease;
+  }
+  .nda-card a:hover { background: var(--gold); }
+  .nda-card a svg { width: 14px; height: 14px; }
 
-  /* Confidential Note */
   .confidential-note {
-    background: var(--navy);
-    border-radius: 12px;
-    padding: 24px;
-    text-align: center;
+    background: var(--navy); border-radius: 12px; padding: 24px; text-align: center;
   }
-
   .confidential-note .lock-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+    width: 36px; height: 36px; border-radius: 50%;
     background: rgba(196, 154, 60, 0.12);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 12px;
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;
   }
-
-  .confidential-note .lock-icon svg {
-    width: 16px;
-    height: 16px;
-    color: var(--gold);
-  }
-
-  .confidential-note p {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.7;
-  }
-
-  .confidential-note strong {
-    color: var(--white);
-    font-weight: 500;
-  }
+  .confidential-note .lock-icon svg { width: 16px; height: 16px; color: var(--gold); }
+  .confidential-note p { font-size: 13px; color: rgba(255, 255, 255, 0.7); line-height: 1.7; }
+  .confidential-note strong { color: var(--white); font-weight: 500; }
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 900px) {
-    .contact-grid {
-      grid-template-columns: 1fr;
-    }
-    .sidebar {
-      order: -1;
-    }
-    .form-card {
-      padding: 36px 28px;
-    }
-    .form-row {
-      grid-template-columns: 1fr;
-    }
-    .hero-title {
-      font-size: 28px;
-    }
+    .contact-grid { grid-template-columns: 1fr; }
+    .sidebar { order: -1; }
+    .form-card { padding: 36px 28px; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-title { font-size: 28px; }
+    .persona-tabs { grid-template-columns: 1fr; }
   }
-
   @media (max-width: 600px) {
-    .contact-hero {
-      padding: 60px 0 44px;
-    }
-    .contact-main {
-      padding: 40px 0 60px;
-    }
-    .container {
-      padding: 0 20px;
-    }
-    .form-card {
-      padding: 28px 20px;
-    }
+    .contact-hero { padding: 60px 0 44px; }
+    .contact-main { padding: 40px 0 60px; }
+    .container { padding: 0 20px; }
+    .form-card { padding: 28px 20px; }
   }
 </style>
-<meta name="description" content="接続権・事業用地をお持ちの方向け。蓄電池用地の無料査定のお申込みフォーム。サイエンスエックス株式会社。">
-<link rel="canonical" href="https://www.scix.co.jp/蓄電池用地査定依頼">
+<meta name="description" content="蓄電池事業権利・用地の無料査定。接続検討回答書をお持ちの開発・EPC事業者様、蓄電池用地として土地をお持ちの地主様、両方からの査定依頼を受け付けています。PDF添付・NDA対応可。">
+<link rel="canonical" href="https://www.scix.co.jp/sell-form">
 <meta property="og:type" content="website">
-<meta property="og:title" content="蓄電池用地 査定依頼 | ScienceX">
-<meta property="og:description" content="接続権・事業用地をお持ちの方向け。蓄電池用地の無料査定のお申込みフォーム。">
-<meta property="og:url" content="https://www.scix.co.jp/蓄電池用地査定依頼">
+<meta property="og:title" content="蓄電池事業権利・用地の査定依頼 | ScienceX">
+<meta property="og:description" content="蓄電池事業権利・用地の無料査定。接続検討回答書をお持ちの開発・EPC事業者様、蓄電池用地として土地をお持ちの地主様、両方からの査定依頼を受け付けています。">
+<meta property="og:url" content="https://www.scix.co.jp/sell-form">
 <meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
 <meta property="og:site_name" content="ScienceX">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="蓄電池用地 査定依頼 | ScienceX">
-<meta name="twitter:description" content="接続権・事業用地をお持ちの方向け。蓄電池用地の無料査定のお申込みフォーム。">
+<meta name="twitter:title" content="蓄電池事業権利・用地の査定依頼 | ScienceX">
+<meta name="twitter:description" content="蓄電池事業権利・用地の無料査定。接続検討回答書をお持ちの開発・EPC事業者様、蓄電池用地として土地をお持ちの地主様、両方からの査定依頼を受け付けています。">
 <meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
 </head>
 <body>
@@ -519,8 +407,8 @@
   <div class="container">
     <div class="hero-inner">
       <div class="hero-label">Assessment</div>
-      <h1 class="hero-title">蓄電池用地 査定依頼</h1>
-      <p class="hero-subtitle">接続権・事業用地についての概要をご記入ください。分かる範囲で結構です。<br>原則1営業日以内に担当よりご連絡いたします。査定は無料です。</p>
+      <h1 class="hero-title">蓄電池事業権利・用地の査定依頼</h1>
+      <p class="hero-subtitle">該当する種別を選択し、必要事項をご記入ください。<br>原則1営業日以内に代表（中島）よりご連絡いたします。査定は無料です。</p>
     </div>
   </div>
 </section>
@@ -533,11 +421,25 @@
       <!-- FORM -->
       <div class="form-card">
         <h2>査定依頼フォーム</h2>
-        <p class="form-lead">以下のフォームにご記入ください。必須項目以外は、分かる範囲で結構です。内容を確認の上、担当よりご連絡いたします。</p>
+        <p class="form-lead">まず、該当する種別をお選びください。</p>
+
+        <!-- PERSONA TABS -->
+        <div class="persona-tabs" role="tablist">
+          <button type="button" class="persona-tab active" data-persona="seller" role="tab" aria-selected="true">
+            <div class="persona-tab-label">業者様向け</div>
+            <div class="persona-tab-title">接続検討回答書をお持ちの方</div>
+            <div class="persona-tab-sub">開発・EPC事業者・権利保有者の方</div>
+          </button>
+          <button type="button" class="persona-tab" data-persona="land" role="tab" aria-selected="false">
+            <div class="persona-tab-label">地主様向け</div>
+            <div class="persona-tab-title">蓄電池用地として土地をお持ちの方</div>
+            <div class="persona-tab-sub">変電所・電柱の近くに土地をお持ちの方</div>
+          </button>
+        </div>
 
         <form id="sellForm" action="https://formsubmit.co/ajax/x@scix.co.jp" method="POST">
 
-          <!-- Name & Company -->
+          <!-- ===== COMMON: Name & Company ===== -->
           <div class="form-row">
             <div class="form-group">
               <label>お名前<span class="required">*</span></label>
@@ -549,7 +451,7 @@
             </div>
           </div>
 
-          <!-- Email & Phone -->
+          <!-- ===== COMMON: Email & Phone ===== -->
           <div class="form-row">
             <div class="form-group">
               <label>メールアドレス<span class="required">*</span></label>
@@ -561,61 +463,86 @@
             </div>
           </div>
 
-          <!-- Address -->
-          <div class="form-group">
-            <label>対象地の住所<span class="required">*</span></label>
-            <input type="text" name="address" placeholder="例：群馬県○○市△△町1-2-3" required>
+          <!-- ===== SELLER SECTION（業者様）===== -->
+          <div data-persona-section="seller" class="active">
+            <div class="form-group">
+              <label>案件件数<span class="optional">（任意）</span></label>
+              <select name="case_count">
+                <option value="">選択してください</option>
+                <option value="1件">1件</option>
+                <option value="2-5件">2〜5件</option>
+                <option value="6件以上">6件以上</option>
+              </select>
+              <small class="form-help">複数件まとめての査定にも対応します。</small>
+            </div>
+
+            <div class="form-group">
+              <label>接続検討回答書（PDF・画像）<span class="optional">（任意・最大5ファイル / 各15MB）</span></label>
+              <div class="upload-zone" id="uploadZone">
+                <input type="file" id="uploadInput" accept=".pdf,.jpg,.jpeg,.png,.heic,.heif" multiple>
+                <svg class="upload-zone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <div class="upload-zone-title">クリックまたはドラッグ＆ドロップで添付</div>
+                <div class="upload-zone-sub">PDF / JPG / PNG / HEIC ／ 最大5ファイル・各15MBまで<br>※添付いただければ、案件規模・工事費負担金・連系時期などの個別ヒアリングは省略できます</div>
+              </div>
+              <div class="file-list" id="fileList"></div>
+            </div>
+
+            <div class="form-group">
+              <label>その他ご要望・補足<span class="optional">（任意）</span></label>
+              <textarea name="message_seller" placeholder="NDA締結を希望される場合や、譲渡条件のご要望、ご質問などをご記入ください。"></textarea>
+            </div>
           </div>
 
-          <!-- Google Maps URL -->
-          <div class="form-group">
-            <label>Google Maps URL<span class="optional">（任意）</span></label>
-            <input type="url" name="gmap_url" placeholder="https://maps.app.goo.gl/... または https://www.google.com/maps/...">
-            <small class="form-help">パソコン・スマートフォンのGoogle Mapsで対象地を表示→「共有」ボタン→「リンクをコピー」で取得したURLを貼り付けてください。住所だけでは場所を特定しづらい山林・原野・雑種地などの場合に特に有効です。</small>
+          <!-- ===== LAND SECTION（地主様）===== -->
+          <div data-persona-section="land">
+            <div class="form-group">
+              <label>対象地の住所<span class="required">*</span></label>
+              <input type="text" name="address" placeholder="例：群馬県○○市△△町1-2-3">
+            </div>
+            <div class="form-group">
+              <label>Google Maps URL<span class="optional">（任意）</span></label>
+              <input type="url" name="gmap_url" placeholder="https://maps.app.goo.gl/...">
+              <small class="form-help">Google Mapsで対象地を表示→「共有」→「リンクをコピー」で取得したURL。住所だけでは特定しづらい山林・原野・雑種地などに有効です。</small>
+            </div>
+            <div class="form-group">
+              <label>最寄りの電柱番号<span class="optional">（任意）</span></label>
+              <input type="text" name="pole_number" placeholder="例：田町 1-23">
+              <small class="form-help">対象地付近の電柱プレートに記載された番号。連系検討の初期精度が上がります。</small>
+            </div>
+            <div class="form-group">
+              <label>地目<span class="optional">（任意）</span></label>
+              <input type="text" name="chimoku" placeholder="例：宅地、雑種地、山林、原野、田、畑">
+              <small class="form-help">登記簿上の地目。農地（田・畑）は転用難易度が高く対象外となる場合がございます。</small>
+            </div>
+            <div class="form-group">
+              <label>面積<span class="optional">（任意）</span></label>
+              <input type="text" name="area" placeholder="例：1,500㎡ または 450坪（概算で結構です）">
+            </div>
+            <div class="form-group">
+              <label>用途地域<span class="optional">（任意）</span></label>
+              <input type="text" name="youto" placeholder="例：市街化調整区域、工業地域 など">
+              <small class="form-help">市区町村のホームページや、Google検索で「(住所) 用途地域」と調べると確認できます。</small>
+            </div>
+            <div class="form-group">
+              <label>その他ご要望・補足<span class="optional">（任意）</span></label>
+              <textarea name="message_land" placeholder="ご相談内容や補足事項がございましたらご記入ください。"></textarea>
+            </div>
           </div>
 
-          <!-- Pole Number -->
-          <div class="form-group">
-            <label>最寄りの電柱番号<span class="optional">（任意）</span></label>
-            <input type="text" name="pole_number" placeholder="例：田町 1-23">
-            <small class="form-help">対象地付近の電柱に取り付けられたプレートに記載された番号です。連系検討の初期精度が上がります。現地に行ける方のみご記入いただければ結構です。</small>
-          </div>
-
-          <!-- Chimoku -->
-          <div class="form-group">
-            <label>地目<span class="optional">（任意）</span></label>
-            <input type="text" name="chimoku" placeholder="例：宅地、雑種地、山林、原野、田、畑">
-            <small class="form-help">登記簿上の地目をご記入ください。なお農地（田・畑）は農地転用の難易度が高いため、対象外となる場合がございます。不明な場合は空欄で結構です。</small>
-          </div>
-
-          <!-- Area -->
-          <div class="form-group">
-            <label>面積<span class="optional">（任意）</span></label>
-            <input type="text" name="area" placeholder="例：1,500㎡ または 450坪（概算で結構です）">
-          </div>
-
-          <!-- Youto -->
-          <div class="form-group">
-            <label>用途地域<span class="optional">（任意）</span></label>
-            <input type="text" name="youto" placeholder="例：市街化調整区域、第一種低層住居専用地域、工業地域 など">
-            <small class="form-help">市区町村のホームページや、Google検索で「(住所) 用途地域」と調べると確認できます。不明な場合は空欄で結構です。</small>
-          </div>
-
-          <!-- Message -->
-          <div class="form-group">
-            <label>その他ご要望・補足<span class="optional">（任意）</span></label>
-            <textarea name="message" placeholder="その他、ご相談内容や補足事項がございましたらご記入ください。"></textarea>
-          </div>
+          <!-- Persona hidden field -->
+          <input type="hidden" name="persona" id="personaField" value="seller">
+          <!-- Uploaded file keys (R2) -->
+          <input type="hidden" name="uploaded_files" id="uploadedFilesField" value="">
 
           <!-- FormSubmit.co Config -->
-          <input type="hidden" name="_subject" value="【ScienceXウェブサイト】蓄電池用地 査定依頼">
+          <input type="hidden" name="_subject" id="subjectField" value="【ScienceXウェブサイト】事業権利の査定依頼（業者様）">
           <input type="hidden" name="_next" value="https://scix.co.jp/thanks">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_template" value="table">
           <input type="text" name="_honey" style="display:none">
 
           <!-- Submit -->
-          <button type="submit" class="submit-btn">
+          <button type="submit" class="submit-btn" id="submitBtn">
             査定を依頼する
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
@@ -625,6 +552,16 @@
 
       <!-- SIDEBAR -->
       <div class="sidebar">
+
+        <!-- NDA -->
+        <div class="nda-card">
+          <div class="nda-title">機密性の高い案件の方へ</div>
+          <p>先にNDA（秘密保持契約）を締結したい場合は、Word雛形をダウンロードしてご利用ください。</p>
+          <a href="/files/scix-nda-template.docx" download>
+            NDA雛形（Word）をダウンロード
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </a>
+        </div>
 
         <!-- What to Expect -->
         <div class="sidebar-card">
@@ -637,11 +574,11 @@
           <ul class="expect-list">
             <li>
               <span class="check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
-              <span>原則<strong style="color:var(--navy);">1営業日以内</strong>に担当よりご連絡</span>
+              <span>原則<strong style="color:var(--navy);">1営業日以内</strong>に代表（中島）よりご連絡</span>
             </li>
             <li>
               <span class="check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
-              <span><strong style="color:var(--navy);">簡易査定（概算価格・買取可否）</strong>を無料でお伝え</span>
+              <span><strong style="color:var(--navy);">概算査定（買取価格・買取可否）</strong>を48時間以内に無料でお伝え</span>
             </li>
             <li>
               <span class="check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -662,7 +599,7 @@
             <svg class="ci-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             <div>
               <div class="ci-label">Email</div>
-              <div class="ci-value"><a href="mailto:x@scix.co.jp">x@scix.co.jp</a></div>
+              <div class="ci-value"><a href="mailto:s@scix.co.jp">s@scix.co.jp</a></div>
             </div>
           </div>
           <div class="contact-info-item">
@@ -686,7 +623,7 @@
           <div class="lock-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
           </div>
-          <p><strong>秘密厳守で対応いたします</strong><br>お預かりした案件情報・ご相談内容は厳重に管理し、ご許可なく第三者への開示は一切いたしません。</p>
+          <p><strong>秘密厳守で対応いたします</strong><br>お預かりした案件情報・添付書類は厳重に管理し、ご許可なく第三者への開示は一切いたしません。</p>
         </div>
 
       </div>
@@ -695,39 +632,233 @@
 </section>
 
 <script>
-// Fetch-based form submission (bypasses Cloudflare redirect issues)
-document.getElementById('sellForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const form = this;
-  const btn = form.querySelector('.submit-btn');
-  const originalBtnHTML = btn.innerHTML;
-  btn.innerHTML = '送信中...';
-  btn.style.opacity = '0.7';
-  btn.disabled = true;
+(function () {
+  var UPLOAD_ENDPOINT = 'https://scix-dealroom.pages.dev/api/sell-upload';
+  var MAX_FILES = 5;
+  var MAX_SIZE = 15 * 1024 * 1024;
+  var ALLOWED_EXT = ['pdf', 'jpg', 'jpeg', 'png', 'heic', 'heif'];
 
-  fetch(form.action, {
-    method: 'POST',
-    body: JSON.stringify(Object.fromEntries(new FormData(form))),
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  })
-  .then(function(res) { return res.json(); })
-  .then(function(data) {
-    if (data.success) {
-      window.location.href = '/thanks';
+  var personaTabs = document.querySelectorAll('.persona-tab');
+  var personaSections = document.querySelectorAll('[data-persona-section]');
+  var personaField = document.getElementById('personaField');
+  var subjectField = document.getElementById('subjectField');
+  var uploadZone = document.getElementById('uploadZone');
+  var uploadInput = document.getElementById('uploadInput');
+  var fileList = document.getElementById('fileList');
+  var uploadedFilesField = document.getElementById('uploadedFilesField');
+  var addressInput = document.querySelector('input[name="address"]');
+  var form = document.getElementById('sellForm');
+  var submitBtn = document.getElementById('submitBtn');
+
+  // Track uploaded files: [{key, filename, size, status}]
+  var uploadedFiles = [];
+
+  function setPersona(persona) {
+    personaTabs.forEach(function (t) {
+      var active = t.dataset.persona === persona;
+      t.classList.toggle('active', active);
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    personaSections.forEach(function (s) {
+      s.classList.toggle('active', s.dataset.personaSection === persona);
+    });
+    personaField.value = persona;
+    if (persona === 'seller') {
+      subjectField.value = '【ScienceXウェブサイト】事業権利の査定依頼（業者様）';
+      addressInput.required = false;
     } else {
-      throw new Error(data.message || '送信エラー');
+      subjectField.value = '【ScienceXウェブサイト】蓄電池用地の査定依頼（地主様）';
+      addressInput.required = true;
     }
-  })
-  .catch(function(err) {
-    alert('送信に失敗しました。もう一度お試しください。\n' + err.message);
-    btn.innerHTML = originalBtnHTML;
-    btn.style.opacity = '1';
-    btn.disabled = false;
+  }
+
+  personaTabs.forEach(function (tab) {
+    tab.addEventListener('click', function () { setPersona(tab.dataset.persona); });
   });
-});
+
+  // Initial: seller, address not required
+  setPersona('seller');
+
+  function fmtSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
+  function syncUploadedFilesField() {
+    var keys = uploadedFiles.filter(function (f) { return f.key; }).map(function (f) {
+      return f.filename + ' → ' + f.key;
+    });
+    uploadedFilesField.value = keys.join('\n');
+  }
+
+  function renderFileItem(entry) {
+    var div = document.createElement('div');
+    div.className = 'file-item ' + entry.status;
+    div.innerHTML =
+      '<svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
+      '<span class="file-name"></span>' +
+      '<span class="file-size"></span>' +
+      '<span class="file-status"></span>' +
+      '<button type="button" class="file-remove" aria-label="削除">×</button>';
+    div.querySelector('.file-name').textContent = entry.filename;
+    div.querySelector('.file-size').textContent = fmtSize(entry.size);
+    var statusEl = div.querySelector('.file-status');
+    if (entry.status === 'uploading') statusEl.textContent = 'アップロード中…';
+    else if (entry.status === 'done') statusEl.textContent = '完了';
+    else if (entry.status === 'error') statusEl.textContent = entry.error || '失敗';
+    div.querySelector('.file-remove').addEventListener('click', function () {
+      var idx = uploadedFiles.indexOf(entry);
+      if (idx >= 0) uploadedFiles.splice(idx, 1);
+      div.remove();
+      syncUploadedFilesField();
+    });
+    entry._el = div;
+    fileList.appendChild(div);
+  }
+
+  function updateFileItem(entry) {
+    if (!entry._el) return;
+    entry._el.className = 'file-item ' + entry.status;
+    var statusEl = entry._el.querySelector('.file-status');
+    if (entry.status === 'uploading') statusEl.textContent = 'アップロード中…';
+    else if (entry.status === 'done') statusEl.textContent = '完了';
+    else if (entry.status === 'error') statusEl.textContent = entry.error || '失敗';
+  }
+
+  function uploadFile(file) {
+    var ext = (file.name.split('.').pop() || '').toLowerCase();
+    var entry = {
+      file: file,
+      filename: file.name,
+      size: file.size,
+      status: 'uploading',
+      key: null,
+      error: null,
+    };
+    if (uploadedFiles.length >= MAX_FILES) {
+      entry.status = 'error';
+      entry.error = '最大5ファイルまで';
+      uploadedFiles.push(entry);
+      renderFileItem(entry);
+      return;
+    }
+    if (ALLOWED_EXT.indexOf(ext) < 0) {
+      entry.status = 'error';
+      entry.error = '対応外の拡張子';
+      uploadedFiles.push(entry);
+      renderFileItem(entry);
+      return;
+    }
+    if (file.size > MAX_SIZE) {
+      entry.status = 'error';
+      entry.error = '15MB超';
+      uploadedFiles.push(entry);
+      renderFileItem(entry);
+      return;
+    }
+    uploadedFiles.push(entry);
+    renderFileItem(entry);
+
+    var fd = new FormData();
+    fd.append('persona', personaField.value);
+    var emailVal = (form.querySelector('input[name="email"]') || {}).value || '';
+    fd.append('email', emailVal);
+    fd.append('file', file);
+
+    fetch(UPLOAD_ENDPOINT, { method: 'POST', body: fd })
+      .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+      .then(function (r) {
+        if (!r.ok || !r.data.ok) {
+          throw new Error(r.data.error || ('HTTP ' + (r.ok ? 'OK' : 'NG')));
+        }
+        var up = (r.data.uploaded || [])[0];
+        var failed = (r.data.failed || [])[0];
+        if (up) {
+          entry.status = 'done';
+          entry.key = up.key;
+        } else if (failed) {
+          entry.status = 'error';
+          entry.error = failed.reason;
+        } else {
+          entry.status = 'error';
+          entry.error = '不明エラー';
+        }
+        updateFileItem(entry);
+        syncUploadedFilesField();
+      })
+      .catch(function (err) {
+        entry.status = 'error';
+        entry.error = String(err.message || err).substring(0, 60);
+        updateFileItem(entry);
+        syncUploadedFilesField();
+      });
+  }
+
+  uploadZone.addEventListener('click', function (e) {
+    if (e.target.tagName !== 'BUTTON') uploadInput.click();
+  });
+  uploadInput.addEventListener('change', function () {
+    Array.prototype.forEach.call(uploadInput.files, uploadFile);
+    uploadInput.value = '';
+  });
+  ['dragenter', 'dragover'].forEach(function (ev) {
+    uploadZone.addEventListener(ev, function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      uploadZone.classList.add('dragover');
+    });
+  });
+  ['dragleave', 'drop'].forEach(function (ev) {
+    uploadZone.addEventListener(ev, function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      uploadZone.classList.remove('dragover');
+    });
+  });
+  uploadZone.addEventListener('drop', function (e) {
+    if (e.dataTransfer && e.dataTransfer.files) {
+      Array.prototype.forEach.call(e.dataTransfer.files, uploadFile);
+    }
+  });
+
+  // Form submit (fetch JSON to FormSubmit.co)
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var uploading = uploadedFiles.some(function (f) { return f.status === 'uploading'; });
+    if (uploading) {
+      alert('ファイルアップロードが完了するまでお待ちください。');
+      return;
+    }
+    var originalBtnHTML = submitBtn.innerHTML;
+    submitBtn.innerHTML = '送信中...';
+    submitBtn.style.opacity = '0.7';
+    submitBtn.disabled = true;
+
+    syncUploadedFilesField();
+
+    var data = Object.fromEntries(new FormData(form));
+    fetch(form.action, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (resp) {
+        if (resp.success) {
+          window.location.href = '/thanks';
+        } else {
+          throw new Error(resp.message || '送信エラー');
+        }
+      })
+      .catch(function (err) {
+        alert('送信に失敗しました。もう一度お試しください。\n' + err.message);
+        submitBtn.innerHTML = originalBtnHTML;
+        submitBtn.style.opacity = '1';
+        submitBtn.disabled = false;
+      });
+  });
+})();
 </script>
 
 
@@ -735,88 +866,40 @@ document.getElementById('sellForm').addEventListener('submit', function(e) {
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
 
-  .scix-footer * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
+  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
   .scix-footer {
-    background-color: #1B2A4A;
-    color: rgba(255, 255, 255, 0.85);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-weight: 300;
-    font-size: 12.5px;
-    line-height: 1.9;
-    padding: 44px 28px 32px;
-    width: 100%;
+    background-color: #1B2A4A; color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif; font-weight: 300;
+    font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%;
   }
-
-  .scix-footer-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-  }
-
-  .scix-footer-logo img {
-    height: 48px;
-    width: auto;
-    display: block;
-    opacity: 0.95;
-  }
-
-  .scix-footer-info {
-    text-align: center;
-  }
-
+  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: 0.95; }
+  .scix-footer-info { text-align: center; }
   .scix-footer-copyright {
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    color: rgba(255, 255, 255, 0.55);
-    margin-top: 20px;
+    font-size: 11px; letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55); margin-top: 20px;
   }
-
-  .scix-footer-company {
-    font-size: 12.5px;
-    line-height: 2;
-    color: rgba(255, 255, 255, 0.8);
-  }
-
+  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255, 255, 255, 0.8); }
   .scix-footer-company .company-name {
-    font-weight: 500;
-    font-size: 13.5px;
-    color: rgba(255, 255, 255, 0.92);
-    margin-bottom: 2px;
+    font-weight: 500; font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92); margin-bottom: 2px;
   }
-
   .scix-footer-company .representative {
-    margin-top: 4px;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 12px;
+    margin-top: 4px; color: rgba(255, 255, 255, 0.6); font-size: 12px;
   }
-
   .scix-footer-company a {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8); text-decoration: none;
     transition: color 0.2s ease;
   }
-
-  .scix-footer-company a:hover {
-    color: #C49A3C;
-  }
-
+  .scix-footer-company a:hover { color: #C49A3C; }
   .scix-footer-divider {
-    width: 60px;
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    margin: 0 auto;
+    width: 60px; border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12); margin: 0 auto;
   }
 </style>
 
 <footer class="scix-footer">
   <div class="scix-footer-inner">
-
     <a href="https://www.scix.co.jp" class="scix-footer-logo" aria-label="ScienceX ホーム">
       <img
         src="https://static.wixstatic.com/media/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png/v1/fill/w_300,h_118,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png"
@@ -824,9 +907,7 @@ document.getElementById('sellForm').addEventListener('submit', function(e) {
         loading="lazy"
       />
     </a>
-
     <hr class="scix-footer-divider" />
-
     <div class="scix-footer-info">
       <div class="scix-footer-company">
         <div class="company-name">サイエンスエックス株式会社</div>
@@ -840,7 +921,6 @@ document.getElementById('sellForm').addEventListener('submit', function(e) {
         &copy; 2025 Science X Inc. All Rights Reserved.
       </div>
     </div>
-
   </div>
 </footer>
 </body>
