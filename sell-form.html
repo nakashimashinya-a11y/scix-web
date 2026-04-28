@@ -102,28 +102,48 @@
     gap: 12px; margin-bottom: 28px;
   }
   .persona-tab {
-    background: var(--white);
-    border: 1.5px solid var(--gray-300);
+    background: var(--gray-100);
+    border: 2px solid var(--gray-300);
     border-radius: 10px;
-    padding: 18px 20px;
+    padding: 20px 22px 20px 52px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
     text-align: left;
     font-family: inherit;
+    position: relative;
+  }
+  .persona-tab::before {
+    content: '';
+    position: absolute;
+    left: 18px; top: 24px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--gray-300);
+    background: var(--white);
+    transition: all 0.2s ease;
   }
   .persona-tab:hover {
     border-color: var(--gold);
-    background: var(--gold-pale);
+    background: var(--white);
+    box-shadow: 0 2px 8px rgba(27, 42, 74, 0.06);
   }
+  .persona-tab:hover::before { border-color: var(--gold); }
   .persona-tab.active {
     border-color: var(--gold);
-    background: var(--gold-pale);
-    box-shadow: 0 0 0 3px rgba(196, 154, 60, 0.12);
+    background: var(--white);
+    box-shadow: 0 4px 16px rgba(196, 154, 60, 0.20);
+  }
+  .persona-tab.active::before {
+    border-color: var(--gold);
+    background: var(--gold);
+    box-shadow: inset 0 0 0 3px var(--white);
   }
   .persona-tab-label {
     font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-    color: var(--gold); margin-bottom: 6px;
+    color: var(--gray-500); margin-bottom: 6px;
+    transition: color 0.2s ease;
   }
+  .persona-tab.active .persona-tab-label { color: var(--gold); }
   .persona-tab-title {
     font-family: 'Noto Serif JP', serif;
     font-size: 15px; font-weight: 600;
