@@ -706,10 +706,10 @@
   }
 
   function syncUploadedFilesField() {
-    var keys = uploadedFiles.filter(function (f) { return f.key; }).map(function (f) {
-      return f.filename + ' → ' + f.key;
+    var lines = uploadedFiles.filter(function (f) { return f.downloadUrl; }).map(function (f) {
+      return f.filename + ' → ' + f.downloadUrl;
     });
-    uploadedFilesField.value = keys.join('\n');
+    uploadedFilesField.value = lines.join('\n');
   }
 
   function renderFileItem(entry) {
@@ -797,6 +797,7 @@
         if (up) {
           entry.status = 'done';
           entry.key = up.key;
+          entry.downloadUrl = up.downloadUrl;
         } else if (failed) {
           entry.status = 'error';
           entry.error = failed.reason;
