@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三語・三層分離・二つの4月 — 系統用蓄電池の契約フロー実務、現場の7つの失敗モードと13の確認点 | ScienceX</title>
+<meta name="description" content="系統用蓄電池の契約手続きでは、「接続検討」「接続供給契約」「発電量調整供給契約」の三語が構造的に取り違えられやすい設計になっている。三語混同の構造的根源、2024年4月§8(2)ホの66文字、2026年4月の経過措置なき境界線、そして市場で観察される7つの失敗モードを、一次資料で構造的に整理する。">
+<link rel="canonical" href="https://www.scix.co.jp/column-contract-flow">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-contract-flow">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-contract-flow">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:760px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.85;max-width:620px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+.part-divider{margin:60px 0 32px;padding:24px 0 0;border-top:1px solid var(--border);display:flex;align-items:center;gap:18px}
+.part-divider .part-label{font-family:'Noto Serif JP',serif;font-size:.78em;letter-spacing:.18em;color:var(--accent);font-weight:700}
+.part-divider .part-title{font-family:'Noto Serif JP',serif;font-size:1.05em;color:var(--navy);font-weight:600;letter-spacing:.02em}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue)}
+.lede{font-size:1em;line-height:2.05;margin-bottom:24px}
+.lede strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.quote-box{background:linear-gradient(135deg,#fdfaf2 0%,#fdf6e3 100%);border:1px solid rgba(196,154,60,0.25);border-left:5px solid var(--accent);padding:28px 32px;margin:32px 0;border-radius:0 8px 8px 0;position:relative}
+.quote-box::before{content:'"';position:absolute;top:-8px;left:14px;font-family:'Noto Serif JP',serif;font-size:64px;color:rgba(196,154,60,0.25);line-height:1}
+.quote-box .quote-text{font-family:'Noto Serif JP',serif;font-size:1.12em;font-weight:600;color:var(--navy);line-height:1.7;margin-bottom:12px;padding-left:18px}
+.quote-box .quote-src{font-size:.78em;color:var(--text-light);text-align:right;letter-spacing:.04em;padding-left:18px}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.review-note{background:#fff8e1;border:1px dashed #c9a227;padding:18px 22px;margin:24px 0;border-radius:4px;font-size:.86em;line-height:1.85;color:#7a5e10}
+.review-note strong{color:#5a4308}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:560px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.flow-block{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:24px 28px;margin:28px 0;font-family:'Menlo','Monaco','Courier New',monospace;font-size:.82em;line-height:1.85;color:var(--navy);white-space:pre-wrap;overflow-x:auto}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.6em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.layer-map{display:grid;grid-template-columns:1fr;gap:12px;margin:28px 0}
+.layer-card{display:grid;grid-template-columns:64px 1fr;gap:18px;background:var(--white);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;padding:18px 22px;align-items:start}
+.layer-card.hl{border-left:4px solid var(--navy);background:linear-gradient(90deg,rgba(196,154,60,0.06) 0%,rgba(255,255,255,1) 100%)}
+.layer-card .layer-no{font-family:'Noto Serif JP',serif;font-size:1.4em;font-weight:700;color:var(--accent);line-height:1;text-align:center;padding-top:4px}
+.layer-card.hl .layer-no{color:var(--navy)}
+.layer-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 6px;line-height:1.5}
+.layer-card p{font-size:.86em;line-height:1.85;margin:0}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.check-verdict{margin-top:14px;padding:14px 18px;border-radius:6px;font-size:.88em;line-height:1.8;background:var(--white);border:1px solid var(--border)}
+.check-verdict .vlabel{font-size:.75em;color:var(--text-light);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-weight:700}
+.check-verdict .vbody{color:var(--text);font-size:.95em}
+.check-verdict.use{border-left:4px solid var(--green)}
+.check-verdict.use .vlabel{color:var(--green)}
+.check-verdict.consider{border-left:4px solid var(--accent)}
+.check-verdict.consider .vlabel{color:var(--accent)}
+.check-verdict.skip{border-left:4px solid var(--warn)}
+.check-verdict.skip .vlabel{color:var(--warn)}
+.failure-list{margin:28px 0}
+.failure-item{display:grid;grid-template-columns:46px 1fr;gap:18px;background:var(--white);border:1px solid var(--border);border-left:4px solid var(--warn);border-radius:6px;padding:20px 22px;margin-bottom:14px}
+.failure-item .fail-num{font-family:'Noto Serif JP',serif;font-size:1.5em;font-weight:700;color:var(--warn);line-height:1;text-align:center;padding-top:2px}
+.failure-item h4{font-size:.98em;font-weight:700;color:var(--navy);margin:0 0 6px;line-height:1.5}
+.failure-item .fail-trigger{font-size:.85em;color:var(--text);line-height:1.85;margin-bottom:8px}
+.failure-item .fail-cost{font-size:.82em;color:var(--warn);font-weight:600;background:#fef2f2;padding:6px 12px;border-radius:4px;display:inline-block}
+.persona-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:28px 0}
+.persona-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--navy);border-radius:6px;padding:22px 24px}
+.persona-card .p-tag{display:inline-block;font-size:.74em;font-weight:700;letter-spacing:.1em;color:var(--accent);margin-bottom:6px}
+.persona-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 12px;line-height:1.5}
+.persona-card .p-action{font-size:.86em;line-height:1.85;margin:0}
+.persona-card .p-action ol{margin:8px 0 0;padding-left:22px}
+.persona-card .p-action ol li{margin-bottom:6px}
+.matrix-table{font-size:.78em}
+.matrix-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:left;font-weight:500;font-size:.76em}
+.matrix-table td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.65}
+.matrix-table tr:nth-child(even){background:var(--light-bg)}
+.matrix-table .em{font-weight:700;color:var(--navy);font-size:.85em}
+.matrix-table .who{color:var(--accent);font-weight:600}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:48px 0 32px;border-radius:6px;font-size:.85em;line-height:1.85}
+.sources-box h4{font-size:.92em;font-weight:700;color:var(--navy);margin:0 0 14px;letter-spacing:.04em}
+.sources-box ul{list-style:none;padding:0;margin:0}
+.sources-box li{padding:6px 0;border-bottom:1px solid var(--border);font-size:.84em;line-height:1.75}
+.sources-box li:last-child{border-bottom:none}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+.credit-box{background:linear-gradient(135deg,#F8F9FB 0%,#FFFFFF 100%);border:1px solid var(--border);border-top:3px solid #2A4D7A;border-radius:6px;padding:20px 24px;margin:0 0 32px;font-size:.86em;line-height:1.85}
+.credit-box .cb-tag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.1em;color:#2A4D7A;margin-bottom:10px}
+.credit-box .cb-row{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:6px}
+.credit-box .cb-role{font-size:.78em;color:var(--text-light);margin-right:6px;letter-spacing:.04em}
+.credit-box .cb-name{font-weight:700;color:var(--navy)}
+.credit-box .cb-name .cb-affil{font-weight:400;color:var(--text-light);font-size:.92em;margin-left:4px}
+.next-link{display:flex;justify-content:space-between;align-items:center;padding:24px 28px;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;text-decoration:none;color:var(--text);margin:48px 0 0;transition:all .3s}
+.next-link:hover{background:var(--white);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.next-link-label{font-size:.78em;color:var(--text-light);letter-spacing:.08em;margin-bottom:4px}
+.next-link-title{font-family:'Noto Serif JP',serif;font-size:.95em;font-weight:600;color:var(--navy)}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(165deg,#1B2A4A 0%,#2A4D7A 100%);color:#fff;padding:36px 32px;border-radius:8px;margin:48px 0 0;text-align:center}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;font-size:1.2em;margin:0 0 14px;border:none;padding:0}
+.cta-section p{color:rgba(255,255,255,.78);font-size:.9em;line-height:1.9;margin:0 auto 16px;max-width:560px}
+.cta-section p:last-of-type{margin-bottom:0}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:14px 36px;border-radius:4px;font-weight:600;font-size:.92em;text-decoration:none;letter-spacing:.04em;transition:all .3s;margin-top:8px}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.4)}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table,.matrix-table{font-size:.76em}
+  .comparison-table th,.comparison-table td,.matrix-table th,.matrix-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .diff-grid{grid-template-columns:1fr}
+  .stat-row{grid-template-columns:1fr}
+  .layer-card{grid-template-columns:48px 1fr;gap:12px;padding:16px 18px}
+  .layer-card .layer-no{font-size:1.2em}
+  .failure-item{grid-template-columns:36px 1fr;gap:12px;padding:16px 18px}
+  .failure-item .fail-num{font-size:1.2em}
+  .quote-box .quote-text{font-size:1em}
+}
+</style>
+</head>
+<body>
+<script src="/header.js"></script>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 21</span>
+      <span class="header-tag">契約フロー実務</span>
+      <time class="header-date" datetime="2026-05-18">2026.05.18</time>
+    </div>
+    <h1>三語・三層分離・二つの<em>4月</em> —<br>系統用蓄電池の契約フロー実務、現場の<em>7つの失敗モード</em>と13の確認点</h1>
+    <p class="header-desc">系統用蓄電池の契約手続きでは、「接続検討」「接続供給契約」「発電量調整供給契約」の三語が構造的に取り違えられやすい設計になっている。三語混同の構造的根源、2024年4月§8(2)ホの66文字、2026年4月の経過措置なき境界線、そして市場で観察される7つの失敗モードを、一次資料で構造的に整理する。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a href="https://www.scix.co.jp/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
+
+<div class="credit-box">
+  <div class="cb-tag">SCIENCEX COLUMN</div>
+  <div class="cb-row">
+    <span><span class="cb-role">執筆</span><span class="cb-name">中島 晋也<span class="cb-affil">サイエンスエックス株式会社 代表取締役・工学博士</span></span></span>
+  </div>
+</div>
+
+<div class="review-note">
+<strong>編集メモ：</strong>制度参照時点は2026年5月17日。本稿は系統用蓄電池の契約フローを一次資料（10社の託送供給等約款・OCCTO業務規程・電気事業法・経産省および電取委公開資料）で再整理したものである。一次資料からの引用は原文100字以内に収め、施行日・URLを末尾「主要な一次資料」にまとめている。
+</div>
+
+<p class="lede">系統用蓄電池(BESS)の契約手続きでは、<strong>「接続検討」「接続供給契約」「発電量調整供給契約」の三語が、構造的に取り違えられやすい設計になっている</strong>。FIT時代の太陽光発電所の手続き感覚をそのまま系統用蓄電池に持ち込むと、書類が宛先間を往復するか、書面の前提を取り違えるかで、案件のスケジュールは数週間から数か月単位で揺れる。原因はいずれも同じ——三語の設計を生んでいる構造的根源にある。</p>
+
+<p class="lede">その設計を生んでいるのが、2024年4月1日に10社の託送供給等約款§8(2)ホ（中部電力PGのみ§8(3)ホ）へ静かに組み込まれた66文字の規定だった。</p>
+
+<div class="quote-box">
+  <p class="quote-text">発電契約者が当社を代理して，発電者との間で，系統連系受電契約（発電量調整供給契約にもとづき締結する契約をいいます。）を締結すること。</p>
+  <p class="quote-src">— 一般送配電事業者10社 託送供給等約款 §8(2)ホ（中部電力PGのみ§8(3)ホ、66字、2024年4月1日施行。句読点の表記スタイルは社により差異がある可能性）</p>
+</div>
+
+<p>業界では「2026年4月にルールが変わったらしい」という伝聞が広く流通している。約款条文を見にいくと、見つからない。理由は単純で、約款は動いていない。<strong>本当の構造転換は、その2年前にすでに起きていた</strong>。この66文字が、それまで「発電者」と「発電契約者」が一体だったFIT・自家発時代の前提を、「発電者≠発電契約者≠取引会員」の三層分離へと書き換えた。アグリゲーター時代の契約フローを成立させている法的足場そのものが、ここで作られている。</p>
+
+<p>2026年4月の厳格化(保証金10%・分割払い初回50%以上)は、この2024年の足場の上に積み上がった最初の運用規律にすぎない。<strong>動いたレイヤーと動かなかったレイヤーを区別しないと、制度の現在地はつかめない</strong>。本稿は、二つの4月を構造的に解きながら、三語の混同を4層に分解し、現場で実際に観察される7つの失敗モードと、買主側DDで揃えるべき13点を、一次資料で読み解いていく。</p>
+
+<div class="data-box">
+<div class="db-head">本稿の射程</div>
+<dl class="premise-grid">
+  <div><dt>対象</dt><dd>系統用蓄電池<span class="unit">高圧・特別高圧</span></dd></div>
+  <div><dt>制度参照時点</dt><dd>2026.05<span class="unit">時点</span></dd></div>
+  <div><dt>主たる読者</dt><dd style="font-size:13px">所有者・買主・SPC・金融・アグリ</dd></div>
+  <div><dt>分解する混同の根源</dt><dd>4<span class="unit">層</span></dd></div>
+  <div><dt>整理するフェーズ</dt><dd>9<span class="unit">段階</span></dd></div>
+  <div><dt>列挙する失敗モード</dt><dd>7<span class="unit">パターン</span></dd></div>
+</dl>
+</div>
+
+
+<div class="part-divider">
+  <span class="part-label">PART I</span>
+  <span class="part-title">DIAGNOSIS — 三語はなぜ取り違えられるのか</span>
+</div>
+
+
+<h2>01 — 三語の正体：法令・約款・申込書様式は別レイヤー</h2>
+
+<p>系統用蓄電池の契約手続きで起きる混同のほとんどは、<strong>「電気事業法上の概念」「託送供給等約款上の契約名」「TSO各社の申込書様式名」</strong>を同じ平面で語ることに起因する。三者は別レイヤーで、対応関係はあるが一対一ではない。先に分けておかないと、後の議論が空転する。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>項目</th><th>接続検討</th><th>接続供給契約</th><th>発電量調整供給契約</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">本質</td><td>系統連系の技術的可否・概算工事費負担金を事前に検討する手続</td><td>託送供給により受電地点に電気を届ける契約<br><span class="u">充電側＝需要扱い</span></td><td>発電者から逆潮流分を受電し発電量の調整を行う契約<br><span class="u">放電側＝発電者扱い</span></td></tr>
+<tr><td class="em">法令上の名称</td><td>接続検討<br><span class="u">送配電等業務指針上の語</span></td><td>接続供給<br><span class="u">電事法第2条第1項第5号</span></td><td><strong>電力量調整供給</strong><br><span class="u">電事法第2条第1項第7号</span></td></tr>
+<tr><td class="em">約款上の契約名</td><td>接続検討</td><td>接続供給契約</td><td><strong>発電量調整供給契約</strong><br><span class="u">下位類型名が契約名として継続</span></td></tr>
+<tr><td class="em">申込書様式名</td><td>接続検討申込書 高圧AP2／特高AK1<br><span class="u">広域機関共通様式</span></td><td>接続供給兼基本契約申込書</td><td>発電量調整供給兼基本契約申込書</td></tr>
+<tr><td class="em">契約相手</td><td>申込者⇔OCCTO／TSO</td><td>小売電気事業者または小売ライセンス取得済の蓄電池事業者⇔属地TSO</td><td>発電契約者⇔属地TSO</td></tr>
+<tr><td class="em">蓄電所の発電側申込み先</td><td>OCCTO(1万kW以上)／TSO</td><td><strong>TSO直接</strong><br><span class="u">小売経由ではない</span></td><td><strong>TSO直接</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>表を眺めると一見整理されているが、現場では複数の用語が同時並走するために、誤読が常態化する。代表的なのは三つ。「電力量調整供給」(法令)と「発電量調整供給契約」(約款)は<strong>別物ではなく、上位概念と下位類型の包含関係</strong>になっている（約款上の下位類型には他に「需要抑制量調整供給契約」（ネガワット）も並列で存在する）。「兼基本契約申込書」(様式)の「兼」は<strong>独立した契約種別ではなく、書式併合の便宜</strong>を表しているにすぎない。「接続検討」(手続)は<strong>契約ではなく、契約の前段の事前検討</strong>で、回答書には1年の有効期限が付く。</p>
+
+
+<h2>02 — 混同の根源4層 — なぜ三語は取り違えられるのか</h2>
+
+<p>三語の混同は、構造的に4つの層から生じている。それぞれは独立した事象だが、相互に重なって現場の混乱を生む。一段ずつ分解していく。</p>
+
+<div class="layer-map">
+  <div class="layer-card">
+    <div class="layer-no">01</div>
+    <div>
+      <h4>第1層：「電力量調整供給」と「発電量調整供給」の包含構造</h4>
+      <p>2015年改正(平成27年法律第47号)で電事法第2条第1項第7号に「電力量調整供給」の用語が新設され、その後令和2年法律第49号(2022年4月1日施行)で「特定卸供給」が同号ロに位置づけられた。約款は下位類型名「発電量調整供給契約」を契約名として正常に維持している。乖離ではなく構造的包含。</p>
+    </div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-no">02</div>
+    <div>
+      <h4>第2層：兼基本契約方式による書式併合</h4>
+      <p>「発電量調整供給兼基本契約申込書」の1枚に、(a)基本契約と(b)発電量調整供給契約が同時申込される（再エネ特定卸供給を希望する場合は(c)再生可能エネルギー電気特定卸供給契約も含む3契約一体型様式が用意されている）。書式の便宜が、契約構造の認識を曖昧にする土壌になる。</p>
+    </div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-no">03</div>
+    <div>
+      <h4>第3層：蓄電池の充放電二重性</h4>
+      <p>同じ物理設備が、時間帯によって需要家(充電)と発電者(放電)の二つの法的地位を入れ替える。充電側に「接続供給契約」、放電側に「発電量調整供給契約」が並走する。FIT太陽光の一方向感覚では捉えきれない。</p>
+    </div>
+  </div>
+  <div class="layer-card hl">
+    <div class="layer-no">04</div>
+    <div>
+      <h4>第4層：2024年4月の66文字が組み立てた三層分離 ★本稿の中核</h4>
+      <p>10社§8(2)ホ（中部PGのみ§8(3)ホ）にほぼ同一文言で組み込まれた代理権規定が「発電者≠発電契約者≠取引会員」の三層分離を約款上に成立させた。物理的に発電する者、約款上の契約名義人、市場取引の代行者——三者が別個に存在しうる法的足場が、ここで創設された。</p>
+    </div>
+  </div>
+</div>
+
+<p>4層は独立しつつ、相互に重なり合う。第1層は法令と約款の包含構造、第2層は様式の併合、第3層は蓄電池の物理特性、第4層は2024年4月の代理権新設。<strong>三語の混同は、ひとつの原因ではなく4層が同時に絡み合った結果として発生している</strong>。表面的な用語整理だけでは届かないのは、このため。</p>
+
+
+<div class="part-divider">
+  <span class="part-label">PART II</span>
+  <span class="part-title">FRAMEWORK — 二つの4月と三層分離</span>
+</div>
+
+
+<h2>03 — 2024年4月の66文字 — 構造的足場が組み立てられた日</h2>
+
+<p>第4層が、なぜ「2024年4月の構造転換」と呼ぶに値する出来事だったか——これを構造的事実で示すには、まず旧約款と新約款を並べる必要がある。</p>
+
+<p>2024年3月31日以前の託送供給等約款には、<strong>「系統連系受電契約」という契約類型自体が存在しなかった</strong>。発電者と発電契約者が同一であることを当然の前提として、約款は組み立てられていた。2024年4月1日施行の新約款で、初めて「系統連系受電契約」が新設された。発電側課金(系統連系受電サービス料金)の導入にともなって、発電者がTSOに直接支払う料金関係を法的に整理する必要が生じたためである。そしてこの新設にあわせて、その契約締結を発電契約者が一送に代わって行う規定が、10社一律で導入された。<strong>部分的修正ではなく、完全な新設</strong>。</p>
+
+<h3>3-1 10社一律——ほぼ同一文言で組み込まれた66文字</h3>
+
+<p>新設された規定の正確な文言が、本稿冒頭で引用した66文字。10社の託送供給等約款の§8(2)ホ（中部電力PGのみ§8(3)ホ）に、ほぼ同一の文言で組み込まれている。法的分離未実施の沖縄電力を含めて、文言体系は全国で揃っている（句読点（「，」／「、」）の表記スタイルは社により差異がある可能性）。中国電力ネットワークの2024年1月17日プレスリリースは、新スキームの本質をもっとも端的に表現している——「<strong>料金の受領は、発電契約者が当社に代わって行い、発電契約者は発電量調整供給契約の仕組みを活用して当社に支払うことを基本とします</strong>」。施行から9か月後の2025年1月、電取委事務局は「発電側課金の発電者向け説明資料(例)」を公表し、「<strong>契約成立にあたっては、発電契約者が一般送配電事業者の代理として対応</strong>」と明文化した。</p>
+
+<p>沖縄電力が法的分離未実施でありながら、章建て(第Ⅱ章)、条項番号(§8)、文言体系がすべて他9社と同一構造である点は注目に値する。<strong>法的分離の有無を問わず、約款レベルで代理権規定が全国一律で組み込まれた</strong>——これは「一部の事業者の独自対応」ではなく、「業界横断の標準モデル変更」だったことを示している。</p>
+
+<h3>3-2 新スキームは二段構成</h3>
+
+<div class="info-box">
+<strong>第一段：包括代理権</strong>(契約締結代理)<br>
+約款合意により代理権の枠組みが設定されており、別途独立した委任契約書を要しない構造。発電契約者は、約款を承認した時点で、系統連系受電契約の締結・変更について一送を代理する権利を当然に持つ。<br><br>
+<strong>第二段：料金代理回収業務</strong>(料金徴収代理)<br>
+別途委託契約が必要。発電契約者は、発電者に係る料金(系統連系受電サービス料金等)を一送に代わって発電者から受領し、一送へ引き渡す業務を受託する。<strong>受領業務の委託手数料の有無・水準は各一般送配電事業者の委託契約条件による</strong>（中国電力NWの2024年1月17日参考資料P5では委託手数料を支払うスキームが示されている）。
+</div>
+
+<p>この二段構成が、アグリゲーター仲介スキームの法的足場として機能している。アグリゲーター(特定卸供給事業者)が「発電契約者」の地位を取得すれば、第一段で当然に契約締結代理人の立場を得て、第二段で料金徴収の代理人としても機能する。<strong>発電者は物理的発電(蓄電池の運転)だけを行い、契約事務と料金フローはすべて発電契約者が一送との間で処理する</strong>——この構造が約款上で初めて成立したのが、2024年4月だった。</p>
+
+
+<h2>04 — アグリゲーター時代の三層分離：発電者・発電契約者・取引会員</h2>
+
+<p>2024年4月の§8(2)ホを背景にすると、系統用蓄電池1基をめぐる契約当事者は<strong>三層に分離</strong>し得る。</p>
+
+<div class="data-box">
+<div class="db-head">三層分離の当事者構造</div>
+<p><strong>① 発電者</strong>：電気工作物を所有・運用する者。物理的に蓄電池を運転する。</p>
+<p><strong>② 発電契約者</strong>：一般送配電事業者と発電量調整供給兼基本契約を締結する者。約款上の契約名義人。</p>
+<p><strong>③ 取引会員</strong>：卸電力市場・需給調整市場で取引を行う事業者。EPRX・OCCTO・JEPXに登録。</p>
+</div>
+
+<p>これら三者は、同一であっても良いし、別々であっても良い。需給調整市場運営事業者EPRXが公開する「揚水発電設備または蓄電池設備を用いて需給調整市場に参入する場合の取扱いガイド」(第2版、2025年4月1日)には、明示がある——「<strong>発調契約の締結者と取引会員は、同一である必要はありません</strong>」。充電側についても同様に整理されている。</p>
+
+<p>これが実務で何を意味するか。<strong>系統用蓄電池の所有者(発電者)が、自ら発電契約者として一般送配電事業者と契約することもできるし、特定卸供給事業者(アグリゲーター)が発電契約者として代位する形を取ることもできる</strong>。さらに市場取引の主体は別のアグリゲーター(取引会員)であってもよい。所有・契約・取引が三層分離可能な制度設計になっている。</p>
+
+<p>この三層分離を踏まえると、現場でよく聞く「アグリゲーターの資料が来週揃ってから本申請を提出する」という発言の意味が読み解ける。<strong>アグリゲーターが発電契約者として代位する形を取る場合、アグリゲーター側の事業者情報・市場参加体制・需給計画提出体制が整わなければ、発電量調整供給兼基本契約申込書を一送へ提出できない</strong>。所有者が独力で進める案件ではないため、アグリゲーター起点でシーケンスが組まれる。</p>
+
+<h3>4-1 「小売を決めないと進まない」は10社共通の約款明文要件</h3>
+
+<p>三層分離と表裏の論点として、現場でTSOから繰り返し求められる<strong>「小売電気事業者を決めないと、接続供給契約申込みが進まない」</strong>という要件がある。運用上の慣行と思われがちだが、実は10社すべての託送供給等約款で明文要件になっている。</p>
+
+<p>核心条文は2系統ある。第一に、契約者の定義そのものが「<strong>契約者の小売電気事業、特定送配電事業または自己等への電気の供給の用に供するための電気を契約者に供給する</strong>」(中部PG・関西送配電・北陸送配電等)と限定されている。第二に、需要者承諾書の添付要件として、北海道NW・東北NW・東京PG等の約款第8条(1)ヘ＋第9条で「<strong>需要者の契約者に対する承諾書の写し……をあわせて提出していただきます</strong>」と明文化されている。</p>
+
+<p>つまりこの要件は、TSOの運用裁量や個別判断ではなく、約款の建付けそのもの。<strong>蓄電所オーナーが自ら小売電気事業者ライセンスを取得するか、特定の小売電気事業者を契約者として確定させなければ、約款の構造上、接続供給契約申込みは進まない</strong>。「TSOが柔軟運用してくれるのではないか」という期待は、ここでは外れる。</p>
+
+<h3>4-2 「小売経由フロー」は約款上の利用要件不該当</h3>
+
+<p>もう一つの典型誤解が、「<strong>接続供給契約は小売経由で、発電量調整供給契約は送配電直接</strong>」という整理。<strong>実際は、系統用蓄電池の発電側申込みも、いずれも一般送配電事業者への直接申込みが標準</strong>になっている。</p>
+
+<p>資源エネルギー庁の<strong>電力システム改革の検証を踏まえた制度設計ワーキンググループ（第7回）</strong>が2025年11月28日に公表した資料が、もっとも明瞭な答えを与えている——「<strong>一般送配電事業者の託送供給等約款では、小売電気事業者等が系統を利用できるのは小売供給を行う場合に限られている</strong>」「蓄電池等事業者向けの電気の供給のうち、『蓄電等ロス分』以外の部分…は、一般送配電事業者等が行う接続供給の対象にならず、系統を利用できないと解される」。小売電気事業者が蓄電池のために系統を利用すること自体が、約款上、構造的に想定されていない。「小売経由フロー」は禁止されているというより、約款上の利用要件に該当しないために成立しえない、ということ。</p>
+
+
+<h2>05 — 2026年4月 — 経過措置なき制度起算点設定</h2>
+
+<p>2024年4月の代理権新設が「アグリゲーター時代の足場」だとすれば、その上に積み上がった最初の運用規律が、<strong>2026年4月1日の系統用蓄電池限定厳格化</strong>。経済産業省 次世代電力系統WGの第6回(2025年12月24日)・第7回(2026年2月9日)整理を受けて、OCCTOが2026年3月18日に公表した全国統一ルール改定の地域実装。</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">対策 A</span>
+    <h4>保証金額の10%への増額</h4>
+    <p>従来は契約申込み時に概算工事費負担金の5%として徴収していた保証金を、<strong>系統用蓄電池に限定して10%に増額</strong>。OCCTO「保証金算定方法」改定(2026年3月18日改定版)に明記。混雑緩和プロセスは5%据置で適用外。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">対策 B</span>
+    <h4>工事費負担金分割払いの厳格化</h4>
+    <p><strong>系統用蓄電池の場合、</strong>分割払いを利用する場合、<strong>初回支払金額を工事費負担金総額の50%以上</strong>とすることが義務化。工事工程ごとの分割により初回が50%を超える場合はその額での支払いを求める。OCCTO「工事費負担金の支払条件変更の考え方」改定(2026年3月18日改定版)。</p>
+  </div>
+</div>
+
+<div class="stat-row">
+  <div class="stat-cell">
+    <span class="val">10<span class="unit">%</span></span>
+    <span class="lbl">契約申込時保証金<br>(2026/4/1〜・従前5%)</span>
+  </div>
+  <div class="stat-cell">
+    <span class="val">50<span class="unit">%↑</span></span>
+    <span class="lbl">工事費負担金<br>初回分割払最低額</span>
+  </div>
+  <div class="stat-cell">
+    <span class="val">1<span class="unit">年</span></span>
+    <span class="lbl">接続検討回答書<br>有効期限の明文化</span>
+  </div>
+</div>
+
+<h3>5-1 境界線は「契約申込み受領日」のみ</h3>
+
+<p>本対策の編集上もっとも重要な特性が、<strong>画一的な経過措置が設けられていない</strong>こと。東京電力パワーグリッドが2026年4月1日付お知らせで明示しているとおり、境界条件は「契約申込みの受領日が2026年4月1日以降か否か」の一点が基本。</p>
+
+<div class="quote-box">
+  <p class="quote-text">2026年4月1日以前に接続検討回答している案件につきましても、2026年4月1日以降に契約申込みされる場合は対象となりますので、ご注意ください。</p>
+  <p class="quote-src">— 東京電力パワーグリッド 2026年4月1日付お知らせ</p>
+</div>
+
+<p>つまり<strong>「接続検討回答書はすでに2025年中に受領済み、これから契約申込みに進む」というステージにいる案件も、契約申込み受領が2026/4/1以降であれば全件対象</strong>になる。<strong>ただし制度上のレンジ規定は次のとおり</strong>——①混雑緩和プロセスは5%据置で適用外、②電源・需要併設の蓄電池については設備容量等から「主たる設備」が蓄電池と判定される場合のみ対象（判定は各エリアの一送・配電事業者が行う）、③分割払いに困難がある場合は一送が理由を示す例外運用の余地あり。これらは個別の判定枠組みであって、案件カテゴリ単位で一律に除外する「経過措置」とは性質が異なる。「うちは去年のうちに接続検討まで通っているから旧ルールで進められる」という時間軸での期待は、本対策では成立しない。本稿はこれを<strong>「経過措置なき制度起算点設定」</strong>と呼ぶ。投機的接続検討を抑止するために、既存案件への遡及の有無を曖昧にしない設計選択がされた、と読める。</p>
+
+<h3>5-2 規律生成主体としてのOCCTO</h3>
+
+<p>もう一つ注目に値するのは、本厳格化が各社個別の独自対応ではなく、<strong>OCCTO主導の全国一律措置</strong>として実装された点。OCCTOが「保証金算定方法」「工事費負担金の支払条件変更の考え方」を改定し、それを受けて各一般送配電事業者が個別お知らせを発出する流れ。2024年4月の代理権新設は<strong>電気事業法第18条第1項経由の託送供給等約款変更</strong>（経済産業大臣の認可）として実装されたのに対し、2026年4月の厳格化は<strong>第28条の41系のOCCTO業務規程・送配電等業務指針および付随する公表資料の改定</strong>として実装された（業務規程・指針改定にも経済産業大臣の認可は要するが、ルート・主管が異なる）。<strong>業界の規律生成主体が、約款認可ルートから広域ルール改定ルートへとシフトしている</strong>——契約フローの将来動向を読むうえで重要な観察点になる。</p>
+
+
+<div class="part-divider">
+  <span class="part-label">PART III</span>
+  <span class="part-title">PRACTICE — 9フェーズ・マトリクス・失敗モード</span>
+</div>
+
+
+<h2>06 — 9フェーズと「誰が・誰に・何を出すか」マトリクス</h2>
+
+<p>三語の整理と三層分離を踏まえたうえで、契約フローの全体像を時系列に並べ直す。系統用蓄電池が接続検討申込みから商業運転開始(COD)に至るまでには、9つのフェーズがある。</p>
+
+<div class="flow-block">[E-1] 接続検討申込    申込者 → OCCTO／TSO
+       ├ 検討料 20-22万円／受電地点(10社共通)
+       └ 回答期限 原則3か月(高圧500kW未満かつ逆変換装置使用は2か月)
+[E-1完] 接続検討回答書 ★有効期限1年
+            ↓
+[E-2] 契約申込前準備   仮受付申請、揚水特措適用希望
+[E-2完] 仮受付通知書(JK番号付与)
+            ↓
+[E-3] 接続供給契約申込 契約者=小売電気事業者または小売ライセンス取得済の蓄電池事業者 → TSO(充電側=需要扱い)
+       └ 接続供給兼基本契約申込書、需要者承諾書添付
+[E-3完] 接続供給兼基本契約書本紙
+            ↓
+[E-4] 発電量調整供給契約申込 発電契約者 → TSO(放電側=発電者扱い)
+       ├ 発電量調整供給兼基本契約申込書
+       └ 保証金 ★2026年4月以降は概算工事費負担金の10%(従前5%)
+[E-4完] 発電量調整供給兼基本契約書
+            ↓
+[E-5] 工事費負担金確定 → 発電者(放電側)／需要者(充電側)の双方で発生し得る
+       └ ★2026年4月以降、系統用蓄電池の分割払いは初回50%以上
+[E-5完] 工事費負担金確定通知書／契約書
+            ↓
+[E-6] 系統連系工事    EPC工事、使用前自己確認
+[E-6完] 工事完了報告書、使用前自己確認結果届出書(主務大臣＝管轄産業保安監督部長受理)
+            ↓
+[E-7] 連系・受電試験   保護リレー試験、PCS仕様確認 etc.
+[E-7完] ★標準書式なし(メール通知ベース)
+            ↓
+[E-8] COD(連系開始)   商業運転開始
+[E-8完] 発電量調整供給開始通知、初回検針票
+            ↓
+[E-9] 市場参加契約    JEPX参加(JEPX取引会員契約)、EPRX参加(EPRX取引会員契約)、容量市場応札(OCCTO容量確保契約)、LDA応札、余力活用契約(TSO=一般送配電事業者)</div>
+
+<h3>6-1 各フェーズで「誰が・誰に・何を提出するか」</h3>
+
+<p>9フェーズを通じて、提出主体と提出先が頻繁に切り替わる。ここを取り違えると、書類が宙に浮く。三層分離(発電者・発電契約者・取引会員)を踏まえた提出主体マトリクスを示す。</p>
+
+<div class="table-scroll">
+<table class="matrix-table">
+<thead>
+<tr><th style="width:60px">フェーズ</th><th>提出主体</th><th>提出先</th><th>主たる書類</th><th>2026/4以降の論点</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">E-1</td><td class="who">申込者(発電者または代理人)</td><td>OCCTO / 属地TSO</td><td>接続検討申込書(高圧AP2／特高AK1)<br>※2026/1/5以降は登記簿等の土地書類が必須</td><td>第10回 次世代電力系統WG(2026/4/16)資料による方針として、1事業者あたり申込数上限(エリア別5-11件)が2026/8/1から導入予定</td></tr>
+<tr><td class="em">E-2</td><td class="who">申込者</td><td>属地TSO</td><td>仮受付申請、揚水特措適用希望表明</td><td>—</td></tr>
+<tr><td class="em">E-3</td><td class="who">小売電気事業者または小売ライセンス取得済の蓄電池事業者</td><td>属地TSO</td><td>接続供給兼基本契約申込書、<strong>需要者(蓄電所オーナー)承諾書</strong></td><td>小売電気事業者(または小売ライセンス取得)が確定していないと進まない(約款明文要件)</td></tr>
+<tr><td class="em">E-4</td><td class="who">発電契約者(オーナーまたはアグリゲーター)</td><td>属地TSO</td><td>発電量調整供給兼基本契約申込書、保証金</td><td><strong>保証金10%</strong>(従前5%)</td></tr>
+<tr><td class="em">E-5</td><td class="who">発電者(放電側)／需要者(充電側)</td><td>属地TSO</td><td>工事費負担金契約書、初回支払</td><td>系統用蓄電池の分割払い<strong>初回50%以上</strong></td></tr>
+<tr><td class="em">E-6</td><td class="who">発電者(EPC)</td><td>属地TSO + <strong>主務大臣(管轄産業保安監督部長)</strong></td><td>工事完了報告書、<strong>使用前自己確認結果届出書</strong>(電事法第51条の2第3項、施行規則第78条、様式第53)</td><td>—</td></tr>
+<tr><td class="em">E-7</td><td class="who">発電者</td><td>属地TSO</td><td>試験成績書、保護継電器整定値一覧 etc.<br><strong>※完了証書の標準書式なし</strong></td><td>—</td></tr>
+<tr><td class="em">E-8</td><td class="who">属地TSO → 発電者</td><td>—</td><td>発電量調整供給開始通知、初回検針票</td><td>—</td></tr>
+<tr><td class="em">E-9</td><td class="who">取引会員(オーナーまたはアグリゲーター)</td><td>JEPX / EPRX / OCCTO / TSO</td><td>JEPX取引会員契約、EPRX取引会員契約、OCCTO容量確保契約、TSO余力活用契約</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>マトリクスを眺めて気付くのは、<strong>提出主体が小売(E-3)→発電契約者(E-4)→発電者(E-5, E-6)→取引会員(E-9)と頻繁に切り替わる</strong>こと。各層が別人格である場合、契約当事者間の調整が滞ると、フェーズ全体が止まる。所有者が独力で全フェーズを進められるのは、自ら小売電気事業ライセンスを取得し、自ら発電契約者として登録し、自ら取引会員資格を取得した場合に限られる。アグリゲーター介在型案件では、各フェーズで主体が動くたびに律速が変わる。</p>
+
+<h3>6-2 使用前自己確認とTSO書類は別系統</h3>
+
+<p>E-6で見逃せないのが、<strong>使用前自己確認結果届出書</strong>とTSO発行書類の関係。前者は電気事業法第51条の2第3項および施行規則第78条に基づき、設置者(発電契約者)が主務大臣(管轄産業保安監督部長)宛に提出する<strong>公法上の安全規制届出</strong>(様式第53)。後者は契約成立・連系開始日を示す<strong>私法上の契約関係文書</strong>。両者は独立した別系統で、運用上は次の順で動く。</p>
+
+<div class="info-box">
+連系工事完了 → 系統接続不要な試験項目を実施 → <strong>使用前自己確認結果届出書</strong>を主務大臣(管轄産業保安監督部長)に提出 → 受理 → 系統接続が必要な試験項目をTSO立会で実施 → <strong>TSOが連系開始日を確定(メール通知または契約書類)</strong> → 発電量調整供給開始(COD)
+</div>
+
+<p>使用前自己確認結果届出書の受理が、法律上の「使用開始」要件。TSO発行書面(または通知メール)が、契約上のCOD要件。<strong>両者が混同されると、稼働開始日の取扱いが法律と契約で乖離するリスク</strong>が生じる。買い手側DDでは、両方を別系統として取り揃えるのが原則。</p>
+
+
+<h2>07 — 連系完了通知書は存在しない — 透明性の影</h2>
+
+<p>系統用蓄電池の取引現場で、買主側DDの足元を揺らす論点が一つある。<strong>「受電試験合格証書」「連系完了通知書」に類する単独の標準書式は、OCCTOの送配電等業務指針上にも、10社の託送供給等約款・申込フロー・FAQにも存在しない</strong>。本稿の取材範囲で10社の公開HPを点検した結果、確認できた標準書式は4つだけ——(i) 接続検討回答書、(ii) 連系承諾／契約申込み回答、(iii) 工事費負担金関連書類、(iv) 使用前自己確認結果届出書(経産大臣宛、設置者作成)。</p>
+
+<p>では実務上、連系開始日は何で確定するのか。各社が発出する書面・メール通知で扱われている。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>事業者</th><th>主たる書面・通知の名称</th><th>形式</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">東京電力PG</td><td>「系統連系完了のお知らせ」</td><td><span class="cond">メール通知</span></td></tr>
+<tr><td class="em">中部電力PG</td><td>「ご契約内容のお知らせ」(契約締結後に送付)、「系統連系に係る契約のご案内」(PDF)</td><td>書面</td></tr>
+<tr><td class="em">関西電力送配電</td><td>「発電設備契約申込回答書【承諾】」、「電力受給契約内容のお知らせ」(WEB通知)</td><td>書面／WEB</td></tr>
+<tr><td class="em">北陸電力送配電</td><td>「技術要件確認書」(契約書発行時の添付)</td><td>添付書類</td></tr>
+<tr><td class="em">四国電力送配電</td><td>「系統連系に係る契約のご案内」(サンプルPDF公開)</td><td>書面</td></tr>
+<tr><td class="em">九州電力送配電</td><td>「系統連系に係る契約のご案内」「電力受給契約のご案内」</td><td>書面</td></tr>
+<tr class="hl"><td class="em">東北電力NW</td><td>「系統連系開始について」<strong>(発電者からTSOへの届出書として様式PDFを公開)</strong></td><td>書面</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>整理すると、<strong>「受電試験合格」を単独で証する標準書面は存在しない</strong>。実務上は契約締結通知・連系開始日通知に吸収されており、東京電力PGなど一部の事業者では書面ではなくメール通知で処理されている。複数の事業者が様式・サンプルを公開しているが、特に<strong>四国電力送配電が「系統連系に係る契約のご案内」のサンプルPDFを公開している点</strong>、<strong>東北電力NWの「系統連系開始について」は発電者からTSOへの届出書（連系開始予定日の1週間前までに提出）</strong>であり、TSOから発電者への完了通知ではない点に留意が必要。買主側DDで「連系完了の証憑として何を取るか」と問うと、実物書面が存在せず、TSOから発電者へのメール本文に行き着くケースが少なくない——これが買主側DDで足元を揺らす論点になる。</p>
+
+
+<h2>08 — 現場で観察される7つの失敗モード</h2>
+
+<p>三語の混同・三層分離の取り違え・二つの4月の境界線を踏まえると、市場で観察される失敗モードが整理できる。ここで挙げる7つは、いずれも市場で実際に発生している類型をパターン化したもの。<strong>どれも事業性試算には乗ってこないが、案件のスケジュールとキャッシュフローを直接揺らす</strong>。</p>
+
+<div class="failure-list">
+
+<div class="failure-item">
+  <div class="fail-num">1</div>
+  <div>
+    <h4>「接続検討が通れば自動で接続供給契約も結べる」と思い込んだ</h4>
+    <p class="fail-trigger">FIT太陽光の感覚では「接続検討回答書 = ほぼ連系の確定通知」。蓄電池では違う。接続検討回答書(E-1完)と接続供給契約締結(E-3完)・発電量調整供給契約締結(E-4完)は別工程で、間に保証金・需要者承諾書・小売選定が挟まる。</p>
+    <span class="fail-cost">想定外コスト：契約申込フェーズに進めず、回答書1年有効期限を消費。保証金10%・分割払50%が乗ってくる境界線(2026/4/1)を跨いだ場合は事業性試算が崩れる</span>
+  </div>
+</div>
+
+<div class="failure-item">
+  <div class="fail-num">2</div>
+  <div>
+    <h4>「発電量調整供給契約」をFIT時代の発調と同じものと思った</h4>
+    <p class="fail-trigger">FIT太陽光発電所の発調契約は一方向(発電のみ)で需要側がない。蓄電池の発電量調整供給契約は放電側のみで、<strong>充電側には別途「接続供給契約」が要る</strong>。発電量調整供給契約だけ申し込んで、接続供給契約が漏れたケース。</p>
+    <span class="fail-cost">想定外コスト：充電側の小売・需要者承諾書セットを別途用意する必要が判明し、本申請フェーズで1-2か月の手戻り。アグリゲーター介在型では待ち時間が長期化</span>
+  </div>
+</div>
+
+<div class="failure-item">
+  <div class="fail-num">3</div>
+  <div>
+    <h4>「小売事業者宛て高圧工事申込書」と「TSO宛て接続供給契約申込み」を取り違えた</h4>
+    <p class="fail-trigger">需要家側の慣行(小売が代理で送配電へ取次)を、系統用蓄電池の発電側フローに持ち込んだ。関電(小売)宛てに高圧工事申込書を出して止まる、というケースが現に発生している。<strong>系統用蓄電池の発電側申込みは10社すべてTSO直接が標準</strong>。</p>
+    <span class="fail-cost">想定外コスト：申込書が宛先間を往復するだけで2-4週間。アグリゲーター起点案件ではこの間に他工程も全停止</span>
+  </div>
+</div>
+
+<div class="failure-item">
+  <div class="fail-num">4</div>
+  <div>
+    <h4>接続検討回答書を旧ルール(2026/4/1以前)で取得したが、契約申込みを4/1以降にずらした</h4>
+    <p class="fail-trigger">「うちは去年のうちに接続検討まで通っているから旧ルールで進められる」という期待が、現実に外れる。境界線は<strong>契約申込み受領日</strong>の一点で、2026/4/1以降であれば全件が新ルール(保証金10%・分割払い初回50%以上)対象。</p>
+    <span class="fail-cost">想定外コスト：保証金が概算工事費負担金の5%→10%へ倍増。10億円規模案件(事業総コストベース)で工事費負担金1〜3億円、初回支払50%(最大1.5億円)＋保証金10%(最大3,000万円)のキャッシュフロー前倒し。分割払い初回50%も同様</span>
+  </div>
+</div>
+
+<div class="failure-item">
+  <div class="fail-num">5</div>
+  <div>
+    <h4>アグリゲーターの準備完了を待たずに本申請しようとした</h4>
+    <p class="fail-trigger">アグリゲーターが「発電契約者」として代位する案件で、アグリゲーター側の事業者情報・市場参加体制・需給計画提出体制が整わなければ、発電量調整供給兼基本契約申込書を提出できない。所有者が独力で進められると誤認すると、何度も差し戻される。</p>
+    <span class="fail-cost">想定外コスト：律速がアグリゲーター側にあることを認識せずスケジュールを引き、容量市場応札・LDA応札のタイミングを逃すリスク</span>
+  </div>
+</div>
+
+<div class="failure-item">
+  <div class="fail-num">6</div>
+  <div>
+    <h4>接続検討回答書の有効期限1年を意識せず、契約申込みが遅延した</h4>
+    <p class="fail-trigger">OCCTO「送配電等業務指針」第89条第1項第6号で接続検討回答書には<strong>有効期限1年</strong>。1年以内に契約申込み受付(保証金入金含む)まで完了させないと、再接続検討が必要となり、検討料20万円+税(条件により免除あり、九州送配電は1年以内の再申込みは検討料不要等の例外規定)と検討期間原則3か月(高圧500kW未満かつ逆変換装置使用の場合2か月)が再発生。</p>
+    <span class="fail-cost">想定外コスト：再接続検討料20万円+税と原則3か月の遅延。さらに再申込みは2026年新ルール下に置かれ、土地書類・申込数上限の影響を受ける</span>
+  </div>
+</div>
+
+<div class="failure-item">
+  <div class="fail-num">7</div>
+  <div>
+    <h4>連系完了の証憑として書面を取ろうとしたが、メール本文しか残らなかった</h4>
+    <p class="fail-trigger">「受電試験合格証書」「連系完了通知書」に類する単独の標準書式は存在しない。買主側DDで「連系完了の証憑として何を確認するか」と問うと、実物書面が存在せず、TSOから発電者へのメール本文に行き着く。複数の事業者が様式・サンプルを公開しているが、いずれも契約締結通知・連系開始日通知に吸収されており、「受電試験合格」のみを証する書面はない。</p>
+    <span class="fail-cost">想定外コスト：M&Aクロージング時にDD指摘事項として残り、価格調整・表明保証の精緻化・売主代表保証の取得が必要になる</span>
+  </div>
+</div>
+
+</div>
+
+<p>7つに共通するのは、<strong>FIT太陽光時代の手続き感覚を蓄電池に持ち込んだことで起きている</strong>こと。三語の混同を構造的に解いておけば、いずれも事前に避けられる類のもの。「現場で躓きが起きてから整理する」のではなく、「整理してから現場に入る」順序で動ければ、案件のスケジュールとキャッシュフローは大きく安定する。</p>
+
+
+<h2>09 — M&A・DD 13点チェックリスト</h2>
+
+<p>買主側DDでは、各フェーズで揃っているべき書類のセットが標準化される。下記13点は、現場の取引で売主側から取得すべき書類リストの最小公倍数になる。</p>
+
+<div class="checklist-group" id="dd-checklist">
+  <h5><span class="cl-num">DD</span>系統用蓄電池 売主提供書類 13点チェックリスト</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01.</span>接続検討申込書(控)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02.</span>接続検討回答書(取得済・有効期限内)<strong>※発行日と残期間を必ず確認</strong></span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03.</span>該当用地の謄本(2026年1月5日以降の申込みは提出義務)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04.</span>保証金支払証憑一式<strong>※2026年4月1日以降の契約申込みは10%適用</strong></span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05.</span>発電量調整供給兼基本契約の申請書(控)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06.</span>接続供給兼基本契約の申請書(控)／充電側<strong>※需要者承諾書添付</strong></span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07.</span>工事費負担金確定通知書／工事費負担金契約書</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">08.</span>工事費負担金支払証憑<strong>※2026年4月1日以降は系統用蓄電池の場合、初回50%以上</strong></span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">09.</span>連系申込書本回答(供給承諾通知)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">10.</span>電力名義変更書類一式(売買時)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">11.</span>蓄電池特措同意書(早期連系追加対策／充電制御装置／ノンファーム同意書等)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">12.</span>使用前自己確認結果届出書(主務大臣＝管轄産業保安監督部長受理済)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">13.</span>特定卸供給事業者(アグリゲーター)契約書(または所有者直接契約の証拠書類)</span></label>
+  <div class="check-progress">
+    <span class="bar"><span class="bar-fill" id="ddBarFill" style="width: 0%;"></span></span>
+    <span class="count"><span id="ddCount">0</span> / 13</span>
+  </div>
+  <div class="check-verdict" id="ddVerdict">
+    <div class="vlabel" id="ddLabel">入力待ち</div>
+    <div class="vbody" id="ddBody">13項目のうち、売主から取得済みのものをチェックしてください。揃わない項目で案件の停滞ポイントが読めます。</div>
+  </div>
+</div>
+
+<p class="note-small">※ チェック結果はブラウザのセッション中だけ保持される。13点が揃っているか／揃わないかで、案件の進捗深度と買主のリスク認識を可視化する。揃わない項目の意味(保証金未払い／アグリ未確定／工事費負担金未確定等)を、売主側に説明させる前提でチェックを進める。</p>
+
+<div class="warning-box">
+<strong>M&A DDで必ず確認する3点</strong><br><br>
+<strong>① 接続検討回答書の発行日と残期間</strong>：1年経過していないか／いつ失効するか<br>
+<strong>② 契約申込みのステータス</strong>：未申込か、申込済か、承諾済か<br>
+<strong>③ 2026/4/1境界線</strong>：契約申込み受領が4/1以前か4/1以後か(10%・50%適用の境界)<br><br>
+3点が揃って初めて、案件の進捗深度と新ルール適用の有無が判定できる。「接続検討まで通っている」という売主側の主張だけでは、案件の進捗深度を正しく判定できない。
+</div>
+
+
+<div class="part-divider">
+  <span class="part-label">PART IV</span>
+  <span class="part-title">PLAYBOOK — 今日からの動き方</span>
+</div>
+
+
+<h2>10 — 5つの読者類型ごとの「今日からの動き方」</h2>
+
+<p>三語の混同・二つの4月・三層分離を整理しても、それを自分の立場でどう動くかに翻訳できないと、コラムは現場で役立たない。本章では読者類型別に、明日からの動き方を整理する。</p>
+
+<div class="persona-grid">
+
+<div class="persona-card">
+  <span class="p-tag">PERSONA 01</span>
+  <h4>蓄電所オーナー(開発初期段階)</h4>
+  <div class="p-action">
+    案件起点から契約フローを設計しなおす段階。最優先事項は3つ。
+    <ol>
+      <li><strong>「発電契約者を誰にするか」を最初に決める</strong>——自社で持つ場合は小売電気事業者ライセンスの取得スケジュールを確定させる。アグリゲーター起点の場合はアグリゲーター選定をマイルストーン化する。</li>
+      <li><strong>接続検討申込み時点で土地書類(2026/1/5以降必須)を揃える</strong>。土地確保が間に合わない案件は、申込み自体を後ろ倒しにする。</li>
+      <li><strong>接続検討回答書取得後、1年以内に契約申込みまで到達するスケジュール</strong>を逆算しておく。残期間が足りないなら、再接続検討込みのコストを事業計画に織り込む。</li>
+    </ol>
+  </div>
+</div>
+
+<div class="persona-card">
+  <span class="p-tag">PERSONA 02</span>
+  <h4>蓄電所オーナー(接続検討回答取得済・契約申込み前)</h4>
+  <div class="p-action">
+    もっとも危険なステージ。2026/4/1境界線を踏みかねないため、即時の判断が要る。
+    <ol>
+      <li><strong>接続検討回答書の発行日と残期間を即座に計算</strong>する。残期間が短ければ契約申込みを最優先タスクに格上げする。</li>
+      <li><strong>契約申込みが2026/4/1以降になる場合は、新ルール(保証金10%・分割払い50%)を事業計画に織り込み直す</strong>。資金繰り上のショックを事前に吸収する。</li>
+      <li><strong>小売電気事業者の確定と需要者承諾書の取得を、E-3着手前に完了させる</strong>。約款明文要件であり、ここが進まないと一切先に進まない。</li>
+    </ol>
+  </div>
+</div>
+
+<div class="persona-card">
+  <span class="p-tag">PERSONA 03</span>
+  <h4>買主企業(M&A DD中)</h4>
+  <div class="p-action">
+    案件の真の進捗深度を可視化することが第一の使命。
+    <ol>
+      <li><strong>本稿の13点チェックリストを売主に提示し、項目ごとの取得状況を書面で回答させる</strong>。「揃っていない」という回答自体が、価格交渉の論点になる。</li>
+      <li><strong>接続検討回答書の発行日と契約申込みの受領日を必ず確認</strong>。2026/4/1境界線を跨ぐ案件は、追加保証金・分割払い初回50%の追加キャッシュフローを買主負担に含めるか、価格調整するかを明示的に交渉。</li>
+      <li><strong>連系完了の証憑として書面が存在しない場合(失敗モード7)は、売主代表保証またはTSO発行のメール本文の提出を必須化</strong>する。</li>
+    </ol>
+  </div>
+</div>
+
+<div class="persona-card">
+  <span class="p-tag">PERSONA 04</span>
+  <h4>アグリゲーター(特定卸供給事業者)</h4>
+  <div class="p-action">
+    自社が「発電契約者」として代位する案件のサプライチェーン責任を負う。
+    <ol>
+      <li><strong>自社側の準備(事業者情報・市場参加体制・需給計画提出体制)を、案件ごとに事前にステータス管理</strong>する。所有者側のスケジュールが律速されないように整える。</li>
+      <li><strong>発電者・発電契約者・取引会員の三層分離を、契約書面で明示的に整理</strong>する。所有者との間で各層の責任と料金フローを書面化しないと、後で揉める。</li>
+      <li><strong>料金代理回収業務(第二段)については、別途委託契約が必要</strong>な点を所有者に説明し、書面化する。包括代理権(第一段)が約款合意で枠組み成立するからといって、料金フローも自動という誤解が起きやすい。</li>
+    </ol>
+  </div>
+</div>
+
+<div class="persona-card">
+  <span class="p-tag">PERSONA 05</span>
+  <h4>金融機関(PF・コーポレートファイナンス組成)</h4>
+  <div class="p-action">
+    案件の契約状態をクレジット視点で評価する立場。
+    <ol>
+      <li><strong>三層分離(発電者・発電契約者・取引会員)が誰なのかを契約書面で確認</strong>し、契約当事者間の責任関係をクレジット観点で評価する。</li>
+      <li><strong>2026/4/1境界線の影響(保証金10%・分割払い50%)を、デッドサービスカバー比率の感度分析に組み込む</strong>。キャッシュフロー前倒しの影響は無視できない大きさになる。</li>
+      <li><strong>連系完了証憑の欠如(失敗モード7)を、コベナンツでカバー</strong>する。COD認定の判定基準を契約書で明文化し、TSO通知メールを証憑として受け入れる場合の処理を予め定めておく。</li>
+    </ol>
+  </div>
+</div>
+
+</div>
+
+
+<h2>11 — 動いている層を追う — 制度動向のウォッチポイント</h2>
+
+<p>2024年4月の代理権新設と2026年4月の厳格化を踏まえると、業界の規律生成主体が変化していることが見えてくる。<strong>2024年4月は経済産業大臣の認可(電気事業法第18条第1項)を経由した約款変更</strong>として実装されたが、<strong>2026年4月の厳格化はOCCTOの広域ルール改定として実装</strong>された（業務規程・指針改定にも大臣認可は必要だが、ルート・主管が異なる）。今後さらに積み上がってくるであろう運用ルール層の改定を読み解くためには、見にいく場所を間違えないこと。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>レイヤー</th><th>動向の見方</th><th>主たる情報源</th></tr></thead>
+<tbody>
+<tr><td class="em">電気事業法本体</td><td>系統用蓄電池関連の改正は、近年ほぼ動いていない</td><td>e-Gov、衆議院・参議院議案情報</td></tr>
+<tr><td class="em">託送供給等約款(10社)</td><td>2024年4月の代理権新設以降、軽微改定のみ。構造は安定</td><td>各社託送供給等約款、電取委認可申請プレス</td></tr>
+<tr><td class="em">OCCTO業務規程・業務指針</td><td><strong>もっとも動きが激しい層。2026年4月の厳格化もここ</strong>。月次で改定動向を追う必要</td><td>OCCTO HP「お知らせ」、次世代電力系統WG資料</td></tr>
+<tr><td class="em">需給調整市場・容量市場</td><td>市場上限価格・取引ルールが頻繁に動く。事業性試算への影響大</td><td>OCCTO、EPRX、制度検討作業部会資料</td></tr>
+<tr><td class="em">経産省ガイドライン・告示</td><td>蓄電池特例(揚水特措)・kWh課金免除等の制度的解釈論点</td><td>METI次世代電力系統WG、電取委料金制度専門会合</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>業界で「2026年4月に何かが大きく変わった」という伝聞が広く流通しているが、託送供給等約款・法令・系統連系技術要件ガイドラインの層では事実誤認になる。動いたのはOCCTO業務規程と需給調整市場制度——「約款の話」ではなく「広域機関のルール」と「市場の話」。<strong>約款条文を確認しに行っても、変化は見つからない。動いているのは別レイヤー</strong>。本稿の読者にとって、最新の制度動向を追うべき場所は、託送供給等約款ではなく、<strong>OCCTO次世代電力系統WG資料と、需給調整市場・容量市場の業務マニュアル</strong>になる。</p>
+
+
+<h2>結 — 三語の整理、二つの4月、そして失敗モード回避の現場感覚</h2>
+
+<p>本稿を通じて示したかったのは、3つに集約される。</p>
+
+<p>第一に、<strong>系統用蓄電池の契約フローを書き換えたのは、2026年4月ではなく2024年4月だった</strong>。10社§8(2)ホ（中部PGのみ§8(3)ホ）にほぼ同一文言で組み込まれた66文字が、「発電者≠発電契約者≠取引会員」の三層分離を約款レベルで成立させ、アグリゲーター時代の構造的足場を作った。2026年4月の厳格化(保証金10%・分割払い50%)は、その足場の上に積み上がった最初の運用規律にすぎない。<strong>動いたレイヤーと動かなかったレイヤーを区別しないと、制度の現在地はつかめない</strong>。</p>
+
+<p>第二に、<strong>三語の混同は構造的に解ける</strong>。「電力量調整供給」と「発電量調整供給」は乖離ではなく包含、「接続供給契約」と「発電量調整供給契約」は別物として並走する二本立て、「小売経由フロー」は約款上の利用要件不該当のため成立しえない。三層分離(発電者・発電契約者・取引会員)は、特定卸供給事業者制度(2022年4月施行、根拠：令和2年法律第49号)と§8(2)ホ代理権スキーム(2024年4月施行)の組み合わせで法的に整理されている。</p>
+
+<p>第三に、<strong>失敗モードは事前に避けられる</strong>。本稿で挙げた7つの失敗モードは、いずれもFIT太陽光時代の手続き感覚を蓄電池に持ち込んだことで起きている。三語の整理を済ませ、三層分離の意味を理解し、二つの4月の境界線を意識すれば、いずれも回避可能。「現場で躓きが起きてから整理する」のではなく、「整理してから現場に入る」順序で動くことで、案件のスケジュールとキャッシュフローは大きく安定する。</p>
+
+<p>系統用蓄電池の契約フローは、太陽光FIT時代の用語感覚で読むには複雑すぎる。だが構造を持つ複雑さは、読み解けば判断軸になる。<strong>電気事業法を変えずに、約款と運用ガイダンスでアグリゲーター時代の契約フローが組み立てられた</strong>——これが本稿の最終的な編集メッセージ。今後さらに積み上がってくるであろう運用ルール層の改定を読み解くためには、その下にある約款上の足場——「<strong>発電契約者が当社を代理して</strong>」の一文——から始める必要がある。</p>
+
+<p>系統用蓄電所への投資判断は、約款の中に組み込まれた構造を読み解く力で決まる。本稿が、その読み解きと、現場での躓き回避の足がかりにでもなれば。</p>
+
+
+<div class="sources-box">
+<h4>主要な一次資料</h4>
+<ul>
+  <li>電気事業法(昭和39年法律第170号、e-Gov)<a href="https://laws.e-gov.go.jp/law/339AC0000000170" target="_blank">https://laws.e-gov.go.jp/law/339AC0000000170</a></li>
+  <li>電気事業法等の一部を改正する等の法律(平成27年法律第47号、2015年6月24日公布)。第二条(電気事業法の法的分離)は2020年4月1日施行、第三条(ガス小売全面自由化)は2017年4月1日施行</li>
+  <li>強靱かつ持続可能な電気供給体制の確立を図るための電気事業法等の一部を改正する法律(令和2年法律第49号、2020年6月12日公布)。特定卸供給事業者制度を創設、2022年4月1日施行</li>
+  <li>安定的なエネルギー需給構造の確立を図るためのエネルギーの使用の合理化等に関する法律等の一部を改正する法律(令和4年法律第46号、2022年5月20日公布)。同法第6条による電気事業法改正のうち、特定卸供給事業の創設等は2022年11月14日施行、その他主要部分は2023年4月1日施行(蓄電用電気工作物による放電事業を発電事業に位置づける改正等)</li>
+  <li>一般送配電事業者10社 託送供給等約款・同細則(2024年4月1日施行版・§8(2)ホ、中部PGのみ§8(3)ホ含む)</li>
+  <li>中国電力ネットワーク 2024年1月17日プレスリリース・参考資料(代理権新設、料金代理回収委託手数料スキーム)<a href="https://www.energia.co.jp/nw/press/2023/15119.html" target="_blank">URL</a></li>
+  <li>電力・ガス取引監視等委員会 第51回 料金制度専門会合 資料3-3／3-6／3-9(2023年12月20日)</li>
+  <li>電取委事務局「発電側課金の発電者向け説明資料(例)」(2025年1月)<a href="https://www.egc.meti.go.jp/info/public/pdf/20250121002.pdf" target="_blank">PDF</a></li>
+  <li>送配電網協議会・一般送配電事業者10社・電取委 共催「発電契約者さま向け説明会」(2023年3月28日)</li>
+  <li>OCCTO 送配電等業務指針(最新版はOCCTO「定款・規程類」ページ参照)<a href="https://www.occto.or.jp/" target="_blank">URL</a></li>
+  <li>OCCTO「系統用蓄電池の系統接続および利用ルール」(2025年4月作成・2025年9月1日更新)<a href="https://www.occto.or.jp/assets/grid/business/documents/chikudenchi_20250901.pdf" target="_blank">PDF</a></li>
+  <li>OCCTO「保証金算定方法」(2026年3月18日改定版)<a href="https://www.occto.or.jp/news/access_oshirase_2020_200917_dengen_kentou.html" target="_blank">URL</a></li>
+  <li>OCCTO「工事費負担金の支払条件変更の考え方」(2026年3月18日改定版)<a href="https://www.occto.or.jp/assets/260318_koujifutankin_besshi.pdf" target="_blank">PDF</a></li>
+  <li>OCCTO「系統用蓄電池の契約申込み時の保証金の増額・工事費負担金の分割払いの厳格化」公表(2026年3月18日)<a href="https://www.occto.or.jp/news/access_oshirase_2025_260318_1.html" target="_blank">URL</a></li>
+  <li>METI 第6回 次世代電力系統ワーキンググループ 資料3(2025年12月24日)<a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/pdf/006_03_00.pdf" target="_blank">PDF</a></li>
+  <li>METI 第7回 次世代電力系統ワーキンググループ 資料1-1(2026年2月9日)<a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/pdf/007_01_01.pdf" target="_blank">PDF</a></li>
+  <li>METI 第10回 次世代電力系統ワーキンググループ 資料(2026年4月16日、1事業者あたり申込数上限エリア別5-11件・2026年8月1日運用開始方針)<a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/index.html" target="_blank">URL</a></li>
+  <li>東京電力PG「【高圧・特別高圧】系統用蓄電池の契約申込み時の保証金の増額・工事費負担金の分割払いの厳格化について」(2026年4月1日、運用厳格化周知告知)<a href="https://www.tepco.co.jp/pg/consignment/workshop/information/renewable/adjustment/20260401_02.html" target="_blank">URL</a></li>
+  <li>EPRX(一般社団法人 電力需給調整力取引所、JEPXとは別組織)「揚水発電設備または蓄電池設備を用いて需給調整市場に参入する場合の取扱いガイド」第2版(2025年4月1日)<a href="https://www.eprx.or.jp/outline/docs/yousuichikudenchi_guide_250401.pdf" target="_blank">PDF</a></li>
+  <li>資源エネルギー庁 電力システム改革の検証を踏まえた制度設計ワーキンググループ(第7回)資料(2025年11月28日)<a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_design_wg/007.html" target="_blank">URL</a></li>
+  <li>東北電力ネットワーク「発電量調整供給兼基本契約申込書 申込手続きFAQ」「系統連系開始について」(発電者からTSOへの届出書、PDF書式)</li>
+  <li>電気事業法第23条第3項(業務委託原則禁止)、第23条第1項第2号(差別的取扱禁止)、第27条の30(特定卸供給事業者の届出)、第51条の2第3項(使用前自己確認結果の主務大臣への届出)、第51条の2第1項(使用前自己確認義務)、施行規則第78条・様式第53(届出様式)</li>
+</ul>
+</div>
+
+<a target="_top" href="https://www.scix.co.jp/column-contracts" class="next-link">
+  <div>
+    <div class="next-link-label">前の記事 / Previous</div>
+    <div class="next-link-title">COLUMN 19 — 契約設計が20年で2億円を分ける(5層の電力契約)</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="cta-section">
+  <h3>系統用蓄電池の契約レビュー・DDのご相談</h3>
+  <p>案件固有の進捗深度の判定、契約申込タイミングと2026/4/1境界線の影響評価、<br>三層分離の契約整理は、お問い合わせ後にNDA締結のうえご対応します。</p>
+  <a target="_top" href="https://www.scix.co.jp/contact" class="cta-btn">お問い合わせ →</a>
+</div>
+
+</div>
+
+<footer style="background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;text-align:center;margin-top:48px">
+  <div style="font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:4px">サイエンスエックス株式会社</div>
+  <div>〒103-0016 東京都中央区日本橋小網町8-2<br>BIZMARKS日本橋茅場町<br>TEL: 03-6403-4095｜MAIL: x@scix.co.jp</div>
+  <div style="margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px">代表取締役 中島 晋也(工学博士)</div>
+  <div style="font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px">© 2026 Science X Inc. All Rights Reserved.</div>
+</footer>
+
+<script>
+(function(){
+  var group = document.getElementById('dd-checklist');
+  if (!group) return;
+  var checks = group.querySelectorAll('input[type=checkbox]');
+  var countEl = document.getElementById('ddCount');
+  var fillEl = document.getElementById('ddBarFill');
+  var verdictEl = document.getElementById('ddVerdict');
+  var labelEl = document.getElementById('ddLabel');
+  var bodyEl = document.getElementById('ddBody');
+  var total = checks.length;
+
+  function update(){
+    var done = 0;
+    checks.forEach(function(c){ if (c.checked) done++; });
+    countEl.textContent = done;
+    fillEl.style.width = (done / total * 100) + '%';
+
+    verdictEl.classList.remove('use','consider','skip');
+    if (done >= 11){
+      verdictEl.classList.add('use');
+      labelEl.textContent = '進捗深度：契約申込みフェーズ通過';
+      bodyEl.innerHTML = '<strong>11点以上揃っている。</strong>契約申込みは受領済、工事費負担金確定または支払フェーズに入っている案件。残る項目(電力名義変更／使用前自己確認／アグリゲーター契約)は譲渡時期またはCODに近いタイミングで揃う。2026/4/1境界線については、項目04・08で受領日・適用ルールを確認。';
+    } else if (done <= 5){
+      verdictEl.classList.add('skip');
+      labelEl.textContent = '進捗深度：接続検討段階または初期';
+      bodyEl.innerHTML = '<strong>5点以下しか揃っていない。</strong>接続検討回答取得済または初期段階の案件。買主DDでは、回答書の有効期限残(1年起算)と、契約申込みフェーズへの進行可能性を売主に説明させる必要がある。2026/4/1以降の契約申込みは新ルール(保証金10%・分割払い初回50%以上)対象。失敗モード4(旧ルール下で取得した回答書が新ルール適用境界を踏む)に注意。';
+    } else {
+      verdictEl.classList.add('consider');
+      labelEl.textContent = '進捗深度：契約申込み準備中';
+      bodyEl.innerHTML = '<strong>6〜10点揃っている。</strong>接続検討回答済、契約申込み準備〜申込み中の案件。揃っていない項目(特に05〜09)は、売主側に進捗状況とスケジュールを説明させる前提。アグリゲーター起点で動いている案件では、アグリ側の準備完了が律速になっていないか確認(失敗モード5に注意)。';
+    }
+  }
+  checks.forEach(function(c){ c.addEventListener('change', update); });
+  update();
+})();
+</script>
+
+</body>
+</html>

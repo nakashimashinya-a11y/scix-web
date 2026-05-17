@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three Terms, Three-Layer Separation, Two Aprils — Grid-Scale Battery Storage Contract Flow in Practice: 7 Failure Modes and 13 Checkpoints from the Field | ScienceX</title>
+<meta name="description" content="In Japan's grid-scale battery storage contract procedures, three terms — Grid Connection Study, Wheeling Service Contract, and Generation Output Adjustment Supply Contract — are structurally prone to confusion. This column maps the structural roots of the three-term confusion, the 66 characters embedded in §8(2)(ho) of the April 2024 wheeling tariff, the boundary line of April 2026 without transitional measures, and seven failure modes observed in the field — all reconstructed from primary sources.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-contract-flow">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-contract-flow">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-contract-flow">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter','Noto Sans JP',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--text);line-height:1.8;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:780px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Source Serif 4','Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Source Serif 4','Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Source Serif 4','Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.45;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.75;max-width:680px;margin:0 auto}
+.article-body{max-width:780px;margin:0 auto;padding:48px 24px 80px}
+.part-divider{margin:60px 0 32px;padding:24px 0 0;border-top:1px solid var(--border);display:flex;align-items:center;gap:18px}
+.part-divider .part-label{font-family:'Source Serif 4',serif;font-size:.78em;letter-spacing:.18em;color:var(--accent);font-weight:700}
+.part-divider .part-title{font-family:'Source Serif 4','Noto Serif JP',serif;font-size:1.05em;color:var(--navy);font-weight:600;letter-spacing:.02em}
+h2{font-family:'Source Serif 4','Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.45}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue)}
+.lede{font-size:1em;line-height:1.9;margin-bottom:24px}
+.lede strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.85}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.85}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.85}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:1.85}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.quote-box{background:linear-gradient(135deg,#fdfaf2 0%,#fdf6e3 100%);border:1px solid rgba(196,154,60,0.25);border-left:5px solid var(--accent);padding:28px 32px;margin:32px 0;border-radius:0 8px 8px 0;position:relative}
+.quote-box::before{content:'"';position:absolute;top:-8px;left:14px;font-family:'Source Serif 4',serif;font-size:64px;color:rgba(196,154,60,0.25);line-height:1}
+.quote-box .quote-text{font-family:'Source Serif 4','Noto Serif JP',serif;font-size:1.08em;font-weight:500;color:var(--navy);line-height:1.65;margin-bottom:10px;padding-left:18px;font-style:italic}
+.quote-box .quote-jp{font-family:'Noto Serif JP',serif;font-size:.88em;color:var(--text);line-height:1.7;margin-bottom:12px;padding-left:18px;font-style:normal}
+.quote-box .quote-src{font-size:.78em;color:var(--text-light);text-align:right;letter-spacing:.04em;padding-left:18px}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.8;margin:16px 0 28px}
+.review-note{background:#fff8e1;border:1px dashed #c9a227;padding:18px 22px;margin:24px 0;border-radius:4px;font-size:.86em;line-height:1.75;color:#7a5e10}
+.review-note strong{color:#5a4308}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:560px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px;text-transform:uppercase}
+.premise-grid dd{font-family:'Source Serif 4','Noto Serif JP',serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Inter',sans-serif;text-transform:none}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.flow-block{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:24px 28px;margin:28px 0;font-family:'Menlo','Monaco','Courier New',monospace;font-size:.78em;line-height:1.75;color:var(--navy);white-space:pre-wrap;overflow-x:auto}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Source Serif 4',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.75;margin:0}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Source Serif 4',serif;font-size:1.6em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Inter',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.45}
+.layer-map{display:grid;grid-template-columns:1fr;gap:12px;margin:28px 0}
+.layer-card{display:grid;grid-template-columns:64px 1fr;gap:18px;background:var(--white);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;padding:18px 22px;align-items:start}
+.layer-card.hl{border-left:4px solid var(--navy);background:linear-gradient(90deg,rgba(196,154,60,0.06) 0%,rgba(255,255,255,1) 100%)}
+.layer-card .layer-no{font-family:'Source Serif 4',serif;font-size:1.4em;font-weight:700;color:var(--accent);line-height:1;text-align:center;padding-top:4px}
+.layer-card.hl .layer-no{color:var(--navy)}
+.layer-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 6px;line-height:1.45}
+.layer-card p{font-size:.86em;line-height:1.75;margin:0}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Source Serif 4',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.7}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Source Serif 4',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Source Serif 4',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.check-verdict{margin-top:14px;padding:14px 18px;border-radius:6px;font-size:.88em;line-height:1.7;background:var(--white);border:1px solid var(--border)}
+.check-verdict .vlabel{font-size:.75em;color:var(--text-light);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-weight:700}
+.check-verdict .vbody{color:var(--text);font-size:.95em}
+.check-verdict.use{border-left:4px solid var(--green)}
+.check-verdict.use .vlabel{color:var(--green)}
+.check-verdict.consider{border-left:4px solid var(--accent)}
+.check-verdict.consider .vlabel{color:var(--accent)}
+.check-verdict.skip{border-left:4px solid var(--warn)}
+.check-verdict.skip .vlabel{color:var(--warn)}
+.failure-list{margin:28px 0}
+.failure-item{display:grid;grid-template-columns:46px 1fr;gap:18px;background:var(--white);border:1px solid var(--border);border-left:4px solid var(--warn);border-radius:6px;padding:20px 22px;margin-bottom:14px}
+.failure-item .fail-num{font-family:'Source Serif 4',serif;font-size:1.5em;font-weight:700;color:var(--warn);line-height:1;text-align:center;padding-top:2px}
+.failure-item h4{font-size:.98em;font-weight:700;color:var(--navy);margin:0 0 6px;line-height:1.45}
+.failure-item .fail-trigger{font-size:.85em;color:var(--text);line-height:1.75;margin-bottom:8px}
+.failure-item .fail-cost{font-size:.82em;color:var(--warn);font-weight:600;background:#fef2f2;padding:6px 12px;border-radius:4px;display:inline-block}
+.persona-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:28px 0}
+.persona-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--navy);border-radius:6px;padding:22px 24px}
+.persona-card .p-tag{display:inline-block;font-size:.74em;font-weight:700;letter-spacing:.1em;color:var(--accent);margin-bottom:6px}
+.persona-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 12px;line-height:1.45}
+.persona-card .p-action{font-size:.86em;line-height:1.75;margin:0}
+.persona-card .p-action ol{margin:8px 0 0;padding-left:22px}
+.persona-card .p-action ol li{margin-bottom:6px}
+.matrix-table{font-size:.78em}
+.matrix-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:left;font-weight:500;font-size:.76em}
+.matrix-table td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.6}
+.matrix-table tr:nth-child(even){background:var(--light-bg)}
+.matrix-table .em{font-weight:700;color:var(--navy);font-size:.85em}
+.matrix-table .who{color:var(--accent);font-weight:600}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:48px 0 32px;border-radius:6px;font-size:.85em;line-height:1.75}
+.sources-box h4{font-size:.92em;font-weight:700;color:var(--navy);margin:0 0 14px;letter-spacing:.04em}
+.sources-box ul{list-style:none;padding:0;margin:0}
+.sources-box li{padding:6px 0;border-bottom:1px solid var(--border);font-size:.84em;line-height:1.65}
+.sources-box li:last-child{border-bottom:none}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+.credit-box{background:linear-gradient(135deg,#F8F9FB 0%,#FFFFFF 100%);border:1px solid var(--border);border-top:3px solid #2A4D7A;border-radius:6px;padding:20px 24px;margin:0 0 32px;font-size:.86em;line-height:1.75}
+.credit-box .cb-tag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.1em;color:#2A4D7A;margin-bottom:10px}
+.credit-box .cb-row{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:6px}
+.credit-box .cb-role{font-size:.78em;color:var(--text-light);margin-right:6px;letter-spacing:.04em}
+.credit-box .cb-name{font-weight:700;color:var(--navy)}
+.credit-box .cb-name .cb-affil{font-weight:400;color:var(--text-light);font-size:.92em;margin-left:4px}
+.next-link{display:flex;justify-content:space-between;align-items:center;padding:24px 28px;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;text-decoration:none;color:var(--text);margin:48px 0 0;transition:all .3s}
+.next-link:hover{background:var(--white);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.next-link-label{font-size:.78em;color:var(--text-light);letter-spacing:.08em;margin-bottom:4px}
+.next-link-title{font-family:'Source Serif 4','Noto Serif JP',serif;font-size:.95em;font-weight:600;color:var(--navy)}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(165deg,#1B2A4A 0%,#2A4D7A 100%);color:#fff;padding:36px 32px;border-radius:8px;margin:48px 0 0;text-align:center}
+.cta-section h3{color:#fff;font-family:'Source Serif 4','Noto Serif JP',serif;font-size:1.2em;margin:0 0 14px;border:none;padding:0}
+.cta-section p{color:rgba(255,255,255,.78);font-size:.9em;line-height:1.75;margin:0 auto 16px;max-width:580px}
+.cta-section p:last-of-type{margin-bottom:0}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:14px 36px;border-radius:4px;font-weight:600;font-size:.92em;text-decoration:none;letter-spacing:.04em;transition:all .3s;margin-top:8px}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.4)}
+.jp-term{font-family:'Noto Sans JP',sans-serif;font-size:.92em;color:var(--text-light);font-weight:400}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table,.matrix-table{font-size:.76em}
+  .comparison-table th,.comparison-table td,.matrix-table th,.matrix-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .diff-grid{grid-template-columns:1fr}
+  .stat-row{grid-template-columns:1fr}
+  .layer-card{grid-template-columns:48px 1fr;gap:12px;padding:16px 18px}
+  .layer-card .layer-no{font-size:1.2em}
+  .failure-item{grid-template-columns:36px 1fr;gap:12px;padding:16px 18px}
+  .failure-item .fail-num{font-size:1.2em}
+  .quote-box .quote-text{font-size:1em}
+}
+</style>
+</head>
+<body>
+<script src="/header.js"></script>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 21</span>
+      <span class="header-tag">CONTRACT FLOW PRACTICE</span>
+      <time class="header-date" datetime="2026-05-18">May 18, 2026</time>
+    </div>
+    <h1>Three Terms, Three-Layer Separation, Two <em>Aprils</em> —<br>Grid-Scale Battery Storage Contract Flow in Practice: <em>7 Failure Modes</em> and 13 Checkpoints from the Field</h1>
+    <p class="header-desc">In Japan's grid-scale battery storage contract procedures, three terms — Grid Connection Study, Wheeling Service Contract, and Generation Output Adjustment Supply Contract — are structurally prone to confusion. This column maps the structural roots of that confusion, the 66 characters embedded in §8(2)(ho) of the April 2024 wheeling tariff, the April 2026 boundary line that came with no transitional measures, and seven failure modes observed in the field — all reconstructed from primary sources.</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a href="https://www.scix.co.jp/knowledge" class="back-link">← Back to Knowledge Index</a>
+
+<div class="credit-box">
+  <div class="cb-tag">SCIENCEX COLUMN</div>
+  <div class="cb-row">
+    <span><span class="cb-role">Author</span><span class="cb-name">Shinya Nakajima, Ph.D. (Eng.)<span class="cb-affil">Representative Director, Science X Inc.</span></span></span>
+  </div>
+</div>
+
+<div class="review-note">
+<strong>Editor's note:</strong> The regulatory snapshot in this column is as of May 17, 2026. This piece reconstructs Japan's grid-scale battery storage contract flow from primary sources — the wheeling tariffs of the 10 General Transmission and Distribution Utilities, OCCTO's business rules, the Electricity Business Act, and disclosure materials from METI and the Electricity and Gas Market Surveillance Commission. Quotations from primary sources are kept within 100 Japanese characters of the original; effective dates and URLs are consolidated in the "Primary Sources" section at the end.
+</div>
+
+<p class="lede">In grid-scale battery storage (BESS) contract procedures, <strong>three terms — "Grid Connection Study" (接続検討), "Wheeling Service Contract" (接続供給契約), and "Generation Output Adjustment Supply Contract" (発電量調整供給契約) — are structurally prone to confusion</strong>. Carrying the procedural intuitions of the FIT-era solar PV world directly into grid-scale battery storage causes documents to bounce between recipients and premises to be misread. Project schedules shift by weeks or months as a result. The cause, in every case, is the same: the structural root of how these three terms were designed.</p>
+
+<p class="lede">Behind that design lies a 66-character provision quietly embedded on April 1, 2024 into §8(2)(ho) of the wheeling tariffs of the 10 General Transmission and Distribution Utilities (TSOs) — §8(3)(ho) in Chubu Electric Power Grid alone.</p>
+
+<div class="quote-box">
+  <p class="quote-text">"The Generation Contract Holder shall, acting as agent for the Company [TSO], conclude with the Generator the Grid Connection Reception Contract (meaning a contract concluded pursuant to the Generation Output Adjustment Supply Contract)."</p>
+  <p class="quote-jp">発電契約者が当社を代理して、発電者との間で、系統連系受電契約（発電量調整供給契約にもとづき締結する契約をいいます。）を締結すること。</p>
+  <p class="quote-src">— Wheeling Supply Tariffs of the 10 TSOs, §8(2)(ho) (§8(3)(ho) in Chubu Electric Power Grid alone); 66 characters; effective April 1, 2024. Punctuation style may differ slightly across utilities.</p>
+</div>
+
+<p>Across the industry, hearsay circulates widely: "the rules changed in April 2026." Look at the tariff text, and the change isn't there. The reason is simple — the tariff hasn't moved. <strong>The real structural transformation had already happened two years earlier</strong>. These 66 characters rewrote the FIT-era and self-consumption-era assumption that "the Generator and the Generation Contract Holder are one and the same," replacing it with a three-layer separation: <em>Generator ≠ Generation Contract Holder ≠ Trading Member</em>. The legal foundation that makes aggregator-era contract flows possible was constructed right here.</p>
+
+<p>The April 2026 tightening — 10% security deposits and a 50%-or-more initial installment requirement — is merely the first operational rule layered on top of that 2024 foundation. <strong>Without distinguishing which layer moved and which did not, the current state of the regulatory system cannot be grasped</strong>. This column unpacks the two Aprils structurally, breaks the three-term confusion into four layers, and reads — from primary sources — the seven failure modes observed in the field and the 13 checkpoints buyers should assemble in due diligence.</p>
+
+<div class="data-box">
+<div class="db-head">Scope of this column</div>
+<dl class="premise-grid">
+  <div><dt>Target</dt><dd>Grid-scale BESS<span class="unit">High/Extra-High Voltage</span></dd></div>
+  <div><dt>Regulatory snapshot</dt><dd>May 2026<span class="unit">as of</span></dd></div>
+  <div><dt>Primary readers</dt><dd style="font-size:13px">Owners, Buyers, SPCs, Finance, Aggregators</dd></div>
+  <div><dt>Layers of confusion analyzed</dt><dd>4<span class="unit">layers</span></dd></div>
+  <div><dt>Phases mapped</dt><dd>9<span class="unit">phases</span></dd></div>
+  <div><dt>Failure modes enumerated</dt><dd>7<span class="unit">patterns</span></dd></div>
+</dl>
+</div>
+
+
+<div class="part-divider">
+  <span class="part-label">PART I</span>
+  <span class="part-title">DIAGNOSIS — Why the Three Terms Are Misread</span>
+</div>
+
+
+<h2>01 — The three terms in their proper places: statute, tariff, and form names live on different layers</h2>
+
+<p>Most confusion in grid-scale battery storage contract procedures stems from discussing three things on the same plane: <strong>the concept under the Electricity Business Act, the contract name in the wheeling tariff, and the application-form name used by each TSO</strong>. These are three different layers. They correspond, but not one-to-one. Without separating them first, every downstream discussion spins in place.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>Item</th><th>Grid Connection Study</th><th>Wheeling Service Contract</th><th>Generation Output Adjustment Supply Contract</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Essence</td><td>Procedure for examining technical feasibility of grid interconnection and the indicative construction cost contribution in advance</td><td>Contract under which electricity is delivered to a receiving point via wheeling service<br><span class="u">Charging side = treated as demand</span></td><td>Contract under which reverse-flow electricity from a generator is received and generation output is adjusted<br><span class="u">Discharging side = treated as generator</span></td></tr>
+<tr><td class="em">Statutory name</td><td>Grid Connection Study<br><span class="u">term in OCCTO's Transmission and Distribution Business Guidelines</span></td><td>Wheeling Supply<br><span class="u">EBA Art. 2(1)(v)</span></td><td><strong>Electricity Volume Adjustment Supply</strong><br><span class="u">EBA Art. 2(1)(vii)</span></td></tr>
+<tr><td class="em">Tariff contract name</td><td>Grid Connection Study</td><td>Wheeling Service Contract</td><td><strong>Generation Output Adjustment Supply Contract</strong><br><span class="u">subordinate-type name carried over as the contract name</span></td></tr>
+<tr><td class="em">Application-form name</td><td>Grid Connection Study Application (High-Voltage AP2 / Extra-High AK1)<br><span class="u">common form across OCCTO</span></td><td>Joint Application Form for Wheeling Service and Basic Contract</td><td>Joint Application Form for Generation Output Adjustment Supply and Basic Contract</td></tr>
+<tr><td class="em">Counterparties</td><td>Applicant ⇔ OCCTO / TSO</td><td>Retail Electricity Provider — or a BESS operator that has obtained a retail license — ⇔ area TSO</td><td>Generation Contract Holder ⇔ area TSO</td></tr>
+<tr><td class="em">Where BESS files on the generation side</td><td>OCCTO (≥10,000 kW) / TSO</td><td><strong>Directly with TSO</strong><br><span class="u">not via a retailer</span></td><td><strong>Directly with TSO</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The table looks orderly at first glance. But in the field, multiple terms run in parallel and misreadings become routine. Three are particularly common. First, "Electricity Volume Adjustment Supply" (statute) and "Generation Output Adjustment Supply Contract" (tariff) <strong>are not separate concepts but stand in a containment relationship — upper concept and subordinate type</strong> (the tariff also has a parallel subordinate type, "Demand Suppression Volume Adjustment Supply Contract," for negawatts). Second, the word "Joint" (兼) in "Joint Application Form" is <strong>not a separate contract category, but a clerical convenience that merges forms</strong>. Third, "Grid Connection Study" (procedure) is <strong>not a contract at all — it is the pre-examination that precedes contracting</strong>, and the response letter carries a one-year validity period.</p>
+
+
+<h2>02 — The four structural roots of the confusion</h2>
+
+<p>The three-term confusion arises structurally from four layers. Each is independent, but they overlap to produce field-level confusion. Let me unpack them one at a time.</p>
+
+<div class="layer-map">
+  <div class="layer-card">
+    <div class="layer-no">01</div>
+    <div>
+      <h4>Layer 1: The containment structure between "Electricity Volume Adjustment Supply" and "Generation Output Adjustment Supply"</h4>
+      <p>The 2015 amendment (Act No. 47 of 2015) newly inserted the term "Electricity Volume Adjustment Supply" into EBA Art. 2(1)(vii). Subsequently, Act No. 49 of 2020 (effective April 1, 2022) positioned "Specified Wholesale Supply" under sub-item (ro) of the same item. The tariff has correctly kept the subordinate-type name "Generation Output Adjustment Supply Contract" as its contract name. This is not divergence — it is structural containment.</p>
+    </div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-no">02</div>
+    <div>
+      <h4>Layer 2: Form merging under the "joint basic contract" scheme</h4>
+      <p>The single Joint Application Form for Generation Output Adjustment Supply and Basic Contract bundles (a) the Basic Contract and (b) the Generation Output Adjustment Supply Contract for simultaneous filing. (For projects also seeking Renewable Energy Specified Wholesale Supply, a three-contract joint form is prepared, adding (c) the Renewable Energy Electricity Specified Wholesale Supply Contract.) This clerical convenience becomes fertile ground for blurring the perception of contract structure.</p>
+    </div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-no">03</div>
+    <div>
+      <h4>Layer 3: The dual nature of battery storage — charging and discharging</h4>
+      <p>The same physical asset swaps between two legal positions depending on the time of day: consumer (when charging) and generator (when discharging). The Wheeling Service Contract runs in parallel with the Generation Output Adjustment Supply Contract — one for the charging side, one for the discharging side. The one-directional intuitions of FIT solar do not cover this.</p>
+    </div>
+  </div>
+  <div class="layer-card hl">
+    <div class="layer-no">04</div>
+    <div>
+      <h4>Layer 4: The three-layer separation built by the 66 characters of April 2024 ★ Core of this column</h4>
+      <p>The agency-power provision embedded — in near-identical wording — into §8(2)(ho) of the 10 TSOs' tariffs (§8(3)(ho) in Chubu PG alone) established the three-layer separation "Generator ≠ Generation Contract Holder ≠ Trading Member" at the tariff level. The party that physically generates, the contractual name-holder under the tariff, and the agent for market transactions can all be three distinct parties — a legal foundation for this was created right here.</p>
+    </div>
+  </div>
+</div>
+
+<p>The four layers are independent yet interlock. Layer 1 is the containment structure of statute and tariff; Layer 2 is form merging; Layer 3 is the physical nature of batteries; Layer 4 is the agency-power provision created in April 2024. <strong>The three-term confusion is the product not of a single cause but of all four layers tangling together at once</strong>. That is why surface-level terminology cleanup alone never quite resolves it.</p>
+
+
+<div class="part-divider">
+  <span class="part-label">PART II</span>
+  <span class="part-title">FRAMEWORK — The Two Aprils and the Three-Layer Separation</span>
+</div>
+
+
+<h2>03 — The 66 characters of April 2024: the day the structural foundation was built</h2>
+
+<p>Why does Layer 4 deserve to be called "the structural transformation of April 2024"? To show this with structural facts, I need to put the old tariff and the new tariff side by side.</p>
+
+<p>Before March 31, 2024, the wheeling tariffs <strong>did not even contain the contract category "Grid Connection Reception Contract" (系統連系受電契約)</strong>. The tariffs were built on the unspoken assumption that Generator and Generation Contract Holder were the same entity. The new tariff effective April 1, 2024 newly created the "Grid Connection Reception Contract" for the first time. The reason was practical: with the introduction of the generation-side wheeling charge (the Grid Connection Reception Service Fee), the direct fee relationship paid by generators to the TSO had to be legally structured. Alongside this new contract category, a provision was simultaneously introduced — uniformly across the 10 TSOs — empowering the Generation Contract Holder to conclude that contract on behalf of the TSO. <strong>Not a partial amendment — a complete new creation</strong>.</p>
+
+<h3>3-1 Uniform across all 10 TSOs — 66 characters embedded in near-identical wording</h3>
+
+<p>The exact wording of the newly created provision is the 66 characters quoted at the head of this column. It is embedded in near-identical form into §8(2)(ho) of the 10 TSOs' wheeling tariffs (§8(3)(ho) in Chubu Electric Power Grid alone). Including Okinawa Electric Power — which has not implemented legal unbundling — the wording is aligned nationwide. (Punctuation style — commas — may differ slightly across utilities.) The press release issued by Chugoku Electric Power Transmission &amp; Distribution on January 17, 2024 captures the essence of the new scheme most plainly: <strong>"Tariff collection shall be performed by the Generation Contract Holder on behalf of the Company; the Generation Contract Holder shall, as a general matter, remit payment to the Company by utilizing the framework of the Generation Output Adjustment Supply Contract."</strong> Nine months after the effective date, in January 2025, the secretariat of the Electricity and Gas Market Surveillance Commission released "Reference Materials for Generators on the Generation-Side Charge," stating in writing: <strong>"At the formation of the contract, the Generation Contract Holder responds as agent for the General Transmission and Distribution Utility."</strong></p>
+
+<p>It is worth noting that even Okinawa Electric — which has not undergone legal unbundling — follows the same chapter structure (Chapter II), the same section number (§8), and the same wording. <strong>Regardless of whether legal unbundling has been completed, the agency-power provision was incorporated at the tariff level nationwide</strong>. This was not "the independent response of a few utilities" but a cross-industry standard model change.</p>
+
+<h3>3-2 The new scheme has two stages</h3>
+
+<div class="info-box">
+<strong>Stage 1: Comprehensive agency power</strong> (agency for contract conclusion)<br>
+The agency framework is set by tariff agreement itself; no separate stand-alone delegation contract is required. By accepting the tariff, the Generation Contract Holder automatically holds the right to conclude or amend the Grid Connection Reception Contract on behalf of the TSO.<br><br>
+<strong>Stage 2: Tariff collection agency service</strong> (agency for fee collection)<br>
+A separate delegation contract <em>is</em> required. The Generation Contract Holder is engaged to receive, on behalf of the TSO, fees attributable to the Generator (such as the Grid Connection Reception Service Fee), and to remit them to the TSO. <strong>Whether a delegation fee is paid for this collection service — and at what level — depends on each TSO's delegation contract terms</strong>. (Reference material from Chugoku Electric Power Transmission &amp; Distribution, dated January 17, 2024, p.5, illustrates a scheme in which a delegation fee is paid.)
+</div>
+
+<p>This two-stage structure is what makes the aggregator-intermediated scheme legally feasible. Once an aggregator (a Specified Wholesale Supplier) takes the position of "Generation Contract Holder," it automatically holds the position of agent-for-contract-conclusion under Stage 1, and additionally functions as agent-for-fee-collection under Stage 2. <strong>The Generator performs only the physical generation (operation of the battery), while contract administration and the entire fee flow are handled between the Generation Contract Holder and the TSO</strong> — this structure was made possible at the tariff level for the first time in April 2024.</p>
+
+
+<h2>04 — The three-layer separation of the aggregator era: Generator, Generation Contract Holder, Trading Member</h2>
+
+<p>Against the backdrop of §8(2)(ho) of April 2024, the contractual parties around a single grid-scale battery can <strong>separate into three layers</strong>.</p>
+
+<div class="data-box">
+<div class="db-head">The three-layer party structure</div>
+<p><strong>① Generator (発電者)</strong>: The owner and operator of the electrical equipment. The party physically running the battery.</p>
+<p><strong>② Generation Contract Holder (発電契約者)</strong>: The party concluding the Joint Generation Output Adjustment Supply and Basic Contract with the TSO. The contractual name-holder under the tariff.</p>
+<p><strong>③ Trading Member (取引会員)</strong>: The party trading in the wholesale electricity market and the balancing market. Registered with EPRX, OCCTO, and/or JEPX.</p>
+</div>
+
+<p>These three may all be the same entity, or all different. EPRX (the Japan Electric Power Reserve and Adjustment Exchange, distinct from JEPX), in its published "Guide on Participating in the Balancing Market Using Pumped Storage or Battery Storage Facilities" (Edition 2, dated April 1, 2025), states the point explicitly: <strong>"The party concluding the Generation Balancing Contract and the Trading Member do not need to be the same entity."</strong> The same logic applies to the charging side.</p>
+
+<p>What this means in practice: <strong>the BESS owner (Generator) may itself contract directly with the TSO as Generation Contract Holder, or it may have a Specified Wholesale Supplier (an aggregator) step in as Generation Contract Holder in its place</strong>. The trading member, in turn, may be yet another aggregator. Ownership, contracting, and trading are designed so that all three layers can be separated.</p>
+
+<p>Once the three-layer separation is understood, a common field remark becomes legible: "We'll submit the main application once the aggregator's documents come together next week." <strong>When an aggregator steps in as Generation Contract Holder, the Joint Generation Output Adjustment Supply and Basic Contract Application cannot be submitted to the TSO until the aggregator's corporate information, market participation setup, and supply-demand plan submission setup are all in place</strong>. The project is not one the owner can drive alone, so the sequencing is keyed to the aggregator.</p>
+
+<h3>4-1 "You can't proceed until you decide the retailer" is an explicit tariff requirement at all 10 TSOs</h3>
+
+<p>The flip side of the three-layer separation is a requirement repeatedly raised in the field by TSOs: <strong>"The Wheeling Service Contract application cannot proceed until the Retail Electricity Provider is decided."</strong> This is often treated as an operational convention, but in fact it is an express requirement in the wheeling tariffs of all 10 TSOs.</p>
+
+<p>Two streams of provisions form the core. First, the definition of "contracting party" itself is limited — in the tariffs of Chubu PG, Kansai Transmission &amp; Distribution, Hokuriku Transmission &amp; Distribution and others — to a party "supplying electricity to the contracting party for use in the contracting party's retail electricity business, specified transmission and distribution business, or supply to itself." Second, as an attachment requirement for the consumer consent document, §8(1)(he) and §9 of the tariffs of Hokkaido NW, Tohoku NW, TEPCO PG and others expressly require: "a copy of the consumer's consent to the contracting party… shall be submitted together [with the application]."</p>
+
+<p>In other words, this requirement is not TSO operational discretion or case-by-case judgment — it is the architecture of the tariff itself. <strong>Unless the BESS owner either obtains a retail electricity license itself or fixes a specified Retail Electricity Provider as the contracting party, the Wheeling Service Contract application cannot proceed by the structure of the tariff</strong>. The hope that "the TSO will be flexible here" misses the mark.</p>
+
+<h3>4-2 The "via-retailer flow" does not fall within the tariff's use requirements</h3>
+
+<p>Another typical misunderstanding is the framing: "the Wheeling Service Contract goes via the retailer, while the Generation Output Adjustment Supply Contract goes directly to the TSO." <strong>In reality, for grid-scale battery storage, both filings on the generation side are made directly to the TSO as standard</strong>.</p>
+
+<p>The most lucid answer comes from materials published by the Agency for Natural Resources and Energy's <strong>Working Group on System Design in Light of the Verification of Electricity System Reform (7th meeting)</strong>, dated November 28, 2025: <strong>"Under the General Transmission and Distribution Utilities' Wheeling Supply Tariffs, Retail Electricity Providers and similar entities may use the grid only when conducting retail supply."</strong> "Of the electricity supplied to battery storage operators, the portion other than the 'storage and similar losses'… is not the subject of wheeling supply conducted by the General Transmission and Distribution Utilities, and is understood not to permit grid use." The very act of a Retail Electricity Provider using the grid on behalf of a battery is structurally not contemplated under the tariff. The "via-retailer flow" is not so much prohibited as it simply does not satisfy the tariff's use requirements — and therefore cannot exist.</p>
+
+
+<h2>05 — April 2026: setting a regulatory zero point with no transitional measures</h2>
+
+<p>If the agency-power provision of April 2024 was "the foundation of the aggregator era," then the first operational rule layered on top of it is <strong>the BESS-only tightening of April 1, 2026</strong>. Following the consolidation work at METI's Next-Generation Power Grid WG sessions (6th meeting on December 24, 2025; 7th meeting on February 9, 2026), OCCTO published a nationwide uniform rule revision on March 18, 2026, which was then implemented in each TSO area.</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">MEASURE A</span>
+    <h4>Increase of security deposit to 10%</h4>
+    <p>The security deposit collected at contract application — previously 5% of the indicative construction cost contribution — is <strong>raised to 10%, limited to grid-scale battery storage</strong>. Made explicit in OCCTO's revised "Security Deposit Calculation Methodology" (revised March 18, 2026). The congestion-mitigation process remains at 5% and is out of scope.</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">MEASURE B</span>
+    <h4>Tightening of installment payment for construction cost contributions</h4>
+    <p><strong>For grid-scale battery storage,</strong> when installment payment is used, <strong>the initial installment must be at least 50% of the total construction cost contribution</strong>. If the first portion under a per-stage construction installment scheme exceeds 50%, that higher amount is required. OCCTO's revised "Approach to Construction Cost Contribution Payment Term Changes" (revised March 18, 2026).</p>
+  </div>
+</div>
+
+<div class="stat-row">
+  <div class="stat-cell">
+    <span class="val">10<span class="unit">%</span></span>
+    <span class="lbl">Security deposit at contract application<br>(from April 1, 2026 — previously 5%)</span>
+  </div>
+  <div class="stat-cell">
+    <span class="val">50<span class="unit">%↑</span></span>
+    <span class="lbl">Construction cost contribution<br>Minimum initial installment</span>
+  </div>
+  <div class="stat-cell">
+    <span class="val">1<span class="unit">yr</span></span>
+    <span class="lbl">Grid Connection Study response<br>Validity period codified</span>
+  </div>
+</div>
+
+<h3>5-1 The boundary line is the "contract application receipt date" — and that alone</h3>
+
+<p>Editorially, the most important feature of this measure is that <strong>no across-the-board transitional measure was set</strong>. As TEPCO Power Grid expressly stated in its April 1, 2026 notice, the boundary condition is, in principle, the single point of "whether the contract application was received on or after April 1, 2026."</p>
+
+<div class="quote-box">
+  <p class="quote-text">"Please note that even for projects for which a Grid Connection Study response was issued prior to April 1, 2026, if the contract application is submitted on or after April 1, 2026, the new rules apply."</p>
+  <p class="quote-jp">2026年4月1日以前に接続検討回答している案件につきましても、2026年4月1日以降に契約申込みされる場合は対象となりますので、ご注意ください。</p>
+  <p class="quote-src">— TEPCO Power Grid, notice dated April 1, 2026</p>
+</div>
+
+<p>In other words, <strong>a project that has already received its Grid Connection Study response within 2025 and is about to proceed to contract application is fully in scope of the new rules (10% deposit; 50%+ initial installment) if the contract application is received on or after April 1, 2026</strong>. There <strong>are</strong>, however, narrow carve-outs by category: (i) the congestion-mitigation process remains at 5% and is out of scope; (ii) for batteries co-located with generation or demand, the project is in scope only when "the principal facility" is judged to be the battery based on facility capacity (the judgment is made by each area's TSO/distribution utility); (iii) where installment payment is genuinely difficult, the TSO retains room for an exception with stated reasons. These are individual judgment frameworks — not a "transitional measure" that uniformly excludes a category of projects on a time axis. The expectation "we cleared the Grid Connection Study last year so we can proceed under the old rules" does not survive under this measure. This column calls this design <strong>"setting a regulatory zero point with no transitional measures."</strong> Read another way, it is a deliberate design choice that refuses to leave the question of retroactivity ambiguous — in order to suppress speculative Grid Connection Study filings.</p>
+
+<h3>5-2 OCCTO as the rule-making body</h3>
+
+<p>The other striking point is that this tightening was implemented not as a series of independent responses by each utility, but as a <strong>nationwide uniform measure led by OCCTO</strong>. OCCTO revised the "Security Deposit Calculation Methodology" and "Approach to Construction Cost Contribution Payment Term Changes"; each General Transmission and Distribution Utility then issued individual notices to follow. The agency-power provision of April 2024 was implemented as <strong>a wheeling tariff amendment under EBA Art. 18(1)</strong> (requiring ministerial approval from METI), whereas the April 2026 tightening was implemented as <strong>a revision of OCCTO's business rules and Transmission and Distribution Business Guidelines under the Art. 28-41 family, together with accompanying published materials</strong> (ministerial approval is still required for business rule and guideline revisions, but the route and the principal body differ). <strong>The industry's locus of rule-making has shifted — from the tariff-approval route to the OCCTO wide-area-rule revision route</strong>. This is a key observation point for reading the future direction of contract flow regulation.</p>
+
+
+<div class="part-divider">
+  <span class="part-label">PART III</span>
+  <span class="part-title">PRACTICE — Nine Phases, Matrix, Failure Modes</span>
+</div>
+
+
+<h2>06 — Nine phases and the "who submits what to whom" matrix</h2>
+
+<p>With the three terms and the three-layer separation now organized, the contract flow can be laid out chronologically. From a Grid Connection Study application to commercial operation date (COD), a grid-scale battery passes through nine phases.</p>
+
+<div class="flow-block">[E-1] Grid Connection Study Application      Applicant → OCCTO / TSO
+       ├ Study fee: JPY 200,000–220,000 / receiving point (uniform across 10 TSOs)
+       └ Response period: 3 months (2 months for &lt; 500 kW high-voltage with inverter)
+[E-1 done] Grid Connection Study Response   ★ Validity: 1 year
+            ↓
+[E-2] Pre-contract preparation             Provisional acceptance application; pumped storage special measure
+[E-2 done] Provisional acceptance notice (JK number assigned)
+            ↓
+[E-3] Wheeling Service Contract application   Contracting party = REP or BESS operator with retail license → TSO
+       └ Joint Wheeling Service / Basic Contract Application Form; consumer consent document attached
+                                                       (Charging side = treated as demand)
+[E-3 done] Wheeling Service / Basic Contract (executed copy)
+            ↓
+[E-4] Generation Output Adjustment Supply Contract application
+       Generation Contract Holder → TSO (Discharging side = treated as generator)
+       ├ Joint Generation Output Adjustment / Basic Contract Application Form
+       └ Security deposit ★ From April 2026: 10% of indicative construction cost contribution (previously 5%)
+[E-4 done] Joint Generation Output Adjustment / Basic Contract
+            ↓
+[E-5] Confirmation of construction cost contribution → both Generator (discharge) and Consumer (charge)
+       └ ★ From April 2026: BESS installment payment, initial installment ≥ 50%
+[E-5 done] Construction cost contribution notice / contract
+            ↓
+[E-6] Grid interconnection construction   EPC works; pre-use self-confirmation
+[E-6 done] Construction completion report; Pre-Use Self-Confirmation Result Notification
+              (accepted by Director-General of the competent Industrial Safety Inspection Department)
+            ↓
+[E-7] Interconnection &amp; receiving tests   Protection relay tests, PCS spec confirmation, etc.
+[E-7 done] ★ No standard form (email-based notice)
+            ↓
+[E-8] COD (start of interconnection)   Commercial operation begins
+[E-8 done] Notice of commencement of Generation Output Adjustment Supply; first meter reading slip
+            ↓
+[E-9] Market participation contracts   JEPX membership; EPRX membership; capacity market bidding
+                                       (OCCTO Capacity Reservation Contract); LTDA bidding;
+                                       Reserve-Capacity Utilization Contract (with TSO)</div>
+
+<h3>6-1 "Who submits what, and to whom" at each phase</h3>
+
+<p>Across the nine phases, the submitting party and the recipient change frequently. Mistakes here leave documents in mid-air. The matrix below reflects the three-layer separation (Generator, Generation Contract Holder, Trading Member).</p>
+
+<div class="table-scroll">
+<table class="matrix-table">
+<thead>
+<tr><th style="width:60px">Phase</th><th>Submitting party</th><th>Recipient</th><th>Principal documents</th><th>Post-April-2026 issues</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">E-1</td><td class="who">Applicant (Generator or agent)</td><td>OCCTO / area TSO</td><td>Grid Connection Study Application (HV AP2 / EHV AK1)<br>※ From January 5, 2026, land documents (e.g., registry copies) are mandatory</td><td>Per the direction shown in the 10th Next-Generation Power Grid WG (April 16, 2026) materials, an application-count cap per operator (5–11 per area) is scheduled to take effect from August 1, 2026</td></tr>
+<tr><td class="em">E-2</td><td class="who">Applicant</td><td>Area TSO</td><td>Provisional acceptance application; declaration of pumped storage special-measure intent</td><td>—</td></tr>
+<tr><td class="em">E-3</td><td class="who">REP or BESS operator with a retail license</td><td>Area TSO</td><td>Joint Wheeling Service / Basic Contract Application; <strong>consumer (BESS owner) consent document</strong></td><td>Cannot proceed without a confirmed REP (or retail license) — express tariff requirement</td></tr>
+<tr><td class="em">E-4</td><td class="who">Generation Contract Holder (owner or aggregator)</td><td>Area TSO</td><td>Joint Generation Output Adjustment / Basic Contract Application; security deposit</td><td><strong>10% security deposit</strong> (previously 5%)</td></tr>
+<tr><td class="em">E-5</td><td class="who">Generator (discharge side) / Consumer (charge side)</td><td>Area TSO</td><td>Construction cost contribution contract; initial payment</td><td>BESS installment, <strong>initial portion ≥ 50%</strong></td></tr>
+<tr><td class="em">E-6</td><td class="who">Generator (EPC)</td><td>Area TSO + <strong>Competent Minister (Director-General of the Industrial Safety Inspection Department)</strong></td><td>Construction completion report; <strong>Pre-Use Self-Confirmation Result Notification</strong> (EBA Art. 51-2(3); Enforcement Regulation Art. 78; Form No. 53)</td><td>—</td></tr>
+<tr><td class="em">E-7</td><td class="who">Generator</td><td>Area TSO</td><td>Test reports; protective relay setting tables, etc.<br><strong>※ No standard completion certificate exists</strong></td><td>—</td></tr>
+<tr><td class="em">E-8</td><td class="who">Area TSO → Generator</td><td>—</td><td>Notice of commencement of Generation Output Adjustment Supply; first meter reading slip</td><td>—</td></tr>
+<tr><td class="em">E-9</td><td class="who">Trading Member (owner or aggregator)</td><td>JEPX / EPRX / OCCTO / TSO</td><td>JEPX trading membership; EPRX trading membership; OCCTO Capacity Reservation Contract; TSO Reserve-Capacity Utilization Contract</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>What the matrix makes visible is that <strong>the submitting party switches frequently — Retailer (E-3) → Generation Contract Holder (E-4) → Generator (E-5, E-6) → Trading Member (E-9)</strong>. When these layers are different legal entities, the entire phase stalls whenever inter-party coordination breaks down. An owner can drive all nine phases alone only if it has itself acquired a retail electricity license, registered as Generation Contract Holder, and obtained trading membership in its own name. In aggregator-intermediated projects, the rate-limiting step shifts every time the responsible party changes.</p>
+
+<h3>6-2 Pre-Use Self-Confirmation and TSO documents are on separate tracks</h3>
+
+<p>What must not be missed at E-6 is the relationship between the <strong>Pre-Use Self-Confirmation Result Notification</strong> and the documents issued by the TSO. The former is a <strong>public-law safety regulatory filing</strong> submitted by the installer (i.e., the Generation Contract Holder) to the Competent Minister (Director-General of the Industrial Safety Inspection Department) under EBA Art. 51-2(3) and Enforcement Regulation Art. 78 (Form No. 53). The latter is a <strong>private-law contractual document</strong> evidencing contract formation and start-of-interconnection. The two run on independent tracks. Operationally, the sequence is:</p>
+
+<div class="info-box">
+Grid interconnection construction completed → Tests not requiring grid connection are performed → <strong>Pre-Use Self-Confirmation Result Notification</strong> is submitted to the Competent Minister (Director-General of the Industrial Safety Inspection Department) → Accepted → Tests requiring grid connection are performed with the TSO present → <strong>TSO confirms the start-of-interconnection date (via email or contract documentation)</strong> → Generation Output Adjustment Supply begins (COD).
+</div>
+
+<p>Acceptance of the Pre-Use Self-Confirmation Result Notification is what satisfies the legal "commencement of use" requirement. The TSO-issued document (or email notice) is what satisfies the contractual COD requirement. <strong>If the two are conflated, the date of operation start can diverge between law and contract</strong>. In buyer-side due diligence, the rule of thumb is to assemble both — as two separate tracks.</p>
+
+
+<h2>07 — There is no "interconnection completion notice": the transparency shadow</h2>
+
+<p>One issue regularly shakes buyer-side due diligence in BESS transactions. <strong>No stand-alone standard form titled "Receiving Test Pass Certificate" or "Interconnection Completion Notice" exists — neither in OCCTO's Transmission and Distribution Business Guidelines, nor in the 10 TSOs' wheeling tariffs, application flows, or FAQs</strong>. Within this column's research scope — a sweep of the 10 TSOs' public web pages — only four standard forms could be confirmed: (i) the Grid Connection Study Response, (ii) the Interconnection Approval / Contract Application Response, (iii) construction cost contribution documents, and (iv) the Pre-Use Self-Confirmation Result Notification (addressed to METI, prepared by the installer).</p>
+
+<p>So in practice, what fixes the start-of-interconnection date? Each utility handles it through documents or email notices.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>Utility</th><th>Principal document or notice name</th><th>Form</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">TEPCO Power Grid</td><td>"Notice of Grid Interconnection Completion"</td><td><span class="cond">Email notice</span></td></tr>
+<tr><td class="em">Chubu Electric Power Grid</td><td>"Notice of Contract Terms" (sent after contract execution); "Notice on Contracts Concerning Grid Interconnection" (PDF)</td><td>Paper</td></tr>
+<tr><td class="em">Kansai Transmission &amp; Distribution</td><td>"Generation Facility Contract Application Response [Approval]"; "Notice of Power Receipt Contract Terms" (web notice)</td><td>Paper / Web</td></tr>
+<tr><td class="em">Hokuriku Transmission &amp; Distribution</td><td>"Technical Requirements Confirmation Document" (attached to contract issuance)</td><td>Attachment</td></tr>
+<tr><td class="em">Shikoku Electric Power Transmission &amp; Distribution</td><td>"Notice on Contracts Concerning Grid Interconnection" (sample PDF published)</td><td>Paper</td></tr>
+<tr><td class="em">Kyushu Electric Power Transmission &amp; Distribution</td><td>"Notice on Contracts Concerning Grid Interconnection"; "Notice of Power Receipt Contract"</td><td>Paper</td></tr>
+<tr class="hl"><td class="em">Tohoku Electric Power Network</td><td>"Concerning the Commencement of Grid Interconnection" <strong>— form PDF published as a notification document from Generator to TSO</strong></td><td>Paper</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>To consolidate: <strong>no standard document attests to "passing the receiving test" on a stand-alone basis</strong>. In practice it is absorbed into contract execution notices and start-of-interconnection notices, and at some utilities — notably TEPCO PG — it is delivered as an email rather than a paper document. Several utilities publish forms or samples. Two points deserve special attention: <strong>Shikoku Electric Power Transmission &amp; Distribution publishes a sample PDF of "Notice on Contracts Concerning Grid Interconnection,"</strong> and <strong>Tohoku Electric Power Network's "Concerning the Commencement of Grid Interconnection" is a notification from the Generator to the TSO</strong> (to be submitted at least one week before the planned start date) — not a completion notice from TSO to Generator. When buyer-side due diligence asks "what evidence do you have of interconnection completion?", in many cases there is no physical document — only an email from the TSO to the Generator. That is precisely what shakes buyers' footing in DD.</p>
+
+
+<h2>08 — Seven failure modes observed in the field</h2>
+
+<p>With the three-term confusion, the misreading of the three-layer separation, and the two-April boundary all in view, the failure modes observed in the market come into focus. The seven enumerated below are patterns generalized from cases that have actually occurred in the field. <strong>None of them show up in the standard project financial model, but each directly shakes project schedule and cash flow</strong>.</p>
+
+<div class="failure-list">
+
+<div class="failure-item">
+  <div class="fail-num">1</div>
+  <div>
+    <h4>Believing that "once the Grid Connection Study passes, the Wheeling Service Contract follows automatically"</h4>
+    <p class="fail-trigger">In the FIT solar intuition, the Grid Connection Study Response is "near-confirmation of interconnection." For batteries, this is wrong. The Grid Connection Study Response (E-1 done) and the conclusion of the Wheeling Service Contract (E-3 done) and Generation Output Adjustment Supply Contract (E-4 done) are separate processes — with security deposit, consumer consent document, and retailer selection sitting between them.</p>
+    <span class="fail-cost">Unanticipated cost: failure to advance into the contract-application phase; one-year validity of the response is consumed; if the project crosses the boundary line (April 1, 2026) where 10% deposit and 50% initial installment kick in, the project financials must be redone.</span>
+  </div>
+</div>
+
+<div class="failure-item">
+  <div class="fail-num">2</div>
+  <div>
+    <h4>Treating the "Generation Output Adjustment Supply Contract" as identical to FIT-era Generation Output Adjustment</h4>
+    <p class="fail-trigger">FIT-era solar Generation Output Adjustment is one-directional — generation only, no demand side. For batteries, the Generation Output Adjustment Supply Contract covers only the discharge side; <strong>the charging side requires a separate Wheeling Service Contract</strong>. Cases occur where only the generation-side contract is filed and the wheeling-side contract is missed entirely.</p>
+    <span class="fail-cost">Unanticipated cost: 1–2 months of rework once it becomes clear that a separate retailer / consumer consent document set is needed for the charging side. In aggregator-intermediated projects, waiting time becomes prolonged.</span>
+  </div>
+</div>
+
+<div class="failure-item">
+  <div class="fail-num">3</div>
+  <div>
+    <h4>Confusing the "High-Voltage Construction Application to a retailer" with the "Wheeling Service Contract Application to a TSO"</h4>
+    <p class="fail-trigger">Habits from the demand-side world — where the retailer files with the TSO on the customer's behalf — get carried into the BESS generation-side flow. A High-Voltage Construction Application is filed with KEPCO (a retailer), and the project stalls. <strong>For grid-scale battery storage, generation-side filings go directly to the TSO as standard across all 10 TSOs</strong>.</p>
+    <span class="fail-cost">Unanticipated cost: 2–4 weeks lost as the application bounces between recipients. In aggregator-initiated projects, all other processes halt in parallel.</span>
+  </div>
+</div>
+
+<div class="failure-item">
+  <div class="fail-num">4</div>
+  <div>
+    <h4>The Grid Connection Study Response was obtained under the old rules (pre-April 1, 2026), but the contract application slipped past April 1</h4>
+    <p class="fail-trigger">The expectation "we cleared the Grid Connection Study last year so we can proceed under the old rules" runs aground in reality. The boundary line is the single point of <strong>contract application receipt date</strong>. If receipt is on or after April 1, 2026, the new rules apply in full (10% deposit; 50%+ initial installment).</p>
+    <span class="fail-cost">Unanticipated cost: the security deposit doubles from 5% to 10% of the indicative construction cost contribution. For a JPY 1-billion-scale project (on total project cost basis), with a construction cost contribution of JPY 100–300 million, the cash-flow front-loading is a 50% first installment (up to JPY 150 million) plus a 10% deposit (up to JPY 30 million). The 50%+ initial installment carries comparable impact.</span>
+  </div>
+</div>
+
+<div class="failure-item">
+  <div class="fail-num">5</div>
+  <div>
+    <h4>Attempting to file the main application before the aggregator is ready</h4>
+    <p class="fail-trigger">When an aggregator steps in as Generation Contract Holder, the Joint Generation Output Adjustment Supply and Basic Contract Application cannot be submitted unless the aggregator's corporate information, market participation setup, and supply-demand plan submission setup are all in place. Misjudging this — assuming the owner can proceed alone — leads to repeated rejections.</p>
+    <span class="fail-cost">Unanticipated cost: missing the timing for capacity market and LTDA bidding because the rate-limiting step on the aggregator side was never recognized in the schedule.</span>
+  </div>
+</div>
+
+<div class="failure-item">
+  <div class="fail-num">6</div>
+  <div>
+    <h4>The one-year validity of the Grid Connection Study Response was ignored, and contract application was delayed</h4>
+    <p class="fail-trigger">OCCTO's Transmission and Distribution Business Guidelines, Art. 89(1)(vi), set the validity of the Grid Connection Study Response at <strong>one year</strong>. If the contract application is not received (including security deposit payment) within one year, a re-study is required — incurring a JPY 200,000 study fee (plus consumption tax; some exemptions apply — e.g., Kyushu TSO waives the study fee for re-applications within one year) and a study period of, in principle, 3 months (2 months for &lt; 500 kW high-voltage with inverter).</p>
+    <span class="fail-cost">Unanticipated cost: a JPY 200,000-plus-tax re-study fee and roughly 3 months of delay. The re-application then falls under the 2026 new rules and is subject to the land documentation requirement and the application-count cap.</span>
+  </div>
+</div>
+
+<div class="failure-item">
+  <div class="fail-num">7</div>
+  <div>
+    <h4>Trying to obtain a paper certificate of interconnection completion, only to find that all that exists is an email</h4>
+    <p class="fail-trigger">No stand-alone standard form titled "Receiving Test Pass Certificate" or "Interconnection Completion Notice" exists. When buyer-side DD asks "what document confirms interconnection completion?", the answer often lands on an email body from TSO to Generator. Multiple utilities publish forms or samples, but in every case they are absorbed into contract execution notices and start-of-interconnection notices — no document attests to "passing the receiving test" on its own.</p>
+    <span class="fail-cost">Unanticipated cost: at M&amp;A closing, this remains as a DD finding — requiring price adjustment, refinement of representations and warranties, or a seller's CEO certification.</span>
+  </div>
+</div>
+
+</div>
+
+<p>What unifies all seven is that <strong>they arise from carrying FIT-era solar procedural intuitions into the battery world</strong>. Each is the kind of failure that can be avoided in advance, simply by working through the three-term confusion structurally. The order — "tidy up first, then go into the field" rather than "stumble first, then tidy up" — is what stabilizes project schedules and cash flows.</p>
+
+
+<h2>09 — M&amp;A DD: 13-point checklist</h2>
+
+<p>In buyer-side due diligence, the document sets expected at each phase become standardized. The 13 items below are the lowest common denominator of the document list a buyer should request from the seller.</p>
+
+<div class="checklist-group" id="dd-checklist">
+  <h5><span class="cl-num">DD</span>Grid-Scale Battery Storage — 13-Point Seller Document Checklist</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01.</span>Grid Connection Study Application (copy)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02.</span>Grid Connection Study Response (obtained; within validity period) <strong>※ Always confirm issue date and remaining validity</strong></span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03.</span>Land registry copy for the relevant site (mandatory for applications filed on or after January 5, 2026)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04.</span>Security deposit payment evidence <strong>※ 10% applies for contract applications on or after April 1, 2026</strong></span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05.</span>Joint Generation Output Adjustment Supply / Basic Contract Application (copy)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06.</span>Joint Wheeling Service / Basic Contract Application (copy) for the charging side <strong>※ Attach consumer consent document</strong></span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07.</span>Construction cost contribution confirmation notice / contract</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">08.</span>Construction cost contribution payment evidence <strong>※ From April 1, 2026, BESS installment initial portion ≥ 50%</strong></span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">09.</span>Interconnection application formal response (supply approval notice)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">10.</span>Full set of electricity contract name-transfer documents (at sale)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">11.</span>BESS special-measure consent documents (early-interconnection additional measures; charging control device; non-firm consent, etc.)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">12.</span>Pre-Use Self-Confirmation Result Notification (accepted by Competent Minister = Director-General of the Industrial Safety Inspection Department)</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">13.</span>Specified Wholesale Supplier (aggregator) contract — or documentary evidence of direct owner contracting</span></label>
+  <div class="check-progress">
+    <span class="bar"><span class="bar-fill" id="ddBarFill" style="width: 0%;"></span></span>
+    <span class="count"><span id="ddCount">0</span> / 13</span>
+  </div>
+  <div class="check-verdict" id="ddVerdict">
+    <div class="vlabel" id="ddLabel">Awaiting input</div>
+    <div class="vbody" id="ddBody">Check off the items you have already obtained from the seller. The items not checked indicate the project's stalling points.</div>
+  </div>
+</div>
+
+<p class="note-small">※ Check results persist only within the browser session. Whether the 13 items are complete — or not — visualizes the project's progress depth and the buyer's risk perception. For unchecked items, proceed on the basis that the seller should explain what each missing item means (unpaid deposit / undetermined aggregator / unconfirmed construction cost contribution, etc.).</p>
+
+<div class="warning-box">
+<strong>Three points to confirm without fail in M&amp;A DD</strong><br><br>
+<strong>① Issue date and remaining validity of the Grid Connection Study Response:</strong> has the one-year window passed / when does it expire?<br>
+<strong>② Status of the contract application:</strong> not yet filed / filed / approved?<br>
+<strong>③ The April 1, 2026 boundary line:</strong> was the contract application received before or after April 1 (the boundary for 10% deposit and 50% initial installment)?<br><br>
+Only when all three are confirmed can the project's progress depth and the applicability of the new rules be properly judged. The seller's assertion alone — "we've cleared the Grid Connection Study" — is not enough to judge progress depth correctly.
+</div>
+
+
+<div class="part-divider">
+  <span class="part-label">PART IV</span>
+  <span class="part-title">PLAYBOOK — How to Move From Today</span>
+</div>
+
+
+<h2>10 — "How to move from today" for five reader profiles</h2>
+
+<p>Even after the three-term confusion, the two Aprils, and the three-layer separation have been organized, the column does not help in the field unless each reader can translate the analysis into action from their own position. This chapter sets out, by reader profile, what to do starting tomorrow.</p>
+
+<div class="persona-grid">
+
+<div class="persona-card">
+  <span class="p-tag">PERSONA 01</span>
+  <h4>BESS owner (early development stage)</h4>
+  <div class="p-action">
+    The stage where the contract flow is designed from the project's origin. Three priorities.
+    <ol>
+      <li><strong>Decide who the Generation Contract Holder will be — first.</strong> If holding it in-house, fix the schedule for obtaining the retail electricity license. If aggregator-led, treat aggregator selection as a project milestone.</li>
+      <li><strong>Have the land documents ready at the time of the Grid Connection Study application</strong> (mandatory from January 5, 2026). If land control is not in place, push back the application date itself.</li>
+      <li><strong>Back-calculate a schedule that reaches contract application within one year of obtaining the Grid Connection Study Response.</strong> If remaining time is insufficient, build the cost of re-study into the project plan.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="persona-card">
+  <span class="p-tag">PERSONA 02</span>
+  <h4>BESS owner (Grid Connection Study Response obtained; pre-contract application)</h4>
+  <div class="p-action">
+    The most dangerous stage. The April 1, 2026 boundary is in play and decisions cannot be delayed.
+    <ol>
+      <li><strong>Immediately calculate the issue date and remaining validity of the Grid Connection Study Response.</strong> If the remaining window is short, elevate contract application to the top priority task.</li>
+      <li><strong>If the contract application will fall on or after April 1, 2026, rebuild the project plan with the new rules (10% deposit; 50% initial installment) embedded.</strong> Absorb the cash-flow shock in advance.</li>
+      <li><strong>Complete REP confirmation and obtain the consumer consent document before starting E-3.</strong> This is an express tariff requirement; without it, nothing else moves.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="persona-card">
+  <span class="p-tag">PERSONA 03</span>
+  <h4>Buyer (during M&amp;A DD)</h4>
+  <div class="p-action">
+    The first mission is to make the project's true progress depth visible.
+    <ol>
+      <li><strong>Present the 13-point checklist in this column to the seller and require a written response on the status of each item.</strong> "Not in place" is itself a negotiating point on price.</li>
+      <li><strong>Confirm without fail the issue date of the Grid Connection Study Response and the receipt date of the contract application.</strong> For projects straddling the April 1, 2026 boundary, negotiate explicitly whether the additional deposit and 50% initial-installment cash flow falls on the buyer's account or triggers price adjustment.</li>
+      <li><strong>Where there is no paper evidence of interconnection completion (Failure Mode 7), make the seller's CEO certification or the production of the TSO email body mandatory.</strong></li>
+    </ol>
+  </div>
+</div>
+
+<div class="persona-card">
+  <span class="p-tag">PERSONA 04</span>
+  <h4>Aggregator (Specified Wholesale Supplier)</h4>
+  <div class="p-action">
+    When acting as Generation Contract Holder on behalf of the owner, the aggregator carries supply-chain responsibility for the project.
+    <ol>
+      <li><strong>Manage the readiness of your own side — corporate information, market participation setup, supply-demand plan submission setup — on a per-project status basis.</strong> Ensure the owner's schedule is not rate-limited by your readiness.</li>
+      <li><strong>In the project contract documentation, explicitly organize the three-layer separation of Generator, Generation Contract Holder, and Trading Member.</strong> Without writing down the responsibilities and fee flows of each layer with the owner, disputes will surface later.</li>
+      <li><strong>Explain to the owner — and document — that the tariff collection agency service (Stage 2) requires a separate delegation contract.</strong> Because the comprehensive agency power (Stage 1) is framed by the tariff agreement itself, the misconception easily arises that the fee flow is also automatic.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="persona-card">
+  <span class="p-tag">PERSONA 05</span>
+  <h4>Financial institution (PF / corporate finance structuring)</h4>
+  <div class="p-action">
+    The institution evaluating the project's contractual state from a credit perspective.
+    <ol>
+      <li><strong>Confirm in the contract documentation who each of the three layers — Generator, Generation Contract Holder, Trading Member — is</strong>, and evaluate the resulting inter-party responsibility from a credit lens.</li>
+      <li><strong>Embed the impact of the April 1, 2026 boundary (10% deposit; 50% initial installment) into DSCR sensitivity analysis.</strong> The cash-flow front-loading impact is non-trivial.</li>
+      <li><strong>Cover the absence of an interconnection completion document (Failure Mode 7) with covenants.</strong> Codify the COD recognition standard in the loan documents, and pre-define the treatment when accepting a TSO email as evidence.</li>
+    </ol>
+  </div>
+</div>
+
+</div>
+
+
+<h2>11 — Track the layer that is moving: regulatory monitoring points</h2>
+
+<p>Holding the April 2024 agency-power provision and the April 2026 tightening side by side reveals that the industry's locus of rule-making has shifted. <strong>April 2024 was implemented via a wheeling tariff amendment passing through METI's approval (EBA Art. 18(1))</strong>; <strong>the April 2026 tightening was implemented as a revision of OCCTO's wide-area rules</strong> (ministerial approval is still required for business rule and guideline revisions, but the route and principal body differ). To read the operational rules that will continue to accumulate going forward, the reader must look in the right place.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Layer</th><th>How to read the movement</th><th>Principal information sources</th></tr></thead>
+<tbody>
+<tr><td class="em">Electricity Business Act itself</td><td>Few BESS-related amendments in recent years</td><td>e-Gov, House of Representatives / House of Councillors bill information</td></tr>
+<tr><td class="em">Wheeling Supply Tariffs (10 TSOs)</td><td>Since the April 2024 agency-power provision, only minor revisions. Structure is stable</td><td>Each TSO's tariff; press releases from the Electricity and Gas Market Surveillance Commission on approval applications</td></tr>
+<tr><td class="em">OCCTO Business Rules / Business Guidelines</td><td><strong>The most active layer. The April 2026 tightening sits here.</strong> Monthly monitoring required</td><td>OCCTO "Notices" page; Next-Generation Power Grid WG materials</td></tr>
+<tr><td class="em">Balancing and capacity markets</td><td>Market price caps and trading rules shift frequently. Major impact on project finance modeling</td><td>OCCTO; EPRX; institutional review subcommittee materials</td></tr>
+<tr><td class="em">METI guidelines / public notices</td><td>Battery-specific special measures (pumped-storage special measure); kWh charge exemptions and other interpretive issues</td><td>METI Next-Generation Power Grid WG; Electricity and Gas Market Surveillance Commission Tariff Specialist Meeting</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Hearsay that "something big changed in April 2026" is widely circulated, but at the level of wheeling tariffs, statutes, and the grid interconnection technical guidelines, it is a factual error. What moved was the OCCTO business rules and balancing market regime — "OCCTO wide-area rules and the markets," not "the tariffs." <strong>Checking the tariff text yields no change. The movement is happening on a different layer.</strong> For this column's readers, the place to track the latest regulatory movement is not the wheeling tariff but <strong>METI Next-Generation Power Grid WG materials and the operational manuals of the balancing and capacity markets</strong>.</p>
+
+
+<h2>Conclusion — The three-term cleanup, the two Aprils, and the field instinct for avoiding failure modes</h2>
+
+<p>What I wanted to convey through this column reduces to three points.</p>
+
+<p>First, <strong>what rewrote the grid-scale battery storage contract flow was not April 2026, but April 2024</strong>. The 66 characters embedded in near-identical wording into §8(2)(ho) of the 10 TSOs' tariffs (§8(3)(ho) in Chubu PG alone) established at the tariff level the three-layer separation "Generator ≠ Generation Contract Holder ≠ Trading Member," constructing the structural foundation of the aggregator era. The April 2026 tightening (10% deposit; 50% initial installment) is merely the first operational rule layered on top of that foundation. <strong>Without distinguishing which layer moved and which did not, the current state of the regulatory system cannot be grasped.</strong></p>
+
+<p>Second, <strong>the three-term confusion can be resolved structurally</strong>. "Electricity Volume Adjustment Supply" and "Generation Output Adjustment Supply" are not divergent — they stand in a containment relationship. "Wheeling Service Contract" and "Generation Output Adjustment Supply Contract" are not the same thing — they are two parallel tracks. The "via-retailer flow" does not satisfy the tariff's use requirements and therefore cannot exist. The three-layer separation (Generator, Generation Contract Holder, Trading Member) is legally organized through the combination of the Specified Wholesale Supplier regime (effective April 2022; source: Act No. 49 of 2020) and the §8(2)(ho) agency-power scheme (effective April 2024).</p>
+
+<p>Third, <strong>failure modes can be avoided in advance</strong>. All seven failure modes enumerated above arise from carrying FIT-era solar procedural intuitions into batteries. Once the three terms are sorted out, the meaning of the three-layer separation is understood, and the two-April boundary is internalized, all seven are avoidable. The order — "tidy up first, then go into the field" rather than "stumble first, then tidy up" — is what stabilizes project schedules and cash flows materially.</p>
+
+<p>The grid-scale battery storage contract flow is too complex to be read through the FIT-era solar vocabulary. But complexity that has structure becomes a basis for judgment once decoded. <strong>Without amending the Electricity Business Act, the aggregator-era contract flow has been assembled out of tariff and operational guidance</strong> — this is the editorial message of this column. To read the operational rules that will continue to accumulate, the starting point must be the tariff-level foundation that sits beneath them — the single phrase, "<em>the Generation Contract Holder, acting as agent for the Company</em>."</p>
+
+<p>Investment decisions in grid-scale battery storage are decided by the capacity to read the structure embedded in the tariff. If this column serves as one foothold for that reading — and for avoiding stumbles in the field — its purpose is fulfilled.</p>
+
+
+<div class="sources-box">
+<h4>Primary Sources</h4>
+<ul>
+  <li>Electricity Business Act (Act No. 170 of 1964; e-Gov) <a href="https://laws.e-gov.go.jp/law/339AC0000000170" target="_blank">https://laws.e-gov.go.jp/law/339AC0000000170</a></li>
+  <li>Act for Partial Amendment of the Electricity Business Act etc. (Act No. 47 of 2015; promulgated June 24, 2015). Article 2 (legal unbundling of the Electricity Business Act) took effect April 1, 2020; Article 3 (full liberalization of gas retail) took effect April 1, 2017.</li>
+  <li>Act for Partial Amendment of the Electricity Business Act etc. to Establish a Resilient and Sustainable Electricity Supply System (Act No. 49 of 2020; promulgated June 12, 2020). Created the Specified Wholesale Supplier regime; effective April 1, 2022.</li>
+  <li>Act for Partial Amendment of the Act on Rationalizing Energy Use and Other Energy-Demand-and-Supply-Related Acts to Establish a Stable Energy Demand-and-Supply Structure (Act No. 46 of 2022; promulgated May 20, 2022). Of the Electricity Business Act amendments under Article 6: creation of the Specified Wholesale Supply business took effect November 14, 2022; other principal provisions took effect April 1, 2023 (including positioning discharge by battery storage electrical equipment as a generation business).</li>
+  <li>Wheeling Supply Tariffs of the 10 General Transmission and Distribution Utilities and their implementation rules (April 1, 2024 effective edition; §8(2)(ho), §8(3)(ho) in Chubu PG alone)</li>
+  <li>Chugoku Electric Power Transmission &amp; Distribution, press release and reference materials of January 17, 2024 (new agency power; tariff-collection-delegation-fee scheme) <a href="https://www.energia.co.jp/nw/press/2023/15119.html" target="_blank">URL</a></li>
+  <li>Electricity and Gas Market Surveillance Commission, 51st Tariff Specialist Meeting, Materials 3-3 / 3-6 / 3-9 (December 20, 2023)</li>
+  <li>EGSC Secretariat, "Reference Materials for Generators on the Generation-Side Charge (Sample)" (January 2025) <a href="https://www.egc.meti.go.jp/info/public/pdf/20250121002.pdf" target="_blank">PDF</a></li>
+  <li>Transmission and Distribution Council, the 10 General Transmission and Distribution Utilities, and the EGSC, joint "Briefing Session for Generation Contracting Parties" (March 28, 2023)</li>
+  <li>OCCTO, Transmission and Distribution Business Guidelines (latest version available on OCCTO's "Articles of Incorporation and Rules" page) <a href="https://www.occto.or.jp/" target="_blank">URL</a></li>
+  <li>OCCTO, "Grid Connection and Usage Rules for Grid-Scale Battery Storage" (drafted April 2025; updated September 1, 2025) <a href="https://www.occto.or.jp/assets/grid/business/documents/chikudenchi_20250901.pdf" target="_blank">PDF</a></li>
+  <li>OCCTO, "Security Deposit Calculation Methodology" (revised March 18, 2026) <a href="https://www.occto.or.jp/news/access_oshirase_2020_200917_dengen_kentou.html" target="_blank">URL</a></li>
+  <li>OCCTO, "Approach to Construction Cost Contribution Payment Term Changes" (revised March 18, 2026) <a href="https://www.occto.or.jp/assets/260318_koujifutankin_besshi.pdf" target="_blank">PDF</a></li>
+  <li>OCCTO, "Increase of Security Deposits and Tightening of Installment Payments for Construction Cost Contributions in Grid-Scale Battery Storage Contract Applications" (published March 18, 2026) <a href="https://www.occto.or.jp/news/access_oshirase_2025_260318_1.html" target="_blank">URL</a></li>
+  <li>METI, 6th Next-Generation Power Grid Working Group, Material 3 (December 24, 2025) <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/pdf/006_03_00.pdf" target="_blank">PDF</a></li>
+  <li>METI, 7th Next-Generation Power Grid Working Group, Material 1-1 (February 9, 2026) <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/pdf/007_01_01.pdf" target="_blank">PDF</a></li>
+  <li>METI, 10th Next-Generation Power Grid Working Group materials (April 16, 2026; per-operator application count cap of 5–11 per area; direction to commence operation on August 1, 2026) <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/index.html" target="_blank">URL</a></li>
+  <li>TEPCO Power Grid, "[High-Voltage / Extra-High Voltage] On the Increase of Security Deposits and Tightening of Installment Payments for Construction Cost Contributions in Grid-Scale Battery Storage Contract Applications" (April 1, 2026; operational tightening notice) <a href="https://www.tepco.co.jp/pg/consignment/workshop/information/renewable/adjustment/20260401_02.html" target="_blank">URL</a></li>
+  <li>EPRX (Electricity Power Reserve and Adjustment Exchange — a general incorporated association distinct from JEPX), "Guide on Participating in the Balancing Market Using Pumped Storage or Battery Storage Facilities," Edition 2 (April 1, 2025) <a href="https://www.eprx.or.jp/outline/docs/yousuichikudenchi_guide_250401.pdf" target="_blank">PDF</a></li>
+  <li>Agency for Natural Resources and Energy, Working Group on System Design in Light of the Verification of Electricity System Reform (7th meeting), materials (November 28, 2025) <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_design_wg/007.html" target="_blank">URL</a></li>
+  <li>Tohoku Electric Power Network, "Joint Generation Output Adjustment Supply and Basic Contract Application — Procedure FAQ" / "Concerning the Commencement of Grid Interconnection" (notification document submitted from Generator to TSO; PDF form)</li>
+  <li>Electricity Business Act: Art. 23(3) (general prohibition on entrusting business); Art. 23(1)(ii) (prohibition on discriminatory treatment); Art. 27-30 (notification of Specified Wholesale Supplier); Art. 51-2(3) (notification of pre-use self-confirmation results to the Competent Minister); Art. 51-2(1) (pre-use self-confirmation obligation); Enforcement Regulation Art. 78 / Form No. 53 (notification form)</li>
+</ul>
+</div>
+
+<a target="_top" href="https://www.scix.co.jp/column-contracts" class="next-link">
+  <div>
+    <div class="next-link-label">Previous article</div>
+    <div class="next-link-title">COLUMN 19 — Contract Design Splits JPY 200 Million Over 20 Years (5-Layer Electricity Contracts)</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="cta-section">
+  <h3>Inquiries: BESS contract review &amp; due diligence</h3>
+  <p>For case-specific assessment of project progress depth, the impact of the April 1, 2026 boundary line on contract application timing,<br>and the reorganization of three-layer separated contracts — we respond after initial inquiry and NDA execution.</p>
+  <a target="_top" href="https://www.scix.co.jp/contact" class="cta-btn">Contact us →</a>
+</div>
+
+</div>
+
+<footer style="background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Inter','Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.85;padding:44px 28px 32px;text-align:center;margin-top:48px">
+  <div style="font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:4px">Science X Inc.</div>
+  <div>BIZMARKS Nihonbashi Kayabacho,<br>8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>TEL: +81-3-6403-4095 ｜ MAIL: x@scix.co.jp</div>
+  <div style="margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px">Shinya Nakajima, Ph.D. (Eng.), Representative Director</div>
+  <div style="font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px">© 2026 Science X Inc. All Rights Reserved.</div>
+</footer>
+
+<script>
+(function(){
+  var group = document.getElementById('dd-checklist');
+  if (!group) return;
+  var checks = group.querySelectorAll('input[type=checkbox]');
+  var countEl = document.getElementById('ddCount');
+  var fillEl = document.getElementById('ddBarFill');
+  var verdictEl = document.getElementById('ddVerdict');
+  var labelEl = document.getElementById('ddLabel');
+  var bodyEl = document.getElementById('ddBody');
+  var total = checks.length;
+
+  function update(){
+    var done = 0;
+    checks.forEach(function(c){ if (c.checked) done++; });
+    countEl.textContent = done;
+    fillEl.style.width = (done / total * 100) + '%';
+
+    verdictEl.classList.remove('use','consider','skip');
+    if (done >= 11){
+      verdictEl.classList.add('use');
+      labelEl.textContent = 'Progress depth: through the contract application phase';
+      bodyEl.innerHTML = '<strong>11 or more items in place.</strong> The contract application has been received; the project is in the construction-cost-contribution confirmation or payment phase. The remaining items (electricity contract name transfer / pre-use self-confirmation / aggregator contract) typically come into place around the time of transfer or close to COD. For the April 1, 2026 boundary line, confirm the receipt date and applicable rule via items 04 and 08.';
+    } else if (done <= 5){
+      verdictEl.classList.add('skip');
+      labelEl.textContent = 'Progress depth: Grid Connection Study stage or earlier';
+      bodyEl.innerHTML = '<strong>5 or fewer items in place.</strong> Likely a project where the Grid Connection Study Response has been obtained, or earlier. In buyer-side DD, require the seller to explain the remaining validity of the response (counting from one-year origination) and the realistic likelihood of progressing to the contract application phase. Contract applications on or after April 1, 2026 fall under the new rules (10% deposit; 50%+ initial installment). Beware of Failure Mode 4: a response obtained under the old rules crossing the new-rule boundary.';
+    } else {
+      verdictEl.classList.add('consider');
+      labelEl.textContent = 'Progress depth: contract application in preparation';
+      bodyEl.innerHTML = '<strong>6–10 items in place.</strong> The Grid Connection Study Response has been received; the project is either preparing for contract application or already in the application process. For items not yet checked (especially 05–09), proceed on the basis that the seller must explain status and schedule. For aggregator-initiated projects, confirm whether the aggregator-side readiness is the rate-limiting step (Failure Mode 5).';
+    }
+  }
+  checks.forEach(function(c){ c.addEventListener('change', update); });
+  update();
+})();
+</script>
+
+</body>
+</html>
