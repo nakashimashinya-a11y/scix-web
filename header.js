@@ -148,7 +148,7 @@
 
   // --------------- 2. HTML (language-aware) ---------------
   var nav = isZh ? [
-    '<a href="mailto:s@scix.co.jp?subject=Japan%20BESS%20-%20Confidential%20briefing" class="scix-cta">聯絡我們</a>'
+    '<a href="mailto:x@scix.co.jp?subject=Japan%20BESS%20-%20Confidential%20briefing" class="scix-cta">聯絡我們</a>'
   ] : isEn ? [
     '<a href="/en"           data-page="/">Home</a>',
     '<a href="/en/investors" data-page="/investors">Investors</a>',
