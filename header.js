@@ -167,11 +167,11 @@
   var nav = isZh ? [
     '<a href="/zh"           data-page="/">首頁</a>',
     '<a href="/zh-knowledge" data-page="/knowledge">洞見</a>',
-    '<a href="' + contactMail + '" class="scix-cta">聯絡我們</a>'
+    '<a href="/zh-contact" class="scix-cta">聯絡我們</a>'
   ] : isEn ? [
     '<a href="/en"           data-page="/">Home</a>',
     '<a href="/en/knowledge" data-page="/knowledge">Knowledge</a>',
-    '<a href="' + contactMail + '" class="scix-cta">Contact</a>'
+    '<a href="/en/contact" class="scix-cta">Contact</a>'
   ] : [
     '<a href="/"          data-page="/">ホーム</a>',
     '<a href="/investors" data-page="/investors">投資家の方へ</a>',
