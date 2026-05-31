@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:580px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.comparison-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:600px}
+.xref{display:inline-block;font-size:.84em;color:var(--accent);text-decoration:none;font-weight:600;border-bottom:1px solid rgba(196,154,60,.4);transition:opacity .2s}
+.xref:hover{opacity:.7}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.field-note{background:#F0F5FA;border:1px solid #D8E3EE;border-left:4px solid #2A4D7A;border-radius:0 6px 6px 0;padding:20px 26px;margin:32px 0;font-size:.92em;line-height:1.95}
+.field-note-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:.78em;letter-spacing:.06em}
+.field-note-icon{font-size:1.1em}
+.field-note-label{font-weight:700;color:#2A4D7A;letter-spacing:.04em}
+.field-note-body p{margin:0;color:var(--text)}
+.field-note-body p+p{margin-top:10px}
+.field-note-body p::before{content:"\300C";color:#2A4D7A;font-weight:700}
+.field-note-body p::after{content:"\300D";color:#2A4D7A;font-weight:700}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:left;margin-top:12px;letter-spacing:.02em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+}
+body{padding-top:64px}
+.scix-footer{background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+.scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:24px}
+.scix-footer-logo{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:700;color:#fff;text-decoration:none}
+.scix-footer-logo .x{color:#C49A3C}
+.scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8);text-align:center}
+.scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+.scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none}
+.scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+.scix-footer-copyright{font-size:11px;letter-spacing:.04em;color:rgba(255,255,255,.55);margin-top:8px}
+.scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12)}
+</style>
+<title>蓄電所が止まったとき、誰が直すのか — 系統用蓄電所のO&Mと「責任・遂行の乖離」｜ScienceX</title>
+<meta name="description" content="系統用蓄電所のO&Mを判断枠組みとして解説。法が遂行主体を名指しするのは受変電の保安監督と連系サイバーの2点だけで、直流側の是正と通信は契約で埋める『空白』になる——責任マトリクスで可視化。計画外停止5倍カウント、機器単位のJC-STAR要件、『0.5秒』神話の解体、国際LTSAの可用性保証までを一次情報で整理する。">
+<link rel="canonical" href="https://www.scix.co.jp/column-om">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-om">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-om">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-om">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓄電所が止まったとき、誰が直すのか — 系統用蓄電所のO&Mと「責任・遂行の乖離」｜ScienceX">
+<meta property="og:description" content="系統用蓄電所のO&Mを判断枠組みとして解説。法が遂行主体を名指しするのは受変電の保安監督と連系サイバーの2点だけで、直流側の是正と通信は契約で埋める『空白』になる——責任マトリクスで可視化。計画外停止5倍カウント、機器単位のJC-STAR要件、『0.5秒』神話の解体、国際LTSAの可用性保証までを一次情報で整理する。">
+<meta property="og:url" content="https://www.scix.co.jp/column-om">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<script src="/header.js"></script>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 23</span>
+      <span class="header-tag">運用保守</span>
+      <time class="header-date" datetime="2026-05-31">2026.05.31</time>
+    </div>
+    <h1>蓄電所が止まったとき、<em>誰が直すのか</em><br>主任技術者は、<em>蓄電池を直さない</em></h1>
+    <p class="header-desc">アグリゲーター・主任技術者・メーカーの三者では、蓄電所が止まったとき直流側を誰が直すのかが決まりません。けれどもこの空白は「制度の不在」ではありません。法は直流側の保安監督責任を主任技術者に明確に課しています。空白なのは、その責任を現場で誰が遂行するか——本稿はその乖離を、法・経済・国際実務の三面から読み解きます。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
+
+<p>系統用蓄電所のEPC事業者と話していると、「O&Mなんてやることはほとんどない」という言葉をしばしば耳にします。設備を建てて連系させれば、あとはアグリゲーターが充放電を組み、主任技術者が法定点検をし、不具合が出ればメーカーが直す——この三者がいれば蓄電所は回る、という整理です。ところがこの三者では、ある一点が決定的に抜け落ちます。<strong>直流側（EMS・PCS・BESS・BMS）で異常が起きたとき、最初に切り分けて復旧に着手するのは誰か。</strong>アグリゲーターは設備が動いている前提で市場に向き合う主体であって、設備を維持する主体ではありません。主任技術者は受変電（交流側）の番人です。メーカーは自社の機器までしか見ません。三者のあいだに、直流側の一次対応という空白が残ります。</p>
+
+<p>この空白を、本稿は「制度の空白」とは呼びません。調べていくと事実はむしろ逆で、<strong>法は直流側の保安監督責任を主任技術者に明確に課しています</strong>。空白なのは法ではなく、その法定責任を現場で誰が遂行するか——「責任は法定、遂行は不在」という乖離(mismatch)です。これは「制度が穴を空けている」よりも、いくらか厄介かもしれません。法のうえでは穴は埋まっていることになっているのに、現実には埋まっていない。だから誰も自分の問題として拾わない、という構図になります。</p>
+
+<p>本稿ではこの乖離の構造をまず法令で確定し、設備×主体の責任マトリクスで全体像を描きます。次にその経済的帰結——停止が機会損失にとどまらず、需給調整市場と容量市場の制度ペナルティとして二段で効いてくること——を整理します。最後に、成熟市場がこの空白をどう解いたかを国際実務から引き、蓄電所オーナー・EPC・O&Mが契約設計の意思決定に使える判断軸へとつなげます。姉妹編<a class="xref" target="_top" href="https://www.scix.co.jp/column-contracts">「契約設計が20年で2億円を分ける」</a>が運開後の<strong>経済運用</strong>を支える5層21契約の地図だったとすれば、本稿はその対をなす、運開後の<strong>物理運用</strong>を支える責任の地図にあたります。</p>
+
+<div class="data-box">
+<div class="db-head">本稿の射程</div>
+<dl class="premise-grid">
+  <div><dt>対象</dt><dd>系統用蓄電所<span class="unit">高圧 / 特高</span></dd></div>
+  <div><dt>中心論点</dt><dd style="font-size:15px">直流側保安の<br>責任・遂行の乖離</dd></div>
+  <div><dt>責任マトリクス</dt><dd>5<span class="unit">設備 × 6主体</span></dd></div>
+  <div><dt>計画外停止の重み</dt><dd>×5<span class="unit">倍カウント</span></dd></div>
+  <div><dt>制度参照時点</dt><dd>2026.05<span class="unit">時点</span></dd></div>
+  <div><dt>主たる読者</dt><dd style="font-size:13px">オーナー・EPC・O&M</dd></div>
+</dl>
+</div>
+
+<h2>01 — 「三者で回る」という誤解</h2>
+
+<p>蓄電所の運用は、よくアグリゲーター・主任技術者・メーカーの三者で語られます。けれどもこの三者は、それぞれが引き受ける範囲と、引き受けない範囲を持っています。重ねても設備全体の健全性維持にはなりません。</p>
+
+<p><strong>アグリゲーター</strong>は、事業主の蓄電池を使って電力市場で充放電を組み、収益を上げる主体です。電池の経済的運用が役割であって、設備の維持管理はそもそも守備範囲ではありません。設備が動いている前提で市場に向き合う主体であり、止まったときに現地へ向かう主体ではありません。</p>
+
+<p><strong>主任技術者</strong>はどうでしょうか。ここで多くの関係者が「主任技術者がいれば設備の面倒は見てもらえる」と考えますが、これは範囲を取り違えています。高圧以上の設備には電気事業法上、主任技術者の選任が必須で、彼らが電気のプロであることに疑いはありません。キュービクル（受変電設備）の操作・原因調査・停止再起動はこなします。しかし、その配下にあるEMSやPCSを単独で復旧できる主任技術者は多くありません。受変電の番人であって、直流側設備の番人として実務を引き受けてはいないのが通例です。電気保安協会などの保安法人に委託した場合も、キュービクルは見るが直流側には踏み込まない、と切り分けている例が少なくありません。</p>
+
+<p>では<strong>メーカー</strong>が直すのでしょうか。蓄電所はEMS・PCS・BESSという複数メーカーの機器で構成され、各社は自社機器の保全（定期点検・駆けつけ・是正）を担います。けれども全国に急増する蓄電所一軒ごとに技術者を即時手配できるだけの現地人員を、各メーカーが抱えているわけではありません。原因がどの機器にあるか確定する前に各社へ問い合わせれば、責任の所在をめぐって時間だけが流れていきます。さらに見落とされがちな縛りもあります。メーカー保証は、有資格者であっても認定外の者が機器に手を入れれば失効するのが通例です。つまり直流側は「扱えない」のではなく、「扱うと別のもの（保証）が外れる」——技能・メーカー認定・保証範囲の三つで実質的に囲われている、と捉えるほうが正確でしょう。これは法的な限界ではなく、後段で見るとおり設計で動かせる制約です。</p>
+
+<div class="field-note">
+  <div class="field-note-header">
+    <span class="field-note-icon">🔧</span>
+    <span class="field-note-label">FIELD NOTE — ある系統用蓄電所O&M事業者（2026年5月ヒアリング）</span>
+  </div>
+  <div class="field-note-body">
+    <p>アグリゲーターは設備が動いている前提で充放電を組む。主任技術者はキュービクルまで。メーカーは自社の機器まで。結局、直流側で何かあったときに最初に動く者が、契約のどこにも書かれていない案件が多い</p>
+    <p>いちばん抜けているのは通信だ。EMS側で「通信不良」と出ても、ルーターが落ちたのか光回線側なのかで現地への指示は変わる。その完成図書——どのルーターにどんな設定を入れたか——が引き渡されていないと、故障の瞬間に誰も直せない</p>
+    <p>そして最後に責任を負わされるのは、たいてい施工した販売店やEPCだ。だから引き渡し方の設計が要る</p>
+  </div>
+</div>
+
+<p>三者で完結しないのなら、設備全体を統合管理する主体——O&M——が前面に立つほかありません。主任技術者を動かすのか、メーカーを動かすのか、保険を使うのか、通信が原因なのか。その判断と一次対応を引き受け、事業主にとっての単一の窓口になる。これが本稿の出発点です。</p>
+
+
+<h2>02 — 責任は法定、遂行は不在</h2>
+
+<p>ここからが本稿の核心になります。「直流側は主任技術者の守備範囲外」という現場の切り分けは、法令がそう定めているからではありません。法令上、直流側はれっきとした保安監督の対象に含まれています。</p>
+
+<p>電気事業法第43条第1項は、事業用電気工作物を設置する者に対し、その<strong>工事・維持・運用に関する保安の監督</strong>をさせるため主任技術者を選任する義務を課しています（あわせて第42条が保安規程の作成・届出を求めます）。問題は「事業用電気工作物」に直流側が含まれるかどうかですが、ここは蓄電所の法令定義が答えを出しています。電気設備に関する技術基準を定める省令（電技省令）の定義では、蓄電所とは、構外から伝送される電力を構内に施設した電力貯蔵装置その他の電気工作物により貯蔵し、同一の使用電圧・周波数でさらに構外へ伝送する所をいいます。電力貯蔵装置を駆動する逆変換装置（PCS）や保護機器も、この電気工作物に含まれます。直流側を監督対象から除外する文言は、どこにも見当たりません。</p>
+
+<p>資格区分も電圧で切られていて、設備の種類で切られているわけではありません。施行規則第56条の免状種別ごとの監督範囲では、第三種電気主任技術者が監督できるのは電圧5万ボルト未満の事業用電気工作物ですが、ここから出力5,000kW以上の発電所・蓄電所が除かれます。第二種は17万ボルト未満、第一種はすべて。交流か直流か、受変電か蓄電池かで監督可否が分かれる構造には、そもそもなっていません。経済産業省の電気保安人材に関する資料も、第三種の範囲を「5万V未満（出力5千kW以上の発電所又は蓄電所を除く）」と明記しており、出力5,000kW以上の蓄電所が第三種の範囲外であることは官庁資料でも確認できます。なお系統用蓄電池は2022年の電気事業法改正（2023年4月施行）で、出力1万kW超の放電が発電事業に位置づけられました。</p>
+
+<p>ただし、ここで一段の精度が要ります。主任技術者に課されているのは保安の<strong>監督</strong>——技術基準への適合を確認し、不適合のおそれがあれば設置者に報告すること——であって、PCSやBESSそのものを自ら<strong>是正</strong>することではありません。監督責任は設備全体（直流側を含む）に法定で及びますが、その配下機器を実際に誰が直すか（是正・一次対応）を名指しする条文はありません。突きつめると、<strong>法が遂行主体を名指しするのは「受変電の保安監督」と「系統連系時のサイバー・技術基準適合」の二点だけ</strong>で、直流側の是正はその外側にこぼれ落ちます。だから乖離は「監督は法定／是正は不在」という形をとります。</p>
+
+<p>この食い違いを、法が定める責任と、現場の遂行とに分けて一枚に並べてみます。</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 510" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図1 — 責任・遂行の乖離：法は設備全体の保安監督責任を主任技術者に課すが、現場の遂行は受変電どまり">
+  <defs>
+    <filter id="sh1" x="-12%" y="-12%" width="124%" height="124%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"></feGaussianBlur>
+      <feOffset dx="0" dy="2" result="o"></feOffset>
+      <feComponentTransfer><feFuncA type="linear" slope="0.12"></feFuncA></feComponentTransfer>
+      <feMerge><feMergeNode></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+    </filter>
+    <linearGradient id="navyGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2A3D66"></stop>
+      <stop offset="100%" stop-color="#0F1A2E"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="510" fill="#FFFFFF"></rect>
+  <text x="250" y="34" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#A07916" letter-spacing="2">法が定める責任</text>
+  <text x="690" y="34" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#B0413B" letter-spacing="2">現場の遂行</text>
+  <line x1="470" y1="50" x2="470" y2="430" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="4 4"></line>
+  <rect x="60" y="58" width="380" height="58" rx="8" fill="url(#navyGrad1)" filter="url(#sh1)"></rect>
+  <text x="250" y="83" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#FFFFFF">電気事業法 第43条1項</text>
+  <text x="250" y="104" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="rgba(255,255,255,.75)">工事・維持・運用の「保安の監督」</text>
+  <path d="M 250 116 L 250 142" fill="none" stroke="#C49A3C" stroke-width="2.2"></path>
+  <path d="M 244 136 L 250 144 L 256 136 Z" fill="#C49A3C"></path>
+  <rect x="120" y="144" width="260" height="44" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.8"></rect>
+  <text x="250" y="171" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">主任技術者（保安監督者）</text>
+  <text x="250" y="216" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#A07916" letter-spacing=".5">保安監督の対象範囲（法）＝ 設備全体</text>
+  <path d="M 70 226 L 70 236 L 430 236 L 430 226" fill="none" stroke="#C49A3C" stroke-width="1.6"></path>
+  <path d="M 250 236 L 250 248" stroke="#C49A3C" stroke-width="1.6"></path>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="60" y="250" width="120" height="64" rx="7" fill="#F4F1EA" stroke="#C49A3C" stroke-width="1.4"></rect>
+    <text x="120" y="278" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">受変電設備</text>
+    <text x="120" y="298" text-anchor="middle" font-size="10.5" fill="#6C7A89">交流側・キュービクル</text>
+    <rect x="190" y="250" width="160" height="64" rx="7" fill="#F4F1EA" stroke="#C49A3C" stroke-width="1.4"></rect>
+    <text x="270" y="274" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">直流側設備</text>
+    <text x="270" y="293" text-anchor="middle" font-size="10" fill="#6C7A89">EMS・PCS・BESS・BMS</text>
+    <text x="270" y="307" text-anchor="middle" font-size="9.5" fill="#A07916">逆変換装置＝電気工作物</text>
+    <rect x="360" y="250" width="80" height="64" rx="7" fill="#F4F1EA" stroke="#C49A3C" stroke-width="1.4"></rect>
+    <text x="400" y="278" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">通信設備</text>
+    <text x="400" y="298" text-anchor="middle" font-size="10.5" fill="#6C7A89">回線・ルータ</text>
+  </g>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="510" y="86" width="340" height="56" rx="7" fill="#F1F8F3" stroke="#1A7A4C" stroke-width="1.5"></rect>
+    <text x="528" y="110" font-size="12.5" font-weight="700" fill="#1A7A4C">✓ 受変電設備</text>
+    <text x="528" y="130" font-size="11" fill="#2C3E50">主任技術者が実務を遂行（慣行・契約とも整合）</text>
+    <rect x="510" y="156" width="340" height="62" rx="7" fill="#FDF3F2" stroke="#C0413B" stroke-width="1.6" stroke-dasharray="6 4"></rect>
+    <text x="528" y="180" font-size="12.5" font-weight="700" fill="#B0413B">？ 直流側設備</text>
+    <text x="528" y="199" font-size="11" fill="#2C3E50">是正・一次対応の担い手が契約に未充当</text>
+    <text x="528" y="213" font-size="10.5" fill="#6C7A89">主任技術者は踏み込まず／メーカーは即時手配に限界</text>
+    <rect x="510" y="232" width="340" height="62" rx="7" fill="#FDF3F2" stroke="#C0413B" stroke-width="1.6" stroke-dasharray="6 4"></rect>
+    <text x="528" y="256" font-size="12.5" font-weight="700" fill="#B0413B">？ 通信設備</text>
+    <text x="528" y="275" font-size="11" fill="#2C3E50">完成図書が不在 → 故障時の復旧責任が宙吊り</text>
+    <text x="528" y="289" font-size="10.5" fill="#6C7A89">ルータか光回線かの切り分けも未定義</text>
+  </g>
+  <path d="M 350 282 C 430 282, 440 114, 510 114" fill="none" stroke="#1A7A4C" stroke-width="1.6"></path>
+  <path d="M 350 282 C 430 282, 440 187, 510 187" fill="none" stroke="#C0413B" stroke-width="1.4" stroke-dasharray="5 4"></path>
+  <path d="M 400 314 C 440 350, 460 263, 510 263" fill="none" stroke="#C0413B" stroke-width="1.4" stroke-dasharray="5 4"></path>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="510" y="316" width="166" height="58" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="593" y="339" text-anchor="middle" font-size="11.5" font-weight="700" fill="#6C7A89">アグリゲーター</text>
+    <text x="593" y="358" text-anchor="middle" font-size="10.5" fill="#6C7A89">経済運用のみ</text>
+    <rect x="684" y="316" width="166" height="58" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="767" y="339" text-anchor="middle" font-size="11.5" font-weight="700" fill="#6C7A89">メーカー</text>
+    <text x="767" y="358" text-anchor="middle" font-size="10.5" fill="#6C7A89">自社機器の点検のみ</text>
+  </g>
+  <rect x="60" y="400" width="790" height="74" rx="8" fill="#1B2A4A"></rect>
+  <rect x="60" y="400" width="6" height="74" fill="#C49A3C"></rect>
+  <text x="455" y="432" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#FFFFFF">監督は法定（設備全体）／是正の遂行は受変電どまり</text>
+  <text x="455" y="456" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#D4AF5C" letter-spacing="1">これが「責任・遂行の乖離(mismatch)」</text>
+</svg>
+<p class="fig-cap">図1 — 法は設備全体の保安監督責任を主任技術者に課しています。空白なのは法ではなく、直流側・通信の是正を現場で誰が遂行するか、のほうです。</p>
+</div>
+<p>図が示すのは単純な事実です。法は設備全体の保安監督を主任技術者に課しているのに、現場の遂行は受変電どまりで、直流側と通信の是正は誰のものとも決まっていません。「制度に穴がある」のではなく、「法のうえでは穴は埋まっているのに、現場では埋まっていない」——だからこそ、いっそう拾われにくいのです。</p>
+
+
+<h2>03 — 責任マトリクス：設備 × 主体</h2>
+
+<p>図1は法と現場の食い違いを縦に見たものですが、同じ構造を「どの設備を・どの主体が・何の根拠で持つか」という面で展開すると、空白の所在がより具体的に見えてきます。設備の領域を縦に、関与する主体を横にとり、それぞれの交点を四種類の根拠——法令が定めるもの、契約が定めるもの、慣行で事実上そうなっているもの、誰のものとも決まっていない空白——で塗り分けました。</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 590" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図2 — 系統用蓄電所の責任マトリクス（設備×主体）">
+  <rect width="900" height="590" fill="#FFFFFF"></rect>
+  <text x="78" y="44" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#9AA3AF">設備 ＼ 主体</text>
+  <line x1="8" y1="86" x2="888" y2="86" stroke="#E2E6EC" stroke-width="1.5"></line>
+  <g font-family="'Noto Sans JP',sans-serif" font-size="12.5" font-weight="700" fill="#1B2A4A" text-anchor="middle">
+    <text x="211.5" y="52">主任技術者</text>
+    <text x="334.5" y="52">保安法人</text>
+    <text x="457.5" y="52">メーカー</text>
+    <text x="580.5" y="52">アグリ</text>
+    <text x="703.5" y="52">O&amp;M</text>
+    <text x="826.5" y="52">事業主</text>
+  </g>
+  <g font-family="'Noto Sans JP',sans-serif" font-size="12.5" font-weight="700" fill="#1B2A4A">
+    <text x="14" y="126">受変電/</text><text x="14" y="143">キュービクル</text>
+    <text x="14" y="219">EMS</text>
+    <text x="14" y="303">PCS</text>
+    <text x="14" y="387">BESS</text>
+    <text x="14" y="471">通信</text>
+  </g>
+  <g font-family="'Noto Sans JP',sans-serif" font-size="12.5" font-weight="600" text-anchor="middle">
+    <rect x="152" y="90" width="119" height="80" rx="3" fill="#1B2A4A"></rect><text x="211.5" y="135" fill="#fff">法令</text>
+    <rect x="275" y="90" width="119" height="80" rx="3" fill="#1B2A4A"></rect><text x="334.5" y="135" fill="#fff">法令</text>
+    <rect x="398" y="90" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="135" fill="#fff">契約</text>
+    <rect x="521" y="90" width="119" height="80" rx="3" fill="#F1F4F8"></rect><text x="580.5" y="135" fill="#AEB7C4">—</text>
+    <rect x="644" y="90" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="135" fill="#fff">契約</text>
+    <rect x="767" y="90" width="119" height="80" rx="3" fill="#1B2A4A"></rect><text x="826.5" y="135" fill="#fff">法令</text>
+    <rect x="152" y="174" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="211.5" y="219" fill="#44506A">慣行</text>
+    <rect x="275" y="174" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="334.5" y="219" fill="#44506A">慣行</text>
+    <rect x="398" y="174" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="219" fill="#fff">契約</text>
+    <rect x="521" y="174" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="580.5" y="219" fill="#fff">契約</text>
+    <rect x="644" y="174" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="219" fill="#fff">契約</text>
+    <rect x="767" y="174" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="826.5" y="219" fill="#fff">空白</text>
+    <rect x="152" y="258" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="211.5" y="303" fill="#44506A">慣行</text>
+    <rect x="275" y="258" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="334.5" y="303" fill="#44506A">慣行</text>
+    <rect x="398" y="258" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="303" fill="#fff">契約</text>
+    <rect x="521" y="258" width="119" height="80" rx="3" fill="#F1F4F8"></rect><text x="580.5" y="303" fill="#AEB7C4">—</text>
+    <rect x="644" y="258" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="303" fill="#fff">契約</text>
+    <rect x="767" y="258" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="826.5" y="303" fill="#fff">空白</text>
+    <rect x="152" y="342" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="211.5" y="387" fill="#44506A">慣行</text>
+    <rect x="275" y="342" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="334.5" y="387" fill="#44506A">慣行</text>
+    <rect x="398" y="342" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="387" fill="#fff">契約</text>
+    <rect x="521" y="342" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="580.5" y="387" fill="#fff">契約</text>
+    <rect x="644" y="342" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="387" fill="#fff">契約</text>
+    <rect x="767" y="342" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="826.5" y="387" fill="#fff">空白</text>
+    <rect x="152" y="426" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="211.5" y="471" fill="#fff">空白</text>
+    <rect x="275" y="426" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="334.5" y="471" fill="#fff">空白</text>
+    <rect x="398" y="426" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="471" fill="#fff">契約</text>
+    <rect x="521" y="426" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="580.5" y="471" fill="#fff">契約</text>
+    <rect x="644" y="426" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="471" fill="#fff">契約</text>
+    <rect x="767" y="426" width="119" height="80" rx="3" fill="#1B2A4A"></rect><text x="826.5" y="471" fill="#fff">法令</text>
+  </g>
+  <g font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">
+    <rect x="150" y="540" width="14" height="14" rx="2" fill="#1B2A4A"></rect><text x="170" y="551">法令</text>
+    <rect x="300" y="540" width="14" height="14" rx="2" fill="#C49A3C"></rect><text x="320" y="551">契約</text>
+    <rect x="450" y="540" width="14" height="14" rx="2" fill="#C9D0D9"></rect><text x="470" y="551">慣行</text>
+    <rect x="600" y="540" width="14" height="14" rx="2" fill="#D9736B"></rect><text x="620" y="551">空白</text>
+  </g>
+</svg>
+<p class="fig-cap">図2 — 系統用蓄電所の責任マトリクス。各セルは是正・一次対応の<strong>遂行根拠</strong>を示す（法令＝条文が主体を定める／契約＝保証・委託で定める／慣行＝事実上そうなっている／空白＝誰のものとも決まっていない）。主任技術者の保安<strong>監督</strong>責任自体は受変電・直流側・通信を含む全行に法定で及ぶ。濃い色（法令）が乗るのは受変電の行と、連系サイバーを介して事業主が負う部分だけ。金色（O&M列）が、その空白を契約で引き受けうる位置にあたる。</p>
+</div>
+<p>色を追うと、構造はひと目で見えてきます。濃い色（法令）が乗るのは、受変電の行と、サイバー・技術基準を介して事業主が負う部分だけ。それ以外の広い面積は、契約（金）・慣行（灰）・空白（赤）で占められています。とりわけ赤——空白——は、直流側の事業主列（完成図書・調達・立証データ）と、通信行の保安側（主任技術者・保安法人）に集まっています。系統用蓄電所の運用とは、この契約・慣行・空白の領域を、どの主体に・どの契約で帰属させるかを決める作業にほかなりません。各交点の中身を具体化すると、次のようになります。</p>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>設備</th><th>主任技術者</th><th>保安法人</th><th>メーカー</th><th>アグリ</th><th>O&M</th><th>事業主</th></tr></thead>
+<tbody>
+<tr><td class="em">受変電/<br>キュービクル</td><td>保安監督〔法令〕</td><td>監督・点検〔法令〕</td><td>機器保証〔契約〕</td><td>—</td><td>点検実務〔契約〕</td><td>最終保安責任〔法令〕</td></tr>
+<tr><td class="em">EMS</td><td>監督・是正は専門外〔慣行〕</td><td>標準業務外〔慣行〕</td><td>設定・是正・保証〔契約〕</td><td>制御・運用〔契約〕</td><td>一次対応・連絡〔契約〕</td><td>完成図書・調達〔空白〕</td></tr>
+<tr><td class="em">PCS</td><td>監督・直流是正は専門外〔慣行〕</td><td>触らないのが通例〔慣行〕</td><td>是正工事の主体〔契約〕</td><td>—</td><td>駆けつけ・切り分け〔契約〕</td><td>是正手配・費用〔空白〕</td></tr>
+<tr><td class="em">BESS<br>(セル/BMS)</td><td>監督・是正は専門外〔慣行〕</td><td>標準業務外〔慣行〕</td><td>製品・劣化保証〔契約〕</td><td>運用条件遵守〔契約〕</td><td>データ収集・監視〔契約〕</td><td>保証維持・立証データ〔空白〕</td></tr>
+<tr><td class="em">通信<br>(ルータ/回線)</td><td>監督対象だが設計外〔空白〕</td><td>標準業務外〔空白〕</td><td>機器により保証〔契約〕</td><td>通信前提の制御〔契約〕</td><td>障害一次対応〔契約〕</td><td>図書・冗長化・サイバー〔法令〕</td></tr>
+</tbody>
+</table>
+</div>
+<p>読み筋は一つです。法が明確に主体を定めるのは「受変電の保安監督」と「連系時のサイバー・技術基準適合」だけ。EMS・PCS・BESSの是正と、通信の設計・図書・復旧は、その外側にあります。この空白を契約で誰に帰属させるかが、事業設計の核心になります。以降、空白が集中する二つの領域——直流側の是正と、通信——を順に掘り下げていきます。</p>
+
+
+<h2>04 — なぜ穴が埋まらないのか</h2>
+
+<p>責任が法定なら、なぜ遂行が埋まらないのでしょうか。理由は二つの制度構造にあります。一つは主任技術者を「どう充てるか」の制度、もう一つは保安規程が「何を書かせるか」の制度です。</p>
+
+<h3>4-1 外部委託承認という器の制約</h3>
+
+<p>高圧以上の蓄電所では、主任技術者を自社で選任するか、外部に委託します。経済産業省「主任技術者制度の解釈及び運用（内規）」は、外部委託で主任技術者が担当する事業場について、原則として<strong>2時間以内に到達できること</strong>を運用の条件としています（いわゆる2時間ルール）。さらに平成15年経済産業省告示第249号は、保安業務担当者が受託できる事業場の<strong>換算係数の合計を33未満</strong>に制限しています。設備の容量・出力に応じた「点数」で受託の上限を縛る仕組みで、太陽電池発電所や蓄電所には条件別の係数（告示で0.31〜0.33。区分に応じてイ0.32・ロ0.31・ハ0.33）が乗ります。蓄電所の外部委託可能範囲は、太陽光発電所と同様に出力5,000kW・電圧7,000V未満とされます（経産省「蓄電所に対する保安規制のあり方について」令和4年4月15日）。</p>
+
+<p>この「2時間圏内かつ点数に余裕のある主任技術者」という器は、人材が潤沢なら問題になりません。けれども現実は逆です。経済産業省「電気主任技術者制度について」（令和5年3月31日）は、新たな対策を講じない場合、<strong>2030年度に第2種で約1,000人、第3種で約800人が不足する可能性</strong>を示しています。選任形態は外部委託が大半を占め、担い手の高齢化も進みます。免状取得者の約6割が50歳以上で、電力安全小委員会の資料では、第3種は2045年に想定需要約1.8万人に対して約4千人の不足が見込まれると整理されています。</p>
+
+<p>ここから、地域によって主任技術者の確保しやすさとコストが構造的に変わってくることが読み取れます。距離要件と点数制限と人材不足が重なれば、近接で点数に余裕のある候補を見つけ、選任して見積りに落とすまでに相応の時間がかかります。O&M会社が見積り提示までに数週間を要するのは、こうした制度の器に由来します——どこの会社が遅いという話ではなく、制度がそう作られているからです。</p>
+
+<h3>4-2 保安規程が書かせないもの</h3>
+
+<p>もう一つの構造は、保安規程の記載事項にあります。電気事業法施行規則第50条が、保安規程に定めるべき事項を列挙しています。発電事業に当たる系統用蓄電所（出力1万kW超）は同条第2項、自家用などは第3項に置かれ、設備区分によって項が分かれますが、いずれも業務管理者・経営責任者の関与と組織、保安教育、巡視・点検・検査、運転・操作、相当期間停止する場合の保全方法、災害その他非常時に採るべき措置、保安についての記録、法定自主検査・使用前自己確認の実施体制と記録の保存——おおむねこうした項目で構成されます。</p>
+
+<p>ここに、<strong>通信設備の完成図書をどう残すか、ルーターが故障したとき誰がどう復旧するか</strong>を独立した記載事項として求める条項はありません。保安規程の標準的な構成は受変電と電気的保安を軸に組み立てられていて、通信の設計図書や復旧責任は制度の記載要求の外側にこぼれ落ちます。FIELD NOTEの現場が「完成図書が引き渡されない案件が多い」と言うのは、書類仕事をサボっているからではなく、制度が書かせていないからです。誰も明示的に求めないものは、誰も明示的に残しません。これが通信側の空白の正体です。</p>
+
+<div class="info-box">
+直流側の<strong>責任</strong>は法定（43条1項＋電技省令の蓄電所定義）。けれども直流側・通信の<strong>遂行</strong>は、外部委託の器（2時間・点数・人材不足）と、保安規程の記載要求の外側に落ちます。責任は埋まっているのに遂行が埋まらない——この二つの制度構造が、乖離を維持しています。「制度の限界」なら諦めるしかありませんが、「契約・慣行・技能の問題」なら設計で動かせます。
+</div>
+
+
+<h2>05 — ダウンタイムの本当のコスト</h2>
+
+<p>「直流側で止まっても、しばらく市場に出られないだけ」——もしそう考えているなら、コストを一段過小評価しているかもしれません。系統用蓄電所の停止は、機会損失にとどまりません。需給調整市場と容量市場の制度ペナルティとして、二段で効いてきます。まず、止まったときに動いている収益の桁を押さえておきます。</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">8,785〜14,812<span class="unit">円/kW・年</span></span><span class="lbl">容量市場メイン約定（実需給2028年度向け、エリア別）</span></div>
+  <div class="stat-cell"><span class="val">12.31<span class="unit">円/kWh</span></span><span class="lbl">JEPXスポット年度平均（FY2024）</span></div>
+  <div class="stat-cell"><span class="val">19.51→15<span class="unit">円/ΔkW・30分</span></span><span class="lbl">需給調整 上限価格（2026年3月引下げ／段階的に7.21円へ）</span></div>
+</div>
+
+<p>容量市場メインオークションの約定価格は実需給2028年度向けでエリア別に概ね8,785〜14,812円/kW・年（北陸・関西・中国・四国が下限8,785円、北海道・東北・東京が上限14,812円。OCCTO約定結果、2025年1月29日公表）、JEPXスポットの年度平均はFY2024で12.31円/kWh（JEPX「2024年度事業報告書」）です。需給調整市場のΔkW上限価格は、2026年3月の前日取引化にあわせて従来の19.51円/ΔkW・30分から15円へ引き下げられ、競争状況の改善が見られなければ10円・7.21円へと段階的に下げる方針が示されています（資源エネルギー庁、2026年1月）。2MW級が市場参加を止めれば、これらに紐づく日次収益が失われます。けれども本当に効いてくるのは、機会損失そのものより、その先の制度ペナルティのほうです。</p>
+
+<h3>5-1 需給調整市場：応動できなければ減額され、締め出される</h3>
+
+<p>需給調整市場（EPRX）で約定したリソースは、指令に応じて応動する義務を負います。EPRXの取引規程は、アセスメント（応動実績の確認）とペナルティを定めています。応動実績を確認するアセスメントⅡに不適合となると、約定金額に対して<strong>1.0倍のペナルティ</strong>が課されます（この倍率は第36回需給調整市場検討小委員会・2023年3月2日で、市場参加インセンティブ増加の観点から1.5倍から1.0倍へ見直されました。なお供出可能な状態の維持を見るアセスメントⅠは不適合度合いに応じて段階的で、最大強度は1.5倍です）。さらに、<strong>同一リソース・同一商品で1暦月内に3回以上不適合となると、その商品の新規の取引が停止されます</strong>。停止していれば応動できず、応動できなければ減額され、繰り返せば市場から締め出される、という三段構えです。</p>
+
+<p>ただし、出力抑制など系統側に起因し、入札時点で事業者が予見し得なかった事象については、ペナルティ料金の倍率を1.0倍とし、不適合回数の積算対象外として扱う緩和の枠組みがあります（系統起因によるペナルティ緩和の申出。様式24・25は2026年3月14日受渡分以降に適用）。自分で止めたのか、系統に止められたのかで扱いが分かれる——ここでも原因の切り分けが効いてきます。需給調整市場の商品構成・最低入札量・上限価格の引下げ方向については、<a class="xref" target="_top" href="https://www.scix.co.jp/column-contracts">契約設計コラム（第5層）</a>で整理しました。</p>
+
+<h3>5-2 容量市場：計画外停止は「5倍」で効く</h3>
+
+<p>容量市場、とりわけ長期脱炭素電源オークションで容量確保契約を結んだ蓄電所（安定電源に区分されます）は、運転継続のリクワイアメントを負います。容量確保契約約款はアセスメントとペナルティを定めていて、経済的ペナルティは、<strong>リクワイアメント未達成コマの累積から8,640コマ（約180日相当）を差し引いた分</strong>に、容量確保契約金額を基準として課されます（OCCTO「容量市場業務マニュアル（リクワイアメント／ペナルティ関係）」「容量確保契約約款」）。裏返せば、年間180日相当までは実質的に猶予され、それを超える未達が対象になります。</p>
+
+<p>注目すべきは、その「未達成コマ」の数え方です。あらかじめ計画停止として届け出た保守は等倍ですが、<strong>突発の計画外停止は5倍にカウントされます</strong>（平常時の夜間・休日を除く）。制度が、予兆を捉えた計画的保守と、無計画な突発故障の経済差を、明示的に5対1で定量化しているということです。</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図3 — ダウンタイムの三つの毀損経路と、計画外停止5倍カウント">
+  <defs>
+    <linearGradient id="goldBar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF5C"></stop>
+      <stop offset="100%" stop-color="#B8862A"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="560" fill="#FFFFFF"></rect>
+  <rect x="350" y="30" width="200" height="56" rx="9" fill="#FDF3F2" stroke="#C0413B" stroke-width="1.8"></rect>
+  <text x="450" y="55" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#B0413B">停止（ダウンタイム）</text>
+  <text x="450" y="74" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">毀損は機会損失にとどまらない</text>
+  <path d="M 410 86 C 350 110, 220 110, 175 132" fill="none" stroke="#C49A3C" stroke-width="1.8"></path>
+  <path d="M 450 86 L 450 132" fill="none" stroke="#C49A3C" stroke-width="1.8"></path>
+  <path d="M 490 86 C 550 110, 680 110, 725 132" fill="none" stroke="#C49A3C" stroke-width="1.8"></path>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="40" y="134" width="250" height="104" rx="8" fill="#F8F9FB" stroke="#9AA7B4" stroke-width="1.4"></rect>
+    <text x="60" y="160" font-size="12.5" font-weight="800" fill="#6C7A89">① 機会損失</text>
+    <text x="60" y="184" font-size="11" fill="#2C3E50">JEPX等での価格裁定の</text>
+    <text x="60" y="201" font-size="11" fill="#2C3E50">収益機会を逸する</text>
+    <text x="60" y="224" font-size="10" fill="#9AA7B4">＝ 取りそびれた粗利</text>
+    <rect x="325" y="134" width="250" height="104" rx="8" fill="#F3F6FA" stroke="#2A4D7A" stroke-width="1.5"></rect>
+    <text x="345" y="160" font-size="12.5" font-weight="800" fill="#1B2A4A">② 需給調整：減額＋締め出し</text>
+    <text x="345" y="184" font-size="11" fill="#2C3E50">アセスメントⅡ不適合</text>
+    <text x="345" y="201" font-size="11" fill="#2C3E50">→ 1.0倍ペナルティ</text>
+    <text x="345" y="224" font-size="11" fill="#B0413B">→ 同一商品 月3回で新規取引停止</text>
+    <rect x="610" y="134" width="250" height="104" rx="8" fill="#F3F6FA" stroke="#2A4D7A" stroke-width="1.5"></rect>
+    <text x="630" y="160" font-size="12.5" font-weight="800" fill="#1B2A4A">③ 容量：契約金額の減額</text>
+    <text x="630" y="184" font-size="11" fill="#2C3E50">リクワイアメント未達</text>
+    <text x="630" y="201" font-size="11" fill="#2C3E50">→ 容量確保契約金額を減額</text>
+    <text x="630" y="224" font-size="11" fill="#B0413B">→ 計画外停止は5倍カウント</text>
+  </g>
+  <rect x="40" y="270" width="820" height="252" rx="10" fill="#FFFCF5" stroke="#C49A3C" stroke-width="1.6"></rect>
+  <rect x="40" y="270" width="6" height="252" fill="#C49A3C"></rect>
+  <text x="70" y="304" font-family="'Noto Serif JP',serif" font-size="16" font-weight="700" fill="#1B2A4A">計画外停止は「5倍」で効く</text>
+  <text x="70" y="328" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">年間停止コマ相当数 ＝（計画停止コマ相当数 ＋ 計画外停止コマ相当数 × 5）− 8,640コマ（約180日相当）／容量確保契約約款・平常時の夜間休日除く</text>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="120" y="446" width="120" height="36" rx="4" fill="#C2CAD3"></rect>
+    <text x="180" y="469" text-anchor="middle" font-size="13" font-weight="700" fill="#3A4654">×1</text>
+    <text x="180" y="500" text-anchor="middle" font-size="12" fill="#6C7A89">計画停止</text>
+    <text x="180" y="516" text-anchor="middle" font-size="10" fill="#9AA7B4">予兆を捉えた保守</text>
+    <rect x="300" y="356" width="120" height="126" rx="4" fill="url(#goldBar)"></rect>
+    <text x="360" y="345" text-anchor="middle" font-size="15" font-weight="800" fill="#A07916">×5</text>
+    <text x="360" y="424" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">5倍</text>
+    <text x="360" y="500" text-anchor="middle" font-size="12" fill="#6C7A89">計画外停止</text>
+    <text x="360" y="516" text-anchor="middle" font-size="10" fill="#9AA7B4">突発の故障</text>
+  </g>
+  <line x1="470" y1="360" x2="470" y2="500" stroke="#E2E6EC" stroke-width="1.4" stroke-dasharray="4 4"></line>
+  <text x="500" y="392" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">O&Mの応答速度が効く場所</text>
+  <text x="500" y="418" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#2C3E50">予兆診断と即時の切り分け・復旧で、</text>
+  <text x="500" y="438" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#2C3E50">突発故障を「計画停止」へ転化できれば、</text>
+  <text x="500" y="458" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#A07916">ペナルティ露出は最大で約1/5に縮む。</text>
+  <text x="500" y="484" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#9AA7B4">※不可抗力に該当する停止は約款上の免除対象となりうる</text>
+</svg>
+<p class="fig-cap">図3 — 停止は機会損失・需給調整ペナルティ・容量ペナルティの三経路で効く。容量確保契約では計画外停止が計画停止の5倍にカウントされ、これがO&Mの応答速度の経済価値を定義する。</p>
+</div>
+<p>この5倍という係数こそ、O&Mの経済的価値を最も鋭く説明します。突発故障を「無計画な停止」のまま放置すれば5倍で効きますが、予兆を捉えて計画的な保守停止に転化できれば等倍ですみます。早期の異常検知、原因の即時切り分け、迅速な復旧——O&Mの応答速度がやっているのは、突発を計画に変換し、ペナルティ露出を最大で約5分の1に圧縮することです。停止を「ゼロにする」話ではありません。停止の質を「計画側」に寄せる話です。だからこそ、稼働率そのものを保証できなくても、応答速度には明確な経済的根拠があります。</p>
+
+<h3>5-3 損失額は「オンライン度」で桁が動く</h3>
+
+<p>ただし、停止1日の損失を一つの数字で言い切るのは危ういところです。失われる額は、その蓄電所がどれだけオンラインで・どの商品に収益を約束しているかに比例して桁が動きます。出力2MW級は、需給調整市場や容量市場が安定電源に求める「専用線オンライン・大容量」の閾値に必ずしも届かず、実態はJEPXのアービトラージと、応動が数十分規模で簡易指令も使える三次調整力②が主収益になりやすいところです。この場合の日次の逸失は、当日コマのΔkW（容量確保料）・ΔkWh（供出量）と充放電スプレッドの取りそびれであって、容量市場・長期脱炭素オークションの固定収入（年間・20年契約の報酬）を1日の停止額に足し込むのは誤りです。固定収入が毀損するのは、停止がリクワイアメント指令と重なったときのペナルティ——前項の計画外5倍カウントや、容量確保契約の市場退出ペナルティ——という「尾」の側で効きます。満稼働に近い停止でない限り、この契約上の違約は日次の機会損失とは桁が違います。いずれにせよ「1日◯◯万円」を語る前に、まず当該資産のオンライン度を確定させておく必要があります。</p>
+
+<h3>5-4 O&Mの年額に「相場」はあるか</h3>
+
+<p>では肝心のO&M費そのものはどうでしょうか。ここは正直に書きます。<strong>系統用蓄電池に特化した固定O&M（OPEX）の公的な標準単価は、まだ整っていません</strong>。数少ない公的な手がかりは、長期脱炭素電源オークションのモデルプラントに用いられた運転維持費で、経済産業省の検討会資料は<strong>運転維持費（人件費）を5,000円/kW・年</strong>として提示しています（「系統用・再エネ併設蓄電システムのコスト面・収益面での課題整理」2024年度第3回 定置用蓄電システム普及拡大検討会、2024年8月29日。長期脱炭素電源オークションの上限価格算定に用いたモデルプラント情報を参照）。国際ベンチでは、NREL ATBが固定O&Mを<strong>CAPEXの約2.5%</strong>（電池の増設費を含み、15年運用前提）と置いています。現場の肌感としては、保険込みで年500万円前後を厚めに見る向きもあれば、保険を除いて年250〜300万円に収まるという見立てもありますが、これらは事業者提示値であって、公的に確立した水準ではありません。</p>
+
+<p>事業計画にO&M費を置くときは、これが<strong>相場ではなく出発点の数字</strong>であることを踏まえておきたいところです。公的に参照できるのは「5,000円/kW・年」という単価情報と、国際ベンチの「CAPEXの2.5%」程度で、いずれも設備規模（2MW級か10MWh級か）と地域差で大きく振れます。費目（主任技術者・監視・駆けつけ・通信・保険）を分解して並べてから初めて、水準の妥当性が議論できます。むしろ「公的な標準単価が単価情報の域を出ない」という事実そのものが、事業計画にO&M費を据えるときの不確実性として織り込むべき論点になります。</p>
+
+
+<h2>06 — 通信は、誰の担当でもない</h2>
+
+<p>蓄電所の空白のなかで、いちばん拾われにくいのが通信です。理由ははっきりしています。通信は、電気のプロ（主任技術者）が見る受変電と、機器のプロ（メーカー）が見る制御の、ちょうど境目に落ちるからです。主任技術者の保安監督は受変電を軸に組み立てられ、メーカーの保証は自社機器の内側で完結します。回線・ルーター・ゲートウェイ・各機器をつなぐネットワークそのものは、どちらの守備範囲の中心でもありません。そして第04章で見たとおり、保安規程は通信設備の完成図書や復旧責任を独立した記載事項として求めません。誰も明示的に持たないレイヤが、ここに一枚できあがります。</p>
+
+<p>この空白が牙をむくのは、止まった瞬間です。蓄電所は太陽光以上に通信に依存し、出力制御も需給調整指令への応動も、リアルタイムの通信を前提にします。ところがEMSの画面に「通信不良」と表示されても、それだけでは誰も動けません。落ちたのが現地のルーターなのか、光回線の事業者側なのか、設定が飛んだのか——原因がどこかで、呼ぶ相手も復旧の手順もまるで変わります。この切り分けを担う者が契約のどこにも書かれていなければ、表示が出た瞬間から「誰が動くべきか」を探す時間が始まります。さらに、その切り分けに不可欠な完成図書——どのルーターにどんな設定を入れ、どのIPで何がつながっているか——が引き渡されていない案件は珍しくありません。書類を怠ったからではなく、制度が書かせず、契約が求めなかったからです。通信は、平時には誰の問題でもなく、異常時には全員の問題になります。</p>
+
+<p>この空白の上に、2027年以降は制度の要件が乗ります。第20回グリッドコード検討会（2025年12月16日・資源エネルギー庁）の資料は、系統連系の技術要件として、分散型電源が採用する「通信機能を有する制御システム（PCS、EMS等）」について、JC-STAR制度の★1を取得した製品を用いることを要件化する方針を示しました。適用は高圧で2027年4月、低圧50kW未満で2027年10月が予定されています（低圧は流通在庫を踏まえた経過措置で半年遅く、このタイムラインは<a class="xref" target="_top" href="https://www.scix.co.jp/knowledge">補助金コラム</a>でも触れました）。前提として電技省令は、小規模事業用電気工作物（50kW未満の太陽光等）を除く事業用電気工作物に、サイバーセキュリティの確保を既に義務づけています（第15条の2）。</p>
+
+<p>ここで実務上の誤解が一つあります。「ゲートウェイのルーターが★1を取得していれば、その内側の機器は対象外になる」という理解です。けれども制度の設計思想はネットワーク一括ではなく、IP通信を用いる製品（システム）ごとに要件をかけます。資源エネルギー庁の資料は、その脚注で、対象範囲のうちIP通信を用いる製品（システム）を★1取得要件化の対象とし、対象範囲外のIP通信機器についても取得を推奨すると整理しています（「分散型電源のサイバーセキュリティ対策について」2026年2月12日 資料5）。ルーター単体の取得は下流機器の免除を意味せず、蓄電池一式でまとめて取得する性格のものでもありません。通信・制御に関わる機器を一つずつ洗い出し、各機器が★1取得製品かを確認していく作業になります。★1・★2はメーカーの自己適合宣言、★3以上が第三者認証で、IPAは2025年3月25日に運用を開始し、★1の申請受付を行っています。</p>
+
+<div class="highlight-box">
+<strong>機器単位（日本）か、ゾーン単位（海外）か。</strong>北米のNERC CIPも国際規格IEC 62443も、基本は守るべき範囲をゾーンとコンジットに区切り、境界で守る「システム／ゾーン単位」の発想に立ちます。日本のJC-STAR要件化は、これに対して各IP通信製品に最低基準を課す「機器単位」です。この思想の差は、通信設計の組み方とO&Mの機器選定・更新の実務を直撃します。2027年4月以降の新規連系・機器リプレースで「この機器では接続できない」という事態が起こり得ます。そして完成図書——どの機器にどんな設定を入れ、どのIPで何がつながっているか——が引き渡されていなければ、機器ごとの適合確認も、故障時の切り分けも成り立ちません。サイバー要件が機器単位で課されるほど、機器単位の設計図書を残す主体が要ります。
+</div>
+
+<h3>6-1 「0.5秒以内でないと動かない」という説の解体</h3>
+
+<p>通信のリアルタイム性をめぐっては、「需給調整に応じるには通信応答が0.5秒以内でなければならない」といった説明を聞くことがあります。これは正確ではありません。需給調整市場の商品要件のどこにも、「通信応答0.5秒以内」という上限はありません。「0.5秒」が現れるのは二次調整力①のLFC指令間隔（制御周期）の下限「0.5〜数十秒」であって、通信のレイテンシ上限ではありません。最速の刻みはむしろ一次調整力で、周波数を0.1秒以下で自端計測します。「0.5秒以内でないと動かない」というのは、二次①の制御周期の下限を通信応答の要件と取り違えた説明でしょう。</p>
+
+<p>商品ごとに要求は段階的に異なります。応動時間は一次調整力の10秒以内から三次調整力②の60分以内まで広がり、秒単位の制御を要する二次①は通信回線が専用線のみに限られます。一方、応動が数十分規模の三次②は簡易指令システムでも参入でき、監視間隔は分単位になります。</p>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>商品</th><th>通信回線</th><th>応動時間</th><th>監視間隔（目安）</th></tr></thead>
+<tbody>
+<tr><td class="em">一次調整力</td><td>専用線（自端制御）</td><td class="num">10秒以内</td><td>周波数を0.1秒以下で自端計測</td></tr>
+<tr><td class="em">二次調整力①</td><td>専用線のみ</td><td class="num">5分以内</td><td>秒単位（LFC指令0.5〜数十秒）</td></tr>
+<tr><td class="em">二次調整力②</td><td>専用線／簡易指令</td><td class="num">5分以内</td><td>専用線 秒単位／簡易 1分</td></tr>
+<tr><td class="em">三次調整力①</td><td>専用線／簡易指令</td><td class="num">15分以内</td><td>同上</td></tr>
+<tr><td class="em">三次調整力②</td><td>専用線／簡易指令</td><td class="num">60分以内</td><td>1〜30分</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">出典：EPRX「需給調整市場の商品要件と取引スケジュール」、OCCTO 需給調整市場検討小委員会 参考資料。二次①は簡易指令システムでは秒単位の制御ができないため、通信回線が専用線に限られます。</p>
+
+<h3>6-2 では、通信のO&Mとは何か</h3>
+
+<p>ここまでを裏返すと、通信のO&Mが具体的に何をする役務かが見えてきます。第一に、<strong>完成図書の整備と引き継ぎ</strong>——回線種別、ルーター・ゲートウェイの型番と設定、IP割り当て、機器間の接続図を、運開時に文書として受け取り、更新していくこと。第二に、<strong>設定済みバックアップ機の確保</strong>——産業用ルーターの納期は世界情勢の影響で読みにくく、予備機を現地に備えていなければ復旧まで数週間単位で止まりかねません（ネットワーク機器全般の納期長期化は確認できますが、系統用ルーターの個別納期の一次データは確認できていません）。第三に、<strong>異常時の切り分け手順と一次対応</strong>——「通信不良」が出たとき、現地・回線事業者・メーカーのどこに、どの順で当たるかをあらかじめ決めておくこと。第四に、<strong>★1要件への適合確認と機器更新</strong>——2027年以降の連系・リプレースで、機器単位の適合をどう維持するか。これらは保安規程にも、メーカー保証にも、アグリゲーター契約にも自動では含まれません。通信を「誰の担当でもない」まま残すか、O&M契約で明示的に引き受けさせるか——その一点が、止まったときの復旧速度を分けます。</p>
+
+<p>蓄電所が「どの商品で・どの回線で」収益を取りにいくかで、求められる通信の質も、通信が落ちたときの損失も桁が変わります。専用線オンラインで秒単位の応動を約束しているほど、通信は死活的になります。「0.5秒」を錦の御旗にする前に、自分の資産がどの商品・どの回線で動くのか、そして通信が落ちたとき誰が直すのかを、運開前に確定させておくことです。</p>
+
+
+<h2>07 — 保険は「原因が分かるまで」払われない</h2>
+
+<p>蓄電所には財物補償と、停止中の逸失利益をてん補する利益保険を組むのが通例です。ただしこの保険は、事故が起きれば自動的に下りるものではありません。支払の前提には「偶然な事故により対象が損害を受けた」ことの立証があり、利益保険もその損害の結果として生じた損失だけをてん補します。蓄電池はまだ新しい設備で、セルの不具合か施工不良か天災か——原因の立証責任は事業者側に重くのしかかり、熱暴走のような事象では原因究明に長い時間を要します（米国Moss Landingでは2021年9月の停止から原因公表まで約5か月）。原因が確定しないかぎり、保険金は動きません。そして複数メーカーの機器を統合すると、責任を一社に帰せられない事態も起こります（韓国では2017〜2019年にESS火災が23件発生し、官民合同調査が4要因を挙げたものの決定的な立証には至らず、電池メーカーは原因説に反論しました）。</p>
+
+<div class="warning-box">
+ここで効いてくるのが、BMS・EMSのログをはじめとする<strong>証跡の保全</strong>であり、それを担うのはO&Mです。事故時に駆けつけて切り分け、メーカーと連動して原因を特定し、是正の見積りまで出せる体制があれば、立証は前に進みます。利益保険の損失額算定には、停止していなければ得られたはずの市場収益の根拠——アグリゲーターが保有するデータ——も要ります。保険は「入っているから安心」なのではなく、<strong>事故時に原因を立証し、逸失額を算定できるデータ体制があるか</strong>で評価すべきものです。
+</div>
+
+<p class="note-small">※ 補償範囲・免責・支払条件・立証要件の細部は各損保の個別約款に依存し、公開情報が限られます。約款が十分に開示されないこと自体が、保険を事業計画の前提に置くときの不確実性として織り込むべき論点になります。保険設計の全体像は<a class="xref" target="_top" href="https://www.scix.co.jp/column-bess-insurance">保険設計コラム</a>で扱いました。</p>
+
+
+<h2>08 — 成熟市場はこの空白をどう解いたか</h2>
+
+<p>直流側の責任・遂行の乖離は、日本に固有の現象なのでしょうか。国際実務を見ると、答えは「成熟市場はこの空白を、単一責任点に集約することで解いている」になります。日本の三者分断は、市場がまだ統合に向かっていない前夜の姿だと位置づけられます。</p>
+
+<h3>8-1 単一責任点（single point of responsibility）</h3>
+
+<p>米国の系統用蓄電所では、現地保守を担うO&Mと、契約・保証・財務を監督するアセットマネジメントが分担され、所有者が複数のサービス契約をKPIとペナルティ付きで束ねます。役割はさらに層化していて——製品保証（おおむね2〜3年）を負うOEM、要求性能との差を埋めるシステムインテグレーター、10〜20年の長期サービス契約（LTSA）で稼働を担保するO&Mプロバイダ、アセットマネージャー、市場運用を最適化するオプティマイザー（日本のアグリゲーターに相当）。日本で「三者で回る」と語られるものは、この五つ前後の役割の一部分にすぎません。米国の法律実務でも、OEMが供給契約と長期サービス契約のもとで性能保証を負う構造が一般的とされ、近年はOEMが統合システムを提供することでターンキー一括の必要性が薄れつつあると整理されています。設備全体を一手に引き受ける単一責任点を据えるのが、成熟市場の解き方です。日本の「アグリゲーター＋主任技術者＋メーカー」は、その単一責任点が直流側について不在のまま分断されている状態にあたります。</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図4 — 日本の三者分断と、成熟市場の単一責任点">
+  <rect width="900" height="470" fill="#FFFFFF"></rect>
+  <line x1="450" y1="40" x2="450" y2="392" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="4 4"></line>
+  <text x="240" y="34" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#B0413B" letter-spacing="1.5">日本：三者分断</text>
+  <text x="660" y="34" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#1A7A4C" letter-spacing="1.5">成熟市場：単一責任点</text>
+  <rect x="160" y="56" width="160" height="46" rx="8" fill="#1B2A4A"></rect>
+  <text x="240" y="84" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#FFFFFF">事業主</text>
+  <path d="M 200 102 L 120 150" stroke="#9AA7B4" stroke-width="1.5"></path>
+  <path d="M 240 102 L 240 150" stroke="#9AA7B4" stroke-width="1.5"></path>
+  <path d="M 280 102 L 360 150" stroke="#9AA7B4" stroke-width="1.5"></path>
+  <g font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#3A4654">
+    <rect x="58" y="152" width="120" height="44" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="118" y="179" text-anchor="middle">アグリゲーター</text>
+    <rect x="186" y="152" width="108" height="44" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="240" y="179" text-anchor="middle">主任技術者</text>
+    <rect x="302" y="152" width="120" height="44" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="362" y="179" text-anchor="middle">メーカー</text>
+  </g>
+  <rect x="120" y="232" width="240" height="56" rx="8" fill="#FDF3F2" stroke="#C0413B" stroke-width="1.6" stroke-dasharray="6 4"></rect>
+  <text x="240" y="258" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12.5" font-weight="700" fill="#B0413B">直流側＝空白</text>
+  <text x="240" y="277" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">束ねる主体が不在 → 可用性保証の起点なし</text>
+  <rect x="580" y="56" width="160" height="46" rx="8" fill="#1B2A4A"></rect>
+  <text x="660" y="84" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#FFFFFF">事業主</text>
+  <path d="M 660 102 L 660 150" stroke="#1A7A4C" stroke-width="2"></path>
+  <path d="M 654 144 L 660 152 L 666 144 Z" fill="#1A7A4C"></path>
+  <rect x="520" y="152" width="280" height="56" rx="8" fill="#F1F8F3" stroke="#1A7A4C" stroke-width="1.8"></rect>
+  <text x="660" y="178" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1A7A4C">OEM / LTSA（単一責任点）</text>
+  <text x="660" y="197" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">設備全体を一手に引き受ける</text>
+  <path d="M 660 208 L 660 232" stroke="#1A7A4C" stroke-width="1.6"></path>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="520" y="232" width="280" height="56" rx="8" fill="#F8FBF9" stroke="#1A7A4C" stroke-width="1.3"></rect>
+    <text x="540" y="256" font-size="11.5" font-weight="700" fill="#1A7A4C">年間可用性 約97%を契約保証</text>
+    <text x="540" y="277" font-size="11" fill="#6C7A89">ただし不可抗力・系統・天候・盗難は免責</text>
+  </g>
+  <rect x="120" y="334" width="660" height="58" rx="8" fill="#1B2A4A"></rect>
+  <rect x="120" y="334" width="6" height="58" fill="#C49A3C"></rect>
+  <text x="453" y="362" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#FFFFFF">日本の分断は、市場が統合に向かう前夜の姿</text>
+  <text x="453" y="382" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#D4AF5C">空白を埋める単一責任点を、誰がどう据えるか</text>
+</svg>
+<div class="fig-cap">図4 — 成熟市場はOEMのLTSAで設備全体を単一責任点に集約し、外的要因を免責したうえで可用性を保証する。日本の三者分断はその前段にある。</div>
+</div>
+<h3>8-2 三層の保証と、その免責範囲</h3>
+
+<p>単一責任点が成立する市場では、可用性・性能・容量の三層が契約上保証されます。可用性保証について、第三者認証機関（DNV）の整理では、多くの契約が損害賠償の発生する手前のしきい値として年間97%前後の可用性を置いていると報告されています。実際の契約条項でも、保証可用性を下回った差分（ポイント）に容量と単価を乗じて違約金を算定する構造が公開されており、たとえば保証98%に対し実績96.5%なら、その差1.5ポイントに容量とレートを乗じる、といった形です。劣化保証の維持には、温度・電流・SoCといったデータを15分間隔で記録し保持する運用が求められます（保証請求や税制適格性の確認に、この粒度が必要になります）。</p>
+
+<p>ここで、第07章までで見た日本の「保証できない」と、この国際の「97%保証」は矛盾しません。むしろ整合します。国際の可用性保証は、<strong>不可抗力や系統側に起因する事象を免責したうえで</strong>成立しているからです。研究機関の整理でも、監視されたパワーエレクトロニクスであれば契約上99.9%程度の可用性も達成可能とされますが、それは外的・不可抗力事象を除外し、性能を可用性保証に埋め込まないことが条件です。O&M事業者のなかには「可用性99%超」をうたう例もありますが、いずれも外的要因を免責としてくくり出した前提に立っています。違うのは、その外的要因をくくり出したうえで、残りの設備起因の可用性を単一のOEMが束ねて保証している点です。日本では設備全体を束ねる主体がいないため、可用性を一元的に保証する起点がそもそも存在しません。</p>
+
+<p>容量についても同様で、システム全体を10〜20年規模で保証し、劣化は増設（augmentation）で補う設計をOEMが束ねます。DNVの整理では保証容量はおおむね初期の70%程度までとされ、NREL ATBの固定O&M（CAPEXの2.5%）にも増設費が含まれます。日本でも長期脱炭素オークションが追加取得・総入替えの費用算入を認めており、O&Mの射程は「壊れたら直す」から「20年を通じて容量を保つ」まで伸びます。</p>
+
+<h3>8-3 安全規制：国内「離隔3m」と海外「性能ベース」</h3>
+
+<p>安全規制の組み立て方にも、同じ「日本は固定値、海外は性能ベース」という対比が現れます。国内では2023年5月公布・2024年1月施行の消防庁の基準改正で、規制単位がセル容量からkWhに改められ、下限は10kWh超（出火防止措置を講じた10〜20kWhは除外＝実質20kWh超で届出）、屋外設置は建築物から原則3m以上の離隔が求められます（火災予防上支障がないと認められるキュービクル式等は除く）。系統用のMWh級は当然に規制対象です。これに対し北米のNFPA 855は、ユニット間の離隔を原則3フィート（約0.9m）としつつ、UL 9540Aの大規模火災試験で安全を実証すれば短縮を認めます。固定離隔（日本）か、試験データに基づく性能ベース（海外）か——同じ「延焼を防ぐ」目的でも設計の自由度が変わり、いずれにせよ離隔・区画・点検記録の遵守を運用期間を通じて維持するのは、誰かが担うべき役務です。</p>
+
+<h3>8-4 三つの一般化</h3>
+
+<p>国際比較から一般化すると、こうなります。第一に、機能分担という発想そのものは世界共通です。第二に、通信レイヤの責任空白は<strong>日本固有性が強い</strong>ものです。電気主任技術者制度（電気保安）と通信・制御（メーカー／O&M）の制度的分断が、直流側・通信の空白を生んでいます。海外はLTSAが可用性ベースで全体を包括するため、空白が構造的に生じにくいといえます。ただし韓国ESS火災が示したように、複数メーカー統合時の責任不明確化そのものは普遍的です。「電気屋と通信屋の分断」は日本固有でも、統合責任の空白という構造は世界共通でしょう。第三に、主任技術者が直流側の是正を実質的にカバーしないのは制度設計上の必然ではなく、技能・メーカー認定・保証範囲に起因する日本固有の運用慣行です。法令上は直流側も保安監督の範囲に含まれています。</p>
+
+
+<h2>09 — 運開前のシーケンスと判断軸</h2>
+
+<p>ここまでの整理が示すのは、O&Mが「運開後に考えること」ではなく、運開前の設計事項だということです。直流側の是正、通信の図書、保証の境界、ペナルティ露出——これらは引き渡しの瞬間に決まってしまい、後から差し込むのは難しくなります。実務上は、系統連系のおよそ半年前にはO&Mの組成を始めておきたいところです。</p>
+
+<p>運開前にO&Mを組み込むシーケンスを、連系手続きと並べて時系列に置くと、こうなります。</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図5 — 運開前のO&M組み込みシーケンス">
+  <rect width="900" height="320" fill="#FFFFFF"></rect>
+  <line x1="60" y1="150" x2="840" y2="150" stroke="#D8DEE6" stroke-width="2"></line>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <circle cx="120" cy="150" r="7" fill="#C49A3C"></circle>
+    <text x="120" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1B2A4A">−6か月</text>
+    <text x="120" y="182" text-anchor="middle" font-size="10.5" fill="#6C7A89">O&amp;M・主任技術者</text>
+    <text x="120" y="198" text-anchor="middle" font-size="10.5" fill="#6C7A89">・通信を固める</text>
+    <circle cx="320" cy="150" r="7" fill="#2A3D66"></circle>
+    <text x="320" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1B2A4A">施工期間</text>
+    <text x="320" y="182" text-anchor="middle" font-size="10.5" fill="#6C7A89">O&amp;M経由で主任者選任</text>
+    <text x="320" y="198" text-anchor="middle" font-size="10.5" fill="#6C7A89">コミッショニング</text>
+    <circle cx="520" cy="150" r="7" fill="#2A3D66"></circle>
+    <text x="520" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1B2A4A">運開直前</text>
+    <text x="520" y="182" text-anchor="middle" font-size="10.5" fill="#6C7A89">使用前自己確認</text>
+    <circle cx="680" cy="150" r="9" fill="#1A7A4C"></circle>
+    <text x="680" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1A7A4C">運開</text>
+    <circle cx="820" cy="150" r="7" fill="#C49A3C"></circle>
+    <text x="820" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1B2A4A">翌4月</text>
+    <text x="820" y="182" text-anchor="middle" font-size="10.5" fill="#6C7A89">需給調整市場</text>
+  </g>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="70" y="232" width="220" height="58" rx="6" fill="#FDF7EA" stroke="#C49A3C" stroke-width="1.2"></rect>
+    <text x="84" y="254" font-size="11" font-weight="700" fill="#A07916">見積りに2.5〜3週間</text>
+    <text x="84" y="272" font-size="10" fill="#6C7A89">2時間圏・点数の余る</text>
+    <text x="84" y="286" font-size="10" fill="#6C7A89">主任者候補の選任が要る</text>
+    <rect x="310" y="232" width="240" height="58" rx="6" fill="#eef3f8" stroke="#1a5276" stroke-width="1.2"></rect>
+    <text x="324" y="254" font-size="11" font-weight="700" fill="#1a5276">ルーター納期 約2.5〜3か月</text>
+    <text x="324" y="272" font-size="10" fill="#6C7A89">供給制約で長期化。設定済み</text>
+    <text x="324" y="286" font-size="10" fill="#6C7A89">バックアップ機の配備が要る</text>
+    <rect x="570" y="232" width="270" height="58" rx="6" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.2"></rect>
+    <text x="584" y="254" font-size="11" font-weight="700" fill="#1B2A4A">完成引き渡し（turnkey）の罠</text>
+    <text x="584" y="272" font-size="10" fill="#6C7A89">主任者は既設→途中切替は可だが</text>
+    <text x="584" y="286" font-size="10" fill="#6C7A89">解約条件・1年の空白が論点になる</text>
+  </g>
+</svg>
+<div class="fig-cap">図5 — 見積りには2.5〜3週間、設定済みルーターの調達には供給制約で2.5〜3か月かかる（後者は機器全般の長期化として確認できるが、系統用ルーターの個別納期は一次確認できていない）。直前に動くほどリードタイムに追われる。</div>
+</div>
+<p>ここで陥りやすいのが、ターンキー一括（フルラップEPC）に「丸投げすれば全部面倒を見てくれる」という期待です。確かにEPC一括は引き渡しまでの責任を一つにまとめますが、運開後のO&M・保証・通信図書がその契約に含まれているとは限りません。米国の法律実務でも、近年はOEMが統合システムを提供することでターンキー一括の必要性が薄れ、開発者がOEMから直接機器を調達して施工は別のEPCに委ねる構造——EPCは据付と施工の瑕疵を、電池供給者は機器保証を、それぞれ負う——が一般的な型の一つになっています。一括にすれば責任が一点に集まるとは限りません。むしろ「誰が・どの設備を・いつまで・どの根拠で」持つかを、契約で明示的に分解しておくことが要ります。引き渡しのときに完成図書（とくに通信の設定図書）を受け取れるか、保証の境界はどこか、計画外停止のペナルティ露出を誰が負うか——これらを運開前のチェック項目として持っておくと、後の紛争を相当に減らせます。</p>
+
+<p>蓄電所オーナー・EPC・O&Mが運開前に確認しておきたい論点を、九つの軸にまとめました。タップで確認状況を記録できます。</p>
+<div class="checklist-group" id="om-checklist">
+  <h5><span class="cl-num">9</span>O&M・保安体制の設計で確認すべき9つの軸</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01.</span><strong>直流側一次対応の担い手が明文化されているか</strong>。EMS・PCS・BESS・BMSの異常時に、契約上「誰が最初に切り分け、復旧に着手するか」が書かれているか。法は直流側を主任技術者の保安監督対象に含めているが、その遂行を実際に担う者は契約で別途定めないと空白になる。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02.</span><strong>可用性保証の有無と免責範囲</strong>。年間可用性（国際標準は97%前後）が契約に書かれているか。不可抗力・系統起因・天候・ケーブル盗難の免責範囲はどこまでか。「保証できない」と言われる場合、それが免責範囲の広さによるのか、保証主体の不在によるのかを切り分ける。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03.</span><strong>通信完成図書の納品と復旧責任者</strong>。ルータ設定・IP表・系統図が引渡し時に納品されるか。ルーターや光回線が故障したとき、誰が切り分け、誰が復旧するか。保安規程の記載要求の外側に落ちる項目なので、契約で明示しないかぎり残らない。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04.</span><strong>JC-STAR★1の機器単位適合（2027年要件）</strong>。2027年4月（低圧50kW未満は10月）以降の新規連系・機器更新で、PCS・EMS・BMS等が製品単位で★1に適合する見込みか。ゲートウェイ一括では免除されない点を前提に、対象機器を洗い出し、連系申込時のチェックと未対応時の取扱いを連系窓口に確認する。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05.</span><strong>市場ペナルティ露出と稼働率の関係</strong>。需給調整市場のアセスメントⅡ不適合（1.0倍・同一商品月3回で取引停止／系統起因は積算対象外）と、容量市場のリクワイアメント未達（計画外停止は5倍カウント）への露出を、O&Mの応答速度がどこまで抑えるか。突発故障を計画停止へ転化できれば、容量ペナルティ露出は最大で約1/5に縮む。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06.</span><strong>保険の原因究明体制とデータアクセス</strong>。事故時の原因究明（切り分け・メーカー連動・是正見積り）を誰が担うか。利益保険の損失額算定に必要な市場収益データ（アグリゲーター保有）へのアクセスが、契約上確保されているか。原因が立証できなければ保険金は動かない。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07.</span><strong>契約の締結順序</strong>。O&M・主任技術者・通信を、連系のおおむね半年前までに固められているか。外部委託承認には距離要件（2時間）と点数制限（合計33未満）があり、候補選任に時間がかかる。完成引渡しの場合でも、施工期間中からO&M側の主任技術者を使い、連系直前で切り替える設計にしておくと、引渡し後の直流側の空白を避けやすい（→ <a class="xref" target="_top" href="https://www.scix.co.jp/column-contracts">契約設計コラム</a>）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">08.</span><strong>augmentation（劣化補償）戦略</strong>。20年運用での容量劣化を、誰の費用・責任で、増設・総入替によって補うか。長期脱炭素オークションでは追加取得・総入替の費用算入が認められている。「壊れたら直す」だけでなく「容量を保つ」費用設計まで契約に織り込まれているかを確認する。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">09.</span><strong>メーカー保証範囲とO&Mの境界</strong>。製品保証の年数、性能・劣化（SoH）保証の有無と算定式、保証維持に必要な運用条件、認定外作業による保証失効の条件を確認し、「誰がどの機器に手を入れてよいか」と、保証とO&Mのギャップを誰が負うかを契約で決める。直流側を「法の壁」ではなく設計変数として扱う。</span></label>
+  <div class="check-progress">
+    <span class="bar"><span class="bar-fill" id="checkBarFill" style="width: 0%;"></span></span>
+    <span class="count"><span id="checkCount">0</span> / 9</span>
+  </div>
+</div>
+<p class="note-small">※ 上記は設計上の確認軸であって、個別案件の法令適合や契約交渉を代替するものではありません。設備区分・出力規模・系統条件により適用関係は変わります。</p>
+
+
+<h2>10 — 今後の論点</h2>
+
+<p>系統用蓄電所のO&Mは、制度と市場の両面でまだ動いている領域です。最後に、これから固まっていく論点を挙げておきます。</p>
+
+<p><strong>保安人材の構造的な不足。</strong>第三種の監督を要する再エネ・蓄電設備は年々増える一方で、担い手は2030年・2045年に向けて不足が見込まれています。距離要件（2時間）と点数制限（合計33未満）という外部委託の器は、人材が細るほど効いてきます。地域によって主任技術者の確保しやすさとコストが構造的に変わる——この前提を、立地選定とO&M費の見積りに織り込んでおく必要があります。</p>
+
+<p><strong>サイバー要件の国際整合。</strong>JC-STARは英国PSTI法と2026年1月から、シンガポールCLSと2026年6月から★1相互承認を開始し、米国Cyber Trust Mark・EU CRAも既に発効・運用に入っています。日本の機器単位の要件化が、これらゾーン単位の海外制度とどう接続するかは、機器調達と更新の実務に直結します。</p>
+
+<p><strong>メーカー認定と統合O&Mの整備。</strong>直流側が技能・メーカー認定・保証範囲で囲われている現状を動かす鍵は、メーカー認定をどう取り込み、可用性・容量を誰が束ねて保証するかにあります。成熟市場が単一責任点で解いた問題を、日本の制度・商慣行のなかでどう組むか——これから具体化していく領域です。</p>
+
+<p><strong>増設・廃棄という出口。</strong>20年運用の出口、すなわち劣化を補う増設の費用と責任、運用終了後の廃棄・リサイクルをどう設計するか。長期脱炭素オークションが追加取得・総入替えの費用算入を認め、消防・危険物規制が運用期間を通じた保安体制を求める以上、O&Mの射程は「建てて回す」から「保って仕舞う」まで伸びます。</p>
+
+<p>参考までに、市場の厚みを数字で見ておきます。第1回長期脱炭素電源オークションでは、蓄電池の応札が約455.9万kW、落札が約109.2万kW（落札率約24%）でした（OCCTO約定結果。なお蓄電池と揚水を合わせた応札が約539.7万kWで、この合計値を蓄電池単独と取り違えないよう注意が要ります）。系統への接続検討の申込みは全国で数千万kW規模に達しており、これらの蓄電所が次々に運開を迎えるとき、本稿で見た直流側の空白を誰が埋めるかが、市場全体の課題として立ち上がってきます。</p>
+
+
+<h2>結 — 「やることがない」のではなく「誰もやらない」</h2>
+
+<p>「O&Mなんてやることはほとんどない」——本稿はこの言葉から出発しました。けれども調べていくと、構造はむしろ逆でした。やることがないのではありません。法は直流側の保安監督責任を主任技術者に明確に課しています。空白なのは責任ではなく、その法定責任を現場で誰が遂行するか——「監督は法定、是正は不在」という乖離です。</p>
+
+<p>アグリゲーターは設備が動いている前提で市場に向き合い、主任技術者は受変電を監督し、メーカーは自社機器を保全します。三者はそれぞれの範囲を全うしていますが、直流側の是正と通信の復旧という、誰の契約にも明示されない空白が残ります。そしてその空白の経済的帰結は、需給調整市場のアセスメントと、容量市場の計画外停止5倍カウントという制度ペナルティとして、二段で効いてきます。成熟市場はこの空白を、設備全体を束ねる単一責任点に集約することで解きました。日本にまだその主体が育っていないのは、制度の限界ではなく、契約と慣行と技能の問題です。だからこそ、設計で動かせます。</p>
+
+<p>系統用蓄電所を<strong>買う側</strong>は、価格と立地と機器スペックの先に、「直流側を誰がどの契約で持つか」を見ておきたいところです。<strong>売る側</strong>は、O&Mと完成図書を設計に織り込んでおくことが、引き渡し後の紛争を避ける近道になります。そして<strong>施工・保守する側</strong>は、技能・メーカー認定・保証範囲という三つの壁を、法の壁ではなく設計変数として扱うところから始められます。やることがないのではなく、誰もやらないだけ——その空白を、誰が・どの契約で・いつまでに埋めるか。それを運開前に決めておくことが、20年動かす蓄電所の物理運用を支える設計の核心になります。</p>
+
+<a target="_top" href="https://www.scix.co.jp/column-contracts" class="next-link">
+  <div>
+    <div class="next-link-label">関連記事 / Related</div>
+    <div class="next-link-title">契約設計が20年で2億円を分ける — 系統用蓄電所が結ぶ5層の電力契約</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="cta-section">
+  <h3>O&M・保安体制の設計を含む蓄電池事業のご相談</h3>
+  <p>記事だけでは判断できない案件固有の情報は、<br>お問い合わせ後にNDA締結のうえご開示します。</p>
+  <a target="_top" href="https://www.scix.co.jp/contact" class="cta-btn">お問い合わせ →</a>
+</div>
+
+<p class="note-small" style="margin-top:32px"><strong>主な一次情報（2026年5月時点で確認）</strong><br>
+法令：電気事業法（43条1項・42条・2条）、電気事業法施行規則（52条・56条・50条・3条の4）、電気設備に関する技術基準を定める省令（蓄電所の定義・15条の2）、平成15年経済産業省告示第249号（換算係数の合計33・太陽電池発電所／蓄電所は0.31〜0.33）／e-Gov・経済産業省。<br>
+保安・人材：経済産業省「蓄電所に対する保安規制のあり方について」（令和4年4月15日 電力安全課 資料1）、「主任技術者制度の解釈及び運用（内規）」、「電気主任技術者制度について」（令和5年3月31日）、電力安全小委員会・電気保安人材関連資料（2030年度 第2種約1,000人・第3種約800人不足、第3種2045年約4千人不足、免状取得者の約6割が50歳以上）。<br>
+市場：OCCTO「容量市場業務マニュアル（リクワイアメント／ペナルティ関係）」「容量確保契約約款」（経済的ペナルティ＝契約金額×（未達成コマ累積−8,640コマ＝約180日相当）、計画外停止は5倍カウント・平常時の夜間休日除く）、容量市場メインオークション約定結果（2025年1月29日公表・エリア別8,785〜14,812円/kW・年・Net CONE 9,875円）、需給調整市場検討小委員会資料（アセスメントⅡのペナルティ強度を1.5倍から1.0倍へ見直し＝第36回・2023年3月2日。アセスメントⅡ不適合は1.0倍・度合い無関係、アセスメントⅠは段階的・最大1.5倍）、EPRX 取引規程・系統起因緩和様式（様式24・25は2026年3月14日受渡分以降）、需給調整 上限価格（19.51円→2026年3月に15円、段階的に10円・7.21円／資源エネルギー庁 2026年1月）、JEPX「2024年度事業報告書」（スポット年度平均12.31円/kWh）、長期脱炭素電源オークション約定結果（蓄電池 応札455.9万kW・落札109.2万kW・落札率24%）。<br>
+サイバー：第20回グリッドコード検討会 資料4（JC-STAR★1要件化・高圧2027年4月／低圧50kW未満2027年10月・2025年12月16日）、資源エネルギー庁 資料5（IP通信を用いる製品＝機器単位で要件化・2026年2月12日）、IPA JC-STAR（★1・★2自己適合宣言／★3以上第三者認証・2025年3月25日運用開始）、METI/IPA 英国PSTI相互承認（2026年1月1日・★1のみ）／シンガポールCLS相互承認（2026年6月1日）。<br>
+安全：消防庁 蓄電池設備の基準改正（2023年5月公布・2024年1月施行／規制単位をAh・セルからkWhへ・下限10kWh超・出火防止措置で10〜20kWh除外＝実質20kWh超で届出・屋外は建築物から3m以上の離隔・キュービクル式等は除く）、NFPA 855（離隔3ft＝約0.9m）・UL 9540A、NERC CIP／IEC 62443。<br>
+O&M・国際：定置用蓄電システム普及拡大検討会 資料3（運転維持費5,000円/kW・年＝長期脱炭素オークションのモデルプラント参照・2024年8月29日）、NREL ATB（固定O&M＝CAPEX約2.5%・増設費含む・15年前提）、DNV（可用性は損害賠償発生点として年間97%前後・保証容量はおおむね初期の70%）、公開契約条項（保証可用性を下回った差分×容量×単価で違約金を算定する構造）、研究機関整理（監視下のパワーエレクトロニクスは契約上99.9%程度の可用性も達成可能・不可抗力／外的事象を除外した前提）、Norton Rose Fulbright（劣化保証・税制適格性の確認に15分粒度のデータ保持）、Vistra（Moss Landing Phase I・2021年9月停止→2022年1月原因公表＝約5か月）。<br>
+※ 次の事項は一次原文に未到達または公的データ不在のため、所見として明示しています（❓）：韓国ESS火災の4要因・被害額3,200万ドル・522基（約35%）停止・メーカー反論は複数の英語報道で一致するものの、産業通商資源部（MOTIE）韓国語原文には未到達。主任技術者報酬の地域別順位・系統用ルーターの個別品目納期・国内稼働率の実績値を示す公的データは存在せず、「公的データ不在」を所見として記載。外部委託比率や保安人材の年齢構成の一部の細目、第三種監督を要する設備の年間増加件数は、対応する一次スライドに未到達。<br>
+※ 本稿は監修を付さない自社編集記事です。制度・市場は改正の途上にあり、数値・適用時期は今後変わり得ます。投資判断・法令適合の最終確認は、一次情報と専門家への照会のうえで行ってください。</p>
+
+</div>
+
+<script>
+(function(){
+  var group=document.getElementById('om-checklist');
+  if(!group)return;
+  var checks=group.querySelectorAll('input[type=checkbox]');
+  var countEl=document.getElementById('checkCount');
+  var fillEl=document.getElementById('checkBarFill');
+  var total=checks.length;
+  function update(){var done=0;checks.forEach(function(c){if(c.checked)done++;});countEl.textContent=done;fillEl.style.width=(done/total*100)+'%';}
+  checks.forEach(function(c){c.addEventListener('change',update);});
+  update();
+})();
+</script>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:x@scix.co.jp">x@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

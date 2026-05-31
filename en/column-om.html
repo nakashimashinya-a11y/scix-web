@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:580px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.comparison-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:600px}
+.xref{display:inline-block;font-size:.84em;color:var(--accent);text-decoration:none;font-weight:600;border-bottom:1px solid rgba(196,154,60,.4);transition:opacity .2s}
+.xref:hover{opacity:.7}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.field-note{background:#F0F5FA;border:1px solid #D8E3EE;border-left:4px solid #2A4D7A;border-radius:0 6px 6px 0;padding:20px 26px;margin:32px 0;font-size:.92em;line-height:1.95}
+.field-note-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:.78em;letter-spacing:.06em}
+.field-note-icon{font-size:1.1em}
+.field-note-label{font-weight:700;color:#2A4D7A;letter-spacing:.04em}
+.field-note-body p{margin:0;color:var(--text)}
+.field-note-body p+p{margin-top:10px}
+.field-note-body p::before{content:"\300C";color:#2A4D7A;font-weight:700}
+.field-note-body p::after{content:"\300D";color:#2A4D7A;font-weight:700}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:left;margin-top:12px;letter-spacing:.02em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+}
+body{padding-top:64px}
+.scix-footer{background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+.scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:24px}
+.scix-footer-logo{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:700;color:#fff;text-decoration:none}
+.scix-footer-logo .x{color:#C49A3C}
+.scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8);text-align:center}
+.scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+.scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none}
+.scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+.scix-footer-copyright{font-size:11px;letter-spacing:.04em;color:rgba(255,255,255,.55);margin-top:8px}
+.scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12)}
+</style>
+<title>When the Battery Plant Goes Down, Who Fixes It? — Grid-Scale Storage O&M and the Responsibility–Execution Gap | ScienceX</title>
+<meta name="description" content="Grid-scale storage O&M as a judgment framework. The law names an executing party only for AC-switchgear safety oversight and grid-connection cybersecurity; DC-side remediation and comms become a contractual gap. Visualized in a responsibility matrix — the ×5 unplanned-outage count, device-unit JC-STAR rules, debunking the 0.5-second myth, and the international LTSA availability guarantee, organized from primary sources.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-om">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-om">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-om">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-om">
+<meta property="og:type" content="article">
+<meta property="og:title" content="When the Battery Plant Goes Down, Who Fixes It? — Grid-Scale Storage O&M and the Responsibility–Execution Gap | ScienceX">
+<meta property="og:description" content="Grid-scale storage O&M as a judgment framework. The law names an executing party only for AC-switchgear safety oversight and grid-connection cybersecurity; DC-side remediation and comms become a contractual gap. Visualized in a responsibility matrix — the ×5 unplanned-outage count, device-unit JC-STAR rules, debunking the 0.5-second myth, and the international LTSA availability guarantee, organized from primary sources.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-om">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<script src="/header.js"></script>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 23</span>
+      <span class="header-tag">Operations & Maintenance</span>
+      <time class="header-date" datetime="2026-05-31">2026.05.31</time>
+    </div>
+    <h1>When the Battery Plant Goes Down, <em>Who Fixes It?</em><br>The Chief Electrical Engineer <em>Doesn’t Repair the Battery</em></h1>
+    <p class="header-desc">With an aggregator, a chief electrical engineer and an OEM, no one is set to repair the DC side when a storage plant goes down. Yet this gap is not an “absence of law.” The law clearly assigns the duty of DC-side safety oversight to the chief engineer. What is missing is who, in the field, executes that statutory duty — and this column reads that gap through three lenses: law, economics and international practice.</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/en/knowledge" class="back-link">← Back to Knowledge</a>
+
+<p>Talk to the EPC firms that build grid-scale storage plants and you will often hear the same line: “there’s hardly anything to do for O&M.” Once the plant is built and connected, the thinking goes, an aggregator schedules charge and discharge, a chief electrical engineer runs the statutory inspections, and the manufacturer fixes whatever breaks — those three keep the plant running. But these three leave one thing decisively uncovered. <strong>When something goes wrong on the DC side (EMS, PCS, BESS, BMS), who triages it first and starts the recovery?</strong> The aggregator faces the market on the assumption that the plant is running; it is not the party that maintains the equipment. The chief engineer is the guardian of the AC switchgear. The OEM looks only as far as its own equipment. Between the three, the job of first response on the DC side is left empty.</p>
+
+<p>This column does not call that emptiness a “gap in the rules.” Dig in and the facts run the other way: <strong>the law clearly assigns the duty of DC-side safety oversight to the chief engineer.</strong> What is empty is not the law but who, in the field, carries out that statutory duty — a gap we will call the mismatch between responsibility and execution. That is arguably more troublesome than “the rules have a hole.” On paper the hole is filled, yet in reality it is not — so no one picks it up as their own problem.</p>
+
+<p>We first pin down the structure of this gap in law, then map the whole picture with a responsibility matrix of equipment × party. Next we lay out its economic consequence — that an outage is not merely lost opportunity but bites twice, as institutional penalties in the balancing market and the capacity market. Finally we draw on international practice to see how mature markets solved this gap, and turn it into decision axes that owners, EPCs and O&M providers can use in contract design. If the sister column, <a class="xref" target="_top" href="https://www.scix.co.jp/en/column-contracts">“Contract design splits ¥200 million over 20 years,”</a> was a map of the five contract layers that underpin the <strong>economic</strong> operation of a plant after COD, this one is its counterpart: a map of the responsibilities that underpin the plant’s <strong>physical</strong> operation after COD.</p>
+
+<div class="data-box">
+<div class="db-head">Scope of this column</div>
+<dl class="premise-grid">
+  <div><dt>Target</dt><dd>Grid-scale storage<span class="unit">HV / EHV</span></dd></div>
+  <div><dt>Central thesis</dt><dd style="font-size:15px">The responsibility–<br>execution gap on the DC side</dd></div>
+  <div><dt>Responsibility matrix</dt><dd>5<span class="unit">equip. × 6 parties</span></dd></div>
+  <div><dt>Weight of unplanned outage</dt><dd>×5<span class="unit">count</span></dd></div>
+  <div><dt>Rules as of</dt><dd>2026.05<span class="unit"></span></dd></div>
+  <div><dt>Primary readers</dt><dd style="font-size:13px">Owners · EPC · O&M</dd></div>
+</dl>
+</div>
+
+<h2>01 — The myth that “three parties keep it running”</h2>
+
+<p>The operation of a storage plant is often described in terms of three parties: the aggregator, the chief electrical engineer and the OEM. But each carries a defined scope — and a defined non-scope. Stack them together and you still do not get whole-plant health.</p>
+
+<p>The <strong>aggregator</strong> uses the owner’s batteries to schedule charge and discharge in the power markets and earn revenue. Its role is the economic operation of the cells; equipment maintenance is simply not in its remit. It faces the market on the assumption that the equipment is running — not the party that drives to site when it stops.</p>
+
+<p>What about the <strong>chief electrical engineer</strong>? Here many stakeholders assume that “if there’s a chief engineer, the equipment is taken care of,” and that mistakes the scope. Plants at high voltage and above must, under the Electricity Business Act, appoint a chief engineer, and there is no doubt they are electrical professionals. They handle the cubicle (AC switchgear): operating it, investigating faults, shutting down and restarting. But few chief engineers can restore the EMS or PCS beneath it on their own. They are the guardians of the AC switchgear, and as a rule they do not take on, in practice, the role of guardian of the DC-side equipment. Even where the work is outsourced to a safety corporation such as an electrical-safety association, it is common to see the line drawn so the cubicle is covered while the DC side is not entered.</p>
+
+<p>Then does the <strong>OEM</strong> fix it? A storage plant is built from the equipment of several manufacturers — EMS, PCS, BESS — and each handles the upkeep of its own equipment (periodic inspection, call-out, remediation). But no manufacturer keeps enough field staff to dispatch a technician instantly to every one of the storage plants now multiplying across the country. Query each maker before you have established which equipment the fault lies in, and time simply drains away in disputes over where responsibility sits. There is also a constraint that is easy to miss: a manufacturer’s warranty, as a rule, lapses if anyone uncertified touches the equipment — even a licensed person. So the DC side is less “cannot be touched” than “touch it and you void something else (the warranty)” — fenced off, in effect, by three things at once: skill, OEM certification and warranty scope. This is not a legal limit but, as we will see, a constraint that design can move.</p>
+
+<div class="field-note">
+  <div class="field-note-header">
+    <span class="field-note-icon">🔧</span>
+    <span class="field-note-label">FIELD NOTE — A grid-scale storage O&M operator (interview, May 2026)</span>
+  </div>
+  <div class="field-note-body">
+    <p>The aggregator schedules charge and discharge assuming the equipment is up. The chief engineer goes as far as the cubicle. The maker goes as far as its own equipment. In the end, in a lot of deals, the party that moves first when something happens on the DC side isn’t written anywhere in the contract.</p>
+    <p>The biggest gap is comms. Even when the EMS shows “comms fault,” whether it was the router that dropped or the carrier’s fiber side changes the instruction to the field. If the as-builts — which router, what settings — were never handed over, no one can fix it the moment it fails.</p>
+    <p>And the one left holding the bag is usually the dealer or EPC that did the construction. That’s why you need to design how it’s handed over.</p>
+  </div>
+</div>
+
+<p>If the three do not add up to a whole, then a party that manages the entire plant — O&M — has to step to the front. Whether to move the chief engineer, move the OEM, use insurance, or whether the cause is comms: O&M takes on that judgment and the first response, becoming the single window for the owner. That is the starting point of this column.</p>
+
+
+<h2>02 — Responsibility is statutory; execution is unassigned</h2>
+
+<p>This is the core of the column. The field’s line — “the DC side is outside the chief engineer’s scope” — is not because the law says so. In law, the DC side sits squarely within the scope of safety oversight.</p>
+
+<p>Article 43(1) of the Electricity Business Act requires a person who installs electrical equipment for business to appoint a chief engineer in order to provide <strong>safety oversight of the works, maintenance and operation</strong> of that equipment (and Article 42 requires safety management rules to be drawn up and filed). The question is whether that “electrical equipment for business” includes the DC side — and the legal definition of a storage plant answers it. Under the Electricity Technical Standards Ordinance, a storage plant is a facility that stores, in storage devices and other electrical equipment installed on site, power transmitted from outside the site, and re-transmits it outside at the same voltage and frequency. The inverter (PCS) that drives the storage device, and the protective equipment, are part of that electrical equipment. Nowhere is there language excluding the DC side from the scope of oversight.</p>
+
+<p>The qualification tiers, too, are cut by voltage, not by type of equipment. Under Article 56 of the Enforcement Regulation, a Class-3 chief electrical engineer may supervise electrical equipment below 50,000 volts — but generating stations and storage plants of 5,000 kW or more are carved out of that. Class 2 covers below 170,000 volts; Class 1, everything. There is simply no structure that splits supervisory authority by AC versus DC, or switchgear versus battery. METI’s materials on electrical-safety personnel likewise state the Class-3 range as “below 50,000 V (excluding generating stations or storage plants of 5,000 kW or more),” so it is confirmed in government documents that a storage plant of 5,000 kW or more falls outside the Class-3 range. Note, too, that grid storage was positioned as a “power generation business” by the 2022 amendment to the Electricity Business Act (in force April 2023), for discharge above 10,000 kW.</p>
+
+<p>But here a further point of precision is needed. What the chief engineer owes is the <strong>oversight</strong> of safety — confirming conformity with technical standards and reporting to the installer if non-conformity is likely — not <strong>remediating</strong> the PCS or BESS themselves. The duty of oversight extends, by law, to the whole plant including the DC side; but no provision names who actually fixes the equipment beneath it (remediation, first response). Pushed to its conclusion, <strong>the only places the law names an executing party are “safety oversight of the AC switchgear” and “cyber and technical-standard conformity at grid connection”</strong> — and DC-side remediation spills outside both. So the gap takes the form “oversight is statutory; remediation is unassigned.”</p>
+
+<p>Let us put this discrepancy on a single sheet, dividing what the law assigns from what the field executes.</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 510" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 1 — Responsibility–execution gap: the law assigns whole-plant safety oversight to the chief engineer, but field execution stops at the AC switchgear">
+  <defs>
+    <filter id="sh1" x="-12%" y="-12%" width="124%" height="124%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"></feGaussianBlur>
+      <feOffset dx="0" dy="2" result="o"></feOffset>
+      <feComponentTransfer><feFuncA type="linear" slope="0.12"></feFuncA></feComponentTransfer>
+      <feMerge><feMergeNode></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+    </filter>
+    <linearGradient id="navyGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2A3D66"></stop>
+      <stop offset="100%" stop-color="#0F1A2E"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="510" fill="#FFFFFF"></rect>
+  <text x="250" y="34" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#A07916" letter-spacing="2">Responsibility under the law</text>
+  <text x="690" y="34" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#B0413B" letter-spacing="2">Execution in the field</text>
+  <line x1="470" y1="50" x2="470" y2="430" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="4 4"></line>
+  <rect x="60" y="58" width="380" height="58" rx="8" fill="url(#navyGrad1)" filter="url(#sh1)"></rect>
+  <text x="250" y="83" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#FFFFFF">Electricity Business Act, Art. 43(1)</text>
+  <text x="250" y="104" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="rgba(255,255,255,.75)">Safety oversight of works, maintenance & operation</text>
+  <path d="M 250 116 L 250 142" fill="none" stroke="#C49A3C" stroke-width="2.2"></path>
+  <path d="M 244 136 L 250 144 L 256 136 Z" fill="#C49A3C"></path>
+  <rect x="120" y="144" width="260" height="44" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.8"></rect>
+  <text x="250" y="171" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">Chief Electrical Engineer (safety supervisor)</text>
+  <text x="250" y="216" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#A07916" letter-spacing=".5">Statutory scope of oversight = the whole plant</text>
+  <path d="M 70 226 L 70 236 L 430 236 L 430 226" fill="none" stroke="#C49A3C" stroke-width="1.6"></path>
+  <path d="M 250 236 L 250 248" stroke="#C49A3C" stroke-width="1.6"></path>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="60" y="250" width="120" height="64" rx="7" fill="#F4F1EA" stroke="#C49A3C" stroke-width="1.4"></rect>
+    <text x="120" y="278" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">AC switchgear</text>
+    <text x="120" y="298" text-anchor="middle" font-size="10.5" fill="#6C7A89">AC side / cubicle</text>
+    <rect x="190" y="250" width="160" height="64" rx="7" fill="#F4F1EA" stroke="#C49A3C" stroke-width="1.4"></rect>
+    <text x="270" y="274" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">DC-side equipment</text>
+    <text x="270" y="293" text-anchor="middle" font-size="10" fill="#6C7A89">EMS · PCS · BESS · BMS</text>
+    <text x="270" y="307" text-anchor="middle" font-size="9.5" fill="#A07916">Inverter = electrical equipment</text>
+    <rect x="360" y="250" width="80" height="64" rx="7" fill="#F4F1EA" stroke="#C49A3C" stroke-width="1.4"></rect>
+    <text x="400" y="278" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">Comms equipment</text>
+    <text x="400" y="298" text-anchor="middle" font-size="10.5" fill="#6C7A89">Line / router</text>
+  </g>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="510" y="86" width="340" height="56" rx="7" fill="#F1F8F3" stroke="#1A7A4C" stroke-width="1.5"></rect>
+    <text x="528" y="110" font-size="12.5" font-weight="700" fill="#1A7A4C">✓ AC switchgear</text>
+    <text x="528" y="130" font-size="11" fill="#2C3E50">Chief engineer executes (matches custom & contract)</text>
+    <rect x="510" y="156" width="340" height="62" rx="7" fill="#FDF3F2" stroke="#C0413B" stroke-width="1.6" stroke-dasharray="6 4"></rect>
+    <text x="528" y="180" font-size="12.5" font-weight="700" fill="#B0413B">？ DC-side equipment</text>
+    <text x="528" y="199" font-size="11" fill="#2C3E50">No party contracted for remediation / first response</text>
+    <text x="528" y="213" font-size="10.5" fill="#6C7A89">Chief engineer won’t enter; OEM dispatch is limited</text>
+    <rect x="510" y="232" width="340" height="62" rx="7" fill="#FDF3F2" stroke="#C0413B" stroke-width="1.6" stroke-dasharray="6 4"></rect>
+    <text x="528" y="256" font-size="12.5" font-weight="700" fill="#B0413B">？ Comms equipment</text>
+    <text x="528" y="275" font-size="11" fill="#2C3E50">No as-builts → recovery duty left hanging on failure</text>
+    <text x="528" y="289" font-size="10.5" fill="#6C7A89">Router-vs-fiber triage also undefined</text>
+  </g>
+  <path d="M 350 282 C 430 282, 440 114, 510 114" fill="none" stroke="#1A7A4C" stroke-width="1.6"></path>
+  <path d="M 350 282 C 430 282, 440 187, 510 187" fill="none" stroke="#C0413B" stroke-width="1.4" stroke-dasharray="5 4"></path>
+  <path d="M 400 314 C 440 350, 460 263, 510 263" fill="none" stroke="#C0413B" stroke-width="1.4" stroke-dasharray="5 4"></path>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="510" y="316" width="166" height="58" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="593" y="339" text-anchor="middle" font-size="11.5" font-weight="700" fill="#6C7A89">Aggregator</text>
+    <text x="593" y="358" text-anchor="middle" font-size="10.5" fill="#6C7A89">Economic dispatch only</text>
+    <rect x="684" y="316" width="166" height="58" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="767" y="339" text-anchor="middle" font-size="11.5" font-weight="700" fill="#6C7A89">OEM</text>
+    <text x="767" y="358" text-anchor="middle" font-size="10.5" fill="#6C7A89">Own-equipment inspection only</text>
+  </g>
+  <rect x="60" y="400" width="790" height="74" rx="8" fill="#1B2A4A"></rect>
+  <rect x="60" y="400" width="6" height="74" fill="#C49A3C"></rect>
+  <text x="455" y="432" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#FFFFFF">Oversight is statutory (whole plant) / execution stops at the AC switchgear</text>
+  <text x="455" y="456" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#D4AF5C" letter-spacing="1">This is the responsibility–execution gap (mismatch)</text>
+</svg>
+<p class="fig-cap">Figure 1 — The law assigns whole-plant safety oversight to the chief engineer. What is missing is not the law, but who in the field executes remediation on the DC side and on comms.</p>
+</div>
+<p>The figure shows a simple fact. The law assigns whole-plant safety oversight to the chief engineer, yet field execution stops at the AC switchgear, and remediation of the DC side and comms belongs to no one. It is not that “the rules have a hole,” but that “on paper the hole is filled while in the field it is not” — which is exactly why it goes unaddressed so easily.</p>
+
+
+<h2>03 — The responsibility matrix: equipment × party</h2>
+
+<p>Figure 1 read the law-versus-field discrepancy down a vertical. Expand the same structure across a plane of “which equipment, which party, on what basis,” and the location of the gap grows more concrete. With equipment domains down the side and the parties involved across the top, we shade each intersection by four bases: what the law sets, what a contract sets, what custom has made true in practice, and what is assigned to no one.</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 590" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 2 — Responsibility matrix for a grid-scale storage plant (equipment × party)">
+  <rect width="900" height="590" fill="#FFFFFF"></rect>
+  <text x="78" y="44" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#9AA3AF">Equipment ＼ Party</text>
+  <line x1="8" y1="86" x2="888" y2="86" stroke="#E2E6EC" stroke-width="1.5"></line>
+  <g font-family="'Noto Sans JP',sans-serif" font-size="12.5" font-weight="700" fill="#1B2A4A" text-anchor="middle">
+    <text x="211.5" y="52">Chief Eng.</text>
+    <text x="334.5" y="52">Safety firm</text>
+    <text x="457.5" y="52">OEM</text>
+    <text x="580.5" y="52">Aggreg.</text>
+    <text x="703.5" y="52">O&amp;M</text>
+    <text x="826.5" y="52">Owner</text>
+  </g>
+  <g font-family="'Noto Sans JP',sans-serif" font-size="12.5" font-weight="700" fill="#1B2A4A">
+    <text x="14" y="126">AC switch-</text><text x="14" y="143">gear</text>
+    <text x="14" y="219">EMS</text>
+    <text x="14" y="303">PCS</text>
+    <text x="14" y="387">BESS</text>
+    <text x="14" y="471">Comms</text>
+  </g>
+  <g font-family="'Noto Sans JP',sans-serif" font-size="12.5" font-weight="600" text-anchor="middle">
+    <rect x="152" y="90" width="119" height="80" rx="3" fill="#1B2A4A"></rect><text x="211.5" y="135" fill="#fff">Statute</text>
+    <rect x="275" y="90" width="119" height="80" rx="3" fill="#1B2A4A"></rect><text x="334.5" y="135" fill="#fff">Statute</text>
+    <rect x="398" y="90" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="135" fill="#fff">Contract</text>
+    <rect x="521" y="90" width="119" height="80" rx="3" fill="#F1F4F8"></rect><text x="580.5" y="135" fill="#AEB7C4">—</text>
+    <rect x="644" y="90" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="135" fill="#fff">Contract</text>
+    <rect x="767" y="90" width="119" height="80" rx="3" fill="#1B2A4A"></rect><text x="826.5" y="135" fill="#fff">Statute</text>
+    <rect x="152" y="174" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="211.5" y="219" fill="#44506A">Custom</text>
+    <rect x="275" y="174" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="334.5" y="219" fill="#44506A">Custom</text>
+    <rect x="398" y="174" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="219" fill="#fff">Contract</text>
+    <rect x="521" y="174" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="580.5" y="219" fill="#fff">Contract</text>
+    <rect x="644" y="174" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="219" fill="#fff">Contract</text>
+    <rect x="767" y="174" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="826.5" y="219" fill="#fff">Gap</text>
+    <rect x="152" y="258" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="211.5" y="303" fill="#44506A">Custom</text>
+    <rect x="275" y="258" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="334.5" y="303" fill="#44506A">Custom</text>
+    <rect x="398" y="258" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="303" fill="#fff">Contract</text>
+    <rect x="521" y="258" width="119" height="80" rx="3" fill="#F1F4F8"></rect><text x="580.5" y="303" fill="#AEB7C4">—</text>
+    <rect x="644" y="258" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="303" fill="#fff">Contract</text>
+    <rect x="767" y="258" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="826.5" y="303" fill="#fff">Gap</text>
+    <rect x="152" y="342" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="211.5" y="387" fill="#44506A">Custom</text>
+    <rect x="275" y="342" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="334.5" y="387" fill="#44506A">Custom</text>
+    <rect x="398" y="342" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="387" fill="#fff">Contract</text>
+    <rect x="521" y="342" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="580.5" y="387" fill="#fff">Contract</text>
+    <rect x="644" y="342" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="387" fill="#fff">Contract</text>
+    <rect x="767" y="342" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="826.5" y="387" fill="#fff">Gap</text>
+    <rect x="152" y="426" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="211.5" y="471" fill="#fff">Gap</text>
+    <rect x="275" y="426" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="334.5" y="471" fill="#fff">Gap</text>
+    <rect x="398" y="426" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="471" fill="#fff">Contract</text>
+    <rect x="521" y="426" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="580.5" y="471" fill="#fff">Contract</text>
+    <rect x="644" y="426" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="471" fill="#fff">Contract</text>
+    <rect x="767" y="426" width="119" height="80" rx="3" fill="#1B2A4A"></rect><text x="826.5" y="471" fill="#fff">Statute</text>
+  </g>
+  <g font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">
+    <rect x="150" y="540" width="14" height="14" rx="2" fill="#1B2A4A"></rect><text x="170" y="551">Statute</text>
+    <rect x="300" y="540" width="14" height="14" rx="2" fill="#C49A3C"></rect><text x="320" y="551">Contract</text>
+    <rect x="450" y="540" width="14" height="14" rx="2" fill="#C9D0D9"></rect><text x="470" y="551">Custom</text>
+    <rect x="600" y="540" width="14" height="14" rx="2" fill="#D9736B"></rect><text x="620" y="551">Gap</text>
+  </g>
+</svg>
+<p class="fig-cap">Figure 2 — Responsibility matrix for a grid-scale storage plant. Each cell shows the <strong>basis for execution</strong> of remediation / first response (Statute = a provision names the party; Contract = set by warranty or service agreement; Custom = it works that way in practice; Gap = assigned to no one). The chief engineer’s statutory <strong>oversight</strong> duty itself extends to every row — AC switchgear, DC side and comms. The dark cells (Statute) fall only on the AC-switchgear row and on the part the owner bears via grid-connection cyber rules. The gold column (O&M) is where that gap can be taken on by contract.</p>
+</div>
+<p>Follow the colors and the structure is plain. The dark cells (Statute) fall only on the AC-switchgear row and on the part the owner bears via the cyber and technical-standard rules. The wider area is taken up by contract (gold), custom (grey) and gap (red). The red — the gaps — cluster in the owner column on the DC side (as-builts, procurement, evidence data) and in the safety side of the comms row (chief engineer, safety firm). Operating a grid-scale storage plant is, in the end, the work of deciding to which party, and under which contract, that contract/custom/gap territory is assigned. Spell out each intersection and it looks like this.</p>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Equipment</th><th>Chief Eng.</th><th>Safety firm</th><th>OEM</th><th>Aggreg.</th><th>O&M</th><th>Owner</th></tr></thead>
+<tbody>
+<tr><td class="em">AC switchgear /<br>cubicle</td><td>Safety oversight [Statute]</td><td>Oversight & inspection [Statute]</td><td>Equipment warranty [Contract]</td><td>—</td><td>Inspection work [Contract]</td><td>Ultimate safety duty [Statute]</td></tr>
+<tr><td class="em">EMS</td><td>Oversight; remediation out of scope [Custom]</td><td>Outside standard scope [Custom]</td><td>Config · remediation · warranty [Contract]</td><td>Control & operation [Contract]</td><td>First response & liaison [Contract]</td><td>As-builts & procurement [Gap]</td></tr>
+<tr><td class="em">PCS</td><td>Oversight; DC remediation out of scope [Custom]</td><td>Customarily untouched [Custom]</td><td>Lead party for remediation work [Contract]</td><td>—</td><td>Dispatch & triage [Contract]</td><td>Remediation arrangement & cost [Gap]</td></tr>
+<tr><td class="em">BESS<br>(cell/BMS)</td><td>Oversight; remediation out of scope [Custom]</td><td>Outside standard scope [Custom]</td><td>Product & degradation warranty [Contract]</td><td>Compliance with operating conditions [Contract]</td><td>Data collection & monitoring [Contract]</td><td>Warranty upkeep & evidence data [Gap]</td></tr>
+<tr><td class="em">Comms<br>(router/line)</td><td>Within oversight but outside design scope [Gap]</td><td>Outside standard scope [Gap]</td><td>Warranted by some equipment [Contract]</td><td>Control assumes comms [Contract]</td><td>Fault first response [Contract]</td><td>Docs · redundancy · cyber [Statute]</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The reading is single. The only places the law clearly names a party are “safety oversight of the AC switchgear” and “cyber and technical-standard conformity at connection.” Remediation of the EMS, PCS and BESS, and the design, documentation and recovery of comms, lie outside that. Who that gap is assigned to by contract is the core of the business design. From here we dig into the two domains where the gaps cluster — DC-side remediation, and comms.</p>
+
+
+<h2>04 — Why the gap doesn’t close</h2>
+
+<p>If responsibility is statutory, why does execution not get filled? The reason lies in two institutional structures: one is the regime for how a chief engineer is assigned, the other is what the safety management rules require to be written.</p>
+
+<h3>4-1 The constraint of the external-commitment regime</h3>
+
+<p>At high voltage and above, a storage plant either appoints a chief engineer in-house or commits the role externally. METI’s “Interpretation and operation of the chief-engineer system (internal rules)” sets, as a condition of external commitment, that the chief engineer be able to reach the site in principle <strong>within two hours</strong> (the so-called two-hour rule). METI Notification No. 249 of 2003 further caps the total <strong>conversion coefficient</strong> of sites a safety officer may take on at <strong>under 33</strong>. It is a scheme that limits how much one can take on by a “points” value scaled to capacity and output; solar plants and storage plants carry a coefficient that varies by condition (0.31–0.33 in the notification: 0.32 / 0.31 / 0.33 by category). The externally committable range for a storage plant is, as for solar, below 5,000 kW and 7,000 V (METI, “On the safety-regulation approach for storage plants,” 15 April 2022).</p>
+
+<p>This vessel — “a chief engineer within two hours and with points to spare” — is no problem where personnel are plentiful. Reality is the opposite. METI’s “On the chief electrical engineer system” (31 March 2023) shows that, absent new measures, there could be a shortfall of <strong>about 1,000 Class-2 and about 800 Class-3 chief engineers by FY2030</strong>. External commitment accounts for most appointments, and the workforce is ageing: about 60% of license holders are 50 or older, and the Electrical Safety Subcommittee’s materials project a Class-3 shortfall of about 4,000 against demand of roughly 18,000 by 2045.</p>
+
+<p>From this it follows that the ease and cost of securing a chief engineer vary structurally by region. Where the distance rule, the points cap and the personnel shortage overlap, finding a nearby candidate with points to spare, appointing them and turning that into a quote takes real time. An O&M firm taking several weeks to deliver a quote stems from this institutional vessel — not because a given firm is slow, but because the system is built that way.</p>
+
+<h3>4-2 What the safety management rules do not require</h3>
+
+<p>The second structure lies in what the safety management rules must contain. Article 50 of the Enforcement Regulation lists the items to be set in those rules. A storage plant that counts as a power generation business (output above 10,000 kW) falls under paragraph 2 of that article; self-use facilities and the like under paragraph 3. The paragraphs differ by equipment class, but both cover roughly the same items: the involvement and organization of the business manager and senior executive, safety education, patrol / inspection / testing, operation and switching, maintenance during an extended shutdown, measures for disasters and other emergencies, safety records, and the regime and record-keeping for statutory self-inspection and pre-use self-confirmation.</p>
+
+<p>There is no provision requiring, as a standalone item, how the comms equipment’s as-builts are kept, or who restores a router when it fails. The standard structure of the safety management rules is built around the AC switchgear and electrical safety, and the comms design documentation and recovery responsibility spill outside what the rules require. When the FIELD NOTE operator says “the as-builts often aren’t handed over,” it is not because someone skimped on paperwork; it is because the rules do not require it to be written. What no one explicitly requires, no one explicitly keeps. That is the true nature of the gap on the comms side.</p>
+
+<div class="info-box">
+The <strong>responsibility</strong> for the DC side is statutory (Art. 43(1) plus the storage-plant definition in the Ordinance). But the <strong>execution</strong> of DC-side and comms work falls outside the vessel of external commitment (two hours, points, personnel shortage) and outside what the safety management rules require. Responsibility is filled while execution is not — these two institutional structures sustain the gap. If it were a “limit of the rules,” there would be nothing to do; because it is a matter of contract, custom and skill, design can move it.
+</div>
+
+
+<h2>05 — The real cost of downtime</h2>
+
+<p>“If the DC side stops, we just miss the market for a while” — if that is the thinking, the cost may be underestimated by a step. An outage at a grid-scale storage plant is not merely lost opportunity. It bites twice, as institutional penalties in the balancing market and the capacity market. First, let us fix the order of magnitude of the revenue at stake when it stops.</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">8,785–14,812<span class="unit">¥/kW·yr</span></span><span class="lbl">Capacity-market main auction (FY2028 delivery, by area)</span></div>
+  <div class="stat-cell"><span class="val">12.31<span class="unit">¥/kWh</span></span><span class="lbl">JEPX spot, annual average (FY2024)</span></div>
+  <div class="stat-cell"><span class="val">19.51→15<span class="unit">¥/ΔkW·30min</span></span><span class="lbl">Balancing cap price (cut Mar 2026; stepping toward 7.21)</span></div>
+</div>
+
+<p>The capacity-market main auction cleared, for FY2028 delivery, at roughly ¥8,785–14,812/kW·yr by area (¥8,785 floor for Hokuriku, Kansai, Chugoku and Shikoku; ¥14,812 ceiling for Hokkaido, Tohoku and Tokyo — OCCTO results, published 29 January 2025); JEPX spot averaged ¥12.31/kWh in FY2024 (JEPX, “FY2024 Business Report”). The balancing market’s ΔkW cap price was cut, alongside the move to day-ahead trading in March 2026, from the former ¥19.51/ΔkW·30 min to ¥15, with a stated policy of stepping down to ¥10 and ¥7.21 if competition does not improve (Agency for Natural Resources and Energy, January 2026). If a 2 MW-class plant stops participating, the daily revenue tied to these is lost. But what really bites is less the lost opportunity itself than the institutional penalties beyond it.</p>
+
+<h3>5-1 Balancing market: fall short and you are docked, then locked out</h3>
+
+<p>A resource that has cleared in the balancing market (EPRX) owes a duty to respond to dispatch. EPRX’s trading rules set out assessment (verification of response performance) and penalties. Fail Assessment II, which verifies response performance, and a <strong>×1.0 penalty</strong> is levied against the cleared amount (this multiplier was revised from 1.5 to 1.0 at the 36th Balancing-Market Subcommittee on 2 March 2023, on grounds of market-participation incentive; Assessment I, which checks the maintained ability to supply, is graduated by degree of non-conformity, up to a maximum of 1.5). Further, <strong>fail three times or more within a calendar month for the same resource and product, and new trading in that product is suspended</strong>. Stop and you cannot respond; fail to respond and you are docked; repeat and you are locked out of the market — a three-stage structure.</p>
+
+<p>There is, however, a relief framework for events caused by the grid side — such as output curtailment — that the operator could not have foreseen at bidding: the penalty multiplier is set to 1.0 and the event is excluded from the count (an application for grid-caused penalty relief; Forms 24 and 25 apply from the 14 March 2026 delivery onward). Whether you stopped yourself or were stopped by the grid changes the treatment — here too, triaging the cause matters. The product mix, minimum bid size and the direction of the cap-price cut in the balancing market are set out in the <a class="xref" target="_top" href="https://www.scix.co.jp/en/column-contracts">contract-design column (Layer 5)</a>.</p>
+
+<h3>5-2 Capacity market: an unplanned outage bites at “×5”</h3>
+
+<p>A plant that has signed a capacity contract — especially via the Long-Term Decarbonization Auction, where it is classed as a “firm power source” — owes a continuous-operation requirement. The capacity contract terms set out assessment and penalties; the economic penalty is levied, against the capacity contract value, on <strong>the cumulative shortfall blocks minus 8,640 blocks (≈180 days)</strong> (OCCTO, “Capacity Market Operations Manual (requirements/penalties),” and the “Capacity Contract Terms”). In other words, roughly 180 days’ worth a year is effectively a grace, and shortfalls beyond it are in scope.</p>
+
+<p>What to note is how those “shortfall blocks” are counted. Maintenance filed in advance as a planned outage counts at par, but <strong>a sudden, unplanned outage counts at five times</strong> (excluding normal-time nights and holidays). The rules, that is, explicitly quantify the economic difference between planned maintenance that caught an early sign and an unplanned sudden failure, at five to one.</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 3 — The three damage channels of downtime, and unplanned outages counted at five times">
+  <defs>
+    <linearGradient id="goldBar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF5C"></stop>
+      <stop offset="100%" stop-color="#B8862A"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="560" fill="#FFFFFF"></rect>
+  <rect x="350" y="30" width="200" height="56" rx="9" fill="#FDF3F2" stroke="#C0413B" stroke-width="1.8"></rect>
+  <text x="450" y="55" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#B0413B">Outage (downtime)</text>
+  <text x="450" y="74" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">The damage is not limited to lost opportunity</text>
+  <path d="M 410 86 C 350 110, 220 110, 175 132" fill="none" stroke="#C49A3C" stroke-width="1.8"></path>
+  <path d="M 450 86 L 450 132" fill="none" stroke="#C49A3C" stroke-width="1.8"></path>
+  <path d="M 490 86 C 550 110, 680 110, 725 132" fill="none" stroke="#C49A3C" stroke-width="1.8"></path>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="40" y="134" width="250" height="104" rx="8" fill="#F8F9FB" stroke="#9AA7B4" stroke-width="1.4"></rect>
+    <text x="60" y="160" font-size="12.5" font-weight="800" fill="#6C7A89">① Lost opportunity</text>
+    <text x="60" y="184" font-size="11" fill="#2C3E50">Misses price-arbitrage</text>
+    <text x="60" y="201" font-size="11" fill="#2C3E50">revenue on JEPX, etc.</text>
+    <text x="60" y="224" font-size="10" fill="#9AA7B4">= forgone gross margin</text>
+    <rect x="325" y="134" width="250" height="104" rx="8" fill="#F3F6FA" stroke="#2A4D7A" stroke-width="1.5"></rect>
+    <text x="345" y="160" font-size="12.5" font-weight="800" fill="#1B2A4A">② Balancing: reduction + lockout</text>
+    <text x="345" y="184" font-size="11" fill="#2C3E50">Assessment II non-conformity</text>
+    <text x="345" y="201" font-size="11" fill="#2C3E50">→ ×1.0 penalty</text>
+    <text x="345" y="224" font-size="11" fill="#B0413B">→ 3×/month per product → trading suspended</text>
+    <rect x="610" y="134" width="250" height="104" rx="8" fill="#F3F6FA" stroke="#2A4D7A" stroke-width="1.5"></rect>
+    <text x="630" y="160" font-size="12.5" font-weight="800" fill="#1B2A4A">③ Capacity: contract-value reduction</text>
+    <text x="630" y="184" font-size="11" fill="#2C3E50">Requirement shortfall</text>
+    <text x="630" y="201" font-size="11" fill="#2C3E50">→ capacity contract value reduced</text>
+    <text x="630" y="224" font-size="11" fill="#B0413B">→ unplanned outage counts ×5</text>
+  </g>
+  <rect x="40" y="270" width="820" height="252" rx="10" fill="#FFFCF5" stroke="#C49A3C" stroke-width="1.6"></rect>
+  <rect x="40" y="270" width="6" height="252" fill="#C49A3C"></rect>
+  <text x="70" y="304" font-family="'Noto Serif JP',serif" font-size="16" font-weight="700" fill="#1B2A4A">Unplanned outages hit at ×5</text>
+  <text x="70" y="328" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">Annual outage blocks = (planned blocks + unplanned blocks × 5) − 8,640 blocks (≈180 days) / Capacity Contract Terms; normal-time nights & holidays excluded</text>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="120" y="446" width="120" height="36" rx="4" fill="#C2CAD3"></rect>
+    <text x="180" y="469" text-anchor="middle" font-size="13" font-weight="700" fill="#3A4654">×1</text>
+    <text x="180" y="500" text-anchor="middle" font-size="12" fill="#6C7A89">Planned outage</text>
+    <text x="180" y="516" text-anchor="middle" font-size="10" fill="#9AA7B4">Maintenance on early signs</text>
+    <rect x="300" y="356" width="120" height="126" rx="4" fill="url(#goldBar)"></rect>
+    <text x="360" y="345" text-anchor="middle" font-size="15" font-weight="800" fill="#A07916">×5</text>
+    <text x="360" y="424" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">5×</text>
+    <text x="360" y="500" text-anchor="middle" font-size="12" fill="#6C7A89">Unplanned outage</text>
+    <text x="360" y="516" text-anchor="middle" font-size="10" fill="#9AA7B4">Sudden failure</text>
+  </g>
+  <line x1="470" y1="360" x2="470" y2="500" stroke="#E2E6EC" stroke-width="1.4" stroke-dasharray="4 4"></line>
+  <text x="500" y="392" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">Where O&M response speed pays off</text>
+  <text x="500" y="418" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#2C3E50">Early diagnosis + fast triage and recovery</text>
+  <text x="500" y="438" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#2C3E50">convert sudden failures into planned outages,</text>
+  <text x="500" y="458" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#A07916">cutting penalty exposure to about 1/5.</text>
+  <text x="500" y="484" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#9AA7B4">* Force-majeure outages may be exempt under the contract terms</text>
+</svg>
+<p class="fig-cap">Figure 3 — An outage hits through three channels: lost opportunity, a balancing-market penalty, and a capacity-market penalty. Under a capacity contract an unplanned outage counts at five times a planned one, and that is what defines the economic value of O&M response speed.</p>
+</div>
+<p>This factor of five is what most sharply explains the economic value of O&M. Leave a sudden failure as an “unplanned outage” and it bites at five times; catch the early sign and convert it into planned maintenance, and it costs par. Early fault detection, immediate cause triage, fast recovery — what O&M response speed does is convert the unplanned into the planned, compressing penalty exposure to at most about one-fifth. This is not about driving outages to zero. It is about shifting the quality of an outage to the “planned” side. That is precisely why, even where uptime itself cannot be guaranteed, response speed has a clear economic basis.</p>
+
+<h3>5-3 The loss figure swings by an order of magnitude with “how online you are”</h3>
+
+<p>That said, stating the loss of a single day’s outage as one number is risky. The amount lost scales — by orders of magnitude — with how online the plant is and which products it has promised revenue to. A 2 MW-class plant does not necessarily clear the “dedicated-line, online, large-capacity” threshold the balancing and capacity markets ask of firm power sources; in practice its main revenue tends to be JEPX arbitrage and tertiary-② regulation, where response runs to tens of minutes and a simple command system can be used. The daily loss here is the missed ΔkW (capacity fee) and ΔkWh (supplied volume) for the day’s blocks plus the foregone charge/discharge spread — and it is a mistake to add the fixed income of the capacity market or the Long-Term Decarbonization Auction (annual, 20-year revenue) into a one-day outage figure. Fixed income is impaired where an outage coincides with a requirement dispatch — the unplanned ×5 count of the previous section, or the market-exit penalty of the capacity contract — biting on the “tail.” Unless the outage is close to full operation, that contractual breach is an order of magnitude apart from the daily lost opportunity. Either way, before talking about “¥X million a day,” you must first fix how online the asset in question is.</p>
+
+<h3>5-4 Is there a “going rate” for the annual O&M cost?</h3>
+
+<p>So what about the O&M cost itself? Let me be candid here. <strong>A public standard unit rate for fixed O&M (OPEX) specific to grid-scale storage does not yet exist.</strong> The few public clues come from the operating-and-maintenance cost used for the model plant in the Long-Term Decarbonization Auction: METI’s study materials put the <strong>operating-and-maintenance cost (labor) at ¥5,000/kW·yr</strong> (“Organizing the cost and revenue issues of grid-scale and renewables-paired storage systems,” FY2024 3rd meeting of the Study Group on Expanding the Adoption of Stationary Storage Systems, 29 August 2024 — referencing the model-plant data used to set the ceiling price of the Long-Term Decarbonization Auction). On the international bench, the NREL ATB sets fixed O&M at <strong>about 2.5% of CAPEX</strong> (including battery augmentation, on a 15-year basis). As a field feel, some take a thicker view of around ¥5 million a year including insurance, while others reckon it fits within ¥2.5–3 million a year excluding insurance — but these are operator-quoted figures, not a publicly established level.</p>
+
+<p>When you place an O&M cost in a business plan, keep in mind that this is <strong>a starting number, not a going rate</strong>. What you can cite publicly is the unit-rate datum of “¥5,000/kW·yr” and the international bench of “about 2.5% of CAPEX,” and both swing widely with plant scale (2 MW-class versus 10 MWh-class) and with regional differences. Only after breaking the cost into line items (chief engineer, monitoring, call-out, comms, insurance) and laying them side by side can you debate whether the level is reasonable. Indeed, the very fact that the public standard unit rate does not get beyond a single rate datum is itself an uncertainty to fold in when you set an O&M cost into a business plan.</p>
+
+
+<h2>06 — Comms is no one’s job</h2>
+
+<p>Of all the gaps in a storage plant, comms is the hardest to pick up. The reason is clear: comms falls right on the boundary between the AC switchgear that the electrical professional (the chief engineer) watches and the control system that the equipment professional (the OEM) watches. The chief engineer’s safety oversight is built around the AC switchgear; the OEM’s warranty closes inside its own equipment. The network itself — the line, the router, the gateway, and the wiring that ties each device together — is at the center of neither party’s remit. And as we saw in §04, the safety management rules do not require the comms equipment’s as-builts or recovery responsibility as standalone items. One layer that no one explicitly holds is formed right here.</p>
+
+<p>This gap bares its teeth the moment the plant stops. A storage plant depends on comms even more than solar does: output curtailment and response to balancing dispatch both presuppose real-time communication. Yet even when the EMS screen reads “comms fault,” that alone lets no one act. Whether the thing that dropped was the on-site router, the carrier’s fiber side, or a lost configuration — depending on the cause, both whom you call and the recovery procedure change completely. If no one in any contract is charged with that triage, then the moment the message appears, the clock starts on a search for “who should move.” And the as-builts essential to that triage — which router holds what settings, which IP connects to what — are, in many deals, never handed over. Not because someone neglected the paperwork, but because the rules did not require it written and the contract did not ask for it. Comms is no one’s problem in calm times and everyone’s problem in an emergency.</p>
+
+<p>On top of this gap, an institutional requirement lands from 2027. Materials from the 20th Grid-Code Study Group (16 December 2025, Agency for Natural Resources and Energy) set out a policy to require, as a technical condition of grid connection, that the “control systems with a communication function (PCS, EMS, etc.)” adopted by distributed resources use products that have obtained Level 1 (★1) under the JC-STAR scheme. Application is scheduled for April 2027 at high voltage and October 2027 for low voltage under 50 kW (low voltage is six months later under a transition that accounts for existing stock — a timeline the <a class="xref" target="_top" href="https://www.scix.co.jp/en/knowledge">subsidy column</a> also touched on). As a premise, the Electricity Technical Standards Ordinance already obliges electrical equipment for business — excluding small-scale business electrical equipment such as solar under 50 kW — to secure cybersecurity (Article 15-2).</p>
+
+<p>There is one practical misconception here: that “if the gateway router has obtained ★1, the devices behind it are out of scope.” But the scheme’s design philosophy is not network-by-network; it imposes the requirement product (system) by product. The Agency’s materials state, in a footnote, that within the covered scope the products (systems) using IP communication are the targets of the ★1 requirement, and that IP-communication devices outside the covered scope are also recommended to obtain it (“On cybersecurity measures for distributed resources,” 12 February 2026, Document 5). A router’s own certification does not exempt downstream devices, and it is not the kind of thing obtained in one go for an entire battery package. It becomes the work of enumerating the devices involved in comms and control one by one and confirming whether each is a ★1-certified product. ★1 and ★2 are the maker’s self-declaration of conformity; ★3 and above are third-party certification, and the IPA began operation on 25 March 2025 and is accepting ★1 applications.</p>
+
+<div class="highlight-box">
+<strong>Device-unit (Japan) or zone-unit (overseas)?</strong> Both North America’s NERC CIP and the international standard IEC 62443 are built, at base, on a “system / zone” idea: carve the protected scope into zones and conduits, and defend at the boundary. Japan’s JC-STAR requirement, by contrast, imposes a minimum bar on each IP-communication product — a “device-unit” approach. This difference in philosophy strikes directly at how comms is designed and how O&M selects and updates equipment. For new connections and equipment replacements from April 2027 onward, a situation of “this device can’t connect” can arise. And unless the as-builts — which device holds what settings, which IP connects to what — are handed over, neither device-by-device conformity checking nor fault triage holds together. The more cyber requirements are imposed device by device, the more you need a party that keeps device-level design documentation.
+</div>
+
+<h3>6-1 Debunking the “must respond within 0.5 seconds” claim</h3>
+
+<p>On the real-time nature of comms, you will sometimes hear an explanation like “to respond to balancing dispatch, the communication response must be within 0.5 seconds.” This is not accurate. Nowhere in the balancing market’s product requirements is there a “communication response within 0.5 seconds” ceiling. Where “0.5 seconds” appears is in the lower bound of the LFC command interval (control cycle) of secondary regulation ① — “0.5 to tens of seconds” — which is not a communication-latency ceiling. The fastest beat is in fact primary regulation, which measures frequency locally at under 0.1 second. “It won’t work unless within 0.5 seconds” is most likely an explanation that mistook the lower bound of the secondary-① control cycle for a communication-response requirement.</p>
+
+<p>The requirement differs by product, in steps. Response time spans from primary regulation’s ≤10 seconds to tertiary regulation ②’s ≤60 minutes, and secondary ①, which requires second-level control, is limited to a dedicated line only. Conversely tertiary ②, whose response runs to tens of minutes, can be entered with a simple command system, and its monitoring interval is in minutes.</p>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Product</th><th>Comms line</th><th>Response time</th><th>Monitoring interval (approx.)</th></tr></thead>
+<tbody>
+<tr><td class="em">Primary (FCR)</td><td>Dedicated line (local control)</td><td class="num">≤10 sec</td><td>Frequency measured locally at ≤0.1 sec</td></tr>
+<tr><td class="em">Secondary ① (S-FRR)</td><td>Dedicated line only</td><td class="num">≤5 min</td><td>Seconds (LFC command 0.5–tens of sec)</td></tr>
+<tr><td class="em">Secondary ② </td><td>Dedicated / simple command</td><td class="num">≤5 min</td><td>Dedicated: seconds / simple: 1 min</td></tr>
+<tr><td class="em">Tertiary ① (T-FRR①)</td><td>Dedicated / simple command</td><td class="num">≤15 min</td><td>Same as above</td></tr>
+<tr><td class="em">Tertiary ② (T-FRR②)</td><td>Dedicated / simple command</td><td class="num">≤60 min</td><td>1–30 min</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note-small">Source: EPRX, “Product requirements and trading schedule of the balancing market,” and reference materials of OCCTO’s Balancing-Market Subcommittee. Secondary ① cannot be controlled at second resolution via a simple command system, so its communication line is limited to a dedicated line.</p>
+
+<h3>6-2 So what is comms O&M?</h3>
+
+<p>Turn all of this over, and what comms O&M actually does as a service comes into view. First, <strong>keeping and handing over the as-builts</strong> — receiving, as documents at COD, the line type, the model and settings of routers and gateways, the IP allocation and the inter-device connection diagram, and keeping them updated. Second, <strong>securing a pre-configured spare</strong> — industrial-router lead times are hard to read amid world conditions, and without a spare on site, recovery can stall for weeks (the lengthening of lead times for network equipment in general is verifiable, but the specific lead time for grid-use routers is not confirmed from primary data). Third, <strong>a triage procedure and first response for emergencies</strong> — deciding in advance, when “comms fault” appears, whom to approach in what order among the site, the carrier and the OEM. Fourth, <strong>conformity checking against the ★1 requirement and equipment updates</strong> — how to maintain device-by-device conformity through connections and replacements from 2027. None of these is automatically included in the safety management rules, the OEM warranty, or the aggregator contract. Whether to leave comms “no one’s job,” or to have it taken on explicitly under an O&M contract — that single choice divides how fast recovery is when the plant stops.</p>
+
+<p>Which products and which line a storage plant goes after revenue with changes, by an order of magnitude, both the quality of comms demanded and the loss when comms drops. The more you have promised second-level response over a dedicated online line, the more comms becomes a matter of life and death. Before raising “0.5 seconds” as a banner, fix — before COD — which products and which line your asset runs on, and who repairs comms when it drops.</p>
+
+
+<h2>07 — Insurance isn’t paid until the cause is known</h2>
+
+<p>A storage plant is typically covered by property insurance plus business-interruption insurance that indemnifies lost profit during a shutdown. But this insurance does not pay out automatically when an incident occurs. Payment presupposes proof that “the subject suffered loss through a fortuitous accident,” and business-interruption insurance indemnifies only the loss that results from that damage. A battery is still new equipment — cell defect, faulty construction, or act of nature — and the burden of proving the cause weighs heavily on the operator; for an event like thermal runaway, cause investigation takes a long time (in the U.S., Moss Landing took about five months from the September 2021 shutdown to public disclosure of the cause). Until the cause is fixed, no claim moves. And once you integrate the equipment of several makers, a situation can arise where responsibility cannot be pinned on a single company (in Korea, 23 ESS fires occurred in 2017–2019, and although a public–private joint investigation listed four factors, it did not reach conclusive proof, and the battery makers disputed the proposed causes).</p>
+
+<div class="warning-box">
+What pays off here is the preservation of evidence — beginning with the BMS and EMS logs — and the party that carries it is O&M. With a regime that can drive to site on an incident, triage, identify the cause in coordination with the maker, and even produce a remediation estimate, the proof moves forward. Sizing a business-interruption loss also requires the basis for the market revenue that would have been earned had the plant not stopped — <strong>data held by the aggregator</strong>. Insurance is not “reassuring because you have it”; it should be judged by <strong>whether you have a data regime that can prove the cause and size the lost amount</strong> when an incident occurs.
+</div>
+
+<p class="note-small">※ Coverage, carve-outs, payment conditions and proof requirements depend in their detail on each insurer’s individual policy, and public information is limited. The very fact that policies are not fully disclosed is itself an uncertainty to fold in when you place insurance as a premise of a business plan. The whole picture of insurance design is treated in the <a class="xref" target="_top" href="https://www.scix.co.jp/en/column-bess-insurance">insurance-design column</a>.</p>
+
+
+<h2>08 — How mature markets solved this gap</h2>
+
+<p>Is the DC-side responsibility–execution gap unique to Japan? Look at international practice and the answer becomes: “mature markets solved this gap by consolidating it into a single point of responsibility.” Japan’s three-party split can be placed as the eve before the market consolidates.</p>
+
+<h3>8-1 A single point of responsibility</h3>
+
+<p>In U.S. grid-scale storage, an O&M provider that handles on-site maintenance and an asset-management function that oversees contracts, warranties and finance are split, and the owner binds several service contracts with KPIs and penalties. The roles are further layered — an OEM that bears the product warranty (typically 2–3 years), a system integrator that closes the gap to required performance, an O&M provider that secures operation under a 10–20-year long-term service agreement (LTSA), an asset manager, and an optimizer that optimizes market operation (the equivalent of Japan’s aggregator). What is described in Japan as “three parties keep it running” is only a part of these five-or-so roles. U.S. legal practice, too, treats it as common for the OEM to bear performance guarantees under a supply contract and a long-term service agreement, and notes that in recent years, as OEMs provide integrated systems, the need for a single turnkey wrap has been thinning. Installing a single point of responsibility that takes on the whole plant in one hand is the mature-market solution. Japan’s “aggregator + chief engineer + OEM” is a state in which that single point of responsibility is absent and split on the DC side.</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 4 — Japan’s three-party split versus the mature-market single point of responsibility">
+  <rect width="900" height="470" fill="#FFFFFF"></rect>
+  <line x1="450" y1="40" x2="450" y2="392" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="4 4"></line>
+  <text x="240" y="34" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#B0413B" letter-spacing="1.5">Japan: three-party split</text>
+  <text x="660" y="34" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="800" fill="#1A7A4C" letter-spacing="1.5">Mature market: single point of responsibility</text>
+  <rect x="160" y="56" width="160" height="46" rx="8" fill="#1B2A4A"></rect>
+  <text x="240" y="84" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#FFFFFF">Owner</text>
+  <path d="M 200 102 L 120 150" stroke="#9AA7B4" stroke-width="1.5"></path>
+  <path d="M 240 102 L 240 150" stroke="#9AA7B4" stroke-width="1.5"></path>
+  <path d="M 280 102 L 360 150" stroke="#9AA7B4" stroke-width="1.5"></path>
+  <g font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#3A4654">
+    <rect x="58" y="152" width="120" height="44" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="118" y="179" text-anchor="middle">Aggregator</text>
+    <rect x="186" y="152" width="108" height="44" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="240" y="179" text-anchor="middle">Chief engineer</text>
+    <rect x="302" y="152" width="120" height="44" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="362" y="179" text-anchor="middle">OEM</text>
+  </g>
+  <rect x="120" y="232" width="240" height="56" rx="8" fill="#FDF3F2" stroke="#C0413B" stroke-width="1.6" stroke-dasharray="6 4"></rect>
+  <text x="240" y="258" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12.5" font-weight="700" fill="#B0413B">DC side = gap</text>
+  <text x="240" y="277" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">No party binds it all → no basis for an availability guarantee</text>
+  <rect x="580" y="56" width="160" height="46" rx="8" fill="#1B2A4A"></rect>
+  <text x="660" y="84" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#FFFFFF">Owner</text>
+  <path d="M 660 102 L 660 150" stroke="#1A7A4C" stroke-width="2"></path>
+  <path d="M 654 144 L 660 152 L 666 144 Z" fill="#1A7A4C"></path>
+  <rect x="520" y="152" width="280" height="56" rx="8" fill="#F1F8F3" stroke="#1A7A4C" stroke-width="1.8"></rect>
+  <text x="660" y="178" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1A7A4C">OEM / LTSA (single point)</text>
+  <text x="660" y="197" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">Takes on the whole plant in one hand</text>
+  <path d="M 660 208 L 660 232" stroke="#1A7A4C" stroke-width="1.6"></path>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="520" y="232" width="280" height="56" rx="8" fill="#F8FBF9" stroke="#1A7A4C" stroke-width="1.3"></rect>
+    <text x="540" y="256" font-size="11.5" font-weight="700" fill="#1A7A4C">Guarantees ~97% annual availability</text>
+    <text x="540" y="277" font-size="11" fill="#6C7A89">but excludes force majeure, grid, weather, theft</text>
+  </g>
+  <rect x="120" y="334" width="660" height="58" rx="8" fill="#1B2A4A"></rect>
+  <rect x="120" y="334" width="6" height="58" fill="#C49A3C"></rect>
+  <text x="453" y="362" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#FFFFFF">Japan’s split is the eve before the market consolidates</text>
+  <text x="453" y="382" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#D4AF5C">Who installs the single point that fills the gap, and how</text>
+</svg>
+<div class="fig-cap">Figure 4 — Mature markets consolidate the whole plant into a single point of responsibility through an OEM LTSA and guarantee availability after carving out external factors. Japan’s three-party split sits one stage before that.</div>
+</div>
+<h3>8-2 Three tiers of guarantee, and their carve-outs</h3>
+
+<p>In a market where a single point of responsibility holds, three tiers — availability, performance and capacity — are guaranteed by contract. On the availability guarantee, the third-party certifier DNV reports that many contracts set availability at around 97% per year as the threshold before damages arise. Actual contract clauses, too, publish a structure that computes damages by multiplying the shortfall below guaranteed availability (in points) by capacity and unit price — for example, a guarantee of 98% against an actual 96.5% multiplies that 1.5-point gap by capacity and rate. Maintaining a degradation guarantee requires an operation that records and retains data such as temperature, current and SoC at 15-minute intervals (this granularity is needed for warranty claims and for confirming tax-incentive eligibility).</p>
+
+<p>Here, Japan’s “can’t guarantee it” that we saw up through §07 and this international “97% guarantee” do not contradict; they are consistent. The international availability guarantee holds only after <strong>carving out force majeure and grid-caused events</strong>. Research institutions, too, note that with monitored power electronics, contractual availability of around 99.9% is achievable — but on condition that external and force-majeure events are excluded and performance is not embedded in the availability guarantee. Some O&M firms advertise “availability over 99%,” but all stand on the premise of carving out external factors. What differs is that, having carved out those external factors, a single OEM binds and guarantees the remaining equipment-caused availability. In Japan, because no party binds the whole plant, the starting point for guaranteeing availability in one hand simply does not exist.</p>
+
+<p>The same goes for capacity: the OEM binds a design that guarantees the whole system on a 10–20-year scale and covers degradation with augmentation. DNV puts guaranteed capacity at roughly the initial 70%, and NREL ATB’s fixed O&M (2.5% of CAPEX) also includes augmentation cost. In Japan, too, the Long-Term Decarbonization Auction allows the cost of additional procurement and full replacement to be counted in, so O&M’s reach extends from “fix it when it breaks” to “keep the capacity over 20 years.”</p>
+
+<h3>8-3 Safety regulation: a fixed 3-meter setback at home, performance-based overseas</h3>
+
+<p>The way safety regulation is built shows the same “Japan uses fixed values, overseas is performance-based” contrast. At home, the Fire and Disaster Management Agency’s standards revision (promulgated May 2023, in force January 2024) changed the regulatory unit from cell capacity to kWh, set the floor at over 10 kWh (with 10–20 kWh that has fire-prevention measures excluded = effectively notification above 20 kWh), and requires, for outdoor installation, a setback of in principle 3 meters or more from buildings (cubicle-type and the like, deemed to pose no fire-prevention concern, are excluded). Grid-scale MWh-class plants are of course in scope. Against this, North America’s NFPA 855 sets unit-to-unit separation at in principle 3 feet (about 0.9 m) but allows it to be shortened if safety is demonstrated by the UL 9540A large-scale fire test. Fixed setback (Japan) or test-data-based performance (overseas) — even with the same aim of preventing fire spread, the design freedom differs, and either way, maintaining compliance with setbacks, compartments and inspection records through the operating period is a service someone must carry.</p>
+
+<h3>8-4 Three generalizations</h3>
+
+<p>Generalizing from the international comparison: First, the idea of function-splitting itself is universal worldwide. Second, the responsibility gap in the comms layer is <strong>strongly Japan-specific</strong>. The institutional split between the chief-electrical-engineer system (electrical safety) and comms / control (OEM / O&M) produces the DC-side and comms gap. Overseas, because the LTSA wraps the whole on an availability basis, the gap is structurally less likely to arise. That said, as the Korean ESS fires showed, the very unclearing of responsibility when several makers are integrated is universal. The “split between electricians and comms people” may be Japan-specific, but the structure of an integration-responsibility gap is universal worldwide. Third, that the chief engineer does not substantively cover DC-side remediation is not an inevitability of institutional design but a Japan-specific operating custom stemming from skill, OEM certification and warranty scope. In law, the DC side, too, is within the scope of safety oversight.</p>
+
+
+<h2>09 — Sequence and decision axes before COD</h2>
+
+<p>What this all shows is that O&M is not “something to think about after COD” but a design matter before it. DC-side remediation, comms documentation, the warranty boundary, penalty exposure — these are fixed at the moment of handover, and hard to slot in afterward. In practice, you want to start composing O&M roughly six months before grid connection.</p>
+
+<p>Place the sequence for building O&M in before COD alongside the connection procedure, in time order, and it looks like this.</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 5 — Sequence for building O&M in before commercial operation">
+  <rect width="900" height="320" fill="#FFFFFF"></rect>
+  <line x1="60" y1="150" x2="840" y2="150" stroke="#D8DEE6" stroke-width="2"></line>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <circle cx="120" cy="150" r="7" fill="#C49A3C"></circle>
+    <text x="120" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1B2A4A">−6 months</text>
+    <text x="120" y="182" text-anchor="middle" font-size="10.5" fill="#6C7A89">Lock in O&amp;M, chief</text>
+    <text x="120" y="198" text-anchor="middle" font-size="10.5" fill="#6C7A89">engineer & comms</text>
+    <circle cx="320" cy="150" r="7" fill="#2A3D66"></circle>
+    <text x="320" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1B2A4A">Construction</text>
+    <text x="320" y="182" text-anchor="middle" font-size="10.5" fill="#6C7A89">Appoint chief eng. via O&amp;M</text>
+    <text x="320" y="198" text-anchor="middle" font-size="10.5" fill="#6C7A89">Commissioning</text>
+    <circle cx="520" cy="150" r="7" fill="#2A3D66"></circle>
+    <text x="520" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1B2A4A">Just before COD</text>
+    <text x="520" y="182" text-anchor="middle" font-size="10.5" fill="#6C7A89">Pre-use self-check</text>
+    <circle cx="680" cy="150" r="9" fill="#1A7A4C"></circle>
+    <text x="680" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1A7A4C">COD</text>
+    <circle cx="820" cy="150" r="7" fill="#C49A3C"></circle>
+    <text x="820" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1B2A4A">Next April</text>
+    <text x="820" y="182" text-anchor="middle" font-size="10.5" fill="#6C7A89">Balancing market</text>
+  </g>
+  <g font-family="'Noto Sans JP',sans-serif">
+    <rect x="70" y="232" width="220" height="58" rx="6" fill="#FDF7EA" stroke="#C49A3C" stroke-width="1.2"></rect>
+    <text x="84" y="254" font-size="11" font-weight="700" fill="#A07916">Quote: 2.5–3 weeks</text>
+    <text x="84" y="272" font-size="10" fill="#6C7A89">Need a chief-eng. candidate</text>
+    <text x="84" y="286" font-size="10" fill="#6C7A89">within 2h & with point capacity</text>
+    <rect x="310" y="232" width="240" height="58" rx="6" fill="#eef3f8" stroke="#1a5276" stroke-width="1.2"></rect>
+    <text x="324" y="254" font-size="11" font-weight="700" fill="#1a5276">Router lead time ~2.5–3 mo.</text>
+    <text x="324" y="272" font-size="10" fill="#6C7A89">Long under supply constraints;</text>
+    <text x="324" y="286" font-size="10" fill="#6C7A89">deploy a configured spare</text>
+    <rect x="570" y="232" width="270" height="58" rx="6" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.2"></rect>
+    <text x="584" y="254" font-size="11" font-weight="700" fill="#1B2A4A">The turnkey-handover trap</text>
+    <text x="584" y="272" font-size="10" fill="#6C7A89">Chief eng. is incumbent; switching mid-way is possible, but</text>
+    <text x="584" y="286" font-size="10" fill="#6C7A89">exit terms & a 1-year gap become issues</text>
+  </g>
+</svg>
+<div class="fig-cap">Figure 5 — A quote takes about 2.5–3 weeks, and procuring a pre-configured router takes about 2.5–3 months under supply constraints (the latter is verifiable as a general lead-time trend; the specific lead time for grid-use routers is not confirmed from a primary source). The closer to COD you act, the more you are chased by lead times.</div>
+</div>
+<p>An easy trap here is the expectation that a turnkey wrap (full-wrap EPC) “will take care of everything if you just hand it all over.” A single EPC wrap does bundle responsibility up to handover, but it is not guaranteed that post-COD O&M, warranty and comms documentation are included in that contract. In U.S. legal practice, too, as OEMs provide integrated systems the need for a single turnkey wrap has thinned in recent years, and a structure where the developer procures equipment directly from the OEM and entrusts construction to a separate EPC — the EPC bearing installation and construction defects, the battery supplier the equipment warranty — has become one common form. Bundling does not necessarily concentrate responsibility into one point. Rather, you need to break out explicitly, by contract, who holds which equipment, until when, on what basis. Whether you can receive the as-builts (especially the comms configuration documents) at handover, where the warranty boundary lies, who bears the unplanned-outage penalty exposure — holding these as pre-COD checklist items can substantially reduce later disputes.</p>
+
+<p>We have gathered the points that owners, EPCs and O&M providers will want to confirm before COD into nine axes. Tap to record your status.</p>
+<div class="checklist-group" id="om-checklist">
+  <h5><span class="cl-num">9</span>Nine axes to check when designing O&M and the safety regime</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01.</span><strong>Is the party for DC-side first response named in writing?</strong> On an EMS / PCS / BESS / BMS fault, does any contract state who triages first and starts recovery? The law puts the DC side within the chief engineer’s safety oversight, but unless a contract separately assigns who actually executes it, it stays a gap.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02.</span><strong>Availability guarantee and its carve-outs.</strong> Is an annual availability figure (≈97% internationally) written into a contract? How far do the carve-outs for force majeure, grid-caused events, weather and cable theft extend? When you are told it “can’t be guaranteed,” separate whether that is because the carve-outs are broad or because no party is binding the guarantee.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03.</span><strong>Delivery of comms as-builts, and a named recovery owner.</strong> Are router settings, the IP table and the single-line diagram delivered at handover? When a router or fiber line fails, who triages and who restores it? This falls outside what the statutory safety rules require, so it survives only if a contract spells it out.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04.</span><strong>Device-level JC-STAR Level 1 conformity (the 2027 requirement).</strong> For new connections and equipment swaps from April 2027 (October 2027 for LV under 50 kW), are the PCS, EMS, BMS and so on each expected to be ★1-conformant at the product level? On the premise that a single gateway does not exempt the rest, list the in-scope devices and confirm with the grid operator how connection applications are checked and how non-conforming devices are handled.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05.</span><strong>Market-penalty exposure versus uptime.</strong> How far does O&M response speed cut your exposure to balancing-market Assessment II non-conformity (×1.0; trading suspended after three times in a month per product; grid-caused events excluded from the count) and to a capacity-market requirement shortfall (unplanned outages counted ×5)? Converting a sudden failure into a planned outage can shrink capacity-penalty exposure to about one-fifth.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06.</span><strong>Cause-investigation capability and data access for insurance.</strong> Who runs the cause investigation on an incident (triage, OEM coordination, remediation estimate)? Is contractual access secured to the market-revenue data needed to size a business-interruption loss (held by the aggregator)? If the cause cannot be proven, no claim is paid.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07.</span><strong>Order of contracting.</strong> Can O&M, the chief engineer and comms be locked in roughly six months before connection? External-commitment approval carries a distance rule (2 hours) and a points cap (total under 33), so finding a candidate takes time. Even under a turnkey handover, using the O&M side’s chief engineer during construction and switching just before connection helps avoid a DC-side gap after handover (→ <a class="xref" target="_top" href="https://www.scix.co.jp/en/column-contracts">Contract-design column</a>).</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">08.</span><strong>Augmentation (degradation-cover) strategy.</strong> Over 20 years of operation, at whose cost and responsibility is capacity degradation covered by augmentation or full replacement? The Long-Term Decarbonization Auction allows the cost of additional procurement and full replacement to be counted in. Check that the contract designs not just “fix it when it breaks” but the cost of “keeping the capacity.”</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">09.</span><strong>OEM warranty scope versus the O&M boundary.</strong> Confirm the warranty term; whether there is a performance/degradation (SoH) guarantee and its formula; the operating conditions required to keep the warranty; and the conditions under which unauthorized work voids it. Decide by contract who may touch which equipment, and who bears the gap between warranty and O&M. Treat the DC side as a design variable, not a wall of law.</span></label>
+  <div class="check-progress">
+    <span class="bar"><span class="bar-fill" id="checkBarFill" style="width: 0%;"></span></span>
+    <span class="count"><span id="checkCount">0</span> / 9</span>
+  </div>
+</div>
+
+<p class="note-small">※ The above are design-check axes; they do not substitute for the legal conformity or contract negotiation of an individual project. The applicable relationships change with equipment class, output scale and grid conditions.</p>
+
+
+<h2>10 — Future issues</h2>
+
+<p>O&M for grid-scale storage is still a moving field, in both regulation and markets. Finally, the issues that will harden from here.</p>
+
+<p><strong>The structural shortage of safety personnel.</strong> Renewable and storage facilities requiring Class-3 oversight grow year on year, while the workforce is projected to fall short toward 2030 and 2045. The external-commitment vessel — the distance rule (2 hours) and the points cap (total under 33) — bites harder as personnel thin. The ease and cost of securing a chief engineer vary structurally by region; this premise must be folded into site selection and the O&M cost estimate.</p>
+
+<p><strong>International harmonization of cyber requirements.</strong> JC-STAR began ★1 mutual recognition with the UK PSTI Act from January 2026 and with Singapore’s CLS from June 2026, and the U.S. Cyber Trust Mark and the EU CRA are already in force and operating. How Japan’s device-unit requirement connects with these zone-unit overseas regimes bears directly on equipment procurement and updates.</p>
+
+<p><strong>OEM certification and the build-out of integrated O&M.</strong> The key to moving the current state — where the DC side is fenced off by skill, OEM certification and warranty scope — lies in how OEM certification is taken in and who binds and guarantees availability and capacity. How to compose, within Japan’s institutions and commercial customs, the problem that mature markets solved with a single point of responsibility is a field still to take concrete shape.</p>
+
+<p><strong>The exit: augmentation and disposal.</strong> The exit of 20-year operation — the cost and responsibility of augmentation to cover degradation, and how to design disposal and recycling after operation ends. As long as the Long-Term Decarbonization Auction allows the cost of additional procurement and full replacement to be counted in, and fire and hazardous-materials regulation requires a safety regime through the operating period, O&M’s reach extends from “build and run” to “keep and retire.”</p>
+
+<p>For reference, the market’s depth in numbers. In the first Long-Term Decarbonization Auction, battery bids were about 4.559 GW and awards about 1.092 GW (an award rate of about 24%) (OCCTO results; note that batteries and pumped hydro together bid about 5.397 GW, and this combined figure should not be mistaken for batteries alone). Applications for grid-connection study reach tens of GW nationwide, and as these storage plants reach COD one after another, who fills the DC-side gap this column has examined rises as an issue for the market as a whole.</p>
+
+
+<h2>Conclusion — It isn’t that there’s nothing to do; it’s that no one does it</h2>
+
+<p>“There’s hardly anything to do for O&M” — this column set out from that line. But as we dug in, the structure ran the other way. It is not that there is nothing to do. The law clearly assigns the duty of DC-side safety oversight to the chief engineer. What is empty is not the responsibility but who, in the field, executes that statutory duty — the gap of “oversight is statutory; remediation is unassigned.”</p>
+
+<p>The aggregator faces the market on the assumption that the equipment is running, the chief engineer oversees the AC switchgear, and the OEM maintains its own equipment. The three each fulfill their scope, yet a gap remains — DC-side remediation and comms recovery, named in no one’s contract. And the economic consequence of that gap bites in two stages: as the balancing market’s assessment, and as the capacity market’s ×5 count of unplanned outages. Mature markets solved this gap by consolidating it into a single point of responsibility that binds the whole plant. That such a party has not yet grown in Japan is not a limit of the rules but a matter of contract, custom and skill. Which is exactly why design can move it.</p>
+
+<p>For those <strong>buying</strong> a grid-scale storage plant, look — beyond price, site and equipment specs — at “who holds the DC side, under which contract.” For those <strong>selling</strong>, folding O&M and the as-builts into the design is the shortcut to avoiding post-handover disputes. And those who <strong>build and maintain</strong> can start by treating the three walls of skill, OEM certification and warranty scope not as walls of law but as design variables. It isn’t that there’s nothing to do; it’s only that no one does it — so who fills that gap, under which contract, by when? Deciding that before COD is the heart of the design that underpins the physical operation of a plant you will run for 20 years.</p>
+
+<a target="_top" href="https://www.scix.co.jp/en/column-contracts" class="next-link">
+  <div>
+    <div class="next-link-label">Related</div>
+    <div class="next-link-title">Contract design splits ¥200 million over 20 years — the five power-contract layers a grid-scale storage plant signs</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="cta-section">
+  <h3>Consult on storage projects, including O&M and safety-regime design</h3>
+  <p>Project-specific information that can’t be judged from an article alone is<br>disclosed after inquiry, under an NDA.</p>
+  <a target="_top" href="https://www.scix.co.jp/en/contact" class="cta-btn">Contact us →</a>
+</div>
+
+<p class="note-small" style="margin-top:32px"><strong>Primary sources (confirmed as of May 2026)</strong><br>
+Statutes: Electricity Business Act (Art. 43(1), 42, 2); Enforcement Regulation of the Electricity Business Act (Art. 52, 56, 50, 3-4); the Ordinance Setting Technical Standards for Electrical Equipment (definition of a storage plant; Art. 15-2); METI Notification No. 249 of 2003 (conversion-coefficient total under 33; solar power plants / storage plants at 0.31–0.33) / e-Gov, METI.<br>
+Safety & personnel: METI, “On the safety-regulation approach for storage plants” (15 April 2022, Electrical Safety Division, Document 1); “Interpretation and operation of the chief-engineer system (internal rules)”; “On the chief electrical engineer system” (31 March 2023); Electrical Safety Subcommittee materials on electrical-safety personnel (FY2030 shortfall of ~1,000 Class-2 and ~800 Class-3; ~4,000 Class-3 shortfall by 2045; ~60% of license holders aged 50 or over).<br>
+Markets: OCCTO, “Capacity Market Operations Manual (requirements/penalties)” and the “Capacity Contract Terms” (economic penalty = contract value × (cumulative shortfall blocks − 8,640 blocks ≈ 180 days); unplanned outages counted ×5; normal-time nights & holidays excluded); capacity-market main-auction results (published 29 January 2025; by area ¥8,785–14,812/kW·yr; Net CONE ¥9,875); Balancing-Market Subcommittee materials (Assessment II penalty strength revised from ×1.5 to ×1.0 — 36th meeting, 2 March 2023; Assessment II non-conformity is ×1.0 regardless of degree; Assessment I is graduated, max ×1.5); EPRX trading rules and grid-caused-relief forms (Forms 24 and 25 apply from the 14 March 2026 delivery); balancing cap price (¥19.51 → ¥15 in March 2026, stepping to ¥10 and ¥7.21 / Agency for Natural Resources and Energy, January 2026); JEPX, “FY2024 Business Report” (spot annual average ¥12.31/kWh); Long-Term Decarbonization Auction results (battery bids 4.559 GW; awards 1.092 GW; award rate 24%).<br>
+Cyber: 20th Grid-Code Study Group, Document 4 (JC-STAR ★1 requirement; HV April 2027 / LV under 50 kW October 2027; 16 December 2025); Agency for Natural Resources and Energy, Document 5 (products using IP communication = device-unit requirement; 12 February 2026); IPA JC-STAR (★1/★2 self-declaration of conformity; ★3 and above third-party certification; operation began 25 March 2025); METI/IPA UK PSTI mutual recognition (1 January 2026; ★1 only) / Singapore CLS mutual recognition (1 June 2026).<br>
+Safety: Fire and Disaster Management Agency, revision of the standards for storage-battery facilities (promulgated May 2023, in force January 2024; regulatory unit changed from Ah/cell to kWh; floor above 10 kWh; 10–20 kWh with fire-prevention measures excluded = effectively notification above 20 kWh; outdoors, ≥3 m setback from buildings; cubicle-type and the like excluded); NFPA 855 (separation 3 ft ≈ 0.9 m) and UL 9540A; NERC CIP / IEC 62443.<br>
+O&M & international: Study Group on Expanding the Adoption of Stationary Storage Systems, Document 3 (operating-and-maintenance cost ¥5,000/kW·yr = referencing the Long-Term Decarbonization Auction model plant; 29 August 2024); NREL ATB (fixed O&M = ~2.5% of CAPEX, including augmentation, 15-year basis); DNV (availability around 97%/yr as the damages-trigger point; guaranteed capacity roughly the initial 70%); published contract clauses (a structure computing damages as the shortfall below guaranteed availability × capacity × unit price); research-institution analyses (monitored power electronics can contractually achieve ~99.9% availability, on the premise of excluding force-majeure / external events); Norton Rose Fulbright (15-minute-granularity data retention for degradation warranties and tax-eligibility confirmation); Vistra (Moss Landing Phase I; September 2021 shutdown → January 2022 cause disclosure ≈ 5 months).<br>
+❓ The following are stated as findings because the primary original was not reached or no public data exists: the four factors, the US$32 million in damages, the 522 units (~35%) taken offline and the makers’ rebuttal in the Korean ESS fires agree across multiple English-language reports, but the Korean-language original from the Ministry of Trade, Industry and Energy (MOTIE) was not reached. No public data exists showing a regional ranking of chief-engineer pay, the lead time of specific grid-use router items, or actual domestic uptime figures; “no public data” is recorded as a finding. Some details of the external-commitment ratio and the age composition of safety personnel, and the annual rate of increase in facilities requiring Class-3 oversight, were not reached in the corresponding primary slides.<br>
+※ This is a self-edited article with no supervisory review. Regulation and markets are mid-amendment; figures and effective dates may change. Make the final confirmation of investment decisions and legal conformity by reference to primary sources and to qualified experts.</p>
+
+</div>
+
+<script>
+(function(){
+  var group=document.getElementById('om-checklist');
+  if(!group)return;
+  var checks=group.querySelectorAll('input[type=checkbox]');
+  var countEl=document.getElementById('checkCount');
+  var fillEl=document.getElementById('checkBarFill');
+  var total=checks.length;
+  function update(){var done=0;checks.forEach(function(c){if(c.checked)done++;});countEl.textContent=done;fillEl.style.width=(done/total*100)+'%';}
+  checks.forEach(function(c){c.addEventListener('change',update);});
+  update();
+})();
+</script>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/en/" class="scix-footer-logo">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc. (ScienceX K.K.)</div>
+        8-2 Nihonbashi-Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:0364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:x@scix.co.jp">x@scix.co.jp</a>
+        <div class="representative">Representative Director: Shinya Nakajima, Dr. Eng.</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
