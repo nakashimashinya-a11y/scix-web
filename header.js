@@ -1,6 +1,6 @@
 (function () {
   /* ======================================================
-     ScienceX — Shared Navigation Header (JP + EN)
+     ScienceX — Shared Navigation Header (JP + EN + 繁中)
      Single source of truth for all pages.
      ====================================================== */
 
@@ -9,11 +9,25 @@
     .replace(/\.html$/, '')
     .replace(/\/+$/, '') || '/';
   var isEn = path === '/en' || path.indexOf('/en/') === 0;
-  var isZh = path === '/zh' || path.indexOf('/zh/') === 0;
-  var isMarketEntry = path === '/en/market-entry';
+  var isZh = path === '/zh' || path.indexOf('/zh/') === 0 || path.indexOf('/zh-') === 0;
   var prefix = isEn ? '/en' : '';
-  var localPath = isEn ? path.replace(/^\/en/, '') || '/' : path;
   var logoHref = isZh ? '/zh' : (prefix + '/');
+
+  // Canonical page id, shared across languages.
+  // JP is the superset; EN/ZH are single-funnel subsets.
+  var loc;
+  if (isEn) {
+    loc = path.replace(/^\/en/, '') || '/';
+    if (loc === '/market-entry') loc = '/';
+  } else if (isZh) {
+    if (path === '/zh') loc = '/';
+    else if (path === '/zh-knowledge') loc = '/knowledge';
+    else if (path.indexOf('/zh-column-') === 0) loc = '/column-' + path.slice('/zh-column-'.length);
+    else loc = path;
+  } else {
+    loc = path;
+  }
+  var isCol = loc.indexOf('/column-') === 0;
 
   // --------------- 1. CSS ---------------
   var css = [
@@ -111,7 +125,7 @@
     '}',
     '.scix-header-open .scix-header-overlay{display:block;opacity:1}',
 
-    '/* === Mobile / narrow breakpoint (drawer; raised for 8-item nav) === */',
+    '/* === Mobile / narrow breakpoint (drawer) === */',
     '@media(max-width:1024px){',
     '  .scix-header-nav{',
     '    position:fixed;top:0;right:0;bottom:0;',
@@ -147,19 +161,19 @@
   document.head.appendChild(style);
 
   // --------------- 2. HTML (language-aware) ---------------
+  // JP = full three-sided marketplace (investors / acquire / sell / land).
+  // EN & 繁中 = single inbound funnel for foreign capital → Home / Knowledge / Contact only.
+  var contactMail = 'mailto:s@scix.co.jp?subject=Japan%20BESS%20-%20Confidential%20briefing';
   var nav = isZh ? [
-    '<a href="mailto:s@scix.co.jp?subject=Japan%20BESS%20-%20Confidential%20briefing" class="scix-cta">聯絡我們</a>'
+    '<a href="/zh"           data-page="/">首頁</a>',
+    '<a href="/zh-knowledge" data-page="/knowledge">洞見</a>',
+    '<a href="' + contactMail + '" class="scix-cta">聯絡我們</a>'
   ] : isEn ? [
     '<a href="/en"           data-page="/">Home</a>',
-    '<a href="/en/investors" data-page="/investors">Investors</a>',
-    '<a href="/en/transfer"  data-page="/transfer">Acquire</a>',
-    '<a href="/en/sourcing"  data-page="/sourcing">Sell to Us</a>',
-    '<a href="/en/land"      data-page="/land">Land</a>',
-    '<a href="/en/company"   data-page="/company">Company</a>',
     '<a href="/en/knowledge" data-page="/knowledge">Knowledge</a>',
-    '<a href="/en/contact"   data-page="/contact" class="scix-cta">Contact</a>'
+    '<a href="' + contactMail + '" class="scix-cta">Contact</a>'
   ] : [
-    '<a href="/"           data-page="/">ホーム</a>',
+    '<a href="/"          data-page="/">ホーム</a>',
     '<a href="/investors" data-page="/investors">投資家の方へ</a>',
     '<a href="/transfer"  data-page="/transfer">案件を買う</a>',
     '<a href="/sourcing"  data-page="/sourcing">案件を売る</a>',
@@ -169,26 +183,33 @@
     '<a href="/contact"   data-page="/contact" class="scix-cta">お問い合わせ</a>'
   ];
 
-  // Language switcher. The market-entry LP exists only in EN + Traditional Chinese
-  // (no Japanese version), so it pairs EN/繁中. All other pages pair JP/EN.
-  var langSwitch;
-  if (isZh || isMarketEntry) {
-    langSwitch = [
-      '<div class="scix-lang">',
-      '  <a href="/en/market-entry"' + (isMarketEntry ? ' class="active"' : '') + '>EN</a>',
-      '  <a href="/zh"' + (isZh ? ' class="active"' : '') + '>繁中</a>',
-      '</div>'
-    ].join('\n');
-  } else {
-    var jpHref = isEn ? (localPath === '/' ? '/' : localPath) : path;
-    var enHref = isEn ? path : (path === '/' ? '/en' : '/en' + path);
-    langSwitch = [
-      '<div class="scix-lang">',
-      '  <a href="' + jpHref + '"' + (!isEn ? ' class="active"' : '') + '>🇯🇵 JP</a>',
-      '  <a href="' + enHref + '"' + (isEn ? ' class="active"' : '') + '>🇺🇸 EN</a>',
-      '</div>'
-    ].join('\n');
-  }
+  // --------------- Language switcher (JA / EN / 繁中) ---------------
+  // Targets resolve to the equivalent page where it exists, otherwise the
+  // language home / knowledge hub — never a 404.
+  var jpHref = isEn ? loc : (isZh ? (isCol ? '/knowledge' : loc) : path);
+
+  var enHref;
+  if (isEn) enHref = path;
+  else if (loc === '/') enHref = '/en';
+  else if (loc === '/knowledge') enHref = '/en/knowledge';
+  else if (isCol) enHref = isZh ? '/en/knowledge' : ('/en' + loc);
+  else enHref = '/en';
+
+  var zhHref;
+  if (isZh) zhHref = path;
+  else if (loc === '/') zhHref = '/zh';
+  else if (loc === '/knowledge' || isCol) zhHref = '/zh-knowledge';
+  else zhHref = '/zh';
+
+  var langSwitch = [
+    '<div class="scix-lang">',
+    '  <a href="' + jpHref + '"' + ((!isEn && !isZh) ? ' class="active"' : '') + '>🇯🇵 JP</a>',
+    '  <a href="' + enHref + '"' + (isEn ? ' class="active"' : '') + '>🇺🇸 EN</a>',
+    '  <a href="' + zhHref + '"' + (isZh ? ' class="active"' : '') + '>🇹🇼 繁中</a>',
+    '</div>'
+  ].join('\n');
+
+  var burgerLabel = isEn ? 'Open menu' : (isZh ? '開啟選單' : 'メニューを開く');
 
   var header = document.createElement('header');
   header.className = 'scix-header';
@@ -201,7 +222,7 @@
          nav.join('\n'),
     '  </nav>',
        langSwitch,
-    '  <button class="scix-header-burger" id="scix-header-burger" aria-label="' + (isEn ? 'Open menu' : (isZh ? '開啟選單' : 'メニューを開く')) + '" aria-expanded="false">',
+    '  <button class="scix-header-burger" id="scix-header-burger" aria-label="' + burgerLabel + '" aria-expanded="false">',
     '    <span></span><span></span><span></span>',
     '  </button>',
     '</div>'
@@ -213,13 +234,14 @@
   var links = header.querySelectorAll('.scix-header-nav a');
   for (var i = 0; i < links.length; i++) {
     var page = links[i].getAttribute('data-page');
-    if (localPath === page) {
+    if (!page) continue;
+    if (loc === page) {
       links[i].classList.add('active');
     }
-    if (page === '/' && (localPath === '' || localPath === '/index')) {
+    if (page === '/' && (loc === '' || loc === '/index')) {
       links[i].classList.add('active');
     }
-    if (page === '/knowledge' && localPath.indexOf('/column-') === 0) {
+    if (page === '/knowledge' && isCol) {
       links[i].classList.add('active');
     }
   }
@@ -227,8 +249,8 @@
   // --------------- 4. Hamburger toggle ---------------
   var burger = document.getElementById('scix-header-burger');
   var overlay = document.getElementById('scix-header-overlay');
-  var openLabel = isEn ? 'Open menu' : 'メニューを開く';
-  var closeLabel = isEn ? 'Close menu' : 'メニューを閉じる';
+  var openLabel = burgerLabel;
+  var closeLabel = isEn ? 'Close menu' : (isZh ? '關閉選單' : 'メニューを閉じる');
 
   function toggleMenu() {
     var isOpen = header.classList.toggle('scix-header-open');

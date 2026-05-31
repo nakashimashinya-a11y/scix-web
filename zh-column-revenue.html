@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電池儲能的三大收益來源 — JEPX・輔助服務・容量市場的堆疊策略｜ScienceX</title>
+<meta name="description" content="日本電網級儲能的三大市場收益堆疊——JEPX 套利、輔助服務市場、容量市場。以 2MW 案例說明收益結構。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-revenue">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-revenue">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-revenue">
+<link rel="alternate" hreflang="zh-Hant" href="https://www.scix.co.jp/zh-column-revenue">
+<meta property="og:type" content="website">
+<meta property="og:title" content="電池儲能的三大收益來源 — JEPX・輔助服務・容量市場的堆疊策略｜ScienceX">
+<meta property="og:description" content="日本電網級儲能的三大市場收益堆疊——JEPX 套利、輔助服務市場、容量市場。以 2MW 案例說明收益結構。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-revenue">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="電池儲能的三大收益來源 — JEPX・輔助服務・容量市場的堆疊策略｜ScienceX">
+<meta name="twitter:description" content="日本電網級儲能的三大市場收益堆疊——JEPX 套利、輔助服務市場、容量市場。以 2MW 案例說明收益結構。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+
+  :root { --navy: #1B2A4A; --accent: #C49A3C; --green: #1A7A4C; --text: #2C3E50; --text-light: #6C7A89; --border: #E2E6EC; --light-bg: #F8F9FB; --red: #C0392B; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "Noto Sans TC", "Noto Sans JP", sans-serif; color: #2C3E50; line-height: 2.0; background: #fff; margin: 0; padding: 0; }
+  .column-container { max-width: 780px; margin: 0 auto; padding: 40px 24px; }
+  .meta { font-size: 0.82em; color: var(--accent); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 8px; }
+  h1 { font-family: 'Noto Serif TC', serif; font-size: 1.6em; color: var(--navy); line-height: 1.5; margin-bottom: 8px; }
+  .subtitle { font-size: 0.95em; color: var(--text-light); margin-bottom: 32px; padding-bottom: 24px; border-bottom: 2px solid var(--border); }
+  h2 { font-size: 1.15em; font-weight: 700; color: var(--navy); margin: 36px 0 12px; padding-left: 14px; border-left: 4px solid var(--accent); }
+  h3 { font-size: 1.0em; font-weight: 700; color: var(--navy); margin: 24px 0 8px; }
+  p { margin-bottom: 16px; font-size: 0.95em; }
+  .highlight-box { background: linear-gradient(135deg, #F0F7F3 0%, #E8F5EE 100%); border: 1px solid #A3D9B8; border-radius: 8px; padding: 20px 24px; margin: 20px 0; font-size: 0.92em; }
+  .highlight-box strong { color: var(--green); }
+  .warning-box { background: #FFF5F5; border: 1px solid #E8AAAA; border-radius: 8px; padding: 20px 24px; margin: 20px 0; font-size: 0.92em; }
+  .warning-box strong { color: var(--red); }
+  .data-box { background: var(--light-bg); border-radius: 8px; padding: 20px 24px; margin: 20px 0; font-size: 0.92em; }
+  .data-box .num { font-size: 1.4em; font-weight: 900; color: var(--navy); }
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.88em; }
+  th { background: var(--navy); color: #fff; padding: 10px 14px; text-align: left; font-weight: 700; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  tr:nth-child(even) { background: var(--light-bg); }
+  .source { font-size: 0.78em; color: var(--text-light); margin-top: 4px; }
+  .related { background: var(--light-bg); border-radius: 8px; padding: 20px 24px; margin: 32px 0; }
+  .related h3 { font-size: 0.92em; color: var(--navy); margin-bottom: 10px; }
+  .related a { display: block; font-size: 0.88em; color: #2563EB; text-decoration: none; margin: 4px 0; }
+  .related a::before { content: "→ "; }
+
+</style>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "電池儲能的三大收益來源 — JEPX・輔助服務・容量市場的堆疊策略｜ScienceX",
+  "description": "日本電網級儲能的三大市場收益堆疊——JEPX 套利、輔助服務市場、容量市場。以 2MW 案例說明收益結構。",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "inLanguage": "zh-Hant",
+  "datePublished": "2026-04-10",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-revenue"
+}
+</script>
+<meta property="article:published_time" content="2026-04-10">
+</head>
+<body>
+<script src="/header.js"></script>
+<div class="column-container">
+<div class="meta">COLUMN 02 — 收益結構 <time class="meta-date" datetime="2026-04-10" style="opacity:.65;font-weight:500">｜2026.04.10</time></div>
+<h1>電池儲能的三大收益來源<br>— JEPX・輔助服務・容量市場的堆疊策略</h1>
+<div class="subtitle">電網級儲能的收益無法只靠單一市場完成。如何組合三個市場，決定事業的成敗。</div>
+
+<h2>儲能收益來自「三個口袋」</h2>
+<p>電網級儲能的收益並非來自單一市場，而是由<strong>疊加三個市場的「收益堆疊（stacking）」</strong>構成。如何設計這三個市場的平衡，是左右整體報酬的最大變數。</p>
+
+<div class="highlight-box">
+  <strong>口袋①：JEPX 套利（電力批發市場）</strong> — 低買高賣<br>
+  <strong>口袋②：輔助服務市場</strong> — 出售電力的「保險」<br>
+  <strong>口袋③：容量市場</strong> —「只要存在」就有固定收入
+</div>
+
+<h2>口袋① JEPX 套利 — 價差擴大至 5 倍</h2>
+<p>電力批發市場（JEPX）將 24 小時以 30 分鐘為單位切成 48 個時段交易。儲能在低價時段充電、於高價時段放電，以價差交易（套利）獲利。</p>
+
+<div class="data-box">
+  <strong>2024 年的 JEPX 價差：</strong>單日最高與最低價差平均約 <span class="num">20</span> 日圓/kWh<br>
+  （2020 年前後約 4 日圓/kWh → 擴大為 5 倍）<br><br>
+  <strong>典型價格型態：</strong><br>
+  ・深夜時段：未滿 10 日圓/kWh<br>
+  ・太陽光過剩的白天：0.01 日圓/kWh（九州地區尤其常見）<br>
+  ・傍晚尖峰：超過 20 日圓/kWh<br><br>
+  <strong>充放電循環：</strong>每日 1〜2 次（日本經產省 MRI 試算以每日 1〜2 個區塊、每區塊 3 小時為前提）
+  <div class="source">出處：日本經產省 定置型儲能系統普及擴大檢討會 第4回資料 / borderless.law 2025 年儲能投資指南</div>
+</div>
+
+<p>太陽光發電大量導入，使白天市場價格趨近於零、傍晚尖峰飆升的「鴨子曲線（duck curve）」在日本也已成常態。此一結構正是儲能套利收益的來源。</p>
+
+<h2>口袋② 輔助服務市場 — 儲能的「主戰場」，但有劇變風險</h2>
+<p>輔助服務市場（日本稱「需給調整市場」）於 2024 年 4 月開始全部 5 項商品（一次調整力、二次調整力①②、三次調整力①②）的交易。對儲能最有利的是<strong>一次調整力與二次調整力①</strong>。</p>
+
+<table>
+  <tr><th>商品</th><th>反應時間</th><th>持續時間</th><th>儲能得標價（2024年7-8月）</th></tr>
+  <tr><td>一次調整力</td><td>10 秒以內</td><td>5 分以上</td><td>28〜39 日圓/ΔkW·h</td></tr>
+  <tr><td>二次調整力①</td><td>5 分以內</td><td>30 分</td><td>28〜39 日圓/ΔkW·h</td></tr>
+  <tr><td>二次調整力②</td><td>5 分以內</td><td>30 分</td><td>偏低</td></tr>
+  <tr><td>三次調整力①</td><td>15 分以內</td><td>30 分</td><td>偏低</td></tr>
+  <tr><td>三次調整力②</td><td>60 分以內</td><td>30 分</td><td>無上限</td></tr>
+</table>
+<div class="source">※ 上表為 2024 年 7-8 月價格。2026 年 3 月 13 日起已下調為上限 15 日圓/ΔkW·30分。<br>出處：日本經產省 MRI 2024 年 11 月 11 日資料</div>
+
+<p>一次・二次①因投標量不足，<strong>不足率達 7〜8 成</strong>，2024 年度上半接近可任意定價的「賣方市場」。惟 FY2025 起趨於改善，上限價格下調（15 日圓）與招標量縮減（1σ 化）使市場環境改變。儲能得標價 28〜39 日圓/ΔkW·h，曾達火力 4.1〜8.1 日圓的<strong>數倍</strong>。<br><span class="source">※ 2026 年 3 月 13 日起適用 15 日圓/ΔkW·30分 上限，已無法以此水準得標。</span></p>
+
+<div class="warning-box">
+  <strong>⚠ 重大風險：2026 年 3 月起的上限價格下調</strong><br><br>
+  自 2026 年 3 月 13 日交易分起，一次〜三次①的上限價格由現行 <strong>19.51 日圓 → 15 日圓/ΔkW·30分</strong>（2026/3/13 施行）。當初統一為 7.21 日圓的草案雖因業界強烈反對而緩和，但對收益的影響仍大。<br><br>
+  此外，一次・二次①的招標量亦由 3σ → 1σ 相當縮減，為儲能事業的收益展望投下不確定性。
+  <div class="source">出處：日本資源能源廳（2026 年 1 月 23 日）</div>
+</div>
+
+<h2>口袋③ 容量市場 — 持續刷新新高的「穩定收入」</h2>
+<p>容量市場（主拍賣，Main Auction）在實際供需的 4 年前舉辦拍賣，對電源「存在」本身支付對價。儲能於 1,000kW 以上即可參與，得標率達 <strong>96% 以上</strong>，幾乎可全量得標。</p>
+
+<div class="data-box">
+  <strong>第 5 回主拍賣（2028 年度實際供需分）：</strong><br>
+  總平均單價：<span class="num">11,134</span> 日圓/kW（歷史新高・扣除過渡措施後）<br>
+  得標總額：<span class="num">1 兆 8,506</span> 億日圓（歷史新高）<br><br>
+  <strong>分區得標價格：</strong><br>
+  ・北海道・東北・東京：14,812 日圓/kW（上限價）<br>
+  ・九州：13,177 日圓/kW<br>
+  ・中部：10,280 日圓/kW<br>
+  ・北陸・關西・中國・四國：8,785 日圓/kW
+  <div class="source">出處：OCCTO 2025 年 1 月 29 日公布</div>
+</div>
+
+<p>得標價由第 1 回 14,137（全國一致・遭批評）→ 第 2 回 3,495 急跌（北海道・九州 5,242）→ 其後分區化，第 3 回 5,226 → 第 4 回 7,847 → 第 5 回 11,134，持續上升。背景為資料中心、半導體廠等用電需求增加。</p>
+<p>惟儲能在主拍賣的投標容量僅占整體約 0.1%（約 24 萬 kW），大型儲能多流向 LDA。</p>
+
+<h2>2MW 案例的三市場堆疊收支示意</h2>
+<p>日本經產省 MRI 分析了三種使用情境。在容量市場＋輔助服務市場的組合（情境 2）下，以容量市場收入 8,348 日圓/kW/年為基礎，在 ΔkW 價格 15 日圓、每日 1 區塊、得標率 60% 的條件下，<strong>建置成本約 7 萬日圓/kWh 以下</strong>時，整體收支大致可轉正。</p>
+
+<div class="data-box">
+  <strong>2MW／8MWh 的年度收支試算：</strong><br>
+  <table>
+    <tr><th>收益項目</th><th>年度金額（概算）</th></tr>
+    <tr><td>JEPX 套利</td><td>3,000〜5,000 萬日圓</td></tr>
+    <tr><td>輔助服務市場</td><td>1,000〜3,000 萬日圓</td></tr>
+    <tr><td>容量市場（東京區 14,812 日圓/kW）</td><td>約 2,960 萬日圓</td></tr>
+    <tr><td><strong>收入合計</strong></td><td><strong>6,000〜11,000 萬日圓</strong></td></tr>
+    <tr><td>運維（O&amp;M）・保險費等</td><td>▲1,000〜2,000 萬日圓</td></tr>
+    <tr><td>輸電費（託送費）等</td><td>▲數百萬日圓</td></tr>
+    <tr><td><strong>年度營業利益</strong></td><td><strong>4,000〜8,000 萬日圓</strong></td></tr>
+  </table>
+  <div class="source">※ 試算因地區・市場條件而大幅變動。日本經產省 MRI 明載「輔助服務市場的收益展望不確定性高」。本表為公開分析之示意，非任何案件的收益保證。</div>
+</div>
+
+<h2>整合商（aggregator）的選擇左右收益</h2>
+<p>同時參與三個市場需要高度的運營專業。多數事業者會運用整合商（市場交易代理）。</p>
+
+<div class="data-box">
+  <strong>主要整合商：</strong><br>
+  ・<strong>Eneres（エナリス，KDDI 集團）</strong>：日本第一家整合商。需給調整市場全 5 項商品皆有參與實績。<br>
+  ・<strong>Digital Grid（デジタルグリッド）</strong>：計畫至 2028 年 7 月期累積儲能容量達 38.3 萬 kW，投資 100 億日圓。<br>
+  ・<strong>PowerX（パワーエックス）</strong>：製造單機 3MWh 的「Mega Power」。獲東急不動產等協作案採用。<br>
+  ・<strong>自然電力（Shizen Connect）</strong>：以 EMS 技術見長，展開整合運營。
+  <div class="source">出處：各公司新聞稿 / pps-net.org</div>
+</div>
+
+<h2>與 LDA 型（30MW 以上）的收益結構差異</h2>
+<p>30MW 以上的 LDA 得標案，以 20 年固定收入鎖定年數億〜十數億日圓，市場收益約一成額外留存。屬於可預測性極高的<strong>債券型穩定報酬</strong>；因收入預測性壓倒性地高，便於組成專案融資（project finance）。</p>
+<p>相對地，2MW 級的全市場型（full-merchant）有機會追求<strong>較高的報酬</strong>，但會直接承受輔助服務市場上限價下調等制度變動風險。</p>
+
+
+
+<div class="related">
+  <h3>相關洞見</h3>
+  <a href="/zh-knowledge">查看全部洞見</a>
+  <a href="/zh-column-balancing-market">以五項商品理解日本輔助服務市場</a>
+  <a href="/zh-column-grid-rules">2026 年併網制度的轉折</a>
+  <a href="/zh-column-contract-flow">權利讓渡前必看的契約流程</a>
+</div>
+
+<div class="source" style="margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border);">
+  <strong>出處・參考資料：</strong><br>
+  ・日本經產省 定置型儲能系統普及擴大檢討會 第4回資料 https://www.meti.go.jp/shingikai/energy_environment/storage_system/pdf/2024_004_03_01.pdf<br>
+  ・日本經產省 MRI 2024 年 11 月 11 日資料（輔助服務市場分析）<br>
+  ・日本資源能源廳 上限價格下調決定（2026 年 1 月 23 日）https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_review/pdf/110_04_00.pdf<br>
+  ・OCCTO 第 5 回主拍賣得標結果（2025 年 1 月 29 日）https://www.occto.or.jp/market-board/market/oshirase/2024/20250129_youryouyakujokekka_kouhyou.html<br>
+  ・borderless.law 2025 年儲能投資指南 https://www.borderless.law/topics/battery_investment_guide_2025/<br>
+  ・pps-net.org https://pps-net.org/column/123147
+</div>
+</div>
+<!-- ScienceX Footer — self-contained (zh-Hant) -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1B2A4A;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans TC', 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0 auto;
+  }
+</style>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首頁">
+      <img
+        src="/img/logo-white.png"
+        alt="ScienceX Science X Inc."
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        日本〒103-0016 東京都中央區日本橋小網町 8-2<br>
+        BIZMARKS 日本橋茅場町 801<br>
+        TEL: <a href="tel:+81364034095">+81 3 6403 4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島晉也（工學博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>
