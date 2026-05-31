@@ -14,111 +14,763 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Company | Science X Inc.</title>
+<title>Company | An independent battery-storage hub | Science X Inc.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#1B2A4A;--navy-light:#2A3D66;--gold:#C49A3C;--gold-light:#D4AD5A;--green:#1A7A4C;--green-dark:#156B41;--white:#FFFFFF;--off-white:#F8F7F4;--light-gray:#F0EDE8;--text-primary:#1B2A4A;--text-secondary:#5A6577;--text-light:#8A92A0;--border:#E0DCD6;--font-sans:'Noto Sans JP',sans-serif;--font-serif:'Noto Serif JP',serif;}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;font-size:16px;}
-body{font-family:var(--font-sans);color:var(--text-primary);background:var(--white);line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-.container{max-width:1100px;margin:0 auto;padding:0 24px;}
-.section-label{font-family:var(--font-sans);font-size:0.7rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
-.section-title{font-family:var(--font-serif);font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:600;color:var(--navy);line-height:1.5;margin-bottom:16px;}
-.page-hero{padding:80px 0 80px;background:linear-gradient(160deg,var(--white) 0%,var(--off-white) 50%,#EDE8DF 100%);position:relative;overflow:hidden;}
-.page-hero::before{content:'';position:absolute;top:-80px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(196,154,60,0.06) 0%,transparent 70%);pointer-events:none;}
-.page-hero-label{display:inline-flex;align-items:center;gap:8px;font-size:0.72rem;font-weight:500;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:20px;}
-.page-hero-label::before{content:'';width:24px;height:1px;background:var(--gold);}
-.page-hero h1{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;color:var(--navy);line-height:1.5;margin-bottom:16px;}
-.page-hero-desc{font-size:0.95rem;color:var(--text-secondary);line-height:2;max-width:640px;}
-.mv-section{padding:100px 0;background:var(--white);}
-.mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
-.mv-card{padding:48px 40px;border-radius:8px;position:relative;overflow:hidden;}
-.mv-card.mission{background:var(--navy);color:var(--white);}
-.mv-card.vision{background:var(--off-white);border:1px solid var(--border);}
-.mv-card-label{font-size:0.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
-.mv-card h3{font-family:var(--font-serif);font-size:1.35rem;font-weight:600;line-height:1.6;margin-bottom:16px;}
-.mv-card.mission h3{color:var(--white);}
-.mv-card.vision h3{color:var(--navy);}
-.mv-card p{font-size:0.88rem;line-height:2;}
-.mv-card.mission p{color:rgba(255,255,255,0.65);}
-.mv-card.vision p{color:var(--text-secondary);}
-.mv-card::after{content:'';position:absolute;bottom:0;left:40px;right:40px;height:2px;background:var(--gold);opacity:0.4;}
-.ceo-section{padding:100px 0;background:var(--off-white);}
-.ceo-grid{display:grid;grid-template-columns:320px 1fr;gap:60px;align-items:start;}
-.ceo-photo-wrap{position:sticky;top:100px;}
-.ceo-photo-card{background:var(--white);border-radius:8px;border:1px solid var(--border);overflow:hidden;box-shadow:0 4px 20px rgba(27,42,74,0.06);}
-.ceo-photo-card img{width:100%;height:auto;display:block;}
-.ceo-photo-info{padding:20px 24px;text-align:center;}
-.ceo-photo-name{font-family:var(--font-serif);font-size:1.15rem;font-weight:600;color:var(--navy);margin-bottom:4px;}
-.ceo-photo-title{font-size:0.78rem;color:var(--text-light);}
-.ceo-content{padding-top:8px;}
-.ceo-quote{font-family:var(--font-serif);font-size:1.4rem;font-weight:600;color:var(--navy);line-height:1.7;margin-bottom:36px;padding-left:24px;border-left:3px solid var(--gold);}
-.ceo-text{font-size:0.9rem;color:var(--text-secondary);line-height:2.1;margin-bottom:20px;}
-.ceo-signature{margin-top:36px;padding-top:24px;border-top:1px solid var(--border);font-size:0.88rem;color:var(--navy);}
-.ceo-signature strong{font-family:var(--font-serif);font-size:1.05rem;display:block;margin-top:4px;}
-.company-section{padding:100px 0;background:var(--white);}
-.company-header{text-align:center;margin-bottom:60px;}
-.company-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
-.company-table{background:var(--off-white);border-radius:8px;overflow:hidden;border:1px solid var(--border);}
-.company-row{display:grid;grid-template-columns:130px 1fr;border-bottom:1px solid var(--border);}
-.company-row:last-child{border-bottom:none;}
-.company-row dt{padding:16px 20px;font-size:0.82rem;font-weight:500;color:var(--text-secondary);background:rgba(27,42,74,0.03);}
-.company-row dd{padding:16px 20px;font-size:0.85rem;color:var(--text-primary);line-height:1.7;background:var(--white);}
-.company-row dd small{display:block;font-size:0.75rem;color:var(--text-light);margin-top:2px;}
-.officer-card{background:var(--white);border-radius:8px;padding:36px;border:1px solid var(--border);}
-.officer-card h3{font-family:var(--font-serif);font-size:1.1rem;font-weight:600;color:var(--navy);margin-bottom:28px;}
-.officer-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);}
-.officer-item:last-child{border-bottom:none;}
-.officer-role{flex-shrink:0;width:100px;font-size:0.75rem;color:var(--text-light);padding-top:2px;}
-.officer-name{font-size:0.92rem;font-weight:500;color:var(--navy);}
-.officer-sub{font-size:0.75rem;color:var(--text-secondary);margin-top:2px;}
-.office-photos{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.office-photos img{width:100%;height:140px;object-fit:cover;border-radius:6px;border:1px solid var(--border);}
-.access-section{padding:80px 0;background:var(--navy);color:var(--white);}
-.access-section .section-label{color:var(--gold);}
-.access-section .section-title{color:var(--white);margin-bottom:32px;}
-.access-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
-.access-info p{font-size:0.88rem;color:rgba(255,255,255,0.6);line-height:2;margin-bottom:24px;}
-.access-info a{color:var(--gold);text-decoration:none;}
-.access-info a:hover{text-decoration:underline;}
-.access-map{border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);}
-.access-map iframe{width:100%;height:300px;border:none;}
-.cta{padding:80px 0;background:linear-gradient(160deg,var(--off-white) 0%,#EDE8DF 100%);text-align:center;}
-.cta h2{font-family:var(--font-serif);font-size:clamp(1.3rem,3vw,1.6rem);color:var(--navy);font-weight:600;margin-bottom:12px;}
-.cta p{font-size:0.88rem;color:var(--text-secondary);margin-bottom:32px;}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:var(--green);color:var(--white);font-size:0.85rem;font-weight:500;text-decoration:none;border-radius:4px;transition:all 0.3s ease;}
-.btn-primary:hover{background:var(--green-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(26,122,76,0.25);}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
-.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;}
-.fade-in.visible{opacity:1;transform:translateY(0);}
-@media(max-width:768px){
-.page-hero{padding:60px 0 60px;}
-.mv-grid{grid-template-columns:1fr;gap:24px;}
-.mv-card{padding:36px 28px;}
-.ceo-grid{grid-template-columns:1fr;gap:32px;}
-.ceo-photo-wrap{position:static;max-width:280px;margin:0 auto;}
-.ceo-quote{font-size:1.15rem;}
-.company-grid{grid-template-columns:1fr;}
-.access-grid{grid-template-columns:1fr;}
-.office-photos{grid-template-columns:1fr;}
-.office-photos img{height:180px;}
+:root {
+  --navy: #1B2A4A;
+  --navy-light: #2A3D66;
+  --gold: #C49A3C;
+  --gold-light: #D4AD5A;
+  --green: #1A7A4C;
+  --green-dark: #156B41;
+  --white: #FFFFFF;
+  --off-white: #F8F7F4;
+  --light-gray: #F0EDE8;
+  --text-primary: #1B2A4A;
+  --text-secondary: #5A6577;
+  --text-light: #8A92A0;
+  --border: #E0DCD6;
+  --font-sans: 'Noto Sans JP', sans-serif;
+  --font-serif: 'Noto Serif JP', serif;
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background: var(--white);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  max-width: 640px;
+}
+
+.hero {
+  padding: 80px 0 100px;
+  background: linear-gradient(160deg, var(--white) 0%, var(--off-white) 50%, #EDE8DF 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(196,154,60,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.hero-content { animation: fadeInUp 0.8s ease both; }
+
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.hero-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.hero h1 em { font-style: normal; color: var(--gold); }
+
+.hero-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 2;
+  margin-bottom: 36px;
+}
+
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: var(--green);
+  color: var(--white);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(26,122,76,0.25);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: transparent;
+  color: var(--navy);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.hero-visual { position: relative; animation: fadeInUp 0.8s 0.2s ease both; }
+
+.hero-card {
+  background: var(--white);
+  border-radius: 8px;
+  padding: 36px;
+  box-shadow: 0 8px 40px rgba(27,42,74,0.08);
+  border: 1px solid rgba(27,42,74,0.06);
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.stat-item { text-align: center; }
+
+.stat-number {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.stat-number span {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+
+.hero-card-divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+.hero-card-note {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.8;
+}
+
+.hero-card-note strong { color: var(--gold); font-weight: 600; }
+
+.credibility-bar { padding: 40px 0; background: var(--navy); }
+
+.cred-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.cred-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.78rem;
+  letter-spacing: 0.5px;
+}
+
+.cred-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(196,154,60,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: var(--gold);
+}
+
+.business { padding: 100px 0; background: var(--white); }
+
+.business-header { text-align: center; margin-bottom: 60px; }
+.business-header .section-subtitle { margin: 0 auto; }
+
+.business-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.biz-card {
+  background: var(--off-white);
+  border-radius: 8px;
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  border: 1px solid transparent;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.biz-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(27,42,74,0.08);
+}
+
+.biz-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--gold);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.biz-card:hover::before { opacity: 1; }
+
+.biz-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(196,154,60,0.12);
+  color: var(--gold);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.biz-badge.core { background: rgba(26,122,76,0.1); color: var(--green); }
+
+.biz-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.biz-card-en {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.biz-card p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  margin-bottom: 24px;
+}
+
+.biz-features { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.biz-feature-tag {
+  padding: 4px 12px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.biz-card-arrow {
+  position: absolute;
+  bottom: 40px; right: 40px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border);
+}
+
+.biz-card:hover .biz-card-arrow {
+  background: var(--gold);
+  color: var(--white);
+  border-color: var(--gold);
+}
+
+.strengths { padding: 100px 0; background: var(--navy); color: var(--white); }
+.strengths .section-label { color: var(--gold); }
+.strengths .section-title { color: var(--white); }
+.strengths .section-subtitle { color: rgba(255,255,255,0.6); }
+.strengths-header { text-align: center; margin-bottom: 60px; }
+.strengths-header .section-subtitle { margin: 0 auto; }
+
+.strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.strength-card {
+  padding: 36px 28px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.strength-card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(196,154,60,0.3);
+}
+
+.strength-num {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+
+.strength-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.strength-card p {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.9;
+}
+
+.company { padding: 100px 0; background: var(--off-white); }
+.company-header { text-align: center; margin-bottom: 60px; }
+.company-header .section-subtitle { margin: 0 auto; }
+
+.company-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.company-table {
+  background: var(--white);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.company-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  border-bottom: 1px solid var(--border);
+}
+
+.company-row:last-child { border-bottom: none; }
+
+.company-row dt {
+  padding: 16px 20px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(27,42,74,0.02);
+}
+
+.company-row dd {
+  padding: 16px 20px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+
+.officer-section {
+  background: var(--white);
+  border-radius: 8px;
+  padding: 36px;
+  border: 1px solid var(--border);
+}
+
+.officer-section h3 {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 28px;
+}
+
+.officer-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.officer-item:last-child { border-bottom: none; }
+
+.officer-role {
+  flex-shrink: 0;
+  width: 100px;
+  font-size: 0.75rem;
+  color: var(--text-light);
+  padding-top: 2px;
+}
+
+.officer-name {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--navy);
+}
+
+.officer-title {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.news { padding: 80px 0; background: var(--white); }
+
+.news-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+
+.news-list { list-style: none; }
+
+.news-item {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s ease;
+}
+
+.news-item:hover {
+  background: var(--off-white);
+  margin: 0 -12px;
+  padding: 20px 12px;
+}
+
+.news-date {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  color: var(--text-light);
+  font-variant-numeric: tabular-nums;
+}
+
+.news-tag {
+  flex-shrink: 0;
+  padding: 2px 10px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 3px;
+  background: rgba(27,42,74,0.06);
+  color: var(--navy);
+}
+
+.news-tag.bss { background: rgba(26,122,76,0.1); color: var(--green); }
+.news-tag.info { background: rgba(196,154,60,0.1); color: var(--gold); }
+
+.news-text { font-size: 0.88rem; color: var(--text-primary); }
+
+.news-text a { color: inherit; text-decoration: none; }
+.news-text a:hover { color: var(--gold); }
+
+.cta {
+  padding: 80px 0;
+  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 100%);
+  text-align: center;
+}
+
+.cta h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  color: var(--white);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.cta p {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 36px;
+  line-height: 1.8;
+}
+
+.cta .btn-primary {
+  background: var(--gold);
+  font-size: 0.9rem;
+  padding: 16px 40px;
+}
+
+.cta .btn-primary:hover {
+  background: var(--gold-light);
+  box-shadow: 0 4px 20px rgba(196,154,60,0.35);
+}
+
+.site-footer { padding: 60px 0 40px; background: #0F1A2E; }
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 40px;
+}
+
+.footer-brand .logo-mark {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.footer-brand .logo-mark span { color: var(--gold); }
+
+.footer-address {
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.8;
+}
+
+.footer-links { display: flex; gap: 28px; }
+
+.footer-links a {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover { color: var(--gold); }
+
+.footer-bottom {
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.5px;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  .hero { padding: 60px 0 60px; }
+  .hero .container { grid-template-columns: 1fr; gap: 40px; }
+  .business-grid { grid-template-columns: 1fr; }
+  .strengths-grid { grid-template-columns: 1fr; }
+  .company-grid { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .stat-number { font-size: 1.6rem; }
+  .cred-inner { gap: 24px; }
+  .news-item { flex-direction: column; gap: 8px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-links { flex-wrap: wrap; gap: 16px; }
+  .hero-actions { flex-direction: column; }
+  .btn-primary, .btn-secondary { text-align: center; justify-content: center; }
+  .biz-card-arrow { display: none; }
+  .knowledge-grid { grid-template-columns: 1fr !important; }
+  .k-card { padding: 20px; }
+  .k-card h4 { font-size: 0.95rem; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .knowledge-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+.knowledge { padding: 80px 0; background: var(--off-white); }
+.knowledge-header { margin-bottom: 40px; }
+.knowledge-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.k-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.k-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--gold);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.k-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(27,42,74,0.08);
+  border-color: var(--gold);
+}
+.k-card:hover::before { opacity: 1; }
+.k-num {
+  font-family: var(--font-serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.k-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: rgba(27,42,74,0.05);
+  color: var(--navy);
+  font-size: 0.65rem;
+  font-weight: 600;
+  border-radius: 3px;
+  margin-left: 8px;
+}
+.k-card h4 {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.k-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.k-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.k-more:hover { color: var(--gold-light); }
 </style>
-<meta name="description" content="Company overview of Science X Inc. An energy-tech company specializing in grid-scale battery storage site development and rights transfer. Based in Nihonbashi, Chuo-ku, Tokyo.">
+<meta name="description" content="Science X Inc. is an engineer-led, independent specialist in Japan's grid-scale battery storage — sourcing, structuring and operating confirmed projects, neutral and independent of any manufacturer or EPC.">
 <link rel="canonical" href="https://www.scix.co.jp/en/company">
-<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/company">
 <link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/company">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/company">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Company | Science X Inc.">
-<meta property="og:description" content="Company overview of Science X Inc. An energy-tech company specializing in grid-scale battery storage site development and rights transfer. Based in Nihonbashi, Chuo-ku, Tokyo.">
+<meta property="og:title" content="Company | An independent battery-storage hub | Science X Inc.">
+<meta property="og:description" content="Science X Inc. is an engineer-led, independent specialist in Japan's grid-scale battery storage — sourcing, structuring and operating confirmed projects, neutral and independent of any manufacturer or EPC.">
 <meta property="og:url" content="https://www.scix.co.jp/en/company">
 <meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
 <meta property="og:site_name" content="ScienceX">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Company | Science X Inc.">
-<meta name="twitter:description" content="Company overview of Science X Inc. An energy-tech company specializing in grid-scale battery storage site development and rights transfer. Based in Nihonbashi, Chuo-ku, Tokyo.">
+<meta name="twitter:title" content="Company | An independent battery-storage hub | Science X Inc.">
+<meta name="twitter:description" content="Science X Inc. is an engineer-led, independent specialist in Japan's grid-scale battery storage — sourcing, structuring and operating confirmed projects, neutral and independent of any manufacturer or EPC.">
 <meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
 <script type="application/ld+json">
 {
@@ -150,151 +802,179 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
 </head>
 <body>
 <script src="/header.js"></script>
-<section class="page-hero">
-  <div class="container" style="animation:fadeInUp 0.8s ease both;">
-    <div class="page-hero-label">About Us</div>
-    <h1>Company</h1>
-    <p class="page-hero-desc">Specializing in the "upstream development" of energy infrastructure,<br>we provide one-stop services from optimal site discovery to rights transfer for grid-scale battery storage.</p>
-  </div>
-</section>
-<section class="mv-section">
-  <div class="container">
-    <div class="mv-grid">
-      <div class="mv-card mission fade-in">
-        <div class="mv-card-label">Mission</div>
-        <h3>Pioneering the Upstream<br>of Energy Infrastructure.</h3>
-        <p>We complete the most time-intensive and expertise-demanding phase of business development — optimal site discovery and grid interconnection — at our own risk. By providing fully developed projects through rights transfer, we lower the barriers to entry for energy businesses.</p>
-      </div>
-      <div class="mv-card vision fade-in">
-        <div class="mv-card-label">Vision</div>
-        <h3>Supporting Sound Investment<br>Decisions with Neutral Expertise.</h3>
-        <p>From an independent position free of dependency on specific manufacturers or EPC companies, we provide technical evaluation and cost analysis leveraging our Ph.D.-level engineering expertise. We create an environment where businesses can make truly optimal choices.</p>
-      </div>
+
+<!-- HERO -->
+<section class="hero"><div class="container">
+  <div class="hero-content">
+    <div class="hero-label">Company</div>
+    <h1>An engineer-led,<br><em>independent battery hub.</em></h1>
+    <p class="hero-desc">Specialized in grid-scale storage: we source quality projects,<br>structure and productize them properly, and operate them.<br>Neutral — independent of any manufacturer or EPC — connecting investors, operators and landowners.</p>
+    <div class="hero-actions">
+      <a target="_top" href="#company" class="btn-primary">Company profile →</a>
+      <a target="_top" href="/en/contact" class="btn-secondary">Contact</a>
     </div>
   </div>
-</section>
-<section class="ceo-section">
-  <div class="container">
-    <div style="margin-bottom:48px;" class="fade-in">
-      <div class="section-label">Message from CEO</div>
-      <h2 class="section-title">CEO Message</h2>
+  <div class="hero-visual"><div class="hero-card">
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-number">PhD</div><div class="stat-label">Representative Director</div></div>
+      <div class="stat-item"><div class="stat-number">Neutral</div><div class="stat-label">Manufacturer-/EPC-independent</div></div>
+      <div class="stat-item"><div class="stat-number">Nationwide</div><div class="stat-label">Source · structure · operate</div></div>
+      <div class="stat-item"><div class="stat-number">Nihonbashi</div><div class="stat-label">Tokyo · Kayabacho</div></div>
     </div>
-    <div class="ceo-grid fade-in">
-      <div class="ceo-photo-wrap">
-        <div class="ceo-photo-card">
-          <img src="https://static.wixstatic.com/media/14db5d_a0371e49ef144e799c8237b5aba46a49~mv2.png" alt="Dr. Shinya Nakashima — CEO (Ph.D. in Engineering)" />
-          <div class="ceo-photo-info">
-            <div class="ceo-photo-name">Dr. Shinya Nakashima</div>
-            <div class="ceo-photo-title">CEO (Ph.D. in Engineering)</div>
-          </div>
-        </div>
-      </div>
-      <div class="ceo-content">
-        <div class="ceo-quote">Delivering the right technology<br>to society in the right way.</div>
-        <p class="ceo-text">Energy is the foundation of society, and its direction shapes the future of people's lives and the environment. That is why we value decisions grounded in engineering evidence, rather than being swayed by marketing claims.</p>
-        <p class="ceo-text">Our work focuses on optimal site development and rights transfer for grid-scale battery storage, as well as thermal energy innovation through black pellets. Both are fields where "technology discernment" determines business success, and where our expertise as a neutral technical PM is most valuable.</p>
-        <p class="ceo-text">Because Science X does not bear construction completion responsibility, we maintain an independent position that allows us to provide technical advice that maximizes your interests — free from the position-taking of specific manufacturers or EPC companies.</p>
-        <p class="ceo-text">Energy is not merely infrastructure — it is the power that shapes the future. Science X will maximize this power and contribute to Japan's carbon neutrality and international competitiveness.</p>
-        <div class="ceo-signature">CEO<strong>Dr. Shinya Nakashima (Ph.D. in Engineering)</strong></div>
-      </div>
+    <div class="hero-card-divider"></div>
+    <div class="hero-card-note">Source → structure &amp; productize → operate.<br><strong>From the upstream of the battery business through to operations.</strong></div>
+  </div></div>
+</div></section>
+
+<section class="strengths" id="message"><div class="container">
+  <div class="strengths-header"><div class="section-label">Message</div><h2 class="section-title">Message from the CEO</h2></div>
+  <div style="max-width:820px;margin:0 auto;color:var(--text-secondary);line-height:2.1;">
+    <p style="margin-bottom:18px;">Grid-scale battery storage is fast becoming the social infrastructure that supports renewable energy. Yet identifying quality projects, turning them into confirmed products and operating them in the market demands expertise spanning technology, contracts, the grid and market operation.</p>
+    <p style="margin-bottom:18px;">Science X takes on this work from upstream through to operations, from an independent position aligned with no manufacturer or EPC. We source quality projects, fill the gaps through our industry network, structure them properly, and deliver them to investors and operators as confirmed products. As an engineer, we remain a hub that is honest about both the numbers and the technology.</p>
+    <p style="text-align:right;margin-top:24px;font-weight:500;color:var(--text-primary);">Science X Inc.<br>Representative Director, Dr. Shinya Nakashima (PhD, Engineering)</p>
+  </div>
+</div></section>
+
+<section class="company" id="company" style="background:var(--off-white);"><div class="container">
+  <div class="company-header"><div class="section-label">Company</div><h2 class="section-title">Company profile</h2></div>
+  <div class="company-grid">
+    <dl class="company-table">
+      <div class="company-row"><dt>Name</dt><dd>Science X Inc.<br><span style="font-size:0.78rem;color:var(--text-light)">サイエンスエックス株式会社</span></dd></div>
+      <div class="company-row"><dt>Address</dt><dd>8-2 Nihonbashi-Koamicho,<br>Chuo-ku, Tokyo 103-0016, Japan<br>BIZMARKS Nihonbashi-Kayabacho 801</dd></div>
+      <div class="company-row"><dt>Capital</dt><dd>JPY 9,000,000</dd></div>
+      <div class="company-row"><dt>Business</dt><dd>Sourcing, structuring &amp; operation of grid-scale storage<br>Rights transfer &amp; real-asset investment structuring<br>Biomass energy</dd></div>
+      <div class="company-row"><dt>TEL</dt><dd>+81 3 6403 4095</dd></div>
+      <div class="company-row"><dt>MAIL</dt><dd>s@scix.co.jp</dd></div>
+    </dl>
+    <div class="officer-section">
+      <h3>Officers</h3>
+      <div class="officer-item"><div class="officer-role">Representative Director</div><div><div class="officer-name">Dr. Shinya Nakashima</div><div class="officer-title">PhD, Engineering</div></div></div>
+      <div class="officer-item"><div class="officer-role">Director, CTO</div><div><div class="officer-name">Toshio Oi</div><div class="officer-title">Former Director, Showa Denko</div></div></div>
+      <div class="officer-item"><div class="officer-role">Director, CFO</div><div><div class="officer-name">Yoshinaga Karasawa</div><div class="officer-title">Former Representative Vice President, Teijin</div></div></div>
+      <div class="officer-item" style="margin-top:16px;padding-top:16px;"><div class="officer-role" style="color:var(--text-light);">Major shareholder</div><div><div class="officer-name" style="font-size:0.85rem;">Toa Gaigyo Co., Ltd.</div><div class="officer-title">Kobe</div></div></div>
     </div>
   </div>
-</section>
-<section class="company-section">
-  <div class="container">
-    <div class="company-header fade-in">
-      <div class="section-label">Company</div>
-      <h2 class="section-title">Company Overview</h2>
-    </div>
-    <div class="company-grid fade-in">
-      <dl class="company-table">
-        <div class="company-row"><dt>Company</dt><dd>Science X Inc.<small>(Saiensu Ekkusu Kabushiki Gaisha)</small></dd></div>
-        <div class="company-row"><dt>Address</dt><dd>8-2 Nihonbashi Koamicho, Chuo-ku,<br>Tokyo 103-0016, Japan<br>BIZMARKS Nihonbashi Kayabacho</dd></div>
-        <div class="company-row"><dt>Capital</dt><dd>9 million yen</dd></div>
-        <div class="company-row"><dt>Business</dt><dd>Grid-scale battery storage site development & rights transfer<br>Biomass energy business<br>Renewable energy development consulting</dd></div>
-        <div class="company-row"><dt>TEL</dt><dd>03-6403-4095</dd></div>
-        <div class="company-row"><dt>MAIL</dt><dd>x@scix.co.jp</dd></div>
-      </dl>
-      <div>
-        <div class="officer-card">
-          <h3>Officers</h3>
-          <div class="officer-item"><div class="officer-role">CEO</div><div><div class="officer-name">Dr. Shinya Nakashima</div><div class="officer-sub">Ph.D. in Engineering</div></div></div>
-          <div class="officer-item"><div class="officer-role">CTO</div><div><div class="officer-name">Toshio Oi</div><div class="officer-sub">Former Director, Showa Denko</div></div></div>
-          <div class="officer-item"><div class="officer-role">CFO</div><div><div class="officer-name">Yoshinaga Karasawa</div><div class="officer-sub">Former Vice President, Teijin Limited</div></div></div>
-          <div class="officer-item" style="margin-top:8px;padding-top:16px;"><div class="officer-role" style="color:var(--text-light);">Major Shareholder</div><div><div class="officer-name" style="font-size:0.85rem;">Toa Gaigyo Co., Ltd.</div><div class="officer-sub">Chuo-ku, Kobe</div></div></div>
-        </div>
-        <div class="office-photos">
-          <img src="https://static.wixstatic.com/media/14db5d_b1474e34978a4ab8853836fc099ec87b~mv2.png" alt="BIZMARKS Nihonbashi Kayabacho Exterior" />
-          <img src="https://static.wixstatic.com/media/14db5d_4da65d11e14d42ef9e20b6e65c78142b~mv2.png" alt="BIZMARKS Nihonbashi Kayabacho Reception" />
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="access-section">
-  <div class="container">
-    <div class="access-grid fade-in">
-      <div class="access-info">
-        <div class="section-label">Access</div>
-        <h2 class="section-title">Access</h2>
-        <p>8-2 Nihonbashi Koamicho, Chuo-ku,<br>Tokyo 103-0016, Japan<br>BIZMARKS Nihonbashi Kayabacho</p>
-        <p>Tokyo Metro Hibiya Line / Tozai Line<br><strong style="color:var(--white);">Kayabacho Station</strong> — 3-minute walk</p>
-        <p>TEL: <a href="tel:0364034095">03-6403-4095</a><br>MAIL: <a href="mailto:x@scix.co.jp">x@scix.co.jp</a></p>
-      </div>
-      <div class="access-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.0!2d139.7795!3d35.6805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188956a3a0a3a3%3A0x0!2zQklaLW1hcmtzIOaXpeacrOapi-iMheWgtOeUug!5e0!3m2!1sja!2sjp!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="cta">
-  <div class="container fade-in">
-    <h2>Feel Free to Contact Us</h2>
-    <p>For businesses considering entry into the battery storage market,<br>and investors interested in acquiring fully developed projects.</p>
-    <a target="_top" href="/en/contact" class="btn-primary">Contact Us →</a>
-  </div>
-</section>
-<script>
-const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible');});},{threshold:0.1});
-document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
-</script>
+</div></section>
+
+<section class="cta" id="contact"><div class="container">
+  <h2>Contact</h2>
+  <p>For investment, acquisition, sale or land enquiries — and for press or partnership.<br>Please get in touch.</p>
+  <a target="_top" href="/en/contact" class="btn-primary">Contact →</a>
+  <p style="margin-top:20px;font-size:0.75rem;color:rgba(255,255,255,0.35);">s@scix.co.jp ｜ +81 3 6403 4095</p>
+</div></section>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.contentWindow.min.js"></script>
 
-<!-- ScienceX Footer -->
+<!-- ScienceX Footer — Wix HTML embed用 self-contained -->
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
 
-  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
-  .scix-footer { background-color: #1B2A4A; color: rgba(255, 255, 255, 0.85); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%; }
-  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
-  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: 0.95; }
-  .scix-footer-info { text-align: center; }
-  .scix-footer-copyright { font-size: 11px; letter-spacing: 0.04em; color: rgba(255, 255, 255, 0.55); margin-top: 20px; }
-  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255, 255, 255, 0.8); }
-  .scix-footer-company .company-name { font-weight: 500; font-size: 13.5px; color: rgba(255, 255, 255, 0.92); margin-bottom: 2px; }
-  .scix-footer-company .representative { margin-top: 4px; color: rgba(255, 255, 255, 0.6); font-size: 12px; }
-  .scix-footer-company a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: color 0.2s ease; }
-  .scix-footer-company a:hover { color: #C49A3C; }
-  .scix-footer-divider { width: 60px; border: none; border-top: 1px solid rgba(255, 255, 255, 0.12); margin: 0 auto; }
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1B2A4A;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0 auto;
+  }
 </style>
 
 <footer class="scix-footer">
   <div class="scix-footer-inner">
-    <a href="https://www.scix.co.jp" class="scix-footer-logo" aria-label="ScienceX Home">
-      <img src="https://static.wixstatic.com/media/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png/v1/fill/w_300,h_118,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png" alt="ScienceX — Science X Inc." loading="lazy" />
+
+    <a href="https://www.scix.co.jp" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img
+        src="https://static.wixstatic.com/media/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png/v1/fill/w_300,h_118,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/14db5d_1812808c01914b368e689a6b452d9d0d~mv2.png"
+        alt="ScienceX Science X Inc."
+        loading="lazy"
+      />
     </a>
+
     <hr class="scix-footer-divider" />
+
     <div class="scix-footer-info">
       <div class="scix-footer-company">
         <div class="company-name">Science X Inc.</div>
-        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016<br>
-        BIZMARKS Nihonbashi Kayabacho<br>
+        8-2 Nihonbashi-Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        BIZMARKS Nihonbashi-Kayabacho 801<br>
         TEL: <a href="tel:0364034095">03-6403-4095</a><br>
         MAIL: <a href="mailto:x@scix.co.jp">x@scix.co.jp</a>
-        <div class="representative">CEO: Dr. Shinya Nakashima (Ph.D. in Engineering)</div>
+        <div class="representative">Representative Director: Dr. Shinya Nakashima (PhD, Eng.)</div>
       </div>
-      <div class="scix-footer-copyright">&copy; 2025 Science X Inc. All Rights Reserved.</div>
+      <div class="scix-footer-copyright">
+        &copy; 2025 Science X Inc. All Rights Reserved.
+      </div>
     </div>
+
   </div>
 </footer>
 </body>

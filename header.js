@@ -9,8 +9,10 @@
     .replace(/\.html$/, '')
     .replace(/\/+$/, '') || '/';
   var isEn = path === '/en' || path.indexOf('/en/') === 0;
+  var isZh = path === '/zh' || path.indexOf('/zh/') === 0;
   var prefix = isEn ? '/en' : '';
   var localPath = isEn ? path.replace(/^\/en/, '') || '/' : path;
+  var logoHref = isZh ? '/zh' : (prefix + '/');
 
   // --------------- 1. CSS ---------------
   var css = [
@@ -45,12 +47,12 @@
 
     '/* === Desktop nav === */',
     '.scix-header-nav{',
-    '  display:flex;align-items:center;gap:6px;',
+    '  display:flex;align-items:center;gap:2px;',
     '}',
     '.scix-header-nav a{',
     '  text-decoration:none;color:rgba(255,255,255,.7);',
-    '  font-size:.82rem;font-weight:400;letter-spacing:.3px;',
-    '  padding:8px 14px;border-radius:4px;',
+    '  font-size:.8rem;font-weight:400;letter-spacing:.2px;',
+    '  padding:8px 11px;border-radius:4px;',
     '  transition:color .25s,background .25s;',
     '  white-space:nowrap;',
     '}',
@@ -60,7 +62,7 @@
     '/* === Contact CTA button (last link) === */',
     '.scix-header-nav a.scix-cta{',
     '  background:#C49A3C;color:#fff;font-weight:600;',
-    '  padding:8px 20px;border-radius:4px;margin-left:8px;',
+    '  padding:8px 16px;border-radius:4px;margin-left:6px;',
     '}',
     '.scix-header-nav a.scix-cta:hover{background:#D4AD5A}',
     '.scix-header-nav a.scix-cta.active{background:#D4AD5A;color:#fff}',
@@ -68,7 +70,7 @@
     '/* === Language switcher === */',
     '.scix-lang{',
     '  display:flex;align-items:center;gap:3px;',
-    '  margin-left:14px;background:rgba(255,255,255,.1);',
+    '  margin-left:10px;background:rgba(255,255,255,.1);',
     '  border-radius:20px;padding:3px;flex-shrink:0;',
     '}',
     '.scix-lang a{',
@@ -108,8 +110,8 @@
     '}',
     '.scix-header-open .scix-header-overlay{display:block;opacity:1}',
 
-    '/* === Mobile breakpoint === */',
-    '@media(max-width:768px){',
+    '/* === Mobile / narrow breakpoint (drawer; raised for 7-item nav) === */',
+    '@media(max-width:920px){',
     '  .scix-header-nav{',
     '    position:fixed;top:0;right:0;bottom:0;',
     '    width:280px;max-width:80vw;',
@@ -144,24 +146,45 @@
   document.head.appendChild(style);
 
   // --------------- 2. HTML (language-aware) ---------------
-  var nav = isEn ? [
-    '<a href="/en"          data-page="/">Home</a>',
-    '<a href="/en/bss"       data-page="/bss">Battery Storage</a>',
-    '<a href="/en/knowledge" data-page="/knowledge">Knowledge</a>',
+  var nav = isZh ? [
+    '<a href="mailto:s@scix.co.jp?subject=Japan%20BESS%20-%20Confidential%20briefing" class="scix-cta">聯絡我們</a>'
+  ] : isEn ? [
+    '<a href="/en"           data-page="/">Home</a>',
+    '<a href="/en/investors" data-page="/investors">Investors</a>',
+    '<a href="/en/transfer"  data-page="/transfer">Acquire</a>',
+    '<a href="/en/sourcing"  data-page="/sourcing">Sell to Us</a>',
     '<a href="/en/company"   data-page="/company">Company</a>',
+    '<a href="/en/knowledge" data-page="/knowledge">Knowledge</a>',
     '<a href="/en/contact"   data-page="/contact" class="scix-cta">Contact</a>'
   ] : [
-    '<a href="/"          data-page="/">ホーム</a>',
-    '<a href="/bss"       data-page="/bss">蓄電池事業</a>',
-    '<a href="/knowledge" data-page="/knowledge">ナレッジ</a>',
+    '<a href="/"           data-page="/">ホーム</a>',
+    '<a href="/investors" data-page="/investors">投資家の方へ</a>',
+    '<a href="/transfer"  data-page="/transfer">案件取得</a>',
+    '<a href="/sourcing"  data-page="/sourcing">案件売却</a>',
     '<a href="/company"   data-page="/company">会社案内</a>',
+    '<a href="/knowledge" data-page="/knowledge">ナレッジ</a>',
     '<a href="/contact"   data-page="/contact" class="scix-cta">お問い合わせ</a>'
   ];
 
-  // Language switch URL
-  var switchPath = isEn
-    ? (localPath === '/' ? '/' : localPath)
-    : (path === '/' ? '/en' : '/en' + path);
+  // Language switcher (zh: EN/繁中 ; otherwise JP/EN)
+  var langSwitch;
+  if (isZh) {
+    langSwitch = [
+      '<div class="scix-lang">',
+      '  <a href="/en/market-entry">EN</a>',
+      '  <a href="/zh" class="active">繁中</a>',
+      '</div>'
+    ].join('\n');
+  } else {
+    var jpHref = isEn ? (localPath === '/' ? '/' : localPath) : path;
+    var enHref = isEn ? path : (path === '/' ? '/en' : '/en' + path);
+    langSwitch = [
+      '<div class="scix-lang">',
+      '  <a href="' + jpHref + '"' + (!isEn ? ' class="active"' : '') + '>🇯🇵 JP</a>',
+      '  <a href="' + enHref + '"' + (isEn ? ' class="active"' : '') + '>🇺🇸 EN</a>',
+      '</div>'
+    ].join('\n');
+  }
 
   var header = document.createElement('header');
   header.className = 'scix-header';
@@ -169,15 +192,12 @@
   header.innerHTML = [
     '<div class="scix-header-overlay" id="scix-header-overlay"></div>',
     '<div class="scix-header-inner">',
-    '  <a href="' + prefix + '/" class="scix-header-logo"><img src="/img/logo-white.png" alt="ScienceX"></a>',
+    '  <a href="' + logoHref + '" class="scix-header-logo"><img src="/img/logo-white.png" alt="ScienceX"></a>',
     '  <nav class="scix-header-nav" id="scix-header-nav">',
          nav.join('\n'),
     '  </nav>',
-    '  <div class="scix-lang">',
-    '    <a href="' + (isEn ? (localPath === '/' ? '/' : localPath) : path) + '"' + (!isEn ? ' class="active"' : '') + '>\ud83c\uddef\ud83c\uddf5 JP</a>',
-    '    <a href="' + (isEn ? path : (path === '/' ? '/en' : '/en' + path)) + '"' + (isEn ? ' class="active"' : '') + '>\ud83c\uddfa\ud83c\uddf8 EN</a>',
-    '  </div>',
-    '  <button class="scix-header-burger" id="scix-header-burger" aria-label="' + (isEn ? 'Open menu' : 'メニューを開く') + '" aria-expanded="false">',
+       langSwitch,
+    '  <button class="scix-header-burger" id="scix-header-burger" aria-label="' + (isEn ? 'Open menu' : (isZh ? '開啟選單' : 'メニューを開く')) + '" aria-expanded="false">',
     '    <span></span><span></span><span></span>',
     '  </button>',
     '</div>'
