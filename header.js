@@ -10,6 +10,7 @@
     .replace(/\/+$/, '') || '/';
   var isEn = path === '/en' || path.indexOf('/en/') === 0;
   var isZh = path === '/zh' || path.indexOf('/zh/') === 0;
+  var isMarketEntry = path === '/en/market-entry';
   var prefix = isEn ? '/en' : '';
   var localPath = isEn ? path.replace(/^\/en/, '') || '/' : path;
   var logoHref = isZh ? '/zh' : (prefix + '/');
@@ -166,13 +167,14 @@
     '<a href="/contact"   data-page="/contact" class="scix-cta">お問い合わせ</a>'
   ];
 
-  // Language switcher (zh: EN/繁中 ; otherwise JP/EN)
+  // Language switcher. The market-entry LP exists only in EN + Traditional Chinese
+  // (no Japanese version), so it pairs EN/繁中. All other pages pair JP/EN.
   var langSwitch;
-  if (isZh) {
+  if (isZh || isMarketEntry) {
     langSwitch = [
       '<div class="scix-lang">',
-      '  <a href="/en/market-entry">EN</a>',
-      '  <a href="/zh" class="active">繁中</a>',
+      '  <a href="/en/market-entry"' + (isMarketEntry ? ' class="active"' : '') + '>EN</a>',
+      '  <a href="/zh"' + (isZh ? ' class="active"' : '') + '>繁中</a>',
       '</div>'
     ].join('\n');
   } else {
