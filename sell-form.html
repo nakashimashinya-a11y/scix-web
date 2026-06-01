@@ -867,21 +867,49 @@
       body: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     })
-      .then(function (res) { return res.json(); })
+      .then(function (res) {
+        if (!res.ok) throw new Error('server ' + res.status);
+        return res.json();
+      })
       .then(function (resp) {
-        if (resp.success) {
+        if (resp && (resp.success === true || resp.success === 'true')) {
           window.location.href = '/thanks';
         } else {
-          throw new Error(resp.message || '送信エラー');
+          throw new Error((resp && resp.message) || 'submit failed');
         }
       })
       .catch(function (err) {
-        alert('送信に失敗しました。もう一度お試しください。\n' + err.message);
+        showMailFallback(form, data);
         submitBtn.innerHTML = originalBtnHTML;
         submitBtn.style.opacity = '1';
         submitBtn.disabled = false;
       });
   });
+
+  // 送信先サーバー(FormSubmit)障害時でも相談を取りこぼさない退避導線
+  function showMailFallback(form, data) {
+    var TO = 's@scix.co.jp';
+    var labels = { persona:'種別', name:'お名前', company:'会社名', email:'メール', phone:'電話', address:'所在地', capacity:'規模', voltage:'電圧区分', stage:'進捗段階', area:'面積', landuse:'地目', message:'メッセージ', uploaded_files:'アップロード書類', files:'アップロード書類' };
+    var lines = [];
+    Object.keys(data).forEach(function (k) {
+      if (k.charAt(0) === '_') return;
+      var v = data[k];
+      if (v === undefined || v === null || String(v) === '') return;
+      lines.push((labels[k] || k) + ': ' + v);
+    });
+    var body = lines.join('\n');
+    var subject = '売却・査定のご相談（' + (data.name || '') + (data.company ? ' / ' + data.company : '') + '）';
+    var mailto = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    var box = document.getElementById('formFallback');
+    if (!box) {
+      box = document.createElement('div');
+      box.id = 'formFallback';
+      box.style.cssText = 'margin-top:20px;padding:18px 20px;border:1px solid #E0DCD6;border-left:3px solid #C49A3C;border-radius:8px;background:#FFFBF3;color:#1B2A4A;font-size:0.9rem;line-height:1.85;';
+      form.appendChild(box);
+    }
+    box.innerHTML = '送信サーバーが一時的に応答していません。お手数ですが、下のボタンからメールでお送りください（ご入力内容は本文に自動で入ります／アップロード済み書類のリンクも含まれます）。<br>または <a href="mailto:' + TO + '" style="color:#C49A3C;font-weight:600;">' + TO + '</a> ／ TEL <a href="tel:0364034095" style="color:#C49A3C;font-weight:600;">03-6403-4095</a> まで直接ご連絡ください。<div style="margin-top:14px;"><a href="' + mailto + '" style="display:inline-block;padding:13px 30px;background:#C49A3C;color:#ffffff;text-decoration:none;border-radius:4px;font-weight:600;">&#9993; メールで送信する</a></div>';
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 })();
 </script>
 

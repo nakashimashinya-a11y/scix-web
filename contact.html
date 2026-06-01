@@ -726,38 +726,73 @@ function toggleChip(el) {
   el.querySelector('input').checked = true;
 }
 
-// Fetch-based form submission (bypasses Cloudflare redirect issues)
+// Fetch送信 ＋ 送信サーバー障害時はメール下書きへフォールバック
 document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
-  const form = this;
-  const btn = form.querySelector('.submit-btn');
+  var form = this;
+  var btn = form.querySelector('.submit-btn');
+  var origHTML = btn.innerHTML;
   btn.innerHTML = '送信中...';
   btn.style.opacity = '0.7';
   btn.disabled = true;
 
+  var data = Object.fromEntries(new FormData(form));
+
   fetch(form.action, {
     method: 'POST',
-    body: JSON.stringify(Object.fromEntries(new FormData(form))),
+    body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     }
   })
-  .then(function(res) { return res.json(); })
-  .then(function(data) {
-    if (data.success) {
+  .then(function(res) {
+    if (!res.ok) throw new Error('server ' + res.status);
+    return res.json();
+  })
+  .then(function(result) {
+    if (result && (result.success === true || result.success === 'true')) {
       window.location.href = '/thanks';
     } else {
-      throw new Error(data.message || '送信エラー');
+      throw new Error((result && result.message) || 'submit failed');
     }
   })
   .catch(function(err) {
-    alert('送信に失敗しました。もう一度お試しください。\n' + err.message);
-    btn.innerHTML = '送信する <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+    showMailFallback(form, data);
+    btn.innerHTML = origHTML;
     btn.style.opacity = '1';
     btn.disabled = false;
   });
 });
+
+// 送信先サーバー(FormSubmit)障害時でも問い合わせを取りこぼさないための退避導線
+function showMailFallback(form, data) {
+  var TO = 's@scix.co.jp';
+  var body = [
+    'ご用件: ' + (data.inquiry || ''),
+    'お名前: ' + (data.name || ''),
+    '会社名: ' + (data.company || ''),
+    '部署名: ' + (data.department || ''),
+    '役職: ' + (data.title || ''),
+    'メール: ' + (data.email || ''),
+    '電話: ' + (data.phone || ''),
+    '',
+    'メッセージ:',
+    (data.message || '')
+  ].join('\n');
+  var subject = 'お問い合わせ（' + (data.name || '') + ' / ' + (data.company || '') + '）';
+  var mailto = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+  var box = document.getElementById('formFallback');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'formFallback';
+    box.style.cssText = 'margin-top:20px;padding:18px 20px;border:1px solid #E0DCD6;border-left:3px solid #C49A3C;border-radius:8px;background:#FFFBF3;color:#1B2A4A;font-size:0.9rem;line-height:1.85;';
+    form.appendChild(box);
+  }
+  box.innerHTML = '送信サーバーが一時的に応答していません。お手数ですが、下のボタンからメールでお送りください（ご入力内容は本文に自動で入ります）。<br>または <a href="mailto:' + TO + '" style="color:#C49A3C;font-weight:600;">' + TO + '</a> ／ TEL <a href="tel:0364034095" style="color:#C49A3C;font-weight:600;">03-6403-4095</a> まで直接ご連絡ください。<div style="margin-top:14px;"><a href="' + mailto + '" style="display:inline-block;padding:13px 30px;background:#C49A3C;color:#ffffff;text-decoration:none;border-radius:4px;font-weight:600;">&#9993; メールで送信する</a></div>';
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
 </script>
 
 
