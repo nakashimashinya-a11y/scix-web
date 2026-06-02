@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>并网工程费为何相差10倍 — 储能事业的选址决定一切｜ScienceX</title>
+<meta name="description" content="即便同为50MW的储能，并网工程费也会从数亿日元变动到数十亿日元。本文解析这"10倍差距"的结构——距离、储能特有的双向问题、95GW空占问题，以及接续研讨的流程。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-grid">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-grid">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-grid">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-grid">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-grid">
+<meta property="og:type" content="website">
+<meta property="og:title" content="并网工程费为何相差10倍 — 储能事业的选址决定一切｜ScienceX">
+<meta property="og:description" content="即便同为50MW的储能，并网工程费也会从数亿日元变动到数十亿日元。解析这10倍差距的结构与接续研讨的流程。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-grid">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="并网工程费为何相差10倍 — 储能事业的选址决定一切｜ScienceX">
+<meta name="twitter:description" content="即便同为50MW的储能，并网工程费也会从数亿日元变动到数十亿日元。解析10倍差距的结构与接续研讨的流程。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+
+  :root { --navy: #1B2A4A; --accent: #C49A3C; --green: #1A7A4C; --text: #2C3E50; --text-light: #6C7A89; --border: #E2E6EC; --light-bg: #F8F9FB; --red: #C0392B; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "Noto Sans SC", "Noto Sans JP", sans-serif; color: #2C3E50; line-height: 2.0; background: #fff; margin: 0; padding: 0; }
+  .column-container { max-width: 780px; margin: 0 auto; padding: 40px 24px; }
+  .meta { font-size: 0.82em; color: var(--accent); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 8px; }
+  h1 { font-family: 'Noto Serif SC', serif; font-size: 1.6em; color: var(--navy); line-height: 1.5; margin-bottom: 8px; }
+  .subtitle { font-size: 0.95em; color: var(--text-light); margin-bottom: 32px; padding-bottom: 24px; border-bottom: 2px solid var(--border); }
+  h2 { font-size: 1.15em; font-weight: 700; color: var(--navy); margin: 36px 0 12px; padding-left: 14px; border-left: 4px solid var(--accent); }
+  h3 { font-size: 1.0em; font-weight: 700; color: var(--navy); margin: 24px 0 8px; }
+  p { margin-bottom: 16px; font-size: 0.95em; }
+  .highlight-box { background: linear-gradient(135deg, #F0F7F3 0%, #E8F5EE 100%); border: 1px solid #A3D9B8; border-radius: 8px; padding: 20px 24px; margin: 20px 0; font-size: 0.92em; }
+  .highlight-box strong { color: var(--green); }
+  .warning-box { background: #FFF5F5; border: 1px solid #E8AAAA; border-radius: 8px; padding: 20px 24px; margin: 20px 0; font-size: 0.92em; }
+  .warning-box strong { color: var(--red); }
+  .data-box { background: var(--light-bg); border-radius: 8px; padding: 20px 24px; margin: 20px 0; font-size: 0.92em; }
+  .data-box .num { font-size: 1.4em; font-weight: 900; color: var(--navy); }
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.88em; }
+  th { background: var(--navy); color: #fff; padding: 10px 14px; text-align: left; font-weight: 700; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  tr:nth-child(even) { background: var(--light-bg); }
+  .source { font-size: 0.78em; color: var(--text-light); margin-top: 4px; }
+  .related { background: var(--light-bg); border-radius: 8px; padding: 20px 24px; margin: 32px 0; }
+  .related h3 { font-size: 0.92em; color: var(--navy); margin-bottom: 10px; }
+  .related a { display: block; font-size: 0.88em; color: #2563EB; text-decoration: none; margin: 4px 0; }
+  .related a::before { content: "→ "; }
+
+</style>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "并网工程费为何相差10倍 — 储能事业的选址决定一切｜ScienceX",
+  "description": "即便同为50MW的储能，并网工程费也会从数亿日元变动到数十亿日元。解析这10倍差距的结构与接续研讨的流程。",
+  "author": { "@type": "Organization", "name": "Science X Inc." },
+  "publisher": { "@type": "Organization", "name": "Science X Inc.", "logo": { "@type": "ImageObject", "url": "https://www.scix.co.jp/img/logo-white.png" } },
+  "inLanguage": "zh-CN",
+  "datePublished": "2026-04-10",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-grid"
+}
+</script>
+<meta property="article:published_time" content="2026-04-10">
+</head>
+<body>
+<script src="/header.js"></script>
+<div class="column-container">
+<div class="meta">COLUMN 04 — 并网 <time class="meta-date" datetime="2026-04-10" style="opacity:.65;font-weight:500">｜2026.04.10</time></div>
+<h1>并网工程费为何相差10倍<br>— 储能事业的"选址"决定一切</h1>
+<div class="subtitle">即便同为50MW的储能，并网工程费也会从数亿日元变动到数十亿日元。理解这"10倍差距"的结构，便分出储能事业的成败。</div>
+
+<h2>并网工程费的结构 — 钱花在哪里</h2>
+<p>电网级储能的初期成本（CAPEX），大体由四个要素构成。</p>
+
+<div class="data-box">
+  <strong>初期成本的内训（经产省数据）：</strong><br>
+  ·储能系统费用：<strong>约55〜65%</strong>（电芯＋PCS＋BMS）<br>
+  ·设置工程费用：<strong>约15〜20%</strong>（基础工程、电气工程等）<br>
+  ·专用线敷设费用：<strong>约10〜15%</strong>（至输电铁塔、变电站的专用线）<br>
+  ·工程费分摊金：<strong>2〜14%</strong>（向一般输配电事业者支付的并网接续工程费）<br>
+  <div class="source">出处：GrowShip公司分析 https://www.growship.com/notes/bess-intro-price/</div>
+</div>
+
+<p>上面三项（系统费用、设置工程、专用线）可通过与储能厂商或施工业者谈判大致预测，但<strong>唯独工程费分摊金会因"选址"而改变数量级</strong>。</p>
+
+<h2>为何产生10倍之差 — 三个要因</h2>
+
+<h3>要因① 至电网的"距离"</h3>
+<p>工程费分摊金分为"特定负担"（事业者专用电源线敷设等，全额由事业者负担）与"一般负担"（全区域基干电网增强，以输电费回收）。</p>
+<p>距最近的输电铁塔或变电站较远时，需敷设数km专用线，费用呈数量级膨胀。能否接入无需增强、尚有可用容量的电网，使工程费分摊金在<strong>数亿日元到数十亿日元</strong>之间变动。亦有报告称，接续研讨回复时估为5,000万日元的工程费，其后增至6,000〜7,000万日元。</p>
+
+<h3>要因② 储能特有的"双向问题"</h3>
+<p>这是光伏发电所没有的、储能特有的课题。</p>
+
+<div class="warning-box">
+  <strong>储能在"充电"与"放电"双向都对电网产生影响</strong><br><br>
+  ·充电时 = 顺潮流（电网→储能）→ 引起电压下降<br>
+  ·放电时 = 逆潮流（储能→电网）→ 引起电压上升<br><br>
+  相对于光伏只需逆潮流，储能<strong>需要双向的可用容量</strong>。OCCTO并网规约研讨会（2024年7月31日）指出"储能设备兼具放电/充电两种特性，与其他再生能源电源相比，对系统电压的影响更大"。
+  <div class="source">出处：OCCTO并网规约研讨会资料（2024年7月31日）</div>
+</div>
+
+<p>尤其北海道分区顺潮流侧的可用容量不足趋于严重，作为对策导入了"N-1充电停止装置"的设置与"早期连系追加对策"（2025年4月开始）。</p>
+
+<h3>要因③ 95GW的"空占"问题</h3>
+
+<div class="data-box">
+  <strong>接续研讨申请的异常激增：</strong><br>
+  ·2024年9月末：<span class="num">约8,800</span>万kW（同比约3.2倍）<br>
+  ·2024年12月末：<span class="num">约9,500</span>万kW（95GW）<br>
+  ·2025年6月末：<span class="num">约14,300</span>万kW（143GW）<br><br>
+  但已签接续合同仅约800万kW，已并网仅<span class="num">约17</span>万kW（170MW）。<br>
+  2024年度储能部分的接续研讨申请件数为<strong>9,544件</strong>（上年度1,599件的约6倍）。
+  <div class="source">出处：METI第53回系统WG资料（2024年12月2日）/ 第4回次世代电力系统WG资料（2025年9月24日）</div>
+</div>
+
+<p>这一巨大落差的背景，是投机性的"空占"行为。有报告称将数十份接续研讨回复书打包转售，或以远超工程费分摊金的金额交易。</p>
+<p>对此，2025年度以后推进了接续研讨申请上限设定、保证金支付义务化、土地登记簿、测量文件提交义务化等规制强化。</p>
+
+<h2>接续研讨的流程 — 20万日元便能看清"全部"</h2>
+
+<div class="highlight-box">
+  <strong>接续研讨的手续流程：</strong><br><br>
+  <strong>Step 1：事前咨询（免费）</strong><br>
+  向一般输配电事业者确认大致的并网可能性。<br><br>
+  <strong>Step 2：接续研讨申请（收费：约20万日元/件）</strong><br>
+  委托正式研讨。研讨费每件约20万日元。<br><br>
+  <strong>Step 3：领取回复书（原则2〜3个月）</strong><br>
+  500kW未满2个月，以上3个月为原则。申请集中时进一步延长。<br>
+  回复书载明并网可否、所需工程概要、概算工期、<strong>工程费分摊金</strong>。<br>
+  回复书的有效期为<strong>1年</strong>。<br><br>
+  <strong>Step 4：合同申请 → 工程实施</strong>
+</div>
+
+<p>接续研讨回复书正是储能事业的"价值证明书"。因确定工程费分摊金额，它既是LDA投标的前提条件，也是事业继续判断的依据本身。</p>
+
+<h2>电网可用容量的确认手段 — 各电力公司的公开地图</h2>
+<p>选址的第一步，是确认各电力公司公开的电网信息。随2024年12月资源能源厅"系统信息公表方针"的修订，多数电力公司将"可用容量地图"改名为"拥堵状况地图""预想潮流等一览表"。</p>
+
+<div class="data-box">
+  <strong>主要公开信息URL：</strong><br>
+  ·资源能源厅 可用容量地图指南：<span>enecho.meti.go.jp</span><br>
+  ·OCCTO 映射信息链接集：<span>occto.or.jp</span><br>
+  ·输配电网协议会 welcome zone 地图：<span>tdgc.jp</span><br>
+  ·东京电力Power Grid：<span>tepco.co.jp</span><br>
+  ·关西电力输配电：<span>kansai-td.co.jp</span><br>
+  ·中部电力Power Grid：<span>powergrid.chuden.co.jp</span><br>
+  ·东北电力Network：<span>tohoku-epco.co.jp</span><br>
+  ·九州电力输配电：<span>kyuden.co.jp</span><br>
+  ·北海道电力Network：<span>hepco.co.jp</span>
+</div>
+
+<h2>Science X的"选址甄选方法"所解决的</h2>
+<p>仅凭一般公开的电网信息，无法找到适合储能的土地。公开地图显示的是"现时点的可用容量"，但储能特有的双向问题多未反映其中。</p>
+<p>Science X 进行公开电网信息的分析、向一般输配电事业者的事前咨询、与本地不动产公司协作取得土地信息，以及接续研讨申请的代行——这一切由一个窗口一贯完成。</p>
+
+<div class="highlight-box">
+  <strong>Science X 提供的"开发权打包"内容：</strong><br>
+  ✓ 适地的土地预告登记完成<br>
+  ✓ 接续研讨回复书取得完成（并网可否、工程费分摊金确定）<br>
+  ✓ 建设成本概算完成<br>
+  → 以可立即用于LDA投标或事业判断的状态交付
+</div>
+
+<div class="related">
+  <h3>相关洞见</h3>
+  <a href="/zh-knowledge">查看全部洞见</a>
+  <a href="/zh-column-lda">什么是LDA — 20年固定收入的机制</a>
+  <a href="/zh-column-revenue">储能的三大收益来源 — JEPX、辅助服务、容量市场</a>
+  <a href="/zh-column-auction">主拍卖 vs LDA — 有何不同</a>
+  <a href="/zh-column-biz">30MW以上 vs 2MW — 规模迥异的储能商业模式</a>
+</div>
+
+<div class="source" style="margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border);">
+  <strong>出处、参考资料：</strong><br>
+  ·GrowShip公司 BESS导入成本分析 https://www.growship.com/notes/bess-intro-price/<br>
+  ·OCCTO并网规约研讨会资料（2024年7月31日）https://www.occto.or.jp/assets/iinkai/gridcode/2024/files/gridcode_17_06.pdf<br>
+  ·METI 第53回系统WG资料（2024年12月2日）https://www.meti.go.jp/shingikai/enecho/shoene_shinene/shin_energy/keito_wg/pdf/053_02_00.pdf<br>
+  ·METI 第4回次世代电力系统WG资料（2025年9月24日）https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/pdf/004_04_00.pdf<br>
+  ·资源能源厅 可用容量地图指南 https://www.enecho.meti.go.jp/category/saving_and_new/saiene/grid/07_map.html<br>
+  ·OCCTO 映射信息链接集 https://www.occto.or.jp/access/link/mapping.html
+</div>
+</div>
+<!-- ScienceX Footer — self-contained (zh-CN) -->
+<style>
+  .scix-footer *{margin:0;padding:0;box-sizing:border-box}
+  .scix-footer{background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+  .scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px}
+  .scix-footer-logo img{height:48px;width:auto;display:block;opacity:0.95}
+  .scix-footer-info{text-align:center}
+  .scix-footer-copyright{font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px}
+  .scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8)}
+  .scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+  .scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+  .scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none;transition:color 0.2s ease}
+  .scix-footer-company a:hover{color:#C49A3C}
+  .scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12);margin:0 auto}
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img src="/img/logo-white.png" alt="ScienceX Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.（赛恩斯艾克斯）</div>
+        日本〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:+81364034095">+81 3 6403 4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
