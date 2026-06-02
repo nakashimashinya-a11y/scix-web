@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>非确定性并网（non-firm）与弃电风险 — 对储能事业收益如何起作用｜ScienceX 洞见</title>
+<meta name="description" content="当前几乎所有储能项目都是非确定性并网（non-firm）。电网拥堵时的出力控制如何影响收益？连同能否参与容量市场、辅助服务市场在内，梳理事业判断所需的论点。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-nonfirm">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-nonfirm">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-nonfirm">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-nonfirm">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-nonfirm">
+<meta property="og:type" content="website">
+<meta property="og:title" content="非确定性并网（non-firm）与弃电风险 — 对储能事业收益如何起作用｜ScienceX 洞见">
+<meta property="og:description" content="当前几乎所有储能项目都是非确定性并网。电网拥堵时的出力控制如何影响收益？梳理事业判断所需的论点。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-nonfirm">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="非确定性并网（non-firm）与弃电风险 — 对储能事业收益如何起作用｜ScienceX 洞见">
+<meta name="twitter:description" content="当前几乎所有储能项目都是非确定性并网。梳理事业判断所需的论点。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .num{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--navy);font-size:1.1em}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.88em}
+.comparison-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif SC',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+@media(max-width:768px){.article-body{padding:32px 16px 60px}h2{font-size:1.2em}.comparison-table{font-size:.8em}.comparison-table th,.comparison-table td{padding:8px 10px}}
+.scix-footer{background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+.scix-footer *{margin:0;padding:0;box-sizing:border-box}
+.scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px}
+.scix-footer-logo img{height:48px;width:auto;display:block;opacity:0.95}
+.scix-footer-info{text-align:center}
+.scix-footer-copyright{font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px}
+.scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8)}
+.scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+.scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+.scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none;transition:color 0.2s ease}
+.scix-footer-company a:hover{color:#C49A3C}
+.scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12);margin:0 auto}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "非确定性并网（non-firm）与弃电风险 — 对储能事业收益如何起作用｜ScienceX 洞见",
+  "description": "当前几乎所有储能项目都是非确定性并网（non-firm）。电网拥堵时的出力控制如何影响收益？连同能否参与容量市场、辅助服务市场在内，梳理事业判断所需的论点。",
+  "author": { "@type": "Organization", "name": "Science X Inc." },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": { "@type": "ImageObject", "url": "https://www.scix.co.jp/img/logo-white.png" }
+  },
+  "inLanguage": "zh-CN",
+  "datePublished": "2026-04-10",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-nonfirm"
+}
+</script>
+<meta property="article:published_time" content="2026-04-10">
+</head>
+<body>
+<script src="/header.js"></script>
+<div class="article-header">
+<div class="header-inner">
+<div class="header-meta"><span class="header-num">COLUMN 11</span><span class="header-tag">并网</span><time class="header-date" datetime="2026-04-10">2026.04.10</time></div>
+<h1>非确定性并网（non-firm）与弃电风险<br>— 对储能事业收益<em>如何起作用</em></h1>
+<p class="header-desc">当前几乎所有储能项目都是非确定性并网。电网拥堵时的出力控制对收益有何影响？连同能否参与容量市场、辅助服务市场在内，梳理事业判断所需的论点。</p>
+</div>
+</div>
+<div class="article-body">
+<a target="_top" href="https://www.scix.co.jp/zh-knowledge" class="back-link">← 返回洞见列表</a>
+
+<h2>什么是非确定性并网（non-firm）</h2>
+<p>非确定性并网（non-firm），是以电网拥堵时被无补偿出力控制为前提、从而准许新建电源接入的制度。此前，电网无可用容量便无法接入，或须负担巨额的电网增强费用；随着非确定性并网的导入，接受出力控制以换取早期并网成为可能。2023年4月以后，含局部电网（local系统）在内、除10kW以下低压外，原则上所有新建接入均适用非确定性并网。</p>
+
+<div class="data-box">
+<strong>非确定性并网的规模感</strong><br><br>
+并网合同申请（截至2024年10月末）：全国约<span class="num">2,600万kW</span><br>
+接续研讨阶段（截至2024年6月末）：约<span class="num">1亿3,400万kW</span><br><br>
+当前开发中的储能项目，几乎全部为非确定性并网。
+<div class="source">出处：资源能源厅"日本版Connect & Manage中的非确定性并网举措"（第1回下一代电力系统工作组 资料4，2025年1月）／第52回电力系统工作组 资料2（2024年9月）</div>
+</div>
+
+<p>需要说明的是，非确定性并网所伴随的出力控制，起因于特定输变电设备的电网拥堵（潮流超过运行容量或有此之虞），与基于区域整体供需平衡的出力控制（优先供电规则）属不同机制。在九州等地成为话题的"出力控制"主要起因于供需约束，与本文所述因电网拥堵而起的出力控制，在发生要因与控制顺序上并不相同。</p>
+
+<p>对储能而言重要的是，出力控制不仅及于"放电侧"，也及于"充电侧"。不过，放电侧与充电侧的控制机制不同。</p>
+
+<div class="highlight-box">
+<strong>放电侧与充电侧机制不同</strong><br><br>
+·<strong>放电侧（逆潮流）</strong>：作为非确定性并网的拥堵管理，电网拥堵时在线抑制放电（与光伏相同的机制）。即便接入点设备本身未直接拥堵，若影响到上级设备的拥堵，也可能成为控制对象<br>
+·<strong>充电侧（顺潮流）</strong>：要求设置N-1充电停止装置，输电线单回线故障时充电自动停止。此外，在充电侧可用容量不足的电网，将以"充电限制合同"在拥堵时限制充电（充电限制合同自2025年4月1日起全国运用）<br><br>
+放电侧的控制相对可预见，而充电侧的限制联动于N-1故障这一突发事件，性质不同。
+<div class="source">出处：第53回电力系统工作组 资料2（2024年12月）／OCCTO"关于电网的接入与利用规则 ～非确定性并网～"（2024年7月）／OCCTO"关于电网级储能的电网接入"（2025年4月更新）</div>
+</div>
+
+<h2>出力控制实际会发生多少</h2>
+<p>结论先行：现阶段影响有限。但在非确定性并网接入量增加的2027年度以后，情况可能改变。</p>
+
+<div class="highlight-box">
+<strong>电网拥堵展望（资源能源厅 推算）</strong><br><br>
+·2027年度前后：端境期（轻负荷期）部分电网开始出现拥堵<br>
+·2028年度以后：高峰需求断面亦预计出现拥堵<br>
+·东北、东京、中部、中国地区的部分电网，轻负荷期拥堵趋于集中<br><br>
+不过，拥堵仅限于特定时段、特定电网，全年影响被认为有限。
+<div class="source">出处：第1回下一代电力系统工作组 资料（2025年1月）／第52回电力系统工作组 资料2（2024年9月）</div>
+</div>
+
+<p>电网拥堵时的出力控制方式经历了阶段性变更。当初（2021年1月〜2022年12月）仅一律控制非确定性电源；自2022年12月21日起，导入了依经济调度顺序（merit order）活用调整电源的"再调度方式（活用调整电源）"。进而自2023年12月28日起，适用对含调整电源以外在内的全部电源按固定顺序控制的"再调度方式（按固定顺序）"。</p>
+
+<p>为提高出力控制量的可预见性，各一般输配电事业者在网站上公开"电网预想潮流等信息"。储能事业者可凭此公开信息，确认接续研讨回复书所载"影响出力控制量的主要设备"（骨干电网组、局部电网的变压器与输电线）的拥堵状况。</p>
+
+<h3>N-1故障实绩的读法</h3>
+<p>接续研讨回复书会载明"N-1故障实绩"。这是该输电线或变压器过去发生事故（N-1故障）次数的数值。一旦发生N-1故障，将经N-1出力控制（转送切断）瞬时切断储能的出力。</p>
+<p>例如"0.667次/年"，意味着3年内有2次故障实绩。由此频率与恢复时间，可概算年度停运风险。频率低则对收益影响极小；反之，超过1次/年的设备则需注意。</p>
+
+<h2>容量市场、辅助服务市场的参与限制</h2>
+<p>对非确定性并网的储能而言，最大的关切是"市场参与是否受限"。非确定性并网的同意书中，含有如下文字。</p>
+
+<div class="warning-box">
+<strong>非确定性并网 同意书的记载：</strong><br><br>
+"缔结本合同，即表示对<strong>无法参与容量市场及辅助服务市场</strong>的情形予以容认。"
+<div class="source">出处：OCCTO"非确定性并网同意书"</div>
+</div>
+
+<p>见此文字而担心"容量市场与辅助服务市场都无法参与"的买家不在少数，但这是对未来限制可能性的法律保留，并非现阶段的一律禁止。</p>
+
+<div class="highlight-box">
+<strong>关于市场参与的最新梳理：</strong><br><br>
+·<strong>容量市场</strong>：在2027年度〜2029年度的主拍卖中，准许非确定性电源参与。但定位为"当前一段时期"，并非恒久保证<br>
+·<strong>辅助服务市场</strong>：当前（至2028年度）准许非确定性电源参与市场。但电网拥堵时，ΔkW（调整力）的发动可能受限，届时将从非拥堵电网替代调度<br><br>
+两者均为逐年度判断的暂定措施，须留意并非恒久权利。
+<div class="source">出处：OCCTO 容量市场主拍卖说明会资料（2023年7月、2024年7月、2025年7月）／第54回辅助服务市场研讨小委员会 资料（2025年3月）</div>
+</div>
+
+<h2>2029年度以后的展望</h2>
+<p>2029年度以后，容量市场与辅助服务市场情况不同。</p>
+
+<div class="data-box">
+<strong>容量市场</strong>：2029年度主拍卖（2025年实施）有准许非确定性电源参与的实绩。但拥堵展望的监测仍在持续，未来限制的可能性犹存。<br><br>
+<strong>辅助服务市场</strong>：2029年度以后的处理<strong>未决定</strong>。第54回辅助服务市场研讨小委员会（2025年3月）明记"当前（至2028年度）"，2029年度以后可能视拥堵影响扩大而导入参与限制。今后的研讨交由"关于未来运行容量等方式的工作组"。<br><br>
+若将辅助服务市场收益计入2029年度以后的事业计划，须将其作为制度风险加以认识。
+<div class="source">出处：第54回辅助服务市场研讨小委员会 资料4（2025年3月）／OCCTO 容量市场主拍卖说明会资料（2025年7月）</div>
+</div>
+
+<h2>对LDA的影响</h2>
+<p>非确定性并网是否影响LDA（长期脱碳电源拍卖）的投标资格，是买家最为在意的要点之一。</p>
+
+<div class="highlight-box">
+<strong>结论：非确定性并网不妨碍LDA投标</strong><br><br>
+LDA在容量市场框架内运营，既然容量市场准许非确定性电源参与，对LDA的投标亦可行。2023年4月以后的新建接入原则上全部为非确定性并网，而首回LDA（2024年1月）储能中标30件、109.2万kW、第2回LDA（2025年1月）储能中标96.1万kW，由此可认为非确定性并网的项目正在LDA中标。
+<div class="source">出处：OCCTO LDA中标结果公布资料（2024年1月、2025年1月）</div>
+</div>
+
+<h2>如何计入事业计划</h2>
+<p>将非确定性并网的出力控制风险计入事业计划时，有三个要点。</p>
+
+<h3>① 确认各地区、各电网的拥堵展望</h3>
+<p>即便同为东北地区，骨干电网组（"青森1""宫城1""新潟1"等）的拥堵风险也各不相同。请确认接续研讨回复书所载设备的公开信息，评估该电网的潮流实绩、拥堵频率。</p>
+
+<h3>② 在收支模拟中反映"控制率"</h3>
+<p>出力控制导致的收益减少，作为对年度可用率的折减率计入。现阶段年度控制率预计在数%以下，但在保守的模拟中，宜以5〜10%的控制率作为压力情景计算。此外，放电侧的控制与充电侧的限制发生机制不同，建议分别作为不同风险要因评估。</p>
+
+<h3>③ 将N-1出力控制、充电停止装置的成本计入初期投资</h3>
+<p>非确定性并网下，出力控制设备（含通信装置）的设置由储能事业者负担。此外，充电侧的N-1充电停止装置的导入、维护、更新、拆除费用亦由事业者负担。请将这些费用计入设备费、列入初期投资。</p>
+
+<h3>④ 认识市场参与的制度风险</h3>
+<p>非确定性电源参与容量市场、辅助服务市场，现阶段是"当前一段时期"准许的暂定措施。尤其辅助服务市场2029年度以后的处理未决定，须将制度变更风险作为收益模型的前提加以计入。</p>
+
+<div class="cta-section">
+<h3>各项目的非确定性并网风险评估</h3>
+<p>接续研讨回复书的读法、以及个别项目的出力控制风险评估，将在面谈时说明。</p>
+<a target="_top" href="https://www.scix.co.jp/zh-contact" class="cta-btn">联系我们 →</a>
+</div>
+</div>
+
+<!-- ScienceX Footer — self-contained (zh-CN) -->
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img src="/img/logo-white.png" alt="ScienceX Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.（赛恩斯艾克斯）</div>
+        日本〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:+81364034095">+81 3 6403 4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

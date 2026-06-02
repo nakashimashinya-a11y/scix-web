@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:560px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif SC',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin-bottom:8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+.ins-tabs{margin:28px 0}
+.ins-tab-list{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:0}
+.ins-tab-btn{padding:10px 14px;font-size:13px;font-weight:600;border:1px solid var(--border);border-bottom:none;border-radius:6px 6px 0 0;background:var(--light-bg);cursor:pointer;color:var(--text-light);transition:all .2s;display:flex;align-items:center;gap:6px;font-family:inherit}
+.ins-tab-btn .tab-num{font-family:'Noto Serif SC',serif;color:var(--accent)}
+.ins-tab-btn.active{background:var(--white);color:var(--navy);border-color:var(--accent)}
+.ins-panel{display:none;border:1px solid var(--border);border-top:2px solid var(--accent);padding:24px;background:var(--white);border-radius:0 0 8px 8px}
+.ins-panel.active{display:block}
+.ins-panel .panel-subtitle{font-size:.72em;color:var(--text-light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.ins-panel .panel-title{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 12px;border:none;padding:0}
+.ins-panel .panel-body{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.ins-panel .panel-body .box{background:var(--light-bg);border:1px solid var(--border);border-radius:4px;padding:14px 16px}
+.ins-panel .panel-body .box h5{font-size:.82em;color:var(--navy);margin:0 0 8px;font-weight:700;letter-spacing:.02em}
+.ins-panel .panel-body .box ul{margin:0;padding-left:18px;font-size:.85em;line-height:1.9}
+.ins-panel .panel-body .box li{margin-bottom:2px}
+.ins-panel .panel-figure{background:rgba(196,154,60,.08);border-left:3px solid var(--accent);padding:12px 16px;margin-top:12px;border-radius:0 4px 4px 0}
+.ins-panel .panel-figure .f-lbl{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.ins-panel .panel-figure .f-val{font-size:.92em;font-weight:700;color:var(--navy);line-height:1.5}
+.ins-panel .panel-figure .u{font-size:.8em;color:var(--text-light);font-weight:400;margin-left:4px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif SC',serif;font-size:1.6em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.timeline{margin:28px 0;position:relative;padding-left:24px;border-left:2px solid var(--border)}
+.tl-item{position:relative;padding-bottom:24px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:'';position:absolute;left:-30px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--white);box-shadow:0 0 0 1px var(--accent)}
+.tl-date{font-family:'Noto Serif SC',serif;font-size:.82em;color:var(--accent);font-weight:700;margin-bottom:4px;letter-spacing:.04em}
+.tl-body h4{font-size:.95em;font-weight:700;color:var(--navy);margin-bottom:4px;line-height:1.5}
+.tl-capacity{font-size:.78em;color:var(--text-light);margin-bottom:8px;font-style:italic}
+.tl-body p{font-size:.88em;line-height:1.9;margin:0}
+.sim-container{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:28px;margin:28px 0;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.sim-title{font-size:15px;font-weight:700;margin-bottom:20px;color:var(--navy);display:flex;align-items:center;gap:8px}
+.sim-title::before{content:"\25B6";font-size:11px;color:var(--accent)}
+.sim-title .tag{margin-left:auto;font-size:10px;letter-spacing:.1em;color:var(--accent);background:rgba(196,154,60,.1);padding:3px 8px;border-radius:2px;font-weight:600}
+.scenario-toggle{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.scenario-toggle button{padding:8px 14px;font-size:12.5px;font-weight:600;border:1px solid var(--border);background:var(--light-bg);color:var(--text-light);border-radius:4px;cursor:pointer;transition:all .2s;font-family:inherit}
+.scenario-toggle button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.sim-row{display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.sim-label{min-width:200px;font-size:13.5px;font-weight:600}
+.sim-slider{flex:1;min-width:140px;-webkit-appearance:none;appearance:none;height:6px;background:var(--border);border-radius:3px;outline:none}
+.sim-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;background:var(--navy);border-radius:50%;cursor:pointer}
+.sim-slider::-moz-range-thumb{width:20px;height:20px;background:var(--navy);border-radius:50%;cursor:pointer;border:none}
+.sim-value{min-width:110px;text-align:right;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--navy)}
+.sim-results{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sim-res-cell{background:var(--light-bg);border:1px solid var(--border);padding:16px 18px;border-radius:6px}
+.sim-res-cell .rc-label{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:6px;text-transform:uppercase}
+.sim-res-cell .rc-val{font-family:'Noto Serif SC',serif;font-size:1.6em;font-weight:700;color:var(--navy);line-height:1.2}
+.sim-res-cell .rc-val .u{font-size:.56em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.sim-res-cell .rc-sub{font-size:.78em;color:var(--text-light);margin-top:6px;line-height:1.5}
+.prem-breakdown{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:16px}
+.prem-breakdown .pb-cell{background:var(--light-bg);border:1px solid var(--border);padding:10px;border-radius:4px;text-align:center}
+.prem-breakdown .pb-lbl{font-size:10px;color:var(--text-light);letter-spacing:.04em;margin-bottom:4px}
+.prem-breakdown .pb-val{font-family:'Noto Serif SC',serif;font-size:.95em;font-weight:700;color:var(--navy)}
+.prem-breakdown .pb-val .u{font-size:.72em;color:var(--text-light);font-weight:400;margin-left:2px;font-family:'Noto Sans SC',sans-serif}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .sim-row{flex-direction:column;gap:8px;align-items:stretch}
+  .sim-label{min-width:auto}
+  .sim-value{min-width:auto;text-align:left}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .diff-grid{grid-template-columns:1fr}
+  .stat-row{grid-template-columns:1fr}
+  .sim-results{grid-template-columns:1fr}
+  .ins-panel .panel-body{grid-template-columns:1fr}
+  .prem-breakdown{grid-template-columns:repeat(3,1fr)}
+  .ins-tab-btn{padding:8px 10px;font-size:11.5px}
+}
+.scix-footer *{margin:0;padding:0;box-sizing:border-box}
+.scix-footer{background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+.scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px}
+.scix-footer-logo img{height:48px;width:auto;display:block;opacity:0.95}
+.scix-footer-info{text-align:center}
+.scix-footer-copyright{font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px}
+.scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8)}
+.scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+.scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+.scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none}
+.scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12);margin:0 auto}
+</style>
+
+<title>电网级储能电站的保险设计 — 业主在运营期间应配置的6种保险｜ScienceX</title>
+<meta name="description" content="将电网级储能电站（2MW/8MWh级）业主在投运后应配置的保险，按财产、机械、BI、责任、网络、盗窃6层加以实务梳理。提供保险金额的设计、BI赔付天数的判断材料，以及保险费的参考目线。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-bess-insurance">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-bess-insurance">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-bess-insurance">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-bess-insurance">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-bess-insurance">
+<meta property="og:type" content="article">
+<meta property="og:title" content="电网级储能电站的保险设计 — 业主在运营期间应配置的6种保险｜ScienceX">
+<meta property="og:description" content="将储能电站（2MW/8MWh级）业主在投运后应配置的保险，按财产、机械、BI、责任、网络、盗窃6层加以实务梳理。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-bess-insurance">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="电网级储能电站的保险设计 — 业主应配置的6种保险｜ScienceX">
+<meta name="twitter:description" content="按财产、机械、BI、责任、网络、盗窃6层梳理储能电站业主应配置的保险。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="article:published_time" content="2026-04-19">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "电网级储能电站的保险设计 — 业主在运营期间应配置的6种保险｜ScienceX",
+  "description": "将电网级储能电站（2MW/8MWh级）业主在投运后应配置的保险，按财产、机械、BI、责任、网络、盗窃6层加以实务梳理。",
+  "author": { "@type": "Organization", "name": "Science X Inc." },
+  "publisher": { "@type": "Organization", "name": "Science X Inc.", "logo": { "@type": "ImageObject", "url": "https://www.scix.co.jp/img/logo-white.png" } },
+  "inLanguage": "zh-CN",
+  "datePublished": "2026-04-19",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-bess-insurance"
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 18</span>
+      <span class="header-tag">风险管理</span>
+      <time class="header-date" datetime="2026-04-19">2026.04.19</time>
+    </div>
+    <h1>电网级储能电站的保险设计 —<br>业主在运营期间应配置的<em>6种保险</em></h1>
+    <p class="header-desc">光伏的"动产综合＋营业中断"无法直接套用。以2MW/8MWh、总建设CAPEX 6亿日元的项目为例，将业主在运营期间应配置的保险，按财产、机械、BI、责任、网络、盗窃6层加以梳理。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/zh-knowledge" class="back-link">← 返回洞见列表</a>
+
+<p>电网级储能事业，自EPC交付成品的瞬间起，物理风险几乎全部转移给业主。光伏行得通的"动产综合＋营业中断"打包方案无法直接套用。以设备费4亿日元、工程费2亿日元建成的2MW/8MWh项目为例，将业主在运营期间应配置的保险，按财产、机械、事业中断、责任、网络、盗窃6层加以梳理。如何确定保险金额、如何考量BI（事业中断）的赔付天数、保险费的参考目线为何。数字因项目而异，故请将其作为思路框架来理解。</p>
+
+<div class="data-box">
+<div class="db-head">本文的例示</div>
+<dl class="premise-grid">
+  <div><dt>储能容量</dt><dd>2<span class="unit">MW / 8MWh</span></dd></div>
+  <div><dt>对象期间</dt><dd>COD后<span class="unit">运营期间</span></dd></div>
+  <div><dt>设备费（例）</dt><dd>4.0<span class="unit">亿日元</span></dd></div>
+  <div><dt>工程费（例）</dt><dd>2.0<span class="unit">亿日元</span></dd></div>
+  <div><dt>总建设CAPEX（例）</dt><dd>6.0<span class="unit">亿日元</span></dd></div>
+  <div><dt>保险金额、BI天数</dt><dd style="font-size:13px">业主判断事项</dd></div>
+</dl>
+</div>
+
+<p class="note-small">※ 上述4亿日元、2亿日元仅为说明思路的假设值。实际CAPEX因项目而大不相同（同为2MW/8MWh级也有5〜8亿日元的幅度，随并网工程费分摊金的水平与选址条件上下浮动）。后文出现的6亿日元也请作为该例示的合计参照。<br>※ 工程期间作为EPC承包商的责任范围，由建设工程保险（CAR/EAR）承保，故本文不涉及。论点聚焦于交付之后、运营期间的保险设计。</p>
+
+<h2>为何光伏的保险打包对储能行不通</h2>
+
+<p>进入储能事业时，许多业主面临"光伏沿用的保险打包可直接套用"的误解。实际上，动产综合保险（光伏主流）在各家条款中明文将<strong>出力500kW以上的发电站列为对象之外</strong>（东京海上日动、三井住友海上、AIG等条款中，将"发电站 最大出力500kW以上""变电站 主变压器出力合计1,000kVA以上"等能源相关设备规定为除外标的）。电网级储能本体基本无法以动产综合保险承保。事业结构本身不同，保险设计也须从零重组。</p>
+
+<h3>结构性的5项差异</h3>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">01</span>
+    <h4>承保的险种不同</h4>
+    <p>动产综合保险难以一揽子承保，需转为<strong>财产保险（企业财产一揽子）＋机械保险</strong>。发电事业（10MW以上）／自用电气工作物（500kW以上）的处理与保险条款上的除外条款联动。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">02</span>
+    <h4>PML（预想最大损失）的规模不同</h4>
+    <p>锂离子的热失控与光伏火灾不在一个量级。美国Moss Landing 2025年1月火灾中约55%电芯受损，Vistra在10-K中将$400M（约600亿日元）全额减值，并披露承保上限$500M。PML的前提相差数量级。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">03</span>
+    <h4>恢复前置周期长</h4>
+    <p>PCS为4〜8个月，电池集装箱为4〜6个月，箱式变电站、变压器约6个月的采购前置周期。与光伏组件（即交〜1个月）前提不同，BI期间的设计思路也随之改变。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">04</span>
+    <h4>赔偿责任的规模更大</h4>
+    <p>存在延烧、触电、有毒气体的风险，PL限额设计标准上较光伏高一个数量级。在住宅毗邻地，亦有项目被要求10亿日元以上。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">05</span>
+    <h4>网络保险事实上必备</h4>
+    <p>以EMS/SCADA的24小时运行为前提。对OT领域（控制系统）的网络攻击直接导致收益即时停止。与光伏逆变器单体的威胁模型根本不同。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">06</span>
+    <h4>事故时原因查明长期化</h4>
+    <p>热失控事故有耗时逾1年才查明起火原因的案例，其间<strong>保险金支付实质冻结</strong>的风险。鹿儿岛案例（2024年3月）中，发生逾1年仍被报道未赔付。</p>
+  </div>
+</div>
+
+<div class="info-box">
+<strong>实务备忘</strong><br><br>
+若直接找光伏项目的保险代理，可能只返回动产综合一张报价。由于承保前提不成立，宜以<strong>财产保险＋机械保险＋BI＋PL＋网络＋盗窃</strong>的6层设计为前提，经有储能实绩的代理、经纪取得报价。
+</div>
+
+<h2>运营期间应配置的6种保险</h2>
+
+<p>组合以下6个险种，多层覆盖运营期间的风险。各标签整理了承保范围、主要风险、2MW/8MWh项目的设计要点。</p>
+
+<div class="ins-tabs">
+  <div class="ins-tab-list" role="tablist">
+    <button class="ins-tab-btn active" data-panel="t1"><span class="tab-num">①</span>财产保险</button>
+    <button class="ins-tab-btn" data-panel="t2"><span class="tab-num">②</span>机械保险</button>
+    <button class="ins-tab-btn" data-panel="t3"><span class="tab-num">③</span>事业中断</button>
+    <button class="ins-tab-btn" data-panel="t4"><span class="tab-num">④</span>赔偿责任</button>
+    <button class="ins-tab-btn" data-panel="t5"><span class="tab-num">⑤</span>网络</button>
+    <button class="ins-tab-btn" data-panel="t6"><span class="tab-num">⑥</span>盗窃</button>
+  </div>
+
+  <div class="ins-panel active" id="t1">
+    <div class="panel-subtitle">① Property / Fire Insurance</div>
+    <h3 class="panel-title">财产保险（企业财产一揽子保险）</h3>
+    <p>针对火灾、雷击、风水灾、雪灾等外因性风险的基础承保。储能电站中，<strong>热失控引起的火灾、爆炸是否在承保范围内</strong>是重大确认点。一般多以"火灾、爆炸"承保，但因自然起火或外因性事故，条款上的处理可能不同，故宜在签约时让其明文化。</p>
+    <div class="panel-body">
+      <div class="box">
+        <h5>主要承保范围</h5>
+        <ul>
+          <li>火灾、雷击、破裂、爆炸</li>
+          <li>风灾、雹灾、雪灾</li>
+          <li>水灾（地面以上进水）</li>
+          <li>外部物体撞击</li>
+          <li>热失控起因的火灾（须明文化）</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h5>设计要点</h5>
+        <ul>
+          <li>保险金额以<strong>重置价值为基准</strong>设为6亿日元</li>
+          <li>免赔额按事故类别设定（火灾、水灾不同）</li>
+          <li>地震扩展承保作为选项另行投保</li>
+          <li>多集装箱延烧时的PML评价向保险公司确认</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel-figure">
+      <div class="f-lbl">2024年10月的费率修订</div>
+      <div class="f-val">火灾保险费 约2倍<span class="u">/ 光伏PV专项费率的实效值（损害保险费率计算机构的全国平均修订约13%）、BESS亦同趋势</span></div>
+    </div>
+  </div>
+
+  <div class="ins-panel" id="t2">
+    <div class="panel-subtitle">② Machinery Breakdown</div>
+    <h3 class="panel-title">机械保险</h3>
+    <p>承保内因性的机械、电气破损。储能电站中，<strong>PCS烧损、BMS故障、变压器绝缘击穿、短路、电弧、过电流</strong>是主要索赔起因。为覆盖财产保险所不保的"内部原因破损"，须成套投保。</p>
+    <div class="panel-body">
+      <div class="box">
+        <h5>主要承保范围</h5>
+        <ul>
+          <li>PCS、变压器的烧损</li>
+          <li>BMS、EMS的故障</li>
+          <li>短路、接地故障、过电流</li>
+          <li>冷却装置的机械破损</li>
+          <li>控制基板的电气破损</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h5>主要免责事项</h5>
+        <ul>
+          <li>老化、损耗造成的损伤</li>
+          <li>电芯SOH衰减（循环衰减）</li>
+          <li>制造瑕疵（厂商保证的范畴）</li>
+          <li>维护检查不当造成的损伤</li>
+          <li>偏离运行条件造成的损伤</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel-figure">
+      <div class="f-lbl">主要国内承保损保</div>
+      <div class="f-val">东京海上日动、三井住友海上、损保Japan、Aioi Nissay同和</div>
+    </div>
+  </div>
+
+  <div class="ins-panel" id="t3">
+    <div class="panel-subtitle">③ Business Interruption</div>
+    <h3 class="panel-title">事业中断保险（BI、售电收入补偿）</h3>
+    <p>补偿因物损事故（财产保险或机械保险承保事故）导致停运期间的逸失收益。储能电站的收益由<strong>容量市场、辅助服务市场、JEPX现货</strong>三市场堆叠构成，故将全部收益源纳入补偿对象的设计很重要。</p>
+    <div class="panel-body">
+      <div class="box">
+        <h5>补偿对象的收益</h5>
+        <ul>
+          <li>容量市场（kW价值）</li>
+          <li>辅助服务市场（ΔkW价值）</li>
+          <li>JEPX现货套利益</li>
+          <li>基线运营成本</li>
+          <li>恢复所需的临时费用（选项）</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h5>设计要点</h5>
+        <ul>
+          <li>保留全收益源的<strong>实绩月度凭证</strong></li>
+          <li>明文化容量市场罚款的承保与否</li>
+          <li>免赔期（elimination）从14天左右起谈</li>
+          <li>分部分损／全损情景考量赔付天数</li>
+          <li>准备恢复计划书、部件前置周期凭证</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel-figure">
+      <div class="f-lbl">Volatility Clause（波动条款，2024年起欧洲标准化）</div>
+      <div class="f-val">若无月度营收breakdown，则按年收入的1/12自动封顶</div>
+    </div>
+  </div>
+
+  <div class="ins-panel" id="t4">
+    <div class="panel-subtitle">④ Product / Premises Liability</div>
+    <h3 class="panel-title">赔偿责任保险（PL、设施责任）</h3>
+    <p>覆盖业主对第三方所负的赔偿责任：延烧造成的第三方财产损失、触电、爆炸、有毒气体造成的人身事故、电磁波、噪声引发的投诉等。储能电站常毗邻住宅、工厂、农地，限额设计较光伏更为重要。</p>
+    <div class="panel-body">
+      <div class="box">
+        <h5>主要承保范围</h5>
+        <ul>
+          <li>延烧造成的第三方财产损失</li>
+          <li>触电、爆炸造成的人身事故</li>
+          <li>有毒气体（电解液蒸气）暴露</li>
+          <li>疏散费用、消防活动费用</li>
+          <li>召回费用（选项）</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h5>限额目线（2MW级）</h5>
+        <ul>
+          <li>标准：<strong>1〜5亿日元</strong></li>
+          <li>住宅毗邻地：推荐10亿日元以上</li>
+          <li>工业地域：有时1〜3亿日元即足</li>
+          <li>确认电磁波、噪声投诉的承保与否</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel-figure">
+      <div class="f-lbl">鹿儿岛案例（2024年3月27日）</div>
+      <div class="f-val">4名消防员负伤<span class="u">／灭火约20小时，储能设备全烧（PVeye）</span></div>
+    </div>
+  </div>
+
+  <div class="ins-panel" id="t5">
+    <div class="panel-subtitle">⑤ Cyber Insurance</div>
+    <h3 class="panel-title">网络保险</h3>
+    <p>承保因对EMS／SCADA的非法访问、勒索软件、对OT领域（控制系统）的网络攻击所致的停运与恢复费用。储能电站以24小时在线运行为前提，故网络事件即时直接导致售电收入停止。日本经产省制定、IPA运营的JC-STAR制度于2024年公布方针，自2025年3月25日起开始★1运用，作为承保前提的认证取得正在成为论点。</p>
+    <div class="panel-body">
+      <div class="box">
+        <h5>主要承保范围</h5>
+        <ul>
+          <li>EMS/SCADA非法访问造成的损失</li>
+          <li>勒索软件受害、赎金</li>
+          <li>OT领域事件的恢复费用</li>
+          <li>数据泄露伴随的赔偿</li>
+          <li>BI扩展（网络起因的停运）</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h5>设计要点</h5>
+        <ul>
+          <li>明记设备置换费用（rip &amp; replace）的子限额</li>
+          <li>采用海外制PCS/EMS时，追加核保问卷</li>
+          <li>将通信层的多层防御构成附于核保资料</li>
+          <li>明示JC-STAR认证的取得、计划</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel-figure">
+      <div class="f-lbl">JC-STAR（2024年公布方针／2025年3月★1启动）</div>
+      <div class="f-val">2027年4月<span class="u">/ 资源能源厅电网规范修订拟必须使用取得★1的设备（非法令义务化，而是并网技术要件）</span></div>
+    </div>
+  </div>
+
+  <div class="ins-panel" id="t6">
+    <div class="panel-subtitle">⑥ Theft / Metal Theft</div>
+    <h3 class="panel-title">动产盗窃保险（电缆、变压器）</h3>
+    <p>承保铜线电缆、变压器、储能电芯等金属盗窃。2024年以后，光伏行业的盗窃赔付额激增，<strong>承保条件恶化（提高免赔额、地区不保）</strong>正在推进。预计储能电站亦会出现同等条件化。设计阶段的物理对策直接关系费率。</p>
+    <div class="panel-body">
+      <div class="box">
+        <h5>主要承保范围</h5>
+        <ul>
+          <li>铜线电缆的切断、盗走</li>
+          <li>变压器的盗窃</li>
+          <li>储能电芯、BMS单元的盗窃</li>
+          <li>入侵伴随的设备破损</li>
+          <li>部分损坏造成的功能停止</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h5>缓和承保条件的设计</h5>
+        <ul>
+          <li>电缆加铁板护罩、地下埋设</li>
+          <li>改用铝线（较铜变现性低）</li>
+          <li>入侵检测传感器、录像摄像头</li>
+          <li>围栏高度、带刺铁丝的规格化</li>
+          <li>与监控保安公司联动</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel-figure">
+      <div class="f-lbl">光伏设备的盗窃赔付</div>
+      <div class="f-val">5年约20倍<span class="u">/ 日本损害保险协会"面向光伏发电设备的火灾保险（企业向）事故发生状况等调查研究结果"2024年2月9日公布</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="highlight-box">
+<strong>补充：与已投保的公司合同的协调</strong><br><br>
+若业主企业在公司整体投有一揽子财产保险，储能电站的新增有时可作为<strong>向既有合同追加被保险标的</strong>处理。但PML评价多超出既有合同的前提（以办公室、仓库为主），会产生追加保费或免责条件的调整。宜协调一揽子合同的续保时点与储能电站COD时期。
+</div>
+
+<h2>保险金额的设计 — 如何从建设CAPEX导出"重置价值"</h2>
+
+<p>财产保险、机械保险的保险金额，宜以<strong>事故时点重新购置同等设备所需的金额</strong>，即重置价值为基准设定。建设时的CAPEX（本文例为设备费4亿＋工程费2亿合计6亿日元，依项目有5〜8亿日元的幅度）相当于业主实际支付的取得成本。它是确定保险金额的<em>出发点</em>，但并不直接等于重置价值。理解两者之差、按年复核，是保险设计的基本。</p>
+
+<h3>CAPEX与重置价值并不相同</h3>
+
+<p>建成直后（COD时点），重置价值几乎与CAPEX一致——文字上即"以刚建成的金额可重建"的状态。但随时间推移两者渐渐背离。储能的情形，背离方向在设备费与工程费上相反。</p>
+
+<div class="stat-row">
+  <div class="stat-cell">
+    <span class="val">−10<span class="unit">%/年</span></span>
+    <span class="lbl">电池组价格的全球下降速度</span>
+  </div>
+  <div class="stat-cell">
+    <span class="val">＋2〜5<span class="unit">%/年</span></span>
+    <span class="lbl">建设劳务费、工程费的国内通胀</span>
+  </div>
+  <div class="stat-cell">
+    <span class="val">按年</span>
+    <span class="lbl">重置价值的复核推荐频率</span>
+  </div>
+</div>
+
+<p><strong>设备费部分（电芯、PCS、EMS）</strong>，据BloombergNEF调查，电池组价格2024年为115USD/kWh（同比▲20%，2017年以来最大跌幅），2025年公布时点的near-term outlook为112USD/kWh→实测值108USD/kWh（仅限定置式BESS则为70USD/kWh，同比▲45%）。即便CAPEX时点设备费为4亿日元，5年后按重置基准也可能跌至2亿日元级。</p>
+
+<p>另一方面，<strong>工程费部分（基础、安装、电气工程、并网工程分摊金）</strong>，受国内劳务费通胀与材料价格上涨影响，处于持平至年2〜5%左右的上升基调。即便CAPEX时点工程费为2亿日元，若重新施工同样工程，5年后可能需2.2〜2.5亿日元左右。</p>
+
+<p>就净额而言，自投运起数年，<em>设备费的下降多超过工程费的上升，重置价值趋于低于CAPEX</em>。业主不应将保险金额固定不动，而宜在续保时重估重置价值，从而有合理化保险费的余地。</p>
+
+<h3>宜避免时价基准</h3>
+
+<p>保险金额的评估方式有"重置价值"与"时价"。时价是从重置价值中扣除折旧后的金额，接近会计账面价值。储能电站宜<strong>以重置价值而非时价基准投保</strong>。原因在于事故时的赔付不足。</p>
+
+<p>例如运营第10年发生全损事故。按时价基准，电池市场价格的下降（年10%复利约减35%）与SOH衰减（依电芯厂商、产品世代，保证下限多在70〜80%前后）可能被双重扣除。结果所获保险金，将大幅低于重新购置新电芯恢复所需的金额。若为重置价值基准，则事故时点的新品采购价直接作为保险金额的基准。</p>
+
+<h3>"比例赔付"的陷阱 — 保险金额不足的惩罚</h3>
+
+<p>日本的财产保险有一项规定：保险金额低于重置价值时，<strong>按"比例赔付"减少保险金</strong>。例如本文例中，对重置价值6亿日元以保险金额3亿日元投保（投保率50%），即便发生2亿日元的部分损，保险金也削减为"2亿日元 × 50% ＝ 1亿日元"。</p>
+
+<div class="warning-box">
+<strong>警告：仅以设备费投保会发生什么</strong><br><br>
+"只要按设备的重置价值投保便足够"的理解，在财产保险实务上并不成立。本例中，对COD时点重置价值6亿日元以4亿日元投保（仅设备费）便是<strong>67%的不足额保险状态</strong>，发生2亿日元部分损时，保险金削减为2亿日元×67%＝1.33亿日元。差额6,700万日元由业主自负。保险金额宜按<em>重置价值的全额</em>设定。
+</div>
+
+<h3>工程费分摊金（向电力公司支付）的处理</h3>
+
+<p>向电力公司支付的工程费分摊金（接续所需的并网设备工程费），属电力公司所有的设备，故原则上<strong>不在财产保险对象内</strong>。它含于CAPEX，但应从保险金额的核算中扣除。不过，若事业者侧的事故损坏了一般输配电事业者侧的并网设备，存在<em>追偿风险</em>，故宜事先确认其是否在PL保险（设施责任）的承保范围内。</p>
+
+<h2>事业中断保险（BI）的设计 — 如何决定赔付天数与免赔期</h2>
+
+<p>BI补偿因物损事故导致停运期间的逸失收益。"将多少天纳入补偿对象"是<strong>业主自行设计判断</strong>的事项，无统一正解。判断材料有四：①各事故情景的恢复前置周期，②行业一般区间，③停运每日的收益损失，④自身备机、EPC合同的体制。本文整理这些信息，并在最后以交互式试算器确认自身条件。</p>
+
+<h3>信息①：事故情景与恢复前置周期的实况</h3>
+
+<p>储能电站的恢复期，因事故范围大不相同。下面整理了三种代表性情景及各自的恢复要素、前置周期目线。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>情景</th><th>事故范围</th><th>主要恢复要素</th><th style="text-align:right">预想恢复期</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">部分损（轻微）</td><td>PCS 1台烧损、BMS单元故障</td><td>备件更换、现场调整、试运行</td><td class="num">30〜90<span class="u">天</span></td></tr>
+<tr><td class="em">部分损（中度）</td><td>电池集装箱1台烧损、变压器故障</td><td>新品订购、海运、安装、再并网试验</td><td class="num">120〜180<span class="u">天</span></td></tr>
+<tr><td class="em">全损</td><td>多集装箱延烧、损及基础</td><td>拆除、基础重建、全设备重新订购、再施工、使用前自主检查</td><td class="num">240〜360<span class="u">天</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>作为恢复期的内训，各设备的采购、施工前置周期亦可参考。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>恢复要素</th><th>设备、工序</th><th style="text-align:right">新品采购前置周期</th></tr>
+</thead>
+<tbody>
+<tr><td>PCS（国产）</td><td>TMEIC、日立（Hitachi）、富士电机级</td><td class="num">6〜9<span class="u">个月</span></td></tr>
+<tr><td>PCS（大宗、进口）</td><td>Huawei、Sungrow等</td><td class="num">6〜12<span class="u">个月</span></td></tr>
+<tr><td>电池集装箱（标准）</td><td>CATL、Sungrow、BYD（含海运）</td><td class="num">4〜6<span class="u">个月</span></td></tr>
+<tr><td>电池集装箱（GWh级）</td><td>CATL EnerC+/Tener、BYD MC Cube等</td><td class="num">8〜12<span class="u">个月</span></td></tr>
+<tr><td>箱式变电站、变压器</td><td>受变电设备一套（受铜、硅钢板供给紧张影响）</td><td class="num">6〜12<span class="u">个月</span></td></tr>
+<tr><td>基础、安装、电气工程</td><td>沿用既有基础时的再施工</td><td class="num">2〜4<span class="u">个月</span></td></tr>
+<tr><td>EMS、通信设备</td><td>控制系统重构</td><td class="num">1〜2<span class="u">个月</span></td></tr>
+<tr><td>并网再确认、受电试验</td><td>电力公司试验、使用前自主检查</td><td class="num">1〜2<span class="u">个月</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>信息②：行业一般区间</h3>
+
+<p>BI赔付天数与免赔期，在日本国内、全球各有一般水平，可作判断基准参考。</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">日本（光伏）</span>
+    <h4>赔付180〜365天／免赔7〜14天</h4>
+    <p>光伏行业的一般通说。规模越大越偏好长期补偿（365天）。BESS亦多以此区间为出发点。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">全球</span>
+    <h4>赔付12个月／免赔14〜30天</h4>
+    <p>海外BESS的事实标准。现实估算全损情景的恢复期后，12个月（365天）作为行业共识值固定下来。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">美国大型电源</span>
+    <h4>赔付12〜24个月／免赔7〜60天</h4>
+    <p>100MW以上级别中24个月补偿亦趋普遍。免赔期上限可提至60天，以此压低保险费的选项亦存在。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">判断的出发点</span>
+    <h4>90天 / 180天 / 365天的三点比较</h4>
+    <p>业主宜取得90天（覆盖部分损）、180天（覆盖中度损）、365天（覆盖全损）三份报价，比较保险费与补偿额的取舍，较为实务。</p>
+  </div>
+</div>
+
+<h3>信息③：停运每日的收益损失</h3>
+
+<p>BI补偿金额的核算基础——日额损失，由三市场堆叠的实绩算出。下面按三种情景整理2MW/8MWh项目的年度收益目线（2025〜2028年度的市场价格假设）。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>收益源</th><th style="text-align:right">保守</th><th style="text-align:right">基准</th><th style="text-align:right">上行</th></tr>
+</thead>
+<tbody>
+<tr><td>容量市场（kW价值）</td><td class="num">600<span class="u">万日元</span></td><td class="num">1,500<span class="u">万日元</span></td><td class="num">3,000<span class="u">万日元</span></td></tr>
+<tr><td>辅助服务市场（ΔkW价值）</td><td class="num">800<span class="u">万日元</span></td><td class="num">2,000<span class="u">万日元</span></td><td class="num">4,000<span class="u">万日元</span></td></tr>
+<tr><td>JEPX现货套利</td><td class="num">1,000<span class="u">万日元</span></td><td class="num">2,000<span class="u">万日元</span></td><td class="num">3,500<span class="u">万日元</span></td></tr>
+<tr class="hl"><td class="em">年度合计</td><td class="num em">2,400<span class="u">万日元</span></td><td class="num em">5,500<span class="u">万日元</span></td><td class="num em">10,500<span class="u">万日元</span></td></tr>
+<tr><td>日额换算</td><td class="num">6.6<span class="u">万日元/日</span></td><td class="num">15.1<span class="u">万日元/日</span></td><td class="num">28.8<span class="u">万日元/日</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>信息④：赔付天数与免赔期的试算器</h3>
+
+<p>结合上述信息，可按自身预想情景试算BI补偿的规模。可一边调整赔付天数，一边确认总额与取舍。</p>
+
+<div class="sim-container" id="bi-calculator">
+  <div class="sim-title">BI补偿额的试算<span class="tag">INTERACTIVE</span></div>
+  <div class="scenario-toggle" id="scenarioToggle">
+    <button data-scenario="conservative">保守情景</button>
+    <button class="active" data-scenario="base">基准情景</button>
+    <button data-scenario="upside">上行情景</button>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">赔付对象天数（停运天数）</span>
+    <input type="range" class="sim-slider" id="biDays" min="30" max="365" value="180" step="5">
+    <span class="sim-value"><span id="biDaysVal">180</span>天</span>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">免赔期（elimination）</span>
+    <input type="range" class="sim-slider" id="biDeduct" min="0" max="60" value="14" step="1">
+    <span class="sim-value"><span id="biDeductVal">14</span>天</span>
+  </div>
+  <div class="sim-results">
+    <div class="sim-res-cell">
+      <div class="rc-label">预想日额损失</div>
+      <div class="rc-val"><span id="biDaily">15.1</span><span class="u">万日元/日</span></div>
+      <div class="rc-sub">容量市场＋辅助服务市场＋JEPX现货合算（基准）</div>
+    </div>
+    <div class="sim-res-cell">
+      <div class="rc-label">BI应补偿总额</div>
+      <div class="rc-val"><span id="biTotal">2,507</span><span class="u">万日元</span></div>
+      <div class="rc-sub">（赔付天数 − 免赔期）× 日额损失</div>
+    </div>
+  </div>
+</div>
+
+<p class="note-small">※ 上述日额由JEPX价差、EPRX辅助服务市场成交实绩、容量市场成交单价（2025年度3,495日元/kW→2028年度约9,000日元/kW，年度间有波动）的一般水平试算得出的目线值。容量市场收入视2MW规模、年度而定，年额有700万〜2,800万日元的4倍差，须留意。此外，存在同一kW不可在多个市场重复出售的规则（与容量市场考核要求的协调），实际收益较三市场简单合算会向下浮动。实际BI保险金额因个别项目的运营实绩、合同类别（LDA／全市场型）、市场参与状况而大幅变动。</p>
+
+<h3>决定赔付天数时的判断框架</h3>
+
+<p>将自身情况套入以下4点，导出适当的赔付天数。</p>
+
+<ul style="padding-left:22px;margin-bottom:24px">
+<li><strong>想覆盖情景的上限：</strong>仅想覆盖部分损则90〜120天，覆盖至中度损则180天，覆盖至全损则240〜365天。</li>
+<li><strong>备机、替代部件的准备：</strong>若在场内或近邻仓库备有PCS备机，部分损情景的恢复期可大幅缩短，则较短的赔付天数也够。</li>
+<li><strong>EPC合同的迅速恢复条款：</strong>若能在EPC侧纳入"事故时部件优先采购""30天内现场开始恢复"等SLA，则有压低赔付天数以削减保险费的选项。</li>
+<li><strong>与保险费的性价比：</strong>将赔付天数由90天翻倍至180天，保险费并不翻倍（多数+30〜60%）。而180天→365天再上浮约+30〜50%。应明确是否覆盖全损情景的决策。</li>
+</ul>
+
+<h3>免赔期（elimination期）的思路</h3>
+
+<p>免赔期规定自事故发生起多少天内不赔付保险金。设得越长保险费越低，但其间的逸失收益由业主自负。</p>
+
+<ul style="padding-left:22px;margin-bottom:24px">
+<li><strong>7天：</strong>最短级别。保费高。光伏事业的惯行值。</li>
+<li><strong>14天：</strong>BESS行业的全球标准。考量了部件调配的初动期。</li>
+<li><strong>30天：</strong>可纳入原因查明与恢复计划制定的时间。与保费易取平衡。</li>
+<li><strong>60天：</strong>大型项目有时选用。前提是有以自有运营资金吸收2个月收益停止的财务实力。</li>
+</ul>
+
+<h3>Volatility Clause应对 — 月度凭证的积累</h3>
+
+<p>2024年以后，在欧洲保险市场渐成标准的<strong>Volatility Clause（波动条款）</strong>，在日本亦渐成论点。即"BI保险金索赔时若未提示月度营收breakdown，则按年收入的1/12自动封顶月额"的条款，由Miller Insurance的REET团队（Kelly Stevens）在官方文章中明文化。储能易呈季节偏重收益（夏、冬高价差期），故该条款一旦触发，与实际损失的背离会变大。</p>
+
+<div class="info-box">
+<strong>实务应对：业主宜保留的月度凭证</strong><br><br>
+宜准备好事故发生时能即刻提交月度的"JEPX成交记录""辅助服务市场投标历史""容量市场结算明细""EMS日志"的体制。至少作为月度报告积累12个月的实绩，即便Volatility Clause触发，亦可主张各月实绩。
+</div>
+
+<h2>锂离子特有的风险 — 事故案例与监管动向</h2>
+
+<p>保险设计离不开对"可能事故"的理解。看一下国内外主要事故案例，以及2024年施行的国内监管变更点。业主在投保谈判时，宜将这些案例与监管应对作为<strong>核保资料</strong>备好，便于推进。</p>
+
+<h3>主要热失控、火灾事故</h3>
+
+<div class="timeline">
+  <div class="tl-item">
+    <div class="tl-date">2021.9</div>
+    <div class="tl-body">
+      <h4>美国加州 Moss Landing Phase1（Vistra）</h4>
+      <div class="tl-capacity">300MW级、LG Chem NMC</div>
+      <p>2021年9月4日，因VESDA（烟雾感知装置）编程错误，在设计阈值以下喷淋启动，水喷雾诱发短路，约7%电芯受损。成为美国室内NMC型承保条件趋严的契机。</p>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-date">2023.12</div>
+    <div class="tl-body">
+      <h4>神奈川县横滨市 市立釜利谷南小学（金泽区）变电室</h4>
+      <div class="tl-capacity">Energy Gap公司制 20kW / 26.1kWh（东京瓦斯以20年PPA设置）</div>
+      <p>2023年12月20日12时半左右起火，15时半左右灭火。无向机箱外延烧与人身伤害，但作为校园内事案被大幅报道。</p>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-date">2024.3</div>
+    <div class="tl-body">
+      <h4>鹿儿岛县伊佐市 Hayashi Energy（ハヤシエネルギー）</h4>
+      <div class="tl-capacity">1MW / 6,400kWh、LG化学NMC（PVeye记载值。日经BP报道为7,000kWh＝7MWh）</div>
+      <p>2024年3月27日18时过起火，白烟→排烟中爆炸，至翌28日14时35分约20小时灭火。4名消防员负伤，储能设备全烧。2025年5月19日，伊佐涌水消防组合推断为"内部短路起火→过热过程中产生、滞留可燃性蒸气→引火爆炸"。机会损失据PVeye估算逾4,000万日元。<strong>虽已投保火灾保险，发生逾1年保险金仍未赔付</strong>（PVeye 2025年6月号）。</p>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-date">2025.1</div>
+    <div class="tl-body">
+      <h4>美国加州 Moss Landing 300（Vistra，室内NMC）</h4>
+      <div class="tl-capacity">300MW / 1,200MWh（Phase 1，LG Energy Solution制NMC、Fluence系统）</div>
+      <p>容量试验中起火，约55%电芯受损（建筑烧损面积相当于80%），约1,200人（部分报道1,500人）疏散。Vistra在2024年10-K中计提<strong>$400M（约600亿日元）全额减值</strong>并披露承保上限$500M，WECC火灾报告书（2025年12月22日）认定为"complete loss"。Moss 300能否重建截至2026年4月未定。海外室内NMC承保条件进一步趋严。</p>
+    </div>
+  </div>
+</div>
+
+<div class="warning-box">
+<strong>实务要点：原因查明长期化风险</strong><br><br>
+鹿儿岛案例说明的是：即便"已投保"，<strong>原因查明一旦长期化，保险金支付便实质冻结</strong>这一国内现实。热失控火灾的起火点查明，需消防、经产省、厂商协作，耗时以年计。业主宜在投运同时备好将BMS日志、EMS日志、运行历史、维护记录、监控录像、气象记录等<em>事故后原因查明所问的全部凭证</em>，至少保存3年于云端的体制。
+</div>
+
+<h3>2024年1月施行的《消防法》修订（令和5年消防厅告示第7号）</h3>
+
+<p>作为"关于储能设备的起火防止措施及延烧防止措施的标准"，于2023年5月31日公布、2024年1月1日施行。监管单位由从前的<strong>4,800Ah、电芯基准改为kWh基准</strong>。具体阈值如下。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>容量区分</th><th>处理</th><th>主要要件</th></tr>
+</thead>
+<tbody>
+<tr><td class="num">〜10<span class="u">kWh</span></td><td>不受监管</td><td>无需申报</td></tr>
+<tr><td class="num">10〜20<span class="u">kWh</span></td><td>有条件不受监管</td><td>具备告示第2号的起火防止措施</td></tr>
+<tr><td class="num">20<span class="u">kWh</span>以上</td><td class="em">申报对象</td><td>原则上距建筑物间隔3m以上（认证箱式变电站、延烧防止措施可放宽）</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>即便室外设置，原则上也须<strong>距建筑物间隔3m以上</strong>，并统一了各类型对通风、检查、维护空间的确保。电解液<em>一般</em>作为危险物第4类第2石油类按从前规制（提高了闪点的产品有的属第3石油类）。认证箱式变电站（符合JIS C 4412／4411-1、IEC 62619、IEC 63115-2等）可放宽间隔要件。核保资料中宜明记对告示第7号的合规设计（间隔、通风、消防设备）。</p>
+
+<h3>《电气事业法》相关：事故报告对象的扩大</h3>
+
+<p>经2025年9月26日至10月26日实施的《电气相关报告规则》修订的公开征求意见后，<strong>容量20kWh以上的电力储存装置及20kVA以上的逆变换装置作为"主要电气工作物"被纳入事故报告对象</strong>（2025年11月20日公布、施行）。保险金索赔时的事故报告义务，将与向经产省的事故报告义务联动，故业主宜事先整备两套报告流程。</p>
+
+<h2>保险费的目线 — 从对重置价值的费率倒算</h2>
+
+<p>日本的电网级储能保险费，是公开信息几乎空白的领域。从海外基准（美国LFP室外型0.30〜0.50%、室内NMC型0.80〜1.20%、欧洲0.40〜0.70%）归纳，日本的2MW/8MWh项目推定区间约为<strong>对重置价值（TIV）年0.5〜1.0%</strong>。下面的模拟器中变动费率，即可算出PD（物损）＋BI（事业中断）＋PL（责任）综合保险费的目线。</p>
+
+<div class="sim-container" id="premium-calculator">
+  <div class="sim-title">年度保险费模拟器（PD+BI+PL 综合）<span class="tag">INTERACTIVE</span></div>
+  <div class="sim-row">
+    <span class="sim-label">重置价值（TIV）</span>
+    <input type="range" class="sim-slider" id="premTIV" min="4" max="10" value="6" step="0.5">
+    <span class="sim-value"><span id="premTIVVal">6.0</span>亿日元</span>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">综合费率</span>
+    <input type="range" class="sim-slider" id="premRate" min="0.40" max="1.20" value="0.75" step="0.05">
+    <span class="sim-value"><span id="premRateVal">0.75</span>%</span>
+  </div>
+  <div class="sim-results" style="grid-template-columns:1fr">
+    <div class="sim-res-cell">
+      <div class="rc-label">PD ＋ BI ＋ PL 综合保险费（估算）</div>
+      <div class="rc-val"><span id="premTotal">450</span><span class="u">万日元/年</span></div>
+      <div class="rc-sub">据海外基准费率归纳的参考区间</div>
+    </div>
+  </div>
+  <div class="prem-breakdown">
+    <div class="pb-cell"><div class="pb-lbl">财产</div><div class="pb-val"><span id="pbProp">160</span><span class="u">万</span></div></div>
+    <div class="pb-cell"><div class="pb-lbl">机械</div><div class="pb-val"><span id="pbMach">70</span><span class="u">万</span></div></div>
+    <div class="pb-cell"><div class="pb-lbl">BI</div><div class="pb-val"><span id="pbBI">130</span><span class="u">万</span></div></div>
+    <div class="pb-cell"><div class="pb-lbl">PL</div><div class="pb-val"><span id="pbPL">40</span><span class="u">万</span></div></div>
+    <div class="pb-cell"><div class="pb-lbl">网络</div><div class="pb-val"><span id="pbCyb">30</span><span class="u">万</span></div></div>
+    <div class="pb-cell"><div class="pb-lbl">盗窃</div><div class="pb-val"><span id="pbThe">20</span><span class="u">万</span></div></div>
+  </div>
+</div>
+
+<p class="note-small">※ 上述为从海外基准费率（Solarif、kWh Analytics、Marsh、GCube等报告。公开者为0.3〜1.2%的宽区间，并以经纪、承保侧访谈补充的行业目线值）推定的区间引申至日本市场的目线值。6种保险的内训配比（财产35%/机械15%/BI28%/PL9%/网络8%/盗窃5%）为参考行业一般比例的独立分析。实际费率因化学体系（NMC/LFP）、室内/室外设置、UL 9540A试验数据、消防设备规格、间隔距离、选址地区、EPC施工品质、运营计划、保险公司承保能力余力而大幅变动。具体费率务必向多家比价取得后比较。</p>
+
+<h3>为降低费率而应在设计阶段纳入的事项</h3>
+
+<p>承保条件实质上由设计、施工的规格决定。下面列出保险公司核保上作为评价项目确认的主要事项。</p>
+
+<ul style="padding-left:22px;margin-bottom:24px">
+<li><strong>化学体系选定：</strong>LFP热失控时的行为较NMC缓和，承保条件大幅放宽。室外集装箱型LFP是目前的承保标准。</li>
+<li><strong>UL 9540A试验数据：</strong>提示大规模试验数据，有时可放宽间隔距离、消防设备规格。</li>
+<li><strong>消防设备、延烧防止措施：</strong>认证箱式变电站、水喷雾设备、防火分区、集装箱间隔。</li>
+<li><strong>住宅毗邻距离：</strong>100m内有住宅时，易出现PL限额的上浮要求。100m以上间隔可改善PL费率。</li>
+<li><strong>监控、远程监控体制：</strong>24小时EMS监控、异常检测时自动隔离、远程切断功能的有无。</li>
+<li><strong>与厂商保证的联动：</strong>电芯厂商的SOH保证条件与运营计划（循环/日）的协调性。若偏离保证，将成为机械保险的免责事由。</li>
+</ul>
+
+<h2>业主实务检查清单</h2>
+
+<p>整理了投保时、运营中、事故时、续保时4个局面下业主宜执行的具体行动。请边打勾边检视自身的投保状况。</p>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">A</span>投保时（COD前后）</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label">财产、机械、BI、PL、网络、盗窃<strong>6个险种</strong>已全部纳入比价</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">保险金额以建设CAPEX（设备费＋工程费）为出发点的<strong>重置价值</strong>基准设定</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">已在条款中确认评估方式为"重置价值"（非时价）</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">已明文化热失控起因的火灾在财产保险承保范围内</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">BI赔付天数与免赔期已<strong>分情景（部分损／全损）</strong>考量，并与保险公司共享</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">已在条款中确认容量市场罚款的BI承保范围</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">PL限额相对周边环境（住宅毗邻距离）处于妥当水平</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">网络保险已明记设备置换费用（rip &amp; replace）的子限额</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">工程费分摊金（电力公司侧设备）的追偿风险已由PL侧承保</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">已确认EPC性能保证、厂商保证与保险承保范围的<strong>重叠、遗漏</strong></span></label>
+</div>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">B</span>运营中（日常）</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label">BMS日志、EMS日志、运行历史保存3年以上于云端的体制已运行</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">月度市场参与实绩（JEPX、辅助服务、容量）以固定格式记录</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">运营计划未偏离厂商保证的SOH条件、循环条件</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">定期检查记录、维护记录、校准记录以纸质与数字双重保管</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">监控录像设为自动保存30天以上</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">网络事件发生时的初动手册已明文化</span></label>
+</div>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">C</span>事故发生时</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label">备有自事故发生起24小时内向保险代理、EPC、厂商、消防、经产省通报的程序书</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">未经消防、警察指示不变更事故现场（保全原因查明资料）</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">能即刻提交事故前12个月的BMS、EMS日志与市场参与实绩</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">备有在初动72小时内制定恢复计划书（部件采购、工序、预算）的体制</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">顾问律师、保险经纪的联系方式已周知全体相关人员</span></label>
+</div>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">D</span>续保时（年度）</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label">以最新的电池、PCS市场价格重估重置价值（TIV）</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">已反映上年度费率修订动向（保险业界的市场条件）进行复核</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">将年度运营实绩（市场参与、收益构成）反映于BI补偿基础</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">将类似项目的事故案例、赔付案例的最新动向用作续保谈判材料</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label">面向2027年4月电网规范修订带来的JC-STAR★1必须化的应对计划，已与保险公司共享</span></label>
+</div>
+
+<p class="note-small">※ 检查项目仅在浏览器会话期间保持。如需定稿打印，可经浏览器的打印功能生成PDF。</p>
+
+<h2>保险买的不是"事故后的现金"，而是"事业的延续性"</h2>
+
+<p>储能电站事业，是自投运起20年的长期事业。其间至少发生一次热失控、雷击、网络事故、盗窃中任一的概率，高于光伏事业的前提。保险不应被当作"事故后能拿到现金的机制"，而宜视为购买<strong>"即便事故也能延续事业的机制"</strong>的手段。</p>
+
+<p>本文所举的6个险种，缺其一便会即使有其余5个也止不住风险连锁。有财产保险而无机械保险，则PCS烧损自负；无BI则现金枯竭；无PL则延烧赔偿令事业本身终结。<strong>多层设计的思维</strong>，是从光伏应当升级的观念。</p>
+
+<p>而仅靠保险无法防止原因查明长期化风险（鹿儿岛案例）。投运同时备好<strong>BMS、EMS日志的三年保管体制</strong>，才是关键时刻实际拿到保险金的立足点。</p>
+
+<a target="_top" href="https://www.scix.co.jp/zh-column-aggregator-fee" class="next-link">
+  <div>
+    <div class="next-link-label">NEXT → COLUMN 17</div>
+    <div class="next-link-title">聚合商费用的"毛额与净额" — 同样5%为何实得不同</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="cta-section">
+  <h3>含保险设计在内的储能事业咨询</h3>
+  <p>仅凭文章无法判断的项目专属信息，<br>将在您垂询后、签订NDA的前提下开示。</p>
+  <a target="_top" href="https://www.scix.co.jp/zh-contact" class="cta-btn">联系我们 →</a>
+</div>
+
+</div>
+
+<script>
+// === Insurance Tabs ===
+document.querySelectorAll('.ins-tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.ins-tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.ins-panel').forEach(function(p){ p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.panel).classList.add('active');
+  });
+});
+
+// === BI Calculator ===
+(function(){
+  var scenarios = {
+    conservative: { daily: 6.6 },
+    base:         { daily: 15.1 },
+    upside:       { daily: 28.8 }
+  };
+  var current = 'base';
+  var daysEl = document.getElementById('biDays');
+  var deductEl = document.getElementById('biDeduct');
+  var daysValEl = document.getElementById('biDaysVal');
+  var deductValEl = document.getElementById('biDeductVal');
+  var dailyEl = document.getElementById('biDaily');
+  var totalEl = document.getElementById('biTotal');
+  var toggle = document.getElementById('scenarioToggle');
+
+  function update(){
+    var days = parseInt(daysEl.value);
+    var deduct = parseInt(deductEl.value);
+    var daily = scenarios[current].daily;
+    var effective = Math.max(0, days - deduct);
+    var total = effective * daily;
+    daysValEl.textContent = days;
+    deductValEl.textContent = deduct;
+    dailyEl.textContent = daily.toFixed(1);
+    totalEl.textContent = Math.round(total).toLocaleString('zh-CN');
+  }
+
+  toggle.querySelectorAll('button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      toggle.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      current = btn.dataset.scenario;
+      update();
+    });
+  });
+  daysEl.addEventListener('input', update);
+  deductEl.addEventListener('input', update);
+  update();
+})();
+
+// === Premium Calculator ===
+(function(){
+  var tivEl = document.getElementById('premTIV');
+  var rateEl = document.getElementById('premRate');
+  var tivValEl = document.getElementById('premTIVVal');
+  var rateValEl = document.getElementById('premRateVal');
+  var totalEl = document.getElementById('premTotal');
+  var breakdown = { pbProp:0.35, pbMach:0.15, pbBI:0.28, pbPL:0.09, pbCyb:0.08, pbThe:0.05 };
+
+  function update(){
+    var tiv = parseFloat(tivEl.value);
+    var rate = parseFloat(rateEl.value);
+    var total = tiv * 10000 * (rate / 100);
+    tivValEl.textContent = tiv.toFixed(1);
+    rateValEl.textContent = rate.toFixed(2);
+    totalEl.textContent = Math.round(total).toLocaleString('zh-CN');
+    Object.keys(breakdown).forEach(function(k){
+      var v = Math.round(total * breakdown[k]);
+      document.getElementById(k).textContent = v.toLocaleString('zh-CN');
+    });
+  }
+  tivEl.addEventListener('input', update);
+  rateEl.addEventListener('input', update);
+  update();
+})();
+</script>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img src="/img/logo-white.png" alt="ScienceX Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.（赛恩斯艾克斯）</div>
+        日本〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:+81364034095">+81 3 6403 4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

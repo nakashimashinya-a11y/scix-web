@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<title>储能电站停运时，谁来修 — 电网级储能运维与“责任与履行的错位”｜ScienceX</title>
+<meta name="description" content="以决策框架解析日本电网级储能的运维（O&M）。法律明确指定履行主体的，仅有受变电的安全监督与并网网络安全两点；直流侧的修复与通信，则成为需用合同填补的"空白"——以责任矩阵可视化。涵盖计划外停运5倍计数、按设备单元的JC-STAR要求、分商品的通信要求，以及国际LTSA可用率保障，依据一手资料梳理。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-om">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-om">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-om">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-om">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-om">
+<meta property="og:type" content="article">
+<meta property="og:title" content="储能电站停运时，谁来修 — 电网级储能运维与“责任与履行的错位”｜ScienceX">
+<meta property="og:description" content="以决策框架解析日本电网级储能的运维。法律明确指定履行主体的仅有两点，直流侧的修复与通信成为需用合同填补的空白——以责任矩阵可视化，并依一手资料梳理停运惩罚、JC-STAR要求与国际LTSA可用率保障。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-om">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="储能电站停运时，谁来修 — 电网级储能运维与责任错位｜ScienceX">
+<meta name="twitter:description" content="法律指定履行主体的仅两点，直流侧修复与通信成为合同需填补的空白。以责任矩阵可视化，依一手资料梳理。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:580px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.comparison-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:600px}
+.xref{display:inline-block;font-size:.84em;color:var(--accent);text-decoration:none;font-weight:600;border-bottom:1px solid rgba(196,154,60,.4);transition:opacity .2s}
+.xref:hover{opacity:.7}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif SC',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif SC',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.field-note{background:#F0F5FA;border:1px solid #D8E3EE;border-left:4px solid #2A4D7A;border-radius:0 6px 6px 0;padding:20px 26px;margin:32px 0;font-size:.92em;line-height:1.95}
+.field-note-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:.78em;letter-spacing:.06em}
+.field-note-icon{font-size:1.1em}
+.field-note-label{font-weight:700;color:#2A4D7A;letter-spacing:.04em}
+.field-note-body p{margin:0;color:var(--text)}
+.field-note-body p+p{margin-top:10px}
+.field-note-body p::before{content:"\201C";color:#2A4D7A;font-weight:700}
+.field-note-body p::after{content:"\201D";color:#2A4D7A;font-weight:700}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:left;margin-top:12px;letter-spacing:.02em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+}
+body{padding-top:64px}
+.scix-footer{background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+.scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:24px}
+.scix-footer-logo{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;color:#fff;text-decoration:none}
+.scix-footer-logo .x{color:#C49A3C}
+.scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8);text-align:center}
+.scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+.scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none}
+.scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+.scix-footer-copyright{font-size:11px;letter-spacing:.04em;color:rgba(255,255,255,.55);margin-top:8px}
+.scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12)}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "储能电站停运时，谁来修 — 电网级储能运维与“责任与履行的错位”",
+  "description": "以决策框架解析日本电网级储能的运维。法律明确指定履行主体的仅有两点，直流侧的修复与通信成为需用合同填补的空白——以责任矩阵可视化，并依一手资料梳理停运惩罚、JC-STAR要求与国际LTSA可用率保障。",
+  "author": { "@type": "Organization", "name": "Science X Inc." },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": { "@type": "ImageObject", "url": "https://www.scix.co.jp/img/logo-white.png" }
+  },
+  "inLanguage": "zh-CN",
+  "datePublished": "2026-05-31",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-om"
+}
+</script>
+<meta property="article:published_time" content="2026-05-31">
+</head>
+<body>
+
+<script src="/header.js"></script>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 23</span>
+      <span class="header-tag">运行维护</span>
+      <time class="header-date" datetime="2026-05-31">2026.05.31</time>
+    </div>
+    <h1>储能电站停运时，<em>谁来修</em><br>电气主任技术者，<em>不修储能电池</em></h1>
+    <p class="header-desc">聚合商、电气主任技术者、设备厂商这三方，并不能决定储能电站停运时由谁来修直流侧。但这一空白并非"制度的缺失"。法律已明确将直流侧的安全监督责任，课予电气主任技术者。空白的是——这一责任在现场由谁来履行。本文从法律、经济、国际实务三个层面，解读这一错位。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/zh-knowledge" class="back-link">← 返回洞见列表</a>
+
+<p>与电网级储能（系统用蓄电池）的相关方交谈时，常能听到这样一句话："运维（O&amp;M）几乎没什么可做的。"把设备建好、完成并网，之后由聚合商安排充放电、由电气主任技术者做法定检查、出故障时由设备厂商来修——有了这三方，储能电站就能运转。然而这三方之间，恰恰漏掉了决定性的一点：<strong>当直流侧（EMS、PCS、BESS、BMS）发生异常时，最先做出故障切分、着手抢修的是谁？</strong>聚合商是以"设备正在运转"为前提去面对市场的主体，而非维持设备的主体。电气主任技术者是受变电（交流侧）的守门人。设备厂商只看到自家的设备。三方之间，留下了直流侧"第一响应"的空白。</p>
+
+<p>这一空白，本文不称之为"制度的空白"。深究下去，事实恰恰相反：<strong>法律已明确将直流侧的安全监督责任课予电气主任技术者</strong>。空白的不是法律，而是这一法定责任在现场由谁来履行——"责任为法定、履行却缺位"的错位（mismatch）。这或许比"制度留有漏洞"更棘手。在法律上漏洞已被堵上，现实中却没有，于是没有人把它当成自己的问题去捡起来。</p>
+
+<p>本文先以法律条文确定这一错位的结构，并用"设备×主体"的责任矩阵勾勒全貌。接着梳理其经济后果——停运不止于机会损失，更会作为辅助服务市场与容量市场的制度惩罚，分两段产生影响。最后，从国际实务中援引成熟市场如何化解这一空白，并将其转化为储能电站业主、EPC、运维方在合同设计上可用的判断轴。如果姊妹篇<a class="xref" target="_top" href="https://www.scix.co.jp/zh-column-contracts">《合同设计在20年里决定2亿日元的差距》</a>是支撑投运后<strong>经济运行</strong>的5层21份合同的地图，那么本文便是与之配对的、支撑投运后<strong>物理运行</strong>的责任地图。</p>
+
+<div class="data-box">
+<div class="db-head">本文范围</div>
+<dl class="premise-grid">
+  <div><dt>对象</dt><dd>电网级储能电站<span class="unit">高压 / 特高压</span></dd></div>
+  <div><dt>核心论点</dt><dd style="font-size:15px">直流侧安全的<br>责任与履行错位</dd></div>
+  <div><dt>责任矩阵</dt><dd>5<span class="unit">设备 × 6主体</span></dd></div>
+  <div><dt>计划外停运的权重</dt><dd>×5<span class="unit">倍计数</span></dd></div>
+  <div><dt>制度参照时点</dt><dd>2026.05<span class="unit">时点</span></dd></div>
+  <div><dt>主要读者</dt><dd style="font-size:13px">业主、EPC、运维</dd></div>
+</dl>
+</div>
+
+<h2>01 — "三方就能运转"的误解</h2>
+
+<p>储能电站的运行，常被概括为聚合商、电气主任技术者、设备厂商三方。但这三方各自都有"承接的范围"与"不承接的范围"。即便叠加在一起，也不等于维持了设备整体的健全。</p>
+
+<p><strong>聚合商</strong>，是利用业主的储能电池在电力市场中安排充放电、赚取收益的主体。其职责是电池的经济性运行，设备的维护管理本就不在其守备范围。它是以"设备正在运转"为前提面对市场的主体，而非在设备停运时奔赴现场的主体。</p>
+
+<p>那么<strong>电气主任技术者</strong>呢？许多相关方会想"有电气主任技术者在，设备就有人照看"，但这是把范围弄错了。日本《电气事业法》要求高压以上的设备必须选任电气主任技术者（日本法定的电气安全监督资格人员），他们是电气方面的专家，这一点毋庸置疑。配电箱式变电站（受变电设备）的操作、原因排查、停机再启动，他们都能胜任。但是，能独立修复其下游EMS、PCS的电气主任技术者并不多。他们通常是受变电的守门人，而并不以履行直流侧设备的实务为己任。即便委托给电气安全管理机构（保安法人），不少情形下也会划清界限——看配电箱式变电站，但不踏入直流侧。</p>
+
+<p>那么由<strong>设备厂商</strong>来修吗？储能电站由EMS、PCS、BESS等多家厂商的设备组成，各家负责自家设备的维保（定期检查、上门、修复）。但全国储能电站激增，各厂商并没有足够的现场人员，能为每一座电站即时调派技术人员。在尚未确定故障出在哪台设备之前就逐一向各家询问，结果只会在责任归属的拉扯中白白耗费时间。还有一项常被忽视的约束：厂商质保通常规定，即便是有资格者，只要由未经认证的人员对设备动手，质保即告失效。也就是说，直流侧并非"不能碰"，而是"一碰，另一样东西（质保）就脱落"——以技能、厂商认证、质保范围这三重事实上的围栏圈起来，这样理解更准确。这并非法律上的极限，而如后文所示，是可以靠设计去移动的约束。</p>
+
+<div class="field-note">
+  <div class="field-note-header">
+    <span class="field-note-icon">🔧</span>
+    <span class="field-note-label">现场访谈 FIELD NOTE — 某电网级储能运维企业（2026年5月访谈）</span>
+  </div>
+  <div class="field-note-body">
+    <p>聚合商以设备正在运转为前提安排充放电。电气主任技术者只到配电箱式变电站为止。厂商只到自家设备为止。结果，直流侧一旦出事，最先动手的人，在合同里哪儿都没写——这样的项目比比皆是</p>
+    <p>最缺的是通信。EMS侧即便报出"通信异常"，是路由器掉线、还是光纤线路一侧的问题，对现场的指令完全不同。而那份竣工资料——哪台路由器写入了什么设置——若没有移交，故障发生的那一刻就没人能修</p>
+    <p>最后被追究责任的，往往是施工的经销商或EPC。所以，移交方式本身就需要设计</p>
+  </div>
+</div>
+
+<p>既然三方无法形成闭环，就只能由统管设备整体的主体——运维（O&amp;M）——站到前面来。是调动电气主任技术者、还是调动厂商，是动用保险、还是问题出在通信。承接这一判断与第一响应，成为业主唯一的对接窗口。这正是本文的出发点。</p>
+
+
+<h2>02 — 责任为法定，履行却缺位</h2>
+
+<p>本文的核心从这里开始。"直流侧不在电气主任技术者守备范围内"这一现场的划分，并不是因为法律如此规定。在法律上，直流侧是确确实实被纳入安全监督对象的。</p>
+
+<p>日本《电气事业法》第43条第1款，对设置事业用电气工作物者，课予选任电气主任技术者的义务，以使其对该设备的<strong>施工、维护、运行的安全进行监督</strong>（同时第42条要求制定并报备安全规程）。问题在于"事业用电气工作物"是否包含直流侧，而这一点，储能电站的法定定义给出了答案。《电气设备技术基准省令》（电技省令）的定义中，储能电站是指：将自厂外输送而来的电力，用厂内设置的电力储存装置等电气工作物加以储存，并以相同使用电压、频率再向厂外输送之所。驱动电力储存装置的逆变装置（PCS）与保护设备，也包含在该电气工作物之内。将直流侧排除于监督对象之外的文字，遍寻不见。</p>
+
+<p>资格分级也是按电压划分，而非按设备种类划分。施行规则第56条按执照种别规定的监督范围中，第三种电气主任技术者可监督的是电压5万伏以下的事业用电气工作物，但其中剔除了出力5,000kW以上的发电厂与储能电站。第二种为17万伏以下，第一种则为全部。监督与否的分界，从一开始就不是按交流或直流、按受变电或储能电池来划的。日本经济产业省关于电气安全人才的资料，也将第三种的范围明记为"5万伏以下（剔除出力5千kW以上的发电厂或储能电站）"，出力5,000kW以上的储能电站不在第三种范围内，这一点在官方资料中亦可确认。另外，电网级储能电池经2022年《电气事业法》修订（2023年4月施行），出力1万kW以上的放电被定位为发电事业。</p>
+
+<p>不过这里还需再进一层精度。课予电气主任技术者的，是安全的<strong>监督</strong>——确认是否符合技术基准，若有不符之虞则向设置者报告——而非由其亲自<strong>修复</strong>PCS或BESS本身。监督责任以法定形式及于设备整体（含直流侧），但点名指定其下游设备实际由谁来修（修复、第一响应）的条文，并不存在。归根结底，<strong>法律点名指定履行主体的，只有"受变电的安全监督"与"并网时的网络安全及技术基准符合"这两点</strong>，直流侧的修复则掉落在它们之外。因此，错位呈现为"监督为法定／修复却缺位"的形态。</p>
+
+<p>把这一落差，按法律所定的责任与现场的履行分开，并排在一张图上来看。</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 510" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图1 — 责任与履行的错位：法律将设备整体的安全监督责任课予电气主任技术者，但现场的履行止步于受变电">
+  <defs>
+    <filter id="sh1" x="-12%" y="-12%" width="124%" height="124%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"></feGaussianBlur>
+      <feOffset dx="0" dy="2" result="o"></feOffset>
+      <feComponentTransfer><feFuncA type="linear" slope="0.12"></feFuncA></feComponentTransfer>
+      <feMerge><feMergeNode></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+    </filter>
+    <linearGradient id="navyGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2A3D66"></stop>
+      <stop offset="100%" stop-color="#0F1A2E"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="510" fill="#FFFFFF"></rect>
+  <text x="250" y="34" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="800" fill="#A07916" letter-spacing="2">法律所定的责任</text>
+  <text x="690" y="34" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="800" fill="#B0413B" letter-spacing="2">现场的履行</text>
+  <line x1="470" y1="50" x2="470" y2="430" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="4 4"></line>
+  <rect x="60" y="58" width="380" height="58" rx="8" fill="url(#navyGrad1)" filter="url(#sh1)"></rect>
+  <text x="250" y="83" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="15" font-weight="700" fill="#FFFFFF">《电气事业法》第43条第1款</text>
+  <text x="250" y="104" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="rgba(255,255,255,.75)">施工、维护、运行的"安全监督"</text>
+  <path d="M 250 116 L 250 142" fill="none" stroke="#C49A3C" stroke-width="2.2"></path>
+  <path d="M 244 136 L 250 144 L 256 136 Z" fill="#C49A3C"></path>
+  <rect x="120" y="144" width="260" height="44" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.8"></rect>
+  <text x="250" y="171" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#1B2A4A">电气主任技术者（安全监督人）</text>
+  <text x="250" y="216" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#A07916" letter-spacing=".5">安全监督的对象范围（法）＝ 设备整体</text>
+  <path d="M 70 226 L 70 236 L 430 236 L 430 226" fill="none" stroke="#C49A3C" stroke-width="1.6"></path>
+  <path d="M 250 236 L 250 248" stroke="#C49A3C" stroke-width="1.6"></path>
+  <g font-family="'Noto Sans SC',sans-serif">
+    <rect x="60" y="250" width="120" height="64" rx="7" fill="#F4F1EA" stroke="#C49A3C" stroke-width="1.4"></rect>
+    <text x="120" y="278" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">受变电设备</text>
+    <text x="120" y="298" text-anchor="middle" font-size="10.5" fill="#6C7A89">交流侧、箱式变电站</text>
+    <rect x="190" y="250" width="160" height="64" rx="7" fill="#F4F1EA" stroke="#C49A3C" stroke-width="1.4"></rect>
+    <text x="270" y="274" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">直流侧设备</text>
+    <text x="270" y="293" text-anchor="middle" font-size="10" fill="#6C7A89">EMS、PCS、BESS、BMS</text>
+    <text x="270" y="307" text-anchor="middle" font-size="9.5" fill="#A07916">逆变装置＝电气工作物</text>
+    <rect x="360" y="250" width="80" height="64" rx="7" fill="#F4F1EA" stroke="#C49A3C" stroke-width="1.4"></rect>
+    <text x="400" y="278" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">通信设备</text>
+    <text x="400" y="298" text-anchor="middle" font-size="10.5" fill="#6C7A89">线路、路由器</text>
+  </g>
+  <g font-family="'Noto Sans SC',sans-serif">
+    <rect x="510" y="86" width="340" height="56" rx="7" fill="#F1F8F3" stroke="#1A7A4C" stroke-width="1.5"></rect>
+    <text x="528" y="110" font-size="12.5" font-weight="700" fill="#1A7A4C">✓ 受变电设备</text>
+    <text x="528" y="130" font-size="11" fill="#2C3E50">电气主任技术者履行实务（与惯例、合同一致）</text>
+    <rect x="510" y="156" width="340" height="62" rx="7" fill="#FDF3F2" stroke="#C0413B" stroke-width="1.6" stroke-dasharray="6 4"></rect>
+    <text x="528" y="180" font-size="12.5" font-weight="700" fill="#B0413B">？ 直流侧设备</text>
+    <text x="528" y="199" font-size="11" fill="#2C3E50">修复、第一响应的承担者未在合同中落实</text>
+    <text x="528" y="213" font-size="10.5" fill="#6C7A89">电气主任技术者不踏入／厂商即时调派有限</text>
+    <rect x="510" y="232" width="340" height="62" rx="7" fill="#FDF3F2" stroke="#C0413B" stroke-width="1.6" stroke-dasharray="6 4"></rect>
+    <text x="528" y="256" font-size="12.5" font-weight="700" fill="#B0413B">？ 通信设备</text>
+    <text x="528" y="275" font-size="11" fill="#2C3E50">竣工资料缺失 → 故障时修复责任悬空</text>
+    <text x="528" y="289" font-size="10.5" fill="#6C7A89">路由器还是光纤线路，故障切分也未定义</text>
+  </g>
+  <path d="M 350 282 C 430 282, 440 114, 510 114" fill="none" stroke="#1A7A4C" stroke-width="1.6"></path>
+  <path d="M 350 282 C 430 282, 440 187, 510 187" fill="none" stroke="#C0413B" stroke-width="1.4" stroke-dasharray="5 4"></path>
+  <path d="M 400 314 C 440 350, 460 263, 510 263" fill="none" stroke="#C0413B" stroke-width="1.4" stroke-dasharray="5 4"></path>
+  <g font-family="'Noto Sans SC',sans-serif">
+    <rect x="510" y="316" width="166" height="58" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="593" y="339" text-anchor="middle" font-size="11.5" font-weight="700" fill="#6C7A89">聚合商</text>
+    <text x="593" y="358" text-anchor="middle" font-size="10.5" fill="#6C7A89">仅经济性运行</text>
+    <rect x="684" y="316" width="166" height="58" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="767" y="339" text-anchor="middle" font-size="11.5" font-weight="700" fill="#6C7A89">设备厂商</text>
+    <text x="767" y="358" text-anchor="middle" font-size="10.5" fill="#6C7A89">仅自家设备检查</text>
+  </g>
+  <rect x="60" y="400" width="790" height="74" rx="8" fill="#1B2A4A"></rect>
+  <rect x="60" y="400" width="6" height="74" fill="#C49A3C"></rect>
+  <text x="455" y="432" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="15" font-weight="700" fill="#FFFFFF">监督为法定（设备整体）／修复的履行止步于受变电</text>
+  <text x="455" y="456" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#D4AF5C" letter-spacing="1">这便是“责任与履行的错位（mismatch）”</text>
+</svg>
+<p class="fig-cap">图1 — 法律将设备整体的安全监督责任课予电气主任技术者。空白的不是法律，而是直流侧、通信的修复在现场由谁来履行。</p>
+</div>
+<p>图所示是一个简单的事实：法律将设备整体的安全监督课予电气主任技术者，而现场的履行止步于受变电，直流侧与通信的修复未归属于任何人。并非"制度有漏洞"，而是"法律上漏洞已被堵上、现场却没有"——正因如此，更难有人去捡。</p>
+
+
+<h2>03 — 责任矩阵：设备 × 主体</h2>
+
+<p>图1是把法律与现场的落差竖着看；若把同一结构按"哪台设备、由哪个主体、以何种依据持有"展开成一个平面，空白的所在便更具体地浮现出来。纵轴取设备领域，横轴取相关主体，把每个交点用四种依据来着色——法令所定、合同所定、惯例事实上如此、以及谁都未确定的空白。</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 590" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图2 — 电网级储能电站的责任矩阵（设备×主体）">
+  <rect width="900" height="590" fill="#FFFFFF"></rect>
+  <text x="78" y="44" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#9AA3AF">设备 ＼ 主体</text>
+  <line x1="8" y1="86" x2="888" y2="86" stroke="#E2E6EC" stroke-width="1.5"></line>
+  <g font-family="'Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#1B2A4A" text-anchor="middle">
+    <text x="211.5" y="52">主任技术者</text>
+    <text x="334.5" y="52">安全管理机构</text>
+    <text x="457.5" y="52">设备厂商</text>
+    <text x="580.5" y="52">聚合商</text>
+    <text x="703.5" y="52">运维</text>
+    <text x="826.5" y="52">业主</text>
+  </g>
+  <g font-family="'Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#1B2A4A">
+    <text x="14" y="126">受变电/</text><text x="14" y="143">箱变</text>
+    <text x="14" y="219">EMS</text>
+    <text x="14" y="303">PCS</text>
+    <text x="14" y="387">BESS</text>
+    <text x="14" y="471">通信</text>
+  </g>
+  <g font-family="'Noto Sans SC',sans-serif" font-size="12.5" font-weight="600" text-anchor="middle">
+    <rect x="152" y="90" width="119" height="80" rx="3" fill="#1B2A4A"></rect><text x="211.5" y="135" fill="#fff">法令</text>
+    <rect x="275" y="90" width="119" height="80" rx="3" fill="#1B2A4A"></rect><text x="334.5" y="135" fill="#fff">法令</text>
+    <rect x="398" y="90" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="135" fill="#fff">合同</text>
+    <rect x="521" y="90" width="119" height="80" rx="3" fill="#F1F4F8"></rect><text x="580.5" y="135" fill="#AEB7C4">—</text>
+    <rect x="644" y="90" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="135" fill="#fff">合同</text>
+    <rect x="767" y="90" width="119" height="80" rx="3" fill="#1B2A4A"></rect><text x="826.5" y="135" fill="#fff">法令</text>
+    <rect x="152" y="174" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="211.5" y="219" fill="#44506A">惯例</text>
+    <rect x="275" y="174" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="334.5" y="219" fill="#44506A">惯例</text>
+    <rect x="398" y="174" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="219" fill="#fff">合同</text>
+    <rect x="521" y="174" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="580.5" y="219" fill="#fff">合同</text>
+    <rect x="644" y="174" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="219" fill="#fff">合同</text>
+    <rect x="767" y="174" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="826.5" y="219" fill="#fff">空白</text>
+    <rect x="152" y="258" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="211.5" y="303" fill="#44506A">惯例</text>
+    <rect x="275" y="258" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="334.5" y="303" fill="#44506A">惯例</text>
+    <rect x="398" y="258" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="303" fill="#fff">合同</text>
+    <rect x="521" y="258" width="119" height="80" rx="3" fill="#F1F4F8"></rect><text x="580.5" y="303" fill="#AEB7C4">—</text>
+    <rect x="644" y="258" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="303" fill="#fff">合同</text>
+    <rect x="767" y="258" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="826.5" y="303" fill="#fff">空白</text>
+    <rect x="152" y="342" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="211.5" y="387" fill="#44506A">惯例</text>
+    <rect x="275" y="342" width="119" height="80" rx="3" fill="#C9D0D9"></rect><text x="334.5" y="387" fill="#44506A">惯例</text>
+    <rect x="398" y="342" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="387" fill="#fff">合同</text>
+    <rect x="521" y="342" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="580.5" y="387" fill="#fff">合同</text>
+    <rect x="644" y="342" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="387" fill="#fff">合同</text>
+    <rect x="767" y="342" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="826.5" y="387" fill="#fff">空白</text>
+    <rect x="152" y="426" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="211.5" y="471" fill="#fff">空白</text>
+    <rect x="275" y="426" width="119" height="80" rx="3" fill="#D9736B"></rect><text x="334.5" y="471" fill="#fff">空白</text>
+    <rect x="398" y="426" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="457.5" y="471" fill="#fff">合同</text>
+    <rect x="521" y="426" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="580.5" y="471" fill="#fff">合同</text>
+    <rect x="644" y="426" width="119" height="80" rx="3" fill="#C49A3C"></rect><text x="703.5" y="471" fill="#fff">合同</text>
+    <rect x="767" y="426" width="119" height="80" rx="3" fill="#1B2A4A"></rect><text x="826.5" y="471" fill="#fff">法令</text>
+  </g>
+  <g font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#6C7A89">
+    <rect x="150" y="540" width="14" height="14" rx="2" fill="#1B2A4A"></rect><text x="170" y="551">法令</text>
+    <rect x="300" y="540" width="14" height="14" rx="2" fill="#C49A3C"></rect><text x="320" y="551">合同</text>
+    <rect x="450" y="540" width="14" height="14" rx="2" fill="#C9D0D9"></rect><text x="470" y="551">惯例</text>
+    <rect x="600" y="540" width="14" height="14" rx="2" fill="#D9736B"></rect><text x="620" y="551">空白</text>
+  </g>
+</svg>
+<p class="fig-cap">图2 — 电网级储能电站的责任矩阵。每个单元表示修复、第一响应的<strong>履行依据</strong>（法令＝条文指定主体／合同＝以质保、委托约定／惯例＝事实上如此／空白＝谁都未确定）。电气主任技术者的安全<strong>监督</strong>责任本身，以法定形式及于含受变电、直流侧、通信的全部行。深色（法令）只落在受变电行，以及业主经由并网网络安全所承担的部分。金色（运维列）正处在能以合同承接这一空白的位置。</p>
+</div>
+<p>顺着颜色看，结构便一目了然。深色（法令）只落在受变电行、以及业主经由网络安全与技术基准所承担的部分。其余大片面积，被合同（金）、惯例（灰）、空白（红）占据。尤其是红色——空白——集中在直流侧的业主列（竣工资料、采购、举证数据），以及通信行的安全侧（电气主任技术者、安全管理机构）。电网级储能电站的运行，归根结底正是一项工作：决定把这些合同、惯例、空白领域，以哪份合同归属给哪个主体。把各交点的内容具体化，便如下表。</p>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>设备</th><th>主任技术者</th><th>安全管理机构</th><th>设备厂商</th><th>聚合商</th><th>运维</th><th>业主</th></tr></thead>
+<tbody>
+<tr><td class="em">受变电/<br>箱变</td><td>安全监督〔法令〕</td><td>监督、检查〔法令〕</td><td>设备质保〔合同〕</td><td>—</td><td>检查实务〔合同〕</td><td>最终安全责任〔法令〕</td></tr>
+<tr><td class="em">EMS</td><td>监督、修复属专业外〔惯例〕</td><td>标准业务外〔惯例〕</td><td>设置、修复、质保〔合同〕</td><td>控制、运行〔合同〕</td><td>第一响应、联络〔合同〕</td><td>竣工资料、采购〔空白〕</td></tr>
+<tr><td class="em">PCS</td><td>监督、直流修复属专业外〔惯例〕</td><td>通常不触碰〔惯例〕</td><td>修复施工主体〔合同〕</td><td>—</td><td>上门、故障切分〔合同〕</td><td>修复调派、费用〔空白〕</td></tr>
+<tr><td class="em">BESS<br>(电芯/BMS)</td><td>监督、修复属专业外〔惯例〕</td><td>标准业务外〔惯例〕</td><td>产品、衰减质保〔合同〕</td><td>遵守运行条件〔合同〕</td><td>数据采集、监视〔合同〕</td><td>质保维持、举证数据〔空白〕</td></tr>
+<tr><td class="em">通信<br>(路由器/线路)</td><td>属监督对象但在设计外〔空白〕</td><td>标准业务外〔空白〕</td><td>视设备而质保〔合同〕</td><td>以通信为前提的控制〔合同〕</td><td>故障第一响应〔合同〕</td><td>资料、冗余、网络安全〔法令〕</td></tr>
+</tbody>
+</table>
+</div>
+<p>读法只有一条。法律明确指定主体的，只有"受变电的安全监督"与"并网时的网络安全及技术基准符合"。EMS、PCS、BESS的修复，以及通信的设计、资料、修复，都在它们之外。把这一空白以合同归属给谁，正是事业设计的核心。下文将依次深入空白集中的两个领域——直流侧的修复，以及通信。</p>
+
+
+<h2>04 — 为何这个洞填不上</h2>
+
+<p>责任既为法定，为何履行却填不上？原因在于两种制度结构。一是"如何配置电气主任技术者"的制度，二是安全规程"要求写下什么"的制度。</p>
+
+<h3>4-1 外部委托许可这一容器的约束</h3>
+
+<p>高压以上的储能电站，电气主任技术者要么自行选任，要么委托外部。日本经济产业省《主任技术者制度的解释与运用（内规）》规定，外部委托下电气主任技术者所负责的事业场，原则上须能<strong>在2小时以内到达</strong>，作为运用条件（即所谓"2小时规则"）。此外，平成15年经济产业省告示第249号，将安全业务承担者可受托的事业场<strong>换算系数合计限制在33以下</strong>。这是按设备容量、出力计"分值"以约束受托上限的机制，光伏电站与储能电站会按条件乘以相应系数（告示规定0.31〜0.33；按区分，イ0.32、ロ0.31、ハ0.33）。储能电站可外部委托的范围，与光伏电站相同，为出力5,000kW、电压7,000V以下（日本经济产业省《关于储能电站安全监管方式》令和4年4月15日）。</p>
+
+<p>这一"2小时圈内、且分值有余的电气主任技术者"容器，若人才充裕便不成问题。但现实恰恰相反。日本经济产业省《关于电气主任技术者制度》（令和5年3月31日）指出，若不采取新的对策，<strong>2030年度第2种或将短缺约1,000人、第3种约800人</strong>。选任形态以外部委托为主，承担者的老龄化也在加剧。持照者约六成在50岁以上；电力安全小委员会的资料梳理认为，第3种到2045年，相对约1.8万人的预期需求，预计短缺约4千人。</p>
+
+<p>由此可读出：电气主任技术者的可获得性与成本，会因地区而结构性地变化。距离要求、分值限制与人才短缺叠加，从找到一位近距离且分值有余的候选人、完成选任、再落到报价，需要相当的时间。运维公司从接洽到出具报价往往需要数周，正源于这种制度容器——并非哪家公司动作慢，而是制度本就如此设计。</p>
+
+<h3>4-2 安全规程不要求写下的东西</h3>
+
+<p>另一种结构，在于安全规程的记载事项。《电气事业法》施行规则第50条，列举了安全规程应规定的事项。属发电事业的电网级储能电站（出力1万kW以上）适用同条第2款，自用等适用第3款，按设备区分而款别不同，但大体都由这些项目构成：业务管理者、经营责任人的参与与组织、安全教育、巡视、检查、检验、运行、操作、相当期间停运时的维护方法、灾害等非常时应采取的措施、关于安全的记录、法定自主检验、使用前自我确认的实施体制与记录保存。</p>
+
+<p>这里面，<strong>并没有将"如何留存通信设备的竣工资料、路由器故障时由谁如何修复"作为独立记载事项要求的条款</strong>。安全规程的标准构成，是围绕受变电与电气安全搭建的，通信的设计资料与修复责任，掉落在制度的记载要求之外。FIELD NOTE的现场所说"竣工资料未移交的项目很多"，并非因为偷懒于文书工作，而是因为制度没有要求去写。谁都不明确要求的东西，谁都不会明确留存。这就是通信侧空白的真相。</p>
+
+<div class="info-box">
+直流侧的<strong>责任</strong>为法定（第43条第1款＋电技省令的储能电站定义）。但直流侧、通信的<strong>履行</strong>，却掉落在外部委托容器（2小时、分值、人才短缺）与安全规程记载要求之外。责任已填上、履行却填不上——正是这两种制度结构，维持着这一错位。若是"制度的极限"则只能作罢；但若是"合同、惯例、技能的问题"，便可以靠设计去移动。
+</div>
+
+
+<h2>05 — 停运的真实成本</h2>
+
+<p>"直流侧停了，也不过是暂时无法上市场而已"——若这么想，可能把成本低估了一个台阶。电网级储能电站的停运，不止于机会损失。它会作为辅助服务市场与容量市场的制度惩罚，分两段产生影响。先把停运时正在运转的收益量级摆出来。</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">8,785〜14,812<span class="unit">日元/kW·年</span></span><span class="lbl">容量市场主拍卖成交（面向实际供需2028年度、分区）</span></div>
+  <div class="stat-cell"><span class="val">12.31<span class="unit">日元/kWh</span></span><span class="lbl">JEPX现货年度均价（FY2024）</span></div>
+  <div class="stat-cell"><span class="val">19.51→15<span class="unit">日元/ΔkW·30分</span></span><span class="lbl">辅助服务上限价（2026年3月下调／拟分阶段降至7.21日元）</span></div>
+</div>
+
+<p>容量市场主拍卖的成交价，面向实际供需2028年度按分区大体为8,785〜14,812日元/kW·年（北陆、关西、中国、四国为下限8,785日元，北海道、东北、东京为上限14,812日元；OCCTO成交结果，2025年1月29日公布）；JEPX现货年度均价FY2024为12.31日元/kWh（JEPX《2024年度业务报告书》）。辅助服务市场的ΔkW上限价，配合2026年3月的前日交易化，由原有19.51日元/ΔkW·30分下调至15日元；若竞争状况未见改善，拟分阶段降至10日元、7.21日元（资源能源厅，2026年1月）。2MW级一旦停止市场参与，与之挂钩的日次收益便会损失。但真正产生影响的，比起机会损失本身，更在于其后的制度惩罚。</p>
+
+<h3>5-1 辅助服务市场：响应不达便减额，再被逐出</h3>
+
+<p>在辅助服务市场（EPRX）成交的资源，负有按指令响应的义务。EPRX交易规程规定了考核（确认响应实绩）与惩罚。确认响应实绩的"考核Ⅱ"若不达标，将对成交金额课以<strong>1.0倍惩罚</strong>（该倍率在第36回辅助服务市场研讨小委员会、2023年3月2日，出于提升市场参与激励的考量，由1.5倍下调为1.0倍。另外，查看是否维持可供出状态的"考核Ⅰ"，按不达程度分级，最大强度为1.5倍）。此外，<strong>同一资源、同一商品在1个日历月内不达标3次以上，该商品的新交易即被停止</strong>。停运则无法响应，无法响应便被减额，反复则被逐出市场——这是三段式的结构。</p>
+
+<p>不过，对于因弃电等系统侧原因、且投标时事业者无法预见的事件，设有缓和框架：将惩罚倍率定为1.0倍，并不计入不达标次数的累计（系统原因导致的惩罚缓和申请；样式24、25自2026年3月14日交付分起适用）。是自己停的、还是被系统停的，处理因此而异——这里，原因切分同样起作用。关于辅助服务市场的商品构成、最低投标量、上限价下调方向，已在<a class="xref" target="_top" href="https://www.scix.co.jp/zh-column-contracts">合同设计专栏（第5层）</a>中梳理。</p>
+
+<h3>5-2 容量市场：计划外停运按"5倍"计</h3>
+
+<p>容量市场，尤其是通过长期脱碳电源拍卖签订容量保障合同的储能电站（被划为"稳定电源"），负有维持运行的履约要求。容量保障合同条款规定了考核与惩罚，经济惩罚以容量保障合同金额为基准，针对<strong>履约要求未达成时段的累计，扣除8,640个时段（约合180天）后的部分</strong>课收（OCCTO《容量市场业务手册（履约要求／惩罚相关）》《容量保障合同条款》）。反过来说，每年约合180天为实质性的宽限，超出此限的未达才纳入对象。</p>
+
+<p>值得注意的是这"未达成时段"的计数方式。预先作为计划停运报备的维护按等倍计；而<strong>突发的计划外停运按5倍计数</strong>（平常时的夜间、休息日除外）。也就是说，制度把"捕捉到预兆的计划性维护"与"无计划的突发故障"之间的经济差，明确地以5比1加以量化。</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图3 — 停运的三条毁损路径，与计划外停运5倍计数">
+  <defs>
+    <linearGradient id="goldBar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF5C"></stop>
+      <stop offset="100%" stop-color="#B8862A"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="560" fill="#FFFFFF"></rect>
+  <rect x="350" y="30" width="200" height="56" rx="9" fill="#FDF3F2" stroke="#C0413B" stroke-width="1.8"></rect>
+  <text x="450" y="55" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="15" font-weight="700" fill="#B0413B">停运（downtime）</text>
+  <text x="450" y="74" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">毁损不止于机会损失</text>
+  <path d="M 410 86 C 350 110, 220 110, 175 132" fill="none" stroke="#C49A3C" stroke-width="1.8"></path>
+  <path d="M 450 86 L 450 132" fill="none" stroke="#C49A3C" stroke-width="1.8"></path>
+  <path d="M 490 86 C 550 110, 680 110, 725 132" fill="none" stroke="#C49A3C" stroke-width="1.8"></path>
+  <g font-family="'Noto Sans SC',sans-serif">
+    <rect x="40" y="134" width="250" height="104" rx="8" fill="#F8F9FB" stroke="#9AA7B4" stroke-width="1.4"></rect>
+    <text x="60" y="160" font-size="12.5" font-weight="800" fill="#6C7A89">① 机会损失</text>
+    <text x="60" y="184" font-size="11" fill="#2C3E50">错失在JEPX等市场上</text>
+    <text x="60" y="201" font-size="11" fill="#2C3E50">价差套利的收益机会</text>
+    <text x="60" y="224" font-size="10" fill="#9AA7B4">＝ 没赚到的毛利</text>
+    <rect x="325" y="134" width="250" height="104" rx="8" fill="#F3F6FA" stroke="#2A4D7A" stroke-width="1.5"></rect>
+    <text x="345" y="160" font-size="12.5" font-weight="800" fill="#1B2A4A">② 辅助服务：减额＋逐出</text>
+    <text x="345" y="184" font-size="11" fill="#2C3E50">考核Ⅱ不达标</text>
+    <text x="345" y="201" font-size="11" fill="#2C3E50">→ 1.0倍惩罚</text>
+    <text x="345" y="224" font-size="11" fill="#B0413B">→ 同一商品月3次即停新交易</text>
+    <rect x="610" y="134" width="250" height="104" rx="8" fill="#F3F6FA" stroke="#2A4D7A" stroke-width="1.5"></rect>
+    <text x="630" y="160" font-size="12.5" font-weight="800" fill="#1B2A4A">③ 容量：合同金额减额</text>
+    <text x="630" y="184" font-size="11" fill="#2C3E50">履约要求未达</text>
+    <text x="630" y="201" font-size="11" fill="#2C3E50">→ 减额容量保障合同金额</text>
+    <text x="630" y="224" font-size="11" fill="#B0413B">→ 计划外停运按5倍计</text>
+  </g>
+  <rect x="40" y="270" width="820" height="252" rx="10" fill="#FFFCF5" stroke="#C49A3C" stroke-width="1.6"></rect>
+  <rect x="40" y="270" width="6" height="252" fill="#C49A3C"></rect>
+  <text x="70" y="304" font-family="'Noto Serif SC',serif" font-size="16" font-weight="700" fill="#1B2A4A">计划外停运按"5倍"计</text>
+  <text x="70" y="328" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#6C7A89">年停运时段当量 ＝（计划停运时段当量 ＋ 计划外停运时段当量 × 5）− 8,640时段（约180天）／容量保障合同条款、平常时夜间休息日除外</text>
+  <g font-family="'Noto Sans SC',sans-serif">
+    <rect x="120" y="446" width="120" height="36" rx="4" fill="#C2CAD3"></rect>
+    <text x="180" y="469" text-anchor="middle" font-size="13" font-weight="700" fill="#3A4654">×1</text>
+    <text x="180" y="500" text-anchor="middle" font-size="12" fill="#6C7A89">计划停运</text>
+    <text x="180" y="516" text-anchor="middle" font-size="10" fill="#9AA7B4">捕捉到预兆的维护</text>
+    <rect x="300" y="356" width="120" height="126" rx="4" fill="url(#goldBar)"></rect>
+    <text x="360" y="345" text-anchor="middle" font-size="15" font-weight="800" fill="#A07916">×5</text>
+    <text x="360" y="424" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">5倍</text>
+    <text x="360" y="500" text-anchor="middle" font-size="12" fill="#6C7A89">计划外停运</text>
+    <text x="360" y="516" text-anchor="middle" font-size="10" fill="#9AA7B4">突发故障</text>
+  </g>
+  <line x1="470" y1="360" x2="470" y2="500" stroke="#E2E6EC" stroke-width="1.4" stroke-dasharray="4 4"></line>
+  <text x="500" y="392" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#1B2A4A">运维的响应速度发挥作用之处</text>
+  <text x="500" y="418" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#2C3E50">凭预兆诊断与即时的切分、修复，</text>
+  <text x="500" y="438" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#2C3E50">若能把突发故障转化为"计划停运"，</text>
+  <text x="500" y="458" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#A07916">惩罚敞口最多可压缩至约1/5。</text>
+  <text x="500" y="484" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#9AA7B4">※ 属不可抗力的停运，可成为合同条款上的免责对象</text>
+</svg>
+<p class="fig-cap">图3 — 停运经机会损失、辅助服务惩罚、容量惩罚三条路径产生影响。在容量保障合同中，计划外停运按计划停运的5倍计数，这定义了运维响应速度的经济价值。</p>
+</div>
+<p>这个5倍的系数，最为犀利地说明了运维的经济价值。若把突发故障原封不动地放任为"无计划停运"，便按5倍计；而若能捕捉预兆、转化为计划性的维护停运，则只按等倍计。早期异常检测、原因即时切分、迅速修复——运维的响应速度所做的，就是把突发转化为计划，把惩罚敞口最多压缩至约五分之一。这不是"把停运归零"的话题，而是"把停运的性质往计划侧靠"的话题。正因如此，即便无法保障可用率本身，响应速度也有明确的经济依据。</p>
+
+<h3>5-3 运维年费有"行情"吗</h3>
+
+<p>那么，最关键的运维费本身呢？这里坦白写。<strong>专门针对电网级储能的固定运维（OPEX）公开标准单价，尚未成形</strong>。为数不多的公开线索，是长期脱碳电源拍卖中模型电站所用的运行维护费——日本经济产业省的研讨会资料给出的<strong>运行维护费（人工费）为5,000日元/kW·年</strong>（《关于电网侧、可再生能源配建储能系统在成本面、收益面的课题梳理》2024年度第3回定置式储能系统普及扩大研讨会，2024年8月29日；参照长期脱碳电源拍卖上限价测算所用的模型电站信息）。在国际基准上，NREL ATB将固定运维置于<strong>CAPEX的约2.5%</strong>（含电池扩容费，以15年运行为前提）。现场的体感是，有人把含保险的年费往厚里看到500万日元上下，也有人估算不含保险则收在年250〜300万日元；但这些都是事业者提示值，并非公开确立的水平。</p>
+
+<p>在事业计划中放入运维费时，要意识到这是<strong>出发点的数字，而非行情</strong>。能公开参照的，只有"5,000日元/kW·年"这一单价信息，以及国际基准"CAPEX的2.5%"左右，两者都会因设备规模（2MW级还是10MWh级）与地区差而大幅波动。只有把各费目（电气主任技术者、监视、上门、通信、保险）拆开排出来，才谈得上水平是否合理。毋宁说，"公开标准单价仍停留在单价信息层面"这一事实本身，就是把运维费放进事业计划时应当计入的不确定性论点。</p>
+
+
+<h2>06 — 通信，谁都不负责</h2>
+
+<p>储能电站的诸多空白中，最难有人去捡的是通信。原因很清楚：通信恰好落在"电气专家（电气主任技术者）看的受变电"与"设备专家（设备厂商）看的控制"之间的交界处。电气主任技术者的安全监督围绕受变电搭建，厂商的质保在自家设备内部闭合。线路、路由器、网关、连接各设备的网络本身，并不在任何一方守备范围的中心。而如第04章所见，安全规程不把通信设备的竣工资料与修复责任，作为独立记载事项来要求。一个谁都不明确持有的层，就此叠出。</p>
+
+<p>这一空白露出獠牙，是在停运的那一刻。储能电站比光伏更依赖通信，弃电控制与辅助服务指令的响应，都以实时通信为前提。然而EMS画面即便显示"通信异常"，仅凭这一点谁也动不了。掉线的是现场的路由器、还是光纤线路运营商一侧、还是设置丢了——原因在哪里，要叫谁、修复步骤如何，全然不同。若承担这一切分的人在合同里哪儿都没写，那么从显示出现的那一刻起，就开始了"该由谁动手"的寻找时间。而且，切分所不可或缺的竣工资料——哪台路由器写入了什么设置、哪个IP连着什么——未曾移交的项目并不罕见。这并非疏于文书，而是因为制度没要求写、合同没要求给。通信，平时谁的问题都不是，异常时则成为所有人的问题。</p>
+
+<p>在这一空白之上，2027年起还将叠加制度要求。第20回电网规范（grid code）研讨会（2025年12月16日、资源能源厅）的资料提出方针：作为并网技术要求，分布式电源所采用的"具备通信功能的控制系统（PCS、EMS等）"，须使用取得JC-STAR制度★1的产品。适用时点拟定为：高压2027年4月，低压50kW以下2027年10月（低压考虑流通库存而设半年过渡期）。作为前提，电技省令已对除小规模事业用电气工作物（50kW以下光伏等）以外的事业用电气工作物，课予确保网络安全的义务（第15条之2）。</p>
+
+<p>这里有一个实务上的误解："只要网关的路由器取得了★1，其内侧的设备就不在对象之列。"但制度的设计思想并非"网络打包"，而是对采用IP通信的产品（系统）逐一施加要求。资源能源厅的资料在其脚注中梳理：对象范围内采用IP通信的产品（系统）纳入★1取得要求，对象范围外的IP通信设备亦建议取得（《关于分布式电源的网络安全对策》2026年2月12日 资料5）。路由器单体取得，并不意味其下游设备获得豁免，也不是"储能一套整体打包取得"的性质。这是一项要把涉及通信、控制的设备逐台清点、逐台确认是否为★1取得产品的工作。★1、★2为厂商自我符合声明，★3以上为第三方认证；IPA已于2025年3月25日启动运用，并受理★1申请。</p>
+
+<div class="highlight-box">
+<strong>按设备单元（日本）还是按区域（海外）。</strong>北美的NERC CIP与国际标准IEC 62443，基本都立足于把应守护的范围划为"区域（zone）与通道（conduit）"、在边界处守护的"系统／区域单元"思路。日本的JC-STAR要求化与之相对，是对各IP通信产品课以最低基准的"设备单元"。这一思想差异，会直接冲击通信设计的搭法，以及运维在设备选型、更新上的实务。2027年4月以后的新增并网、设备更换中，可能出现"用这台设备无法接入"的情形。而竣工资料——哪台设备写入了什么设置、哪个IP连着什么——若未移交，按设备逐台的符合确认、故障时的切分，都无从成立。网络安全要求越是按设备单元课加，就越需要有人来留存按设备单元的设计资料。
+</div>
+
+<h3>6-1 所要求的通信，因商品而异</h3>
+
+<p>各商品的要求呈阶梯式差异。响应时间从一次调频力的10秒以内，到三次调频力②的60分以内不等；需秒级控制的二次①，通信线路只限专线。另一方面，响应为数十分钟量级的三次②，用简易指令系统也可参与，监视间隔为分钟级。</p>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>商品</th><th>通信线路</th><th>响应时间</th><th>监视间隔（参考）</th></tr></thead>
+<tbody>
+<tr><td class="em">一次调频力</td><td>专线（自端控制）</td><td class="num">10秒以内</td><td>以0.1秒以下在自端测量频率</td></tr>
+<tr><td class="em">二次调频力①</td><td>仅专线</td><td class="num">5分以内</td><td>秒级（LFC指令0.5〜数十秒）</td></tr>
+<tr><td class="em">二次调频力②</td><td>专线／简易指令</td><td class="num">5分以内</td><td>专线秒级／简易1分</td></tr>
+<tr><td class="em">三次调频力①</td><td>专线／简易指令</td><td class="num">15分以内</td><td>同上</td></tr>
+<tr><td class="em">三次调频力②</td><td>专线／简易指令</td><td class="num">60分以内</td><td>1〜30分</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">出处：EPRX《辅助服务市场的商品要求与交易时间表》、OCCTO 辅助服务市场研讨小委员会 参考资料。二次①因简易指令系统无法做秒级控制，通信线路限于专线。</p>
+
+<h3>6-2 那么，通信的运维是什么</h3>
+
+<p>把以上反过来看，通信的运维具体是什么役务便浮现出来。第一，<strong>竣工资料的整备与交接</strong>——线路种别、路由器、网关的型号与设置、IP分配、设备间连接图，于投运时以文档形式接收并持续更新。第二，<strong>备好已设置的备用机</strong>——工业用路由器的交期受全球局势影响而难以预判，若未在现场备好备用机，修复可能停摆数周（网络设备整体交期延长可确认，但电网用路由器的个别交期一手数据尚未确认）。第三，<strong>异常时的切分步骤与第一响应</strong>——"通信异常"出现时，向现场、线路运营商、厂商，按何顺序找谁，预先定好。第四，<strong>★1要求的符合确认与设备更新</strong>——在2027年以后的并网、更换中，如何按设备单元维持符合。这些，在安全规程、厂商质保、聚合商合同中都不会自动包含。是把通信原封"谁都不负责"地留着，还是在运维合同中明确令其承接——这一点，决定了停运时的修复速度。</p>
+
+<p>储能电站要"以哪个商品、哪种线路"去取得收益，决定了所要求通信的品质、以及通信掉线时的损失量级。越是以专线在线承诺秒级响应，通信就越是攸关生死。在用一个数字谈论通信速度之前，先把自家资产以哪个商品、哪种线路运转、以及通信掉线时由谁来修，在投运前确定下来。</p>
+
+
+<h2>07 — 保险"在原因查明前"不会赔</h2>
+
+<p>储能电站通常会组合财产险，以及对停运期间逸失利益予以补偿的利润险。但这份保险，并非出事就自动理赔。赔付的前提，是举证"对象因偶然事故而受损"，而利润险也只补偿因该损害结果而产生的损失。储能电池仍是新设备，电芯缺陷、施工不良、还是天灾——原因的举证责任，沉重地压在事业者一侧，热失控之类的事件，原因查明往往耗时漫长（美国Moss Landing从2021年9月停运到原因公布约5个月）。原因一日不确定，保险金便一日不动。而把多家厂商的设备集成在一起，还可能出现无法将责任归于一家的局面（韩国2017〜2019年发生ESS火灾23起，官民联合调查列出4项要因，却未能形成决定性举证，电池厂商对原因之说提出反驳）。</p>
+
+<div class="warning-box">
+此处起作用的，是以BMS、EMS日志为首的<strong>证据保全</strong>，而承担它的正是运维。若有事故时上门切分、与厂商联动锁定原因、并能出具修复报价的体制，举证便能向前推进。利润险的损失额测算，还需要"若未停运本应取得的市场收益"的依据——聚合商所持有的数据。保险不是"买了就安心"，而应以<strong>事故时能否举证原因、能否测算逸失额的数据体制</strong>来评估。
+</div>
+
+<p class="note-small">※ 补偿范围、免责、赔付条件、举证要件的细节，取决于各财险公司的具体条款，公开信息有限。条款本身未充分披露这一点，正是把保险置于事业计划前提时应计入的不确定性论点。保险设计的全貌，已在<a class="xref" target="_top" href="https://www.scix.co.jp/zh-knowledge">保险设计专栏</a>中处理。</p>
+
+
+<h2>08 — 成熟市场如何化解这一空白</h2>
+
+<p>直流侧责任与履行的错位，是日本特有的现象吗？观察国际实务，答案是："成熟市场是通过把这一空白集约到单一责任主体来化解的。"日本的三方割裂，可定位为市场尚未走向整合的前夜之态。</p>
+
+<h3>8-1 单一责任主体（single point of responsibility）</h3>
+
+<p>在美国的电网级储能电站，承担现场维保的运维，与监督合同、质保、财务的资产管理相分担，所有者以带KPI与惩罚的方式，捆绑多份服务合同。角色进一步分层——负产品质保（大致2〜3年）的OEM、弥合与要求性能之差的系统集成商、以10〜20年长期服务协议（LTSA）担保运转的运维提供方、资产管理人、优化市场运营的优化运营商（相当于日本的聚合商）。日本所谓"三方就能运转"，不过是这五个左右角色中的一部分。美国的法律实务中，OEM在供应合同与长期服务协议下负性能保证的结构相当普遍；近年由于OEM提供集成系统，"交钥匙打包（turnkey）"的必要性正在淡化。把承接设备整体于一身的单一责任主体安置好，是成熟市场的化解之道。日本的"聚合商＋电气主任技术者＋设备厂商"，正处于该单一责任主体就直流侧而言缺位、仍被割裂的状态。</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图4 — 日本的三方割裂，与成熟市场的单一责任主体">
+  <rect width="900" height="470" fill="#FFFFFF"></rect>
+  <line x1="450" y1="40" x2="450" y2="392" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="4 4"></line>
+  <text x="240" y="34" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="800" fill="#B0413B" letter-spacing="1.5">日本：三方割裂</text>
+  <text x="660" y="34" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="800" fill="#1A7A4C" letter-spacing="1.5">成熟市场：单一责任主体</text>
+  <rect x="160" y="56" width="160" height="46" rx="8" fill="#1B2A4A"></rect>
+  <text x="240" y="84" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#FFFFFF">业主</text>
+  <path d="M 200 102 L 120 150" stroke="#9AA7B4" stroke-width="1.5"></path>
+  <path d="M 240 102 L 240 150" stroke="#9AA7B4" stroke-width="1.5"></path>
+  <path d="M 280 102 L 360 150" stroke="#9AA7B4" stroke-width="1.5"></path>
+  <g font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#3A4654">
+    <rect x="58" y="152" width="120" height="44" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="118" y="179" text-anchor="middle">聚合商</text>
+    <rect x="186" y="152" width="108" height="44" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="240" y="179" text-anchor="middle">主任技术者</text>
+    <rect x="302" y="152" width="120" height="44" rx="7" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.3"></rect>
+    <text x="362" y="179" text-anchor="middle">设备厂商</text>
+  </g>
+  <rect x="120" y="232" width="240" height="56" rx="8" fill="#FDF3F2" stroke="#C0413B" stroke-width="1.6" stroke-dasharray="6 4"></rect>
+  <text x="240" y="258" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#B0413B">直流侧＝空白</text>
+  <text x="240" y="277" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">无主体捆绑 → 可用率保障无起点</text>
+  <rect x="580" y="56" width="160" height="46" rx="8" fill="#1B2A4A"></rect>
+  <text x="660" y="84" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#FFFFFF">业主</text>
+  <path d="M 660 102 L 660 150" stroke="#1A7A4C" stroke-width="2"></path>
+  <path d="M 654 144 L 660 152 L 666 144 Z" fill="#1A7A4C"></path>
+  <rect x="520" y="152" width="280" height="56" rx="8" fill="#F1F8F3" stroke="#1A7A4C" stroke-width="1.8"></rect>
+  <text x="660" y="178" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#1A7A4C">OEM / LTSA（单一责任主体）</text>
+  <text x="660" y="197" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">把设备整体承接于一身</text>
+  <path d="M 660 208 L 660 232" stroke="#1A7A4C" stroke-width="1.6"></path>
+  <g font-family="'Noto Sans SC',sans-serif">
+    <rect x="520" y="232" width="280" height="56" rx="8" fill="#F8FBF9" stroke="#1A7A4C" stroke-width="1.3"></rect>
+    <text x="540" y="256" font-size="11.5" font-weight="700" fill="#1A7A4C">年可用率 约97%以合同保障</text>
+    <text x="540" y="277" font-size="11" fill="#6C7A89">但不可抗力、系统、天气、盗窃为免责</text>
+  </g>
+  <rect x="120" y="334" width="660" height="58" rx="8" fill="#1B2A4A"></rect>
+  <rect x="120" y="334" width="6" height="58" fill="#C49A3C"></rect>
+  <text x="453" y="362" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#FFFFFF">日本的割裂，是市场走向整合的前夜之态</text>
+  <text x="453" y="382" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#D4AF5C">填补空白的单一责任主体，由谁、如何安置</text>
+</svg>
+<div class="fig-cap">图4 — 成熟市场以OEM的LTSA把设备整体集约为单一责任主体，在免责外部因素后保障可用率。日本的三方割裂处于其前段。</div>
+</div>
+<h3>8-2 三层保障，及其免责范围</h3>
+
+<p>在单一责任主体成立的市场，可用率、性能、容量这三层在合同上获得保障。关于可用率保障，第三方认证机构（DNV）的梳理报告称，许多合同把触发损害赔偿之前的阈值，置于年97%上下的可用率。实际合同条款中也公开过这样的结构：以低于保障可用率的差额（百分点）乘以容量与单价来测算违约金——例如保障98%、实绩96.5%，便以其差1.5个百分点乘以容量与费率。维持衰减保障，则要求以15分钟间隔记录并保持温度、电流、SoC等数据（质保索赔与税制资格确认，都需要这一粒度）。</p>
+
+<p>这里，第07章之前所见日本的"无法保障"，与这国际上的"97%保障"并不矛盾，反而相互契合。因为国际的可用率保障，是<strong>在免责不可抗力与系统侧原因事件之后</strong>才成立的。研究机构的梳理也指出，若是受监视的电力电子设备，合同上可达约99.9%的可用率；但其条件是排除外部、不可抗力事件，且不把性能嵌入可用率保障。运维企业中也有标榜"可用率99%以上"者，但无一不立足于把外部因素免责剔除的前提。不同之处在于：在把外部因素剔除之后，剩余的设备起因可用率，由单一OEM捆绑保障。日本因没有捆绑设备整体的主体，从一开始就不存在统一保障可用率的起点。</p>
+
+<p>容量也是同理，由OEM捆绑10〜20年规模的系统整体保障，衰减以扩容（augmentation）来补。DNV的梳理认为，保障容量大体到初期的70%左右；NREL ATB的固定运维（CAPEX的2.5%）中也含扩容费。日本的长期脱碳拍卖同样允许将追加取得、整体更换的费用计入，运维的射程因此从"坏了再修"延伸至"在20年间保住容量"。</p>
+
+<h3>8-3 安全监管：国内"间隔3m"与海外"性能基准"</h3>
+
+<p>安全监管的搭法上，也呈现同样的"日本用固定值、海外用性能基准"的对比。国内方面，2023年5月公布、2024年1月施行的消防厅基准修订，把监管单位由电芯容量改为kWh，下限为10kWh以上（采取防火措施的10〜20kWh除外＝实质20kWh以上需报备），室外设置原则上要求距建筑物3m以上的间隔（经认定无火灾预防之虞的箱式变电站式等除外）。电网级的MWh级当然属监管对象。与此相对，北美的NFPA 855把机组间间隔原则定为3英尺（约0.9m），但若以UL 9540A大规模火灾试验证明安全，则允许缩短。是固定间隔（日本）、还是基于试验数据的性能基准（海外）——同为"防止延烧"之目的，设计自由度却不同；无论哪种，在整个运行期间维持间隔、分区、检查记录的遵守，都是须由某人承担的役务。</p>
+
+<h3>8-4 三点一般化</h3>
+
+<p>从国际比较一般化，结论如下。第一，"职能分担"这一发想本身是全球共通的。第二，通信层的责任空白<strong>日本特有性较强</strong>。电气主任技术者制度（电气安全）与通信、控制（厂商／运维）的制度性割裂，催生了直流侧、通信的空白。海外因LTSA以可用率为基准包揽整体，空白在结构上不易产生。不过，正如韩国ESS火灾所示，多厂商集成时责任不明这一点本身是普遍的。"电气与通信的割裂"虽为日本特有，"统合责任的空白"这一结构却是全球共通。第三，电气主任技术者实质上不覆盖直流侧修复，并非制度设计的必然，而是源于技能、厂商认证、质保范围的日本特有运用惯例。在法律上，直流侧也包含在安全监督的范围之内。</p>
+
+
+<h2>09 — 投运前的时序与判断轴</h2>
+
+<p>至此的梳理说明：运维并非"投运后再考虑"的事，而是投运前的设计事项。直流侧的修复、通信的资料、质保的边界、惩罚敞口——这些都在移交的那一刻定型，事后再插入便很困难。实务上，宜在并网约半年前便着手运维的组建。</p>
+
+<p>把投运前嵌入运维的时序，与并网手续并排放在时间轴上，便是如下。</p>
+<div class="fig-wrap">
+<svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图5 — 投运前的运维嵌入时序">
+  <rect width="900" height="320" fill="#FFFFFF"></rect>
+  <line x1="60" y1="150" x2="840" y2="150" stroke="#D8DEE6" stroke-width="2"></line>
+  <g font-family="'Noto Sans SC',sans-serif">
+    <circle cx="120" cy="150" r="7" fill="#C49A3C"></circle>
+    <text x="120" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1B2A4A">−6个月</text>
+    <text x="120" y="182" text-anchor="middle" font-size="10.5" fill="#6C7A89">敲定运维、主任技术者</text>
+    <text x="120" y="198" text-anchor="middle" font-size="10.5" fill="#6C7A89">、通信</text>
+    <circle cx="320" cy="150" r="7" fill="#2A3D66"></circle>
+    <text x="320" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1B2A4A">施工期</text>
+    <text x="320" y="182" text-anchor="middle" font-size="10.5" fill="#6C7A89">经运维方选任主任技术者</text>
+    <text x="320" y="198" text-anchor="middle" font-size="10.5" fill="#6C7A89">调试（commissioning）</text>
+    <circle cx="520" cy="150" r="7" fill="#2A3D66"></circle>
+    <text x="520" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1B2A4A">投运前夕</text>
+    <text x="520" y="182" text-anchor="middle" font-size="10.5" fill="#6C7A89">使用前自我确认</text>
+    <circle cx="680" cy="150" r="9" fill="#1A7A4C"></circle>
+    <text x="680" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1A7A4C">投运</text>
+    <circle cx="820" cy="150" r="7" fill="#C49A3C"></circle>
+    <text x="820" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#1B2A4A">次年4月</text>
+    <text x="820" y="182" text-anchor="middle" font-size="10.5" fill="#6C7A89">辅助服务市场</text>
+  </g>
+  <g font-family="'Noto Sans SC',sans-serif">
+    <rect x="70" y="232" width="220" height="58" rx="6" fill="#FDF7EA" stroke="#C49A3C" stroke-width="1.2"></rect>
+    <text x="84" y="254" font-size="11" font-weight="700" fill="#A07916">报价需2.5〜3周</text>
+    <text x="84" y="272" font-size="10" fill="#6C7A89">需选任2小时圈内、分值</text>
+    <text x="84" y="286" font-size="10" fill="#6C7A89">有余的主任技术者候选</text>
+    <rect x="310" y="232" width="240" height="58" rx="6" fill="#eef3f8" stroke="#1a5276" stroke-width="1.2"></rect>
+    <text x="324" y="254" font-size="11" font-weight="700" fill="#1a5276">路由器交期 约2.5〜3个月</text>
+    <text x="324" y="272" font-size="10" fill="#6C7A89">供给受限而延长。需配备</text>
+    <text x="324" y="286" font-size="10" fill="#6C7A89">已设置的备用机</text>
+    <rect x="570" y="232" width="270" height="58" rx="6" fill="#F8F9FB" stroke="#E2E6EC" stroke-width="1.2"></rect>
+    <text x="584" y="254" font-size="11" font-weight="700" fill="#1B2A4A">交钥匙打包（turnkey）的陷阱</text>
+    <text x="584" y="272" font-size="10" fill="#6C7A89">主任技术者为既设→中途切换可，</text>
+    <text x="584" y="286" font-size="10" fill="#6C7A89">但解约条件、1年空白成为论点</text>
+  </g>
+</svg>
+<div class="fig-cap">图5 — 报价需2.5〜3周，已设置路由器的采购因供给受限需2.5〜3个月（后者作为设备整体的延长可确认，电网用路由器个别交期尚未一手确认）。越临近才动，越被前置周期追赶。</div>
+</div>
+<p>这里容易掉进的，是对交钥匙打包（full-wrap EPC）抱有"全包给它、它就全管"的期待。诚然EPC打包把移交前的责任汇为一处，但投运后的运维、质保、通信资料是否包含在该合同中，并不一定。美国的法律实务中，近年由于OEM提供集成系统，交钥匙打包的必要性淡化，开发者直接从OEM采购设备、施工另委EPC的结构——EPC负安装与施工瑕疵、电池供应方负设备质保——成为常见的形态之一。打包化未必把责任汇为一点。毋宁说，需要用合同把"谁、哪台设备、到何时、以何依据"持有，明确地拆开。移交时能否拿到竣工资料（尤其是通信的设置资料）、质保边界在哪里、计划外停运的惩罚敞口由谁来负——把这些作为投运前的检查项目持有，便能相当地减少日后的纠纷。</p>
+
+<p>把储能电站业主、EPC、运维在投运前应确认的论点，归纳为九个轴。点按可记录确认状态。</p>
+<div class="checklist-group" id="om-checklist">
+  <h5><span class="cl-num">9</span>运维、安全体制设计应确认的9个轴</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01.</span><strong>直流侧第一响应的承担者是否已明文化</strong>。EMS、PCS、BESS、BMS异常时，合同中是否写明"由谁最先切分、着手修复"。法律已把直流侧纳入电气主任技术者的安全监督对象，但其履行的实际承担者，不在合同中另行约定便成空白。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02.</span><strong>可用率保障的有无与免责范围</strong>。合同中是否写有年可用率（国际标准97%上下）。不可抗力、系统原因、天气、电缆盗窃的免责范围到哪里。若被告知"无法保障"，要切分清楚那是因免责范围之广，还是因保障主体之缺位。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03.</span><strong>通信竣工资料的交付与修复责任人</strong>。路由器设置、IP表、系统图是否在移交时交付。路由器或光纤线路故障时，由谁切分、由谁修复。这是掉落在安全规程记载要求之外的项目，不在合同中明确便不会留存。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04.</span><strong>JC-STAR★1的按设备单元符合（2027年要求）</strong>。在2027年4月（低压50kW以下为10月）以后的新增并网、设备更换中，PCS、EMS、BMS等是否预期按产品单元符合★1。以"网关打包不获豁免"为前提，清点对象设备，并向并网窗口确认申请时的核查与未符合时的处理。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05.</span><strong>市场惩罚敞口与可用率的关系</strong>。辅助服务市场考核Ⅱ不达标（1.0倍、同一商品月3次即停交易／系统原因不计入累计），与容量市场履约要求未达（计划外停运按5倍计），其敞口能被运维的响应速度抑制到何种程度。若能把突发故障转化为计划停运，容量惩罚敞口最多可压缩至约1/5。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06.</span><strong>保险的原因查明体制与数据访问</strong>。事故时的原因查明（切分、厂商联动、修复报价）由谁承担。利润险损失额测算所需的市场收益数据（聚合商持有），其访问权在合同中是否得到确保。原因若无法举证，保险金便不动。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07.</span><strong>合同的签订顺序</strong>。运维、主任技术者、通信，是否能在并网约半年前敲定。外部委托许可有距离要求（2小时）与分值限制（合计33以下），候选选任耗时。即便是交钥匙移交，也宜设计为施工期间起就使用运维方的主任技术者、临近并网再切换，以便规避移交后直流侧的空白（→ <a class="xref" target="_top" href="https://www.scix.co.jp/zh-column-contracts">合同设计专栏</a>）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">08.</span><strong>扩容（augmentation／衰减补偿）战略</strong>。20年运行中的容量衰减，由谁出费用、负责任，以扩容、整体更换来补。长期脱碳拍卖允许将追加取得、整体更换的费用计入。要确认合同中是否不仅写入"坏了再修"，还把"保住容量"的费用设计织入。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">09.</span><strong>厂商质保范围与运维的边界</strong>。确认产品质保的年限、性能、衰减（SoH）保证的有无与测算式、维持质保所需的运行条件、未经认证作业导致质保失效的条件，并以合同确定"谁可以对哪台设备动手"，以及质保与运维之间的缺口由谁来负。把直流侧当作设计变量，而非"法律之墙"来对待。</span></label>
+  <div class="check-progress">
+    <span class="bar"><span class="bar-fill" id="checkBarFill" style="width: 0%;"></span></span>
+    <span class="count"><span id="checkCount">0</span> / 9</span>
+  </div>
+</div>
+<p class="note-small">※ 上述为设计上的确认轴，不能替代个别项目的法令符合与合同谈判。设备区分、出力规模、系统条件不同，适用关系亦会变化。</p>
+
+
+<h2>10 — 今后的论点</h2>
+
+<p>电网级储能的运维，在制度与市场两面都仍在变动。最后，列出今后将逐渐定型的论点。</p>
+
+<p><strong>安全人才的结构性短缺。</strong>需第三种监督的可再生能源、储能设备逐年增加，承担者却在面向2030年、2045年呈现短缺预期。距离要求（2小时）与分值限制（合计33以下）这一外部委托容器，越是人才稀薄越发挥作用。电气主任技术者的可获得性与成本因地区而结构性变化——这一前提，需织入选址与运维费的报价。</p>
+
+<p><strong>网络安全要求的国际衔接。</strong>JC-STAR自2026年1月起与英国PSTI法、自2026年6月起与新加坡CLS启动★1互认，美国Cyber Trust Mark、欧盟CRA也已生效、进入运用。日本按设备单元的要求化，如何与这些按区域单元的海外制度衔接，直接关系到设备采购与更新的实务。</p>
+
+<p><strong>厂商认证与集成运维的整备。</strong>撬动直流侧被技能、厂商认证、质保范围所围现状的钥匙，在于如何纳入厂商认证、由谁捆绑保障可用率、容量。成熟市场以单一责任主体化解的问题，在日本的制度、商业惯例中如何搭建——是今后逐渐具体化的领域。</p>
+
+<p><strong>扩容、退役这一出口。</strong>20年运行的出口，即补偿衰减的扩容费用与责任、运行结束后的退役、回收如何设计。既然长期脱碳拍卖允许将追加取得、整体更换的费用计入，且消防、危险物监管要求贯穿运行期间的安全体制，运维的射程便从"建起来运转"延伸至"保住并收尾"。</p>
+
+<p>顺带以数字看市场的厚度。第1回长期脱碳电源拍卖中，储能电池的投标约455.9万kW、中标约109.2万kW（中标率约24%）（OCCTO成交结果。另储能电池与抽水蓄能合计投标约539.7万kW，注意勿把该合计值误作储能电池单独之值）。向系统申请的并网研究全国已达数千万kW规模，当这些储能电站接连迎来投运，本文所见直流侧的空白由谁来填，便会作为整个市场的课题浮上台面。</p>
+
+
+<h2>结 — 不是"没事可做"，而是"没人去做"</h2>
+
+<p>"运维几乎没什么可做的"——本文从这句话出发。但深究下去，结构恰恰相反。不是没事可做。法律已明确将直流侧的安全监督责任课予电气主任技术者。空白的不是责任，而是这一法定责任在现场由谁来履行——"监督为法定、修复却缺位"的错位。</p>
+
+<p>聚合商以设备正在运转为前提面对市场，电气主任技术者监督受变电，设备厂商维保自家设备。三方各尽其范围，却留下直流侧的修复与通信的修复这一谁的合同都未明示的空白。而这一空白的经济后果，会作为辅助服务市场的考核，与容量市场计划外停运5倍计数的制度惩罚，分两段产生影响。成熟市场把这一空白，集约到捆绑设备整体的单一责任主体来化解。日本尚未培育出这一主体，并非制度的极限，而是合同与惯例与技能的问题。正因如此，可以靠设计去移动。</p>
+
+<p><strong>买入</strong>电网级储能电站的一方，宜在价格、选址、设备规格之外，看清"直流侧由谁、以哪份合同持有"。<strong>卖出</strong>的一方，把运维与竣工资料织入设计，是规避移交后纠纷的捷径。而<strong>施工、维保</strong>的一方，则可从把技能、厂商认证、质保范围这三道墙，当作设计变量而非法律之墙来对待开始。不是没事可做，只是没人去做——这一空白，由谁、以哪份合同、到何时来填。在投运前把它定下来，正是支撑一座要运转20年的储能电站之物理运行的设计核心。</p>
+
+<a target="_top" href="https://www.scix.co.jp/zh-column-contracts" class="next-link">
+  <div>
+    <div class="next-link-label">相关文章 / Related</div>
+    <div class="next-link-title">合同设计在20年里决定2亿日元的差距 — 电网级储能电站缔结的5层电力合同</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="cta-section">
+  <h3>含运维、安全体制设计在内的储能事业咨询</h3>
+  <p>仅凭文章无法判断的项目专属信息，<br>将在您垂询后、签订NDA的前提下开示。</p>
+  <a target="_top" href="https://www.scix.co.jp/zh-contact" class="cta-btn">联系我们 →</a>
+</div>
+
+<p class="note-small" style="margin-top:32px"><strong>主要一手资料（截至2026年5月确认）</strong><br>
+法令：日本《电气事业法》（第43条第1款、第42条、第2条）、《电气事业法》施行规则（第52条、第56条、第50条、第3条之4）、《电气设备技术基准省令》（储能电站定义、第15条之2）、平成15年经济产业省告示第249号（换算系数合计33、光伏电站／储能电站为0.31〜0.33）／e-Gov、经济产业省。<br>
+安全、人才：经济产业省《关于储能电站安全监管方式》（令和4年4月15日 电力安全课 资料1）、《主任技术者制度的解释与运用（内规）》、《关于电气主任技术者制度》（令和5年3月31日）、电力安全小委员会、电气安全人才相关资料（2030年度第2种约1,000人、第3种约800人短缺，第3种2045年约4千人短缺，持照者约六成在50岁以上）。<br>
+市场：OCCTO《容量市场业务手册（履约要求／惩罚相关）》《容量保障合同条款》（经济惩罚＝合同金额×（未达成时段累计−8,640时段＝约180天），计划外停运按5倍计、平常时夜间休息日除外）、容量市场主拍卖成交结果（2025年1月29日公布、分区8,785〜14,812日元/kW·年、Net CONE 9,875日元）、辅助服务市场研讨小委员会资料（考核Ⅱ惩罚强度由1.5倍下调为1.0倍＝第36回、2023年3月2日。考核Ⅱ不达标为1.0倍、与程度无关，考核Ⅰ分级、最大1.5倍）、EPRX交易规程、系统原因缓和样式（样式24、25自2026年3月14日交付分起）、辅助服务上限价（19.51日元→2026年3月降至15日元，拟分阶段降至10日元、7.21日元／资源能源厅 2026年1月）、JEPX《2024年度业务报告书》（现货年度均价12.31日元/kWh）、长期脱碳电源拍卖成交结果（储能电池 投标455.9万kW、中标109.2万kW、中标率24%）。<br>
+网络安全：第20回电网规范研讨会 资料4（JC-STAR★1要求化、高压2027年4月／低压50kW以下2027年10月、2025年12月16日）、资源能源厅 资料5（采用IP通信的产品＝按设备单元要求化、2026年2月12日）、IPA JC-STAR（★1、★2自我符合声明／★3以上第三方认证、2025年3月25日启动运用）、METI/IPA 英国PSTI互认（2026年1月1日、仅★1）／新加坡CLS互认（2026年6月1日）。<br>
+安全：消防厅 储能设备基准修订（2023年5月公布、2024年1月施行／监管单位由Ah、电芯改为kWh、下限10kWh以上、采取防火措施的10〜20kWh除外＝实质20kWh以上需报备、室外距建筑物3m以上间隔、箱式变电站式等除外）、NFPA 855（间隔3ft＝约0.9m）、UL 9540A、NERC CIP／IEC 62443。<br>
+运维、国际：定置式储能系统普及扩大研讨会 资料3（运行维护费5,000日元/kW·年＝参照长期脱碳拍卖模型电站、2024年8月29日）、NREL ATB（固定运维＝CAPEX约2.5%、含扩容费、15年前提）、DNV（可用率作为损害赔偿触发点为年97%上下、保障容量大体为初期70%）、公开合同条款（以低于保障可用率的差额×容量×单价测算违约金的结构）、研究机构梳理（受监视的电力电子设备合同上可达约99.9%可用率、以排除不可抗力／外部事件为前提）、Norton Rose Fulbright（衰减保障、税制资格确认需保持15分钟粒度数据）、Vistra（Moss Landing Phase I、2021年9月停运→2022年1月公布原因＝约5个月）。<br>
+※ 下列事项因未触及一手原文或公开数据缺位，作为所见明示（❓）：韩国ESS火灾的4项要因、损失额3,200万美元、522组（约35%）停运、厂商反驳，多家英文报道一致，但未触及韩国产业通商资源部（MOTIE）韩文原文。主任技术者报酬的分区排名、电网用路由器的个别品目交期、国内可用率实绩值，无相应公开数据，"公开数据缺位"作为所见记载。外部委托比例与安全人才年龄构成的部分细目、需第三种监督的设备年增数，未触及对应的一手幻灯片。<br>
+※ 本文为未附第三方监修的自有编辑文章。制度、市场尚在修订途中，数值、适用时点今后可能变化。投资判断、法令符合的最终确认，请在依据一手资料并咨询专业人士后进行。</p>
+
+</div>
+
+<script>
+(function(){
+  var group=document.getElementById('om-checklist');
+  if(!group)return;
+  var checks=group.querySelectorAll('input[type=checkbox]');
+  var countEl=document.getElementById('checkCount');
+  var fillEl=document.getElementById('checkBarFill');
+  var total=checks.length;
+  function update(){var done=0;checks.forEach(function(c){if(c.checked)done++;});countEl.textContent=done;fillEl.style.width=(done/total*100)+'%';}
+  checks.forEach(function(c){c.addEventListener('change',update);});
+  update();
+})();
+</script>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.（赛恩斯艾克斯）</div>
+        日本〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:+81364034095">+81 3 6403 4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

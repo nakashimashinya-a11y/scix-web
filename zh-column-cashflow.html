@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>储能事业的20年现金流结构 — IRR、DSCR的思路｜ScienceX</title>
+<meta name="description" content="储能事业的投资判断，离不开对20年现金流结构的理解。LDA型与全市场型的IRR（内部收益率）与DSCR（还本付息覆盖率）根本不同。本文不讲特定项目的数字，而解说投资判断的框架。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-cashflow">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-cashflow">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-cashflow">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-cashflow">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-cashflow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="储能事业的20年现金流结构 — IRR、DSCR的思路｜ScienceX">
+<meta property="og:description" content="LDA型与全市场型的IRR与DSCR根本不同。本文解说投资判断的框架。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-cashflow">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="储能事业的20年现金流结构 — IRR、DSCR的思路｜ScienceX">
+<meta name="twitter:description" content="LDA型与全市场型的IRR与DSCR根本不同。解说投资判断的框架。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #1B2A4A; --accent: #C49A3C; --green: #1A7A4C; --text: #2C3E50; --text-light: #6C7A89; --border: #E2E6EC; --light-bg: #F8F9FB; --red: #C0392B; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "Noto Sans SC", "Noto Sans JP", sans-serif; color: #2C3E50; line-height: 2.0; background: #fff; margin: 0; padding: 0; }
+  .column-container { max-width: 780px; margin: 0 auto; padding: 40px 24px; }
+  .meta { font-size: 0.82em; color: var(--accent); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 8px; }
+  h1 { font-family: 'Noto Serif SC', serif; font-size: 1.6em; color: var(--navy); line-height: 1.5; margin-bottom: 8px; }
+  .subtitle { font-size: 0.95em; color: var(--text-light); margin-bottom: 32px; padding-bottom: 24px; border-bottom: 2px solid var(--border); }
+  h2 { font-size: 1.15em; font-weight: 700; color: var(--navy); margin: 36px 0 12px; padding-left: 14px; border-left: 4px solid var(--accent); }
+  h3 { font-size: 1.0em; font-weight: 700; color: var(--navy); margin: 24px 0 8px; }
+  p { margin-bottom: 16px; font-size: 0.95em; }
+  .highlight-box { background: linear-gradient(135deg, #F0F7F3 0%, #E8F5EE 100%); border: 1px solid #A3D9B8; border-radius: 8px; padding: 20px 24px; margin: 20px 0; font-size: 0.92em; }
+  .highlight-box strong { color: var(--green); }
+  .warning-box { background: #FFF5F5; border: 1px solid #E8AAAA; border-radius: 8px; padding: 20px 24px; margin: 20px 0; font-size: 0.92em; }
+  .warning-box strong { color: var(--red); }
+  .data-box { background: var(--light-bg); border-radius: 8px; padding: 20px 24px; margin: 20px 0; font-size: 0.92em; }
+  .data-box .num { font-size: 1.4em; font-weight: 900; color: var(--navy); }
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.88em; }
+  th { background: var(--navy); color: #fff; padding: 10px 14px; text-align: left; font-weight: 700; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  tr:nth-child(even) { background: var(--light-bg); }
+  .source { font-size: 0.78em; color: var(--text-light); margin-top: 4px; }
+  .related { background: var(--light-bg); border-radius: 8px; padding: 20px 24px; margin: 32px 0; }
+  .related h3 { font-size: 0.92em; color: var(--navy); margin-bottom: 10px; }
+  .related a { display: block; font-size: 0.88em; color: #2563EB; text-decoration: none; margin: 4px 0; }
+  .related a::before { content: "→ "; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "储能事业的20年现金流结构 — IRR、DSCR的思路｜ScienceX",
+  "description": "储能事业的投资判断，离不开对20年现金流结构的理解。LDA型与全市场型的IRR与DSCR根本不同。本文解说投资判断的框架。",
+  "author": { "@type": "Organization", "name": "Science X Inc." },
+  "publisher": { "@type": "Organization", "name": "Science X Inc.", "logo": { "@type": "ImageObject", "url": "https://www.scix.co.jp/img/logo-white.png" } },
+  "inLanguage": "zh-CN",
+  "datePublished": "2026-04-10",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-cashflow"
+}
+</script>
+<meta property="article:published_time" content="2026-04-10">
+</head>
+<body>
+<script src="/header.js"></script>
+<div class="column-container">
+<div class="meta">COLUMN 07 — 收益与投资判断 <time class="meta-date" datetime="2026-04-10" style="opacity:.65;font-weight:500">｜2026.04.10</time></div>
+<h1>储能事业的20年现金流结构<br>— IRR、DSCR的思路</h1>
+<div class="subtitle">储能事业的投资判断，离不开对20年现金流结构的理解。LDA型与全市场型的IRR（内部收益率）与DSCR（还本付息覆盖率）根本不同。本文不讲特定项目的数字，而解说投资判断的框架。</div>
+
+<h2>两种商业模式，两种现金流结构</h2>
+
+<p>电网级储能事业的现金流（CF），其性质会因所选商业模式而根本不同。作为投资判断的出发点，首先须正确理解这两种模式的现金流特性。</p>
+
+<table>
+  <tr><th>项目</th><th>LDA型（固定收入型）</th><th>全市场型（市场交易型）</th></tr>
+  <tr><td>收入性质</td><td>20年固定（容量支付）</td><td>联动市场价格（波动）</td></tr>
+  <tr><td>现金流预测精度</td><td>高（成交额已确定）</td><td>低（依赖市场波动）</td></tr>
+  <tr><td>IRR参考</td><td>2〜4%（债券型回报）</td><td>8〜15%（波动幅大）</td></tr>
+  <tr><td>DSCR组成</td><td>容易（固定现金流）</td><td>困难（现金流不确定）</td></tr>
+  <tr><td>适合的融资</td><td>项目融资（PF）</td><td>公司融资（CF）</td></tr>
+  <tr><td>风险特征</td><td>低风险、中回报</td><td>高风险、高回报</td></tr>
+</table>
+
+<h2>LDA型的20年现金流结构</h2>
+
+<p>在LDA（长期脱碳电源拍卖）中标后，可在20年间领取固定的容量支付。此外，市场收益的一部分（约一成）作为追加收入留在手中。</p>
+
+<div class="data-box">
+  <strong>LDA型的现金流结构（概念模型）：</strong><br><br>
+  <strong>【收入侧】</strong><br>
+  ·LDA容量支付（20年固定）：成交单价 × 容量（kW）<br>
+  ·市场收益的实得部分：全部市场收益中约5〜15%<br><br>
+  <strong>【支出侧】</strong><br>
+  ·还本付息（PF的情形）<br>
+  ·运维费：以CAPEX的1〜2%/年为参考<br>
+  ·保险费<br>
+  ·聚合商费用<br>
+  ·输电费、可再生能源附加费等<br>
+  ·因储能衰减的更换费用（第10〜15年）
+</div>
+
+<h3>返还率的三阶段结构</h3>
+<p>LDA中标事业者，有义务返还在市场所得收益的一定比例。这一返还率分三阶段变化。</p>
+
+<div class="data-box">
+  <strong>第1阶段（返还率95%）：</strong>至投标价中所计入的事业报酬额为止。事业者实得5%。<br><br>
+  <strong>第2阶段（返还率90%）：</strong>超过事业报酬额、至LDA成交单价与主拍卖成交价之差额为止。事业者实得10%。<br><br>
+  <strong>第3阶段（返还率85%）：</strong>超出上述的超额利润部分。事业者实得15%。
+  <div class="source">出处：TMI综合法律事务所解说 / OCCTO制度详细说明资料（2024年9月）</div>
+</div>
+
+<p>重要的是，返还的对象仅为市场售电收益，LDA容量支付本身100%留在事业者手中。KPMG的分析认为，LDA型的IRR仅凭容量支付收敛于约3.2%的"债券型回报"。</p>
+
+<h2>全市场型的20年现金流结构</h2>
+
+<p>不投标LDA时，便是全额享有JEPX、辅助服务市场、容量市场三个市场收益的全市场型。因无返还义务，若市场行情向好，可期待远超LDA型的回报。</p>
+
+<div class="data-box">
+  <strong>全市场型的现金流结构（概念模型）：</strong><br><br>
+  <strong>【收入侧 — 三市场堆叠】</strong><br>
+  ·JEPX套利：低价时段充电、高价时段放电<br>
+  ·辅助服务市场：ΔkW、kWh两者的报酬<br>
+  ·容量市场（主拍卖）：年度固定收入（中标率超96%）<br><br>
+  <strong>【支出侧】</strong><br>
+  ·还本付息（资产负债表融资的情形）<br>
+  ·运维费：CAPEX的1〜2%/年<br>
+  ·聚合商费用：市场收入的10〜15%<br>
+  ·输电费、可再生能源附加费等<br>
+  ·因储能衰减的更换费用
+</div>
+
+<div class="warning-box">
+  <strong>⚠ 全市场型现金流预测的不确定性</strong><br><br>
+  预测全市场型的20年现金流时，须计入以下波动要因：<br><br>
+  ·<strong>JEPX价差：</strong>储能大量导入致价差收窄的风险<br>
+  ·<strong>辅助服务市场：</strong>上限价自2026年3月由19.51日元降至15日元。今后或进一步下调<br>
+  ·<strong>容量市场：</strong>分区差距趋于扩大。北海道、东北、东京高，关西、中国、四国低<br>
+  ·<strong>储能成本：</strong>电芯价格处下降趋势，但更换时点的成本假设对收益影响巨大<br><br>
+  日本经产省MRI警示"收益展望的不确定性高"。
+  <div class="source">出处：经产省MRI 2024年8月29日资料 / 资源能源厅 上限价下调决定（2026年1月23日）</div>
+</div>
+
+<h2>IRR — 内部收益率的思路</h2>
+
+<p>IRR（Internal Rate of Return）是衡量投资收益性最常用的指标。使20年现金流的现值等于投资额的折现率，即为IRR。</p>
+
+<table>
+  <tr><th>模型</th><th>IRR参考</th><th>性质</th><th>对标对象</th></tr>
+  <tr><td>LDA型</td><td>2〜4%</td><td>债券型回报</td><td>与国债、基础设施债竞争</td></tr>
+  <tr><td>全市场型（保守）</td><td>8〜10%</td><td>股票型回报</td><td>与房地产、PE投资竞争</td></tr>
+  <tr><td>全市场型（乐观）</td><td>12〜15%+</td><td>创投型回报</td><td>高风险投资类别</td></tr>
+</table>
+
+<div class="highlight-box">
+  <strong>对IRR影响最大的变量是"并网工程费"</strong><br><br>
+  同为50MW的项目，并网工程费2亿日元与20亿日元的项目，总投资额相差18亿日元。这一差额直接反映在分母上，对IRR的影响极大。<br><br>
+  例如，年度现金流相同时：<br>
+  ·总投资额 100亿日元 → IRR 10%<br>
+  ·总投资额 118亿日元 → IRR 7.8%<br><br>
+  <strong>"工程费越低、IRR越高"这一简单的算术，决定着储能事业的成败。</strong>
+</div>
+
+<h2>DSCR — 还本付息覆盖率的思路</h2>
+
+<p>DSCR（Debt Service Coverage Ratio）是项目融资中金融机构最重视的指标。计算式为"年度净现金流÷年度还本付息额"。DSCR低于1.0，意味着当年无法还本付息。</p>
+
+<div class="data-box">
+  <strong>金融机构一般要求的DSCR水平：</strong><br><br>
+  ·<strong>最低DSCR：</strong>1.1〜1.2（全期间不得低于此）<br>
+  ·<strong>平均DSCR：</strong>1.3〜1.5<br>
+  ·<strong>光伏PF的实绩：</strong>FIT项目中平均DSCR 1.3〜1.4为标准<br><br>
+  LDA型储能因有20年固定容量支付，可作与光伏FIT类似的DSCR设计。另一方面，全市场型因市场波动，存在DSCR低于1.0的年份风险，PF组成困难。
+</div>
+
+<h3>LDA型适合PF的原因</h3>
+<p>LDA型储能的现金流结构，与光伏发电的FIT项目在结构上类似。</p>
+
+<table>
+  <tr><th>比较项目</th><th>光伏FIT</th><th>储能LDA</th></tr>
+  <tr><td>固定收入的依据</td><td>FIT收购价（20年固定）</td><td>LDA成交单价（20年固定）</td></tr>
+  <tr><td>波动要因</td><td>日照量（年度波动±5〜10%）</td><td>容量支付固定。市场收益波动但实得约一成</td></tr>
+  <tr><td>SPC组成</td><td>合同公司＋匿名组合（TK-GK）为标准</td><td>可沿用同一架构</td></tr>
+  <tr><td>贷款人的理解</td><td>已确立（数千件实绩）</td><td>发展中（实绩少，但结构性理解在推进）</td></tr>
+</table>
+
+<h2>敏感性分析的思路</h2>
+
+<p>构建20年现金流模型时，对主要变量的敏感性分析不可或缺。建议就以下变量，检验基准情景、乐观情景、保守情景三套。</p>
+
+<div class="data-box">
+  <strong>敏感性分析应检验的主要变量：</strong><br><br>
+
+  <strong>① 并网工程费（直接关系CAPEX）</strong><br>
+  接续研讨回复的确定额为基准情景。以±10〜20%计入现场调查后的变动风险。<br><br>
+
+  <strong>② 储能电芯价格的下降率（影响更换费用）</strong><br>
+  BloombergNEF预测2030年为$69/kWh。第10〜15年更换时或进一步下降。<br><br>
+
+  <strong>③ JEPX价差（全市场型的主要收入）</strong><br>
+  储能大量导入致价差收窄的风险。保守情景下设为较现状▲30〜50%。<br><br>
+
+  <strong>④ 辅助服务市场的成交率、单价</strong><br>
+  计入上限价的分阶段下调、募集量的削减（3σ→1σ）。<br><br>
+
+  <strong>⑤ 容量市场的成交价</strong><br>
+  分区差距的扩大趋势。参照设置地区的实绩变迁。<br><br>
+
+  <strong>⑥ 利率</strong><br>
+  PF的情形，考虑基准利率（TIBOR等）＋利差的变动。
+</div>
+
+<h2>投资判断的框架</h2>
+
+<div class="highlight-box">
+  <strong>Q1：是否需要组成项目融资？</strong><br>
+  → YES → <strong>优先LDA型。</strong>20年固定现金流便于DSCR设计。<br>
+  → NO（自有资金、利用资产负债表）→ 转Q2<br><br>
+
+  <strong>Q2：是否具备市场运营专业（或聚合商）？</strong><br>
+  → YES → <strong>全市场型可进入选项。</strong>可瞄准高IRR。<br>
+  → NO → <strong>LDA型更安全。</strong>规避运营风险、确保固定收入。<br><br>
+
+  <strong>Q3：IRR目标是？</strong><br>
+  → 3〜4%即足够（重视稳定）→ <strong>LDA型</strong><br>
+  → 希望8%以上（重视增长）→ <strong>全市场型</strong><br><br>
+
+  <strong>共同前提：</strong>无论哪种模型，并网工程费越低的项目，IRR越高、DSCR越有余地。选址是投资判断的最大杠杆。
+</div>
+
+<h2>结语</h2>
+
+<p>储能事业的20年现金流，在LDA型与全市场型之间具有根本不同的性质。LDA型是"可预测的稳定现金流"，全市场型是"高回报但波动大的现金流"。</p>
+
+<p>要提升投资判断的精度，需要以项目专属的并网工程费、电网条件为输入的个别现金流模型。请将本文解说的框架，作为具体投资判断的出发点加以运用。</p>
+
+<div class="related">
+  <h3>相关洞见</h3>
+  <a href="/zh-knowledge">查看全部洞见</a>
+  <a href="/zh-column-lda">什么是LDA — 20年固定收入的机制</a>
+  <a href="/zh-column-revenue">储能的三大收益来源 — JEPX、辅助服务、容量市场</a>
+  <a href="/zh-column-auction">主拍卖 vs LDA — 有何不同</a>
+</div>
+
+<div class="source" style="margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border);">
+  <strong>出处、参考资料：</strong><br>
+  ·KPMG"脱碳电源拍卖分析" https://kpmg.com/jp/ja/home/insights/2024/10/decarbonized-power-auction.html<br>
+  ·TMI综合法律事务所"LDA解说" https://www.tmi.gr.jp/eyes/blog/2023/15106.html<br>
+  ·OCCTO 制度详细说明资料（2024年9月）<br>
+  ·经产省MRI 2024年8月29日资料<br>
+  ·资源能源厅 上限价下调决定（2026年1月23日）<br>
+  ·BloombergNEF 电池组价格调查（2024年）<br>
+  ·经产省 定置式储能系统普及扩大研讨会 第5回资料（2025年1月30日）
+</div>
+</div>
+<!-- ScienceX Footer — self-contained (zh-CN) -->
+<style>
+  .scix-footer *{margin:0;padding:0;box-sizing:border-box}
+  .scix-footer{background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+  .scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px}
+  .scix-footer-logo img{height:48px;width:auto;display:block;opacity:0.95}
+  .scix-footer-info{text-align:center}
+  .scix-footer-copyright{font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px}
+  .scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8)}
+  .scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+  .scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+  .scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none;transition:color 0.2s ease}
+  .scix-footer-company a:hover{color:#C49A3C}
+  .scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12);margin:0 auto}
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img src="/img/logo-white.png" alt="ScienceX Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.（赛恩斯艾克斯）</div>
+        日本〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:+81364034095">+81 3 6403 4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

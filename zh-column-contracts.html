@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+pre{background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);padding:14px 18px;margin:18px 0;font-family:'Menlo','Monaco','Courier New',monospace;font-size:.86em;line-height:1.7;color:var(--navy);white-space:pre-wrap;border-radius:0 4px 4px 0;overflow-x:auto}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:560px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif SC',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+.layer-map{display:grid;grid-template-columns:1fr;gap:12px;margin:28px 0}
+.layer-card{display:grid;grid-template-columns:64px 1fr;gap:18px;background:var(--white);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;padding:18px 22px;align-items:start}
+.layer-card .layer-no{font-family:'Noto Serif SC',serif;font-size:1.6em;font-weight:700;color:var(--accent);line-height:1;letter-spacing:.04em;text-align:center;padding-top:4px}
+.layer-card .layer-no .layer-no-sub{display:block;font-size:.45em;color:var(--text-light);font-family:'Noto Sans SC',sans-serif;font-weight:600;letter-spacing:.1em;margin-top:6px}
+.layer-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 6px;line-height:1.5}
+.layer-card .layer-counter{font-size:.8em;color:var(--text-light);margin-bottom:6px;letter-spacing:.04em}
+.layer-card p{font-size:.86em;line-height:1.85;margin:0}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif SC',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif SC',serif;font-size:1.6em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.timeline{margin:28px 0;position:relative;padding-left:24px;border-left:2px solid var(--border)}
+.tl-item{position:relative;padding-bottom:24px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:'';position:absolute;left:-30px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--white);box-shadow:0 0 0 1px var(--accent)}
+.tl-time{font-family:'Noto Serif SC',serif;font-size:.85em;color:var(--accent);font-weight:700;margin-bottom:4px;letter-spacing:.04em}
+.tl-body h4{font-size:.95em;font-weight:700;color:var(--navy);margin-bottom:4px;line-height:1.5}
+.tl-layers{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+.tl-layers .layer-pill{display:inline-block;font-size:.7em;font-weight:700;letter-spacing:.04em;padding:3px 9px;background:rgba(196,154,60,.12);color:var(--accent);border-radius:12px}
+.tl-body p{font-size:.86em;line-height:1.9;margin:0}
+.sim-container{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:28px;margin:28px 0;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.sim-title{font-size:15px;font-weight:700;margin-bottom:20px;color:var(--navy);display:flex;align-items:center;gap:8px}
+.sim-title::before{content:"\25B6";font-size:11px;color:var(--accent)}
+.sim-title .tag{margin-left:auto;font-size:10px;letter-spacing:.1em;color:var(--accent);background:rgba(196,154,60,.1);padding:3px 8px;border-radius:2px;font-weight:600}
+.sim-row{display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.sim-label{min-width:200px;font-size:13.5px;font-weight:600}
+.sim-slider{flex:1;min-width:140px;-webkit-appearance:none;appearance:none;height:6px;background:var(--border);border-radius:3px;outline:none}
+.sim-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;background:var(--navy);border-radius:50%;cursor:pointer}
+.sim-slider::-moz-range-thumb{width:20px;height:20px;background:var(--navy);border-radius:50%;cursor:pointer;border:none}
+.sim-input,.sim-select{flex:1;min-width:140px;font-family:inherit;font-size:13.5px;padding:8px 10px;border:1px solid var(--border);border-radius:4px;background:var(--white);color:var(--navy)}
+.sim-input{font-variant-numeric:tabular-nums}
+.sim-value{min-width:110px;text-align:right;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--navy)}
+.sim-results{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sim-res-cell{background:var(--light-bg);border:1px solid var(--border);padding:16px 18px;border-radius:6px}
+.sim-res-cell .rc-label{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:6px;text-transform:uppercase}
+.sim-res-cell .rc-val{font-family:'Noto Serif SC',serif;font-size:1.6em;font-weight:700;color:var(--navy);line-height:1.2}
+.sim-res-cell .rc-val .u{font-size:.56em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.sim-res-cell .rc-sub{font-size:.78em;color:var(--text-light);margin-top:6px;line-height:1.5}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.fig3-block{margin:36px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:28px 24px 22px}
+.fig3-block .fig-eyebrow{font-size:10px;letter-spacing:.18em;color:var(--text-light);font-weight:700;margin-bottom:6px}
+.fig3-block .fig-title{font-size:.98em;font-weight:700;color:var(--navy);margin:0 0 18px;letter-spacing:-.005em}
+.fig3-block svg{width:100%;height:auto;display:block;background:var(--white);border-radius:6px;border:1px solid var(--border)}
+.fig3-control{margin-top:16px;padding:0 8px}
+.fig3-control input[type=range]{width:100%;accent-color:var(--accent)}
+.fig3-meta{text-align:center;font-size:13px;color:var(--text-light);margin-top:6px;font-variant-numeric:tabular-nums;font-weight:600}
+.fig3-meta strong{color:var(--navy);font-weight:800}
+.fig3-meta .scene{color:var(--accent);font-weight:700}
+.fig3-block .fig-caption{margin-top:14px;font-size:13px;color:var(--text-light);line-height:1.85}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .sim-row{flex-direction:column;gap:8px;align-items:stretch}
+  .sim-label{min-width:auto}
+  .sim-value{min-width:auto;text-align:left}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .diff-grid{grid-template-columns:1fr}
+  .stat-row{grid-template-columns:1fr}
+  .sim-results{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .layer-card{grid-template-columns:48px 1fr;gap:12px;padding:16px 18px}
+  .layer-card .layer-no{font-size:1.3em}
+}
+.scix-footer *{margin:0;padding:0;box-sizing:border-box}
+.scix-footer{background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+.scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px}
+.scix-footer-logo img{height:48px;width:auto;display:block;opacity:0.95}
+.scix-footer-info{text-align:center}
+.scix-footer-copyright{font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px}
+.scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8)}
+.scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+.scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+.scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none}
+.scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12);margin:0 auto}
+</style>
+<title>合同设计在20年里左右2亿日元 — 电网级储能电站签订的5层电力合同 | ScienceX</title>
+<meta name="description" content="解说决定电网级储能电站事业性的5层电力合同结构。抽蓄特措、发电侧计费、BG、市场参与各层，造就20年累计2亿日元级别的差异。附转让前11项检查清单。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-contracts">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-contracts">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-contracts">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-contracts">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-contracts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="合同设计在20年里左右2亿日元 — 电网级储能电站签订的5层电力合同｜ScienceX">
+<meta property="og:description" content="解说决定电网级储能电站事业性的5层电力合同结构。抽蓄特措、发电侧计费、BG、市场参与各层，造就20年累计2亿日元级别的差异。附转让前11项检查清单。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-contracts">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="合同设计在20年里左右2亿日元 — 5层电力合同｜ScienceX">
+<meta name="twitter:description" content="解说决定电网级储能电站事业性的5层电力合同结构。附转让前11项检查清单。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="article:published_time" content="2026-04-26">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"Article",
+  "headline":"合同设计在20年里左右2亿日元 — 电网级储能电站签订的5层电力合同｜ScienceX",
+  "description":"解说决定电网级储能电站事业性的5层电力合同结构。抽蓄特措、发电侧计费、BG、市场参与各层，造就20年累计2亿日元级别的差异。附转让前11项检查清单。",
+  "author":{"@type":"Organization","name":"Science X Inc."},
+  "publisher":{"@type":"Organization","name":"Science X Inc.","logo":{"@type":"ImageObject","url":"https://www.scix.co.jp/img/logo-white.png"}},
+  "inLanguage":"zh-CN","datePublished":"2026-04-26","mainEntityOfPage":"https://www.scix.co.jp/zh-column-contracts"
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 19</span>
+      <span class="header-tag">合同设计</span>
+      <time class="header-date" datetime="2026-04-26">2026.04.26</time>
+    </div>
+    <h1>合同设计在<em>20年里左右2亿日元</em> —<br>电网级储能电站签订的<em>5层电力合同</em></h1>
+    <p class="header-desc">不是设备规格，也不是EPC。决定事业性的，是输电、发调、零售、BG、市场参与这5层的合同设计。各层的选择层层累加，在20年累计中造就2亿日元级别的差异。连同转让前11项检查清单，梳理合同层的全貌。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/zh-knowledge" class="back-link">← 返回洞见列表</a>
+
+<p>最终决定电网级储能电站事业性的，不是设备规格，也不是EPC选定。如何组建输电、发调、零售、BG、市场参与这相互叠加的5层电力合同——尽在这一点。各层的选择层层累加，在20年累计中造就2亿日元级别的差异。本文先俯瞰合同层全貌，再一气贯通至签约前应把握的11项检查清单。</p>
+
+<p>电网级储能电站签订的电力合同，比光伏发电站的复杂一档。在同一场地内，某一瞬间作为"购电"的需求家行事，下一瞬间又作为"售电"的发电站行事。这座拥有两副面孔的设施，须同时并行运转输电、发调、零售、BG、市场参与这5层合同，方能运行起来。</p>
+
+<p>5层的组建方式不同，便会产生年1,000万日元、20年2亿日元级别的事业性差。例如输电合同功率以最大出力为基准（1,999kW）签订，还是适用抽蓄特措收窄至100kW附近——仅此差异便牵动年逾1,000万日元。同一项目、同一设备、同一运营，因合同如何设计，20年总收益便会完全不同。</p>
+
+<p>这本是应先于EPC选定与设备规格讨论而把握的论点，却意外地少有把5层合同结构一并俯瞰的解说。故本文先作为地图引出全貌，再逐一深挖各层论点，最后连接至储能电站业主在签约前应确认的11项检查清单。</p>
+
+<div class="data-box">
+<div class="db-head">本文的射程</div>
+<dl class="premise-grid">
+  <div><dt>对象</dt><dd>电网级储能电站<span class="unit">独立 / 并设</span></dd></div>
+  <div><dt>合同层</dt><dd>5<span class="unit">层 / 21合同</span></dd></div>
+  <div><dt>事业性差目线</dt><dd>2<span class="unit">亿日元 / 20年累计</span></dd></div>
+  <div><dt>转让前检查</dt><dd>11<span class="unit">项</span></dd></div>
+  <div><dt>制度参照时点</dt><dd>2026.04<span class="unit">时点</span></dd></div>
+  <div><dt>主要读者</dt><dd style="font-size:13px">储能电站业主、买方企业</dd></div>
+</dl>
+</div>
+
+<h2>01 — 电网级储能电站签订的电力合同5层地图</h2>
+
+<p>电网级储能与光伏的决定性不同，恐在于合同对手的数量与种类。光伏发电站的电力合同，以发电量调整供给合同（发调合同）与售电合同2系统基本即可了结。相较之下，电网级储能电站在同一场地完成<strong>充电（自系统受电＝需求侧）与放电（向系统送电＝发电侧）的双向动作</strong>，合同对手与合同类型便膨胀一倍以上。</p>
+
+<p>把这一复杂整理为一张图。请看下图。</p>
+
+<div class="fig-wrap fig1-wrap">
+<svg viewBox="0 0 900 880" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图1 — 电网级储能电站签订的5层电力合同地图">
+  <defs>
+    <filter id="f1Shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="3" result="offset"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.10"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2A3D66"/><stop offset="100%" stop-color="#0F1A2E"/>
+    </linearGradient>
+    <linearGradient id="layerSoftGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C49A3C" stop-opacity="0.10"/><stop offset="100%" stop-color="#C49A3C" stop-opacity="0.03"/>
+    </linearGradient>
+    <linearGradient id="layerSoftNavy" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1B2A4A" stop-opacity="0.08"/><stop offset="100%" stop-color="#1B2A4A" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="880" fill="#FFFFFF"/>
+  <line x1="370" y1="50" x2="370" y2="410" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="530" y1="50" x2="530" y2="410" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="370" y1="510" x2="370" y2="830" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="530" y1="510" x2="530" y2="830" stroke="#E2E6EC" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <g transform="translate(370, 410)">
+    <rect x="0" y="0" width="160" height="100" rx="10" fill="url(#coreGrad)" filter="url(#f1Shadow)"/>
+    <rect x="0" y="0" width="160" height="3" fill="#C49A3C"/>
+    <text x="80" y="32" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#D4AF5C" letter-spacing="2.5" font-weight="700">CORE ASSET</text>
+    <text x="80" y="58" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="16" font-weight="700" fill="#FFFFFF">电网级储能电站</text>
+    <text x="80" y="83" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="rgba(255,255,255,0.7)" font-style="italic">既是需求家又是发电站</text>
+  </g>
+  <g>
+    <rect x="40" y="40" width="320" height="130" rx="8" fill="url(#layerSoftGold)" stroke="#C49A3C" stroke-width="1.5"/>
+    <rect x="40" y="40" width="6" height="130" fill="#C49A3C"/>
+    <text x="64" y="66" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="800" fill="#A07916" letter-spacing="2.5">LAYER 01</text>
+    <text x="64" y="96" font-family="'Noto Serif SC',serif" font-size="17" font-weight="700" fill="#1B2A4A">输电合同（充电侧）</text>
+    <text x="64" y="120" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#6C7A89">一般输配电事业者（TSO）</text>
+    <text x="64" y="142" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#6C7A89">抽蓄特措的适用与否在此决定</text>
+    <path d="M 360 105 Q 400 105, 400 410" fill="none" stroke="#C49A3C" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+  <g>
+    <rect x="540" y="40" width="320" height="130" rx="8" fill="url(#layerSoftGold)" stroke="#C49A3C" stroke-width="1.5"/>
+    <rect x="854" y="40" width="6" height="130" fill="#C49A3C"/>
+    <text x="836" y="66" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="800" fill="#A07916" letter-spacing="2.5">LAYER 02</text>
+    <text x="836" y="96" text-anchor="end" font-family="'Noto Serif SC',serif" font-size="17" font-weight="700" fill="#1B2A4A">发电量调整供给合同</text>
+    <text x="836" y="120" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#6C7A89">放电侧／发电侧计费对象</text>
+    <text x="836" y="142" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#6C7A89">计划值同时同量、不平衡结算</text>
+    <path d="M 540 105 Q 500 105, 500 410" fill="none" stroke="#C49A3C" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+  <g>
+    <rect x="40" y="220" width="320" height="130" rx="8" fill="url(#layerSoftNavy)" stroke="#2A3D66" stroke-width="1.5"/>
+    <rect x="40" y="220" width="6" height="130" fill="#2A3D66"/>
+    <text x="64" y="246" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="800" fill="#2A3D66" letter-spacing="2.5">LAYER 03</text>
+    <text x="64" y="276" font-family="'Noto Serif SC',serif" font-size="17" font-weight="700" fill="#1B2A4A">零售供给合同</text>
+    <text x="64" y="300" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#6C7A89">零售电气事业者／聚合商</text>
+    <text x="64" y="322" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#6C7A89">充电电力的采购路径</text>
+    <path d="M 360 285 Q 400 285, 400 410" fill="none" stroke="#2A3D66" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+  <g>
+    <rect x="540" y="220" width="320" height="130" rx="8" fill="url(#layerSoftNavy)" stroke="#2A3D66" stroke-width="1.5"/>
+    <rect x="854" y="220" width="6" height="130" fill="#2A3D66"/>
+    <text x="836" y="246" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="800" fill="#2A3D66" letter-spacing="2.5">LAYER 04</text>
+    <text x="836" y="276" text-anchor="end" font-family="'Noto Serif SC',serif" font-size="17" font-weight="700" fill="#1B2A4A">BG合同(同时双属)</text>
+    <text x="836" y="300" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#6C7A89">需求BG ＋ 发电BG</text>
+    <text x="836" y="322" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#6C7A89">计划值同时同量的责任主体</text>
+    <path d="M 540 285 Q 500 285, 500 410" fill="none" stroke="#2A3D66" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+  <g font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">
+    <text x="240" y="395" text-anchor="middle">充电流</text>
+    <text x="660" y="395" text-anchor="middle">放电流</text>
+  </g>
+  <g>
+    <rect x="40" y="600" width="820" height="180" rx="8" fill="url(#layerSoftGold)" stroke="#C49A3C" stroke-width="1.5"/>
+    <rect x="40" y="600" width="6" height="180" fill="#C49A3C"/>
+    <text x="64" y="628" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="800" fill="#A07916" letter-spacing="2.5">LAYER 05  ／  REVENUE LAYER</text>
+    <text x="64" y="660" font-family="'Noto Serif SC',serif" font-size="17" font-weight="700" fill="#1B2A4A">市场参与合同、收益化合同</text>
+    <g font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="700">
+      <rect x="64" y="685" width="84" height="34" rx="17" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.5"/>
+      <text x="106" y="707" text-anchor="middle" fill="#A07916">JEPX</text>
+      <rect x="158" y="685" width="84" height="34" rx="17" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.5"/>
+      <text x="200" y="707" text-anchor="middle" fill="#A07916">EPRX</text>
+      <rect x="252" y="685" width="120" height="34" rx="17" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="1.5"/>
+      <text x="312" y="707" text-anchor="middle" fill="#1B2A4A">容量市场</text>
+      <rect x="382" y="685" width="84" height="34" rx="17" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="1.5"/>
+      <text x="424" y="707" text-anchor="middle" fill="#1B2A4A">LDA</text>
+      <rect x="476" y="685" width="160" height="34" rx="17" fill="#FFFFFF" stroke="#2A3D66" stroke-width="1.5"/>
+      <text x="556" y="707" text-anchor="middle" fill="#2A3D66">余力活用合同</text>
+    </g>
+    <text x="64" y="755" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#6C7A89">第1〜4层全部成立才开始发挥作用的收益化层</text>
+    <path d="M 450 600 Q 450 555, 450 510" fill="none" stroke="#C49A3C" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+  <text x="450" y="850" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#8A92A0" font-style="italic">5层并非独立，而是相互作为前提条件连锁</text>
+</svg>
+<div class="fig-cap">图1 — 电网级储能电站签订的5层电力合同地图</div>
+</div>
+
+<h3>1-1 各层的角色</h3>
+
+<div class="layer-map">
+  <div class="layer-card">
+    <div class="layer-no">01<span class="layer-no-sub">LAYER</span></div>
+    <div>
+      <h4>输电合同（充电侧／接续供给合同）</h4>
+      <p>合同对手是一般输配电事业者（TSO）。为给储能充电而自系统受电时，约定其输电供给的合同，能否适用抽蓄特措也在此决定。合同功率（kW）与输电费单价直接作用于事业性，故本文亦先在第2章深挖此层。</p>
+    </div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-no">02<span class="layer-no-sub">LAYER</span></div>
+    <div>
+      <h4>发电量调整供给合同（放电侧／发调合同）</h4>
+      <p>合同对手同为TSO。约定伴随放电（在一般输配电事业者看来即逆潮流＝发电）的计划值同时同量，以及计划与实绩的偏差（不平衡）的结算关系，2024年4月导入的发电侧计费（并网受电服务费）也挂在此层。《电气事业法》上的正式称谓，经<strong>平成27年法律第47号</strong>（电力系统改革第3阶段修订，2015年6月24日公布、2020年4月1日施行）改为"电力量调整供给"，但作为各社输电供给等条款的合同名，至今仍沿用"发电量调整供给合同"（发调合同）。</p>
+    </div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-no">03<span class="layer-no-sub">LAYER</span></div>
+    <div>
+      <h4>零售供给合同（充电电力的采购）</h4>
+      <p>规制充电电力"从谁、如何购买"的层。第68回电力、燃气基本政策小委员会 资料4（2023年12月26日）整理称，经系统的储能充电现状基本作为"零售供给"处理，储能侧从零售电气事业者购电是标准形态。同资料同时深入指出"对储能的蓄电未必等于向最终需求家供电"，并提起将其重新定位为"间接需求"供电的论点。该论点在2026年4月时点处于持续研讨阶段，尚未形成确定的制度修订。</p>
+    </div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-no">04<span class="layer-no-sub">LAYER</span></div>
+    <div>
+      <h4>BG合同（平衡组）</h4>
+      <p>明确计划值同时同量责任主体的层。电网级储能电站以1套设备具有<strong>放电时属发电BG、充电时属需求BG的同时双属（双BG）结构</strong>。与其说"切换"，更近于双属下主从互换的意象。是自社单独BG化，还是纳入聚合商（特定批发供给事业者）麾下——两个选项。实态上，常见首座项目先在聚合商麾下熟练运营，积累经验后再转向单独BG化的路径。经产省、OCCTO的政策文件并未将此迁移路径体系化，但从各事业者的发声中可透出这一脉络。另，特定批发供给事业者制度本身，由令和2年法律第49号（2022年4月1日施行）的《电气事业法》修订创设。</p>
+    </div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-no">05<span class="layer-no-sub">LAYER</span></div>
+    <div>
+      <h4>市场参与合同、收益化合同</h4>
+      <p>按收益源所需的合同群，由JEPX（批发电力市场）交易参与者合同、EPRX（辅助服务市场）交易会员合同、容量市场主拍卖投标所需的前提合同、长期脱碳电源拍卖（LDA）容量保障合同，以及与TSO直接签订的余力活用合同构成。最后的余力活用合同与辅助服务市场处并列关系，在辅助服务市场所调ΔkW不足时等，按经济调度顺序活用，同时也作为容量市场、LDA中标的必须考核要求被组入，构成电网级储能调整力提供方案的核心。</p>
+    </div>
+  </div>
+</div>
+
+<div class="info-box">
+<strong>5层并非各自独立，而是相互作为前提条件连锁。</strong><br><br>
+例如JEPX参与以输电相关合同（第1、第2层）为前提。EPRX参与除发调合同、接续供给合同外，还需与属地TSO的"关于辅助服务市场的合同"。LDA投标中，接续研讨回复书（第1、第2层的前段）与土地确保被课为事前要件，中标后在20年运营期间须持续维持发调合同、余力活用合同、JEPX合同、EPRX合同全部。
+</div>
+
+<p>第2章以后，逐一深挖这5层。先从第1层，且从抽蓄特措的论点切入。</p>
+
+<h2>02 — 第1层：抽蓄特措为何容许"合同功率100kW"</h2>
+
+<h3>2-1 储能是"既是需求家又是发电站"</h3>
+
+<p>一旦被带入输电合同的世界，电网级储能电站便成了有些难以安放的存在。</p>
+
+<p>普通需求家——譬如工厂——的输电合同功率，按该设施同时使用电力的最大值（kW）设计。用电1,999kW的工厂，输电合同功率也大致以接近1,999kW的值签订。</p>
+
+<p>而电网级储能电站，是为引入至多1,999kW电力蓄存、再将其几乎全量输送至别处需求场所而运转。通过受电点的电力99%以上，并非"自家消费的电力"，而是"暂存后送返他处的电力"。若以普通需求家逻辑对其课输电费，便会如抽水蓄能发电站一样，同一份电力被双重计费。</p>
+
+<p>为回避这一双重计费问题，抽水蓄能发电站自来便备有输电供给等条款 附则4的"对设有抽蓄发电设备等的需求场所进行接续供给时的特别措施"。电网级储能正式被纳入该附则对象，是2024年4月1日的事。经过如下：经<strong>2022年5月20日公布（令和4年法律第46号）、2023年4月1日施行</strong>的《电气事业法》修订，超过1万kW的电网级储能的放电事业被定位为发电事业。据此，经<strong>2023年12月1日10社一齐申请认可（仅北海道电力NW于12月5日重新申请）</strong>、2024年1月17日认可、2024年4月1日施行三步，附则4修订，储能被明示组入。条文上以"抽蓄发电设备或储能（以下称'抽蓄发电设备等'）"并列规定，<strong>电网级储能并非类推适用，而是正面被组入适用对象</strong>。</p>
+
+<p>关于称谓略作整理。经产省、电燃小委的官方简称为"储能特措"，条款条文中使用"抽蓄等损失率"这样带"抽蓄等"前缀的表述。本文按语境，对业界通称"抽蓄特措"与官方简称"储能特措"分别使用。</p>
+
+<div class="fig-wrap fig2-wrap">
+<svg viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig2-title">
+  <title id="fig2-title">抽蓄特措的有无对输电费计费对象的影响</title>
+  <defs>
+    <filter id="f2Shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="2" result="offset"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.10"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="f2OffBar" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1B2A4A"/><stop offset="100%" stop-color="#0F1A2E"/></linearGradient>
+    <linearGradient id="f2OnBar" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#C49A3C"/><stop offset="100%" stop-color="#A07916"/></linearGradient>
+    <linearGradient id="f2OffBg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#F8F9FB"/><stop offset="100%" stop-color="#EEF1F5"/></linearGradient>
+    <linearGradient id="f2OnBg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FDF7EA"/><stop offset="100%" stop-color="#F8EFD7"/></linearGradient>
+    <marker id="arrF2jp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 L 2 5 z" fill="#1B2A4A"/></marker>
+  </defs>
+  <rect width="900" height="700" fill="#FFFFFF"/>
+  <g>
+    <rect x="0" y="0" width="900" height="320" fill="url(#f2OffBg)"/>
+    <rect x="20" y="20" width="180" height="32" rx="4" fill="#5B6675"/>
+    <text x="110" y="42" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="1.5">抽蓄特措 不适用</text>
+    <text x="216" y="42" font-family="'Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#1B2A4A">受电点全部电量为计费对象</text>
+    <g transform="translate(60, 90)">
+      <circle cx="40" cy="80" r="40" fill="#FFFFFF" stroke="#2A3D66" stroke-width="2.5"/>
+      <path d="M 22 70 L 32 90 M 32 70 L 42 90 M 42 70 L 52 90 M 52 70 L 62 90" stroke="#2A3D66" stroke-width="2" fill="none"/>
+      <text x="40" y="148" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#1B2A4A">系统</text>
+      <line x1="80" y1="80" x2="155" y2="80" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF2jp)"/>
+      <circle cx="180" cy="80" r="24" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2.5"/>
+      <text x="180" y="86" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="14" font-weight="800" fill="#1B2A4A">M</text>
+      <text x="180" y="125" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#5B6675">受电点（计量）</text>
+      <line x1="204" y1="80" x2="245" y2="80" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF2jp)"/>
+      <rect x="250" y="50" width="200" height="80" rx="6" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2.5" filter="url(#f2Shadow)"/>
+      <rect x="250" y="50" width="200" height="4" fill="#5B6675"/>
+      <text x="350" y="80" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="16" font-weight="800" fill="#1B2A4A">储能</text>
+      <text x="350" y="100" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#5B6675">最大充电 1,999kW</text>
+      <text x="350" y="118" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#5B6675" font-weight="700">→ 全量为计费对象</text>
+      <rect x="-10" y="-10" width="475" height="170" rx="10" fill="none" stroke="#5B6675" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+      <rect x="0" y="-30" width="240" height="22" rx="11" fill="#5B6675"/>
+      <text x="120" y="-14" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" letter-spacing="0.5">计费对象＝受电点全部电量</text>
+    </g>
+    <g transform="translate(580, 90)">
+      <text x="0" y="20" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#8896A6" letter-spacing="2">CALCULATION</text>
+      <text x="0" y="46" font-family="'SF Mono','Menlo',monospace" font-size="13" fill="#1B2A4A">计费额 = 受电点全部电量</text>
+      <text x="0" y="66" font-family="'SF Mono','Menlo',monospace" font-size="13" fill="#1B2A4A">       × 输电费单价</text>
+      <text x="0" y="100" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#8896A6" letter-spacing="2">计费额示意</text>
+      <rect x="0" y="115" width="280" height="50" rx="4" fill="url(#f2OffBar)"/>
+      <text x="20" y="148" font-family="'Noto Serif SC',serif" font-size="26" font-weight="800" fill="#FFFFFF">1.00</text>
+      <text x="80" y="148" font-family="'Noto Sans SC',sans-serif" font-size="13" fill="#FFFFFF" opacity="0.85">（基准）</text>
+    </g>
+  </g>
+  <line x1="40" y1="340" x2="860" y2="340" stroke="#D8DEE6" stroke-width="1.5"/>
+  <text x="450" y="335" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#8896A6" letter-spacing="3" font-weight="600">VS</text>
+  <g>
+    <rect x="0" y="360" width="900" height="320" fill="url(#f2OnBg)"/>
+    <rect x="20" y="380" width="180" height="32" rx="4" fill="#C49A3C"/>
+    <text x="110" y="402" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="1.5">抽蓄特措 适用</text>
+    <text x="216" y="402" font-family="'Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#1B2A4A">仅抽蓄分×损失率＋其他分为计费对象</text>
+    <g transform="translate(60, 450)">
+      <circle cx="40" cy="80" r="40" fill="#FFFFFF" stroke="#2A3D66" stroke-width="2.5"/>
+      <path d="M 22 70 L 32 90 M 32 70 L 42 90 M 42 70 L 52 90 M 52 70 L 62 90" stroke="#2A3D66" stroke-width="2" fill="none"/>
+      <text x="40" y="148" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#1B2A4A">系统</text>
+      <line x1="80" y1="80" x2="155" y2="80" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF2jp)"/>
+      <circle cx="180" cy="80" r="24" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2.5"/>
+      <text x="180" y="86" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="14" font-weight="800" fill="#1B2A4A">M</text>
+      <text x="180" y="125" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#5B6675">受电点（计量）</text>
+      <line x1="204" y1="80" x2="245" y2="80" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF2jp)"/>
+      <rect x="250" y="50" width="200" height="80" rx="6" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2.5" filter="url(#f2Shadow)"/>
+      <rect x="250" y="50" width="200" height="4" fill="#C49A3C"/>
+      <text x="350" y="80" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="16" font-weight="800" fill="#1B2A4A">储能</text>
+      <text x="350" y="100" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#5B6675">最大充电 1,999kW</text>
+      <text x="350" y="118" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#A07916" font-weight="700">→ 合同功率 ≒ 100kW附近</text>
+      <rect x="-10" y="-10" width="475" height="170" rx="10" fill="none" stroke="#C49A3C" stroke-width="2" stroke-dasharray="6 4" opacity="0.7"/>
+      <rect x="0" y="-30" width="290" height="22" rx="11" fill="#C49A3C"/>
+      <text x="145" y="-14" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" letter-spacing="0.5">计费对象＝抽蓄分×损失率＋其他分</text>
+    </g>
+    <g transform="translate(580, 450)">
+      <text x="0" y="20" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#8896A6" letter-spacing="2">CALCULATION</text>
+      <text x="0" y="44" font-family="'SF Mono','Menlo',monospace" font-size="11.5" fill="#1B2A4A">计费额 = （抽蓄等接续供给</text>
+      <text x="0" y="60" font-family="'SF Mono','Menlo',monospace" font-size="11.5" fill="#1B2A4A">       × 损失率 ＋ 其他）</text>
+      <text x="0" y="76" font-family="'SF Mono','Menlo',monospace" font-size="11.5" fill="#1B2A4A">       × 输电费单价</text>
+      <text x="0" y="105" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#8896A6" letter-spacing="2">计费额示意</text>
+      <rect x="0" y="118" width="280" height="50" rx="4" fill="#F0F2F5" stroke="#D8DEE6" stroke-width="1" stroke-dasharray="3 3"/>
+      <rect x="0" y="118" width="14" height="50" rx="4" fill="url(#f2OnBar)"/>
+      <text x="50" y="151" font-family="'Noto Serif SC',serif" font-size="22" font-weight="800" fill="#1B2A4A">0.05</text>
+      <text x="200" y="151" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="14" fill="#1B2A4A" font-weight="700">▲约减95%</text>
+    </g>
+  </g>
+  <text x="450" y="694" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#8896A6" font-style="italic">※ 计费额示意为说明用例示。实际比率随损失率与充放电量、自用消费量的构成比变动。</text>
+</svg>
+<div class="fig-cap">图2 — 抽蓄特措的有无对输电费计费对象的影响</div>
+</div>
+
+<h3>2-2 计算式：什么被排出计费对象</h3>
+
+<p>附则4的核心，是把输电费的计费对象功率、电量重新定义的下式（运算符号在条款正文中使用全角"×""＋""＝"）。</p>
+
+<pre>接续供给计费对象功率   = 抽蓄最大功率等 × 抽蓄等损失率 + 其他最大功率等
+接续供给计费对象电量   = 抽蓄等接续供给电量 × 抽蓄等损失率 + 其他接续供给电量</pre>
+
+<p>"抽蓄最大功率等"指储能为充电而受电的功率，"抽蓄等接续供给电量"指其电量。"其他最大功率等""其他接续供给电量"，指储能场地内除储能充电以外所用的电力——即附属设备以外的自用消费分。</p>
+
+<p>在此起作用的是"抽蓄等损失率"。储能充电的电力中，最终放电至系统、送达别处需求场所的电力，是扣除损失后的余量。仅将该损失分视为"作为需求而消费的电力"组入计费对象——这便是附则4思路的核心。<strong>结果，所充电力的本体（≒90%前后）被排出计费对象，仅损失相当分（≒10%前后）与自用消费分作为计费对象留下。</strong></p>
+
+<p>损失率的具体值，条款中并未给出标准值。各条款规定"按供给地点，预先每年由合同者与本公司协议确定抽蓄等损失率"，作为年次协议事项处理。经产省"2024年度第3回定置式储能系统普及扩大研讨会"（2024年8月29日）资料，在电网级储能的收益性试算中采用<strong>充放电效率90%（相当于损失率10%）</strong>为前提值，这事实上成为业界参考值。</p>
+
+<p>但此处想再深一层。最新的锂离子储能中，实机充放电效率达<strong>95%以上</strong>亦不罕见，在年次协议中有收窄至反映实机效率的数值（<strong>相当于损失率5%</strong>）的余地。本文以后所称"合同功率100kW附近"，设想的是<strong>将这一实机效率基准的协议值（相当于损失率5%）与自用消费极小化（"其他最大功率等"≒零）组合的情形</strong>。若照搬经产省试算前提的损失率10%，则合同功率会落在约200kW附近。</p>
+
+<h3>2-3 合同功率由"其他最大功率等"决定</h3>
+
+<p>由此可见合同功率100kW设计的依据。</p>
+
+<p>输电费的基本费，按合同功率（kW）×基本费单价×12个月计算。不适用抽蓄特措时，合同功率只能以接近受电点整体最大功率——储能最大充电功率1,999kW加自用消费分——的水平签订。</p>
+
+<p>而适用抽蓄特措后，计费对象功率依附则4之式呈如下结构。</p>
+
+<pre>接续供给计费对象功率 = 抽蓄最大功率等 × 抽蓄等损失率 + 其他最大功率等</pre>
+
+<p>设储能最大充电功率（抽蓄最大功率等）为1,999kW，乘以损失率（协议确定，典型值10%），再加自用消费分（其他最大功率等）。若自用消费的最大值估为50kW，则计算上的计费对象功率如下。</p>
+
+<pre>1,999kW × 10% + 50kW = 199.9kW + 50kW ≒ 250kW</pre>
+
+<p>这250kW并不直接成为输电合同功率。<strong>实务上还要再经2个阶段的收窄</strong>（以下3阶段整理，是基于条款正文结构与运营实务的本文独立梳理）。</p>
+
+<h4>第1阶段：自用消费的处理</h4>
+
+<p>在独立式电网级储能电站，PCS电源、空调、照明等附属设备的处理已于2023年整理。<strong>东京电力PG"关于特别高压、高压发电量调整供给合同申请手续"</strong>p.21在正文中明记"资源能源厅已将电网级储能的附属设备整理为按储能的一部分处理。…'其余电力'消失，无需设置多台计量器"，并在另设说明框中举附属设备之例为"PCS电源、空调、照明等"（本文将正文与说明框合成引用）。要之，在独立式电网级储能电站中，附属设备作为抽蓄特措中"抽蓄发电设备等"的一部分被涵盖，排出独立区分的对象。</p>
+
+<p>另一方面，在可再生能源并设、需求负荷并设的情形，因存在附属设备以外的"其他负荷"，须由事业者与TSO个别协议确定其同时最大功率等。协议的论点集中于：其他负荷的同时最大出现的时段，与储能充电接近最大值的时段，在时间上重叠多少。实务上，独立式储能电站的"其他最大功率等"多收敛至几近零或极少，并设情形亦多收于数十kW〜100kW左右。</p>
+
+<div class="fig-wrap fig3-wrap">
+<svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig3meter-title">
+  <title id="fig3meter-title">附属设备的有无对计量器构成的影响</title>
+  <defs>
+    <marker id="arrF3m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1B2A4A"/></marker>
+    <linearGradient id="f3LeftBg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#C49A3C" stop-opacity="0.08"/><stop offset="100%" stop-color="#C49A3C" stop-opacity="0.02"/></linearGradient>
+    <linearGradient id="f3RightBg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1B2A4A" stop-opacity="0.06"/><stop offset="100%" stop-color="#1B2A4A" stop-opacity="0.02"/></linearGradient>
+  </defs>
+  <rect width="900" height="540" fill="#FFFFFF"/>
+  <g>
+    <rect x="20" y="20" width="420" height="500" rx="10" fill="url(#f3LeftBg)"/>
+    <rect x="40" y="40" width="200" height="32" rx="4" fill="#C49A3C"/>
+    <text x="140" y="62" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="1">独立式储能电站</text>
+    <text x="40" y="92" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#1B2A4A">附属设备＝储能的一部分 → 计量器1台即可</text>
+    <circle cx="80" cy="200" r="32" fill="#FFFFFF" stroke="#2A3D66" stroke-width="2.5"/>
+    <path d="M 64 192 L 72 208 M 72 192 L 80 208 M 80 192 L 88 208 M 88 192 L 96 208" stroke="#2A3D66" stroke-width="2" fill="none"/>
+    <text x="80" y="252" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">系统</text>
+    <line x1="112" y1="200" x2="170" y2="200" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+    <rect x="175" y="180" width="55" height="40" rx="4" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2"/>
+    <text x="202" y="205" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="800" fill="#1B2A4A">Wh</text>
+    <text x="202" y="240" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#5B6675">受电点计量器</text>
+    <rect x="250" y="120" width="170" height="280" rx="8" fill="none" stroke="#C49A3C" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="335" y="140" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#A07916" letter-spacing="0.5">储能＋附属设备（一并）</text>
+    <line x1="230" y1="200" x2="265" y2="200" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+    <rect x="270" y="170" width="135" height="60" rx="6" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2"/>
+    <text x="337" y="195" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="14" font-weight="800" fill="#1B2A4A">储能本体</text>
+    <text x="337" y="215" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#5B6675">最大充电 1,999kW</text>
+    <rect x="270" y="265" width="40" height="38" rx="4" fill="#FDF7EA" stroke="#C49A3C" stroke-width="1.4"/>
+    <text x="290" y="282" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9" fill="#1B2A4A">PCS</text>
+    <text x="290" y="295" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9" fill="#1B2A4A">电源</text>
+    <rect x="318" y="265" width="40" height="38" rx="4" fill="#FDF7EA" stroke="#C49A3C" stroke-width="1.4"/>
+    <text x="338" y="282" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9" fill="#1B2A4A">空调</text>
+    <text x="338" y="295" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9" fill="#1B2A4A">风机</text>
+    <rect x="366" y="265" width="40" height="38" rx="4" fill="#FDF7EA" stroke="#C49A3C" stroke-width="1.4"/>
+    <text x="386" y="287" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9" fill="#1B2A4A">照明等</text>
+    <text x="337" y="328" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#A07916" font-weight="700">附属设备（储能的一部分）</text>
+    <rect x="40" y="430" width="380" height="70" rx="6" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.5"/>
+    <text x="55" y="453" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#A07916" letter-spacing="0.3">RESULT</text>
+    <text x="55" y="475" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#1B2A4A">"其他最大功率等" ≒ 零</text>
+    <text x="55" y="491" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#5B6675">→ 抽蓄特措下可把合同功率压缩到100kW附近</text>
+  </g>
+  <g>
+    <rect x="460" y="20" width="420" height="500" rx="10" fill="url(#f3RightBg)"/>
+    <rect x="480" y="40" width="220" height="32" rx="4" fill="#2A3D66"/>
+    <text x="590" y="62" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="1">并设情形（有其他负荷）</text>
+    <text x="480" y="92" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#1B2A4A">设附属设备以外 → 以3台计量器物理区分</text>
+    <circle cx="520" cy="200" r="32" fill="#FFFFFF" stroke="#2A3D66" stroke-width="2.5"/>
+    <path d="M 504 192 L 512 208 M 512 192 L 520 208 M 520 192 L 528 208 M 528 192 L 536 208" stroke="#2A3D66" stroke-width="2" fill="none"/>
+    <text x="520" y="252" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">系统</text>
+    <line x1="552" y1="200" x2="600" y2="200" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+    <rect x="605" y="180" width="55" height="40" rx="4" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2"/>
+    <text x="632" y="205" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="800" fill="#1B2A4A">Wh①</text>
+    <text x="632" y="240" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#5B6675">受电点计量器</text>
+    <line x1="660" y1="200" x2="700" y2="200" stroke="#1B2A4A" stroke-width="2.2"/>
+    <line x1="700" y1="140" x2="700" y2="320" stroke="#1B2A4A" stroke-width="2.2"/>
+    <line x1="700" y1="155" x2="725" y2="155" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+    <rect x="730" y="135" width="48" height="40" rx="4" fill="#FFFFFF" stroke="#2A3D66" stroke-width="2"/>
+    <text x="754" y="160" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="800" fill="#2A3D66">Wh②</text>
+    <line x1="778" y1="155" x2="800" y2="155" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+    <rect x="803" y="125" width="68" height="60" rx="6" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2"/>
+    <text x="837" y="150" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="800" fill="#1B2A4A">储能</text>
+    <text x="837" y="166" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9" fill="#5B6675">＋附属设备</text>
+    <text x="754" y="195" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#2A3D66" font-weight="700">储能的充电分</text>
+    <line x1="700" y1="305" x2="725" y2="305" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+    <rect x="730" y="285" width="48" height="40" rx="4" fill="#FFFFFF" stroke="#2A3D66" stroke-width="2"/>
+    <text x="754" y="310" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="800" fill="#2A3D66">Wh③</text>
+    <line x1="778" y1="305" x2="800" y2="305" stroke="#1B2A4A" stroke-width="2.2" marker-end="url(#arrF3m)"/>
+    <rect x="803" y="275" width="68" height="60" rx="6" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2"/>
+    <text x="837" y="300" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="800" fill="#1B2A4A">其他</text>
+    <text x="837" y="316" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="800" fill="#1B2A4A">负荷</text>
+    <text x="754" y="345" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#2A3D66" font-weight="700">需求场所内消费分</text>
+    <text x="480" y="390" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#5B6675" font-style="italic">※ 区分计量器（Wh②、Wh③）原则上TSO所有、TSO负担安装</text>
+    <rect x="480" y="430" width="380" height="70" rx="6" fill="#FFFFFF" stroke="#2A3D66" stroke-width="1.5"/>
+    <text x="495" y="453" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#2A3D66" letter-spacing="0.3">RESULT</text>
+    <text x="495" y="475" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#1B2A4A">"其他最大功率等"以个别协议确定</text>
+    <text x="495" y="491" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#5B6675">→ 视同时最大的重叠方式，约数十〜100kW</text>
+  </g>
+</svg>
+<div class="fig-cap">图3 — 附属设备的有无对计量器构成的影响</div>
+</div>
+
+<h4>第2阶段：抽蓄最大功率等的损耗率协议</h4>
+
+<p>附则4之式的前段"抽蓄最大功率等×抽蓄等损失率"，随损失率大幅变动。经产省的试算前提是充放电效率90%（损失率10%），但这并非规制值，而是合同者与一般输配电事业者按年次协议每年重新确定的值。</p>
+
+<p>协议的论点在业界实务上大致可分解为如下3点（条款上为单一损耗率协议，此为其内训论点整理）。</p>
+
+<p>第一，<strong>储能本体的RTE（往返效率）</strong>。锂离子电池的RTE，电芯单体大致95%以上，而含PCS等的系统整体（AC往返）在实运营中会降至85〜90%左右。新品时的厂商公称值多示90〜95%，但随运营条件经年下降（亦有2〜3年降至85%左右的业界一般值，强烈依赖运营条件、电芯温度、SOC区间）。以新品值协议还是以20年运营平均值协议，损失率随之而变。</p>
+
+<p>第二，<strong>变换系统的损耗</strong>的处理。PCS变换损失、受变电设备损耗、站内配线损失是否计入损失率的论点，这些与作为输电费对象的"作为需求消费的电力"区分含糊，TSO间处理可能不同。</p>
+
+<p>第三，<strong>经年衰减的纳入</strong>。容量衰减率强烈依赖运营温度、SOC、DOD，定置用途约年0.5〜3.5%（初期数年偏高，其后下降）为业界一般区间。长期脱碳拍卖项目等多设想年率2%左右的衰减。是以纳入此值的运营平均损耗率，还是每年按实测重新协议——年次协议框架下后者为制度设计上的名义，运营实务上亦有以前者固定值暂行运营的情形。</p>
+
+<p>据这些论点，损失率确定在10%前后时，计费对象功率如下。</p>
+
+<pre>1,999kW × 10% + 50kW ≒ 250kW</pre>
+
+<p>这250kW是否作为"合同功率"确定？并非如此。<strong>从这里还有一个就运营上最大功率如何设计的第3阶段讨论。</strong></p>
+
+<h4>第3阶段：运营设计与合同功率</h4>
+
+<p>视储能的运营设计，可作出制度上不令充电动作与自用消费同时最大的设计。</p>
+
+<p>第一，<strong>充电限制的活用</strong>。作为早期并网追加对策（2025年4月新设），同意特定时段的充电限制，即可回避高峰时段充电。与其说是系统侧的制约，不如作为自社的事业设计，制定"在自用消费最大化的时段不充电"的运营计划，便可进一步压缩计费对象功率。另，早期并网追加对策本是为针对顺潮流侧充电限制而设的制度，对输电合同功率削减的直接作用宜视为有限。</p>
+
+<p>第二，<strong>自用消费的电源分离</strong>这一选项。对空调、照明等可与储能本体动作切离的负荷，可考虑以独立电源系统（来自零售电气事业者的另一合同）供给的设计。但因2023年的附属设备整理（前述），独立式储能电站的附属设备已作为储能的一部分被涵盖，特意作电源分离的动机不强。仅在可再生能源、需求并设而存在"其他负荷"的情形，才开始有意义——这是其定位。</p>
+
+<p>第三种手法，是<strong>逆潮流时的自用消费活用</strong>。放电中以储能放电承担自用消费分，运营上不产生自系统受电，便可使自用消费在计费对象功率上的计入趋近于零（另，输电合同功率＝受电合同功率，与发电侧计费对象kW＝同时最大受电功率，属不同概念，切勿混淆，至为重要）。</p>
+
+<p>将这些运营设计经与TSO的个别协议反映到条款运用的结果，业界正在讨论<strong>尽可能压低整个场地输电合同功率（受电合同功率）的方法</strong>。具体阈值依项目规模、受电电压、附属设备构成而定，业界事业者的公开事例中尚未确认到标准化数值，但自用消费极小化的设计思想本身，与2023年的"附属设备＝储能的一部分"整理一致。</p>
+
+<p>反过来说，在受抽蓄特措适用后，若未细致敲定自用消费估算、损失率协议、运营设计这3点，合同功率有膨胀至数百kW的可能。<strong>低合同功率并非"自动达成的值"，而是"作为设计目标明确追求的结果"</strong>——本论点的实务核心，尽在于此。</p>
+
+<h3>2-4 1,999kW vs 100kW，一年差多少</h3>
+
+<p>差额以基本费单价×合同功率差×12个月机械地试算。基于10社输电供给等条款（收入上限第1监管期下，2026年4月1日时点有效的单价。北海道电力NW、东北电力NW为2025年10月1日修订值）的试算结果如下。所记单价均含消费税等相当额，按含税基准统一。<strong>另，现行制度下高压以合同功率2,000kW未满为上限，故本表高压的"2,000kW→100kW"表记，应读作把高压上限近旁（相当于1,999kW）压缩至100kW的设想值。</strong></p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+  <thead>
+    <tr><th>TSO</th><th style="text-align:right">特别高压 年间差</th><th style="text-align:right">高压 年间差</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="em">北海道电力NW</td><td class="num">约 1,176<span class="u">万日元</span></td><td class="num"><strong>约 1,920</strong><span class="u">万日元</span></td></tr>
+    <tr><td class="em">东北电力NW</td><td class="num">约 1,053<span class="u">万日元</span></td><td class="num">约 1,659<span class="u">万日元</span></td></tr>
+    <tr><td class="em">东京电力PG</td><td class="num">约 965<span class="u">万日元</span></td><td class="num">约 1,490<span class="u">万日元</span></td></tr>
+    <tr><td class="em">中部电力PG</td><td class="num"><strong>约 815</strong><span class="u">万日元</span></td><td class="num"><strong>约 1,065</strong><span class="u">万日元</span></td></tr>
+    <tr><td class="em">北陆电力送配电</td><td class="num"><strong>约 1,303</strong><span class="u">万日元</span></td><td class="num">约 1,705<span class="u">万日元</span></td></tr>
+    <tr><td class="em">关西电力送配电</td><td class="num">约 1,003<span class="u">万日元</span></td><td class="num">约 1,512<span class="u">万日元</span></td></tr>
+    <tr><td class="em">中国电力NW</td><td class="num">约 875<span class="u">万日元</span></td><td class="num">约 1,502<span class="u">万日元</span></td></tr>
+    <tr><td class="em">四国电力送配电</td><td class="num">约 1,163<span class="u">万日元</span></td><td class="num">约 1,624<span class="u">万日元</span></td></tr>
+    <tr><td class="em">九州电力送配电</td><td class="num">约 1,099<span class="u">万日元</span></td><td class="num">约 1,261<span class="u">万日元</span></td></tr>
+    <tr><td class="em">冲绳电力</td><td class="num">约 1,077<span class="u">万日元</span></td><td class="num">约 1,627<span class="u">万日元</span></td></tr>
+    <tr class="hl"><td class="em">10社平均</td><td class="num em">约 1,053<span class="u">万日元</span></td><td class="num em">约 1,536<span class="u">万日元</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>特别高压收于<strong>年间815万〜1,303万日元</strong>，高压收于<strong>年间1,065万〜1,920万日元</strong>区间。10社平均特别高压约1,053万日元，高压约1,536万日元。以20年运营期累计，即便平均地区也逾2亿日元，北海道电力NW管内的高压项目则达3.8亿日元级别的事业性差。</p>
+
+<div class="sim-container" id="tso-calculator">
+  <div class="sim-title">输电费差模拟器（10社×电压等级）<span class="tag">INTERACTIVE</span></div>
+  <div class="sim-row">
+    <span class="sim-label">TSO（一般输配电事业者）</span>
+    <select class="sim-select" id="tsoSelect">
+      <option value="hokkaido">北海道电力NW</option>
+      <option value="tohoku">东北电力NW</option>
+      <option value="tepco" selected>东京电力PG</option>
+      <option value="chubu">中部电力PG</option>
+      <option value="hokuriku">北陆电力送配电</option>
+      <option value="kansai">关西电力送配电</option>
+      <option value="chugoku">中国电力NW</option>
+      <option value="shikoku">四国电力送配电</option>
+      <option value="kyushu">九州电力送配电</option>
+      <option value="okinawa">冲绳电力</option>
+    </select>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">电压等级</span>
+    <select class="sim-select" id="voltSelect">
+      <option value="ehv">特别高压（EHV）</option>
+      <option value="hv" selected>高压（HV）</option>
+    </select>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">PCS出力（最大充电功率 kW）</span>
+    <input type="number" class="sim-input" id="pcsKw" min="100" max="50000" step="1" value="1999">
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">目标合同功率（kW）</span>
+    <input type="number" class="sim-input" id="targetKw" min="0" max="50000" step="1" value="100">
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">损失率（%）</span>
+    <input type="range" class="sim-slider" id="lossPct" min="3" max="15" value="5" step="0.5">
+    <span class="sim-value"><span id="lossPctVal">5.0</span>%</span>
+  </div>
+  <div class="sim-row">
+    <span class="sim-label">运营年数</span>
+    <input type="number" class="sim-input" id="years" min="1" max="30" step="1" value="20">
+  </div>
+  <div class="sim-results">
+    <div class="sim-res-cell">
+      <div class="rc-label">月额的差</div>
+      <div class="rc-val"><span id="resMonthly">1,242,353</span><span class="u">日元/月</span></div>
+      <div class="rc-sub">（PCS出力 − 目标合同功率）× 单价</div>
+    </div>
+    <div class="sim-res-cell">
+      <div class="rc-label">年额的差</div>
+      <div class="rc-val"><span id="resAnnual">1,490</span><span class="u">万日元/年</span></div>
+      <div class="rc-sub">月额 × 12个月</div>
+    </div>
+    <div class="sim-res-cell">
+      <div class="rc-label">运营期累计</div>
+      <div class="rc-val"><span id="resTotal">2.98</span><span class="u">亿日元</span></div>
+      <div class="rc-sub">年额 × 运营年数</div>
+    </div>
+    <div class="sim-res-cell">
+      <div class="rc-label">参考：理论上的计费对象kW</div>
+      <div class="rc-val"><span id="resTheory">150</span><span class="u">kW</span></div>
+      <div class="rc-sub">PCS出力 × 损失率 + 自用消费50kW</div>
+    </div>
+  </div>
+</div>
+
+<p class="note-small">※ 单价为各TSO 2026年4月1日时点输电供给等条款的基本费单价（含税）。北海道电力NW、东北电力NW为2025年10月1日修订值。实额随合同条件、折扣适用、年次修订变动。理论上kW为由附则4之式（抽蓄最大功率等×损失率＋其他最大功率等）以自用消费50kW固定算出的参考值。</p>
+
+<h3>2-5 适用条件与申请实务</h3>
+
+<p>抽蓄特措为事前申报制，入口在接续研讨申请书 样式1(9)的特记事项栏。记载"储能特别措施适用与否（预定）：有"，是全TSO共通的出发点。详细的样式填写规则（充电负、放电正表记、自用消费电力的处理、损耗率协议的推进法），在第8章的检查清单中谈。</p>
+
+<p>申请实务中要把握的，只有3点。</p>
+
+<p>第一，<strong>样式1(9)的记载遗漏可能致命</strong>。在接续研讨阶段未明示抽蓄特措适用，后段发调合同阶段为主张储能特措适用便需重新协议。第二，<strong>损耗率协议是1年一次的年次复核</strong>为条款上的名义，运营首年度的协议值会约束事业性试算的前提。第三，<strong>各TSO的申请样式有微差</strong>。九州电力送配电的低压用样式1-3分为"系统并网资料（光伏发电以外）"与"系统并网资料（光伏发电、储能设备同时并设）"两套（2025年4月更新。高压、特高在特记事项栏记载储能特措适用的希望与否），关西电力送配电在伴随逆潮流时另要求提交"关于抽蓄发电设备及储能的特别措施的确认书"。</p>
+
+<h2>03 — 第2层：发电量调整供给合同与发电侧计费</h2>
+
+<p>若第1层是"为充电而自系统引入电力"的合同，第2层便是为"把放电的电力流向系统"的合同。电网级储能电站在《电气事业法》上，放电瞬间被当作发电站，故须与一般输配电事业者签订与光伏发电站相同的<strong>发电量调整供给合同（发调合同）</strong>。</p>
+
+<p>发调合同约定的内容有3。第一，在计划值同时同量制度下提交30分单位的发电销售计划。第二，结算计划与实绩的偏差（不平衡）。第三，承担伴随放电的发电侧计费（并网受电服务费）。</p>
+
+<p>其中成为电网级储能电站固有论点的，是<strong>发电侧计费的储能特例</strong>。</p>
+
+<h3>3-1 发电侧计费的储能特例：有kW计费、无kWh计费</h3>
+
+<p>发电侧计费是2024年4月1日导入的制度，将上位系统的固定费也向发电者分摊。基本上全发电者均承担kW部分（基本费）与kWh部分（电量费）两者。</p>
+
+<p>但<strong>对储能与抽水蓄能发电，kWh部分被免除</strong>。电力、燃气交易监视等委员会"关于发电侧计费的导入 中间整理"（2023年4月公布，2025年4月修订）正文p.10对其理由整理如下："鉴于经抽水蓄能发电、储能时发电侧计费的负担，从与其他电源公平性的观点，抽水蓄能发电、储能的kWh计费予以免除，已在资源能源厅的审议会整理。"</p>
+
+<p>充入储能的电力，追根溯源不过是由其他电源发出的电力。在发电时点已课kWh发电侧计费，放电时若再课一次kWh计费，便对同一电量双重计费。为回避此点，备此特例。</p>
+
+<div class="highlight-box">
+<strong>回避双重计费的两段构成</strong><br><br>
+第1层抽蓄特措（充电时输电费中仅以蓄电损失分为计费对象的措施）与第2层kWh计费免除（放电时不再课计费的措施）的组合，使经储能的电力的双重计费，在制度整体上被封锁。
+</div>
+
+<h3>3-2 kW计费照常计费</h3>
+
+<p>kWh计费免除的同时，<strong>kW计费（基本费）照常计入</strong>。算定式如下。</p>
+
+<pre>计费对象kW = max(同时最大受电功率 − 需求侧接续送电服务合同功率, 0)
+基本费      = 计费对象kW × 基本费单价</pre>
+
+<p>"同时最大受电功率"是发电者与一般输配电事业者协议按发电场所预先确定的值，并无自动采用PCS额定的规定。实务上，申请时协议中多取与PCS交流额定相整合的形式。</p>
+
+<p>PCS 2MW、蓄电容量8MWh级的独立储能电站、需求侧合同kW=0时，基本费部分的年间负担额概算为如下水平（单价含消费税等相当额，为含税值）。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+  <thead>
+    <tr><th>TSO</th><th style="text-align:right">月额基本费</th><th style="text-align:right">年额</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="em">东京电力PG</td><td class="num">17.4<span class="u">万日元</span></td><td class="num">约 209<span class="u">万日元</span></td></tr>
+    <tr><td class="em">中部电力PG</td><td class="num">16.1<span class="u">万日元</span></td><td class="num">约 193<span class="u">万日元</span></td></tr>
+    <tr><td class="em">关西电力送配电</td><td class="num">19.6<span class="u">万日元</span></td><td class="num">约 235<span class="u">万日元</span></td></tr>
+    <tr><td class="em">九州电力送配电</td><td class="num">17.0<span class="u">万日元</span></td><td class="num">约 204<span class="u">万日元</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>这是保守前提（不适用折扣A、折扣B）的试算，视选址条件，亦有因折扣适用而降低的余地。</p>
+
+<h3>3-3 既认定FIT/FIP并设储能的特例</h3>
+
+<p>从储能电站业主视角最易混乱的，是<strong>并设于既认定FIT/FIP电源的储能的处理</strong>。2024年3月31日以前取得认定的FIT/FIP电源，在收购期间／交付期间中置于发电侧计费对象外。而对其并设的储能，则另有整理。</p>
+
+<p>中间整理修订版p.11写道："从与其他电源公平性的观点，储能的kWh计费已整理为免除，故基本上，设置发电并设储能时的kWh计费，以储能经系统引入充电所致放电以外（＝来自发电设备的发电分）为对象。"要之，既认定FIT/FIP并设储能中，<strong>仅系统充电→放电部分</strong>为kW计费对象，以此落定。</p>
+
+<div class="warning-box">
+<strong>FIP并设储能的系统充电解禁对象有限定</strong><br><br>
+新增FIP并设储能（并设于2024年4月以后认定的电源）自2024年4月、既认定FIP并设储能（并设于2023年度以前认定的电源）自2025年4月，分别解禁自系统充电。而<strong>FIT并设储能不在此经过措施对象内</strong>，不允许系统充电。<strong>独立电网级储能也在此经过措施框外</strong>，2024年4月以后投运的项目从一开始即为kW计费对象。
+</div>
+
+<h2>04 — 第3层：充电的电力从谁购买</h2>
+
+<p>储能电站签订的合同中，整理最不充分的领域，是<strong>充电电力的采购路径</strong>。</p>
+
+<p>第68回电力、燃气基本政策小委员会 资料4（2023年12月26日）p.11如此整理："现状，经系统（输配电网络）对储能的供电，基本以'零售供给'供给，须取得零售电气事业许可证。"</p>
+
+<p>另一方面，同资料p.11亦述："供给（蓄存）至储能的电力，是作为最终需求家使用的电力供给（放电）的，对储能的供电（蓄存）本身，未必可谓对最终需求家的供电。"进而同资料p.14将其重新定位为"<strong>间接需求</strong>"，并<strong>作为论点提起</strong>"是否有必要研讨《电气事业法》上的整理"。</p>
+
+<p>即，2026年4月时点的制度定位，处于"<strong>现行作为零售供给运营，但重新整理为间接需求的论点持续研讨中</strong>"的过渡期。尚未形成确定的制度修订，含特定批发供给事业者路径在内的新采购路径"作为制度尚未确立"，须留意此点。</p>
+
+<h3>4-1 三条采购路径</h3>
+
+<p>实务上，储能电站采购充电电力的路径，大致分3条。</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">路径 ①</span>
+    <h4>经零售电气事业者</h4>
+    <p>储能事业者从零售电气事业者购电的形式，第68回电燃小委资料4所述"基本为零售供给"即指此形。储能侧无需许可证，供给侧需零售电气事业者登记。<strong>现行的标准形态</strong>属此。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">路径 ②</span>
+    <h4>JEPX直接采购</h4>
+    <p>储能事业者取得JEPX（日本批发电力交易所）交易会员资格，自现货市场、日内市场直接采购电力的形式。储能事业者自身已申报为发电事业者，或另取得事业者许可证时成立。第68回电燃小委资料4正文中无对此形态的明示言及。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">路径 ③</span>
+    <h4>经聚合商</h4>
+    <p>活用令和2年法律第49号《电气事业法》修订（2022年4月施行）新设的特定批发供给事业者（电事法第27条之30）制度的形态。但特定批发供给事业者在电事法上，被定义为向"零售电气事业者、一般输配电事业者、配电事业者、特定输配电事业者"供给所集约电力的事业，并非直接规制对储能充电（最终需求前阶段）采购路径的制度。在作为间接需求的制度整理处于持续研讨阶段的现状下，本路径对储能充电的适用<strong>有待今后的制度设计</strong>。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">实务上的判断</span>
+    <h4>首座经零售，熟练后JEPX直接</h4>
+    <p>首座项目中经零售电气事业者在制度上最安全。在作为间接需求的制度整理确定前，选路径①以外便会背上法律解释风险。运营熟练后向JEPX直接采购迁移，宜在规模效益与运营体制两者齐备的阶段研讨，方为妥当路径。</p>
+  </div>
+</div>
+
+<h3>4-2 制度的不确定性与实务判断</h3>
+
+<p>3条路径中，路径①（经零售）为现行标准，从制度文件亦明确。而<strong>路径②、③在一手资料中详细的制度整理较薄</strong>是实情，各事业者按自社事业形态（是否已申报为发电事业者、是否与聚合商有合作、是否有JEPX直接参与的规模效益）分别使用是现状。</p>
+
+<p>从储能电站业主视角的决策要点有2。</p>
+
+<p>第一，<strong>首座项目中经零售电气事业者在制度上最安全</strong>。在作为间接需求的制度整理确定前，选路径①以外便会背上法律解释风险。第二，<strong>运营熟练后向JEPX直接采购迁移，宜在规模效益与运营体制两者齐备的阶段研讨</strong>，方为妥当路径。与第4层、第5层的整合（BG设计、JEPX交易会员合同）作为前提条件起作用。</p>
+
+<h2>05 — 第4层：BG合同与双BG结构</h2>
+
+<p>电网级储能电站的BG（平衡组）合同，与光伏发电站的具有决定性不同的结构。</p>
+
+<p><strong>电网级储能以1套设备，同时双属于需求BG（充电时的接续供给合同）与发电BG（放电时的发电量调整供给合同）两者。</strong>各BG所提交计划值、实绩值的主体侧面按时段互换，与其说"切换"，不如说"双属下的主从互换"更近制度实态——这便是所谓双BG结构的真相。</p>
+
+<p>EPRX"以抽蓄发电设备或储能设备参与辅助服务市场时的处理指南"（初版2024年11月18日公布，第3版2026年3月14日实施）p.6、p.10，要求放电侧与属地TSO的发调合同＋向广域机构提交发电销售计划，充电侧与接续供给合同＋向广域机构提交需求采购计划（另行发番事业者代码）。看最新版时请查第3版。</p>
+
+<h3>5-1 单独BG化与聚合商麾下</h3>
+
+<p>运营双BG结构的选项有2。</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">选项 A</span>
+    <h4>单独BG化</h4>
+    <p>储能事业者自身运营发电BG与需求BG两者的形式。以内制全部计划值同时同量责任与不平衡风险为代价，收益全部由自社取入。供给可能量1,000kW以上的资源，亦可在辅助服务市场以"抽蓄、储能"种别单独投标。实务上以24小时供需管理体制、系统投资、人才确保为前提。</p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">选项 B</span>
+    <h4>聚合商麾下</h4>
+    <p>储能事业者将BG运营委托给聚合商（特定批发供给事业者）的形态。EPRX指南p.6脚注"发调合同的签订者与交易会员，无需为同一"、p.10脚注"接续供给合同的签订者与交易会员，无需为同一"作了注记，故储能事业者保持发调、接续供给合同名义人，而将市场参与与BG运营委于聚合商的结构成立。</p>
+  </div>
+</div>
+
+<p>另，资源种别的选择由容量、接续方式、抽蓄等特措适用与否等决定，1,000kW未满从"VPP（发电）／VPP（需求）／VPP（发电+需求）"3种选，1,000kW以上且抽蓄等特措不适用的储能等，"VPP（发电+需求）"亦为选项（参见指南第3版 p.20表）。</p>
+
+<h3>5-2 作为业界实态的阶段迁移</h3>
+
+<p>经产省、OCCTO的政策文件未作分阶段体系化，但作为业界实态，东急不动产TENOHA东松山（自然电力集团的Shizen Connect作为特定批发供给事业者运营代行）等首座项目中，聚合商麾下运营先行。事业者运营熟练后向单独BG化迁移的潜在倾向虽被业界相关人士指出，但公开IR中明示事例仍属有限。</p>
+
+<p>《电气事业法》上，10MW以上有时被分类为"发电事业"，故持有资产超过10MW左右规模时，单独BG化成为研讨对象（业界经验法则级别的目安，公开IR等中明示阈值表态有限）。这并非孰为正解的讨论。持有资产的规模、运营体制的整备度、市场参与范围（仅JEPX，还是含辅助服务市场，还是瞄准容量市场、LDA中标）、以及不平衡风险的自社吸收能力——这些是决定选择的变量。</p>
+
+<h2>06 — 第5层：市场参与合同与收益化</h2>
+
+<p>相对于第1〜4层是"电网级储能电站运转的前提合同"，第5层定位为"产生收益的合同"。收益源有5。</p>
+
+<h3>6-1 JEPX现货、日内市场</h3>
+
+<p>最基本的收益源，以30分时段买卖电力，低买高卖博取价格套利。参与需<strong>JEPX交易参与者合同</strong>，直接参与有净资产1,000万日元以上的要件（入会金、年会费请查JEPX官方最新公布值）。不直接参与时，作为交易会员规程<strong>第2条1项4号</strong>"受前三号所列者委托者（但委托者不得为交易会员）"，经零售电气事业者或聚合商交易。</p>
+
+<p>JEPX参与中，与属地TSO的输电相关合同（接续供给合同、发调合同）作为前提条件相关联，须注意。第1、第2层的合同若未成立，第5层的JEPX合同便无法发挥作用。</p>
+
+<h3>6-2 EPRX辅助服务市场</h3>
+
+<p>有一次调整力（FCR）至三次调整力②的5个商品，参与需<strong>EPRX交易会员合同</strong>与<strong>与属地TSO的"关于辅助服务市场的合同"</strong>两者。<strong>辅助服务市场的最低投标量全5商品共通为1,000kW（1MW）</strong>，由EPRX交易规程第13条(2)イ(ハ)及别册第29条规定。商品别的差异不在最低投标量，而出现在接续方式（专用线在线接续／经简易指令系统）或计量、指令处理的细则。详情请查该规程及各商品的处理要纲。</p>
+
+<p>辅助服务市场的参与，因储能选"抽蓄、储能"种别还是"VPP（发电+需求）"种别，计量、投标的处理分岔。10MW以上的专用线在线接续选前者，1MW未满聚合选后者为标准运营。</p>
+
+<p>辅助服务市场的上限价，在次世代电力、燃气事业基盘构建小委员会 制度设计工作组（第110回，2026年1月23日）资料4 p.6提示<strong>19.51日元→15日元/ΔkW·30分的下调（第一阶段）</strong>，同时并示"市场竞争状况若无改善，则分阶段下调至10日元、7.21日元/ΔkW·30分"的方针（另，初期7.21日元案的提示本身在第108回、2025年10月29日资料中作出）。仅第一阶段的下调，便可能使收益性试算的前提大幅改变。</p>
+
+<h3>6-3 容量市场主拍卖</h3>
+
+<p>以4年先交易容量价值（kW价值）的投标市场。储能自<strong>2027年度向主拍卖以后</strong>，作为<strong>稳定电源</strong>（按计量单位期待容量1,000kW以上，每日1次以上可连续3小时以上持续运行）或<strong>启动指令电源</strong>参与。投标所需书类有事业者代码、客户端证书、参与登记誓约书、新设电源时的接续研讨回复书或工程计划申报书，以及调整功能"有"时所需的<strong>关于余力活用的合同签订凭证</strong>。</p>
+
+<h3>6-4 长期脱碳电源拍卖（LDA）</h3>
+
+<p>保证20年固定收入的长期合同市场。储能区分的投标要件自2025年度（第3回）起统一为设备容量30MW以上、可放电时间连续6小时以上（参考：第1回2023年度为10MW以上、3小时以上，第2回2024年度为30MW以上、3-6小时／6小时以上2区分募集）。可投标的仅运转开始前的新设。</p>
+
+<p>LDA以<strong>3层结构返还他市场收益</strong>。据OCCTO"关于长期脱碳电源拍卖的概要（投标年度：2025年度）"p.28及容量保障合同条款第28条第1项，①织入投标价的资本成本部分为止（便宜称"领域A"）<strong>返还95%</strong>，②（合同单价×合同容量）与（主拍卖价×合同容量）的差额之上的部分（同"领域B"）<strong>返还85%</strong>，③(A)与(B)之间（同"领域C"）<strong>返还90%</strong>。以此为交换，确保原则20年的容量保障合同金额。并非"约九成"单一返还率，而以95%/85%/90%的3层结构组成，此点直接关系投标价设计（另，"资本成本"为第3回（2025年度）以后的用语，第1〜2回为止表记为"事业报酬"。"领域A/B/C"也非条款正文而是解说上的便宜称谓，条款正文用"①／②／③"表记）。</p>
+
+<p>LDA在投标→中标→投运→运营各阶段须齐备的合同分层。投标时点为接续研讨回复书、土地确保、事业计划书、技术规格书。中标后除容量保障合同外，须在期限内与属地TSO签订<strong>①给电协议书、②关于余力活用的合同</strong>（容量保障合同条款上，未签订、解约时课以合同容量全量的市场退出与经济性罚则）。另，发电量调整供给合同为参与对象电源的前提要件，工程费分摊金则被整理为较投标时估算大幅增加致经济性恶化时的退出事由。投运前为BG合同、JEPX交易会员合同、EPRX交易会员合同、PPA。运营期间为容量保障合同金额的月次受领、他市场收益的3层返还、向供给计划的持续计入、考核要求遵守——呈这样的分层结构。</p>
+
+<h3>6-5 余力活用合同</h3>
+
+<p>TSO为以在线指令直接活用门限关闭后的余力，与发电事业者直接签订的两方合同。与辅助服务市场处<strong>并列、相互补充</strong>关系，在辅助服务市场所调ΔkW不足时等，按经济调度顺序活用。<strong>作为容量市场、LDA中以调整功能"有"登记的稳定电源的必须考核要求</strong>被组入，未签订则课以市场退出＋合同容量×单价×10%的经济性罚则（可于主拍卖容量保障合同条款 第13条／第17条、LDA容量保障合同条款 第11条／第12条确认算定结构）。</p>
+
+<p>OCCTO第105回调整力委员会资料2"关于今后储能余力活用合同中的运营"（2025年1月28日）提示存储式运营与非存储式运营的二分整理，据此可读为经产省"关于同时市场应有形态等的研讨会"第15回资料6-2（2025年4月22日）重新整理为3类型。据本文整理，存储式运营的对象分3：①LDA中标储能（10MW以上、专用线在线）、②容量市场主拍卖中标储能（10MW以上、专用线在线、稳定电源）、③其余10MW以上、专用线在线储能（个别协议可对象化）。</p>
+
+<h2>07 — 一天的运营与合同的对应</h2>
+
+<p>5层合同结构抽象排列时复杂，但沿一天的运营情景看便易整理。把典型电网级储能电站的一天，按时序追踪。</p>
+
+<figure class="fig3-block">
+  <div class="fig-eyebrow">FIG. 04 — DAILY OPERATIONS</div>
+  <div class="fig-title">典型一天的充放电与运转中的合同层</div>
+
+  <svg viewBox="0 0 900 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig3-title">
+    <title id="fig3-title">典型一天的充放电与运转中的合同层</title>
+    <defs>
+      <linearGradient id="g3ChargeArea" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1B2A4A" stop-opacity="0.05"/><stop offset="100%" stop-color="#1B2A4A" stop-opacity="0.28"/></linearGradient>
+      <linearGradient id="g3DischargeArea" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#C49A3C" stop-opacity="0.32"/><stop offset="100%" stop-color="#C49A3C" stop-opacity="0.05"/></linearGradient>
+      <linearGradient id="g3Spot" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#C49A3C" stop-opacity="0"/><stop offset="50%" stop-color="#C49A3C" stop-opacity="0.22"/><stop offset="100%" stop-color="#C49A3C" stop-opacity="0"/></linearGradient>
+      <linearGradient id="g3L1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1B2A4A"/><stop offset="100%" stop-color="#0F1A2E"/></linearGradient>
+      <linearGradient id="g3L2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#C49A3C"/><stop offset="100%" stop-color="#A07916"/></linearGradient>
+      <linearGradient id="g3L3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#2A3D66"/><stop offset="100%" stop-color="#1B2A4A"/></linearGradient>
+      <linearGradient id="g3L4" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#6C7A89"/><stop offset="100%" stop-color="#4F5C6B"/></linearGradient>
+      <linearGradient id="g3L5" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#D4AF5C" stop-opacity="0.55"/><stop offset="100%" stop-color="#D4AF5C" stop-opacity="0.75"/></linearGradient>
+    </defs>
+    <rect width="900" height="720" fill="#FFFFFF"/>
+    <text x="40" y="36" font-family="'Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#1B2A4A">充放电曲线</text>
+    <text x="40" y="56" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">与系统的电力授受（kW，归一化）</text>
+    <g transform="translate(110, 90)">
+      <g font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89" font-weight="600">
+        <text x="-12" y="20" text-anchor="end">放电 +1</text>
+        <text x="-12" y="100" text-anchor="end">待机  0</text>
+        <text x="-12" y="180" text-anchor="end">充电 −1</text>
+      </g>
+      <g stroke="#E2E6EC" stroke-width="1">
+        <line x1="0" y1="20" x2="720" y2="20"/>
+        <line x1="0" y1="60" x2="720" y2="60" stroke-dasharray="2 3"/>
+        <line x1="0" y1="100" x2="720" y2="100" stroke="#6C7A89" stroke-opacity="0.5" stroke-width="1.2"/>
+        <line x1="0" y1="140" x2="720" y2="140" stroke-dasharray="2 3"/>
+        <line x1="0" y1="180" x2="720" y2="180"/>
+      </g>
+      <rect x="50" y="0" width="24" height="200" fill="url(#g3Spot)"/>
+      <rect x="410" y="0" width="24" height="200" fill="url(#g3Spot)"/>
+      <g font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="800" fill="#A07916">
+        <rect x="36" y="-22" width="56" height="20" rx="10" fill="#FEF6EC" stroke="#C49A3C" stroke-width="1"/>
+        <text x="64" y="-7" text-anchor="middle">02:00</text>
+        <rect x="396" y="-22" width="56" height="20" rx="10" fill="#FEF6EC" stroke="#C49A3C" stroke-width="1"/>
+        <text x="424" y="-7" text-anchor="middle">14:00</text>
+      </g>
+      <path d="M 0 100 L 60 168 L 120 180 L 180 148 L 240 100 L 720 100 Z" fill="url(#g3ChargeArea)"/>
+      <path d="M 360 100 L 390 60 L 424 20 L 460 28 L 480 44 L 540 78 L 600 100 Z" fill="url(#g3DischargeArea)"/>
+      <path d="M 0 100 Q 30 130, 60 168 Q 90 180, 120 180 Q 150 168, 180 148 Q 210 120, 240 100 L 300 100 L 360 100 Q 375 80, 390 60 Q 405 36, 424 20 Q 440 22, 460 28 Q 470 36, 480 44 Q 510 62, 540 78 Q 570 92, 600 100 L 720 100" fill="none" stroke="#1B2A4A" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="120" cy="180" r="5" fill="#1B2A4A" stroke="#FFFFFF" stroke-width="2.5"/>
+      <circle cx="424" cy="20" r="5" fill="#C49A3C" stroke="#FFFFFF" stroke-width="2.5"/>
+      <text x="120" y="200" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#1B2A4A" font-weight="700">最大充电</text>
+      <text x="424" y="11" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#A07916" font-weight="700">辅助服务指令</text>
+      <line x1="0" y1="220" x2="720" y2="220" stroke="#D8DEE6" stroke-width="1"/>
+      <g font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89" font-weight="600">
+        <text x="0" y="240" text-anchor="middle">0</text>
+        <text x="90" y="240" text-anchor="middle">3</text>
+        <text x="180" y="240" text-anchor="middle">6</text>
+        <text x="270" y="240" text-anchor="middle">9</text>
+        <text x="360" y="240" text-anchor="middle">12</text>
+        <text x="450" y="240" text-anchor="middle">15</text>
+        <text x="540" y="240" text-anchor="middle">18</text>
+        <text x="630" y="240" text-anchor="middle">21</text>
+        <text x="720" y="240" text-anchor="middle">24时</text>
+      </g>
+      <line id="fig3-indicator-top" x1="60" y1="-30" x2="60" y2="220" stroke="#C49A3C" stroke-width="2" stroke-dasharray="3 3" stroke-linecap="round"/>
+    </g>
+    <line x1="40" y1="370" x2="860" y2="370" stroke="#E2E6EC" stroke-width="1"/>
+    <text x="40" y="402" font-family="'Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#1B2A4A">运转中的合同层</text>
+    <text x="40" y="422" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">各时刻有效的合同为3〜4本，24小时累计8〜10种</text>
+    <g transform="translate(110, 450)">
+      <g stroke="#E2E6EC" stroke-width="1">
+        <line x1="0" y1="0" x2="720" y2="0"/>
+        <line x1="0" y1="42" x2="720" y2="42"/>
+        <line x1="0" y1="84" x2="720" y2="84"/>
+        <line x1="0" y1="126" x2="720" y2="126"/>
+        <line x1="0" y1="168" x2="720" y2="168"/>
+        <line x1="0" y1="210" x2="720" y2="210"/>
+      </g>
+      <g font-family="'Noto Sans SC',sans-serif">
+        <text x="-90" y="20" font-size="12" font-weight="800" fill="#1B2A4A">第1层</text>
+        <text x="-90" y="36" font-size="9.5" fill="#1B2A4A" letter-spacing="1.2" font-weight="700">输电合同</text>
+        <text x="-90" y="62" font-size="12" font-weight="800" fill="#1B2A4A">第2层</text>
+        <text x="-90" y="78" font-size="9.5" fill="#A07916" letter-spacing="1.2" font-weight="700">发调合同</text>
+        <text x="-90" y="104" font-size="12" font-weight="800" fill="#1B2A4A">第3层</text>
+        <text x="-90" y="120" font-size="9.5" fill="#2A3D66" letter-spacing="1.2" font-weight="700">零售合同</text>
+        <text x="-90" y="146" font-size="12" font-weight="800" fill="#1B2A4A">第4层</text>
+        <text x="-90" y="162" font-size="9.5" fill="#6C7A89" letter-spacing="1.2" font-weight="700">BG合同</text>
+        <text x="-90" y="188" font-size="12" font-weight="800" fill="#1B2A4A">第5层</text>
+        <text x="-90" y="204" font-size="9.5" fill="#C49A3C" letter-spacing="1.2" font-weight="700">市场参与</text>
+      </g>
+      <rect x="50" y="6" width="140" height="30" rx="4" fill="url(#g3L1)"/>
+      <text x="120" y="26" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#FFFFFF" font-weight="700">充电（抽蓄特措下）</text>
+      <rect x="360" y="48" width="240" height="30" rx="4" fill="url(#g3L2)"/>
+      <text x="480" y="68" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#FFFFFF" font-weight="700">放电、发电侧计费</text>
+      <rect x="50" y="90" width="140" height="30" rx="4" fill="url(#g3L3)"/>
+      <text x="120" y="110" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#FFFFFF" font-weight="700">充电电力的采购</text>
+      <rect x="50" y="132" width="140" height="30" rx="4" fill="url(#g3L4)"/>
+      <text x="120" y="152" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#FFFFFF" font-weight="700">需求BG（主）</text>
+      <rect x="360" y="132" width="240" height="30" rx="4" fill="url(#g3L4)" opacity="0.85"/>
+      <text x="480" y="152" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#FFFFFF" font-weight="700">发电BG（主）</text>
+      <rect x="0" y="174" width="720" height="30" rx="4" fill="url(#g3L5)"/>
+      <text x="20" y="194" font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#1B2A4A" font-weight="700">JEPX（全天）</text>
+      <rect x="424" y="174" width="48" height="30" rx="4" fill="url(#g3L2)"/>
+      <text x="448" y="194" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#FFFFFF" font-weight="700">EPRX</text>
+      <line x1="0" y1="220" x2="720" y2="220" stroke="#D8DEE6" stroke-width="1"/>
+      <g font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89" font-weight="600">
+        <text x="0" y="238" text-anchor="middle">0</text>
+        <text x="90" y="238" text-anchor="middle">3</text>
+        <text x="180" y="238" text-anchor="middle">6</text>
+        <text x="270" y="238" text-anchor="middle">9</text>
+        <text x="360" y="238" text-anchor="middle">12</text>
+        <text x="450" y="238" text-anchor="middle">15</text>
+        <text x="540" y="238" text-anchor="middle">18</text>
+        <text x="630" y="238" text-anchor="middle">21</text>
+        <text x="720" y="238" text-anchor="middle">24时</text>
+      </g>
+      <line id="fig3-indicator-bottom" x1="60" y1="-10" x2="60" y2="220" stroke="#C49A3C" stroke-width="2" stroke-dasharray="3 3" stroke-linecap="round"/>
+    </g>
+  </svg>
+
+  <div class="fig3-control">
+    <input type="range" id="fig3-slider" min="0" max="24" value="2" step="0.5">
+    <div class="fig3-meta">时刻：<strong id="fig3-time">02:00</strong>　／　<span class="scene" id="fig3-scene">充电情景（深夜、JEPX低价带）</span></div>
+  </div>
+  <p class="fig-caption"><strong>图4：</strong>02:00的充电由零售、输电、需求BG、JEPX 4合同同时运转，14:00的调整指令由发调、发电BG、EPRX 3合同同时运转。储能同时双属于需求BG与发电BG，图中色带表示各时段"为主"的侧面（充电时为需求，放电时为发电）。可拖动滑块查看不同时刻。</p>
+</figure>
+
+<script>
+(function(){
+  var slider = document.getElementById('fig3-slider');
+  var timeEl = document.getElementById('fig3-time');
+  var sceneEl = document.getElementById('fig3-scene');
+  var indTop = document.getElementById('fig3-indicator-top');
+  var indBot = document.getElementById('fig3-indicator-bottom');
+  if(!slider) return;
+  function pad(n){return String(n).padStart(2,'0');}
+  function update(){
+    var t = parseFloat(slider.value);
+    var hh = Math.floor(t), mm = Math.round((t-hh)*60);
+    timeEl.textContent = pad(hh)+':'+pad(mm);
+    var x = 60 + (t/24)*660;
+    indTop.setAttribute('x1', x); indTop.setAttribute('x2', x);
+    indBot.setAttribute('x1', x); indBot.setAttribute('x2', x);
+    var scene;
+    if(t < 6) scene = '充电情景（深夜、JEPX低价带）';
+    else if(t < 13) scene = '待机（经济合理性不成立的时段）';
+    else if(t < 16) scene = '辅助服务指令应对（午后高峰）';
+    else if(t < 18) scene = '待机';
+    else if(t < 22) scene = '傍晚放电（JEPX高涨时）';
+    else scene = '充电情景（深夜、JEPX低价带）';
+    sceneEl.textContent = scene;
+  }
+  slider.addEventListener('input', update);
+  update();
+})();
+</script>
+
+<h3>分情景的合同运转明细</h3>
+
+<p><strong>02:00 充电情景。</strong>JEPX现货价低廉的深夜带。储能电站自系统引入电力蓄存。运转的合同有4——第3层零售供给合同（充电电力的采购）、第1层输电合同（适用抽蓄特措的接续供给）、第4层需求BG合同（以计划值同时同量管理充电）、第5层JEPX交易参与者合同（现货成交）。储能的充电电力在抽蓄特措下大半被排出计费对象，故输电费负担可压得相当小。</p>
+
+<p><strong>08:00〜12:00 待机。</strong>现货价处于中间水平，蓄电、放电均不成立经济合理性的时段。储能停止充放电，仅自用消费分自系统受电。运转的合同仅第3层、第1层、第4层，第5层维持休止。仅抽蓄特措下的"其他最大功率等"计入计费对象。</p>
+
+<p><strong>14:00 辅助服务指令。</strong>午后高峰时段地区供需吃紧，TSO发出辅助服务指令（一次〜三次调整力）。储能放电向系统供电。运转的合同有3——第5层EPRX合同（辅助服务市场成交）、第2层发调合同（伴随放电的计划值同时同量与不平衡结算）、第4层发电BG（双属下发电侧为主的状态）。发电侧计费的kW部分被计费，但kWh部分免除。另，参与辅助服务市场时，原则上须将该储能电站单独BG化。</p>
+
+<p><strong>18:00〜22:00 傍晚放电。</strong>傍晚高峰时段JEPX现货价高涨局面，进行追加放电。第5层JEPX合同与第2层发调合同、第4层发电BG（双属下发电侧为主）动作。</p>
+
+<div class="info-box">
+如此看来，一天之中储能电站在需求家与发电者之间互换主从，按时刻运转不同的合同层。<strong>某一瞬间同时运转的合同为3〜4本，24小时累计8〜10种合同运转</strong>——这便是电网级储能电站运营的实像。
+</div>
+
+<h2>08 — 11项检查清单：开发权转让时应确认的合同状态</h2>
+
+<p>就电网级储能电站的开发权转让（已取得接续研讨回复书且发调已认可的项目，或已付保证金项目的转让），并列出买方、卖方双方应确认的合同状态检查清单。所有项目都是NDA签订后精审阶段实际对接的实务项。</p>
+
+<div class="checklist-group" id="contract-checklist">
+  <h5><span class="cl-num">11</span>开发权转让前应确认的合同状态</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01.</span><strong>抽蓄特措的适用预定是否在接续研讨申请书中明记</strong>。OCCTO接续研讨申请书（2025年4月以后的最新样式）设有选择"特别措施的适用预定"的专用栏。确认此栏为"有适用预定"且与申请内容一致。空栏或仍为"无适用预定"而推进的项目，接续供给合同签订时可能不适用抽蓄特措，存在转让后产生基于合同功率计费的风险。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02.</span><strong>接续研讨回复书的有效期与发调申请期限</strong>。接续研讨回复书设有有效期，期限内不进行发调申请便失效。已申请发调时确认受理日与认可预定日，未申请时确认剩余期间。务必验证自转让执行至发调申请的设想日程能否收于期限内。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03.</span><strong>保证金支付的有无与返还条件</strong>。确认并网工程费分摊金的保证金（按电力公司所定比率预付）是否已付，已付时确认转让时的处理（买方向卖方垫付清偿／结算时按比例分摊等）。EMC core来源的高压项目中，77件已整理为保证金已付状态，受领状态书面提示为标准做法。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04.</span><strong>接续研讨申请书正本与附件的整合</strong>。确认是否依OCCTO官方记载例（接续研讨申请书样式AP2高压、样式AK1特高。AP2K/AK1T为文件名上的略号，完整文件名带更新日期后缀）记载，设备规格（PCS额定、储能容量、运行模式等）是否与后段发调申请书及接续供给申请书矛盾。转让后的设备变更需与并网事业者重新进行技术协议，故设备规格宜在转让前固定。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05.</span><strong>土地权利的确保状况</strong>。土地买卖合同、租赁合同、地上权设定合同中是否有一项已签订，用地面积、形状、接道、进入路是否与设备配置图整合。市街化调整区域项目确认用途地域上的许可、农地转用许可的进度，市街化区域项目确认用途地域上的限制（工业专用、准工业、近邻商业等）与建筑基准法上的处理。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06.</span><strong>相关法令许可的取得状况</strong>。确认经产省格式的相关法令确认书、农地转用许可（含农振除外）、开发行为许可、林地开发许可、消防同意、自治体条例（环境影响评价条例、景观条例等）的应对。区分已取得与待取得者，待取得者梳理日程与取得确度。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07.</span><strong>近邻居民同意、自治体协商的状况</strong>。确认居民说明会的实施记录、近邻居民同意书（已取得时）、自治体协商议事录的有无。储能选址的地方反应地区差大，转让后未预期的反对运动显现化的风险，对买方是重要验证点。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">08.</span><strong>BG加入预定的整理</strong>。确认转让后运营阶段将储能加入哪个BG（自建BG化／聚合商麾下／并入既有BG）。选聚合商麾下时，整理与候选聚合商的事前协商有无、设想手续费水平、BG间移管的制约。是否与买方的运营体制（有无自社运营能力）整合，是此处的主要论点。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">09.</span><strong>市场参与方针与所需会员资格</strong>。确认JEPX（批发电力交易所）会员资格的取得预定、面向EPRX辅助服务市场参与的事业者要件适合性验证、容量市场、LDA投标的要否判断。买方已是JEPX会员时整理会员资格的沿用方针，新取得时整理取得日程。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">10.</span><strong>EPC选定状况与聚合商候选</strong>。确认EPC（设计、采购、施工）合同处于已签订、选定中、未选定的哪一阶段。已签订则整理EPC公司名、合同金额、工期、储能/PCS厂商，选定中则整理候选公司与比价状况。聚合商候选亦同样，明确处于已签合同、候选清单整理阶段、未着手的哪一种。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">11.</span><strong>本申请受理的有无（东电PG管内）／负担金回复预定日记载邮件（中部电力PG管内）</strong>。东京电力PG管内的"本申请受理"状态、中部电力PG管内的"负担金回复预定日记载邮件"，分别是显示并网工程进度的重要书类。转让时已发行则确认书面提示，未发行则确认发行预计时期。</span></label>
+  <div class="check-progress">
+    <span class="bar"><span class="bar-fill" id="checkBarFill"></span></span>
+    <span class="count"><span id="checkCount">0</span> / 11</span>
+  </div>
+</div>
+
+<p>以上11项，是ScienceX制作买方资料包时的标准确认项。仅满足全部者方判断为"可即时转让"，任一未充足时，作为转让条件、转让价格、转让时期的调整论点加以整理。</p>
+
+<p class="note-small">※ 勾选项目仅在浏览器会话期间保持。如需定稿打印，可经浏览器的打印功能生成PDF。</p>
+
+<h2>09 — 制度的不确定性与今后的论点</h2>
+
+<h3>9-1 2026年度费率修订与上限价下调</h3>
+
+<p>2026年度的输电费（收入上限第1期最终年度）与辅助服务市场上限价的修订，直接作用于电网级储能电站的收益前景。第110回制度设计工作组（2026年1月23日）提出，将辅助服务市场一次、二次调整力①的上限价由19.51日元下调至15日元/ΔkW·30分（第一阶段），市场竞争状况若无改善则分阶段下调至10日元、7.21日元/ΔkW·30分的方针。若事业计划的收益试算以辅助服务市场收益为主要源泉，则不可或缺一项纳入这一上限价分阶段下调情景的敏感性分析。</p>
+
+<p>2026年度以后收入上限第2期（2027〜2031年度）输电费单价的修订方向，经各一般输配电事业者的事业计划认可申请后决定。抽蓄特措的特例结构本身在第2期维持，从认可咨询框架上几近确定，但特例适用下"kWh部分"系数值或对象范围的细节仍作为论点存留。</p>
+
+<h3>9-2 第二次中间整理"6.6 抽蓄发电、DER的处理"的研讨动向</h3>
+
+<p>在制度设计工作组的第二次中间整理中，6.6节作为关于"抽蓄发电的随意合同调整力采购"的持续研讨事项存留。这与输电条款附则4的抽蓄特措（对电网级储能的适用）是另一论点，是梳理将抽蓄发电作为辅助服务资源采购时合同方式、价格决定方式如何处理的一节。从电网级储能电站业主看直接影响有限，但可能波及辅助服务市场价格的形成机制。</p>
+
+<p>关于对电网级储能本身的输电特措（抽蓄特措）处理，既有项目经过措施的方向，在一手资料确认范围内未记载为具体决定事项。但鉴于其技术研讨论点的性质，可能在面向收入上限第2期的制度细节设计中被论点化。</p>
+
+<h3>9-3 作为储能固有论点的持续研讨事项</h3>
+
+<p>作为储能固有的持续研讨事项，可举：(i) 充电电力的非化石价值处理（经零售电气事业者采购与发电者直接相对采购，非化石证书的赋予关系不同的论点）、(ii) FIP并设储能运营上制约的缓和（充电源的非化石证明与来自发电源直接充电的优先顺序）、(iii) 容量市场中储能的持续时间要件（连续3小时运行持续要件对实需求的妥当性验证）、(iv) 余力活用合同的运营适正化（调整功能"有"登记项目的实运营与合同条款的整合）。这些预计将进入2026〜2027年度制度设计工作组、辅助服务市场研讨小委员会、容量市场小委员会的议题。</p>
+
+<h2>结 — 合同即事业性本身</h2>
+
+<p>电网级储能电站的事业性，并非仅由设备规格或选址条件决定。<strong>5层21合同的组合，以及流经各层的金钱、电力、指令的结构</strong>，形成20年的总收益与总费用。抽蓄特措所容许的"合同功率100kW"，对输电费产生年间1,000万日元级别的差。发电侧计费的kWh免除，对每1MWh放电量产生数日元〜十数日元的差。辅助服务市场上限价由19.51日元向15日元、10日元、7.21日元分阶段下调的方针，从根本改写收益前景。这些20年累加，便成2亿日元的差。</p>
+
+<p>ScienceX向买方企业转让项目时，作为价格依据呈上的，不只是"选址"或"容量"。<strong>合同状态的整理度、未来运营阶段的设想收益敏感性、对制度不确定性的纳入水平</strong>，连同这一切的事业性本身一并提示。本专栏整理的5层21合同框架，发挥传达该依据的共通语言之用。</p>
+
+<p>对电网级储能电站的投资判断，由解读20年合同设计的能力决定。</p>
+
+<a target="_top" href="https://www.scix.co.jp/zh-column-bess-insurance" class="next-link">
+  <div>
+    <div class="next-link-label">上一篇 / Previous</div>
+    <div class="next-link-title">COLUMN 18 — 电网级储能电站的保险设计</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="cta-section">
+  <h3>含合同设计在内的储能事业咨询</h3>
+  <p>仅凭文章无法判断的项目专属信息，<br>将在您垂询后、签订NDA的前提下开示。</p>
+  <a target="_top" href="https://www.scix.co.jp/zh-contact" class="cta-btn">联系我们 →</a>
+</div>
+
+</div>
+
+<script>
+// === TSO Calculator (输电费差模拟器) ===
+(function(){
+  // 含税 日元/kW （月额单价）
+  var tsoData = {
+    hokkaido: { ehv: 515.90, hv: 842.60, name: '北海道电力NW' },
+    tohoku:   { ehv: 462.00, hv: 728.20, name: '东北电力NW' },
+    tepco:    { ehv: 423.39, hv: 653.87, name: '东京电力PG' },
+    chubu:    { ehv: 357.50, hv: 467.50, name: '中部电力PG' },
+    hokuriku: { ehv: 572.00, hv: 748.00, name: '北陆电力送配电' },
+    kansai:   { ehv: 440.00, hv: 663.30, name: '关西电力送配电' },
+    chugoku:  { ehv: 383.90, hv: 658.90, name: '中国电力NW' },
+    shikoku:  { ehv: 510.40, hv: 712.80, name: '四国电力送配电' },
+    kyushu:   { ehv: 482.05, hv: 553.28, name: '九州电力送配电' },
+    okinawa:  { ehv: 472.49, hv: 713.93, name: '冲绳电力' }
+  };
+
+  var tsoEl     = document.getElementById('tsoSelect');
+  var voltEl    = document.getElementById('voltSelect');
+  var pcsEl     = document.getElementById('pcsKw');
+  var targetEl  = document.getElementById('targetKw');
+  var lossEl    = document.getElementById('lossPct');
+  var lossValEl = document.getElementById('lossPctVal');
+  var yearsEl   = document.getElementById('years');
+
+  var monthlyEl = document.getElementById('resMonthly');
+  var annualEl  = document.getElementById('resAnnual');
+  var totalEl   = document.getElementById('resTotal');
+  var theoryEl  = document.getElementById('resTheory');
+
+  function update(){
+    var tso   = tsoEl.value;
+    var volt  = voltEl.value;
+    var pcs   = parseFloat(pcsEl.value)    || 0;
+    var tgt   = parseFloat(targetEl.value) || 0;
+    var loss  = parseFloat(lossEl.value)   || 0;
+    var years = parseFloat(yearsEl.value)  || 0;
+
+    var unit  = tsoData[tso][volt]; // 日元/kW·月
+    var diffKW   = Math.max(pcs - tgt, 0);
+    var monthly  = diffKW * unit;
+    var annual   = monthly * 12;
+    var total    = annual * years;
+    var theoryKW = pcs * (loss / 100) + 50;
+
+    lossValEl.textContent  = loss.toFixed(1);
+    monthlyEl.textContent  = Math.round(monthly).toLocaleString('zh-CN');
+    annualEl.textContent   = (annual / 10000).toLocaleString('zh-CN',{maximumFractionDigits:0});
+    totalEl.textContent    = (total / 100000000).toLocaleString('zh-CN',{maximumFractionDigits:2});
+    theoryEl.textContent   = Math.round(theoryKW).toLocaleString('zh-CN');
+  }
+
+  ['change','input'].forEach(function(ev){
+    [tsoEl, voltEl, pcsEl, targetEl, lossEl, yearsEl].forEach(function(el){
+      el.addEventListener(ev, update);
+    });
+  });
+  update();
+})();
+
+// === Checklist Progress ===
+(function(){
+  var group   = document.getElementById('contract-checklist');
+  if (!group) return;
+  var checks  = group.querySelectorAll('input[type=checkbox]');
+  var countEl = document.getElementById('checkCount');
+  var fillEl  = document.getElementById('checkBarFill');
+  var total   = checks.length;
+
+  function update(){
+    var done = 0;
+    checks.forEach(function(c){ if (c.checked) done++; });
+    countEl.textContent = done;
+    fillEl.style.width = (done / total * 100) + '%';
+  }
+  checks.forEach(function(c){ c.addEventListener('change', update); });
+  update();
+})();
+</script>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img src="/img/logo-white.png" alt="ScienceX Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.（赛恩斯艾克斯）</div>
+        日本〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:+81364034095">+81 3 6403 4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

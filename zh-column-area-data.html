@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif SC',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.seo-note{display:none}
+.bar-chart{margin:28px 0}
+.bar-row{display:flex;align-items:center;margin-bottom:6px;font-size:.85em}
+.bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.bar-track{flex:1;background:#EBEEF2;height:28px;border-radius:3px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;min-width:2px;transition:width .6s ease}
+.bar-fill.high{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.bar-fill.mid{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.bar-fill.low{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.bar-fill.over{background:linear-gradient(90deg,#2980B9,#3498DB)}
+.bar-value{margin-left:8px;font-size:.82em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:80px}
+.heatmap-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.82em}
+.heatmap-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:center;font-weight:500;font-size:.78em}
+.heatmap-table td{padding:8px 10px;text-align:center;border:1px solid #E2E6EC;font-weight:600}
+.heatmap-table td.h5{background:#FDEBEB;color:#922B21}
+.heatmap-table td.h4{background:#FDEBD0;color:#935116}
+.heatmap-table td.h3{background:#FEF9E7;color:#7D6608}
+.heatmap-table td.h2{background:#EAFAF1;color:#1E8449}
+.heatmap-table td.h1{background:#D4EFDF;color:#196F3D}
+.heatmap-table td.h0{background:#D6EAF8;color:#21618C}
+.heatmap-table .area-cell{text-align:left;font-weight:700;background:#F8F9FB;color:var(--navy)}
+.tab-bar{display:flex;border-bottom:2px solid var(--border);margin:24px 0 0;gap:0;flex-wrap:wrap}
+.tab-item{padding:10px 20px;font-size:.88em;font-weight:600;color:var(--text-light);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
+.tab-item:hover{color:var(--navy)}
+.tab-item.active{color:var(--navy);border-bottom-color:var(--accent)}
+@media(max-width:480px){.tab-item{padding:8px 12px;font-size:.78em}}
+.ts-legend{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 16px;font-size:.78em;color:var(--text-light)}
+.ts-leg-item{display:flex;align-items:center;gap:5px}
+.ts-leg-box{width:14px;height:14px;border-radius:2px;flex-shrink:0}
+.chart-container{position:relative;margin:0 0 16px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff}
+.chart-header{display:flex;justify-content:space-between;align-items:baseline;padding:12px 20px 4px}
+.chart-area-name{font-weight:700;color:var(--navy);font-size:1em}
+.chart-stats{font-size:.82em;color:var(--text-light)}
+.chart-stats strong{color:var(--navy)}
+.chart-stats .surplus{color:#2980B9}
+.chart-no-data{padding:12px 20px 16px;font-size:.82em;color:var(--text-light);text-align:center}
+.chart-canvas-wrap{position:relative;padding:0 16px 4px}
+.chart-canvas{width:100%;height:80px;display:block}
+.chart-tooltip{position:absolute;background:rgba(27,42,74,0.95);color:#fff;padding:8px 12px;border-radius:4px;font-size:.75em;line-height:1.5;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
+.chart-axis{display:flex;justify-content:space-between;font-size:.68em;color:var(--text-light);padding:0 16px 10px}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .bar-label{width:44px;font-size:.78em}
+  .heatmap-table{font-size:.72em}
+  .heatmap-table th,.heatmap-table td{padding:5px 4px}
+  .chart-canvas{height:64px}
+  .chart-header{padding:10px 12px 3px}
+  .chart-canvas-wrap{padding:0 12px 3px}
+  .chart-axis{padding:0 12px 8px;font-size:.6em}
+}
+.s-bar-row{display:flex;align-items:center;margin-bottom:5px;font-size:.85em}
+.s-bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.s-bar-wrap{flex:1;position:relative;height:28px;background:#EBEEF2;border-radius:3px;overflow:hidden}
+.s-bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;transition:width .4s ease}
+.s-bar-fill.sh{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.s-bar-fill.sm{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.s-bar-fill.sl{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.s-bar-meta{margin-left:8px;font-size:.8em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:120px}
+.s-bar-meta strong{color:var(--navy)}
+.tieline-flow{margin:28px 0;font-size:.85em}
+.tl-row{display:flex;align-items:center;margin-bottom:4px;gap:4px}
+.tl-label{width:100px;text-align:right;font-weight:500;color:var(--navy);flex-shrink:0;font-size:.82em}
+.tl-bar-wrap{flex:1;display:flex;gap:2px}
+.tl-bar{height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.7em;font-weight:600;color:#fff;min-width:20px}
+.tl-fwd{background:var(--accent)}
+.tl-rev{background:var(--navy-light)}
+.tl-val{width:44px;font-size:.78em;color:var(--text-light);text-align:right;flex-shrink:0}
+.scix-footer *{margin:0;padding:0;box-sizing:border-box}
+.scix-footer{background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+.scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px}
+.scix-footer-logo img{height:48px;width:auto;display:block;opacity:0.95}
+.scix-footer-info{text-align:center}
+.scix-footer-copyright{font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px}
+.scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8)}
+.scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+.scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+.scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none}
+.scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12);margin:0 auto}
+</style>
+<title>辅助服务市场的分区成交实绩 — 9电力×5商品的数据分析｜ScienceX</title>
+<meta name="description" content="以9电力分区×5商品分析EPRX的交易实绩。从一次离线的不足率96.6%与储能份额97.8%、容量市场的分区单价差，梳理储能事业选址判断所需的数据。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-area-data">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-area-data">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-area-data">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-area-data">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-area-data">
+<meta property="og:type" content="website">
+<meta property="og:title" content="辅助服务市场的分区成交实绩 — 9电力×5商品的数据分析｜ScienceX">
+<meta property="og:description" content="以9电力分区×5商品分析EPRX的交易实绩。从一次离线的不足率96.6%与储能份额97.8%、容量市场的分区单价差，梳理储能事业选址判断所需的数据。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-area-data">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="辅助服务市场的分区成交实绩 — 9电力×5商品的数据分析｜ScienceX">
+<meta name="twitter:description" content="以9电力分区×5商品分析EPRX的交易实绩。梳理储能事业选址判断所需的数据。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "辅助服务市场的分区成交实绩 — 9电力×5商品的数据分析｜ScienceX",
+  "description": "以9电力分区×5商品分析EPRX的交易实绩。从一次离线的不足率96.6%与储能份额97.8%、容量市场的分区单价差，梳理储能事业选址判断所需的数据。",
+  "author": {"@type": "Organization","name": "Science X Inc."},
+  "publisher": {"@type": "Organization","name": "Science X Inc.","logo": {"@type": "ImageObject","url": "https://www.scix.co.jp/img/logo-white.png"}},
+  "inLanguage": "zh-CN",
+  "datePublished": "2026-04-10",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-area-data"
+}
+</script>
+<meta property="article:published_time" content="2026-04-10">
+</head>
+<body>
+<script src="/header.js"></script>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 16</span>
+      <span class="header-tag">市场数据</span>
+      <time class="header-date" datetime="2026-04-10">2026.04.10</time>
+    </div>
+    <h1>辅助服务市场的分区成交实绩<br>— 从<em>9电力分区、5商品</em>的数据看储能的事业环境</h1>
+    <p class="header-desc">将EPRX（电力辅助服务交易所）公开的交易实绩数据，按9电力分区、全5商品分析。连同储能独占市场97.8%的一次离线实态、联络线潮流、容量市场的分区单价，梳理储能事业选址所需的数据。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/zh-knowledge" class="back-link">← 返回洞见列表</a>
+
+<h2>分析前提</h2>
+
+<p>本文数据基于电力辅助服务交易所（EPRX）公开的2025年度（2025年4月〜2026年2月）交易实绩。不足率以"（募集量 − 中标量）÷ 募集量 × 100"计算。不足率越高，意味着该商品、分区中调整力的供给越不足。</p>
+
+<p>辅助服务市场有7个商品：一次调整力（在线）、一次调整力（离线）、二次调整力①、二次调整力②、三次调整力①、三次调整力②，以及复合商品。其中储能主要参与的是一次（在线＋离线）与复合这3个商品，本文以此为中心分析。</p>
+
+<p>另，辅助服务市场存在广域融通（跨分区采购调整力），故"电源属地别"与"TSO别"数值不同。本文使用TSO别（各分区输配电事业者实际采购量）的数据。</p>
+
+<div class="source">出处: 一般社团法人 电力辅助服务交易所 交易实绩（确报值）<br>
+<a href="https://www.eprx.or.jp/information/results.php" target="_blank">https://www.eprx.or.jp/information/results.php</a></div>
+
+<div class="highlight-box">
+<strong>"不足率96%"≠ 停电风险。</strong>本文的不足率，仅指辅助服务市场中未能采购到的比例。输配电事业者（TSO）将市场上无法采购的调整力，以与火力、抽蓄发电站的随意合同或对自社电源的直接指令确保，实际系统运营并无障碍。现阶段调整力的大部分仍由此类旧式相对合同承担，市场上交易的只是极小一部分。不足率高，意味着向市场采购的迁移尚未推进，对新进入的储能而言成交余地大。
+</div>
+
+<h2>一次调整力（在线）— 分区年间不足率</h2>
+
+<p>一次调整力的在线商品，与复合商品并列，是储能交易量最大的市场之一。全国年间不足率（加权平均）为59.2%，分区间差异很大。</p>
+
+<div class="bar-chart">
+  <div class="bar-row"><span class="bar-label">北海道</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:100%;background:rgba(41,128,185,0.5);border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff">供给过剩</div></div><div class="bar-value">6.89日元</div></div>
+  <div class="bar-row"><span class="bar-label">东北</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:23.4%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 76.6%</span></div><div class="bar-value">5.98日元</div></div>
+  <div class="bar-row"><span class="bar-label">东京</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:11.2%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 88.8%</span></div><div class="bar-value">8.86日元</div></div>
+  <div class="bar-row"><span class="bar-label">中部</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:22.6%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 77.4%</span></div><div class="bar-value">10.08日元</div></div>
+  <div class="bar-row"><span class="bar-label">北陆</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:58.7%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 41.3%</span></div><div class="bar-value">2.22日元</div></div>
+  <div class="bar-row"><span class="bar-label">关西</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:55.0%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 45.0%</span></div><div class="bar-value">3.37日元</div></div>
+  <div class="bar-row"><span class="bar-label">中国</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:75.2%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 24.8%</span></div><div class="bar-value">2.55日元</div></div>
+  <div class="bar-row"><span class="bar-label">四国</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:87.0%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 13.0%</span></div><div class="bar-value">3.98日元</div></div>
+  <div class="bar-row"><span class="bar-label">九州</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:33.1%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 66.9%</span></div><div class="bar-value">6.25日元</div></div>
+</div>
+
+<p>（绿色＝充足分。灰色＝不足分。右端数值为年间平均中标单价（有中标的区块的简单平均）。单位: 日元/ΔkW·30分）</p>
+
+<p>东京（不足88.8%）、中部（不足77.4%）、东北（不足76.6%）3个分区不足率超过7成，调整力供给压倒性不足；而四国（不足13.0%）与中国（不足24.8%）则相对充足。北海道因抽蓄发电机的随意合同而处于供给过剩状态。</p>
+
+<h2>一次调整力（离线）— 储能独占97.8%的市场</h2>
+
+<p>一次调整力除在线外，还有"离线"商品。在线与离线的区分，并非事业者可自由选择。依EPRX交易规程，可参与一次离线的储能限定为设备容量1MW以上10MW未满（电压等级为特别高压或高压），或聚合1MW未满储能的情形。即，10MW以上的储能无法参与一次离线，参与一次调整力必须在线接续。</p>
+
+<p>这一离线市场，实态上储能占中标量的97.8%，火力发电、水力发电的参与为零。</p>
+
+<div class="highlight-box">
+  <strong>全国年间不足率: 96.6%</strong> — 5商品中最严重的不足<br>
+  <strong>储能的中标份额: 97.8%</strong> — 仅由储能与VPP（2.2%）构成的市场<br>
+  <strong>年间平均中标单价: 14〜19日元/ΔkW·30分</strong> — 在线（2〜10日元）的2〜3倍
+</div>
+
+<div class="bar-chart">
+  <div class="bar-row"><span class="bar-label">北海道</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:1.2%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px;min-width:3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 98.8%</span></div><div class="bar-value">14.47日元</div></div>
+  <div class="bar-row"><span class="bar-label">东北</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:0.5%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px;min-width:3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 99.5%</span></div><div class="bar-value">19.40日元</div></div>
+  <div class="bar-row"><span class="bar-label">东京</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:8.7%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 91.3%</span></div><div class="bar-value">14.99日元</div></div>
+  <div class="bar-row"><span class="bar-label">中部</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:1.7%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px;min-width:3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 98.3%</span></div><div class="bar-value">19.38日元</div></div>
+  <div class="bar-row"><span class="bar-label">北陆</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:0.3%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px;min-width:3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 99.7%</span></div><div class="bar-value">19.15日元</div></div>
+  <div class="bar-row"><span class="bar-label">关西</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:2.0%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px;min-width:3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 98.0%</span></div><div class="bar-value">14.62日元</div></div>
+  <div class="bar-row"><span class="bar-label">中国</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:0.8%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px;min-width:3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 99.2%</span></div><div class="bar-value">19.36日元</div></div>
+  <div class="bar-row"><span class="bar-label">四国</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:1.1%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px;min-width:3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 98.9%</span></div><div class="bar-value">18.95日元</div></div>
+  <div class="bar-row"><span class="bar-label">九州</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:6.6%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 93.4%</span></div><div class="bar-value">19.24日元</div></div>
+</div>
+
+<p>与在线相反，全分区持续90%以上的不足。东京以91.3%为最"好"，这是因东京分区储能参与最多。北陆、东北、中国则募集量几乎全量持续未充足。</p>
+
+<p>单价14〜19日元、为在线的2〜3倍，为何仍持续如此之大的不足？理由是10MW以上的储能在制度上无法参与离线，能进入离线的仅限10MW未满的小型储能。而这类小型储能本身在市场上尚几乎不存在，正是96.6%这一不足率的主因。</p>
+
+<p>另一方面，在线也有离线所无的优点。持有TSO通信线路的储能，不仅一次在线，还可向复合商品、二次①等多个商品投标，可按时段与市场环境作收益堆叠。离线的高单价虽有吸引力，但投标对象限于一次离线1个商品，是其取舍。</p>
+
+<p>看月度推移，随储能参与扩大，不足率逐渐下降，但截至2026年2月仍为91.7%，供给压倒性不足。</p>
+
+<div id="offline-trend"></div>
+
+<p>中标单价在多数分区贴住上限价（旧制度19.51日元，新制度15.00日元），为在线（2〜10日元）的2〜3倍。对储能事业者而言，一次离线是单价最高、且成交确度最高的商品。</p>
+
+<h2>二次调整力① — 分区供给过剩与不足混在</h2>
+
+<p>二次调整力①，自2024年4月起ΔkW（容量）的采购本身以广域市场撮合进行，但实运营（LFC控制）在分区内完结。调整力的实效供给依赖分区内电源构成，故分区间差距比一次更大。</p>
+
+<div class="bar-chart">
+  <div class="bar-row"><span class="bar-label">北海道</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:100%;background:rgba(41,128,185,0.5);border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff">供给过剩</div></div><div class="bar-value">6.11日元</div></div>
+  <div class="bar-row"><span class="bar-label">东北</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:40.9%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 59.1%</span></div><div class="bar-value">2.94日元</div></div>
+  <div class="bar-row"><span class="bar-label">东京</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:20.9%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 79.1%</span></div><div class="bar-value">2.88日元</div></div>
+  <div class="bar-row"><span class="bar-label">中部</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:100%;background:rgba(41,128,185,0.5);border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff">供给过剩</div></div><div class="bar-value">2.45日元</div></div>
+  <div class="bar-row"><span class="bar-label">北陆</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:100%;background:rgba(41,128,185,0.5);border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff">供给过剩</div></div><div class="bar-value">2.00日元</div></div>
+  <div class="bar-row"><span class="bar-label">关西</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:97.7%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 2.3%</span></div><div class="bar-value">4.49日元</div></div>
+  <div class="bar-row"><span class="bar-label">中国</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:100%;background:rgba(41,128,185,0.5);border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff">供给过剩</div></div><div class="bar-value">2.00日元</div></div>
+  <div class="bar-row"><span class="bar-label">四国</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:86.2%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px"></div><span style="position:absolute;right:8px;top:0;height:100%;display:flex;align-items:center;font-size:.78em;font-weight:600;color:var(--navy)">不足 13.8%</span></div><div class="bar-value">3.53日元</div></div>
+  <div class="bar-row"><span class="bar-label">九州</span><div class="bar-track"><div style="position:absolute;left:0;top:0;height:100%;width:100%;background:rgba(41,128,185,0.5);border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff">供给过剩</div></div><div class="bar-value">1.69日元</div></div>
+</div>
+
+<p>东京（不足79.1%）与东北（不足59.1%）处于大幅不足状态，关西（不足2.3%）、四国（不足13.8%）几近充足，北海道、中部、北陆、中国为供给过剩。九州年度通算虽为供给过剩，但年度前半也有发生不足的月份，难言稳定充足。二次①因实运营（LFC控制）在分区内完结，东京、东北若有储能参与，成交确度极高。</p>
+
+<h2>二次②、三次①、三次② — 几近充足的市场</h2>
+
+<p>余下3商品，对储能而言参与价值有限。二次②全分区大幅供给过剩（全国 -120%），三次②也几近充足（全国1.4%）。三次①除东京（13.7%）外均供给过剩或充足。</p>
+
+<h2>商品×分区交叉汇总 — 不足率热力图</h2>
+
+<p>就主要5商品，按分区汇总年间不足率。红色越浓，不足率越高（＝储能成交确度越高）。</p>
+
+<table class="heatmap-table">
+  <tr><th></th><th>一次<br>离线</th><th>一次<br>在线</th><th>二次①</th><th>三次①</th><th>复合</th></tr>
+  <tr><td class="area-cell">东京</td><td class="h5">91.3%</td><td class="h5">88.8%</td><td class="h5">79.1%</td><td class="h3">13.7%</td><td class="h4">28.8%</td></tr>
+  <tr><td class="area-cell">中部</td><td class="h5">98.3%</td><td class="h5">77.4%</td><td class="h0">过剩</td><td class="h0">过剩</td><td class="h3">21.6%</td></tr>
+  <tr><td class="area-cell">东北</td><td class="h5">99.5%</td><td class="h5">76.6%</td><td class="h5">59.1%</td><td class="h0">过剩</td><td class="h2">4.2%</td></tr>
+  <tr><td class="area-cell">九州</td><td class="h5">93.4%</td><td class="h5">66.9%</td><td class="h0">过剩</td><td class="h0">过剩</td><td class="h4">22.3%</td></tr>
+  <tr><td class="area-cell">关西</td><td class="h5">98.0%</td><td class="h4">45.0%</td><td class="h2">2.3%</td><td class="h0">过剩</td><td class="h2">6.6%</td></tr>
+  <tr><td class="area-cell">北陆</td><td class="h5">99.7%</td><td class="h4">41.3%</td><td class="h0">过剩</td><td class="h0">过剩</td><td class="h2">6.1%</td></tr>
+  <tr><td class="area-cell">中国</td><td class="h5">99.2%</td><td class="h3">24.8%</td><td class="h0">过剩</td><td class="h0">过剩</td><td class="h3">14.8%</td></tr>
+  <tr><td class="area-cell">四国</td><td class="h5">98.9%</td><td class="h2">13.0%</td><td class="h3">13.8%</td><td class="h0">过剩</td><td class="h2">10.6%</td></tr>
+  <tr><td class="area-cell">北海道</td><td class="h5">98.8%</td><td class="h0">过剩</td><td class="h0">过剩</td><td class="h1">0%</td><td class="h1">-1.3%</td></tr>
+</table>
+
+<p>一次离线在全分区持续90%以上的不足，热力图上全部染成最浓的红。在线中北海道为供给过剩，但离线中北海道也是98.8%的不足，对储能而言参与余地不挑分区。</p>
+
+<h2>储能的参与状况 — 不仅一次，也分散至复合</h2>
+
+<p>看电源种别中标数据（2025年10月〜2026年4月速报值），储能的中标量在一次调整力与复合商品中几乎等量分配。</p>
+
+<div id="rt-chart"></div>
+
+<p>看储能以中标量为基准的分配，复合（37.7%）与一次在线（37.1%）几近等量居首，一次离线（17.8%）第三。二次①以下合计仅7.4%。一次离线的单价为在线的2〜3倍之高，但能参与离线的仅是无TSO通信线路的小型储能，而当前运转的储能大半是10MW以上的大型项目，制度上限于在线。这一分配比例并非储能事业者的"偏好"，而是反映基于设备容量的制度性分流。</p>
+
+<p>一次在线中储能的份额为19.7%，而一次离线达97.8%。看月度推移，储能在一次在线的份额半年内由14.3%扩至22.5%，制度变更（2026年3月13日）后仍维持该水平。</p>
+
+<div id="rt-trend"></div>
+
+<p>值得注意的是，即便储能份额超过20%，一次在线的不足率仍为88.8%、离线为96.6%。储能的追加参与余地依然很大。</p>
+
+<div class="source">出处: EPRX 交易实绩（速报值）电源种别 2025年10月〜2026年4月<br>※ 开头的"2025年4月〜2026年2月"为年间不足率的汇总期间。本节数据依电源种别公开数据的对象期间。</div>
+
+<h2>广域融通（联络线）的利用状况</h2>
+
+<p>辅助服务市场中，经联络线（分区间输电线）进行广域融通。就主要走廊，列示周间交易中联络线确保量的利用率（年间汇总，确保量÷上限值）。</p>
+
+<div id="tieline-chart"></div>
+
+<p>北海道→东北（逆方向47.2%）与中国→九州（顺方向23.3%）的利用率高。这显示北海道的抽蓄余剩流向东北、九州的调整力流向中国。东北→东京的顺方向（20.8%），反映东北的余剩调整力部分补填东京的不足。</p>
+
+<p>储能选址时，也须把这一广域融通的流向纳入考量。比起调整力流入的分区（如东京），在流出源增加供给，有时更不易受联络线制约。</p>
+
+<h2>某一天的快照 — 2026年4月1日（48时段）</h2>
+
+<p>仅看年间平均，难见每日市场处于何种状态。这里就2026年4月1日（周三，2026年度首日），以30分时段为单位可视化各分区的募集量与中标量。</p>
+
+<p>在图上移动鼠标（或点按），即显示各时段的详细数据。绿色条为中标量（充足分），灰色为不足分。供给过剩的时段以蓝色显示超出分。用标签切换商品，可比较各分区不足状况如何变化。</p>
+
+<div class="tab-bar" id="product-tabs">
+  <div class="tab-item active" data-product="一次在线">一次在线</div>
+  <div class="tab-item" data-product="一次离线">一次离线</div>
+  <div class="tab-item" data-product="二次①">二次①</div>
+  <div class="tab-item" data-product="三次①">三次①</div>
+  <div class="tab-item" data-product="复合">复合</div>
+</div>
+
+<div class="ts-legend">
+  <span class="ts-leg-item"><span class="ts-leg-box" style="background:#E8ECF0"></span>不足（未充足分）</span>
+  <span class="ts-leg-item"><span class="ts-leg-box" style="background:#27AE60"></span>中标量（充足分）</span>
+  <span class="ts-leg-item"><span class="ts-leg-box" style="background:#2980B9"></span>供给过剩分</span>
+</div>
+
+<div id="all-charts"></div>
+
+<p>切换至一次离线，四国48个时段全部中标量为零（不足率100%）。四国分区2025年8月首座电网级储能（12MW）投运，但未确认其向一次调整力的投标。另一方面，东京的不足率为33.2%，改善至接近一次在线（36.3%）的水平，但仍有3成以上未充足。</p>
+
+<div class="source">出处: EPRX 交易实绩（速报值）2026年4月<br>
+<a href="https://www.eprx.or.jp/information/results.php" target="_blank">https://www.eprx.or.jp/information/results.php</a></div>
+
+<h2>季节快照 — 夏季高峰日与冬季高峰日</h2>
+
+<p>仅凭4月1日的快照，看不出季节变动。这里就2025年度中不足率特别高的夏、冬各1日，比较商品别、分区别的募集量与中标量。</p>
+
+<p>另，此期间为旧制度（周间区块投标），每日时段数与春季快照（48时段）不同。这里不按时段，而以1日合计值看分区间差异。</p>
+
+<div class="tab-bar" id="season-product-tabs">
+  <div class="tab-item active" data-sproduct="一次在线">一次在线</div>
+  <div class="tab-item" data-sproduct="一次离线">一次离线</div>
+  <div class="tab-item" data-sproduct="二次①">二次①</div>
+  <div class="tab-item" data-sproduct="三次①">三次①</div>
+  <div class="tab-item" data-sproduct="复合">复合</div>
+</div>
+<div class="ts-legend" style="margin:8px 0 12px">
+  <span class="ts-leg-item"><span class="ts-leg-box" style="background:#E8ECF0"></span>不足（未充足分）</span>
+  <span class="ts-leg-item"><span class="ts-leg-box" style="background:#27AE60"></span>中标量（充足分）</span>
+  <span class="ts-leg-item"><span class="ts-leg-box" style="background:#2980B9"></span>供给过剩</span>
+</div>
+<div id="season-compare">
+  <div><div id="season-header-summer"></div><div id="season-bars-summer"></div></div>
+  <div style="margin-top:24px"><div id="season-header-winter"></div><div id="season-bars-winter"></div></div>
+</div>
+
+<div class="source" style="margin-top:16px">出处: EPRX 交易实绩（确报值）2025年度 一次调整力、二次调整力①、三次调整力①、复合（系统成交结果，TSO别）</div>
+
+<p>一次调整力（在线）夏季（全国62.8%）的不足比冬季（47.0%）更严重。东京分区夏季96.6%、冬季亦75.7%，全年慢性不足。中部夏季96.7%，与东京同档。</p>
+
+<p>二次调整力①夏季东京97.7%、募集量几近全量不足，而冬季全国转为供给过剩（-10.8%）。三次①即便夏季全国17.8%、不足有限，冬季则完全供给过剩（-26.7%）。</p>
+
+<p>这一季节变动模式，直接关系储能事业者的运营战略。以一次、二次①为主力时，夏季是最大收益机会；依赖三次①时，春季以外的成交确度大幅下降。</p>
+
+<h2>容量市场的分区成交单价</h2>
+
+<p>除辅助服务市场外，构成储能收益的另一支柱是容量市场。列示2024年度实施主拍卖（2024年10月实施，2028年度实际供需分）的分区成交单价。</p>
+
+<table class="comparison-table">
+  <tr><th>分区</th><th>成交单价（日元/kW）</th><th>与上限价之比</th></tr>
+  <tr><td class="em">北海道、东北、东京</td><td>14,812日元/kW</td><td>以上限价成交</td></tr>
+  <tr><td class="em">九州</td><td>13,177日元/kW</td><td>上限的89%</td></tr>
+  <tr><td>中部</td><td>10,280日元/kW</td><td>上限的69%</td></tr>
+  <tr><td>北陆、关西、中国、四国</td><td>8,785日元/kW</td><td>上限的59%</td></tr>
+</table>
+
+<p>北海道、东北、东京以上限价14,812日元/kW成交，与最低分区（北陆、关西、中国、四国的8,785日元/kW）相差约7成。意味着即便设置同一储能，来自容量市场的年间收入也因分区大不相同。</p>
+
+<div class="source">出处: 电力广域运营推进机构（OCCTO）"容量市场主拍卖成交结果（对象实际供需年度：2028年度）"（2025年1月29日）<br>
+<a href="https://www.occto.or.jp/market-board/market/oshirase/2024/20250129_youryouyakujokekka_kouhyou.html" target="_blank">https://www.occto.or.jp/market-board/market/oshirase/2024/20250129_youryouyakujokekka_kouhyou.html</a></div>
+
+<h2>以3市场的组合看分区特性</h2>
+
+<p>储能的事业性，由辅助服务市场、JEPX、容量市场3市场的组合（堆叠）决定。从3市场的视角汇总分区特性。一次调整力记载在线＋离线的合算不足率。</p>
+
+<table class="comparison-table">
+  <tr><th>分区</th><th>辅助服务市场<br><small>（一次 合算不足率）</small></th><th>容量市场<br><small>（成交单价）</small></th><th>JEPX<br><small>（价格特性）</small></th></tr>
+  <tr><td class="em">中部</td><td>90.3%（最大）</td><td>10,280日元</td><td>产业需求大</td></tr>
+  <tr><td class="em">东京</td><td>89.5%</td><td>14,812日元（最高）</td><td>需求大、稳定价差</td></tr>
+  <tr><td class="em">东北</td><td>84.1%</td><td>14,812日元（最高）</td><td>可再生能源余剩、白昼低价</td></tr>
+  <tr><td class="em">九州</td><td>76.7%</td><td>13,177日元</td><td>光伏余剩、鸭子曲线显著</td></tr>
+  <tr><td>关西</td><td>66.1%</td><td>8,785日元</td><td>需求大、相对稳定</td></tr>
+  <tr><td>北陆</td><td>64.1%</td><td>8,785日元</td><td>小规模市场、水力丰富</td></tr>
+  <tr><td>中国</td><td>55.9%</td><td>8,785日元</td><td>中规模市场</td></tr>
+  <tr><td>四国</td><td>34.9%</td><td>8,785日元</td><td>小规模市场</td></tr>
+  <tr><td>北海道</td><td>16.5%</td><td>14,812日元（最高）</td><td>风电增加、冬季需求高</td></tr>
+</table>
+
+<p>把一次调整力以在线＋离线合算来看，中部（90.3%）超过东京（89.5%）成为最大不足率。这反映中部在离线募集量中的大权重（62%）。结合容量市场单价综合评价，东京、东北是辅助服务市场与容量市场两面最有利的分区。</p>
+
+<h2>数据的注意点</h2>
+
+<div class="warning-box">
+  <strong>① 2026年度以后的制度变更：</strong>自2026年3月13日起实施前一日交易化、上限价下调（19.51日元→15日元）。另，15日元为分阶段下调的第1阶段，依竞争环境改善状况，今后计划进一步下调至10日元、7.21日元。本文的年间数据为2025年度（旧制度下）的数据，2026年度以后市场环境可能变化。<br><br>
+  <strong>② 不足率并非"仅关于储能的指标"：</strong>若大量储能进入不足率高的分区，不足率便下降、成交价也下降。现在的不足率未来未必持续。<br><br>
+  <strong>③ 广域融通的影响：</strong>TSO别中标量含跨分区的广域融通分。按电源属地别来看，不足率的分布可能不同。<br><br>
+  <strong>④ 逐日的波动：</strong>如快照所示，同一分区不足率也因日而大幅变动。将年间平均与特定日数据直接比较时需注意。<br><br>
+  <strong>⑤ 在线与离线的区别：</strong>一次调整力有在线、离线2个商品。可参与离线的储能限于设备容量10MW未满（电压等级为特别高压或高压），10MW以上的储能参与一次调整力必须在线接续（EPRX交易规程）。两者价格水平、储能份额大不相同，事业计划须正确反映此区别。
+</div>
+
+<div class="cta-section">
+  <h3>关于能源事业的咨询</h3>
+  <p>仅凭文章无法判断的项目专属信息，<br>将在您垂询后、签订NDA的前提下开示。</p>
+  <a target="_top" href="https://www.scix.co.jp/zh-contact" class="cta-btn">联系我们 →</a>
+</div>
+
+</div>
+<script>
+const P = {
+"一次在线":{
+"北海道":{"d":[75,75,75,75,75,75,74,75,75,75,75,75,76,76,76,77,77,77,77,77,77,77,77,77,77,77,77,76,76,76,75,75,75,75,75,75,75,75,75,75,75,75,75,76,76,76,76,76],"a":[147,82.658,123,115,88,54.668,80.968,34.658,192.04,152.658,191.05,150.668,207.04,158.74,95,93,92,84,114,103,152.317,89.74,136,91.74,133.3,93.658,137,107.99,132,107,77,76.99,75,114,107,106,108,112,120,121,125,121,121,132,133,91,116,130],"p":[6.43,4.84,2.44,1.65,2.57,6.58,13.47,11.39,8.35,6.61,8.34,5.86,8.38,6.49,4.73,2.16,2.04,1.01,1.28,1.17,6.06,1.84,6.27,2.16,6.32,1.89,5.18,1.77,4.43,2.52,5.49,6.1,2.57,5.27,5.12,6.24,6.88,8.43,6.66,6.47,4.94,4.94,4.84,5.05,4.99,4.77,4.83,4.91],"s":-52.1,"ap":5.1},
+"东北":{"d":[191,191,191,191,191,191,190,190,190,190,190,190,201,207,213,217,217,217,145,145,147,148,147,147,146,146,146,145,144,143,211,211,211,209,206,203,201,201,201,200,200,200,111,111,111,111,110,110],"a":[59.07,59.07,59.07,59.07,59.07,59.07,59.07,59.07,59.07,59.07,59.07,59.07,71.07,60.4,71.07,71.07,71.07,71.07,81.07,81.07,93.07,93.07,93.07,93.07,94.42,94.42,94.42,94.42,82.42,82.42,72.42,72.42,72.42,72.42,72.42,72.42,72.42,72.42,72.42,72.42,72.42,72.42,60.42,60.42,58.52,58.52,58.52,58.52],"p":[6.38,6.5,7.26,7.16,7.06,6.75,6.5,6.46,6.46,6.42,6.32,6.28,5.91,6.17,6.81,7.81,6.87,7.81,7.06,7.06,7.79,7.79,7.79,7.83,7.89,7.44,7.07,6.04,5.79,5.36,4.79,5.35,6.82,6.54,5.78,5.35,6.19,7.94,5.89,5.66,5.43,5.28,6.02,6.25,6.08,6.7,6.16,6.17],"s":59.3,"ap":6.5},
+"东京":{"d":[604,604,604,604,602,602,600,601,602,602,602,602,622,630,636,640,640,640,629,629,629,629,626,626,624,624,624,624,624,623,622,623,623,623,623,623,624,624,624,623,621,621,621,621,621,619,618,617],"a":[310.149,296.383,321.29,359.94,355.904,355.904,363.889,361.969,369.823,347.158,342.165,336.649,346.302,372.588,354.938,347.084,441.992,423.47,486.129,486.13,505.005,529.11,486.03,437.947,461.742,474.242,439.858,449.588,436.946,476.607,431.201,406.617,423.561,366.688,454.158,379.425,387.508,387.232,408.682,340.153,336.78,329.521,314.201,363.252,363.185,395.699,420.248,361.825],"p":[2.77,2.97,2.52,2.75,2.48,2.46,2.88,2.92,2.88,3.08,3.22,3.19,3.61,3.15,3.62,3.23,3.28,3.6,3.56,3.57,2.91,3.35,4.54,4.44,4.23,4.19,3.93,4.01,3.94,4,3.65,2.85,2.82,4.21,4.09,4.95,4.13,3.98,4.47,3.58,4.5,4.18,4.12,4.19,3.65,3.71,3.62,4.74],"s":36.3,"ap":3.6},
+"中部":{"d":[59,59,59,59,59,58,58,58,58,58,58,58,68,72,75,78,78,78,83,83,83,82,81,80,77,77,77,77,77,77,75,75,75,75,75,74,73,73,73,73,73,72,70,70,70,69,67,65],"a":[59,59,59,59,59,58,58,58,58,21.675,55.819,58,23.665,49.336,75,78,69.174,75.815,23.665,23.665,23.665,25.66,25.66,25.66,46.356,21.671,21.671,31.039,77,68.099,75,75,52.859,52.471,21.671,26.662,73,73,73,73,32.355,72,70,21.675,21.675,69,67,65],"p":[2.34,1.76,1.85,2.33,2.56,3.18,1.28,2.18,1.68,14.07,6.69,1.14,14.87,8.44,1.82,3.28,5.9,6.34,14.92,14.91,14.91,14.93,14.92,14.92,8.64,14.92,14.92,11.71,4.3,7.62,4.81,2.36,7.67,7.93,14.92,12.15,3.74,3.21,1.98,0.83,10.27,2.23,0.73,14.92,14.87,1.74,1.5,1.45],"s":27.6,"ap":7.1},
+"北陆":{"d":[57,57,57,57,57,57,57,57,57,57,57,57,60,61,62,63,63,63,65,64,65,65,65,65,65,65,65,65,65,65,66,65,66,66,66,66,66,66,66,65,64,62,62,62,62,62,61,61],"a":[57,57,57,56.372,46.686,39.906,19,33.943,35,34,34,19,19,21,27.895,24.918,21,21,41,44,48,46,50,51,60,60,60,60,65,59,66,65,50,54,58,66,51.596,58.99,48,47,46,44,48,23,29.542,62,61,61],"p":[0.39,0.39,1.74,5.83,4.59,2.9,2.61,7.21,1.18,2.08,2.46,2.54,2.21,1.35,6.35,3.81,3.87,3.56,0.68,1.34,7.73,7.73,10.81,12.68,10.2,10.81,15,15,14.99,15,14.99,11.46,2.71,5.57,2.69,4.04,6.34,6.93,5.2,1.12,3.38,3.68,2.93,3.2,3.75,3.3,3.57,4.91],"s":26.2,"ap":5.6},
+"关西":{"d":[258,258,258,258,257,257,256,257,257,257,257,257,272,276,280,284,284,284,280,280,280,279,278,277,276,276,276,276,276,276,278,279,279,279,278,278,273,273,273,272,271,271,270,271,271,270,268,267],"a":[252.154,258,258,240.129,225.061,223.853,256,257,238.831,257,248.834,257,265.887,251.887,236.016,254.64,239.887,239.887,217.375,217.555,280,279,278,277,247.887,223.338,247.887,252.887,268.002,227.887,278,279,279,279,278,278,273,273,273,269.072,271,271,265.924,271,271,270,268,267],"p":[2.76,2.23,3.69,2.9,2.95,2.85,3.74,2.52,3.51,2.56,2.22,3.52,2.45,2.48,3.61,3.86,2.63,3.56,2.54,2.49,2.29,2.5,3.18,3.85,3.14,3.46,6.93,6.25,5.45,4.61,4.77,3.39,3.25,3.15,3.11,4.08,4.43,4.33,3.63,3.36,2.56,2.69,3.34,2.68,2.49,2.86,3.05,2.71],"s":4.8,"ap":3.3},
+"中国":{"d":[142,142,142,142,141,141,141,141,141,141,141,141,144,145,146,147,147,147,149,150,150,150,150,150,148,148,148,147,147,147,147,147,147,147,147,147,147,147,147,147,146,146,144,144,144,144,143,143],"a":[54.021,95.6,60.438,58.233,56.433,16.867,75.852,77.164,11.711,44.123,11.711,32.072,56.52,70.711,77.486,77.486,46.787,59.787,15.777,13.787,60.798,69.112,97.962,97.962,45.711,23.711,32.355,64.759,62.777,99.729,134.976,134.976,113.877,122.877,49.386,129.877,105.729,106.729,112.384,108.99,146,109.698,107.729,70.978,98,111.608,106.61,110.397],"p":[1.65,2.45,2.37,1.52,1.41,2.36,2.98,3.12,11.82,4.31,11.88,5.08,3.14,3.02,2.29,2.29,4.67,4.92,13.09,12.96,4.14,3.77,3.91,4.07,4.39,6.75,7.45,2.66,2.33,5.06,5.96,6.92,5.07,6.07,4.03,5.62,5.47,6.84,6.76,5.31,4.22,4.86,4.16,3.3,3.35,3.26,3.4,1.96],"s":47.7,"ap":4.8},
+"四国":{"d":[40,40,40,40,40,40,40,40,40,40,40,40,43,44,45,46,46,46,47,48,48,48,48,48,48,49,49,48,48,48,45,45,45,45,44,43,41,41,41,41,41,41,41,41,41,41,41,41],"a":[42,42,42,42,42,42,43,44,44,44,44,44,45,44,45,46,47,47,50,51,48,48,49,58,59,60,50,54,53,53,51,51,51,51,49,47,41,41,41,41,41,41,43,45,45,45,44,44],"p":[0.51,0.51,0.72,0.77,0.83,0.84,1.06,1.36,1.36,1.37,1.29,1.08,5.17,5.33,6.16,6.18,3.89,5.14,5.03,6.8,8.96,8.85,9.05,8.58,7.04,6.63,9.14,8.89,9.72,4.7,3.26,4.34,3.26,3.7,3.23,3.23,4.34,4.34,4.51,2.74,5.38,2.74,1.36,1.59,1.55,0.97,1.04,0.79],"s":-7.1,"ap":3.9},
+"九州":{"d":[161,161,161,161,161,161,161,161,161,161,161,161,164,166,168,169,169,169,175,176,176,176,177,175,175,175,175,175,175,174,171,171,171,170,168,167,164,164,164,164,164,164,164,166,166,165,165,164],"a":[160.229,160.229,94.219,160.229,160.229,160.229,159.784,161,161,91.774,89.784,91.774,94.714,94.714,94.714,92.724,96.71,104.71,106.548,108.538,111.016,107.038,107.038,101.212,99.222,99.222,105.04,105.04,107.038,107.038,111.016,107.038,107.038,108.538,106.548,106.548,107.375,106.375,105.114,105.114,131.74,105.114,104.471,101.22,121.049,137.72,131.82,126.82],"p":[5.72,4.29,3.77,3.54,4.28,5.28,5.63,6.03,6.34,6.67,6.89,7.14,7.24,7.16,6.82,6.67,8.51,9.21,7.92,8.13,8.38,8.22,8.36,8.19,7.69,7.84,9.85,10.24,12.34,12.57,12.44,11.77,12.09,12.62,11.27,13.1,12.63,12.6,12.66,11.46,7.07,8.55,7.48,7.18,6.37,5.48,5.73,6.16],"s":31.2,"ap":8.3}
+},
+"一次离线":{
+"北海道":{"d":[17,17,17,17,17,17,16,17,17,17,17,17,18,18,18,19,19,19,19,19,19,19,19,19,19,19,19,18,18,18,17,17,17,17,17,17,17,17,17,17,17,17,17,18,18,18,18,18],"a":[3.918,5.908,5.908,5.908,5.908,3.918,3.918,5.908,5.908,5.908,3.918,3.918,3.94,1.99,0,0,0,0,0,0,5.908,1.99,1.99,3.94,0,5.908,1.99,1.99,1.99,0,0,1.99,1.99,1,0,3.918,1.95,3.94,1.99,1.99,1.99,0,0,1.99,1,0,0,0],"p":[1.97,5.35,5.35,5.35,5.35,1.97,1.97,5.35,5.35,5.35,1.97,1.97,7.04,14,0,0,0,0,0,0,6.36,14,14,8.3,0,6.78,14,14,14,0,0,14,14,14,0,3.11,2.48,2.44,1.7,1.7,1.7,0,0,1.5,10,0,0,0],"s":86.3,"ap":6.9},
+"东北":{"d":[36,36,36,36,36,36,35,35,35,35,35,35,46,52,58,62,62,62,76,76,78,79,78,78,77,77,77,76,75,74,56,56,56,54,51,48,46,46,46,45,45,45,42,42,42,42,41,41],"a":[1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,3.25,1.35,1.35,1.35,1.35],"p":[15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15],"s":95.4,"ap":15},
+"东京":{"d":[73,73,73,73,71,71,69,70,71,71,71,71,91,99,105,109,109,109,98,98,98,98,95,95,93,93,93,93,93,92,91,92,92,92,92,92,93,93,93,92,90,90,90,90,90,88,87,86],"a":[41.43,45.311,52.571,56.502,52.466,52.466,60.451,58.531,58.531,60.451,62.45,62.45,65.606,67.386,67.386,67.386,64.486,64.486,64.486,64.486,64.486,64.486,64.486,62.496,56.386,56.386,56.386,56.386,56.386,56.386,54.216,54.216,54.216,52.436,54.216,54.216,65.486,65.486,65.486,65.486,65.486,65.486,60.55,60.55,58.659,54.789,54.789,49.285],"p":[10.38,10.15,10.75,10.92,10.06,10.06,10.61,10.46,10.46,10.61,10.69,10.69,10.7,10.64,10.64,10.64,10.95,10.95,10.95,10.95,10.95,10.95,10.95,10.99,11.02,11.02,11.02,11.02,11.02,11.02,11.13,11.13,11.13,11.22,11.13,11.13,10.93,10.93,10.93,10.93,10.93,10.93,11.01,11.01,11.19,11.61,11.61,12.09],"s":33.2,"ap":10.9},
+"中部":{"d":[63,63,63,63,63,62,62,62,62,62,62,62,72,76,79,82,82,82,87,87,87,86,85,84,81,81,81,81,81,81,79,79,79,79,79,78,77,77,77,77,77,76,74,74,74,73,71,69],"a":[0,0,0,0,0,0,0,3.166,0,21.675,23.665,0,23.665,23.665,0,4.994,23.665,23.665,23.665,23.665,23.665,25.66,25.66,25.66,23.661,21.671,21.671,21.671,0,21.671,0,0,21.671,21.671,21.671,19.676,0,0,0,0,21.675,4.987,0,21.675,21.675,0,0,0],"p":[0,0,0,0,0,0,0,14.94,0,14.07,14.16,0,14.87,14.87,0,14.9,14.91,14.91,14.92,14.91,14.91,14.93,14.92,14.92,14.92,14.92,14.92,14.92,0,14.92,0,0,14.87,14.87,14.92,14.91,0,0,0,0,14.87,14.92,0,14.92,14.87,0,0,0],"s":84.4,"ap":14.8},
+"北陆":{"d":[21,21,21,21,21,21,21,21,21,21,21,21,24,25,26,27,27,27,29,28,29,29,29,29,29,29,29,29,29,29,30,29,30,30,30,30,30,30,30,29,28,26,26,26,26,26,25,25],"a":[0,0,0,15.828,7.686,1.988,0,12.535,0,0,0,0,0,0,9.895,3.918,0,0,0,0,0,0,0,0,0,0,0,0,5,0,6,4.928,0,0,0,0,11.712,11.89,8.027,0,0,8.774,3.85,0,0,4.568,0,13.762],"p":[0,0,0,14.89,14.88,14.9,0,13.46,0,0,0,0,0,0,14.9,14.85,0,0,0,0,0,0,0,0,0,0,0,0,14.91,0,14.9,14.92,0,0,0,0,14.91,14.9,14.92,0,0,14.82,14.68,0,0,14.74,0,14.85],"s":89.7,"ap":14.8},
+"关西":{"d":[78,78,78,78,77,77,76,77,77,77,77,77,92,96,100,104,104,104,100,100,100,99,98,97,96,96,96,96,96,96,98,99,99,99,98,98,93,93,93,92,91,91,90,91,91,90,88,87],"a":[29.185,21.332,30.974,17.491,15.829,21.537,37.287,17.6,35.347,15.522,17.462,41.127,17.462,17.462,31.232,32.215,17.462,17.462,17.462,17.462,17.462,17.462,17.462,17.462,17.462,17.462,17.462,17.462,34.133,17.462,19.452,26.421,17.462,3.977,17.462,10.575,27.425,27.247,31.11,39.137,13.614,25.376,35.287,17.462,12.058,24.776,27.962,19.587],"p":[13.89,13.53,13.48,11.37,10.9,11.76,14.15,12.42,13.54,11.29,11.52,14.1,13.34,13.24,14.02,14.05,13.37,13.37,13.37,13.37,13.37,13.37,13.37,13.37,13.37,13.37,13.37,13.37,14.13,13.37,13.53,13.89,13.37,14.95,13.37,12.73,13.93,13.92,14.05,14.22,12.91,13.8,14.09,13.37,14.25,13.74,14.59,14.91],"s":75.9,"ap":13.4},
+"中国":{"d":[71,71,71,71,70,70,70,70,70,70,70,70,73,74,75,76,76,76,78,79,79,79,79,79,77,77,77,76,76,76,76,76,76,76,76,76,76,76,76,76,75,75,73,73,73,73,72,72],"a":[2.8,10.653,7.005,2.8,1,1,11.711,15.697,11.711,11.711,11.711,11.711,10.711,10.711,10.711,10.711,13.787,13.787,15.777,13.787,13.787,13.787,10.711,10.711,10.711,10.711,10.711,10.711,8.729,8.729,22.41,16.513,8.729,22.214,8.729,15.616,8.729,8.729,9.729,9.729,9.961,9.729,9.729,9.729,15.133,19.522,20.904,9.927],"p":[11.98,14.11,11.81,8.45,14.99,14.99,12.6,12.61,11.82,11.83,11.88,12.6,12.38,12.38,12.38,12.38,12.96,12.96,13.09,12.96,12.96,12.96,12.38,12.38,12.38,12.38,12.38,12.38,12.21,12.21,13.83,13.44,12.21,12.59,12.21,13.15,12.21,12.21,12.5,12.5,13.16,12.5,12.5,12.5,11.77,13.71,12.88,13.38],"s":84.8,"ap":12.6},
+"四国":{"d":[7,7,7,7,7,7,7,7,7,7,7,7,10,11,12,13,13,13,14,15,15,15,15,15,15,16,16,15,15,15,12,12,12,12,11,10,8,8,8,8,8,8,8,8,8,8,8,8],"a":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"p":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"s":100,"ap":0},
+"九州":{"d":[58,58,58,58,58,58,58,58,58,58,58,58,61,63,65,66,66,66,72,73,73,73,74,72,72,72,72,72,72,71,68,68,68,67,65,64,61,61,61,61,61,61,61,63,63,62,62,61],"a":[13.229,13.229,15.219,13.229,13.229,13.229,12.784,14,14,14.774,12.784,14.774,17.714,17.714,17.714,15.724,19.71,19.71,21.548,23.538,26.016,22.038,22.038,16.212,14.222,14.222,20.04,20.04,22.038,22.038,26.016,22.038,22.038,23.538,21.548,21.548,20.114,20.114,20.114,20.114,23.73,20.114,18.21,16.22,16.71,16.71,14.81,14.81],"p":[11.68,10.63,9.15,10.48,10.48,10.48,9.63,8.37,8.49,8.81,9.63,10.23,11.03,10.9,10.83,11.79,13.43,13.43,13.65,13.69,13.53,13.6,13.6,14.04,14.05,14.05,14.23,14.23,13.51,13.51,13.15,13.5,13.42,12.97,11.04,11.06,9.33,8.66,8.59,8.66,7.59,8.44,7.53,7.79,8.78,8.78,7.98,12.28],"s":71.7,"ap":11.1}
+},
+"二次①":{
+"北海道":{"d":[77,77,77,77,76,77,76,76,76,77,77,77,76,76,76,76,75,75,75,76,76,76,76,76,77,77,77,77,77,76,71,71,71,71,71,71,71,71,71,72,71,72,71,76,76,77,77,77],"a":[108.332,47,151.342,143.342,117.342,25,77.05,28.75,155.132,116.75,158.132,118.75,167.05,117.75,124,76,75,77,141,97,119.05,107.75,135.01,55.75,116.3,114,124.01,100,124.01,131,106,79,71.01,90,87,86,95.8,95.81,87.75,87.75,84,84,100,89,89,77,102,90],"p":[8.29,7.12,2.04,1.38,2.01,12.9,14.06,12.63,9.11,7.05,9.08,6.16,9.25,7.05,3.83,2.42,2.28,1.12,1.2,1.29,7.04,1.25,6.04,1.88,7.1,1.35,5.45,1.67,4.53,2.49,5.96,7.46,1.75,5.22,5.12,6.33,6.95,8.57,6.87,6.63,5.12,5.12,5.1,5.38,5.22,5.12,5.1,5.17],"s":-34.8,"ap":5.4},
+"东北":{"d":[180,180,179,180,180,180,180,182,183,183,183,183,196,199,206,209,209,209,141,141,145,145,145,145,145,145,145,143,142,141,199,199,199,196,192,189,184,184,184,183,182,182,95,97,97,96,96,97],"a":[51,51,51,51,51,51,51,51,51,51,51,51,68,68,68,68,68,68,143,143,160,160,160,160,160,160,160,160,143,143,68,68,68,68,68,68,68,68,68,68,68,68,51,51,51,51,51,51],"p":[3.63,3.84,5.19,5.01,4.82,4.28,3.84,3.76,3.76,3.7,3.52,3.44,3.61,3.83,5.02,6.57,5.1,6.57,5.17,5.17,6.16,6.16,6.16,6.21,6.16,5.59,5.11,3.79,3.18,2.56,1.58,2.41,4.78,4.35,3.15,2.41,3.8,6.68,3.31,2.93,2.59,2.36,2.64,3.04,3.24,4.33,3.38,3.4],"s":49.9,"ap":4.2},
+"东京":{"d":[570,570,569,570,570,570,569,573,575,576,576,576,594,603,604,606,604,604,598,598,597,598,593,598,607,608,608,603,599,595,577,577,577,577,577,577,575,574,575,574,571,573,577,584,584,583,583,584],"a":[409.119,381.668,409.119,409.119,409.119,409.119,409.119,409.119,416.973,377.209,345.092,361.465,366.542,406.413,378.96,371.106,520.498,484.786,598,598,630.251,660.257,604.962,555.979,640.235,594.869,664.481,649.509,652.269,760.341,660.358,642.052,656.164,538.183,681.294,570.273,595.453,574,531.51,442.455,406.891,388.595,384.006,463.342,474.992,524.08,563.785,447.784],"p":[1.64,1.75,0.92,0.74,0.7,0.77,1.08,1.33,1.33,1.34,1.4,1.4,1.94,1.6,1.98,1.46,1.9,2.11,2.79,2.8,1.9,2.36,3.56,3.28,3.28,3.34,2.88,2.93,2.94,2.91,2.57,1.72,1.75,2.98,2.68,3.61,2.7,2.56,3.23,1.85,3.4,2.54,2.77,2.81,2.28,2.47,2.44,4.07],"s":13,"ap":2.3},
+"中部":{"d":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,10,12,12,12,9,9,9,7,6,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"a":[305.506,434.55,113.249,484.606,491.413,387.326,453.657,425.85,217.918,56,88.154,178.776,149,207.671,287,298.006,85.92,215.73,276,275,284,286,287,288,367.695,365,363,376.368,442,413.428,409,409,353.188,332.8,252,215.986,169.596,197.319,184.655,166.933,41.68,126.886,187.59,49,59,131,131,131],"p":[0.9,1.01,2.47,2.65,2.98,2.76,1.62,1.15,1.75,1.2,1.09,1.01,1.04,0.9,1.51,2.3,1.2,2.52,0.78,0.88,1.03,1.15,2.15,2.72,2.06,2.39,5.64,5.01,4.4,4.49,4.72,2.34,2.46,3.12,2.24,4.24,3.69,3.17,1.99,0.87,0.7,1.03,0.74,0.7,0.95,1.36,1.25,1.3],"s":-12605.6,"ap":2.1},
+"北陆":{"d":[48,48,48,48,48,48,49,49,49,49,49,49,49,49,49,49,49,49,50,51,53,53,53,54,51,51,51,51,51,51,50,50,50,49,49,49,48,48,47,48,48,48,48,49,49,49,49,49],"a":[93,93,48,48,4.05,19.174,49,49,2.25,13.656,3.292,47.722,38.362,1.598,3.55,5.132,5.232,3.788,1.244,4.424,55,53,57,131,140,110,140,110,140,64,65,65,1.76,14.372,12.342,8.558,11.606,21.068,11.404,3.082,20.158,1.718,21.134,49,49,49,65,49],"p":[0.39,0.39,2.25,2.23,2.54,2.61,2.61,3.51,3.47,3.53,3.23,2.54,2.21,2.54,3.53,3.49,5.27,5.73,3.69,5.38,7.73,7.73,10.81,12.68,10.2,10.81,15,15,15,15,15,11.19,11.47,13.08,4.51,4.67,5.12,6.61,6.61,4.88,4.52,4.41,3.61,3.72,3.84,2.89,3.53,2.18],"s":13.5,"ap":6.1},
+"关西":{"d":[233,233,233,233,233,233,236,237,237,237,237,237,239,240,240,241,240,240,239,239,241,241,239,241,243,243,243,242,240,239,227,227,227,227,227,226,225,224,225,225,225,225,230,236,237,238,238,238],"a":[41.885,41.885,41.885,41.885,41.885,0,0,0,0,0,0,0,0,39.386,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,39.386,39.386,81.271],"p":[0.39,0.39,0.39,0.39,0.39,0,0,0,0,0,0,0,0,0.39,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.39,0.39,0.39],"s":96.4,"ap":0.4},
+"中国":{"d":[115,115,115,115,114,115,115,116,116,116,116,116,118,118,118,119,118,118,119,119,121,122,122,122,124,124,124,123,123,123,116,116,116,116,116,115,115,115,115,115,115,115,116,116,116,116,116,116],"a":[140.124,140.124,115,115,114,34.484,92.989,91.792,0,0,0,0,0,0,172.157,170.424,0,0,0,0,0,0,0,0,0,0,0,139.522,136.251,0,137.727,122.053,140.719,116.261,0,124.125,99.739,115,117.261,117.261,117.261,117.261,116,0,20.984,139.797,149.697,149.697],"p":[1.08,1.08,0.98,0.98,0.97,1.56,0.97,0.98,0,0,0,0,0,0,0.72,0.71,0,0,0,0,0,0,0,0,0,0,0,0.78,0.79,0,4.61,6.11,4.62,4.6,0,4.3,4.86,6.36,6.36,4.61,4.25,4.14,3.33,0,1.56,0.52,0.63,0.63],"s":40.4,"ap":2.6},
+"四国":{"d":[38,38,38,38,38,38,39,40,40,40,40,40,43,45,46,47,47,47,50,51,52,52,52,52,54,54,54,53,53,52,45,45,45,44,43,43,41,41,41,40,40,39,39,40,40,40,40,40],"a":[42,42,42,42,42,42,43,44,44,44,44,44,39,37,36,37,47,47,50,51,52,52,52,52,54,54,54,53,53,52,45,45,45,44,43,42,15,15,41,40,40,36,43,45,45,45,44,44],"p":[0.51,0.51,0.72,0.77,0.83,0.84,1.06,1.36,1.36,1.37,1.29,1.08,5.6,5.81,6.76,6.78,4.12,5.37,5.26,7.02,9.16,9.09,9.32,9.1,7.58,7.17,9.4,7.5,8.59,2.9,3.41,4.63,3.41,3.95,3.38,3.36,2.14,2.14,4.98,3.19,5.83,3.13,1.36,1.59,1.55,0.97,1.04,0.79],"s":0.6,"ap":3.9},
+"九州":{"d":[138,138,138,138,138,138,140,142,142,143,143,143,148,149,151,152,152,152,163,165,167,167,164,165,164,166,166,166,166,166,153,153,153,151,147,145,140,140,140,140,139,140,140,144,145,145,145,145],"a":[336,336,138,159,159,159,161,163,163,143,143,143,148,149,151,152,152,198,320,335,464.446,413.688,508,508,542,590,542,510,508,420,286.07,206.07,158,151,147,145,140,140,140,140,139,140,140,144,145,145,145,145],"p":[4.86,3.4,2.36,2.85,3.65,4.72,5.2,5.69,6.01,5.78,5.96,6.07,5.89,5.81,5.41,5.13,6.76,7.74,5.88,5.99,6.19,6.22,6.44,6.52,6.12,6.38,8.32,8.74,11.48,11.8,11.66,10.77,11.24,12.04,10.86,13.17,13.25,13.25,13.25,11.76,8.28,8.27,7.24,6.76,6.48,6.15,6.27,6.15],"s":-61.8,"ap":7.5}
+},
+"二次②":{
+"北海道":{"d":[47,48,48,48,47,48,55,62,72,75,75,75,91,91,91,89,87,87,75,75,74,75,75,75,71,72,70,72,72,72,77,77,76,73,72,67,56,56,56,55,53,51,48,47,48,48,48,48],"a":[95.26,23.99,148,142.99,115,0,52.05,5.74,141.04,93.74,141.05,93.75,144.04,122,122,136,135,142,141,138,121.723,109.74,137,78.623,127,126.872,126,110.84,126,131,125,125,125.99,121,120,121,113,111,112,111,110,109,103,104,102,107,104,105],"p":[7.66,1.92,1.8,1.35,1.79,0,14.61,12.98,8.72,5.6,8.62,5.45,8.66,4.84,1.57,3.7,0.91,4.38,1.2,3.65,7.17,1.48,6.15,4.43,6.94,1.97,5.58,2.15,4.68,2.49,5.29,5.46,3.59,4.52,3.89,5.9,5.65,8.1,6.08,5.33,4.28,4.23,4.9,4.95,4.63,4.48,4.98,4.91],"s":-69,"ap":5},
+"东北":{"d":[185,185,185,185,179,174,175,177,182,182,182,182,251,276,303,325,325,325,369,458,535,564,564,564,602,602,602,563,472,377,289,289,289,264,241,229,213,213,213,213,213,213,185,185,185,186,181,172],"a":[139,139,139,139,139,139,139,139,139,139,139,139,282,304,320,335,335,335,479,569,645,674,675,675,712,712,712,586.558,456.001,489,289,289,289,275,264,259,241,241,241,242,244,244,236,236,236,237,232,223],"p":[3.9,4.18,5.95,5.71,5.47,4.76,4.18,4.07,4.07,3.99,3.76,3.65,3.29,2.92,3.95,3.89,3.75,5.1,4,2.49,4.1,4.04,4.6,5.07,4.63,4.42,5.05,4.78,3.34,2.63,1.54,2.25,3.01,4.46,2.64,2.32,3.32,5.36,2.72,2.5,2.24,2.19,2.07,3.35,2.51,3.23,2.49,3.09],"s":-8.8,"ap":3.7},
+"东京":{"d":[275,275,275,264,170,87,93,111,142,154,154,154,343,400,431,443,445,445,636,675,658,662,669,670,606,590,559,593,563,529,476,476,476,449,385,356,205,205,205,206,208,208,291,295,303,320,320,320],"a":[660.846,591.668,619.119,715.559,715.559,715.559,715.559,741.844,964.724,751.111,675.669,756.656,640.261,727.132,749.679,770.825,920.217,971.139,1268.719,1307.719,1289.719,1349.516,1428.605,1290.036,1423.597,1219.588,1196.236,1196,1162,1344.239,1177.131,1056.193,1126.423,1038.488,1147.445,1007.473,1018.69,1045.077,1032.166,966.784,862.353,888.115,884.187,898.057,959.227,966.875,1004.039,814.931],"p":[1.5,1.76,1.62,1.86,1.75,1.57,1.64,1.63,1.72,1.85,1.89,1.93,2.08,1.55,1.71,1.4,1.65,2.18,2.03,1.94,1.66,1.97,2.85,2.64,3.15,2.9,2.86,2.88,2.62,2.86,2.36,1.65,1.53,2.69,2.22,3.04,2.76,2.43,2.38,1.45,2.46,1.76,2.44,2.73,2.23,2.66,2.69,3.66],"s":-163.1,"ap":2.2},
+"中部":{"d":[41,41,41,41,33,32,32,37,51,56,56,56,149,182,212,225,225,225,272,271,274,274,275,276,336,356,354,360,359,363,334,334,322,302,252,210,42,42,42,39,31,37,45,49,59,62,64,66],"a":[305.506,434.55,113.249,484.606,491.413,387.326,453.657,425.85,217.918,56,88.154,178.776,149,207.671,287,298.006,270.509,277.15,276,275,284,286,287,288,367.695,365,363,376.368,442,413.428,409,409,353.188,332.8,252,216.986,169.596,197.319,184.655,166.933,41.68,126.886,187.59,49,59,131,131,131],"p":[0.9,1.01,2.47,2.65,2.98,2.76,1.62,1.15,1.75,1.2,1.09,1.01,1.04,0.9,1.51,2.3,0.84,2.39,0.78,0.88,1.03,1.15,2.15,2.72,2.06,2.39,5.64,5.01,4.4,4.49,4.72,2.34,2.46,3.12,2.24,4.22,3.69,3.17,1.99,0.87,0.7,1.03,0.74,0.7,0.95,1.36,1.25,1.3],"s":-62,"ap":2.1},
+"北陆":{"d":[32,32,34,33,33,33,32,33,35,35,35,35,56,61,65,68,66,65,59,59,59,59,59,59,61,65,64,65,65,65,54,54,54,51,41,36,29,29,29,29,29,29,32,32,32,32,31,32],"a":[93,93,66,66,33,39,65,67,35,39.656,35,68.722,75.362,61,65,68,66,65,59,59,96,94,98,131,140,110,140,110,140,109,93,94,54,51,41,36,29,31,29,29,32,29,37,63,64,65,81,66],"p":[0.39,0.39,1.75,2.28,2.58,3.05,2.27,2.86,1.21,2.02,1.36,2.01,1.49,0.77,2.77,3,1.7,2.62,0.88,1.19,4.93,4.87,7.19,12.68,10.2,10.81,15,15,15,10.34,12.12,8.57,2.66,5.75,2.92,4.16,4.11,5.7,3.79,1.25,3.08,0.97,2.34,3.05,3.28,2.58,2.98,1.87],"s":-52.1,"ap":4.5},
+"关西":{"d":[179,179,179,174,145,130,131,135,138,138,138,138,196,229,255,265,266,268,245,245,245,245,245,245,263,271,268,271,271,271,288,289,283,277,254,226,167,167,167,167,167,167,187,184,196,201,201,201],"a":[120.628,120.628,179,174,157.948,130,131,135,138,138,138,138,196,229,255,265,266,268,245,245,245,245,245,245,263,271,268,271,271,271,288,289,283,277,254,226,167,167,167,167,167,167,187,184,196,201,202.264,227.212],"p":[0.39,0.39,2.04,2.56,2.01,1.98,1.45,1.82,1.05,1.46,0.95,0.92,0.78,0.45,2.2,1.84,0.85,2.64,0.86,0.63,0.71,0.93,0.63,3.1,2.1,3.08,6.57,6.3,5.12,3.02,2.73,2.16,2.46,2.52,1.25,4.03,3.37,3.57,2.02,0.9,0.85,0.68,1.16,0.97,0.64,0.77,0.64,0.64],"s":0.8,"ap":1.9},
+"中国":{"d":[73,73,83,84,84,84,85,89,89,89,89,89,174,193,214,224,224,221,170,170,170,170,170,170,181,180,181,192,192,192,224,238,235,225,212,190,88,88,88,88,79,76,78,78,78,79,76,76],"a":[140.124,140.124,160,160,159,84,135.989,137.792,89,89,89,89,174,193,277,289,224,221,170,170,170,170,170,170,181,180,181,277,284,192,261.261,261.261,261.261,250.261,212,215.261,166,167,168.261,166.261,162.261,154.261,157,78,78,158,158,159],"p":[1.08,1.08,2.04,1.38,1.42,1.85,1.08,1.34,1.34,1.86,1.48,0.84,0.86,0.68,0.99,0.58,1.43,1.1,0.55,0.45,0.6,0.48,2.17,3.17,2.81,3.41,4.84,2.77,2.6,0.77,4.45,4.13,3.57,3.67,1.49,4.08,4.37,5.36,5.02,3.53,3.26,3.3,2.69,0.68,1.02,0.51,0.62,0.62],"s":-25.5,"ap":2.1},
+"四国":{"d":[25,25,28,29,29,29,31,31,31,31,31,31,67,75,83,90,90,88,93,107,107,96,94,98,92,92,92,93,94,95,117,119,116,113,105,89,25,25,25,25,25,25,30,31,31,32,30,28],"a":[87,87,64,64,64,64,66,66,72,72,72,72,134,142,153,158,120,160,217,243,239,235,229,225,217,217,217,225,229,218,184,184,184,175,164,150,40,40,63,62,90,60,68,98,98,96,93,90],"p":[0.44,0.44,2.11,1.33,1.45,1.22,1.12,1.27,1.21,1.55,1.14,0.95,1.9,1.8,1.88,1.88,1.85,1.85,1.5,1.77,2.29,2.31,2.41,2.4,2.17,2.07,2.62,2.06,2.28,0.98,1.12,1.42,1.12,1.28,1.17,1.21,2.73,2.74,3.93,2.33,2.8,2.15,1.09,0.93,0.92,0.66,0.69,0.58],"s":-113.1,"ap":1.6},
+"九州":{"d":[96,96,96,96,95,94,98,100,103,103,103,103,242,272,294,312,312,306,240,240,240,234,221,221,226,221,223,229,229,229,289,318,335,331,328,311,107,107,107,104,84,79,91,93,107,110,110,109],"a":[336,336,179,200,200,196,201,206.99,218.99,199.99,198,199.99,340.99,365.99,386.99,399,400.99,396.99,334,336.99,466.436,415.678,509.99,509.99,542,590,543.99,511.99,541.89,448.92,386.99,406.99,425.99,423.99,414,403,204.99,204.99,204.99,203.99,189.99,185.99,196.99,194,208.99,211.99,213.99,207.99],"p":[4.86,3.4,2.42,2.74,3.75,4.19,4.41,4.74,4.75,4.54,4.7,4.6,3.12,3.03,2.56,3.46,3.39,5.15,5.65,6.04,6.23,6.26,6.47,6.55,6.12,6.38,8.34,8.76,11.23,11.53,8.81,5.74,4.68,5.12,5.28,5.62,10.41,10.1,9.7,8.4,6.35,6.44,5.38,5.18,4.87,4.79,4.71,4.67],"s":-77.4,"ap":5.7}
+},
+"三次①":{
+"北海道":{"d":[239,239,243,245,245,245,250,253,261,261,261,261,296,307,319,324,324,324,351,367,371,365,350,343,294,294,294,291,290,284,234,234,234,232,225,215,216,218,230,232,232,232,241,241,241,239,240,240],"a":[126.26,49.99,243,246.99,245,22,52.05,5.74,219.04,170.74,217.05,168.75,294.04,245.74,327,356,357,365,377,388,373.723,377,364,331.623,313,275.99,313,308,300,284,234,224.84,234,232,225,220.082,216,218,230,232,232,232,241,243,241,243,240,240],"p":[6.03,1.45,1.59,1.33,1.5,1.01,14.61,12.98,7.43,5.38,7.39,5.3,6.16,4.53,1.51,2.1,1.03,2.43,1.83,2.25,3.02,0.96,2.78,1.82,4.26,2.28,3.55,1.9,2.89,2.39,4.59,5.49,2.67,4.52,3.82,5.34,4.87,7.26,5.43,4.53,3.87,3.93,4.21,4.36,4.13,3.74,3.75,4.36],"s":8.3,"ap":4.1},
+"东北":{"d":[100,100,100,99,99,86,77,77,73,86,86,86,168,169,177,185,185,185,273,274,279,279,279,279,289,331,359,352,343,302,471,471,471,469,450,443,368,368,368,368,355,346,113,113,113,111,104,111],"a":[159,159,159,159,159,159,159,159,159,159,159,159,236,237,245,253,253,253,414,415,424,424,424,424,434,476,504,495,485,443,471,471,471,469,450,443,368,368,368,368,355,350,164,164,164,162,155,162],"p":[3.83,4.09,5.75,5.53,5.3,4.63,4.09,3.99,3.99,3.92,3.7,3.6,3.55,3.52,4.56,5,4.53,5.21,4.53,3.29,6.22,6.2,6.49,6.75,6.27,5.37,4.87,4.09,3.35,2.49,1.35,2.21,3.33,4.24,2.25,2.14,2.72,4.87,2.5,2.27,1.99,1.89,2.54,2.72,2.75,4.06,3.45,3.71],"s":-28.8,"ap":4},
+"东京":{"d":[954,954,954,951,954,954,917,917,917,917,917,917,1001,1113,1212,1287,1287,1287,1870,1942,2050,2050,2050,2050,2260,2358,2403,2463,2471,2389,1508,1508,1508,1459,1338,1258,1113,1113,1113,1100,1106,1105,1079,1079,1079,1067,1043,1035],"a":[954,954,954,1215.442,1218.466,1220.032,1221.59,1250.107,1610.158,1199.788,1189.946,1322.548,1150.694,1226.204,1212,1293.876,1368.388,1648.682,1998.719,2106.186,2206.253,2200.719,2202.719,2157.698,2323.101,2303.241,2023.438,1955.14,1788.381,1854.1,1508,1508,1508,1459,1338,1258,1136,1158.255,1113,1100,1106,1105,1079,1084.342,1091.992,1130.08,1150.785,1035],"p":[1.37,1.7,2.09,2.63,2.47,2.13,2.05,1.87,1.89,2.09,2.13,2.17,2.25,1.45,1.7,1.52,1.41,2.67,1.64,1.51,1.46,1.78,3.17,2.95,2.93,2.77,3.6,3.53,3.24,3.07,2.49,1.59,1.57,2.73,2.22,3.09,3.12,2.34,2.28,1.43,2.31,1.64,2.3,2.57,2.12,2.63,2.67,3.5],"s":-4.3,"ap":2.3},
+"中部":{"d":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,51,64,50,70,70,70,142,144,151,149,153,86,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"a":[450.363,623.444,113.249,484.606,491.413,387.326,453.657,425.85,217.918,56,88.154,178.776,149,207.671,287,298.006,85.92,215.73,276,275,284,286,287,288,367.695,365,363,376.368,442,413.428,409,409,353.188,332.8,252,215.986,169.596,197.319,184.655,166.933,41.68,126.886,187.59,49,59,131,131,131],"p":[0.78,0.97,2.47,2.65,2.98,2.76,1.62,1.15,1.75,1.2,1.09,1.01,1.04,0.9,1.51,2.3,1.2,2.52,0.78,0.88,1.03,1.15,2.15,2.72,2.06,2.39,5.64,5.01,4.4,4.49,4.72,2.34,2.46,3.12,2.24,4.24,3.69,3.17,1.99,0.87,0.7,1.03,0.74,0.7,0.95,1.36,1.25,1.3],"s":-965.4,"ap":2.1},
+"北陆":{"d":[90,90,90,84,85,90,84,84,84,84,84,84,109,115,128,141,141,141,218,236,244,241,242,235,216,216,216,215,216,215,180,180,180,174,161,148,88,88,88,88,88,88,100,100,100,99,98,97],"a":[103,103,91,91,85,90,91,90,84,84,84,92.722,115.362,115,128,141,141,141,218,236,244,241,242,235,216,216,216,216,216,215,190,191,180,174,161,148,88,88,88,88,88,88,100,100,100,99,115,98],"p":[0.39,0.39,2.02,2.29,2.9,3.06,2.35,2.42,1.1,1.56,1.73,1.71,1.27,0.66,1.76,2.06,1.94,2.51,0.76,0.93,2.59,2.47,4.21,12.68,10.2,10.81,15,15,14.72,7.6,8.39,5.41,2.49,3.76,2.34,4.21,3.84,4.3,2.55,1.01,2.12,0.77,1.26,2.16,2.39,2.08,2.32,1.78],"s":-1.5,"ap":3.8},
+"关西":{"d":[496,496,496,492,496,493,509,513,510,509,513,513,521,530,532,578,578,578,918,973,989,995,995,995,920,920,920,904,862,820,727,727,727,722,685,649,592,592,592,591,584,569,538,538,538,534,524,507],"a":[173.202,172.44,496,492,496,493,509,513,510,509,513,513,521,530,532,578,578,578,918,973,989,995,995,872.879,920,895.451,920,904,862,820,727,727,727,722,685,649,592,592,592,591,584,569,538,538,538,534,524,507],"p":[0.43,0.43,1.93,2.76,2.82,1.99,1.47,1.59,1.27,1.62,1.02,0.84,0.96,0.85,1.58,1.64,1.04,2.82,0.81,0.71,0.94,1.02,1.85,3.09,2.55,2.69,6.17,5.42,4.74,3.88,3.78,2.23,2.39,2.8,1.89,4.09,3.52,3.4,2,0.91,1.02,0.81,0.85,1.04,1.11,1.14,0.93,1.09],"s":2.5,"ap":2},
+"中国":{"d":[205,205,205,205,205,205,215,218,238,244,244,244,312,315,351,356,356,356,442,525,564,529,504,502,437,437,437,437,437,437,254,254,254,254,254,254,269,277,286,289,289,282,251,251,251,248,228,224],"a":[181.976,181.976,218.212,220.212,220.212,205,215,218,238,244,244,244,312,315,392,408,356,356,442,525,564,529,504,215.364,207,180,189.644,363.589,492,437,326.261,326.261,326.261,318.261,254,288.261,278,278,286,289,289,282,264,251,251,259,245,233],"p":[1.13,1.13,2.23,1.63,2.24,2.69,1.26,1.59,1.17,1.5,1.21,0.89,0.85,0.67,1.12,0.8,1.53,1.68,0.78,0.7,0.96,0.98,1.98,3.12,2.7,3.41,4.88,2.98,3.47,2.56,4.26,3.8,3.37,3.52,1.64,3.57,4.06,4.56,3.75,2.33,2.12,2.11,1.85,1.12,1.22,0.74,0.63,0.67],"s":3.8,"ap":2.1},
+"四国":{"d":[79,79,79,79,79,79,88,88,88,88,88,88,115,121,133,135,135,135,179,187,207,214,208,204,184,184,184,184,180,184,140,140,140,140,130,114,91,91,91,91,91,91,92,92,92,89,89,82],"a":[87,87,87,86,85,87,91,90,94,94,94,94,140,149,162,167,167,167,224,250,258,254,248,244,236,236,236,225,229,218,190,190,190,182,170,155,95,95,110,109,110,106,98,98,98,96,93,90],"p":[0.44,0.44,2.27,2.07,1.73,1.88,1.51,1.21,1.16,1.46,1.1,0.94,1.92,1.84,1.98,1.98,1.71,1.91,1.55,1.86,2.38,2.4,2.79,2.77,2.46,2.32,3,2.06,2.28,0.98,1.15,1.44,1.15,1.31,1.2,1.24,2.99,2.77,3.37,1.86,2.87,1.67,1.03,0.93,0.92,0.66,0.69,0.58],"s":-20.1,"ap":1.7},
+"九州":{"d":[321,321,317,321,321,321,336,341,335,350,350,350,392,440,458,462,462,462,587,594,594,594,594,594,641,641,641,621,619,617,538,538,538,511,493,452,387,383,383,387,383,387,363,363,363,360,357,352],"a":[336,336,317,336,336,334,336,341,349.99,350,350,350,468.99,503.99,535.99,559,560.99,560.99,621,627.99,633.99,632.99,633.99,635.99,682,683,679.99,680.99,681.99,676.99,641.99,641.99,640.99,621.99,594,559,387,383,383,387,383,387,363,363,363,360,357,352],"p":[4.86,3.4,3.13,2.95,3.26,3.39,3.49,3.43,3.57,3.17,3.11,3,2.55,2.4,2.02,3.18,2.88,4.38,3.38,3.77,4.9,4.51,6.56,6.64,6.29,6.48,8.49,8.89,11.36,11.18,6.99,4.54,3.96,4.46,4.31,5.22,7.1,7.14,6.18,4.83,3.53,3.52,3.27,3.21,3.24,3.44,3.42,3.21],"s":-8.2,"ap":4.6}
+},
+"三次②":{
+"北海道":{"d":[0,0,0,0,0,0,0,0,0,0,0,0,9,16,24,31,39,45,96,104,110,114,116,117,122,119,114,105,94,82,131,103,74,16,8,3,0,0,0,0,0,0,0,0,0,0,0,0],"a":[0,0,0,0,0,0,0,0,0,0,0,0,9,16,24,31,39,45,96,104,110,114,116,117,122,119,114,105,94,82,131,103,74,16,8,3,0,0,0,0,0,0,0,0,0,0,0,0],"p":[0,0,0,0,0,0,0,0,0,0,0,0,17.1,1.78,1.49,1.01,1.16,1.21,3.51,0.85,0.79,1.59,1.59,1.3,1.23,1.9,1.5,2.16,1.99,5.11,3.72,3.28,2.69,3.66,2.99,2.08,0,0,0,0,0,0,0,0,0,0,0,0],"s":0,"ap":2.7},
+"东北":{"d":[0,0,0,0,0,0,0,0,0,0,3,7,17,74,166,245,346,364,427,454,480,505,502,477,386,340,316,290,242,195,115,83,50,15,7,1,0,0,0,0,0,0,0,0,0,0,0,0],"a":[0,0,0,0,0,0,0,0,0,0,3,7,17,74,166,245,346,364,427,454,480,505,502,477,386,340,316,290,242,195,115,83,50,15,7,1,0,0,0,0,0,0,0,0,0,0,0,0],"p":[0,0,0,0,0,0,0,0,0,0,3.27,3.22,1.98,1.78,2.38,2.98,1.53,3.05,3.29,3.34,2.11,2.22,2.71,3.22,1.47,1.36,2.89,2.48,2.3,3.64,2.5,2.36,2.48,3.66,2.99,2.08,0,0,0,0,0,0,0,0,0,0,0,0],"s":0,"ap":2.6},
+"东京":{"d":[0,0,0,0,0,0,0,0,0,0,0,6,26,69,119,170,214,0,715,704,671,630,587,526,88,71,56,46,36,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"a":[0,0,0,0,0,0,0,0,0,0,0,6,26,69,119,170,214,0,715,704,671,630,587,526,88,71,56,46,36,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"p":[0,0,0,0,0,0,0,0,0,0,0,1.05,1.98,1.75,1.76,1.42,0.39,0,1.2,1.12,1.04,0.92,3.03,2.52,0.91,0.96,2.71,2.4,2.23,8.03,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"s":0,"ap":2},
+"中部":{"d":[0,0,0,0,0,0,0,0,0,0,0,0,4,24,21,25,49,75,65,72,58,48,45,50,76,75,42,35,27,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"a":[0,0,0,0,0,0,0,0,0,0,0,0,4,24,21,24,68,75,65,72,58,48,45,50,76,75,42,35,27,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"p":[0,0,0,0,0,0,0,0,0,0,0,0,24.66,42.26,38.12,42.26,6.77,5.61,3.72,3.82,1.08,1.11,2.4,3.28,2.66,6.23,14.41,13.96,2.29,27.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"s":-2.2,"ap":13.4},
+"北陆":{"d":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,35,35,34,32,30,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"a":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,35,35,34,32,30,23.123,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"p":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3.76,0,0,0,0,0,2.67,7.7,14.44,14.02,2.25,63.22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"s":1.4,"ap":15.4},
+"关西":{"d":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,5,5,5],"a":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,5,5,5],"p":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.39,0.39,0.39,0.39],"s":0,"ap":0.4},
+"中国":{"d":[0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,4,5,7,28,0,0,0,0,0,0,111,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"a":[0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,4,5,7,28,0,0,0,0,0,0,111,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"p":[0,0,0,0,0,0,0,0,0,0,0,0,1.82,0,3.15,3.11,6.77,5.61,2.55,0,0,0,0,0,0,4.63,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"s":0,"ap":3.9},
+"四国":{"d":[9,9,9,8,8,8,0,0,0,0,0,0,2,7,14,20,28,37,60,68,77,86,89,89,108,108,112,117,112,104,69,54,39,25,18,11,13,0,0,0,0,0,32,34,34,35,36,36],"a":[9,9,9,8,8,8,0,0,0,0,0,0,2,7,14,20,28,37,60,68,77,86,89,89,108,108,112,117,112,104,69,54,39,25,18,11,13,0,0,0,0,0,32,34,34,35,36,36],"p":[0.3,0.3,0.3,0.3,0.3,0.3,0,0,0,0,0,0,0.3,0.3,0.3,0.3,6.77,4.75,0.3,0.3,0.3,0.3,0.3,0.3,0.29,0.29,0.29,0.29,0.29,0.29,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0,0,0,0,0,0.3,0.3,0.32,0.32,0.33,0.32],"s":0,"ap":0.6},
+"九州":{"d":[0,0,0,0,0,0,0,0,0,0,0,0,1,0,13,40,48,69,13,0,0,0,0,0,0,76,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,19,19,18,18,16,20],"a":[0,0,0,0,0,0,0,0,0,0,0,0,1,0,13,40,48,69,13,0,0,0,0,0,0,76,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,19,19,18,18,16,20],"p":[0,0,0,0,0,0,0,0,0,0,0,0,1.82,0,20.4,5.66,7.2,7.79,5.8,0,0,0,0,0,0,5.75,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4.29,2.61,0.39,0.39,0.39,0.39],"s":0,"ap":4.8}
+},
+"复合":{
+"北海道":{"d":[251,251,256,257,257,257,263,268,281,282,282,282,336,351,362,365,365,365,388,388,388,377,364,360,313,313,313,308,300,288,234,234,234,232,225,224,226,230,238,239,239,239,254,254,255,253,253,252],"a":[147,82.658,256,257,257,54.668,80.968,34.658,239.04,199.658,238.05,197.668,329.04,280.74,362,365,365,365,388,388,388,377,364,348.623,313,280.658,313,308,300,288,244,248.84,264,232,225,224,226,230,238,239,239,239,254,254,255,253,253,252],"p":[6.43,4.84,1.83,1.45,1.7,6.58,13.47,11.39,7.71,6.25,7.7,5.68,6.56,5.2,2.32,2.37,1.29,2.43,1.84,2.25,3.01,0.96,2.78,1.87,4.26,2.33,3.55,1.9,2.89,2.39,4.5,5.18,2.63,4.52,3.82,5.3,4.84,7.08,5.32,4.46,3.81,3.88,4.13,4.29,4.1,3.67,3.69,4.29],"s":8.8,"ap":4.3},
+"东北":{"d":[355,355,355,355,350,345,344,347,352,352,352,352,436,464,489,508,508,508,524,613,690,719,719,719,757,757,757,718,627,532,577,577,577,560,535,516,493,488,491,493,493,493,308,308,308,308,302,294],"a":[186.07,186.07,186.07,186.07,186.07,186.07,186.07,186.07,186.07,186.07,186.07,186.07,309.07,320.4,347.07,376.07,375.07,372.07,506.07,634.687,740.07,769.07,770.07,770.07,744.12,744.302,740.42,614.978,513.42,517.42,499.42,499.42,499.42,497.42,478.42,471.42,396.42,396.42,396.42,396.42,383.42,378.42,264.42,264.42,262.52,263.52,258.52,249.52],"p":[4.67,4.89,6.31,6.12,5.92,5.35,4.89,4.8,4.8,4.74,4.55,4.47,3.84,3.4,4.39,4.33,4.18,5.42,4.3,2.91,4.39,4.33,4.82,5.24,4.83,4.64,5.23,5.01,3.71,3.03,1.83,2.64,3.7,4.56,2.7,2.6,3.23,5.23,3.03,2.81,2.57,2.49,2.9,4.05,3.21,3.86,3.21,3.76],"s":17.7,"ap":4.1},
+"东京":{"d":[1040,1040,1040,1026,990,959,917,917,917,917,917,917,1120,1250,1378,1473,1473,1473,2031,2130,2231,2232,2232,2232,2466,2512,2583,2567,2556,2398,1508,1508,1508,1459,1338,1258,1195,1195,1191,1195,1195,1195,1263,1258,1254,1241,1222,1191],"a":[1010.43,1014.311,1021.571,1286.944,1285.932,1287.498,1297.041,1323.638,1683.689,1275.239,1267.396,1399.998,1231.3,1308.59,1294.386,1376.262,1447.874,1728.168,2078.205,2185.672,2285.739,2280.205,2282.205,2235.194,2394.487,2374.627,2094.824,2026.526,1859.767,1925.486,1577.216,1577.216,1577.216,1526.436,1407.216,1327.216,1216.486,1238.741,1193.486,1180.486,1186.486,1185.486,1154.55,1159.892,1165.651,1199.869,1220.574,1099.285],"p":[1.73,2.06,2.51,2.96,2.75,2.44,2.43,2.23,2.17,2.47,2.54,2.53,2.68,1.91,2.15,1.96,1.83,2.96,1.92,1.78,1.72,2.03,3.37,3.15,3.1,2.95,3.78,3.71,3.45,3.28,2.76,1.9,1.89,3,2.54,3.38,3.51,2.77,2.73,1.94,2.76,2.13,2.73,2.98,2.55,3.01,3.05,3.85],"s":-2.3,"ap":2.6},
+"中部":{"d":[100,100,100,100,92,90,90,95,109,114,114,114,217,254,287,303,303,303,359,358,367,368,368,368,422,442,440,444,442,444,409,409,397,377,327,284,115,115,115,112,104,109,115,119,129,131,131,131],"a":[450.363,623.444,113.249,484.606,491.413,387.326,453.657,429.016,217.918,77.675,111.819,178.776,172.665,231.336,287,303,294.174,300.815,299.665,298.665,307.665,311.66,312.66,313.66,391.356,386.671,384.671,398.039,442,435.099,409,409,374.859,354.471,273.671,236.662,169.596,197.319,184.655,166.933,63.355,131.873,187.59,70.675,80.675,131,131,131],"p":[0.78,0.97,2.47,2.65,2.98,2.76,1.62,1.25,1.75,4.79,3.86,1.01,2.94,2.33,1.51,2.51,1.97,3.37,1.89,1.99,2.09,2.29,3.2,3.72,2.83,3.09,6.16,5.55,4.4,5.01,4.72,2.34,3.18,3.84,3.24,5.11,3.69,3.17,1.99,0.87,5.55,1.56,0.74,5.06,4.69,1.36,1.25,1.3],"s":-19.9,"ap":2.9},
+"北陆":{"d":[103,103,103,103,103,103,103,103,106,107,107,107,142,155,172,183,183,183,242,256,261,260,257,249,221,221,221,221,221,221,196,196,196,186,169,148,106,106,106,106,106,106,114,114,116,114,115,114],"a":[103,103,108.156,128.372,92.686,91.988,91,102.535,84,84,84,92.722,115.362,115,137.895,144.918,141,141,218,236,244,241,242,235,216,216,216,216,221,215,196,196,180,174,161,148,99.712,99.89,96.027,88,88,96.774,103.85,100,100,118.568,115,121.824],"p":[0.39,0.39,1.76,3.86,3.9,3.31,2.35,3.77,1.1,1.56,1.73,1.71,1.27,0.66,2.7,2.4,1.94,2.51,0.76,0.93,2.59,2.47,4.21,12.68,10.2,10.81,15,15,14.72,7.6,8.59,5.65,2.49,3.76,2.34,4.21,5.14,5.56,3.58,1.01,2.12,2.05,1.76,2.16,2.39,2.43,2.32,3.19],"s":7.6,"ap":4.1},
+"关西":{"d":[602,600,602,602,585,578,581,581,581,584,583,584,607,634,677,702,702,702,950,1012,1045,1072,1072,1058,1028,1028,1028,1007,975,948,801,801,801,787,744,707,631,631,631,631,631,631,611,611,611,611,611,608],"a":[397.196,402.28,602,584.129,559.254,561.962,608.712,593.025,607.772,586.947,592.887,616.552,600.887,609.887,633.016,672.64,657.887,657.887,997.887,1052.887,1068.887,1074.887,1074.887,935.879,999.887,975.338,999.887,983.887,967.002,899.887,801,801,801,787,764.887,707,681.85,681.672,685.535,692.562,631,656.801,635.712,617.887,612.483,611,611,608],"p":[1.89,1.57,2.57,2.98,2.98,2.36,2.41,2.07,2.17,2.04,1.55,1.95,1.54,1.43,2.35,2.37,1.56,3.13,1.17,1.06,1.27,1.34,2.11,3.3,2.77,2.91,6.1,5.41,4.97,4.01,3.98,2.6,2.68,2.88,2.25,4.08,3.9,3.79,2.65,1.86,1.44,1.53,1.81,1.6,1.57,1.82,1.67,1.72],"s":1.2,"ap":2.5},
+"中国":{"d":[259,259,259,259,259,259,260,267,282,284,284,284,375,400,441,457,457,457,561,603,603,575,551,579,550,550,550,538,539,493,374,374,374,366,353,336,328,327,328,328,328,327,310,310,310,305,291,278],"a":[184.776,226.355,225.217,223.012,221.212,206,226.711,233.697,249.711,255.711,255.711,255.711,322.711,325.711,402.711,418.711,369.787,369.787,455.787,538.787,577.787,542.787,514.711,242.962,217.711,190.711,200.355,374.3,500.729,445.729,361.976,361.976,340.877,341.877,289.729,318.877,286.729,286.729,295.729,298.729,328,291.729,273.729,260.729,266.133,303.833,274.935,266.722],"p":[1.29,1.7,2.52,1.72,2.29,2.75,1.85,2.33,1.67,1.97,1.7,1.43,1.24,1.06,1.42,1.1,1.96,2.1,1.15,1.01,1.25,1.28,2.2,3.45,3.18,3.92,5.28,3.25,3.63,2.75,4.8,4.33,3.57,4.12,2.01,4.18,4.31,4.79,4.03,2.66,2.45,2.46,2.23,1.55,1.82,1.68,1.64,1.15],"s":17.4,"ap":2.5},
+"四国":{"d":[87,87,87,86,85,87,91,90,94,94,94,94,140,149,162,167,167,167,224,250,258,254,248,244,236,236,236,233,236,225,190,190,190,182,170,155,102,102,102,102,102,101,98,98,98,96,93,90],"a":[87,87,87,86,85,87,91,90,94,94,94,94,140,149,162,167,167,167,224,250,258,254,248,244,236,236,236,233,236,225,190,190,190,182,170,155,102,102,110,109,110,106,98,98,98,96,93,90],"p":[0.44,0.44,2.27,2.07,1.73,1.88,1.51,1.21,1.16,1.46,1.1,0.94,1.92,1.84,1.98,1.98,1.71,1.91,1.55,1.86,2.38,2.4,2.79,2.77,2.46,2.32,3,2.5,2.66,1.42,1.15,1.44,1.15,1.31,1.2,1.24,3.81,3.61,3.37,1.86,2.87,1.67,1.03,0.93,0.92,0.66,0.69,0.58],"s":-0.4,"ap":1.8},
+"九州":{"d":[350,350,350,350,350,348,342,345,362,367,367,367,502,540,573,599,599,599,668,673,677,676,677,677,725,725,721,722,723,718,682,682,681,662,635,599,413,413,413,411,397,395,363,363,363,360,359,359],"a":[349.229,349.229,332.219,349.229,349.229,347.229,348.784,353.01,362,362.784,362.784,362.784,484.714,519.714,551.714,574.724,578.71,578.71,642.548,649.538,658.016,653.038,654.038,650.212,696.222,697.222,698.04,699.04,702.038,697.038,666.016,662.038,661.038,643.538,615.548,580.548,405.124,401.124,401.124,405.124,404.74,405.124,379.22,379.22,377.72,374.72,369.82,364.82],"p":[5.12,3.67,3.4,3.24,3.53,3.66,3.72,3.62,3.76,3.4,3.34,3.28,2.85,2.68,2.29,3.41,3.2,4.65,3.72,4.1,5.22,4.79,6.77,6.8,6.45,6.64,8.63,9.03,11.42,11.25,7.21,4.81,4.24,4.75,4.54,5.44,7.18,7.22,6.3,5.01,3.76,3.76,3.46,3.41,3.43,3.62,3.54,3.52],"s":2,"ap":4.9}
+}
+};
+
+
+const areas = ['北海道','东北','东京','中部','北陆','关西','中国','四国','九州'];
+let currentProduct = '一次在线';
+
+const sortedOnce = ['北海道','东北','东京','中部','北陆','关西','中国','四国','九州'];
+
+function buildCharts(product) {
+  currentProduct = product;
+  const container = document.getElementById('all-charts');
+  container.innerHTML = '';
+  const pd = P[product];
+  if(!pd) return;
+
+  sortedOnce.forEach(area => {
+    const d = pd[area];
+    const id = 'c-' + area;
+    const div = document.createElement('div');
+    div.className = 'chart-container';
+    
+    if (d.s === null) {
+      div.innerHTML = '<div class="chart-header"><span class="chart-area-name">' + area + '</span><span class="chart-stats">当日无募集</span></div><div class="chart-no-data">该地区TSO募集量为0，无图表</div>';
+    } else {
+      const statsHTML = d.s < 0
+        ? '不足率 <strong class="surplus">供给过剩</strong> / 平均 ' + d.ap + '日元'
+        : '不足率 <strong>' + d.s + '%</strong> / 平均 ' + d.ap + '日元';
+      div.innerHTML = '<div class="chart-header"><span class="chart-area-name">' + area + '</span><span class="chart-stats">' + statsHTML + '</span></div><div class="chart-canvas-wrap"><canvas class="chart-canvas" id="' + id + '"></canvas><div class="chart-tooltip" id="t-' + area + '"></div></div><div class="chart-axis"><span>0:00</span><span>6:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>';
+    }
+    container.appendChild(div);
+  });
+  
+  drawAll(product);
+  attachTips(product);
+}
+
+function drawOne(area, product) {
+  const canvas = document.getElementById('c-' + area);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+  const w = rect.width, h = rect.height;
+  const d = P[product][area];
+  const n = d.d.length; if (n === 0) return;
+  const pad = {top:4, bottom:2};
+  const ch = h - pad.top - pad.bottom;
+  const bw = w / n * 0.8;
+  const gap = w / n * 0.2;
+  const maxVal = Math.max(...d.d, ...d.a) * 1.08;
+  if (maxVal === 0) return;
+  ctx.clearRect(0, 0, w, h);
+  for (let i = 0; i < n; i++) {
+    const x = (w / n) * i + gap / 2;
+    const dH = (d.d[i] / maxVal) * ch;
+    const aH = (d.a[i] / maxVal) * ch;
+    const sr = d.d[i] > 0 ? (d.d[i] - d.a[i]) / d.d[i] : 0;
+    if (d.d[i] > d.a[i]) {
+      const shortH = ((d.d[i] - d.a[i]) / maxVal) * ch;
+      ctx.fillStyle = '#DFE3E9';
+      ctx.fillRect(x, pad.top + ch - dH, bw, shortH);
+    }
+    const cappedA = Math.min(d.a[i], d.d[i]);
+    const cappedH = (cappedA / maxVal) * ch;
+    ctx.fillStyle = 'rgba(39,174,96,0.80)';
+    ctx.fillRect(x, pad.top + ch - cappedH, bw, cappedH);
+    if (d.a[i] > d.d[i]) {
+      const surplusH = ((d.a[i] - d.d[i]) / maxVal) * ch;
+      ctx.fillStyle = 'rgba(41,128,185,0.55)';
+      ctx.fillRect(x, pad.top + ch - aH, bw, surplusH);
+    }
+  }
+}
+
+function drawAll(product) {
+  const pd = P[product];
+  if(!pd) return;
+  areas.forEach(a => { if (pd[a] && pd[a].s !== null) drawOne(a, product); });
+}
+
+function attachTips(product) {
+  areas.forEach(area => {
+    const canvas = document.getElementById('c-' + area);
+    const tip = document.getElementById('t-' + area);
+    if (!canvas || !tip) return;
+    function show(cx) {
+      const rect = canvas.getBoundingClientRect();
+      const x = cx - rect.left;
+      const d = P[product][area];
+      const n = d.d.length;
+      const bi = Math.min(n-1, Math.max(0, Math.floor(x / rect.width * n)));
+      const hr = Math.floor(bi/2), mn = (bi%2)*30;
+      const ts = String(hr).padStart(2,'0') + ':' + String(mn).padStart(2,'0');
+      const dm = d.d[bi], aw = d.a[bi], pr = d.p[bi];
+      const sr = dm > 0 ? ((dm - aw) / dm * 100).toFixed(0) : '0';
+      tip.innerHTML = '<b>' + ts + '</b><br>募集: ' + dm + 'MW / 中标: ' + aw.toFixed(1) + 'MW<br>不足率: ' + sr + '% / 单价: ' + pr + '日元';
+      tip.style.opacity = '1';
+      tip.style.left = Math.min(x, rect.width - 200) + 'px';
+      tip.style.top = '0px';
+    }
+    canvas.addEventListener('mousemove', e => show(e.clientX));
+    canvas.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+    canvas.addEventListener('touchmove', e => { e.preventDefault(); show(e.touches[0].clientX); }, {passive:false});
+  });
+}
+
+document.getElementById('product-tabs').addEventListener('click', function(e) {
+  const tab = e.target.closest('.tab-item');
+  if (!tab) return;
+  document.querySelectorAll('#product-tabs .tab-item').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  buildCharts(tab.dataset.product);
+});
+
+window.addEventListener('load', () => buildCharts('一次在线'));
+window.addEventListener('resize', () => drawAll(currentProduct));
+
+
+const S = {"夏":{"date":"2025年7月7日（周一）","label":"夏","products":{"一次在线":{"national_sr":62.8,"areas":{"北海道":{"d":701,"a":939.7,"p":5.87},"东北":{"d":1142,"a":197.4,"p":7.22},"东京":{"d":4683,"a":159.9,"p":11.8},"中部":{"d":174,"a":5.8,"p":19.51},"北陆":{"d":682,"a":401,"p":3.82},"关西":{"d":2970,"a":1319.4,"p":5.92},"中国":{"d":1717,"a":1296,"p":3.19},"四国":{"d":452,"a":430,"p":3.82},"九州":{"d":1883,"a":615,"p":6.08}}},"一次离线":{"national_sr":98.5,"areas":{"北海道":{"d":345,"a":5.2,"p":19.5},"东北":{"d":576,"a":0.0,"p":0.0},"东京":{"d":1693,"a":38.2,"p":16.12},"中部":{"d":1256,"a":5.8,"p":19.51},"北陆":{"d":472,"a":0.0,"p":0.0},"关西":{"d":1709,"a":18.7,"p":19.04},"中国":{"d":1371,"a":9.0,"p":19.51},"四国":{"d":128,"a":0.0,"p":0.0},"九州":{"d":1120,"a":55.1,"p":19.37}}},"二次①":{"national_sr":32.1,"areas":{"北海道":{"d":522,"a":847.4,"p":4.11},"东北":{"d":411,"a":211,"p":2.74},"东京":{"d":4027,"a":92.4,"p":1.8},"中部":{"d":11,"a":148,"p":7.48},"北陆":{"d":228,"a":447,"p":3.78},"关西":{"d":1778,"a":1159.1,"p":5.47},"中国":{"d":755,"a":1286.9,"p":3.01},"四国":{"d":419,"a":506,"p":3.63},"九州":{"d":998,"a":1515,"p":2.1}}},"三次①":{"national_sr":17.8,"areas":{"北海道":{"d":1907,"a":862.7,"p":5.81},"东北":{"d":464,"a":584,"p":2.77},"东京":{"d":7988,"a":4774.3,"p":3.61},"中部":{"d":42,"a":161.1,"p":5.67},"北陆":{"d":653,"a":723,"p":3.65},"关西":{"d":2597,"a":2264.5,"p":5.19},"中国":{"d":1163,"a":1721.5,"p":3.08},"四国":{"d":1343,"a":1516.2,"p":2.65},"九州":{"d":1336,"a":1775,"p":2.06}}},"复合":{"national_sr":32.5,"areas":{"北海道":{"d":2098,"a":1550.8,"p":5.09},"东北":{"d":1545,"a":641.4,"p":6.14},"东京":{"d":9266,"a":4812.5,"p":3.77},"中部":{"d":746,"a":663.5,"p":4.87},"北陆":{"d":873,"a":734,"p":3.64},"关西":{"d":3701,"a":2965.9,"p":5.8},"中国":{"d":1968,"a":1730.5,"p":3.19},"四国":{"d":1567,"a":1516.2,"p":2.65},"九州":{"d":2631,"a":1856,"p":2.74}}}}},"冬":{"date":"2026年1月21日（周三）","label":"冬","products":{"一次在线":{"national_sr":47.0,"areas":{"北海道":{"d":121,"a":295.8,"p":5.42},"东北":{"d":1417,"a":448.1,"p":6.59},"东京":{"d":3143,"a":763.1,"p":9.62},"中部":{"d":712,"a":176.3,"p":12.12},"北陆":{"d":708,"a":441,"p":2.06},"关西":{"d":2077,"a":1518.9,"p":4.19},"中国":{"d":1869,"a":1447.1,"p":3.8},"四国":{"d":496,"a":478,"p":6.27},"九州":{"d":1968,"a":1058,"p":4.39}}},"一次离线":{"national_sr":92.5,"areas":{"北海道":{"d":393,"a":2.0,"p":15.85},"东北":{"d":948,"a":9.4,"p":19.51},"东京":{"d":1689,"a":369.2,"p":17.56},"中部":{"d":1249,"a":56.9,"p":19.48},"北陆":{"d":465,"a":0.0,"p":0.0},"关西":{"d":1628,"a":88.1,"p":17.07},"中国":{"d":1345,"a":20.8,"p":19.4},"四国":{"d":232,"a":9.7,"p":18.4},"九州":{"d":1174,"a":125.6,"p":19.43}}},"二次①":{"national_sr":-10.8,"areas":{"北海道":{"d":166,"a":262.4,"p":4.9},"东北":{"d":1114,"a":674,"p":2.09},"东京":{"d":1675,"a":1202.8,"p":2.56},"中部":{"d":402,"a":355,"p":3.06},"北陆":{"d":409,"a":733,"p":2.03},"关西":{"d":1338,"a":1816.2,"p":4.62},"中国":{"d":819,"a":1237.2,"p":3.38},"四国":{"d":463,"a":406.5,"p":4.58},"九州":{"d":1117,"a":1624.5,"p":1.24}}},"三次①":{"national_sr":-26.7,"areas":{"北海道":{"d":84,"a":223.2,"p":2.89},"东北":{"d":2025,"a":2361,"p":1.65},"东京":{"d":1282,"a":2307.2,"p":2.42},"中部":{"d":460,"a":663.2,"p":3.05},"北陆":{"d":1066,"a":1100,"p":2.03},"关西":{"d":2288,"a":2943.4,"p":3.68},"中国":{"d":1558,"a":1968.1,"p":2.74},"四国":{"d":1037,"a":1148.1,"p":3.19},"九州":{"d":1814,"a":2002.5,"p":1.38}}},"复合":{"national_sr":14.0,"areas":{"北海道":{"d":388,"a":393,"p":4.64},"东北":{"d":3345,"a":2656.1,"p":2.64},"东京":{"d":3365,"a":2916.4,"p":4.58},"中部":{"d":2105,"a":1196.1,"p":3.16},"北陆":{"d":1148,"a":1100,"p":2.03},"关西":{"d":3220,"a":3415.6,"p":4.56},"中国":{"d":2481,"a":2080.5,"p":3.07},"四国":{"d":1244,"a":1222.5,"p":4.04},"九州":{"d":2649,"a":2164.1,"p":2.58}}}}}};
+
+let curSProduct='一次在线';
+const areaOrder=['北海道','东北','东京','中部','北陆','关西','中国','四国','九州'];
+
+function renderSeasonBars(season,targetId,headerTargetId){
+  const sd=S[season],pd=sd.products[curSProduct];
+  const nsr=pd.national_sr;
+  const hdr=document.getElementById(headerTargetId);
+  const statsHtml=nsr<0?'<strong style="color:#2980B9">供给过剩（'+nsr.toFixed(1)+'%）</strong>':'不足率 <strong>'+nsr.toFixed(1)+'%</strong>';
+  hdr.innerHTML='<div style="display:flex;justify-content:space-between;align-items:baseline;padding:8px 0 4px"><span style="font-weight:700;color:var(--navy);font-size:.92em">'+sd.date+'</span><span style="font-size:.78em;color:var(--text-light)">'+statsHtml+'</span></div>';
+  let html='';
+  areaOrder.forEach(area=>{
+    const ad=pd.areas[area];
+    const sr=ad.d>0?(ad.d-ad.a)/ad.d*100:-999;
+    const fillPct=ad.d>0?Math.min(ad.a/ad.d*100,100).toFixed(1):'0';
+    const srText=sr>-900?sr.toFixed(0)+'%':'过剩';
+    html+='<div class="s-bar-row"><span class="s-bar-label">'+area+'</span><div class="s-bar-wrap">';
+    if(sr>0){
+      if(parseFloat(fillPct)>0) html+='<div class="s-bar-fill sl" style="position:absolute;top:0;left:0;width:'+fillPct+'%"></div>';
+      html+='<span style="position:absolute;right:4px;top:0;height:100%;display:flex;align-items:center;font-size:.72em;font-weight:600;color:#922B21">'+srText+'</span>';
+    } else {
+      html+='<div style="position:absolute;top:0;left:0;height:100%;width:100%;background:rgba(41,128,185,0.5);border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.72em;font-weight:600;color:#fff">过剩</div>';
+    }
+    html+='</div><span class="s-bar-meta">'+Math.round(ad.a)+' / '+Math.round(ad.d)+' MW</span></div>';
+  });
+  document.getElementById(targetId).innerHTML=html;
+}
+function renderSeason(){
+  renderSeasonBars('夏','season-bars-summer','season-header-summer');
+  renderSeasonBars('冬','season-bars-winter','season-header-winter');
+}
+document.getElementById('season-product-tabs').addEventListener('click',function(e){const tab=e.target.closest('.tab-item');if(!tab)return;this.querySelectorAll('.tab-item').forEach(t=>t.classList.remove('active'));tab.classList.add('active');curSProduct=tab.dataset.sproduct;renderSeason();});
+window.addEventListener('load',function(){setTimeout(renderSeason,100);});
+
+const RT = {
+  share: [
+    {name:'火力发电', val:72.2, color:'#7F8C8D'},
+    {name:'水力、抽蓄', val:7.9, color:'#3498DB'},
+    {name:'储能', val:19.7, color:'var(--accent)'},
+    {name:'VPP', val:0.2, color:'#95A5A6'}
+  ],
+  batteryDist: [
+    {name:'复合', pct:37.7, share:6.1},
+    {name:'一次在线', pct:37.1, share:19.7},
+    {name:'一次离线', pct:17.8, share:97.8},
+    {name:'二次①', pct:2.9, share:1.2},
+    {name:'三次①', pct:2.3, share:0.4},
+    {name:'二次②', pct:2.2, share:0.6}
+  ],
+  trend: [
+    {month:'2025/10', pct:14.3},
+    {month:'2025/11', pct:17.5},
+    {month:'2025/12', pct:15.7},
+    {month:'2026/01', pct:20.6},
+    {month:'2026/02', pct:22.5},
+    {month:'2026/03', pct:20.4},
+    {month:'2026/04', pct:22.4}
+  ]
+};
+
+function renderRT(){
+  let h='<div style="margin:20px 0 8px;font-size:.82em;color:var(--text-light)">储能的商品别中标量分配</div>';
+  RT.batteryDist.forEach(p=>{
+    const w=Math.max(p.pct/45*100,3);
+    h+='<div class="s-bar-row"><span class="s-bar-label" style="width:80px;font-size:.82em">'+p.name+'</span><div class="s-bar-wrap"><div class="s-bar-fill" style="position:absolute;top:0;left:0;width:'+w+'%;background:var(--accent);">';
+    if(w>10)h+=p.pct+'%';
+    h+='</div></div><span class="s-bar-meta" style="width:140px"><strong>'+p.pct+'%</strong>（市场内'+p.share+'%）</span></div>';
+  });
+
+  h+='<div style="margin:28px 0 8px;font-size:.82em;color:var(--text-light)">一次在线 电源种别明细</div>';
+  h+='<div style="display:flex;height:48px;border-radius:4px;overflow:hidden;margin-bottom:8px">';
+  RT.share.forEach(s=>{
+    if(s.val<0.5)return;
+    h+='<div style="width:'+s.val+'%;background:'+s.color+';display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72em;font-weight:600">';
+    if(s.val>5)h+=s.name+'<br>'+s.val+'%';
+    h+='</div>';
+  });
+  h+='</div>';
+  document.getElementById('rt-chart').innerHTML=h;
+
+  let t='<div style="margin:4px 0 8px;font-size:.82em;color:var(--text-light)">一次在线中储能份额月度推移</div>';
+  RT.trend.forEach(m=>{
+    const w=m.pct/30*100;
+    t+='<div class="s-bar-row"><span class="s-bar-label" style="width:60px;font-size:.78em">'+m.month+'</span><div class="s-bar-wrap"><div class="s-bar-fill" style="position:absolute;top:0;left:0;width:'+w+'%;background:linear-gradient(90deg,var(--accent),var(--accent-light))">';
+    if(w>15)t+=m.pct+'%';
+    t+='</div></div><span class="s-bar-meta" style="width:60px"><strong>'+m.pct+'%</strong></span></div>';
+  });
+  document.getElementById('rt-trend').innerHTML=t;
+}
+window.addEventListener('load',function(){setTimeout(renderRT,150);});
+
+function renderOfflineTrend(){
+  const data=[
+    {m:'2025/04',sr:99.2},{m:'2025/05',sr:98.9},{m:'2025/06',sr:98.4},
+    {m:'2025/07',sr:98.4},{m:'2025/08',sr:98.1},{m:'2025/09',sr:98.0},
+    {m:'2025/10',sr:97.3},{m:'2025/11',sr:95.5},{m:'2025/12',sr:94.6},
+    {m:'2026/01',sr:92.9},{m:'2026/02',sr:91.7}
+  ];
+  let h='<div style="margin:4px 0 8px;font-size:.82em;color:var(--text-light)">一次离线 月度不足率（全国）</div>';
+  data.forEach(d=>{
+    const fill=(100-d.sr).toFixed(1);
+    h+='<div class="s-bar-row"><span class="s-bar-label" style="width:60px;font-size:.78em">'+d.m+'</span><div class="s-bar-wrap">';
+    h+='<div style="position:absolute;left:0;top:0;height:100%;width:'+fill+'%;background:rgba(39,174,96,0.8);border-radius:3px 0 0 3px;min-width:3px"></div>';
+    h+='<span style="position:absolute;right:6px;top:0;height:100%;display:flex;align-items:center;font-size:.75em;font-weight:600;color:var(--navy)">不足 '+d.sr+'%</span>';
+    h+='</div><span class="s-bar-meta" style="width:70px;font-size:.75em">充足'+(100-d.sr).toFixed(1)+'%</span></div>';
+  });
+  document.getElementById('offline-trend').innerHTML=h;
+}
+window.addEventListener('load',function(){setTimeout(renderOfflineTrend,120);});
+
+function renderTieline(){
+  const data=[
+    {label:'北海道↔东北', fwd:5.3, rev:47.2},
+    {label:'东北↔东京', fwd:20.8, rev:2.9},
+    {label:'东京↔中部', fwd:10.8, rev:21.4},
+    {label:'中部↔关西', fwd:12.8, rev:32.9},
+    {label:'中部↔北陆', fwd:1.9, rev:6.1},
+    {label:'北陆↔关西', fwd:2.1, rev:4.1},
+    {label:'关西↔中国', fwd:3.8, rev:1.9},
+    {label:'中国↔四国', fwd:3.2, rev:10.5},
+    {label:'中国↔九州', fwd:23.3, rev:6.1}
+  ];
+  let h='<div style="display:flex;gap:16px;margin-bottom:12px;font-size:.78em;color:var(--text-light)"><span style="display:flex;align-items:center;gap:4px"><span style="width:14px;height:14px;background:var(--accent);border-radius:2px;display:inline-block"></span>顺方向</span><span style="display:flex;align-items:center;gap:4px"><span style="width:14px;height:14px;background:var(--navy-light);border-radius:2px;display:inline-block"></span>逆方向</span></div>';
+  data.forEach(d=>{
+    const maxW=55;
+    const fW=Math.max(d.fwd/maxW*100,2);
+    const rW=Math.max(d.rev/maxW*100,2);
+    h+='<div class="tl-row"><span class="tl-label">'+d.label+'</span><div class="tl-bar-wrap"><div class="tl-bar tl-fwd" style="width:'+fW+'%">'+d.fwd+'%</div><div class="tl-bar tl-rev" style="width:'+rW+'%">'+d.rev+'%</div></div></div>';
+  });
+  h+='<div style="font-size:.72em;color:var(--text-light);margin-top:8px;font-style:italic">利用率 = 联络线确保量 ÷ 确保量上限值（2025年4月〜2026年3月13日 周间交易 速报值）</div>';
+  document.getElementById('tieline-chart').innerHTML=h;
+}
+window.addEventListener('load',function(){setTimeout(renderTieline,180);});
+</script>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img src="/img/logo-white.png" alt="ScienceX Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.（赛恩斯艾克斯）</div>
+        日本〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:+81364034095">+81 3 6403 4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
