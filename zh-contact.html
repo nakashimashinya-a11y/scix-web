@@ -287,7 +287,7 @@
     <div class="hero-inner">
       <div class="hero-label">Contact</div>
       <h1 class="hero-title">联系我们</h1>
-      <p class="hero-subtitle">关于日本电网级储能的投资与协作咨询，或索取资料。<br>我们将于 1 个工作日内回复。</p>
+      <p class="hero-subtitle">关于日本电网级储能的投资与协作咨询，或索取资料。<br>我们将于 1 个工作日内回复。<br><span style="opacity:0.75;">东京（JST, UTC+9）· 工作日内回复</span></p>
     </div>
   </div>
 </section>
@@ -302,7 +302,7 @@
         <h2>询问表单</h2>
         <p class="form-lead">请填写以下表单。我们确认内容后，将由专人与您联系。</p>
 
-        <form id="contactForm" action="https://formsubmit.co/ajax/s@scix.co.jp" method="POST">
+        <form id="contactForm" action="https://scix-dealroom2.pages.dev/api/web-contact" method="POST">
           <!-- Inquiry Type -->
           <div class="inquiry-types">
             <label>询问类型<span class="required">*</span></label>
@@ -353,11 +353,8 @@
             <textarea name="message" placeholder="请描述您的问题或兴趣。&#10;（例如：希望取得 50MW 储能项目的详细资料）"></textarea>
           </div>
 
-          <!-- FormSubmit.co Config -->
-          <input type="hidden" name="_subject" value="[ScienceX Website] New Inquiry (ZH)">
-          <input type="hidden" name="_next" value="https://scix.co.jp/en/thanks">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
+          <!-- web-contact (scix-dealroom2 / Resend) -->
+          <input type="hidden" name="_form" value="contact">
           <input type="text" name="_honey" style="display:none">
 
           <!-- Submit -->
