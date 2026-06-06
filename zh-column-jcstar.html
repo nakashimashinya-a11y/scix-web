@@ -14,504 +14,581 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- 百度/中文搜索引擎向け -->
-<meta name="applicable-device" content="pc,mobile">
-<meta name="renderer" content="webkit">
-<meta http-equiv="Cache-Control" content="no-transform">
-<title>JC-STAR 认证与储能事业 — 网络安全认证如何改变设备选型 | ScienceX</title>
-<meta name="description" content="2027年4月并网规约（Grid Code）修订后，JC-STAR Level 1 将成为并网的强制要求。对日本电网级储能的设备选型、PCS采购与EMS架构的影响，以及与海外硬件的兼容策略。">
+<title>读懂 JC-STAR ★1：日本电网级储能的网络安全标准与开放市场｜面向中国投资者与设备企业｜ScienceX</title>
+<meta name="description" content="JC-STAR ★1 是支撑日本电网级储能资产可信度的关键基础设施。特高压·高压2027年4月、低压50kW以下2027年10月，均以“接入合同申请”为触发点。电池电芯·电池包不在认证范围内，国际设备（含中国企业熙特尔）已大量取得认证，英国·新加坡互认已生效。本文从中国投资者与设备企业视角，梳理这套标准与开放的市场路径。">
 <link rel="canonical" href="https://www.scix.co.jp/zh-column-jcstar">
-<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-jcstar">
 <link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-jcstar">
 <link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-jcstar">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-jcstar">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-jcstar">
 <meta property="og:type" content="website">
-<meta property="og:title" content="JC-STAR 认证与储能事业 — 网络安全认证如何改变设备选型 | ScienceX">
-<meta property="og:description" content="2027年4月并网规约修订后，JC-STAR Level 1 将成为并网的强制要求。对日本电网级储能的设备选型、PCS采购与EMS架构的影响，以及与海外硬件的兼容策略。">
+<meta property="og:title" content="读懂 JC-STAR ★1：日本电网级储能的网络安全标准与开放市场｜ScienceX">
+<meta property="og:description" content="JC-STAR ★1 是支撑日本电网级储能资产可信度的关键基础设施。电池电芯·电池包不在认证范围内，国际设备（含中国企业）已大量取得认证，英国·新加坡互认已生效。本文从中国投资者与设备企业视角解读这套标准与开放的市场。">
 <meta property="og:url" content="https://www.scix.co.jp/zh-column-jcstar">
-<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
 <meta property="og:site_name" content="ScienceX">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="JC-STAR 认证与储能事业 — 网络安全认证如何改变设备选型 | ScienceX">
-<meta name="twitter:description" content="2027年4月并网规约修订后，JC-STAR Level 1 将成为并网的强制要求。对日本电网级储能的设备选型、PCS采购与EMS架构的影响，以及与海外硬件的兼容策略。">
-<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@700&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
+<meta name="twitter:title" content="读懂 JC-STAR ★1：日本电网级储能的网络安全标准与开放市场｜ScienceX">
+<meta name="twitter:description" content="JC-STAR ★1 是支撑日本电网级储能资产可信度的关键基础设施。电池电芯·电池包不在认证范围内，国际设备已大量取得认证，英国·新加坡互认已生效。从中国投资者与设备企业视角解读。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--off-white:#F8F7F4;--border:#E2E6EC;--white:#FFF}
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.8;background:var(--white)}
-.article-hero{background:linear-gradient(160deg,var(--white) 0%,var(--off-white) 50%,#EDE8DF 100%);border-bottom:3px solid var(--accent);padding:72px 32px 60px;text-align:center;position:relative;overflow:hidden}
-.article-hero::before{content:'';position:absolute;top:-80px;right:-160px;width:500px;height:500px;background:radial-gradient(circle,rgba(196,154,60,0.06) 0%,transparent 70%);pointer-events:none}
-.hero-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-.hero-num{font-family:'Noto Serif JP',serif;font-size:.8em;font-weight:700;color:var(--accent);letter-spacing:.5px}
-.hero-tag{display:inline-block;padding:3px 12px;background:rgba(27,42,74,.06);color:var(--navy);font-size:.7em;font-weight:600;letter-spacing:.5px;border-radius:3px}
-.hero-new{display:inline-block;padding:3px 12px;background:rgba(196,154,60,.12);color:var(--accent);font-size:.7em;font-weight:700;border-radius:3px}
-.article-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(1.4em,3.5vw,2em);font-weight:700;color:var(--navy);line-height:1.6;margin-bottom:18px;max-width:760px;margin-left:auto;margin-right:auto}
-.article-hero .lead{font-size:.92em;color:var(--text-light);max-width:640px;margin:0 auto;line-height:2}
-.article-body{max-width:760px;margin:0 auto;padding:56px 32px 80px}
-.article-body h2{font-family:'Noto Serif JP',serif;font-size:1.3em;font-weight:700;color:var(--navy);margin:52px 0 18px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.6}
-.article-body h3{font-family:'Noto Serif JP',serif;font-size:1.1em;font-weight:700;color:var(--navy);margin:36px 0 14px;line-height:1.6}
-.article-body p{font-size:.92em;color:var(--text);line-height:2.05;margin-bottom:20px}
-.article-body strong{color:var(--navy);font-weight:700}
-.article-body a{color:var(--green);text-decoration:underline;text-underline-offset:3px}
-.article-body a:hover{color:var(--navy)}
-.key-point{background:var(--off-white);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:24px 28px;margin:28px 0}
-.key-point p{margin-bottom:0;font-size:.88em;line-height:1.95}
-.key-point p:not(:last-child){margin-bottom:12px}
-.warning-box{background:#FDF6F0;border-left:4px solid #D35400;border-radius:0 8px 8px 0;padding:24px 28px;margin:28px 0}
-.warning-box p{margin-bottom:0;font-size:.88em;line-height:1.95;color:#5D3A1A}
-.warning-box strong{color:#D35400}
-.confirmed-box{background:#F0F7F4;border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:24px 28px;margin:28px 0}
-.confirmed-box p{margin-bottom:0;font-size:.88em;line-height:1.95;color:#1A3A2C}
-.confirmed-box p:not(:last-child){margin-bottom:12px}
-.confirmed-box strong{color:var(--green)}
-.info-table{width:100%;border-collapse:collapse;margin:24px 0 32px;font-size:.85em}
-.info-table thead{background:var(--navy);color:var(--white)}
-.info-table th{padding:12px 16px;font-weight:500;text-align:left;font-size:.82em;letter-spacing:.3px}
-.info-table td{padding:14px 16px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.7}
-.info-table tr:last-child td{border-bottom:none}
-.info-table tr:nth-child(even){background:var(--light-bg)}
-.level-badge{display:inline-block;padding:2px 10px;border-radius:3px;font-size:.78em;font-weight:700}
-.level-1{background:rgba(26,122,76,.1);color:var(--green)}
-.level-2{background:rgba(196,154,60,.12);color:var(--accent)}
-.level-3{background:rgba(27,42,74,.08);color:var(--navy)}
-.level-4{background:rgba(211,84,0,.08);color:#D35400}
-.diagram-box{background:var(--light-bg);border:1px solid var(--border);border-radius:10px;padding:32px 28px;margin:32px 0;text-align:center}
-.diagram-box .diagram-title{font-family:'Noto Serif JP',serif;font-size:.9em;font-weight:700;color:var(--navy);margin-bottom:20px}
-.arch-flow{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
-.arch-block{border-radius:8px;padding:14px 16px;text-align:center;min-width:130px}
-.arch-block.external{background:var(--navy);color:var(--white)}
-.arch-block.gateway{background:var(--green);color:var(--white);border:2px solid #156B41}
-.arch-block.internal{background:var(--white);color:var(--navy);border:1px solid var(--border)}
-.arch-block .ab-label{font-size:.68em;font-weight:600;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:4px}
-.arch-block .ab-name{font-size:.82em;font-weight:700;line-height:1.4}
-.arch-arrow{font-size:1.2em;color:var(--text-light)}
-.arch-arrow.secure{color:var(--green);font-weight:700}
-.diagram-note{font-size:.75em;color:var(--text-light);margin-top:16px;line-height:1.6}
-.source-note{font-size:.78em;color:var(--text-light);margin-top:4px;line-height:1.6}
-.source-note a{color:var(--text-light);text-decoration:underline}
-.back-link{display:inline-flex;align-items:center;gap:6px;font-size:.85em;color:var(--accent);text-decoration:none;margin-bottom:32px;transition:color .3s}
-.back-link:hover{color:var(--navy)}
-.article-cta{padding:56px 32px;background:linear-gradient(160deg,var(--navy),var(--navy-light));text-align:center}
-.article-cta h2{font-family:'Noto Serif JP',serif;font-size:clamp(1.1em,2.5vw,1.5em);color:#fff;font-weight:700;margin-bottom:12px}
-.article-cta p{font-size:.85em;color:rgba(255,255,255,.55);margin-bottom:24px;line-height:1.8}
-.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:13px 32px;border-radius:4px;font-weight:700;font-size:.88em;text-decoration:none;transition:all .3s}
-.cta-btn:hover{background:#D4AD5A;box-shadow:0 4px 20px rgba(196,154,60,.35)}
-.update-badge{display:inline-block;padding:2px 8px;background:var(--green);color:#fff;font-size:.65em;font-weight:700;border-radius:3px;vertical-align:middle;margin-left:6px}
+body{font-family:'Noto Sans SC',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:760px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.update-badge{display:inline-block;padding:2px 9px;background:var(--green);color:#fff;font-size:11px;font-weight:700;border-radius:3px;vertical-align:middle;letter-spacing:.04em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue)}
+.lead{font-size:1.02em;color:var(--text)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px}
+.source a{color:var(--blue);text-decoration:none;word-break:break-all}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.comparison-table .new-tag{display:inline-block;font-size:.68em;font-weight:700;color:#fff;background:var(--green);padding:1px 6px;border-radius:2px;margin-left:6px;letter-spacing:.04em;vertical-align:middle}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:560px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+
+/* Comparison cards (两极端) */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative;border-top:3px solid var(--warn)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:2px;margin-bottom:10px;background:var(--warn-bg);color:var(--warn)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+
+/* Figure */
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+
+/* Timeline */
+.sched-list{margin:28px 0}
+.sched-item{display:grid;grid-template-columns:130px 1fr;gap:18px;padding:16px 18px;background:var(--white);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;margin-bottom:10px}
+.sched-item .s-date{font-family:'Noto Serif SC',serif;font-size:.95em;font-weight:700;color:var(--accent);line-height:1.4}
+.sched-item .s-date .sd-sub{display:block;font-size:.75em;color:var(--text-light);font-weight:400;margin-top:2px}
+.sched-item h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 4px}
+.sched-item p{font-size:.85em;line-height:1.85;margin:0;color:var(--text)}
+.sched-item.past{border-left-color:var(--text-light);opacity:.85}
+.sched-item.past .s-date{color:var(--text-light)}
+.sched-item.open{border-left-color:var(--orange)}
+.sched-item.open .s-date{color:var(--orange)}
+
+/* Sources box */
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.85}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:4px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+
+/* CTA */
+.cta-box{background:linear-gradient(165deg,#1B2A4A 0%,#2A4D7A 100%);color:#fff;padding:36px 32px;border-radius:8px;margin:48px 0 32px;text-align:center}
+.cta-box h3{color:#fff;font-family:'Noto Serif SC',serif;font-size:1.2em;margin:0 0 14px;border:none;padding:0}
+.cta-box p{color:rgba(255,255,255,.78);font-size:.9em;line-height:1.9;margin:0 auto 16px;max-width:560px}
+.cta-box p:last-of-type{margin-bottom:0}
+.cta-box strong{color:var(--accent-light)}
+.cta-button{display:inline-block;background:var(--accent);color:#fff;padding:14px 36px;border-radius:4px;font-weight:600;font-size:.92em;text-decoration:none;letter-spacing:.04em;transition:all .3s;margin-top:8px}
+.cta-button:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.4)}
+
+/* JC-STAR: status badges & 确定/未确定 map */
+.badge{display:inline-block;font-size:.7em;font-weight:700;letter-spacing:.04em;padding:2px 8px;border-radius:3px;white-space:nowrap;vertical-align:middle}
+.badge.fix{background:rgba(26,122,76,.12);color:var(--green)}
+.badge.draft{background:rgba(196,154,60,.18);color:var(--accent)}
+.badge.open{background:rgba(180,83,9,.12);color:var(--orange)}
+.fixmap{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
+.fixmap-col{border:1px solid var(--border);border-radius:6px;padding:20px 22px;background:var(--white)}
+.fixmap-col.decided{border-top:3px solid var(--green)}
+.fixmap-col.pending{border-top:3px solid var(--orange)}
+.fixmap-col h4{font-size:.92em;font-weight:700;margin:0 0 12px;display:flex;align-items:center;gap:8px;border:none}
+.fixmap-col.decided h4{color:var(--green)}
+.fixmap-col.pending h4{color:var(--orange)}
+.fixmap-col ul{list-style:none;padding:0;margin:0}
+.fixmap-col li{font-size:.84em;line-height:1.65;padding:9px 0 9px 20px;border-bottom:1px solid var(--border);position:relative}
+.fixmap-col li:last-child{border-bottom:none}
+.fixmap-col li::before{position:absolute;left:0;top:9px;font-weight:700;font-size:.95em}
+.fixmap-col.decided li::before{content:"✓";color:var(--green)}
+.fixmap-col.pending li::before{content:"?";color:var(--orange)}
+.fixmap-col li .src{display:block;font-size:.82em;color:var(--text-light);margin-top:2px}
+
+/* Company footer */
+.site-footer{background:var(--navy);color:rgba(255,255,255,.7);padding:48px 24px;text-align:center;font-size:.82em;line-height:1.9}
+.site-footer .ft-name{font-family:'Noto Serif SC',serif;color:#fff;font-size:1.05em;margin-bottom:10px;letter-spacing:.04em}
+.site-footer a{color:var(--accent-light);text-decoration:none}
+.site-footer .ft-rep{margin-top:10px;color:rgba(255,255,255,.55)}
 @media(max-width:768px){
-  .article-hero{padding:56px 20px 44px}
-  .article-body{padding:40px 20px 60px}
-  .info-table{font-size:.78em}
-  .info-table th,.info-table td{padding:10px 10px}
-  .arch-flow{flex-direction:column}
-  .arch-arrow{transform:rotate(90deg)}
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .compare-grid{grid-template-columns:1fr}
+  .fixmap{grid-template-columns:1fr}
+  .sched-item{grid-template-columns:1fr;gap:6px}
 }
 </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "JC-STAR 认证与储能事业 — 网络安全认证如何改变设备选型 | ScienceX",
-  "description": "2027年4月并网规约修订后，JC-STAR Level 1 将成为并网的强制要求。对日本电网级储能的设备选型、PCS采购与EMS架构的影响，以及与海外硬件的兼容策略。",
-  "author": {
-    "@type": "Organization",
-    "name": "Science X Inc."
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Science X Inc.",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.scix.co.jp/img/logo-white.png"
-    }
-  },
+  "headline": "读懂 JC-STAR ★1：日本电网级储能的网络安全标准与开放市场",
+  "description": "JC-STAR ★1 是支撑日本电网级储能资产可信度的关键基础设施。特高压·高压2027年4月、低压50kW以下2027年10月，均以“接入合同申请”为触发点。电池电芯·电池包不在认证范围内，国际设备已大量取得认证，英国·新加坡互认已生效。本文从中国投资者与设备企业视角解读。",
+  "author": { "@type": "Organization", "name": "Science X Inc." },
+  "publisher": { "@type": "Organization", "name": "Science X Inc.", "logo": { "@type": "ImageObject", "url": "https://www.scix.co.jp/img/logo-white.png" } },
   "datePublished": "2026-04-10",
+  "dateModified": "2026-06-06",
   "inLanguage": "zh-CN",
   "mainEntityOfPage": "https://www.scix.co.jp/zh-column-jcstar"
 }
 </script>
-<style>body,table,th,td,input,textarea,button{font-family:'Noto Sans SC','Noto Sans JP',sans-serif!important}h1,h2,h3,.diagram-title{font-family:'Noto Serif SC','Noto Serif JP',serif!important}</style>
+<meta property="article:published_time" content="2026-04-10">
+<meta property="article:modified_time" content="2026-06-06">
 </head>
 <body>
 <script src="/header.js"></script>
 
-<div class="article-hero">
-  <div class="hero-meta">
-    <span class="hero-num">COLUMN 14</span>
-    <span class="hero-tag">网络安全</span>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 14</span>
+      <span class="header-tag">网络安全</span>
+      <time class="header-date" datetime="2026-04-10">2026.04.10</time>
+      <span class="update-badge">2026.06 更新</span>
+    </div>
+    <h1>读懂 <em>JC-STAR ★1</em><br>日本电网级储能的网络安全标准，与向世界开放的市场</h1>
+    <p class="header-desc">一项要求并网设备取得 JC-STAR ★1 的并网技术规范（Grid Code）修订正在推进。特高压·高压2027年4月、低压50kW以下2027年10月——均以“接入合同申请”为触发点，相关条文草案已于2026年3月在委员会通过。本文从中国投资者与设备企业的视角，依据一次资料梳理"哪些设备、到什么时点、以什么为基准"，并说明这片市场为何对国际参与者开放。</p>
   </div>
-  <h1>JC-STAR 认证与储能事业<br>— 网络安全认证如何改变设备选型</h1>
-  <p class="lead">2027年4月，JC-STAR Level 1 将依据并网规约（Grid Code）修订成为并网的强制要求。本文系统梳理这一制度的全貌——它直接影响电网级储能的 PCS、EMS 与网关选型——以及与海外硬件兼容的实务策略。</p>
 </div>
 
 <div class="article-body">
-  <a target="_top" href="/zh-knowledge" class="back-link">← 返回洞见</a>
 
-  <p class="source-note" style="margin-bottom:32px">最后更新：2026年4月 | 引用来源可在各节末尾的链接中核实</p>
+<a target="_top" href="/zh-knowledge" class="back-link">← 返回知识库</a>
 
-  <h2>为什么储能需要网络安全？</h2>
+<p class="note-small">最后更新：2026年6月｜本文基于2026年6月时点 OCCTO 并网技术规范检讨会的<strong>修订草案</strong>。各节末尾的链接可核实基于一次资料的事实。待条文（导则·并网技术要件·并网规程）正式公布后，将更新内容。</p>
 
-  <p>电网级储能已不再只是"储存电力的箱子"。它是高度联网的资产，持续通过互联网与整合商（aggregator）的云平台通信，在 JEPX（电力现货）、辅助服务与容量市场中实时反复投标与充放电。</p>
+<p class="lead">日本的电网级储能（系统级储能）正在成长为一类制度健全、安全可信、收益稳定的资产。2024年公布、2025年3月启动的 JC-STAR 网络安全认证，是支撑这种信任的关键基础设施之一。它通过并网、补贴、政府采购等多条路径，正在成为日本储能市场的通用品质标准。其中影响最大的，是预计于2027年4月生效的并网技术要件修订中的 ★1 必备化。需要说明的是，"2027年4月强制化"这种说法只对了一半——<strong>方向已经确定，但落地的条文尚未公布。</strong>对希望进入日本市场的中国投资者、EPC 与设备企业而言，读懂这套标准，既能看清资产的可靠性，也能找到清晰、开放的参与路径：英国、新加坡的互认已经生效，包括中国企业在内的国际厂商，正在与日本本土重电同台竞争。本文依据一次资料，把草案中已确定的部分与现阶段尚不能断言的部分逐一区分开来。</p>
 
-  <p>这种"必然的对外通信"带来了新的风险。若控制储能的 IoT 网关或 EMS 遭受网络攻击、被同时执行未授权的充放电，不仅可能造成局部停电，更可能因频率波动引发大规模停电——这是国家安全层面的威胁。</p>
+<h2>为什么储能需要网络安全</h2>
 
-  <p>为应对这一威胁，日本经产省（METI）于 2024 年公布制度设计，信息处理推进机构（IPA）于 2025 年 3 月启动运营：<strong>JC-STAR（Japan Cyber-Security Technical Assessment Requirements）</strong>——面向 IoT 产品的安全合规评估制度。</p>
+<p>电网级储能早已不是"储存电力的箱子"。它通过互联网与聚合商的云平台持续通信，对日本电力交易所（JEPX）、供需调节市场、容量市场实时申报并完成充放电，是一类高度网络化的资产。这种"与外部常态化通信"，正是日本将网络安全纳入制度的出发点。储能的网关或 EMS 一旦受到攻击、被批量执行异常充放电，影响可能不止于局部停电，还会经由频率波动波及更大范围。日本选择正面应对这一点——而这恰恰是保护储能资产价值与电网稳定的制度底气。</p>
 
-  <h2>2027年4月：并网规约修订带来的强制化</h2>
+<p>这并非抽象论。2024年5月，一款面向光伏电站的远程监控设备（康泰克 Contec 公司的 SolarView Compact）被利用已知漏洞，政府资料记为"约800台"规模，被用于网上银行的非法转账。被攻击设备的厂商表示，该设备不具备出力控制功能，因此不会对电网产生直接影响。需要注意的是，政府资料的表述为"约800台……被滥用"，至于其中实际被接管的有多少台、还是指存在漏洞的台数，从一次资料无法判别（本文不就台数含义下断言）。无论如何，这起事件清楚表明：暴露在互联网上的可再生能源·储能相关通信设备，会成为现实的攻击目标。日本将 IoT 产品安全符合性评估制度纳入并网技术要件，其直接背景正在于此——这是一种着眼于资产保护的前瞻性治理。</p>
 
-  <div class="confirmed-box">
-    <p><strong>政策决定（第20次并网规约研讨会议，2025年12月16日）：</strong></p>
-    <p>会议决定，针对光伏与储能，<strong>将在 2027 年 4 月并网规约（技术要件）修订中，强制要求使用 JC-STAR Level 1 认证产品</strong>。在技术要件修订后申请并网合同的项目，使用不合规设备可能难以接入电网。</p>
-    <p>对于 50kW 以下的低压产品，考虑到配电网库存的消化，设置了过渡期，<strong>自 2027 年 10 月起适用</strong>。</p>
-    <p>向风电与燃料电池的扩展，以及面向 PCS 的 JC-STAR Level 2+ 合规标准的制定，仍在政府委员会中持续讨论。</p>
+<p class="source">出处：<a href="https://www.occto.or.jp/assets/iinkai/gridcode/20/gridcode_20_05.pdf" target="_blank">OCCTO 第20回并网技术规范检讨会 资料（gridcode_20_05.pdf）p.7</a>（"约800台"事件，及厂商表示不会影响电网之记述。出自第83回电力·燃气基本政策小委员会 2024年11月20日 资料6并部分修改）｜<a href="https://www.contec.com/info/2024/2024050700/" target="_blank">康泰克"关于 SolarView Compact 的通知"（2024年5月7日／漏洞·后门相关告知）</a>｜<a href="https://www.ipa.go.jp/security/jc-star/index.html" target="_blank">IPA JC-STAR 制度 综合网站</a></p>
+
+<h2>"2027年4月"的具体内容 —— 适用时间与触发点</h2>
+
+<p>先按四个电源类别把适用时间确认清楚。光伏·储能在第20回并网技术规范检讨会（2025年12月16日）确定了时间，第21回（2026年3月31日）又新增了风电·燃料电池。<strong>这部分是可以断言的确定信息</strong>。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>类别</th><th>适用起始</th><th>触发点（草案）</th><th>过渡安排·补充</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">特高压·高压<br>（光伏·储能）</td><td>2027年4月</td><td>并网接入中的<br>合同申请</td><td>自用型等的宽限由 JPEA 提出诉求。<span class="cond">待定</span>（资源能源厅与 JPEA 协商中）</td></tr>
+<tr><td class="em">低压50kW以下<br>（光伏·储能）</td><td>2027年10月</td><td>并网接入中的<br>合同申请</td><td>顾及流通库存（既有逆变器等）的消化，延后半年的过渡安排</td></tr>
+<tr><td class="em">风力发电</td><td>2027年4月</td><td>—</td><td>先限定于网关的防火墙（或具备同等防护功能的设备）早期适用。其他设备亦尽快对应</td></tr>
+<tr><td class="em">燃料电池</td><td>2028年4月</td><td>—</td><td>以采用 PCS 的形式为对象。必要时设过渡安排</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>把制度走到今天的足迹，按检讨会的届次排开，脉络就清晰了。日本监管以公开会议的形式推进，每一步都留有可追溯的记录。</p>
+
+<div class="sched-list">
+  <div class="sched-item past">
+    <div class="s-date">2025.12.16<span class="sd-sub">第20回检讨会</span></div>
+    <div><h4>确定 ★1 必备化的方针</h4><p>就光伏·储能，确定在2027年4月的并网技术要件修订中，必须使用取得 JC-STAR ★1 的产品；低压50kW以下为2027年10月。此阶段的表述为"2027年4月以后<em>新接入电网</em>"，"申请"与"接入"的界线尚不明确。</p></div>
   </div>
-
-  <p class="source-note">Source:<a href="https://project.nikkeibp.co.jp/ms/atcl/19/news/00001/05640/?ST=msb" target="_blank" rel="noopener">Nikkei BP Mega Solar Business "Grid Code Revision, New Requirements for Grid-Scale Batteries" (February 2026)</a> | <a href="https://www.occto.or.jp/iinkai/gridcode/index.html" target="_blank" rel="noopener">OCCTO Grid Code Review Meeting</a></p>
-
-  <h3>储能系统的哪些部分被纳入——PCS 已确定，EMS 层仍在梳理</h3>
-
-  <p>与光伏不同，储能控制系统具有分层结构。联网涉及多个层次：BMS（电池管理系统）→ PCS → 本地 EMS → 上层 EMS（整合商）。</p>
-
-  <p>已确定 <strong>PCS（功率调节器，power conditioner）的通信模块</strong>属于 JC-STAR 的适用对象。PCS 是负责接收并执行出力控制指令的联网控制枢纽，承担最高的网络攻击风险。</p>
-
-  <p>与此同时，已梳理出 <strong>本地 EMS 与上层 EMS 很可能也属于 JC-STAR 适用对象</strong>，但在整个储能控制系统中强制范围究竟延伸到何处，尚未做出最终决定。不过，由于 EMS 是最直接暴露于互联网、经由互联网接收整合商与市场运营方控制指令的组件，设备选型应以满足 JC-STAR 为前提推进。</p>
-
-  <p>需注意，电芯与电池包（电池本体）仅通过 BMS 进行本地通信，不直接与互联网通信，因此不在 JC-STAR 适用范围内。</p>
-
-  <h3>存量项目也不豁免</h3>
-
-  <p>这不仅关乎新建项目。<strong>即便是存量项目，在更新控制系统（PCS、EMS 等）时，预计也将被要求使用 JC-STAR 合规产品。</strong>并网规约修订虽主要针对新的并网合同申请，但在更换 PCS 或升级 EMS 时，很可能需要满足这些要求。细则的最终敲定值得密切关注。</p>
-
-  <h2>JC-STAR 的基本结构</h2>
-
-  <p>JC-STAR 是一套评估 IoT 设备应具备的安全功能（加密通信、访问控制、安全的固件更新能力、漏洞响应流程等），并以星级数量表示合规状态的标识（labeling）制度。Level 1 与 Level 2 为厂商自我声明（也可委托外部验证机构），Level 3 及以上则需第三方认证。</p>
-
-  <table class="info-table">
-    <thead><tr><th>等级</th><th>安全标准</th><th>适用开始</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><span class="level-badge level-1">★</span></td>
-        <td>基线要求（16项）。强制更改初始密码、安全通信协议、证明无已知漏洞等。自我声明。<strong>自 2027 年 4 月起纳入并网规约强制范围。</strong></td>
-        <td>2025年3月</td>
-      </tr>
-      <tr>
-        <td><span class="level-badge level-2">★★</span></td>
-        <td>按产品类型的附加要求。高级加密数据存储、严格的用户权限分离。自我声明。面向 PCS 的 Level 2 标准研议中。</td>
-        <td>2026年1月起</td>
-      </tr>
-      <tr>
-        <td><span class="level-badge level-3">★★★</span></td>
-        <td>面向关键基础设施。由第三方评估机构客观评估。抗篡改、硬件级安全实现。</td>
-        <td>2026财年起</td>
-      </tr>
-      <tr>
-        <td><span class="level-badge level-4">★★★★</span></td>
-        <td>抗 APT 攻击。自设计阶段起严格验证，对未知漏洞具备高级韧性。第三方评估。</td>
-        <td>2026财年起</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p class="source-note">来源：<a href="https://www.ipa.go.jp/security/jc-star/detail.html" target="_blank" rel="noopener">IPA《JC-STAR 制度详细信息》</a></p>
-
-  <h2>ERAB 指南带来的先行强制</h2>
-
-  <p>在并网规约修订（2027年4月）之前，整合（aggregation）业务中其实已经要求 JC-STAR 合规。2025 年 5 月 22 日修订的 <strong>《ERAB 网络安全指南 Ver3.0》</strong>中，新增了一项要求：资源整合商在新引入作为控制对象的 IoT 设备时，应选择满足 JC-STAR Level 1 及以上的产品。具体而言，整合商—网关通信（R4）与整合商—能源设备直接通信（R6）被归为"推荐"（实质强制），网关—能源设备通信（R5）则为"鼓励"（尽力而为）。</p>
-
-  <p>此外，未来 Level 2+ 细则敲定后，满足 Level 2 及以上被视为更可取。日本经产省（METI）的 DR/VPP 相关补贴（DR 资源部署支援项目等）也将 ERAB 指南合规作为拨付条件，因此使用这些补贴时，选用 JC-STAR 合规设备实质上成为强制。</p>
-
-  <p class="source-note">来源：<a href="https://www.meti.go.jp/press/2025/05/20250522001/20250522001.html" target="_blank" rel="noopener">METI《ERAB 网络安全指南 Ver3.0》（2025年5月22日）</a></p>
-
-  <h2>对储能业者而言会发生什么变化？</h2>
-
-  <h3>1. 直接影响并网资格</h3>
-
-  <p>对于自 2027 年 4 月起申请并网合同的项目，使用 JC-STAR Level 1 认证产品成为强制。使用不合规设备的并网可能受阻。</p>
-
-  <div class="warning-box">
-    <p><strong>事业崩溃风险：</strong>即便投入巨额资金建成储能电站，若无法获准并网，售电与市场参与将完全无法实现。这将直接导致项目现金流被彻底切断的"搁浅资产（stranded asset）"状态。</p>
+  <div class="sched-item past">
+    <div class="s-date">2026.03.31<span class="sd-sub">第21回检讨会</span></div>
+    <div><h4>触发点统一为"合同申请"，并新增风电／燃料电池</h4><p>修订草案中，连同特高压·高压一并，把基准明确为"并网接入中的合同申请"。同时提出风电2027年4月（限网关防火墙）·燃料电池2028年4月，委员予以认可。</p></div>
   </div>
-
-  <h3>2. 补贴资格的必要条件</h3>
-
-  <p>在 DR/VPP 相关的部署补贴中，ERAB 指南合规（使用 JC-STAR 合规设备）被纳入为强制的拨付要求。选用不合规设备会使项目丧失补贴资格，显著恶化其经济性。</p>
-
-  <h3>3. 政府采购中的强制</h3>
-
-  <p>政府机构采购的 IoT 设备正被要求达到 Level 1 及以上。同样的政策也在向地方政府扩散。</p>
-
-  <div class="key-point">
-    <p>对储能业者而言，JC-STAR 并非"锦上添花的质量标志"。<strong>通过并网（并网规约）、补贴（ERAB 指南）、采购要求这三条路径，它已经成为事实上的义务。</strong></p>
+  <div class="sched-item open">
+    <div class="s-date">公布前<span class="sd-sub">2026年6月时点</span></div>
+    <div><h4>条文尚未落地 —— 导则·并网技术要件·并网规程</h4><p>纳入网络安全要件的正式修订版尚未公布。资源能源厅公开的并网技术要件导则，最新仍为令和6年（2024年）12月1日修订版；并网规程（日本电气协会）标注为"将依据导则修订予以反映"。截至2026年6月5日，第22回检讨会尚无召开信息。</p></div>
   </div>
+</div>
 
-  <h2>JC-STAR 合规产品现状<span class="update-badge">2026年4月更新</span></h2>
+<p>这里是本文的重点。就高压而言，第20回阶段的修订表述只能读到"新接入电网"，无从判别基准是接入（并网·投运）时点还是申请时点。这一基准在第21回的草案中统一为<strong>"并网接入中的合同申请"</strong>。也就是说，特高压·高压与低压一样，基准被定在申请阶段，而非"接入时点（并网·投运）"——这是目前最关键的进展。"只要在期限前提交接入合同申请即可、还是必须赶在投运前完成"这一足以决定项目成败的论点，方向已经明朗。</p>
 
-  <p>IPA 公布的 <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener"><strong>"JC-STAR 合规产品清单"</strong></a> 列出了所有已认证产品（亦可下载 Excel 格式）。以下摘录与电网级储能相关的主要厂商。</p>
+<div class="info-box">
+<strong>现状说明：</strong>"以合同申请为基准""提交申请即安全"这一结论，目前成立的范围仅限于"草案已如此整理"。导则、各公司并网技术要件、并网规程的<strong>条文均尚未公布</strong>，阶段上属于"审议会通过了修订草案"。此外，高压中的自用型（大致500kW以下）、以及与低压并网相同 PCS 构成的项目，光伏发电协会（JPEA）正诉求设置宽限期；第21回的议事录上，该点仍属待定，交由资源能源厅与 JPEA 协商。"已提交申请即可规避"这类现场解读，宜待条文公布、或直接向辖区一般送配电公司咨询后再确定。日本这种"先充分讨论、再落地条文"的节奏，正是其制度可预期性的体现——对规划而言，这是降低风险的因素。</div>
 
-  <h3>PCS 与储能系统</h3>
+<p>JPEA 的这一诉求很具体。第21回上，针对500kW以下的自用型、以及虽以高压受电但采用与低压并网相同产品构成的项目，提出希望比照低压、宽限至2027年10月。资源能源厅回应"个别商议"，主持人也表示"由资源能源厅与 JPEA 尽快协商"。也就是说，高压项目中，依项目性质不同，适用时间仍有后移的余地。若持有自用型或小规模项目，这一协商的后续值得持续关注。</p>
 
-  <table class="info-table">
-    <thead><tr><th>公司</th><th>合规产品</th><th>等级</th><th>备注</th></tr></thead>
-    <tbody>
-      <tr><td>Fuji Electric（富士电机）</td><td>Large-Scale Battery PCS / Battery System Controller (PMS)</td><td><span class="level-badge level-1">★</span></td><td>PCS 与控制设备均已认证。注册多款产品</td></tr>
-      <tr><td>Nissin Electric（日新电机）</td><td>Battery PCS / Grid Battery Control Device</td><td><span class="level-badge level-1">★</span></td><td>PCS + 控制设备</td></tr>
-      <tr><td>Daihen（大同/ダイヘン）</td><td>Battery Package</td><td><span class="level-badge level-1">★</span></td><td>硬件 + 通信控制单元作为一体认证</td></tr>
-      <tr><td>TMEIC（东芝三菱电机产业系统）</td><td>TMBCS</td><td><span class="level-badge level-1">★</span></td><td>面向大型 BESS</td></tr>
-      <tr><td>SMA Japan</td><td>Sunny Central / Sunny Central Storage</td><td><span class="level-badge level-1">★</span></td><td>海外 PCS 厂商在日本获认证</td></tr>
-      <tr><td>Power Electronics（西班牙）</td><td>HEMK / PCSK</td><td><span class="level-badge level-1">★</span></td><td>海外逆变器厂商。在日本有 23 个 BESS 项目（10 个已交付，13 个在建）</td></tr>
-      <tr><td>GS Yuasa（GS汤浅）</td><td>GYES2 / GYES3 / GYES4 Battery System / STARELINK Series</td><td><span class="level-badge level-1">★</span></td><td>电池包 + EMS 多项认证</td></tr>
-      <tr><td>Samsung SDI（三星SDI）</td><td>SBB 1.0</td><td><span class="level-badge level-1">★</span></td><td>韩国厂商</td></tr>
-      <tr><td>Tesla Japan（特斯拉日本）</td><td>Tesla System Controller</td><td><span class="level-badge level-1">★</span></td><td>Megapack 控制系统</td></tr>
-      <tr><td>PowerX</td><td>Mega Power Series</td><td><span class="level-badge level-1">★</span></td><td>电网级储能系统</td></tr>
-      <tr><td>Sumitomo Electric（住友电工）</td><td>Redox Flow Battery System</td><td><span class="level-badge level-1">★</span></td><td>长时放电（液流电池 RF）</td></tr>
-      <tr><td>NGK Insulators（日本碍子）</td><td>Container NAS Battery Control Unit</td><td><span class="level-badge level-1">★</span></td><td>NAS 钠硫电池</td></tr>
-      <tr><td>NExT-e Solutions</td><td>Water-Cooled Battery Container</td><td><span class="level-badge level-1">★</span></td><td>集装箱式电池</td></tr>
-      <tr><td>Honda（本田）</td><td>BESS Container BMS NeS</td><td><span class="level-badge level-1">★</span></td><td>BMS 通信控制</td></tr>
-      <tr><td>Saft Japan</td><td>ESS-CUBE</td><td><span class="level-badge level-1">★</span></td><td>法国 Saft 集团</td></tr>
-    </tbody>
-  </table>
+<p>再细一层：所谓"申请"具体指并网接入手续的哪个阶段，目前也尚未完全确定。草案表述为"并网接入中的合同申请"，可理解为指合同申请阶段，而非事前检讨阶段的接入检讨申请。不过，接入合同申请与并网承诺·合同签订之间究竟以何处划线，条文上尚未明示，这一点很可能要在各送配电公司的并网接入规则·公告文件中做最终确认。就自有项目"以何时的何种动作视为已申请"，在确认运营口径前，不宜下断言。</p>
 
-  <h3>EMS、网关与整合商</h3>
+<p class="source">出处：<a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf" target="_blank">OCCTO 第21回并网技术规范检讨会 资料4（gridcode_21_04.pdf）p.8-9, p.13</a>｜<a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_gijiroku.pdf" target="_blank">同 第21回 议事录 p.3, p.9</a>｜<a href="https://www.occto.or.jp/assets/iinkai/gridcode/20/gridcode_20_05.pdf" target="_blank">第20回 资料（gridcode_20_05.pdf）p.12</a>｜<a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/electric/summary/regulations/" target="_blank">资源能源厅"相关法令·导则等"</a>｜<a href="https://www.meti.go.jp/shingikai/mono_info_service/sangyo_cyber/wg_seido/wg_denryoku/pdf/019_05_00.pdf" target="_blank">资源能源厅 产业网络安全研究会 电力子WG 第19回 资料5（2026年2月12日）</a>｜<a href="https://www.occto.or.jp/iinkai/gridcode/index.html" target="_blank">OCCTO 并网技术规范检讨会</a>（※第20回的网络安全资料正文标签为"资料４"，文件名为 gridcode_20_05.pdf）</p>
 
-  <table class="info-table">
-    <thead><tr><th>公司</th><th>合规产品</th><th>等级</th><th>备注</th></tr></thead>
-    <tbody>
-      <tr><td>Shizen Connect（自然电力）</td><td>Shizen Box / Shizen Box 2</td><td><span class="level-badge level-1">★</span></td><td>DR/VPP 平台市占第一（2023财年，按企业合同数，富士经济）。用于电网储能监控的 IoT 设备</td></tr>
-      <tr><td>Digital Grid</td><td>Battery Gateway</td><td><span class="level-badge level-1">★</span></td><td>兼容多厂商电池。可参与全部市场</td></tr>
-      <tr><td>Kraken Technologies Japan</td><td>Kraken Control System / Kraken SHV BESS Control System</td><td><span class="level-badge level-1">★</span></td><td>Octopus Energy 集团。特高压 BESS 控制亦获认证</td></tr>
-      <tr><td>Energy Flow</td><td>Hybrid Power Plant Controller</td><td><span class="level-badge level-1">★</span></td><td>PCS 控制一体型</td></tr>
-      <tr><td>Shirokuma Power</td><td>Site EMS / Battery Control System</td><td><span class="level-badge level-1">★</span></td><td>多个版本获认证</td></tr>
-      <tr><td>dots energy</td><td>QUANTUM 2.0（PMS）</td><td><span class="level-badge level-1">★</span></td><td>台湾 BESS 控制平台</td></tr>
-      <tr><td>Mitsubishi Electric（三菱电机）</td><td>BLEnDer RE</td><td><span class="level-badge level-1">★</span></td><td>能源管理系统（EMS）</td></tr>
-      <tr><td>Nissin Systems（日新系统）</td><td>Balancing Market GW / Outdoor IoT Gateway</td><td><span class="level-badge level-1">★</span></td><td>专用于辅助服务市场</td></tr>
-      <tr><td>NextDrive</td><td>Cube / EDGE Energy Management Controller</td><td><span class="level-badge level-1">★</span></td><td>台湾企业。EMS 设备</td></tr>
-    </tbody>
-  </table>
+<h3>储能的"哪一部分"在认证范围内</h3>
 
-  <p class="source-note">* 摘录依据 IPA 截至 2026 年 4 月 3 日的清单。最新信息请参见 <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPA 合规产品清单</a>。</p>
+<p>关于对象设备的界线，现场常听到的两种极端说法，其实都不准确。把界线弄清楚，对设备选型反而有利。</p>
 
-  <div class="warning-box">
-    <p><strong>需核实的要点：</strong>上表未列出部分 PCS 厂商。即便是全球市占很高的厂商，也可能持有 JET 认证（电气安全）而尚无 JC-STAR（网络安全）。2027 年 4 月并网规约修订后，无 JC-STAR 的 PCS 可能在新并网时受阻。必须核实所选 PCS 厂商的 JC-STAR 合规状态，可在 <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPA 合规产品清单</a> 查询最新认证状态。</p>
+<div class="compare-grid">
+  <div class="compare-card">
+    <span class="cc-tag">常见误解 ✕</span>
+    <h4>只要把1台网关做成 ★1 符合即可规避</h4>
+    <p>PCS 本身就是进行远程控制·监控的通信设备，自身即可能成为对象。把控制通信集中到网关的分离构成是有效的对冲，但仅凭这一点并不能让整体豁免。</p>
   </div>
-
-  <h2>与海外硬件的兼容策略</h2>
-
-  <p>在电网级储能市场，海外厂商具有压倒性的成本竞争力。从决定项目收益的 CAPEX 角度看，把更具成本优势的海外硬件排除在选项之外并不现实。</p>
-
-  <div class="key-point">
-    <p><strong>关键区分：JC-STAR 针对的是"与互联网通信的 IoT 设备"，电芯／电池包（电池本体）不在适用范围内。</strong>电池本体属于由 BMS 管理的电化学硬件，不直接与互联网通信。因此，采用海外电池不受 JC-STAR 约束。</p>
-    <p>JC-STAR 适用于与外部网络通信的 <strong>PCS 通信模块</strong>，以及位于其上层的 <strong>EMS 与网关设备</strong>。</p>
+  <div class="compare-card">
+    <span class="cc-tag">常见误解 ✕</span>
+    <h4>所有网络设备都需要 ★1</h4>
+    <p>不参与控制的一般用途 IP 通信设备（路由器等）并非强制对象。草案把对象设备限定在"参与控制的 IP 通信设备"。</p>
   </div>
+</div>
 
-  <p>当海外厂商的 PCS 尚无 JC-STAR 认证时，<strong>"网关隔离架构"</strong>提供了一种解决方案。</p>
+<p>按草案表述，正确的界线是"分布式电源所采用的、具备通信功能的控制系统中，<strong>使用 IP 通信的设备</strong>"。核心是 PCS 与 EMS。同时也设有排除规定，但其范围在不同设备间并不对称：互联网接入用路由器等被排除，仅限于<strong>一般用电气工作物</strong>；而经由网关等的监控摄像头等，则在<strong>含事业用在内的全部电气工作物</strong>中被排除。另一方面，即便属于对象范围外的设备，若具备控制功能、或不经网关而直接与主要构成产品联动，也会被纳入对象——草案还设有这样的扩张规定。关键在于：评价的单位不是"单台设备"，而是"作为通信·控制系统"的整体。</p>
 
-  <div class="diagram-box">
-    <div class="diagram-title">通过网关隔离实现的混合配置</div>
-    <div class="arch-flow">
-      <div class="arch-block external">
-        <div class="ab-label">外部网络</div>
-        <div class="ab-name">电网<br>云端（JEPX 等）</div>
-      </div>
-      <div class="arch-arrow">⇄</div>
-      <div class="arch-block gateway">
-        <div class="ab-label">JC-STAR Level 1 认证</div>
-        <div class="ab-name">JC-STAR 合规<br>EMS／网关</div>
-      </div>
-      <div class="arch-arrow secure">⇄</div>
-      <div class="arch-block internal">
-        <div class="ab-label">本地网络</div>
-        <div class="ab-name">PCS<br>（通信模块）</div>
-      </div>
-      <div class="arch-arrow">⇄</div>
-      <div class="arch-block internal">
-        <div class="ab-label">JC-STAR 适用范围外</div>
-        <div class="ab-name">电芯／电池包<br>BMS</div>
-      </div>
-    </div>
-    <p class="diagram-note">将 JC-STAR Level 1 认证的 EMS／网关置于安全边界。<br>PCS 通过本地通信（MODBUS 等）连接网关。电池硬件不在 JC-STAR 适用范围内。</p>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>设备</th><th>判定</th><th>条件·补充</th></tr></thead>
+<tbody>
+<tr><td class="em">PCS（储能变流器）</td><td class="ok">对象（确定）</td><td>具备进行远程控制·监控的 IP 通信模块时。承担出力控制指令的接收·执行，是风险最高的控制中枢</td></tr>
+<tr><td class="em">EMS／SC（控制装置）</td><td class="ok">对象</td><td>尤其接入云端的 EMS／监控装置确定为对象。是暴露于网络程度最高的组件</td></tr>
+<tr><td class="em">网关·远程监控装置</td><td class="ok">对象</td><td>承担控制指令的中继·与主要设备的直连</td></tr>
+<tr><td class="em">BMS（电池管理）</td><td class="cond">有条件对象</td><td>补贴事业·长期脱碳电源拍卖中明示为"PCS·EMS·BMS等"。并网技术规范正文以"PCS·EMS等"举例，若参与控制并成为通信路径的一部分则为对象</td></tr>
+<tr><td class="em">旧型 PCS（仅 RS-485 等串行通信）</td><td class="cond">表述上有豁免余地</td><td>若不具备 IP 通信，可读为非对象。但若经 EMS 承载于 IP 通信的构成，作为系统仍可能被纳入</td></tr>
+<tr><td class="em">一般 IP 通信设备（路由器等）</td><td class="ng">非对象</td><td>路由器等的排除限于一般用电气工作物／经网关的监控摄像头等在含事业用的全部工作物中被排除（均以不参与控制者为限）</td></tr>
+<tr><td class="em">电池电芯·电池包本体</td><td class="ng">非对象</td><td>不与网络直接通信（仅经 BMS 的本地通信）</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>对设备企业而言，这里有一条值得注意的好消息：<strong>电芯与电池包本体不在认证范围内</strong>，意味着可以自由选择最具性价比的电芯供应商。实务上的稳妥做法是，把涉及通信·控制的设备盘点成清单，逐一确认各设备是否为 ★1 取得品。尤其是仅用 RS-485 的旧型 PCS 与接入云端的 EMS 之间的界线，会随设计而改变结论，需多加留意。</p>
+
+<p class="source">出处：<a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf" target="_blank">OCCTO 第21回并网技术规范检讨会 资料4 p.9</a>｜<a href="https://www.occto.or.jp/assets/iinkai/gridcode/20/gridcode_20_05.pdf" target="_blank">第20回 资料 p.9</a></p>
+
+<h3>既有设备的更新如何处理</h3>
+
+<p>看似只与新建项目相关，但既有设备也很难说完全无关。并网技术规范有一条一般原则：即便是已并网的设备，在更新或更换逆变器等装置时，也适用最新要件。不过，就网络安全要件而言，PCS 更换·EMS 翻新时如何处理，第21回草案中并未明示。鉴于适用触发点写为"提交合同申请的项目"，可以准确地说，既有设备更新与该触发点之间的关系，在条文上尚未理清。这里宜避免下断言，作为待确定论点保留，待修订后的导则正文，或经产省·各送配电公司的 FAQ 确认。</p>
+
+<p class="source">出处：<a href="https://www.meti.go.jp/shingikai/enecho/shoene_shinene/shin_energy/keito_wg/pdf/051_04_01.pdf" target="_blank">资源能源厅 下一代电力系统WG 资料4-1（2024年5月24日）</a>（更新·装置更换时适用最新要件的一般原则）</p>
+
+<h2>JC-STAR 的基本结构 —— ★1 是"自我符合性声明"</h2>
+
+<p>JC-STAR 评价 IoT 设备应具备的安全功能（加密通信、访问控制、固件的安全更新、漏洞应对流程等），并以星级数表示符合状况，是一套标签制度。实务上不可忽视的一点是，<strong>★1 采用自我符合性声明方式</strong>：可基于企业声明取得，第三方评价并非从 ★2 起、而是从 ★3 起介入（★2 也为自我符合性声明）。因此，对"已符合 ★1"这类主张，仍宜以取得产品名单核实是否确已取得。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>级别</th><th>安全水平</th><th>评价方式</th><th>申请开始</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">★</td><td>基线要件（16项）。强制更改初始密码、安全通信、证明不含已知漏洞等。<strong>2027年4月并网技术规范的对象。</strong></td><td>自我符合性声明</td><td>2025年3月</td></tr>
+<tr><td class="em">★★</td><td>按产品类型的追加要件。正就通信设备·网络摄像头等研究基准。</td><td>自我符合性声明</td><td>研究中</td></tr>
+<tr><td class="em">★★★</td><td>面向关键基础设施。抗篡改性、硬件层级的安全要素。</td><td>第三方认证</td><td>—</td></tr>
+<tr><td class="em">★★★★</td><td>抗 APT 攻击。自设计阶段起的严格验证、对未知漏洞的高度韧性。</td><td>第三方认证</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>符合标签的有效期自发证日起最长2年，★1 可按2年为单位申请延长。采购决定后，状态有可能由"有效"变为"宽限失效""失效""撤销"，因此对名单的定期监测，是后文尽职调查的一部分。</p>
+
+<p class="source">出处：<a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf" target="_blank">OCCTO 第21回并网技术规范检讨会 资料4 p.4（JC-STAR 制度概要图）</a>｜<a href="https://www.ipa.go.jp/security/jc-star/detail.html" target="_blank">IPA"JC-STAR 制度 详细信息"</a></p>
+
+<h2>ERAB 导则下的先行要求</h2>
+
+<p>在2027年4月的并网技术规范修订之前，聚合业务中其实已经要求对应 JC-STAR。2025年5月22日定稿的"关于 ERAB 的网络安全导则 Ver3.0"中，新增了一项要件：资源聚合商作为控制对象新引入 IoT 设备时，应选择满足 JC-STAR ★1 以上的产品。具体而言，聚合商·网关之间（R4）与聚合商·能源设备之间的直接通信（R6）整理为"劝告"（实质必备），网关·能源设备之间（R5）为"推荐"（努力义务）。Ver3.0 还新增明确了不经物理网关的云端型控制、以及不依赖网关的 DR 的对应。截至2026年6月，未确认 Ver3.0 之后的修订，这是最新版本。</p>
+
+<p>经产省的 DR·VPP 相关补贴中，也将符合 ERAB 导则列为交付要件，因此活用这些补贴时，选用 JC-STAR 符合设备已成事实上的必备。</p>
+
+<p class="source">出处：<a href="https://www.meti.go.jp/press/2025/05/20250522001/20250522001.html" target="_blank">经济产业省"关于 ERAB 的网络安全导则 Ver3.0"（2025年5月22日）</a></p>
+
+<h2>JC-STAR 为什么关系到资产价值 —— 三条路径</h2>
+
+<p>JC-STAR 并非"有则更好的品质标记"，而是通过并网、补贴、采购等多条路径，已经作为实质性因素发挥作用。看懂这三条路径，就能理解日本储能资产为何更具可融资性（bankability）。</p>
+
+<p><strong>直接关系到能否并网。</strong>草案中，2027年4月以后提交并网接入合同申请的项目，以使用 ★1 取得产品为前提。正因如此，选用认证设备能确保项目顺利并网、避免在并网环节受阻、保障现金流——这恰恰是日本储能资产可融资性高的原因之一。需要说明的是，如前所述，这仍是条文公布前的草案口径，尚不能断言"2027年4月起确定强制化"。</p>
+
+<p><strong>已成为补贴的交付要件。</strong>在 DR·VPP 相关，以及 SII 执行的电网级储能补贴中，符合 ERAB 导则（＝使用 JC-STAR 符合设备）已被纳入交付要件。选用认证设备，即可顺畅满足这些要件。</p>
+
+<p><strong>政府采购中的要求也在推进。</strong>政府机构采购的 IoT 设备正朝着要求 ★1 以上的方向推进，地方公共团体也在出现类似动向。对认证产品而言，这意味着更广的采购机会。</p>
+
+<h2>JC-STAR 认证产品现状（2026年6月1日版）</h2>
+
+<p>在 IPA 公开的<a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank">"JC-STAR 符合标签取得产品名单"</a>中，可确认全部已认证产品（亦可下载 Excel 格式）。该名单于2026年6月1日更新。据经产省产业网络安全研究会的事务局资料，按产品型号已发行标签的产品超过1500款，与电网级储能相关的 ★1 取得，在最近数月也大幅增加。下表从2026年6月1日时点的名单中，按设备类别摘录了与电网级 BESS 相关的主要取得（状态均为"有效"，星级均为 ★1）。</p>
+
+<p>值得国际企业关注的是名单的构成：美国（特斯拉）、韩国（三星 SDI、韩华）、欧洲（SMA、Power Electronics、Saft）、中国（熙特尔）、中国台湾（dots energy、NextDrive）均已在列。<strong>这是一个对世界开放的市场。</strong></p>
+
+<h3>PCS·储能系统</h3>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>企业名</th><th>符合产品（取得 ★1）</th><th>备注（取得时期）</th></tr></thead>
+<tbody>
+<tr><td class="em">富士电机</td><td>大规模储能型储能变流器／储能系统控制器（PMS）</td><td>PCS 与控制装置双双取得（2025年10月）</td></tr>
+<tr><td class="em">日新电机</td><td>储能用 PCS／电网级储能控制装置</td><td>PCS＋控制装置（2025年10月）</td></tr>
+<tr><td class="em">Daihen（大阪变压器）</td><td>储能套装（多型号）</td><td>硬件＋通信控制部一体认证（至2026年5月追加）<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">TMEIC（东芝三菱电机产业系统）</td><td>TMBCS／TMEdge／BSA·BSB·BSU 系列</td><td>面向大规模 BESS。首张标签为2025年10月（TMBCS），含控制·边缘设备的主要群组为2026年4月<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">住友电工</td><td>POWER DEPO H／V／IV／R／全钒液流电池系统</td><td>全钒液流电池为2025年10月，POWER DEPO 系储能系统为2026年4月<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">SMA Japan（德国）</td><td>Sunny Central／Sunny Central Storage</td><td>作为海外 PCS 厂商取得面向日本的认证</td></tr>
+<tr><td class="em">Power Electronics（西班牙）</td><td>HEMK／PCSK</td><td>海外逆变器厂商（2026年3月）</td></tr>
+<tr><td class="em">GS 汤浅（GS Yuasa）</td><td>GYES2〜4 储能系统／STARELINK 系列</td><td>储能套装＋EMS 系多项取得（2025年秋）</td></tr>
+<tr><td class="em">京瓷（Kyocera）</td><td>Enerezza／Enerezza Plus／PlusⅡ</td><td>储能系统（2026年3月）</td></tr>
+<tr><td class="em">Eliiy Power</td><td>POWER iE Connect 储能单元／遥控器</td><td>2026年4月<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">韩华 Japan（Hanwha）</td><td>Q.READY 储能变流器／电力计测控制单元</td><td>韩国系（2026年3〜4月）</td></tr>
+<tr><td class="em">三星 SDI</td><td>SBB 1.0</td><td>韩国厂商（2025年10月）</td></tr>
+<tr><td class="em">特斯拉 Japan</td><td>Tesla System Controller</td><td>Megapack 控制系（2025年10月）</td></tr>
+<tr><td class="em">PowerX（パワーエックス）</td><td>Mega Power Series</td><td>电网级储能系统（2025年9月）</td></tr>
+<tr><td class="em">日本碍子（NGK）</td><td>集装箱型 NAS 电池用控制部</td><td>NAS 电池（2025年10月）</td></tr>
+<tr><td class="em">NExT-e Solutions</td><td>水冷式储能集装箱</td><td>集装箱型储能</td></tr>
+<tr><td class="em">本田技研（Honda）</td><td>BESS 集装箱用 BMS NeS</td><td>BMS 通信控制（2025年10月）</td></tr>
+<tr><td class="em">Saft Japan（法国）</td><td>ESS-CUBE</td><td>法国 Saft 系</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>EMS·网关·聚合商</h3>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>企业名</th><th>符合产品（取得 ★1）</th><th>备注（取得时期）</th></tr></thead>
+<tbody>
+<tr><td class="em">Shizen Connect</td><td>Shizen Box／Shizen Box 2</td><td>DR/VPP 平台。电网级储能的监控·控制用 IoT 终端</td></tr>
+<tr><td class="em">Digital Grid</td><td>储能用网关</td><td>对应多厂商储能。可参与全部市场</td></tr>
+<tr><td class="em">Kraken Technologies Japan</td><td>Kraken 控制系统／Kraken SHV BESS 控制系统</td><td>章鱼能源（Octopus Energy）系。特高压 BESS 控制亦已取得</td></tr>
+<tr><td class="em">欧姆龙社会解决方案（Omron）</td><td>网关 KP-GWBP-A／三相系统用网关 KP-GWPT-A</td><td>2026年1月·5月<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">三菱电机</td><td>BLEnDer RE</td><td>能源管理系统</td></tr>
+<tr><td class="em">日铁解决方案（NS Solutions）</td><td>IoT 通信平台基盘 HAGANE</td><td>2026年4月<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">Field Logic</td><td>DataCube4（Daihen EMS 用等）</td><td>2026年4月<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">国际电气（Kokusai Electric）</td><td>AI 边缘控制器</td><td>2026年4〜5月<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">Shirokuma Power</td><td>站点 EMS／储能控制系统</td><td>多版本取得</td></tr>
+<tr><td class="em">Energy Flow</td><td>混合电站控制器</td><td>PCS 控制整合型</td></tr>
+<tr><td class="em">日新系统（Nissin Systems）</td><td>供需调节市场对应网关／户外型 IoT 网关</td><td>专攻供需调节市场</td></tr>
+<tr><td class="em">dots energy（中国台湾）</td><td>QUANTUM 2.0（PMS）</td><td>BESS 控制平台</td></tr>
+<tr><td class="em">NextDrive（中国台湾）</td><td>Cube／EDGE 能源管理控制器</td><td>EMS 设备</td></tr>
+<tr><td class="em">熙特尔新能源（SEETEL）（中国）</td><td>GridLink EMS／SEETEL BMS</td><td>中国企业。EMS＋BMS 取得（2026年4月）<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">阿特斯 SSES Japan（Canadian Solar）</td><td>iQ Storage EMS</td><td>2026年4月<span class="new-tag">NEW</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note-small">※ 基于2026年6月1日版 IPA 名单的摘录。本文以最近约一年（2025年下半年〜2026年）的登记为主确认，并非全件穷尽。含失效·撤销在内的最新·全件，请以 IPA 取得产品名单（可下载 Excel）确认。</p>
+
+<div class="info-box">
+<strong>认证之路对国际厂商完全开放，且已有中国企业率先通过。</strong>截至2026年6月，在日本市占领先的部分中国 PCS 品牌（如华为、阳光电源），从公开信息尚未确认到以自有品牌取得 ★1。不过这更多反映认证仍在推进中——公开信息未必同步，水面下的申请可能正在进行。与此同时，中国企业熙特尔新能源（SEETEL）已于2026年4月取得 EMS 与 BMS 的 ★1，证明这条路径对中国厂商畅通可行。在认证完成之前，下文介绍的"网关分离架构"还能让企业立即参与日本市场。若计划采用相关设备，建议直接向各厂商日本法人或 IPA 窗口确认认证时间表——不宜凭推测断言"无法使用"。</div>
+
+<p class="source">出处：<a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank">IPA"JC-STAR 符合标签取得产品名单"（2026年6月1日更新）</a>｜<a href="https://www.meti.go.jp/press/2026/04/20260403003/20260403003-b.pdf" target="_blank">经产省 第10回产业网络安全研究会 事务局资料（2026年4月3日）</a></p>
+
+<h2>如何用好高性价比的国际设备 —— 兼谈架构设计要点</h2>
+
+<p>在电网级储能市场，国际厂商拥有很强的成本竞争力。日本市场对此持开放态度：既然 CAPEX 直接影响 IRR，把成本占优的国际硬件从一开始就排除在选项之外，并不现实。这里有一个关键区分会发挥作用——JC-STAR 的对象是"与互联网通信的 IoT 设备"，而电池电芯·电池包本体不在其内。这并非有哪条条款点名"排除"电芯·电池包，而是源自把对象限定为"使用 IP 通信的设备"的范围定义。SII 的电网级储能补贴公募要领也作了同样整理：不具备 IP 通信功能的设备，以嵌入协议转换设备的构成取得 ★1，这表明非 IP 设备并非直接对象。电池本体是由 BMS 管理的电化学硬件，不与互联网直接通信。因此，<strong>采用国际（含中国）电池本身，不受 JC-STAR 约束</strong>。需要关注的，是与外部网络通信的 PCS 通信模块，及其上位的 EMS·网关。</p>
+
+<p>当国际厂商的 PCS 尚未取得 JC-STAR 时，"网关分离架构"便能发挥作用：把已认证 ★1 的 EMS／网关作为安全边界（关口）置于其间，在其保护下用本地通信协议（MODBUS 等）控制 PCS。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 248" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="网关分离架构概念图">
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto"><path d="M1,1 L8,4.5 L1,8 Z" fill="#6C7A89"/></marker>
+  </defs>
+  <text x="172" y="26" text-anchor="middle" font-size="11" fill="#6C7A89" font-weight="700" letter-spacing="0.06em">外部网络</text>
+  <text x="492" y="26" text-anchor="middle" font-size="11" fill="#6C7A89" font-weight="700" letter-spacing="0.06em">本地网络</text>
+  <!-- boundary -->
+  <line x1="356" y1="44" x2="356" y2="208" stroke="#C49A3C" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="356" y="222" text-anchor="middle" font-size="10" fill="#C49A3C" font-weight="700">JC-STAR 安全边界（关口）</text>
+  <!-- external boxes -->
+  <rect x="14" y="74" width="120" height="40" rx="6" fill="#fff" stroke="#1B2A4A" stroke-width="1.3"/>
+  <text x="74" y="99" text-anchor="middle" font-size="12.5" fill="#1B2A4A" font-weight="600">电网</text>
+  <rect x="14" y="126" width="120" height="40" rx="6" fill="#fff" stroke="#1B2A4A" stroke-width="1.3"/>
+  <text x="74" y="146" text-anchor="middle" font-size="11.5" fill="#1B2A4A" font-weight="600">云平台</text>
+  <text x="74" y="160" text-anchor="middle" font-size="10" fill="#6C7A89">JEPX·各市场</text>
+  <!-- gateway (star1) -->
+  <rect x="178" y="80" width="152" height="80" rx="6" fill="#F2F8F4" stroke="#1A7A4C" stroke-width="2"/>
+  <text x="254" y="106" text-anchor="middle" font-size="11" fill="#1A7A4C" font-weight="700">已通过 JC-STAR ★1</text>
+  <text x="254" y="128" text-anchor="middle" font-size="13" fill="#1B2A4A" font-weight="700">EMS／</text>
+  <text x="254" y="146" text-anchor="middle" font-size="13" fill="#1B2A4A" font-weight="700">网关</text>
+  <!-- PCS -->
+  <rect x="392" y="92" width="128" height="56" rx="6" fill="#fff" stroke="#1B2A4A" stroke-width="1.3"/>
+  <text x="456" y="116" text-anchor="middle" font-size="12.5" fill="#1B2A4A" font-weight="600">PCS</text>
+  <text x="456" y="132" text-anchor="middle" font-size="10" fill="#6C7A89">通信模块</text>
+  <!-- out of scope -->
+  <rect x="556" y="80" width="150" height="80" rx="6" fill="#F8F9FB" stroke="#6C7A89" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <text x="631" y="106" text-anchor="middle" font-size="10.5" fill="#6C7A89" font-weight="700">JC-STAR 范围之外</text>
+  <text x="631" y="128" text-anchor="middle" font-size="12" fill="#1B2A4A" font-weight="600">电池电芯·电池包</text>
+  <text x="631" y="146" text-anchor="middle" font-size="11" fill="#6C7A89">／ BMS</text>
+  <!-- connectors -->
+  <line x1="134" y1="120" x2="174" y2="120" stroke="#6C7A89" stroke-width="1.4" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <line x1="330" y1="120" x2="388" y2="120" stroke="#6C7A89" stroke-width="1.4" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <text x="359" y="112" text-anchor="middle" font-size="9.5" fill="#6C7A89">本地通信</text>
+  <line x1="520" y1="120" x2="552" y2="120" stroke="#6C7A89" stroke-width="1.4" marker-start="url(#ar)" marker-end="url(#ar)"/>
+</svg>
+<p class="fig-cap">将已认证 ★1 的 EMS／网关作为关口配置，PCS 以本地通信接入。电池本体不在 JC-STAR 范围内，可选择最具性价比的厂商。</p>
+</div>
+
+<p>不过，这一招并非万能。第一重限制：PCS 自身的通信模块在并网技术规范上也可能成为对象，因此仍需确认 PCS 厂商的 JC-STAR 取得路线图。网关分离并不能免除认证取得，它始终是一种风险对冲手段。</p>
+
+<div class="info-box">
+<strong>设计要点：对冲手段本身也会带来新的考量。</strong>把控制通信集中到1台网关，意味着这台网关会成为<strong>单点故障（SPOF）</strong>。关口一旦失效，其下控制会一并停止。于是，可用性·冗余的设计，作为与安全不同的论点新出现。采用网关分离时，宜以"配套设计 SPOF 对策（冗余化·故障安全）"为前提来判断取舍。这是成熟项目都会处理好的工程环节。</div>
+
+<h2>设备选型阶段的尽职调查</h2>
+
+<p>在设备采购中，除了既有的电气安全认证（JET 认证等），以下确认也已成为不可或缺的环节。</p>
+
+<p><strong>对 PCS 厂商。</strong>向其日本法人明确确认通信模块在 JC-STAR 中处于何种状态——是已取得、取得流程中、还是路线图如何。先以 IPA 取得产品名单掌握公开信息，再行咨询，会更高效。</p>
+
+<p><strong>对聚合商／EMS。</strong>确认所用网关·EMS 设备的符合状况、能否对应多厂商储能、其架构可参与哪些市场（是否含一次调节力）。EMS 层的对象范围仍在整理途中，因此选择已取得的事业方，本身就是一种对冲。</p>
+
+<p><strong>定期监测 IPA 名单。</strong>状态不只有"有效"，也可能为"宽限失效""失效""撤销"。有效期自发证日起最长2年，宜考虑采购决定后状态变化的可能，进行定期监测。</p>
+
+<h2>国际互认 —— 一张通往多个高端市场的通行证</h2>
+
+<p>有人会把各国自有的安全认证视为进入壁垒。但 JC-STAR 在实践中更像一个"公平的竞技场"与一张"全球通行证"。一方面，通过认证的产品在公共数据库中获得安全背书，得以与日本本土重电同台竞争——SMA（德）、Power Electronics（西）、三星 SDI（韩）、熙特尔（中）等国际厂商均已取得认证，凭借公开数据库的安全佐证，在日本市场赢得了与本土巨头对等的位置。诚然，具备全球业绩的企业也需承担通信协议改造、固件再设计，以及认证取得的前置周期与成本；但一旦完成，便能在日本市场一举提升信赖度，成为局面的转变者。</p>
+
+<p>另一方面，国际互认正稳步推进。对正在"出海"的中国企业而言，这意味着"一次认证、多个高端市场互认"的现实价值。把当前状况以一次信息整理如下。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>对方国家·制度</th><th>状况</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td class="em">英国 PSTI 法</td><td class="ok">运用中</td><td>备忘录2025年11月签署，互认自2026年1月1日开始。★1 的3要件（非通用初始密码／漏洞披露方针／产品信息提供）相互视为同等</td></tr>
+<tr><td class="em">新加坡 CLS</td><td class="ok">已生效</td><td>备忘录2026年3月签署，<strong>2026年6月1日生效</strong>。★1 与 CLS Level 1 的部分技术基准相互视为同等。日本为新加坡第5个互认国</td></tr>
+<tr><td class="em">美国 Cyber Trust Mark</td><td class="cond">协调中</td><td>正就互认个别磋商（未达成）。是否处于工作组·行动计划阶段，一次资料无法确认</td></tr>
+<tr><td class="em">欧盟 CRA</td><td class="cond">独立法规</td><td>并非互认，而是独立法规。报告义务自2026年9月11日起，主体主要义务自2027年12月11日起适用</td></tr>
+<tr><td class="em">GCLI</td><td class="ok">参与</td><td>11国参与的国际标签合作（2025年10月成立）。日本（经济产业省）为初期成员</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="source">出处：<a href="https://www.ipa.go.jp/security/jc-star/shinsei/psti.html" target="_blank">IPA"与英国 PSTI 法的互认"</a>｜<a href="https://www.csa.gov.sg/news-events/press-releases/singapore-signs-memorandum-of-cooperation-with-japan-on-mutual-recognition-of-internet-of-things-cybersecurity-schemes/" target="_blank">新加坡网络安全局（CSA）新闻稿</a>｜<a href="https://www.meti.go.jp/english/press/2025/1023_001.html" target="_blank">METI"GCLI 共同声明"（2025年10月）</a></p>
+
+<div class="info-box">
+有一点不宜混淆：<strong>与 PSTI·CLS 的互认，和对欧盟 CRA 的符合，是两回事</strong>。CRA 不是互认框架，而是独立法规，包含 SBOM（物料清单）的整备、向 ENISA 报告漏洞、CE 符合等覆盖全生命周期的义务。取得 JC-STAR ★1，并不等同于完成 CRA 对应。"拿了 ★1＝CRA 也过关"这种换算并不成立——这一点值得记牢，对规划海外多市场布局尤为重要。</div>
+
+<h2>已确定的事项 / 仍在征询中的事项</h2>
+
+<p>围绕 JC-STAR 的讨论不止于"安全话题"，它直接影响设备选型、采购与时间表。正因如此，分清哪些是确定信息、哪些还只是草案或协商中，最为关键。日本监管以公开方式沟通这条界线，这本身就降低了规划风险。把2026年6月的现状分成两部分整理如下。</p>
+
+<div class="fixmap">
+  <div class="fixmap-col decided">
+    <h4>已确定的事项（可以断言）</h4>
+    <ul>
+      <li>适用时间：特高·高压2027年4月／低压50kW以下2027年10月／风电2027年4月（限网关防火墙）／燃料电池2028年4月</li>
+      <li>对象设备的思路：PCS·EMS 等＋参与控制的 IP 设备为对象。一般用路由器·经网关的监控摄像头被排除</li>
+      <li>★1 为自我符合性声明（第三方评价自 ★3 起）</li>
+      <li>规程修订的落点：导则＋各公司并网技术要件＋并网规程的修订（送配电等业务指针不变，并非省令修改）</li>
+      <li>英国 PSTI（2026年1月）·新加坡 CLS（2026年6月1日）的互认已生效</li>
+      <li>ERAB 导则以 Ver3.0 为最新</li>
+    </ul>
   </div>
-
-  <p>具体而言，将 Shizen Connect、Digital Grid、Kraken 等公司提供的 JC-STAR 合规网关部署为通信前线。在该网关的防火墙与加密通信保护之下，使用本地协议（MODBUS 等）控制 PCS。电芯／电池包仅通过本地 BMS 通信运行，因此可不受 JC-STAR 限制，选择成本最优的厂商。</p>
-
-  <p>不过，由于 PCS 通信模块本身在并网规约下也很可能被纳入 JC-STAR 适用对象，确认 PCS 厂商的 JC-STAR 认证路线图仍然重要。网关隔离是一种风险对冲措施，并不能消除 PCS 厂商取得认证的必要性。</p>
-
-  <h2>设备选型中的尽职调查</h2>
-
-  <p>在储能项目的设备采购中，除了传统的物理电气安全认证（JET 认证等）之外，以下核查已成为必备项。</p>
-
-  <h3>针对 PCS 厂商</h3>
-  <p>PCS 通信模块在 JC-STAR 评测体系中处于何种状态？已认证、审核中，还是有何路线图？必须向其日本法人明确确认。建议先在 <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPA 合规产品清单</a> 查阅公开信息，再向厂商询问。</p>
-
-  <h3>针对整合商／EMS</h3>
-  <p>网关／EMS 设备的 JC-STAR 合规状态。是否支持多厂商电池。该架构可接入哪些市场（含一次调频）。由于 EMS 层的 JC-STAR 适用范围仍在梳理中，选择已认证的运营商即是一种风险对冲。</p>
-
-  <h3>定期监测 IPA 合规产品清单</h3>
-  <p>状态不仅有"有效"，还可能是"即将到期（延期申请中）""已过期（超出有效期）""已过期（自愿撤回）"或"被撤销"。合规标识的有效期自签发起最长 2 年（Level 1 可按 2 年为单位申请延期），鉴于采购决策后状态可能变化的风险，需要定期监测。</p>
-
-  <h2>作为"非关税壁垒"的 JC-STAR</h2>
-
-  <p>坦率地说，像 JC-STAR 这样的国家安全认证制度，在某种程度上也作为针对海外厂商的技术性准入壁垒（非关税壁垒）发挥作用。即便是拥有压倒性全球业绩的企业，为满足日本特有的要求，也必须承担通信协议改造、固件重新设计、源代码审计，以及认证所需的周期与成本。</p>
-
-  <p>反过来说，对已取得 JC-STAR 合规的海外厂商而言，这成为大幅提升其在日本市场可信度与品牌价值的转折点。事实上，SMA（德国）、Power Electronics（西班牙）、Samsung SDI（韩国）、dots energy（台湾）已取得 Level 1，其安全韧性在 IPA 的公开数据库中得到客观证明，从而获得了与日本本土重电厂商平等竞争的地位。</p>
-
-  <p>JC-STAR 的国际互认正稳步推进。2025 年 11 月与英国 PSTI 法签署合作备忘录、自 2026 年 1 月起互认生效；与新加坡 CLS 的备忘录将于 2026 年 6 月生效。围绕美国 Cyber Trust Mark 与欧盟网络韧性法案（CRA）的协调正在工作组层面推进；2025 年 10 月由 11 国发表了"全球网络安全标识倡议（GCLI）"的联合声明。预计未来将被定位为全球认证合作的一环。</p>
-
-  <p class="source-note">来源：<a href="https://www.meti.go.jp/press/2025/11/20251106003/20251106003.html" target="_blank" rel="noopener">经济产业省"JC-STAR 与英国 PSTI 法互认备忘录签署"（2025年11月）</a> | <a href="https://www.meti.go.jp/english/press/2025/1023_001.html" target="_blank" rel="noopener">经济产业省"GCLI 联合声明"（2025年10月）</a></p>
-
-  <h2>储能运营商现在应做什么</h2>
-
-  <p>JC-STAR 直到 2024 年才公布、2025 年 3 月才启动运营，但它已通过多条路径具备强制力：ERAB 指南的强制要求、2027 年 4 月并网规约修订，以及纳入补贴申请要件。</p>
-
-  <div class="key-point">
-    <p><strong>（1）核实所选 PCS 厂商的 JC-STAR 合规状态</strong> —— 在 <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPA 合规产品清单</a> 查询认证状态。若未认证，则询问其认证路线图。电芯／电池包不在 JC-STAR 适用范围内，可自由选择成本最优的厂商。</p>
-    <p><strong>（2）核实整合商／EMS 的 JC-STAR 合规状态</strong> —— 即便 PCS 厂商未获认证，也应考虑能否通过与已认证的 EMS／网关组合，实现系统整体的合规。</p>
-    <p><strong>（3）从 JC-STAR 角度重新审视补贴申请指南</strong>——ERAB 指南合规是否为补贴要件。使用合规设备是强制要求还是加分项。</p>
-    <p><strong>（4）为 2027 年 4 月起的并网合同申请做准备、核对时间表</strong> —— 确认 JC-STAR 合规产品的采购能否在设备采购、安装与并网手续的整体时间线内完成。</p>
+  <div class="fixmap-col pending">
+    <h4>仍在征询中的事项（暂不断言）</h4>
+    <ul>
+      <li>导则·各公司并网技术要件·并网规程条文的公布·施行日<span class="src">→ e-Gov 公众意见／资源能源厅／各送配电的公告文件</span></li>
+      <li>高压自用型（≤500kW）·与低压同型 PCS 构成项目的过渡安排<span class="src">→ 资源能源厅与 JPEA 的协商、下次检讨会</span></li>
+      <li>既有更新·PCS 更换·EMS 翻新时的处理<span class="src">→ 修订后导则／METI·各公司 FAQ</span></li>
+      <li>"合同申请"的精确阶段（接入合同申请或并网承诺）<span class="src">→ 各送配电的并网接入规则</span></li>
+      <li>华为·阳光电源（SUNGROW）以自有品牌取得 ★1<span class="src">→ IPA 取得产品名单最新版／各公司日本法人</span></li>
+      <li>与美国 Cyber Trust Mark 的互认<span class="src">→ METI／IPA</span></li>
+    </ul>
   </div>
+</div>
 
-  <p>仅凭硬件规格表和每 kWh 单价来选型的时代已经结束。网络安全合规已成为决定项目成败的变量。</p>
+<h2>储能企业现在可以着手的事</h2>
 
-  <h2>参考链接</h2>
-  <p>
-    <a href="https://www.ipa.go.jp/security/jc-star/index.html" target="_blank" rel="noopener">IPA —— JC-STAR 制度概要</a><br>
-    <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPA —— JC-STAR 合规产品清单</a><br>
-    <a href="https://www.ipa.go.jp/security/jc-star/detail.html" target="_blank" rel="noopener">IPA —— JC-STAR 制度详细信息</a><br>
-    <a href="https://www.occto.or.jp/iinkai/gridcode/index.html" target="_blank" rel="noopener">OCCTO —— 并网规约审议会</a><br>
-    <a href="https://www.meti.go.jp/press/2025/05/20250522001/20250522001.html" target="_blank" rel="noopener">经济产业省 —— ERAB 网络安全指南 Ver3.0</a><br>
-    <a href="https://www.occto.or.jp/assets/iinkai/gridcode/2025/files/gridcode_19_06.pdf" target="_blank" rel="noopener">OCCTO —— 关于分布式电源网络安全要求的后续举措（第19次并网规约审议会 资料6）</a><br>
-    <a href="https://www.meti.go.jp/press/2025/11/20251106003/20251106003.html" target="_blank" rel="noopener">经济产业省 —— JC-STAR 与英国 PSTI 法互认备忘录</a>
-  </p>
+<p>在条文公布之前，作为实务可以推进的事项其实不少。</p>
+
+<div class="highlight-box">
+<strong>① 盘点通信·控制设备，确认 ★1 符合情况。</strong>以 PCS·EMS 为核心列成清单，逐一核对各设备。尤其注意仅用 RS-485 的旧型 PCS 与接入云端的 EMS 之间的界线。<br><br>
+<strong>② 高压项目先确定基准日的定义。</strong>"以申请为基准"目前基于修订草案——可直接向辖区一般送配电公司咨询，或等待 OCCTO 正式条文公布后确定。<br><br>
+<strong>③ 采用尚未登记认证的设备时，两条路并行。</strong>一边向厂商日本法人或 IPA 确认认证时间表，一边以网关分离架构确保项目即刻可推进。逆算的起点放在稳妥的一侧（即接入时点）。<br><br>
+<strong>④ 从 ERAB／JC-STAR 角度复核补贴公募要领。</strong>确认导则符合性或认证设备的使用，是否构成交付要件或加分项。<br><br>
+<strong>⑤ 采用网关分离架构时，配套设计 SPOF 对策。</strong>用冗余化·故障安全机制，承接控制集中带来的可用性考量。<br><br>
+<strong>⑥ 鉴于 ★1 为自我符合性声明，符合性主张以取得产品名单核实背书。</strong>
+</div>
+
+<p>仅凭硬件规格与每 kWh 单价选型的时代正在过去，网络安全合规已成为决定项目成败的变量。好消息是，这套规则透明、路径清晰，且对国际厂商开放。把已确定与仍在征询的部分区分开，按每个项目的并网时点与时间表逆算推进，就是当前最稳妥的打法。日本这片市场，正以制度的确定性，向认真准备的国际参与者敞开。</p>
+
+<div class="sources-box">
+<h4>主要一次资料</h4>
+<ul>
+  <li>OCCTO 第21回并网技术规范检讨会 资料4（2026年3月31日）<a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf" target="_blank">PDF</a>／同 议事录 <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_gijiroku.pdf" target="_blank">PDF</a></li>
+  <li>OCCTO 第20回并网技术规范检讨会 资料（2025年12月16日，文件名 gridcode_20_05.pdf／正文标签为"资料４"）<a href="https://www.occto.or.jp/assets/iinkai/gridcode/20/gridcode_20_05.pdf" target="_blank">PDF</a></li>
+  <li>OCCTO 并网技术规范检讨会 <a href="https://www.occto.or.jp/iinkai/gridcode/index.html" target="_blank">https://www.occto.or.jp/iinkai/gridcode/index.html</a></li>
+  <li>资源能源厅"相关法令·导则等"（并网技术要件导则 令和6年12月1日修订版）<a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/electric/summary/regulations/" target="_blank">链接</a></li>
+  <li>资源能源厅 产业网络安全研究会 电力子WG 第19回 资料5（关于分布式电源的网络安全对策，2026年2月12日）<a href="https://www.meti.go.jp/shingikai/mono_info_service/sangyo_cyber/wg_seido/wg_denryoku/pdf/019_05_00.pdf" target="_blank">PDF</a></li>
+  <li>资源能源厅 下一代电力系统WG 资料4-1（2024年5月24日，更新时适用最新要件）<a href="https://www.meti.go.jp/shingikai/enecho/shoene_shinene/shin_energy/keito_wg/pdf/051_04_01.pdf" target="_blank">PDF</a></li>
+  <li>IPA"JC-STAR 符合标签取得产品名单"（2026年6月1日更新）<a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank">链接</a>／制度详情 <a href="https://www.ipa.go.jp/security/jc-star/detail.html" target="_blank">链接</a></li>
+  <li>经济产业省"关于 ERAB 的网络安全导则 Ver3.0"（2025年5月22日）<a href="https://www.meti.go.jp/press/2025/05/20250522001/20250522001.html" target="_blank">链接</a></li>
+  <li>经济产业省 第10回产业网络安全研究会 事务局资料（2026年4月3日）<a href="https://www.meti.go.jp/press/2026/04/20260403003/20260403003-b.pdf" target="_blank">PDF</a></li>
+  <li>IPA"与英国 PSTI 法的互认"<a href="https://www.ipa.go.jp/security/jc-star/shinsei/psti.html" target="_blank">链接</a>／新加坡网络安全局 新闻稿／METI"GCLI 共同声明"（2025年10月23日）</li>
+  <li>SII（环境共创倡议）电网级储能等导入支援事业 公募要领（令和7年度／非 IP 设备以嵌入协议转换设备的构成取得 ★1，明示 BMS·PCS·EMS 等为对象设备）<a href="https://sii.or.jp/chikudenchi07/" target="_blank">链接</a></li>
+  <li>康泰克"关于 SolarView Compact 的通知"（2024年5月7日）<a href="https://www.contec.com/info/2024/2024050700/" target="_blank">链接</a></li>
+</ul>
+<p style="margin-top:10px;font-size:.95em;color:var(--text-light)">※ 高压的适用基准日，截至本文撰写时一次条文尚未公布，故未确定。最新适用细则请以各一般送配电公司的技术要件文件确认。</p>
+</div>
+
+<div class="cta-box">
+  <h3>面向国际投资者与设备企业的咨询</h3>
+  <p>我们以中立的技术尽职调查（技术 DD）立场，结合每个项目的具体设备构成，从<strong>并网可行性与时间表</strong>的角度，协助包括 JC-STAR 对应在内的设备采购战略——作为深耕日本市场的本地伙伴，为进入日本电网级储能的国际资本与设备企业提供导航。</p>
+  <p><a target="_top" href="/zh-contact" class="cta-button">联系我们 →</a></p>
+</div>
 
 </div>
 
-<div class="article-cta">
-  <h2>储能设备选型与合规咨询</h2>
-  <p>我们以独立的技术 PM 视角，<br>支持包含 JC-STAR 合规在内的设备采购策略。</p>
-  <a target="_top" href="/zh-contact" class="cta-btn">联系我们 →</a>
-</div>
-
-
-<!-- ScienceX Footer — self-contained (zh-CN) -->
+<!-- ScienceX Footer — Wix HTML embed用 self-contained -->
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
-
-  .scix-footer * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  .scix-footer {
-    background-color: #1B2A4A;
-    color: rgba(255, 255, 255, 0.85);
-    font-family: 'Noto Sans SC', 'Noto Sans JP', sans-serif;
-    font-weight: 300;
-    font-size: 12.5px;
-    line-height: 1.9;
-    padding: 44px 28px 32px;
-    width: 100%;
-  }
-
-  .scix-footer-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-  }
-
-  .scix-footer-logo img {
-    height: 48px;
-    width: auto;
-    display: block;
-    opacity: 0.95;
-  }
-
-  .scix-footer-info {
-    text-align: center;
-  }
-
-  .scix-footer-copyright {
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    color: rgba(255, 255, 255, 0.55);
-    margin-top: 20px;
-  }
-
-  .scix-footer-company {
-    font-size: 12.5px;
-    line-height: 2;
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  .scix-footer-company .company-name {
-    font-weight: 500;
-    font-size: 13.5px;
-    color: rgba(255, 255, 255, 0.92);
-    margin-bottom: 2px;
-  }
-
-  .scix-footer-company .representative {
-    margin-top: 4px;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 12px;
-  }
-
-  .scix-footer-company a {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .scix-footer-company a:hover {
-    color: #C49A3C;
-  }
-
-  .scix-footer-divider {
-    width: 60px;
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    margin: 0 auto;
-  }
+  .scix-footer *{margin:0;padding:0;box-sizing:border-box}
+  .scix-footer{background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans SC',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+  .scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px}
+  .scix-footer-logo img{height:48px;width:auto;display:block;opacity:0.95}
+  .scix-footer-info{text-align:center}
+  .scix-footer-copyright{font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px}
+  .scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8)}
+  .scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+  .scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+  .scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none;transition:color 0.2s ease}
+  .scix-footer-company a:hover{color:#C49A3C}
+  .scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12);margin:0 auto}
 </style>
-
-<!-- Global-investor CTA (discovery funnel → market-entry) -->
-<section style="background:#1B2A4A;padding:52px 24px;text-align:center;font-family:'Noto Sans SC','Noto Sans JP',sans-serif;">
-  <div style="max-width:720px;margin:0 auto;">
-    <div style="font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:#C49A3C;margin-bottom:12px;">致全球投资者</div>
-    <h2 style="font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:clamp(1.3rem,3vw,1.7rem);color:#fff;font-weight:600;line-height:1.5;margin:0 0 14px;">投资日本电网级储能？</h2>
-    <p style="color:rgba(255,255,255,0.78);font-size:0.92rem;line-height:1.85;margin:0 0 26px;">我们甄选、组织并运营已确认并网的 BESS 项目——让全球投资者直接配置到运营中的日本资产。由工程师主导。</p>
-    <a href="/zh" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;text-decoration:none;padding:14px 34px;border-radius:4px;font-size:0.9rem;">查看市场进入指南 →</a>
-  </div>
-</section>
 
 <footer class="scix-footer">
   <div class="scix-footer-inner">
-
-    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">
-      <img
-        src="/img/logo-white.png"
-        alt="ScienceX Science X Inc."
-        loading="lazy"
-      />
+    <a href="https://www.scix.co.jp" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img src="/img/logo-white.png" alt="ScienceX" loading="lazy" />
     </a>
-
     <hr class="scix-footer-divider" />
-
     <div class="scix-footer-info">
       <div class="scix-footer-company">
-        <div class="company-name">Science X Inc.</div>
-        日本〒103-0016 东京都中央区日本桥小网町 8-2<br>
-        BIZMARKS 日本桥茅场町 801<br>
-        TEL: <a href="tel:+81364034095">+81 3 6403 4095</a><br>
-        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
-        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+        <div class="company-name">ScienceX（赛恩斯艾克斯株式会社）</div>
+        〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        电话: <a href="tel:0364034095">+81-3-6403-4095</a><br>
+        邮箱: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">董事长 中岛晋也（工学博士）</div>
       </div>
-      <div class="scix-footer-copyright">
-        &copy; 2025–2026 Science X Inc. All Rights Reserved.
-      </div>
+      <div class="scix-footer-copyright">&copy; 2025–2026 Science X Inc. All Rights Reserved.</div>
     </div>
-
   </div>
 </footer>
+
 </body>
 </html>

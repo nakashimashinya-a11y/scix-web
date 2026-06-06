@@ -14,498 +14,592 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JC-STAR Certification and Battery Business — How Cybersecurity Certification Changes Equipment Selection | ScienceX</title>
-<meta name="description" content="JC-STAR Level 1 becomes mandatory for grid connection with the April 2027 Grid Code revision. Impact on equipment selection, PCS procurement, and EMS architecture for grid-scale batteries, and compatibility strategies with overseas hardware.">
+<title>JC-STAR ★1 for Japan grid connection: the gate is the interconnection contract application, not the connection date — HV from April 2027 | ScienceX</title>
+<meta name="description" content="Japan's plan to require JC-STAR ★1-certified equipment for grid connection is fixed in direction, but the governing text is not yet promulgated. For EHV/HV the trigger is the interconnection contract application and applies from April 2027; LV under 50 kW from October 2027. A practitioner's read of device scope, the status of overseas-made PCS, and what is still open — placed against the global IoT-security landscape (ETSI EN 303 645, EU CRA, UK PSTI, US Cyber Trust Mark).">
 <link rel="canonical" href="https://www.scix.co.jp/en/column-jcstar">
-<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-jcstar">
 <link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-jcstar">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-jcstar">
 <link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-jcstar">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-jcstar">
 <meta property="og:type" content="website">
-<meta property="og:title" content="JC-STAR Certification and Battery Business — How Cybersecurity Certification Changes Equipment Selection | ScienceX">
-<meta property="og:description" content="JC-STAR Level 1 becomes mandatory for grid connection with the April 2027 Grid Code revision. Impact on equipment selection, PCS procurement, and EMS architecture for grid-scale batteries, and compatibility strategies with overseas hardware.">
+<meta property="og:title" content="JC-STAR ★1 for Japan grid connection: the gate is the interconnection contract application, not the connection date — HV from April 2027 | ScienceX">
+<meta property="og:description" content="Japan's plan to require JC-STAR ★1-certified equipment for grid connection is fixed in direction but not yet promulgated. The trigger is the interconnection contract application — HV from April 2027, LV under 50 kW from October 2027. Device scope, overseas-PCS status, and open points, placed against ETSI EN 303 645, EU CRA, UK PSTI and the US Cyber Trust Mark.">
 <meta property="og:url" content="https://www.scix.co.jp/en/column-jcstar">
 <meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
 <meta property="og:site_name" content="ScienceX">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="JC-STAR Certification and Battery Business — How Cybersecurity Certification Changes Equipment Selection | ScienceX">
-<meta name="twitter:description" content="JC-STAR Level 1 becomes mandatory for grid connection with the April 2027 Grid Code revision. Impact on equipment selection, PCS procurement, and EMS architecture for grid-scale batteries, and compatibility strategies with overseas hardware.">
+<meta name="twitter:title" content="JC-STAR ★1 for Japan grid connection: the gate is the contract application, not the connection date">
+<meta name="twitter:description" content="Japan is wiring a device-level IoT-security baseline (≈ ETSI EN 303 645) into the grid-connection gate. The trigger is the interconnection contract application — HV from April 2027. What's decided, what's still open, and how it maps to CRA / PSTI / Cyber Trust Mark.">
 <meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--off-white:#F8F7F4;--border:#E2E6EC;--white:#FFF}
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.8;background:var(--white)}
-.article-hero{background:linear-gradient(160deg,var(--white) 0%,var(--off-white) 50%,#EDE8DF 100%);border-bottom:3px solid var(--accent);padding:72px 32px 60px;text-align:center;position:relative;overflow:hidden}
-.article-hero::before{content:'';position:absolute;top:-80px;right:-160px;width:500px;height:500px;background:radial-gradient(circle,rgba(196,154,60,0.06) 0%,transparent 70%);pointer-events:none}
-.hero-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-.hero-num{font-family:'Noto Serif JP',serif;font-size:.8em;font-weight:700;color:var(--accent);letter-spacing:.5px}
-.hero-tag{display:inline-block;padding:3px 12px;background:rgba(27,42,74,.06);color:var(--navy);font-size:.7em;font-weight:600;letter-spacing:.5px;border-radius:3px}
-.hero-new{display:inline-block;padding:3px 12px;background:rgba(196,154,60,.12);color:var(--accent);font-size:.7em;font-weight:700;border-radius:3px}
-.article-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(1.4em,3.5vw,2em);font-weight:700;color:var(--navy);line-height:1.6;margin-bottom:18px;max-width:760px;margin-left:auto;margin-right:auto}
-.article-hero .lead{font-size:.92em;color:var(--text-light);max-width:640px;margin:0 auto;line-height:2}
-.article-body{max-width:760px;margin:0 auto;padding:56px 32px 80px}
-.article-body h2{font-family:'Noto Serif JP',serif;font-size:1.3em;font-weight:700;color:var(--navy);margin:52px 0 18px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.6}
-.article-body h3{font-family:'Noto Serif JP',serif;font-size:1.1em;font-weight:700;color:var(--navy);margin:36px 0 14px;line-height:1.6}
-.article-body p{font-size:.92em;color:var(--text);line-height:2.05;margin-bottom:20px}
-.article-body strong{color:var(--navy);font-weight:700}
-.article-body a{color:var(--green);text-decoration:underline;text-underline-offset:3px}
-.article-body a:hover{color:var(--navy)}
-.key-point{background:var(--off-white);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:24px 28px;margin:28px 0}
-.key-point p{margin-bottom:0;font-size:.88em;line-height:1.95}
-.key-point p:not(:last-child){margin-bottom:12px}
-.warning-box{background:#FDF6F0;border-left:4px solid #D35400;border-radius:0 8px 8px 0;padding:24px 28px;margin:28px 0}
-.warning-box p{margin-bottom:0;font-size:.88em;line-height:1.95;color:#5D3A1A}
-.warning-box strong{color:#D35400}
-.confirmed-box{background:#F0F7F4;border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:24px 28px;margin:28px 0}
-.confirmed-box p{margin-bottom:0;font-size:.88em;line-height:1.95;color:#1A3A2C}
-.confirmed-box p:not(:last-child){margin-bottom:12px}
-.confirmed-box strong{color:var(--green)}
-.info-table{width:100%;border-collapse:collapse;margin:24px 0 32px;font-size:.85em}
-.info-table thead{background:var(--navy);color:var(--white)}
-.info-table th{padding:12px 16px;font-weight:500;text-align:left;font-size:.82em;letter-spacing:.3px}
-.info-table td{padding:14px 16px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.7}
-.info-table tr:last-child td{border-bottom:none}
-.info-table tr:nth-child(even){background:var(--light-bg)}
-.level-badge{display:inline-block;padding:2px 10px;border-radius:3px;font-size:.78em;font-weight:700}
-.level-1{background:rgba(26,122,76,.1);color:var(--green)}
-.level-2{background:rgba(196,154,60,.12);color:var(--accent)}
-.level-3{background:rgba(27,42,74,.08);color:var(--navy)}
-.level-4{background:rgba(211,84,0,.08);color:#D35400}
-.diagram-box{background:var(--light-bg);border:1px solid var(--border);border-radius:10px;padding:32px 28px;margin:32px 0;text-align:center}
-.diagram-box .diagram-title{font-family:'Noto Serif JP',serif;font-size:.9em;font-weight:700;color:var(--navy);margin-bottom:20px}
-.arch-flow{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
-.arch-block{border-radius:8px;padding:14px 16px;text-align:center;min-width:130px}
-.arch-block.external{background:var(--navy);color:var(--white)}
-.arch-block.gateway{background:var(--green);color:var(--white);border:2px solid #156B41}
-.arch-block.internal{background:var(--white);color:var(--navy);border:1px solid var(--border)}
-.arch-block .ab-label{font-size:.68em;font-weight:600;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:4px}
-.arch-block .ab-name{font-size:.82em;font-weight:700;line-height:1.4}
-.arch-arrow{font-size:1.2em;color:var(--text-light)}
-.arch-arrow.secure{color:var(--green);font-weight:700}
-.diagram-note{font-size:.75em;color:var(--text-light);margin-top:16px;line-height:1.6}
-.source-note{font-size:.78em;color:var(--text-light);margin-top:4px;line-height:1.6}
-.source-note a{color:var(--text-light);text-decoration:underline}
-.back-link{display:inline-flex;align-items:center;gap:6px;font-size:.85em;color:var(--accent);text-decoration:none;margin-bottom:32px;transition:color .3s}
-.back-link:hover{color:var(--navy)}
-.article-cta{padding:56px 32px;background:linear-gradient(160deg,var(--navy),var(--navy-light));text-align:center}
-.article-cta h2{font-family:'Noto Serif JP',serif;font-size:clamp(1.1em,2.5vw,1.5em);color:#fff;font-weight:700;margin-bottom:12px}
-.article-cta p{font-size:.85em;color:rgba(255,255,255,.55);margin-bottom:24px;line-height:1.8}
-.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:13px 32px;border-radius:4px;font-weight:700;font-size:.88em;text-decoration:none;transition:all .3s}
-.cta-btn:hover{background:#D4AD5A;box-shadow:0 4px 20px rgba(196,154,60,.35)}
-.update-badge{display:inline-block;padding:2px 8px;background:var(--green);color:#fff;font-size:.65em;font-weight:700;border-radius:3px;vertical-align:middle;margin-left:6px}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.85;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:760px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.update-badge{display:inline-block;padding:2px 9px;background:var(--green);color:#fff;font-size:11px;font-weight:700;border-radius:3px;vertical-align:middle;letter-spacing:.04em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue)}
+.lead{font-size:1.02em;color:var(--text)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.95}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.95}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.95}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:1.95}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px}
+.source a{color:var(--blue);text-decoration:none;word-break:break-all}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.comparison-table .new-tag{display:inline-block;font-size:.68em;font-weight:700;color:#fff;background:var(--green);padding:1px 6px;border-radius:2px;margin-left:6px;letter-spacing:.04em;vertical-align:middle}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:560px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+
+/* Comparison cards */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative;border-top:3px solid var(--warn)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:2px;margin-bottom:10px;background:var(--warn-bg);color:var(--warn)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card p{font-size:.84em;line-height:1.8;margin:8px 0 0;color:var(--text)}
+
+/* Figure */
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+
+/* Timeline */
+.sched-list{margin:28px 0}
+.sched-item{display:grid;grid-template-columns:130px 1fr;gap:18px;padding:16px 18px;background:var(--white);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;margin-bottom:10px}
+.sched-item .s-date{font-family:'Noto Serif JP',serif;font-size:.95em;font-weight:700;color:var(--accent);line-height:1.4}
+.sched-item .s-date .sd-sub{display:block;font-size:.75em;color:var(--text-light);font-weight:400;margin-top:2px}
+.sched-item h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 4px}
+.sched-item p{font-size:.85em;line-height:1.8;margin:0;color:var(--text)}
+.sched-item.past{border-left-color:var(--text-light);opacity:.85}
+.sched-item.past .s-date{color:var(--text-light)}
+.sched-item.open{border-left-color:var(--orange)}
+.sched-item.open .s-date{color:var(--orange)}
+
+/* Sources box */
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.8}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:4px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+
+/* CTA */
+.cta-box{background:linear-gradient(165deg,#1B2A4A 0%,#2A4D7A 100%);color:#fff;padding:36px 32px;border-radius:8px;margin:48px 0 32px;text-align:center}
+.cta-box h3{color:#fff;font-family:'Noto Serif JP',serif;font-size:1.2em;margin:0 0 14px;border:none;padding:0}
+.cta-box p{color:rgba(255,255,255,.78);font-size:.9em;line-height:1.85;margin:0 auto 16px;max-width:560px}
+.cta-box p:last-of-type{margin-bottom:0}
+.cta-box strong{color:var(--accent-light)}
+.cta-button{display:inline-block;background:var(--accent);color:#fff;padding:14px 36px;border-radius:4px;font-weight:600;font-size:.92em;text-decoration:none;letter-spacing:.04em;transition:all .3s;margin-top:8px}
+.cta-button:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.4)}
+
+/* JC-STAR: status badges & decided/open map */
+.badge{display:inline-block;font-size:.7em;font-weight:700;letter-spacing:.04em;padding:2px 8px;border-radius:3px;white-space:nowrap;vertical-align:middle}
+.badge.fix{background:rgba(26,122,76,.12);color:var(--green)}
+.badge.draft{background:rgba(196,154,60,.18);color:var(--accent)}
+.badge.open{background:rgba(180,83,9,.12);color:var(--orange)}
+.fixmap{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
+.fixmap-col{border:1px solid var(--border);border-radius:6px;padding:20px 22px;background:var(--white)}
+.fixmap-col.decided{border-top:3px solid var(--green)}
+.fixmap-col.pending{border-top:3px solid var(--orange)}
+.fixmap-col h4{font-size:.92em;font-weight:700;margin:0 0 12px;display:flex;align-items:center;gap:8px;border:none}
+.fixmap-col.decided h4{color:var(--green)}
+.fixmap-col.pending h4{color:var(--orange)}
+.fixmap-col ul{list-style:none;padding:0;margin:0}
+.fixmap-col li{font-size:.84em;line-height:1.6;padding:9px 0 9px 20px;border-bottom:1px solid var(--border);position:relative}
+.fixmap-col li:last-child{border-bottom:none}
+.fixmap-col li::before{position:absolute;left:0;top:9px;font-weight:700;font-size:.95em}
+.fixmap-col.decided li::before{content:"✓";color:var(--green)}
+.fixmap-col.pending li::before{content:"?";color:var(--orange)}
+.fixmap-col li .src{display:block;font-size:.82em;color:var(--text-light);margin-top:2px}
+
+/* Company footer */
+.site-footer{background:var(--navy);color:rgba(255,255,255,.7);padding:48px 24px;text-align:center;font-size:.82em;line-height:1.9}
+.site-footer .ft-name{font-family:'Noto Serif JP',serif;color:#fff;font-size:1.05em;margin-bottom:10px;letter-spacing:.04em}
+.site-footer a{color:var(--accent-light);text-decoration:none}
+.site-footer .ft-rep{margin-top:10px;color:rgba(255,255,255,.55)}
 @media(max-width:768px){
-  .article-hero{padding:56px 20px 44px}
-  .article-body{padding:40px 20px 60px}
-  .info-table{font-size:.78em}
-  .info-table th,.info-table td{padding:10px 10px}
-  .arch-flow{flex-direction:column}
-  .arch-arrow{transform:rotate(90deg)}
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .compare-grid{grid-template-columns:1fr}
+  .fixmap{grid-template-columns:1fr}
+  .sched-item{grid-template-columns:1fr;gap:6px}
 }
 </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "JC-STAR Certification and Battery Business — How Cybersecurity Certification Changes Equipment Selection | ScienceX",
-  "description": "JC-STAR Level 1 becomes mandatory for grid connection with the April 2027 Grid Code revision. Impact on equipment selection, PCS procurement, and EMS architecture for grid-scale batteries, and compatibility strategies with overseas hardware.",
-  "author": {
-    "@type": "Organization",
-    "name": "Science X Inc."
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Science X Inc.",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.scix.co.jp/img/logo-white.png"
-    }
-  },
+  "headline": "JC-STAR ★1 for Japan grid connection: the gate is the interconnection contract application, not the connection date — HV from April 2027",
+  "description": "Japan's plan to require JC-STAR ★1-certified equipment for grid connection is fixed in direction but not yet promulgated. The trigger is the interconnection contract application — HV from April 2027, LV under 50 kW from October 2027. Device scope, overseas-PCS status, and open points, placed against the global IoT-security landscape (ETSI EN 303 645, EU CRA, UK PSTI, US Cyber Trust Mark).",
+  "author": { "@type": "Organization", "name": "Science X Inc." },
+  "publisher": { "@type": "Organization", "name": "Science X Inc.", "logo": { "@type": "ImageObject", "url": "https://www.scix.co.jp/img/logo-white.png" } },
   "datePublished": "2026-04-10",
+  "dateModified": "2026-06-06",
   "mainEntityOfPage": "https://www.scix.co.jp/en/column-jcstar"
 }
 </script>
+<meta property="article:published_time" content="2026-04-10">
+<meta property="article:modified_time" content="2026-06-06">
 </head>
 <body>
 <script src="/header.js"></script>
 
-<div class="article-hero">
-  <div class="hero-meta">
-    <span class="hero-num">COLUMN 14</span>
-    <span class="hero-tag">Cybersecurity</span>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 14</span>
+      <span class="header-tag">CYBERSECURITY</span>
+      <time class="header-date" datetime="2026-04-10">2026.04.10</time>
+      <span class="update-badge">Updated 2026.06</span>
+    </div>
+    <h1>JC-STAR ★1 is not triggered by the <em>connection date</em><br>— the gate is the interconnection contract application; HV applies from April 2027</h1>
+    <p class="header-desc">A Grid Code revision that would require JC-STAR ★1 for grid connection is in motion. Extra-high and high voltage from April 2027, low voltage under 50 kW from October 2027 — the draft text agreed by committee in March 2026 keys all of them to the "contract application," not the connection date. But the guideline that would carry the rule is not yet promulgated. This is a primary-source read of which devices, by when, and against which date.</p>
   </div>
-  <h1>JC-STAR Certification and Battery Business<br>— How Cybersecurity Certification Changes Equipment Selection</h1>
-  <p class="lead">In April 2027, JC-STAR Level 1 becomes a mandatory requirement for grid connection under the Grid Code revision. We organize the full scope of this system -- directly impacting PCS, EMS, and gateway selection for grid-scale batteries -- and practical compatibility strategies with overseas hardware.</p>
 </div>
 
 <div class="article-body">
-  <a target="_top" href="/en/knowledge" class="back-link">← Back to Knowledge</a>
 
-  <p class="source-note" style="margin-bottom:32px">Last updated: April 2026 | Facts based on cited sources can be verified at the links at the end of each section</p>
+<a target="_top" href="/en/knowledge" class="back-link">← Back to Knowledge</a>
 
-  <h2>Why Cybersecurity for Batteries?</h2>
+<p class="note-small">Last updated: June 2026. This article reflects the <strong>draft revisions</strong> discussed at OCCTO's Grid Code Review Committee as of June 2026. Source-based facts are linked at the end of each section. It will be updated when the governing texts — the grid interconnection technical-requirements guideline, each utility's interconnection technical requirements, and the Grid Interconnection Code — are promulgated.</p>
 
-  <p>Grid-scale batteries are no longer just "boxes that store electricity." They are highly networked assets that continuously communicate via the internet with aggregator cloud platforms, repeatedly bidding and charging/discharging in real-time across JEPX, balancing, and capacity markets.</p>
+<p class="lead">JC-STAR — designed in 2024 and operational since March 2025 — is fast ceasing to be a "nice-to-have" quality mark. Through three separate channels — grid connection, subsidies, and public procurement — it has become a variable that shapes the equipment selection of a grid-scale battery itself. The largest of these is the planned mandate for ★1-certified products in the April 2027 revision of the grid interconnection technical requirements. And yet the phrase "mandatory from April 2027" is half right and half premature. <strong>The direction is fixed; the text that would codify it has not been promulgated.</strong> This column separates what the draft revision has settled from what cannot yet be asserted, checking each against primary sources.</p>
 
-  <p>This "mandatory external communication" creates new risks. If IoT gateways or EMS controlling batteries are subjected to cyberattacks and unauthorized charging/discharging is executed simultaneously, it could lead not just to local blackouts but to large-scale blackouts from frequency fluctuations -- a national security threat.</p>
+<p>For readers who already navigate NERC CIP, IEC 62443, the EU Cyber Resilience Act, or the UK PSTI Act, it pays to place JC-STAR before going further. The orientation below is what spares an overseas investor the two most common misreadings.</p>
 
-  <p>To address this threat, METI published the system design in 2024, and the Information-technology Promotion Agency (IPA) launched operations in March 2025: <strong>JC-STAR (Japan Cyber-Security Technical Assessment Requirements)</strong> -- a security conformity assessment system for IoT products.</p>
+<div class="info-box">
+<strong>Where JC-STAR ★1 sits in the global stack.</strong> JC-STAR is Japan's IoT-product security labeling scheme, operated by the IPA under METI. Its baseline level, ★1, is harmonized with the international consumer-IoT baselines ETSI EN 303 645 and NIST IR 8425; its core requirements — no universal default passwords, a vulnerability-disclosure process, secure software updates — are the same three pillars that anchor the UK PSTI Act. In other words, ★1 is a <strong>device-level baseline</strong>, not a system- or operator-level control regime. It is <strong>not</strong> IEC 62443 (the ICS/OT security family) and <strong>not</strong> NERC CIP (the North American bulk-electric-system compliance regime). What is unusual about Japan's move is the placement: a light, device-level baseline is being wired into the grid-connection gate itself. Reading ★1 as if it were IEC 62443 overstates the engineering burden; dismissing it as "just a consumer label" understates the commercial consequence — without it, the asset may not connect.
+</div>
 
-  <h2>April 2027: Mandatory Under Grid Code Revision</h2>
+<h2>Why a battery needs cybersecurity at all</h2>
 
-  <div class="confirmed-box">
-    <p><strong>Policy decision (20th Grid Code Review Meeting, December 16, 2025):</strong></p>
-    <p>A policy was decided that for solar power and batteries, <strong>use of JC-STAR Level 1 certified products will be mandatory under the April 2027 Grid Code technical requirements revision</strong>. Projects that apply for grid connection contracts after the technical requirements revision may face difficulties connecting to the grid with non-compliant equipment.</p>
-    <p>For low-voltage products under 50kW, a transition period is established considering distribution network inventory clearance. <strong>Application starts October 2027</strong>.</p>
-    <p>Expansion to wind power and fuel cells, as well as development of PCS-specific JC-STAR Level 2+ compliance standards, continues to be discussed in government councils.</p>
+<p>A grid-scale battery is no longer "a box that stores electricity." It is a highly networked asset that talks to an aggregator's cloud platform over the internet around the clock, bidding into the JEPX spot market, the balancing market and the capacity market and cycling charge and discharge in real time. This "always-on external communication" is what creates the new risk. If the gateway or EMS that controls a battery is attacked and an unauthorized mass charge/discharge is executed at scale, the consequence need not stop at a local outage — it can propagate through frequency deviation toward a large-scale blackout.</p>
+
+<p>This is not abstract. In May 2024, a remote-monitoring device for solar PV installations (Contec's SolarView Compact) had a known vulnerability exploited; a government document records a scale of "about 800 units" abused for fraudulent transfers in internet banking. The device's maker states that, because the affected product has no output-control function, there is no direct impact on the grid. The government text reads "about 800 units … were abused," and from the primary source alone one cannot tell how many were actually taken over versus how many merely held the vulnerability — so we do not assert a figure here. Either way, the case showed plainly that internet-exposed communication devices in the renewables-and-storage stack become real attack targets. That is the direct backdrop to the state's effort to wire an IoT-product security conformity scheme into the technical requirements for grid connection.</p>
+
+<p class="source">Source: <a href="https://www.occto.or.jp/assets/iinkai/gridcode/20/gridcode_20_05.pdf" target="_blank">OCCTO, 20th Grid Code Review Committee material (gridcode_20_05.pdf), p.7</a> (the "about 800 units" case and the maker's statement of no grid impact; derived in part from the 83rd Electricity and Gas Basic Policy Subcommittee, Nov 20, 2024, Document 6) | <a href="https://www.contec.com/info/2024/2024050700/" target="_blank">Contec, "Notice regarding SolarView Compact" (May 7, 2024; vulnerability/backdoor advisory)</a> | <a href="https://www.ipa.go.jp/en/security/jc-star/index.html" target="_blank">IPA, JC-STAR scheme (English)</a></p>
+
+<h2>Inside "April 2027" — timing and trigger</h2>
+
+<p>Start with the timing, across four generation categories. Solar and storage had their timing set at the 20th Grid Code Review Committee (Dec 16, 2025); the 21st (Mar 31, 2026) newly added wind and fuel cells. <strong>This part is settled and may be stated as fact.</strong></p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Category</th><th>Applies from</th><th>Trigger (draft)</th><th>Transitional / notes</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">Extra-high / high voltage<br>(solar, storage)</td><td>Apr 2027</td><td>Contract application<br>for grid access</td><td>JPEA has requested grace for self-consumption types. <span class="cond">Open</span> (under coordination between ANRE and JPEA)</td></tr>
+<tr><td class="em">Low voltage under 50 kW<br>(solar, storage)</td><td>Oct 2027</td><td>Contract application<br>for grid access</td><td>A six-month delay as a transitional measure, to clear existing channel inventory (legacy inverters, etc.)</td></tr>
+<tr><td class="em">Wind</td><td>Apr 2027</td><td>—</td><td>Early application limited first to the gateway firewall (or a device with equivalent protection). Other devices to follow promptly</td></tr>
+<tr><td class="em">Fuel cells</td><td>Apr 2028</td><td>—</td><td>Forms that use a PCS are in scope. Transitional measures as needed</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The path to here reads more clearly laid out by committee session.</p>
+
+<div class="sched-list">
+  <div class="sched-item past">
+    <div class="s-date">2025.12.16<span class="sd-sub">20th committee</span></div>
+    <div><h4>Decision to mandate ★1</h4><p>For solar and storage, the committee decided to require the use of JC-STAR ★1-certified products in the April 2027 revision of the grid interconnection technical requirements; low voltage under 50 kW from October 2027. At this stage the wording was "<em>newly connected to the grid</em> on or after April 2027" — ambiguous as to application versus connection.</p></div>
   </div>
-
-  <p class="source-note">Source:<a href="https://project.nikkeibp.co.jp/ms/atcl/19/news/00001/05640/?ST=msb" target="_blank" rel="noopener">Nikkei BP Mega Solar Business "Grid Code Revision, New Requirements for Grid-Scale Batteries" (February 2026)</a> | <a href="https://www.occto.or.jp/iinkai/gridcode/index.html" target="_blank" rel="noopener">OCCTO Grid Code Review Meeting</a></p>
-
-  <h3>What Part of the Battery System is Covered -- PCS Confirmed, EMS Layer Being Organized</h3>
-
-  <p>Unlike solar, battery control systems have a layered structure. Multiple layers are involved in networking: BMS (Battery Management System) -> PCS -> Local EMS -> Upper EMS (Aggregator).</p>
-
-  <p>It is confirmed that <strong>the communication module of the PCS (power conditioner)</strong> is subject to JC-STAR. The PCS is the network-connected control hub responsible for receiving and executing output control commands, carrying the highest cyberattack risk.</p>
-
-  <p>Meanwhile, it has been organized that <strong>local EMS and upper EMS are likely to be subject to JC-STAR</strong>, but the final decision on how far the mandatory scope extends within the overall battery control system has not yet been reached. However, since EMS is the most internet-exposed component, receiving control commands from aggregators and market operators via the internet, equipment selection should proceed on the assumption of JC-STAR compliance.</p>
-
-  <p>Note that battery cells and packs (the battery itself) operate only through local communication via BMS and do not communicate directly with the internet, so they are outside the scope of JC-STAR.</p>
-
-  <h3>Existing Facilities Are Not Exempt</h3>
-
-  <p>This is not just about new projects. <strong>Even for existing facilities, JC-STAR compliant products are expected to be required when control systems (PCS, EMS, etc.) are updated.</strong> While the Grid Code revision primarily targets new grid connection contract applications, compliance with these requirements is likely to be necessary when replacing PCS or upgrading EMS. The finalization of detailed regulations should be closely monitored.</p>
-
-  <h2>Basic Structure of JC-STAR</h2>
-
-  <p>JC-STAR is a labeling system that evaluates security functions that IoT devices should have (encrypted communication, access control, secure firmware update capabilities, vulnerability response processes, etc.) and represents compliance status by the number of stars. Levels 1 and 2 are manufacturer self-declarations (external verification agencies can also be commissioned), while Level 3 and above require third-party certification.</p>
-
-  <table class="info-table">
-    <thead><tr><th>Level</th><th>Security Standard</th><th>Application Start</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><span class="level-badge level-1">★</span></td>
-        <td>Baseline requirements (16 items). Forced initial password change, secure communication protocols, proof of no known vulnerabilities, etc. Self-declaration. <strong>Subject to Grid Code mandate from April 2027.</strong></td>
-        <td>2025 year3 month</td>
-      </tr>
-      <tr>
-        <td><span class="level-badge level-2">★★</span></td>
-        <td>Additional requirements by product type. Advanced encrypted data storage, strict user privilege separation. Self-declaration. PCS-specific Level 2 standards under consideration.</td>
-        <td>From January 2026</td>
-      </tr>
-      <tr>
-        <td><span class="level-badge level-3">★★★</span></td>
-        <td>For critical infrastructure. Objective evaluation by third-party assessment bodies. Tamper resistance, hardware-level security implementation.</td>
-        <td>FY2026 onward</td>
-      </tr>
-      <tr>
-        <td><span class="level-badge level-4">★★★★</span></td>
-        <td>APT attack resistance. Rigorous verification from design stage, advanced resilience against unknown vulnerabilities. Third-party evaluation.</td>
-        <td>FY2026 onward</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p class="source-note">Source:<a href="https://www.ipa.go.jp/security/jc-star/detail.html" target="_blank" rel="noopener">IPA "JC-STAR System Detailed Information"</a></p>
-
-  <h2>Advance Mandate Through ERAB Guidelines</h2>
-
-  <p>Prior to the Grid Code revision (April 2027), JC-STAR compliance is already required in aggregation business.In the <strong>"ERAB Cybersecurity Guidelines Ver3.0"</strong> revised on May 22, 2025, when resource aggregators newly introduce IoT devices as control targets, selecting products that meet JC-STAR Level 1 or above was added as a requirement.Specifically, for aggregator-gateway communication (R4) and direct aggregator-energy device communication (R6), it is classified as "recommended" (effectively mandatory), and for gateway-energy device communication (R5), as "encouraged" (best effort).</p>
-
-  <p>Furthermore, when detailed Level 2+ requirements are finalized in the future, meeting Level 2 or above is considered desirable.METI DR/VPP-related subsidies (DR Resource Deployment Support Program, etc.) also require ERAB guideline compliance as a grant condition, making JC-STAR compliant equipment selection effectively mandatory when using these subsidies.</p>
-
-  <p class="source-note">Source:<a href="https://www.meti.go.jp/press/2025/05/20250522001/20250522001.html" target="_blank" rel="noopener">METI "ERAB Cybersecurity Guidelines Ver3.0" (May 22, 2025)</a></p>
-
-  <h2>What Changes for Battery Operators?</h2>
-
-  <h3>1. Directly Affects Grid Connection Eligibility</h3>
-
-  <p>For projects applying for grid connection contracts from April 2027 onward, use of JC-STAR Level 1 certified products becomes mandatory. Grid connection with non-compliant equipment may face difficulties.</p>
-
-  <div class="warning-box">
-    <p><strong>Business collapse risk:</strong> Even after building a battery station with massive investment, if grid connection is not permitted, power sales and market participation are completely impossible. This leads directly to "stranded asset" status where the project's cash flow is completely cut off.</p>
+  <div class="sched-item past">
+    <div class="s-date">2026.03.31<span class="sd-sub">21st committee</span></div>
+    <div><h4>Trigger unified to "contract application"; wind / fuel cells added</h4><p>The draft code revision made the basis explicit — "the contract application for grid access" — for EHV and HV as well. It also presented wind at April 2027 (limited to the gateway firewall) and fuel cells at April 2028, which the members endorsed.</p></div>
   </div>
-
-  <h3>2. Required for Subsidy Eligibility</h3>
-
-  <p>In DR/VPP-related deployment subsidies, ERAB guideline compliance (use of JC-STAR compliant equipment) is incorporated as a mandatory grant requirement. Selecting non-compliant equipment disqualifies the project from subsidies, significantly deteriorating its economic viability.</p>
-
-  <h3>3. Mandated in Government Procurement</h3>
-
-  <p>Level 1 or above is being made mandatory for IoT devices procured by government agencies. The same policy is spreading to local governments.</p>
-
-  <div class="key-point">
-    <p>For battery operators, JC-STAR is not "a nice-to-have quality mark." <strong>Through three pathways -- grid connection (Grid Code), subsidies (ERAB Guidelines), and procurement requirements -- it has already become a de facto obligation.</strong></p>
+  <div class="sched-item open">
+    <div class="s-date">Pre-promulgation<span class="sd-sub">as of June 2026</span></div>
+    <div><h4>No text yet — guideline, interconnection technical requirements, Grid Interconnection Code</h4><p>The formal revised versions incorporating the cybersecurity requirements are not yet promulgated. ANRE's published grid interconnection technical-requirements guideline remains the Dec 1, 2024 revision, and the Grid Interconnection Code (Japan Electric Association) is described as "to be reflected following the guideline revision." As of June 5, 2026, no scheduling information for a 22nd committee had been posted.</p></div>
   </div>
+</div>
 
-  <h2>Current Status of JC-STAR Compliant Products<span class="update-badge">Updated April 2026</span></h2>
+<p>This is the heart of the column. In the first edition of this piece (April 2026), for HV the revised wording read only "newly connected to the grid," and we held back because one could not tell whether the basis was the connection (interconnection / commissioning) or the application. The 21st committee's draft unified that basis to <strong>"the contract application for grid access."</strong> EHV and HV, like LV, now read as keyed to the application stage rather than "the moment of connection (interconnection / commissioning)" — and that is the single biggest update here. The question that decides a project's life or death — "is it enough to file the connection-contract application by the deadline, or must the project reach commissioning in time?" — has acquired a direction.</p>
 
-  <p>The <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener"><strong>"JC-STAR Compliant Product List"</strong></a> published by IPA lists all certified products (also downloadable in Excel format). Below is an excerpt of major companies relevant to grid-scale batteries.</p>
+<div class="warning-box">
+<strong>But this is exactly where one must not over-assert.</strong> "The contract application is the basis" / "filing is safe" can be said only to the extent that the draft revision has framed it that way. The texts — the guideline, each utility's interconnection technical requirements, and the Grid Interconnection Code — are <strong>all pre-promulgation</strong>; the stage is no more than "a draft revision endorsed by the deliberative committee." Further, for HV self-consumption types (roughly under 500 kW) and for projects built with the same PCS as a low-voltage interconnection, the Japan Photovoltaic Energy Association (JPEA) has requested a grace period, and the 21st minutes leave this point unresolved, handed to coordination between ANRE and JPEA. The field reading that "if you've already applied, you're clear" should be settled by the promulgation of the text, or by a direct query to the general transmission and distribution utility (TSO/DSO) with jurisdiction.
+</div>
 
-  <h3>PCS & Battery Systems</h3>
+<p>JPEA's request is concrete. At the 21st committee, for self-consumption types of 500 kW or less and for projects that — though receiving at high voltage — are built with the same product as a low-voltage interconnection's PCS, it asked for the same grace until October 2027 as low voltage. ANRE responded "to consult case by case," and the chair took it up with "ANRE and JPEA to coordinate as a matter of urgency." In short, even at high voltage there is room for application to be pushed back depending on a project's character. If you hold self-consumption or small-scale projects, the follow-up on this coordination looks worth tracking.</p>
 
-  <table class="info-table">
-    <thead><tr><th>Company</th><th>Compliant Product</th><th>Level</th><th>Notes</th></tr></thead>
-    <tbody>
-      <tr><td>Fuji Electric</td><td>Large-Scale Battery PCS / Battery System Controller (PMS)</td><td><span class="level-badge level-1">★</span></td><td>Both PCS and control devices certified. Multiple products registered</td></tr>
-      <tr><td>Nissin Electric</td><td>Battery PCS / Grid Battery Control Device</td><td><span class="level-badge level-1">★</span></td><td>PCS + control device</td></tr>
-      <tr><td>Daihen</td><td>Battery Package</td><td><span class="level-badge level-1">★</span></td><td>Hardware + communication control unit certified as integrated</td></tr>
-      <tr><td>TMEIC (Toshiba Mitsubishi Electric Industrial Systems)</td><td>TMBCS</td><td><span class="level-badge level-1">★</span></td><td>For large-scale BESS</td></tr>
-      <tr><td>SMA Japan</td><td>Sunny Central / Sunny Central Storage</td><td><span class="level-badge level-1">★</span></td><td>Overseas PCS manufacturer certified for Japan</td></tr>
-      <tr><td>Power Electronics (Spain)</td><td>HEMK / PCSK</td><td><span class="level-badge level-1">★</span></td><td>Overseas inverter manufacturer. 23 BESS projects in Japan (10 delivered, 13 under construction)</td></tr>
-      <tr><td>GS Yuasa</td><td>GYES2 / GYES3 / GYES4 Battery System / STARELINK Series</td><td><span class="level-badge level-1">★</span></td><td>Multiple certifications for battery package + EMS</td></tr>
-      <tr><td>Samsung SDI</td><td>SBB 1.0</td><td><span class="level-badge level-1">★</span></td><td>South Korean manufacturer</td></tr>
-      <tr><td>Tesla Japan</td><td>Tesla System Controller</td><td><span class="level-badge level-1">★</span></td><td>Megapack control system</td></tr>
-      <tr><td>PowerX</td><td>Mega Power Series</td><td><span class="level-badge level-1">★</span></td><td>Grid-scale battery system</td></tr>
-      <tr><td>Sumitomo Electric</td><td>Redox Flow Battery System</td><td><span class="level-badge level-1">★</span></td><td>Long-duration discharge (RF battery)</td></tr>
-      <tr><td>NGK Insulators</td><td>Container NAS Battery Control Unit</td><td><span class="level-badge level-1">★</span></td><td>NAS battery</td></tr>
-      <tr><td>NExT-e Solutions</td><td>Water-Cooled Battery Container</td><td><span class="level-badge level-1">★</span></td><td>Container battery</td></tr>
-      <tr><td>Honda</td><td>BESS Container BMS NeS</td><td><span class="level-badge level-1">★</span></td><td>BMS communication control</td></tr>
-      <tr><td>Saft Japan</td><td>ESS-CUBE</td><td><span class="level-badge level-1">★</span></td><td>French Saft group</td></tr>
-    </tbody>
-  </table>
+<p>A finer point: exactly which stage of the grid-access procedure "application" refers to is not fully settled either. The draft wording is "the contract application for grid access," which reads as the contract-application stage rather than the preliminary connection-study application. But whether the line is drawn at the connection-contract application or at connection acceptance / contract conclusion is not made explicit in the text, and this looks set to remain a point to confirm against each TSO/DSO's grid-access rules and notices. For your own project, do not assert "what, and as of when, counts as already-applied" without confirming the operational practice.</p>
 
-  <h3>EMS, Gateways & Aggregators</h3>
+<p class="source">Source: <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf" target="_blank">OCCTO, 21st Grid Code Review Committee, Document 4 (gridcode_21_04.pdf), pp.8-9, p.13</a> | <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_gijiroku.pdf" target="_blank">Minutes of the 21st committee, p.3, p.9</a> | <a href="https://www.occto.or.jp/assets/iinkai/gridcode/20/gridcode_20_05.pdf" target="_blank">20th committee material (gridcode_20_05.pdf), p.12</a> | <a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/electric/summary/regulations/" target="_blank">ANRE, "Related laws and guidelines"</a> | <a href="https://www.meti.go.jp/shingikai/mono_info_service/sangyo_cyber/wg_seido/wg_denryoku/pdf/019_05_00.pdf" target="_blank">ANRE Industrial Cybersecurity Study Group, Electricity Sub-WG, 19th meeting, Document 5 (Feb 12, 2026)</a> | <a href="https://www.occto.or.jp/iinkai/gridcode/index.html" target="_blank">OCCTO Grid Code Review Committee</a> (note: the 20th committee's cybersecurity material is labeled "Document 4" in the body but filed as gridcode_20_05.pdf)</p>
 
-  <table class="info-table">
-    <thead><tr><th>Company</th><th>Compliant Product</th><th>Level</th><th>Notes</th></tr></thead>
-    <tbody>
-      <tr><td>Shizen Connect</td><td>Shizen Box / Shizen Box 2</td><td><span class="level-badge level-1">★</span></td><td>DR/VPP platform market share No.1 (FY2023, corporate contracts basis, Fuji Keizai). IoT devices for grid battery monitoring and control</td></tr>
-      <tr><td>Digital Grid</td><td>Battery Gateway</td><td><span class="level-badge level-1">★</span></td><td>Compatible with multi-manufacturer batteries. All market participation possible</td></tr>
-      <tr><td>Kraken Technologies Japan</td><td>Kraken Control System / Kraken SHV BESS Control System</td><td><span class="level-badge level-1">★</span></td><td>Octopus Energy group. Extra-high-voltage BESS control also certified</td></tr>
-      <tr><td>Energy Flow</td><td>Hybrid Power Plant Controller</td><td><span class="level-badge level-1">★</span></td><td>PCS control integrated type</td></tr>
-      <tr><td>Shirokuma Power</td><td>Site EMS / Battery Control System</td><td><span class="level-badge level-1">★</span></td><td>Multiple versions certified</td></tr>
-      <tr><td>dots energy</td><td>QUANTUM 2.0（PMS）</td><td><span class="level-badge level-1">★</span></td><td>Taiwan-based BESS control platform</td></tr>
-      <tr><td>Mitsubishi Electric</td><td>BLEnDer RE</td><td><span class="level-badge level-1">★</span></td><td>Energy Management System</td></tr>
-      <tr><td>Nissin Systems</td><td>Balancing Market GW / Outdoor IoT Gateway</td><td><span class="level-badge level-1">★</span></td><td>Balancing market specialized</td></tr>
-      <tr><td>NextDrive</td><td>Cube / EDGE Energy Management Controller</td><td><span class="level-badge level-1">★</span></td><td>Taiwan-based. EMS devices</td></tr>
-    </tbody>
-  </table>
+<h3>Which parts of a battery are in scope</h3>
 
-  <p class="source-note">*  Excerpt based on IPA list as of April 3, 2026. For the latest information, see <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPA Compliant Product List</a>.</p>
+<p>On where the line is drawn, the two extremes one hears in the field are both wrong.</p>
 
-  <div class="warning-box">
-    <p><strong>Key point to verify:</strong> Some PCS manufacturers are not listed above. Even manufacturers with large global market share may have JET certification (electrical safety) but not JC-STAR (cybersecurity). After the April 2027 Grid Code revision, PCS without JC-STAR may face difficulties with new grid connections. JC-STAR compliance status of your planned PCS manufacturer must be verified.<a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPA's compliant product list</a> to check the latest certification status.</p>
+<div class="compare-grid">
+  <div class="compare-card">
+    <span class="cc-tag">COMMON MISREAD ✕</span>
+    <h4>"Make one gateway ★1-compliant and you're exempt"</h4>
+    <p>The PCS itself is a communication device that performs remote control and monitoring, so it can be in scope on its own. A split architecture that concentrates control communication into a gateway is an effective hedge, but it does not let the whole system off by itself.</p>
   </div>
-
-  <h2>Compatibility Strategies with Overseas Hardware</h2>
-
-  <p>In the grid-scale battery market, overseas manufacturers have overwhelming cost competitiveness. From the CAPEX perspective that determines project IRR, excluding cost-competitive overseas hardware from options is not realistic.</p>
-
-  <div class="key-point">
-    <p><strong>Important distinction: JC-STAR covers "IoT devices that communicate with the internet," and battery cells/packs (the battery itself) are outside scope.</strong> The battery itself is electrochemical hardware managed by BMS and does not communicate directly with the internet. Therefore, adopting overseas batteries is not constrained by JC-STAR.</p>
-    <p>JC-STAR applies to the <strong>PCS communication module</strong> that communicates with external networks, and the <strong>EMS and gateway devices</strong> positioned above it.</p>
+  <div class="compare-card">
+    <span class="cc-tag">COMMON MISREAD ✕</span>
+    <h4>"Every network device needs ★1"</h4>
+    <p>General-purpose IP communication devices not involved in control (routers, etc.) are not subject to the obligation. The draft narrows the in-scope devices to "IP communication devices involved in control."</p>
   </div>
+</div>
 
-  <p>When overseas manufacturers' PCS lacks JC-STAR certification, the <strong>"gateway separation architecture"</strong> provides a solution.</p>
+<p>The correct line, in the draft's own wording, is: "among the control systems with communication functions adopted by a distributed energy resource, the devices that use <strong>IP communication</strong>." The center of gravity is the PCS and the EMS. Exclusion provisions are also set, but their reach is asymmetric by device. Internet-connection routers and the like are excluded only for <strong>general electrical work (consumer-grade installations)</strong>, whereas monitoring cameras mediated by a gateway are excluded for <strong>all electrical works, including business-use</strong>. Conversely, even a device outside the in-scope range is pulled in if it has a control function, or if it links directly to a principal constituent product without passing through a gateway. The crux is that evaluation is "as a communication-and-control system," not "device by device."</p>
 
-  <div class="diagram-box">
-    <div class="diagram-title">Hybrid Configuration Through Gateway Separation</div>
-    <div class="arch-flow">
-      <div class="arch-block external">
-        <div class="ab-label">External Network</div>
-        <div class="ab-name">Power Grid<br>Cloud (JEPX, etc.)</div>
-      </div>
-      <div class="arch-arrow">⇄</div>
-      <div class="arch-block gateway">
-        <div class="ab-label">JC-STAR Level 1 Certified</div>
-        <div class="ab-name">JC-STAR Compliant<br>EMS/Gateway</div>
-      </div>
-      <div class="arch-arrow secure">⇄</div>
-      <div class="arch-block internal">
-        <div class="ab-label">Local Network</div>
-        <div class="ab-name">PCS<br>(Communication Module)</div>
-      </div>
-      <div class="arch-arrow">⇄</div>
-      <div class="arch-block internal">
-        <div class="ab-label">Outside JC-STAR Scope</div>
-        <div class="ab-name">Battery Cells/Packs<br>BMS</div>
-      </div>
-    </div>
-    <p class="diagram-note">JC-STAR Level 1 certified EMS/Gateway positioned as the security boundary.<br>PCS connects to gateway via local communication (MODBUS, etc.). Battery hardware is outside JC-STAR scope.</p>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Device</th><th>Determination</th><th>Conditions / notes</th></tr></thead>
+<tbody>
+<tr><td class="em">PCS (inverter)</td><td class="ok">In scope (settled)</td><td>Where it has an IP communication module for remote control/monitoring. The control hub that receives and executes output-control commands — the highest-risk element</td></tr>
+<tr><td class="em">EMS / site controller</td><td class="ok">In scope</td><td>A cloud-connected EMS / monitoring device is certainly in scope. The most internet-exposed component</td></tr>
+<tr><td class="em">Gateway / remote-monitoring unit</td><td class="ok">In scope</td><td>Relays control commands; links directly to principal equipment</td></tr>
+<tr><td class="em">BMS (battery management)</td><td class="cond">Conditionally in scope</td><td>Named explicitly as "PCS / EMS / BMS, etc." in subsidies and the Long-term Decarbonization Power Source Auction. The Grid Code body exemplifies "PCS / EMS, etc."; in scope where it is involved in control and forms part of the communication path</td></tr>
+<tr><td class="em">Legacy PCS (serial only, e.g., RS-485)</td><td class="cond">Room to fall outside the wording</td><td>Reads as out of scope if it has no IP communication. But in a configuration that rides IP communication via an EMS, it can be brought into scope as a system</td></tr>
+<tr><td class="em">General IP devices (routers, etc.)</td><td class="ng">Out of scope</td><td>Router exclusion is limited to consumer-grade installations / GW-mediated monitoring cameras are excluded across all works including business-use (both being non-control-involved)</td></tr>
+<tr><td class="em">Battery cells / packs themselves</td><td class="ng">Out of scope</td><td>Do not communicate directly with the internet (only local communication via the BMS)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The practical approach is to inventory every device involved in communication and control, list them, and check each individually for whether it holds ★1. Pay particular attention to the line between a legacy PCS with RS-485 only and a cloud-connected EMS — the conclusion moves with the design.</p>
+
+<p class="source">Source: <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf" target="_blank">OCCTO, 21st Grid Code Review Committee, Document 4, p.9</a> | <a href="https://www.occto.or.jp/assets/iinkai/gridcode/20/gridcode_20_05.pdf" target="_blank">20th committee material, p.9</a></p>
+
+<h3>What about replacing existing equipment</h3>
+
+<p>It looks like a question only for new projects, but existing facilities are not entirely unrelated. The Grid Code carries a general principle that even an already-connected facility has the latest requirements applied at the time of replacement or of swapping a device such as the power conditioner. How the cybersecurity requirement is handled at PCS replacement or EMS renewal, however, is not made explicit in the 21st committee's draft. Since the application trigger is written as "a project that files a contract application," the accurate reading is that the relationship between an existing-equipment replacement and that trigger is not yet sorted out in the text. Leave it as an open point — to confirm against the revised guideline body and the FAQs from METI and each TSO/DSO — rather than asserting an answer.</p>
+
+<p class="source">Source: <a href="https://www.meti.go.jp/shingikai/enecho/shoene_shinene/shin_energy/keito_wg/pdf/051_04_01.pdf" target="_blank">ANRE Next-Generation Power Grid WG, Document 4-1 (May 24, 2024)</a> (general principle of applying the latest requirements at replacement / device swap)</p>
+
+<h2>How JC-STAR is built — ★1 is a self-declaration</h2>
+
+<p>JC-STAR is a labeling scheme that evaluates the security functions an IoT device should hold (encrypted communication, access control, secure firmware update, a vulnerability-handling process, and so on) and expresses the result as a number of stars. The point a practitioner cannot overlook is that <strong>★1 is a self-declaration of conformity</strong>. It can be obtained on the operator's declaration; external third-party assessment enters not at ★2 but at ★3 and above (★2 is still self-declaration). So a claim of "★1-compliant" still warrants cross-checking against the conformance-label product list to confirm it is actually held.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Level</th><th>Security tier</th><th>Method</th><th>Applications open</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">★</td><td>Baseline requirements (16 items). Forced change of the initial password, secure communication, proof of carrying no known vulnerabilities, and so on. <strong>The Grid Code target for April 2027.</strong></td><td>Self-declaration</td><td>Mar 2025</td></tr>
+<tr><td class="em">★★</td><td>Additional requirements by product class. Criteria under study for communication devices, network cameras, etc.</td><td>Self-declaration</td><td>Under study</td></tr>
+<tr><td class="em">★★★</td><td>For critical infrastructure. Tamper resistance, hardware-level security elements.</td><td>Third-party</td><td>—</td></tr>
+<tr><td class="em">★★★★</td><td>APT resistance. Rigorous verification from the design stage, advanced resilience to unknown vulnerabilities.</td><td>Third-party</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>A conformance label is valid for up to two years from issuance, and ★1 can be renewed in two-year increments. Because a product's status can move from "valid" to "grace before expiry," "expired," or "revoked" after a procurement decision, periodic monitoring of the list becomes part of the due diligence discussed below.</p>
+
+<p class="source">Source: <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf" target="_blank">OCCTO, 21st Grid Code Review Committee, Document 4, p.4 (JC-STAR scheme overview)</a> | <a href="https://www.ipa.go.jp/security/jc-star/detail.html" target="_blank">IPA, "JC-STAR scheme — details"</a></p>
+
+<h2>The ERAB guideline: an earlier de-facto mandate</h2>
+
+<p>Ahead of the April 2027 Grid Code revision, the aggregation business already requires JC-STAR conformance. The "Cybersecurity Guideline for ERAB Ver3.0," finalized on May 22, 2025, added a requirement that, when a resource aggregator newly introduces an IoT device as a control target, it select a product meeting JC-STAR ★1 or above. Specifically, on the aggregator–gateway link (R4) and the aggregator–energy-device direct communication (R6) it is framed as "recommended" (effectively required), and on the gateway–energy-device link (R5) as "advised" (best-effort). Ver3.0 also newly addresses cloud-type control that does not pass through a physical gateway, and gateway-independent demand response. As of June 2026 no revision beyond Ver3.0 is confirmed, so this is the latest version.</p>
+
+<p>METI's DR/VPP-related subsidies also set ERAB-guideline conformance as a grant condition, so using these makes the selection of JC-STAR-conformant equipment effectively mandatory.</p>
+
+<p class="source">Source: <a href="https://www.meti.go.jp/press/2025/05/20250522001/20250522001.html" target="_blank">METI, "Cybersecurity Guideline for ERAB Ver3.0" (May 22, 2025)</a></p>
+
+<h2>What changes for a battery developer — three channels</h2>
+
+<p>JC-STAR is not a "nice-to-have" quality mark. It is already biting as a real constraint through three channels: grid connection, subsidies, and procurement.</p>
+
+<p><strong>It connects directly to whether you can connect to the grid.</strong> Under the draft, projects that file a grid-access contract application on or after April 2027 are premised on the use of ★1-certified products. Build a storage facility with a vast investment, then stumble at grid connection because the equipment does not meet the requirement, and you can neither sell power nor join the markets — a direct path to the cash flow being cut off, the so-called stranded-asset risk. As noted above, this is a draft, pre-promulgation; it is not yet a stage at which one can flatly say "definitely mandatory from April 2027."</p>
+
+<p><strong>It is a grant condition for subsidies.</strong> In DR/VPP-related subsidies and in the grid-scale storage subsidies administered by SII, ERAB-guideline conformance (i.e., use of JC-STAR-conformant equipment) is built in as a grant condition. Choose non-conformant equipment and you fall outside the subsidy, which substantially breaks the project's economics.</p>
+
+<p><strong>It is advancing in public procurement.</strong> The direction is to require ★1 or above for IoT devices procured by government bodies, and a similar movement is spreading to local public bodies.</p>
+
+<h2>Certified products today (June 1, 2026 snapshot)</h2>
+
+<p>IPA's published <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank">"JC-STAR conformance-label product list"</a> shows every certified product (Excel download available). The list was updated on June 1, 2026. Per the secretariat material of METI's Industrial Cybersecurity Study Group, more than 1,500 products on a model-number basis have had labels issued, and ★1 acquisitions related to grid-scale storage have grown sharply over the past several months. The excerpt below, from the June 1, 2026 list, picks out the principal grid-BESS-related acquisitions by device category (all with status "valid," all ★1).</p>
+
+<h3>PCS / battery systems</h3>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Company</th><th>Conformant products (★1)</th><th>Notes (timing)</th></tr></thead>
+<tbody>
+<tr><td class="em">Fuji Electric</td><td>Large-scale storage-type power conditioner / storage system controller (PMS)</td><td>Obtained for both PCS and controller (Oct 2025)</td></tr>
+<tr><td class="em">Nissin Electric</td><td>Storage PCS / grid-storage control unit</td><td>PCS + controller (Oct 2025)</td></tr>
+<tr><td class="em">DAIHEN</td><td>Storage package (multiple models)</td><td>Hardware + communication-control part certified as a unit (added by ~May 2026)<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">TMEIC (Toshiba Mitsubishi-Electric Industrial Systems)</td><td>TMBCS / TMEdge / BSA, BSB, BSU series</td><td>For large BESS. First label Oct 2025 (TMBCS); the main group including control/edge devices in April 2026<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">Sumitomo Electric</td><td>POWER DEPO H / V / IV / R / redox-flow battery system</td><td>Redox-flow battery Oct 2025; the POWER DEPO storage systems April 2026<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">SMA Japan</td><td>Sunny Central / Sunny Central Storage</td><td>Germany. Japan-market certification by an overseas PCS maker</td></tr>
+<tr><td class="em">Power Electronics (Spain)</td><td>HEMK / PCSK</td><td>Overseas inverter maker (Mar 2026)</td></tr>
+<tr><td class="em">GS Yuasa</td><td>GYES2–4 storage systems / STARELINK series</td><td>Multiple acquisitions across storage package + EMS (autumn 2025)</td></tr>
+<tr><td class="em">Kyocera</td><td>Enerezza / Enerezza Plus / Plus II</td><td>Storage systems (Mar 2026)</td></tr>
+<tr><td class="em">Eliiy Power</td><td>POWER iE Connect storage unit / remote control</td><td>April 2026<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">Hanwha Japan</td><td>Q.READY power conditioner / power-metering control unit</td><td>Korea (Mar–Apr 2026)</td></tr>
+<tr><td class="em">Samsung SDI</td><td>SBB 1.0</td><td>Korea (Oct 2025)</td></tr>
+<tr><td class="em">Tesla Japan</td><td>Tesla System Controller</td><td>Megapack control system (Oct 2025)</td></tr>
+<tr><td class="em">PowerX</td><td>Mega Power Series</td><td>Grid-scale storage system (Sep 2025)</td></tr>
+<tr><td class="em">NGK Insulators</td><td>Control part for containerized NAS battery</td><td>NAS (sodium-sulfur) battery (Oct 2025)</td></tr>
+<tr><td class="em">NExT-e Solutions</td><td>Water-cooled storage container</td><td>Containerized battery</td></tr>
+<tr><td class="em">Honda</td><td>BMS "NeS" for BESS container</td><td>BMS communication control (Oct 2025)</td></tr>
+<tr><td class="em">Saft Japan</td><td>ESS-CUBE</td><td>France (Saft)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>EMS / gateways / aggregators</h3>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Company</th><th>Conformant products (★1)</th><th>Notes (timing)</th></tr></thead>
+<tbody>
+<tr><td class="em">Shizen Connect</td><td>Shizen Box / Shizen Box 2</td><td>DR/VPP platform. IoT terminal for monitoring/control of grid-scale storage</td></tr>
+<tr><td class="em">Digital Grid</td><td>Storage gateway</td><td>Supports multi-maker batteries. Can enter all markets</td></tr>
+<tr><td class="em">Kraken Technologies Japan</td><td>Kraken control system / Kraken SHV BESS control system</td><td>Octopus Energy group. EHV BESS control also obtained</td></tr>
+<tr><td class="em">OMRON Social Solutions</td><td>Gateway KP-GWBP-A / three-phase-system GW KP-GWPT-A</td><td>Jan and May 2026<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">Mitsubishi Electric</td><td>BLEnDer RE</td><td>Energy management system</td></tr>
+<tr><td class="em">NS Solutions (Nippon Steel)</td><td>IoT communication platform "HAGANE"</td><td>April 2026<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">Field Logic</td><td>DataCube4 (for DAIHEN EMS and others)</td><td>April 2026<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">Kokusai Electric</td><td>AI edge controller</td><td>Apr–May 2026<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">Shirokuma Power</td><td>Site EMS / storage control system</td><td>Obtained across multiple versions</td></tr>
+<tr><td class="em">Energy Flow</td><td>Hybrid power-plant controller</td><td>PCS-control-integrated type</td></tr>
+<tr><td class="em">Nissin Systems</td><td>Balancing-market GW / outdoor IoT gateway</td><td>Specialized for the balancing market</td></tr>
+<tr><td class="em">dots energy</td><td>QUANTUM 2.0 (PMS)</td><td>Taiwan-affiliated BESS control platform</td></tr>
+<tr><td class="em">NextDrive</td><td>Cube / EDGE energy-management controller</td><td>Taiwan-affiliated. EMS device</td></tr>
+<tr><td class="em">SEETEL</td><td>GridLink EMS / SEETEL BMS</td><td>China-affiliated. Obtained for EMS + BMS (Apr 2026)<span class="new-tag">NEW</span></td></tr>
+<tr><td class="em">Canadian Solar SSES Japan</td><td>iQ Storage EMS</td><td>April 2026<span class="new-tag">NEW</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note-small">※ Excerpted from the June 1, 2026 IPA list. This piece centers on registrations of roughly the past year (late 2025 to 2026) and is not exhaustive. For the latest and complete set, including expirations and revocations, see IPA's conformance-label product list (Excel download available).</p>
+
+<div class="warning-box">
+<strong>For HUAWEI and SUNGROW, an own-brand ★1 acquisition cannot be confirmed in public information as of June 2026.</strong> Projects premised on the PCS of these two makers — both holding large share in the Japanese market — risk stumbling at grid connection if conformance confirmation or a switch to an alternative maker does not finish before the applicable basis date. That said, "not yet acquired" is only a statement about current public information; one cannot rule out that applications are progressing out of sight. If you plan to adopt them, the sound move is to query each maker's Japanese subsidiary or IPA's contact directly about the acquisition schedule. Better not to conclude "unusable" on conjecture.
+</div>
+
+<p class="source">Source: <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank">IPA, "JC-STAR conformance-label product list" (updated June 1, 2026)</a> | <a href="https://www.meti.go.jp/press/2026/04/20260403003/20260403003-b.pdf" target="_blank">METI, 10th Industrial Cybersecurity Study Group, secretariat material (Apr 3, 2026)</a></p>
+
+<h2>Working with overseas hardware — and its new trap</h2>
+
+<p>In the grid-scale storage market, overseas makers hold strong cost competitiveness. Since CAPEX drives IRR, ruling out cost-advantaged overseas hardware from the outset is unrealistic. What helps here is the distinction that JC-STAR targets "IoT devices that communicate with the internet," while the battery cell/pack itself is out of scope. This is not because a clause names cells/packs and "excludes" them; it is a consequence of the scope definition limiting the target to "devices that use IP communication." SII's grid-scale storage subsidy guidelines likewise frame it so that a device without IP-communication capability obtains ★1 as a configuration incorporating a protocol-conversion device — showing that a non-IP device is not a direct target. The battery itself is electrochemical hardware managed by a BMS and does not communicate directly with the internet. So adopting an overseas battery, in itself, is not constrained by JC-STAR. What is in question is the communication module of the PCS that talks to the external network, and the EMS / gateway above it.</p>
+
+<p>Where an overseas maker's PCS has not obtained JC-STAR, the device that works is the "gateway-separation architecture." Place a ★1-certified EMS / gateway as the security boundary (the checkpoint), and under its protection control the PCS over a local communication protocol (e.g., Modbus).</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 248" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Conceptual diagram of the gateway-separation architecture">
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto"><path d="M1,1 L8,4.5 L1,8 Z" fill="#6C7A89"/></marker>
+  </defs>
+  <text x="172" y="26" text-anchor="middle" font-size="11" fill="#6C7A89" font-weight="700" letter-spacing="0.06em">External network</text>
+  <text x="492" y="26" text-anchor="middle" font-size="11" fill="#6C7A89" font-weight="700" letter-spacing="0.06em">Local network</text>
+  <!-- boundary -->
+  <line x1="356" y1="44" x2="356" y2="208" stroke="#C49A3C" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="356" y="222" text-anchor="middle" font-size="10" fill="#C49A3C" font-weight="700">JC-STAR boundary (checkpoint)</text>
+  <!-- external boxes -->
+  <rect x="14" y="74" width="120" height="40" rx="6" fill="#fff" stroke="#1B2A4A" stroke-width="1.3"/>
+  <text x="74" y="99" text-anchor="middle" font-size="12.5" fill="#1B2A4A" font-weight="600">Power grid</text>
+  <rect x="14" y="126" width="120" height="40" rx="6" fill="#fff" stroke="#1B2A4A" stroke-width="1.3"/>
+  <text x="74" y="146" text-anchor="middle" font-size="11.5" fill="#1B2A4A" font-weight="600">Cloud</text>
+  <text x="74" y="160" text-anchor="middle" font-size="9.5" fill="#6C7A89">JEPX &amp; markets</text>
+  <!-- gateway (star1) -->
+  <rect x="178" y="80" width="152" height="80" rx="6" fill="#F2F8F4" stroke="#1A7A4C" stroke-width="2"/>
+  <text x="254" y="106" text-anchor="middle" font-size="10.5" fill="#1A7A4C" font-weight="700">JC-STAR ★1 certified</text>
+  <text x="254" y="132" text-anchor="middle" font-size="13" fill="#1B2A4A" font-weight="700">EMS / Gateway</text>
+  <!-- PCS -->
+  <rect x="392" y="92" width="128" height="56" rx="6" fill="#fff" stroke="#1B2A4A" stroke-width="1.3"/>
+  <text x="456" y="116" text-anchor="middle" font-size="12.5" fill="#1B2A4A" font-weight="600">PCS</text>
+  <text x="456" y="132" text-anchor="middle" font-size="9.5" fill="#6C7A89">comms module</text>
+  <!-- out of scope -->
+  <rect x="556" y="80" width="150" height="80" rx="6" fill="#F8F9FB" stroke="#6C7A89" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <text x="631" y="104" text-anchor="middle" font-size="10" fill="#6C7A89" font-weight="700">Out of JC-STAR scope</text>
+  <text x="631" y="127" text-anchor="middle" font-size="11" fill="#1B2A4A" font-weight="600">Battery cells / packs</text>
+  <text x="631" y="145" text-anchor="middle" font-size="10.5" fill="#6C7A89">/ BMS</text>
+  <!-- connectors -->
+  <line x1="134" y1="120" x2="174" y2="120" stroke="#6C7A89" stroke-width="1.4" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <line x1="330" y1="120" x2="388" y2="120" stroke="#6C7A89" stroke-width="1.4" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <text x="359" y="112" text-anchor="middle" font-size="9.5" fill="#6C7A89">Local comms</text>
+  <line x1="520" y1="120" x2="552" y2="120" stroke="#6C7A89" stroke-width="1.4" marker-start="url(#ar)" marker-end="url(#ar)"/>
+</svg>
+<p class="fig-cap">A ★1-certified EMS / gateway sits as the checkpoint; the PCS connects over local protocols (e.g., Modbus). The battery itself is out of JC-STAR scope, so the cost-optimal maker can be chosen.</p>
+</div>
+
+<p>This move is not a cure-all. The first limit: the PCS's own communication module can be in scope under the Grid Code too, so confirming each PCS maker's JC-STAR acquisition roadmap remains necessary. Gateway separation does not remove the need for certification; it is purely a risk hedge.</p>
+
+<div class="warning-box">
+<strong>And the workaround itself creates a new risk.</strong> Concentrating control communication into a single gateway means that gateway becomes a <strong>single point of failure (SPOF)</strong>. If the checkpoint goes down, the control of everything behind it stops together. Availability and redundancy design now arise as a separate question from security. If you adopt gateway separation, decide on it on the premise of designing the SPOF countermeasures (redundancy, fail-safe) as a set.
+</div>
+
+<h2>Due diligence at equipment selection</h2>
+
+<p>In equipment procurement, on top of the conventional electrical-safety certifications (JET certification, etc.), the following checks have become essential.</p>
+
+<p><strong>Toward the PCS maker.</strong> Confirm clearly with the Japanese subsidiary which JC-STAR status the communication module is in — already obtained, in process, or what the roadmap is. The efficient route is to pin down the public information on IPA's conformance-label product list first, then query.</p>
+
+<p><strong>Toward the aggregator / EMS.</strong> The conformance status of the gateway / EMS devices used, whether they support multi-maker batteries, and which markets (including primary reserve) the architecture can enter. Since the in-scope range at the EMS layer is still being sorted out, choosing an operator that has already obtained conformance is itself a hedge.</p>
+
+<p><strong>Periodic monitoring of the IPA list.</strong> Status can be not only "valid" but "grace before expiry," "expired," or "revoked." Validity runs up to two years from issuance; monitor periodically, allowing for status changing after a procurement decision.</p>
+
+<h2>JC-STAR and the schemes you already know</h2>
+
+<p>Said plainly, a nation-specific security certification like JC-STAR works in part as a technical entry barrier (a non-tariff barrier) to overseas makers. Even a globally proven company must shoulder the lead time and cost of reworking communication protocols, redesigning firmware, and obtaining certification. At the same time, for an overseas maker that does obtain conformance it becomes a game-changer that lifts credibility in the Japanese market at a stroke. Overseas players — SMA (Germany), Power Electronics (Spain), Samsung SDI (Korea), SEETEL (China) — have already obtained it, and with security resilience backed by a public database, they have won a position to compete on even terms with the domestic heavy-electrical incumbents.</p>
+
+<p>For a reader coming from the EU, the UK, the US or the international standards world, the table below is the bridge: it places JC-STAR against the schemes you already operate against, and flags what is — and is not — interchangeable.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Scheme / regime</th><th>Relationship to JC-STAR</th><th>Status (June 2026)</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">ETSI EN 303 645 / NIST IR 8425</td><td class="ok">The reference baselines</td><td>★1 is harmonized with both. Its three core requirements — no universal default passwords, a vulnerability-disclosure process, secure software updates — map directly onto these baselines</td></tr>
+<tr><td class="em">UK PSTI Act</td><td class="ok">Mutual recognition (live)</td><td>From Jan 1, 2026, a ★1 product is treated as meeting PSTI's three technical requirements, and vice versa (MoC signed Nov 5, 2025). To claim PSTI equivalence, English-language vulnerability reporting / a contact point is required</td></tr>
+<tr><td class="em">Singapore CLS</td><td class="ok">Mutual recognition (in force)</td><td>MoC signed Mar 18, 2026; effective Jun 1, 2026. ★1 and CLS Level 1 are treated as partly equivalent, with a streamlined cross-application path. Japan is Singapore's 5th partner (after Finland, Germany, South Korea, the UK)</td></tr>
+<tr><td class="em">US Cyber Trust Mark</td><td class="cond">No recognition yet; under discussion</td><td>A voluntary FCC scheme; not concluded with Japan. The US program is not yet issuing labels: lead administrator UL Solutions withdrew in Dec 2025 after an FCC national-security review of its China ties; the FCC named ioXt Alliance as new lead administrator on Apr 13, 2026</td></tr>
+<tr><td class="em">EU CRA</td><td class="cond">Independent regulation</td><td>Not a mutual-recognition framework but a standalone, mandatory, lifecycle-wide regulation. Reporting obligations from Sep 11, 2026; full application from Dec 11, 2027. A ★1 label is not CRA compliance</td></tr>
+<tr><td class="em">GCLI</td><td class="ok">Participation</td><td>Global Cybersecurity Labelling Initiative; Japan (METI) a founding member (launched Oct 2025)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>There is a practical consequence for an overseas vendor. Because of the mutual recognition above, a product already PSTI-compliant (UK) or CLS Level 1-certified (Singapore) has a streamlined route to ★1 through IPA — so existing compliance is leverageable for the Japanese grid-connection gate, rather than starting from zero. The caveat on the PSTI route is operational: information provision and a vulnerability contact point in English are required, which a Japan-only setup would have to add first.</p>
+
+<div class="info-box">
+The one thing not to conflate: <strong>mutual recognition with PSTI / CLS is a different matter from compliance with the EU CRA.</strong> The CRA is not a mutual-recognition framework but a standalone regulation, carrying lifecycle-wide obligations — maintaining an SBOM (software bill of materials), reporting vulnerabilities to ENISA, and CE conformity. Obtaining JC-STAR ★1 does not, by itself, amount to CRA compliance. "Got ★1, therefore CRA-clear" does not follow.
+</div>
+
+<p class="source">Source: <a href="https://www.ipa.go.jp/en/security/jc-star/index.html" target="_blank">IPA, JC-STAR (English; harmonization with ETSI EN 303 645 / NIST IR 8425, and mutual-recognition dates)</a> | <a href="https://www.ipa.go.jp/security/jc-star/shinsei/psti.html" target="_blank">IPA, "On PSTI Act conformance certification" (mutual recognition from Jan 1, 2026)</a> | <a href="https://www.csa.gov.sg/news-events/press-releases/singapore-signs-memorandum-of-cooperation-with-japan-on-mutual-recognition-of-internet-of-things-cybersecurity-schemes/" target="_blank">Cyber Security Agency of Singapore, press release (effective Jun 1, 2026)</a> | <a href="https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act" target="_blank">European Commission, Cyber Resilience Act</a> | <a href="https://www.fcc.gov/CyberTrustMark" target="_blank">FCC, U.S. Cyber Trust Mark</a> | <a href="https://www.etsi.org/technologies/consumer-iot-security" target="_blank">ETSI, consumer IoT security (EN 303 645)</a> | <a href="https://www.meti.go.jp/english/press/2025/1023_001.html" target="_blank">METI, "GCLI joint statement" (Oct 2025)</a></p>
+
+<h2>Decided / still open</h2>
+
+<p>The debate around JC-STAR does not end as "a security story." It is a business risk that bears on equipment selection, procurement and schedule. Precisely for that reason, not mistaking what is confirmed for what is merely draft or under coordination is what helps most. Here is where things stand as of June 2026, split in two.</p>
+
+<div class="fixmap">
+  <div class="fixmap-col decided">
+    <h4>Decided (safe to assert)</h4>
+    <ul>
+      <li>Timing: EHV/HV April 2027 / LV under 50 kW October 2027 / wind April 2027 (limited to the GW firewall) / fuel cells April 2028</li>
+      <li>Scope concept: PCS, EMS, etc., plus control-involved IP devices. General routers and GW-mediated monitoring cameras excluded</li>
+      <li>★1 is a self-declaration (third-party from ★3)</li>
+      <li>Regulatory vehicle: revision of the guideline + each utility's interconnection technical requirements + the Grid Interconnection Code (the TSO/DSO business guidelines unchanged; not a ministerial-ordinance amendment)</li>
+      <li>Mutual recognition with the UK PSTI Act (from Jan 1, 2026) and Singapore CLS (from Jun 1, 2026) is in force</li>
+      <li>The ERAB guideline Ver3.0 is the latest</li>
+    </ul>
   </div>
-
-  <p>Specifically, JC-STAR compliant gateways provided by companies such as Shizen Connect, Digital Grid, and Kraken are deployed as the communication frontline. Under that gateway's firewall and encrypted communication protection, PCS is controlled using local protocols (MODBUS, etc.). Battery cells/packs operate only through local BMS communication, so the most cost-optimal manufacturer can be selected regardless of JC-STAR.</p>
-
-  <p>However, since the PCS communication module itself is also likely to be subject to JC-STAR under the Grid Code, confirming the PCS manufacturer's JC-STAR certification roadmap remains important. Gateway separation is a risk hedging measure and does not eliminate the need for PCS manufacturer certification.</p>
-
-  <h2>Due Diligence in Equipment Selection</h2>
-
-  <p>In battery project equipment procurement, the following verifications have become essential in addition to conventional physical electrical safety certifications (JET certification, etc.).</p>
-
-  <h3>For PCS Manufacturers</h3>
-  <p>What status does the PCS communication module have in the JC-STAR evaluation scheme? Is it certified, in process, or what is the roadmap? This must be clearly confirmed with the Japan entity.<a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPA's compliant product list</a> to check public information in advance before inquiring with the manufacturer.</p>
-
-  <h3>For Aggregators / EMS</h3>
-  <p>JC-STAR compliance status of gateway/EMS equipment. Whether multi-manufacturer batteries are supported. Which markets the architecture can access (including primary adjustment). Since the JC-STAR scope for the EMS layer is still being organized, selecting certified operators serves as risk hedging.</p>
-
-  <h3>Regular Monitoring of IPA Compliant Product List</h3>
-  <p>Status can be not only "valid" but also "pending expiration (extension application in progress)," "expired (past validity)," "expired (voluntary withdrawal)," or "revoked." The compliance label validity period is up to 2 years from issuance (Level 1 can apply for extension in 2-year increments), and regular monitoring is needed given the risk of status changes after procurement decisions.</p>
-
-  <h2>JC-STAR as a "Non-Tariff Barrier"</h2>
-
-  <p>Frankly, national security certification systems like JC-STAR function in part as technical barriers to entry (non-tariff barriers) against overseas manufacturers. Even companies with overwhelming global track records must bear the costs of communication protocol modifications, firmware redesign, source code audits, and certification lead time and costs to comply with Japan-specific requirements.</p>
-
-  <p>Conversely, for overseas manufacturers that have obtained JC-STAR compliance, this becomes a game-changer that dramatically improves their credibility and brand value in the Japanese market. In fact, SMA (Germany), Power Electronics (Spain), Samsung SDI (South Korea), and dots energy (Taiwan) have already obtained Level 1, and with their security resilience objectively proven in IPA's public database, they have gained a position to compete equally with domestic heavy electrical manufacturers.</p>
-
-  <p>International mutual recognition of JC-STAR is progressing steadily. A cooperation memorandum was signed with the UK PSTI Act in November 2025 with mutual recognition effective from January 2026, and a memorandum with Singapore CLS effective June 2026 has been concluded. Coordination is progressing at the working group level for the US Cyber Trust Mark and EU Cyber Resilience Act (CRA), and in October 2025, a joint statement for the "Global Cybersecurity Labelling Initiative (GCLI)" by 11 countries was announced. It is expected to be positioned as part of global certification cooperation in the future.</p>
-
-  <p class="source-note">Source:<a href="https://www.meti.go.jp/press/2025/11/20251106003/20251106003.html" target="_blank" rel="noopener">METI "Signing of Memorandum on Mutual Recognition between JC-STAR and UK PSTI Act" (November 2025)</a> | <a href="https://www.meti.go.jp/english/press/2025/1023_001.html" target="_blank" rel="noopener">METI "GCLI Joint Statement" (October 2025)</a></p>
-
-  <h2>What Battery Operators Should Do Now</h2>
-
-  <p>JC-STAR was only published in 2024 and launched operations in March 2025, but it already has enforcement power through multiple pathways: ERAB guideline mandates, the April 2027 Grid Code revision, and incorporation into subsidy requirements.</p>
-
-  <div class="key-point">
-    <p><strong>(1) Verify the JC-STAR compliance status of your planned PCS manufacturer</strong> -- <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPA's compliant product list</a> to check certification status. If not certified, inquire about the certification roadmap. Battery cells/packs are outside JC-STAR scope, allowing free selection of the most cost-optimal manufacturer.</p>
-    <p><strong>(2) Verify aggregator/EMS JC-STAR compliance status</strong> -- Even if the PCS manufacturer is uncertified, consider whether overall system compliance is possible through combination with certified EMS/gateways。</p>
-    <p><strong>(3) Re-check subsidy application guidelines from a JC-STAR perspective</strong>——Whether ERAB guideline compliance is a grant requirement. Whether compliant equipment use is mandatory or a scoring factor.</p>
-    <p><strong>(4) Verify the schedule in preparation for grid connection contract applications from April 2027</strong> -- Confirm whether JC-STAR compliant product procurement fits within the full timeline of equipment procurement, installation, and connection procedures.</p>
+  <div class="fixmap-col pending">
+    <h4>Still open (do not assert)</h4>
+    <ul>
+      <li>Promulgation / effective dates of the texts of the guideline, each utility's interconnection technical requirements, and the Grid Interconnection Code<span class="src">→ e-Gov public comment / ANRE / each TSO/DSO notice</span></li>
+      <li>Grace for HV self-consumption types (≤500 kW) and projects built with LV-type PCS<span class="src">→ coordination between ANRE and JPEA; next committee</span></li>
+      <li>Treatment at existing-equipment replacement / PCS swap / EMS renewal<span class="src">→ revised guideline / METI and utility FAQs</span></li>
+      <li>The precise stage of "application" (connection-contract application vs. connection acceptance)<span class="src">→ each TSO/DSO's grid-access rules</span></li>
+      <li>HUAWEI / SUNGROW own-brand ★1 acquisition<span class="src">→ latest IPA product list / each company's Japan entity</span></li>
+      <li>Mutual recognition with the US Cyber Trust Mark<span class="src">→ METI / IPA</span></li>
+    </ul>
   </div>
+</div>
 
-  <p>The era of selecting equipment based solely on hardware spec sheets and per-kWh unit costs is over. Cybersecurity compliance has become the variable that determines project success or failure.</p>
+<h2>What a battery operator should do now</h2>
 
-  <h2>Reference Links</h2>
-  <p>
-    <a href="https://www.ipa.go.jp/security/jc-star/index.html" target="_blank" rel="noopener">IPA -- JC-STAR System Overview</a><br>
-    <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">IPA -- JC-STAR Compliant Product List</a><br>
-    <a href="https://www.ipa.go.jp/security/jc-star/detail.html" target="_blank" rel="noopener">IPA -- JC-STAR System Detailed Information</a><br>
-    <a href="https://www.occto.or.jp/iinkai/gridcode/index.html" target="_blank" rel="noopener">OCCTO -- Grid Code Review Meeting</a><br>
-    <a href="https://www.meti.go.jp/press/2025/05/20250522001/20250522001.html" target="_blank" rel="noopener">METI -- ERAB Cybersecurity Guidelines Ver3.0</a><br>
-    <a href="https://www.occto.or.jp/assets/iinkai/gridcode/2025/files/gridcode_19_06.pdf" target="_blank" rel="noopener">OCCTO -- Future Actions on Cybersecurity Requirements for Distributed Power Sources (19th Grid Code Review Meeting Document 6)</a><br>
-    <a href="https://www.meti.go.jp/press/2025/11/20251106003/20251106003.html" target="_blank" rel="noopener">METI -- Memorandum on Mutual Recognition between JC-STAR and UK PSTI Act</a>
-  </p>
+<p>Even before the text is promulgated, there is plenty to move on in practice.</p>
+
+<div class="highlight-box">
+<strong>① Inventory communication/control devices and check ★1 conformance.</strong> List them around the PCS and EMS and check each device individually. Pay special attention to the line between a legacy PCS with RS-485 only and a cloud-connected EMS.<br><br>
+<strong>② For HV projects, fix the definition of the basis date.</strong> "Application is the basis" is a draft-based statement. Query the general transmission and distribution utility with jurisdiction directly, or wait for OCCTO's promulgated text, to make it certain.<br><br>
+<strong>③ For projects premised on a Chinese-affiliated PCS, judge the switch feasibility early.</strong> Put the back-calculation's starting point on the safe side (i.e., the connection moment). HUAWEI / SUNGROW are unconfirmed for acquisition at present, so if you plan to adopt them, query the acquisition schedule.<br><br>
+<strong>④ Re-read subsidy public-offering guidelines through the ERAB / JC-STAR lens.</strong> Check whether guideline conformance or the use of conformant equipment has become a grant condition or a scoring factor.<br><br>
+<strong>⑤ If you adopt gateway separation, design the SPOF countermeasures as a set.</strong> Take on the availability risk that control concentration creates, with redundancy and fail-safe.<br><br>
+<strong>⑥ Given that ★1 is a self-declaration, back conformance claims against the product list.</strong>
+</div>
+
+<p>The era of choosing equipment on the hardware spec sheet and the per-kWh unit price alone is over. Cybersecurity compliance has become a variable that decides a project's success or failure. And yet the substance of that variable — the basis date, the in-scope range, the transitional measures — is not fully fixed as text. Separating what is decided from what is not, and back-calculating from connectivity and timeline project by project, looks like the right approach for now.</p>
+
+<div class="sources-box">
+<h4>Principal primary sources</h4>
+<ul>
+  <li>OCCTO, 21st Grid Code Review Committee, Document 4 (Mar 31, 2026) <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf" target="_blank">PDF</a> / Minutes <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_gijiroku.pdf" target="_blank">PDF</a></li>
+  <li>OCCTO, 20th Grid Code Review Committee material (Dec 16, 2025; filename gridcode_20_05.pdf / body label "Document 4") <a href="https://www.occto.or.jp/assets/iinkai/gridcode/20/gridcode_20_05.pdf" target="_blank">PDF</a></li>
+  <li>OCCTO, Grid Code Review Committee <a href="https://www.occto.or.jp/iinkai/gridcode/index.html" target="_blank">https://www.occto.or.jp/iinkai/gridcode/index.html</a></li>
+  <li>ANRE (METI), "Related laws and guidelines" (grid interconnection technical-requirements guideline, Dec 1, 2024 revision) <a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/electric/summary/regulations/" target="_blank">link</a></li>
+  <li>ANRE, Industrial Cybersecurity Study Group, Electricity Sub-WG, 19th meeting, Document 5 (cybersecurity for distributed energy resources, Feb 12, 2026) <a href="https://www.meti.go.jp/shingikai/mono_info_service/sangyo_cyber/wg_seido/wg_denryoku/pdf/019_05_00.pdf" target="_blank">PDF</a></li>
+  <li>ANRE, Next-Generation Power Grid WG, Document 4-1 (May 24, 2024; latest requirements at replacement) <a href="https://www.meti.go.jp/shingikai/enecho/shoene_shinene/shin_energy/keito_wg/pdf/051_04_01.pdf" target="_blank">PDF</a></li>
+  <li>IPA, "JC-STAR conformance-label product list" (updated Jun 1, 2026) <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank">link</a> / scheme details <a href="https://www.ipa.go.jp/security/jc-star/detail.html" target="_blank">link</a> / English scheme page <a href="https://www.ipa.go.jp/en/security/jc-star/index.html" target="_blank">link</a></li>
+  <li>METI, "Cybersecurity Guideline for ERAB Ver3.0" (May 22, 2025) <a href="https://www.meti.go.jp/press/2025/05/20250522001/20250522001.html" target="_blank">link</a></li>
+  <li>METI, 10th Industrial Cybersecurity Study Group, secretariat material (Apr 3, 2026) <a href="https://www.meti.go.jp/press/2026/04/20260403003/20260403003-b.pdf" target="_blank">PDF</a></li>
+  <li>IPA, "On PSTI Act conformance certification" <a href="https://www.ipa.go.jp/security/jc-star/shinsei/psti.html" target="_blank">link</a> / Cyber Security Agency of Singapore press release <a href="https://www.csa.gov.sg/news-events/press-releases/singapore-signs-memorandum-of-cooperation-with-japan-on-mutual-recognition-of-internet-of-things-cybersecurity-schemes/" target="_blank">link</a> / METI "GCLI joint statement" (Oct 23, 2025) <a href="https://www.meti.go.jp/english/press/2025/1023_001.html" target="_blank">link</a></li>
+  <li>European Commission, Cyber Resilience Act (reporting from Sep 11, 2026; full application Dec 11, 2027) <a href="https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act" target="_blank">link</a> | FCC, U.S. Cyber Trust Mark <a href="https://www.fcc.gov/CyberTrustMark" target="_blank">link</a> | ETSI, consumer IoT security (EN 303 645) <a href="https://www.etsi.org/technologies/consumer-iot-security" target="_blank">link</a></li>
+  <li>SII (Sustainable open Innovation Initiative), grid-scale storage deployment-support public-offering guidelines (FY2025; non-IP devices obtain ★1 as a configuration incorporating a protocol-conversion device; BMS, PCS, EMS, etc. named as in-scope) <a href="https://sii.or.jp/chikudenchi07/" target="_blank">link</a></li>
+  <li>Contec, "Notice regarding SolarView Compact" (May 7, 2024) <a href="https://www.contec.com/info/2024/2024050700/" target="_blank">link</a></li>
+</ul>
+<p style="margin-top:10px;font-size:.95em;color:var(--text-light)">※ The HV basis date is not yet fixed, as the primary text is unpromulgated at the time of writing. Confirm the latest application details in each general transmission and distribution utility's technical-requirements documents.</p>
+</div>
+
+<div class="cta-box">
+  <h3>On battery equipment selection and regulatory readiness</h3>
+  <p>We support the structuring of an equipment-procurement strategy — including JC-STAR readiness — fitted to each project's plant configuration, <strong>from the standpoint of connectivity and timeline</strong>. As a neutral technical advisor (technical due diligence).</p>
+  <p><a target="_top" href="/en/contact" class="cta-button">Contact us →</a></p>
+</div>
 
 </div>
 
-<div class="article-cta">
-  <h2>Consultation on Battery Equipment Selection & Compliance</h2>
-  <p>We support equipment procurement strategy including JC-STAR compliance<br>from an independent technical PM perspective.</p>
-  <a target="_top" href="/en/contact" class="cta-btn">Contact Us →</a>
-</div>
-
-
-<!-- ScienceX Footer — Wix HTML embed self-contained -->
+<!-- ScienceX Footer -->
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
-
-  .scix-footer * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  .scix-footer {
-    background-color: #1B2A4A;
-    color: rgba(255, 255, 255, 0.85);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-weight: 300;
-    font-size: 12.5px;
-    line-height: 1.9;
-    padding: 44px 28px 32px;
-    width: 100%;
-  }
-
-  .scix-footer-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-  }
-
-  .scix-footer-logo img {
-    height: 48px;
-    width: auto;
-    display: block;
-    opacity: 0.95;
-  }
-
-  .scix-footer-info {
-    text-align: center;
-  }
-
-  .scix-footer-copyright {
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    color: rgba(255, 255, 255, 0.55);
-    margin-top: 20px;
-  }
-
-  .scix-footer-company {
-    font-size: 12.5px;
-    line-height: 2;
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  .scix-footer-company .company-name {
-    font-weight: 500;
-    font-size: 13.5px;
-    color: rgba(255, 255, 255, 0.92);
-    margin-bottom: 2px;
-  }
-
-  .scix-footer-company .representative {
-    margin-top: 4px;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 12px;
-  }
-
-  .scix-footer-company a {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .scix-footer-company a:hover {
-    color: #C49A3C;
-  }
-
-  .scix-footer-divider {
-    width: 60px;
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    margin: 0 auto;
-  }
+  .scix-footer *{margin:0;padding:0;box-sizing:border-box}
+  .scix-footer{background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+  .scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px}
+  .scix-footer-logo img{height:48px;width:auto;display:block;opacity:0.95}
+  .scix-footer-info{text-align:center}
+  .scix-footer-copyright{font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px}
+  .scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8)}
+  .scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+  .scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+  .scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none;transition:color 0.2s ease}
+  .scix-footer-company a:hover{color:#C49A3C}
+  .scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12);margin:0 auto}
 </style>
-
-<!-- Global-investor CTA (discovery funnel → market-entry) -->
-<section style="background:#1B2A4A;padding:52px 24px;text-align:center;font-family:'Noto Sans JP',sans-serif;">
-  <div style="max-width:720px;margin:0 auto;">
-    <div style="font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:#C49A3C;margin-bottom:12px;">For Global Investors</div>
-    <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(1.3rem,3vw,1.7rem);color:#fff;font-weight:600;line-height:1.5;margin:0 0 14px;">Investing in Japan's grid-scale storage?</h2>
-    <p style="color:rgba(255,255,255,0.78);font-size:0.92rem;line-height:1.85;margin:0 0 26px;">We vet, structure and operate confirmed, grid-connected BESS projects — so global investors deploy into operating Japanese assets. Engineer-led.</p>
-    <a href="/en" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;text-decoration:none;padding:14px 34px;border-radius:4px;font-size:0.9rem;">See the market-entry guide →</a>
-  </div>
-</section>
 
 <footer class="scix-footer">
   <div class="scix-footer-inner">
-
-    <a href="https://www.scix.co.jp" class="scix-footer-logo" aria-label="ScienceX Home">
-      <img
-        src="/img/logo-white.png"
-        alt="ScienceX - Science X Inc."
-        loading="lazy"
-      />
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img src="/img/logo-white.png" alt="ScienceX — Science X Inc." loading="lazy" />
     </a>
-
     <hr class="scix-footer-divider" />
-
     <div class="scix-footer-info">
       <div class="scix-footer-company">
         <div class="company-name">Science X Inc.</div>
-        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
-        BIZMARKS Nihonbashi Kayabacho<br>
-        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        BIZMARKS Nihonbashi-Kayabacho<br>
+        8-2 Nihonbashi-Koamicho, Chuo-ku<br>
+        Tokyo 103-0016, Japan<br>
+        TEL: <a href="tel:0364034095">+81-3-6403-4095</a><br>
         MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
-        <div class="representative">CEO: Shinya Nakashima, Ph.D.</div>
+        <div class="representative">Representative Director: Shinya Nakajima, Dr. Eng.</div>
       </div>
-      <div class="scix-footer-copyright">
-        &copy; 2025–2026 Science X Inc. All Rights Reserved.
-      </div>
+      <div class="scix-footer-copyright">&copy; 2025–2026 Science X Inc. All Rights Reserved.</div>
     </div>
-
   </div>
 </footer>
+
 </body>
 </html>
