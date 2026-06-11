@@ -750,6 +750,16 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   })
   .then(function(result) {
     if (result && (result.success === true || result.success === 'true')) {
+      try {
+        var _il = document.querySelector('input[name="inquiry"]:checked');
+        var _v = (_il && _il.value) || '';
+        var _intent = ((document.getElementById('intentField') || {}).value) ||
+          (/投資家|投资|Investor/i.test(_v) ? 'investor' :
+           /買い手|案件取得/i.test(_v) ? 'buyer' :
+           /売却|査定|Seller/i.test(_v) ? 'seller' :
+           /用地|Land/i.test(_v) ? 'land' : 'other');
+        if (window.gtag) gtag('event', 'generate_lead', { form_type: 'contact', intent: _intent, page_lang: (document.documentElement.lang || 'ja'), transport_type: 'beacon' });
+      } catch (e) {}
       window.location.href = '/thanks';
     } else {
       throw new Error((result && result.message) || 'submit failed');
