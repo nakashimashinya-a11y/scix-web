@@ -47,6 +47,32 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
 .back{display:inline-block;margin-top:20px;font-size:0.82rem;color:var(--text-light);text-decoration:none;}
 .back:hover{color:var(--gold);}
 @media(max-width:768px){.summary-grid{grid-template-columns:1fr;}}
+
+/* ===== Detail (email gate) ===== */
+.detail{padding:8px 0 64px;background:var(--white);}
+.detail-wrap{position:relative;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:8px;}
+.detail-content{padding:32px 32px;transition:filter .35s ease;}
+.detail-wrap:not(.unlocked) .detail-content{filter:blur(7px);pointer-events:none;user-select:none;}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.d-item{background:var(--off-white);border:1px solid var(--border);border-radius:8px;padding:20px 22px;border-left:3px solid var(--gold);}
+.d-item .dk{font-size:0.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.d-item .dv{font-size:0.9rem;color:var(--text-primary);line-height:1.85;}
+.gate-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(248,247,244,0.72);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);transition:opacity .35s ease;}
+.detail-wrap.unlocked .gate-overlay{opacity:0;pointer-events:none;}
+.gate-box{background:#fff;border:1px solid var(--border);border-top:3px solid var(--gold);border-radius:10px;padding:32px 32px;max-width:440px;width:100%;text-align:center;box-shadow:0 12px 40px rgba(27,42,74,0.12);}
+.gate-box .lock{width:44px;height:44px;border-radius:50%;background:rgba(196,154,60,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.gate-box .lock svg{width:20px;height:20px;color:var(--gold);}
+.gate-box h3{font-family:var(--font-serif);font-size:1.15rem;font-weight:600;color:var(--navy);margin-bottom:8px;}
+.gate-box .gp{font-size:0.85rem;color:var(--text-secondary);line-height:1.8;margin-bottom:20px;}
+.gate-box input[type=email],.gate-box input[type=text]:not(.gate-honey){width:100%;padding:13px 15px;font-family:var(--font-sans);font-size:0.95rem;color:var(--text-primary);background:var(--off-white);border:1.5px solid var(--border);border-radius:8px;margin-bottom:12px;outline:none;transition:border-color .2s,background .2s;}
+.gate-box input:focus{border-color:var(--gold);background:#fff;}
+.gate-box button{width:100%;padding:14px 20px;font-family:var(--font-sans);font-size:0.92rem;font-weight:600;color:#fff;background:var(--navy);border:none;border-radius:8px;cursor:pointer;transition:background .25s,transform .2s;}
+.gate-box button:hover{background:var(--navy-light);transform:translateY(-1px);}
+.gate-box .gate-note{font-size:0.74rem;color:var(--text-light);margin-top:12px;line-height:1.6;}
+.gate-box .gate-honey{position:absolute;left:-9999px;width:1px;height:1px;}
+#gateError{font-size:0.82rem;color:#b3261e;margin-top:10px;line-height:1.6;}
+#gateError a{color:var(--gold);}
+@media(max-width:768px){.detail-grid{grid-template-columns:1fr;}.detail-content{padding:24px 18px;}.gate-box{padding:26px 22px;}}
 </style>
 <meta name="description" content="系統用蓄電池の案件ポートフォリオ概要（NDA不要）。規模帯・対応エリア・収益構造・進捗段階のサマリー。個別の案件名・想定利回り・募集規模・関係者名はNDA締結後に適格投資家・事業者の方へご提供します。">
 <link rel="canonical" href="https://www.scix.co.jp/overview">
@@ -116,6 +142,98 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
     <p>個別の案件名・所在地、想定利回り・収支試算、募集規模・1口金額、関係者名などは、<strong>NDA締結後に、適格投資家・事業者の方へ限定</strong>してご提供します。本ページは情報提供を目的とし、特定の有価証券・出資持分の取得を勧誘するものではありません。</p>
   </div>
 </div></section>
+
+<!-- DETAIL (email gate) -->
+<section class="detail"><div class="container">
+  <div class="section-label">Detail</div>
+  <h2 class="section-title">詳細サマリー</h2>
+  <p style="font-size:0.9rem;color:var(--text-secondary);max-width:680px;line-height:1.95;">対応エリアの傾向・規模帯の内訳・進捗段階の分布・スキーム・NDA後にご提供するDD資料の一覧を、もう一段くわしくまとめています。メールアドレスのご登録で表示します（NDA不要・匿名のまま）。</p>
+  <div class="detail-wrap" id="detailWrap">
+    <div class="detail-content" id="detailContent">
+      <div class="detail-grid">
+        <div class="d-item">
+          <div class="dk">対応エリアの傾向</div>
+          <div class="dv">北海道から九州まで全国。基幹系統に近い立地の高圧案件を中心に、特別高圧の大型案件も取り扱っています。</div>
+        </div>
+        <div class="d-item">
+          <div class="dk">規模帯の内訳</div>
+          <div class="dv">高圧2MW級が中心。特別高圧は10〜50MW級まで。MW／MWhの組み合わせは案件ごとに異なります。</div>
+        </div>
+        <div class="d-item">
+          <div class="dk">進捗段階の分布</div>
+          <div class="dv">接続検討回答済 → 工事費負担金確定 → 本申請済 → 連系済 の各段階。いちばん不確実な初期を越えた、ready-to-build を含む案件が中心です。</div>
+        </div>
+        <div class="d-item">
+          <div class="dk">スキーム</div>
+          <div class="dv">開発段階の権利譲渡と、完成渡し（ターンキー）の両方。御社の体制に合わせて選べます。</div>
+        </div>
+        <div class="d-item">
+          <div class="dk">NDA後にご提供するDD資料</div>
+          <div class="dv">接続検討回答書、土地謄本・公図、工事費負担金の証憑、面積・地目、機器仕様など。NDA締結後に一括・即時でお渡しします。</div>
+        </div>
+        <div class="d-item">
+          <div class="dk">本ページで開示しないもの</div>
+          <div class="dv">個別の案件名・所在地（地番）、想定利回り・収支試算、募集規模・1口金額、関係者名。これらはNDA締結後に、適格投資家・事業者の方へ限定でご提供します。</div>
+        </div>
+      </div>
+    </div>
+    <div class="gate-overlay" id="gateOverlay">
+      <div class="gate-box">
+        <div class="lock"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+        <h3>詳細サマリーをメールで開く</h3>
+        <p class="gp">メールアドレスをご登録いただくと、この場で詳細サマリーを表示します。NDAは不要です。</p>
+        <form id="gateForm" novalidate>
+          <input type="email" name="email" placeholder="you@example.co.jp" autocomplete="email" required>
+          <input type="text" name="company" placeholder="会社名（任意）" autocomplete="organization">
+          <input type="text" name="_honey" class="gate-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit">詳細を見る →</button>
+          <p class="gate-note">お預かりした情報は、ご連絡のためにのみ使用いたします。</p>
+          <div id="gateError"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<script>
+(function(){
+  var KEY = 'scix_overview_unlocked';
+  var wrap = document.getElementById('detailWrap');
+  var form = document.getElementById('gateForm');
+  var errBox = document.getElementById('gateError');
+  function unlock(){ wrap.classList.add('unlocked'); }
+  // 再訪時はフラグがあれば開いた状態で表示
+  try { if (localStorage.getItem(KEY) === '1') unlock(); } catch (e) {}
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (String(form._honey.value || '').trim() !== '') return; // bot
+    var email = (form.email.value || '').trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { errBox.textContent = 'メールアドレスをご確認ください。'; return; }
+    var btn = form.querySelector('button');
+    var orig = btn.textContent;
+    btn.textContent = '送信中...'; btn.disabled = true; errBox.textContent = '';
+    var lang = document.documentElement.lang || 'ja';
+    fetch('https://scix-dealroom2.pages.dev/api/overview-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ email: email, company: (form.company.value || '').trim(), page_lang: lang, _form: 'overview' })
+    })
+    .then(function(r){ if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+    .then(function(res){
+      if (res && (res.success === true || res.success === 'true')) {
+        try { localStorage.setItem(KEY, '1'); } catch (e) {}
+        try { if (window.gtag) gtag('event', 'generate_lead', { form_type: 'overview', intent: 'overview', page_lang: lang }); } catch (e) {}
+        unlock();
+      } else { throw new Error('submit failed'); }
+    })
+    .catch(function(){
+      errBox.innerHTML = '送信に失敗しました。お手数ですが <a href="mailto:s@scix.co.jp">s@scix.co.jp</a> までご連絡ください。';
+      btn.textContent = orig; btn.disabled = false;
+    });
+  });
+})();
+</script>
 
 <!-- CTA -->
 <section class="cta"><div class="container">
