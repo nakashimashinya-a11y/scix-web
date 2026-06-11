@@ -462,6 +462,15 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   .then(function(res) { return res.json(); })
   .then(function(data) {
     if (data.success) {
+      try {
+        var _il = document.querySelector('input[name="inquiry"]:checked');
+        var _v = (_il && _il.value) || '';
+        var _intent = /投資家|投资|Investor/i.test(_v) ? 'investor' :
+           /Buyer|案件取得|買い手/i.test(_v) ? 'buyer' :
+           /Seller|売却|査定/i.test(_v) ? 'seller' :
+           /Land|用地/i.test(_v) ? 'land' : 'other';
+        if (window.gtag) gtag('event', 'generate_lead', { form_type: 'contact', intent: _intent, page_lang: (document.documentElement.lang || 'en'), transport_type: 'beacon' });
+      } catch (e) {}
       window.location.href = '/en/thanks';
     } else {
       throw new Error(data.message || 'Submission error');

@@ -278,4 +278,23 @@
       closeMenu();
     }
   });
+
+  // --------------- 5. tel: / mailto: クリック計測 (全ページ共通・GA4) ---------------
+  // header.js は全ページで読み込まれるため、ここに置けば言語・ページを問わず
+  // 電話・メールのクリックを contact_click として1か所で計測できる。
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var a = t && t.closest ? t.closest('a[href^="tel:"],a[href^="mailto:"]') : null;
+    if (!a || typeof window.gtag !== 'function') return;
+    var href = a.getAttribute('href') || '';
+    var method = href.indexOf('tel:') === 0 ? 'tel' : 'mailto';
+    try {
+      window.gtag('event', 'contact_click', {
+        method: method,
+        link_url: href,
+        page_lang: (document.documentElement.lang || 'ja'),
+        transport_type: 'beacon'
+      });
+    } catch (err) { /* ignore */ }
+  }, true);
 })();
