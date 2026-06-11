@@ -303,7 +303,7 @@
   // 中島さんへ: 下の SCIX_BOOKING_URL に Google カレンダーの「予約スケジュール」URLを
   // 入れるだけで、[data-scix-booking] を持つ全ページの予約ボタンが自動で表示・リンクされます。
   // 空のままなら全ボタンは非表示のまま（=未公開）。公開はこの1行の差し替えのみ。
-  var SCIX_BOOKING_URL = ''; // 例: 'https://calendar.app.google/xxxxxxxxxxxx'
+  var SCIX_BOOKING_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1M5E-PWY4tH6mJBOWU_a8Gim1dgijI3_ATJ6mXitk9pu6Xq-Ltog3HinFnhpeZBSbupGaVHU_K'; // 30分オンライン面談（ScienceX）／Googleカレンダー予約スケジュール
 
   function activateBookingButtons() {
     var btns = document.querySelectorAll('[data-scix-booking]');
