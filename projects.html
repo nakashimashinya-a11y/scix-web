@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案件一覧（匿名ティーザー・NDA不要）｜サイエンスエックス株式会社</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--gold:#C49A3C;--gold-light:#D4AD5A;--green:#1A7A4C;--green-dark:#156B41;--white:#FFFFFF;--off-white:#F8F7F4;--light-gray:#F0EDE8;--text-primary:#1B2A4A;--text-secondary:#5A6577;--text-light:#8A92A0;--border:#E0DCD6;--font-sans:'Noto Sans JP',sans-serif;--font-serif:'Noto Serif JP',serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{font-family:var(--font-sans);color:var(--text-primary);background:var(--white);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.container{max-width:1100px;margin:0 auto;padding:0 24px;}
+.section-label{font-size:0.7rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.section-title{font-family:var(--font-serif);font-size:clamp(1.5rem,3.2vw,2rem);font-weight:600;color:var(--navy);line-height:1.5;margin-bottom:16px;}
+
+/* HERO */
+.hero{padding:72px 0 48px;background:linear-gradient(160deg,var(--white) 0%,var(--off-white) 60%,#EDE8DF 100%);}
+.hero h1{font-family:var(--font-serif);font-size:clamp(1.6rem,3.6vw,2.3rem);font-weight:700;color:var(--navy);line-height:1.5;margin-bottom:18px;}
+.hero h1 em{font-style:normal;color:var(--gold);}
+.hero p{font-size:0.95rem;color:var(--text-secondary);line-height:2;max-width:720px;}
+.badge{display:inline-block;margin-bottom:18px;padding:5px 14px;background:rgba(26,122,76,0.1);color:var(--green);font-size:0.72rem;font-weight:600;letter-spacing:1px;border-radius:4px;}
+
+/* LIST */
+.list{padding:48px 0 64px;background:var(--white);}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:8px;}
+.toolbar .tb-label{font-size:0.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-right:4px;}
+.filter-chip{display:inline-flex;align-items:center;padding:7px 15px;border:1.5px solid var(--gray-300,#D1CFC9);border-radius:100px;font-size:0.8rem;font-weight:400;color:var(--text-secondary);background:var(--white);cursor:pointer;transition:all .2s ease;user-select:none;}
+.filter-chip:hover{border-color:var(--gold-light);color:var(--navy);}
+.filter-chip.active{border-color:var(--gold);color:var(--navy);background:rgba(196,154,60,0.08);font-weight:500;}
+.count-line{font-size:0.82rem;color:var(--text-light);margin:18px 0 24px;}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;}
+.card{background:var(--off-white);border:1px solid var(--border);border-radius:10px;padding:24px 24px 22px;border-top:3px solid var(--gold);display:flex;flex-direction:column;transition:box-shadow .25s ease,transform .25s ease;}
+.card:hover{box-shadow:0 8px 28px rgba(27,42,74,0.08);transform:translateY(-2px);}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
+.card-id{font-family:var(--font-serif);font-size:1.05rem;font-weight:700;color:var(--navy);letter-spacing:1px;}
+.status-pill{font-size:0.68rem;font-weight:600;letter-spacing:.5px;padding:4px 10px;border-radius:100px;white-space:nowrap;}
+.status-pill.s-grid{background:rgba(26,122,76,0.1);color:var(--green-dark);}
+.status-pill.s-deposit{background:rgba(196,154,60,0.14);color:#946f1d;}
+.status-pill.s-applied{background:rgba(43,61,102,0.1);color:var(--navy-light);}
+.status-pill.s-live{background:var(--navy);color:#fff;}
+.card-loc{font-size:0.86rem;color:var(--text-secondary);margin-bottom:16px;}
+.card-loc .area{font-weight:600;color:var(--navy);}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;margin-bottom:18px;}
+.spec .sk{font-size:0.64rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text-light);margin-bottom:2px;}
+.spec .sv{font-size:0.92rem;font-weight:500;color:var(--navy);font-family:var(--font-serif);}
+.card-cta{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;background:var(--navy);color:#fff;font-size:0.82rem;font-weight:500;text-decoration:none;border-radius:6px;transition:all .25s ease;}
+.card-cta:hover{background:var(--navy-light);box-shadow:0 4px 14px rgba(27,42,74,0.18);}
+.card-cta svg{width:15px;height:15px;}
+
+.state-msg{padding:48px 0;text-align:center;color:var(--text-secondary);font-size:0.92rem;}
+.state-msg a{color:var(--gold);text-decoration:none;font-weight:600;}
+
+.note{margin-top:32px;background:#fff;border:1px solid var(--border);border-left:3px solid var(--navy);border-radius:6px;padding:20px 24px;}
+.note .t{font-weight:700;font-size:0.7rem;letter-spacing:2px;color:var(--navy);margin-bottom:8px;}
+.note p{font-size:0.85rem;color:var(--text-secondary);line-height:1.85;}
+.note p+p{margin-top:8px;}
+
+/* CTA */
+.cta{padding:72px 0;background:linear-gradient(160deg,var(--navy) 0%,var(--navy-light) 100%);text-align:center;}
+.cta h2{font-family:var(--font-serif);font-size:clamp(1.3rem,3vw,1.7rem);color:#fff;font-weight:600;margin-bottom:12px;}
+.cta p{font-size:0.9rem;color:rgba(255,255,255,0.6);margin-bottom:32px;line-height:1.9;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:15px 36px;background:var(--gold);color:#fff;font-size:0.9rem;font-weight:600;text-decoration:none;border-radius:4px;transition:all .3s ease;}
+.btn-primary:hover{background:var(--gold-light);box-shadow:0 4px 20px rgba(196,154,60,0.35);}
+.back{display:inline-block;margin-top:20px;font-size:0.82rem;color:rgba(255,255,255,0.5);text-decoration:none;}
+.back:hover{color:var(--gold);}
+@media(max-width:600px){.specs{grid-template-columns:1fr 1fr;}.grid{grid-template-columns:1fr;}}
+</style>
+<meta name="description" content="系統用蓄電池の開発済み案件を、匿名のティーザー（管内・都道府県・電圧区分・規模・連系予定年度・進捗・スキーム）でご確認いただけます。NDA不要。地番・事業者名・売主・価格は開示しません。DD資料はNDA締結後に一括でご提供。">
+<link rel="canonical" href="https://www.scix.co.jp/projects">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/projects">
+<meta property="og:type" content="website">
+<meta property="og:title" content="案件一覧（匿名ティーザー・NDA不要）｜サイエンスエックス株式会社">
+<meta property="og:description" content="開発済みの系統用蓄電池案件を匿名ティーザーで一覧。NDA不要。地番・事業者名・売主・価格は非開示、DD資料はNDA後に一括提供。">
+<meta property="og:url" content="https://www.scix.co.jp/projects">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="案件一覧（匿名ティーザー・NDA不要）｜サイエンスエックス株式会社">
+<meta name="twitter:description" content="開発済みの系統用蓄電池案件を匿名ティーザーで一覧。NDA不要。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+</head>
+<body>
+<script src="/header.js"></script>
+
+<!-- HERO -->
+<section class="hero"><div class="container">
+  <span class="badge">NDA不要・匿名ティーザー</span>
+  <div class="section-label">Project List</div>
+  <h1>開発済みの案件を、<br><em>匿名のティーザーでご確認いただけます。</em></h1>
+  <p>系統接続・工事費負担金・用地が固まった系統用蓄電池案件を、管内・都道府県・電圧区分・規模・連系予定年度・進捗・スキームの範囲でご覧いただけます。<br>地番・事業者名・売主・価格は本ページでは開示していません。個別の案件資料（DD資料）は、NDA締結後に一括でご提供します。</p>
+</div></section>
+
+<!-- LIST -->
+<section class="list"><div class="container">
+  <div class="section-label">Inventory</div>
+  <h2 class="section-title">案件一覧</h2>
+
+  <div class="toolbar" id="filterArea"><span class="tb-label">管内</span></div>
+  <div class="toolbar" id="filterVoltage" style="margin-top:10px;"><span class="tb-label">電圧</span></div>
+
+  <div class="count-line" id="countLine"></div>
+
+  <div class="grid" id="projectsGrid"></div>
+  <div class="state-msg" id="stateMsg">案件を読み込んでいます…</div>
+
+  <div class="note">
+    <div class="t">本ページの開示範囲について</div>
+    <p>掲載しているのは匿名のティーザー情報です。<strong>所在地（地番）・事業者名・売主・価格・想定利回り</strong>は本ページでは開示していません。これらを含むDD資料（接続検討回答書・土地謄本・工事費負担金の証憑など）は、<strong>NDA締結後に、適格な買い手・投資家・事業者の方へ一括でご提供</strong>します。</p>
+    <p>本ページは情報提供を目的とし、特定の有価証券・出資持分の取得を勧誘するものではありません。掲載案件は予告なく変動します。</p>
+  </div>
+</div></section>
+
+<!-- CTA -->
+<section class="cta"><div class="container">
+  <h2>気になる案件があれば、まずはお問い合わせください</h2>
+  <p>各案件の「この案件について問い合わせる」から、案件IDを添えてお送りいただけます。<br>NDA締結後、確定数字とDD資料をすみやかに一括でご提供します。</p>
+  <a target="_top" href="/contact?intent=buyer" class="btn-primary">案件取得のお問い合わせ →</a>
+  <div><a target="_top" href="/overview" class="back">概要資料を見る（NDA不要）→</a></div>
+</div></section>
+
+<script>
+(function(){
+  var grid = document.getElementById('projectsGrid');
+  var stateMsg = document.getElementById('stateMsg');
+  var countLine = document.getElementById('countLine');
+  var areaBar = document.getElementById('filterArea');
+  var voltageBar = document.getElementById('filterVoltage');
+
+  var ALL = [];
+  var fArea = 'all';
+  var fVoltage = 'all';
+
+  function statusClass(s){
+    if(!s) return 's-applied';
+    if(s.indexOf('連系') === 0) return 's-live';
+    if(s.indexOf('負担金') === 0) return 's-deposit';
+    if(s.indexOf('接続検討') === 0) return 's-grid';
+    return 's-applied';
+  }
+  function esc(v){ return String(v == null ? '' : v).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function fmtNum(n){ if(n == null || n === '') return '—'; var x = Number(n); return Number.isFinite(x) ? (Math.round(x*10)/10) : esc(n); }
+
+  function cardHTML(p){
+    var loc = (p.area ? '<span class="area">' + esc(p.area) + '管内</span>' : '') + (p.pref ? '（' + esc(p.pref) + '）' : '');
+    var mw = fmtNum(p.mw), mwh = fmtNum(p.mwh);
+    var cta = '/contact?intent=buyer&pid=' + encodeURIComponent(p.id || '');
+    return '' +
+      '<div class="card">' +
+        '<div class="card-top">' +
+          '<span class="card-id">' + esc(p.id || '—') + '</span>' +
+          (p.status ? '<span class="status-pill ' + statusClass(p.status) + '">' + esc(p.status) + '</span>' : '') +
+        '</div>' +
+        '<div class="card-loc">' + loc + '</div>' +
+        '<div class="specs">' +
+          '<div class="spec"><div class="sk">電圧区分</div><div class="sv">' + esc(p.voltage || '—') + '</div></div>' +
+          '<div class="spec"><div class="sk">規模</div><div class="sv">' + mw + ' MW / ' + mwh + ' MWh</div></div>' +
+          '<div class="spec"><div class="sk">連系予定</div><div class="sv">' + esc(p.cod || '—') + '</div></div>' +
+          '<div class="spec"><div class="sk">スキーム</div><div class="sv">' + esc(p.scheme || '—') + '</div></div>' +
+        '</div>' +
+        '<a class="card-cta" target="_top" href="' + cta + '">この案件について問い合わせる' +
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
+        '</a>' +
+      '</div>';
+  }
+
+  function uniq(arr){ var o = {}, r = []; arr.forEach(function(v){ if(v && !o[v]){ o[v] = 1; r.push(v); } }); return r; }
+
+  function buildFilters(){
+    var areas = uniq(ALL.map(function(p){ return p.area; }));
+    var volts = uniq(ALL.map(function(p){ return p.voltage; }));
+    function chip(bar, key, label, group){
+      var c = document.createElement('span');
+      c.className = 'filter-chip' + ((group === 'area' ? fArea : fVoltage) === key ? ' active' : '');
+      c.textContent = label;
+      c.addEventListener('click', function(){
+        if(group === 'area') fArea = key; else fVoltage = key;
+        render();
+      });
+      bar.appendChild(c);
+    }
+    chip(areaBar, 'all', 'すべて', 'area');
+    areas.forEach(function(a){ chip(areaBar, a, a, 'area'); });
+    chip(voltageBar, 'all', 'すべて', 'voltage');
+    volts.forEach(function(v){ chip(voltageBar, v, v, 'voltage'); });
+  }
+
+  function render(){
+    // refresh active state on chips
+    [].forEach.call(areaBar.querySelectorAll('.filter-chip'), function(c){ c.classList.toggle('active', c.textContent === (fArea === 'all' ? 'すべて' : fArea)); });
+    [].forEach.call(voltageBar.querySelectorAll('.filter-chip'), function(c){ c.classList.toggle('active', c.textContent === (fVoltage === 'all' ? 'すべて' : fVoltage)); });
+
+    var list = ALL.filter(function(p){
+      return (fArea === 'all' || p.area === fArea) && (fVoltage === 'all' || p.voltage === fVoltage);
+    });
+    grid.innerHTML = list.map(cardHTML).join('');
+    countLine.textContent = '該当 ' + list.length + ' 件' + (list.length !== ALL.length ? '（全 ' + ALL.length + ' 件中）' : '');
+  }
+
+  fetch('/projects.json', { cache: 'no-store' })
+    .then(function(r){ if(!r.ok) throw new Error('http ' + r.status); return r.json(); })
+    .then(function(data){
+      ALL = (data && data.projects) || [];
+      if(!ALL.length){ throw new Error('empty'); }
+      stateMsg.style.display = 'none';
+      buildFilters();
+      render();
+    })
+    .catch(function(){
+      stateMsg.innerHTML = '案件一覧を読み込めませんでした。お手数ですが <a target="_top" href="/contact?intent=buyer">お問い合わせ</a> ください。';
+      areaBar.style.display = 'none';
+      voltageBar.style.display = 'none';
+    });
+})();
+</script>
+
+<style>
+  .scix-footer *{margin:0;padding:0;box-sizing:border-box;}
+  .scix-footer{background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%;}
+  .scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px;}
+  .scix-footer-logo img{height:48px;width:auto;display:block;opacity:0.95;}
+  .scix-footer-info{text-align:center;}
+  .scix-footer-copyright{font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px;}
+  .scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8);}
+  .scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px;}
+  .scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px;}
+  .scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none;transition:color 0.2s ease;}
+  .scix-footer-company a:hover{color:#C49A3C;}
+  .scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12);margin:0 auto;}
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img src="/img/logo-white.png" alt="ScienceX サイエンスエックス株式会社" loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">&copy; 2025–2026 Science X Inc. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -176,6 +176,7 @@
     '<a href="/"          data-page="/">ホーム</a>',
     '<a href="/investors" data-page="/investors">投資家の方へ</a>',
     '<a href="/transfer"  data-page="/transfer">案件を買う</a>',
+    '<a href="/projects"  data-page="/projects">案件一覧</a>',
     '<a href="/sourcing"  data-page="/sourcing">案件を売る</a>',
     '<a href="/land"      data-page="/land">用地</a>',
     '<a href="/company"   data-page="/company">会社案内</a>',
