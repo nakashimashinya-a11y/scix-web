@@ -279,4 +279,53 @@
       closeMenu();
     }
   });
+
+  // --------------- 5. tel: / mailto: クリック計測 (全ページ共通・GA4) ---------------
+  // header.js は全ページで読み込まれるため、ここに置けば言語・ページを問わず
+  // 電話・メールのクリックを contact_click として1か所で計測できる。
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var a = t && t.closest ? t.closest('a[href^="tel:"],a[href^="mailto:"]') : null;
+    if (!a || typeof window.gtag !== 'function') return;
+    var href = a.getAttribute('href') || '';
+    var method = href.indexOf('tel:') === 0 ? 'tel' : 'mailto';
+    try {
+      window.gtag('event', 'contact_click', {
+        method: method,
+        link_url: href,
+        page_lang: (document.documentElement.lang || 'ja'),
+        transport_type: 'beacon'
+      });
+    } catch (err) { /* ignore */ }
+  }, true);
+
+  // --------------- 6. 30分オンライン面談 予約ボタン（BOOKING_URL 1か所管理） ---------------
+  // 中島さんへ: 下の SCIX_BOOKING_URL に Google カレンダーの「予約スケジュール」URLを
+  // 入れるだけで、[data-scix-booking] を持つ全ページの予約ボタンが自動で表示・リンクされます。
+  // 空のままなら全ボタンは非表示のまま（=未公開）。公開はこの1行の差し替えのみ。
+  var SCIX_BOOKING_URL = ''; // 例: 'https://calendar.app.google/xxxxxxxxxxxx'
+
+  function activateBookingButtons() {
+    var btns = document.querySelectorAll('[data-scix-booking]');
+    for (var i = 0; i < btns.length; i++) {
+      var b = btns[i];
+      if (SCIX_BOOKING_URL) {
+        b.setAttribute('href', SCIX_BOOKING_URL);
+        b.setAttribute('target', '_blank');
+        b.setAttribute('rel', 'noopener');
+        b.style.display = '';
+        b.removeAttribute('aria-hidden');
+      } else {
+        b.style.display = 'none';
+        b.setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+  // header.js は body 先頭で同期実行されるため、予約ボタン本体がまだ未パースの可能性がある。
+  // DOM 構築完了後に有効化する。
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', activateBookingButtons);
+  } else {
+    activateBookingButtons();
+  }
 })();
