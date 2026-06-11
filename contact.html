@@ -584,11 +584,17 @@
           <!-- Inquiry Type -->
           <div class="inquiry-types">
             <label>ご用件<span class="required">*</span></label>
-            <span class="chip active" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="投資家（実物資産投資）" checked>投資家</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="案件取得（買い手）">案件取得（買い手）</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="売却・査定（事業権利）">売却・査定</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="用地（売却・賃貸）">用地</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="協業・その他">協業・その他</span>
+            <span class="chip active" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="投資家（実物資産投資）" data-intent="investor" checked>投資家</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="案件取得（買い手）" data-intent="buyer">案件取得（買い手）</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="売却・査定（事業権利）" data-intent="seller">売却・査定</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="用地（売却・賃貸）" data-intent="land">用地</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="協業・その他" data-intent="other">協業・その他</span>
+          </div>
+
+          <!-- 案件IDバナー（/projects から ?pid= 付きで来訪したとき表示） -->
+          <div id="pidBanner" style="display:none;margin-bottom:24px;padding:14px 18px;border:1px solid var(--gold);border-left:3px solid var(--gold);border-radius:8px;background:var(--gold-pale);font-size:13px;color:var(--navy);line-height:1.7;">
+            ご関心の案件: <strong id="pidLabel"></strong><br>
+            <span style="color:var(--text-secondary);font-size:12px;">この案件IDを添えてお送りします。NDA締結後、DD資料を一括でご提供します。</span>
           </div>
 
           <!-- Name & Company -->
@@ -635,6 +641,8 @@
 
           <!-- web-contact (scix-dealroom2 / Resend) 設定 -->
           <input type="hidden" name="_form" value="contact">
+          <input type="hidden" name="intent" id="intentField" value="investor">
+          <input type="hidden" name="pid" id="pidField" value="">
           <input type="text" name="_honey" style="display:none">
 
           <!-- Submit -->
@@ -721,8 +729,33 @@
 function toggleChip(el) {
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
-  el.querySelector('input').checked = true;
+  var input = el.querySelector('input');
+  input.checked = true;
+  var intentField = document.getElementById('intentField');
+  if (intentField) intentField.value = input.getAttribute('data-intent') || '';
 }
+
+// /projects などからの ?intent= / ?pid= をフォームへプリセット
+(function presetFromQuery() {
+  var q = new URLSearchParams(window.location.search);
+  var intent = (q.get('intent') || '').toLowerCase();
+  var pid = (q.get('pid') || '').trim().substring(0, 40);
+
+  if (intent) {
+    var chipInput = document.querySelector('.chip input[data-intent="' + intent.replace(/[^a-z]/g, '') + '"]');
+    if (chipInput) { toggleChip(chipInput.closest('.chip')); }
+  }
+  if (pid) {
+    var pidField = document.getElementById('pidField');
+    if (pidField) pidField.value = pid;
+    var banner = document.getElementById('pidBanner');
+    var label = document.getElementById('pidLabel');
+    if (banner && label) { label.textContent = pid; banner.style.display = 'block'; }
+    // メッセージ欄に案件IDを下書き（未入力時のみ）
+    var msg = document.querySelector('textarea[name="message"]');
+    if (msg && !msg.value) { msg.value = '案件 ' + pid + ' について、詳細・DD資料の提供を希望します。'; }
+  }
+})();
 
 // Fetch送信 ＋ 送信サーバー障害時はメール下書きへフォールバック
 document.getElementById('contactForm').addEventListener('submit', function(e) {
