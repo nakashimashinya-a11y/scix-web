@@ -18,8 +18,8 @@
 <meta name="applicable-device" content="pc,mobile">
 <meta name="renderer" content="webkit">
 <meta http-equiv="Cache-Control" content="no-transform">
-<meta name="keywords" content="日本储能,日本电网级储能,BESS,日本BESS投资,储能投资日本,长期脱碳电源拍卖,日本可再生能源投资,中国资本">
-<title>进入日本电网级储能（BESS）市场 — 工学博士领军 | Science X Inc.</title>
+<meta name="keywords" content="日本储能投资,日本电网级储能,BESS,日本蓄电池电站,日本实物资产,日本房产投资替代,经营管理签证,容量市场,调频辅助服务,Science X">
+<title>从日本房产到日本电网 — 整座持有的电网级储能电站 | Science X Inc.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -37,8 +37,8 @@
   --text-secondary: #5A6577;
   --text-light: #8A92A0;
   --border: #E0DCD6;
-  --font-sans: 'Noto Sans SC', 'Noto Sans JP', sans-serif;
-  --font-serif: 'Noto Serif SC', 'Noto Serif JP', serif;
+  --font-sans: 'Noto Sans SC', 'Noto Sans JP', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-serif: 'Noto Serif SC', 'Noto Serif JP', 'Songti SC', 'SimSun', serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -77,9 +77,10 @@ body {
   font-size: 0.95rem;
   color: var(--text-secondary);
   line-height: 1.9;
-  max-width: 640px;
+  max-width: 680px;
 }
 
+/* ============ HERO ============ */
 .hero {
   padding: 80px 0 100px;
   background: linear-gradient(160deg, var(--white) 0%, var(--off-white) 50%, #EDE8DF 100%);
@@ -236,13 +237,14 @@ body {
 
 .hero-card-note strong { color: var(--gold); font-weight: 600; }
 
-.credibility-bar { padding: 40px 0; background: var(--navy); }
+/* ============ CREDIBILITY BAR ============ */
+.credibility-bar { padding: 36px 0; background: var(--navy); }
 
 .cred-inner {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 48px;
+  gap: 40px;
   flex-wrap: wrap;
 }
 
@@ -265,307 +267,669 @@ body {
   justify-content: center;
   font-size: 0.6rem;
   color: var(--gold);
+  flex-shrink: 0;
 }
 
-.business { padding: 100px 0; background: var(--white); }
+/* ============ GENERIC SECTIONS ============ */
+.sec { padding: 96px 0; }
+.sec-white { background: var(--white); }
+.sec-off { background: var(--off-white); }
+.sec-navy { background: var(--navy); color: var(--white); }
+.sec-navy .section-title { color: var(--white); }
+.sec-navy .section-subtitle { color: rgba(255,255,255,0.65); }
+.sec-header { text-align: center; margin-bottom: 56px; }
+.sec-header .section-subtitle { margin: 0 auto; }
 
-.business-header { text-align: center; margin-bottom: 60px; }
-.business-header .section-subtitle { margin: 0 auto; }
+/* ============ LEDGER (房产 vs 储能) ============ */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
-.business-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-}
-
-.biz-card {
-  background: var(--off-white);
+.ledger {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  background: var(--white);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 48px 40px;
-  position: relative;
   overflow: hidden;
-  transition: all 0.4s ease;
-  border: 1px solid transparent;
-  text-decoration: none;
-  color: inherit;
-  display: block;
 }
 
-.biz-card:hover {
-  border-color: var(--gold);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(27,42,74,0.08);
+.ledger thead th {
+  padding: 18px 20px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 2px solid var(--border);
+  vertical-align: bottom;
 }
 
-.biz-card::before {
+.ledger thead th:first-child { width: 18%; background: rgba(27,42,74,0.02); color: var(--text-secondary); font-weight: 500; font-size: 0.8rem; }
+.ledger thead th.col-re { color: var(--text-secondary); }
+.ledger thead th.col-bess { color: var(--navy); background: rgba(196,154,60,0.07); }
+.ledger thead th .col-tag { display: block; font-size: 0.68rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+.ledger thead th.col-re .col-tag { color: var(--text-light); }
+.ledger thead th.col-bess .col-tag { color: var(--gold); }
+
+.ledger tbody th {
+  padding: 16px 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: left;
+  background: rgba(27,42,74,0.02);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.ledger tbody td {
+  padding: 16px 20px;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.ledger tbody td.cell-bess { background: rgba(196,154,60,0.05); color: var(--text-primary); }
+.ledger tbody tr:last-child th, .ledger tbody tr:last-child td { border-bottom: none; }
+
+.ledger-note {
+  margin-top: 18px;
+  font-size: 0.78rem;
+  color: var(--text-light);
+  line-height: 1.9;
+  max-width: 820px;
+}
+
+/* ============ REVENUE LAYERS ============ */
+.layer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 64px;
+}
+
+.layer-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px 28px;
+  position: relative;
+}
+
+.layer-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0;
-  width: 4px; height: 100%;
+  width: 100%; height: 3px;
   background: var(--gold);
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  opacity: 0.85;
 }
 
-.biz-card:hover::before { opacity: 1; }
+.layer-card.layer-fixed::before { background: var(--green); }
 
-.biz-badge {
+.layer-tag {
   display: inline-block;
-  padding: 4px 12px;
+  padding: 3px 10px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-radius: 3px;
+  margin-bottom: 16px;
   background: rgba(196,154,60,0.12);
   color: var(--gold);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border-radius: 3px;
-  margin-bottom: 20px;
 }
 
-.biz-badge.core { background: rgba(26,122,76,0.1); color: var(--green); }
+.layer-card.layer-fixed .layer-tag { background: rgba(26,122,76,0.1); color: var(--green); }
 
-.biz-card h3 {
-  font-family: var(--font-serif);
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: var(--navy);
-  margin-bottom: 8px;
-  line-height: 1.5;
-}
-
-.biz-card-en {
-  font-size: 0.72rem;
-  color: var(--text-light);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.biz-card p {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  line-height: 1.9;
-  margin-bottom: 24px;
-}
-
-.biz-features { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.biz-feature-tag {
-  padding: 4px 12px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  font-size: 0.72rem;
-  color: var(--text-secondary);
-}
-
-.biz-card-arrow {
-  position: absolute;
-  bottom: 40px; right: 40px;
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gold);
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  border: 1px solid var(--border);
-}
-
-.biz-card:hover .biz-card-arrow {
-  background: var(--gold);
-  color: var(--white);
-  border-color: var(--gold);
-}
-
-.strengths { padding: 100px 0; background: var(--navy); color: var(--white); }
-.strengths .section-label { color: var(--gold); }
-.strengths .section-title { color: var(--white); }
-.strengths .section-subtitle { color: rgba(255,255,255,0.6); }
-.strengths-header { text-align: center; margin-bottom: 60px; }
-.strengths-header .section-subtitle { margin: 0 auto; }
-
-.strengths-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-}
-
-.strength-card {
-  padding: 36px 28px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.strength-card:hover {
-  background: rgba(255,255,255,0.07);
-  border-color: rgba(196,154,60,0.3);
-}
-
-.strength-num {
-  font-family: var(--font-serif);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--gold);
-  line-height: 1;
-  margin-bottom: 16px;
-  opacity: 0.7;
-}
-
-.strength-card h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-  line-height: 1.5;
-}
-
-.strength-card p {
-  font-size: 0.82rem;
-  color: rgba(255,255,255,0.55);
-  line-height: 1.9;
-}
-
-.company { padding: 100px 0; background: var(--off-white); }
-.company-header { text-align: center; margin-bottom: 60px; }
-.company-header .section-subtitle { margin: 0 auto; }
-
-.company-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: start;
-}
-
-.company-table {
-  background: var(--white);
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-}
-
-.company-row {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  border-bottom: 1px solid var(--border);
-}
-
-.company-row:last-child { border-bottom: none; }
-
-.company-row dt {
-  padding: 16px 20px;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  background: rgba(27,42,74,0.02);
-}
-
-.company-row dd {
-  padding: 16px 20px;
-  font-size: 0.85rem;
-  color: var(--text-primary);
-  line-height: 1.7;
-}
-
-.officer-section {
-  background: var(--white);
-  border-radius: 8px;
-  padding: 36px;
-  border: 1px solid var(--border);
-}
-
-.officer-section h3 {
+.layer-card h4 {
   font-family: var(--font-serif);
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--navy);
-  margin-bottom: 28px;
+  margin-bottom: 10px;
+  line-height: 1.5;
 }
 
-.officer-item {
-  display: flex;
-  gap: 16px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--border);
+.layer-card p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.9; }
+.layer-card p strong { color: var(--navy); }
+
+/* ============ REGION MODEL TABLE ============ */
+.region-table {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+  background: var(--white);
+  border: 1px solid var(--border);
 }
 
-.officer-item:last-child { border-bottom: none; }
-
-.officer-role {
-  flex-shrink: 0;
-  width: 100px;
-  font-size: 0.75rem;
-  color: var(--text-light);
-  padding-top: 2px;
-}
-
-.officer-name {
-  font-size: 0.92rem;
-  font-weight: 500;
+.region-table caption {
+  caption-side: top;
+  text-align: left;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
   color: var(--navy);
+  padding-bottom: 14px;
 }
 
-.officer-title {
+.region-table th {
+  padding: 14px 16px;
   font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: rgba(255,255,255,0.85);
+  background: var(--navy);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.region-table td {
+  padding: 15px 16px;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.region-table td.num { font-family: var(--font-serif); font-weight: 600; color: var(--navy); }
+.region-table td .sub { display: block; font-size: 0.7rem; color: var(--text-light); font-weight: 400; }
+.region-table tbody tr:nth-child(odd) td { background: rgba(27,42,74,0.015); }
+.region-table tbody tr:last-child td { border-bottom: none; }
+
+.pick-lead { margin: 36px 0 18px; font-size: 0.95rem; color: var(--text-secondary); }
+.pick-lead-q { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 600; color: var(--navy); margin-right: 10px; }
+
+.pick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+.pick-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px 20px;
+}
+
+.pick-card h5 {
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.pick-tag {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--gold);
+  background: rgba(196,154,60,0.12);
+  padding: 2px 9px;
+  border-radius: 3px;
+}
+
+.pick-card p { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.85; }
+
+.model-disclaimer {
+  margin-top: 22px;
+  padding: 20px 24px;
+  background: rgba(27,42,74,0.03);
+  border-left: 3px solid var(--gold);
+  font-size: 0.78rem;
   color: var(--text-secondary);
+  line-height: 1.95;
+  max-width: 860px;
+}
+
+.model-honest {
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  max-width: 860px;
+}
+
+.model-honest strong { color: var(--navy); }
+
+.model-cta { margin-top: 32px; text-align: center; }
+
+/* ============ AUDIT (七重审查) ============ */
+.audit-header { position: relative; text-align: center; margin-bottom: 56px; }
+
+.seal {
+  width: 128px;
+  height: 128px;
+  border: 3px double var(--gold);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transform: rotate(-12deg);
+  color: var(--gold);
+  position: absolute;
+  right: 4%;
+  top: -16px;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.seal .seal-main { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; letter-spacing: 4px; }
+.seal .seal-sub { font-size: 0.55rem; letter-spacing: 2.5px; text-transform: uppercase; opacity: 0.8; }
+.seal::before, .seal::after { content: '✦'; font-size: 0.5rem; opacity: 0.7; }
+
+.audit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.audit-item {
+  background: var(--navy);
+  padding: 30px 32px;
+  display: flex;
+  gap: 18px;
+  transition: background 0.3s ease;
+}
+
+.audit-item:hover { background: var(--navy-light); }
+
+.audit-check {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 0.8rem;
   margin-top: 2px;
 }
 
-.news { padding: 80px 0; background: var(--white); }
+.audit-item h4 {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
 
-.news-header {
+.audit-item h4 span {
+  font-family: var(--font-serif);
+  color: var(--gold);
+  margin-right: 8px;
+}
+
+.audit-item p { font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.85; }
+
+.audit-footnote {
+  margin-top: 28px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.9;
+}
+
+.audit-footnote strong { color: var(--gold); font-weight: 600; }
+
+/* ============ ALIGNED INTERESTS ============ */
+.align-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.align-chart {
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 36px 32px;
+}
+
+.align-chart-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 24px;
+}
+
+.bar-row { margin-bottom: 22px; }
+.bar-row:last-child { margin-bottom: 0; }
+
+.bar-label {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 40px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
 }
 
-.news-list { list-style: none; }
+.bar-label strong { color: var(--navy); font-weight: 600; }
 
-.news-item {
+.bar-track {
+  height: 14px;
+  background: rgba(27,42,74,0.06);
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.bar-fill { height: 100%; border-radius: 7px; }
+.bar-fill.small { width: 18%; background: var(--text-light); }
+.bar-fill.big { width: 86%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+
+.align-copy p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 2;
+  margin-bottom: 20px;
+}
+
+.align-copy p strong { color: var(--navy); }
+
+.align-pull {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.8;
+  padding-left: 18px;
+  border-left: 3px solid var(--gold);
+  margin-bottom: 24px;
+}
+
+/* ============ RISK ============ */
+.risk-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.risk-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 30px 28px;
+}
+
+.risk-card h4 {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 10px;
   display: flex;
   align-items: baseline;
+  gap: 10px;
+}
+
+.risk-no {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  color: var(--gold);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.risk-card .risk-desc { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.85; margin-bottom: 14px; }
+
+.risk-resp {
+  font-size: 0.82rem;
+  color: var(--text-primary);
+  line-height: 1.85;
+  padding: 12px 14px;
+  background: rgba(26,122,76,0.05);
+  border-radius: 5px;
+}
+
+.risk-resp strong { color: var(--green); font-weight: 600; font-size: 0.72rem; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+
+.risk-promise {
+  margin-top: 36px;
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 2;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.risk-promise strong { color: var(--navy); }
+
+/* ============ SERVICE ============ */
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.2s ease;
 }
 
-.news-item:hover {
+.svc-card {
   background: var(--off-white);
-  margin: 0 -12px;
-  padding: 20px 12px;
+  border-radius: 8px;
+  padding: 30px 26px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
 }
 
-.news-date {
-  flex-shrink: 0;
-  font-size: 0.78rem;
-  color: var(--text-light);
-  font-variant-numeric: tabular-nums;
+.svc-card:hover { border-color: var(--gold); background: var(--white); }
+
+.svc-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(196,154,60,0.12);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  margin-bottom: 18px;
 }
 
-.news-tag {
-  flex-shrink: 0;
-  padding: 2px 10px;
-  font-size: 0.65rem;
+.svc-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+.svc-card p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.85; }
+
+/* ============ VISA ============ */
+.visa-wrap {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.visa-copy p { font-size: 0.92rem; color: var(--text-secondary); line-height: 2; margin-bottom: 18px; }
+.visa-copy p strong { color: var(--navy); }
+
+.visa-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 30px 28px;
+}
+
+.visa-box h4 {
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
-  border-radius: 3px;
-  background: rgba(27,42,74,0.06);
-  color: var(--navy);
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 18px;
 }
 
-.news-tag.bss { background: rgba(26,122,76,0.1); color: var(--green); }
-.news-tag.info { background: rgba(196,154,60,0.1); color: var(--gold); }
+.visa-box ul { list-style: none; }
 
-.news-text { font-size: 0.88rem; color: var(--text-primary); }
+.visa-box li {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  padding: 10px 0 10px 26px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
 
-.news-text a { color: inherit; text-decoration: none; }
-.news-text a:hover { color: var(--gold); }
+.visa-box li:last-child { border-bottom: none; }
 
+.visa-box li::before {
+  content: '·';
+  position: absolute;
+  left: 8px;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.visa-disclaimer { margin-top: 28px; font-size: 0.75rem; color: var(--text-light); line-height: 1.9; }
+
+/* ============ FLOW ============ */
+.flow-list { max-width: 760px; margin: 0 auto; }
+
+.flow-step {
+  display: flex;
+  gap: 24px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.flow-step:last-child { border-bottom: none; }
+
+.flow-num {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flow-step h4 { font-size: 0.98rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; line-height: 1.6; }
+.flow-step p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.85; }
+.flow-step h4 .flow-tag { display: inline-block; margin-left: 10px; padding: 2px 9px; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.5px; color: var(--green); background: rgba(26,122,76,0.08); border-radius: 3px; vertical-align: middle; }
+
+/* ============ FAQ ============ */
+.faq-list dt {
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.faq-list dd {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.9;
+}
+
+.faq-item { border-top: 1px solid var(--border); padding: 24px 2px; }
+.faq-item:last-child { border-bottom: 1px solid var(--border); }
+
+/* ============ INSIGHTS ============ */
+.knowledge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.k-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.k-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--gold);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.k-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(27,42,74,0.08);
+  border-color: var(--gold);
+}
+
+.k-card:hover::before { opacity: 1; }
+
+.k-num {
+  font-family: var(--font-serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.k-card h4 {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.k-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.k-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.k-more:hover { color: var(--gold-light); }
+
+/* ============ WECHAT BAND ============ */
+.wechat-band { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.wechat-band-inner { display: flex; align-items: center; gap: 48px; padding: 52px 0; }
+.wechat-band-text { flex: 1; }
+.wechat-band-text .section-label { color: var(--gold); }
+.wechat-band-title { font-family: var(--font-serif); font-size: 1.55rem; color: var(--navy); margin: 12px 0 12px; line-height: 1.45; }
+.wechat-band-text p { color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 22px; max-width: 540px; }
+.wechat-band-qr { flex-shrink: 0; text-align: center; }
+.wechat-band-qr img { width: 180px; height: 180px; border: 1px solid var(--border); border-radius: 12px; padding: 10px; background: var(--white); display: block; }
+.wechat-band-qr span { display: block; margin-top: 10px; font-size: 0.8rem; color: var(--text-light); letter-spacing: 0.05em; }
+
+/* ============ CTA ============ */
 .cta {
   padding: 80px 0;
   background: linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 100%);
@@ -598,196 +962,70 @@ body {
   box-shadow: 0 4px 20px rgba(196,154,60,0.35);
 }
 
-.site-footer { padding: 60px 0 40px; background: #0F1A2E; }
+/* ============ LEGAL ============ */
+.legal-band { background: var(--off-white); padding: 36px 0; border-top: 1px solid var(--border); }
+.legal-band p { font-size: 0.72rem; color: var(--text-light); line-height: 1.95; max-width: 920px; margin: 0 auto; }
+.legal-band p + p { margin-top: 10px; }
 
-.footer-inner {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 40px;
-  align-items: start;
-  margin-bottom: 40px;
-}
-
-.footer-brand .logo-mark {
-  font-family: var(--font-sans);
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--white);
-}
-
-.footer-brand .logo-mark span { color: var(--gold); }
-
-.footer-address {
-  margin-top: 12px;
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.35);
-  line-height: 1.8;
-}
-
-.footer-links { display: flex; gap: 28px; }
-
-.footer-links a {
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.45);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-links a:hover { color: var(--gold); }
-
-.footer-bottom {
-  padding-top: 24px;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  font-size: 0.68rem;
-  color: rgba(255,255,255,0.25);
-  letter-spacing: 0.5px;
-}
-
+/* ============ ANIMATION ============ */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
-.fade-in.visible { opacity: 1; transform: translateY(0); }
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .seal { position: static; transform: rotate(-8deg); margin: 28px auto 0; }
+}
 
 @media (max-width: 768px) {
+  .sec { padding: 64px 0; }
   .hero { padding: 60px 0 60px; }
   .hero .container { grid-template-columns: 1fr; gap: 40px; }
-  .business-grid { grid-template-columns: 1fr; }
-  .strengths-grid { grid-template-columns: 1fr; }
-  .company-grid { grid-template-columns: 1fr; }
   .hero-stats { grid-template-columns: 1fr 1fr; gap: 20px; }
   .stat-number { font-size: 1.6rem; }
-  .cred-inner { gap: 24px; }
-  .news-item { flex-direction: column; gap: 8px; }
-  .footer-inner { grid-template-columns: 1fr; }
-  .footer-links { flex-wrap: wrap; gap: 16px; }
+  .cred-inner { gap: 18px; justify-content: flex-start; }
+  .layer-grid { grid-template-columns: 1fr; }
+  .pick-grid { grid-template-columns: 1fr; }
+  .audit-grid { grid-template-columns: 1fr; }
+  .align-grid { grid-template-columns: 1fr; gap: 36px; }
+  .risk-grid { grid-template-columns: 1fr; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .visa-wrap { grid-template-columns: 1fr; gap: 32px; }
+  .knowledge-grid { grid-template-columns: 1fr; }
   .hero-actions { flex-direction: column; }
   .btn-primary, .btn-secondary { text-align: center; justify-content: center; }
-  .biz-card-arrow { display: none; }
-  .knowledge-grid { grid-template-columns: 1fr !important; }
-  .k-card { padding: 20px; }
-  .k-card h4 { font-size: 0.95rem; }
+  .wechat-band-inner { flex-direction: column; gap: 28px; text-align: center; padding: 40px 0; }
+  .wechat-band-text p { margin-left: auto; margin-right: auto; }
+  .flow-step { gap: 16px; }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .knowledge-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .svc-grid { grid-template-columns: repeat(2, 1fr); }
+  .pick-grid { grid-template-columns: repeat(2, 1fr); }
 }
-
-.knowledge { padding: 80px 0; background: var(--off-white); }
-.knowledge-header { margin-bottom: 40px; }
-.knowledge-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-.k-card {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 24px;
-  position: relative;
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-.k-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 3px;
-  background: var(--gold);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.k-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(27,42,74,0.08);
-  border-color: var(--gold);
-}
-.k-card:hover::before { opacity: 1; }
-.k-num {
-  font-family: var(--font-serif);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 1px;
-  margin-bottom: 10px;
-}
-.k-tag {
-  display: inline-block;
-  padding: 2px 8px;
-  background: rgba(27,42,74,0.05);
-  color: var(--navy);
-  font-size: 0.65rem;
-  font-weight: 600;
-  border-radius: 3px;
-  margin-left: 8px;
-}
-.k-card h4 {
-  font-family: var(--font-serif);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--navy);
-  line-height: 1.6;
-  margin-bottom: 10px;
-}
-.k-desc {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.k-more {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 32px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--gold);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-.k-more:hover { color: var(--gold-light); }
-.wechat-band { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.wechat-band-inner { display: flex; align-items: center; gap: 48px; padding: 52px 0; }
-.wechat-band-text { flex: 1; }
-.wechat-band-text .section-label { color: var(--gold); }
-.wechat-band-title { font-family: var(--font-serif); font-size: 1.55rem; color: var(--navy); margin: 12px 0 12px; line-height: 1.45; }
-.wechat-band-text p { color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 22px; max-width: 540px; }
-.wechat-band-qr { flex-shrink: 0; text-align: center; }
-.wechat-band-qr img { width: 180px; height: 180px; border: 1px solid var(--border); border-radius: 12px; padding: 10px; background: var(--white); display: block; }
-.wechat-band-qr span { display: block; margin-top: 10px; font-size: 0.8rem; color: var(--text-light); letter-spacing: 0.05em; }
-@media (max-width: 768px) { .wechat-band-inner { flex-direction: column; gap: 28px; text-align: center; padding: 40px 0; } .wechat-band-text p { margin-left: auto; margin-right: auto; } }
 </style>
-<meta name="description" content="储能的收益逻辑，您早已熟悉。日本的辅助服务与容量市场规模更大、且不依赖固定电价收购（FIT）。工学博士领军，助您跨越日本特有的并网、许可与土地门槛。细节于 NDA 下提供。">
+<meta name="description" content="您投资过日本的房产，下一站是日本的电网。电网级储能电站（BESS）整座出售：产权登记在您名下，ScienceX 以机构级标准七重审查项目，并托管运营20年。中文月度报告、微信对接。参考收益模型公开。">
 <link rel="canonical" href="https://www.scix.co.jp/zh">
 <link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/">
 <link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en">
 <link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh">
 <link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en">
 <meta property="og:type" content="website">
-<meta property="og:title" content="进入日本电网级储能（BESS）市场 — 工学博士领军 | Science X Inc.">
-<meta property="og:description" content="储能的收益逻辑，您早已熟悉。日本的辅助服务与容量市场规模更大、且不依赖固定电价收购（FIT）。工学博士领军，助您跨越日本特有的并网、许可与土地门槛。细节于 NDA 下提供。">
+<meta property="og:title" content="从日本房产到日本电网 — 整座持有的电网级储能电站 | Science X Inc.">
+<meta property="og:description" content="电网级储能电站整座出售：产权登记在您名下，ScienceX 以机构级标准七重审查项目，并托管运营20年。中文月度报告、微信对接。参考收益模型公开。">
 <meta property="og:url" content="https://www.scix.co.jp/zh">
 <meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
 <meta property="og:site_name" content="ScienceX">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="进入日本电网级储能（BESS）市场 — 工学博士领军 | Science X Inc.">
-<meta name="twitter:description" content="储能的收益逻辑，您早已熟悉。日本的辅助服务与容量市场规模更大、且不依赖固定电价收购（FIT）。工学博士领军，助您跨越日本特有的并网、许可与土地门槛。细节于 NDA 下提供。">
+<meta name="twitter:title" content="从日本房产到日本电网 — 整座持有的电网级储能电站 | Science X Inc.">
+<meta name="twitter:description" content="电网级储能电站整座出售：产权登记在您名下，ScienceX 以机构级标准七重审查项目，并托管运营20年。中文月度报告、微信对接。">
 <meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
 <script type="application/ld+json">
 {
@@ -813,157 +1051,507 @@ body {
     "jobTitle": "CEO",
     "honorificSuffix": "Ph.D."
   },
-  "description": "Grid-scale battery energy storage development and rights transfer company based in Tokyo, Japan.",
+  "description": "Grid-scale battery energy storage: turnkey sale to private investors with 20-year O&M and asset management by ScienceX, Tokyo, Japan.",
   "areaServed": { "@type": "Country", "name": "Japan" },
   "knowsLanguage": ["ja", "en", "zh-CN"]
 }
 </script>
-<style>:root{--font-sans:"Noto Sans SC","Noto Sans JP",sans-serif;--font-serif:"Noto Serif SC","Noto Serif JP",serif;}</style>
-<style>
-/* Contrast fix: .strengths sections overridden to a light background need dark text */
-.strengths[style*="off-white"] .section-title{color:var(--navy)}
-.strengths[style*="off-white"] .section-subtitle{color:var(--text-secondary)}
-.strengths[style*="off-white"] .strength-card{background:var(--white);border-color:var(--border)}
-.strengths[style*="off-white"] .strength-card h4{color:var(--navy)}
-.strengths[style*="off-white"] .strength-card p{color:var(--text-secondary)}
-</style>
 </head>
 <body>
 <script src="/header.js"></script>
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
 <section class="hero"><div class="container">
   <div class="hero-content">
-    <div class="hero-label">日本 · 电网级电池储能（BESS）</div>
-    <h1>储能的收益逻辑，您早已熟悉。<br><em>下一个、而且更大的市场，就在邻国。</em></h1>
-    <p class="hero-desc">现货套利、调频与调峰辅助服务、容量——中国资本对储能的收益结构并不陌生。<br>日本的辅助服务与容量市场规模更大、且不依赖固定电价收购（FIT）；唯一的差别，是日本特有的并网、许可、土地与本地门槛。<br>我们由工学博士领军，助您一次跨越。</p>
+    <div class="hero-label">日本 · 电网级储能电站 · 整座持有</div>
+    <h1>您投资过日本的房产。<br><em>下一站，是日本的电网。</em></h1>
+    <p class="hero-desc">电网级储能电站（BESS），整座出售。产权登记在您（或您的日本法人）名下——和您熟悉的日本房产一样，是登记在册的实物资产。<br>不同的是：项目先经过我们面向机构投资者的同一套审查，之后的 20 年由 ScienceX 托管运营，每月向您提交中文报告。</p>
     <div class="hero-actions">
-      <a target="_top" href="/zh-contact" class="btn-primary">申请保密简报 →</a>
-      <a target="_top" href="#how" class="btn-secondary">了解合作流程</a>
+      <a target="_top" href="#wechat" class="btn-primary">微信咨询 →</a>
+      <a target="_top" href="#models" class="btn-secondary">查看参考收益模型</a>
     </div>
-    <p style="margin-top:18px;font-size:0.82rem;color:var(--text-light);">English · <a target="_top" href="/en" style="color:var(--gold);text-decoration:none;">View in English →</a></p>
+    <p style="margin-top:18px;font-size:0.82rem;color:var(--text-light);">机构投资者·开发商 · <a target="_top" href="/en" style="color:var(--gold);text-decoration:none;">English →</a></p>
   </div>
   <div class="hero-visual"><div class="hero-card">
     <div class="hero-stats">
-      <div class="stat-item"><div class="stat-number">2–50<span> MW</span></div><div class="stat-label">高压至特高压</div></div>
-      <div class="stat-item"><div class="stat-number">已确定</div><div class="stat-label">并网案源</div></div>
-      <div class="stat-item"><div class="stat-number">两大<span> 市场</span></div><div class="stat-label">辅助服务＋容量（不依赖FIT）</div></div>
-      <div class="stat-item"><div class="stat-number">工学<span> 博士</span></div><div class="stat-label">不绑定设备商·EPC</div></div>
+      <div class="stat-item"><div class="stat-number">2<span>MW</span>/8<span>MWh</span></div><div class="stat-label">标准单元（可扩展）</div></div>
+      <div class="stat-item"><div class="stat-number">100<span>%</span></div><div class="stat-label">产权登记在您名下</div></div>
+      <div class="stat-item"><div class="stat-number">20<span> 年</span></div><div class="stat-label">运营·资产管理托管</div></div>
+      <div class="stat-item"><div class="stat-number">4<span> 大</span></div><div class="stat-label">电力区域参考模型</div></div>
     </div>
     <div class="hero-card-divider"></div>
-    <div class="hero-card-note">开发与技术的不确定性，由我们承担。<br><strong>您取得的，是数字已经固定、已确定并网的日本项目。</strong></div>
+    <div class="hero-card-note"><strong>我们的主要收入来自 20 年托管，而非一次性销售。</strong><br>电站长期健康运转，我们才有收益——利益与您绑定。</div>
   </div></div>
 </div></section>
 
-<section class="wechat-band"><div class="container">
-  <div class="wechat-band-inner">
-    <div class="wechat-band-text">
-      <div class="section-label">微信咨询</div>
-      <h2 class="wechat-band-title">用微信直接联系我们</h2>
-      <p>比邮件更快。扫描或长按识别右侧二维码添加，我们将于工作日（JST 9:00–18:00）回复您关于日本电网级储能的咨询。我们由工学博士领军。</p>
-      <a target="_top" href="/zh-contact" class="btn-secondary">或填写保密咨询表 →</a>
+<!-- ================= CREDIBILITY BAR ================= -->
+<section class="credibility-bar"><div class="container">
+  <div class="cred-inner">
+    <div class="cred-item"><span class="cred-icon">✓</span>工学博士创办·领军</div>
+    <div class="cred-item"><span class="cred-icon">✓</span>机构级七重审查</div>
+    <div class="cred-item"><span class="cred-icon">✓</span>风险书面披露·签字确认</div>
+    <div class="cred-item"><span class="cred-icon">✓</span>全程中文·微信对接</div>
+    <div class="cred-item"><span class="cred-icon">✓</span>不绑定设备商·EPC</div>
+  </div>
+</div></section>
+
+<!-- ================= 房产 → 储能 ================= -->
+<section class="sec sec-white" id="compare"><div class="container">
+  <div class="sec-header">
+    <div class="section-label">From Real Estate to the Grid</div>
+    <h2 class="section-title">您熟悉的投资逻辑，更高的现金流密度。</h2>
+    <p class="section-subtitle">许多华人投资者是通过东京的公寓认识日本的：产权清晰、法治稳定、收益可算。储能电站延续了同样的逻辑——实物资产、登记产权、长期现金流——只是付钱的一方，从"租客"变成了"电网"。</p>
+  </div>
+  <div class="table-wrap">
+    <table class="ledger">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="col-re"><span class="col-tag">您熟悉的</span>东京公寓（出租）</th>
+          <th class="col-bess"><span class="col-tag">下一站</span>电网级储能电站</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>现金流来源</th>
+          <td>租金，单一来源</td>
+          <td class="cell-bess">容量市场＋调频辅助服务＋现货套利，多层叠加（详见下方）</td>
+        </tr>
+        <tr>
+          <th>"空置"风险</th>
+          <td>有。租客退租即收入归零，需重新招租</td>
+          <td class="cell-bess">无"空置"概念。容量市场为中标后按制度约定的收入；调频·套利由专业聚合商持续运营</td>
+        </tr>
+        <tr>
+          <th>资产老化</th>
+          <td>建筑折旧、修缮积立金逐年上升、设备更新自担</td>
+          <td class="cell-bess">设备长期质保＋财产保险；电池年约 2% 的衰减已计入收益模型</td>
+        </tr>
+        <tr>
+          <th>日常运营</th>
+          <td>委托管理公司，多为日文沟通</td>
+          <td class="cell-bess">ScienceX 托管 20 年：运维、保险、报税资料、聚合商对接，中文月度报告</td>
+        </tr>
+        <tr>
+          <th>收益水平</th>
+          <td>东京区分公寓一般净收益率约 2–4%/年¹</td>
+          <td class="cell-bess">见下方四大区域参考模型（基于一定前提的参考值，非保证）</td>
+        </tr>
+        <tr>
+          <th>流动性</th>
+          <td>二手市场成熟，变现较快</td>
+          <td class="cell-bess">可整座转售、可由法人持有传承；二级市场尚在发展期，流动性目前低于房产——我们提供转售支持</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="ledger-note">¹ 一般市场水平，因物业、地段与年份而异，仅作量级参考。储能并非"升级版房产"，而是风险结构不同的另一类资产——它特有的风险，我们完整写在本页下方的<a target="_top" href="#risk" style="color:var(--gold);">风险章节</a>与签约前的书面《风险说明书》中。</p>
+</div></section>
+
+<!-- ================= 收益结构 + 参考模型 ================= -->
+<section class="sec sec-off" id="models"><div class="container">
+  <div class="sec-header">
+    <div class="section-label">Revenue Structure</div>
+    <h2 class="section-title">一座电站，多层收益。</h2>
+    <p class="section-subtitle">日本电力市场为储能提供叠加的收益来源，由专业聚合商（Aggregator）代为投标与调度。您持有资产，收益按月归集。</p>
+  </div>
+
+  <div class="layer-grid">
+    <div class="layer-card layer-fixed">
+      <span class="layer-tag">制度层 · 中标后约定</span>
+      <h4>容量市场</h4>
+      <p>向电网提供"备用容量"获得的收入，一经中标，金额即按制度确定。以东京 2MW 参考模型为例，<strong>约 3,000 万日元/年</strong>²。可以把它理解为最接近"国家级租客"的一层。</p>
     </div>
-    <div class="wechat-band-qr">
-      <img src="/img/wechat-qr.png" alt="ScienceX 中島晋也 微信二维码" width="180" height="180" loading="lazy">
-      <span>扫码添加</span>
+    <div class="layer-card">
+      <span class="layer-tag">表现层 · 主要来源</span>
+      <h4>调频辅助服务</h4>
+      <p>一次·三次调整力——电网频率的"稳定器"，按可用容量与响应表现计费。是当前参考模型中占比最高的收益来源，价格随市场供需波动。</p>
+    </div>
+    <div class="layer-card">
+      <span class="layer-tag">市场层</span>
+      <h4>现货套利</h4>
+      <p>电价低谷时充电、高峰时放电，赚取 JEPX 现货市场的价差。随可再生能源占比上升，日内价差呈结构性存在。</p>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table class="region-table">
+      <caption>四大电力区域 · 参考收益模型一览（2MW / 8MWh 标准单元）</caption>
+      <thead>
+        <tr>
+          <th>电力区域</th>
+          <th>模型运转开始</th>
+          <th>容量市场（制度层）²</th>
+          <th>首年事业收益³</th>
+          <th>20 年累计事业收益³</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>东京</td><td>2027 年 5 月</td>
+          <td>约 3,000 万日元/年<span class="sub">第 4 年起</span></td>
+          <td class="num">约 1.50 亿日元</td>
+          <td class="num">约 30.4 亿日元</td>
+        </tr>
+        <tr>
+          <td>九州</td><td>2028 年 3 月</td>
+          <td>约 3,690 万日元/年<span class="sub">第 4 年起 · 四区域最厚</span></td>
+          <td class="num">约 0.79 亿日元</td>
+          <td class="num">约 20.6 亿日元</td>
+        </tr>
+        <tr>
+          <td>中部</td><td>2027 年 5 月</td>
+          <td>约 2,500 万日元/年<span class="sub">运转首年起</span></td>
+          <td class="num">约 0.64 亿日元</td>
+          <td class="num">约 14.3 亿日元</td>
+        </tr>
+        <tr>
+          <td>东北</td><td>2027 年 5 月</td>
+          <td>约 1,740 万日元/年<span class="sub">第 4 年起</span></td>
+          <td class="num">约 0.95 亿日元</td>
+          <td class="num">约 13.0 亿日元</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pick-lead">
+    <span class="pick-lead-q">怎么选区域？</span>和选房产同一个逻辑——核心区稀缺，外围收益率更优。
+  </div>
+  <div class="pick-grid">
+    <div class="pick-card">
+      <h5>东京</h5>
+      <span class="pick-tag">需求最集中</span>
+      <p>模型总额最高，咨询也最集中。案源有限，可能需要候补登记——我们按审查通过顺序推介，不会为了凑需求而降低审查标准。</p>
+    </div>
+    <div class="pick-card">
+      <h5>九州</h5>
+      <span class="pick-tag">固定层最厚</span>
+      <p>容量市场约 3,690 万日元/年，"国家级租客"层在四区域中最厚。重视约定性收入的稳健之选。</p>
+    </div>
+    <div class="pick-card">
+      <h5>中部</h5>
+      <span class="pick-tag">首年即有固定层</span>
+      <p>四区域中唯一自运转首年即有容量市场收入的模型——前三年现金流更平稳，常被选为第一座电站。</p>
+    </div>
+    <div class="pick-card">
+      <h5>东北</h5>
+      <span class="pick-tag">收益率 · 分散</span>
+      <p>模型总额相对温和，购入价格亦相应不同——请以收益率比较。多台持有时的区域分散之选。</p>
+    </div>
+  </div>
+  <p class="ledger-note" style="margin-top:18px;">提示：收益总额较高的区域，购入价格通常也相应更高。比较项目时，请以各自的<strong style="color:var(--navy);">收益率</strong>为准，而非绝对额；各区域案源数量有限，按审查通过的先后顺序向您推介。</p>
+
+  <div class="model-disclaimer">
+    ² ³ 上表数字摘自合作方提供的参考收益模型。"事业收益"为扣除聚合商分成（15%）、运维、保险、偿却资产税等费用后的模型值（电池效率 86.5%、年衰减 2% 等前提）。该模型为基于一定前提假设的桌面测算，实际收益将因市场环境、聚合商运营策略、电力制度变更等因素大幅波动，<strong style="color:var(--navy);">不构成收益保证、投资建议或要约</strong>。最终决策请您在充分理解风险后自行作出。
+  </div>
+  <p class="model-honest"><strong>一句坦白话：</strong>模型收益中调频辅助服务占比较高，而该市场价格近年随储能投运量增加波动明显。所以我们在审查每个项目时，都会用更保守的价格情景重新做压力测试，并把测算过程放进尽调资料给您看——这正是下一节"审查"存在的意义。</p>
+
+  <div class="model-cta">
+    <a target="_top" href="#wechat" class="btn-primary">微信索取完整 20 年逐年模型（PDF）→</a>
+  </div>
+</div></section>
+
+<!-- ================= 七重审查 ================= -->
+<section class="sec sec-navy" id="why"><div class="container">
+  <div class="audit-header">
+    <div class="section-label">Why ScienceX</div>
+    <h2 class="section-title">我们不是在卖项目。<br>我们卖的，是审查。</h2>
+    <p class="section-subtitle" style="margin:0 auto;">市面上不缺储能项目，缺的是"敢替项目把关的人"。我们用面向机构投资者 SPC 的同一套标准筛选每一个项目——通不过审查的项目，不会出现在您面前。这是我们与"中介"的根本区别。</p>
+    <div class="seal" aria-hidden="true">
+      <span class="seal-sub">SCIX VERIFIED</span>
+      <span class="seal-main">审查济</span>
+      <span class="seal-sub">机构级标准</span>
+    </div>
+  </div>
+  <div class="audit-grid">
+    <div class="audit-item"><div class="audit-check">✓</div><div>
+      <h4><span>壹</span>并网权益</h4>
+      <p>已取得的并网答复与工程费负担金为前提。停留在纸面的"概念项目"，一票否决。</p>
+    </div></div>
+    <div class="audit-item"><div class="audit-check">✓</div><div>
+      <h4><span>贰</span>土地权属</h4>
+      <p>所有权或长期地上权的登记确认，用途地域、农地·林地转用、地方条例逐项核查。</p>
+    </div></div>
+    <div class="audit-item"><div class="audit-check">✓</div><div>
+      <h4><span>叁</span>EPC 财务与履约能力</h4>
+      <p>建设方资金链与施工实绩逐项审查，发包金额必须与其体量相称——必要时设备款由买方直付制造商，建设方只承接安装工程。付款按"定金 → 中间款 → 交付尾款"节点、依完成进度核定，大额资金在并网交付时支付。</p>
+    </div></div>
+    <div class="audit-item"><div class="audit-check">✓</div><div>
+      <h4><span>肆</span>设备与质保</h4>
+      <p>一线厂商电芯、可执行的长期质保与备件体系。质保条款逐条核对"能否真正执行"，而非只看年限数字。</p>
+    </div></div>
+    <div class="audit-item"><div class="audit-check">✓</div><div>
+      <h4><span>伍</span>收益压力测试</h4>
+      <p>不只看乐观值。用保守的辅助服务·现货价格情景重算模型，确认在压力情景下现金流依然成立。</p>
+    </div></div>
+    <div class="audit-item"><div class="audit-check">✓</div><div>
+      <h4><span>陆</span>保险与保证结构</h4>
+      <p>财产险、利益（停转）损失险的覆盖范围与免责条款核查，与质保条款拼成完整的保障拼图。</p>
+    </div></div>
+    <div class="audit-item"><div class="audit-check">✓</div><div>
+      <h4><span>柒</span>合同与退出条款</h4>
+      <p>买卖合同与 20 年运营合同的权利义务、违约救济、以及将来转售·继承的安排，事先写清楚。</p>
+    </div></div>
+    <div class="audit-item"><div class="audit-check" style="border-style:dashed;">→</div><div>
+      <h4><span></span>审查结论，向您公开</h4>
+      <p>七项之中任何一项不通过，项目即被搁置或要求整改。审查的结论与依据，会完整放进尽调资料——您买到的不只是电站，还有这份审查本身。</p>
+    </div></div>
+  </div>
+  <p class="audit-footnote">我们也曾为机构投资者组建 SPC 项目。<strong>同一把尺子，现在量给个人投资者。</strong></p>
+</div></section>
+
+<!-- ================= 利益绑定 ================= -->
+<section class="sec sec-white"><div class="container">
+  <div class="align-grid">
+    <div class="align-copy">
+      <div class="section-label">Aligned Interests</div>
+      <h2 class="section-title">我们与您，坐在桌子的同一侧。</h2>
+      <p class="align-pull">如果电站停转，损失的不只是您，<br>还有我们之后 20 年的全部收入。</p>
+      <p>很多渠道的盈利模式是"卖完即走"：佣金在签约时落袋，之后电站的死活与其无关。我们把模式倒了过来——<strong>一次性销售环节的收入压到很小，主要收入放在 20 年的运维与资产管理上</strong>。电站持续健康运转，我们才有持续收入。</p>
+      <p>而且，电站产权登记在您名下：如果我们的服务不能让您满意，运营合同的主体是可以更换的。<strong>我们必须在 20 年里持续证明自己的价值</strong>——这比任何口头承诺都可靠。</p>
+    </div>
+    <div class="align-chart">
+      <div class="align-chart-title">ScienceX 的收入结构（示意）</div>
+      <div class="bar-row">
+        <div class="bar-label"><span>签约时 · 一次性费用</span><strong>小</strong></div>
+        <div class="bar-track"><div class="bar-fill small"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>20 年 · 运维＋资产管理</span><strong>主要来源</strong></div>
+        <div class="bar-track"><div class="bar-fill big"></div></div>
+      </div>
+      <p style="margin-top:22px;font-size:0.76rem;color:var(--text-light);line-height:1.85;">运维·资产管理费用已计入上方参考模型的费用项。我们赚的是"把电站管好"的钱，不是信息差的钱。</p>
     </div>
   </div>
 </div></section>
 
-<section class="strengths" id="why" style="background:var(--off-white);"><div class="container">
-  <div class="strengths-header"><div class="section-label">Why Japan, Why Now</div><h2 class="section-title">庞大的市场——却有难以跨越的本地门槛。</h2>
-  <p class="section-subtitle">中国资本已在新型储能的现货套利、调频/调峰辅助服务与容量市场积累了丰富经验；日本的辅助服务与容量市场规模更大、且不依赖固定电价收购（FIT），是地理相邻的下一个分散标的。日本正加速建设电网级储能。<span style="display:block;font-size:0.8rem;color:var(--text-light);margin-top:10px;">出处：日本经产省／资源能源厅。确定案源的稀缺性源于 2026 年制度变更；本页不主张其价格影响。</span></p></div>
-  <div class="strengths-grid">
-    <div class="strength-card"><div class="strength-num" style="font-size:1.9rem;">约24GW</div><h4>并网申请量</h4><p>截至 2025 年 9 月的全国申请量（不含冲绳）。</p></div>
-    <div class="strength-card"><div class="strength-num" style="font-size:1.9rem;">约3.9×</div><h4>年增幅</h4><p>申请量较前一年增长约 3.9 倍，并网容量取得困难。</p></div>
-    <div class="strength-card"><div class="strength-num" style="font-size:1.9rem;">2026/4</div><h4>卡位对策</h4><p>保证金加倍、分期前置，使确定案源更稀缺。</p></div>
+<!-- ================= 风险 ================= -->
+<section class="sec sec-off" id="risk"><div class="container">
+  <div class="sec-header">
+    <div class="section-label">Risk Disclosure</div>
+    <h2 class="section-title">我们主动告诉您的风险。</h2>
+    <p class="section-subtitle">敢把风险写在纸上的公司，才值得托付 20 年。以下是储能投资的主要风险，与我们的应对方式。</p>
+  </div>
+  <div class="risk-grid">
+    <div class="risk-card">
+      <h4><span class="risk-no">壹</span>市场价格波动</h4>
+      <p class="risk-desc">调频辅助服务与现货价格随供需变化，近年随储能投运量增加波动明显，模型收益可能无法实现。</p>
+      <div class="risk-resp"><strong>我们的应对</strong>审查阶段以保守价格情景做压力测试；收益分散在容量市场（制度性）·调频·套利多层之上，不押注单一市场。</div>
+    </div>
+    <div class="risk-card">
+      <h4><span class="risk-no">贰</span>建设期风险</h4>
+      <p class="risk-desc">EPC（建设方）资金链断裂、工期延误、未完工——这是行业当前建设高峰期最现实的风险。建设期风险可以压缩，但无法归零，剩余部分由买方承担。</p>
+      <div class="risk-resp"><strong>我们的应对</strong>EPC 财务·实绩审查，发包金额与建设方体量相称；必要时设备款直付制造商，施工款按完成进度核定并设保留金；视项目情况安排增信措施。正因无法归零，EPC 审查才是七重审查中最重的一关。</div>
+    </div>
+    <div class="risk-card">
+      <h4><span class="risk-no">叁</span>设备故障与衰减</h4>
+      <p class="risk-desc">电池性能逐年衰减，重大故障会造成停转损失。</p>
+      <div class="risk-resp"><strong>我们的应对</strong>一线厂商长期质保＋财产险·利益损失险；年约 2% 的衰减已预先计入收益模型，而非事后解释。</div>
+    </div>
+    <div class="risk-card">
+      <h4><span class="risk-no">肆</span>制度与政策变化</h4>
+      <p class="risk-desc">容量市场、需给调整市场等制度仍在演进，规则变更会影响收益结构。</p>
+      <div class="risk-resp"><strong>我们的应对</strong>持续跟踪经产省·电力广域机关的审议动向，变化第一时间反映在月度报告与运营策略中。</div>
+    </div>
+    <div class="risk-card">
+      <h4><span class="risk-no">伍</span>汇率与税务</h4>
+      <p class="risk-desc">收益以日元计，换算成人民币·美元存在汇率波动；跨境持有涉及两地税务申报义务。</p>
+      <div class="risk-resp"><strong>我们的应对</strong>对接懂跨境业务的税理士·司法书士；汇率敞口属于您的资产配置判断，我们不粉饰、不代答。</div>
+    </div>
+    <div class="risk-card" style="background:var(--navy);border-color:var(--navy);">
+      <h4 style="color:var(--white);"><span class="risk-no">＋</span>书面《风险说明书》</h4>
+      <p class="risk-desc" style="color:rgba(255,255,255,0.65);">签约之前，我们会把以上风险整理成书面《风险说明书》，逐条向您说明，并请您签字确认。</p>
+      <div class="risk-resp" style="background:rgba(196,154,60,0.12);color:rgba(255,255,255,0.85);"><strong style="color:var(--gold);">为什么这样做</strong>不是为了免责，而是为了让这段 20 年的关系，从坦诚开始。</div>
+    </div>
   </div>
 </div></section>
 
-<section class="strengths" id="barrier"><div class="container">
-  <div class="strengths-header"><div class="section-label">The Barrier</div><h2 class="section-title">三道门槛把多数外资挡在门外。我们助您一次跨越。</h2></div>
-  <div class="strengths-grid">
-    <div class="strength-card"><div class="strength-num">01</div><h4>并网取得</h4><p>并网容量稀缺且取得缓慢，2026 年制度后更甚。无法只靠买地就动工。</p></div>
-    <div class="strength-card"><div class="strength-num">02</div><h4>许可、土地与本地协调</h4><p>土地掌控、地方核准与并网进程，皆以日文进行、依赖关系且耗时。</p></div>
-    <div class="strength-card"><div class="strength-num">03</div><h4>市场运营</h4><p>拥有电池不等于有收益。获利需要在辅助服务与容量市场投标、调度的专业。</p></div>
+<!-- ================= 20年服务 ================= -->
+<section class="sec sec-white" id="service"><div class="container">
+  <div class="sec-header">
+    <div class="section-label">20-Year Stewardship</div>
+    <h2 class="section-title">买下电站只是开始。之后的 20 年，交给我们。</h2>
+    <p class="section-subtitle">您不需要懂日语，也不需要懂电力市场。需要懂的部分，由我们承担，并用中文向您交代清楚。</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card"><div class="svc-icon">报</div><h4>中文月度运营报告</h4><p>发电·收益·费用·设备状态，每月一份中文报告，数字直接对得上银行入账。</p></div>
+    <div class="svc-card"><div class="svc-icon">微</div><h4>微信专属对接</h4><p>有问题直接在微信里问，工作日（JST 9:00–18:00）回复。不用写邮件，不用等翻译。</p></div>
+    <div class="svc-card"><div class="svc-icon">维</div><h4>运维与保险理赔</h4><p>巡检、故障对应、质保与保险理赔的全部交涉，由我们作为窗口统一处理。</p></div>
+    <div class="svc-card"><div class="svc-icon">税</div><h4>税务·法务对接</h4><p>对接熟悉跨境业务的税理士·司法书士·行政书士，申报资料由我们整理提供。</p></div>
+    <div class="svc-card"><div class="svc-icon">售</div><h4>转售与继承支持</h4><p>将来想退出时，我们协助估值与寻找买家；法人持有·继承安排也可事先设计。</p></div>
+    <div class="svc-card"><div class="svc-icon">年</div><h4>年度运营说明</h4><p>每年一次，向您汇报市场环境变化与来年运营策略——像机构投资者的年度 LP 会议一样。</p></div>
   </div>
 </div></section>
 
-<section class="business" id="why-partner" style="background:var(--off-white);"><div class="container">
-  <div class="business-header"><div class="section-label">Why ScienceX</div><h2 class="section-title">为何与我们合作</h2>
-  <p class="section-subtitle">ScienceX 熟悉日本 BESS 市场，并掌握您所需要的权利与运营能力。</p></div>
-  <div class="business-grid">
-    <div class="biz-card"><div class="biz-badge core">熟悉市场</div><h3>我们了解市场</h3><div class="biz-card-en">端到端的专业能力</div><p>并网、许可、合同、市场运营——阻挡外资的本地复杂性，正是我们由工学博士领军的内核能力。</p></div>
-    <div class="biz-card"><div class="biz-badge">掌握权利</div><h3>我们掌握权利</h3><div class="biz-card-en">全国范围的确定案源管线</div><p>我们发掘并掌握全国范围、已确定并网的案源管线——含特高压／公用事业级。这份案源正是您合作的对象。</p></div>
-    <div class="biz-card"><div class="biz-badge">负责运营</div><h3>我们负责运营</h3><div class="biz-card-en">发掘 · 组成 · 运营</div><p>中立、不绑定设备商／EPC。我们把确定案源变成运转资产，并通过顶尖聚合商运营。</p></div>
+<!-- ================= 经营管理签证 ================= -->
+<section class="sec sec-off" id="visa"><div class="container">
+  <div class="sec-header">
+    <div class="section-label">Business Manager Visa</div>
+    <h2 class="section-title">一座比公寓更像"事业"的资产。</h2>
+  </div>
+  <div class="visa-wrap">
+    <div class="visa-copy">
+      <p>2025 年 10 月 16 日起，日本"经营·管理"在留资格（经营管理签证）的标准大幅提高：<strong>注册资本金 3,000 万日元以上＋雇佣 1 名以上全职员工，两项必须同时满足</strong>，并新增日语能力等要求。审查的核心，从"有没有公司"变成了"有没有真实的事业"。</p>
+      <p>单纯持有一两套出租公寓，越来越难以构成审查所要求的"事业实体"。而一座 2MW 级储能电站＋20 年运营合同，意味着<strong>数亿日元级的设备投资、持续的事业收入、与专业机构的长期合同</strong>——是看得见、查得到的实业形态。</p>
+      <p>我们与行政书士合作，可为有签证规划的客户提供持有架构与申请准备的咨询。</p>
+    </div>
+    <div>
+      <div class="visa-box">
+        <h4>2025/10 新基准（要点）</h4>
+        <ul>
+          <li>注册资本金（或出资总额）3,000 万日元以上</li>
+          <li>雇佣 1 名以上全职员工（日本人·永住者等）</li>
+          <li>日语能力要求：本人或全职员工达 JLPT N2 相当</li>
+          <li>经营经验 3 年以上，或硕士以上学位</li>
+          <li>事业计划书需经专家确认；要求真实办公场所</li>
+          <li>既有签证持有者设有至 2028/10 的过渡期</li>
+        </ul>
+      </div>
+      <p class="visa-disclaimer">※ 签证审批由出入国在留管理厅依个案判断。本公司及合作行政书士不对签证取得作任何保证；上述要点为公开制度信息的概要，以官方最新公布为准。</p>
+    </div>
   </div>
 </div></section>
 
-<section class="strengths" id="how"><div class="container">
-  <div class="strengths-header"><div class="section-label">How We Work</div><h2 class="section-title">从初步接触到长期合作。</h2></div>
-  <div class="strengths-grid">
-    <div class="strength-card"><div class="strength-num">01</div><h4>初步评估</h4><p>我们提供案源摘要清单（teaser），让您评估契合度——披露程度维持在签署 NDA 前的适当范围。</p></div>
-    <div class="strength-card"><div class="strength-num">02</div><h4>于 NDA 下开放案源</h4><p>签署相互保密协议后，开放完整案源管线：并网答复、确定费用、已取得土地与尽职调查所需的技术文档。</p></div>
-    <div class="strength-card"><div class="strength-num">03</div><h4>共同开发案源</h4><p>我们作为您在日本的优先案源开发与执行伙伴，持续提供确定案源。商业条件于保密下议定。</p></div>
+<!-- ================= 流程 ================= -->
+<section class="sec sec-white" id="how"><div class="container">
+  <div class="sec-header">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">从一条微信，到一座电站。</h2>
+  </div>
+  <div class="flow-list">
+    <div class="flow-step"><div class="flow-num">1</div><div>
+      <h4>微信咨询</h4>
+      <p>告诉我们您的预算规模、意向区域、持有方式（个人或日本法人）。当天内可以开始对话。</p>
+    </div></div>
+    <div class="flow-step"><div class="flow-num">2</div><div>
+      <h4>线上面谈 <span class="flow-tag">含书面风险说明</span></h4>
+      <p>视频面谈中，我们先讲风险、再讲收益——《风险说明书》在这一步就交到您手上。</p>
+    </div></div>
+    <div class="flow-step"><div class="flow-num">3</div><div>
+      <h4>推介已审查项目</h4>
+      <p>只推介通过七重审查的项目，附完整 20 年收益模型与保守情景压力测试。</p>
+    </div></div>
+    <div class="flow-step"><div class="flow-num">4</div><div>
+      <h4>尽调资料开放 <span class="flow-tag">NDA</span></h4>
+      <p>签署保密协议后，开放并网答复、土地登记、EPC 审查结论、设备质保等全套资料。可委托您自己的律师·税理士独立核查——我们欢迎。</p>
+    </div></div>
+    <div class="flow-step"><div class="flow-num">5</div><div>
+      <h4>签约</h4>
+      <p>买卖合同＋20 年运维·资产管理合同同时签署。付款分三段：签约时支付定金（手付金）→ 建设节点支付中间款 → 并网交付时支付尾款。</p>
+    </div></div>
+    <div class="flow-step"><div class="flow-num">6</div><div>
+      <h4>建设·并网</h4>
+      <p>建设期间每月向您汇报进度与付款节点，直至并网验收、商业运转开始。</p>
+    </div></div>
+    <div class="flow-step"><div class="flow-num">7</div><div>
+      <h4>运转开始 · 每月中文报告</h4>
+      <p>收益按月归集，报告按月送达。从这里开始，是 20 年的长跑。</p>
+    </div></div>
   </div>
 </div></section>
 
-<section class="knowledge" id="insights"><div class="container">
-  <div class="knowledge-header"><div class="section-label">Insights</div><h2 class="section-title">我们发表研究——因为我们是工程师，而非中间人。</h2></div>
+<!-- ================= FAQ ================= -->
+<section class="sec sec-off" id="faq"><div class="container" style="max-width:780px;">
+  <div class="sec-header" style="margin-bottom:36px;">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">联系前，先看这些。</h2>
+  </div>
+  <dl class="faq-list">
+    <div class="faq-item">
+      <dt>居住在海外的外国人也能购买吗？</dt>
+      <dd>可以。可由个人直接持有，也可通过日本法人持有；架构按税务·签证·继承的需求个案设计，涉税事项由合作税理士提供意见。</dd>
+    </div>
+    <div class="faq-item">
+      <dt>投资规模大概是多少？</dt>
+      <dd>以 2MW/8MWh 标准单元为例，总投资为数亿日元级，因区域、并网条件与设备配置而异。具体项目的价格与模型在推介阶段提供。</dd>
+    </div>
+    <div class="faq-item">
+      <dt>可以贷款吗？</dt>
+      <dd>日本金融机构对非居民的融资渠道有限，目前多数客户以自有资金购置。法人架构下的融资可能性，按个案与金融机构协商。</dd>
+    </div>
+    <div class="faq-item">
+      <dt>万一 ScienceX 经营出现问题，我的电站怎么办？</dt>
+      <dd>电站产权登记在您（或您的法人）名下，与我司的信用完全隔离。运维与聚合商合同的主体均可更换——资产是您的，服务商是可替换的。这也是我们必须持续做好服务的原因。</dd>
+    </div>
+    <div class="faq-item">
+      <dt>电池能撑 20 年吗？</dt>
+      <dd>参考模型已按年约 2% 的衰减与 SOC 5–95% 的保护性运行测算，并以一线厂商长期质保与保险作为兜底。设备寿命不靠乐观假设，靠合同与保险条款。</dd>
+    </div>
+    <div class="faq-item">
+      <dt>收益怎么汇出？税怎么交？</dt>
+      <dd>收益以日元入账您的账户，跨境汇出与两地申报由合作税理士对接说明。日本侧的申报资料（收支明细等）由我们按年度整理提供。</dd>
+    </div>
+    <div class="faq-item">
+      <dt>将来想退出，卖得掉吗？</dt>
+      <dd>可整座转售。坦率地说，储能二级市场仍在发展初期，目前流动性低于成熟的房产市场；我们提供估值与买家撮合支持，转售安排也会写入合同。</dd>
+    </div>
+    <div class="faq-item">
+      <dt>和买公寓相比，最大的区别是什么？</dt>
+      <dd>收益密度与收入来源的多层性是储能的长处；流动性与熟悉度是房产的长处。两者风险结构不同——请先读完上方的风险章节，再和我们聊。</dd>
+    </div>
+  </dl>
+</div></section>
+
+<!-- ================= INSIGHTS ================= -->
+<section class="sec sec-white" id="insights"><div class="container">
+  <div style="margin-bottom:40px;">
+    <div class="section-label">Insights</div>
+    <h2 class="section-title">我们发表研究——因为我们是工程师，而非中间人。</h2>
+  </div>
   <div class="knowledge-grid">
     <a target="_top" href="/zh-column-revenue" class="k-card"><div class="k-num">REVENUE</div><h4>电池储能的三大收益来源</h4><p class="k-desc">电力现货（JEPX）、辅助服务与容量——日本储能收益堆叠的结构。</p></a>
     <a target="_top" href="/zh-column-balancing-market" class="k-card"><div class="k-num">MARKET DESIGN</div><h4>以五项商品理解日本辅助服务市场</h4><p class="k-desc">一次至三次调整力，以及在线与离线并网如何改变收益。</p></a>
-    <a target="_top" href="/zh-column-grid-rules" class="k-card"><div class="k-num">REGULATION · 2026</div><h4>2026 年并网制度的转折</h4><p class="k-desc">“卡位”对策改变了什么，以及确定案源为何重要。</p></a>
+    <a target="_top" href="/zh-column-grid-rules" class="k-card"><div class="k-num">REGULATION · 2026</div><h4>2026 年并网制度的转折</h4><p class="k-desc">"卡位"对策改变了什么，以及确定案源为何重要。</p></a>
   </div>
   <a target="_top" href="/zh-primer" class="k-more" style="margin-right:20px;">初次了解？先看入门指南 →</a>
   <a target="_top" href="/zh-knowledge" class="k-more">查看全部洞察 →</a>
 </div></section>
 
-<section class="strengths" id="about" style="background:var(--off-white);"><div class="container">
-  <div class="strengths-header"><div class="section-label">About</div><h2 class="section-title">工程主导，独立为本。</h2>
-  <p class="section-subtitle">ScienceX 是专注于日本电网级储能的独立专业公司——发掘、组成并运营确定案源。由中岛晋也博士（工学博士）创办并领军，董事会成员包括大井俊夫（昭和电工前董事，CTO）与唐泽义永（帝人前副社长，CFO）。我们与任何电池设备商或 EPC 皆无资本关系——因此在设备选型与成本结构上没有利益冲突。</p>
-  <div style="text-align:center;margin-top:32px;">
+<!-- ================= ABOUT ================= -->
+<section class="sec sec-off" id="about"><div class="container">
+  <div class="sec-header">
+    <div class="section-label">About</div>
+    <h2 class="section-title">工程主导，独立为本。</h2>
+    <p class="section-subtitle">ScienceX 是专注于日本电网级储能的独立专业公司——发掘、审查、组建并运营储能资产。由中岛晋也博士（工学博士）创办并领军，董事会成员包括大井俊夫（昭和电工前董事，CTO）与唐泽义永（帝人前副社长，CFO）。我们与任何电池设备商或 EPC 皆无资本关系——因此在设备选型与成本结构上，没有利益冲突。</p>
+  </div>
+  <div style="text-align:center;">
     <img src="/img/nakashima.png" alt="中岛晋也博士 创办人兼代表董事" loading="lazy" style="width:280px;max-width:74%;height:auto;border-radius:10px;box-shadow:0 18px 44px rgba(27,42,74,0.20);display:block;margin:0 auto;">
     <div style="margin-top:20px;font-family:var(--font-serif);font-size:1.2rem;font-weight:600;color:var(--navy);">中岛晋也 博士</div>
     <div style="font-size:0.82rem;color:var(--text-secondary);letter-spacing:0.5px;">创办人兼代表董事 · 工学博士（Ph.D.）</div>
     <a href="https://www.linkedin.com/in/dr-shinya-nakashima" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:0.82rem;color:var(--gold);text-decoration:none;font-weight:500;">LinkedIn ↗</a>
     <p style="text-align:center;font-size:0.8rem;color:var(--text-light);max-width:620px;margin:28px auto 0;line-height:1.75;">于日本（东京）注册。董事会：昭和电工前董事（CTO）、帝人前副社长（CFO）。与任何电池厂商或 EPC 均无资本关系。</p>
-  </div></div>
+  </div>
 </div></section>
 
-<!-- FAQ (§5-1) -->
-<section id="faq" style="padding:80px 0;background:var(--off-white);">
-  <div class="container" style="max-width:780px;">
-    <div style="text-align:center;margin-bottom:36px;">
-      <div class="section-label">FAQ</div>
-      <h2 style="font-family:var(--font-serif);font-size:clamp(1.5rem,3.2vw,2rem);font-weight:600;color:var(--navy);line-height:1.5;margin-top:8px;">联系前，先看这些</h2>
+<!-- ================= WECHAT BAND ================= -->
+<section class="wechat-band" id="wechat"><div class="container">
+  <div class="wechat-band-inner">
+    <div class="wechat-band-text">
+      <div class="section-label">微信咨询</div>
+      <h2 class="wechat-band-title">用微信直接联系我们</h2>
+      <p>比邮件更快。扫描或长按识别右侧二维码添加，告诉我们您的预算规模与意向区域，我们将于工作日（JST 9:00–18:00）回复，并按需提供完整收益模型与《风险说明书》。</p>
+      <a target="_top" href="/zh-contact" class="btn-secondary">或填写保密咨询表 →</a>
     </div>
-    <dl style="margin:0;">
-      <div style="border-top:1px solid var(--border);padding:22px 2px;">
-        <dt style="font-weight:600;color:var(--navy);font-size:1rem;margin-bottom:8px;">投资是否需要在日本设立法人？</dt>
-        <dd style="margin:0;font-size:0.92rem;color:var(--text-secondary);line-height:1.85;">我们服务进入日本市场的外国投资人；持有结构按个案安排，于 NDA 下商讨。</dd>
-      </div>
-      <div style="border-top:1px solid var(--border);padding:22px 2px;">
-        <dt style="font-weight:600;color:var(--navy);font-size:1rem;margin-bottom:8px;">究竟转让什么？</dt>
-        <dd style="margin:0;font-size:0.92rem;color:var(--text-secondary);line-height:1.85;">已确定并网的项目权利——并网答复、确定费用、已取得土地——及尽调所需技术文档。</dd>
-      </div>
-      <div style="border-top:1px solid var(--border);padding:22px 2px;">
-        <dt style="font-weight:600;color:var(--navy);font-size:1rem;margin-bottom:8px;">如何合作／如何计费？</dt>
-        <dd style="margin:0;font-size:0.92rem;color:var(--text-secondary);line-height:1.85;">我们作为您在日本的案源开发与执行伙伴；商业条件于保密下议定。</dd>
-      </div>
-      <div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:22px 2px;">
-        <dt style="font-weight:600;color:var(--navy);font-size:1rem;margin-bottom:8px;">流程与时程？</dt>
-        <dd style="margin:0;font-size:0.92rem;color:var(--text-secondary);line-height:1.85;">初评（teaser）→ NDA → 开放案源 → 共同开发。时程视项目而定，直接沟通。</dd>
-      </div>
-    </dl>
+    <div class="wechat-band-qr">
+      <img src="/img/wechat-qr.png" alt="ScienceX 中岛晋也 微信二维码" width="180" height="180" loading="lazy">
+      <span>扫码添加</span>
+    </div>
   </div>
-</section>
+</div></section>
 
+<!-- ================= CTA ================= -->
 <section class="cta" id="contact"><div class="container">
-  <h2>展开一场保密的对话。</h2>
-  <p>告诉我们您的投资方针——地区、投资规模、持有偏好。<br>案件细节将于保密协议（NDA）下提供。</p>
+  <h2>从一次坦诚的对话开始。</h2>
+  <p>先聊风险，再聊收益。告诉我们您的预算规模、意向区域与持有方式，<br>我们将推介通过审查的项目，并附完整收益模型与书面风险说明。</p>
   <a target="_top" href="/zh-contact" class="btn-primary">申请保密简报 →</a>
   <p style="margin-top:20px;font-size:0.75rem;color:rgba(255,255,255,0.35);">s@scix.co.jp ｜ +81 3 6403 4095 ｜ 日本·东京</p>
+</div></section>
+
+<!-- ================= LEGAL ================= -->
+<section class="legal-band"><div class="container">
+  <p>【重要事项】本页面所载收益相关数字，均为合作方提供的、基于一定前提假设的参考模型值，旨在帮助理解系统用储能事业的收益与费用结构，不构成对特定投资的劝诱·推荐，亦不保证将来的收益性。实际收益将因市场环境、运营方式、聚合商策略、电力制度变更及其他外部因素而大幅变动。储能电站的购置属于实物资产交易，最终决策请您在充分理解相关风险的基础上自行作出。</p>
+  <p>签证（在留资格）的审批由日本出入国在留管理厅依个案判断，本公司不对其结果作任何保证。涉及税务·法律事项，请向税理士·律师等专业人士确认。</p>
 </div></section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.contentWindow.min.js"></script>
