@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:580px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+pre{background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);padding:14px 18px;margin:18px 0;font-family:'Menlo','Monaco','Courier New',monospace;font-size:.86em;line-height:1.7;color:var(--navy);white-space:pre-wrap;border-radius:0 4px 4px 0;overflow-x:auto}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:560px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif SC',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+
+/* Premise grid */
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+
+/* Differentiator grid */
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+
+/* Comparison cards */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.compare-card ul{margin:8px 0 0;padding-left:18px;font-size:.84em;line-height:1.8}
+.compare-card li{margin-bottom:4px}
+
+/* Stat row */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif SC',serif;font-size:1.6em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+
+/* Schedule list */
+.sched-list{margin:28px 0}
+.sched-item{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:16px 18px;background:var(--white);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;margin-bottom:10px}
+.sched-item .s-date{font-family:'Noto Serif SC',serif;font-size:.95em;font-weight:700;color:var(--accent);line-height:1.4}
+.sched-item .s-date .sd-sub{display:block;font-size:.75em;color:var(--text-light);font-weight:400;margin-top:2px}
+.sched-item h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 4px}
+.sched-item p{font-size:.85em;line-height:1.85;margin:0;color:var(--text)}
+.sched-item.past{border-left-color:var(--text-light);opacity:.75}
+.sched-item.past .s-date{color:var(--text-light)}
+
+/* Checklist */
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+
+/* Sources box */
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.85}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:5px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .diff-grid{grid-template-columns:1fr}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .sched-item{grid-template-columns:1fr;gap:6px}
+}
+</style>
+
+<title>“向EPC下单就能建成储能电站”并非如此 — 外国资本投资日本高压电网侧储能电站前需跨越的关口 | ScienceX</title>
+<meta name="description" content="海外资本正开始把日本的高压电网侧储能电站（2MW/8MWh级）视为可收购的标的。然而一旦真正着手，第一道墙往往不是收益、也不是选址，而是“资金能否汇入日本”。从出资国的对外投资闸门、作为对内直接投资的外汇法、稀缺的并网额度、权利转让与完工交付、设备的出口（JC-STAR与美国清单），到重要土地等调查法与税务，本文以一手资料逐一梳理。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-foreign-investor">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-foreign-investor">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-foreign-investor">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-foreign-investor">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-foreign-investor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="“向EPC下单就能建成储能电站”并非如此 — 外国资本投资日本高压电网侧储能电站前需跨越的关口｜ScienceX">
+<meta property="og:description" content="海外资本正开始把日本的高压电网侧储能电站视为可收购的标的。然而一旦真正着手，第一道墙往往不是收益、也不是选址，而是“资金能否汇入日本”。两道资本闸门、外汇法、并网额度、权利转让与完工交付、重要土地等调查法与税务，本文以一手资料逐一梳理。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-foreign-investor">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="“向EPC下单就能建成储能电站”并非如此 — 外国资本投资日本高压电网侧储能电站前需跨越的关口｜ScienceX">
+<meta name="twitter:description" content="第一道墙往往是“资金能否汇入日本”。两道资本闸门、外汇法、并网额度、权利转让与完工交付、重要土地等调查法与税务，以一手资料梳理。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-06-15">
+</head>
+<body>
+<script src="/header.js"></script>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 24</span>
+      <span class="header-tag">外国资本</span>
+      <time class="header-date" datetime="2026-06-15">2026.06.15</time>
+    </div>
+    <h1>"向EPC下单，储能电站就能建成"<br>并非如此 —<br>外国资本投资<em>日本高压电网侧储能电站</em><br>前需跨越的关口</h1>
+    <p class="header-desc">日本的高压电网侧储能电站（2MW/8MWh级）正日益吸引海外资本——包括来自中国的资本——的关注，根源在于收益的可预见性。但一旦真正着手收购，绊住脚步的往往不是设备选型，而是日本特有的制度与手续：把资金调出本国阶段的规制、作为对内直接投资的外汇法、并网额度与土地、设备选型给未来转售留下的影响，以及收购架构所涉的税务。本文沿着海外投资者直至完成收购所要经过的顺序，依一手资料逐一梳理这些环节。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/zh-knowledge" class="back-link">← 返回知识库列表</a>
+
+<p>日本的高压电网侧储能电站（2MW/8MWh级），正日益受到海外资本——包括来自中国的资本——的关注。吸引力的根源在于收益的可预见性。在全球许多市场，储能业务的盈利高度暴露于价格波动之中；而在日本，容量市场、供需调整市场与日本电力交易所（JEPX）这三类收益来源，是以制度形式被确立下来的。越是熟悉电池与成本结构的投资者，越会被这种"易于测算"所吸引，把目光投向日本。</p>
+
+<p>然而真正着手收购时，占用他们时间的并不是设备选型。从本国汇出资金阶段的规制、作为对内直接投资的外汇法、长期紧张的并网额度与用地、设备选型给未来转售留下的影响，以及收购架构所涉的税务——日本特有的制度与手续，其分量要重得多。本文沿着海外投资者直至完成收购所要经过的顺序，以一手资料逐一追溯这些环节。</p>
+
+<p>在商谈的入口，经常被提及的一个问题是："只要委托日本的EPC，储能电站就能建起来吗？"就设备的安装而言，EPC会确实地履行其职责。但一座储能电站要作为一项事业真正运转起来，除设备之外还需要四个条件：接入电网的容量额度、承载该额度的土地、外国资本进入日本电力事业时所涉的规制，以及把资本调出本国的路径。EPC所承接的，仅仅是其中"设备"这一部分。</p>
+
+<p>在这些条件中，最先发挥作用的是资金的路径。若出资方所在国实施资本管理，那么把本国资金正规地注入日本法人的通道，未必一开始就是敞开的。不过，只要在选定标的之前先把这一处规划到位，后续从选物到最终交割便会顺畅得多——而对于来自实施资本管理国家（包括中国）的投资者，这条路径同样是清晰、可行的。本文是一张"收购前需跨越的关口"地图，并不涉及EPC的选择或下单流程本身。</p>
+
+<div class="data-box">
+<div class="db-head">本文涵盖范围</div>
+<dl class="premise-grid">
+  <div><dt>对象</dt><dd>高压储能电站<span class="unit">2MW / 8MWh级</span></dd></div>
+  <div><dt>交易对象</dt><dd>权利转让<span class="unit">/ 完工交付</span></dd></div>
+  <div><dt>主线</dt><dd>两道资本闸门<span class="unit">＋市场·土地·税</span></dd></div>
+  <div><dt>目标读者</dt><dd style="font-size:13px">海外投资者</dd></div>
+  <div><dt>制度参照时点</dt><dd>2026.06<span class="unit">时点</span></dd></div>
+  <div><dt>立场</dt><dd style="font-size:13px">一手资料主义</dd></div>
+</dl>
+</div>
+
+<p>以下沿着这些关口依次追溯。排列的顺序是有意义的：若第一道资金路径（①）走不通，再怎么细抠后面的环节，也无法向前推进。</p>
+
+<div class="diff-grid">
+  <div class="diff-card"><span class="diff-num">关口 01</span><h4>汇出闸门：资金能否汇出</h4><p>若出资方所在国设有对外投资规制，这便是第一道关口。来自规制较弱的国家——如美国、欧盟、新加坡、香港——几乎可以顺畅通过，下一道外汇法才是实质上的入口。</p></div>
+  <div class="diff-card"><span class="diff-num">关口 02</span><h4>汇入闸门：外汇法</h4><p>电气业属于指定行业，外国资本的收购很可能成为事前申报的对象。另一方面，核心行业仅限于5万kW以上，2MW级预计并不在列；持有的"载体"不同，手续的轻重也随之分化。</p></div>
+  <div class="diff-card"><span class="diff-num">关口 03</span><h4>稀缺的并网额度与土地</h4><p>仅接入申请急剧增长，实际接入电网的容量却极为有限。2026年的规律强化进一步抬高了新取得的门槛，额度已掌握在先行占住的事业者一侧。</p></div>
+  <div class="diff-card"><span class="diff-num">关口 04</span><h4>权利转让，还是完工交付</h4><p>受让的是开发阶段的权利束，还是已建成的在运资产？是否有确定的规格、尽职调查的厚度、陈述与保证的分量，皆因此而异，宜在最初就辨明。</p></div>
+  <div class="diff-card"><span class="diff-num">关口 05</span><h4>设备给出口留下的影响</h4><p>JC-STAR★1的方针是，自技术要求修订之后才向电网申请的项目方被要求。与之并行，美国的若干清单作为地缘政治因素叠加其上，二者都会在未来的转售中发挥作用。</p></div>
+  <div class="diff-card"><span class="diff-num">关口 06</span><h4>土地与税</h4><p>重要土地等调查法的申报、股息的预提征收、出口处对非居民的课税。立地、设备、架构的取法不同，义务的射程也随之变化。</p></div>
+</div>
+
+<h2>01 — 一台装置的两副面孔，与"高压"这个载体</h2>
+
+<p>电网侧储能电站是一台装置，却有两副面孔。某一瞬间它作为从电网取电的<strong>用电方</strong>而存在，下一瞬间又变为向电网送电的<strong>电站</strong>。作为投资对象，最先要确认的，是这台装置所栖身的"载体"——也就是受电电压的区分。</p>
+
+<p>日本的并网，按受电电压划分区段。输出50kW以上、2,000kW以下、以6.6kV受电的，属于"高压"；2,000kW以上则为"特别高压"。同样说"2MW"，要把它留在高压一侧，就需要把输出抑制在2,000kW以下（实务上为1,990kW前后）；一旦恰好达到2,000kW，便进入特别高压一侧，设备与手续都要再重一级。顺带一提，8MWh即8,000kWh，在电网侧储能里属于较小的一类。（日本的"高压"6.6kV，大体相当于中国配网中的10kV一档；此处沿用日本的制度定义。）</p>
+
+<p>高压的另一个好处，是制度上的手续要轻一级。在电气事业法中，2022年修订把1万kW（10MW）以上电网侧储能电池的放电定位为"发电事业"，但2MW单体达不到这一门槛，并不构成发电事业的申报。工程计划申报与使用前自主检查，也大体在输出10MW以上、或容量8万kWh（80,000kWh）以上时才被要求，2MW/8MWh在两项上都处于较轻的一侧。电气主任技术者方面，若输出在5,000kW以下且电压在7,000V以下，则可委托外部承担。</p>
+
+<p class="source">资料来源：关西电力"何谓并网"（系统区分的说明）／资源能源厅"关于发电事业申报义务的Q&A""电网侧储能电池的现状与课题"（将1万kW以上电网侧储能电池的放电定位为发电事业）／经济产业省 储能电站保安规制资料（2026年6月确认）。</p>
+
+<h2>02 — 三个收益来源，与价格保证的缺位</h2>
+
+<p>高压储能电站的收益，无法在单一市场内闭合。基本做法是把容量市场、供需调整市场与JEPX三个市场组合起来运行，各自所购买的价值并不相同。</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">12,388–15,112<span class="unit">日元/kW</span></span><span class="lbl">容量市场主拍卖（FY2029）<br>各区域成交价</span></div>
+  <div class="stat-cell"><span class="val">供给不足<span class="unit">为常态</span></span><span class="lbl">一次调整力<br>供需调整市场的供给不足态势</span></div>
+  <div class="stat-cell"><span class="val">0.01<span class="unit">日元/kWh</span></span><span class="lbl">晴日白天的JEPX价格<br>放电机会之源（套利）</span></div>
+</div>
+
+<p>容量市场交易的是"kW（供给能力）"。最新一轮（面向2029年度，2026年1月20日公布）的成交价，在供需紧张的区域较高，创下历史最高水平；但逐年的波动很大，近年也有几轮停留在数千日元区间。供需调整市场处理的是"ΔkW（调整力）"，其中一次调整力持续供给不足。不过，一次、二次调整力①的上限价格已从19.51日元/ΔkW·30分下调至15日元（自2026年3月的交易起适用），并已提出方针：若竞争状况未见改善，将分阶段下调至10日元、7.21日元。在JEPX上去博取的，是"kWh"的价差。晴日白天会沉至0.01日元/kWh，傍晚则跳升至20日元以上。这一价差，正是市场套利型（merchant）运行的收益之源。</p>
+
+<p class="source">资料来源：OCCTO 容量市场主拍卖成交结果（对象实需供年度2029年度，2026年1月20日公布）／制度研讨工作部会（供需调整市场上限价格，第110回·2026年1月）／EPRX／JEPX现货市场数据（2026年6月确认）。一次调整力的供给不足态势、JEPX价差，含基于公开资料的梳理。</p>
+
+<p>海外投资者容易期待的，是20年的固定收入。日本也设有长期脱碳电源拍卖（LDA），中标即可获得长期固定收入。然而<strong>LDA中储能电池的最低应拍容量为1万kW（10MW）</strong>，高压的2MW连应拍的入口都够不到。容量市场主拍卖虽可参与，但在以往的主拍卖中，储能电池的应拍仅占整体的0.05%（2023年度，约8万kW）；因此<strong>高压储能电站的收益，是以无价格保证的市场套利型运行为前提</strong>的。网络上流传的"预期IRR"也是带有前提假设的试算，公开信息中并不存在可供横向比较的基准值。若把外形的数字照面值接受，便会在入口处栽跟头。</p>
+
+<p class="source">资料来源：OCCTO"长期脱碳电源拍卖 制度细则"（最低投标容量1万kW）／资源能源厅"电网侧储能电池的现状与课题"（2023年度主拍卖中储能电池应拍约8万kW＝0.05%）（2026年6月确认）。</p>
+
+<h2>03 — 关口① 把资金调往境外的路径（视出资方而定）</h2>
+
+<p>从这里开始，进入只对外国资本生效的关口。能否把资本调往境外，取决于出资方所在国的制度；最先发挥作用的关口，也会因出资方的类型而互换。下表即是这一对应关系。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>出资方类型</th><th>对外投资的自由度</th><th>实务上的"第一道关口"</th></tr></thead>
+<tbody>
+<tr><td class="em">美国·欧盟</td><td>几乎自由</td><td>日本的外汇法（关口②）为实质入口</td></tr>
+<tr><td class="em">新加坡·香港</td><td>自由（常用作跨境投资的控股地）</td><td>同上</td></tr>
+<tr><td class="em">实施资本管理的国家</td><td>个人的直接汇款受资本项目限制；需走以企业为主体的ODI等正规手续</td><td>需先行规划自本国流出资本的方案</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>从汇出闸门敞开的国家——美国、欧盟、新加坡、香港等——前来时，这里几乎可以顺畅通过，实质上的第一道关口便是接下来的外汇法。需要细致规划的，是来自实施资本管理国家的情形。以制度记录最为完备的中国为例，框架其实十分清晰：个人每年5万美元的便利化购汇额度，限于旅游、留学、医疗等经常项目，不适用于对外直接投资这类资本项目（国家外汇管理局）；规范对外投资（ODI）的国家发改委第11号令，将投资主体界定为"企业"，并明确不适用于境内自然人的直接对外投资；个人借助境外SPV的37号文登记，则以返程投资（投回境内）为前提的框架，并未涵盖仅以取得海外资产为目的的个人SPC。<strong>"个人的直接对外投资在制度上尚未敞开"这一结构，并非某一国所独有，而是实施资本管理的国家普遍共通的特征</strong>。换言之，对于这一类型的出资方，正确的顺序是——在选定标的之前，先把资金的路径搭好。需要说明的是，中国的对外投资制度本身是成熟而规范的，相应的正规手续也有清晰的路径可循。</p>
+
+<div class="data-box">
+<div class="db-head">从实施资本管理的国家合法汇出资金的路径（实务上主要为这三种）</div>
+<p style="margin:0 0 6px"><strong>1. 利用既有的离岸资产</strong> — 运用已经持有于境外的资金或法人。</p>
+<p style="margin:0 0 6px"><strong>2. 境外SPV登记</strong> — 不过，多以返程投资（投回境内）的结构为前提。</p>
+<p style="margin:0"><strong>3. 企业ODI</strong> — 通过以企业为主体的正规手续（向主管部门备案·核准＋外汇登记等）。规模较小者，省级主管部门备案即可，2MW级在规模上并不构成障碍。所需时间大体为2〜3个月。</p>
+<p class="source">资料来源（实施资本管理国家对外投资规制之一例）：国家外汇管理局《个人外汇管理办法实施细则》／国家发改委《企业境外投资管理办法》（第11号令）／汇发〔2014〕37号（2026年6月确认）。旨在敞开个人对外直接投资的制度（如QDII2）目前尚处提案阶段，正式实施细则尚未公布。各出资方需逐案对照本国规定。</p>
+</div>
+
+<p>能走哪条路径，因投资者、因出资方而异。仅凭公开资料尚不足以确定，需要逐条对照出资方所在国的规定来搭建方案。只要先把这道关口走通，从选定标的到最终交割便会水到渠成；反之，若跳过这一步径直进入选址选物，即便商谈达成，也可能止步于最终交割。</p>
+
+<h2>04 — 关口② 外汇法下的对内直接投资（指定行业，但很可能为非核心）</h2>
+
+<p>资金的路径一旦立住，接下来等待的便是日本一侧的外汇法（对内直接投资）。这是不问出资方所在国、对外国投资者普遍生效的关口。电网侧储能电站<strong>属于"指定行业"，很可能成为事前申报的对象</strong>。不过就规模而言，<strong>很可能并不属于"核心行业"</strong>；同为事前申报，是否核心，会令豁免的用法与审查的分量有所不同。</p>
+
+<p>首先看是否属于指定行业。电气业，出于国家安全等考量，被列为需事前申报的"指定行业"。告示的文字里并未见到"蓄电"一词，但经济产业省对主管行业的梳理，把以自行维持·运用的电气工作物（发电用或蓄电用）进行发电·放电的事业所纳入"发电业"，且未设输出门槛。条文虽无明文，运用上仍按发电业被收纳其中。一旦该当指定行业，外国投资者的收购便成为事前申报（外汇法第27条）的对象，其阈值在上市股票为表决权1%以上，非上市股票的取得则自1股起即该当。审查原则上为30日，若涉及国家安全论点最长可延至5个月，因此实务上需要<strong>把交割·尾款结算（closing）安排在外汇法批准之后</strong>。</p>
+
+<p>其次看其是否属于核心行业。规定核心行业的告示，把电气业限定列举为"一般输配电事业者、输电事业者，以及发电事业者（仅限拥有最大输出5万千瓦以上电站者）"。2MW级单体远不及这一5万kW，很可能被梳理为"虽属指定行业，但非核心"。是否核心，影响的是豁免制度：核心行业的事前申报豁免适用范围受限，对非上市公司的投资不适用核心行业的事前申报豁免。若不属于核心，则不及于上述附加限制；但非上市取得这一形式没有豁免一点，在设计"载体"时宜留意。</p>
+
+<div class="warning-box">
+不过，经营电网侧储能电站的SPC在告示上是否被归类为"电气业（发电业）"，以及如何与核心行业的"发电事业者（5万kW以上）"相衔接，最终须以告示及向主管省厅（经济产业省）的问询来确定。<span style="color:#b45309;font-weight:700">⚠️</span> 本文所呈现的是"电气业属于指定行业、从一开始就站在事前申报的台面上／就规模而言很可能非核心"这一图景，并非断定"必然需要事前申报""必然非核心"。
+</div>
+
+<p>持有的"载体"不同，处理也随之变化。<strong>是以自行运营的日本法人（株式会社）持有，还是以匿名组合（TK-GK型）被动出资</strong>，申报的分量由此分化。匿名组合的组合员在商法上不能从事营业者的业务执行、也不能代表（商法第536条），故在形式上被作为被动投资对待。但<strong>"只要是TK-GK就一律无需申报"乃是误解</strong>，处理会随对经营介入的程度与制度的动向而变化。以株式会社持有，还是以TK-GK构架——这一选择，左右着外汇法入口的轻重。</p>
+
+<div class="compare-grid">
+  <div class="compare-card with-special">
+    <span class="cc-tag">直接持有</span>
+    <h4>株式会社</h4>
+    <p>外国资本设立日本法人，自行持有·运营储能电站。作为对指定行业的对内直接投资，须正面面对事前申报。运营的自由度较高，但非上市取得没有豁免。</p>
+  </div>
+  <div class="compare-card no-special">
+    <span class="cc-tag">被动投资</span>
+    <h4>匿名组合（TK-GK）</h4>
+    <p>因可被作为不介入经营的被动出资对待，外汇法的负担有时会较轻。但另一方面，在运营介入程度、出口与税务上会产生别的制约（并非一律无需）。</p>
+  </div>
+</div>
+
+<p class="source">资料来源：财务省"规定指定行业之告示／规定核心行业之告示"别表第十七号（中分类33 电气业）／经济产业省"关于对内直接投资审查制度""关于主管行业的FAQ"（以自行维持·运用的电气工作物进行发电·放电该当发电业）／日本银行"外汇法Q&A（对内直接投资·特定取得篇）"／商法第535条·第536条（2026年6月确认）。</p>
+
+<h2>05 — 关口③ 稀缺的是并网额度与土地</h2>
+
+<p>在日本立起一座储能电站时，最难到手的既不是设备，也不是施工力，而是<strong>接入电网的额度，与承载它的土地</strong>。</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">约2,400<span class="unit">万kW</span></span><span class="lbl">电网侧储能电池的接入合同申请<br>（2025年9月末）</span></div>
+  <div class="stat-cell"><span class="val">约3.9<span class="unit">倍</span></span><span class="lbl">同比<br>申请容量的增幅</span></div>
+  <div class="stat-cell"><span class="val">约64<span class="unit">万kW</span></span><span class="lbl">已并网（2025年12月末）<br>相对申请极为有限</span></div>
+</div>
+
+<p>截至2025年9月末，电网侧储能电池的接入合同申请已达约2,400万kW，同比增长约3.9倍（同期，光伏约为1.1倍）。其后增势延续，2025年12月末申请已膨胀至约3,000万kW，接入检讨的受理则达约1亿7,200万kW。另一方面，实际接入电网的容量，在同一12月末也仅约64万kW。需求显然集中在电网容量的一侧。</p>
+
+<p>因应这一拥堵，自2026年4月1日起，接入合同申请时的保证金，已从概算工程费负担金的5%倍增至10%，工程费负担金的分期付款也严格化为首期50%以上（限于电网侧储能电池的暂行措施）。与此同时，自2026年1月起，接入检讨与合同申请两道流程都须提交登记簿等确认结果文件，合同申请还须提交证明土地使用权原的文件。没有土地佐证、仅占住额度的持有方式，已不再可行。这些都是在并网规则的全面修订定型之前的暂行措施，但新取得额度的门槛，仍在持续抬高。</p>
+
+<p>因此，海外投资者即便向日本的EPC下单"建一座储能电站"，EPC一侧也未必握有可售的并网额度。额度，掌握在已经将其确保下来的事业者手中。若忽视额度的稀缺而贸然行动，便会在此处栽跟头。</p>
+
+<p class="source">资料来源：资源能源厅 次世代电力系统WG 资料1-1（第7回·2026年2月9日：接入合同申请约2,400万kW·同比约3.9倍）／第9回WG（2025年12月末时点：接入合同申请约3,000万kW·接入检讨约1亿7,200万kW·已并网约64万kW）／第6回WG（2025年12月24日）"关于系统接入手续的规律强化"／OCCTO 保证金算定方法的修订（2026年6月确认）。已并网·接入检讨受理之值，因季度·出处而有幅度。</p>
+
+<h2>06 — 关口④ 权利转让与完工交付</h2>
+
+<p>"买一座储能电站"这句话，有两层含义。一层是受让并网额度、土地、接入合同申请等开发阶段的权利束，即"权利转让"；另一层是受让拥有确定规格的在运资产，即"完工交付"。两者在尽职调查的厚度、陈述与保证的分量上大相径庭。外国买方首先要辨明的，正是自己将要拿到手的，究竟是一束权利，还是一项确定的资产。</p>
+
+<div class="compare-grid">
+  <div class="compare-card with-special">
+    <span class="cc-tag">完工交付（成品买卖）</span>
+    <h4>规格确定的在运资产</h4>
+    <p>取得的是kWh、PCS额定、并网条件均已确定的设备。陈述与保证较重，尽职调查及于设备、性能与合同承接。</p>
+    <ul>
+      <li>技术基准符合·使用前自主检查的确认</li>
+      <li>并网完成的确认</li>
+      <li>交付时并网合同上地位的转移</li>
+    </ul>
+  </div>
+  <div class="compare-card no-special">
+    <span class="cc-tag">权利转让（并网额度·土地）</span>
+    <h4>开发途中的权利束</h4>
+    <p>尚不存在确定的设备规格，衡量进度的"深度"成为尽职调查的核心。若套用成品的标准做尽职调查，会落不到该衡量之物上。</p>
+    <ul>
+      <li>接入合同的进度深度（推进到何处）</li>
+      <li>开发许可·农地转用的阶段</li>
+      <li>工程计划申报等手续的进度</li>
+    </ul>
+  </div>
+</div>
+
+<p>完工交付中尤需留意的，是建设业法的处理方式。建设业法第24条规定，不问名义，凡以取得报酬、以完成建设工程为目的而缔结的合同，均<strong>视为</strong>建设工程的承揽合同。即便冠以"买卖"之名，若合同的实态被评价为以工程完成为目的，也可能被视为承揽。采用定金、按完工进度的中间付款、交付时付尾款这类建构，或订货方的指挥监督越强，承揽的性质便越浓。反之，若卖方以自己的账户完成、再转让建成的资产，则可被梳理为买卖。<strong>若卖方在不持有建设业许可的情况下，反复进行个别规格、EPC色彩较强的完工交付，被重构为承揽的风险便会上升</strong>。<span style="color:#b45309;font-weight:700">⚠️</span></p>
+
+<p>交付之际，须承继并网合同上的地位（伴随一般输配电事业者同意的名义变更），必要的申报也一并承接。反复转售土地或借地权的行为是否该当房地产交易业，在自行租赁的情形下原则上属于适用除外，但反复的转让作为需另行检讨的论点仍然留存。<span style="color:#b45309;font-weight:700">❓</span></p>
+
+<p class="source">资料来源：建设业法第24条·第3条·第22条（e-Gov）／国土交通省"建设工程的承揽合同及其规律"／电气事业法第27条之29（地位承继）／房地产交易业法第2条（2026年6月确认）。交易对象·并网额度·合同结构的详情见COLUMN 09·19·21。</p>
+
+<h2>07 — 关口⑤ 设备给出口留下的影响（JC-STAR与美国清单）</h2>
+
+<p>设备的选定，并不只是价格、交期与规格之事。在未来出售这项资产时——也就是出口的局面里——有两条轴会发挥作用：日本的网络认证JC-STAR，与美国的采购·出口规制。二者属于不同体系的两套制度，都宜在收购的入口处过目。</p>
+
+<p>其一是JC-STAR。这是由经济产业省与IPA推行的IoT安全合规制度：★1、★2为自我符合性声明，★3、★4基于第三方评估，IPA公开合规产品清单。<strong>这套制度的设计是透明而公平的——★1、★2采自我声明方式，门槛较低，对包括中国厂商在内的所有制造商一视同仁，本质上是一套面向全行业的共同规则，而非针对特定国家设备的壁垒。</strong>电网导则研讨会（第20回·2025年12月）确定的方针是：在2027年4月并网技术要求的修订中，特别高压·高压的光伏与储能须使用取得★1的设备（低压50kW以下为2027年10月）。这里真正发挥作用的，是在技术要求修订之后才新申请并网（接入合同申请）的项目，而非已在运行的设备、也不是运行开始的时点。<strong>分界点在于"何时提出申请"</strong>。适用对象是具备通信功能的控制系统（PCS、EMS等）中采用IP通信的设备，储能电池的电芯·电池包本身并不包含在内。需要说明的是，目前尚处方针决定的阶段，向各一般输配电事业者并网技术要求的正式纳入（公布·施行），在本文执笔时点尚未完成。</p>
+
+<div class="sched-list">
+  <div class="sched-item past">
+    <div class="s-date">2025.12<span class="sd-sub">方针决定</span></div>
+    <div>
+      <h4>电网导则研讨会（第20回）</h4>
+      <p>确定方针：在2027年4月并网技术要求的修订中，必须使用★1合规产品。适用于修订之后才提出合同申请的新项目（并非运行开始的时点）。</p>
+    </div>
+  </div>
+  <div class="sched-item">
+    <div class="s-date">2027.04<span class="sd-sub">预定适用（特高·高压）</span></div>
+    <div>
+      <h4>特高·高压并网的必须化（预定）</h4>
+      <p>技术要求修订之后才提出合同申请的特高·高压项目，预计将以使用★1合规产品为前提。条文的公布·施行有待追踪。</p>
+    </div>
+  </div>
+  <div class="sched-item">
+    <div class="s-date">2027.10<span class="sd-sub">预定适用（低压）</span></div>
+    <div>
+      <h4>低压50kW以下的必须化（预定）</h4>
+      <p>低压一侧考虑到流通库存的消化，预定延后半年适用。</p>
+    </div>
+  </div>
+</div>
+
+<div class="info-box">
+这是"方针决定"，而非"条文公布"。<span style="color:#b45309;font-weight:700">⚠️</span> 并网技术要求由各一般输配电事业者各自制定，向其中的正式纳入＝具拘束力的公布·施行，在本文执笔时点尚未完成。此外，主要海外品牌的自有品牌产品是否已取得★1，仅凭IPA的公开记录尚无法确定。本文<strong>仅记述为"尚无法确认"</strong>，既不断定已取得，也不断定未取得——许多全球领先厂商正在积极推进合规，我们对此保持中立而审慎的记述。<span style="color:#b45309;font-weight:700">❓</span>
+</div>
+
+<p>其二是美国的若干清单。美国国防部的1260H（中国军事企业清单）于2025年1月纳入宁德时代（CATL），2026年6月的更新将对象扩大至188家，比亚迪（BYD）、中创新航（CALB）、亿纬锂能（EVE Energy）等电池相关企业亦在其列。<strong>需要首先明确的是：这些是美国本国管辖范围内的措施，并不会限制相关设备在日本国内的使用——在日本，这些产品的运行与采购不受其影响。</strong>其效力体现在美国境内的采购限制：美国国防部的直接合同自2026年6月底起、经第三方的间接采购自2027年起受限，特定6家企业（宁德时代、比亚迪等）的电池采购自2027年10月起逐项受限。此外，该清单还与美国的出口管制（美国商务部BIS的实体清单，华为自2019年起在列）及CFIUS审查相关联。因此，这一点的实务意义在于"出口（退出）的可选择性"：未来若计划向与美国相关联的机构投资者、租赁或金融机构转售或融资，提前了解这些美国特有的考量会有帮助。换言之，<strong>日本的网络安全认证（JC-STAR）与美国的采购·出口清单（1260H·实体清单）属于不同的两条轴线</strong>，在入口处把二者区分清楚即可。值得强调的是，上述中国电池企业在技术与产品上均居于全球领先地位；此处所述纯属不同司法辖区的监管事实，与设备本身的优劣无关。</p>
+
+<p class="source">资料来源：电网导则研讨会资料"关于分散型电源网络安全对策的要件化"（第20回·2025年12月）／IPA JC-STAR合规产品清单／美国国防部 Section 1260H清单（宁德时代：2025年1月／2026年6月更新合计188家，新增比亚迪·中创新航·亿纬锂能等。DoD直接合同禁止2026年6月底·间接2027年·特定6家的电池采购2027年10月＝FY2024 NDAA §154）／美国商务部BIS实体清单（华为：2019年起）（2026年6月确认）。JC-STAR制度的详情见COLUMN 14。</p>
+
+<h2>08 — 关口⑥ 土地与税</h2>
+
+<p>视立地而定，重要土地等调查法可能会牵涉进来。防卫相关设施等重要设施的周边大体1,000m范围，以及国境离岛等，被指定为"关注区域"，其中重要者被定为"特别关注区域"。在特别关注区域内，缔结<strong>200㎡以上</strong>的土地·建筑所有权等移转合同时，卖方与买方双方都须在合同之前向内阁总理大臣进行事前申报（申报书须记载受让人的国籍等。法第13条／施行令第4条）。储能电站的用地若与之重叠，取得便会产生申报义务。若为租赁，则取得的事前申报得以免除；但利用状况的调查·劝告也及于利用者，故租赁亦未必与之无关。</p>
+
+<p class="source">资料来源：内阁府"重要土地等调查法"（特别关注区域·面积要件200㎡·法第13条／施行令第4条。令和4年9月20日全面施行） https://www.cao.go.jp/tochi-chosa/ （2026年6月确认）。</p>
+
+<p>在税务上，股息的预提征收成为论点。相对于国内法的税率（20.42%／15.315%），税收协定下股息、利息、特许权使用费的限制税率有所减轻（适用须申报。例如，中日税收协定下股息的限制税率为10%）。限制税率因投资者居住国与日本之间的协定而异，故宜逐一对照出资方所在国确认。在出口处易被忽视的，是非居民转让日本不动产相关法人股票时的<strong>转让所得税</strong>；若以取得成品、日后出售为前提，这是宜在入口处就纳入考量的论点。此外，资金回流本国的组法（取股息、取代工运营对价，还是取利息）与<strong>常设机构（PE）认定</strong>的有无，会令实效课税有所不同。若赋予非居民投资者过度的参与权，PE认定的风险便会上升。</p>
+
+<p>另需说明，令和8年度的"大胆投资促进税制"（即时折旧）设有规模的门槛。投资额的要件原则上为35亿日元以上（中小企业者等为5亿日元以上），并倾向于要求年平均投资利润率与经济产业大臣的确认；以2MW级单体（数亿〜十数亿日元规模）满足要件并不容易。<span style="color:#b45309;font-weight:700">⚠️</span> 即便假定可用，即时折旧也只是会计上课税的递延、而非减税；在簿价跌至接近零的状态下出售，资本利得便会在出售时一次性立起。再者，"除用于出租的设备外"这一要件，会对代工（tolling）型发挥作用。况且本税制尚处大纲的阶段，条文的公布·施行仍在后头。</p>
+
+<p class="source">资料来源：内阁府（重要土地等调查法）／财务省·JETRO（税收协定：中日股息限制税率10%等）／国税厅／令和8年度税制改正大纲（2026年6月确认）。税制的详情见COLUMN 22。</p>
+
+<h2>09 — 取得之后的运行与保安</h2>
+
+<p>一旦取得储能电站，运行与保安便随之而来。不过，法律点名遂行主体的范围，意外地有限。储能电站被课以技术基准符合维持义务、电气主任技术者的选任与保安规程的申报（电气事业法第43条）。但主任技术者法定的保安监督以受变电（交流侧）为中心，电池电芯、BMS、PCS等直流侧与通信方面的事务，未必被明示为法定监督的范围。这里，容易成为应由O&M合同来填补的空白。</p>
+
+<p>即便是外资100%的日本法人，主任技术者的选任或外部委托在制度上也可行。条文中未见以国籍为要件的规定。<span style="color:#b45309;font-weight:700">❓</span> 实务上的壁垒，毋宁说在于能否确保有资格者、能否满足常驻或外部委托的要件（输出·电压的上限）。若为高压6.6kV并网的2MW级，则仍保留外部委托的选项。在运行层面，容量市场的惩罚结构也宜把握。在容量停运计划未被有计划提交的情况下，对未达成的时段有乘以5的处理，<strong>非计划停运比有计划停运发挥更重的作用</strong>。这一非对称，宜纳入运行设计之中。</p>
+
+<p class="source">资料来源：电气事业法第43条／经济产业省"关于主任技术者制度的Q&A"／OCCTO 容量市场的要求事项·惩罚资料（非计划停运5倍）（2026年6月确认）。O&M的详情见COLUMN 23。</p>
+
+<h2>10 — 应跨越关口的全貌</h2>
+
+<p>把至此为止的关口，回到最初的问题加以回顾。"只要委托日本的EPC，储能电站就能建成吗？"设备本身，确实买得到。可一座电站之所以仍难作为事业立起来，是因为在设备的前后，还守着好几道关口。</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">墙 01</span>
+    <h4>资金能否汇出（汇出闸门）</h4>
+    <p>若出资方设有资本管理，那便要在选物之前，先从规划资金路径开始。来自规制较弱的国家，这里几乎可以顺畅通过。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">墙 02</span>
+    <h4>外汇法（汇入闸门）</h4>
+    <p>电气业属于指定行业，事前申报的可能性较高。就规模而言预计并不属于核心，但最终须以向主管省厅的问询来定型。持有的"载体"不同，手续的轻重也随之分化。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">墙 03</span>
+    <h4>并网额度与土地</h4>
+    <p>仅接入申请在膨胀，接上的容量却极为有限。2026年的规律强化抬高了新取得的难度，额度在先行占住的事业者一侧。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">墙 04</span>
+    <h4>买什么，与出口</h4>
+    <p>权利转让，还是完工交付。向承揽的重构、设备的出口可融资性、重要土地等调查法、出口处的课税——皆须以合同与设计加以妥善安排，方能成立。</p>
+  </div>
+</div>
+
+<p>设备买得到。然而资本不会自由流动，规制无法绕行，额度仅凭资金到不了手，交付与出口唯有以合同来设计。唯有与能把这些一并统合起来的日本一侧伙伴携手，外国资本的储能电站投资才得以立起来。向EPC下单，不过是这一整体之中的一道工序。</p>
+
+<h3>仍存的不确定性（尚未确定的论点）</h3>
+
+<p>本文依一手资料，区分方针决定与条文公布。把现时点尚未确定的论点，分列于此。(i) 经营电网侧储能电站的SPC是否该当"电气业（发电业）"，以及与核心行业的衔接关系（以向主管省厅问询确定）。<span style="color:#b45309;font-weight:700">⚠️</span> (ii) 伴随JC-STAR要件化的并网技术要求的正式修改·施行（现时点尚处方针阶段）。<span style="color:#b45309;font-weight:700">⚠️</span> (iii) 即时折旧能否适用于外资SPC（依规模·出租要件，且尚处大纲阶段）。<span style="color:#b45309;font-weight:700">⚠️</span> (iv) 实施资本管理国家中敞开个人对外直接投资的制度（如QDII2）是否施行（尚停留于提案、未施行）。<span style="color:#b45309;font-weight:700">❓</span> (v) 主要海外品牌产品的自有品牌★1取得（IPA公开记录中无法确认）。<span style="color:#b45309;font-weight:700">❓</span> (vi) 个别用地是否该当重要土地等调查法·房地产交易业法（依立地·交易形态）。<span style="color:#b45309;font-weight:700">❓</span> 这些走向如何，入口处的设计便会随之变化。</p>
+
+<h3>投资判断之前需确认的10项</h3>
+
+<div class="checklist-group" id="foreign-investor-checklist">
+  <h5><span class="cl-num">✓</span>作为外国资本入场前的核对</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01</span><strong>资金路径的确定</strong>。出资方所在国是否设有对外投资规制。若有，将走既有离岸资产、境外SPV、企业ODI中的哪一条。已以"也存在个人本国资金向日本SPC直接出资不在正规通道之列的国家"为前提，最先在此处完成设计了吗。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02</span><strong>外汇法事前申报的要否与日程</strong>。电气业为指定行业、事前申报可能性较高，就规模而言非核心可能性较高。已梳理设立·开业·受让事业·取得股票各触发点，并以向主管省厅问询确定行业该当了吗。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03</span><strong>"载体"的选择</strong>。是株式会社运营还是TK-GK。已比对外汇法入口的轻重，与对出口·税务的影响了吗（并非"TK-GK就一律无需"）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04</span><strong>并网额度与土地</strong>。是否备齐推进至接入合同的有效额度，以及使用权原·土地调查（新取得因2026年的规律强化而难化）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05</span><strong>交易对象的区分</strong>。是权利转让还是完工交付。尽职调查的设计是否与之相称。完工交付是否已点检向承揽·建设业法重构的风险。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06</span><strong>系统接入合同申请的状态与申请日</strong>。JC-STAR★1的方针是适用于技术要求修订之后才提出合同申请的项目（并非运行开始·并网日）。是否已确认与2027年4月（特高·高压）／10月（低压）的前后关系。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07</span><strong>设备的出口可融资性</strong>。包括是否列入美国的各类清单（1260H·实体清单等），是否在入口处评估了对未来出售·融资发挥作用的要素。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">08</span><strong>用地的重要土地等调查法该当性</strong>。是否与特别关注区域重叠，是取得还是租赁。若为200㎡以上，是否在合同之前确认了申报义务的有无。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">09</span><strong>股息源泉与出口的课税</strong>。是否在入口处纳入了税收协定限制税率的适用（须申报）、非居民转让不动产相关法人股票的所得课税、以及PE认定风险。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">10</span><strong>运行·保安的体制</strong>。是否把主任技术者的确保·常驻／外部委托的可否（输出·电压要件），以及容量市场的非计划停运惩罚纳入了设计。</span></label>
+  <div class="check-progress">
+    <span>已确认</span>
+    <span class="bar"><span class="bar-fill" id="checkBarFill"></span></span>
+    <span><span class="count" id="checkCount">0</span> / 10</span>
+  </div>
+</div>
+
+<p class="note-small">※ 核对项目仅在浏览器会话期间保留。如需为打印固定下来，可通过浏览器的打印功能转为PDF。</p>
+
+<h2>结 — "买得到"与"立得起来"是两回事</h2>
+
+<p>对外国资本而言，日本的高压储能电站有着收益可预见这一魅力。只是一旦直接动起来，会发现最先发挥作用的——视出资方而定——既不是收益，也不是立地，而是能否把资金送达日本。在那之后，还守着外汇法、对所买之物的辨明、并网额度与土地、设备的出口、土地与税。</p>
+
+<p>这些环节，若不在入口处就设计妥当，便会在最后的交割或出口处反弹回来。本文所描绘的，正是这一道道关口的地图。具体某一案件如何通关，则是从这里往后的实务了。</p>
+
+<p>日本的储能电站，买得到。只是，能让它真正成立的，是那些从入口起就把一道道关口逐一设计过来的投资者。</p>
+
+<div class="sources-box">
+<h4>主要一手资料（2026年6月 取得）</h4>
+<ul>
+  <li>财务省"对内直接投资"（规定指定行业之告示／规定核心行业之告示 别表第十七号：中分类33 电气业＝限于一般输配电·输电事业者，及拥有最大输出5万kW以上电站的发电事业者）</li>
+  <li>经济产业省"关于对内直接投资审查制度""关于主管行业的FAQ"（以自行维持·运用的电气工作物进行发电·放电该当发电业，无输出要件）</li>
+  <li>日本银行"外汇法Q&A（对内直接投资·特定取得篇）"、外汇及外国贸易法第27条、商法第535条·第536条</li>
+  <li>OCCTO 容量市场主拍卖成交结果（对象实需供年度2029年度，2026年1月20日公布）／长期脱碳电源拍卖制度细则（最低投标容量1万kW）／保证金算定方法的修订</li>
+  <li>EPRX／JEPX现货市场数据／制度研讨工作部会（供需调整市场上限价格，第110回·2026年1月）</li>
+  <li>资源能源厅 次世代电力系统WG"关于面向电网侧储能电池等发电等设备迅速并网的应对"资料1-1（2026年2月9日：合同申请约2,400万kW·同比约3.9倍）／电网导则研讨会"关于分散型电源网络安全对策的要件化"（第20回·2025年12月）</li>
+  <li>IPA"安全要件符合评估及标识制度（JC-STAR）"合规产品清单</li>
+  <li>内阁府"重要土地等调查法"（特别关注区域·面积要件200㎡·法第13条／施行令第4条） <a href="https://www.cao.go.jp/tochi-chosa/" target="_blank">https://www.cao.go.jp/tochi-chosa/</a></li>
+  <li>建设业法第24条·第3条·第22条（e-Gov）／国土交通省"建设工程的承揽合同及其规律"／电气事业法第27条之29·第43条·施行规则第3条之4／房地产交易业法第2条</li>
+  <li>国税厅（即时折旧·"用于出租"的除外）／令和8年度税制改正大纲／财务省·JETRO"税收协定"（中日股息限制税率10%等）</li>
+  <li>美国国防部 Section 1260H清单（宁德时代：2025年1月／2026年6月更新合计188家，新增比亚迪·中创新航·亿纬锂能等。DoD直接合同禁止2026年6月底·间接2027年·特定6家的电池采购2027年10月＝FY2024 NDAA §154）／美国商务部BIS实体清单（华为：2019年起）</li>
+  <li>实施资本管理国家的对外投资规制（一例）：国家外汇管理局《个人外汇管理办法实施细则》／国家发改委《企业境外投资管理办法》第11号令／汇发〔2014〕37号</li>
+</ul>
+</div>
+
+<p class="note-small">※ 本文以规制·制度的梳理为目的，区分规制的阶段（方针决定／审议了承／条文公布／施行）。无法确认的论点（储能电站的核心行业该当性、房地产交易业法该当性、主任技术者的国籍要件、海外品牌产品的自有品牌★1取得等）已在正文中明示。涉及海外制度之处，依各国原文的文字。本文并非个别的法务·税务·投资建议。记载为2026年6月时点。</p>
+
+<a target="_top" href="https://www.scix.co.jp/zh-column-grid-rules" class="next-link">
+  <span><span class="next-link-label">下一篇</span><span class="next-link-title">COLUMN 09 — 接入检讨·合同申请的新规则：2026年4月"占而不用对策"带来了什么变化</span></span>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="cta-section">
+  <h3>外国资本储能电站投资咨询</h3>
+  <p>仅凭文章无法判断的案件专属信息，将在咨询后签署保密协议（NDA）的基础上披露。</p>
+  <a target="_top" href="https://www.scix.co.jp/zh-contact" class="cta-btn">联系我们 →</a>
+</div>
+
+</div>
+
+<script>
+// === Checklist Progress ===
+(function(){
+  var group   = document.getElementById('foreign-investor-checklist');
+  if (!group) return;
+  var checks  = group.querySelectorAll('input[type=checkbox]');
+  var countEl = document.getElementById('checkCount');
+  var fillEl  = document.getElementById('checkBarFill');
+  var total   = checks.length;
+
+  function update(){
+    var done = 0;
+    checks.forEach(function(c){ if (c.checked) done++; });
+    countEl.textContent = done;
+    fillEl.style.width = (done / total * 100) + '%';
+  }
+  checks.forEach(function(c){ c.addEventListener('change', update); });
+  update();
+})();
+</script>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans SC',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo img { height:48px; width:auto; display:block; opacity:0.95; }
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img src="https://www.scix.co.jp/img/logo-white.png" alt="ScienceX" loading="lazy">
+    </a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">ScienceX 株式会社</div>
+        〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

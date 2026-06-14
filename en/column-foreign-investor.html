@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:580px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+pre{background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);padding:14px 18px;margin:18px 0;font-family:'Menlo','Monaco','Courier New',monospace;font-size:.86em;line-height:1.7;color:var(--navy);white-space:pre-wrap;border-radius:0 4px 4px 0;overflow-x:auto}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:560px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+
+/* Premise grid */
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+
+/* Differentiator grid */
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+
+/* Comparison cards */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.compare-card ul{margin:8px 0 0;padding-left:18px;font-size:.84em;line-height:1.8}
+.compare-card li{margin-bottom:4px}
+
+/* Stat row */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.6em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+
+/* Schedule list */
+.sched-list{margin:28px 0}
+.sched-item{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:16px 18px;background:var(--white);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;margin-bottom:10px}
+.sched-item .s-date{font-family:'Noto Serif JP',serif;font-size:.95em;font-weight:700;color:var(--accent);line-height:1.4}
+.sched-item .s-date .sd-sub{display:block;font-size:.75em;color:var(--text-light);font-weight:400;margin-top:2px}
+.sched-item h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 4px}
+.sched-item p{font-size:.85em;line-height:1.85;margin:0;color:var(--text)}
+.sched-item.past{border-left-color:var(--text-light);opacity:.75}
+.sched-item.past .s-date{color:var(--text-light)}
+
+/* Checklist */
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+
+/* Sources box */
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.85}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:5px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .diff-grid{grid-template-columns:1fr}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .sched-item{grid-template-columns:1fr;gap:6px}
+}
+</style>
+
+<title>Placing an EPC Order Does Not Build a Battery Plant — The Gates Foreign Capital Must Clear Before Investing in Japan's High-Voltage Grid-Scale Storage | ScienceX</title>
+<meta name="description" content="Overseas capital is starting to view Japan's high-voltage grid-scale battery storage (2MW/8MWh class) as an acquisition target. Yet once a buyer moves, the first obstacle is not returns or siting but whether the capital can reach Japan at all. We map the exit and entry capital gates (FEFTA), scarce grid capacity and land, rights sales versus completed assets, the equipment exit (JC-STAR and the U.S. lists), and land and tax, all from primary sources.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-foreign-investor">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-foreign-investor">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-foreign-investor">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-foreign-investor">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-foreign-investor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Placing an EPC Order Does Not Build a Battery Plant — The Gates Foreign Capital Must Clear Before Investing in Japan's High-Voltage Grid-Scale Storage | ScienceX">
+<meta property="og:description" content="Overseas capital is starting to view Japan's high-voltage grid-scale battery storage as an acquisition target. Yet once a buyer moves, the first wall is not returns or siting but whether the capital can reach Japan. We map the two capital gates, FEFTA, grid capacity, rights sales versus completed assets, the Important Land Survey Act, and tax, all from primary sources.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-foreign-investor">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Placing an EPC Order Does Not Build a Battery Plant — The Gates Foreign Capital Must Clear Before Investing in Japan's High-Voltage Grid-Scale Storage | ScienceX">
+<meta name="twitter:description" content="The first wall is whether the capital can reach Japan. We map the two capital gates, FEFTA, grid capacity, rights sales versus completed assets, the Important Land Survey Act, and tax, from primary sources.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-06-15">
+</head>
+<body>
+<script src="/header.js"></script>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 24</span>
+      <span class="header-tag">FOREIGN CAPITAL</span>
+      <time class="header-date" datetime="2026-06-15">2026.06.15</time>
+    </div>
+    <h1>Placing an EPC Order<br>Does Not Build a Plant —<br>The Gates Foreign Capital Clears Before<br>Investing in <em>Japan's High-Voltage Grid-Scale Storage</em></h1>
+    <p class="header-desc">Overseas money is beginning to circle Japan's high-voltage grid-scale battery storage (2MW/8MWh class). The draw is the predictability of revenue. Yet once a buyer actually moves to acquire, what trips them up is rarely equipment selection. It is Japan's own institutions and procedures: the rules that govern moving funds out of the home country, inward direct investment under FEFTA, scarce grid capacity and land, the way equipment choices echo into a future sale, and the tax that rides on the acquisition structure. This column follows those checkpoints in the order an overseas investor meets them, citing primary sources throughout.</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/en/knowledge" class="back-link">← Back to Knowledge</a>
+
+<p>Overseas money is beginning to circle Japan's high-voltage grid-scale battery storage (2MW/8MWh class). What draws it is the predictability of revenue. In most markets worldwide, storage economics are heavily exposed to price volatility; Japan, by contrast, has built several revenue streams into its institutions at once — the capacity market, the balancing market, and the JEPX wholesale market. The more fluent an investor is in batteries and cost structures, the more this readability pulls them toward Japan.</p>
+
+<p>Yet when they actually move to acquire, the time sink is not equipment selection. The regulations on moving funds out of the home country, inward direct investment under FEFTA (the Foreign Exchange and Foreign Trade Act), chronically short grid capacity and land, the way equipment choices leave a residue on a future sale, and the tax tied to the acquisition structure — Japan's own institutions and procedures bear down far harder. This column follows them, in the sequence an overseas investor passes through on the way to acquisition, from primary sources.</p>
+
+<p>At the front of a deal, one question comes up again and again: "If we place an order with a Japanese EPC, will the storage plant get built?" In the narrow sense of installing equipment, an EPC delivers reliably. But for a single battery plant to begin operating as a business, four conditions are needed beyond the hardware: the grid capacity to connect, the land to host that capacity, the regulation governing foreign capital entering Japan's electricity sector, and the route to move capital out of the home country. An EPC order fills only the equipment piece.</p>
+
+<p>The first of these to bite is the route the money travels. If the source country imposes capital controls, the legitimate channel to inject home-country funds into a Japanese entity may simply not be open. Proceeding to property selection and price negotiation without designing this can dead-end at closing. This column is a map laying out, in order, the gates an acquisition must clear; it does not step into EPC selection or the mechanics of placing an order.</p>
+
+<div class="data-box">
+<div class="db-head">Scope of this column</div>
+<dl class="premise-grid">
+  <div><dt>SUBJECT</dt><dd>High-voltage storage<span class="unit">2MW / 8MWh class</span></dd></div>
+  <div><dt>TRANSACTION</dt><dd>Rights sale<span class="unit">/ completed asset</span></dd></div>
+  <div><dt>AXIS</dt><dd>Two capital gates<span class="unit">+ markets, land, tax</span></dd></div>
+  <div><dt>READER</dt><dd style="font-size:13px">Overseas investors</dd></div>
+  <div><dt>REGULATORY DATE</dt><dd>2026.06<span class="unit">as of</span></dd></div>
+  <div><dt>STANCE</dt><dd style="font-size:13px">Primary-source basis</dd></div>
+</dl>
+</div>
+
+<p>What follows walks through those gates in order. The sequence matters. If the first one — the route the money travels (①) — does not open, nothing downstream can move, however well it is worked out.</p>
+
+<div class="diff-grid">
+  <div class="diff-card"><span class="diff-num">GATE 01</span><h4>The gate out: can the funds leave</h4><p>If the source country restricts outbound investment, this becomes the first gate. From countries with light controls — the U.S., the EU, Singapore, Hong Kong — capital passes through almost untouched, and FEFTA becomes the effective entry point.</p></div>
+  <div class="diff-card"><span class="diff-num">GATE 02</span><h4>The gate in: FEFTA</h4><p>The electricity business falls under the designated sectors, so a foreign acquisition is likely to trigger prior notification. Core sectors, however, are confined to plants of 50MW and above, which a 2MW-class asset does not reach; the weight of the procedure turns on the holding vehicle.</p></div>
+  <div class="diff-card"><span class="diff-num">GATE 03</span><h4>Scarce grid capacity and land</h4><p>Connection applications surge while the capacity actually energized stays tiny. The 2026 tightening raises the bar for acquiring new capacity further; the slots sit with operators who already hold them.</p></div>
+  <div class="diff-card"><span class="diff-num">GATE 04</span><h4>Rights sale or completed asset</h4><p>Are you taking over a bundle of development-stage rights, or a finished operating asset? Whether specs are fixed, how thick the due diligence must be, and how heavy the representations and warranties run all differ — worth pinning down first.</p></div>
+  <div class="diff-card"><span class="diff-num">GATE 05</span><h4>How equipment marks the exit</h4><p>JC-STAR Star 1 is set to be required for projects applying to the grid after the technical rules are revised. Separately, the U.S. lists overlay a geopolitical risk; both come due at a future sale.</p></div>
+  <div class="diff-card"><span class="diff-num">GATE 06</span><h4>Land and tax</h4><p>Notification under the Important Land Survey Act, withholding on dividends, non-resident taxation at exit. The reach of each obligation shifts with the site, the equipment, and how the scheme is set up.</p></div>
+</div>
+
+<h2>01 — A device with two faces, and the "high-voltage" vessel that holds it</h2>
+
+<p>A grid-scale storage plant is one device with two faces. In one instant it behaves as a <strong>consumer</strong>, drawing electricity from the grid; in the next it becomes a <strong>generator</strong>, pushing electricity back out. The first thing to confirm as an investment target is the "vessel" this device sits in — that is, the receiving-voltage class.</p>
+
+<p>Japanese grid interconnection is divided by the voltage at which power is received. Output of 50kW or more but under 2,000kW received at 6.6kV is "high-voltage"; 2,000kW and above is "extra-high-voltage." Even when people say "2MW" loosely, staying within high-voltage requires holding output below 2,000kW (in practice around 1,990kW); land exactly at 2,000kW crosses into extra-high-voltage, where both the equipment and the procedures step up a level. Note that 8MWh means 8,000kWh, which is on the small side for grid-scale use.</p>
+
+<p>High-voltage carries a second advantage: lighter regulatory procedure. Under the Electricity Business Act, the 2022 amendment positioned discharge from grid-scale storage of 10,000kW (10MW) and above as a "power generation business," but a standalone 2MW does not reach this and is not a generation-business notification. Construction-plan notification and pre-use self-inspection are likewise generally required at roughly 10MW of output or above, or 80,000kWh of capacity or above; a 2MW/8MWh plant stays on the lighter side of both. The chief electrical engineer can also be outsourced where output is under 5,000kW and under 7,000V.</p>
+
+<p class="source">Sources: Kansai Electric Power, "What is grid interconnection" (explanation of voltage classes) / Agency for Natural Resources and Energy (ANRE), "Q&A on the notification obligation for the power generation business," "Current status and issues of grid-scale storage batteries" (positioning discharge from grid-scale storage of 10,000kW+ as a generation business) / METI, materials on safety regulation of storage plants (confirmed June 2026).</p>
+
+<h2>02 — Three revenue sources, and the absence of a price guarantee</h2>
+
+<p>The revenue of a high-voltage storage plant is not complete in any single market. The basic approach turns over three markets in combination — the capacity market, the balancing market, and JEPX — each of which buys a different value.</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">12,388–15,112<span class="unit">JPY/kW</span></span><span class="lbl">Capacity Market main auction (FY2029)<br>clearing price by area</span></div>
+  <div class="stat-cell"><span class="val">supply short<span class="unit">chronically</span></span><span class="lbl">Primary reserve<br>structural shortfall in the balancing market</span></div>
+  <div class="stat-cell"><span class="val">0.01<span class="unit">JPY/kWh</span></span><span class="lbl">JEPX price on sunny midday hours<br>the source of the discharge opportunity (arbitrage)</span></div>
+</div>
+
+<p>What the capacity market trades is "kW" — supply capability. In the latest round (for FY2029, published 20 January 2026), clearing prices were high in tight supply-demand areas and reached a record level, but the swing from year to year is large, and recent rounds have landed in the low thousands of yen. The balancing market handles "ΔkW" — adjustment capability — and primary reserve has run chronically short. That said, the cap price for primary and secondary reserve ① was cut from JPY 19.51/ΔkW per 30 minutes to JPY 15 (applied to trades from March 2026), with a stated direction to step it down further to JPY 10 and JPY 7.21 absent improvement in competition. What you go after on JEPX is the price spread on "kWh." On sunny midday hours it sinks to JPY 0.01/kWh and by evening jumps above JPY 20. That spread is the source of merchant-operation revenue.</p>
+
+<p class="source">Sources: OCCTO, capacity market main auction results (target delivery year FY2029, published 20 January 2026) / Working Group on Market Design (cap price in the balancing market, 110th meeting, January 2026) / EPRX / JEPX spot-market data (confirmed June 2026). The primary-reserve shortfall and the JEPX spread include an interpretation based on public materials.</p>
+
+<p>What overseas investors tend to expect is 20-year fixed income. Japan does have a Long-term Decarbonization Auction (LDA); winning it yields long-term fixed income. But <strong>the LDA minimum bid capacity for batteries is 10,000kW (10MW)</strong>, and a high-voltage 2MW does not even reach the threshold to bid. It can participate in the capacity market main auction, but in past main auctions battery bids amounted to 0.05% of the total (FY2023, roughly 80MW), so <strong>a high-voltage storage plant's revenue is premised on price-unguaranteed merchant operation</strong>. The "assumed IRR" figures circulating online are calculations built on assumptions, not a benchmark in public information against which deals can be compared side by side. Take the headline numbers at face value and you get tripped up at the entrance.</p>
+
+<p class="source">Sources: OCCTO, "Long-term Decarbonization Auction: scheme details" (minimum bid capacity 10,000kW) / ANRE, "Current status and issues of grid-scale storage batteries" (battery bids in the FY2023 main auction roughly 80MW = 0.05%) (confirmed June 2026).</p>
+
+<h2>03 — Gate ① The route to move funds out of the home country (depends on the source)</h2>
+
+<p>From here on, we enter gates that bear only on foreign capital. Whether capital can leave the home country turns on that country's regime, and which gate bites first swaps depending on the type of source. The table below maps that correspondence.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Type of source</th><th>Freedom of outbound investment</th><th>The practical "first gate"</th></tr></thead>
+<tbody>
+<tr><td class="em">U.S. / EU</td><td>largely free</td><td>Japan's FEFTA (Gate ②) is the effective entry point</td></tr>
+<tr><td class="em">Singapore / Hong Kong</td><td>free (routinely used as holding jurisdictions for cross-border investment)</td><td>same as above</td></tr>
+<tr><td class="em">Countries with strong capital controls</td><td>direct individual remittance is restricted as a capital-account item; a corporate-led ODI or other formal procedure is required</td><td>designing the capital outflow from the home country comes first</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>If the gate out is open — from the U.S., the EU, Singapore, Hong Kong and the like — this passes through almost untouched, and the effective first gate becomes FEFTA next. What demands care is when the source is a country with capital controls. China, where the regime is best documented, makes the structure clear. The annual USD 50,000 foreign-exchange facilitation allowance granted to individuals is confined to current-account items such as travel, study, and medical care, and cannot be used for capital-account items such as outbound direct investment (SAFE, the State Administration of Foreign Exchange). NDRC Order No. 11, which governs outbound direct investment (ODI), defines the investing party as an "enterprise" and states expressly that it does not apply to direct outbound investment by domestic natural persons. The Circular 37 registration that lets individuals use an offshore SPV is likewise a framework premised on round-trip investment back into the country, and does not contemplate an individual SPC whose sole purpose is acquiring overseas assets. <strong>This structure — where an individual's direct outbound investment is not, as a matter of the regime, open — is not unique to any one country; it is broadly common to countries that maintain capital controls</strong>. If the source falls into this type, the work begins not with choosing a property but with locking down the route the money travels.</p>
+
+<div class="data-box">
+<div class="db-head">Lawful routes to move funds out of a capital-controlled country (in practice, these three)</div>
+<p style="margin:0 0 6px"><strong>1. Use of existing offshore assets</strong> — funds or entities already held outside the country are used.</p>
+<p style="margin:0 0 6px"><strong>2. Registration of an overseas SPV</strong> — though it is often premised on a round-trip-investment structure flowing back into the country.</p>
+<p style="margin:0"><strong>3. Corporate ODI</strong> — the formal, enterprise-led procedure (filing/approval with the authorities plus foreign-exchange registration). Where the scale is small, a filing with provincial-level authorities can suffice, and a 2MW-class asset is not caught on size. It takes roughly two to three months.</p>
+<p class="source">Sources (one example of a capital-controlled country's outbound-investment regime): SAFE, Detailed Rules for Implementing the Measures for the Administration of Individual Foreign Exchange / NDRC, Measures for the Administration of Overseas Investment by Enterprises (Order No. 11) / Circular 37 (Huifa [2014] No. 37) (confirmed June 2026). A regime opening individual outbound direct investment (e.g., QDII2) remains at the proposal stage, with no formal implementing rules published at present. The relevant rules of each source country must be checked one by one.</p>
+</div>
+
+<p>Which route is available differs by investor and by source. Reading public information alone does not settle it; the work is to take the source country's rules one case at a time and build the structure up. Advance to property selection without clearing this gate and the conversation, even once agreed, stops at final closing.</p>
+
+<h2>04 — Gate ② Inward direct investment under FEFTA (designated sector, but likely non-core)</h2>
+
+<p>Once the funding route stands up, Japan's own FEFTA (inward direct investment) waits next. This bears on every foreign investor regardless of the source country. A grid-scale storage plant <strong>falls under the "designated sectors" and is likely subject to prior notification</strong>. By scale, however, it is <strong>likely not to fall under the "core sectors,"</strong> and even within the same prior-notification regime, whether it is core or not changes how the exemptions are used and how heavy the screening runs.</p>
+
+<p>First, whether it is a designated sector. The electricity business is listed among the "designated sectors" requiring prior notification from a national-security standpoint. The word "storage" does not appear in the notice text, but METI's classification of sectors under its jurisdiction includes within the "power generation business" any establishment that generates or discharges using electrical facilities it itself maintains and operates (for generation or for storage), setting no output threshold. Even without an explicit statutory mention, it is picked up as a generation business in practice. If the designated sector applies, an acquisition by a foreign investor becomes subject to prior notification (FEFTA Article 27), with thresholds of 1% or more of the voting rights for listed shares and from a single share for an acquisition of unlisted shares. Screening runs 30 days as a rule, extendable up to five months where there is a national-security issue, so in practice the delivery and balance settlement (closing) must be placed <strong>behind FEFTA clearance</strong>.</p>
+
+<p>Next, whether it is a core sector. The notice defining core sectors limits the electricity business to "general electricity transmission and distribution operators, transmission operators, and power generation operators (limited to those holding a plant with a maximum output of 50,000kW or more)." A standalone 2MW-class asset is nowhere near this 50MW, so it is likely organized as "a designated sector but not core." Whether something is core matters for the exemption regime: for core sectors the use of the prior-notification exemption is restricted, and the core-sector prior-notification exemption does not apply to investment in unlisted companies. If it is not core, the additional restrictions do not reach it, but the absence of an exemption for the unlisted-acquisition form is worth keeping in mind when designing the vehicle.</p>
+
+<div class="warning-box">
+That said, whether an SPC operating a grid-scale storage plant is classified under the notice as "electricity business (power generation business)," and how it connects to the core-sector "power generation operator (50MW or more)," is ultimately settled by reference to the notice and an inquiry to the competent ministry (METI). <span style="color:#b45309;font-weight:700">⚠️</span> What this column presents is the structure — "the electricity business is a designated sector and starts out on the prior-notification field / by scale it is likely not core" — not a flat assertion that "prior notification is certainly required" or that it is "certainly non-core."
+</div>
+
+<p>The holding vehicle also changes the treatment. Whether you hold through <strong>a Japanese corporation (kabushiki kaisha) you operate yourself, or invest passively through a silent partnership (TK-GK structure)</strong>, the weight of the notification diverges. A silent partner cannot, under the Commercial Code, conduct or represent the operator's business (Commercial Code Article 536), so on its face it is treated as passive investment. Still, <strong>"a TK-GK never requires notification" is wrong</strong>: the treatment can shift with the degree of involvement in management and with the direction of the regime. Whether you hold via a corporation or position yourself through a TK-GK — this choice governs how heavy or light the FEFTA entrance is.</p>
+
+<div class="compare-grid">
+  <div class="compare-card with-special">
+    <span class="cc-tag">DIRECT HOLDING</span>
+    <h4>Kabushiki kaisha (corporation)</h4>
+    <p>Foreign capital sets up a Japanese corporation and holds and operates the storage plant itself. As inward direct investment into a designated sector, it confronts prior notification head-on. Operational latitude is high, but there is no exemption for the unlisted acquisition.</p>
+  </div>
+  <div class="compare-card no-special">
+    <span class="cc-tag">PASSIVE INVESTMENT</span>
+    <h4>Silent partnership (TK-GK)</h4>
+    <p>It can be treated as passive investment without involvement in management, which can lighten the FEFTA burden. On the other hand, the degree of operational involvement, the exit, and tax give rise to other constraints (it is not always exempt).</p>
+  </div>
+</div>
+
+<p class="source">Sources: Ministry of Finance, "Notice designating the designated sectors / Notice designating the core sectors," Appended Table No. 17 (mid-classification 33, electricity business) / METI, "On the inward direct investment screening regime," "FAQ on sectors under jurisdiction" (generation/discharge using self-maintained and self-operated electrical facilities falling under the generation business) / Bank of Japan, "FEFTA Q&A (inward direct investment and specified acquisition edition)" / Commercial Code Articles 535 and 536 (confirmed June 2026).</p>
+
+<h2>05 — Gate ③ What is scarce is grid capacity and land</h2>
+
+<p>When you set out to stand up a storage plant in Japan, the hardest thing to obtain is neither the equipment nor the construction capability. It is <strong>the capacity to connect to the grid and the land to host it</strong>.</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">~24<span class="unit">GW</span></span><span class="lbl">grid-scale storage connection applications<br>(end of September 2025)</span></div>
+  <div class="stat-cell"><span class="val">~3.9<span class="unit">×</span></span><span class="lbl">year-on-year<br>growth in applied capacity</span></div>
+  <div class="stat-cell"><span class="val">~640<span class="unit">MW</span></span><span class="lbl">energized (end of December 2025)<br>a sliver against applications</span></div>
+</div>
+
+<p>As of the end of September 2025, grid-scale storage connection applications reached roughly 24GW, up about 3.9 times year on year (over the same period, solar rose about 1.1 times). Growth continued thereafter, and by the end of December 2025 applications had swelled to roughly 30GW and connection-study intake to roughly 172GW. Meanwhile the capacity actually energized stood at only about 640MW at the same end of December. Demand is plainly concentrated on the grid-capacity side.</p>
+
+<p>In response to this congestion, from 1 April 2026 the deposit at the time of a connection-contract application doubled from 5% to 10% of the estimated construction-cost contribution, and installment payment of the construction-cost contribution was tightened to 50% or more on the first payment (an interim measure limited to grid-scale storage). Alongside this, from January 2026 onward, documents confirming registry records became mandatory in both the connection-study and connection-application processes, and documents evidencing the right to use the land became mandatory at the connection-application stage. Holding capacity on a slot alone, with no land backing, is no longer possible. These are interim measures until the full overhaul of the connection rules firms up, but the bar for acquiring new capacity keeps rising.</p>
+
+<p>So even if an overseas investor tells a Japanese EPC to "build us a storage plant," the EPC does not have grid capacity to sell. The slots are held by operators who already secured them. Move without seeing the scarcity of capacity and you stumble here.</p>
+
+<p class="source">Sources: ANRE, Next-generation Power Grid WG, Material 1-1 (7th meeting, 9 February 2026: connection applications ~24GW, ~3.9× year on year) / 9th WG (as of end of December 2025: connection applications ~30GW, connection studies ~172GW, energized ~640MW) / 6th WG (24 December 2025), "On strengthening the discipline of grid-access procedures" / OCCTO, revision of the deposit calculation method (confirmed June 2026). The energized and connection-study-intake figures vary by quarter and by source.</p>
+
+<h2>06 — Gate ④ Rights sale versus completed asset</h2>
+
+<p>"Buying a storage plant" carries two meanings. A "rights sale," in which you take over a bundle of development-stage rights — grid capacity, land, the connection-contract application — and a "completed asset," in which you take over an operating asset with fixed specifications. The two differ greatly in the thickness of due diligence and the weight of representations and warranties. The first thing a foreign buyer should pin down is whether what they are about to take hold of is a bundle of rights or a settled asset.</p>
+
+<div class="compare-grid">
+  <div class="compare-card with-special">
+    <span class="cc-tag">COMPLETED ASSET (sale of a finished plant)</span>
+    <h4>An operating asset with fixed specs</h4>
+    <p>You acquire equipment with fixed kWh, PCS ratings, and grid conditions. Representations and warranties run heavy, and DD extends to equipment, performance, and contract assumption.</p>
+    <ul>
+      <li>Confirmation of technical-standard conformity and pre-use self-inspection</li>
+      <li>Confirmation that grid interconnection is complete</li>
+      <li>Transfer of position under the interconnection contract at handover</li>
+    </ul>
+  </div>
+  <div class="compare-card no-special">
+    <span class="cc-tag">RIGHTS SALE (grid capacity, land)</span>
+    <h4>A bundle of in-development rights</h4>
+    <p>No fixed equipment specification exists; measuring the "depth" of progress is the heart of DD. Apply a finished-product DD standard and you miss what should be measured.</p>
+    <ul>
+      <li>Depth of progress on the connection contract (how far it has advanced)</li>
+      <li>Stage of development permits and farmland conversion</li>
+      <li>Procedural progress on construction-plan notification and the like</li>
+    </ul>
+  </div>
+</div>
+
+<p>What deserves particular care in a completed-asset deal is the treatment under the Construction Business Act. Article 24 of that Act provides that a contract concluded for consideration with the aim of completing construction work is <strong>deemed</strong> a construction-work contract, regardless of its title. Even labeled a "sale," if the substance is assessed as aimed at completing the work, it can be deemed a contract for work. The more the structure relies on deposits, progress-linked interim payments, and a final balance at handover, and the stronger the buyer's direction and supervision, the more the contract takes on the character of a work contract. Conversely, if the seller completes the asset on its own account and transfers a finished asset, it can be organized as a sale. <strong>If a seller without a construction-business license repeatedly does completed-asset deals with strong, bespoke, EPC-like elements, the risk of recharacterization into a work contract rises.</strong> <span style="color:#b45309;font-weight:700">⚠️</span></p>
+
+<p>At handover, the position under the interconnection contract is succeeded (a name change with the consent of the general transmission and distribution operator), and the necessary notifications are carried over. Whether repeatedly reselling land or leaseholds amounts to a real-estate brokerage business is, as a rule, exempt where one leases on one's own account, but repeated transfers remain a point requiring separate consideration. <span style="color:#b45309;font-weight:700">❓</span></p>
+
+<p class="source">Sources: Construction Business Act Articles 24, 3, 22 (e-Gov) / MLIT, "Contracts for construction work and their discipline" / Electricity Business Act Article 27-29 (succession of position) / Real Estate Brokerage Act Article 2 (confirmed June 2026). Details on transaction objects, grid capacity, and contract structure: COLUMN 09, 19, 21.</p>
+
+<h2>07 — Gate ⑤ How equipment marks the exit (JC-STAR and the U.S. lists)</h2>
+
+<p>Equipment selection is not decided on price, lead time, and specs alone. Two axes bite when you eventually sell this asset — that is, at the exit. One is JC-STAR, Japan's cybersecurity certification; the other is U.S. procurement and export controls. They are two regimes on different rails, and both are worth reading at the acquisition entrance.</p>
+
+<p>One is JC-STAR. It is an IoT-security conformity scheme run by METI and IPA, in which Star 1 and Star 2 rest on a self-conformity declaration and Star 3 and Star 4 on third-party evaluation, with IPA publishing a list of conforming products. At the Grid Code Study Group (20th meeting, December 2025), a policy direction was decided that the April 2027 revision of the grid-interconnection technical requirements would make the use of Star 1-certified equipment mandatory for extra-high-voltage and high-voltage solar and storage (low-voltage under 50kW from October 2027). What bites here is a project that newly interconnects (applies for the contract) after the technical requirements are revised — not equipment already in operation, and not the timing of when operation starts. <strong>The dividing line is "when you apply."</strong> The scope covers control systems with communication functions (PCS, EMS, and the like) that use IP communication; the battery cells and packs themselves are not included. Note that this is at present at the policy-direction stage, and formal reflection into each general transmission and distribution operator's grid-interconnection technical requirements (promulgation and enforcement) is not complete as of this writing.</p>
+
+<div class="sched-list">
+  <div class="sched-item past">
+    <div class="s-date">2025.12<span class="sd-sub">policy direction</span></div>
+    <div>
+      <h4>Grid Code Study Group (20th meeting)</h4>
+      <p>Decided the direction to make Star 1-conforming products mandatory in the April 2027 revision of the grid-interconnection technical requirements. It applies to new projects that apply for the contract after the revision (not at the start of operation).</p>
+    </div>
+  </div>
+  <div class="sched-item">
+    <div class="s-date">2027.04<span class="sd-sub">planned application (EHV / HV)</span></div>
+    <div>
+      <h4>Mandatory at extra-high-voltage / high-voltage interconnection (planned)</h4>
+      <p>EHV and HV projects that apply for the contract after the technical-requirements revision are expected to be premised on using Star 1-conforming products. Promulgation and enforcement of the text bear watching.</p>
+    </div>
+  </div>
+  <div class="sched-item">
+    <div class="s-date">2027.10<span class="sd-sub">planned application (LV)</span></div>
+    <div>
+      <h4>Mandatory at low-voltage under 50kW (planned)</h4>
+      <p>On the low-voltage side, application is planned with a six-month lag to allow distribution inventory to clear.</p>
+    </div>
+  </div>
+</div>
+
+<div class="info-box">
+This is a "policy direction," not a "promulgated text." <span style="color:#b45309;font-weight:700">⚠️</span> The grid-interconnection technical requirements are set by each general transmission and distribution operator, and formal reflection into them — that is, a binding promulgation and enforcement — is not complete as of this writing. Whether the own-brand products of the major overseas brands have obtained Star 1 cannot be settled from IPA's public records alone. This column <strong>goes no further than writing "this cannot be confirmed,"</strong> asserting neither that it has been obtained nor that it has not. <span style="color:#b45309;font-weight:700">❓</span>
+</div>
+
+<p>The other is the U.S. lists. The U.S. Department of Defense's 1260H list (Chinese military companies list) added CATL in January 2025, and the June 2026 update expanded the scope to 188 companies, ranging across battery-related firms such as BYD, CALB, and EVE Energy. This does not immediately prohibit use within Japan, but within the U.S. it leads to procurement restrictions. Direct contracting by the U.S. Department of Defense is barred from the end of June 2026, indirect procurement through third parties from 2027, and battery procurement from six specified companies (CATL, BYD, and others) is individually barred from October 2027. This list further interlocks with U.S. export controls (the Entity List of the U.S. Department of Commerce's BIS; HUAWEI has been listed since 2019) and with CFIUS screening. When you later sell to an institutional investor, a leasing company, or a financier in Japan, such constraints echo into the procurement policy and the financing bankability. It is worth grasping at the entrance that <strong>Japan's cybersecurity certification (JC-STAR) and the U.S. procurement and export lists (1260H, Entity List) are different axes.</strong></p>
+
+<p class="source">Sources: Grid Code Study Group material, "On requiring cybersecurity measures for distributed power sources" (20th meeting, December 2025) / IPA JC-STAR list of conforming products / U.S. DoD Section 1260H list (CATL: January 2025; June 2026 update brings the total to 188 companies, adding BYD, CALB, EVE Energy, and others. DoD direct-contracting ban end of June 2026, indirect 2027, battery procurement from six specified companies October 2027 = FY2024 NDAA §154) / U.S. Commerce BIS Entity List (HUAWEI: since 2019) (confirmed June 2026). Details of the JC-STAR scheme: COLUMN 14.</p>
+
+<h2>08 — Gate ⑥ Land and tax</h2>
+
+<p>Depending on the site, the Important Land Survey Act comes into play. A radius of roughly 1,000m around important facilities such as defense-related installations, plus border islands and the like, is designated as a "watch zone," and the important parts of these are designated "special watch zones." When concluding a contract to transfer ownership or other rights in land or buildings of <strong>200m² or more</strong> within a special watch zone, both seller and buyer must give prior notification to the Prime Minister before the contract (the notification form records the transferee's nationality and the like; Act Article 13 / Enforcement Order Article 4). If a storage plant's site overlaps here, the acquisition incurs a notification obligation. A lease falls outside the prior notification for an acquisition, but the survey and recommendation on usage status reach the user as well, so a lease is not necessarily unrelated.</p>
+
+<p class="source">Sources: Cabinet Office, "Important Land Survey Act" (special watch zone, area requirement 200m², Act Article 13 / Enforcement Order Article 4; fully enforced 20 September 2022) <a href="https://www.cao.go.jp/tochi-chosa/" target="_blank">https://www.cao.go.jp/tochi-chosa/</a> (confirmed June 2026).</p>
+
+<p>On tax, withholding on dividends is the issue. Against the domestic-law rates (20.42% / 15.315%), tax treaties reduce the limit rate on dividends, interest, and royalties (application requires notification — for instance, the Japan-China tax treaty sets a 10% limit rate on dividends). The limit rate differs by the treaty between the investor's country of residence and Japan, so it is worth confirming for each source. Easily overlooked at the exit is the <strong>capital-gains taxation</strong> when a non-resident transfers shares in a Japanese real-estate-related corporation; if the premise is to acquire a finished asset and eventually sell, this is a point to build in at the entrance. In addition, the effective taxation changes with how repatriation is structured (dividend, tolling fee, or interest) and with whether a <strong>permanent establishment (PE)</strong> is recognized. Give a non-resident investor excessive participation rights and the PE-recognition risk rises.</p>
+
+<p>Note that the FY2026 "bold investment-promotion tax measure" (immediate depreciation) has a scale wall. The investment-amount requirement is, as a rule, JPY 3.5 billion or more (JPY 500 million or more for SMEs and the like), with an average annual investment return rate and confirmation by the METI Minister also expected to be required; a standalone 2MW-class asset (on the order of several hundred million to a few billion yen) does not easily meet the requirements. <span style="color:#b45309;font-weight:700">⚠️</span> Even if it could be used, immediate depreciation is a deferral of tax for accounting purposes, not a tax reduction; sell while the book value has dropped to near zero and a capital gain stands up in a lump at the time of sale. Furthermore, the requirement "excluding equipment provided for lending use" bites on the tolling type. And this measure is at the outline stage; promulgation and enforcement of the text are yet to come.</p>
+
+<p class="source">Sources: Cabinet Office (Important Land Survey Act) / Ministry of Finance, JETRO (tax treaties: Japan-China 10% dividend limit rate, etc.) / National Tax Agency / FY2026 Tax Reform Outline (confirmed June 2026). Details of the tax measure: COLUMN 22.</p>
+
+<h2>09 — Operation and safety after acquisition</h2>
+
+<p>Acquire a storage plant and operation and safety come with it. Yet the range in which the law names who must carry it out is surprisingly limited. A storage plant is subject to the duty to maintain technical-standard conformity, the appointment of a chief electrical engineer, and the notification of safety regulations (Electricity Business Act Article 43). Still, the chief engineer's statutory safety supervision centers on the receiving and transforming (AC) side, while the DC side — battery cells, BMS, PCS — and the communications side are not necessarily set out explicitly as within the range of statutory supervision. This is where a blank readily forms that the O&M contract should fill.</p>
+
+<p>Even a wholly foreign-owned Japanese corporation can, as a matter of the regime, appoint a chief engineer or outsource it. No provision setting nationality as a requirement is found in the text. <span style="color:#b45309;font-weight:700">❓</span> The practical wall is rather whether qualified personnel can be secured and whether the requirements for on-site stationing or outsourcing (the output and voltage caps) can be met. For a 2MW-class asset on high-voltage 6.6kV interconnection, the outsourcing option remains. On the operational side, the capacity market's penalty structure is also worth grasping. Where an outage plan is not submitted on a planned basis, a factor of 5 is applied to the missed slots, so <strong>an unplanned outage bites more heavily than a planned one</strong>. Build this asymmetry into the operating design.</p>
+
+<p class="source">Sources: Electricity Business Act Article 43 / METI, "Q&A on the chief engineer regime" / OCCTO, capacity-market requirement and penalty materials (5× for unplanned outages) (confirmed June 2026). Details of O&M: COLUMN 23.</p>
+
+<h2>10 — The full picture of the gates to clear</h2>
+
+<p>We return to the opening question to look back over the gates so far. "If we place an order with a Japanese EPC, will the storage plant get built?" The equipment itself can certainly be bought. Even so, a single plant does not stand up as a business, because a number of gates sit before and after the equipment.</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">WALL 01</span>
+    <h4>Can the funds leave (the gate out)</h4>
+    <p>If the source has capital controls, the work begins with designing the route the money travels, ahead of property selection. From a country with light controls, this passes through almost untouched.</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">WALL 02</span>
+    <h4>FEFTA (the gate in)</h4>
+    <p>The electricity business is a designated sector and prior notification is likely. By scale it is expected not to be core, but it is ultimately settled by inquiry to the competent ministry. The holding vehicle also divides how heavy or light the procedure is.</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">WALL 03</span>
+    <h4>Grid capacity and land</h4>
+    <p>Applications alone swell while energized capacity stays a sliver. The 2026 tightening raises the difficulty of acquiring new capacity; the slots sit with operators who hold them.</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">WALL 04</span>
+    <h4>What you buy, and the exit</h4>
+    <p>Rights sale or completed asset. Recharacterization into a work contract, the equipment's exit bankability, the Important Land Survey Act, the exit taxation. Each holds up only once handled in the contract and the design.</p>
+  </div>
+</div>
+
+<p>The equipment can be bought. But capital does not move freely, regulation cannot be skirted, capacity cannot be obtained with money alone, and handover and exit can only be designed through contract. Only by teaming with a Japanese-side partner who can bind these together does a foreign-capital storage investment stand up. An EPC order is just one step within that whole.</p>
+
+<h3>Remaining uncertainties (points not yet settled)</h3>
+
+<p>This column, on a primary-source basis, distinguishes policy direction from promulgated text. The points not settled at present are listed separately. (i) Whether an SPC operating a grid-scale storage plant falls under "electricity business (power generation business)," and its connection to the core sectors (settled by inquiry to the competent ministry). <span style="color:#b45309;font-weight:700">⚠️</span> (ii) The formal amendment and enforcement of the grid-interconnection technical requirements that accompany the JC-STAR mandate (at the policy stage at present). <span style="color:#b45309;font-weight:700">⚠️</span> (iii) Whether immediate depreciation can be applied to a foreign-owned SPC (depends on scale and the lending requirement, and is at the outline stage). <span style="color:#b45309;font-weight:700">⚠️</span> (iv) Whether a regime opening individual outbound direct investment in a capital-controlled country (e.g., QDII2) is enforced (it remains a proposal and is not yet in force). <span style="color:#b45309;font-weight:700">❓</span> (v) Whether the own-brand products of the major overseas brands have obtained Star 1 (cannot be confirmed in IPA's public records). <span style="color:#b45309;font-weight:700">❓</span> (vi) Whether a specific site falls under the Important Land Survey Act or the Real Estate Brokerage Act (depends on the site and the transaction form). <span style="color:#b45309;font-weight:700">❓</span> Depending on how these turn out, the entrance design changes.</p>
+
+<h3>Ten items to confirm before an investment decision</h3>
+
+<div class="checklist-group" id="foreign-investor-checklist">
+  <h5><span class="cl-num">✓</span>Pre-entry check for foreign capital</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01</span><strong>Fix the funding route.</strong> Does the source country restrict outbound investment? If so, which of existing offshore assets, an overseas SPV, or corporate ODI do you ride? On the premise that in some countries an individual's direct investment of domestic funds into a Japanese SPC has no formal route, did you design this first?</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02</span><strong>Need for and schedule of FEFTA prior notification.</strong> The electricity business is a designated sector with prior notification likely, and by scale likely non-core. Did you map each trigger — incorporation, business commencement, business assumption, share acquisition — and settle the sector classification by inquiry to the competent ministry?</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03</span><strong>Choice of vehicle.</strong> Corporation operation or TK-GK? Did you weigh the heaviness of the FEFTA entrance against the impact on the exit and tax ("a TK-GK is not always exempt")?</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04</span><strong>Grid capacity and land.</strong> Do you have valid capacity advanced to the connection contract, along with the right to use the land and the land survey (acquiring new capacity grew harder with the 2026 tightening)?</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05</span><strong>Type of transaction object.</strong> Rights sale or completed asset? Is the DD designed to match? For a completed asset, did you check the risk of recharacterization into a work contract under the Construction Business Act?</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06</span><strong>State and date of the grid-access contract application.</strong> JC-STAR Star 1 is set to apply to projects that apply for the contract after the technical-requirements revision (not at the start of operation or the interconnection date). Did you confirm the sequencing against April 2027 (EHV/HV) and October 2027 (LV)?</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07</span><strong>Equipment exit bankability.</strong> Including listing on the various U.S. lists (1260H, Entity List, and the like), did you assess at the entrance the factors that will tell on a future sale or financing?</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">08</span><strong>Whether the site falls under the Important Land Survey Act.</strong> Does it overlap a special watch zone? Acquisition or lease? If 200m² or more, did you confirm whether a notification obligation exists before the contract?</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">09</span><strong>Source of dividends and exit taxation.</strong> Did you build in at the entrance the application of the treaty limit rate (notification required), capital-gains taxation on a non-resident's transfer of shares in a real-estate-related corporation, and the PE-recognition risk?</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">10</span><strong>Operation and safety framework.</strong> Securing a chief engineer, stationing on site or the feasibility of outsourcing (output and voltage requirements), and did you fold the capacity market's unplanned-outage penalty into the design?</span></label>
+  <div class="check-progress">
+    <span>Confirmed</span>
+    <span class="bar"><span class="bar-fill" id="checkBarFill"></span></span>
+    <span><span class="count" id="checkCount">0</span> / 10</span>
+  </div>
+</div>
+
+<p class="note-small">* The check items are retained only during the browser session. To finalize them for printing, you can save to PDF from the browser's print function.</p>
+
+<h2>Conclusion — "Can buy" and "stands up" are not the same</h2>
+
+<p>For foreign capital, Japan's high-voltage storage plants hold the appeal of predictable revenue. Yet move directly and you find that what bites first — depending on the source — is neither revenue nor siting, but whether the funds can reach Japan at all. Beyond that lie FEFTA, judging what you are buying, grid capacity and land, the equipment's exit, and land and tax.</p>
+
+<p>Every one of these, unless designed at the entrance, rebounds at final closing or at the exit. What this column has drawn is a map of those gates. How to get an individual deal through is the practical work that begins from here.</p>
+
+<p>Japan's storage plants can be bought. But the investor who can make it real is the one who has designed each gate, one at a time, from the entrance on.</p>
+
+<div class="sources-box">
+<h4>Principal primary sources (retrieved June 2026)</h4>
+<ul>
+  <li>Ministry of Finance, "Notice designating the designated sectors / Notice designating the core sectors," Appended Table No. 17 (mid-classification 33, electricity business = limited to general transmission and distribution operators, transmission operators, and power generation operators holding a plant with a maximum output of 50,000kW or more)</li>
+  <li>METI, "On the inward direct investment screening regime," "FAQ on sectors under jurisdiction" (generation/discharge using self-maintained and self-operated electrical facilities falls under the generation business; no output requirement)</li>
+  <li>Bank of Japan, "FEFTA Q&A (inward direct investment and specified acquisition edition)," Foreign Exchange and Foreign Trade Act Article 27, Commercial Code Articles 535 and 536</li>
+  <li>OCCTO, capacity market main auction results (target delivery year FY2029, published 20 January 2026) / Long-term Decarbonization Auction scheme details (minimum bid capacity 10,000kW) / revision of the deposit calculation method</li>
+  <li>EPRX / JEPX spot-market data / Working Group on Market Design (cap price in the balancing market, 110th meeting, January 2026)</li>
+  <li>ANRE, Next-generation Power Grid WG, "On responses toward rapid grid interconnection of generation and other facilities including grid-scale storage batteries," Material 1-1 (9 February 2026: connection applications ~24GW, ~3.9× year on year) / Grid Code Study Group, "On requiring cybersecurity measures for distributed power sources" (20th meeting, December 2025)</li>
+  <li>IPA, "Security conformity evaluation and labeling scheme (JC-STAR)," list of conforming products</li>
+  <li>Cabinet Office, "Important Land Survey Act" (special watch zone, 200m² area requirement, Act Article 13 / Enforcement Order Article 4) <a href="https://www.cao.go.jp/tochi-chosa/" target="_blank">https://www.cao.go.jp/tochi-chosa/</a></li>
+  <li>Construction Business Act Articles 24, 3, 22 (e-Gov) / MLIT, "Contracts for construction work and their discipline" / Electricity Business Act Articles 27-29, 43, Enforcement Regulation Article 3-4 / Real Estate Brokerage Act Article 2</li>
+  <li>National Tax Agency (immediate depreciation; exclusion of "lending use") / FY2026 Tax Reform Outline / Ministry of Finance and JETRO ("tax treaties"; Japan-China 10% dividend limit rate, etc.)</li>
+  <li>U.S. DoD Section 1260H list (CATL: January 2025; June 2026 update brings the total to 188 companies, adding BYD, CALB, EVE Energy, and others. DoD direct-contracting ban end of June 2026, indirect 2027, battery procurement from six specified companies October 2027 = FY2024 NDAA §154) / U.S. Commerce BIS Entity List (HUAWEI: since 2019)</li>
+  <li>Outbound-investment regulation of capital-controlled countries (one example): SAFE, Detailed Rules for Implementing the Measures for the Administration of Individual Foreign Exchange / NDRC, Measures for the Administration of Overseas Investment by Enterprises (Order No. 11) / Circular 37 (Huifa [2014] No. 37)</li>
+</ul>
+</div>
+
+<p class="note-small">* This column is intended to organize the regulations and institutions, and distinguishes the stages of regulation (policy direction / deliberative approval / promulgation of text / enforcement). Points that cannot be confirmed (whether a storage plant falls under a core sector, applicability of the Real Estate Brokerage Act, any nationality requirement for the chief engineer, Star 1 obtained for overseas brands' own-brand products, and the like) are made explicit in the body. Passages referring to overseas regimes rest on the wording of each country's original text. This is not individual legal, tax, or investment advice. The content is as of June 2026.</p>
+
+<a target="_top" href="https://www.scix.co.jp/en/column-grid-rules" class="next-link">
+  <span><span class="next-link-label">Read next</span><span class="next-link-title">COLUMN 09 — New rules for connection studies and contract applications: what changed with the April 2026 "speculative-slot countermeasures"</span></span>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="cta-section">
+  <h3>Consult us on foreign-capital storage investment</h3>
+  <p>Deal-specific information that an article alone cannot decide is disclosed after inquiry, under an NDA.</p>
+  <a target="_top" href="https://www.scix.co.jp/en/contact" class="cta-btn">Contact us →</a>
+</div>
+
+</div>
+
+<script>
+// === Checklist Progress ===
+(function(){
+  var group   = document.getElementById('foreign-investor-checklist');
+  if (!group) return;
+  var checks  = group.querySelectorAll('input[type=checkbox]');
+  var countEl = document.getElementById('checkCount');
+  var fillEl  = document.getElementById('checkBarFill');
+  var total   = checks.length;
+
+  function update(){
+    var done = 0;
+    checks.forEach(function(c){ if (c.checked) done++; });
+    countEl.textContent = done;
+    fillEl.style.width = (done / total * 100) + '%';
+  }
+  checks.forEach(function(c){ c.addEventListener('change', update); });
+  update();
+})();
+</script>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo img { height:48px; width:auto; display:block; opacity:0.95; }
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/en/" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img src="https://www.scix.co.jp/img/logo-white.png" alt="ScienceX Inc." loading="lazy">
+    </a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        8-2 Nihonbashi-Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        TEL: <a href="tel:0364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakajima, Representative Director (Ph.D. in Engineering)</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
