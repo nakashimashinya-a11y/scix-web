@@ -315,6 +315,21 @@
         b.setAttribute('rel', 'noopener');
         b.style.display = '';
         b.removeAttribute('aria-hidden');
+        // 予約ボタンのクリックを GA4 で計測（コンバージョン候補・T6）。
+        // book_meeting イベントを送る。重複バインド防止に data 属性でガード。
+        if (!b.hasAttribute('data-scix-booking-tracked')) {
+          b.setAttribute('data-scix-booking-tracked', '1');
+          b.addEventListener('click', function () {
+            if (typeof window.gtag !== 'function') return;
+            try {
+              window.gtag('event', 'book_meeting', {
+                method: 'calendar',
+                page_lang: (document.documentElement.lang || 'ja'),
+                transport_type: 'beacon'
+              });
+            } catch (err) { /* ignore */ }
+          });
+        }
       } else {
         b.style.display = 'none';
         b.setAttribute('aria-hidden', 'true');
