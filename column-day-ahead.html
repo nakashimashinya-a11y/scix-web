@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .num{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-size:1.1em}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.88em}
+.comparison-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text)}
+.faq-a::before{content:'A. ';color:var(--text-light);font-weight:700}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.seo-note{display:none}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+@media(max-width:768px){.article-body{padding:32px 16px 60px}h2{font-size:1.2em}.comparison-table{font-size:.8em}.comparison-table th,.comparison-table td{padding:8px 10px}}
+</style>
+<title>需給調整市場の前日取引化とは — 週間商品の廃止と蓄電池運用への影響（2026年）｜ScienceX</title>
+<meta name="description" content="2026年3月13日から需給調整市場の一次〜三次①が週間商品から前日取引へ移行。30分コマ化と上限価格引下げを含むこの制度変更が、蓄電池のJEPXとの日次配分判断にどう効くかを、EPRX・資源エネルギー庁の公表資料に基づき解説。">
+<link rel="canonical" href="https://www.scix.co.jp/column-day-ahead">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-day-ahead">
+<meta property="og:type" content="website">
+<meta property="og:title" content="需給調整市場の前日取引化とは — 週間商品の廃止と蓄電池運用への影響（2026年）｜ScienceX">
+<meta property="og:description" content="2026年3月13日から需給調整市場の一次〜三次①が週間商品から前日取引へ移行。30分コマ化と上限価格引下げが、蓄電池のJEPXとの日次配分判断にどう効くかを、EPRX・資源エネルギー庁の公表資料に基づき解説。">
+<meta property="og:url" content="https://www.scix.co.jp/column-day-ahead">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="需給調整市場の前日取引化とは — 週間商品の廃止と蓄電池運用への影響（2026年）｜ScienceX">
+<meta name="twitter:description" content="2026年3月13日から一次〜三次①が週間商品から前日取引へ移行。30分コマ化が蓄電池のJEPXとの日次配分判断にどう効くかを解説。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "需給調整市場の前日取引化とは — 週間商品の廃止と蓄電池運用への影響（2026年）｜ScienceX",
+  "description": "2026年3月13日から需給調整市場の一次〜三次①が週間商品から前日取引へ移行。30分コマ化と上限価格引下げを含むこの制度変更が、蓄電池のJEPXとの日次配分判断にどう効くかを、EPRX・資源エネルギー庁の公表資料に基づき解説。",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "datePublished": "2026-06-18",
+  "mainEntityOfPage": "https://www.scix.co.jp/column-day-ahead"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "需給調整市場の前日取引化とは何ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "従来は1週間分をまとめて入札していた一次〜三次①の「週間商品」が、2026年3月13日の取引分から、前日14時に翌日分を入札する「前日取引」に移行したことを指します。取引単位も3時間ブロックから30分コマに細分化され、全商品の継続時間が30分に統一されました。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "週間商品はなぜ廃止されたのですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "週間商品は1週間先の調整力を事前に確保する仕組みで、JEPX（卸電力市場）と需給調整市場の最適な使い分けが困難でした。前日取引化により、翌日の需給見通しを織り込んで日次で配分を判断できるようになり、市場間の裁定が機能しやすくなります。同時に取引単位も30分コマへ細分化されました。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "前日取引化は蓄電池の運用にどう影響しますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "事業者は毎日、翌日の48コマそれぞれについて「JEPXで売るか、需給調整市場で待機するか」を判断する必要があります。JEPXのスポット市場に入札した売れ残り分だけが需給調整市場に応札できるルールのため、2つの市場の使い分けがより戦略的になりました。この日次の配分最適化はアグリゲーターの運用能力に依存します。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "前日取引化と同時に上限価格も変わりましたか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい。同じ2026年3月13日の取引分から、一次・二次①・複合商品の上限価格が19.51円から15円（円/ΔkW・30分）へ引き下げられ、一次・二次①の募集量も3σ相当から1σ相当へ縮小されました。収益の天井は下がりましたが、一次調整力の充足率はオンラインで40.8%、オフラインで3.4%と低く、不足は依然大きい状況です。"
+      }
+    }
+  ]
+}
+</script>
+<meta property="article:published_time" content="2026-06-18">
+</head>
+<body>
+<script src="/header.js"></script>
+<div class="seo-note">
+  title: 需給調整市場の前日取引化とは — 週間商品の廃止と蓄電池運用への影響（2026年）｜ScienceX
+  description: 2026年3月13日から需給調整市場の一次〜三次①が週間商品から前日取引へ移行。30分コマ化と上限価格引下げを含むこの制度変更が、蓄電池のJEPXとの日次配分判断にどう効くかを、EPRX・資源エネルギー庁の公表資料に基づき解説。
+  slug: /column-day-ahead
+  keywords: 需給調整市場 前日取引化, 需給調整市場 週間商品, 需給調整市場 30分コマ, 需給調整市場 制度変更, 前日取引, 蓄電池, JEPX, EPRX
+</div>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 29</span>
+      <span class="header-tag">制度解説</span>
+      <time class="header-date" datetime="2026-06-18">2026.06.18</time>
+    </div>
+    <h1>需給調整市場の前日取引化とは<br>— <em>週間商品の廃止</em>と蓄電池運用への影響</h1>
+    <p class="header-desc">2026年3月13日、需給調整市場の一次〜三次①が「週間商品」から「前日取引」へ移行した。何が変わり、蓄電池のJEPXとの日次配分判断にどう効くのかを整理する。</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
+
+<h2>前日取引化とは — 2026年3月13日の制度変更</h2>
+<p>需給調整市場（EPRXが運営）では、2026年3月13日の取引分から、一次〜三次①の取引方式が大きく変わった。従来「週間商品」として1週間分をまとめて入札していたものが、<strong>前日14時に翌日分を入札する「前日取引」</strong>へ移行したのである。同時に取引単位も3時間ブロックから<strong>30分コマ</strong>に細分化され、全商品の継続時間が30分に統一された（三次②は2025年度から先行して30分に変更済み）。</p>
+<p>この変更は単なる事務手続きの調整ではない。週間先の調整力を事前に押さえる仕組みから、翌日の需給見通しを織り込んで日々配分を決める仕組みへの転換であり、蓄電池事業者にとっては「毎日の運用判断」の重みが一段と増す変更である。本コラムは、この前日取引化そのものに焦点を当てる。需給調整市場の5商品やオンライン・オフラインの違いといった商品設計の全体像は<a target="_top" href="/column-balancing-market" style="color:var(--accent);font-weight:600">需給調整市場の5商品</a>で詳述している。</p>
+<div class="highlight-box">
+  <strong>2026年3月13日の取引分から変わった3点：</strong><br>
+  ・<strong>取引タイミング</strong> … 週間（1週間分を事前一括）→ 前日取引（前日14時に翌日分を入札）<br>
+  ・<strong>取引単位</strong> … 3時間ブロック → 30分コマ（全商品の継続時間を30分に統一）<br>
+  ・<strong>上限価格・募集量</strong> … 一次・二次①・複合の上限価格を19.51円→15円に引下げ、一次・二次①の募集量を3σ→1σへ縮小<br><br>
+  対象は一次・二次①②・三次①（複合商品）。三次②はもともと前日商品として独立取引されている。
+</div>
+<div class="source">出典: 一般社団法人 電力需給調整力取引所「需給調整市場かいせつ資料」第2版（2026年3月13日）／資源エネルギー庁「需給調整市場について」第110回制度検討作業部会資料（2026年1月23日）</div>
+
+<h2>週間商品とは何だったか — そして、なぜ廃止されたか</h2>
+<p>2024年4月の全商品取引開始から2026年3月12日までは、一次・二次①②・三次①は「週間商品」として取引されていた。<strong>週間商品</strong>とは、実需給の1週間ほど前に、1週間分の調整力をまとめて入札・約定する方式である。送配電事業者は週単位で必要量を確保でき、事業者は週初にまとめて応札していた。</p>
+<p>この方式の弱点は、<strong>市場間の使い分けが難しい</strong>ことにあった。蓄電池の収益は、JEPX（卸電力市場）での電力量（kWh）の売買と、需給調整市場での調整力（ΔkW＝待機）の提供を組み合わせて成り立つ。ところが調整力を1週間前に約定してしまうと、その時間帯はJEPXのスポット価格がいくらになろうと需給調整市場に拘束される。翌日のスポット価格が高騰しても、すでに需給調整市場で待機を約束していれば、その容量をJEPXに振り向けられない。週間という長い予約期間が、両市場の機動的な裁定を妨げていた。</p>
+<p>前日取引化は、この時間軸を「1週間前」から「前日」へ縮めることで、翌日の需給見通しを織り込んだうえで配分を決められるようにする変更である。あわせて取引単位を30分コマへ細分化したことで、コマごとにJEPXと需給調整市場のどちらに出すかを選べるようになった。</p>
+<table class="comparison-table">
+  <tr><th>項目</th><th>週間商品（〜2026年3月12日）</th><th>前日取引（2026年3月13日〜）</th></tr>
+  <tr><td class="em">入札タイミング</td><td>実需給の約1週間前に一括</td><td>前日14時に翌日分</td></tr>
+  <tr><td class="em">取引単位</td><td>3時間ブロック</td><td>30分コマ</td></tr>
+  <tr><td class="em">継続時間</td><td>商品により30分以上〜3時間</td><td>全商品30分に統一</td></tr>
+  <tr><td class="em">JEPXとの使い分け</td><td>週単位で固定され機動性が低い</td><td>コマ単位で日次に判断できる</td></tr>
+</table>
+<p><small style="color:var(--text-light)">※ 継続時間は制度創設時、二次①②が「30分以上」、三次①②が「3時間」だった。前日取引化・30分コマ化に伴い全商品「30分」に統一された（三次②は2025年度から先行変更）。対象は一次・二次①②・三次①（複合商品）。三次②は従前から前日商品として独立取引。</small></p>
+<div class="source">出典: 一般社団法人 電力需給調整力取引所「需給調整市場かいせつ資料」第2版（2026年3月13日） <a href="https://www.eprx.or.jp/outline/docs/kaisetsu.pdf" target="_blank">eprx.or.jp</a></div>
+
+<h2>30分コマ化と「48コマ」 — JEPXとの接続点</h2>
+<p>前日取引化の実務上の核心は、取引単位が30分コマになった点にある。JEPXのスポット市場は、もともと1日を30分刻みの<strong>48コマ</strong>で取引している。需給調整市場も30分コマに揃ったことで、両市場が同じ時間粒度で並ぶようになった。</p>
+<p>これにより、事業者は毎日、翌日の48コマそれぞれについて「JEPX（卸電力市場）で電力量を売るか、需給調整市場で待機するか」を判断することになる。しかも両市場は独立して選べるわけではない。<strong>JEPXのスポット市場に入札した売れ残り分だけが需給調整市場に応札できる</strong>ルールがあるため、まずJEPXへの入札を決め、その結果を踏まえて需給調整市場への応札を組み立てるという順序が生じる。週間商品の時代には週単位でしか動かせなかったこの判断が、いまや毎日48回分発生する。</p>
+<div class="highlight-box">
+  <strong>前日取引化が生んだ日次の判断ループ（蓄電池の場合）：</strong><br>
+  ① 翌日のJEPXスポット価格と需給調整市場の見通しを予測<br>
+  ② 48コマそれぞれで、充電・JEPX放電・需給調整市場での待機を割り付け<br>
+  ③ JEPXスポットへ入札（前日10時 GC）<br>
+  ④ 売れ残った容量で需給調整市場へ応札（前日14時）<br>
+  ⑤ 約定 → 実需給での充放電・待機・応動 → 精算<br><br>
+  蓄電池は充電中に応札できないため、48コマのうち何コマを市場に出せるかが収益を直接左右する。
+</div>
+<p>注意したいのは、蓄電池は充電中に市場へ応札できないという物理的な制約である。安値の時間帯（深夜・昼間の太陽光余剰時間）に充電し、高値の時間帯に放電・待機するという基本動作がある以上、48コマすべてを市場に出すことはできない。充電に使うコマ分だけ収益機会は減る。前日取引化は、この限られたコマをJEPXと需給調整市場のどちらへ、どう振り分けるかという最適化問題を、毎日突きつける制度になったといえる。</p>
+<div class="source">出典: 一般社団法人 電力需給調整力取引所「需給調整市場かいせつ資料」第2版（2026年3月13日）</div>
+
+<h2>同時に動いた上限価格・募集量の引下げ</h2>
+<p>前日取引化と同じ2026年3月13日の取引分から、価格面でも2つの引下げが実施された。前日取引化と一体で押さえておきたい変更である。</p>
+<table class="comparison-table">
+  <tr><th>項目</th><th>2025年度まで</th><th>2026年度〜</th></tr>
+  <tr><td class="em">一次・二次①・複合商品の上限価格</td><td>19.51円/ΔkW・30分</td><td>15円/ΔkW・30分</td></tr>
+  <tr><td class="em">二次②・三次①の上限価格</td><td>7.21円/ΔkW・30分</td><td>7.21円/ΔkW・30分（据え置き）</td></tr>
+  <tr><td class="em">募集量（一次・二次①）</td><td>3σ相当</td><td>1σ相当</td></tr>
+  <tr><td class="em">将来的な引下げ見通し</td><td>—</td><td>10円 → 7.21円と段階的に検討</td></tr>
+</table>
+<p>上限価格は当初案の7.21円から15円に緩和されたものの、従来の19.51円からは約23%の引下げとなった。さらに、市場の競争状況に改善が見られない場合は10円、7.21円と段階的に引き下げる方針が示されている。また募集量については、一次・二次①の調達基準が3σ相当（予測誤差の99.7%をカバー）から1σ相当（68%をカバー）へ変更され、市場で調達するこれらの調整力の総量そのものが大幅に削減された。</p>
+<p>前日取引化が「取引のタイミングと粒度」の変更であるのに対し、上限価格・募集量の引下げは「収益の天井と市場の大きさ」の変更である。両者が同時に効くことで、蓄電池の運用は「より細かく、より日次で、より限られたパイを取り合う」方向へ動いている。商品別の単価レンジや充足率の実数は<a target="_top" href="/column-balancing-market" style="color:var(--accent);font-weight:600">需給調整市場の5商品</a>を参照されたい。</p>
+<div class="source">出典: 資源エネルギー庁「需給調整市場について」第110回制度検討作業部会資料（2026年1月23日）</div>
+
+<h2>蓄電池運用への影響 — 何が収益を分けるか</h2>
+<p>前日取引化は、同じ蓄電池設備でも年間収益に差が出やすい市場環境を作り出した。差を生むのは設備の性能そのものではなく、毎日の配分判断の巧拙である。</p>
+<h3>① JEPXと需給調整市場の日次配分</h3>
+<p>翌日のスポット価格と需給調整市場の単価・約定見通しを予測し、48コマをどう割り付けるか。これが前日取引化以後の収益の中心変数になった。JEPXのスポットが高い日はそちらへ容量を寄せ、需給調整市場の単価が見込める時間帯は待機に回す——この判断を毎日、コマ単位で行う必要がある。</p>
+<h3>② アグリゲーターの運用能力</h3>
+<p>48コマの配分最適化は、人手で精度よく回せる作業量ではない。充電タイミングの最適化、JEPXと需給調整市場への配分、応札価格の決定までを、アグリゲーターの運用アルゴリズムが担う。前日取引化によって、このアルゴリズムの優劣が年間収益に直接効くようになった。同じ設備でもアグリゲーターの選択で収益が変わる。手数料の取り方（グロス／ネット）も収益に直結するため、<a target="_top" href="/column-revenue" style="color:var(--accent);font-weight:600">蓄電池の3つの収益源</a>とあわせて運用設計を確認したい。</p>
+<h3>③ 制度の方向性を織り込む</h3>
+<p>上限価格は15円へ引下げ済みで、段階的なさらなる引下げ方針も示されている。一方で一次調整力の充足率はオンラインで40.8%、オフラインで3.4%と低く、不足は依然大きい。収益の天井は下がりつつも、商品選択と日次運用次第で収益機会は残っている、というのが現時点の構図である。短期の単価だけでなく、制度の引下げ方向を織り込んだうえで設備を見極める必要がある。</p>
+<div class="warning-box">
+  <strong>⚠ 「前日取引化で稼ぎやすくなった」わけではない：</strong><br>
+  前日取引化はJEPXとの機動的な使い分けを可能にした一方、上限価格引下げ・募集量縮小と同時に実施されている。日次の配分を巧みに回せる事業者には機会が広がるが、運用が伴わなければ収益の天井引下げの影響だけを受ける。設備の良し悪し以上に、運用設計とアグリゲーター選定が事業性を分ける局面である。
+</div>
+<div class="source">出典: EPRX 取引実績（確報値）2025年4月〜2026年2月／資源エネルギー庁「需給調整市場について」第110回制度検討作業部会資料（2026年1月23日）</div>
+
+<h2>よくある質問</h2>
+<div class="faq-item">
+  <div class="faq-q">需給調整市場の前日取引化とは何ですか？</div>
+  <div class="faq-a">従来は1週間分をまとめて入札していた一次〜三次①の「週間商品」が、2026年3月13日の取引分から、前日14時に翌日分を入札する「前日取引」に移行したことを指します。取引単位も3時間ブロックから30分コマに細分化され、全商品の継続時間が30分に統一されました。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">週間商品はなぜ廃止されたのですか？</div>
+  <div class="faq-a">週間商品は1週間先の調整力を事前に確保する仕組みで、JEPX（卸電力市場）と需給調整市場の最適な使い分けが困難でした。前日取引化により、翌日の需給見通しを織り込んで日次で配分を判断できるようになり、市場間の裁定が機能しやすくなります。同時に取引単位も30分コマへ細分化されました。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">前日取引化は蓄電池の運用にどう影響しますか？</div>
+  <div class="faq-a">事業者は毎日、翌日の48コマそれぞれについて「JEPXで売るか、需給調整市場で待機するか」を判断する必要があります。JEPXのスポット市場に入札した売れ残り分だけが需給調整市場に応札できるルールのため、2つの市場の使い分けがより戦略的になりました。この日次の配分最適化はアグリゲーターの運用能力に依存します。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">前日取引化と同時に上限価格も変わりましたか？</div>
+  <div class="faq-a">はい。同じ2026年3月13日の取引分から、一次・二次①・複合商品の上限価格が19.51円から15円（円/ΔkW・30分）へ引き下げられ、一次・二次①の募集量も3σ相当から1σ相当へ縮小されました。収益の天井は下がりましたが、一次調整力の充足率はオンラインで40.8%、オフラインで3.4%と低く、不足は依然大きい状況です。</div>
+</div>
+
+<a target="_top" href="/column-balancing-market" class="next-link">
+  <div>
+    <div class="next-link-label">NEXT → COLUMN 15</div>
+    <div class="next-link-title">需給調整市場の5商品を理解する — オンライン・オフライン・複合商品の違い</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="cta-section">
+  <h3>エネルギー事業に関するご相談</h3>
+  <p>記事だけでは判断できない案件固有の情報は、<br>お問い合わせ後にNDA締結のうえご開示します。</p>
+  <a target="_top" href="/contact" class="cta-btn">お問い合わせ →</a>
+</div>
+</div>
+
+<!-- ScienceX Footer — self-contained -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+  .scix-footer { background-color: #1B2A4A; color: rgba(255, 255, 255, 0.85); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%; }
+  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: 0.95; }
+  .scix-footer-info { text-align: center; }
+  .scix-footer-copyright { font-size: 11px; letter-spacing: 0.04em; color: rgba(255, 255, 255, 0.55); margin-top: 20px; }
+  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255, 255, 255, 0.8); }
+  .scix-footer-company .company-name { font-weight: 500; font-size: 13.5px; color: rgba(255, 255, 255, 0.92); margin-bottom: 2px; }
+  .scix-footer-company .representative { margin-top: 4px; color: rgba(255, 255, 255, 0.6); font-size: 12px; }
+  .scix-footer-company a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: color 0.2s ease; }
+  .scix-footer-company a:hover { color: #C49A3C; }
+  .scix-footer-divider { width: 60px; border: none; border-top: 1px solid rgba(255, 255, 255, 0.12); margin: 0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img src="/img/logo-white.png" alt="ScienceX サイエンスエックス株式会社" loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
