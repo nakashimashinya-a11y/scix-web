@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.cn-primer{background:linear-gradient(180deg,#fbf7ee 0%,#f8f9fb 100%);border:1px solid #e6d9b8;border-left:4px solid var(--accent);padding:26px 30px;margin:32px 0;border-radius:0 8px 8px 0;font-size:.92em;line-height:1.95}
+.cn-primer h4{font-family:'Noto Serif SC',serif;font-size:1.06em;color:var(--navy);margin:0 0 14px}
+.cn-primer p{margin-bottom:14px}
+.cn-primer ul{margin:10px 0 16px;padding-left:22px}
+.cn-primer li{margin-bottom:8px}
+.cn-primer strong{color:var(--navy)}
+.cn-primer .fx{font-size:.86em;color:var(--text-light);margin-top:4px;border-top:1px dashed var(--border);padding-top:12px}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif SC',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif SC',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.85}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+.src-list .t{display:inline-block;font-size:.82em;font-weight:700;color:#fff;background:var(--navy);border-radius:3px;padding:1px 7px;margin-right:8px}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+  .cn-primer{padding:22px 20px}
+}
+</style>
+<title>日本的储能电站没有"PPA"——用哪种合约、锁定几年、锁定多少 | ScienceX</title>
+<meta name="description" content="日本国内外投资者要为系统级储能电站构建长期固定收入时，PPA、包销、容量租赁(tolling)、收益保底、LDA有何不同，锁定几年、能赚多少？以一手资料把日本已公开的实绩与官方测算汇成一张地图，并附47MW项目的4种合约IRR/DSCR测算。为中国投资者补充市场前提与外资准入(外为法)说明。">
+<link rel="canonical" href="https://www.scix.co.jp/zh/column-long-term-contract">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-long-term-contract">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-long-term-contract">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh/column-long-term-contract">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日本的储能电站没有"PPA"——用哪种合约、锁定几年、锁定多少｜ScienceX">
+<meta property="og:description" content="储能电站没有PPA。长期固定收入的真身是容量租赁、包销、保底、LDA。把合约、年限、价格、回报、日本实绩用一手资料汇成一张地图。">
+<meta property="og:url" content="https://www.scix.co.jp/zh/column-long-term-contract">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="日本的储能电站没有"PPA"——用哪种合约、锁定几年、锁定多少｜ScienceX">
+<meta name="twitter:description" content="长期固定收入的真身是容量租赁、包销、保底、LDA。合约、年限、价格、回报、日本实绩，皆以一手资料呈现。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-06-21">
+<style id="scix-header-css">
+.scix-header,.scix-header *,.scix-header *::before,.scix-header *::after{margin:0;padding:0;box-sizing:border-box}
+body{padding-top:64px!important}
+.scix-header{position:fixed;top:0;left:0;right:0;height:64px;background:#1B2A4A;z-index:9999;border-bottom:1px solid rgba(196,154,60,.25);font-family:"Noto Sans SC",sans-serif}
+.scix-header-inner{max-width:1100px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.scix-header-logo{text-decoration:none;display:flex;align-items:center;flex-shrink:0;font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;letter-spacing:.5px;color:#fff}
+.scix-header-logo .x{color:#C49A3C}
+.scix-header-nav{display:flex;align-items:center;gap:6px}
+.scix-header-nav a{text-decoration:none;color:rgba(255,255,255,.7);font-size:.82rem;font-weight:400;letter-spacing:.3px;padding:8px 14px;border-radius:4px;transition:color .25s,background .25s;white-space:nowrap}
+.scix-header-nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.scix-header-nav a.active{color:#C49A3C;font-weight:500}
+.scix-header-nav a.scix-cta{background:#C49A3C;color:#fff;font-weight:600;padding:8px 20px;border-radius:4px;margin-left:8px}
+.scix-header-nav a.scix-cta:hover{background:#D4AD5A}
+.scix-lang{display:flex;align-items:center;gap:3px;margin-left:14px;background:rgba(255,255,255,.1);border-radius:20px;padding:3px;flex-shrink:0}
+.scix-lang a{text-decoration:none;color:rgba(255,255,255,.6);font-size:.85rem;font-weight:600;letter-spacing:.3px;padding:5px 12px;border-radius:16px;transition:all .25s;display:flex;align-items:center;gap:5px}
+.scix-lang a:hover{color:#fff;background:rgba(255,255,255,.12)}
+.scix-lang a.active{color:#fff;background:#C49A3C;border-radius:16px}
+.scix-header-burger{display:none;background:none;border:none;cursor:pointer;width:28px;height:20px;position:relative;z-index:10002;flex-shrink:0}
+.scix-header-burger span{display:block;position:absolute;left:0;width:100%;height:2px;background:#fff;border-radius:1px;transition:transform .3s,opacity .3s}
+.scix-header-burger span:nth-child(1){top:0}
+.scix-header-burger span:nth-child(2){top:9px}
+.scix-header-burger span:nth-child(3){top:18px}
+.scix-header-open .scix-header-burger span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.scix-header-open .scix-header-burger span:nth-child(2){opacity:0}
+.scix-header-open .scix-header-burger span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+.scix-header-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9997;opacity:0;transition:opacity .3s}
+.scix-header-open .scix-header-overlay{display:block;opacity:1}
+@media(max-width:768px){
+  .scix-header-nav{position:fixed;top:0;right:0;bottom:0;width:280px;max-width:80vw;background:#1B2A4A;flex-direction:column;align-items:stretch;gap:0;padding:80px 24px 40px;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);z-index:10001;box-shadow:-4px 0 24px rgba(0,0,0,.15);overflow-y:auto}
+  .scix-header-open .scix-header-nav{transform:translateX(0)}
+  .scix-header-nav a{padding:14px 16px;font-size:.92rem;border-bottom:1px solid rgba(255,255,255,.06);border-radius:0}
+  .scix-header-nav a.scix-cta{margin:16px 0 0;text-align:center;border-radius:4px;border-bottom:none;padding:14px 20px}
+  .scix-header-burger{display:block}
+  .scix-lang{margin-left:auto;margin-right:12px}
+}
+</style></head>
+<body><header class="scix-header" id="scix-header"><div class="scix-header-overlay" id="scix-header-overlay"></div>
+<div class="scix-header-inner">
+  <a href="https://www.scix.co.jp/zh/" class="scix-header-logo">Science<span class="x">X</span></a>
+  <nav class="scix-header-nav" id="scix-header-nav">
+<a href="https://www.scix.co.jp/zh/" data-page="/">首页</a>
+<a href="https://www.scix.co.jp/zh/bss" data-page="/bss">储能业务</a>
+<a href="https://www.scix.co.jp/zh/knowledge" data-page="/knowledge" class="active">知识</a>
+<a href="https://www.scix.co.jp/zh/company" data-page="/company">公司介绍</a>
+<a href="https://www.scix.co.jp/zh/contact" data-page="/contact" class="scix-cta">联系我们</a>
+  </nav>
+  <div class="scix-lang">
+    <a href="https://www.scix.co.jp/column-long-term-contract">🇯🇵 JP</a>
+    <a href="https://www.scix.co.jp/en/column-long-term-contract">🇺🇸 EN</a>
+    <a href="https://www.scix.co.jp/zh/column-long-term-contract" class="active">🇨🇳 ZH</a>
+  </div>
+  <button class="scix-header-burger" id="scix-header-burger" aria-label="打开菜单" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</div></header>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 30</span>
+      <span class="header-tag">日本国内外投资者 / 合约设计·投资测算</span>
+      <time class="header-date" datetime="2026-06-21">2026.06.21</time>
+    </div>
+    <h1>日本的储能电站<em>没有"PPA"</em> —<br>用哪种合约、锁定几年、<em>能锁定多少钱</em></h1>
+    <p class="header-desc">当日本国内外投资者想为日本的系统级储能电站构建长期固定收入时，PPA、包销、容量租赁(tolling)、收益保底、LDA到底有何不同，锁定几年、能赚多少钱？本文以一手资料把日本已公开的实绩与官方测算汇成一张地图，并把47MW项目的4种合约IRR与DSCR测算一并呈现。文末另有为中国投资者补充的市场前提与外资准入说明。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/zh/knowledge" class="back-link">← 返回知识列表</a>
+
+<div class="cn-primer">
+<h4>致中国读者：读懂本文前，先了解这几个日本市场前提</h4>
+<p>本文讨论的是日本的<strong>系统级储能电站</strong>（日文"系統用蓄電所"）——独立接入输电网、<strong>不绑定光伏或风电</strong>、靠参与电力市场获取收益的大型储能。中国业内通常称之为"独立储能"或"电网侧储能"。</p>
+<p>在日本，这类储能的收入来自四个市场：</p>
+<ul>
+<li><strong>容量市场</strong>：为"保持电源随时可用"付费的市场（与实际发电量无关，类似中国正在推进的容量电价机制）。</li>
+<li><strong>供需调整市场</strong>（即辅助服务市场）：提供调频等电网平衡服务，按响应能力获得报酬。</li>
+<li><strong>JEPX现货市场套利</strong>：在日本电力交易所(JEPX，相当于电力现货市场)低买高卖，赚取充放电价差。</li>
+<li><strong>LDA（长期脱碳电源拍卖）</strong>：政府主导的拍卖，中标者可获20年固定容量收入，但收益上行被制度封顶（详见正文§05）。</li>
+</ul>
+<p>电压等级决定可参与的市场与项目规模：<strong>特别高压（简称"特高"）</strong>大致指10MW以上、接入特高压电网的大型项目，是长期合约与大额市场收益的主战场；<strong>高压</strong>则是2MW级的中小项目。</p>
+<p>那么标题为什么说"没有PPA"？光伏、风电可以按发电量(kWh)以固定价格把电"卖断"给买方，这就是PPA(购电协议)。但储能本身<strong>净发电量为零</strong>——它只是把电搬运到不同时段，因此无法像电源那样直接签PPA。储能要锁定长期固定收入，靠的是另外几种结构：容量租赁(tolling)、包销(offtake)、收益保底(floor)与LDA。本文把这五者放进一张图，再用一个47MW项目的IRR/DSCR测算，回答"用哪种合约、锁定几年、锁定多少钱"。</p>
+<div class="fx">本文金额单位为日元。便于换算：约<strong>1元人民币≈21日元</strong>，1美元≈155日元（例如正文中100亿日元的CAPEX≈4.65亿元人民币）。汇率仅为阅读参考，非实时报价。</div>
+</div>
+
+<p>与日本国内外投资者开会时，几乎必定会出现的一个词是"long-term PPA"。想以长期固定收入持有储能电站，这个意图本身没有错。只是其中一个词用偏了：储能电池净值上并不发电，因此像光伏、风电那样按电力量(kWh)固定价格卖断的PPA，并不能直接套用到储能电站上。</p>
+
+<p>而不锁定时的回报，官方测算已经给出了答案。三菱综合研究所(MRI，日本大型综合智库)向经济产业省的研讨会提交的敏感性分析显示，即便加上容量市场收入，在CAPEX 6万日元/kWh的基准情形下，IRR为<strong>−1.5%</strong>。单靠市场化运营(merchant)，在官方前提下也无法盈利。正因如此，"用哪种合约锁定收益"成了事业成败的分水岭。</p>
+
+<div class="highlight-box">
+不锁定，按官方测算也可能亏损。在MRI的测算中，<strong>即便加上容量市场收入，基准IRR也是 −1.5%</strong>（CAPEX 6万日元/kWh）。转为盈利的条件是：把CAPEX降到5万日元/kWh以下，或批发价差向上行波动（在上行前提下、CAPEX 3万日元/kWh时IRR约为14%）。固定收入，正是用来把这条"亏损下限"抬上来的装置。
+</div>
+
+<div class="review-note">
+<strong>本文定位：</strong>制度参照时点为2026年6月。主要读者为日本国内外机构投资者。数值以已公开的一手资料(各公司适时披露、OCCTO、经济产业省、财务省等)与官方测算为出发点，股权IRR采用ScienceX明示前提的测算(特别高压47MW／188MWh的示例)。对于像日本国内相对合约单价这类未公开的项目，明确标注"未披露"，不制作推测值。海外(英、德)数值是前提不同的代理参考，不可直接套用于日本。本文不构成投资、税务或法律建议。</div>
+
+<div class="data-box">
+<div class="db-head">本文射程</div>
+<dl class="premise-grid">
+  <div><dt>对象</dt><dd>固定收入合约<span class="unit">比较5类</span></dd></div>
+  <div><dt>不锁定时</dt><dd>−1.5<span class="unit">%（官方测算·含容量市场）</span></dd></div>
+  <div><dt>容量租赁</dt><dd>18.6<span class="unit">%（测算·贷款75%）</span></dd></div>
+  <div><dt>LDA</dt><dd>≈5<span class="unit">%（制度设计锁定）</span></dd></div>
+  <div><dt>日本国内包销</dt><dd>20<span class="unit">年（已确认全部案例）</span></dd></div>
+  <div><dt>主要读者</dt><dd style="font-size:13px">日本国内外投资者·买方·融资方</dd></div>
+</dl>
+</div>
+
+<h2>01 — "PPA"与储能电站的合约，是两回事</h2>
+
+<p>先把词对齐。电源的PPA，是把电力量(kWh)按固定价格买卖的合约。至于虚拟PPA，电力本身根本不流动，只交易环境价值(非化石证书)。2026年6月ENEOS Renewable Energy(ENEOS可再生能源)与NSK(日本精工)在九州签的虚拟PPA就是典型：从一座约54MW光伏配套约130MWh储能的电站，仅供应环境价值、期限约15年。这里的储能扮演的是抬升光伏出力的角色，并不是为储能电站本身锁定收益的合约。</p>
+
+<p>储能电站的长期合约，锁定的不是电力量，而是容量与运营权。<strong>由谁承担市场价格风险</strong>——这是看懂一份合约真身的唯一坐标。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>名称</th><th>锁定什么</th><th>市场价格风险归属</th><th>对储能电站是否适用</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">电源PPA(实体)</td><td>按固定价格买卖kWh</td><td>买方接收／发电侧担数量风险</td><td class="ng">不适用(并非卖断)</td></tr>
+<tr><td class="em">虚拟PPA</td><td>仅环境价值(非化石证书)</td><td>以差价结算相互对冲</td><td>配套光伏有适用案例(ENEOS×NSK)</td></tr>
+<tr class="hl"><td class="em">包销／容量租赁</td><td>以固定费用提供容量与运营权</td><td>由包销方全额承担</td><td class="ok">储能电站的核心</td></tr>
+<tr><td class="em">保底＋收益分成</td><td>保证最低收益＋超额分配</td><td>下行＝包销方／上行＝分配</td><td class="ok">适用</td></tr>
+<tr><td class="em">最优运营(委托聚合商)</td><td>委托运营·按业绩付费</td><td>由设备持有者承担</td><td>适用(偏市场化色彩)</td></tr>
+<tr><td class="em">LDA(长期脱碳电源拍卖)</td><td>20年的容量收入</td><td>制度(发包方为广域机构)</td><td class="ok">适用</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">在日本，"包销合约"(offtake)与"容量租赁合约"(tolling)在实务中几乎当作同义使用(并非监管定义上的完全等同)。东京燃气(Tokyo Gas，日本最大城市燃气企业，目前是日本储能包销市场的绝对主导者)所称的"包销合约"，与火电的tolling同型(持有储能的SPC让渡运营权、收取固定费用，市场价格风险由对方承接)。本文中两者按同义处理。</p>
+
+<h2>02 — 把5个选项，放进一张图</h2>
+
+<p>把词对齐之后，再把这些选项放到"收益稳定度(可预见性)"与"股权上行空间"两个坐标上，性格的差异就显现出来了。电源的词汇"PPA"，在这里无处安放。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="以收益稳定度与股权上行空间观察4个选项的地图" font-family="'Noto Sans SC',sans-serif">
+  <defs>
+    <radialGradient id="cT" cx="35%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#D4AF5C"/>
+      <stop offset="100%" stop-color="#C49A3C"/>
+    </radialGradient>
+  </defs>
+  <rect x="110" y="70" width="550" height="290" fill="#FFFFFF" stroke="#E2E6EC" stroke-width="1"/>
+  <line x1="385" y1="70" x2="385" y2="360" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="3 4"/>
+  <line x1="110" y1="215" x2="660" y2="215" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="3 4"/>
+  <line x1="110" y1="360" x2="110" y2="62" stroke="#1B2A4A" stroke-width="1.5"/>
+  <polygon points="110,52 106,64 114,64" fill="#1B2A4A"/>
+  <line x1="110" y1="360" x2="668" y2="360" stroke="#1B2A4A" stroke-width="1.5"/>
+  <polygon points="678,360 666,356 666,364" fill="#1B2A4A"/>
+  <text x="385" y="392" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">可预见性(收益稳定度)→</text>
+  <text x="120" y="375" font-size="11" fill="#6C7A89">低</text>
+  <text x="650" y="375" text-anchor="end" font-size="11" fill="#6C7A89">高</text>
+  <text x="62" y="215" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A" transform="rotate(-90 62 215)">股权上行空间 →</text>
+  <text x="100" y="80" text-anchor="end" font-size="11" fill="#6C7A89">大</text>
+  <text x="100" y="356" text-anchor="end" font-size="11" fill="#6C7A89">小</text>
+  <text x="120" y="92" font-size="10.5" fill="#9AA6B2" font-style="italic">PPA＝发电的词汇(不适用于储能电站)</text>
+  <circle cx="190" cy="140" r="9" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2.5"/>
+  <text x="190" y="118" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="13" font-weight="700" fill="#1B2A4A">市场化运营</text>
+  <text x="190" y="166" text-anchor="middle" font-size="10.5" fill="#6C7A89">基准IRR −1.5%·波动大</text>
+  <circle cx="378" cy="238" r="9" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2.5"/>
+  <text x="378" y="216" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="13" font-weight="700" fill="#1B2A4A">保底＋分成(10年)</text>
+  <text x="378" y="264" text-anchor="middle" font-size="10.5" fill="#6C7A89">下限保证＋上行分配</text>
+  <circle cx="548" cy="150" r="12" fill="url(#cT)" stroke="#A07916" stroke-width="1.5"/>
+  <text x="548" y="124" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="13.5" font-weight="700" fill="#A07916">容量租赁(20年)</text>
+  <text x="548" y="180" text-anchor="middle" font-size="10.5" fill="#6C7A89">股权18.6%(靠杠杆)</text>
+  <circle cx="612" cy="318" r="9" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2.5"/>
+  <text x="612" y="298" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="13" font-weight="700" fill="#1B2A4A">LDA(20年)</text>
+  <text x="612" y="338" text-anchor="middle" font-size="10.5" fill="#6C7A89">制度设计锁定≈5%</text>
+</svg>
+<div class="fig-cap">图 — 以收益稳定度(可预见性)与股权上行空间观察的4个选项地图</div>
+</div>
+
+<p>这张图表明：可预见性与上行空间未必负相关。容量租赁因为收益确定、能厚厚地加杠杆，即便项目IRR只有6%出头，股权IRR也能达到18%上下(右上)。而LDA可预见性最强，却在制度设计上交出了上行空间(右下，后述)。市场化运营上行余地最大，代价是波动到按官方测算都可能亏损(左上)。</p>
+
+<p>把同样这些选项，按合约·年限·价格·回报·日本实绩五点并列，结果如下。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>选项</th><th>合约·年限</th><th>价格(卖价)</th><th>回报</th><th>市场价格风险</th><th>日本实绩</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">市场化运营<span class="u">供需调整＋容量＋JEPX</span></td><td>无合约</td><td>—</td><td>按官方测算<span class="ng">基准 −1.5%</span>(含容量市场·CAPEX 6万)。CAPEX 5万时0.4%，CAPEX 3万·价差上行时14%</td><td>持有者</td><td>多奈川99MW(日本首个全市场化PF)</td></tr>
+<tr class="hl"><td class="em">容量租赁<span class="u">＝日本的"包销"</span></td><td>20年</td><td>日本国内<strong>未披露</strong>／海外纯租赁 ≈£57k/MW年(≈约11,400日元/kW年)</td><td>项目IRR 4〜6.6%，仍可<span class="ok">靠杠杆把股权IRR推到18.6%</span>(租赁＋容量市场·贷款75%)。纯租赁单独则为个位数</td><td>包销方</td><td>东京燃气×Eku广原30MW、×Renova石狩30MW、×Equis芦屋50MW(各20年)</td></tr>
+<tr><td class="em">保底＋分成</td><td>10年</td><td>海外保底 ≈£44〜52k/MW年(≈约8,800〜10,400日元/kW年)</td><td>下限保证＋上行分配</td><td>下行＝包销方／上行＝分配</td><td>Bison×Engelhart(10年·框架协议阶段)</td></tr>
+<tr><td class="em">LDA</td><td>20年</td><td>加权平均 5.8→6.8→<strong>11.1</strong>万日元/kW年(脱碳电源整体·储能个别值不公开)</td><td>制度上<strong>≈锚定于5%</strong>(报酬率上限＋其他市场收益约9成返还)</td><td>制度(放弃上行)</td><td>各公司投标。储能个别中标值永久不公开</td></tr>
+<tr><td class="em">〔PPA〕</td><td>—</td><td>储能电站无固有值</td><td>—</td><td>—</td><td>ENEOS×NSK＝仅环境价值·约15年(与锁定收益是两回事)</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">日元换算以1英镑≈200日元、1美元≈155日元为前提的示例，非真实合约值。日本国内租赁／包销／保底的单价在当事方之间未披露。47MW的股权IRR为明示前提的示例测算。</p>
+
+<h2>03 — 是什么样的合约：4种类型，与要谈定的条款</h2>
+
+<p>储能电站的长期合约，可按"谁承担市场价格风险"归为四类。设备原则上由持有方(SPC)持有、运营权移交给包销方，这一点是共通的。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>类型</th><th>市场价格风险承担</th><th>日本的称呼·实例</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">纯容量租赁<span class="u">容量预约／租赁型</span></td><td>由包销方全额承担</td><td>东京燃气"包销合约"、MIRARTH×PowerX</td></tr>
+<tr><td class="em">保底＋收益分成</td><td>下行＝包销方／上行＝分配</td><td>Bison×Engelhart CTP(10年·日本首例)</td></tr>
+<tr><td class="em">全方位优化<span class="u">委托运营</span></td><td>由设备持有者保留</td><td>东京燃气最优运营(Renova 165MW)、PowerX聚合</td></tr>
+<tr><td class="em">混合型</td><td>部分租赁＋部分市场化</td><td>海外(terralayr "LAYR" 等)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>合约要谈定的，是可用率保证(未达则扣减费用)、容量保证(含老化衰减)、费用是否与CPI挂钩、充电电源的供给责任、调度权与循环上限，以及信用增级(母公司担保、L/C、评级触发条款)。由于标准合约不公开，具体水平只能从披露更充分的海外去推断。德国的tolling合约大致为每年11万〜15万欧元/MW、期限5〜7年(最长10年)，已有Stendal(104.5MW·7年·合约额8,500万〜9,500万欧元)、Vattenfall、RWE(50MW·5年)等签约案例。</p>
+
+<div class="info-box">
+<strong>从会计入口起，连对方的处理一并读。</strong>海外有把租赁费计为费用(OpEx)、做表外处理的案例(RWE×terralayr明确称为"balance-sheet-light")。日本则自2027年4月起强制适用新租赁会计准则，一旦tolling被识别为租赁，包销方(承租方)一侧就可能入表(计入资产负债表)。同一份合约，落到对方资产负债表上的方式在日本与海外正好相反，这会影响对方签约的意愿。
+</div>
+
+<h2>04 — 锁定几年：日本国内包销以20年为标准</h2>
+
+<p>关于年限，已确认的日本国内包销全部是20年。广原、石狩、芦屋，以及2026年4月新加入的HDRE(泓德能源)案例，都是约20年，与容量市场和LDA的20年相齐。10〜15年这类较短的日本国内包销，目前尚未见公开案例。唯有保底合约较短，为10年，但这是与包销不同的形态。海外的tolling在5〜15年之间不等，能获得融资的门槛大致是10年以上且包销方为投资级。由于年限规定了融资期限(tenor)，保底的10年会成为项目融资设计上的约束。</p>
+
+<h2>05 — 能赚多少：不锁定的下限、海外的水平、LDA的天花板</h2>
+
+<p>这里是核心。依次摆出：不锁定时、海外的固定水平、LDA的实质回报，以及同一个47MW的测算。</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">−1.5<span class="unit">%</span></span><span class="lbl">MRI 基准IRR(含容量市场·CAPEX 6万日元/kWh)</span></div>
+  <div class="stat-cell"><span class="val">18.6<span class="unit">%</span></span><span class="lbl">47MW测算 容量租赁的股权IRR(贷款75%·DSCR 1.31x)</span></div>
+  <div class="stat-cell"><span class="val">≈5<span class="unit">%</span></span><span class="lbl">LDA的实质回报(制度设计锁定)</span></div>
+</div>
+
+<p><strong>不锁定的下限。</strong>官方测算的基准IRR为 −1.5%。要转为盈利，须把CAPEX降到5万日元/kWh以下，或批发价差向上行波动(上行前提下CAPEX 3万日元/kWh时IRR约14%)。市场化运营有上行的梦想，但在官方前提下下限是亏损的。</p>
+
+<p><strong>固定的水平，在日本国内未披露。</strong>东京燃气也好、PowerX也好、Bison／MIRARTH也好，都只记"20年(或10年)·固定金额"，没有一件可正规化到¥/kW的公开值。这不是资料缺失，而是市场现状本身的一项所见。基准只能拿披露更充分的海外来建立。英国的2年tolling大致为£57k/MW年(约11,400日元/kW年)，10年级的保底为£44〜52k/MW年(约8,800〜10,400日元/kW年)。</p>
+
+<div class="info-box">
+<strong>海外甚至出现了"安全(保底)反而更贵"的局面。</strong>英国的市场化收益从2024年12月的£84〜86k/MW年，到2026年2月跌至£41k/MW年，同比近乎腰斩。保底(£44〜52k)已逼近甚至反超市场化实绩。固定合约本来是"放弃上行、买安全"的交易，但眼下却出现了固定反而更高的反转。这正是海外保底／租赁合约需求结构性上升的原因。
+</div>
+
+<p><strong>LDA是唯一卖价能在官方层面确定的合约。</strong>加权平均中标价从第1轮5.8、第2轮6.8升到第3轮11.1万日元/kW年(为脱碳电源整体值，储能个别中标值永久不公开)。但LDA把可计入投标价的项目报酬率限制在税前WACC 5%(±1%)，还会把在其他市场获得的收益约9成事后返还。这两重约束，使中标者的实质回报在制度上几乎锚定在5%附近。可预见性最强，上行空间却在设计上从一开始就被封死。自第3轮起，连续运行6小时以上被列为要件，锂离子储能的招募额度从1GW收紧至0.4GW。</p>
+
+<div class="highlight-box">
+同样47MW的设备，合约不同，回报的形态也随之改变。容量租赁即便项目IRR只有6.6%、属于偏低的一档，但因为收益确定、贷款能加到约75%，所需自有资金降到最小。结果，<strong>股权IRR达到18.6%</strong>(最小DSCR 1.31x)。不过这18.6%，是在租赁费之上再加容量市场收入(由持有者保留)的"租赁＋容量市场"混合前提。<strong>赚钱的源泉不是事业本身高收益，而是确定性带来的高杠杆</strong>。对投资者而言，进入日本市场的入口正在于此。
+</div>
+<p class="note-small">日本国内租赁费的实额在当事方之间未披露。47MW的股权IRR为明示前提的示例测算，并非真实项目的确定值。这18.6%是在容量市场收入(约占收益4成)由持有者保留的混合前提下得出的；若把容量市场也一并交给包销方、做成纯租赁，相同租赁费下股权IRR会跌到个位数。要让纯租赁单独冲到18%，需把租赁费提到海外基准(£57k/MW年≈每月950日元/kW)的约2.6倍，或把CAPEX降到约一半(中国系电芯水平)。(详见§06〜07)</p>
+
+<h2>06 — 同一个47MW，用4种合约运营</h2>
+
+<p>下面是包含那18.6%在内的数字内核。把特别高压47MW／188MWh(4小时)作为一个示例，对同一套设备分别用四种合约——①以供需调整为主、②容量＋现货、③LDA(6小时)、④容量租赁＋容量市场——运营时的项目IRR、股权IRR、DSCR、回收年限，逐一在明示前提下并列。</p>
+
+<div class="data-box">
+<div class="db-head">对象(示例)</div>
+<dl class="premise-grid">
+  <div><dt>并网出力</dt><dd>47<span class="unit">MW(特高·送电端)</span></dd></div>
+  <div><dt>储能容量</dt><dd>188<span class="unit">MWh(4小时)</span></dd></div>
+  <div><dt>设备CAPEX</dt><dd>约100<span class="unit">亿日元(约5.3万日元/kWh)</span></dd></div>
+</dl>
+</div>
+
+<p>其余前提如下。实际税率约31.5%(含外形标准课税、防卫特别法人税)，折旧年限17年，年衰减约1%(允许从运营初期的4小时降到合约末期的约3小时)，往返效率85%·DoD 90%。融资方面，确定性高、适合长期贷款的<strong>④容量租赁与③LDA为贷款约75%·利率3.0%·还款18年</strong>，收益波动、贷款难以拉高的<strong>①②市场化为贷款约40%·利率3.5%·还款10年</strong>。市场前提(基准)为：调节力 ΔkW 4日元/ΔkW·30分(成交率50%)、容量市场 约1.1万日元/kW年、JEPX日内价差 20日元/kWh、每日1次循环、LDA固定 3万日元/kW年(其他市场收益约9成返还)。其中③LDA按6小时·282MWh·CAPEX约150亿日元计算。另外<strong>④容量租赁为在固定对价(租赁费)之上、由持有者保留容量市场收入的"租赁＋容量市场"混合前提</strong>，容量市场收入约占④总收益的4成。把容量市场也一并交给包销方的纯租赁回报，将在后文(§07)给出。</p>
+
+<p>下表是核心结果。对同一套47MW设备、用四种合约运营时的投资指标并列如下。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>指标(同一47MW设备)</th><th class="num">①供需调整为主</th><th class="num">②容量＋现货</th><th class="num">③LDA(6h)</th><th class="num">④容量租赁＋容量市场</th></tr></thead>
+<tbody>
+<tr><td class="em">设备CAPEX</td><td class="num">100亿日元</td><td class="num">100亿日元</td><td class="num">150亿日元</td><td class="num">100亿日元</td></tr>
+<tr><td class="em">自有资金</td><td class="num">60亿日元</td><td class="num">60亿日元</td><td class="num">37.5亿日元</td><td class="num">25亿日元</td></tr>
+<tr><td class="em">项目IRR</td><td class="num">13.3%</td><td class="num">9.8%</td><td class="num ng">3.5%</td><td class="num">6.6%</td></tr>
+<tr class="hl"><td class="em">股权IRR</td><td class="num">17.6%</td><td class="num">12.7%</td><td class="num ng">6.5%</td><td class="num ok">18.6%</td></tr>
+<tr><td class="em">最小DSCR</td><td class="num ok">2.83x</td><td class="num">2.22x</td><td class="num ng">1.04x</td><td class="num">1.31x</td></tr>
+<tr><td class="em">回收年限(概算)</td><td class="num">7年</td><td class="num">9年</td><td class="num">14年</td><td class="num">11年</td></tr>
+<tr><td class="em">20年NPV</td><td class="num">＋74.3亿日元</td><td class="num">＋39.2亿日元</td><td class="num ng">−16.8亿日元</td><td class="num">＋12.8亿日元</td></tr>
+<tr><td class="em">可预见性</td><td>低</td><td>低〜中</td><td>高</td><td>高</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note-small">④容量租赁为"租赁费＋容量市场收入(持有者保留)"的混合前提。若把容量市场收入也一并交给包销方、做成纯租赁，相同租赁费下股权IRR会跌到个位数(参见§07)。</p>
+
+<p>单看股权IRR，④容量租赁(18.6%)与①供需调整(17.6%)旗鼓相当。但内核正相反。下图把各合约的项目IRR(事业的赚钱能力)与股权IRR(股东回报)并列。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图 — 4种合约的项目IRR与股权IRR对比。容量租赁项目IRR最低，股权IRR却最高">
+  <defs>
+    <linearGradient id="gN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A3D66"/><stop offset="1" stop-color="#1B2A4A"/></linearGradient>
+    <linearGradient id="gG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D4AF5C"/><stop offset="1" stop-color="#B8862B"/></linearGradient>
+  </defs>
+  <rect width="760" height="400" fill="#FFFFFF"/>
+  <text x="40" y="30" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">图 ／ 项目IRR 与 股权IRR(4种合约)</text>
+  <!-- legend -->
+  <rect x="500" y="20" width="13" height="13" rx="2" fill="url(#gN)"/><text x="519" y="31" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#2C3E50">项目IRR</text>
+  <rect x="630" y="20" width="13" height="13" rx="2" fill="url(#gG)"/><text x="649" y="31" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#2C3E50">股权IRR</text>
+  <!-- axis -->
+  <line x1="70" y1="330" x2="730" y2="330" stroke="#C9CFD8" stroke-width="1.5"/>
+  <line x1="70" y1="90" x2="70" y2="330" stroke="#E2E6EC" stroke-width="1"/>
+  <line x1="70" y1="330" x2="730" y2="330" stroke="#C9CFD8" stroke-width="1"/>
+  <text x="58" y="334" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#9aa5b1">0%</text>
+  <line x1="70" y1="242" x2="730" y2="242" stroke="#EEF1F5" stroke-width="1"/><text x="58" y="246" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#9aa5b1">10%</text>
+  <line x1="70" y1="154" x2="730" y2="154" stroke="#EEF1F5" stroke-width="1"/><text x="58" y="158" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#9aa5b1">20%</text>
+  <!-- groups: scale 8.8px per % from y=330 -->
+  <!-- (1) -->
+  <rect x="108" y="213" width="40" height="117" rx="2" fill="url(#gN)"/><text x="128" y="206" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">13.3</text>
+  <rect x="152" y="175" width="40" height="155" rx="2" fill="url(#gG)"/><text x="172" y="168" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#A07916">17.6</text>
+  <text x="150" y="352" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="12" font-weight="700" fill="#1B2A4A">①供需调整</text>
+  <!-- (2) -->
+  <rect x="268" y="244" width="40" height="86" rx="2" fill="url(#gN)"/><text x="288" y="237" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">9.8</text>
+  <rect x="312" y="218" width="40" height="112" rx="2" fill="url(#gG)"/><text x="332" y="211" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#A07916">12.7</text>
+  <text x="310" y="352" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="12" font-weight="700" fill="#1B2A4A">②容量＋现货</text>
+  <!-- (3) -->
+  <rect x="428" y="299" width="40" height="31" rx="2" fill="url(#gN)"/><text x="448" y="292" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">3.5</text>
+  <rect x="472" y="273" width="40" height="57" rx="2" fill="url(#gG)"/><text x="492" y="266" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#A07916">6.5</text>
+  <text x="470" y="352" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="12" font-weight="700" fill="#1B2A4A">③LDA</text>
+  <!-- (4) highlighted -->
+  <rect x="580" y="272" width="160" height="58" fill="#C49A3C" opacity="0.06"/>
+  <rect x="588" y="272" width="40" height="58" rx="2" fill="url(#gN)"/><text x="608" y="265" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">6.6</text>
+  <rect x="632" y="166" width="40" height="164" rx="2" fill="url(#gG)"/><text x="652" y="159" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="800" fill="#A07916">18.6</text>
+  <text x="630" y="352" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="12" font-weight="700" fill="#1B2A4A">④容量租赁</text>
+  <text x="400" y="386" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#A07916">④项目IRR最低(6.6%)，股权IRR却最高(18.6%)</text>
+</svg>
+<div class="fig-cap">图 — 同一47MW设备、按合约划分的项目IRR与股权IRR(明示前提的测算)</div>
+</div>
+
+<h3>项目IRR最低的合约，股权IRR反而最高</h3>
+
+<div class="highlight-box">
+④容量租赁，项目IRR只有6.6%、属偏低一档，股权IRR却以18.6%居首。原因不是事业收益高，而是<strong>收益确定、贷款能加到约75%，所需自有资金仅25亿日元、降到最小</strong>。股权IRR大致按"(项目IRR×总投资 − 利率×贷款)÷自有资金"变动。项目IRR哪怕6〜7%，只要贷款75%·利率3%，杠杆就会把薄薄的那层股权抬上去。<strong>赚钱的源泉不是"事业高收益"，而是"确定性带来的高杠杆"</strong>。
+</div>
+
+<p>反过来说，这种反转并非无条件成立。一旦确定性瓦解，高贷款就拉不上去，股权IRR随之沉没。成立的条件有三个。</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">成立条件 01</span>
+    <h4>压力测试后DSCR ≥ 1.2〜1.4x</h4>
+    <p>固定对价或LDA固定收入，在保守情形下也要以这一倍率覆盖还款。③LDA在实际中标单价下DSCR会沉到1.04x，这一条就崩了。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">成立条件 02</span>
+    <h4>投资级的包销方</h4>
+    <p>固定对价的支付方(大型电力、燃气等)须相当于投资级，或有母公司担保。信用偏弱，长期贷款就难落地。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">成立条件 03</span>
+    <h4>tenor的匹配</h4>
+    <p>合约年限(20年)≧ 融资年限 ≧ 设备寿命。要把期末的市场化尾部、以及这期间的DSCR一并纳入考量。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">对照：市场化</span>
+    <h4>IRR再高也只能薄薄地借</h4>
+    <p>①供需调整股权IRR 17.6%看似很高，但因收益波动、贷款被限制在约40%(自有资金60亿)，且容易因制度修订而前提崩塌。</p>
+  </div>
+</div>
+
+<h3>4种合约的解读</h3>
+
+<p><strong>④容量租赁(租赁＋容量市场)是首选。</strong>在每月1,500日元/kW(年1.8万日元/kW)的租赁费之上，再加容量市场收入(持有者保留)的混合，股权IRR 18.6%、最小DSCR 1.31x。无需市场运营，且价格波动风险由包销方承担，最为稳定。前提是包销方的信用。<strong>但若把容量市场收入也交给包销方、做成纯租赁，相同的每月1,500日元/kW只能拉到四成出头的贷款，股权IRR会跌到个位数</strong>(参见§07)。</p>
+
+<p><strong>②容量＋现货是上行选项。</strong>可借现货套利与容量市场博取上行。在JEPX价差或容量市场单价较高的区域更有优势，但因收益波动、贷款只能到约40%。</p>
+
+<p><strong>①以供需调整为主，高回报·高波动。</strong>项目IRR 13.3%最高、回收也快至7年，但2026年3月施行的供需调整市场修订(上限15日元·招募量1σ)使前提易于崩塌。账面IRR与可复现性是两回事。</p>
+
+<p><strong>③LDA最弱、条件依赖。</strong>必须6小时·282MWh，CAPEX约为1.5倍(150亿日元)。把固定收入放到3万日元/kW年则可成立，但在实际中标水平(2万日元中段一带的看法)下DSCR会跌破1、无法组建。事业性押注在中标单价上：只有在设备费能腰斩、或能以高价中标时才成立。</p>
+
+<h2>07 — 容量租赁费，决定股权回报的大半(纯租赁仅个位数)</h2>
+
+<p>④容量租赁的回报，几乎与租赁费水平成正比变动。每月几百日元之差，就能把股权IRR大幅拉动。先看<strong>容量市场收入由持有者保留的混合</strong>情形。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>租赁费</th><th class="num">年额换算</th><th class="num">股权IRR</th><th class="num">最小DSCR</th><th>评价</th></tr></thead>
+<tbody>
+<tr><td class="em">每月1,200日元/kW</td><td class="num">年1.44万日元/kW</td><td class="num cond">下降(临界区)</td><td class="num cond">约1.0上下</td><td>DSCR逼近1，融资收紧</td></tr>
+<tr class="hl"><td class="em">每月1,500日元/kW</td><td class="num">年1.80万日元/kW</td><td class="num ok">约18.6%</td><td class="num">1.31x</td><td>融资可成立·首选水平</td></tr>
+<tr><td class="em">每月1,800日元/kW</td><td class="num">年2.16万日元/kW</td><td class="num ok">约25%</td><td class="num ok">充裕</td><td>上行·有谈判余地</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">上表为容量市场收入由持有者保留的混合前提，容量市场收入约占总收益4成。对价的kW单价在当事方之间未披露。</p>
+
+<p><strong>那么，把容量市场收入也交给包销方的"纯租赁"会是多少？</strong>由于收益只剩租赁费，相同的每月1,500日元/kW只能拉到四成出头的贷款(DSCR约束使其无法伸到75%)，股权IRR几乎沉到0%。在海外纯租赁基准(£57k/MW年≈每月950日元/kW)水平下则为负。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>纯租赁费(无容量市场)</th><th class="num">年额换算</th><th class="num">可拉到的贷款</th><th class="num">股权IRR</th></tr></thead>
+<tbody>
+<tr><td class="em">每月950日元/kW<span class="u">≈海外£57k基准</span></td><td class="num">年1.14万日元/kW</td><td class="num">约22%</td><td class="num ng">−8.7%</td></tr>
+<tr><td class="em">每月1,500日元/kW<span class="u">与本测算同单价</span></td><td class="num">年1.80万日元/kW</td><td class="num">约44%</td><td class="num cond">≈0%</td></tr>
+<tr class="hl"><td class="em">每月2,500日元/kW<span class="u">约为海外的2.6倍</span></td><td class="num">年3.00万日元/kW</td><td class="num ok">75%</td><td class="num ok">约18.6%</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">纯租赁(无容量市场)要把股权IRR冲到18.6%，需把租赁费提到约每月2,500日元/kW(年约3万日元/kW＝海外基准的约2.6倍)，或在租赁费维持1,500日元/kW的前提下、把CAPEX降到约52亿日元(≈2.8万日元/kWh＝中国系电芯水平·约为现状的一半)。在日本的CAPEX(100亿日元·约5.3万日元/kWh)下，以现实的纯租赁费做不出两位数IRR。海外资本能在日本博取高股东回报，前提是能在采购端把CAPEX压下来。纯租赁的公开基准大致为年1.0〜1.5万日元/kW(海外)，对价的kW单价在当事方之间未披露。</p>
+
+<h2>08 — 谁，以几年期，在做这件事</h2>
+
+<p>要锁定，就得有能锁定的对手方。在系统级储能电站领域，以包销方(取得运营权一侧)身份、就20年·运营权移交·固定对价型的包销、跨多个案例并以大规模公开的，目前以东京燃气一家突出。广原30MW、石狩30MW、芦屋50MW三件之外，2026年4月又加上了与HDRE(泓德能源)的约190MW。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>包销方／提供者</th><th>对象案例(所在)</th><th>规模</th><th>形态</th><th>年限</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">东京燃气 × Eku Energy</td><td>广原(宫崎)</td><td>30MW／120MWh</td><td>包销</td><td class="num">20年</td></tr>
+<tr><td class="em">东京燃气 × Renova系SPC</td><td>石狩(北海道)</td><td>30MW</td><td>包销</td><td class="num">20年</td></tr>
+<tr><td class="em">东京燃气 × Equis系SPC</td><td>芦屋(福冈)</td><td>50MW／201MWh</td><td>包销</td><td class="num">20年</td></tr>
+<tr><td class="em">东京燃气 × HDRE</td><td>宫崎日向等4件</td><td>合计约190MW</td><td>包销(HDRE一侧表述)</td><td class="num">约20年</td></tr>
+<tr><td class="em">MIRARTH × PowerX</td><td>神奈川爱川</td><td>2.0MW／7.4MWh</td><td>容量租赁</td><td class="num">未披露</td></tr>
+<tr><td class="em">Bison × Engelhart CTP</td><td>未披露(框架协议)</td><td>—</td><td>保底(最低收益保证)</td><td class="num">10年</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">出处：东京燃气(2024-04-24·2025-06-30)、HDRE(2026-04-16)、MIRARTH(2025-09-08)、共同社PR Wire(Bison·2025-07-07)。未披露者标注为"未披露"。</p>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 披露口径的不一致</span><br>
+HDRE案例的"包销约190MW"，仅在HDRE一侧的新闻稿中被明确写为"包销合约"。东京燃气自家的新闻稿只记载了青森149MW(八户·十和田)的"最优运营服务合约"，并未提及190MW的包销。由于两家披露的范围不同，是否已并入东京燃气的官方汇总(此前110MW)尚无法确认。本文将这一不一致也原样作为一项所见处理。</div>
+
+<p>把目光转向其他形态，垄断已开始松动。MIRARTH与PowerX是容量租赁，Bison与Engelhart CTP是日本首例的10年保底。"锁定收益的发包方＝只有东京燃气"这一格局，已经不再准确。发包方的层面，也正以出资、运营的形式日渐变厚。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>主体</th><th>介入形式</th><th>主要案例</th><th>目标</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">东京燃气</td><td>包销方＋委托运营</td><td>广原·石狩·芦屋＋HDRE协作，Renova 165MW运营</td><td>特高在2030年代前期达约200万kW规模</td></tr>
+<tr><td class="em">关西电力</td><td>出资＋项目融资</td><td>多奈川99MW、纪之川48MW(已运营)</td><td>2030年代早期约100万kW</td></tr>
+<tr><td class="em">大阪燃气</td><td>出资＋运营</td><td>千里11MW(已运营)、上长都等</td><td>扩大储能事业</td></tr>
+<tr><td class="em">西部燃气 × 福冈银行</td><td>共同研究(框架协议)</td><td>九州·目标2028年3月前后投运</td><td>投资10〜30亿日元</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">出处：各公司适时披露·IR、报道(2024〜2026年)。西部燃气×福冈银行处于框架协议阶段，SPC设立·合约尚未公开。</p>
+
+<p>融资的先例也已齐备。皆由三菱UFJ银行组建：(1)广原以包销作为授信基础的收益固定型(日本储能电站项目融资第1号)；(2)石狩为包销型(约50亿日元)；(3)多奈川为仅以市场收益作为还款来源的全市场化·无追索(日本首例)。以固定收入做信用增级是惯用打法，全市场化则以关西电力级的运营经验为前提。</p>
+
+<h2>09 — CAPEX，与为固定合约助力的制度</h2>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">≈6.8<span class="unit">万日元/kWh</span></span><span class="lbl">日本国内·特高的总包(MRI推算)</span></div>
+  <div class="stat-cell"><span class="val">$117<span class="unit">/kWh</span></span><span class="lbl">BNEF总包全球均值(中国 $73)</span></div>
+  <div class="stat-cell"><span class="val">30<span class="unit">%上限</span></span><span class="lbl">LDA第3轮·单一国家电芯制造上限</span></div>
+</div>
+
+<p>对回报压制最重的是CAPEX。日本国内的系统级总包推算约6.8万日元/kWh(约$440)。BloombergNEF的总包全球均值(含系统安装)为$117/kWh，中国制为$73/kWh(约1.1万日元/kWh)，内外相差3倍以上。LDA第3轮把连续运行6小时以上列为要件，把锂离子储能的招募额度从1GW收紧至0.4GW，并加上"单一国家电芯制造30%上限"。这等于由制度把"对廉价中国制的依赖"与"安全保障"作为一组权衡带了进来。</p>
+
+<p>制度还在另一处为固定合约助力。供需调整市场的上限价格已从19.51日元下调至15日元/ΔkW·30分(已施行)，若竞争未改善，将分阶段下调至10日元、7.21日元的讨论仍在继续。招募量也被收紧。市场化运营的上行空间被削得越多，固定收入(容量租赁·保底·LDA)的相对价值就越高。</p>
+
+<div class="info-box">
+<strong>特高与高压，是两个不同的经济圈。</strong>到此为止的长期合约(容量租赁·包销·LDA)与大额市场收益，讲的都是特别高压(大致10MW以上)的事。高压的2MW/8MWh级也能参加容量市场(储能成为稳定电源的条件是：期待容量1,000kW以上，且每日1次、连续放电3小时以上；2MW/8MWh为4小时，满足时间要件)。但供需调整市场自二次调节力起需专线在线(铺设需数千万日元)，能以离线(简易指令系统)参与的，仅限1〜10MW以下储能提供的一次调节力。它并非长期容量租赁／包销／LDA的主要对象，高压的收益以经聚合商的最优运营为主(例：东京燃气×Life One的高压5件＝各2MW/8MWh)。<br><br>
+成本的呈现方式也随之改变。本节的全球均值$117/kWh或MRI的约6.8万日元/kWh，是特高·大型总包的水平。规模经济失效的高压2MWh级，要把受变电·并网·PCS·设计·保证等固定成本摊到很小的容量上，kWh单价在结构上必然更高。与全球大型水平并列会显得偏贵，但应比较的是同规模·同安装条件的日本国内案例；判断依据不是kWh单价，而是扣除补贴(系统级的基准额参考值为3.95万日元/kWh)后的实质负担，以及该设备所产生的收益与IRR。</div>
+
+<h2>10 — 外国投资者特有的三道关卡</h2>
+
+<p>只对海外资本竖起的关卡，仅列要点。三者都属于事前掌握后即可纳入计划的项目。需要补充的是，下列三道是<strong>日本一侧</strong>的关卡；中国投资者还须在母国一侧另行完成对外投资(ODI)的相应手续，宜在时间表上一并预留。</p>
+
+<div class="info-box">
+<strong>外为法——它在并网之前就来了。</strong>"外为法"是日本《外汇及外国贸易法》(FEFTA)的简称，是日本对外资进入敏感行业的安全审查制度，作用类似美国的CFIUS或中国的外商投资安全审查。电力业属于外为法的"核心行业"(core sector)，5万kW以上的发电事业者纳入范围。储能电站无论出力大小都被归入指定行业中的"发电业"，因此特高47MW属于核心行业。对中国投资者尤为关键：收购非上市SPC的股权哪怕只买1股，也必须进行带审查的事前申报(中国等国自2025年5月施行起已不在"事前申报豁免"对象之内)，禁止期为30天、最长可延至5个月。<strong>在系统并网之前完成审查，会成为项目的关键路径。</strong>2026年修订的外为法已于2026年3月提交国会并经内阁会议决定、2026年5月成立(新增间接收购规制，并创设跨省厅的对日外国投资委员会＝日本版CFIUS)。请注意制度阶段：该修订法<strong>已成立、尚未施行</strong>——施行日期由公布后1年以内的政令另行确定。</div>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 税务——监管的确定口径，目前还没有</span><br>
+令和8年度(2026年度)新设的投资促进税制(特定生产性提升设备等投资促进税制)允许即时折旧或按取得价7%的税额抵免，但条文把对象限定为"用于事业(<strong>不含用于出租</strong>)"。容量租赁是把运营权交给包销方的结构，一旦被归整为"用于出租"，就有被排除出即时折旧之外的风险。而且储能本身是否属于该税制的对象设备，在大纲阶段也尚未确定。监管的确定口径在2026年6月时点尚不存在，能否即时折旧会把股权IRR概算<strong>±1〜3个百分点</strong>地拉动。须以向经济产业省·国税厅的事前征询为前提。制度本身也处于令和8年度税制改正大纲＝<strong>方针决定</strong>的阶段，条文公布·施行尚未完成。</div>
+
+<p><strong>JC-STAR(安全认证)——电池本体不在对象之列。</strong>认证对象是通信·控制层(PCS·EMS·网关等IP通信设备)，储能的电芯·电池包本体不在对象之内。采用海外制电芯本身并不因此受限。特高·高压定于2027年4月，起点拟以"接续合约的申请"为准、研讨会已审议通过，但系统并网规程等条文尚未公布。要件化的起点不是"并网日"而是"申请日"，这一点会把采购·EPC工序提前锁住，因此越是想在年内并网的案例，越需要尽早确认。</p>
+
+<h2>11 — 用数字管理风险</h2>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>风险</th><th>内容</th><th>影响</th><th>时点</th></tr></thead>
+<tbody>
+<tr><td class="em">对价·授信</td><td>租赁费水平、对包销方信用的依赖</td><td>对价−10%可使股权IRR下降数个百分点</td><td>谈判时·运营中</td></tr>
+<tr><td class="em">供需调整修订</td><td>上限19.51→15日元(约−23%)·招募量1σ(已施行)</td><td>市场化的销售单价约减23%＋数量减少</td><td>2026年3月〜</td></tr>
+<tr><td class="em">LDA中标</td><td>中标率24%·6h化推高CAPEX·单国电芯30%限制</td><td>无法中标／实际单价下DSCR&lt;1＝不成立</td><td>投标时</td></tr>
+<tr><td class="em">技术·衰减</td><td>年衰减约1%、运营4h→末期3h、保证SOH</td><td>容量下降致收益减·扩容费使DSCR恶化</td><td>运营第5〜15年</td></tr>
+<tr><td class="em">会计</td><td>新租赁会计(2027年4月强制适用)</td><td>包销方一侧入表→影响其意愿</td><td>2027年4月〜</td></tr>
+<tr><td class="em">外为法·汇率</td><td>核心行业审查的延迟、回流母国时的汇率</td><td>审查延迟致并网延迟／外币计回报缩水</td><td>投资执行前·分红时</td></tr>
+<tr><td class="em">🚩 税务</td><td>触及即时折旧的出租排除(无监管口径)</td><td>能否即时折旧使股权IRR ±1〜3pt</td><td>取得·投用时</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>结语 — 不看合约的名字，用数字来选</h2>
+
+<p>投资者在日本最先该提的问题，不是"能不能组long-term PPA"。储能电站没有PPA。该问的是：用市场化、容量租赁、保底、LDA中的哪一种，锁定几年、锁定多少钱，以及对手方是谁。不锁定，按官方测算也会亏损；锁定，则靠杠杆把股权撑起来。把这套结构——不看合约的名字、而用数字去核实——投资判断便由此开始。</p>
+
+<div class="sources-box">
+<h4>主要一手资料·出处(2026年6月时点)</h4>
+<ul class="src-list">
+<li><span class="t">前提</span>47MW测算的设备·税务·融资·市场前提如正文§06所载(CAPEX约100亿日元＝约5.3万日元/kWh，贷款75%·利率3.0%·还款18年，实际税率31.5%，折旧17年·事业20年，租赁费1,500日元/kW月＋容量市场收入由持有者保留)。海外纯租赁基准 £57k/MW年(≈每月950日元/kW)。皆为明示前提的示例，并非真实项目的确定值。</li>
+<li><span class="t">T1</span>东京燃气"关于系统级储能电池包销合约的签订"2024-04-24／2025-06-30(广原·石狩·芦屋＝20年包销，取得运营权·固定金额)／"最优运营服务"相关 2025-03-06·2026-04-16·2025-12-23。</li>
+<li><span class="t">T1</span>OCCTO(电力广域运营推进机构)／资源能源厅"长期脱碳电源拍卖中标结果·招募要纲"(加权平均 第1轮5.8／第2轮6.8／第3轮11.1万日元/kW年，其他市场收益约9成返还，项目报酬率上限 税前WACC 5%，6小时要件·锂电额度0.4GW·单国电芯30%上限)。</li>
+<li><span class="t">T1</span>资源能源厅 制度研讨工作部会·稳定供给WG(供需调整市场 上限价格 19.51→15日元/ΔkW·30分＝已施行，10·7.21日元为讨论阶段，招募量3σ→1σ)／OCCTO 容量市场主拍卖中标结果。</li>
+<li><span class="t">T1</span>三菱综合研究所(向经济产业省研讨会提交)敏感性分析(含容量市场收入·CAPEX 6万日元/kWh时基准IRR −1.5%，对CAPEX·批发价差的敏感性)。</li>
+<li><span class="t">T1</span>关西电力(多奈川99MW＝仅市场收益的无追索PF日本首例 2025-05-07)／三菱UFJ银行·Renova IR(广原·石狩的包销型PF)。</li>
+<li><span class="t">T1</span>财务省 对内直接投资审查制度(核心行业·发电事业者5万kW以上)·外为法修订法 2026年5月成立(间接收购·对日外国投资委员会＝日本版CFIUS，施行为公布后1年以内的政令日)·日本银行 外为法报告制度(超3,000万日元)／财务省"令和8年度税制改正大纲"("不含用于出租")／ASBJ 企业会计准则第34号(新租赁会计，2027年4月强制适用)／经济产业省·OCCTO 网格代码研讨会(JC-STAR：以通信·控制层为对象，特高·高压2027年4月，起点＝接续合约申请)。</li>
+<li><span class="t">T2</span>BloombergNEF "Energy Storage Systems Cost Survey 2025"(总包全球均值 US$117/kWh)／Modo Energy·Gresham House·Drax(英tolling约£57k／保底£44〜52k/MW年，英市场化实绩)／terralayr·ess-news(德tolling 11〜15万€/MW年，Stendal·Vattenfall·RWE)／ENEOS Renewable Energy×NSK(九州虚拟PPA，仅环境价值·约15年)。海外数值为代理参考，不可直接套用于日本。</li>
+</ul>
+<div class="source">注：本文的金额·回报为明示前提的示例·官方测算，并非特定真实项目的确定收支与合约条件。日本国内相对合约(租赁／包销／保底)的单价、LDA储能的个别中标值不公开。涉及税务·外为法·会计解释之处并非监管的确定口径，个别项目须经税理士·律师·专业人士事前确认。本文不构成投资·税务·法律建议。</div>
+</div>
+
+<div class="cta-section">
+  <h3>把真实项目的确定数字，用于投资判断</h3>
+  <p>本文是示例·官方测算的地图。真实项目的CAPEX·租赁费·股权IRR·合约条件·外为法时间表·尽调资料，<br>将在您垂询并签署NDA后逐案提供。可提供中文及英文支持。</p>
+  <a target="_top" href="https://www.scix.co.jp/zh/contact" class="cta-btn">联系我们 →</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var h=document.getElementById('scix-header'),b=document.getElementById('scix-header-burger'),o=document.getElementById('scix-header-overlay');
+  if(!h||!b)return;
+  function t(){var open=h.classList.toggle('scix-header-open');b.setAttribute('aria-expanded',open?'true':'false');}
+  b.addEventListener('click',t);
+  if(o)o.addEventListener('click',t);
+  h.querySelectorAll('.scix-header-nav a').forEach(function(a){a.addEventListener('click',function(){h.classList.remove('scix-header-open');b.setAttribute('aria-expanded','false');});});
+})();
+(function(){
+  var g=document.getElementById('fdi-checklist');if(!g)return;
+  var c=g.querySelectorAll('input[type=checkbox]'),cnt=document.getElementById('checkCount'),fl=document.getElementById('checkBarFill'),tot=c.length;
+  function u(){var d=0;c.forEach(function(x){if(x.checked)d++;});cnt.textContent=d;fl.style.width=(d/tot*100)+'%';}
+  c.forEach(function(x){x.addEventListener('change',u);});u();
+})();
+</script>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans SC',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif SC',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh/" class="scix-footer-logo" aria-label="ScienceX 首页">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">ScienceX株式会社(科学X股份公司)</div>
+        〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也(工学博士)</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

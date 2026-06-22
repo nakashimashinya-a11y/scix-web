@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.9;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:760px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.45;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.8;max-width:620px;margin:0 auto}
+.article-body{max-width:780px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.45}
+h3{font-size:1.08em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.45}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.45}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.95}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.95}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.95}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:1.95}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.85;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.9;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:640px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.25}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.45}
+.compare-card .cc-figure{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.8;margin:8px 0 0;color:var(--text)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.45}
+.diff-card p{font-size:.85em;line-height:1.8;margin:0}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.6}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.8}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box .t{display:inline-block;font-weight:700;color:var(--navy);background:rgba(27,42,74,.06);border-radius:3px;padding:1px 6px;margin-right:6px;font-size:.92em}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+.src-list{list-style:none;padding-left:0!important}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
+</style>
+<title>Japan's Storage Assets Have No "PPA" — Which Contract, How Many Years, How Much You Can Lock In | ScienceX</title>
+<meta name="description" content="For domestic and overseas investors building long-term fixed income from Japanese grid-scale storage: how PPA, offtake, tolling, floor, and the Long-term Decarbonisation Auction (LDA) differ, over how many years, and at what price. Mapped against the US, UK and EU markets, with a four-contract IRR and DSCR model for a 47 MW asset, from primary sources.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-long-term-contract">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-long-term-contract">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-long-term-contract">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Japan's Storage Assets Have No PPA — Which Contract, How Many Years, How Much You Can Lock In | ScienceX">
+<meta property="og:description" content="Storage has no PPA. Long-term fixed income means tolling, offtake, floor or LDA. Contract, tenor, price, return and Japanese track record from primary sources, mapped against the US, UK and EU.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-long-term-contract">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Japan's Storage Assets Have No PPA — Which Contract, How Many Years, How Much | ScienceX">
+<meta name="twitter:description" content="Long-term fixed income for Japanese BESS means tolling, offtake, floor or LDA. Contract, tenor, price, return and track record, mapped against the US, UK and EU.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-06-21">
+<style id="scix-header-css">
+.scix-header,.scix-header *,.scix-header *::before,.scix-header *::after{margin:0;padding:0;box-sizing:border-box}
+body{padding-top:64px!important}
+.scix-header{position:fixed;top:0;left:0;right:0;height:64px;background:#1B2A4A;z-index:9999;border-bottom:1px solid rgba(196,154,60,.25);font-family:"Noto Sans JP",sans-serif}
+.scix-header-inner{max-width:1100px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.scix-header-logo{text-decoration:none;display:flex;align-items:center;flex-shrink:0;font-family:'Noto Serif JP',serif;font-size:20px;font-weight:700;letter-spacing:.5px;color:#fff}
+.scix-header-logo .x{color:#C49A3C}
+.scix-header-nav{display:flex;align-items:center;gap:6px}
+.scix-header-nav a{text-decoration:none;color:rgba(255,255,255,.7);font-size:.82rem;font-weight:400;letter-spacing:.3px;padding:8px 14px;border-radius:4px;transition:color .25s,background .25s;white-space:nowrap}
+.scix-header-nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.scix-header-nav a.active{color:#C49A3C;font-weight:500}
+.scix-header-nav a.scix-cta{background:#C49A3C;color:#fff;font-weight:600;padding:8px 20px;border-radius:4px;margin-left:8px}
+.scix-header-nav a.scix-cta:hover{background:#D4AD5A}
+.scix-lang{display:flex;align-items:center;gap:3px;margin-left:14px;background:rgba(255,255,255,.1);border-radius:20px;padding:3px;flex-shrink:0}
+.scix-lang a{text-decoration:none;color:rgba(255,255,255,.6);font-size:.85rem;font-weight:600;letter-spacing:.3px;padding:5px 12px;border-radius:16px;transition:all .25s;display:flex;align-items:center;gap:5px}
+.scix-lang a:hover{color:#fff;background:rgba(255,255,255,.12)}
+.scix-lang a.active{color:#fff;background:#C49A3C;border-radius:16px}
+.scix-header-burger{display:none;background:none;border:none;cursor:pointer;width:28px;height:20px;position:relative;z-index:10002;flex-shrink:0}
+.scix-header-burger span{display:block;position:absolute;left:0;width:100%;height:2px;background:#fff;border-radius:1px;transition:transform .3s,opacity .3s}
+.scix-header-burger span:nth-child(1){top:0}
+.scix-header-burger span:nth-child(2){top:9px}
+.scix-header-burger span:nth-child(3){top:18px}
+.scix-header-open .scix-header-burger span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.scix-header-open .scix-header-burger span:nth-child(2){opacity:0}
+.scix-header-open .scix-header-burger span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+.scix-header-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9997;opacity:0;transition:opacity .3s}
+.scix-header-open .scix-header-overlay{display:block;opacity:1}
+@media(max-width:768px){
+  .scix-header-nav{position:fixed;top:0;right:0;bottom:0;width:280px;max-width:80vw;background:#1B2A4A;flex-direction:column;align-items:stretch;gap:0;padding:80px 24px 40px;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);z-index:10001;box-shadow:-4px 0 24px rgba(0,0,0,.15);overflow-y:auto}
+  .scix-header-open .scix-header-nav{transform:translateX(0)}
+  .scix-header-nav a{padding:14px 16px;font-size:.92rem;border-bottom:1px solid rgba(255,255,255,.06);border-radius:0}
+  .scix-header-nav a.scix-cta{margin:16px 0 0;text-align:center;border-radius:4px;border-bottom:none;padding:14px 20px}
+  .scix-header-burger{display:block}
+  .scix-lang{margin-left:auto;margin-right:12px}
+}
+</style></head>
+<body><header class="scix-header" id="scix-header"><div class="scix-header-overlay" id="scix-header-overlay"></div>
+<div class="scix-header-inner">
+  <a href="https://www.scix.co.jp/en" class="scix-header-logo">Science<span class="x">X</span></a>
+  <nav class="scix-header-nav" id="scix-header-nav">
+<a href="https://www.scix.co.jp/en" data-page="/">Home</a>
+<a href="https://www.scix.co.jp/en/bss" data-page="/bss">Storage Business</a>
+<a href="https://www.scix.co.jp/en/knowledge" data-page="/knowledge" class="active">Knowledge</a>
+<a href="https://www.scix.co.jp/en/company" data-page="/company">Company</a>
+<a href="https://www.scix.co.jp/en/contact" data-page="/contact" class="scix-cta">Contact</a>
+  </nav>
+  <div class="scix-lang">
+    <a href="https://www.scix.co.jp/column-long-term-contract">🇯🇵 JP</a>
+    <a href="https://www.scix.co.jp/en/column-long-term-contract" class="active">🇺🇸 EN</a>
+  </div>
+  <button class="scix-header-burger" id="scix-header-burger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</div></header>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 30</span>
+      <span class="header-tag">Domestic &amp; overseas investors / Contract design &amp; IRR model</span>
+      <time class="header-date" datetime="2026-06-21">2026.06.21</time>
+    </div>
+    <h1>Japan's Storage Assets Have <em>No "PPA"</em> —<br>Which Contract, How Many Years, <em>How Much You Can Lock In</em></h1>
+    <p class="header-desc">When a domestic or overseas investor wants long-term fixed income from a Japanese grid-scale storage asset, how do PPA, offtake, tolling, floor and the Long-term Decarbonisation Auction (LDA) differ — over how many years, and at what price? We turn the published Japanese track record and public estimates into a single map from primary sources, set it against the US, UK and EU markets you already operate in, and carry it through to a four-contract IRR and DSCR model for a 47 MW asset.</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/en/knowledge" class="back-link">← Back to Knowledge</a>
+
+<p>In meetings with investors, domestic and overseas alike, one phrase comes up almost every time: "long-term PPA." The intent — to own a storage asset on a stream of long-term fixed income — is exactly right. Just one word is off. Because a battery does not generate net electricity, the kind of PPA that sells a fixed volume of energy (kWh) at a fixed price, the way solar or wind does, does not map onto a storage asset.</p>
+
+<p>And the return without any fixing has already been put on paper, in a public estimate. In the sensitivity analysis the Mitsubishi Research Institute (MRI) submitted to a Ministry of Economy, Trade and Industry (METI) working group, even with capacity-market income added, the base case at a CAPEX of ¥60,000/kWh returns an IRR of <strong>−1.5%</strong>. Merchant operation alone does not turn a profit, even on the public assumptions. That is precisely why the question "which contract fixes the revenue" decides whether the project works.</p>
+
+<div class="highlight-box">
+Without fixing, even the public estimate can be in the red. On MRI's numbers, <strong>even with capacity-market income the base-case IRR is −1.5%</strong> (CAPEX ¥60,000/kWh). The path to the black is either to cut CAPEX below ¥50,000/kWh, or for wholesale spreads to swing to the upside (on an upside assumption with CAPEX ¥30,000/kWh, IRR is about 14%). Fixed income is the device that lifts that loss-making floor.
+</div>
+
+<div class="review-note">
+<strong>How to read this piece:</strong> Regulatory state as of June 2026. Primary readers are domestic and overseas institutional investors. Figures start from published primary information (corporate timely disclosures, OCCTO, METI, the Ministry of Finance and others) and public estimates; equity IRRs use ScienceX's stated-assumption model (a generic 47 MW / 188 MWh extra-high-voltage example). Where a value is undisclosed — such as the unit price of a bilateral domestic contract — we write "undisclosed" and make no guesses. Overseas figures (US, UK, Germany) are proxies on different assumptions and cannot be applied directly to Japan. This is not investment, tax or legal advice.</div>
+
+<div class="data-box">
+<div class="db-head">Scope of this piece</div>
+<dl class="premise-grid">
+  <div><dt>SUBJECT</dt><dd>Fixed-income contracts<span class="unit">5 types compared</span></dd></div>
+  <div><dt>IF UNFIXED</dt><dd>−1.5<span class="unit">% (public estimate, incl. capacity market)</span></dd></div>
+  <div><dt>TOLLING</dt><dd>18.6<span class="unit">% (model, 75% debt)</span></dd></div>
+  <div><dt>LDA</dt><dd>≈5<span class="unit">% (anchored by design)</span></dd></div>
+  <div><dt>DOMESTIC OFFTAKE</dt><dd>20<span class="unit">years (every confirmed deal)</span></dd></div>
+  <div><dt>PRIMARY READERS</dt><dd style="font-size:13px">Domestic &amp; overseas investors, buyers, financiers</dd></div>
+</dl>
+</div>
+
+<h2>01 — A "PPA" and a storage contract are different things</h2>
+
+<p>First, let us align the vocabulary. A generation PPA is a contract to buy and sell energy (kWh) at a fixed price. A virtual PPA goes further: no electrons move at all, only the environmental value (non-fossil certificates) is traded. The virtual PPA signed in June 2026 between ENEOS Renewable Energy and NSK in Kyushu is the textbook case — environmental value alone, supplied for about 15 years from a roughly 54 MW solar plant fitted with about 130 MWh of batteries. Here the battery's job is to firm the solar output; it is not a contract that fixes the revenue of a storage asset itself.</p>
+
+<p>What a long-term storage contract fixes is not energy, but capacity and dispatch rights. <strong>Who carries the market-price risk</strong> — that is the single axis on which the true nature of these contracts can be read.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>Name</th><th>What it fixes</th><th>Where market-price risk sits</th><th>Fit for storage</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Generation PPA (physical)</td><td>Sells kWh at a fixed price</td><td>Buyer takes it; generator carries volume risk</td><td class="ng">Not a fit (storage does not sell through)</td></tr>
+<tr><td class="em">Virtual PPA</td><td>Environmental value (certificates) only</td><td>Mutual hedge via contract-for-difference</td><td>Used with co-located solar (ENEOS × NSK)</td></tr>
+<tr class="hl"><td class="em">Offtake / tolling</td><td>Provides capacity and dispatch rights for a fixed fee</td><td>Offtaker carries all of it</td><td class="ok">The core of storage</td></tr>
+<tr><td class="em">Floor + revenue share</td><td>Guarantees a minimum return, shares the upside</td><td>Downside = offtaker / upside = shared</td><td class="ok">A fit</td></tr>
+<tr><td class="em">Full-service optimisation (managed)</td><td>Operations mandate, success fee</td><td>Asset owner carries it</td><td>A fit (merchant in character)</td></tr>
+<tr><td class="em">LDA (Long-term Decarbonisation Auction)</td><td>20 years of capacity revenue</td><td>The scheme (counterparty is OCCTO)</td><td class="ok">A fit</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">In Japan, "offtake contract" and "tolling contract" are used almost interchangeably in practice (they are not perfectly synonymous as a matter of regulatory definition). The scheme Tokyo Gas calls an "offtake contract" is the same shape as a thermal-plant toll: the SPC that owns the battery hands over dispatch rights, receives a fixed fee, and the market-price risk is taken off its hands. We treat the two as synonymous here.</p>
+
+<h2>02 — Five options on one map</h2>
+
+<p>With the vocabulary aligned, plotting the options on two axes — the firmness of the revenue (predictability) and the room for equity upside — brings out the differences in character. "PPA," a word from the generation world, does not sit on this map at all.</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A map of the four options by revenue firmness and equity upside" font-family="'Noto Sans JP',sans-serif">
+  <defs>
+    <radialGradient id="cT" cx="35%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#D4AF5C"/>
+      <stop offset="100%" stop-color="#C49A3C"/>
+    </radialGradient>
+  </defs>
+  <rect x="110" y="70" width="550" height="290" fill="#FFFFFF" stroke="#E2E6EC" stroke-width="1"/>
+  <line x1="385" y1="70" x2="385" y2="360" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="3 4"/>
+  <line x1="110" y1="215" x2="660" y2="215" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="3 4"/>
+  <line x1="110" y1="360" x2="110" y2="62" stroke="#1B2A4A" stroke-width="1.5"/>
+  <polygon points="110,52 106,64 114,64" fill="#1B2A4A"/>
+  <line x1="110" y1="360" x2="668" y2="360" stroke="#1B2A4A" stroke-width="1.5"/>
+  <polygon points="678,360 666,356 666,364" fill="#1B2A4A"/>
+  <text x="385" y="392" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">Predictability (revenue firmness) →</text>
+  <text x="120" y="375" font-size="11" fill="#6C7A89">Low</text>
+  <text x="650" y="375" text-anchor="end" font-size="11" fill="#6C7A89">High</text>
+  <text x="62" y="215" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A" transform="rotate(-90 62 215)">Equity upside →</text>
+  <text x="100" y="80" text-anchor="end" font-size="11" fill="#6C7A89">High</text>
+  <text x="100" y="356" text-anchor="end" font-size="11" fill="#6C7A89">Low</text>
+  <text x="120" y="92" font-size="10.5" fill="#9AA6B2" font-style="italic">PPA = a generation term (does not map to storage)</text>
+  <circle cx="190" cy="140" r="9" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2.5"/>
+  <text x="190" y="118" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">Merchant</text>
+  <text x="190" y="166" text-anchor="middle" font-size="10.5" fill="#6C7A89">Base IRR −1.5%, high variance</text>
+  <circle cx="378" cy="238" r="9" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2.5"/>
+  <text x="378" y="216" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">Floor + RS (10y)</text>
+  <text x="378" y="264" text-anchor="middle" font-size="10.5" fill="#6C7A89">Downside floor + upside share</text>
+  <circle cx="548" cy="150" r="12" fill="url(#cT)" stroke="#A07916" stroke-width="1.5"/>
+  <text x="548" y="124" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="13.5" font-weight="700" fill="#A07916">Tolling (20y)</text>
+  <text x="548" y="180" text-anchor="middle" font-size="10.5" fill="#6C7A89">Equity 18.6% (leverage)</text>
+  <circle cx="612" cy="318" r="9" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2.5"/>
+  <text x="612" y="298" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">LDA (20y)</text>
+  <text x="612" y="338" text-anchor="middle" font-size="10.5" fill="#6C7A89">Capped at ≈5% by design</text>
+</svg>
+<div class="fig-cap">Figure — A map of the four options by revenue firmness (predictability) and room for equity upside</div>
+</div>
+
+<p>The map shows that predictability and upside are not necessarily inversely related. Because tolling delivers certain revenue, it can carry thick debt, so even a project IRR in the 6% range produces an equity IRR in the 18% range (top right). The LDA, by contrast, has the strongest predictability of all, yet by design it gives up the upside (bottom right, more below). Merchant has the widest room to swing higher, but it swings far enough that even a public estimate can be in the red (top left).</p>
+
+<p>Before going further, it is worth orienting the map against the markets a Western investor already knows. Japan runs the same toolkit — minus the standalone-storage PPA, and minus a federal investment tax credit. The table below maps each Japanese contract onto its closest equivalent in the United States, the United Kingdom and the EU.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>Contract (Japan)</th><th>United States</th><th>United Kingdom</th><th>EU (Germany)</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Merchant<span class="u">balancing + capacity + JEPX</span></td><td>ERCOT merchant (no capacity market)</td><td>Wholesale + Balancing Mechanism + Capacity Market</td><td>EPEX intraday / FCR merchant</td></tr>
+<tr><td class="em">Capacity market</td><td>CAISO Resource Adequacy (RA); PJM capacity</td><td>Capacity Market (T-1 / T-4)</td><td>Limited capacity remuneration</td></tr>
+<tr class="hl"><td class="em">Tolling / offtake<span class="u">Tokyo Gas</span></td><td>Storage PPA structured as a toll; RA contract (CAISO, ERCOT)</td><td>Tolling (Gresham House × Octopus; Eku × SmartestEnergy)</td><td>Tolling (RWE, Vattenfall, terralayr)</td></tr>
+<tr><td class="em">Floor + revenue share<span class="u">Bison</span></td><td>Revenue floor / synthetic toll (GridBeyond)</td><td>Floor (Gresham House, ≈£52k/MW·yr)</td><td>Emerging</td></tr>
+<tr><td class="em">LDA<span class="u">government-backed, 20y</span></td><td>No federal analogue; §48E ITC instead</td><td>LDES cap-and-floor (Ofgem, 8h+, awards summer 2026)</td><td>No direct analogue</td></tr>
+<tr><td class="em">[ PPA ]</td><td>Solar / wind PPA (not standalone storage)</td><td>CfD / PPA (generation)</td><td>PPA (generation)</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Mapping by ScienceX for orientation. The equivalents are approximate; market rules, tenor and counterparties differ. Overseas figures are proxies and cannot be applied directly to Japan.</p>
+
+<p>Read against that mirror, the same five Japanese options line up cleanly on contract, tenor, price, return and domestic track record:</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>Option</th><th>Contract / tenor</th><th>Price (sell side)</th><th>Return</th><th>Market-price risk</th><th>Japanese track record</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Merchant<span class="u">balancing + capacity + JEPX</span></td><td>No contract</td><td>—</td><td>Public estimate <span class="ng">base −1.5%</span> (incl. capacity market, CAPEX ¥60k). 0.4% at CAPEX ¥50k; 14% at CAPEX ¥30k with wholesale upside</td><td>Owner</td><td>Tanagawa 99 MW (Japan's first full-merchant PF)</td></tr>
+<tr class="hl"><td class="em">Tolling<span class="u">= Japan's "offtake"</span></td><td>20 years</td><td>Domestic <strong>undisclosed</strong> / overseas pure toll ≈ £57k/MW·yr (≈ ¥11.4m/MW·yr)</td><td>Project 4–6.6%, yet <span class="ok">equity 18.6% via leverage</span> (toll + capacity market, 75% debt). Pure toll alone is single-digit</td><td>Offtaker</td><td>Tokyo Gas × Eku Hirohara 30 MW, × Renova Ishikari 30 MW, × Equis Ashiya 50 MW (each 20y)</td></tr>
+<tr><td class="em">Floor + RS</td><td>10 years</td><td>Overseas floor ≈ £44–52k/MW·yr (≈ ¥8.8–10.4m/MW·yr)</td><td>Minimum guaranteed + upside shared</td><td>Downside = offtaker / upside = shared</td><td>Bison × Englehart (10y, agreed in principle)</td></tr>
+<tr><td class="em">LDA</td><td>20 years</td><td>Weighted average 5.8 → 6.8 → <strong>11.1</strong> (¥10k/kW·yr) across rounds (all decarbonised sources; storage-specific clearings undisclosed)</td><td>By design <strong>anchored ≈5%</strong> (return cap + ~90% clawback of other-market income)</td><td>Scheme (upside surrendered)</td><td>Various bidders. Storage-specific clearings permanently undisclosed</td></tr>
+<tr><td class="em">[ PPA ]</td><td>—</td><td>No intrinsic value for storage</td><td>—</td><td>—</td><td>ENEOS × NSK = environmental value only, ~15y (a different thing from fixing revenue)</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">¥ conversions are illustrative at £1 ≈ ¥200, $1 ≈ ¥155, €1 ≈ ¥165, not actual contract values. Domestic toll / offtake / floor unit prices are undisclosed between the parties. The 47 MW equity IRR is a stated-assumption generic model.</p>
+
+<h2>03 — What the contracts are: four types and the clauses that matter</h2>
+
+<p>A long-term storage contract sorts into four types by who carries the market-price risk. In every case the asset is, as a rule, owned by the owner side (the SPC), and the dispatch rights pass to the offtaker.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>Type</th><th>Who carries market-price risk</th><th>Japanese name / examples</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Pure tolling<span class="u">capacity reservation / lease type</span></td><td>Offtaker carries all of it</td><td>Tokyo Gas "offtake contract"; MIRARTH × PowerX</td></tr>
+<tr><td class="em">Floor + revenue share</td><td>Downside = offtaker / upside = shared</td><td>Bison × Englehart CTP (10y, a Japanese first)</td></tr>
+<tr><td class="em">Full-service optimisation<span class="u">managed operations</span></td><td>Owner retains it</td><td>Tokyo Gas optimisation (Renova 165 MW); PowerX aggregation</td></tr>
+<tr><td class="em">Hybrid</td><td>Part toll + part merchant</td><td>Overseas (terralayr "LAYR" and others)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>What the contract nails down is the same set of clauses an investor would recognise from London, Houston or Frankfurt: availability guarantees (fee reductions on a shortfall), capacity guarantees (including degradation), whether the fee is CPI-linked, responsibility for charging energy, dispatch rights and cycle limits, and credit support (parent guarantee, letter of credit, rating triggers). Because the standard contracts are confidential in Japan, the concrete levels have to be inferred from markets where disclosure runs further — and there, the United States, the United Kingdom and Germany each tell a slightly different version of the same story.</p>
+
+<h3>The United States: storage PPAs are usually tolls, plus RA and synthetic floors</h3>
+
+<p>In the US, a storage PPA is most often structured as a tolling arrangement: the utility supplies the charging energy, because developers do not want to take input-price risk and the utility is better placed to bear it. In California, load-serving entities carry capacity procurement obligations under the Resource Adequacy (RA) program, and RA contract prices have risen year after year; with an RA contract in place, the average battery could still have earned on the order of $178/kW·yr in total wholesale revenue across 2025. In ERCOT, which has no capacity market, revenue is far more volatile, and tolling is spreading as a de-risking tool — five operating projects under known tolls, with seven more expected online by the end of 2026. Where owners want certainty without a full toll, optimisers such as GridBeyond now offer revenue-floor and synthetic (virtual) toll contracts in ERCOT and CAISO, underwritten by investment-grade partners — the same downside-protection logic as the UK floors and Japan's Bison deal.</p>
+
+<h3>Germany: pure tolls, disclosed in euros</h3>
+
+<p>German tolls run roughly €110,000–150,000/MW·yr on tenors of 5–7 years (10 at most), with signed examples including Stendal (104.5 MW, 7 years, contract value €85–95m), Vattenfall, and RWE (50 MW, 5 years). These are the clearest disclosed unit prices in the European market.</p>
+
+<div class="info-box">
+<strong>At the contract's threshold, read through to how the counterparty books it.</strong> Overseas, there are cases where the toll fee is expensed (OpEx) and treated off-balance-sheet (RWE × terralayr explicitly call theirs "balance-sheet-light"). In Japan, the new lease accounting standard becomes mandatory from April 2027, and if tolling is identified as a lease it can sit on-balance-sheet for the offtaker (the lessee). The same contract can land on the counterparty's balance sheet in opposite ways in Japan and abroad — and that affects appetite to sign.
+</div>
+
+<h2>04 — How many years: domestic offtake is 20 years as standard</h2>
+
+<p>On tenor, every domestic offtake we could confirm was 20 years. Hirohara, Ishikari, Ashiya, and the HDRE (HD Renewable Energy) deal added in April 2026 — all about 20 years, in line with the 20-year tenors of the capacity market and the LDA. Shorter domestic offtakes of 10–15 years cannot, at present, be confirmed in public disclosure. Only the floor contract is short, at 10 years, and that is a different form from offtake. Overseas tolling ranges from 5 to 15 years, and the rule of thumb for bankability is roughly 10 years or more with an investment-grade offtaker. Because tenor sets the loan tenor, the floor's 10 years is a constraint in PF design.</p>
+
+<h2>05 — How much you make: the floor without fixing, the overseas levels, the LDA ceiling</h2>
+
+<p>This is the core. In order: the case without fixing, the overseas fixed levels, the LDA's effective return, and then the same 47 MW model.</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">−1.5<span class="unit">%</span></span><span class="lbl">MRI base IRR (incl. capacity market, CAPEX ¥60k/kWh)</span></div>
+  <div class="stat-cell"><span class="val">18.6<span class="unit">%</span></span><span class="lbl">47 MW model, tolling equity IRR (75% debt, DSCR 1.31x)</span></div>
+  <div class="stat-cell"><span class="val">≈5<span class="unit">%</span></span><span class="lbl">LDA effective return (anchored by design)</span></div>
+</div>
+
+<p><strong>The floor without fixing.</strong> On the public estimate, the base-case IRR is −1.5%. Turning a profit means either cutting CAPEX below ¥50,000/kWh or wholesale spreads swinging to the upside (on an upside assumption with CAPEX ¥30,000/kWh, IRR is about 14%). Merchant carries the dream of the upside, but on the public assumptions its floor is in the red.</p>
+
+<p><strong>The fixed level is undisclosed in Japan.</strong> Tokyo Gas, PowerX, Bison and MIRARTH alike record only "20 years (or 10), fixed amount"; not one publishes a figure that can be normalised to ¥/kW. That is not a gap in the record — it is a finding about the state of the market. The reference level is built from markets where disclosure runs further. In the UK, a roughly 2-year toll is on the order of £57k/MW·yr (≈ ¥11.4m/MW·yr); a 10-year-class floor is £44–52k/MW·yr (≈ ¥8.8–10.4m/MW·yr). Named UK deals add texture: Gresham House × Octopus (≈£57k/MW·yr, including about £10k of capacity market), the Gresham House floor (≈£52k/MW·yr, 7 years and over, performance-conditioned), Eku × SmartestEnergy at Ocker Hill (99 MW / 198 MWh, 10 years — the UK's first debt-backed toll), and Drax's West Burton C (250 MW / 500 MWh, 10 years, CPI-linked).</p>
+
+<div class="info-box">
+<strong>Overseas, there are even moments where safety (the floor) pays more than risk.</strong> UK merchant revenue fell from £84–86k/MW·yr in December 2024 to about £41k/MW·yr by February 2026 — nearly halved year on year. The floor (£44–52k) is closing on, and in places overtaking, merchant outcomes. A fixed contract is meant to be a trade where you give up the upside to buy safety; right now the inversion is real — the fixed level is the higher one. In the US the same volatility is on display: ERCOT revenues swing sharply year to year, while California RA prices have risen, so a contracted asset can out-earn a merchant one. That is why demand for floor and toll contracts is growing structurally across the Western markets.</div>
+
+<p><strong>The LDA is the one contract whose sell-side price is publicly fixed.</strong> Weighted-average clearing prices rose across rounds: 5.8, 6.8 and 11.1 (¥10k/kW·yr) for the first, second and third (figures for decarbonised sources as a whole; storage-specific clearings are permanently undisclosed). But the LDA caps the return that can be built into a bid at a pre-tax WACC of 5% (±1%), and then claws back about 90% of any income earned in other markets after the fact. Between these two constraints, the winner's effective return is anchored by the scheme at roughly 5%. Predictability is the strongest of all; the upside is shut off, by design, from the start. From the third round, continuous discharge of six hours or more became a requirement, and the lithium-ion allocation was tightened from 1 GW to 0.4 GW.</p>
+
+<div class="info-box">
+<strong>The LDA has a UK cousin: the cap-and-floor.</strong> Ofgem's cap-and-floor scheme for long-duration electricity storage (LDES), modelled on the UK interconnector regime, gives a government-backed revenue floor (income topped up if revenues fall below the floor) and returns most or all revenue above a "soft" cap to consumers. The first window drew 171 bids (52.6 GW); 77 projects (28.7 GW) cleared eligibility, lithium-ion dominating; the duration bar is eight hours or more, and final awards are due in summer 2026. Like the LDA, it trades the upside for a regulated floor — predictability bought by surrendering the top end. The mechanics differ (the LDA fixes a capacity price by auction and claws back other-market income; the cap-and-floor sets a floor and a soft cap around a fair return), but both anchor the return near a regulated rate. A UK investor reading the LDA is, in effect, already fluent in it.</div>
+
+<div class="highlight-box">
+On the same 47 MW asset, the contract changes the shape of the return. Tolling sits in the lower band on project IRR at 6.6%, yet because the revenue is certain it can carry debt to about 75%, so the equity needed falls to a minimum. The result is an <strong>equity IRR of 18.6%</strong> (minimum DSCR 1.31x). That 18.6%, though, is on a "toll + capacity market" hybrid assumption, with capacity-market income (held by the owner) added to the toll fee. <strong>The source of the gain is not high project profitability; it is the high leverage that certainty makes possible.</strong> For an investor, this is exactly where the Japanese market opens.
+</div>
+<p class="note-small">Domestic toll fees are undisclosed between the parties. The 47 MW equity IRR is a stated-assumption generic model, not an actual deal value. This 18.6% is on a hybrid assumption where capacity-market income (about 40% of revenue) is held by the owner; on a pure toll that hands the capacity market to the offtaker as well, the same toll fee drops equity IRR to single digits. To reach 18% on a pure toll alone, the toll has to rise to about 2.6× the overseas benchmark (£57k/MW·yr ≈ ¥950/kW·month), or CAPEX has to fall by about half (toward Chinese-cell levels) — see §§06–07.</p>
+
+<h2>06 — Running the same 47 MW under four contracts</h2>
+
+<p>From here, the contents of that 18.6%. Taking an extra-high-voltage 47 MW / 188 MWh (4-hour) asset as a generic example, we run the same hardware under four contracts — ① balancing-led, ② capacity + wholesale, ③ LDA (6-hour), ④ tolling + capacity market — and line up project IRR, equity IRR, DSCR and payback period, with the assumptions stated.</p>
+
+<div class="data-box">
+<div class="db-head">Subject (generic example)</div>
+<dl class="premise-grid">
+  <div><dt>GRID CAPACITY</dt><dd>47<span class="unit">MW (EHV, send-out)</span></dd></div>
+  <div><dt>STORAGE</dt><dd>188<span class="unit">MWh (4 hours)</span></dd></div>
+  <div><dt>CAPEX</dt><dd>≈¥10bn<span class="unit">(≈ ¥53k/kWh, ≈ $65m)</span></dd></div>
+</dl>
+</div>
+
+<p>The remaining assumptions are as follows. Effective tax rate about 31.5% (after size-based enterprise tax and the special defence corporate tax); useful life 17 years; annual degradation about 1% (allowing roughly 4 hours at commissioning to fall to 3 hours at contract end); round-trip efficiency 85%, DoD 90%. On financing, <strong>④ tolling and ③ LDA, with high certainty suited to long-term debt, take about 75% debt at 3.0% over 18 years</strong>, while <strong>① and ② merchant, with variable revenue that does not support much debt, take about 40% at 3.5% over 10 years</strong>. Market assumptions (base): balancing ΔkW at ¥4/ΔkW·30min (50% clearing), capacity market about ¥11k/kW·yr, JEPX day spread ¥20/kWh, one cycle a day, LDA fixed at ¥30k/kW·yr (about 90% of other-market income clawed back). Only ③ LDA is sized at 6 hours / 282 MWh / CAPEX about ¥15bn. And <strong>④ tolling is a "toll + capacity market" hybrid in which the owner holds the capacity-market income</strong> — about 40% of ④'s total revenue. The return on a pure toll that hands the capacity market to the offtaker as well is shown in §07.</p>
+
+<p>The table below is the central result, setting out investment metrics for the same 47 MW hardware run under four contracts.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Metric (same 47 MW asset)</th><th class="num">① Balancing-led</th><th class="num">② Capacity + wholesale</th><th class="num">③ LDA (6h)</th><th class="num">④ Tolling + capacity market</th></tr></thead>
+<tbody>
+<tr><td class="em">CAPEX</td><td class="num">¥10.0bn</td><td class="num">¥10.0bn</td><td class="num">¥15.0bn</td><td class="num">¥10.0bn</td></tr>
+<tr><td class="em">Equity</td><td class="num">¥6.0bn</td><td class="num">¥6.0bn</td><td class="num">¥3.75bn</td><td class="num">¥2.5bn</td></tr>
+<tr><td class="em">Project IRR</td><td class="num">13.3%</td><td class="num">9.8%</td><td class="num ng">3.5%</td><td class="num">6.6%</td></tr>
+<tr class="hl"><td class="em">Equity IRR</td><td class="num">17.6%</td><td class="num">12.7%</td><td class="num ng">6.5%</td><td class="num ok">18.6%</td></tr>
+<tr><td class="em">Minimum DSCR</td><td class="num ok">2.83x</td><td class="num">2.22x</td><td class="num ng">1.04x</td><td class="num">1.31x</td></tr>
+<tr><td class="em">Payback (approx.)</td><td class="num">7 yrs</td><td class="num">9 yrs</td><td class="num">14 yrs</td><td class="num">11 yrs</td></tr>
+<tr><td class="em">20-year NPV</td><td class="num">+¥7.43bn</td><td class="num">+¥3.92bn</td><td class="num ng">−¥1.68bn</td><td class="num">+¥1.28bn</td></tr>
+<tr><td class="em">Predictability</td><td>Low</td><td>Low–medium</td><td>High</td><td>High</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note-small">④ tolling is on a "toll fee + capacity-market income (held by the owner)" hybrid assumption. On a pure toll that hands the capacity market to the offtaker as well, the same toll fee drops equity IRR to single digits (see §07).</p>
+
+<p>Take equity IRR alone and ④ tolling (18.6%) and ① balancing (17.6%) run close. But their insides are opposite. The figure below sets each contract's project IRR (the business's earning power) against its equity IRR (the shareholder's return).</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Project IRR vs equity IRR for the four contracts. Tolling has the lowest project IRR yet the highest equity IRR">
+  <defs>
+    <linearGradient id="gN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A3D66"/><stop offset="1" stop-color="#1B2A4A"/></linearGradient>
+    <linearGradient id="gG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D4AF5C"/><stop offset="1" stop-color="#B8862B"/></linearGradient>
+  </defs>
+  <rect width="760" height="400" fill="#FFFFFF"/>
+  <text x="40" y="30" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1">Figure / Project IRR vs Equity IRR (4 contracts)</text>
+  <!-- legend -->
+  <rect x="486" y="20" width="13" height="13" rx="2" fill="url(#gN)"/><text x="505" y="31" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#2C3E50">Project IRR</text>
+  <rect x="620" y="20" width="13" height="13" rx="2" fill="url(#gG)"/><text x="639" y="31" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#2C3E50">Equity IRR</text>
+  <!-- axis -->
+  <line x1="70" y1="330" x2="730" y2="330" stroke="#C9CFD8" stroke-width="1.5"/>
+  <line x1="70" y1="90" x2="70" y2="330" stroke="#E2E6EC" stroke-width="1"/>
+  <line x1="70" y1="330" x2="730" y2="330" stroke="#C9CFD8" stroke-width="1"/>
+  <text x="58" y="334" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#9aa5b1">0%</text>
+  <line x1="70" y1="242" x2="730" y2="242" stroke="#EEF1F5" stroke-width="1"/><text x="58" y="246" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#9aa5b1">10%</text>
+  <line x1="70" y1="154" x2="730" y2="154" stroke="#EEF1F5" stroke-width="1"/><text x="58" y="158" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#9aa5b1">20%</text>
+  <!-- groups: scale 8.8px per % from y=330 -->
+  <!-- (1) -->
+  <rect x="108" y="213" width="40" height="117" rx="2" fill="url(#gN)"/><text x="128" y="206" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">13.3</text>
+  <rect x="152" y="175" width="40" height="155" rx="2" fill="url(#gG)"/><text x="172" y="168" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#A07916">17.6</text>
+  <text x="150" y="352" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12" font-weight="700" fill="#1B2A4A">① Balancing</text>
+  <!-- (2) -->
+  <rect x="268" y="244" width="40" height="86" rx="2" fill="url(#gN)"/><text x="288" y="237" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">9.8</text>
+  <rect x="312" y="218" width="40" height="112" rx="2" fill="url(#gG)"/><text x="332" y="211" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#A07916">12.7</text>
+  <text x="310" y="352" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12" font-weight="700" fill="#1B2A4A">② Capacity + wholesale</text>
+  <!-- (3) -->
+  <rect x="428" y="299" width="40" height="31" rx="2" fill="url(#gN)"/><text x="448" y="292" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">3.5</text>
+  <rect x="472" y="273" width="40" height="57" rx="2" fill="url(#gG)"/><text x="492" y="266" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#A07916">6.5</text>
+  <text x="470" y="352" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12" font-weight="700" fill="#1B2A4A">③ LDA</text>
+  <!-- (4) highlighted -->
+  <rect x="580" y="272" width="160" height="58" fill="#C49A3C" opacity="0.06"/>
+  <rect x="588" y="272" width="40" height="58" rx="2" fill="url(#gN)"/><text x="608" y="265" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">6.6</text>
+  <rect x="632" y="166" width="40" height="164" rx="2" fill="url(#gG)"/><text x="652" y="159" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="800" fill="#A07916">18.6</text>
+  <text x="630" y="352" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12" font-weight="700" fill="#1B2A4A">④ Tolling</text>
+  <text x="400" y="386" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#A07916">④ has the lowest project IRR (6.6%) yet the highest equity IRR (18.6%)</text>
+</svg>
+<div class="fig-cap">Figure — Project IRR and equity IRR by contract for the same 47 MW asset (stated-assumption model)</div>
+</div>
+
+<h3>The contract with the lowest project IRR has the highest equity IRR</h3>
+
+<div class="highlight-box">
+④ tolling sits in the lower band on project IRR at 6.6%, yet its equity IRR is the highest at 18.6%. Not because the business is more profitable. <strong>Because the revenue is certain, it can carry debt to about 75%, so the equity needed is the smallest, at ¥2.5bn.</strong> Equity IRR moves roughly as "(project IRR × total investment − interest × debt) ÷ equity." Even at a project IRR of 6–7%, with 75% debt at 3%, leverage lifts the thin equity. <strong>The source of the gain is not "high project profitability" but "the high leverage that certainty makes possible."</strong>
+</div>
+
+<p>The flip side: this inversion does not hold unconditionally. If the certainty breaks, the thick debt cannot be raised and the equity IRR sinks. There are three conditions for it to hold.</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">CONDITION 01</span>
+    <h4>Post-stress DSCR ≥ 1.2–1.4x</h4>
+    <p>Fixed fee or LDA fixed income must cover debt service by this multiple even in a conservative case. ③ LDA sinks to 1.04x at realistic clearing prices, and this is where it breaks.</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">CONDITION 02</span>
+    <h4>Investment-grade offtaker</h4>
+    <p>The payer of the fixed fee (a major utility, gas company, etc.) must be investment-grade equivalent, or backed by a parent guarantee. Weak credit means no long-term debt.</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">CONDITION 03</span>
+    <h4>Tenor alignment</h4>
+    <p>Contract tenor (20 years) ≥ loan tenor ≥ asset life. Price in the merchant tail at the end, and the DSCR through it.</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">CONTRAST: MERCHANT</span>
+    <h4>High IRR, but you can only borrow thin</h4>
+    <p>① balancing looks high at an equity IRR of 17.6%, but because revenue is variable, debt is capped at about 40% (equity ¥6.0bn), and a regulatory change can pull the assumptions apart.</p>
+  </div>
+</div>
+
+<h3>Reading the four contracts</h3>
+
+<p><strong>④ tolling (toll + capacity market) is the lead.</strong> A toll fee of ¥1,500/kW·month (¥18k/kW·yr) plus capacity-market income (held by the owner) gives an equity IRR of 18.6% and a minimum DSCR of 1.31x. No market operation is needed, and because the offtaker carries the price risk it is the most stable. The premise is the offtaker's credit. <strong>But on a pure toll that hands the capacity market to the offtaker as well, the same ¥1,500/kW raises only a little over 40% in debt, and equity IRR falls to single digits</strong> (see §07).</p>
+
+<p><strong>② capacity + wholesale is the upside.</strong> You can reach for more through wholesale arbitrage and the capacity market. It is favoured in areas with high JEPX spreads or capacity prices, but because revenue is variable, debt stays around 40%.</p>
+
+<p><strong>① balancing-led is high-return, high-volatility.</strong> Project IRR is the highest at 13.3% and payback the fastest at 7 years, but the March 2026 balancing-market reform (price cap ¥15, volume tightened to 1σ) can pull the assumptions apart. The headline IRR and its repeatability are different things.</p>
+
+<p><strong>③ LDA is condition-dependent and the weakest.</strong> Six hours / 282 MWh is mandatory, so CAPEX is about 1.5× (¥15bn). It works if you set the fixed income at ¥30k/kW·yr, but at realistic clearing levels (a view in the mid-¥20k thousands) the DSCR falls below 1 and it cannot be structured. The viability depends on a bet on the clearing price. It works only if the equipment cost can be halved, or the clearing comes in high.</p>
+
+<h2>07 — The toll fee decides most of the equity (a pure toll is single-digit)</h2>
+
+<p>④ tolling's return moves almost in proportion to the toll fee. A difference of a few hundred yen a month swings the equity IRR a long way. First, the case of a <strong>hybrid in which the owner holds the capacity-market income.</strong></p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Toll fee</th><th class="num">Annualised</th><th class="num">Equity IRR</th><th class="num">Minimum DSCR</th><th>Assessment</th></tr></thead>
+<tbody>
+<tr><td class="em">¥1,200/kW·month</td><td class="num">¥14.4k/kW·yr</td><td class="num cond">Falls (marginal)</td><td class="num cond">≈1.0</td><td>DSCR nears 1, debt tightens</td></tr>
+<tr class="hl"><td class="em">¥1,500/kW·month</td><td class="num">¥18.0k/kW·yr</td><td class="num ok">≈18.6%</td><td class="num">1.31x</td><td>Financeable, the base level</td></tr>
+<tr><td class="em">¥1,800/kW·month</td><td class="num">¥21.6k/kW·yr</td><td class="num ok">≈25%</td><td class="num ok">Thick</td><td>Upside, room to negotiate</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">The table above is on a hybrid assumption with capacity-market income held by the owner. Capacity-market income is about 40% of total revenue. The per-kW unit price is undisclosed between the parties.</p>
+
+<p><strong>So what about a "pure toll" that hands the capacity-market income to the offtaker as well?</strong> Because revenue is then the toll fee alone, the same ¥1,500/kW raises only a little over 40% in debt (the DSCR bites, so it cannot be stretched to 75%), and equity IRR sinks to roughly 0%. At the overseas pure-toll benchmark (£57k/MW·yr ≈ ¥950/kW·month) it is negative.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Pure toll fee (no capacity market)</th><th class="num">Annualised</th><th class="num">Debt raised</th><th class="num">Equity IRR</th></tr></thead>
+<tbody>
+<tr><td class="em">¥950/kW·month<span class="u">≈ overseas £57k benchmark</span></td><td class="num">¥11.4k/kW·yr</td><td class="num">≈22%</td><td class="num ng">−8.7%</td></tr>
+<tr><td class="em">¥1,500/kW·month<span class="u">same as this model</span></td><td class="num">¥18.0k/kW·yr</td><td class="num">≈44%</td><td class="num cond">≈0%</td></tr>
+<tr class="hl"><td class="em">¥2,500/kW·month<span class="u">≈ 2.6× overseas</span></td><td class="num">¥30.0k/kW·yr</td><td class="num ok">75%</td><td class="num ok">≈18.6%</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">To reach an equity IRR of 18.6% on a pure toll (no capacity market), the toll has to rise to about ¥2,500/kW·month (≈ ¥30k/kW·yr ≈ 2.6× the overseas benchmark), or — holding the toll at ¥1,500/kW — CAPEX has to fall to about ¥5.2bn (≈ ¥28k/kWh, Chinese-cell level, about half of current). At Japanese CAPEX (¥10bn, ≈ ¥53k/kWh), a realistic pure toll does not produce a double-digit IRR. Overseas investors can aim for a high shareholder return in Japan when their procurement can cut CAPEX. The disclosed pure-toll benchmark is roughly ¥10–15k/kW·yr (overseas); the per-kW unit price is undisclosed between the parties.</p>
+
+<h2>08 — Who is contracting, and over how many years</h2>
+
+<p>To fix, you need a counterparty that can fix. For grid-scale storage, the one party publishing 20-year, dispatch-rights-transfer, fixed-fee offtake at scale and across multiple deals, as the offtaker (the party taking dispatch rights), is at present clearly Tokyo Gas. On top of Hirohara 30 MW, Ishikari 30 MW and Ashiya 50 MW, April 2026 added about 190 MW with HDRE (HD Renewable Energy).</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>Offtaker / provider</th><th>Project (location)</th><th>Size</th><th>Form</th><th>Tenor</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Tokyo Gas × Eku Energy</td><td>Hirohara (Miyazaki)</td><td>30 MW / 120 MWh</td><td>Offtake</td><td class="num">20 yrs</td></tr>
+<tr><td class="em">Tokyo Gas × Renova SPC</td><td>Ishikari (Hokkaido)</td><td>30 MW</td><td>Offtake</td><td class="num">20 yrs</td></tr>
+<tr><td class="em">Tokyo Gas × Equis SPC</td><td>Ashiya (Fukuoka)</td><td>50 MW / 201 MWh</td><td>Offtake</td><td class="num">20 yrs</td></tr>
+<tr><td class="em">Tokyo Gas × HDRE</td><td>Miyazaki Hyuga + 4 others</td><td>≈190 MW total</td><td>Offtake (HDRE's wording)</td><td class="num">≈20 yrs</td></tr>
+<tr><td class="em">MIRARTH × PowerX</td><td>Kanagawa Aikawa</td><td>2.0 MW / 7.4 MWh</td><td>Tolling</td><td class="num">Undisclosed</td></tr>
+<tr><td class="em">Bison × Englehart CTP</td><td>Undisclosed (agreed in principle)</td><td>—</td><td>Floor (minimum revenue guarantee)</td><td class="num">10 yrs</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Sources: Tokyo Gas (2024-04-24 / 2025-06-30), HDRE (2026-04-16), MIRARTH (2025-09-08), Kyodo PR Wire (Bison, 2025-07-07). Undisclosed items are marked "undisclosed."</p>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ DISCLOSURE MISMATCH</span><br>
+The HDRE deal's "≈190 MW offtake" is described as an "offtake contract" only in HDRE's release. Tokyo Gas's own release records only an "optimisation service contract" for Aomori 149 MW (Hachinohe, Towada) and does not mention the 190 MW offtake. Because the scope of disclosure differs between the two companies, how it folds into Tokyo Gas's official tally (previously 110 MW) cannot be confirmed. We treat the discrepancy as a finding in its own right.
+</div>
+
+<p>Look to other forms and the monopoly is starting to crack. MIRARTH and PowerX are tolling; Bison and Englehart CTP are Japan's first 10-year floor. The picture of "the only seller of fixed revenue = Tokyo Gas" is no longer accurate. The base of providers is also thickening, in the form of equity and operations.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>Party</th><th>Form of involvement</th><th>Main projects</th><th>Target</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Tokyo Gas</td><td>Offtaker + managed operations</td><td>Hirohara / Ishikari / Ashiya + HDRE collaboration; Renova 165 MW operations</td><td>EHV to ~2 GW by early 2030s</td></tr>
+<tr><td class="em">Kansai Electric Power</td><td>Equity + PF</td><td>Tanagawa 99 MW, Kinokawa 48 MW (operating)</td><td>≈1 GW in the early 2030s</td></tr>
+<tr><td class="em">Osaka Gas</td><td>Equity + operations</td><td>Senri 11 MW (operating), Kaminokuni and others</td><td>Expanding the storage business</td></tr>
+<tr><td class="em">Saibu Gas × Bank of Fukuoka</td><td>Joint study (agreed in principle)</td><td>Kyushu, target operation around March 2028</td><td>Investment of ¥1–3bn</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Sources: each company's timely disclosure / IR and reporting (2024–2026). Saibu Gas × Bank of Fukuoka is at the agreed-in-principle stage; the SPC and contract are unannounced.</p>
+
+<p>The financing precedents are now all in place. All arranged by MUFG Bank: (1) Hirohara, a fixed-revenue type built on offtake as the credit base (Japan's first storage PF); (2) Ishikari, an offtake type (about ¥5bn); and (3) Tanagawa, a full-merchant non-recourse deal repaid from market revenue alone (a Japanese first). The convention is to credit-enhance with fixed income; full merchant presumes operating expertise on the order of Kansai Electric Power.</p>
+
+<h2>09 — CAPEX, and the rules that tailwind fixing</h2>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">≈¥68k<span class="unit">/kWh</span></span><span class="lbl">Domestic EHV turnkey (MRI estimate)</span></div>
+  <div class="stat-cell"><span class="val">$117<span class="unit">/kWh</span></span><span class="lbl">BNEF turnkey global average (China $73)</span></div>
+  <div class="stat-cell"><span class="val">30<span class="unit">% cap</span></span><span class="lbl">LDA round 3, per-country cell-manufacture cap</span></div>
+</div>
+
+<p>What squeezes the return most is CAPEX. A domestic grid-scale turnkey is estimated at about ¥68,000/kWh (about $440). BloombergNEF's global turnkey average (including system installation) is $117/kWh, and Chinese-made is $73/kWh (about ¥11,000/kWh) — a gap of more than 3× between Japan and abroad. The LDA's third round made six hours or more of continuous discharge a requirement, tightened the lithium-ion allocation from 1 GW to 0.4 GW, and imposed a "30% per-country cell-manufacture cap." The scheme brought the trade-off between reliance on cheap Chinese product and security into the design.</p>
+
+<div class="info-box">
+<strong>The subsidy Japan does not have — and the supply-chain squeeze it shares.</strong> In the US, standalone storage earns the federal §48E investment tax credit: a 30% base, above 40% (toward roughly 50%) with domestic-content and energy-community adders, and transferable for cash. The One Big Beautiful Bill Act (July 2025) spared storage from the accelerated sunset applied to wind and solar — the full credit runs through about 2032, phasing down from 2034 — but it added "foreign entity of concern" (FEOC) limits: projects beginning construction from 2026 must keep non-FEOC content above 55%, rising to 75% by 2030, or lose the credit. Japan has no equivalent federal ITC for storage; its FY2026 immediate-depreciation / 7%-credit measure may exclude tolling under a "lease use" carve-out, and the point is unsettled (see §10). But the China-supply-chain squeeze runs both ways across the Pacific: the US FEOC content floor, Japan's LDA per-country cell cap (30%) and the JC-STAR communications-layer requirement all push the same direction. Cheap Chinese cells lift the return; both regimes now price in a security discount.
+</div>
+
+<p>The rules tailwind fixed contracts in one more way. The balancing market's price cap was cut from ¥19.51 to ¥15/ΔkW·30min (in force), and if competition does not improve, a staged reduction to ¥10 and ¥7.21 is under study. The procurement volume was tightened too. The more the upside of merchant operation is trimmed, the more the relative value of fixed income (tolling, floor, LDA) rises.</p>
+
+<div class="info-box">
+<strong>EHV and HV are different economic spheres.</strong> The long-term contracts so far (tolling, offtake, LDA) and the large market revenue are an extra-high-voltage story (roughly 10 MW and up). HV assets at the 2 MW / 8 MWh class can also join the capacity market (a battery qualifies as a firm resource at an expected capacity of 1,000 kW or more, discharging once a day for three continuous hours or more; 2 MW / 8 MWh is 4 hours, so it clears the duration test). But the balancing market requires a dedicated online line (costing tens of millions of yen to lay) from secondary reserve onward, and what can enter offline (via the simple command system) is limited to primary reserve from batteries of 1 to under 10 MW. HV is not the main subject of long-term tolling / offtake / LDA; HV revenue centres on aggregator-routed optimisation (e.g. Tokyo Gas × LifeOne, five HV sites at 2 MW / 8 MWh each).<br><br>
+How the cost reads also changes. The $117/kWh global average and the MRI estimate of about ¥68,000/kWh in this section are EHV / large-turnkey levels. A 2 MWh-class HV asset, where economies of scale do not bite, divides fixed costs — substation, interconnection, PCS, design, warranty — across a small capacity, so the ¥/kWh unit cost is structurally higher. Set against the global large-asset level it looks expensive, but the right comparison is a domestic deal at the same scale and the same installation conditions; the basis for judgement is not the ¥/kWh unit cost, but the net cost after subsidy (the grid-scale reference being about ¥39,500/kWh) and the revenue and IRR that asset produces.</div>
+
+<h2>10 — Three gates specific to the foreign investor</h2>
+
+<p>The gates that stand only in front of overseas capital, in brief. Each can be built into the plan if grasped in advance.</p>
+
+<div class="info-box">
+<strong>Foreign Exchange Act (FEFTA) — it comes before interconnection.</strong> The electricity business is a "core" sector under FEFTA, and generation operators of 50,000 kW or more fall within scope. A storage asset qualifies as the designated "generation business" regardless of output, and an EHV 47 MW is a core sector. Acquiring shares of an unlisted SPC requires a prior notification subject to screening even for a single share (China and others are outside the prior-notification exemption from the May 2025 amendment); the prohibition period is 30 days, up to 5 months. Completing the screening before grid interconnection becomes the critical path. This is Japan's version of CFIUS — and the amended FEFTA, submitted to the Diet and decided by Cabinet in March 2026 and enacted in May 2026, adds indirect-acquisition controls and creates a cross-ministerial Committee on Foreign Investment in Japan (a Japanese CFIUS). It comes into force on a date set by Cabinet order within one year of promulgation: enacted, with entry into force still to come.</div>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 TAX — THERE IS NO SETTLED VIEW FROM THE AUTHORITIES YET</span><br>
+The investment-promotion tax measure created for FY2026 (the special tax system for investment in specified productivity-enhancing equipment) allows immediate depreciation or a 7% tax credit on the acquisition value, but the text defines the scope as "for use in the business (<strong>excluding use for leasing</strong>)." Because tolling hands dispatch rights to the offtaker, if it is characterised as "use for leasing" it risks falling outside immediate depreciation. And whether a storage asset is even eligible equipment under this measure is itself unsettled at the outline stage. There is no settled view from the authorities as of June 2026, and whether immediate depreciation is available moves equity IRR by roughly <strong>±1–3 points</strong>. A prior ruling request to METI and the National Tax Agency is the premise. The measure itself is at the FY2026 tax-reform-outline stage — a policy decision — and the text and entry into force are not yet complete.
+</div>
+
+<p><strong>JC-STAR (security certification) — the battery itself is out of scope.</strong> What is certified is the communications and control layer (IP communications equipment such as PCS, EMS and gateways); the battery cells and packs themselves are out of scope. Adopting foreign-made cells does not, in itself, run into a constraint. EHV and HV are slated for April 2027, and a working group has agreed on making the trigger the "grid-connection-contract application," though the text of the grid interconnection rules and the like is not yet promulgated. The fact that the trigger is the "application," not the "interconnection date," binds procurement and EPC schedules earlier, so deals aiming for an in-year interconnection need to confirm this sooner.</p>
+
+<h2>11 — Hold the risk in numbers</h2>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Risk</th><th>What it is</th><th>Bite</th><th>When</th></tr></thead>
+<tbody>
+<tr><td class="em">Fee / credit</td><td>Toll-fee level, dependence on offtaker credit</td><td>Fee −10% cuts equity IRR several points</td><td>Negotiation / operation</td></tr>
+<tr><td class="em">Balancing reform</td><td>Cap ¥19.51 → ¥15 (≈−23%), volume to 1σ (in force)</td><td>Merchant unit revenue down ≈23% + volume down</td><td>From March 2026</td></tr>
+<tr><td class="em">LDA award</td><td>24% win rate, 6h raises CAPEX, 30% per-country cell cap</td><td>No award / DSCR &lt;1 at realistic prices = not viable</td><td>At bid</td></tr>
+<tr><td class="em">Tech / degradation</td><td>≈1%/yr, 4h at start → 3h at end, SOH guarantee</td><td>Capacity decline cuts revenue; augmentation worsens DSCR</td><td>Years 5–15</td></tr>
+<tr><td class="em">Accounting</td><td>New lease accounting (mandatory April 2027)</td><td>On-balance-sheet for offtaker → affects appetite</td><td>From April 2027</td></tr>
+<tr><td class="em">FEFTA / FX</td><td>Core-sector screening delay, FX on repatriation</td><td>Screening delay delays interconnection / FX erodes return</td><td>Before investment / at dividend</td></tr>
+<tr><td class="em">🚩 Tax</td><td>"Lease use" exclusion from immediate depreciation (no authority view)</td><td>Immediate depreciation availability moves equity IRR ±1–3pt</td><td>At acquisition / placing in service</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Closing — Choose by the numbers, not the contract's name</h2>
+
+<p>The first question an investor should put in Japan is not "can we do a long-term PPA." Storage has no PPA. The questions to ask are: which of merchant, tolling, floor or LDA; over how many years; at what price; and who is the counterparty. Without fixing, even a public estimate is in the red; with fixing, leverage lifts the equity. Investment judgement begins by confirming that structure not by the contract's name, but by the numbers. And for an investor coming from the US, the UK or the EU, the toolkit is the one you already know — the work is reading it through Japan's prices, Japan's counterparties and Japan's gates.</p>
+
+<div class="sources-box">
+<h4>Principal primary sources (as of June 2026)</h4>
+<ul class="src-list">
+<li><span class="t">Premise</span>The equipment, tax, finance and market assumptions for the 47 MW model are as stated in §06 (CAPEX ≈ ¥10bn = ≈ ¥53k/kWh; 75% debt, 3.0% interest, 18-year repayment; effective tax rate 31.5%; 17-year life, 20-year project; toll ¥1,500/kW·month + capacity-market income held by the owner). Overseas pure-toll benchmark £57k/MW·yr (≈ ¥950/kW·month). All are stated-assumption generic examples, not confirmed values of any actual deal.</li>
+<li><span class="t">T1</span>Tokyo Gas, "Conclusion of an offtake contract for a grid-scale battery," 2024-04-24 / 2025-06-30 (Hirohara, Ishikari, Ashiya = 20-year offtake, dispatch-rights acquisition, fixed amount); "optimal operation service" releases 2025-03-06, 2026-04-16, 2025-12-23.</li>
+<li><span class="t">T1</span>OCCTO / Agency for Natural Resources and Energy, "Long-term Decarbonisation Auction clearing results and application guidelines" (weighted average ¥58k / ¥68k / ¥111k per kW·yr across rounds 1–3; ~90% clawback of other-market revenue; return cap at pre-tax WACC 5%; 6-hour requirement; lithium-ion allocation 0.4 GW; 30% per-country cell cap).</li>
+<li><span class="t">T1</span>Agency for Natural Resources and Energy, System Review Working Group and Stable Supply WG (balancing-market price cap ¥19.51 → ¥15/ΔkW·30min = in force; ¥10 / ¥7.21 under study; procurement volume 3σ → 1σ); OCCTO capacity-market main-auction clearing results.</li>
+<li><span class="t">T1</span>Mitsubishi Research Institute (submitted to a METI study group) sensitivity analysis (incl. capacity-market income, base IRR −1.5% at CAPEX ¥60k/kWh; sensitivity to CAPEX and wholesale spread).</li>
+<li><span class="t">T1</span>Kansai Electric Power (Tanagawa 99 MW = Japan's first non-recourse PF on market revenue alone, 2025-05-07); MUFG Bank and Renova IR (Hirohara, Ishikari offtake-type PF).</li>
+<li><span class="t">T1</span>Ministry of Finance inward direct-investment screening (core sector; generation operators 50,000 kW and up); amended FEFTA enacted May 2026 (indirect acquisition; Committee on Foreign Investment in Japan = a Japanese CFIUS; in force on a Cabinet-order date within one year of promulgation); Bank of Japan FEFTA reporting (over ¥30m); Ministry of Finance "FY2026 Tax Reform Outline" ("excluding use for leasing"); ASBJ Standard No. 34 (new lease accounting, mandatory April 2027); METI / OCCTO grid-code study group (JC-STAR: communications and control layer in scope; EHV / HV April 2027; trigger = grid-connection-contract application).</li>
+<li><span class="t">T1 (US)</span>Inflation Reduction Act §48E (ITC for standalone storage) and One Big Beautiful Bill Act (enacted 2025-07-04): storage spared the accelerated wind/solar sunset, full credit through ~2032, phase-down from 2034; transferability under §6418 retained; new "foreign entity of concern" (FEOC) / "prohibited foreign entity" material-assistance limits — non-FEOC content threshold 55% (construction from 2026) rising to 75% (2030). US Treasury / IRS guidance ongoing.</li>
+<li><span class="t">T1 (UK)</span>Ofgem and DESNZ, Long Duration Electricity Storage (LDES) cap-and-floor scheme: Technical Decision Document (2025-03-11), Window 1 eligibility outcome (2025-09-23) — 171 applications (52.6 GW), 77 eligible (28.7 GW), 8-hour minimum; final awards expected summer 2026; modelled on the interconnector cap-and-floor regime; Planning and Infrastructure Act 2025.</li>
+<li><span class="t">T2</span>BloombergNEF "Energy Storage Systems Cost Survey 2025" (turnkey global average US$117/kWh); Modo Energy, Gresham House, Drax (UK toll ≈£57k / floor £44–52k/MW·yr; UK merchant track record); Modo Energy US research (CAISO ~$178/kW·yr wholesale + RA in 2025; ERCOT tolling — 5 operating + 7 by end-2026); Morgan Lewis "Utility-Scale Energy Storage Procurements in 2026" (US storage PPAs usually structured as tolls; California RA); GridBeyond (revenue-floor / synthetic tolls in ERCOT and CAISO); terralayr, ess-news (German tolls €110–150k/MW·yr; Stendal, Vattenfall, RWE); ENEOS Renewable Energy × NSK (Kyushu virtual PPA, environmental value only, ~15 years). Overseas figures are proxies and cannot be applied directly to Japan.</li>
+</ul>
+<div class="source">Note: the amounts and returns in this piece are stated-assumption generic examples and public estimates, not the confirmed economics or contract terms of any actual deal. Domestic bilateral contract (toll / offtake / floor) unit prices and LDA storage-specific clearings are undisclosed. Points touching the interpretation of tax, FEFTA and accounting are not settled views from the authorities; individual deals require prior confirmation from tax advisers, lawyers and specialists.</div>
+</div>
+
+<div class="cta-section">
+  <h3>Confirmed numbers from real deals, for your investment decision</h3>
+  <p>This piece is a map of generic examples and public estimates. The confirmed CAPEX, toll fee, equity IRR, contract terms, FEFTA schedule and DD materials for real deals are<br>shared individually after you contact us and an NDA is in place. We work in English, Japanese and Chinese.</p>
+  <a target="_top" href="https://www.scix.co.jp/en/contact" class="cta-btn">Contact us →</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var h=document.getElementById('scix-header'),b=document.getElementById('scix-header-burger'),o=document.getElementById('scix-header-overlay');
+  if(!h||!b)return;
+  function t(){var open=h.classList.toggle('scix-header-open');b.setAttribute('aria-expanded',open?'true':'false');}
+  b.addEventListener('click',t);
+  if(o)o.addEventListener('click',t);
+  h.querySelectorAll('.scix-header-nav a').forEach(function(a){a.addEventListener('click',function(){h.classList.remove('scix-header-open');b.setAttribute('aria-expanded','false');});});
+})();
+(function(){
+  var g=document.getElementById('fdi-checklist');if(!g)return;
+  var c=g.querySelectorAll('input[type=checkbox]'),cnt=document.getElementById('checkCount'),fl=document.getElementById('checkBarFill'),tot=c.length;
+  function u(){var d=0;c.forEach(function(x){if(x.checked)d++;});cnt.textContent=d;fl.style.width=(d/tot*100)+'%';}
+  c.forEach(function(x){x.addEventListener('change',u);});u();
+})();
+</script>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX home">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        BIZMARKS Nihonbashi-Kayabacho, 8-2 Nihonbashi-Koamicho<br>
+        Chuo-ku, Tokyo 103-0016, Japan<br>
+        TEL: <a href="tel:0364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakajima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
