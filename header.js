@@ -74,13 +74,34 @@
     '.scix-header-nav a:hover{color:#fff;background:rgba(255,255,255,.08)}',
     '.scix-header-nav a.active{color:#C49A3C;font-weight:500}',
 
-    '/* === Contact CTA button (last link) === */',
+    '/* === Primary CTA button (Fund / last link) === */',
     '.scix-header-nav a.scix-cta{',
     '  background:#C49A3C;color:#fff;font-weight:600;',
     '  padding:8px 13px;border-radius:4px;margin-left:4px;',
     '}',
     '.scix-header-nav a.scix-cta:hover{background:#D4AD5A}',
     '.scix-header-nav a.scix-cta.active{background:#D4AD5A;color:#fff}',
+
+    '/* === Deals dropdown (案件) === */',
+    '.scix-nav-dd{position:relative;display:flex;align-items:center;}',
+    '.scix-nav-dd-toggle{',
+    '  display:inline-flex;align-items:center;gap:4px;',
+    '  background:none;border:none;cursor:pointer;font-family:inherit;',
+    '  color:rgba(255,255,255,.7);font-size:.78rem;font-weight:400;letter-spacing:.1px;',
+    '  padding:8px 9px;border-radius:4px;transition:color .25s,background .25s;white-space:nowrap;',
+    '}',
+    '.scix-nav-dd-toggle:hover{color:#fff;background:rgba(255,255,255,.08)}',
+    '.scix-nav-dd-toggle.active{color:#C49A3C;font-weight:500}',
+    '.scix-dd-caret{font-size:.7em;transition:transform .25s;opacity:.85}',
+    '.scix-nav-dd-menu{',
+    '  position:absolute;top:100%;left:0;min-width:172px;',
+    '  background:#1B2A4A;border:1px solid rgba(196,154,60,.28);border-radius:8px;',
+    '  padding:6px;display:none;flex-direction:column;gap:2px;',
+    '  box-shadow:0 14px 30px rgba(0,0,0,.30);z-index:10003;',
+    '}',
+    '.scix-nav-dd:hover .scix-nav-dd-menu,.scix-nav-dd.open .scix-nav-dd-menu{display:flex}',
+    '.scix-nav-dd:hover .scix-dd-caret,.scix-nav-dd.open .scix-dd-caret{transform:rotate(180deg)}',
+    '.scix-nav-dd-menu a{padding:10px 12px;border-radius:4px;}',
 
     '/* === Language switcher === */',
     '.scix-lang{',
@@ -150,6 +171,11 @@
     '    border-radius:4px;border-bottom:none;',
     '    padding:14px 20px;',
     '  }',
+    '  .scix-nav-dd{flex-direction:column;align-items:stretch;}',
+    '  .scix-nav-dd-toggle{padding:14px 16px;font-size:.92rem;justify-content:space-between;width:100%;border-bottom:1px solid rgba(255,255,255,.06);}',
+    '  .scix-nav-dd-menu{position:static;display:flex;border:none;box-shadow:none;background:transparent;padding:0;min-width:0;}',
+    '  .scix-nav-dd-menu a{padding:12px 16px 12px 30px;font-size:.86rem;border-bottom:1px solid rgba(255,255,255,.06);border-radius:0;}',
+    '  .scix-dd-caret{display:none}',
     '  .scix-header-burger{display:block}',
     '  .scix-lang{margin-left:auto;margin-right:12px}',
     '}'
@@ -174,14 +200,19 @@
     '<a href="/en/contact" class="scix-cta">Contact</a>'
   ] : [
     '<a href="/"          data-page="/">ホーム</a>',
-    '<a href="/fund"      data-page="/fund">ファンド（投資家向け）</a>',
-    '<a href="/transfer"  data-page="/transfer">案件を買う</a>',
-    '<a href="/projects"  data-page="/projects">案件一覧</a>',
-    '<a href="/sourcing"  data-page="/sourcing">案件を売る</a>',
-    '<a href="/land"      data-page="/land">用地</a>',
-    '<a href="/company"   data-page="/company">会社案内</a>',
+    '<div class="scix-nav-dd">' +
+      '<button type="button" class="scix-nav-dd-toggle" aria-haspopup="true" aria-expanded="false">案件<span class="scix-dd-caret" aria-hidden="true">▾</span></button>' +
+      '<div class="scix-nav-dd-menu">' +
+        '<a href="/transfer" data-page="/transfer">案件を買う</a>' +
+        '<a href="/projects" data-page="/projects">案件一覧</a>' +
+        '<a href="/sourcing" data-page="/sourcing">案件を売る</a>' +
+        '<a href="/land"     data-page="/land">用地</a>' +
+      '</div>' +
+    '</div>',
     '<a href="/knowledge" data-page="/knowledge">ナレッジ</a>',
-    '<a href="/contact"   data-page="/contact" class="scix-cta">お問い合わせ</a>'
+    '<a href="/company"   data-page="/company">会社案内</a>',
+    '<a href="/contact"   data-page="/contact">お問い合わせ</a>',
+    '<a href="/fund"      data-page="/fund" class="scix-cta">ファンド（投資家向け）</a>'
   ];
 
   // --------------- Language switcher (JA / EN / 简中) ---------------
@@ -245,6 +276,29 @@
     if (page === '/knowledge' && isCol) {
       links[i].classList.add('active');
     }
+  }
+
+  // --------------- 3b. Deals dropdown (案件) ---------------
+  var dd = header.querySelector('.scix-nav-dd');
+  if (dd) {
+    var ddToggle = dd.querySelector('.scix-nav-dd-toggle');
+    // Mark the toggle active when viewing one of its child pages.
+    if (['/transfer', '/projects', '/sourcing', '/land'].indexOf(loc) !== -1) {
+      ddToggle.classList.add('active');
+    }
+    // Click/tap toggle (for touch + keyboard; desktop also opens on hover via CSS).
+    ddToggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      var open = dd.classList.toggle('open');
+      ddToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Close on outside click.
+    document.addEventListener('click', function (e) {
+      if (!dd.contains(e.target)) {
+        dd.classList.remove('open');
+        ddToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
   }
 
   // --------------- 4. Hamburger toggle ---------------
