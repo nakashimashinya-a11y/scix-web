@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.8;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.45;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.8;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.4}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.45}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.45}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.85}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.85}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.85}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:1.85}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.8;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.85;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.45}
+.compare-card .cc-figure{font-family:'Noto Serif JP',serif;font-size:1.3em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.8;margin:8px 0 0;color:var(--text)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.4em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.45}
+.diff-card p{font-size:.85em;line-height:1.8;margin:0}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.8}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.6}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.8}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+.sources-box .t{display:inline-block;min-width:5.6em;font-weight:700;color:var(--navy);font-style:normal}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
+</style>
+<title>Grid-Scale Battery Storage in Japan: The Full Map of Regulation, Tax & Siting — One Map to Read Before You Invest | For Investors & Owners | ScienceX</title>
+<meta name="description" content="The same grid-scale battery is labeled differently by four separate Japanese laws — the Electricity Business Act, the Local Tax Act, the depreciation rules, and the City Planning / Agricultural Land Acts. Size, siting and tax are legally coupled and can't be optimized independently. A legal-and-tax map for international investors and owners, read through an AC ~2 MW / DC ~8 MWh single-site model.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-four-labels">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-four-labels">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-four-labels">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-four-labels">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Grid-Scale Battery Storage in Japan: The Full Map of Regulation, Tax & Siting | ScienceX">
+<meta property="og:description" content="One and the same battery is touched by four separate laws — the Electricity Business Act, the Local Tax Act, depreciation rules, and the City Planning / Agricultural Land Acts. Size, siting and tax can't be chosen separately. A legal-and-tax map for investors and owners, read through an AC ~2 MW / DC ~8 MWh model.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-four-labels">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Grid-Scale Battery Storage in Japan: The Full Map of Regulation, Tax & Siting | ScienceX">
+<meta name="twitter:description" content="Regulation, tax and siting are linked. A map for deciding size, siting and tax at once — through a ~2 MW / 8 MWh model.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-06-28">
+<style id="scix-header-css">
+.scix-header,.scix-header *,.scix-header *::before,.scix-header *::after{margin:0;padding:0;box-sizing:border-box}
+body{padding-top:64px!important}
+.scix-header{position:fixed;top:0;left:0;right:0;height:64px;background:#1B2A4A;z-index:9999;border-bottom:1px solid rgba(196,154,60,.25);font-family:"Noto Sans JP",sans-serif}
+.scix-header-inner{max-width:1100px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.scix-header-logo{text-decoration:none;display:flex;align-items:center;flex-shrink:0;font-family:'Noto Serif JP',serif;font-size:20px;font-weight:700;letter-spacing:.5px;color:#fff}
+.scix-header-logo .x{color:#C49A3C}
+.scix-header-nav{display:flex;align-items:center;gap:6px}
+.scix-header-nav a{text-decoration:none;color:rgba(255,255,255,.7);font-size:.82rem;font-weight:400;letter-spacing:.3px;padding:8px 14px;border-radius:4px;transition:color .25s,background .25s;white-space:nowrap}
+.scix-header-nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.scix-header-nav a.active{color:#C49A3C;font-weight:500}
+.scix-header-nav a.scix-cta{background:#C49A3C;color:#fff;font-weight:600;padding:8px 20px;border-radius:4px;margin-left:8px}
+.scix-header-nav a.scix-cta:hover{background:#D4AD5A}
+.scix-lang{display:flex;align-items:center;gap:3px;margin-left:14px;background:rgba(255,255,255,.1);border-radius:20px;padding:3px;flex-shrink:0}
+.scix-lang a{text-decoration:none;color:rgba(255,255,255,.6);font-size:.85rem;font-weight:600;letter-spacing:.3px;padding:5px 12px;border-radius:16px;transition:all .25s;display:flex;align-items:center;gap:5px}
+.scix-lang a:hover{color:#fff;background:rgba(255,255,255,.12)}
+.scix-lang a.active{color:#fff;background:#C49A3C;border-radius:16px}
+.scix-header-burger{display:none;background:none;border:none;cursor:pointer;width:28px;height:20px;position:relative;z-index:10002;flex-shrink:0}
+.scix-header-burger span{display:block;position:absolute;left:0;width:100%;height:2px;background:#fff;border-radius:1px;transition:transform .3s,opacity .3s}
+.scix-header-burger span:nth-child(1){top:0}
+.scix-header-burger span:nth-child(2){top:9px}
+.scix-header-burger span:nth-child(3){top:18px}
+.scix-header-open .scix-header-burger span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.scix-header-open .scix-header-burger span:nth-child(2){opacity:0}
+.scix-header-open .scix-header-burger span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+.scix-header-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9997;opacity:0;transition:opacity .3s}
+.scix-header-open .scix-header-overlay{display:block;opacity:1}
+@media(max-width:768px){
+  .scix-header-nav{position:fixed;top:0;right:0;bottom:0;width:280px;max-width:80vw;background:#1B2A4A;flex-direction:column;align-items:stretch;gap:0;padding:80px 24px 40px;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);z-index:10001;box-shadow:-4px 0 24px rgba(0,0,0,.15);overflow-y:auto}
+  .scix-header-open .scix-header-nav{transform:translateX(0)}
+  .scix-header-nav a{padding:14px 16px;font-size:.92rem;border-bottom:1px solid rgba(255,255,255,.06);border-radius:0}
+  .scix-header-nav a.scix-cta{margin:16px 0 0;text-align:center;border-radius:4px;border-bottom:none;padding:14px 20px}
+  .scix-header-burger{display:block}
+  .scix-lang{margin-left:auto;margin-right:12px}
+}
+</style></head>
+<body><header class="scix-header" id="scix-header"><div class="scix-header-overlay" id="scix-header-overlay"></div>
+<div class="scix-header-inner">
+  <a href="https://www.scix.co.jp/" class="scix-header-logo">Science<span class="x">X</span></a>
+  <nav class="scix-header-nav" id="scix-header-nav">
+<a href="https://www.scix.co.jp/" data-page="/">Home</a>
+<a href="https://www.scix.co.jp/bss" data-page="/bss">Battery Storage</a>
+<a href="https://www.scix.co.jp/knowledge" data-page="/knowledge" class="active">Knowledge</a>
+<a href="https://www.scix.co.jp/company" data-page="/company">Company</a>
+<a href="https://www.scix.co.jp/contact" data-page="/contact" class="scix-cta">Contact</a>
+  </nav>
+  <div class="scix-lang">
+    <a href="https://www.scix.co.jp/column-four-labels">🇯🇵 JP</a>
+    <a href="https://www.scix.co.jp/en/column-four-labels" class="active">🇺🇸 EN</a>
+    <a href="https://www.scix.co.jp/zh-column-four-labels">🇨🇳 ZH</a>
+  </div>
+  <button class="scix-header-burger" id="scix-header-burger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</div></header>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 31</span>
+      <span class="header-tag">Investors & Owners / Map of Regulation, Tax & Siting</span>
+      <time class="header-date" datetime="2026-06-28">2026.06.28</time>
+    </div>
+    <h1>Grid-Scale Battery Storage in Japan: <em>The Full Picture</em> of Regulation, Tax & Siting —<br>One <em>Map</em> to Read Before You Invest</h1>
+    <p class="header-desc">When you invest in a grid-scale battery (BESS), a set of issues waits upstream of the revenue math: regulation (the Electricity Business Act), tax (the Local Tax Act), depreciation, and siting (the City Planning Act / Agricultural Land Act). And size, siting and tax are linked — you can't decide them separately. Taking one unit rated AC ~2 MW / DC ~8 MWh, we've drawn the whole picture you need before you invest as a single map.</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/knowledge" class="back-link">← Back to Knowledge</a>
+
+<p>When people start weighing an investment in a grid-scale battery (BESS), most begin with "what will it cost to build, and what can it earn?" But what truly decides whether the investment works sits upstream of that revenue math. For one and the same battery, four separate laws — the Electricity Business Act, the Local Tax Act, the depreciation rules in the tax code, and the City Planning Act together with the Agricultural Land Act — each attach their own label, each for a different purpose.</p>
+
+<p>The awkward part is that the explanations arrive in fragments. A lawyer writes up the Electricity Business Act; a tax accountant handles the tax; an <em>administrative scrivener</em> (gyōseishoshi — a licensed specialist in administrative procedures) covers the land — each writing only about their own turf. The points where owners stumble most fall straight into the gaps between those silos. Worse, the labels are often assigned counter to intuition, and they interact: what's "light" under one law turns "heavy" under another. This column lays those gaps out as a single map.</p>
+
+<p>We'll keep the premise concrete: <strong>you own one grid-scale battery rated AC 1,998 kW / DC 8,128 kWh (about 2 MW / 8 MWh)</strong>. Starting from that size, we'll peel the labels off one at a time and sort out what to confirm before you lock in the land and the size.</p>
+
+<div class="review-note">
+<strong>About this column:</strong> Rules are stated as of June 2026. The primary audience is investors, owners and buyers of grid-scale storage. Figures start from published primary sources (statutes, the National Tax Agency, METI, the Agency for Natural Resources and Energy, OCCTO, individual municipalities, etc.); anything undisclosed is marked "not disclosed," and anything without a settled official view is marked "unconfirmed." Three points in particular are unconfirmed and not modeled with guesses: (1) whether balancing-market ΔkW falls within the revenue levy; (2) whether immediate expensing applies to batteries; and (3) how individual municipalities administer urbanization-control zones. This is not investment, tax or legal advice.</div>
+
+<div class="data-box">
+<div class="db-head">Scope of this column</div>
+<dl class="premise-grid">
+  <div><dt>Subject</dt><dd>~2 MW<span class="unit">/ 8 MWh · 1 unit</span></dd></div>
+  <div><dt>Regulation (EBA)</dt><dd>Not applicable<span class="unit">not a generation operator</span></dd></div>
+  <div><dt>Tax (Local Tax Act)</dt><dd>Applicable<span class="unit">supply business = revenue levy</span></dd></div>
+  <div><dt>Useful life</dt><dd>17<span class="unit">yrs (mismatch at exit)</span></dd></div>
+  <div><dt>Siting</dt><dd>Danger zone<span class="unit">urbanization-control area</span></dd></div>
+  <div><dt>Bottom line</dt><dd style="font-size:13px">Size, siting & tax can't be chosen independently</dd></div>
+</dl>
+</div>
+
+<div class="info-box">
+<strong>Context for international readers — how a Japanese grid-storage business is wired.</strong> A grid-scale battery in Japan typically earns from three markets at once: the <strong>balancing market</strong> (capacity/availability and energy payments for helping match supply and demand in real time), the <strong>capacity market</strong> (run by OCCTO — a fixed payment for committing capacity years ahead), and <strong>JEPX</strong>, the wholesale spot exchange, where the battery does energy arbitrage (charge cheap, discharge dear). The owner rarely trades directly; an <strong>aggregator</strong> bids the asset into these markets on the owner's behalf. The asset is usually held in an <strong>SPC</strong> (special-purpose company) — a "box that owns the asset." Four bodies of law touch that box, and they don't coordinate with one another: the Electricity Business Act (sector regulation), the Local Tax Act (how the business is taxed), the depreciation rules (how the equipment is written off), and the City Planning Act / Agricultural Land Act (where it may physically sit). The rest of this column is about those four labels — and why they can't be chosen independently. <span style="color:var(--text-light)">(Yen amounts below carry a rough US-dollar figure for scale only, at ≈¥150 = US$1.)</span></div>
+
+<h2>Foundations — Start with the two basic labels: "electricity-supply business" and "power-generation operator"</h2>
+
+<p>Because they're easy to confuse, here's the conclusion first. "Power-generation operator" (hatsuden jigyōsha, 発電事業者) and "electricity-supply business" (denki kyōkyū-gyō, 電気供給業) are two different labels, from two different laws.</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">Electricity Business Act</span>
+    <h4>The regulatory label</h4>
+    <div class="cc-figure">Power-Generation Operator</div>
+    <p>A category for notification and safety oversight. Its scope is <strong>narrow</strong>. Only facilities rated 1,000 kW or more, whose total contracted capacity for supplying retailers and the like exceeds 10,000 kW (10 MW), qualify.</p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">Local Tax Act</span>
+    <h4>The tax label</h4>
+    <div class="cc-figure">Electricity-Supply Business</div>
+    <p>A category that decides how corporate enterprise tax is computed. Its scope is <strong>broad</strong>. Licenses and size are irrelevant; if you actually supply electricity, you qualify.</p>
+  </div>
+</div>
+
+<p>Picture it as nesting boxes. Inside the large box, "electricity-supply business," sits a small box, "power-generation operator." A ~2 MW unit fits inside the large box but not the small one. That is the starting point for everything below.</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure — Inside the large box (electricity-supply business, tax) sits a small box (power-generation operator, Electricity Business Act). A ~2 MW unit fits only in the large box.">
+  <rect width="720" height="330" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">FIGURE / HOW THE TWO LABELS NEST</text>
+  <rect x="40" y="58" width="640" height="214" rx="12" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="62" y="88" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#1B2A4A">Electricity-Supply Business</text>
+  <text x="62" y="107" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">— Local Tax Act label · applies at any size → revenue levy</text>
+  <rect x="392" y="124" width="266" height="124" rx="10" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2"/>
+  <text x="412" y="150" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#A07916">Power-Generation Operator</text>
+  <text x="412" y="168" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">— Electricity Business Act · ≈10 MW+</text>
+  <text x="412" y="202" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">BESS over 10 MW</text>
+  <text x="412" y="223" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#2C3E50">Tax <tspan fill="#1A7A4C" font-weight="700">&#10003;</tspan> / Operator <tspan fill="#1A7A4C" font-weight="700">&#10003;</tspan></text>
+  <text x="74" y="172" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#1B2A4A">BESS at ~2 MW</text>
+  <text x="74" y="194" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#2C3E50">Tax <tspan fill="#1A7A4C" font-weight="700">&#10003;</tspan> / Operator <tspan fill="#cc4444" font-weight="700">&#10007;</tspan></text>
+  <text x="74" y="214" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">Taxed — but not a power-generation operator</text>
+  <text x="360" y="300" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">Big box = electricity-supply business (tax); inside it, the small box = power-generation operator. A ~2 MW unit sits only in the big box.</text>
+</svg>
+<div class="fig-cap">Figure — Inside the large box, "electricity-supply business," sits a small box, "power-generation operator." A ~2 MW unit fits only in the large box (tax).</div>
+</div>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th></th><th>Power-Generation Operator</th><th>Electricity-Supply Business</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Governing law</td><td>Electricity Business Act</td><td>Local Tax Act</td></tr>
+<tr><td class="em">Purpose</td><td>Sector regulation (notification & safety)</td><td>Determines the tax method</td></tr>
+<tr><td class="em">Scope</td><td>Narrow (roughly 10 MW+)</td><td>Broad (any size)</td></tr>
+<tr class="hl"><td class="em">~2 MW unit</td><td class="ng">Does not qualify</td><td class="ok">Qualifies</td></tr>
+<tr><td class="em">Over 10 MW</td><td class="ok">Qualifies</td><td class="ok">Qualifies</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">* To count as a "power-generation operator," you must also meet further requirements — for example, supplying the majority of your output (in both capacity and energy) to retail electricity providers — on top of the 10 MW-plus connection. For practical purposes this column flags it by size.</p>
+
+<p>The two don't contradict each other. They're simply two stickers with different purposes, applied separately to the same battery. And as the rest of this shows, <strong>the tax looks at the Local Tax Act label, while siting (the development permit) looks at the Electricity Business Act label</strong>. That distinction is the crux of this business.</p>
+
+<h2>01 — The regulatory label: are you a "power-generation operator"?</h2>
+
+<p>Start with a counter-intuitive fact: a grid-scale battery gets <strong>lighter regulation the smaller you build it</strong>.</p>
+
+<p>The Electricity Business Act only pulls a battery's discharge into "power generation business" notification when it is rated 1,000 kW or more and its total contracted capacity for supplying retailers exceeds 10,000 kW (10 MW). The heavier procedures — a construction-plan notification, a pre-use self-inspection, and a safety-management review — apply only at 10,000 kW or more of output, or 80,000 kWh or more of capacity. At 2 MW / 8 MWh you're at one-tenth of both thresholds, so none of these apply.</p>
+
+<div class="highlight-box">
+At ~2 MW / 8 MWh, <strong>none of these apply</strong>: the power-generation notification, the construction-plan notification, the pre-use self-inspection, or the safety-management review. That's by design — the size deliberately stays below the thresholds (10,000 kW / 80,000 kWh) where the heavy procedures begin.
+</div>
+
+<p>Some things are required, but all can be outsourced. The minimum is three: keeping the facility compliant with technical standards, appointing a chief electrical engineer, and preparing and filing safety regulations. Of these, the chief-engineer requirement can be met — for connections under 5,000 kW and 7,000 V — by delegating to an electrical-safety firm and obtaining the regional industrial-safety bureau's approval (the external-delegation approval scheme). You don't need to employ a resident engineer.</p>
+
+<p>Further, the heavy duties a retail electricity provider bears — the obligation to supply, consumer protection — basically don't fall on a battery. You aren't selling to end-customers; discharge goes through an aggregator (a firm that runs market operations on your behalf). Balancing obligations and imbalance settlement do, in principle, touch the generation side, but in practice the aggregator handles them. The SPC is a "box that holds an asset"; it doesn't itself operate anything. There's no need to be intimidated by the name "electricity-supply business." — But move into the tax world, and the story flips.</p>
+
+<h2>02 — The tax label: you ARE an "electricity-supply business"</h2>
+
+<p>This is where storage owners go wrong most often. The Local Tax Act doesn't care at all whether you've filed under the Electricity Business Act. <strong>If you actually sell electricity, you're an "electricity-supply business."</strong> So even a ~2 MW unit — which isn't even a "power-generation operator" under the Electricity Business Act — is, if it discharges and earns revenue, subject to corporate enterprise tax as a revenue-taxed business.</p>
+
+<p>The problem is how that tax is computed. Normally, corporate enterprise tax falls on income (profit). But an electricity-supply business is taxed on <strong>gross revenue</strong>. In other words, you're taxed as long as you have electricity-sales revenue — <strong>even at a loss</strong>. <em>(For readers used to net-income taxation, this resembles a gross-receipts tax — like Washington State's B&O tax or Ohio's CAT — rather than a tax on profit.)</em> This is the method called the "revenue levy" (shūnyū-wari, 収入割): a standard rate of 0.75% of revenue, on top of which a special corporate enterprise tax (equal to 40% of the base revenue-levy amount) is added, bringing the effective burden to about 1.05% of sales. The special corporate enterprise tax doesn't ride on the income-based levy (standard 1.85%), but it does ride on the revenue levy.</p>
+
+<div class="highlight-box">
+The revenue levy is charged on sales even when there's no profit. It's not fatal in absolute terms, but because it <strong>doesn't depend on profit and bites hardest early — when sales are largest</strong> — it reliably erodes early cash flow and the IRR.
+</div>
+
+<p>Some jurisdictions also apply an excess (above-standard) rate to the revenue levy — Aichi Prefecture, for instance, charges 0.789% against the 0.75% standard. Where you place your head office can shift the rate slightly, which an investment decision shouldn't overlook. Note that during the construction phase, before you've begun selling electricity, you don't qualify as an electricity-supply business and are taxed on income as usual. The revenue levy starts running only after commercial operation begins.</p>
+
+<p>Note the twist against Section 01. The same battery is "not a power-generation operator (light)" under the Electricity Business Act, yet "an electricity-supply business (taxed on revenue)" under the Local Tax Act. The two don't contradict: two laws with different purposes apply different labels by their own yardsticks. The assumption that "since it's not a power-generation operator under the EBA, it must be light for tax too" collapses right here.</p>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 UNCONFIRMED / INQUIRY REQUIRED — THIS IS WHERE THE YIELD CAN CHANGE BY AN ORDER OF MAGNITUDE</span><br>
+Much of a grid-scale battery's revenue is balancing-market <strong>ΔkW</strong> (payment for merely standing ready). The problem: whether this ΔkW is fully included in the "revenue" subject to the levy has no published official view that names it directly. If it's included, taxable sales swell; if not, they fall toward zero. Literally an order-of-magnitude swing. JEPX discharge clearly "counts," but for ΔkW and capacity-market revenue, the practical step is to <strong>settle it via an advance inquiry to the prefectural tax office covering your head-office location</strong>. Any "projected yield" that leaves this vague hasn't set its foundations. This is the top priority to nail down before you contract or invest.
+</div>
+
+<div class="info-box">
+<strong>Deductions, and the headwind beyond.</strong> JEPX discharge revenue is explicitly within the revenue levy. Meanwhile, wheeling charges, generation-side grid charges and the renewable-energy surcharge can be deducted from revenue, and the special deduction for generation-side charges was extended three years in the FY2026 tax reform (enacted and promulgated in March 2026). The dollar impact, though, is small. And the very premise of those "sales" faces a headwind of its own (see Section 05).
+</div>
+
+<h2>03 — The time label: 17-year depreciation, and the hope called "immediate expensing"</h2>
+
+<p>Next, over what period you can write off the equipment. The statutory useful life of a grid-scale battery is currently set at <strong>17 years</strong> (as electricity-business equipment). The basis is slightly surprising: because the supports of the container housing the cells are metal, the National Tax Agency treats it as "primarily metal." Were it classified as "other," it would be 8 years, so the industry has asked for a shorter or elective period — but as of June 2026 that hasn't happened.</p>
+
+<p>Seventeen years becomes a problem at exit. If a fund or business winds down in around 10 years, it ends with book value still on the equipment. Machinery defaults to the declining-balance method (heavier depreciation up front) unless you file otherwise — and even under declining balance, <strong>at the 10-year mark roughly just under 30% of the acquisition cost remains on the books</strong> (about 40% under straight-line). On ¥700–800M (≈US$5M) of equipment, that's on the order of ¥200M (≈US$1.3M) remaining. How you recover that residual book value through the resale or transfer price of the used cells — with the used-BESS market still immature — takes deliberate structuring. If the exit price falls below book value, the difference is a loss.</p>
+
+<p>Hence the attention on the "investment-promotion tax incentive for designated productivity-enhancing equipment," created in the FY2026 tax reform. If your investment plan gets METI's confirmation, you can elect <strong>immediate expensing</strong> in the first year the equipment is acquired (or a tax credit equal to a set share of the acquisition cost). If usable, the exit book-value problem largely dissolves and early cash flow improves substantially.</p>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 NOTE — ELIGIBILITY CAN'T YET BE TREATED AS A SETTLED PREMISE (AS OF JUNE 2026)</span><br>
+You can't say this regime is "already usable" at this moment. The tax provisions themselves were enacted and promulgated in March 2026 (Act No. 12 of 2026), and the underlying amended Act on Strengthening Industrial Competitiveness was promulgated on June 5, 2026 (Act No. 29). But <strong>the cabinet order setting the effective date, and METI's application forms for the investment plan, were not yet published as of June 2026</strong>. Immediate expensing is available only on or after the amended act's effective date — and that date itself is unconfirmed. Moreover, <strong>whether grid-scale batteries are even within the regime's eligible equipment is itself unsettled</strong> (the published outline names neither "battery" nor "storage facility"). The bar isn't low either — total acquisition cost in the plan generally ¥3.5bn or more (¥500M for SMEs), a 15% average annual return on the investment, and equipment "used for leasing" is excluded. <strong>A single ~2 MW / 8 MWh unit (¥700–800M of equipment) won't on its own clear the ¥3.5bn threshold; realistically you'd rely on the ¥500M SME basis or bundle several projects.</strong> Either way, a structure that leases the battery out (tolling/lease) can't use it — self-operation is the premise.
+</div>
+
+<p>So in the investment plan, treat immediate expensing as "preparation in anticipation," not a settled premise. Until the effective-date order and METI's forms are published and battery eligibility is clear, don't write "application certain" into the model. Still, the upside is large. <strong>The benefit of immediate expensing (on the order of several hundred million yen) far exceeds the revenue levy from Section 02 (tens of millions of yen even over the full term)</strong>. That's exactly why it makes sense to accept the revenue levy, choose self-operation, and go after immediate expensing. Choosing a lease (tolling) structure means giving up immediate expensing — and that single point feeds directly into the structural decision below.</p>
+
+<h3>"Operate it yourself" vs. "lease it out" — where immediate expensing bites</h3>
+
+<p>This is where many owners hesitate first. For the same battery, whether you <strong>hold and operate it yourself</strong> or <strong>lease it to a counterparty (tolling/lease)</strong> sharply changes how tax works — above all, whether immediate expensing is available. Laid out side by side:</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th></th><th>Hold & operate yourself<span class="u">aggregator acts for you = you are the operator</span></th><th>Lease it out<span class="u">tolling / lease</span></th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Immediate expensing<span class="u">productivity-enhancing-equipment incentive</span></td><td class="ok">Available (self-operation is a requirement)</td><td class="ng">Not available ("used for leasing" is excluded)</td></tr>
+<tr><td class="em">Revenue levy<span class="u">electricity-supply business</span></td><td class="cond">Applies (because you sell the electricity)</td><td>You don't sell electricity but earn rent → may fall outside scope (rent is income-taxed; confirm)</td></tr>
+<tr class="hl"><td class="em">Order of magnitude</td><td class="ok">Immediate expensing = several-hundred-million-yen benefit</td><td class="cond">Avoiding the revenue levy = only tens of millions</td></tr>
+<tr><td class="em">Suits</td><td>Running the market yourself and depreciating heavily in year one</td><td>Handing off operations and running on fixed income</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">Whether immediate expensing is available and the scope of the revenue levy depend on the scheme and the latest effective-date status. Actual figures require advance confirmation with a tax accountant and the prefectural tax office.</p>
+
+<div class="highlight-box">
+<strong>The several-hundred-million-yen fork isn't "via an aggregator or not" — it's "who is the operator."</strong> Even when you go to market through an aggregator, if the aggregator acts as your <strong>agent</strong>, you are the operator (self-operation) and immediate expensing can apply. But <strong>lease</strong> the asset itself (tolling/lease, where operating rights pass to the counterparty) and it becomes "used for leasing," dropping out of immediate expensing. Since the benefit runs to hundreds of millions of yen, <strong>how you design and contract — "is the aggregator an agent, or are you leasing the asset?" — is the first tax fork</strong>. Be sure to work it through with a tax accountant (the regime itself is also unconfirmed as of June 2026).
+</div>
+
+<h2>04 — The land label: an urbanization-control zone is not an automatic "no"</h2>
+
+<p>Up to here it's been business and tax. The last label is land — and the land label is the one most likely to reveal, only after you've signed, that "this can no longer be moved." It demands the most caution.</p>
+
+<p>First, let me clear up a common misconception: <strong>"it's an urbanization-control zone, so you can't put it there" is not accurate.</strong> Correctly: <strong>if you can clear both the development permit (municipality) and the fire authority, you can install it even in a control zone.</strong> The difficulty isn't that it's banned — it's that whether you can get the permit depends on the municipality. Step by step.</p>
+
+<div class="info-box">
+<strong>For international readers — Japan's land-use zoning, briefly.</strong> Under the City Planning Act, land is split into <strong>urbanization-promotion zones</strong> (shigaika kuiki, 市街化区域, where development is encouraged) and <strong>urbanization-control zones</strong> (shigaika chōsei kuiki, 市街化調整区域, where development is restricted to hold back sprawl — think of it as a restricted-development / greenbelt-style designation). Some areas are simply "non-zoned." Separately, the Agricultural Land Act protects farmland: parcels inside designated agricultural promotion areas (<strong>"blue-zone" land</strong>, aochi, 青地) are essentially un-convertible without a slow de-designation, while farmland outside them (<strong>"white-zone" land</strong>, shirochi, 白地) can be converted with permission. Both the zone and the land class shape whether a battery can physically sit there.
+</div>
+
+<p>Because lithium-ion cells contain hazardous materials, a grid-scale battery that doesn't fall under the exemption (below) can qualify as a <strong>"Category-1 designated structure"</strong> (dai-isshu tokutei kōsakubutsu, 第一種特定工作物) under the City Planning Act. When such a structure stands in an urbanization-control zone, a development permit is required.</p>
+
+<p>Here the labels from Sections 01–02 bite. The exemption from the development permit (the lane that lets you build without one) is, in principle, only for <strong>"facilities of an Electricity Business Act power-generation operator or transmission/distribution operator."</strong> Whether you're a Local Tax Act "electricity-supply business" is wholly irrelevant. So a ~2 MW unit that is "not a power-generation operator" can't cleanly ride this exemption and must seek a development permit head-on, as a Category-1 designated structure.</p>
+
+<p>And in April 2025, MLIT (the Ministry of Land, Infrastructure, Transport and Tourism) issued technical guidance indicating that where a battery is sited as a Category-1 designated structure in an urbanization-control zone, municipalities should put review criteria in place before administering it. Flip that around: <strong>in municipalities that haven't yet set review criteria, in effect no permit issues</strong>. Indeed, a fair number of municipalities currently state outright that they have no permit criteria for grid-scale batteries in control zones. The urbanization-control zone is the area with the widest variation in practice — "can / can't" splits sharply by municipality. That's exactly why it's accurate to treat it as "an area to go and check with the municipality," not "an area where you can't build."</p>
+
+<p>And on a separate track from the development permit, there's a <strong>fire-authority gate</strong>. The January 2024 amendment to fire regulations shifted the unit of regulation to a kWh basis: <strong>battery installations over 20 kWh in capacity require a fire-department installation notification</strong> (this 8 MWh-class site is squarely in scope). Outdoor installations generally need ≥3 m clearance from buildings (relaxed or waived for cubicle-type, etc.), fire-prevention and safety measures, and prior consultation with the relevant fire department. <strong>Even if the municipality's development permit is fine, you can't install without the fire authority's sign-off.</strong> Put the other way: in a control zone, the two parties to confirm are <strong>the municipality (development permit) and the fire department</strong>. Reaching them early is the fastest way to gauge whether you can build.</p>
+
+<p>If the site is farmland, the Agricultural Land Act layers on as well. Farmland inside an agricultural promotion area (so-called "blue-zone" land) generally can't be converted; installing there first requires de-designation from the promotion area. That takes roughly six months to a year (two-plus years if it drags), and since April 2025 a change to the regional-plan procedure has been added, which can extend it further. Farmland outside the promotion area ("white-zone" land), by contrast, may be eligible for a conversion permit; if you lease from the landowner and convert, an Article-5 permit under the Agricultural Land Act is required. So difficulty swings widely with the farmland class.</p>
+
+<p>We've turned this determination into <strong>a single flow you can trace with arrows</strong>. Going down (▼) means "clear the condition and proceed"; branching sideways (▶) is "the conclusion on that route." <strong>Even in a control zone, if you go all the way down, you arrive at "you can build."</strong></p>
+
+<style id="bflow2-css">
+.bflow2{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:26px 18px}
+.bflow2 .bf-head{font-size:.82em;color:var(--text-light);letter-spacing:.05em;margin-bottom:18px;font-weight:600;text-align:center}
+.bflow2 .bf-center{display:flex;flex-direction:column;align-items:center}
+.bflow2 .bf-start{background:var(--navy);color:#fff;border-radius:22px;padding:10px 22px;font-weight:700;font-size:.9em;font-family:'Noto Serif JP',serif;text-align:center}
+.bflow2 .bf-final{background:rgba(26,122,76,.12);border:2px solid var(--green);color:var(--navy);border-radius:8px;padding:14px 20px;font-weight:700;font-size:.96em;text-align:center;max-width:560px;font-family:'Noto Serif JP',serif}
+.bflow2 .bf-final small{display:block;font-family:'Noto Sans JP',sans-serif;font-weight:400;font-size:.8em;color:var(--text-light);margin-top:6px;line-height:1.6}
+.bflow2 .bf-arrow{display:flex;flex-direction:column;align-items:center;margin:1px 0}
+.bflow2 .bf-arrow .bf-line{width:2px;height:13px;background:#b9c0cb}
+.bflow2 .bf-arrow .bf-tri{font-size:13px;line-height:1;color:#b9c0cb;margin-top:-3px}
+.bflow2 .bf-arrow .bf-yes{font-size:.72em;font-weight:800;color:var(--navy);background:rgba(27,42,74,.08);border-radius:10px;padding:2px 10px;margin-bottom:3px}
+.bflow2 .bf-step{width:100%;max-width:620px;margin:0 auto}
+.bflow2 .bf-q{background:#fff;border:1.5px solid var(--navy);border-radius:8px;padding:12px 16px;font-weight:700;color:var(--navy);font-size:.9em;line-height:1.45;text-align:center}
+.bflow2 .bf-q .bf-qnum{display:inline-block;background:var(--navy);color:#fff;font-size:.66em;border-radius:10px;padding:2px 8px;margin-right:7px;font-family:'Noto Serif JP',serif;vertical-align:middle}
+.bflow2 .bf-q small{display:block;font-weight:400;font-size:.8em;color:var(--text-light);margin-top:5px;line-height:1.5}
+.bflow2 .bf-exit{display:flex;align-items:flex-start;gap:8px;margin:9px 0 0 auto;width:fit-content;max-width:100%;padding-left:26px}
+.bflow2 .bf-exlabel{flex-shrink:0;font-size:.72em;font-weight:800;white-space:nowrap;margin-top:7px;color:var(--green)}
+.bflow2 .bf-exlabel.amber{color:var(--orange)}
+.bflow2 .bf-exlabel.red{color:var(--warn)}
+.bflow2 .bf-out{border-radius:6px;padding:9px 13px;font-size:.83em;line-height:1.5}
+.bflow2 .bf-out.ok{background:rgba(26,122,76,.08);border-left:3px solid var(--green)}
+.bflow2 .bf-out.cond{background:var(--orange-bg);border-left:3px solid var(--orange)}
+.bflow2 .bf-out.warn{background:var(--warn-bg);border-left:3px solid var(--warn)}
+.bflow2 .bf-out strong{color:var(--navy)}
+.bflow2 .bf-out.warn strong{color:var(--warn)}
+.bflow2 .bf-split{display:flex;gap:8px;flex-wrap:wrap}
+.bflow2 .bf-split>div{flex:1;min-width:170px}
+.bflow2 .bf-result{margin:20px auto 0;max-width:620px;background:var(--navy);color:rgba(255,255,255,.92);border-radius:8px;padding:16px 18px;font-size:.84em;line-height:1.7}
+.bflow2 .bf-result h6{margin:0 0 8px;font-size:.95em;color:#fff;font-family:'Noto Serif JP',serif;font-weight:700}
+.bflow2 .bf-result .bf-rlabel{display:inline-block;min-width:4.6em;color:var(--accent-light);font-weight:700}
+.bflow2 .bf-result strong{color:#fff}
+@media(max-width:768px){.bflow2{padding:18px 11px}.bflow2 .bf-exit{padding-left:10px}.bflow2 .bf-split{flex-direction:column}}
+</style>
+<div class="fig-wrap" style="padding:0;background:none;border:none">
+<div class="bflow2">
+  <div class="bf-head">Trace whether you "can build" in an urbanization-control zone, yes/no (~2 MW class)</div>
+  <div class="bf-center">
+
+    <div class="bf-start">I want to build a 2 MW grid-scale battery</div>
+    <div class="bf-arrow"><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-step">
+      <div class="bf-q"><span class="bf-qnum">Q1</span>Is the site in an "urbanization-control zone"?</div>
+      <div class="bf-exit"><span class="bf-exlabel">No ▶</span><div class="bf-out ok">Urbanization-promotion zone, non-zoned area, etc. <strong>The siting hurdle is low</strong> (a development permit is usually not required, or the requirements are light).</div></div>
+    </div>
+    <div class="bf-arrow"><span class="bf-yes">Yes ↓</span><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-step">
+      <div class="bf-q"><span class="bf-qnum">Q2</span>Can you realistically get a development permit?<small>The municipality has review criteria in place — OR you scale above 10 MW to ride the "power-generation operator" exemption</small></div>
+      <div class="bf-exit"><span class="bf-exlabel amber">No ▶</span><div class="bf-out cond">If there are no criteria and you stay at 2 MW, it's tough. Consider <strong>changing the site</strong>, or <strong>scaling above 10 MW</strong> (which makes the Electricity Business Act burden heavier).</div></div>
+    </div>
+    <div class="bf-arrow"><span class="bf-yes">Yes ↓</span><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-step">
+      <div class="bf-q"><span class="bf-qnum">Q3</span>Is the fire authority OK?<small>Fire Service Act / fire-prevention ordinances: over 20 kWh requires a notification. Outdoors, generally ≥3 m clearance from buildings, fire-prevention measures, and prior consultation with the fire department</small></div>
+      <div class="bf-exit"><span class="bf-exlabel amber">No ▶</span><div class="bf-out cond"><strong>Re-consult</strong> with the fire department (secure the clearance distance, fire-prevention measures, adjust the equipment spec).</div></div>
+    </div>
+    <div class="bf-arrow"><span class="bf-yes">Yes ↓</span><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-step">
+      <div class="bf-q"><span class="bf-qnum">Q4</span>Is the site "farmland"?</div>
+      <div class="bf-exit"><span class="bf-exlabel red">Yes ▶</span><div class="bf-split">
+        <div class="bf-out warn">⚠ <strong>Blue-zone</strong> (inside an agricultural promotion area): conversion generally not allowed. First, <strong>de-designation (6 months–1 year; 2+ years if it drags)</strong></div>
+        <div class="bf-out cond"><strong>White-zone</strong> (outside the area): <strong>Article-5</strong> conversion permit under the Agricultural Land Act (when leasing from the landowner)</div>
+      </div></div>
+    </div>
+    <div class="bf-arrow"><span class="bf-yes">No (not farmland) ↓</span><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-final">✓ You can build — even in a control zone, you can install once you clear the development permit (municipality) + the fire authority (+ farmland & grid)<small>"Urbanization-control zone = no" is wrong. The difficulty isn't a ban; it's whether the municipality will grant the permit.</small></div>
+
+  </div>
+
+  <div class="bf-result">
+    <h6>What applies on every route, separate from siting</h6>
+    <span class="bf-rlabel">Tax</span> The electricity-supply-business revenue levy applies <strong>regardless of size</strong> (even at a loss). Whether ΔkW counts → <strong>file an advance inquiry with the prefectural tax office</strong>.<br>
+    <span class="bf-rlabel">Depr.</span> To target immediate expensing, you must <strong>operate the asset yourself</strong> (leasing it out disqualifies; the regime is unconfirmed).<br>
+    <span class="bf-rlabel">Grid</span> Lock in the connection agreement and the construction-cost contribution.<br>
+    <span class="bf-rlabel">Sequence</span> <strong>Before</strong> you sign the land contract, hold advance consultations with the municipality (development permit), the fire department and the agricultural committee.
+  </div>
+</div>
+<div class="fig-cap">Figure — Even in an urbanization-control zone, you can build once you clear the development permit and the fire authority. ▼ = condition cleared, proceed; ▶ = the conclusion on that route.</div>
+</div>
+
+<div class="highlight-box">
+Whether land works is a product of <strong>zoning category</strong> × <strong>land class</strong> (blue-zone / white-zone farmland) × <strong>size</strong> (the Electricity Business Act label) × <strong>fire authority</strong>. Put the other way: <strong>even in an urbanization-control zone, clear that product and you can build</strong>. But the result can't be moved once you've signed for the land, so <strong>before you sign, lock it down through advance consultation with the municipality (development permit), the fire department and the agricultural committee.</strong>
+</div>
+
+<h2>05 — The three revenue pillars, and the headwind underfoot</h2>
+
+<p>For the investment call, a word on the revenue structure itself. This single unit earns from three pillars: ① the balancing market (ΔkW / ΔkWh), ② the capacity market's capacity-securing contract payment, and ③ arbitrage on JEPX. Combining several markets — "multi-use" — is the baseline.</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">−23<span class="unit">%</span></span><span class="lbl">Balancing-market price cap: ¥19.51 → ¥15 per ΔkW·30 min (after the shift to day-ahead trading; from April 2026)</span></div>
+  <div class="stat-cell"><span class="val">¥10 · 7.21<span class="unit"></span></span><span class="lbl">Policy to lower it further in stages over time, depending on competition (under review)</span></div>
+  <div class="stat-cell"><span class="val">×2<span class="unit"></span></span><span class="lbl">Exchange trading fee doubled (¥0.03 → ¥0.06 per ΔkW·30 min); procurement volume also cut toward 1σ</span></div>
+</div>
+
+<p>Underfoot, though, a headwind blows on revenue. The balancing-market price cap was cut about 23%, from ¥19.51 to ¥15 per ΔkW·30 min (the day-ahead shift in March 2026; the ¥15 cap and the move to a 1σ procurement volume from April 2026), with a stated policy to lower it further in stages — to ¥10, then ¥7.21 — depending on competition. The exchange trading fee, meanwhile, doubled (¥0.03 → ¥0.06 per ΔkW·30 min). Capacity-market clearing totals for FY2029 (published January 2026) set a record, with an average unit price reaching about ¥13,300/kW — but <strong>a model that leans on the balancing market's high unit prices is already being forced to rethink</strong>. Whether the projected yield in the plan you're weighing has priced in these cuts is something to confirm without fail.</p>
+
+<h2>06 — Everything is linked: size, siting and tax can't be chosen separately</h2>
+
+<p>Line up the four labels and one structure emerges. A battery's <strong>size, siting and tax burden can't each be optimized independently</strong>. Move one and another moves. The axis that bites hardest is "size."</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure — On the single axis of size, Electricity Business Act regulation slopes up, the urbanization-control-zone siting hurdle slopes down, and the revenue levy stays flat.">
+  <rect width="720" height="360" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.2">FIGURE / ON THE SIZE AXIS, REGULATION AND SITING MOVE OPPOSITE WAYS</text>
+  <line x1="110" y1="320" x2="650" y2="320" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="160" y="344" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12" font-weight="700" fill="#1B2A4A">~2 MW</text>
+  <text x="600" y="344" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12" font-weight="700" fill="#1B2A4A">10 MW+</text>
+  <text x="380" y="344" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#9aa5b1">— Size (connection capacity) →</text>
+  <line x1="140" y1="300" x2="610" y2="120" stroke="#C49A3C" stroke-width="3"/>
+  <circle cx="610" cy="120" r="4.5" fill="#C49A3C"/>
+  <text x="603" y="110" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#A07916">Regulation ↗ heavier (Electricity Business Act)</text>
+  <line x1="140" y1="130" x2="610" y2="300" stroke="#1B2A4A" stroke-width="3"/>
+  <circle cx="140" cy="130" r="4.5" fill="#1B2A4A"/>
+  <text x="150" y="126" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">Siting hurdle ↘ easier (control zone)</text>
+  <line x1="140" y1="305" x2="610" y2="305" stroke="#cc4444" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="470" y="298" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#cc4444">Revenue levy (tax) — flat at any size</text>
+  <line x1="368" y1="210" x2="368" y2="320" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="3 3"/>
+  <circle cx="368" cy="215" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="368" y="196" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">regulation & siting cross over</text>
+</svg>
+<div class="fig-cap">Figure — On the single axis of size, regulation (Electricity Business Act) and the siting hurdle (urbanization-control zone) move in opposite directions. The tax (revenue levy) sits flat beneath them, at any size.</div>
+</div>
+
+<p>Try to lighten Electricity Business Act regulation by building <strong>small</strong> (~2 MW), and in an urbanization-control zone you can't ride the "power-generation operator's facility" exemption — you stall at the development permit. Try to ride that exemption by building <strong>big</strong> (over 10 MW connection), and now the Electricity Business Act's notification, construction-plan and pre-use-inspection burdens land hard. A point that captures both "low regulation" and "easy siting" at once does not exist on this axis. And whichever you choose, <strong>you can't escape the revenue levy</strong> — the Local Tax Act electricity-supply business doesn't care about size.</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">Build small</span>
+    <h4>Stay at ~2 MW</h4>
+    <p>The Electricity Business Act is light. But without the power-generation-operator label, an urbanization-control zone is hard to enter, so the premise becomes siting that avoids control zones — non-zoned areas, urbanization-promotion zones, white-zone land and the like.</p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">Build big</span>
+    <h4>Up over 10 MW</h4>
+    <p>You become a "power-generation operator," making the development-permit exemption easier to ride and opening the door to control zones. But notification, construction-plan and pre-use inspection apply, and regulation gets heavier.</p>
+  </div>
+</div>
+
+<p>So an investment decision has to set "size," "siting" and "tax" together — as a single triangle, not separately. Decide size from the land first, and you jam on tax or permits; decide size from tax efficiency first, and siting is constrained. <strong>Whether you grasp this coupling at the outset is what separates stepping on a mine you can't later move from avoiding it.</strong></p>
+
+<h2>07 — Before you sign: seven points to confirm</h2>
+
+<p>To summarize, here are the seven points to confirm before you contract or invest, ordered by the sequence in which you'd actually work through them.</p>
+
+<div class="checklist-group" id="fdi-checklist">
+  <h5><span class="cl-num">!</span>Seven points to clear before contract or investment</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01</span>Advance tax inquiry: whether balancing-market ΔkW and capacity-market revenue fall within the corporate-enterprise-tax revenue levy. File an advance inquiry with the prefectural tax office covering your head-office location, and with your tax accountant. Model JEPX discharge revenue as in-scope.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02</span>Immediate-expensing eligibility: with your tax accountant, work through the regime's effective-date status, the procedure for METI's advance confirmation, the acquisition-cost threshold (¥500M for SMEs), the 15% ROI test, and self-operation (whether delegating to an aggregator counts as "leasing").</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03</span>Siting due diligence: zoning category, land class (blue-zone?), and the outlook for the development permit, <strong>fire compliance (Fire Service Act / fire-prevention ordinance)</strong> and farmland conversion. Hold written advance consultations with the municipality's development-guidance section, the <strong>fire department</strong> and the agricultural committee before signing.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04</span>Stress-test the revenue assumptions: does the plan price in the balancing market's lower price cap, reduced procurement volume and higher fees? Check the aggregator's track record, fees and which markets it covers.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05</span>Grid connection: lock in the connection agreement and the construction-cost contribution.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06</span>Exit design: the mismatch between the 17-year useful life and a ~10-year project life, residual book value, and the assumed resale/transfer price for a used BESS.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07</span>Head-office location: the tax difference depending on whether you're in a jurisdiction that levies an excess (above-standard) rate (e.g., Aichi, Tokyo).</span></label>
+  <div class="check-progress"><span class="bar"><span class="bar-fill" id="checkBarFill"></span></span><span>Confirmed <span class="count" id="checkCount">0</span> / 7</span></div>
+</div>
+
+<h2>In closing — the map, before the spreadsheet</h2>
+
+<p>The name "electricity-supply business" sounds heavy, but the operating and regulatory burden is fairly light, thanks to threshold design and outsourcing. What actually bites are three things: <strong>① the revenue levy — a tax that doesn't depend on profit; ② the exit problem created by the gap between 17-year depreciation and a ~10-year project; and ③ the siting paradox</strong>. And all three trace back to the "two labels" we opened with.</p>
+
+<p>What most determines this investment's return comes down to two questions that, as of now, still have no settled answer — <strong>whether ΔkW falls within the revenue levy</strong> and <strong>whether immediate expensing is available</strong>. Pin those down with an advance inquiry and your tax accountant, and the yield range firms up. Leave them vague, and any "projected yield" you're shown rests on foundations that haven't been set. A battery-storage investment is decided, before the spreadsheet, by whether you're holding this map.</p>
+
+<div class="sources-box">
+<h4>Key primary sources (as of June 2026)</h4>
+<ul class="src-list">
+<li><span class="t">Regulation</span>Electricity Business Act (power-generation-business notification = output ≥1,000 kW and total contracted capacity for retail-bound supply >10 MW / construction-plan notification, pre-use self-inspection, safety-management review = output ≥10,000 kW or capacity ≥80,000 kWh / external-delegation approval for the chief electrical engineer = output <5,000 kW and voltage ≤7,000 V / preparation and filing of safety regulations).</li>
+<li><span class="t">Tax</span>Local Tax Act (electricity-supply business = revenue-based taxation; revenue-levy standard rate 0.75%, plus the special corporate enterprise tax; income-levy standard rate 1.85% / example excess revenue-levy rate: Aichi 0.789% / JEPX discharge revenue is in scope; wheeling charges, generation-side grid charges, etc. are deductible).</li>
+<li><span class="t">Depreciation</span>National Tax Agency "Ordinance on Useful Lives of Depreciable Assets, etc." (electricity-business equipment 17 years; batteries treated as "primarily metal").</li>
+<li><span class="t">Tax incentive</span>"Outline of the FY2026 Tax Reform" and the act amending the Income Tax Act, etc. (Act No. 12 of 2026, promulgated March 31, 2026) = investment-promotion incentive for designated productivity-enhancing equipment (immediate expensing, or a tax credit of 7% of acquisition cost = 4% for buildings, etc.; total acquisition cost ≥¥3.5bn / ¥500M for SMEs; average annual return on investment ≥15%; "excluding use for leasing") / amended Act on Strengthening Industrial Competitiveness (Act No. 29, promulgated June 5, 2026; the effective-date cabinet order and application forms were unpublished as of June 2026, and battery eligibility is also unsettled).</li>
+<li><span class="t">Markets</span>Agency for Natural Resources and Energy working groups / OCCTO (balancing-market price cap ¥19.51 → ¥15 per ΔkW·30 min, from the March 2026 delivery; the future ¥10 / ¥7.21 figures are under review; procurement-volume revision; higher exchange fees / capacity-market main-auction results for FY2029 = record total clearing value and average unit price, published January 2026).</li>
+<li><span class="t">Siting</span>City Planning Act (Category-1 designated structure; development permit in urbanization-control zones; exemption = facilities of an Electricity Business Act power-generation or transmission/distribution operator) / MLIT technical guidance (April 2025) / Agricultural Land Act (Articles 4 & 5; de-designation of farmland inside agricultural promotion areas = blue-zone / white-zone distinction) / Fire Service Act and municipal fire-prevention ordinances (Fire and Disaster Management Agency Notice No. 7 of 2023; effective January 1, 2024, shifting the unit of regulation to kWh = installations over 20 kWh require a notification; outdoor installations generally ≥3 m from buildings).</li>
+</ul>
+<div class="source">Note: This column's treatment of the rules, rates, useful lives, the status of immediate expensing, municipal development-permit practice and farmland-conversion eligibility can change with legal amendments and municipality-by-municipality administration. In particular, three points have no settled official or municipal view as of June 2026: ① inclusion of balancing-market ΔkW in the revenue levy, ② application of immediate expensing to batteries, and ③ municipal administration of urbanization-control zones. This is general explanation, not definitive tax or legal advice. For actual investment decisions, confirm individually with the relevant specialists and offices — a tax accountant, the relevant municipality's development-guidance section and agricultural committee, and a lawyer / administrative scrivener well versed in the electricity sector.</div>
+</div>
+
+<div class="cta-section">
+  <h3>Turn real-deal numbers into your investment decision</h3>
+  <p>This column is a general map of the rules. The size, siting (zone / land class), revenue assumptions, tax scheme, exit design and DD materials for actual deals are<br>provided individually after you contact us and sign an NDA. We can work in English and Chinese.</p>
+  <a target="_top" href="https://www.scix.co.jp/contact" class="cta-btn">Contact us →</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var h=document.getElementById('scix-header'),b=document.getElementById('scix-header-burger'),o=document.getElementById('scix-header-overlay');
+  if(!h||!b)return;
+  function t(){var open=h.classList.toggle('scix-header-open');b.setAttribute('aria-expanded',open?'true':'false');}
+  b.addEventListener('click',t);
+  if(o)o.addEventListener('click',t);
+  h.querySelectorAll('.scix-header-nav a').forEach(function(a){a.addEventListener('click',function(){h.classList.remove('scix-header-open');b.setAttribute('aria-expanded','false');});});
+})();
+(function(){
+  var g=document.getElementById('fdi-checklist');if(!g)return;
+  var c=g.querySelectorAll('input[type=checkbox]'),cnt=document.getElementById('checkCount'),fl=document.getElementById('checkBarFill'),tot=c.length;
+  function u(){var d=0;c.forEach(function(x){if(x.checked)d++;});cnt.textContent=d;fl.style.width=(d/tot*100)+'%';}
+  c.forEach(function(x){x.addEventListener('change',u);});u();
+})();
+</script>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX Home">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        BIZMARKS Nihonbashi-Kayabacho, 8-2 Nihonbashi-Koamicho,<br>
+        Chuo-ku, Tokyo 103-0016, Japan<br>
+        TEL: <a href="tel:0364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Representative Director: Shinya Nakajima (Doctor of Engineering)</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

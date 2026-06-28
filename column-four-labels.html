@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.85}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
+</style>
+<title>系統用蓄電所、規制・税・立地の全体像がわかる ── 投資の前に読む一枚の地図｜投資家・オーナー向け | ScienceX</title>
+<meta name="description" content="同じ系統用蓄電所に、電気事業法・地方税法・耐用年数の税務・都市計画法／農地法が関わる。サイズ・立地・税は互いに連動し、別々には選べない。AC約2MW／DC約8MWhモデルで読み解く、投資家・オーナーのための法務・税務マップ。">
+<link rel="canonical" href="https://www.scix.co.jp/column-four-labels">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-four-labels">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-four-labels">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-four-labels">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系統用蓄電所、規制・税・立地の全体像がわかる ── 投資の前に読む一枚の地図｜ScienceX">
+<meta property="og:description" content="一基の同じ蓄電所に、電気事業法・地方税法・耐用年数・都市計画法／農地法が関わる。サイズ・立地・税は別々に選べない。AC約2MW／DC約8MWhで読み解く、投資家・オーナー向けの法務・税務マップ。">
+<meta property="og:url" content="https://www.scix.co.jp/column-four-labels">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="系統用蓄電所、規制・税・立地の全体像がわかる ── 投資の前に読む一枚の地図｜ScienceX">
+<meta name="twitter:description" content="規制・税・立地はつながっている。サイズ・立地・税を一度に決めるための地図を、約2MW／8MWhモデルで。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-06-28">
+<style id="scix-header-css">
+.scix-header,.scix-header *,.scix-header *::before,.scix-header *::after{margin:0;padding:0;box-sizing:border-box}
+body{padding-top:64px!important}
+.scix-header{position:fixed;top:0;left:0;right:0;height:64px;background:#1B2A4A;z-index:9999;border-bottom:1px solid rgba(196,154,60,.25);font-family:"Noto Sans JP",sans-serif}
+.scix-header-inner{max-width:1100px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.scix-header-logo{text-decoration:none;display:flex;align-items:center;flex-shrink:0;font-family:'Noto Serif JP',serif;font-size:20px;font-weight:700;letter-spacing:.5px;color:#fff}
+.scix-header-logo .x{color:#C49A3C}
+.scix-header-nav{display:flex;align-items:center;gap:6px}
+.scix-header-nav a{text-decoration:none;color:rgba(255,255,255,.7);font-size:.82rem;font-weight:400;letter-spacing:.3px;padding:8px 14px;border-radius:4px;transition:color .25s,background .25s;white-space:nowrap}
+.scix-header-nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.scix-header-nav a.active{color:#C49A3C;font-weight:500}
+.scix-header-nav a.scix-cta{background:#C49A3C;color:#fff;font-weight:600;padding:8px 20px;border-radius:4px;margin-left:8px}
+.scix-header-nav a.scix-cta:hover{background:#D4AD5A}
+.scix-lang{display:flex;align-items:center;gap:3px;margin-left:14px;background:rgba(255,255,255,.1);border-radius:20px;padding:3px;flex-shrink:0}
+.scix-lang a{text-decoration:none;color:rgba(255,255,255,.6);font-size:.85rem;font-weight:600;letter-spacing:.3px;padding:5px 12px;border-radius:16px;transition:all .25s;display:flex;align-items:center;gap:5px}
+.scix-lang a:hover{color:#fff;background:rgba(255,255,255,.12)}
+.scix-lang a.active{color:#fff;background:#C49A3C;border-radius:16px}
+.scix-header-burger{display:none;background:none;border:none;cursor:pointer;width:28px;height:20px;position:relative;z-index:10002;flex-shrink:0}
+.scix-header-burger span{display:block;position:absolute;left:0;width:100%;height:2px;background:#fff;border-radius:1px;transition:transform .3s,opacity .3s}
+.scix-header-burger span:nth-child(1){top:0}
+.scix-header-burger span:nth-child(2){top:9px}
+.scix-header-burger span:nth-child(3){top:18px}
+.scix-header-open .scix-header-burger span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.scix-header-open .scix-header-burger span:nth-child(2){opacity:0}
+.scix-header-open .scix-header-burger span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+.scix-header-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9997;opacity:0;transition:opacity .3s}
+.scix-header-open .scix-header-overlay{display:block;opacity:1}
+@media(max-width:768px){
+  .scix-header-nav{position:fixed;top:0;right:0;bottom:0;width:280px;max-width:80vw;background:#1B2A4A;flex-direction:column;align-items:stretch;gap:0;padding:80px 24px 40px;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);z-index:10001;box-shadow:-4px 0 24px rgba(0,0,0,.15);overflow-y:auto}
+  .scix-header-open .scix-header-nav{transform:translateX(0)}
+  .scix-header-nav a{padding:14px 16px;font-size:.92rem;border-bottom:1px solid rgba(255,255,255,.06);border-radius:0}
+  .scix-header-nav a.scix-cta{margin:16px 0 0;text-align:center;border-radius:4px;border-bottom:none;padding:14px 20px}
+  .scix-header-burger{display:block}
+  .scix-lang{margin-left:auto;margin-right:12px}
+}
+</style></head>
+<body><header class="scix-header" id="scix-header"><div class="scix-header-overlay" id="scix-header-overlay"></div>
+<div class="scix-header-inner">
+  <a href="https://www.scix.co.jp/" class="scix-header-logo">Science<span class="x">X</span></a>
+  <nav class="scix-header-nav" id="scix-header-nav">
+<a href="https://www.scix.co.jp/" data-page="/">ホーム</a>
+<a href="https://www.scix.co.jp/bss" data-page="/bss">蓄電池事業</a>
+<a href="https://www.scix.co.jp/knowledge" data-page="/knowledge" class="active">ナレッジ</a>
+<a href="https://www.scix.co.jp/company" data-page="/company">会社案内</a>
+<a href="https://www.scix.co.jp/contact" data-page="/contact" class="scix-cta">お問い合わせ</a>
+  </nav>
+  <div class="scix-lang">
+    <a href="https://www.scix.co.jp/column-four-labels" class="active">🇯🇵 JP</a>
+    <a href="https://www.scix.co.jp/en/column-four-labels">🇺🇸 EN</a>
+    <a href="https://www.scix.co.jp/zh-column-four-labels">🇨🇳 ZH</a>
+  </div>
+  <button class="scix-header-burger" id="scix-header-burger" aria-label="メニューを開く" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</div></header>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 31</span>
+      <span class="header-tag">投資家・オーナー / 規制・税・立地の地図</span>
+      <time class="header-date" datetime="2026-06-28">2026.06.28</time>
+    </div>
+    <h1>系統用蓄電所、規制・税・立地の<em>全体像</em>がわかる —<br>投資の前に読む、<em>一枚の地図</em></h1>
+    <p class="header-desc">系統用蓄電池（BESS）への投資では、収支計算の手前に、規制（電気事業法）・税（地方税法）・耐用年数・立地（都市計画法／農地法）という論点が待っています。しかもサイズ・立地・税は互いに連動し、別々には決められません。AC約2MW／DC約8MWhの1基を前提に、投資の前に押さえるべき全体像を、一枚の地図にまとめました。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
+
+<p>系統用蓄電池（BESS）への投資を検討するとき、多くの人はまず「いくらで建てて、いくらで稼げるか」から入ります。けれど投資の成否を本当に左右するのは、その収支計算の手前にあります。一基の同じ蓄電所に対して、電気事業法・地方税法・耐用年数の税務・都市計画法と農地法という別々の法律が、それぞれ別の目的で、別のラベルを貼ってくるからです。</p>
+
+<p>やっかいなのは、その解説がてんでバラバラに供給されることです。電気事業法は法律家が、税は税理士が、土地は行政書士が、それぞれ自分の領域だけを書く。その縦割りの隙間にこそ、オーナーが最もつまずく論点が落ちています。しかもラベルはしばしば直感に反して貼られ、互いに連動する。ある法律で「軽い」扱いが、別の法律では「重い」扱いに化ける。本稿は、その隙間を一枚の地図にして示します。</p>
+
+<p>前提は具体的に置きます。<strong>AC1,998kW／DC8,128kWh（約2MW／8MWh）の系統用蓄電所を1基持つ</strong>、というモデルです。このサイズを起点に、ラベルを一枚ずつ剥がしながら、用地とサイズを決める前に確認すべき論点を整理します。</p>
+
+<div class="review-note">
+<strong>本稿の位置づけ：</strong>制度参照時点は2026年6月。主たる読者は系統用蓄電所への投資家・オーナー・買主です。数値は公開された一次情報（法令・国税庁・経済産業省・資源エネルギー庁・OCCTO・各自治体等）を出発点とし、非開示のものは「非開示」、当局の確定見解がないものは「未確定」と明記します。とりわけ ①需給調整市場ΔkWの収入割算入、②即時償却の蓄電池への適用、③市街化調整区域の自治体運用 の3点は未確定であり、推測値は作成していません。本稿は投資・税務・法務の助言ではありません。</div>
+
+<div class="data-box">
+<div class="db-head">本稿の射程</div>
+<dl class="premise-grid">
+  <div><dt>対象</dt><dd>約2MW<span class="unit">／8MWh・1基</span></dd></div>
+  <div><dt>規制（電事法）</dt><dd>非該当<span class="unit">発電事業者ではない</span></dd></div>
+  <div><dt>税（地方税法）</dt><dd>該当<span class="unit">電気供給業＝収入割</span></dd></div>
+  <div><dt>耐用年数</dt><dd>17<span class="unit">年（出口でズレ）</span></dd></div>
+  <div><dt>立地</dt><dd>鬼門<span class="unit">市街化調整区域</span></dd></div>
+  <div><dt>結論</dt><dd style="font-size:13px">サイズ・立地・税は独立に選べない</dd></div>
+</dl>
+</div>
+
+<h2>基本 — まず、2枚の基本ラベル：「電気供給業」と「発電事業者」</h2>
+
+<p>混同しやすいので、先に結論を言います。「発電事業者」と「電気供給業」は、別々の法律の、別々のラベルです。</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">電気事業法</span>
+    <h4>規制のラベル</h4>
+    <div class="cc-figure">発電事業者</div>
+    <p>届出・保安のための区分。範囲は<strong>狭い</strong>。出力1,000kW以上で、かつ小売等向けの接続最大電力の合計が1万kW（10MW）超の設備だけが該当する。</p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">地方税法</span>
+    <h4>課税のラベル</h4>
+    <div class="cc-figure">電気供給業</div>
+    <p>法人事業税の計算方式を決める区分。範囲は<strong>広い</strong>。許認可の有無も規模も問わず、現に電気を供給する実態があれば該当する。</p>
+  </div>
+</div>
+
+<p>イメージは入れ子になります。「電気供給業」という大きい箱の中に、「発電事業者」という小さい箱がある。約2MW級は、大きい箱には入るが、小さい箱には入りません。これが、以下すべての話の出発点です。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図 — 電気供給業（税）という大きい箱の中に、発電事業者（電事法）という小さい箱がある。約2MW級は大箱だけに入る">
+  <rect width="720" height="330" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">図 ／ 2枚のラベルの包含関係</text>
+  <rect x="40" y="58" width="640" height="214" rx="12" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="62" y="86" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#1B2A4A">電気供給業</text>
+  <text x="150" y="86" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">― 地方税法のラベル（規模を問わず該当 → 収入割）</text>
+  <rect x="392" y="108" width="266" height="140" rx="10" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2"/>
+  <text x="412" y="134" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#A07916">発電事業者</text>
+  <text x="412" y="154" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">― 電気事業法のラベル（10MW級〜）</text>
+  <text x="412" y="198" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#1B2A4A">10MW超の蓄電所</text>
+  <text x="412" y="220" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#2C3E50">税 <tspan fill="#1A7A4C" font-weight="700">○</tspan> ／ 発電事業者 <tspan fill="#1A7A4C" font-weight="700">○</tspan></text>
+  <text x="74" y="168" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#1B2A4A">約2MW級の蓄電所</text>
+  <text x="74" y="190" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#2C3E50">税 <tspan fill="#1A7A4C" font-weight="700">○</tspan> ／ 発電事業者 <tspan fill="#cc4444" font-weight="700">✕</tspan></text>
+  <text x="74" y="211" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">税はかかるが、発電事業者ではない</text>
+  <text x="360" y="300" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">大きい箱＝電気供給業（税）の中に、小さい箱＝発電事業者（電事法）。約2MW級は大箱だけに入る。</text>
+</svg>
+<div class="fig-cap">図 — 「電気供給業」という大きい箱の中に、「発電事業者」という小さい箱がある。約2MW級は、大箱（税）だけに入る</div>
+</div>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th></th><th>発電事業者</th><th>電気供給業</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">根拠法</td><td>電気事業法</td><td>地方税法</td></tr>
+<tr><td class="em">目的</td><td>事業規制（届出・保安）</td><td>課税方式の区分</td></tr>
+<tr><td class="em">範囲</td><td>狭い（ざっくり10MW級〜）</td><td>広い（規模を問わない）</td></tr>
+<tr class="hl"><td class="em">約2MW級</td><td class="ng">該当しない</td><td class="ok">該当する</td></tr>
+<tr><td class="em">10MW超</td><td class="ok">該当する</td><td class="ok">該当する</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">※「発電事業者」に該当するには、10MW超の接続に加えて、発電した電力の多く（出力・電力量とも過半）を小売電気事業者等へ供給する、といった要件も併せて満たす必要があります。本稿では実務上の目安として規模で示しています。</p>
+
+<p>この2つは矛盾しません。同じ電池に、目的の違う2枚のシールが別々に貼られているだけです。そして以下で効いてくるとおり、<strong>税は地方税法のラベルを、立地（開発許可）は電気事業法のラベルを見ます</strong>。ここが、この事業の勘所になります。</p>
+
+<h2>01 — 規制のラベル：あなたは「発電事業者」か</h2>
+
+<p>まず、直感に反する事実から。系統用蓄電所は、<strong>小さく作るほど規制が軽くなります</strong>。</p>
+
+<p>電気事業法が蓄電所の放電を「発電事業」として届出の対象に取り込むのは、出力1,000kW以上で、かつ小売電気事業者などへ供給するための接続最大電力の合計が1万kW（10MW）を超える場合です。さらに重い手続き――工事計画の届出、使用前自主検査、安全管理審査――が課されるのは、出力1万kW以上または容量8万kWh以上に限られます。約2MW／8MWhはどちらも閾値の10分の1で、これらはいずれも不要です。</p>
+
+<div class="highlight-box">
+約2MW／8MWh級に、<strong>発電事業の届出・工事計画の届出・使用前自主検査・安全管理審査は、いずれも不要</strong>。重い手続きが始まる閾値（出力1万kW／容量8万kWh）を、意図的に下回る設計だからです。
+</div>
+
+<p>「要る」ものもありますが、いずれも外注で回せます。最低限かかるのは、技術基準への適合維持、電気主任技術者の選任、保安規程の作成・届出の3つ。このうち主任技術者は、出力5,000kW未満・電圧7,000V以下の連系であれば、電気保安法人などに委託して産業保安監督部長の承認を受けることで、自社で選任せずに済みます（外部委託承認制度）。常駐の技術者を雇う必要はありません。</p>
+
+<p>さらに、小売電気事業者が負う供給義務・需要家保護といった重い義務は、蓄電所には基本的にかかりません。需要家に売るわけではなく、放電はアグリゲーター（市場運用を代行する事業者）を通すからです。計画値同時同量やインバランス精算は発電側にも制度上は関係しますが、実務上はアグリゲーターが担います。SPCは「資産を持つ箱」で、自分で何かを運転するわけではない。「電気供給業」という名前にビビる必要はありません。――ところが、税の世界に移ると、話が逆転します。</p>
+
+<h2>02 — 税のラベル：あなたは「電気供給業」だ</h2>
+
+<p>ここが、蓄電所オーナーが最も誤解しやすいポイントです。地方税法は、電気事業法の届出があるかないかを一切問いません。<strong>現に電気を売っていれば、それは「電気供給業」だ</strong>と扱います。したがって、電気事業法では発電事業者ですらない約2MW級でも、放電して収入を得ていれば、地方税法上は収入金額等課税事業として、法人事業税の対象になります。</p>
+
+<p>問題は、その課税の仕方です。ふつう法人事業税は「所得（利益）」にかかります。ところが電気供給業は「収入金額」にかかる。つまり、<strong>赤字でも、売電収入がある限り課税される</strong>。これが「収入割」と呼ばれる方式で、標準税率は収入金額の0.75％、これに特別法人事業税（基準法人収入割額の40％相当）が上乗せされ、負担は実効で売電収入のおよそ1.05％になります。利益にかかる所得割（標準1.85％）には特別法人事業税は乗りませんが、収入割には乗ります。</p>
+
+<div class="highlight-box">
+収入割は、利益が出ていなくても、売上に対して課税される。金額として致命傷ではありませんが、<strong>利益に依存せず、しかも売上の大きい初期に効く</strong>ため、初期キャッシュフローと利回り（IRR）を確実に削ります。
+</div>
+
+<p>さらに、自治体によっては収入割に超過税率を採用しているところもあります（たとえば愛知県は標準0.75％に対して0.789％）。本店をどこに置くかで税率がわずかに変わる点も、投資判断では見落とせません。なお、建設中で売電をまだ始めていない準備段階では電気供給業に該当せず、通常どおり所得への課税です。収入割が走り始めるのは運転開始後です。</p>
+
+<p>ここで第1章とのねじれを確認します。同じ蓄電所が、電気事業法では「発電事業者ではない（軽い）」のに、地方税法では「電気供給業である（収入に課税される）」。この二つは矛盾しません。目的の違う二つの法律が、それぞれの物差しで別々のラベルを貼っているだけです。「電事法で発電事業者じゃないのだから、税でも軽いはず」という思い込みは、ここで崩れます。</p>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 未確定／要照会 ── ここで利回りの桁が変わる</span><br>
+系統用蓄電所の売上の多くは、需給調整市場の<strong>ΔkW</strong>（待機していること自体への対価）です。問題は、このΔkWが収入割の対象「収入金額」に全額入るのか、名指しで答えた公的見解が見当たらないこと。入れば対象売上は大きく膨らみ、入らなければゼロに近づきます。文字どおり桁が変わる。JEPX（卸電力取引所）での放電は「入る」と明確ですが、ΔkWや容量市場の収入は、<strong>本店所在地を管轄する都道府県税事務所へ事前照会して確定させる</strong>のが実務です。ここを曖昧にしたまま語られる「想定利回り」は、まだ土台が定まっていません。これは契約・出資の前に潰すべき最優先事項です。
+</div>
+
+<div class="info-box">
+<strong>控除と、その先の逆風。</strong>JEPXでの放電収入は収入割の対象に含まれることが明示されています。一方、託送料金・発電側課金・再エネ賦課金などは収入から控除でき、発電側課金の控除特例は令和8年度改正で3年延長されました（同改正は2026年3月に成立・公布済み）。ただし金額インパクトは小さい。なお、その「売上」の前提そのものにも逆風が吹いています（後述「05」）。
+</div>
+
+<h2>03 — 時間のラベル：17年償却と、「即時償却」という希望</h2>
+
+<p>次は、設備の費用をどの期間で落とせるか、です。系統用蓄電池の法定耐用年数は、現状<strong>17年</strong>とされています（電気業用設備）。根拠はやや意外で、蓄電池を収める筐体（コンテナ）の支柱などが金属製であることから、国税庁が「主として金属製のもの」とみなしているためです。仮に「その他のもの」と整理されれば8年になるため、業界団体は短縮あるいは選択制を要望していますが、2026年6月時点で実現していません。</p>
+
+<p>17年という長さは、出口で問題になります。ファンドや事業を10年前後で畳む場合、設備の簿価が残ったまま終わるからです。機械装置は届出をしなければ定率法（初期に大きく償却する方式）が適用されますが、その定率法でも、<strong>10年経過時点でなお取得額の約3割弱が簿価として残ります</strong>（定額法なら約4割）。設備が7〜8億円なら、2億円規模が残る計算です。この残った簿価を、使用済みの電池の売却・承継価格でどう回収するか――中古BESSの市場がまだ未成熟な以上、ここは「作り込み」が要ります。出口価格が簿価を下回れば、その差は損失になります。</p>
+
+<p>そこで注目されているのが、令和8年度税制改正で創設された「特定生産性向上設備等投資促進税制」です。一定の投資計画について経済産業大臣の確認を受ければ、設備を取得した初年度に<strong>即時償却</strong>（または取得価額の一定割合の税額控除）を選択できる制度で、これが使えれば出口の簿価問題は一気に解消へ向かい、初期キャッシュフローも大きく改善します。</p>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 注記 ── 適用はまだ「確定前提」にできない（2026年6月時点）</span><br>
+この制度は、今この瞬間に「もう使える」とは言えません。税制本体は2026年3月に成立・公布され（令和8年法律第12号）、前提となる改正産業競争力強化法も2026年6月5日に公布されました（法律第29号）。ただし、<strong>その施行期日を定める政令と、経済産業省が用意する投資計画の申請様式は、2026年6月時点でまだ公表されていません</strong>。即時償却が使えるのは改正法の施行日以後で、施行日自体も未確定です。さらに、<strong>系統用蓄電池がこの制度の対象設備に含まれるかどうか自体が、まだ確定していません</strong>（現時点で公表されている大綱に「蓄電池」「蓄電所」という品名は明記されていない）。要件のハードルも低くなく――投資計画上の取得価額の合計が原則35億円以上（中小企業者は5億円以上）、年平均の投資利益率15％以上、そして「貸付けの用」に供する設備は対象外。<strong>約2MW／8MWhの1基（設備7〜8億円規模）は、それ単体では原則35億円の閾値に届かず、中小企業者の5億円基準に乗るか、複数案件をまとめるかが現実的な前提</strong>になります。いずれにせよ、蓄電池を相手に貸す（トーリング／リース）構造では使えず、自ら運用する形が前提です。
+</div>
+
+<p>したがって投資計画では、即時償却を「確定した前提」ではなく「成立を見越した準備」として扱うのが安全です。施行政令と経産省の様式が公表され、蓄電池の該当性がはっきりするまで、シミュレーションに「適用確実」と書き込むべきではありません。ただし期待値は大きい。<strong>即時償却の便益（数億円規模）は、第2章の収入割（全期間でも数千万円規模）を大きく上回ります</strong>。だからこそ、収入割を受け入れてでも自社運用を選び、即時償却を取りにいくのが筋になる。賃貸（トーリング）構造を選ぶことは、即時償却を捨てることを意味します――この一点は、後段の構造判断に直結します。</p>
+
+<h3>「自分で運用する」か「貸す」か ― 即時償却が、ここで効く</h3>
+
+<p>ここは、多くのオーナーが最初に迷うところです。同じ蓄電所でも、<strong>自社で保有して運用する</strong>のか、<strong>相手に貸す（トーリング／リース）</strong>のかで、税の効き方――とりわけ即時償却が使えるかどうか――が大きく変わります。順に並べると、こうなります。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th></th><th>自社で保有・運用<span class="u">アグリは代行＝あなたが運用主体</span></th><th>相手に貸す<span class="u">トーリング／リース</span></th></tr>
+</thead>
+<tbody>
+<tr><td class="em">即時償却<span class="u">特定生産性向上設備等投資促進税制</span></td><td class="ok">使える（自社運用が要件）</td><td class="ng">使えない（「貸付けの用」は対象外）</td></tr>
+<tr><td class="em">収入割<span class="u">電気供給業</span></td><td class="cond">かかる（あなたが売電するため）</td><td>あなたは売電せず賃料収入 → 対象外となり得る（賃料は所得課税・要確認）</td></tr>
+<tr class="hl"><td class="em">規模感</td><td class="ok">即時償却＝数億円規模の便益</td><td class="cond">収入割の回避＝数千万円規模にとどまる</td></tr>
+<tr><td class="em">向いている形</td><td>自ら市場運用し、初年度に大きく償却したい</td><td>運用を手放し、固定収入で回したい</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">即時償却の可否・収入割の課税範囲は、スキームと最新の施行状況で変わります。実額は税理士・県税事務所への事前確認が前提です。</p>
+
+<div class="highlight-box">
+<strong>数億円の分かれ目は、「アグリ経由かどうか」ではなく「運用主体は誰か」。</strong>アグリゲーターを通して市場に出していても、アグリがあなたの<strong>代理（代行）</strong>として動くなら、運用主体はあなた＝自社運用で、即時償却の対象になり得ます。一方、資産そのものを相手に<strong>貸す</strong>（運用権が相手に移るトーリング／リース）と「貸付けの用」に当たり、即時償却から外れる。便益は数億円規模なので、<strong>「アグリは代理か、それとも資産を貸すのか」をどう設計・契約するかが、税の最初の分岐点</strong>です。ここは必ず税理士と詰めてください（制度自体も2026年6月時点で未確定）。
+</div>
+
+<h2>04 — 土地のラベル：市街化調整区域は「即アウト」ではない</h2>
+
+<p>ここまでは事業と税の話でした。最後は土地です。そして土地のラベルこそ、契約してから「もう動かせない」ことに気づきやすい、最も注意の要る論点です。</p>
+
+<p>ここで先に、よくある誤解をひとつ解いておきます。<strong>「市街化調整区域だから置けない」は、正確ではありません。</strong>正しくは、<strong>開発許可（自治体）と消防の二つをクリアできれば、調整区域でも設置できる</strong>。難しいのは“禁止されているから”ではなく、“その許可を取れるかどうかが自治体しだい”だからです。順番に見ていきます。</p>
+
+<p>リチウムイオン電池は危険物を含むため、適用除外（後述）に当たらない系統用蓄電所は、都市計画法上の<strong>「第一種特定工作物」に該当し得ます</strong>。これが市街化調整区域に立つ場合、開発許可が必要になります。</p>
+
+<p>ここで第1章・第2章のラベルが効いてきます。開発許可の適用除外（許可なしで設置できる枠）に乗れるのは、原則として<strong>「電気事業法の発電事業者・送配電事業者の設備」だけ</strong>だからです。地方税法の「電気供給業」かどうかは一切関係ありません。つまり、約2MW級で「発電事業者ではない」蓄電所は、この除外にきれいには乗れず、第一種特定工作物として正面から開発許可を求めることになります。</p>
+
+<p>しかも令和7年4月、国土交通省は技術的助言を出し、市街化調整区域に第一種特定工作物としての蓄電所を設置する場合には、自治体が審査基準を整備したうえで運用することが望ましい、という方向を示しました。裏を返せば、<strong>審査基準をまだ整備していない自治体では、事実上、許可が下りません</strong>。実際に、現時点で市街化調整区域の系統用蓄電池の許可基準を定めていないと明示する自治体は少なくない。市街化調整区域は、自治体によって「置ける／置けない」が極端に分かれる、いちばん運用差の大きい領域です。だからこそ「置けないエリア」ではなく「自治体に当たって確かめるエリア」と捉えるのが正確です。</p>
+
+<p>そして開発許可とは<strong>別系統で、消防のゲート</strong>があります。2024年1月施行の消防法令改正で規制の単位がkWhベースに変わり、<strong>容量20kWhを超える蓄電池設備は消防への設置届出</strong>が必要です（本件の8MWh級は当然に対象）。屋外設置では建築物から原則3m以上の離隔（キュービクル式等で緩和・免除）、防火・安全対策、所轄消防本部との事前協議が求められます。<strong>自治体の開発許可がOKでも、消防がOKでなければ設置できません</strong>。逆に言えば、調整区域で確認すべき相手は<strong>「自治体（開発許可）」と「消防」の二つ</strong>。ここを早めに当たることが、置けるかどうかを見極める近道になります。</p>
+
+<p>用地が農地であれば、さらに農地法が重なります。農用地区域内の農地（いわゆる青地）は転用が原則できず、設置するにはまず農振除外という手続きが要る。これはおおむね半年〜1年（長引けば2年以上）かかり、令和7年4月以降は地域計画の変更手続が加わって長期化することもあります。一方、農用地区域外の農地（白地）であれば転用許可の可能性があり、地主から借りて転用する場合は農地法5条の許可が要る、といった具合に、農地の区分次第で難易度が大きく変わります。</p>
+
+<p>この判定を、<strong>矢印でたどれる一枚のフロー</strong>にしました。下に進む（▼）のが「条件をクリアして先へ」、横に出る（▶）のが「そのルートの結論」です。<strong>調整区域でも、最後まで下りれば「置ける」</strong>に着きます。</p>
+
+<style id="bflow2-css">
+.bflow2{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:26px 18px}
+.bflow2 .bf-head{font-size:.82em;color:var(--text-light);letter-spacing:.05em;margin-bottom:18px;font-weight:600;text-align:center}
+.bflow2 .bf-center{display:flex;flex-direction:column;align-items:center}
+.bflow2 .bf-start{background:var(--navy);color:#fff;border-radius:22px;padding:10px 22px;font-weight:700;font-size:.9em;font-family:'Noto Serif JP',serif;text-align:center}
+.bflow2 .bf-final{background:rgba(26,122,76,.12);border:2px solid var(--green);color:var(--navy);border-radius:8px;padding:14px 20px;font-weight:700;font-size:.96em;text-align:center;max-width:560px;font-family:'Noto Serif JP',serif}
+.bflow2 .bf-final small{display:block;font-family:'Noto Sans JP',sans-serif;font-weight:400;font-size:.8em;color:var(--text-light);margin-top:6px;line-height:1.7}
+.bflow2 .bf-arrow{display:flex;flex-direction:column;align-items:center;margin:1px 0}
+.bflow2 .bf-arrow .bf-line{width:2px;height:13px;background:#b9c0cb}
+.bflow2 .bf-arrow .bf-tri{font-size:13px;line-height:1;color:#b9c0cb;margin-top:-3px}
+.bflow2 .bf-arrow .bf-yes{font-size:.72em;font-weight:800;color:var(--navy);background:rgba(27,42,74,.08);border-radius:10px;padding:2px 10px;margin-bottom:3px}
+.bflow2 .bf-step{width:100%;max-width:620px;margin:0 auto}
+.bflow2 .bf-q{background:#fff;border:1.5px solid var(--navy);border-radius:8px;padding:12px 16px;font-weight:700;color:var(--navy);font-size:.9em;line-height:1.55;text-align:center}
+.bflow2 .bf-q .bf-qnum{display:inline-block;background:var(--navy);color:#fff;font-size:.66em;border-radius:10px;padding:2px 8px;margin-right:7px;font-family:'Noto Serif JP',serif;vertical-align:middle}
+.bflow2 .bf-q small{display:block;font-weight:400;font-size:.8em;color:var(--text-light);margin-top:5px;line-height:1.6}
+.bflow2 .bf-exit{display:flex;align-items:flex-start;gap:8px;margin:9px 0 0 auto;width:fit-content;max-width:100%;padding-left:26px}
+.bflow2 .bf-exlabel{flex-shrink:0;font-size:.72em;font-weight:800;white-space:nowrap;margin-top:7px;color:var(--green)}
+.bflow2 .bf-exlabel.amber{color:var(--orange)}
+.bflow2 .bf-exlabel.red{color:var(--warn)}
+.bflow2 .bf-out{border-radius:6px;padding:9px 13px;font-size:.83em;line-height:1.65}
+.bflow2 .bf-out.ok{background:rgba(26,122,76,.08);border-left:3px solid var(--green)}
+.bflow2 .bf-out.cond{background:var(--orange-bg);border-left:3px solid var(--orange)}
+.bflow2 .bf-out.warn{background:var(--warn-bg);border-left:3px solid var(--warn)}
+.bflow2 .bf-out strong{color:var(--navy)}
+.bflow2 .bf-out.warn strong{color:var(--warn)}
+.bflow2 .bf-split{display:flex;gap:8px;flex-wrap:wrap}
+.bflow2 .bf-split>div{flex:1;min-width:170px}
+.bflow2 .bf-result{margin:20px auto 0;max-width:620px;background:var(--navy);color:rgba(255,255,255,.92);border-radius:8px;padding:16px 18px;font-size:.84em;line-height:1.9}
+.bflow2 .bf-result h6{margin:0 0 8px;font-size:.95em;color:#fff;font-family:'Noto Serif JP',serif;font-weight:700}
+.bflow2 .bf-result .bf-rlabel{display:inline-block;min-width:3.4em;color:var(--accent-light);font-weight:700}
+.bflow2 .bf-result strong{color:#fff}
+@media(max-width:768px){.bflow2{padding:18px 11px}.bflow2 .bf-exit{padding-left:10px}.bflow2 .bf-split{flex-direction:column}}
+</style>
+<div class="fig-wrap" style="padding:0;background:none;border:none">
+<div class="bflow2">
+  <div class="bf-head">市街化調整区域でも「置けるか」を、はい／いいえでたどる（約2MW級）</div>
+  <div class="bf-center">
+
+    <div class="bf-start">2MWの系統用蓄電所を建てたい</div>
+    <div class="bf-arrow"><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-step">
+      <div class="bf-q"><span class="bf-qnum">Q1</span>用地は「市街化調整区域」か？</div>
+      <div class="bf-exit"><span class="bf-exlabel">いいえ ▶</span><div class="bf-out ok">市街化区域・非線引き等。<strong>立地ハードルは低い</strong>（開発許可は原則不要、または要件が軽い）。</div></div>
+    </div>
+    <div class="bf-arrow"><span class="bf-yes">はい ↓</span><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-step">
+      <div class="bf-q"><span class="bf-qnum">Q2</span>開発許可は取れそうか？<small>自治体に審査基準がある／または10MW超にして「発電事業者」の適用除外に乗る</small></div>
+      <div class="bf-exit"><span class="bf-exlabel amber">いいえ ▶</span><div class="bf-out cond">基準がなく2MWのままなら厳しい。<strong>区域を変える</strong>か、<strong>10MW超への大型化</strong>を検討（大型化すると電事法は重くなる）。</div></div>
+    </div>
+    <div class="bf-arrow"><span class="bf-yes">はい ↓</span><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-step">
+      <div class="bf-q"><span class="bf-qnum">Q3</span>消防はOKか？<small>消防法・火災予防条例：容量20kWh超は設置届出。屋外は建築物から原則3m以上の離隔・防火対策・消防本部との事前協議</small></div>
+      <div class="bf-exit"><span class="bf-exlabel amber">いいえ ▶</span><div class="bf-out cond">消防本部と<strong>再協議</strong>（離隔距離の確保・防火対策・設備仕様の調整）。</div></div>
+    </div>
+    <div class="bf-arrow"><span class="bf-yes">はい ↓</span><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-step">
+      <div class="bf-q"><span class="bf-qnum">Q4</span>用地は「農地」か？</div>
+      <div class="bf-exit"><span class="bf-exlabel red">はい ▶</span><div class="bf-split">
+        <div class="bf-out warn">⚠ <strong>青地</strong>（農用地区域内）：原則転用不可。まず<strong>農振除外（半年〜1年、長引くと2年超）</strong></div>
+        <div class="bf-out cond"><strong>白地</strong>（区域外）：<strong>農地法5条</strong>の転用許可（地主から借りる場合）</div>
+      </div></div>
+    </div>
+    <div class="bf-arrow"><span class="bf-yes">いいえ（農地でない）↓</span><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-final">✓ 置ける ― 調整区域でも、開発許可（自治体）＋消防（＋農地・連系）を通せば設置できる<small>「市街化調整区域＝だめ」ではない。難しいのは“禁止”だからではなく、許可を取れるかが自治体しだいだから。</small></div>
+
+  </div>
+
+  <div class="bf-result">
+    <h6>どのルートでも、立地とは別に共通でかかること</h6>
+    <span class="bf-rlabel">税</span> 電気供給業＝収入割は<strong>規模を問わず</strong>かかる（赤字でも）。ΔkWが対象か → <strong>県税事務所へ事前照会</strong>。<br>
+    <span class="bf-rlabel">償却</span> 即時償却を狙うなら「<strong>自社運用</strong>」が前提（貸すと対象外・制度は未確定）。<br>
+    <span class="bf-rlabel">連系</span> 接続契約・工事費負担金の確定。<br>
+    <span class="bf-rlabel">手順</span> 用地契約の<strong>“前”</strong>に、自治体（開発許可）・消防・農業委員会と事前協議。
+  </div>
+</div>
+<div class="fig-cap">図 — 市街化調整区域でも、開発許可と消防を通せば置ける。▼＝条件クリアで次へ、▶＝そのルートの結論</div>
+</div>
+
+<div class="highlight-box">
+土地の可否は、<strong>区域区分</strong> × <strong>地目</strong>（農地の青地／白地） × <strong>サイズ</strong>（電事法のラベル） × <strong>消防</strong> の掛け算で決まります。逆に言えば、<strong>市街化調整区域でも、この掛け算さえ通せば置ける</strong>。ただし結果は用地を契約してからでは動かせないので、<strong>契約の“前”に、自治体（開発許可）・消防・農業委員会へ事前協議で確定させること。</strong>
+</div>
+
+<h2>05 — 収益の3本柱と、足元の逆風</h2>
+
+<p>投資判断のために、収益構造そのものにも触れておきます。この1基の稼ぎは、①需給調整市場（ΔkW／ΔkWh）、②容量市場の容量確保契約金、③JEPXでのアービトラージ、の3本柱です。複数の市場を組み合わせる「マルチユース」が基本になります。</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">−23<span class="unit">%</span></span><span class="lbl">需給調整市場 上限価格 19.51→15円/ΔkW・30分（前日取引化後・2026年4月〜）</span></div>
+  <div class="stat-cell"><span class="val">10・7.21<span class="unit">円</span></span><span class="lbl">競争次第で将来さらに段階的に引き下げる方針（検討段階）</span></div>
+  <div class="stat-cell"><span class="val">×2<span class="unit"></span></span><span class="lbl">取引所の売買手数料は倍増（0.03→0.06円/ΔkW・30分）。募集量も1σへ縮減</span></div>
+</div>
+
+<p>ただし足元では、収益に逆風が吹いています。需給調整市場の上限価格は、19.51円/ΔkW・30分から15円へ約23％引き下げられ（前日取引化は2026年3月、上限価格15円・募集量の1σ化は2026年4月から）、競争状況によっては将来さらに10円、7.21円へと段階的に下げる方針が示されています。あわせて取引所の売買手数料は倍増しました（0.03→0.06円/ΔkW・30分）。容量市場の約定総額は2029年度向け（2026年1月公表）で過去最高を更新し総平均単価も約13,300円/kWに達したものの、<strong>需給調整市場の高い単価に依存したモデルは、すでに見直しを迫られています</strong>。検討中の事業計画の想定利回りが、これらの引き下げを織り込んだ数字になっているかは、必ず確認したい点です。</p>
+
+<h2>06 — すべては連動する：サイズ・立地・税は、別々に選べない</h2>
+
+<p>ここまでの四枚のラベルを並べると、一つの構造が浮かび上がります。蓄電所の<strong>サイズ・立地・税負担は、それぞれを独立に最適化できません</strong>。一つを動かすと、別のものが動いてしまう。とりわけ効くのは「サイズ」という一本の軸です。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図 — サイズという一本の軸の上で、電気事業法の規制は右上がり、市街化調整区域の立地ハードルは右下がり、収入割の税は一定">
+  <rect width="720" height="360" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">図 ／ サイズの軸で、規制と立地は逆向きに動く</text>
+  <line x1="110" y1="320" x2="650" y2="320" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="160" y="344" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12" font-weight="700" fill="#1B2A4A">約2MW級</text>
+  <text x="600" y="344" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12" font-weight="700" fill="#1B2A4A">10MW超</text>
+  <text x="380" y="344" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#9aa5b1">― サイズ（接続出力） →</text>
+  <line x1="140" y1="300" x2="610" y2="120" stroke="#C49A3C" stroke-width="3"/>
+  <circle cx="610" cy="120" r="4.5" fill="#C49A3C"/>
+  <text x="605" y="112" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#A07916">規制（電気事業法）↗ 重い</text>
+  <line x1="140" y1="130" x2="610" y2="300" stroke="#1B2A4A" stroke-width="3"/>
+  <circle cx="140" cy="130" r="4.5" fill="#1B2A4A"/>
+  <text x="150" y="124" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">立地ハードル（市街化調整区域）↘ 楽に</text>
+  <line x1="140" y1="305" x2="610" y2="305" stroke="#cc4444" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="470" y="298" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#cc4444">収入割（税）― サイズを問わず一定</text>
+  <line x1="368" y1="208" x2="368" y2="320" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="3 3"/>
+  <circle cx="368" cy="213" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="368" y="194" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">規制と立地が入れ替わる</text>
+</svg>
+<div class="fig-cap">図 — サイズという一本の軸の上で、規制（電事法）と立地ハードル（市街化調整区域）は逆向きに動く。税（収入割）はその下に一定で居座る</div>
+</div>
+
+<p>電気事業法の規制を軽くしようとして<strong>小さく作る</strong>（約2MW級）と、市街化調整区域では「発電事業者の設備」に乗れず、開発許可で行き詰まります。逆に、市街化調整区域でも適用除外に乗せようとして<strong>大きく作る</strong>（接続10MW超）と、今度は電気事業法の発電事業の届出・工事計画・使用前検査が重くのしかかる。「低い規制」と「楽な立地」を同時に取れる点は、この軸の上には存在しません。そして、どちらを選んでも、<strong>収入割（税）からは逃げられない</strong>。地方税法の電気供給業はサイズを問わないからです。</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">小さく作る</span>
+    <h4>約2MWのまま</h4>
+    <p>電気事業法は軽い。だが発電事業者のラベルを持たないため市街化調整区域に入りにくく、非線引き区域・市街化区域・白地など、調整区域を避けた立地が前提になる。</p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">大きく作る</span>
+    <h4>10MW超へ</h4>
+    <p>「発電事業者」になり開発許可の適用除外に乗りやすく、市街化調整区域への道が開ける。だが届出・工事計画・使用前検査がかかり、規制は重くなる。</p>
+  </div>
+</div>
+
+<p>つまり投資判断は、「サイズ」「立地」「税」を、別々にではなく一つの三角形として同時に見ながら決めるしかありません。用地ありきでサイズを決めると税や許可で詰まり、税効率ありきでサイズを決めると立地が縛られる。<strong>この連動を最初に理解しているかどうかが、後から動かせない地雷を踏むか踏まないかの分かれ目になります。</strong></p>
+
+<h2>07 — 契約の前に：確認すべき7点</h2>
+
+<p>整理すると、契約・出資の前に確認すべきは次の7点です。手を動かす順に並べました。</p>
+
+<div class="checklist-group" id="fdi-checklist">
+  <h5><span class="cl-num">!</span>契約・出資の前に潰す7点</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01</span>税の事前照会：需給調整市場のΔkW・容量市場の収入が、法人事業税の収入割に入るか。本店所在地を管轄する県税事務所・税理士へ事前照会する。JEPX売電は対象前提で試算する。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02</span>即時償却の成否：制度の施行状況、経産大臣の事前確認の段取り、取得価額（中小5億円）基準・ROI15％・自社運用（アグリ委託が「貸付け」にならないか）を税理士と詰める。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03</span>立地のデューデリ：区域区分・地目（青地か）、開発許可・<strong>消防（消防法／火災予防条例）</strong>・農地転用の見通し。自治体の開発指導部局・<strong>消防本部</strong>・農業委員会と契約前に書面で事前協議する。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04</span>収益前提の検証：需給調整市場の上限価格引き下げ・募集量削減・手数料増を織り込んだ計画か。アグリゲーターの実績・手数料・対応市場を確認する。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05</span>系統連系：接続契約・工事費負担金の確定。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06</span>出口の設計：耐用年数17年と事業期間10年強のズレ、簿価残存、中古BESSの売却・承継価格の前提。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07</span>本店所在地：超過課税団体（例：愛知県・東京都等）か否かによる税負担の差。</span></label>
+  <div class="check-progress"><span class="bar"><span class="bar-fill" id="checkBarFill"></span></span><span>確認済み <span class="count" id="checkCount">0</span> / 7</span></div>
+</div>
+
+<h2>結 — 地図を、収支表の前に</h2>
+
+<p>「電気供給業」という名前は重そうに聞こえますが、運営と規制の負担は、閾値設計と外注によってかなり軽い。本当に効いてくるのは、<strong>①利益に依存しない収入割という税、②17年償却と10年事業のズレが生む出口問題、③立地の逆説</strong>、の3つです。そしてその全部が、冒頭の「2枚のラベル」から逆算できます。</p>
+
+<p>この投資のリターンを最も左右するのは、現時点でまだ答えが確定していない2点――<strong>ΔkWが収入割に入るか</strong>、<strong>即時償却が使えるか</strong>――に集約されます。ここを事前照会と税理士確認で潰せれば、利回りのレンジは固まる。逆に、ここを曖昧にしたまま語られる「想定利回り」は、まだ土台が定まっていない数字だと考えたほうがいい。蓄電所の投資は、収支表の前に、この地図を持っているかどうかで決まります。</p>
+
+<div class="sources-box">
+<h4>主要な一次資料・出典（2026年6月時点）</h4>
+<ul class="src-list">
+<li><span class="t">規制</span>電気事業法（発電事業の届出＝出力1,000kW以上かつ小売等向け接続最大電力の合計10MW超／工事計画の届出・使用前自主検査・安全管理審査＝出力1万kW以上または容量8万kWh以上／電気主任技術者の外部委託承認制度＝出力5,000kW未満・電圧7,000V以下／保安規程の作成・届出）。</li>
+<li><span class="t">税</span>地方税法（電気供給業＝収入金額課税、収入割の標準税率0.75％、特別法人事業税の上乗せ、所得割の標準税率1.85％／収入割の超過税率の例：愛知県0.789％。JEPX放電収入は対象、託送料金・発電側課金等は控除）。</li>
+<li><span class="t">償却</span>国税庁「減価償却資産の耐用年数等に関する省令」（電気業用設備17年。蓄電池を「主として金属製のもの」とみなす整理）。</li>
+<li><span class="t">税制</span>「令和8年度税制改正の大綱」・所得税法等改正法（令和8年法律第12号、2026年3月31日公布）＝特定生産性向上設備等投資促進税制（即時償却または取得価額の7％＝建物等4％の税額控除。取得価額の合計35億円以上・中小企業者5億円以上、年平均投資利益率15％以上、「貸付けの用を除く」）／改正産業競争力強化法（法律第29号、2026年6月5日公布。施行期日政令・申請様式は2026年6月時点で未公表、蓄電池の対象設備該当性も未確定）。</li>
+<li><span class="t">市場</span>資源エネルギー庁 制度検討作業部会・安定供給WG／OCCTO（需給調整市場の上限価格 19.51→15円/ΔkW・30分＝2026年3月受渡分から。将来の10・7.21円は検討段階、募集量の見直し、取引所手数料の引き上げ／容量市場メインオークションの約定結果＝2029年度向けで約定総額・総平均単価とも過去最高、2026年1月公表）。</li>
+<li><span class="t">立地</span>都市計画法（第一種特定工作物、市街化調整区域の開発許可、適用除外＝電気事業法の発電事業者・送配電事業者の設備）／国土交通省 技術的助言（令和7年4月）／農地法（4条・5条、農用地区域内農地の農振除外＝青地・白地の別）／消防法・各自治体の火災予防条例（令和5年消防庁告示第7号、2024年1月1日施行で規制単位がkWh化＝容量20kWh超は設置届出。屋外は建築物から原則3m以上の離隔）。</li>
+</ul>
+<div class="source">注：本稿の制度の整理・税率・耐用年数・即時償却の施行状況・自治体の開発許可運用・農地転用の可否は、法改正や自治体ごとの運用によって変わり得ます。とりわけ ①需給調整市場ΔkWの収入割算入、②即時償却の蓄電池への適用、③市街化調整区域の自治体運用 の3点は、2026年6月時点で当局・自治体の確定見解がありません。本稿は一般的な解説であり、税務・法務上の確定的な助言ではありません。実際の投資判断にあたっては、税理士、当該自治体の開発指導部局・農業委員会、電力分野に詳しい弁護士／行政書士など、それぞれの専門家・窓口に個別にご確認ください。</div>
+</div>
+
+<div class="cta-section">
+  <h3>実在案件の数字を、投資判断に</h3>
+  <p>本稿は一般的な制度の地図です。実在案件のサイズ・立地（区域／地目）・収益前提・税スキーム・出口設計・DD資料は、<br>お問い合わせ後にNDA締結のうえ個別にお出しします。英語・中国語での対応も可能です。</p>
+  <a target="_top" href="https://www.scix.co.jp/contact" class="cta-btn">お問い合わせ →</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var h=document.getElementById('scix-header'),b=document.getElementById('scix-header-burger'),o=document.getElementById('scix-header-overlay');
+  if(!h||!b)return;
+  function t(){var open=h.classList.toggle('scix-header-open');b.setAttribute('aria-expanded',open?'true':'false');}
+  b.addEventListener('click',t);
+  if(o)o.addEventListener('click',t);
+  h.querySelectorAll('.scix-header-nav a').forEach(function(a){a.addEventListener('click',function(){h.classList.remove('scix-header-open');b.setAttribute('aria-expanded','false');});});
+})();
+(function(){
+  var g=document.getElementById('fdi-checklist');if(!g)return;
+  var c=g.querySelectorAll('input[type=checkbox]'),cnt=document.getElementById('checkCount'),fl=document.getElementById('checkBarFill'),tot=c.length;
+  function u(){var d=0;c.forEach(function(x){if(x.checked)d++;});cnt.textContent=d;fl.style.width=(d/tot*100)+'%';}
+  c.forEach(function(x){x.addEventListener('change',u);});u();
+})();
+</script>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
