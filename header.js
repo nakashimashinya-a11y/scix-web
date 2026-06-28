@@ -175,6 +175,7 @@
   ] : [
     '<a href="/"          data-page="/">ホーム</a>',
     '<a href="/investors" data-page="/investors">投資家の方へ</a>',
+    '<a href="/fund"      data-page="/fund">蓄電池ファンド</a>',
     '<a href="/transfer"  data-page="/transfer">案件を買う</a>',
     '<a href="/projects"  data-page="/projects">案件一覧</a>',
     '<a href="/sourcing"  data-page="/sourcing">案件を売る</a>',
