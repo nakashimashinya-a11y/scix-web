@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif SC','Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC','Noto Sans JP',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:1.35em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC','Noto Sans JP',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC','Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif SC','Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.85}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
+</style>
+<title>一文读懂日本电网级储能电站的「监管·税务·选址」全貌 ── 投资前必读的一张地图｜面向投资人·业主 | ScienceX</title>
+<meta name="description" content="同一座电网级储能电站，会同时被《电气事业法》《地方税法》、折旧税务、《城市规划法》／《农地法》贴上不同标签。规模·选址·税务相互联动，无法各自单独最优化。以 AC约2MW／DC约8MWh 单座电站为例，为投资人·业主梳理日本储能的法务·税务地图。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-four-labels">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-four-labels">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-four-labels">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-four-labels">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一文读懂日本电网级储能电站的监管·税务·选址全貌 ── 投资前必读的一张地图｜ScienceX">
+<meta property="og:description" content="同一座储能电站，会被《电气事业法》《地方税法》、折旧、《城市规划法》／《农地法》同时贴上不同标签。规模·选址·税务无法各自单独选择。以 AC约2MW／DC约8MWh 为例，为投资人·业主梳理法务·税务地图。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-four-labels">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="一文读懂日本电网级储能电站的监管·税务·选址全貌 ── 投资前必读的一张地图｜ScienceX">
+<meta name="twitter:description" content="监管·税务·选址是连在一起的。用约2MW／8MWh 模型，把规模·选址·税务一次性想清楚的一张地图。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-06-28">
+<style id="scix-header-css">
+.scix-header,.scix-header *,.scix-header *::before,.scix-header *::after{margin:0;padding:0;box-sizing:border-box}
+body{padding-top:64px!important}
+.scix-header{position:fixed;top:0;left:0;right:0;height:64px;background:#1B2A4A;z-index:9999;border-bottom:1px solid rgba(196,154,60,.25);font-family:"Noto Sans JP",sans-serif}
+.scix-header-inner{max-width:1100px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.scix-header-logo{text-decoration:none;display:flex;align-items:center;flex-shrink:0;font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:20px;font-weight:700;letter-spacing:.5px;color:#fff}
+.scix-header-logo .x{color:#C49A3C}
+.scix-header-nav{display:flex;align-items:center;gap:6px}
+.scix-header-nav a{text-decoration:none;color:rgba(255,255,255,.7);font-size:.82rem;font-weight:400;letter-spacing:.3px;padding:8px 14px;border-radius:4px;transition:color .25s,background .25s;white-space:nowrap}
+.scix-header-nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.scix-header-nav a.active{color:#C49A3C;font-weight:500}
+.scix-header-nav a.scix-cta{background:#C49A3C;color:#fff;font-weight:600;padding:8px 20px;border-radius:4px;margin-left:8px}
+.scix-header-nav a.scix-cta:hover{background:#D4AD5A}
+.scix-lang{display:flex;align-items:center;gap:3px;margin-left:14px;background:rgba(255,255,255,.1);border-radius:20px;padding:3px;flex-shrink:0}
+.scix-lang a{text-decoration:none;color:rgba(255,255,255,.6);font-size:.85rem;font-weight:600;letter-spacing:.3px;padding:5px 12px;border-radius:16px;transition:all .25s;display:flex;align-items:center;gap:5px}
+.scix-lang a:hover{color:#fff;background:rgba(255,255,255,.12)}
+.scix-lang a.active{color:#fff;background:#C49A3C;border-radius:16px}
+.scix-header-burger{display:none;background:none;border:none;cursor:pointer;width:28px;height:20px;position:relative;z-index:10002;flex-shrink:0}
+.scix-header-burger span{display:block;position:absolute;left:0;width:100%;height:2px;background:#fff;border-radius:1px;transition:transform .3s,opacity .3s}
+.scix-header-burger span:nth-child(1){top:0}
+.scix-header-burger span:nth-child(2){top:9px}
+.scix-header-burger span:nth-child(3){top:18px}
+.scix-header-open .scix-header-burger span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.scix-header-open .scix-header-burger span:nth-child(2){opacity:0}
+.scix-header-open .scix-header-burger span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+.scix-header-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9997;opacity:0;transition:opacity .3s}
+.scix-header-open .scix-header-overlay{display:block;opacity:1}
+@media(max-width:768px){
+  .scix-header-nav{position:fixed;top:0;right:0;bottom:0;width:280px;max-width:80vw;background:#1B2A4A;flex-direction:column;align-items:stretch;gap:0;padding:80px 24px 40px;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);z-index:10001;box-shadow:-4px 0 24px rgba(0,0,0,.15);overflow-y:auto}
+  .scix-header-open .scix-header-nav{transform:translateX(0)}
+  .scix-header-nav a{padding:14px 16px;font-size:.92rem;border-bottom:1px solid rgba(255,255,255,.06);border-radius:0}
+  .scix-header-nav a.scix-cta{margin:16px 0 0;text-align:center;border-radius:4px;border-bottom:none;padding:14px 20px}
+  .scix-header-burger{display:block}
+  .scix-lang{margin-left:auto;margin-right:12px}
+}
+</style>
+<style>
+.tnote{background:#F1F6FA;border:1px dashed #A7C0D2;border-left:4px solid var(--blue);padding:16px 22px;margin:22px 0;border-radius:0 6px 6px 0;font-size:.88em;line-height:1.9}
+.tnote .tn-flag{display:inline-block;font-size:.74em;font-weight:700;letter-spacing:.06em;color:#fff;background:var(--blue);padding:2px 9px;border-radius:3px;margin-bottom:7px}
+.tnote strong{color:var(--navy)}
+.tnote p{margin:0 0 9px}
+.tnote p:last-child{margin:0}
+.zh-lead{background:#FBF7EF;border:1px solid #E6D9BC;border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 8px 8px 0;font-size:.9em;line-height:1.95}
+.zh-lead h4{font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:1.05em;color:var(--navy);margin:0 0 6px}
+.zh-lead .zl-flag{display:inline-block;font-size:.74em;font-weight:700;letter-spacing:.06em;color:var(--accent);background:rgba(196,154,60,.12);padding:2px 10px;border-radius:3px;margin-bottom:10px}
+.zh-lead ol{margin:8px 0 0;padding-left:20px}
+.zh-lead li{margin-bottom:9px}
+.zh-lead strong{color:var(--navy)}
+.zh-lead .jp{color:var(--text-light);font-weight:400}
+</style>
+</head>
+<body><header class="scix-header" id="scix-header"><div class="scix-header-overlay" id="scix-header-overlay"></div>
+<div class="scix-header-inner">
+  <a href="https://www.scix.co.jp/" class="scix-header-logo">Science<span class="x">X</span></a>
+  <nav class="scix-header-nav" id="scix-header-nav">
+<a href="https://www.scix.co.jp/" data-page="/">首页</a>
+<a href="https://www.scix.co.jp/bss" data-page="/bss">储能电池业务</a>
+<a href="https://www.scix.co.jp/knowledge" data-page="/knowledge" class="active">知识库</a>
+<a href="https://www.scix.co.jp/company" data-page="/company">公司介绍</a>
+<a href="https://www.scix.co.jp/contact" data-page="/contact" class="scix-cta">联系我们</a>
+  </nav>
+  <div class="scix-lang">
+    <a href="https://www.scix.co.jp/column-four-labels">🇯🇵 JP</a>
+    <a href="https://www.scix.co.jp/en/column-four-labels">🇺🇸 EN</a>
+    <a href="https://www.scix.co.jp/zh-column-four-labels" class="active">🇨🇳 ZH</a>
+  </div>
+  <button class="scix-header-burger" id="scix-header-burger" aria-label="打开菜单" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</div></header>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 31</span>
+      <span class="header-tag">投资人·业主 / 监管·税务·选址地图</span>
+      <time class="header-date" datetime="2026-06-28">2026.06.28</time>
+    </div>
+    <h1>日本电网级储能电站的监管·税务·选址<em>全貌</em> —<br>投资前必读的<em>一张地图</em></h1>
+    <p class="header-desc">投资电网级储能电池（BESS）时，在收支测算之前，还横着监管（《电气事业法》）·税务（《地方税法》）·折旧年限·选址（《城市规划法》／《农地法》）这几道关。而且规模·选址·税务彼此联动，无法分开决定。我们以 AC约2MW／DC约8MWh 的单座电站为前提，把投资前必须掌握的全貌，汇成一张地图。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/knowledge" class="back-link">← 返回知识库列表</a>
+
+<p>在考虑投资电网级储能电站（系統用蓄電池，BESS）时，多数人首先关心的是"建造要花多少钱、能赚多少钱"。但真正决定这笔投资成败的，往往在这套收支测算之前。因为对同一座储能电站，《电气事业法》《地方税法》、折旧税务、《城市规划法》与《农地法》这几部不同的法律，会各自出于不同目的，给它贴上不同的"标签"。</p>
+
+<p>麻烦在于，这些解读往往被分散地、各说各话地提供出来：《电气事业法》由律师讲，税务由税理士（注册税务师）讲，土地由行政书士（代办行政许可手续的法律专家）讲，每个人只写自己那一块。而业主最容易踩坑的要点，恰恰落在这种"条块分割"的缝隙里。更棘手的是，这些标签常常贴得与直觉相反，而且彼此联动——在一部法律里"轻"的待遇，到另一部法律里会摇身变成"重"的待遇。本文要做的，就是把这些缝隙整理成一张地图。</p>
+
+<p>我们把前提设得很具体：<strong>持有一座 AC1,998kW／DC8,128kWh（约2MW／8MWh）的电网级储能电站</strong>。以这一规模为起点，逐张揭开标签，梳理在确定用地与规模之前必须确认的要点。</p>
+
+<div class="review-note">
+<strong>本文定位：</strong>制度参照时点为 2026 年 6 月。主要读者是面向电网级储能电站的投资人、业主与买方。文中数值以公开的一手信息（法令、国税厅、经济产业省、资源能源厅、OCCTO、各地方政府等）为出发点；未公开者标注"未公开"，当局尚无确定见解者标注"未确定"。其中尤以 ①供需调整市场 ΔkW 是否计入"收入划"课税、②即时折旧能否适用于储能电池、③"市街化调整区域"各地方政府的实际运用 这三点尚未确定，本文未编制任何推测值。本文不构成投资、税务或法务建议。</div>
+
+<div class="data-box">
+<div class="db-head">本文射程</div>
+<dl class="premise-grid">
+  <div><dt>对象</dt><dd>约2MW<span class="unit">／8MWh·1座</span></dd></div>
+  <div><dt>监管（电事法）</dt><dd>不适用<span class="unit">非"发电事业者"</span></dd></div>
+  <div><dt>税务（地方税法）</dt><dd>适用<span class="unit">电气供给业＝收入划</span></dd></div>
+  <div><dt>折旧年限</dt><dd>17<span class="unit">年（退出时错位）</span></dd></div>
+  <div><dt>选址</dt><dd>难关<span class="unit">市街化调整区域</span></dd></div>
+  <div><dt>结论</dt><dd style="font-size:13px">规模·选址·税务无法各自单独选择</dd></div>
+</dl>
+</div>
+
+<div class="zh-lead">
+<span class="zl-flag">致中国读者 · 阅读前的背景提示</span>
+<h4>读这篇文章前，先理解 5 个日本特有的前提</h4>
+<p>本文讨论的是<strong>日本</strong>电网侧储能的监管、税务与选址。其中几个概念在中国没有完全对应的制度，先在这里说明；正文里也保留了日文原词（方便您日后查阅文件、与日方对接时能对得上）：</p>
+<ol>
+<li><strong>"两张标签"是全文的钥匙。</strong>同一座电池，在《电气事业法》眼里可能<strong>不是</strong>"发电事业者"（监管轻），但在《地方税法》眼里<strong>就是</strong>"电气供给业"（要交税）。两部法律目的不同、各贴各的标签，并不矛盾。</li>
+<li><strong>"收入划"（<span class="jp">収入割</span>）＝按营业收入征税，亏损也要交。</strong>中国企业熟悉的是按"利润"征税；但日本对"电气供给业"的法人事业税，有一部分是按<strong>营业收入</strong>本身征收的——哪怕当年亏损，只要有售电收入就要交。这点与直觉相反，是储能业主最常误解的地方。</li>
+<li><strong>"市街化调整区域"（<span class="jp">市街化調整区域</span>）＝原则抑制开发的城市规划分区。</strong>日本把土地分为鼓励城市化的"市街化区域"与抑制城市化、原则禁止开发的"市街化调整区域"。后者不是"绝对不能建"，而是"能不能拿到开发许可，要看当地政府"。</li>
+<li><strong>储能的收入主要来自"待命"，而非"卖电"。</strong>日本储能的大头收入是供需调整市场里的 <strong>ΔkW</strong>——即电池为电网<strong>随时待命</strong>这件事本身的对价（类似容量费），而不只是低买高卖的电量价差。这决定了税务口径和盈利模型的算法。</li>
+<li><strong>日本的专业分工很细。</strong>税理士＝注册税务师，行政书士＝代办行政许可的法律专家，电气主任技术者＝法定的电气安全负责人。正文出现时不再逐一解释。</li>
+</ol>
+</div>
+
+<h2>基础 — 先认清两张基本标签：「电气供给业」与「发电事业者」</h2>
+
+<p>这两个概念很容易混淆，所以先把结论说在前面：「发电事业者」与「电气供给业」是<strong>两部不同法律</strong>下的<strong>两张不同标签</strong>。</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">电气事业法</span>
+    <h4>监管标签</h4>
+    <div class="cc-figure">发电事业者</div>
+    <p>这是为"申报·安全"而设的分类，范围<strong>窄</strong>。只有"输出功率 1,000kW 以上、且面向售电公司等的接入最大电力合计超过 1万kW（10MW）"的设备才算。</p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">地方税法</span>
+    <h4>课税标签</h4>
+    <div class="cc-figure">电气供给业</div>
+    <p>这是决定"法人事业税计算方式"的分类，范围<strong>宽</strong>。不论有无许可、不论规模，只要实际在供电就算。</p>
+  </div>
+</div>
+
+<p>用图像来说，二者是"嵌套"关系："电气供给业"是一个大箱子，里面装着"发电事业者"这个小箱子。约2MW级的电站能进大箱子，却进不了小箱子。这就是后面所有讨论的出发点。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图 — 在「电气供给业（税）」这个大箱子里，装着「发电事业者（电事法）」这个小箱子；约2MW级只进大箱子">
+  <rect width="720" height="330" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans SC','Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">图 ／ 两张标签的包含关系</text>
+  <rect x="40" y="58" width="640" height="214" rx="12" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="62" y="86" font-family="'Noto Serif SC','Noto Serif JP',serif" font-size="15" font-weight="700" fill="#1B2A4A">电气供给业</text>
+  <text x="150" y="86" font-family="'Noto Sans SC','Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">― 地方税法的标签（不论规模均适用 → 收入划）</text>
+  <rect x="392" y="108" width="266" height="140" rx="10" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2"/>
+  <text x="412" y="134" font-family="'Noto Serif SC','Noto Serif JP',serif" font-size="14" font-weight="700" fill="#A07916">发电事业者</text>
+  <text x="412" y="154" font-family="'Noto Sans SC','Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">― 电气事业法的标签（10MW级〜）</text>
+  <text x="412" y="198" font-family="'Noto Serif SC','Noto Serif JP',serif" font-size="15" font-weight="700" fill="#1B2A4A">10MW以上的储能电站</text>
+  <text x="412" y="220" font-family="'Noto Sans SC','Noto Sans JP',sans-serif" font-size="12" fill="#2C3E50">税务 <tspan fill="#1A7A4C" font-weight="700">○</tspan> ／ 发电事业者 <tspan fill="#1A7A4C" font-weight="700">○</tspan></text>
+  <text x="74" y="168" font-family="'Noto Serif SC','Noto Serif JP',serif" font-size="15" font-weight="700" fill="#1B2A4A">约2MW级的储能电站</text>
+  <text x="74" y="190" font-family="'Noto Sans SC','Noto Sans JP',sans-serif" font-size="12" fill="#2C3E50">税务 <tspan fill="#1A7A4C" font-weight="700">○</tspan> ／ 发电事业者 <tspan fill="#cc4444" font-weight="700">✕</tspan></text>
+  <text x="74" y="211" font-family="'Noto Sans SC','Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">要交税，但不是"发电事业者"</text>
+  <text x="360" y="300" text-anchor="middle" font-family="'Noto Sans SC','Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">大箱子＝电气供给业（税），里面是小箱子＝发电事业者（电事法）；约2MW级只进大箱子。</text>
+</svg>
+<div class="fig-cap">图 — 「电气供给业」是大箱子，里面装着「发电事业者」这个小箱子；约2MW级只进大箱子（税）</div>
+</div>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th></th><th>发电事业者</th><th>电气供给业</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">依据法律</td><td>电气事业法</td><td>地方税法</td></tr>
+<tr><td class="em">目的</td><td>事业监管（申报·安全）</td><td>课税方式的分类</td></tr>
+<tr><td class="em">范围</td><td>窄（大致10MW级以上）</td><td>宽（不论规模）</td></tr>
+<tr class="hl"><td class="em">约2MW级</td><td class="ng">不适用</td><td class="ok">适用</td></tr>
+<tr><td class="em">10MW以上</td><td class="ok">适用</td><td class="ok">适用</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">※ 要被认定为「发电事业者」，除接入超过 10MW 外，还需同时满足"将所发电力的大部分（输出功率与电量均过半）供给售电公司等"之类的要件。本文为便于实务判断，仅以规模作为大致标准来表示。</p>
+
+<p>这两者并不矛盾——只是同一块电池上，被贴了两张目的不同的贴纸而已。而且正如下文将反复出现的：<strong>税务看的是《地方税法》的标签，选址（开发许可）看的是《电气事业法》的标签</strong>。这正是这门生意的关窍所在。</p>
+
+<h2>01 — 监管标签：你是「发电事业者」吗</h2>
+
+<p>先从一个与直觉相反的事实说起：电网级储能电站<strong>建得越小，监管反而越轻</strong>。</p>
+
+<p>《电气事业法》把储能电站的放电当作"发电事业"纳入申报对象，仅限于"输出功率 1,000kW 以上、且面向售电公司等的接入最大电力合计超过 1万kW（10MW）"的情形。更重的手续——施工计划申报（工事計画の届出）、使用前自主检查、安全管理审查——则仅在"输出功率 1万kW 以上或容量 8万kWh 以上"时才被强加。约2MW／8MWh 两个指标都只有上述门槛的十分之一，因此以上手续一律不需要。</p>
+
+<div class="highlight-box">
+对约2MW／8MWh级而言，<strong>发电事业申报、施工计划申报、使用前自主检查、安全管理审查——全部不需要</strong>。因为这一规模是"刻意"设计在重手续启动门槛（输出功率 1万kW／容量 8万kWh）之下的。
+</div>
+
+<p>当然也有"需要做"的事，但都可以外包解决。最低限度要做的有三项：维持符合技术标准、选任电气主任技术者（法定的电气安全负责人）、编制并申报保安规程（安全管理规程）。其中"主任技术者"一项，只要并网为"输出功率 5,000kW 以下、电压 7,000V 以下"，就可委托电气保安法人等、并取得产业保安监督部部长的承认，从而无需自行选任（即"外部委托承认制度"）。不必雇用常驻工程师。</p>
+
+<p>此外，售电公司所背负的供电义务、用户保护等重义务，储能电站基本上都不承担——因为它并不直接向终端用户售电，放电是经由聚合商（aggregator，代为进行市场运营的主体）完成的。计划值实时平衡（同时同量）与偏差结算（imbalance）在制度上虽与发电侧相关，但实务中由聚合商承担。SPC（特别目的公司）只是一个"持有资产的壳"，本身并不运营什么。所以，不必被"电气供给业"这个名字吓到。——然而，一旦进入税务的世界，剧情就反转了。</p>
+
+<h2>02 — 税务标签：你就是「电气供给业」</h2>
+
+<p>这是储能业主最容易误解的地方。《地方税法》完全不问你在《电气事业法》下有没有申报。<strong>只要你实际在卖电，那就是「电气供给业」</strong>。因此，哪怕是在《电气事业法》下连"发电事业者"都算不上的约2MW级电站，只要放电并取得收入，在《地方税法》上就属于"按收入金额等课税的事业"，成为法人事业税的征税对象。</p>
+
+<p>问题在于课税的方式。通常，法人事业税是对"所得（利润）"征收的；但电气供给业是对"收入金额"征收的。也就是说，<strong>即使亏损，只要有售电收入就要交税</strong>。这种方式被称为「收入划」（収入割），标准税率为收入金额的 0.75％，在此之上还要叠加"特别法人事业税"（相当于基准法人收入划额的 40％），实际负担约为售电收入的 1.05％。针对利润的"所得划"（所得割，标准 1.85％）上不叠加特别法人事业税，但"收入划"上要叠加。</p>
+
+<div class="highlight-box">
+「收入划」即便没有利润、也按营业额征税。就金额而言它不是致命伤，但<strong>它不依赖利润，且在营业额最大的初期就开始发力</strong>，会实实在在地侵蚀初期现金流与收益率（IRR）。
+</div>
+
+<div class="tnote">
+<span class="tn-flag">译注 · 给中国读者</span>
+<p><strong>"法人事业税"</strong>是日本由<strong>都道府县（地方政府）</strong>征收的一种地方税，并非国税。普通行业按"所得（利润）"缴纳；但"电气供给业"有一部分改为按<strong>营业收入</strong>缴纳，这部分就叫<strong>"收入划"（収入割）</strong>。</p>
+<p>对中国投资人来说，关键直觉是：<strong>这是一笔"亏损也要交"的税</strong>——类似按营业额征收、且无法用亏损抵扣的固定成本。它金额不大（实效约为售电收入的 1% 上下），但会确定地压低项目初期的现金流与 IRR，必须计入测算。</p>
+</div>
+
+<p>此外，部分地方政府对"收入划"采用了超额税率（例如爱知县在标准 0.75％ 之上为 0.789％）。把总部（本店）设在哪里，税率会有细微差别——这一点在投资判断中也不容忽视。另需说明：在尚未开始售电的建设·准备阶段，并不构成电气供给业，仍按通常的"所得"课税；"收入划"是在投运之后才开始计算的。</p>
+
+<p>在这里，确认一下与第 1 节之间的"拧巴"：同一座储能电站，在《电气事业法》里"不是发电事业者（轻）"，在《地方税法》里却"是电气供给业（要按收入课税）"。二者并不矛盾——只是目的不同的两部法律，各用各的尺子贴了不同的标签。"既然电事法上不算发电事业者，税上应该也轻吧"——这种想当然，到这里就破灭了。</p>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 未确定／需事先照会 ── 收益率的"数量级"在此改变</span><br>
+电网级储能电站的收入大头，是供需调整市场里的 <strong>ΔkW</strong>（"为电网随时待命"这件事本身的对价）。问题是：这笔 ΔkW 收入是否全额计入"收入划"的征税基础"收入金额"，目前找不到当局点名给出的公开见解。若计入，应税营业额会大幅膨胀；若不计入，则趋近于零——名副其实地差一个数量级。在 JEPX（日本批发电力交易所，相当于电力批发现货市场）上的放电收入"计入"是明确的；但 ΔkW 与容量市场的收入，实务上须<strong>向总部所在地主管的都道府县税务事务所事先照会（书面询问）以确定</strong>。把这一点含糊带过而谈出的"预期收益率"，地基尚未夯实。这是签约·出资之前必须优先解决的事项。
+</div>
+
+<div class="info-box">
+<strong>可扣除项，以及其后的逆风。</strong>JEPX 上的放电收入已明确属于"收入划"的征税对象。另一方面，输电费（託送料金）、发电侧收费（発電側課金）、可再生能源附加费（再エネ賦課金）等可从收入中扣除，其中"发电侧收费"的扣除特例在令和 8 年度（2026 年度）税改中延长了 3 年（该次税改已于 2026 年 3 月成立·公布）。不过金额影响较小。此外，连这笔"营业额"本身的前提也在遭遇逆风（详见后文「05」）。
+</div>
+
+<h2>03 — 时间标签：17 年折旧，与名为「即时折旧」的希望</h2>
+
+<p>接下来是：设备的成本可以在多长期间内摊销（折旧）。电网级储能电池的法定折旧年限（耐用年数），目前被定为<strong>17 年</strong>（按"电气业用设备"归类）。其依据有点出人意料：因为收纳电池的箱体（集装箱）的支柱等为金属制，国税厅便将其视为"主要为金属制之物"。倘若被归为"其他之物"则为 8 年，故行业团体一直在呼吁缩短年限或改为可选制，但截至 2026 年 6 月尚未实现。</p>
+
+<p>17 年这个长度，会在"退出"时变成问题。因为若基金或项目在 10 年前后清算结束，设备会带着尚未摊销完的账面价值（簿価）收场。机械装置在不另行申报的情况下适用余额递减法（定率法，前期摊销较多）；但即便用余额递减法，<strong>到第 10 年时，仍约有取得价的近三成留作账面价值</strong>（若用直线法／定額法则约四成）。设备若为 7〜8 亿日元，约有 2 亿日元规模会残留。这部分残留的账面价值，要靠出售／转让用过的电池的价格来回收——而二手储能（中古BESS）的市场尚不成熟，因此这一块需要"精心设计"。一旦退出价格低于账面价值，差额就是亏损。</p>
+
+<p>正因如此，令和 8 年度（2026 年度）税改新设的「特定生产性提升设备等投资促进税制」备受关注。该制度规定：对一定的投资计划，若取得经济产业大臣的确认，便可在设备取得的首个年度选择<strong>即时折旧</strong>（或取得价一定比例的税额抵扣）。一旦能用上，退出时的账面价值问题就会一举缓解，初期现金流也将大为改善。</p>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 注记 ── 现阶段还不能把"能用上"当作既定前提（截至 2026 年 6 月）</span><br>
+这项制度，此刻还不能说"已经可以用了"。税制主体已于 2026 年 3 月成立·公布（令和 8 年／2026 年法律第 12 号），作为前提的《产业竞争力强化法》修订案也已于 2026 年 6 月 5 日公布（法律第 29 号）。但是，<strong>规定其施行日期的政令，以及经济产业省准备的投资计划申请样式，截至 2026 年 6 月仍未公布</strong>。即时折旧只有在修订法施行日之后才能使用，而施行日本身尚未确定。更进一步，<strong>电网级储能电池是否被纳入该制度的对象设备，本身也尚未确定</strong>（现已公布的税改大纲中，并未写明"蓄电池""蓄电所"这类品名）。要件门槛也不低——投资计划上取得价合计原则上须达 35 亿日元以上（中小企业者为 5 亿日元以上）、年平均投资利润率 15％ 以上，且"用于出租"的设备不在对象之列。<strong>约2MW／8MWh 的单座电站（设备 7〜8 亿日元规模）单独来看够不到原则 35 亿日元的门槛，现实的做法是要么搭上"中小企业者 5 亿日元"的标准，要么把多个项目打包</strong>。无论哪种，都不能用于"把电池租给对方"（tolling／租赁，トーリング／リース）的结构，前提是自行运营。
+</div>
+
+<p>因此在投资计划中，把即时折旧当作"已确定的前提"是不稳妥的，应当当作"预期会成立的准备"来对待。在施行政令与经产省的样式公布、储能电池的适用性明朗之前，不应在测算表里写下"必定适用"。不过它的期望值很大——<strong>即时折旧的收益（数亿日元规模），远超第 2 节的"收入划"（即便算全周期也只有数千万日元规模）</strong>。正因如此，宁可承受"收入划"也选择自行运营、去争取即时折旧，才是合理的路径。而选择租赁（tolling）结构，就意味着放弃即时折旧——这一点，直接关系到后文的结构选择。</p>
+
+<h3>「自行运营」还是「出租」 ― 即时折旧在这里见分晓</h3>
+
+<p>这是许多业主最初会犹豫的地方。同样一座储能电站，是<strong>自家持有并运营</strong>，还是<strong>租给对方（tolling／租赁）</strong>，税务的作用方式——尤其是能否用上即时折旧——会大不相同。逐项排开如下。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th></th><th>自家持有·运营<span class="u">聚合商只是代办＝你才是运营主体</span></th><th>租给对方<span class="u">tolling／租赁</span></th></tr>
+</thead>
+<tbody>
+<tr><td class="em">即时折旧<span class="u">特定生产性提升设备等投资促进税制</span></td><td class="ok">可用（以自行运营为要件）</td><td class="ng">不可用（"用于出租"不在对象之列）</td></tr>
+<tr><td class="em">收入划<span class="u">电气供给业</span></td><td class="cond">要交（因为是你在卖电）</td><td>你不卖电、收取租金 → 可能不属对象（租金按所得课税·需确认）</td></tr>
+<tr class="hl"><td class="em">量级</td><td class="ok">即时折旧＝数亿日元级的收益</td><td class="cond">规避收入划＝仅数千万日元级</td></tr>
+<tr><td class="em">适合的形态</td><td>想亲自做市场运营、并在首年大额摊销</td><td>想放手运营、用固定收入来运作</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-small">即时折旧能否适用、收入划的课税范围，会随方案设计与最新施行情况而变。实际金额以向税理士、县税务事务所事先确认为前提。</p>
+
+<div class="highlight-box">
+<strong>数亿日元的分水岭，不在于"是否经由聚合商"，而在于"运营主体是谁"。</strong>即便你通过聚合商把电池投入市场，只要聚合商是作为你的<strong>代理（代办）</strong>在行动，那么运营主体就是你＝自行运营，仍可能成为即时折旧的对象。反之，若把资产本身<strong>租给</strong>对方（运营权转移到对方手中的 tolling／租赁），就属于"用于出租"，被排除在即时折旧之外。由于收益是数亿日元级，<strong>"聚合商是代理，还是把资产租出去"——如何设计与签约，是税务的第一个分岔口</strong>。这里务必与税理士敲定（制度本身截至 2026 年 6 月也尚未确定）。
+</div>
+
+<h2>04 — 土地标签：「市街化调整区域」并不等于"直接出局"</h2>
+
+<p>到这里讲的都是事业与税务，最后讲土地。而土地这张标签，恰恰是最容易在签约之后才发现"已经无法挽回"的、最需要小心的要点。</p>
+
+<p>这里先澄清一个常见误解：<strong>"因为是市街化调整区域所以不能建"，这种说法并不准确。</strong>准确地说，<strong>只要能通过开发许可（地方政府）与消防这两关，调整区域里也能建设</strong>。难的不是"因为被禁止"，而是"那张许可能不能拿到，取决于当地政府"。我们按顺序来看。</p>
+
+<div class="tnote">
+<span class="tn-flag">译注 · 给中国读者</span>
+<p>日本的城市规划把已划线地区进一步分为两类：<strong>"市街化区域"</strong>（鼓励城市化、可正常开发）与<strong>"市街化调整区域"</strong>（抑制城市化、<strong>原则上禁止开发</strong>）。在调整区域内建任何设施，原则上都要拿到"开发许可"。此外还有未划定上述分区的<strong>"非划线区域"（非線引き区域）</strong>，限制相对宽松。</p>
+<p>用地若是农地，还叠加《农地法》：日本俗称<strong>"青地"</strong>＝划入"农用地区域"内的农地，<strong>原则不可转作他用</strong>，要先做"农振除外"（把该地块从农用地区域里剔除）；<strong>"白地"</strong>＝农用地区域外的农地，转用相对有望。<strong>"青地/白地"这一区别，往往决定项目能不能落地、要等多久。</strong></p>
+</div>
+
+<p>由于锂离子电池含有危险物，凡不属于"适用除外"（详见下文）的电网级储能电站，在《城市规划法》上<strong>可能被认定为「第一种特定工作物」</strong>。当它要建在市街化调整区域内时，就需要取得开发许可。</p>
+
+<p>这里，第 1 节·第 2 节的标签又开始发力了。因为能搭上"开发许可适用除外"（无需许可即可设置的通道）的，原则上<strong>只有"《电气事业法》下的发电事业者·输配电事业者的设备"</strong>。与《地方税法》上是不是"电气供给业"毫无关系。也就是说，约2MW级、"不是发电事业者"的储能电站，无法干净利落地搭上这条除外通道，只能作为"第一种特定工作物"正面去申请开发许可。</p>
+
+<p>而且，令和 7 年（2025 年）4 月，国土交通省发出技术性指导意见，提出：在市街化调整区域内设置作为"第一种特定工作物"的储能电站时，宜由地方政府先制定好审查基准再加以运用。反过来说，<strong>在尚未制定审查基准的地方政府辖区内，实际上批不下来许可</strong>。事实上，现阶段明确表示尚未制定市街化调整区域储能许可基准的地方政府不在少数。市街化调整区域，是"能建／不能建"因地方政府而极端分化、运用差异最大的领域。正因如此，把它理解为"不能建的区域"是不对的，准确的理解是"要去找当地政府逐一确认的区域"。</p>
+
+<p>另外，与开发许可<strong>并行的另一道关口，是消防</strong>。2024 年 1 月施行的消防法令修订，把监管单位改成了以 kWh 为基准，<strong>容量超过 20kWh 的储能设备须向消防做设置申报</strong>（本案的 8MWh 级当然在对象之列）。室外设置时，原则上须与建筑物保持 3m 以上间隔（采用 cubicle 高压配电箱式等可放宽或免除）、做防火与安全措施，并与辖区消防本部事先协商。<strong>即便地方政府的开发许可过了，消防不过照样不能建</strong>。换句话说，调整区域里要确认的对象有<strong>两个：地方政府（开发许可）与消防</strong>。尽早去摸这两关，是判断能否落地的捷径。</p>
+
+<p>用地若是农地，还要再叠加《农地法》。农用地区域内的农地（即"青地"）原则上不可转用，要设置就得先走"农振除外"手续。这通常要半年〜1 年（拖久了 2 年以上），令和 7 年（2025 年）4 月之后还加进了"地域计划"的变更手续，可能进一步拉长。另一方面，农用地区域外的农地（"白地"）则有转用许可的可能；若是从地主处租地再转用，则需要《农地法》第 5 条的许可——如此种种，难度因农地的类别而大不相同。</p>
+
+<p>我们把这套判断做成了<strong>一张可顺着箭头走的流程图</strong>。向下（▼）表示"条件通过、继续往下"，向右（▶）表示"这条路径的结论"。<strong>即使在调整区域，只要一路走到底，也会抵达「能建」</strong>。</p>
+
+<style id="bflow2-css">
+.bflow2{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:26px 18px}
+.bflow2 .bf-head{font-size:.82em;color:var(--text-light);letter-spacing:.05em;margin-bottom:18px;font-weight:600;text-align:center}
+.bflow2 .bf-center{display:flex;flex-direction:column;align-items:center}
+.bflow2 .bf-start{background:var(--navy);color:#fff;border-radius:22px;padding:10px 22px;font-weight:700;font-size:.9em;font-family:'Noto Serif SC','Noto Serif JP',serif;text-align:center}
+.bflow2 .bf-final{background:rgba(26,122,76,.12);border:2px solid var(--green);color:var(--navy);border-radius:8px;padding:14px 20px;font-weight:700;font-size:.96em;text-align:center;max-width:560px;font-family:'Noto Serif SC','Noto Serif JP',serif}
+.bflow2 .bf-final small{display:block;font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-weight:400;font-size:.8em;color:var(--text-light);margin-top:6px;line-height:1.7}
+.bflow2 .bf-arrow{display:flex;flex-direction:column;align-items:center;margin:1px 0}
+.bflow2 .bf-arrow .bf-line{width:2px;height:13px;background:#b9c0cb}
+.bflow2 .bf-arrow .bf-tri{font-size:13px;line-height:1;color:#b9c0cb;margin-top:-3px}
+.bflow2 .bf-arrow .bf-yes{font-size:.72em;font-weight:800;color:var(--navy);background:rgba(27,42,74,.08);border-radius:10px;padding:2px 10px;margin-bottom:3px}
+.bflow2 .bf-step{width:100%;max-width:620px;margin:0 auto}
+.bflow2 .bf-q{background:#fff;border:1.5px solid var(--navy);border-radius:8px;padding:12px 16px;font-weight:700;color:var(--navy);font-size:.9em;line-height:1.55;text-align:center}
+.bflow2 .bf-q .bf-qnum{display:inline-block;background:var(--navy);color:#fff;font-size:.66em;border-radius:10px;padding:2px 8px;margin-right:7px;font-family:'Noto Serif SC','Noto Serif JP',serif;vertical-align:middle}
+.bflow2 .bf-q small{display:block;font-weight:400;font-size:.8em;color:var(--text-light);margin-top:5px;line-height:1.6}
+.bflow2 .bf-exit{display:flex;align-items:flex-start;gap:8px;margin:9px 0 0 auto;width:fit-content;max-width:100%;padding-left:26px}
+.bflow2 .bf-exlabel{flex-shrink:0;font-size:.72em;font-weight:800;white-space:nowrap;margin-top:7px;color:var(--green)}
+.bflow2 .bf-exlabel.amber{color:var(--orange)}
+.bflow2 .bf-exlabel.red{color:var(--warn)}
+.bflow2 .bf-out{border-radius:6px;padding:9px 13px;font-size:.83em;line-height:1.65}
+.bflow2 .bf-out.ok{background:rgba(26,122,76,.08);border-left:3px solid var(--green)}
+.bflow2 .bf-out.cond{background:var(--orange-bg);border-left:3px solid var(--orange)}
+.bflow2 .bf-out.warn{background:var(--warn-bg);border-left:3px solid var(--warn)}
+.bflow2 .bf-out strong{color:var(--navy)}
+.bflow2 .bf-out.warn strong{color:var(--warn)}
+.bflow2 .bf-split{display:flex;gap:8px;flex-wrap:wrap}
+.bflow2 .bf-split>div{flex:1;min-width:170px}
+.bflow2 .bf-result{margin:20px auto 0;max-width:620px;background:var(--navy);color:rgba(255,255,255,.92);border-radius:8px;padding:16px 18px;font-size:.84em;line-height:1.9}
+.bflow2 .bf-result h6{margin:0 0 8px;font-size:.95em;color:#fff;font-family:'Noto Serif SC','Noto Serif JP',serif;font-weight:700}
+.bflow2 .bf-result .bf-rlabel{display:inline-block;min-width:3.4em;color:var(--accent-light);font-weight:700}
+.bflow2 .bf-result strong{color:#fff}
+@media(max-width:768px){.bflow2{padding:18px 11px}.bflow2 .bf-exit{padding-left:10px}.bflow2 .bf-split{flex-direction:column}}
+</style>
+<div class="fig-wrap" style="padding:0;background:none;border:none">
+<div class="bflow2">
+  <div class="bf-head">在市街化调整区域内能否"建得了"，用"是/否"一路判断（约2MW级）</div>
+  <div class="bf-center">
+
+    <div class="bf-start">想建一座 2MW 的电网级储能电站</div>
+    <div class="bf-arrow"><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-step">
+      <div class="bf-q"><span class="bf-qnum">Q1</span>用地是"市街化调整区域"吗？</div>
+      <div class="bf-exit"><span class="bf-exlabel">否 ▶</span><div class="bf-out ok">市街化区域·非划线区域等。<strong>选址门槛低</strong>（开发许可原则上不需要，或要件较轻）。</div></div>
+    </div>
+    <div class="bf-arrow"><span class="bf-yes">是 ↓</span><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-step">
+      <div class="bf-q"><span class="bf-qnum">Q2</span>开发许可有望拿到吗？<small>当地政府有审查基准／或放大到 10MW 以上、搭上"发电事业者"的适用除外</small></div>
+      <div class="bf-exit"><span class="bf-exlabel amber">否 ▶</span><div class="bf-out cond">若没有基准、又维持 2MW，则较难。考虑<strong>更换区域</strong>，或<strong>放大到 10MW 以上</strong>（一放大，电事法的负担就变重）。</div></div>
+    </div>
+    <div class="bf-arrow"><span class="bf-yes">是 ↓</span><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-step">
+      <div class="bf-q"><span class="bf-qnum">Q3</span>消防过得了吗？<small>消防法·火灾预防条例：容量 20kWh 以上须设置申报。室外原则须与建筑物保持 3m 以上间隔·做防火措施·与消防本部事先协商</small></div>
+      <div class="bf-exit"><span class="bf-exlabel amber">否 ▶</span><div class="bf-out cond">与消防本部<strong>再协商</strong>（确保间隔距离·防火措施·调整设备规格）。</div></div>
+    </div>
+    <div class="bf-arrow"><span class="bf-yes">是 ↓</span><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-step">
+      <div class="bf-q"><span class="bf-qnum">Q4</span>用地是"农地"吗？</div>
+      <div class="bf-exit"><span class="bf-exlabel red">是 ▶</span><div class="bf-split">
+        <div class="bf-out warn">⚠ <strong>青地</strong>（农用地区域内）：原则不可转用。先做<strong>农振除外（半年〜1 年，拖久了 2 年以上）</strong></div>
+        <div class="bf-out cond"><strong>白地</strong>（区域外）：<strong>农地法第 5 条</strong>的转用许可（从地主处租地时）</div>
+      </div></div>
+    </div>
+    <div class="bf-arrow"><span class="bf-yes">否（非农地）↓</span><span class="bf-line"></span><span class="bf-tri">▼</span></div>
+
+    <div class="bf-final">✓ 能建 ― 即使在调整区域，只要通过开发许可（地方政府）＋消防（＋农地·并网）就能设置<small>"市街化调整区域＝不行"是错的。难点不在"被禁止"，而在能否拿到许可、取决于当地政府。</small></div>
+
+  </div>
+
+  <div class="bf-result">
+    <h6>无论走哪条路径，除选址外共通要做的事</h6>
+    <span class="bf-rlabel">税</span> 电气供给业＝收入划<strong>不论规模</strong>都要交（亏损也交）。ΔkW 是否在对象内 → <strong>向县税务事务所事先照会</strong>。<br>
+    <span class="bf-rlabel">折旧</span> 想争取即时折旧，则以"<strong>自行运营</strong>"为前提（出租即出局·制度尚未确定）。<br>
+    <span class="bf-rlabel">并网</span> 确定接入合同·工程费负担金。<br>
+    <span class="bf-rlabel">顺序</span> 在用地签约<strong>"之前"</strong>，先与地方政府（开发许可）·消防·农业委员会事先协商。
+  </div>
+</div>
+<div class="fig-cap">图 — 即使在市街化调整区域，只要通过开发许可与消防就能建。▼＝条件通过则继续，▶＝该路径的结论</div>
+</div>
+
+<div class="highlight-box">
+土地能否落地，由 <strong>区域区分</strong> × <strong>地目</strong>（农地的青地／白地） × <strong>规模</strong>（电事法的标签） × <strong>消防</strong> 的乘积决定。反过来说，<strong>即使是市街化调整区域，只要这一连串乘积都通过，也能建</strong>。但结果在用地签约之后就无法更改，所以<strong>务必在签约"之前"，通过与地方政府（开发许可）·消防·农业委员会的事先协商把它敲定。</strong>
+</div>
+
+<h2>05 — 收益的三大支柱，与当下的逆风</h2>
+
+<p>为便于投资判断，也谈一谈收益结构本身。这一座电站的收入来自三大支柱：①供需调整市场（ΔkW／ΔkWh）、②容量市场的容量确保合约金、③在 JEPX 上的套利（峰谷价差）。把多个市场组合起来的"多重收益叠加（multi-use）"是基本打法。</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">−23<span class="unit">%</span></span><span class="lbl">供需调整市场 上限价格 19.51→15 日元/ΔkW·30分（改为前一日交易后·2026年4月〜）</span></div>
+  <div class="stat-cell"><span class="val">10·7.21<span class="unit">日元</span></span><span class="lbl">视竞争情况，未来或进一步分阶段下调的方针（讨论阶段）</span></div>
+  <div class="stat-cell"><span class="val">×2<span class="unit"></span></span><span class="lbl">交易所买卖手续费翻倍（0.03→0.06 日元/ΔkW·30分）。招募量也收缩至 1σ</span></div>
+</div>
+
+<p>但当下，收益正遭遇逆风。供需调整市场的上限价格已从 19.51 日元/ΔkW·30分 下调约 23％ 至 15 日元（改为前一日交易自 2026 年 3 月起，上限价格 15 日元·招募量 1σ 化自 2026 年 4 月起），并且明确了视竞争情况未来或进一步分阶段下调至 10 日元、7.21 日元的方针。与此同时，交易所买卖手续费翻了一倍（0.03→0.06 日元/ΔkW·30分）。容量市场方面，面向 2029 年度的成交总额（2026 年 1 月公布）刷新历史新高、总平均单价也达到约 13,300 日元/kW；尽管如此，<strong>依赖供需调整市场高单价的模型，已经不得不重新审视</strong>。正在研究的事业计划，其"预期收益率"是否已把这些下调计入数字，是务必要核对的一点。</p>
+
+<h2>06 — 一切都在联动：规模·选址·税务，无法各自单独选择</h2>
+
+<p>把前面四张标签摆在一起，一个结构便浮现出来：储能电站的<strong>规模·选址·税负，无法各自独立地最优化</strong>。动一个，另一个就跟着动。其中作用最大的，是"规模"这一根轴。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图 — 在“规模”这根轴上，电气事业法的监管向右上升、市街化调整区域的选址门槛向右下降、收入划的税保持不变">
+  <rect width="720" height="360" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans SC','Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">图 ／ 在规模这根轴上，监管与选址反向移动</text>
+  <line x1="110" y1="320" x2="650" y2="320" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="160" y="344" text-anchor="middle" font-family="'Noto Serif SC','Noto Serif JP',serif" font-size="12" font-weight="700" fill="#1B2A4A">约2MW级</text>
+  <text x="600" y="344" text-anchor="middle" font-family="'Noto Serif SC','Noto Serif JP',serif" font-size="12" font-weight="700" fill="#1B2A4A">10MW以上</text>
+  <text x="380" y="344" text-anchor="middle" font-family="'Noto Sans SC','Noto Sans JP',sans-serif" font-size="11" fill="#9aa5b1">― 规模（接入功率） →</text>
+  <line x1="140" y1="300" x2="610" y2="120" stroke="#C49A3C" stroke-width="3"/>
+  <circle cx="610" cy="120" r="4.5" fill="#C49A3C"/>
+  <text x="605" y="112" text-anchor="end" font-family="'Noto Sans SC','Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#A07916">监管（电气事业法）↗ 重</text>
+  <line x1="140" y1="130" x2="610" y2="300" stroke="#1B2A4A" stroke-width="3"/>
+  <circle cx="140" cy="130" r="4.5" fill="#1B2A4A"/>
+  <text x="150" y="124" font-family="'Noto Sans SC','Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">选址门槛（市街化调整区域）↘ 轻松</text>
+  <line x1="140" y1="305" x2="610" y2="305" stroke="#cc4444" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="470" y="298" text-anchor="middle" font-family="'Noto Sans SC','Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#cc4444">收入划（税）― 不论规模保持不变</text>
+  <line x1="368" y1="208" x2="368" y2="320" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="3 3"/>
+  <circle cx="368" cy="213" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="368" y="194" text-anchor="middle" font-family="'Noto Sans SC','Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">监管与选址在此互换</text>
+</svg>
+<div class="fig-cap">图 — 在"规模"这根轴上，监管（电事法）与选址门槛（市街化调整区域）反向移动；税（收入划）则在下方保持不变地驻留</div>
+</div>
+
+<p>为了减轻《电气事业法》的监管而<strong>建得小</strong>（约2MW级），在市街化调整区域就搭不上"发电事业者的设备"这条通道，卡在开发许可上。反过来，为了在调整区域也能搭上适用除外而<strong>建得大</strong>（接入 10MW 以上），这下又轮到《电气事业法》的发电事业申报·施工计划·使用前检查重重压来。"低监管"与"易选址"能同时拿到的点，在这根轴上并不存在。而且，无论选哪边，<strong>都逃不掉收入划（税）</strong>——因为《地方税法》的电气供给业不论规模。</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">建得小</span>
+    <h4>维持约2MW</h4>
+    <p>《电气事业法》负担轻。但因为没有"发电事业者"的标签，难以进入市街化调整区域，前提是选在非划线区域·市街化区域·白地等、避开调整区域的位置。</p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">建得大</span>
+    <h4>放大到 10MW 以上</h4>
+    <p>成为"发电事业者"后，容易搭上开发许可的适用除外，通往市街化调整区域的路打开了。但要承担申报·施工计划·使用前检查，监管变重。</p>
+  </div>
+</div>
+
+<p>也就是说，投资判断只能把"规模""选址""税务"当作一个三角形同时来看，而不能分开决定。先定用地再定规模，会在税务或许可上卡壳；先图税务效率再定规模，则选址被绑死。<strong>一开始有没有理解这种联动，正是日后会不会踩到"无法挪动的地雷"的分水岭。</strong></p>
+
+<h2>07 — 签约之前：必须确认的 7 点</h2>
+
+<p>整理一下，签约·出资之前要确认的就是以下 7 点。按动手的先后顺序排列。</p>
+
+<div class="checklist-group" id="fdi-checklist">
+  <h5><span class="cl-num">!</span>签约·出资前要逐一排雷的 7 点</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01</span>税务事先照会：供需调整市场的 ΔkW、容量市场的收入，是否计入法人事业税的"收入划"。向总部所在地主管的县税务事务所·税理士事先照会。JEPX 售电按"属对象"为前提试算。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02</span>即时折旧能否成立：制度施行情况、经产大臣事先确认的流程、取得价（中小 5 亿日元）基准·ROI 15％·自行运营（委托聚合商是否会被当作"出租"）——与税理士敲定。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03</span>选址尽调：区域区分·地目（是否青地）、开发许可·<strong>消防（消防法／火灾预防条例）</strong>·农地转用的前景。在签约前，与地方政府的开发指导部门·<strong>消防本部</strong>·农业委员会以书面形式事先协商。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04</span>收益前提的检验：计划是否已计入供需调整市场的上限价格下调·招募量削减·手续费上升。确认聚合商的业绩·手续费·可对接的市场。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05</span>系统并网：确定接入合同·工程费负担金。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06</span>退出设计：折旧年限 17 年与事业期间 10 年出头之间的错位、账面价值残留、二手储能（中古BESS）出售·转让价格的前提。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07</span>总部所在地：是否属于超额课税的地方团体（例：爱知县·东京都等）所带来的税负差异。</span></label>
+  <div class="check-progress"><span class="bar"><span class="bar-fill" id="checkBarFill"></span></span><span>已确认 <span class="count" id="checkCount">0</span> / 7</span></div>
+</div>
+
+<h2>结语 — 先有地图，再谈收支表</h2>
+
+<p>"电气供给业"这个名字听起来很重，但运营与监管的负担，靠门槛设计和外包其实相当轻。真正会发力的是三件事：<strong>①不依赖利润的"收入划"这项税、②17 年折旧与 10 年事业期之间的错位所造成的退出问题、③选址的悖论</strong>。而这三件事，全都能从开头那"两张标签"反推出来。</p>
+
+<p>最能左右这笔投资回报的，归结为现阶段尚无定论的两点——<strong>ΔkW 是否计入收入划</strong>、<strong>即时折旧能否使用</strong>。只要靠事先照会与税理士确认把这两点解决，收益率的区间就能定下来。反之，把这两点含糊带过而谈出的"预期收益率"，最好当作"地基尚未夯实的数字"来看。储能电站的投资，在收支表之前，就由你手里有没有这张地图所决定。</p>
+
+<div class="sources-box">
+<h4>主要一手资料·出处（截至 2026 年 6 月）</h4>
+<ul class="src-list">
+<li><span class="t">监管</span>《电气事业法》（发电事业申报＝输出功率 1,000kW 以上且面向售电等的接入最大电力合计超过 10MW／施工计划申报·使用前自主检查·安全管理审查＝输出功率 1万kW 以上或容量 8万kWh 以上／电气主任技术者外部委托承认制度＝输出功率 5,000kW 以下·电压 7,000V 以下／保安规程的编制·申报）。</li>
+<li><span class="t">税务</span>《地方税法》（电气供给业＝按收入金额课税，收入划标准税率 0.75％，叠加特别法人事业税，所得划标准税率 1.85％／收入划超额税率示例：爱知县 0.789％。JEPX 放电收入属对象，输电费·发电侧收费等可扣除）。</li>
+<li><span class="t">折旧</span>国税厅《关于折旧资产耐用年数等的省令》（电气业用设备 17 年。将储能电池视为"主要为金属制之物"的处理）。</li>
+<li><span class="t">税制</span>《令和 8 年度税制改正大纲》·所得税法等修订法（令和 8 年／2026 年法律第 12 号，2026 年 3 月 31 日公布）＝特定生产性提升设备等投资促进税制（即时折旧，或取得价 7％＝建筑物等 4％ 的税额抵扣。取得价合计 35 亿日元以上·中小企业者 5 亿日元以上，年平均投资利润率 15％ 以上，"不含用于出租者"）／《产业竞争力强化法》修订（法律第 29 号，2026 年 6 月 5 日公布。施行日期政令·申请样式截至 2026 年 6 月未公布，储能电池是否属对象设备亦未确定）。</li>
+<li><span class="t">市场</span>资源能源厅 制度检讨工作部会·稳定供应 WG／OCCTO（供需调整市场上限价格 19.51→15 日元/ΔkW·30分＝自 2026 年 3 月交割分起。未来的 10·7.21 日元处于讨论阶段，招募量的重新调整，交易所手续费上调／容量市场主拍卖成交结果＝面向 2029 年度的成交总额·总平均单价均创历史新高，2026 年 1 月公布）。</li>
+<li><span class="t">选址</span>《城市规划法》（第一种特定工作物，市街化调整区域的开发许可，适用除外＝《电气事业法》的发电事业者·输配电事业者的设备）／国土交通省 技术性指导意见（令和 7 年／2025 年 4 月）／《农地法》（第 4 条·第 5 条，农用地区域内农地的农振除外＝青地·白地之别）／消防法·各地方政府火灾预防条例（令和 5 年消防厅告示第 7 号，2024 年 1 月 1 日施行起监管单位 kWh 化＝容量 20kWh 以上须设置申报。室外原则须与建筑物保持 3m 以上间隔）。</li>
+</ul>
+<div class="source">注：本文对制度的梳理·税率·折旧年限·即时折旧的施行情况·地方政府开发许可的运用·农地转用的可否，均可能因法律修订或各地方政府的运用而变化。其中尤以 ①供需调整市场 ΔkW 计入收入划、②即时折旧适用于储能电池、③市街化调整区域的地方政府运用 这三点，截至 2026 年 6 月当局·地方政府尚无确定见解。本文为一般性解读，并非税务·法务上的确定建议。在实际进行投资判断时，请就各事项分别向税理士、相关地方政府的开发指导部门·农业委员会、熟悉电力领域的律师／行政书士等各自的专业人士·窗口逐一确认。</div>
+</div>
+
+<div class="cta-section">
+  <h3>把真实项目的数字，用于投资判断</h3>
+  <p>本文是一张通用的制度地图。真实项目的规模·选址（区域／地目）·收益前提·税务方案·退出设计·尽调资料，<br>将在您联系我们并签署 NDA 后单独提供。我们可提供日语·英语·中文的对接服务。</p>
+  <a target="_top" href="https://www.scix.co.jp/contact" class="cta-btn">联系我们 →</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var h=document.getElementById('scix-header'),b=document.getElementById('scix-header-burger'),o=document.getElementById('scix-header-overlay');
+  if(!h||!b)return;
+  function t(){var open=h.classList.toggle('scix-header-open');b.setAttribute('aria-expanded',open?'true':'false');}
+  b.addEventListener('click',t);
+  if(o)o.addEventListener('click',t);
+  h.querySelectorAll('.scix-header-nav a').forEach(function(a){a.addEventListener('click',function(){h.classList.remove('scix-header-open');b.setAttribute('aria-expanded','false');});});
+})();
+(function(){
+  var g=document.getElementById('fdi-checklist');if(!g)return;
+  var c=g.querySelectorAll('input[type=checkbox]'),cnt=document.getElementById('checkCount'),fl=document.getElementById('checkBarFill'),tot=c.length;
+  function u(){var d=0;c.forEach(function(x){if(x.checked)d++;});cnt.textContent=d;fl.style.width=(d/tot*100)+'%';}
+  c.forEach(function(x){x.addEventListener('change',u);});u();
+})();
+</script>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans SC','Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif SC','Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX 首页">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
