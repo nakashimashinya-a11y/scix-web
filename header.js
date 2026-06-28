@@ -201,6 +201,7 @@
     '<a href="/en/contact" class="scix-cta">Contact</a>'
   ] : [
     '<a href="/"          data-page="/">ホーム</a>',
+    '<a href="/grid-storage" data-page="/grid-storage">系統用蓄電池とは</a>',
     '<div class="scix-nav-dd">' +
       '<button type="button" class="scix-nav-dd-toggle" aria-haspopup="true" aria-expanded="false">案件<span class="scix-dd-caret" aria-hidden="true">▾</span></button>' +
       '<div class="scix-nav-dd-menu">' +
