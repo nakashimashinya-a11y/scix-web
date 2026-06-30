@@ -251,7 +251,7 @@
   header.innerHTML = [
     '<div class="scix-header-overlay" id="scix-header-overlay"></div>',
     '<div class="scix-header-inner">',
-    '  <a href="' + logoHref + '" class="scix-header-logo"><img src="/img/logo-white.png" alt="ScienceX"></a>',
+    '  <a href="' + logoHref + '" class="scix-header-logo"><img src="/img/logo-white.png" alt="ScienceX" width="91" height="36" decoding="async"></a>',
     '  <nav class="scix-header-nav" id="scix-header-nav">',
          nav.join('\n'),
     '  </nav>',
