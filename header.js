@@ -182,6 +182,10 @@
     '}'
   ].join('\n');
 
+  // Floating mobile contact CTA — on mobile the nav collapses into the hamburger,
+  // so keep a persistent, always-visible conversion path. navy-on-gold = WCAG AA.
+  css += "\n.scix-float-cta{position:fixed;right:16px;bottom:16px;z-index:9000;display:none;align-items:center;gap:7px;padding:13px 20px;background:#C49A3C;color:#1B2A4A;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:700;text-decoration:none;border-radius:100px;box-shadow:0 6px 20px rgba(27,42,74,.28)}.scix-float-cta:active{transform:translateY(1px)}.scix-float-cta svg{width:16px;height:16px}@media(max-width:768px){.scix-float-cta{display:inline-flex}}";
+
   var style = document.createElement('style');
   style.id = 'scix-header-css';
   style.textContent = css;
@@ -263,6 +267,17 @@
   ].join('\n');
 
   document.body.insertBefore(header, document.body.firstChild);
+
+  // Floating contact CTA (mobile only; hidden on the contact/sell-form/thanks pages themselves)
+  if (!/contact|sell-form|thanks/.test(path)) {
+    var fcta = document.createElement('a');
+    fcta.className = 'scix-float-cta';
+    fcta.href = isZh ? '/zh-contact' : (isEn ? '/en/contact' : '/contact');
+    fcta.setAttribute('target', '_top');
+    fcta.setAttribute('aria-label', isEn ? 'Contact us' : (isZh ? '咨询' : 'ご相談・お問い合わせ'));
+    fcta.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' + (isEn ? 'Contact' : (isZh ? '咨询' : '相談する'));
+    document.body.appendChild(fcta);
+  }
 
   // --------------- 3. Active page detection ---------------
   var links = header.querySelectorAll('.scix-header-nav a');
