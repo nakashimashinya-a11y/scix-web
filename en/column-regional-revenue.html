@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Where a grid battery earns most in Japan — 9 areas x 3 markets, a measured 2 MW / 8 MWh comparison and a 3-5 year outlook | ScienceX</title>
+<meta name="description" content="For a high-voltage 2 MW / 8,000 kWh (4-hour) grid battery, the realized snapshot is ~¥290-300M/yr (median) in the five areas where the balancing-market door stayed open all year (Kyushu, Tokyo, Chubu, Hokuriku, Kansai); Kyushu leads at ~¥295M, and roughly 80% of that is the balancing market. Hokkaido and Tohoku, the two JEPX leaders, are shut out of that row by pumped-hydro bilateral contracts. We fix all three markets from measured data, largest first, and trace seasonal operation and the 3-5 year decay curve with real per-area numbers.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-regional-revenue">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-regional-revenue">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-regional-revenue">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-regional-revenue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Where a grid battery earns most in Japan — 9 areas x 3 markets, measured | ScienceX">
+<meta property="og:description" content="The realized figure for a 2 MW / 8 MWh battery is ~¥290-300M/yr in the five open-door areas, led by Kyushu at ~¥295M, ~80% of it balancing. Hokkaido and Tohoku are shut out by bilateral contracts — the arbitrage map and the ΔkW map do not overlap.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-regional-revenue">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Where a grid battery earns most in Japan — 9 areas x 3 markets, measured | ScienceX">
+<meta name="twitter:description" content="Realized ~¥290-300M/yr in the five open-door areas, led by Kyushu at ~¥295M. Balancing-only theoretical range ¥310-470M. Traced to the decay curve, from measured data.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-07-05">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-grid.three{grid-template-columns:1fr 1fr 1fr}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif JP',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.edit-memo{background:#FBFAF7;border:1px solid var(--border);border-left:3px solid var(--accent);padding:18px 22px;margin:0 0 28px;border-radius:0 4px 4px 0;font-size:.82em;line-height:1.95;color:var(--text-light)}
+.edit-memo strong{color:var(--navy)}
+.flag-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:8px 0 4px;font-size:.78em;color:var(--text-light)}
+.flag-legend span b{color:var(--navy)}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.src-list{list-style:none;margin:8px 0 0;padding:0}
+.src-list li{font-size:.8em;color:var(--text-light);line-height:1.75;padding:8px 0;border-bottom:1px dashed var(--border)}
+.src-list li:last-child{border-bottom:none}
+.src-list .t{display:inline-block;font-size:.7em;font-weight:700;color:var(--accent);margin-right:8px;letter-spacing:.06em}
+.part-head{margin:56px 0 8px;padding:14px 20px;background:var(--navy);color:#fff;border-radius:6px;display:flex;align-items:baseline;gap:14px}
+.part-head .pnum{font-family:'Noto Serif JP',serif;color:var(--accent-light);font-weight:700;letter-spacing:.08em;font-size:.85em}
+.part-head .ptitle{font-family:'Noto Serif JP',serif;font-weight:600;font-size:1.05em}
+.part-head .psub{margin-left:auto;font-size:.75em;color:rgba(255,255,255,.55)}
+.related-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 0}
+.related-list a{display:block;background:var(--white);border:1px solid var(--border);border-radius:6px;padding:12px 16px;text-decoration:none;font-size:.82em;color:var(--navy);font-weight:600;transition:all .2s}
+.related-list a:hover{border-color:var(--accent);box-shadow:0 2px 10px rgba(196,154,60,.12)}
+.related-list a .rl-cat{display:block;font-size:.78em;color:var(--text-light);font-weight:400;margin-bottom:3px}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .compare-grid,.compare-grid.three{grid-template-columns:1fr}
+  .related-list{grid-template-columns:1fr}
+  .part-head{flex-wrap:wrap;gap:8px 14px}
+  .part-head .psub{margin-left:0;width:100%}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Where a grid battery earns most in Japan — 9 areas x 3 markets, a measured 2 MW / 8 MWh comparison and a 3-5 year outlook | ScienceX",
+  "description": "For a high-voltage 2 MW / 8,000 kWh (4-hour) grid battery, the realized snapshot is ~¥290-300M/yr (median) in the five areas where the balancing-market door stayed open all year (Kyushu, Tokyo, Chubu, Hokuriku, Kansai); Kyushu leads at ~¥295M, and roughly 80% of that is the balancing market. Hokkaido and Tohoku, the two JEPX leaders, are shut out of that row by pumped-hydro bilateral contracts. We fix all three markets from measured data, largest first, and trace seasonal operation and the 3-5 year decay curve with real per-area numbers.",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "datePublished": "2026-07-05",
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-regional-revenue"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Where a grid battery earns most in Japan — 9 areas x 3 markets, a measured 2 MW / 8 MWh comparison and a 3-5 year outlook",
+      "item": "https://www.scix.co.jp/en/column-regional-revenue"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/en" style="color:#5A6577;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#5A6577;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">Where a grid battery earns most in Japan — 9 areas x…</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 35 / Market Analysis</span>
+      <span class="header-tag">Revenue &amp; Area Strategy</span>
+      <time class="header-date" datetime="2026-07-05">2026.07.05</time>
+    </div>
+    <h1>The highest-earning area is<br><em>the one most easily cannibalized</em></h1>
+    <p class="header-desc">How much does a high-voltage 2 MW / 8,000 kWh (4-hour) battery actually earn today? The answer is ~¥290-300M/yr (realized, median) in the five areas where the balancing-market door stayed open all year (Kyushu, Tokyo, Chubu, Hokuriku, Kansai), with Kyushu leading at ~¥295M — and roughly 80% of that comes from the balancing market. Hokkaido and Tohoku, the two JEPX leaders, are shut out of that row by pumped-hydro bilateral contracts. We fix all three markets from measured data, largest first: for buyers, "which area to buy"; for owners, "how to run it" — in real per-area numbers.</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/en/knowledge" class="back-link">&larr; Back to Knowledge</a>
+
+<div class="info-box">
+<strong>Context for readers outside Japan — how to read this piece.</strong> This column is written for practitioners in Japan's grid-scale storage market; the orientation below is added for readers elsewhere. Specialists can skip to the editorial note.
+<br><br>
+<strong>The asset and the unit.</strong> The reference asset throughout is a high-voltage 2 MW / 8,000 kWh (4-hour) battery — the standard yardstick in this market. All revenue is normalized to yen per kW per year (revenue divided by the 2,000 kW nameplate), abbreviated ¥/kW/yr, the basis Japanese developers underwrite against.
+<br><br>
+<strong>The grid: nine areas, not one.</strong> Japan has nine regional balancing areas, each run by a regional transmission system operator (TSO): Hokkaido, Tohoku and Tokyo in the east (50 Hz), and Chubu, Hokuriku, Kansai, Chugoku, Shikoku and Kyushu in the west (60 Hz). The areas are joined only by comparatively thin interconnectors and two 50/60 Hz frequency converters, so prices, scarcity and reserve shortfalls diverge sharply between areas. That divergence is the whole subject of this piece.
+<br><br>
+<strong>Three revenue markets (largest first, for this asset).</strong> (1) The balancing market: the nine TSOs procure frequency-response and reserve products — primary, secondary and tertiary reserves, collectively "ΔkW" — through a shared trading platform (referred to here as the balancing platform, operated as EPRX). Batteries are paid an availability price quoted in yen per ΔkW per 30-minute settlement slot, cleared pay-as-bid. For this asset it is roughly 80% of revenue. (2) JEPX spot: the Japan Electric Power Exchange runs the half-hourly wholesale day-ahead market, where area prices are set and batteries earn energy arbitrage (charge cheap slots, discharge expensive ones). (3) The capacity market: run by OCCTO, a forward auction paying a ¥/kW capacity value for firm availability, cleared about four years ahead of the delivery year. It is a revenue floor, and it carries performance obligations.
+<br><br>
+<strong>Institutions and acronyms.</strong> METI / ANRE — the national energy regulator (the Agency for Natural Resources and Energy, within the Ministry of Economy, Trade and Industry). OCCTO — the cross-regional grid coordinator, which runs the capacity market and national transmission planning. JEPX — the wholesale spot exchange. The balancing platform (EPRX) — the reserve-market venue. TSO — a regional grid operator.
+<br><br>
+<strong>Fiscal years.</strong> Japan's fiscal year runs April to March; "FY2029" means April 2029 to March 2030. Capacity auctions clear about four years before their delivery year.
+<br><br>
+<strong>The 14 March 2026 break.</strong> On that delivery date, balancing products moved to day-ahead / 30-minute trading and the ΔkW price cap fell from ¥19.51 to ¥15.00 per ΔkW per slot, while procurement volumes were cut. A separate trading-fee change took effect 1 April 2026. This piece never averages data across the 14 March break — a distinction the analysis is strict about.
+<br><br>
+<strong>Currency scale.</strong> Figures are in yen. Japanese usage counts in units of 100 million (10^8) yen; this English version writes ¥ million and ¥ billion throughout. As an indicative anchor, the yen traded around ¥161 per US dollar in early July 2026 (near a four-decade low, and moving daily), so ¥100 million is roughly US$0.62M and ¥1 billion is roughly US$6.2M. Treat any dollar figure you derive as approximate.
+<br><br>
+<strong>Judgment marks used throughout.</strong> ✅ confirmed in a primary source; ⚠️ conditional or provisional; ❌ disproven or not applicable; ❓ unpublished or unverified (an inquiry contact is given); 🚩 a material risk.
+</div>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Term used here</th><th>What it means</th><th>Nearest non-Japan analogue</th></tr></thead>
+<tbody>
+<tr><td class="em">Balancing market / ΔkW</td><td>TSO-procured reserve capacity, paid for availability (¥ per ΔkW per 30-min slot)</td><td>ENTSO-E balancing / reserve markets</td></tr>
+<tr><td class="em">Primary reserve</td><td>Fastest frequency response</td><td>≈ FCR</td></tr>
+<tr><td class="em">Secondary reserve ① / ②</td><td>Automatic restoration reserve</td><td>≈ aFRR</td></tr>
+<tr><td class="em">Tertiary reserve ① / ②</td><td>Slower / manually dispatched reserve</td><td>≈ mFRR / replacement reserve</td></tr>
+<tr><td class="em">Composite product</td><td>A bundled reserve product spanning several categories</td><td>Japan-specific</td></tr>
+<tr><td class="em">Procurement shortfall rate</td><td>Buyer-side unmet ratio; a high rate means the "door" is open (qualifying bids clear)</td><td>—</td></tr>
+<tr><td class="em">Pay-as-bid (multi-price)</td><td>Each winning bid is paid its own price, not a single clearing price</td><td>Pay-as-bid</td></tr>
+<tr><td class="em">The ceiling</td><td>Perfect-foresight theoretical maximum arbitrage revenue — an upper bound, not a forecast</td><td>—</td></tr>
+<tr><td class="em">Floor / Core / Engine</td><td>This piece's revenue stack: Floor = capacity market; Core = JEPX arbitrage ceiling; Engine = balancing market (the ~80% block)</td><td>—</td></tr>
+<tr><td class="em">Derating coefficient</td><td>Credited capacity = nameplate x coefficient (about 56-90% for a 4-hour battery)</td><td>≈ de-rating factor / capacity credit</td></tr>
+<tr><td class="em">Reference price (Net CONE)</td><td>Capacity-auction price benchmark</td><td>≈ Net CONE</td></tr>
+<tr><td class="em">Pumped-hydro bilateral contract</td><td>Out-of-market negotiated reserve procurement that can close an area's balancing "door"</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="edit-memo">
+<strong>Editorial note:</strong> The JEPX-related figures in this column are <strong>measured values</strong> that ScienceX computed independently from JEPX's published spot-market result CSVs (FY2024-FY2026); the calculation spec is set out in Section 01. For the balancing market's "new-regime" period, we use provisional values from the 28 days after the shift to day-ahead trading (14 Mar - 10 Apr 2026) as a proxy, and will update once the full-period confirmed figures are published. The FY2030 derating coefficients and demand curve for the capacity market are unpublished as of writing (typically around end-July), so that section will be supplemented once they are fixed. Also, the balancing-market price cap (¥15 per ΔkW per 30-min slot) took effect for <strong>deliveries from 14 March 2026</strong>. The "1 April effective date" is the commencement of certain trading-rule clauses (fees and the like), not the start date of the price cap; our earlier published column (COLUMN 25) carried the same misprint, and we correct it here in step with this publication. The area differences in ΔkW (the opening and closing of the "door" via bilateral contracts and shortfall rates) are reflected pro-rata by period; we construct no average that straddles the regime break. This column is a market analysis based on general examples, not investment, tax or legal advice. Confirmed figures for a specific project are provided individually under NDA.
+</div>
+
+<p>A grid battery's revenue is decided by "which contract you run it under" — that is what we have written up to the previous column. There is a second variable of equal weight: <strong>which area you place it in</strong>.</p>
+
+<p>Let us put the answer first. Built on the realized figures of the last 12 months, this reference asset earns roughly <strong>¥290-300M/yr (median) in the five areas where the balancing-market door stayed open all year — Kyushu, Tokyo, Chubu, Hokuriku, Kansai</strong>, with Kyushu leading at about ¥295M. The breakdown is <strong>about 80% balancing market</strong>, with JEPX and the capacity market together about 20% — an owner's P&amp;L begins with balancing, so this piece begins there too. And Hokkaido and Tohoku, No. 1 and No. 2 in JEPX, cannot join those five. What was blocking the door was pumped-hydro bilateral contracts — <strong>the arbitrage map and the ΔkW map do not overlap</strong>. We fix the three markets in order of revenue size, and show buyers "which area to buy" and owners "how to run it," in real numbers, from both the seasonal and the regulatory angle.</p>
+
+<div class="data-box">
+<div class="db-head">The scope of this piece (as annual revenue for a 2 MW / 8,000 kWh unit)</div>
+<dl class="premise-grid">
+  <div><dt>Reference unit</dt><dd>2<span class="unit">MW / 8,000 kWh (4h, RTE 85%)</span></dd></div>
+  <div><dt>Measurement window</dt><dd>2025.07-2026.06<span class="unit">delivery basis, full 365 days</span></dd></div>
+  <div><dt>Realized, 5 open-door areas</dt><dd>¥290-300M<span class="unit">/yr, median</span></dd></div>
+  <div><dt>ΔkW-only (theoretical)</dt><dd>¥310-470M<span class="unit">/yr</span></dd></div>
+  <div><dt>ΔkW share</dt><dd>~80%<span class="unit">JEPX + capacity ~20%</span></dd></div>
+  <div><dt>Floor + Core area spread</dt><dd>~¥15M<span class="unit">/yr (the gap left after erosion)</span></dd></div>
+</dl>
+</div>
+
+<div class="part-head"><span class="pnum">Part 1</span><span class="ptitle">Which area earns how much, right now</span><span class="psub">For buyers of a 2 MW / 8 MWh unit</span></div>
+
+<h2>01 — Premises and how to read them</h2>
+
+<p>The JEPX measurements use a single calculation spec. One cycle per day, perfect foresight: discharge uses each day's <strong>eight highest-price slots</strong> (2 MW x 0.5 h x 8 = 8,000 kWh), charging draws <strong>9,412 kWh from the lowest-price slots up</strong> (8,000 / 0.85; the nine lowest slots plus a pro-rated tenth). Daily gross margin = discharge revenue minus charging cost. Because foresight is perfect, this value is a theoretical upper bound — we call it <strong>"the ceiling"</strong>. In real operation it is eroded by forecast error, availability and aggregator fees, so we always show the ceiling and realized revenue separately (a level of 60-80% of the ceiling is often cited, but it is not an established figure in the measured data, so we do not assert it).</p>
+
+<p>The balancing market has a break partway through these 12 months. Procurement of primary through tertiary-① moved from weekly, 3-hour blocks to a <strong>day-ahead, 30-minute product, and at the same time the ΔkW price cap was cut from ¥19.51 to ¥15.00 per ΔkW per slot — both from deliveries on 14 March 2026</strong> (confirmed in the rule text the balancing platform published on 5 February 2026). This piece tallies the old-regime period (1 Jul 2025 - 13 Mar 2026, 256 days) and the new-regime period (14 Mar - 30 Jun 2026, 109 days) separately, and <strong>constructs no average that straddles the break</strong>.</p>
+
+<div class="flag-legend">
+<span><b>✅</b> Confirmed in a primary source</span><span><b>⚠️</b> Conditional / provisional</span><span><b>❌</b> Disproven / not applicable</span><span><b>❓</b> Unpublished / unverified (contact given)</span><span><b>🚩</b> Material risk</span>
+</div>
+
+<h2>02 — The balancing market: the revenue body sits here</h2>
+
+<p>In order of revenue size, we begin with the biggest earner. First, the post-break terms. From deliveries on 14 March 2026, <strong>the cap for composite, primary and secondary-① is ¥15.00; for secondary-② and tertiary-① it is ¥7.21 (unchanged); and tertiary-② has no cap</strong>. The trading fee doubled from ¥0.03 to <strong>¥0.06 per ΔkW per slot</strong> for actual delivery from 1 April 2026 (what changed on 14 March was the products, caps and procurement volumes; 1 April was the fee only), and the procurement volume for primary and secondary-① was cut from a 3σ to a 1σ equivalent (about 13% down; the band from just above 1σ to 3σ is covered by the reserve-utilization contract in the capacity market). The new regime begins with all three levers — price, volume and cost — tightened at once.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Product</th><th class="num">Old regime<span class="u">FY2025 confirmed</span><br>avg price / shortfall</th><th class="num">New regime<span class="u">14 Mar-10 Apr, prov. ⚠️</span><br>avg price / shortfall</th><th class="num">Price cap<span class="u">new regime</span></th></tr></thead>
+<tbody>
+<tr><td class="em">Primary reserve</td><td class="num">¥3.93 / 60.4%</td><td class="num">❓ / 36.3%</td><td class="num">¥15.00</td></tr>
+<tr><td class="em">Secondary reserve ①</td><td class="num">¥2.79 / 41.1%</td><td class="num">—</td><td class="num">¥15.00</td></tr>
+<tr><td class="em">Secondary reserve ②</td><td class="num">¥2.53 / 4.3%</td><td class="num">—</td><td class="num">¥7.21</td></tr>
+<tr><td class="em">Tertiary reserve ①</td><td class="num">¥2.47 / 12.9%</td><td class="num">—</td><td class="num">¥7.21</td></tr>
+<tr class="hl"><td class="em">Composite product</td><td class="num">¥2.83 / 22.0%</td><td class="num">¥2.86 / 17.8%</td><td class="num">¥15.00</td></tr>
+<tr><td class="em">Tertiary reserve ②</td><td class="num">¥1.15 / 2.1%</td><td class="num">¥2.90 / 6.7%</td><td class="num">none</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Unit: ¥ per ΔkW per 30-min slot. Shortfall rate = the share of procurement volume left unmet (buyer-side unmet, not the sellers' loss rate). Sources: balancing platform, FY2025 trading results (18 Jun 2026); ANRE Stable Electricity Supply WG, 1st meeting, Doc 8 (13 May 2026, the 28 days after the shift to day-ahead trading). Old and new cannot be cross-averaged because their calculation periods and definitions differ. Full-period confirmed figures for the new regime are unpublished ❓.</p>
+
+<p>Still, applying that average price straight to a battery misreads the market, because of the market's tilt. Primary, secondary-① and composite are <strong>markets in procurement shortfall</strong> — the shortfall is buyer-side non-fulfilment, and in principle every bid meeting the requirements clears. So a battery's real price is not the market average (which includes thermal and pumped hydro) but the <strong>battery's realized winning price: a monthly ¥8.8-13.5 per ΔkW per slot</strong> (balancing-platform data by generation type; primary and composite at the same level). Building 12 months on this, a JEPX-combined pattern (bidding 30 slots, excluding the 18 charge/discharge slots) gives about ¥97,000-148,000 per kW per year — <strong>which for a 2 MW unit is about ¥190-300M/yr (median ~¥240M)</strong>. Going all-in on balancing (48 slots) gives about ¥155,000-237,000 per kW per year = <strong>¥310-470M/yr</strong>. For reference, building the same 30 slots at the composite market average of ¥2.83 yields about ¥62M/yr — this roughly fourfold gap is the distance between "the regulator's statistics" and "the operator's lived experience."</p>
+
+<p>We disclose the deduction side up front too. What can be pinned down is small — the balancing platform's fee of ¥0.06 per ΔkW per slot (which the guidelines permit passing through into bid prices), the JEPX spot fee of ¥0.03 per kWh, and wheeling charged only on storage losses under the battery exemption. In annual terms none of these move the displayed unit. What does move it is the one undisclosed sheet, <strong>the aggregator fee</strong>. The only published rate is the 5% for RE100 power; applying the 10-30% that is said to prevail (secondary information ❓) to the median ~¥240M/yr means <strong>¥24-73M/yr</strong> goes to the delegatee. Before you debate the digits of the price cap, this fee negotiation is what moves the revenue.</p>
+
+<p>It squares with an external check, too. Yano Research Institute puts the storage-business market size (on an operator-revenue basis) at ¥45 billion for FY2024; dividing by the roughly 250 MW of grid-connected capacity at the same time gives about ¥180,000 per kW per year — <strong>the equivalent of ¥360M/yr on a 2 MW basis</strong>. It lands in the same order of magnitude as the all-in realized range (¥310-470M/yr) (a rough consistency check that carries a timing mismatch of year and capacity ⚠️). What explains a rush of connection applications to about 3.9x in a year, to 24.31 GW, is this figure — not the ¥62M of the composite average.</p>
+
+<div class="highlight-box">
+And the single biggest caveat is <strong>pay-as-bid (multi-price)</strong>. The "average clearing price" in the table above is a market average, not any one company's settlement price. By generation type, <strong>a battery's composite-product winning price runs ¥8.82-13.49 per ΔkW per slot monthly, 3-6x thermal (¥2.16-3.45)</strong> (in January of FY2025 the composite was ¥13.48 for batteries vs ¥2.27 for thermal, about 6x). Building 48 slots at the primary market average of ¥3.93 gives about ¥140M/yr; at the battery-realized ¥8.8-13.5 it gives ¥310-470M/yr — that gap is itself proof of the distance between "the regulator's statistics" and "the operator's lived experience." The realized ranges in this piece (the body rows in Section 03) are built on the battery-side price; the market average is carried alongside, as the view the regulator sees.
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 Primary offline: earns the most, has the shortest shelf life</span>
+Where batteries actually earned in the balancing market in FY2025 was primary reserve — the offline tranche above all. It targets 1-10 MW high-voltage and extra-high-voltage units, i.e. <strong>squarely the 2 MW reference asset</strong>. By generation type, a battery's primary-reserve winning price tracked <strong>¥8.82-13.52 per ΔkW per slot monthly</strong>, near the old cap of ¥19.51. Narrowing to the offline tranche, batteries held almost the entire cleared volume (97.8%), at an average winning price of ¥14-19 and a fill rate of 3.4% (this online/offline split is unverified in the confirmed-results text ⚠️; disclosed in the ❓ list in Section 13). In a shortfall market where a bid almost always clears, a price near the cap gets set — this is what the body rows in Section 03 and the all-in range (¥310-470M/yr) are, and it was real earnings. We put it in the body, not a footnote. That said, what must be written down is that <strong>this very revenue is the first thing the rules are coming to erase</strong>. The ¥15 cap is already in force; the staged cuts to ¥10 and ¥7.21 (decided in principle, conditional) will be judged on this summer's results; and the 1σ volume shrank the primary and secondary-① quantities themselves by about 13%. The product that earns the most is the one most easily eaten into — the structure we saw across areas applies just as well to products. The right answer for existing owners is two-footed: <strong>take the primary revenue that is there now in full; but before you put it on a five-year P&amp;L line, lay down the decay curve (Section 12) first.</strong>
+</div>
+
+<p>How to read the area differences. Area-by-product clearing prices exist as numbers in the daily confirmed data, but no annual table lets you survey a full year, and even in aggregated annual results and council documents the per-area prices stop at graphs (see Section 13 ❓). Since the area differences in price cannot be pulled from a table, what matters in practice is <strong>whether the bid clears — whether the door is open</strong>. Lining up the primary-reserve shortfall rate across all nine areas for the 28 days after the shift: <strong>Hokuriku 75.8%, Tokyo 70.3%, Chubu 66.1%, Kansai 49.0%, Kyushu 42.4%, Shikoku 24.3%, Chugoku 22.8%, and Tohoku 0.1%, Hokkaido 0.0%</strong>. The two zeros have a mechanism behind them. In both areas, <strong>pumped-hydro bilateral contracts (out-of-market procurement) filled the requirement, effectively closing the market's door</strong> (the procurement-volume-deduction structure is spelled out in the 109th Institutional Design Subcommittee, Doc 6; the deduction ran to March 2026). Those bilateral contracts <strong>ended in Hokkaido and Tokyo at end-March 2026</strong> — Hokkaido's ΔkW door opens from this fiscal year, and Tokyo's already-large opening widened further. <strong>Only in Tohoku do the bilateral contracts continue, and the door stays shut</strong>. Meanwhile the old regime's annual confirmed results noted procurement shortfalls of 40-90% or more in all areas except Hokkaido, Chugoku and Shikoku, so old-regime Tohoku was on the shortfall (clearing) side. At the break, Tohoku's door shut and Chugoku's and Shikoku's opened — the realized table in Section 03 pro-rates exactly this period difference (the treatment of bilateral contracts relies on the framing in Doc 8 and related material ❓).</p>
+
+<p>We write the regulatory outlook in stages. The ¥15 cap, the 1σ volume and the ¥0.06 fee are <span class="ok" style="color:var(--green);font-weight:700">in force</span>. The <strong>further cut to ¥10 and ¥7.21</strong>, however, is conditional on "no improvement in competition," and sits at the stage of <span class="cond" style="color:var(--orange);font-weight:700">decided in principle — not yet promulgated or in force</span>. The decision framework is a review of results at 1, 2, 3 and 6 months after day-ahead trading began, on three axes: whether bid concentration near the cap has cleared, whether shortfall rates have improved, and whether any operators have exited. The one-month assessment held that improvement was seen but not fully resolved (Stable Supply WG, Doc 8), deferring the next stage, and it is expected to be judged in the second half of FY2026 after the summer peak (Jul-Aug). Each step down shrinks ΔkW revenue roughly proportionally. For a P&amp;L heavily dependent on balancing, this single variable makes the IRR a different animal.</p>
+
+<h2>03 — Nine areas x three markets, on one page</h2>
+
+<p>We stack the three markets on one page, largest first. <strong>The engine = the balancing market</strong> (the realized figures of Section 02); <strong>the core = JEPX arbitrage</strong> (measured in Section 04); <strong>the floor = the capacity market</strong> (fixed in Section 05 as the FY2029 clearing price x derating coefficient). Since no annual table of the balancing market's per-area prices is published (see Sections 02 and 13), we treat area differences not as price but as <strong>the opening and closing of the door (bilateral contracts and shortfall rates)</strong>.</p>
+
+<p>Taking Section 02's realized price (the battery's realized winning rate of ¥8.8-13.5 per ΔkW per slot) and running 12 months in a JEPX-combined pattern (30 slots), the add-on is about ¥97,000-148,000 per kW per year (median ~¥122,000 = <strong>about ¥240M/yr for a 2 MW unit</strong>). We stack this on each area's floor + core (fixed in Sections 04 and 05) <strong>only for the days the door was open</strong> — full for the five areas open all year; old-regime only for Tohoku (256/365 days); new-regime only for Chugoku and Shikoku (109/365 days); and zero for Hokkaido (possibly opening from FY2026 as the bilateral contracts end).</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Area</th><th class="num">Floor + Core</th><th class="num">Engine: balancing, realized<span class="u">30 slots, median, period pro-rated</span></th><th class="num">Realized total<span class="u">median</span></th><th class="num">2 MW revenue<span class="u">median</span></th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">Kyushu</td><td class="num">25,111</td><td class="num">≈122,300<span class="u">all year</span></td><td class="num">≈147,400</td><td class="num">≈¥295M</td></tr>
+<tr class="hl"><td class="em">Tokyo</td><td class="num">22,324</td><td class="num">≈122,300<span class="u">all year</span></td><td class="num">≈144,600</td><td class="num">≈¥290M</td></tr>
+<tr><td class="em">Chubu</td><td class="num">22,064</td><td class="num">≈122,300<span class="u">all year</span></td><td class="num">≈144,400</td><td class="num">≈¥290M</td></tr>
+<tr><td class="em">Hokuriku</td><td class="num">21,950</td><td class="num">≈122,300<span class="u">all year</span></td><td class="num">≈144,300</td><td class="num">≈¥290M</td></tr>
+<tr><td class="em">Kansai</td><td class="num">21,698</td><td class="num">≈122,300<span class="u">all year</span></td><td class="num">≈144,000</td><td class="num">≈¥290M</td></tr>
+<tr><td class="em">Tohoku</td><td class="num">28,479</td><td class="num cond">≈85,800<span class="u">old regime only ⚠️</span></td><td class="num">≈114,300</td><td class="num">≈¥230M</td></tr>
+<tr><td class="em">Shikoku</td><td class="num">22,521</td><td class="num">≈36,500<span class="u">new regime only</span></td><td class="num">≈59,000</td><td class="num">≈¥120M</td></tr>
+<tr><td class="em">Chugoku</td><td class="num">22,291</td><td class="num">≈36,500<span class="u">new regime only</span></td><td class="num">≈58,800</td><td class="num">≈¥120M</td></tr>
+<tr><td class="em">Hokkaido</td><td class="num">29,207</td><td class="num ng">0<span class="u">closed by bilateral; may open from FY2026</span></td><td class="num">≈29,000 + α</td><td class="num">≈¥60M + α</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Unit: ¥ per kW per year (nominal kW). Realized = battery realized price ¥8.8-13.5 (median ¥11.2) x 30 slots x days the door was open (range: about ¥97,000-148,000/kW/yr for the five year-round areas; the total including floor + core is roughly ¥122,000-173,000 = about ¥240-350M/yr for a 2 MW unit). Door open/closed uses, for the old regime, the annual confirmed-results note (40-90% shortfall in all but Hokkaido, Chugoku and Shikoku), and for the new regime the 28-day post-shift shortfall rates (Section 02). The balancing-platform fee deduction (¥0.03 to ¥0.06 per ΔkW per slot) is about ¥400/yr, below the displayed unit. The aggregator fee is pre-deduction (see Section 02).</p>
+
+<div class="highlight-box">
+The ranking flips. <strong>The five areas whose door stayed open all year (Kyushu, Tokyo, Chubu, Hokuriku, Kansai) are near-level in realized terms at ¥144,000-147,000 per kW per year (median) — ¥290-300M/yr for a 2 MW unit, led by Kyushu at about ¥295M</strong>. Hokkaido and Tohoku, No. 1 and No. 2 in JEPX, are shut out of that row by bilateral contracts. <strong>The arbitrage map and the ΔkW map do not overlap</strong> — that is the core of this year's area selection. Areas differ on two things: (1) whether the door is open (bilateral contracts and shortfall rates), and (2) what is left after the engine is cut by the rules = floor + core. So next we take out floor + core alone — the table of "the gap that survives erosion." There, Hokkaido, which sank to last in realized terms, stands first. <strong>The revenue source that earns the most is the one most easily eaten into; and the area that earns the most is behind the door</strong> — the structure appears in the revenue source itself before it appears across areas.
+</div>
+
+<p>What is left after the engine is cut by the rules? We take out just the two layers, floor + core.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Rank</th><th>Area</th><th class="num">Floor: capacity<span class="u">post-coefficient, est.</span></th><th class="num">Core: JEPX ceiling<span class="u">measured</span></th><th class="num">Subtotal (¥/kW/yr)</th><th class="num">2 MW annual</th></tr></thead>
+<tbody>
+<tr class="hl"><td>1</td><td class="em">Hokkaido</td><td class="num">12,515</td><td class="num">16,692</td><td class="num">29,207</td><td class="num">¥58.41M</td></tr>
+<tr class="hl"><td>2</td><td class="em">Tohoku</td><td class="num">13,145</td><td class="num">15,334</td><td class="num">28,479</td><td class="num">¥56.96M</td></tr>
+<tr><td>3</td><td class="em">Kyushu</td><td class="num">12,110</td><td class="num">13,001</td><td class="num">25,111</td><td class="num">¥50.22M</td></tr>
+<tr><td>4</td><td class="em">Shikoku</td><td class="num">10,720</td><td class="num">11,801</td><td class="num">22,521</td><td class="num">¥45.04M</td></tr>
+<tr><td>5</td><td class="em">Tokyo</td><td class="num">10,695</td><td class="num">11,629</td><td class="num">22,324</td><td class="num">¥44.65M</td></tr>
+<tr><td>6</td><td class="em">Chugoku</td><td class="num">10,695</td><td class="num">11,596</td><td class="num">22,291</td><td class="num">¥44.58M</td></tr>
+<tr><td>7</td><td class="em">Chubu</td><td class="num">10,230</td><td class="num">11,834</td><td class="num">22,064</td><td class="num">¥44.13M</td></tr>
+<tr><td>8</td><td class="em">Hokuriku</td><td class="num">10,640</td><td class="num">11,310</td><td class="num">21,950</td><td class="num">¥43.90M</td></tr>
+<tr><td>9</td><td class="em">Kansai</td><td class="num">10,240</td><td class="num">11,458</td><td class="num">21,698</td><td class="num">¥43.40M</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Floor = FY2029 per-area clearing price x the 4-hour battery derating coefficient (annual average, estimate 🚩; see Section 05). Core = the measured ceiling from Section 04. Both per nominal 2,000 kW. The balancing-market add-on is not included.</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 1: per-area stack of floor (capacity market) plus core (JEPX ceiling)">
+  <text x="350" y="26" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1">Figure 1 / Floor (capacity) + Core (JEPX ceiling), 2-layer sum (¥/kW/yr, nominal kW)</text>
+  <g font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#2C3E50">
+    <text x="162" y="72" text-anchor="end">Hokkaido</text><rect x="170" y="58" width="192" height="20" fill="#1B2A4A"></rect><rect x="362" y="58" width="256" height="20" fill="#C49A3C"></rect><text x="624" y="73" font-size="11.5" font-weight="700" fill="#1B2A4A">29,207</text>
+    <text x="162" y="106" text-anchor="end">Tohoku</text><rect x="170" y="92" width="202" height="20" fill="#1B2A4A"></rect><rect x="372" y="92" width="235" height="20" fill="#C49A3C"></rect><text x="613" y="107" font-size="11.5" font-weight="700" fill="#1B2A4A">28,479</text>
+    <text x="162" y="140" text-anchor="end">Kyushu</text><rect x="170" y="126" width="186" height="20" fill="#1B2A4A"></rect><rect x="356" y="126" width="199" height="20" fill="#C49A3C"></rect><text x="561" y="141" font-size="11.5" fill="#1B2A4A">25,111</text>
+    <text x="162" y="174" text-anchor="end">Shikoku</text><rect x="170" y="160" width="164" height="20" fill="#1B2A4A"></rect><rect x="334" y="160" width="181" height="20" fill="#C49A3C"></rect><text x="521" y="175" font-size="11.5" fill="#1B2A4A">22,521</text>
+    <text x="162" y="208" text-anchor="end">Tokyo</text><rect x="170" y="194" width="164" height="20" fill="#1B2A4A"></rect><rect x="334" y="194" width="178" height="20" fill="#C49A3C"></rect><text x="518" y="209" font-size="11.5" fill="#1B2A4A">22,324</text>
+    <text x="162" y="242" text-anchor="end">Chugoku</text><rect x="170" y="228" width="164" height="20" fill="#1B2A4A"></rect><rect x="334" y="228" width="178" height="20" fill="#C49A3C"></rect><text x="518" y="243" font-size="11.5" fill="#1B2A4A">22,291</text>
+    <text x="162" y="276" text-anchor="end">Chubu</text><rect x="170" y="262" width="157" height="20" fill="#1B2A4A"></rect><rect x="327" y="262" width="181" height="20" fill="#C49A3C"></rect><text x="514" y="277" font-size="11.5" fill="#1B2A4A">22,064</text>
+    <text x="162" y="310" text-anchor="end">Hokuriku</text><rect x="170" y="296" width="163" height="20" fill="#1B2A4A"></rect><rect x="333" y="296" width="173" height="20" fill="#C49A3C"></rect><text x="512" y="311" font-size="11.5" fill="#1B2A4A">21,950</text>
+    <text x="162" y="344" text-anchor="end">Kansai</text><rect x="170" y="330" width="157" height="20" fill="#1B2A4A"></rect><rect x="327" y="330" width="176" height="20" fill="#C49A3C"></rect><text x="509" y="345" font-size="11.5" fill="#1B2A4A">21,698</text>
+  </g>
+  <rect x="150" y="376" width="14" height="14" fill="#1B2A4A"></rect><text x="170" y="388" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#2C3E50">Floor = capacity (FY2029, est.)</text>
+  <rect x="430" y="376" width="14" height="14" fill="#C49A3C"></rect><text x="450" y="388" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#2C3E50">Core = JEPX ceiling (measured)</text>
+  <text x="350" y="412" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89" font-style="italic">Top-to-bottom spread: ¥7,509/kW/yr — ¥15.02M/yr for a 2 MW unit</text>
+</svg>
+<div class="fig-cap">Figure 1 — Even on floor + core alone, the area spread opens to ~¥15M/yr</div>
+</div>
+
+<div class="highlight-box">
+The gap between Hokkaido (first) and Kansai (last) on floor + core is <strong>¥7,509 per kW per year, ¥15.02M/yr for a 2 MW unit, and roughly ¥300M over 20 years</strong>. That is a locational gap larger than the previous column's "contract design worth ¥200M over 20 years," and it is <strong>a gap that survives after the engine is cut</strong>. Even among the five areas that are level in realized terms, the floor + core gap between Kyushu (first) and Kansai (last) is ¥6.83M/yr, about ¥140M over 20 years — the last thing that makes the difference is the thickness of these two layers.
+</div>
+
+<h2>04 — JEPX: where you can earn was rewritten this year</h2>
+
+<p>The second pillar, JEPX. This is the layer where area differences show most sharply, and the map of power shifted over the last 12 months. Below are the reference asset's arbitrage ceiling (¥/kW/yr) and its year-on-year change across the nine areas.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Area</th><th class="num">Ceiling (¥/kW/yr)</th><th class="num">2 MW annual equiv.</th><th class="num">Prior-year ceiling</th><th class="num">Gross margin YoY</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">Hokkaido</td><td class="num">16,692</td><td class="num">¥33.38M</td><td class="num">11,132</td><td class="num ok">+49.9%</td></tr>
+<tr class="hl"><td class="em">Tohoku</td><td class="num">15,334</td><td class="num">¥30.67M</td><td class="num">11,147</td><td class="num ok">+37.6%</td></tr>
+<tr><td class="em">Kyushu</td><td class="num">13,001</td><td class="num">¥26.00M</td><td class="num">14,584</td><td class="num ng">-10.9%</td></tr>
+<tr><td class="em">Chubu</td><td class="num">11,834</td><td class="num">¥23.67M</td><td class="num">11,715</td><td class="num">+1.0%</td></tr>
+<tr><td class="em">Shikoku</td><td class="num">11,801</td><td class="num">¥23.60M</td><td class="num">11,982</td><td class="num">-1.5%</td></tr>
+<tr class="hl"><td class="em">Tokyo</td><td class="num">11,629</td><td class="num">¥23.26M</td><td class="num">8,331</td><td class="num ok">+39.6%</td></tr>
+<tr><td class="em">Chugoku</td><td class="num">11,596</td><td class="num">¥23.19M</td><td class="num">12,057</td><td class="num">-3.8%</td></tr>
+<tr><td class="em">Kansai</td><td class="num">11,458</td><td class="num">¥22.92M</td><td class="num">11,865</td><td class="num">-3.4%</td></tr>
+<tr><td class="em">Hokuriku</td><td class="num">11,310</td><td class="num">¥22.62M</td><td class="num">11,965</td><td class="num">-5.5%</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Source: JEPX spot-market result CSVs (FY2024-FY2026), tallied by ScienceX under the Section 01 spec. Perfect-foresight theoretical upper bound (the ceiling). Prior-year window = 2024.07-2025.06.</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 2: year-on-year change in arbitrage gross margin (9 areas, measured)">
+  <text x="350" y="26" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1">Figure 2 / Arbitrage gross margin, year-on-year (measured: analysis window vs prior 12 months)</text>
+  <line x1="283" y1="46" x2="283" y2="356" stroke="#E2E6EC" stroke-width="1.5"></line>
+  <text x="283" y="372" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">0%</text>
+  <g font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#2C3E50">
+    <text x="172" y="72" text-anchor="end">Hokkaido</text><rect x="283" y="58" width="342" height="20" rx="2" fill="#C49A3C"></rect><text x="632" y="73" font-size="11.5" font-weight="700" fill="#A07916">+49.9%</text>
+    <text x="172" y="104" text-anchor="end">Tokyo</text><rect x="283" y="90" width="271" height="20" rx="2" fill="#C49A3C"></rect><text x="561" y="105" font-size="11.5" font-weight="700" fill="#A07916">+39.6%</text>
+    <text x="172" y="136" text-anchor="end">Tohoku</text><rect x="283" y="122" width="258" height="20" rx="2" fill="#C49A3C"></rect><text x="548" y="137" font-size="11.5" font-weight="700" fill="#A07916">+37.6%</text>
+    <text x="172" y="168" text-anchor="end">Chubu</text><rect x="283" y="154" width="7" height="20" rx="2" fill="#2A3D66"></rect><text x="297" y="169" font-size="11.5" fill="#2C3E50">+1.0%</text>
+    <text x="172" y="200" text-anchor="end">Shikoku</text><rect x="273" y="186" width="10" height="20" rx="2" fill="#6C7A89"></rect><text x="268" y="201" font-size="11.5" fill="#6C7A89" text-anchor="end">-1.5%</text>
+    <text x="172" y="232" text-anchor="end">Kansai</text><rect x="260" y="218" width="23" height="20" rx="2" fill="#6C7A89"></rect><text x="255" y="233" font-size="11.5" fill="#6C7A89" text-anchor="end">-3.4%</text>
+    <text x="172" y="264" text-anchor="end">Chugoku</text><rect x="257" y="250" width="26" height="20" rx="2" fill="#6C7A89"></rect><text x="252" y="265" font-size="11.5" fill="#6C7A89" text-anchor="end">-3.8%</text>
+    <text x="172" y="296" text-anchor="end">Hokuriku</text><rect x="245" y="282" width="38" height="20" rx="2" fill="#6C7A89"></rect><text x="240" y="297" font-size="11.5" fill="#6C7A89" text-anchor="end">-5.5%</text>
+    <text x="172" y="328" text-anchor="end">Kyushu</text><rect x="208" y="314" width="75" height="20" rx="2" fill="#c44"></rect><text x="203" y="329" font-size="11.5" font-weight="700" fill="#c44" text-anchor="end">-10.9%</text>
+  </g>
+  <text x="350" y="392" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89" font-style="italic">The three eastern areas rise 30-50%. Western areas slip slightly across the board; only Kyushu falls by double digits</text>
+</svg>
+<div class="fig-cap">Figure 2 — The east-west reversal shows up in the measured data (source: ScienceX, from JEPX published data)</div>
+</div>
+
+<p>There are two ways to read it. By level, Kyushu is still third nationwide. Solar surplus sinks midday prices, its charging cost is the cheapest in the country, and that structure is intact — "Kyushu can't earn anymore" would be an overstatement. But by direction, it is the only one of the nine clearly shrinking. Hokuriku, Kansai, Chugoku and Shikoku are also down 3-5%, and <strong>the only areas growing are the three eastern ones</strong>. Here we correct our own earlier premise: up to the previous column we saw "only Kyushu shrinking," but recomputing on the latest window, all five western areas had slipped to small negatives together. The contraction is not Kyushu alone but a western-Japan-wide trend, with Kyushu its largest value. The main driver of the rise is the spring 2026 price surge in eastern Japan (detailed in Section 07); the structural driver of Kyushu's contraction is treated in Section 09.</p>
+
+<p>Even for the same "ceiling," how you capture it differs by area. We counted the slots where the area price diverged from the system price, split into the high side (in-area is expensive = import constraint) and the low side (in-area is cheap = surplus being shut out). This direction-split tally does not exist in a primary source, so we built it by matching JEPX area and system prices across every slot.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Area</th><th class="num">Low-side share</th><th class="num">High-side share</th><th class="num">Low-side ≥¥5<span class="u">slots</span></th><th class="num">High-side ≥¥5<span class="u">slots</span></th><th>Earning pattern</th></tr></thead>
+<tbody>
+<tr><td class="em">Tokyo</td><td class="num">6.1%</td><td class="num em">85.0%</td><td class="num">11</td><td class="num em">2,054</td><td>Pure high-side (import constraint). Spread made by the intraday shape</td></tr>
+<tr><td class="em">Chubu</td><td class="num">24.0%</td><td class="num">66.4%</td><td class="num">52</td><td class="num">1,074</td><td>High-side-leaning</td></tr>
+<tr class="hl"><td class="em">Hokkaido</td><td class="num">29.4%</td><td class="num">62.9%</td><td class="num">1,046</td><td class="num">1,513</td><td>Two-way, deep (floor and ceiling both in-area)</td></tr>
+<tr><td class="em">Tohoku</td><td class="num">27.5%</td><td class="num">62.7%</td><td class="num">910</td><td class="num">616</td><td>Two-way</td></tr>
+<tr><td class="em">Hokuriku</td><td class="num">54.7%</td><td class="num">35.9%</td><td class="num">720</td><td class="num">538</td><td>Middle</td></tr>
+<tr><td class="em">Kansai</td><td class="num">60.6%</td><td class="num">30.1%</td><td class="num">751</td><td class="num">501</td><td>Middle</td></tr>
+<tr><td class="em">Chugoku</td><td class="num">70.8%</td><td class="num">20.2%</td><td class="num">1,514</td><td class="num">100</td><td>Low-side</td></tr>
+<tr><td class="em">Kyushu</td><td class="num">77.9%</td><td class="num">13.2%</td><td class="num">2,464</td><td class="num">45</td><td>Pure low-side (shut-out). Earns at the floor</td></tr>
+<tr><td class="em">Shikoku</td><td class="num em">84.8%</td><td class="num">8.6%</td><td class="num em">4,584</td><td class="num">16</td><td>Pure low-side</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Source: JEPX result CSVs, tallied by ScienceX (2025.07-2026.06; |area - system| &gt; ¥0.009 used as a proxy for separation, counted by direction).</p>
+
+<p>Tokyo is on the high side in 85% of slots — <strong>it even charges on the high side</strong>. Its spread cannot be made from separation, only from the intraday shape (the midday dip and the evening ramp in spring). The opposites — Shikoku, Kyushu and Chugoku — are 70-80% low-side, with far more slots sinking 5 yen or more (Shikoku 4,584, Kyushu 2,464), while no ceiling forms — the pick-at-the-floor pattern. And <strong>only Hokkaido and Tohoku hold both a deep floor and a high ceiling in-area</strong>. The mechanism of the leadership change is concentrated in this one table. Hokkaido went further: while the Kitahon interconnector was down after the 8 December 2025 earthquake off eastern Aomori (restored 31 January 2026), its high-side separation jumped to 79.8% (68.6% in normal times) — direct evidence of how thin the interconnector is.</p>
+
+<h2>05 — The capacity market: "¥15,112" is nominal</h2>
+
+<p>We fix the floor. The FY2029 main auction (published 20 January 2026, corrected 23 January) cleared at about ¥2,209.4 billion in total (+19% YoY), a record, with an all-in average unit price of about ¥13,303/kW after transitional measures; <strong>for the first time excluding the first auction, every area's clearing price exceeded the reference price (Net CONE: ¥10,075/kW)</strong>. Only Kyushu sat strictly at the cap (1.5x the reference = ¥15,112.5, truncated to ¥15,112/kW); Tohoku and Tokyo cleared at ¥15,111/kW — one yen below the cap. Several trade outlets wrote that "three areas hit the cap of ¥15,112," but that is off the OCCTO original by one yen. The practical significance is nil, yet we keep it as an example of how, routed through secondary information, the numbers in the original quietly break. Laid out by area and year it is as follows; existing owners can book delivery revenue with certainty in the FY2026-28 columns.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Area</th><th class="num">FY2026</th><th class="num">FY2027</th><th class="num">FY2028</th><th class="num">FY2029</th><th class="num">FY2029 4h coeff.<span class="u">annual avg, est.</span></th><th class="num">2 MW receipt<span class="u">FY2029, est.</span></th></tr></thead>
+<tbody>
+<tr><td class="em">Hokkaido</td><td class="num">8,749※</td><td class="num">13,287</td><td class="num">14,812</td><td class="num">14,972</td><td class="num">~83.6%</td><td class="num">~¥25.03M</td></tr>
+<tr class="hl"><td class="em">Tohoku</td><td class="num">5,833</td><td class="num">9,044</td><td class="num">14,812</td><td class="num">15,111</td><td class="num">~87.0%</td><td class="num">~¥26.29M</td></tr>
+<tr><td class="em">Tokyo</td><td class="num">5,834</td><td class="num">9,555</td><td class="num">14,812</td><td class="num">15,111</td><td class="num ng">~70.8%</td><td class="num">~¥21.39M</td></tr>
+<tr><td class="em">Chubu</td><td class="num">5,832</td><td class="num">7,823</td><td class="num">10,280</td><td class="num">12,388</td><td class="num">~82.6%</td><td class="num">~¥20.46M</td></tr>
+<tr><td class="em">Hokuriku</td><td class="num">5,832</td><td class="num">7,638</td><td class="num">8,785</td><td class="num">12,388</td><td class="num">~85.9%</td><td class="num">~¥21.28M</td></tr>
+<tr><td class="em">Kansai</td><td class="num">5,832</td><td class="num">7,638</td><td class="num">8,785</td><td class="num">12,388</td><td class="num">~82.7%</td><td class="num">~¥20.48M</td></tr>
+<tr><td class="em">Chugoku</td><td class="num">5,832</td><td class="num">7,638</td><td class="num">8,785</td><td class="num">12,388</td><td class="num">~86.3%</td><td class="num">~¥21.39M</td></tr>
+<tr><td class="em">Shikoku</td><td class="num">5,832</td><td class="num">7,638</td><td class="num">8,785</td><td class="num">12,388</td><td class="num">~86.6%</td><td class="num">~¥21.44M</td></tr>
+<tr><td class="em">Kyushu</td><td class="num">8,748※</td><td class="num">11,457※</td><td class="num">13,177※</td><td class="num">15,112</td><td class="num">~80.1%</td><td class="num">~¥24.22M</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Unit: ¥/kW (area price). ※ = multi-price-method areas. FY2029 has no multi-price. Sources: OCCTO clearing-result PDFs by year; FY2029 derating-coefficient table (published 31 July 2025). Actual receipt = clearing price x (2,000 kW x annual-average coefficient), an estimate 🚩 — formally it is built up from monthly coefficients.</p>
+
+<p>The two right-hand columns are the subject of this section. When a battery registers as a firm resource (expected capacity 1,000 kW or more, at least one continuous 3-hour discharge per day), the contracted capacity is set not by nameplate but by <strong>expected capacity = installed capacity x derating coefficient</strong>. The coefficient table is the same one used for pure pumped hydro (area x month x dischargeable hours), and even a 4-hour unit is credited at only about 56-90% depending on area and month. <strong>Tokyo in particular is credited at only about 70.8% on an annual average</strong>. As a result, <strong>Tokyo, with the highest clearing price (¥15,111), has an actual receipt of about ¥21.39M — the same as Chugoku at a unit price of ¥12,388</strong>. First place in actual receipt is Tohoku, high on both unit price and coefficient. The nominal calculation "¥15,112 x 2,000 kW = ¥30.22M" is a ceiling value and cannot be used for decisions.</p>
+
+<p>From a new-entrant angle, the transitional measures (a deduction for resources built before end-FY2010) end with the FY2029 auction, and new-build batteries are outside the age-deduction scope to begin with. Since the Long-term Decarbonization Auction unified the battery requirement from its third round to 30 MW or more installed and 6 hours or more of continuous discharge, <strong>a 2 MW, 4-hour unit is out of scope</strong> — the entrance to capacity revenue narrows to the main auction alone. Its next round, <strong>the FY2030-delivery main auction, is the first entry opportunity for "buyers to come,"</strong> on the following timeline.</p>
+
+<div class="info-box">
+<strong>Timetable for the FY2030 main auction (✅ confirmed items)</strong><br>
+30 Jun - 13 Jul 2026: consultation on the application guidelines and terms / 8 Jul 2026: rules briefing / around end-July: publication of the derating coefficients and demand curve (❓ typical pattern; the FY2029 coefficients were published 31 Jul 2025) / autumn 2026: bid acceptance / around January 2027: clearing results — in parallel, <strong>a proposal to roughly double the reference price (to about ¥20,500/kW, cap ¥30,750/kW) and a two-stage single-price clearing</strong> are under deliberation at the Institutional Design Subcommittee (112th-114th, Mar-May 2026). Reflection in the FY2030 auction is assumed, but it is <span style="color:var(--orange);font-weight:700">under deliberation — before promulgation or entry into force</span>, and not a settled fact. If reflected, the floor level steps up structurally. It is prudent to fix the bid decision after the end-July coefficients and demand curve and the final application guidelines. If you win, the first receipt is in delivery FY2030 — monthly payments run September 2030 to August 2031 (terms Art. 8; mid-year commissioning is pro-rated by month). Note that the additional auction, once the safety net for years missed, will from FY2030 procure its volume entirely in the main auction, shrinking its role. Miss the main auction, and you wait a full year.
+</div>
+
+<p>The other entrance is <strong>succession of an already-cleared project</strong>. Under Article 26 of the capacity-securing contract terms, with OCCTO's consent the contractual position can be transferred, and future capacity revenue and the delivery year carry over as is — the state of requirement fulfillment carries over too, which is a due-diligence checkpoint. In the project transfers we handle, the remaining contract years, the cleared price, and whether a reserve-utilization contract exists sit at the center of the price rationale. A new-build bid (autumn 2026) and succession of an existing one — these are the buyer's two entrances.</p>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 The floor comes with obligations</span>
+Failure to meet the capacity-securing requirements carries an economic penalty, capped at <strong>110% of the contract amount per year and 18.3% per month</strong>. The recognized capacity-outage plan is up to <strong>8,640 slots per year (equivalent to 180 days)</strong>; slots of unmet performance beyond that accrue additional penalties. The penalty-conversion hours Z for market bidding and dispatch instructions is 90 hours in delivery FY2026 (up from 30 in FY2024). The floor is not "revenue you receive" but "revenue in exchange for obligations." Meeting the availability and performance-test regime, and fitting maintenance within the 8,640-slot window (the winter-weighted design of Section 07), are prerequisites.
+</div>
+
+<h2>06 — For buyers to come: strategy changes the area</h2>
+
+<p>Overlay Sections 02-05, and the structure of the answer is this. <strong>For the five areas whose door stayed open all year, the realized snapshot is near-level (¥290-300M/yr for a 2 MW unit, median)</strong>. So "which area to buy" is decided by three things: the opening and closing of the door (bilateral contracts and shortfall rates), what is left after the engine is cut (floor + core), and which operating strategy you use to capture it.</p>
+
+<div class="compare-grid three">
+  <div class="compare-card no-special">
+    <span class="cc-tag">If realized-leader / floor-focused</span>
+    <h4>Kyushu</h4>
+    <div class="cc-figure">≈¥295M<span class="u">/yr (realized total, first)</span></div>
+    <p>The door is open (shortfall 42.4%), the floor is at the cap level of ¥15,112/kW, and with 1,146 slots/year at ¥0.01 the <strong>charging cost is among the cheapest in the country</strong>. But JEPX is the only double-digit decliner and the contraction is ongoing — assuming priority connection of a 5.90 GW application queue (the largest nationwide), pick projects with cheap connection cost and high site certainty. An area to buy by measuring how long the first-mover advantage lasts.</p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">If event- / reserve-driven</span>
+    <h4>Tokyo</h4>
+    <div class="cc-figure">+39.6<span class="u">% (JEPX gross margin YoY)</span></div>
+    <p>The realized total is about ¥290M/yr; the level is fifth but the growth is second. High-price slots above ¥30/kWh number 472 a year, <strong>the most of the nine areas</strong>, and with a primary shortfall of 70.3% <strong>the ΔkW room to clear is also among the largest</strong>. The demerits are a capacity coefficient of 70.8% and that the cap cuts hit spike revenue directly.</p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">If arbitrage-driven</span>
+    <h4>Tohoku</h4>
+    <div class="cc-figure">¥56.96M<span class="u">/yr (floor + core)</span></div>
+    <p>On top of the second-best JEPX ceiling (¥30.67M/yr), a unit price of ¥15,111 x an 87.0% coefficient makes <strong>the capacity actual receipt (about ¥26.29M) the highest of the nine</strong>. But ΔkW stays shut as the bilateral contracts continue — the realized total sinks to ≈¥230M. If you buy, condition it on the bilateral contracts ending, and watch the "40% of the nation" in Section 09.</p>
+  </div>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 So what about the static No. 1, Hokkaido?</span>
+First on floor + core (¥29,207/kW/yr = ¥58.41M/yr for a 2 MW unit), last in realized terms — over these 12 months the ΔkW door was blocked by pumped-hydro bilateral contracts. Those contracts <strong>ended at end-March 2026, turning it into the area where, for the first time, the JEPX leader and ΔkW can both be captured from this fiscal year</strong>. But it is time-limited. The rules state that "a further deduction may be considered if necessary," so there is no guarantee the door stays open. With a cannibalization index of 0.383, the new Kitahon 1.2 GW (end-FY2027 = March 2028), and the Sea-of-Japan HVDC implementation-plan deadline (26 December 2026), it is an area where you keep asking "how long" the high-revenue window lasts; if you buy, condition it on the exit (the floor P&amp;L after spreads compress) and on whether the primary shortfall actually rises ❓.
+</div>
+
+<div class="part-head"><span class="pnum">Part 2</span><span class="ptitle">In the area you have, how to earn</span><span class="psub">For existing owners — the season and the daily routine</span></div>
+
+<h2>07 — Spring has become the biggest harvest</h2>
+
+<p>Now to those who already own. Seasonal common sense was rewritten in these 12 months. Cut the reference asset's gross margin by season, and <strong>in all nine areas spring (Mar-May) is the annual maximum and winter (Dec-Feb) the annual minimum</strong>.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Season (analysis window)</th><th class="num">Hokkaido</th><th class="num">Tohoku</th><th class="num">Tokyo</th><th class="num">Kyushu</th><th>Pattern common to all 9</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">Spring (Mar-May)</td><td class="num">5,848</td><td class="num">6,557</td><td class="num">5,462</td><td class="num">5,126</td><td>Annual max everywhere. Tohoku concentrates 43% of its annual gross margin in spring</td></tr>
+<tr><td class="em">Summer (Jun-Aug)</td><td class="num">4,527</td><td class="num">4,234</td><td class="num">2,956</td><td class="num">2,971</td><td>Second harvest. Evening spikes</td></tr>
+<tr><td class="em">Autumn (Sep-Nov)</td><td class="num">4,119</td><td class="num">2,965</td><td class="num">1,824</td><td class="num">2,774</td><td>Middle. Only Hokkaido keeps high-price events</td></tr>
+<tr><td class="em">Winter (Dec-Feb)</td><td class="num">2,198</td><td class="num">1,577</td><td class="num">1,387</td><td class="num">2,130</td><td><strong>Minimum everywhere</strong>. December spreads the weakest of the year</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Unit: ¥/kW per season (reference asset, perfect-foresight ceiling). Source: ScienceX, from JEPX published data.</p>
+
+<p>The old rule "earn on winter evenings" does not hold, at least in this window. We check with high-price events. Tokyo's slots above ¥30/kWh number <strong>279 in spring, 154 in summer, 35 in autumn, 4 in winter</strong>. Narrowing to ¥50 or more, it is 30 in spring, 4 in summer, 0 in autumn and winter (34 slots a year). And in the prior year, Tokyo had 0 slots above ¥30 in spring and 101 for the year — so this spring concentration is not a permanent property but <strong>a structure that first appeared in spring 2026</strong> (Tokyo's average area price for Apr-Jun 2026 was ¥19.35/kWh, well above the ¥14.32 across the full window).</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 3: number of Tokyo-area slots at or above ¥30/kWh (by season, measured)">
+  <text x="350" y="26" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1">Figure 3 / Tokyo: high-price slots at ≥¥30/kWh (analysis window, measured)</text>
+  <line x1="90" y1="290" x2="640" y2="290" stroke="#E2E6EC" stroke-width="1.5"></line>
+  <rect x="140" y="100" width="80" height="190" rx="3" fill="#C49A3C"></rect>
+  <text x="180" y="92" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="16" font-weight="700" fill="#A07916">279</text>
+  <text x="180" y="312" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12.5" fill="#2C3E50">Spring</text>
+  <rect x="260" y="185" width="80" height="105" rx="3" fill="#2A3D66"></rect>
+  <text x="300" y="177" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#2A3D66">154</text>
+  <text x="300" y="312" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12.5" fill="#2C3E50">Summer</text>
+  <rect x="380" y="266" width="80" height="24" rx="3" fill="#6C7A89"></rect>
+  <text x="420" y="258" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#6C7A89">35</text>
+  <text x="420" y="312" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12.5" fill="#2C3E50">Autumn</text>
+  <rect x="500" y="287" width="80" height="3" rx="1" fill="#6C7A89"></rect>
+  <text x="540" y="279" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="15" font-weight="700" fill="#6C7A89">4</text>
+  <text x="540" y="312" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12.5" fill="#2C3E50">Winter</text>
+  <text x="350" y="344" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89" font-style="italic">In the prior year Tokyo had 0 slots above ¥30 in spring and 101 for the year. The spring concentration is new to spring 2026</text>
+</svg>
+<div class="fig-cap">Figure 3 — The old rule "peaks come on winter evenings" does not hold in this window (source: ScienceX, from JEPX published data)</div>
+</div>
+
+<p>The extremes themselves are gone too. <strong>Slots above ¥100/kWh were zero nationwide across the 12 months</strong> (the prior year had just two in Chubu), and even at ¥75 or more there was only one slot in Hokkaido (¥80.0, 23 October 2025). The mechanism is traceable in primary sources — after Onagawa 2 and Shimane 2, the grid-connection of Kashiwazaki-Kariwa 6 (February 2026) restored the reserve margin and erased the scarcity of the ceiling, while solar deepened the midday floor. High prices have shifted from "a rare strike" to "a broad spring spread" — the way you earn has itself changed. As another first, Tokyo carried out its first area renewable output curtailment on 1 March 2026 (1,180 MW), so curtailment has now occurred in all nine areas. The spring floor is set to deepen further even in the east.</p>
+
+<p>The one exception to the collapse of seasonal common sense is Hokkaido, where 73 slots above ¥30 stood even in winter. But <strong>71 of those concentrate in the 8 December 2025 - 31 January 2026 unplanned outage of the Kitahon interconnector (the earthquake outage of Section 04)</strong> — a one-off event, not the seasonal norm. Reading "Hokkaido earns even in winter" as a permanent locational edge is dangerous; in a normal winter, realized values are thin like everyone else's.</p>
+
+<p>Charging is spring too. Slots pinned to the ¥0.01/kWh floor (annual) are led by <strong>Shikoku 1,148 and Kyushu 1,146</strong>, with Tohoku 646 and Hokkaido 598 up 40-50% year on year. Most occur in spring. Solar surplus sinks midday and it spikes in the evening — the deepening of the duck curve carries the minimization of charging cost and the upside in selling price in the same season. We put all of this on one calendar.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Season</th><th>Operating policy (with measured basis)</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">Spring (Mar-May)</td><td><strong>The year's biggest harvest.</strong> Split between ¥0.01 midday charging on curtailment days and pre-dawn charging on normal days, and concentrate operating resource on evening selling. The skill of foresight and sell timing becomes the single biggest factor in the annual spread (43% of Tohoku's year is here). Do not schedule maintenance in this season</td></tr>
+<tr><td class="em">Summer (Jun-Aug)</td><td>Second harvest. Aim at evening spikes (Tokyo's ¥50+ is 4 slots in summer). At the same time, the Jul-Aug peak results feed the judgment on the ¥10 cap cut in the balancing market, so it doubles as regulatory watch</td></tr>
+<tr><td class="em">Autumn (Sep-Nov)</td><td>Middle. Outside Hokkaido, an option to raise the ΔkW weight (composite, secondary-② and the like). Hokkaido keeps a selling stance as high-price events continue</td></tr>
+<tr><td class="em">Winter (Dec-Feb)</td><td><strong>Weakest everywhere.</strong> Weight planned maintenance, capacity-market performance tests and the capacity-outage plan (the 8,640-slot window) here, and thicken the ΔkW floor within the midday-charge / evening-discharge frame to prepare for spring</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>08 — The daily job since 14 March</h2>
+
+<p>The move to day-ahead / 30-minute trading changed the very time axis of operation. The ΔkW supply once decided weekly is now <strong>a daily task: each morning, decide how many of tomorrow's 48 slots go to JEPX and how many to ΔkW</strong>. By rule, surplus power must be bid in full into spot, with the unsold portion bid into the balancing market, so "abandon JEPX entirely and put all 48 slots into ΔkW" is hard to sustain; in practice it converges on a combined pattern of 18 charge/discharge slots plus 30 ΔkW slots. Because ΔkW is a capacity (reserve) product, you can bid while holding an available state without consuming discharge energy, so it coexists with arbitrage. The ¥0.06 per ΔkW per slot fee may be included in the bid price under the guidelines, so it is not a pure out-of-pocket cost.</p>
+
+<p>The skeleton of the allocation is taught by the reversal of the charging band. Measuring in Tokyo the share of the daily cheapest slot falling at midday (10:00-14:00): <strong>35% in October, 83% in November, 87% in January, 79% in February</strong> — in autumn and winter the battery is a machine that "fills cheap at midday and discharges at the evening lighting peak." This reverses to <strong>29% in May (the annual low)</strong>, and the charging band returns to the pre-dawn trough (the nine-area average shows the same shape, 84% in November to 29% in May). In the curtailment-peak season, the range of midday negative / ¥0.01 and the evening surge is the year's widest, and midday turns into the main battlefield for discharging. This round trip between midday and pre-dawn is the backbone of seasonal operation.</p>
+
+<p>Two points on the ΔkW side, too. The assessment line is a command value of ±10% and a 90% stay rate (Method II), and <strong>three non-conformances in one month for the same product lead directly to a trading suspension</strong> and a redo of the live test — with a higher ΔkW weight in winter, this is a seasonal risk. And second, in Hokkaido and Tokyo the pumped-hydro bilateral contracts ended at end-March 2026, opening room in the fast-product procurement — a tailwind for the ΔkW side this fiscal year for owners in those two areas.</p>
+
+<p>This allocation call is the daily work of SOC management, assessment compliance and pay-as-bid bid-price design. Whether in-house or delegated, <strong>the selection criterion for the aggregator (operator) is the single point of "how precisely it can run the daily co-optimization"</strong> — the 10-30% fee in Section 02 is the price for that skill — and that is the conclusion in this regulatory environment. That Tokyo at +40% and Kyushu at -11% coexisted in the same 12 months is the flip side of the truth that operating skill divides the result as much as location does.</p>
+
+<div class="part-head"><span class="pnum">Part 3</span><span class="ptitle">3-5 years: at what speed will these numbers be cut?</span><span class="psub">Read through the pipeline, demand, interconnectors and rules</span></div>
+
+<h2>09 — Supply: where is the pipeline stacking up?</h2>
+
+<p>An area's 3-5 years are decided by four forces: supply (the battery pipeline), demand (large loads), grid (interconnectors) and rules. First, supply. The biggest variable eroding future spreads is, before the interconnectors, the connection rush of batteries themselves.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Area</th><th class="num">Connection contracts<span class="u">GW, end-2025</span></th><th class="num">Connection studies<span class="u">GW, mid-2025</span></th><th class="num">Cannibalization index<span class="u">contract GW / FY2035 peak-demand GW</span></th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">Kyushu</td><td class="num">5.90<span class="u">largest</span></td><td class="num">16.81</td><td class="num">❓<span class="u">denominator unconfirmed</span></td></tr>
+<tr><td class="em">Tokyo</td><td class="num">5.17</td><td class="num">16.52</td><td class="num ok">0.088</td></tr>
+<tr class="hl"><td class="em">Tohoku</td><td class="num">4.92</td><td class="num">56.60<span class="u">40% of nation</span></td><td class="num ng">0.383</td></tr>
+<tr><td class="em">Chugoku</td><td class="num">4.13</td><td class="num">18.26</td><td class="num ng">0.408<span class="u">highest 🚩</span></td></tr>
+<tr><td class="em">Chubu</td><td class="num">3.44</td><td class="num">11.62</td><td class="num">❓</td></tr>
+<tr><td class="em">Kansai</td><td class="num">2.40</td><td class="num">6.88</td><td class="num ok">0.087</td></tr>
+<tr><td class="em">Hokkaido</td><td class="num">1.76</td><td class="num">8.65</td><td class="num ng">0.383</td></tr>
+<tr><td class="em">Hokuriku</td><td class="num">0.59</td><td class="num">4.51</td><td class="num">❓</td></tr>
+<tr><td class="em">Shikoku</td><td class="num">0.38</td><td class="num">3.37</td><td class="num ok">0.089</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Grid-scale batteries (high-voltage and above). Connection contract applications = Next-Generation Grid WG, 7th meeting, Doc 1-1 (9 Feb 2026, end-December 2025 snapshot, national total 28.69 GW); connection studies = same, 4th meeting, Doc 4 (24 Sep 2025, mid-2025 snapshot, national ~143 GW). Grid-connected capacity is about 250 MW (mid-2025) rising to about 640 MW (end-2025 ⚠️; the latter needs primary confirmation), so the gap between pipeline and live operation is very large. The denominator of the cannibalization index is FY2035 peak demand in OCCTO's FY2026 demand projection (Chubu, Hokuriku and Kyushu are ❓ as the detailed table is unconfirmed).</p>
+
+<p>The leader flips by date. In the mid-2025 snapshot, Tohoku's 4.00 GW of applications was the national largest, but <strong>in the end-2025 snapshot Kyushu leads with 5.90 GW</strong> — +2.85 GW in half a year, the fastest priority-connection momentum in the west. The connection-study leader is consistently <strong>Tohoku at 56.60 GW = about 40% of the nation</strong>, and Tohoku's demand is flat to slightly down. Its structure of stacking supply it cannot absorb in-area and depending on transmission to Tokyo is unchanged. By demand ratio, <strong>Chugoku rises to the top at 0.408</strong> — applications doubled from 1.73 to 4.13 GW in half a year, i.e. 4.1 GW stacked on a 10 GW area. Hokkaido and Tohoku follow at 0.383; Tokyo, though large in absolute terms at 5.17 GW, is the healthiest on the index because demand is an order of magnitude larger. Kyushu's contraction (-10.9%) reads, consistently with primary sources, as its priority connection compounded by a high curtailment rate (4.8% actual in FY2024, a FY2026 outlook of 6.9%, the highest nationwide; national curtailment volume is projected at about 2.53 billion kWh, about 1.25x the prior year). The discipline side has lined up too — after caps on the number of connection studies and tighter land-title and deposit rules, from June 2026 connection applications require <strong>simultaneous acceptance of the generation (discharge) and demand (charge) sides</strong>. The more speculative reservations are excluded, the higher the scarcity value of the remaining slots.</p>
+
+<h2>10 — Demand and grid: demand rising in the east, transmission arriving late</h2>
+
+<p>The lead role on demand is the east. Tokyo-area peak demand rises from 54,529 MW in FY2025 to 58,880 MW in FY2035, <strong>about +4.3 GW</strong> (mainly the individual accounting of data centers and semiconductors; a roughly 250 MW-class DC campus is also starting up in Inzai and Shiroi). Hokkaido grows at +1.2% a year, the highest nationwide, and holds Rapidus in Chitose (pilot operation planned for 2027). Kyushu has TSMC/JASM's second Kumamoto fab on a schedule of first shipment end-2027 and completion December 2029. But <strong>the contracted power (MW) of Rapidus and TSMC's second fab is undisclosed in the operators' primary sources</strong> (❓ reports and estimates only), so the scale of the demand rise must be seen with a range.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Interconnector</th><th class="num">Current</th><th class="num">After upgrade</th><th>Completion / status</th></tr></thead>
+<tbody>
+<tr><td class="em">Hokkaido-Honshu (Kitahon)</td><td class="num">0.9 GW</td><td class="num">1.2 GW</td><td><span class="ok">In build</span>&nbsp; end-FY2027 (March 2028)</td></tr>
+<tr class="hl"><td class="em">Sea-of-Japan HVDC (Hokkaido to Tokyo)</td><td class="num">—</td><td class="num">+2.0 GW</td><td><span class="cond">Implementation-plan deadline 26 December 2026</span> (extended one year; financing a challenge)</td></tr>
+<tr><td class="em">Tohoku-Tokyo</td><td class="num">~5.73 GW</td><td class="num">10.28 GW</td><td><span class="ok">In build</span>&nbsp; November 2027 (near-term eastward effective 6.8-8.5 GW, rising to 9.2-9.6 GW from FY2030)</td></tr>
+<tr><td class="em">FC (Tokyo-Chubu)</td><td class="num">2.1 GW</td><td class="num">3.0 GW</td><td><span class="ok">In build</span>&nbsp; end-FY2027</td></tr>
+<tr><td class="em">Kanmon (Chugoku-Kyushu)</td><td class="num">3.0 GW</td><td class="num">upgrade size also diverges</td><td><span class="cond">🚩 Primary sources diverge</span>&nbsp; the wide-area plan says about +1.0 GW by end-FY2038 (March 2039); the ANRE grid diagram says 6.0 GW by June 2030 — both start year and upgrade size unfixed, presented as competing ❓</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Sources: OCCTO Wide-area Grid Development Committee, 96th/99th/101st meetings; 24 Dec 2025 press (one-year extension of the HVDC implementation-plan deadline); Wide-area Grid Development Plan (filed 15 Oct 2025); the eastern-region planning process; ANRE grid diagram (May 2025) and others. Kanmon saw market separation in about 24% of hours in FY2024.</p>
+
+<p>Most upgrades cluster from end-FY2027 to 2039, so <strong>the windows in which grid constraints ease fundamentally within the 3-5 year forecast horizon are limited</strong>. Whether Hokkaido's and Tohoku's surplus can flow to Tokyo's rising demand hinges above all on the Tohoku-Tokyo upgrade (November 2027) and the fate of the Sea-of-Japan HVDC; whether the latter's implementation plan is filed by the deadline is the single biggest fork dividing Hokkaido's five years. On the other hand, only the Tohoku-Tokyo link completes its upgrade to 10.28 GW in November 2027, so the 56.6 GW study balance and the upgrade run almost simultaneously — rather than a uniform "saturation ahead," the Tohoku-Tokyo axis is best read as a standoff.</p>
+
+<h2>11 — Rules: do not mix "in force," "decided in principle" and "under deliberation"</h2>
+
+<p>We put the rule changes that alter revenue premises on one page, tagged by regulatory stage. The moment you mix stages, the business plan goes wrong — the triple compression in force and the reference-price doubling under deliberation differ completely in certainty.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Item</th><th>Detail</th><th>Regulatory stage</th><th>Timing</th></tr></thead>
+<tbody>
+<tr><td class="em">ΔkW cap 19.51 to 15</td><td>Composite, primary, secondary-①</td><td class="ok">✅ In force</td><td>Deliveries from 14 Mar 2026</td></tr>
+<tr><td class="em">Procurement volume 3σ to 1σ</td><td>About -13% for primary/secondary-①; a +50% estimate for composite</td><td class="ok">✅ In force</td><td>Deliveries from 14 Mar 2026</td></tr>
+<tr><td class="em">Balancing-platform fee 0.03 to 0.06</td><td>Trading fee doubled (ex-tax)</td><td class="ok">✅ In force</td><td>Actual delivery from 1 Apr 2026</td></tr>
+<tr><td class="em">Staged cut 10 to 7.21</td><td>Conditional trigger if competition does not improve</td><td class="cond">⚠️ Decided in principle, not triggered</td><td>Judged in H2 FY2026 on summer results</td></tr>
+<tr><td class="em">Re-dispatch method (a set order)</td><td>In congested local grids, battery discharge is curtailed after thermal and before renewables</td><td class="ok">✅ In force</td><td>From 1 Apr 2026</td></tr>
+<tr class="hl"><td class="em">Capacity market reference price ~2x</td><td>10,075 to about 20,500/kW (rationale: build cost 120,000 to 268,000/kW; equipment 1.4 to 0.6 GW revision)</td><td class="cond">⚠️ Under deliberation</td><td>Assumed for FY2030 main; awaits end-July demand curve</td></tr>
+<tr><td class="em">Two-stage clearing</td><td>Single-price plus clearing at or below the reference capped at the reference</td><td class="cond">⚠️ In draft guidelines (pre-force)</td><td>FY2030 main (autumn 2026 bidding)</td></tr>
+<tr><td class="em">Abolition of transitional measures</td><td>Removes the age and bid-content deductions</td><td class="cond">⚠️ In draft guidelines (pre-force)</td><td>Delivery FY2030 on</td></tr>
+<tr><td class="em">Simultaneous market (co-optimize kWh and ΔkW)</td><td>Simultaneous clearing of both markets. The stacked multi-market revenue may shrink structurally</td><td class="cond">⚠️ Decided in principle, detailed design</td><td>Target early 2030s (a reported "2028" has no primary-source backing)</td></tr>
+<tr><td class="em">Non-fossil value allocation (FIP co-located)</td><td>Only the generation-derived portion of discharge is allocated pro-rata (grid-charge-derived is out of scope; a separate rule for standalone storage is ❓)</td><td class="ok">✅ In force</td><td>Generation from April 2025 on</td></tr>
+<tr><td class="em">Cap on connection studies per operator</td><td>Per-area caps (Tokyo 11, Kansai 12, Chubu 7, etc.)</td><td class="cond">⚠️ Before operation</td><td>Operation from 1 Aug 2026</td></tr>
+<tr><td class="em">Requirement to submit land-title documents</td><td>Within 2 months of connection consent. Non-submission cancels the connection reservation</td><td class="cond">⚠️ Planned</td><td>Planned 1 Oct 2026</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Sources: ANRE Institutional Design Subcommittee 108th-114th and Stable Electricity Supply WG 1st; Study Group on the Simultaneous Market, second interim summary (15 Oct 2025); Next-Generation Grid WG 6th/7th/11th; the balancing platform (5 and 13 Feb 2026); OCCTO FY2030 application guidelines (draft) (30 Jun 2026).</p>
+
+<p>The read is this. The headwinds on the ΔkW side are all in force and irreversible; the next fork is only whether the ¥10 cut is triggered on summer results. The tailwind on the capacity side (the reference-price doubling) is under deliberation, and whether it is reflected in the FY2030 main is first fixed by the end-July demand curve. The main pillar of the last 12 months is still ΔkW, but if realized values converge toward the floor (the market-average side), the main pillar shifts to capacity — the fork on that is held by the summer results and the end-July demand curve.</p>
+
+<p>The last two rows are a tectonic shift on the development side. With the cap on connection studies and the land-title requirement, <strong>the hurdle to newly take grid slots clearly rises this summer</strong>. Conversely, the scarcity value of projects that already hold a connection-study answer or a connection contract rises in relative terms. For buyers, "a good site with a connection slot" becomes, more than ever, an asset that cannot be bought with time.</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 4: current momentum (vertical) and future exposure to erosion (horizontal); Hokkaido and Tohoku top-right, Chugoku bottom-right, Tokyo top-left">
+  <text x="350" y="26" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1">Figure 4 / Current momentum x future exposure to erosion (six areas with a confirmed index)</text>
+  <line x1="100" y1="300" x2="655" y2="300" stroke="#E2E6EC" stroke-width="1.5"></line>
+  <line x1="100" y1="40" x2="100" y2="300" stroke="#E2E6EC" stroke-width="1.5"></line>
+  <line x1="100" y1="244" x2="655" y2="244" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="4 4"></line>
+  <text x="92" y="248" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">0%</text>
+  <text x="377" y="320" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">&rarr; Cannibalization index (application GW [end-2025] / FY2035 peak-demand GW)</text>
+  <text x="70" y="170" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89" transform="rotate(-90 70 170)">&uarr; Gross margin YoY (measured)</text>
+  <circle cx="559" cy="59" r="9" fill="#C49A3C"></circle><text x="559" y="46" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#1B2A4A">Hokkaido</text>
+  <circle cx="561" cy="105" r="9" fill="#C49A3C"></circle><text x="578" y="110" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#1B2A4A">Tohoku</text>
+  <circle cx="589" cy="258" r="9" fill="#c44"></circle><text x="589" y="280" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#c44">Chugoku</text>
+  <circle cx="205" cy="97" r="9" fill="#1B2A4A"></circle><text x="205" y="84" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#1B2A4A">Tokyo</text>
+  <circle cx="207" cy="250" r="7" fill="#6C7A89"></circle><text x="196" y="240" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">Shikoku</text>
+  <circle cx="204" cy="257" r="7" fill="#6C7A89"></circle><text x="214" y="273" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">Kansai</text>
+  <text x="540" y="150" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#A07916" font-style="italic">Top-right = strong now, most reserved</text>
+  <text x="560" y="230" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#c44" font-style="italic">Bottom-right = reserved before it grows</text>
+  <text x="195" y="130" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#1B2A4A" font-style="italic">Top-left = growing, still healthy</text>
+  <text x="350" y="366" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89" font-style="italic">Chubu, Hokuriku and Kyushu are not plotted: FY2035 peak demand (the denominator) is unconfirmed ❓</text>
+</svg>
+<div class="fig-cap">Figure 4 — Hokkaido and Tohoku sit top-right, Chugoku bottom-right; only Tokyo is top-left (source: ScienceX, from JEPX measured x ANRE grid WG x OCCTO demand projections)</div>
+</div>
+
+<h2>12 — Per-area reads and the decay curve (3-5 years)</h2>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Area</th><th>3-5 year read</th><th>Main basis</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">Kyushu</td><td>Realized-snapshot leader, but arbitrage is shrinking in real time. Buy by measuring how long the first-mover advantage lasts</td><td>Realized total ≈¥295M (door open x floor ¥15,112 x cheapest charging) / -10.9% from priority connection + curtailment rate / Kanmon start year splits between 2030/6 and 2039/3 🚩 / TSMC demand rise (MW ❓)</td></tr>
+<tr class="hl"><td class="em">Tokyo</td><td>Upside area. The door is wide open, and events x reserves reward operating skill</td><td>+39.6%, the most high-price events / bilateral end widens the door further, primary shortfall 70.3% / demand +4.3 GW, lowest curtailment likelihood / demerits: coefficient 70.8%, cap cuts</td></tr>
+<tr><td class="em">Tohoku</td><td>Largest divergence. Thickest floor-core but door shut, with 40% of the nation overhead. If you buy, design a pull-forward of payback or an exit</td><td>2nd in floor-core and 1st in capacity actual receipt, yet ΔkW shut as bilateral continues (realized total ≈¥230M) / connection study 56.60 GW = 40% of nation x slight demand decline / the 2027/11 upgrade may accelerate cannibalization</td></tr>
+<tr><td class="em">Hokkaido</td><td>JEPX champion x the year the door opened. A time-limited both-capture candidate. Buy only after drawing the floor P&amp;L post-spread-compression</td><td>+49.9% measured / bilateral end (end-March 2026) opens the ΔkW door from this fiscal year (a re-deduction remains possible ❓) / cannibalization 0.383 / HVDC deadline 2026/12/26 and new Kitahon 2028/3 time limits / Rapidus demand (MW ❓)</td></tr>
+<tr><td class="em">Chubu</td><td>Floor is middling, ΔkW has appeal. A solid runner-up</td><td>Primary shortfall 66.1% / demand thick in the metro area / JEPX YoY +1.0%</td></tr>
+<tr><td class="em">Hokuriku</td><td>The ΔkW door opens widest, but the market is small</td><td>Primary shortfall 75.8%, the highest nationwide / thin trading at 0.59 GW of applications</td></tr>
+<tr><td class="em">Kansai</td><td>Last on the sum. For capital that can accept a low-but-stable level</td><td>Ceiling sum ¥21,698 / curtailment low / competitive environment on the tough side</td></tr>
+<tr><td class="em">Chugoku</td><td>Middling, but the cannibalization index is the highest of the nine. Awaiting Kanmon's start year</td><td>Applications doubled from 1.73 to 4.13 GW in half a year, cannibalization 0.408, highest nationwide 🚩 / door opened from the new regime (shortfall 22.8%) / curtailment rate rising</td></tr>
+<tr><td class="em">Shikoku</td><td>An unexpected edge in charging cost. Door opened from the new regime. Small scale, so be selective</td><td>1,148 slots at ¥0.01, the most nationwide / shortfall 24.3% / the nation's largest demand decline rate</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Read plainly, the body of the 3-5 years is, before "area selection," the <strong>decay curve</strong>. The five open-door areas' realized snapshot is in the mid-¥140,000/kW/yr range — ¥290-300M/yr for a 2 MW unit. At what speed will this be cut by the staged cap cuts (¥15 to ¥10 to ¥7.21), the 1σ volume, and the simultaneous market (target early 2030s)? The table below is our estimate range for the <strong>landing point (the cruising level once the cuts have progressed and battery realized values have converged toward the market average), converted to 2 MW annual revenue</strong>. <strong>It is an estimate with stated premises, not a fixed value.</strong> Bull = ΔkW cap held at ¥15, capacity reference-price doubling reflected in FY2030, simultaneous market delayed. Base = one step down to a ¥10 cap, doubling reflected, competitors increasing gradually. Bear = ¥7.21 cap reached, competitors surging, simultaneous market partly applied within the horizon.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>Area</th><th class="num">Bull</th><th class="num">Base</th><th class="num">Bear</th></tr></thead>
+<tbody>
+<tr><td class="em">Tokyo</td><td class="num">≈¥86M</td><td class="num">≈¥68M</td><td class="num">≈¥52M</td></tr>
+<tr><td class="em">Tohoku</td><td class="num">≈¥84M</td><td class="num">≈¥66M</td><td class="num">≈¥52M</td></tr>
+<tr><td class="em">Hokkaido</td><td class="num">≈¥80M</td><td class="num">≈¥64M</td><td class="num">≈¥50M</td></tr>
+<tr><td class="em">Kyushu</td><td class="num">≈¥70M</td><td class="num">≈¥58M</td><td class="num">≈¥44M</td></tr>
+<tr><td class="em">Chubu / Chugoku / Kansai</td><td class="num">≈¥62-64M</td><td class="num">≈¥52-54M</td><td class="num">≈¥42-44M</td></tr>
+<tr><td class="em">Hokuriku / Shikoku</td><td class="num">≈¥60M</td><td class="num">≈¥50M</td><td class="num">≈¥40M</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">Unit: approximate 2 MW annual revenue. In ¥/kW/yr terms, roughly a ¥20,000-43,000 range (per nominal 2,000 kW). An estimate range combining primary-source rule parameters with this piece's measured data. It varies widely with a specific project's connection cost, construction-cost contribution and operating skill.</p>
+
+<h2>13 — Monitoring triggers, and what we still don't know</h2>
+
+<p>The events that could change this read can be laid out with dates. The checkboxes are for monitoring — each time a publication or ruling lands, we update the relevant section of this piece.</p>
+
+<div class="checklist-group" id="c32-checklist">
+<h5><span class="cl-num">8</span>The monitoring calendar that moves the call</h5>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07/13</span>Deadline for comments on the FY2030 main-auction application guidelines (draft) — the last point to weigh in on the two-stage clearing design</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">Late Jul</span>Expected publication of the FY2030 battery derating coefficients and demand curve (the confirmed reference price) — update the capacity revenue in Section 05</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">Jul-Aug</span>The ΔkW summer results (shortfall rate; bid concentration near the cap) = the biggest input to whether the ¥10 cap cut is triggered. If triggered, cut variable revenue by about 30%</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">Autumn 2026</span>FY2030 main-auction bidding (the first new-build entry; first receipt in delivery FY2030)</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">12/26</span>Filing deadline for the Sea-of-Japan HVDC implementation plan — filing eases Hokkaido's and Tohoku's compression risk; a further extension or withdrawal tightens it</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">Ongoing</span>Confirmation of Kanmon's start year (🚩 primary sources diverge: 6.0 GW by 2030/6 vs about +1.0 GW by 2039/3) — splits the outlook for Kyushu and Chugoku</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">Ongoing</span>The end of Tohoku's bilateral contracts and the rise of Hokkaido's primary shortfall — if the door's open/closed state changes, recompute Section 03</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">Ongoing</span>Tohoku's connection contracts above 6 GW and grid-connected above 2 GW = a signal that new entry is decelerating</span></label>
+<div class="check-progress"><div class="bar"><span class="bar-fill" id="checkBarFill"></span></div><span class="count"><span id="checkCount">0</span>/8</span></div>
+</div>
+
+<p>And we leave what we could not find out standing as unknown. The opacity of the rules is itself an input to the investment call.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>❓ Unverifiable / awaiting publication</th><th>State</th><th>Where to inquire</th></tr></thead>
+<tbody>
+<tr><td class="em">Balancing market per-area average clearing prices (an annual table)</td><td class="cond">The numbers exist in the daily confirmed data (by area x product). No annual table is published, and the aggregated materials are charts only</td><td>EPRX inquiry form</td></tr>
+<tr><td class="em">Full-period confirmed data for the new regime (2026/3/14-6/30)</td><td class="cond">This piece's new-regime figures are proxies from the 28-day preliminary data</td><td>EPRX</td></tr>
+<tr><td class="em">New-regime battery realized winning price (by resource type)</td><td class="cond">Unpublished. Proxied by extrapolating the old-regime band (¥8.8-13.5)</td><td>EPRX / Stable Electricity Supply WG</td></tr>
+<tr><td class="em">The primary source for the 97.8% battery share of primary-offline</td><td class="cond">Unconfirmed in the confirmed-data body (⚠️ an aggregate)</td><td>EPRX / Institutional Design Subcommittee secretariat</td></tr>
+<tr><td class="em">The per-area reality and scope of the pumped-hydro bilateral contracts</td><td class="cond">The end of Hokkaido's and Tokyo's at end-March 2026 and Tohoku's continuation rest on the summary in Doc 8 etc. (the original slides are unconfirmed)</td><td>Stable Electricity Supply WG secretariat</td></tr>
+<tr><td class="em">FY2030 derating coefficients and demand curve (the confirmed reference price)</td><td class="cond">Expected late July. Update Section 05 after publication</td><td>OCCTO capacity-market desk / ANRE Electricity Infrastructure Division 03-3501-1749</td></tr>
+<tr><td class="em">Whether and when the staged cut to a ¥10 cap is triggered</td><td class="cond">Decided in principle; the conditional trigger is not fired</td><td>Institutional Design Subcommittee (deliberation expected H2 FY2026)</td></tr>
+<tr><td class="em">Grid-connected capacity ~640 MW (end-2025)</td><td class="cond">Secondary information only (the confirmed value is 250 MW, mid-2025)</td><td>ANRE Next-Generation Grid WG</td></tr>
+<tr><td class="em">Kanmon's start year and upgrade size</td><td class="cond">🚩 Primary sources diverge (6.0 GW by 2030/6 vs about +1.0 GW by end-FY2038)</td><td>OCCTO Wide-area Grid Development Committee secretariat</td></tr>
+<tr><td class="em">FY2035 peak demand for Chubu, Hokuriku and Kyushu</td><td class="cond">Complete the nine-area cannibalization index once the detailed table is fixed</td><td>OCCTO demand projection</td></tr>
+<tr><td class="em">The realized aggregator fee rate</td><td class="cond">Only RE100 Denki's 5% is published; the 10-30% is secondary</td><td>Compare vendor quotes (possible disclosure under NDA)</td></tr>
+<tr><td class="em">Contracted power (MW) of TSMC/JASM's second fab and Rapidus</td><td class="cond">Undisclosed in the operators' primary sources</td><td>Reports and think-tank estimates only</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note-small"><strong>Null findings (a report of what itself could not be found):</strong> The JEPX spot data is fully complete for both the current and prior years — 365 days x 48 slots — with zero missing values or interpolation. Slots above ¥100/kWh were zero nationwide in the current window (the prior year had only two, in Chubu). New-regime standalone results for secondary-① are unpublished as bids were scarce. The additional auctions for delivery FY2027-2029 have not been held (corroborating the single-main-auction policy). Hokuriku and Shikoku have no individual DC/semiconductor demand accounting.</p>
+
+<h2>In closing — buy the static No. 1, or buy five years of resilience?</h2>
+
+<p>Assembling the last 12 months' snapshot in realized terms, the five areas whose door stayed open are near-level at ¥290-300M/yr for a 2 MW unit (median), led by Kyushu at about ¥295M. Hokkaido and Tohoku, No. 1 and No. 2 in JEPX, cannot join that row because pumped-hydro bilateral contracts block the door — <strong>the arbitrage map and the ΔkW map do not overlap</strong>. The body of revenue sits not in the area but in the balancing market itself, and that body is exactly what the rules go to cut in stages. On the floor + core that survives the cut, Hokkaido and Tohoku are thick; Hokkaido turns into a time-limited candidate whose both doors open from this fiscal year as the bilateral contracts end, while Tohoku's door stays shut with 40% of the nation's connection studies stacked overhead. Tokyo, fifth on floor + core, is the only area where momentum, events, clearing room and demand all point up.</p>
+
+<p>So the honest answer to "which area do you recommend" is not the No. 1 of a static ranking. <strong>The current standings and five-year resilience are different tables.</strong> Attack with arbitrage, capture with events and reserves, or fix the floor and buy selectively — decide the strategy first, and the area is decided. After that, the individual conditions — connection slot, construction-cost contribution and contract design — make a further difference of tens of millions of yen within the same area.</p>
+
+<p>ScienceX brokers development rights and projects in each of the nine areas. The statistics in this piece are about the market as a whole, but what finally divides the investment call is a specific project's connection terms and contract state. From area selection to project-level judgment, we help at the same precision as the measured data.</p>
+
+<div class="data-box">
+<div class="db-head">Sources and calculation spec (as of 5 July 2026)</div>
+<ul class="src-list">
+<li><span class="t">Measured</span>JEPX spot-market result CSVs (spot_summary, FY2024-FY2026), tallied by ScienceX. Spec: one cycle a day, perfect foresight; discharge = the 8 highest-price slots (8,000 kWh); charge = 9,412 kWh from the lowest-price slots up (8,000 / 0.85); round-trip efficiency 85%; per nominal 2,000 kW. Analysis window 365 days x 48 slots x 9 areas, zero missing. The perfect-foresight value = the theoretical ceiling. Separation, charging band and high-price slots were built by matching area and system prices across every slot</li>
+<li><span class="t">T1</span>EPRX: On the balancing-market cap (5 Feb 2026, stating the ¥15 cap applies from delivery 14 Mar 2026) / FY2025 trading results (18 Jun 2026, primary shortfall 60.4%, average ¥3.93, battery by resource type ¥8.82-13.52 and others) / trading-fee unit price (decided 13 Feb 2026, ¥0.06 per ΔkW per 30 min)</li>
+<li><span class="t">T1</span>ANRE: Institutional Design Subcommittee 108th-114th (balancing and capacity markets; 109th Doc 6 = the verbatim on the pumped-hydro bilateral deduction and its March 2026 deduction deadline) / Stable Electricity Supply WG 1st, Doc 8 (13 May 2026; 28-day post-day-ahead results, composite average ¥2.86, per-area shortfall rates, the bilateral summary) / Next-Generation Grid WG 4th Doc 4 (connection studies mid-2025; grid-connected 250 MW), 7th Doc 1-1 (connection contracts end-2025; national 28.69 GW), 6th/11th (curtailment; connection discipline) / Study Group on the Simultaneous Market, second interim summary (15 Oct 2025)</li>
+<li><span class="t">T1</span>OCCTO: capacity-market main-auction clearing results (delivery FY2026-2029; FY2029 published 20 Jan 2026, corrected 23 Jan: Tohoku/Tokyo ¥15,111, Kyushu ¥15,112, Hokkaido ¥14,972, others ¥12,388, all-in average about ¥13,303/kW) / FY2029 derating-coefficient table (31 Jul 2025) / capacity-securing contract terms (Arts. 8 and 26) / FY2030 application guidelines (draft) (30 Jun 2026) / Long-term Decarbonization Auction 3rd-round results (13 May 2026) / FY2026 demand projection (21 Jan 2026) / Wide-area Grid Development Committee 96th/99th/101st and 24 Dec 2025 press / Wide-area Grid Development Plan (filed 15 Oct 2025)</li>
+<li><span class="t">T2</span>Yano Research Institute press release (10 Dec 2025): battery-storage business market size ¥45B in FY2024 (operator-revenue basis) — used only as an order-of-magnitude consistency check on the realized range</li>
+<li><span class="t">Calc premises</span>Balancing = battery realized ¥8.8-13.5 per ΔkW per 30 min (median ¥11.2) x 30 slots (combined) / 48 slots (all-in) x days the door was open (five year-round areas 365 days, Tohoku 256, Chugoku and Shikoku 109, Hokkaido 0). In products short of procurement, requirement-meeting bids clear in principle, so no seller-side winning rate is applied (the shortfall is buyer-side unmet). As new-regime battery realized values are unpublished, the old-regime band is extrapolated (period-by-period, not averaged across the boundary). The 3-6x gap to the market average comes from the pay-as-bid structure. The capacity actual receipt is an estimate using annual-average coefficients 🚩 (formally built up monthly; to be updated after the end-July publication). The decay curve in Section 12 is an estimate of the cruising level, not a fixed P&amp;L for a real project</li>
+<li><span class="t">Note</span>EPRX prohibits automated bulk retrieval of its published data and requires a prior contract for commercial use. All tables here are our own aggregation and transcription based on published materials, handled within the scope of citation with sources stated. This piece is not investment, tax or legal advice. It is updated half-yearly; the next regular update is planned for January 2027</li>
+</ul>
+</div>
+
+<a target="_top" href="https://www.scix.co.jp/en/column-contracts" class="next-link">
+  <div>
+    <div class="next-link-label">Related</div>
+    <div class="next-link-title">Contract design worth ¥200M over 20 years — the five layers of power contracts a grid-scale battery signs</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="cta-section">
+  <h3>From area selection to project-level judgment</h3>
+  <p>This piece is a market analysis based on published data. The real projects in each of the nine areas (connection slot, construction-cost contribution, contract state, projected P&amp;L) are presented individually after you get in touch and an NDA is signed. We also advise on reviewing the operation of assets you already hold (market allocation and seasonal planning).</p>
+  <a target="_top" href="https://www.scix.co.jp/en/contact" class="cta-btn">Contact us →</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var g=document.getElementById('c32-checklist');
+  if(!g)return;
+  var checks=g.querySelectorAll('input[type=checkbox]');
+  var fill=document.getElementById('checkBarFill');
+  var cnt=document.getElementById('checkCount');
+  var tot=checks.length;
+  function upd(){
+    var n=0; checks.forEach(function(c){if(c.checked)n++;});
+    if(fill) fill.style.width=(n/tot*100)+'%';
+    if(cnt) cnt.textContent=n;
+  }
+  checks.forEach(function(c){c.addEventListener('change',upd);});
+})();
+</script>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo img { height:40px; width:auto; display:block; }
+  .scix-footer-info { text-align:center; }
+  .scix-footer-company { margin-bottom:14px; }
+  .scix-footer-company .company-name { font-size:14px; font-weight:500; margin-bottom:6px; letter-spacing:.04em; }
+  .scix-footer-company a { color:rgba(255,255,255,0.85); text-decoration:none; }
+  .scix-footer-company .representative { margin-top:6px; font-size:12px; color:rgba(255,255,255,0.6); }
+  .scix-footer-copyright { font-size:11px; color:rgba(255,255,255,0.45); letter-spacing:.05em; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX home">
+      <img src="https://www.scix.co.jp/img/logo-white.png" alt="Science X Inc." loading="lazy">
+    </a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        BIZMARKS Nihonbashi-Kayabacho, 8-2 Nihonbashi-Koamicho<br>
+        Chuo-ku, Tokyo 103-0016, Japan<br>
+        TEL: <a href="tel:+81364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakajima, Ph.D. (Engineering), Representative Director</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025-2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

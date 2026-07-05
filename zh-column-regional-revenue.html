@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>储能电站放在哪个电网分区最赚钱 — 9分区×3市场、2MW/8MWh的实测比较与3～5年展望 | ScienceX</title>
+<meta name="description" content="高压2MW/8MWh（4小时）的电网侧储能电站，如今究竟能赚多少？答案是：在ΔkW（供需平衡调整市场）之"门"全年打开的5个分区（九州、东京、中部、北陆、关西），实测中位数约为每年2.9～3.0亿日元，居首的九州约2.95亿日元——其中约八成来自平衡调整市场。JEPX现货套利居首、居次的北海道与东北，因抽蓄的议价合同堵住了"门"而无法跻身此列。本文按收益从大到小逐一确定三大市场，并以9个电网分区的实数，描绘季节运营与3～5年的衰减曲线。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-regional-revenue">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-regional-revenue">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-regional-revenue">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-regional-revenue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="储能电站放在哪个电网分区最赚钱 — 9分区×3市场的实测比较｜ScienceX">
+<meta property="og:description" content="2MW/8MWh的实测：门全开的5分区每年约2.9～3.0亿日元、居首九州约2.95亿日元，约八成来自ΔkW。北海道、东北被议价合同堵住门而无法入列——套利的地图与ΔkW的地图并不重合。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-regional-revenue">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="储能电站放在哪个电网分区最赚钱 — 9分区×3市场的实测比较｜ScienceX">
+<meta name="twitter:description" content="2MW/8MWh的实测：门全开的5分区每年约2.9～3.0亿日元、居首九州约2.95亿日元。若全押ΔkW，理论上限3.1～4.7亿日元。连衰减曲线也用实测数据描绘。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-07-05">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif SC',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-grid.three{grid-template-columns:1fr 1fr 1fr}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif SC',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.edit-memo{background:#FBFAF7;border:1px solid var(--border);border-left:3px solid var(--accent);padding:18px 22px;margin:0 0 28px;border-radius:0 4px 4px 0;font-size:.82em;line-height:1.95;color:var(--text-light)}
+.edit-memo strong{color:var(--navy)}
+.prereq-box{background:#eef4fa;border:1px solid #cfe0f0;border-left:4px solid var(--blue);padding:24px 28px;margin:0 0 28px;border-radius:0 6px 6px 0;font-size:.9em;line-height:1.95}
+.prereq-box h3{color:var(--navy);font-family:'Noto Serif SC',serif;font-size:1.08em;margin:0 0 6px}
+.prereq-box .pq-lead{font-size:.92em;color:var(--text-light);margin:0 0 14px}
+.prereq-box dl{margin:0}
+.prereq-box dt{font-weight:700;color:var(--navy);margin:14px 0 4px;font-size:.98em}
+.prereq-box dt:first-of-type{margin-top:0}
+.prereq-box dd{margin:0 0 4px;color:var(--text)}
+.prereq-box .pq-warn{color:#b45309;font-weight:700}
+.flag-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:8px 0 4px;font-size:.78em;color:var(--text-light)}
+.flag-legend span b{color:var(--navy)}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.src-list{list-style:none;margin:8px 0 0;padding:0}
+.src-list li{font-size:.8em;color:var(--text-light);line-height:1.75;padding:8px 0;border-bottom:1px dashed var(--border)}
+.src-list li:last-child{border-bottom:none}
+.src-list .t{display:inline-block;font-size:.7em;font-weight:700;color:var(--accent);margin-right:8px;letter-spacing:.06em}
+.part-head{margin:56px 0 8px;padding:14px 20px;background:var(--navy);color:#fff;border-radius:6px;display:flex;align-items:baseline;gap:14px}
+.part-head .pnum{font-family:'Noto Serif SC',serif;color:var(--accent-light);font-weight:700;letter-spacing:.08em;font-size:.85em}
+.part-head .ptitle{font-family:'Noto Serif SC',serif;font-weight:600;font-size:1.05em}
+.part-head .psub{margin-left:auto;font-size:.75em;color:rgba(255,255,255,.55)}
+.related-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 0}
+.related-list a{display:block;background:var(--white);border:1px solid var(--border);border-radius:6px;padding:12px 16px;text-decoration:none;font-size:.82em;color:var(--navy);font-weight:600;transition:all .2s}
+.related-list a:hover{border-color:var(--accent);box-shadow:0 2px 10px rgba(196,154,60,.12)}
+.related-list a .rl-cat{display:block;font-size:.78em;color:var(--text-light);font-weight:400;margin-bottom:3px}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .compare-grid,.compare-grid.three{grid-template-columns:1fr}
+  .related-list{grid-template-columns:1fr}
+  .part-head{flex-wrap:wrap;gap:8px 14px}
+  .part-head .psub{margin-left:0;width:100%}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "储能电站放在哪个电网分区最赚钱 — 9分区×3市场、2MW/8MWh的实测比较与3～5年展望 | ScienceX",
+  "description": "高压2MW/8MWh（4小时）的电网侧储能电站，如今究竟能赚多少？答案是：在ΔkW（供需平衡调整市场）之\"门\"全年打开的5个分区（九州、东京、中部、北陆、关西），实测中位数约为每年2.9～3.0亿日元，居首的九州约2.95亿日元——其中约八成来自平衡调整市场。JEPX现货套利居首、居次的北海道与东北，因抽蓄的议价合同堵住了\"门\"而无法跻身此列。本文按收益从大到小逐一确定三大市场，并以9个电网分区的实数，描绘季节运营与3～5年的衰减曲线。",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "datePublished": "2026-07-05",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-regional-revenue",
+  "inLanguage": "zh-CN"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://www.scix.co.jp/zh"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "洞见",
+      "item": "https://www.scix.co.jp/zh-knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "储能电站放在哪个电网分区最赚钱 — 9分区×3市场、2MW/8MWh的实测比较与3～5年展望",
+      "item": "https://www.scix.co.jp/zh-column-regional-revenue"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans SC',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/zh" style="color:#5A6577;text-decoration:none">首页</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/zh-knowledge" style="color:#5A6577;text-decoration:none">洞见</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">储能电站放在哪个电网分区最赚钱 — 9分区×3市场、…</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 35 ／ 市场分析</span>
+      <span class="header-tag">收益·分区战略</span>
+      <time class="header-date" datetime="2026-07-05">2026.07.05</time>
+    </div>
+    <h1>最赚钱的分区，<br><em>也最容易被蚕食</em></h1>
+    <p class="header-desc">高压2MW/8MWh（4小时），如今究竟能赚多少？答案是：在ΔkW（供需平衡调整市场）之"门"全年打开的5个分区（九州、东京、中部、北陆、关西），实测中位数约为每年2.9～3.0亿日元，居首的九州约2.95亿日元——其中约八成来自平衡调整市场。JEPX现货套利居首、居次的北海道与东北，因抽蓄的议价合同堵住了"门"而无法跻身此列。本文按收益从大到小逐一确定三大市场：对将要买入的人，回答"该买哪里"；对已经持有的人，回答"该如何运营"，全部以9个电网分区的实数说话。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/zh-knowledge" class="back-link">← 返回知识库列表</a>
+
+<div class="prereq-box">
+<h3>写在前面：读懂本文所需的日本电力市场基础</h3>
+<p class="pq-lead">本文以日本国内的电网侧储能为对象，涉及许多日本特有的制度与术语。以下是面向中国读者的最小必要背景，读完再进入正文会顺畅得多。</p>
+<dl>
+<dt>① 9个电网分区，各自独立</dt>
+<dd>日本电网按地理划分为9个区域——北海道、东北、东京、中部、北陆、关西、中国地区、四国、九州，各由一家输配电公司（TSO）运营。区域间由联络线相连，但容量有限，价格常常割裂。这正是"把储能放在哪个分区"会显著影响收益的根本原因。<span class="pq-warn">请特别注意：文中的"中国"指日本本州西部的中国地方（Chugoku，广岛一带），是日本的一个地区名，与中华人民共和国无关。</span>此外，日本东部电网为50Hz、西部为60Hz，两者之间须经频率变换设备（FC）互联。</dd>
+<dt>② 三个收益市场</dt>
+<dd>储能电站主要在三个市场获取收益：<strong>现货市场（JEPX，日本电力交易所）</strong>——低价充电、高价放电赚取价差（套利）；<strong>供需平衡调整市场（ΔkW）</strong>——即调频与备用类辅助服务，按"可调节能力（kW）"付费，产品按响应速度分为一次、二次①、二次②、三次①、三次②等档次，本文中收益占比最大的正是这个市场；<strong>容量市场</strong>——为"预留可用容量"提前数年支付固定费用，由电力广域运营推进机构（OCCTO）主办年度拍卖。</dd>
+<dt>③ 关键机构（缩写对照）</dt>
+<dd>METI/资源能源厅（ANRE，日本经济产业省下属的能源主管部门）；OCCTO（电力广域运营推进机构，主办容量市场与跨区系统规划）；EPRX（供需平衡调整市场的运营主体）；JEPX（电力交易所）。正文中的规则依据，均出自这些机构的一手资料。</dd>
+<dt>④ 2026年3月14日的"制度断层"</dt>
+<dd>这一天（交割日）起，平衡调整市场大幅改革：报价上限从19.51日元降至15日元、招标量收紧、部分产品改为"前日／30分钟"交易。本文严格区分"旧制度期"与"新制度期"，绝不跨此边界做平均。另需分清：交易手续费翻倍（0.03→0.06日元）是从4月1日起，与3月14日不是同一天。</dd>
+<dt>⑤ 监管阶段的严格区分</dt>
+<dd>日本的制度变更分几个阶段，确定度完全不同：<strong>已施行</strong>（已生效、不可逆）＞<strong>方针已定</strong>（方向确定，但条文未公布、尚未生效）＞<strong>审议中</strong>（仍在讨论）。本文用标签逐条标注，绝不把"审议中"当作"已定"——这是判断收益前提能否成立的关键。</dd>
+<dt>⑥ 基准机组与计量单位</dt>
+<dd>全文以<strong>高压2MW／8,000kWh（4小时、往返效率RTE 85%）</strong>这一标准机组为参照；收益换算为"日元/kW/年"（÷2,000kW）。金额单位"亿日元"＝1亿日元、"万日元"＝1万日元；请按当日汇率自行折算人民币。日本财年（FY）为每年4月至次年3月，故"FY2029"指2029年4月–2030年3月。</dd>
+<dt>⑦ 反复出现的几个术语</dt>
+<dd><strong>容器（器）</strong>＝完全预见（事后完美预测）下的理论收益上限，实际运营会因预测误差、开工率、聚合商手续费而打折；<strong>底座／核心／主体</strong>＝本文把三市场按收益从小到大叠为"底座＝容量市场""核心＝JEPX套利""主体＝平衡调整市场"；<strong>门（是否打开）</strong>＝指某分区的平衡调整市场投标能否成交，若被抽蓄的<strong>议价合同（市场外双边采购）</strong>占满招标量，则"门被堵住"，储能无从中标；<strong>按报价结算（pay-as-bid／多价制）</strong>＝中标者各按自己的报价结算，而非统一出清价，故"市场平均单价"不等于个别机组的实际结算单价；<strong>自噬（cannibalization）指标</strong>＝储能装机相对于该分区最大需求的比例，越高，则未来价差被同类项目蚕食的风险越大。</dd>
+</dl>
+</div>
+
+<div class="edit-memo">
+<strong>编辑说明：</strong>本文中与JEPX相关的数值，是ScienceX依据JEPX公开的现货交易结果CSV（2024～2026财年）独立汇总的<strong>实测值</strong>（计算口径在01明示）。平衡调整市场"新制度期"的数值，采用了前日交易化后28天（2026/3/14～4/10）的速报值作为代理值，待通期确报公布后更新。容量市场FY2030的调整系数与需求曲线在本文成稿时尚未公布（按往年惯例约在7月底），确定后追补。此外，平衡调整市场报价上限（15日元/ΔkW·30分钟）的施行日为<strong>2026年3月14日交割分</strong>；所谓"4月1日施行"是交易规程中部分条款（手续费等）的生效日，并非上限价格的适用起始日——我们此前公开的专栏（COLUMN 25）曾有同类笔误，特借本文公开一并订正。ΔkW的分区差异（因议价合同与短缺率而"门"的开合）按期间比例反映，绝不跨越制度断层做平均。本文为基于一般案例的市场分析，不构成投资、税务或法务建议。个别项目的确定数字，将在签署NDA后单独提供。
+</div>
+
+<p>电网侧储能的收益，取决于"以何种合同运营"——直到上一篇，我们都这样写。还有一个同等分量的变量：<strong>放在哪个分区</strong>。</p>
+
+<p>先把答案放在前面。以最近12个月的实测口径搭建，这台基准机组在<strong>ΔkW之"门"全年打开的5个分区——九州、东京、中部、北陆、关西——每年约售出2.9～3.0亿日元（中位数）</strong>，居首的是九州，约2.95亿日元。构成上，<strong>平衡调整市场约占八成</strong>，JEPX与容量市场合计约两成——业主的损益表从平衡调整开始，所以本文也从这里开始。而在JEPX里居首、居次的北海道与东北，却挤不进这5个分区之列。堵住"门"的，是抽蓄的议价合同——<strong>套利的地图与ΔkW的地图，并不重合</strong>。本文按收益从大到小逐一确定三大市场：对将要买入的人，回答"该买哪里"；对已经持有的人，回答"该如何运营"，从季节与制度两面，用实数说话。</p>
+
+<div class="data-box">
+<div class="db-head">本文射程（以2MW/8,000kWh的年营收计）</div>
+<dl class="premise-grid">
+  <div><dt>基准机组</dt><dd>2<span class="unit">MW／8,000kWh（4h·RTE85%）</span></dd></div>
+  <div><dt>实测窗口</dt><dd>2025.07–2026.06<span class="unit">交割·满365天</span></dd></div>
+  <div><dt>实测·门全开5分区</dt><dd>2.9～3.0<span class="unit">亿日元/年·中位</span></dd></div>
+  <div><dt>全押ΔkW（理论）</dt><dd>3.1～4.7<span class="unit">亿日元/年</span></dd></div>
+  <div><dt>ΔkW占比</dt><dd>约八成<span class="unit">JEPX·容量约两成</span></dd></div>
+  <div><dt>底座＋核心的分区差</dt><dd>约1,500万<span class="unit">日元/年（被削减后仍留下的差）</span></dd></div>
+</dl>
+</div>
+
+<div class="part-head"><span class="pnum">第1部</span><span class="ptitle">当下，哪个分区赚多少</span><span class="psub">写给将要买入2MW/8MWh的人</span></div>
+
+<h2>01 — 前提与阅读方法</h2>
+
+<p>JEPX的实测，统一采用如下计算口径。每天1个循环、完全预见，放电取各日<strong>价格最高的8个时段</strong>（2MW×0.5h×8＝8,000kWh），充电取<strong>价格最低时段起累计9,412kWh</strong>（8,000÷0.85，即最低9个时段＋第10时段按比例）。日毛利＝放电收入−充电成本。因为是完全预见，这个值是理论上限——本文称之为<strong>"容器"</strong>。实际运营中会因预测误差、开工率、聚合商手续费而缩水，所以"容器"与实现收益始终分开呈现（常有人说实现值约为容器的六至八成，但这在实测中并非确立值，故不下断言）。</p>
+
+<p>这12个月中途，平衡调整市场存在一处断层。一次～三次①的采购从"周度·3小时块"转为<strong>"前日·30分钟商品"，同时ΔkW报价上限从19.51日元降至15日元/ΔkW·30分钟，二者均自2026年3月14日交割分起生效</strong>（据EPRX 2026年2月5日公布的条文确认）。本文将旧制度期（2025/7/1～2026/3/13，256天）与新制度期（2026/3/14～6/30，109天）分别汇总，<strong>不制作跨越断层的平均值</strong>。</p>
+
+<div class="flag-legend">
+<span><b>✅</b> 已由一手资料确认</span><span><b>⚠️</b> 附条件·速报值</span><span><b>❌</b> 已证伪·不适用</span><span><b>❓</b> 未公布·未确认（标明查询处）</span><span><b>🚩</b> 重大风险</span>
+</div>
+
+<h2>02 — 平衡调整市场：收益的主体，就在这里</h2>
+
+<p>按收益从大到小，先看最大的进项。先说断层之后的条件。自2026年3月14日交割分起，<strong>复合、一次、二次①的上限为15.00日元，二次②与三次①为7.21日元（维持不变），三次②无上限</strong>。买卖手续费自2026年4月1日实供需分起从0.03日元翻倍至<strong>0.06日元/ΔkW·30分钟</strong>（3月14日变动的是商品、上限、招标量；4月1日仅手续费），一次与二次①的招标量则从3σ削减至相当于1σ的水平（约减13%；1σ以上至3σ相当的部分，改由容量市场的余力活用合同承接）。单价、数量、成本三个方向同时收紧，新制度期就此开局。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>商品</th><th class="num">旧制度期<span class="u">2025财年确报</span><br>平均成交单价／短缺率</th><th class="num">新制度期<span class="u">3/14～4/10速报⚠️</span><br>平均成交单价／短缺率</th><th class="num">上限价格<span class="u">新制度</span></th></tr></thead>
+<tbody>
+<tr><td class="em">一次调节力</td><td class="num">3.93日元／60.4%</td><td class="num">❓／36.3%</td><td class="num">15.00日元</td></tr>
+<tr><td class="em">二次调节力①</td><td class="num">2.79日元／41.1%</td><td class="num">—</td><td class="num">15.00日元</td></tr>
+<tr><td class="em">二次调节力②</td><td class="num">2.53日元／4.3%</td><td class="num">—</td><td class="num">7.21日元</td></tr>
+<tr><td class="em">三次调节力①</td><td class="num">2.47日元／12.9%</td><td class="num">—</td><td class="num">7.21日元</td></tr>
+<tr class="hl"><td class="em">复合商品</td><td class="num">2.83日元／22.0%</td><td class="num">2.86日元／17.8%</td><td class="num">15.00日元</td></tr>
+<tr><td class="em">三次调节力②</td><td class="num">1.15日元／2.1%</td><td class="num">2.90日元／6.7%</td><td class="num">无</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">单位：日元/ΔkW·30分钟。短缺率＝相对招标量的未达比例（是买方侧的未达，而非卖方的落选率）。出处：EPRX 2025财年交易实绩（2026/6/18）、资源能源厅电力稳定供应工作组第1回资料8（2026/5/13，前日交易化后28天）。新旧的计算期间与定义不同，不能横向平均。新制度期通期确报尚未公布❓。</p>
+
+<p>不过，把这个平均单价直接套到电池上，就会偏离市场实态。原因在于市场的"倾斜"。一次、二次①、复合都是<strong>采购短缺型市场</strong>——短缺率是买方侧的未达，凡满足要件的报价原则上全部成交。因此电池实际面对的单价，不是含火电、抽蓄在内的市场平均，而是<strong>电池实测中标单价＝月度8.8～13.5日元/ΔkW·30分钟</strong>（据EPRX分电源种类数据，一次与复合大致同档）。以此搭建12个月，JEPX并用型（除充放电18时段外应标30时段）约为9.7万～14.8万日元/kW/年——<strong>换成2MW的年营收，约1.9亿～3.0亿日元（中位约2.4亿日元）</strong>。若全押平衡调整（48时段），则约15.5万～23.7万日元/kW/年＝<strong>每年3.1亿～4.7亿日元</strong>。作个对照：若以复合的市场平均2.83日元搭同样的30时段，则每年约6,200万日元——这约4倍之差，就是"监管的统计"与"从业者的体感"之间的距离。</p>
+
+<p>扣减一侧也先行披露。能够确定的部分都很小——EPRX买卖手续费0.06日元/ΔkW·30分钟（按指引可计入报价转嫁）、JEPX现货手续费0.03日元/kWh、输配电（过网费）因储能特例仅对充电损耗部分计费。按年额看，都不足以撬动显示单位。真正撬动的是不公开的那一张——<strong>聚合商手续费</strong>。公开费率只有RE100电力的5%，而据称实勢为10～30%（二手信息❓）；以中位口径下的年营收约2.4亿日元套算，<strong>每年2,400万～7,300万日元</strong>会落入受托方。在讨论上限价格是第几档之前，是这项费率谈判在左右收益。</p>
+
+<p>与外部数据也能相互印证。矢野经济研究所把储能电站业务的市场规模（以运营方收入计）推算为2024财年450亿日元，除以同期并网容量约25万kW，约合18万日元/kW/年——<strong>换成2MW约合每年3.6亿日元</strong>。与全押型的实测区间（3.1亿～4.7亿日元）落在同一数量级（含财年与容量的时点错位，仅作粗略印证⚠️）。能够解释"接入申请一年内暴增约3.9倍、至2,431万kW"的，不是复合平均的6千万日元，而是这一侧的数字。</p>
+
+<div class="highlight-box">
+而最大的注意点是<strong>按报价结算（多价制，pay-as-bid）</strong>。上表的"平均成交单价"是市场平均，并非个别公司的结算单价。按电源种类看，<strong>电池复合商品的中标单价为月度8.82～13.49日元/ΔkW·30分钟，是火电（2.16～3.45日元）的3～6倍</strong>（2025财年1月复合：电池13.48日元 vs 火电2.27日元，约6倍）。以一次的市场平均3.93日元搭48时段，约为每年1.4亿日元；以电池实勢8.8～13.5日元搭建，则每年3.1亿～4.7亿日元——这道差距本身，就是"监管的统计"与"从业者的体感"之间距离的实证。本文的实测区间（03的主体行）以电池侧单价搭建，市场平均只作为"从监管侧看到的风景"并列附注。
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 一次·离线：最赚钱，也最短保质期</span>
+2025财年电池在平衡调整市场真正的主战场，是一次调节力——尤其是离线档。对象为1MW以上、10MW以下的高压／特高压，也就是<strong>2MW基准机组的正中央</strong>。分电源种类数据中，电池一次调节力的中标单价在月度<strong>8.82～13.52日元/ΔkW·30分钟</strong>之间，逼近旧上限（19.51日元）。若单看离线档，中标量几乎全部（97.8%）由电池占据，平均中标单价14～19日元、充足率3.4%（这套在线／离线拆分的数值在确报正文中未获确认⚠️，已列入13的❓清单）。在"应标几乎必成交"的短缺市场里，出现逼近上限的价格——03的主体行与全押区间（每年3.1亿～4.7亿日元）的真身正在于此，是真实存在过的进项。本文把它作为主体、而非脚注来呈现。在此之上必须写明：<strong>恰恰是这份收益，制度正在最先动手清除</strong>。上限15日元已施行；10日元、7.21日元的分阶段下调（方针已定·附条件）将以今夏实绩为材料判断；招标量1σ化又使一次、二次①的数量本身缩减约13%。最赚钱的商品，也最容易被蚕食——分区上看到的构图，同样适用于商品。已持有者的正解是"两段式"：<strong>眼前的一次收益要收足；但在5年的收支线上，要先铺好衰减曲线（12），再叠上去。</strong>
+</div>
+
+<p>分区差异怎么看？分区×商品的成交单价，在日度确报值里确实以数字存在，但能俯瞰全年的数表并未公布，即便是已汇总的年度实绩与审议会资料，分区单价也止于图表（参见13❓）。既然单价的分区差无法以数表调取，实务中真正起作用的，就是<strong>报价能否通过＝"门"是否打开</strong>。把转轨后28天一次调节力的短缺率在9个分区并排看——<strong>北陆75.8%、东京70.3%、中部66.1%、关西49.0%、九州42.4%、四国24.3%、中国地区22.8%，以及东北0.1%、北海道0.0%</strong>。为零的这两个分区另有机关：两区的<strong>抽蓄议价合同（市场外采购）填满了招标量，市场之"门"实质关闭</strong>（招标量扣减的制度构造，在第109回制度研讨工作组资料6中明确记载，扣减期限为2026年3月）。而那些议价合同<strong>在北海道与东京于2026年3月底到期</strong>——北海道自本财年起ΔkW之门打开，东京原本就大的空档进一步扩大。<strong>唯有东北，议价合同继续，门依旧关着</strong>。另一方面，旧制度的年度确报注记"除北海道、中国地区、四国以外的区域，采购短缺达4～9成以上"，也就是说旧制度期的东北处在短缺侧（＝报价能通过的一侧）。以转轨为界，东北的门关上、中国地区与四国的门打开——03的实测表，正是把这段期间差原样按比例反映（议价合同的处理依据资料8等的梳理❓）。</p>
+
+<p>制度走向要分阶段来写。上限15日元、招标量1σ、手续费0.06日元<span class="ok" style="color:var(--green);font-weight:700">已施行</span>。而<strong>进一步降至10日元、7.21日元</strong>，则是"竞争状况若未见改善"的附条件情形，处于<span class="cond" style="color:var(--orange);font-weight:700">方针已定——未公布·未施行</span>阶段。判断框架是前日交易开始后第1、2、3、6个月的实绩检验，三条轴线为：逼近上限的应标是否分散、短缺率是否改善、有无业者退出。第1个月时点的评价是"有所改善但尚未完全消解"（稳定供应工作组资料8），因而暂缓下一阶段，预计经夏季高峰（7～8月）实绩后于2026财年下半期判断。每下调一档，ΔkW收益几乎等比缩小。对平衡调整依赖度高的收支计划，仅此一个变量，就足以让IRR判若两物。</p>
+
+<h2>03 — 把9分区×3市场，压成一张表</h2>
+
+<p>把三大市场按收益从大到小叠成一张表。<strong>主体＝平衡调整市场</strong>（02的实测）、<strong>核心＝JEPX套利</strong>（04实测）、<strong>底座＝容量市场</strong>（05以FY2029成交单价×调整系数确定）。平衡调整的分区单价没有公布全年数表（参见02、13），故分区差异不按单价、而按<strong>"门"的开合（议价合同与短缺率）</strong>处理。</p>
+
+<p>把02的实测单价（电池中标实勢8.8～13.5日元/ΔkW·30分钟），以JEPX并用型（30时段）叠12个月，增益约为9.7万～14.8万日元/kW/年（中位约12.2万＝<strong>2MW每年约2.4亿日元</strong>）。将其按分区叠加到"底座＋核心"（04、05确定）上，<strong>仅在门打开的期间</strong>计入——全年开门的5分区计满，东北仅旧制度期（256／365天），中国地区、四国仅新制度期（109／365天），北海道为零（议价合同到期后，2026财年起有打开的可能）。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>分区</th><th class="num">底座＋核心</th><th class="num">主体：平衡调整 实测<span class="u">30时段·中位·按期间比例</span></th><th class="num">实测合计<span class="u">中位</span></th><th class="num">2MW年营收<span class="u">中位</span></th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">九州</td><td class="num">25,111</td><td class="num">≈122,300<span class="u">全年</span></td><td class="num">≈147,400</td><td class="num">≈2.95亿日元</td></tr>
+<tr class="hl"><td class="em">东京</td><td class="num">22,324</td><td class="num">≈122,300<span class="u">全年</span></td><td class="num">≈144,600</td><td class="num">≈2.9亿日元</td></tr>
+<tr><td class="em">中部</td><td class="num">22,064</td><td class="num">≈122,300<span class="u">全年</span></td><td class="num">≈144,400</td><td class="num">≈2.9亿日元</td></tr>
+<tr><td class="em">北陆</td><td class="num">21,950</td><td class="num">≈122,300<span class="u">全年</span></td><td class="num">≈144,300</td><td class="num">≈2.9亿日元</td></tr>
+<tr><td class="em">关西</td><td class="num">21,698</td><td class="num">≈122,300<span class="u">全年</span></td><td class="num">≈144,000</td><td class="num">≈2.9亿日元</td></tr>
+<tr><td class="em">东北</td><td class="num">28,479</td><td class="num cond">≈85,800<span class="u">仅旧制度期⚠️</span></td><td class="num">≈114,300</td><td class="num">≈2.3亿日元</td></tr>
+<tr><td class="em">四国</td><td class="num">22,521</td><td class="num">≈36,500<span class="u">仅新制度期</span></td><td class="num">≈59,000</td><td class="num">≈1.2亿日元</td></tr>
+<tr><td class="em">中国地区</td><td class="num">22,291</td><td class="num">≈36,500<span class="u">仅新制度期</span></td><td class="num">≈58,800</td><td class="num">≈1.2亿日元</td></tr>
+<tr><td class="em">北海道</td><td class="num">29,207</td><td class="num ng">0<span class="u">议价合同致关闭→26财年起或打开</span></td><td class="num">≈2.9万＋α</td><td class="num">≈0.6亿日元＋α</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">单位：日元/kW/年（名义kW）。实测＝电池实勢单价8.8～13.5日元的中位11.2日元×30时段×开门天数（幅度：全年5分区约9.7万～14.8万日元/kW/年，含底座＋核心的合计大致12.2万～17.3万＝2MW每年约2.4亿～3.5亿日元）。门的开合依据：旧制度期＝年度确报注记（除北海道、中国地区、四国外短缺4～9成），新制度期＝转轨后28天的短缺率（02）。EPRX手续费（0.03→0.06日元/ΔkW·30分钟）的扣减约为每年▲400日元，不足显示单位。聚合商手续费为扣减前（参见02）。</p>
+
+<div class="highlight-box">
+名次会颠倒。<strong>全年开门的5分区（九州、东京、中部、北陆、关西），实测几乎并列于14.4万～14.7万日元/kW/年（中位）——2MW每年2.9～3.0亿日元，居首九州约2.95亿日元</strong>。而JEPX居首、居次的北海道与东北，被议价合同堵住门，挤不进此列。<strong>套利的地图与ΔkW的地图，并不重合</strong>——这就是这一年"分区选择"的核心。分区之间真正拉开差距的，是两点：（1）门是否打开（议价合同与短缺率）；（2）主体被制度削减之后还剩什么＝底座＋核心。正因如此，接下来我们把底座＋核心单独拎出来——这是"被削减后仍留下的差"之表。在那里，实测中垫底的北海道反而登顶。<strong>最赚钱的收益源，最容易被蚕食；最赚钱的分区，藏在门的背后</strong>——构图先于分区，出现在收益源本身。
+</div>
+
+<p>主体被制度削减之后，还剩什么。把底座＋核心两层单独拎出来。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>名次</th><th>分区</th><th class="num">底座：容量市场<span class="u">系数后·概算</span></th><th class="num">核心：JEPX容器<span class="u">实测</span></th><th class="num">小计（日元/kW/年）</th><th class="num">2MW年额</th></tr></thead>
+<tbody>
+<tr class="hl"><td>1</td><td class="em">北海道</td><td class="num">12,515</td><td class="num">16,692</td><td class="num">29,207</td><td class="num">5,841万日元</td></tr>
+<tr class="hl"><td>2</td><td class="em">东北</td><td class="num">13,145</td><td class="num">15,334</td><td class="num">28,479</td><td class="num">5,696万日元</td></tr>
+<tr><td>3</td><td class="em">九州</td><td class="num">12,110</td><td class="num">13,001</td><td class="num">25,111</td><td class="num">5,022万日元</td></tr>
+<tr><td>4</td><td class="em">四国</td><td class="num">10,720</td><td class="num">11,801</td><td class="num">22,521</td><td class="num">4,504万日元</td></tr>
+<tr><td>5</td><td class="em">东京</td><td class="num">10,695</td><td class="num">11,629</td><td class="num">22,324</td><td class="num">4,465万日元</td></tr>
+<tr><td>6</td><td class="em">中国地区</td><td class="num">10,695</td><td class="num">11,596</td><td class="num">22,291</td><td class="num">4,458万日元</td></tr>
+<tr><td>7</td><td class="em">中部</td><td class="num">10,230</td><td class="num">11,834</td><td class="num">22,064</td><td class="num">4,413万日元</td></tr>
+<tr><td>8</td><td class="em">北陆</td><td class="num">10,640</td><td class="num">11,310</td><td class="num">21,950</td><td class="num">4,390万日元</td></tr>
+<tr><td>9</td><td class="em">关西</td><td class="num">10,240</td><td class="num">11,458</td><td class="num">21,698</td><td class="num">4,340万日元</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">底座＝FY2029分区成交单价×4小时电池的调整系数（年平均·概算🚩，参见05）。核心＝04的实测容器。均以名义2,000kW计。不含平衡调整市场的增益。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图1 底座（容量市场）＋核心（JEPX容器）的分区叠加">
+  <text x="350" y="26" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1">图1 ／ 底座（容量）＋核心（JEPX容器）两层合计（日元/kW/年·名义kW）</text>
+  <g font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#2C3E50">
+    <text x="162" y="72" text-anchor="end">北海道</text><rect x="170" y="58" width="192" height="20" fill="#1B2A4A"></rect><rect x="362" y="58" width="256" height="20" fill="#C49A3C"></rect><text x="624" y="73" font-size="11.5" font-weight="700" fill="#1B2A4A">29,207</text>
+    <text x="162" y="106" text-anchor="end">东北</text><rect x="170" y="92" width="202" height="20" fill="#1B2A4A"></rect><rect x="372" y="92" width="235" height="20" fill="#C49A3C"></rect><text x="613" y="107" font-size="11.5" font-weight="700" fill="#1B2A4A">28,479</text>
+    <text x="162" y="140" text-anchor="end">九州</text><rect x="170" y="126" width="186" height="20" fill="#1B2A4A"></rect><rect x="356" y="126" width="199" height="20" fill="#C49A3C"></rect><text x="561" y="141" font-size="11.5" fill="#1B2A4A">25,111</text>
+    <text x="162" y="174" text-anchor="end">四国</text><rect x="170" y="160" width="164" height="20" fill="#1B2A4A"></rect><rect x="334" y="160" width="181" height="20" fill="#C49A3C"></rect><text x="521" y="175" font-size="11.5" fill="#1B2A4A">22,521</text>
+    <text x="162" y="208" text-anchor="end">东京</text><rect x="170" y="194" width="164" height="20" fill="#1B2A4A"></rect><rect x="334" y="194" width="178" height="20" fill="#C49A3C"></rect><text x="518" y="209" font-size="11.5" fill="#1B2A4A">22,324</text>
+    <text x="162" y="242" text-anchor="end">中国地区</text><rect x="170" y="228" width="164" height="20" fill="#1B2A4A"></rect><rect x="334" y="228" width="178" height="20" fill="#C49A3C"></rect><text x="518" y="243" font-size="11.5" fill="#1B2A4A">22,291</text>
+    <text x="162" y="276" text-anchor="end">中部</text><rect x="170" y="262" width="157" height="20" fill="#1B2A4A"></rect><rect x="327" y="262" width="181" height="20" fill="#C49A3C"></rect><text x="514" y="277" font-size="11.5" fill="#1B2A4A">22,064</text>
+    <text x="162" y="310" text-anchor="end">北陆</text><rect x="170" y="296" width="163" height="20" fill="#1B2A4A"></rect><rect x="333" y="296" width="173" height="20" fill="#C49A3C"></rect><text x="512" y="311" font-size="11.5" fill="#1B2A4A">21,950</text>
+    <text x="162" y="344" text-anchor="end">关西</text><rect x="170" y="330" width="157" height="20" fill="#1B2A4A"></rect><rect x="327" y="330" width="176" height="20" fill="#C49A3C"></rect><text x="509" y="345" font-size="11.5" fill="#1B2A4A">21,698</text>
+  </g>
+  <rect x="200" y="376" width="14" height="14" fill="#1B2A4A"></rect><text x="220" y="388" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#2C3E50">底座＝容量市场（FY2029·系数后概算）</text>
+  <rect x="450" y="376" width="14" height="14" fill="#C49A3C"></rect><text x="470" y="388" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#2C3E50">核心＝JEPX容器（实测）</text>
+  <text x="350" y="412" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89" font-style="italic">首位与末位之差 7,509日元/kW/年 — 2MW每年1,502万日元</text>
+</svg>
+<div class="fig-cap">图1 — 即便只看底座＋核心两层，分区差也能拉开到每年1,500万日元级</div>
+</div>
+
+<div class="highlight-box">
+底座＋核心中，首位北海道与末位关西之差为<strong>7,509日元/kW/年，2MW每年1,502万日元，20年约3.0亿日元</strong>。这已超过上一篇"合同设计20年2亿日元"的立地差，而且是<strong>主体被削减之后仍留下的差</strong>。即便在实测并列的5分区之内，首位九州与末位关西的底座＋核心之差也有每年683万日元、20年约1.4亿日元——最后拉开差距的，正是这两层的厚度。
+</div>
+
+<h2>04 — JEPX：能在哪里赚钱，这一年被改写了</h2>
+
+<p>第二根支柱，JEPX。它是分区差异最鲜明的一层，最近12个月势力版图发生了对调。下面把基准机组的套利容器（日元/kW/年）及其同比，在9个分区并排列出。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>分区</th><th class="num">容器（日元/kW/年）</th><th class="num">2MW年额换算</th><th class="num">上年 容器</th><th class="num">毛利 同比</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">北海道</td><td class="num">16,692</td><td class="num">3,338万日元</td><td class="num">11,132</td><td class="num ok">+49.9%</td></tr>
+<tr class="hl"><td class="em">东北</td><td class="num">15,334</td><td class="num">3,067万日元</td><td class="num">11,147</td><td class="num ok">+37.6%</td></tr>
+<tr><td class="em">九州</td><td class="num">13,001</td><td class="num">2,600万日元</td><td class="num">14,584</td><td class="num ng">−10.9%</td></tr>
+<tr><td class="em">中部</td><td class="num">11,834</td><td class="num">2,367万日元</td><td class="num">11,715</td><td class="num">+1.0%</td></tr>
+<tr><td class="em">四国</td><td class="num">11,801</td><td class="num">2,360万日元</td><td class="num">11,982</td><td class="num">−1.5%</td></tr>
+<tr class="hl"><td class="em">东京</td><td class="num">11,629</td><td class="num">2,326万日元</td><td class="num">8,331</td><td class="num ok">+39.6%</td></tr>
+<tr><td class="em">中国地区</td><td class="num">11,596</td><td class="num">2,319万日元</td><td class="num">12,057</td><td class="num">−3.8%</td></tr>
+<tr><td class="em">关西</td><td class="num">11,458</td><td class="num">2,292万日元</td><td class="num">11,865</td><td class="num">−3.4%</td></tr>
+<tr><td class="em">北陆</td><td class="num">11,310</td><td class="num">2,262万日元</td><td class="num">11,965</td><td class="num">−5.5%</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">出处：JEPX现货交易结果CSV（2024～2026财年），由ScienceX按01计算口径汇总。完全预见的理论上限（容器）。上年窗口＝2024.07–2025.06。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图2 套利毛利同比（9分区·实测）">
+  <text x="350" y="26" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1">图2 ／ 套利毛利同比（实测·分析窗 vs 上年同12个月）</text>
+  <line x1="283" y1="46" x2="283" y2="356" stroke="#E2E6EC" stroke-width="1.5"></line>
+  <text x="283" y="372" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#6C7A89">0%</text>
+  <g font-family="'Noto Sans SC',sans-serif" font-size="12" fill="#2C3E50">
+    <text x="172" y="72" text-anchor="end">北海道</text><rect x="283" y="58" width="342" height="20" rx="2" fill="#C49A3C"></rect><text x="632" y="73" font-size="11.5" font-weight="700" fill="#A07916">+49.9%</text>
+    <text x="172" y="104" text-anchor="end">东京</text><rect x="283" y="90" width="271" height="20" rx="2" fill="#C49A3C"></rect><text x="561" y="105" font-size="11.5" font-weight="700" fill="#A07916">+39.6%</text>
+    <text x="172" y="136" text-anchor="end">东北</text><rect x="283" y="122" width="258" height="20" rx="2" fill="#C49A3C"></rect><text x="548" y="137" font-size="11.5" font-weight="700" fill="#A07916">+37.6%</text>
+    <text x="172" y="168" text-anchor="end">中部</text><rect x="283" y="154" width="7" height="20" rx="2" fill="#2A3D66"></rect><text x="297" y="169" font-size="11.5" fill="#2C3E50">+1.0%</text>
+    <text x="172" y="200" text-anchor="end">四国</text><rect x="273" y="186" width="10" height="20" rx="2" fill="#6C7A89"></rect><text x="268" y="201" font-size="11.5" fill="#6C7A89" text-anchor="end">−1.5%</text>
+    <text x="172" y="232" text-anchor="end">关西</text><rect x="260" y="218" width="23" height="20" rx="2" fill="#6C7A89"></rect><text x="255" y="233" font-size="11.5" fill="#6C7A89" text-anchor="end">−3.4%</text>
+    <text x="172" y="264" text-anchor="end">中国地区</text><rect x="257" y="250" width="26" height="20" rx="2" fill="#6C7A89"></rect><text x="252" y="265" font-size="11.5" fill="#6C7A89" text-anchor="end">−3.8%</text>
+    <text x="172" y="296" text-anchor="end">北陆</text><rect x="245" y="282" width="38" height="20" rx="2" fill="#6C7A89"></rect><text x="240" y="297" font-size="11.5" fill="#6C7A89" text-anchor="end">−5.5%</text>
+    <text x="172" y="328" text-anchor="end">九州</text><rect x="208" y="314" width="75" height="20" rx="2" fill="#c44"></rect><text x="203" y="329" font-size="11.5" font-weight="700" fill="#c44" text-anchor="end">−10.9%</text>
+  </g>
+  <text x="350" y="392" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89" font-style="italic">东日本3分区增长3～5成。西日本普遍小幅下滑，唯九州为两位数下降</text>
+</svg>
+<div class="fig-cap">图2 — 东西对调在实测中得到确认（出处：据JEPX公开数据由ScienceX测算）</div>
+</div>
+
+<p>有两种读法。按水平看，九州仍居全国第3。光伏过剩压低日间价格、充电成本全国最低的结构依然健在，"九州已经赚不到钱"言过其实。但按方向看，它是9个分区中唯一明确收缩的。北陆、关西、中国地区、四国也有3～5%的小幅下滑，<strong>真正增长的只有东日本3个分区</strong>。这里也要订正我们自己的前提：上一篇之前的梳理认为"收缩只发生在九州"，但以最新窗口重算后，西日本5个分区齐齐落入小幅负值。收缩不是九州一家，而是西日本整体的趋势，九州是其中的极值。增长的主因是2026年春东日本价格骤涨（07详述），九州收缩的结构性成因在09处理。</p>
+
+<p>同是"容器"，取法却因分区而异。我们把分区价偏离系统价的时段，分为高价侧（区内偏高＝进口受限）与低价侧（区内偏低＝过剩被挤出）分别计数。这套按方向的统计在一手资料中并不存在，是我们把JEPX的分区价／系统价逐时段比对后自制的。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>分区</th><th class="num">低价侧占比</th><th class="num">高价侧占比</th><th class="num">低价侧≥5日元<span class="u">时段</span></th><th class="num">高价侧≥5日元<span class="u">时段</span></th><th>赚钱的"型"</th></tr></thead>
+<tbody>
+<tr><td class="em">东京</td><td class="num">6.1%</td><td class="num em">85.0%</td><td class="num">11</td><td class="num em">2,054</td><td>纯·高价侧（进口受限）。价差靠日内形态制造</td></tr>
+<tr><td class="em">中部</td><td class="num">24.0%</td><td class="num">66.4%</td><td class="num">52</td><td class="num">1,074</td><td>偏高价侧</td></tr>
+<tr class="hl"><td class="em">北海道</td><td class="num">29.4%</td><td class="num">62.9%</td><td class="num">1,046</td><td class="num">1,513</td><td>双向·且深（谷与顶都在区内）</td></tr>
+<tr><td class="em">东北</td><td class="num">27.5%</td><td class="num">62.7%</td><td class="num">910</td><td class="num">616</td><td>双向</td></tr>
+<tr><td class="em">北陆</td><td class="num">54.7%</td><td class="num">35.9%</td><td class="num">720</td><td class="num">538</td><td>居中</td></tr>
+<tr><td class="em">关西</td><td class="num">60.6%</td><td class="num">30.1%</td><td class="num">751</td><td class="num">501</td><td>居中</td></tr>
+<tr><td class="em">中国地区</td><td class="num">70.8%</td><td class="num">20.2%</td><td class="num">1,514</td><td class="num">100</td><td>低价侧</td></tr>
+<tr><td class="em">九州</td><td class="num">77.9%</td><td class="num">13.2%</td><td class="num">2,464</td><td class="num">45</td><td>纯·低价侧（被挤出）。靠谷底赚</td></tr>
+<tr><td class="em">四国</td><td class="num em">84.8%</td><td class="num">8.6%</td><td class="num em">4,584</td><td class="num">16</td><td>纯·低价侧</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">出处：JEPX成交结果CSV由ScienceX汇总（2025.07–2026.06，以|分区−系统|＞0.009日元作为割裂的代理指标，按方向计数）。</p>
+
+<p>东京有85%的时段处在高价侧——是一个<strong>连充电都在高价侧完成</strong>的分区。价差不靠割裂，只能靠日内形态（春季日间的下沉与傍晚的抬升）来制造。与之相反的四国、九州、中国地区，7～8成时段在低价侧，跌破5日元的深谷时段以四国4,584、九州2,464的量级遥遥领先，但顶部立不起来——属于"在谷底捡货"的型。而<strong>唯有北海道与东北，深谷与高顶都在区内同时具备</strong>。首位更替的机理，尽在这一张表里。北海道还有一层：2025年12月8日青森县东方近海地震导致北本联络设备停运的期间（至2026年1月31日恢复），高价侧割裂跳升至79.8%（平时68.6%）。这正是"联络线过细"的直接证据。</p>
+
+<h2>05 — 容量市场："15,112日元"只是名义</h2>
+
+<p>从底座开始确定。FY2029主拍卖（2026年1月20日公布、1月23日订正）：成交总额约2兆2,094亿日元（同比+19%）、计入过渡措施后的总平均单价约13,303日元/kW，创历史新高；<strong>除第1回外，首次出现全部分区的成交单价都高于指标价格（Net CONE：10,075日元/kW）</strong>。严格贴住上限价格（指标价格的1.5倍＝15,112.5日元，舍去不足1日元为15,112日元/kW）的只有九州，东北与东京为15,111日元/kW——比上限低1日元的成交。多家行业媒体写作"3个分区都到上限15,112日元"，与OCCTO原文相差1日元。实务意义几近于无，但可作为"数字一经二手信息中转，原文便悄然失真"的实例留存。按分区、按年度排列如下，已持有者可就FY2026～28各列确认计入交割收入。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>分区</th><th class="num">FY2026</th><th class="num">FY2027</th><th class="num">FY2028</th><th class="num">FY2029</th><th class="num">FY2029 4h系数<span class="u">年平均·概算</span></th><th class="num">2MW实收<span class="u">FY2029·概算</span></th></tr></thead>
+<tbody>
+<tr><td class="em">北海道</td><td class="num">8,749※</td><td class="num">13,287</td><td class="num">14,812</td><td class="num">14,972</td><td class="num">约83.6%</td><td class="num">约2,503万日元</td></tr>
+<tr class="hl"><td class="em">东北</td><td class="num">5,833</td><td class="num">9,044</td><td class="num">14,812</td><td class="num">15,111</td><td class="num">约87.0%</td><td class="num">约2,629万日元</td></tr>
+<tr><td class="em">东京</td><td class="num">5,834</td><td class="num">9,555</td><td class="num">14,812</td><td class="num">15,111</td><td class="num ng">约70.8%</td><td class="num">约2,139万日元</td></tr>
+<tr><td class="em">中部</td><td class="num">5,832</td><td class="num">7,823</td><td class="num">10,280</td><td class="num">12,388</td><td class="num">约82.6%</td><td class="num">约2,046万日元</td></tr>
+<tr><td class="em">北陆</td><td class="num">5,832</td><td class="num">7,638</td><td class="num">8,785</td><td class="num">12,388</td><td class="num">约85.9%</td><td class="num">约2,128万日元</td></tr>
+<tr><td class="em">关西</td><td class="num">5,832</td><td class="num">7,638</td><td class="num">8,785</td><td class="num">12,388</td><td class="num">约82.7%</td><td class="num">约2,048万日元</td></tr>
+<tr><td class="em">中国地区</td><td class="num">5,832</td><td class="num">7,638</td><td class="num">8,785</td><td class="num">12,388</td><td class="num">约86.3%</td><td class="num">约2,139万日元</td></tr>
+<tr><td class="em">四国</td><td class="num">5,832</td><td class="num">7,638</td><td class="num">8,785</td><td class="num">12,388</td><td class="num">约86.6%</td><td class="num">约2,144万日元</td></tr>
+<tr><td class="em">九州</td><td class="num">8,748※</td><td class="num">11,457※</td><td class="num">13,177※</td><td class="num">15,112</td><td class="num">约80.1%</td><td class="num">约2,422万日元</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">单位：日元/kW（分区价）。※为适用多价制的分区。FY2029不适用多价制。出处：OCCTO各年度成交结果PDF、FY2029调整系数表（2025年7月31日公布）。实收＝成交单价×（2,000kW×年平均系数）的概算🚩——正式须按月度系数逐月累加。</p>
+
+<p>右两列是本节主题。若把电池以"稳定电源"（期望容量1,000kW以上、每天1次连续3小时以上）登录，合同容量不按名义、而按<strong>期望容量＝设备容量×调整系数</strong>确定。系数表沿用与纯抽蓄相同者（分区×月份×可放电时长），4小时机组因分区与月份而只有约56～90%。尤其<strong>东京年平均仅约70.8%</strong>被认可。结果是，<strong>成交单价最高的东京（15,111日元）实收约2,139万日元，与单价12,388日元的中国地区同额</strong>。实收第1的是单价与系数双高的东北。"15,112日元×2,000kW＝3,022万日元"这种名义计算只是上限值，不能用于决策。</p>
+
+<p>从新进入者的角度看，过渡措施（对2010财年末以前建成电源的扣减）在FY2029拍卖为最后一届，而新建电池本就不属于经过年数扣减对象。长期脱碳电源拍卖自第3回起，把电池要件统一为设备容量30MW以上、连续放电6小时以上，故<strong>2MW·4小时机组不在其列</strong>——容量收入的入口只剩主拍卖一条。其下一届，即<strong>面向FY2030的主拍卖，是"将要买入者"的首次报名机会</strong>，时间线如下。</p>
+
+<div class="info-box">
+<strong>FY2030主拍卖时间表（✅已确定部分）</strong><br>
+2026/6/30～7/13：募集要纲、约款的意见征集 ／ 2026/7/8：制度说明会 ／ 7月底前后：调整系数、需求曲线的公布（❓按往年惯例，FY2029系数于2025/7/31公布） ／ 2026年秋：应标受理 ／ 2027年1月前后：成交结果公布 ── 与此并行，<strong>把指标价格提高约2倍（约2.05万日元/kW，上限3.075万日元/kW）之案、以及单一出清价成交的两阶段化</strong>，正在制度研讨工作组（第112～114回，2026年3～5月）审议。预计会反映到FY2030拍卖，但<span style="color:var(--orange);font-weight:700">仍在审议中——条文未公布、未施行</span>，并非既成事实。若得反映，底座水平将结构性上台阶。应标判断，宜等7月底的系数、需求曲线与募集要纲最终版出齐后再定，方为稳妥。若中标，首次实收在实供需2030财年——各月支付为2030年9月～2031年8月（约款第8条；年度中途投运按月数比例）。另外，过去"错过当届者"的接盘机制——追加拍卖，自FY2030起改为其采购份额全量由主拍卖采购，角色缩小。错过主拍卖，就要整整等一年。
+</div>
+
+<p>另一个入口，是<strong>已成交项目的承继</strong>。依据容量确保合同约款第26条，经OCCTO同意可转让合同上的地位，未来的容量收入与实供需年度随之继承——按履约要求的达成状况一并继承，是尽调的核查项。在我们经手的项目转让实务中，剩余合同年数、成交价格、有无余力活用合同，是价格依据的核心。新建应标（2026年秋）与既有承继——买方的入口，就是这两条。</p>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 底座是"带义务的"</span>
+容量确保合同的履约要求若未达成，附经济惩罚，上限为<strong>年度合同金额×110%、月度18.3%</strong>。作为"容量停止计划"被认可的，最多<strong>每年8,640时段（相当于180天）</strong>；超出部分的未达成时段，会叠加额外惩罚。市场应标、供给指令的惩罚折算时长Z，在实供需2026财年为90小时（自FY2024的30小时扩大）。底座不是"白拿的收入"，而是"以义务换取的收入"。开工率、有效性测试的达标体系，以及在8,640时段额度内的检修计划（07中"向冬季集中"的设计），是其前提。
+</div>
+
+<h2>06 — 写给将要买入的人：战略一变，分区就变</h2>
+
+<p>把02～05叠起来，答案的结构如下。<strong>只要是全年开门的5分区，实测快照几乎并列（2MW每年2.9～3.0亿日元·中位）</strong>。因此"该买哪里"，取决于三点：门的开合（议价合同与短缺率）、主体被削减后还剩什么（底座＋核心）、以及采用哪种运营战略去取。</p>
+
+<div class="compare-grid three">
+  <div class="compare-card no-special">
+    <span class="cc-tag">若求实测首位·重底座</span>
+    <h4>九州</h4>
+    <div class="cc-figure">≈2.95<span class="u">亿日元/年（实测合计·首位）</span></div>
+    <p>门已打开（短缺率42.4%），底座为上限水平的15,112日元/kW，0.01日元时段每年1,146次、<strong>充电成本属全国最低档</strong>。但JEPX是唯一两位数下滑、收缩仍在进行——须以接入申请590万kW（全国最大）的先行并网为前提，挑选接入费低、用地确定性高的项目。这是一个"衡量先发利益残存期后再买"的分区。</p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">若以事件·调节力为主</span>
+    <h4>东京</h4>
+    <div class="cc-figure">+39.6<span class="u">%（JEPX毛利 同比）</span></div>
+    <p>实测合计约每年2.9亿日元，水平第5，但增速第2。30日元/kWh以上的高价时段每年472次、<strong>为9分区最多</strong>，一次短缺率70.3%、<strong>ΔkW的成交余地也属最大级</strong>。减分项：容量系数70.8%，以及上限下调会直击尖峰收益。</p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">若以套利为主</span>
+    <h4>东北</h4>
+    <div class="cc-figure">5,696<span class="u">万日元/年（底座＋核心）</span></div>
+    <p>JEPX容器第2（每年3,067万日元），加之单价15,111日元×系数87.0%，<strong>容量实收（约2,629万日元）居9分区首位</strong>。但ΔkW因议价合同延续、门依旧关着——实测合计沉至≈2.3亿日元。若要买，须把"议价合同解除"设为条件，并盯住09里"全国的四成"。</p>
+  </div>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 那么，静态第1的北海道呢</span>
+在底座＋核心中它居首（29,207日元/kW/年＝2MW每年5,841万日元），在实测中却垫底——这12个月，ΔkW之门被抽蓄的议价合同堵住。那些议价合同<strong>于2026年3月底到期，本财年起，"JEPX首位×ΔkW"双取首次可能成立</strong>。但这是有时限的。制度上称"如有必要，仍可能再次研究扣减"，门未必一直开着。自噬指标0.383、新北本120万kW（2027财年末＝2028年3月）、日本海路线HVDC的实施案期限（2026年12月26日）——这是一个需要不断追问"高收益窗口到几时"的分区，若要买，须把出口（价差压缩后的底座收支）与"一次短缺率是否真的抬头"的确认❓设为条件。
+</div>
+
+<div class="part-head"><span class="pnum">第2部</span><span class="ptitle">在当前分区，如何赚</span><span class="psub">写给已经持有的人——季节与每天早上的运营</span></div>
+
+<h2>07 — 春季，成了最大的收获期</h2>
+
+<p>转到已经持有的人。季节的常识，在这12个月被改写了。把基准机组的毛利按季节切分，<strong>9个分区无一例外，春季（3～5月）为全年最大、冬季（12～2月）为全年最小</strong>。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>季节（分析窗）</th><th class="num">北海道</th><th class="num">东北</th><th class="num">东京</th><th class="num">九州</th><th>9分区共通的型</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">春（3–5月）</td><td class="num">5,848</td><td class="num">6,557</td><td class="num">5,462</td><td class="num">5,126</td><td>全分区全年最大。东北全年毛利的43%集中于春</td></tr>
+<tr><td class="em">夏（6–8月）</td><td class="num">4,527</td><td class="num">4,234</td><td class="num">2,956</td><td class="num">2,971</td><td>第2收获期。傍晚尖峰</td></tr>
+<tr><td class="em">秋（9–11月）</td><td class="num">4,119</td><td class="num">2,965</td><td class="num">1,824</td><td class="num">2,774</td><td>居中。唯北海道高价事件延续</td></tr>
+<tr><td class="em">冬（12–2月）</td><td class="num">2,198</td><td class="num">1,577</td><td class="num">1,387</td><td class="num">2,130</td><td><strong>全分区最小</strong>。12月的价差全年最弱</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">单位：日元/kW/期（基准机组·完全预见的容器）。出处：据JEPX公开数据由ScienceX测算。</p>
+
+<p>"冬季傍晚赚钱"这条旧常识，至少在这个窗口里不成立。用高价事件来验证。东京的<strong>30日元/kWh以上时段：春279次、夏154次、秋35次、冬4次</strong>。若收紧到50日元以上，则春30次、夏4次、秋冬0次（全年34时段）。而且上年同期的东京，30日元超为春0次、全年101次——也就是说，这种偏向春季并非常态属性，而是<strong>2026年春新出现的结构</strong>（2026年4～6月东京平均分区价为19.35日元/kWh，远高于分析窗全年的14.32日元）。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图3 东京分区 30日元/kWh以上时段数（按季节·实测）">
+  <text x="350" y="26" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1">图3 ／ 东京：30日元/kWh以上的高价时段数（分析窗·实测）</text>
+  <line x1="90" y1="290" x2="640" y2="290" stroke="#E2E6EC" stroke-width="1.5"></line>
+  <rect x="140" y="100" width="80" height="190" rx="3" fill="#C49A3C"></rect>
+  <text x="180" y="92" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="16" font-weight="700" fill="#A07916">279</text>
+  <text x="180" y="312" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12.5" fill="#2C3E50">春</text>
+  <rect x="260" y="185" width="80" height="105" rx="3" fill="#2A3D66"></rect>
+  <text x="300" y="177" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="15" font-weight="700" fill="#2A3D66">154</text>
+  <text x="300" y="312" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12.5" fill="#2C3E50">夏</text>
+  <rect x="380" y="266" width="80" height="24" rx="3" fill="#6C7A89"></rect>
+  <text x="420" y="258" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="15" font-weight="700" fill="#6C7A89">35</text>
+  <text x="420" y="312" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12.5" fill="#2C3E50">秋</text>
+  <rect x="500" y="287" width="80" height="3" rx="1" fill="#6C7A89"></rect>
+  <text x="540" y="279" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="15" font-weight="700" fill="#6C7A89">4</text>
+  <text x="540" y="312" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12.5" fill="#2C3E50">冬</text>
+  <text x="350" y="344" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89" font-style="italic">上年同期东京30日元超为春0次·全年101次。偏向春季是2026年春新出现的结构</text>
+</svg>
+<div class="fig-cap">图3 — "高价在冬季傍晚"的旧常识，在这个窗口里不成立（出处：据JEPX公开数据由ScienceX测算）</div>
+</div>
+
+<p>极值本身也消失了。<strong>100日元/kWh以上的时段，12个月内全国为零</strong>（上年同期仅中部2个时段），即便放宽到75日元以上，也只有北海道的1个时段（80.0日元，2025年10月23日）。机理也能用一手资料追踪——继女川2号、岛根2号之后，柏崎刈羽6号发送电（2026年2月）使备用率回升、顶部的稀缺性消失，光伏又把日间谷底压得更深。高价从"罕见的一击"变为"春季的宽价差"，赚钱的方式本身发生了质变。另一件"头一回"：东京于2026年3月1日实施分区首次的可再生能源出力控制（1,180MW），至此控制实绩在全部9分区出齐。春季的谷底，在东部也仍有加深的方向。</p>
+
+<p>在季节常识崩塌之中，唯一的例外是北海道，冬季也立起73个30日元超时段。但其中<strong>71个集中在2025年12月8日～2026年1月31日北本联络设备的非计划停运期间（即04的地震停运）</strong>，属一过性事件，而非季节常态。把"北海道冬季也能赚"读作恒常的立地优势，是危险的；平时的冬季，北海道与其他分区一样单薄，才是实测。</p>
+
+<p>充电侧也在春季。贴住下限0.01日元/kWh的时段数（全年），以<strong>四国1,148次、九州1,146次</strong>最为突出，东北646次、北海道598次较上年增4～5成，且大多发生在春季。光伏过剩使日间下沉、傍晚跳升——鸭型曲线的加深，把充电成本的最小化与售价的上冲，运到了同一个季节。把以上落到一张日历上。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>季节</th><th>运营方针（附实测依据）</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">春（3–5月）</td><td><strong>全年最大的收获期。</strong>在"控制日的0.01日元日间充电"与"平常日的凌晨充电"之间切换，把运营资源集中于傍晚售出。预见精度与售出时机的高下，是全年收益差的最大成因（东北全年的43%在此）。检修不要安排在这个季节</td></tr>
+<tr><td class="em">夏（6–8月）</td><td>第2收获期。主攻傍晚尖峰（东京50日元超夏季4时段）。同时，7～8月的高峰实绩是平衡调整市场上限降至10日元判断的材料，故兼顾制度监视</td></tr>
+<tr><td class="em">秋（9–11月）</td><td>居中。北海道以外可提高ΔkW（复合、二次②等）的比重。北海道因高价事件延续，保持售出姿态</td></tr>
+<tr><td class="em">冬（12–2月）</td><td><strong>全分区最弱。</strong>把计划检修、容量市场有效性测试的应对、容量停止计划（每年8,640时段额度）向此集中，在日间充电／傍晚放电的框架内加厚ΔkW底盘，为春季蓄势</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>08 — 从3月14日起，每天早上的活儿</h2>
+
+<p>前日·30分钟化，改变了运营的时间轴本身。原先以周为单位决定的ΔkW供出，如今成了<strong>每天早上要决定"次日48个时段中，给JEPX几段、给ΔkW几段"的日常业务</strong>。制度上，余电被要求全量应标现货、卖不掉的部分再应标平衡调整市场，故"完全放弃JEPX、把48段全给ΔkW"这种运营本就难以成立，实态收敛为"充放电18段＋ΔkW 30段"的并用型。ΔkW是容量（预留）类商品，只要保持可供出状态即可应标而不消耗放电电量，因此能与套利并用。手续费0.06日元/ΔkW·30分钟按指引可计入报价，并非纯粹的自掏腰包。</p>
+
+<p>分配的骨架，由充电时段的反转来揭示。把"日度最低时段落在日间（10～14时）"的比率在东京实测：<strong>10月35%→11月83%→1月87%→2月79%</strong>——秋冬的电池是"日间便宜地灌满、傍晚点灯高峰时吐出"的机器。而这一比率<strong>到5月反转为29%（全年最低）</strong>，充电时段回到凌晨的谷底（9分区平均同样是11月84%→5月29%的同型）。出力控制高峰期，日间的负值区与0.01日元、傍晚的暴涨区间达到全年最大，日间遂转为放电侧的主战场。这道"日间⇄凌晨"的往返，构成季节运营的脊梁。</p>
+
+<p>ΔkW侧的实务只提两点。评估以"指令值±10%、驻留率90%"为适配线（方式Ⅱ），<strong>同一商品每月3次不适配，即直接触发新交易停止</strong>与实机测试重做——冬季提高ΔkW比重的同时，这里正是季节风险。另一点：北海道、东京的抽蓄议价合同于2026年3月底到期，高速商品的招标腾出了空档——对这两个分区的持有者，是本财年ΔkW侧的顺风。</p>
+
+<p>这套分配判断，是每天都要做SOC管理、评估合规、pay-as-bid报价设计的活儿。无论自运营还是委托，<strong>聚合商（运营方）的选择标准只有一条：日度协同优化（co-optimize）能以多高精度跑起来</strong>——02里10～30%的手续费，正是这份高下的对价——把这一条摆在这个制度环境下作结论最为妥当。"同比+40%的东京"与"−11%的九州"在同一个12个月并存的事实，也从反面说明：运营的高下，与立地同样地左右着结果。</p>
+
+<div class="part-head"><span class="pnum">第3部</span><span class="ptitle">3～5年：这个数字，会以多快的速度被削减</span><span class="psub">从管线、需求、联络线、制度四面读</span></div>
+
+<h2>09 — 供给：管线堆在了哪里</h2>
+
+<p>分区的3～5年，由四股力量决定：供给（电池管线）、需求（大型落地）、系统（联络线）、制度。先看供给。削减未来价差的最大变量，比联络线更靠前的，是电池自身的并网潮。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>分区</th><th class="num">接入申请<span class="u">万kW·2025/12末</span></th><th class="num">接入研讨<span class="u">万kW·2025/6末</span></th><th class="num">自噬指标<span class="u">合同GW÷2035最大需求GW</span></th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">九州</td><td class="num">590.1<span class="u">全国最大</span></td><td class="num">1,681</td><td class="num">❓<span class="u">分母未确认</span></td></tr>
+<tr><td class="em">东京</td><td class="num">516.7</td><td class="num">1,652</td><td class="num ok">0.088</td></tr>
+<tr class="hl"><td class="em">东北</td><td class="num">492.0</td><td class="num">5,660<span class="u">全国的四成</span></td><td class="num ng">0.383</td></tr>
+<tr><td class="em">中国地区</td><td class="num">413.0</td><td class="num">1,826</td><td class="num ng">0.408<span class="u">最高🚩</span></td></tr>
+<tr><td class="em">中部</td><td class="num">344.0</td><td class="num">1,162</td><td class="num">❓</td></tr>
+<tr><td class="em">关西</td><td class="num">240.0</td><td class="num">688</td><td class="num ok">0.087</td></tr>
+<tr><td class="em">北海道</td><td class="num">176.0</td><td class="num">865</td><td class="num ng">0.383</td></tr>
+<tr><td class="em">北陆</td><td class="num">59.0</td><td class="num">451</td><td class="num">❓</td></tr>
+<tr><td class="em">四国</td><td class="num">38.0</td><td class="num">337</td><td class="num ok">0.089</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">电网侧储能（高压及以上）。接入申请＝次世代电力系统工作组第7回资料1-1（2026/2/9，2025年12月末断面·全国合计2,868.8万kW），接入研讨＝同第4回资料4（2025/9/24，2025年6月末断面·全国约1.43亿kW）。并网已完成约25万kW（2025年6月末）→约64万kW（2025年12月末⚠️后者需一手确认），管线与实际投运的落差极大。自噬指标的分母为OCCTO 2026年度需求预测中的2035年度最大需求（中部、北陆、九州因详细表未确认，故❓）。</p>
+
+<p>随时点不同，首位在更替。2025年6月末断面的接入申请以东北400万kW为全国最大，但<strong>12月末断面已是九州以590万kW居首</strong>——半年+285万kW，先行并网的势头在西部最快。接入研讨的首位则一贯是<strong>东北的5,660万kW＝全国约四成</strong>，而东北需求横盘至微降，堆积的供给无法在区内消化，仰赖向东京送电的格局未变。按需求比看，<strong>中国地区以0.408升至最高</strong>——接入申请半年内从173翻倍至413万kW，相当于在需求10GW的分区堆上4.1GW。北海道、东北的0.383紧随其后；东京虽绝对量达516.7万kW，但因需求量级悬殊，指标上反而最健康。九州的收缩（−10.9%），读作先行并网叠加高出力控制率（2024财年实绩4.8%、2026财年预测6.9%为全国最高；全国控制量约25.3亿kWh、同比约1.25倍的预测）之结果，与一手资料相符。规律一侧也已出齐——继接入研讨的件数上限、土地权源与保证金的严格化之后，2026年6月起，接入申请要件化为<strong>发电侧（放电）＋需求侧（充电）同时受理</strong>。空占的排除越推进，剩余名额的稀缺价值越高。</p>
+
+<h2>10 — 需求与系统：东部增长的需求，迟到的送电线</h2>
+
+<p>需求侧的主角在东部。东京分区最大需求由2025财年54,529MW增至2035财年58,880MW，<strong>约增4.3GW</strong>（数据中心、半导体单独计列为主因；印西、白井已启动约250MW级的数据中心园区开发）。北海道以年率+1.2%为全国最高增速，坐拥千岁的Rapidus（预定2027年试产）。九州则有熊本的TSMC/JASM第2工厂，按2027年底首次出货、2029年12月建成的日程推进。但<strong>Rapidus与TSMC第2工厂的合同电力（MW），在业者一手资料中并未公开</strong>（❓仅有报道与测算值），需求增量的规模须留有幅度地看。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>联络设备</th><th class="num">现行</th><th class="num">增强后</th><th>完成时期·状态</th></tr></thead>
+<tbody>
+<tr><td class="em">北海道·本州间（北本）</td><td class="num">90万kW</td><td class="num">120万kW</td><td><span class="ok">建设中</span>　2027财年末（2028年3月）</td></tr>
+<tr class="hl"><td class="em">日本海路线HVDC（北海道→东京）</td><td class="num">—</td><td class="num">+200万kW</td><td><span class="cond">实施案提交期限 2026年12月26日</span>（已延长1年·资金筹措等为课题）</td></tr>
+<tr><td class="em">东北·东京间</td><td class="num">约573万kW</td><td class="num">1,028万kW</td><td><span class="ok">建设中</span>　2027年11月（当前向东京的实效为680～850万kW，2030财年以后升至920～960万kW）</td></tr>
+<tr><td class="em">FC（东京·中部间·频率变换）</td><td class="num">210万kW</td><td class="num">300万kW</td><td><span class="ok">建设中</span>　2027财年末</td></tr>
+<tr><td class="em">关门（中国地区·九州间）</td><td class="num">300万kW</td><td class="num">增强幅度亦有出入</td><td><span class="cond">🚩一手资料间存在出入</span>　广域系统整备计划为+100万kW左右·2038财年末（2039年3月），能源厅系统图为600万kW·2030年6月——投运年与增强幅度均未定，两说并列❓</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">出处：OCCTO广域系统整备委员会第96·99·101回资料·2025/12/24新闻稿（HVDC实施案期限延长1年）、广域系统整备计划（2025/10/15报备）、东地域计划编制流程、资源能源厅系统图（2025年5月）等。关门在2024财年实绩中，约24%的时段发生市场割裂。</p>
+
+<p>多数增强集中在2027财年末～2039年，<strong>在3～5年的预测期内，系统制约得到根本缓解的场面有限</strong>。尤其"北海道、东北的过剩能否流向东京的需求增量"，取决于东北东京间增强（2027年11月）与日本海路线HVDC的走向，而后者的实施案能否如期提交，是分割北海道未来5年的最大分歧点。另一方面，唯有东北东京间将于2027年11月增强完成至1,028万kW，与56.6GW的研讨余量几乎同步推进——不是全国一律的"先行饱和"，东北东京轴宜读作"胶着"，才准确。</p>
+
+<h2>11 — 制度：把"已施行·方针已定·审议中"分开，别混为一谈</h2>
+
+<p>把会改变收益前提的制度变更，附上监管阶段标签，汇成一张表。阶段一旦混淆，事业计划立刻失准——已施行的"三重收紧"与审议中的"指标价格翻倍"，确定度天差地别。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>项目</th><th>内容</th><th>监管阶段</th><th>时期</th></tr></thead>
+<tbody>
+<tr><td class="em">ΔkW上限 19.51→15日元</td><td>复合·一次·二次①</td><td class="ok">✅已施行</td><td>2026/3/14交割分起</td></tr>
+<tr><td class="em">招标量 3σ→1σ</td><td>一次·二次①约减13%，复合据测增50%</td><td class="ok">✅已施行</td><td>2026/3/14交割分起</td></tr>
+<tr><td class="em">EPRX手续费 0.03→0.06日元</td><td>买卖手续费翻倍（不含税）</td><td class="ok">✅已施行</td><td>实供需2026/4/1起</td></tr>
+<tr><td class="em">分阶段下调 10→7.21日元</td><td>竞争未改善时的附条件触发</td><td class="cond">⚠️方针已定·未触发</td><td>以夏季实绩于2026财年下半期判断</td></tr>
+<tr><td class="em">再给电方式（一定顺序）</td><td>拥堵本地系统中，电池放电抑制排在火电之后、可再生之前</td><td class="ok">✅已施行</td><td>2026/4/1起</td></tr>
+<tr class="hl"><td class="em">容量市场 指标价格 约2倍</td><td>10,075→约2.05万日元/kW（依据：建设费12.0→26.8万日元/kW、设备140→60万kW的修订）</td><td class="cond">⚠️审议中</td><td>预计反映至FY2030主拍卖·待7月底需求曲线</td></tr>
+<tr><td class="em">成交方式两阶段化</td><td>改为单一出清价＋指标价格以下者以指标价格为上限成交</td><td class="cond">⚠️已反映于要纲案（未施行）</td><td>FY2030主拍卖（2026年秋应标）</td></tr>
+<tr><td class="em">废止过渡措施</td><td>撤销经过年数、投标内容扣减</td><td class="cond">⚠️已反映于要纲案（未施行）</td><td>实供需2030财年起</td></tr>
+<tr><td class="em">同时市场（kWh·ΔkW同时最优）</td><td>两市场同时成交。多市场叠加收益或结构性缩小</td><td class="cond">⚠️方针已定·细节设计中</td><td>目标2030年代前半（部分报道的"2028年"无一手资料支撑）</td></tr>
+<tr><td class="em">非化石价值的按比例归属（FIP并设）</td><td>放电量中仅发电设备来源部分按比例归属（系统充电来源不在其列。独立电网侧的个别规则❓）</td><td class="ok">✅已施行</td><td>2025年4月发电分起</td></tr>
+<tr><td class="em">接入研讨数的业者别上限</td><td>分区别上限（东京11·关西12·中部7等）</td><td class="cond">⚠️运用开始前</td><td>2026/8/1开始运用</td></tr>
+<tr><td class="em">提交使用权源证明文件要件化</td><td>并网承诺后2个月内。未提交则取消并网预约</td><td class="cond">⚠️预定</td><td>预定2026/10/1</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">出处：资源能源厅制度研讨工作组第108～114回·电力稳定供应工作组第1回、同时市场存续方式等研讨会第二次中间总结（2025/10/15）、次世代电力系统工作组第6·7·11回、EPRX（2026/2/5·2/13）、OCCTO FY2030募集要纲（案）（2026/6/30）。</p>
+
+<p>读法如下。ΔkW侧的逆风全部已施行、不可逆，下一个分歧只有"是否因夏季实绩触发10日元"这一条。容量侧的顺风（指标价格翻倍）尚在审议，能否反映至FY2030主拍卖，要等7月底的需求曲线才首次确定。最近12个月的主柱仍是ΔkW，但一旦实测向底盘（市场平均侧）收敛，主柱便会转向容量——握着这个分歧的，正是夏季实绩与7月底的需求曲线。</p>
+
+<p>最后两行，是开发侧的地壳变动。接入研讨的上限与使用权源的要件化，使<strong>新去抢占系统名额的门槛，从今夏起明显抬高</strong>。反过来说，已握有接入研讨回复或接入申请的项目，其稀缺价值相对上升。对买方而言，"好立地的接入名额"，比以往更是一种"用时间也买不到"的资产。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图4 当前增速（纵轴）与未来被蚕食程度（横轴）。北海道·东北居右上，中国地区居右下，东京居左上">
+  <text x="350" y="26" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1">图4 ／ 当前增速 × 未来被蚕食程度（自噬指标已确定的6分区）</text>
+  <line x1="100" y1="300" x2="655" y2="300" stroke="#E2E6EC" stroke-width="1.5"></line>
+  <line x1="100" y1="40" x2="100" y2="300" stroke="#E2E6EC" stroke-width="1.5"></line>
+  <line x1="100" y1="244" x2="655" y2="244" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="4 4"></line>
+  <text x="92" y="248" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#6C7A89">0%</text>
+  <text x="377" y="320" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">→ 自噬指标（接入申请GW〔2025/12末〕÷2035年度最大需求GW）</text>
+  <text x="70" y="170" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89" transform="rotate(-90 70 170)">↑ 毛利 同比（实测）</text>
+  <circle cx="559" cy="59" r="9" fill="#C49A3C"></circle><text x="559" y="46" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#1B2A4A">北海道</text>
+  <circle cx="561" cy="105" r="9" fill="#C49A3C"></circle><text x="578" y="110" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#1B2A4A">东北</text>
+  <circle cx="589" cy="258" r="9" fill="#c44"></circle><text x="589" y="280" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#c44">中国地区</text>
+  <circle cx="205" cy="97" r="9" fill="#1B2A4A"></circle><text x="205" y="84" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#1B2A4A">东京</text>
+  <circle cx="207" cy="250" r="7" fill="#6C7A89"></circle><text x="196" y="240" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">四国</text>
+  <circle cx="204" cy="257" r="7" fill="#6C7A89"></circle><text x="214" y="273" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">关西</text>
+  <text x="540" y="150" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#A07916" font-style="italic">右上＝当前强，预约也最重</text>
+  <text x="560" y="230" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#c44" font-style="italic">右下＝还没涨就已被预约</text>
+  <text x="195" y="130" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#1B2A4A" font-style="italic">左上＝在涨，且仍健康</text>
+  <text x="350" y="366" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89" font-style="italic">中部·北陆·九州因分母（2035最大需求）未确认，故未标点❓</text>
+</svg>
+<div class="fig-cap">图4 — 北海道·东北落在右上，中国地区落在右下。唯东京在左上（出处：JEPX实测×能源厅系统工作组×OCCTO需求预测，由ScienceX制作）</div>
+</div>
+
+<h2>12 — 分区逐一研判，与衰减曲线（3～5年）</h2>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>分区</th><th>3～5年研判</th><th>主要依据</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="em">九州</td><td>实测快照首位。但套利正在进行式地收缩。衡量先发利益残存期后再买</td><td>实测合计≈2.95亿日元（门开×底座15,112日元×充电最省）／−10.9%源于先行并网＋控制率的结构／关门投运年是2030/6还是2039/3尚存分歧🚩／TSMC需求增（MW❓）</td></tr>
+<tr class="hl"><td class="em">东京</td><td>成长型分区。门也大开，以"事件×调节力"的运营力拉开差距</td><td>+39.6%·高价事件最多／议价合同到期使门进一步扩大·一次短缺率70.3%／需求+4.3GW·被控制概率最低／减分：系数70.8%·上限下调</td></tr>
+<tr><td class="em">东北</td><td>背离最大。底座核心最厚但门关着，头顶压着全国四成。若买，须把提前回收或出口写进设计</td><td>底座核心第2·容量实收第1，但议价合同延续使ΔkW关闭（实测合计≈2.3亿日元）／接入研讨5,660万kW＝全国四成×需求微降／2027/11联络线增强或加速自噬</td></tr>
+<tr><td class="em">北海道</td><td>JEPX之王×门打开的一年。有时限的双取候选。要把价差压缩后的底座收支引出来再买</td><td>+49.9%实测／议价合同到期（2026/3末）使ΔkW之门本财年起打开（仍存再扣减可能❓）／自噬0.383／HVDC期限2026/12/26·新北本2028/3的时限／Rapidus需求（MW❓）</td></tr>
+<tr><td class="em">中部</td><td>底座居中，ΔkW有看头。稳健的次选</td><td>一次短缺率66.1%／需求在大都市圈厚实／JEPX同比+1.0%</td></tr>
+<tr><td class="em">北陆</td><td>ΔkW之门开得最大，但市场偏小</td><td>一次短缺率75.8%为全国最高／接入申请59万kW·交投清淡</td></tr>
+<tr><td class="em">关西</td><td>合计垫底。适合能容忍低位稳定的资本</td><td>容器合计21,698日元／出力控制处低位／竞争环境偏严</td></tr>
+<tr><td class="em">中国地区</td><td>居中，但自噬指标为9分区最高。等待关门投运年</td><td>接入申请半年内从173翻倍至413万kW，自噬0.408为全国最高🚩／门自新制度起打开（短缺率22.8%）／控制率呈上升趋势</td></tr>
+<tr><td class="em">四国</td><td>充电成本意外占优。门自新制度起打开。规模小，需精选</td><td>0.01日元时段1,148次为全国最多／短缺率24.3%／需求为全国最大降幅</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>若把以上如实读出，3～5年的主体，比"分区选择"更靠前的，是<strong>衰减曲线</strong>。门开的5分区，实测快照中位在14万日元/kW/年一档——2MW每年2.9～3.0亿日元。这个数字，会在上限15日元→10日元→7.21日元的分阶段下调、招标量1σ化、同时市场（目标2030年代前半）之下，以多快的速度被削减。下表把那个<strong>落点（下调推进、电池实勢向市场平均侧收敛之后的巡航水平），换算为2MW的年营收</strong>，给出推算区间。<strong>这是标明前提的推算，并非确定值。</strong>乐观＝ΔkW上限维持15日元·容量指标价格翻倍反映至FY2030·同时市场延迟；中性＝上限下调1档至10日元·翻倍反映·竞争缓慢增加；悲观＝上限触及7.21日元·竞争激增·同时市场在期内部分适用。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>分区</th><th class="num">乐观</th><th class="num">中性</th><th class="num">悲观</th></tr></thead>
+<tbody>
+<tr><td class="em">东京</td><td class="num">≈8,600万日元</td><td class="num">≈6,800万日元</td><td class="num">≈5,200万日元</td></tr>
+<tr><td class="em">东北</td><td class="num">≈8,400万日元</td><td class="num">≈6,600万日元</td><td class="num">≈5,200万日元</td></tr>
+<tr><td class="em">北海道</td><td class="num">≈8,000万日元</td><td class="num">≈6,400万日元</td><td class="num">≈5,000万日元</td></tr>
+<tr><td class="em">九州</td><td class="num">≈7,000万日元</td><td class="num">≈5,800万日元</td><td class="num">≈4,400万日元</td></tr>
+<tr><td class="em">中部·中国地区·关西</td><td class="num">≈6,200～6,400万日元</td><td class="num">≈5,200～5,400万日元</td><td class="num">≈4,200～4,400万日元</td></tr>
+<tr><td class="em">北陆·四国</td><td class="num">≈6,000万日元</td><td class="num">≈5,000万日元</td><td class="num">≈4,000万日元</td></tr>
+</tbody>
+</table>
+</div>
+<p class="source">单位：2MW年营收的概算（万日元/年）。换成日元/kW/年，大致在2.0万～4.3万日元区间（按名义2,000kW计）。将一手资料的制度参数与本文实测组合而成的推算区间。个别项目的接入费、工程费分摊金、运营力，会使其大幅变动。</p>
+
+<h2>13 — 监视触发点，与仍未可知之事</h2>
+
+<p>能改变上述研判的事件，可以带着日期排出来。复选框供监视之用——每有公布或判断出台，我们便更新本文的相应章节。</p>
+
+<div class="checklist-group" id="c32-checklist">
+<h5><span class="cl-num">8</span>撬动研判的监视日历</h5>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07/13</span>FY2030主拍卖募集要纲（案）意见征集截止——若要就两阶段成交的设计提意见，到此为止</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">7月底</span>FY2030电池调整系数、需求曲线（指标价格的确定值）预计公布——据此更新05的容量收入</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">7-8月</span>ΔkW的夏季实绩（短缺率、逼近上限的应标集中）＝上限10日元能否触发的最大材料。若触发，变动收益下修约3成</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2026秋</span>FY2030主拍卖应标（新建首次报名。首次实收在实供需2030财年）</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">12/26</span>日本海路线HVDC实施案提交期限——若提交，北海道·东北的压缩风险趋向缓和；若再延或撤退，则趋向强化</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">随时</span>关门联络线投运年的确定（🚩600万kW·2030/6 与 +100万kW左右·2039/3 一手资料间存在出入）——分割九州·中国地区的走向</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">随时</span>东北议价合同的解除·北海道一次短缺率的抬头——门的开合一变，即重算03</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">随时</span>东北接入申请超6GW·并网已完成超2GW＝新进入者减速的信号</span></label>
+<div class="check-progress"><div class="bar"><span class="bar-fill" id="checkBarFill"></span></div><span class="count"><span id="checkCount">0</span>/8</span></div>
+</div>
+
+<p>接着，把查了也查不到的事，如实地悬置。制度的不透明，本身就是投资判断的材料。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead><tr><th>❓ 无法验证·待公布</th><th>状态</th><th>查询处</th></tr></thead>
+<tbody>
+<tr><td class="em">平衡调整市场的分区别平均成交单价（全年数表）</td><td class="cond">日度确报值中有数字（分区×商品）。全年数表未公布，已汇总资料仅有图表</td><td>EPRX咨询表单</td></tr>
+<tr><td class="em">新制度期（2026/3/14～6/30）的通期确报</td><td class="cond">本文新制度值为28天速报的代理值</td><td>EPRX</td></tr>
+<tr><td class="em">新制度期的电池实测中标单价（分电源种类）</td><td class="cond">未公布。以旧制度期区间（8.8～13.5日元）外推代理</td><td>EPRX／电力稳定供应工作组</td></tr>
+<tr><td class="em">一次离线中电池占比97.8%的一手出处</td><td class="cond">确报正文未获确认（⚠️汇总值）</td><td>EPRX／制度研讨工作组事务局</td></tr>
+<tr><td class="em">抽蓄议价合同的分区别实态与到期范围</td><td class="cond">北海道·东京2026/3末到期、东北延续，依据资料8等的梳理（原始幻灯片未确认）</td><td>电力稳定供应工作组事务局</td></tr>
+<tr><td class="em">FY2030 调整系数·需求曲线（指标价格的确定值）</td><td class="cond">预计7月底公布。公布后更新05</td><td>OCCTO容量市场窗口／资源能源厅电力基础整备课 03-3501-1749</td></tr>
+<tr><td class="em">上限降至10日元的分阶段下调能否触发·时期</td><td class="cond">方针已定·附条件触发未发动</td><td>制度研讨工作组（预计2026财年下半期审议）</td></tr>
+<tr><td class="em">并网已完成容量 约64万kW（2025/12末）</td><td class="cond">仅二手信息（确定值为25万kW·2025/6末）</td><td>资源能源厅次世代电力系统工作组</td></tr>
+<tr><td class="em">关门联络线的投运年·增强幅度</td><td class="cond">🚩一手资料间存在出入（600万kW·2030/6 vs +100万kW左右·2038财年末）</td><td>OCCTO广域系统整备委员会事务局</td></tr>
+<tr><td class="em">中部·北陆·九州的2035年度最大需求</td><td class="cond">详细表确定后即可将自噬指标补齐至9分区</td><td>OCCTO需求预测</td></tr>
+<tr><td class="em">聚合商手续费的实勢费率</td><td class="cond">公开仅RE100电力5%·10～30%为二手</td><td>各家报价比较（或在NDA下开示）</td></tr>
+<tr><td class="em">TSMC/JASM第2工厂·Rapidus的合同电力（MW）</td><td class="cond">业者一手资料未公开</td><td>仅报道·研究机构测算</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note-small"><strong>空结果（"未发现"本身的报告）：</strong>JEPX现货在本年与上年均为完整的365天×48时段，缺测与插补为零。100日元/kWh超时段在本年窗口全国为零（上年仅中部2个时段）。二次①新制度单独实绩因应标极少而未公布。实供需2027～2029财年的追加拍卖未举办（主拍卖一本化方针的旁证）。北陆·四国无数据中心·半导体的需求单独计列。</p>
+
+<h2>结 — 是买一个静态的第1，还是买5年的耐受力</h2>
+
+<p>把最近12个月的快照以实测口径搭起来，门打开的5分区在2MW上每年2.9～3.0亿日元（中位）、几乎并列，居首是九州约2.95亿日元。而JEPX居首、居次的北海道与东北，被抽蓄的议价合同堵住门，挤不进此列——<strong>套利的地图与ΔkW的地图并不重合</strong>。收益的主体不在分区、而在平衡调整市场本身，而这个主体，恰恰是制度要分阶段削减的对象。以被削减后仍留下的底座＋核心看，北海道与东北最厚；北海道因议价合同到期、本财年起两扇门都打开，成了有时限的候选；东北则头顶压着全国四成的接入研讨，门却关着。东京虽在底座核心里排第5，却是增速、事件、成交余地、需求全部向上的唯一分区。</p>
+
+<p>也就是说，对"哪个分区最推荐"的诚实回答，不是静态排行榜的第1名。<strong>当前的名次表，与5年的耐受力，是两张不同的表</strong>。是以套利进攻，还是以事件与调节力去取，抑或稳住底座、专做精选买入——先定战略，分区自然就定了。此后，接入名额、工程费分摊金、合同设计这些个别条件，会在同一分区内部再拉开数千万日元级的差距。</p>
+
+<p>ScienceX在9个分区分别从事开发权与项目的中介。本文的统计讲的是市场整体，但最终分割投资判断的，是个别项目的接入条件与合同状态。从分区选定到个别项目的甄别，我们以与实测数据同样的精度提供协助。</p>
+
+<div class="data-box">
+<div class="db-head">出处·计算口径（截至2026年7月5日）</div>
+<ul class="src-list">
+<li><span class="t">实测</span>JEPX现货交易结果CSV（spot_summary 2024～2026财年）由ScienceX汇总。口径：每天1循环·完全预见，放电＝价格最高8时段（8,000kWh），充电＝价格最低起9,412kWh（8,000÷0.85），往返效率85%，按名义2,000kW计。分析窗365天×48时段×9分区·缺损0。完全预见值＝理论上限（容器）。割裂·充电时段·高价时段由我方将分区价／系统价逐时段比对</li>
+<li><span class="t">T1</span>EPRX：关于平衡调整市场上限价格（2026/2/5，明确上限15日元的适用起始＝实供需2026/3/14）／2025财年交易实绩（2026/6/18，一次短缺率60.4%·平均3.93日元·分电源种类 电池8.82～13.52日元等）／买卖手续费单价（2026/2/13决定，0.06日元/ΔkW·30分钟）</li>
+<li><span class="t">T1</span>资源能源厅：制度研讨工作组第108～114回（平衡调整市场·容量市场。第109回资料6＝抽蓄议价合同扣减·扣减期限2026年3月的逐字）／电力稳定供应工作组第1回资料8（2026/5/13，前日交易化后28天实绩·复合平均2.86日元·分区别短缺率·议价合同梳理）／次世代电力系统工作组第4回资料4（接入研讨2025/6末·并网已完成25万kW）·第7回资料1-1（接入申请2025/12末·全国2,868.8万kW）·第6·11回（出力控制·接入规律）／同时市场存续方式等研讨会第二次中间总结（2025/10/15）</li>
+<li><span class="t">T1</span>OCCTO：容量市场主拍卖成交结果（实供需FY2026～2029，FY2029于2026/1/20公布·1/23订正：东北·东京15,111日元／九州15,112日元／北海道14,972日元／其余12,388日元，总平均约13,303日元/kW）／FY2029调整系数表（2025/7/31）／容量确保合同约款（第8条·第26条）／FY2030募集要纲（案）（2026/6/30）／长期脱碳电源拍卖第3回成交结果（2026/5/13）／2026年度需求预测（2026/1/21）／广域系统整备委员会第96·99·101回·2025/12/24新闻稿／广域系统整备计划（2025/10/15报备）</li>
+<li><span class="t">T2</span>矢野经济研究所新闻稿（2025/12/10）：储能电站业务市场规模 2024财年450亿日元（以运营方收入计）── 仅用于实测区间的数量级印证</li>
+<li><span class="t">推算前提</span>平衡调整＝电池实勢8.8～13.5日元/ΔkW·30分钟（中位11.2日元）×30时段（并用）／48时段（全押）×门的开门天数（全年5分区365天·东北256天·中国地区四国109天·北海道0天）。在采购短缺型商品中，满足要件的报价原则上成交，故未再乘卖方侧的成交率（短缺率为买方侧未达）。新制度期电池实勢因未公布，以旧制度期区间外推（是分期间外推，而非跨界平均）。与市场平均的3～6倍差源于pay-as-bid的结构。容量实收为按年平均系数的概算🚩（正式须按月度累加·7月底公布后更新）。12的衰减曲线为巡航水平的推算，并非真实项目的确定收支</li>
+<li><span class="t">注记</span>EPRX禁止对公开数据的自动大量取得，并要求商用前签约。本文的图表均为基于公开资料的我方自制汇总·转记，已注明出处并在引用范围内处理。本文不构成投资、税务或法务建议。每半年更新一次，下一次定期更新预定为2027年1月</li>
+</ul>
+</div>
+
+<a target="_top" href="https://www.scix.co.jp/zh-column-contracts" class="next-link">
+  <div>
+    <div class="next-link-label">延伸阅读 / Related</div>
+    <div class="next-link-title">合同设计如何在20年里分出2亿日元 ── 电网侧储能电站签订的5层电力合同</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="cta-section">
+  <h3>从分区选定，到个别项目的甄别</h3>
+  <p>本文是基于公开数据的市场分析。9个分区各自的真实项目（接入名额、工程费分摊金、合同状态、预期收支），将在您联系我们后签署NDA，单独提供。保有资产的运营复盘（市场分配、季节计划）咨询，亦可承接。</p>
+  <a target="_top" href="https://www.scix.co.jp/zh-contact" class="cta-btn">联系我们 →</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var g=document.getElementById('c32-checklist');
+  if(!g)return;
+  var checks=g.querySelectorAll('input[type=checkbox]');
+  var fill=document.getElementById('checkBarFill');
+  var cnt=document.getElementById('checkCount');
+  var tot=checks.length;
+  function upd(){
+    var n=0; checks.forEach(function(c){if(c.checked)n++;});
+    if(fill) fill.style.width=(n/tot*100)+'%';
+    if(cnt) cnt.textContent=n;
+  }
+  checks.forEach(function(c){c.addEventListener('change',upd);});
+})();
+</script>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans SC',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo img { height:40px; width:auto; display:block; }
+  .scix-footer-info { text-align:center; }
+  .scix-footer-company { margin-bottom:14px; }
+  .scix-footer-company .company-name { font-size:14px; font-weight:500; margin-bottom:6px; letter-spacing:.04em; }
+  .scix-footer-company a { color:rgba(255,255,255,0.85); text-decoration:none; }
+  .scix-footer-company .representative { margin-top:6px; font-size:12px; color:rgba(255,255,255,0.6); }
+  .scix-footer-copyright { font-size:11px; color:rgba(255,255,255,0.45); letter-spacing:.05em; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img src="https://www.scix.co.jp/img/logo-white.png" alt="ScienceX Science X Inc." loading="lazy">
+    </a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X 股份有限公司（ScienceX）</div>
+        〒103-0016 日本东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        电话: <a href="tel:0364034095">+81-3-6403-4095</a><br>
+        邮箱: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">董事长 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
