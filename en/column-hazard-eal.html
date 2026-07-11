@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hazard-map colors can't choose a battery-storage site ── Measuring siting viability and business continuity with Expected Annual Loss (EAL) | ScienceX</title>
+<meta name="description" content="Flood hazard maps are life-safety (evacuation) maps. Using MLIT's multi-stage inundation maps and the Flood Control Economic Survey Manual, a battery-storage site's location hazard can be translated into Expected Annual Loss (EAL) — a monetary figure. From a 2MW/8MWh model calculation to the ripple into insurance design, the veto / priceable / design-input three-tier sort, and a 14-item one-day workflow for a single candidate site.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-hazard-eal">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-hazard-eal">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-hazard-eal">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-hazard-eal">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Hazard-map colors can't choose a battery-storage site ── Measuring siting viability and business continuity with Expected Annual Loss (EAL) | ScienceX">
+<meta property="og:description" content="You can't measure a 20-year business with an evacuation map. A practical framework that translates location hazard into EAL via multi-stage inundation maps × the Flood Control Economic Survey Manual, and carries it through to raising, insurance, and three investment-committee conditions.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-hazard-eal">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-07-12">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hazard-map colors can't choose a battery-storage site ── Measuring siting viability and business continuity with Expected Annual Loss (EAL) | ScienceX">
+<meta name="twitter:description" content="You can't measure a 20-year business with an evacuation map. A practical framework that translates location hazard into EAL via multi-stage inundation maps × the Flood Control Economic Survey Manual, and carries it through to raising, insurance, and three investment-committee conditions.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1B2A4A; --gold:#C49A3C; --ink:#2A2A2A; --sub:#5A6472;
+  --line:#E3E0D8; --bg:#FFFFFF; --wash:#F7F5F0; --washNavy:#F2F4F8;
+  --serif:'Noto Serif JP',serif; --sans:'Noto Sans JP',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.85;font-size:16px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px}
+a{color:var(--navy);text-decoration:underline;text-decoration-color:rgba(196,154,60,.6);text-underline-offset:3px}
+a:hover{color:var(--gold)}
+.breadcrumb{font-size:12px;color:var(--sub);padding:26px 0 10px}
+.breadcrumb a{text-decoration:none;color:var(--sub)}
+.colmeta{font-size:13px;letter-spacing:.14em;color:var(--gold);font-weight:700;margin:14px 0 10px}
+.colmeta .cat{color:var(--sub);font-weight:500;letter-spacing:.06em;margin-left:.8em}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(24px,4.4vw,34px);line-height:1.4;color:var(--navy);margin-bottom:18px}
+h1 em{font-style:italic;font-weight:600;color:var(--gold);display:block;font-size:.66em;margin-top:.35em}
+.lead{font-size:16.5px;color:var(--ink);margin:6px 0 18px}
+.back{font-size:13px;margin-bottom:34px;display:inline-block}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(20px,3.2vw,25px);color:var(--navy);line-height:1.4;margin:64px 0 20px;padding-top:22px;border-top:3px solid var(--navy)}
+h2 .no{color:var(--gold);margin-right:.5em;letter-spacing:.06em}
+h3{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--navy);margin:34px 0 12px;line-height:1.45}
+p{margin:0 0 1.35em}
+strong{color:var(--navy)}
+.kicker{background:var(--navy);color:#fff;padding:14px 20px;margin:56px 0 8px;font-size:13px;letter-spacing:.06em}
+.kicker b{color:var(--gold);margin-right:1em}
+.memo{background:var(--wash);border-left:4px solid var(--gold);padding:18px 20px;font-size:13.5px;line-height:1.8;color:#4a4a44;margin:0 0 30px}
+.memo b{color:var(--navy)}
+.alert{background:var(--washNavy);border-left:4px solid var(--navy);padding:18px 20px;font-size:14px;margin:26px 0}
+.alert .ttl{font-weight:700;color:var(--navy);display:block;margin-bottom:6px}
+.legend{font-size:12.5px;color:var(--sub);background:var(--wash);padding:10px 16px;margin:22px 0;letter-spacing:.02em}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:26px 0 8px}
+.stats>div{background:#fff;padding:14px 16px}
+.stats .k{font-size:11.5px;color:var(--sub);letter-spacing:.05em;margin-bottom:2px}
+.stats .v{font-family:var(--serif);font-weight:700;color:var(--navy);font-size:16px;line-height:1.45}
+.stats .v .g{color:var(--gold)}
+.statcap{font-size:12px;color:var(--sub);margin:6px 0 0}
+table{width:100%;border-collapse:collapse;margin:22px 0 6px;font-size:13.5px;line-height:1.6}
+th{background:var(--navy);color:#fff;font-weight:700;padding:9px 10px;text-align:left;font-size:12.5px;letter-spacing:.02em}
+td{border-bottom:1px solid var(--line);padding:9px 10px;vertical-align:top}
+tr:nth-child(even) td{background:var(--wash)}
+.tnote{font-size:12px;color:var(--sub);margin:4px 0 26px;line-height:1.7}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+blockquote{border-left:4px solid var(--gold);background:var(--wash);padding:16px 20px;margin:24px 0;font-family:var(--serif);font-weight:600;color:var(--navy);font-size:15.5px;line-height:1.55}
+ul.tight{margin:0 0 1.4em 1.3em}
+ul.tight li{margin-bottom:.55em}
+.calc{border:1px solid var(--navy);margin:30px 0}
+.calc .head{background:var(--navy);color:#fff;padding:10px 18px;font-size:13px;letter-spacing:.05em;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.calc .head .tag{background:var(--gold);color:var(--navy);font-weight:700;font-size:11px;padding:2px 8px;letter-spacing:.08em;white-space:nowrap}
+.calc .body{padding:20px 22px}
+.calc .row{margin-bottom:16px}
+.calc label{font-size:13px;color:var(--sub);display:flex;justify-content:space-between}
+.calc label output{font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.calc input[type=range]{width:100%;accent-color:#C49A3C}
+.calc .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:8px}
+.calc .res>div{background:var(--wash);padding:12px 14px}
+.calc .res .k{font-size:11px;color:var(--sub)}
+.calc .res .v{font-family:var(--serif);font-weight:700;font-size:19px;color:var(--navy)}
+.calc .res .v small{font-size:12px;font-weight:500}
+.related{border:1px solid var(--line);padding:18px 20px;margin:56px 0 0;font-size:14px}
+.related .lbl{font-size:11px;letter-spacing:.16em;color:var(--gold);font-weight:700;display:block;margin-bottom:6px}
+.cta{background:var(--navy);color:#fff;text-align:center;padding:44px 22px;margin-top:64px}
+.cta h3{color:#fff;margin:0 0 10px}
+.cta p{color:#C9D2E0;font-size:14px}
+.cta a.btn{display:inline-block;background:var(--gold);color:var(--navy);font-weight:700;padding:12px 34px;text-decoration:none;margin-top:14px}
+footer{background:#14203A;color:#AEB8C8;font-size:13px;padding:40px 22px 30px;line-height:1.9}
+footer a{color:#fff}
+footer .co{color:#fff;font-weight:700;margin-bottom:6px}
+@media(max-width:640px){body{font-size:15px}table{font-size:12px}th,td{padding:7px 6px}}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Hazard-map colors can't choose a battery-storage site ── Measuring siting viability and business continuity with Expected Annual Loss (EAL) | ScienceX",
+  "description": "Flood hazard maps are life-safety (evacuation) maps. Using MLIT's multi-stage inundation maps and the Flood Control Economic Survey Manual, a battery-storage site's location hazard can be translated into Expected Annual Loss (EAL) — a monetary figure. From a 2MW/8MWh model calculation to the ripple into insurance design, the veto / priceable / design-input three-tier sort, and a 14-item one-day workflow for a single candidate site.",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "datePublished": "2026-07-12",
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-hazard-eal"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Hazard-map colors can't choose a battery-storage site ── Measuring siting viability and business continuity with Expected Annual Loss (EAL)",
+      "item": "https://www.scix.co.jp/en/column-hazard-eal"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+
+<div class="wrap">
+
+<nav class="breadcrumb" data-scix-breadcrumb><a href="https://www.scix.co.jp/en">Home</a> › <a href="https://www.scix.co.jp/en/knowledge">Knowledge</a> › Hazard-map colors can't choose a battery-storage site ── Measuring…</nav>
+
+<div class="colmeta">COLUMN 36<span class="cat">/ Site Selection · Risk Management · 2026.07.12</span></div>
+
+<h1>Hazard-map colors can't choose a battery-storage site<em>── Measuring siting viability and business continuity with Expected Annual Loss (EAL)</em></h1>
+
+<p class="lead">"Passed over because it falls inside an inundation hazard area" — this is the single most common way a grid-scale storage site dies in screening. But a hazard map is a <strong>life-safety (evacuation) map</strong> under the Flood Control Act, and what it draws is the worst-case image at an annual exceedance probability of 1/1000 or less. You cannot measure a 20-year business with a map that has erased the frequency information. The government has already built probability maps for business decisions (multi-stage inundation maps); combined with the Flood Control Economic Survey Manual, a location hazard can be translated into <strong>Expected Annual Loss (EAL) — a monetary figure</strong>. From a 2MW/8MWh model calculation, to the cost-effectiveness of raising the site, to the ripple into insurance ("how you cover it and what it costs," alike), and on to a 14-item workflow that reads one candidate site in a single day — this piece builds the yardstick that comes after the binary decision, using nothing but public primary information.</p>
+
+<a class="back" href="https://www.scix.co.jp/en/knowledge">← Back to the Knowledge index</a>
+
+<div class="memo"><b>Editorial note:</b> The EAL calculation here is an <b>illustrative model</b> with placeholder probability bands (for a real site, you read the actual figures from that river's multi-stage inundation maps). Damage rates follow the Flood Control Economic Survey Manual, <b>April 2005 edition, Table 4.4</b>; business-suspension and slowdown days follow the <b>April 2020 edition, Table 4.9</b> — a mix of editions from different revision years. Because damage rates were updated in the April 2020 edition (the latest is the April 2024 edition), refer directly to the latest edition itself when evaluating an actual project. Extra-high-voltage transformer lead times (128 weeks, etc.) are survey figures from the <b>U.S. T&amp;D market</b>. The surface-ground-amplification thresholds (1.5 / 2.0) and the 50 m nearest-dwelling line are not official standards but <b>our own practical rules of thumb</b>. Underwriting conditions for the earthquake-risk endorsement and BESS premium-rate levels are not publicly available (❓) and can only be filled in via a direct inquiry to insurers. This piece is an overview based on general examples, not investment, insurance, or legal advice. A definitive evaluation of a specific project is provided individually under NDA.</div>
+
+<div class="stats">
+<div><div class="k">Reference unit (illustrative)</div><div class="v">HV 2MW/8MWh<span class="g"> · ¥400M depreciable asset</span></div></div>
+<div><div class="k">Model EAL (illustrative riverside site)</div><div class="v">≈ ¥16M<span class="g">/yr</span></div></div>
+<div><div class="k">20-yr cumulative (undiscounted)</div><div class="v">≈ ¥320M<span class="g"> ≈ 67% of CAPEX</span></div></div>
+<div><div class="k">Raise equipment foundation by 1 m</div><div class="v">EAL nearly halved<span class="g"> (≈ ¥8.8M/yr reduction)</span></div></div>
+<div><div class="k">Veto-class (quantifying won't save it)</div><div class="v">Building-collapse inundation zone<span class="g"> · landslide red zone</span></div></div>
+<div><div class="k">Insurance's pressure point</div><div class="v">Tsunami / liquefaction are<span class="g"> standard exclusions on the earthquake side</span></div></div>
+</div>
+<p class="statcap">The scope of this piece — translating "colored or not" into "a monetary figure and insurance terms."</p>
+
+<div class="legend"><b>✅</b> Verified against primary sources　<b>⚠️</b> Conditional / caveated　<b>❓</b> No public data (inquiry target noted)　<b>🚩</b> Key risk</div>
+
+<div class="kicker"><b>Part 1</b>The logic of re-reading ── from a life-safety map to a revenue yardstick</div>
+
+<h2><span class="no">01</span>A hazard map is a "life-safety map"</h2>
+
+<p>The inundation depths drawn on a municipality's flood hazard map assume, as a rule, the maximum assumed scale (L2) — rainfall with an <strong>annual exceedance probability of roughly 1/1000 or less</strong> (MLIT, Manual for Preparing Flood Inundation Hazard Area Maps, 4th edition ✅). This does not mean "a once-in-1,000-years cycle"; it means "each year, the probability of exceeding that scale is 0.1% or less." The purpose is to secure evacuation under the Flood Control Act. Because human life must not be lost even in a once-in-a-millennium flood, the map displays the single worst image — and as institutional design, that is correct.</p>
+
+<p>The problem arises when that "single worst image" is repurposed as a binary filter for an investment decision. The color for 3 m of inundation looks the same whether it is a 1/1000 story or a 1/30 story, yet the expected loss differs by two orders of magnitude. Judging a 20-year operating business with a map that has erased the frequency information is a mismatch of probability dimensions.</p>
+
+<p>And this repurposing strikes straight at the land inventory. Follow the ideal siting conditions for grid-scale storage — close to the connection point, flat, cheap land — and candidates cluster in alluvial lowlands, and most of Japan's alluvial lowlands take on some color at L2. Hold the line of "colored = out of contention," and candidates drift toward hillsides and terraces, where you now trade for a different set of costs: sediment-disaster risk, earthwork, and connection distance. <strong>A binary decision does not eliminate risk. It merely reassigns it to a different risk.</strong></p>
+
+<h2><span class="no">02</span>The government also provides "maps for business decisions"</h2>
+
+<p>The probability data needed for the re-reading all exist as public primary information.</p>
+
+<p><strong>Probability (flood) ✅:</strong> Since December 2022, MLIT has been rolling out <strong>Flood Risk Maps (multi-stage inundation maps)</strong>. These show the inundation depth of the same land in multiple stages by annual exceedance probability — <strong>1/10 (high frequency), 1/30 (mid-high), 1/50 (mid), 1/100 (mid-low), planning scale (1/150 or 1/200), and maximum assumed scale</strong> — and are a different object from the single L2 image. Decisively, the preparation guideline itself (Water and Disaster Management Bureau, January 2023) states verbatim that the uses of this map include <strong>"corporate site selection," "corporate BCP (business continuity plan) preparation," and "calculation of flood-insurance rates"</strong> (✅ confirmed in the body text). "There is only a life-safety map" is already a thing of the past.</p>
+
+<p><strong>Probability (earthquake):</strong> NIED's J-SHIS provides exceedance probabilities such as "seismic intensity 6-lower or greater within 30 years" on a nationwide 250 m mesh. <strong>Climate-change adjustment:</strong> under a 20-year operating premise, it is reasonable to fold in, as a sensitivity, the official coefficients from MLIT's proposal to revise flood-control planning (October 2019 / revised April 2021 ✅) — under a 2 °C scenario, <strong>rainfall ×≈1.1, river discharge ×≈1.2, flood frequency ×≈2</strong>.</p>
+
+<p>And this very re-reading into "probability × damage amount" is an evaluation framework the government has been operating on real rivers. In the Kinokawa river system, for example, MLIT's Kinki Regional Development Bureau (Wakayama River and National Highway Office) publishes multi-stage inundation maps and flood risk maps (listed in MLIT's "Flood Risk Map Index" ✅); and for the same Kinokawa's directly-managed river-improvement project, the Bureau's project evaluation (cost-benefit analysis) computes and publishes damage-prevention benefit — an expected damage amount with the same skeleton as this piece's EAL — from the annual average of households and area whose inundation is mitigated, based on the Flood Control Economic Survey Manual (Project Evaluation Monitoring Committee materials). <strong>The government actually uses this yardstick to decide flood-control investment.</strong> What we have independently researched and systematized is the connecting joint that re-reads this governmental evaluation framework into the investment and insurance decisions for a private asset — a storage facility.</p>
+
+<h2><span class="no">03</span>From "does it fall inside?" to "how much will you lose?" ── building the EAL</h2>
+
+<blockquote>Expected Annual Loss (EAL) = Σ (annual-exceedance-probability band × damage rate × asset value) + Σ (annual-exceedance-probability band × effective outage days) × daily lost revenue − expected insurance recovery</blockquote>
+
+<p>The first term is asset impairment; the second represents <strong>business continuity</strong> — how many days it stops, and how you bridge revenue in the meantime. The guideline lists "BCP preparation" among the map's uses precisely because of this second term. For damage rate and outage days, there are official governmental benchmarks.</p>
+
+<table>
+<tr><th>Inundation depth (above floor)</th><th>Damage rate on business depreciable assets<span style="font-weight:400">※1</span></th><th>Effective outage days<span style="font-weight:400">※2</span></th></tr>
+<tr><td class="num">–0.5 m</td><td class="num">23.2%</td><td class="num">15.8 d</td></tr>
+<tr><td class="num">0.5–1.0 m</td><td class="num">45.3%</td><td class="num">26.0 d</td></tr>
+<tr><td class="num">1.0–2.0 m</td><td class="num">78.9%</td><td class="num">37.8 d</td></tr>
+<tr><td class="num">2.0–3.0 m</td><td class="num">96.6%</td><td class="num">73.2 d</td></tr>
+<tr><td class="num">3.0 m–</td><td class="num">99.5%</td><td class="num">97.7 d</td></tr>
+</table>
+<p class="tnote">※1 Flood Control Economic Survey Manual (draft), April 2005 edition, Table 4.4, depreciable assets (✅ confirmed matching the source table). <b>Damage rates were updated in the April 2020 edition; for actual projects we recommend referring directly to the latest April 2024 edition itself.</b> ※2 April 2020 edition, Table 4.9 (business-suspension days + business-slowdown days × 1/2; ✅ recomputed to match source figures). ※1 and ※2 are based on editions from different revision years.</p>
+
+<p>But these are nationwide averages for a general business establishment, and BESS needs two adjustments — both of which push the numbers in the <strong>harsher</strong> direction.</p>
+
+<h3>Adjustment ①: read the damage function as a step function (inundation = 100% total loss)</h3>
+
+<p>For homes and businesses the damage rate rises gradually with depth, but BESS is different. Battery modules, PCS, and receiving/transforming gear are electrical and electronic equipment set at ground level; because of stranded energy, a submerged lithium-ion battery is hard to discharge or repair safely, and with salt water or contaminated water there is a path from terminal corrosion to internal short and thermal runaway. Commentary from overseas BESS-specialist insurers (e.g., Altelium) treats <strong>an inundated battery unit as, typically, ending up a total loss</strong>, and the manufacturer's warranty IP rating (IP65, etc.) covers dust and splashing — flooding is outside the warranty scope and can be a warranty-voiding cause. The manual itself, taking the automobile as the representative asset with an electrical system, sets <strong>100% total loss at 70 cm of inundation (seat level) or more</strong> (April 2020 edition ✅). If water reaches the equipment foundation plane, 100%; if not, essentially 0% — this step shape is the technically honest damage function.</p>
+
+<p>And this step shape is exactly where design becomes the pressure point. <strong>Deciding the raise height is nothing other than buying, with money, "up to which frequency on the exceedance-probability curve you zero out damage."</strong> There are private-sector implementations. The UK's Harmony Energy operated Pillswood BESS (98MW/196MWh, live November 2022, among Europe's largest at commissioning ✅) was built on an earthwork platform precisely because it sits on a flood-risk site — an operator buying out the left side of the probability curve with money and turning colored land into an operating asset. Note that water doesn't only stop revenue; it also starts fires — the ignition of PG&amp;E's Elkhorn Battery (September 2022) was identified as rainwater entering the container due to faulty installation of a deflagration vent shield panel (PG&amp;E disclosure ✅).</p>
+
+<h3>Adjustment ②: outage duration is governed by equipment procurement lead time</h3>
+
+<p>The manual's outage days (≈98 days at 3 m+) are actuals for a general business, and in a BESS total loss this becomes the floor. Receiving/transforming equipment is made to order (MLIT/METI's Guideline on Flood Countermeasures for Building Electrical Equipment likewise notes that recovery requires a substantial period). Extra-high-voltage transformer lead times run <strong>128 weeks on average (≈2.5 years) on an actual-order basis, and ≈143–144 weeks for step-up GSUs</strong> (Wood Mackenzie 2025 Q2 survey, <strong>U.S. T&amp;D market</strong> ⚠️) — and the structure is the same at home: made to order, long lead time. PCS runs 6–12 months, and battery containers on the order of 4–6 months from a practical standpoint (estimates).</p>
+
+<p>On top of the outage sit market penalties. In the capacity market, once the annual cumulative of requirement-missed slots <strong>exceeds 8,640 slots (equivalent to 180 days)</strong>, it becomes subject to an economic penalty. And <strong>outages whose capacity-outage plan was not submitted by the prescribed deadline (e.g., 17:00 the prior Tuesday), and missed slots that fell during a tightness event with a wide-area reserve ratio below 8%, can be counted at 5× as missed slots</strong> (OCCTO Capacity Market Operations Manual, target delivery FY2026 ✅). "Days stopped" cut into revenue by a route separate from the damage amount, too.</p>
+
+<div class="kicker"><b>Part 2</b>Putting a number on it ── a model calculation, and the ripple into insurance</div>
+
+<h2><span class="no">04</span>A model calculation ── putting a number on "a riverside site"</h2>
+
+<p>This is a model calculation we built independently. The premise: <strong>HV 2MW/8MWh, ¥400M depreciable asset (CAPEX ≈ ¥480M = ¥60,000/kWh)</strong>. That unit cost is the analytical reference value from ANRE's Study Group on Expanding Stationary Storage Systems; the FY2024 actuals run around ¥54,000 system + ¥14,000 installation per kWh (✅). <strong>Daily lost revenue is ¥130k/day</strong> (capacity market + JEPX arbitrage; the annual gross of "≈¥46M" is rounded on an effective-utilization basis — at 365-day full operation it is ≈¥47.45M). For inundation probability, we placed as an <strong>illustration</strong> a riverside site read from a multi-stage map as "inundation begins at 1/10, 0.5 m at 1/30, 1 m at 1/50, 2 m at 1/100, and 3 m at maximum assumed scale (1/1000)."</p>
+
+<table>
+<tr><th>Inundation-depth band</th><th>Annual-exceedance-probability band</th><th>Damage rate (depreciable assets)</th><th>Effective outage days</th></tr>
+<tr><td class="num">0–0.5 m</td><td class="num">0.0667</td><td class="num">23.2%</td><td class="num">15.8 d</td></tr>
+<tr><td class="num">0.5–1.0 m</td><td class="num">0.0133</td><td class="num">45.3%</td><td class="num">26.0 d</td></tr>
+<tr><td class="num">1.0–2.0 m</td><td class="num">0.010</td><td class="num">78.9%</td><td class="num">37.8 d</td></tr>
+<tr><td class="num">2.0–3.0 m</td><td class="num">0.009</td><td class="num">96.6%</td><td class="num">73.2 d</td></tr>
+<tr><td class="num">3.0 m and above</td><td class="num">0.001</td><td class="num">99.5%</td><td class="num">97.7 d</td></tr>
+</table>
+<p class="tnote">Probability bands are illustrative (for a real site, read the actual figures from that river's multi-stage inundation maps). Calculation by ScienceX (checked by hand).</p>
+
+<p>The result: <strong>physical-damage EAL ≈ ¥15.6M/yr + outage EAL ≈ ¥0.33M/yr ≈ ¥16M/yr total</strong>. Cumulatively over 20 years (undiscounted), ≈ ¥320M, equal to <strong>≈67% of CAPEX</strong> (even at a 5% discount, present value ≈ ¥200M ≈ 40% of CAPEX). The intuition that "a riverside lowland is tough as a business" is borne out even when quantified — up to here, the conclusion is the same as a binary decision.</p>
+
+<p>The difference shows in the next move. The same yardstick can also measure <strong>the price of countermeasures</strong>. Raise the equipment foundation plane by 1 m, and the probability bands at 1 m depth or less — the thickest part of the exceedance-probability curve — are zeroed out, and <strong>EAL nearly halves to ≈ ¥7.2M/yr</strong> (a reduction of ≈ ¥8.8M/yr; because the effective inundation depth against the equipment also drops by 1 m in the upper bands, the actual reduction is larger still). Not "avoid it because it's colored," but "compare the raising cost against the ≈ ¥8.8M/yr reduction — and against the improvement in insurance terms discussed below" — this decision becomes possible. Try it in the calculator below by moving asset value, daily revenue, and raise height.</p>
+
+<div class="calc">
+<div class="head"><span>EAL quick calculator ── how expected loss moves with raise height</span><span class="tag">INTERACTIVE</span></div>
+<div class="body">
+<div class="row"><label>Depreciable asset value <output id="oA">¥400M</output></label><input type="range" id="sA" min="2" max="8" step="0.5" value="4"></div>
+<div class="row"><label>Daily lost revenue <output id="oD">¥130k/day</output></label><input type="range" id="sD" min="5" max="30" step="1" value="13"></div>
+<div class="row"><label>Raise height of equipment foundation <output id="oH">0.0 m</output></label><input type="range" id="sH" min="0" max="3" step="0.5" value="0"></div>
+<div class="res">
+<div><div class="k">Physical-damage EAL</div><div class="v" id="rP">—<small>/yr</small></div></div>
+<div><div class="k">Outage EAL</div><div class="v" id="rS">—<small>/yr</small></div></div>
+<div><div class="k">Total EAL</div><div class="v" id="rT">—<small>/yr</small></div></div>
+<div><div class="k">20-yr cumulative (undiscounted)</div><div class="v" id="rC">—</div></div>
+</div>
+<p class="tnote" style="margin-top:10px">Probability bands are fixed at the body-text illustrative values (inundation begins at 1/10; 3 m at 1/1000). Raising is a conservative simple calculation that "zeroes out damage in inundation bands whose upper edge is at or below the raise height," and does not fold in the reduced effective depth of the upper bands. Damage rates are general-business values (applying the BESS adjustment — 100% total loss on reaching equipment level — pushes cases where equipment goes below the water surface higher). Evaluating a real site requires the multi-stage map's actual figures, a ground survey, and insurance terms.</p>
+</div>
+</div>
+
+<p>Three cautions, stated plainly. First, the probability bands are illustrative. Second, the table's damage rates are general-business values; apply the BESS adjustment (reaching equipment level = 100% total loss) and they push higher when equipment sits below the raise height — meaning <strong>the damage rate is also a variable you can move by design, not just by location</strong>. Third, the outage EAL is clearly a floor (with a total loss of the receiving/transforming gear, the order of magnitude of outage days changes).</p>
+
+<h2><span class="no">05</span>Property insurance changes ── the ripple into "how you cover" and "what it costs"</h2>
+
+<p>An EAL evaluation is a tool for the investment decision and, at the same time, <strong>an input to insurance design</strong>. This is the biggest practical difference from a binary decision.</p>
+
+<p><strong>Insurers read the same map.</strong> For retail fire insurance, the flood rate was subdivided from October 2024 into five bands by municipality (GIROJ, filed June 2023 ✅; the inter-regional gap is <strong>≈1.2× on the total premium and ≈1.5× on the flood rate alone</strong>). That is a retail reference net rate and corporate properties are individually underwritten, but the direction — reflecting location risk into the rate — is the same. Overseas, BESS-specialist underwriters go further still: specialist commentary (e.g., Altelium) holds that <strong>color-coded information such as "falls in a 1-in-100-year zone" is insufficient</strong> for a location evaluation, and requires inundation depths (meter values) at multiple return periods. <strong>The side that graduated from the binary first is the side that underwrites the insurance.</strong> Conversely, an operator who can present its own probability-differentiated inundation depths and countermeasure design can negotiate terms at the same resolution as the underwriter. A bad map cannot be arbitraged with insurance — it comes back as premium and deductible — but good data becomes leverage that moves the terms.</p>
+
+<p>On that basis, EAL prescribes the specifics of insurance placement (how you cover it).</p>
+
+<ul class="tight">
+<li><strong>Structure of flood cover:</strong> in corporate property insurance, flood is covered with a payout ratio (selectable, e.g., 5–70%), a deductible, and a payout limit. At a site where raising has zeroed out the high-frequency bands, the small-and-frequent claims vanish, so it becomes rational to <strong>take a thicker deductible to hold down the rate and concentrate cover on the tail (low-frequency, large loss)</strong> — the idea being to align the EAL curve with the choice of deductible and payout ratio.</li>
+<li><strong>Whether an earthquake endorsement is needed:</strong> under policy wording, earthquake, eruption, and <strong>tsunami</strong> are standard exclusions, and tsunami is classified on the earthquake side, not as "flood." <strong>Liquefaction and ground subsidence, if earthquake-triggered, also fall on the same excluded side.</strong> Filling this requires an earthquake-risk endorsement (extended cover), but its underwriting availability, cover-ratio cap, and rate are non-public individual quotes (❓ no public data). The more a site's hazard composition leans to the earthquake side (tsunami, liquefaction), the more the "uninsured without the endorsement" residual piles up — and this residual cannot be erased in insurance design; <strong>it can only be controlled at the site-selection stage</strong>.</li>
+<li><strong>Indemnity period for BI (business interruption):</strong> a ~1-year indemnity period is the practical starting point, but a total-loss transformer lead time is on the order of 2.5 years (U.S. survey figure). <strong>Lost revenue after the indemnity period is exhausted is structurally uninsured.</strong> Whether and at what cost to extend the indemnity period should be weighed on the same field as a spares strategy (spare transformer, etc.) (BI-design specifics in <a href="https://www.scix.co.jp/en/column-bess-insurance">COLUMN 18</a>).</li>
+<li><strong>Parametric as a complement:</strong> products that pay early, without loss adjustment, triggered by an index such as seismic intensity, actually exist domestically. Tokio Marine &amp; Nichido's "EQuick earthquake-ready insurance" launched in March 2021 as <strong>Japan's first</strong> index-type product (✅ per the company's own release). Mitsui Sumitomo's seismic-intensity-linked endorsement (2025), Swiss Re's payout roughly two months after the 2022 Fukushima offshore earthquake, and the entry of overseas players such as Descartes are per each company's disclosures and reporting (⚠️). It is not full-loss indemnity and basis risk remains, but it can function as <strong>initial liquidity for recovery funds</strong> that compensates for the long loss adjustment of BI.</li>
+<li><strong>Timing-of-payment risk:</strong> BESS fires and accidents tend to have protracted cause investigations. In the storage-facility fire in Isa City, Kagoshima (March 27, 2024), despite the facility being insured, the payout was reported still outstanding more than a year after the event (PVeye June 2025 issue ✅), and as of July 2026 we have not confirmed any follow-up report of payment. Insurance is evaluated not by "is it in place?" but by <strong>"when, how much, and on what conditions does it pay out?"</strong></li>
+</ul>
+
+<p>In sum, EAL is a <strong>common denominator that compares, in the same currency</strong>, the land-price reduction, countermeasure cost, premium, and self-retained residual. The question shifts from "should we insure it?" to an allocation problem: "which loss layer do we pay with engineering, which with insurance, and which with the land price?"</p>
+
+<h2><span class="no">06</span>The three-tier sort ── veto / priceable / design input</h2>
+
+<table>
+<tr><th>Tier</th><th>Definition</th><th>Typical examples</th><th>Handling</th></tr>
+<tr><td><strong>veto (withdraw)</strong></td><td>Cannot be erased with engineering, and insurance does not stand economically either</td><td>Building-collapse inundation zone; deep inundation beyond the raising limit (rule of thumb: 3 m+ to 5 m-class or more at L2); Special Landslide Hazard Zone</td><td>The more you quantify, the more the numbers deny viability. Withdraw</td></tr>
+<tr><td><strong>priceable</strong></td><td>Countermeasure cost + premium + residual EAL can be put in monetary terms and folded into IRR</td><td>Moderate river flooding / inland flooding (raising, flood cover); liquefaction (ground improvement, piling)</td><td>Obtain the land reduction, countermeasure cost, and insurance terms, and decide yes/no on the numbers</td></tr>
+<tr><td><strong>design input</strong></td><td>Not a matter of siting viability but a design condition for the EPC</td><td>Surface-ground amplification; near-fault ground motion (excluding directly overhead); on-site drainage</td><td>Input values for foundation and anchor specs. Do not treat as an investment-decision variable</td></tr>
+</table>
+
+<p><strong>A building-collapse inundation zone is a veto because it is not a function of inundation depth.</strong> This zone is the area where, when a levee breaches, the fluid force of the flood flow and bank erosion are expected to topple or sweep away structures (two types — flood flow and bank erosion; publication advanced under the Flood Control Act in the wake of the 2015 Kanto–Tohoku heavy rain ✅). The damage mode is not "submersion" but "swept away, foundation and all," which raising does not erase; the damage rate is effectively 100%, and insurance underwriting breaks down on terms because of the location itself. Quantification is a tool to "save colored land," and at the same time a tool to <strong>show, in the investment committee's language, the land that cannot be saved</strong>.</p>
+
+<p><strong>Liquefaction is, in principle, priceable.</strong> A hazard map's "high liquefaction potential" verdict (PL value, etc.) is an evaluation of the original ground and does not fold in the effect of ground improvement. In other words, liquefaction can be priced as a ground-improvement cost. But the residual risk falls, as noted, on the <strong>earthquake-exclusion side</strong> — and this is the decisive difference from flood. The market tends to treat liquefaction lightly not because the risk is low, but because reading it takes geotechnical literacy. The developer/reseller holding period is short, and it is the long-term holder that owns the site until the seismic risk materializes — so for the buyer, in particular, it is a point worth scrutinizing.</p>
+
+<p><strong>Near a fault is, except directly overhead, a design input.</strong> The purpose of building-setback regulation for active faults is life-safety in residential buildings. In representative confirmable examples, California uses 50 feet (≈15 m) from the fault (Alquist–Priolo Act ✅), while New Zealand, Taiwan, and domestic district-plan examples are cited at the 10–25 m class (a rough figure per the Japanese Geotechnical Society Chubu Branch's summary, etc. ⚠️). Damage from a surface fault rupture concentrates in the strip directly overhead (in the 1971 San Fernando earthquake, building damage was ≈80% directly overhead versus under 30% in the offset zone ✅); for an unmanned container structure, surface displacement is avoided by pad placement, and shaking is handled as a foundation and anchor design condition — which is engineering-accurate. Here again, this piece's principle repeats: "do not extend life-safety maps and regulations to the business decision of an unmanned facility."</p>
+
+<h2><span class="no">07</span>Precedents, and the named evaluators ── next to seismic PML, the flood-version seat sits empty</h2>
+
+<p>The vocabulary for "accepting institutional-investor capital in a country with hazards, nonetheless" has been built over a quarter-century by the market next door: seismic PML in real-estate securitization (probable maximum loss at a 475-year return period). A working convention has taken hold as a practical benchmark — <strong>treat roughly 15–20% PML as a threshold, and above it, consider or make a condition of earthquake insurance</strong> (⚠️ the threshold range is industry practice). No one says "because it's an earthquake-prone country, real-estate investment is impossible."</p>
+
+<p>And the practical evaluation infrastructure is already coming together on the storage side, too. Tokio Marine Group's Tokio Marine dR publishes facility-risk reports (natural disaster, fire) for grid-scale storage (Tokio dR-EYE ✅) and, holding that a quantitative natural-disaster evaluation is indispensable at the time of project-finance structuring for renewable generation facilities, offers PML evaluation commercially (per its own service page ✅; the flood evaluation combines inundation hazard-area maps + Fathom's return-period flood hazard + inundation simulation). Sompo Risk Management likewise offers probabilistic seismic/tsunami PML evaluation that computes loss amounts by return period, and flood-risk evaluation. In third-party technical DD, TÜV Rheinland Japan has offered technical due diligence for grid-scale storage (including location evaluation and site survey) since November 2023, and as of October 2024 it discloses that it has <strong>completed several domestic planning/development-stage projects, with reports frequently requested not only by development operators but by banks and financial institutions considering PF</strong> (✅ per its own press release). Among listed infrastructure funds, per-property seismic-PML disclosure of held generation assets and portfolio PML management are already established practice.</p>
+
+<p>In short, the evaluating side (insurer-affiliated risk consultancies, third-party certification bodies) and the vessel for disclosure (fund practice) already exist. What cannot be confirmed in public information is <strong>only an operator-side disclosure that an individual storage project was selected on multi-stage probability × EAL</strong> (❓ DD reports are non-public by convention). Conversely, there is not yet a seller who hands this statement to investors on its own — <strong>that is where the first-mover room lies</strong>. Turning the annual exceedance probabilities of the multi-stage map, the manual-conformant damage rate (with BESS adjustment), the outage days based on procurement lead time, and the insurance cover scope and exclusions into a single EAL statement changes the one-line "because it's riverside" into <strong>negotiable questions</strong>: "is it dry to equipment level at 1/100?" and "what percent of annual revenue is the residual EAL?"</p>
+
+<h2><span class="no">08</span>The limits of this framework</h2>
+
+<p>Expected-loss evaluation is not a cure-all. To run it honestly, we list up front the holes that cannot be filled.</p>
+
+<ul class="tight">
+<li><strong>Structural holes in insurance:</strong> with payout ratio, deductible, and payout limit, even flood does not return in full. Earthquake, eruption, and tsunami are standard exclusions, and extended-cover terms are property-dependent (❓ no public standard).</li>
+<li><strong>Payment delay:</strong> with a protracted cause investigation, the receipt of proceeds and the demand for recovery funds can be out of phase (the Isa City example).</li>
+<li><strong>Time does not come back:</strong> insurance returns the physical asset, but not the re-procurement period of made-to-order equipment, nor lost revenue beyond the indemnity period.</li>
+<li><strong>In-period rate variation:</strong> the BESS insurance market has a shallow loss history, and there is a risk of terms worsening at renewal.</li>
+<li><strong>Premise obsolescence:</strong> hazard maps and earthquake probabilities are updated. The Nankai Trough 30-year occurrence probability changed in the September 26, 2025 revision to a dual notation of "roughly 60–90% or more" and "20–50%" (base date January 1, 2025 ✅; because the base date is updated each January, always check the latest value at the time of evaluation). The risk that "outside the zone" at acquisition becomes "inside the zone" in the future is an uncertainty the EAL model itself carries.</li>
+<li><strong>Blanks in public information ❓:</strong> the rate level of BESS property + BI insurance, the underwriting reality of earthquake extended cover, and the practice of the BI indemnity period and lost-profit calculation — none are publicly available. They can only be filled by a direct inquiry to insurers, which, conversely, means whoever holds the inquiry results stands at an information advantage.</li>
+</ul>
+
+<div class="kicker"><b>Part 3</b>Getting hands-on ── carry one candidate site from map to insurance inquiry</div>
+
+<h2><span class="no">09</span>Practical workflow ── Monday morning, when one candidate-site address arrives</h2>
+
+<p>That's the logic. The practice folds into four steps. The data used in ① is, registry aside, all free public information.</p>
+
+<table>
+<tr><th>Step</th><th>What to do</th><th>What to use</th><th>What you get</th></tr>
+<tr><td><strong>① Desktop screening (1 day)</strong></td><td>A one-pass verdict on hazard + ground/slope + regulation/neighbors/grid</td><td>The list below (14 items, with URLs)</td><td>Whether veto applies, inundation depths by probability (m), regulatory stoppers, ground/slope/dwelling distance</td></tr>
+<tr><td><strong>② Quick EAL (one Excel sheet)</strong></td><td>Compute expected loss using the §04 table as a template</td><td>①'s inundation depths by probability, the planned equipment-foundation height, asset value and daily revenue</td><td>Physical-damage EAL + outage EAL; the three-tier verdict</td></tr>
+<tr><td><strong>③ Buy probability with design</strong></td><td>Compare the construction cost of raising / piling / ground improvement against the EAL reduction, annualized</td><td>EPC, ground-survey firm (boring + FL/PL verdict)</td><td>Post-countermeasure residual EAL and countermeasure cost</td></tr>
+<tr><td><strong>④ Insurance inquiry → investment committee</strong></td><td>Inquire to insurers with probability-differentiated data + countermeasure design attached</td><td>Multiple insurers, third-party technical DD as needed</td><td>Payout ratio / deductible / rate, earthquake-endorsement availability, BI indemnity period → material for the three conditions in the conclusion</td></tr>
+</table>
+
+<h3>① In the first 30 minutes eliminate veto-class; in one day, produce the full picture of the candidate</h3>
+
+<p>The entry point is the Overlay Hazard Map. Enter the address and first look at whether it falls in a building-collapse inundation zone (flood flow / bank erosion) or a Special Landslide Hazard Zone. If it does, stop there — spend no effort on ② onward. Surviving candidates make one pass through the following 14 items. <strong>This list is to avoid both "look only at hazard and die on regulation" and "look only at regulation and die on hazard."</strong></p>
+
+<table>
+<tr><th>#</th><th>Item to check</th><th>Where to check</th><th>What to look at / caution line</th></tr>
+<tr><td>1</td><td>Flood / inland flooding / storm surge / tsunami / sediment</td><td><a href="https://disaportal.gsi.go.jp/">Overlay Hazard Map</a></td><td>Building-collapse inundation zone / Special Landslide Hazard Zone = veto. Record inundation depth and duration</td></tr>
+<tr><td>2</td><td>Inundation depth by probability (multi-stage)</td><td><a href="https://www.mlit.go.jp/river/kasen/ryuiki_pro/risk_map.html">MLIT "Flood Risk Map Index"</a></td><td>Record 1/10 to planning-scale inundation depths in meters. Mainly nationally-managed rivers; for un-prepared prefecturally-managed rivers, approximate with the two points L2 + planning scale</td></tr>
+<tr><td>3</td><td>Ground motion</td><td><a href="https://www.j-shis.bosai.go.jp/">J-SHIS</a></td><td>30-yr exceedance probability of intensity 6-lower+, surface-ground amplification (>1.5 caution, ≥2.0 needs countermeasures — <strong>our practical rule of thumb</strong>)</td></tr>
+<tr><td>4</td><td>Active faults</td><td><a href="https://gbank.gsj.jp/activefault/">AIST Active Fault DB</a> / active-fault layer on GSI Maps</td><td>Measure the offset. Avoid by placement only directly overhead; near-fault shaking is a design input (§06)</td></tr>
+<tr><td>5</td><td>Liquefaction read</td><td><a href="https://maps.gsi.go.jp/">GSI Maps</a> (flood-control land classification map; Meiji-era lowland/wetland)</td><td>Former river channels, back marshes, reclaimed land, and drained land are classic liquefaction landforms. A premise for the ground-improvement cost in ③</td></tr>
+<tr><td>6</td><td>Ground</td><td><a href="https://www.kunijiban.pwri.go.jp/">KuniJiban</a></td><td>N-value / groundwater level / bearing-stratum depth from nearby borings → a read on the foundation type (raft or piles)</td></tr>
+<tr><td>7</td><td>Elevation / slope</td><td><a href="https://maps.gsi.go.jp/">GSI Maps</a> (elevation display, cross-section, slope map)</td><td>Site elevation and relative height to surroundings (watch inland flooding in hollows); on slopes, cut/fill and retaining-wall cost move together with sediment risk</td></tr>
+<tr><td>8</td><td>Area classification / use zoning</td><td>Each municipality's city-planning information system (e.g., <a href="http://oup2.city.okayama.jp/">Okayama City Planning Information System</a> / <a href="https://www.city.wakayama.wakayama.jp/kurashi/douro_kouen_machi/1009501/index.html">Wakayama City Planning · "Waga-machi Guide"</a>)</td><td>An urbanization control area is subject to development permit under MLIT City Planning Notice No. 7 (April 2025). In municipalities that have not set review criteria, there are cases where installation is effectively impossible (details in <a href="https://www.scix.co.jp/en/column-four-labels">COLUMN 31</a>)</td></tr>
+<tr><td>9</td><td>Farmland / agricultural promotion</td><td><a href="https://map.maff.go.jp/">eMAFF Farmland Navi</a> + registered land category (Registry Information Service)</td><td>Agricultural Promotion Area farmland ("blue zone") is a regulatory veto-class stopper — the exclusion procedure is long and uncertain. Class-A and Class-1 farmland are, in principle, not permitted for conversion</td></tr>
+<tr><td>10</td><td>Forest</td><td>Prefectural forest GIS (e.g., <a href="https://wakayamaken.geocloud.jp/">Wakayama Prefecture GIS</a> = publishes areas of privately-owned forest subject to the regional forest plan / <a href="https://www.gis.pref.okayama.jp/">Okayama Prefecture Integrated GIS</a>)</td><td>A protected forest is extremely hard to de-designate = avoid. Development above a certain scale needs a forest-land development permit (confirm the area threshold against the latest ordinance and municipal practice)</td></tr>
+<tr><td>11</td><td>Embankment regulation / grading history</td><td>Municipality's regulated-zone map (e.g., <a href="https://www.pref.wakayama.lg.jp/prefg/080900/kaihatsu/kaihatsutop/takuzokyoka/h18kaisei.html">Wakayama Prefecture Embankment Regulation Act · fill-information management system</a>) / <a href="https://www.mlit.go.jp/toshi/toshi_tobou_fr_000004.html">MLIT Large-scale Embankment Development Land Map</a></td><td>Grading inside a regulated zone affects the schedule via permit and interim/completion inspection (Wakayama Prefecture started operation May 2025; the Wakayama City area April 2025). Valley-fill embankments carry a risk of sliding collapse during an earthquake</td></tr>
+<tr><td>12</td><td>Fire authority</td><td>Advance consultation with the fire authority having jurisdiction (e.g., <a href="https://www.city.hashimoto.lg.jp/guide/shobohonbu/oshirase/jigyoshooshirase/17276.html">Hashimoto City Fire HQ = commentary on the Kinokawa-basin fire-prevention ordinance revision</a>)</td><td>Storage equipment over 20 kWh is subject to notification, with a 3 m or greater separation from buildings as a rule (FDMA Notification No. 7, effective January 2024; may be relaxed if it conforms to the flame-spread-prevention measures of Notification No. 3). Consult before design</td></tr>
+<tr><td>13</td><td>Distance to the nearest dwelling</td><td><a href="https://maps.gsi.go.jp/">GSI Maps</a> · aerial-photo measurement tool</td><td>Measure the site-boundary-to-dwelling distance. Within 50 m is the noise caution line (<strong>our practical rule of thumb</strong>. A nighttime-charging restriction hits revenue directly — <a href="https://www.scix.co.jp/en/column-noise">COLUMN 10</a>)</td></tr>
+<tr><td>14</td><td>Grid</td><td><a href="https://www.enecho.meti.go.jp/category/saving_and_new/saiene/grid/07_map.html">ANRE "Naruhodo! Grid" available-capacity map index</a> (e.g., <a href="https://www.kansai-td.co.jp/consignment/disclosure/distribution-equipment/index.html">Kansai Transmission &amp; Distribution</a> = also publishes a large-scale-reinforcement area map for storage / <a href="https://www.energia.co.jp/nw/service/retailer/keitou/access/">Chugoku Electric Power Network grid-access information</a>)</td><td>Distance to the connection point and available capacity. If this doesn't stand, it's a problem before any hazard evaluation (<a href="https://www.scix.co.jp/en/column-grid">COLUMN 04</a>)</td></tr>
+</table>
+<p class="tnote">The example URLs are the prefectural/city systems for the Kinokawa basin (Wakayama) and Okayama — for city planning, forests, embankments, and fire ordinances there is no single nationwide portal, and the systems are split by municipality. In other prefectures too you can reach the same kinds of system via "prefecture name + integrated GIS" and "municipality name + city-planning map." Two reading cautions. First, <b>the regulatory items (8–10) bite with the same weight as a hazard veto</b> — a blue zone, a protected forest, a control area without review criteria are "time-out-type" stoppers that cannot be priced like an EAL, and if you don't kill them at stage ①, the quantitative evaluation of ② onward is wasted. Second, this screening is done not to exclude but <b>to line up the variables to pass to ②</b>. As needed, it's good to check, on the same day, buried-cultural-property zones (the municipality's ruins map; Okayama Prefecture Integrated GIS also carries a buried-cultural-property layer) and the stormwater-runoff-control obligation (in many municipalities, a site over 1,000 m² is the rule of thumb for a detention pond).</p>
+
+<h3>② One Excel sheet is enough for the EAL</h3>
+<p>The §04 table becomes the template as-is. The key is to hold "the planned height of the equipment-foundation plane (GL + how many m)" as a variable — simply set the bands where the by-probability inundation depth reaches the foundation plane to 100% damage, and those that don't reach it to 0%, and you have the BESS-version EAL as a step function. If, here, there is no prospect of the residual EAL coming within a single-digit % of annual revenue and no room for countermeasures, it is a sound decision to withdraw rather than proceed to ③.</p>
+
+<h3>③ Back-calculate the raise height from "the frequency you protect"</h3>
+<p>Rather than thinking about "how many meters to raise" first, decide first "up to which annual exceedance probability you zero out damage" (e.g., the 1/100 inundation depth + a freeboard at the foundation top surface; the idea is the same as the high-installation and flood-defense line in the Guideline on Flood Countermeasures for Electrical Equipment). The means are three: whole-site embankment fill (public unit-cost rule of thumb ≈ ¥6,500–7,400/m³; retaining wall ¥20,000–80,000/m²), raising the equipment stand/foundation (partial and cheaper; prioritize raising equipment that is "totaled if wet," such as receiving/transforming and PCS), and pile foundations (which double as anchorage to the bearing stratum and a liquefaction countermeasure). Where liquefaction is also present, ground improvement — surface improvement ≈ ¥3,000–7,000/m², column-type ¥10,000–30,000/m², and the whole countermeasure ¥10,000–100,000/m² (falling as the treated area grows) are the public unit-cost rules of thumb. <strong>But these are centered on public unit costs for housing and general civil works, and some are direct-construction costs as of 2011 — with recent construction-price inflation they run high, so always confirm the BESS-scale actuals with an EPC / ground-survey quote (⚠️).</strong> The yardstick for the decision is always "countermeasure cost (annualized) vs. EAL reduction" — in the §04 example, raising by 1 m corresponded to a reduction of ≈ ¥8.8M/yr. Being able to make this comparison at all is graduation from the binary decision.</p>
+
+<h3>④ Bring "meter values," not "colors," to the insurer</h3>
+<p>The inquiry package is three items: inundation depths by probability, the foundation-top height, and the countermeasure design drawings. The answers to obtain are three: (a) the flood payout ratio, deductible, payout limit, and rate; (b) the underwriting availability and terms of the earthquake-risk endorsement (the top-priority inquiry item at a site where tsunami/liquefaction weigh heavily); and (c) the BI indemnity-period cap and waiting period. The uninsurable / high-deductible portions are not treated as vanished — <strong>they remain, as monetary figures, in the EAL statement as the "self-retained residual."</strong> What you ultimately bring to the investment committee is one set: the EAL statement + countermeasure cost + insurance terms + the three-condition check that follows. On a deal with a lender attached, obtaining third-party technical DD (including location evaluation) ahead of time lets you pre-empt the credit side's questions.</p>
+
+<h2><span class="no">◆</span>Three conditions to bring to the investment committee</h2>
+
+<p>Waiting for "land with no flood risk whatsoever" is, in Japan's flatlands, synonymous with forgoing the opportunity. Instead, we propose sorting deals by the following three conditions.</p>
+
+<ul class="tight">
+<li><strong>① The EAL based on the by-probability inundation depths of the multi-stage inundation map</strong> (with damage rates corrected to a step function, 100% for total loss) comes within the business plan's tolerance — as a rule of thumb, the residual EAL within a single-digit % of annual revenue.</li>
+<li><strong>② Flood cover (with payout-ratio and deductible design included) and, where the hazard composition requires it, an earthquake-risk endorsement</strong> stand at an economically rational rate.</li>
+<li><strong>③ It does not fall in a veto-class</strong> such as a building-collapse inundation zone or a Special Landslide Hazard Zone.</li>
+</ul>
+
+<p>These three conditions rewrite the definition of "investable land." Even land that is colored at L2 — if it is dry to equipment-installation level up to 1/100 on the multi-stage map, and the insurance structure closes without excessive reliance on an earthquake endorsement — can be a superior site with a slim residual EAL. Conversely, a lowland that submerges under high-frequency inland flooding is precarious even if lightly colored. <strong>Where the line should be drawn is not the presence of color, but the level of the EAL.</strong></p>
+
+<p>A hazard map is not a map that tells you whether to invest. <strong>It is a map to protect human life, and for the business, it is input data for expected loss.</strong> Japan's largest inventory of suitable land — the alluvial plain — opens, in order, to those who hold the vocabulary for that re-reading.</p>
+
+<div class="alert"><span class="ttl">Sources · calculation spec (as of July 12, 2026)</span>
+<b>Primary (government):</b> MLIT Water and Disaster Management Bureau, "Guideline on the Study and Preparation of Multi-stage Inundation Maps and Flood Risk Maps" (January 2023) / Flood Risk Map Index (https://www.mlit.go.jp/river/kasen/ryuiki_pro/risk_map.html) / "Manual for Preparing Flood Inundation Hazard Area Maps (4th ed.)" / "Flood Control Economic Survey Manual (draft)," April 2005 edition Table 4.4 · April 2020 edition Table 4.3.2 / Table 4.9 (latest is the April 2024 edition) / "On Flood-control Planning in Light of Climate Change" proposal (October 2019; revised April 2021) / MLIT · METI "Guideline on Flood Countermeasures for Electrical Equipment in Buildings" (June 2020) / MLIT Kinki Regional Development Bureau, Wakayama River and National Highway Office (Kinokawa system) · Project Evaluation Monitoring Committee "Re-evaluation Explanatory Materials for the Kinokawa Directly-managed River-improvement Project" / Headquarters for Earthquake Research Promotion "Long-term Evaluation of Seismic Activity in the Nankai Trough (partial revision)" (September 26, 2025; base date January 1, 2025) / NIED J-SHIS / OCCTO "Capacity Market Operations Manual — Requirement Response During the Delivery Period (target delivery FY2026)" / GIROJ fire-insurance reference net-rate revision (filed June 2023; applied October 2024) / FDMA Notification No. 7 (effective January 2024).<br>
+<b>Party disclosures:</b> Tokio Marine dR (Tokio dR-EYE 2024 No.5, renewable-facility risk evaluation · natural-disaster risk evaluation) / Sompo Risk Management (earthquake · tsunami PML evaluation) / TÜV Rheinland Japan (grid-scale storage technical DD, November 2023; updated October 2024) / Tokio Marine &amp; Nichido "EQuick insurance" (March 2021) / PG&amp;E (Elkhorn Battery, September 2022 · cause disclosure) / Wood Mackenzie 2025 Q2 T&amp;D survey (U.S. market: transformers 128 weeks · GSU ≈143–144 weeks) / Harmony Energy (Pillswood BESS).<br>
+<b>Trade press · commentary:</b> PVeye June 2025 issue (Isa City · unpaid insurance) / Energy-Storage.News (Altelium contribution: flood total loss · embankment platform · multiple-return-period requirement) / kWh Analytics · GCube disclosures.<br>
+<b>Calculation premises:</b> 2MW/8MWh · depreciable asset ¥400M (CAPEX ≈ ¥480M = ¥60,000/kWh: reference value from ANRE's study group; FY2024 actuals system ¥54,000 + installation ¥14,000/kWh) · daily lost revenue ¥130k (365-day full-operation equivalent ≈ ¥47.45M/yr; the body rounds to ≈ ¥46M on an effective-utilization basis). Probability bands are illustrative. Construction unit costs are based on public materials for housing / general civil works (some are 2011 direct-construction costs and run high with price inflation); confirm actuals with an EPC quote.<br>
+<b>Note:</b> ScienceX has no capital ties to any specific manufacturer, EPC, aggregator, or insurer. This piece is a neutral overview based on public primary information; it does not recommend any specific product, method, or operator, and is not intended as investment solicitation or advice. See the respective pieces for noise (COLUMN 10), the overall picture of siting regulation (COLUMN 31), the specifics of insurance design (COLUMN 18), and the development process (COLUMN 13).</div>
+
+<div class="related"><span class="lbl">Also read / RELATED</span><a href="https://www.scix.co.jp/en/column-bess-insurance">Insuring a grid-scale storage facility ── the six covers an owner should arrange during operation →</a></div>
+
+</div><!-- /wrap -->
+
+<div class="cta">
+<h3>Support for site hazard assessment and EAL statement preparation</h3>
+<p>This piece is a methodology overview based on public information. For an individual candidate site, we assist with multi-stage probabilities, EAL calculation,<br>and the design of insurance-terms inquiries — individually, under NDA, after you get in touch.</p>
+<a class="btn" href="https://www.scix.co.jp/en/contact">Contact us →</a>
+</div>
+
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo img { height:40px; width:auto; display:block; }
+  .scix-footer-info { text-align:center; }
+  .scix-footer-company { margin-bottom:14px; }
+  .scix-footer-company .company-name { font-size:14px; font-weight:500; margin-bottom:6px; letter-spacing:.04em; }
+  .scix-footer-company a { color:rgba(255,255,255,0.85); text-decoration:none; }
+  .scix-footer-company .representative { margin-top:6px; font-size:12px; color:rgba(255,255,255,0.6); }
+  .scix-footer-copyright { font-size:11px; color:rgba(255,255,255,0.45); letter-spacing:.05em; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX home">
+      <img src="https://www.scix.co.jp/img/logo-white.png" alt="Science X Inc." loading="lazy">
+    </a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        BIZMARKS Nihonbashi-Kayabacho, 8-2 Nihonbashi-Koamicho<br>
+        Chuo-ku, Tokyo 103-0016, Japan<br>
+        TEL: <a href="tel:+81364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Engineering), Representative Director</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025-2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var bands=[
+    {lo:0,  hi:0.5, p:0.0667, dmg:0.232, days:15.8},
+    {lo:0.5,hi:1.0, p:0.0133, dmg:0.453, days:26.0},
+    {lo:1.0,hi:2.0, p:0.010,  dmg:0.789, days:37.8},
+    {lo:2.0,hi:3.0, p:0.009,  dmg:0.966, days:73.2},
+    {lo:3.0,hi:99,  p:0.001,  dmg:0.995, days:97.7}
+  ];
+  var sA=document.getElementById('sA'),sD=document.getElementById('sD'),sH=document.getElementById('sH');
+  // value in units of 10k yen -> "¥X.XM"
+  function fmtM(man){return '\u00A5'+(man/100).toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1})+'M';}
+  function calc(){
+    var A=parseFloat(sA.value), D=parseFloat(sD.value), H=parseFloat(sH.value);
+    document.getElementById('oA').textContent='\u00A5'+(A*100).toFixed(0)+'M';   // A in units of 100M yen -> yen millions
+    document.getElementById('oD').textContent='\u00A5'+(D*10).toFixed(0)+'k/day'; // D in units of 10k yen -> yen thousands
+    document.getElementById('oH').textContent=H.toFixed(1)+' m';
+    var pd=0, st=0;
+    bands.forEach(function(b){
+      if(b.hi<=H) return;               // band fully below raised base -> zero
+      pd+=b.p*b.dmg;                    // damage coefficient
+      st+=b.p*b.days;                   // expected outage days
+    });
+    var pdMan=pd*A*10000;               // 100M yen -> 10k yen
+    var stMan=st*D;                     // days * (10k yen/day)
+    var tot=pdMan+stMan;
+    document.getElementById('rP').innerHTML=fmtM(pdMan)+'<small>/yr</small>';
+    document.getElementById('rS').innerHTML=fmtM(stMan)+'<small>/yr</small>';
+    document.getElementById('rT').innerHTML=fmtM(tot)+'<small>/yr</small>';
+    document.getElementById('rC').innerHTML='\u00A5'+(tot*20/100).toFixed(0)+'<small>M</small>';
+  }
+  [sA,sD,sH].forEach(function(s){s.addEventListener('input',calc);});
+  calc();
+})();
+</script>
+
+</body>
+</html>
