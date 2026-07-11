@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ハザードマップの色では、蓄電所用地は選べない ── 立地の可否と事業継続性を期待損失（EAL）で測る｜ScienceX</title>
+<meta name="description" content="洪水ハザードマップは人命保護（避難）のための地図。国交省の多段階浸水想定図と治水経済調査マニュアルを使えば、蓄電所の立地ハザードは期待損失（EAL）＝金額に翻訳できる。2MW/8MWhモデル試算・保険設計への波及・veto/priceable/設計入力の三層仕分け・候補地1件を1日で見る14項目ワークフローまで。">
+<link rel="canonical" href="https://www.scix.co.jp/column-hazard-eal">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-hazard-eal">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-hazard-eal">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-hazard-eal">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="ハザードマップの色では、蓄電所用地は選べない ── 立地の可否と事業継続性を期待損失（EAL）で測る｜ScienceX">
+<meta property="og:description" content="避難のための地図で、20年の事業は測れません。多段階浸水想定図×治水経済調査マニュアルで立地ハザードをEALに翻訳し、かさ上げ・保険・投資委員会の3条件まで運ぶ実務フレーム。">
+<meta property="og:url" content="https://www.scix.co.jp/column-hazard-eal">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-07-12">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ハザードマップの色では、蓄電所用地は選べない ── 立地の可否と事業継続性を期待損失（EAL）で測る｜ScienceX">
+<meta name="twitter:description" content="避難のための地図で、20年の事業は測れません。多段階浸水想定図×治水経済調査マニュアルで立地ハザードをEALに翻訳し、かさ上げ・保険・投資委員会の3条件まで運ぶ実務フレーム。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1B2A4A; --gold:#C49A3C; --ink:#2A2A2A; --sub:#5A6472;
+  --line:#E3E0D8; --bg:#FFFFFF; --wash:#F7F5F0; --washNavy:#F2F4F8;
+  --serif:'Noto Serif JP',serif; --sans:'Noto Sans JP',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.95;font-size:16px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px}
+a{color:var(--navy);text-decoration:underline;text-decoration-color:rgba(196,154,60,.6);text-underline-offset:3px}
+a:hover{color:var(--gold)}
+.breadcrumb{font-size:12px;color:var(--sub);padding:26px 0 10px}
+.breadcrumb a{text-decoration:none;color:var(--sub)}
+.colmeta{font-size:13px;letter-spacing:.14em;color:var(--gold);font-weight:700;margin:14px 0 10px}
+.colmeta .cat{color:var(--sub);font-weight:500;letter-spacing:.06em;margin-left:.8em}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(24px,4.4vw,34px);line-height:1.55;color:var(--navy);margin-bottom:18px}
+h1 em{font-style:italic;font-weight:600;color:var(--gold);display:block;font-size:.72em;margin-top:.35em}
+.lead{font-size:16.5px;color:var(--ink);margin:6px 0 18px}
+.back{font-size:13px;margin-bottom:34px;display:inline-block}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(20px,3.2vw,25px);color:var(--navy);line-height:1.5;margin:64px 0 20px;padding-top:22px;border-top:3px solid var(--navy)}
+h2 .no{color:var(--gold);margin-right:.5em;letter-spacing:.06em}
+h3{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--navy);margin:34px 0 12px}
+p{margin:0 0 1.35em}
+strong{color:var(--navy)}
+.kicker{background:var(--navy);color:#fff;padding:14px 20px;margin:56px 0 8px;font-size:13px;letter-spacing:.1em}
+.kicker b{color:var(--gold);margin-right:1em}
+.memo{background:var(--wash);border-left:4px solid var(--gold);padding:18px 20px;font-size:13.5px;line-height:1.9;color:#4a4a44;margin:0 0 30px}
+.memo b{color:var(--navy)}
+.alert{background:var(--washNavy);border-left:4px solid var(--navy);padding:18px 20px;font-size:14px;margin:26px 0}
+.alert .ttl{font-weight:700;color:var(--navy);display:block;margin-bottom:6px}
+.legend{font-size:12.5px;color:var(--sub);background:var(--wash);padding:10px 16px;margin:22px 0;letter-spacing:.02em}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:26px 0 8px}
+.stats>div{background:#fff;padding:14px 16px}
+.stats .k{font-size:11.5px;color:var(--sub);letter-spacing:.08em;margin-bottom:2px}
+.stats .v{font-family:var(--serif);font-weight:700;color:var(--navy);font-size:16px;line-height:1.5}
+.stats .v .g{color:var(--gold)}
+.statcap{font-size:12px;color:var(--sub);margin:6px 0 0}
+table{width:100%;border-collapse:collapse;margin:22px 0 6px;font-size:13.5px;line-height:1.7}
+th{background:var(--navy);color:#fff;font-weight:700;padding:9px 10px;text-align:left;font-size:12.5px;letter-spacing:.04em}
+td{border-bottom:1px solid var(--line);padding:9px 10px;vertical-align:top}
+tr:nth-child(even) td{background:var(--wash)}
+.tnote{font-size:12px;color:var(--sub);margin:4px 0 26px;line-height:1.75}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+blockquote{border-left:4px solid var(--gold);background:var(--wash);padding:16px 20px;margin:24px 0;font-family:var(--serif);font-weight:600;color:var(--navy);font-size:15.5px}
+ul.tight{margin:0 0 1.4em 1.3em}
+ul.tight li{margin-bottom:.55em}
+.calc{border:1px solid var(--navy);margin:30px 0}
+.calc .head{background:var(--navy);color:#fff;padding:10px 18px;font-size:13px;letter-spacing:.1em;display:flex;justify-content:space-between;align-items:center}
+.calc .head .tag{background:var(--gold);color:var(--navy);font-weight:700;font-size:11px;padding:2px 8px;letter-spacing:.12em}
+.calc .body{padding:20px 22px}
+.calc .row{margin-bottom:16px}
+.calc label{font-size:13px;color:var(--sub);display:flex;justify-content:space-between}
+.calc label output{font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.calc input[type=range]{width:100%;accent-color:#C49A3C}
+.calc .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:8px}
+.calc .res>div{background:var(--wash);padding:12px 14px}
+.calc .res .k{font-size:11px;color:var(--sub)}
+.calc .res .v{font-family:var(--serif);font-weight:700;font-size:19px;color:var(--navy)}
+.calc .res .v small{font-size:12px;font-weight:500}
+.related{border:1px solid var(--line);padding:18px 20px;margin:56px 0 0;font-size:14px}
+.related .lbl{font-size:11px;letter-spacing:.16em;color:var(--gold);font-weight:700;display:block;margin-bottom:6px}
+.cta{background:var(--navy);color:#fff;text-align:center;padding:44px 22px;margin-top:64px}
+.cta h3{color:#fff;margin:0 0 10px}
+.cta p{color:#C9D2E0;font-size:14px}
+.cta a.btn{display:inline-block;background:var(--gold);color:var(--navy);font-weight:700;padding:12px 34px;text-decoration:none;margin-top:14px}
+footer{background:#14203A;color:#AEB8C8;font-size:13px;padding:40px 22px 30px;line-height:2}
+footer a{color:#fff}
+footer .co{color:#fff;font-weight:700;margin-bottom:6px}
+@media(max-width:640px){body{font-size:15px}table{font-size:12px}th,td{padding:7px 6px}}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ハザードマップの色では、蓄電所用地は選べない ── 立地の可否と事業継続性を期待損失（EAL）で測る｜ScienceX",
+  "description": "洪水ハザードマップは人命保護（避難）のための地図。国交省の多段階浸水想定図と治水経済調査マニュアルを使えば、蓄電所の立地ハザードは期待損失（EAL）＝金額に翻訳できる。2MW/8MWhモデル試算・保険設計への波及・veto/priceable/設計入力の三層仕分け・候補地1件を1日で見る14項目ワークフローまで。",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "datePublished": "2026-07-12",
+  "mainEntityOfPage": "https://www.scix.co.jp/column-hazard-eal"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://www.scix.co.jp/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ナレッジ",
+      "item": "https://www.scix.co.jp/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "ハザードマップの色では、蓄電所用地は選べない ── 立地の可否と事業継続性を期待損失（EAL）で測る",
+      "item": "https://www.scix.co.jp/column-hazard-eal"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+
+<div class="wrap">
+
+<nav class="breadcrumb" data-scix-breadcrumb><a href="https://www.scix.co.jp/">ホーム</a> › <a href="https://www.scix.co.jp/knowledge">ナレッジ</a> › ハザードマップの色では、蓄電所用地は選べない ── 立地の…</nav>
+
+<div class="colmeta">COLUMN 36<span class="cat">／ 用地選定 リスク管理 2026.07.12</span></div>
+
+<h1>ハザードマップの色では、蓄電所用地は選べない<em>── 立地の可否と事業継続性を、期待損失（EAL）で測る</em></h1>
+
+<p class="lead">「浸水想定区域に該当するため見送り」──系統用蓄電所の用地検討で、いちばん多い落ち方です。しかしハザードマップは水防法に基づく<strong>人命保護（避難）のための地図</strong>で、描かれているのは年超過確率1/1000以下の最悪像。頻度の情報を消した地図で、20年の事業は測れません。国は事業判断用の確率地図（多段階浸水想定図）を既に整備しており、治水経済調査マニュアルと組み合わせれば、立地ハザードは<strong>期待損失（EAL）＝金額</strong>に翻訳できます。2MW/8MWhのモデル試算から、かさ上げの費用対効果、保険の「かけ方と料率」への波及、そして候補地1件を1日で見る14項目のワークフローまで──二値判断の次の物差しを、公開一次情報だけで組み立てます。</p>
+
+<a class="back" href="https://www.scix.co.jp/knowledge">← ナレッジ一覧に戻る</a>
+
+<div class="memo"><b>編集メモ：</b>本稿のEAL試算は、確率帯を仮置きした<b>例示のモデル計算</b>です（実サイトでは当該河川の多段階浸水想定図から実数を読みます）。被害率は治水経済調査マニュアル<b>平成17年4月版 表-4.4</b>、営業停止・停滞日数は<b>令和2年4月版 表-4.9</b>に基づいており、改定年次の異なる版の併用です──被害率は令和2年4月版で更新済み（最新は令和6年4月版）のため、実案件の評価では最新版本体を直接参照してください。特別高圧変圧器の納期（128週等）は<b>米国T&amp;D市場</b>の調査値です。表層地盤増幅率の閾値（1.5／2.0）と最近接住宅50mは公的基準ではなく<b>当社の実務目安</b>。地震危険補償特約の引受条件とBESSの保険料率水準は公開情報が存在せず（❓）、損保への個別照会でのみ埋まります。本稿は一般例に基づく整理であり、投資・保険・法務の助言ではありません。個別案件の確定評価はNDA締結のうえ個別にお出しします。</div>
+
+<div class="stats">
+<div><div class="k">基準機（例示）</div><div class="v">高圧2MW／8MWh<span class="g">・償却資産4.0億円</span></div></div>
+<div><div class="k">モデルEAL（川沿い例示サイト）</div><div class="v">約1,600万円<span class="g">/年</span></div></div>
+<div><div class="k">20年累計（無割引）</div><div class="v">約3.2億円<span class="g">＝CAPEXの約67%</span></div></div>
+<div><div class="k">機器基礎を1mかさ上げ</div><div class="v">EALほぼ半減<span class="g">（年約880万円の削減）</span></div></div>
+<div><div class="k">veto級（定量化しても救えない）</div><div class="v">家屋倒壊等氾濫想定区域<span class="g">・土砂レッド</span></div></div>
+<div><div class="k">保険の急所</div><div class="v">津波・液状化は<span class="g">地震側の標準免責</span></div></div>
+</div>
+<p class="statcap">本稿の射程──「色の有無」を「金額と保険条件」に読み替えるまで。</p>
+
+<div class="legend"><b>✅</b> 一次資料で確認済み　<b>⚠️</b> 条件・限定付き　<b>❓</b> 公開情報なし（照会先を明示）　<b>🚩</b> 重要リスク</div>
+
+<div class="kicker"><b>第1部</b>読み替えの理屈 ── 人命の地図を、収益の物差しへ</div>
+
+<h2><span class="no">01</span>ハザードマップは「人命の地図」です</h2>
+
+<p>自治体の洪水ハザードマップに描かれる浸水深は、原則として想定最大規模（L2）──<strong>年超過確率がおおむね1/1000以下</strong>の降雨を前提とします（国交省 洪水浸水想定区域図作成マニュアル第4版 ✅）。「1000年に1回の周期」ではなく「毎年、その規模を超える確率が0.1%以下」という意味です。目的は水防法に基づく避難の確保。人命は1000年に一度の洪水でも失えないから、地図は最悪の一枚を掲示する──制度設計として正しいものです。</p>
+
+<p>問題は、この「最悪の一枚」を投資判断の二値フィルタとして流用したときに起きます。浸水深3mという色は同じでも、それが1/1000の話か1/30の話かで、期待損失は2桁変わる。頻度の情報を消した地図で20年運用の事業を判定するのは、確率の次元が合っていません。</p>
+
+<p>そしてこの流用は、用地在庫を直撃します。系統用蓄電所の適地条件──連系点に近い・平坦・地価が安い──を素直に追うと候補は沖積低地に集まり、日本の沖積低地の大半はL2で何らかの色がつく。「着色＝候補外」を貫けば候補地は山際・台地へ寄り、今度は土砂災害・造成費・連系距離という別のコストと交換することになります。<strong>二値判断はリスクを消していません。別のリスクに振り替えているだけです。</strong></p>
+
+<h2><span class="no">02</span>国は「事業判断用の地図」も用意しています</h2>
+
+<p>読み替えに必要な確率データは、公開一次情報としてすべて存在します。</p>
+
+<p><strong>確率（水害）✅：</strong>国交省は2022年12月から<strong>水害リスクマップ（多段階の浸水想定図）</strong>の公表を進めています。同じ土地の浸水深を、年超過確率<strong>1/10（高頻度）・1/30（中高頻度）・1/50（中頻度）・1/100（中低頻度）・計画規模（1/150又は1/200）・想定最大規模</strong>の多段階で示す図で、L2の一枚絵とは別物です。決定的なのは、作成ガイドライン（水管理・国土保全局、令和5年1月）自身がこの図の用途として<strong>「企業の立地選択」「企業におけるBCP（事業継続計画）の作成」「水害保険料率の算定」を原文で明記している</strong>こと（✅本文で確認済み）。「人命用の地図しかない」は、既に過去の話です。</p>
+
+<p><strong>確率（地震）：</strong>防災科研のJ-SHISが、「30年以内に震度6弱以上」等の超過確率を全国250mメッシュで提供しています。<strong>気候変動の補正：</strong>20年運用の前提では、国交省の治水計画見直し提言（令和元年10月／令和3年4月改訂 ✅）が示す公式係数──2℃上昇シナリオで<strong>降雨量約1.1倍・河川流量約1.2倍・洪水発生頻度約2倍</strong>──を感度として織り込むのが妥当です。</p>
+
+<p>そして、この「確率×被害額」への読み替え自体、国が実河川で運用してきた評価体系です。例えば紀の川水系では、国交省近畿地方整備局（和歌山河川国道事務所）が多段階の浸水想定図・水害リスクマップを公表しており（国交省「水害リスクマップ一覧」掲載 ✅）、同じ紀の川の直轄河川改修事業では、近畿地方整備局の事業評価（費用対効果分析）が治水経済調査マニュアルに基づき、年平均の浸水軽減戸数・面積から被害防止便益──本稿のEALと同一骨格の期待被害額──を算定・公表しています（事業評価監視委員会資料）。<strong>国は、治水投資の意思決定にこの物差しを現に使っています。</strong>当社が独自に調査・体系化したのは、この国の評価体系を、蓄電所という民間資産の投資・保険判断へ読み替える接続部分です。</p>
+
+<h2><span class="no">03</span>「該当するか」から「いくら失うか」へ ── EALの組み立て</h2>
+
+<blockquote>年間期待損失（EAL）＝ Σ（年超過確率帯 × 被害率 × 資産額）＋ Σ（年超過確率帯 × 実効停止日数）× 日次逸失収益 − 保険回収見込み</blockquote>
+
+<p>第1項が資産毀損、第2項が<strong>事業継続性</strong>──何日止まり、その間の収益をどう繋ぐか──を表します。ガイドラインが多段階図の用途に「BCPの作成」を挙げているのは、この第2項の意味です。被害率と停止日数には、国の公式ベンチマークがあります。</p>
+
+<table>
+<tr><th>浸水深（床上）</th><th>事業所償却資産の被害率<span style="font-weight:400">※1</span></th><th>実効停止日数<span style="font-weight:400">※2</span></th></tr>
+<tr><td class="num">〜0.5m</td><td class="num">23.2%</td><td class="num">15.8日</td></tr>
+<tr><td class="num">0.5〜1.0m</td><td class="num">45.3%</td><td class="num">26.0日</td></tr>
+<tr><td class="num">1.0〜2.0m</td><td class="num">78.9%</td><td class="num">37.8日</td></tr>
+<tr><td class="num">2.0〜3.0m</td><td class="num">96.6%</td><td class="num">73.2日</td></tr>
+<tr><td class="num">3.0m〜</td><td class="num">99.5%</td><td class="num">97.7日</td></tr>
+</table>
+<p class="tnote">※1 治水経済調査マニュアル（案）平成17年4月版 表-4.4・償却資産（✅原表と一致確認済み）。<b>被害率は令和2年4月版で更新されており、実案件では最新の令和6年4月版本体の直接参照を推奨</b>。※2 令和2年4月版 表-4.9（営業停止日数＋営業停滞日数×1/2、✅原数値と検算一致）。※1と※2は改定年次の異なる版に基づきます。</p>
+
+<p>ただしこれは一般事業所の全国平均で、BESSには2つの補正が要ります。いずれも数字を<strong>厳しくする</strong>方向の補正です。</p>
+
+<h3>補正① 被害関数はステップ型（浸水＝全損100%）で読む</h3>
+
+<p>住宅・事業所の被害率は浸水深とともに漸増しますが、BESSは違います。電池モジュール・PCS・受変電は地表高に置かれた電気・電子機器で、リチウムイオン電池の水没は残留エネルギー（stranded energy）のため安全な放電・修理が困難、塩水・汚水では端子腐食から内部短絡・熱暴走に至る経路があります。海外のBESS専門保険側の解説（Altelium等）は<strong>浸水した電池ユニットは全損（total loss）扱いに至るのが通例</strong>と整理しており、メーカー保証のIP等級（IP65等）は防塵・防沫対応で、冠水は保証範囲外──保証失効事由になり得ます。マニュアル自身も、電気系統を持つ資産の代表である自動車を<strong>浸水70cm（シート面）以上で全損100%</strong>と置いています（令和2年4月版 ✅）。機器基礎面に水が届けば100%、届かなければほぼ0%──この階段型が、技術的に誠実な被害関数です。</p>
+
+<p>この階段型こそが、設計の急所になります。<strong>かさ上げ高さの決定とは、「超過確率カーブのどの頻度までを損害ゼロ化するか」を金で買う行為</strong>にほかなりません。民間事業者の実装例もあります──英Harmony Energy社のPillswood BESS（98MW/196MWh、2022年11月稼働、稼働時点で欧州最大級 ✅）は、洪水リスクのある立地であることを理由に盛土プラットフォーム上へ建設されました。事業者が確率カーブの左側を金で買い取り、着色地を稼働資産に変えた実例です。なお、水は収益を止めるだけでなく火もつけます──PG&amp;EのElkhorn Battery（2022年9月）の発火原因は、排気パネル（deflagration vent shield panel）の施工不良による雨水のコンテナ内浸入と特定されています（PG&amp;E公表 ✅）。</p>
+
+<h3>補正② 停止日数は、機器の調達リードタイムが支配する</h3>
+
+<p>マニュアルの停止日数（3m以上で約98日）は一般事業所の実績で、BESSの全損時はこれが下限になります。受変電設備は受注生産（国交省・経産省「建築物における電気設備の浸水対策ガイドライン」も復旧に相当期間を要すると指摘）。特別高圧変圧器の納期は、<strong>実注文ベース平均128週（約2.5年）、昇圧用GSUで約143〜144週</strong>（Wood Mackenzie 2025年Q2調査、<strong>米国T&amp;D市場</strong> ⚠️）──国内も受注生産で長納期という構造は同じです。PCSは6〜12ヶ月、電池コンテナも4〜6ヶ月級が実務目線（推定値）。</p>
+
+<p>さらに停止には市場ペナルティが乗ります。容量市場では、リクワイアメント未達成コマの年間累積が<strong>8,640コマ（180日相当）を超える</strong>と経済的ペナルティの対象になります。そして<strong>容量停止計画を所定期限（前週火曜17時等）までに提出しなかった停止や、広域予備率8%未満のひっ迫時に該当した未達コマは、未達成コマが5倍でカウント</strong>され得ます（OCCTO 容量市場業務マニュアル・対象実需給2026年度 ✅）。「止まった日数」は、被害額とは別のルートでも収益を削りにきます。</p>
+
+<div class="kicker"><b>第2部</b>金額にする ── モデル試算と、保険への波及</div>
+
+<h2><span class="no">04</span>モデル試算 ──「川沿いの土地」を金額にすると</h2>
+
+<p>当社が独自に組んだモデル試算です。前提は<strong>高圧2MW/8MWh、償却資産4.0億円（CAPEX約4.8億円＝6万円/kWh）</strong>。この単価は資源エネルギー庁・定置用蓄電システム普及拡大検討会の分析上の参照基準値で、2024年度実勢はシステム5.4万円＋工事1.4万円/kWh程度です（✅）。<strong>日次逸失収益は13万円/日</strong>（容量市場＋JEPX裁定。年間粗収益「約4,600万円」は実効稼働ベースの丸めで、365日満稼働なら約4,745万円）。浸水確率は、多段階図で「1/10で浸水開始、1/30で0.5m、1/50で1m、1/100で2m、想定最大（1/1000）で3m」と読める川沿いサイトを<strong>例示</strong>として置きました。</p>
+
+<table>
+<tr><th>浸水深帯</th><th>年超過確率帯</th><th>被害率（償却資産）</th><th>実効停止日数</th></tr>
+<tr><td class="num">0〜0.5m</td><td class="num">0.0667</td><td class="num">23.2%</td><td class="num">15.8日</td></tr>
+<tr><td class="num">0.5〜1.0m</td><td class="num">0.0133</td><td class="num">45.3%</td><td class="num">26.0日</td></tr>
+<tr><td class="num">1.0〜2.0m</td><td class="num">0.010</td><td class="num">78.9%</td><td class="num">37.8日</td></tr>
+<tr><td class="num">2.0〜3.0m</td><td class="num">0.009</td><td class="num">96.6%</td><td class="num">73.2日</td></tr>
+<tr><td class="num">3.0m以上</td><td class="num">0.001</td><td class="num">99.5%</td><td class="num">97.7日</td></tr>
+</table>
+<p class="tnote">確率帯は例示（実サイトでは当該河川の多段階浸水想定図から実数を読みます）。計算はScienceXによる（電卓検算済み）。</p>
+
+<p>結果は、<strong>物損EAL約1,560万円/年＋停止EAL約33万円/年 ≒ 合計約1,600万円/年</strong>。20年累計（無割引）で約3.2億円、<strong>CAPEXの約67%</strong>に相当します（割引率5%の現在価値でも約2.0億円＝CAPEXの約4割）。「川沿いの低地は事業として厳しい」という直感は、定量化しても裏付けられる──ここまでは、二値判断と同じ結論です。</p>
+
+<p>違いは、次の一手で現れます。同じ物差しは<strong>対策の値段</strong>も測れる。機器基礎面を1mかさ上げすると、浸水深1m以下の確率帯──超過確率カーブのもっとも厚い部分──が損害ゼロ化し、<strong>EALは年約720万円へほぼ半減</strong>します（年約880万円の削減。上位の浸水帯でも機器に対する実効浸水深は1m浅くなるため、実際の削減幅はさらに大きくなります）。「色がついているから回避」ではなく、「かさ上げ費用と年約880万円の削減効果、そして後述する保険条件の改善を比較する」──この意思決定が可能になります。下の試算機で、資産額・日次収益・かさ上げ高さを動かして確かめてください。</p>
+
+<div class="calc">
+<div class="head"><span>EAL簡易試算機 ── かさ上げ高さで期待損失はどう動くか</span><span class="tag">INTERACTIVE</span></div>
+<div class="body">
+<div class="row"><label>償却資産額 <output id="oA">4.0億円</output></label><input type="range" id="sA" min="2" max="8" step="0.5" value="4"></div>
+<div class="row"><label>日次逸失収益 <output id="oD">13万円/日</output></label><input type="range" id="sD" min="5" max="30" step="1" value="13"></div>
+<div class="row"><label>機器基礎面のかさ上げ高さ <output id="oH">0.0m</output></label><input type="range" id="sH" min="0" max="3" step="0.5" value="0"></div>
+<div class="res">
+<div><div class="k">物損EAL</div><div class="v" id="rP">—<small>万円/年</small></div></div>
+<div><div class="k">停止EAL</div><div class="v" id="rS">—<small>万円/年</small></div></div>
+<div><div class="k">合計EAL</div><div class="v" id="rT">—<small>万円/年</small></div></div>
+<div><div class="k">20年累計（無割引）</div><div class="v" id="rC">—<small>億円</small></div></div>
+</div>
+<p class="tnote" style="margin-top:10px">確率帯は本文の例示値で固定（1/10浸水開始〜1/1000で3m）。かさ上げは「上端がかさ上げ高以下の浸水帯の損害をゼロ化」する保守的な単純計算で、上位帯の実効浸水深低下は織り込んでいません。被害率は一般事業所値（BESS補正＝機器レベル到達で全損100%を掛けると、機器が水面下に入るケースは上振れします）。実サイトの評価には多段階図の実数・地盤調査・付保条件が必要です。</p>
+</div>
+</div>
+
+<p>3つの留意を明記しておきます。第一に、確率帯は例示です。第二に、表の被害率は一般事業所値で、BESS補正（機器レベル到達＝全損100%）を掛けると、機器がかさ上げ高より下にある場合は上振れします──つまり<strong>被害率は立地ではなく、設計で動かせる変数</strong>でもあります。第三に、停止EALは明確に下限です（受変電の全損なら、停止日数の桁が変わります）。</p>
+
+<h2><span class="no">05</span>損害保険が変わります ──「かけ方」と「料率」への波及</h2>
+
+<p>EAL評価は投資判断の道具であると同時に、<strong>保険設計の入力</strong>になります。ここが、二値判断との実務上の最大の違いです。</p>
+
+<p><strong>保険会社は、同じ地図を読んでいます。</strong>個人向け火災保険の水災料率は2024年10月から市区町村別5区分に細分化されました（損害保険料率算出機構、2023年6月届出 ✅。地域間較差は<strong>保険料全体で約1.2倍、水災料率単体では約1.5倍</strong>）。個人向け参考純率であり企業物件は個別引受ですが、立地リスクを料率へ反映する方向は同じです。海外ではBESS専門保険の引受側がさらに先を行きます──専門引受側の解説（Altelium等）は、立地評価に「1-in-100年ゾーン該当」といった<strong>色分け情報では不十分</strong>とし、複数リターンピリオドの浸水深（メートル値）の提出を求めています。<strong>二分法を先に卒業したのは、保険を引き受ける側です。</strong>裏を返せば、確率別浸水深と対策設計を自ら提示できる事業者は、引受側と同じ解像度で条件交渉ができる。悪い地図は保険で裁定できず、保険料と免責になって返ってきますが、良いデータは条件を動かす材料になります。</p>
+
+<p>そのうえで、EALは付保設計（かけ方）の各論を規定します。</p>
+
+<ul class="tight">
+<li><strong>水災担保の構造：</strong>企業向け財物保険の水災は、縮小支払割合（商品例で5〜70%から選択）・免責金額・支払限度つきで担保されます。かさ上げで高頻度帯を損害ゼロ化したサイトでは少額頻発クレームが消えるため、<strong>免責を厚めに取って料率を抑え、担保をテール（低頻度・大損害）へ集中させる</strong>設計が合理的になります。EALカーブと免責・縮小支払の選択を整合させる、という発想です。</li>
+<li><strong>地震系特約の要否：</strong>約款上、地震・噴火・<strong>津波</strong>は標準免責で、津波は「水災」ではなく地震側に分類されます。<strong>液状化・地盤沈下も地震起因なら同じ免責側</strong>です。埋めるには地震危険補償特約（拡張担保）が必要ですが、引受可否・付保割合上限・料率は非公開の個別見積り（❓公開情報なし）。サイトのハザード構成が地震系（津波・液状化）に寄るほど「特約がなければ無保険」の残余が積み上がる──この残余は保険設計では消せず、<strong>立地選定の段階でしか制御できません</strong>。</li>
+<li><strong>BI（事業中断）のてん補期間：</strong>てん補期間1年程度が実務の出発点ですが、全損時の変圧器納期は2.5年級（米国調査値）。<strong>てん補期間が尽きた後の逸失収益は、構造的に無保険</strong>になります。てん補期間延長の可否・費用と、予備品戦略（スペア変圧器等）を同じ土俵で比較すべき論点です（BI設計の各論は<a href="https://www.scix.co.jp/column-bess-insurance">COLUMN 18</a>）。</li>
+<li><strong>パラメトリックの補完：</strong>震度等の指標連動で査定なしに早期支払する商品が国内でも実在します。東京海上日動「地震に備えるEQuick保険」は2021年3月販売開始で<strong>国内損保初</strong>のインデックス型（✅同社リリース原文）。三井住友海上の震度連動特約（2025年）、Swiss Reの2022年福島県沖地震での約2ヶ月後支払、Descartes等の外資参入は各社公表・報道によります（⚠️）。実損填補ではなくベーシスリスクが残りますが、BIの査定長期化を補う<strong>復旧資金の初期流動性</strong>として機能し得ます。</li>
+<li><strong>支払時期のリスク：</strong>BESSの火災・事故は原因究明が長期化しがちです。鹿児島県伊佐市の蓄電所火災（2024年3月27日）では、保険加入済みにもかかわらず発生1年超で保険金が未払いと報じられ（PVeye 2025年6月号 ✅）、2026年7月時点で支払済みとの続報は確認できていません。保険は「入っているか」ではなく、<strong>「いつ・いくら・何を条件に出るか」</strong>で評価するものです。</li>
+</ul>
+
+<p>まとめれば、EALは用地の減額交渉・対策工費・保険料・自家保有残余を<strong>同じ通貨で比較する共通分母</strong>です。問いは「保険をかけるか」から、「どの損失層を工学に、どの層を保険に、どの層を土地価格に払わせるか」という配分問題に変わります。</p>
+
+<h2><span class="no">06</span>三層仕分け ── veto／priceable／設計入力</h2>
+
+<table>
+<tr><th>層</th><th>定義</th><th>典型例</th><th>扱い</th></tr>
+<tr><td><strong>veto（撤退）</strong></td><td>工学対策で消せず、保険も経済的に成立しない</td><td>家屋倒壊等氾濫想定区域、かさ上げ限界を超える深い浸水（目安：L2で3m超〜5m級以上）、土砂災害特別警戒区域</td><td>定量化するほど数字が事業性を否定する。撤退</td></tr>
+<tr><td><strong>priceable（値付け可能）</strong></td><td>対策費＋保険料＋残余EALを金額換算し、IRRに織り込める</td><td>中程度の河川氾濫・内水（かさ上げ・水災担保）、液状化（地盤改良・杭）</td><td>用地減額・対策費・付保条件を取得し、数字で可否を決める</td></tr>
+<tr><td><strong>設計入力</strong></td><td>立地の可否ではなく、EPCの設計条件に落ちる</td><td>表層地盤増幅、断層近傍の地震動（直上を除く）、敷地内排水</td><td>基礎・アンカー仕様の入力値。投資判断の変数にしない</td></tr>
+</table>
+
+<p><strong>家屋倒壊等氾濫想定区域がvetoなのは、浸水深の関数ではないからです。</strong>この区域は、堤防決壊時の氾濫流の流体力と河岸侵食により構造物の倒壊・流失が想定される領域（氾濫流・河岸侵食の2類型。水防法に基づき、2015年関東・東北豪雨を契機に公表が進みました ✅）。被害モードは「水没」ではなく「基礎ごと流失」で、かさ上げでは消えず、被害率は事実上100%、保険引受も立地起因で条件が壊れます。定量化は「色つきの土地を救う」道具であると同時に、<strong>救えない土地を投資委員会の言語で示す</strong>道具でもあります。</p>
+
+<p><strong>液状化は、本来priceableです。</strong>ハザードマップの「液状化可能性が高い」判定（PL値等）は元地盤の評価で、地盤改良の効果は織り込まれていません。つまり液状化は、地盤改良費として価格化できます。ただし残余リスクは前述のとおり<strong>地震免責の側</strong>に落ちる──ここが水害との決定的な違いです。市場実務が液状化を軽く扱いがちなのは、リスクが低いからではなく、判読に地盤リテラシーを要するから。開発・転売側の保有期間は短く、地震リスクの顕在化までサイトを保有するのは長期保有側です──買い手にとってこそ、精査に値する論点になります。</p>
+
+<p><strong>断層近傍は、直上を除けば設計入力です。</strong>活断層の建築セットバック規制の趣旨は、居住建築物における人命保護にあります。確認できる代表例でカリフォルニア州が断層から50フィート＝約15m（Alquist-Priolo法 ✅）、ほかニュージーランド・台湾・国内の地区計画例が10〜25m級とされます（地盤工学会中部支部の整理等による目安 ⚠️）。地表地震断層の被害は断層直上の帯に集中し（1971年サンフェルナンド地震では直上の建物被害率約80%に対し離隔域は30%未満 ✅）、無人のコンテナ工作物では、地表変位はパッド配置で回避し、揺れは基礎・アンカーの設計条件として処理するのが工学的に正確です。ここでも「人命の地図・規制を、無人施設の事業判断へ延長適用しない」という本稿の原則が繰り返されます。</p>
+
+<h2><span class="no">07</span>先例と、評価する側の実名 ── 地震PMLの隣に、洪水版の空席がある</h2>
+
+<p>「ハザードのある国で、それでも機関投資家の資金を受け入れる」ための語彙は、隣の市場が四半世紀かけて作っています。不動産証券化の地震PML（再現期間475年の予想最大損失率）です。<strong>概ねPML15〜20%を閾値とし、超過すれば地震保険の付保を検討・条件化する</strong>──という運用が実務目安として定着しています（⚠️閾値の幅は実務慣行）。「地震国だから不動産投資は不可」とは、誰も言いません。</p>
+
+<p>そして、評価の実務インフラは蓄電所側でも既に揃いつつあります。東京海上グループの東京海上ディーアールは、系統用蓄電池の施設リスク（自然災害・火災）レポートを公表し（Tokio dR-EYE ✅）、再生可能エネルギー発電施設についてはプロジェクトファイナンス組成時に自然災害リスクの定量評価が不可欠だとして、PML評価を商用提供しています（同社サービスページ原文 ✅。水災評価は浸水想定区域図＋Fathomの再現期間別洪水ハザード＋氾濫シミュレーション）。SOMPOリスクマネジメントも、再現期間別の損害額を算出する確率論的な地震・津波PML評価と水災リスク評価を提供。第三者技術DDでは、テュフ ラインランド ジャパンが2023年11月から系統用蓄電池向け技術デューデリジェンス（立地評価・現地調査を含む）を提供し、<strong>2024年10月時点で国内の計画・開発段階の案件を複数件完了、報告書は開発事業者だけでなくPF検討中の銀行・金融機関から求められるケースが多い</strong>と公表しています（✅同社プレスリリース）。上場インフラファンドでは、保有発電資産の物件別地震PML開示とポートフォリオPML管理が運用として定着済みです。</p>
+
+<p>要するに、評価する側（損保系リスクコンサル・第三者認証機関）と開示の器（ファンド実務）は既にあります。公開情報で確認できないのは、<strong>個別の蓄電所案件を多段階確率×EALで選定したという事業者側の開示だけ</strong>（❓DDレポートは非公開が通例）。裏を返せば、この計算書を自ら投資家へ差し出す売り手はまだいない──<strong>先行者の余地は、そこにあります</strong>。多段階図の年超過確率、マニュアル準拠の被害率（BESS補正込み）、調達リードタイムに基づく停止日数、保険の担保範囲と免責──これらを1枚のEAL計算書にして提示することが、「川沿いだから」という一行を、「1/100で機器レベルまで乾いているか」「残余EALは年間収益の何%か」という<strong>交渉可能な問い</strong>に変えます。</p>
+
+<h2><span class="no">08</span>この枠組みの限界</h2>
+
+<p>期待損失評価は万能ではありません。誠実に運用するために、埋まらない穴を先に列挙しておきます。</p>
+
+<ul class="tight">
+<li><strong>保険の構造的な穴：</strong>縮小支払・免責・支払限度により、水災でも全額は戻りません。地震・噴火・津波は標準免責で、拡張担保の条件は物件依存（❓公開標準なし）。</li>
+<li><strong>支払の遅延：</strong>原因究明の長期化により、保険金の入金と復旧資金需要はずれ得ます（伊佐市の例）。</li>
+<li><strong>時間は戻らない：</strong>保険は財物を戻しますが、受注生産機器の再調達期間と、てん補期間を超えた逸失収益は戻しません。</li>
+<li><strong>料率の期中変動：</strong>BESSの保険市場は損害履歴が浅く、更改時の条件悪化リスクがあります。</li>
+<li><strong>前提の陳腐化：</strong>ハザードマップ・地震確率は更新されます。南海トラフ地震の30年発生確率は2025年9月26日改訂で「60〜90%程度以上」「20〜50%」の2値併記へ変わりました（基準日2025年1月1日 ✅。毎年1月に基準日が更新されるため、評価時点の最新値を必ず確認）。取得時「区域外」が将来「区域内」化するリスクは、EALモデル自体が抱える不確実性です。</li>
+<li><strong>公開情報の空白 ❓：</strong>BESSの財物＋BI保険の料率水準、地震拡張担保の引受実態、BIてん補期間・逸失利益算定の実務は、いずれも公開情報が存在しません。損保への個別照会でしか埋まらず、逆に言えば、照会結果を持つ者は情報優位に立てます。</li>
+</ul>
+
+<div class="kicker"><b>第3部</b>手を動かす ── 候補地1件を、地図から保険照会まで運ぶ</div>
+
+<h2><span class="no">09</span>実務ワークフロー ── 月曜の朝、候補地の住所が1件届いたら</h2>
+
+<p>理屈は以上です。実務は4ステップに畳めます。①で使うデータは、登記を除きすべて無料の公開情報です。</p>
+
+<table>
+<tr><th>ステップ</th><th>やること</th><th>使うもの</th><th>得るもの</th></tr>
+<tr><td><strong>① 机上スクリーニング（1日）</strong></td><td>ハザード＋地盤・傾斜＋規制・近隣・系統の一括判定</td><td>下の一覧表（14項目・URL付き）</td><td>veto該当の有無、確率別浸水深（m）、規制系の停止要因、地盤・傾斜・住宅距離</td></tr>
+<tr><td><strong>② 簡易EAL（Excel1枚）</strong></td><td>04の表をテンプレートに期待損失を計算</td><td>①の確率別浸水深、機器基礎面の計画高さ、資産額・日次収益</td><td>物損EAL＋停止EAL、三層仕分けの判定</td></tr>
+<tr><td><strong>③ 設計で確率を買う</strong></td><td>嵩上げ・杭・地盤改良の工事費とEAL削減額を年換算で比較</td><td>EPC・地盤調査会社（ボーリング＋FL/PL判定）</td><td>対策後の残余EALと対策費</td></tr>
+<tr><td><strong>④ 保険照会→投資委員会</strong></td><td>確率別データ＋対策設計を添えて損保へ照会</td><td>損保複数社、必要に応じ第三者技術DD</td><td>縮小支払・免責・料率、地震特約の引受可否、BIてん補期間 → 結の3条件の判定材料</td></tr>
+</table>
+
+<h3>① 最初の30分でveto級を消し、1日で候補地の全体像を出す</h3>
+
+<p>入口は重ねるハザードマップです。住所を入れ、家屋倒壊等氾濫想定区域（氾濫流・河岸侵食）と土砂災害特別警戒区域の該当をまず見る。該当なら、そこで終了──②以降の工数を使いません。生き残った候補地は、次の14項目を一巡します。<strong>ハザードだけ見て規制で死ぬ、規制だけ見てハザードで死ぬ、のどちらも避けるための一覧です。</strong></p>
+
+<table>
+<tr><th>#</th><th>確認項目</th><th>確認先</th><th>見るポイント／要注意ライン</th></tr>
+<tr><td>1</td><td>洪水・内水・高潮・津波・土砂</td><td><a href="https://disaportal.gsi.go.jp/">重ねるハザードマップ</a></td><td>家屋倒壊等氾濫想定区域・土砂災害特別警戒区域＝veto。浸水深と浸水継続時間を記録</td></tr>
+<tr><td>2</td><td>確率別浸水深（多段階）</td><td><a href="https://www.mlit.go.jp/river/kasen/ryuiki_pro/risk_map.html">国交省「水害リスクマップ一覧」</a></td><td>1/10〜計画規模の浸水深をm単位で記録。国管理河川中心、未整備の県管理河川はL2＋計画規模の2点で近似</td></tr>
+<tr><td>3</td><td>地震動</td><td><a href="https://www.j-shis.bosai.go.jp/">J-SHIS</a></td><td>30年震度6弱以上超過確率、表層地盤増幅率（1.5超注意・2.0以上要対策は<strong>当社実務目安</strong>）</td></tr>
+<tr><td>4</td><td>活断層</td><td><a href="https://gbank.gsj.jp/activefault/">産総研 活断層DB</a>／地理院地図の活断層図レイヤ</td><td>離隔を実測。直上のみ配置で回避、近傍の揺れは設計入力（06）</td></tr>
+<tr><td>5</td><td>液状化の当たり</td><td><a href="https://maps.gsi.go.jp/">地理院地図</a>（治水地形分類図・明治期の低湿地）</td><td>旧河道・後背湿地・埋立地・干拓地は液状化の常連地形。③の地盤改良費の前提に</td></tr>
+<tr><td>6</td><td>地盤</td><td><a href="https://www.kunijiban.pwri.go.jp/">KuniJiban</a></td><td>周辺ボーリングのN値・地下水位・支持層深度 → 基礎形式（べた基礎か杭か）の当たり</td></tr>
+<tr><td>7</td><td>標高・傾斜</td><td><a href="https://maps.gsi.go.jp/">地理院地図</a>（標高表示・断面図・傾斜量図）</td><td>敷地標高と周辺比高（窪地は内水に注意）、傾斜地は切盛・擁壁費と土砂リスクが連動</td></tr>
+<tr><td>8</td><td>区域区分・用途地域</td><td>各自治体の都市計画情報システム（例：<a href="http://oup2.city.okayama.jp/">岡山市 都市計画情報システム</a>／<a href="https://www.city.wakayama.wakayama.jp/kurashi/douro_kouen_machi/1009501/index.html">和歌山市 都市計画・わが街ガイド</a>）</td><td>市街化調整区域は国都計第7号（2025年4月）により開発許可の対象。審査基準未策定の自治体では事実上設置不可の例（詳細は<a href="https://www.scix.co.jp/column-four-labels">COLUMN 31</a>）</td></tr>
+<tr><td>9</td><td>農地・農振</td><td><a href="https://map.maff.go.jp/">eMAFF農地ナビ</a>＋登記地目（登記情報提供サービス）</td><td>農振農用地区域（青地）は除外手続が長期・不確実で規制系のveto級。甲種・第1種農地は転用が原則不許可</td></tr>
+<tr><td>10</td><td>森林</td><td>都道府県の森林GIS（例：<a href="https://wakayamaken.geocloud.jp/">和歌山県地理情報システム</a>＝地域森林計画対象民有林区域を公開／<a href="https://www.gis.pref.okayama.jp/">おかやま全県統合型GIS</a>）</td><td>保安林は解除が極めて困難＝回避。一定規模超の開発は林地開発許可（面積要件は最新の政令・自治体運用を確認）</td></tr>
+<tr><td>11</td><td>盛土規制・造成履歴</td><td>自治体の規制区域図（例：<a href="https://www.pref.wakayama.lg.jp/prefg/080900/kaihatsu/kaihatsutop/takuzokyoka/h18kaisei.html">和歌山県 盛土規制法・盛土等情報管理システム</a>）／<a href="https://www.mlit.go.jp/toshi/toshi_tobou_fr_000004.html">国交省 大規模盛土造成地マップ</a></td><td>区域内の造成は許可・中間/完了検査で工期に影響（和歌山県は2025年5月運用開始、和歌山市域は同4月）。谷埋め盛土は地震時の滑動崩落リスク</td></tr>
+<tr><td>12</td><td>消防</td><td>所轄消防への事前相談（例：<a href="https://www.city.hashimoto.lg.jp/guide/shobohonbu/oshirase/jigyoshooshirase/17276.html">橋本市消防本部＝紀の川流域の火災予防条例改正解説</a>）</td><td>20kWh超の蓄電池設備は届出対象、建築物から3m以上の離隔が原則（令和5年消防庁告示第7号・2024年1月施行。告示第3の延焼防止措置適合で緩和可）。設計前に協議</td></tr>
+<tr><td>13</td><td>最近接住宅までの距離</td><td><a href="https://maps.gsi.go.jp/">地理院地図</a>・航空写真の計測ツール</td><td>敷地境界〜住宅の距離を実測。50m以内は騒音の要注意ライン（<strong>当社実務目安</strong>。夜間充電制限は収益直撃──<a href="https://www.scix.co.jp/column-noise">COLUMN 10</a>）</td></tr>
+<tr><td>14</td><td>系統</td><td><a href="https://www.enecho.meti.go.jp/category/saving_and_new/saiene/grid/07_map.html">資源エネ庁「なるほど！グリッド」空き容量マップ一覧</a>（例：<a href="https://www.kansai-td.co.jp/consignment/disclosure/distribution-equipment/index.html">関西電力送配電</a>＝蓄電池向けに大規模増強地域マップも公開／<a href="https://www.energia.co.jp/nw/service/retailer/keitou/access/">中国電力ネットワーク 系統アクセス情報</a>）</td><td>連系点までの距離と空き容量。ここが立たなければハザード評価以前の問題（<a href="https://www.scix.co.jp/column-grid">COLUMN 04</a>）</td></tr>
+</table>
+<p class="tnote">例示URLは、紀の川流域（和歌山）と岡山の県・市システムです──都市計画・森林・盛土・消防条例は全国一元のポータルが存在せず、自治体ごとにシステムが分かれます。他県でも「県名＋統合型GIS」「市町村名＋都市計画図」で同種のシステムに到達できます。読み方の注意を2つ。第一に、<b>規制系（8〜10）はハザードのvetoと同じ重みで効きます</b>──青地・保安林・審査基準のない調整区域は、EALのように価格化できない「時間切れ型」の停止要因で、①の段階で潰さないと②以降の定量評価が無駄になります。第二に、このスクリーニングは除外のためではなく<b>②に渡す変数を揃えるため</b>にやります。必要に応じて、埋蔵文化財包蔵地（自治体の遺跡地図。おかやま全県統合型GISは埋蔵文化財レイヤも搭載）と雨水流出抑制義務（多くの自治体で敷地1,000㎡超が調整池の目安）もこの日に確認しておくとよいでしょう。</p>
+
+<h3>② EALはExcel1枚で足ります</h3>
+<p>04の表がそのままテンプレートになります。肝は「機器基礎面の計画高さ（GL＋何m）」を変数として持つこと──確率別浸水深が基礎面に届く帯は被害率100%、届かない帯は0%と置くだけで、階段型のBESS版EALになります。ここで残余EALが年間収益の一桁%に収まる見込みが立たず、対策の余地もなければ、③に進まず撤退してよい判断です。</p>
+
+<h3>③ 嵩上げ高さは「守る頻度」から逆算する</h3>
+<p>「何m上げるか」を先に考えるのではなく、「どの年超過確率までを損害ゼロ化するか」を先に決めます（例：1/100の浸水深＋余裕高に基礎天端。考え方は電気設備浸水対策ガイドラインの高所設置・水防ラインと同じです）。手段は3系統──敷地全体の盛土（公開単価の目安 約6,500〜7,400円/m³、擁壁2万〜8万円/m²）、機器架台・基礎の立ち上げ（部分的で安価。受変電・PCSなど「濡れたら全損」の機器から優先して上げる）、杭基礎（支持層への定着と液状化対策を兼ねる）。液状化が重なる場合は地盤改良で、表層改良 約3,000〜7,000円/m²、柱状改良 1〜3万円/m²、対策全体で1万〜10万円/m²（施工面積が大きいほど低下）が公開単価の目安です。<strong>ただしこれらは住宅・一般土木の公開単価中心で、一部は2011年時点の直工費──足元の建設物価上昇で上振れしており、BESS規模の実勢は必ずEPC・地盤調査会社の見積で確認してください（⚠️）。</strong>意思決定の物差しは常に「対策費（年換算）対 EAL削減額」──04の例なら、嵩上げ1mは年約880万円の削減に相当しました。この比較ができること自体が、二値判断からの卒業です。</p>
+
+<h3>④ 損保へは「色」ではなく「メートル値」を持ち込む</h3>
+<p>照会パッケージは、確率別浸水深・基礎天端高さ・対策設計図の3点。取るべき回答は、(a) 水災の縮小支払割合・免責金額・支払限度・料率、(b) 地震危険補償特約の引受可否と条件（津波・液状化が重い立地では最優先の照会項目）、(c) BIのてん補期間上限と免責期間──の3系統です。引受不可・高免責の部分は消えたことにせず、<strong>「自家保有残余」として金額のままEAL計算書に残します</strong>。最終的に投資委員会へ持ち込むのは、EAL計算書＋対策費＋付保条件＋次の3条件チェック、の1セット。レンダーが付く案件なら、第三者技術DD（立地評価含む）を先回りで取得しておくと、与信側の質問を先に潰せます。</p>
+
+<h2><span class="no">結</span>投資委員会に持ち込む3条件</h2>
+
+<p>「浸水の恐れが一切ない土地」を待つことは、日本の平野部では機会の放棄と同義です。代わりに、次の3条件で案件を仕分けることを提案します。</p>
+
+<ul class="tight">
+<li><strong>① 多段階浸水想定図の確率別浸水深に基づくEAL</strong>（被害率はステップ型・全損100%で補正）が、事業計画の許容範囲──目安として残余EALが年間収益の一桁%──に収まること</li>
+<li><strong>② 水災担保（縮小支払・免責の設計込み）と、ハザード構成上必要な場合の地震危険補償特約</strong>が、経済合理的な料率で成立すること</li>
+<li><strong>③ 家屋倒壊等氾濫想定区域・土砂災害特別警戒区域等のveto級</strong>に該当しないこと</li>
+</ul>
+
+<p>この3条件は、「投資可能な土地」の定義を書き換えます。L2で色がついていても、多段階図の1/100まで機器設置レベルが乾いており、地震特約への過度な依存なしに保険構造が閉じる土地は、残余EALのわずかな優良サイトであり得ます。逆に、色が薄くても高頻度の内水に浸かる低地は危うい。<strong>線を引くべき場所は色の有無ではなく、EALの水準です。</strong></p>
+
+<p>ハザードマップは、投資の可否を告げる地図ではありません。<strong>人命を守るための地図であり、事業にとっては期待損失の入力データです。</strong>その読み替えの語彙を持つ者から順に、沖積平野という日本最大の適地在庫が開いていきます。</p>
+
+<div class="alert"><span class="ttl">出典・計算仕様（2026年7月12日時点）</span>
+<b>一次（政府）：</b>国交省 水管理・国土保全局「多段階の浸水想定図及び水害リスクマップの検討・作成に関するガイドライン」（令和5年1月）／水害リスクマップ一覧（https://www.mlit.go.jp/river/kasen/ryuiki_pro/risk_map.html）／「洪水浸水想定区域図作成マニュアル（第4版）」／「治水経済調査マニュアル（案）」平成17年4月版 表-4.4・令和2年4月版 表-4.3.2／表-4.9（最新は令和6年4月版）／「気候変動を踏まえた治水計画のあり方」提言（令和元年10月・令和3年4月改訂）／国交省・経産省「建築物における電気設備の浸水対策ガイドライン」（令和2年6月）／近畿地方整備局 和歌山河川国道事務所（紀の川水系）・事業評価監視委員会「紀の川直轄河川改修事業 再評価説明資料」／地震調査研究推進本部「南海トラフの地震活動の長期評価（一部改訂）」（2025年9月26日・基準日2025年1月1日）／防災科研 J-SHIS／OCCTO「容量市場業務マニュアル 実需給期間中リクワイアメント対応（対象実需給2026年度）」／損害保険料率算出機構 火災保険参考純率改定（2023年6月届出・2024年10月適用）／消防庁告示第7号（2024年1月施行）。<br>
+<b>当事者公表：</b>東京海上ディーアール（Tokio dR-EYE 2024 No.5、再エネ施設リスク評価・自然災害リスク評価）／SOMPOリスクマネジメント（地震・津波PML評価）／テュフ ラインランド ジャパン（系統用蓄電池 技術DD、2023年11月・2024年10月更新）／東京海上日動「EQuick保険」（2021年3月）／PG&amp;E（Elkhorn Battery 2022年9月・原因公表）／Wood Mackenzie 2025年Q2 T&amp;D調査（米国市場：変圧器128週・GSU約143〜144週）／Harmony Energy（Pillswood BESS）。<br>
+<b>専門誌・解説：</b>PVeye 2025年6月号（伊佐市・保険金未払）／Energy-Storage.News（Altelium寄稿：浸水全損・盛土プラットフォーム・複数リターンピリオド要求）／kWh Analytics・GCube 各公表資料。<br>
+<b>試算前提：</b>2MW/8MWh・償却資産4.0億円（CAPEX約4.8億円＝6万円/kWh：資源エネ庁検討会の参照基準値。2024年度実勢はシステム5.4万＋工事1.4万円/kWh）・日次逸失13万円（365日満稼働換算 約4,745万円/年、本文は実効稼働ベースで約4,600万円と丸め）。確率帯は例示。工事単価は住宅・一般土木の公開資料ベース（一部2011年直工費・物価上昇で上振れ）で、実勢はEPC見積で要確認。<br>
+<b>注記：</b>ScienceXは特定のメーカー・EPC・アグリゲーター・保険会社と資本関係を持ちません。本稿は公開一次情報に基づく中立的整理であり、特定の商品・工法・事業者を推奨するものではなく、投資勧誘・投資助言を目的としません。騒音（COLUMN 10）・立地規制の全体像（COLUMN 31）・保険設計の各論（COLUMN 18）・開発工程（COLUMN 13）は各稿を参照してください。</div>
+
+<div class="related"><span class="lbl">あわせて読む / RELATED</span><a href="https://www.scix.co.jp/column-bess-insurance">系統用蓄電所の保険設計 ── オーナーが運用期間中に手当てすべき6つの保険 →</a></div>
+
+</div><!-- /wrap -->
+
+<div class="cta">
+<h3>用地のハザード評価・EAL計算書の作成支援</h3>
+<p>本稿は公開情報に基づく方法論の整理です。個別候補地の多段階確率・EAL試算・付保条件の照会設計は、<br>お問い合わせ後にNDA締結のうえ個別にお手伝いします。</p>
+<a class="btn" href="https://www.scix.co.jp/contact">お問い合わせ →</a>
+</div>
+
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo img { height:40px; width:auto; display:block; }
+  .scix-footer-info { text-align:center; }
+  .scix-footer-company { margin-bottom:14px; }
+  .scix-footer-company .company-name { font-size:14px; font-weight:500; margin-bottom:6px; letter-spacing:.04em; }
+  .scix-footer-company a { color:rgba(255,255,255,0.85); text-decoration:none; }
+  .scix-footer-company .representative { margin-top:6px; font-size:12px; color:rgba(255,255,255,0.6); }
+  .scix-footer-copyright { font-size:11px; color:rgba(255,255,255,0.45); letter-spacing:.05em; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img src="https://www.scix.co.jp/img/logo-white.png" alt="ScienceX サイエンスエックス株式会社" loading="lazy">
+    </a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var bands=[
+    {lo:0,  hi:0.5, p:0.0667, dmg:0.232, days:15.8},
+    {lo:0.5,hi:1.0, p:0.0133, dmg:0.453, days:26.0},
+    {lo:1.0,hi:2.0, p:0.010,  dmg:0.789, days:37.8},
+    {lo:2.0,hi:3.0, p:0.009,  dmg:0.966, days:73.2},
+    {lo:3.0,hi:99,  p:0.001,  dmg:0.995, days:97.7}
+  ];
+  var sA=document.getElementById('sA'),sD=document.getElementById('sD'),sH=document.getElementById('sH');
+  function fmt(n){return n.toLocaleString('ja-JP',{maximumFractionDigits:0});}
+  function calc(){
+    var A=parseFloat(sA.value), D=parseFloat(sD.value), H=parseFloat(sH.value);
+    document.getElementById('oA').textContent=A.toFixed(1)+'億円';
+    document.getElementById('oD').textContent=D+'万円/日';
+    document.getElementById('oH').textContent=H.toFixed(1)+'m';
+    var pd=0, st=0;
+    bands.forEach(function(b){
+      if(b.hi<=H) return;               // band fully below raised base -> zero
+      pd+=b.p*b.dmg;                    // damage coefficient
+      st+=b.p*b.days;                   // expected outage days
+    });
+    var pdMan=pd*A*10000;               // 億円 -> 万円
+    var stMan=st*D;                     // days * 万円/day
+    var tot=pdMan+stMan;
+    document.getElementById('rP').innerHTML=fmt(pdMan)+'<small>万円/年</small>';
+    document.getElementById('rS').innerHTML=fmt(stMan)+'<small>万円/年</small>';
+    document.getElementById('rT').innerHTML=fmt(tot)+'<small>万円/年</small>';
+    document.getElementById('rC').innerHTML=(tot*20/10000).toFixed(1)+'<small>億円</small>';
+  }
+  [sA,sD,sH].forEach(function(s){s.addEventListener('input',calc);});
+  calc();
+})();
+</script>
+
+</body>
+</html>

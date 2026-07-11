@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灾害风险图的颜色，选不出储能电站的用地 ── 以年期望损失（EAL）衡量选址可行性与业务连续性｜ScienceX</title>
+<meta name="description" content="洪水灾害风险图是为保护生命（避难疏散）而绘制的地图。借助日本国土交通省的多级淹没预测图与《治水经济调查手册》，储能电站的选址灾害风险即可翻译为年期望损失（EAL）＝金额。涵盖2MW/8MWh模型试算、对保险设计的传导、veto／priceable／设计输入的三层分类，以及用一天看完单个候选地的14项工作流。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-hazard-eal">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-hazard-eal">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-hazard-eal">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-hazard-eal">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="灾害风险图的颜色，选不出储能电站的用地 ── 以年期望损失（EAL）衡量选址可行性与业务连续性｜ScienceX">
+<meta property="og:description" content="用于避难疏散的地图，衡量不了长达20年的业务。以多级淹没预测图×《治水经济调查手册》将选址灾害风险翻译为EAL，并落到垫高、保险、投资委员会三大条件的实务框架。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-hazard-eal">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-07-12">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="灾害风险图的颜色，选不出储能电站的用地 ── 以年期望损失（EAL）衡量选址可行性与业务连续性｜ScienceX">
+<meta name="twitter:description" content="用于避难疏散的地图，衡量不了长达20年的业务。以多级淹没预测图×《治水经济调查手册》将选址灾害风险翻译为EAL，并落到垫高、保险、投资委员会三大条件的实务框架。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1B2A4A; --gold:#C49A3C; --ink:#2A2A2A; --sub:#5A6472;
+  --line:#E3E0D8; --bg:#FFFFFF; --wash:#F7F5F0; --washNavy:#F2F4F8;
+  --serif:'Noto Serif SC',serif; --sans:'Noto Sans SC',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.95;font-size:16px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px}
+a{color:var(--navy);text-decoration:underline;text-decoration-color:rgba(196,154,60,.6);text-underline-offset:3px}
+a:hover{color:var(--gold)}
+.breadcrumb{font-size:12px;color:var(--sub);padding:26px 0 10px}
+.breadcrumb a{text-decoration:none;color:var(--sub)}
+.colmeta{font-size:13px;letter-spacing:.14em;color:var(--gold);font-weight:700;margin:14px 0 10px}
+.colmeta .cat{color:var(--sub);font-weight:500;letter-spacing:.06em;margin-left:.8em}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(24px,4.4vw,34px);line-height:1.55;color:var(--navy);margin-bottom:18px}
+h1 em{font-style:italic;font-weight:600;color:var(--gold);display:block;font-size:.72em;margin-top:.35em}
+.lead{font-size:16.5px;color:var(--ink);margin:6px 0 18px}
+.back{font-size:13px;margin-bottom:34px;display:inline-block}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(20px,3.2vw,25px);color:var(--navy);line-height:1.5;margin:64px 0 20px;padding-top:22px;border-top:3px solid var(--navy)}
+h2 .no{color:var(--gold);margin-right:.5em;letter-spacing:.06em}
+h3{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--navy);margin:34px 0 12px}
+p{margin:0 0 1.35em}
+strong{color:var(--navy)}
+.kicker{background:var(--navy);color:#fff;padding:14px 20px;margin:56px 0 8px;font-size:13px;letter-spacing:.1em}
+.kicker b{color:var(--gold);margin-right:1em}
+.memo{background:var(--wash);border-left:4px solid var(--gold);padding:18px 20px;font-size:13.5px;line-height:1.9;color:#4a4a44;margin:0 0 30px}
+.memo b{color:var(--navy)}
+.alert{background:var(--washNavy);border-left:4px solid var(--navy);padding:18px 20px;font-size:14px;margin:26px 0}
+.alert .ttl{font-weight:700;color:var(--navy);display:block;margin-bottom:6px}
+.legend{font-size:12.5px;color:var(--sub);background:var(--wash);padding:10px 16px;margin:22px 0;letter-spacing:.02em}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:26px 0 8px}
+.stats>div{background:#fff;padding:14px 16px}
+.stats .k{font-size:11.5px;color:var(--sub);letter-spacing:.08em;margin-bottom:2px}
+.stats .v{font-family:var(--serif);font-weight:700;color:var(--navy);font-size:16px;line-height:1.5}
+.stats .v .g{color:var(--gold)}
+.statcap{font-size:12px;color:var(--sub);margin:6px 0 0}
+table{width:100%;border-collapse:collapse;margin:22px 0 6px;font-size:13.5px;line-height:1.7}
+th{background:var(--navy);color:#fff;font-weight:700;padding:9px 10px;text-align:left;font-size:12.5px;letter-spacing:.04em}
+td{border-bottom:1px solid var(--line);padding:9px 10px;vertical-align:top}
+tr:nth-child(even) td{background:var(--wash)}
+.tnote{font-size:12px;color:var(--sub);margin:4px 0 26px;line-height:1.75}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+blockquote{border-left:4px solid var(--gold);background:var(--wash);padding:16px 20px;margin:24px 0;font-family:var(--serif);font-weight:600;color:var(--navy);font-size:15.5px}
+ul.tight{margin:0 0 1.4em 1.3em}
+ul.tight li{margin-bottom:.55em}
+.calc{border:1px solid var(--navy);margin:30px 0}
+.calc .head{background:var(--navy);color:#fff;padding:10px 18px;font-size:13px;letter-spacing:.1em;display:flex;justify-content:space-between;align-items:center}
+.calc .head .tag{background:var(--gold);color:var(--navy);font-weight:700;font-size:11px;padding:2px 8px;letter-spacing:.12em}
+.calc .body{padding:20px 22px}
+.calc .row{margin-bottom:16px}
+.calc label{font-size:13px;color:var(--sub);display:flex;justify-content:space-between}
+.calc label output{font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.calc input[type=range]{width:100%;accent-color:#C49A3C}
+.calc .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:8px}
+.calc .res>div{background:var(--wash);padding:12px 14px}
+.calc .res .k{font-size:11px;color:var(--sub)}
+.calc .res .v{font-family:var(--serif);font-weight:700;font-size:19px;color:var(--navy)}
+.calc .res .v small{font-size:12px;font-weight:500}
+.related{border:1px solid var(--line);padding:18px 20px;margin:56px 0 0;font-size:14px}
+.related .lbl{font-size:11px;letter-spacing:.16em;color:var(--gold);font-weight:700;display:block;margin-bottom:6px}
+.cta{background:var(--navy);color:#fff;text-align:center;padding:44px 22px;margin-top:64px}
+.cta h3{color:#fff;margin:0 0 10px}
+.cta p{color:#C9D2E0;font-size:14px}
+.cta a.btn{display:inline-block;background:var(--gold);color:var(--navy);font-weight:700;padding:12px 34px;text-decoration:none;margin-top:14px}
+footer{background:#14203A;color:#AEB8C8;font-size:13px;padding:40px 22px 30px;line-height:2}
+footer a{color:#fff}
+footer .co{color:#fff;font-weight:700;margin-bottom:6px}
+@media(max-width:640px){body{font-size:15px}table{font-size:12px}th,td{padding:7px 6px}}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "灾害风险图的颜色，选不出储能电站的用地 ── 以年期望损失（EAL）衡量选址可行性与业务连续性｜ScienceX",
+  "description": "洪水灾害风险图是为保护生命（避难疏散）而绘制的地图。借助日本国土交通省的多级淹没预测图与《治水经济调查手册》，储能电站的选址灾害风险即可翻译为年期望损失（EAL）＝金额。涵盖2MW/8MWh模型试算、对保险设计的传导、veto／priceable／设计输入的三层分类，以及用一天看完单个候选地的14项工作流。",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "datePublished": "2026-07-12",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-hazard-eal",
+  "inLanguage": "zh-CN"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://www.scix.co.jp/zh"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "洞见",
+      "item": "https://www.scix.co.jp/zh-knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "灾害风险图的颜色，选不出储能电站的用地 ── 以年期望损失（EAL）衡量选址可行性与业务连续性",
+      "item": "https://www.scix.co.jp/zh-column-hazard-eal"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+
+<div class="wrap">
+
+<nav class="breadcrumb" data-scix-breadcrumb><a href="https://www.scix.co.jp/zh">首页</a> › <a href="https://www.scix.co.jp/zh-knowledge">知识库</a> › 灾害风险图的颜色，选不出储能电站的用地 ── 以…</nav>
+
+<div class="colmeta">COLUMN 36<span class="cat">／ 用地选定 风险管理 2026.07.12</span></div>
+
+<h1>灾害风险图的颜色，选不出储能电站的用地<em>── 以年期望损失（EAL）衡量选址可行性与业务连续性</em></h1>
+
+<p class="lead">「因属于淹没预想区域而放弃」——这是电网侧储能电站用地评估中最常见的出局方式。然而，灾害风险图是依据《水防法》、为保护生命（避难疏散）而绘制的地图，它描绘的是<strong>年超越概率1/1000以下的最坏图景</strong>。用一张抹去了频率信息的地图，衡量不了一项长达20年的业务。国家其实早已建立了用于业务判断的概率地图（多级淹没预测图），只要将其与《治水经济调查手册》结合，选址灾害风险就能被翻译为<strong>年期望损失（EAL）＝金额</strong>。从2MW/8MWh的模型试算，到垫高的成本效益、对保险「投保方式与费率」的传导，再到用一天看完单个候选地的14项工作流——本文仅凭公开的一手信息，搭建出二元判断之后的下一把标尺。</p>
+
+<a class="back" href="https://www.scix.co.jp/zh-knowledge">← 返回知识库列表</a>
+
+<div class="memo"><b>编者按：</b>本文的EAL试算，是先行假定各概率区间的<b>示例性模型计算</b>（在真实场地中，应从该河流的多级淹没预测图读取实测数值）。损失率依据《治水经济调查手册》<b>平成17年（2005）4月版 表-4.4</b>，营业停止・停滞天数依据<b>令和2年（2020）4月版 表-4.9</b>，属于不同修订年度版本的并用——损失率已在令和2年4月版中更新（最新为令和6年〔2024〕4月版），故在真实项目评估中请直接参照最新版正文。特高压变压器的交货周期（128周等）为<b>美国T&amp;D市场</b>的调查值。表层场地放大系数的阈值（1.5／2.0）与最近住宅50m均非官方标准，为<b>本公司实务经验参考</b>。地震风险保障附加险的承保条件与BESS的保险费率水平不存在公开信息（❓），只能通过向财险公司个别询价来补全。本文是基于一般案例的梳理，不构成投资、保险、法律建议。具体项目的最终评估将在签署NDA后单独提供。</div>
+
+<div class="stats">
+<div><div class="k">基准机型（示例）</div><div class="v">高压2MW／8MWh<span class="g">・折旧资产4.0亿日元</span></div></div>
+<div><div class="k">模型EAL（临河示例场地）</div><div class="v">约1,600万日元<span class="g">/年</span></div></div>
+<div><div class="k">20年累计（未贴现）</div><div class="v">约3.2亿日元<span class="g">＝CAPEX的约67%</span></div></div>
+<div><div class="k">将设备基础面垫高1m</div><div class="v">EAL几乎减半<span class="g">（年约880万日元的削减）</span></div></div>
+<div><div class="k">veto级（即便量化也救不了）</div><div class="v">房屋倒塌等泛滥预想区域<span class="g">・泥沙灾害红区</span></div></div>
+<div><div class="k">保险的命门</div><div class="v">海啸・液化属<span class="g">地震侧的标准除外责任</span></div></div>
+</div>
+<p class="statcap">本文的射程——直到把「有没有颜色」读解为「金额与保险条件」为止。</p>
+
+<div class="legend"><b>✅</b> 已由一手资料确认　<b>⚠️</b> 附条件・有限定　<b>❓</b> 无公开信息（已注明询价对象）　<b>🚩</b> 重大风险</div>
+
+<div class="kicker"><b>第1部</b>读解的逻辑 ── 把保命的地图，转成收益的标尺</div>
+
+<h2><span class="no">01</span>灾害风险图是「保命的地图」</h2>
+
+<p>自治体洪水灾害风险图所描绘的淹没深度，原则上以设想最大规模（L2）——即<strong>年超越概率大致在1/1000以下</strong>的降雨为前提（国土交通省《洪水淹没预想区域图编制手册》第4版 ✅）。这不是「一千年一遇的周期」，而是「每年超过该规模的概率在0.1%以下」的意思。其目的是依据《水防法》确保避难疏散。人命即便面对千年一遇的洪水也不容有失，所以地图要展示最坏的那一张——作为制度设计，这是正确的。</p>
+
+<p>问题出在，当这「最坏的一张」被挪用为投资判断的二元过滤器时。淹没深度同为3m这一颜色，若它讲的是1/1000还是1/30，期望损失会相差两个数量级。用一张消除了频率信息的地图去判定一项20年运营的业务，概率维度根本对不上。</p>
+
+<p>而这种挪用，正好命中用地存量。若老老实实追逐电网侧储能电站的适宜条件——靠近并网点、地势平坦、地价便宜——候选地就会集中到冲积低地，而日本冲积低地的大部分在L2上都会被涂上某种颜色。若坚持「上色＝出局」，候选地就会向山麓、台地偏移，这次又要与泥沙灾害、造地费用、并网距离等另一批成本相交换。<strong>二元判断并没有消除风险，只是把它换成了另一种风险。</strong></p>
+
+<h2><span class="no">02</span>国家也备好了「用于业务判断的地图」</h2>
+
+<p>读解所需的概率数据，作为公开的一手信息全部存在。</p>
+
+<p><strong>概率（水害）✅：</strong>国土交通省自2022年12月起推进<strong>水害风险图（多级淹没预测图）</strong>的公开。它以年超越概率<strong>1/10（高频）・1/30（中高频）・1/50（中频）・1/100（中低频）・规划规模（1/150或1/200）・设想最大规模</strong>的多个层级，展示同一块土地的淹没深度，与L2那张单幅图是两回事。决定性的一点是，其编制指南（水管理・国土保全局，令和5年〔2023〕1月）本身就把该图的用途，<strong>以原文明确写为「企业的选址决策」「企业的BCP（业务连续性计划）编制」「水害保险费率的测算」</strong>（✅已在正文中确认）。「只有保命用的地图」，早已是过去时。</p>
+
+<p><strong>概率（地震）：</strong>防灾科研（NIED）的J-SHIS，以全国250m网格提供「30年内烈度6弱以上」等超越概率。<strong>气候变化的修正：</strong>在20年运营的前提下，宜将国土交通省治水规划修订建议（令和元年〔2019〕10月／令和3年〔2021〕4月修订 ✅）所示的官方系数——2℃升温情景下<strong>降雨量约1.1倍・河川流量约1.2倍・洪水发生频率约2倍</strong>——作为敏感性因素纳入。</p>
+
+<p>而且，这套「概率×损失额」的读解本身，就是国家在真实河流上一直运用的评估体系。例如在纪之川水系，国土交通省近畿地方整备局（和歌山河川国道事务所）已公开多级淹没预测图与水害风险图（收录于国土交通省《水害风险图一览》 ✅）；同为纪之川的直辖河川改修工程中，近畿地方整备局的项目评价（成本效益分析）依据《治水经济调查手册》，从年均淹没减少户数・面积测算出防灾效益——即与本文EAL同一骨架的期望损失额，并予以公开（事业评价监视委员会资料）。<strong>国家在治水投资的决策中，实际就在使用这把标尺。</strong>本公司独立调查并体系化的，正是把这套国家评估体系，读解衔接到储能电站这一民间资产的投资・保险判断上的那一段接口。</p>
+
+<h2><span class="no">03</span>从「是否属于」到「会损失多少」 ── EAL的搭建</h2>
+
+<blockquote>年期望损失（EAL）＝ Σ（年超越概率区间 × 损失率 × 资产额）＋ Σ（年超越概率区间 × 实际停运天数）× 每日收入损失 − 预计保险回收</blockquote>
+
+<p>第一项表示资产损毁，第二项表示<strong>业务连续性</strong>——停多少天、其间的收入如何接续。指南把「BCP编制」列为多级图的用途，讲的正是这第二项。损失率与停运天数都有国家的官方基准值。</p>
+
+<table>
+<tr><th>淹没深度（室内地面以上）</th><th>事业所折旧资产的损失率<span style="font-weight:400">※1</span></th><th>实际停运天数<span style="font-weight:400">※2</span></th></tr>
+<tr><td class="num">～0.5m</td><td class="num">23.2%</td><td class="num">15.8天</td></tr>
+<tr><td class="num">0.5～1.0m</td><td class="num">45.3%</td><td class="num">26.0天</td></tr>
+<tr><td class="num">1.0～2.0m</td><td class="num">78.9%</td><td class="num">37.8天</td></tr>
+<tr><td class="num">2.0～3.0m</td><td class="num">96.6%</td><td class="num">73.2天</td></tr>
+<tr><td class="num">3.0m～</td><td class="num">99.5%</td><td class="num">97.7天</td></tr>
+</table>
+<p class="tnote">※1 《治水经济调查手册（案）》平成17年（2005）4月版 表-4.4・折旧资产（✅已与原表核对一致）。<b>损失率已在令和2年〔2020〕4月版更新，真实项目建议直接参照最新的令和6年〔2024〕4月版正文</b>。※2 令和2年4月版 表-4.9（营业停止天数＋营业停滞天数×1/2，✅经复算与原数值一致）。※1与※2基于不同修订年度的版本。</p>
+
+<p>不过这是一般事业所的全国平均值，对BESS还需两项修正。两者都是把数字<strong>调严</strong>的方向。</p>
+
+<h3>修正① 损失函数按阶梯型（淹没＝全损100%）来读</h3>
+
+<p>住宅・事业所的损失率随淹没深度逐渐上升，但BESS不同。电池模组・PCS・变配电都是置于地表高度的电气・电子设备，锂离子电池一旦浸水，因残余能量（stranded energy）而难以安全放电・修复，在海水・污水中还存在从端子腐蚀走向内部短路・热失控的路径。海外BESS专业保险方的解读（Altelium等）梳理认为，<strong>浸水的电池单元通常会被按全损（total loss）处理</strong>；而厂家质保的IP等级（IP65等）针对的是防尘・防溅，浸没不在质保范围内——甚至可能构成质保失效事由。手册本身也把带电气系统的资产之代表——汽车，设定为<strong>浸水70cm（座椅面）以上即全损100%</strong>（令和2年4月版 ✅）。水一旦触及设备基础面即为100%，未触及则近乎0%——这条阶梯型曲线，才是在技术上诚实的损失函数。</p>
+
+<p>而这条阶梯型，恰恰是设计的命门。<strong>决定垫高多高，无非就是「用钱买下：把超越概率曲线上到哪一频率为止的损害归零」</strong>这件事。民间业者也有实装案例——英国Harmony Energy公司的Pillswood BESS（98MW/196MWh，2022年11月投运，投运时为欧洲最大级别 ✅），正是因选址存在洪水风险，而被建在填土平台之上。这是业者用钱买下概率曲线左侧、把上色地块变为运营资产的实例。此外，水不只会让收益停摆，还会点火——PG&amp;E的Elkhorn Battery（2022年9月）起火原因被认定为：排气面板（deflagration vent shield panel）施工不良导致雨水侵入集装箱内（PG&amp;E公布 ✅）。</p>
+
+<h3>修正② 停运天数，由设备的采购交付周期主导</h3>
+
+<p>手册的停运天数（3m以上约98天）是一般事业所的实绩，BESS全损时这只是下限。变配电设备为按单定制生产（国土交通省・经产省《建筑物电气设备浸水对策指南》亦指出恢复需要相当长的时间）。特高压变压器的交货周期，<strong>按实际订单平均为128周（约2.5年），升压用GSU约143～144周</strong>（Wood Mackenzie 2025年Q2调查，<strong>美国T&amp;D市场</strong> ⚠️）——日本国内同为按单定制、长交期，结构相同。PCS为6～12个月，电池集装箱也在4～6个月级别（实务视角的推定值）。</p>
+
+<p>更进一步，停运还会叠加市场处罚。在容量市场中，履约要求未达成时段的年度累计一旦<strong>超过8,640时段（相当于180天）</strong>，即成为经济处罚对象。而且，<strong>未在规定期限（如前一周周二17时）前提交容量停运计划的停运，以及在广域备用率低于8%的紧张时段所对应的未达成时段，未达成时段可按5倍计</strong>（OCCTO《容量市场业务手册》・对象实需给2026年度 ✅）。「停了多少天」，会经由与损失额不同的另一条路径来削减收益。</p>
+
+<div class="kicker"><b>第2部</b>换算成金额 ── 模型试算，以及对保险的传导</div>
+
+<h2><span class="no">04</span>模型试算 ──「临河的土地」换算成金额后</h2>
+
+<p>这是本公司独立搭建的模型试算。前提为<strong>高压2MW/8MWh、折旧资产4.0亿日元（CAPEX约4.8亿日元＝6万日元/kWh）</strong>。该单价是资源能源厅・固定式储能系统普及扩大研讨会分析中的参照基准值，2024年度的实际水平约为系统5.4万日元＋施工1.4万日元/kWh（✅）。<strong>每日收入损失为13万日元/天</strong>（容量市场＋JEPX套利。年毛收入「约4,600万日元」是按实际运行率取整；若按365天满负荷运行则约4,745万日元）。淹没概率方面，选取一处可从多级图读出「1/10开始淹没、1/30时0.5m、1/50时1m、1/100时2m、设想最大（1/1000）时3m」的临河场地作为<strong>示例</strong>。</p>
+
+<table>
+<tr><th>淹没深度区间</th><th>年超越概率区间</th><th>损失率（折旧资产）</th><th>实际停运天数</th></tr>
+<tr><td class="num">0～0.5m</td><td class="num">0.0667</td><td class="num">23.2%</td><td class="num">15.8天</td></tr>
+<tr><td class="num">0.5～1.0m</td><td class="num">0.0133</td><td class="num">45.3%</td><td class="num">26.0天</td></tr>
+<tr><td class="num">1.0～2.0m</td><td class="num">0.010</td><td class="num">78.9%</td><td class="num">37.8天</td></tr>
+<tr><td class="num">2.0～3.0m</td><td class="num">0.009</td><td class="num">96.6%</td><td class="num">73.2天</td></tr>
+<tr><td class="num">3.0m以上</td><td class="num">0.001</td><td class="num">99.5%</td><td class="num">97.7天</td></tr>
+</table>
+<p class="tnote">概率区间为示例（真实场地应从该河流的多级淹没预测图读取实测数值）。计算由ScienceX完成（已用计算器复算）。</p>
+
+<p>结果为：<strong>财产损失EAL约1,560万日元/年＋停运EAL约33万日元/年 ≒ 合计约1,600万日元/年</strong>。20年累计（未贴现）约3.2亿日元，相当于<strong>CAPEX的约67%</strong>（即便按5%贴现率折现，现值也约2.0亿日元＝CAPEX的约四成）。「临河低地作为业务很吃力」这一直觉，量化之后同样得到印证——到这里为止，结论与二元判断一致。</p>
+
+<p>差别，出现在下一手。同一把标尺也能量出<strong>对策的价格</strong>。将设备基础面垫高1m，则淹没深度1m以下的概率区间——超越概率曲线上最厚的那一段——被归零，<strong>EAL降至年约720万日元、几乎减半</strong>（年约880万日元的削减。即便是更高的淹没区间，设备实际承受的淹没深度也会浅1m，故实际削减幅度还会更大）。于是可以从「因为上了色所以回避」，转为「比较垫高费用、年约880万日元的削减效果、以及后文所述的保险条件改善」——这样的决策成为可能。请在下方试算机里，拖动资产额・每日收入・垫高高度亲自验证。</p>
+
+<div class="calc">
+<div class="head"><span>EAL简易试算机 ── 垫高高度会如何改变期望损失</span><span class="tag">INTERACTIVE</span></div>
+<div class="body">
+<div class="row"><label>折旧资产额 <output id="oA">4.0亿日元</output></label><input type="range" id="sA" min="2" max="8" step="0.5" value="4"></div>
+<div class="row"><label>每日收入损失 <output id="oD">13万日元/天</output></label><input type="range" id="sD" min="5" max="30" step="1" value="13"></div>
+<div class="row"><label>设备基础面的垫高高度 <output id="oH">0.0m</output></label><input type="range" id="sH" min="0" max="3" step="0.5" value="0"></div>
+<div class="res">
+<div><div class="k">财产损失EAL</div><div class="v" id="rP">—<small>万日元/年</small></div></div>
+<div><div class="k">停运EAL</div><div class="v" id="rS">—<small>万日元/年</small></div></div>
+<div><div class="k">合计EAL</div><div class="v" id="rT">—<small>万日元/年</small></div></div>
+<div><div class="k">20年累计（未贴现）</div><div class="v" id="rC">—<small>亿日元</small></div></div>
+</div>
+<p class="tnote" style="margin-top:10px">概率区间固定为正文示例值（1/10开始淹没～1/1000时3m）。垫高采用「将上沿低于垫高高度的淹没区间之损害归零」的保守简化计算，未计入更高区间实际淹没深度的下降。损失率为一般事业所值（叠加BESS修正＝设备层被触及即全损100%后，设备没入水面以下的情形会偏高）。真实场地的评估仍需多级图的实测数值・地质勘察・投保条件。</p>
+</div>
+</div>
+
+<p>要明确写下三点提示。第一，概率区间为示例。第二，表中的损失率为一般事业所值，叠加BESS修正（设备层被触及＝全损100%）后，当设备处于垫高高度之下时会偏高——也就是说，<strong>损失率不仅取决于选址，也是可用设计来调动的变量</strong>。第三，停运EAL明确是下限（若变配电全损，停运天数会上一个数量级）。</p>
+
+<h2><span class="no">05</span>保险随之改变 ──对「投保方式」与「费率」的传导</h2>
+
+<p>EAL评估既是投资判断的工具，同时也是<strong>保险设计的输入</strong>。这里是它与二元判断在实务上最大的分野。</p>
+
+<p><strong>保险公司读的是同一张地图。</strong>个人火灾保险的水灾费率自2024年10月起细分为按市区町村的5个区档（损害保险费率计算机构，2023年6月备案 ✅。地区间差异在<strong>保费整体约1.2倍、水灾费率单项约1.5倍</strong>）。这虽是个人参考纯费率、企业物件另行个别承保，但把选址风险反映进费率的方向是一致的。海外的BESS专业保险承保方走得更靠前——专业承保方的解读（Altelium等）认为，选址评估仅有「是否属于百年一遇区」这类<strong>色块信息并不够</strong>，要求提交多个重现期的淹没深度（米数值）。<strong>率先告别二元法的，正是承保保险的一方。</strong>反过来说，能自行拿出各概率淹没深度与对策设计的业者，就能与承保方在同一分辨率上谈条件。坏地图无法用保险来套利，只会化作保费与免赔额回到自己身上；而好数据，则是能撬动条件的筹码。</p>
+
+<p>在此之上，EAL还规定了投保设计（投保方式）的各项细节。</p>
+
+<ul class="tight">
+<li><strong>水灾保障的结构：</strong>企业财产保险的水灾，以缩减赔付比例（商品示例中可在5～70%间选择）・免赔额・赔付限额予以保障。在已用垫高把高频区间损害归零的场地，小额高频索赔随之消失，因此<strong>把免赔额取厚一些以压低费率、将保障集中到尾部（低频・大损）</strong>的设计会更合理。其思路，就是让EAL曲线与免赔额・缩减赔付的选择相互匹配。</li>
+<li><strong>地震类附加险的取舍：</strong>按条款，地震・喷发・<strong>海啸</strong>属标准除外责任，海啸不归「水灾」而被分类到地震侧。<strong>液化・地面沉降若为地震所致，也落在同一除外责任侧</strong>。要填补需地震风险保障附加险（扩展保障），但承保与否・投保比例上限・费率均为不公开的个别报价（❓无公开信息）。场地的灾害构成越偏向地震类（海啸・液化），「无附加险即等于无保险」的残余就越多——这一残余在保险设计中无法消除，<strong>只能在选址阶段加以控制</strong>。</li>
+<li><strong>BI（营业中断）的赔偿期间：</strong>赔偿期间1年左右是实务的起点，但全损时变压器的交货周期在2.5年级别（美国调查值）。<strong>赔偿期间用尽之后的收入损失，在结构上就是无保险</strong>。赔偿期间可否延长・成本，与备件策略（备用变压器等），应放在同一场地上比较（BI设计的各项细节见<a href="https://www.scix.co.jp/zh-column-bess-insurance">COLUMN 18</a>）。</li>
+<li><strong>参数型保险的补充：</strong>以烈度等指标联动、无需定损即可提前赔付的产品，日本国内也确有其例。东京海上日动「防震EQuick保险」于2021年3月开售，为<strong>日本国内财险首个</strong>指数型（✅该公司发布原文）。三井住友海上的烈度联动附加险（2025年）、瑞士再保险在2022年福岛县外海地震中约2个月后赔付、Descartes等外资入场等，均据各家公布・报道（⚠️）。它并非实损填补、仍残留基差风险，但可作为补足BI定损长期化的<strong>恢复资金的初期流动性</strong>发挥作用。</li>
+<li><strong>赔付时点的风险：</strong>BESS的火灾・事故往往查因耗时。鹿儿岛县伊佐市的储能电站火灾（2024年3月27日），据报道尽管已投保，发生逾一年仍未获赔（PVeye 2025年6月号 ✅）；截至2026年7月，未见已赔付的后续报道。保险不应以「投没投」来评价，而应以<strong>「何时・赔多少・以什么为条件才赔」</strong>来评价。</li>
+</ul>
+
+<p>归结起来，EAL是把用地的减价谈判・对策工费・保费・自留残余，<strong>放在同一货币下比较的公分母</strong>。问题于是从「要不要投保」，变为「哪一层损失交给工程、哪一层交给保险、哪一层由土地价格来承担」的配置问题。</p>
+
+<h2><span class="no">06</span>三层分类 ── veto／priceable／设计输入</h2>
+
+<table>
+<tr><th>层级</th><th>定义</th><th>典型例</th><th>处理方式</th></tr>
+<tr><td><strong>veto（撤退）</strong></td><td>工程对策消不掉，保险在经济上也不成立</td><td>房屋倒塌等泛滥预想区域、超出垫高极限的深淹（参考：L2下超过3m～5m级以上）、泥沙灾害特别警戒区域</td><td>越量化，数字越是否定项目可行性。撤退</td></tr>
+<tr><td><strong>priceable（可定价）</strong></td><td>对策费＋保费＋残余EAL可换算成金额，纳入IRR</td><td>中等程度的河川泛滥・内涝（垫高・水灾保障）、液化（地质加固・桩基）</td><td>取得用地减价・对策费・投保条件，用数字定夺可否</td></tr>
+<tr><td><strong>设计输入</strong></td><td>不涉及选址可否，而落到EPC的设计条件</td><td>表层场地放大、断层近旁的地震动（正上方除外）、场地内排水</td><td>作为基础・锚固规格的输入值。不作为投资判断的变量</td></tr>
+</table>
+
+<p><strong>房屋倒塌等泛滥预想区域之所以是veto，是因为它并非淹没深度的函数。</strong>该区域是指堤防溃决时，因泛滥流的流体力与河岸侵蚀而设想会导致构筑物倒塌・冲失的范围（泛滥流・河岸侵蚀两类。依据《水防法》，以2015年关东・东北暴雨为契机推进公开 ✅）。其致损模式不是「浸没」而是「连基础一起冲走」，垫高消不掉、损失率实际为100%，保险承保也会因选址本身而条件崩坏。量化既是「拯救上色土地」的工具，同时也是<strong>用投资委员会的语言，标示出救不了的土地</strong>的工具。</p>
+
+<p><strong>液化，本应是priceable。</strong>灾害风险图中「液化可能性高」的判定（PL值等）是对原状地基的评估，并未计入地质加固的效果。也就是说，液化可作为地质加固费用来定价。只是其残余风险如前所述落在<strong>地震除外责任侧</strong>——这正是它与水害的决定性差异。市场实务之所以往往轻看液化，不是因为风险低，而是因为判读需要地质知识素养。开发・转售方的持有期短，会一直持有到地震风险显现的，是长期持有方——正因如此，对买方而言，这才是值得细究的议题。</p>
+
+<p><strong>断层近旁，除正上方外属于设计输入。</strong>活动断层建筑退线规制的立意，在于居住建筑中的人命保护。可查的代表例中，加利福尼亚州为距断层50英尺＝约15m（Alquist-Priolo法 ✅），此外新西兰・台湾・日本国内的地区计划案例被认为在10～25m级别（据地盘工学会中部支部的梳理等的参考值 ⚠️）。地表地震断层的破坏集中在断层正上方的带状区域（1971年圣费尔南多地震中，正上方建筑损坏率约80%，而间隔区不足30% ✅）；对于无人的集装箱式构筑物，地表位移可通过基座布置来规避，震动则作为基础・锚固的设计条件来处理，这在工程上才是准确的。此处再次重申本文的原则——「不要把保命的地图・规制，延伸套用到无人设施的业务判断上」。</p>
+
+<h2><span class="no">07</span>先例，与评估一方的实名 ── 地震PML的旁边，有一个洪水版的空位</h2>
+
+<p>「在一个有灾害的国家，仍能接纳机构投资者的资金」——这套语汇，隔壁市场已用四分之一个世纪造好了：那就是房地产证券化的地震PML（重现期475年的预想最大损失率）。<strong>大致以PML15～20%为阈值，超过则考虑・条件化地震保险的投保</strong>——这一运用已作为实务经验参考固定下来（⚠️阈值区间属实务惯例）。没有人会说「因为是地震国，所以房地产不能投」。</p>
+
+<p>而评估的实务基础设施，在储能电站这边也已渐次备齐。东京海上集团的东京海上dR，公布了电网侧储能的设施风险（自然灾害・火灾）报告（Tokio dR-EYE ✅）；针对可再生能源发电设施，其以「项目融资组建时自然灾害风险的定量评估不可或缺」为由，商业化提供PML评估（该公司服务页原文 ✅。水灾评估＝淹没预想区域图＋Fathom的分重现期洪水灾害＋泛滥模拟）。SOMPO风险管理也提供按重现期测算损失额的概率论地震・海啸PML评估与水灾风险评估。在第三方技术尽调方面，TÜV莱茵日本自2023年11月起提供面向电网侧储能的技术尽职调查（含选址评估・现场勘察），并公布<strong>截至2024年10月已完成日本国内规划・开发阶段的多个案例，报告不仅开发业者需要，正在推进PF的银行・金融机构提出索取的情形也很多</strong>（✅该公司新闻稿）。在上市基础设施基金中，按物件披露持有发电资产的地震PML、并进行组合PML管理，已作为运营惯例固定下来。</p>
+
+<p>要之，评估的一方（财险系风险咨询・第三方认证机构）与披露的载体（基金实务）都已存在。公开信息中唯一无法确认的，<strong>只有业者一方「已用多级概率×EAL选定过某个储能电站案例」的披露</strong>（❓尽调报告通常不公开）。反过来讲，主动把这份计算书递到投资者面前的卖方，目前还没有——<strong>先行者的空间，就在这里</strong>。把多级图的年超越概率、依手册测算的损失率（含BESS修正）、基于采购交付周期的停运天数、保险的保障范围与除外责任——凝成一张EAL计算书递出去，就能把「因为临河」这一行字，换成「1/100时设备层是否干燥」「残余EAL占年收入的百分之几」这类<strong>可谈判的问题</strong>。</p>
+
+<h2><span class="no">08</span>这套框架的局限</h2>
+
+<p>期望损失评估并非万能。为了诚实地运用它，先把填不上的坑列在前面。</p>
+
+<ul class="tight">
+<li><strong>保险的结构性缺口：</strong>因缩减赔付・免赔额・赔付限额，即便水灾也拿不回全额。地震・喷发・海啸属标准除外责任，扩展保障的条件依物件而定（❓无公开标准）。</li>
+<li><strong>赔付的延迟：</strong>因查因长期化，保险金入账与恢复资金需求可能错位（伊佐市之例）。</li>
+<li><strong>时间不会倒流：</strong>保险能还回财产，但按单定制设备的再采购周期、以及超出赔偿期间的收入损失，还不回来。</li>
+<li><strong>费率在保期内波动：</strong>BESS的保险市场损失历史尚浅，续保时存在条件恶化风险。</li>
+<li><strong>前提的过时：</strong>灾害风险图・地震概率会更新。南海海槽地震的30年发生概率，在2025年9月26日修订后改为「约60～90%以上」与「20～50%」两值并列（基准日2025年1月1日 ✅。每年1月更新基准日，务必确认评估时点的最新值）。取得时「区域外」将来「区域内化」的风险，是EAL模型本身所带的不确定性。</li>
+<li><strong>公开信息的空白 ❓：</strong>BESS的财产＋BI保险费率水平、地震扩展保障的承保实态、BI赔偿期间・逸失利益测算的实务，均无公开信息。只能通过向财险公司个别询价来补全；反过来说，握有询价结果者可占据信息优势。</li>
+</ul>
+
+<div class="kicker"><b>第3部</b>动手做 ── 把单个候选地，从地图一路运到保险询价</div>
+
+<h2><span class="no">09</span>实务工作流 ── 周一早晨，收到一个候选地的地址时</h2>
+
+<p>逻辑到此为止。实务可以折成4步。①所用的数据，除不动产登记外全部是免费的公开信息。</p>
+
+<table>
+<tr><th>步骤</th><th>要做什么</th><th>用到什么</th><th>得到什么</th></tr>
+<tr><td><strong>① 桌面筛查（1天）</strong></td><td>灾害＋地基・坡度＋规制・周边・并网的一次性判定</td><td>下方一览表（14项・附URL）</td><td>是否触及veto、各概率淹没深度（m）、规制类停止因素、地基・坡度・住宅距离</td></tr>
+<tr><td><strong>② 简易EAL（一张Excel）</strong></td><td>以04的表为模板计算期望损失</td><td>①的各概率淹没深度、设备基础面的规划标高、资产额・每日收入</td><td>财产损失EAL＋停运EAL、三层分类的判定</td></tr>
+<tr><td><strong>③ 用设计买概率</strong></td><td>把垫高・桩基・地质加固的工费与EAL削减额按年换算比较</td><td>EPC・地质勘察公司（钻探＋FL/PL判定）</td><td>对策后的残余EAL与对策费</td></tr>
+<tr><td><strong>④ 保险询价→投资委员会</strong></td><td>附上各概率数据＋对策设计向财险公司询价</td><td>多家财险公司，必要时第三方技术尽调</td><td>缩减赔付・免赔额・费率、地震附加险承保与否、BI赔偿期间 → 结论三条件的判定依据</td></tr>
+</table>
+
+<h3>① 用最初30分钟排掉veto级，用一天拿出候选地的全貌</h3>
+
+<p>入口是「叠加灾害风险图（重ねるハザードマップ）」。输入地址，先看是否触及房屋倒塌等泛滥预想区域（泛滥流・河岸侵蚀）与泥沙灾害特别警戒区域。若触及，就到此为止——不再耗费②之后的工时。存活下来的候选地，再走一遍下列14项。<strong>这是一张既避免「只看灾害却死在规制上」、又避免「只看规制却死在灾害上」的清单。</strong></p>
+
+<table>
+<tr><th>#</th><th>确认项</th><th>查询处</th><th>关注点／需注意的红线</th></tr>
+<tr><td>1</td><td>洪水・内涝・风暴潮・海啸・泥沙</td><td><a href="https://disaportal.gsi.go.jp/">叠加灾害风险图（重ねるハザードマップ）</a></td><td>房屋倒塌等泛滥预想区域・泥沙灾害特别警戒区域＝veto。记录淹没深度与淹没持续时间</td></tr>
+<tr><td>2</td><td>各概率淹没深度（多级）</td><td><a href="https://www.mlit.go.jp/river/kasen/ryuiki_pro/risk_map.html">国土交通省《水害风险图一览》</a></td><td>以m为单位记录1/10～规划规模的淹没深度。以国管河流为主，未整备的县管河流用L2＋规划规模两点近似</td></tr>
+<tr><td>3</td><td>地震动</td><td><a href="https://www.j-shis.bosai.go.jp/">J-SHIS</a></td><td>30年烈度6弱以上超越概率、表层场地放大系数（超过1.5须注意・2.0以上需对策，为<strong>本公司实务经验参考</strong>）</td></tr>
+<tr><td>4</td><td>活动断层</td><td><a href="https://gbank.gsj.jp/activefault/">产综研 活动断层DB</a>／地理院地图的活动断层图层</td><td>实测间隔距离。仅正上方需靠布置规避，近旁的震动作为设计输入（06）</td></tr>
+<tr><td>5</td><td>液化的初判</td><td><a href="https://maps.gsi.go.jp/">地理院地图</a>（治水地形分类图・明治时期的低湿地）</td><td>旧河道・背后湿地・填海地・围垦地是液化的常客地形。作为③地质加固费的前提</td></tr>
+<tr><td>6</td><td>地基</td><td><a href="https://www.kunijiban.pwri.go.jp/">KuniJiban</a></td><td>周边钻孔的N值・地下水位・持力层深度 → 初判基础形式（筏板基础还是桩基）</td></tr>
+<tr><td>7</td><td>标高・坡度</td><td><a href="https://maps.gsi.go.jp/">地理院地图</a>（标高显示・断面图・坡度量图）</td><td>场地标高与周边高差（洼地须注意内涝），坡地的挖填・挡墙费与泥沙风险相联动</td></tr>
+<tr><td>8</td><td>区域区分・用途地域</td><td>各自治体的城市规划信息系统（例：<a href="http://oup2.city.okayama.jp/">冈山市 城市规划信息系统</a>／<a href="https://www.city.wakayama.wakayama.jp/kurashi/douro_kouen_machi/1009501/index.html">和歌山市 城市规划・城市指南</a>）</td><td>城市化控制区域（市街化调整区域）依国都计第7号（2025年4月）成为开发许可对象。存在因自治体未制定审查基准而事实上无法设置之例（详见<a href="https://www.scix.co.jp/zh-column-four-labels">COLUMN 31</a>）</td></tr>
+<tr><td>9</td><td>农地・农振</td><td><a href="https://map.maff.go.jp/">eMAFF农地导航</a>＋登记地目（登记信息提供服务）</td><td>农业振兴农用地区域（青地）除外手续漫长・不确定，属规制类veto级。甲种・第1种农地转用原则上不予许可</td></tr>
+<tr><td>10</td><td>森林</td><td>都道府县的森林GIS（例：<a href="https://wakayamaken.geocloud.jp/">和歌山县地理信息系统</a>＝公开地域森林计划对象的私有林区域／<a href="https://www.gis.pref.okayama.jp/">冈山全县整合型GIS</a>）</td><td>保安林解除极为困难＝回避。超过一定规模的开发需林地开发许可（面积要件请确认最新政令・自治体运用）</td></tr>
+<tr><td>11</td><td>填土规制・造地履历</td><td>自治体的规制区域图（例：<a href="https://www.pref.wakayama.lg.jp/prefg/080900/kaihatsu/kaihatsutop/takuzokyoka/h18kaisei.html">和歌山县 填土规制法・填土等信息管理系统</a>）／<a href="https://www.mlit.go.jp/toshi/toshi_tobou_fr_000004.html">国土交通省 大规模填土造地地图</a></td><td>区域内的造地，因许可・中间／竣工检查而影响工期（和歌山县2025年5月起运用，和歌山市域为同年4月）。填谷填土在地震时有滑动崩落风险</td></tr>
+<tr><td>12</td><td>消防</td><td>向辖区消防的事前咨询（例：<a href="https://www.city.hashimoto.lg.jp/guide/shobohonbu/oshirase/jigyoshooshirase/17276.html">桥本市消防本部＝纪之川流域火灾预防条例修订解说</a>）</td><td>超过20kWh的储能设备为申报对象，原则上与建筑物间隔3m以上（令和5年〔2023〕消防厅告示第7号・2024年1月施行。符合告示第3条延烧防止措施可放宽）。设计前须协商</td></tr>
+<tr><td>13</td><td>至最近住宅的距离</td><td><a href="https://maps.gsi.go.jp/">地理院地图</a>・航拍图的测量工具</td><td>实测场地边界～住宅的距离。50m以内是噪声的须注意红线（<strong>本公司实务经验参考</strong>。夜间充电限制直击收益——<a href="https://www.scix.co.jp/zh-column-noise">COLUMN 10</a>）</td></tr>
+<tr><td>14</td><td>电网</td><td><a href="https://www.enecho.meti.go.jp/category/saving_and_new/saiene/grid/07_map.html">资源能源厅「原来如此！电网」空余容量地图一览</a>（例：<a href="https://www.kansai-td.co.jp/consignment/disclosure/distribution-equipment/index.html">关西电力送配电</a>＝亦公开面向储能的大规模增强地区地图／<a href="https://www.energia.co.jp/nw/service/retailer/keitou/access/">中国电力网络 电网接入信息</a>）</td><td>至并网点的距离与空余容量。此处若立不住，那是灾害评估之前的问题（<a href="https://www.scix.co.jp/zh-column-grid">COLUMN 04</a>）</td></tr>
+</table>
+<p class="tnote">示例URL为纪之川流域（和歌山）与冈山的县・市系统——城市规划・森林・填土・消防条例并无全国统一门户，系统按自治体各自分立。其他县也可用「县名＋整合型GIS」「市町村名＋城市规划图」到达同类系统。读法有两点须注意。第一，<b>规制类（8～10）与灾害的veto同等分量</b>——青地・保安林・无审查基准的调整区域，都是像EAL那样无法定价的「超时型」停止因素，若不在①的阶段排除，②之后的定量评估便是白费。第二，做这一筛查不是为了排除，而是<b>为了给②备齐输入变量</b>。视需要，可在这一天顺带确认地下文物埋藏区（自治体的遗迹地图。冈山全县整合型GIS亦载有埋藏文化财图层）与雨水径流抑制义务（多数自治体以场地超过1,000㎡为调蓄池的门槛）。</p>
+
+<h3>② EAL一张Excel就够</h3>
+<p>04的表可直接作模板。关键是把「设备基础面的规划标高（GL＋几米）」作为变量持有——只需把各概率淹没深度触及基础面的区间置为损失率100%、未触及的区间置为0%，就成了阶梯型的BESS版EAL。若在此处看不到残余EAL能收在年收入个位数百分比以内的前景、又无对策余地，那就无须进入③，可以撤退。</p>
+
+<h3>③ 垫高高度，从「要守到什么频率」倒推</h3>
+<p>不要先想「垫高几米」，而要先定「把到哪一年超越概率为止的损害归零」（例：以1/100的淹没深度＋富余高度作为基础顶面。思路与《电气设备浸水对策指南》的高位设置・防洪线相同）。手段分三系——整个场地的填土（公开单价参考约6,500～7,400日元/m³，挡墙2万～8万日元/m²）、设备台架・基础的抬升（局部而廉价；从「一沾水就全损」的变配电・PCS等设备优先抬起）、桩基（兼顾锚入持力层与液化对策）。若同时叠加液化，可用地质加固：表层加固约3,000～7,000日元/m²，柱状加固1万～3万日元/m²，对策整体1万～10万日元/m²（施工面积越大单价越低），这些是公开单价的参考。<strong>但这些多以住宅・一般土木的公开单价为主，部分还是2011年时点的直接工程费——在当下建筑物价上涨下已偏高，BESS规模的实际水平请务必以EPC・地质勘察公司的报价确认（⚠️）。</strong>决策的标尺始终是「对策费（年化）对 EAL削减额」——以04的例子，垫高1m相当于年约880万日元的削减。能做出这一比较本身，就是从二元判断毕业。</p>
+
+<h3>④ 面向财险公司，带去的不是「颜色」而是「米数值」</h3>
+<p>询价包为三件：各概率淹没深度・基础顶面标高・对策设计图。应取得的答复分三系——(a) 水灾的缩减赔付比例・免赔额・赔付限额・费率，(b) 地震风险保障附加险的承保与否及条件（在海啸・液化偏重的选址，这是最优先的询价项），(c) BI的赔偿期间上限与免赔期。承保被拒・高免赔额的部分，不能当作已经消失，而要<strong>作为「自留残余」以金额留在EAL计算书里</strong>。最终带进投资委员会的，是一整套：EAL计算书＋对策费＋投保条件＋下列三条件核对。若是有贷款方的案例，提前取得第三方技术尽调（含选址评估），可预先堵住授信一方的提问。</p>
+
+<h2><span class="no">结</span>带进投资委员会的三条件</h2>
+
+<p>在日本的平原地带，等待「一处毫无淹没之虞的土地」，等同于放弃机会。作为替代，我们提议用下列三条件来分拣案例。</p>
+
+<ul class="tight">
+<li><strong>① 基于多级淹没预测图各概率淹没深度的EAL</strong>（损失率按阶梯型・全损100%修正），收在业务计划的可承受范围内——参考值为残余EAL占年收入个位数百分比</li>
+<li><strong>② 水灾保障（含缩减赔付・免赔额设计），以及在灾害构成上必要时的地震风险保障附加险</strong>，能以经济合理的费率成立</li>
+<li><strong>③ 不触及房屋倒塌等泛滥预想区域・泥沙灾害特别警戒区域等veto级</strong></li>
+</ul>
+
+<p>这三条件，改写了「可投资土地」的定义。即便在L2上被上了色，只要在多级图的1/100时设备设置层仍是干燥的、且保险结构无须过度依赖地震附加险即可闭合，这块土地就可能是残余EAL很小的优质场地。反之，颜色再浅、却会被高频内涝浸泡的低地，是危险的。<strong>该划线的地方，不是有没有颜色，而是EAL的水平。</strong></p>
+
+<p>灾害风险图，不是一张告诉你投资可否的地图。<strong>它是保护生命的地图；对业务而言，它是期望损失的输入数据。</strong>谁先拥有这套读解的语汇，冲积平原这一日本最大的适宜用地存量，就先向谁开启。</p>
+
+<div class="alert"><span class="ttl">出处・计算规格（截至2026年7月12日）</span>
+<b>一手（政府）：</b>国土交通省 水管理・国土保全局《关于多级淹没预测图及水害风险图的研究・编制指南》（令和5年〔2023〕1月）／《水害风险图一览》（https://www.mlit.go.jp/river/kasen/ryuiki_pro/risk_map.html）／《洪水淹没预想区域图编制手册（第4版）》／《治水经济调查手册（案）》平成17年（2005）4月版 表-4.4・令和2年（2020）4月版 表-4.3.2／表-4.9（最新为令和6年〔2024〕4月版）／《基于气候变化的治水规划方向》建议（令和元年〔2019〕10月・令和3年〔2021〕4月修订）／国土交通省・经产省《建筑物电气设备浸水对策指南》（令和2年〔2020〕6月）／近畿地方整备局 和歌山河川国道事务所（纪之川水系）・事业评价监视委员会《纪之川直辖河川改修工程 再评价说明资料》／地震调查研究推进本部《南海海槽地震活动的长期评价（部分修订）》（2025年9月26日・基准日2025年1月1日）／防灾科研 J-SHIS／OCCTO《容量市场业务手册 实需给期间内履约要求应对（对象实需给2026年度）》／损害保险费率计算机构 火灾保险参考纯费率修订（2023年6月备案・2024年10月适用）／消防厅告示第7号（2024年1月施行）。<br>
+<b>当事方公布：</b>东京海上dR（Tokio dR-EYE 2024 No.5，可再生能源设施风险评估・自然灾害风险评估）／SOMPO风险管理（地震・海啸PML评估）／TÜV莱茵日本（电网侧储能 技术尽调，2023年11月・2024年10月更新）／东京海上日动「EQuick保险」（2021年3月）／PG&amp;E（Elkhorn Battery 2022年9月・原因公布）／Wood Mackenzie 2025年Q2 T&amp;D调查（美国市场：变压器128周・GSU约143～144周）／Harmony Energy（Pillswood BESS）。<br>
+<b>专业媒体・解读：</b>PVeye 2025年6月号（伊佐市・保险金未付）／Energy-Storage.News（Altelium供稿：淹没全损・填土平台・多重重现期要求）／kWh Analytics・GCube 各方公开资料。<br>
+<b>试算前提：</b>2MW/8MWh・折旧资产4.0亿日元（CAPEX约4.8亿日元＝6万日元/kWh：资源能源厅研讨会的参照基准值。2024年度实际为系统5.4万＋施工1.4万日元/kWh）・每日损失13万日元（按365天满负荷折算约4,745万日元/年，正文按实际运行率取整为约4,600万日元）。概率区间为示例。工程单价基于住宅・一般土木的公开资料（部分为2011年直接工程费・因物价上涨偏高），实际水平须以EPC报价确认。<br>
+<b>附注：</b>ScienceX与特定的厂家・EPC・聚合商・保险公司不存在资本关系。本文是基于公开一手信息的中立性梳理，不推荐特定的商品・工法・业者，亦不以投资招揽・投资建议为目的。噪声（COLUMN 10）・选址规制全貌（COLUMN 31）・保险设计各论（COLUMN 18）・开发流程（COLUMN 13）请分别参照各篇。</div>
+
+<div class="related"><span class="lbl">延伸阅读 / RELATED</span><a href="https://www.scix.co.jp/zh-column-bess-insurance">电网侧储能电站的保险设计 ── 业主应在运营期内配置的6项保险 →</a></div>
+
+</div><!-- /wrap -->
+
+<div class="cta">
+<h3>用地灾害风险评估・EAL计算书编制支持</h3>
+<p>本文是基于公开信息的方法论梳理。针对具体候选地的多级概率・EAL试算・投保条件询价设计，<br>将在您咨询并签署NDA后单独提供协助。</p>
+<a class="btn" href="https://www.scix.co.jp/zh-contact">联系咨询 →</a>
+</div>
+
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans SC',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo img { height:40px; width:auto; display:block; }
+  .scix-footer-info { text-align:center; }
+  .scix-footer-company { margin-bottom:14px; }
+  .scix-footer-company .company-name { font-size:14px; font-weight:500; margin-bottom:6px; letter-spacing:.04em; }
+  .scix-footer-company a { color:rgba(255,255,255,0.85); text-decoration:none; }
+  .scix-footer-company .representative { margin-top:6px; font-size:12px; color:rgba(255,255,255,0.6); }
+  .scix-footer-copyright { font-size:11px; color:rgba(255,255,255,0.45); letter-spacing:.05em; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img src="https://www.scix.co.jp/img/logo-white.png" alt="ScienceX Science X Inc." loading="lazy">
+    </a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X 股份有限公司（ScienceX）</div>
+        〒103-0016 日本东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        电话: <a href="tel:0364034095">+81-3-6403-4095</a><br>
+        邮箱: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">董事长 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var bands=[
+    {lo:0,  hi:0.5, p:0.0667, dmg:0.232, days:15.8},
+    {lo:0.5,hi:1.0, p:0.0133, dmg:0.453, days:26.0},
+    {lo:1.0,hi:2.0, p:0.010,  dmg:0.789, days:37.8},
+    {lo:2.0,hi:3.0, p:0.009,  dmg:0.966, days:73.2},
+    {lo:3.0,hi:99,  p:0.001,  dmg:0.995, days:97.7}
+  ];
+  var sA=document.getElementById('sA'),sD=document.getElementById('sD'),sH=document.getElementById('sH');
+  function fmt(n){return n.toLocaleString('zh-CN',{maximumFractionDigits:0});}
+  function calc(){
+    var A=parseFloat(sA.value), D=parseFloat(sD.value), H=parseFloat(sH.value);
+    document.getElementById('oA').textContent=A.toFixed(1)+'亿日元';
+    document.getElementById('oD').textContent=D+'万日元/天';
+    document.getElementById('oH').textContent=H.toFixed(1)+'m';
+    var pd=0, st=0;
+    bands.forEach(function(b){
+      if(b.hi<=H) return;               // band fully below raised base -> zero
+      pd+=b.p*b.dmg;                    // damage coefficient
+      st+=b.p*b.days;                   // expected outage days
+    });
+    var pdMan=pd*A*10000;               // 亿日元 -> 万日元
+    var stMan=st*D;                     // days * 万日元/day
+    var tot=pdMan+stMan;
+    document.getElementById('rP').innerHTML=fmt(pdMan)+'<small>万日元/年</small>';
+    document.getElementById('rS').innerHTML=fmt(stMan)+'<small>万日元/年</small>';
+    document.getElementById('rT').innerHTML=fmt(tot)+'<small>万日元/年</small>';
+    document.getElementById('rC').innerHTML=(tot*20/10000).toFixed(1)+'<small>亿日元</small>';
+  }
+  [sA,sD,sH].forEach(function(s){s.addEventListener('input',calc);});
+  calc();
+})();
+</script>
+
+</body>
+</html>
