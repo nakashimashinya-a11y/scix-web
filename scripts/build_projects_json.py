@@ -206,8 +206,14 @@ def main():
     base = list(end.get("projects", []))
 
     new_rows = wrangler_json("SELECT * FROM dealroom2_new_projects")
+    # 既存(projects-end)に在る案件は D1 新規側で重複追加しない（公開の二重カード防止・2026-07-20）
+    base_ids = {p.get("id") for p in base}
     for r in new_rows:
+        rid = r.get("id")
+        if rid in base_ids:
+            continue
         base.append(r)
+        base_ids.add(rid)
 
     edit_rows = wrangler_json(
         "SELECT deal_id, field, value FROM deal_edits WHERE field IN ("
@@ -230,6 +236,16 @@ def main():
             hidden += 1
             continue
         public.append(to_public(o, today))
+
+    # 最終dedup（id重複を保険で排除・先勝ち。base内やD1側の想定外重複に備える・2026-07-20）
+    seen_ids = set()
+    deduped = []
+    for rec in public:
+        if rec["id"] in seen_ids:
+            continue
+        seen_ids.add(rec["id"])
+        deduped.append(rec)
+    public = deduped
 
     # no（=番号）降順で並べたいが公開には no を出さないため id 由来でソート
     def sort_key(rec):
