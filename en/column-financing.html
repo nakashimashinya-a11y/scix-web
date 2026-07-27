@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.85}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
+.src-list .t{display:inline-block;min-width:34px;font-weight:700;color:var(--navy);margin-right:8px;font-size:.92em}
+.part-lead{font-family:'Noto Serif JP',serif;font-size:.86em;letter-spacing:.12em;color:var(--accent);margin:56px 0 -32px;font-weight:600}
+</style>
+<title>Why Grid-Scale Storage Is Bought With Cash — The "you can't take it as collateral" myth, and why ¥6.2 billion over 20 years got signed | ScienceX</title>
+<meta name="description" content="Why are grid-scale battery projects worth hundreds of millions of yen bought with cash rather than debt? We test the &quot;batteries can't be collateralised&quot; myth point by point, then map the five domestic debt archetypes that emerged between 2023 and 2026 — Himeji, Hirowara, Nishigo (¥6.2bn / 20 years), Tanagawa, Niigata Yamaya (¥10bn bond) and a 14-site high-voltage portfolio. From there: what lenders actually doubt in a revenue model, and the three verifiable numbers — market outturn (EPRX cleared prices), the announced policy path (price cap 15 → 10 → 7.21 JPY) and the contracted revenue ratio — plus a template for answering the five questions lenders ask, and a translation table for real estate investors. All from primary sources.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-financing">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-financing">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-financing">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-financing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why Grid-Scale Storage Is Bought With Cash — The &quot;can't take it as collateral&quot; myth, and why ¥6.2 billion over 20 years got signed｜ScienceX">
+<meta property="og:description" content="Paying cash and being unable to use anything but cash are two different things. Five domestic debt archetypes, and the three verifiable numbers that end the standoff over revenue assumptions — battery storage finance, from the vehicle and the contract through to the scrutiny of the numbers.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-financing">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why Grid-Scale Storage Is Bought With Cash — The &quot;can't take it as collateral&quot; myth, and why ¥6.2 billion over 20 years got signed｜ScienceX">
+<meta name="twitter:description" content="Collateral is the result; the contract is the cause. Why ¥6.2 billion over 20 years and a ¥10 billion bond got signed — and how to build a revenue model that survives credit review, from primary sources.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="article:published_time" content="2026-07-26">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "inLanguage": "en",
+  "headline": "Why Grid-Scale Storage Is Bought With Cash — The \"you can't take it as collateral\" myth, and why ¥6.2 billion over 20 years got signed | ScienceX",
+  "description": "Why are grid-scale battery assets bought with cash rather than debt? A point-by-point test of the \"batteries can't be collateralised\" myth, the five domestic debt archetypes (Himeji, Hirowara, Nishigo, Tanagawa, Niigata Yamaya, a 14-site high-voltage portfolio), and the three verifiable numbers — market outturn, the announced policy path and the contracted revenue ratio — that answer a lender's scrutiny of the revenue model.",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "datePublished": "2026-07-26",
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-financing"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Why Grid-Scale Storage Is Bought With Cash — The \"you can't take it as collateral\" myth, and why ¥6.2 billion over 20 years got signed",
+      "item": "https://www.scix.co.jp/en/column-financing"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/en" style="color:#5A6577;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">&rsaquo;</span><a href="/en/knowledge" style="color:#5A6577;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">&rsaquo;</span><span style="color:#8A92A0">Why grid-scale storage is bought with cash — the “can’t take it as collateral” myth&hellip;</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 38</span>
+      <span class="header-tag">Domestic &amp; overseas investors / Financing (debt, lease, revenue due diligence)</span>
+      <time class="header-date" datetime="2026-07-26">2026.07.26</time>
+    </div>
+    <h1>Why grid-scale storage is <em>bought with cash</em> —<br>the “can’t take it as collateral” myth, and why <em>¥6.2 billion over 20 years</em> got signed</h1>
+    <p class="header-desc">The market dynamics that push billion-yen physical assets to cash settlement, the legal reality behind “you can’t take a battery as collateral,” and the five domestic debt archetypes that emerged between 2023 and 2026. Then: what lenders actually doubt in a revenue model, and how to answer with three verifiable numbers — battery storage finance in one piece, from the vehicle and the contract through to the scrutiny of the numbers.</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/en/knowledge" class="back-link">&larr; Back to Knowledge</a>
+
+<p>Power infrastructure assets worth hundreds of millions to billions of yen change hands for cash rather than debt — that is an ordinary day in the market for grid-scale battery storage. A high-voltage 2MW/8MWh unit carries an indicative initial investment of ¥500–600 million (Nikkei Energy Next). Purchases of a size that would automatically be financed in real estate are, for most buyers in this market, settled out of their own pocket. "Batteries can't be taken as collateral, so you won't get a loan" — an explanation heard almost weekly on the deal floor.</p>
+
+<p>The disclosed record says otherwise. A 40MW/200MWh project in Nishigo Village, Fukushima secured a syndicated loan with a <strong>contract amount of ¥6.2 billion and a 20-year term</strong> against a total project cost of roughly ¥6.5 billion. A 49MW/231MWh project in Niigata secured <strong>Japan's first project bond raised for development capital — ¥10 billion, rated A- by R&amp;I</strong>. A portfolio of 14 high-voltage storage sites across the country secured a non-recourse facility with a ¥4.9 billion commitment limit; and even a 99MW full-merchant project, with no contracted revenue at all, secured project finance (PF) repaid solely out of market revenue.</p>
+
+<p>What separates the projects that get debt from the ones that don't is not collateral. To state this article's conclusion up front: <strong>collateral is the result; the contract is the cause.</strong> And once the contract has determined the shape of the debt, a revenue model still has to go on the credit committee's table. "What is the basis for this bid price?" — this article covers how to turn the argument that stalls right there into one that can actually be tested. Part 1 deals with the vehicle and the contract; Part 2 with the scrutiny of the numbers. In 2026, the market is moving from a stage where cash was the only option to one where buyers can design how cash at the entrance and debt at the exit fit together.</p>
+
+<div class="review-note">
+<strong>About this article:</strong> Regulatory position as of July 2026. It is written for domestic and overseas investors, buyers and sellers considering the acquisition or ownership of storage assets; for developers taking revenue models to banks and investors; and for finance professionals on the receiving end of those proposals. Figures come only from timely disclosures, press releases and publications by public bodies and exchanges; undisclosed items (DSCR, LTV, interest rates and the like) are marked "not disclosed," and items that could not be confirmed are marked "not confirmed." Only §01 draws on the author's own observation of deal origination and brokerage, and says so in the text. Bid prices, award rates and similar assumptions used in the body are illustrative and do not represent the terms of any specific project or operator. Commentary on collateral, tax and accounting is general in nature; this article is not investment, lending, legal or tax advice. Always confirm specific transactions with your lawyer, tax adviser, or financial institution. This piece is a sequel to COLUMN 07 (IRR and DSCR) and COLUMN 30 (contract types and returns) — the question of how to add debt once the equity is in place.</div>
+
+<div class="data-box">
+<div class="db-head">Scope of this article</div>
+<dl class="premise-grid">
+  <div><dt>Longest disclosed tenor</dt><dd>20<span class="unit">years (Nishigo, LDA-backed)</span></dd></div>
+  <div><dt>Largest disclosed debt ratio</dt><dd>¥6.2bn<span class="unit">against a total project cost of c. ¥6.5bn</span></dd></div>
+  <div><dt>Development-capital bond (a domestic first)</dt><dd>¥10bn<span class="unit">rated A- by R&amp;I</span></dd></div>
+  <div><dt>Primary reserve, actual outturn</dt><dd>9.6–13.5<span class="unit">JPY/&Delta;kW per 30 min (batteries)</span></dd></div>
+  <div><dt>Where the price cap stands</dt><dd>19.51&rarr;15<span class="unit">JPY (10 and 7.21 are a conditional, un-triggered path)</span></dd></div>
+  <div><dt>Interest rate environment</dt><dd>1.0<span class="unit">% policy rate / 10-year JGB touched 2.88%</span></dd></div>
+</dl>
+</div>
+
+<div class="part-lead">PART 1 — THE VEHICLE AND THE CONTRACT</div>
+
+<h2>01 — Why cash: the asymmetry of speed (field observation)</h2>
+
+<p>Let me start with what I see day to day in originating and broking these deals. This section is field observation rather than published statistics, and I want that clear from the outset.</p>
+
+<p>In sales of storage projects — whether development rights or completed assets — sellers frequently want settlement within about a month. There are three reasons. First, the seller's own cash cycle: grid connection cost contributions and connection deposits have payment deadlines, and since the April 2026 measures against speculative capacity reservations (COLUMN 09), deposit burdens have moved up in both size and timing. Second, there is always more than one candidate buyer. Third, freshness: the closer a project's scheduled connection date, the more it is worth, and elapsed time is straightforward product decay.</p>
+
+<p>Now look at the buyer's clock. A corporate loan needs 1.5 to 2 months for internal approval plus bank credit review; project finance needs six months to a year. The project will not wait. The result is that cash that can decide today beats debt that is cheaper but slower, and owner-run companies and foreign funds that can commit on the spot do not lose out to listed corporates and financial institutions bound by committee. There is corroboration. When Tokyo Century, one of Japan's major leasing companies, announced its own wholly self-developed pipeline of four extra-high-voltage sites totalling 101MW, the strength it cited was the decision-making speed that comes from going it alone (December 2025). Even professional institutional investors treat speed as a competitive resource in this market. (No reliable published statistics on standard credit review timelines could be confirmed; the figures above are a practitioner's sense of it.)</p>
+
+<p>The point to hold on to is this: cash settlement becoming the norm is not proof that debt is unavailable. <strong>It isn't that debt won't come — it's that it won't come in time.</strong> Whether it comes at all, and on what terms, is what the published record can answer. That is where we go next.</p>
+
+<h2>02 — How much of "you can't take it as collateral" is true?</h2>
+
+<p>Start with the law. Battery equipment — containerised BESS, PCS, substation gear — is movable property, not real property, so a mortgage cannot be granted over the equipment itself. That does not mean it cannot be taken as collateral. There are three principal routes.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>Security method</th><th>What it covers</th><th>Perfection and features</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Security assignment over aggregate movables</td><td>The battery containers, PCS and related equipment as a whole</td><td>Constructive delivery plus registration of the assignment of movables (Act on Special Provisions for the Assignment of Movables and Claims: registration is deemed to constitute delivery, perfecting the interest against third parties). Practice is well established from solar PF</td></tr>
+<tr><td class="em">Factory foundation mortgage (Factory Mortgage Act)</td><td>Land, buildings and machinery treated together as a single item of real property</td><td>Registration and licence tax of 0.25% (lighter than the usual 0.4% for a mortgage). However, this is <strong>available only where the site is held in freehold</strong>. Under superficies the Factory Mortgage Act does not apply, and under a leasehold no mortgage can be created at all</td></tr>
+<tr><td class="em">Individual mortgages, pledges and ABL</td><td>Land (freehold), SPC equity, bank accounts, insurance claims, revenue receivables</td><td>The standard PF package (§03). Asset-based lending against movables and receivables usually requires an external appraiser to value the collateral</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>There are worked examples. A crowdfunded lending fund for grid-scale storage took a revolving mortgage over the land and security over the battery equipment, and disclosed a planned loan of ¥495 million against an external appraiser's collateral value of ¥602 million — an advance rate of roughly 80% of appraised value. Collateral appraisal of storage assets is already happening in the market.</p>
+
+<p>So why the refusal at the bank counter? The answer lies in <strong>liquidation value</strong>. The secondary market for used BESS is immature, and uncertainty remains around how to assess degradation (state of health), whether units can be relocated or repurposed, and whether manufacturer warranties and long-term service agreements can be transferred. Seizing the equipment and putting it to auction offers no clear prospect of recovering the loan — in that sense, "the collateral value is thin" is broadly correct. Seen from the buyer's side, the consequence is an absence of leverage. In real estate you borrow against one asset and compound into the next; storage is, in principle, all-equity, and buying one unit ties up the capital. The investor's complaint that "the yield is good but the capital efficiency is worse than real estate" comes straight out of this collateral structure.</p>
+
+<p>Reduced to a single table, the verdict looks like this.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>Claim</th><th style="width:72px">Verdict</th><th>Basis</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Battery equipment cannot legally be taken as collateral</td><td class="ng">&#10007;</td><td>It can — via security assignment over aggregate movables plus registration, or a factory foundation mortgage on freehold land. Disclosed PF and fund deals have actually done it</td></tr>
+<tr><td class="em">Contractual positions such as the grid connection agreement cannot be transferred</td><td class="ng">&#10007;</td><td>They can, through a pre-agreed assignment of contractual position plus the counterparty's consent (a direct agreement) (§03)</td></tr>
+<tr><td class="em">The liquidation and resale value of the collateral itself is thin</td><td class="ok">&#10003;</td><td>Correct. The secondary market is immature, with uncertainty around SOH assessment, relocation and warranty transfer</td></tr>
+<tr><td class="em">Therefore storage projects cannot be financed</td><td class="cond">&#9651;</td><td>The causation is wrong. What decides financeability is not the resale value of the collateral but the predictability of the cash flow the contracts generate. See §05 for the evidence</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>03 — What lenders actually take: collateral is for taking over, not for selling off</h2>
+
+<p>Project finance for generation and storage runs on an all-asset security principle. Security is layered over the borrower SPC and the whole of its assets — the equipment (movables), the land or the right to use it, receivables and contractual positions under project agreements such as EPC, O&amp;M, aggregator and tolling contracts, insurance claims, bank accounts, and the SPC equity itself.</p>
+
+<p>What matters is the purpose of that package. Legal practitioners divide the function of security in two. One is the <strong>positive function</strong> — the ability to force a step-in: when the business falters, the lender takes over the SPC equity and contractual positions, replaces the sponsor and keeps the business running. The other is the <strong>defensive function</strong> — preventing assets from leaking out through third-party attachment. Security assignment over the equipment blocks a forced sale by way of a third-party objection, protecting the value of the business as a going concern.</p>
+
+<p>In other words, lenders do not take security in order to <strong>break the batteries up and sell them</strong>. They take it in order to <strong>take the whole business over</strong>. That is why an immature secondary market does not directly determine whether PF can be arranged. What determines it is whether the cash flow remains legible after the takeover — which is to say, the contracts. Transferring contractual positions requires the consent of counterparties to the connection agreement, tolling agreement and so on (the transmission and distribution utility, the offtaker), and PF locks this down in advance through pre-agreed assignments and direct agreements. Grid connection rights enter the security package through the same mechanism.</p>
+
+<p>And on 25 May 2026, one premise in this field changed. The <strong>enterprise value security interest</strong> under the Act on the Promotion of Business-Based Lending came into force (enacted June 2024). It is a new form of security that captures the debtor's total property as a single pool — tangible and intangible assets through to future cash flow — is created through a trust structure, and restricts the use of personal guarantees from owner-managers when granted. Structurally it suits a storage business, which is movables-heavy and derives its value from future revenue, and it could simplify today's practice of stacking all-asset security item by item. No storage deal using it has been publicly confirmed yet, but it is worth watching as a change that could bring down the wall in §02 head-on.</p>
+
+<h2>04 — The other wall: revenue a bank cannot read</h2>
+
+<p>Alongside collateral, the second structural factor is revenue predictability. FIT solar offered 20 years of legible cash flow at a fixed price for a fixed period, which is precisely why PF was arranged at scale. A grid-scale storage asset earns by combining three markets day by day — JEPX, the balancing market and the capacity market (COLUMN 02) — and most of that income is merchant revenue at the mercy of market conditions. On top of which, the domestic operating record is still shallow. IEEFA's analysis puts Japanese BESS grid connection applications at 170.8GW while only 0.62GW is actually connected (as of 2025). The sample of track record a lender can lean on is simply small.</p>
+
+<p>SMFL Mirai Partners, which arranged Japan's first BESS project financing, has itself reflected that it could not assume FIT-style stable income and had to build both the project appraisal and the contractual terms from scratch. Standard practice in renewable PF is for lenders to size debt off a conservative P90 scenario (the revenue level exceeded with 90% probability) and to require a DSCR of roughly 1.2 to 1.35 times. So who underwrites the P90 of three-market revenue, and how? That is where the granularity of aggregator disclosure becomes the crux — and public data at a level investors and lenders can verify is still limited. The practical answer to this — bracketing your assumptions with market outturn, the policy path and the contracted revenue ratio — is set out in Part 2, from §08.</p>
+
+<h2>05 — It got done anyway: five archetypes emerged between 2023 and 2026</h2>
+
+<p>Structurally difficult — and yet the disclosed record has built up steadily over three years. Sorted, it comes to five archetypes.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>Date</th><th>Lender / arranger</th><th>Project and size</th><th>Archetype</th><th>Disclosed terms</th></tr>
+</thead>
+<tbody>
+<tr><td>Arranged Aug 2023 (operations from Oct 2025)</td><td>SMFL Mirai Partners (sole)</td><td>Himeji Storage LLC (Hyogo, on the site of Idemitsu's former refinery) 15MW/48MWh</td><td class="em">The starting point: a lessor's solo PF</td><td>Equity: Idemitsu 51%, Renova 22%, Nagase 22%, SMFL-MP 5%. Project cost in the billions of yen, roughly 30% covered by subsidy, equity of over ¥1bn and PF for the balance (Nikkei BP reporting)</td></tr>
+<tr><td>2024</td><td>MUFG Bank (arranger)</td><td>Hirowara (Miyazaki) 30MW/120MWh; Ishikari 30MW</td><td class="em">Offtake-credit PF</td><td>Arranged on the credit of a 20-year offtake agreement with Tokyo Gas. Ishikari approx. ¥5bn; other terms not disclosed (see COLUMN 30)</td></tr>
+<tr class="hl"><td>Signed 2025-01-31, drawn 2025-05-30</td><td>SMBC (arranger and agent) with Toho Bank</td><td>FMS Inc., Nishigo Village Storage (Fukushima) 40.0MW/200.0MWh</td><td class="em">LDA-backed syndicated loan</td><td><strong>Contract amount ¥6.2bn, 20-year term</strong> (total project cost approx. ¥6.5bn). BYD MC Cube-T. Sales scheduled to start April 2027</td></tr>
+<tr><td>2025 (announced 2025-05-07)</td><td>MUFG Bank</td><td>Tanagawa Storage LLC (Misaki, Osaka) 99MW/396MWh</td><td class="em">Full-merchant PF (a domestic first)</td><td>Non-recourse, repaid solely from market revenue. Equity from Kansai Electric 40%, Kinden 10% and others. Amount and tenor not disclosed. Operations scheduled from February 2028</td></tr>
+<tr class="hl"><td>2026-04-17</td><td>Mizuho Securities (arranger), ORIX Bank (trustee and trust lender), CHC Japan (development and AM)</td><td>Niigata Yamaya Storage (Ojiya, Niigata) 49MW/231MWh</td><td class="em">Tolling; Japan's first project bond raised for development capital</td><td><strong>¥10bn, rated A- by R&amp;I</strong>. Tokyo Gas pays a fixed usage fee for 20 years in exchange for dispatch rights</td></tr>
+<tr><td>Drawn 2026-04-27</td><td>Ricoh Leasing</td><td>SPC arranged by Nippon Chikudenchi; 14 <strong>high-voltage</strong> storage sites nationwide</td><td class="em">Merchant; portfolio-style non-recourse PF</td><td><strong>¥4.9bn commitment limit</strong> under a revolving facility. Revenue expected from the balancing and wholesale markets. AM by eco Properties</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Beyond these, ORIX Bank executed its first non-recourse PF for a solar plant with co-located storage (Usa, Oita) in 2026; and on the equity side, Itochu arranged Japan's first fund dedicated to grid-scale storage (over ¥8bn, 2024, with Fuyo General Lease, Tokyo Century, Bank of Yokohama and others investing), while Fuyo General Lease and seven co-investors took part in an SPC covering six sites totalling about 174MW nationwide (2026).</p>
+
+<div class="warning-box">
+<span class="wb-flag">&#9888;&#65039; On the "first in Japan" claims</span><br>
+Who holds the title of "Japan's first storage PF" depends on how you count. As a solo arrangement by a leasing-sector lender, Himeji comes first (SMFL Mirai Partners, arranged August 2023); as the first bank-arranged, offtake-credit deal, Hirowara (MUFG Bank, 2024); as the first full-merchant structure repaid solely from market revenue, Tanagawa (also MUFG, 2025); and as the first project bond raised for development capital, Niigata Yamaya (Mizuho Securities and others, April 2026, per Mizuho Securities' own research). Each company's release claims a first within its own category, and there is no contradiction between them. Note also that in March 2026, a "first green project bond in Japan" of roughly ¥5.4 billion (arranged by Nomura Securities, rated BBB by R&amp;I, tenor up to 19 years) was raised earlier, to fund the acquisition of an already-operating merchant storage asset (Helios, Sapporo, 50MW/104MWh, operating since November 2025). Capital markets therefore now have two doors: development capital (Niigata Yamaya) and post-operation refinancing (Helios). This article cares less about titles than about the fact that <strong>five archetypes — lessor solo, offtake credit, LDA, full merchant, capital markets — all appeared within three years</strong>.
+</div>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lineage of domestic BESS debt, 2023 to 2026" font-family="'Noto Sans JP',sans-serif">
+  <line x1="50" y1="150" x2="690" y2="150" stroke="#1B2A4A" stroke-width="2"/>
+  <polygon points="700,150 688,146 688,154" fill="#1B2A4A"/>
+  <g font-size="11" fill="#6C7A89">
+    <text x="90" y="172" text-anchor="middle">2023</text>
+    <text x="250" y="172" text-anchor="middle">2024</text>
+    <text x="415" y="172" text-anchor="middle">2025</text>
+    <text x="590" y="172" text-anchor="middle">2026</text>
+  </g>
+  <g stroke="#E2E6EC" stroke-width="1">
+    <line x1="170" y1="142" x2="170" y2="158"/><line x1="330" y1="142" x2="330" y2="158"/><line x1="500" y1="142" x2="500" y2="158"/>
+  </g>
+  <!-- Himeji -->
+  <line x1="100" y1="150" x2="100" y2="92" stroke="#C49A3C" stroke-width="1.2"/>
+  <circle cx="100" cy="150" r="6" fill="#C49A3C"/>
+  <text x="100" y="66" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">Himeji 15MW/48MWh</text>
+  <text x="100" y="82" text-anchor="middle" font-size="9.5" fill="#6C7A89">Lessor solo PF (2023.08)</text>
+  <!-- Hirowara / Ishikari -->
+  <line x1="245" y1="150" x2="245" y2="208" stroke="#6C7A89" stroke-width="1.2"/>
+  <circle cx="245" cy="150" r="6" fill="#C49A3C"/>
+  <text x="245" y="226" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">Hirowara / Ishikari</text>
+  <text x="245" y="242" text-anchor="middle" font-size="9.5" fill="#6C7A89">Offtake-credit PF (2024)</text>
+  <!-- Nishigo -->
+  <line x1="380" y1="150" x2="380" y2="92" stroke="#C49A3C" stroke-width="1.2"/>
+  <circle cx="380" cy="150" r="7" fill="#C49A3C"/>
+  <text x="380" y="66" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">Nishigo 40MW/200MWh</text>
+  <text x="380" y="82" text-anchor="middle" font-size="9.5" fill="#6C7A89">LDA &middot; ¥6.2bn / 20yr (2025.01)</text>
+  <!-- Tanagawa -->
+  <line x1="455" y1="150" x2="455" y2="208" stroke="#6C7A89" stroke-width="1.2"/>
+  <circle cx="455" cy="150" r="6" fill="#C49A3C"/>
+  <text x="455" y="226" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">Tanagawa 99MW/396MWh</text>
+  <text x="455" y="242" text-anchor="middle" font-size="9.5" fill="#6C7A89">First full-merchant PF (2025.03)</text>
+  <!-- Niigata Yamaya -->
+  <line x1="580" y1="150" x2="580" y2="92" stroke="#C49A3C" stroke-width="1.2"/>
+  <circle cx="580" cy="150" r="7" fill="#C49A3C"/>
+  <text x="580" y="66" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">Niigata Yamaya 49MW/231MWh</text>
+  <text x="580" y="82" text-anchor="middle" font-size="9.5" fill="#6C7A89">¥10bn bond, A- (2026.04)</text>
+  <!-- 14 HV sites -->
+  <line x1="655" y1="150" x2="655" y2="208" stroke="#6C7A89" stroke-width="1.2"/>
+  <circle cx="655" cy="150" r="6" fill="#C49A3C"/>
+  <text x="632" y="226" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">14 high-voltage sites</text>
+  <text x="632" y="242" text-anchor="middle" font-size="9.5" fill="#6C7A89">Portfolio, ¥4.9bn (2026.04)</text>
+</svg>
+<div class="fig-cap">Figure 1 — The lineage of domestic BESS debt (2023&rarr;2026). Himeji (lessor solo) &rarr; Hirowara and Ishikari (offtake credit) &rarr; Nishigo (LDA, 20 years) &rarr; Tanagawa (full merchant) &rarr; Niigata Yamaya (¥10bn bond) &rarr; 14 high-voltage sites (portfolio). Five archetypes in three years.</div>
+</div>
+
+<p>Read what the archetypes mean. <strong>LDA structures</strong> attract debt most readily, because the regime secures fixed income for 20 years in principle, and the tenor lines up with the term of that income. <strong>Tolling structures</strong> convert volatile market revenue into fixed cash flow using the offtaker's credit; the key is the counterparty's standing, and the number of domestic players able to take that on is still small (COLUMN 30). <strong>Merchant structures</strong> are the hardest, but at Tanagawa the strong sponsor line-up of the Kansai Electric group, and at Nippon Chikudenchi the diversification across 14 sites, appear to have served as the backing for volatile revenue. Put the other way round: whether long-term money reaches a single-site merchant project depends on sponsor credit, operating capability and operating track record — and that boundary started moving in 2026 (§16).</p>
+
+<h2>06 — Why ¥6.2 billion over 20 years, and a ¥10 billion bond, got signed</h2>
+
+<p>Take apart the two most eloquent deals in that lineage.</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">¥6.2<span class="unit">bn</span></span><span class="lbl">Nishigo contract amount (total project cost approx. ¥6.5bn)</span></div>
+  <div class="stat-cell"><span class="val">20<span class="unit">years</span></span><span class="lbl">Loan term — matching the LDA fixed-income period</span></div>
+  <div class="stat-cell"><span class="val">¥10<span class="unit">bn</span></span><span class="lbl">Niigata Yamaya project bond (rated A- by R&amp;I)</span></div>
+</div>
+
+<p><strong>Nishigo (LDA).</strong> SMBC's release states the reasoning plainly: the project uses the Long-term Decarbonization Auction (LDA), fixed income is guaranteed for 20 years in principle, and stable project revenue is therefore secured over the long run — hence a 20-year loan. The 20-year term maps exactly onto the 20 years of LDA capacity income, so the "matching of tenors" (contract term &ge; loan term) set out in COLUMN 30 has now been demonstrated in a disclosed deal. A contract amount of ¥6.2 billion against a total project cost of about ¥6.5 billion is, on a simple comparison, debt exceeding 90%. (Because recourse, parent guarantees and the equity breakdown are undisclosed, this cannot be read straight across as an LTV. What is certain is that this number and the received wisdom that "storage doesn't get debt" cannot both be true.)</p>
+
+<p><strong>Niigata Yamaya (tolling).</strong> Underneath sits a tolling agreement in which Tokyo Gas pays a fixed usage fee for 20 years in return for dispatch rights — and that contract structure is what made both the A- rating from R&amp;I and a ¥10 billion raise from the capital markets, rather than a bank, possible. Note the order of events. <strong>Because there was fixed income, a rating agency could verify the revenue; because it could be verified, capital markets money arrived.</strong> The contracted revenue ratio can be restated as the share of revenue a third party is willing to underwrite the verification of. Fixed income unlocks not just loans but bonds — and the arranger has signalled that ultra-long-term funding is indispensable for infrastructure in an environment of heightened rate volatility, with the intention of recovering development capital and rolling it into the next project. The "cash at the entrance, debt at the exit" design described in §14 is already being implemented on large deals.</p>
+
+<p>By contrast, Tanagawa and the 14 high-voltage sites — full-merchant deals with no revenue contract — are either modest or undisclosed on amount and tenor. Even among deals that "got done," <strong>the depth of fixed income sets the depth of the debt</strong>. That is the ranking in the next section, exactly.</p>
+
+<h2>07 — The ranking is universal: "contracted revenue ratio" as a shared language</h2>
+
+<p>Law firm practitioners describe financeability in storage in terms of revenue contract type. OCCTO-type structures (capacity income, including LDA) are relatively easy to finance because the payer's credit is strong. Tolling suits long-term finance because the owner carries no market price risk, but offtakers with sufficient credit are few. Merchant structures are hard to read on future power prices, and financial institutions are still feeling their way on whether long-term finance is possible at all. That is the ranking.</p>
+
+<p>Distil that ranking into a single number for the conversation with lenders and you get the <strong>contracted revenue ratio</strong> — the share of total revenue locked in by contract (LDA, capacity market, tolling, floors). In Japan three sources of contracted income make up that ratio. The capacity market: the sixth main auction cleared at a national average of <strong>¥13,303/kW-year</strong> after transitional adjustments, a record high, with Tohoku, Tokyo and Kyushu hitting the cap (trends and regional differences in COLUMN 28). The Long-term Decarbonization Auction (LDA): fixed capacity income for 20 years in principle, with the weighted average for decarbonised sources rising from roughly ¥68,000/kW-year in the second round (held in FY2024) to roughly ¥111,000/kW-year in the third (FY2025) — which includes the effect of the raised cap threshold. In that third round the award rate for batteries was 46% (against 1.251GW bid), and with a six-hour-plus duration requirement and cell manufacturing-country restrictions on top, it remains a narrow gate (COLUMN 01 and 03). And tolling agreements (COLUMN 30). Overseas disclosure shows, bluntly, that this ratio is what sets the debt.</p>
+
+<div class="data-box">
+<div class="db-head">Overseas benchmarks: contracted revenue &times; debt</div>
+<p style="margin-bottom:12px"><strong>United Kingdom.</strong> For a long time, debt-financed deals were generally expected to underpin roughly half of projected cash flow with contracted revenue, often via a floor mechanism. As the market matured, tolerance for merchant exposure rose, and the investment firm Triple Point notes that financing has become available even for projects with little or no contracted revenue — yet on large arrangements, "50% contracted" remains a working benchmark.</p>
+<p style="margin-bottom:12px"><strong>Germany.</strong> Deals with heavy tolling are analysed as supporting gearing of roughly 70–85% (the range varies by analysis), and actual transactions cluster around projects with 80–100% of revenue tolled. Toll providers themselves indicate that unless more than half of revenue is fixed under bankable tolling, many banks turn cautious or impose higher rates and lower LTVs. In practice, the Stendal storage project (104.5MW/209MWh) secured roughly €86.5 million of long-term debt from the state bank NORD/LB on the back of a seven-year fixed-price flexibility contract.</p>
+<p style="margin-bottom:12px"><strong>Australia.</strong> The Capacity Investment Scheme (CIS) supports a revenue floor through a government contract, and Neoen raised debt twice in 2024 across a portfolio including BESS, totalling more than A$2 billion (with ANZ, Mizuho, MUFG, SMBC and others participating). <strong>United States.</strong> The standard is a hybrid of investment tax credit (ITC) tax equity plus a construction loan.</p>
+<p style="margin-bottom:0"><strong>Europe overall.</strong> The number of BESS financings more than tripled in 2025, from 25 deals to 82, and disclosed debt jumped from €1.4 billion to €6.1 billion. The drivers were floors in the UK, tolling in Germany, and PPAs and CfDs in Spain and Italy.</p>
+<div class="source">Sources: Energy-Storage.news, Modo Energy, terralayr, ess-news and pv magazine, Neoen and ANZ disclosures (full list at the end). Overseas figures are proxies from markets with different premises and cannot be applied directly to Japan.</div>
+</div>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Conceptual map of contracted revenue ratio against depth of debt" font-family="'Noto Sans JP',sans-serif">
+  <rect x="110" y="50" width="550" height="290" fill="#FFFFFF" stroke="#E2E6EC" stroke-width="1"/>
+  <line x1="385" y1="50" x2="385" y2="340" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="3 4"/>
+  <line x1="110" y1="195" x2="660" y2="195" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="3 4"/>
+  <line x1="110" y1="340" x2="110" y2="42" stroke="#1B2A4A" stroke-width="1.5"/>
+  <polygon points="110,32 106,44 114,44" fill="#1B2A4A"/>
+  <line x1="110" y1="340" x2="668" y2="340" stroke="#1B2A4A" stroke-width="1.5"/>
+  <polygon points="678,340 666,336 666,344" fill="#1B2A4A"/>
+  <text x="385" y="372" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">Contracted revenue ratio (share of revenue fixed by contract) &rarr;</text>
+  <text x="120" y="356" font-size="11" fill="#6C7A89">Low</text>
+  <text x="650" y="356" text-anchor="end" font-size="11" fill="#6C7A89">High</text>
+  <text x="62" y="195" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A" transform="rotate(-90 62 195)">Depth of debt (tenor, leverage) &rarr;</text>
+  <text x="100" y="60" text-anchor="end" font-size="11" fill="#6C7A89">Thick</text>
+  <text x="100" y="336" text-anchor="end" font-size="11" fill="#6C7A89">Thin</text>
+  <!-- plots -->
+  <circle cx="185" cy="285" r="9" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2.5"/>
+  <text x="185" y="310" text-anchor="middle" font-size="11" fill="#2C3E50">14 high-voltage sites</text>
+  <text x="185" y="324" text-anchor="middle" font-size="9.5" fill="#6C7A89">Merchant portfolio (¥4.9bn limit)</text>
+  <circle cx="230" cy="240" r="9" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2.5"/>
+  <text x="230" y="218" text-anchor="middle" font-size="11" fill="#2C3E50">Tanagawa</text>
+  <text x="230" y="231" text-anchor="middle" font-size="9.5" fill="#6C7A89">Full merchant (undisclosed)</text>
+  <circle cx="345" cy="205" r="9" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="345" y="245" text-anchor="middle" font-size="11" fill="#2C3E50">Himeji</text>
+  <text x="345" y="258" text-anchor="middle" font-size="9.5" fill="#6C7A89">c. 30% subsidy + PF</text>
+  <circle cx="520" cy="140" r="9" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="505" y="172" text-anchor="middle" font-size="11" fill="#2C3E50">Hirowara / Ishikari</text>
+  <text x="505" y="185" text-anchor="middle" font-size="9.5" fill="#6C7A89">20-year offtake credit</text>
+  <circle cx="610" cy="88" r="10" fill="#C49A3C"/>
+  <text x="600" y="66" text-anchor="middle" font-size="11" font-weight="700" fill="#1B2A4A">Nishigo (LDA)</text>
+  <text x="600" y="79" text-anchor="middle" font-size="9.5" fill="#6C7A89">¥6.2bn / ¥6.5bn &middot; 20 yr</text>
+  <circle cx="628" cy="122" r="10" fill="#C49A3C"/>
+  <text x="618" y="150" text-anchor="middle" font-size="11" font-weight="700" fill="#1B2A4A">Niigata Yamaya (tolling)</text>
+  <text x="618" y="163" text-anchor="middle" font-size="9.5" fill="#6C7A89">¥10bn bond, A-</text>
+  <text x="118" y="410" font-size="10" fill="#9AA6B2">Positions are qualitative, inferred from disclosed contract types and terms — not measured ratios or leverage.</text>
+</svg>
+<div class="fig-cap">Figure 2 — Contract type (x-axis: contracted revenue ratio) against depth of debt (y-axis: leverage and tenor). The thicker the fixed income, the further up and to the right — longer tenors, and reach into the capital markets.</div>
+</div>
+
+<p>In short, <strong>"contracted revenue unlocks debt" is a universal principle</strong>. And here Japan's peculiarity comes into view. Japan has no public backstop equivalent to Australia's CIS or the US ITC (no battery guarantee has been confirmed from the GX Promotion Organization either — §16), and LDA fills that gap with contracted revenue supplied by regulation. Conversely, the merchant PFs at Tanagawa and the 14 high-voltage sites, arranged without any such backstop, are ambitious even by global standards. As for the floor when nothing is fixed, COLUMN 30 has it: public modelling puts the base-case IRR at &minus;1.5% even including capacity market income (at CAPEX of ¥60,000/kWh). A lender's conservatism is not sentiment; it is DSCR arithmetic.</p>
+
+<p>Interest rates are not irrelevant either. A rising discount rate and cost of debt thin out the present value of merchant revenue and raise the relative value of fixed income (the rate figures are in §16). In a world with interest rates, the contracted revenue ratio matters more, not less.</p>
+
+<div class="part-lead">PART 2 — SCRUTINY OF THE NUMBERS</div>
+
+<h2>08 — The numbers that still can't be verified: why it becomes a standoff</h2>
+
+<p>That covers the vehicle and the contract. But settling on a contract type does not remove the revenue model from the credit committee's table — and the discussion always stalls in the same place. "What is the basis for this bid price?" "Aren't the aggregator's track record figures rather bullish?" The challenge is fair. Yet ask back what the appropriate level would be, and the other side has no alternative number either. With no fixed price of the FIT kind, there is no "right answer" for future market prices. What follows is how to turn that standoff into a testable discussion. As Part 1 showed, a lender's scepticism is not aimed at your model being sloppy; it is aimed at the structure of an asset class with a small sample of track record (§04). Which is exactly why the correct response is not to argue from instinct, but to present the parts that <em>can</em> be verified.</p>
+
+<p>Look at the structure. What financial institutions verified in solar project finance was, in the end, irradiation. The tariff was fixed for 20 years. Only output varied, and output can be processed statistically from meteorological records as P50 (the median, exceeded with 50% probability) and P90 (the conservative level exceeded with 90% probability). Hence sizing debt at P90 and requiring a DSCR of roughly 1.2 to 1.35 times — the convention took hold (§04).</p>
+
+<p>Storage is the reverse. Volume is controllable to a degree, but price is not fixed. Revenue is stacked across three markets — JEPX, the balancing market and the capacity market (COLUMN 02) — and most of it is merchant revenue at the mercy of price. As far back as 2018, Moody's characterised value stacking, which combines contracted and market revenue, as carrying greater cash flow volatility risk than a purely long-term contracted model. When Australian lenders to battery projects say plainly that they do not size debt on one-off high-revenue events, the logic is the same.</p>
+
+<p>There is no objective foundation for the revenue distribution equivalent to meteorological statistics — so when a developer's assumptions meet a lender's intuition, you get a standoff. The way out is to bracket the assumptions with numbers that can be verified. A storage revenue model has three of them. <strong>(1) Past outturn</strong> — EPRX cleared prices. <strong>(2) A settled future</strong> — the price cap reductions the regime has already announced. <strong>(3) A contracted present</strong> — fixed income from the capacity market, LDA and tolling. Since (3) is precisely the contracted revenue ratio from §07, what follows takes (1) and (2) in turn.</p>
+
+<h2>09 — Verifiable number 1, market outturn: give your assumptions a coordinate</h2>
+
+<p>Whether an assumption of "bid at X yen, win Y%" is bullish or conservative can be shown not by instinct but by where it sits on the range of actual outturn.</p>
+
+<p>According to trading results published by EPRX (the balancing capacity exchange), average cleared prices by resource type in the first half of FY2025 ran from 9.6 to 13.5 JPY/&Delta;kW per 30 minutes for batteries in primary reserve, on a monthly basis. That is several times the level at which thermal (2.1–3.5) and pumped storage (1.1–3.4) cleared. Behind it lies a supply shortfall: the fill rate for primary reserve (cleared volume against volume sought) stayed at around 40% online in FY2025, and in the Tokyo and Chubu areas there were summer months in which over 90% of the volume sought went unfilled (regional and product-level detail in COLUMN 16).</p>
+
+<p>Set against that outturn, a common modelling assumption — bidding primary reserve at 9 JPY/&Delta;kW per 30 minutes and clearing 70 to 90% of it — sits near the bottom of the observed range on price, which makes it <strong>conservative to reasonable</strong>; and on clearing rate it is <strong>reasonable</strong> while the shortfall persists.</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Average cleared price ranges by resource type and where a 9 JPY assumption sits" font-family="'Noto Sans JP',sans-serif">
+  <!-- axis -->
+  <line x1="150" y1="250" x2="690" y2="250" stroke="#1B2A4A" stroke-width="1.5"/>
+  <g font-size="10.5" fill="#6C7A89" text-anchor="middle">
+    <text x="150" y="268">0</text><text x="285" y="268">5</text><text x="420" y="268">10</text><text x="555" y="268">15</text><text x="690" y="268">20</text>
+  </g>
+  <text x="420" y="290" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">Average cleared price (JPY/&Delta;kW per 30 min)</text>
+  <g stroke="#E2E6EC" stroke-width="1">
+    <line x1="285" y1="60" x2="285" y2="250"/><line x1="420" y1="60" x2="420" y2="250"/><line x1="555" y1="60" x2="555" y2="250"/>
+  </g>
+  <!-- caps -->
+  <line x1="676.8" y1="52" x2="676.8" y2="250" stroke="#6C7A89" stroke-width="1.2" stroke-dasharray="2 3"/>
+  <text x="672" y="38" text-anchor="end" font-size="10" fill="#6C7A89">Old cap 19.51</text>
+  <line x1="555" y1="52" x2="555" y2="250" stroke="#c44" stroke-width="1.4" stroke-dasharray="5 3"/>
+  <text x="548" y="38" text-anchor="end" font-size="10.5" font-weight="700" fill="#c44">Current cap 15</text>
+  <text x="548" y="51" text-anchor="end" font-size="9" fill="#c44">(from 2026.3.14 delivery)</text>
+  <!-- 9 JPY marker -->
+  <line x1="393" y1="60" x2="393" y2="250" stroke="#C49A3C" stroke-width="1.6"/>
+  <text x="393" y="318" text-anchor="middle" font-size="10.5" font-weight="700" fill="#C49A3C">Where an illustrative 9 JPY bid sits</text>
+  <line x1="393" y1="250" x2="393" y2="302" stroke="#C49A3C" stroke-width="1" stroke-dasharray="2 3"/>
+  <!-- bars: scale 27px per JPY, x = 150 + v*27 -->
+  <g font-size="11.5" fill="#2C3E50">
+    <text x="142" y="94" text-anchor="end" font-weight="700">Battery (primary)</text>
+    <rect x="409.2" y="82" width="105.3" height="18" rx="3" fill="#C49A3C"/>
+    <text x="461.85" y="95" text-anchor="middle" font-size="10" font-weight="700" fill="#1B2A4A">9.6–13.5</text>
+    <text x="142" y="139" text-anchor="end">Thermal</text>
+    <rect x="206.7" y="127" width="37.8" height="18" rx="3" fill="#1B2A4A" opacity=".75"/>
+    <text x="250" y="140" font-size="10" fill="#6C7A89">2.1–3.5</text>
+    <text x="142" y="184" text-anchor="end">Pumped storage</text>
+    <rect x="179.7" y="172" width="62.1" height="18" rx="3" fill="#1B2A4A" opacity=".55"/>
+    <text x="248" y="185" font-size="10" fill="#6C7A89">1.1–3.4</text>
+    <text x="142" y="229" text-anchor="end">VPP (DR etc.)</text>
+    <rect x="668.4" y="217" width="8.1" height="18" rx="2" fill="#6C7A89"/>
+    <text x="663" y="230" text-anchor="end" font-size="10" fill="#6C7A89">19.2–19.5</text>
+  </g>
+</svg>
+<div class="fig-cap">Figure 3 — Average cleared price ranges by resource type (H1 FY2025, monthly averages; batteries shown for primary reserve. Compiled from EPRX trading results) and where an illustrative 9 JPY assumption sits. It falls near the bottom of the battery range, which makes it conservative to reasonable as a price assumption.</div>
+</div>
+
+<p>What matters is writing that positioning into the credit paper. Not "we used actual figures," but "here is where on the observed range we placed the assumption, and why." Make the coordinate of the assumption the subject of debate rather than its rightness or wrongness — get that far and it is no longer a standoff.</p>
+
+<div class="warning-box">
+<span class="wb-flag">&#9888;&#65039; Mind the definitions of fill rate, shortfall rate and award rate</span><br>
+Numerators and denominators differ between documents. EPRX's publications use the shortfall rate (procurement shortfall divided by volume sought), which is a different metric from the "award rate" developers mean (the share of their own bid volume that clears). Product design itself also changed around the move to day-ahead trading in March 2026 (weekly, three-hour blocks &rarr; day-ahead, 30-minute slots), so historical data does not join up cleanly across that boundary. In credit papers, go back to the EPRX source data, align the definitions and then present. Confusing definitions costs you credibility all by itself.
+</div>
+
+<h2>10 — Verifiable number 2, the future the regime has announced: the 15 JPY cap and what comes next</h2>
+
+<p>Extrapolating past outturn over 20 years draws criticism not because extrapolation is bad in itself, but because it looks as though it ignores declines that have already been decided.</p>
+
+<p>In the balancing market, alongside the move to day-ahead trading in March 2026 (COLUMN 29), the price cap for primary reserve, secondary reserve ① and the combined product was cut from 19.51 to 15 JPY/&Delta;kW per 30 minutes. During deliberations a flat 7.21 JPY across all products was also floated (October 2025, ANRE's institutional design working group), but concerns about the effect on investment predictability landed the outcome at 15. That said, the regulatory papers <strong>expressly state a phased path down to 10 and then 7.21 JPY</strong> if competitive conditions do not improve. At the same time, the volume sought for primary and secondary ① was cut from a 3&sigma; equivalent covering about 99% of demand variation to a 1&sigma; equivalent covering about 84%. Both price and volume, in other words, are being tightened by regulation.</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Phased scenario for the price cap" font-family="'Noto Sans JP',sans-serif">
+  <line x1="95" y1="228" x2="700" y2="228" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="95" y1="228" x2="95" y2="42" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="40" y="135" text-anchor="middle" font-size="11" font-weight="700" fill="#1B2A4A" transform="rotate(-90 40 135)">Price cap (JPY/&Delta;kW per 30 min)</text>
+  <g stroke="#E2E6EC" stroke-width="1" stroke-dasharray="2 4">
+    <line x1="95" y1="60" x2="690" y2="60"/><line x1="95" y1="99" x2="690" y2="99"/><line x1="95" y1="142" x2="690" y2="142"/><line x1="95" y1="166" x2="690" y2="166"/>
+  </g>
+  <g font-size="10" fill="#6C7A89" text-anchor="end">
+    <text x="88" y="64">19.51</text><text x="88" y="103">15</text><text x="88" y="146">10</text><text x="88" y="170">7.21</text>
+  </g>
+  <path d="M 105 60 L 255 60 L 255 99 L 480 99" fill="none" stroke="#1B2A4A" stroke-width="3"/>
+  <path d="M 480 99 L 480 142 L 590 142 L 590 166 L 690 166" fill="none" stroke="#C49A3C" stroke-width="3" stroke-dasharray="7 5"/>
+  <g font-size="11.5" font-weight="700">
+    <text x="180" y="50" text-anchor="middle" fill="#1B2A4A">19.51</text>
+    <text x="365" y="89" text-anchor="middle" fill="#1B2A4A">15</text>
+    <text x="535" y="132" text-anchor="middle" fill="#C49A3C">10</text>
+    <text x="642" y="156" text-anchor="middle" fill="#C49A3C">7.21</text>
+  </g>
+  <circle cx="440" cy="99" r="5" fill="#c44"/>
+  <text x="440" y="120" text-anchor="middle" font-size="10" font-weight="700" fill="#c44">Now (2026.7)</text>
+  <g font-size="9.5" fill="#6C7A89" text-anchor="middle">
+    <text x="180" y="248">to trades of 2026.3.13</text>
+    <text x="367" y="248">from 2026.3.14 delivery (in force)</text>
+    <text x="560" y="248">phased path if competition</text>
+    <text x="560" y="261">does not improve (not yet triggered)</text>
+  </g>
+  <rect x="100" y="178" width="600" height="44" rx="4" fill="#F8F9FB" stroke="#E2E6EC"/>
+  <text x="112" y="195" font-size="9" fill="#2C3E50">10 and 7.21 JPY apply only "if competition does not improve" — no effective date has been set (as of July 2026).</text>
+  <text x="112" y="211" font-size="9" fill="#2C3E50">When the cap does change, EPRX publishes it on its price-cap page at least two weeks before the relevant delivery date.</text>
+</svg>
+<div class="fig-cap">Figure 4 — The path of the price cap for primary reserve, secondary reserve ① and the combined product. 15 JPY is in force (from delivery on 2026.3.14); 10 and 7.21 JPY form a conditional path applicable "if competition does not improve" and have not been triggered (the May 2026 interim review deferred the decision). Overlay these steps on your model as a sensitivity (sources: ANRE institutional design working group, 110th meeting, document 4; Working Group on Stable Electricity Supply, 1st meeting, document 8; EPRX price-cap page).</div>
+</div>
+
+<p>The outturn is already moving. The interim review in May 2026 (Working Group on Stable Electricity Supply) confirmed increased bid volumes and an improvement in the primary reserve shortfall, while noting that it "has not been fully resolved" and that "bids near the price cap continue to clear"; it also showed the average cleared price for the combined product falling to 3.15 JPY/&Delta;kW per 30 minutes in January 2026. On the next cut (15 &rarr; 10 JPY), that May 2026 review deferred its judgement on the grounds that one month of post-day-ahead data is not enough to assess operator behaviour, which makes the second-half deliberations this fiscal year the main event. Note that some trade media have begun to report the cut to 10 JPY as a settled matter; what the primary sources confirm as of July 2026 is only the conditional policy that the cap will be "reduced in stages, to 10 and then 7.21 JPY/&Delta;kW per 30 minutes and so on, if no improvement is seen in competitive conditions in the market" — not a decision with an effective date. Because EPRX publishes any change on its price-cap page at least two weeks before the corresponding delivery date, that page is the practical place for developers and lenders to keep watch.</p>
+
+<p>Feeding this into a revenue model is simple. Assume the 15 JPY cap and the post-1&sigma; environment from year one, then overlay a sensitivity that steps 10 and 7.21 JPY into later years — and <strong>attach it yourself, before you are asked</strong>. A plan that has already priced in the decline the regime announced changes the level of trust on its own. Even METI's own public modelling uses the fiscal year with the narrowest wholesale price spread and the year with the widest to bracket a downside and an upside. Showing a range is not weakness; it is form.</p>
+
+<h2>11 — The five questions lenders actually ask, and how to answer</h2>
+
+<p>Here is everything above, reordered into the sequence in which the questions actually arrive.</p>
+
+<h4>Q1. "Are that cleared price and award rate consistent with the market?"</h4>
+<p>Attach EPRX trading results and regional fill-rate data, and show where your assumption sits on the observed range. If you place it above the median, state why (area, product mix, dispatch policy). Aligning definitions — shortfall rate or your own clearing rate — is a precondition (§09).</p>
+
+<h4>Q2. "Have you priced in the cap reductions?"</h4>
+<p>Reflect 15 JPY from year one and overlay the phased reductions to 10 and 7.21 JPY as a scenario. Reflect the narrowing of clearing opportunities from the 1&sigma; volume change in your volume assumptions too (§10).</p>
+
+<h4>Q3. "What share of revenue is fixed by contract?"</h4>
+<p>Give the contracted revenue ratio from the capacity market, LDA and tolling as a single figure. If it falls short of the overseas benchmark of 50%, explain why and add the alternative mitigants (portfolio diversification, third-party verification as in Q5) (§07).</p>
+
+<h4>Q4. "Isn't a 20-year extrapolation optimistic?"</h4>
+<p>Show that DSCR holds its threshold in a downside case that incorporates a declining price scenario and the battery degradation curve (COLUMN 35). The standard in renewable PF is P90 sizing with DSCR of roughly 1.2 to 1.35 times. For full-merchant projects with no contract to lean on, overseas discussion runs a thicker range of 1.2 to 2 times (COLUMN 07, §04).</p>
+
+<h4>Q5. "Who verified that extrapolation of operating performance?"</h4>
+<p>Aggregator disclosure is still not granular enough for lenders to verify — a point widely made in the industry, and precisely why third-party revenue forecasts carry weight. In the UK, revenue curves from independent research houses have been accepted as the basis for debt sizing at several banks, and in Japan in 2026, financing was drawn on several projects (148MW in total) that had been through an independent house's economic analysis. Replacing numbers that cannot be verified with numbers a third party has verified — that is what completes Q1 through Q4.</p>
+
+<h2>12 — When the language of electricity doesn't land, translate</h2>
+
+<p>A word too on the cases that stumble before credit review even begins: real estate investors.</p>
+
+<p>Open with an explanation of &Delta;kW and tertiary reserve ① to someone who has invested in hotels and apartment blocks, and the conversation will almost certainly stop. It isn't that they can't understand; they are working from a different dictionary. What is needed is not more precision but translation.</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>The language of electricity</th><th>The language of real estate</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Tolling fee (COLUMN 30)</td><td>Fixed rent. Long-term and predictable</td></tr>
+<tr><td class="em">Capacity market income</td><td>Base income you receive even when vacant</td></tr>
+<tr><td class="em">Merchant revenue (JEPX, balancing)</td><td>Variable rent, turnover rent</td></tr>
+<tr><td class="em">Aggregator (COLUMN 17)</td><td>Property manager, outsourced operator</td></tr>
+<tr><td class="em">Battery degradation and replacement (COLUMN 23)</td><td>Major repair and capex plan</td></tr>
+<tr><td class="em">DSCR, LTV</td><td>One of the few terms that already translates</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>A storage asset is machinery with a statutory useful life of 17 years, and in combining land, equipment, operations and finance it is inherently a familiar shape for a real estate investor. Niigata Yamaya can be described entirely in real estate terms: a 20-year fixed-term lease (the tolling contract) was signed, so a rating could be obtained, so a bond could be issued. Translate the contracted revenue ratio from §07 and it becomes "what share of NOI is locked in by lease agreements." One number, and it speaks to bankers and property investors alike.</p>
+
+<div class="part-lead">PART 3 — PRACTICE AND DESIGN</div>
+
+<h2>13 — Leasing as a separate circuit: lender and buyer at the same time</h2>
+
+<p>"If the bank says no, try a lessor" is the usual line, but leasing companies are doing more here than substituting for a loan. On the published record, they are entering the storage market wearing <strong>two hats</strong>.</p>
+
+<p><strong>First, as lender and investor.</strong> Japan's first BESS project financing was arranged not by a megabank but by SMFL Mirai Partners, part of the SMFL group (Himeji — sole PF arrangement plus a 5% equity stake). Ricoh Leasing on the 14 high-voltage sites (a ¥4.9 billion non-recourse commitment), Fuyo General Lease and Tokyo Century investing in Itochu's dedicated fund, and Fuyo General Lease with seven others taking part in an SPC of roughly 174MW all belong to the same lineage. An industry accustomed to movable property, and quicker to decide than a bank, is structurally well suited to battery finance.</p>
+
+<p><strong>Second, as principal and buyer.</strong> According to Nikkei, Tokyo Century plans to invest around ¥100 billion by the fiscal year ending March 2030 and Sumitomo Mitsui Finance and Leasing around ¥200 billion by March 2032, and both have maintained that stance since the balancing market price cap was cut. Tokyo Century duly announced in December 2025 an investment in four wholly self-developed extra-high-voltage sites totalling 101MW (citing the decision-making speed of going it alone as its strength), and SMFL was reported in September 2025 to have acquired a large storage asset from West Holdings. Leasing companies are therefore candidate lenders for your project and candidate buyers of completed assets and development rights at the same time — which means sellers have two exits.</p>
+
+<p>Two things to watch when using a lease. First, accounting: the new lease accounting standard becomes mandatory from April 2027, and lessees will in principle bring leases on balance sheet (using a lease for off-balance-sheet purposes therefore needs a different design — see COLUMN 30 §03). Second, tax.</p>
+
+<div class="warning-box">
+<span class="wb-flag">&#128681; Tax — don't design a structure where nobody can use immediate expensing</span><br>
+The investment promotion tax measures created in the FY2026 tax reform (immediate expensing or a tax credit) define eligible use as "use in the business (<strong>excluding use for leasing</strong>)", which leaves unresolved questions about who can capture the tax benefit in lease and tolling structures where the owner and the user differ (detail, and the five hurdles, in COLUMN 22). Ending up with debt from a lease but no one able to use immediate expensing is the outcome to avoid — which is why structuring has to be done alongside tax advice, not after it.
+</div>
+
+<h2>14 — The realistic answer for high-voltage 2MW/8MWh, and three designs for buyers</h2>
+
+<p>The large PFs and bonds above are mostly extra-high-voltage stories. What about the high-voltage 2MW/8MWh class most readers are considering, with an indicative initial investment of ¥500–600 million?</p>
+
+<p>Honestly: <strong>PF on a single site is structurally disadvantaged</strong>. PF carries heavy fixed costs — due diligence, documentation, agency work — which a project of a few hundred million yen cannot absorb into the interest rate. The bias towards cash settlement in standalone high-voltage deals reflects that cost logic as much as the speed described in §01. But there are three circuits. First, <strong>the portfolio route</strong>: Ricoh Leasing with Nippon Chikudenchi bundled 14 high-voltage sites nationwide under a ¥4.9 billion non-recourse commitment — a replicable template that divides PF fixed costs a single site cannot carry across fourteen. Second, <strong>small-ticket finance based on collateral appraisal</strong>: the crowdfunding structure in §02 (¥495 million lent against a ¥602 million appraisal). The rate is higher than bank PF, but it works at small scale. Third, <strong>lease and instalment finance, and sale to a leasing company</strong>: as §13 shows, both the lender side and the buyer side are available.</p>
+
+<p>Recast as buyer strategy, that gives three options.</p>
+
+<p><strong>Option 1: cash settlement, then refinancing.</strong> Win the acquisition on the speed of cash, build an operating record once the asset is running, then recover capital through debt, lease or the capital markets and roll it into the next project — capital recycling. The Niigata Yamaya bond is exactly this in practice. The sequence has a second advantage: once an asset is operating, its economics can be shown as measured rather than assumed — the assumption-backing described in §09 can be done with your own operating data. <strong>An operating record is the best credit evidence a storage asset has.</strong> Separating the entrance (acquisition) from the exit (financing) is, in my view, the most reproducible model available today.</p>
+
+<p><strong>Option 2: lock in a long-term contract first, then raise debt.</strong> If you can acquire an LDA-awarded project, or secure tolling or a long-term offtake with a creditworthy counterparty, a Nishigo-style senior facility of 20-year vintage comes into view. This is the classic route for new-build and large investments not under settlement pressure.</p>
+
+<p><strong>Option 3: use lease or instalment finance.</strong> Arranging with a leasing company — faster to decide than bank PF, and comfortable with movable property — can be the middle path between acquisition speed and leverage.</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The cash-in, refinance-out cycle" font-family="'Noto Sans JP',sans-serif">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B2A4A"/>
+    </marker>
+    <marker id="arwG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#C49A3C"/>
+    </marker>
+  </defs>
+  <g font-size="11.5" font-weight="700" fill="#1B2A4A" text-anchor="middle">
+    <rect x="30" y="70" width="140" height="60" rx="6" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2"/>
+    <text x="100" y="96">Acquire with cash</text>
+    <text x="100" y="114" font-size="10" font-weight="400" fill="#6C7A89">Speed wins the deal</text>
+    <rect x="210" y="70" width="120" height="60" rx="6" fill="#FFFFFF" stroke="#E2E6EC" stroke-width="1.5"/>
+    <text x="270" y="96">Operate</text>
+    <text x="270" y="114" font-size="10" font-weight="400" fill="#6C7A89">Connection, dispatch</text>
+    <rect x="370" y="70" width="150" height="60" rx="6" fill="#FFFFFF" stroke="#E2E6EC" stroke-width="1.5"/>
+    <text x="445" y="96">Operating record</text>
+    <text x="445" y="114" font-size="10" font-weight="400" fill="#6C7A89">Assumed &rarr; measured</text>
+    <rect x="560" y="70" width="140" height="60" rx="6" fill="#FFF8F0" stroke="#C49A3C" stroke-width="2"/>
+    <text x="630" y="90">Recover capital</text>
+    <text x="630" y="106">via debt or bond</text>
+    <text x="630" y="122" font-size="10" font-weight="400" fill="#6C7A89">Refinancing</text>
+  </g>
+  <line x1="170" y1="100" x2="204" y2="100" stroke="#1B2A4A" stroke-width="1.6" marker-end="url(#arw)"/>
+  <line x1="330" y1="100" x2="364" y2="100" stroke="#1B2A4A" stroke-width="1.6" marker-end="url(#arw)"/>
+  <line x1="520" y1="100" x2="554" y2="100" stroke="#1B2A4A" stroke-width="1.6" marker-end="url(#arw)"/>
+  <path d="M 630 130 L 630 185 L 100 185 L 100 136" fill="none" stroke="#C49A3C" stroke-width="1.8" marker-end="url(#arwG)"/>
+  <text x="365" y="205" text-anchor="middle" font-size="11" font-weight="700" fill="#C49A3C">Recycled capital funds the next project (capital recycling)</text>
+  <text x="30" y="238" font-size="9.5" fill="#9AA6B2">Niigata Yamaya (¥10bn bond) implements this loop at scale — the arranger signalled an intent to recover development capital.</text>
+</svg>
+<div class="fig-cap">Figure 5 — The "cash at the entrance, refinancing at the exit" cycle. Cash is the tactic for acquisition; refinancing is the strategy for capital efficiency.</div>
+</div>
+
+<p>One trap common to all three deserves a mention: <strong>collateral restrictions on subsidised projects</strong>. Under the storage system deployment support programme administered by SII, pledging subsidised property as collateral also counts as "disposal" under the grant regulations, and prior approval from the secretariat is required within the disposal restriction period. The more a project has used subsidies to bring CAPEX down, the less freedom it has to add debt afterwards. Combining subsidies with debt has to be designed from the application stage onwards (the framework for deciding whether to use subsidies at all is in COLUMN 20; see also checklist item 11 in §15).</p>
+
+<p>Cash is a tactic. Capital design is a strategy. The strongest buyer in this market is the one holding both.</p>
+
+<h2>15 — Getting a project into financeable shape: a lender's-eye checklist</h2>
+
+<p>Debt is not something you apply for; it is something you <strong>design</strong>. Before a transfer or an arrangement, run through this in the order a lender will.</p>
+
+<div class="checklist-group" id="lender-checklist">
+<h5><span class="cl-num">&#10003;</span>A lender's eye — 11 items</h5>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01</span><strong>Revenue contracts</strong> — whether fixed income exists (LDA, tolling, floors), for how long, and the resulting contracted revenue ratio. This sets the ceiling on tenor and leverage (§07)</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02</span><strong>SPC structure</strong> — are assets, contracts and revenue ring-fenced in a single vehicle, unmixed with the assets of an individual or a company with other businesses?</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03</span><strong>Land title</strong> — freehold, superficies or leasehold? A factory foundation mortgage requires freehold; under a leasehold no mortgage is possible at all (§02). If leasing, secure consent to assignment and a term covering the loan tenor plus a margin</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04</span><strong>Assignment of the connection agreement</strong> — a clear path to consent from the transmission and distribution utility. Is the contractual set-up capable of accommodating a direct agreement? (§03)</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05</span><strong>EPC completion guarantee</strong> — liquidated damages for delay and underperformance. Completion risk is a lender's first question</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06</span><strong>Manufacturer warranty and LTSA</strong> — the level of SOH and availability guarantees, and their <strong>transferability</strong> (do the warranties survive enforcement of security?)</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07</span><strong>Six layers of insurance</strong> — property, machinery, business interruption, liability, cyber and theft (COLUMN 18). Insurance claims can be pledged</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">08</span><strong>O&amp;M arrangements</strong> — is the gap between responsibility and execution closed contractually (COLUMN 23)? Lenders look at how the asset would be run after a step-in</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">09</span><strong>Accounts and cash management</strong> — can revenue be consolidated into a single account, and can you accept pledges over it and a payment waterfall?</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">10</span><strong>Verifiability of the revenue model</strong> — not just P50 but a P90 scenario, assumptions backed by market outturn (§09), a sensitivity across the phased scenarios (§10) and, if possible, third-party verification (§11, Q5). Does the conservative case hold DSCR at roughly 1.2 to 1.35 times (around 1.25 as a working benchmark with an offtake in place; thicker for full merchant)? (COLUMN 07 and 30)</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">11</span><strong>Collateral approval on subsidised projects</strong> — for projects awarded METI-line subsidies (administered by SII), pledging subsidised property as collateral counts as "disposal" under the grant regulations, and prior approval from the secretariat is required within the disposal restriction period. Combining subsidies and debt needs deliberate design (COLUMN 20)</span></label>
+<div class="check-progress"><span class="count"><span id="checkCount">0</span>/11</span><span class="bar"><span class="bar-fill" id="checkBarFill"></span></span><span>items in order</span></div>
+</div>
+
+<p>Items 1 to 4 double, in a sale or transfer of rights, as the conditions for a project that sells well. Getting an asset into financeable shape widens the buyer's funding options — and thereby widens the pool of buyers.</p>
+
+<h2>16 — What turned in 2026, and what is still missing</h2>
+
+<p>The environment is moving too. Three changes to note, and four things that cannot be confirmed.</p>
+
+<p><strong>What changed.</strong> First, <strong>the enterprise value security interest came into force</strong> (25 May 2026; §03). Second, the <strong>GX Promotion Organization</strong> — operational since July 2024, with a ¥1 trillion guarantee capacity intended to cover risk that private lenders cannot fully absorb. No guarantee for an individual grid-scale storage project has been publicly confirmed as at the time of writing, but the vehicle exists. A first such deal would move the bankability of merchant structures up a notch. Third, <strong>interest rates</strong>. The Bank of Japan raised its policy rate to 1.0% in June 2026 (a level not seen for about 31 years), and the 10-year JGB yield touched 2.88% on 9 July 2026 (its highest since September 1996), trading in the 2.7% range later that month. A higher cost of debt squeezes IRR on merchant projects and raises the relative advantage of fixed-income structures such as LDA and tolling. At the same time, the opportunity cost of parking equity has risen for cash buyers too — in a world with interest rates, the logic of cash-only is no longer self-evident.</p>
+
+<p><strong>What accumulated.</strong> The case record keeps growing. In March 2026, the acquisition of an operating merchant storage asset (Helios, Sapporo, 50MW/104MWh, operating since November 2025) was funded by what was announced as Japan's first green project bond — roughly ¥5.4 billion with a tenor of up to 19 years (arranged by Nomura Securities, rated BBB by R&amp;I, using a trust beneficiary interest structure). Nineteen years of capital markets money reached a single-site merchant project on the strength of its operating record — the merchant implementation of "cash at the entrance, refinancing at the exit" from §14. In May the same year came a full-merchant non-recourse PF for Hiji, Oita, 51MW/204MWh (arranged by Aozora Bank, with silent partnership equity from four domestic companies including Itochu Enex, operations expected around September 2028). Disclosed full-merchant PFs are stacking up behind Tanagawa and the 14 high-voltage sites, and the roster of lenders has widened from megabanks and lessors to securities houses, trust banks and newer entrants.</p>
+
+<p><strong>What is still missing.</strong> (1) Published benchmarks for DSCR, LTV and pricing on domestic BESS project finance (Nishigo's ¥6.2bn against ¥6.5bn is an exceptional case where a ratio can be read, but recourse is undisclosed, so it cannot be stated as an LTV). (2) An executed GX Promotion Organization guarantee for a BESS project. (3) Disclosed instances of sale-and-leaseback or Japanese operating leases (JOL) on storage assets. (4) A secondary market for used BESS — the trading market that would underpin liquidation value remains immature. Put positively: as secondary circulation and SOH assessment standardise, the treatment of batteries as collateral can improve. What is unknown is left as unknown, recorded as a factor for judgement.</p>
+
+<h2>Conclusion — Collateral is the result; the contract is the cause. And the discipline of the numbers gets debt through</h2>
+
+<p>Storage assets are bought with cash not because buyers are ignorant, nor because sellers rush them unfairly. It is the market's rational adaptation to three conditions: the asymmetry of speed, a collateral structure built on movable property, and volatile revenue with a shallow track record.</p>
+
+<p>But the sentence "you can't take it as collateral, so you can't get a loan" is half wrong as a matter of law and entirely wrong as a matter of causation. Batteries can be taken as collateral. What cannot be taken is a reliable prospect of recovering the loan by selling that collateral. So lenders assemble a security package that lets them take over the whole business, and decide whether to lend on whether the cash flow of that business is legible — under which contract, for how many years, at what fixed amount. ¥6.2 billion over 20 years went to Nishigo not because the collateral was impressive but because 20 years of LDA fixed income made the repayment schedule work. A ¥10 billion bond went to Niigata Yamaya because Tokyo Gas's 20-year tolling agreement made an A- rating possible.</p>
+
+<p>At the same time, you cannot eliminate the unverifiable numbers from a revenue model. This is not FIT, so that is normal. What you can do is bracket the assumptions with the three verifiable numbers — market outturn, the policy path, contracted income — apply sensitivities and DSCR stress to the residue that cannot be verified, and add third-party verification where possible. An honest revenue model is not one that predicts the future correctly; it is one that also shows what happens when it is wrong. What financial institutions are ultimately looking at, in my view, is less the numbers themselves than how you deal with them.</p>
+
+<p>In under three years since the first domestic PF in August 2023, five archetypes have appeared, leasing companies have entered in earnest, the enterprise value security interest has come into force, and a world with interest rates has returned. <strong>Contracts call debt in, and the discipline of the numbers gets it through.</strong> Buyers secure the competitive edge of instant cash at the entrance and design refinancing at the exit. Sellers get an asset into financeable shape before selling it. As of 2026, that is the order in which equity works hardest in this market.</p>
+
+<div class="sources-box">
+<h4>Principal primary sources (as of July 2026; all Japanese-language unless noted)</h4>
+<ul class="src-list">
+<li><span class="t">T1</span>SMBC, "Financing arranged for a grid-scale storage project in Nishigo Village, Fukushima," 2025-05-27 (contract amount ¥6.2bn, 20-year term, signed 2025-01-31, drawn 2025-05-30; total project cost approx. ¥6.5bn; 40.0MW/200.0MWh; LDA-backed; BYD MC Cube-T; co-arranged with Toho Bank)<a href="https://www.smbc.co.jp/hojin/financing/sustainable/kokusai/pdf/250527_01.pdf" target="_blank" rel="noopener">https://www.smbc.co.jp/hojin/financing/sustainable/kokusai/pdf/250527_01.pdf</a></li>
+<li><span class="t">T1</span>Mizuho Securities, "Arrangement of a project bond for the Niigata Yamaya storage facility," 2026-04-17 (49MW/231MWh; ¥10bn; rated A- by R&amp;I; trust structure with ORIX Bank; development and AM by CHC Japan; 20-year fixed-fee tolling with Tokyo Gas; Japan's first project bond raised for development capital, per Mizuho Securities' own research; refers to the rate environment and the need for ultra-long funding and recovery of development capital)</li>
+<li><span class="t">T1</span>MUFG Bank, "Arrangement of project finance for a business conducted on a full-merchant basis using grid-scale storage in Japan," 2025-05-07 (Tanagawa 99MW/396MWh; Japan's first non-recourse PF repaid solely from market revenue; equity from Kansai Electric 40%, Kinden 10% and others; operations scheduled February 2028)<a href="https://www.bk.mufg.jp/info/pdf/full_merchant.pdf" target="_blank" rel="noopener">https://www.bk.mufg.jp/info/pdf/full_merchant.pdf</a> / same bank and Renova IR (offtake-credit PF for Hirowara and Ishikari; Ishikari approx. ¥5bn) — shared with the source list of COLUMN 30</li>
+<li><span class="t">T1</span>Nippon Chikudenchi, "Execution of project finance for its grid-scale storage business," 2026-04-27 (revolving facility with Ricoh Leasing, ¥4.9bn commitment limit; 14 high-voltage grid-scale storage sites nationwide; non-recourse via SPC; AM by eco Properties)<a href="https://www.nipponchikudenchi.co.jp/news/1629/" target="_blank" rel="noopener">https://www.nipponchikudenchi.co.jp/news/1629/</a></li>
+<li><span class="t">T1</span>HD Renewable Energy and Nomura Securities, "Hokkaido Helios storage green project bond," 2026-03-19 (Sapporo; 50MW/104MWh; approx. ¥5.4bn; funding the acquisition of an asset operating since November 2025; tenor up to 19 years; trust beneficiary interest structure — settlor: Nomura Capital Investment, trustee: Mitsubishi HC Capital Trust, AM: Starry Asset Management; R&amp;I credit and green bond ratings of BBB; Japan's first green project bond backed by a grid-scale storage business, per Nomura Securities' own research) / RS Asset Advisors (RSBM), "Co-investment in a storage project in Hiji, Oita and arrangement of project finance for a full-merchant business," 2026-05-29 (Altair LLC; 51MW/204MWh; non-recourse arranged by Aozora Bank; silent partnership equity from four domestic companies, including ¥800m and 14.5% from Itochu Enex; operations expected around September 2028)</li>
+<li><span class="t">T1</span>SMFL Mirai Partners, "Launch of a grid-scale storage business and arrangement of project finance," 2023-08 / Sumitomo Mitsui Financial Group published interview, 2024-11 (Himeji; sole PF arrangement; on being unable to assume FIT-style stable income and having to build project appraisal and contract terms from scratch) / Himeji storage commissioning release, 2025-10 (15MW/48MWh; equity: Idemitsu 51%, Renova 22%, Nagase 22%, SMFL-MP 5%)</li>
+<li><span class="t">T1</span>Itochu, "Formation of the Tokyo Storage Investment LP," 2024-09-30 (over ¥8bn from 11 investors, including Fuyo General Lease, Tokyo Century and Bank of Yokohama) / Fuyo General Lease timely disclosure, 2026-03-26 (eight co-investors; participation in a storage SPC covering six sites and approx. 174MW nationwide) / ORIX Bank notice, 2026-04 (the bank's first non-recourse PF, for solar with co-located storage in Usa, Oita)</li>
+<li><span class="t">T1</span>EPRX (the balancing capacity exchange), "Summary of trading results," H1 FY2025 (published 2025-12: average cleared prices by resource type, including 9.6–13.5 JPY/&Delta;kW per 30 min for batteries in primary reserve; fill and shortfall rates)<a href="https://www.eprx.or.jp/information/summary.php" target="_blank" rel="noopener">https://www.eprx.or.jp/information/summary.php</a></li>
+<li><span class="t">T1</span>Agency for Natural Resources and Energy, institutional design working group, 110th meeting, document 4 (2026-01-23: cap reduced from 19.51 to 15 JPY; phased path to 10 and 7.21 JPY; volume sought moved from 3&sigma; to about 1&sigma;) / Working Group on Stable Electricity Supply, 1st meeting, document 8 (2026-05-13: interim review; 28-day comparison either side of the move to day-ahead trading; judgement on the cut to 10 JPY deferred; combined product averaged 3.15 JPY in January 2026) / EPRX price-cap page (any change is published at least two weeks before the corresponding delivery date)<a href="https://www.eprx.or.jp/information/post.php" target="_blank" rel="noopener">https://www.eprx.or.jp/information/post.php</a></li>
+<li><span class="t">T1</span>OCCTO, "Capacity market main auction results (delivery year FY2029)," 2026-01-20 (national average ¥13,303/kW-year after transitional adjustments; Tohoku, Tokyo and Kyushu at the cap) / "Long-term Decarbonization Auction results (bidding year FY2025)," 2026-05-13 (batteries: 1.251GW bid, 46% award rate; 819MW awarded to lithium-ion batteries and pumped storage excluding new build; weighted average for decarbonised sources approx. ¥111,000/kW-year)<a href="https://www.occto.or.jp/assets/various/capacity-market/jitsujukyukanren/2025_boshuyoukou_long/260513_longauction_youryouyakujokekka_kouhyou_ousatsu2025.pdf" target="_blank" rel="noopener">https://www.occto.or.jp/…/260513_longauction_youryouyakujokekka.pdf</a></li>
+<li><span class="t">T1</span>Financial Services Agency, Act on the Promotion of Business-Based Lending (enterprise value security interest; enacted 2024-06-07, in force 2026-05-25; trust structure; restrictions on personal guarantees) / Ministry of Justice, registration system for the assignment of movables / SII (Sustainable open Innovation Initiative), grant regulations for the grid-scale storage system deployment support programme (prior approval for disposal of property, including pledging it as collateral) / GX Promotion Organization, business overview (operational from 2024-07-01; ¥1 trillion guarantee capacity)</li>
+<li><span class="t">T1</span>Nagashima Ohno &amp; Tsunematsu, NO&amp;T Infrastructure, Energy &amp; Environment Legal Update No.44 (2024-12), on the practical function of the security package in domestic project finance and the potential use of the enterprise value security interest (all-asset security; positive and defensive functions; security assignment over aggregate movables and registration; pre-agreed assignment of contractual position)</li>
+<li><span class="t">T1</span>Anderson Mōri &amp; Tomotsune, roundtable "The front line of the energy transition, part 3: latest trends in Japan's renewable energy market," 2025-07 (relative financeability of OCCTO-type, tolling and merchant structures)<a href="https://www.amt-law.com/insights/trending-news/trending-news_20250722001_ja_001/" target="_blank" rel="noopener">https://www.amt-law.com/insights/…</a></li>
+<li><span class="t">T1</span>Ministry of Finance, "Outline of the FY2026 tax reform" (investment promotion measures; "excluding use for leasing") / ASBJ accounting standards (new lease accounting, mandatory from April 2027) — detail in COLUMN 22 and 30</li>
+<li><span class="t">T2</span>Nikkei, "Storage investment still buoyant," 2026-04 (investment plans of ¥100bn at Tokyo Century and ¥200bn at SMFL) / same, 2025-09-29 (SMFL's acquisition of a large storage asset from West Holdings) / Shindenryoku-net, 2025-12 (Tokyo Century's investment in four self-developed extra-high-voltage sites, 101MW)<a href="https://pps-net.org/press/153185" target="_blank" rel="noopener">https://pps-net.org/press/153185</a> / Nikkei BP Mega Solar Business, "A 48MWh storage facility starts up in Himeji with project finance arranged"<a href="https://project.nikkeibp.co.jp/ms/atcl/19/feature/00024/00072/" target="_blank" rel="noopener">https://project.nikkeibp.co.jp/ms/…</a> / Nikkei Energy Next, "The difficulty of financing grid-scale storage," 2025 (indicative initial investment of ¥500–600m for high-voltage 2MW/8MWh)</li>
+<li><span class="t">T2</span>Moody's Investors Service (2018-03, on the cash flow risk of value stacking) / S&amp;P Global Commodity Insights (merchant revenue trends in major markets) / Energy-Storage.news (Australian lenders on not banking one-off events; Triple Point on the easing of contracted revenue requirements, 2026-01; Australia's CEFC)</li>
+<li><span class="t">T2</span>Modo Energy, "German BESS investment outlook Q2 2026" and "European BESS financing report: 2025 in review," 2026-03 (gearing of 70–85% on toll-heavy deals, range varying by analysis; deals clustering at 80–100% tolled; European deal count 25 &rarr; 82; disclosed debt €1.4bn &rarr; €6.1bn) / terralayr (bank caution below 50% tolled) / ess-news and pv magazine (Nofar Energy's Stendal, 104.5MW/209MWh, approx. €86.5m from NORD/LB on a seven-year fixed-price contract, 2025-03) / Neoen and ANZ disclosures (over A$2bn of debt across the Australian portfolio, 2024, with ANZ, Mizuho, MUFG and SMBC among the participants). Overseas figures are proxies from markets with different premises and cannot be applied directly to Japan</li>
+<li><span class="t">T2</span>Modo Energy and Aurora Energy Research published materials (bank acceptance of third-party revenue curves; economic analysis of four domestic projects totalling 148MW and financing drawn in 2026) / IEEFA 2025 (Japanese BESS connection applications of 170.8GW against 0.62GW connected)</li>
+<li><span class="t">T2</span>Bankers, product page for its grid-scale storage support fund (first-ranking revolving mortgage over land plus security over movables; planned loan of ¥495m against a ¥602m appraisal)<a href="https://www.bankers.co.jp/fund/detail/4275" target="_blank" rel="noopener">https://www.bankers.co.jp/fund/detail/4275</a> / reporting on the Bank of Japan's policy rate (1.0% in June 2026) and long-term yields (2.8% on 2026-05-18; 2.880% on 2026-07-09) (Nikkei Asia, Reuters)</li>
+</ul>
+<div class="source">Note: amounts and ratios in this article follow the published sources. Undisclosed terms — recourse, parent guarantees, DSCR, LTV, pricing — are marked "not disclosed" or "not confirmed," and no estimates have been substituted. §01 and the passages on credit review timelines and buyer behaviour are the author's field observation, not published statistics. Cleared prices and fill rates follow the published sources, with the period, product and area stated in the text. Because product design differs either side of the move to day-ahead trading in March 2026, results cannot simply be joined across fiscal years. The 9 JPY bid price and 70–90% award rate are illustrative and do not represent the terms of any specific project or operator. Commentary on collateral, tax and accounting is general and is not legal advice on any specific transaction. Claims of "first in Japan" rely on each company's own definition of its category. This article is not a solicitation to invest in any financial product, financing arrangement or project, nor is it legal, tax or financial advice.</div>
+</div>
+
+<div class="cta-section">
+  <h3>Getting your project and your numbers into financeable shape</h3>
+  <p>Refinancing potential for assets you already own, preparing the security package before a sale, tying assumptions back to primary sources, sensitivity analysis across the phased scenarios,<br>calculating the contracted revenue ratio, arranging third-party verification and technical due diligence, and the order in which to approach lenders and lessors —<br>we advise on specific projects under NDA following an initial enquiry. Developers, sellers, buyers and financial institutions are all welcome.</p>
+  <a target="_top" href="https://www.scix.co.jp/en/contact" class="cta-btn">Contact us &rarr;</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var g=document.getElementById('lender-checklist');if(!g)return;
+  var c=g.querySelectorAll('input[type=checkbox]'),cnt=document.getElementById('checkCount'),fl=document.getElementById('checkBarFill'),tot=c.length;
+  function u(){var d=0;c.forEach(function(x){if(x.checked)d++;});cnt.textContent=d;fl.style.width=(d/tot*100)+'%';}
+  c.forEach(function(x){x.addEventListener('change',u);});u();
+})();
+</script>
+
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">Related articles</div>
+  <a target="_top" href="/en/column-cashflow" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">The 20-year cash flow structure of a storage business — how to think about IRR and DSCR &rarr;</a>
+  <a target="_top" href="/en/column-long-term-contract" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">How much does a 47MW extra-high-voltage project earn under contract? Tolling's 18.6% doesn't come from the toll fee alone &rarr;</a>
+  <a target="_top" href="/en/column-lda" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">What is the Long-term Decarbonization Auction (LDA)? A full explanation of 20 years of fixed income &rarr;</a>
+  <a target="_top" href="/en/column-tax" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">Immediate expensing isn't something you take — it's something you get approved &rarr;</a>
+  <a target="_top" href="/en/column-subsidies" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">Subsidies are a decision, not a default &rarr;</a>
+  <a target="_top" href="/en/column-area-data" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">Cleared results in the balancing market by area — siting decisions for batteries, read from the latest data across nine areas and five products &rarr;</a>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX Home">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        8-2 Nihonbashi-Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        TEL: <a href="tel:+81364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakajima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

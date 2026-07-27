@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.85}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
+.src-list .t{display:inline-block;min-width:34px;font-weight:700;color:var(--navy);margin-right:8px;font-size:.92em}
+.part-lead{font-family:'Noto Serif JP',serif;font-size:.86em;letter-spacing:.12em;color:var(--accent);margin:56px 0 -32px;font-weight:600}
+</style>
+<title>なぜ蓄電所は、現金で買われるのか ── 「担保に取れない」の誤解と、62億円・20年が付いた理由 | ScienceX</title>
+<meta name="description" content="数億円の蓄電所が、なぜローンではなく現金で買われるのか。「担保に取れない」の誤解を○×△で検証し、姫路・広原・西郷村（62億円・20年）・多奈川・新潟山谷（ボンド100億円）・高圧14サイトまで国内デット五つの型を整理。そのうえで、金融機関が収支計画のどこを疑うか——実勢（EPRX約定実績）・制度シナリオ（上限15円→10円→7.21円）・固定収入比率という検証できる3つの数字と、5つの質問への回答の型、不動産投資家への翻訳表まで、一次資料で一本にまとめる。">
+<link rel="canonical" href="https://www.scix.co.jp/column-financing">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-financing">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-financing">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-financing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="なぜ蓄電所は、現金で買われるのか ── 「担保に取れない」の誤解と、62億円・20年が付いた理由｜ScienceX">
+<meta property="og:description" content="現金で買うことと、現金しか使えないことは違う。国内デット五つの型と、収支の「水かけ論」を終わらせる検証できる3つの数字——蓄電所の資金調達を、器と契約から数字の審査まで一本で。">
+<meta property="og:url" content="https://www.scix.co.jp/column-financing">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="なぜ蓄電所は、現金で買われるのか ── 「担保に取れない」の誤解と、62億円・20年が付いた理由｜ScienceX">
+<meta name="twitter:description" content="「担保は結果、契約が原因」。62億円・20年と100億円ボンドが付いた理由と、審査に通る収支の作法を一次資料で。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-07-26">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "なぜ蓄電所は、現金で買われるのか ── 「担保に取れない」の誤解と、62億円・20年が付いた理由 | ScienceX",
+  "description": "数億円の蓄電所がなぜ現金で買われるのか。「担保に取れない」の誤解を○×△で検証し、国内デット五つの型（姫路・広原・西郷村・多奈川・新潟山谷・高圧14サイト）と、金融機関の収支審査に応じる「検証できる3つの数字」（実勢・制度シナリオ・固定収入比率）を一次資料で整理する。",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "datePublished": "2026-07-26",
+  "mainEntityOfPage": "https://www.scix.co.jp/column-financing"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://www.scix.co.jp/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ナレッジ",
+      "item": "https://www.scix.co.jp/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "なぜ蓄電所は、現金で買われるのか ── 「担保に取れない」の誤解と、62億円・20年が付いた理由",
+      "item": "https://www.scix.co.jp/column-financing"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">なぜ蓄電所は、現金で買われるのか ── 「担保に取れない」の誤解と…</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 38</span>
+      <span class="header-tag">国内・海外投資家 / 資金調達（デット・リース・収益審査）</span>
+      <time class="header-date" datetime="2026-07-26">2026.07.26</time>
+    </div>
+    <h1>なぜ蓄電所は、<em>現金で買われるのか</em> —<br>「担保に取れない」の誤解と、<em>62億円・20年</em>が付いた理由</h1>
+    <p class="header-desc">数億円の実物資産が現金で決済される市場の力学、「担保に取れない」の法律論、2023〜2026年に出そろった国内デット五つの型。そのうえで、金融機関が収支計画のどこを疑い、「検証できる3つの数字」でどう応じるか——器と契約から数字の審査まで、蓄電所の資金調達を一本にまとめました。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
+
+<p>数億円から数十億円の電力インフラ資産が、ローンではなく現金で取引されている——系統用蓄電所の売買市場の日常です。高圧2MW/8MWh級の初期投資は目安5〜6億円と報じられています（日経エネルギーNext）。不動産なら当然ローンを組む規模の買い物を、この市場の多くの買い手は自己資金で決済しています。「蓄電池は担保に取れないから、融資は付かない」——売買の現場で毎週のように聞く説明です。</p>
+
+<p>けれど、公表された事実は別のことを言っています。福島県西郷村の40MW/200MWhには、総事業費約65億円に対して<strong>契約金額62億円・契約期間20年</strong>のシンジケートローンが付きました。新潟の49MW/231MWhには、R&amp;I格付A-を取得した<strong>国内初となる開発資金使途のプロジェクトボンド100億円</strong>が組成されました。全国14か所の高圧蓄電施設には貸付限度額49億円のノンリコース融資が、収益契約のないフルマーチャントの99MWにすら、市場収益のみを返済原資とするプロジェクトファイナンス（PF）が付いています。</p>
+
+<p>付く案件と付かない案件を分けているのは、担保ではありません。本稿の結論を先に言えば——<strong>担保は結果であり、原因は契約</strong>です。そして契約でデットの器が決まっても、審査のテーブルには必ず収支計画が載ります。「この応札価格の根拠は何ですか」——ここで止まる議論を、検証できる議論に変える方法まで含めて、前半で「器と契約」を、後半で「数字の審査」を、一本に整理します。2026年、市場は「現金しかない」段階から、「入口の現金と、出口のデットをどう組み合わせるか」を設計できる段階に移りつつあります。</p>
+
+<div class="review-note">
+<strong>本稿の位置づけ：</strong>制度参照時点は2026年7月。主たる読者は、蓄電所の取得・保有を検討する国内・海外の投資家・買主・売主、収支計画を金融機関・投資家に持ち込む事業者、そして案件を持ち込まれる金融機関の実務者。数値は各社の適時開示・プレスリリース・公的機関/取引所の公表資料のみを用い、非開示のもの（DSCR・LTV・金利など）は「非開示」、確認できない事項は「確認できず」と明記します。§01のみ、案件組成・仲介の現場での観察であることを本文に明示します。本文中の応札単価・落札率などの前提値は説明用の例示であり、特定案件・特定運用者の条件ではありません。担保・税務・会計の記述は一般的な解説であり、本稿は投資・融資・法務・税務の助言ではありません。個別案件は弁護士・税理士等の専門家・金融機関に必ずご確認ください。本稿はCOLUMN 07（IRR・DSCR）、COLUMN 30（契約類型と利回り）の続編——「エクイティの次に、デットをどう付けるか」です。</div>
+
+<div class="data-box">
+<div class="db-head">本稿の射程</div>
+<dl class="premise-grid">
+  <div><dt>最長の公表テナー</dt><dd>20<span class="unit">年（西郷村・LDA活用）</span></dd></div>
+  <div><dt>最大の公表デット比</dt><dd>62<span class="unit">億円／総事業費 約65億円</span></dd></div>
+  <div><dt>開発資金型ボンド（国内初）</dt><dd>100<span class="unit">億円・R&amp;I格付A-</span></dd></div>
+  <div><dt>一次調整力の実勢</dt><dd>9.6〜13.5<span class="unit">円/ΔkW・30分（蓄電池）</span></dd></div>
+  <div><dt>上限価格の現在地</dt><dd>19.51→15<span class="unit">円（10→7.21円は条件付き段階方針・未発動）</span></dd></div>
+  <div><dt>金利環境</dt><dd>1.0<span class="unit">%（政策金利）／10年債 一時2.88%</span></dd></div>
+</dl>
+</div>
+
+<div class="part-lead">前半 ── 器と契約</div>
+
+<h2>01 — なぜ現金なのか：スピードの非対称（現場観察）</h2>
+
+<p>まず、筆者が日々の案件組成・仲介で見ている景色から書きます。この節は公表統計ではなく現場観察であり、そのことを最初に明示しておきます。</p>
+
+<p>権利渡し・完成渡しの蓄電所売買では、売主は1ヶ月前後での決済を求めることが少なくありません。理由は三つあります。第一に、売主側の資金繰りです。工事費負担金や系統連系の保証金には支払期限があり、2026年4月のいわゆる空押さえ対策（COLUMN 09）以降、保証金の負担は増額・前倒しの方向に動きました。第二に、買い手候補は常に複数いること。第三に、案件の鮮度です。連系予定日が近い案件ほど価値が高く、時間の経過はそのまま商品価値の劣化になります。</p>
+
+<p>対して買い手側の時計はどうか。コーポレートローンでも社内稟議と銀行審査で1.5〜2ヶ月、PFなら半年から1年を見る必要があります。案件は待ってくれません。結果として「即断できる現金」が「安いが遅いデット」に勝ち、稟議を要する上場企業・金融系よりも、即決できるオーナー企業や外資系ファンドが取り負けない——これがこの市場の力学です。傍証もあります。リース大手の東京センチュリーが特別高圧4ヶ所・計101MWの自社単独開発を公表した際、強みとして挙げたのが単独ゆえの意思決定の速さでした（2025年12月）。プロの機関投資家ですら、この市場では「速さ」を競争資源と認識しているのです（なお、審査期間の標準値について信頼できる公表統計は確認できませんでした。上記は現場感覚です）。</p>
+
+<p>ここで押さえるべきは、現金決済の主流化は「融資が付かない」ことの証明ではない、ということです。<strong>付かないのではなく、間に合わないのです。</strong>では、そもそも付くのか、付くならどういう条件か——ここから先は、公表情報で答えます。</p>
+
+<h2>02 — 「担保に取れない」は、どこまで本当か</h2>
+
+<p>法律論から片づけます。蓄電池設備（コンテナ型BESS・PCS・受変電設備）は不動産ではなく動産なので、単体に抵当権は設定できません。しかし、担保に取れないわけではありません。取り方は主に三つです。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>担保手法</th><th>対象</th><th>対抗要件・特徴</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">集合動産譲渡担保</td><td>BESSコンテナ・PCS等の動産一式</td><td>占有改定＋動産譲渡登記（動産・債権譲渡特例法。登記により引渡しがあったものとみなされ第三者対抗要件を具備）。太陽光PFで実務が確立</td></tr>
+<tr><td class="em">工場財団抵当（工場抵当法）</td><td>土地・建物・機械器具を一体の「1個の不動産」として</td><td>登録免許税0.25%（通常抵当0.4%より軽い）。ただし<strong>敷地が所有権の場合に限る</strong>。地上権では工場抵当法は使えず、賃借権では抵当権自体が設定できない</td></tr>
+<tr><td class="em">個別の抵当権・質権・ABL</td><td>土地（所有権）、SPC持分、預金口座、保険金請求権、売電債権</td><td>PFの標準パッケージ（§03）。動産・債権担保融資（ABL）は担保評価に外部専門機関を要することが多い</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>実例もあります。融資型クラウドファンディングの系統用蓄電池ファンドでは、土地への根抵当権と蓄電設備への動産担保を設定し、外部評価機関の担保評価6.02億円に対して融資予定4.95億円——評価額に対する掛け目約8割という組成が公表されています。蓄電所の担保評価は、すでに市場で実際に行われているのです。</p>
+
+<p>では、なぜ銀行の窓口で断られるのか。理由は担保の<strong>清算価値</strong>にあります。中古BESSの処分市場は未成熟で、劣化（SOH）の評価手法、移設・転用の可否、メーカー保証やLTSA（長期サービス契約）の譲渡可能性には不確実性が残ります。設備を差し押さえて競売にかけても、貸付金を回収できる見込みが立たない——この意味で「担保価値が乏しい」は概ね正しいと言えます。買い手側から見た帰結がレバレッジの欠如です。不動産は物件を担保に借り、次の物件へ複利的に資産を拡大できるのに対し、蓄電所は原則フルエクイティで、1基買えば資金が寝ます。「利回りは良いが資産効率で不動産に劣る」という投資家の声は、この担保構造から来ています。</p>
+
+<p>判定を一枚にすると、こうなります。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>言説</th><th style="width:72px">判定</th><th>根拠</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">蓄電池設備は法的に担保設定できない</td><td class="ng">×</td><td>集合動産譲渡担保＋動産譲渡登記、工場財団抵当（所有権敷地）で設定可能。PF・ファンドの公表例で実際に組成</td></tr>
+<tr><td class="em">接続契約など契約上の地位は移転できない</td><td class="ng">×</td><td>地位譲渡予約＋相手方の承諾（ダイレクトアグリーメント）で移転可能（§03）</td></tr>
+<tr><td class="em">担保単体の清算・処分価値は乏しい</td><td class="ok">○</td><td>中古処分市場が未成熟。SOH評価・移設・保証譲渡に不確実性</td></tr>
+<tr><td class="em">だから蓄電所に融資は付かない</td><td class="cond">△</td><td>因果が不正確。融資可否を決めるのは担保の換価価値ではなく、契約が生むキャッシュフローの予見可能性。実例は§05</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>03 — レンダーが実際に取るもの：担保は「売るため」ではなく「引き継ぐため」</h2>
+
+<p>発電・蓄電のPFは「全資産担保」が原則です。借入人SPCとその資産の全体——設備（動産）、土地またはその利用権、EPC・O&amp;M・アグリゲーター・トーリング等のプロジェクト関連契約に基づく債権と契約上の地位、保険金請求権、預金口座、そしてSPCの持分そのもの——に担保権を重ねます。</p>
+
+<p>重要なのは、この担保パッケージの目的です。法律実務の整理では、担保の機能は二つに分けられます。ひとつは<strong>積極的機能</strong>——事業が傾いたとき、レンダーがSPC持分や契約上の地位ごと事業を引き取り、スポンサーを入れ替えて事業を続けさせる「ステップイン」の強制的実現。もうひとつは<strong>防御的機能</strong>——第三者の差押え等による資産の逸出を防ぐこと。設備の集合動産譲渡担保は、差押えに対して第三者異議で競売を阻止し、事業一体としての価値を守るために働きます。</p>
+
+<p>つまりレンダーは、蓄電池を<strong>バラして売るため</strong>に担保を取っているのではありません。<strong>事業を丸ごと引き継ぐため</strong>に取っています。だから中古市場の未成熟は、PFの組成可否を直接には決めません。決めるのは、引き継いだ後もキャッシュフローが読めるか——すなわち契約です。契約上の地位の移転には接続契約・トーリング契約などの相手方（一般送配電事業者・オフテイカー等）の承諾が要り、PFではこれを地位譲渡予約とダイレクトアグリーメント（直接契約・承諾書）で事前に固めます。系統接続の権利も、この枠組みで担保パッケージに入ります。</p>
+
+<p>そして2026年5月25日、この分野の前提が一つ変わりました。事業性融資推進法に基づく<strong>企業価値担保権が施行</strong>されたのです（2024年6月成立）。有形・無形資産から将来キャッシュフローまで、債務者の総財産を一体で担保化できる新しい担保権で、信託方式で設定し、設定時には経営者保証の利用が制限されます。動産中心で、価値の源泉が将来収益にある蓄電所事業とは構造的に相性がよく、「全資産担保」を個別に積み上げる現行実務を簡素化しうる制度です。蓄電所での活用事例はまだ公表確認できませんが、§02の壁を正面から崩しうる変化として注視に値します。</p>
+
+<h2>04 — もう一つの壁：銀行が「読めない」収益</h2>
+
+<p>担保の壁と並ぶ、もう一つの構造要因が収益の予見性です。FIT太陽光は固定価格×固定期間で20年分のキャッシュフローが読めたからこそ、PFが大量に組成されました。系統用蓄電所はJEPX・需給調整市場・容量市場の3市場を日々組み合わせて稼ぎ（COLUMN 02）、収益の大半は市況次第の「マーチャント収益」です。しかも国内の運転実績はまだ浅い。IEEFAの分析によれば、日本のBESSは接続申請が170.8GWに膨らむ一方、連系済みは0.62GW（2025年時点）。レンダーが依拠できる実績データの母数が、そもそも小さいのです。</p>
+
+<p>国内初のBESS向けPFを組成したSMFLみらいパートナーズ自身が、FIT型のような安定収入を前提にできず、事業評価も契約条項もゼロから作る必要があったと振り返っています。再エネPFの標準実務では、レンダーは保守的なP90シナリオ（超過確率90%の収益水準）でデットサイジングし、DSCR（元利金返済カバー率）で概ね1.2〜1.35倍程度を求めます。では、3市場収益のP90を誰がどう裏づけるのか——ここでアグリゲーターの実績開示の粒度が焦点になりますが、投資家やレンダーが検証できる水準の公開データはまだ限定的です。この論点への実務的な答え方——実勢・制度シナリオ・固定収入比率で前提を挟む方法——は、本稿後半（§08以降）で詳述します。</p>
+
+<h2>05 — それでも付いた：2023年から2026年で、五つの型が出そろった</h2>
+
+<p>構造的に難しい——それでも、公表ベースの組成事例はこの3年で着実に積み上がりました。整理すると五つの型があります。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>時期</th><th>レンダー／組成</th><th>案件・規模</th><th>型</th><th>公表されている条件</th></tr>
+</thead>
+<tbody>
+<tr><td>2023年8月組成（運開2025年10月）</td><td>SMFLみらいパートナーズ（単独）</td><td>合同会社姫路蓄電所（兵庫・出光興産の製油所跡地）15MW/48MWh</td><td class="em">起点：リース系単独PF</td><td>出資：出光51%・レノバ22%・長瀬産業22%・SMFL-MP5%。事業費は数十億円規模、補助金約3割、出資十数億円＋残りをPF（日経BP報道）</td></tr>
+<tr><td>2024年</td><td>三菱UFJ銀行（組成）</td><td>広原（宮崎）30MW/120MWh、石狩30MW</td><td class="em">オフテイク与信型PF</td><td>東京ガスの20年オフテイク契約を与信の土台に組成。石狩は約50億円、その他条件非開示（COLUMN 30参照）</td></tr>
+<tr class="hl"><td>2025-01-31契約・05-30実行</td><td>三井住友銀行（アレンジャー兼エージェント）＋東邦銀行</td><td>株式会社FMS・西郷村蓄電所（福島）40.0MW/200.0MWh</td><td class="em">LDA型シンジケートローン</td><td><strong>契約金額62億円・契約期間20年</strong>（総事業費約65億円）。BYD MC Cube-T採用。売電開始2027年4月予定</td></tr>
+<tr><td>2025年（2025-05-07公表）</td><td>三菱UFJ銀行</td><td>多奈川蓄電所合同会社（大阪・岬町）99MW/396MWh</td><td class="em">フルマーチャント型PF（国内初）</td><td>市場収益のみを返済原資とするノンリコース。関西電力40%・きんでん10%等が出資。金額・テナー非開示。運転開始2028年2月予定</td></tr>
+<tr class="hl"><td>2026-04-17</td><td>みずほ証券（組成）・オリックス銀行（信託受託・信託貸付）・CHC Japan（開発・AM）</td><td>新潟山谷蓄電所（新潟・小千谷）49MW/231MWh</td><td class="em">トーリング型・国内初の開発資金型プロジェクトボンド</td><td><strong>100億円・R&amp;I格付A-</strong>。東京ガスが20年間、固定の利用対価を支払い運用権を取得</td></tr>
+<tr><td>2026-04-27実行</td><td>リコーリース</td><td>日本蓄電池が組成するSPC・全国14か所の<strong>高圧</strong>系統用蓄電施設</td><td class="em">マーチャント型・ポートフォリオ型ノンリコースPF</td><td><strong>貸付限度額49億円</strong>の限度貸付契約。需給調整市場・卸電力市場の収益を見込む。AMはecoプロパティーズ</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>このほか、オリックス銀行が蓄電池併設型太陽光（大分・宇佐市）へ同行初のノンリコース型PFを実行し（2026年）、エクイティ側でも、伊藤忠商事が組成した国内初の系統用蓄電池専業ファンド（80億円超・2024年、芙蓉総合リース・東京センチュリー・横浜銀行等が出資）、芙蓉総合リースほか8社共同出資による全国6地点・約174MWのSPC参画（2026年）が公表されています。</p>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 「本邦初」の帰属について</span><br>
+「国内初の蓄電所PF」は、数え方で帰属が分かれます。リース系レンダーによる単独組成としては姫路（SMFLみらいパートナーズ・2023年8月組成）が先行し、銀行組成・オフテイク与信型としては広原（三菱UFJ銀行・2024年）が第1号、市場収益のみを返済原資とするフルマーチャント型としては多奈川（同・2025年）、開発資金を使途としたプロジェクトボンドとしては新潟山谷（みずほ証券ら・2026年4月、みずほ証券調べ）がそれぞれ国内初です。各社のリリースは自社の類型における「初」を述べており、矛盾ではありません。なお2026年3月には、稼働済みのマーチャント型蓄電所（札幌・Helios 50MW/104MWh、2025年11月運開）の取得資金を使途とする「日本初のグリーンプロジェクトボンド」約54億円（野村證券アレンジャー・R&amp;I格付BBB・最長19年）が先行して組成されており、資本市場型には「開発資金型（新潟山谷）」と「稼働後リファイナンス型（Helios）」の二つの入口が開いています。本稿は称号よりも、<strong>3年で五つの型（リース単独／オフテイク与信／LDA／フルマーチャント／資本市場）が出そろった</strong>という事実を重視します。
+</div>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="国内BESSデットの系譜 2023年から2026年" font-family="'Noto Sans JP',sans-serif">
+  <line x1="50" y1="150" x2="690" y2="150" stroke="#1B2A4A" stroke-width="2"/>
+  <polygon points="700,150 688,146 688,154" fill="#1B2A4A"/>
+  <g font-size="11" fill="#6C7A89">
+    <text x="90" y="172" text-anchor="middle">2023</text>
+    <text x="250" y="172" text-anchor="middle">2024</text>
+    <text x="415" y="172" text-anchor="middle">2025</text>
+    <text x="590" y="172" text-anchor="middle">2026</text>
+  </g>
+  <g stroke="#E2E6EC" stroke-width="1">
+    <line x1="170" y1="142" x2="170" y2="158"/><line x1="330" y1="142" x2="330" y2="158"/><line x1="500" y1="142" x2="500" y2="158"/>
+  </g>
+  <!-- 姫路 -->
+  <line x1="100" y1="150" x2="100" y2="92" stroke="#C49A3C" stroke-width="1.2"/>
+  <circle cx="100" cy="150" r="6" fill="#C49A3C"/>
+  <text x="100" y="66" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">姫路 15MW/48MWh</text>
+  <text x="100" y="82" text-anchor="middle" font-size="10" fill="#6C7A89">リース系単独PF（2023.08）</text>
+  <!-- 広原・石狩 -->
+  <line x1="245" y1="150" x2="245" y2="208" stroke="#6C7A89" stroke-width="1.2"/>
+  <circle cx="245" cy="150" r="6" fill="#C49A3C"/>
+  <text x="245" y="226" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">広原・石狩</text>
+  <text x="245" y="242" text-anchor="middle" font-size="10" fill="#6C7A89">オフテイク与信型PF（2024）</text>
+  <!-- 西郷村 -->
+  <line x1="380" y1="150" x2="380" y2="92" stroke="#C49A3C" stroke-width="1.2"/>
+  <circle cx="380" cy="150" r="7" fill="#C49A3C"/>
+  <text x="380" y="66" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">西郷村 40MW/200MWh</text>
+  <text x="380" y="82" text-anchor="middle" font-size="10" fill="#6C7A89">LDA型 62億円・20年（2025.01契約）</text>
+  <!-- 多奈川 -->
+  <line x1="455" y1="150" x2="455" y2="208" stroke="#6C7A89" stroke-width="1.2"/>
+  <circle cx="455" cy="150" r="6" fill="#C49A3C"/>
+  <text x="455" y="226" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">多奈川 99MW/396MWh</text>
+  <text x="455" y="242" text-anchor="middle" font-size="10" fill="#6C7A89">フルマーチャント型・国内初（2025.03）</text>
+  <!-- 新潟山谷 -->
+  <line x1="580" y1="150" x2="580" y2="92" stroke="#C49A3C" stroke-width="1.2"/>
+  <circle cx="580" cy="150" r="7" fill="#C49A3C"/>
+  <text x="580" y="66" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">新潟山谷 49MW/231MWh</text>
+  <text x="580" y="82" text-anchor="middle" font-size="10" fill="#6C7A89">ボンド100億円・A-（2026.04）</text>
+  <!-- 高圧14 -->
+  <line x1="655" y1="150" x2="655" y2="208" stroke="#6C7A89" stroke-width="1.2"/>
+  <circle cx="655" cy="150" r="6" fill="#C49A3C"/>
+  <text x="632" y="226" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">高圧14サイト</text>
+  <text x="632" y="242" text-anchor="middle" font-size="10" fill="#6C7A89">ポートフォリオ型49億円（2026.04）</text>
+</svg>
+<div class="fig-cap">図1 — 国内BESSデットの系譜（2023→2026）。姫路（リース単独）→広原・石狩（オフテイク与信）→西郷村（LDA・20年）→多奈川（フルマーチャント）→新潟山谷（ボンド100億円）→高圧14サイト（ポートフォリオ型）。3年で五つの型が出そろった。</div>
+</div>
+
+<p>型の意味を読みます。<strong>LDA型</strong>は、原則20年の固定収入が制度で確保されるため最も融資が付きやすく、テナーも固定収入の年限に揃います。<strong>トーリング型</strong>は、変動する市場収益をオフテイカーの信用力で固定キャッシュフローに変換する型で、鍵は相手の信用力——これを引き受けられる国内プレイヤーはまだ限られます（COLUMN 30）。<strong>マーチャント型</strong>は最難関ですが、多奈川は関西電力グループという強いスポンサー構成、日本蓄電池は全国14か所というポートフォリオ分散が、変動収益の裏づけとして機能したと読めます。裏を返せば、単基マーチャントに長期資金が付くかどうかは、スポンサーの信用力・運用体制・運転実績次第——そしてこの境界線は2026年に入り、動き始めています（§16）。</p>
+
+<h2>06 — 62億円・20年と、100億円ボンドは、なぜ付いたか</h2>
+
+<p>系譜の中でもっとも雄弁な二件を分解します。</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">62<span class="unit">億円</span></span><span class="lbl">西郷村の契約金額（総事業費 約65億円）</span></div>
+  <div class="stat-cell"><span class="val">20<span class="unit">年</span></span><span class="lbl">契約期間（＝LDAの固定収入期間と一致）</span></div>
+  <div class="stat-cell"><span class="val">100<span class="unit">億円</span></span><span class="lbl">新潟山谷のプロジェクトボンド（R&amp;I格付A-）</span></div>
+</div>
+
+<p><strong>西郷村（LDA型）。</strong>三井住友銀行のリリースは根拠を明快に書いています。本件は長期脱炭素電源オークション（LDA）を活用したプロジェクトであり、固定収入が原則20年間保証されるため、長期的に安定した事業収益を確保できる——だから20年のローンが組める、という論理です。契約期間20年はLDAの容量収入20年とぴったり重なり、COLUMN 30で示した「テナーの整合（契約年限≧融資年限）」が公表案件で実証された形です。総事業費約65億円に対する契約金額62億円は、単純比較で9割超に相当するデットです（リコースの有無・親会社保証・自己資金の内訳は非開示のため、そのままLTVとは読めません。ただし「蓄電所にデットは付かない」という通念と、この数字が両立しないことは確かです）。</p>
+
+<p><strong>新潟山谷（トーリング型）。</strong>東京ガスが20年間、固定の利用対価を支払って運用権を得るトーリング契約が土台にあり、この契約構造がR&amp;IのA-格付と、銀行融資ではなく資本市場からの100億円調達を可能にしました。注目すべきは順序です。<strong>固定収入があったから、格付機関が収益を「検証」でき、検証できたから資本市場の資金が届いた。</strong>固定収入比率とは、収益のうち第三者が検証を引き受けられる部分の割合、と言い換えられます。固定収入は、ローンだけでなくボンドまで解放する——そして組成者は、金利変動が高まる環境下でのインフラ事業には超長期の資金調達が不可欠であり、開発資金を回収して次へ回す（キャピタルリサイクル）意図があることを示唆しています。§14で述べる「入口は現金、出口はデット」の設計は、すでに大型案件で実装され始めているのです。</p>
+
+<p>一方で、収益契約のないフルマーチャントに付いた多奈川・高圧14サイトは、金額・テナーとも控えめか非開示です。同じ「付いた」でも、<strong>固定収入の厚さがデットの厚さを決める</strong>——この構造は次節の序列そのものです。</p>
+
+<h2>07 — 序列は世界共通：「固定収入比率」という共通言語</h2>
+
+<p>法律事務所の実務家による整理でも、蓄電所ファイナンスの付きやすさは収益契約の類型で説明されます。OCCTO型（LDAを含む容量収入型）は支払元の信用力が高く比較的ファイナンスが付きやすい。トーリング型は保有者が市場価格リスクを負わないため長期ファイナンスに適するが、信用力の高いオフテイカーは限られる。マーチャント型は将来の電力価格が読みにくく、金融機関は長期ファイナンスの可否をなお試行錯誤している——という序列です。</p>
+
+<p>レンダーとの対話でこの序列を1つの数字に落とすと、<strong>固定収入比率</strong>——総収入のうち契約（LDA・容量市場・トーリング・フロア）で固定されている割合——になります。日本でこの比率を構成する契約収入は主に三つ。容量市場（第6回メインオークションは経過措置反映後の全国平均約定価格が<strong>13,303円/kW・年</strong>と過去最高を更新し、東北・東京・九州は上限に到達。推移とエリア差はCOLUMN 28）、長期脱炭素電源オークション＝LDA（原則20年の固定容量収入。脱炭素電源の加重平均は第2回〔2024年度実施〕の約6.8万円/kW・年から第3回〔2025年度実施〕は約11.1万円/kW・年へ上昇——上限価格の閾値引き上げの影響を含みます。第3回の蓄電池の落札率は46%〔応札125.1万kW〕で、6時間以上の運転継続要件・セル製造国制限も加わり依然狭き門です。COLUMN 01・03）、そしてトーリング契約（COLUMN 30）です。海外の開示データは、この比率がデットを決めることを露骨に示しています。</p>
+
+<div class="data-box">
+<div class="db-head">海外の「契約収入×デット」の相場観</div>
+<p style="margin-bottom:12px"><strong>英国</strong>：デットによる組成では長らく、想定キャッシュフローの概ね半分をフロア付き契約などの契約済み収益で下支えする要求が一般的でした。市場の成熟とともにマーチャント許容度は上がり、投資会社Triple Pointは「契約収益がほとんど無い案件でも融資が受け入れられるようになった」と述べていますが、大型組成では今も「契約済み5割」が一つの目安です。</p>
+<p style="margin-bottom:12px"><strong>ドイツ</strong>：トーリングを厚く入れた案件で概ね70〜85%のギアリング（負債比率）が付くと分析され（分析により幅）、実際のディールは収益の80〜100%をトール化した案件に集中しています。トール提供者側からは「収益の半分以上をバンカブルなトーリングで固定しないと、多くの銀行は融資に慎重になるか、高い金利・低いLTVを課す」という水準感も示されています。実例では、Stendal蓄電所（104.5MW/209MWh）が7年の固定価格フレキシビリティ契約を裏づけに州立銀行NORD/LBから約8,650万ユーロの長期デットを確保しました。</p>
+<p style="margin-bottom:12px"><strong>豪州</strong>：CIS（容量投資スキーム）が政府契約で収益のフロアを支え、NeoenはBESSを含むポートフォリオで2024年に2度、計20億豪ドル超のデットを調達（ANZ・みずほ・MUFG・SMBC等が参加）。<strong>米国</strong>：ITC（投資税額控除）のタックスエクイティと建設ローンを組み合わせるハイブリッドが標準です。</p>
+<p style="margin-bottom:0"><strong>欧州全体</strong>：BESSのファイナンス案件数は2025年に25件から82件へ3倍超、開示ベースの負債額は14億ユーロから61億ユーロへ急増しました。牽引したのは英国のフロア、ドイツのトーリング、スペイン・イタリアのPPA/CfDです。</p>
+<div class="source">出典：Energy-Storage.news／Modo Energy／terralayr／ess-news・pv magazine／Neoen・ANZ公表（詳細は末尾の出典欄）。海外数値は前提の異なるプロキシで、日本へ直接適用できません。</div>
+</div>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="固定収入比率とデットの厚さの概念図" font-family="'Noto Sans JP',sans-serif">
+  <rect x="110" y="50" width="550" height="290" fill="#FFFFFF" stroke="#E2E6EC" stroke-width="1"/>
+  <line x1="385" y1="50" x2="385" y2="340" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="3 4"/>
+  <line x1="110" y1="195" x2="660" y2="195" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="3 4"/>
+  <line x1="110" y1="340" x2="110" y2="42" stroke="#1B2A4A" stroke-width="1.5"/>
+  <polygon points="110,32 106,44 114,44" fill="#1B2A4A"/>
+  <line x1="110" y1="340" x2="668" y2="340" stroke="#1B2A4A" stroke-width="1.5"/>
+  <polygon points="678,340 666,336 666,344" fill="#1B2A4A"/>
+  <text x="385" y="372" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">固定収入比率（契約で固定された収入の割合）→</text>
+  <text x="120" y="356" font-size="11" fill="#6C7A89">低</text>
+  <text x="650" y="356" text-anchor="end" font-size="11" fill="#6C7A89">高</text>
+  <text x="62" y="195" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A" transform="rotate(-90 62 195)">デットの厚さ（テナー・レバレッジ）→</text>
+  <text x="100" y="60" text-anchor="end" font-size="11" fill="#6C7A89">厚</text>
+  <text x="100" y="336" text-anchor="end" font-size="11" fill="#6C7A89">薄</text>
+  <!-- plots -->
+  <circle cx="185" cy="285" r="9" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2.5"/>
+  <text x="185" y="310" text-anchor="middle" font-size="11" fill="#2C3E50">高圧14サイト</text>
+  <text x="185" y="324" text-anchor="middle" font-size="9.5" fill="#6C7A89">マーチャント・ポートフォリオ（限度49億円）</text>
+  <circle cx="230" cy="240" r="9" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2.5"/>
+  <text x="230" y="218" text-anchor="middle" font-size="11" fill="#2C3E50">多奈川</text>
+  <text x="230" y="231" text-anchor="middle" font-size="9.5" fill="#6C7A89">フルマーチャント（条件非開示）</text>
+  <circle cx="345" cy="205" r="9" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="345" y="245" text-anchor="middle" font-size="11" fill="#2C3E50">姫路</text>
+  <text x="345" y="258" text-anchor="middle" font-size="9.5" fill="#6C7A89">補助金約3割＋PF</text>
+  <circle cx="520" cy="140" r="9" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="505" y="172" text-anchor="middle" font-size="11" fill="#2C3E50">広原・石狩</text>
+  <text x="505" y="185" text-anchor="middle" font-size="9.5" fill="#6C7A89">20年オフテイク与信</text>
+  <circle cx="610" cy="88" r="10" fill="#C49A3C"/>
+  <text x="600" y="66" text-anchor="middle" font-size="11" font-weight="700" fill="#1B2A4A">西郷村（LDA）</text>
+  <text x="600" y="79" text-anchor="middle" font-size="9.5" fill="#6C7A89">62億円／65億円・20年</text>
+  <circle cx="628" cy="122" r="10" fill="#C49A3C"/>
+  <text x="618" y="150" text-anchor="middle" font-size="11" font-weight="700" fill="#1B2A4A">新潟山谷（トーリング）</text>
+  <text x="618" y="163" text-anchor="middle" font-size="9.5" fill="#6C7A89">ボンド100億円・A-</text>
+  <text x="118" y="410" font-size="10" fill="#9AA6B2">※位置は公表情報（契約類型・公表条件）からの定性配置。実測の比率・レバレッジではありません。</text>
+</svg>
+<div class="fig-cap">図2 — 契約類型（横軸：固定収入比率）× デットの厚さ（縦軸：レバレッジ・テナー）の概念図。固定収入が厚い右上ほど、テナーが伸び、資本市場まで届く。</div>
+</div>
+
+<p>つまり<strong>「契約収入がデットを解放する」は国際共通の原則</strong>です。ここで日本の特殊性が見えます。日本には豪CISや米ITCのような公的な下支え機構がなく（GX推進機構の蓄電池向け保証実行例も未確認。§16）、その空白をLDAが「制度としての契約収入」で埋めています。逆に言えば、下支えなしで組成された多奈川や高圧14サイトのマーチャントPFは、世界的に見てもむしろ挑戦的な組成です。なお、固定しない場合の「床」はCOLUMN 30のとおり——公的試算では容量市場収入込みでもベースIRRが−1.5%（CAPEX6万円/kWh）。レンダーの保守性は感情論ではなく、DSCRの算術です。</p>
+
+<p>金利も無関係ではありません。割引率とデットコストの上昇はマーチャント収益の現在価値を薄め、固定収入の相対的な価値を高めます（金利環境の数字は§16）。固定収入比率は、金利ある世界でますます効く数字です。</p>
+
+<div class="part-lead">後半 ── 数字の審査</div>
+
+<h2>08 — それでも残る「検証できない数字」：なぜ水かけ論になるのか</h2>
+
+<p>ここまでが「器と契約」の話です。しかし契約類型を決めても、審査のテーブルには必ず収支計画が載ります。そして議論は、決まって同じ場所で止まります。「この応札価格の根拠は何ですか」「アグリゲーターの実績数値は、強気すぎませんか」。指摘はもっともです。しかし、では妥当な水準はいくらか——と問い返せば、先方も代替の数字を持っているわけではありません。FITのような固定価格が存在しない以上、将来の市場価格に「正解」はないからです。ここからは、この水かけ論を「検証できる議論」に変えるための整理です。前半で見たとおり、金融機関の懐疑はあなたの試算が雑だから向けられるのではなく、実績母数の小さいアセットクラスの構造に向けられたものです（§04）。だからこそ、感覚での反論ではなく、「検証できる部分」の提示で応じるのが正しい対処になります。</p>
+
+<p>構造を確認します。太陽光のプロジェクトファイナンスで金融機関が検証してきたのは、突き詰めれば「日射量」でした。売電価格は20年固定。変動するのは発電量だけで、それは気象統計からP50（超過確率50%の中央値）・P90（90%の確率で上回る保守値）として統計処理できます。だからP90でデットサイジングし、DSCR 1.2〜1.35倍程度を求める——この作法が定着しました（§04）。</p>
+
+<p>蓄電所は逆です。運用量はある程度制御できますが、価格が固定されていません。収益はJEPX・需給調整市場・容量市場の3市場スタッキング（COLUMN 02）で構成され、その大半は市場価格次第の「マーチャント収益」です。格付機関Moody'sは2018年の時点で、契約収入と市場収入を組み合わせるバリュースタッキングは、純粋な長期契約モデルよりキャッシュフローの変動リスクが大きいと整理しました。豪州の蓄電池向けレンダーが「一過性の高収益イベントは債務サイジングに織り込まない」と明言しているのも、同じ理屈です。</p>
+
+<p>収益の分布に「気象統計」に相当する客観的な土台がない——だから、事業者の前提とレンダーの直感がぶつかると、水かけ論になります。抜け道は、検証できる数字で前提を挟むことです。蓄電所の収支には、それが3種類あります。<strong>①過去の実勢</strong>（EPRXの約定実績）、<strong>②決まっている未来</strong>（制度が予告した上限価格の引き下げ）、<strong>③契約された現在</strong>（容量市場・LDA・トーリングの固定収入）。③はまさに§07で述べた固定収入比率のことなので、ここからは①と②を順に見ます。</p>
+
+<h2>09 — 検証できる数字① 実勢：約定実績で前提の「座標」を示す</h2>
+
+<p>「応札価格◯円・落札率◯%」という前提が強気か控えめかは、感覚ではなく、実勢レンジ上の位置で示せます。</p>
+
+<p>EPRX（電力需給調整力取引所）が公表する取引実績によれば、2025年度上期の電源種別の平均約定単価は、蓄電池の一次調整力で月別9.6〜13.5円/ΔkW・30分。火力（2.1〜3.5円）や揚水（1.1〜3.4円）の数倍の水準で約定しています。背景には供給不足があります。一次調整力の充足率（募集量に対する約定量の割合）は2025年度、オンラインで約4割にとどまり、東京・中部エリアの夏季には募集量の9割超が未充足の月もありました（エリア別・商品別の詳細はCOLUMN 16）。</p>
+
+<p>この実勢に照らすと、たとえば収支計画でよく見かける前提——一次調整力を9円/ΔkW・30分で応札し、7〜9割が約定する——は、単価としては実勢レンジの下限近傍、つまり<strong>保守的〜妥当</strong>であり、約定率としても供給不足が続く現状では<strong>妥当</strong>、と位置づけられます。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="電源種別の平均約定単価レンジと前提値9円の位置" font-family="'Noto Sans JP',sans-serif">
+  <!-- axis -->
+  <line x1="150" y1="250" x2="690" y2="250" stroke="#1B2A4A" stroke-width="1.5"/>
+  <g font-size="10.5" fill="#6C7A89" text-anchor="middle">
+    <text x="150" y="268">0</text><text x="285" y="268">5</text><text x="420" y="268">10</text><text x="555" y="268">15</text><text x="690" y="268">20</text>
+  </g>
+  <text x="420" y="290" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">平均約定単価（円/ΔkW・30分）</text>
+  <g stroke="#E2E6EC" stroke-width="1">
+    <line x1="285" y1="60" x2="285" y2="250"/><line x1="420" y1="60" x2="420" y2="250"/><line x1="555" y1="60" x2="555" y2="250"/>
+  </g>
+  <!-- 上限ライン -->
+  <line x1="676.8" y1="52" x2="676.8" y2="250" stroke="#6C7A89" stroke-width="1.2" stroke-dasharray="2 3"/>
+  <text x="672" y="38" text-anchor="end" font-size="10" fill="#6C7A89">旧上限 19.51円</text>
+  <line x1="555" y1="52" x2="555" y2="250" stroke="#c44" stroke-width="1.4" stroke-dasharray="5 3"/>
+  <text x="548" y="38" text-anchor="end" font-size="10.5" font-weight="700" fill="#c44">現行上限 15円</text>
+  <text x="548" y="51" text-anchor="end" font-size="9" fill="#c44">（2026.3.14受渡分〜）</text>
+  <!-- 9円マーカー -->
+  <line x1="393" y1="60" x2="393" y2="250" stroke="#C49A3C" stroke-width="1.6"/>
+  <text x="393" y="318" text-anchor="middle" font-size="10.5" font-weight="700" fill="#C49A3C">前提例「9円応札」の位置</text>
+  <line x1="393" y1="250" x2="393" y2="302" stroke="#C49A3C" stroke-width="1" stroke-dasharray="2 3"/>
+  <!-- bars: scale 27px per 円, x = 150 + v*27 -->
+  <g font-size="11.5" fill="#2C3E50">
+    <text x="142" y="94" text-anchor="end" font-weight="700">蓄電池（一次）</text>
+    <rect x="409.2" y="82" width="105.3" height="18" rx="3" fill="#C49A3C"/>
+    <text x="461.85" y="95" text-anchor="middle" font-size="10" font-weight="700" fill="#1B2A4A">9.6〜13.5円</text>
+    <text x="142" y="139" text-anchor="end">火力</text>
+    <rect x="206.7" y="127" width="37.8" height="18" rx="3" fill="#1B2A4A" opacity=".75"/>
+    <text x="250" y="140" font-size="10" fill="#6C7A89">2.1〜3.5円</text>
+    <text x="142" y="184" text-anchor="end">揚水</text>
+    <rect x="179.7" y="172" width="62.1" height="18" rx="3" fill="#1B2A4A" opacity=".55"/>
+    <text x="248" y="185" font-size="10" fill="#6C7A89">1.1〜3.4円</text>
+    <text x="142" y="229" text-anchor="end">VPP（DR等）</text>
+    <rect x="668.4" y="217" width="8.1" height="18" rx="2" fill="#6C7A89"/>
+    <text x="663" y="230" text-anchor="end" font-size="10" fill="#6C7A89">19.2〜19.5円</text>
+  </g>
+</svg>
+<div class="fig-cap">図3 — 電源種別の平均約定単価レンジ（2025年度上期・月別平均、蓄電池は一次調整力。EPRX「取引実績のとりまとめ結果」より作成）と、前提例「9円」の位置。蓄電池の実勢レンジの下限近傍にあり、単価前提としては保守的〜妥当と位置づけられる。</div>
+</div>
+
+<p>重要なのは、この「位置づけ」まで含めて審査資料に書くことです。「実績値を使いました」ではなく、「実勢レンジのどこに、なぜ置いたか」。前提の当否そのものではなく、前提の座標を議論の対象にする——ここまで持ち込めば、もう水かけ論ではありません。</p>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 「充足率」「不足率」「落札率」の定義に注意</span><br>
+資料により分子・分母が異なります。EPRXの公表資料が用いるのは「不足率（＝調達不足量÷募集量）」で、事業者側が言う「落札率（自社の応札量に対する約定率）」とは別の指標です。また、2026年3月の前日取引化の前後で商品設計そのもの（週間・3時間ブロック→前日・30分コマ）が変わっており、実績データの接続には不連続があります。審査資料では、EPRX原データに当たって定義を揃えたうえで提示してください。定義の混同は、それ自体が信頼を削ります。
+</div>
+
+<h2>10 — 検証できる数字② 制度が予告した未来：上限15円と「次の一手」</h2>
+
+<p>「過去実績の20年外挿」が批判されるのは、外挿そのものが悪いからではありません。すでに決まっている下落要因を、無視しているように見えるからです。</p>
+
+<p>需給調整市場では、2026年3月の前日取引化（COLUMN 29）と同時に、一次調整力・二次調整力①・複合商品の上限価格が19.51円/ΔkW・30分から15円へ引き下げられました。審議過程では全商品一律7.21円という案も示されましたが（2025年10月・資源エネルギー庁 制度検討作業部会）、投資予見性への影響を懸念する意見を受けて15円で着地。ただし、競争状況が改善しなければ<strong>10円、さらに7.21円へと段階的に引き下げる方針が制度資料に明記</strong>されています。同時に、一次・二次①の募集量も、需要変動の約99%をカバーする3σ相当から約84%をカバーする1σ相当へ縮小されました。単価と数量の両方が、制度によって絞られる方向にあるということです。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="上限価格の段階シナリオ" font-family="'Noto Sans JP',sans-serif">
+  <line x1="95" y1="228" x2="700" y2="228" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="95" y1="228" x2="95" y2="42" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="40" y="135" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A" transform="rotate(-90 40 135)">上限価格（円/ΔkW・30分）</text>
+  <g stroke="#E2E6EC" stroke-width="1" stroke-dasharray="2 4">
+    <line x1="95" y1="60" x2="690" y2="60"/><line x1="95" y1="99" x2="690" y2="99"/><line x1="95" y1="142" x2="690" y2="142"/><line x1="95" y1="166" x2="690" y2="166"/>
+  </g>
+  <g font-size="10" fill="#6C7A89" text-anchor="end">
+    <text x="88" y="64">19.51</text><text x="88" y="103">15</text><text x="88" y="146">10</text><text x="88" y="170">7.21</text>
+  </g>
+  <path d="M 105 60 L 255 60 L 255 99 L 480 99" fill="none" stroke="#1B2A4A" stroke-width="3"/>
+  <path d="M 480 99 L 480 142 L 590 142 L 590 166 L 690 166" fill="none" stroke="#C49A3C" stroke-width="3" stroke-dasharray="7 5"/>
+  <g font-size="11.5" font-weight="700">
+    <text x="180" y="50" text-anchor="middle" fill="#1B2A4A">19.51円</text>
+    <text x="365" y="89" text-anchor="middle" fill="#1B2A4A">15円</text>
+    <text x="535" y="132" text-anchor="middle" fill="#C49A3C">10円</text>
+    <text x="642" y="156" text-anchor="middle" fill="#C49A3C">7.21円</text>
+  </g>
+  <circle cx="440" cy="99" r="5" fill="#c44"/>
+  <text x="440" y="120" text-anchor="middle" font-size="10" font-weight="700" fill="#c44">現在（2026.7）</text>
+  <g font-size="10" fill="#6C7A89" text-anchor="middle">
+    <text x="180" y="248">〜2026.3.13取引分</text>
+    <text x="367" y="248">2026.3.14受渡分〜（適用中）</text>
+    <text x="585" y="248">競争改善が不十分な場合の段階方針</text>
+    <text x="585" y="262">（発動は未決・時期未定）</text>
+  </g>
+  <rect x="100" y="180" width="530" height="42" rx="4" fill="#F8F9FB" stroke="#E2E6EC"/>
+  <text x="112" y="197" font-size="9.5" fill="#2C3E50">10円・7.21円は「競争改善が見られない場合」の段階方針で、適用日は未決定（2026年7月時点）。</text>
+  <text x="112" y="213" font-size="9.5" fill="#2C3E50">上限価格の変更時は、EPRXが実需給日の2週間前までに「上限価格」ページで公表する運用。</text>
+</svg>
+<div class="fig-cap">図4 — 一次・二次①・複合商品の上限価格の推移と段階方針。15円は適用中（2026.3.14受渡分〜）、10円・7.21円は「競争改善が見られない場合」の条件付き段階方針であり発動は未決（2026年5月の中間評価は判断保留）。収支計画にはこの段階を感度分析として重ねる（出典：資源エネルギー庁 制度検討作業部会 第110回 資料4／電力安定供給WG 第1回 資料8／EPRX「上限価格」ページ）。</div>
+</div>
+
+<p>実勢もすでに動いています。2026年5月の中間評価（電力安定供給ワーキンググループ）では、応札量の増加や一次調整力の不足率改善が確認される一方、「完全には解消されていない」「上限価格付近の応札も引き続き約定している」と整理され、2026年1月の複合商品の平均約定価格は3.15円/ΔkW・30分まで低下した月も示されました。次の引き下げ（15円→10円）については、2026年5月の中間評価が前日取引化後1ヶ月分のデータでは事業者行動を評価しきれないとして判断を保留しており、今年度下期の審議が最大の焦点です。なお、業界メディアには「10円への引き下げ」を既定路線のように伝える記事も出始めていますが、2026年7月時点の一次資料で確定しているのは「市場における競争状況に改善が見られない場合、10円、7.21円/ΔkW・30分等と段階的に引き下げる」という条件付きの方針まで——適用日の決まった引き下げ決定ではありません。実際に上限価格が変更される場合は、EPRXが実需給日に対応する2週間前までに同所の「上限価格」ページで公開する運用のため、事業者・レンダーの定点観測はこのページに置くのが実務的です。</p>
+
+<p>収支計画への落とし込みは単純です。初年度から15円上限・1σ後の環境を前提に置き、将来年度に10円・7.21円シナリオを段階的に重ねた感度分析を、<strong>指摘される前に自分から添付する</strong>——制度が予告した下落を先回りして織り込んだ計画は、それだけで信頼度が変わります。経済産業省の公的試算でさえ、卸市場の値差が最小だった年度と最大だった年度を使い分けて、ダウンサイドとアップサイドの幅を示す方式を採っています。幅を示すことは弱さではなく、作法です。</p>
+
+<h2>11 — 金融機関が実際に聞く5つの質問と、回答の型</h2>
+
+<p>ここまでの整理を、審査の現場で実際に飛んでくる質問の順に並べ直します。</p>
+
+<h4>Q1.「その約定単価と落札率は、実勢と整合していますか」</h4>
+<p>EPRXの取引実績とエリア別の充足率データを添え、前提値が実勢レンジのどこにあるかを示します。中央値より上に置くのであれば、その理由（エリア・商品構成・運用方針）を明記します。定義（不足率か、自社約定率か）を揃えることは前提です（§09）。</p>
+
+<h4>Q2.「上限価格の引き下げは織り込んでいますか」</h4>
+<p>15円は初年度から反映し、10円・7.21円への段階的引き下げをシナリオとして重ねます。募集量の1σ化による約定機会の縮小も、数量前提に反映します（§10）。</p>
+
+<h4>Q3.「収入の何割が契約で固定されていますか」</h4>
+<p>容量市場・LDA・トーリングによる固定収入比率を、1つの数字で示します。海外目安の「5割」に届かない場合は、届かない理由と、代替のリスク緩和策（ポートフォリオ分散、Q5の第三者検証など）を添えます（§07）。</p>
+
+<h4>Q4.「20年の外挿は、楽観的ではありませんか」</h4>
+<p>価格逓減シナリオと電池の劣化カーブ（COLUMN 35）を織り込んだ下方ケースで、DSCRが基準を維持することを示します。再エネPFの標準はP90サイジングでDSCR1.2〜1.35倍程度。契約に頼らないフルマーチャントでは、海外では1.2〜2倍と、より厚いレンジで議論されます（COLUMN 07、§04）。</p>
+
+<h4>Q5.「その運用実績の外挿は、誰が検証しましたか」</h4>
+<p>アグリゲーターの実績開示は、レンダーが検証できる粒度ではまだ限定的です——これは業界で広く指摘される論点で、だからこそ第三者の収益予測が効きます。英国では独立調査機関の収益カーブが複数の銀行の債務サイジングの基礎として受け入れられており、日本でも2026年、独立系機関の経済性分析を経た複数案件（計148MW）で融資が実行されました。「検証できない数字」を「第三者が検証した数字」に置き換える——これがQ1〜Q4の総仕上げです。</p>
+
+<h2>12 — 電力の言葉が通じない相手には「翻訳」を</h2>
+
+<p>審査の手前でつまずくケースにも触れておきます。不動産系の投資家です。</p>
+
+<p>ホテルやマンションに投資してきた相手に、ΔkWや三次調整力①の説明から入ると、ほぼ確実に会話が止まります。相手が理解できないのではなく、辞書が違うのです。必要なのは正確さの追加ではなく、翻訳です。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>電力の言葉</th><th>不動産の言葉</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">トーリング料（COLUMN 30）</td><td>固定賃料。長期・予見可能</td></tr>
+<tr><td class="em">容量市場収入</td><td>空室でも入る基礎収入</td></tr>
+<tr><td class="em">マーチャント収益（JEPX・需給調整）</td><td>変動賃料・歩合</td></tr>
+<tr><td class="em">アグリゲーター（COLUMN 17）</td><td>PM・運営受託会社</td></tr>
+<tr><td class="em">電池の劣化・補修（COLUMN 23）</td><td>大規模修繕計画</td></tr>
+<tr><td class="em">DSCR・LTV</td><td>そのまま通じる数少ない言葉</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>蓄電所は法定耐用年数17年の機械装置であり、土地・設備・運営・金融が組み合わさるという点で、本来は不動産投資家になじみやすい資産です。新潟山谷は、不動産の言葉でそのまま語れます——20年の定期借家契約（トーリング）が付いたから、格付が取れて、社債が出た。§07の固定収入比率は、不動産の言葉に直せば「賃貸借契約でNOIの何割が固まっているか」。同じ1つの数字が、銀行にも不動産投資家にも通じます。</p>
+
+<div class="part-lead">終盤 ── 実務と設計</div>
+
+<h2>13 — リースという別回路：貸し手であり、買い手でもある</h2>
+
+<p>「銀行がだめならリース」と言われますが、リース会社の関与は融資の代替にとどまりません。公表情報を見る限り、リース会社は蓄電所に対して<strong>二つの顔</strong>で入ってきています。</p>
+
+<p><strong>ひとつは、レンダー・出資者として。</strong>そもそも国内初のBESS向けPFを組んだのはメガバンクではなく、SMFL系のSMFLみらいパートナーズでした（姫路・PF単独組成＋5%出資）。高圧14サイトのリコーリース（ノンリコース限度貸付49億円）、伊藤忠の専業ファンドへの芙蓉総合リース・東京センチュリーの出資、芙蓉総合リースほか8社による約174MWのSPC参画も同じ系譜です。動産を扱い慣れ、意思決定が銀行より速いリース業態は、蓄電池ファイナンスと構造的に相性の良い存在です。</p>
+
+<p><strong>もうひとつは、事業主体・買い手として。</strong>日本経済新聞の報道によれば、東京センチュリーは2030年3月期までに1,000億円、三井住友ファイナンス&amp;リースは2032年3月期までに2,000億円規模を蓄電所に投じる計画で、需給調整市場の上限価格引下げ後もこの姿勢を維持しています。実際に東京センチュリーは2025年12月、自社単独開発の特別高圧4カ所・合計101MWの事業投資を公表し（単独ゆえの意思決定の速さを強みに挙げています）、三井住友FLは2025年9月、ウエストHDから大型蓄電所を取得したと報じられました。つまりリース会社は、皆さまの案件の「貸し手候補」であると同時に、完成案件・開発権の「買い手候補」でもある——売主にとっては出口が二つあるということです。</p>
+
+<p>リースを使う場合の留意点は二つ。第一に会計。2027年4月から新リース会計基準が強制適用され、借手側は原則オンバランスになります（オフバランス目的のリース活用は設計が変わります。COLUMN 30 §03参照）。第二に税制です。</p>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 税 ── リースで即時償却が「誰にも使えなくなる」設計を避ける</span><br>
+令和8年度税制改正で創設される投資促進税制（即時償却／税額控除）は、条文が対象を「事業の用（<strong>貸付けの用を除く</strong>。）」と定めており、設備の所有者とユーザーが分かれるリース・トーリング構造では、誰が税務メリットを取れるのかに未確定論点が残ります（詳細と5つの関門はCOLUMN 22）。リースでデットを付けた結果、即時償却が誰にも使えなくなる設計は避けたい——ストラクチャリングは税務と同時に行うべき理由です。
+</div>
+
+<h2>14 — 高圧2MW/8MWhの現実解と、買い手の設計3択</h2>
+
+<p>ここまでの大型PF・ボンドは、主に特別高圧の話でした。読者の多くが検討している高圧2MW/8MWh級（初期投資の目安5〜6億円）はどうか。</p>
+
+<p>正直に言えば、<strong>1サイト単体のPFは構造的に不利</strong>です。PFはデューデリジェンス・契約書作成・エージェント業務といった固定費が重く、数億円の案件では金利に転嫁しきれません。単体の高圧案件が現金決済に偏るのには、§01のスピードに加えて、この固定費の合理性もあります。ただし回路は三つあります。第一に<strong>ポートフォリオ型</strong>——リコーリース×日本蓄電池の例は、高圧施設を全国14か所束ねて限度貸付49億円のノンリコースを付けた構造で、1サイトでは負担できないPFの固定費を14サイトで割る、再現可能なひな形です。第二に<strong>担保評価ベースの小口ファイナンス</strong>——§02のクラウドファンディング型（評価6.02億円に融資4.95億円）。金利は銀行PFより高くつきますが、小規模帯でも成立しています。第三に<strong>リース・割賦と、リース会社への売却</strong>——§13のとおり、貸し手と買い手の両面が使えます。</p>
+
+<p>これらを買い手の戦略に組み直すと、3択になります。</p>
+
+<p><strong>解1：現金決済 → リファイナンス。</strong>取得競争は現金の速さで勝ち、稼働後に運転実績を作ってからデット・リース・資本市場で資金を回収し、次の案件に回す——いわゆるキャピタルリサイクルです。新潟山谷のボンドはまさにこの実装例です。この順序にはもう一つ利点があります。稼働後の案件は、収支を「想定」ではなく「実測」で示せる——§09で述べた実勢データによる前提の裏づけを、自案件の運転データで行えるのです。<strong>運転実績は、蓄電所にとって最良の与信材料です。</strong>取得の入口と資金調達の出口を分ける——現時点で最も再現性のある型だと筆者は考えます。</p>
+
+<p><strong>解2：長期契約を先に固めてデットを組む。</strong>LDA落札案件の取得や、信用力あるオフテイカーとのトーリング／長期オフテイクを先に確保できるなら、西郷村型の20年級シニアデットが視野に入ります。決済を急かされない新設・大型投資の王道です。</p>
+
+<p><strong>解3：リース・割賦の活用。</strong>銀行PFより意思決定が速く、動産の扱いに長けたリース会社との組成は、取得スピードとレバレッジの中間解になりえます。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="入口は現金、出口はリファイナンスの循環" font-family="'Noto Sans JP',sans-serif">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B2A4A"/>
+    </marker>
+    <marker id="arwG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#C49A3C"/>
+    </marker>
+  </defs>
+  <g font-size="11.5" font-weight="700" fill="#1B2A4A" text-anchor="middle">
+    <rect x="30" y="70" width="140" height="60" rx="6" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2"/>
+    <text x="100" y="96">現金で取得</text>
+    <text x="100" y="114" font-size="10" font-weight="400" fill="#6C7A89">即決＝取得競争に勝つ</text>
+    <rect x="210" y="70" width="120" height="60" rx="6" fill="#FFFFFF" stroke="#E2E6EC" stroke-width="1.5"/>
+    <text x="270" y="96">稼働</text>
+    <text x="270" y="114" font-size="10" font-weight="400" fill="#6C7A89">連系・運用開始</text>
+    <rect x="370" y="70" width="150" height="60" rx="6" fill="#FFFFFF" stroke="#E2E6EC" stroke-width="1.5"/>
+    <text x="445" y="96">運転実績の蓄積</text>
+    <text x="445" y="114" font-size="10" font-weight="400" fill="#6C7A89">想定→実測の与信材料</text>
+    <rect x="560" y="70" width="140" height="60" rx="6" fill="#FFF8F0" stroke="#C49A3C" stroke-width="2"/>
+    <text x="630" y="90">デット／ボンドで</text>
+    <text x="630" y="106">資金回収</text>
+    <text x="630" y="122" font-size="10" font-weight="400" fill="#6C7A89">リファイナンス</text>
+  </g>
+  <line x1="170" y1="100" x2="204" y2="100" stroke="#1B2A4A" stroke-width="1.6" marker-end="url(#arw)"/>
+  <line x1="330" y1="100" x2="364" y2="100" stroke="#1B2A4A" stroke-width="1.6" marker-end="url(#arw)"/>
+  <line x1="520" y1="100" x2="554" y2="100" stroke="#1B2A4A" stroke-width="1.6" marker-end="url(#arw)"/>
+  <path d="M 630 130 L 630 185 L 100 185 L 100 136" fill="none" stroke="#C49A3C" stroke-width="1.8" marker-end="url(#arwG)"/>
+  <text x="365" y="205" text-anchor="middle" font-size="11" font-weight="700" fill="#C49A3C">回収した資金で次案件へ（キャピタルリサイクル）</text>
+  <text x="30" y="238" font-size="10" fill="#9AA6B2">新潟山谷（ボンド100億円）は大型案件でのこの循環の実装例（組成者が開発資金回収の意図を示唆）</text>
+</svg>
+<div class="fig-cap">図5 — 「入口は現金、出口はリファイナンス」の循環。現金は取得の戦術、リファイナンスは資産効率の戦略。</div>
+</div>
+
+<p>三つの解に共通する落とし穴も挙げておきます。<strong>補助金採択案件の担保制限</strong>です。SII執行の系統用蓄電システム導入支援事業では、補助対象財産を担保に供することも交付規程上の「処分」にあたり、処分制限期間内は事務局の事前承認が必要です。補助金でCAPEXを下げた案件ほど、後からデットを入れる自由度に制約が掛かります。補助金とデットの併用は、応募の段階から設計しておくべきです（補助金を使うかどうかの判断軸はCOLUMN 20。§15のチェックリスト11も参照）。</p>
+
+<p>現金は戦術です。資金設計は戦略です。この市場で最も強いのは、両方を持っている買い手です。</p>
+
+<h2>15 — 「融資が引ける案件」に整える：レンダー目線チェックリスト</h2>
+
+<p>デットは申し込むものではなく、<strong>設計するもの</strong>です。譲渡・組成の前に、レンダーが見る順番で自己点検してください。</p>
+
+<div class="checklist-group" id="lender-checklist">
+<h5><span class="cl-num">✓</span>レンダー目線・11項目</h5>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01</span><strong>収益契約</strong> — LDA・トーリング・フロアなど固定収入の有無と年限、そして固定収入比率。これがテナーとレバレッジの上限を決める（§07）</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02</span><strong>SPC化</strong> — 資産・契約・収益が1つの器に隔離されているか。個人・兼業法人の資産と混在していないか</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03</span><strong>土地の権原</strong> — 所有権か、地上権か、賃借権か。工場財団抵当は所有権のみ、賃借権は抵当権も不可（§02）。賃借の場合は地位譲渡承諾と期間（融資年限＋α）を確保</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04</span><strong>接続契約の地位譲渡</strong> — 一般送配電事業者への承諾取得の道筋。ダイレクトアグリーメントに応じられる契約構成か（§03）</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05</span><strong>EPCの完工保証</strong> — 完工遅延・性能未達時のLD（予定損害賠償）。完工リスクはレンダーの最初の質問</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06</span><strong>メーカー保証・LTSA</strong> — SOH保証・可用率保証の水準と、<strong>譲渡可能性</strong>（担保実行時に保証が生き残るか）</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07</span><strong>保険6層</strong> — 財物・機械・BI・PL・サイバー・盗難（COLUMN 18）。保険金請求権は質権の対象</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">08</span><strong>O&amp;M体制</strong> — 責任・遂行の乖離が契約で埋まっているか（COLUMN 23）。レンダーはステップイン後の運営体制を見る</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">09</span><strong>口座・キャッシュフロー管理</strong> — 収入の入金口座を一本化し、質権とウォーターフォール（返済優先順位）を受け入れられるか</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">10</span><strong>収支計画の検証可能性</strong> — P50だけでなくP90シナリオ、実勢データによる前提の裏づけ（§09）、段階シナリオの感度分析（§10）、可能なら第三者検証（§11・Q5）。保守ケースでDSCR1.2〜1.35倍程度（オフテイク付きで1.25前後が一つの目安、フルマーチャントはより厚く）を維持できるか（COLUMN 07・30）</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">11</span><strong>補助金案件の担保承認</strong> — 経産省系補助金（SII執行）の採択案件では、補助対象財産を担保に供することも交付規程上の「処分」にあたり、処分制限期間内は事務局の事前承認が必要。補助金とデットの併用には設計上の配慮がいる（COLUMN 20）</span></label>
+<div class="check-progress"><span class="count"><span id="checkCount">0</span>/11</span><span class="bar"><span class="bar-fill" id="checkBarFill"></span></span><span>整った項目</span></div>
+</div>
+
+<p>11項目のうち1〜4は、権利譲渡・売買の局面でもそのまま「高く売れる案件」の条件と重なります。デットが付く状態に整えることは、買い手の資金調達の選択肢を広げ、買い手層そのものを広げます。</p>
+
+<h2>16 — 2026年の変わり目と、まだ無いもの</h2>
+
+<p>環境も動いています。押さえるべき変化は三つ、確認できないものは四つです。</p>
+
+<p><strong>変わったもの。</strong>第一に、<strong>企業価値担保権の施行</strong>（2026年5月25日。§03）。第二に、<strong>GX推進機構</strong>——2024年7月に業務を開始し、民間金融機関が取り切れないリスクを補完する債務保証枠1兆円を持ちます。系統用蓄電池の個別案件への保証実行は本稿執筆時点で公表確認できていませんが、器は用意されています。ここに第1号が出れば、マーチャント型のバンカビリティは一段変わります。第三に、<strong>金利</strong>。日銀の政策金利は2026年6月に1.0%へ引き上げられ（約31年ぶりの水準）、10年国債利回りは2026年7月9日に一時2.88%（1996年9月以来の水準）を付け、同月下旬は2.7%台で推移しています。デットコストの上昇はマーチャント案件のIRRを圧迫し、LDA・トーリングなど固定収入型の相対優位を高めます。同時に、現金で買う側にとっても「寝かせる自己資金」の機会費用が上がった——金利ある世界では、現金一択の合理性も自明ではなくなってきました。</p>
+
+<p><strong>積み上がったもの。</strong>事例も増えています。2026年3月には、稼働済みのマーチャント型蓄電所（札幌・Helios 50MW/104MWh、2025年11月運開）の取得資金を、日本初のグリーンプロジェクトボンド約54億円・最長19年で調達する組成が公表されました（野村證券アレンジャー・R&amp;I格付BBB・信託受益権スキーム）。稼働実績を与信材料に、単基のマーチャント案件へ19年の資本市場資金が付いた——§14「入口は現金、出口はリファイナンス」のマーチャント型実装例です。同年5月には大分・日出51MW/204MWhのフルマーチャント型ノンリコースPF（あおぞら銀行アレンジャー、伊藤忠エネクス等国内4社の匿名組合出資、2028年9月頃運開予定）が続き、フルマーチャントPFの公表例は多奈川・高圧14サイトに続いて積み上がっています。レンダーの顔ぶれも、メガバンク・リースから証券・信託系・新興系へ広がりました。</p>
+
+<p><strong>まだ無いもの。</strong>①国内BESS向けPFのDSCR・LTV・金利の公表相場（西郷村の62億円／65億円は例外的に比率が読める公表ですが、リコースの有無が非開示のためLTVとは断定できません）。②GX推進機構のBESS向け保証実行例。③セール&amp;リースバック、日本型オペレーティングリース（JOL）の蓄電所での公表事例。④中古BESSの処分市場——担保の清算価値を裏づける流通市場は未成熟のままです。逆に言えば、二次流通とSOH評価の標準化が進めば、担保としての扱いは今後改善しえます。不明は不明のまま、判断材料として書き残します。</p>
+
+<h2>結 — 担保は結果、契約が原因。そして、数字の作法がデットを通す</h2>
+
+<p>蓄電所が現金で買われるのは、買い手が無知だからでも、売り手が不当に急かすからでもありません。スピードの非対称と、動産という担保構造と、実績の浅い変動収益——三つの条件に対する、市場の合理的な適応です。</p>
+
+<p>しかし「担保に取れないから融資が付かない」という一文は、法律論として半分誤りで、因果として全部誤りです。蓄電池は担保に取れます。取れないのは、担保を売って回収する当てです。だからレンダーは事業ごと引き継げる担保パッケージを組み、その事業のキャッシュフローが読めるか——どの契約で、何年、いくら固定されているか——で貸すか貸さないかを決めます。62億円・20年が西郷村に付いたのは担保が立派だったからではなく、LDAの20年固定収入が返済計画を成立させたからです。100億円のボンドが新潟山谷に付いたのは、東京ガスの20年トーリングが格付A-を成立させたからです。</p>
+
+<p>一方で、収支から「検証できない数字」を消すことはできません。FITではないのだから、それが正常です。できるのは、検証できる3つの数字——実勢・制度シナリオ・固定収入——で前提を挟み、検証できない残余に感度分析とDSCRストレスを当て、可能なら第三者の検証を付すこと。誠実な収支計画とは、将来を言い当てる計画ではなく、外れたときに何が起きるかまで示した計画です。金融機関が最終的に見ているのは、数字そのものよりも、その数字との向き合い方だと筆者は考えています。</p>
+
+<p>2023年8月の国内初PFから3年足らずで五つの型が出そろい、リース会社が本格参入し、企業価値担保権が施行され、金利ある世界が戻ってきました。<strong>契約がデットを呼び、数字の作法がデットを通す</strong>——買い手は取得の入口で現金即決の競争力を確保し、出口でリファイナンスを設計する。売主は、デットが付く形に整えてから売る。それが2026年時点の、この市場でエクイティを最も効率よく働かせる順番です。</p>
+
+<div class="sources-box">
+<h4>主要な一次資料・出典（2026年7月時点）</h4>
+<ul class="src-list">
+<li><span class="t">T1</span>三井住友銀行「福島県西郷村における系統用蓄電池事業向けファイナンス組成について」2025-05-27（契約金額62億円・契約期間20年・契約2025-01-31・実行2025-05-30、総事業費約65億円、40.0MW/200.0MWh、LDA活用、BYD MC Cube-T、東邦銀行と協調）<a href="https://www.smbc.co.jp/hojin/financing/sustainable/kokusai/pdf/250527_01.pdf" target="_blank" rel="noopener">https://www.smbc.co.jp/hojin/financing/sustainable/kokusai/pdf/250527_01.pdf</a></li>
+<li><span class="t">T1</span>みずほ証券「新潟山谷蓄電所向けプロジェクトボンドの組成について」2026-04-17（49MW/231MWh、100億円、R&amp;I格付A-、信託スキーム＝オリックス銀行、開発・AM＝CHC Japan、東京ガスによる20年・固定利用対価のトーリング、国内初の開発資金を使途としたプロジェクトボンド〔みずほ証券調べ〕。金利環境と超長期調達・開発資金回収の必要性に言及）</li>
+<li><span class="t">T1</span>三菱UFJ銀行「本邦系統用蓄電池設備によりフルマーチャントを前提に行う事業に対するプロジェクトファイナンスの組成について」2025-05-07（多奈川99MW/396MWh、市場収益のみを返済原資とするノンリコースPF国内初、関西電力40%・きんでん10%等出資、運転開始2028年2月予定）<a href="https://www.bk.mufg.jp/info/pdf/full_merchant.pdf" target="_blank" rel="noopener">https://www.bk.mufg.jp/info/pdf/full_merchant.pdf</a>／同・レノバIR（広原・石狩のオフテイク与信型PF、石狩約50億円）※COLUMN 30出典欄と共通</li>
+<li><span class="t">T1</span>日本蓄電池「系統用蓄電池事業におけるプロジェクトファイナンスの実行について」2026-04-27（リコーリースとの限度貸付契約・貸付限度額49億円、全国14か所の高圧系統用蓄電施設、SPC活用ノンリコース、AM＝ecoプロパティーズ）<a href="https://www.nipponchikudenchi.co.jp/news/1629/" target="_blank" rel="noopener">https://www.nipponchikudenchi.co.jp/news/1629/</a></li>
+<li><span class="t">T1</span>泓徳能源（HD Renewable Energy）・野村證券「北海道Helios蓄電所グリーンプロジェクトボンド」2026-03-19（札幌市・50MW/104MWh・約54億円・2025年11月運開済み資産の取得資金・最長19年・信託受益権スキーム〔委託者=野村キャピタル・インベストメント、受託者=三菱HCキャピタル信託、AM=スターリー・アセットマネジメント〕・R&amp;I信用格付/グリーンボンド格付BBB。系統用蓄電所事業を裏付けとする日本初のグリーンプロジェクトボンド〔野村證券調べ〕）／RSアセットアドバイザーズ（RSBM）「大分県日出町における蓄電所事業への共同出資およびフルマーチャント事業に対するプロジェクトファイナンスの組成について」2026-05-29（合同会社アルタイル・51MW/204MWh・あおぞら銀行アレンジャーのノンリコース型・国内4社匿名組合出資〔伊藤忠エネクス8億円・14.5%〕・2028年9月頃運開予定）</li>
+<li><span class="t">T1</span>SMFLみらいパートナーズ「系統用蓄電池事業の開始およびプロジェクトファイナンスの組成について」2023-08／三井住友フィナンシャルグループ公表インタビュー2024-11（姫路蓄電所・PF単独組成、FIT型の安定収入を前提にできず事業評価・契約条項をゼロから作成した旨）／姫路蓄電所運転開始リリース2025-10（15MW/48MWh、出資：出光51%・レノバ22%・長瀬22%・SMFL-MP5%）</li>
+<li><span class="t">T1</span>伊藤忠商事「東京都蓄電所投資事業有限責任組合の組成について」2024-09-30（80億円超・11投資家、芙蓉総合リース・東京センチュリー・横浜銀行等出資）／芙蓉総合リース適時開示2026-03-26（8社共同出資・全国6地点約174MWの蓄電所SPC参画）／オリックス銀行お知らせ2026-04（大分・宇佐市の蓄電池併設型太陽光へ同行初のノンリコース型PF）</li>
+<li><span class="t">T1</span>EPRX（電力需給調整力取引所）「取引実績のとりまとめ結果」2025年度上期（2025-12公表。電源種別平均約定単価：蓄電池・一次9.6〜13.5円/ΔkW・30分ほか、充足率・不足率）<a href="https://www.eprx.or.jp/information/summary.php" target="_blank" rel="noopener">https://www.eprx.or.jp/information/summary.php</a></li>
+<li><span class="t">T1</span>資源エネルギー庁 制度検討作業部会 第110回 資料4（2026-01-23。上限価格19.51→15円への引き下げ・10円→7.21円の段階方針・募集量3σ→約1σ化）／同 電力安定供給ワーキンググループ 第1回 資料8（2026-05-13。中間評価・前日取引化前後28日比較・10円への引き下げは判断保留・2026年1月複合商品平均3.15円）／EPRX「上限価格」ページ（上限価格の変更時は実需給日に対応する2週間前までに公開する運用）<a href="https://www.eprx.or.jp/information/post.php" target="_blank" rel="noopener">https://www.eprx.or.jp/information/post.php</a></li>
+<li><span class="t">T1</span>OCCTO「容量市場メインオークション約定結果（対象実需給年度：2029年度）」2026-01-20（経過措置後の全国平均13,303円/kW・年、東北・東京・九州は上限）／「長期脱炭素電源オークション約定結果（応札年度：2025年度）」2026-05-13（蓄電池は応札125.1万kW・落札率46%、リチウムイオン蓄電池・揚水〔新設除く〕の落札81.9万kW、脱炭素電源加重平均約11.1万円/kW・年）<a href="https://www.occto.or.jp/assets/various/capacity-market/jitsujukyukanren/2025_boshuyoukou_long/260513_longauction_youryouyakujokekka_kouhyou_ousatsu2025.pdf" target="_blank" rel="noopener">https://www.occto.or.jp/…/260513_longauction_youryouyakujokekka.pdf</a></li>
+<li><span class="t">T1</span>金融庁「事業性融資の推進等に関する法律」（企業価値担保権。2024-06-07成立・2026-05-25施行。信託方式・経営者保証の利用制限）／法務省 動産譲渡登記制度／SII（環境共創イニシアチブ）系統用蓄電システム導入支援事業 交付規程（担保供与を含む財産処分の事前承認）／GX推進機構 業務概要（2024-07-01業務開始・債務保証枠1兆円）</li>
+<li><span class="t">T1</span>長島・大野・常松法律事務所 NO&amp;T Infrastructure, Energy &amp; Environment Legal Update No.44（2024-12）「国内プロジェクトファイナンスにおけるセキュリティ・パッケージの実務的機能と企業価値担保権活用についての一考察」（全資産担保・積極的/防御的機能・集合動産譲渡担保と動産譲渡登記・地位譲渡予約・企業価値担保権）</li>
+<li><span class="t">T1</span>アンダーソン・毛利・友常法律事務所 座談会「エネルギー・トランジションの最前線【第3回】国内再生可能エネルギー市場の最新動向」2025-07（OCCTO型・トーリング型・マーチャント型のファイナンス付きやすさの整理）<a href="https://www.amt-law.com/insights/trending-news/trending-news_20250722001_ja_001/" target="_blank" rel="noopener">https://www.amt-law.com/insights/…</a></li>
+<li><span class="t">T1</span>財務省「令和8年度税制改正の大綱」（投資促進税制・「貸付けの用を除く」）／ASBJ 企業会計基準（新リース会計・2027年4月強制適用）※詳細はCOLUMN 22・30</li>
+<li><span class="t">T2</span>日本経済新聞「蓄電所投資なお活況」2026-04（東京センチュリー1,000億円・三井住友FL2,000億円の投資計画）／同2025-09-29（三井住友FLがウエストHDから大型蓄電所取得）／新電力ネット2025-12（東京センチュリー・特別高圧4カ所101MWの自社開発事業投資）<a href="https://pps-net.org/press/153185" target="_blank" rel="noopener">https://pps-net.org/press/153185</a>／日経BP メガソーラービジネス「姫路に48MWhの大規模蓄電所が稼働、プロファイ組成」<a href="https://project.nikkeibp.co.jp/ms/atcl/19/feature/00024/00072/" target="_blank" rel="noopener">https://project.nikkeibp.co.jp/ms/…</a>／日経エネルギーNext「難易度の高い系統用蓄電池の資金調達」2025（高圧2MW/8MWhの初期投資目安5〜6億円）</li>
+<li><span class="t">T2</span>Moody's Investors Service（2018-03。バリュースタッキングのキャッシュフローリスク整理）／S&amp;P Global Commodity Insights（主要市場のマーチャント収益動向）／Energy-Storage.news（豪州レンダー「一過性の高収益は織り込まない」、英Triple Pointの契約収益要件緩和コメント2026-01、豪CEFC）</li>
+<li><span class="t">T2</span>Modo Energy「German BESS investment outlook Q2 2026」「European BESS financing report: 2025 in review」2026-03（トール中心案件のギアリング70〜85%〔分析により幅〕、80〜100%トール化にディール集中、欧州の案件25→82件、開示負債€1.4bn→€6.1bn）／terralayr（トール化50%未満への銀行の慎重姿勢）／ess-news・pv magazine（Nofar Energy「Stendal」104.5MW/209MWh、7年固定価格契約を裏づけにNORD/LBから約€86.5m、2025-03）／Neoen・ANZ公表（豪ポートフォリオ計AU$20億超のデット、2024年、ANZ・みずほ・MUFG・SMBC等参加）。海外数値は前提の異なるプロキシで、日本へ直接適用不可</li>
+<li><span class="t">T2</span>Modo Energy・Aurora Energy Research 各社公表資料（第三者収益カーブの銀行受入実績、国内148MW・4案件の経済性分析と2026年融資実行）／IEEFA 2025（日本のBESS接続申請170.8GW・連系済み0.62GW）</li>
+<li><span class="t">T2</span>Bankers「系統用蓄電池事業支援ファンド」商品ページ（土地根抵当＋動産担保・第一順位、担保評価6.02億円に対し融資予定4.95億円）<a href="https://www.bankers.co.jp/fund/detail/4275" target="_blank" rel="noopener">https://www.bankers.co.jp/fund/detail/4275</a>／日本銀行の政策金利（2026-06に1.0%）および長期金利（2026-05-18に2.8%、2026-07-09に2.880%）に関する各種報道（Nikkei Asia・Reuters）</li>
+</ul>
+<div class="source">注：本稿の金額・比率は公表資料の記載に基づく。リコースの有無・親会社保証・DSCR・LTV・金利など非開示の条件は「非開示」「確認できない」と記載し、推測値は作成していない。§01および審査期間・買い手行動に関する記述は筆者の現場観察であり、公表統計ではない。約定価格・充足率は公表資料の記載に基づき時点・商品・エリアを本文に併記した。前日取引化（2026年3月）前後で商品設計が異なるため、年度をまたぐ実績の単純接続はできない。応札単価9円・落札率7〜9割は説明用の例示であり、特定案件・特定運用者の条件ではない。担保・税務・会計に関する記述は一般的解説であり、個別案件の法的助言ではない。「本邦初」「国内初」等の表現は各社リリースの類型定義に依拠する。本稿は特定の金融商品・融資条件・案件への投資勧誘、または法務・税務・財務に関する助言ではない。</div>
+</div>
+
+<div class="cta-section">
+  <h3>デットが付く形に、案件と数字を整える</h3>
+  <p>保有案件のリファイナンス可能性、譲渡前のセキュリティ・パッケージ整備、前提値と一次ソースの紐づけ、段階シナリオの感度分析、<br>固定収入比率の算定、第三者検証・技術DDの取得支援、レンダー・リース会社への持ち込み順序——<br>実在案件の個別検討は、お問い合わせ後にNDA締結のうえ承ります。事業者・売主・買主・金融機関いずれの立場でもご相談いただけます。</p>
+  <a target="_top" href="https://www.scix.co.jp/contact" class="cta-btn">お問い合わせ →</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var g=document.getElementById('lender-checklist');if(!g)return;
+  var c=g.querySelectorAll('input[type=checkbox]'),cnt=document.getElementById('checkCount'),fl=document.getElementById('checkBarFill'),tot=c.length;
+  function u(){var d=0;c.forEach(function(x){if(x.checked)d++;});cnt.textContent=d;fl.style.width=(d/tot*100)+'%';}
+  c.forEach(function(x){x.addEventListener('change',u);});u();
+})();
+</script>
+
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">関連記事</div>
+  <a target="_top" href="/column-cashflow" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">蓄電池事業の20年キャッシュフロー構造 — IRR・DSCRの考え方 →</a>
+  <a target="_top" href="/column-long-term-contract" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">特別高圧47MWは、契約でいくら儲かるか — トーリングの18.6%は、トール料だけでは出ない →</a>
+  <a target="_top" href="/column-lda" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">長期脱炭素電源オークション（LDA）とは？ — 20年固定収入の仕組みを徹底解説 →</a>
+  <a target="_top" href="/column-tax" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">即時償却は「取れる」ものではなく「通す」もの →</a>
+  <a target="_top" href="/column-subsidies" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">補助金は使うかどうかを判断するもの →</a>
+  <a target="_top" href="/column-area-data" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">需給調整市場のエリア別約定実績 — 9電力エリア×5商品の最新データで読む蓄電池の立地判断 →</a>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
