@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif SC',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif SC',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.85}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
+.src-list .t{display:inline-block;min-width:34px;font-weight:700;color:var(--navy);margin-right:8px;font-size:.92em}
+.part-lead{font-family:'Noto Serif SC',serif;font-size:.86em;letter-spacing:.12em;color:var(--accent);margin:56px 0 -32px;font-weight:600}
+</style>
+<title>储能电站为何以现金成交 —— “无法设定担保”的误解，与62亿日元·20年得以落地的理由 | ScienceX</title>
+<meta name="description" content="数亿日元的储能电站，为何不用贷款而以现金成交。本文以○×△检验“无法设定担保”的误解，并梳理姬路·广原·西乡村（62亿日元·20年）·多奈川·新潟山谷（债券100亿日元）·高压14站点在内的日本国内债务融资五种类型。在此之上，金融机构究竟在怀疑收支计划的哪一处——市场实绩（EPRX成交实绩）·制度情景（上限15→10→7.21日元）·固定收入占比这三个可验证的数字，五个提问的回答范式，以及面向房地产投资者的“翻译表”，皆以一手资料汇于一篇。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-financing">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-financing">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-financing">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-financing">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-financing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="储能电站为何以现金成交 —— “无法设定担保”的误解，与62亿日元·20年得以落地的理由｜ScienceX">
+<meta property="og:description" content="以现金买，和只能用现金买，是两回事。日本国内债务融资的五种类型，与终结收支“各说各话”的三个可验证数字——从载体与合同到数字的审查，把储能电站的资金筹措汇于一篇。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-financing">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="储能电站为何以现金成交 —— “无法设定担保”的误解，与62亿日元·20年得以落地的理由｜ScienceX">
+<meta name="twitter:description" content="“担保是结果，合同才是原因”。62亿日元·20年与100亿日元债券何以落地，以及能通过审查的收支作法，皆以一手资料呈现。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="article:published_time" content="2026-07-26">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "储能电站为何以现金成交 —— “无法设定担保”的误解，与62亿日元·20年得以落地的理由 | ScienceX",
+  "description": "数亿日元的储能电站为何以现金成交。本文以○×△检验“无法设定担保”的误解，梳理日本国内债务融资的五种类型（姬路·广原·西乡村·多奈川·新潟山谷·高压14站点），并以一手资料整理应对金融机构收支审查的“三个可验证的数字”（市场实绩·制度情景·固定收入占比）。",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "inLanguage": "zh-CN",
+  "datePublished": "2026-07-26",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-financing"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://www.scix.co.jp/zh"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "洞见",
+      "item": "https://www.scix.co.jp/zh-knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "储能电站为何以现金成交 —— “无法设定担保”的误解，与62亿日元·20年得以落地的理由",
+      "item": "https://www.scix.co.jp/zh-column-financing"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans SC',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/zh" style="color:#5A6577;text-decoration:none">首页</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/zh-knowledge" style="color:#5A6577;text-decoration:none">洞见</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">储能电站为何以现金成交 —— “无法设定担保”的误解，与62亿日元…</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 38</span>
+      <span class="header-tag">国内·海外投资者 / 资金筹措（债务·租赁·收益审查）</span>
+      <time class="header-date" datetime="2026-07-26">2026.07.26</time>
+    </div>
+    <h1>储能电站，为何<em>以现金成交</em> —<br>“无法设定担保”的误解，与<em>62亿日元·20年</em>得以落地的理由</h1>
+    <p class="header-desc">数亿日元的实物资产以现金交割的市场力学、“无法设定担保”的法律辨析、2023〜2026年间集齐的日本国内债务融资五种类型。在此之上，金融机构会怀疑收支计划的哪一处，又该以“三个可验证的数字”如何回应——从载体与合同，到数字的审查，本文把储能电站的资金筹措汇于一篇。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/zh-knowledge" class="back-link">← 返回知识库列表</a>
+
+<p>数亿至数十亿日元的电力基础设施资产，不是靠贷款、而是以现金成交——这正是日本电网侧储能电站买卖市场的日常。据报道，高压2MW/8MWh级的初期投资约为5〜6亿日元（日经Energy Next）。这是换作房地产理应组贷的规模，而这个市场的多数买方却以自有资金交割。“储能电池无法设定担保，所以贷不到款”——这是在交易现场每周都能听到的说法。</p>
+
+<p>然而，公开的事实说的是另一回事。福岛县西乡村的40MW/200MWh项目，在约65亿日元的总投资额之上，获得了<strong>合同金额62亿日元、合同期限20年</strong>的银团贷款。新潟的49MW/231MWh项目，取得R&amp;I评级A-，组成了<strong>日本国内首只以开发资金为用途的项目债券100亿日元</strong>。全国14处高压储能设施拿到了贷款额度49亿日元的无追索权融资；就连没有收益合同、纯市场套利型（merchant）的99MW项目，也获得了以市场收益为唯一还款来源的项目融资（PF）。</p>
+
+<p>把“能贷到”和“贷不到”分开的，并不是担保。先把本文的结论说在前面——<strong>担保是结果，原因是合同</strong>。而且，即便合同类型决定了债务的载体，审查桌上也必然摆着收支计划。“这个报价的依据是什么？”——本文连同把停在此处的讨论变成可验证讨论的方法一并整理：前半谈“载体与合同”，后半谈“数字的审查”，合为一篇。2026年，市场正从“只有现金”的阶段，走向能够设计“入口的现金与出口的债务如何组合”的阶段。</p>
+
+<div class="review-note">
+<strong>本文的定位：</strong>制度参照时点为2026年7月。主要读者为考虑取得·持有储能电站的日本国内外投资者·买方·卖方，向金融机构·投资者递交收支计划的事业者，以及接到案件的金融机构实务人员。数值仅采用各公司的适时披露·新闻稿与公共机构/交易所的公开资料；未披露者（DSCR·LTV·利率等）注明“未披露”，无法确认者注明“无法确认”。仅§01明示为案件组成·居间现场的观察。正文中的报价单价·中标率等前提值为说明用示例，并非特定案件·特定运营方的条件。担保·税务·会计部分为一般性说明，本文不构成投资·融资·法务·税务建议。个案请务必向律师·税理士等专业人士及金融机构确认。本文是COLUMN 07（IRR·DSCR）、COLUMN 30（合同类型与收益率）的续篇——“股权之后，债务该怎么搭”。</div>
+
+<div class="data-box">
+<div class="db-head">本文涵盖范围</div>
+<dl class="premise-grid">
+  <div><dt>已公开的最长期限</dt><dd>20<span class="unit">年（西乡村·活用LDA）</span></dd></div>
+  <div><dt>已公开的最高债务占比</dt><dd>62<span class="unit">亿日元／总投资额 约65亿日元</span></dd></div>
+  <div><dt>开发资金型债券（日本国内首只）</dt><dd>100<span class="unit">亿日元·R&amp;I评级A-</span></dd></div>
+  <div><dt>一次调整力的市场实绩</dt><dd>9.6〜13.5<span class="unit">日元/ΔkW·30分（储能）</span></dd></div>
+  <div><dt>上限价格的现状</dt><dd>19.51→15<span class="unit">日元（10→7.21日元为附条件的分阶段方针·未启动）</span></dd></div>
+  <div><dt>利率环境</dt><dd>1.0<span class="unit">%（政策利率）／10年期国债 一度2.88%</span></dd></div>
+</dl>
+</div>
+
+<div class="part-lead">前半 ── 载体与合同</div>
+
+<h2>01 — 为何是现金：速度的不对称（现场观察）</h2>
+
+<p>先从笔者在日常案件组成·居间中所见的景象写起。本节并非公开统计，而是现场观察，这一点先行申明。</p>
+
+<p>在权利转让·完工交付形式的储能电站买卖中，卖方要求在一个月前后完成交割的情形并不少见。理由有三。其一是卖方的资金周转：工程费负担金与并网保证金都有支付期限，而自2026年4月所谓“占而不用对策”（COLUMN 09）之后，保证金的负担朝着增额·提前的方向变动。其二是买方候选始终不止一家。其三是案件的“新鲜度”：并网预定日越近的案件价值越高，时间的流逝直接等同于商品价值的衰减。</p>
+
+<p>那么买方一侧的时钟如何？即便是公司贷款，内部审批加银行审查也要1.5〜2个月；若是PF，则须预留半年到一年。案件不会等人。结果便是“能当场拍板的现金”胜过“便宜却慢的债务”，能即决的业主型企业与外资基金，反而不会输给需要走审批的上市公司与金融机构——这就是这个市场的力学。旁证也有：租赁巨头东京世纪（Tokyo Century）在公布特别高压4处·合计101MW的自主单独开发时，所举出的强项正是单独决策带来的速度（2025年12月）。连专业的机构投资者，在这个市场里都把“快”视为竞争资源（另需说明，关于审查期间的标准值，未能确认到可靠的公开统计。上述为现场感受）。</p>
+
+<p>此处需要把握的是：现金交割成为主流，并不能证明“贷不到款”。<strong>不是贷不到，而是来不及。</strong>那么，究竟贷不贷得到？若贷得到，条件是什么——从这里开始，以公开信息作答。</p>
+
+<h2>02 — “无法设定担保”，究竟有几分为真</h2>
+
+<p>先把法律问题处理掉。储能设备（集装箱式BESS·PCS·受变电设备）不是不动产而是动产，因此无法就其单体设定抵押权。但这并不等于无法设定担保。取担保的方式主要有三种。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>担保方式</th><th>对象</th><th>对抗要件·特征</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">集合动产让与担保</td><td>BESS集装箱·PCS等动产一式</td><td>占有改定＋动产让与登记（动产·债权让与特例法。经登记即视为已完成交付，从而具备第三人对抗要件）。在光伏PF中实务已确立</td></tr>
+<tr><td class="em">工厂财团抵押（工厂抵押法）</td><td>把土地·建筑物·机器器具作为一体的“一个不动产”</td><td>登记许可税0.25%（低于普通抵押的0.4%）。但<strong>仅限用地为所有权的情形</strong>。地上权无法适用工厂抵押法，租赁权则连抵押权本身都无法设定</td></tr>
+<tr><td class="em">个别抵押权·质权·ABL</td><td>土地（所有权）、SPC权益、存款账户、保险金请求权、售电债权</td><td>PF的标准组合（§03）。动产·债权担保融资（ABL）多需外部专业机构进行担保评估</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>实例也有。在融资型众筹的电网侧储能基金中，已公开的组成方式是：对土地设定最高额抵押权、对储能设备设定动产担保，外部评估机构给出的担保评估值6.02亿日元，对应预定融资额4.95亿日元——相对评估值的折扣率约八成。储能电站的担保评估，其实早已在市场上实际进行。</p>
+
+<p>那么，为何在银行柜台会被拒绝？原因在于担保的<strong>清算价值</strong>。二手BESS的处置市场尚不成熟，衰减（SOH）的评估方法、迁移·改用的可行性、厂商质保与LTSA（长期服务协议）能否转让，均存在不确定性。即便查封设备付诸拍卖，也看不到能收回贷款本息的把握——在这个意义上，“担保价值匮乏”大体属实。从买方角度看，其结果就是杠杆的缺位。房地产可以拿物业作押去买下一处、复利式地扩张资产；储能电站原则上却是全额自有资金，买一座资金就躺在那里。“收益率不错，但资产效率不及房地产”这类投资者的声音，正源自这一担保结构。</p>
+
+<p>把判定汇成一张表，是这样：</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>说法</th><th style="width:72px">判定</th><th>依据</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">储能设备在法律上无法设定担保</td><td class="ng">×</td><td>可通过集合动产让与担保＋动产让与登记，或工厂财团抵押（所有权用地）设定。PF·基金的公开案例中已实际组成</td></tr>
+<tr><td class="em">并网合同等合同上的地位无法转移</td><td class="ng">×</td><td>可通过地位转让预约＋对方同意（直接协议）实现转移（§03）</td></tr>
+<tr><td class="em">担保单体的清算·处置价值匮乏</td><td class="ok">○</td><td>二手处置市场尚不成熟。SOH评估·迁移·质保转让存在不确定性</td></tr>
+<tr><td class="em">所以储能电站贷不到款</td><td class="cond">△</td><td>因果关系不准确。决定能否融资的不是担保的变现价值，而是合同所产生的现金流的可预见性。实例见§05</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>03 — 贷款方实际拿走的东西：担保不是为了“卖掉”，而是为了“接手”</h2>
+
+<p>发电·储能的PF以“全资产担保”为原则。借款人SPC及其资产的全体——设备（动产）、土地或其使用权、基于EPC·O&amp;M·聚合商·代工（tolling）等项目相关合同的债权与合同上的地位、保险金请求权、存款账户，以及SPC的权益本身——之上层层设定担保权。</p>
+
+<p>重要的是这套担保组合的目的。按法律实务的梳理，担保的功能分为两类。其一是<strong>积极功能</strong>——当事业陷入困境时，贷款方连同SPC权益与合同地位一并接手事业、更换发起人使事业得以延续，即“介入（step-in）”的强制实现。其二是<strong>防御功能</strong>——防止资产因第三人查封等而流失。设备的集合动产让与担保，正是为了在面对查封时以第三人异议阻止拍卖、守住事业作为整体的价值而运作的。</p>
+
+<p>换言之，贷款方拿担保，不是为了<strong>把储能电池拆开卖掉</strong>，而是为了<strong>把事业整体接手过来</strong>。因此，二手市场的不成熟并不直接决定PF能否组成。决定它的，是接手之后现金流是否读得懂——也就是合同。合同上的地位要转移，需要并网合同·代工合同等对方（一般输配电事业者·承购方等）的同意；在PF中，这一点会以地位转让预约与直接协议（同意书）事先锁定。并网的权利，也在这一框架下被纳入担保组合。</p>
+
+<p>而在2026年5月25日，这一领域的前提发生了一处变化：依据事业性融资推进法的<strong>企业价值担保权正式施行</strong>（2024年6月通过）。这是一种可将有形·无形资产乃至未来现金流在内的债务人总财产一体化设定担保的新型担保权，以信托方式设定，设定时对经营者保证的使用受到限制。它与以动产为主、价值来源在于未来收益的储能电站事业在结构上高度契合，也是一项有可能简化现行“全资产担保”逐项叠加实务的制度。储能电站的运用案例目前尚无公开确认，但作为可能正面撬动§02那堵墙的变化，值得关注。</p>
+
+<h2>04 — 另一堵墙：银行“读不懂”的收益</h2>
+
+<p>与担保之墙并列的另一项结构性因素，是收益的可预见性。FIT光伏因固定价格×固定期限而使20年的现金流可读，PF才得以大量组成。电网侧储能电站则是把JEPX·供需调整市场·容量市场三个市场逐日组合起来挣钱（COLUMN 02），收益的大半是随行就市的“市场套利型（merchant）收益”。而且日本国内的运行实绩尚浅。据IEEFA分析，日本的BESS并网申请膨胀至170.8GW，已并网却只有0.62GW（2025年时点）。贷款方所能依据的实绩数据，母数本身就小。</p>
+
+<p>组成日本国内首个BESS项目融资的SMFL未来伙伴（SMFL Mirai Partners）自己也回顾道：无法以FIT式的稳定收入为前提，事业评估与合同条款都必须从零做起。在再生能源PF的标准实务中，贷款方以保守的P90情景（超越概率90%的收益水平）确定债务规模，并要求DSCR（偿债覆盖率）大致在1.2〜1.35倍左右。那么，三个市场收益的P90由谁、以何种方式来支撑——焦点便落在聚合商实绩披露的颗粒度上，而投资者与贷款方可验证的公开数据目前仍然有限。对这一议题的实务解法——以市场实绩·制度情景·固定收入占比来夹住前提——将在本文后半（§08起）详述。</p>
+
+<h2>05 — 即便如此仍然贷到了：从2023年到2026年，五种类型已经集齐</h2>
+
+<p>结构上确实困难——即便如此，公开层面的组成案例在这三年里稳步累积。梳理下来共有五种类型。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>时期</th><th>贷款方／组成方</th><th>项目·规模</th><th>类型</th><th>已公开的条件</th></tr>
+</thead>
+<tbody>
+<tr><td>2023年8月组成（2025年10月投运）</td><td>SMFL未来伙伴（单独）</td><td>合同会社姬路储能电站（兵库·出光兴产炼油厂旧址）15MW/48MWh</td><td class="em">起点：租赁系单独PF</td><td>出资：出光51%·RENOVA22%·长濑产业22%·SMFL-MP5%。项目投资额为数十亿日元规模，补贴约三成，出资十几亿日元＋其余以PF覆盖（日经BP报道）</td></tr>
+<tr><td>2024年</td><td>三菱UFJ银行（组成）</td><td>广原（宫崎）30MW/120MWh、石狩30MW</td><td class="em">承购授信型PF</td><td>以东京燃气的20年承购合同为授信基础组成。石狩约50亿日元，其余条件未披露（参见COLUMN 30）</td></tr>
+<tr class="hl"><td>2025-01-31签约·05-30放款</td><td>三井住友银行（安排行兼代理行）＋东邦银行</td><td>株式会社FMS·西乡村储能电站（福岛）40.0MW/200.0MWh</td><td class="em">LDA型银团贷款</td><td><strong>合同金额62亿日元·合同期限20年</strong>（总投资额约65亿日元）。采用BYD MC Cube-T。预定2027年4月开始售电</td></tr>
+<tr><td>2025年（2025-05-07公布）</td><td>三菱UFJ银行</td><td>多奈川储能电站合同会社（大阪·岬町）99MW/396MWh</td><td class="em">纯市场套利型PF（日本国内首例）</td><td>以市场收益为唯一还款来源的无追索权融资。关西电力40%·KINDEN10%等出资。金额·期限未披露。预定2028年2月投运</td></tr>
+<tr class="hl"><td>2026-04-17</td><td>瑞穗证券（组成）·欧力士银行（信托受托·信托贷款）·CHC Japan（开发·AM）</td><td>新潟山谷储能电站（新潟·小千谷）49MW/231MWh</td><td class="em">代工型·日本国内首只开发资金型项目债券</td><td><strong>100亿日元·R&amp;I评级A-</strong>。东京燃气支付20年固定使用对价并取得运用权</td></tr>
+<tr><td>2026-04-27放款</td><td>理光租赁</td><td>日本蓄电池所设SPC·全国14处<strong>高压</strong>电网侧储能设施</td><td class="em">市场套利型·组合式无追索权PF</td><td><strong>贷款额度49亿日元</strong>的额度贷款合同。预期收益来自供需调整市场·批发电力市场。AM为eco Properties</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>除此之外，欧力士银行对储能配套光伏项目（大分·宇佐市）实施了该行首笔无追索权型PF（2026年）；在股权一侧，伊藤忠商事组建的日本国内首只电网侧储能专项基金（80亿日元以上·2024年，芙蓉综合租赁·东京世纪·横滨银行等出资），以及芙蓉综合租赁等8家公司共同出资、参与全国6处约174MW的SPC（2026年），均已公开。</p>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 关于“日本首例”的归属</span><br>
+“日本国内首个储能电站PF”，其归属因计数方式而异。以租赁系贷款方单独组成而言，姬路（SMFL未来伙伴·2023年8月组成）在先；以银行组成·承购授信型而言，广原（三菱UFJ银行·2024年）为第1号；以市场收益为唯一还款来源的纯市场套利型是多奈川（同行·2025年）；以开发资金为用途的项目债券则是新潟山谷（瑞穗证券等·2026年4月，据瑞穗证券调查）——各为其类型下的日本国内首例。各公司的新闻稿陈述的都是自身类型中的“首例”，彼此并不矛盾。另需说明，2026年3月已先行组成了以取得在运市场套利型储能电站（札幌·Helios 50MW/104MWh，2025年11月投运）所需资金为用途的“日本首只绿色项目债券”约54亿日元（野村证券为安排人·R&amp;I评级BBB·最长19年）；因此资本市场型已打开“开发资金型（新潟山谷）”与“投运后再融资型（Helios）”两个入口。比起名号，本文更看重的事实是——<strong>三年间五种类型（租赁单独／承购授信／LDA／纯市场套利／资本市场）已经集齐</strong>。
+</div>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="日本国内BESS债务融资谱系 2023年至2026年" font-family="'Noto Sans SC',sans-serif">
+  <line x1="50" y1="150" x2="690" y2="150" stroke="#1B2A4A" stroke-width="2"/>
+  <polygon points="700,150 688,146 688,154" fill="#1B2A4A"/>
+  <g font-size="11" fill="#6C7A89">
+    <text x="90" y="172" text-anchor="middle">2023</text>
+    <text x="250" y="172" text-anchor="middle">2024</text>
+    <text x="415" y="172" text-anchor="middle">2025</text>
+    <text x="590" y="172" text-anchor="middle">2026</text>
+  </g>
+  <g stroke="#E2E6EC" stroke-width="1">
+    <line x1="170" y1="142" x2="170" y2="158"/><line x1="330" y1="142" x2="330" y2="158"/><line x1="500" y1="142" x2="500" y2="158"/>
+  </g>
+  <!-- 姬路 -->
+  <line x1="100" y1="150" x2="100" y2="92" stroke="#C49A3C" stroke-width="1.2"/>
+  <circle cx="100" cy="150" r="6" fill="#C49A3C"/>
+  <text x="100" y="66" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">姬路 15MW/48MWh</text>
+  <text x="100" y="82" text-anchor="middle" font-size="10" fill="#6C7A89">租赁系单独PF（2023.08）</text>
+  <!-- 广原·石狩 -->
+  <line x1="245" y1="150" x2="245" y2="208" stroke="#6C7A89" stroke-width="1.2"/>
+  <circle cx="245" cy="150" r="6" fill="#C49A3C"/>
+  <text x="245" y="226" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">广原·石狩</text>
+  <text x="245" y="242" text-anchor="middle" font-size="10" fill="#6C7A89">承购授信型PF（2024）</text>
+  <!-- 西乡村 -->
+  <line x1="380" y1="150" x2="380" y2="92" stroke="#C49A3C" stroke-width="1.2"/>
+  <circle cx="380" cy="150" r="7" fill="#C49A3C"/>
+  <text x="380" y="66" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">西乡村 40MW/200MWh</text>
+  <text x="380" y="82" text-anchor="middle" font-size="10" fill="#6C7A89">LDA型 62亿日元·20年（2025.01签约）</text>
+  <!-- 多奈川 -->
+  <line x1="455" y1="150" x2="455" y2="208" stroke="#6C7A89" stroke-width="1.2"/>
+  <circle cx="455" cy="150" r="6" fill="#C49A3C"/>
+  <text x="455" y="226" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">多奈川 99MW/396MWh</text>
+  <text x="455" y="242" text-anchor="middle" font-size="10" fill="#6C7A89">纯市场套利型·国内首例（2025.03）</text>
+  <!-- 新潟山谷 -->
+  <line x1="580" y1="150" x2="580" y2="92" stroke="#C49A3C" stroke-width="1.2"/>
+  <circle cx="580" cy="150" r="7" fill="#C49A3C"/>
+  <text x="580" y="66" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">新潟山谷 49MW/231MWh</text>
+  <text x="580" y="82" text-anchor="middle" font-size="10" fill="#6C7A89">债券100亿日元·A-（2026.04）</text>
+  <!-- 高压14 -->
+  <line x1="655" y1="150" x2="655" y2="208" stroke="#6C7A89" stroke-width="1.2"/>
+  <circle cx="655" cy="150" r="6" fill="#C49A3C"/>
+  <text x="632" y="226" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">高压14站点</text>
+  <text x="632" y="242" text-anchor="middle" font-size="10" fill="#6C7A89">组合型49亿日元（2026.04）</text>
+</svg>
+<div class="fig-cap">图1 — 日本国内BESS债务融资的谱系（2023→2026）。姬路（租赁单独）→广原·石狩（承购授信）→西乡村（LDA·20年）→多奈川（纯市场套利）→新潟山谷（债券100亿日元）→高压14站点（组合型）。三年间五种类型已经集齐。</div>
+</div>
+
+<p>来读一读这些类型的含义。<strong>LDA型</strong>因制度上确保了原则20年的固定收入，最容易获得融资，期限也与固定收入的年限相齐。<strong>代工型</strong>是以承购方的信用把波动的市场收益转换为固定现金流的类型，关键在于对方的信用——能承接这一角色的日本国内玩家仍然有限（COLUMN 30）。<strong>市场套利型</strong>最难，但多奈川有关西电力集团这一强发起人结构，日本蓄电池则有全国14处的组合分散，可读作对波动收益的支撑。反过来说，单站的市场套利型能否拿到长期资金，取决于发起人的信用、运营体制与运行实绩——而这条分界线，自2026年起已经开始移动（§16）。</p>
+
+<h2>06 — 62亿日元·20年，以及100亿日元债券，何以落地</h2>
+
+<p>把谱系中最具说服力的两笔拆开来看。</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">62<span class="unit">亿日元</span></span><span class="lbl">西乡村的合同金额（总投资额 约65亿日元）</span></div>
+  <div class="stat-cell"><span class="val">20<span class="unit">年</span></span><span class="lbl">合同期限（＝与LDA固定收入期限一致）</span></div>
+  <div class="stat-cell"><span class="val">100<span class="unit">亿日元</span></span><span class="lbl">新潟山谷的项目债券（R&amp;I评级A-）</span></div>
+</div>
+
+<p><strong>西乡村（LDA型）。</strong>三井住友银行的新闻稿把依据写得很清楚：本项目活用了长期脱碳电源拍卖（LDA），固定收入原则上有20年保障，因而能长期确保稳定的事业收益——所以可以做20年期的贷款，逻辑即在于此。合同期限20年与LDA的容量收入20年恰好重合，COLUMN 30所述的“期限匹配（合同年限≧融资年限）”在公开案件中得到了印证。相对约65亿日元的总投资额，62亿日元的合同金额单纯比较即相当于九成以上的债务（由于有无追索权、母公司担保、自有资金的构成均未披露，不能直接读作LTV。但可以确定的是，这个数字与“储能电站贷不到款”的通念无法并存）。</p>
+
+<p><strong>新潟山谷（代工型）。</strong>底层是东京燃气支付20年固定使用对价、取得运用权的代工合同，正是这一合同结构成就了R&amp;I的A-评级，并使100亿日元的资金来自资本市场而非银行贷款。值得注意的是顺序：<strong>因为有固定收入，评级机构才能“验证”收益；因为验证得了，资本市场的资金才够得着。</strong>所谓固定收入占比，也可以换句话说——收益中能由第三方承担验证的那一部分的比例。固定收入解放的不只是贷款，还有债券——而组成方也暗示，在利率波动加剧的环境下，基础设施事业离不开超长期资金筹措，并有回收开发资金投向下一个项目（资本循环）的意图。§14所述“入口是现金，出口是债务”的设计，已经开始在大型项目上落地。</p>
+
+<p>另一方面，没有收益合同的纯市场套利型——多奈川与高压14站点——在金额与期限上要么偏保守，要么未披露。同样是“贷到了”，<strong>固定收入的厚度决定了债务的厚度</strong>——这一结构，正是下一节的序列本身。</p>
+
+<h2>07 — 序列全球通用：“固定收入占比”这一共同语言</h2>
+
+<p>在律师事务所实务人士的梳理中，储能电站融资的难易同样以收益合同的类型来解释。OCCTO型（含LDA在内的容量收入型）付款方信用高，相对容易获得融资；代工型因持有方不承担市场价格风险而适合长期融资，但信用良好的承购方有限；市场套利型因未来电价难以预测，金融机构对长期融资的可行性仍在摸索——这就是那条序列。</p>
+
+<p>在与贷款方的对话中把这条序列落成一个数字，就是<strong>固定收入占比</strong>——总收入中由合同（LDA·容量市场·代工·下限保障）所固定的比例。在日本，构成这一比例的合同收入主要有三项：容量市场（第6回主拍卖反映过渡措施后的全国平均成交价为<strong>13,303日元/kW·年</strong>，刷新历史最高，东北·东京·九州触及上限。变化趋势与区域差异见COLUMN 28）；长期脱碳电源拍卖＝LDA（原则20年的固定容量收入。脱碳电源的加权平均由第2回〔2024年度实施〕的约6.8万日元/kW·年升至第3回〔2025年度实施〕的约11.1万日元/kW·年——其中包含上限价格阈值上调的影响。第3回储能的中标率为46%〔应标125.1万kW〕，加之6小时以上持续运行要求与电芯制造国限制，门槛依然狭窄。COLUMN 01·03）；以及代工合同（COLUMN 30）。海外的披露数据，则赤裸裸地表明这一比例决定着债务。</p>
+
+<div class="data-box">
+<div class="db-head">海外“合同收入×债务”的行情感</div>
+<p style="margin-bottom:12px"><strong>英国</strong>：在以债务组成的项目中，长期以来普遍要求以带下限保障的合同等已签约收益，支撑预计现金流的大致一半。随着市场成熟，对市场套利敞口的容忍度上升，投资公司Triple Point表示“即便几乎没有合同收益的项目，也开始能够被接受融资”；但在大型组成中，“已签约五成”至今仍是一个基准。</p>
+<p style="margin-bottom:12px"><strong>德国</strong>：分析认为，代工比重较高的项目大致可获得70〜85%的负债率（gearing，不同分析口径有幅度），实际成交则集中于收益的80〜100%已代工化的项目。代工提供方一侧也给出这样的水平感：“若不以可融资的代工锁定一半以上的收益，多数银行会对放贷趋于谨慎，或施加更高利率、更低LTV。”实例方面，Stendal储能电站（104.5MW/209MWh）以7年固定价格灵活性合同为支撑，从州立银行NORD/LB取得了约8,650万欧元的长期债务。</p>
+<p style="margin-bottom:12px"><strong>澳大利亚</strong>：CIS（容量投资计划）以政府合同支撑收益下限，Neoen在含BESS的组合上于2024年两度合计筹措逾20亿澳元的债务（ANZ·瑞穗·MUFG·SMBC等参与）。<strong>美国</strong>：把ITC（投资税收抵免）的税务股权与建设贷款组合起来的混合模式是标准做法。</p>
+<p style="margin-bottom:0"><strong>欧洲整体</strong>：BESS融资项目数在2025年由25笔增至82笔，增长逾三倍；已披露口径的债务额由14亿欧元激增至61亿欧元。牵引者是英国的下限保障、德国的代工、以及西班牙·意大利的PPA/CfD。</p>
+<div class="source">资料来源：Energy-Storage.news／Modo Energy／terralayr／ess-news·pv magazine／Neoen·ANZ公开资料（详见文末出处栏）。海外数值为前提各异的代理指标，不能直接套用于日本。</div>
+</div>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="固定收入占比与债务厚度的概念图" font-family="'Noto Sans SC',sans-serif">
+  <rect x="110" y="50" width="550" height="290" fill="#FFFFFF" stroke="#E2E6EC" stroke-width="1"/>
+  <line x1="385" y1="50" x2="385" y2="340" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="3 4"/>
+  <line x1="110" y1="195" x2="660" y2="195" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="3 4"/>
+  <line x1="110" y1="340" x2="110" y2="42" stroke="#1B2A4A" stroke-width="1.5"/>
+  <polygon points="110,32 106,44 114,44" fill="#1B2A4A"/>
+  <line x1="110" y1="340" x2="668" y2="340" stroke="#1B2A4A" stroke-width="1.5"/>
+  <polygon points="678,340 666,336 666,344" fill="#1B2A4A"/>
+  <text x="385" y="372" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A">固定收入占比（由合同固定的收入比例）→</text>
+  <text x="120" y="356" font-size="11" fill="#6C7A89">低</text>
+  <text x="650" y="356" text-anchor="end" font-size="11" fill="#6C7A89">高</text>
+  <text x="62" y="195" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1B2A4A" transform="rotate(-90 62 195)">债务的厚度（期限·杠杆）→</text>
+  <text x="100" y="60" text-anchor="end" font-size="11" fill="#6C7A89">厚</text>
+  <text x="100" y="336" text-anchor="end" font-size="11" fill="#6C7A89">薄</text>
+  <!-- plots -->
+  <circle cx="185" cy="285" r="9" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2.5"/>
+  <text x="185" y="310" text-anchor="middle" font-size="11" fill="#2C3E50">高压14站点</text>
+  <text x="185" y="324" text-anchor="middle" font-size="9.5" fill="#6C7A89">市场套利·组合型（额度49亿日元）</text>
+  <circle cx="230" cy="240" r="9" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2.5"/>
+  <text x="230" y="218" text-anchor="middle" font-size="11" fill="#2C3E50">多奈川</text>
+  <text x="230" y="231" text-anchor="middle" font-size="9.5" fill="#6C7A89">纯市场套利（条件未披露）</text>
+  <circle cx="345" cy="205" r="9" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="345" y="245" text-anchor="middle" font-size="11" fill="#2C3E50">姬路</text>
+  <text x="345" y="258" text-anchor="middle" font-size="9.5" fill="#6C7A89">补贴约三成＋PF</text>
+  <circle cx="520" cy="140" r="9" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="505" y="172" text-anchor="middle" font-size="11" fill="#2C3E50">广原·石狩</text>
+  <text x="505" y="185" text-anchor="middle" font-size="9.5" fill="#6C7A89">20年承购授信</text>
+  <circle cx="610" cy="88" r="10" fill="#C49A3C"/>
+  <text x="600" y="66" text-anchor="middle" font-size="11" font-weight="700" fill="#1B2A4A">西乡村（LDA）</text>
+  <text x="600" y="79" text-anchor="middle" font-size="9.5" fill="#6C7A89">62亿／65亿日元·20年</text>
+  <circle cx="628" cy="122" r="10" fill="#C49A3C"/>
+  <text x="618" y="150" text-anchor="middle" font-size="11" font-weight="700" fill="#1B2A4A">新潟山谷（代工）</text>
+  <text x="618" y="163" text-anchor="middle" font-size="9.5" fill="#6C7A89">债券100亿日元·A-</text>
+  <text x="118" y="410" font-size="10" fill="#9AA6B2">※位置为依据公开信息（合同类型·已公开条件）的定性布置，并非实测的比例与杠杆。</text>
+</svg>
+<div class="fig-cap">图2 — 合同类型（横轴：固定收入占比）× 债务厚度（纵轴：杠杆·期限）的概念图。固定收入越厚、越靠右上，期限越长，直至够得着资本市场。</div>
+</div>
+
+<p>也就是说，<strong>“合同收入解放债务”是全球通用的原则</strong>。由此可以看见日本的特殊性：日本没有澳大利亚CIS或美国ITC那样的公共支撑机制（GX推进机构对储能的担保执行案例亦未确认。§16），而填补这一空白的，是以“制度形式的合同收入”出现的LDA。反过来说，在没有支撑机制的情况下组成的多奈川与高压14站点的市场套利型PF，即便放在全球看也相当具有挑战性。另需说明，若不做固定，其“地板”正如COLUMN 30所述——按公共测算，即便计入容量市场收入，基准IRR仍为−1.5%（CAPEX 6万日元/kWh）。贷款方的保守并非情绪之论，而是DSCR的算术。</p>
+
+<p>利率也并非无关。贴现率与债务成本的上升会稀释市场套利型收益的现值，从而抬高固定收入的相对价值（利率环境的数字见§16）。在有利率的世界里，固定收入占比是一个愈发起作用的数字。</p>
+
+<div class="part-lead">后半 ── 数字的审查</div>
+
+<h2>08 — 仍然剩下的“无法验证的数字”：为何会变成各说各话</h2>
+
+<p>以上是“载体与合同”的部分。然而，即便定了合同类型，审查桌上也必然摆着收支计划。而讨论，总会停在同一个地方：“这个报价的依据是什么？”“聚合商的实绩数值，是不是太乐观了？”指摘不无道理。但若反问一句——那么合理的水平是多少——对方其实也拿不出替代的数字。既然不存在FIT那样的固定价格，未来的市场价格就没有“标准答案”。以下，便是把这场各说各话变成“可验证的讨论”的整理。正如前半所见，金融机构的怀疑并非因为你的测算粗糙，而是指向实绩母数偏小的这一资产类别的结构（§04）。正因如此，正确的应对不是凭感觉反驳，而是拿出“可验证的部分”。</p>
+
+<p>先确认结构。在光伏项目融资中，金融机构所验证的，归根结底是“日照量”。售电价格20年固定，变动的只有发电量，而它可以由气象统计处理成P50（超越概率50%的中位值）与P90（有90%概率高于此的保守值）。因此以P90确定债务规模、要求DSCR 1.2〜1.35倍左右——这套作法就此确立（§04）。</p>
+
+<p>储能电站正相反。运行量在一定程度上可控，价格却不固定。收益由JEPX·供需调整市场·容量市场的三市场堆叠（COLUMN 02）构成，其大半是随市场价格而定的“市场套利型收益”。评级机构穆迪（Moody's）早在2018年就梳理过：把合同收入与市场收入组合起来的价值堆叠（value stacking），其现金流波动风险大于纯粹的长期合同模式。澳大利亚面向储能的贷款方明言“一次性的高收益事件不计入债务规模测算”，也是同一个道理。</p>
+
+<p>收益的分布缺少相当于“气象统计”的客观底座——所以，当事业者的前提与贷款方的直觉相撞，就成了各说各话。出路，是用可验证的数字把前提夹住。储能电站的收支中，这样的数字有三类：<strong>①过去的市场实绩</strong>（EPRX的成交实绩）、<strong>②已经确定的未来</strong>（制度预告的上限价格下调）、<strong>③已被签约的当下</strong>（容量市场·LDA·代工的固定收入）。③正是§07所述的固定收入占比，因此以下依次来看①与②。</p>
+
+<h2>09 — 可验证的数字① 市场实绩：以成交实绩标出前提的“坐标”</h2>
+
+<p>“报价◯日元·中标率◯%”这样的前提究竟是乐观还是保守，不必凭感觉，而可以用它在实际成交区间上的位置来表示。</p>
+
+<p>据EPRX（电力供需调整力交易所）公布的交易实绩，2025年度上半年按电源种类划分的平均成交单价，储能的一次调整力按月为9.6〜13.5日元/ΔkW·30分，成交水平是火电（2.1〜3.5日元）与抽水蓄能（1.1〜3.4日元）的数倍。背景在于供给不足：一次调整力的满足率（成交量相对招标量的比例）在2025年度的在线（online）口径仅约四成，东京·中部区域的夏季还出现过招标量九成以上未被满足的月份（分区域·分品种的详情见COLUMN 16）。</p>
+
+<p>对照这一市场实绩，收支计划中常见的前提——以9日元/ΔkW·30分报价一次调整力、七至九成成交——在单价上位于实际区间的下限附近，即<strong>保守至合理</strong>；在成交率上，在供给不足延续的现状下亦属<strong>合理</strong>。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="按电源种类的平均成交单价区间与前提值9日元的位置" font-family="'Noto Sans SC',sans-serif">
+  <!-- axis -->
+  <line x1="150" y1="250" x2="690" y2="250" stroke="#1B2A4A" stroke-width="1.5"/>
+  <g font-size="10.5" fill="#6C7A89" text-anchor="middle">
+    <text x="150" y="268">0</text><text x="285" y="268">5</text><text x="420" y="268">10</text><text x="555" y="268">15</text><text x="690" y="268">20</text>
+  </g>
+  <text x="420" y="290" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A">平均成交单价（日元/ΔkW·30分）</text>
+  <g stroke="#E2E6EC" stroke-width="1">
+    <line x1="285" y1="60" x2="285" y2="250"/><line x1="420" y1="60" x2="420" y2="250"/><line x1="555" y1="60" x2="555" y2="250"/>
+  </g>
+  <!-- 上限线 -->
+  <line x1="676.8" y1="52" x2="676.8" y2="250" stroke="#6C7A89" stroke-width="1.2" stroke-dasharray="2 3"/>
+  <text x="672" y="38" text-anchor="end" font-size="10" fill="#6C7A89">原上限 19.51日元</text>
+  <line x1="555" y1="52" x2="555" y2="250" stroke="#c44" stroke-width="1.4" stroke-dasharray="5 3"/>
+  <text x="548" y="38" text-anchor="end" font-size="10.5" font-weight="700" fill="#c44">现行上限 15日元</text>
+  <text x="548" y="51" text-anchor="end" font-size="9" fill="#c44">（2026.3.14交割起）</text>
+  <!-- 9日元标记 -->
+  <line x1="393" y1="60" x2="393" y2="250" stroke="#C49A3C" stroke-width="1.6"/>
+  <text x="393" y="318" text-anchor="middle" font-size="10.5" font-weight="700" fill="#C49A3C">前提示例“报价9日元”的位置</text>
+  <line x1="393" y1="250" x2="393" y2="302" stroke="#C49A3C" stroke-width="1" stroke-dasharray="2 3"/>
+  <!-- bars: scale 27px per 日元, x = 150 + v*27 -->
+  <g font-size="11.5" fill="#2C3E50">
+    <text x="142" y="94" text-anchor="end" font-weight="700">储能（一次）</text>
+    <rect x="409.2" y="82" width="105.3" height="18" rx="3" fill="#C49A3C"/>
+    <text x="461.85" y="95" text-anchor="middle" font-size="10" font-weight="700" fill="#1B2A4A">9.6〜13.5日元</text>
+    <text x="142" y="139" text-anchor="end">火电</text>
+    <rect x="206.7" y="127" width="37.8" height="18" rx="3" fill="#1B2A4A" opacity=".75"/>
+    <text x="250" y="140" font-size="10" fill="#6C7A89">2.1〜3.5日元</text>
+    <text x="142" y="184" text-anchor="end">抽水蓄能</text>
+    <rect x="179.7" y="172" width="62.1" height="18" rx="3" fill="#1B2A4A" opacity=".55"/>
+    <text x="248" y="185" font-size="10" fill="#6C7A89">1.1〜3.4日元</text>
+    <text x="142" y="229" text-anchor="end">VPP（DR等）</text>
+    <rect x="668.4" y="217" width="8.1" height="18" rx="2" fill="#6C7A89"/>
+    <text x="663" y="230" text-anchor="end" font-size="10" fill="#6C7A89">19.2〜19.5日元</text>
+  </g>
+</svg>
+<div class="fig-cap">图3 — 按电源种类的平均成交单价区间（2025年度上半年·月度平均，储能为一次调整力。据EPRX“交易实绩汇总结果”制作）与前提示例“9日元”的位置。它处于储能实际区间的下限附近，作为单价前提可定位为保守至合理。</div>
+</div>
+
+<p>重要的是，把这一“定位”本身也写进审查材料。不是“我用了实绩值”，而是“放在实际区间的哪里、为什么放在那里”。把讨论的对象从前提的对错，转向前提的坐标——做到这一步，就已经不是各说各话了。</p>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 注意“满足率”“不足率”“中标率”的定义</span><br>
+不同资料的分子·分母并不相同。EPRX公开资料所用的是“不足率（＝采购不足量÷招标量）”，与事业者所说的“中标率（自身报价量中的成交比例）”是不同的指标。此外，2026年3月转为日前交易前后，品种设计本身也变了（周度·3小时区块→日前·30分钟时段），实绩数据的衔接存在断点。在审查材料中，请查阅EPRX原始数据、统一定义后再作呈现。定义的混用，本身就会削弱信任。
+</div>
+
+<h2>10 — 可验证的数字② 制度预告的未来：上限15日元与“下一手”</h2>
+
+<p>“把过去实绩外推20年”之所以受批评，并不是因为外推本身不好，而是因为它看起来无视了已经确定的下行因素。</p>
+
+<p>在供需调整市场，随着2026年3月转为日前交易（COLUMN 29），一次调整力·二次调整力①·复合品种的上限价格由19.51日元/ΔkW·30分下调至15日元。审议过程中也曾提出全品种一律7.21日元的方案（2025年10月·资源能源厅 制度研讨工作部会），因顾虑对投资可预见性的影响，最终落在15日元。不过制度资料中<strong>明确写有：若竞争状况未见改善，将分阶段下调至10日元、进而7.21日元</strong>的方针。与此同时，一次·二次①的招标量也由覆盖需求波动约99%的3σ级别，缩小至覆盖约84%的1σ级别。也就是说，单价与数量两方面都在被制度收紧。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="上限价格的分阶段情景" font-family="'Noto Sans SC',sans-serif">
+  <line x1="95" y1="228" x2="700" y2="228" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="95" y1="228" x2="95" y2="42" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="40" y="135" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1B2A4A" transform="rotate(-90 40 135)">上限价格（日元/ΔkW·30分）</text>
+  <g stroke="#E2E6EC" stroke-width="1" stroke-dasharray="2 4">
+    <line x1="95" y1="60" x2="690" y2="60"/><line x1="95" y1="99" x2="690" y2="99"/><line x1="95" y1="142" x2="690" y2="142"/><line x1="95" y1="166" x2="690" y2="166"/>
+  </g>
+  <g font-size="10" fill="#6C7A89" text-anchor="end">
+    <text x="88" y="64">19.51</text><text x="88" y="103">15</text><text x="88" y="146">10</text><text x="88" y="170">7.21</text>
+  </g>
+  <path d="M 105 60 L 255 60 L 255 99 L 480 99" fill="none" stroke="#1B2A4A" stroke-width="3"/>
+  <path d="M 480 99 L 480 142 L 590 142 L 590 166 L 690 166" fill="none" stroke="#C49A3C" stroke-width="3" stroke-dasharray="7 5"/>
+  <g font-size="11.5" font-weight="700">
+    <text x="180" y="50" text-anchor="middle" fill="#1B2A4A">19.51日元</text>
+    <text x="365" y="89" text-anchor="middle" fill="#1B2A4A">15日元</text>
+    <text x="535" y="132" text-anchor="middle" fill="#C49A3C">10日元</text>
+    <text x="642" y="156" text-anchor="middle" fill="#C49A3C">7.21日元</text>
+  </g>
+  <circle cx="440" cy="99" r="5" fill="#c44"/>
+  <text x="440" y="120" text-anchor="middle" font-size="10" font-weight="700" fill="#c44">当前（2026.7）</text>
+  <g font-size="10" fill="#6C7A89" text-anchor="middle">
+    <text x="180" y="248">至2026.3.13交易</text>
+    <text x="367" y="248">2026.3.14交割起（适用中）</text>
+    <text x="585" y="248">竞争改善不充分时的分阶段方针</text>
+    <text x="585" y="262">（启动未定·时间未定）</text>
+  </g>
+  <rect x="100" y="180" width="530" height="42" rx="4" fill="#F8F9FB" stroke="#E2E6EC"/>
+  <text x="112" y="197" font-size="9.5" fill="#2C3E50">10日元·7.21日元是“未见竞争改善时”的分阶段方针，适用日尚未确定（2026年7月时点）。</text>
+  <text x="112" y="213" font-size="9.5" fill="#2C3E50">上限价格变更时，EPRX将在实需供日的两周前于“上限价格”页面公布。</text>
+</svg>
+<div class="fig-cap">图4 — 一次·二次①·复合品种上限价格的变化与分阶段方针。15日元适用中（2026.3.14交割起），10日元·7.21日元为“未见竞争改善时”的附条件分阶段方针，启动尚未确定（2026年5月的中期评估暂缓判断）。收支计划应把这些阶段作为敏感性分析叠加进去（资料来源：资源能源厅 制度研讨工作部会 第110回 资料4／电力稳定供应WG 第1回 资料8／EPRX“上限价格”页面）。</div>
+</div>
+
+<p>市场实绩也已经在动。2026年5月的中期评估（电力稳定供应工作组）确认，报价量有所增加、一次调整力的不足率有所改善，同时也梳理为“尚未完全消除”“上限价格附近的报价仍在持续成交”，并显示2026年1月复合品种的平均成交价一度降至3.15日元/ΔkW·30分。至于下一次下调（15日元→10日元），2026年5月的中期评估以“转为日前交易后仅一个月的数据不足以评估事业者行为”为由暂缓判断，本年度下半年的审议是最大焦点。另需说明，行业媒体中已开始出现把“下调至10日元”当作既定路线来报道的文章，但截至2026年7月，一手资料所确定的仅止于“若市场竞争状况未见改善，则分阶段下调至10日元、7.21日元/ΔkW·30分等”这一附条件方针——并不是已定适用日的下调决定。上限价格实际变更时，EPRX会在对应实需供日的两周前于该所“上限价格”页面公布，因此事业者与贷款方的定点观测放在这一页面最为实用。</p>
+
+<p>落到收支计划上很简单：把首年度就置于15日元上限·1σ之后的环境，并把未来年度10日元·7.21日元的情景逐级叠加成敏感性分析，<strong>不等对方指出，自己先附上</strong>——一份把制度预告的下行提前纳入的计划，仅此一点，可信度就不一样。就连经济产业省的公共测算，也采用把批发市场价差最小的年度与最大的年度分别使用、呈现下行与上行区间的方式。呈现区间不是软弱，而是作法。</p>
+
+<h2>11 — 金融机构实际会问的五个问题，与回答的范式</h2>
+
+<p>把至此为止的整理，按审查现场实际飞来的问题顺序重新排列。</p>
+
+<h4>Q1.“这个成交单价与中标率，与市场实绩一致吗”</h4>
+<p>附上EPRX的交易实绩与分区域的满足率数据，标出前提值位于实际区间的哪个位置。若置于中位数之上，则写明理由（区域·品种构成·运行方针）。统一定义（是不足率，还是自身成交率）是前提（§09）。</p>
+
+<h4>Q2.“上限价格的下调，是否已经计入”</h4>
+<p>15日元自首年度起反映，并把向10日元·7.21日元的分阶段下调作为情景叠加。招标量1σ化所带来的成交机会缩小，也要反映在数量前提中（§10）。</p>
+
+<h4>Q3.“收入中有几成由合同固定”</h4>
+<p>把容量市场·LDA·代工带来的固定收入占比，用一个数字呈现。若达不到海外基准的“五成”，则附上达不到的理由与替代的风险缓释手段（组合分散、Q5的第三方验证等）（§07）。</p>
+
+<h4>Q4.“外推20年，是不是太乐观”</h4>
+<p>在计入价格递减情景与电池衰减曲线（COLUMN 35）的下行情形中，证明DSCR仍能维持基准。再生能源PF的标准是以P90确定债务规模、DSCR约1.2〜1.35倍。在不依赖合同的纯市场套利型项目上，海外则以1.2〜2倍这一更厚的区间来讨论（COLUMN 07、§04）。</p>
+
+<h4>Q5.“那份运行实绩的外推，是谁验证的”</h4>
+<p>聚合商的实绩披露，就贷款方可验证的颗粒度而言仍然有限——这是业界广泛指出的议题，正因如此，第三方的收益预测才有效。在英国，独立调查机构的收益曲线已被多家银行接受为债务规模测算的基础；在日本，2026年也有经独立机构经济性分析的多个项目（合计148MW）完成放款。把“无法验证的数字”替换为“第三方验证过的数字”——这就是Q1〜Q4的收尾。</p>
+
+<h2>12 — 对听不懂电力语言的对象，要做“翻译”</h2>
+
+<p>也说一说在审查之前就绊倒的情形：房地产系的投资者。</p>
+
+<p>面对投资过酒店与公寓的对象，若从ΔkW或三次调整力①讲起，对话几乎必然会停下。不是对方理解不了，而是词典不同。需要的不是补充精确度，而是翻译。</p>
+
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th>电力的语言</th><th>房地产的语言</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">代工费（tolling fee，COLUMN 30）</td><td>固定租金。长期、可预见</td></tr>
+<tr><td class="em">容量市场收入</td><td>空置也照收的基础收入</td></tr>
+<tr><td class="em">市场套利型收益（JEPX·供需调整）</td><td>浮动租金·提成</td></tr>
+<tr><td class="em">聚合商（COLUMN 17）</td><td>PM·运营受托公司</td></tr>
+<tr><td class="em">电池的衰减·检修（COLUMN 23）</td><td>大规模修缮计划</td></tr>
+<tr><td class="em">DSCR·LTV</td><td>为数不多可以直接通用的词</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>储能电站是法定使用年限17年的机器装置，且土地·设备·运营·金融组合于一身，本来就是房地产投资者容易亲近的资产。新潟山谷完全可以用房地产的语言讲述——因为有了20年的定期租赁合同（代工），才拿到了评级，才发得出债券。§07的固定收入占比，换成房地产的语言就是“租赁合同锁定了NOI的几成”。同一个数字，对银行和对房地产投资者都讲得通。</p>
+
+<div class="part-lead">终章 ── 实务与设计</div>
+
+<h2>13 — 租赁这条另辟的回路：既是出借方，也是买方</h2>
+
+<p>人们常说“银行不行就找租赁”，但租赁公司的介入并不止于替代融资。从公开信息看，租赁公司是以<strong>两副面孔</strong>进入储能电站的。</p>
+
+<p><strong>其一，作为贷款方·出资方。</strong>组成日本国内首个BESS项目融资的，本来就不是大型银行，而是SMFL系的SMFL未来伙伴（姬路·单独组成PF＋5%出资）。高压14站点的理光租赁（无追索权额度贷款49亿日元）、芙蓉综合租赁与东京世纪对伊藤忠专项基金的出资、以及芙蓉综合租赁等8家公司参与约174MW的SPC，都属同一谱系。习惯处理动产、决策比银行更快的租赁业态，与储能融资在结构上相当契合。</p>
+
+<p><strong>其二，作为事业主体·买方。</strong>据日本经济新闻报道，东京世纪计划到2030年3月期投入1,000亿日元，三井住友金融租赁计划到2032年3月期投入2,000亿日元规模于储能电站，且在供需调整市场上限价格下调之后仍维持这一姿态。东京世纪实际上已于2025年12月公布自主单独开发的特别高压4处·合计101MW的事业投资（并把单独决策的速度列为强项）；据报道，三井住友FL在2025年9月从West Holdings取得了大型储能电站。也就是说，租赁公司既是各位案件的“潜在出借方”，同时也是完工项目·开发权的“潜在买方”——对卖方而言，这意味着有两个出口。</p>
+
+<p>使用租赁时有两点需要留意。第一是会计：自2027年4月起新租赁会计准则强制适用，承租方原则上须入表（以表外化为目的的租赁运用，其设计将随之改变。参见COLUMN 30 §03）。第二是税制。</p>
+
+<div class="warning-box">
+<span class="wb-flag">🚩 税 ── 避免出现“租赁之后即时折旧谁都用不了”的设计</span><br>
+令和8年度税制改正所创设的投资促进税制（即时折旧／税额抵免），其条文把对象界定为“用于事业（<strong>不含用于出租</strong>）”；因此在设备所有者与使用者相分离的租赁·代工结构中，究竟由谁取得税务优惠，仍留有未定议题（详情与五道关口见COLUMN 22）。以租赁搭上债务，结果却让即时折旧谁都用不了——这样的设计要避免，这也是结构设计必须与税务同步进行的理由。
+</div>
+
+<h2>14 — 高压2MW/8MWh的现实解，与买方的三选一设计</h2>
+
+<p>至此的大型PF与债券，主要说的是特别高压。那么多数读者正在考虑的高压2MW/8MWh级（初期投资约5〜6亿日元）呢？</p>
+
+<p>坦率地说，<strong>单站独立做PF在结构上不利</strong>。PF的尽职调查、合同起草、代理行业务等固定成本很重，数亿日元的项目无法通过利率完全消化。单站高压项目偏向现金交割，除了§01的速度之外，也有这一固定成本合理性的原因。不过回路有三条。第一是<strong>组合型</strong>——理光租赁×日本蓄电池的案例，是把全国14处高压设施捆在一起、拿到额度贷款49亿日元无追索权融资的结构，即把单站承担不起的PF固定成本分摊到14个站点，是可复制的模板。第二是<strong>基于担保评估的小额融资</strong>——§02的众筹型（评估6.02亿日元对应融资4.95亿日元）。利率比银行PF高，但在小规模区间同样成立。第三是<strong>租赁·分期，以及卖给租赁公司</strong>——如§13所述，出借方与买方两面都可以用。</p>
+
+<p>把这些重组为买方的策略，就成了三选一。</p>
+
+<p><strong>解1：现金交割 → 再融资。</strong>以现金的速度赢下取得竞争，投运后积累运行实绩，再通过债务·租赁·资本市场回收资金，投向下一个项目——即所谓资本循环。新潟山谷的债券正是这一做法的实例。这个顺序还有另一个好处：投运后的项目，收支可以不用“预估”而用“实测”来呈现——§09所说的以市场实绩支撑前提，可以用自家项目的运行数据来完成。<strong>运行实绩，是储能电站最好的授信材料。</strong>把取得的入口与资金筹措的出口分开——笔者认为这是当下最具可复制性的范式。</p>
+
+<p><strong>解2：先锁定长期合同，再搭债务。</strong>若能先取得LDA中标项目，或与信用良好的承购方签下代工／长期承购，那么西乡村式的20年级优先债务便进入视野。这是不被催促交割的新建·大型投资的正道。</p>
+
+<p><strong>解3：活用租赁·分期。</strong>与决策快于银行PF、擅长处理动产的租赁公司合作组成，可以成为取得速度与杠杆之间的折中解。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="入口是现金、出口是再融资的循环" font-family="'Noto Sans SC',sans-serif">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B2A4A"/>
+    </marker>
+    <marker id="arwG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#C49A3C"/>
+    </marker>
+  </defs>
+  <g font-size="11.5" font-weight="700" fill="#1B2A4A" text-anchor="middle">
+    <rect x="30" y="70" width="140" height="60" rx="6" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2"/>
+    <text x="100" y="96">以现金取得</text>
+    <text x="100" y="114" font-size="10" font-weight="400" fill="#6C7A89">即决＝赢下取得竞争</text>
+    <rect x="210" y="70" width="120" height="60" rx="6" fill="#FFFFFF" stroke="#E2E6EC" stroke-width="1.5"/>
+    <text x="270" y="96">投运</text>
+    <text x="270" y="114" font-size="10" font-weight="400" fill="#6C7A89">并网·开始运行</text>
+    <rect x="370" y="70" width="150" height="60" rx="6" fill="#FFFFFF" stroke="#E2E6EC" stroke-width="1.5"/>
+    <text x="445" y="96">积累运行实绩</text>
+    <text x="445" y="114" font-size="10" font-weight="400" fill="#6C7A89">由预估转为实测的授信材料</text>
+    <rect x="560" y="70" width="140" height="60" rx="6" fill="#FFF8F0" stroke="#C49A3C" stroke-width="2"/>
+    <text x="630" y="90">以债务／债券</text>
+    <text x="630" y="106">回收资金</text>
+    <text x="630" y="122" font-size="10" font-weight="400" fill="#6C7A89">再融资</text>
+  </g>
+  <line x1="170" y1="100" x2="204" y2="100" stroke="#1B2A4A" stroke-width="1.6" marker-end="url(#arw)"/>
+  <line x1="330" y1="100" x2="364" y2="100" stroke="#1B2A4A" stroke-width="1.6" marker-end="url(#arw)"/>
+  <line x1="520" y1="100" x2="554" y2="100" stroke="#1B2A4A" stroke-width="1.6" marker-end="url(#arw)"/>
+  <path d="M 630 130 L 630 185 L 100 185 L 100 136" fill="none" stroke="#C49A3C" stroke-width="1.8" marker-end="url(#arwG)"/>
+  <text x="365" y="205" text-anchor="middle" font-size="11" font-weight="700" fill="#C49A3C">用回收的资金投向下一个项目（资本循环）</text>
+  <text x="30" y="238" font-size="10" fill="#9AA6B2">新潟山谷（债券100亿日元）是这一循环在大型项目上的落地实例（组成方暗示了回收开发资金的意图）</text>
+</svg>
+<div class="fig-cap">图5 — “入口是现金，出口是再融资”的循环。现金是取得的战术，再融资是资产效率的战略。</div>
+</div>
+
+<p>也把三条解共通的陷阱列出来：<strong>补贴中选项目的担保限制</strong>。在SII执行的电网侧储能系统导入支援事业中，把补贴对象财产提供担保，在交付规程上同样属于“处分”，在处分限制期内需要事务局的事前批准。用补贴压低CAPEX的项目，事后再加债务的自由度就越受约束。补贴与债务的并用，应当从申报阶段就设计好（是否使用补贴的判断轴见COLUMN 20。亦请参照§15清单第11项）。</p>
+
+<p>现金是战术。资金设计是战略。在这个市场上最强的，是两者兼备的买方。</p>
+
+<h2>15 — 把项目整理成“贷得到款的样子”：贷款方视角检查清单</h2>
+
+<p>债务不是拿来申请的，而是<strong>拿来设计的</strong>。在转让·组成之前，请按贷款方审视的顺序自查。</p>
+
+<div class="checklist-group" id="lender-checklist">
+<h5><span class="cl-num">✓</span>贷款方视角·11项</h5>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">01</span><strong>收益合同</strong> — LDA·代工·下限保障等固定收入的有无与年限，以及固定收入占比。它决定期限与杠杆的上限（§07）</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">02</span><strong>SPC化</strong> — 资产·合同·收益是否隔离于一个载体之内。有无与个人·兼营法人的资产混同</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">03</span><strong>土地权原</strong> — 是所有权、地上权，还是租赁权。工厂财团抵押仅限所有权，租赁权连抵押权也不可（§02）。若为租赁，须取得地位转让同意与足够期限（融资年限＋α）</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">04</span><strong>并网合同的地位转让</strong> — 取得一般输配电事业者同意的路径。合同结构是否能够接受直接协议（§03）</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">05</span><strong>EPC的完工保证</strong> — 完工延迟·性能未达时的LD（约定违约金）。完工风险是贷款方的第一个问题</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">06</span><strong>厂商质保·LTSA</strong> — SOH保证·可用率保证的水平，以及<strong>可转让性</strong>（担保实行时质保是否存续）</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">07</span><strong>保险六层</strong> — 财产·机器·BI·PL·网络·盗窃（COLUMN 18）。保险金请求权是质权的对象</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">08</span><strong>O&amp;M体制</strong> — 责任与执行之间的落差是否已由合同填补（COLUMN 23）。贷款方看的是介入之后的运营体制</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">09</span><strong>账户·现金流管理</strong> — 收入是否归集至单一账户，能否接受质权与瀑布式还款优先顺序</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">10</span><strong>收支计划的可验证性</strong> — 不只P50，还要有P90情景、以市场实绩支撑前提（§09）、分阶段情景的敏感性分析（§10），可能的话再加第三方验证（§11·Q5）。保守情形下能否维持DSCR约1.2〜1.35倍（有承购合同时1.25前后是一个基准，纯市场套利型则须更厚）（COLUMN 07·30）</span></label>
+<label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">11</span><strong>补贴项目的担保批准</strong> — 在经产省系补贴（SII执行）的中选项目中，把补贴对象财产提供担保同样属于交付规程上的“处分”，处分限制期内需事务局的事前批准。补贴与债务并用需要设计上的斟酌（COLUMN 20）</span></label>
+<div class="check-progress"><span class="count"><span id="checkCount">0</span>/11</span><span class="bar"><span class="bar-fill" id="checkBarFill"></span></span><span>已就绪项目</span></div>
+</div>
+
+<p>11项中的第1〜4项，在权利转让·买卖的场合也同样构成“卖得上价的项目”的条件。把项目整理成能贷到款的状态，既拓宽了买方资金筹措的选项，也拓宽了买方群体本身。</p>
+
+<h2>16 — 2026年的转折点，以及尚且没有的东西</h2>
+
+<p>环境也在变。需要把握的变化有三项，无法确认的有四项。</p>
+
+<p><strong>已经改变的。</strong>第一，<strong>企业价值担保权的施行</strong>（2026年5月25日。§03）。第二，<strong>GX推进机构</strong>——2024年7月开始运作，拥有1万亿日元的债务担保额度，用以补足民间金融机构无法承担的风险。截至本文执笔时点，尚未公开确认其对电网侧储能个别项目的担保执行，但载体已经备好。一旦此处出现第1号，市场套利型的可融资性将为之一变。第三，<strong>利率</strong>。日本银行的政策利率于2026年6月上调至1.0%（约31年来的水平），10年期国债收益率在2026年7月9日一度触及2.88%（1996年9月以来的水平），同月下旬则在2.7%区间波动。债务成本上升会挤压市场套利型项目的IRR，抬高LDA·代工等固定收入型的相对优势。与此同时，对以现金买入的一方而言，“压着不动的自有资金”的机会成本也上升了——在有利率的世界里，只用现金的合理性也不再不言自明。</p>
+
+<p><strong>已经累积的。</strong>案例也在增加。2026年3月公布了这样一笔组成：为取得已投运的市场套利型储能电站（札幌·Helios 50MW/104MWh，2025年11月投运）所需资金，以日本首只绿色项目债券约54亿日元·最长19年筹措（野村证券为安排人·R&amp;I评级BBB·信托受益权架构）。以运行实绩为授信材料，单站的市场套利型项目获得了19年的资本市场资金——这正是§14“入口是现金，出口是再融资”的市场套利型落地实例。同年5月，大分·日出51MW/204MWh的纯市场套利型无追索权PF（青空银行为安排行，伊藤忠ENEX等日本国内4家公司的匿名组合出资，预定2028年9月前后投运）接踵而至；继多奈川·高压14站点之后，纯市场套利型PF的公开案例正在累积。贷款方的阵容，也从大型银行·租赁扩展到证券·信托系与新兴机构。</p>
+
+<p><strong>尚且没有的。</strong>①日本国内BESS项目融资的DSCR·LTV·利率的公开行情（西乡村的62亿／65亿日元是例外地可以读出比例的公开信息，但因有无追索权未披露，不能断定为LTV）。②GX推进机构面向BESS的担保执行案例。③售后回租、日本型经营租赁（JOL）在储能电站上的公开案例。④二手BESS的处置市场——支撑担保清算价值的流通市场，仍不成熟。反过来说，若二次流通与SOH评估的标准化推进，担保的待遇今后是可以改善的。不明之处就保留为不明，作为判断材料记录在案。</p>
+
+<h2>结 — 担保是结果，合同才是原因。而数字的作法，让债务得以通过</h2>
+
+<p>储能电站以现金成交，既不是因为买方无知，也不是因为卖方不当地催促。这是市场对三项条件——速度的不对称、动产这一担保结构、实绩尚浅的波动收益——所作出的合理适应。</p>
+
+<p>但“因为无法设定担保所以贷不到款”这句话，作为法律论断错了一半，作为因果则全错。储能电池是可以设定担保的。没有的，是把担保卖掉来收回本息的指望。因此贷款方会组建一套能把事业整体接手的担保组合，并以该事业的现金流是否读得懂——由哪份合同、锁定多少年、锁定多少钱——来决定贷或不贷。西乡村拿到62亿日元·20年，不是因为担保气派，而是因为LDA的20年固定收入让还款计划得以成立。新潟山谷拿到100亿日元的债券，是因为东京燃气的20年代工让A-评级得以成立。</p>
+
+<p>另一方面，也无法把“无法验证的数字”从收支中抹去。既然不是FIT，这才是正常的。能做的是：用三个可验证的数字——市场实绩·制度情景·固定收入——把前提夹住；对无法验证的残余，施加敏感性分析与DSCR压力测试；可能的话再附上第三方验证。所谓诚实的收支计划，不是能说中未来的计划，而是连“说错时会发生什么”都一并呈现的计划。笔者认为，金融机构最终在看的，与其说是数字本身，不如说是你与那些数字相处的方式。</p>
+
+<p>距2023年8月日本国内首个PF不到三年，五种类型已经集齐，租赁公司正式入场，企业价值担保权开始施行，有利率的世界也回来了。<strong>合同呼唤债务，数字的作法让债务通过</strong>——买方在取得的入口以现金即决确保竞争力，在出口设计再融资；卖方则把项目整理成贷得到款的样子再卖。这就是2026年时点上，在这个市场里让股权发挥最高效率的顺序。</p>
+
+<div class="sources-box">
+<h4>主要一手资料·出处（2026年7月时点）</h4>
+<ul class="src-list">
+<li><span class="t">T1</span>三井住友银行《关于福岛县西乡村电网侧储能事业融资的组成》2025-05-27（合同金额62亿日元·合同期限20年·2025-01-31签约·2025-05-30放款，总投资额约65亿日元，40.0MW/200.0MWh，活用LDA，BYD MC Cube-T，与东邦银行协调）<a href="https://www.smbc.co.jp/hojin/financing/sustainable/kokusai/pdf/250527_01.pdf" target="_blank" rel="noopener">https://www.smbc.co.jp/hojin/financing/sustainable/kokusai/pdf/250527_01.pdf</a></li>
+<li><span class="t">T1</span>瑞穗证券《关于新潟山谷储能电站项目债券的组成》2026-04-17（49MW/231MWh，100亿日元，R&amp;I评级A-，信托架构＝欧力士银行，开发·AM＝CHC Japan，东京燃气的20年·固定使用对价代工，日本国内首只以开发资金为用途的项目债券〔据瑞穗证券调查〕。提及利率环境与超长期筹资·回收开发资金的必要性）</li>
+<li><span class="t">T1</span>三菱UFJ银行《关于以纯市场套利为前提的日本电网侧储能设备事业的项目融资组成》2025-05-07（多奈川99MW/396MWh，以市场收益为唯一还款来源的无追索权PF·日本国内首例，关西电力40%·KINDEN10%等出资，预定2028年2月投运）<a href="https://www.bk.mufg.jp/info/pdf/full_merchant.pdf" target="_blank" rel="noopener">https://www.bk.mufg.jp/info/pdf/full_merchant.pdf</a>／同行·RENOVA IR（广原·石狩的承购授信型PF，石狩约50亿日元）※与COLUMN 30出处栏共通</li>
+<li><span class="t">T1</span>日本蓄电池《关于电网侧储能事业中项目融资的实施》2026-04-27（与理光租赁的额度贷款合同·贷款额度49亿日元，全国14处高压电网侧储能设施，活用SPC的无追索权，AM＝eco Properties）<a href="https://www.nipponchikudenchi.co.jp/news/1629/" target="_blank" rel="noopener">https://www.nipponchikudenchi.co.jp/news/1629/</a></li>
+<li><span class="t">T1</span>泓德能源（HD Renewable Energy）·野村证券《北海道Helios储能电站绿色项目债券》2026-03-19（札幌市·50MW/104MWh·约54亿日元·用于取得2025年11月已投运资产·最长19年·信托受益权架构〔委托人=野村Capital Investment，受托人=三菱HC Capital信托，AM=Starry Asset Management〕·R&amp;I信用评级/绿色债券评级BBB。以电网侧储能事业为底层资产的日本首只绿色项目债券〔据野村证券调查〕）／RS Asset Advisors（RSBM）《关于大分县日出町储能事业的共同出资及对纯市场套利事业的项目融资组成》2026-05-29（合同会社Altair·51MW/204MWh·青空银行为安排行的无追索权型·日本国内4家公司匿名组合出资〔伊藤忠ENEX 8亿日元·14.5%〕·预定2028年9月前后投运）</li>
+<li><span class="t">T1</span>SMFL未来伙伴《关于电网侧储能事业的启动及项目融资的组成》2023-08／三井住友金融集团公开访谈2024-11（姬路储能电站·单独组成PF，述及无法以FIT型稳定收入为前提、事业评估与合同条款均从零起草）／姬路储能电站投运新闻稿2025-10（15MW/48MWh，出资：出光51%·RENOVA22%·长濑22%·SMFL-MP5%）</li>
+<li><span class="t">T1</span>伊藤忠商事《关于东京都储能投资事业有限责任组合的组建》2024-09-30（80亿日元以上·11家投资者，芙蓉综合租赁·东京世纪·横滨银行等出资）／芙蓉综合租赁适时披露2026-03-26（8家公司共同出资·参与全国6处约174MW的储能SPC）／欧力士银行公告2026-04（对大分·宇佐市储能配套光伏项目实施该行首笔无追索权型PF）</li>
+<li><span class="t">T1</span>EPRX（电力供需调整力交易所）《交易实绩汇总结果》2025年度上半年（2025-12公布。按电源种类的平均成交单价：储能·一次9.6〜13.5日元/ΔkW·30分等，及满足率·不足率）<a href="https://www.eprx.or.jp/information/summary.php" target="_blank" rel="noopener">https://www.eprx.or.jp/information/summary.php</a></li>
+<li><span class="t">T1</span>资源能源厅 制度研讨工作部会 第110回 资料4（2026-01-23。上限价格19.51→15日元的下调·10日元→7.21日元的分阶段方针·招标量3σ→约1σ化）／同 电力稳定供应工作组 第1回 资料8（2026-05-13。中期评估·日前交易化前后28天对比·下调至10日元暂缓判断·2026年1月复合品种平均3.15日元）／EPRX“上限价格”页面（上限价格变更时于对应实需供日的两周前公布）<a href="https://www.eprx.or.jp/information/post.php" target="_blank" rel="noopener">https://www.eprx.or.jp/information/post.php</a></li>
+<li><span class="t">T1</span>OCCTO《容量市场主拍卖成交结果（对象实需供年度：2029年度）》2026-01-20（过渡措施后的全国平均13,303日元/kW·年，东北·东京·九州触及上限）／《长期脱碳电源拍卖成交结果（应拍年度：2025年度）》2026-05-13（储能应标125.1万kW·中标率46%，锂离子储能·抽水蓄能〔不含新建〕中标81.9万kW，脱碳电源加权平均约11.1万日元/kW·年）<a href="https://www.occto.or.jp/assets/various/capacity-market/jitsujukyukanren/2025_boshuyoukou_long/260513_longauction_youryouyakujokekka_kouhyou_ousatsu2025.pdf" target="_blank" rel="noopener">https://www.occto.or.jp/…/260513_longauction_youryouyakujokekka.pdf</a></li>
+<li><span class="t">T1</span>金融厅《事业性融资推进等相关法律》（企业价值担保权。2024-06-07通过·2026-05-25施行。信托方式·经营者保证的使用限制）／法务省 动产让与登记制度／SII（环境共创Initiative）电网侧储能系统导入支援事业 交付规程（含提供担保在内的财产处分事前批准）／GX推进机构 业务概要（2024-07-01开始运作·债务担保额度1万亿日元）</li>
+<li><span class="t">T1</span>长岛·大野·常松律师事务所 NO&amp;T Infrastructure, Energy &amp; Environment Legal Update No.44（2024-12）《关于日本国内项目融资中担保组合的实务功能与企业价值担保权运用之考察》（全资产担保·积极/防御功能·集合动产让与担保与动产让与登记·地位转让预约·企业价值担保权）</li>
+<li><span class="t">T1</span>安德森·毛利·友常律师事务所 座谈会《能源转型的最前线【第3回】日本国内可再生能源市场的最新动向》2025-07（OCCTO型·代工型·市场套利型融资难易度的梳理）<a href="https://www.amt-law.com/insights/trending-news/trending-news_20250722001_ja_001/" target="_blank" rel="noopener">https://www.amt-law.com/insights/…</a></li>
+<li><span class="t">T1</span>财务省《令和8年度税制改正大纲》（投资促进税制·“不含用于出租”）／ASBJ 企业会计准则（新租赁会计·2027年4月强制适用）※详情见COLUMN 22·30</li>
+<li><span class="t">T2</span>日本经济新闻《储能投资依然活跃》2026-04（东京世纪1,000亿日元·三井住友FL 2,000亿日元的投资计划）／同2025-09-29（三井住友FL自West Holdings取得大型储能电站）／新电力Net 2025-12（东京世纪·特别高压4处101MW的自主开发事业投资）<a href="https://pps-net.org/press/153185" target="_blank" rel="noopener">https://pps-net.org/press/153185</a>／日经BP MegaSolar Business《姬路48MWh大型储能电站投运，组成项目融资》<a href="https://project.nikkeibp.co.jp/ms/atcl/19/feature/00024/00072/" target="_blank" rel="noopener">https://project.nikkeibp.co.jp/ms/…</a>／日经Energy Next《难度颇高的电网侧储能资金筹措》2025（高压2MW/8MWh的初期投资约5〜6亿日元）</li>
+<li><span class="t">T2</span>Moody's Investors Service（2018-03。价值堆叠的现金流风险梳理）／S&amp;P Global Commodity Insights（主要市场市场套利型收益动向）／Energy-Storage.news（澳大利亚贷款方“一次性高收益不予计入”，英国Triple Point关于合同收益要求放宽的评论2026-01，澳大利亚CEFC）</li>
+<li><span class="t">T2</span>Modo Energy《German BESS investment outlook Q2 2026》《European BESS financing report: 2025 in review》2026-03（以代工为主的项目负债率70〜85%〔不同分析有幅度〕，成交集中于80〜100%代工化项目，欧洲项目数25→82笔，已披露债务€1.4bn→€6.1bn）／terralayr（银行对代工化不足50%的谨慎态度）／ess-news·pv magazine（Nofar Energy“Stendal”104.5MW/209MWh，以7年固定价格合同为支撑自NORD/LB取得约€86.5m，2025-03）／Neoen·ANZ公开资料（澳大利亚组合合计逾20亿澳元的债务，2024年，ANZ·瑞穗·MUFG·SMBC等参与）。海外数值为前提各异的代理指标，不可直接套用于日本</li>
+<li><span class="t">T2</span>Modo Energy·Aurora Energy Research 各公司公开资料（第三方收益曲线获银行接受的实绩，日本国内148MW·4个项目的经济性分析与2026年放款）／IEEFA 2025（日本BESS并网申请170.8GW·已并网0.62GW）</li>
+<li><span class="t">T2</span>Bankers《电网侧储能事业支援基金》产品页（土地最高额抵押＋动产担保·第一顺位，担保评估6.02亿日元对应预定融资4.95亿日元）<a href="https://www.bankers.co.jp/fund/detail/4275" target="_blank" rel="noopener">https://www.bankers.co.jp/fund/detail/4275</a>／关于日本银行政策利率（2026-06升至1.0%）及长期利率（2026-05-18为2.8%，2026-07-09为2.880%）的各类报道（Nikkei Asia·Reuters）</li>
+</ul>
+<div class="source">注：本文的金额与比例均依据公开资料的记载。有无追索权、母公司担保、DSCR、LTV、利率等未披露的条件，均记为“未披露”“无法确认”，不作推测值。§01及关于审查期间·买方行为的记述为笔者的现场观察，并非公开统计。成交价格·满足率依据公开资料的记载，并在正文中并记时点·品种·区域。由于转为日前交易（2026年3月）前后品种设计不同，跨年度实绩不能简单衔接。报价单价9日元·中标率七至九成为说明用示例，并非特定案件·特定运营方的条件。担保·税务·会计的记述为一般性说明，不构成个案的法律意见。“日本首例”“国内首例”等表述依据各公司新闻稿的类型定义。本文不构成对特定金融产品·融资条件·项目的投资招揽，也不构成法务·税务·财务方面的建议。</div>
+</div>
+
+<div class="cta-section">
+  <h3>把项目与数字，整理成贷得到款的样子</h3>
+  <p>持有项目的再融资可能性、转让前的担保组合梳理、前提值与一手资料的对应、分阶段情景的敏感性分析、<br>固定收入占比的测算、第三方验证·技术尽职调查的取得支援、向贷款方·租赁公司递交的先后顺序——<br>实际案件的个别探讨，将在咨询后签署保密协议（NDA）的基础上承接。事业者·卖方·买方·金融机构，任何立场均可咨询。</p>
+  <a target="_top" href="https://www.scix.co.jp/zh-contact" class="cta-btn">联系我们 →</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var g=document.getElementById('lender-checklist');if(!g)return;
+  var c=g.querySelectorAll('input[type=checkbox]'),cnt=document.getElementById('checkCount'),fl=document.getElementById('checkBarFill'),tot=c.length;
+  function u(){var d=0;c.forEach(function(x){if(x.checked)d++;});cnt.textContent=d;fl.style.width=(d/tot*100)+'%';}
+  c.forEach(function(x){x.addEventListener('change',u);});u();
+})();
+</script>
+
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans SC',sans-serif">
+  <div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">相关文章</div>
+  <a target="_top" href="/zh-column-cashflow" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">储能事业的20年现金流结构 — IRR·DSCR的思考方式 →</a>
+  <a target="_top" href="/zh-column-long-term-contract" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">特别高压47MW靠合同能赚多少 — 代工的18.6%，仅靠代工费是出不来的 →</a>
+  <a target="_top" href="/zh-column-lda" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">什么是长期脱碳电源拍卖（LDA）？ — 彻底解读20年固定收入的机制 →</a>
+  <a target="_top" href="/zh-column-tax" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">即时折旧不是“拿得到”的，而是“过得了”的 →</a>
+  <a target="_top" href="/zh-column-subsidies" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">补贴，是用来判断“要不要用”的 →</a>
+  <a target="_top" href="/zh-column-area-data" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">供需调整市场的分区域成交实绩 — 以9个电力区域×5类品种的最新数据判断储能选址 →</a>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans SC',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo img { height:48px; width:auto; display:block; opacity:0.95; }
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img src="https://www.scix.co.jp/img/logo-white.png" alt="ScienceX" loading="lazy">
+    </a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">ScienceX 株式会社</div>
+        〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
