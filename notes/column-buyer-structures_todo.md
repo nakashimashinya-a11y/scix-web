@@ -1,14 +1,22 @@
 # COLUMN 39「蓄電所の買い方は、4つある」— 公開後TODO
 
-対象: `column-buyer-structures.html`（JA、2026-08-03公開・COLUMN 39）
+対象（3言語すべて 2026-08-03公開・COLUMN 39）:
 
-## 1. 第2部公開後のリンク復元（5箇所）
+| 言語 | ファイル | URL | 第2部のslug |
+|---|---|---|---|
+| JA | `column-buyer-structures.html` | `/column-buyer-structures` | `/column-lender-view` |
+| EN | `en/column-buyer-structures.html` | `/en/column-buyer-structures` | `/en/column-lender-view` |
+| ZH | `zh-column-buyer-structures.html` | `/zh-column-buyer-structures` | `/zh-column-lender-view` |
 
-第2部「銀行員は、あなたの蓄電所をこう見る」(`/column-lender-view`) は公開時点で未公開のため、
-本文4箇所は**リンクを外した素のテキスト**、関連記事欄1箇所は**「（近日公開）」付きの非リンク**に
-してある。第2部公開後、以下の5箇所をリンクに戻す。
-slug が `/column-lender-view` 以外で確定した場合は読み替えること。
-en / zh 版を公開した際は、各言語の同一5箇所も同様に処理する。
+## 1. 第2部公開後のリンク復元（各言語5箇所 = 計15箇所）
+
+第2部「銀行員は、あなたの蓄電所をこう見る」は公開時点で未公開のため、**3言語とも**
+本文4箇所は**リンクを外した素のテキスト**、関連記事欄1箇所は**非リンク＋近日公開表記**にしてある。
+第2部公開後、各言語5箇所をリンクに戻す。slug が上表以外で確定した場合は読み替えること。
+
+関連記事欄の近日公開表記は JA=「（近日公開）」/ EN=「(coming soon)」/ ZH=「（即将发布）」。
+**注意**: ZH本文の第2部リンクは入稿時 JA形 `/column-lender-view` だった。復元時は
+`/zh-column-lender-view` を使うこと（ZHの内部リンクはすべて `zh-` フラット名前空間）。
 
 ### 本文4箇所（`<a target="_top" href="/column-lender-view">…</a>` で囲み直す）
 

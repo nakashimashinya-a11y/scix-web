@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.85;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.5;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.8;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.45}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.45}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.45}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.95}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.95}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.95}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:1.95}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.85;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.9;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.65}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.db-title{font-family:'Noto Sans JP',sans-serif;font-size:.92em;font-weight:600;color:var(--navy);line-height:1.6;margin:28px 0 -20px}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.04em;margin-bottom:4px;line-height:1.5}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.45}
+.compare-card .cc-figure{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.8;margin:8px 0 0;color:var(--text)}
+.compare-card ul{margin:8px 0 0;padding-left:18px;font-size:.84em;line-height:1.8}
+.compare-card li{margin-bottom:5px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.4em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.45}
+.diff-card p{font-size:.85em;line-height:1.8;margin:0}
+.diff-card .guard{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);font-size:.82em;line-height:1.75;color:var(--text)}
+.diff-card .guard b{color:var(--accent);font-weight:700;letter-spacing:.04em}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;flex-shrink:0}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.75}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.02em;line-height:1.65}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.8}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
+.src-list .t{display:inline-block;min-width:34px;font-weight:700;color:var(--navy);margin-right:8px;font-size:.92em}
+.part-lead{font-family:'Noto Serif JP',serif;font-size:.86em;letter-spacing:.12em;color:var(--accent);margin:56px 0 -32px;font-weight:600}
+</style>
+<title>Four Ways to Buy a Battery Storage Plant — Rights, Completion, Track Record, and the Vehicle. Why the Same 2 MW Carries Three Prices | ScienceX</title>
+<meta name="description" content="Why do two identical 2 MW / 8 MWh plants carry different price tags? This column breaks down the four acquisition structures used in Japan — completed-asset sale, rights transfer, SPC equity, and operating secondary — and the price ladder behind them (rights ¥150–200M, completed ¥700–800M, with track record ¥800M–1.0B), separating hard cost from the price of risk transfer. It also explains why buying an operating plant does not automatically bring its market qualifications with it (only the capacity market provides for express succession), how tax, construction-licensing and contract succession differ between asset and equity deals, and what the balancing-market price-cap cut to ¥10 from 1 September 2026 means for buyers.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-buyer-structures">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-buyer-structures">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-buyer-structures">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-buyer-structures">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-buyer-structures">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Four Ways to Buy a Battery Storage Plant — Rights, Completion, Track Record, and the Vehicle | ScienceX">
+<meta property="og:description" content="Once the hardware is identical, the price gap becomes the price of risk transfer. A track record is a second contract — but unless you buy it together with the name on the registration, the contract breaks. A buyer's guide to acquisition structures in Japan.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-buyer-structures">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Four Ways to Buy a Battery Storage Plant — Rights, Completion, Track Record, and the Vehicle | ScienceX">
+<meta name="twitter:description" content="Rights ¥200M. Completed ¥700M. With track record ¥1.0B. How much of each riser is hard cost, and where does the price of risk begin? And how much of that track record actually comes with you?">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="article:published_time" content="2026-08-03">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "inLanguage": "en",
+  "headline": "Four Ways to Buy a Battery Storage Plant — Rights, Completion, Track Record, and the Vehicle. Why the Same 2 MW Carries Three Prices | ScienceX",
+  "description": "The four acquisition structures for grid-scale battery storage in Japan — completed-asset sale, rights transfer, SPC equity and operating secondary — and the price ladder behind them, split into hard cost and the price of risk transfer. Includes a primary-source review of how far a track record survives an acquisition (capacity market, balancing market, Electricity Business Act, subsidies, connection contracts) and the impact of the ¥10 price cap effective 1 September 2026.",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "datePublished": "2026-08-03",
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-buyer-structures"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.scix.co.jp/en" },
+    { "@type": "ListItem", "position": 2, "name": "Knowledge", "item": "https://www.scix.co.jp/en/knowledge" },
+    { "@type": "ListItem", "position": 3, "name": "Four Ways to Buy a Battery Storage Plant — Rights, Completion, Track Record, and the Vehicle", "item": "https://www.scix.co.jp/en/column-buyer-structures" }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/en" style="color:#5A6577;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#5A6577;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">Four Ways to Buy a Battery Storage Plant — Rights, Completion, Track Record, and the Vehicle…</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 39</span>
+      <span class="header-tag">BUYERS &amp; INVESTORS / STRUCTURE, PRICING, DUE DILIGENCE</span>
+      <time class="header-date" datetime="2026-08-03">2026.08.03</time>
+    </div>
+    <h1>There are <em>four ways</em> to buy a battery storage plant —<br>rights, completion, track record, and the <em>vehicle</em></h1>
+    <p class="header-desc">The same 2 MW / 8 MWh plant carries three different price tags: rights only, completed asset, and completed asset with a market track record. Most of the gap between the first and second is hard cost — equipment and construction. Between the second and third, not one yen of extra equipment is involved. From the moment the hardware is identical, the price gap becomes the price of risk and time. And that top-tier track record does not follow you home unless you buy it the right way.</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/en/knowledge" class="back-link">← Back to Knowledge</a>
+
+<p>Over 48 hours from 30 to 31 July 2026, three disclosures appeared in Japan that could hardly have been more different in character.</p>
+
+<p>The first was J-Holdings' acquisition of the Shokawa battery storage plant (provisional name) in Takayama, Gifu Prefecture. Roughly 2 MW / 8 MWh, for <strong>approximately ¥700 million</strong>. Handover is scheduled for November 2026, grid connection for December, and entry into the balancing market is planned for <strong>the first half of the following fiscal year</strong>. The second was Renova's Fukuroi-Ukuriwa plant (99.9 MW / 280 MWh) in Shizuoka: Mizuho Bank's first fully merchant project financing for battery storage, at approximately ¥7.2 billion — a disclosure about <em>building</em> something over the next three years. The third was JALCO Holdings' acquisition of an <strong>already-operating</strong> high-voltage grid-scale plant (2 MW / 8 MWh), announced together with an upward revision of its full-year consolidated earnings forecast. The plant had begun trading in the balancing market in May 2026 and was already generating revenue.</p>
+
+<p>One company putting debt on 100 MW it will spend three years building. One paying ¥700 million for a finished asset and waiting until next fiscal year for market entry. One buying 2 MW that is already running, and raising its earnings guidance for the current period on the strength of it. Three transactions of fundamentally different natures, all living inside the same phrase: "buying a battery storage plant."</p>
+
+<p>In <a target="_top" href="/en/column-financing">"Why Battery Storage Plants Are Bought With Cash"</a> we argued that <strong>security is the effect; the contract is the cause</strong>. In the follow-up, "How a Banker Reads Your Battery Storage Plant", we looked at what lenders actually test in a financial model. This third and final part of the trilogy takes the buyer's seat, and addresses two questions. Why does the same size of plant carry three different prices? And why does the "track record" you paid the top price for sometimes fail to end up in your hands?</p>
+
+<div class="review-note">
+<strong>About this column:</strong> regulatory position is stated as of 2 August 2026. It is written primarily for buyers and investors preparing to acquire grid-scale battery storage in Japan, and for developers considering a sale or a fund structure. Amounts, capacities and dates are taken from issuer timely disclosures, press releases and publications by public bodies and exchanges; where a figure was not disclosed we say "not disclosed", and where we could not verify something we say so. Figures presented as price ranges or field observations are <strong>our own read of the market from brokerage practice, not published statistics</strong>, and are flagged as such at each point of use. Commentary on security, tax, accounting and permitting is general explanation, not investment, legal or tax advice. Always confirm specific transactions with qualified professionals and the relevant authorities. This is Part 3 of a series (Part 1 = <a target="_top" href="/en/column-financing">cash settlement and the shape of debt</a>; Part 2 = the lender's credit lens).</div>
+
+<div class="data-box">
+<div class="db-head">Three numbers that run through this column</div>
+<dl class="premise-grid">
+  <div><dt>The only acquisition price disclosed across the summer 2026 filings</dt><dd>¥700<span class="unit">million</span></dd></div>
+  <div><dt>From energisation to actual balancing-market entry (per disclosure)</dt><dd>1–3<span class="unit">months</span></dd></div>
+  <div><dt>Date the balancing-market price cap falls to ¥10</dt><dd>1 Sep<span class="unit">2026</span></dd></div>
+</dl>
+<div class="source">Sources: J-Holdings timely disclosure (30 July 2026) / JALCO Holdings timely disclosure (29 June 2026) / EPRX, "On the ΔkW price cap in the balancing market" (updated 30 July 2026, following deliberation at the 4th Electricity Stable Supply Working Group on 14 July 2026)</div>
+</div>
+
+<h2>01 — "Wait for a finished asset and buy it" is no longer the only option</h2>
+
+<p>"We want to buy a completed battery storage plant. Do you have anything good?" Almost every buyer enquiry we receive opens with that sentence. Yet what is actually trading in 2026 is not only finished assets. Three forces — counterparty credit, interest rates, and the seller's own position — explain how the shape of these transactions widened.</p>
+
+<h3>Credit — what gets underwritten is the counterparty, not the plant</h3>
+
+<p>A completed-asset purchase almost always involves progress payments or advances during construction. Rewritten from the buyer's side: it is a transaction in which you place several hundred million yen with the seller and the EPC contractor before you take delivery. This is where a great many deals now fail internal credit review. If the credit-agency score of the seller or the EPC does not clear the threshold a large corporate uses to approve a new counterparty, the authority to release ¥400–500 million before handover simply will not be granted. <strong>What stalls completed-asset transactions is rarely the quality of the plant; it is the credit of the person on the other side</strong> (our observation).</p>
+
+<p>Buyers believe they are "looking for a good asset." But what is actually on trial at the approval table is the counterparty. Turn that around: if the seller is a subsidiary of a listed group or an operating company of real scale, the same asset at the same price gets approved. A variable that appears nowhere on the spec sheet is deciding most outcomes. That is the reality of completed-asset trading.</p>
+
+<h3>Interest rates — waiting now has a price tag</h3>
+
+<p>The Bank of Japan raised its policy rate to 1.0% in June 2026 and held it at the Monetary Policy Meeting of 31 July 2026. The 10-year JGB yield reached 2.880% on 9 July 2026. There was a time when the gap between acquisition and first revenue could be dismissed with "we can wait." Now that gap carries an explicit opportunity cost. What buyers are pricing is not only the asset but <strong>the time between acquisition and first cash in</strong>. This rate environment is the reason this column keeps returning to the idea that the track-record premium is, at bottom, a premium on time.</p>
+
+<h3>The seller's position — an exit other than "finish it, then sell it"</h3>
+
+<p>A growing number of developers secured rights early but cannot move forward, blocked by construction funding or by their own credit. Insisting on the single path of finishing before selling means holding inventory with capital tied up in it. So "sell at the rights stage" and "energise it, build a track record, then sell" have become genuine products on the market. From the seller's side there are situations where locking in profit at the rights stage is simply more capital-efficient. That calculation is what has given depth to the lower rungs of the ladder.</p>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ On sites in urbanisation control areas</span>
+Practitioners increasingly report that clarifications in how the development-permit regime under the City Planning Act is applied are affecting both the pool of eligible buyers and future resale prospects. This column does not go into the detail of that regime, but where a candidate site sits in an urbanisation control area (<em>shigaika chōsei kuiki</em>, a zoning category in which development is restricted), we strongly recommend making <strong>direct confirmation with the responsible local authority and against the original source documents a mandatory item</strong> in the acquisition decision. It is not unusual for the reason something is "cheap" to lie in a constraint on the site itself.
+</div>
+
+<h2>02 — There are four ways to buy</h2>
+
+<p>Set out plainly, there are four acquisition structures for a battery storage plant.</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">FORM 01</span>
+    <h4>Completed-asset sale (delivery on completion)</h4>
+    <p>You buy, as a physical thing, a plant the seller completed at its own cost and risk — equipment plus the land (or land-use rights). Legally it is built around a sale of goods, and risk passes from seller to buyer at the moment of delivery and acceptance.</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">FORM 02</span>
+    <h4>Rights transfer (land + grid connection)</h4>
+    <p>You buy the land (freehold, superficies or similar) together with the rights relating to grid connection with the transmission and distribution utility — the connection study response, the contractual position under the connection contract, and the grid connection cost contribution — and you build it yourself. No equipment exists yet.</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">FORM 03</span>
+    <h4>SPC equity transfer (M&amp;A style)</h4>
+    <p>You buy the shares, membership interests or silent-partnership (TK) interests in the special purpose company that owns the plant. Because you are buying the vehicle rather than the asset, you take on the contracts, permits and grid-connection positions wholesale, inside the legal entity.</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">FORM 04</span>
+    <h4>Operating acquisition (secondary)</h4>
+    <p>You acquire a plant that has begun commercial operation and has a market trading history. What you are buying is not equipment but <strong>verifiable cash flow</strong> accumulated month by month. The vehicle can be an asset deal, as in ①, or an equity deal, as in ③.</p>
+  </div>
+</div>
+
+<p>These four are not ranked. <strong>The right answer changes with the capabilities the buyer has and the risks the buyer can carry</strong> — nothing more. Start with the whole picture on one page.</p>
+
+<div class="db-title">Data Box 01 | The four acquisition structures, side by side</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:130px">Dimension</th><th>① Completed asset</th><th>② Rights transfer</th><th>③ SPC equity</th><th>④ Operating asset</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">What you are buying</td><td>Equipment + land (a thing)</td><td>Land + grid connection position</td><td>A bundle of contracts and permits (an entity)</td><td>Verifiable cash flow</td></tr>
+<tr><td class="em">Sensitivity to seller credit</td><td class="ng">High (progress payments, completion)</td><td class="ok">Low</td><td class="cond">Medium (depends on reps &amp; warranties)</td><td class="cond">Low to medium</td></tr>
+<tr><td class="em">Speed from decision to signing</td><td>Medium</td><td class="ok">Fast</td><td>Medium (entity DD takes time)</td><td>Medium</td></tr>
+<tr><td class="em">Construction risk</td><td>Seller side (contract-dependent)</td><td class="ng">Buyer side (all of it)</td><td>Contained inside the SPC</td><td class="ok">None</td></tr>
+<tr><td class="em">Distance to first revenue</td><td>A further 1–3 months after connection</td><td class="ng">Years (build period, connection queue)</td><td>Depends on SPC progress</td><td class="ok">From day one</td></tr>
+<tr><td class="em">Market qualification / filings</td><td>New applications by the buyer after handover</td><td>New applications by the buyer</td><td class="ok">Qualifications and contracts held by the SPC continue in principle</td><td class="cond">Asset deal: generally re-apply / equity deal: continues</td></tr>
+<tr><td class="em">Consumption tax</td><td>Taxable on the equipment portion (cash outlay until refund)</td><td>Land exempt; treatment of the rights portion needs confirmation</td><td class="ok">Transfer of equity interests is exempt</td><td>Depends on the vehicle</td></tr>
+<tr><td class="em">Construction Business Act issues</td><td>A finished asset can be structured as a sale of goods</td><td>Does not arise directly, as you procure the works yourself</td><td class="ok">An M&amp;A, so no construction contract arises</td><td>Unlikely to arise, as the plant is complete</td></tr>
+<tr><td class="em">Centre of gravity in DD</td><td>Completion and performance guarantees</td><td>Connection terms, site, permits</td><td>Contingent liabilities, contract succession</td><td>Degradation (SOH), authenticity of operating data</td></tr>
+<tr><td class="em">Fit with financing</td><td>Consider financing after completion</td><td>Construction funding assumed to be equity</td><td class="ok">Consistent with standard project finance</td><td>Track record becomes credit evidence</td></tr>
+<tr><td class="em">Suited to buyers who…</td><td>have capital and want construction outsourced</td><td>have in-house EPC management and electrical works capability</td><td>have M&amp;A experience and a DD framework</td><td>want revenue booked from year one</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>All four appeared in the disclosures of a single listed company</h3>
+
+<p>What is striking is that all four structures surfaced <strong>inside the timely disclosures of one listed company</strong> in the space of eight months in 2026.</p>
+
+<div class="db-title">Data Box 02 | Four ways to buy, demonstrated by one listed company — the JALCO Holdings disclosure sequence</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:104px">Date</th><th>Substance</th><th style="min-width:96px">Structure</th><th style="min-width:96px">Source</th></tr>
+</thead>
+<tbody>
+<tr><td>5 Dec<br>2025</td><td>Announces entry into grid-scale battery storage. First project: a high-voltage plant in Narita, Chiba (1.970 MW / 8.14 MWh, commercial operation scheduled September 2026) acquired on a completed-asset basis. Initial investment across several projects reported at approximately ¥1.5 billion</td><td class="em">① Completed asset</td><td>T1 timely disclosure<br>T2 Zaikei Shimbun</td></tr>
+<tr><td>29 May<br>29 Jun<br>2026</td><td>Acquires <strong>the land and the rights relating to grid connection</strong> at two sites in Oita Prefecture (2 MW / 10 MWh and 2 MW / 8 MWh). The 29 June disclosure states that the company is considering the optimal business scheme, including a shift to operation through a GK-TK structure using a godo kaisha and a silent partnership</td><td class="em">② Rights transfer</td><td>T1 timely disclosure</td></tr>
+<tr><td>30 Jun<br>2026</td><td>Acquires a 24.5% silent-partnership (TK) interest in an SPC holding six high-voltage plants, four of them already grid-connected. Total project value in the SPC approximately ¥4.5 billion. The existing O&amp;M, aggregator and asset-management arrangements are left in place</td><td class="em">③ SPC equity</td><td>T1 timely disclosure<br>T2 Enehub</td></tr>
+<tr class="hl"><td>31 Jul<br>2026</td><td>Acquires an <strong>already-operating</strong> high-voltage plant (2 MW / 8 MWh) that began trading in the balancing market in May 2026 and had reached revenue generation. An upward revision to full-year consolidated guidance was disclosed at the same time</td><td class="em">④ Operating asset</td><td>T1 timely disclosure<br>T2 Japan Interview Shimbun</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>One company, four acquisition structures, eight months. This does not look accidental. We read it as <strong>a worked example, published in the form of regulatory disclosure, of the principle that the optimal way to buy differs by the phase the project is in</strong>.</p>
+
+<p>The path from ② to ③ deserves particular attention, because it appears to have been designed in from the outset: enter at the rights stage, then move to an SPC structure as the project is developed. That design logic connects directly to <strong>"how far does a track record survive?"</strong> (§06) and <strong>"choosing the vehicle"</strong> (§07) below. An acquisition structure is not fixed at the moment of purchase; it can be moved during the holding period. Whether a buyer thinks that way makes a considerable difference to how much freedom it has.</p>
+
+<div class="info-box">
+<strong>On public precedents for "operating acquisitions."</strong> So far as we have been able to verify, the 31 July 2026 disclosure is the first clear instance of a listed company expressly disclosing the acquisition from a third party of a battery storage plant that was already operating and already participating in the market. The population of comparable cases is still thin and exhaustive verification is not feasible, so we do not assert that it is "the first in Japan." Even so, <strong>the appearance of a first public precedent matters in itself.</strong> Until now, Japan's BESS market has been a market for <em>building</em>. From here, a market for <em>changing hands</em> begins.
+</div>
+
+<h2>03 — There is a ladder in the price</h2>
+
+<p>So what does each one cost? Here we hit the first wall.</p>
+
+<p>Timely disclosures by listed companies in Japan conventionally state only that the acquisition price is "less than 30% of consolidated net assets at the end of the immediately preceding fiscal year," withholding even a range (this follows the materiality thresholds under the Tokyo Stock Exchange's timely disclosure rules). Of the summer 2026 disclosures, the only price made public was the <strong>approximately ¥700 million</strong> for the Shokawa plant (completed handover, approx. 2 MW / 8 MWh). The existence of the ladder is now evidenced by public cases, yet the size of each riser has not been disclosed to the market. <strong>A visible ladder with invisible risers.</strong> That is the state of Japan's secondary market today.</p>
+
+<p>So we overlay what we have observed in brokerage and buy-side enquiry work through the first half of 2026.</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">¥150–200<span class="unit">million</span></span><span class="lbl">Tier 1 | Land + grid connection rights only<br>(excl. tax; our observation)</span></div>
+  <div class="stat-cell"><span class="val">¥700–800<span class="unit">million</span></span><span class="lbl">Tier 2 | Completed handover (around connection)<br>(excl. tax; disclosed figure + our observation)</span></div>
+  <div class="stat-cell"><span class="val">¥800M–1.0<span class="unit">billion</span></span><span class="lbl">Tier 3 | With a balancing-market track record<br>(excl. tax; our observation)</span></div>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ How to read these ranges</span>
+<strong>The Tier 1 and Tier 3 figures, and the upper bound of the Tier 2 range, are our own market observations, not published statistics.</strong> They move substantially with site, connection terms, equipment configuration, delivery terms and the content of the aggregator agreement. Please note that the only figure verifiable as disclosed is the approximately ¥700 million for Shokawa (disclosed 30 July 2026). The purpose of this column is not to publish a market price but <strong>to break the risers apart and show what is inside them</strong>.
+</div>
+
+<h3>The two risers are made of completely different material</h3>
+
+<p>Leaving this vague and simply saying "the higher the rung, the higher the price" would be sloppy. Between Tier 1 and Tier 2, <strong>physical things genuinely get added.</strong> Battery containers, PCS, the substation equipment, foundations and site works, the grid connection cost contribution — going from bare rights to a finished asset means buying and installing all of it. Calling that difference "the price of risk" would not be accurate.</p>
+
+<p>Initial investment for a high-voltage 2 MW / 8 MWh class plant has been reported at roughly ¥500–600 million (T2 | Nikkei Energy Next). Set that against the ¥150–200 million observed at the rights rung, and the composition of the riser starts to come into view.</p>
+
+<div class="db-title">Data Box 03 | What is stacked between "¥200 million of rights" and "¥700 million completed" (high-voltage 2 MW / 8 MWh class)</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:190px">Component of the stack</th><th class="num" style="min-width:112px">Indicative</th><th>Character</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Land + grid connection rights</td><td class="num em">¥150–200<span class="u">M</span></td><td>Almost entirely consideration for the scarcity of the connection slot and the time it took to reach it. The land itself is a small share of the cost (our observation)</td></tr>
+<tr><td class="em">Hard cost of equipment and works<br><span style="font-weight:400;font-size:.92em;color:#6C7A89">battery, PCS, substation equipment, foundations, site works, grid connection cost contribution, connection works</span></td><td class="num em">¥350–450<span class="u">M</span></td><td><strong>Pure hard cost.</strong> Not risk, not time — the price of things and of labour</td></tr>
+<tr class="hl"><td class="em">Total stack (= cost to completion)</td><td class="num em">¥500–600<span class="u">M</span></td><td>Broadly consistent with the reported indicative initial investment (T2 | Nikkei Energy Next)</td></tr>
+<tr><td class="em">Asking price on completed handover</td><td class="num em">¥700–800<span class="u">M</span></td><td>The above, plus the seller's margin and <strong>the consideration for having carried completion, performance and credit risk</strong> (our observation)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ The "hard cost" line is a back-calculation</span>
+The ¥350–450 million above is <strong>derived by subtracting the rights component from the reported indicative initial investment (¥500–600 million)</strong>. It is not an aggregation of actual quotations. It swings widely with equipment manufacturer, DC capacity, the extent of site works and the size of the grid connection cost contribution. Please read it as an illustration of how to decompose the number, not as the number.
+</div>
+
+<p>So the roughly ¥500–600 million riser between Tier 1 and Tier 2 is mostly hard cost. <strong>Buy the rights for ¥200 million and you still have to spend ¥350–450 million to turn them into a finished asset.</strong> The phrase "rights are cheap" misleads precisely because this part drops out of view. Within the Tier 1 to Tier 2 gap, the portion that can fairly be called a price for risk is only the thin layer between the ¥500–600 million of cost and the ¥700–800 million asking price — <strong>somewhere around ¥100–200 million</strong>. Read the other way, that ¥100–200 million is also the reward for selecting your own EPC, managing the schedule and seeing it through to completion.</p>
+
+<p>The gap between Tier 2 and Tier 3 is a different animal entirely. <strong>Not one yen of additional equipment sits inside it.</strong> The containers, the PCS, the substation equipment are identical to the completed asset. Same land, same connection terms. And still there is a ¥100–200 million difference. The only things moving are the time to market participation and the verifiability of the financial model.</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Price ladder for a high-voltage 2 MW / 8 MWh class battery plant. Rights only 150 to 200 million yen, completed handover 700 to 800 million yen, with track record 800 million to 1.0 billion yen. The first riser is mostly hard cost for equipment and works; the second riser adds no equipment at all and is consideration for risk and time">
+  <!-- axes -->
+  <line x1="58" y1="34" x2="58" y2="332" stroke="#C9CFD8" stroke-width="1.5"/>
+  <line x1="58" y1="332" x2="668" y2="332" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="26" y="40" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">Price</text>
+
+  <!-- step 1 -->
+  <rect x="74" y="266" width="176" height="66" fill="#1B2A4A"/>
+  <text x="162" y="256" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">¥150–200M</text>
+  <text x="162" y="300" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="rgba(255,255,255,0.80)">Land + grid connection</text>
+  <text x="162" y="314" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="rgba(255,255,255,0.80)">rights</text>
+
+  <!-- step 2 -->
+  <rect x="250" y="266" width="176" height="66" fill="#1B2A4A"/>
+  <rect x="250" y="166" width="176" height="100" fill="#2A3D66"/>
+  <line x1="250" y1="266" x2="426" y2="266" stroke="rgba(255,255,255,0.28)" stroke-width="1"/>
+  <text x="338" y="156" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">¥700–800M</text>
+  <text x="338" y="196" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="rgba(255,255,255,0.88)">Mostly hard cost:</text>
+  <text x="338" y="210" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="rgba(255,255,255,0.88)">equipment and works</text>
+  <text x="338" y="226" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="rgba(255,255,255,0.55)">(cost to completion ¥500–600M)</text>
+  <text x="338" y="248" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#D4AF5C">Disclosed: approx. ¥700M</text>
+  <text x="338" y="304" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="rgba(255,255,255,0.45)">Rights portion</text>
+
+  <!-- step 3 -->
+  <rect x="426" y="266" width="176" height="66" fill="#1B2A4A"/>
+  <rect x="426" y="166" width="176" height="100" fill="#2A3D66"/>
+  <rect x="426" y="112" width="176" height="54" fill="#C49A3C"/>
+  <line x1="426" y1="266" x2="602" y2="266" stroke="rgba(255,255,255,0.28)" stroke-width="1"/>
+  <text x="514" y="102" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">¥800M–1.0B</text>
+  <text x="514" y="132" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#1B2A4A">Zero added equipment</text>
+  <text x="514" y="150" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#1B2A4A">Price of time and verifiability</text>
+  <text x="514" y="221" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="rgba(255,255,255,0.5)">Same equipment, same works</text>
+  <text x="514" y="304" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="rgba(255,255,255,0.45)">Rights portion</text>
+
+  <!-- annotation: riser 1 -->
+  <text x="242" y="190" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#b45309">Riser 1 — approx. ¥500–600M</text>
+  <text x="242" y="209" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">Mostly hard cost: equipment,</text>
+  <text x="242" y="225" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">civils and grid works. The price of</text>
+  <text x="242" y="241" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">risk sits thinly on top of it</text>
+
+  <!-- annotation: riser 2 -->
+  <text x="668" y="52" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#b45309">Riser 2 — approx. ¥100–200M</text>
+  <text x="668" y="71" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">Not one yen of extra equipment.</text>
+  <text x="668" y="87" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">This is the pure price of risk transfer</text>
+  <line x1="602" y1="126" x2="640" y2="98" stroke="#C9CFD8" stroke-width="1"/>
+
+  <!-- category labels -->
+  <text x="162" y="352" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#2C3E50">Tier 1 | Rights only</text>
+  <text x="338" y="352" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#2C3E50">Tier 2 | Completed</text>
+  <text x="514" y="352" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#2C3E50">Tier 3 | With track record</text>
+
+  <!-- caption band -->
+  <rect x="74" y="368" width="528" height="1" fill="#E2E6EC"/>
+  <text x="338" y="388" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">Only the gold layer is a price gap with nothing physical behind it</text>
+</svg>
+<div class="fig-cap">Figure 1 | The price ladder for a high-voltage 2 MW / 8 MWh class plant (H1 2026). Tiers 1 and 3, the upper bound of Tier 2, and the composition of each layer are our observations and back-calculations. The only figure verifiable as disclosed is the approximately ¥700 million at Tier 2.</div>
+</div>
+
+<p>The most important thing in this chart is the gold layer at the top. <strong>Physical things explain the price up to about ¥700 million.</strong> Beyond that, no equipment and no construction corresponds to the difference. And this is also the layer where buyers most often misjudge. The next chapter takes apart the four risks that create the risers, one at a time.</p>
+
+<h2>04 — What the risers really are: the price of taking on risk</h2>
+
+<p>As broken down above, the part of the price difference that cannot be explained by physical things — the thin layer between Tier 1 and Tier 2, and the whole of the gap between Tier 2 and Tier 3 — is created by four risks and, specifically, by <strong>when each of them passes from seller to buyer</strong>. Here they are, with the defences available to a buyer.</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">RISK 01</span>
+    <h4>Seller and EPC credit — will the builder still be standing?</h4>
+    <p>Teikoku Databank reports that bankruptcies and voluntary closures among power generation businesses reached <strong>a record 52 in FY2024</strong> (8 bankruptcies, 44 closures or dissolutions). Buying a completed asset with payment in advance of delivery means the buyer is taking that credit risk.</p>
+    <span class="guard"><b>Buyer's defence</b> | obtain credit-agency reports (three years of accounts, score trajectory); structure payments towards delivery; parent guarantees and joint-and-several guarantees; third-party account control; express retention of title.</span>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">RISK 02</span>
+    <h4>Completion and performance — will it get built, and will it perform?</h4>
+    <p>Do you set delivery at "connection consent obtained," at "connection complete," or at "performance test passed"? In a completed-asset sale, where you place that line is <strong>a substantive price term</strong>. The same ¥700 million carries entirely different buyer risk depending on when you pay.</p>
+    <span class="guard"><b>Buyer's defence</b> | define delivery unambiguously; write pass criteria for performance testing (charge/discharge capacity, round-trip efficiency, response time) into the contract; confirm the content and transferability of manufacturer warranties and the LTSA; check the period and scope of non-conformity liability.</span>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">RISK 03</span>
+    <h4>Grid — will it connect, when, and at what cost?</h4>
+    <p>The grid connection cost contribution must in principle be paid in full before works commence. A connection study response typically takes two to three months from filing (longer when applications cluster), and the response has an expiry date. A buyer at the rights stage takes on the whole of the pre-confirmation cost risk and the risk that the schedule slips.</p>
+    <span class="guard"><b>Buyer's defence</b> | inspect the original connection study response (indicative schedule, indicative contribution, stated assumptions, expiry); check the status of the connection contract application and deposit payments; pre-clear name change and succession of position with the transmission and distribution utility; hold back the balance until the schedule is fixed.</span>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">RISK 04</span>
+    <h4>Revenue proof — will it actually earn?</h4>
+    <p>Cash flow does not begin the moment connection is complete. Business registration, pre-qualification, pattern registration, contracting and testing with an aggregator — the buyer of a completed asset takes on both this gap and the residual risk of failing or being delayed in that screening.</p>
+    <span class="guard"><b>Buyer's defence</b> | confirm the status of the aggregator agreement and its fee structure; require an explicit schedule for pre-qualification and live testing; include price adjustment for delay to market entry; for operating assets, verify the raw settlement data.</span>
+  </div>
+</div>
+
+<h3>By the time rights are saleable, one filter has already been applied</h3>
+
+<p>Connection study responses with indicative schedules running to several years are not unusual. But sites like that do not become saleable rights in the first place — the developer withdraws the application and that is the end of it. The "grid connection rights" that circulate in the market are only those that passed the filter of schedule, contribution and location. What the ¥150–200 million at Tier 1 buys is less the land itself than <strong>a connection slot that made it through that filter</strong>.</p>
+
+<p>That does not mean grid risk disappears at the rights stage. An estimate remains an estimate, and both the final contribution and the schedule can move if the assumptions in the response (the state of the substation bank, the distribution line and so on) no longer hold. <strong>"The rights are in place" and "it will connect as planned" are two different pieces of information.</strong> Always inspect the original response, down to the date, the indicative schedule and the stated assumptions. For an operating asset, this class of uncertainty has already been resolved. That is part of what the Tier 3 price contains.</p>
+
+<h3>What does credit look like when you convert it into price?</h3>
+
+<p>Battery storage transactions lack the machinery that residential property transactions have. Housing in Japan comes with layer upon layer of institutional cover for the credit of sellers and contractors: completion guarantee schemes (which cover advances and cost overruns up to a limit if the builder fails), title registration, established practice on non-conformity liability, defect liability insurance. <strong>As at the time of writing we can identify no standard mechanism for protecting advance payments in private battery storage transactions.</strong> On performance bonds and escrow in Japanese practice, we could not even find published data on how widely they are used.</p>
+
+<p>Without machinery, credit goes straight into price. In our practice we see two-track pricing on the same asset — something like ¥780 million for immediate settlement against ¥830 million for payment on delivery (our observation; a spread of roughly 6%). That difference is not a discount. It is <strong>the consideration for the seller taking the buyer's settlement risk</strong> — which is to say, the market price of credit risk up to delivery. It is the same phenomenon we described from the seller's side in <a target="_top" href="/en/column-financing">"Why Battery Storage Plants Are Bought With Cash"</a>, viewed from the buyer's seat.</p>
+
+<h3>The payment schedule is the blueprint for risk transfer</h3>
+
+<p>In practice, the single most effective lever is <strong>aligning the timing of payment with the timing at which risk moves</strong>. There are several established patterns for tying money to milestones — deposit plus balance on settlement, lump-sum settlement after final connection consent, and others. Where there is doubt about the seller's credit standing, this design is what decides whether the transaction works.</p>
+
+<div class="db-title">Data Box 03 | Payment milestones and what the buyer is carrying at each one (completed-asset sale)</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:130px">Milestone</th><th>What is settled at this point</th><th>What the buyer carries the moment it pays</th><th style="min-width:160px">Practice note</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Deposit on signing</td><td>Identification of land and rights; agreement between the parties</td><td>Seller credit risk (in full) / recoverability on termination</td><td>State the nature of the deposit (rescission deposit or penalty deposit). Keep the amount to a level that is survivable if the counterparty disappears</td></tr>
+<tr><td class="em">On fixing the connection contract and cost contribution</td><td>Connection terms, indicative cost, outlook on schedule</td><td>Risk of an increase in the contribution remains</td><td>Write into the contract the tolerance between indicative and final amounts, and who bears an increase</td></tr>
+<tr><td class="em">On final connection consent</td><td>Acceptance by the grid is substantively settled</td><td>Completion risk, performance risk</td><td>A common trigger for lump-sum settlement. Note, though, that if equipment is not yet installed, the physical asset does not exist</td></tr>
+<tr><td class="em">On equipment delivery and installation</td><td>Existence of the physical asset</td><td>Risk of test failure and rectification</td><td>Define the transfer of title and the transfer of risk of loss separately</td></tr>
+<tr class="hl"><td class="em">On connection completion</td><td>Physically connected</td><td>The 1–3 month gap to market participation</td><td>Holding the balance until here reduces buyer risk substantially</td></tr>
+<tr><td class="em">On passing performance tests</td><td>Design performance measured</td><td>Operational and market risk only</td><td>Set the pass criteria numerically in the contract (capacity, efficiency, response)</td></tr>
+<tr><td class="em">On market entry</td><td>Revenue actually arising</td><td>Market price risk only</td><td>Being able to make this a settlement condition is, in substance, close to buying an operating asset</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note-small">Note: the table sets out common design patterns in completed-asset sales; it does not recommend particular terms. Confirm individual contract provisions with counsel.</p>
+
+<h3>The regulatory valley between "complete" and "earning"</h3>
+
+<p>The first three risks are, in effect, about construction. The fourth is different in kind. JALCO's disclosure on the Oita rights acquisitions (29 June 2026) contains a sentence that is easy to skip past: because participation in the balancing market requires coordination, testing and procedures with the aggregator and other parties after the start of power receipt, <strong>the period from energisation to actual market participation is expected normally to take approximately one to three months</strong>.</p>
+
+<p>The Shokawa plant mentioned at the outset, with connection in December 2026 and <strong>balancing-market entry stated as "the first half of the following fiscal year,"</strong> is allowing time to cross the same valley. Two separate companies, two disclosures, the same gap confirmed twice.</p>
+
+<p>Buying an operating asset skips the valley. What the buyer gets is cash flow from day one and the disappearance of residual screening risk. On top of that, the financial model changes from an estimate into a measurement. As we saw in "How a Banker Reads Your Battery Storage Plant", what lenders dislike most is a number they cannot verify. In a development-stage project, revenue is a simulation however far you take it; in an operating project, primary data on actual cleared prices, clearing rates and availability accumulates month by month. <strong>The buyer can price after verifying measurements rather than forecasts.</strong></p>
+
+<div class="highlight-box">
+Security is the effect; the contract is the cause. And <strong>a track record is a second contract</strong>. In the same way that contracts (an LDA, a tolling agreement) make future cash flow foreseeable, an operating history supplies foreseeability too. That is why ¥100–200 million of difference appears without a single yen of additional equipment. The track-record premium is a premium on proof of revenue and, at the same time, on <strong>time</strong> itself.
+</div>
+
+<h2>05 — On 1 September 2026, the basis for pricing itself moves</h2>
+
+<p>A word of caution for any buyer paying a track-record premium. <strong>A track record is a number from the past. But the rules of the market that produced it are changing right now.</strong></p>
+
+<p>At the 4th Electricity Stable Supply Working Group on 14 July 2026, the Agency for Natural Resources and Energy (ANRE) put forward a proposal to cut the price cap for primary reserve, secondary reserve ① and the composite product in the balancing market from ¥15 to ¥10 per ΔkW per 30-minute block. EPRX, the balancing market exchange, states on its official price-cap page that, as a result of that deliberation, <strong>an update to the price cap has been decided</strong>, and it <strong>updated the published price-cap document on 30 July 2026</strong>. It applies <strong>from delivery on 1 September 2026</strong>; ¥15 remains in force for delivery up to 31 August. EPRX adds that the figure may change in light of the outcome of relevant future deliberations.</p>
+
+<div class="db-title">Data Box 04 | The balancing-market price cap over time (primary reserve, secondary reserve ①, composite product)</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:190px">Period</th><th class="num" style="min-width:130px">Price cap</th><th>Status, and what happened alongside</th></tr>
+</thead>
+<tbody>
+<tr><td>Up to trading on 13 Mar 2026</td><td class="num em">19.51<span class="u">yen/ΔkW·30min</span></td><td>Applied (weekly trading, three-hour blocks)</td></tr>
+<tr><td>From trading on 13 Mar 2026<br>(delivery 14 Mar) onward</td><td class="num em">15<span class="u">yen</span></td><td>Applied. Shift to day-ahead trading and 30-minute blocks. Procurement volume simultaneously cut from roughly 3σ to <strong>about 1σ</strong></td></tr>
+<tr class="hl"><td>From delivery on 1 Sep 2026</td><td class="num em">10.00<span class="u">yen</span></td><td><strong>Update decided following deliberation at the 4th Electricity Stable Supply WG (14 July 2026). EPRX updated its published price-cap document on 30 July 2026</strong> (¥15 applies for delivery up to 31 August)</td></tr>
+<tr><td>Timing undecided</td><td class="num em">7.21<span class="u">yen</span></td><td>Set out in the regime as the next step, subject to competitive conditions</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ The next rung (¥7.21) and where other products already sit</span>
+The ¥7.21 in the table above is the next step <strong>for primary reserve, secondary reserve ① and the composite product</strong>, to be judged in light of competitive conditions. No date has been set. Confusingly, <strong>the price cap for secondary reserve ② and tertiary reserve ① has already been ¥7.21 since delivery on 1 April 2024</strong>, and continues for the time being on the basis of the deliberations at the 96th meeting of the Institutional Design Working Group. Only three products change on 1 September. Because the current position differs by product, apply the cap product by product in your financial model. / T1 | EPRX price-cap page and "On the ΔkW price cap in the balancing market" (updated 30 July 2026)
+</div>
+
+<p>The stated basis for the cut was, ironically, the fact that <strong>the market is improving</strong>. Comparing before and after the shift to day-ahead trading, the shortfall rate for the composite product improved from 14.6% to 5.3%, and for primary reserve from 46.3% to 16.1% (results for 6 June to 3 July 2026). Even so, unfilled blocks remain and clearing continues to occur near the cap — hence, the logic runs, lower the cap. Given the volume of battery capacity due to connect and enter the market, it is reasonable to expect this direction to continue.</p>
+
+<h3>What it means for buyers — which regime produced that track record?</h3>
+
+<p>The conclusion is simple. <strong>The "annual revenue" of an operating asset may be a number produced under the regime that existed before 1 September.</strong> A financial model that extrapolates past clearing results straight into the future breaks on that single point. As shown in the previous chapter, the gap between Tier 2 and Tier 3 has no physical backing. That is exactly why you have to check the shelf life of the number that justifies it.</p>
+
+<p>If you are buying a track record, confirm these three things without fail.</p>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">A</span>Three checks on the shelf life of a track record</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">A-1</span>What were the <strong>price cap and procurement volume</strong> during the period in which that record accumulated (the ¥19.51 regime, the ¥15 regime, or the ¥10 regime)? Reconcile the monthly settlement detail against delivery dates.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">A-2</span>Is the "annual revenue" presented an <strong>annualisation of actuals</strong> or an <strong>estimate</strong>? If it is a few months of actuals multiplied by twelve, seasonality (the summer/winter difference in shortfall rates) may not be reflected.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">A-3</span><strong>Rerun the model on a ¥10 basis</strong>, and confirm it still works as a stress case at ¥7.21. Reflect battery degradation and aggregator fees at the same time.</span></label>
+</div>
+
+<p>The track-record premium is itself a rational payment. But do not mistake what you are paying for. <strong>You are not paying for past cleared prices; you are paying for the fact that the regulatory valley has been crossed, and that verifiable data exists.</strong> Whether a buyer can hold that distinction is what separates good buying from bad. If you think you are paying for the former, your premise changes on 1 September. If you are paying for the latter, the case for the acquisition survives a fall in cleared prices.</p>
+
+<h3>Even at the bottom of the ladder, the rules are tightening</h3>
+
+<p>The same thing is happening at the rights rung.</p>
+
+<ul style="margin:0 0 20px 20px;line-height:1.9">
+<li>Connection study applications for grid-scale batteries surged to <strong>9,544 in FY2024</strong>, roughly six times the previous year.</li>
+<li>As an anti-speculation measure, <strong>the deposit doubled from 5% to 10% of the indicative grid connection cost contribution for connection contract applications made on or after 1 April 2026</strong>. Withdraw for reasons of your own and it is subject to forfeiture.</li>
+<li>Further, <strong>submission of proof of land use rights</strong> for the project site will become a requirement, following amendment of the relevant rules, <strong>for applications accepted on or after 1 October 2026 (planned)</strong> — with exceptions for expansion, replacement or refurbishment of sites where a business is already operating.</li>
+<li>In TEPCO Power Grid's service area, <strong>a cap on the number of high-voltage and extra-high-voltage connection studies a single operator may hold simultaneously took effect on 1 August 2026</strong>.</li>
+</ul>
+
+<p>Rights are becoming scarcer and, at the same time, closer to real demand. Mass-produced "paper rights" are being squeezed out of the market, and the value of the rights that survive should rise. For a buyer, that means <strong>the bar for buying at Tier 1 is going up, and the advantage of having bought at Tier 1 is going up with it</strong>. The design of how you buy begins at the sourcing stage.</p>
+
+<h2>06 — How much of that "track record" actually comes with you?</h2>
+
+<p>Here is the point this column most wants to make. <strong>The "track record" you paid a Tier 3 premium for may, depending on how you buy, not come with you at all.</strong></p>
+
+<p>The track record of an operating asset has to be thought of in two layers.</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">LAYER ONE</span>
+    <h4>Track record as information</h4>
+    <p>Cleared prices, clearing rates, availability, the fact of commercial operation. All of this passes to the buyer through the sale and lifts the verifiability of the financial model at a stroke. The value described in the previous chapter is mostly about this layer.</p>
+    <p><strong>Conclusion: it transfers with the sale.</strong></p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">LAYER TWO</span>
+    <h4>Track record as qualification and status</h4>
+    <p>Membership qualification to participate in the market, filings with the authorities, contractual positions. This layer <strong>does not automatically follow from buying the plant as an asset.</strong> Go to the primary texts and the treatment divides sharply by regime.</p>
+    <p><strong>Conclusion: whether it survives depends on the legal form.</strong></p>
+  </div>
+</div>
+
+<div class="db-title">Data Box 05 | How "track record and qualification" is treated by acquisition structure (by regime, from primary sources)</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:120px">Regime</th><th>Buying via asset transfer<br><span style="font-weight:400;opacity:.8">(①②, and ④ bought as assets)</span></th><th>Buying via SPC equity transfer<br><span style="font-weight:400;opacity:.8">(③, and ④ bought as equity)</span></th><th style="min-width:130px">Basis</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">Balancing market<br>(EPRX)</td><td>Trading membership (legal personality, net assets of ¥10 million or more, qualified invoice issuer status) is specific to the entity. There is no express provision for succession; where the operating entity changes, the structure requires going through admission and resource registration</td><td class="ok">The member entity is unchanged, so qualification and screening outcomes continue</td><td>T1 | EPRX Trading Rules Art. 4 and others; FAQ</td></tr>
+<tr class="hl"><td class="em">Capacity market<br>(OCCTO)</td><td><strong>The contractual position can be succeeded to with OCCTO's prior consent.</strong> Moreover, the terms expressly provide that "the requirement performance status of the succeeded generation resource is succeeded to"</td><td class="ok">The contracting party is unchanged, so it continues</td><td>T1 | OCCTO Capacity Securing Contract Terms, Arts. 25 and 26 (January 2025 edition)</td></tr>
+<tr><td class="em">Electricity<br>Business Act filings</td><td>A pure asset sale falls outside succession of status. In principle the transferee files anew and the transferor files a discontinuation notice (transfer of an entire business, merger and company split are handled as succession filings)</td><td class="ok">The operating entity is unchanged, so status continues (a change notification is required if filed particulars change)</td><td>T1 | Electricity Business Act Arts. 27-27 and 27-29 and others; ANRE commentary<br><span style="font-size:.92em;color:#6C7A89">*The generation business filing obligation applies to facilities above 10,000 kW</span></td></tr>
+<tr><td class="em">Subsidies<br>(SII-awarded projects)</td><td class="cond">Transfer or granting of security within the disposal restriction period (the statutory useful life) requires prior approval. Repayment of the subsidy may arise</td><td>The subsidised entity is unchanged (specific requirements on changes in effective control need to be confirmed)</td><td>T1 | SII battery storage support programme, application guidelines (common standard terms)</td></tr>
+<tr><td class="em">Grid connection status<br>(connection contract etc.)</td><td>Name change and succession of position are matters for consultation and case-by-case confirmation with the transmission and distribution utility</td><td class="ok">The contracting party (the SPC) is unchanged, so in principle it stays as it is</td><td>Relevant provisions in each utility's terms to be confirmed individually (article numbers not identified as at the reference date of this column)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note-small">Note: the generation business (including battery storage) filing obligation applies to facilities above 10,000 kW. High-voltage 2 MW-class projects sit outside that framework, so the Electricity Business Act row above bites mainly where the target is extra-high-voltage.</p>
+
+<p>The table says one thing. <strong>The dividing line is whether the contracting entity changes.</strong> Buy the SPC equity and qualifications, contracts and permits stay where they are. Buy the assets alone and balancing-market qualification has to be obtained again by the buyer, while subsidised assets bring an approval gate with them. The one large exception is the capacity market, where the contractual position can be succeeded to subject to OCCTO's prior consent — and where the terms expressly carry over requirement performance, that is, the regulatory "track record" itself.</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 356" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="How qualifications and contracts survive when an operating battery plant is bought as assets versus as SPC equity">
+  <!-- top node -->
+  <rect x="238" y="14" width="224" height="46" rx="6" fill="#1B2A4A"/>
+  <text x="350" y="42" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12.5" font-weight="700" fill="#FFFFFF">Buying an operating plant</text>
+  <!-- branch lines -->
+  <path d="M350 60 L350 78 L166 78 L166 96" fill="none" stroke="#C9CFD8" stroke-width="1.6"/>
+  <path d="M350 60 L350 78 L534 78 L534 96" fill="none" stroke="#C9CFD8" stroke-width="1.6"/>
+  <!-- left branch -->
+  <rect x="34" y="96" width="264" height="36" rx="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="1.6"/>
+  <text x="166" y="119" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#2C3E50">Asset deal (equipment and land move)</text>
+  <rect x="34" y="142" width="264" height="176" rx="5" fill="#F8F9FB" stroke="#E2E6EC"/>
+  <text x="48" y="166" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#c44">✕</text><text x="66" y="166" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Balancing market … re-apply</text>
+  <text x="48" y="196" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#c44">✕</text><text x="66" y="196" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Electricity Business Act … refile</text>
+  <text x="48" y="226" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#b45309">△</text><text x="66" y="226" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">If subsidised … approval gate</text>
+  <text x="48" y="256" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#b45309">△</text><text x="66" y="256" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Connection contract … TDSO consent</text>
+  <text x="48" y="286" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="66" y="286" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Capacity market … OCCTO consent</text>
+  <text x="66" y="303" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">(requirement performance carries over)</text>
+  <!-- right branch -->
+  <rect x="402" y="96" width="264" height="36" rx="5" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.8"/>
+  <text x="534" y="119" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">Equity deal (the SPC itself moves)</text>
+  <rect x="402" y="142" width="264" height="176" rx="5" fill="rgba(196,154,60,0.07)" stroke="#E2E6EC"/>
+  <text x="416" y="166" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="434" y="166" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Balancing market … continues</text>
+  <text x="416" y="196" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="434" y="196" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Electricity Business Act … status kept</text>
+  <text x="416" y="226" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="434" y="226" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Subsidy recipient … entity unchanged</text>
+  <text x="416" y="256" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="434" y="256" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Connection contract … stays in place</text>
+  <text x="416" y="286" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#c44">✕</text><text x="434" y="286" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Cost: hidden liabilities and tax history</text>
+  <text x="434" y="303" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">(reps, warranties and indemnities matter)</text>
+  <!-- bottom band -->
+  <rect x="34" y="330" width="632" height="1" fill="#E2E6EC"/>
+  <text x="350" y="350" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">The fork: does the contracting entity change?</text>
+</svg>
+<div class="fig-cap">Figure 2 | Where qualifications and contracts do and do not survive an acquisition of an operating plant. ○ = continues in principle, △ = procedure or consent required, ✕ = generally starts again, or newly assumed.</div>
+</div>
+
+<h3>The other trap — the track record is tied to the aggregator's name</h3>
+
+<p>There is a second point that practice tends to miss. <strong>A balancing-market track record is tied to the aggregator's registration.</strong></p>
+
+<p>In the balancing market, a trading member (typically an aggregator) obtains an operator code, registers the resource, and can trade only after passing performance verification and pre-qualification. EPRX's FAQ likewise proceeds on the basis that what passes verification and pre-qualification is "the trading member's resource," treating even proxy bidding as a delegation-consent arrangement under Article 8(6) of the Trading Rules. Three cases follow from that structure.</p>
+
+<div class="db-title">Data Box 06 | Succession of a balancing-market "track record" (our analysis)</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:160px">Case</th><th style="min-width:160px">Change in registration</th><th>Treatment of record and screening</th><th style="min-width:140px">What the buyer should do</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">① Owner changes only<br>(aggregator retained)</td><td>Trading member and resource registration unchanged</td><td class="ok">Maintained in principle</td><td>Arrange succession of the aggregator agreement, or its re-execution with the new owner, simultaneously with the sale</td></tr>
+<tr><td class="em">② Aggregator also changes</td><td>Trading member replaced; resource re-registered</td><td class="ng">Pre-qualification and live testing generally start again</td><td>Estimate the gap period and reflect the revenue lost during it in the price negotiation</td></tr>
+<tr class="hl"><td class="em">③ SPC equity transfer<br>(registration untouched)</td><td>Trading member, resource registration and contracts all unchanged</td><td class="ok">Maintained</td><td>Check in advance whether change-of-control clauses exist in the aggregator agreement and the connection contract</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ This table is our own analysis</span>
+It is derived from the structure of the Trading Rules. <strong>As at the time of writing, we have not been able to identify an express provision directly governing whether a record survives a change of owner or of member.</strong> On any specific transaction, advance confirmation with the aggregator, EPRX and the relevant transmission and distribution utility is indispensable. Proceed on "it can probably be carried over" and you will find a gap in the revenue line after settlement.
+</div>
+
+<p>The consequence is intensely practical. If you buy an operating plant through <strong>a direct asset sale</strong> and also switch aggregator, balancing-market screening and record reset, and you may incur both the cost of re-screening and re-testing and a period of no revenue. Recall the disclosure quoted above: normally one to three months from energisation to market participation. You have paid a premium of ¥100–200 million with no equipment behind it, and the very thing that justified it stops. <strong>That is a step back down the ladder.</strong></p>
+
+<p>To "security is the effect, the contract is the cause," this column adds the following.</p>
+
+<div class="highlight-box" style="text-align:center;font-family:'Noto Serif JP',serif;font-size:1.05em">
+<strong>A track record is a second contract.<br>Buy it without the name on the registration, and the contract breaks.</strong>
+</div>
+
+<p>There are two ways to secure the track-record premium with certainty: (1) acquire while retaining the aggregator, or (2) acquire the SPC equity, so the registration moves untouched. Put the other way round, <strong>the design that looks most natural — buy the assets and move operations onto your own platform — is the one that destroys the track-record premium most thoroughly.</strong> We regularly meet buyers negotiating hard on price without having noticed the contradiction.</p>
+
+<h2>07 — Choosing the vehicle: direct asset sale, or SPC equity</h2>
+
+<p>Of the four ways to buy, SPC equity transfer alone is different in kind. You are not buying a thing; you are buying the vehicle around it. And the choice of vehicle bites harder the higher up the ladder you go.</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">VEHICLE A</span>
+    <h4>Direct sale (asset transfer)</h4>
+    <ul>
+      <li><strong>Consumption tax</strong>: taxable on the equipment portion. A taxable buyer can recover it through input credit, but carries the cash outlay until refund</li>
+      <li><strong>Real property acquisition tax, registration and licence tax</strong>: arise on acquisition of land and buildings</li>
+      <li><strong>Construction Business Act</strong>: a finished asset can be structured as a sale of goods; a contract to "build and deliver" an unfinished asset is a construction contract, raising licensing questions</li>
+      <li><strong>Contracts and qualifications</strong>: in principle start again (see §06)</li>
+      <li><strong>Centre of gravity in DD</strong>: the thing and the rights (completion, performance, connection terms)</li>
+      <li><strong>Hidden liabilities</strong>: not assumed</li>
+    </ul>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">VEHICLE B</span>
+    <h4>SPC equity transfer (M&amp;A style)</h4>
+    <ul>
+      <li><strong>Consumption tax</strong>: transfers of shares and equity interests are exempt. No cash outlay</li>
+      <li><strong>Real property acquisition tax</strong>: not imposed, as the assets do not move directly</li>
+      <li><strong>Construction Business Act</strong>: an M&amp;A, so no construction contract arises</li>
+      <li><strong>Contracts and qualifications</strong>: the connection contract, aggregator agreement, insurance and O&amp;M <strong>stay put, in the SPC's name</strong></li>
+      <li><strong>Centre of gravity in DD</strong>: the entity (contingent liabilities, tax history, defects in contracts)</li>
+      <li><strong>Hidden liabilities</strong>: assumed. Reps, warranties and indemnities are the lifeline</li>
+    </ul>
+  </div>
+</div>
+
+<p>In the disclosed case where a listed company took a silent-partnership interest in an SPC, the O&amp;M, aggregator and asset-management arrangements were in fact left exactly as they were. That is <strong>a structural answer</strong> to the succession problem set out in §06. This form also allows a partial purchase — participation through a minority interest rather than a 100% acquisition — which the other structures do not.</p>
+
+<p>That said, buying the vehicle means taking on what is inside it. The centre of gravity in DD moves from the asset to the entity, and the design of representations, warranties and indemnities becomes the core of the review. What you are buying is not a battery plant but <strong>a bundle of contracts wrapped around a battery plant</strong>. Start anywhere else and the conversation about price will not connect.</p>
+
+<p>As set out in <a target="_top" href="/en/column-financing">"Why Battery Storage Plants Are Bought With Cash"</a>, what a lender actually takes security over is this same SPC equity and bundle of contracts. Vehicle B is the one best aligned with how finance looks at the asset. <strong>The more a buyer intends to put debt on the asset at the exit, the more it is worth choosing the vehicle at the entry.</strong></p>
+
+<h3>Provisions to insist on when buying SPC equity</h3>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">B</span>Contract points to lock down in an equity acquisition (Vehicle B)</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-1</span><strong>Representations and warranties</strong>: absence of hidden liabilities, unpaid taxes and public charges, litigation and disputes; validity of permits; validity of key contracts and absence of default; compliance with subsidy conditions.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-2</span><strong>Indemnities</strong>: cap, floor (de minimis) and survival period. Secure a longer period for tax than for other items.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-3</span><strong>Change-of-control clauses</strong>: check the connection contract, aggregator agreement, EPC/O&amp;M contracts and lease agreements for restrictions on transfers of equity. Where they exist, obtain prior consent.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-4</span><strong>Conduct between signing and closing</strong>: restrictions on how the SPC operates in the interim (new indebtedness, asset disposals, entry into material contracts).</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-5</span><strong>Subsidised projects</strong>: confirm whether a change in effective control within the disposal restriction period requires prior approval from the programme secretariat.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-6</span><strong>Key people and organisation</strong>: where O&amp;M and asset management sit with the seller's group, document continued provision after closing and the fee levels that apply.</span></label>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ Tax and permitting turn on the specific facts</span>
+The treatment of consumption tax, real property acquisition tax, registration and licence tax and loss carryforwards, and whether the Construction Business Act applies, all change with the substance of the transaction and the design of the structure. <strong>Always confirm application to your own case with a tax adviser, counsel or other qualified professional.</strong> What is written here is general analysis, not tax or legal advice.
+</div>
+
+<h2>08 — Overseas, this ladder is discussed in terms of discount rates</h2>
+
+<p>In Japan the risers are unpublished tacit knowledge. Overseas they are set out at the level of stated accounting policy.</p>
+
+<p>Gresham House Energy Storage Fund (GRID), the UK's largest listed battery fund, discloses that it <strong>removes the discount-rate premium applied to construction-stage assets on transition into operation</strong>. As at Q1 2024, the weighted average discount rate for operational assets alone was 10.6%, roughly 20 bps below the portfolio including construction-stage assets (10.8%). The discount rate falls the moment an asset goes live, so the same expected cash flow supports a higher valuation — <strong>"operational equals risk shed equals higher price," institutionalised as policy</strong>.</p>
+
+<p>The development side has the same structure. Enerdatics, which tracks European M&amp;A data, observes that the developer premium on battery projects (the uplift on development consideration, not the asset price itself) steps up rung by rung: around US$20,000/MW at early stage, around US$50,000/MW for advanced development, and <strong>above US$80,000/MW at ready-to-build</strong>. <strong>Here too the uplift is observed separately from the price of the equipment</strong>, which is instructive when thinking about Japan's risers. (The same research reports German RTB separately at US$50,000–170,000/MW, so note that the spread between markets is wide.)</p>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ The overseas figures indicate direction only</span>
+Market structures and regulatory regimes differ, so these numbers cannot be applied directly to Japan. What is worth importing is not the level but the structure. <strong>As you move up the rungs, risk falls away, the discount rate drops, and the price rises even though the equipment is identical.</strong> The difference with Japan comes down to one thing: whether that is disclosed in the shared language of discount rates, or left as tacit knowledge inside negotiations. Which also means that <strong>a buyer able to articulate the risers has room left to negotiate.</strong>
+</div>
+
+<h2>09 — The buyer's discipline: decide the rung and the vehicle, then look at price</h2>
+
+<p>Three prices mean three different products. If so, the first thing a buyer should settle is not "how much" but <strong>"at which rung, and which risks, can I carry on my own balance sheet?"</strong> Compare prices without settling the rung and you are measuring ¥200 million of rights against an ¥800 million operating asset — <strong>different products</strong> — with the same ruler. The buyer of the former still has ¥350–450 million of spending ahead of it.</p>
+
+<h3>Start by answering three questions</h3>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">Q1</span>
+    <h4>Can you carry construction risk?</h4>
+    <p>If you have EPC management and electrical works capability in house, ② rights transfer is the route that turns that strength into profit. If you do not, narrow to ①③④. A low price does not stay low.</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">Q2</span>
+    <h4>Which do you want to pay more of — money or time?</h4>
+    <p>Buy at the rights rung and you pay the hard cost of equipment and works yourself, and absorb schedule slippage yourself. Buy the finished asset and it costs more, by exactly the effort and uncertainty the seller carried. Are you choosing consciously between the two? Leave this vague, pick "the cheaper one," and it usually overruns later.</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">Q3</span>
+    <h4>Does the contracting entity change or not?</h4>
+    <p>Buy the assets and procedures reset; buy the equity and you take on contingent liabilities in exchange for keeping the qualifications and contracts. That choice flows straight through to how you finance the asset at the exit.</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">Q4</span>
+    <h4>(If targeting operating assets) do you change the operating platform?</h4>
+    <p>If you intend to change aggregator, build the price on the assumption that the balancing-market record resets. If you do not, arrange succession of the contractual position simultaneously with the sale. Do not buy with this left unresolved.</p>
+  </div>
+</div>
+
+<h3>Risks assumed and where to look, rung by rung</h3>
+
+<div class="db-title">Data Box 07 | Risks assumed and the centre of gravity in verification, by rung</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:120px">How you buy</th><th>Principal risks assumed</th><th>Capabilities that matter</th><th>Centre of gravity in verification</th><th style="min-width:100px">Track record succession</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">② Rights transfer</td><td>Completion, grid and revenue proof — all of it</td><td>Development organisation, construction funding, EPC management</td><td>Assumptions and indicative schedule in the connection study response; instalment terms on the cost contribution; forfeiture risk on the 10% deposit; development permits if in an urbanisation control area; the cut-off date for equipment regulation (JC-STAR and similar)</td><td>—</td></tr>
+<tr><td class="em">① Completed asset</td><td>Seller and EPC credit (where paying in advance) plus revenue proof</td><td>Capital, ability to fund consumption tax, judgement on performance acceptance</td><td>Definition of delivery; alignment of payment schedule with milestones; performance bonds, escrow and other protection; scope of non-conformity liability</td><td>Not applicable (not yet participating)</td></tr>
+<tr><td class="em">③ SPC equity</td><td>Hidden liabilities; representations and warranties</td><td>M&amp;A experience, entity DD capability</td><td>Contingent liabilities; the terms of existing contracts (EPC, O&amp;M, aggregator, insurance); design of reps, warranties and indemnities; change-of-control clauses</td><td class="ok">Maintained with the registration</td></tr>
+<tr class="hl"><td class="em">④ Operating asset<br>(bought as assets)</td><td>Re-screening if the aggregator changes</td><td>Capital (the highest), negotiating leverage on succession</td><td>Degradation (SOH) assessment; transferability of manufacturer warranties and the LTSA; authenticity of operating data; scope of market re-registration</td><td class="cond">Conditional</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Clear these 32 items before you buy</h3>
+
+<p>Once the acquisition structure is settled, the work becomes verification. Below are the items we actually use in buy-side advisory work, organised by structure. Tick them as you go (nothing is saved).</p>
+
+<div id="buyer-checklist">
+
+<div class="checklist-group">
+  <h5><span class="cl-num">1</span>Common | eight items that apply however you buy</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-1</span>Obtained the seller's commercial registry, three years of accounts and a credit-agency report, and set an internal <strong>ceiling on the amount payable before delivery</strong>.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-2</span>Checked the land registry and cadastral map for land category, area, owner, mortgages and easements. Where the interest is leasehold, checked the term and whether assignment and sub-letting are permitted.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-3</span>Confirmed the zoning classification under the City Planning Act (is it an urbanisation control area?) and the permits and notifications required, <strong>directly with the responsible local authority</strong>.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-4</span>Inspected the <strong>originals</strong> of the connection study response and the connection contract (name, receipt number, indicative schedule, indicative contribution, stated assumptions, expiry date).</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-5</span>Established the timing and instalment terms for the grid connection cost contribution, the status of deposit payments, and the scope of forfeiture on withdrawal.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-6</span>Confirmed whether subsidies were awarded and, if so, established the disposal restriction period, whether prior approval is needed, and repayment risk.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-7</span>Confirmed the manufacturer, model and year of the equipment (battery, PCS, EMS) and the content, remaining term and <strong>transferability</strong> of warranties and the LTSA.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-8</span>Made the seller explain <strong>which primary source underpins</strong> each assumption in the financial model (bid price, clearing rate, availability, degradation rate, aggregator fees).</span></label>
+</div>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">2</span>Eight items when buying via ② rights transfer</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-1</span>Does the indicative schedule fit the business plan? Where the response says "at least X months," read through to the assumptions behind it (substation bank, state of the distribution line).</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-2</span>The <strong>expiry date</strong> of the connection study response is consistent with the schedule to filing the connection contract application.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-3</span>Established in whose name the rights stand, and pre-cleared with the transmission and distribution utility whether a transfer requires its procedure or consent.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-4</span>Wrote into the sale agreement the risk of divergence between the indicative and final cost contribution, and who bears an increase.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-5</span>Carried out a site inspection covering earthworks, access road, drainage and neighbours (noise, visual impact), and formed a view on additional cost.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-6</span>Confirmed whether the cut-off date for equipment regulation (JC-STAR and similar) is the connection date or the connection contract application date, and reflected it in the procurement plan.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-7</span>Have the organisation to select, price and manage the EPC in house (and where outsourcing, applied the same credit standard to that counterparty).</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-8</span>Identified candidate aggregators and built a cash-flow plan that incorporates the post-connection market entry schedule (one to three months).</span></label>
+</div>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">3</span>Eight items when buying via ① completed-asset sale</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-1</span>"Delivery" is defined unambiguously in the contract (connection consent obtained / connection complete / performance test passed).</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-2</span>The payment schedule corresponds to the milestones at which risk transfers (see Data Box 03).</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-3</span>Considered protection for advance payments (parent guarantee, retention of title, third-party account control, performance bond) and made a decision on whether to use them.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-4</span>Performance test pass criteria are defined numerically (charge/discharge capacity, round-trip efficiency, response time, availability).</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-5</span>Confirmed the period, scope and cap of non-conformity liability, and any overlap or gap with manufacturer warranties.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-6</span>Confirmed when risk of loss transfers (who bears damage before delivery) and what insurance is in place during construction.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-7</span>Wrote the treatment of delay into the contract (liquidated damages, termination rights, the fate of the deposit).</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-8</span>Reflected the consumption tax cash outlay (the period until refund) in the funding plan.</span></label>
+</div>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">4</span>Eight items when buying via ④ an operating asset</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-1</span>Received the trading record as <strong>monthly raw data</strong> (product category, block, cleared price, cleared volume) and reconciled it to the summary figures.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-2</span>Confirmed which price cap and procurement volume that record was produced under (the ¥19.51, ¥15 or ¥10 regime).</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-3</span>Distinguished whether the "annual revenue" presented is an annualisation of actuals or an estimate, and reflected seasonality.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-4</span>Confirmed battery SOH by measurement or from the most recent inspection records, and reflected the degradation curve in the model.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-5</span>Confirmed the parties, term, fee structure, termination provisions and transferability of the aggregator agreement.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-6</span>Decided whether to buy assets or equity, and mapped the scope of market qualification and filings that would have to be redone in that case (§06).</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-7</span>Where a capacity market contract exists, confirmed whether succession with OCCTO's prior consent is available and how long the procedure takes.</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-8</span>Obtained records of incidents since the start of operation (outages, alarms, output curtailment, availability shortfalls).</span></label>
+</div>
+
+<div class="check-progress">
+  <span>Checked</span>
+  <span class="bar"><span class="bar-fill" id="checkBarFill"></span></span>
+  <span class="count"><span id="checkCount">0</span> / 32</span>
+</div>
+</div>
+
+<h3>Three misconceptions we hear regularly</h3>
+
+<div class="db-title">Data Box 08 | Testing what buyers believe</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:250px">What we often hear</th><th style="min-width:64px">Verdict</th><th>Basis</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">"Buy an operating asset and the market qualifications come with it"</td><td class="cond">△</td><td>What comes with it is mainly <strong>the track record as information</strong>. As things stand, succession of qualification and status as a matter of regulation is essentially limited to the capacity market (with OCCTO's prior consent). Buy the assets and balancing-market qualification and Electricity Business Act filings generally start again</td></tr>
+<tr><td class="em">"Rights are cheap, so buying at the rights stage is the better deal"</td><td class="cond">△</td><td>¥200 million is only the down payment. Reaching completion takes a further <strong>¥350–450 million or so of hard cost for equipment and works</strong>, and on top of that you carry completion, grid and revenue-proof risk yourself. For a buyer without construction management capability, cheap does not stay cheap</td></tr>
+<tr><td class="em">"Buying SPC equity is the same thing really — you just have to worry about hidden liabilities"</td><td class="ng">✕</td><td>The treatment differs across consumption tax, real property acquisition tax, the Construction Business Act and contract succession. In particular, <strong>the connection contract and the aggregator agreement stay put in the SPC's name</strong> — decisive when acquiring an operating asset</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>And whichever form you choose, a third-party eye is what works</h3>
+
+<p>Whichever of the four you pick, independent verification is the common denominator. Completion and performance (①), connection terms and permits (②), contingent liabilities and contract succession (③), degradation and the authenticity of operating data (④) — the centre of gravity in due diligence shifts with the form, but the principle does not: <strong>turn numbers you cannot verify into numbers that have been verified.</strong></p>
+
+<p>Not the seller's explanation, not the buyer's hopes, but a third-party eye brought into the transaction. We believe that is the shared infrastructure this market needs in order to reach its next stage. For the specific areas covered in technical due diligence, see also <a target="_top" href="/en/column-buyer-check">"Is That 'Approval' Real? — Technical checks before buying a grid-scale battery plant: 43 items across 9 domains"</a>.</p>
+
+<h2>Closing — how the trilogy ends</h2>
+
+<p><a target="_top" href="/en/column-financing">Part 1</a> asked why sellers choose cash. Part 2 asked how a banker reads your plant. This column is the other side of that: at which rung, and in which vehicle, should a buyer buy?</p>
+
+<p>The same spine runs through all three. Once the hard cost has been stacked up, what finally separates one price from another is <strong>when, and from whom to whom, risk moves</strong>. Security is the effect; the contract is the cause. And:</p>
+
+<div class="highlight-box" style="text-align:center;font-family:'Noto Serif JP',serif;font-size:1.08em">
+<strong>From the moment the hardware is identical, the price gap becomes the price of taking on risk.</strong>
+</div>
+
+<p>In 2026 the ladder took shape in public cases. The day the size of each riser is disclosed to the market is still ahead. Until then, the only way to measure a riser is <strong>triangulation between primary sources, close reading of contracts, and observed practice</strong>. We provide that triangulation from a neutral position.</p>
+
+<div class="data-box">
+<div class="db-head">Summary</div>
+<ul style="margin:0 0 0 20px">
+<li>There are four ways to buy a battery storage plant: a combination of <strong>three rungs — rights, completion, track record</strong> — and <strong>two vehicles: direct sale or SPC equity</strong>.</li>
+<li>Most of the roughly ¥500–600 million between the first and second rungs is <strong>hard cost for equipment and works</strong>. What can fairly be called the price of risk is the thin layer above cost, plus the whole of the second-to-third gap, where not one yen of equipment is added. <strong>Count the price difference in two parts: hard cost and risk.</strong></li>
+<li>The track record at the top rung is a second contract. But because a balancing-market record is tied to the aggregator's registration, the premium loses its basis unless the acquisition is <strong>designed to buy the registration with it</strong> (retain the aggregator, or take SPC equity). As a matter of regulation, express succession of a "track record" is currently close to being limited to the capacity market (with OCCTO's prior consent).</li>
+<li>From delivery on 1 September 2026, the balancing-market price cap falls to ¥10 (EPRX, published 30 July 2026). <strong>Price a track record against the regime ahead, not the cleared prices behind.</strong></li>
+<li>How you buy is a design decision that comes before the price negotiation. <strong>Fix the rung and the vehicle, then look at the price.</strong></li>
+</ul>
+</div>
+
+<a target="_top" href="/en/column-financing" class="next-link">
+  <span>
+    <span class="next-link-label">SERIES PART 1</span>
+    <span class="next-link-title">Why Battery Storage Plants Are Bought With Cash — the "you can't take security over it" myth, and the reason ¥6.2 billion over 20 years got done</span>
+  </span>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="sources-box">
+<h4>Sources</h4>
+<ul class="src-list">
+<li><span class="t">T1</span>JALCO Holdings timely disclosures: entry into the grid-scale battery storage business (5 December 2025) / acquisition of land and rights relating to grid connection for high-voltage grid-scale plants (29 May and 29 June 2026; the 29 June disclosure states that market participation normally takes approximately one to three months from the start of power receipt) / acquisition of a silent-partnership interest in an SPC (30 June 2026) / acquisition of an operating high-voltage grid-scale plant and revision of the consolidated forecast for the fiscal year ending March 2027 (31 July 2026)</li>
+<li><span class="t">T1</span>J-Holdings timely disclosure (30 July 2026): acquisition of the Shokawa battery storage plant (provisional name), acquisition price approximately ¥700 million, approximately 2 MW / 8 MWh, handover November 2026, connection December 2026, balancing-market entry planned for the first half of the following fiscal year</li>
+<li><span class="t">T1</span>Renova timely disclosure / Mizuho Bank release (31 July 2026): Fukuroi-Ukuriwa battery storage plant, 99.9 MW / 280 MWh, fully merchant project financing of approximately ¥7.2 billion</li>
+<li><span class="t">T1</span>EPRX (Electric Power Reserve Exchange) price-cap page and "On the ΔkW price cap in the balancing market" (updated 30 July 2026): decision to update the price cap for primary reserve, secondary reserve ① and the composite product to ¥10.00/ΔkW per 30 minutes (from delivery on 1 September 2026; ¥15 applies for delivery up to 31 August). Secondary reserve ② and tertiary reserve ① have applied ¥7.21 since delivery on 1 April 2024, continuing for the time being on the basis of deliberations at the 96th meeting of the Institutional Design Working Group (27 September 2024). Price cap updates are published on the same page by two weeks before the delivery date</li>
+<li><span class="t">T1</span>Agency for Natural Resources and Energy, 4th Electricity Stable Supply Working Group (14 July 2026): deliberation on the price cap revision; shortfall rates before and after the shift to day-ahead trading</li>
+<li><span class="t">T1</span>Agency for Natural Resources and Energy, Next-Generation Power Grid Working Group / Organization for Cross-regional Coordination of Transmission Operators (OCCTO): number of connection study applications for grid-scale batteries; deposit increase from 5% to 10% (for connection contract applications on or after 1 April 2026); requirement to submit proof of land use rights (for applications accepted on or after 1 October 2026, planned)</li>
+<li><span class="t">T1</span>TEPCO Power Grid: treatment of the number of high-voltage and extra-high-voltage connection study applications (effective 1 August 2026)</li>
+<li><span class="t">T1</span>Agency for Natural Resources and Energy, "Casebook on Grid Connection": the grid connection cost contribution is in principle payable in full before works commence</li>
+<li><span class="t">T1</span>OCCTO, Capacity Securing Contract Terms, Articles 25 and 26 (January 2025 edition): assignment and succession of contractual status; succession of requirement performance status</li>
+<li><span class="t">T1</span>EPRX Trading Rules, Article 4 and Article 8(6), and FAQ: registration of generation resources by trading members, performance verification and pre-qualification, delegation of operations</li>
+<li><span class="t">T1</span>Electricity Business Act, Articles 27-27 and 27-29 and others; ANRE commentary</li>
+<li><span class="t">T1</span>Sustainable open Innovation Initiative (SII), battery storage deployment support programme, application guidelines: prior approval for transfer or granting of security within the disposal restriction period</li>
+<li><span class="t">T1</span>Teikoku Databank, "Bankruptcies, closures and dissolutions among power plants (FY2024)" (published 6 May 2025)</li>
+<li><span class="t">T1</span>Bank of Japan Monetary Policy Meeting (31 July 2026): policy rate held at 1.0%</li>
+<li><span class="t">T2</span>Japan Interview Shimbun (media-ir) 31 July 2026 / Zaikei Shimbun 31 July 2026 and 8 December 2025 / Enehub 3 July 2026 / Denki Shimbun 15 July 2026 (front page) / Reuters 9 July 2026 (10-year JGB yield 2.880%)</li>
+<li><span class="t">T2</span>Gresham House Energy Storage Fund (GRID) quarterly disclosures and NAV releases / Enerdatics observations on European BESS M&amp;A; pv magazine USA (May 2026)</li>
+<li><span class="t">Obs.</span>Price ranges by rung for high-voltage 2 MW / 8 MWh class plants (rights ¥150–200M / completed handover ¥700–800M / with track record ¥800M–1.0B, all excluding tax) and the back-calculation of their composition (hard cost of equipment and works ¥350–450M); the spread between immediate settlement and payment on delivery (approximately 6%); and the practical situation in which completed-asset transactions stall on the credit of the seller or EPC. All are our own observations from practice, not published statistics.</li>
+</ul>
+<div class="source">Note: amounts, capacities and dates in this column are based on published materials. Where an acquisition price was not disclosed, we state "not disclosed" and have not constructed estimates. The update to the balancing-market price cap (primary reserve, secondary reserve ① and the composite product at ¥10.00, from delivery on 1 September 2026) was decided on the basis of deliberations at the 4th Electricity Stable Supply Working Group, and EPRX updated its published materials on 30 July 2026 (EPRX notes that the figure may change in light of the outcome of future deliberations). The ¥7.21 for secondary reserve ② and tertiary reserve ① is the continuation of the cap that has applied since delivery on 1 April 2024, and is not part of the 1 September change. The hard cost of equipment and works (¥350–450 million) is derived by back-calculation from published indicative initial investment. Within the analysis of succession, the treatment of EPRX is our own reading of the structure of the Trading Rules; we have not been able to confirm an express provision directly. Price ranges and practical impressions are our observations in the field, not published statistics. Commentary on security, tax, accounting and permitting is general explanation and not legal or tax advice on any specific transaction. This column is not an invitation to invest in any particular project, nor legal, tax or financial advice.</div>
+</div>
+
+<div class="cta-section">
+  <h3>Start with "which rung, and which vehicle"</h3>
+  <p>Designing the acquisition structure, testing whether a price is reasonable, pre-clearing whether qualifications can be succeeded to, designing the payment schedule and risk transfer,<br>arranging technical due diligence, assessing the credit of sellers and EPC contractors —<br>we take on specific live projects after an enquiry and execution of an NDA. We work with buyers and sellers alike.</p>
+  <a target="_top" href="https://www.scix.co.jp/en/contact" class="cta-btn">Contact us →</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var g=document.getElementById('buyer-checklist');if(!g)return;
+  var c=g.querySelectorAll('input[type=checkbox]'),cnt=document.getElementById('checkCount'),fl=document.getElementById('checkBarFill'),tot=c.length;
+  function u(){var d=0;c.forEach(function(x){if(x.checked)d++;});cnt.textContent=d;fl.style.width=(tot?d/tot*100:0)+'%';}
+  c.forEach(function(x){x.addEventListener('change',u);});u();
+})();
+</script>
+
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">RELATED</div>
+  <a target="_top" href="/en/column-financing" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">Why Battery Storage Plants Are Bought With Cash — the "you can't take security over it" myth, and the reason ¥6.2 billion over 20 years got done →</a>
+  <span style="display:block;color:#8A92A0;font-weight:600;font-size:14.5px;padding:6px 0">How a Banker Reads Your Battery Storage Plant — what it takes for a financial model to clear credit<span style="font-weight:400;font-size:12px;margin-left:8px">(coming soon)</span></span>
+  <a target="_top" href="/en/column-buyer-check" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">Is That "Approval" Real? — technical checks before buying a grid-scale battery plant: 43 items across 9 domains →</a>
+  <a target="_top" href="/en/column-transfer" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">Transferring BESS development rights — how far, and to whom, can rights be passed? →</a>
+  <a target="_top" href="/en/column-pricing" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">How development rights are priced →</a>
+  <a target="_top" href="/en/column-grid-rules" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">New rules for connection studies and contract applications →</a>
+  <a target="_top" href="/en/column-options" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">Options when you hold a connection study response but will not develop →</a>
+  <a target="_top" href="/en/column-tax" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">Immediate depreciation is not something you "get" — it is something you get through →</a>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/en/" class="scix-footer-logo" aria-label="ScienceX Home">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        8-2 Nihonbashi-Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        TEL: <a href="tel:+81364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

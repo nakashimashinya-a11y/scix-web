@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.db-title{font-family:'Noto Sans SC',sans-serif;font-size:.92em;font-weight:600;color:var(--navy);line-height:1.65;margin:28px 0 -20px}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif SC',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.compare-card ul{margin:8px 0 0;padding-left:18px;font-size:.84em;line-height:1.85}
+.compare-card li{margin-bottom:5px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif SC',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+.diff-card .guard{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);font-size:.82em;line-height:1.8;color:var(--text)}
+.diff-card .guard b{color:var(--accent);font-weight:700;letter-spacing:.04em}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.85}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
+.src-list .t{display:inline-block;min-width:34px;font-weight:700;color:var(--navy);margin-right:8px;font-size:.92em}
+.part-lead{font-family:'Noto Serif SC',serif;font-size:.86em;letter-spacing:.12em;color:var(--accent);margin:56px 0 -32px;font-weight:600}
+</style>
+<title>储能电站的买法有四种 ── 权利、完工、业绩，以及“容器”。同样的2MW，为什么会有三个价格 | ScienceX</title>
+<meta name="description" content="同样是2MW/8MWh，为什么标价不同。完工交付、权利转让、SPC权益、已投运资产这四种取得形态，以及“权利1.5～2亿日元、完工7～8亿日元、带业绩8～10亿日元”的价格阶梯，本文将其拆解为设备与工程的实际成本、以及风险承接的价格。买下已投运项目，市场资格并不会自动跟着过来（制度上明文规定可承继的目前几乎只有容量市场）；资产直接买卖与SPC权益转让在税务、建设业法、合同承继上有何不同；以及自2026年9月1日起适用的供需调整市场上限价格降至10日元——全部依据一手资料与实务观测，为买方梳理。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-buyer-structures">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-buyer-structures">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-buyer-structures">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-buyer-structures">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-buyer-structures">
+<meta property="og:type" content="article">
+<meta property="og:title" content="储能电站的买法有四种 ── 权利、完工、业绩，以及“容器”｜ScienceX">
+<meta property="og:description" content="从设备变得完全相同的那一刻起，价差就成了风险的承接价格。业绩是第二份合同，但如果不连同名义一起买下，合同就会中断。写给买方的取得形态论。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-buyer-structures">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="储能电站的买法有四种 ── 权利、完工、业绩，以及“容器”｜ScienceX">
+<meta name="twitter:description" content="权利2亿、完工7亿、业绩10亿（日元）。台阶的哪一段是实际成本，从哪里开始是风险的价格。以及买来的“业绩”到底能跟过来多少——以一手资料求证。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="article:published_time" content="2026-08-03">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "储能电站的买法有四种 ── 权利、完工、业绩，以及“容器”。同样的2MW，为什么会有三个价格 | ScienceX",
+  "description": "将完工交付、权利转让、SPC权益、已投运资产这四种取得形态与价格阶梯，拆解为设备与工程的实际成本以及风险承接的价格。依据一手资料梳理已投运资产收购中“业绩”能被承继到何种程度（容量市场、供需调整市场、电气事业法、补贴、并网合同），并总结自2026年9月1日起适用的上限价格10日元化对买方的影响。",
+  "inLanguage": "zh-CN",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "datePublished": "2026-08-03",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-buyer-structures"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.scix.co.jp/zh" },
+    { "@type": "ListItem", "position": 2, "name": "洞见", "item": "https://www.scix.co.jp/zh-knowledge" },
+    { "@type": "ListItem", "position": 3, "name": "储能电站的买法有四种 ── 权利、完工、业绩，以及“容器”", "item": "https://www.scix.co.jp/zh-column-buyer-structures" }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans SC',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/zh" style="color:#5A6577;text-decoration:none">首页</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/zh-knowledge" style="color:#5A6577;text-decoration:none">洞见</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">储能电站的买法有四种 ── 权利、完工、业绩，以及“容器”…</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 39</span>
+      <span class="header-tag">买方、投资人 / 取得形态、价格、尽职调查</span>
+      <time class="header-date" datetime="2026-08-03">2026.08.03</time>
+    </div>
+    <h1>储能电站的买法，<em>有四种</em> —<br>权利、完工、业绩，以及<em>“容器”</em></h1>
+    <p class="header-desc">同样是2MW/8MWh，标价却分成三档：仅权利、完工品、带市场业绩。第一级与第二级之间的差额大部分是设备与工程的实际成本；但第二级与第三级之间，设备一分钱都没有增加。从设备变得完全相同的那一刻起，价差就成了风险与时间的承接价格。而最上面那一级的“业绩”，买法错了，是不会跟着过来的。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/zh-knowledge" class="back-link">← 返回知识库列表</a>
+
+<p>2026年7月30日至31日的48小时内，出现了三份性质截然不同的信息披露。</p>
+
+<p>第一份，是J Holdings（ジェイ・ホールディングス）收购岐阜县高山市“庄川储能电站（暂定名）”。约2MW/约8MWh，收购金额<strong>约7亿日元</strong>。计划2026年11月完成交付，12月并网，进入供需调整市场则定在<strong>下一财年上半期</strong>。第二份，是Renova（レノバ）的静冈袋井宇刈储能电站（99.9MW/280MWh）。瑞穗银行为其组建了该行首笔全商业化（full merchant）型项目融资约72亿日元——这是一份为了今后花三年时间“建起来”而做的披露。第三份，是JALCO控股收购<strong>已投运</strong>的高压电网侧储能电站（2MW/8MWh），并同时上调全年合并业绩预期。所收购的储能电站已于2026年5月开始在供需调整市场交易，收益已经产生。</p>
+
+<p>一家公司为要花三年建成的100MW配上债务融资；一家公司为完工品支付7亿日元，市场参与要等到下一财年；还有一家公司买下已经在运行的2MW，并因此上调了当期业绩预期。在“购买储能电站”这同一句话里，并存着性质完全不同的交易。</p>
+
+<p>在<a target="_top" href="/zh-column-financing">《为什么储能电站是用现金买走的》</a>中，我们写下了<strong>“担保是结果，合同才是原因”</strong>。在接下来的《银行家这样看你的储能电站》中，我们看的是金融机构会验证收支计划的哪些部分。作为三部曲的收官，本文站在买方一侧，处理两个问题。其一：为什么同样规模的储能电站会有三个价格。其二：明明在最高一级买下的“业绩”，为什么有时候留不到自己手里。</p>
+
+<div class="review-note">
+<strong>本文的定位：</strong>制度参照时点为2026年8月2日。主要读者是今后打算取得电网侧储能电站的买方、投资人，以及正在考虑出售或结构化组建的业者。金额、规模、日期均依据各公司的适时披露、新闻稿以及公共机构／交易所的公开资料；未披露者标注“未披露”，无法确认者标注“无法确认”。作为价格区间与实务体感给出的数值，<strong>是本公司在买卖居间一线观测到的行情感，并非公开统计</strong>，正文中会逐处注明。有关担保、税务、会计、许可的记述均为一般性说明，并非投资、法律或税务建议。个案请务必向律师、税理士等专业人士及相关机构确认。本文为系列第3部（第1部＝<a target="_top" href="/zh-column-financing">现金结算与债务融资的模式</a>，第2部＝贷款人的审查视角）。</div>
+
+<div class="data-box">
+<div class="db-head">贯穿本文的三个数字</div>
+<dl class="premise-grid">
+  <div><dt>2026年夏这一系列披露中，唯一公开的收购金额</dt><dd>约7<span class="unit">亿日元</span></dd></div>
+  <div><dt>从受电开始到实际进入供需调整市场（披露记载）</dt><dd>1～3<span class="unit">个月</span></dd></div>
+  <div><dt>供需调整市场上限价格降至10日元之日</dt><dd>9/1<span class="unit">2026年</span></dd></div>
+</dl>
+<div class="source">来源：J Holdings适时披露（2026年7月30日）／JALCO控股适时披露（2026年6月29日）／EPRX《关于供需调整市场的ΔkW上限价格》（2026年7月30日更新。经第4次电力稳定供应工作组2026年7月14日审议后决定更新）</div>
+</div>
+
+<h2>01 — 只等“完工品”来买，已经不够选了</h2>
+
+<p>“想买建好的储能电站，有好项目吗？”——找到我们这里来的咨询，多半以这句话开头。然而在2026年的交易一线真正在流动的标的，并不只有完工品。交易形态之所以扩展至此，可以从授信、利率、卖方处境这三个角度来看。</p>
+
+<h3>授信 — 被审查的不是项目，而是交易对手</h3>
+
+<p>完工交付买卖通常伴随施工过程中的中间款或预付款。从买方角度改写一遍就是：在拿到交割之前，先把数亿日元押在卖方与EPC（施工公司）的信用之上。眼下卡在公司内部授信审查的项目，非常多。如果卖方、EPC的征信机构评分达不到大企业判断能否开展新交易的门槛，那么在交割前拿出4～5亿日元的批文，基本上批不下来。<strong>完工交付买卖之所以滞塞，原因与其说在项目本身的好坏，不如说在交易对手的信用</strong>（本公司观测）。</p>
+
+<p>买方以为自己“在找好项目”。但摆在审批桌上被追问的，不是项目，而是对手方。反过来说，只要卖方是上市公司的集团公司或营收规模较大的实业公司，同样的项目、同样的价格，批文就能通过。规格表上没写的变量，几乎决定了成交与否。这就是完工交付买卖的实情。</p>
+
+<h3>利率 — 等待，被贴上了价签</h3>
+
+<p>日本银行在2026年6月加息，将政策利率定为1.0%，并在7月31日的货币政策会议上决定维持不变。10年期国债收益率也在2026年7月9日上行至2.880%。过去，从取得到产生收益之间的空白期，一句“等等就好”就能带过；如今这段空白上，明确地压着机会成本的数字。买方在掂量的不只是项目价格，还有<strong>从取得到首次进账的时间</strong>。本文之所以反复强调“业绩溢价的真身是时间”，背景正是这样的利率环境。</p>
+
+<h3>卖方的处境 — 需要“建成再卖”以外的退出通道</h3>
+
+<p>在开发早期锁定权利、却因建设资金或授信之墙而无法推进的业者增多了。若固执于“建成之后再卖”这条独木桥，就会背着库存、资金沉淀。于是“在权利阶段卖出”“让它运转起来、带上业绩再卖”这两种退出通道，作为实际的卖品出现在了市场上。从卖方看，也有在权利阶段先兑现利润、资金效率更高的局面。这一判断，让阶梯的下层厚了起来。</p>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 关于市街化调整区域（城市化控制区）的项目</span>
+实务中越来越多的人指出：围绕城市规划法上开发许可制度适用口径的明确化，正在影响买方的范围与将来的转售可能性。本文不展开制度细节，但如果候选项目位于市街化调整区域，我们强烈建议把<strong>向主管地方政府及原始资料确认，作为取得判断的必备项目</strong>。“之所以便宜”的理由出在选址限制上的情形，并不罕见。
+</div>
+
+<h2>02 — 买法，有四种</h2>
+
+<p>梳理下来，储能电站的取得形态有以下四种。</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">FORM 01</span>
+    <h4>完工交付买卖（完成渡し）</h4>
+    <p>卖方以自己的成本建成储能电站，买方连同设备与土地（或土地使用权）作为“物”买下。法律上以物的买卖为轴心搭建，风险在交割、验收的那一刻从卖方转移到买方。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">FORM 02</span>
+    <h4>权利转让（土地＋并网权利）</h4>
+    <p>买下土地（所有权、地上权等）与并网相关权利（接入研究答复、并网合同上的地位、工程费分摊金），建设由自己完成。此时设备尚不存在。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">FORM 03</span>
+    <h4>SPC权益转让（M&amp;A型）</h4>
+    <p>买下持有储能电站的SPC（特殊目的公司）的股份、社员权益或匿名组合（TK）出资权益。买的不是“物”，而是“连容器一起”，因而是连同法人概括承接合同、许可与并网上的地位。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">FORM 04</span>
+    <h4>已投运资产收购（二级市场）</h4>
+    <p>取得已开始商业运行、拥有市场交易业绩的储能电站。买到的不是设备，而是按月累积起来的<strong>可验证的现金流</strong>。容器既可以像①那样是资产，也可以像③那样是权益。</p>
+  </div>
+</div>
+
+<p>这四种并非“哪一个更优”。只是<strong>随着买方所拥有的能力、以及能够承接的风险不同，正确答案也随之改变</strong>。请先用一张表把全貌抓住。</p>
+
+<div class="db-title">数据框01｜四种取得形态，一张表对比</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:110px">比较维度</th><th>① 完工交付</th><th>② 权利转让</th><th>③ SPC权益</th><th>④ 已投运收购</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">买到的是什么</td><td>设备＋土地（物）</td><td>土地＋并网地位</td><td>合同与许可的集合（法人）</td><td>可验证的现金流</td></tr>
+<tr><td class="em">对卖方信用的敏感度</td><td class="ng">高（中间款、竣工）</td><td class="ok">低</td><td class="cond">中（取决于陈述与保证）</td><td class="cond">低～中</td></tr>
+<tr><td class="em">从决策到签约的速度</td><td>中</td><td class="ok">快</td><td>中（法人尽调耗时）</td><td>中</td></tr>
+<tr><td class="em">建设风险</td><td>卖方承担（视合同）</td><td class="ng">买方承担（全部）</td><td>内含于SPC之中</td><td class="ok">无</td></tr>
+<tr><td class="em">距离产生收益的时间</td><td>并网后还需1～3个月</td><td class="ng">数年（工期、等待并网）</td><td>取决于SPC进度</td><td class="ok">从收购首日起</td></tr>
+<tr><td class="em">市场资格、备案</td><td>交割后自行重新办理</td><td>自行新办</td><td class="ok">SPC持有的资格与合同原则上延续</td><td class="cond">买资产则原则重办／买权益则延续</td></tr>
+<tr><td class="em">消费税</td><td>设备部分应税（退税前需垫付）</td><td>土地免税、权利部分需确认</td><td class="ok">权益转让为免税</td><td>取决于容器</td></tr>
+<tr><td class="em">建设业法的论点</td><td>完工品可按物的买卖处理</td><td>因自行发包故不直接产生</td><td class="ok">属M&amp;A，不构成承揽</td><td>已完工，不易产生</td></tr>
+<tr><td class="em">尽调重心</td><td>竣工、性能保证</td><td>接入条件、用地、许可</td><td>或有负债、合同承继</td><td>衰减（SOH）、运行业绩的真实性</td></tr>
+<tr><td class="em">与融资的契合度</td><td>建成后再研究组建</td><td>建设资金以自筹为前提</td><td class="ok">与项目融资的标准形式一致</td><td>业绩可成为审查材料</td></tr>
+<tr><td class="em">适合的买方</td><td>资金充裕，希望把建设外包</td><td>具备EPC管理、电气工程自有能力</td><td>拥有M&amp;A实务与尽调体系</td><td>希望首年即计入收益</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>四种形态，全部出现在同一家上市公司的披露中</h3>
+
+<p>值得注意的是，这四种形态在2026年短短八个月里，<strong>齐齐出现在同一家上市公司的适时披露之中</strong>。</p>
+
+<div class="db-title">数据框02｜一家上市公司展示的“四种买法”— JALCO控股的披露谱系</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:96px">时间</th><th>内容</th><th style="min-width:76px">形态</th><th style="min-width:88px">来源</th></tr>
+</thead>
+<tbody>
+<tr><td>2025年<br>12月5日</td><td>公布启动电网侧储能电池业务。以完工品方式取得千叶县成田市的高压储能电站（1.970MW/8.14MWh，预定2026年9月商业运行）作为第1号项目。据报道，初期投资合计多个项目约15亿日元</td><td class="em">① 完工交付</td><td>T1 适时披露<br>T2 财经新闻</td></tr>
+<tr><td>2026年<br>5月29日<br>6月29日</td><td>取得大分县内两处（2MW/10MWh、2MW/8MWh）的<strong>土地及并网相关权利</strong>。6月29日披露的正文明确写道，将研究包括转向利用合同会社（GK）与匿名组合（TK）的GK-TK结构在内的最优业务方案</td><td class="em">② 权利转让</td><td>T1 适时披露</td></tr>
+<tr><td>2026年<br>6月30日</td><td>取得持有6座高压储能电站（其中4座已完成并网）的SPC之匿名组合出资权益24.5%。该SPC事业总额约45亿日元。O&amp;M、聚合商、资产管理体制维持原样</td><td class="em">③ SPC权益</td><td>T1 适时披露<br>T2 EneHub</td></tr>
+<tr class="hl"><td>2026年<br>7月31日</td><td>取得<strong>已投运</strong>的高压储能电站（2MW/8MWh）。该项目已于2026年5月开始在供需调整市场交易并实现收益。同时披露上调全年合并业绩预期</td><td class="em">④ 已投运</td><td>T1 适时披露<br>T2 日本Interview新闻</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>仅仅八个月，一家公司就把四种取得形态全部用了一遍。这看上去不像偶然。我们把它理解为<strong>用“披露”这种公开信息的形式，展示了“项目所处阶段不同，最优的买法也不同”这件事</strong>的案例。</p>
+
+<p>尤其不能忽视的是，从②到③的动线从一开始就被写进了设计里：在权利阶段进入，在业务化过程中转为SPC型。这一设计思路，直接连着后文的<strong>“业绩能被承继到哪里”</strong>（§06）与<strong>“容器的选择”</strong>（§07）。取得形态并非买下的瞬间就被固定，在持有期间也可以换装。有没有这个思路，买方的自由度会相当不同。</p>
+
+<div class="info-box">
+<strong>关于“已投运资产收购”的公开案例。</strong>明确写明“从第三方取得已投运、已参与市场的储能电站”的上市披露，就我们所能确认的范围而言，2026年7月31日这一例是首个明确的案例。样本仍然很薄，也难以穷尽核验全部案例，因此我们不断言这是“日本首例”。即便如此，<strong>第一个公开案例的出现本身就有意义。</strong>此前日本的BESS市场基本上是一个“建造”的市场；从这里开始，一个“转手”的市场正在成形。
+</div>
+<h2>03 — 价格，是有阶梯的</h2>
+
+<p>那么各自多少钱？在这里我们撞上第一堵墙。</p>
+
+<p>上市公司的适时披露有一种惯例：把取得价款只写成“低于上一合并会计年度末净资产的30%”，连区间都不给（这源自东证适时披露规则中轻微标准的处理方式）。在2026年夏的一系列披露中，公开了金额的只有庄川储能电站的<strong>约7亿日元</strong>（完工交付、约2MW/约8MWh）。阶梯的存在已由公开案例佐证，台阶的实际高度却没有向市场披露。<strong>看得见的阶梯，看不见的落差。</strong>这就是当下日本二级市场的样子。</p>
+
+<p>于是，我们叠上本公司在2026年上半年的买卖居间与买方询价实务中观测到的行情。</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">1.5–2<span class="unit">亿日元</span></span><span class="lbl">第1级｜仅土地＋并网权利<br>（不含税、本公司观测）</span></div>
+  <div class="stat-cell"><span class="val">7–8<span class="unit">亿日元</span></span><span class="lbl">第2级｜完工交付（并网前后）<br>（不含税、公开值＋本公司观测）</span></div>
+  <div class="stat-cell"><span class="val">8–10<span class="unit">亿日元</span></span><span class="lbl">第3级｜带供需调整市场交易业绩<br>（不含税、本公司观测）</span></div>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 价格区间的定位</span>
+<strong>第1级、第3级的金额，以及第2级区间的上限，都不是公开统计，而是本公司的市场观测。</strong>它们会随个案的选址、并网条件、设备构成、交割条件、聚合商合同内容而大幅变动。请注意，作为公开值能够确认的只有庄川的约7亿日元（2026年7月30日披露）。本文的目的不是“给出行情”，而是<strong>把台阶的内容拆开来展示</strong>。
+</div>
+
+<h3>台阶的内容，上下两段完全不同</h3>
+
+<p>如果含糊地说一句“越往上越贵”就带过，讨论就粗糙了。第1级与第2级之间，<strong>实际上是有东西增加的：</strong>储能电池集装箱、PCS、受变电设备、基础与场平、工程费分摊金——要把只有权利的状态变成完工品，就必须把这些买来装上去。把这段差额叫作“风险的承接价格”，并不准确。</p>
+
+<p>据报道，高压2MW/8MWh级的初期投资大致为5～6亿日元（T2｜日经Energy Next）。把这个数字与权利级的行情1.5～2亿日元并排放，台阶的构成便大致浮现出来。</p>
+
+<div class="db-title">数据框03｜“权利2亿”与“完工7亿”之间，垒着什么（高压2MW/8MWh级）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:170px">累加的构成要素</th><th class="num" style="min-width:96px">大致金额</th><th>性质</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">土地＋并网权利</td><td class="num em">1.5～2<span class="u">亿日元</span></td><td>几乎全额是对电网容量的稀缺性、以及走到这一步所耗时间的对价。土地实际成本所占比例很小（本公司观测）</td></tr>
+<tr><td class="em">设备与工程的实际成本<br><span style="font-weight:400;font-size:.92em;color:#6C7A89">储能电池、PCS、受变电、基础、场平、工程费分摊金、并网工程</span></td><td class="num em">3.5～4.5<span class="u">亿日元</span></td><td><strong>纯粹的实际成本。</strong>既不是风险也不是时间，而是物与工程的价款</td></tr>
+<tr class="hl"><td class="em">累加合计（＝建成为止的成本）</td><td class="num em">5～6<span class="u">亿日元</span></td><td>与已公开的初期投资参考值大体一致（T2｜日经Energy Next）</td></tr>
+<tr><td class="em">完工交付的报价</td><td class="num em">7～8<span class="u">亿日元</span></td><td>在上述之上，加上卖方利润与<strong>承接竣工、性能、信用风险的对价</strong>后的水平（本公司观测）</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ “设备与工程的实际成本”是倒推值</span>
+上表的3.5～4.5亿日元，是从已公开的初期投资参考值（5～6亿日元）中扣除权利相当部分后的<strong>倒推值</strong>，并非对逐笔报价的汇总。它会随设备厂商、直流侧容量、场平难度、工程费分摊金金额而大幅波动。请把它当作展示拆解思路的工具来读。
+</div>
+
+<p>也就是说，第1级与第2级之间约5～6亿日元的落差，大部分是实际成本。<strong>即便用2亿日元买下权利，之后不再投入3.5～4.5亿日元，也变不成完工品。</strong>“权利便宜”这种说法之所以容易引起误解，正是因为这一部分从视野中掉了出去。第1级与第2级的差额中，能称之为风险承接价格的，只有成本5～6亿日元与报价7～8亿日元之间<strong>那薄薄的1～2亿日元</strong>。反过来说，这1～2亿日元也是“自己选EPC、自己管工序、自己盯到竣工”的报酬。</p>
+
+<p>第2级与第3级之间，性质则完全不同。<strong>这里，设备一分钱都没有增加。</strong>集装箱、PCS、受变电设备，与完工交付的项目完全相同；土地相同，并网条件也相同。即便如此，仍然产生1～2亿日元的差额。变动的，只有“到参与市场为止的时间”与“收支计划的可验证性”。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="高压2MW/8MWh级的价格阶梯。仅权利1.5～2亿日元、完工交付7～8亿日元、带业绩8～10亿日元。第1级与第2级的差额大部分是设备与工程的实际成本，第2级与第3级的差额没有设备增加，是风险与时间的对价">
+  <!-- axes -->
+  <line x1="58" y1="34" x2="58" y2="332" stroke="#C9CFD8" stroke-width="1.5"/>
+  <line x1="58" y1="332" x2="668" y2="332" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="30" y="40" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">价格</text>
+
+  <!-- step 1 -->
+  <rect x="74" y="266" width="176" height="66" fill="#1B2A4A"/>
+  <text x="162" y="256" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="17" font-weight="700" fill="#1B2A4A">1.5–2亿日元</text>
+  <text x="162" y="304" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="rgba(255,255,255,0.80)">土地＋并网权利</text>
+
+  <!-- step 2 -->
+  <rect x="250" y="266" width="176" height="66" fill="#1B2A4A"/>
+  <rect x="250" y="166" width="176" height="100" fill="#2A3D66"/>
+  <line x1="250" y1="266" x2="426" y2="266" stroke="rgba(255,255,255,0.28)" stroke-width="1"/>
+  <text x="338" y="156" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="17" font-weight="700" fill="#1B2A4A">7–8亿日元</text>
+  <text x="338" y="202" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="rgba(255,255,255,0.88)">大部分为设备与工程成本</text>
+  <text x="338" y="221" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="rgba(255,255,255,0.55)">（建成为止的成本5～6亿日元）</text>
+  <text x="338" y="246" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#D4AF5C">公开值：约7亿日元</text>
+  <text x="338" y="304" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="rgba(255,255,255,0.45)">权利部分</text>
+
+  <!-- step 3 -->
+  <rect x="426" y="266" width="176" height="66" fill="#1B2A4A"/>
+  <rect x="426" y="166" width="176" height="100" fill="#2A3D66"/>
+  <rect x="426" y="112" width="176" height="54" fill="#C49A3C"/>
+  <line x1="426" y1="266" x2="602" y2="266" stroke="rgba(255,255,255,0.28)" stroke-width="1"/>
+  <text x="514" y="102" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="17" font-weight="700" fill="#1B2A4A">8–10亿日元</text>
+  <text x="514" y="134" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">设备增量为零</text>
+  <text x="514" y="152" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">时间与可验证性的对价</text>
+  <text x="514" y="221" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="rgba(255,255,255,0.5)">同样的设备、同样的工程</text>
+  <text x="514" y="304" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="rgba(255,255,255,0.45)">权利部分</text>
+
+  <!-- annotation: riser 1 -->
+  <text x="242" y="196" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">台阶①　约5～6亿日元</text>
+  <text x="242" y="215" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">大部分是设备与工程的实际成本。</text>
+  <text x="242" y="231" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">风险的对价只薄薄地叠在其上</text>
+
+  <!-- annotation: riser 2 -->
+  <text x="668" y="52" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">台阶②　约1～2亿日元</text>
+  <text x="668" y="71" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">设备一分钱都没有增加。</text>
+  <text x="668" y="87" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">这里才是纯粹的“风险承接价格”</text>
+  <line x1="602" y1="126" x2="640" y2="98" stroke="#C9CFD8" stroke-width="1"/>
+
+  <!-- category labels -->
+  <text x="162" y="352" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#2C3E50">第1级｜仅权利</text>
+  <text x="338" y="352" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#2C3E50">第2级｜完工交付</text>
+  <text x="514" y="352" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#2C3E50">第3级｜带业绩</text>
+
+  <!-- caption band -->
+  <rect x="74" y="368" width="528" height="1" fill="#E2E6EC"/>
+  <text x="338" y="388" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">下面两层是实际成本与权利。只有金色那一层，是没有实物相随的价差</text>
+</svg>
+<div class="fig-cap">图1｜高压2MW/8MWh级的“价格阶梯”（2026年上半年）。第1级、第3级以及第2级区间上限、各层构成均为本公司观测值与倒推值。作为公开值能够确认的只有第2级的约7亿日元。</div>
+</div>
+
+<p>这张图里最重要的是最上面那层金色。<strong>能用“物”来解释的，到7亿日元附近为止。</strong>再往上的价差，没有对应的设备，也没有对应的工程。而买方最容易判断失误的，恰恰也是这一层。下一章，我们把制造出这些台阶的四种风险逐一拆开。</p>
+
+<h2>04 — 台阶的真身，是风险的承接价格</h2>
+
+<p>如上一章所拆解的，价差中无法用“物”解释的部分——第1级与第2级之间那薄薄一层，以及第2级与第3级之间的整块——是由四种风险<strong>“何时从卖方转移到买方”</strong>造成的。下面把每种风险与买方可采取的防守手段并列出来。</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">RISK 01</span>
+    <h4>卖方、EPC的信用 — 造它的人，会不会倒下</h4>
+    <p>据帝国征信（帝国データバンク）调查，2024年度发电业者的破产、歇业解散达到<strong>历史最多的52起</strong>（破产8起、歇业解散44起）。以交割前预付的方式购买完工品，意味着买方承接了这份信用风险。</p>
+    <span class="guard"><b>买方的防守</b>｜取得征信机构报告（3期财报、评分变化）、把付款尽量后移至交割、母公司担保与连带保证、第三方名义账户监管、明确所有权保留。</span>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">RISK 02</span>
+    <h4>竣工、性能 — 能不能建成，性能出不出得来</h4>
+    <p>把交割标准设在“取得并网承诺”、“并网完成”，还是“性能试验合格”。在完工交付买卖中，这一标准的设定就是<strong>实质上的价格条件</strong>。同样是7亿日元，在哪个时点付款，买方所负的风险截然不同。</p>
+    <span class="guard"><b>买方的防守</b>｜对交割标准作唯一性定义、把性能试验（充放电容量、往返效率、响应时间）的合格标准写入合同、确认厂商质保与LTSA的内容及可否转让、明确合同不符责任的期间与范围。</span>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">RISK 03</span>
+    <h4>电网 — 接不接得上，何时接上，要花多少</h4>
+    <p>工程费分摊金原则上须在工程开工前全额支付。接入研究的答复原则上自受理起2～3个月（申请集中时会更久），答复书有有效期。权利阶段的买方，要整块承接分摊金定案前的风险与工期后延。</p>
+    <span class="guard"><b>买方的防守</b>｜核对接入研究答复书原件（概算工期、概算分摊金、前提条件、有效期）、确认合同申请进度与保证金缴纳情况、就名义与地位承继的可否事先向输配电公司询问、在工期确定前保留尾款。</span>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">RISK 04</span>
+    <h4>收益验证 — 到底赚不赚得到</h4>
+    <p>并网结束后，现金流并不会立刻开始。业者登记、事前审查、模式登记、与聚合商签约与试验——这段空白，以及审查不通过或延迟的残余风险，由完工交付的买方承接。</p>
+    <span class="guard"><b>买方的防守</b>｜确认聚合商合同的签署状况与费率结构、明确事前审查与实测试验的时间表、约定市场参与延迟时的价格调整条款、若为已投运项目则核验成交明细的原始数据。</span>
+  </div>
+</div>
+
+<h3>能作为“权利”上市卖的，本身已经过了一道筛子</h3>
+
+<p>接入研究的答复中，概算工期长达数年的并不罕见。不过那样的站点原本就无法作为权利卖出去，开发商撤回申请也就到此为止。流通到市场上的“并网权利”，只有通过了工期、分摊金、选址这几道筛子的那一侧。第1级的1.5～2亿日元买到的，与其说是土地本身，不如说是<strong>通过了这道筛子的电网容量</strong>。</p>
+
+<p>但这并不意味着权利阶段的电网风险就消失了。概算终归是概算，分摊金的最终金额与工期，只要答复书的前提条件（变电站主变、配电线运行状况等）发生变化就会移动。<strong>“带着权利”与“会按计划接上”，是两条不同的信息。</strong>答复书请务必查看原件，连日期、概算工期、前提条件一并确认。已投运的项目，这类不确定性已经对完了答案；第3级的价格里，包含着这一点。</p>
+
+<h3>把信用换算成价格，会是什么样</h3>
+
+<p>储能电站的买卖里，没有住宅交易那样的“装置”。住宅有完工保证制度（施工方倒下时，在一定限度内担保预付款与增额工程费的机制）、所有权转移登记、合同不符责任的成熟实务、瑕疵担保责任保险等，用制度层层覆盖卖方与施工方的信用。<strong>而在民间的储能电站买卖中，用以保全预付款的标准化机制，截至本文撰写时点无法确认存在。</strong>关于履约保函（bond）与第三方托管（escrow）的日本国内实务，连显示其普及程度的公开数据都无法确认。</p>
+
+<p>没有装置，信用就直接压在价格上。在本公司的实务中，同一个项目会出现“若即期全款结算约7.8亿日元、若交割时付款约8.3亿日元”这样的双轨报价（本公司观测、约6%的差距）。这个差额不是折扣，而是<strong>卖方承接买方结算风险的对价</strong>；反过来说，就是交割前那段信用风险的市场价格。<a target="_top" href="/zh-column-financing">《为什么储能电站是用现金买走的》</a>从卖方一侧看到的同一现象，换到买方一侧看，就是这个样子。</p>
+
+<h3>付款时间表，就是风险转移的设计图</h3>
+
+<p>实务上最有效的，是<strong>“让付款的时点，与风险转移的时点对齐”</strong>。“定金＋尾款结算”、“取得正式承诺（并网承诺）后一次性结算”等，把里程碑与资金挂钩的方式有好几种模式。当对卖方信用存有疑虑时，正是这套设计决定交易的成败。</p>
+
+<div class="db-title">数据框03｜付款里程碑，以及此时买方所背负的东西（以完工交付买卖为例）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:120px">里程碑</th><th>此时点已经确定的事</th><th>付款瞬间买方所背负的</th><th style="min-width:150px">实务备注</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">签约定金</td><td>土地、权利的特定、当事人的合意</td><td>卖方信用风险（全额）／解约时的返还可能性</td><td>明确定金性质（解约定金还是违约定金）。金额压在“对方跑了也不致命”的水平</td></tr>
+<tr><td class="em">并网合同、工程费<br>分摊金确定时</td><td>接入条件与概算费用、工期展望</td><td>分摊金增额的风险仍然存在</td><td>把概算与最终金额的偏离幅度、增额时由谁承担写进合同</td></tr>
+<tr><td class="em">取得正式承诺<br>（并网承诺）时</td><td>电网侧的受纳实质确定</td><td>竣工风险、性能风险</td><td>以此作为一次性结算触发条件的模式很多。但要注意，若设备尚未安装，实物并不存在</td></tr>
+<tr><td class="em">设备进场、<br>安装完成时</td><td>实物资产的存在</td><td>试验不合格、返工的风险</td><td>把所有权转移与风险负担转移的时点分开定义</td></tr>
+<tr class="hl"><td class="em">并网完成时</td><td>物理上“接上了”</td><td>到参与市场为止1～3个月的空白</td><td>若能把尾款保留到这一步，买方的风险会大幅下降</td></tr>
+<tr><td class="em">性能试验合格时</td><td>设计性能的实测</td><td>仅剩运行与市场风险</td><td>把合格标准（容量、效率、响应）以数值写进合同</td></tr>
+<tr><td class="em">开始参与市场时</td><td>收益实际发生</td><td>仅剩市场价格波动风险</td><td>能把这一步作为结算条件的，实质上已接近“已投运资产收购”</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note-small">※ 上表整理的是完工交付买卖中一般性的设计模式，并非推荐特定交易条件。个别合同条款请向律师确认。</p>
+
+<h3>横在“建成”与“赚钱”之间的制度峡谷</h3>
+
+<p>到这里的三点，说的都是建设。只有第四点性质不同。JALCO就大分县权利取得项目发布的披露（2026年6月29日）中，有一句容易被略过的话：参与供需调整市场，需要在受电开始后经过与聚合商及其他相关业者的协调、试验与手续，因此<strong>从受电开始到实际参与市场，通常预计需要1个月至3个月左右</strong>。</p>
+
+<p>开头提到的庄川储能电站，对应2026年12月并网，却把<strong>进入供需调整市场定在“下一财年上半期”</strong>，也是为了渡过这条峡谷所需的时间。从两家不同公司的披露里，同一段空白得到了双重确认。</p>
+
+<p>已投运资产收购，跳过了这条峡谷。买方拿到的是“从首日起的现金流”与“审查残余风险的消失”。此外，收支计划也从“试算”变成了“实测”。正如《银行家这样看你的储能电站》所述，金融机构最讨厌的就是无法验证的数字。开发阶段的项目，收益无论怎么算都还是模拟；而已投运的项目，有实际的成交单价、成交率、运行率这些一手数据按月累积。<strong>买方可以在验证“实测”而非“预测”之后再定价。</strong></p>
+
+<div class="highlight-box">
+担保是结果，合同才是原因。而<strong>业绩，是第二份合同</strong>。正如合同（LDA、tolling等）让未来的现金流变得可预见一样，运行业绩同样提供可预见性。正因如此，设备一分钱都没有增加，却产生了1～2亿日元的差额。业绩溢价的真身，既是收益的实证，也是<strong>时间</strong>本身。
+</div>
+<h2>05 — 2026年9月1日，定价的前提本身将发生变动</h2>
+
+<p>对于要支付业绩溢价的买方，有一点必须先说在前面：<strong>“业绩”是过去的数字。可是，孕育出这些业绩的市场规则，恰恰正在改变。</strong></p>
+
+<p>资源能源厅在2026年7月14日的第4次电力稳定供应工作组上，提出将供需调整市场的一次调节力、二次调节力①与复合商品的上限价格，由15日元下调至10日元/ΔkW·30分钟。EPRX在官方的上限价格页面上明确写明，作为该审议的结果<strong>“已决定更新上限价格”</strong>，并已于<strong>2026年7月30日更新</strong>上限价格的公开资料。适用自<strong>2026年9月1日的实际供需日起</strong>；至8月31日实际供需日为止仍为15日元。另外，EPRX附注称，今后可能会根据相关审议会等的结果而发生变更。</p>
+
+<div class="db-title">数据框04｜供需调整市场、上限价格的阶梯（一次调节力、二次调节力①、复合商品）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:180px">时期</th><th class="num" style="min-width:120px">上限价格</th><th>状态与同期发生的事</th></tr>
+</thead>
+<tbody>
+<tr><td>～2026年3月13日交易分</td><td class="num em">19.51<span class="u">日元/ΔkW·30分钟</span></td><td>已适用（周交易、3小时区块）</td></tr>
+<tr><td>2026年3月13日交易<br>（3月14日交付）分起</td><td class="num em">15<span class="u">日元</span></td><td>已适用。转为日前交易与30分钟时段。同时把采购量由3σ相当缩减至<strong>约1σ相当</strong></td></tr>
+<tr class="hl"><td>2026年9月1日实际供需分起</td><td class="num em">10.00<span class="u">日元</span></td><td><strong>经第4次电力稳定供应工作组（2026年7月14日）审议后决定更新。EPRX已于2026年7月30日更新上限价格的公开资料</strong>（至8月31日实际供需分为止仍为15日元）</td></tr>
+<tr><td>时期未定</td><td class="num em">7.21<span class="u">日元</span></td><td>作为视竞争状况而定的下一阶段，已在制度上写明</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 下一级（7.21日元）与其他商品的当前位置</span>
+上表的7.21日元，是<strong>就一次调节力、二次调节力①、复合商品而言</strong>、视竞争状况判断的下一阶段，时期尚未确定。容易混淆的是：<strong>二次调节力②与三次调节力①的上限价格，自2024年4月1日实际供需分起已经是7.21日元</strong>，并依据第96次制度探讨工作部会的审议结果，暂时维持不变。9月1日发生变化的只有三个商品。由于各商品所处位置不同，收支计划中请按商品分别套用相应的上限价格。／T1｜EPRX“上限价格”页面、《关于供需调整市场的ΔkW上限价格》（2026年7月30日更新）
+</div>
+
+<p>颇具讽刺意味的是，下调的依据恰恰是<strong>“市场正在改善”</strong>这一事实。比较转为日前交易前后，复合商品的缺额率从14.6%降至5.3%，一次调节力从46.3%降至16.1%（2026年6月6日～7月3日实绩）。即便如此，按时段看仍有投标未达的情况，在上限价格附近成交也仍在持续——所以要下调上限，逻辑就是这样。考虑到今后还会有更多预计并网的储能电池进入市场，这一方向大概率会延续下去。</p>
+
+<h3>对买方的含义 — 那份“业绩”，是在哪一套制度下做出来的数字</h3>
+
+<p>结论很简单。<strong>已投运项目的“年度收益”，可能是在9月1日之前的制度下做出来的数字。</strong>把过去的成交实绩原样外推到未来的收支计划，仅这一点就会垮掉。正如上一章所见，第2级与第3级之间的差额并没有设备作支撑。正因如此，才更需要确认那个用来正当化这段差额的数字，保质期到什么时候。</p>
+
+<p>如果要买业绩，以下三点请务必确认。</p>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">A</span>确认业绩“保质期”的三个要点</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">A-1</span>该业绩累积期间的<strong>上限价格与采购量</strong>是多少（属于19.51日元期、15日元期，还是10日元期）。把逐月的成交明细与交付日核对上。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">A-2</span>对方给出的“年度收益”，是<strong>实绩年化</strong>还是<strong>试算</strong>。如果只是把数个月的实绩乘以12，就可能没有计入季节性（夏冬缺额率的差异）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">A-3</span>把收支<strong>按10日元前提重算</strong>，并作为压力情景确认在7.21日元前提下是否仍能转得动。同时把电池的衰减曲线与聚合商费率一并反映进去。</span></label>
+</div>
+
+<p>业绩溢价本身是合理的对价，但不能付错对象。<strong>不是为“过去的成交单价”付钱，而是为“已经渡过制度的峡谷”以及“存在可验证的数据”付钱。</strong>能否作出这一区分，决定了买方的高下。如果你以为自己买的是前者，那么9月1日之后前提就变了；如果买的是后者，即便单价下降，取得的意义依然成立。</p>
+
+<h3>阶梯的最下层，制度也在收紧</h3>
+
+<p>同样的事情，在权利级也在发生。</p>
+
+<ul style="margin:0 0 20px 20px;line-height:2">
+<li>电网侧储能电池的接入研究申请，在2024年度激增至<strong>9,544件</strong>（约为上年度的6倍）。</li>
+<li>作为防止“占坑不建”的对策，<strong>自2026年4月1日以后的合同申请起，保证金由工程费分摊金概算额的5%翻倍至10%</strong>。若因申请人自身原因撤回，将成为没收对象。</li>
+<li>此外，合同申请时<strong>提交项目用地的土地使用权源</strong>，将在相关规程修订后，<strong>自2026年10月1日（预定）以后受理的合同申请项目起成为要件</strong>（对已在实施业务的土地进行增容、更新、改造等有例外）。</li>
+<li>在东京电力Power Grid辖区，<strong>自2026年8月1日起，对同一业者可同时维持的高压、特高压接入研究件数设置了上限</strong>。</li>
+</ul>
+
+<p>权利会变得更稀缺，同时也会更贴近实需。粗制滥造的“纸上权利”将被逐出市场，活下来的权利价值则会上升。对买方而言，这意味着<strong>在第1级买入的门槛提高了，而一旦能在第1级买到，优势也随之增大</strong>。从蓄势阶段开始，买法的设计其实就已经开始了。</p>
+
+<h2>06 — 那份“业绩”，到底能跟过来多少</h2>
+
+<p>从这里开始，是本文最想说的论点。<strong>付了第3级的溢价买来的“业绩”，依买法不同，有可能跟不过来。</strong></p>
+
+<p>已投运项目的“业绩”，需要分成两层来考虑。</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">第一层</span>
+    <h4>作为信息的业绩</h4>
+    <p>成交单价、成交率、运行率，以及已进入商业运行这一事实。它们会通过买卖交到买方手上，一举提高收支计划的可验证性。上一章所说的价值，主要是这一层的事。</p>
+    <p><strong>结论：随买卖一起过来。</strong></p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">第二层</span>
+    <h4>作为资格、地位的业绩</h4>
+    <p>参与市场的会员资格、向行政机关的备案、合同上的地位。这一层<strong>仅仅买下储能电站这项资产，是不会自动跟过来的。</strong>翻开制度原文可以看到，各项制度的处理方式泾渭分明。</p>
+    <p><strong>结论：能否留下，取决于法律形式。</strong></p>
+  </div>
+</div>
+
+<div class="db-title">数据框05｜“业绩、资格”在不同取得形态下如何处理（按制度、基于一手资料）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:110px">制度</th><th>以资产转让方式购买<br><span style="font-weight:400;opacity:.8">（①②，以及以资产方式购买④）</span></th><th>以SPC权益转让方式购买<br><span style="font-weight:400;opacity:.8">（③，以及以权益方式购买④）</span></th><th style="min-width:120px">依据</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">供需调整市场<br>（EPRX）</td><td>交易会员资格（法人资格、净资产1,000万日元以上、合格发票开具事业者）属业者固有。没有承继的明文规定，运营主体变更时需经加入、资源登记等手续</td><td class="ok">因会员法人不变，资格与审查结果延续</td><td>T1｜EPRX交易规程 第4条等、FAQ</td></tr>
+<tr class="hl"><td class="em">容量市场<br>（OCCTO）</td><td><strong>取得本机构事前同意即可承继合同上的地位。</strong>且约款明文规定“被承继电源等的履约要求（requirement）达成情况一并承继”</td><td class="ok">因合同主体不变而延续</td><td>T1｜OCCTO 容量确保合同约款 第25条、第26条（2025年1月版）</td></tr>
+<tr><td class="em">电气事业法<br>的备案</td><td>仅买卖资产不属于地位承继的对象。原则上需受让人新备案＋转让人停止备案（业务全部转让、合并、分立则为承继备案）</td><td class="ok">因事业者法人不变而地位延续（备案事项有变更时提交变更备案）</td><td>T1｜电气事业法 第27条之27、第27条之29等，资源能源厅解说<br><span style="font-size:.92em;color:#6C7A89">※发电事业备案义务适用于出力超过1万kW的设施</span></td></tr>
+<tr><td class="em">补贴<br>（SII采纳项目）</td><td class="cond">处分限制期间（法定耐用年限）内的转让与设定担保须事前批准。可能产生补贴返还</td><td>补贴事业者的法人不变（关于实质控制变动的个别要件需另行确认）</td><td>T1｜SII 储能电池导入支援事业 招标要领（共通标准条款）</td></tr>
+<tr><td class="em">并网上的地位<br>（并网合同等）</td><td>名义变更、地位承继的手续属于与一般输配电事业者协商、需个案确认的事项</td><td class="ok">因合同主体（SPC）不变，原则上维持原样</td><td>各公司约款的相应条款需个案确认（截至本文基准日尚未特定条号）</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note-small">※ 发电事业（含储能电站）的备案义务适用于出力超过1万kW的设施。高压2MW级项目处于该框架之外，上表中电气事业法一行主要在取得特高压级别项目时才会发挥作用。</p>
+
+<p>从这张表能读出的只有一件事：<strong>分歧点在于“合同主体（法人）是否改变”。</strong>连同SPC的权益一起买，资格、合同、许可原则上都会原样留下；只买资产，供需调整市场的资格就要由买方重新取得，若是带补贴的资产还会插进一道审批闸门。唯一的重大例外是容量市场——以OCCTO事前同意为条件可以承继合同上的地位，而且约款明文写着连履约要求的达成情况、也就是制度上的“业绩”本身都一并承继。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 356" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="购买已投运储能电站时，按资产购买与按权益购买在资格与合同承继上的差异">
+  <!-- top node -->
+  <rect x="238" y="14" width="224" height="46" rx="6" fill="#1B2A4A"/>
+  <text x="350" y="43" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF">购买已投运的储能电站</text>
+  <!-- branch lines -->
+  <path d="M350 60 L350 78 L166 78 L166 96" fill="none" stroke="#C9CFD8" stroke-width="1.6"/>
+  <path d="M350 60 L350 78 L534 78 L534 96" fill="none" stroke="#C9CFD8" stroke-width="1.6"/>
+  <!-- left branch -->
+  <rect x="34" y="96" width="264" height="36" rx="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="1.6"/>
+  <text x="166" y="119" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#2C3E50">按资产买（转移设备与土地）</text>
+  <rect x="34" y="142" width="264" height="176" rx="5" fill="#F8F9FB" stroke="#E2E6EC"/>
+  <text x="50" y="166" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#c44">✕</text><text x="68" y="166" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#2C3E50">供需调整市场资格 … 需重办</text>
+  <text x="50" y="196" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#c44">✕</text><text x="68" y="196" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#2C3E50">电气事业法 … 新备案＋停止备案</text>
+  <text x="50" y="226" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#b45309">△</text><text x="68" y="226" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#2C3E50">带补贴 … 需事前批准这道闸门</text>
+  <text x="50" y="256" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#b45309">△</text><text x="68" y="256" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#2C3E50">并网合同 … 需与电网公司协商</text>
+  <text x="50" y="286" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="68" y="286" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#2C3E50">容量市场 … 经OCCTO同意可承继</text>
+  <text x="68" y="304" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#6C7A89">（履约要求达成情况也一并承继）</text>
+  <!-- right branch -->
+  <rect x="402" y="96" width="264" height="36" rx="5" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.8"/>
+  <text x="534" y="119" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#1B2A4A">按权益买（连SPC一起转移）</text>
+  <rect x="402" y="142" width="264" height="176" rx="5" fill="rgba(196,154,60,0.07)" stroke="#E2E6EC"/>
+  <text x="418" y="166" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="436" y="166" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#2C3E50">供需调整市场资格 … 延续</text>
+  <text x="418" y="196" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="436" y="196" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#2C3E50">电气事业法 … 地位延续</text>
+  <text x="418" y="226" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="436" y="226" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#2C3E50">补贴事业者 … 法人不变</text>
+  <text x="418" y="256" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="436" y="256" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#2C3E50">并网合同 … 原则维持原样</text>
+  <text x="418" y="286" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#c44">✕</text><text x="436" y="286" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#2C3E50">代价：承接表外负债与历史税务</text>
+  <text x="436" y="304" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#6C7A89">（需设计陈述保证与赔偿条款）</text>
+  <!-- bottom band -->
+  <rect x="34" y="330" width="632" height="1" fill="#E2E6EC"/>
+  <text x="350" y="350" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">分歧点在于“合同主体（法人）是否改变”</text>
+</svg>
+<div class="fig-cap">图2｜取得已投运储能电站时，资格与合同承继的分岔。○＝原则延续，△＝需手续或同意，✕＝原则需重办或新增承担。</div>
+</div>
+
+<h3>另一个陷阱 — 业绩是挂在“聚合商名义”下的</h3>
+
+<p>还有一个在实务中容易被忽略的论点：<strong>供需调整市场的“业绩”，是挂在聚合商名义下的。</strong></p>
+
+<p>在供需调整市场，交易会员（聚合商等）取得事业者代码、登记电源等（资源）、通过性能确认与事前审查之后，才能进行交易。EPRX的FAQ也以“通过性能确认与事前审查的是交易会员的资源”为前提，甚至把代理投标也整理为依据交易规程第8条第6项的委托承诺制。由此结构，可以导出以下三种情形。</p>
+
+<div class="db-title">数据框06｜供需调整市场、“业绩”承继的梳理（本公司整理）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:150px">情形</th><th style="min-width:150px">名义的变化</th><th>业绩、审查的处理</th><th style="min-width:130px">买方的实务应对</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">① 仅所有者变更<br>（聚合商延续）</td><td>交易会员与电源等登记不变</td><td class="ok">原则维持</td><td>把聚合商合同的地位承继、或与新业主重新签约，与买卖同步安排</td></tr>
+<tr><td class="em">② 聚合商也更换</td><td>交易会员更替、电源等重新登记</td><td class="ng">原则上需重做事前审查与实测试验</td><td>估算空白期，并把这期间的收益损失反映到价格谈判中</td></tr>
+<tr class="hl"><td class="em">③ SPC权益转让<br>（名义原样不动）</td><td>交易会员、电源等登记、合同全部不变</td><td class="ok">维持</td><td>事先确认聚合商合同与并网合同中是否存在控制权变更（CoC）条款</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 上表为本公司的整理</span>
+本表是本公司依据交易规程的结构所作的整理，<strong>直接规定所有者变更、会员变更时可否承继的明文条款，截至本文撰写时点尚未能确认。</strong>在个案中，必须事先向聚合商、EPRX及各一般输配电事业者确认。若抱着“大概能接过来”的心态推进，交割之后就会出现空白期。
+</div>
+
+<p>由此得出的结论极为实务：以<strong>资产直接买卖</strong>方式购买已投运储能电站，且同时更换聚合商时，供需调整市场的审查与业绩会被重置一次，可能产生重新审查、重新测试的成本与空白期。请回想前文引用的披露——从受电到参与市场通常需要1～3个月。明明多付了1～2亿日元、而这笔钱并没有设备作支撑，结果支撑它的那个根据却停摆了。<strong>这等于从阶梯上往下退了一级。</strong></p>
+
+<p>对于“担保是结果，合同才是原因”，本文补上这样一句。</p>
+
+<div class="highlight-box" style="text-align:center;font-family:'Noto Serif SC',serif;font-size:1.05em">
+<strong>业绩是第二份合同。<br>但若不连同名义一起买下，合同就会中断。</strong>
+</div>
+
+<p>能够确实拿到业绩溢价的买法有两种：（1）保持聚合商不变的取得，或（2）名义原样转移的SPC权益转让。反过来说，<strong>“按资产买下，运营也换成自家体系”这种看上去最自然的设计，恰恰最会损害业绩溢价。</strong>我们在一线时常见到：买方没有察觉这一矛盾，却只在价格上谈判。</p>
+<h2>07 — 容器的选择：资产直接买卖，还是SPC权益</h2>
+
+<p>四种买法之中，只有SPC权益转让性质不同：买的不是“物”，而是“连容器一起”。这个容器的选择，越往上层越见效。</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">容器A</span>
+    <h4>资产直接买卖（资产转让）</h4>
+    <ul>
+      <li><strong>消费税</strong>：设备部分应税。买方若为应税事业者可通过进项税额抵扣收回，但在退税到账前会产生垫付现金流</li>
+      <li><strong>不动产取得税、登记许可税</strong>：随土地与建筑物的取得而发生</li>
+      <li><strong>建设业法</strong>：完工品可按物的买卖处理。“建好再交付”的未完工合同则属承揽，会牵出许可的论点</li>
+      <li><strong>合同、资格</strong>：原则重办（参见§06）</li>
+      <li><strong>尽调重心</strong>：物与权利（竣工、性能、接入条件）</li>
+      <li><strong>表外负债</strong>：不承接</li>
+    </ul>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">容器B</span>
+    <h4>SPC权益转让（M&amp;A型）</h4>
+    <ul>
+      <li><strong>消费税</strong>：股份与权益的转让免税，不产生垫付</li>
+      <li><strong>不动产取得税</strong>：资产不直接转移，故不课征</li>
+      <li><strong>建设业法</strong>：属M&amp;A，不构成承揽</li>
+      <li><strong>合同、资格</strong>：并网合同、聚合商合同、保险、O&amp;M<strong>都以SPC名义原样不动</strong></li>
+      <li><strong>尽调重心</strong>：法人（或有负债、历史税务、合同瑕疵）</li>
+      <li><strong>表外负债</strong>：需承接。陈述与保证及赔偿条款是生命线</li>
+    </ul>
+  </div>
+</div>
+
+<p>事实上，在上市公司以匿名组合出资参与SPC的案例中，O&amp;M、聚合商、资产管理体制都维持了原样。针对§06所见的承继问题，<strong>结构性的解答</strong>就在这里。此外，不止于100%收购，还能以少数权益参与——这种“部分的买法”，也是这一形态独有的。</p>
+
+<p>当然，连容器一起买，也意味着把容器里的东西一并承接。尽调的重心从“物”移向“法人”，陈述与保证及赔偿条款的设计成为审查的核心。买的不是储能电站，而是<strong>包裹着储能电站的一束合同</strong>。不从这里出发，价格的讨论也谈不到一起去。</p>
+
+<p>另外，如<a target="_top" href="/zh-column-financing">《为什么储能电站是用现金买走的》</a>所梳理的，贷款人拿去作担保的，其实也正是这份SPC权益与合同集合。容器B与金融的视角最为契合。<strong>越是希望在退出时配上债务融资的买方，越值得在入口处就选好容器。</strong></p>
+
+<h3>以SPC权益购买时，必须写入的条款</h3>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">B</span>权益取得（容器B）中要抓住的合同论点</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-1</span><strong>陈述与保证</strong>：不存在表外负债、欠缴税费、诉讼／纠纷；许可有效；主要合同有效且不存在违约；遵守补贴要件。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-2</span><strong>赔偿</strong>：赔偿的上限额、门槛额（de minimis）与期间。税务应确保比其他项目更长的期间。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-3</span><strong>控制权变更（CoC）条款</strong>：并网合同、聚合商合同、EPC/O&amp;M合同、租赁合同中是否含有限制权益变动的条款。若有，须取得事前同意。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-4</span><strong>交割前后的运营</strong>：从签署到交割期间对SPC运营的限制（新增负债、处分资产、签署重要合同）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-5</span><strong>补贴采纳项目</strong>：确认处分限制期间内实质控制的变动，是否属于事务局的事前批准事项。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-6</span><strong>关键人员、体制</strong>：若O&amp;M与资产管理由卖方集团承担，须将交割后的持续提供与费率水平书面化。</span></label>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 税务与许可是个案性极强的论点</span>
+消费税、不动产取得税、登记许可税、亏损结转的处理，以及建设业法是否适用，都会随交易实态与方案设计而结论不同。<strong>关于个案的适用，请务必向税理士、律师等专业人士确认。</strong>本文所载为一般性梳理，并非税务或法律建议。
+</div>
+
+<h2>08 — 海外用“折现率”来讲这段阶梯</h2>
+
+<p>在日本，台阶落差是未公开的默会知识；而在海外，它已在会计政策层面被明文化。</p>
+
+<p>英国最大的上市储能基金Gresham House Energy Storage Fund（GRID）披露了这样的做法：对建设阶段资产所加的<strong>折现率溢价，会在转入运行时取消</strong>。截至2024年第一季度，仅运行资产的加权平均折现率为10.6%，比含建设阶段在内的组合整体（10.8%）低约20个基点。投运的那一刻折现率下降，即便现金流预期相同，估值也随之上升——<strong>“投运＝风险剥落＝价格上升”，作为方针被制度化了</strong>。</p>
+
+<p>开发阶段一侧也是同样的结构。处理欧洲M&amp;A数据的Enerdatics观测显示，储能项目的开发商溢价（开发对价的加成部分，并非资产价格本身）在早期阶段约为2万美元/MW，先行开发阶段约5万美元/MW，到<strong>RTB（ready-to-build，具备开工条件）阶段则超过8万美元/MW</strong>，每上一级就抬高一档。<strong>在这里，加成部分同样是与设备对价分开来观测的</strong>——这一点对思考日本的“台阶”很有启发（同一调查将德国的RTB阶段单列为5万～17万美元/MW，请注意不同市场之间波动幅度很大）。</p>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 海外数值仅供方向性参考</span>
+这些数值所处的市场结构与制度均不相同，无法直接套用于日本。应当带回来的不是水平，而是结构：<strong>台阶每上一级，风险就剥落一层，折现率随之下降，即便设备相同价格也会上升。</strong>与日本的差别只在一点：它是以折现率这一共通语言被披露出来，还是停留在商谈中的默会知识。反过来说，<strong>对于能够自己把台阶落差语言化的买方，谈判空间依然存在。</strong>
+</div>
+
+<h2>09 — 买方的章法：先定台阶与容器，再看价格</h2>
+
+<p>三个价格，是三种不同的商品。那么买方最先该定的就不是“多少钱”，而是<strong>“在哪一级、承接哪些风险、以自己的体力”</strong>。不定台阶只比价格，就等于用同一把尺子去量2亿日元的权利和8亿日元的已投运资产这两种<strong>不同的商品</strong>——毕竟买下前者的人，后面还剩着3.5～4.5亿日元的支出。</p>
+
+<h3>先回答三个问题</h3>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">Q1</span>
+    <h4>能不能承接建设风险</h4>
+    <p>如果自家具备EPC管理与电气工程能力，②权利转让就是把长处变成利润的路径；如果没有，就该收敛到①③④。价格便宜，未必会一直便宜下去。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">Q2</span>
+    <h4>钱与时间，你更愿意多付哪一样</h4>
+    <p>在权利级买入，设备与工程的实际成本要自己付，工期后延也要自己扛；买完工品，则因卖方替你承接了这些麻烦与不确定性而更贵。你是否自觉地选择了“多付哪一样”？如果这一点含糊不清就去挑“便宜的那个”，多半后面要超支。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">Q3</span>
+    <h4>换不换合同主体</h4>
+    <p>按资产买，手续被重置；按权益买，则以承接或有负债为代价，留下资格与合同。这个选择会直接连到退出时的融资设计。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">Q4</span>
+    <h4>（若瞄准已投运）换不换运营体制</h4>
+    <p>若打算更换聚合商，就要以“供需调整市场的业绩会被重置”为前提来搭价格；若不更换，就要把合同地位承继与买卖同步安排。不要在这里含糊着就把东西买下。</p>
+  </div>
+</div>
+
+<h3>按台阶划分：买方承接的风险与实务核查重心</h3>
+
+<div class="db-title">数据框07｜按台阶划分、所承接的风险与核查重心</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:110px">买法</th><th>主要承接的风险</th><th>起作用的资格、体力</th><th>实务核查的重心</th><th style="min-width:88px">业绩的承继</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">② 权利转让</td><td>竣工、电网、收益验证的全部</td><td>开发体制、建设资金、EPC管理能力</td><td>接入研究答复书的概算前提与概算工期、分摊金的分期条件、保证金10%的没收风险、若位于市街化调整区域则需开发许可、设备规制（JC-STAR等）的基准日</td><td>—</td></tr>
+<tr><td class="em">① 完工交付</td><td>卖方、EPC信用（预付时）＋收益验证</td><td>资金实力、消费税垫付、性能验收的眼力</td><td>交割标准的定义、付款时间表与里程碑的对应、履约保函、第三方托管等保全手段、合同不符责任的范围</td><td>不适用（尚未参与）</td></tr>
+<tr><td class="em">③ SPC权益</td><td>表外负债、陈述与保证</td><td>M&amp;A实务、法人尽调体系</td><td>或有负债、现有合同（EPC、O&amp;M、聚合商、保险）的内容、陈述保证与赔偿的设计、CoC条款</td><td class="ok">连名义一起维持</td></tr>
+<tr class="hl"><td class="em">④ 已投运<br>（按资产取得）</td><td>更换聚合商时的重新审查</td><td>资金实力（最高）、承继谈判力</td><td>衰减（SOH）评估、厂商质保与LTSA可否承继、运行数据的真实性、市场登记需重做的范围</td><td class="cond">附条件</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>买之前，把这32项逐一排掉</h3>
+
+<p>取得形态定下来之后，接着就是核查工作。以下是本公司在接受买方咨询时实际使用的核查项目，按形态整理。请边勾选边使用（勾选内容不会被保存）。</p>
+
+<div id="buyer-checklist">
+
+<div class="checklist-group">
+  <h5><span class="cl-num">1</span>共通｜无论以哪种形式购买都不能省的8项</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-1</span>已取得卖方的商业登记、3期财报与征信机构报告，并在公司内部定下了<strong>交割前可支出金额的上限</strong>。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-2</span>已通过土地登记事项证明书与地籍图确认地目、面积、所有者、抵押权、地役权。若为租赁权，已确认期限及可否转让与转租。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-3</span>已<strong>直接向主管地方政府</strong>确认城市规划法上的区域划分（是否为市街化调整区域）以及所需的许可与备案。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-4</span>已查验接入研究答复书与并网合同的<strong>原件</strong>（名义、受理编号、概算工期、概算分摊金、前提条件、有效期）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-5</span>已掌握工程费分摊金的支付时间、分期条件、保证金缴纳情况，以及撤回时的没收范围。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-6</span>已确认是否为补贴采纳项目；若是，已掌握处分限制期间、是否需要事前批准以及返还风险。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-7</span>已确认设备（储能电池、PCS、EMS）的厂商、型号、生产年份，以及质保／LTSA的内容、剩余期限与<strong>可否转让</strong>。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-8</span>已要求卖方说明收支计划的前提（投标单价、成交率、运行率、衰减率、聚合商费率）<strong>各自挂钩于哪一份一手资料</strong>。</span></label>
+</div>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">2</span>以② 权利转让购买时的8项</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-1</span>概算工期能否装进业务计划。若答复书写有“◯◯个月以上”，已读到其前提（变电站主变、配电线运行状况）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-2</span>接入研究答复的<strong>有效期</strong>，与到合同申请为止的时间表相互吻合。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-3</span>权利的“名义”归谁。已事先询问转让是否需要一般输配电事业者的手续或同意。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-4</span>已在买卖合同中写明概算分摊金与最终金额的偏离风险，以及增额时的承担方。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-5</span>已就场平、进场道路、排水、周边环境（噪声、景观）进行现场确认，并对追加费用有了大致判断。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-6</span>已确认设备规制（JC-STAR等）的适用基准日是“并网日”还是“并网合同申请日”，并反映到采购计划中。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-7</span>具备由自家管理EPC选定、报价与工序的体制（若外包，已按同一标准审查该对象的信用）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-8</span>已确定聚合商候选，并编制了计入并网后市场参与时间表（1～3个月）的资金周转计划。</span></label>
+</div>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">3</span>以① 完工交付购买时的8项</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-1</span>“交割”的定义在合同上具有唯一性（取得并网承诺／并网完成／性能试验合格，三者取其一）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-2</span>付款时间表与风险转移的里程碑相互对应（参见数据框03）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-3</span>已研究预付款的保全措施（母公司担保、所有权保留、第三方监管账户、履约保函），并就采用与否作出决策。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-4</span>性能试验的合格标准已以数值定义（充放电容量、往返效率、响应时间、可用率）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-5</span>已确认合同不符责任的期间、范围、上限，以及与厂商质保之间的重叠／缝隙。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-6</span>已确认风险负担的转移时点（交割前的损害由谁承担）以及施工期间的投保情况。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-7</span>已在合同中写明延误时的处理（迟延违约金、解除权、定金的归属）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-8</span>已把消费税的垫付现金流（到退税为止的期间）反映到资金计划中。</span></label>
+</div>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">4</span>以④ 已投运方式购买时的8项</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-1</span>已以<strong>逐月原始数据</strong>（商品类别、时段、成交单价、成交量）接收成交实绩，并与汇总值核对。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-2</span>已确认该业绩是在哪一档上限价格与采购量之下产生的（19.51日元期／15日元期／10日元期）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-3</span>已区分对方给出的“年度收益”是实绩年化还是试算，并计入了季节性。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-4</span>已以实测或最近的巡检记录确认电池的SOH（健康度），并把衰减曲线反映到收支中。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-5</span>已确认聚合商合同的当事人、期限、费率结构、解约条款以及地位承继的可否。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-6</span>已确定是按资产买还是按权益买，并梳理出该情形下市场资格与备案需重办的范围（§06）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-7</span>若存在容量市场合同，已确认经OCCTO事前同意进行地位承继的可否与手续周期。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-8</span>已获取投运后的故障履历记录（停机、告警、出力限制、可用率未达标）。</span></label>
+</div>
+
+<div class="check-progress">
+  <span>已确认</span>
+  <span class="bar"><span class="bar-fill" id="checkBarFill"></span></span>
+  <span class="count"><span id="checkCount">0</span> / 32</span>
+</div>
+</div>
+
+<h3>一线常听到的三个误解</h3>
+
+<div class="db-title">数据框08｜用○×△检验买方的误解</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:230px">常听到的说法</th><th style="min-width:64px">判定</th><th>依据</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">“买已投运的，市场资格也会一起跟过来”</td><td class="cond">△</td><td>跟过来的主要是<strong>作为信息的业绩</strong>。在制度上作为资格、地位被承继的，目前几乎只限于容量市场（且需OCCTO事前同意）。若按资产购买，供需调整市场的资格与电气事业法的备案原则上都要重办</td></tr>
+<tr><td class="em">“权利便宜，所以先在权利阶段买下来划算”</td><td class="cond">△</td><td>2亿日元只是首付。到建成为止还需要<strong>约3.5～4.5亿日元的设备与工程实际成本</strong>，并且竣工、电网、收益验证的风险也都归自己。对没有建设管理能力的买方而言，便宜不会一直便宜下去</td></tr>
+<tr><td class="em">“按SPC权益买，无非是怕表外负债，实质上没差别”</td><td class="ng">×</td><td>消费税、不动产取得税、建设业法、合同承继，处理方式全都不同。尤其是<strong>并网合同与聚合商合同以SPC名义原样不动</strong>这一点，在已投运资产收购中构成决定性的差别</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>而且，无论哪种形式，起作用的都是第三方的眼睛</h3>
+
+<p>无论选择四种中的哪一种，共通起作用的都是第三方的验证。竣工与性能（①）、接入条件与许可（②）、或有负债与合同承继（③）、衰减与运行业绩的真实性（④）——尽调的重心随“买法”而变，但<strong>“把无法验证的数字，变成已被验证的数字”</strong>这一原则不变。</p>
+
+<p>不靠卖方的说明，也不靠买方的期待，而是把第三方的眼睛引入交易。我们认为，这将成为这个市场迈向下一阶段的共同基础设施。关于技术尽职调查的具体核查领域，也请一并参阅<a target="_top" href="/zh-column-buyer-check">《那份“已承诺”是真的吗 — 购买电网侧储能电站前的技术核查，9大领域43个项目》</a>。</p>
+
+<h2>结语 — 三部曲的收尾</h2>
+
+<p><a target="_top" href="/zh-column-financing">第1部</a>写的是卖方为什么选择现金。第2部写的是银行家如何看你的储能电站。本文是它的背面：买方该在哪一级、用哪个容器买。</p>
+
+<p>贯穿三篇的脊梁是同一根。在实际成本层层垒起之后，最终分开价格的，是<strong>风险何时、从谁转移到谁</strong>。担保是结果，合同才是原因。而且，</p>
+
+<div class="highlight-box" style="text-align:center;font-family:'Noto Serif SC',serif;font-size:1.08em">
+<strong>从设备变得完全相同的那一刻起，价差就成了风险的承接价格。</strong>
+</div>
+
+<p>2026年，这段阶梯以公开案例的形式成形了。台阶的实际高度被向市场披露的那一天，还在前方。在那之前，衡量落差的尺子，只有<strong>一手信息、合同的解读，以及实务观测值这三点定位</strong>。本公司以中立的立场，提供这份三点定位。</p>
+
+<div class="data-box">
+<div class="db-head">本文小结</div>
+<ul style="margin:0 0 0 20px">
+<li>储能电站的买法有四种。它是<strong>权利、完工、业绩这三级阶梯</strong>与<strong>资产直接买卖还是SPC权益这两种容器</strong>的组合。</li>
+<li>第1级与第2级之间约5～6亿日元，大部分是<strong>设备与工程的实际成本</strong>。能称为风险承接价格的，只有薄薄叠在成本之上的那一层，以及设备一分钱都没增加的第2级与第3级之间。<strong>把价差分成实际成本与风险两部分来数</strong>，是本文的读法。</li>
+<li>最上一级的“业绩”是第二份合同。但供需调整市场的业绩挂在聚合商名义之下，因此若不采用<strong>连同名义一起买下的设计</strong>（维持聚合商，或SPC权益），溢价的依据就可能失去。作为制度被承继的“业绩”，目前几乎只限于容量市场（且需OCCTO事前同意）。</li>
+<li>自2026年9月1日实际供需分起，供需调整市场的上限价格降至10日元（EPRX 2026年7月30日公布）。<strong>为业绩定价，不看过去的成交单价，要看今后的制度。</strong></li>
+<li>买法，是应当先于价格谈判确定的设计事项。<strong>先定台阶与容器，再看价格。</strong></li>
+</ul>
+</div>
+
+<a target="_top" href="/zh-column-financing" class="next-link">
+  <span>
+    <span class="next-link-label">系列第1部</span>
+    <span class="next-link-title">为什么储能电站是用现金买走的 — “无法设定担保”的误解，以及62亿日元、20年得以落地的理由</span>
+  </span>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="sources-box">
+<h4>来源</h4>
+<ul class="src-list">
+<li><span class="t">T1</span>JALCO控股 适时披露：启动电网侧储能电池业务（2025年12月5日）／取得高压电网侧储能电站相关的土地及并网权利（2026年5月29日、6月29日。6月29日披露中载有“从受电开始到参与市场通常约1～3个月”）／取得对SPC的匿名组合出资权益（2026年6月30日）／取得已投运高压电网侧储能电站及修正2027年3月期全年合并业绩预期（2026年7月31日）</li>
+<li><span class="t">T1</span>J Holdings 适时披露（2026年7月30日）：取得庄川储能电站（暂定名），取得金额约7亿日元，约2MW/约8MWh，2026年11月交割，12月并网，计划于下一财年上半期进入供需调整市场</li>
+<li><span class="t">T1</span>Renova 适时披露／瑞穗银行新闻稿（2026年7月31日）：袋井宇刈储能电站 99.9MW/280MWh，全商业化型项目融资约72亿日元</li>
+<li><span class="t">T1</span>电力供需调整力交易所（EPRX）“上限价格”页面及《关于供需调整市场的ΔkW上限价格》（2026年7月30日更新）：一次调节力、二次调节力①、复合商品上限价格的更新决定，10.00日元/ΔkW·30分钟（自2026年9月1日实际供需分起。至8月31日实际供需分为止为15日元）。二次调节力②、三次调节力①自2024年4月1日实际供需分起适用7.21日元，并依据第96次制度探讨工作部会（2024年9月27日）的审议结果暂时延续。上限价格的更新将于实际供需日的2周前在该页面公开</li>
+<li><span class="t">T1</span>资源能源厅 第4次 电力稳定供应工作组（2026年7月14日）：上限价格修订的审议、转为日前交易前后的缺额率</li>
+<li><span class="t">T1</span>资源能源厅 次世代电力系统工作组／电力广域运营推进机构（OCCTO）：电网侧储能电池的接入研究申请件数，保证金由5%提高至10%（2026年4月1日以后的合同申请），土地使用权源提交的要件化（自预定2026年10月1日起受理的项目）</li>
+<li><span class="t">T1</span>东京电力Power Grid：高压、特高压接入研究申请件数的处理（2026年8月1日起实施）</li>
+<li><span class="t">T1</span>资源能源厅《关于并网的案例集》：工程费分摊金原则上须在工程开工前全额支付</li>
+<li><span class="t">T1</span>电力广域运营推进机构《容量确保合同约款》第25条、第26条（2025年1月版）：合同上地位的转让与承继、履约要求达成情况的承继</li>
+<li><span class="t">T1</span>电力供需调整力交易所（EPRX）交易规程 第4条、第8条第6项，常见问题：交易会员对电源等的登记、性能确认、事前审查、业务委托</li>
+<li><span class="t">T1</span>电气事业法 第27条之27、第27条之29等，资源能源厅解说</li>
+<li><span class="t">T1</span>环境共创倡议（SII）储能电池导入支援事业 招标要领：处分限制期间内转让与设定担保所需的事前批准</li>
+<li><span class="t">T1</span>帝国征信《“发电厂”的破产、歇业解散动向（2024年度）》（2025年5月6日）</li>
+<li><span class="t">T1</span>日本银行 货币政策会议（2026年7月31日）：政策利率维持1.0%不变</li>
+<li><span class="t">T2</span>日本Interview新闻（media-ir）2026年7月31日／财经新闻 2026年7月31日、2025年12月8日／EneHub 2026年7月3日／电气新闻 2026年7月15日（头版）／路透社 2026年7月9日（10年期国债收益率2.880%）</li>
+<li><span class="t">T2</span>Gresham House Energy Storage Fund（GRID）季度披露、NAV新闻稿／Enerdatics 欧洲BESS M&amp;A观测、pv magazine USA（2026年5月）</li>
+<li><span class="t">观测</span>高压2MW/8MWh级的分阶段价格区间（权利1.5～2亿日元／完工交付7～8亿日元／带业绩8～10亿日元，均为不含税）及其构成的倒推（设备与工程实际成本3.5～4.5亿日元）、即期全款结算与交割时付款之间的报价差（约6%）、因卖方与EPC信用问题导致完工交付买卖滞塞的实务状况。以上均为本公司的实务观测，并非公开统计。</li>
+</ul>
+<div class="source">注：本文的金额、规模、日期均依据公开资料的记载。取得价款未披露的项目标注为“未披露”，未作推测值。供需调整市场上限价格的更新（一次、二次①、复合 10.00日元，自2026年9月1日实际供需分起）系依据第4次电力稳定供应工作组的审议结果作出，EPRX已于2026年7月30日更新公开资料（EPRX附注今后可能因审议会等结果而变更）。二次②、三次①的7.21日元是自2024年4月1日实际供需分起适用的现行上限的延续，并非9月1日的变更对象。设备与工程的实际成本（3.5～4.5亿日元）是从已公开的初期投资参考值倒推所得。关于可否承继的梳理中，EPRX的处理系本公司依据交易规程结构所作的整理，未能直接确认明文条款。价格区间与实务体感为本公司的现场观察，并非公开统计。有关担保、税务、会计、许可的记述均为一般性说明，并非针对个案的法律或税务建议。本文不构成对特定项目的投资劝诱，也不构成法律、税务或财务方面的建议。</div>
+</div>
+
+<div class="cta-section">
+  <h3>欢迎从“在哪一级、用哪个容器买”开始咨询</h3>
+  <p>取得形态的设计、价格合理性的验证、承继可否的事先确认、付款时间表与风险转移的设计、<br>技术尽职调查的组织支持、卖方与EPC的信用评估——<br>关于实际在售项目的个别研讨，将在收到咨询后签署NDA的基础上受理。买方、卖方任一立场均可咨询。</p>
+  <a target="_top" href="https://www.scix.co.jp/zh-contact" class="cta-btn">联系我们 →</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var g=document.getElementById('buyer-checklist');if(!g)return;
+  var c=g.querySelectorAll('input[type=checkbox]'),cnt=document.getElementById('checkCount'),fl=document.getElementById('checkBarFill'),tot=c.length;
+  function u(){var d=0;c.forEach(function(x){if(x.checked)d++;});cnt.textContent=d;fl.style.width=(tot?d/tot*100:0)+'%';}
+  c.forEach(function(x){x.addEventListener('change',u);});u();
+})();
+</script>
+
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans SC',sans-serif">
+  <div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">相关文章</div>
+  <a target="_top" href="/zh-column-financing" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">为什么储能电站是用现金买走的 — “无法设定担保”的误解，以及62亿日元、20年得以落地的理由 →</a>
+  <span style="display:block;color:#8A92A0;font-weight:600;font-size:14.5px;padding:6px 0">银行家这样看你的储能电站 — 收支计划通过审查的条件<span style="font-weight:400;font-size:12px;margin-left:8px">（即将发布）</span></span>
+  <a target="_top" href="/zh-column-buyer-check" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">那份“已承诺”是真的吗 — 购买电网侧储能电站前的技术核查，9大领域43个项目 →</a>
+  <a target="_top" href="/zh-column-transfer" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">储能电池开发权的转让 — 权利能转到哪一步、能转给谁 →</a>
+  <a target="_top" href="/zh-column-pricing" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">开发权的价格是如何决定的 →</a>
+  <a target="_top" href="/zh-column-grid-rules" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">接入研究、合同申请的新规则 →</a>
+  <a target="_top" href="/zh-column-options" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">取得接入研究答复却不做项目时的选择 →</a>
+  <a target="_top" href="/zh-column-tax" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">即时折旧不是“能拿到”的，而是“要通过”的 →</a>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans SC',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif SC',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX 首页">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X 株式会社（サイエンスエックス株式会社）</div>
+        〒103-0016 日本 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:+81364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
