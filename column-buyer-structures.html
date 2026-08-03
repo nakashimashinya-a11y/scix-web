@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.db-title{font-family:'Noto Sans JP',sans-serif;font-size:.92em;font-weight:600;color:var(--navy);line-height:1.65;margin:28px 0 -20px}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.compare-card ul{margin:8px 0 0;padding-left:18px;font-size:.84em;line-height:1.85}
+.compare-card li{margin-bottom:5px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+.diff-card .guard{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);font-size:.82em;line-height:1.8;color:var(--text)}
+.diff-card .guard b{color:var(--accent);font-weight:700;letter-spacing:.04em}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.85}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
+.src-list .t{display:inline-block;min-width:34px;font-weight:700;color:var(--navy);margin-right:8px;font-size:.92em}
+.part-lead{font-family:'Noto Serif JP',serif;font-size:.86em;letter-spacing:.12em;color:var(--accent);margin:56px 0 -32px;font-weight:600}
+</style>
+<title>蓄電所の買い方は、4つある ── 権利・完成・実績、そして「器」。同じ2MWに、なぜ3つの値段がつくのか | ScienceX</title>
+<meta name="description" content="同じ2MW/8MWhでも値札が違うのはなぜか。完成売買・権利譲渡・SPC持分・稼働済みという4つの取得形態と、権利1.5〜2億・完成7〜8億・実績付き8〜10億という価格の階段を、設備・工事の実費とリスクの引受価格に分解して読み解く。稼働済みを買っても市場資格は自動では付いてこないこと（承継が明文化されているのは容量市場のみ）、直接売買とSPC持分で税・建設業法・契約承継がどう変わるか、2026年9月1日から適用される需給調整市場の上限価格10円化まで、一次資料と実務観測で買い手向けに整理する。">
+<link rel="canonical" href="https://www.scix.co.jp/column-buyer-structures">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-buyer-structures">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓄電所の買い方は、4つある ── 権利・完成・実績、そして「器」｜ScienceX">
+<meta property="og:description" content="設備が同じになった瞬間から、値差はリスクの引受価格になる。実績は第二の契約、ただし名義とともに買わなければ契約は切れる。買い手のための取得形態論。">
+<meta property="og:url" content="https://www.scix.co.jp/column-buyer-structures">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="蓄電所の買い方は、4つある ── 権利・完成・実績、そして「器」｜ScienceX">
+<meta name="twitter:description" content="権利2億・完成7億・実績10億。段差のどこまでが実費で、どこからがリスクの値段か。そして買った「実績」がどこまで付いてくるのかを一次資料で。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-08-03">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "蓄電所の買い方は、4つある ── 権利・完成・実績、そして「器」。同じ2MWに、なぜ3つの値段がつくのか | ScienceX",
+  "description": "完成売買・権利譲渡・SPC持分・稼働済みという4つの取得形態と価格の階段を、設備・工事の実費とリスクの引受価格に分解。稼働済み取得で「実績」がどこまで承継されるか（容量市場・需給調整市場・電気事業法・補助金・接続契約）を一次資料で整理し、2026年9月1日から適用される上限価格10円化の影響まで買い手向けにまとめる。",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "datePublished": "2026-08-03",
+  "mainEntityOfPage": "https://www.scix.co.jp/column-buyer-structures"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.scix.co.jp/" },
+    { "@type": "ListItem", "position": 2, "name": "ナレッジ", "item": "https://www.scix.co.jp/knowledge" },
+    { "@type": "ListItem", "position": 3, "name": "蓄電所の買い方は、4つある ── 権利・完成・実績、そして「器」", "item": "https://www.scix.co.jp/column-buyer-structures" }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">蓄電所の買い方は、4つある ── 権利・完成・実績、そして「器」…</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 39</span>
+      <span class="header-tag">買主・投資家 / 取得形態・価格・デューデリジェンス</span>
+      <time class="header-date" datetime="2026-08-03">2026.08.03</time>
+    </div>
+    <h1>蓄電所の買い方は、<em>4つある</em> —<br>権利・完成・実績、そして<em>「器」</em></h1>
+    <p class="header-desc">同じ2MW/8MWhでも、値札は3つに分かれます。権利のみ、完成品、市場実績付き。1段目と2段目の差は大半が設備と工事の実費ですが、2段目と3段目の差には設備の増加が1円もありません。設備が同じになった瞬間から、値差はリスクと時間の引受価格になります。そして最上段の「実績」は、買い方を間違えるとついてきません。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<a target="_top" href="https://www.scix.co.jp/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
+
+<p>2026年7月30日から31日にかけての48時間に、性格のまったく異なる3つの開示が出ました。</p>
+
+<p>ひとつめは、ジェイ・ホールディングスによる岐阜県高山市「荘川蓄電所（仮称）」の取得です。約2MW/約8MWh、取得金額は<strong>約7億円</strong>。2026年11月に引渡しを受け、12月に系統連系、需給調整市場への参入は<strong>来期前半</strong>の計画とされています。ふたつめは、レノバによる静岡・袋井宇刈蓄電所（99.9MW/280MWh）。みずほ銀行として初のフルマーチャント型プロジェクトファイナンス約72億円を組成し、これから3年かけて「作る」ための開示でした。みっつめが、JALCOホールディングスによる<strong>稼働済み</strong>高圧系統用蓄電所（2MW/8MWh）の取得と、通期連結業績予想の上方修正です。取得した蓄電所は2026年5月に需給調整市場での取引を始めており、すでに収益が立っています。</p>
+
+<p>3年かけて建てる100MWにデットを付ける会社。完成品に7億円を払い、市場参入は来期を待つ会社。すでに動いている2MWを買って、その期の業績見通しを引き上げた会社。同じ「蓄電所を買う」という言葉のなかに、性質のまったく異なる取引が同居しています。</p>
+
+<p><a target="_top" href="/column-financing">「なぜ蓄電所は、現金で買われるのか」</a>で、私たちは<strong>「担保は結果、契約が原因」</strong>と書きました。続く「銀行員は、あなたの蓄電所をこう見る」では、金融機関が収支計画のどこを検証するかを見ました。三部作の最終回となる本稿は、買い手の側に立ちます。扱うのは2つの問いです。ひとつは、なぜ同じ規模の蓄電所に3つの値段がつくのか。もうひとつは、いちばん高い段で買ったはずの「実績」が、なぜ手元に残らないことがあるのか。</p>
+
+<div class="review-note">
+<strong>本稿の位置づけ：</strong>制度参照時点は2026年8月2日。主たる読者は、系統用蓄電所をこれから取得しようとする買主・投資家、および売却・組成を検討する事業者です。金額・規模・日付は各社の適時開示・プレスリリース・公的機関/取引所の公表資料に基づき、非開示のものは「非開示」、確認できない事項は「確認できず」と明記します。価格レンジ・実務所感として示す数値は<strong>当社が売買仲介の現場で観測している相場観であり、公表統計ではありません</strong>。その旨は本文中に都度明示します。担保・税務・会計・許認可に関する記述は一般的な解説であり、投資・法務・税務の助言ではありません。個別案件は弁護士・税理士等の専門家および関係機関に必ずご確認ください。本稿はシリーズ第3部です（第1部＝<a target="_top" href="/column-financing">現金決済とデットの型</a>、第2部＝レンダーの審査目線）。</div>
+
+<div class="data-box">
+<div class="db-head">本稿を貫く3つの数字</div>
+<dl class="premise-grid">
+  <div><dt>2026年夏の一連の開示で、唯一公表された取得金額</dt><dd>約7<span class="unit">億円</span></dd></div>
+  <div><dt>受電開始から需給調整市場への実参入まで（開示記載）</dt><dd>1〜3<span class="unit">か月</span></dd></div>
+  <div><dt>需給調整市場・上限価格が10円へ下がる日</dt><dd>9/1<span class="unit">2026年</span></dd></div>
+</dl>
+<div class="source">出典：ジェイ・ホールディングス適時開示（2026年7月30日）／JALCOホールディングス適時開示（2026年6月29日）／EPRX「需給調整市場のΔkW上限価格について」（2026年7月30日更新。第4回 電力安定供給ワーキンググループ 2026年7月14日の審議を経て更新決定）</div>
+</div>
+
+<h2>01 — 「完成品を待って買う」だけでは、もう選べない</h2>
+
+<p>「完成した蓄電所を買いたい。良い物件はありませんか」。私たちのもとに届くご相談は、たいていこの一文で始まります。ところが2026年の売買の現場で実際に動いている物件は、完成品ばかりではありません。取引の形がここまで広がった背景を、与信・金利・売り手の事情という3つの角度から見ておきます。</p>
+
+<h3>与信 — 審査されているのは、物件ではなく相手方</h3>
+
+<p>完成売買には、たいてい建設途中の中間金や前払金が伴います。買い手の側から書き直せば、引渡しを受ける前に、売主とEPC（建設会社）の信用力へ数億円を預ける取引です。ここで社内の与信審査に引っかかる案件が、いま非常に多い。売主・EPCの信用調査会社評点が、大手企業が新規取引の可否を判断する目安に届かなければ、引渡し前に4〜5億円を拠出する決裁は、まず下りません。<strong>完成売買が滞留する原因は、物件の良し悪しよりも、取引相手の与信にあります</strong>（当社観測）。</p>
+
+<p>買い手は「良い物件を探している」つもりでいます。しかし審査のテーブルで問われているのは、物件ではなく相手方です。裏返せば、売主が上場企業のグループ会社や売上規模の大きい事業会社であれば、同じ物件・同じ価格でも決裁は通ります。スペックシートに書かれていない変数が、成約の可否をほぼ決めている。これが完成売買の実情です。</p>
+
+<h3>金利 — 待つことに、値札がついた</h3>
+
+<p>日本銀行は2026年6月の利上げで政策金利を1.0%とし、7月31日の金融政策決定会合では据え置きを決めました。10年国債利回りも2026年7月9日に2.880%まで上昇しています。かつては取得から収益化までの空白を「待てばよい」で済ませられました。いまはその空白に、機会費用の数字がはっきり乗ります。買い手が値踏みしているのは物件価格だけではなく、<strong>取得から初回入金までの時間</strong>でもある。本稿が「実績プレミアムの正体は時間である」と繰り返す背景には、この金利環境があります。</p>
+
+<h3>売り手の事情 — 「完成させてから売る」以外の出口が要る</h3>
+
+<p>開発初期に権利を押さえたものの、建設資金や与信の壁で先へ進めない事業者が増えました。完成させてから売るという一本道にこだわれば、在庫を抱えたまま資金が寝ます。そこで「権利の段階で売る」「稼働させて実績を付けてから売る」という出口が、実際の売り物として市場に並ぶようになりました。売主から見れば、権利段階で利益を確定するほうが資金効率が高い局面がある。この判断が、階段の下段に厚みを生んでいます。</p>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 市街化調整区域の案件について</span>
+都市計画法上の開発許可制度の取扱いを巡る運用の明確化が、買い手の範囲や将来の転売可能性に影響しているとの指摘が実務で増えています。本稿では制度の詳細に立ち入りませんが、候補案件が市街化調整区域にある場合は、<strong>所管自治体および原典資料での確認を、取得判断の必須項目</strong>とすることを強くお勧めします。「安く出ている理由」が立地の制約にあるケースは珍しくありません。
+</div>
+
+<h2>02 — 買い方は、4つある</h2>
+
+<p>整理すると、蓄電所の取得形態は次の4つです。</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">FORM 01</span>
+    <h4>完成売買（完成渡し）</h4>
+    <p>売主が自らの計算で完成させた蓄電所を、設備・土地（または土地利用権）ごと、モノとして買う。法的には物品売買を軸に組み立てられ、引渡し・検収の瞬間にリスクが売主から買い手へ移転します。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">FORM 02</span>
+    <h4>権利譲渡（土地＋系統連系の権利）</h4>
+    <p>土地（所有権・地上権等）と、一般送配電事業者との系統連系に係る権利（接続検討回答・接続契約上の地位・工事費負担金）を買い、建設は自分で行う。設備はまだ存在しません。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">FORM 03</span>
+    <h4>SPC持分譲渡（M&amp;A型）</h4>
+    <p>蓄電所を保有するSPC（特別目的会社）の株式・社員持分・匿名組合出資持分を買う。モノではなく「器ごと」買うため、契約・許認可・系統連系上の地位を法人ごと包括的に引き受けます。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">FORM 04</span>
+    <h4>稼働済み取得（セカンダリー）</h4>
+    <p>商業運転を開始し、市場取引の実績を持つ蓄電所を取得する。買っているのは設備ではなく、月次で積み上がった<strong>検証可能なキャッシュフロー</strong>です。器は①のように資産でも、③のように持分でもあり得ます。</p>
+  </div>
+</div>
+
+<p>この4つは「どれが優れているか」ではありません。<strong>買い手が持っている能力と、引き受けられるリスクによって、正解が変わる</strong>だけです。まずは全体像を一枚で押さえてください。</p>
+
+<div class="db-title">データボックス01｜4つの取得形態を、一枚で比べる</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:110px">比較軸</th><th>① 完成売買</th><th>② 権利譲渡</th><th>③ SPC持分</th><th>④ 稼働済み取得</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">買っているもの</td><td>設備＋土地（物）</td><td>土地＋系統連系の地位</td><td>契約と許認可の束（法人）</td><td>検証可能なキャッシュフロー</td></tr>
+<tr><td class="em">売主与信への感応度</td><td class="ng">高い（中間金・完工）</td><td class="ok">低い</td><td class="cond">中（表明保証に依存）</td><td class="cond">低〜中</td></tr>
+<tr><td class="em">意思決定〜契約の速さ</td><td>中</td><td class="ok">速い</td><td>中（法人DDに時間）</td><td>中</td></tr>
+<tr><td class="em">建設リスク</td><td>売主側（契約次第）</td><td class="ng">買い手側（全部）</td><td>SPC内に内包</td><td class="ok">なし</td></tr>
+<tr><td class="em">収益開始までの距離</td><td>連系後さらに1〜3か月</td><td class="ng">数年（工期・連系待ち）</td><td>SPCの進捗による</td><td class="ok">取得初日から</td></tr>
+<tr><td class="em">市場資格・届出</td><td>引渡し後に自ら新規手続</td><td>自ら新規手続</td><td class="ok">SPC保有の資格・契約を原則継続</td><td class="cond">資産取得なら原則再手続／持分取得なら継続</td></tr>
+<tr><td class="em">消費税</td><td>設備分に課税（還付までの立替）</td><td>土地は非課税・権利部分は要確認</td><td class="ok">持分譲渡は非課税</td><td>器による</td></tr>
+<tr><td class="em">建設業法の論点</td><td>完成品なら物品売買として整理可</td><td>自ら発注するため直接は生じない</td><td class="ok">M&amp;Aのため請負に当たらない</td><td>完成済みのため生じにくい</td></tr>
+<tr><td class="em">DDの重心</td><td>完工・性能保証</td><td>接続条件・用地・許認可</td><td>偶発債務・契約承継</td><td>劣化（SOH）・運用実績の真正性</td></tr>
+<tr><td class="em">ファイナンスとの相性</td><td>完成後に組成検討</td><td>建設資金は自己調達前提</td><td class="ok">PFの標準形と整合</td><td>実績が審査材料になる</td></tr>
+<tr><td class="em">向いている買い手</td><td>資金力があり、建設は外に出したい</td><td>EPC管理・電気工事の内製力がある</td><td>M&amp;A実務とDD体制を持つ</td><td>初年度から収益を計上したい</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>4つすべてが、ひとつの上場企業の開示に現れた</h3>
+
+<p>注目すべきは、この4形態が2026年のわずか8か月間に、<strong>ひとつの上場企業の適時開示のなかに出そろった</strong>ことです。</p>
+
+<div class="db-title">データボックス02｜ひとつの上場企業が示した「4つの買い方」— JALCOホールディングスの開示系譜</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:96px">時期</th><th>内容</th><th style="min-width:76px">形態</th><th style="min-width:88px">出典</th></tr>
+</thead>
+<tbody>
+<tr><td>2025年<br>12月5日</td><td>系統用蓄電池事業の開始を公表。千葉県成田市の高圧蓄電所（1.970MW/8.14MWh、2026年9月商業運転予定）を完成品ベースで取得する第1号案件。初期投資は複数案件合計で約15億円と報道</td><td class="em">① 完成売買</td><td>T1 適時開示<br>T2 財経新聞</td></tr>
+<tr><td>2026年<br>5月29日<br>6月29日</td><td>大分県内2地点（2MW/10MWh、2MW/8MWh）の<strong>土地および系統連系に係る権利</strong>を取得。6月29日開示の本文は、合同会社および匿名組合を活用したGK-TKスキームによる事業運営への移行も含め、最適な事業スキームを検討する旨を明記</td><td class="em">② 権利譲渡</td><td>T1 適時開示</td></tr>
+<tr><td>2026年<br>6月30日</td><td>高圧蓄電所6件（うち4件は系統接続済み）を保有するSPCへ、匿名組合出資持分24.5%を取得。SPCの事業総額は約45億円。O&amp;M・アグリゲーター・アセットマネジメントの体制はそのまま維持</td><td class="em">③ SPC持分</td><td>T1 適時開示<br>T2 エネハブ</td></tr>
+<tr class="hl"><td>2026年<br>7月31日</td><td><strong>稼働済み</strong>の高圧蓄電所（2MW/8MWh）を取得。2026年5月に需給調整市場での取引を開始し、収益化に至った案件。通期連結業績予想の上方修正を同時に開示</td><td class="em">④ 稼働済み</td><td>T1 適時開示<br>T2 日本インタビュ新聞</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>わずか8か月で、一社が4つの取得形態をすべて使い分けています。偶然の産物には見えません。<strong>案件のフェーズごとに最適な「買い方」が違うということを、開示という公開情報のかたちで示した事例</strong>だと私たちは受け止めています。</p>
+
+<p>とりわけ②から③への動線が、最初から設計に織り込まれている点は見逃せません。権利の段階で入り、事業化の過程でSPC型へ移す。この設計思想は、後述する<strong>「実績はどこまで承継されるか」</strong>（§06）と<strong>「器の選択」</strong>（§07）に直結します。取得形態は買った瞬間に固定されるものではなく、保有期間中に移し替えることもできる。この発想があるかどうかで、買い手の自由度はかなり変わります。</p>
+
+<div class="info-box">
+<strong>「稼働済み取得」の公開事例について。</strong>稼働済み・市場参加済みの蓄電所を第三者から取得したことを明示した上場開示は、私たちが確認できた範囲では2026年7月31日の事例が最初の明確なものです。母集団はまだ薄く、全件の網羅検証は困難なため「本邦初」とは断定しません。それでも、<strong>最初の公開事例が出たこと自体に意味があります。</strong>これまで日本のBESS市場は、もっぱら「作る」市場でした。ここから「持ち替える」市場が立ち上がります。
+</div>
+
+<h2>03 — 値段には、階段がある</h2>
+
+<p>では、それぞれいくらなのか。ここで最初の壁にぶつかります。</p>
+
+<p>上場企業の適時開示は、取得価額を「直前連結会計年度末の純資産の30%未満」とだけ記し、レンジすら伏せる慣行があります（東証の適時開示規則における軽微基準の整理によるものです）。2026年夏の一連の開示のうち、金額が公表されたのは荘川蓄電所の<strong>約7億円</strong>（完成渡し・約2MW/約8MWh）だけでした。階段の存在は公開事例で裏づけられたのに、段差の実額は市場に開示されていない。<strong>見える階段と、見えない段差。</strong>これが、いまの日本のセカンダリー市場の姿です。</p>
+
+<p>そこで、当社が2026年上期に売買仲介・買い手照会の実務で観測している実勢を重ねます。</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><span class="val">1.5–2<span class="unit">億円</span></span><span class="lbl">1段目｜土地＋系統連系の権利のみ<br>（税別・当社観測）</span></div>
+  <div class="stat-cell"><span class="val">7–8<span class="unit">億円</span></span><span class="lbl">2段目｜完成渡し（連系前後）<br>（税別・公表値＋当社観測）</span></div>
+  <div class="stat-cell"><span class="val">8–10<span class="unit">億円</span></span><span class="lbl">3段目｜需給調整市場の取引実績付き<br>（税別・当社観測）</span></div>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 価格レンジの位置づけ</span>
+<strong>1段目・3段目の金額、および2段目のレンジ上限は、公表統計ではなく当社の市場観測です。</strong>個別案件の立地・連系条件・機器構成・引渡条件・アグリゲーター契約の内容によって大きく変動します。公表値として確認できるのは荘川の約7億円（2026年7月30日開示）のみである点にご留意ください。本稿の目的は「相場を示すこと」ではなく、<strong>段差の中身を分解して示すこと</strong>にあります。
+</div>
+
+<h3>段差の中身は、上と下でまったく違う</h3>
+
+<p>ここを曖昧にしたまま「段が上がるほど高い」と言ってしまうと、話が雑になります。1段目と2段目のあいだには、<strong>実際にモノが増えています。</strong>蓄電池コンテナ、PCS、受変電設備、基礎と造成、工事費負担金——権利だけの状態から完成品にするには、これらを買って据え付けなければなりません。この差額を「リスクの引受価格」と呼ぶのは、正確ではありません。</p>
+
+<p>高圧2MW/8MWh級の初期投資は、目安5〜6億円と報じられています（T2｜日経エネルギーNext）。この数字と、権利段の実勢1.5〜2億円を並べると、段差の内訳がおおよそ見えてきます。</p>
+
+<div class="db-title">データボックス03｜「権利2億」と「完成7億」のあいだに、何が積まれているか（高圧2MW/8MWh級）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:170px">積み上げの要素</th><th class="num" style="min-width:96px">目安</th><th>性格</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">土地＋系統連系の権利</td><td class="num em">1.5〜2<span class="u">億円</span></td><td>ほぼ全額が、系統枠の希少性と、そこに到達するまでの時間に対する対価。土地の実費が占める割合は小さい（当社観測）</td></tr>
+<tr><td class="em">設備・工事の実費<br><span style="font-weight:400;font-size:.92em;color:#6C7A89">蓄電池・PCS・受変電・基礎・造成・工事費負担金・系統連系工事</span></td><td class="num em">3.5〜4.5<span class="u">億円</span></td><td><strong>純粋な実費。</strong>リスクでも時間でもなく、モノと工事の代金</td></tr>
+<tr class="hl"><td class="em">積み上げ合計（＝完成までの原価）</td><td class="num em">5〜6<span class="u">億円</span></td><td>公表されている初期投資の目安と概ね一致（T2｜日経エネルギーNext）</td></tr>
+<tr><td class="em">完成渡しの提示価格</td><td class="num em">7〜8<span class="u">億円</span></td><td>上記に、売主の利益と、<strong>完工・性能・与信のリスクを引き受けた対価</strong>が乗った水準（当社観測）</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 「設備・工事の実費」は逆算値です</span>
+上表の3.5〜4.5億円は、公表されている初期投資の目安（5〜6億円）から権利相当分を差し引いた<strong>逆算値</strong>であり、個別の見積を集計したものではありません。機器メーカー・DC容量・造成の程度・工事費負担金の額によって大きく振れます。分解の考え方を示すためのものとしてお読みください。
+</div>
+
+<p>つまり、1段目と2段目の約5〜6億円の段差は、その大半が実費です。<strong>権利を2億円で買っても、そこから3.5〜4.5億円を投じなければ完成品にはなりません。</strong>「権利は安い」という言い方が誤解を招くのは、この部分が視野から落ちるからです。1段目と2段目の差のうち、リスクの引受価格と呼べるのは、原価5〜6億円と提示価格7〜8億円のあいだ、<strong>1〜2億円前後の薄い層</strong>にすぎません。逆に言えば、その1〜2億円は、自分でEPCを選び、工程を管理し、完工まで見届けることの報酬でもあります。</p>
+
+<p>2段目と3段目のあいだは、性格がまるで違います。<strong>ここには、設備の増加が1円もありません。</strong>コンテナもPCSも受変電設備も、完成渡しの物件とまったく同じです。土地も同じ、連系条件も同じ。それでも1〜2億円の差がつく。動いているのは、市場参加までの時間と、収支計画の検証可能性だけです。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="高圧2MW/8MWh級の価格の階段。権利のみ1.5〜2億円、完成渡し7〜8億円、実績付き8〜10億円。1段目と2段目の差は大半が設備・工事の実費、2段目と3段目の差は設備の増加がなくリスクと時間の対価">
+  <!-- axes -->
+  <line x1="58" y1="34" x2="58" y2="332" stroke="#C9CFD8" stroke-width="1.5"/>
+  <line x1="58" y1="332" x2="668" y2="332" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="30" y="40" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">価格</text>
+
+  <!-- step 1 -->
+  <rect x="74" y="266" width="176" height="66" fill="#1B2A4A"/>
+  <text x="162" y="256" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">1.5–2億円</text>
+  <text x="162" y="304" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="rgba(255,255,255,0.80)">土地＋系統連系の権利</text>
+
+  <!-- step 2 -->
+  <rect x="250" y="266" width="176" height="66" fill="#1B2A4A"/>
+  <rect x="250" y="166" width="176" height="100" fill="#2A3D66"/>
+  <line x1="250" y1="266" x2="426" y2="266" stroke="rgba(255,255,255,0.28)" stroke-width="1"/>
+  <text x="338" y="156" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">7–8億円</text>
+  <text x="338" y="202" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="rgba(255,255,255,0.88)">設備・工事の実費が大半</text>
+  <text x="338" y="221" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="rgba(255,255,255,0.55)">（完成までの原価は5〜6億円）</text>
+  <text x="338" y="246" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#D4AF5C">公表値：約7億円</text>
+  <text x="338" y="304" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="rgba(255,255,255,0.45)">権利相当</text>
+
+  <!-- step 3 -->
+  <rect x="426" y="266" width="176" height="66" fill="#1B2A4A"/>
+  <rect x="426" y="166" width="176" height="100" fill="#2A3D66"/>
+  <rect x="426" y="112" width="176" height="54" fill="#C49A3C"/>
+  <line x1="426" y1="266" x2="602" y2="266" stroke="rgba(255,255,255,0.28)" stroke-width="1"/>
+  <text x="514" y="102" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="17" font-weight="700" fill="#1B2A4A">8–10億円</text>
+  <text x="514" y="134" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">設備の増加はゼロ</text>
+  <text x="514" y="152" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">時間と検証可能性の対価</text>
+  <text x="514" y="221" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="rgba(255,255,255,0.5)">同じ設備・同じ工事</text>
+  <text x="514" y="304" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="rgba(255,255,255,0.45)">権利相当</text>
+
+  <!-- annotation: riser 1 -->
+  <text x="242" y="196" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#b45309">段差①　約5〜6億円</text>
+  <text x="242" y="215" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">大半は設備・工事の実費。</text>
+  <text x="242" y="231" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">リスクの対価はその上に薄く乗る</text>
+
+  <!-- annotation: riser 2 -->
+  <text x="668" y="52" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#b45309">段差②　約1〜2億円</text>
+  <text x="668" y="71" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">設備は1円も増えていない。</text>
+  <text x="668" y="87" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">ここが純粋な「リスクの引受価格」</text>
+  <line x1="602" y1="126" x2="640" y2="98" stroke="#C9CFD8" stroke-width="1"/>
+
+  <!-- category labels -->
+  <text x="162" y="352" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#2C3E50">1段目｜権利のみ</text>
+  <text x="338" y="352" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#2C3E50">2段目｜完成渡し</text>
+  <text x="514" y="352" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#2C3E50">3段目｜実績付き</text>
+
+  <!-- caption band -->
+  <rect x="74" y="368" width="528" height="1" fill="#E2E6EC"/>
+  <text x="338" y="388" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">下の2層は実費と権利。金色の層だけが、モノを伴わない値差である</text>
+</svg>
+<div class="fig-cap">図1｜高圧2MW/8MWh級の「価格の階段」（2026年上期）。1段目・3段目および2段目のレンジ上限、ならびに層の内訳は当社観測・逆算値。公表値として確認できるのは2段目の約7億円のみ。</div>
+</div>
+
+<p>この図でいちばん大事なのは、いちばん上の金色の層です。<strong>モノの差で説明がつくのは、7億円あたりまで。</strong>そこから先の値差には、対応する設備も工事もありません。そして買い手が本当に判断を誤りやすいのも、この層です。次章で、段差をつくっている4つのリスクを一つずつ分解します。</p>
+
+<h2>04 — 段差の正体は、リスクの引受価格である</h2>
+
+<p>前章で分解したとおり、値差のうちモノで説明できない部分——1段目と2段目のあいだの薄い層と、2段目と3段目のあいだの丸ごと——をつくっているのは、4つのリスクが<strong>「売主から買い手へ、いつ移るか」</strong>です。それぞれのリスクと、買い手が取れる防御策を並べます。</p>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">RISK 01</span>
+    <h4>売主・EPCの与信 — つくる人が、倒れないか</h4>
+    <p>帝国データバンクの調査によれば、2024年度の発電事業者の倒産・休廃業解散は<strong>過去最多の52件</strong>（倒産8件・休廃業解散44件）に達しました。完成渡しを引渡し前の前払いで買うことは、この与信リスクを買い手が引き受けることを意味します。</p>
+    <span class="guard"><b>買い手の防御</b>｜信用調査会社レポートの取得（決算3期分・評点の推移）、支払を引渡しに寄せる設計、親会社保証・連帯保証、第三者名義の口座管理、所有権留保の明記。</span>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">RISK 02</span>
+    <h4>完工・性能 — できあがるか、性能が出るか</h4>
+    <p>引渡基準を「連系承諾取得」に置くか、「連系完了」に置くか、「性能試験合格」に置くか。完成売買では、この基準の置き方が<strong>実質的な価格条件</strong>です。同じ7億円でも、どの時点で払うかで買い手の負うリスクは別物になります。</p>
+    <span class="guard"><b>買い手の防御</b>｜引渡基準の一義的な定義、性能試験（充放電容量・ラウンドトリップ効率・応動時間）の合格基準を契約に明記、メーカー保証・LTSAの内容と譲渡可否の確認、契約不適合責任の期間と範囲。</span>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">RISK 03</span>
+    <h4>系統 — つながるか、いつ、いくらかかるか</h4>
+    <p>工事費負担金は、原則として工事着手前までに全額支払いが必要です。接続検討の回答は受付から原則2〜3か月（申込集中時は長期化）、回答書には有効期限があります。権利段階の買い手は、負担金の確定前リスクと工期の後ズレを丸ごと引き受けます。</p>
+    <span class="guard"><b>買い手の防御</b>｜接続検討回答書の原本確認（概算工期・概算負担金・前提条件・有効期限）、契約申込の進捗と保証金の納付状況、名義と地位承継の可否を一般送配電事業者に事前照会、工期が確定するまで残代金を留保。</span>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">RISK 04</span>
+    <h4>収益実証 — 本当に稼げるのか</h4>
+    <p>連系が終わってもキャッシュフローはすぐには始まりません。事業者登録、事前審査、パターン登録、アグリゲーターとの契約と試験——この空白と、審査に落ちる・遅れるという残リスクを、完成渡しの買い手は引き受けます。</p>
+    <span class="guard"><b>買い手の防御</b>｜アグリゲーター契約の締結状況と手数料体系の確認、事前審査・実働試験のスケジュール明示、市場参加までの遅延に対する価格調整条項、稼働済み案件なら約定明細の原データ検証。</span>
+  </div>
+</div>
+
+<h3>「権利」として売り物になる時点で、ふるいは一度かかっている</h3>
+
+<p>接続検討の回答には、概算工期が数年に及ぶものが珍しくありません。ただし、そうした地点はそもそも権利として売り物になりません。開発者が申込を取り下げて終わりです。市場に出回る「系統連系の権利」は、工期・負担金・立地のふるいを通り抜けた側だけ。1段目の1.5〜2億円が買っているのは、土地そのものというより、<strong>このふるいを通った系統枠</strong>です。</p>
+
+<p>だからといって、権利段の系統リスクが消えるわけではありません。概算はあくまで概算で、負担金の最終額も工期も、回答書の前提条件（配変バンク・配電線の運用状況など）が崩れれば動きます。<strong>「権利が付いている」ことと「予定どおりつながる」ことは、別の情報です。</strong>回答書は必ず原本で、日付・概算工期・前提条件まで確認してください。稼働済みの案件なら、この種の不確実性はすでに答え合わせを終えています。3段目の値段には、それが乗っています。</p>
+
+<h3>与信を価格に換算すると、どうなるか</h3>
+
+<p>蓄電所の売買には、住宅取引にあるような「装置」がありません。住宅には、完成保証制度（施工者が倒れても前払金や増嵩工事費を一定限度で保証する仕組み）、所有権移転登記、契約不適合責任の実務、瑕疵担保責任保険といった、売主・施工者の与信を制度でカバーする仕掛けが幾重にもあります。<strong>民間の蓄電所売買で前払金を保全する標準的な仕組みは、本稿執筆時点で確認できません。</strong>履行保証（ボンド）やエスクローの国内実務についても、普及度を示す公開データすら確認できずの状態です。</p>
+
+<p>装置がなければ、与信は価格に直接乗ります。当社の実務では、同一物件について「即金決済なら約7.8億円、引渡し時払いなら約8.3億円」といった二本立ての提示を目にします（当社観測・約6%の開き）。この差額は値引きではありません。<strong>売主が買い手の決済リスクを引き受ける対価</strong>であり、裏返せば、引渡しまでの与信リスクの市場価格です。<a target="_top" href="/column-financing">「なぜ蓄電所は、現金で買われるのか」</a>で売り手側から見た同じ現象を、買い手側から見ると、こうなります。</p>
+
+<h3>支払スケジュールは、リスク移転の設計図である</h3>
+
+<p>実務上、最も効くのは<strong>「支払のタイミングを、リスクが移るタイミングに一致させること」</strong>です。「手付＋残金決済」「本承諾（連系承諾）取得後に一括決済」など、マイルストーンと資金の紐づけ方には複数の型があります。売主の信用力に不安がある場合、この設計こそが取引の成否を分けます。</p>
+
+<div class="db-title">データボックス03｜支払マイルストーンと、そのとき買い手が負っているもの（完成売買の場合）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:120px">マイルストーン</th><th>この時点で確定していること</th><th>払った瞬間、買い手が負うもの</th><th style="min-width:150px">実務メモ</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">契約時手付</td><td>土地・権利の特定、当事者の合意</td><td>売主の与信リスク（全額）／解除時の返還可能性</td><td>手付の性質（解約手付か違約手付か）を明記。金額は「相手が飛んでも致命傷にならない額」に抑える</td></tr>
+<tr><td class="em">接続契約・工事費<br>負担金の確定時</td><td>連系条件と概算費用、工期の見通し</td><td>負担金の増額リスクは残る</td><td>概算と最終額の乖離幅、増額時の負担者を契約に書き込む</td></tr>
+<tr><td class="em">本承諾<br>（連系承諾）取得時</td><td>系統側の受け入れが実質確定</td><td>完工リスク・性能リスク</td><td>ここを一括決済のトリガーにする型は多い。ただし設備が未据付なら実物は存在しない点に注意</td></tr>
+<tr><td class="em">機器搬入・<br>据付完了時</td><td>実物資産の存在</td><td>試験不合格・手直しのリスク</td><td>所有権移転と危険負担の移転時期を分けて定義する</td></tr>
+<tr class="hl"><td class="em">連系完了時</td><td>物理的に「つながった」</td><td>市場参加までの1〜3か月の空白</td><td>ここまで残代金を留保できれば、買い手のリスクは大きく下がる</td></tr>
+<tr><td class="em">性能試験合格時</td><td>設計性能の実測</td><td>運用・市場リスクのみ</td><td>合格基準（容量・効率・応動）を数値で契約に明記しておく</td></tr>
+<tr><td class="em">市場参加開始時</td><td>収益の実発生</td><td>市場価格変動リスクのみ</td><td>ここを決済条件にできるのは、実質的に「稼働済み取得」に近い</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note-small">※ 上表は完成売買における一般的な設計の型を整理したものであり、特定の取引条件を推奨するものではありません。個別の契約条項は弁護士にご確認ください。</p>
+
+<h3>「完成」と「稼ぐ」のあいだにある、制度の谷</h3>
+
+<p>ここまでの3つは、いわば建設の話です。4つめだけは性格が違います。JALCOが大分県の権利取得案件について出した開示（2026年6月29日）に、見過ごされがちな一文があります。需給調整市場への参加は、受電開始後にアグリゲーターその他関係事業者との調整・試験・手続を経るため、<strong>受電開始から実際の市場参加までには通常1か月から3か月程度を要する見込み</strong>である、と。</p>
+
+<p>冒頭で触れた荘川蓄電所が、2026年12月連系に対して<strong>需給調整市場への参入を「来期前半」</strong>としているのも、この谷を渡るための時間です。別々の会社の開示から、同じ空白が二重に確認できるようになりました。</p>
+
+<p>稼働済みの取得は、この谷を飛ばします。買い手が手にするのは「初日からのキャッシュフロー」と「審査残リスクの消滅」。加えて、収支計画が「試算」から「実測」に変わります。「銀行員は、あなたの蓄電所をこう見る」で見たとおり、金融機関が最も嫌うのは検証できない数字です。開発段階の案件では、収益はどこまでいってもシミュレーションですが、稼働済みの案件には実際の約定単価・約定率・稼働率という一次データが月次で積み上がっている。<strong>買い手は「予測」ではなく「実測」を検証してから値段を付けられます。</strong></p>
+
+<div class="highlight-box">
+担保は結果、契約が原因。そして<strong>実績は、第二の契約</strong>です。契約（LDA・トーリング等）が将来のキャッシュフローを予見可能にするのと同じ意味で、稼働実績もまた予見可能性を供給します。だからこそ、設備が1円も増えていないのに1〜2億円の差がつく。実績プレミアムの正体は、収益の実証であると同時に、<strong>時間</strong>そのものです。
+</div>
+
+<h2>05 — 2026年9月1日、値付けの前提そのものが動きます</h2>
+
+<p>実績プレミアムを払う買い手には、先に釘を刺しておきたいことがあります。<strong>「実績」は過去の数字です。ところが、その実績が生まれた市場のルールのほうが、いま変わります。</strong></p>
+
+<p>資源エネルギー庁は2026年7月14日の第4回電力安定供給ワーキンググループで、需給調整市場の一次調整力・二次調整力①・複合商品の上限価格を15円から10円/ΔkW・30分へ引き下げる方針を諮りました。EPRXは公式の上限価格ページに、この審議の結果として<strong>「上限価格の更新が決定」した</strong>旨を明記し、上限価格の公表資料を<strong>2026年7月30日付で更新</strong>しています。適用は<strong>2026年9月1日実需給分から</strong>。8月31日実需給分までは15円のままです。なおEPRXは、今後、関係する審議会等の結果を踏まえて変更される場合がある旨を付記しています。</p>
+
+<div class="db-title">データボックス04｜需給調整市場・上限価格の階段（一次調整力・二次調整力①・複合商品）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:180px">時期</th><th class="num" style="min-width:120px">上限価格</th><th>状態と同時に起きたこと</th></tr>
+</thead>
+<tbody>
+<tr><td>〜2026年3月13日取引分</td><td class="num em">19.51<span class="u">円/ΔkW・30分</span></td><td>適用済（週間取引・3時間ブロック）</td></tr>
+<tr><td>2026年3月13日取引<br>（3月14日受渡）分〜</td><td class="num em">15<span class="u">円</span></td><td>適用済。前日取引・30分コマへ移行。同時に募集量を3σ相当から<strong>約1σ相当</strong>へ縮小</td></tr>
+<tr class="hl"><td>2026年9月1日実需給分〜</td><td class="num em">10.00<span class="u">円</span></td><td><strong>第4回電力安定供給WG（2026年7月14日）の審議を経て更新決定。EPRXが上限価格の公表資料を2026年7月30日付で更新済み</strong>（8月31日実需給分までは15円）</td></tr>
+<tr><td>時期未定</td><td class="num em">7.21<span class="u">円</span></td><td>競争状況次第の次段階として制度上明記</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 次の段（7.21円）と、別商品の現在地</span>
+上表の7.21円は、<strong>一次調整力・二次調整力①・複合商品について</strong>、競争状況を見て判断される次の段階です。時期は決まっていません。まぎらわしいのですが、<strong>二次調整力②・三次調整力①の上限価格は、2024年4月1日実需給分からすでに7.21円</strong>で、第96回制度検討作業部会の審議結果にもとづき当面の間そのまま継続されます。9月1日に変わるのは3商品だけ。商品によって現在地が異なるため、収支計画では商品ごとに上限価格を当ててください。／T1｜EPRX「上限価格」ページ・「需給調整市場のΔkW上限価格について」（2026年7月30日更新）
+</div>
+
+<p>引き下げの根拠として示されたのは、皮肉なことに<strong>「市場が改善しつつある」</strong>という事実でした。前日取引化の前後を比べると、複合商品の不足率は14.6%から5.3%へ、一次調整力は46.3%から16.1%へ改善しています（2026年6月6日〜7月3日の実績）。それでもコマ単位では応札未達が残り、上限価格付近での約定も続いている——だから上限を下げる、という論理です。連系見込みの蓄電池が今後さらに市場へ入ってくることを踏まえれば、この方向は続くと見るのが自然です。</p>
+
+<h3>買い手にとっての含意 — 「実績」は、どの制度の下でつくられた数字か</h3>
+
+<p>結論は単純です。<strong>稼働済み案件の「年間収益」は、9月1日より前の制度の下でつくられた数字かもしれません。</strong>過去の約定実績をそのまま将来に外挿した収支計画は、この一点で崩れます。前章で見たとおり、2段目と3段目の差には設備の裏づけがありません。だからこそ、その差を正当化している数字の賞味期限を確かめる必要があります。</p>
+
+<p>実績を買うのであれば、次の3つを必ず確認してください。</p>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">A</span>実績の「賞味期限」を確かめる3点</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">A-1</span>その実績が積み上がった期間の<strong>上限価格と募集量</strong>はいくつだったか（19.51円期・15円期・10円期のどこか）。月次の約定明細と受渡日を突き合わせる。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">A-2</span>提示された「年間収益」が<strong>実績の年換算</strong>なのか<strong>試算</strong>なのか。数か月の実績を12倍しているだけなら、季節性（夏・冬の不足率差）が織り込まれていない可能性がある。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">A-3</span>収支を<strong>10円前提で引き直し</strong>、さらにストレスケースとして7.21円前提でも回るかを確認する。加えて、電池の劣化カーブとアグリゲーター手数料も同時に反映する。</span></label>
+</div>
+
+<p>実績プレミアムそのものは、合理的な対価です。ただし払う先を取り違えてはいけません。<strong>「過去の約定単価」に払うのではなく、「制度の谷を渡り終えていること」と「検証可能なデータが存在すること」に払う。</strong>この区別ができているかどうかが、買い手の巧拙を分けます。前者に払っているつもりなら、9月1日で前提が変わります。後者に払っているなら、単価が下がっても取得の意義は残ります。</p>
+
+<h3>階段の一番下でも、制度は締まりつつあります</h3>
+
+<p>同じことが権利段でも起きています。</p>
+
+<ul style="margin:0 0 20px 20px;line-height:2">
+<li>系統用蓄電池の接続検討申込は2024年度に<strong>9,544件</strong>（前年度の約6倍）へ急増しました。</li>
+<li>空押さえ対策として、<strong>2026年4月1日以降の契約申込から、保証金が工事費負担金概算額の5%から10%へ倍増</strong>しました。申込者都合で取り下げれば、没収の対象になります。</li>
+<li>さらに、契約申込み時の<strong>事業用地の土地使用権原の提出</strong>は、関係規程類の改正を経て<strong>2026年10月1日（予定）以降に契約申込みを受け付ける案件から要件化</strong>されます（既に事業を実施している土地の増強・更新・改修等には例外があります）。</li>
+<li>東京電力パワーグリッド管内では、<strong>2026年8月1日から、一事業者が同時に維持できる高圧・特別高圧の接続検討の件数に上限</strong>が設けられました。</li>
+</ul>
+
+<p>権利は希少になり、同時により実需に近づいていきます。粗製乱造された「紙の権利」は市場から締め出され、生き残った権利の価値は上がるでしょう。買い手にとっては、<strong>1段目で買うハードルが上がり、1段目で買えたときの優位が増す</strong>ということです。仕込みの段階から、すでに買い方の設計は始まっています。</p>
+
+<h2>06 — その「実績」は、どこまで一緒に付いてくるのか</h2>
+
+<p>ここからが、本稿でいちばん申し上げたい論点です。<strong>3段目のプレミアムを払って買った「実績」は、買い方によっては、ついてこない可能性があります。</strong></p>
+
+<p>稼働済み案件の「実績」は、二つの層に分けて考える必要があります。</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">第一の層</span>
+    <h4>情報としての実績</h4>
+    <p>約定単価・約定率・稼働率・商業運転済みという事実。これらは売買を通じて買い手に渡り、収支計画の検証可能性を一気に引き上げます。前章で述べた価値は、主にこの層の話です。</p>
+    <p><strong>結論：売買で渡ります。</strong></p>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">第二の層</span>
+    <h4>資格・地位としての実績</h4>
+    <p>市場に参加する会員資格、行政への届出、契約上の地位。この層は、<strong>蓄電所という資産を買っただけでは、自動的には付いてきません。</strong>制度の原文にあたると、扱いは制度ごとにはっきり分かれます。</p>
+    <p><strong>結論：法形式によって、残るか消えるかが変わります。</strong></p>
+  </div>
+</div>
+
+<div class="db-title">データボックス05｜「実績・資格」は取得形態でどう扱われるか（制度別・一次資料ベース）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:110px">制度</th><th>資産譲渡で買う場合<br><span style="font-weight:400;opacity:.8">（①②、④を資産で買う場合）</span></th><th>SPC持分譲渡で買う場合<br><span style="font-weight:400;opacity:.8">（③、④を持分で買う場合）</span></th><th style="min-width:120px">根拠</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">需給調整市場<br>（EPRX）</td><td>取引会員資格（法人格・純資産1,000万円以上・適格請求書発行事業者）は事業者固有。承継の明文はなく、運用主体が変わる場合は加入・リソース登録等の手続を経る構造</td><td class="ok">会員法人が不変のため、資格・審査結果は継続</td><td>T1｜EPRX取引規程 第4条ほか・FAQ</td></tr>
+<tr class="hl"><td class="em">容量市場<br>（OCCTO）</td><td><strong>本機関の事前同意を得れば契約上の地位を承継可能。</strong>しかも約款は「承継される電源等のリクワイアメント達成状況が承継される」と明文で定める</td><td class="ok">契約主体不変のため継続</td><td>T1｜OCCTO 容量確保契約約款 第25条・第26条（2025年1月版）</td></tr>
+<tr><td class="em">電気事業法<br>の届出</td><td>資産のみの売買では地位承継の対象外。譲受人の新規届出＋譲渡人の廃止届出が原則（事業の全部譲渡・合併・分割は承継届出）</td><td class="ok">事業者法人が不変のため地位継続（届出事項に変更があれば変更届出）</td><td>T1｜電気事業法 第27条の27・第27条の29ほか、資源エネルギー庁解説<br><span style="font-size:.92em;color:#6C7A89">※発電事業の届出義務が及ぶのは出力1万kW超の設備</span></td></tr>
+<tr><td class="em">補助金<br>（SII採択案件）</td><td class="cond">処分制限期間（法定耐用年数）内の譲渡・担保供与は事前承認が必要。補助金返還が発生する場合あり</td><td>補助事業者の法人は不変（実質支配の変動に関する個別要件は要確認）</td><td>T1｜SII 蓄電池導入支援事業 公募要領（共通標準条項）</td></tr>
+<tr><td class="em">系統連系上の地位<br>（接続契約等）</td><td>名義変更・地位承継の手続は一般送配電事業者との協議・個別確認事項</td><td class="ok">契約主体（SPC）が不変のため原則そのまま</td><td>各社約款の該当条項は個別確認（本稿基準日時点で条番号未特定）</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note-small">※ 発電事業（蓄電所を含む）の届出義務が及ぶのは出力1万kW超の設備です。高圧2MW級の案件はこの枠組みの外にあり、上表の電気事業法の行は、主に特別高圧クラスを取得する場合に効いてきます。</p>
+
+<p>この表から読み取れることは、ひとつです。<strong>分岐点は「契約主体（法人）が変わるか否か」。</strong>SPCの持分ごと買えば、資格も契約も許認可も原則としてそのまま残ります。資産だけを買えば、需給調整市場の資格取得は買い手側でやり直しになり、補助金付きの資産なら承認のゲートが入ります。唯一の大きな例外が容量市場で、OCCTOの事前同意を条件に契約上の地位が承継でき、しかもリクワイアメント（要件）の達成状況、つまり制度上の「実績」そのものまで引き継がれると約款に明記されています。</p>
+
+<div class="fig-wrap">
+<svg viewBox="0 0 700 356" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="稼働済み蓄電所を資産で買う場合と持分で買う場合の、資格・契約の承継の違い">
+  <!-- top node -->
+  <rect x="238" y="14" width="224" height="46" rx="6" fill="#1B2A4A"/>
+  <text x="350" y="43" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF">稼働済みの蓄電所を買う</text>
+  <!-- branch lines -->
+  <path d="M350 60 L350 78 L166 78 L166 96" fill="none" stroke="#C9CFD8" stroke-width="1.6"/>
+  <path d="M350 60 L350 78 L534 78 L534 96" fill="none" stroke="#C9CFD8" stroke-width="1.6"/>
+  <!-- left branch -->
+  <rect x="34" y="96" width="264" height="36" rx="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="1.6"/>
+  <text x="166" y="119" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12.5" font-weight="700" fill="#2C3E50">資産で買う（設備・土地を移転）</text>
+  <rect x="34" y="142" width="264" height="176" rx="5" fill="#F8F9FB" stroke="#E2E6EC"/>
+  <text x="50" y="166" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#c44">✕</text><text x="68" y="166" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#2C3E50">需給調整市場の資格 … 再手続</text>
+  <text x="50" y="196" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#c44">✕</text><text x="68" y="196" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#2C3E50">電気事業法 … 新規届出＋廃止届出</text>
+  <text x="50" y="226" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#b45309">△</text><text x="68" y="226" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#2C3E50">補助金付き … 事前承認のゲート</text>
+  <text x="50" y="256" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#b45309">△</text><text x="68" y="256" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#2C3E50">接続契約 … 一送との協議事項</text>
+  <text x="50" y="286" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="68" y="286" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#2C3E50">容量市場 … OCCTO同意で承継可</text>
+  <text x="68" y="304" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">（リクワイアメント達成状況も承継）</text>
+  <!-- right branch -->
+  <rect x="402" y="96" width="264" height="36" rx="5" fill="#FFFFFF" stroke="#C49A3C" stroke-width="1.8"/>
+  <text x="534" y="119" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12.5" font-weight="700" fill="#1B2A4A">持分で買う（SPCごと移転）</text>
+  <rect x="402" y="142" width="264" height="176" rx="5" fill="rgba(196,154,60,0.07)" stroke="#E2E6EC"/>
+  <text x="418" y="166" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="436" y="166" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#2C3E50">需給調整市場の資格 … 継続</text>
+  <text x="418" y="196" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="436" y="196" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#2C3E50">電気事業法 … 地位継続</text>
+  <text x="418" y="226" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="436" y="226" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#2C3E50">補助事業者 … 法人が不変</text>
+  <text x="418" y="256" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#1A7A4C">○</text><text x="436" y="256" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#2C3E50">接続契約 … 原則そのまま</text>
+  <text x="418" y="286" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#c44">✕</text><text x="436" y="286" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#2C3E50">代償：簿外債務・過去の税務を承継</text>
+  <text x="436" y="304" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">（表明保証と補償の設計が要）</text>
+  <!-- bottom band -->
+  <rect x="34" y="330" width="632" height="1" fill="#E2E6EC"/>
+  <text x="350" y="350" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">分岐点は「契約主体（法人）が変わるか否か」</text>
+</svg>
+<div class="fig-cap">図2｜稼働済み蓄電所の取得における、資格・契約の承継の分岐。○＝原則継続、△＝手続・同意が必要、✕＝原則やり直しまたは新たに負う。</div>
+</div>
+
+<h3>もうひとつの落とし穴 — 実績は「アグリゲーター名義」に紐づいている</h3>
+
+<p>もうひとつ、実務で見落とされがちな論点があります。<strong>需給調整市場の「実績」は、アグリゲーター名義に紐づいています。</strong></p>
+
+<p>需給調整市場では、取引会員（アグリゲーター等）が事業者コードを取得し、電源等（リソース）を登録し、性能確認・事前審査に合格して初めて取引できます。EPRXのFAQも、性能確認・事前審査に合格するのは「取引会員のリソース」であることを前提に、代理入札ですら取引規程第8条第6項に基づく委託承諾制として整理しています。この構造から、次の3ケースが導かれます。</p>
+
+<div class="db-title">データボックス06｜需給調整市場・「実績」の承継整理（当社整理）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:150px">ケース</th><th style="min-width:150px">名義の変化</th><th>実績・審査の扱い</th><th style="min-width:130px">買い手の実務対応</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">① 所有者のみ変更<br>（アグリゲーター継続）</td><td>取引会員・電源等登録は不変</td><td class="ok">原則維持</td><td>アグリゲーター契約の地位承継、または新オーナーとの再締結を売買と同時に段取りする</td></tr>
+<tr><td class="em">② アグリゲーターも変更</td><td>取引会員が交代・電源等を再登録</td><td class="ng">事前審査・実働試験のやり直しが原則</td><td>空白期間の見積りと、その間の逸失収益を価格交渉に反映する</td></tr>
+<tr class="hl"><td class="em">③ SPC持分譲渡<br>（名義そのまま）</td><td>取引会員・電源等登録・契約すべて不変</td><td class="ok">維持</td><td>チェンジ・オブ・コントロール条項がアグリゲーター契約・接続契約に無いかを事前確認する</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 上表は当社の整理です</span>
+本表は取引規程の構造から当社が整理したものであり、<strong>所有者変更・会員変更時の承継可否を直接定めた明文条項は、本稿執筆時点で確認できていません。</strong>個別案件では、アグリゲーター・EPRX・各一般送配電事業者への事前確認が不可欠です。「たぶん引き継げる」で進めると、決済後に空白期間が生じます。
+</div>
+
+<p>帰結はきわめて実務的です。稼働済み蓄電所を<strong>資産の直接売買</strong>で買い、アグリゲーターも入れ替える場合、需給調整市場の審査・実績はいったんリセットされ、再審査・再テストのコストと空白期間が生じ得ます。受電から市場参加まで通常1〜3か月という、前掲の開示を思い出してください。設備の裏づけのない1〜2億円を上乗せして払ったのに、その根拠だけが止まる。<strong>これでは階段を一段、降りたことになります。</strong></p>
+
+<p>「担保は結果、契約が原因」に、本稿はこう付け加えます。</p>
+
+<div class="highlight-box" style="text-align:center;font-family:'Noto Serif JP',serif;font-size:1.05em">
+<strong>実績は第二の契約。<br>ただし、名義とともに買わなければ、契約は切れる。</strong>
+</div>
+
+<p>実績プレミアムを確実に手に入れる買い方は、（1）アグリゲーターを維持したままの取得か、（2）名義がそのまま動くSPC持分譲渡か、の二つです。逆に言えば、<strong>「資産で買って、運用も自社系に切り替える」という最も自然に見える設計が、実績プレミアムを最も毀損します。</strong>この矛盾に気づかないまま値段だけ交渉している買い手を、私たちは現場でしばしば見かけます。</p>
+
+<h2>07 — 器の選択：直接売買か、SPC持分か</h2>
+
+<p>4つの買い方のうち、SPC持分譲渡だけは性質が異なります。モノを買うのではなく、「器ごと」買う。この器の選択は、段が上がるほど効いてきます。</p>
+
+<div class="compare-grid">
+  <div class="compare-card no-special">
+    <span class="cc-tag">器A</span>
+    <h4>直接売買（資産譲渡）</h4>
+    <ul>
+      <li><strong>消費税</strong>：設備部分に課税。買い手が課税事業者なら仕入税額控除で回収できるが、還付までの立替キャッシュフローが生じる</li>
+      <li><strong>不動産取得税・登録免許税</strong>：土地・建物の取得に応じて発生</li>
+      <li><strong>建設業法</strong>：完成品なら物品売買として整理可。未完成物件を「建てて渡す」契約は請負となり、許可の論点が立つ</li>
+      <li><strong>契約・資格</strong>：原則やり直し（§06参照）</li>
+      <li><strong>DDの重心</strong>：モノと権利（完工・性能・接続条件）</li>
+      <li><strong>簿外債務</strong>：引き受けない</li>
+    </ul>
+  </div>
+  <div class="compare-card with-special">
+    <span class="cc-tag">器B</span>
+    <h4>SPC持分譲渡（M&amp;A型）</h4>
+    <ul>
+      <li><strong>消費税</strong>：株式・持分の譲渡は非課税。立替が発生しない</li>
+      <li><strong>不動産取得税</strong>：資産が直接移転しないため課されない</li>
+      <li><strong>建設業法</strong>：M&amp;Aであり請負に当たらない</li>
+      <li><strong>契約・資格</strong>：接続契約・アグリゲーター契約・保険・O&amp;Mが<strong>SPC名義のまま動かない</strong></li>
+      <li><strong>DDの重心</strong>：法人（偶発債務・過去の税務・契約の瑕疵）</li>
+      <li><strong>簿外債務</strong>：引き受ける。表明保証と補償が生命線</li>
+    </ul>
+  </div>
+</div>
+
+<p>実際、上場企業がSPCへ匿名組合出資で参画した事例では、O&amp;M・アグリゲーター・アセットマネジメントの体制がそのまま維持されています。§06で見た承継問題に対する<strong>構造的な解</strong>が、ここにあります。100%の買収だけでなく、少数持分での参画という「部分的な買い方」が可能になる点も、この形態ならではです。</p>
+
+<p>もっとも、器ごと買うということは、器の中身も引き受けるということです。DDの重心は「物」から「法人」へ移り、表明保証と補償条項の設計が審査の中核になります。買っているのは蓄電所ではなく、<strong>蓄電所を包んだ契約の束</strong>。ここから出発しないと、値段の話も噛み合いません。</p>
+
+<p>なお<a target="_top" href="/column-financing">「なぜ蓄電所は、現金で買われるのか」</a>で整理したとおり、レンダーが担保に取るのも、実はこのSPC持分と契約の束です。器Bは金融の目線と最も相性が良い。<strong>出口でデットを付けたい買い手ほど、入口で器を選んでおく価値があります。</strong></p>
+
+<h3>SPC持分で買うときに、必ず入れる条項</h3>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">B</span>持分取得（器B）で押さえる契約論点</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-1</span><strong>表明保証</strong>：簿外債務・未払租税公課・訴訟/紛争の不存在、許認可の有効性、主要契約の有効性と債務不履行の不存在、補助金要件の遵守。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-2</span><strong>補償</strong>：補償の上限額・下限額（デミニミス）・期間。税務は他項目より長い期間を確保する。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-3</span><strong>チェンジ・オブ・コントロール条項</strong>：接続契約・アグリゲーター契約・EPC/O&amp;M契約・リース契約に持分異動の制限が入っていないか。入っていれば事前同意を取得。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-4</span><strong>クロージング前後の運営</strong>：署名から実行までのSPCの運営制限（新規債務・資産処分・重要契約の締結）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-5</span><strong>補助金採択案件</strong>：処分制限期間内の実質支配の変動が、事務局の事前承認事項に該当しないかを確認。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">B-6</span><strong>キーパーソン・体制</strong>：O&amp;M・アセットマネジメントの担い手が売主グループの場合、クロージング後の継続提供と手数料水準を書面化する。</span></label>
+</div>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 税務・許認可は個別性が高い論点です</span>
+消費税・不動産取得税・登録免許税・繰越欠損金の取扱い、および建設業法の適用可否は、取引の実態とスキーム設計によって結論が変わります。<strong>個別の適用については必ず税理士・弁護士等の専門家にご確認ください。</strong>本稿の記載は一般的な整理であり、税務・法務の助言ではありません。
+</div>
+
+<h2>08 — 海外は、この階段を「割引率」で語る</h2>
+
+<p>日本では段差が非公表の暗黙知ですが、海外では会計方針のレベルで明文化されています。</p>
+
+<p>英国最大の上場蓄電池ファンドであるGresham House Energy Storage Fund（GRID）は、建設段階の資産に上乗せしていた<strong>割引率プレミアムを、運転開始への移行時に外す</strong>運用を開示しています。2024年第1四半期時点で、稼働資産のみの加重平均割引率は10.6%と、建設段階を含むポートフォリオ全体（10.8%）より約20bp低い水準でした。稼働した瞬間に割引率が下がり、同じキャッシュフロー見込みでも評価額が上がる——<strong>「稼働＝リスク剥落＝価格上昇」が、方針として制度化されている</strong>わけです。</p>
+
+<p>開発段階の側も同じ構造です。欧州のM&amp;Aデータを扱うEnerdaticsの観測では、蓄電池案件のディベロッパープレミアム（開発対価の上乗せ分、資産価格そのものではありません）は、初期段階で約2万ドル/MW、先行開発で約5万ドル/MW、<strong>RTB（ready-to-build）で8万ドル/MW超</strong>と、段が上がるごとに切り上がります。<strong>ここでも上乗せ分は設備の対価と切り離して観測されている</strong>点が、日本の「段差」を考えるうえでの示唆になります（同じ調査はドイツのRTB段階を5万〜17万ドル/MWと別掲しており、市場によって振れ幅は大きいことにご注意ください）。</p>
+
+<div class="warning-box">
+<span class="wb-flag">⚠️ 海外数値は方向性の目安です</span>
+これらの数値は市場構造も制度も異なるため、日本への直接適用はできません。持ち帰るべきは水準ではなく構造です。<strong>段が上がるとリスクが剥がれ、割引率が下がり、設備が同じでも価格が上がる。</strong>日本との差は、それが割引率という共通言語で開示されているか、商談の暗黙知に留まっているか、その一点にあります。裏返せば、<strong>段差を自分で言語化できる買い手には、まだ交渉の余地が残っています。</strong>
+</div>
+
+<h2>09 — 買い手の作法：段と器を決めてから、値段を見る</h2>
+
+<p>三つの値段は、三つの異なる商品です。ならば買い手が最初に決めるべきは「いくらか」ではなく、<strong>「どの段で、どのリスクを、自分の体力で引き受けるか」</strong>でしょう。段を決めずに値段だけ比べれば、2億円の権利と8億円の稼働済みという<strong>別の商品</strong>を同じ物差しで測ることになります。前者を買った買い手には、まだ3.5〜4.5億円の支出が残っているのですから。</p>
+
+<h3>まず、3つの問いに答える</h3>
+
+<div class="diff-grid">
+  <div class="diff-card">
+    <span class="diff-num">Q1</span>
+    <h4>建設リスクを取れるか</h4>
+    <p>自社にEPC管理・電気工事の能力があるなら、②権利譲渡が強みを利益に変える経路になります。なければ①③④に絞るべきです。価格の安さは、安さのままでは終わりません。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">Q2</span>
+    <h4>お金と時間の、どちらを多く払うか</h4>
+    <p>権利段で買えば、設備・工事の実費は自分で払い、工期の後ズレも自分で被ります。完成品を買えば、その手間と不確実性を売主が引き受けた分だけ高い。どちらを多く払うかを自覚的に選べているか。ここが曖昧なまま「安いほう」を選ぶと、たいてい後で足が出ます。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">Q3</span>
+    <h4>契約主体を替えるか、替えないか</h4>
+    <p>資産で買えば手続はリセットされ、持分で買えば偶発債務ごと引き受ける代わりに資格と契約が残ります。この選択は、そのまま出口のファイナンス設計に接続します。</p>
+  </div>
+  <div class="diff-card">
+    <span class="diff-num">Q4</span>
+    <h4>（稼働済みを狙うなら）運用体制を替えるか</h4>
+    <p>アグリゲーターを替えるつもりなら、需給調整市場の実績はリセットされる前提で値段を組み立てる。替えないなら、契約の地位承継を売買と同時に段取りする。ここを曖昧にしたまま買わないことです。</p>
+  </div>
+</div>
+
+<h3>段別・買い手が引き受けるリスクと実務チェック</h3>
+
+<div class="db-title">データボックス07｜段別・引き受けるリスクと確認の重心</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:110px">買い方</th><th>主に引き受けるリスク</th><th>効いてくる資格・体力</th><th>実務チェックの重心</th><th style="min-width:88px">実績の承継</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">② 権利譲渡</td><td>完工・系統・収益実証のすべて</td><td>開発体制、建設資金、EPC管理能力</td><td>接続検討回答書の概算前提と概算工期、負担金の分割払い条件、保証金10%の没収リスク、市街化調整区域なら開発許可、機器規制（JC-STAR等）の基準日</td><td>—</td></tr>
+<tr><td class="em">① 完成売買</td><td>売主・EPC与信（前払い時）＋収益実証</td><td>資金力、消費税の立替、性能検収の目利き</td><td>引渡基準の定義、支払スケジュールとマイルストーンの対応、履行保証・エスクロー等の保全、契約不適合責任の範囲</td><td>対象外（未参加）</td></tr>
+<tr><td class="em">③ SPC持分</td><td>簿外債務・表明保証</td><td>M&amp;A実務、法人DD体制</td><td>偶発債務、既存契約（EPC・O&amp;M・アグリゲーター・保険）の内容、表明保証と補償の設計、CoC条項</td><td class="ok">名義ごと維持</td></tr>
+<tr class="hl"><td class="em">④ 稼働済み<br>（資産で取得）</td><td>アグリゲーター変更時の再審査</td><td>資金力（最高額）、承継交渉力</td><td>劣化（SOH）評価、メーカー保証・LTSAの承継可否、運用データの真正性、市場登録の巻き直し範囲</td><td class="cond">条件付き</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>買う前に、この32項目を潰す</h3>
+
+<p>取得形態が決まったら、次は確認作業です。以下は、当社が買い手からのご相談で実際に使っている確認項目を、形態別に整理したものです。チェックを入れながらお使いください（入力内容は保存されません）。</p>
+
+<div id="buyer-checklist">
+
+<div class="checklist-group">
+  <h5><span class="cl-num">1</span>共通｜どの形で買うにしても外せない8項目</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-1</span>売主の商業登記・決算3期分・信用調査会社レポートを取得し、<strong>引渡し前に拠出する金額の上限</strong>を社内で決めている。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-2</span>土地の登記事項証明書・公図で、地目・地積・所有者・抵当権・地役権を確認した。賃借権の場合、期間と譲渡・転貸の可否を確認した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-3</span>都市計画法上の区域区分（市街化調整区域か）と、必要な許可・届出を<strong>所管自治体に直接</strong>確認した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-4</span>接続検討回答書・接続契約の<strong>原本</strong>を確認した（名義・受付番号・概算工期・概算負担金・前提条件・有効期限）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-5</span>工事費負担金の支払時期・分割条件・保証金の納付状況と、取下げ時の没収範囲を把握した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-6</span>補助金採択の有無を確認し、採択案件なら処分制限期間・事前承認の要否・返還リスクを把握した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-7</span>機器（蓄電池・PCS・EMS）のメーカー・型式・製造年と、保証／LTSAの内容・残期間・<strong>譲渡可否</strong>を確認した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">1-8</span>収支計画の前提（応札単価・約定率・稼働率・劣化率・アグリゲーター手数料）が、<strong>どの一次ソースに紐づくか</strong>を売主に説明させた。</span></label>
+</div>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">2</span>② 権利譲渡で買う場合の8項目</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-1</span>概算工期が事業計画に収まるか。回答書に「◯◯カ月以上」とある場合、その前提（配変バンク・配電線の運用状況）まで読んだ。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-2</span>接続検討回答の<strong>有効期限</strong>と、契約申込までのスケジュールが整合している。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-3</span>権利の「名義」が誰か。譲渡に一般送配電事業者の手続・同意が要るかを事前照会した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-4</span>概算負担金と最終額の乖離リスク、増額時の負担者を売買契約に明記した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-5</span>造成・進入路・排水・近隣（騒音・景観）の実地確認を行い、追加費用の当たりを付けた。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-6</span>機器規制（JC-STAR等）の適用基準日が「連系日」か「接続契約申込日」かを確認し、調達計画に反映した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-7</span>EPCの選定・見積・工程を自社で管理できる体制がある（外注する場合、その相手の与信も同じ基準で審査した）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">2-8</span>アグリゲーターの候補と、連系後の市場参加スケジュール（1〜3か月）を織り込んだ資金繰りを作成した。</span></label>
+</div>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">3</span>① 完成売買で買う場合の8項目</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-1</span>「引渡し」の定義が契約上一義的である（連系承諾取得／連系完了／性能試験合格のどれか）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-2</span>支払スケジュールが、リスク移転のマイルストーンと対応している（データボックス03参照）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-3</span>前払金の保全策（親会社保証・所有権留保・第三者管理口座・履行保証）を検討し、採否を意思決定した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-4</span>性能試験の合格基準が数値で定義されている（充放電容量・ラウンドトリップ効率・応動時間・アベイラビリティ）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-5</span>契約不適合責任の期間・範囲・上限と、メーカー保証との重複／隙間を確認した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-6</span>危険負担の移転時期（引渡し前の損害は誰の負担か）と、工事期間中の保険付保状況を確認した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-7</span>遅延した場合の取扱い（遅延損害金・解除権・手付の帰趨）を契約に明記した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">3-8</span>消費税の立替キャッシュフロー（還付までの期間）を資金計画に反映した。</span></label>
+</div>
+
+<div class="checklist-group">
+  <h5><span class="cl-num">4</span>④ 稼働済みで買う場合の8項目</h5>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-1</span>約定実績を<strong>月次の原データ</strong>（商品区分・コマ・約定単価・約定量）で受領し、集計値と突合した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-2</span>その実績が、どの上限価格・募集量の下で生まれたかを確認した（19.51円期／15円期／10円期）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-3</span>提示された「年間収益」が実績の年換算か試算かを区別し、季節性を織り込んだ。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-4</span>電池のSOH（健全度）を実測または直近の点検記録で確認し、劣化カーブを収支に反映した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-5</span>アグリゲーター契約の当事者・期間・手数料体系・解約条項・地位承継の可否を確認した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-6</span>資産で買うのか持分で買うのかを決め、その場合の市場資格・届出の巻き直し範囲を洗い出した（§06）。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-7</span>容量市場の契約がある場合、OCCTOの事前同意による地位承継の可否と手続期間を確認した。</span></label>
+  <label class="check-item"><input type="checkbox"><span class="check-label"><span class="check-no">4-8</span>稼働開始後のトラブル履歴（停止・アラーム・出力制限・アベイラビリティ未達）の記録を受領した。</span></label>
+</div>
+
+<div class="check-progress">
+  <span>確認済み</span>
+  <span class="bar"><span class="bar-fill" id="checkBarFill"></span></span>
+  <span class="count"><span id="checkCount">0</span> / 32</span>
+</div>
+</div>
+
+<h3>現場でよく聞く3つの誤解</h3>
+
+<div class="db-title">データボックス08｜買い手の誤解を、○×△で検証する</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<thead>
+<tr><th style="min-width:230px">よく聞く説明</th><th style="min-width:64px">判定</th><th>根拠</th></tr>
+</thead>
+<tbody>
+<tr><td class="em">「稼働済みを買えば、市場の資格も一緒についてくる」</td><td class="cond">△</td><td>付いてくるのは主に<strong>情報としての実績</strong>。資格・地位として制度上承継されるのは、現時点では容量市場（OCCTOの事前同意付き）にほぼ限られる。資産で買えば需給調整市場の資格・電気事業法の届出は原則やり直し</td></tr>
+<tr><td class="em">「権利は安いから、まず権利で買っておけば得だ」</td><td class="cond">△</td><td>2億円は頭金にすぎない。完成までにはさらに<strong>3.5〜4.5億円前後の設備・工事の実費</strong>が要り、そのうえで完工・系統・収益実証のリスクも自分持ちになる。建設管理能力がない買い手には、安さが安さのままでは終わらない</td></tr>
+<tr><td class="em">「SPC持分で買うのは、簿外債務が怖いだけで実質は同じ」</td><td class="ng">×</td><td>消費税・不動産取得税・建設業法・契約承継のすべてで扱いが変わる。とくに<strong>接続契約とアグリゲーター契約がSPC名義のまま動かない</strong>点は、稼働済み取得において決定的な差になる</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>そして、どの形でも効くのは第三者の目です</h3>
+
+<p>4つのどの形を選ぶ場合でも、共通して効くのが第三者による検証です。完工・性能（①）、接続条件と許認可（②）、偶発債務と契約承継（③）、劣化と運用実績の真正性（④）——買う「形」によってDDの重心は変わりますが、<strong>「検証できない数字を、検証された数字に変える」</strong>という原則は変わりません。</p>
+
+<p>売り手の説明でも買い手の希望でもなく、第三者の目を取引に入れる。それが、この市場が次の段階へ進むための共通インフラになると考えています。技術デューデリジェンスの具体的な確認領域については、<a target="_top" href="/column-buyer-check">「その『承諾済み』は本物か — 系統用蓄電所を買う前の技術チェック、9領域43項目」</a>もあわせてご覧ください。</p>
+
+<h2>結び — 三部作の閉じ方</h2>
+
+<p><a target="_top" href="/column-financing">第1部</a>で、売り手はなぜ現金を選ぶのかを書きました。第2部で、銀行員はあなたの蓄電所をどう見るのかを書きました。本稿はその裏面、買い手はどの段で、どの器で買うべきかの話です。</p>
+
+<p>三本を貫く背骨は同じです。実費を積み上げた先で、最後に値段を分けるのは、<strong>リスクが誰から誰へ、いつ移るか</strong>。担保は結果、契約が原因。そして、</p>
+
+<div class="highlight-box" style="text-align:center;font-family:'Noto Serif JP',serif;font-size:1.08em">
+<strong>設備が同じになった瞬間から、値差は、リスクの引受価格になる。</strong>
+</div>
+
+<p>階段は2026年、公開事例としてかたちになりました。段差の実額が市場に開示される日は、まだ先です。それまでのあいだ、段差を測る物差しは、<strong>一次情報と、契約の読解と、実務の観測値の三点測量</strong>しかありません。当社はその三点測量を、中立の立場で提供します。</p>
+
+<div class="data-box">
+<div class="db-head">本稿のまとめ</div>
+<ul style="margin:0 0 0 20px">
+<li>蓄電所の買い方は4つ。<strong>権利・完成・実績という3段の階段</strong>と、<strong>直接売買かSPC持分かという器の2択</strong>の組み合わせです。</li>
+<li>1段目と2段目のあいだの約5〜6億円は、大半が<strong>設備・工事の実費</strong>です。リスクの引受価格と呼べるのは、原価の上に薄く乗る層と、設備が1円も増えない2段目・3段目のあいだ。<strong>値差は、実費とリスクに分けて数える</strong>のが本稿の読み方です。</li>
+<li>最上段の「実績」は第二の契約です。ただし需給調整市場の実績はアグリゲーター名義に紐づくため、<strong>名義とともに買う設計</strong>（アグリゲーター維持またはSPC持分）でなければ、プレミアムの根拠が失われかねません。制度として「実績」が承継されるのは、現時点では容量市場（OCCTOの事前同意付き）にほぼ限られます。</li>
+<li>2026年9月1日実需給分から、需給調整市場の上限価格は10円に下がります（EPRX 2026年7月30日公表）。<strong>実績の値付けは、過去の約定単価ではなく、これからの制度で見る。</strong></li>
+<li>買い方は、値段の交渉より先に決めるべき設計事項です。<strong>段と器を決めてから、値段を見る。</strong></li>
+</ul>
+</div>
+
+<a target="_top" href="/column-financing" class="next-link">
+  <span>
+    <span class="next-link-label">シリーズ第1部</span>
+    <span class="next-link-title">なぜ蓄電所は、現金で買われるのか — 「担保に取れない」の誤解と、62億円・20年が付いた理由</span>
+  </span>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="sources-box">
+<h4>出典</h4>
+<ul class="src-list">
+<li><span class="t">T1</span>JALCOホールディングス 適時開示：系統用蓄電池事業の開始（2025年12月5日）／高圧系統用蓄電所に関する土地及び系統連系に係る権利取得（2026年5月29日・6月29日。6月29日開示に「受電開始から市場参加まで通常1〜3か月程度」の記載）／SPCへの匿名組合出資持分取得（2026年6月30日）／稼働済み高圧系統用蓄電所の取得および2027年3月期通期連結業績予想の修正（2026年7月31日）</li>
+<li><span class="t">T1</span>ジェイ・ホールディングス 適時開示（2026年7月30日）：荘川蓄電所（仮称）の取得、取得金額約7億円、約2MW/約8MWh、2026年11月引渡し・12月連系、来期前半の需給調整市場参入計画</li>
+<li><span class="t">T1</span>レノバ 適時開示／みずほ銀行リリース（2026年7月31日）：袋井宇刈蓄電所 99.9MW/280MWh、フルマーチャント型プロジェクトファイナンス約72億円</li>
+<li><span class="t">T1</span>電力需給調整力取引所（EPRX）「上限価格」ページおよび「需給調整市場のΔkW上限価格について」（2026年7月30日更新）：一次調整力・二次調整力①・複合商品の上限価格の更新決定、10.00円/ΔkW・30分（2026年9月1日実需給分から。8月31日実需給分までは15円）。二次調整力②・三次調整力①は2024年4月1日実需給分から7.21円が適用され、第96回制度検討作業部会（2024年9月27日）の審議結果にもとづき当面の間継続。上限価格の更新は実需給日の2週間前までに同ページで公開される</li>
+<li><span class="t">T1</span>資源エネルギー庁 第4回 電力安定供給ワーキンググループ（2026年7月14日）：上限価格見直しの審議、前日取引化前後の不足率</li>
+<li><span class="t">T1</span>資源エネルギー庁 次世代電力系統ワーキンググループ／電力広域的運営推進機関（OCCTO）：系統用蓄電池の接続検討申込件数、保証金の5%→10%（2026年4月1日以降の契約申込）、土地使用権原の提出要件化（2026年10月1日予定の受付分から）</li>
+<li><span class="t">T1</span>東京電力パワーグリッド：高圧・特別高圧の接続検討申込件数の取扱い（2026年8月1日運用開始）</li>
+<li><span class="t">T1</span>資源エネルギー庁「系統接続に関する事例集」：工事費負担金は原則として工事着手前までに全額支払い</li>
+<li><span class="t">T1</span>電力広域的運営推進機関「容量確保契約約款」第25条・第26条（2025年1月版）：契約上の地位の譲渡・承継、リクワイアメント達成状況の承継</li>
+<li><span class="t">T1</span>電力需給調整力取引所（EPRX）取引規程 第4条・第8条第6項、よくあるご質問：取引会員による電源等の登録・性能確認・事前審査、業務委託</li>
+<li><span class="t">T1</span>電気事業法 第27条の27・第27条の29ほか、資源エネルギー庁解説</li>
+<li><span class="t">T1</span>環境共創イニシアチブ（SII）蓄電池導入支援事業 公募要領：処分制限期間内の譲渡・担保供与に係る事前承認</li>
+<li><span class="t">T1</span>帝国データバンク「『発電所』の倒産・休廃業解散動向（2024年度）」（2025年5月6日）</li>
+<li><span class="t">T1</span>日本銀行 金融政策決定会合（2026年7月31日）：政策金利1.0%据え置き</li>
+<li><span class="t">T2</span>日本インタビュ新聞（media-ir）2026年7月31日／財経新聞 2026年7月31日・2025年12月8日／エネハブ 2026年7月3日／電気新聞 2026年7月15日（1面）／Reuters 2026年7月9日（10年国債利回り2.880%）</li>
+<li><span class="t">T2</span>Gresham House Energy Storage Fund（GRID）四半期開示・NAVリリース／Enerdatics 欧州BESS M&amp;A観測・pv magazine USA（2026年5月）</li>
+<li><span class="t">観測</span>高圧2MW/8MWh級の段階別価格レンジ（権利1.5〜2億円／完成渡し7〜8億円／実績付き8〜10億円、いずれも税別）とその内訳の逆算（設備・工事の実費3.5〜4.5億円）、即金決済と引渡し時払いの提示価格差（約6%）、売主・EPCの与信を理由に完成売買が滞留する実務状況。いずれも当社の実務観測であり、公表統計ではありません。</li>
+</ul>
+<div class="source">注：本稿の金額・規模・日付は公表資料の記載に基づく。取得価額が非開示の案件は「非開示」と記載し、推測値は作成していない。需給調整市場の上限価格の更新（一次・二次①・複合 10.00円、2026年9月1日実需給分から）は第4回電力安定供給WGの審議結果にもとづき決定され、EPRXが公表資料を2026年7月30日付で更新している（EPRXは今後の審議会等の結果による変更可能性を付記）。二次②・三次①の7.21円は2024年4月1日実需給分から適用中の現行上限の継続であり、9月1日の変更対象ではない。設備・工事の実費（3.5〜4.5億円）は公表されている初期投資目安からの逆算値である。承継可否に関する整理のうち、EPRXの取扱いは取引規程の構造からの当社整理であり、明文条項の直接確認はできていない。価格レンジ・実務所感は当社の現場観察であって公表統計ではない。担保・税務・会計・許認可に関する記述は一般的解説であり、個別案件の法的・税務的助言ではない。本稿は特定案件への投資勧誘、または法務・税務・財務に関する助言ではない。</div>
+</div>
+
+<div class="cta-section">
+  <h3>「どの段で、どの器で買うか」から、ご相談ください</h3>
+  <p>取得形態の設計、価格の妥当性検証、承継可否の事前確認、支払スケジュールとリスク移転の設計、<br>技術デューデリジェンスの組成支援、売主・EPCの与信評価——<br>実在案件の個別検討は、お問い合わせ後にNDA締結のうえ承ります。買主・売主いずれの立場でもご相談いただけます。</p>
+  <a target="_top" href="https://www.scix.co.jp/contact" class="cta-btn">お問い合わせ →</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var g=document.getElementById('buyer-checklist');if(!g)return;
+  var c=g.querySelectorAll('input[type=checkbox]'),cnt=document.getElementById('checkCount'),fl=document.getElementById('checkBarFill'),tot=c.length;
+  function u(){var d=0;c.forEach(function(x){if(x.checked)d++;});cnt.textContent=d;fl.style.width=(tot?d/tot*100:0)+'%';}
+  c.forEach(function(x){x.addEventListener('change',u);});u();
+})();
+</script>
+
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">関連記事</div>
+  <a target="_top" href="/column-financing" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">なぜ蓄電所は、現金で買われるのか — 「担保に取れない」の誤解と、62億円・20年が付いた理由 →</a>
+  <span style="display:block;color:#8A92A0;font-weight:600;font-size:14.5px;padding:6px 0">銀行員は、あなたの蓄電所をこう見る — 収支計画が審査を通る条件<span style="font-weight:400;font-size:12px;margin-left:8px">（近日公開）</span></span>
+  <a target="_top" href="/column-buyer-check" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">その「承諾済み」は本物か — 系統用蓄電所を買う前の技術チェック、9領域43項目 →</a>
+  <a target="_top" href="/column-transfer" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">蓄電池開発権の譲渡 — 権利はどこまで、誰に渡せるのか →</a>
+  <a target="_top" href="/column-pricing" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">開発権の価格はどう決まるのか →</a>
+  <a target="_top" href="/column-grid-rules" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">接続検討・契約申込みの新ルール →</a>
+  <a target="_top" href="/column-options" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">接続検討回答を取得したが事業化しない場合の選択肢 →</a>
+  <a target="_top" href="/column-tax" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">即時償却は「取れる」ものではなく「通す」もの →</a>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
