@@ -18,17 +18,42 @@
   var loc;
   if (isEn) {
     loc = path.replace(/^\/en/, '') || '/';
-    if (loc === '/market-entry') loc = '/';
+    if (loc === '/market-entry') loc = '/market-entry-guide';
   } else if (isZh) {
     if (path === '/zh') loc = '/';
     else if (path === '/zh-knowledge') loc = '/knowledge';
     else if (path === '/zh-qa') loc = '/qa';
+    else if (path === '/zh-contact') loc = '/contact';
+    else if (path === '/zh-thanks') loc = '/thanks';
+    else if (path === '/zh-primer') loc = '/primer';
     else if (path.indexOf('/zh-column-') === 0) loc = '/column-' + path.slice('/zh-column-'.length);
-    else loc = path;
+    else loc = '/';
   } else {
     loc = path;
   }
   var isCol = loc.indexOf('/column-') === 0;
+
+  // Columns that exist in Japanese only. Switching language from these must
+  // fall back to the knowledge hub instead of a URL that does not exist.
+  var JA_ONLY_COLUMNS = [
+    '/column-capacity-market',
+    '/column-day-ahead',
+    '/column-jcstar-levels',
+    '/column-land-buyback'
+  ];
+  // Pages with no Japanese counterpart. /grid-storage is the closest JA page
+  // (it is the "what is grid-scale storage" explainer these two translate).
+  var NO_JA_PAGE = { '/primer': '/grid-storage', '/market-entry-guide': '/grid-storage' };
+  // Pages that exist in all three languages under language-specific slugs.
+  var TRILINGUAL = {
+    '/': { en: '/en', zh: '/zh' },
+    '/knowledge': { en: '/en/knowledge', zh: '/zh-knowledge' },
+    '/qa': { en: '/en/qa', zh: '/zh-qa' },
+    '/contact': { en: '/en/contact', zh: '/zh-contact' },
+    '/thanks': { en: '/en/thanks', zh: '/zh-thanks' },
+    '/primer': { en: '/en/primer', zh: '/zh-primer' },
+    '/market-entry-guide': { en: '/en/market-entry-guide', zh: '/zh' }
+  };
 
   // --------------- 1. CSS ---------------
   var css = [
@@ -227,22 +252,26 @@
 
   // --------------- Language switcher (JA / EN / 简中) ---------------
   // Targets resolve to the equivalent page where it exists, otherwise the
-  // language home / knowledge hub — never a 404.
-  var jpHref = isEn ? loc : (isZh ? (isCol ? '/knowledge' : loc) : path);
+  // closest page in that language — never a 404, never a link to itself.
+  var jaOnlyColumn = isCol && JA_ONLY_COLUMNS.indexOf(loc) !== -1;
+
+  var jpHref;
+  if (!isEn && !isZh) jpHref = path;
+  else if (NO_JA_PAGE[loc]) jpHref = NO_JA_PAGE[loc];
+  else if (isCol) jpHref = loc;
+  else if (TRILINGUAL[loc]) jpHref = loc;
+  else jpHref = '/';
 
   var enHref;
   if (isEn) enHref = path;
-  else if (loc === '/') enHref = '/en';
-  else if (loc === '/knowledge') enHref = '/en/knowledge';
-  else if (loc === '/qa') enHref = '/en/qa';
-  else if (isCol) enHref = isZh ? '/en/knowledge' : ('/en' + loc);
+  else if (isCol) enHref = jaOnlyColumn ? '/en/knowledge' : ('/en' + loc);
+  else if (TRILINGUAL[loc]) enHref = TRILINGUAL[loc].en;
   else enHref = '/en';
 
   var zhHref;
   if (isZh) zhHref = path;
-  else if (loc === '/') zhHref = '/zh';
-  else if (loc === '/qa') zhHref = '/zh-qa';
-  else if (loc === '/knowledge' || isCol) zhHref = '/zh-knowledge';
+  else if (isCol) zhHref = jaOnlyColumn ? '/zh-knowledge' : ('/zh-column-' + loc.slice('/column-'.length));
+  else if (TRILINGUAL[loc]) zhHref = TRILINGUAL[loc].zh;
   else zhHref = '/zh';
 
   var langSwitch = [
