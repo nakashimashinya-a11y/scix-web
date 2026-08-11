@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.db-title{font-family:'Noto Sans JP',sans-serif;font-size:.92em;font-weight:600;color:var(--navy);line-height:1.65;margin:28px 0 -20px}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.compare-card ul{margin:8px 0 0;padding-left:18px;font-size:.84em;line-height:1.85}
+.compare-card li{margin-bottom:5px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+.diff-card .guard{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);font-size:.82em;line-height:1.8;color:var(--text)}
+.diff-card .guard b{color:var(--accent);font-weight:700;letter-spacing:.04em}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.85}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
+.src-list .t{display:inline-block;min-width:34px;font-weight:700;color:var(--navy);margin-right:8px;font-size:.92em}
+.part-lead{font-family:'Noto Serif JP',serif;font-size:.86em;letter-spacing:.12em;color:var(--accent);margin:56px 0 -32px;font-weight:600}
+</style>
+<title>系統用蓄電池の建設費｜6.8万円/kWhの内訳と規模別総額｜ScienceX</title>
+<meta name="description" content="系統用蓄電池の建設費は1kWhあたりいくらか。経済産業省の検討会が示す6.8万円/kWh（電池4.1・PCS0.6・その他0.7・工事1.4）の内訳、50MWh超で単価が下がる理由、海外製で2〜4万円/kWhとなる条件、補助金充当後の実効単価、事業性の分岐点までを一次資料で整理します。">
+<link rel="canonical" href="https://www.scix.co.jp/column-construction-cost">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系統用蓄電池の建設費｜6.8万円/kWhの内訳と規模別総額｜ScienceX">
+<meta property="og:description" content="建設費6.8万円/kWhの内訳を電池・PCS・その他・工事に割り、規模と補助金でどこまで動くかを一次資料で。">
+<meta property="og:url" content="https://www.scix.co.jp/column-construction-cost">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="系統用蓄電池の建設費｜6.8万円/kWhの内訳と規模別総額｜ScienceX">
+<meta name="twitter:description" content="建設費6.8万円/kWhの内訳を電池・PCS・その他・工事に割り、規模と補助金でどこまで動くかを一次資料で。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-08-12">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "系統用蓄電池の建設費｜6.8万円/kWhの内訳と規模別総額｜ScienceX",
+  "description": "系統用蓄電池の建設費は1kWhあたりいくらか。経済産業省の検討会が示す6.8万円/kWh（電池4.1・PCS0.6・その他0.7・工事1.4）の内訳、50MWh超で単価が下がる理由、海外製で2〜4万円/kWhとなる条件、補助金充当後の実効単価、事業性の分岐点までを一次資料で整理します。",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-08-12",
+  "dateModified": "2026-08-12",
+  "mainEntityOfPage": "https://www.scix.co.jp/column-construction-cost"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.scix.co.jp/" },
+    { "@type": "ListItem", "position": 2, "name": "ナレッジ", "item": "https://www.scix.co.jp/knowledge" },
+    { "@type": "ListItem", "position": 3, "name": "系統用蓄電池の建設費", "item": "https://www.scix.co.jp/column-construction-cost" }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">系統用蓄電池の建設費</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 40</span>
+      <span class="header-tag">買主・投資家 / 建設費・初期費用</span>
+      <time class="header-date" datetime="2026-08-12">2026.08.12</time>
+    </div>
+    <h1>系統用蓄電池の<em>建設費</em>は、<br>1kWhあたり<em>いくら</em>か</h1>
+    <p class="header-desc">「蓄電所はいくらで建つのか」に一つの数字で答えると、たいてい外れます。公開されている国内平均は6.8万円/kWh。しかし同じ2MW/8MWhでも、機器の産地と補助金の有無で総額は2億7,200万円から5億4,400万円まで動きます。単価がどこで決まり、どこで動くのかを、電池・PCS・その他・工事の4つに割って追いかけます。</p>
+  </div>
+</div>
+
+<div class="article-body">
+<p>系統用蓄電所の建設費は、いくらか。この問いに一つの数字で答えると、たいてい外れます。公開されている国内平均は6.8万円/kWh。同じ資料の別のページには2〜4万円/kWhという水準も載っています。倍以上の開きが、どちらも国の検討会資料に書かれている。</p>
+
+<p>この開きは誤差ではなく、条件の違いです。本稿は6.8万円/kWhを電池・PCS・その他・工事の4つに分解し、なぜ単価がここまでばらつくのかを、公開資料でたどれる範囲だけで整理します。規模ごとの事業モデルそのものの違いは<a target="_top" href="/column-biz">30MW超 vs 2MW — 規模で全く異なる蓄電池ビジネスモデル</a>で扱っています。</p>
+
+<div class="data-box">
+<div class="db-head">本稿で使う3つの数字</div>
+<p><strong>6.8万円/kWh</strong>｜補助事業案件の2024年度平均CAPEX（システム5.4万円＋工事1.4万円、いずれも税等除く）<br>
+<strong>2〜4万円/kWh</strong>｜補助金事業以外で海外製蓄電システムを採用する案件のコスト水準<br>
+<strong>5万円/kWh</strong>｜収益を契約で固定しない場合に、黒字化の条件として示されている建設費の水準</p>
+<div class="source">出典：経済産業省 定置用蓄電システム普及拡大検討会 第5回 資料3（2025年1月30日）p.25・p.29／同 第3回 資料3（2024年8月29日）p.11／三菱総合研究所が経済産業省の検討会に提出した感度分析</div>
+</div>
+
+<h2>01 — 建設費は「1kWhあたりいくら」で見る</h2>
+
+<p>蓄電所の話は出力（MW）から入るので、建設費もつい「1MWあたりいくら」で聞きたくなります。ところが、この見方をすると比較が壊れます。費用の大半を占める電池セルの値段は、出力（kW）ではなく容量（kWh）で決まるからです。同じ2MWでも、4MWhと8MWhでは電池の量が倍違う。国の資料が価格をすべてkWh建てで示しているのも、そこに理由があります。</p>
+
+<div class="db-title">表1｜同じ「2MW」でも、kW建てにすると単価は3倍動く（例示）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:130px">仕様（例示）</th><th class="num" style="min-width:90px">容量</th><th class="num" style="min-width:110px">6.8万円/kWhでの総額</th><th class="num" style="min-width:100px">kW建ての単価</th></tr>
+<tr><td class="em">2MW / 4MWh</td><td class="num">4,000<span class="u">kWh</span></td><td class="num">2億7,200<span class="u">万円</span></td><td class="num em">13.6<span class="u">万円/kW</span></td></tr>
+<tr class="hl"><td class="em">2MW / 8MWh</td><td class="num">8,000<span class="u">kWh</span></td><td class="num">5億4,400<span class="u">万円</span></td><td class="num em">27.2<span class="u">万円/kW</span></td></tr>
+<tr><td class="em">2MW / 12MWh</td><td class="num">12,000<span class="u">kWh</span></td><td class="num">8億1,600<span class="u">万円</span></td><td class="num em">40.8<span class="u">万円/kW</span></td></tr>
+</table>
+</div>
+<p class="note-small">※ 単価6.8万円/kWhを機械的に当てた計算例であり、実勢価格を示すものではありません。</p>
+
+<p>出力は3行とも同じ2MWです。それでもkW建ての単価は13.6万円から40.8万円まで動く。kW建ての数字だけで「あの案件より高い／安い」と判断すると、実際には長時間型を短時間型と比べているだけ、ということが起こります。</p>
+
+<p>逆向きの作用もあります。PCS（パワーコンディショナ）は出力（kW）で決まる機器で、電池を増やしても台数はそのままです。それを国の資料はkWhあたりに割り戻しているので、長時間型ほどkWhあたりのPCS費は薄まる。kWh建ての単価が案件ごとに動く要因の一つが、ここにあります。</p>
+
+<div class="info-box">
+<strong>実務での扱い</strong>｜複数の見積を並べるときは、まず全部をkWh建てに揃える。そのうえで、次に見る4区分（電池／PCS／その他／工事）に割ってもらう。この2段階を踏まないと、単価の比較は成立しません。
+</div>
+
+<h2>02 — 6.8万円/kWhの中身を、4つに割る</h2>
+
+<p>経済産業省 定置用蓄電システム普及拡大検討会 第5回 資料3（2025年1月30日）p.25・p.29は、補助事業案件の2024年度平均を次のように整理しています。</p>
+
+<div class="db-title">表2｜CAPEX 6.8万円/kWhの内訳と、2MW/8MWh級（8,000kWh）に当てたときの金額</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:120px">区分</th><th class="num" style="min-width:96px">単価</th><th class="num" style="min-width:100px">8,000kWhでの金額</th><th style="min-width:220px">中身</th></tr>
+<tr><td class="em">電池部分</td><td class="num em">4.1<span class="u">万円/kWh</span></td><td class="num">32,800<span class="u">万円</span></td><td>セル・モジュール・ラック・BMS。容量に比例して増える最大の塊</td></tr>
+<tr><td class="em">PCS</td><td class="num em">0.6<span class="u">万円/kWh</span></td><td class="num">4,800<span class="u">万円</span></td><td>直流と交流を変換する機器。本来は出力（kW）で決まる</td></tr>
+<tr><td class="em">その他</td><td class="num em">0.7<span class="u">万円/kWh</span></td><td class="num">5,600<span class="u">万円</span></td><td>受変電設備、監視・制御、消防・空調まわりなど</td></tr>
+<tr><td class="em">システム価格 小計</td><td class="num em">5.4<span class="u">万円/kWh</span></td><td class="num">43,200<span class="u">万円</span></td><td>上の3つの合計。機器としての値段</td></tr>
+<tr><td class="em">工事費</td><td class="num em">1.4<span class="u">万円/kWh</span></td><td class="num">11,200<span class="u">万円</span></td><td>基礎・造成・電気工事・据付。現地条件で動きやすい</td></tr>
+<tr class="hl"><td class="em">合計CAPEX</td><td class="num em">6.8<span class="u">万円/kWh</span></td><td class="num em">54,400<span class="u">万円</span><br>（5億4,400万円）</td><td>土地代と工事費負担金は含まない</td></tr>
+</table>
+</div>
+<div class="source">出典：経済産業省 定置用蓄電システム普及拡大検討会 第5回 資料3（2025年1月30日）p.25・p.29。単価はいずれも補助事業案件・2024年度平均・税等除く。金額欄は当社が8,000kWhを乗じた計算値。</div>
+
+<p>この表から読めることは3つあります。第一に、電池部分だけで合計の約6割（4.1÷6.8）を占め、機器代（システム価格5.4万円）に対しては約4分の3です。つまり建設費の議論は、実質的に電池セルの調達価格の議論に近い。</p>
+
+<p>第二に、工事費1.4万円/kWhは合計の約2割で、ここは機器と違って現地の地盤・造成・搬入路の条件で動きます。同じ機器を選んでも、土地が変われば動く部分です。第三に、この6.8万円/kWhには<strong>土地代も、系統連系の工事費負担金も入っていません</strong>。誤読が起きやすいので、後段の07で改めて整理します。</p>
+
+<h2>03 — なぜ2〜4万円/kWhという数字も出回るのか</h2>
+
+<p>同じ検討会の第3回 資料3（2024年8月29日）p.11には、補助金事業以外で海外製蓄電システムを採用する案件では2〜4万円/kWhのコスト水準もみられる、と書かれています。6.8万円/kWhと2〜4万円/kWhが、同じ主体の資料に並んで存在している。</p>
+
+<p>この差を分けているのは、大きく2つです。</p>
+
+<ul>
+<li><strong>補助事業かどうか</strong>。補助金には対象経費の定義、機器の要件、申請内容の変更制約、工期の制約が伴います。制約が価格に乗る構造があることは、検討会自身が指摘しています。実効の補助率がどこまで残るかは<a target="_top" href="/column-subsidies">補助金は「使うかどうかを判断するもの」</a>で扱っています。</li>
+<li><strong>機器の産地</strong>。海外製の蓄電システムを採用した案件でこの水準が観測されている、というのが資料の書き方です。ただし調達価格が下がる代わりに、保証の実効性、部材の供給継続性といった別の論点が立ちます。</li>
+</ul>
+
+<div class="highlight-box">
+<strong>実勢には幅がある。</strong>当社の<a target="_top" href="/qa">Q&amp;A</a>で触れているとおり、同じ2MW/8MWh級でも建設費は<strong>5〜8億円</strong>の幅を持ちます。同じ容量でも値札が1.6倍違うことがある、というのが現場の姿です。単価だけを比べても答えは出ません。何が入っている単価なのかを揃えるところからです。
+</div>
+
+<h2>04 — 規模が変わると、単価そのものが変わる</h2>
+
+<p>第5回資料は、50MWh超の大規模案件についてはシステム価格が4.9万円/kWhになるとしています。5.4万円/kWhとの差は0.5万円/kWh。これがスケールメリットです。工事費1.4万円/kWhを足すと、大規模案件の合計は6.3万円/kWhになります。</p>
+
+<div class="db-title">表3｜前提別・規模別の建設費総額（当社が単価に容量を乗じた計算値）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:160px">前提</th><th style="min-width:190px">2MW / 8MWh級<br><span class="u">（8,000kWh）</span></th><th style="min-width:210px">50MW / 200MWh級<br><span class="u">（200,000kWh）</span></th></tr>
+<tr><td class="em">補助事業の2024年度平均</td><td>6.8万円/kWh × 8,000kWh<br>＝ <strong>約5億4,400万円</strong></td><td>6.3万円/kWh × 200,000kWh<br>＝ <strong>約126億円</strong><br><span class="u">（50MWh超はシステム4.9万円＋工事1.4万円）</span></td></tr>
+<tr><td class="em">海外製・補助金不使用<br><span style="font-weight:400;font-size:.92em;color:#6C7A89">システム2〜4万円＋工事1.4万円<br>＝3.4〜5.4万円/kWh</span></td><td>3.4〜5.4万円/kWh × 8,000kWh<br>＝ <strong>約2億7,200万円〜4億3,200万円</strong></td><td>3.4〜5.4万円/kWh × 200,000kWh<br>＝ <strong>約68億〜108億円</strong></td></tr>
+<tr><td class="em">SII補助金1/3充当後の実効単価<br><span style="font-weight:400;font-size:.92em;color:#6C7A89">6.8万円 ×(1−1/3) ≒ 4.53万円/kWh</span></td><td>4.53万円/kWh × 8,000kWh<br>＝ <strong>約3億6,240万円</strong></td><td class="cond">補助率・上限額が規模で異なるため、同じ計算は当てはめない</td></tr>
+<tr class="hl"><td class="em">黒字化条件として示された<br>5万円/kWh</td><td>5.0万円/kWh × 8,000kWh<br>＝ <strong>4億円</strong></td><td>5.0万円/kWh × 200,000kWh<br>＝ <strong>100億円</strong></td></tr>
+</table>
+</div>
+<div class="source">単価の出典は上記の経済産業省 検討会資料および三菱総合研究所の感度分析。総額は当社が単価×容量で算出した計算値であり、公表された案件価格ではありません。土地代・工事費負担金は含みません。</div>
+
+<p>スケールメリットの効き方を金額で見ておきます。50MW/200MWh級に小規模と同じ6.8万円/kWhを当てると136億円ですが、6.3万円/kWhでは126億円。単価の0.5万円/kWhは、20万kWhを掛けた瞬間に10億円になります。</p>
+
+<p>逆に、2MW/8MWh級に4.9万円/kWhを当ててはいけません。この単価は50MWh超に適用されるもので、8MWhは50MWhに遠く届かないからです。規模ごとの収益構造・資金調達の違いは<a target="_top" href="/column-biz">30MW超 vs 2MW</a>で整理しています。</p>
+
+<h2>05 — 補助金を使うと、実効単価はどこまで下がるか</h2>
+
+<p>補助対象経費6.8万円/kWhにSII補助金を1/3充当すると、実効単価は約4.53万円/kWhになります（税等除く）。2MW/8MWh級なら約3億6,240万円です。</p>
+
+<div class="info-box">
+<strong>建設費の総額に1/3を掛けないでください。</strong>補助の対象になるのは実施設計費・設備費・工事費のうち対象と認められる範囲だけで、総額全部ではありません。土地代や工事費負担金の扱いも別です。したがって「総額×1/3が戻る」という計算は、ほぼ確実に過大評価になります。
+</div>
+
+<p>そして補助金は、単価を下げる代わりに縛りを増やします。処分制限期間、効果報告、書類保管、機器の要件、申請内容の変更制約、工期の制約。これらは表に出ない費用として効いてきます。<a target="_top" href="/column-subsidies">補助金のコラム</a>で書いたとおり、これは「もらい方」ではなく<strong>「使うかどうかを判断する」</strong>論点です。4.53万円/kWhという数字は、その判断の入口にすぎません。</p>
+
+<h2>06 — 建設費が事業性に効いてくる分岐点</h2>
+
+<p>建設費がどこまで下がれば事業として成立するのか。三菱総合研究所が経済産業省の検討会に提出した感度分析が、一つの目安を与えています。収益を契約で固定しない場合、容量市場の収入を入れてもベースケースのIRRは<strong>マイナス1.5%</strong>でした。前提となる建設費は6万円/kWhです。そして黒字化の条件として示されたのは、建設費を<strong>5万円/kWh以下</strong>に下げるか、卸電力の値差が上振れることでした。</p>
+
+<p>この分析が示しているのは「建設費が事業性を決める主要変数の一つである」という構造であって、個別案件の成否ではありません。同じ前提でも、収益を長期契約で固定するかどうかで話は変わります。</p>
+
+<div class="highlight-box">
+<strong>1.8万円/kWhの重み。</strong>補助事業平均の6.8万円/kWhと、黒字化条件の5万円/kWhの差は1.8万円/kWhです。2MW/8MWh級（8,000kWh）なら<strong>1億4,400万円</strong>、50MW/200MWh級（200,000kWh）なら<strong>36億円</strong>。単価表の小数点以下1桁が、そのまま億円単位の差になります。
+</div>
+
+<p>収益側をどう置くかは建設費とは別の話で、20年の収支としてどう組み立てるかは<a target="_top" href="/column-cashflow">蓄電池事業の20年キャッシュフロー</a>を参照してください。本稿は費用側だけを扱っています。</p>
+
+<h2>07 — 建設費に「含まれていない」もの</h2>
+
+<p>6.8万円/kWhは設備と据付工事の数字です。見積書の合計額と、事業に必要な総額は別物です。</p>
+
+<div class="db-title">表4｜CAPEX単価の外側にある費用</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:150px">項目</th><th style="min-width:230px">性格</th><th style="min-width:180px">公開されている水準</th></tr>
+<tr><td class="em">系統連系の工事費負担金</td><td>一般送配電事業者へ支払う接続工事の費用。<strong>建設費とは別枠</strong>で、立地によって桁が変わる</td><td>案件ごとに接続検討回答書で確定。標準単価という概念がない（<a target="_top" href="/column-grid">系統連系のコラム</a>）</td></tr>
+<tr><td class="em">土地の取得・造成</td><td>取得か賃借かで資本支出の形が変わる</td><td>上記の単価には含まれない</td></tr>
+<tr><td class="em">維持管理（O&amp;M）</td><td>運用期間中、毎年出ていく費用</td><td><strong>実勢の公開データが無い。</strong>参照できるのは、建設費の年1〜2%（当社の概念モデル）、米国NRELの建設費の約2.5%、国のオークションの上限価格算定に置かれたモデルの人件費単価1kWあたり年5,000円の3つだけ（<a target="_top" href="/column-om">O&amp;Mのコラム</a>）</td></tr>
+<tr><td class="em">運用代行の報酬</td><td>市場で売買してもらうための費用</td><td>市場利益の5〜15%（日本での推定。定義は各社で不統一）</td></tr>
+<tr><td class="em">保険・税・管理費</td><td>保有している限り発生する</td><td>本稿の範囲外</td></tr>
+</table>
+</div>
+
+<p>とくにO&amp;Mは、数字の性格を誤解しないでください。上の3つは前提の違う参照点が近い桁に並んでいるだけで、日本の実勢を測った公開統計ではありません。<strong>この分野には、公的に確立した維持管理費の標準単価がまだありません。</strong></p>
+
+<h2>08 — 見積を受け取ったときに確認すること</h2>
+
+<p>ここまでの内容を、実務の確認手順に落とします。</p>
+
+<div class="db-title">表5｜建設費の見積で、最初に潰しておく8点</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:36px">#</th><th style="min-width:170px">確認すること</th><th style="min-width:290px">なぜ効いてくるか</th></tr>
+<tr><td class="num">1</td><td class="em">単価がkWh建てか</td><td>kW建てのままでは、長時間型と短時間型を比べてしまう（表1）</td></tr>
+<tr><td class="num">2</td><td class="em">電池／PCS／その他／工事の4区分に割れているか</td><td>国の資料と同じ土俵に乗る。一式計上のままでは、どこが高いのか分からない</td></tr>
+<tr><td class="num">3</td><td class="em">工事費負担金が入っているか</td><td>入っていないのが通常。合計額を「これで建つ金額」と読むと立地次第で外れる</td></tr>
+<tr><td class="num">4</td><td class="em">税抜か税込か</td><td>検討会の公表単価はいずれも税等を除いた金額</td></tr>
+<tr><td class="num">5</td><td class="em">容量の定義</td><td>定格容量か、DODや初期劣化を織り込んだ使用可能容量か。分母が違えば単価も違う</td></tr>
+<tr><td class="num">6</td><td class="em">保証の範囲と年数</td><td>安い単価が短い保証と抱き合わせなら、差額は将来の費用に移っただけ</td></tr>
+<tr><td class="num">7</td><td class="em">為替・物価スライド条項</td><td>海外製で単価が下がる場合、価格が確定しているかで意味が変わる</td></tr>
+<tr><td class="num">8</td><td class="em">見積の有効期限</td><td>電池価格は動く。期限切れの単価で事業計画を組み続けない</td></tr>
+</table>
+</div>
+
+<div class="info-box">
+<strong>結論として。</strong>建設費に唯一の正解値はありません。あるのは、前提を明示した複数の水準です。6.8万円/kWhは補助事業の平均、2〜4万円/kWhは補助金を使わず海外製を採る場合、4.53万円/kWhは1/3補助を当てた実効値、5万円/kWhは黒字化条件として示された線。どれを当てるべきかは、補助金を使うか、機器をどこから調達するか、容量をいくつにするかという設計の選択で決まります。<strong>見積を評価する前に、前提を揃える。</strong>順番はここからです。
+</div>
+
+<p>ScienceXは売主でも買主でもない立場で、蓄電所の技術デューデリジェンスを行っています。見積の内訳や前提の妥当性を確認したい場合は<a target="_top" href="https://www.scix.co.jp/contact">お問い合わせ</a>ください。なお本稿は公開資料の整理であり、特定の投資判断を推奨するものではありません。</p>
+
+<h2>出典</h2>
+<ul>
+<li>経済産業省「2024年度第5回 定置用蓄電システム普及拡大検討会 資料3」（2025年1月30日）p.25・p.29 — 電池4.1万円/kWh、PCS 0.6万円/kWh、その他0.7万円/kWh、システム価格5.4万円/kWh、工事費1.4万円/kWh、合計6.8万円/kWh、50MWh超のシステム価格4.9万円/kWh。補助事業案件・2024年度平均・税等除く</li>
+<li>経済産業省「2024年度第3回 定置用蓄電システム普及拡大検討会 資料3」（2024年8月29日）p.11 — 補助金事業以外で海外製蓄電システムを採用する案件では2〜4万円/kWhのコスト水準もみられる</li>
+<li>三菱総合研究所が経済産業省の検討会に提出した感度分析 — 収益を契約で固定しない場合、容量市場の収入を入れてもベースケースのIRRはマイナス1.5%（建設費6万円/kWhの前提）。黒字化の条件は建設費5万円/kWh以下、または卸電力の値差の上振れ</li>
+<li>米国NREL — 固定O&amp;Mを建設費の約2.5%（電池の増設費を含む前提）</li>
+<li>長期脱炭素電源オークションの上限価格算定モデルの人件費単価 — 1kWあたり年5,000円</li>
+<li>本稿の総額・実効単価・比率は、上記の公表単価に容量または補助率を乗じた当社の計算値です。維持管理費の年1〜2%は当社の概念モデル、運用代行報酬の市場利益5〜15%は日本国内の公開情報からの推定であり、いずれも公的統計ではありません。2MW/8MWh級の建設費5〜8億円の幅は当社Q&amp;Aの記載によります</li>
+</ul>
+</div>
+
+<!-- scix-column-cta : 1記事1つ。主＝フォーム、副＝解説ページ（それぞれ行き先の中身を明記） -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">見積の妥当性について、ご相談ください</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">提示された建設費が高いのか安いのかは、単価の内訳と、そこに何が含まれていないかを見ないと判断できません。工学博士が中立の立場で確認します。</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/contact" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">お問い合わせ →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">お問い合わせフォームが開きます。ご用件・お名前・会社名・メールアドレスの4項目だけで送信できます。案件固有の情報はNDA締結後にお出しします。</p>
+  </div>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <a target="_top" href="https://www.scix.co.jp/transfer" style="color:#1B2A4A;font-weight:600;font-size:13.5px;text-decoration:none;border-bottom:1px solid #C49A3C;padding-bottom:2px">「案件取得」のページを読む →</a>
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.85;margin:10px 0 0">系統接続と用地が固まった確定案件を、どういう形でお引き渡しするのか。取得の進め方と、当社が technical DD として何を確認済みかをまとめています。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
