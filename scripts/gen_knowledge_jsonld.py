@@ -86,7 +86,6 @@ def build(path: Path, cfg: dict) -> tuple[str, int]:
         "mainEntity": {
             "@type": "ItemList",
             "numberOfItems": len(items),
-            "itemListOrder": "https://schema.org/ItemListOrderDescending",
             "itemListElement": items,
         },
     }

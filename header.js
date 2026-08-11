@@ -11,7 +11,8 @@
   var isEn = path === '/en' || path.indexOf('/en/') === 0;
   var isZh = path === '/zh' || path.indexOf('/zh/') === 0 || path.indexOf('/zh-') === 0;
   var prefix = isEn ? '/en' : '';
-  var logoHref = isZh ? '/zh' : (prefix + '/');
+  // trailingSlash is false, so '/en/' would cost a 308 on every EN page.
+  var logoHref = isZh ? '/zh' : (isEn ? '/en' : '/');
 
   // Canonical page id, shared across languages.
   // JP is the superset; EN/ZH are single-funnel subsets.
