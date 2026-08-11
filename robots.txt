@@ -4,4 +4,68 @@ Allow: /
 # NDA雛形などの配布ファイル。ページからは辿れるが検索結果には出さない。
 Disallow: /files/
 
+# ── AI・LLM系クローラの方針（2026-08 中島判断）───────────────
+# 当社は解説記事で見つけてもらう戦略のため、AIの検索・回答に引用される
+# クローラは許可する。ブロックすると ChatGPT・Perplexity 等の回答から
+# 当社が消え、指名流入の機会を失うため。
+# 各グループで Disallow: /files/ を書き直しているのは、robots.txt が
+# 最も具体的な User-agent グループだけを適用し、`*` の指定を継承しない仕様のため。
+
+# OpenAI（学習・検索インデックス・ユーザー起点の取得）
+User-agent: GPTBot
+Allow: /
+Disallow: /files/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /files/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /files/
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+Disallow: /files/
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /files/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /files/
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+Disallow: /files/
+
+# Google（Gemini の学習・グラウンディング。通常のGooglebotとは別枠）
+User-agent: Google-Extended
+Allow: /
+Disallow: /files/
+
+# Microsoft Copilot
+User-agent: msnbot-media
+Allow: /
+Disallow: /files/
+
+# Apple
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /files/
+
+# ── 拒否 ─────────────────────────────────────────
+# 出典表示も流入もなく大量取得だけを行うクローラは除外する。
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
 Sitemap: https://www.scix.co.jp/sitemap.xml
