@@ -22,6 +22,7 @@
   } else if (isZh) {
     if (path === '/zh') loc = '/';
     else if (path === '/zh-knowledge') loc = '/knowledge';
+    else if (path === '/zh-qa') loc = '/qa';
     else if (path.indexOf('/zh-column-') === 0) loc = '/column-' + path.slice('/zh-column-'.length);
     else loc = path;
   } else {
@@ -148,7 +149,7 @@
     '.scix-header-open .scix-header-overlay{display:block;opacity:1}',
 
     '/* === Mobile / narrow breakpoint (drawer) === */',
-    '@media(max-width:1024px){',
+    '@media(max-width:1060px){',
     '  .scix-header-nav{',
     '    position:fixed;top:0;right:0;bottom:0;',
     '    width:280px;max-width:80vw;',
@@ -198,10 +199,12 @@
   var nav = isZh ? [
     '<a href="/zh"           data-page="/">首页</a>',
     '<a href="/zh-knowledge" data-page="/knowledge">洞见</a>',
+    '<a href="/zh-qa"        data-page="/qa">问答</a>',
     '<a href="/zh-contact" class="scix-cta">联系我们</a>'
   ] : isEn ? [
     '<a href="/en"           data-page="/">Home</a>',
     '<a href="/en/knowledge" data-page="/knowledge">Knowledge</a>',
+    '<a href="/en/qa"        data-page="/qa">Q&amp;A</a>',
     '<a href="/en/contact" class="scix-cta">Contact</a>'
   ] : [
     '<a href="/"          data-page="/">ホーム</a>',
@@ -216,6 +219,7 @@
       '</div>' +
     '</div>',
     '<a href="/knowledge" data-page="/knowledge">ナレッジ</a>',
+    '<a href="/qa"        data-page="/qa">Q&amp;A</a>',
     '<a href="/company"   data-page="/company">会社案内</a>',
     '<a href="/contact"   data-page="/contact">お問い合わせ</a>',
     '<a href="/fund"      data-page="/fund" class="scix-cta">ファンド（投資家向け）</a>'
@@ -230,12 +234,14 @@
   if (isEn) enHref = path;
   else if (loc === '/') enHref = '/en';
   else if (loc === '/knowledge') enHref = '/en/knowledge';
+  else if (loc === '/qa') enHref = '/en/qa';
   else if (isCol) enHref = isZh ? '/en/knowledge' : ('/en' + loc);
   else enHref = '/en';
 
   var zhHref;
   if (isZh) zhHref = path;
   else if (loc === '/') zhHref = '/zh';
+  else if (loc === '/qa') zhHref = '/zh-qa';
   else if (loc === '/knowledge' || isCol) zhHref = '/zh-knowledge';
   else zhHref = '/zh';
 
