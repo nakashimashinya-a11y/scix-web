@@ -234,7 +234,7 @@
     '<a href="/en/contact" class="scix-cta">Contact</a>'
   ] : [
     '<a href="/"          data-page="/">ホーム</a>',
-    '<a href="/grid-storage" data-page="/grid-storage">系統用蓄電池とは</a>',
+    '<a href="/grid-storage" data-page="/grid-storage">市場・収益構造</a>',
     '<div class="scix-nav-dd">' +
       '<button type="button" class="scix-nav-dd-toggle" aria-haspopup="true" aria-expanded="false">案件<span class="scix-dd-caret" aria-hidden="true">▾</span></button>' +
       '<div class="scix-nav-dd-menu">' +
@@ -245,7 +245,7 @@
       '</div>' +
     '</div>',
     '<a href="/knowledge" data-page="/knowledge">ナレッジ</a>',
-    '<a href="/qa"        data-page="/qa">Q&amp;A</a>',
+    '<a href="/qa"        data-page="/qa">入門Q&amp;A</a>',
     '<a href="/company"   data-page="/company">会社案内</a>',
     '<a href="/contact"   data-page="/contact">お問い合わせ</a>',
     '<a href="/fund"      data-page="/fund" class="scix-cta">ファンド（投資家向け）</a>'

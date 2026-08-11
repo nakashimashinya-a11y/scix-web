@@ -8,6 +8,13 @@ Run from the repo root after publishing or editing pages:
 
 Only <lastmod> is touched. URLs, hreflang clusters and <priority> are left
 alone — adding or removing a <url> block is still a manual edit.
+
+WARNING: this reads the last commit date, which cannot tell a content change
+from a site-wide metadata sweep. Run the report first, and do NOT --write right
+after a commit that touched many files for non-content reasons (a JSON-LD pass,
+a link fix, a font cleanup) — it would stamp every page as updated today and
+turn the sitemap's freshness signal into noise. In that situation, edit the
+handful of genuinely-changed entries by hand instead.
 """
 import re
 import subprocess
