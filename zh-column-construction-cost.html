@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.9;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.db-title{font-family:'Noto Sans SC',sans-serif;font-size:.92em;font-weight:600;color:var(--navy);line-height:1.65;margin:28px 0 -20px}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif SC',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.06em;margin-bottom:4px}
+.premise-grid dd{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.compare-card .cc-figure{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.85;margin:8px 0 0;color:var(--text)}
+.compare-card ul{margin:8px 0 0;padding-left:18px;font-size:.84em;line-height:1.85}
+.compare-card li{margin-bottom:5px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif SC',serif;font-size:1.5em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.5em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans SC',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.5}
+.diff-card p{font-size:.85em;line-height:1.85;margin:0}
+.diff-card .guard{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);font-size:.82em;line-height:1.8;color:var(--text)}
+.diff-card .guard b{color:var(--accent);font-weight:700;letter-spacing:.04em}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif SC',serif;font-size:.78em;font-weight:700}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.85}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif SC',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.04em;line-height:1.7}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.85}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
+.src-list .t{display:inline-block;min-width:34px;font-weight:700;color:var(--navy);margin-right:8px;font-size:.92em}
+.part-lead{font-family:'Noto Serif SC',serif;font-size:.86em;letter-spacing:.12em;color:var(--accent);margin:56px 0 -32px;font-weight:600}
+</style>
+<title>电网侧储能电站的建设成本｜6.8万日元/kWh的构成与各规模总额｜ScienceX</title>
+<meta name="description" content="日本电网侧储能电站每1kWh的建设成本是多少。以日本经济产业省研讨会的6.8万日元/kWh（电池4.1·PCS 0.6·其他0.7·工程1.4）为起点，梳理超过50MWh时单价下降的原因、海外制造下2〜4万日元/kWh的成立条件、补贴充抵后的实际单价，以及项目可行性的分界点。">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-construction-cost">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-construction-cost">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-construction-cost">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-construction-cost">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-construction-cost">
+<meta property="og:type" content="article">
+<meta property="og:title" content="电网侧储能电站的建设成本｜6.8万日元/kWh的构成与各规模总额｜ScienceX">
+<meta property="og:description" content="已公开的日本国内平均值是6.8万日元/kWh。拆成电池·PCS·其他·工程四块，追踪单价在哪里被决定、又在哪里会变动。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-construction-cost">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="电网侧储能电站的建设成本｜6.8万日元/kWh的构成与各规模总额｜ScienceX">
+<meta name="twitter:description" content="已公开的日本国内平均值是6.8万日元/kWh。拆成电池·PCS·其他·工程四块，追踪单价在哪里被决定、又在哪里会变动。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="article:published_time" content="2026-08-12">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "电网侧储能电站的建设成本｜6.8万日元/kWh的构成与各规模总额｜ScienceX",
+  "description": "日本电网侧储能电站每1kWh的建设成本是多少。以日本经济产业省研讨会的6.8万日元/kWh（电池4.1·PCS 0.6·其他0.7·工程1.4）为起点，梳理超过50MWh时单价下降的原因、海外制造下2〜4万日元/kWh的成立条件、补贴充抵后的实际单价，以及项目可行性的分界点。",
+  "inLanguage": "zh-CN",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-zh.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-08-12",
+  "dateModified": "2026-08-12",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-construction-cost"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.scix.co.jp/zh" },
+    { "@type": "ListItem", "position": 2, "name": "洞见", "item": "https://www.scix.co.jp/zh-knowledge" },
+    { "@type": "ListItem", "position": 3, "name": "电网侧储能电站的建设成本", "item": "https://www.scix.co.jp/zh-column-construction-cost" }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/zh" style="color:#5A6577;text-decoration:none">首页</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/zh-knowledge" style="color:#5A6577;text-decoration:none">洞见</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">电网侧储能电站的建设成本</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 40</span>
+      <span class="header-tag">买方·投资者 / 建设成本</span>
+      <time class="header-date" datetime="2026-08-12">2026.08.12</time>
+    </div>
+    <h1>电网侧储能电站的<em>建设成本</em>，<br>每1kWh究竟<em>多少钱</em></h1>
+    <p class="header-desc">对「储能电站要花多少钱才能建成」用一个数字作答，多半会答错。已公开的日本国内平均值是6.8万日元/kWh。但同样是2MW/8MWh，设备产地与有无补贴会让总额在2.72亿日元到5.44亿日元之间移动。本文把单价拆成电池·PCS·其他·工程四块，追踪它在哪里被决定、又在哪里会变动。</p>
+  </div>
+</div>
+
+<div class="article-body">
+<p>电网侧储能电站的建设成本，究竟是多少。对这个问题若用一个数字作答，多半会答错。已公开的日本国内平均值是6.8万日元/kWh。而在同一份资料的另一页上，还记载着2〜4万日元/kWh这一水平。相差一倍以上的两个数字，都写在日本政府研讨会的资料里。</p>
+
+<p>这一差距并非误差，而是条件的不同。本文把6.8万日元/kWh拆成电池·PCS·其他·工程四块，仅在公开资料可以追溯的范围内，梳理单价为何会有如此大的离散。至于不同规模下商业模式本身的差异，请见<a target="_top" href="/zh-column-biz">30MW以上 vs 2MW — 规模不同，储能业务模式完全不同</a>。</p>
+
+<div class="data-box">
+<div class="db-head">本文使用的三个数字</div>
+<p><strong>6.8万日元/kWh</strong>｜补贴项目案例的2024年度平均CAPEX（系统5.4万日元＋工程1.4万日元，均不含税费等）<br>
+<strong>2〜4万日元/kWh</strong>｜在补贴项目之外采用海外制造储能系统的案例所处的成本水平<br>
+<strong>5万日元/kWh</strong>｜在不以合同锁定收益的情况下，作为实现盈利条件所提示的建设成本水平</p>
+<div class="source">出处：日本经济产业省 固定式储能系统普及扩大研讨会 第5次 资料3（2025年1月30日）p.25·p.29／同 第3次 资料3（2024年8月29日）p.11／三菱综合研究所提交给日本经济产业省研讨会的敏感性分析</div>
+</div>
+
+<h2>01 — 建设成本要以「每1kWh多少钱」来看</h2>
+
+<p>谈储能电站时都是从功率（MW）切入，因此建设成本也很容易被问成「每1MW多少钱」。可是一旦用这种看法，比较就失效了。因为占成本大头的电池电芯，其价格不是由功率（kW）决定，而是由容量（kWh）决定。同样是2MW，4MWh和8MWh的电池量相差一倍。日本政府资料把价格一律以 kWh 为基准表示，原因正在于此。</p>
+
+<div class="db-title">表1｜同样是「2MW」，换成 kW 基准后单价相差3倍（示例）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:130px">规格（示例）</th><th class="num" style="min-width:90px">容量</th><th class="num" style="min-width:110px">按6.8万日元/kWh计的总额</th><th class="num" style="min-width:100px">kW基准的单价</th></tr>
+<tr><td class="em">2MW / 4MWh</td><td class="num">4,000<span class="u">kWh</span></td><td class="num">2.72<span class="u">亿日元</span></td><td class="num em">13.6<span class="u">万日元/kW</span></td></tr>
+<tr class="hl"><td class="em">2MW / 8MWh</td><td class="num">8,000<span class="u">kWh</span></td><td class="num">5.44<span class="u">亿日元</span></td><td class="num em">27.2<span class="u">万日元/kW</span></td></tr>
+<tr><td class="em">2MW / 12MWh</td><td class="num">12,000<span class="u">kWh</span></td><td class="num">8.16<span class="u">亿日元</span></td><td class="num em">40.8<span class="u">万日元/kW</span></td></tr>
+</table>
+</div>
+<p class="note-small">※ 这是把单价6.8万日元/kWh机械套用后的计算示例，并不代表实际成交价格。</p>
+
+<p>三行的功率都是同样的2MW。即便如此，kW 基准的单价却从13.6万日元一直变动到40.8万日元。若只凭 kW 基准的数字就判断「比那个项目贵／便宜」，实际上很可能只是拿长时储能去比短时储能而已。</p>
+
+<p>还存在反方向的作用。PCS（储能变流器）是由功率（kW）决定的设备，电池增加了台数也不变。而日本政府资料把它折算到每 kWh 上，因此时长越长，摊到每 kWh 的 PCS 费用就越被稀释。kWh 基准单价因项目而异的原因之一就在这里。</p>
+
+<div class="info-box">
+<strong>实务上的处理</strong>｜把多份报价并排比较时，先把全部换算成 kWh 基准。在此基础上，请对方按下面要看的四个分类（电池／PCS／其他／工程）拆开。不走完这两步，单价比较就不成立。
+</div>
+
+<h2>02 — 把6.8万日元/kWh的内容拆成四块</h2>
+
+<p>日本经济产业省 固定式储能系统普及扩大研讨会 第5次 资料3（2025年1月30日）p.25·p.29，把补贴项目案例的2024年度平均整理如下。</p>
+
+<div class="db-title">表2｜CAPEX 6.8万日元/kWh的构成，以及套用到2MW/8MWh级（8,000kWh）时的金额</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:120px">分类</th><th class="num" style="min-width:96px">单价</th><th class="num" style="min-width:100px">8,000kWh对应金额</th><th style="min-width:220px">内容</th></tr>
+<tr><td class="em">电池部分</td><td class="num em">4.1<span class="u">万日元/kWh</span></td><td class="num">32,800<span class="u">万日元</span></td><td>电芯·模组·电池架·BMS。随容量成比例增加的最大一块</td></tr>
+<tr><td class="em">PCS</td><td class="num em">0.6<span class="u">万日元/kWh</span></td><td class="num">4,800<span class="u">万日元</span></td><td>直流与交流互相变换的设备。本来由功率（kW）决定</td></tr>
+<tr><td class="em">其他</td><td class="num em">0.7<span class="u">万日元/kWh</span></td><td class="num">5,600<span class="u">万日元</span></td><td>受变电设备、监视与控制、消防与空调等周边</td></tr>
+<tr><td class="em">系统价格 小计</td><td class="num em">5.4<span class="u">万日元/kWh</span></td><td class="num">43,200<span class="u">万日元</span></td><td>上述三项之和。作为设备本身的价格</td></tr>
+<tr><td class="em">工程费</td><td class="num em">1.4<span class="u">万日元/kWh</span></td><td class="num">11,200<span class="u">万日元</span></td><td>基础·场平·电气工程·安装。容易随现场条件变动</td></tr>
+<tr class="hl"><td class="em">合计CAPEX</td><td class="num em">6.8<span class="u">万日元/kWh</span></td><td class="num em">54,400<span class="u">万日元</span><br>（5.44亿日元）</td><td>不含土地费与工程费分摊金</td></tr>
+</table>
+</div>
+<div class="source">出处：日本经济产业省 固定式储能系统普及扩大研讨会 第5次 资料3（2025年1月30日）p.25·p.29。各单价均为补贴项目案例·2024年度平均·不含税费等。金额栏为本公司乘以8,000kWh后的计算值。</div>
+
+<p>从这张表可以读出三点。第一，仅电池部分就占到合计的约6成（4.1÷6.8），相对于设备费（系统价格5.4万日元）则约为四分之三。也就是说，建设成本的讨论，实质上接近于电池电芯采购价格的讨论。</p>
+
+<p>第二，工程费1.4万日元/kWh约占合计的2成，这一块与设备不同，会随现场的地基、场平、运输道路条件而变动。即便选用同样的设备，土地一换它就会动。第三，这个6.8万日元/kWh里<strong>既不含土地费，也不含系统接入的工程费分摊金</strong>。这一点很容易被误读，后面第07节会再作梳理。</p>
+
+<h2>03 — 为什么2〜4万日元/kWh这个数字也在流传</h2>
+
+<p>同一研讨会第3次 资料3（2024年8月29日）p.11写道：在补贴项目之外采用海外制造储能系统的案例中，也可见到2〜4万日元/kWh的成本水平。6.8万日元/kWh与2〜4万日元/kWh，并存于同一主体的资料之中。</p>
+
+<p>造成这一差距的，主要有两点。</p>
+
+<ul>
+<li><strong>是否为补贴项目</strong>。补贴伴随着对象费用的定义、设备的要求、申请内容变更的限制以及工期的限制。这些限制会以某种结构反映到价格上，研讨会自身也指出了这一点。实际的补贴率最终能留下多少，请见<a target="_top" href="/zh-column-subsidies">补贴是「用来判断该不该用的东西」</a>。</li>
+<li><strong>设备的产地</strong>。资料的写法是：在采用海外制造储能系统的案例中观测到了这一水平。不过，采购价格下降的同时，质保的实际有效性、零部件的持续供应能力等另一类议题就会浮现。</li>
+</ul>
+
+<div class="highlight-box">
+<strong>实际行情是有区间的。</strong>正如本公司<a target="_top" href="/zh-qa">Q&amp;A</a>中所述，即便同为2MW/8MWh级，建设成本也有<strong>5亿〜8亿日元</strong>的区间。同样的容量，价签相差1.6倍——这就是现场的样子。只比单价得不出答案。要从统一「这个单价里包含了什么」开始。
+</div>
+
+<h2>04 — 规模一变，单价本身也会变</h2>
+
+<p>第5次会议资料指出，对于超过50MWh的大型项目，系统价格为4.9万日元/kWh。与5.4万日元/kWh之差为0.5万日元/kWh。这就是规模效应。再加上工程费1.4万日元/kWh，大型项目的合计为6.3万日元/kWh。</p>
+
+<div class="db-title">表3｜按前提·按规模的建设成本总额（本公司以单价乘以容量得出的计算值）</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:160px">前提</th><th style="min-width:190px">2MW / 8MWh级<br><span class="u">（8,000kWh）</span></th><th style="min-width:210px">50MW / 200MWh级<br><span class="u">（200,000kWh）</span></th></tr>
+<tr><td class="em">补贴项目的2024年度平均</td><td>6.8万日元/kWh × 8,000kWh<br>＝ <strong>约5.44亿日元</strong></td><td>6.3万日元/kWh × 200,000kWh<br>＝ <strong>约126亿日元</strong><br><span class="u">（超过50MWh时为系统4.9万日元＋工程1.4万日元）</span></td></tr>
+<tr><td class="em">海外制造·不使用补贴<br><span style="font-weight:400;font-size:.92em;color:#6C7A89">系统2〜4万日元＋工程1.4万日元<br>＝3.4〜5.4万日元/kWh</span></td><td>3.4〜5.4万日元/kWh × 8,000kWh<br>＝ <strong>约2.72亿〜4.32亿日元</strong></td><td>3.4〜5.4万日元/kWh × 200,000kWh<br>＝ <strong>约68亿〜108亿日元</strong></td></tr>
+<tr><td class="em">SII补贴按1/3充抵后的实际单价<br><span style="font-weight:400;font-size:.92em;color:#6C7A89">6.8万日元 ×(1−1/3) ≒ 4.53万日元/kWh</span></td><td>4.53万日元/kWh × 8,000kWh<br>＝ <strong>约3.624亿日元</strong></td><td class="cond">补贴率与上限额因规模而异，不可套用同样的计算</td></tr>
+<tr class="hl"><td class="em">作为实现盈利条件所提示的<br>5万日元/kWh</td><td>5.0万日元/kWh × 8,000kWh<br>＝ <strong>4亿日元</strong></td><td>5.0万日元/kWh × 200,000kWh<br>＝ <strong>100亿日元</strong></td></tr>
+</table>
+</div>
+<div class="source">单价出处为上述日本经济产业省研讨会资料以及三菱综合研究所的敏感性分析。总额是本公司以单价×容量算出的计算值，并非已公布的项目成交价格。不含土地费与工程费分摊金。</div>
+
+<p>用金额看一下规模效应的分量。若给50MW/200MWh级套用与小规模相同的6.8万日元/kWh，则为136亿日元；而按6.3万日元/kWh则为126亿日元。单价上的0.5万日元/kWh，一乘以20万kWh，瞬间就变成10亿日元。</p>
+
+<p>反过来，不可以给2MW/8MWh级套用4.9万日元/kWh。这个单价适用于超过50MWh的情形，而8MWh离50MWh还差得很远。不同规模在收益结构与融资方式上的差异，已在<a target="_top" href="/zh-column-biz">30MW以上 vs 2MW</a>中作了梳理。</p>
+
+<h2>05 — 使用补贴后，实际单价能降到哪里</h2>
+
+<p>对补贴对象费用6.8万日元/kWh按1/3充抵SII补贴，实际单价约为4.53万日元/kWh（不含税费等）。若为2MW/8MWh级，则约为3.624亿日元。</p>
+
+<div class="info-box">
+<strong>请不要拿建设成本的总额去乘以1/3。</strong>可获补贴的只是实施设计费·设备费·工程费中被认定为对象的那部分范围，而不是总额的全部。土地费与工程费分摊金的处理方式也另有规定。因此，「总额×1/3会返还」这种算法，几乎必然是高估。
+</div>
+
+<p>而且补贴在压低单价的同时，也会增加约束。处置限制期间、效果报告、单据保存、设备的要求、申请内容变更的限制、工期的限制。这些都会以不体现在报表上的成本形式发生作用。正如<a target="_top" href="/zh-column-subsidies">关于补贴的专栏</a>所写，这不是「怎么拿」，而是<strong>「判断该不该用」</strong>的议题。4.53万日元/kWh这个数字，不过是这一判断的入口。</p>
+
+<h2>06 — 建设成本影响项目可行性的分界点</h2>
+
+<p>建设成本降到哪里，项目才能成立。三菱综合研究所提交给日本经济产业省研讨会的敏感性分析给出了一个参考。在不以合同锁定收益的情况下，即使计入容量市场的收入，基准情形的IRR仍为<strong>负1.5%</strong>。其前提的建设成本为6万日元/kWh。而作为实现盈利条件所提示的，是把建设成本降到<strong>5万日元/kWh以下</strong>，或者批发电力的价差向上超预期。</p>
+
+<p>这项分析所显示的，是「建设成本是决定项目可行性的主要变量之一」这一结构，而不是某个具体项目的成败。即使前提相同，是否以长期合同锁定收益，结论也会不同。</p>
+
+<div class="highlight-box">
+<strong>1.8万日元/kWh的分量。</strong>补贴项目平均值6.8万日元/kWh与盈利条件5万日元/kWh之差为1.8万日元/kWh。若为2MW/8MWh级（8,000kWh）即<strong>1.44亿日元</strong>，若为50MW/200MWh级（200,000kWh）即<strong>36亿日元</strong>。单价表上小数点后一位，直接就变成以亿日元为单位的差额。
+</div>
+
+<p>收益端如何设定是与建设成本不同的话题，关于如何构建20年的收支，请参阅<a target="_top" href="/zh-column-cashflow">储能项目的20年现金流</a>。本文只处理成本一侧。</p>
+
+<h2>07 — 建设成本中「不包含」的东西</h2>
+
+<p>6.8万日元/kWh是设备与安装工程的数字。报价单上的合计金额，与项目所需的总额是两回事。</p>
+
+<div class="db-title">表4｜CAPEX单价之外的费用</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:150px">项目</th><th style="min-width:230px">性质</th><th style="min-width:180px">已公开的水平</th></tr>
+<tr><td class="em">系统接入的工程费分摊金</td><td>向一般输配电事业者支付的接入工程费用。<strong>与建设成本另计</strong>，会因选址而相差一个数量级</td><td>逐个项目通过接入研究答复书确定。不存在标准单价这一概念（<a target="_top" href="/zh-column-grid">关于系统接入的专栏</a>）</td></tr>
+<tr><td class="em">土地取得与场平</td><td>取得还是租赁，资本支出的形态随之改变</td><td>不包含在上述单价中</td></tr>
+<tr><td class="em">运维（O&amp;M）</td><td>运营期内每年都要支出的费用</td><td><strong>没有实际行情的公开数据。</strong>可参照的只有三个：建设成本的每年1〜2%（本公司的概念模型）、美国NREL的建设成本约2.5%、以及日本国家拍卖上限价格测算所采用模型中的人工费单价为每1kW每年5,000日元（<a target="_top" href="/zh-column-om">关于O&amp;M的专栏</a>）</td></tr>
+<tr><td class="em">运营代理的报酬</td><td>委托他人在市场上买卖所需的费用</td><td>市场收益的5〜15%（日本国内的推算值。定义各家不统一）</td></tr>
+<tr><td class="em">保险·税费·管理费</td><td>只要持有就会发生</td><td>超出本文范围</td></tr>
+</table>
+</div>
+
+<p>尤其是O&amp;M，请不要误解这些数字的性质。上述三者只是前提各异的参照点恰好落在相近的数量级上，并不是测量日本实际行情的公开统计。<strong>这一领域尚不存在公开确立的运维费标准单价。</strong></p>
+
+<h2>08 — 收到报价时要确认的事</h2>
+
+<p>把上面的内容落到实务的确认步骤上。</p>
+
+<div class="db-title">表5｜建设成本报价中最先要排除的8个疑点</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:36px">#</th><th style="min-width:170px">要确认的事</th><th style="min-width:290px">为什么会起作用</th></tr>
+<tr><td class="num">1</td><td class="em">单价是否为kWh基准</td><td>停留在kW基准，就会把长时储能与短时储能拿来比（表1）</td></tr>
+<tr><td class="num">2</td><td class="em">是否拆成电池／PCS／其他／工程四个分类</td><td>这样才与日本政府资料站在同一比较口径。若一揽子计价，就看不出贵在哪里</td></tr>
+<tr><td class="num">3</td><td class="em">是否含系统接入的工程费分摊金</td><td>通常是不含的。若把合计额读成「这些钱就能建成」，会因选址不同而落空</td></tr>
+<tr><td class="num">4</td><td class="em">是不含税还是含税</td><td>研讨会公布的单价一律为扣除税费等后的金额</td></tr>
+<tr><td class="num">5</td><td class="em">容量的定义</td><td>是额定容量，还是计入DOD与初期衰减后的可用容量。分母不同，单价也不同</td></tr>
+<tr><td class="num">6</td><td class="em">质保的范围与年限</td><td>若便宜的单价与较短的质保捆绑在一起，差额只是转移到了未来的费用上</td></tr>
+<tr><td class="num">7</td><td class="em">汇率·物价调整条款</td><td>用海外制造压低单价时，价格是否已经锁定，意义完全不同</td></tr>
+<tr><td class="num">8</td><td class="em">报价的有效期限</td><td>电池价格是会动的。不要一直用过期的单价来编项目计划</td></tr>
+</table>
+</div>
+
+<div class="info-box">
+<strong>作为结论。</strong>建设成本没有唯一正确的数值。有的只是若干个标明了前提的水平。6.8万日元/kWh是补贴项目的平均值，2〜4万日元/kWh是不使用补贴且采用海外制造时的水平，4.53万日元/kWh是套用1/3补贴后的实际值，5万日元/kWh是作为盈利条件提示的那条线。该套用哪一个，取决于是否使用补贴、设备从哪里采购、容量定为多少这些设计上的选择。<strong>在评估报价之前，先把前提统一。</strong>顺序要从这里开始。
+</div>
+
+<p>ScienceX以既非卖方也非买方的立场，从事储能电站的技术尽职调查。若希望确认报价的构成明细与前提是否妥当，欢迎<a target="_top" href="https://www.scix.co.jp/zh-contact">联系我们</a>。另外，本文是对公开资料的梳理，并不推荐任何特定的投资决策。</p>
+
+<h2>出处</h2>
+<ul>
+<li>日本经济产业省《2024年度第5次 固定式储能系统普及扩大研讨会 资料3》（2025年1月30日）p.25·p.29 — 电池4.1万日元/kWh、PCS 0.6万日元/kWh、其他0.7万日元/kWh、系统价格5.4万日元/kWh、工程费1.4万日元/kWh、合计6.8万日元/kWh、超过50MWh时的系统价格4.9万日元/kWh。补贴项目案例·2024年度平均·不含税费等</li>
+<li>日本经济产业省《2024年度第3次 固定式储能系统普及扩大研讨会 资料3》（2024年8月29日）p.11 — 在补贴项目之外采用海外制造储能系统的案例中，也可见到2〜4万日元/kWh的成本水平</li>
+<li>三菱综合研究所提交给日本经济产业省研讨会的敏感性分析 — 在不以合同锁定收益的情况下，即使计入容量市场的收入，基准情形的IRR为负1.5%（前提为建设成本6万日元/kWh）。实现盈利的条件是建设成本降至5万日元/kWh以下，或批发电力的价差向上超预期</li>
+<li>美国NREL — 固定O&amp;M为建设成本的约2.5%（以包含电池扩容费用为前提）</li>
+<li>长期脱碳电源拍卖上限价格测算模型中的人工费单价 — 每1kW每年5,000日元</li>
+<li>本文中的总额·实际单价·比率，均为本公司在上述已公布单价上乘以容量或补贴率得出的计算值。运维费的每年1〜2%为本公司的概念模型，运营代理报酬为市场收益的5〜15%系依据日本国内公开信息所作的推算，两者均非官方统计。2MW/8MWh级建设成本5亿〜8亿日元的区间，依据本公司Q&amp;A的记载</li>
+</ul>
+</div>
+
+<!-- scix-column-cta : 1記事1つ。主＝フォーム、副＝解説ページ -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">报价是否合理，欢迎咨询</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">对方给出的建设成本是高还是低，不看单价构成、也不看其中没有包含什么，就无法判断。我们以中立·独立的工程立场为您核对。</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/zh-contact" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">联系我们 &rarr;</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">将打开咨询表单。仅需咨询事项·姓名·公司名称·邮箱四项即可提交。项目专属信息将在签署保密协议后提供。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans SC',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif SC',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X 株式会社（サイエンスエックス株式会社）</div>
+        〒103-0016 日本 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:+81364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

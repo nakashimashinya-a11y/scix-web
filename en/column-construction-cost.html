@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.85;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.5;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.8;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.45}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.45}
+h4{font-size:.98em;font-weight:600;color:var(--navy);margin:20px 0 10px;line-height:1.45}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.95}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.95}
+.warning-box .wb-flag{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.06em;color:#b45309;margin-bottom:8px}
+.info-box{background:var(--blue-bg);border-left:4px solid var(--blue);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:1.95}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:1.95}
+.data-box .db-head{font-size:.82em;color:var(--text-light);letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.note-small{font-size:.82em;color:var(--text-light);line-height:1.85;margin:16px 0 28px}
+.review-note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.9;color:var(--text-light);border-radius:0 4px 4px 0}
+.review-note strong{color:var(--navy)}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.65}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.comparison-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.comparison-table tr.hl{background:rgba(196,154,60,0.08);font-weight:600}
+.comparison-table .u{font-size:.78em;color:var(--text-light);margin-left:2px;font-weight:400}
+.comparison-table .ok{color:var(--green);font-weight:700}
+.comparison-table .ng{color:var(--warn);font-weight:700}
+.comparison-table .cond{color:var(--orange);font-weight:700}
+.table-scroll{overflow-x:auto;margin:28px 0}
+.db-title{font-family:'Noto Sans JP',sans-serif;font-size:.92em;font-weight:600;color:var(--navy);line-height:1.6;margin:28px 0 -20px}
+.table-scroll .comparison-table{margin:0;min-width:620px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.premise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 24px;margin-top:12px}
+.premise-grid>div{border-left:2px solid var(--accent);padding-left:12px}
+.premise-grid dt{font-size:11px;color:var(--text-light);letter-spacing:.04em;margin-bottom:4px;line-height:1.5}
+.premise-grid dd{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.3}
+.premise-grid dd .unit{font-size:11px;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.compare-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;position:relative}
+.compare-card.no-special{border-top:3px solid var(--text-light)}
+.compare-card.with-special{border-top:3px solid var(--accent)}
+.compare-card .cc-tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.compare-card.no-special .cc-tag{background:rgba(108,122,137,.12);color:var(--text-light)}
+.compare-card.with-special .cc-tag{background:rgba(196,154,60,.15);color:var(--accent)}
+.compare-card h4{font-size:1em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.45}
+.compare-card .cc-figure{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:700;color:var(--navy);line-height:1.2;margin:8px 0}
+.compare-card .cc-figure .u{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.compare-card p{font-size:.84em;line-height:1.8;margin:8px 0 0;color:var(--text)}
+.compare-card ul{margin:8px 0 0;padding-left:18px;font-size:.84em;line-height:1.8}
+.compare-card li{margin-bottom:5px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.stat-cell{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px;text-align:center}
+.stat-cell .val{display:block;font-family:'Noto Serif JP',serif;font-size:1.4em;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.stat-cell .val .unit{font-size:.55em;color:var(--text-light);font-weight:400;margin-left:4px;font-family:'Noto Sans JP',sans-serif}
+.stat-cell .lbl{display:block;font-size:.78em;color:var(--text-light);line-height:1.5}
+.diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.diff-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 22px;position:relative}
+.diff-card .diff-num{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.diff-card h4{font-size:.95em;font-weight:700;color:var(--navy);margin:0 0 8px;line-height:1.45}
+.diff-card p{font-size:.85em;line-height:1.8;margin:0}
+.diff-card .guard{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);font-size:.82em;line-height:1.75;color:var(--text)}
+.diff-card .guard b{color:var(--accent);font-weight:700;letter-spacing:.04em}
+.checklist-group{margin:24px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px}
+.checklist-group h5{font-size:.95em;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.checklist-group h5 .cl-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:50%;font-family:'Noto Serif JP',serif;font-size:.78em;font-weight:700;flex-shrink:0}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:.88em;line-height:1.75}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px;margin-top:4px;flex-shrink:0}
+.check-item input:checked+.check-label{text-decoration:line-through;color:var(--text-light)}
+.check-label{flex:1}
+.check-label .check-no{display:inline-block;font-family:'Noto Serif JP',serif;font-size:.85em;font-weight:700;color:var(--accent);margin-right:6px;letter-spacing:.04em}
+.check-progress{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:.82em;color:var(--text-light)}
+.check-progress .bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.check-progress .bar-fill{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.check-progress .count{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.fig-wrap{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+.fig-wrap .fig-cap{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;letter-spacing:.02em;line-height:1.65}
+.fig-wrap svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.sources-box{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.82em;line-height:1.8}
+.sources-box h4{font-size:.95em;color:var(--navy);margin-bottom:10px}
+.sources-box ul{padding-left:20px;color:var(--text-light)}
+.sources-box li{margin-bottom:6px}
+.sources-box a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources-box a:hover{text-decoration:underline}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .premise-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-row{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:1fr}
+}
+.src-list .t{display:inline-block;min-width:34px;font-weight:700;color:var(--navy);margin-right:8px;font-size:.92em}
+.part-lead{font-family:'Noto Serif JP',serif;font-size:.86em;letter-spacing:.12em;color:var(--accent);margin:56px 0 -32px;font-weight:600}
+</style>
+<title>BESS Construction Cost in Japan | 68,000 yen/kWh Breakdown | ScienceX</title>
+<meta name="description" content="What does a grid-scale battery cost to build in Japan? METI puts the subsidised average at 68,000 yen/kWh. We split it into cells, PCS, other equipment and construction works, and show where the unit cost moves.">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-construction-cost">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-construction-cost">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-construction-cost">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/column-construction-cost">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-construction-cost">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BESS Construction Cost in Japan | 68,000 yen/kWh Breakdown | ScienceX">
+<meta property="og:description" content="The published Japanese average is 68,000 yen/kWh. Split into cells, PCS, other and works — and where each figure moves.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-construction-cost">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BESS Construction Cost in Japan | 68,000 yen/kWh Breakdown | ScienceX">
+<meta name="twitter:description" content="The published Japanese average is 68,000 yen/kWh. Split into cells, PCS, other and works — and where each figure moves.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="article:published_time" content="2026-08-12">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "BESS Construction Cost in Japan | 68,000 yen/kWh Breakdown | ScienceX",
+  "description": "What does a grid-scale battery cost to build in Japan? METI puts the subsidised average at 68,000 yen/kWh. We split it into cells, PCS, other equipment and construction works, and show where the unit cost moves.",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-08-12",
+  "dateModified": "2026-08-12",
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-construction-cost"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.scix.co.jp/en" },
+    { "@type": "ListItem", "position": 2, "name": "Knowledge", "item": "https://www.scix.co.jp/en/knowledge" },
+    { "@type": "ListItem", "position": 3, "name": "BESS Construction Cost in Japan", "item": "https://www.scix.co.jp/en/column-construction-cost" }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/en" style="color:#5A6577;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#5A6577;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">BESS Construction Cost in Japan</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 40</span>
+      <span class="header-tag">Buyers &amp; Investors / Construction Cost</span>
+      <time class="header-date" datetime="2026-08-12">2026.08.12</time>
+    </div>
+    <h1><em>Construction cost</em> of a grid-scale battery:<br>how much per <em>kWh</em>?</h1>
+    <p class="header-desc">Answer &ldquo;what does a storage plant cost to build&rdquo; with a single number and you will usually be wrong. The published Japanese average is 68,000 yen/kWh &mdash; yet for the same 2 MW / 8 MWh plant the total moves between 272 million and 544 million yen, depending on where the equipment comes from and whether a subsidy is used. We split the unit cost into battery, PCS, other equipment and construction works, and trace where it is set and where it moves.</p>
+  </div>
+</div>
+
+<div class="article-body">
+<div class="article-body">
+<p>What does it cost to build a grid-scale battery storage plant? Answer that with a single number and you will usually be wrong. The published Japanese average is 68,000 yen/kWh. Another page of the same government document puts the level at 20,000–40,000 yen/kWh. A gap of more than two to one, and both figures come from the same ministry study group. (All amounts in this article are in Japanese yen; no currency conversion has been applied.)</p>
+
+<p>That gap is not measurement error. It is a difference in conditions. This article breaks the 68,000 yen/kWh figure into four parts — cells, PCS, other equipment and construction works — and traces why the unit cost varies so widely, staying strictly within what public documents allow us to verify. The way the business model itself changes with project size is covered in <a target="_top" href="/en/column-biz">Over 30 MW vs 2 MW — two completely different battery storage business models</a>.</p>
+
+<div class="data-box">
+<div class="db-head">The three figures used in this article</div>
+<p><strong>68,000 yen/kWh</strong> — FY2024 average CAPEX for subsidised projects (system 54,000 yen + construction works 14,000 yen, both excluding tax and similar charges)<br>
+<strong>20,000–40,000 yen/kWh</strong> — cost level observed on non-subsidised projects that adopt overseas-made storage systems<br>
+<strong>50,000 yen/kWh</strong> — the construction-cost level identified as the condition for profitability when revenue is not fixed by contract</p>
+<div class="source">Sources: Ministry of Economy, Trade and Industry, Study Group on Expanding the Adoption of Stationary Storage Battery Systems, 5th meeting, Document 3 (January 30, 2025), pp. 25 and 29 ／ same study group, 3rd meeting, Document 3 (August 29, 2024), p. 11 ／ sensitivity analysis submitted to the METI study group by Mitsubishi Research Institute.</div>
+</div>
+
+<h2>01 — Read construction cost per kWh, not per kW</h2>
+
+<p>Because battery plants are introduced by their output rating (MW), it is tempting to ask what they cost per MW. Do that and the comparison breaks. The largest cost item — the battery cells — is priced by energy capacity (kWh), not by output (kW). Two projects can both be 2 MW, yet an 8 MWh unit contains twice as much battery as a 4 MWh one. That is precisely why the government documents state every price on a kWh basis.</p>
+
+<div class="db-title">Table 1 — The same "2 MW", expressed per kW, moves the unit cost threefold (illustrative)</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:130px">Specification (illustrative)</th><th class="num" style="min-width:90px">Capacity</th><th class="num" style="min-width:110px">Total at 68,000 yen/kWh</th><th class="num" style="min-width:100px">Unit cost per kW</th></tr>
+<tr><td class="em">2 MW / 4 MWh</td><td class="num">4,000<span class="u">kWh</span></td><td class="num">272 <span class="u">million yen</span></td><td class="num em">136,000 <span class="u">yen/kW</span></td></tr>
+<tr class="hl"><td class="em">2 MW / 8 MWh</td><td class="num">8,000<span class="u">kWh</span></td><td class="num">544 <span class="u">million yen</span></td><td class="num em">272,000 <span class="u">yen/kW</span></td></tr>
+<tr><td class="em">2 MW / 12 MWh</td><td class="num">12,000<span class="u">kWh</span></td><td class="num">816 <span class="u">million yen</span></td><td class="num em">408,000 <span class="u">yen/kW</span></td></tr>
+</table>
+</div>
+<p class="note-small">Note: these are arithmetic examples produced by applying 68,000 yen/kWh mechanically. They do not represent transacted market prices.</p>
+
+<p>All three rows are 2 MW. Even so, the per-kW unit cost ranges from 136,000 yen to 408,000 yen. Judge a project "expensive" or "cheap" on the per-kW number alone and you may simply be comparing a long-duration system against a short-duration one.</p>
+
+<p>The effect also runs the other way. The PCS (power conditioning system) is sized by output (kW), so adding batteries does not add PCS units. Because the government figures divide that cost back across kWh, the longer the duration, the more the PCS cost per kWh is diluted. This is one of the reasons the per-kWh unit cost moves from project to project.</p>
+
+<div class="info-box">
+<strong>In practice</strong> — when you line up several quotations, first restate all of them on a kWh basis. Then ask each supplier to split the figure into the four categories examined below (battery / PCS / other / construction works). Without those two steps, a comparison of unit costs simply does not hold.
+</div>
+
+<h2>02 — Splitting 68,000 yen/kWh into four parts</h2>
+
+<p>METI's Study Group on Expanding the Adoption of Stationary Storage Battery Systems, 5th meeting, Document 3 (January 30, 2025), pp. 25 and 29, sets out the FY2024 average for subsidised projects as follows.</p>
+
+<div class="db-title">Table 2 — Breakdown of CAPEX at 68,000 yen/kWh, and the amounts when applied to a 2 MW / 8 MWh class plant (8,000 kWh)</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:120px">Category</th><th class="num" style="min-width:96px">Unit cost</th><th class="num" style="min-width:100px">Amount at 8,000 kWh</th><th style="min-width:220px">What it covers</th></tr>
+<tr><td class="em">Battery</td><td class="num em">41,000 <span class="u">yen/kWh</span></td><td class="num">328 <span class="u">million yen</span></td><td>Cells, modules, racks, BMS. The single largest block, and it scales with capacity</td></tr>
+<tr><td class="em">PCS</td><td class="num em">6,000 <span class="u">yen/kWh</span></td><td class="num">48 <span class="u">million yen</span></td><td>DC/AC conversion equipment. Inherently sized by output (kW)</td></tr>
+<tr><td class="em">Other</td><td class="num em">7,000 <span class="u">yen/kWh</span></td><td class="num">56 <span class="u">million yen</span></td><td>Substation equipment, monitoring and control, fire protection and HVAC</td></tr>
+<tr><td class="em">System price, subtotal</td><td class="num em">54,000 <span class="u">yen/kWh</span></td><td class="num">432 <span class="u">million yen</span></td><td>Sum of the three above. The price of the equipment itself</td></tr>
+<tr><td class="em">Construction works</td><td class="num em">14,000 <span class="u">yen/kWh</span></td><td class="num">112 <span class="u">million yen</span></td><td>Foundations, site preparation, electrical works, installation. Sensitive to site conditions</td></tr>
+<tr class="hl"><td class="em">Total CAPEX</td><td class="num em">68,000 <span class="u">yen/kWh</span></td><td class="num em">544 <span class="u">million yen</span><br>(0.544 billion yen)</td><td>Excludes land cost and grid connection contribution charges</td></tr>
+</table>
+</div>
+<div class="source">Source: Ministry of Economy, Trade and Industry, Study Group on Expanding the Adoption of Stationary Storage Battery Systems, 5th meeting, Document 3 (January 30, 2025), pp. 25 and 29. All unit costs are FY2024 averages for subsidised projects, excluding tax and similar charges. The amount column is our own calculation, multiplying by 8,000 kWh.</div>
+
+<p>Three things follow from this table. First, the battery alone accounts for roughly 60% of the total (41,000 ÷ 68,000), and about three quarters of the equipment price (the 54,000 yen system price). In substance, a discussion of construction cost is close to a discussion of cell procurement pricing.</p>
+
+<p>Second, construction works at 14,000 yen/kWh are roughly 20% of the total, and unlike equipment they move with local ground conditions, site preparation and access routes. Choose identical equipment and this element still shifts when the site changes. Third, this 68,000 yen/kWh figure <strong>includes neither land cost nor the grid connection contribution charge</strong>. Because that is easily misread, section 07 returns to it.</p>
+
+<h2>03 — Why the figure of 20,000–40,000 yen/kWh also circulates</h2>
+
+<p>The 3rd meeting of the same study group, Document 3 (August 29, 2024), p. 11, states that on non-subsidised projects adopting overseas-made storage systems, cost levels of 20,000–40,000 yen/kWh are also observed. So 68,000 yen/kWh and 20,000–40,000 yen/kWh sit side by side in documents from the same body.</p>
+
+<p>Two factors largely explain the divergence.</p>
+
+<ul>
+<li><strong>Whether the project is subsidised.</strong> Subsidies bring definitions of eligible expenditure, equipment requirements, restrictions on changing the content of an application, and construction schedule constraints. The study group itself notes the structural way such constraints feed into price. How much of the nominal subsidy rate actually survives is discussed in <a target="_top" href="/en/column-subsidies">Subsidies are something you decide whether to use</a>.</li>
+<li><strong>Where the equipment comes from.</strong> The document's wording is that this level has been observed on projects adopting overseas-made storage systems. Lower procurement pricing, however, raises separate questions: how enforceable the warranty is, and how reliably components will continue to be supplied.</li>
+</ul>
+
+<div class="highlight-box">
+<strong>The real market has a spread.</strong> As noted in our <a target="_top" href="/en/qa">Q&amp;A</a>, even for the same 2 MW / 8 MWh class, construction cost spans <strong>500–800 million yen</strong>. The same capacity can carry a price tag 1.6 times as high — that is what the field actually looks like. Comparing unit costs alone will not settle it. The starting point is aligning what each unit cost includes.
+</div>
+
+<h2>04 — Change the scale and the unit cost itself changes</h2>
+
+<p>The 5th-meeting document states that for large projects above 50 MWh the system price falls to 49,000 yen/kWh. The gap against 54,000 yen/kWh is 5,000 yen/kWh: that is the economies of scale. Add construction works of 14,000 yen/kWh and the total for large projects becomes 63,000 yen/kWh.</p>
+
+<div class="db-title">Table 3 — Total construction cost by assumption and by scale (our own calculation, unit cost × capacity)</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:160px">Assumption</th><th style="min-width:190px">2 MW / 8 MWh class<br><span class="u">(8,000 kWh)</span></th><th style="min-width:210px">50 MW / 200 MWh class<br><span class="u">(200,000 kWh)</span></th></tr>
+<tr><td class="em">FY2024 average, subsidised projects</td><td>68,000 yen/kWh × 8,000 kWh<br>= <strong>approx. 544 million yen</strong></td><td>63,000 yen/kWh × 200,000 kWh<br>= <strong>approx. 12.6 billion yen</strong><br><span class="u">(above 50 MWh: system 49,000 yen + works 14,000 yen)</span></td></tr>
+<tr><td class="em">Overseas-made, no subsidy<br><span style="font-weight:400;font-size:.92em;color:#6C7A89">system 20,000–40,000 yen + works 14,000 yen<br>= 34,000–54,000 yen/kWh</span></td><td>34,000–54,000 yen/kWh × 8,000 kWh<br>= <strong>approx. 272–432 million yen</strong></td><td>34,000–54,000 yen/kWh × 200,000 kWh<br>= <strong>approx. 6.8–10.8 billion yen</strong></td></tr>
+<tr><td class="em">Effective unit cost after a one-third SII subsidy<br><span style="font-weight:400;font-size:.92em;color:#6C7A89">68,000 yen × (1 − 1/3) ≈ 45,300 yen/kWh</span></td><td>45,300 yen/kWh × 8,000 kWh<br>= <strong>approx. 362.4 million yen</strong></td><td class="cond">Subsidy rates and caps differ by scale, so the same arithmetic must not be applied here</td></tr>
+<tr class="hl"><td class="em">50,000 yen/kWh<br>identified as the profitability condition</td><td>50,000 yen/kWh × 8,000 kWh<br>= <strong>400 million yen</strong></td><td>50,000 yen/kWh × 200,000 kWh<br>= <strong>10 billion yen</strong></td></tr>
+</table>
+</div>
+<div class="source">Unit costs are sourced from the METI study group documents and the Mitsubishi Research Institute sensitivity analysis cited above. Totals are our own calculations (unit cost × capacity) and are not published project prices. Land cost and grid connection contribution charges are not included.</div>
+
+<p>It is worth seeing the economies of scale in money. Apply the small-project figure of 68,000 yen/kWh to a 50 MW / 200 MWh plant and the total is 13.6 billion yen; at 63,000 yen/kWh it is 12.6 billion yen. A unit-cost difference of 5,000 yen/kWh becomes 1 billion yen the moment it is multiplied by 200,000 kWh.</p>
+
+<p>The converse also holds: do not apply 49,000 yen/kWh to a 2 MW / 8 MWh plant. That unit cost applies above 50 MWh, and 8 MWh is nowhere near 50 MWh. Differences in revenue structure and financing by scale are set out in <a target="_top" href="/en/column-biz">Over 30 MW vs 2 MW</a>.</p>
+
+<h2>05 — How far does a subsidy actually pull the unit cost down?</h2>
+
+<p>Applying an SII subsidy at one third of eligible expenditure of 68,000 yen/kWh gives an effective unit cost of approximately 45,300 yen/kWh (excluding tax and similar charges). For a 2 MW / 8 MWh class plant that is approximately 362.4 million yen.</p>
+
+<div class="info-box">
+<strong>Do not multiply the total construction cost by one third.</strong> Only the portions of detailed design, equipment and construction works that are recognised as eligible fall within the subsidy — not the entire total. Land cost and grid connection contribution charges are also treated separately. An assumption that "one third of the total comes back" will therefore almost certainly overstate the benefit.
+</div>
+
+<p>A subsidy also buys constraints in exchange for the lower unit cost: disposal restriction periods, effect reporting, document retention, equipment requirements, restrictions on changing the content of an application, and construction schedule constraints. These act as costs that never appear on the face of a quotation. As set out in our <a target="_top" href="/en/column-subsidies">column on subsidies</a>, the question is not how to obtain one but <strong>whether to use one at all</strong>. The figure of 45,300 yen/kWh is only the entrance to that judgement.</p>
+
+<h2>06 — Where construction cost starts to decide feasibility</h2>
+
+<p>How far does construction cost have to fall for a project to work? A sensitivity analysis submitted to the METI study group by Mitsubishi Research Institute offers one benchmark. Where revenue is not fixed by contract, the base-case IRR was <strong>minus 1.5%</strong> even with capacity market income included. The assumed construction cost was 60,000 yen/kWh. The conditions identified for reaching profitability were either a reduction in construction cost to <strong>50,000 yen/kWh or below</strong>, or an upside in wholesale power price spreads.</p>
+
+<p>What the analysis demonstrates is a structural point — that construction cost is one of the principal variables determining feasibility — not the outcome of any individual project. On the same assumptions, the picture changes again depending on whether revenue is fixed under a long-term contract.</p>
+
+<div class="highlight-box">
+<strong>The weight of 18,000 yen/kWh.</strong> The gap between the subsidised-project average of 68,000 yen/kWh and the profitability condition of 50,000 yen/kWh is 18,000 yen/kWh. For a 2 MW / 8 MWh class plant (8,000 kWh) that is <strong>144 million yen</strong>; for a 50 MW / 200 MWh class plant (200,000 kWh), <strong>3.6 billion yen</strong>. One decimal place in a unit-cost table translates directly into differences of hundreds of millions — and, at scale, billions — of yen.
+</div>
+
+<p>How the revenue side is modelled is a separate question from construction cost; for how a 20-year profit and loss profile is assembled, see <a target="_top" href="/en/column-cashflow">The 20-year cash flow of a battery storage business</a>. This article deals only with the cost side.</p>
+
+<h2>07 — What the construction cost figure does not include</h2>
+
+<p>68,000 yen/kWh is a figure for equipment and installation works. The total on a quotation and the total a project actually requires are different things.</p>
+
+<div class="db-title">Table 4 — Costs that sit outside the CAPEX unit cost</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:150px">Item</th><th style="min-width:230px">Nature</th><th style="min-width:180px">Publicly available level</th></tr>
+<tr><td class="em">Grid connection contribution charge</td><td>Cost of connection works payable to the general transmission and distribution utility. <strong>A separate budget line from construction cost</strong>, and it changes by an order of magnitude with location</td><td>Fixed project by project in the connection study response. There is no concept of a standard unit price (<a target="_top" href="/en/column-grid">column on grid connection</a>)</td></tr>
+<tr><td class="em">Land acquisition and site preparation</td><td>The form of the capital outlay changes depending on whether the land is bought or leased</td><td>Not included in the unit costs above</td></tr>
+<tr><td class="em">Operation and maintenance (O&amp;M)</td><td>An annual outflow throughout the operating period</td><td><strong>No public data on actual market levels exists.</strong> Only three reference points can be cited: 1–2% of construction cost per year (our own conceptual model), approximately 2.5% of construction cost according to the US NREL, and a labour unit cost of 5,000 yen per kW per year assumed in the model used to calculate the price cap for the national auction (<a target="_top" href="/en/column-om">column on O&amp;M</a>)</td></tr>
+<tr><td class="em">Trading and dispatch service fees</td><td>The cost of having someone trade in the markets on your behalf</td><td>5–15% of market profit (estimate for Japan; definitions are not standardised across providers)</td></tr>
+<tr><td class="em">Insurance, taxes, administration</td><td>Incurred for as long as the asset is held</td><td>Outside the scope of this article</td></tr>
+</table>
+</div>
+
+<p>O&amp;M in particular should not be misread. The three figures above are reference points built on different assumptions that happen to land in a similar order of magnitude; none is a published statistic measuring actual Japanese practice. <strong>This field still has no officially established standard unit cost for maintenance and operation.</strong></p>
+
+<h2>08 — What to check when a quotation arrives</h2>
+
+<p>The following turns the material above into a practical checking sequence.</p>
+
+<div class="db-title">Table 5 — Eight points to settle first on a construction cost quotation</div>
+<div class="table-scroll">
+<table class="comparison-table">
+<tr><th style="min-width:36px">#</th><th style="min-width:170px">What to check</th><th style="min-width:290px">Why it matters</th></tr>
+<tr><td class="num">1</td><td class="em">Is the unit cost stated per kWh?</td><td>Left on a per-kW basis, you end up comparing a long-duration system with a short-duration one (Table 1)</td></tr>
+<tr><td class="num">2</td><td class="em">Is it split into battery / PCS / other / construction works?</td><td>It puts you on the same footing as the government data. As a single lump sum, there is no way to see which part is expensive</td></tr>
+<tr><td class="num">3</td><td class="em">Is the grid connection contribution charge included?</td><td>Normally it is not. Read the total as "what it costs to build this" and location will prove you wrong</td></tr>
+<tr><td class="num">4</td><td class="em">Tax-exclusive or tax-inclusive?</td><td>Every unit cost published by the study group excludes tax and similar charges</td></tr>
+<tr><td class="num">5</td><td class="em">Definition of capacity</td><td>Rated capacity, or usable capacity after DOD and initial degradation? A different denominator means a different unit cost</td></tr>
+<tr><td class="num">6</td><td class="em">Scope and term of the warranty</td><td>If a low unit cost comes bundled with a short warranty, the difference has merely been shifted into future expenditure</td></tr>
+<tr><td class="num">7</td><td class="em">FX and price escalation clauses</td><td>Where overseas equipment lowers the unit cost, whether the price is actually fixed changes what that means</td></tr>
+<tr><td class="num">8</td><td class="em">Validity period of the quotation</td><td>Battery prices move. Do not keep building a business plan on an expired unit cost</td></tr>
+</table>
+</div>
+
+<div class="info-box">
+<strong>In conclusion.</strong> There is no single correct value for construction cost. There are several levels, each with its assumptions stated. 68,000 yen/kWh is the average for subsidised projects; 20,000–40,000 yen/kWh applies where no subsidy is used and overseas equipment is adopted; 45,300 yen/kWh is the effective figure after a one-third subsidy; 50,000 yen/kWh is the line identified as the profitability condition. Which one applies is decided by design choices — whether to use a subsidy, where to procure equipment, and what capacity to build. <strong>Align the assumptions before evaluating the quotation.</strong> That is where the sequence begins.
+</div>
+
+<p>ScienceX performs technical due diligence on battery storage plants from a position that is neither seller nor buyer. If you would like the breakdown of a quotation, or the validity of its assumptions, reviewed, please <a target="_top" href="https://www.scix.co.jp/en/contact">get in touch</a>. This article is a summary of public documents and does not recommend any particular investment decision.</p>
+
+<h2>Sources</h2>
+<ul>
+<li>Ministry of Economy, Trade and Industry, "FY2024 5th Study Group on Expanding the Adoption of Stationary Storage Battery Systems, Document 3" (January 30, 2025), pp. 25 and 29 — battery 41,000 yen/kWh, PCS 6,000 yen/kWh, other 7,000 yen/kWh, system price 54,000 yen/kWh, construction works 14,000 yen/kWh, total 68,000 yen/kWh, and system price of 49,000 yen/kWh above 50 MWh. All are FY2024 averages for subsidised projects, excluding tax and similar charges</li>
+<li>Ministry of Economy, Trade and Industry, "FY2024 3rd Study Group on Expanding the Adoption of Stationary Storage Battery Systems, Document 3" (August 29, 2024), p. 11 — on non-subsidised projects adopting overseas-made storage systems, cost levels of 20,000–40,000 yen/kWh are also observed</li>
+<li>Sensitivity analysis submitted to the METI study group by Mitsubishi Research Institute — where revenue is not fixed by contract, the base-case IRR is minus 1.5% even including capacity market income (on an assumed construction cost of 60,000 yen/kWh). The conditions for profitability are construction cost at or below 50,000 yen/kWh, or an upside in wholesale power price spreads</li>
+<li>US NREL — fixed O&amp;M at approximately 2.5% of construction cost (on an assumption that includes battery augmentation cost)</li>
+<li>Labour unit cost in the price-cap calculation model for the Long-term Decarbonization Power Source Auction — 5,000 yen per kW per year</li>
+<li>The totals, effective unit costs and ratios in this article are our own calculations, multiplying the published unit costs above by capacity or by a subsidy rate. The 1–2% per year for maintenance and operation is our own conceptual model, and the 5–15% of market profit for trading and dispatch service fees is an estimate drawn from publicly available information in Japan; neither is an official statistic. The 500–800 million yen range for construction cost of a 2 MW / 8 MWh class plant is as stated in our Q&amp;A</li>
+</ul>
+</div>
+</div>
+
+<!-- scix-column-cta : 1記事1つ。主＝フォーム、副＝解説ページ -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">Not sure whether a quote is reasonable?</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">Whether a quoted construction cost is high or low cannot be judged without seeing the unit-cost breakdown, and what is missing from it. We check it from an independent, engineering-led position.</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/en/contact" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">Contact us &rarr;</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">Opens our contact form. Four fields only &mdash; enquiry type, name, company and email. Project-specific information is shared after an NDA.</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        8-2 Nihonbashi-Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        TEL: <a href="tel:+81364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
