@@ -397,7 +397,6 @@
   /* ===== RESPONSIVE ===== */
   @media (max-width: 900px) {
     .contact-grid { grid-template-columns: 1fr; }
-    .sidebar { order: -1; }
     .form-card { padding: 36px 28px; }
     .form-row { grid-template-columns: 1fr; }
     .hero-title { font-size: 28px; }
@@ -538,7 +537,7 @@
             <div class="form-group">
               <label>地目<span class="optional">（任意）</span></label>
               <input type="text" name="chimoku" placeholder="例：宅地、雑種地、山林、原野、田、畑">
-              <small class="form-help">登記簿上の地目。農地（田・畑）は転用難易度が高く対象外となる場合がございます。</small>
+              <small class="form-help">登記簿上の地目。農地（田・畑）の場合は、転用の可否を当社で確認します。お分かりであれば農振区域の内外（青地・白地）もご記入ください。</small>
             </div>
             <div class="form-group">
               <label>面積<span class="optional">（任意）</span></label>
@@ -579,7 +578,7 @@
       <div class="sidebar">
 
         <!-- NDA -->
-        <div class="nda-card">
+        <div class="nda-card" id="ndaCard">
           <div class="nda-title">機密性の高い案件の方へ</div>
           <p>先にNDA（秘密保持契約）を締結したい場合は、Word雛形をダウンロードしてご利用ください。</p>
           <a href="/files/scix-nda-template.docx" download>
@@ -603,7 +602,7 @@
             </li>
             <li>
               <span class="check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
-              <span><strong style="color:var(--navy);">概算査定（買取価格・買取可否）</strong>を48時間以内に無料でお伝え</span>
+              <span>48時間以内に<strong style="color:var(--navy);">机上スクリーニングの結果</strong>（進められるか・進め方）をご連絡。買取価格は接続検討の回答（約3ヶ月・費用は当社負担）が出た後、回答書と併せてご提示</span>
             </li>
             <li>
               <span class="check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -667,6 +666,7 @@
   var personaSections = document.querySelectorAll('[data-persona-section]');
   var personaField = document.getElementById('personaField');
   var subjectField = document.getElementById('subjectField');
+  var ndaCard = document.getElementById('ndaCard');
   var uploadZone = document.getElementById('uploadZone');
   var uploadInput = document.getElementById('uploadInput');
   var fileList = document.getElementById('fileList');
@@ -691,9 +691,11 @@
     if (persona === 'seller') {
       subjectField.value = '【ScienceXウェブサイト】事業権利の査定依頼（業者様）';
       addressInput.required = false;
+      if (ndaCard) ndaCard.style.display = '';
     } else {
       subjectField.value = '【ScienceXウェブサイト】蓄電池用地の査定依頼（地主様）';
       addressInput.required = true;
+      if (ndaCard) ndaCard.style.display = 'none';
     }
   }
 
@@ -702,7 +704,8 @@
   });
 
   // Initial: seller, address not required
-  setPersona('seller');
+  var typeParam = (new URLSearchParams(location.search).get('type') || '').toLowerCase();
+  setPersona(typeParam === 'land' ? 'land' : 'seller');
 
   function fmtSize(bytes) {
     if (bytes < 1024) return bytes + ' B';
@@ -875,7 +878,8 @@
       })
       .then(function (resp) {
         if (resp && (resp.success === true || resp.success === 'true')) {
-          window.location.href = '/thanks';
+          if (typeof gtag === 'function') gtag('event', 'generate_lead', { lead_type: personaField.value });
+          window.location.href = personaField.value === 'land' ? '/thanks?type=land' : '/thanks';
         } else {
           throw new Error((resp && resp.message) || 'submit failed');
         }
@@ -891,7 +895,7 @@
   // 送信先サーバー(FormSubmit)障害時でも相談を取りこぼさない退避導線
   function showMailFallback(form, data) {
     var TO = 's@scix.co.jp';
-    var labels = { persona:'種別', name:'お名前', company:'会社名', email:'メール', phone:'電話', address:'所在地', capacity:'規模', voltage:'電圧区分', stage:'進捗段階', area:'面積', landuse:'地目', message:'メッセージ', uploaded_files:'アップロード書類', files:'アップロード書類' };
+    var labels = { persona:'種別', name:'お名前', company:'会社名', email:'メール', phone:'電話', case_count:'案件件数', message_seller:'ご要望・補足', address:'対象地の住所', gmap_url:'Google Maps URL', pole_number:'電柱番号', chimoku:'地目', area:'面積', youto:'用途地域', message_land:'ご要望・補足', uploaded_files:'アップロード書類' };
     var lines = [];
     Object.keys(data).forEach(function (k) {
       if (k.charAt(0) === '_') return;
@@ -970,8 +974,18 @@
         MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
         <div class="representative">代表取締役 中島 晋也（工学博士）</div>
       </div>
-      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;">
-        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド（法人投資家の方へ）</a>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/land" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">土地を売る・貸す</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
       </div>
       <div class="scix-footer-copyright">
         &copy; 2025–2026 Science X Inc. All Rights Reserved.

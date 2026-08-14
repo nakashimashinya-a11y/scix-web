@@ -231,17 +231,18 @@
     '<a href="/en"           data-page="/">Home</a>',
     '<a href="/en/knowledge" data-page="/knowledge">Knowledge</a>',
     '<a href="/en/qa"        data-page="/qa">Q&amp;A</a>',
+    '<a href="/en/market-entry-guide" data-page="/market-entry-guide">Market Entry Guide</a>',
     '<a href="/en/contact" class="scix-cta">Contact</a>'
   ] : [
     '<a href="/"          data-page="/">ホーム</a>',
-    '<a href="/grid-storage" data-page="/grid-storage">市場・収益構造</a>',
+    '<a href="/grid-storage" data-page="/grid-storage">蓄電池事業のしくみ</a>',
     '<div class="scix-nav-dd">' +
       '<button type="button" class="scix-nav-dd-toggle" aria-haspopup="true" aria-expanded="false">案件<span class="scix-dd-caret" aria-hidden="true">▾</span></button>' +
       '<div class="scix-nav-dd-menu">' +
         '<a href="/transfer" data-page="/transfer">案件を買う</a>' +
-        '<a href="/projects" data-page="/projects">案件一覧</a>' +
-        '<a href="/sourcing" data-page="/sourcing">案件を売る</a>' +
-        '<a href="/land"     data-page="/land">用地</a>' +
+        '<a href="/projects" data-page="/projects">販売中の案件一覧</a>' +
+        '<a href="/sourcing" data-page="/sourcing">案件・権利を売る</a>' +
+        '<a href="/land"     data-page="/land">土地を売る・貸す</a>' +
       '</div>' +
     '</div>',
     '<a href="/knowledge" data-page="/knowledge">ナレッジ</a>',
@@ -306,12 +307,13 @@
 
   // Floating contact CTA (mobile only; hidden on the contact/sell-form/thanks pages themselves)
   if (!/contact|sell-form|thanks/.test(path)) {
+    var isLandPage = ['/land', '/column-land-buyback', '/column-land-value', '/column-noise'].indexOf(path) !== -1;
     var fcta = document.createElement('a');
     fcta.className = 'scix-float-cta';
-    fcta.href = isZh ? '/zh-contact' : (isEn ? '/en/contact' : '/contact');
+    fcta.href = isLandPage ? '/sell-form?type=land' : (isZh ? '/zh-contact' : (isEn ? '/en/contact' : '/contact'));
     fcta.setAttribute('target', '_top');
-    fcta.setAttribute('aria-label', isEn ? 'Contact us' : (isZh ? '咨询' : 'ご相談・お問い合わせ'));
-    fcta.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' + (isEn ? 'Contact' : (isZh ? '咨询' : '相談する'));
+    fcta.setAttribute('aria-label', isLandPage ? '無料で用地査定' : (isEn ? 'Contact us' : (isZh ? '咨询' : 'ご相談・お問い合わせ')));
+    fcta.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' + (isLandPage ? '無料で用地査定' : (isEn ? 'Contact' : (isZh ? '咨询' : '相談する')));
     document.body.appendChild(fcta);
   }
 
