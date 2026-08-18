@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.85;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Serif JP',serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.down{color:var(--warn);font-weight:700}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tr.total td{background:rgba(196,154,60,0.08);font-weight:700;border-top:2px solid var(--accent)}
+td.max{color:var(--warn);font-weight:700}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.scope th{width:10em;vertical-align:top}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-16px 0 28px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.related{font-size:.9em;line-height:2.05}
+.related ul{margin:8px 0;padding-left:1.3em}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px}
+}
+</style>
+<title>The Ceiling Drops by Five Yen — Japan's Balancing-Market Cap Falls to ¥10. Counting the ≈¥30 Billion That Disappears, Across 9 Areas × 4 Products | ScienceX</title>
+<meta name="description" content="From delivery on September 1, 2026, the ΔkW price cap for primary reserve, secondary reserve 1 and the composite product in Japan's balancing market falls from ¥15 to ¥10.00/ΔkW·30min. ScienceX aggregated all 158 days of EPRX awarded results to measure what disappears, across 9 areas × 4 products: −8.6% nationwide, ≈¥30 billion a year; primary offline −22%. The market moved first — August averaged ¥9.80. With a 2MW/8MWh translation and a ¥7.21 stress test.">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-price-cap">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-price-cap">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-price-cap">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-price-cap">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-price-cap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Ceiling Drops by Five Yen — Japan's Balancing-Market Cap Falls to ¥10. Counting the ≈¥30 Billion That Disappears, Across 9 Areas × 4 Products | ScienceX">
+<meta property="og:description" content="Measuring what a ¥10 cap deletes, across 9 areas × 4 products: −8.6% nationwide, ≈¥30bn/yr; primary offline −22%; Tohoku × offline −32%. The market moved first — August averaged ¥9.80.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-price-cap">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Ceiling Drops by Five Yen — Japan's Balancing-Market Cap Falls to ¥10. Counting the ≈¥30 Billion That Disappears, Across 9 Areas × 4 Products | ScienceX">
+<meta name="twitter:description" content="Measuring what a ¥10 cap deletes, across 9 areas × 4 products: −8.6% nationwide, ≈¥30bn/yr; primary offline −22%; Tohoku × offline −32%. The market moved first — August averaged ¥9.80.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="article:published_time" content="2026-08-18">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Ceiling Drops by Five Yen — Japan's Balancing-Market Cap Falls to ¥10. Counting the ≈¥30 Billion That Disappears, Across 9 Areas × 4 Products | ScienceX",
+  "description": "From delivery on September 1, 2026, the ΔkW price cap for primary reserve, secondary reserve 1 and the composite product in Japan's balancing market falls from ¥15 to ¥10.00/ΔkW·30min. ScienceX aggregated all 158 days of EPRX awarded results to measure what disappears, across 9 areas × 4 products: −8.6% nationwide, ≈¥30 billion a year; primary offline −22%. The market moved first — August averaged ¥9.80. With a 2MW/8MWh translation and a ¥7.21 stress test.",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-08-18",
+  "dateModified": "2026-08-18",
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-price-cap"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.scix.co.jp/en" },
+    { "@type": "ListItem", "position": 2, "name": "Knowledge", "item": "https://www.scix.co.jp/en/knowledge" },
+    { "@type": "ListItem", "position": 3, "name": "The Ceiling Drops by Five Yen", "item": "https://www.scix.co.jp/en/column-price-cap" }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/en" style="color:#5A6577;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#5A6577;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">The Ceiling Drops by Five Yen</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 41</span>
+      <span class="header-tag">Market Analysis / Balancing Market · Rules × Measured Data</span>
+      <time class="header-date" datetime="2026-08-18">2026.08.18</time>
+    </div>
+    <h1>The Ceiling Drops by <em>Five Yen</em></h1>
+    <p class="header-desc">Japan's balancing-market price cap falls to ¥10 on September 1. Counting the ≈¥30 billion that disappears, across 9 areas × 4 products.</p>
+  </div>
+</div>
+
+<div class="article-body">
+<p>In the previous column (<a target="_top" href="/en/column-regional-revenue">COLUMN 35</a>) we wrote: the revenue stream that earns the most is the one that gets eaten first. That erosion now has a date and an amount attached. <strong>From delivery on September 1, 2026, the ΔkW price cap for primary reserve (including the offline quota), secondary reserve 1, and the composite product in Japan's balancing market falls from ¥15 to ¥10.00/ΔkW·30min</strong> (EPRX formally updated its cap-price table on July 30 ✅). This is not a proposal. Because the market trades day-ahead, the first clearing under the new cap runs on August 31 — two weeks from now.</p>
+
+<p>"A 33% price cut" sounds as though a third of battery revenue vanishes. The measured data say otherwise. When we aggregated all 158 days of the new-regime awarded-results CSVs that EPRX publishes daily (delivery 2026/3/14–8/18), the market-wide weighted averages come to ¥2.92 for the composite product and ¥4.35 for primary reserve — <strong>the averages have long been below ¥10</strong>. What disappears is only the right tail of the distribution. But that right tail is not spread evenly. Counting with a calibration against the measured distribution published by the advisory council, of the ≈¥356 billion-a-year run-rate of ΔkW fees across the four capped products, the <strong>central estimate is <span class="down">−8.6%</span>, about ¥30 billion a year</strong>. The largest cut by product is <span class="down">−22%</span> for primary offline — the product in which batteries hold a 99% share; the largest area × product cell is Tohoku × primary offline at <span class="down">−32%</span>.</p>
+
+<p>And the market did not wait for September 1. In July–August, while the cap was still ¥15, the share of primary-offline volume pinned at ¥15 collapsed from 83% to 10%; prices in Chubu, Kansai, Chugoku and Kyushu sank below ¥10 ahead of time; and <strong>the national average awarded price in August, ¥9.80, slipped under next month's ceiling before it even applies</strong>. The only area still standing in the ¥14 range is Tohoku — on September 1, it is not all of Japan that "slims down." It is essentially two areas: Tohoku and Tokyo. This column counts it out in order: what was decided (01), the regulator's logic (02), the measured whole market (03), how it hits batteries (04), the market that moved first (05), the translation to 2MW/8MWh (06), the next ¥7.21 (07), overseas precedents (08), and what to do before September 1 (09).</p>
+
+<div class="note"><b>Editor's note:</b> The institutional facts in this column are confirmed against primary sources from the Agency for Natural Resources and Energy (ANRE) and EPRX (the Electric Power Reserve eXchange, 電力需給調整力取引所). The market data are our own aggregation and estimates built from the awarded-results CSVs that EPRX publishes (final: delivery 2026/3/14–6/30; preliminary: 7/1–8/18, system-cleared portion), using <b>awarded volume × average / maximum / minimum awarded prices per slot × area × product (resource-location basis)</b>. Two windows are used: the reduction estimates use the full new-regime window of <b>delivery 2026/3/14–8/18, 158 days</b>; the battery-specific, area-level market-rate aggregation uses <b>delivery 2026/4/1–8/17</b>. Because EPRX does not publish the distribution of individual bids, we bracket each slot with two extreme assumptions (all volume at the average = lower bound; a two-point min/max distribution = upper bound) and use a <b>central estimate</b> whose interpolation coefficient is calibrated to the measured distribution released in Material 6 of ANRE's 4th Working Group on Stable Electricity Supply (composite product, above ¥14 = ≈3.4% of volume and ≈16.8% of cost) — full specification at the end. The reduction rates in this column are therefore <b>estimates with ranges</b>, not settled values. We validated the pipeline by confirming that the average awarded prices for the same window match our measured figures published in COLUMN 35 (primary ¥4.37, offline ¥12.12, secondary-1 ¥2.85, composite ¥2.88) to the second decimal place. July–August figures are preliminary and may be revised slightly in the finals. Externally checkable statements (history, Material 6 figures, public-comment quotations, overseas cases — about 40 items) were verified against primary sources before publication (checked 2026/8/18). This is market-wide analysis, not investment, tax, or legal advice. The caps are slated for further staged review, and we will update this article as the rules evolve.</div>
+
+<p style="margin-bottom:.4em"><strong>Scope of this column</strong></p>
+<div class="tablewrap wraptext">
+<table class="scope">
+<tbody>
+<tr><th>Decided ✅</th><td style="text-align:left">Caps for primary (incl. the offline quota), secondary 1 and composite: ¥15 → <strong>¥10.00/ΔkW·30min</strong>, from delivery Sep 1, 2026 (first clearing Aug 31)</td></tr>
+<tr><th>Measurement windows</th><td style="text-align:left">Reduction estimates = delivery 2026/3/14–8/18, 158 days (final + preliminary), 9 areas × 4 products / market-rate aggregation = delivery 2026/4/1–8/17</td></tr>
+<tr><th>Amount that disappears (central)</th><td style="text-align:left"><strong>Nationwide <span class="down">−8.6%</span>, ≈¥30.6bn/yr</strong> (range −3 to −18%)</td></tr>
+<tr><th>Largest by product</th><td style="text-align:left">Primary offline <strong><span class="down">−22.1%</span></strong> (range 17–27%) = the product where batteries hold a 99% share</td></tr>
+<tr><th>Largest area × product</th><td style="text-align:left">Tohoku × primary offline <strong><span class="down">−31.6%</span></strong> (Tokyo −13 to −23%)</td></tr>
+<tr><th>The market moved first</th><td style="text-align:left">Volume pinned at ¥15 collapsed from 83% (Apr) to 10% (Aug). National average ¥9.80 in August — already under the ceiling before it applies</td></tr>
+<tr><th>The next step (conditional ⚠️)</th><td style="text-align:left">At ¥7.21: nationwide <strong>−16.8%, ≈¥60bn/yr</strong>; primary offline −41.6%</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2><span class="no">01</span>What Was Decided — Inside the ¥10.00</h2>
+
+<p>First, pin down the contours of the decision. The history of the caps EPRX has published fits in three rows.</p>
+
+<div class="tablewrap">
+<table>
+<caption>History of ΔkW price caps (¥/ΔkW·30min. Source: EPRX, "On ΔkW price caps in the balancing market," updated 2026/7/30)</caption>
+<thead><tr><th>Published</th><th>First clearing</th><th>Applies from (delivery day)</th><th>Applies until</th><th>Composite · Primary · Sec-1</th><th>Sec-2 · Ter-1</th><th>Ter-2</th></tr></thead>
+<tbody>
+<tr><td>2024/3/15</td><td>2024/3/26</td><td>2024/4/1</td><td>2026/3/13</td><td>¥19.51</td><td>¥7.21</td><td>No cap</td></tr>
+<tr><td>2026/2/5</td><td>2026/3/13</td><td>2026/3/14</td><td>2026/8/31</td><td>¥15.00</td><td>¥7.21</td><td>No cap</td></tr>
+<tr class="total"><td>2026/7/30</td><td><strong>2026/8/31</strong></td><td><strong>2026/9/1</strong></td><td>Until further notice</td><td><strong>¥10.00</strong></td><td>¥7.21</td><td>No cap</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Five points to lock in. First, the change covers <strong>only three products: primary reserve, secondary reserve 1, and the composite product</strong>. Secondary 2 and tertiary 1 stay at ¥7.21; tertiary 2 has never had a cap. Second, note the unit. It is not ¥/kWh but <strong>¥/ΔkW·30min</strong> — a ceiling not on the energy charged and discharged, but on <strong>the payment for keeping capability (ΔkW) ready to respond to dispatch</strong>. What falls is only this capacity-payment slice of a battery station's revenue; energy settlement on activation (kWh), JEPX arbitrage income, and the capacity market are untouched. Third, the primary offline quota takes the primary-reserve cap, and a bid into the composite product takes the composite cap even when it clears stand-alone — there is no way around it. Fourth, application is <strong>by delivery day</strong> — the start and end dates are delivery days, not the days on which bidding or clearing takes place. Because trading is day-ahead, in practice the new cap bites from August 31, when delivery for September 1 clears. Existing awards for delivery through August 31 settle under the ¥15 cap; there is no retroactivity. Fifth, the balancing-market system does not test whether a bid exceeds the cap. A bid above the cap can still clear, but <strong>it is clipped down to ¥10 at settlement</strong>. You can keep bidding ¥15 after September 1; what you receive is ¥10 — the cap functions as a de facto limit price.</p>
+
+<p>The history is worth reading, too. The original <strong>¥19.51 and ¥7.21 came out of a formula</strong> — the weighted-average awarded price of tertiary reserve 2, ¥1.06, plus three standard deviations (¥18.45) gives ¥19.51; plus one (¥6.15) gives ¥7.21. But with bid shortfalls persisting in the fast products, awards stuck near the cap became routine, and on March 14, 2026 — simultaneously with the shift to day-ahead trading — the cap went to ¥15. Less than half a year later, on September 1, it goes to ¥10. <strong>¥15 and ¥10 are not mechanical formula outputs; they are discretionary waypoints cut between ¥19.51 and ¥7.21 to correct "cap-pinning."</strong> That recognition matters for any revenue plan — the next move will also come from regulatory judgment, not a formula. The staged-reduction policy itself was decided at the 110th meeting of the System Design Working Group (制度検討作業部会, 2026/1/23), and the next step is written there too: <strong>"if no improvement in competitive conditions is observed, to ¥7.21/ΔkW·30min etc."</strong> Conversely, the same material states that if improvement is confirmed, the cap will not be cut further ⚠️. ¥10 is not the endpoint; it is a conditional midpoint (details in 07).</p>
+
+<h2><span class="no">02</span>Why ¥10 — One Chart: 3.4% of Volume, 16.8% of Cost</h2>
+
+<p>The regulator's case condenses into a single distribution in Material 6 of ANRE's 4th Working Group on Stable Electricity Supply (電力安定供給ワーキンググループ, 2026/7/14). In periods ③–④ after the day-ahead conversion (2026/5/9–7/3), for the composite product, <strong>awards above ¥14 were only about 3.4% of awarded volume yet accounted for about 16.8% of total procurement cost</strong>. Before the day-ahead conversion the figures were ≈6.2% of volume and ≈35.0% of cost, so things had improved — but the tail remained. Moreover, <strong>roughly 70–90% of the above-¥14 bids came from batteries</strong> (composite 68–80%, primary 81–91%; periods ②–④, bid-volume basis). Our own measurement confirms the same structure: in slots where the slot-average price exceeded ¥10, batteries' share of awarded volume was 25.0% in the composite product (versus 8.2% in slots at or below ¥10) and 38.8% in primary reserve (versus 24.2%). <strong>The pricier the slot, the more likely it is a battery standing in it.</strong> Because procurement costs pass through broadly via wheeling charges, the official logic is to chop off — ceiling and all — "high-priced bids that contribute little volume." Lowering the cap may thin some thermal and pumped-storage bids, but those can be secured out-of-market through surplus-capacity utilization (yoryoku-katsuyō) contracts (April 2026 average: ¥3.01/kW·30min), the council concluded.</p>
+
+<p>A primary source also spells out the nature of the rule. In the public-comment response to the 23rd Interim Report (第二十三次中間とりまとめ, published March 13, 2026; 90 submissions), ANRE stated that the battery-profitability model cases shown at the council were meant to illustrate the relationship between new-resource economics and cap levels, and that <strong>"the caps are not intended to guarantee the business profitability of battery storage operators"</strong> (verbatim). The cap is a ceiling to contain procurement costs, not a floor to guarantee investment recovery — the rule's character is written plainly in the public record.</p>
+
+<p>There was pushback. The original proposal (System Design Working Group, October 29, 2025) would have <strong>unified the caps for primary through tertiary-1 at ¥7.21 in a single step</strong>, and on November 14, 2025 the Energy Resource Aggregation Business Association warned ANRE, in an urgent proposal, that changing volume and price at once would damage investment predictability and financing for new resources. Public comments echoed it: "runs against surging prices, interest rates and labor costs — inconsistent with attracting GX investment"; "PJM in the US secures recovery through capacity-market bidding obligations; Japan too needs early-stage risk mitigation for new resources"; "fix the rules for at least three years and pre-announce quantitative criteria for judging 'improved competition.'" The consultation on the guideline revision drew a submission pointing squarely at financing: <strong>"the investment predictability of new, fixed-cost-heavy assets is severely impaired, and lenders' risk rises — that is, project-finance interest rates go up."</strong> The authorities' answer was consistent: "addressed via the 110th-meeting measures and monitoring." The landing was ¥15 — and, half a year of data later, this ¥10.</p>
+
+<p>One more foundation of the decision was an asymmetry in the hearings. If the cap falls, thermal and pumped storage will hold back bids whose opportunity-cost-based prices exceed the cap; <strong>batteries and VPPs "will compare profitability across markets and keep bidding, at lowered bid prices"</strong> (Material 6, verbatim). Lower it and the batteries stay, the regulator reads. Whether that reading is right, the measurements in 05 have already begun to show.</p>
+
+<h2><span class="no">03</span>Measured (1) — The Whole Market: the Average Is Light, the Right Tail Is Heavy</h2>
+
+<p>Now the main event. Start with the national summary for the whole market (all resources, resource-location basis, awarded-volume basis).</p>
+
+<div class="tablewrap">
+<table>
+<caption>National summary of the capped products (delivery 2026/4/1–8/17, resource-location basis. ScienceX aggregation)</caption>
+<thead><tr><th>Product</th><th>Weighted-avg price</th><th>Volume in slots averaging &gt;¥10</th></tr></thead>
+<tbody>
+<tr><td>Composite</td><td>¥2.92</td><td>2.0%</td></tr>
+<tr><td>Primary</td><td>¥4.35</td><td>4.0%</td></tr>
+<tr><td>Secondary 1</td><td>¥2.78</td><td>2.1%</td></tr>
+<tr><td><strong>Primary offline</strong></td><td><strong>¥11.27</strong></td><td><strong>77.9%</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The weighted averages for composite, primary and secondary-1 sit at ¥2.78–¥4.35 — <strong>the averages have long been below ¥10</strong>. A "33% price cut" does not happen to the market as a whole. But the balancing market is pay-as-bid (each bid settles at its own price), and EPRX's published data go only as far as awarded volume and average/maximum/minimum awarded prices per 30-minute slot × area × product — there is no distribution of individual bids. So, for each slot: ① if the maximum is ≤¥10, the reduction is zero; ② if the minimum is ≥¥10, the reduction is exactly volume × (average − 10); ③ for slots straddling ¥10 we bracket between "all volume at the average" (lower bound of the reduction) and "a two-point min/max split reproducing the average" (upper bound), and take a central value calibrated with an interpolation coefficient that reproduces the measured distribution in Material 6 (composite, &gt;¥14 = 3.4% of volume, 16.8% of cost). We verified that this calibration also independently reproduces the published primary-reserve figures (&gt;¥14 volume share: 11.3% in period ③, 8.2% in ④). The results are Tables 1 and 2.</p>
+
+<div class="tablewrap">
+<table>
+<caption>Table 1 — Share of ΔkW fees that disappears at a ¥10 cap (central estimate, delivery 2026/3/14–8/18)</caption>
+<thead><tr><th>Product＼Area</th><th>Hokkaido</th><th>Tohoku</th><th>Tokyo</th><th>Chubu</th><th>Hokuriku</th><th>Kansai</th><th>Chugoku</th><th>Shikoku</th><th>Kyushu</th><th>Nationwide (range)</th></tr></thead>
+<tbody>
+<tr><td>Primary</td><td>−12.0%</td><td>−13.8%</td><td>−15.1%</td><td>−11.9%</td><td>−2.2%</td><td>−11.4%</td><td>−9.5%</td><td>−1.7%</td><td>−4.9%</td><td><strong>−11.5%</strong> (1.7–20.8)</td></tr>
+<tr><td>Primary offline</td><td>−12.1%</td><td class="max">−31.6%</td><td>−22.7%</td><td>−21.6%</td><td>−9.1%</td><td>−24.6%</td><td>−18.5%</td><td>−18.1%</td><td>−14.1%</td><td><strong>−22.1%</strong> (17.3–26.6)</td></tr>
+<tr><td>Secondary 1</td><td>−10.9%</td><td>−3.8%</td><td>−1.4%</td><td>−0.5%</td><td>−1.7%</td><td>−8.6%</td><td>−5.5%</td><td>−0.1%</td><td>−1.3%</td><td><strong>−3.3%</strong> (1.9–4.6)</td></tr>
+<tr><td>Composite</td><td>−8.1%</td><td>−7.8%</td><td>−7.7%</td><td>−4.7%</td><td>−2.4%</td><td>−6.4%</td><td>−6.4%</td><td>−1.1%</td><td>−3.1%</td><td><strong>−6.3%</strong> (1.3–19.2)</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">Share = central estimate of the reduction relative to each cell's ΔkW fees (resource-location basis, volume × average price). Parentheses give the (lower–upper) nationwide range. ScienceX estimates from EPRX awarded-results CSVs.</p>
+
+<div class="tablewrap">
+<table>
+<caption>Table 2 — By area, four capped products combined: in money terms (delivery 2026/3/14–8/18, 158 days)</caption>
+<thead><tr><th>Area</th><th>ΔkW fees, 158 days (¥bn)</th><th>Cut, central (¥bn)</th><th>Cut rate (range)</th><th>Annualized cut (¥bn/yr)</th></tr></thead>
+<tbody>
+<tr><td>Tokyo</td><td>46.84</td><td>−5.05</td><td>−10.8% (2.0–25.8)</td><td class="max">−11.7</td></tr>
+<tr><td>Tohoku</td><td>22.69</td><td>−2.13</td><td>−9.4% (4.2–19.1)</td><td>−4.9</td></tr>
+<tr><td>Chubu</td><td>25.09</td><td>−2.11</td><td>−8.4% (3.7–16.2)</td><td>−4.9</td></tr>
+<tr><td>Hokkaido</td><td>11.07</td><td>−1.11</td><td>−10.0% (5.4–16.9)</td><td>−2.6</td></tr>
+<tr><td>Kansai</td><td>8.12</td><td>−0.94</td><td><strong>−11.6%</strong> (4.1–22.9)</td><td>−2.2</td></tr>
+<tr><td>Chugoku</td><td>11.52</td><td>−0.93</td><td>−8.1% (4.0–14.4)</td><td>−2.2</td></tr>
+<tr><td>Kyushu</td><td>25.14</td><td>−0.93</td><td>−3.7% (1.6–7.2)</td><td>−2.1</td></tr>
+<tr><td>Hokuriku</td><td>1.35</td><td>−0.03</td><td>−2.4%</td><td>−0.1</td></tr>
+<tr><td>Shikoku</td><td>2.37</td><td>−0.03</td><td>−1.2%</td><td>−0.1</td></tr>
+<tr class="total"><td>Nationwide</td><td>154.19</td><td>−13.26</td><td>−8.6% (3.0–18.0)</td><td>−30.6</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">Annualized = 158-day measurement × 365/158. ΔkW fees for the four capped products run at ≈¥356.2bn/yr (for reference, outside the cap over the same 158 days: secondary-2 ¥40.97bn, tertiary-1 ¥55.27bn, tertiary-2 ¥10.02bn).</p>
+
+<figure>
+<svg viewBox="0 0 640 322" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig1t">
+<title id="fig1t">ΔkW fees disappearing at the ¥10 cap, annualized, by area (central estimate)</title>
+<line x1="110" y1="6" x2="110" y2="312" stroke="#E2E6EC" stroke-width="1"/>
+<text x="100" y="28" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">Tokyo</text>
+<rect x="110" y="12" width="421.2" height="22" fill="#1B2A4A"/>
+<text x="539" y="28" font-family="sans-serif" font-size="12.5" font-weight="bold" fill="#C0392B">−¥11.7bn</text>
+<text x="100" y="62" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">Tohoku</text>
+<rect x="110" y="46" width="176.4" height="22" fill="#8A99B5"/>
+<text x="294" y="62" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−¥4.9bn</text>
+<text x="100" y="96" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">Chubu</text>
+<rect x="110" y="80" width="176.4" height="22" fill="#8A99B5"/>
+<text x="294" y="96" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−¥4.9bn</text>
+<text x="100" y="130" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">Hokkaido</text>
+<rect x="110" y="114" width="93.6" height="22" fill="#8A99B5"/>
+<text x="211" y="130" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−¥2.6bn</text>
+<text x="100" y="164" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">Kansai</text>
+<rect x="110" y="148" width="79.2" height="22" fill="#8A99B5"/>
+<text x="197" y="164" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−¥2.2bn</text>
+<text x="100" y="198" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">Chugoku</text>
+<rect x="110" y="182" width="79.2" height="22" fill="#8A99B5"/>
+<text x="197" y="198" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−¥2.2bn</text>
+<text x="100" y="232" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">Kyushu</text>
+<rect x="110" y="216" width="75.6" height="22" fill="#8A99B5"/>
+<text x="193" y="232" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−¥2.1bn</text>
+<text x="100" y="266" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">Hokuriku</text>
+<rect x="110" y="250" width="3.6" height="22" fill="#8A99B5"/>
+<text x="121" y="266" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−¥0.1bn</text>
+<text x="100" y="300" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">Shikoku</text>
+<rect x="110" y="284" width="3.6" height="22" fill="#8A99B5"/>
+<text x="121" y="300" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−¥0.1bn</text>
+</svg>
+<figcaption>Fig. 1 — ΔkW fees that disappear at the ¥10 cap (annualized, by area, central estimate). Tokyo is where the money is; Tohoku offline is where the rate is. ScienceX estimates.</figcaption>
+</figure>
+
+<p>Three readings. <strong>First, the money battleground is Tokyo</strong> — with the country's largest market, the absolute amount that disappears (on the order of −¥11.7bn a year) towers over the rest even though its rate ranks only third. <strong>Second, the rate battleground is primary offline — above all in Tohoku.</strong> In Tohoku, the maximum price reached ¥15 in <strong>94% of awarded slots</strong> for primary and composite (Tokyo 75%, Chubu 48%, Kansai 36%, Kyushu 24–29%) — a market where the ceiling was binding almost all the time. Lower the ceiling by ¥5 and the take of pinned bids mechanically falls by a third. <strong>Third, Kyushu, Hokuriku and Shikoku escape lightly</strong> — areas already well supplied, where prices never stood tall, have few high bids to cut in the first place. In the previous column's language: <strong>the thicker an area's ΔkW pricing environment, the more it now gets cut.</strong> The map of pricing strength and the map of reductions almost coincide.</p>
+
+<h2><span class="no">04</span>Measured (2) — For Batteries, It Cuts Deeper Than the Market Average</h2>
+
+<p>Tables 1–2 are whole-market (all-resource) figures. Battery owners should re-read them in two steps. First, <strong>pay-as-bid</strong>: in this market each bid settles at its own price, so an individual operator's take is set by its own bids, not the market average. And batteries stand on the high side of the distribution.</p>
+
+<div class="tablewrap">
+<table>
+<caption>Battery market rates (nationwide, delivery 2026/4/1–8/17, preliminary. ScienceX aggregation)</caption>
+<thead><tr><th>Product</th><th>Battery avg awarded price</th><th>Awards &gt;¥10 (volume)</th><th>Slots touching ¥15 *1</th><th>Battery ΔkW revenue (≈4.5 mo)</th></tr></thead>
+<tbody>
+<tr><td>Composite</td><td>¥9.03</td><td>17.9%</td><td>94.9%</td><td>≈¥17.6bn</td></tr>
+<tr><td>Primary offline *2</td><td><strong>¥11.27</strong></td><td><strong>77.9%</strong></td><td>94.9%</td><td>≈¥13.6bn</td></tr>
+<tr><td>Secondary 1</td><td>¥8.83</td><td>53.5%</td><td>──</td><td>≈¥1.2bn</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">*1 Share of slots where batteries' maximum awarded price was ≥¥14.9. *2 Primary offline ≈ the market total, since batteries hold 99.3% (100% in Jul–Aug). Because of how composite awards are allocated across the constituent products, we do not simply sum across products.</p>
+
+<p>Read it this way. In the composite product, batteries are only 8% of awarded volume, but with prices triple the market average (¥2.92) they take <strong>26% of the revenue</strong>. And <strong>in nearly every slot (94.9%), someone's battery cleared at exactly ¥15</strong>. Behind an average of ¥9 sits a thick distribution running from ¥0.39 up to ¥15 — the ¥10 cap is not "a tax that shaves the average" but <strong>"a ceiling that cuts the upside."</strong> What gets cut is this right tail — and in Material 6, 70–90% of the above-¥14 bids were batteries. Most of the reductions in Table 2 are therefore battery-side revenue losses, and the battery-only reduction rate runs deeper than the market's −8.6%. Secondary-1 looks mild at −3.3% market-wide, but restricted to battery bids, a majority (53.5%) sit above ¥10 — here too, what gets cut is the battery side.</p>
+
+<p>The direct hit lands on <strong>primary offline</strong>. This is the quota for supplying primary reserve without a dedicated-line online connection (via the simplified dispatch system); for batteries, eligibility covers installed capacity of at least 1MW and under 10MW (high-voltage; some extra-high-voltage). Over 99% of awarded volume is batteries — in effect, <strong>a batteries-only market whose protagonists are HV-class 2MW/8MWh sites</strong>. The national weighted average, ¥11.27, makes it <strong>the only product whose average itself exceeds the new cap</strong> — a price level that structurally cannot survive past September 1. The product accounts for only about a tenth of revenue across the four capped products, but nearly everyone sitting in it is a battery, and the cap's pain concentrates in that tenth. Note also that the offline row of Table 1 (nationwide −22.1%) is dominated by slots where even the minimum was ≥¥10 (computed exactly), so the range — 17–27% — is narrow: <strong>the most reliable number among the four products</strong>, readable almost directly as the battery revenue-reduction rate.</p>
+
+<div class="tablewrap">
+<table>
+<caption>Primary offline by area (resource-location basis, delivery 2026/4/1–8/17. ScienceX aggregation)</caption>
+<thead><tr><th>Area</th><th>Weighted avg</th><th>Volume in slots avg &gt;¥10</th><th>Excess above ¥10 (lower bd)</th><th>Aug weighted avg</th><th>Mechanical cut, Sep 1 *</th></tr></thead>
+<tbody>
+<tr><td>Tohoku</td><td>¥14.53</td><td>98.2%</td><td>31.3%</td><td><strong>¥14.63</strong></td><td class="max">−31.6%</td></tr>
+<tr><td>Tokyo</td><td>¥11.71</td><td>98.4%</td><td>14.8%</td><td><strong>¥11.49</strong></td><td class="max">−13.0%</td></tr>
+<tr><td>Chubu</td><td>¥12.18</td><td>73.7%</td><td>19.3%</td><td>¥9.65</td><td>──</td></tr>
+<tr><td>Kansai</td><td>¥11.90</td><td>82.8%</td><td>20.1%</td><td>¥9.73</td><td>──</td></tr>
+<tr><td>Chugoku</td><td>¥10.37</td><td>58.1%</td><td>15.8%</td><td>¥6.83</td><td>──</td></tr>
+<tr><td>Kyushu</td><td>¥7.91</td><td>33.5%</td><td>10.3%</td><td>¥5.40</td><td>──</td></tr>
+<tr><td>Hokuriku</td><td>¥9.72</td><td>42.2%</td><td>8.9%</td><td>¥8.72</td><td>──</td></tr>
+<tr><td>Hokkaido</td><td>¥5.51</td><td>14.5%</td><td>7.0%</td><td>¥2.58</td><td>──</td></tr>
+<tr><td>Shikoku</td><td>¥6.25</td><td>34.3%</td><td>19.1%</td><td>¥3.69</td><td>──</td></tr>
+<tr class="total"><td>Nationwide</td><td>¥11.27</td><td>77.9%</td><td>17.3%</td><td>¥9.80</td><td>──</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">* Mechanical cut = for areas whose August weighted average exceeds ¥10, the reduction if slot averages were uniformly clipped to ¥10 (a lower bound). Shikoku, Hokuriku and Hokkaido volumes are small, so single-month values are noisy. "Excess above ¥10 (lower bound)" is computed on slot-average awarded prices — under pay-as-bid, the high tail of individual bids is not captured, so the true value is larger.</p>
+
+<p>Conversely, for composite and online primary — −6 to −12% market-wide — the more your bids leaned to the high side, the deeper you get cut, and <strong>a bid pinned at ¥15 loses 33.3% by definition</strong>. The most accurate self-diagnosis is to apply min(bid price, ¥10) to your own (or your aggregator's) award details.</p>
+
+<h2><span class="no">05</span>Measured (3) — The Market Didn't Wait for September 1</h2>
+
+<p>The right two columns of the table above hold this column's biggest finding. <strong>April–June and July–August are two different markets.</strong> The share of primary-offline awarded volume in slots whose maximum price hit ¥15 (i.e., pinned at the cap) moved month by month like this:</p>
+
+<blockquote><strong>Apr 83.1% → May 76.4% → Jun 72.2% → Jul 18.4% → Aug 9.7%</strong></blockquote>
+
+<p>The cut to ¥10 was decided at the July 14 working group and published by EPRX on July 30. In that very July, pinning collapsed to a fifth. In a pay-as-bid market, that means bidders lowered their own bids. The national average awarded price has fallen continuously from its May peak of ¥12.53, and <strong>August came in at ¥9.80 — below ¥10 without waiting for the rule</strong>.</p>
+
+<figure>
+<svg viewBox="0 0 640 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig2t">
+<title id="fig2t">Primary offline: national monthly average awarded price vs. the new ¥10 cap</title>
+<line x1="64" y1="30" x2="620" y2="30" stroke="#EDF0F4" stroke-width="1"/>
+<line x1="64" y1="90" x2="620" y2="90" stroke="#EDF0F4" stroke-width="1"/>
+<line x1="64" y1="150" x2="620" y2="150" stroke="#EDF0F4" stroke-width="1"/>
+<line x1="64" y1="270" x2="620" y2="270" stroke="#EDF0F4" stroke-width="1"/>
+<text x="58" y="34" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">¥16</text>
+<text x="58" y="94" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">¥14</text>
+<text x="58" y="154" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">¥12</text>
+<text x="58" y="214" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">¥10</text>
+<text x="58" y="274" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">¥8</text>
+<line x1="64" y1="60" x2="620" y2="60" stroke="#6C7A89" stroke-width="1" stroke-dasharray="5 4"/>
+<text x="68" y="54" font-family="sans-serif" font-size="11.5" fill="#6C7A89">Old cap ¥15</text>
+<line x1="64" y1="210" x2="620" y2="210" stroke="#C0392B" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="68" y="228" font-family="sans-serif" font-size="12" font-weight="bold" fill="#C0392B">New cap ¥10.00 (from Sep 1)</text>
+<polyline points="70,158.1 178,140.7 286,134.1 394,158.4 502,202.5 610,216" fill="none" stroke="#1B2A4A" stroke-width="2.5"/>
+<circle cx="70" cy="158.1" r="4" fill="#1B2A4A"/>
+<circle cx="178" cy="140.7" r="4" fill="#1B2A4A"/>
+<circle cx="286" cy="134.1" r="4" fill="#1B2A4A"/>
+<circle cx="394" cy="158.4" r="4" fill="#1B2A4A"/>
+<circle cx="502" cy="202.5" r="4" fill="#1B2A4A"/>
+<circle cx="610" cy="216" r="5" fill="#C0392B"/>
+<text x="70" y="146" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">11.73</text>
+<text x="178" y="128" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">12.31</text>
+<text x="286" y="122" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">12.53</text>
+<text x="394" y="146" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">11.72</text>
+<text x="502" y="190" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">10.25</text>
+<text x="606" y="244" text-anchor="end" font-family="sans-serif" font-size="12.5" font-weight="bold" fill="#C0392B">¥9.80</text>
+<text x="70" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">Mar</text>
+<text x="178" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">Apr</text>
+<text x="286" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">May</text>
+<text x="394" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">Jun</text>
+<text x="502" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">Jul</text>
+<text x="610" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">Aug</text>
+</svg>
+<figcaption>Fig. 2 — Primary offline, national monthly weighted-average awarded price (resource-location basis; August through the 18th). Straddling July's announcement of the ¥10 cap, the market slid under the ceiling before it applied. ScienceX aggregation.</figcaption>
+</figure>
+
+<p>Lay out the monthly numbers by area and two kinds of decline appear.</p>
+
+<div class="tablewrap">
+<table>
+<caption>Primary offline: monthly weighted averages by area (¥/ΔkW·30min. Hokkaido, Hokuriku and Shikoku omitted for tiny volumes)</caption>
+<thead><tr><th>Area</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th><th>Apr→Aug</th></tr></thead>
+<tbody>
+<tr><td>Tohoku</td><td>13.49</td><td>14.86</td><td>14.66</td><td>14.49</td><td><strong>14.63</strong></td><td><strong>+8%</strong></td></tr>
+<tr><td>Tokyo</td><td>11.47</td><td>11.59</td><td>12.09</td><td>11.76</td><td><strong>11.49</strong></td><td>±0%</td></tr>
+<tr><td>Chubu</td><td>14.57</td><td>14.34</td><td>13.15</td><td>10.25</td><td>9.65</td><td>−34%</td></tr>
+<tr><td>Kansai</td><td>13.09</td><td>13.55</td><td>12.65</td><td>9.66</td><td>9.73</td><td>−26%</td></tr>
+<tr><td>Chugoku</td><td>12.38</td><td>13.32</td><td>11.17</td><td>7.41</td><td>6.83</td><td>−45%</td></tr>
+<tr><td>Kyushu</td><td>11.94</td><td>10.87</td><td>6.89</td><td>5.67</td><td>5.40</td><td>−55%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Chubu and Kansai slid to almost exactly ¥10 in July — <strong>bids repositioned in anticipation of the new cap</strong>. Chugoku and Kyushu punched through ¥10 down into the ¥5–7 range — that is <strong>competition itself</strong>, driven by rising bid volume. For batteries in western Japan, the "slimming" happened in July, not on September 1. September 1 merely ratifies it.</p>
+
+<p>What did not move: Tohoku and Tokyo. Tohoku still stood at ¥14.63 in August (+8% vs. April); Tokyo at ¥11.49 (±0%). As shown in C16 ("Balancing-market awarded results by area"), Tohoku's primary offline runs an 82% shortfall — in a market where 80% of the procurement target goes unfilled there is no reason to lower your bid, so high prices persist until the day the ceiling itself comes down. Hence the conclusion:</p>
+
+<p><strong>What gets cut mechanically on September 1 is primary-offline ΔkW revenue in Tohoku (<span class="down">−31.6%</span>) and Tokyo (<span class="down">−13.0%</span>).</strong> These figures are lower bounds — the case in which August slot averages are clipped uniformly to ¥10; the full-period estimate including the high tail of individual bids puts Tokyo at −22.7% (Table 1). Tokyo's actual haircut sits between −13% and −23%, deeper the higher your own bids lean. For Tohoku, the August-based mechanical calculation and the 158-day estimate point to the same −32% — evidence that no adaptation has occurred in five months. Tohoku also brushes the ¥10 line in online primary (Aug avg ¥10.16; 62% of slots &gt;¥10) and composite (¥8.87; 27%) — the area where the impact concentrates most is Tohoku, and it is not moving. By time of day, roughly 70% of the excess above ¥10 occurs between 07:00 and 20:00, thickest in the 15:00–18:00 and 08:00–09:00 bands — the evening ramp gets cut first.</p>
+
+<p>Battery rates in the composite product also glided down, ¥9.00 in April → ¥8.12 in August, and our estimated reduction rates shrink month by month (offline: Mar −31% → Aug −19%). If, as the hearings suggested, "lower the price and stay" is already underway, then September 1 is not a cliff — it is <strong>the rulebook confirming a slope already being descended</strong>. Note that our annualized −¥30.6bn is a static estimate assuming unchanged bidding behavior; the further this pre-adaptation goes, the more of the cut converts into "voluntary price reductions" — either way, owners' take goes down.</p>
+
+<h2><span class="no">06</span>Translating to 2MW/8MWh — the Top of the Band Loses 17%, the Bottom Is Unscathed</h2>
+
+<p>Apply it to the previous column's reference unit (HV 2MW/8MWh, 4 hours). In COLUMN 35's measurements, balancing revenue built on <strong>batteries' actual awarded prices</strong> — not market averages — in the JEPX-combined pattern (bidding 30 slots, excluding charge/discharge slots) came to ≈¥97,000–132,000/kW/yr = roughly ¥190–260 million a year for 2MW (central ≈¥230M) — about 80% of the Tohoku case's ≈¥270–290M annual revenue.</p>
+
+<p>The upper half of that band — the ¥12 months, the high-priced Tohoku and Tokyo slots — is what disappears by rule on September 1. With the physical price ceiling at ¥10, the maximum balancing revenue you can assemble on 30 slots × 365 days is ¥109,500/kW/yr = ≈¥219M for 2MW. <strong>The top of the band compresses from ¥260M to ¥219M — roughly −¥45M (−17%).</strong> All-in on balancing (all 48 slots), the top goes to ≈¥350M, about −¥70M. And <strong>the bottom is nearly untouched</strong> — August actuals (composite ¥8.12) are already under ¥10, so ordinary slots earn the same as before. What changes is the take from "the good months, the good areas, the good slots."</p>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>2MW/8MWh model: impact by bidding style (on central balancing revenue of ≈¥230M/yr)</caption>
+<thead><tr><th>Where the plan stands</th><th>Reduction to apply (measured)</th><th>Annual loss in balancing revenue</th></tr></thead>
+<tbody>
+<tr><td>Conservative (built on ¥8-range prices)</td><td>Near zero</td><td>Nearly unscathed — Sep 1 is a non-event</td></tr>
+<tr><td>Market-average bids (composite/primary mix)</td><td>−8 to −9% (area values in Table 2)</td><td><strong>≈−¥20M</strong></td></tr>
+<tr><td>Primary-offline-centric (Tohoku / Tokyo)</td><td>−22% (national) to −32% (Tohoku)</td><td><strong>−¥50–73M</strong></td></tr>
+<tr><td>Bids pinned at ¥15</td><td>−33.3% (mechanical)</td><td>≈−¥77M</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>For a 2MW unit in Tohoku earning most of its balancing revenue from primary-offline ΔkW, the simple-proportional upper case computes to a cut <strong>on the order of ¥70M a year</strong> (actual losses can come in smaller through changed bidding, activation kWh, and reallocation to other markets). A plan built conservatively on ¥8-range prices passes September 1 as a non-event; a plan built on ~¥12 actuals or high-price hopes takes the −17% top-of-band compression head-on. <strong>Where does your own plan stand in the band</strong> — that is this week's homework. Recompute IRR not on "if it falls" but on "after it fell" — reset the base case to ¥10 and the stress case to ¥7.21.</p>
+
+<h2><span class="no">07</span>¥7.21 Lives Inside a Conditional Clause</h2>
+
+<p>"Next is ¥7.21" has taken on a life of its own, but the primary source reads differently. The 110th System Design Working Group (2026/1/23, Material 4) frames it thus: <strong>"if no improvement in competitive conditions is observed in the market, reduce in stages to ¥10, ¥7.21/ΔkW·30min, etc."</strong> It equally states: <strong>"if improvement in competition is confirmed, no further cap reductions will be made."</strong> ¥10 is the result of the condition having fired; ¥7.21 sits inside the next conditional. ¥7.21 matches the current cap on secondary-2 and tertiary-1 — the design under which all products would align there at the next step.</p>
+
+<p>The judgment inputs are public. Bid-shortfall rates improved sharply from before the day-ahead conversion to the latest window: composite 46.3%→16.1%, primary 14.6%→5.3% (Material 6, preliminary). And the August actuals we saw in 05 — pinning at 9.7%, an average below ¥10 — can, ironically, serve as evidence that "competition is improving," feeding the next reduction decision. <strong>Falling bids push the next cut further away.</strong> For owners, that is the only silver lining.</p>
+
+<p>If it does go to ¥7.21, the same calibrated static method gives <strong>nationwide −16.8%, ≈¥60bn a year, and primary offline −41.6%</strong> — roughly double this round. Primary sources specify neither the timing nor quantitative criteria of the decision ("judge on results over a set period such as 1, 2, 3 or 6 months" is all they say); "H2 FY2026, using this summer's (Jul–Aug) peak-season results as the input" is our reading ⚠️. EPRX's rule is to publish cap changes at least two weeks before the delivery day they apply to, so the fastest primary-source watchpoint is EPRX's cap-price page. We would add: within our research scope, we found no published report by banks or international research houses that quantitatively prices this cap scenario. Independent quantitative benchmarks that investors can lean on remain scarce; the ranges in this column are offered to fill that gap.</p>
+
+<h2><span class="no">08</span>The Shape of the Cliff Is Familiar Overseas</h2>
+
+<p>Markets have already shown what a plunge in frequency-service revenue looks like. In Great Britain, after a boom in which Dynamic Containment prices pinned near the £17/MW/h soft cap, prices collapsed in 2022–23 once battery build-out exceeded the grid's technical requirement — DC Low fell about 86% versus June 2022 (Modo Energy), and frequency response's share of GB battery revenue shrank from 70–80% in 2022 to about 20% by 2024 (McKinsey / Rabobank estimates). In ERCOT, the volume-weighted average for regulation dropped to roughly a third from 2023 to 2024 (Modo Energy). The common structure: <strong>frequency products carry a low ceiling on "what the grid actually needs," and the moment batteries exceed it, the price breaks.</strong> The only difference in Japan is the order of events — abroad, saturation broke the price; in Japan, regulation preempts it by lowering the ceiling. The landing scenery is the same, and so the response is the same. In GB and ERCOT alike, the mainstay of battery revenue shifted to energy arbitrage — arbitrage's share of GB battery revenue rose from under 10% in 2022 to about half in 2024, and in ERCOT from ~20% in 2023 into the 30s in 2024, higher still recently. <strong>Guessing the next cap number is lower-expected-value work than re-basing operations and siting toward arbitrage and capacity</strong> — that is the precedent's lesson.</p>
+
+<h2><span class="no">09</span>What to Do Before September 1</h2>
+
+<p>Whether you own grid-scale storage or are evaluating an acquisition, the to-do list reduces to five items.</p>
+
+<ol class="actions">
+<li><b>Re-base the plan at ¥10; stress it at ¥7.21.</b> Use measured area × product prices — the July–August levels — as your starting values. Drop the ¥15 assumption, and drop single "national average" figures too. If a western-Japan pro forma still carries April–June prices, those are numbers from a market that no longer exists. <strong>A 20-year plan extrapolated from prices through August stops working in September.</strong> The same pressure lands on fixed-price (tolling) term sheets — the market upside the offtaker absorbs has shrunk (see C30).</li>
+<li><b>Decompose the "track record" behind operating deals.</b> H1 2026 balancing revenue contains the entire ¥10–15 tail. The more a deal's price leans on operating results, the less those results will repeat. Request the monthly breakdown — which product, in which area, at what price — and recompute with min(price, ¥10) and with ¥7.21. The "track-record premium" framed in C39 ("Four Ways to Buy a Battery Station") should be paid on the recomputed numbers. If an aggregator runs the site, requesting this recomputation table is the natural opening move in fee negotiations (the level commonly cited in the industry is 10–30% ⚠️ — a practice figure without public-document backing).</li>
+<li><b>Redesign the product mix.</b> Reduction rates differ by an order of magnitude across products (offline −22% vs. secondary-1 −3%). Re-optimize the allocation to include the un-cut secondary-2 / tertiary-1 (¥7.21) and the uncapped tertiary-2, and shift weight to the floor that does not get cut (the capacity market — bids for the FY2030 main auction are accepted October 13–23, 2026) and the core (JEPX arbitrage — see C35).</li>
+<li><b>For Tohoku and Tokyo deals, fix prices only after September actuals print.</b> In the two areas where the mechanical cut is locked in, September–October awards will reveal whether the market migrates to ¥10-pinning or sinks further on competition. If price is your reason to hurry, waiting two months is worth it.</li>
+<li><b>Watch only three things.</b> ① September awarded prices (how far the pre-adaptation goes); ② the ¥7.21 decision (no official timing; our reading is H2 FY2026 ⚠️); ③ the near-doubling of the FY2030 capacity-market benchmark price (proposed Net CONE for the FY2026 main auction: ¥20,911/kW — roughly double the current level; clearing rules etc. still under deliberation ⚠️ — if adopted, the floor structurally ratchets up, making plans work with less ΔkW dependence).</li>
+</ol>
+
+<h2><span class="no">Coda</span>From Praying the Ceiling Stays High, to Standing When It Comes Down</h2>
+
+<p>Line up the counted numbers once more. What disappears is a <strong>central <span class="down">−8.6%</span> of ΔkW fees across the four capped products — ≈¥30 billion a year</strong> (range 3–18%). By product, offline <span class="down">−22%</span>; by area × product, Tohoku offline <span class="down">−32%</span>; in money, Tokyo's <strong>−¥11.7bn a year</strong>. For a 2MW/8MWh unit, balancing revenue falls <strong>¥20–73 million a year</strong>, and at ¥7.21 the cut roughly doubles. This is the first cash figure for the structure the previous column described — the revenue stream that earns the most is the one that gets eaten first. And most of the market has already answered, by lowering its bids — what remains is Tohoku and Tokyo, and their answer arrives on September 1. Operators do not get to choose the cap. What they can choose: where they place their bids, how they mix products, and locations and contracts thick in the layers that do not get cut (floor + core) — <strong>buy on economics that do not depend on the ceiling, and operate in a way that does not depend on the ceiling.</strong> September 1 is the deadline for that switch.</p>
+
+<hr class="sep">
+
+<p><strong>❓ Unverified items &amp; limitations of this column</strong></p>
+<div class="tablewrap wraptext">
+<table>
+<thead><tr><th>Item</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Distribution of individual bid prices (by area × resource type)</td><td style="text-align:left">Not published. This is why the column works with bracketed + calibrated estimates. Calibration anchors: Material 6's composite &gt;¥14 (3.4% of volume, 16.8% of cost) and primary &gt;¥14 volume shares (③ 11.3% / ④ 8.2%)</td></tr>
+<tr><td>Calibration coefficient for secondary-1</td><td style="text-align:left">No product-specific published distribution; midpoint 0.50 assumed (small impact: within the −1.9 to −4.6% band)</td></tr>
+<tr><td>July–August data</td><td style="text-align:left">Preliminary (system-cleared portion). May be revised slightly in the finals</td></tr>
+<tr><td>Material 6 figures</td><td style="text-align:left">Preliminary (secretariat-compiled from EPRX-provided data). Page references follow that PDF</td></tr>
+<tr><td>Stand-alone public comment on the cap cut</td><td style="text-align:left">None found within our review — the cap cut was consulted on as part of the draft 23rd Interim Report and the guideline revision (separate from the May 2026 consultation on trading-rule amendments)</td></tr>
+<tr><td>Timing/criteria for the next step (¥7.21)</td><td style="text-align:left">Not specified in primary sources ("judge on results over a set period such as 1–6 months" only). "H2 FY2026" is our reading</td></tr>
+<tr><td>Aggregator fees of 10–30%</td><td style="text-align:left">No public-document backing found (treated as an industry-hearing convention)</td></tr>
+<tr><td>Awards above ¥15 in the CSVs</td><td style="text-align:left">≈0.4% of volume, concentrated in the Chugoku area (settlement applies ¥15). We compute on the displayed values (slightly overstating reductions)</td></tr>
+<tr><td>Changes in bidding behavior</td><td style="text-align:left">This is a static computation holding bids and awarded volumes fixed; repositioning to ¥10, reallocation to other markets, activation-kWh income and surplus-capacity substitution are not modeled. The regulator also treats whether total procurement cost will actually fall as "to be verified" and has published no official quantitative impact estimate</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="tnote"><strong>Null finding:</strong> No primary-source table exists that states shortfall rates or resource shares for primary offline alone (primary reserve is published only in aggregate). All offline figures in this column come from our full-volume CSV aggregation (same pipeline as COLUMN 35).</p>
+
+<hr class="sep">
+
+<div class="refs">
+<p><strong>Sources &amp; computation specification (as of August 18, 2026)</strong></p>
+
+<h3>Measured data</h3>
+<ul>
+<li>EPRX awarded-results CSVs (7 product files). Final = delivery 2026/3/14–6/30 (March 2026 as the split 0314–0331 file; "total (final)" rows of the monthly finals); preliminary = delivery 2026/7/1–8/18 (system-cleared portion). 158 days, 9 areas, zero gaps. Series used = total awarded volume and average / maximum / minimum awarded prices (all resource-location basis). ΔkW fees = volume × 1,000 × average price, accumulated by slot. The battery-type, area-level market-rate aggregation covers delivery 2026/4/1–8/17</li>
+</ul>
+
+<h3>Estimation specification</h3>
+<ul>
+<li>Within-slot distribution: lower bound = mass at the average (reduction = volume × max(avg − 10, 0)); upper bound = two-point distribution (awards split between min and max reproducing the average; reduction = f × volume × (max − 10), f = (avg − min)/(max − min)); slots with min ≥ ¥10 computed exactly (reduction = volume × (avg − 10)). Central estimate = λ × upper + (1 − λ) × lower, with λ calibrated per product to reproduce Material 6's composite &gt;¥14 figures (3.4% of volume / 16.8% of cost, periods ③④ = 2026/5/9–7/3; λ_cost 0.274, λ_vol 0.298 → composite 0.28) and the primary &gt;¥14 volume shares (③ 11.3%, ④ 8.2% → λ 0.51, 0.50) — primary family 0.51, secondary-1 0.50 (assumed), composite 0.28. Annualization × 365/158. The ¥7.21 stress uses the same method</li>
+</ul>
+
+<h3>Calibration &amp; consistency</h3>
+<ul>
+<li>Average awarded prices on the same data (3/14–6/30): primary ¥4.35, offline ¥12.13, secondary-1 ¥2.83, composite ¥2.86 = matches our measured figures published in COLUMN 35 (4.37 / 12.12 / 2.85 / 2.88; rounding differences). FY2025 full-year within 2–3% of EPRX finals (see COLUMN 35)</li>
+</ul>
+
+<h3>T1 (primary sources)</h3>
+<ul>
+<li>ANRE, 4th Working Group on Stable Electricity Supply, Material 6 "On the balancing market," 2026/7/14 (decision to cut to ¥10 effective delivery 9/1 = slide 22; &gt;¥14 volume/cost shares = slide 14; resource breakdown of &gt;¥14 bids = slides 10 [composite] / 11 [primary]; bid-shortfall rates = slide 5; hearing summary = slide 20; period definitions ①–④ = slide 4) <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/stable_power_supply_wg/pdf/004_06_00.pdf">meti.go.jp/…/004_06_00.pdf</a></li>
+<li>EPRX, "On ΔkW price caps in the balancing market," updated 2026/7/30 (¥10.00 finalized; first clearing 2026/8/31; the settlement-clip mechanism) <a href="https://www.eprx.or.jp/information/post.php">eprx.or.jp/information/post.php</a> / same, published 2024/3/15 (basis of ¥19.51 / ¥7.21: tertiary-2 weighted average ¥1.06 + 3σ ¥18.45 / + 1σ ¥6.15)</li>
+<li>ANRE, 110th System Design Working Group, Material 4, 2026/1/23 (staged 15→10→7.21 policy, conditions, member comments) <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_review/pdf/110_04_00.pdf">meti.go.jp/…/110_04_00.pdf</a> / 109th, Material 6, 2025/12/12</li>
+<li>Same, 1st Working Group on Stable Electricity Supply, Material 8, 2026/5/13 (one-month review) / EPRX "FY2025 trading results," 2026/6/18</li>
+<li>Public-comment results on the draft "23rd Interim Report," 2026/3/13 (90 submissions; the "not intended to guarantee business profitability" response) / public-comment results on the revision of the Guidelines on Proper Electricity Trading and the balancing-market guidelines, 2026/3/13 (16 submissions; the project-finance interest-rate point)</li>
+</ul>
+
+<h3>T2 (secondary sources)</h3>
+<ul>
+<li>Energy Resource Aggregation Business Association, urgent proposal, 2025/11/14 (investment-predictability and financing concerns) / Nikkei XTECH (background reporting on the cap cuts)</li>
+<li>Modo Energy, "Dynamic Containment Low: what's setting post-saturation prices?" and "ERCOT: How did power prices evolve in 2024?" / Timera Energy, "GB batteries confront ancillary saturation" / McKinsey (2025), Rabobank (2025) (shift in the GB battery revenue mix) — research-house estimates, not official statistics</li>
+</ul>
+
+<h3>Notes</h3>
+<ul>
+<li>EPRX prohibits automated bulk collection of its published data and requires prior contracts for commercial use. All tables here are our own aggregations and estimates based on published materials, handled within the scope of quotation with sources stated. Related statements in COLUMNs 25, 29, 35, 38 and 39 (cap application dates; staged reductions) have been reconciled with this column's confirmed facts. The next update is planned for October 2026, once September awards are complete</li>
+<li>Regulatory note: balancing-market rules are changing rapidly, led by ANRE, OCCTO and EPRX. This column reflects information published as of August 18, 2026. Before any investment decision, be sure to check the latest publications from EPRX and the relevant councils</li>
+</ul>
+</div>
+
+<hr class="sep">
+
+<div class="related">
+<p><strong>Read next</strong>　<a target="_top" href="/en/column-regional-revenue">The Same 2MW Earns ¥290M — or ¥60M — a Year: Where and How Battery Stations Earn (COLUMN 35) →</a></p>
+<p><strong>Related columns</strong></p>
+<ul>
+<li><a target="_top" href="/en/column-area-data">C16 Balancing-Market Awarded Results by Area — 9 Utility Areas × 5 Products</a></li>
+<li>C29 What Day-Ahead Trading in the Balancing Market Means</li>
+<li><a target="_top" href="/en/column-long-term-contract">C30 What a 47MW EHV Site Earns on Contract — Tolling's 18.6%</a></li>
+<li><a target="_top" href="/en/column-financing">C38 Why Battery Stations Get Bought in Cash</a></li>
+<li><a target="_top" href="/en/column-buyer-structures">C39 There Are Four Ways to Buy a Battery Station</a></li>
+</ul>
+</div>
+</div>
+
+<!-- scix-column-cta : 1記事1つ。主＝フォーム、副＝解説ページ -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">Shall we re-run your deals on post–September 1 economics?</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">We will walk through the deals you hold or are evaluating on a ¥10-cap base case with a ¥7.21 stress. Deals we bring to market come with pro formas rebuilt on the same assumptions as this column.</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/en/contact" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">Contact us &rarr;</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">Opens our contact form. Four fields only &mdash; enquiry type, name, company and email. Deal-specific information is shared after an NDA.</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        8-2 Nihonbashi-Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        TEL: <a href="tel:+81364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

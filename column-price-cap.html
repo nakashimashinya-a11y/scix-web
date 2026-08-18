@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Serif JP',serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.down{color:var(--warn);font-weight:700}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tr.total td{background:rgba(196,154,60,0.08);font-weight:700;border-top:2px solid var(--accent)}
+td.max{color:var(--warn);font-weight:700}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.scope th{width:10em;vertical-align:top}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-16px 0 28px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.related{font-size:.9em;line-height:2.05}
+.related ul{margin:8px 0;padding-left:1.3em}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px}
+}
+</style>
+<title>天井が、5円下がる ── 需給調整市場の上限10円化。消える約300億円を、9管区×4商品で数える｜ScienceX</title>
+<meta name="description" content="2026年9月1日実需給分から、需給調整市場の一次調整力・二次調整力①・複合商品のΔkW上限価格が15円→10.00円/ΔkW・30分へ。EPRX約定結果158日分をScienceXが全量集計し、消える金額を9管区×4商品で実測推計。全国▲8.6%・年約300億円、一次オフラインは▲22%。市場は先に動き、8月の平均は9.80円。2MW/8MWhへの翻訳と7.21円ストレスまで。">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-price-cap">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-price-cap">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-price-cap">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-price-cap">
+<link rel="canonical" href="https://www.scix.co.jp/column-price-cap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="天井が、5円下がる ── 需給調整市場の上限10円化。消える約300億円を、9管区×4商品で数える｜ScienceX">
+<meta property="og:description" content="上限10円で消える金額を9管区×4商品で実測推計。全国▲8.6%・年約300億円、一次オフライン▲22%、東北×オフライン▲32%。市場は先に動き、8月平均は9.80円。">
+<meta property="og:url" content="https://www.scix.co.jp/column-price-cap">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="天井が、5円下がる ── 需給調整市場の上限10円化。消える約300億円を、9管区×4商品で数える｜ScienceX">
+<meta name="twitter:description" content="上限10円で消える金額を9管区×4商品で実測推計。全国▲8.6%・年約300億円、一次オフライン▲22%、東北×オフライン▲32%。市場は先に動き、8月平均は9.80円。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-08-18">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "天井が、5円下がる ── 需給調整市場の上限10円化。消える約300億円を、9管区×4商品で数える｜ScienceX",
+  "description": "2026年9月1日実需給分から、需給調整市場の一次調整力・二次調整力①・複合商品のΔkW上限価格が15円→10.00円/ΔkW・30分へ。EPRX約定結果158日分をScienceXが全量集計し、消える金額を9管区×4商品で実測推計。全国▲8.6%・年約300億円、一次オフラインは▲22%。市場は先に動き、8月の平均は9.80円。2MW/8MWhへの翻訳と7.21円ストレスまで。",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-08-18",
+  "dateModified": "2026-08-18",
+  "mainEntityOfPage": "https://www.scix.co.jp/column-price-cap"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.scix.co.jp/" },
+    { "@type": "ListItem", "position": 2, "name": "ナレッジ", "item": "https://www.scix.co.jp/knowledge" },
+    { "@type": "ListItem", "position": 3, "name": "天井が、5円下がる", "item": "https://www.scix.co.jp/column-price-cap" }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">天井が、5円下がる</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 41</span>
+      <span class="header-tag">市場分析 / 需給調整市場・制度×実測</span>
+      <time class="header-date" datetime="2026-08-18">2026.08.18</time>
+    </div>
+    <h1>天井が、<em>5円</em>下がる</h1>
+    <p class="header-desc">需給調整市場の上限10円化（9月1日）。消える約300億円を、9管区×4商品で数える。</p>
+  </div>
+</div>
+
+<div class="article-body">
+<p>前稿（<a target="_top" href="/column-regional-revenue">COLUMN 35</a>）でこう書きました──いちばん稼げる収益源は、いちばん食われやすい。その削り取りに、日付と金額が付きました。<strong>2026年9月1日の実需給分から、需給調整市場の一次調整力（オフライン枠を含む）・二次調整力①・複合商品のΔkW上限価格が、15円から10.00円/ΔkW・30分へ下がります</strong>（EPRXが7月30日に上限価格表を正式更新✅）。これは「案」ではありません。前日取引のため、初回の約定処理は8月31日──残り2週間です。</p>
+
+<p>「率にして33%の値下げ」と聞くと、蓄電池の売上が3分の1消えるように読めます。実測は違うことを言っています。EPRXが日次公表する約定結果CSVの新制度期158日分（受渡2026/3/14〜8/18）を当社が全量集計すると、市場全体の加重平均は複合2.92円・一次4.35円──<strong>平均は、とっくに10円の下にあります</strong>。消えるのは分布の右端だけ。ただしその右端は、均等に散っていません。審議会公表の実測分布で較正して数えると、対象4商品のΔkW代金・年約3,560億円ペースのうち、<strong>中央推計で<span class="down">▲8.6%</span>・年約300億円</strong>。商品別の最大は蓄電池シェア99%の一次オフラインの<span class="down">▲22%</span>、管区×商品の最大セルは東北×一次オフラインの<span class="down">▲32%</span>です。</p>
+
+<p>しかも市場は、9月1日を待ちませんでした。上限がまだ15円の7〜8月に、一次オフラインの15円張り付きは83%→10%へ崩壊し、中部・関西・中国・九州の価格は先に10円以下へ沈み、<strong>8月の全国平均落札単価は9.80円と、来月の天井の下に潜り込みました</strong>。いま14円台に立ち続けているのは東北だけ──9月1日に「痩せる」のは、日本中ではありません。ほぼ2つのエリア、東北と東京です。本稿は、決定の中身（01）、制度側の理屈（02）、市場全体の実測（03）、蓄電池への効き方（04）、先に動いた市場（05）、2MW/8MWhへの翻訳（06）、次の7.21円（07）、海外の先例（08）、9月1日までにやること（09）の順で数えていきます。</p>
+
+<div class="note"><b>編集メモ：</b>本稿の制度事実は資源エネルギー庁・EPRX（電力需給調整力取引所）の一次資料で確認し、市場データはEPRXが公表する約定結果CSV（確報: 受渡2026/3/14〜6/30、速報: 7/1〜8/18・システム約定分）の<b>スロット別・エリア別の約定量×平均・最高・最低落札価格（電源属地別）</b>から当社が独自集計・推計した値です。窓は二本立てです──削減額の推計は新制度期全体の<b>受渡2026/3/14〜8/18・158日</b>、蓄電池種別・エリア別の実勢集計は<b>受渡2026/4/1〜8/17</b>。EPRXは個札の価格分布を公表していないため、スロット内の分布に二つの極端仮定（平均集中＝下限／二点分布＝上限）を置いて上下限を出し、資源エネルギー庁・第4回電力安定供給ワーキンググループ資料6が公表した実測分布（複合商品・14円超＝量約3.4%・費用約16.8%）で内挿係数を較正した<b>中央推計</b>を本文に用います（仕様は文末）。したがって本稿の減少率は<b>幅を持つ推計</b>であり、確定値ではありません。パイプラインの妥当性は、同期間の平均落札単価が前稿COLUMN 35掲載の当社実測（一次4.37円・オフライン12.12円・二次①2.85円・複合2.88円）と小数第2位まで一致することで確認しています。7〜8月分は速報値のため確報で微修正され得ます。外部照合可能な記述（沿革・資料6の数値・パブコメ引用・海外事例など約40項目）は、公開前に一次資料と突合済みです（2026/8/18実施）。本稿は市場全体の分析であり、投資・税務・法務の助言ではありません。上限価格は今後も段階的に見直される方針が示されており、制度の進展にあわせて本記事も更新します。</div>
+
+<p style="margin-bottom:.4em"><strong>本稿の射程</strong></p>
+<div class="tablewrap wraptext">
+<table class="scope">
+<tbody>
+<tr><th>決定事項✅</th><td style="text-align:left">一次（オフライン枠含む）・二次①・複合の上限 15円→<strong>10.00円/ΔkW・30分</strong>、2026/9/1実需給分〜（初回約定処理は8/31）</td></tr>
+<tr><th>実測窓</th><td style="text-align:left">削減推計＝受渡2026/3/14〜8/18・158日（確報＋速報）・9管区×4商品／実勢集計＝受渡2026/4/1〜8/17</td></tr>
+<tr><th>消える金額（中央推計）</th><td style="text-align:left"><strong>全国<span class="down">▲8.6%</span>・年約306億円</strong>（幅▲3〜18%）</td></tr>
+<tr><th>商品別の最大</th><td style="text-align:left">一次オフライン<strong><span class="down">▲22.1%</span></strong>（幅17〜27%）＝蓄電池シェア99%の商品</td></tr>
+<tr><th>管区×商品の最大</th><td style="text-align:left">東北×一次オフライン<strong><span class="down">▲31.6%</span></strong>（東京は▲13〜23%）</td></tr>
+<tr><th>先に動いた市場</th><td style="text-align:left">15円張り付きは4月83%→8月10%へ崩壊。8月の全国平均9.80円──適用前にすでに天井の下</td></tr>
+<tr><th>次の段（条件付き⚠️）</th><td style="text-align:left">7.21円なら全国<strong>▲16.8%・年約600億円</strong>、一次オフライン▲41.6%</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2><span class="no">01</span>何が決まったか ── 10.00円の中身</h2>
+
+<p>まず、決定の輪郭を固定します。EPRXが公表した上限価格の経緯は、次の3行で完結します。</p>
+
+<div class="tablewrap">
+<table>
+<caption>ΔkW上限価格の沿革（単位: 円/ΔkW・30分。出典: EPRX「需給調整市場のΔkW上限価格について」2026/7/30更新）</caption>
+<thead><tr><th>公表日</th><th>初回約定処理</th><th>適用開始（実需給日）</th><th>適用終了</th><th>複合・一次・二次①</th><th>二次②・三次①</th><th>三次②</th></tr></thead>
+<tbody>
+<tr><td>2024/3/15</td><td>2024/3/26</td><td>2024/4/1</td><td>2026/3/13</td><td>19.51円</td><td>7.21円</td><td>上限なし</td></tr>
+<tr><td>2026/2/5</td><td>2026/3/13</td><td>2026/3/14</td><td>2026/8/31</td><td>15.00円</td><td>7.21円</td><td>上限なし</td></tr>
+<tr class="total"><td>2026/7/30</td><td><strong>2026/8/31</strong></td><td><strong>2026/9/1</strong></td><td>当面の間</td><td><strong>10.00円</strong></td><td>7.21円</td><td>上限なし</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>押さえるべき点は五つです。第一に、対象は<strong>一次調整力・二次調整力①・複合商品の3商品のみ</strong>。二次②・三次①は7.21円で据え置き、三次②はもともと上限がありません。第二に、単位に注目してください。円/kWhではなく<strong>円/ΔkW・30分</strong>──充放電した電力量への対価ではなく、<strong>指令に応動できる能力（ΔkW）を確保しておくことへの対価</strong>の天井です。今回下がるのは蓄電所の売上のうちこの容量対価の部分だけで、発動時のkWh精算・JEPX裁定収入・容量市場は対象外です。第三に、一次オフライン枠には一次調整力の上限が適用され、複合商品に応札して単独約定となった場合でも複合の上限が適用されます──逃げ道はありません。第四に、適用は<strong>実需給日ベース</strong>──適用開始・終了日は実需給日であり、応札や約定処理が行われる日ではありません。前日取引のため、実務上は9月1日実需給分の約定処理が行われる8月31日から新しい上限が効きます。〜8月31日実需給分の既存約定は15円上限のまま精算され、遡及はありません。第五に、需給調整市場システムは応札価格が上限を超えているかを判定しません。上限超の札が約定しても、<strong>精算段階で10円に切り下げられます</strong>。9月1日以降も15円の札を入れ続けることは制度上可能ですが、受け取れるのは10円──上限は事実上の指値です。</p>
+
+<p>沿革の意味も読んでおきます。導入時の<strong>19.51円と7.21円は算定式から出た数字</strong>です──三次調整力②の約定実績の加重平均単価1.06円に、標準偏差の3倍（18.45円）を足すと19.51円、1倍（6.15円）を足すと7.21円。ところが応札不足が続く高速商品で上限付近の約定が常態化し、2026年3月14日、前日取引化と同時に上限は15円へ。そして半年もたたない9月1日に10円へ。<strong>15円と10円は式から機械的に出る数字ではなく、「上限張り付き」を是正するために19.51円と7.21円の間を裁量的に刻んだ中間水準</strong>です。ここは収支計画を組むうえで重要な認識です──次の一手も、式ではなく当局の判断で来ます。段階引下げの方針自体は第110回制度検討作業部会（2026/1/23）で決定済みで、そこには次の段も書いてあります──<strong>競争状況に改善が見られない場合、7.21円/ΔkW・30分等へ</strong>。逆に、改善が確認されればそれ以上は引き下げない、という整理も同じ資料にあります⚠️。10円は終点ではなく、条件付きの中間点です（07で詳述）。</p>
+
+<h2><span class="no">02</span>なぜ10円か ── 量3.4%・費用16.8%という一枚</h2>
+
+<p>制度側の理屈は、資源エネルギー庁・第4回電力安定供給ワーキンググループ（2026/7/14）資料6の一枚の分布に集約されます。前日取引化後の期間③④（2026/5/9〜7/3）の複合商品で、<strong>14円超の約定は総約定量の約3.4%にすぎないのに、総調達費用の約16.8%を占めた</strong>。前日取引化前はこれが量約6.2%・費用約35.0%でしたから改善はした──しかし残った。しかもこの高価格帯（14円超）の応札の<strong>約7〜9割を蓄電池が占めます</strong>（複合68〜80%・一次81〜91%、期間②〜④・応札量ベース）。当社の実測でも同じ構図が確認できます──コマ平均価格が10円を超えたコマでの蓄電池の落札シェアは、複合商品で25.0%（10円以下のコマでは8.2%）、一次調整力で38.8%（同24.2%）。<strong>高値コマになるほど、そこに立っているのは蓄電池です</strong>。調達費用は託送料金を通じて広く転嫁されるため、「量に効かない高値の札」を天井ごと切り落とす、というのが公式の理屈です。上限を下げれば火力・揚水の応札は一部減り得ますが、そこは余力活用契約（2026年4月平均3.01円/kW・30分）による市場外の代替調達で確保できる、と整理されました。</p>
+
+<p>制度の性格を示す一次資料も残っています。第二十三次中間とりまとめのパブリックコメント回答（2026年3月13日公示・提出90件）で、エネ庁はこう明言しました──審議会で示した蓄電池の収益性のモデルケースは、新規リソースの事業性と上限価格の水準の関係性について具体的なイメージを持ってもらうために示したものであり、<strong>「上限価格の設定を通じて蓄電池事業者の事業採算性を担保することを目的としたものではありません」</strong>（原文ママ）。上限価格は投資回収を保証する床ではなく、調達費を抑える天井である──制度の性格が、公文書ではっきり書かれています。</p>
+
+<p>反対がなかったわけではありません。当初案（2025年10月29日の制度検討作業部会）は一次〜三次①の<strong>上限を7.21円へ一気に統一する</strong>案で、エネルギーリソースアグリゲーション事業協会は2025年11月14日、エネ庁あての緊急提言で、量と価格の同時変更が新規リソースへの投資予見性とファイナンスを損なう趣旨を正面から警告しました。パブリックコメントにも「物価・金利・人件費の高騰と逆行し、GX投資の呼び込みと不整合」「米国PJMは容量市場の応札義務で回収機会を担保している。日本も新設リソースの参入初期リスク低減策を」「ルールを最低3年固定し、『競争改善』の判定基準を定量的に事前明示すべきだ」といった意見が並び、ガイドライン改定側の意見募集には<strong>「固定費比率の高い新規アセットの投資予見性は著しく損なわれ、金融機関の融資リスクが大きい、つまりプロジェクトファイナンスにおける金利が高くなる」</strong>という、資金調達への波及を正面から指摘する意見も提出されました。当局の回答は一貫して「第110回の措置とモニタリングで対応」です。着地は15円──そこから半年、実績を見て今回の10円です。</p>
+
+<p>もう一つ、判断の土台になったのがヒアリングの非対称です。上限を下げたとき、火力・揚水は機会費用ベースの札が上限を超えるなら応札を控える、<strong>蓄電池・VPPは「他市場との収益性を比較した上で、応札価格を引き下げた上で市場への応札を継続する」</strong>（資料6・原文ママ）──下げても電池は残る、と制度側は読んでいます。この読みが正しいかは、05の実測がすでに示しはじめています。</p>
+
+<h2><span class="no">03</span>実測① ── 市場全体：平均は軽く、右端が重い</h2>
+
+<p>ここからが本題です。まず市場全体（全電源・電源属地別・落札量ベース）の全国サマリーから。</p>
+
+<div class="tablewrap">
+<table>
+<caption>キャップ対象商品の全国サマリー（受渡2026/4/1〜8/17・電源属地別。ScienceX集計）</caption>
+<thead><tr><th>商品</th><th>加重平均価格</th><th>コマ平均が10円超だった落札量の割合</th></tr></thead>
+<tbody>
+<tr><td>複合商品</td><td>2.92円</td><td>2.0%</td></tr>
+<tr><td>一次調整力</td><td>4.35円</td><td>4.0%</td></tr>
+<tr><td>二次調整力①</td><td>2.78円</td><td>2.1%</td></tr>
+<tr><td><strong>一次オフライン</strong></td><td><strong>11.27円</strong></td><td><strong>77.9%</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>複合・一次・二次①の加重平均は2.78〜4.35円──<strong>平均は、とっくに10円の下にあります</strong>。「33%の値下げ」は、市場全体には起きません。ただし需給調整市場はペイ・アズ・ビッド（札の価格でそのまま精算）で、EPRXの公表データはスロット（30分）×エリア×商品ごとの約定量と平均・最高・最低落札価格まで──個札の分布はありません。そこで各スロットについて、①最高値が10円以下なら削減ゼロ、②最低値が10円以上なら削減額は厳密に量×（平均−10円）、③10円をまたぐスロットは「平均に集中」（削減の下限）と「最低・最高の二点に分かれて平均を再現」（同・上限）の両端で挟み、資料6の実測分布（複合・14円超＝量3.4%・費用16.8%）を再現する内挿係数で較正した中央値を採ります。この較正係数で一次調整力の公表値（14円超の量比率・期間③11.3%／④8.2%）も独立に再現できることを確認済みです。結果が表1・表2です。</p>
+
+<div class="tablewrap">
+<table>
+<caption>表1 ── 上限10円で消えるΔkW代金の比率（中央推計・受渡2026/3/14〜8/18）</caption>
+<thead><tr><th>商品＼管区</th><th>北海道</th><th>東北</th><th>東京</th><th>中部</th><th>北陸</th><th>関西</th><th>中国</th><th>四国</th><th>九州</th><th>全国（幅）</th></tr></thead>
+<tbody>
+<tr><td>一次調整力</td><td>▲12.0%</td><td>▲13.8%</td><td>▲15.1%</td><td>▲11.9%</td><td>▲2.2%</td><td>▲11.4%</td><td>▲9.5%</td><td>▲1.7%</td><td>▲4.9%</td><td><strong>▲11.5%</strong>（1.7〜20.8）</td></tr>
+<tr><td>一次オフライン</td><td>▲12.1%</td><td class="max">▲31.6%</td><td>▲22.7%</td><td>▲21.6%</td><td>▲9.1%</td><td>▲24.6%</td><td>▲18.5%</td><td>▲18.1%</td><td>▲14.1%</td><td><strong>▲22.1%</strong>（17.3〜26.6）</td></tr>
+<tr><td>二次調整力①</td><td>▲10.9%</td><td>▲3.8%</td><td>▲1.4%</td><td>▲0.5%</td><td>▲1.7%</td><td>▲8.6%</td><td>▲5.5%</td><td>▲0.1%</td><td>▲1.3%</td><td><strong>▲3.3%</strong>（1.9〜4.6）</td></tr>
+<tr><td>複合商品</td><td>▲8.1%</td><td>▲7.8%</td><td>▲7.7%</td><td>▲4.7%</td><td>▲2.4%</td><td>▲6.4%</td><td>▲6.4%</td><td>▲1.1%</td><td>▲3.1%</td><td><strong>▲6.3%</strong>（1.3〜19.2）</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">比率＝各セルのΔkW代金（電源属地別・量×平均単価）に対する削減額の中央推計。カッコは（下限〜上限）の全国値。EPRX約定結果CSVよりScienceX推計。</p>
+
+<div class="tablewrap">
+<table>
+<caption>表2 ── 管区別・対象4商品計：金額に直す（受渡2026/3/14〜8/18・158日）</caption>
+<thead><tr><th>管区</th><th>ΔkW代金（158日・億円）</th><th>削減額・中央（億円）</th><th>削減率（幅）</th><th>年換算の削減（億円/年）</th></tr></thead>
+<tbody>
+<tr><td>東京</td><td>468.4</td><td>▲50.5</td><td>▲10.8%（2.0〜25.8）</td><td class="max">▲117</td></tr>
+<tr><td>東北</td><td>226.9</td><td>▲21.3</td><td>▲9.4%（4.2〜19.1）</td><td>▲49</td></tr>
+<tr><td>中部</td><td>250.9</td><td>▲21.1</td><td>▲8.4%（3.7〜16.2）</td><td>▲49</td></tr>
+<tr><td>北海道</td><td>110.7</td><td>▲11.1</td><td>▲10.0%（5.4〜16.9）</td><td>▲26</td></tr>
+<tr><td>関西</td><td>81.2</td><td>▲9.4</td><td><strong>▲11.6%</strong>（4.1〜22.9）</td><td>▲22</td></tr>
+<tr><td>中国</td><td>115.2</td><td>▲9.3</td><td>▲8.1%（4.0〜14.4）</td><td>▲22</td></tr>
+<tr><td>九州</td><td>251.4</td><td>▲9.3</td><td>▲3.7%（1.6〜7.2）</td><td>▲21</td></tr>
+<tr><td>北陸</td><td>13.5</td><td>▲0.3</td><td>▲2.4%</td><td>▲1</td></tr>
+<tr><td>四国</td><td>23.7</td><td>▲0.3</td><td>▲1.2%</td><td>▲1</td></tr>
+<tr class="total"><td>全国</td><td>1,541.9</td><td>▲132.6</td><td>▲8.6%（3.0〜18.0）</td><td>▲306</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">年換算＝158日実測の365日換算。対象4商品のΔkW代金は年約3,562億円ペース（参考：対象外の二次②409.7億・三次①552.7億・三次②100.2億／158日）。</p>
+
+<figure>
+<svg viewBox="0 0 640 322" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig1t">
+<title id="fig1t">上限10円で消えるΔkW代金・年換算・管区別（中央推計）</title>
+<line x1="110" y1="6" x2="110" y2="312" stroke="#E2E6EC" stroke-width="1"/>
+<text x="100" y="28" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">東京</text>
+<rect x="110" y="12" width="421.2" height="22" fill="#1B2A4A"/>
+<text x="539" y="28" font-family="sans-serif" font-size="12.5" font-weight="bold" fill="#C0392B">▲117億</text>
+<text x="100" y="62" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">東北</text>
+<rect x="110" y="46" width="176.4" height="22" fill="#8A99B5"/>
+<text x="294" y="62" font-family="sans-serif" font-size="12.5" fill="#2C3E50">▲49億</text>
+<text x="100" y="96" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">中部</text>
+<rect x="110" y="80" width="176.4" height="22" fill="#8A99B5"/>
+<text x="294" y="96" font-family="sans-serif" font-size="12.5" fill="#2C3E50">▲49億</text>
+<text x="100" y="130" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">北海道</text>
+<rect x="110" y="114" width="93.6" height="22" fill="#8A99B5"/>
+<text x="211" y="130" font-family="sans-serif" font-size="12.5" fill="#2C3E50">▲26億</text>
+<text x="100" y="164" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">関西</text>
+<rect x="110" y="148" width="79.2" height="22" fill="#8A99B5"/>
+<text x="197" y="164" font-family="sans-serif" font-size="12.5" fill="#2C3E50">▲22億</text>
+<text x="100" y="198" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">中国</text>
+<rect x="110" y="182" width="79.2" height="22" fill="#8A99B5"/>
+<text x="197" y="198" font-family="sans-serif" font-size="12.5" fill="#2C3E50">▲22億</text>
+<text x="100" y="232" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">九州</text>
+<rect x="110" y="216" width="75.6" height="22" fill="#8A99B5"/>
+<text x="193" y="232" font-family="sans-serif" font-size="12.5" fill="#2C3E50">▲21億</text>
+<text x="100" y="266" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">北陸</text>
+<rect x="110" y="250" width="3.6" height="22" fill="#8A99B5"/>
+<text x="121" y="266" font-family="sans-serif" font-size="12.5" fill="#2C3E50">▲1億</text>
+<text x="100" y="300" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">四国</text>
+<rect x="110" y="284" width="3.6" height="22" fill="#8A99B5"/>
+<text x="121" y="300" font-family="sans-serif" font-size="12.5" fill="#2C3E50">▲1億</text>
+</svg>
+<figcaption>図1 ── 上限10円で消えるΔkW代金（年換算・管区別・中央推計）。金額の主戦場は東京、率の主戦場は東北オフライン。ScienceX推計。</figcaption>
+</figure>
+
+<p>読みは三つです。<strong>第一に、金額の主戦場は東京</strong>──市場規模が全国最大のため、率は3位でも消える絶対額（年▲117億円規模）が突出します。<strong>第二に、率の主戦場は一次オフライン、とりわけ東北</strong>。東北では一次・複合の約定スロットの<strong>94%で最高値が15円に到達</strong>しており（東京75%・中部48%・関西36%・九州24〜29%）、天井が常時効いていた市場です。天井が5円下がれば、張り付いていた札の受取は機械的に3分の1減ります。<strong>第三に、九州・北陸・四国は軽傷</strong>──もともと充足が進み単価が立っていなかった管区は、切り落とす高値がそもそも少ない。前稿の言い方に戻せば、<strong>ΔkWの地合いが厚い管区ほど、今回削られる</strong>。地合いの地図と、削減の地図は、ほぼ重なります。</p>
+
+<h2><span class="no">04</span>実測② ── 蓄電池には、市場平均より深く効く</h2>
+
+<p>表1・表2は市場全体（全電源）の数字です。蓄電池のオーナーは、二段階で読み替えてください。第一に、<strong>ペイ・アズ・ビッド</strong>。この市場は札の価格でそのまま精算されるため、個社の受取は市場平均ではなく自分の札で決まります。そして蓄電池は、分布の高い側に立っています。</p>
+
+<div class="tablewrap">
+<table>
+<caption>蓄電池の実勢（全国・受渡2026/4/1〜8/17・速報値。ScienceX集計）</caption>
+<thead><tr><th>商品</th><th>蓄電池の平均落札単価</th><th>10円超の約定（量比）</th><th>15円到達コマ率※1</th><th>蓄電池のΔkW収入（約4.5ヶ月）</th></tr></thead>
+<tbody>
+<tr><td>複合商品</td><td>9.03円</td><td>17.9%</td><td>94.9%</td><td>約176億円</td></tr>
+<tr><td>一次オフライン※2</td><td><strong>11.27円</strong></td><td><strong>77.9%</strong></td><td>94.9%</td><td>約136億円</td></tr>
+<tr><td>二次調整力①</td><td>8.83円</td><td>53.5%</td><td>──</td><td>約12億円</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">※1 当該コマの蓄電池の最高落札価格が14.9円以上だった割合。※2 一次オフラインは蓄電池シェア99.3%（7〜8月は100%）のため市場全体値≒蓄電池実勢。複合商品で約定し各商品へ充当された分の扱いにより、商品間の単純合算はしていません。</p>
+
+<p>読み方はこうです。複合商品での蓄電池は、落札量では市場の8%にすぎませんが、単価が市場平均（2.92円）の3倍あるため、<strong>収入では市場の26%</strong>を占めます。そして<strong>ほぼすべてのコマ（94.9%）で、誰かの蓄電池が15円ちょうどで約定</strong>しています。平均9円の裏側に、0.39円から15円まで広がる分厚い分布がある──上限10円は「平均を削る税」ではなく、<strong>「上振れを切る天井」</strong>です。切り落とされるのはこの分布の右端で、資料6でも14円超の応札の7〜9割は蓄電池でした。つまり表2の削減額の大半は蓄電池側の減収であり、蓄電池だけを取り出した減少率は市場平均の▲8.6%より深くなります。二次①も、市場全体では▲3.3%と軽症に見えますが、蓄電池の札に限れば過半（53.5%）が10円超──ここでも削られるのは蓄電池側です。</p>
+
+<p>とりわけ直撃を受けるのが<strong>一次オフライン</strong>です。ここは専用線によるオンライン化なし（簡易指令システム経由）で一次調整力を供出できる枠で、蓄電池は設備容量1MW以上10MW未満（高圧・一部特別高圧）が対象。落札量の99%超が蓄電池──つまり<strong>高圧2MW/8MWh級の蓄電池が主役の、蓄電池だけの市場</strong>です。全国加重平均は11.27円と、<strong>平均そのものが新しい上限を上回っている唯一の商品</strong>で、この単価水準は9月1日以降、構造的に維持できません。対象4商品の収入に占める比率は約1割にすぎませんが、そこに座っているのはほぼすべて蓄電池であり、キャップの痛みはこの1割に集中します。なお表1のオフライン行（全国▲22.1%）は、最低値が10円以上のスロット（厳密計算）が多いため幅が17〜27%と狭く、<strong>4商品でいちばん確度の高い数字</strong>──ほぼそのまま蓄電池の減収率として読めます。</p>
+
+<div class="tablewrap">
+<table>
+<caption>一次オフライン・エリア別（電源属地別・受渡2026/4/1〜8/17。ScienceX集計）</caption>
+<thead><tr><th>エリア</th><th>加重平均</th><th>コマ平均10円超の量</th><th>10円超過分（下限）</th><th>8月単月の加重平均</th><th>9/1の機械的減額率※</th></tr></thead>
+<tbody>
+<tr><td>東北</td><td>14.53円</td><td>98.2%</td><td>31.3%</td><td><strong>14.63円</strong></td><td class="max">▲31.6%</td></tr>
+<tr><td>東京</td><td>11.71円</td><td>98.4%</td><td>14.8%</td><td><strong>11.49円</strong></td><td class="max">▲13.0%</td></tr>
+<tr><td>中部</td><td>12.18円</td><td>73.7%</td><td>19.3%</td><td>9.65円</td><td>──</td></tr>
+<tr><td>関西</td><td>11.90円</td><td>82.8%</td><td>20.1%</td><td>9.73円</td><td>──</td></tr>
+<tr><td>中国</td><td>10.37円</td><td>58.1%</td><td>15.8%</td><td>6.83円</td><td>──</td></tr>
+<tr><td>九州</td><td>7.91円</td><td>33.5%</td><td>10.3%</td><td>5.40円</td><td>──</td></tr>
+<tr><td>北陸</td><td>9.72円</td><td>42.2%</td><td>8.9%</td><td>8.72円</td><td>──</td></tr>
+<tr><td>北海道</td><td>5.51円</td><td>14.5%</td><td>7.0%</td><td>2.58円</td><td>──</td></tr>
+<tr><td>四国</td><td>6.25円</td><td>34.3%</td><td>19.1%</td><td>3.69円</td><td>──</td></tr>
+<tr class="total"><td>全国</td><td>11.27円</td><td>77.9%</td><td>17.3%</td><td>9.80円</td><td>──</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">※機械的減額率＝8月の加重平均が10円超のエリアについて、コマ平均が一律10円に切り下がった場合の減額率（下限）。四国・北陸・北海道は落札量が小さく単月値は振れやすい。「10円超過分（下限）」はコマ単位の平均落札価格ベース──ペイ・アズ・ビッドのため入札単位の高値の裾は捕捉できず、真の値はこれより大きい。</p>
+
+<p>逆に複合・一次オンラインは、市場全体では▲6〜12%でも、高値側に寄せた札ほど深く削られ、<strong>15円張り付きの札は定義上▲33.3%</strong>。自社（委託先）の約定明細に min（札価格, 10円）を当てるのが、いちばん正確な自己診断です。</p>
+
+<h2><span class="no">05</span>実測③ ── 市場は、9月1日を待たなかった</h2>
+
+<p>上の表の右2列に、本稿の最大の発見があります。<strong>4〜6月と、7〜8月は、別の市場です。</strong>一次オフラインで最高落札価格が15円に達したコマ（＝上限張り付き）の落札量シェアは、月次でこう推移しました。</p>
+
+<blockquote><strong>4月 83.1% → 5月 76.4% → 6月 72.2% → 7月 18.4% → 8月 9.7%</strong></blockquote>
+
+<p>7月14日のワーキンググループで10円への引下げが決まり、7月30日にEPRXが公表した。その7月に、張り付きは5分の1に崩れました。ペイ・アズ・ビッドの市場で、応札者が自ら札を下げた、ということです。全国平均落札単価は5月の12.53円をピークに下がりつづけ、<strong>8月は9.80円──適用を待たずに、10円を割りました</strong>。</p>
+
+<figure>
+<svg viewBox="0 0 640 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig2t">
+<title id="fig2t">一次オフライン・全国平均落札単価の月次推移と新上限10円</title>
+<line x1="64" y1="30" x2="620" y2="30" stroke="#EDF0F4" stroke-width="1"/>
+<line x1="64" y1="90" x2="620" y2="90" stroke="#EDF0F4" stroke-width="1"/>
+<line x1="64" y1="150" x2="620" y2="150" stroke="#EDF0F4" stroke-width="1"/>
+<line x1="64" y1="270" x2="620" y2="270" stroke="#EDF0F4" stroke-width="1"/>
+<text x="58" y="34" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">16円</text>
+<text x="58" y="94" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">14円</text>
+<text x="58" y="154" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">12円</text>
+<text x="58" y="214" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">10円</text>
+<text x="58" y="274" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">8円</text>
+<line x1="64" y1="60" x2="620" y2="60" stroke="#6C7A89" stroke-width="1" stroke-dasharray="5 4"/>
+<text x="68" y="54" font-family="sans-serif" font-size="11.5" fill="#6C7A89">旧上限 15円</text>
+<line x1="64" y1="210" x2="620" y2="210" stroke="#C0392B" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="68" y="228" font-family="sans-serif" font-size="12" font-weight="bold" fill="#C0392B">新上限 10.00円（9/1〜）</text>
+<polyline points="70,158.1 178,140.7 286,134.1 394,158.4 502,202.5 610,216" fill="none" stroke="#1B2A4A" stroke-width="2.5"/>
+<circle cx="70" cy="158.1" r="4" fill="#1B2A4A"/>
+<circle cx="178" cy="140.7" r="4" fill="#1B2A4A"/>
+<circle cx="286" cy="134.1" r="4" fill="#1B2A4A"/>
+<circle cx="394" cy="158.4" r="4" fill="#1B2A4A"/>
+<circle cx="502" cy="202.5" r="4" fill="#1B2A4A"/>
+<circle cx="610" cy="216" r="5" fill="#C0392B"/>
+<text x="70" y="146" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">11.73</text>
+<text x="178" y="128" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">12.31</text>
+<text x="286" y="122" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">12.53</text>
+<text x="394" y="146" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">11.72</text>
+<text x="502" y="190" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">10.25</text>
+<text x="606" y="244" text-anchor="end" font-family="sans-serif" font-size="12.5" font-weight="bold" fill="#C0392B">9.80円</text>
+<text x="70" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">3月</text>
+<text x="178" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">4月</text>
+<text x="286" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">5月</text>
+<text x="394" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">6月</text>
+<text x="502" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">7月</text>
+<text x="610" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">8月</text>
+</svg>
+<figcaption>図2 ── 一次オフライン・全国平均落札単価の月次推移（電源属地別・8月は〜18日）。7月の10円化予告を挟み、適用前に天井の下へ。ScienceX集計。</figcaption>
+</figure>
+
+<p>エリア別に月次を並べると、その下げ方が二種類あることが分かります。</p>
+
+<div class="tablewrap">
+<table>
+<caption>一次オフライン・エリア別月次加重平均（円/ΔkW・30分。北海道・北陸・四国は落札量僅少のため省略）</caption>
+<thead><tr><th>エリア</th><th>4月</th><th>5月</th><th>6月</th><th>7月</th><th>8月</th><th>4月→8月</th></tr></thead>
+<tbody>
+<tr><td>東北</td><td>13.49</td><td>14.86</td><td>14.66</td><td>14.49</td><td><strong>14.63</strong></td><td><strong>+8%</strong></td></tr>
+<tr><td>東京</td><td>11.47</td><td>11.59</td><td>12.09</td><td>11.76</td><td><strong>11.49</strong></td><td>±0%</td></tr>
+<tr><td>中部</td><td>14.57</td><td>14.34</td><td>13.15</td><td>10.25</td><td>9.65</td><td>▲34%</td></tr>
+<tr><td>関西</td><td>13.09</td><td>13.55</td><td>12.65</td><td>9.66</td><td>9.73</td><td>▲26%</td></tr>
+<tr><td>中国</td><td>12.38</td><td>13.32</td><td>11.17</td><td>7.41</td><td>6.83</td><td>▲45%</td></tr>
+<tr><td>九州</td><td>11.94</td><td>10.87</td><td>6.89</td><td>5.67</td><td>5.40</td><td>▲55%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>中部・関西は7月に10円ちょうどへ滑り込みました──<strong>新上限を先取りした応札の付け替え</strong>です。中国・九州は10円を突き抜けて5〜7円台まで沈みました──こちらは応札量増による<strong>競争そのもの</strong>です。西日本の蓄電池にとって、「痩せる」は9月1日ではなく、すでに7月に起きました。9月1日は追認にすぎません。</p>
+
+<p>動かなかったのが東北と東京です。東北は8月も14.63円（4月比+8%）、東京は11.49円（±0%）。C16「需給調整市場のエリア別約定実績」で見たとおり、東北の一次オフラインは不足率82%──募集量の8割が埋まらない市場では札を下げる理由がなく、上限が下がるその日まで高値が続きます。だから結論はこうなります。</p>
+
+<p><strong>9月1日に機械的に削られるのは、東北（<span class="down">▲31.6%</span>）と東京（<span class="down">▲13.0%</span>）の一次オフラインΔkW収入です。</strong>この数字は「8月のコマ平均が一律10円に切り下がる」場合の下限で、個札の高値の裾まで含めた期間推計では東京は▲22.7%（表1）──東京の実際の目減りは▲13〜23%の間にあり、自社の札が高値寄りなほど深くなります。東北は8月ベースの機械計算と158日の期間推計が同じ▲32%を指しました──5ヶ月間、適応が起きていない証拠です。東北は一次オンライン（8月平均10.16円・10円超コマ62%）と複合（同8.87円・27%）でも10円ラインに絡んでおり、影響が最も集中するエリアは東北で動きません。時間帯で見ると、10円超過分の約7割は7〜20時に発生し、最も厚いのは15〜18時台と8〜9時台──夕方のランプが、最初に削られます。</p>
+
+<p>複合商品の蓄電池実勢も4月9.00円→8月8.12円と降下し、当社推計の削減率も月を追って縮んでいます（オフライン: 3月▲31%→8月▲19%）。ヒアリングどおり「価格を下げて残る」動きが先行しているとすれば、9月1日は崖ではなく、<strong>すでに始まっている坂の、制度による確定</strong>です。なお本稿の年換算▲306億円は「価格行動が変わらない」前提の静的推計で、この先行適応が進むほど、切り落とされる額の一部は「自主的な値下げ」に置き換わります──オーナーの手取りが減ることに変わりはありません。</p>
+
+<h2><span class="no">06</span>2MW/8MWhに翻訳する ── 上端が17%痩せ、下端は無傷</h2>
+
+<p>前稿の基準機（高圧2MW/8MWh・4時間）に当てます。COLUMN 35の実測では、需給調整収入を市場平均ではなく<strong>蓄電池の実勢落札単価</strong>で組み、JEPX併用型（充放電コマを除く30コマ応札）で約9.7万〜13.2万円/kW/年＝2MWで年約1.9億〜2.6億円（中央約2.3億円）。東北ケースの年商約2.7〜2.9億円の約8割にあたります。</p>
+
+<p>このバンドの上半分──12円台の月、東北・東京の高値コマ──が、9月1日に制度的に消えます。単価の物理上限が10円になるため、30コマ×365日で組める需給調整収入の上端は10.95万円/kW/年＝2MWで約2.19億円。<strong>バンド上端は2.6億円→2.19億円へ、▲約4,500万円（▲17%）の圧縮</strong>です。需給調整全振り（48コマ）なら上端は約3.5億円へ、▲約7,000万円。そして<strong>下端はほぼ無傷</strong>──8月の実勢（複合8.12円）はすでに10円の下にあり、平凡なコマの収入は変わりません。変わるのは「良い月・良いエリア・良いコマ」の取り分です。</p>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>2MW/8MWhモデル・応札スタイル別の影響（需給調整収入・中央約2.3億円/年に対して）</caption>
+<thead><tr><th>収支計画の立ち位置</th><th>適用する削減率（実測）</th><th>需給調整収入の減少（年）</th></tr></thead>
+<tbody>
+<tr><td>保守的（単価8円台で組成）</td><td>ほぼゼロ</td><td>ほぼ無傷──9/1は通過点</td></tr>
+<tr><td>市場平均並みの札（複合・一次ミックス）</td><td>▲8〜9%（表2の管区値）</td><td><strong>▲約2,000万円</strong></td></tr>
+<tr><td>一次オフライン主体（東北・東京）</td><td>▲22%（全国）〜▲32%（東北）</td><td><strong>▲5,000万〜7,300万円</strong></td></tr>
+<tr><td>15円張り付きの札</td><td>▲33.3%（機械的）</td><td>▲約7,700万円</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>東北の2MWで、需給調整収入の大半を一次オフラインのΔkWで得ている運用なら、単純比例の上限ケースで<strong>年7,000万円規模</strong>が削られる計算です（応札行動の変化・発動kWh・他市場への配分替えで実際の減少はこれより小さくなりえます）。保守的に8円台で組んだ収支計画なら9月1日は通過点にすぎず、12円前後の実績や高値期待で組んだ計画は、上端の▲17%を正面から受けます。<strong>自分の収支計画がバンドのどこに立っているか</strong>──それが今週確認すべきことです。IRRの再計算は「もし下がったら」ではなく「下がった後」を基準に──収支のベースを10円、ストレスを7.21円に置き直してください。</p>
+
+<h2><span class="no">07</span>7.21円は、条件文の中にいる</h2>
+
+<p>「次は7.21円」という言い方が独り歩きしていますが、一次資料の文言は違います。第110回制度検討作業部会（2026/1/23・資料4）の整理はこうです──<strong>「市場における競争状況に改善が見られない場合、10円、7.21円/ΔkW・30分等と段階的に引き下げる」</strong>。同時に、<strong>「競争状況に改善が見られれば、それ以上の上限価格の引下げは行わない」</strong>とも明記されています。10円は条件が発動した結果であり、7.21円は次の条件文の中にいます。7.21円は二次②・三次①の現行上限と同水準──次の段階で全商品がそこへ揃う設計です。</p>
+
+<p>判定材料は公開されています。応札不足率は前日取引化前→直近で、複合46.3%→16.1%、一次14.6%→5.3%と大きく改善しました（資料6・速報値）。そして05で見た8月の実勢──張り付き9.7%・平均10円割れ──は、皮肉にも「競争は改善しつつある」の証拠として、次の引き下げ判断の材料になりえます。<strong>下がる札は、次の引下げを遠ざける</strong>。オーナーにとっての救いは、そこにしかありません。</p>
+
+<p>もし7.21円まで進めば、同じ較正手法の静的推計で<strong>全国▲16.8%・年約600億円、一次オフライン▲41.6%</strong>──今回のおよそ倍です。判断の時期と定量基準は一次資料に明示がなく（「1か月、2か月、3か月、6か月などの一定の期間における実績を確認し判断」とあるのみ）、今夏（7〜8月）のピーク実績を材料に2026年度下期──というのは当社の読みです⚠️。EPRXは上限変更を実需給日の2週間前までに公表するルールですから、一次情報の最速の見張り場所はEPRXの上限価格ページです。付言すると、金融機関や海外調査会社がこの上限シナリオを定量的に織り込んだ公表レポートは、当社の調査範囲では見当たりませんでした。投資家が依拠できる独立の定量ベンチマークはまだ乏しく、本稿の試算レンジはその欠落を埋めるための参考値です。</p>
+
+<h2><span class="no">08</span>崖の形は、海外に既視感がある</h2>
+
+<p>周波数系サービスの収益が急落する形は、市場が先に見せています。英国では周波数応答Dynamic Containmentの価格がソフトキャップ£17/MW/h付近に張り付いた好況期のあと、電池の導入量が系統の技術的必要量を超えた2022〜23年に価格が急落し、DC Lowの価格は2022年6月比で約86%下落（Modo Energy）、GB電池の収益に占める周波数応答の比率は2022年の7〜8割から2024年に約2割へ縮みました（McKinsey・Rabobank推計）。米ERCOTでもレギュレーションの出来高加重平均が2023年→2024年で約3分の1に落ちています（Modo Energy）。共通するのは、<strong>周波数系は「系統が必要とする量」の天井が低く、電池がそれを超えた瞬間に価格が壊れる</strong>という構造です。日本との違いは順序だけ──海外では飽和が価格を壊し、日本では規制が先回りして天井を下げる。着地点の風景は同じで、だから対応も同じになります。GBでもERCOTでも、電池収益の主軸はエネルギー裁定へ移りました──GBでは裁定の収益シェアが2022年の1割弱から2024年に約5割へ、ERCOTでも2023年の約2割から2024年に3割台へ上がり、直近はさらに高まっています。<strong>上限の号数を予想する仕事より、裁定と容量で稼げる運用・立地へ組み替える仕事のほうが、期待値が高い</strong>──それが先行市場の教訓です。</p>
+
+<h2><span class="no">09</span>9月1日までに、やること</h2>
+
+<p>系統用蓄電所を保有する立場と、これから取得を検討する立場──やることは五つに絞られます。</p>
+
+<ol class="actions">
+<li><b>収支のベースを10円へ、ストレスを7.21円へ置き直す。</b>エリア×商品の実測、それも7〜8月の水準を初期値にします。15円前提はもちろん、「全国平均」の一本値も使わない。西日本の案件収支に4〜6月の単価が残っていたら、それは既に存在しない市場の数字です。<strong>8月までの実績単価で20年を引き延ばした収支表は、9月から成立しません</strong>。固定価格（トーリング）契約の値決めにも同じ圧力がかかります──オフテイカーが引き受ける市場の上振れ余地が縮むからです（C30参照）。</li>
+<li><b>「実績付き」案件の実績の中身を分解する。</b>2026年上期の需給調整収入には、10〜15円の尾が丸ごと入っています。稼働実績を根拠に高値が付いた案件ほど、その実績は再現しません。トラックレコードの月次内訳──どの商品を、どのエリアで、何円で──を出してもらい、min（価格, 10円）と7.21円で引き直す。C39「蓄電所の買い方は、4つある」で整理した「実績プレミアム」は、この引き直し後の数字で払うべきものです。アグリゲーター委託中なら、この試算表の提出を求めるのが手数料交渉（業界で言われる実勢は10〜30%⚠️公表資料での裏付けがない慣行値）の出発点になります。</li>
+<li><b>商品構成を再設計する。</b>削減率は商品で一桁違います（オフライン▲22% vs 二次①▲3%）。上限据置の二次②・三次①（7.21円）や上限なしの三次②を含めた配分の再最適化、そして削られない床（容量市場──FY2030向けメインオークションの応札受付は2026年10月13〜23日）とコア（JEPX裁定・C35参照）への比重移動です。</li>
+<li><b>東北・東京の案件は、9月以降の実績が出てから単価を確定する。</b>機械的減額が確定している2エリアは、9〜10月の約定で「10円張り付きに移行するのか、競争でさらに沈むのか」が判明します。急ぐ理由が価格にあるなら、2ヶ月待つ価値があります。</li>
+<li><b>監視は三つだけ。</b>①9月の約定単価（先回りがどこまで進むか）、②7.21円への引下げ判断（時期の公式な明示はなく、当社読みで2026年度下期⚠️）、③FY2030容量市場の指標価格倍増（2026年度メインのNet CONE案20,911円/kW＝現行の約2倍。約定方式等は審議中⚠️──反映されれば床が構造的に切り上がり、ΔkW依存を下げても収支が立ちやすくなります）。</li>
+</ol>
+
+<h2><span class="no">結</span>天井の高さを祈る事業から、降ろされても立つ事業へ</h2>
+
+<p>数え終えた数字を並べ直します。消えるのは対象4商品のΔkW代金の<strong>中央<span class="down">▲8.6%</span>・年約300億円</strong>（幅3〜18%）。商品ではオフライン<span class="down">▲22%</span>、管区×商品では東北オフライン<span class="down">▲32%</span>、金額では東京の<strong>年▲117億円</strong>。2MW/8MWhの需給調整収入なら<strong>年▲2,000万〜7,300万円</strong>で、7.21円まで進めば削減はおよそ倍になります。前稿で「いちばん稼げる収益源は、いちばん食われやすい」と書いた構図の、これが1回目の実額です。そして市場の大半は、札を下げることで先に答えました──残っているのは東北と東京、その答え合わせが9月1日です。上限価格は事業者に選べません。選べるのは、札の置き方と、商品の組み合わせと、削られない層（床＋コア）の厚い立地・契約だけ──<strong>天井に依存しない収支で買い、天井に依存しない運用で持つ</strong>。9月1日は、その切り替えの締切です。</p>
+
+<hr class="sep">
+
+<p><strong>❓ 未確認・本稿の限界</strong></p>
+<div class="tablewrap wraptext">
+<table>
+<thead><tr><th>項目</th><th>状態</th></tr></thead>
+<tbody>
+<tr><td>個札の価格分布（エリア別×電源種別）</td><td style="text-align:left">公表なし。本稿が上下限＋較正の推計である理由。較正アンカーは資料6の複合・14円超（量3.4%・費用16.8%）と一次・量比率（③11.3%／④8.2%）</td></tr>
+<tr><td>二次①の較正係数</td><td style="text-align:left">商品固有の公表分布がなく中間値0.50を仮置き（影響は小：削減▲1.9〜4.6%の幅内）</td></tr>
+<tr><td>7〜8月データ</td><td style="text-align:left">速報値（システム約定分）。確報で微修正の可能性</td></tr>
+<tr><td>資料6の数値</td><td style="text-align:left">速報値（EPRX提供資料より事務局作成）。ページ表記は同PDFに依拠</td></tr>
+<tr><td>上限引下げ単独のパブリックコメント</td><td style="text-align:left">確認できた範囲では該当なし──上限引下げは第二十三次中間とりまとめ（案）とガイドライン改定案の一部として意見募集（取引規程改定の意見募集2026/5とは別建て）</td></tr>
+<tr><td>次段階（7.21円）の判断時期・基準</td><td style="text-align:left">一次資料に明示なし（「1〜6か月など一定期間の実績を確認し判断」とのみ）。「2026年度下期」は当社の読み</td></tr>
+<tr><td>アグリゲーター手数料10〜30%</td><td style="text-align:left">公表資料での裏付けを確認できず（業界ヒアリングベースの慣行値として扱う）</td></tr>
+<tr><td>CSV上の15円超約定</td><td style="text-align:left">量の0.4%前後・中国エリアに集中（精算では15円適用）。本稿は表示値のまま計算（削減額を僅かに過大方向）</td></tr>
+<tr><td>応札行動の変化</td><td style="text-align:left">本稿は応札行動・落札量を固定した静的計算で、10円への付け替え・他市場への配分替え・発動kWh収入・余力活用による補完は織り込んでいない。当局も調達費総額が下がるかは「要検証」とし、公的な定量影響試算は示していない</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="tnote"><strong>ヌル所見：</strong>「一次オフライン単独の不足率・電源シェア」を明示した一次資料の表は存在しない（一次調整力は全体集計のみ）。本稿のオフライン数値はすべて当社のCSV全量集計（COLUMN 35と同一パイプライン）。</p>
+
+<hr class="sep">
+
+<div class="refs">
+<p><strong>出典・計算仕様（2026年8月18日時点）</strong></p>
+
+<h3>実測</h3>
+<ul>
+<li>EPRX 約定結果CSV（商品別7種）。確報＝受渡2026/3/14〜6/30（202603分は0314-0331分割ファイル、月次確報の「合計（確報値）」行）、速報＝受渡2026/7/1〜8/18（システム約定分）。計158日・9エリア・欠測ゼロ。使用系列＝約定（落札）量合計・平均・最高・最低落札価格（いずれも電源属地別）。ΔkW代金＝量×1,000×平均単価をスロット積算。蓄電池種別・エリア別の実勢集計は受渡2026/4/1〜8/17</li>
+</ul>
+
+<h3>推計仕様</h3>
+<ul>
+<li>スロット内分布の下限＝平均集中（削減＝量×max(平均−10, 0)）、上限＝二点分布（最低値・最高値に約定が分かれ平均を再現。削減＝f×量×(最高−10)、f=(平均−最低)/(最高−最低)）、最低値≥10円のスロットは厳密（削減＝量×(平均−10)）。中央推計＝λ×上限＋(1−λ)×下限、λは資料6の複合・14円超（量3.4%・費用16.8%、期間③④=2026/5/9〜7/3）を再現する値（λ_費用=0.274・λ_量=0.298→複合0.28）と、一次・14円超量比率（期間③11.3%・④8.2%→λ=0.51・0.50）で商品別に較正（一次系0.51・二次①0.50仮置き・複合0.28）。年換算＝×365/158。7.21円ストレスも同一手法</li>
+</ul>
+
+<h3>較正・整合</h3>
+<ul>
+<li>同一データの平均落札単価（3/14〜6/30）：一次4.35円・オフライン12.13円・二次①2.83円・複合2.86円＝COLUMN 35掲載の当社実測（4.37／12.12／2.85／2.88円）と一致（丸め差）。FY2025通年はEPRX確報と2〜3%内（COLUMN 35参照）</li>
+</ul>
+
+<h3>T1（一次資料）</h3>
+<ul>
+<li>資源エネルギー庁 第4回電力安定供給ワーキンググループ 資料6「需給調整市場について」2026/7/14（10円引下げ・9/1実需給分適用の結論＝スライド22、14円超の量・費用比率＝スライド14、14円超応札の電源種別内訳＝スライド10〔複合〕・11〔一次〕、応札不足率＝スライド5、ヒアリング整理＝スライド20、期間区分①〜④＝スライド4）<a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/stable_power_supply_wg/pdf/004_06_00.pdf">meti.go.jp/…/004_06_00.pdf</a></li>
+<li>EPRX「需給調整市場のΔkW上限価格について」2026/7/30更新（10.00円の確定・初回約定処理2026/8/31・精算時クリップの建付け）<a href="https://www.eprx.or.jp/information/post.php">eprx.or.jp/information/post.php</a>／同 2024/3/15公表（19.51円・7.21円の算定諸元：三次②加重平均1.06円＋3σ18.45円／＋1σ6.15円）</li>
+<li>資源エネルギー庁 第110回制度検討作業部会 資料4 2026/1/23（段階引下げ方針15→10→7.21円・条件・委員意見）<a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_review/pdf/110_04_00.pdf">meti.go.jp/…/110_04_00.pdf</a>／第109回 資料6 2025/12/12</li>
+<li>同 第1回電力安定供給WG 資料8 2026/5/13（1ヶ月時点評価）／EPRX「2025年度の取引実績について」2026/6/18</li>
+<li>「第二十三次中間とりまとめ（案）」意見募集結果 2026/3/13（提出90件・「事業採算性を担保することを目的としたものではない」の回答）／「適正な電力取引についての指針・需給調整市場ガイドライン改定案」意見募集結果 2026/3/13（提出16件・プロジェクトファイナンス金利への波及指摘）</li>
+</ul>
+
+<h3>T2（二次資料）</h3>
+<ul>
+<li>エネルギーリソースアグリゲーション事業協会 緊急提言 2025/11/14（投資予見性・ファイナンスへの懸念）／日経クロステック（上限引下げの背景報道）</li>
+<li>Modo Energy「Dynamic Containment Low: what's setting post-saturation prices?」「ERCOT: How did power prices evolve in 2024?」／Timera Energy「GB batteries confront ancillary saturation」／McKinsey (2025)・Rabobank (2025)（GB電池収益ミックスの推移）※いずれも公的統計ではなく調査会社推計</li>
+</ul>
+
+<h3>注記</h3>
+<ul>
+<li>EPRXは公表データの自動大量取得を禁止し、商用利用には事前契約を求めています。本稿の数表はすべて公表資料に基づく当社の自作集計・推計であり、出典明記のうえ引用の範囲で扱いました。COLUMN 25・29・35・38・39の関連記述（上限価格の適用日・段階引下げ）は本稿の確定情報と整合済みです。次回更新は9月約定の実績が揃う2026年10月を予定します</li>
+<li>規制動向に関する注記: 需給調整市場の制度は資源エネルギー庁・OCCTO・EPRXを中心に急速に変化しています。本コラムは2026年8月18日時点の公表情報に基づきます。投資判断にあたっては、EPRXおよび各審議会の最新公表資料を必ずご確認ください</li>
+</ul>
+</div>
+
+<hr class="sep">
+
+<div class="related">
+<p><strong>あわせて読む</strong>　<a target="_top" href="/column-regional-revenue">同じ2MWが、年2.9億円にも6千万円にもなる ── 蓄電所の稼げる管区と稼ぎ方（COLUMN 35）→</a></p>
+<p><strong>関連コラム</strong></p>
+<ul>
+<li><a target="_top" href="/column-area-data">C16 需給調整市場のエリア別約定実績 ── 9電力エリア×5商品</a></li>
+<li><a target="_top" href="/column-day-ahead">C29 需給調整市場の前日取引化とは</a></li>
+<li><a target="_top" href="/column-long-term-contract">C30 特別高圧47MWは、契約でいくら儲かるか ── トーリングの18.6%</a></li>
+<li><a target="_top" href="/column-financing">C38 なぜ蓄電所は、現金で買われるのか</a></li>
+<li><a target="_top" href="/column-buyer-structures">C39 蓄電所の買い方は、4つある</a></li>
+</ul>
+</div>
+</div>
+
+<!-- scix-column-cta : 1記事1つ。主＝フォーム、副＝解説ページ（それぞれ行き先の中身を明記） -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">9月1日以降の収支で、案件を見直しませんか</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">上限10円・7.21円ストレスを織り込んだ収支の目線で、保有・検討中の案件を一緒に確認します。当社の販売案件は本稿と同じ前提で収支を組み直してお出しします。</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/contact?intent=investor" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">お問い合わせ →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">お問い合わせフォームが開きます。ご用件・お名前・会社名・メールアドレスの4項目だけで送信できます。案件固有の情報はNDA締結後にお出しします。</p>
+  </div>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <a target="_top" href="https://www.scix.co.jp/transfer" style="color:#1B2A4A;font-weight:600;font-size:13.5px;text-decoration:none;border-bottom:1px solid #C49A3C;padding-bottom:2px">「案件取得」のページを読む →</a>
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.85;margin:10px 0 0">系統接続と用地が固まった確定案件を、どういう形でお引き渡しするのか。取得の進め方と、当社が technical DD として何を確認済みかをまとめています。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/land" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">土地を売る・貸す</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

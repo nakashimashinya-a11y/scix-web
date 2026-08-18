@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Serif SC',serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.down{color:var(--warn);font-weight:700}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tr.total td{background:rgba(196,154,60,0.08);font-weight:700;border-top:2px solid var(--accent)}
+td.max{color:var(--warn);font-weight:700}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.scope th{width:10em;vertical-align:top}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-16px 0 28px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.related{font-size:.9em;line-height:2.05}
+.related ul{margin:8px 0;padding-left:1.3em}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px}
+}
+</style>
+<title>天花板，下调5日元 ── 供需调整市场价格上限降至10日元。以9区域×4产品细数即将消失的约300亿日元｜ScienceX</title>
+<meta name="description" content="自2026年9月1日实际供需（交割）起，供需调整市场的一次调整力、二次调整力①、复合产品的ΔkW价格上限由15日元降至10.00日元/ΔkW·30分钟。ScienceX对EPRX成交结果158天数据全量汇总，以9区域×4产品实测估算即将消失的金额：全国−8.6%、每年约300亿日元，一次离线−22%。市场已提前行动，8月均价9.80日元。并附2MW/8MWh换算与7.21日元压力情景。">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-price-cap">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-price-cap">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-price-cap">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-price-cap">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-price-cap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="天花板，下调5日元 ── 供需调整市场价格上限降至10日元。以9区域×4产品细数即将消失的约300亿日元｜ScienceX">
+<meta property="og:description" content="以9区域×4产品实测估算上限10日元将抹去的金额：全国−8.6%、每年约300亿日元；一次离线−22%，东北×离线−32%。市场提前行动，8月均价9.80日元。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-price-cap">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="天花板，下调5日元 ── 供需调整市场价格上限降至10日元。以9区域×4产品细数即将消失的约300亿日元｜ScienceX">
+<meta name="twitter:description" content="以9区域×4产品实测估算上限10日元将抹去的金额：全国−8.6%、每年约300亿日元；一次离线−22%，东北×离线−32%。市场提前行动，8月均价9.80日元。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="article:published_time" content="2026-08-18">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "天花板，下调5日元 ── 供需调整市场价格上限降至10日元。以9区域×4产品细数即将消失的约300亿日元｜ScienceX",
+  "description": "自2026年9月1日实际供需（交割）起，供需调整市场的一次调整力、二次调整力①、复合产品的ΔkW价格上限由15日元降至10.00日元/ΔkW·30分钟。ScienceX对EPRX成交结果158天数据全量汇总，以9区域×4产品实测估算即将消失的金额：全国−8.6%、每年约300亿日元，一次离线−22%。市场已提前行动，8月均价9.80日元。并附2MW/8MWh换算与7.21日元压力情景。",
+  "inLanguage": "zh-CN",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-zh.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-08-18",
+  "dateModified": "2026-08-18",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-price-cap"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.scix.co.jp/zh" },
+    { "@type": "ListItem", "position": 2, "name": "洞见", "item": "https://www.scix.co.jp/zh-knowledge" },
+    { "@type": "ListItem", "position": 3, "name": "天花板，下调5日元", "item": "https://www.scix.co.jp/zh-column-price-cap" }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans SC',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/zh" style="color:#5A6577;text-decoration:none">首页</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/zh-knowledge" style="color:#5A6577;text-decoration:none">洞见</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">天花板，下调5日元</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 41</span>
+      <span class="header-tag">市场分析 / 供需调整市场·制度×实测</span>
+      <time class="header-date" datetime="2026-08-18">2026.08.18</time>
+    </div>
+    <h1>天花板，下调<em>5日元</em></h1>
+    <p class="header-desc">供需调整市场价格上限降至10日元（9月1日）。以9区域×4产品，细数即将消失的约300亿日元。</p>
+  </div>
+</div>
+
+<div class="article-body">
+<p>在上一篇（<a target="_top" href="/zh-column-regional-revenue">COLUMN 35</a>）中我们写道──最能赚钱的收入来源，也最容易被蚕食。如今，这场削减有了明确的日期和金额。<strong>自2026年9月1日实际供需（交割）部分起，供需调整市场中一次调整力（含离线额度）、二次调整力①、复合产品的ΔkW价格上限，将从15日元降至10.00日元/ΔkW·30分钟</strong>（EPRX已于7月30日正式更新价格上限表✅）。这不是"草案"。由于实行日前交易，首次成交处理在8月31日──只剩两周。</p>
+
+<p>听到"降幅达33%"，很容易以为储能电池的收入会消失三分之一。实测数据说的却是另一回事。我们对EPRX每日公布的成交结果CSV在新制度期158天（交割2026/3/14～8/18）的数据进行全量汇总后发现，市场整体的加权平均价为复合2.92日元、一次4.35日元──<strong>平均价早就在10日元以下</strong>。消失的只是分布的右端。但这个右端并非均匀散布。用审议会公布的实测分布进行校准后计算，在4个受限产品每年约3,560亿日元规模的ΔkW费用中，<strong>中位估算为<span class="down">−8.6%</span>、每年约300亿日元</strong>。按产品看，降幅最大的是储能电池份额99%的一次离线，达<span class="down">−22%</span>；按区域×产品看，最大的单元格是东北×一次离线的<span class="down">−32%</span>。</p>
+
+<p>而且，市场并没有等到9月1日。在上限仍为15日元的7～8月，一次离线的15日元顶格（贴着上限）成交占比从83%崩落至10%，中部、关西、中国（指日本中国地区，下同）、九州的价格已率先沉入10日元以下，<strong>8月全国平均中标单价为9.80日元，提前钻到了下个月的天花板之下</strong>。目前仍站在14日元区间的只有东北──9月1日会"缩水"的，并不是整个日本，而几乎只有两个区域：东北和东京。本文将按以下顺序逐一计算：决定的内容（01）、制度方的逻辑（02）、市场整体的实测（03）、对储能电池的影响方式（04）、提前行动的市场（05）、换算到2MW/8MWh（06）、下一档7.21日元（07）、海外的先例（08）、9月1日前要做的事（09）。</p>
+
+<div class="note"><b>编辑备注：</b>本文的制度事实均经资源能源厅、EPRX（电力供需调整力交易所）的一手资料核实；市场数据由本公司基于EPRX公布的成交结果CSV（确报值＝最终值：交割2026/3/14～6/30；快报值＝初步值：7/1～8/18，系统成交部分）中<b>按时段、按区域的成交量×平均、最高、最低中标价格（按电源属地划分）</b>独立汇总与估算得出。数据窗口为两套──削减额估算采用新制度期全程的<b>交割2026/3/14～8/18共158天</b>，储能电池分品种、分区域的实际行情汇总采用<b>交割2026/4/1～8/17</b>。由于EPRX不公布单笔报价的价格分布，我们对时段内分布设置两种极端假设（集中于平均值＝下限／分布于最低、最高两点＝上限）求出上下限，并以资源能源厅第4次电力稳定供应工作组资料6公布的实测分布（复合产品、超过14日元＝量约3.4%、费用约16.8%）校准内插系数，正文采用由此得到的<b>中位估算</b>（计算规格见文末）。因此本文的降幅是<b>带区间的估算</b>，并非确定值。数据管线的可靠性已通过以下方式验证：同期平均中标单价与上一篇COLUMN 35刊载的本公司实测值（一次4.37日元、离线12.12日元、二次①2.85日元、复合2.88日元）精确到小数点后两位一致。7～8月为快报值，确报时可能有细微修正。可供外部核对的记述（沿革、资料6数值、公众意见引用、海外案例等约40项）已在发布前与一手资料完成核对（2026/8/18实施）。本文为市场整体分析，不构成投资、税务、法律建议。当局已表明价格上限今后将继续分阶段调整，本文也将随制度进展更新。</div>
+
+<p style="margin-bottom:.4em"><strong>本文范围</strong></p>
+<div class="tablewrap wraptext">
+<table class="scope">
+<tbody>
+<tr><th>已决定事项✅</th><td style="text-align:left">一次（含离线额度）、二次①、复合产品上限 15日元→<strong>10.00日元/ΔkW·30分钟</strong>，自2026/9/1实际供需（交割）起（首次成交处理为8/31）</td></tr>
+<tr><th>实测窗口</th><td style="text-align:left">削减估算＝交割2026/3/14～8/18共158天（确报＋快报）、9区域×4产品／实际行情汇总＝交割2026/4/1～8/17</td></tr>
+<tr><th>消失金额（中位估算）</th><td style="text-align:left"><strong>全国<span class="down">−8.6%</span>、每年约306亿日元</strong>（区间−3～18%）</td></tr>
+<tr><th>按产品最大</th><td style="text-align:left">一次离线<strong><span class="down">−22.1%</span></strong>（区间17～27%）＝储能电池份额99%的产品</td></tr>
+<tr><th>按区域×产品最大</th><td style="text-align:left">东北×一次离线<strong><span class="down">−31.6%</span></strong>（东京为−13～23%）</td></tr>
+<tr><th>提前行动的市场</th><td style="text-align:left">15日元顶格占比从4月83%崩落至8月10%。8月全国平均9.80日元──尚未实施已在天花板之下</td></tr>
+<tr><th>下一档（附条件⚠️）</th><td style="text-align:left">若降至7.21日元，全国<strong>−16.8%、每年约600亿日元</strong>，一次离线−41.6%</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2><span class="no">01</span>决定了什么 ── 10.00日元的内容</h2>
+
+<p>首先，把决定的轮廓固定下来。EPRX公布的价格上限沿革，用下面3行即可说完。</p>
+
+<div class="tablewrap">
+<table>
+<caption>ΔkW价格上限沿革（单位：日元/ΔkW·30分钟。出处：EPRX《关于供需调整市场的ΔkW价格上限》2026/7/30更新）</caption>
+<thead><tr><th>公布日</th><th>首次成交处理</th><th>适用开始（实际供需日）</th><th>适用结束</th><th>复合、一次、二次①</th><th>二次②、三次①</th><th>三次②</th></tr></thead>
+<tbody>
+<tr><td>2024/3/15</td><td>2024/3/26</td><td>2024/4/1</td><td>2026/3/13</td><td>19.51日元</td><td>7.21日元</td><td>无上限</td></tr>
+<tr><td>2026/2/5</td><td>2026/3/13</td><td>2026/3/14</td><td>2026/8/31</td><td>15.00日元</td><td>7.21日元</td><td>无上限</td></tr>
+<tr class="total"><td>2026/7/30</td><td><strong>2026/8/31</strong></td><td><strong>2026/9/1</strong></td><td>暂定</td><td><strong>10.00日元</strong></td><td>7.21日元</td><td>无上限</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>需要把握的要点有五个。第一，对象仅为<strong>一次调整力、二次调整力①、复合产品这3个产品</strong>。二次②、三次①维持7.21日元不变，三次②本来就没有上限。第二，请注意单位。不是日元/kWh，而是<strong>日元/ΔkW·30分钟</strong>──这不是对充放电电量的报酬，而是对<strong>保持可响应指令的能力（ΔkW）</strong>所付报酬的天花板。此次下调的只是储能电站收入中这部分容量报酬，调用时的kWh结算、JEPX套利收入、容量市场均不在此列。第三，一次离线额度适用一次调整力的上限；即便投标复合产品而单独成交，也适用复合产品的上限──没有退路。第四，适用以<strong>实际供需日为基准</strong>──适用起止日指实际供需日，而非进行投标或成交处理的日期。由于实行日前交易，实务上新上限从8月31日、即9月1日实际供需部分进行成交处理之日起生效。至8月31日实际供需部分的既有成交仍按15日元上限结算，不追溯。第五，供需调整市场系统不会判定投标价格是否超过上限。超过上限的报单即便成交，也会<strong>在结算环节被削减至10日元</strong>。9月1日之后继续报15日元在制度上是可能的，但能拿到的只有10日元──上限实际上就是限价。</p>
+
+<p>沿革的含义也值得一读。引入时的<strong>19.51日元和7.21日元是由计算公式得出的数字</strong>──在三次调整力②成交实绩的加权平均单价1.06日元上，加3倍标准差（18.45日元）得19.51日元，加1倍（6.15日元）得7.21日元。然而在投标持续不足的高速产品中，贴近上限的成交成为常态，于是2026年3月14日，与日前交易化同步，上限降至15日元。而不到半年后的9月1日又将降至10日元。<strong>15日元和10日元并非由公式机械得出，而是为纠正"顶格成交"，在19.51日元与7.21日元之间酌情切分出的中间水平</strong>。这一认识对制定收益测算非常重要──下一步同样不是来自公式，而是来自当局的判断。分阶段下调的方针本身已在第110次制度研讨工作组会议（2026/1/23）上确定，其中还写明了下一档──<strong>若市场竞争状况未见改善，将降至7.21日元/ΔkW·30分钟等水平</strong>。反之，同一份资料也明确：若确认竞争改善，则不再进一步下调⚠️。10日元不是终点，而是附条件的中间点（详见07）。</p>
+
+<h2><span class="no">02</span>为什么是10日元 ── "量3.4%、费用16.8%"那一页</h2>
+
+<p>制度方的逻辑，浓缩在资源能源厅第4次电力稳定供应工作组会议（2026/7/14）资料6的一张分布图里。在日前交易化之后的期间③④（2026/5/9～7/3），复合产品中<strong>超过14日元的成交仅占总成交量的约3.4%，却占了总采购费用的约16.8%</strong>。日前交易化之前这两个数字是量约6.2%、费用约35.0%，可见有所改善──但问题仍在。而且这一高价区间（超过14日元）的投标中<strong>约七到九成来自储能电池</strong>（复合68～80%、一次81～91%，期间②～④、按投标量计）。本公司的实测也确认了同样的格局──在时段均价超过10日元的时段中，储能电池的中标份额在复合产品为25.0%（10日元以下的时段为8.2%），在一次调整力为38.8%（同24.2%）。<strong>时段价格越高，站在那里的越是储能电池</strong>。由于采购费用会通过输配电费广泛转嫁，官方的逻辑是：连同天花板一起，砍掉"对量没有贡献的高价报单"。上限下调后火电、抽水蓄能的投标可能部分减少，但当局的整理是：这部分可通过余力活用合同（2026年4月平均3.01日元/kW·30分钟）在市场外替代采购予以确保。</p>
+
+<p>表明制度性质的一手资料也留存在案。在第二十三次中期总结的公众意见答复（2026年3月13日公示、共收到90件意见）中，能源厅明言──审议会展示的储能电池收益性示范案例，是为了让各方对新增资源的商业性与上限价格水平之间的关系有具体印象，<strong>"并非旨在通过设定上限价格来保障储能电池运营商的经营收益性"</strong>（原文如此）。上限价格不是保证投资回收的地板，而是压低采购费用的天花板──制度的性质，已在公文中写得明明白白。</p>
+
+<p>反对声音并非没有。最初方案（2025年10月29日制度研讨工作组）是<strong>将一次～三次①的上限一举统一至7.21日元</strong>；能源资源聚合事业协会于2025年11月14日向能源厅提交紧急建议，正面警告量与价格同时变更将损害新增资源的投资可预见性与融资。公众意见中也出现了"与物价、利率、人工成本高涨背道而驰，与吸引GX投资不相协调""美国PJM通过容量市场的投标义务保障回收机会，日本也应为新建资源提供参入初期的风险缓释措施""规则应至少固定3年，'竞争改善'的判定标准应事前定量明示"等意见；在指南修订侧的意见征集中，还有人正面指出对融资的波及──<strong>"固定成本占比高的新增资产，其投资可预见性将严重受损，金融机构的贷款风险加大，即项目融资的利率会升高"</strong>。当局的回复始终是"以第110次会议的措施与监测应对"。落点是15日元──此后半年，参照实绩，才有了这次的10日元。</p>
+
+<p>另一个成为判断基础的，是听证中的不对称。当上限下调时，火电、抽水蓄能若按机会成本报价超过上限，将放弃投标；而储能电池、VPP则<strong>"在比较与其他市场的收益性之后，下调投标价格并继续参与市场投标"</strong>（资料6，原文如此）──制度方的判断是：即便下调，电池也会留下。这个判断是否正确，05节的实测已经开始给出答案。</p>
+
+<h2><span class="no">03</span>实测① ── 市场整体：平均值轻，右端重</h2>
+
+<p>从这里进入正题。先看市场整体（全部电源、按电源属地划分、按中标量计）的全国概要。</p>
+
+<div class="tablewrap">
+<table>
+<caption>受上限约束产品的全国概要（交割2026/4/1～8/17、按电源属地划分。ScienceX汇总）</caption>
+<thead><tr><th>产品</th><th>加权平均价格</th><th>时段均价超10日元的中标量占比</th></tr></thead>
+<tbody>
+<tr><td>复合产品</td><td>2.92日元</td><td>2.0%</td></tr>
+<tr><td>一次调整力</td><td>4.35日元</td><td>4.0%</td></tr>
+<tr><td>二次调整力①</td><td>2.78日元</td><td>2.1%</td></tr>
+<tr><td><strong>一次离线</strong></td><td><strong>11.27日元</strong></td><td><strong>77.9%</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>复合、一次、二次①的加权平均价为2.78～4.35日元──<strong>平均价早就在10日元以下</strong>。"33%的降价"不会发生在市场整体层面。不过，供需调整市场采用按报价结算（Pay-as-bid，按报单价格直接结算），而EPRX的公开数据只到各时段（30分钟）×区域×产品的成交量与平均、最高、最低中标价格──没有单笔报价的分布。因此我们对每个时段作如下处理：①若最高价不超过10日元，削减为零；②若最低价不低于10日元，削减额严格等于量×（平均−10日元）；③跨越10日元的时段，用"集中于平均值"（削减下限）与"分布于最低、最高两点并复现平均值"（削减上限）两端夹逼，并以能复现资料6实测分布（复合、超14日元＝量3.4%、费用16.8%）的内插系数校准后取中位值。我们已确认该校准系数也能独立复现一次调整力的公布值（超14日元的量占比：期间③11.3%／④8.2%）。结果见表1、表2。</p>
+
+<div class="tablewrap">
+<table>
+<caption>表1 ── 上限10日元将抹去的ΔkW费用比例（中位估算、交割2026/3/14～8/18）</caption>
+<thead><tr><th>产品＼区域</th><th>北海道</th><th>东北</th><th>东京</th><th>中部</th><th>北陆</th><th>关西</th><th>中国</th><th>四国</th><th>九州</th><th>全国（区间）</th></tr></thead>
+<tbody>
+<tr><td>一次调整力</td><td>−12.0%</td><td>−13.8%</td><td>−15.1%</td><td>−11.9%</td><td>−2.2%</td><td>−11.4%</td><td>−9.5%</td><td>−1.7%</td><td>−4.9%</td><td><strong>−11.5%</strong>（1.7～20.8）</td></tr>
+<tr><td>一次离线</td><td>−12.1%</td><td class="max">−31.6%</td><td>−22.7%</td><td>−21.6%</td><td>−9.1%</td><td>−24.6%</td><td>−18.5%</td><td>−18.1%</td><td>−14.1%</td><td><strong>−22.1%</strong>（17.3～26.6）</td></tr>
+<tr><td>二次调整力①</td><td>−10.9%</td><td>−3.8%</td><td>−1.4%</td><td>−0.5%</td><td>−1.7%</td><td>−8.6%</td><td>−5.5%</td><td>−0.1%</td><td>−1.3%</td><td><strong>−3.3%</strong>（1.9～4.6）</td></tr>
+<tr><td>复合产品</td><td>−8.1%</td><td>−7.8%</td><td>−7.7%</td><td>−4.7%</td><td>−2.4%</td><td>−6.4%</td><td>−6.4%</td><td>−1.1%</td><td>−3.1%</td><td><strong>−6.3%</strong>（1.3～19.2）</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">比例＝削减额中位估算相对于各单元格ΔkW费用（按电源属地划分、量×平均单价）的比值。括号内为全国值的（下限～上限）。ScienceX基于EPRX成交结果CSV估算。</p>
+
+<div class="tablewrap">
+<table>
+<caption>表2 ── 分区域、4个受限产品合计：换算成金额（交割2026/3/14～8/18、158天）</caption>
+<thead><tr><th>区域</th><th>ΔkW费用（158天、亿日元）</th><th>削减额·中位（亿日元）</th><th>削减率（区间）</th><th>年化削减（亿日元/年）</th></tr></thead>
+<tbody>
+<tr><td>东京</td><td>468.4</td><td>−50.5</td><td>−10.8%（2.0～25.8）</td><td class="max">−117</td></tr>
+<tr><td>东北</td><td>226.9</td><td>−21.3</td><td>−9.4%（4.2～19.1）</td><td>−49</td></tr>
+<tr><td>中部</td><td>250.9</td><td>−21.1</td><td>−8.4%（3.7～16.2）</td><td>−49</td></tr>
+<tr><td>北海道</td><td>110.7</td><td>−11.1</td><td>−10.0%（5.4～16.9）</td><td>−26</td></tr>
+<tr><td>关西</td><td>81.2</td><td>−9.4</td><td><strong>−11.6%</strong>（4.1～22.9）</td><td>−22</td></tr>
+<tr><td>中国</td><td>115.2</td><td>−9.3</td><td>−8.1%（4.0～14.4）</td><td>−22</td></tr>
+<tr><td>九州</td><td>251.4</td><td>−9.3</td><td>−3.7%（1.6～7.2）</td><td>−21</td></tr>
+<tr><td>北陆</td><td>13.5</td><td>−0.3</td><td>−2.4%</td><td>−1</td></tr>
+<tr><td>四国</td><td>23.7</td><td>−0.3</td><td>−1.2%</td><td>−1</td></tr>
+<tr class="total"><td>全国</td><td>1,541.9</td><td>−132.6</td><td>−8.6%（3.0～18.0）</td><td>−306</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">年化＝将158天实测换算为365天。4个受限产品的ΔkW费用约为每年3,562亿日元的规模（参考：不受限的二次②409.7亿、三次①552.7亿、三次②100.2亿／158天）。</p>
+
+<figure>
+<svg viewBox="0 0 640 322" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig1t">
+<title id="fig1t">上限10日元将抹去的ΔkW费用·年化·分区域（中位估算）</title>
+<line x1="110" y1="6" x2="110" y2="312" stroke="#E2E6EC" stroke-width="1"/>
+<text x="100" y="28" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">东京</text>
+<rect x="110" y="12" width="421.2" height="22" fill="#1B2A4A"/>
+<text x="539" y="28" font-family="sans-serif" font-size="12.5" font-weight="bold" fill="#C0392B">−117亿</text>
+<text x="100" y="62" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">东北</text>
+<rect x="110" y="46" width="176.4" height="22" fill="#8A99B5"/>
+<text x="294" y="62" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−49亿</text>
+<text x="100" y="96" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">中部</text>
+<rect x="110" y="80" width="176.4" height="22" fill="#8A99B5"/>
+<text x="294" y="96" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−49亿</text>
+<text x="100" y="130" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">北海道</text>
+<rect x="110" y="114" width="93.6" height="22" fill="#8A99B5"/>
+<text x="211" y="130" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−26亿</text>
+<text x="100" y="164" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">关西</text>
+<rect x="110" y="148" width="79.2" height="22" fill="#8A99B5"/>
+<text x="197" y="164" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−22亿</text>
+<text x="100" y="198" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">中国</text>
+<rect x="110" y="182" width="79.2" height="22" fill="#8A99B5"/>
+<text x="197" y="198" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−22亿</text>
+<text x="100" y="232" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">九州</text>
+<rect x="110" y="216" width="75.6" height="22" fill="#8A99B5"/>
+<text x="193" y="232" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−21亿</text>
+<text x="100" y="266" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">北陆</text>
+<rect x="110" y="250" width="3.6" height="22" fill="#8A99B5"/>
+<text x="121" y="266" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−1亿</text>
+<text x="100" y="300" text-anchor="end" font-family="sans-serif" font-size="12.5" fill="#2C3E50">四国</text>
+<rect x="110" y="284" width="3.6" height="22" fill="#8A99B5"/>
+<text x="121" y="300" font-family="sans-serif" font-size="12.5" fill="#2C3E50">−1亿</text>
+</svg>
+<figcaption>图1 ── 上限10日元将抹去的ΔkW费用（年化、分区域、中位估算）。金额的主战场在东京，比率的主战场在东北离线。ScienceX估算。</figcaption>
+</figure>
+
+<p>解读有三点。<strong>第一，金额的主战场在东京</strong>──因市场规模全国最大，即便比率仅列第3，消失的绝对额（每年约−117亿日元规模）也格外突出。<strong>第二，比率的主战场是一次离线，尤其是东北</strong>。在东北，一次、复合的成交时段中<strong>94%的最高价触及15日元</strong>（东京75%、中部48%、关西36%、九州24～29%），是一个天花板长期起作用的市场。天花板下降5日元，顶格报单的所得将机械性地减少三分之一。<strong>第三，九州、北陆、四国伤势轻微</strong>──本就供给充足、单价立不起来的区域，可砍的高价原本就少。回到上一篇的说法：<strong>ΔkW行情越厚的区域，这次被削得越多</strong>。行情的地图与削减的地图，几乎重合。</p>
+
+<h2><span class="no">04</span>实测② ── 对储能电池的影响，深于市场平均</h2>
+
+<p>表1、表2是市场整体（全部电源）的数字。储能电池的业主，请分两步来换算。第一，<strong>按报价结算（Pay-as-bid）</strong>。该市场按报单价格直接结算，各公司的所得取决于自己的报单而非市场平均。而储能电池，恰恰站在分布的高价一侧。</p>
+
+<div class="tablewrap">
+<table>
+<caption>储能电池的实际行情（全国、交割2026/4/1～8/17、快报值。ScienceX汇总）</caption>
+<thead><tr><th>产品</th><th>储能电池的平均中标单价</th><th>超10日元的成交（量占比）</th><th>触及15日元的时段占比※1</th><th>储能电池的ΔkW收入（约4.5个月）</th></tr></thead>
+<tbody>
+<tr><td>复合产品</td><td>9.03日元</td><td>17.9%</td><td>94.9%</td><td>约176亿日元</td></tr>
+<tr><td>一次离线※2</td><td><strong>11.27日元</strong></td><td><strong>77.9%</strong></td><td>94.9%</td><td>约136亿日元</td></tr>
+<tr><td>二次调整力①</td><td>8.83日元</td><td>53.5%</td><td>──</td><td>约12亿日元</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">※1 该时段储能电池最高中标价格达14.9日元以上的时段占比。※2 一次离线的储能电池份额为99.3%（7～8月为100%），故市场整体值≈储能电池实际行情。因以复合产品成交后再分配至各产品的处理方式，各产品之间未做简单加总。</p>
+
+<p>解读方法如下。在复合产品中，储能电池的中标量仅占市场的8%，但由于单价是市场平均（2.92日元）的3倍，<strong>收入占到市场的26%</strong>。而且<strong>几乎所有时段（94.9%）都有某家储能电池恰好以15日元成交</strong>。平均9日元的背后，是一条从0.39日元延伸到15日元的厚实分布──上限10日元不是"削减平均值的税"，而是<strong>"砍掉上行部分的天花板"</strong>。被砍掉的是这条分布的右端，资料6中超14日元投标的七到九成也来自储能电池。也就是说，表2削减额的大部分是储能电池一侧的减收，仅就储能电池而言的降幅将深于市场平均的−8.6%。二次①在市场整体看来只有−3.3%、似乎伤势轻微，但仅就储能电池的报单而言，过半（53.5%）超过10日元──这里被削的同样是储能电池一侧。</p>
+
+<p>受到直接冲击的，尤其是<strong>一次离线</strong>。这是一个无需通过专用线路在线化（经由简易指令系统）即可提供一次调整力的额度，储能电池以装机容量1MW以上、10MW以下（高压、部分特别高压）为对象。中标量的99%以上是储能电池──也就是说，这是一个<strong>以高压2MW/8MWh级储能电池为主角、只有储能电池的市场</strong>。全国加权平均11.27日元，是<strong>唯一一个平均价本身就高于新上限的产品</strong>，这一单价水平在9月1日之后将无法在结构上维持。它在4个受限产品收入中的占比仅约一成，但坐在那里的几乎全是储能电池，上限之痛集中在这一成上。另外，表1的离线行（全国−22.1%）由于最低价不低于10日元的时段（严格计算）较多，区间仅17～27%、较窄，是<strong>4个产品中确定性最高的数字</strong>──几乎可以直接当作储能电池的减收率来读。</p>
+
+<div class="tablewrap">
+<table>
+<caption>一次离线·分区域（按电源属地划分、交割2026/4/1～8/17。ScienceX汇总）</caption>
+<thead><tr><th>区域</th><th>加权平均</th><th>时段均价超10日元的量</th><th>超出10日元部分（下限）</th><th>8月单月加权平均</th><th>9/1的机械减额率※</th></tr></thead>
+<tbody>
+<tr><td>东北</td><td>14.53日元</td><td>98.2%</td><td>31.3%</td><td><strong>14.63日元</strong></td><td class="max">−31.6%</td></tr>
+<tr><td>东京</td><td>11.71日元</td><td>98.4%</td><td>14.8%</td><td><strong>11.49日元</strong></td><td class="max">−13.0%</td></tr>
+<tr><td>中部</td><td>12.18日元</td><td>73.7%</td><td>19.3%</td><td>9.65日元</td><td>──</td></tr>
+<tr><td>关西</td><td>11.90日元</td><td>82.8%</td><td>20.1%</td><td>9.73日元</td><td>──</td></tr>
+<tr><td>中国</td><td>10.37日元</td><td>58.1%</td><td>15.8%</td><td>6.83日元</td><td>──</td></tr>
+<tr><td>九州</td><td>7.91日元</td><td>33.5%</td><td>10.3%</td><td>5.40日元</td><td>──</td></tr>
+<tr><td>北陆</td><td>9.72日元</td><td>42.2%</td><td>8.9%</td><td>8.72日元</td><td>──</td></tr>
+<tr><td>北海道</td><td>5.51日元</td><td>14.5%</td><td>7.0%</td><td>2.58日元</td><td>──</td></tr>
+<tr><td>四国</td><td>6.25日元</td><td>34.3%</td><td>19.1%</td><td>3.69日元</td><td>──</td></tr>
+<tr class="total"><td>全国</td><td>11.27日元</td><td>77.9%</td><td>17.3%</td><td>9.80日元</td><td>──</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">※机械减额率＝对8月加权平均超过10日元的区域，假设时段均价一律削减至10日元时的减额率（下限）。四国、北陆、北海道中标量小，单月数值易波动。"超出10日元部分（下限）"以时段平均中标价格为基准──因按报价结算，无法捕捉单笔报价的高价尾部，真实值大于此。</p>
+
+<p>反过来，复合、一次在线虽然在市场整体只有−6～12%，但报单越偏向高价一侧被削得越深，<strong>15日元顶格的报单按定义就是−33.3%</strong>。把 min（报单价格, 10日元）套到自家（或受托方）的成交明细上，是最准确的自我诊断。</p>
+
+<h2><span class="no">05</span>实测③ ── 市场没有等到9月1日</h2>
+
+<p>上表最右两列，藏着本文最大的发现。<strong>4～6月与7～8月，是两个不同的市场。</strong>一次离线中最高中标价格触及15日元的时段（＝顶格）的中标量份额，按月推移如下。</p>
+
+<blockquote><strong>4月 83.1% → 5月 76.4% → 6月 72.2% → 7月 18.4% → 8月 9.7%</strong></blockquote>
+
+<p>7月14日的工作组会议敲定下调至10日元，7月30日EPRX正式公布。就在那个7月，顶格占比崩落至五分之一。在按报价结算的市场里，这意味着投标者自己压低了报单。全国平均中标单价自5月的12.53日元见顶后持续下行，<strong>8月为9.80日元──没等到实施，就已跌破10日元</strong>。</p>
+
+<figure>
+<svg viewBox="0 0 640 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig2t">
+<title id="fig2t">一次离线·全国平均中标单价月度走势与新上限10日元</title>
+<line x1="64" y1="30" x2="620" y2="30" stroke="#EDF0F4" stroke-width="1"/>
+<line x1="64" y1="90" x2="620" y2="90" stroke="#EDF0F4" stroke-width="1"/>
+<line x1="64" y1="150" x2="620" y2="150" stroke="#EDF0F4" stroke-width="1"/>
+<line x1="64" y1="270" x2="620" y2="270" stroke="#EDF0F4" stroke-width="1"/>
+<text x="58" y="34" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">16日元</text>
+<text x="58" y="94" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">14日元</text>
+<text x="58" y="154" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">12日元</text>
+<text x="58" y="214" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">10日元</text>
+<text x="58" y="274" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6C7A89">8日元</text>
+<line x1="64" y1="60" x2="620" y2="60" stroke="#6C7A89" stroke-width="1" stroke-dasharray="5 4"/>
+<text x="68" y="54" font-family="sans-serif" font-size="11.5" fill="#6C7A89">旧上限 15日元</text>
+<line x1="64" y1="210" x2="620" y2="210" stroke="#C0392B" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="68" y="228" font-family="sans-serif" font-size="12" font-weight="bold" fill="#C0392B">新上限 10.00日元（9/1起）</text>
+<polyline points="70,158.1 178,140.7 286,134.1 394,158.4 502,202.5 610,216" fill="none" stroke="#1B2A4A" stroke-width="2.5"/>
+<circle cx="70" cy="158.1" r="4" fill="#1B2A4A"/>
+<circle cx="178" cy="140.7" r="4" fill="#1B2A4A"/>
+<circle cx="286" cy="134.1" r="4" fill="#1B2A4A"/>
+<circle cx="394" cy="158.4" r="4" fill="#1B2A4A"/>
+<circle cx="502" cy="202.5" r="4" fill="#1B2A4A"/>
+<circle cx="610" cy="216" r="5" fill="#C0392B"/>
+<text x="70" y="146" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">11.73</text>
+<text x="178" y="128" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">12.31</text>
+<text x="286" y="122" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">12.53</text>
+<text x="394" y="146" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">11.72</text>
+<text x="502" y="190" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#2C3E50">10.25</text>
+<text x="606" y="244" text-anchor="end" font-family="sans-serif" font-size="12.5" font-weight="bold" fill="#C0392B">9.80日元</text>
+<text x="70" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">3月</text>
+<text x="178" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">4月</text>
+<text x="286" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">5月</text>
+<text x="394" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">6月</text>
+<text x="502" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">7月</text>
+<text x="610" y="298" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#6C7A89">8月</text>
+</svg>
+<figcaption>图2 ── 一次离线·全国平均中标单价月度走势（按电源属地划分、8月截至18日）。跨过7月的10日元预告，实施前已落到天花板之下。ScienceX汇总。</figcaption>
+</figure>
+
+<p>按区域排列月度数据，可以看出这种下跌有两种方式。</p>
+
+<div class="tablewrap">
+<table>
+<caption>一次离线·分区域月度加权平均（日元/ΔkW·30分钟。北海道、北陆、四国因中标量极少而省略）</caption>
+<thead><tr><th>区域</th><th>4月</th><th>5月</th><th>6月</th><th>7月</th><th>8月</th><th>4月→8月</th></tr></thead>
+<tbody>
+<tr><td>东北</td><td>13.49</td><td>14.86</td><td>14.66</td><td>14.49</td><td><strong>14.63</strong></td><td><strong>+8%</strong></td></tr>
+<tr><td>东京</td><td>11.47</td><td>11.59</td><td>12.09</td><td>11.76</td><td><strong>11.49</strong></td><td>±0%</td></tr>
+<tr><td>中部</td><td>14.57</td><td>14.34</td><td>13.15</td><td>10.25</td><td>9.65</td><td>−34%</td></tr>
+<tr><td>关西</td><td>13.09</td><td>13.55</td><td>12.65</td><td>9.66</td><td>9.73</td><td>−26%</td></tr>
+<tr><td>中国</td><td>12.38</td><td>13.32</td><td>11.17</td><td>7.41</td><td>6.83</td><td>−45%</td></tr>
+<tr><td>九州</td><td>11.94</td><td>10.87</td><td>6.89</td><td>5.67</td><td>5.40</td><td>−55%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>中部、关西在7月正好滑到10日元──这是<strong>抢先对标新上限的报单调整</strong>。中国、九州则击穿10日元、沉到5～7日元区间──这边是投标量增加带来的<strong>竞争本身</strong>。对西日本的储能电池而言，"缩水"不是发生在9月1日，而是已经发生在7月。9月1日只是追认。</p>
+
+<p>没有动的是东北和东京。东北8月仍为14.63日元（较4月+8%），东京为11.49日元（±0%）。正如C16《供需调整市场的分区域成交实绩》所示，东北的一次离线不足率为82%──在招标量八成填不满的市场里没有压价的理由，高价会一直持续到上限下调的那一天。因此，结论如下。</p>
+
+<p><strong>9月1日将被机械性削减的，是东北（<span class="down">−31.6%</span>）与东京（<span class="down">−13.0%</span>）的一次离线ΔkW收入。</strong>这一数字是"8月时段均价一律削减至10日元"情形下的下限；将单笔报价的高价尾部也纳入的期间估算显示，东京为−22.7%（表1）──东京的实际缩水在−13～23%之间，自家报单越偏高价，缩水越深。东北的8月机械计算与158天期间估算指向同一个−32%──这是5个月间未发生适应的证据。东北在一次在线（8月平均10.16日元、超10日元时段占62%）和复合（同8.87日元、27%）上也纠缠在10日元线附近，影响最集中的区域是东北、这一点不会改变。分时段看，超出10日元部分的约七成发生在7～20时，最厚的是15～18时与8～9时──<strong>傍晚的爬坡时段，最先被削</strong>。</p>
+
+<p>复合产品的储能电池实际行情也从4月的9.00日元降至8月的8.12日元，本公司估算的削减率也逐月收窄（离线：3月−31%→8月−19%）。如果如听证所言，"降价留下"的动作已经先行，那么9月1日就不是悬崖，而是<strong>对一条已经开始的下坡路，由制度加以确定</strong>。另外，本文年化−306亿日元是"价格行为不变"前提下的静态估算；这种提前适应越是推进，被砍掉的金额中就有越多被"自主降价"所替代──业主到手的钱变少，这一点不变。</p>
+
+<h2><span class="no">06</span>换算到2MW/8MWh ── 上端缩水17%，下端毫发无损</h2>
+
+<p>套用上一篇的基准机组（高压2MW/8MWh、4小时）。在COLUMN 35的实测中，供需调整收入不按市场平均、而按<strong>储能电池的实际中标单价</strong>构建，JEPX并用型（扣除充放电时段后投标30个时段）约为9.7万～13.2万日元/kW/年＝2MW每年约1.9亿～2.6亿日元（中位约2.3亿日元），相当于东北案例年收入约2.7～2.9亿日元的约八成。</p>
+
+<p>这一区间的上半段──12日元区间的月份、东北与东京的高价时段──将在9月1日被制度性抹去。由于单价的物理上限变为10日元，按30时段×365天可构建的供需调整收入上端为10.95万日元/kW/年＝2MW约2.19亿日元。<strong>区间上端从2.6亿日元压缩至2.19亿日元，约−4,500万日元（−17%）</strong>。若全部押注供需调整（48时段），上端约为3.5亿日元、约−7,000万日元。而<strong>下端几乎毫发无损</strong>──8月的实际行情（复合8.12日元）已在10日元以下，平凡时段的收入不变。变的是"好月份、好区域、好时段"的份额。</p>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>2MW/8MWh模型·按投标风格的影响（相对于供需调整收入中位约2.3亿日元/年）</caption>
+<thead><tr><th>收益测算的立足点</th><th>适用的削减率（实测）</th><th>供需调整收入的减少（年）</th></tr></thead>
+<tbody>
+<tr><td>保守型（按8日元区间单价构建）</td><td>几乎为零</td><td>几乎无损──9/1只是经过点</td></tr>
+<tr><td>与市场平均相当的报单（复合、一次混合）</td><td>−8～9%（表2的区域值）</td><td><strong>约−2,000万日元</strong></td></tr>
+<tr><td>以一次离线为主（东北、东京）</td><td>−22%（全国）～−32%（东北）</td><td><strong>−5,000万～7,300万日元</strong></td></tr>
+<tr><td>15日元顶格的报单</td><td>−33.3%（机械性）</td><td>约−7,700万日元</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>若东北的2MW机组、供需调整收入的大半来自一次离线的ΔkW，按简单比例的上限情形计算，将被削去<strong>每年7,000万日元规模</strong>（投标行为变化、调用kWh、向其他市场重新配置等可使实际减少小于此）。保守地按8日元区间构建的收益测算，9月1日不过是经过点；而按12日元上下的实绩或高价预期构建的测算，将正面承受上端的−17%。<strong>自己的收益测算站在区间的哪个位置</strong>──这是本周应当确认的事。IRR的重算不要以"如果下降"、而要以"下降之后"为基准──请把收益基准改设为10日元、压力情景改设为7.21日元。</p>
+
+<h2><span class="no">07</span>7.21日元，还在条件句里</h2>
+
+<p>"下一步是7.21日元"的说法正在独自流传，但一手资料的措辞并非如此。第110次制度研讨工作组（2026/1/23、资料4）的整理是──<strong>"若市场竞争状况未见改善，将分阶段下调至10日元、7.21日元/ΔkW·30分钟等水平"</strong>。同时也明确写道：<strong>"若竞争状况出现改善，则不再进一步下调上限价格"</strong>。10日元是条件触发后的结果，而7.21日元还在下一个条件句里。7.21日元与二次②、三次①的现行上限同一水平──设计上，下一阶段所有产品将在那里对齐。</p>
+
+<p>判定材料是公开的。投标不足率从日前交易化之前到最近，复合从46.3%降至16.1%、一次从14.6%降至5.3%，改善显著（资料6、快报值）。而05节看到的8月实际行情──顶格9.7%、均价跌破10日元──讽刺的是，恰恰可能作为"竞争正在改善"的证据，成为下一次下调判断的材料。<strong>下降的报单，会推远下一次下调</strong>。对业主而言，救赎只在这里。</p>
+
+<p>若真的降到7.21日元，按同一校准方法的静态估算，<strong>全国−16.8%、每年约600亿日元，一次离线−41.6%</strong>──大约是这次的两倍。判断的时点与定量标准在一手资料中没有明示（仅写有"确认1个月、2个月、3个月、6个月等一定期间的实绩后判断"）；以今夏（7～8月）的峰值实绩为材料、在2026财年下半年作出判断──这是本公司的解读⚠️。EPRX规定上限变更须在实际供需日两周前公布，因此一手信息最快的瞭望台是EPRX的上限价格页面。补充一点：在本公司的调查范围内，尚未发现金融机构或海外研究机构将这一上限情景定量纳入的公开报告。投资者可依赖的独立定量基准仍然稀缺，本文的测算区间正是为填补这一空缺提供的参考值。</p>
+
+<h2><span class="no">08</span>悬崖的形状，在海外似曾相识</h2>
+
+<p>频率类服务收益骤降的形状，市场早已在别处展示过。在英国，频率响应产品Dynamic Containment的价格贴着软上限£17/MW/h的景气期之后，随着电池装机量在2022～23年超过电网的技术必要量，价格骤跌：DC Low的价格较2022年6月下跌约86%（Modo Energy），频率响应在英国电池收益中的占比从2022年的七至八成缩至2024年的约两成（McKinsey、Rabobank估算）。在美国ERCOT，调频（Regulation）的成交量加权平均价也从2023年到2024年跌至约三分之一（Modo Energy）。共同点在于这样一种结构：<strong>频率类服务"电网所需的量"天花板很低，电池一旦超过，价格立刻崩坏</strong>。与日本的差别只在顺序──海外是饱和摧毁价格，日本是监管抢先压低天花板。落点的风景相同，因此应对也相同。无论英国还是ERCOT，电池收益的主轴都转向了能量套利──英国套利的收益份额从2022年的不到一成升至2024年的约五成，ERCOT也从2023年的约两成升至2024年的三成多，最近还在继续上升。<strong>与其预测上限的下一个数字，不如把运营与选址重组到靠套利和容量赚钱的形态──期望值更高</strong>。这是先行市场的教训。</p>
+
+<h2><span class="no">09</span>9月1日之前，要做的事</h2>
+
+<p>无论是已持有电网侧储能电站，还是正考虑收购──要做的事可以收敛为五件。</p>
+
+<ol class="actions">
+<li><b>把收益基准改为10日元，压力情景改为7.21日元。</b>初始值应采用分区域×分产品的实测，而且是7～8月的水平。15日元前提自不必说，"全国平均"这样的单一数值也不要用。如果西日本项目的测算里还留着4～6月的单价，那已是一个不复存在的市场的数字。<strong>用截至8月的实绩单价拉长20年的收益表，从9月起就不再成立</strong>。固定价格（Tolling，容量租赁）合同的定价也会受到同样压力──因为承购方所承接的市场上行空间在收缩（参见C30）。</li>
+<li><b>拆解"带运营实绩"项目的实绩内容。</b>2026年上半年的供需调整收入，整段包含了10～15日元的尾部。越是以运营实绩为依据卖出高价的项目，其实绩越无法复现。请对方提供业绩记录的月度明细──哪个产品、哪个区域、多少日元──再用min（价格, 10日元）与7.21日元重新折算。C39《储能电站的买法有4种》中整理的"实绩溢价"，应当按重新折算后的数字来支付。若正委托聚合商运营，要求提交这份试算表，就是手续费谈判（业内流传的行情为10～30%⚠️无公开资料佐证的惯例值）的起点。</li>
+<li><b>重新设计产品组合。</b>削减率因产品而异、相差一个数量级（离线−22% vs 二次①−3%）。要做的是：将上限不变的二次②、三次①（7.21日元）和无上限的三次②纳入配置再优化，并把比重移向不会被削的地板（容量市场──面向2030财年的主拍卖投标受理期为2026年10月13～23日）和核心（JEPX套利，参见C35）。</li>
+<li><b>东北、东京的项目，等9月以后的实绩出来再确定单价。</b>机械性减额已成定局的这两个区域，9～10月的成交将揭晓"是转为10日元顶格，还是在竞争中进一步下沉"。如果着急的理由在于价格，那么等两个月是值得的。</li>
+<li><b>监测项只有三个。</b>①9月的成交单价（提前适应会走到哪一步）；②下调至7.21日元的判断（时点无官方明示，本公司解读为2026财年下半年⚠️）；③2030财年容量市场指标价格翻倍（2026年度主拍卖的Net CONE草案20,911日元/kW＝约为现行的2倍。成交方式等仍在审议⚠️──若得到反映，地板将结构性上移，即便降低对ΔkW的依赖，收益也更容易成立）。</li>
+</ol>
+
+<h2><span class="no">结</span>从祈祷天花板高度的生意，到天花板降下仍能站立的生意</h2>
+
+<p>把算完的数字重新排一遍。将要消失的，是4个受限产品ΔkW费用的<strong>中位<span class="down">−8.6%</span>、每年约300亿日元</strong>（区间3～18%）。按产品看是离线<span class="down">−22%</span>，按区域×产品看是东北离线<span class="down">−32%</span>，按金额看是东京的<strong>每年−117亿日元</strong>。换算到2MW/8MWh的供需调整收入是<strong>每年−2,000万～7,300万日元</strong>；若降到7.21日元，削减大约翻倍。上一篇写下的"最能赚钱的收入来源，也最容易被蚕食"这一格局，这是它的第一笔实额。而市场的大半，已经通过压低报单提前作答──剩下的是东北和东京，对答案的时刻是9月1日。上限价格由不得运营商选择。能选择的，只有报单的摆法、产品的组合，以及不会被削的层（地板＋核心）足够厚实的选址与合同──<strong>用不依赖天花板的收益测算去买，用不依赖天花板的运营去持有</strong>。9月1日，是这场切换的截止日。</p>
+
+<hr class="sep">
+
+<p><strong>❓ 未经确认·本文的局限</strong></p>
+<div class="tablewrap wraptext">
+<table>
+<thead><tr><th>项目</th><th>状态</th></tr></thead>
+<tbody>
+<tr><td>单笔报价的价格分布（分区域×分电源类型）</td><td style="text-align:left">未公布。这正是本文采用上下限＋校准估算的原因。校准锚点为资料6的复合、超14日元（量3.4%、费用16.8%）与一次的量占比（③11.3%／④8.2%）</td></tr>
+<tr><td>二次①的校准系数</td><td style="text-align:left">无该产品专属的公布分布，暂取中间值0.50（影响小：削减在−1.9～4.6%区间内）</td></tr>
+<tr><td>7～8月数据</td><td style="text-align:left">快报值（系统成交部分）。确报时可能有细微修正</td></tr>
+<tr><td>资料6的数值</td><td style="text-align:left">快报值（事务局根据EPRX提供资料编制）。页码标注依据同一PDF</td></tr>
+<tr><td>针对上限下调单独进行的公众意见征集</td><td style="text-align:left">在可确认的范围内不存在──上限下调是作为第二十三次中期总结（草案）与指南修订案的一部分征集意见（与2026/5交易规程修订的意见征集分开进行）</td></tr>
+<tr><td>下一阶段（7.21日元）的判断时点与标准</td><td style="text-align:left">一手资料无明示（仅写"确认1～6个月等一定期间的实绩后判断"）。"2026财年下半年"为本公司解读</td></tr>
+<tr><td>聚合商手续费10～30%</td><td style="text-align:left">未能在公开资料中确认佐证（按基于业内访谈的惯例值处理）</td></tr>
+<tr><td>CSV中超过15日元的成交</td><td style="text-align:left">约占量的0.4%、集中于中国区域（结算时按15日元适用）。本文按表面值计算（削减额略偏高估方向）</td></tr>
+<tr><td>投标行为的变化</td><td style="text-align:left">本文是固定投标行为与中标量的静态计算，未纳入向10日元的报单调整、向其他市场的重新配置、调用kWh收入、余力活用的补充。当局也认为采购费总额是否下降"有待验证"，并未给出官方定量影响测算</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="tnote"><strong>查无记录说明：</strong>不存在明示"一次离线单独的不足率、电源份额"的一手资料表格（一次调整力仅有整体汇总）。本文的离线数值全部来自本公司的CSV全量汇总（与COLUMN 35同一数据管线）。</p>
+
+<hr class="sep">
+
+<div class="refs">
+<p><strong>出处与计算规格（截至2026年8月18日）</strong></p>
+
+<h3>实测</h3>
+<ul>
+<li>EPRX成交结果CSV（分产品7种）。确报＝交割2026/3/14～6/30（202603部分为0314-0331拆分文件，采用月度确报的"合计（确报值）"行）；快报＝交割2026/7/1～8/18（系统成交部分）。共158天、9区域、零缺测。使用序列＝成交（中标）量合计与平均、最高、最低中标价格（均按电源属地划分）。ΔkW费用＝量×1,000×平均单价按时段累加。储能电池分品种、分区域的实际行情汇总为交割2026/4/1～8/17</li>
+</ul>
+
+<h3>估算规格</h3>
+<ul>
+<li>时段内分布的下限＝集中于平均值（削减＝量×max(平均−10, 0)）；上限＝两点分布（成交分布于最低价与最高价并复现平均值。削减＝f×量×(最高−10)，f=(平均−最低)/(最高−最低)）；最低价≥10日元的时段为严格计算（削减＝量×(平均−10)）。中位估算＝λ×上限＋(1−λ)×下限，λ按产品校准：以复现资料6复合、超14日元（量3.4%、费用16.8%，期间③④=2026/5/9～7/3）的值（λ_费用=0.274、λ_量=0.298→复合0.28），以及一次、超14日元量占比（期间③11.3%、④8.2%→λ=0.51、0.50）（一次系0.51、二次①暂取0.50、复合0.28）。年化＝×365/158。7.21日元压力情景采用同一方法</li>
+</ul>
+
+<h3>校准与一致性</h3>
+<ul>
+<li>同一数据的平均中标单价（3/14～6/30）：一次4.35日元、离线12.13日元、二次①2.83日元、复合2.86日元＝与COLUMN 35刊载的本公司实测值（4.37／12.12／2.85／2.88日元）一致（四舍五入差）。2025财年全年与EPRX确报的差异在2～3%以内（参见COLUMN 35）</li>
+</ul>
+
+<h3>T1（一手资料）</h3>
+<ul>
+<li>资源能源厅 第4次电力稳定供应工作组 资料6《关于供需调整市场》2026/7/14（下调至10日元、自9/1实际供需部分适用的结论＝第22页；超14日元的量与费用占比＝第14页；超14日元投标的电源类型构成＝第10页〔复合〕、第11页〔一次〕；投标不足率＝第5页；听证整理＝第20页；期间区分①～④＝第4页）<a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/stable_power_supply_wg/pdf/004_06_00.pdf">meti.go.jp/…/004_06_00.pdf</a></li>
+<li>EPRX《关于供需调整市场的ΔkW价格上限》2026/7/30更新（确定10.00日元、首次成交处理2026/8/31、结算时削减的机制）<a href="https://www.eprx.or.jp/information/post.php">eprx.or.jp/information/post.php</a>／同 2024/3/15公布（19.51日元、7.21日元的计算要素：三次②加权平均1.06日元＋3σ18.45日元／＋1σ6.15日元）</li>
+<li>资源能源厅 第110次制度研讨工作组 资料4 2026/1/23（分阶段下调方针15→10→7.21日元、条件、委员意见）<a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_review/pdf/110_04_00.pdf">meti.go.jp/…/110_04_00.pdf</a>／第109次 资料6 2025/12/12</li>
+<li>同 第1次电力稳定供应WG 资料8 2026/5/13（1个月时点评估）／EPRX《关于2025财年交易实绩》2026/6/18</li>
+<li>《第二十三次中期总结（草案）》意见征集结果 2026/3/13（收到90件、"并非旨在保障经营收益性"的答复）／《关于适当电力交易的指针·供需调整市场指南修订案》意见征集结果 2026/3/13（收到16件、指出对项目融资利率的波及）</li>
+</ul>
+
+<h3>T2（二手资料）</h3>
+<ul>
+<li>能源资源聚合事业协会 紧急建议 2025/11/14（对投资可预见性与融资的担忧）／日经xTECH（上限下调的背景报道）</li>
+<li>Modo Energy《Dynamic Containment Low: what's setting post-saturation prices?》《ERCOT: How did power prices evolve in 2024?》／Timera Energy《GB batteries confront ancillary saturation》／McKinsey (2025)、Rabobank (2025)（英国电池收益构成的变化）※均为研究机构估算而非官方统计</li>
+</ul>
+
+<h3>附注</h3>
+<ul>
+<li>EPRX禁止对公开数据进行自动化批量抓取，商用需事先签约。本文的数表均为本公司基于公开资料的自制汇总与估算，在注明出处的引用范围内使用。COLUMN 25、29、35、38、39中的相关记述（上限价格的适用日、分阶段下调）已与本文的确定信息保持一致。下次更新预定在9月成交实绩齐备的2026年10月</li>
+<li>关于监管动向的说明：供需调整市场的制度正以资源能源厅、OCCTO、EPRX为中心快速变化。本专栏基于2026年8月18日时点的公开信息。作出投资判断前，请务必确认EPRX及各审议会的最新公开资料</li>
+</ul>
+</div>
+
+<hr class="sep">
+
+<div class="related">
+<p><strong>延伸阅读</strong>　<a target="_top" href="/zh-column-regional-revenue">同样的2MW，年收入可以是2.9亿日元也可以是6千万日元 ── 储能电站赚钱的区域与赚法（COLUMN 35）→</a></p>
+<p><strong>相关专栏</strong></p>
+<ul>
+<li><a target="_top" href="/zh-column-area-data">C16 供需调整市场的分区域成交实绩 ── 9个电力区域×5产品</a></li>
+<li>C29 什么是供需调整市场的日前交易化</li>
+<li><a target="_top" href="/zh-column-long-term-contract">C30 特别高压47MW，靠合同能赚多少 ── Tolling的18.6%</a></li>
+<li><a target="_top" href="/zh-column-financing">C38 为什么储能电站会被用现金买下</a></li>
+<li><a target="_top" href="/zh-column-buyer-structures">C39 储能电站的买法有4种</a></li>
+</ul>
+</div>
+</div>
+
+<!-- scix-column-cta : 1記事1つ。主＝フォーム、副＝解説ページ -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans SC',sans-serif">
+  <h3 style="font-family:'Noto Serif SC',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">要不要用9月1日之后的收益口径，重新审视手中的项目</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">我们将以纳入上限10日元与7.21日元压力情景的收益视角，与您一起核对持有中或考虑中的项目。本公司的在售项目也将按与本文相同的前提重新构建收益测算后提供。</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/zh-contact" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">联系我们 &rarr;</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">将打开咨询表单。仅需咨询事项·姓名·公司名称·邮箱四项即可提交。项目专属信息将在签署保密协议后提供。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans SC',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif SC',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X 株式会社（サイエンスエックス株式会社）</div>
+        〒103-0016 日本 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:+81364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/zh" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">首页</a>
+        <a href="/zh-knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">洞见</a>
+        <a href="/zh-qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">问答</a>
+        <a href="/zh-contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">联系我们</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">隐私政策</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
