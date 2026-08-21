@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .num{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-size:1.1em}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.88em}
+.comparison-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text)}
+.faq-a::before{content:'A. ';color:var(--text-light);font-weight:700}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.seo-note{display:none}
+.toc{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px 16px;margin:0 0 32px;font-size:.9em}
+.toc-title{font-weight:700;color:var(--navy);margin-bottom:8px;font-size:.95em}
+.toc a{color:var(--text);text-decoration:none;display:block;padding:3px 0}
+.toc a:hover{color:var(--accent)}
+.toc a::before{content:'›';color:var(--accent);margin-right:8px}
+.toc-cta{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:.95em}
+.toc-cta a{display:inline;padding:0;color:var(--accent);font-weight:700;text-decoration:none;border-bottom:1px solid var(--accent)}
+.toc-cta a::before{content:none}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+@media(max-width:768px){.article-body{padding:32px 16px 60px}h2{font-size:1.2em}.comparison-table{font-size:.8em}.comparison-table th,.comparison-table td{padding:8px 10px}}
+</style>
+<title>市街化調整区域の土地は蓄電池用地になるか — 国の整理と自治体の現在地｜ScienceX</title>
+<meta name="description" content="市街化調整区域に系統用蓄電池は設置できるのか。国土交通省の技術的助言（国都計第7号・2025年4月）による第一種特定工作物の整理、審査基準を定めていない自治体の現状、農地が重なる場合の二重のゲート、価格への影響までを一次資料に基づいて解説します。">
+<link rel="canonical" href="https://www.scix.co.jp/column-land-zoning">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-land-zoning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="市街化調整区域の土地は蓄電池用地になるか — 国の整理と自治体の現在地｜ScienceX">
+<meta property="og:description" content="市街化調整区域に系統用蓄電池は設置できるのか。国の技術的助言（国都計第7号）の整理、審査基準未策定の自治体の現状、農地の二重ゲート、価格への影響までを一次資料に基づいて解説します。">
+<meta property="og:url" content="https://www.scix.co.jp/column-land-zoning">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="市街化調整区域の土地は蓄電池用地になるか — 国の整理と自治体の現在地｜ScienceX">
+<meta name="twitter:description" content="市街化調整区域に系統用蓄電池は設置できるのか。国の技術的助言の整理、審査基準未策定の自治体の現状、農地の二重ゲート、価格への影響までを一次資料に基づいて解説します。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "市街化調整区域の土地は蓄電池用地になるか — 国の整理と自治体の現在地｜ScienceX",
+  "description": "市街化調整区域に系統用蓄電池は設置できるのか。国土交通省の技術的助言（国都計第7号・2025年4月）による第一種特定工作物の整理、審査基準を定めていない自治体の現状、農地が重なる場合の二重のゲート、価格への影響までを一次資料に基づいて解説します。",
+  "author": {
+    "@type": "Organization",
+    "name": "Science X Inc."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-08-22",
+  "dateModified": "2026-08-22",
+  "mainEntityOfPage": "https://www.scix.co.jp/column-land-zoning"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "市街化調整区域に蓄電池は設置できますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "一律に不可ではありません。電気事業の用に供する電気工作物に該当するか、危険物を含有するか、コンテナが建築物に当たるかで都市計画法上の扱いが決まり、第一種特定工作物に該当する場合は自治体の審査基準の有無で結論が分かれます。審査基準を定めていない自治体では、現状は許可の出しようがありません。所管自治体への書面照会で確かめるのが確実です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "市街化調整区域の土地でも蓄電池用地として売れますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "売れないという意味ではありませんが、買い手の裾野が狭くなり、価格には影響します。当社の実務では、所管自治体への書面照会の回答を売買の停止条件に組み込んでいます。ScienceXは取扱案件の全件で市街化調整区域の該非確認を標準化しており、査定の際に見通しを含めてお伝えします。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "農地で市街化調整区域の場合はどうなりますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "都市計画法の許可と農地法の転用許可という二重のゲートになります。農用地区域内の農地（青地）や第1種農地は原則転用不可のため、蓄電所としての事業化はほぼ成立しません。第2種農地は個別判断、第3種農地は原則許可です。地目と農地区分の確認が出発点になります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "自分の土地が市街化調整区域かどうかはどう調べられますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "市区町村の都市計画担当課に問い合わせるか、多くの自治体がウェブで公開している都市計画情報・用途地域マップで確認できます。登記簿の地目だけでは区域区分は分かりません。ScienceXの査定では、市街化調整区域の該非確認を標準で行っています。"
+      }
+    }
+  ]
+}
+</script>
+<meta property="article:published_time" content="2026-08-22">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://www.scix.co.jp/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ナレッジ",
+      "item": "https://www.scix.co.jp/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "市街化調整区域の土地は蓄電池用地になるか — 国の整理と自治体の現在地",
+      "item": "https://www.scix.co.jp/column-land-zoning"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">市街化調整区域の土地は蓄電池用地になるか — 国の整理と自治体の現在地</span></nav>
+<div class="seo-note">
+  title: 市街化調整区域の土地は蓄電池用地になるか — 国の整理と自治体の現在地｜ScienceX
+  description: 市街化調整区域に系統用蓄電池は設置できるのか。国都計第7号による第一種特定工作物の整理、審査基準未策定の自治体の現状、農地の二重ゲート、価格への影響を一次資料に基づいて解説。
+  slug: /column-land-zoning
+  keywords: 蓄電池用地 市街化調整区域, 市街化調整区域 蓄電池 設置, 系統用蓄電池 開発許可, 第一種特定工作物 蓄電池, 国都計第7号, 蓄電池 農地転用
+</div>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 43</span>
+      <span class="header-tag">用地・売却</span>
+      <time class="header-date" datetime="2026-08-22">2026.08.22</time>
+    </div>
+    <h1>市街化調整区域の土地は蓄電池用地になるか<br>— <em>国の整理と自治体の現在地</em></h1>
+    <p class="header-desc">「調整区域だからダメ」でも「問題ない」でもありません。結論は、その蓄電所が法律上どう扱われるかと、自治体が審査基準を持っているかの掛け算で決まります。一次資料で現在地を整理しました。</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
+
+<div class="toc">
+  <div class="toc-title">この記事の内容</div>
+  <a href="#ketsuron">結論 — 「一律ダメ」でも「問題なし」でもない</a>
+  <a href="#chosei">市街化調整区域とは — 開発も建築も「許可制」の区域</a>
+  <a href="#kuni">国の整理 — 国都計第7号（2025年4月8日）</a>
+  <a href="#jichitai">自治体の現在地 — 基準がなければ、許可も出ない</a>
+  <a href="#nochi">農地が重なる場合 — 二重のゲート</a>
+  <a href="#kakaku">価格と売りやすさへの影響 — 買い手はどう見るか</a>
+  <a href="#kakunin">自分の土地の区域区分を確かめるには</a>
+  <a href="#faq">よくある質問</a>
+  <div class="toc-cta">調整区域の該非確認は無料査定に含まれます（住所と面積のみ・売却の義務なし）。<a target="_top" href="/sell-form?type=land">無料で用地査定を依頼する →</a></div>
+</div>
+
+<h2 id="ketsuron">結論 — 「一律ダメ」でも「問題なし」でもない</h2>
+<p>「うちは市街化調整区域なので、蓄電池は無理ですよね」——地主の方から、よくこう聞かれます。この質問には、イエスともノーとも答えられません。<strong>「調整区域だから置けない」は正確ではない。かといって「問題なく置けます」も正確ではない</strong>。結論は、その蓄電所が都市計画法上どう扱われるか（該当性）と、所管自治体が審査基準を持っているかの掛け算で、案件ごとに変わるからです。</p>
+<div class="highlight-box">
+  <strong>結論を左右する3つの変数：</strong><br>
+  ① <strong>第一種特定工作物への該当性</strong> — 電気事業の用に供する電気工作物か、危険物を含有するか、コンテナが建築物に当たるか<br>
+  ② <strong>自治体の審査基準の有無</strong> — 基準を定めていない自治体では、現状は許可の出しようがない<br>
+  ③ <strong>農地なら農地転用の可否</strong> — 都市計画法とは別のゲートとして農地法の許可が必要<br><br>
+  規制・税・立地の全体像は<a target="_top" href="/column-four-labels" style="color:var(--accent);font-weight:600">系統用蓄電所の規制・税・立地の全体像</a>にまとめています。本稿はその「調整区域」の部分を、地主の目線で掘り下げるものです。
+</div>
+
+<h2 id="chosei">市街化調整区域とは — 開発も建築も「許可制」の区域</h2>
+<p>都市計画法は、必要に応じて都市計画区域を「市街化区域」と「市街化調整区域」に分けます（線引きをしていない「非線引き」の区域もあります）。調整区域は、読んで字のごとく<strong>市街化を抑制すべき区域</strong>です。ここでは造成などの開発行為が許可制（29条）というだけではありません。造成を伴わなくても、建築物の新築や「第一種特定工作物」の新設そのものに許可が要ります（43条）。市街化区域のような「小さければ許可不要」という抜け道もありません。</p>
+<p>つまり調整区域では、建てたいものが法律上「何者」と扱われるかで、入口の手続きがまるごと変わります。では蓄電所は何者なのか。その整理を国が示したのが、次の通知です。</p>
+<div class="source">出典: 都市計画法29条・34条・43条、都市計画法施行令36条（e-Gov法令検索）</div>
+
+<h2 id="kuni">国の整理 — 国都計第7号（2025年4月8日）</h2>
+<p>2025年（令和7年）4月8日、国土交通省は技術的助言「系統用蓄電池の開発許可制度上の取扱いについて」（国都計第7号）を全国の開発許可担当部局に出しました。整理はこうです。</p>
+<div class="highlight-box">
+  <strong>国都計第7号の整理（要旨）：</strong><br>
+  ・電気事業法上の「電気事業（小売電気事業・特定卸供給事業を除く）の用に供する電気工作物」に<strong>該当しない</strong>系統用蓄電池で、危険物を含有するものは、危険物の貯蔵に供する工作物として<strong>第一種特定工作物に該当し得る</strong><br>
+  ・第一種特定工作物として市街化調整区域に立地する場合の入口は、<strong>34条14号・施行令36条1項3号ホ（開発審査会の議を経るルート）</strong><br>
+  ・その運用にあたっては、必要に応じて<strong>審査基準の策定</strong>等により、地域の実情に応じた運用を行うことが望ましい（＝自治体への要請）
+</div>
+<p>かみ砕くと、勝負は「該当性」で決まります。電気事業法の発電事業者・送配電事業者の設備であれば、第一種特定工作物の対象から外れる。ところが、高圧2MW級の蓄電所は「発電事業者」に当たりません。だからこの除外にはきれいに乗れず、<strong>第一種特定工作物として正面から開発許可を求めることになるケースが多い</strong>のです。危険物の含有についても、「この電池だから大丈夫」という決め打ちはできません。所管行政庁への確認事項です。</p>
+<p>あわせて建築基準法側には、コンテナの取扱い（平成25年・国住指第4846号）があります。土地に自立設置し、稼働時は無人で、重大な障害時などを除いて内部に人が立ち入らない単段のコンテナは<strong>建築物に該当しない</strong>。ただし積み重ねると建築物です。都市計画法と建築基準法——目的の違う二つの物差しが、同じコンテナに別々に当てられるわけです。なお、これらとは別に消防のゲート（容量20kWh超の蓄電池設備の設置届出など）もありますが、調整区域に限らない話なので、<a target="_top" href="/column-four-labels" style="color:var(--accent);font-weight:600">規制・税・立地の全体像</a>に譲ります。</p>
+<div class="source">出典: 国土交通省「系統用蓄電池の開発許可制度上の取扱いについて（技術的助言）」（国都計第7号・2025年4月8日）／「蓄電池を収納する専用コンテナに係る建築基準法の取扱いについて（技術的助言）」（国住指第4846号・2013年3月29日）</div>
+
+<h2 id="jichitai">自治体の現在地 — 基準がなければ、許可も出ない</h2>
+<p>国の通知を受けて、自治体が次々と「うちではこう扱う」を公表し始めています。読み比べると、現在地がよく見えます。</p>
+<table class="comparison-table">
+  <tr><th>自治体（公表時点）</th><th>公表内容の要旨</th></tr>
+  <tr><td class="em">兵庫県（2026年6月時点）</td><td>第一種特定工作物に該当する系統用蓄電池等について「市街化調整区域に設置する場合の許可基準を定めていません」</td></tr>
+  <tr><td class="em">大津市（2026年4月時点）</td><td>許可基準未策定。適用除外に該当しないものは「設置（建築）できません」と明言</td></tr>
+  <tr><td class="em">桶川市（2025年10月時点）</td><td>審査基準未策定。危険物該当性は「各所管行政庁に相談や確認を」とし、事前相談を要請</td></tr>
+  <tr><td class="em">千葉市（2025年9月時点）</td><td>危険物を含有するものは「少量であっても該当」として第一種特定工作物として取り扱う</td></tr>
+  <tr><td class="em">神戸市（2025年6月時点）</td><td>判定フローチャートを公表。第一種特定工作物にも建築物にも該当しない構成なら「許可不要」の整理を明示</td></tr>
+</table>
+<p>同じ「市街化調整区域」でも、これだけ割れます。ただ、当社が確認した範囲では、<strong>該当する蓄電所を許可するための審査基準を定めたと公表している自治体は、まだ見当たりません</strong>。基準がない以上、第一種特定工作物に該当する蓄電所には、現状、許可の出しようがありません。国は基準づくりを促しているので、この地図は今後書き換わっていくはずです。ただ「今この瞬間に事業化できるか」と問われれば、答えは自治体ごとに違う——それが2026年8月時点の現在地です。</p>
+<p>だから実務で頼りになるのは、一般論ではなく、<strong>所管自治体への書面での事前照会</strong>だけです。当社が買い手として案件を検査する際も、この回答書を証憑としてお願いしています。口頭の「大丈夫そうですよ」は、値段になりません。</p>
+<div class="source">出典: 兵庫県「開発許可制度における系統用蓄電池の取扱い」（2026年6月5日更新）／大津市「系統用蓄電池の開発許可制度上の取扱いについて」（2026年4月1日更新）／桶川市「開発許可制度における系統用蓄電池の取扱いについて」（2025年10月29日更新）／千葉市の公表資料（2025年9月11日）／神戸市「神戸市の市街化調整区域における系統用蓄電池の都市計画法上の取り扱い」（2025年6月）。いずれも各自治体の公式サイトで公開。</div>
+
+<h2 id="nochi">農地が重なる場合 — 二重のゲート</h2>
+<p>調整区域の土地は、地目が田や畑であることも珍しくありません。その場合はもう一枚、農地法の扉が現れます。都市計画法の許可とは<strong>別に</strong>、農地転用の許可（農地法4条・5条）が要るのです。</p>
+<p>扉の固さは、農地の区分で決まっています。農用地区域内の農地（いわゆる青地）は原則転用不可。まず農振除外の手続きにおおむね半年〜1年、長引けば2年以上かかります。甲種農地・第1種農地も原則不許可です。蓄電所は農業用施設のような例外類型には通常当たらないため、<strong>青地・第1種農地では、事業化はほぼ成立しません</strong>。第2種は個別判断、第3種は原則許可です。ご自身の農地がどの区分かは、農業委員会に聞くか、eMAFF農地ナビで検索するのが出発点になります。</p>
+<div class="source">出典: 農林水産省「農地転用許可制度の概要」</div>
+
+<h2 id="kakaku">価格と売りやすさへの影響 — 買い手はどう見るか</h2>
+<p>ここまで読むと、「調整区域の土地は売れないのか」と思われるかもしれません。売れない、ではありません。ただし、値段には正直に効きます。理由は3つ。許可の見通しが書面で確定するまで、買い手は不確実性の分だけ評価を割り引くこと。審査基準未策定の自治体では現状の設置の道がなく、買い手の裾野そのものが狭くなること。そして、将来の転売（流動性）にも同じ制約が意識されることです。当社の実務では、自治体照会の回答を<strong>売買の停止条件</strong>に組み込む形をとっています。買い手がどんな目で案件を検査してくるかは<a target="_top" href="/column-buyer-check" style="color:var(--accent);font-weight:600">系統用蓄電所を買う前の技術チェック</a>に書きました。</p>
+<p>当社は、取扱案件の全件で市街化調整区域の該非確認を標準化しています。経験上、いちばん気を使うのは<strong>区域界の近くにある土地</strong>です。地図の見た目では判定がぶれやすく、机上の判定だけでは信用できません。だから査定では、該非と見通しを確認したうえでお伝えしています。</p>
+
+<h2 id="kakunin">自分の土地の区域区分を確かめるには</h2>
+<p>地主の方が最初にやることは、実は3つだけです。</p>
+<div class="highlight-box">
+  <strong>① 区域区分を確認する</strong> — 市区町村の都市計画担当課に聞くか、自治体が公開している都市計画情報・用途地域マップで見られます。登記簿だけでは分かりません。<br>
+  <strong>② 地目を確認する</strong> — 登記簿上の地目（田・畑・雑種地・山林など）。農地なら農地区分（青地・白地）も。<br>
+  <strong>③ 査定時にそのまま伝える</strong> — 「調整区域かもしれない」で十分です。該非確認と見通しの整理は、査定に含まれています。
+</div>
+<p>調整区域の土地は、たしかに扉が一枚多い。それでも、最初から諦める必要はありませんし、口頭の説明で安心してしまうのも危うい。<strong>書面で確かめる</strong>——この論点の正しい進め方は、それに尽きます。価格そのものの決まり方は<a target="_top" href="/column-land-buyback" style="color:var(--accent);font-weight:600">蓄電池用地の買取相場はどう決まるか</a>を、売らずに貸す選択肢も含めた比較は<a target="_top" href="/column-land-lease" style="color:var(--accent);font-weight:600">蓄電池用地は売るか、貸すか</a>をどうぞ。</p>
+
+<h2 id="faq">よくある質問</h2>
+<div class="faq-item">
+  <div class="faq-q">市街化調整区域に蓄電池は設置できますか？</div>
+  <div class="faq-a">一律に不可ではありません。電気事業の用に供する電気工作物に該当するか、危険物を含有するか、コンテナが建築物に当たるかで都市計画法上の扱いが決まり、第一種特定工作物に該当する場合は自治体の審査基準の有無で結論が分かれます。審査基準を定めていない自治体では、現状は許可の出しようがありません。所管自治体への書面照会で確かめるのが確実です。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">市街化調整区域の土地でも蓄電池用地として売れますか？</div>
+  <div class="faq-a">売れないという意味ではありませんが、買い手の裾野が狭くなり、価格には影響します。当社の実務では、所管自治体への書面照会の回答を売買の停止条件に組み込んでいます。ScienceXは取扱案件の全件で市街化調整区域の該非確認を標準化しており、査定の際に見通しを含めてお伝えします。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">農地で市街化調整区域の場合はどうなりますか？</div>
+  <div class="faq-a">都市計画法の許可と農地法の転用許可という二重のゲートになります。農用地区域内の農地（青地）や第1種農地は原則転用不可のため、蓄電所としての事業化はほぼ成立しません。第2種農地は個別判断、第3種農地は原則許可です。地目と農地区分の確認が出発点になります。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">自分の土地が市街化調整区域かどうかはどう調べられますか？</div>
+  <div class="faq-a">市区町村の都市計画担当課に問い合わせるか、多くの自治体がウェブで公開している都市計画情報・用途地域マップで確認できます。登記簿の地目だけでは区域区分は分かりません。ScienceXの査定では、市街化調整区域の該非確認を標準で行っています。</div>
+</div>
+
+<a target="_top" href="/land" class="next-link">
+  <div>
+    <div class="next-link-label">NEXT → 用地売却・賃貸</div>
+    <div class="next-link-title">お持ちの土地が蓄電所用地として成立するか — 価格の決まり方と手順</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+</div>
+
+
+<!-- scix-column-cta : 1記事1つ。主＝申込フォーム直行、副＝解説ページ（それぞれ行き先の中身を明記） -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">「調整区域かもしれない」土地も、まず該非からお調べします</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">買取価格も賃料も、系統の空き容量と工事費負担金でほぼ決まります。市街化調整区域の該非確認は、査定に標準で含まれます。</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/sell-form?type=land" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">無料で用地査定を依頼する →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">申込フォームが開きます。ご連絡先と所在地だけで申し込めます。接続検討は当社の費用負担で行い、約3ヶ月後に電力会社の回答書をそのままお渡しします。<br>お電話でも承ります：<a href="tel:0364034095" style="color:#1B2A4A;font-weight:600">03-6403-4095</a>（サイエンスエックス株式会社）</p>
+  </div>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <a target="_top" href="https://www.scix.co.jp/land" style="color:#1B2A4A;font-weight:600;font-size:13.5px;text-decoration:none;border-bottom:1px solid #C49A3C;padding-bottom:2px">先に「用地売却・賃貸」のページを読む →</a>
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.85;margin:10px 0 0">価格と賃料の決まり方、必要な広さと離隔、搬入路・騒音・市街化調整区域、境界が未確定のときの扱い、ご用意いただく書類まで、地主の方から実際にいただくご質問13件にお答えしています。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer — self-contained -->
+<style>
+  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+  .scix-footer { background-color: #1B2A4A; color: rgba(255, 255, 255, 0.85); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%; }
+  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: 0.95; }
+  .scix-footer-info { text-align: center; }
+  .scix-footer-copyright { font-size: 11px; letter-spacing: 0.04em; color: rgba(255, 255, 255, 0.55); margin-top: 20px; }
+  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255, 255, 255, 0.8); }
+  .scix-footer-company .company-name { font-weight: 500; font-size: 13.5px; color: rgba(255, 255, 255, 0.92); margin-bottom: 2px; }
+  .scix-footer-company .representative { margin-top: 4px; color: rgba(255, 255, 255, 0.6); font-size: 12px; }
+  .scix-footer-company a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: color 0.2s ease; }
+  .scix-footer-company a:hover { color: #C49A3C; }
+  .scix-footer-divider { width: 60px; border: none; border-top: 1px solid rgba(255, 255, 255, 0.12); margin: 0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img src="/img/logo-white.png" alt="ScienceX サイエンスエックス株式会社" loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/land" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">土地を売る・貸す</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

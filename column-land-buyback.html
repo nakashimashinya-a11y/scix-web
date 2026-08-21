@@ -60,6 +60,14 @@ p{margin-bottom:20px}
 .cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
 .cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
 .seo-note{display:none}
+.toc{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px 16px;margin:0 0 32px;font-size:.9em}
+.toc-title{font-weight:700;color:var(--navy);margin-bottom:8px;font-size:.95em}
+.toc a{color:var(--text);text-decoration:none;display:block;padding:3px 0}
+.toc a:hover{color:var(--accent)}
+.toc a::before{content:'›';color:var(--accent);margin-right:8px}
+.toc-cta{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:.95em}
+.toc-cta a{display:inline;padding:0;color:var(--accent);font-weight:700;text-decoration:none;border-bottom:1px solid var(--accent)}
+.toc-cta a::before{content:none}
 .next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
 .next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
 .next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
@@ -107,7 +115,7 @@ p{margin-bottom:20px}
     "height": 630
   },
   "datePublished": "2026-06-18",
-  "dateModified": "2026-07-01",
+  "dateModified": "2026-08-22",
   "mainEntityOfPage": "https://www.scix.co.jp/column-land-buyback"
 }
 </script>
@@ -146,6 +154,22 @@ p{margin-bottom:20px}
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "ScienceXでは土地の所在地（住所または座標）と面積をお送りいただければ、概算の査定レンジと前提を整理してお返しします。査定は無料で、売却の義務はありません。正確な評価には接続検討申込と送配電事業者からの回答取得が必要ですが、初期スクリーニングの段階で連系点からの距離・空き容量・地目などを確認します。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "土地を売らずに貸すこともできますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "可能です。蓄電所は長期運転を前提とするため、事業用定期借地権などによる長期の賃貸借契約が一般的です。賃料も買取価格と同じく、近隣の地代相場ではなく事業の採算からの逆算で決まります。売る場合と貸す場合の違い・契約で確認すべき条項は「蓄電池用地は売るか、貸すか」で詳しく解説しています。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "市街化調整区域の土地でも売却できますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "市街化調整区域だから即座に不可、ということはありませんが、開発許可の要否と自治体の運用によって難易度が大きく変わり、評価にも影響します。ScienceXは取扱案件の全件で市街化調整区域の該非確認を標準化しており、査定の際に見通しをあわせてお伝えします。考え方の詳細は「市街化調整区域の土地は蓄電池用地になるか」で解説しています。"
       }
     }
   ]
@@ -202,7 +226,20 @@ p{margin-bottom:20px}
 <div class="article-body">
 <a target="_top" href="/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
 
-<h2>「蓄電池用地の相場」という問いの立て方</h2>
+<div class="toc">
+  <div class="toc-title">この記事の内容</div>
+  <a href="#toikata">「蓄電池用地の相場」という問いの立て方</a>
+  <a href="#youin1">要因① 系統連系の条件 — 価格を最も大きく動かす変数</a>
+  <a href="#youin2">要因② 系統の容量・接続枠</a>
+  <a href="#youin3">要因③ 立地・地形と造成のしやすさ</a>
+  <a href="#youin4">要因④ 市場環境 — 希少性と需要</a>
+  <a href="#youin5">要因⑤ 権利の進捗段階 — どこまで確定しているか</a>
+  <a href="#satei">「相場」ではなく「査定」で考える</a>
+  <a href="#faq">よくある質問</a>
+  <div class="toc-cta">概算査定は無料です（住所と面積のみ・売却の義務なし）。<a target="_top" href="/sell-form?type=land">無料で用地査定を依頼する →</a></div>
+</div>
+
+<h2 id="toikata">「蓄電池用地の相場」という問いの立て方</h2>
 <p>「蓄電池用地の買取相場はいくらか」「蓄電池の土地はいくらで売れるのか」という質問は多い。だが、宅地や農地のように地域ごとの㎡単価で答えられる種類の相場は、蓄電池用地には存在しない。同じ面積・同じ地域の土地でも、ある区画は事業用地として高い値がつき、隣の区画はまったく評価されない、ということが普通に起きる。</p>
 <p>理由は単純である。蓄電池用地の価値は、その土地そのものの不動産価値だけでなく、<strong>「そこに蓄電所を建てたとき、どれだけ安く・確実に事業が成立するか」</strong>で決まるからだ。蓄電池用地の買取価格は、固定された相場ではなく、いくつかの変数で決まる関数として捉えるのが正しい。</p>
 <div class="highlight-box">
@@ -215,13 +252,13 @@ p{margin-bottom:20px}
   価格は「土地代」と、その土地が生む事業上の優位性の対価との合算で決まる。具体的な評価ロジックは<a target="_top" href="/column-pricing" style="color:var(--accent);font-weight:600">開発権の価格はどう決まるのか</a>で詳述している。
 </div>
 
-<h2>要因① 系統連系の条件 — 価格を最も大きく動かす変数</h2>
+<h2 id="youin1">要因① 系統連系の条件 — 価格を最も大きく動かす変数</h2>
 <p>蓄電池用地の価値を最も大きく左右するのは、電力系統への接続（系統連系）の条件である。とりわけ、土地から最寄りの送電鉄塔・変電所までの距離が決定的だ。</p>
 <p>連系点から近ければ、系統側の工事に必要な工事費負担金が小さく抑えられる。逆に遠い場合は数kmの専用線敷設が必要になり、費用が桁違いに膨張する。同じ規模の案件でも、系統増強が不要な空き容量のある系統に接続できるか否かで、工事費負担金は<strong>数億円から数十億円</strong>まで変動する。この差がそのまま、土地に乗せられる価格の上限を動かす。</p>
 <p>長期脱炭素電源オークション（LDA）のような収入が一定の仕組みでは、国からの収入水準は事業者によって大きく変わらない。だからこそ<strong>建設コスト（とりわけ連系コスト）が安い案件ほど利益が大きくなる</strong>。連系コストの安い立地は、それ自体が「利益に直結する希少資源」として評価され、土地に高い値がつく構造になっている。連系工事費が立地で大きく変わる仕組みは<a target="_top" href="/column-grid" style="color:var(--accent);font-weight:600">系統連系工事費が10倍違う理由</a>で解説している。</p>
 <div class="source">出典: METI第53回系統WG資料（2024年12月2日）／ OCCTOグリッドコード検討会資料（2024年7月31日）</div>
 
-<h2>要因② 系統の容量・接続枠</h2>
+<h2 id="youin2">要因② 系統の容量・接続枠</h2>
 <p>距離が近くても、肝心の系統に空きがなければ接続できない。ここで蓄電池に固有の論点が出てくる。蓄電池は充電と放電の両方を行うため、太陽光発電のように逆潮流（発電側）だけでなく、<strong>順潮流（需要側）と逆潮流の双方に系統容量が必要</strong>になる。</p>
 <p>最寄りの変電所・送電線に十分な空き容量があるかどうかは、各送配電事業者が公開する「系統空き容量マップ」（混雑状況マップ等）で概ね確認できる。空きがない場合は系統増強工事が必要となり、費用と期間が大幅に増える。つまり、空き容量のある接続枠を確保できる立地は、それだけで価格面の優位を持つ。</p>
 <div class="warning-box">
@@ -229,16 +266,16 @@ p{margin-bottom:20px}
   <div class="source">出典: METI第53回系統WG資料（2024年12月2日）／ 第4回次世代電力系統WG資料（2025年9月24日）</div>
 </div>
 
-<h2>要因③ 立地・地形と造成のしやすさ</h2>
+<h2 id="youin3">要因③ 立地・地形と造成のしやすさ</h2>
 <p>同じ連系条件でも、土地の物理的な条件で必要コストは変わる。整形で平坦な土地はそのまま使いやすく、評価が高い。傾斜地でも造成は可能だが、造成費用がプロジェクトコストに上乗せされ、その分だけ用地に乗せられる価格は圧縮される。</p>
-<p>面積も要素になる。規模の大きい案件ほど広い土地が必要になる一方、高圧の小規模案件であれば比較的小さな区画でも成立しうる。加えて、建設時には蓄電池コンテナやパワーコンディショナー（PCS）といった大型貨物を搬入するため、前面道路の幅員や接道状況も評価に影響する。法規制の面では、農地（農振除外・農地転用の可否）、市街化調整区域での開発許可の要否などが事業化スケジュールとコストに直結し、宅地・雑種地・既存の工業用地は規制クリアが容易で評価が高くなりやすい。</p>
+<p>面積も要素になる。規模の大きい案件ほど広い土地が必要になる一方、高圧の小規模案件であれば比較的小さな区画でも成立しうる。加えて、建設時には蓄電池コンテナやパワーコンディショナー（PCS）といった大型貨物を搬入するため、前面道路の幅員や接道状況も評価に影響する。法規制の面では、農地（農振除外・農地転用の可否）、<a target="_top" href="/column-land-zoning" style="color:var(--accent);font-weight:600">市街化調整区域での開発許可の要否</a>などが事業化スケジュールとコストに直結し、宅地・雑種地・既存の工業用地は規制クリアが容易で評価が高くなりやすい。</p>
 <p>これら立地側の判定基準は、土地のポテンシャルをどう見るかという観点で<a target="_top" href="/column-land-value" style="color:var(--accent);font-weight:600">あなたの土地は蓄電池用地として価値があるか？ — 5つの判定基準</a>に整理している。</p>
 
-<h2>要因④ 市場環境 — 希少性と需要</h2>
+<h2 id="youin4">要因④ 市場環境 — 希少性と需要</h2>
 <p>価格は土地の固有条件だけでなく、市場全体の需給でも動く。条件の良い案件の希少性は、系統の空き容量が有限であることと、申込の急増による規制強化が重なって、年々高まる方向にある。新規に良い接続枠を取得することがますます困難かつ高コストになるほど、すでに条件を満たす土地・権利の市場価値は相対的に上がっていく。</p>
 <p>エリアによる差もある。容量市場の約定価格はエリアごとに異なり、収益性の高いエリアの案件はそれだけ評価されやすい。市場環境は売り手がコントロールできる変数ではないが、価格の地合いを左右する背景として理解しておく価値がある。</p>
 
-<h2>要因⑤ 権利の進捗段階 — どこまで確定しているか</h2>
+<h2 id="youin5">要因⑤ 権利の進捗段階 — どこまで確定しているか</h2>
 <p>最後の、そして見落とされがちな要因が「権利がどこまで進んでいるか」である。何も着手していない更地と、接続検討回答を取得済みの土地とでは、買い手にとっての意味がまったく異なる。</p>
 <p>接続検討回答が出るまで、連系工事費は確定しない。回答を取得済みの土地は「連系コストが確定している」という大きな価値を持ち、買い手は適地選定や接続検討にかかる時間・埋没コストを丸ごと省ける。逆に、何も確定していない段階では価格の前提が不確実なため、評価は土地そのものの価値に近づく。進捗が進むほど価格が上振れしうるという関係である。</p>
 <table class="comparison-table">
@@ -250,7 +287,7 @@ p{margin-bottom:20px}
 </table>
 <p>ただし、太陽光FIT時代の「ID転売」とは構造が異なる点には注意したい。蓄電池には固定価格買取のような制度がなく、接続検討回答の取得には実際の技術検討と数ヶ月の期間が必要で、回答を取得しても連系負担金が高ければ事業性は成立しない。権利の価値の源泉は「書類」ではなく「技術的・地理的に優れた案件であること」だ。この違いは<a target="_top" href="/column-pricing" style="color:var(--accent);font-weight:600">開発権の価格はどう決まるのか</a>で詳しく扱っている。</p>
 
-<h2>「相場」ではなく「査定」で考える</h2>
+<h2 id="satei">「相場」ではなく「査定」で考える</h2>
 <p>以上の5要因を踏まえると、蓄電池用地の価格を一律の㎡単価で語ることに意味がないことがわかる。連系点に近く、空き容量があり、平坦で規制が軽く、権利が進んでいる土地ほど高く評価される。逆にどれかが欠ければ、その分だけ価格は下がる。価格は変数の関数であり、変数の組み合わせは土地ごとに違う。</p>
 <p>ScienceXは、土地と権利を「見極め→組成→運用設計」する立場で評価している。仲介して右から左に流すのではなく、その土地で蓄電所が成立するかを技術的に検証したうえで価格を判断する。だからこそ、正確な金額はネット上の相場表ではなく、個別の査定でしか出せない。</p>
 <div class="highlight-box">
@@ -261,7 +298,7 @@ p{margin-bottom:20px}
   これらは初期スクリーニングに過ぎない。実際の評価には接続検討申込→送配電事業者からの回答取得が必要になる。査定では、これらの調査を含めて概算レンジと前提を整理してお返しする。詳しい売却の進め方は<a target="_top" href="/sourcing" style="color:var(--accent);font-weight:600">事業権利・用地の売却</a>を参照。
 </div>
 
-<h2>よくある質問</h2>
+<h2 id="faq">よくある質問</h2>
 <div class="faq-item">
   <div class="faq-q">蓄電池用地の買取相場はいくらですか？</div>
   <div class="faq-a">蓄電池用地に一律の㎡単価相場は存在しません。買取価格は不動産としての土地の価値に加え、系統連系の条件・接続枠・立地と造成・市場環境・権利の進捗段階という変数で大きく変動します。同じ面積でも、連系コストが安く立つ立地かどうかで評価は桁違いに変わります。正確な金額は個別の査定でしか出せないため、住所と面積をお送りいただいたうえで概算レンジをお返ししています。</div>
@@ -277,6 +314,14 @@ p{margin-bottom:20px}
 <div class="faq-item">
   <div class="faq-q">蓄電池用地の査定にはどれくらい時間がかかりますか？</div>
   <div class="faq-a">ScienceXでは土地の所在地（住所または座標）と面積をお送りいただければ、概算の査定レンジと前提を整理してお返しします。査定は無料で、売却の義務はありません。正確な評価には接続検討申込と送配電事業者からの回答取得が必要ですが、初期スクリーニングの段階で連系点からの距離・空き容量・地目などを確認します。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">土地を売らずに貸すこともできますか？</div>
+  <div class="faq-a">可能です。蓄電所は長期運転を前提とするため、事業用定期借地権などによる長期の賃貸借契約が一般的です。賃料も買取価格と同じく、近隣の地代相場ではなく事業の採算からの逆算で決まります。売る場合と貸す場合の違い・契約で確認すべき条項は<a target="_top" href="/column-land-lease" style="color:var(--accent);font-weight:600">蓄電池用地は売るか、貸すか</a>で詳しく解説しています。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">市街化調整区域の土地でも売却できますか？</div>
+  <div class="faq-a">市街化調整区域だから即座に不可、ということはありませんが、開発許可の要否と自治体の運用によって難易度が大きく変わり、評価にも影響します。ScienceXは取扱案件の全件で市街化調整区域の該非確認を標準化しており、査定の際に見通しをあわせてお伝えします。考え方の詳細は<a target="_top" href="/column-land-zoning" style="color:var(--accent);font-weight:600">市街化調整区域の土地は蓄電池用地になるか</a>で解説しています。</div>
 </div>
 
 <a target="_top" href="/land" class="next-link">
@@ -297,7 +342,7 @@ p{margin-bottom:20px}
 
   <div style="text-align:center">
     <a target="_top" href="https://www.scix.co.jp/sell-form?type=land" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">無料で用地査定を依頼する →</a>
-    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">申込フォームが開きます。ご連絡先と所在地だけで申し込めます。接続検討は当社の費用負担で行い、約3ヶ月後に電力会社の回答書をそのままお渡しします。</p>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">申込フォームが開きます。ご連絡先と所在地だけで申し込めます。接続検討は当社の費用負担で行い、約3ヶ月後に電力会社の回答書をそのままお渡しします。<br>お電話でも承ります：<a href="tel:0364034095" style="color:#1B2A4A;font-weight:600">03-6403-4095</a>（サイエンスエックス株式会社）</p>
   </div>
 
   <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
