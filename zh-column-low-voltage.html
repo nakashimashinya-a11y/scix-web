@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Serif SC',serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.down{color:var(--warn);font-weight:700}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tr.total td{background:rgba(196,154,60,0.08);font-weight:700;border-top:2px solid var(--accent)}
+td.max{color:var(--warn);font-weight:700}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.wraptext td{text-align:left;vertical-align:top}
+.wraptext thead th{text-align:left}
+.scope th{width:10em;vertical-align:top}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-16px 0 28px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.related{font-size:.9em;line-height:2.05}
+.related ul{margin:8px 0;padding-left:1.3em}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+td.ok{color:var(--green);font-weight:700}
+td.ng{color:var(--warn);font-weight:700}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px}
+}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+</style>
+<title>「低压就简单」这句话，对储能站不成立 —— 50kW以下的电网侧储能电池，申请前必须修正的五个前提｜ScienceX</title>
+<meta name="description" content="低压（50kW以下）的电网侧储能电池，不是低压光伏的缩小版。储能站无论功率大小都属于事业用电气工作物，需要保安规程和电气主任技术者。申请人是售电事业者，工程费负担金在申请之后才确定，业内流传的「四年规则」在资源能源厅的Q&A和施行规则中都不存在。49.5kW只是最低投标量1MW的二十分之一。本文用图表梳理这五个前提，并给出低压与高压的分界线。">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-low-voltage">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-low-voltage">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-low-voltage">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-low-voltage">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-low-voltage">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「低压就简单」这句话，对储能站不成立 —— 50kW以下的电网侧储能电池，申请前必须修正的五个前提｜ScienceX">
+<meta property="og:description" content="储能站无论功率大小都属于事业用电气工作物。申请人是售电事业者，负担金在申请之后才确定，「四年规则」在任何文件中都找不到，49.5kW只是最低投标量的二十分之一。低压的五个前提，以及与高压的分界线。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-low-voltage">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="「低压就简单」这句话，对储能站不成立 —— 50kW以下的电网侧储能电池，申请前必须修正的五个前提｜ScienceX">
+<meta name="twitter:description" content="储能站无论功率大小都属于事业用电气工作物。申请人是售电事业者，负担金在申请之后才确定，「四年规则」在任何文件中都找不到，49.5kW只是最低投标量的二十分之一。低压的五个前提，以及与高压的分界线。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="article:published_time" content="2026-08-23">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "inLanguage": "zh-CN",
+  "headline": "「低压就简单」这句话，对储能站不成立 —— 50kW以下的电网侧储能电池，申请前必须修正的五个前提｜ScienceX",
+  "description": "低压（50kW以下）的电网侧储能电池，不是低压光伏的缩小版。储能站无论功率大小都属于事业用电气工作物，需要保安规程和电气主任技术者。申请人是售电事业者，工程费负担金在申请之后才确定，业内流传的「四年规则」在资源能源厅的Q&A和施行规则中都不存在。49.5kW只是最低投标量1MW的二十分之一。本文用图表梳理这五个前提，并给出低压与高压的分界线。",
+  "author": {
+    "@type": "Person",
+    "name": "中岛 晋也",
+    "jobTitle": "代表董事（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": ["https://www.linkedin.com/in/dr-shinya-nakashima"]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-zh.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-08-23",
+  "dateModified": "2026-08-23",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-low-voltage"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.scix.co.jp/zh" },
+    { "@type": "ListItem", "position": 2, "name": "洞见", "item": "https://www.scix.co.jp/zh-knowledge" },
+    { "@type": "ListItem", "position": 3, "name": "「低压就简单」这句话，对储能站不成立", "item": "https://www.scix.co.jp/zh-column-low-voltage" }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans SC',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/zh" style="color:#5A6577;text-decoration:none">首页</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/zh-knowledge" style="color:#5A6577;text-decoration:none">洞见</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">「低压就简单」这句话，对储能站不成立</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 44</span>
+      <span class="header-tag">制度解读 / 低压并网 × 电气事业法</span>
+      <time class="header-date" datetime="2026-08-23">2026.08.23</time>
+    </div>
+    <h1>「低压就简单」这句话，对<em>储能站</em>不成立</h1>
+    <p class="header-desc">50kW以下的电网侧储能电池。申请之前必须修正的五个前提，以及与高压的分界线。</p>
+  </div>
+</div>
+
+<div class="article-body">
+<p>「低压的话，只要备案就行了」。越是做过低压光伏的人，越容易带着这个印象进入储能领域。这个印象是错的。同样是49.5kW，光伏属于小规模事业用电气工作物，而储能站（蓄電所）无论功率大小都属于事业用电气工作物，<strong>必须提交保安规程并选任电气主任技术者</strong>。申请人也不是您本人，而是售电事业者；工程费负担金要在申请之后才确定；单独一台机组在市场上什么都卖不了。<strong>低压储能站，不是低压光伏的缩小版。</strong></p>
+
+<p>低压（受电功率50kW以下）的储能资源能够参与供需调整市场，是从2026年3月14日的实际供需日开始的（EPRX）。此后半年间，「49.5kW·约6坪（约20㎡）·2,000万日元档」的分售产品和打包方案开始流通，向本公司咨询土地的案例中，达不到高压最低门槛的小地块也明显增多。然而，把现场流传的那些前提拿去对照法令、国家层面的Q&A以及十家一般输配电事业者（TDSO）的申请规则，会发现有五条对不上。本文只写在资源能源厅、电力广域运营推进机关（OCCTO）、EPRX以及十家一般输配电事业者公开文件中能够确认到的范围（截至2026年8月22日）。</p>
+
+<p>顺序如下：分界线画在哪里（01）、申请人不是您（02）、价格在申请之后才出来（03）、「四年规则」并不存在（04）、单台机组什么都卖不了（05）、低压还是高压怎么选（06）、今后会生效的规则（07）、申请前的五项确认（08）。</p>
+
+<div class="note"><b>编辑说明：</b>本文关于制度的记述，依据资源能源厅《关于发电等设备拆分对策的Q&A》（最后更新2026年6月11日）、OCCTO《发电设备等电网接入流程》（2026年7月版）及保证金计算方法与工程费负担金分期付款的处理原则（均为2026年3月18日更新）、EPRX的FAQ、十家一般输配电事业者的并网与输配电（託送）页面、经济产业省《电力储存装置（蓄电池）·储能站设置指南》及处分公告、消防厅关于对象火气省令修订的资料，于2026年8月22日确认，并在次日23日经第三方事实核查后重新与原始文件进行了比对。<b>初期费用、占地面积、收益率等来源于销售资料的数字，在正文中均标注为「广告值」，不用于制度层面的判断。</b>低压电网侧储能电池截至2026年8月尚无全年运行实绩，所有收益相关数字均为假设值。任何文件中都未记载的事项，在正文中标注❓，并汇总于文末表格。本文为制度梳理，不构成投资、税务或法律建议。制度在2026至2027年间将持续变动，本文将随之更新。</div>
+
+<p style="margin-bottom:.4em"><strong>五个前提 —— 听到的说法／实际的规定</strong></p>
+<div class="tablewrap wraptext">
+<table>
+<thead><tr><th style="width:3em">#</th><th>现场常听到的说法</th><th>法令、国家Q&A与各公司规则中的实际规定</th><th style="width:4em">章节</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>低压只要备案就能运行</td><td>储能站无论功率大小均为<strong>事业用电气工作物</strong>。需要保安规程和电气主任技术者。超过20kWh还需事故报告与消防备案</td><td>01</td></tr>
+<tr><td>2</td><td>先定土地和设备，再去申请就行</td><td>合同当事人是<strong>售电事业者</strong>。发电合同人不确定，申请连第一步都迈不出去。自2026年6月起，与充电侧同时申请成为受理条件</td><td>02</td></tr>
+<tr><td>3</td><td>看到工程费负担金的报价再决定</td><td>低压没有接入研究。<strong>负担金在设计完成后才确定</strong>。先决定，价格才出来</td><td>03</td></tr>
+<tr><td>4</td><td>回溯四年内土地权利人相同即属拆分项目</td><td>「四年」在任何文件中都不存在。依据是<strong>电气事业法施行规则</strong>，且Q&A点名提及储能站。回溯原则为1年，争点在于「特别理由」</td><td>04</td></tr>
+<tr><td>5</td><td>一台机组就能进市场交易</td><td>最低投标量为1MW。49.5kW只有其<strong>二十分之一</strong>。聚合方（聚合商）不确定，收益就没有出口</td><td>05</td></tr>
+</tbody>
+</table>
+</div>
+
+<p style="margin-bottom:.4em"><strong>本文的适用范围</strong></p>
+<div class="tablewrap wraptext">
+<table class="scope">
+<tbody>
+<tr><th>对象</th><td>受电功率50kW以下、单独接入电网、通过放电（逆潮流）售电的电网侧储能电池（储能站）。住宅用、自用消纳型、光伏配储不在本文范围内</td></tr>
+<tr><th>电气事业法上的定位✅</th><td>无论功率大小均为<strong>事业用电气工作物</strong>。必须提交保安规程、选任电气主任技术者（可外部委托）</td></tr>
+<tr><th>申请主体✅</th><td>发电量调整供给合同的当事人是<strong>售电事业者</strong>。设置者是出具同意书的一方</td></tr>
+<tr><th>接入研究✅</th><td>低压没有此程序。工程费负担金在<strong>设计完成后</strong>确定</td></tr>
+<tr><th>拆分规制✅</th><td>依据为电气事业法施行规则第3条第2款第2项但书。资源能源厅的Q&A明确写有「电网侧储能电池（储能站）」。回溯原则为1年</td></tr>
+<tr><th>「回溯四年」「1MW＝21件」❓</th><td>在资源能源厅的Q&A、电气事业法施行规则、各公司的申请须知中均未出现</td></tr>
+<tr><th>市场参与✅</th><td>最低投标量1MW。49.5kW无法单独参与，从机制上必然需要经由聚合商</td></tr>
+<tr><th>今后会生效的规则✅</th><td>土地使用权原证明文件（2026年10月1日起，低压同样适用）、JC-STAR★1（低压适用于2027年10月以后的合同申请）</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2><span class="no">01</span>分界线画在哪里 —— 50kW、2,000kW，以及「储能站」</h2>
+
+<p>并网的等级划分，是按受电功率来划的。50kW以下为低压，50kW以上、2,000kW以下为高压，2,000kW以上为特高压。高压项目之所以设计成1,990kW或1,999kW，是因为一旦越过2,000kW这条线，受电设备和手续就要按特高压来办；低压项目设计成49.5kW，也是同一个道理。到这里为止，与光伏并无不同。</p>
+
+<p>但电气事业法画的是另一条线。电气工作物分为一般用、小规模事业用、事业用三类，能归入小规模事业用电气工作物的，只有10kW以上50kW以下的光伏和20kW以下的风电。而储能站——即从场外受电、储存后再以相同电压和频率送回场外的设施——<strong>无论功率大小都属于事业用电气工作物</strong>（经济产业省《电力储存装置（蓄电池）·储能站设置指南》2025年11月14日）。低压光伏之所以「备案即可」，是因为存在小规模事业用这一类别；储能站没有这个类别。</p>
+
+<figure>
+<svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图1 — 并网的电压划分（低压·高压·特高压）与电气事业法的划分（一般用·小规模事业用·事业用）是两条不同的线。储能站在任何电压等级下都属于事业用电气工作物">
+  <rect width="720" height="340" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">图1 ／ 两条分界线 —— 电压等级的划分，与电气事业法的划分是两回事</text>
+  <text x="40" y="64" font-family="'Noto Serif SC',serif" font-size="13" font-weight="700" fill="#1B2A4A">并网的等级划分（按受电功率划线）</text>
+  <rect x="40" y="76" width="200" height="58" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="140" y="100" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#1B2A4A">低压</text>
+  <text x="140" y="120" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">50kW以下（设计值49.5kW）</text>
+  <rect x="260" y="76" width="200" height="58" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="360" y="100" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#1B2A4A">高压</text>
+  <text x="360" y="120" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">50kW以上2,000kW以下（设计值1,999kW）</text>
+  <rect x="480" y="76" width="200" height="58" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="580" y="100" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#1B2A4A">特高压</text>
+  <text x="580" y="120" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">2,000kW以上</text>
+  <text x="360" y="152" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#A07916">储能站在任何电压等级下，都 ↓</text>
+  <line x1="40" y1="158" x2="680" y2="158" stroke="#C49A3C" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="555" y1="160" x2="555" y2="198" stroke="#C49A3C" stroke-width="2.5"/>
+  <polygon points="549,196 561,196 555,206" fill="#C49A3C"/>
+  <text x="40" y="190" font-family="'Noto Serif SC',serif" font-size="13" font-weight="700" fill="#1B2A4A">电气事业法的划分（电气工作物）</text>
+  <rect x="40" y="208" width="150" height="64" rx="8" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="2"/>
+  <text x="115" y="234" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#1B2A4A">一般用</text>
+  <text x="115" y="254" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">住宅等</text>
+  <rect x="210" y="208" width="200" height="64" rx="8" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="2"/>
+  <text x="310" y="234" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#1B2A4A">小规模事业用</text>
+  <text x="310" y="254" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">仅限光伏10〜50kW、风电20kW以下</text>
+  <rect x="430" y="208" width="250" height="64" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="555" y="234" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#A07916">事业用</text>
+  <text x="555" y="254" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#2C3E50">储能站无论功率大小都在这里</text>
+  <text x="360" y="312" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#6C7A89">低压光伏之所以「只需备案」，是因为有小规模事业用这一类别。储能站没有这个类别。</text>
+</svg>
+<figcaption>图1 —— 电压等级的划分（上）与电气事业法的划分（下）是两条不同的线。储能站即便只有49.5kW，也归入事业用电气工作物。</figcaption>
+</figure>
+
+<p>随之而来的义务有三项。第一，维持符合技术标准（电气事业法第39条）、提交保安规程（第42条）、选任电气主任技术者（第43条）。以高压及以下并网、功率5,000kW以下的设施，可通过外部委托承认制度将保安管理委托出去，因此不必自己担任主任技术者。但委托费会作为每台机组的年度固定成本计入。第二，<strong>超过20kWh的电力储存装置自2025年11月20日起纳入事故报告对象</strong>（电气关系报告规则修订。火灾、爆炸、主要设备损坏须在24小时内速报、30日内详报）。100〜200kWh级的低压储能站全部适用。同日，电气设备技术标准的解释也一并修订，引用了锂离子蓄电池的规格（JIS C 8715-2）。第三，消防法。2024年1月1日施行的对象火气省令修订，将规制单位改为kWh，超过10kWh纳入规制，超过20kWh须向消防署备案。火灾预防条例由各市町村自行制定，室外设置原则上须与建筑物保持3m以上间距（有防止延烧措施或采用箱式变电站型可放宽）。若电解液量超过消防法的指定数量（第4类第2石油类为1,000L），还可能受到与对象火气省令不同体系的危险物规制。向辖区消防署事先咨询这一步，低压也省不掉。</p>
+
+<p>另一方面，也有一些因为是低压而不需要的手续。发电事业的备案门槛是接入最大电力合计超过1万kW，工程计划备案与使用前自主检查的对象是功率1万kW以上或容量8万kWh以上，低压单机两者都不需要。若位于市街化调整区域，第一种特定工作物的适格性判断（国土交通省2025年4月8日通知，COLUMN 43）对低压同样适用。</p>
+
+<p>结论是这样：在光伏低压项目上养成的「只需备案」的直觉，在储能站的保安环节用不上。<strong>低压的便利体现在并网手续上，而不体现在电气事业法的定位上。</strong></p>
+
+<h2><span class="no">02</span>申请人不是您 —— 发电量调整供给合同的主体是售电事业者</h2>
+
+<p>进行放电（逆潮流）的低压储能站，在十家一般输配电事业者那里，都要按「发电量调整供给合同（简称发调合同）」这一类别申请。而这份合同的当事人不是设置者，而是售电事业者（发电合同人）。东京电力Power Grid明确写明：发生逆潮流时需要发电侧提出申请，由发电合同人向该公司申请发调合同，申请渠道为Web申请系统。<strong>您是设置者，不是合同当事人。</strong>北海道电力Network、中部电力Power Grid、九州电力送配电则要求在售电事业者的申请书中附上「发电者同意书」。设置者不是提出申请的一方，而是出具同意书的一方。</p>
+
+<figure>
+<svg viewBox="0 0 720 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图2 — 低压储能站的合同关系。设置者与售电事业者签约，由售电事业者与一般输配电事业者签订发电量调整供给合同。运营委托给聚合商，由聚合商向EPRX投标">
+  <defs>
+    <marker id="ah2n" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1B2A4A"/></marker>
+    <marker id="ah2g" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#C49A3C"/></marker>
+    <marker id="ah2s" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#9aa5b1"/></marker>
+  </defs>
+  <rect width="720" height="350" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">图2 ／ 低压储能站的合同关系 —— 合同当事人是售电事业者</text>
+  <rect x="40" y="52" width="160" height="50" rx="8" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="2"/>
+  <text x="120" y="73" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="13" font-weight="700" fill="#1B2A4A">电气工程店</text>
+  <text x="120" y="91" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">受售电委托代办申请操作</text>
+  <rect x="40" y="150" width="160" height="70" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="120" y="180" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#1B2A4A">设置者（您）</text>
+  <text x="120" y="201" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">设备所有人</text>
+  <text x="120" y="244" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#cc4444">✕ 设置者无法成为合同当事人</text>
+  <rect x="290" y="70" width="180" height="76" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="380" y="100" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#A07916">售电事业者</text>
+  <text x="380" y="121" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#2C3E50">＝发电合同人（合同当事人）</text>
+  <rect x="530" y="70" width="150" height="76" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="605" y="100" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="13.5" font-weight="700" fill="#1B2A4A">一般输配电事业者</text>
+  <text x="605" y="121" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">各公司的Web申请系统</text>
+  <rect x="290" y="220" width="180" height="76" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="380" y="250" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#1B2A4A">聚合商</text>
+  <text x="380" y="271" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">特定批发供给事业者（经产大臣登记）</text>
+  <rect x="530" y="220" width="150" height="76" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="605" y="250" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="14" font-weight="700" fill="#1B2A4A">EPRX·容量市场</text>
+  <text x="605" y="271" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">最低投标量1,000kW</text>
+  <line x1="200" y1="77" x2="288" y2="100" stroke="#9aa5b1" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#ah2s)"/>
+  <text x="206" y="66" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">受托代办（中国NW有明文）</text>
+  <line x1="200" y1="172" x2="288" y2="122" stroke="#1B2A4A" stroke-width="2" marker-end="url(#ah2n)"/>
+  <text x="208" y="158" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#1B2A4A">售电合同·委托</text>
+  <line x1="200" y1="200" x2="288" y2="248" stroke="#1B2A4A" stroke-width="2" marker-end="url(#ah2n)"/>
+  <text x="208" y="240" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#1B2A4A">运营委托</text>
+  <line x1="470" y1="108" x2="528" y2="108" stroke="#C49A3C" stroke-width="2.5" marker-end="url(#ah2g)"/>
+  <text x="500" y="168" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">发电量调整供给合同（放电侧）</text>
+  <text x="500" y="184" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#2C3E50">＋接入供给合同（充电侧）</text>
+  <text x="500" y="200" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">2026/6/1起 同时受理成为条件</text>
+  <line x1="470" y1="258" x2="528" y2="258" stroke="#1B2A4A" stroke-width="2" marker-end="url(#ah2n)"/>
+  <text x="500" y="318" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#2C3E50">聚合至1MW以上再投标（清单·模式方式）</text>
+  <text x="120" y="318" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">顺序：先定售电与聚合商，后定土地与设备</text>
+</svg>
+<figcaption>图2 —— 设置者不是合同当事人。合同由售电事业者签订，收益的出口掌握在聚合商手中。</figcaption>
+</figure>
+
+<p>申请渠道各公司不同（表1）。关西的「たくそう君」、九州的「託送ネット」、中国的「託送Web新增设工程申请」、四国的「工程申请受理系统」（暂时纸质申请并用）、北陆的「託送新增设申请系统」、中部与北海道的互联网申请，东北则通过邮件与互联网受理、并网申请走邮寄。不只是名称不同，格式、所需材料、标准处理天数也各不相同。</p>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>表1 —— 低压·发电量调整供给合同的申请渠道，以及第三方代办的处理方式（截至2026年8月22日。依据各公司的并网·输配电页面）</caption>
+<thead><tr><th>区域</th><th>申请渠道（低压·发调）</th><th>关于第三方代办的记载</th><th>接入研究件数上限（高压·特高压，2026/8/1起）</th></tr></thead>
+<tbody>
+<tr><td>北海道</td><td>受电侧輸配电新增设Web申请服务。申请发调时须提交发电者同意书的副本</td><td>无记载 ❓</td><td>5件</td></tr>
+<tr><td>东北</td><td>并网申请（由发电者提出，邮寄）与发调申请（由售电提出）两条线并行</td><td class="ok">FAQ中有「发电者（含申请代理人）」的表述</td><td>6件</td></tr>
+<tr><td>东京</td><td>由售电（发电合同人）通过Web申请系统提出。技术协商委托票自2026/5/15起改用新格式（增设电网充放电有无栏）</td><td>无记载 ❓</td><td>11件</td></tr>
+<tr><td>中部</td><td>互联网申请系统。发调兼基本合同申请书＋发电者同意书。答复原则上自受理起1个月以内</td><td>无记载 ❓</td><td>7件</td></tr>
+<tr><td>北陆</td><td>輸配电新增设申请系统（低压收购申请菜单）。受理窗口为Network Service Center并网课</td><td class="ok">FAQ中有「申请代理人（电气施工业／电气工程店／建筑设计业）」的表述</td><td>5件</td></tr>
+<tr><td>关西</td><td>互联网低压工程申请「たくそう君」。并网答复原则上1个月以内</td><td>无记载 ❓</td><td>12件</td></tr>
+<tr><td>中国</td><td>50kW以下走「託送Web新增设工程申请」。低压负担金采用单价制（2021/2起）</td><td class="ok">可由电气工程店代办申请（条件为事先已签订接入供给合同与发调合同）</td><td>5件</td></tr>
+<tr><td>四国</td><td>由輸配电服务中心受理（设有低压非FIT的工程申请流程）</td><td>无记载 ❓</td><td>5件</td></tr>
+<tr><td>九州</td><td>輸配电新增设受理系统（託送ネット）。需非固定型接入同意书＋低压储能设备的PCS规格书。负担金原则上在设计完成后核算</td><td>无记载 ❓</td><td>8件</td></tr>
+<tr><td>冲绳（参考）</td><td>互联网新增设申请系统（2026/3/27修订）</td><td>无记载 ❓</td><td>未设定</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">上限件数依据各一般输配电事业者的测算结果（第11次下一代电力系统工作组 2026/6/10 资料2）及各公司的公开页面。由于该制度以电网侧储能电池的「接入研究」为对象，对没有接入研究的低压电网侧储能电池是否适用，并无明文（参见07）。</p>
+
+<p>关于代办，需要说清楚。有人说「低压不能代办」，但各公司的申请规则并没有这样写。合同主体固定为售电事业者，与申请操作可以受托代办，是两件事。中国电力Network明确写明：新增设申请（含託送Web新增设工程申请）也可由电气工程店代办，此时需事先签订接入供给合同与发调合同。东北电力Network对低压并网申请受理「发电者（含申请代理人）」提出，发调合同申请则由售电对象即售电事业者提出，两条线并行；北陆电力送配电也在FAQ中以「申请代理人（电气施工业／电气工程店／建筑设计业）」提出申请为前提。其余六家（北海道、东京、中部、关西、四国、九州）没有找到逐条写明发调合同申请可否由第三方受托代办的页面❓。专门的申请代办公司无法在任何一家以自己的名义签订发调合同，<strong>要委托代办，起点是售电事业者的委托书</strong>。</p>
+
+<p>还有一点。自2026年6月1日起，电网侧储能电池的发电侧（放电）与需求侧（充电）申请必须同时受理，这已成为合同申请的受理条件✅。低压同样需要两侧并行。东京电力PG自2026年5月15日起将低压发调合同的技术协商委托票改为新格式，增设了电网充放电有无的记载栏。九州电力送配电则要求在发调合同申请时附上非固定型接入的同意书，并对接入低压且存在逆潮流的储能设备要求提交关于功率因数与功率变化速率的PCS规格书。</p>
+
+<p>结论是：顺序反过来了。按光伏的思路是「土地→设备→申请」，而低压储能站是<strong>「售电事业者（与聚合商）→土地·设备→申请」</strong>。发电合同人不确定，申请连第一步都迈不出去。</p>
+<h2><span class="no">03</span>价格在申请之后才定 —— 低压没有接入研究</h2>
+
+<p>越是熟悉高压开发的人，越容易在这里卡住。高压是先申请接入研究，原则上3个月以内（采用逆变装置且500kW以下的为2个月以内）收到答复书，看到上面写明的工程费负担金概算之后，再进入合同申请。低压没有这个接入研究环节✅。按OCCTO《发电设备等电网接入流程》和东京电力PG的电网接入规则，低压是在合同申请之后由一般输配电事业者进行技术研究，<strong>工程费负担金在设计完成之后才确定</strong>。九州电力送配电的低压手续页面也写明：产生工程费负担金时，原则上在设计完成后核算金额。「看到报价再决定」，在机制上做不到。另一方面，时间较短：低压的合同申请答复原则上为1个月（高压及以上原则为6个月或双方约定的期限）。</p>
+
+<figure>
+<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图3 — 高压是在接入研究答复中看到工程费负担金概算后再进入合同申请。低压没有接入研究，合同申请之后才进行技术研究与设计，设计完成后负担金才确定">
+  <defs>
+    <marker id="ah3n" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1B2A4A"/></marker>
+  </defs>
+  <rect width="720" height="320" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">图3 ／ 得知价格的时点 —— 高压在决策之前，低压在决策之后</text>
+  <text x="40" y="62" font-family="'Noto Serif SC',serif" font-size="13" font-weight="700" fill="#1B2A4A">高压（2MW级）</text>
+  <rect x="40" y="74" width="120" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="100" y="102" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">申请接入研究</text>
+  <line x1="160" y1="97" x2="188" y2="97" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="190" y="74" width="150" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="265" y="93" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">答复书</text>
+  <text x="265" y="110" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">负担金概算·原则3个月以内</text>
+  <rect x="205" y="128" width="120" height="20" rx="3" fill="#C49A3C"/>
+  <text x="265" y="142" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">此时得知价格</text>
+  <line x1="340" y1="97" x2="365" y2="97" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <polygon points="395,69 423,97 395,125 367,97" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="395" y="101" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="12" font-weight="700" fill="#A07916">决策</text>
+  <line x1="423" y1="97" x2="453" y2="97" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="455" y="74" width="110" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="510" y="102" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">合同申请</text>
+  <line x1="565" y1="97" x2="593" y2="97" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="595" y="74" width="95" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="642" y="102" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">施工·并网</text>
+  <line x1="40" y1="170" x2="690" y2="170" stroke="#E2E6EC" stroke-width="1"/>
+  <text x="40" y="196" font-family="'Noto Serif SC',serif" font-size="13" font-weight="700" fill="#1B2A4A">低压（50kW以下）</text>
+  <polygon points="70,199 98,227 70,255 42,227" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="70" y="231" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="12" font-weight="700" fill="#A07916">决策</text>
+  <text x="70" y="275" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#cc4444">要先做决定</text>
+  <line x1="98" y1="227" x2="118" y2="227" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="120" y="204" width="130" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="185" y="223" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">合同申请</text>
+  <text x="185" y="240" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">以售电事业者的名义</text>
+  <line x1="250" y1="227" x2="278" y2="227" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="280" y="204" width="100" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="330" y="223" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">技术研究</text>
+  <text x="330" y="240" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">没有接入研究</text>
+  <line x1="380" y1="227" x2="408" y2="227" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="410" y="204" width="150" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="485" y="223" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">设计完成</text>
+  <text x="485" y="240" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">工程费负担金确定</text>
+  <rect x="425" y="258" width="120" height="20" rx="3" fill="#C49A3C"/>
+  <text x="485" y="272" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">此时得知价格</text>
+  <line x1="560" y1="227" x2="593" y2="227" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="595" y="204" width="95" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="642" y="232" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">施工·并网</text>
+  <text x="360" y="306" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#6C7A89">高压是看到价格再决定，低压是决定之后价格才出来。低压也有技术研究，只是时点排在申请之后。</text>
+</svg>
+<figcaption>图3 —— 「得知价格」的位置，在高压是决策之前，在低压则调换到决策之后。依据OCCTO《发电设备等电网接入流程》与东京电力PG的电网接入规则。</figcaption>
+</figure>
+
+<p>这里容易混淆的一点是：没有接入研究，与没有技术研究，是两回事。低压同样需要提交单线接线图、PCS额定参数、保护继电器整定值、CT位置等并网资料，并网的可行性与条件也在这一环节判断。只是判断的时点排到了申请之后。</p>
+
+<p>保证金如何处理？OCCTO《关于发电设备等合同申请中保证金计算方法》（2026年3月18日更新）规定，电网侧储能电池的保证金为接入研究答复中工程费负担金概算的10%（适用于2026年4月1日以后受理合同申请的项目），并在脚注中说明：对于不需要接入研究的申请，工程费负担金概算按0日元处理。按此公式，低压的保证金为0日元。但东京电力PG关于提高保证金的公告明确将对象标注为【高压·特高压】，而各公司网站上既找不到写明低压属于保证金对象的公告，也找不到写明其不属于对象的公告❓。<strong>没有任何文件能够断言「低压不需要保证金」，必须向各公司的输配电窗口查询确认。</strong></p>
+
+<p>工程费负担金的水平，也因同样的原因无法事先得知。虽然像中国电力Network那样对低压并网负担金采用单价制（自2021年2月起）的公司也有，但那是包含光伏在内的低压发电设备通用单价。未能确认到有公开低压电网侧储能电池单机负担金实际金额的案例❓。</p>
+
+<p>结论有两条。若在资金计划上希望在申请前锁定负担金，低压从机制上就不适合。反过来说，能够避开高压已延长至18〜24个月的接入排队（<a target="_top" href="/zh-column-grid-rules">COLUMN 09</a>），正是低压的优势，这是一笔<strong>「价格在后、时间在前」的交易</strong>。</p>
+
+<h2><span class="no">04</span>「四年规则」并不存在 —— 但规制确实点名了储能站</h2>
+
+<p>目前业内流传着两种说法。「回溯过去四年，若土地权利人相同即构成拆分项目」。「1MW，也就是50kW以下×约21件，是申请的批量单位」。资源能源厅的Q&A、电气事业法施行规则、一般输配电事业者的申请须知——翻遍任何一处，这两种说法都找不到❓。但这并不意味着没有规制。<strong>规制是存在的，而且点名提到了储能站。</strong>下面梳理清楚。</p>
+
+<p>依据不是FIT。光伏的拆分禁止规定出自再生能源特别措施法施行规则第5条第1款第2项（2014年4月施行），那是FIT·FIP的认定要件，并不直接及于非FIT的储能站。真正起作用的是<strong>电气事业法施行规则第3条第2款第2项的但书</strong>。2022年4月1日的修订，在「一个需求场所」的定义中加入了这样的除外规定：无正当理由而将多个发电等用电气工作物设置于相邻厂区内的，不作为一个需求场所处理（即予以合并计算）；2023年4月1日的修订又将对象扩大到「发电等用电气工作物」——即发电用与储能用电气工作物。资源能源厅的《关于发电等设备拆分对策的Q&A》（最后更新2026年6月11日）在对象的具体示例中明确写入了「电网侧储能电池（储能站）」✅。</p>
+
+<figure>
+<svg viewBox="0 0 720 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图4 — 拆分设置的判定流程。依次判断相邻或邻近地块是否有既设或同时申请的设备、设置者或土地权利人是否相同（原则为申请年度起回溯1年以内）、是否存在特别理由；若构成拆分，则合并作为一个需求场所处理，低压申请无法成立">
+  <defs>
+    <marker id="ah4n" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1B2A4A"/></marker>
+    <marker id="ah4g" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1A7A4C"/></marker>
+  </defs>
+  <rect width="720" height="440" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">图4 ／ 拆分设置的判定 —— 依据资源能源厅《关于发电等设备拆分对策的Q&amp;A》要素重排</text>
+  <rect x="140" y="48" width="360" height="50" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="320" y="69" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">相邻或邻近地块，是否存在既设的发电等设备</text>
+  <text x="320" y="87" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">或同时提出申请的设备</text>
+  <line x1="500" y1="73" x2="558" y2="73" stroke="#1A7A4C" stroke-width="1.8" marker-end="url(#ah4g)"/>
+  <text x="529" y="66" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#1A7A4C">否</text>
+  <rect x="560" y="50" width="130" height="46" rx="8" fill="#EAF5EE" stroke="#1A7A4C" stroke-width="1.8"/>
+  <text x="625" y="78" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1A7A4C">不构成拆分</text>
+  <line x1="320" y1="98" x2="320" y2="128" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah4n)"/>
+  <text x="330" y="118" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#1B2A4A">是</text>
+  <rect x="140" y="130" width="360" height="62" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="320" y="152" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">设置者是否相同，或土地权利人是否相同</text>
+  <text x="320" y="168" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">土地权利人的同一性，原则上自申请年度起回溯1年以内</text>
+  <text x="320" y="184" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">即便名义上不同，也会依实质情况认定为「实质相同」</text>
+  <line x1="500" y1="161" x2="558" y2="161" stroke="#1A7A4C" stroke-width="1.8" marker-end="url(#ah4g)"/>
+  <text x="529" y="154" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#1A7A4C">否</text>
+  <rect x="560" y="138" width="130" height="46" rx="8" fill="#EAF5EE" stroke="#1A7A4C" stroke-width="1.8"/>
+  <text x="625" y="166" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1A7A4C">不构成拆分</text>
+  <line x1="320" y1="192" x2="320" y2="222" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah4n)"/>
+  <text x="330" y="212" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#1B2A4A">是</text>
+  <rect x="140" y="224" width="360" height="82" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="320" y="246" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#A07916">是否存在「特别理由」</text>
+  <text x="320" y="264" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#2C3E50">原本就隔有道路·里道·水路·农地·保安林 ／ 各自均为特高压</text>
+  <text x="320" y="280" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#2C3E50">属不同种类的设备 ／ 以自营线归并为一个需求场所</text>
+  <text x="320" y="296" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#2C3E50">引入线路数量不变（以规避保安规制为目的者除外）</text>
+  <line x1="500" y1="265" x2="558" y2="265" stroke="#1A7A4C" stroke-width="1.8" marker-end="url(#ah4g)"/>
+  <text x="529" y="258" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#1A7A4C">有</text>
+  <rect x="560" y="242" width="130" height="46" rx="8" fill="#EAF5EE" stroke="#1A7A4C" stroke-width="1.8"/>
+  <text x="625" y="270" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#1A7A4C">不构成拆分</text>
+  <line x1="320" y1="306" x2="320" y2="336" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah4n)"/>
+  <text x="330" y="326" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#1B2A4A">无</text>
+  <rect x="100" y="338" width="440" height="58" rx="8" fill="#FBEDEA" stroke="#cc4444" stroke-width="2"/>
+  <text x="320" y="361" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#cc4444">构成拆分设置 —— 合并为一个需求场所。低压申请无法成立</text>
+  <text x="320" y="381" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#2C3E50">中部电力PG：不受理申请／并网后查明且拒不整改的，可解除合同（2022/3/7）</text>
+  <text x="360" y="424" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">「四年」这个数字，Q&amp;A和施行规则中都没有。作为附属设备设置的蓄电池不属于储能站，即便相邻也不构成拆分（Q10）。</text>
+</svg>
+<figcaption>图4 —— 判定的轴心不是回溯年数，而是设置者与土地权利人的同一性，以及「特别理由」。判定主体为一般输配电事业者；在低压，技术研究环节即承担这一职能。</figcaption>
+</figure>
+
+<p>判定要素写在同一份Q&amp;A里。新建设备的设置者，与相邻·邻近既设设备的设置者相同。即便设置者不同，新建用地与既设用地的土地权利人相同。同一设置者在相邻·邻近地块新建多套设备。即便设置者不同，土地在实质上被认定为一处场所。以及，即便名义上形式不同，也依实质情况认定为「实质相同」。判定主体是一般输配电事业者，在接入研究或技术研究的审查环节进行。低压虽无接入研究，但03中提到的技术研究即承担这一职能。</p>
+
+<p>回溯期间为「原则上，自提出申请的年度起回溯1年以内土地权利人相同的情形」（同Q&amp;A A4之1）。仅对10kW以上50kW以下的低压光伏，因蓄意拆分较多，最长可回溯至2014年度（A4之2）。第2条仅限于太阳能发电设备，因此就文本而言，储能站适用原则的1年（Q&amp;A中没有任何一处点名储能站并规定回溯期间）。而两者都没有「四年」。「1MW＝21件」同样找不到，1MW这个数字出现的场合是供需调整市场的最低投标量（05），既不是申请的批量单位，也不是拆分判定的单位。</p>
+
+<p>被认定为「特别理由」从而不构成拆分的示例，也在同一份资料中。原本就隔有道路、河川、里道、水路等法定外公共物，物理上无法整合。隔有农地、保安林等客观上存在他用限制的土地。即便拆分，各自也都属于特高压。属于不同种类的设备。从既设设施引出自营线归并为一个需求场所。自电网引入的线路数量不变（以规避保安规制为目的者除外）。作为附属设备设置的蓄电池不属于储能站，因此在其旁边设置储能站也不构成拆分（Q10）。不过Q&amp;A同时写明：即便形式上符合「特别理由」，也可能因规避升压等实质情况被判定为拆分；将高压再拆为高压的形式同样属于对象（Q11）；转让引起的名义变更手续时也可能重新判定。<strong>这是一项对买方同样生效的规制。</strong></p>
+
+<p>处理措施分两级。在申请阶段被判定为拆分设置的，多处设置场所将被合并作为一个需求场所处理，50kW以下的申请无法成立。中部电力Power Grid明确写明：被判定为拆分项目的，不予受理申请。关于并网后才查明的情形，中部电力Power Grid在2022年3月7日的通知中明确写明：要求整改至适当发电状态而对方不予配合的，可能解除合同✅。不过，储能站因拆分被驳回、撤销或解约的案例，在经济产业省的处分公告、资源能源厅及一般输配电事业者的通知中均未找到❓。已公开的处分全部是光伏项目。2025年度FIT·FIP认定撤销共55件（上年度13件），其中田岛南第1发电所（2026年3月撤销）系伪造公文书、伪装成不属于拆分项目的案件（经济产业省2026年4月6日公告）。<strong>若通过分拆名义来规避，问题的性质就从拆分变成了伪造。</strong></p>
+
+<p>规制的背景也需要了解。Q&amp;A正文以2021年4月以后为规避保安规程、工程计划、主任技术者等保安规制而拆分为50kW以下提出接入合同申请的案件激增为出发点，列举了三点担忧：逃避本应承担的规制所带来的不公平；一般输配电事业者的管理成本转嫁至输配电费用；以及不必要的电杆与电表所造成的低效率。如01所述，储能站无论功率大小都属于事业用电气工作物，因此即便切分到50kW以下也无法逃避保安规制。即便如此，同一土地权利人·设置者在邻近地块集中布置多套设备的形态，正是这项规制所针对的对象。自2026年1月起，对需要接入研究的新建发电等设备，提交记载设置场所登记簿等核查结果的文件已成为要件（没有接入研究的低压，就文本而言不属于该对象）。</p>
+
+<p>结论是这样：即便「四年」不存在，同一土地权利人在同一时期提出多份申请，本身就是拆分的典型形态，回溯年数根本不成为问题。争点转移到是否符合「特别理由」——地块之间原本是否隔有道路、里道或农地；引入线路是否按地块分设、能否说明不以规避保安为目的。应在规划初期向并网对象事先咨询，若不符合就修改设计。<strong>分拆名义，是最糟糕的一招。</strong></p>
+
+<h2><span class="no">05</span>单台机组什么都卖不了 —— 最低投标量1MW，49.5kW只是其二十分之一</h2>
+
+<p>供需调整市场的最低投标量为1MW（1,000kW）（EPRX《供需调整市场解说资料》）。1,000kW以下的资源，需要聚合后投标。容量市场的最低值同样是1,000kW，低于此值需作为发动指令电源聚合参与。<strong>49.5kW，约为1MW的二十分之一。</strong>低压储能站单独在市场上什么都卖不了。</p>
+
+<figure>
+<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图5 — 供需调整市场的最低投标量为1,000kW，而低压单台仅49.5kW。聚合20台才勉强达到990kW。业主将运营委托给聚合商，由聚合商以清单·模式方式聚合后向EPRX投标">
+  <defs>
+    <marker id="ah5n" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1B2A4A"/></marker>
+  </defs>
+  <rect width="720" height="320" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">图5 ／ 最低投标量1,000kW，与低压单台49.5kW</text>
+  <text x="40" y="62" font-family="'Noto Serif SC',serif" font-size="13" font-weight="700" fill="#1B2A4A">供需调整市场的最低投标量 ＝ 1,000kW</text>
+  <rect x="40" y="72" width="600" height="26" fill="#1B2A4A"/>
+  <text x="632" y="90" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">1,000kW</text>
+  <text x="40" y="128" font-family="'Noto Serif SC',serif" font-size="13" font-weight="700" fill="#1B2A4A">低压储能站单台 ＝ 49.5kW（约为最低投标量的二十分之一）</text>
+  <rect x="40" y="138" width="28" height="26" fill="#C49A3C"/>
+  <text x="54" y="156" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">1台</text>
+  <rect x="70" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="100" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="130" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="160" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="190" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="220" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="250" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="280" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="310" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="340" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="370" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="400" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="430" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="460" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="490" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="520" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="550" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="580" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="610" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="650" y="156" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">×20＝990kW</text>
+  <rect x="40" y="206" width="170" height="60" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="125" y="231" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="13" font-weight="700" fill="#1B2A4A">业主（20人起）</text>
+  <text x="125" y="251" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">资源的提供方</text>
+  <line x1="210" y1="236" x2="260" y2="236" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah5n)"/>
+  <text x="235" y="228" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#6C7A89">运营委托</text>
+  <rect x="262" y="206" width="206" height="60" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="365" y="231" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="13" font-weight="700" fill="#A07916">聚合商</text>
+  <text x="365" y="251" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#2C3E50">登记入清单，聚合至1MW以上</text>
+  <line x1="468" y1="236" x2="518" y2="236" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah5n)"/>
+  <text x="493" y="228" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#6C7A89">投标</text>
+  <rect x="520" y="206" width="170" height="60" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="605" y="231" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="13" font-weight="700" fill="#1B2A4A">EPRX 供需调整市场</text>
+  <text x="605" y="251" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">低压自2026/3/14实际供需日起</text>
+  <text x="360" y="300" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#6C7A89">单台无法投标。聚合方（聚合商）不先确定，收益就没有出口。</text>
+</svg>
+<figcaption>图5 —— 49.5kW×20台才勉强达到990kW。业主是资源的提供方，对市场承担责任的主体是聚合商。</figcaption>
+</figure>
+
+<p>低压资源获准进入的经过很清晰。据EPRX的FAQ，随着MMS（市场管理系统）改造完成，自2026年3月13日的交易（3月14日实际供需日）起，满足准入要件即可参与交易。OCCTO第57次供需调整市场研讨小委员会（2025年9月26日）明确：采用受电点计量的低压资源可通过清单·模式方式——即将多个资源登记为一个「清单」，以清单为单位投标、评价与结算——参与全部品种；一般输配电事业者侧的登记上限也扩大至资源10万件、清单·模式500件。聚合一侧的制度已经就绪。</p>
+
+<p>聚合的一方是谁？是作为特定批发供给事业者向经济产业大臣登记的聚合商。接入简易指令系统、遵循ERAB（能源资源聚合业务）网络安全指南、承担计划值同时同量责任、承接不履行时的罚则——对市场负责的主体是聚合商，业主则是资源的提供方。</p>
+
+<p>受托条件的公开情况如下。RE100电力标示业务委托费5%，但附有以聚合与O&amp;M打包受托为前提的条件（广告值）。FPS采用收益分成与月度固定费的组合（费率未公开），且在自家网站上明确写明已暂停受理包括家用与自用消纳型在内的低压蓄电池新签约。Digital Grid在自家FAQ中明确写明低压从30件起受托。WATT-TUNE（2026年3月14日与Eco革、GoodWe Japan、REVIX JAPAN四方达成合作基本协议）与Tensor Energy（2026年3月14日宣布启动业务。到2028年500台、2030年1,000台为目标值）均未公开手续费率、合同期限与可否承继。<strong>在所调查的范围内，没有任何一家聚合商公开说明业主变更时运营合同能否承继</strong>❓。</p>
+
+<p>收益率的数字也请用同样的眼光看待。「20%以上」「5〜6年回本」是销售公司的广告值；解说网站的测算给出年毛收益263万〜632万日元、税前IRR 5.8〜17.4%这样的区间，但低压的市场运营才刚在2026年4月起步，并不存在全年实绩❓。而且，供需调整市场的上限价格自2026年9月1日实际供需日起降至10日元，此后还预告了附条件的阶段性下调（<a target="_top" href="/zh-column-price-cap">COLUMN 41</a>）。初期费用1,250万〜2,700万日元、占地约6坪（约20㎡）这些数字同样是广告值，且不含土地取得费、工程费负担金、场地平整与地基改良。</p>
+
+<p>结论只有一条。低压的收益，不取决于您那台蓄电池的性能，而取决于聚合商的投标·运营能力与收费方式。<a target="_top" href="/zh-column-aggregator-fee">COLUMN 17</a>中讨论过的毛收益与净收益之差，在单台容量小、固定成本占比高的低压项目上，比高压更为沉重。<strong>先选聚合商，再选设备。顺序就在这里。</strong></p>
+<h2><span class="no">06</span>低压还是高压，如何选择 —— 分界线一览</h2>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>表2 —— 低压（50kW以下）与高压（2MW／8MWh级）的分界线（截至2026年8月22日）</caption>
+<thead><tr><th>项目</th><th>低压（50kW以下）</th><th>高压（2MW／8MWh级）</th></tr></thead>
+<tbody>
+<tr><td>受电功率</td><td>50kW以下</td><td>50kW以上2,000kW以下</td></tr>
+<tr><td>电气事业法上的分类</td><td>事业用电气工作物（储能站）</td><td>相同</td></tr>
+<tr><td>保安规程·电气主任技术者</td><td>必需（可外部委托）</td><td>必需</td></tr>
+<tr><td>接入研究</td><td><strong>无。</strong>在合同申请时进行技术研究</td><td>有。答复原则3个月以内</td></tr>
+<tr><td>得知工程费负担金的时点</td><td><strong>设计完成之后</strong></td><td>接入研究答复时（概算）</td></tr>
+<tr><td>保证金</td><td>按公式可能为0日元。无明文 ❓</td><td>概算负担金×10%（2026/4/1起）</td></tr>
+<tr><td>合同申请的答复期限</td><td>原则1个月</td><td>原则6个月或双方约定的期限</td></tr>
+<tr><td>单个事业者的接入研究件数上限</td><td>因无接入研究而非直接对象。无明文 ⚠️</td><td>各区域5〜12件（2026/8/1起）</td></tr>
+<tr><td>市场参与</td><td><strong>无法单独参与。</strong>由聚合商聚合至1MW以上</td><td>可单独参与</td></tr>
+<tr><td>向消防署备案（超过20kWh）</td><td>适用</td><td>适用</td></tr>
+<tr><td>事故报告（超过20kWh）</td><td>适用</td><td>适用</td></tr>
+<tr><td>发电事业备案</td><td>不需要（门槛为超过1万kW）</td><td>不需要（单机）</td></tr>
+<tr><td>所需面积</td><td>约6坪（约20㎡）起（广告值）</td><td>本公司的受理参考标准为600㎡以上</td></tr>
+<tr><td>初期费用</td><td>1,250万〜2,700万日元／台（广告值）</td><td>交钥匙约7〜8亿日元（<a target="_top" href="/zh-column-buyer-structures">COLUMN 39</a>）</td></tr>
+<tr><td>JC-STAR★1</td><td>适用于2027年10月以后的合同申请</td><td>适用于2027年4月以后的合同申请</td></tr>
+<tr><td>土地使用权原证明文件</td><td>自2026年10月1日起适用</td><td>相同</td></tr>
+<tr><td>管理省心程度</td><td>单台规模小、固定成本占比高。需跨多台横向管理</td><td>集中于一个站点</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">「广告值」指销售公司的资料与解说网站上的数字，不是制度或实绩数字。低压手续依据OCCTO《发电设备等电网接入流程》与各公司的低压页面，保证金依据OCCTO的计算方法（2026/3/18）。</p>
+
+<p>结论如下。低压变得合理的条件，可以归结为三点：已经持有闲置的小块土地，无需支付地价；希望避开高压的接入排队；希望以数千万日元而非数亿日元的单位分散投资。反过来，若拥有成规模的资本与用地、希望在一个站点上省心持有，那就选高压。也有方案提出「把2MW规模分散成40台低压，就等同于高压的体量」（广告值），但那同时意味着40份发调合同、40处保安管理、40份消防备案、40条进场道路，以及要接受40次04中的拆分判定。</p>
+
+<figure>
+<svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图6 — 把2MW规模拆成40台低压，发电量调整供给合同、保安、消防备案、进场道路、拆分判定都会各自变成40倍">
+  <rect width="720" height="240" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">图6 ／ 把2MW规模拆成40台低压，什么会变成40倍</text>
+  <rect x="40" y="56" width="26" height="22" rx="3" fill="#C49A3C" stroke="#C49A3C" stroke-width="1.5"/>
+  <rect x="72" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="40" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="72" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="40" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="72" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="40" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="72" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="40" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="72" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="165" y="212" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">49.5kW × 40台 ＝ 1,980kW</text>
+  <text x="340" y="74" font-family="'Noto Serif SC',serif" font-size="13" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40份</tspan> 发电量调整供给合同（以售电事业者名义）</text>
+  <text x="340" y="102" font-family="'Noto Serif SC',serif" font-size="13" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40处</tspan> 保安规程与电气主任技术者</text>
+  <text x="340" y="130" font-family="'Noto Serif SC',serif" font-size="13" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40份</tspan> 消防备案，以及事故报告体制</text>
+  <text x="340" y="158" font-family="'Noto Serif SC',serif" font-size="13" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40条</tspan> 进场道路与基础</text>
+  <text x="340" y="186" font-family="'Noto Serif SC',serif" font-size="13" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40次</tspan> 拆分判定（04）</text>
+  <text x="520" y="226" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" fill="#6C7A89">规模可以相加，工作量却不是相加那么简单。</text>
+</svg>
+<figcaption>图6 —— 用并排的低压凑出高压体量的方案确实存在（广告值），但合同、保安、备案、判定会随台数成倍增加。</figcaption>
+</figure>
+
+<p><strong>规模可以相加，工作量却不是相加那么简单。</strong></p>
+
+<h2><span class="no">07</span>今后会生效的规则 —— 2026〜27年的新规与对低压的波及</h2>
+
+<p>进入2026年后的一系列新规，设计意图是收紧接入研究流程以遏制「占位」。对没有接入研究的低压而言，多数新规并不直接生效，但确实会生效的有三项：同时受理（6月1日）、土地使用权原证明文件（10月1日）、JC-STAR★1（2027年10月）。</p>
+
+<figure>
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图7 — 2026年1月至2027年10月的制度变更时间轴，以及对低压电网侧储能电池的波及。同时受理、土地使用权原文件、JC-STAR★1对低压同样适用，保证金与接入研究上限则无明文">
+  <rect width="720" height="300" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">图7 ／ 2026〜27年的制度变更，与对低压的波及</text>
+  <line x1="40" y1="160" x2="700" y2="160" stroke="#C9CFD8" stroke-width="2"/>
+  <line x1="150" y1="140" x2="150" y2="158" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="150" cy="160" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="150" y="102" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/4/1</text>
+  <text x="150" y="118" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#2C3E50">保证金10%</text>
+  <text x="150" y="134" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">无明文 ❓</text>
+  <line x1="300" y1="140" x2="300" y2="158" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="300" cy="160" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="300" y="102" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/8/1</text>
+  <text x="300" y="118" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#2C3E50">接入研究件数上限</text>
+  <text x="300" y="134" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">非对象·无明文 ⚠️</text>
+  <line x1="540" y1="140" x2="540" y2="158" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="540" cy="160" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="540" y="102" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2027/4</text>
+  <text x="540" y="118" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#2C3E50">JC-STAR★1 高压·特高</text>
+  <text x="540" y="134" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">低压尚未适用</text>
+  <line x1="64" y1="162" x2="64" y2="180" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="64" cy="160" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="64" y="194" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/1/5</text>
+  <text x="64" y="210" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#2C3E50">提交登记簿等</text>
+  <text x="64" y="226" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" fill="#6C7A89">无明文 ❓</text>
+  <line x1="225" y1="162" x2="225" y2="180" stroke="#1A7A4C" stroke-width="1.5"/>
+  <circle cx="225" cy="160" r="6" fill="#1A7A4C"/>
+  <text x="225" y="194" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/6/1</text>
+  <text x="225" y="210" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#2C3E50">发电侧＋需求侧同时受理</text>
+  <text x="225" y="226" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#1A7A4C">低压同样适用 ✅</text>
+  <line x1="395" y1="162" x2="395" y2="180" stroke="#1A7A4C" stroke-width="1.5"/>
+  <circle cx="395" cy="160" r="6" fill="#1A7A4C"/>
+  <text x="395" y="194" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/10/1</text>
+  <text x="395" y="210" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#2C3E50">土地使用权原证明文件</text>
+  <text x="395" y="226" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#1A7A4C">低压同样适用 ✅</text>
+  <line x1="680" y1="162" x2="680" y2="180" stroke="#1A7A4C" stroke-width="1.5"/>
+  <circle cx="680" cy="160" r="6" fill="#1A7A4C"/>
+  <text x="690" y="194" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2027/10</text>
+  <text x="690" y="210" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#2C3E50">JC-STAR★1 低压</text>
+  <text x="690" y="226" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#1A7A4C">低压同样适用 ✅</text>
+  <line x1="322" y1="150" x2="322" y2="170" stroke="#cc4444" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <text x="322" y="147" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9" fill="#cc4444">现在</text>
+  <text x="360" y="268" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" fill="#6C7A89">✅＝低压同样适用　❓＝文件中无明文　⚠️＝机制上非对象但无明文。JC-STAR的基准日为合同申请日（非并网日）。</text>
+</svg>
+<figcaption>图7 —— 绿色＝对低压生效。白色＝以接入研究为前提的制度，文件中未写明对低压的适用。</figcaption>
+</figure>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>表3 —— 2026〜27年的制度变更，与对低压电网侧储能电池的波及</caption>
+<thead><tr><th>生效日</th><th>规则</th><th>主要对象</th><th>对低压的波及</th></tr></thead>
+<tbody>
+<tr><td>2026/1/5</td><td>接入研究·合同申请时须提交设置场所登记簿等的核查结果</td><td>需要接入研究的新建发电等设备</td><td>无接入研究的低压，就文本而言非对象（Q&amp;A A4）</td></tr>
+<tr><td>2026/4/1</td><td>电网侧储能电池保证金由5%提高至10%。工程费负担金分期首付不低于50%</td><td>电网侧储能电池（自受理合同申请起）</td><td>按公式可能为0日元。无明文 ❓</td></tr>
+<tr><td>2026/6/1</td><td>发电侧＋需求侧同时受理成为合同申请的受理条件</td><td>电网侧储能电池</td><td class="ok">低压同样需两侧并行 ✅</td></tr>
+<tr><td>2026/8/1</td><td>单个事业者的接入研究件数设上限（东京11·关西12·九州8·中部7·东北6·北海道／北陆／中国／四国5·冲绳无）</td><td>电网侧储能电池的接入研究</td><td>因无接入研究而非直接对象。无明文 ⚠️</td></tr>
+<tr><td>2026/10/1（预定）</td><td>提交证明项目用地使用权原的文件。须在并网承诺后2个月内提交，未提交则取消并网预约</td><td>非FIT·非FIP电源</td><td class="ok">低压同样适用 ✅</td></tr>
+<tr><td>2027/4</td><td>将使用取得JC-STAR★1的产品纳入并网技术要求</td><td>高压·特高压的合同申请</td><td>──</td></tr>
+<tr><td>2027/10</td><td>同上·低压</td><td>低压（50kW以下）的合同申请</td><td class="ok">低压同样适用 ✅</td></tr>
+<tr><td>持续中</td><td>早期并网追加措施（以充电限制为条件，不作电网增强即可接入）</td><td>高压及以上</td><td>低压目前非对象。今后将研究扩大适用 ✅</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>其中两项需要展开说明。土地使用权原的提交，是十家一般输配电事业者已申请变更输配电供给等条款的核准，预定于2026年10月1日实施。对象为非FIT·非FIP电源，若未在并网承诺后2个月内提交登记簿誊本或租赁合同副本，并网预约将被取消。低压储能站属于这里的「非FIT·非FIP电源」。<strong>土地权利关系，已经变成必须在申请之前就落实好的事项。</strong></p>
+
+<p>JC-STAR★1将在2027年4月的并网技术要求修订中成为强制要求，而以低压（50kW以下）并网的产品作为过渡措施推迟半年，适用于2027年10月以后的合同申请（第7次下一代电力系统工作组 2026年2月9日 资料2《关于电网规范》、第20次电网规范研讨会 2025年12月16日）。基准日是合同申请日而非并网日（<a target="_top" href="/zh-column-jcstar">COLUMN 14</a>·27）。对象为PCS、EMS、网关等通过IP通信参与控制的设备。★1为自我符合性声明，有效期最长2年。2027年10月以后申请的低压项目，必须在订购设备之前，通过IPA的符合性标签取得产品清单加以确认。</p>
+
+<h2><span class="no">08</span>申请之前的五项确认</h2>
+
+<ol class="actions">
+<li><b>售电事业者与聚合商是否已经确定。</b>如02与05所述，发电合同人不确定，申请连第一步都迈不出去；聚合方不确定，收益就无从谈起。受托的最小单位（是聚合至1MW，还是从30件起）、收费方式（是成功报酬、月度固定，还是有初期费用）、合同期限、业主变更时能否承继、失衡电量与停机时的责任划分——这些都要拿到书面确认。由于大多数事业者并未公开，除了在签约前要求对方出具，没有别的核实途径。</li>
+<li><b>保安体制是否已经搭建。</b>如01所述，储能站无论功率大小都属于事业用电气工作物。电气主任技术者的外部委托方、保安规程、超过20kWh的消防备案与事故报告体制，都要按每台机组准备。光伏低压项目上那套「只需备案」的流程，无法直接沿用。</li>
+<li><b>是否已在资金计划中考虑到工程费负担金要到设计完成后才出来。</b>如03所述，低压做不到「看到报价再决定」。保证金是否需要也没有明文，需向各公司的输配电窗口查询。不要在申请之前就把土地、设备、资金的决策全部锁定。</li>
+<li><b>相邻·邻近地块是否存在同一设置者、同一土地权利人的设备。</b>如04所述，「四年」并不存在，但规制确实存在。若存在，应在规划初期就向并网对象事先咨询，确认是否符合「特别理由」——是否原本就隔有道路、里道、农地，引入线路是否分设。通过分拆名义来改变表面观感的做法，不要采用。</li>
+<li><b>能否赶上2026年10月与2027年10月的节点。</b>如07所述，土地使用权原文件须在并网承诺后2个月内提交，JC-STAR★1适用于2027年10月以后的合同申请。土地权利关系与设备的符合性，都要在申请之前确认清楚。</li>
+</ol>
+
+<h2><span class="no">结</span>低压储能站，不是低压光伏的缩小版</h2>
+
+<p>把五点重新排一遍。储能站无论功率大小都属于事业用电气工作物，需要保安规程和电气主任技术者。申请人不是您而是售电事业者，且自2026年6月起必须与充电侧同时申请。低压没有接入研究，工程费负担金在设计完成后才确定。「四年规则」在任何文件中都不存在，但电气事业法的拆分规制点名提到了储能站，判定的依据不是回溯年数，而是设置者·土地权利人的同一性与「特别理由」。而49.5kW只是最低投标量1MW的二十分之一，单台机组什么都卖不了。</p>
+
+<p>低压的优势是真实存在的。可以用小块土地起步，可以避开高压的接入排队，可以按数千万日元的单位分散投资。但这些优势来自并网手续的轻量化，而不是来自电气事业法定位、市场参与单位或拆分规制的宽松。<strong>考虑低压时的顺序，既不是土地也不是设备，而是先从售电事业者与聚合商开始。</strong>那两项确定之后，才谈得上回到土地与设备的话题。</p>
+
+<hr class="sep">
+<p><strong>❓ 未确认事项·本文的局限</strong></p>
+<div class="tablewrap wraptext">
+<table>
+<thead><tr><th>项目</th><th>状态</th></tr></thead>
+<tbody>
+<tr><td>低压电网侧储能电池的保证金</td><td>按OCCTO的公式（无需接入研究＝概算0日元）应为0日元，但既没有写明低压属于对象的公告，也没有写明不属于对象的公告。需向各公司的输配电窗口查询</td></tr>
+<tr><td>低压电网侧储能电池单机的工程费负担金实际金额</td><td>无公开案例。单价表为包含光伏在内的低压发电设备通用</td></tr>
+<tr><td>发调合同申请可否由第三方代办</td><td>有明文的只有中国电力NW（可代办）、东北电力NW（申请代理人）、北陆电力送配电（申请代理人）三家。其余六家的页面上没有记载</td></tr>
+<tr><td>接入研究件数上限对低压的适用</td><td>因无接入研究，可解释为非对象，但没有明文</td></tr>
+<tr><td>低压储能站拆分判定的回溯期间</td><td>就Q&amp;A文本而言适用原则的1年（回溯至2014年度仅限低压光伏）。没有点名储能站规定回溯期间的条文，「四年」在任何一处都不存在</td></tr>
+<tr><td>以拆分为由驳回·撤销·解除储能站的案例</td><td>无公开案例。已公开的处分全部是光伏项目</td></tr>
+<tr><td>聚合商的手续费率·合同年限·可否承继</td><td>大多未公开。在所调查范围内，没有任何一家公开可否承继</td></tr>
+<tr><td>低压的收益实绩</td><td>无全年实绩。所提示的数字全部为假设值或广告值</td></tr>
+<tr><td>初期费用·所需面积</td><td>全部为来源于销售资料的广告值。不存在仅针对低压的kWh单价官方数字</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="tnote"><strong>零结果所见：</strong>专门针对低压电网侧储能电池的拆分运用细则（回溯年数、容量或件数的单位），在资源能源厅的Q&amp;A与一般输配电事业者的申请须知中均不存在。就可确认的范围而言，储能电池的拆分判定是由一般输配电事业者以电气事业法施行规则的但书为依据，援用在光伏领域积累起来的判定要素来进行的。</p>
+
+<hr class="sep">
+
+<div class="refs">
+<p><strong>出处（截至2026年8月22日。以下文件均为日文，文件名保留原文以便检索）</strong></p>
+
+<h3>法令·国家层面资料</h3>
+<ul>
+<li>资源能源厅「発電等設備の分割対策に関するQ&amp;A」最后更新2026/6/11（对象含「系統用蓄電池（蓄電所）」，判定要素A3·A4，回溯期间，特别理由，Q10）<a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/electric/summary/regulations/02_faq/index.html">enecho.meti.go.jp/…/02_faq</a></li>
+<li>资源能源厅「再生可能エネルギー発電事業計画における再生可能エネルギー発電設備の設置場所について」2017/7/14（2026/4/1修订）<a href="https://www.enecho.meti.go.jp/category/saving_and_new/saiene/kaitori/dl/fit_2017/legal/nintei_seti.pdf">enecho.meti.go.jp/…/nintei_seti.pdf</a></li>
+<li>电气事业法施行规则第3条第2款第2项但书（2022/4/1修订，2023/4/1修订为「発電等用電気工作物」）／再生能源特别措施法施行规则第5条第1款第2项（2014/4/1施行）／电气事业法第39条·第42条·第43条</li>
+<li>经济产业省「2025年度に行った再エネ特措法に基づく処分の実績を公表します」2026/4/6（认定撤销55件，田岛南第1发电所）<a href="https://www.meti.go.jp/press/2026/04/20260406002/20260406002.html">meti.go.jp/press/2026/04/20260406002</a></li>
+<li>经济产业省「電力貯蔵装置（蓄電池）・蓄電所を設置する場合の手引き」2025/11/14（储能站无论功率大小均为事业用电气工作物）／电气关系报告规则修订 2025/11/20施行（超过20kWh的电力储存装置的事故报告）／电气设备技术标准的解释修订 2025/11/20（引用JIS C 8715-2）</li>
+<li>资源能源厅 下一代电力系统工作组（第5次 2025/11/14 资料2·第6次 2025/12/24 资料3：土地使用权原文件的提交／第9次 2026/3/27 资料1：同时受理·接入研究件数上限／第11次 2026/6/10 资料2：各区域上限数的测算结果）<a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/index.html">meti.go.jp/shingikai/…/smart_power_grid_wg</a></li>
+<li>资源能源厅「グリッドコードについて」第7次下一代电力系统工作组 资料2 2026/2/9（JC-STAR★1 2027/4，低压为2027/10）／第20次电网规范研讨会 2025/12/16</li>
+<li>总务省消防厅 对象火气省令修订 2023/5/31公布·2024/1/1施行（规制单位改为kWh，超过10kWh纳入规制、超过20kWh须备案）「蓄電池設備の規制の見直しイメージ」</li>
+<li>国土交通省 通知 2025/4/8（含危险物的电网侧储能电池是否属于第一种特定工作物）</li>
+<li>IPA JC-STAR（★1申请受理自2025/3/25开始，自我符合性声明，有效期最长2年）</li>
+</ul>
+
+<h3>OCCTO·EPRX·一般输配电事业者</h3>
+<ul>
+<li>OCCTO「発電設備等に関する系統アクセスの流れ」2026年7月版（低压手续、合同申请答复低压原则1个月、同时受理、接入研究件数上限及各公司页面一览）<a href="https://www.occto.or.jp/institution/access/kentou/access_process.html">occto.or.jp/institution/access/kentou/access_process.html</a>（PDF: <a href="https://www.occto.or.jp/assets/access_nagare_20260724.pdf">access_nagare_20260724.pdf</a>）</li>
+<li>OCCTO「発電設備等に関する契約申込み等における保証金の算定方法について」2026/3/18更新（电网侧储能电池10%，无需接入研究的申请按概算0日元处理）<a href="https://www.occto.or.jp/news/access_oshirase_2020_200917_dengen_kentou.html">occto.or.jp/news/access_oshirase_2020_200917_dengen_kentou.html</a>／同「工事費負担金の支払い条件の変更に応じる場合の考え方について」2026/3/18更新（电网侧储能电池的分期首付不低于50%，适用于2026/4/1以后的合同申请）<a href="https://www.occto.or.jp/news/access_oshirase_2018_181214_koujifutankin_kangaekata.html">occto.or.jp/news/…/koujifutankin_kangaekata</a></li>
+<li>EPRX「需給調整市場かいせつ資料」（最低投标量1,000kW，不足者需聚合后投标）／OCCTO 供需调整市场研讨小委员会 第57次 2025/9/26 资料3（低压的清单·模式方式，登记上限10万件·500个模式）／EPRX FAQ（低压资源自2026/3/13交易·3/14实际供需日起可参与）</li>
+<li>东京电力Power Grid「接続検討数の上限について」2026/7/24（上限11件）<a href="https://www.tepco.co.jp/pg/consignment/workshop/information/renewable/adjustment/20260724_01.html">tepco.co.jp/…/20260724_01</a>／同「保証金・工事費負担金分割払いの見直し」2026/4/1（【高圧・特別高圧】）<a href="https://www.tepco.co.jp/pg/consignment/workshop/information/renewable/adjustment/20260401_02.html">tepco.co.jp/…/20260401_02</a>／同 发电量调整供给合同（非FIT·FIP）低压·电网接入规则，技术协商委托票（低压发调合同）2026/5/15新格式</li>
+<li>中部电力Power Grid「同一敷地内における発電設備に係る規制について（お知らせ）」2022/3/7（并网后查明且拒不整改时可解除合同）<a href="https://powergrid.chuden.co.jp/resource/goannai/ippan/powerconnection/saiene/sai_imp_20220307_01.pdf">powergrid.chuden.co.jp/…/sai_imp_20220307_01.pdf</a>／同 低压并网要纲·2026年度工程费负担金单价表</li>
+<li>中国电力Network 新增设申请（可由电气工程店代办·须事先签订接入供给合同与发调合同）<a href="https://www.energia.co.jp/nw/service/retailer/shinzousetsu/">energia.co.jp/nw/service/retailer/shinzousetsu</a>／同 低压并网的工程费负担金单价制（2021/2/1起）／东北电力Network 关于发电量调整供给合同的常见咨询（发电者（含申请代理人），发电合同人为售电对象）<a href="https://nw.tohoku-epco.co.jp/consignment/request/emit/pdf/electric-faq.pdf">nw.tohoku-epco.co.jp/…/electric-faq.pdf</a></li>
+<li>北陆电力送配电 FAQ「低圧の発電場所に関する事前検討」（申请代理人，非FIT向售电提出）<a href="https://faq-nw.rikuden.co.jp/faq/show/356">faq-nw.rikuden.co.jp/faq/show/356</a>／北海道电力Network 发电量调整供给的申请（发电者同意书）<a href="https://www.hepco.co.jp/network/con_service/supply_overview/genecapacity/index.html">hepco.co.jp/network/…/genecapacity</a>／中部电力Power Grid 发电量调整供给（发电者同意书，答复原则1个月以内）<a href="https://powergrid.chuden.co.jp/goannai/hatsuden_kouri/takuso_kyokyu/takuso_etc/etc_chousei/index.html">powergrid.chuden.co.jp/…/etc_chousei</a>／东京电力Power Grid 发电量调整供给合同（非FIT·FIP）低压<a href="https://www.tepco.co.jp/pg/consignment/workshop/procedure/renewable/retailservice/low-pressure.html">tepco.co.jp/…/low-pressure</a></li>
+<li>九州电力送配电 发电设备等低压并网的申请手续（工程费负担金原则上在设计完成后核算）<a href="https://www.kyuden.co.jp/td/renewable-energy/purchase/user/procedure.html">kyuden.co.jp/td/…/procedure</a>／同 各类申请（非固定型接入同意书，低压储能设备的PCS规格）<a href="https://www.kyuden.co.jp/td/application/electric-power-generation-business/application.html">kyuden.co.jp/td/application/…</a>／同 至输配电供给开始的流程（发电者·需求者同意书，分期首付不低于50%）<a href="https://www.kyuden.co.jp/td/service/wheeling/outline/flow.html">kyuden.co.jp/td/service/wheeling/outline/flow</a>／关西电力送配电「たくそう君」（互联网低压工程申请）／四国电力送配电「低圧工事申込について（発電側）」2023/11／冲绳电力 互联网新增设申请系统（2026/3/27修订）</li>
+</ul>
+
+<h3>企业发布·媒体报道（含广告值）</h3>
+<ul>
+<li>Digital Grid 蓄电池聚合服务 FAQ（受托高压·特高压项目，低压从30件起）<a href="https://www.digitalgrid.com/dgp-battery/">digitalgrid.com/dgp-battery</a>／FPS 电网侧储能电池聚合服务（明确暂停受理家用·自用消纳型等低压蓄电池新签约，收费为收益分成＋月度固定费）<a href="https://fps-inc.jp/service/grid-scale-battery/">fps-inc.jp/service/grid-scale-battery</a>／RE100电力 2025/6/16发布（业务委托费5%·初期费用0日元以5年合同为条件）／Technologies（Eco革·WATT-TUNE·GoodWe Japan·REVIX JAPAN）2026/3/15发布（四方基本协议，约6坪·AC49.9kW）<a href="https://prtimes.jp/main/html/rd/p/000000027.000013775.html">prtimes.jp/…/000000027.000013775</a>／Tensor Energy 2026/7/27发布（与Rising Corporation的合作，2028年500台·2030年1,000台的目标）</li>
+<li>日经BP Mega Solar Business 2026/3/19「『低圧系統用蓄電池』が解禁、アグリ事業が活発化」（四方合作模式·49.5kW／100kWh设备投资约1,700万日元不含税，IRR测算，Tensor Energy的3/14发布）／REVIX JAPAN·WATT-TUNE 2026/8「SMART ENERGY WEEK【秋】」参展公告（49.9kW／100kWh级·不含税1,250万日元起）／SOLAR JOURNAL（49.9kW×21处＝1MW）／未来电设·LehmanSoft等解说网站（初期费用·测算＝广告值·解说值）</li>
+</ul>
+
+<h3>附注</h3>
+<ul>
+<li>低压电网侧储能电池在2026年才刚刚打开供需调整市场的通道，各一般输配电事业者的低压页面多以光伏和卒FIT为中心，并未涵盖储能站单独的手续。本文中的❓反映了这一信息缺口，最终确认仍需向各公司的输配电窗口（Network Service Center）查询。下次更新预定在土地使用权原制度开始运行的2026年10月</li>
+<li>关于规制动向的说明：电气事业法的保安规制、拆分对策的运用、供需调整市场的参与要件、JC-STAR的适用时期，均以资源能源厅·OCCTO·EPRX·IPA为中心持续变更。本专栏基于各机构截至2026年8月22日的发布内容。在做出判断时，请务必确认各机构的最新发布</li>
+</ul>
+</div>
+
+<hr class="sep">
+
+<div class="related">
+<p><strong>延伸阅读</strong>　<a target="_top" href="/zh-column-grid-rules">接入研究·合同申请的新规则 —— 2026年4月「占位对策」带来了什么变化（COLUMN 09）→</a></p>
+<p><strong>相关专栏</strong></p>
+<ul>
+<li><a target="_top" href="/zh-column-development">C13 储能站开发的全流程 —— 从选址到并网</a></li>
+<li><a target="_top" href="/zh-column-jcstar">C14 JC-STAR★1的起算点不是「并网日」</a></li>
+<li><a target="_top" href="/zh-column-aggregator-fee">C17 聚合商手续费的「毛收益与净收益」</a></li>
+<li>C27 JC-STAR★1〜★4的区别与适用设备</li>
+<li><a target="_top" href="/zh-column-four-labels">C31 电网侧储能站：规制·税务·选址的全貌</a></li>
+<li><a target="_top" href="/zh-column-price-cap">C41 天花板下降5日元 —— 供需调整市场上限调整为10日元</a></li>
+<li>C43 市街化调整区域的土地能否用作储能电池用地</li>
+</ul>
+</div>
+<div class="author-box">
+  <div class="ab-label">本文监修</div>
+  <div><span class="ab-name">中岛 晋也</span>（Science X Inc. 代表董事、工学博士）</div>
+  <p style="margin:6px 0 0">从事日本电网侧储能电站的开发、买卖与技术尽职调查。本文基于实际项目的组建与评估经验撰写并监修。</p>
+</div>
+</div>
+
+<!-- scix-column-cta : 1記事1つ。主＝フォーム、副＝解説ページ（それぞれ行き先の中身を明記） -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans SC',sans-serif">
+  <h3 style="font-family:'Noto Serif SC',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">不足600㎡的土地，也可以确认一下能否按低压方案成立</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">即便是达不到高压最低门槛（本公司参考标准为600㎡）的土地，视电网余量、相邻地块的设备情况与土地权利人的构成，也可能按低压方案研究。只要发来所在地、面积与地目，我们会依照本文的五项确认，回答应该按高压还是低压的路线推进。</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/zh-contact" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">咨询您的土地 →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">将打开咨询表单。请在留言栏写明所在地、面积与地目，相邻地块状况与电网的确认由我们来做。</p>
+  </div>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <a target="_top" href="https://www.scix.co.jp/zh-qa" style="color:#1B2A4A;font-weight:600;font-size:13.5px;text-decoration:none;border-bottom:1px solid #C49A3C;padding-bottom:2px">阅读「入门Q&amp;A」 →</a>
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.85;margin:10px 0 0">用24个问题，为初次接触者讲清电网侧储能电池的运作机制。低压与高压的区别、谁来决定什么，比本文更简短。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans SC',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif SC',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X 株式会社（サイエンスエックス株式会社）</div>
+        〒103-0016 日本 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:+81364034095">+81-3-6403-4095</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/zh" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">首页</a>
+        <a href="/zh-knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">洞见</a>
+        <a href="/zh-qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">问答</a>
+        <a href="/zh-contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">联系我们</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">隐私政策</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
