@@ -52,10 +52,24 @@ Cloudflare D1 だけを見て「DR2 はこのセッションから到達不能�
 5. 作業フォルダ側の `_必要書類チェックリスト.md` を更新する（✅/⚠️/⬜/➖ の判定を最新化）。
 6. **DR2 アプリの案件一覧に載せる（Drive フォルダを作っただけでは出ない）**
    - 「DR2登録」は **①案件フォルダ（Drive）** と **②案件レコード（DR2アプリ）** の2段構え。①だけで終わらせない。
-   - 新規案件のレコードは **D1 `dealroom2_new_projects`**（owner 画面の「+ 新規案件」）に入れる。
+   - 新規案件のレコードは **D1 `dealroom2_new_projects`** に入れる。
      `data/projects-source.json` は既存案件用で、新規をここに書いても増えない。
+   - 投入経路は2つ。**owner 画面の「+ 新規案件」**、または **SQLを生成して wrangler で流す**:
+     ```
+     npx wrangler d1 execute scix-dealroom-db --remote --file=dr2-<ID>-insert.sql
+     ```
+     後者は `scripts/04_update_d1_drivefolderurl.py` と同じ流儀（SQL生成 → wrangler 適用）。
+   - **`dealroom2_new_projects` が受け付ける列は限られる**（`functions/api/admin/projects.ts` の `ALLOWED`）:
+     `id` / `no` / `name` / `address` / `lat` / `lng` / `voltage` / `mw` / `capacity` / `maxPower` /
+     `gridOperator` / `saleType` / `status` / `landType` / `landArea` / `connectionDate` /
+     `operationStartDate` / `price`。
+     **これ以外**（`seller`・`constructionCost`・`constructionNote`・`driveFolderUrl`・機器仕様など）は
+     `deal_edits` に UPSERT、社内メモは `memos` テーブルに入れる。
    - `driveFolderUrl` に ① の案件フォルダURLを入れて紐付ける。
    - 緯度経度が資料に無い案件は `showMap: false`、非公開にするなら `dealroom2Visible: false`。
+   - **wrangler はMacの認証を使う。** クラウド実行環境（Claude Code on the web 等）には
+     Cloudflare 認証が無いので D1 を直接叩けない。その場合は**適用できるSQLを生成して渡す**こと。
+     「できません」で終わらせない。
 
 ### 公開サイトへの反映は別工程
 
