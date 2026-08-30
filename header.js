@@ -39,6 +39,9 @@
   var JA_ONLY_COLUMNS = [
     '/column-capacity-market',
     '/column-day-ahead',
+    '/column-investment-tax-law',
+    '/column-investment-tax-practice',
+    '/column-investment-tax-schedule',
     '/column-jcstar-levels',
     '/column-land-buyback',
     '/column-land-lease',

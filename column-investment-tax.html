@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Serif JP',serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.down{color:var(--warn);font-weight:700}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tr.total td{background:rgba(196,154,60,0.08);font-weight:700;border-top:2px solid var(--accent)}
+td.max{color:var(--warn);font-weight:700}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.wraptext td{text-align:left;vertical-align:top}
+.wraptext thead th{text-align:left}
+.scope th{width:10em;vertical-align:top}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-16px 0 28px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.related{font-size:.9em;line-height:2.05}
+.related ul{margin:8px 0;padding-left:1.3em}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+td.ok{color:var(--green);font-weight:700}
+td.ng{color:var(--warn);font-weight:700}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px}
+}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+
+details{margin:24px 0;border:1px solid var(--border);border-radius:6px;background:var(--light-bg);padding:14px 18px}
+details summary{cursor:pointer;font-weight:600;color:var(--navy);font-size:.92em}
+details[open]{background:var(--white)}
+details p{font-size:.86em;color:var(--text-light);margin-bottom:12px}
+</style>
+<title>即時償却、受付が始まった ── 大胆な投資促進税制、蓄電所で使う人の最初の1ページ｜ScienceX</title>
+<meta name="description" content="大胆な投資促進税制（特定生産性向上設備等投資促進税制）が2026年7月31日に施行、申請受付開始。租税特別措置法42条の12の7。蓄電所オーナーの30秒診断4問、確認期限2029年3月31日と確認日から5年の逆算タイムライン、耐用年数17年・貸付けの線・供用日の4要点、照会中の論点。条文編・手続編・実務編への入口。">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-investment-tax">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-investment-tax">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-investment-tax">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-investment-tax">
+<link rel="canonical" href="https://www.scix.co.jp/column-investment-tax">
+<meta property="og:type" content="article">
+<meta property="og:title" content="即時償却、受付が始まった ── 大胆な投資促進税制、蓄電所で使う人の最初の1ページ｜ScienceX">
+<meta property="og:description" content="申請受付が始まった大胆な投資促進税制。蓄電所オーナーの30秒診断、逆算タイムライン、蓄電所特有の4つの要点と照会中の論点。">
+<meta property="og:url" content="https://www.scix.co.jp/column-investment-tax">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="即時償却、受付が始まった ── 大胆な投資促進税制、蓄電所で使う人の最初の1ページ｜ScienceX">
+<meta name="twitter:description" content="申請受付が始まった大胆な投資促進税制。蓄電所オーナーの30秒診断、逆算タイムライン、蓄電所特有の4つの要点と照会中の論点。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-08-31">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "即時償却、受付が始まった ── 大胆な投資促進税制、蓄電所で使う人の最初の1ページ｜ScienceX",
+  "description": "大胆な投資促進税制（特定生産性向上設備等投資促進税制）が2026年7月31日に施行、申請受付開始。租税特別措置法42条の12の7。蓄電所オーナーの30秒診断4問、確認期限2029年3月31日と確認日から5年の逆算タイムライン、耐用年数17年・貸付けの線・供用日の4要点、照会中の論点。条文編・手続編・実務編への入口。",
+  "author": {
+    "@type": "Person",
+    "name": "中島 晋也",
+    "jobTitle": "代表取締役（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp.png"
+  },
+  "datePublished": "2026-08-31",
+  "dateModified": "2026-08-31",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.scix.co.jp/column-investment-tax"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://www.scix.co.jp/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ナレッジ",
+      "item": "https://www.scix.co.jp/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "即時償却、受付が始まった",
+      "item": "https://www.scix.co.jp/column-investment-tax"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">即時償却、受付が始まった</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 45</span>
+      <span class="header-tag">税制 / 大胆な投資促進税制</span>
+      <time class="header-date" datetime="2026-08-31">2026.08.31</time>
+    </div>
+    <h1>即時償却、<em>受付が始まった</em> ── 蓄電所で使う人の最初の1ページ</h1>
+    <p class="header-desc">大胆な投資促進税制が2026年7月31日に施行、申請受付開始。30秒診断・逆算タイムライン・蓄電所特有の4つの要点。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<p><a target="_top" href="/column-tax">COLUMN 22</a>で「この制度はまだ始まっていません」と書いた大胆な投資促進税制（特定生産性向上設備等投資促進税制）が、始まりました。産業競争力強化法の改正法が2026年6月5日に公布され、<strong>7月31日に施行、同日から全国9つの経済産業局で投資計画の確認申請の受付が始まっています</strong>（経済産業省 2026年7月31日発表）。税の側も確定しました。租税特別措置法<strong>第42条の12の7</strong>「特定生産性向上設備等を取得した場合の特別償却又は法人税額の特別控除」──国税庁のパンフレットに条文番号つきで載っています。COLUMN 22の時点で「これから決まる」だった政省令・告示・申請様式・投資利益率の計算シートも、すべて公表済みです。</p>
+
+<p>本稿はその続報の入口です。制度のしくみと「即時償却は減税ではなく税金の先送り」という考え方はCOLUMN 22に書いたので繰り返しません。ここでは、<strong>受付が始まったいま、蓄電所のオーナー・SPC・これから組む投資家が最初に確認する4つのこと</strong>と、供用目標日から逆算したスケジュールだけを1ページに絞ります。条文の根拠、手続の詳細、11の実務論点は、それぞれ<a target="_top" href="/column-investment-tax-law">条文編（45-2）</a>・<a target="_top" href="/column-investment-tax-schedule">手続編（45-3）</a>・<a target="_top" href="/column-investment-tax-practice">実務編（45-4）</a>に分けました。読みたい深さのところだけ読んでください。</p>
+
+<div class="note"><b>編集メモ：</b>本稿と45-2〜45-4の記述は、財務省「令和8年度税制改正の大綱」（2025年12月26日閣議決定）、国税庁「令和8年度 法人税関係法令の改正の概要」、経済産業省の制度ページ・パンフレット・申請様式・投資利益率計算シート（Excel実物）、産業競争力強化法とその施行規則、国税庁の質疑応答事例・通達を、2026年8月30日〜31日に一次ソースで照合して書いています。公開前には、シリーズの主要な記載71項目について第三者による一次ソース検証を行い（2026年8月30日）、指摘のあった箇所を原典で再照合のうえ修正しました。一次ソースで確認できなかった項目は本文に❓を付け、文末の「照会中の論点」表にまとめ、回答が得られ次第この記事群を更新します。数値には出所の区分（公表値／試算）を付しています。本稿は制度と実務の整理であり、税務・投資・法務の助言ではありません。個別の判断は税理士等にご確認ください。</div>
+
+<h2><span class="no">01</span>30秒診断 ── 入口に立てるかは4問で決まる</h2>
+
+<p>細部に入る前に、この4問です。<strong>1つでも「いいえ」なら、この制度は使えないか、計画の再設計が要ります。</strong>4つとも「はい」なら入口に立てます──その先に投資利益率15%と経済産業大臣の確認という本審査が待っています。</p>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>30秒診断 ── 4問すべて「はい」で入口に立てる</caption>
+<thead><tr><th style="width:2.5em">#</th><th>問い</th><th>「いいえ」だとどうなるか</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>計画に含める設備の取得価額の合計が<strong>5億円以上</strong>あるか（中小企業者等の場合。それ以外は35億円以上）</td><td>投資規模の下限を割り、確認の対象外。高圧2MW/8MWh級で公表単価ベース約5.4億円（試算）── <a target="_top" href="/column-investment-tax-practice">実務編・論点10</a></td></tr>
+<tr><td>2</td><td>投資計画の決議・決定（取締役会等）は<strong>2025年12月26日以後</strong>か</td><td>原則対象外。それ以前に決めた計画の「変更」には大臣が定める基準あり❓ ── <a target="_top" href="/column-investment-tax-law">条文編・04</a></td></tr>
+<tr><td>3</td><td>設備は<strong>自社（自SPC）が保有し、自ら事業に使う</strong>か──人に貸す形（賃貸借・リース賃貸）ではないか</td><td>「貸付けの用」は条文上の除外で対象外。運用のアグリゲーター委託は余地あり ── <a target="_top" href="/column-investment-tax-practice">実務編・論点04</a></td></tr>
+<tr><td>4</td><td><strong>青色申告</strong>の法人（または個人事業主）か</td><td>適用の前提を欠く。新設SPCは設立3か月以内等の承認申請期限に注意 ── <a target="_top" href="/column-investment-tax-practice">実務編・論点06</a></td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="tnote">「中小企業者等」は資本金だけでは決まりません（大法人の子会社は外れる等）。定義は租税特別措置法42条の4第19項7号・9号（個人は10条8項6号）── 申請書様式第一の注記に明記されています。判定の時点も論点です（<a target="_top" href="/column-investment-tax-practice">実務編・論点11</a>）。</p>
+
+<h2><span class="no">02</span>逆算タイムライン ── 期限は2つ、決算期がもう1つの軸</h2>
+
+<p>締切は2つです。<strong>①令和11年（2029年）3月31日までに経済産業大臣の「確認」を受けること</strong>（申請ではなく確認書の取得。標準処理は約1か月）。<strong>②確認の日から5年以内に設備を取得し、事業の用に供すること。</strong>蓄電所は接続検討・連系工事・機器納期で年単位の時間が飛ぶので、確認の手続と系統の手続を並走させる逆算設計が前提になります。そしてもう1つの軸が決算期です。<strong>税制が効くのは「事業供用日を含む事業年度」</strong>──いつ払ったかではなく、いつ使い始めたかで、どの期に落ちるかが決まります。</p>
+
+<figure>
+<svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図1 — 大胆な投資促進税制の逆算タイムライン。意思決定から宣言公表・事前確認・確認申請・確認書・発注・連系・供用・申告までの流れと、確認期限2029年3月31日・確認日から5年の2つの締切、供用日がどの事業年度に落ちるかという決算期の軸">
+  <rect width="720" height="400" fill="#FFFFFF"/>
+  <text x="40" y="30" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">図1 ／ 逆算タイムライン ── 手続・系統・決算期の3レーン</text>
+
+  <text x="40" y="62" font-family="'Noto Serif JP',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">手続レーン（税制）</text>
+  <rect x="40" y="72" width="92" height="44" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="86" y="90" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">意思決定</text>
+  <text x="86" y="106" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">取締役会等の決議</text>
+  <rect x="144" y="72" width="92" height="44" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="190" y="90" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">宣言・書類</text>
+  <text x="190" y="106" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">公表まで約10日</text>
+  <rect x="248" y="72" width="92" height="44" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="294" y="90" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">事前確認</text>
+  <text x="294" y="106" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">税理士・会計士</text>
+  <rect x="352" y="72" width="92" height="44" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="398" y="90" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">確認申請</text>
+  <text x="398" y="106" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">経産局・約1か月</text>
+  <rect x="456" y="72" width="92" height="44" rx="6" fill="#FDF6E7" stroke="#C49A3C" stroke-width="2"/>
+  <text x="502" y="90" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">確認書</text>
+  <text x="502" y="106" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#A07916">ここから5年</text>
+  <rect x="560" y="72" width="120" height="44" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="620" y="90" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">発注・取得・供用</text>
+  <text x="620" y="106" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">取得は確認の後</text>
+  <line x1="132" y1="94" x2="144" y2="94" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="236" y1="94" x2="248" y2="94" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="340" y1="94" x2="352" y2="94" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="444" y1="94" x2="456" y2="94" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="548" y1="94" x2="560" y2="94" stroke="#1B2A4A" stroke-width="1.5"/>
+
+  <text x="40" y="150" font-family="'Noto Serif JP',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">系統レーン（並走させる）</text>
+  <rect x="40" y="160" width="150" height="40" rx="6" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="115" y="177" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#2C3E50">接続検討</text>
+  <text x="115" y="192" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">標準3か月・回答は1年有効</text>
+  <rect x="202" y="160" width="150" height="40" rx="6" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="277" y="177" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#2C3E50">契約申込み・負担金</text>
+  <text x="277" y="192" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">着工前までに支払</text>
+  <rect x="364" y="160" width="150" height="40" rx="6" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="439" y="177" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#2C3E50">連系工事</text>
+  <text x="439" y="192" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">増強を伴うと年単位</text>
+  <rect x="526" y="160" width="154" height="40" rx="6" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="603" y="177" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#2C3E50">受電・連系・運転開始</text>
+  <text x="603" y="192" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">＝「供用」の実態へ</text>
+
+  <text x="40" y="236" font-family="'Noto Serif JP',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">決算期レーン（効く年度が決まる）</text>
+  <line x1="40" y1="266" x2="680" y2="266" stroke="#C9CFD8" stroke-width="1.5"/>
+  <line x1="253" y1="254" x2="253" y2="278" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="466" y1="254" x2="466" y2="278" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="146" y="250" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">前の事業年度</text>
+  <text x="360" y="250" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#1B2A4A">供用日を含む事業年度 ＝ 適用年度</text>
+  <text x="573" y="250" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">次の事業年度</text>
+  <circle cx="360" cy="266" r="6" fill="#C49A3C"/>
+  <text x="360" y="292" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">供用日</text>
+  <text x="360" y="308" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">支払日でも取得日でもなく、この日が期を決める</text>
+
+  <line x1="40" y1="336" x2="680" y2="336" stroke="#C49A3C" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="40" y="358" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">締切① 確認は2029年3月31日まで（確認書ベース）</text>
+  <text x="680" y="358" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">締切② 取得・供用は確認日から5年以内</text>
+  <text x="40" y="382" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">標準所要期間は公表値。実期間は案件により長期化し得る（詳細と根拠は手続編45-3）。</text>
+</svg>
+<figcaption>図1 ── 手続・系統・決算期の3レーン。確認書の取得がクリティカルパスで、供用日がどの事業年度に落ちるかが税効果の効く期を決める。</figcaption>
+</figure>
+
+<h2><span class="no">03</span>蓄電所特有の要点は4つ</h2>
+
+<p><strong>① 業種の壁は、この制度にはない。</strong>全量売電の蓄電所がこれまで即時償却を使えなかったのは、中小企業経営強化税制の「指定事業」に電気業が入っていないからでした（措置法施行令27条の6第7項──列挙に電気業がない）。本税制に指定事業の要件はなく、除外は貸付用・試験研究用・風俗営業用だけ。<strong>売電専業でも業種では弾かれません</strong>（国税庁パンフレットが「適用対象となる事業は特に限定されていません」と明記）。条文の並びは<a target="_top" href="/column-investment-tax-law">条文編</a>へ。</p>
+
+<p><strong>② 耐用年数は6年ではなく17年──それが審査の分母になる。</strong>「蓄電池電源設備6年」は停電時の照明用などに限る区分で（耐用年数通達2-2-2）、売電用の蓄電池は機械装置として<strong>実務上17年</strong>が広く使われています。国税庁が系統用蓄電池を名指しした公表見解はありません❓。そして投資利益率15%の判定は、METIの計算シートの仕様上、<strong>計画に含めた設備の最長償却期間──蓄電池を含む限り17年──を分母に年平均を取ります</strong>。ここが審査の実質的な関門です。<a target="_top" href="/column-investment-tax-practice">実務編・論点01〜03</a>。</p>
+
+<p><strong>③ 「貸す」形は外れる。「運用を任せる」形は残る。</strong>賃貸借（設備をオペレーターに貸す・リース賃貸）は条文上の除外で対象外。一方、設備はオーナーが持ったまま市場運用をアグリゲーターに<strong>委託</strong>する形は、使用収益の主体がオーナーに残る限り「貸付け」に当たらないと解する余地が大きい──ただし本税制を名指ししたQ&Aはまだなく、書面照会が前提です❓。契約のかたちが適用可否を分けるという<a target="_top" href="/column-tax">COLUMN 22・関門②</a>の結論は、施行後も変わっていません。<a target="_top" href="/column-investment-tax-practice">実務編・論点04</a>。</p>
+
+<p><strong>④ 効くのは「支払った日」ではなく「使い始めた日」。</strong>本年度に代金を払っても、供用が翌期なら税効果は翌期。逆に期末ぎりぎりの供用でも、即時償却は月割りなしで満額です。税額控除7%を選ぶなら話が逆で、供用年度の法人税額の20%が控除の上限──期末供用だとその期の売電がほぼなく、控除枠が立ちません。<strong>即時償却は期末供用が効き、税額控除は期首供用が効く。</strong>決算期・供用日・誰の法人で持つか、の設計は<a target="_top" href="/column-investment-tax-practice">実務編・論点11</a>と<a target="_top" href="/column-investment-tax-schedule">手続編・05</a>。</p>
+
+<h2><span class="no">04</span>照会中の論点 ── ここはまだ誰にも断定できない</h2>
+
+<p>受付開始から1か月。公式Q&Aは薄く、次の論点は一次ソースで確定できていません。<strong>断定している解説があれば、根拠を確認してください。</strong>当社は経済産業局・税務署・OCCTOへの照会を進め、回答が得られ次第この記事群に追記します。</p>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>照会中の論点（2026年8月31日時点で一次ソース未確定＝❓）</caption>
+<thead><tr><th>論点</th><th>いまわかっていること</th><th>照会先</th></tr></thead>
+<tbody>
+<tr><td>投資下限5億円の判定は補助金の圧縮前か後か</td><td>条文・省令・周知資料に明示なし。控除・償却の計算は圧縮後が原則</td><td>経産局・税務署</td></tr>
+<tr><td>複数拠点を1本の投資計画に束ねられるか</td><td>禁止の明文はなく、様式は設備ごとに所在地を書く構造</td><td>経産局</td></tr>
+<tr><td>申告書に添付するのは確認書か適合証明書か</td><td>「明細書等」の添付要件はあるが様式の名指しが未確認</td><td>税務署</td></tr>
+<tr><td>取得時期の後ずれ等はどこから「変更確認」か</td><td>様式第四〜六はあるが閾値の規定・記載要領が未入手</td><td>経産局</td></tr>
+<tr><td>蓄電所の「事業の用に供した日」はいつか</td><td>一般則は使用開始日。太陽光では連系・売電開始日とした課税庁対応の事例。蓄電所名指しはなし</td><td>税務署</td></tr>
+<tr><td>運用委託が「貸付け」に当たらないことの確認</td><td>類似制度の通達構造からは非該当の方向。本税制の明文なし</td><td>経産局・税務署</td></tr>
+</tbody>
+</table>
+</div>
+
+<hr class="sep">
+
+<div class="related">
+<p><strong>このシリーズの歩き方</strong></p>
+<ul>
+<li><a target="_top" href="/column-investment-tax-law">45-2 条文編</a> ── 税理士・審査対応向け。条文番号・原文・判定（○△×❓）の対照リファレンス。</li>
+<li><a target="_top" href="/column-investment-tax-schedule">45-3 手続編</a> ── 申請担当向け。様式第一〜第九・添付9点・Gビズ・逆算スケジュールと決算期。</li>
+<li><a target="_top" href="/column-investment-tax-practice">45-4 実務編</a> ── オーナー・投資家向け。耐用年数17年・貸付けの線・補助金と長期脱炭素・タイミング設計の11論点。</li>
+<li><a target="_top" href="/column-tax">COLUMN 22</a> ── 制度の考え方（先送りの構造・5つの関門）。本シリーズの前提。</li>
+<li><a target="_top" href="/column-subsidies">COLUMN 20</a> ── 補助金は使うかどうかを判断するもの。圧縮記帳とつながる論点。</li>
+</ul>
+</div>
+
+<div class="refs">
+<h3>主要な一次ソース（確認日 2026-08-30〜31）</h3>
+<ul>
+<li>財務省「令和8年度税制改正の大綱」（2025-12-26閣議決定）三2(1) ── mof.go.jp/tax_policy/tax_reform/outline/fy2026/08taikou_03.htm</li>
+<li>国税庁「令和8年度 法人税関係法令の改正の概要」D（措法42の12の7） ── nta.go.jp/publication/pamph/hojin/kaisei_gaiyo2026/pdf/D.pdf</li>
+<li>経済産業省「大胆な投資促進税制」制度ページ・パンフレット・申請様式・投資利益率計算シート ── meti.go.jp/policy/economy/kyosoryoku_kyoka/henkashien/daitanzeisei/daitan.html</li>
+<li>経済産業省 報道発表「申請受付開始について」（2026-07-31） ── meti.go.jp/press/2026/07/20260731004.html</li>
+<li>国税庁 タックスアンサーNo.5400-2「事業の用に供した日」 ── nta.go.jp/taxes/shiraberu/taxanswer/hojin/5400-2.htm</li>
+<li>そのほか45-2〜45-4の各末尾に、条文・通達・様式・市場データの出典を確認日つきで列挙しています。</li>
+</ul>
+</div>
+
+<div class="author-box">
+<div class="ab-label">執筆</div>
+<div class="ab-name">中島 晋也（工学博士）／ サイエンスエックス株式会社 代表取締役</div>
+系統用蓄電池の案件流通と規制・市場制度の調査を行っています。本稿の誤りのご指摘・照会結果の共有は <a href="mailto:s@scix.co.jp">s@scix.co.jp</a> まで。
+</div>
+
+<div style="background:#F5F1E8;border:1px solid #E0DCD4;border-radius:8px;padding:28px 24px;margin-top:36px;text-align:center">
+  <p style="font-family:'Noto Serif JP',serif;font-size:16px;font-weight:600;color:#1B2A4A;margin:0 0 8px">5億円ラインに乗る案件をお探しですか</p>
+  <p style="color:#5A6577;font-size:13px;line-height:1.9;margin:0 0 16px">高圧・特別高圧の系統用蓄電池案件を、権利の中身と数字の出所を開示して仲介しています。</p>
+  <a target="_top" href="/transfer" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">案件を買う →</a>
+</div>
+
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/land" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">土地を売る・貸す</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
