@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Serif JP',serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.down{color:var(--warn);font-weight:700}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tr.total td{background:rgba(196,154,60,0.08);font-weight:700;border-top:2px solid var(--accent)}
+td.max{color:var(--warn);font-weight:700}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.wraptext td{text-align:left;vertical-align:top}
+.wraptext thead th{text-align:left}
+.scope th{width:10em;vertical-align:top}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-16px 0 28px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.related{font-size:.9em;line-height:2.05}
+.related ul{margin:8px 0;padding-left:1.3em}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+td.ok{color:var(--green);font-weight:700}
+td.ng{color:var(--warn);font-weight:700}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px}
+}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+
+details{margin:24px 0;border:1px solid var(--border);border-radius:6px;background:var(--light-bg);padding:14px 18px}
+details summary{cursor:pointer;font-weight:600;color:var(--navy);font-size:.92em}
+details[open]{background:var(--white)}
+details p{font-size:.86em;color:var(--text-light);margin-bottom:12px}
+</style>
+<title>耐用年数17年・貸付けの線・5億円の現実 ── 蓄電所で使うときの11の実務論点｜ScienceX</title>
+<meta name="description" content="売電用蓄電池は機械装置17年（「6年」は停電時照明用）、ROI審査の分母は17年に固定。賃貸借は対象外・運用委託の余地、複数拠点の束ね、補助金の圧縮記帳と下限判定❓、長期脱炭素オークションの9割還付、即時償却と税額控除の選び方、決算期とタイミング設計まで11論点。">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-investment-tax-practice">
+<link rel="canonical" href="https://www.scix.co.jp/column-investment-tax-practice">
+<meta property="og:type" content="article">
+<meta property="og:title" content="耐用年数17年・貸付けの線・5億円の現実 ── 蓄電所で使うときの11の実務論点｜ScienceX">
+<meta property="og:description" content="耐用年数17年・貸付けの線・補助金と長期脱炭素・タイミング設計。一般解説が書かない蓄電所固有の11論点。">
+<meta property="og:url" content="https://www.scix.co.jp/column-investment-tax-practice">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="耐用年数17年・貸付けの線・5億円の現実 ── 蓄電所で使うときの11の実務論点｜ScienceX">
+<meta name="twitter:description" content="耐用年数17年・貸付けの線・補助金と長期脱炭素・タイミング設計。一般解説が書かない蓄電所固有の11論点。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-08-31">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "耐用年数17年・貸付けの線・5億円の現実 ── 蓄電所で使うときの11の実務論点｜ScienceX",
+  "description": "売電用蓄電池は機械装置17年（「6年」は停電時照明用）、ROI審査の分母は17年に固定。賃貸借は対象外・運用委託の余地、複数拠点の束ね、補助金の圧縮記帳と下限判定❓、長期脱炭素オークションの9割還付、即時償却と税額控除の選び方、決算期とタイミング設計まで11論点。",
+  "author": {
+    "@type": "Person",
+    "name": "中島 晋也",
+    "jobTitle": "代表取締役（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp.png"
+  },
+  "datePublished": "2026-08-31",
+  "dateModified": "2026-08-31",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.scix.co.jp/column-investment-tax-practice"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://www.scix.co.jp/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ナレッジ",
+      "item": "https://www.scix.co.jp/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "蓄電所で使うときの11の実務論点",
+      "item": "https://www.scix.co.jp/column-investment-tax-practice"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">蓄電所で使うときの11の実務論点</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 45-4</span>
+      <span class="header-tag">税制 / 蓄電所の実務論点</span>
+      <time class="header-date" datetime="2026-08-31">2026.08.31</time>
+    </div>
+    <h1>耐用年数17年・貸付けの線・5億円の現実 ── 蓄電所で使うときの<em>11の実務論点</em></h1>
+    <p class="header-desc">審査の分母を決める耐用年数、契約のかたち、補助金と長期脱炭素、そして決算期とタイミングの設計。一般解説が書かない場所だけを書く。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<p>本稿は<a target="_top" href="/column-investment-tax">COLUMN 45</a>の実務編です。制度の一般解説は世に十分あります。ここに書くのは、<strong>蓄電所という事業に固有の11論点</strong>──収益構造・耐用年数・契約のかたち・補助金・市場制度・決算期──だけです。判定凡例は ○＝一次確認／△＝二次経由・類似制度からの整理／❓＝一次で確認不能。数値には出所区分（<strong>公表値／試算</strong>）を付し、断定できないものは断定しません。</p>
+
+<blockquote>
+<p style="margin:0"><strong>先に3行。</strong>①売電用の蓄電池の耐用年数は実務上<strong>17年</strong>──「6年」は停電時照明用の区分で、蓄電所には原則使えない。この17年が投資利益率15%審査の分母になる。②<strong>賃貸借は対象外で確定、運用委託は残る</strong>──契約のかたちが適用可否を分ける。③高圧2MW/8MWh級は公表単価ベースの試算で約5.4億円──<strong>中小枠5億円は高圧1案件で射程</strong>に入る。ただし補助金の圧縮と下限判定の関係は未確定❓。</p>
+</blockquote>
+
+<div class="note"><b>編集メモ：</b>耐用年数は耐用年数省令・耐用年数通達（国税庁）、市場データはJEPX・EPRX・OCCTO、単価は経済産業省の検討会資料、スキームは措置法通達と国税庁質疑応答で、2026年8月30日〜31日に確認しました。公開前に第三者による一次ソース検証（71項目）を行い、長期脱炭素オークションの内訳数値と通達の逐語について指摘を受け、原典で再照合のうえ修正しています。収益性・単価は前提条件つきの試算としてのみ扱い、達成可否を断定しません。太陽光の税制上の扱いを蓄電池に無断で類推せず、共通の条文・通達構造に基づく場合のみ対比しています。個別の税務判断は税理士・所轄税務署にご確認ください。</div>
+
+<h2><span class="no">01</span>耐用年数 ── 「6年」の正体と、17年という実務</h2>
+
+<p>「蓄電池は6年で償却できる」という説明を見かけますが、その6年は<strong>建物附属設備の「蓄電池電源設備」</strong>の年数です。耐用年数通達2-2-2はこれを「停電時に照明用に使用する等のためあらかじめ蓄電池に充電し、これを利用するための設備」と定義しており（○）、<strong>売電目的の蓄電所には原則当たりません</strong>──建物の効用を高める設備ではないからです。売電用の蓄電池・PCSは<strong>機械及び装置</strong>に該当します。耐用年数通達2-8-9は、蓄電池電源設備が「総合工事業の業種用の設備として通常使用しているものであっても」別表第二「55 前掲の機械及び装置以外のもの」に含まれると明記しており（○・逐語確認）、「使用業種の特定が困難だから」という理由づけは同通達の趣旨説明（平成20年12月26日 課法2-14ほか）にあります。「31 電気業用設備」経由でも「55」経由でも、「その他の設備・主として金属製のもの＝<strong>17年</strong>」に収れんします（太陽光発電協会のFAQも同じ整理）。国税庁が「系統用蓄電池」を名指しした公表見解はなく❓、業界団体（JSEC）は「17年は実情に合わない」として17年か8年の選択運用を要望している段階です（△）。<strong>現時点の安全側は17年</strong>。8年・6年での申告は否認リスクを個別に負うことになります。</p>
+
+<h2><span class="no">02</span>ROIの分母は17年に固定される ── 設備構成が審査を動かす</h2>
+
+<p>METIの投資利益率計算シートは、<strong>計画に含めた設備のうち最長の減価償却期間</strong>を分母の年数（セルC31）とし、その全期間について「増加営業利益＋減価償却費」（簡易CF）の年平均を取って投資額で割ります。任意期間（5〜10年で設定）までは実数入力、それ以降は任意期間最終年の営業利益で固定──つまり<strong>蓄電池（17年）を計画に含める限り、分母は17年です</strong>（○・シート実物で検証）。シートの記載例（35億円投資＝工場30年＋機械10年でROI21.3%）は工場と機械の組合せに固有の数値で、蓄電所に読み替えてはいけません。蓄電所の分子は市場収益──17年間のうち後半は任意期間最終年の水準で固定される構造なので、<strong>任意期間の最終年を保守的に置けるか</strong>が計画の説得力を決めます。</p>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>蓄電所の設備分解と資産区分（実務整理。個別判定が前提）</caption>
+<thead><tr><th>設備</th><th>想定区分</th><th>耐用年数</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td>蓄電池本体・PCS（売電用）</td><td>機械及び装置</td><td class="max">17年</td><td>別表第二55／31、耐通2-8-9（○）</td></tr>
+<tr><td>受変電・キュービクル</td><td>機械装置 or 建物附属設備</td><td>17年 or 15年</td><td>別表第二／別表第一（△・個別判定）</td></tr>
+<tr><td>基礎・フェンス・舗装</td><td>構築物</td><td>用途・材質による</td><td>別表第一（個別判定）</td></tr>
+<tr><td>EMS・運用ソフトウェア</td><td>ソフトウェア（その他）</td><td>5年</td><td>別表第三（○）</td></tr>
+<tr><td>（参考）停電時照明用の蓄電池</td><td>建物附属設備・蓄電池電源設備</td><td>6年</td><td>別表第一、耐通2-2-2（○）── 蓄電所は原則非該当</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2><span class="no">03</span>収益根拠は公的データで組む ── 添付資料の材料一覧</h2>
+
+<p>ROIシートの売上根拠は「（添付◯◯参照）」形式で資料に紐づけます。使えるのは次の公表データです（いずれも○）：<strong>JEPX</strong>スポット市場の約定価格・入札カーブ（直近30日超のヒストリカルはJPX総研の有料サービス・利用規約あり）、<strong>EPRX</strong>（需給調整市場）の商品別・エリア別約定結果（非商用・出典明示条件）、<strong>OCCTO</strong>の容量市場メインオークション約定結果（エリアプライス・CSV）と長期脱炭素電源オークションの約定結果・落札電源一覧、そして資源エネルギー庁の審議会資料。設備単価の公的な参照点は、経済産業省「定置用蓄電システム普及拡大検討会」（三菱総合研究所受託。資料3＝2025年1月30日、結果とりまとめ＝2025年3月7日）の<strong>蓄電システム5.4万円/kWh＋工事費1.4万円/kWh</strong>（内訳：電池4.1・PCS 0.6万円/kWh。公表値・2024年度・規模で逓減）です。販売資料の「◯◯万円/kWh」「利回り◯%」は出所を明示できない限り計画に使わない──<a target="_top" href="/column-low-voltage">COLUMN 44</a>と同じ規律です。</p>
+
+<h2><span class="no">04</span>「貸付け」の線 ── 賃貸借は死に、運用委託は生きる</h2>
+
+<p>条文は貸付用を除外します（○）。当てはめを4つに分けます。<strong>(a) 賃貸借・リース賃貸（設備をオペレーターに貸す）＝対象外で確定</strong>（×）。<strong>(b) 運用委託（設備・収益はオーナー、アグリゲーターは市場取引と制御を代行する役務提供者）＝「貸付け」に当たらないと解する余地が大きい</strong>──類似制度の通達は、取得した設備を<strong>委託先</strong>に貸与しても「専ら当該法人のためにする」用途なら自己の事業供用と扱います（措通42の6-8〈現行文言は令和8年改正で「委託先」〉。CN税制の同旨は42の12の6-1〈自己の下請業者〉。○・類似）。通達の主語が「委託先」である点は、運用委託という構成の整理と噛み合います。ただし本税制を名指ししたQ&Aはなく、契約書を添えた書面照会が前提です❓。<strong>(c) GK-TK（匿名組合）</strong>＝匿名組合の財産は営業者に帰属するため、営業者（SPC）が自ら供用すれば営業者段階で適用の余地（△）。ただし措置法には匿名組合契約の目的である事業供用を除外する例（措法42条の6第1項）があり、<strong>本税制に同種の除外があるかは条文確定を要します</strong>❓。<strong>(d) 所有権移転外ファイナンスリース</strong>＝賃借人側の特別償却は原則不可という一般則があり、本税制での可否は要確認❓。<strong>結論：オーナー自己保有＋運用委託が唯一の安全線</strong>。契約書では、設備の占有・使用収益・市場収益の帰属がオーナーに残ることを明記してください。</p>
+
+<h2><span class="no">05</span>複数拠点を1本の計画に束ねられるか</h2>
+
+<p>禁止する明文は、施行規則・様式・周知資料のどこにも見つかりません（○・不存在の確認）。むしろ様式の設備一覧表は<strong>設備ごとに所在地と耐用年数を書く構造</strong>で、複数所在地が書ける形です。ただし「様式上書ける」と「運用上認められる」は別物──可否は経産局への事前照会事項です❓。もし束ねられるなら、単独では5億円に届かない<strong>小規模高圧のポートフォリオ</strong>に道が開きます。その場合も各設備が単価下限（機械装置1台160万円）を満たす必要がありますが、判定は通常の取引単位で行い、<strong>本体と一体で使う附属機器は含めて判定できる</strong>とするのが類似通達の扱いです（措通42の12の4-4、○・類似）。蓄電池ユニット＋PCS一式での判定余地を含め、束ね方の設計は照会結果待ちです。低圧（50kW未満）の束ねは、49.5kW×数十基という事業構造自体の論点（<a target="_top" href="/column-low-voltage">COLUMN 44</a>）が先に立ちます。</p>
+
+<h2><span class="no">06</span>新設SPCの3つの落とし穴</h2>
+
+<p>①<strong>添付⑤（成長投資の方針）は前事業年度の実績を書かせる様式</strong>──新設SPCには前事業年度がありません。ゼロ記載か算定不能表記かは❓（経産局照会）。②<strong>青色申告の承認申請</strong>は、設立から3か月経過日と最初の事業年度終了日のいずれか早い日の前日まで（○・一般則）。SPC設立直後の失念が最も安い致命傷です。③<strong>決算期の設計</strong>──適用は供用年度なので、供用予定日と決算期の位置関係が初年度の税効果を決めます（論点11）。</p>
+
+<h2><span class="no">07</span>補助金との併用 ── 「使える」が、判定が動く</h2>
+
+<p>SIIの系統用蓄電池補助金は本税制と制度上排他ではありません（排他は3つの設備投資税制のみ。<a target="_top" href="/column-investment-tax-law">条文編・06</a>）。規模感は、令和6年度27件・約346.5億円、令和7年度37件・約363億円の採択（公表の集計・△）、補助率は最大受電電力と電池技術に応じ<strong>1/3〜2/3以内</strong>（例：10MW以上のリチウムイオンで1/2以内・上限40億円。公募要領・○）。税務は、国庫補助金の圧縮記帳をすると<strong>圧縮後の金額が取得価額</strong>となり、即時償却・税額控除の計算基礎も圧縮後（法令54条3項・通達一般則、○）。問題は<strong>投資下限5億円／35億円の判定が圧縮前か後か──どの一次資料にも明示がない❓</strong>ことです。仮に圧縮後判定なら、補助金をもらうほど下限割れに近づくという逆説が生じます。10億円の設備に1/2補助なら圧縮後5億円ちょうど──端数ひとつで落ちる設計は避け、<strong>照会で確定するまで計画額に余裕を持たせる</strong>のが実務です。補助金そのものの損得は<a target="_top" href="/column-subsidies">COLUMN 20</a>。</p>
+
+<h2><span class="no">08</span>長期脱炭素電源オークションとの関係 ── 9割還付の壁</h2>
+
+<p>長期脱炭素電源オークションは、固定費水準の容量収入を原則20年間受け取る代わりに、<strong>他市場からの収益を事後的に約9割還付する</strong>制度です（OCCTO約定結果公表資料で逐語確認。還付割合は他市場収益の多寡に応じ3段階、○）。2024年度実施分（2025年4月28日公表）は、脱炭素電源全体で募集500万kWに対し<strong>約定503.0万kW・約定総額3,464億円/年</strong>（○）。蓄電池・揚水（合算）は運転継続時間3時間以上6時間未満で96.1万kW、6時間以上で76.9万kWが約定しています（○）。蓄電池単独の件数・容量は公表本文に内訳がなく、別紙「落札電源一覧」の集計が必要なため本稿では記載しません❓。ここで2つの検証が要ります。①募集要綱・容量確保契約約款の「他の補助金等」の定義に<strong>税制上の優遇が含まれるか</strong>──明示的な言及は特定できておらず❓（OCCTO照会）。②含まれないとしても、収益の9割を還付する事業で<strong>投資利益率15%の計画をどう描くか</strong>──容量収入は固定費回収であり、ROIシートの営業利益にどう載せるかは計画設計の腕の見せ所です。長期脱炭素前提の案件は、本税制との相性を最初に検証してください。制度の中身は<a target="_top" href="/column-auction">長期脱炭素の回</a>へ。</p>
+
+<h2><span class="no">09</span>即時償却か、税額控除7%か ── 蓄電所での選び方</h2>
+
+<p>一般論の枠組みだけ整理します（個別判断はしません）。<strong>即時償却</strong>＝課税の繰延。所得が立つ主体でこそ効き、地方税（事業税所得割・住民税法人税割）まで波及します。<strong>税額控除</strong>＝税額の実減。ただし7%（構築物・建物・建附は4%）、供用年度の法人税額の20%上限、繰越は実質使えず、地方税側の効きは中小企業者等の住民税に限られます（大綱・○）。蓄電所での典型は次の4象限です：<strong>単体SPCで初年度に所得なし</strong>→即時償却は欠損金を積むだけ（繰越10年。ただし資本金1億円超、または資本金5億円以上の大法人の100%子会社は控除限度が所得の50%──SPCが陥りやすい罠です。一般則）。<strong>親会社保有・グループ通算</strong>→当期利益と相殺でき、即時償却が最も効く。<strong>法人税額が十分立つ既存事業者</strong>→7%控除と即時償却の現在価値比較。<strong>設備ごとの選択</strong>→7%対象（機械装置・ソフト）は控除、4%対象（構築物等）は即時償却、といった組み合わせも制度上可能です（○）。</p>
+
+<h2><span class="no">10</span>5億円の現実味 ── 高圧1案件で届くか</h2>
+
+<p>公表単価（5.4＋1.4万円/kWh・2024年度）を8MWhに乗じると<strong>約5.4億円（試算）</strong>。実在の高圧案件も出力2MW・容量8MWh級が標準です（イーレックスの串間・千葉・関西の各案件＝公表値。投資額自体は非開示）。単価は規模・仕様・時点で大きく動き、規模が大きいほどkWh単価は下がるため（同検討会資料）、<strong>8MWh級は「届くか届かないか」の境界線上</strong>にあります。境界で設計するなら、①受変電・構築物・EMSまで含めた計画全体の取得価額で見る、②補助金の圧縮と下限判定の関係（論点07❓）を先に照会で確定する、の2点が前提です。<strong>高圧の数字を低圧に按分してはいけません</strong>──低圧は1基2,000万円台（広告値）の世界で、単独では桁が2つ足りず、束ね（論点05）の可否がすべてです。</p>
+
+<h2><span class="no">11</span>タイミング設計 ── 決算期・供用日・誰の法人か</h2>
+
+<p>最後に、金額より効くことの多い時間の設計です。5点に畳みます。</p>
+
+<p><strong>① 適用年度＝供用日を含む事業年度</strong>（○）。取得しても連系待ちで供用が翌期なら、効果はまるごと翌期です。取得と供用の両方が確認日から5年以内に必要です。<strong>② 支払日は要件でない</strong>（○・一般則）。未払でも供用済みなら当期に落ち、前払いしても引渡し前は建設仮勘定。連系工事費負担金は取得価額ではなく<strong>繰延資産</strong>（国税庁質疑応答＝太陽光で15年準拠・○。蓄電所への当てはめ△）で、即時償却にも5億円判定にも乗らない方向です。<strong>③ 期末供用でも即時償却は満額</strong>──月割なし（○）。<strong>④ 税額控除は期首供用が効く</strong>──20%上限が供用年度の法人税額に張り付くため（○）。③④で最適供用月が反転します。<strong>⑤ 誰の年度かも同じだけ効く</strong>──単体SPCの欠損金化・50%制限（論点09）か、親保有・通算での即時相殺か。なお<strong>中小企業者等の判定時点</strong>は、類似制度の通達が「取得等をした日<strong>及び</strong>事業供用日の現況」と定めています（措通42の6-1の2＝逐語確認○。CN税制の42の12の6-2も同旨とされる△）。本税制対応の国税庁通達は2026年8月30日時点で未公表と確認しており（通達目次）、確定は❓──増資・株主変更を挟む案件は両時点で中小を維持する設計が安全です。蓄電所の供用日そのもの（連系日か商業運転開始日か）も❓のままです（<a target="_top" href="/column-investment-tax-schedule">手続編・04</a>）。</p>
+
+<details><summary>論点別の判定表（クリックで展開）</summary>
+<div class="tablewrap wraptext" style="margin-top:14px">
+<table>
+<thead><tr><th>論点</th><th>結論</th><th style="width:3.5em">判定</th></tr></thead>
+<tbody>
+<tr><td>蓄電池電源設備6年の射程</td><td>停電時照明用等に限る。売電の蓄電所は原則非該当</td><td class="ok">○</td></tr>
+<tr><td>売電用蓄電池の区分・年数</td><td>機械装置・主として金属製17年（別表第二55／31）</td><td class="ok">○</td></tr>
+<tr><td>国税庁の系統用蓄電池名指し見解</td><td>存在を確認できず</td><td>❓</td></tr>
+<tr><td>ROI分母＝最長償却期間</td><td>蓄電池を含む限り17年（シートC31）</td><td class="ok">○</td></tr>
+<tr><td>賃貸借の除外</td><td>対象外で確定</td><td class="ng">×</td></tr>
+<tr><td>運用委託の貸付非該当</td><td>類似通達から非該当の方向。本税制の明文なし</td><td>△❓</td></tr>
+<tr><td>GK-TK・移転外リース</td><td>営業者段階の余地あり／リースは原則不可の一般則。条文確定要</td><td>❓</td></tr>
+<tr><td>複数拠点の1計画化</td><td>禁止明文なし。可否は運用照会</td><td>❓</td></tr>
+<tr><td>下限判定の圧縮前後</td><td>一次資料に明示なし</td><td>❓</td></tr>
+<tr><td>圧縮後取得価額での計算</td><td>圧縮後ベース（法令54③・通達一般則）</td><td class="ok">○</td></tr>
+<tr><td>長期脱炭素約款への税制の含否</td><td>明示的言及を特定できず</td><td>❓</td></tr>
+<tr><td>長期脱炭素2024年度の蓄電池単独内訳</td><td>公表本文は蓄電池・揚水の合算（96.1万kW／76.9万kW）。単独値は落札電源一覧の集計要</td><td>❓</td></tr>
+<tr><td>中小判定の時点</td><td>類似通達（42の6-1の2）は取得日＋供用日の現況。本税制通達は未公表（2026-08-30確認）</td><td>△</td></tr>
+<tr><td>供用日の解釈（連系か運開か）</td><td>一般則＋太陽光の課税庁対応事例。蓄電所名指しなし</td><td>❓</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<hr class="sep">
+
+<div class="related">
+<p><strong>シリーズ</strong>：<a target="_top" href="/column-investment-tax">本編（30秒診断）</a> ／ <a target="_top" href="/column-investment-tax-law">45-2 条文編</a> ／ <a target="_top" href="/column-investment-tax-schedule">45-3 手続編</a>。前提の考え方は <a target="_top" href="/column-tax">COLUMN 22</a>、補助金は <a target="_top" href="/column-subsidies">COLUMN 20</a>、収益構造は <a target="_top" href="/column-revenue">収益の回</a>・<a target="_top" href="/column-capacity-market">容量市場の回</a>・<a target="_top" href="/column-eprx">EPRXの回</a>。</p>
+</div>
+
+<div class="refs">
+<h3>出典（確認日 2026-08-30〜31）</h3>
+<ul>
+<li>耐用年数省令 別表第一・第二・第三／耐用年数通達 2-2-2・2-8-9 ── nta.go.jp（e-Gov・国税庁法令解釈通達）</li>
+<li>国税庁 措置法通達 42の6-8・42の6-1の2・42の12の4-4・42の12の6-1・42の12の6-2 ── nta.go.jp/law/tsutatsu/kobetsu/hojin/sochiho/750214/01/</li>
+<li>国税庁 質疑応答事例「太陽光発電設備の連系工事負担金の取扱いについて」 ── nta.go.jp/law/shitsugi/hojin/06/06.htm</li>
+<li>経済産業省「定置用蓄電システム普及拡大検討会」資料3（2025-01-30）・結果とりまとめ（2025-03-07） ── meti.go.jp/shingikai/energy_environment/storage_system/pdf/2024_005_03_00.pdf（5.4＋1.4万円/kWh、内訳：電池4.1・PCS 0.6）</li>
+<li>JEPX 市場データ ── jepx.jp ／ EPRX 約定結果 ── eprx.or.jp ／ OCCTO 容量市場・長期脱炭素電源オークション（2024年度約定結果＝2025-04-28公表ページ） ── occto.or.jp/news/market-board_market_oshirase_2025_20250428_youryouyakujokekka_kouhyou.html</li>
+<li>SII「再生可能エネルギー導入拡大・系統用蓄電池等電力貯蔵システム導入支援事業」公募要領・交付決定公表 ── sii.or.jp（採択件数・総額の年度集計は二次経由△）</li>
+<li>資源エネルギー庁 制度検討作業部会（長期脱炭素電源オークション・約9割還付の枠組み） ── enecho.meti.go.jp</li>
+<li>イーレックス 各リリース（串間・千葉・関西 2MW/8MWh） ── erex.co.jp（投資額は非開示）</li>
+<li>太陽光発電協会（JPEA）FAQ・JSEC意見（17年の実務と見直し要望） ── ※二次・業界資料</li>
+</ul>
+</div>
+
+<div class="author-box">
+<div class="ab-label">執筆</div>
+<div class="ab-name">中島 晋也（工学博士）／ サイエンスエックス株式会社 代表取締役</div>
+照会結果（経産局・税務署・OCCTO）が出るたびに本稿の❓を更新します。実案件での適用経験の共有も歓迎します：<a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+</div>
+
+<div style="background:#F5F1E8;border:1px solid #E0DCD4;border-radius:8px;padding:28px 24px;margin-top:36px;text-align:center">
+  <p style="font-family:'Noto Serif JP',serif;font-size:16px;font-weight:600;color:#1B2A4A;margin:0 0 8px">適用可否まで見た案件検討を</p>
+  <p style="color:#5A6577;font-size:13px;line-height:1.9;margin:0 0 16px">当社の案件仲介では、投資規模・契約のかたち・スケジュールが本税制の要件とどう噛み合うかまで開示して整理します。</p>
+  <a target="_top" href="/transfer" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">案件を買う →</a>
+</div>
+
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/land" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">土地を売る・貸す</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Serif JP',serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.down{color:var(--warn);font-weight:700}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tr.total td{background:rgba(196,154,60,0.08);font-weight:700;border-top:2px solid var(--accent)}
+td.max{color:var(--warn);font-weight:700}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.wraptext td{text-align:left;vertical-align:top}
+.wraptext thead th{text-align:left}
+.scope th{width:10em;vertical-align:top}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-16px 0 28px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.related{font-size:.9em;line-height:2.05}
+.related ul{margin:8px 0;padding-left:1.3em}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+td.ok{color:var(--green);font-weight:700}
+td.ng{color:var(--warn);font-weight:700}
+.ja-tag{display:inline-block;margin-left:.35em;padding:0 .4em;font-size:.66em;font-weight:700;letter-spacing:.07em;color:#A07916;background:rgba(196,154,60,.15);border-radius:2px;vertical-align:.14em;text-decoration:none}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px}
+}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+
+details{margin:24px 0;border:1px solid var(--border);border-radius:6px;background:var(--light-bg);padding:14px 18px}
+details summary{cursor:pointer;font-weight:600;color:var(--navy);font-size:.92em}
+details[open]{background:var(--white)}
+details p{font-size:.86em;color:var(--text-light);margin-bottom:12px}
+</style>
+<title>Immediate Depreciation: Applications Are Open — The Bold Investment Promotion Tax Incentive, the First Page for Anyone Using It on a Storage Station | ScienceX</title>
+<meta name="description" content="The Bold Investment Promotion Tax Incentive (Tax Incentive for Investment in Specified Productivity-Enhancing Equipment) came into force on 31 July 2026 and applications are open. Article 42-12-7 of the Act on Special Measures Concerning Taxation. A four-question 30-second test for storage station owners, the 31 March 2029 confirmation deadline and the five-year clock that starts at confirmation, the four points that decide it — 17-year useful life, where the lease line falls, the in-service date — and the questions still under enquiry. The entrance to the Statutes, Procedure and Practice editions.">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-investment-tax">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-investment-tax">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-investment-tax">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-investment-tax">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-investment-tax">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Immediate Depreciation: Applications Are Open — The Bold Investment Promotion Tax Incentive, the First Page for Anyone Using It on a Storage Station | ScienceX">
+<meta property="og:description" content="Applications for the Bold Investment Promotion Tax Incentive are open. A 30-second test for storage station owners, the timeline worked backwards, the four points specific to storage, and the questions still under enquiry.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-investment-tax">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Immediate Depreciation: Applications Are Open — The Bold Investment Promotion Tax Incentive, the First Page for Anyone Using It on a Storage Station | ScienceX">
+<meta name="twitter:description" content="Applications for the Bold Investment Promotion Tax Incentive are open. A 30-second test for storage station owners, the timeline worked backwards, the four points specific to storage, and the questions still under enquiry.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="article:published_time" content="2026-08-31">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Immediate Depreciation: Applications Are Open — The Bold Investment Promotion Tax Incentive, the First Page for Anyone Using It on a Storage Station | ScienceX",
+  "description": "The Bold Investment Promotion Tax Incentive (Tax Incentive for Investment in Specified Productivity-Enhancing Equipment) came into force on 31 July 2026 and applications are open. Article 42-12-7 of the Act on Special Measures Concerning Taxation. A four-question 30-second test for storage station owners, the 31 March 2029 confirmation deadline and the five-year clock that starts at confirmation, the four points that decide it, and the questions still under enquiry. The entrance to the Statutes, Procedure and Practice editions.",
+  "author": {
+    "@type": "Person",
+    "name": "Shinya Nakashima",
+    "jobTitle": "Representative Director, Ph.D. (Eng.)",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-08-31",
+  "dateModified": "2026-08-31",
+  "inLanguage": "en",
+  "isBasedOn": "https://www.scix.co.jp/column-investment-tax",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.scix.co.jp/en/column-investment-tax"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Immediate Depreciation: Applications Are Open",
+      "item": "https://www.scix.co.jp/en/column-investment-tax"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/en" style="color:#5A6577;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">&rsaquo;</span><a href="/en/knowledge" style="color:#5A6577;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">&rsaquo;</span><span style="color:#8A92A0">Immediate depreciation: applications are open</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 45</span>
+      <span class="header-tag">TAX / BOLD INVESTMENT PROMOTION TAX INCENTIVE</span>
+      <time class="header-date" datetime="2026-08-31">2026.08.31</time>
+    </div>
+    <h1>Immediate depreciation: <em>applications are open</em> — the first page for anyone using it on a storage station</h1>
+    <p class="header-desc">The Bold Investment Promotion Tax Incentive came into force on 31 July 2026 and applications are open. A 30-second test, a timeline worked backwards, and the four points specific to a storage station.</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<p>In <a target="_top" href="/en/column-tax">COLUMN 22</a> we wrote that the Bold Investment Promotion Tax Incentive (formally, the Tax Incentive for Investment in Specified Productivity-Enhancing Equipment) had not yet started. It has now. The amending Act to the Industrial Competitiveness Enhancement Act was promulgated on 5 June 2026 and <strong>came into force on 31 July, and from that same day the nine regional Bureaux of Economy, Trade and Industry began accepting applications for confirmation of investment plans</strong> (METI announcement of 31 July 2026). The tax side is settled too: <strong>Article 42-12-7</strong> of the Act on Special Measures Concerning Taxation, on special depreciation or a special credit against corporation tax where specified productivity-enhancing equipment is acquired — it appears with the article number in the National Tax Agency's pamphlet. The cabinet and ministerial ordinances, the public notices, the application forms and the return-on-investment calculation sheet, all of which were still to be decided when COLUMN 22 was written, have now been published.</p>
+
+<p>This column is the entrance to the follow-up. How the measure works, and the point that immediate depreciation is not a tax cut but a deferral of tax, are in COLUMN 22 and are not repeated here. What this page holds is <strong>the four things a storage station owner, an SPC or an incoming investor checks first now that applications are open</strong>, and the schedule worked backwards from the target in-service date. The statutory basis, the procedural detail and the eleven practical issues are split into the <a target="_top" href="/column-investment-tax-law" hreflang="ja">Statutes edition (45-2)</a><span class="ja-tag">JA</span>, the <a target="_top" href="/column-investment-tax-schedule" hreflang="ja">Procedure edition (45-3)</a><span class="ja-tag">JA</span> and the <a target="_top" href="/column-investment-tax-practice" hreflang="ja">Practice edition (45-4)</a><span class="ja-tag">JA</span>. Read to whatever depth you need.</p>
+
+<div class="note"><b>Editor's note:</b> This column and 45-2 to 45-4 were written by checking primary sources on 30&ndash;31 August 2026: the Ministry of Finance's FY2026 Tax Reform Outline (Cabinet decision of 26 December 2025); the National Tax Agency's Outline of the FY2026 Amendments to Corporation Tax Legislation; METI's programme page, pamphlet, application forms and return-on-investment calculation sheet (the Excel file itself); the Industrial Competitiveness Enhancement Act and its enforcement regulations; and the National Tax Agency's Q&amp;A cases and circulars. Before publication, 71 of the series' principal statements were verified against primary sources by a third party (30 August 2026), and every point raised was re-checked against the original text and corrected. Items that could not be confirmed from a primary source are marked &#10067; in the text and collected in the table of open questions at the end; this series will be updated as answers come in. Figures carry their provenance (published figure / our estimate). This column organises the rules and the practice. It is not tax, investment or legal advice — check individual decisions with your tax adviser.<br><b>On this English edition:</b> this is a translation of the Japanese original, and for tax and legal matters the Japanese-language primary sources govern. Links marked <span class="ja-tag">JA</span> lead to Japanese-language pages; 45-2 to 45-4 have no English edition at present.</div>
+
+<h2><span class="no">01</span>The 30-second test — four questions decide whether you are even at the door</h2>
+
+<p>Before any of the detail, these four questions. <strong>A single "no" means either that the measure is closed to you or that the plan needs redesigning.</strong> Four yeses put you at the door — and beyond it wait the real tests: a 15% return on investment, and the confirmation of the Minister of Economy, Trade and Industry.</p>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>The 30-second test — four yeses put you at the door</caption>
+<thead><tr><th style="width:2.5em">#</th><th>Question</th><th>What a "no" means</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Do the acquisition costs of the equipment in the plan total <strong>¥500 million or more</strong> (for an SME; ¥3.5 billion or more for everyone else)?</td><td>You are under the investment floor, so outside the scope of confirmation. A high-voltage 2 MW / 8 MWh class project comes to roughly ¥540 million on published unit prices (our estimate) — <a target="_top" href="/column-investment-tax-practice" hreflang="ja">Practice edition, issue 10</a><span class="ja-tag">JA</span></td></tr>
+<tr><td>2</td><td>Was the investment plan resolved or decided (by the board or equivalent) <strong>on or after 26 December 2025</strong>?</td><td>As a rule, out of scope. For a "change" to a plan decided before that date there are criteria set by the Minister &#10067; — <a target="_top" href="/column-investment-tax-law" hreflang="ja">Statutes edition, 04</a><span class="ja-tag">JA</span></td></tr>
+<tr><td>3</td><td>Will your own company (or your own SPC) <strong>own the equipment and use it in its own business</strong> — rather than let it to someone else under a lease or rental?</td><td>Equipment "held for lease" is an express statutory exclusion. Delegating operation to an aggregator may still leave room — <a target="_top" href="/column-investment-tax-practice" hreflang="ja">Practice edition, issue 04</a><span class="ja-tag">JA</span></td></tr>
+<tr><td>4</td><td>Are you a <strong>blue-return</strong> corporation (or sole proprietor)?</td><td>The precondition for applying the measure is missing. A newly formed SPC should watch the deadline for the approval application — within three months of incorporation, among other cases — <a target="_top" href="/column-investment-tax-practice" hreflang="ja">Practice edition, issue 06</a><span class="ja-tag">JA</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="tnote">"SME" (中小企業者等) is not settled by stated capital alone — a subsidiary of a large corporation drops out, for instance. The definition sits in Article 42-4(19)(vii) and (ix) of the Act on Special Measures Concerning Taxation (for individuals, Article 10(8)(vi)), and it is set out expressly in the notes to Form 1 of the application. The point in time at which the test is applied is itself an open question (<a target="_top" href="/column-investment-tax-practice" hreflang="ja">Practice edition, issue 11</a><span class="ja-tag">JA</span>).</p>
+
+<h2><span class="no">02</span>Working backwards — two deadlines, and the fiscal year as a third axis</h2>
+
+<p>There are two deadlines. <strong>① Obtain the Minister's confirmation by 31 March 2029</strong> — the certificate in hand, not the application filed; the standard processing period is about one month. <strong>② Acquire the equipment and place it in service within five years of the date of confirmation.</strong> A storage station burns years on the connection study, the interconnection works and equipment lead times, so the design has to run the confirmation procedure and the grid procedure in parallel, planned backwards from the end. Then there is a third axis: the fiscal year. <strong>The measure bites in the business year that contains the in-service date</strong> — not when you paid, but when you started using it, decides which year it lands in.</p>
+
+<figure>
+<svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 1 — the Bold Investment Promotion Tax Incentive planned backwards. The flow from the investment decision through declaration, pre-check, application for confirmation, the certificate, ordering, interconnection, entry into service and the tax return; the two deadlines of 31 March 2029 for confirmation and five years from confirmation for acquisition and use; and the fiscal-year axis that decides which business year the in-service date falls in.">
+  <rect width="720" height="400" fill="#FFFFFF"/>
+  <text x="40" y="30" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">FIG. 1 / WORKING BACKWARDS — PROCEDURE, GRID AND FISCAL YEAR</text>
+
+  <text x="40" y="62" font-family="'Noto Serif JP',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">Procedure lane (the tax measure)</text>
+  <rect x="40" y="72" width="100" height="46" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="90" y="91" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">Decision</text>
+  <text x="90" y="107" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">Board resolution</text>
+  <rect x="148" y="72" width="100" height="46" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="198" y="91" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">Declaration</text>
+  <text x="198" y="107" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">~10 days to post</text>
+  <rect x="256" y="72" width="100" height="46" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="306" y="91" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">Pre-check</text>
+  <text x="306" y="107" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">Tax adviser / CPA</text>
+  <rect x="364" y="72" width="100" height="46" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="414" y="91" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">Application</text>
+  <text x="414" y="107" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">Bureau, ~1 month</text>
+  <rect x="472" y="72" width="100" height="46" rx="6" fill="#FDF6E7" stroke="#C49A3C" stroke-width="2"/>
+  <text x="522" y="91" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">Certificate</text>
+  <text x="522" y="107" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#A07916">5-year clock starts</text>
+  <rect x="580" y="72" width="100" height="46" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="630" y="91" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">Acquire &amp; use</text>
+  <text x="630" y="107" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">Never before this</text>
+  <line x1="140" y1="95" x2="148" y2="95" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="248" y1="95" x2="256" y2="95" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="356" y1="95" x2="364" y2="95" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="464" y1="95" x2="472" y2="95" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="572" y1="95" x2="580" y2="95" stroke="#1B2A4A" stroke-width="1.5"/>
+
+  <text x="40" y="150" font-family="'Noto Serif JP',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">Grid lane (run it in parallel)</text>
+  <rect x="40" y="160" width="150" height="40" rx="6" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="115" y="177" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#2C3E50">Connection study</text>
+  <text x="115" y="192" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">3 months; reply valid 1 yr</text>
+  <rect x="202" y="160" width="150" height="40" rx="6" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="277" y="177" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#2C3E50">Contract application</text>
+  <text x="277" y="192" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">Contribution paid pre-works</text>
+  <rect x="364" y="160" width="150" height="40" rx="6" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="439" y="177" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#2C3E50">Interconnection works</text>
+  <text x="439" y="192" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">Years if reinforcement</text>
+  <rect x="526" y="160" width="154" height="40" rx="6" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="603" y="177" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#2C3E50">Energised, in operation</text>
+  <text x="603" y="192" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">= "in service" in substance</text>
+
+  <text x="40" y="236" font-family="'Noto Serif JP',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">Fiscal-year lane (this fixes the year it lands in)</text>
+  <line x1="40" y1="266" x2="680" y2="266" stroke="#C9CFD8" stroke-width="1.5"/>
+  <line x1="220" y1="254" x2="220" y2="278" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="500" y1="254" x2="500" y2="278" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="130" y="250" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">Previous business year</text>
+  <text x="360" y="250" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#1B2A4A">Business year of the in-service date</text>
+  <text x="590" y="250" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">Next business year</text>
+  <circle cx="360" cy="266" r="6" fill="#C49A3C"/>
+  <text x="360" y="292" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">In-service date</text>
+  <text x="360" y="308" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">Not the payment date, not the acquisition date — this is the date that fixes the year</text>
+
+  <line x1="40" y1="336" x2="680" y2="336" stroke="#C49A3C" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="40" y="358" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">Deadline ① confirmation by 31 March 2029</text>
+  <text x="680" y="358" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">Deadline ② acquire and use within 5 years</text>
+  <text x="40" y="382" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">Standard processing periods are published figures; actual elapsed time can run longer (Procedure edition, 45-3).</text>
+</svg>
+<figcaption>Figure 1 — three lanes: procedure, grid and fiscal year. Getting the certificate is the critical path, and which business year the in-service date falls in decides the year in which the tax effect lands.</figcaption>
+</figure>
+
+<h2><span class="no">03</span>Four points specific to a storage station</h2>
+
+<p><strong>① This measure has no industry barrier.</strong> The reason a storage station selling all its output could not use immediate depreciation until now is that the electricity business is not among the "designated businesses" of the SME Management Enhancement Tax Incentive (Article 27-6(7) of the Enforcement Order of the Act on Special Measures Concerning Taxation — the electricity business does not appear in the list). This measure carries no designated-business requirement at all; the only exclusions are equipment held for lease, used for testing and research, or used in the adult-entertainment business. <strong>A pure merchant seller is not knocked out on industry grounds</strong> — the National Tax Agency's pamphlet states expressly that the eligible businesses are not particularly restricted. For how the provisions line up, see the <a target="_top" href="/column-investment-tax-law" hreflang="ja">Statutes edition</a><span class="ja-tag">JA</span>.</p>
+
+<p><strong>② The useful life is 17 years, not 6 — and that is the denominator the review works from.</strong> The six-year class for "storage battery power supply equipment" is confined to things like lighting during an outage (Useful Life Circular 2-2-2); a battery used to sell electricity is treated as machinery and equipment, and <strong>17 years is what is widely used in practice</strong>. There is no published National Tax Agency position naming grid-scale batteries &#10067;. And on the specification of METI's calculation sheet, the 15% return-on-investment test takes the annual average over <strong>the longest depreciation period among the equipment in the plan — 17 years for as long as a battery is in it</strong>. That is the real gate in the review. <a target="_top" href="/column-investment-tax-practice" hreflang="ja">Practice edition, issues 01&ndash;03</a><span class="ja-tag">JA</span>.</p>
+
+<p><strong>③ Letting it out drops out. Handing over the operation does not.</strong> A lease — letting the equipment to an operator, or a rental lease — is an express statutory exclusion. Where the owner keeps the equipment and <strong>delegates</strong> market operation to an aggregator, on the other hand, there is considerable room to read it as not amounting to a "lease", for as long as the use and enjoyment of the asset stays with the owner. But no Q&amp;A yet names this measure, so a written enquiry is the premise &#10067;. The conclusion in <a target="_top" href="/en/column-tax">COLUMN 22, Gate 2</a> — that the shape of the contract is what divides eligibility — has not changed with entry into force. <a target="_top" href="/column-investment-tax-practice" hreflang="ja">Practice edition, issue 04</a><span class="ja-tag">JA</span>.</p>
+
+<p><strong>④ What counts is not the day you paid but the day you started using it.</strong> Pay this year and the tax effect still lands next year if the in-service date does. Conversely, an in-service date squeezed in at the very end of the year still gives immediate depreciation in full, with no pro rata by month. Choose the 7% tax credit and it runs the other way: the credit is capped at 20% of corporation tax for the year in which the asset is placed in service, and with a year-end in-service date there is almost no electricity revenue in that year, so no room for the credit arises. <strong>Immediate depreciation works with a year-end in-service date; the tax credit works with one at the start of the year.</strong> For the design of the fiscal year, the in-service date and which entity holds the asset, see <a target="_top" href="/column-investment-tax-practice" hreflang="ja">Practice edition, issue 11</a><span class="ja-tag">JA</span> and <a target="_top" href="/column-investment-tax-schedule" hreflang="ja">Procedure edition, 05</a><span class="ja-tag">JA</span>.</p>
+
+<h2><span class="no">04</span>Open questions — points no one can yet be categorical about</h2>
+
+<p>One month since applications opened. The official Q&amp;A is thin, and the following points cannot be settled from primary sources. <strong>If you find commentary that is categorical about them, check what it rests on.</strong> We have enquiries in progress with the regional Bureau of Economy, Trade and Industry, the tax office and OCCTO, and will add the answers to this series as they arrive.</p>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>Open questions — not settled from primary sources as of 31 August 2026 (&#10067;)</caption>
+<thead><tr><th>Question</th><th>What is known now</th><th>Enquiry addressed to</th></tr></thead>
+<tbody>
+<tr><td>Is the ¥500 million floor tested before or after a subsidy is written off against basis?</td><td>Nothing express in the statute, the ministerial ordinance or the guidance materials. As a rule, credits and depreciation are computed on the reduced basis</td><td>Bureau, tax office</td></tr>
+<tr><td>Can several sites be bundled into a single investment plan?</td><td>No express prohibition, and the forms are built to record a location for each item of equipment</td><td>Bureau</td></tr>
+<tr><td>Is it the certificate of confirmation or the certificate of conformity that is attached to the tax return?</td><td>There is a requirement to attach a "statement of particulars etc.", but we could not confirm which form is named</td><td>Tax office</td></tr>
+<tr><td>At what point does a slip in the acquisition date become a "confirmation of change"?</td><td>Forms 4 to 6 exist, but we have not obtained the threshold rule or the completion guidance</td><td>Bureau</td></tr>
+<tr><td>When is a storage station "placed in service"?</td><td>The general rule is the date use begins. For solar there are cases in which the tax authorities took the interconnection or start-of-sales date. Nothing names storage stations</td><td>Tax office</td></tr>
+<tr><td>Confirmation that delegating operation does not amount to a "lease"</td><td>The structure of the circulars under comparable measures points to non-application. Nothing express under this measure</td><td>Bureau, tax office</td></tr>
+</tbody>
+</table>
+</div>
+
+<hr class="sep">
+
+<div class="related">
+<p><strong>How to use this series</strong></p>
+<ul>
+<li><a target="_top" href="/column-investment-tax-law" hreflang="ja">45-2 Statutes edition</a><span class="ja-tag">JA</span> — for tax advisers and for handling the review. A side-by-side reference of article numbers, the text itself and a verdict (○ △ × &#10067;).</li>
+<li><a target="_top" href="/column-investment-tax-schedule" hreflang="ja">45-3 Procedure edition</a><span class="ja-tag">JA</span> — for whoever files. Forms 1 to 9, the nine attachments, gBizID, the schedule worked backwards and the fiscal year.</li>
+<li><a target="_top" href="/column-investment-tax-practice" hreflang="ja">45-4 Practice edition</a><span class="ja-tag">JA</span> — for owners and investors. The 17-year useful life, where the lease line falls, subsidies and the long-term decarbonisation auction, and the design of timing: eleven issues.</li>
+<li><a target="_top" href="/en/column-tax">COLUMN 22</a> — how to think about the measure (the structure of the deferral, the five gates). The premise for this series.</li>
+<li><a target="_top" href="/en/column-subsidies">COLUMN 20</a> — a subsidy is something you decide whether to use. The issue that connects to reduced-basis accounting.</li>
+</ul>
+</div>
+
+<div class="refs">
+<h3>Principal primary sources (checked 30&ndash;31 August 2026)</h3>
+<ul>
+<li>Ministry of Finance, FY2026 Tax Reform Outline (令和8年度税制改正の大綱), Cabinet decision of 26 December 2025, Part 3, 2(1) — mof.go.jp/tax_policy/tax_reform/outline/fy2026/08taikou_03.htm</li>
+<li>National Tax Agency, Outline of the FY2026 Amendments to Corporation Tax Legislation (令和8年度 法人税関係法令の改正の概要), section D (Art. 42-12-7 of the Act on Special Measures Concerning Taxation) — nta.go.jp/publication/pamph/hojin/kaisei_gaiyo2026/pdf/D.pdf</li>
+<li>METI, Bold Investment Promotion Tax Incentive (大胆な投資促進税制) — programme page, pamphlet, application forms and return-on-investment calculation sheet — meti.go.jp/policy/economy/kyosoryoku_kyoka/henkashien/daitanzeisei/daitan.html</li>
+<li>METI press release, Start of applications (申請受付開始について), 31 July 2026 — meti.go.jp/press/2026/07/20260731004.html</li>
+<li>National Tax Agency, Tax Answer No. 5400-2, the date an asset is placed in service (事業の用に供した日) — nta.go.jp/taxes/shiraberu/taxanswer/hojin/5400-2.htm</li>
+<li>The statutes, circulars, forms and market data behind each point are listed with their check dates at the end of 45-2 to 45-4 (Japanese).</li>
+</ul>
+</div>
+
+<div class="author-box">
+<div class="ab-label">Written by</div>
+<div class="ab-name">Shinya Nakashima, Ph.D. (Eng.) — Representative Director, Science X Inc.</div>
+Works on the transaction flow of grid-scale battery projects and on research into regulation and market design. Corrections to this column, and answers you have obtained from the authorities, are welcome at <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>.
+</div>
+
+<div style="background:#F5F1E8;border:1px solid #E0DCD4;border-radius:8px;padding:28px 24px;margin-top:36px;text-align:center">
+  <p style="font-family:'Noto Serif JP',serif;font-size:16px;font-weight:600;color:#1B2A4A;margin:0 0 8px">Looking for a project that clears the ¥500 million line?</p>
+  <p style="color:#5A6577;font-size:13px;line-height:1.9;margin:0 0 16px">We broker high-voltage and extra-high-voltage grid-scale battery projects, disclosing what the rights actually consist of and where the numbers come from.</p>
+  <a target="_top" href="/en/contact" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">Talk to us about projects →</a>
+</div>
+
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        8-2 Nihonbashi-Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        TEL: <a href="tel:+81366913484">+81-3-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
