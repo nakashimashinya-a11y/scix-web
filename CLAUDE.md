@@ -67,9 +67,13 @@ Cloudflare D1 だけを見て「DR2 はこのセッションから到達不能�
      `deal_edits` に UPSERT、社内メモは `memos` テーブルに入れる。
    - `driveFolderUrl` に ① の案件フォルダURLを入れて紐付ける。
    - 緯度経度が資料に無い案件は `showMap: false`、非公開にするなら `dealroom2Visible: false`。
-   - **wrangler はMacの認証を使う。** クラウド実行環境（Claude Code on the web 等）には
-     Cloudflare 認証が無いので D1 を直接叩けない。その場合は**適用できるSQLを生成して渡す**こと。
-     「できません」で終わらせない。
+   - **D1への書き込みはMacからしかできない。** クラウド実行環境（Claude Code on the web 等）は
+     Cloudflare 認証が無いうえ、egress ポリシーで `api.cloudflare.com` への接続自体が
+     403 で拒否される（迂回しない・報告する）。
+     その場合は**適用できるSQLを生成して渡す**こと。「できません」で終わらせない。
+   - 生成したSQLは **`scix-dealroom2/` 直下**（Drive経由でMacに同期される場所）に
+     `dr2-<ID>-insert.sql` として置く。リポジトリ直下に置けば上のコマンドがそのまま通り、
+     受け取る側はパスを考えなくてよい。作業フォルダにも同じものを残しておく。
 
 ### 公開サイトへの反映は別工程
 
