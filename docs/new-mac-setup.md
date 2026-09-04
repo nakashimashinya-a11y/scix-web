@@ -15,7 +15,7 @@
 - 必要ツールは実質4つ:
   - **git / gh** — 取得・認証
   - **node** — Vercel CLI 用
-  - **python3** — ローカルプレビュー・スクリプト（`build_projects_json.py` / `indexnow_submit.py`）
+  - **python3** — ローカルプレビュー・スクリプト（`build_projects_json.py` / `ping_indexnow.py`）
 
 ---
 
@@ -85,7 +85,7 @@ vercel --prod    # 本番反映
   → dealroom2 のデータと wrangler/D1 認証が前提。サイトの文面・HTML編集だけなら不要。
 - **IndexNow 送信**（更新ページを Bing 等へ即時クロール通知）
   ```zsh
-  python3 tools/indexnow_submit.py https://www.scix.co.jp/更新したページ
+  python3 scripts/ping_indexnow.py https://www.scix.co.jp/更新したページ
   # 引数なしで sitemap.xml の全URLを送信
   ```
 
