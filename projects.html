@@ -174,6 +174,7 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
   var grid = document.getElementById('projectsGrid');
   var stateMsg = document.getElementById('stateMsg');
   var countLine = document.getElementById('countLine');
+  var GENERATED_AT = '';
   var areaBar = document.getElementById('filterArea');
   var voltageBar = document.getElementById('filterVoltage');
 
@@ -244,13 +245,16 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
       return (fArea === 'all' || p.area === fArea) && (fVoltage === 'all' || p.voltage === fVoltage);
     });
     grid.innerHTML = list.map(cardHTML).join('');
-    countLine.textContent = '該当 ' + list.length + ' 件' + (list.length !== ALL.length ? '（全 ' + ALL.length + ' 件中）' : '');
+    countLine.textContent = '該当 ' + list.length + ' 件'
+      + (list.length !== ALL.length ? '（全 ' + ALL.length + ' 件中）' : '')
+      + (GENERATED_AT ? '　｜　' + GENERATED_AT + ' 更新' : '');
   }
 
   fetch('/projects.json', { cache: 'no-store' })
     .then(function(r){ if(!r.ok) throw new Error('http ' + r.status); return r.json(); })
     .then(function(data){
       ALL = (data && data.projects) || [];
+      GENERATED_AT = (data && data.generatedAt) || '';
       if(!ALL.length){ throw new Error('empty'); }
       stateMsg.style.display = 'none';
       buildFilters();
