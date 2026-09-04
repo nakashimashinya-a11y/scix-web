@@ -25,9 +25,18 @@ fail() { log "NG $*"; exit 1; }
 cd "$REPO" || fail "リポジトリが無い: $REPO"
 [ -x "$WR" ] || fail "wrangler ラッパーが無い: $WR"
 
-# 生成。D1が引けなければ build 側が非ゼロで止まる（部分的な一覧を書かない）
-SCIX_WRANGLER="$WR" python3 scripts/build_projects_json.py --out "$TMP" || {
-  rm -f "$TMP"; fail "再生成に失敗した（D1を読めていない可能性）。projects.json は触っていない。"
+# 生成。D1が引けなければ build 側が非ゼロで止まる（部分的な一覧を書かない）。
+# トークン更新の直後に1回だけ失敗することがある（2026-09-05 実測）ので、間を置いて3回まで試す。
+GEN_OK=0
+for attempt in 1 2 3; do
+  if SCIX_WRANGLER="$WR" python3 scripts/build_projects_json.py --out "$TMP"; then
+    GEN_OK=1; break
+  fi
+  log "再生成の試行 $attempt が失敗。20秒待って再試行する。"
+  sleep 20
+done
+[ "$GEN_OK" = "1" ] || {
+  rm -f "$TMP"; fail "再生成に3回とも失敗した（D1を読めていない）。projects.json は触っていない。"
 }
 
 # 差分判定と安全弁

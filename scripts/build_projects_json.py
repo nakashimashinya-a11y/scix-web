@@ -185,6 +185,17 @@ def fiscal_year(date_str):
     return f"{fy}年度"
 
 
+def cod_month(date_str):
+    """'2027-04-01' → '2027-04'。年度だけでは決算期に間に合うかを答えられないため、
+    月まで出す（2026-09-05 判断①で公開可）。日は出さない。"""
+    if not date_str:
+        return None
+    m = re.match(r"(\d{4})-(\d{1,2})", str(date_str))
+    if not m:
+        return None
+    return f"{int(m.group(1)):04d}-{int(m.group(2)):02d}"
+
+
 def derive_status(p, today):
     """過剰主張を避けた進捗ラベル。
     連系予定日が過去でも「実際に連系済み」とは限らない（計画日が後ろ倒しの可能性）ため、
@@ -232,6 +243,7 @@ def to_public(p, today):
         "mw": round(float(mw), 2) if isinstance(mw, (int, float)) else None,
         "mwh": round(float(mwh), 1) if isinstance(mwh, (int, float)) else None,
         "cod": fiscal_year(p.get("connectionDate")),
+        "codYm": cod_month(p.get("connectionDate")),
         "status": derive_status(p, today),
         "scheme": norm_scheme(p.get("saleType")),
     }
