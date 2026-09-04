@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .num{font-family:'Noto Serif JP',serif;font-weight:700;color:var(--navy);font-size:1.1em}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.88em}
+.comparison-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text)}
+.faq-a::before{content:'A. ';color:var(--text-light);font-weight:700}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.seo-note{display:none}
+.toc{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px 16px;margin:0 0 32px;font-size:.9em}
+.toc-title{font-weight:700;color:var(--navy);margin-bottom:8px;font-size:.95em}
+.toc a{color:var(--text);text-decoration:none;display:block;padding:3px 0}
+.toc a:hover{color:var(--accent)}
+.toc a::before{content:'›';color:var(--accent);margin-right:8px}
+.toc-cta{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:.95em}
+.toc-cta a{display:inline;padding:0;color:var(--accent);font-weight:700;text-decoration:none;border-bottom:1px solid var(--accent)}
+.toc-cta a::before{content:none}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+.author-box{background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy)}
+@media(max-width:768px){.article-body{padding:32px 16px 60px}h2{font-size:1.2em}.comparison-table{font-size:.8em}.comparison-table th,.comparison-table td{padding:8px 10px}}
+</style>
+<title>蓄電池用地は売るか、貸すか — 賃料の決まり方と判断の分かれ目｜ScienceX</title>
+<meta name="description" content="蓄電池用地を「貸す」場合の賃料は、近隣の地代相場ではなく蓄電所事業の採算からの逆算で決まります。売却との違い（現金化・税・相続・事業者リスク）、貸す前に確認すべき契約条項、判断の分かれ目を解説します。">
+<link rel="canonical" href="https://www.scix.co.jp/column-land-lease">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-land-lease">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓄電池用地は売るか、貸すか — 賃料の決まり方と判断の分かれ目｜ScienceX">
+<meta property="og:description" content="蓄電池用地を「貸す」場合の賃料は、近隣の地代相場ではなく蓄電所事業の採算からの逆算で決まります。売却との違いと、貸す前に確認すべき契約条項を解説します。">
+<meta property="og:url" content="https://www.scix.co.jp/column-land-lease">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="蓄電池用地は売るか、貸すか — 賃料の決まり方と判断の分かれ目｜ScienceX">
+<meta name="twitter:description" content="蓄電池用地の賃料は近隣の地代相場ではなく、蓄電所事業の採算からの逆算で決まります。売却との違いと契約で確認すべき条項を解説します。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "蓄電池用地は売るか、貸すか — 賃料の決まり方と判断の分かれ目｜ScienceX",
+  "description": "蓄電池用地を「貸す」場合の賃料は、近隣の地代相場ではなく蓄電所事業の採算からの逆算で決まります。売却との違い（現金化・税・相続・事業者リスク）、貸す前に確認すべき契約条項、判断の分かれ目を解説します。",
+  "author": {
+    "@type": "Person",
+    "name": "中島 晋也",
+    "jobTitle": "代表取締役（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": ["https://www.linkedin.com/in/dr-shinya-nakashima"]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-08-22",
+  "dateModified": "2026-08-22",
+  "mainEntityOfPage": "https://www.scix.co.jp/column-land-lease"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "蓄電池用地の賃料相場はいくらですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "蓄電池用地の賃料に一律の相場はありません。賃料は近隣の地代ではなく、その土地で蓄電所事業がどれだけの採算で成立するかからの逆算で決まります。系統連系の条件が良く、造成費が小さい土地ほど、事業者が支払える賃料の上限は高くなります。ScienceXでは所在地と面積をうかがい、売却した場合の概算とあわせて、貸した場合の賃料の考え方もご説明しています。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "土地を貸す場合の契約期間はどれくらいですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "期間20〜30年の長期契約が一般的で、形式としては事業用定期借地権（存続期間10年以上50年未満）などが使われます。長期脱炭素電源オークション（LDA）の対象案件では20年間の制度収入を前提とするため、それに合わせた期間設定が一つの目安になります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "貸している間の固定資産税は誰が払いますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "課税自体は土地の所有者である地主に続きますが、契約条件で固定資産税を借主負担とする建付けが一般的です。どちらの前提の提示なのかで実質の手取りが変わるため、契約前に必ず確認してください。税務の具体的な影響は税理士にご確認ください。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "貸している途中で事業者が撤退したらどうなりますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "契約条項次第です。設備の撤去（原状回復）義務の範囲と、それを担保する保証金や親会社保証の有無、借主が特別目的会社（SPC）の場合に誰が責任を負うのかを、契約前に確認しておく必要があります。長期契約だからこそ、撤退時の建付けが賃貸の実質的な安全性を決めます。"
+      }
+    }
+  ]
+}
+</script>
+<meta property="article:published_time" content="2026-08-22">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://www.scix.co.jp/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ナレッジ",
+      "item": "https://www.scix.co.jp/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "蓄電池用地は売るか、貸すか — 賃料の決まり方と判断の分かれ目",
+      "item": "https://www.scix.co.jp/column-land-lease"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">蓄電池用地は売るか、貸すか — 賃料の決まり方と判断の分かれ目</span></nav>
+<div class="seo-note">
+  title: 蓄電池用地は売るか、貸すか — 賃料の決まり方と判断の分かれ目｜ScienceX
+  description: 蓄電池用地を「貸す」場合の賃料は、近隣の地代相場ではなく蓄電所事業の採算からの逆算で決まる。売却との違い（現金化・税・相続・事業者リスク）、貸す前に確認すべき契約条項、判断の分かれ目を解説。
+  slug: /column-land-lease
+  keywords: 蓄電池 土地 貸す, 系統用蓄電池 土地 貸付, 蓄電池用地 賃料, 蓄電池 土地 賃貸, 系統用蓄電池 土地 賃貸, 蓄電池用地 募集, 事業用定期借地
+</div>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 42</span>
+      <span class="header-tag">用地・売却</span>
+      <time class="header-date" datetime="2026-08-22">2026.08.22</time>
+    </div>
+    <h1>蓄電池用地は売るか、貸すか<br>— <em>賃料の決まり方と判断の分かれ目</em></h1>
+    <p class="header-desc">「土地を貸してほしい」という連絡が、全国の地主に届き始めています。賃料は近隣の地代では決まりません。蓄電所事業の採算からの逆算です。売る場合との違いと、契約前に見るべき条項を整理します。</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
+
+<div class="toc">
+  <div class="toc-title">この記事の内容</div>
+  <a href="#dashin">「貸してほしい」という手紙が届いたら</a>
+  <a href="#shikumi">貸すとはどういう契約か — 20〜30年の長い話</a>
+  <a href="#chinryo">賃料はどう決まるか — 隣の地代は参考にならない</a>
+  <a href="#hikaku">売る場合・貸す場合、何が違うか</a>
+  <a href="#keiyaku">賃料の額より、契約書 — 見るべき条項5つ</a>
+  <a href="#wakareme">売るか貸すかの、その前に</a>
+  <a href="#faq">よくある質問</a>
+  <div class="toc-cta">概算査定は無料です（住所と面積のみ・売却の義務なし）。<a target="_top" href="/sell-form?type=land">無料で用地査定を依頼する →</a></div>
+</div>
+
+<h2 id="dashin">「貸してほしい」という手紙が届いたら</h2>
+<p>ある日、知らない会社から封書が届きます。「お客様の土地が、蓄電池発電所の候補地になりました。売却をご検討いただけませんか。貸していただく形でも結構です」——。こうした連絡を受け取る地主の方が、ここ数年で目に見えて増えました。当社にも「売るのは分かるが、貸すとはどういうことか」というご相談がよく届きます。</p>
+<p>売るのは分かりやすい。土地を渡して、お金を受け取る。では貸すとは何か。駐車場やアパートの土地を貸すのと同じ感覚で考えると、間違えます。相手は20年以上動き続ける発電所で、契約は一度結んだら、条件を直す機会がほとんど巡ってこないからです。</p>
+<p>先に結論だけ言っておきます。<strong>賃料も、買取価格と同じで、「相場」では決まりません</strong>。その土地で蓄電所事業がどれだけ成り立つか——そこからの逆算です。この構造が分かると、売るか貸すかの判断も、届いた提示が高いのか安いのかも、ずっと見えやすくなります。</p>
+
+<h2 id="shikumi">貸すとはどういう契約か — 20〜30年の長い話</h2>
+<p>蓄電所は、いったん建つと同じ場所で長く動き続けます。だから土地の契約も、駐車場のような短い更新の話ではありません。期間は20〜30年。形式としては事業用定期借地権（存続期間10年以上50年未満）などの長期契約が使われます。長期脱炭素電源オークション（LDA）の対象案件なら、<a target="_top" href="/column-lda" style="color:var(--accent);font-weight:600">20年間の制度収入</a>に合わせた期間設定が一つの目安になります。</p>
+<p>貸している間、地主がやることは基本的にありません。設備の設置も、運転も、保守も、保険も、事業者側の仕事です。よく提示される条件——固定資産税は借主負担、期間満了時は借主負担で撤去して更地に戻す、その担保として保険や預託を置く——は、いずれも一般的な建付けで、そのまま前提にして構いません。</p>
+<p>ひとつだけ、感覚とずれやすい点があります。時間です。事業者が土地に目をつけてから実際に着工するまでには、電力会社の接続検討や許認可で、年単位の時間が挟まります。そのため賃料の起算日は契約日ではなく<strong>「連系した日」から</strong>とし、開発期間中は無償または軽減、という建付けがよく使われます。ここを読み飛ばすと、「契約したのに賃料が入ってこない」と感じることになります。満額がいつから発生するのか——契約前に確認すべき筆頭は、実はここです。</p>
+
+<h2 id="chinryo">賃料はどう決まるか — 隣の地代は参考にならない</h2>
+<p>「うちの土地は、月いくらで貸せますか」。いちばん多くいただく質問ですが、近隣の地代からは答えが出ません。理由は単純です。事業者が払える賃料の上限を決めるのは、隣の駐車場の地代ではなく、<strong>その土地に建つ蓄電所の採算</strong>だからです。<a target="_top" href="/column-land-buyback" style="color:var(--accent);font-weight:600">買取価格の決まり方</a>とまったく同じ構造が、賃料にもそのまま当てはまります。</p>
+<div class="highlight-box">
+  <strong>賃料の逆算構造：</strong><br>
+  事業収入（市場収入・制度収入）<br>
+  −　建設費（連系工事費・造成費・機器代）<br>
+  −　運転費　−　事業者の利益<br>
+  ＝　<strong>土地に支払える上限</strong><br><br>
+  この上限がいちばん大きく動く変数は、連系工事費です。連系点に近く<a target="_top" href="/column-grid" style="color:var(--accent);font-weight:600">工事費負担金</a>が安い土地は支払余力が大きく、遠い土地は小さい。売る場合に価格を動かす変数が、貸す場合には賃料を動かす——それだけの話です。
+</div>
+<p>建付けも宅地の家賃とは違います。蓄電池用地の賃料は「面積あたりいくら」ではなく、<strong>事業規模——その土地に何kWつなげるか——に紐づいた年額固定</strong>が基本で、物価や公租公課に連動した改定条項を置くのが一般的です。裏を返せば、何kWつながるかが分かるまで、つまり接続検討の結果が出るまで、賃料の具体的な水準は誰にも出せません。最初から「㎡いくらです」と即答する会社があったら、むしろその根拠を疑ってください。</p>
+
+<h2 id="hikaku">売る場合・貸す場合、何が違うか</h2>
+<p>「で、結局どちらが得ですか」ともよく聞かれます。正直に言えば、土地の条件とご事情次第です。ただ、違いを並べてみると、考えるべき軸ははっきりします。</p>
+<table class="comparison-table">
+  <tr><th>観点</th><th>売る</th><th>貸す</th></tr>
+  <tr><td class="em">受け取り方</td><td>一括の売却代金</td><td>長期（20〜30年）の賃料収入</td></tr>
+  <tr><td class="em">土地の所有</td><td>手放す</td><td>持ち続ける（相続財産として残る）</td></tr>
+  <tr><td class="em">税務（一般論）</td><td>譲渡所得（分離課税）</td><td>不動産所得（毎年の総合課税）</td></tr>
+  <tr><td class="em">固定資産税</td><td>以後は買主の負担</td><td>課税は地主のまま（借主負担とする建付けが一般的）</td></tr>
+  <tr><td class="em">事業者のリスク</td><td>売却後は原則無関係</td><td>期間中の撤退・倒産リスクを負う</td></tr>
+  <tr><td class="em">契約</td><td>売買契約で完結</td><td>長期契約の条項設計が重要</td></tr>
+</table>
+<p>まとまった資金が要る、相続の前に資産を整理しておきたい——という方は売却に向いています。土地は手放したくない、長く収入に変えたい——という方は賃貸です。税金は個々の状況で結論がひっくり返るので、金額の比較は税理士を交えてやってください。この表は、あくまで軸の整理です。</p>
+
+<h2 id="keiyaku">賃料の額より、契約書 — 見るべき条項5つ</h2>
+<p>賃貸を選ぶなら、はっきり言って、賃料の額より契約書のほうが大事です。20〜30年のあいだ、条件を直す機会はほとんどありません。最低限、次の5つは契約前に見てください。</p>
+<div class="highlight-box">
+  <strong>① 賃料の改定条項</strong> — 長期固定か。物価や公租公課に応じた見直しはあるか。<br>
+  <strong>② 賃料の発生時期</strong> — 起算日は連系日か契約日か。開発期間中（接続検討・許認可中）の扱いはどうなっているか。<br>
+  <strong>③ 中途解約</strong> — 事業者側から解約できる条件と、そのときの補償はあるか。<br>
+  <strong>④ 原状回復と撤去の担保</strong> — 撤去は20〜30年後の話。保証金・積立・親会社保証など、実効性の裏付けはあるか。<br>
+  <strong>⑤ 借主は誰か</strong> — 事業会社本体か、案件ごとの特別目的会社（SPC）か。SPCなら、賃料と撤去義務を誰が保証するのか。
+</div>
+<div class="warning-box">
+  SPC（特別目的会社）と聞くと身構える方もいますが、蓄電池事業ではごく普通の建付けで、それ自体を警戒する必要はありません。ただしSPCの資産はその案件に限られます。20年後の撤去費用を「誰が」担保するのかは、確認する意味のある問いです。事業体の見分け方は<a target="_top" href="/column-buyer-structures" style="color:var(--accent);font-weight:600">買い手のストラクチャー</a>でも解説しています。
+</div>
+
+<h2 id="wakareme">売るか貸すかの、その前に</h2>
+<p>ここまで売ると貸すを比べてきましたが、実は、その手前にもっと大事な問いがあります。<strong>「そもそもこの土地で、蓄電所は成立するのか」</strong>です。成立しない土地には、売却のオファーも賃借のオファーも来ません。逆に成立する土地なら、売る条件と貸す条件の両方を引き出したうえで、同じ土台で比べられます。なお、市街化調整区域の土地は確認事項が一枚増えます。そちらは<a target="_top" href="/column-land-zoning" style="color:var(--accent);font-weight:600">市街化調整区域の土地は蓄電池用地になるか</a>にまとめました。</p>
+<p>当社は、売却・賃貸の両方の前提で土地を評価しています。接続検討（費用は当社負担）で連系条件が確定すれば、売った場合の概算レンジと、貸した場合の賃料の考え方を、並べてお見せできます。まず成立するかを確かめ、それから売るか貸すかを決める。この順番が、地主の方にとっていちばん損のない進め方だと考えています。</p>
+
+<h2 id="faq">よくある質問</h2>
+<div class="faq-item">
+  <div class="faq-q">蓄電池用地の賃料相場はいくらですか？</div>
+  <div class="faq-a">蓄電池用地の賃料に一律の相場はありません。賃料は近隣の地代ではなく、その土地で蓄電所事業がどれだけの採算で成立するかからの逆算で決まります。系統連系の条件が良く、造成費が小さい土地ほど、事業者が支払える賃料の上限は高くなります。ScienceXでは所在地と面積をうかがい、売却した場合の概算とあわせて、貸した場合の賃料の考え方もご説明しています。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">土地を貸す場合の契約期間はどれくらいですか？</div>
+  <div class="faq-a">期間20〜30年の長期契約が一般的で、形式としては事業用定期借地権（存続期間10年以上50年未満）などが使われます。長期脱炭素電源オークション（LDA）の対象案件では20年間の制度収入を前提とするため、それに合わせた期間設定が一つの目安になります。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">貸している間の固定資産税は誰が払いますか？</div>
+  <div class="faq-a">課税自体は土地の所有者である地主に続きますが、契約条件で固定資産税を借主負担とする建付けが一般的です。どちらの前提の提示なのかで実質の手取りが変わるため、契約前に必ず確認してください。税務の具体的な影響は税理士にご確認ください。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">貸している途中で事業者が撤退したらどうなりますか？</div>
+  <div class="faq-a">契約条項次第です。設備の撤去（原状回復）義務の範囲と、それを担保する保証金や親会社保証の有無、借主が特別目的会社（SPC）の場合に誰が責任を負うのかを、契約前に確認しておく必要があります。長期契約だからこそ、撤退時の建付けが賃貸の実質的な安全性を決めます。</div>
+</div>
+
+<a target="_top" href="/land" class="next-link">
+  <div>
+    <div class="next-link-label">NEXT → 用地売却・賃貸</div>
+    <div class="next-link-title">お持ちの土地が蓄電所用地として成立するか — 価格の決まり方と手順</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="author-box">
+  <div class="ab-label">この記事の監修</div>
+  <div><span class="ab-name">中島 晋也</span>（サイエンスエックス株式会社 代表取締役・工学博士）</div>
+  <p style="margin:6px 0 0">系統用蓄電池発電所の開発・売買・技術デューデリジェンスを手がける。本コラムは、蓄電池用地の評価と接続検討の実務に基づいて執筆・監修しています。</p>
+</div>
+
+</div>
+
+
+<!-- scix-column-cta : 1記事1つ。主＝申込フォーム直行、副＝解説ページ（それぞれ行き先の中身を明記） -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">売る・貸すのどちらの前提でも、ご相談いただけます</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">賃料も買取価格も、系統の空き容量と工事費負担金でほぼ決まります。まずはそこを確かめるところから始めます。</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/sell-form?type=land" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">無料で用地査定を依頼する →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">申込フォームが開きます。ご連絡先と所在地だけで申し込めます。接続検討は当社の費用負担で行い、約3ヶ月後に電力会社の回答書をそのままお渡しします。<br>お電話でも承ります：<a href="tel:0366913484" style="color:#1B2A4A;font-weight:600">03-6691-3484</a>（サイエンスエックス株式会社）</p>
+  </div>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <a target="_top" href="https://www.scix.co.jp/land" style="color:#1B2A4A;font-weight:600;font-size:13.5px;text-decoration:none;border-bottom:1px solid #C49A3C;padding-bottom:2px">先に「用地売却・賃貸」のページを読む →</a>
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.85;margin:10px 0 0">価格と賃料の決まり方、必要な広さと離隔、搬入路・騒音・市街化調整区域、境界が未確定のときの扱い、ご用意いただく書類まで、地主の方から実際にいただくご質問13件にお答えしています。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer — self-contained -->
+<style>
+  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+  .scix-footer { background-color: #1B2A4A; color: rgba(255, 255, 255, 0.85); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%; }
+  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: 0.95; }
+  .scix-footer-info { text-align: center; }
+  .scix-footer-copyright { font-size: 11px; letter-spacing: 0.04em; color: rgba(255, 255, 255, 0.55); margin-top: 20px; }
+  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255, 255, 255, 0.8); }
+  .scix-footer-company .company-name { font-weight: 500; font-size: 13.5px; color: rgba(255, 255, 255, 0.92); margin-bottom: 2px; }
+  .scix-footer-company .representative { margin-top: 4px; color: rgba(255, 255, 255, 0.6); font-size: 12px; }
+  .scix-footer-company a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: color 0.2s ease; }
+  .scix-footer-company a:hover { color: #C49A3C; }
+  .scix-footer-divider { width: 60px; border: none; border-top: 1px solid rgba(255, 255, 255, 0.12); margin: 0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img src="/img/logo-white.png" alt="ScienceX サイエンスエックス株式会社" loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/land" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">土地を売る・貸す</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

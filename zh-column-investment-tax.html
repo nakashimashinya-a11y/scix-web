@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Serif SC',serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.down{color:var(--warn);font-weight:700}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tr.total td{background:rgba(196,154,60,0.08);font-weight:700;border-top:2px solid var(--accent)}
+td.max{color:var(--warn);font-weight:700}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.wraptext td{text-align:left;vertical-align:top}
+.wraptext thead th{text-align:left}
+.scope th{width:10em;vertical-align:top}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-16px 0 28px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.related{font-size:.9em;line-height:2.05}
+.related ul{margin:8px 0;padding-left:1.3em}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+td.ok{color:var(--green);font-weight:700}
+td.ng{color:var(--warn);font-weight:700}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px}
+}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+
+details{margin:24px 0;border:1px solid var(--border);border-radius:6px;background:var(--light-bg);padding:14px 18px}
+details summary{cursor:pointer;font-weight:600;color:var(--navy);font-size:.92em}
+details[open]{background:var(--white)}
+details p{font-size:.86em;color:var(--text-light);margin-bottom:12px}
+</style>
+<title>即时全额折旧，申请受理已经开始 —— 大胆投资促进税制，储能站业主要读的第一页｜ScienceX</title>
+<meta name="description" content="大胆投资促进税制（特定生产力提升设备等投资促进税制）已于2026年7月31日施行并开始受理申请。依据为《租税特别措施法》第42条之12之7。储能站业主的30秒自查四问、确认期限2029年3月31日与自确认日起5年的倒推时间表、耐用年限17年·出租的分界线·投入使用之日等四个要点，以及仍在询问中的争点。通往条文篇·手续篇·实务篇的入口。">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-investment-tax">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-investment-tax">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-investment-tax">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-investment-tax">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-investment-tax">
+<meta property="og:type" content="article">
+<meta property="og:title" content="即时全额折旧，申请受理已经开始 —— 大胆投资促进税制，储能站业主要读的第一页｜ScienceX">
+<meta property="og:description" content="申请受理已经开始的大胆投资促进税制。储能站业主的30秒自查、倒推时间表、储能站特有的四个要点，以及仍在询问中的争点。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-investment-tax">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="即时全额折旧，申请受理已经开始 —— 大胆投资促进税制，储能站业主要读的第一页｜ScienceX">
+<meta name="twitter:description" content="申请受理已经开始的大胆投资促进税制。储能站业主的30秒自查、倒推时间表、储能站特有的四个要点，以及仍在询问中的争点。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="article:published_time" content="2026-08-31">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "inLanguage": "zh-CN",
+  "headline": "即时全额折旧，申请受理已经开始 —— 大胆投资促进税制，储能站业主要读的第一页｜ScienceX",
+  "description": "大胆投资促进税制（特定生产力提升设备等投资促进税制）已于2026年7月31日施行并开始受理申请。依据为《租税特别措施法》第42条之12之7。储能站业主的30秒自查四问、确认期限2029年3月31日与自确认日起5年的倒推时间表、耐用年限17年·出租的分界线·投入使用之日等四个要点，以及仍在询问中的争点。通往条文篇·手续篇·实务篇的入口。",
+  "author": {
+    "@type": "Person",
+    "name": "中岛 晋也",
+    "jobTitle": "代表董事（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-zh.png"
+  },
+  "datePublished": "2026-08-31",
+  "dateModified": "2026-08-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.scix.co.jp/zh-column-investment-tax"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://www.scix.co.jp/zh"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "洞见",
+      "item": "https://www.scix.co.jp/zh-knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "即时全额折旧，申请受理已经开始",
+      "item": "https://www.scix.co.jp/zh-column-investment-tax"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans SC',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/zh" style="color:#5A6577;text-decoration:none">首页</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/zh-knowledge" style="color:#5A6577;text-decoration:none">洞见</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">即时全额折旧，申请受理已经开始</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 45</span>
+      <span class="header-tag">税制 / 大胆投资促进税制</span>
+      <time class="header-date" datetime="2026-08-31">2026.08.31</time>
+    </div>
+    <h1>即时全额折旧，<em>申请受理已经开始</em> —— 储能站业主要读的第一页</h1>
+    <p class="header-desc">大胆投资促进税制已于2026年7月31日施行，申请受理同日开始。30秒自查、倒推时间表、储能站特有的四个要点。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<p>在<a target="_top" href="/zh-column-tax">COLUMN 22</a>中写下「这项制度尚未启动」的大胆投资促进税制（特定生产力提升设备等投资促进税制），已经启动了。《产业竞争力强化法》的修正法于2026年6月5日公布，7月31日施行，并<strong>自同日起在全国9个经济产业局开始受理投资计划的确认申请</strong>（经济产业省2026年7月31日发布）。税的一侧也已确定。《租税特别措施法》<strong>第42条之12之7</strong>「取得特定生产力提升设备等时的特别折旧或法人税额的特别扣除」——国税厅的宣传册中已连同条文编号一并载明。在COLUMN 22的时点上还属于「今后才定」的政令省令、告示、申请表格与投资回报率计算表，如今也已全部公布。</p>
+
+<p>本文是这条续报的入口。制度的运作机理，以及「即时全额折旧不是减税，而是把税递延」这一看法，已写在COLUMN 22里，此处不再重复。这里只用一页的篇幅写两件事：<strong>受理已经开始的当下，储能站业主、SPC以及正准备组建结构的投资人最先要确认的四件事</strong>，以及从目标投入使用之日倒推的日程。条文依据、手续细节与11个实务争点，分别放在条文篇（45-2）、手续篇（45-3）、实务篇（45-4）三篇之中——<strong>这三篇目前只有日文版</strong>，网址列于文末「本系列的读法」。请只读到你想读的深度。</p>
+
+<div class="note"><b>编辑备注：</b>本文为日文原版的中文版，税务与法律事项以日文一手资料为准。本文与45-2〜45-4的记述，是以财务省「令和8年度税制改正の大綱」（2026财年税制改正大纲，2025年12月26日内阁决定）、国税厅「令和8年度 法人税関係法令の改正の概要」、经济产业省的制度页面·宣传册·申请表格·投资回报率计算表（Excel实物）、《产业竞争力强化法》及其施行规则、国税厅的质疑应答事例与通达为据，于2026年8月30日〜31日逐项对照一手资料写成。公开之前，就本系列的主要记述71项进行了第三方的一手资料验证（2026年8月30日），并将被指出的部分回到原典重新核对后作了修正。无法以一手资料确认的项目，正文中标以❓，并汇总于文末的「询问中的争点」表；一旦获得回复，即更新本系列。数值均标注出处区分（公布值／测算值）。本文是对制度与实务的梳理，不构成税务、投资或法务上的建议。个别判断请向税理士等确认。</div>
+
+<h2><span class="no">01</span>30秒自查 —— 能否站上入口，由四个问题决定</h2>
+
+<p>进入细节之前，先看这四个问题。<strong>只要有一个答「否」，这项制度就用不上，或者计划需要重新设计。</strong>四个都答「是」，你才站上入口——再往前，还有投资回报率15%与经济产业大臣确认这道正式审查在等着。</p>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>30秒自查 —— 四问全「是」，方能站上入口</caption>
+<thead><tr><th style="width:2.5em">#</th><th>问题</th><th>答「否」会怎样</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>计划中所含设备的取得价款合计是否达到<strong>5亿日元以上</strong>（中小企业者等的情形。此外者为35亿日元以上）</td><td>低于投资规模下限，不属于确认对象。高压2MW/8MWh级按公布单价推算约5.4亿日元（测算值）—— 实务篇·论点10</td></tr>
+<tr><td>2</td><td>投资计划的决议·决定（董事会等）是否在<strong>2025年12月26日以后</strong></td><td>原则上不属于对象。对此前已决定计划的「变更」，另有大臣所定的标准❓ —— 条文篇·04</td></tr>
+<tr><td>3</td><td>设备是否<strong>由本公司（本SPC）持有，并由自己用于业务</strong>——而不是租给他人的形式（租赁·融资租赁出租）</td><td>「用于出租」是条文上的除外事由，不属于对象。把运营委托给聚合商则仍有余地 —— 实务篇·论点04</td></tr>
+<tr><td>4</td><td>是否为<strong>蓝色申报</strong>的法人（或个人事业主）</td><td>欠缺适用的前提。新设SPC须注意设立后3个月以内等承认申请期限 —— 实务篇·论点06</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="tnote">「中小企业者等」不是只看注册资本就能定的（大法人的子公司会被排除等）。定义见《租税特别措施法》第42条之4第19项第7号·第9号（个人为第10条第8项第6号）—— 申请书表格第一的注记中已明确记载。判定的时点也是一个争点（实务篇·论点11）。</p>
+
+<h2><span class="no">02</span>倒推时间表 —— 期限有两个，会计年度是另一根轴</h2>
+
+<p>截止日有两个。<strong>①在令和11年（2029年）3月31日之前取得经济产业大臣的「确认」</strong>（不是提交申请，而是拿到确认书。标准处理约1个月）。<strong>②自确认之日起5年以内取得设备并投入业务使用。</strong>储能站在接入研究、并网工程与设备交期上动辄以年计，因此必须以确认手续与电网手续并行推进为前提来做倒推设计。另一根轴是会计年度。<strong>税制生效的年度，是「包含投入业务使用之日的事业年度」</strong>——决定落在哪一期的，不是何时付款，而是何时开始使用。</p>
+
+<figure>
+<svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="图1 — 大胆投资促进税制的倒推时间表。从决策、宣言公布、事前确认、确认申请、确认书、下单、并网、投入使用到申报的流程，确认期限2029年3月31日与自确认日起5年这两个截止日，以及投入使用之日落在哪个事业年度这根会计年度的轴">
+  <rect width="720" height="400" fill="#FFFFFF"/>
+  <text x="40" y="30" font-family="'Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">图1 ／ 倒推时间表 —— 手续、电网、会计年度三条泳道</text>
+
+  <text x="40" y="62" font-family="'Noto Serif SC',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">手续泳道（税制）</text>
+  <rect x="40" y="72" width="92" height="44" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="86" y="90" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">决策</text>
+  <text x="86" y="106" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89">董事会等的决议</text>
+  <rect x="144" y="72" width="92" height="44" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="190" y="90" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">宣言·文件</text>
+  <text x="190" y="106" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89">至公布约10天</text>
+  <rect x="248" y="72" width="92" height="44" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="294" y="90" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">事前确认</text>
+  <text x="294" y="106" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89">税理士·会计师</text>
+  <rect x="352" y="72" width="92" height="44" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="398" y="90" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">确认申请</text>
+  <text x="398" y="106" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89">经产局·约1个月</text>
+  <rect x="456" y="72" width="92" height="44" rx="6" fill="#FDF6E7" stroke="#C49A3C" stroke-width="2"/>
+  <text x="502" y="90" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">确认书</text>
+  <text x="502" y="106" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#A07916">自此起5年</text>
+  <rect x="560" y="72" width="120" height="44" rx="6" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="620" y="90" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">下单·取得·投入使用</text>
+  <text x="620" y="106" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89">取得须在确认之后</text>
+  <line x1="132" y1="94" x2="144" y2="94" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="236" y1="94" x2="248" y2="94" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="340" y1="94" x2="352" y2="94" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="444" y1="94" x2="456" y2="94" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="548" y1="94" x2="560" y2="94" stroke="#1B2A4A" stroke-width="1.5"/>
+
+  <text x="40" y="150" font-family="'Noto Serif SC',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">电网泳道（须并行推进）</text>
+  <rect x="40" y="160" width="150" height="40" rx="6" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="115" y="177" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" font-weight="700" fill="#2C3E50">接入研究</text>
+  <text x="115" y="192" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89">标准3个月·答复有效期1年</text>
+  <rect x="202" y="160" width="150" height="40" rx="6" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="277" y="177" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" font-weight="700" fill="#2C3E50">合同申请·负担金</text>
+  <text x="277" y="192" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89">开工前付清</text>
+  <rect x="364" y="160" width="150" height="40" rx="6" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="439" y="177" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" font-weight="700" fill="#2C3E50">并网工程</text>
+  <text x="439" y="192" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89">涉及增强则以年计</text>
+  <rect x="526" y="160" width="154" height="40" rx="6" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="603" y="177" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" font-weight="700" fill="#2C3E50">受电·并网·开始运行</text>
+  <text x="603" y="192" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89">＝进入「投入使用」的实态</text>
+
+  <text x="40" y="236" font-family="'Noto Serif SC',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">会计年度泳道（决定在哪一年度生效）</text>
+  <line x1="40" y1="266" x2="680" y2="266" stroke="#C9CFD8" stroke-width="1.5"/>
+  <line x1="253" y1="254" x2="253" y2="278" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="466" y1="254" x2="466" y2="278" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="146" y="250" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#6C7A89">上一事业年度</text>
+  <text x="360" y="250" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" font-weight="700" fill="#1B2A4A">含投入使用之日的事业年度 ＝ 适用年度</text>
+  <text x="573" y="250" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10" fill="#6C7A89">下一事业年度</text>
+  <circle cx="360" cy="266" r="6" fill="#C49A3C"/>
+  <text x="360" y="292" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">投入使用之日</text>
+  <text x="360" y="308" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89">不是付款日，也不是取得日，是这一天决定了年度</text>
+
+  <line x1="40" y1="336" x2="680" y2="336" stroke="#C49A3C" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="40" y="358" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">截止① 确认须在2029年3月31日之前（以确认书为准）</text>
+  <text x="680" y="358" text-anchor="end" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">截止② 取得与投入使用须在确认日起5年以内</text>
+  <text x="40" y="382" font-family="'Noto Sans SC',sans-serif" font-size="9.5" fill="#6C7A89">标准所需期间为公布值。实际期间视项目可能拉长（详情与依据见手续篇45-3）。</text>
+</svg>
+<figcaption>图1 —— 手续、电网、会计年度三条泳道。取得确认书是关键路径；投入使用之日落在哪个事业年度，决定税收效果在哪一期生效。</figcaption>
+</figure>
+
+<h2><span class="no">03</span>储能站特有的要点有四个</h2>
+
+<p><strong>① 这项制度没有业种的墙。</strong>全量售电的储能站此前用不上即时全额折旧，是因为中小企业经营强化税制的「指定事业」里没有电气业（《措施法施行令》第27条之6第7项——列举中不含电气业）。本税制没有指定事业这一要件，除外的只有出租用、试验研究用与风俗营业用三类。<strong>即使专营售电，也不会因业种被挡在门外</strong>（国税厅宣传册明确写明「適用対象となる事業は特に限定されていません」＝适用对象的事业没有特别限定）。条文的排列见条文篇。</p>
+
+<p><strong>② 耐用年限不是6年，而是17年——它会成为审查的分母。</strong>「蓄电池电源设备6年」是限于停电时照明等用途的类别（耐用年限通达2-2-2），售电用的蓄电池在实务上普遍作为机械装置按<strong>17年</strong>处理。国税厅并无点名电网侧储能电池的公开见解❓。而投资回报率15%的判定，按METI计算表的规格，<strong>是以计划中所含设备的最长折旧期间——只要含有蓄电池就是17年——为分母取年平均</strong>。这里才是审查的实质关口。实务篇·论点01〜03。</p>
+
+<p><strong>③ 「租出去」的形式会落选，「把运营托付出去」的形式还留在场内。</strong>租赁（把设备租给运营商、融资租赁出租）是条文上的除外事由，不属于对象。另一方面，设备仍由业主持有、只把市场运营<strong>委托</strong>给聚合商的形式，只要使用收益的主体仍留在业主一侧，解释上就有相当余地认为不构成「出租」——但点名本税制的Q&amp;A尚不存在，仍应以书面询问为前提❓。合同的形态决定适用与否——<a target="_top" href="/zh-column-tax">COLUMN 22·关卡②</a>的这个结论，在施行之后也没有改变。实务篇·论点04。</p>
+
+<p><strong>④ 起作用的不是「付款之日」，而是「开始使用之日」。</strong>即使在本年度付清货款，只要投入使用落在下一期，税收效果也在下一期。反过来，哪怕在期末临界点才投入使用，即时全额折旧也不按月分摊，可以全额计提。若选择7%的税额抵免，情况正好相反：抵免上限是投入使用年度法人税额的20%——期末才投入使用，该期几乎没有售电收入，抵免的额度也就立不起来。<strong>即时全额折旧适合期末投入使用，税额抵免适合期初投入使用。</strong>会计年度、投入使用之日、由谁的法人持有——这三者的设计见实务篇·论点11与手续篇·05。</p>
+
+<h2><span class="no">04</span>询问中的争点 —— 这里目前谁也无法断言</h2>
+
+<p>受理开始已一个月。官方Q&amp;A仍很单薄，以下争点无法以一手资料确定。<strong>若看到把话说死的解说，请先确认它的依据。</strong>本公司正在向经济产业局、税务署与OCCTO推进询问，一旦获得回复，即在本系列文章中补记。</p>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>询问中的争点（截至2026年8月31日，一手资料尚未确定＝❓）</caption>
+<thead><tr><th>争点</th><th>目前已知的部分</th><th>询问对象</th></tr></thead>
+<tbody>
+<tr><td>5亿日元投资下限的判定，是按补助金压缩记账之前还是之后</td><td>条文、省令与宣导资料中均无明示。抵免与折旧的计算原则上按压缩之后</td><td>经产局·税务署</td></tr>
+<tr><td>能否把多个场址捆进一份投资计划</td><td>没有明文禁止，而表格的结构是按设备逐一填写所在地</td><td>经产局</td></tr>
+<tr><td>随申报书附上的是确认书还是符合证明书</td><td>有「明细书等」的附具要件，但未确认其点名的是哪一种表格</td><td>税务署</td></tr>
+<tr><td>取得时期推迟等情形，从哪里开始算「变更确认」</td><td>表格第四〜第六虽已存在，但阈值的规定与填写要领尚未取得</td><td>经产局</td></tr>
+<tr><td>储能站的「投入业务使用之日」是哪一天</td><td>一般原则是开始使用之日。光伏方面有课税机关按并网·开始售电之日处理的事例。没有点名储能站的</td><td>税务署</td></tr>
+<tr><td>确认运营委托不构成「出租」</td><td>从类似制度的通达结构看，倾向于不构成。本税制无明文</td><td>经产局·税务署</td></tr>
+</tbody>
+</table>
+</div>
+
+<hr class="sep">
+
+<div class="related">
+<p><strong>本系列的读法</strong></p>
+<ul>
+<li>45-2 条文篇 —— 面向税理士与审查应对。条文编号、原文与判定（○△×❓）的对照参考。仅日文版：www.scix.co.jp/column-investment-tax-law</li>
+<li>45-3 手续篇 —— 面向申请负责人。表格第一〜第九、9份附件、GビズID（gBizID）、倒推日程与会计年度。仅日文版：www.scix.co.jp/column-investment-tax-schedule</li>
+<li>45-4 实务篇 —— 面向业主与投资人。耐用年限17年、出租的分界线、补助金与长期脱碳电源拍卖、时点设计等11个争点。仅日文版：www.scix.co.jp/column-investment-tax-practice</li>
+<li><a target="_top" href="/zh-column-tax">COLUMN 22</a> —— 制度的看法（递延的结构、五道关卡）。本系列的前提。</li>
+<li><a target="_top" href="/zh-column-subsidies">COLUMN 20</a> —— 补贴是用来判断是否使用的工具。与压缩记账相连的争点。</li>
+</ul>
+</div>
+
+<div class="refs">
+<h3>主要一手资料（确认日 2026-08-30〜31）</h3>
+<ul>
+<li>财务省「令和8年度税制改正の大綱」（2026财年税制改正大纲，2025-12-26内阁决定）三2(1) ── mof.go.jp/tax_policy/tax_reform/outline/fy2026/08taikou_03.htm</li>
+<li>国税厅「令和8年度 法人税関係法令の改正の概要」（2026财年法人税相关法令改正概要）D（措法42の12の7） ── nta.go.jp/publication/pamph/hojin/kaisei_gaiyo2026/pdf/D.pdf</li>
+<li>经济产业省「大胆な投資促進税制」（大胆投资促进税制）制度页面·宣传册·申请表格·投资回报率计算表 ── meti.go.jp/policy/economy/kyosoryoku_kyoka/henkashien/daitanzeisei/daitan.html</li>
+<li>经济产业省 报道发布「申請受付開始について」（关于开始受理申请，2026-07-31） ── meti.go.jp/press/2026/07/20260731004.html</li>
+<li>国税厅 Tax Answer No.5400-2「事業の用に供した日」（投入业务使用之日） ── nta.go.jp/taxes/shiraberu/taxanswer/hojin/5400-2.htm</li>
+<li>其余条文、通达、表格与市场数据的出处，连同确认日一并列于45-2〜45-4各篇文末（均为日文版）。</li>
+</ul>
+</div>
+
+<div class="author-box">
+<div class="ab-label">撰文</div>
+<div class="ab-name">中岛 晋也（工学博士）／ Science X 株式会社 代表董事</div>
+从事电网侧储能电池的项目流通，以及规制与市场制度的调查。本文如有错误，或您手上有询问的回复可供共享，请发至 <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>。
+</div>
+
+<div style="background:#F5F1E8;border:1px solid #E0DCD4;border-radius:8px;padding:28px 24px;margin-top:36px;text-align:center">
+  <p style="font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;color:#1B2A4A;margin:0 0 8px">在找能跨过5亿日元这条线的项目吗</p>
+  <p style="color:#5A6577;font-size:13px;line-height:1.9;margin:0 0 16px">我们居间介绍高压·特高压的电网侧储能电池项目，权利的实质内容与数字的出处均予公开。</p>
+  <a target="_top" href="/zh-contact" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">咨询项目 →</a>
+  <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">将打开咨询表单。项目一览的页面目前仅有日文版。</p>
+</div>
+
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans SC',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif SC',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X 株式会社（サイエンスエックス株式会社）</div>
+        〒103-0016 日本 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:+81366913484">+81-3-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/zh" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">首页</a>
+        <a href="/zh-knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">洞见</a>
+        <a href="/zh-qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">问答</a>
+        <a href="/zh-contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">联系我们</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">隐私政策</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

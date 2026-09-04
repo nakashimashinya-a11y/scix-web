@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.85;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.5;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Serif JP',serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.down{color:var(--warn);font-weight:700}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.9;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.6;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.6;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tr.total td{background:rgba(196,154,60,0.08);font-weight:700;border-top:2px solid var(--accent)}
+td.max{color:var(--warn);font-weight:700}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:normal;vertical-align:top}
+.wraptext td{text-align:left;vertical-align:top}
+.wraptext thead th{text-align:left}
+.scope th{width:12em;vertical-align:top}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.8;margin:-16px 0 28px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.related{font-size:.9em;line-height:1.95}
+.related ul{margin:8px 0;padding-left:1.3em}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.8;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+td.ok{color:var(--green);font-weight:700}
+td.ng{color:var(--warn);font-weight:700}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px}
+}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+</style>
+<title>"Low Voltage Is the Easy Route" Does Not Hold for a Storage Station — Five Assumptions to Correct Before You File a Sub-50 kW Grid Battery | ScienceX</title>
+<meta name="description" content="A low-voltage (under 50 kW) grid-scale battery is not a small version of low-voltage solar. Whatever its output, a storage station is a business-use electrical facility that needs a safety regulations filing and a chief electrical engineer. The applicant is the retail electricity provider, the grid connection cost contribution is fixed only after you apply, and the '4-year rule' circulating in the market appears neither in METI's Q&A nor in the enforcement ordinance. 49.5 kW is one twentieth of the 1 MW minimum bid. Five assumptions, set out in figures and tables, and where the line falls against high voltage.">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-low-voltage">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-low-voltage">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-low-voltage">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-low-voltage">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-low-voltage">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&quot;Low Voltage Is the Easy Route&quot; Does Not Hold for a Storage Station — Five Assumptions to Correct Before You File a Sub-50 kW Grid Battery | ScienceX">
+<meta property="og:description" content="Whatever its output, a storage station is a business-use electrical facility. The applicant is the retail electricity provider, the cost contribution is fixed after you apply, the '4-year rule' is written nowhere, and 49.5 kW is one twentieth of the minimum bid. Five low-voltage assumptions, and where the line falls against high voltage.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-low-voltage">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="&quot;Low Voltage Is the Easy Route&quot; Does Not Hold for a Storage Station — Five Assumptions to Correct Before You File a Sub-50 kW Grid Battery | ScienceX">
+<meta name="twitter:description" content="Whatever its output, a storage station is a business-use electrical facility. The applicant is the retail electricity provider, the cost contribution is fixed after you apply, the '4-year rule' is written nowhere, and 49.5 kW is one twentieth of the minimum bid.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="article:published_time" content="2026-08-23">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "\"Low Voltage Is the Easy Route\" Does Not Hold for a Storage Station — Five Assumptions to Correct Before You File a Sub-50 kW Grid Battery | ScienceX",
+  "description": "A low-voltage (under 50 kW) grid-scale battery is not a small version of low-voltage solar. Whatever its output, a storage station is a business-use electrical facility that needs a safety regulations filing and a chief electrical engineer. The applicant is the retail electricity provider, the grid connection cost contribution is fixed only after you apply, and the '4-year rule' circulating in the market appears neither in METI's Q&A nor in the enforcement ordinance. 49.5 kW is one twentieth of the 1 MW minimum bid.",
+  "author": {
+    "@type": "Person",
+    "name": "Shinya Nakashima",
+    "jobTitle": "Representative Director, Ph.D. (Eng.)",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": ["https://www.linkedin.com/in/dr-shinya-nakashima"]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-08-23",
+  "dateModified": "2026-08-23",
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-low-voltage"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.scix.co.jp/en" },
+    { "@type": "ListItem", "position": 2, "name": "Knowledge", "item": "https://www.scix.co.jp/en/knowledge" },
+    { "@type": "ListItem", "position": 3, "name": "\"Low Voltage Is the Easy Route\" Does Not Hold for a Storage Station", "item": "https://www.scix.co.jp/en/column-low-voltage" }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/en" style="color:#5A6577;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">&rsaquo;</span><a href="/en/knowledge" style="color:#5A6577;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">&rsaquo;</span><span style="color:#8A92A0">“Low voltage is the easy route” does not hold for a storage station</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 44</span>
+      <span class="header-tag">REGULATORY ANALYSIS / LOW VOLTAGE &middot; GRID INTERCONNECTION &times; ELECTRICITY BUSINESS ACT</span>
+      <time class="header-date" datetime="2026-08-23">2026.08.23</time>
+    </div>
+    <h1>“Low voltage is the easy route” does not hold for a <em>storage station</em></h1>
+    <p class="header-desc">Grid-scale batteries under 50 kW. Five assumptions to correct before you file, and where the line falls against high voltage.</p>
+  </div>
+</div>
+
+<div class="article-body">
+<p>"At low voltage, a notification is all it takes." The more experience someone has with low-voltage solar, the more likely they are to walk into batteries believing this. It is wrong. At the same 49.5 kW, solar is a small-scale business-use electrical facility, while a storage station (蓄電所) is a business-use electrical facility whatever its output, which means <strong>a safety regulations filing and the appointment of a chief electrical engineer</strong>. The applicant is not you either, but the retail electricity provider; the grid connection cost contribution is fixed only after you have applied; and a single unit can sell nothing into any market. <strong>A low-voltage storage station is not a small version of low-voltage solar.</strong></p>
+
+<p>Low-voltage battery resources (receiving capacity under 50 kW) became eligible for the balancing market from the delivery date of 14 March 2026 (EPRX). In the six months since, subdivided lots and packaged products advertised at "49.5 kW, about six tsubo (roughly 20 m&sup2;), in the ¥20 million range" have spread through the market, and the land enquiries reaching us increasingly involve small parcels that fall short of the minimum for a high-voltage project. Yet when the assumptions being repeated in the field are checked against the statutes, the government's Q&amp;A and the application rules of the ten general transmission and distribution utilities (TDSOs), five of them fail. This column is written strictly within what could be confirmed in documents published by the Agency for Natural Resources and Energy (ANRE), the Organization for Cross-regional Coordination of Transmission Operators (OCCTO), EPRX and the ten TDSOs, as of 22 August 2026.</p>
+
+<p>In order: where the lines are actually drawn (01), the applicant is not you (02), the price is set after you apply (03), the "4-year rule" does not exist (04), one unit sells nothing (05), choosing between low and high voltage (06), what takes effect from here (07), and five checks before you file (08).</p>
+
+<div class="note"><b>Editorial note:</b> The regulatory statements in this column were confirmed on 22 August 2026 against ANRE's "Q&amp;A on Countermeasures Against the Segmentation of Generation and Related Facilities" (last updated 11 June 2026), OCCTO's "Flow of Grid Access for Generation and Related Facilities" (July 2026 edition) together with its methodology for calculating deposits and its approach to instalment payment of grid connection cost contributions (both updated 18 March 2026), EPRX's FAQ, the grid interconnection and wheeling pages of the ten TDSOs, METI's "Guide to Installing Electricity Storage Devices (Batteries) and Storage Stations" and its published enforcement actions, and the Fire and Disaster Management Agency's materials on the amended ministerial ordinance on fire-use equipment; the sources were then re-checked against the original documents after third-party fact-checking on 23 August. <b>Figures drawn from sales material — initial cost, footprint, yield — are marked in the text as "advertised figures" and are not used in any regulatory judgment.</b> Low-voltage grid batteries had no full-year operating track record as of August 2026, so every revenue figure is an assumption. Items found in no document are marked ❓ in the text and collected in the table at the end. This column is a regulatory analysis, not investment, tax or legal advice. The rules continue to change through 2026–27, and this article will be updated as they do.</div>
+
+<p style="margin-bottom:.4em"><strong>The five assumptions — what you were told, and what is actually the case</strong></p>
+<div class="tablewrap wraptext">
+<table>
+<thead><tr><th style="width:3em">#</th><th>What is said in the field</th><th>What the statutes, the government Q&amp;A and the utilities' own rules say</th><th style="width:4em">§</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>At low voltage you can operate on a notification alone</td><td>Whatever its output, a storage station is a <strong>business-use electrical facility</strong>. Safety regulations and a chief electrical engineer are required. Above 20 kWh, incident reporting and a fire-department filing as well</td><td>01</td></tr>
+<tr><td>2</td><td>Settle the land and the equipment, then apply</td><td>The party to the contract is the <strong>retail electricity provider</strong>. Until the generation contract holder is fixed, you cannot take the first step. From June 2026 the charging side must be filed in parallel</td><td>02</td></tr>
+<tr><td>3</td><td>Decide once you have seen the cost contribution estimate</td><td>There is no connection study at low voltage. <strong>The contribution is fixed after design is complete.</strong> You commit first, the price comes after</td><td>03</td></tr>
+<tr><td>4</td><td>Same landowner within four years back means a split project</td><td>"Four years" appears in no document. The basis is the <strong>Enforcement Ordinance of the Electricity Business Act</strong>, and the Q&amp;A names storage stations expressly. Look-back is one year as a rule; the contested point is "special reason"</td><td>04</td></tr>
+<tr><td>5</td><td>You can sell into the market from a single unit</td><td>Minimum bid 1 MW. 49.5 kW is <strong>one twentieth</strong> of that. Without an aggregator to bundle it, there is no route to revenue</td><td>05</td></tr>
+</tbody>
+</table>
+</div>
+
+<p style="margin-bottom:.4em"><strong>Scope of this column</strong></p>
+<div class="tablewrap wraptext">
+<table class="scope">
+<tbody>
+<tr><th>Subject</th><td>Grid-scale batteries (storage stations) with a receiving capacity under 50 kW, connected to the grid standalone and selling by discharging (reverse power flow). Residential, behind-the-meter self-consumption and solar-paired systems are out of scope</td></tr>
+<tr><th>Status under the Electricity Business Act ✅</th><td>A <strong>business-use electrical facility</strong> whatever its output. A safety regulations filing and appointment of a chief electrical engineer are required (external outsourcing permitted)</td></tr>
+<tr><th>Who applies ✅</th><td>The party to the Generation Output Adjustment Supply Contract is the <strong>retail electricity provider</strong>. The owner is the party who issues a letter of consent</td></tr>
+<tr><th>Connection study ✅</th><td>None at low voltage. The grid connection cost contribution is fixed <strong>after design is complete</strong></td></tr>
+<tr><th>Segmentation rules ✅</th><td>The basis is the proviso to Article 3(2)(ii) of the Enforcement Ordinance of the Electricity Business Act. ANRE's Q&amp;A expressly names "grid-scale batteries (storage stations)". Look-back is one year as a rule</td></tr>
+<tr><th>"Four-year look-back", "1 MW = 21 units" ❓</th><td>Appear neither in ANRE's Q&amp;A, nor in the enforcement ordinance under the Electricity Business Act, nor in any utility's application guidance</td></tr>
+<tr><th>Market participation ✅</th><td>Minimum bid 1 MW. A 49.5 kW unit cannot bid alone; going through an aggregator is structurally unavoidable</td></tr>
+<tr><th>What takes effect from here ✅</th><td>Documentary proof of land use title (from 1 October 2026, low voltage included) and JC-STAR ★1 (for low voltage, contract applications from October 2027)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2><span class="no">01</span>Where the lines are drawn — 50 kW, 2,000 kW, and the "storage station"</h2>
+
+<p>Grid interconnection classes are drawn by receiving capacity. Under 50 kW is low voltage; 50 kW to under 2,000 kW is high voltage; 2,000 kW and above is extra-high voltage. High-voltage projects are designed at 1,990 kW or 1,999 kW because crossing the 2,000 kW line brings extra-high-voltage receiving equipment and procedures with it, and low-voltage projects are designed at 49.5 kW for exactly the same reason. Up to this point, batteries behave like solar.</p>
+
+<p>The Electricity Business Act draws a different line. Electrical facilities fall into three classes — general-use, small-scale business-use and business-use — and the only things inside the small-scale business-use class are solar at 10 kW to under 50 kW and wind under 20 kW. A storage station — equipment that takes in electricity from outside the site, stores it, and sends it back out at the same voltage and frequency — is a <strong>business-use electrical facility whatever its output</strong> (METI, "Guide to Installing Electricity Storage Devices (Batteries) and Storage Stations", 14 November 2025). Low-voltage solar gets by on a notification because the small-scale business-use category exists. Storage stations have no such category.</p>
+
+<figure>
+<svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 1 — Grid interconnection classes (low, high and extra-high voltage) and Electricity Business Act classes (general-use, small-scale business-use, business-use) are two different lines. A storage station is a business-use electrical facility at any voltage">
+  <rect width="720" height="340" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="0.8">Fig. 1 / Two different lines — voltage class and Electricity Business Act class</text>
+  <text x="40" y="64" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">Grid interconnection classes (drawn by receiving capacity)</text>
+  <rect x="40" y="76" width="200" height="58" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="140" y="100" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">Low voltage</text>
+  <text x="140" y="120" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">Under 50 kW (design: 49.5 kW)</text>
+  <rect x="260" y="76" width="200" height="58" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="360" y="100" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">High voltage</text>
+  <text x="360" y="120" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">50–2,000 kW (design: 1,999 kW)</text>
+  <rect x="480" y="76" width="200" height="58" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="580" y="100" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">Extra-high voltage</text>
+  <text x="580" y="120" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">2,000 kW and above</text>
+  <text x="360" y="152" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#A07916">A storage station, at any voltage ↓</text>
+  <line x1="40" y1="158" x2="680" y2="158" stroke="#C49A3C" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="555" y1="160" x2="555" y2="198" stroke="#C49A3C" stroke-width="2.5"/>
+  <polygon points="549,196 561,196 555,206" fill="#C49A3C"/>
+  <text x="40" y="190" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">Electricity Business Act classes (electrical facilities)</text>
+  <rect x="40" y="208" width="150" height="64" rx="8" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="2"/>
+  <text x="115" y="234" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="13.5" font-weight="700" fill="#1B2A4A">General-use</text>
+  <text x="115" y="254" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">Homes and the like</text>
+  <rect x="210" y="208" width="200" height="64" rx="8" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="2"/>
+  <text x="310" y="234" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">Small-scale business-use</text>
+  <text x="310" y="254" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">Only solar 10–50 kW, wind &lt;20 kW</text>
+  <rect x="430" y="208" width="250" height="64" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="555" y="234" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#A07916">Business-use</text>
+  <text x="555" y="254" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Storage stations sit here at any output</text>
+  <text x="360" y="304" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">Low-voltage solar gets by on a notification because the small-scale category exists.</text>
+  <text x="360" y="320" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">Storage stations have no such category.</text>
+</svg>
+<figcaption>Figure 1 — The voltage classes (top) and the Electricity Business Act classes (bottom) are two different lines. A storage station falls into the business-use class even at 49.5 kW.</figcaption>
+</figure>
+
+<p>Three things come with that. First, the duty to maintain conformity with technical standards (Article 39 of the Electricity Business Act), the safety regulations filing (Article 42) and the appointment of a chief electrical engineer (Article 43). For facilities under 5,000 kW connected at high voltage or below, safety management can be outsourced under the external outsourcing approval scheme, so you do not have to be the chief engineer yourself. The outsourcing fee, however, lands as a fixed annual cost per unit. Second, <strong>electricity storage devices above 20 kWh have been subject to incident reporting since 20 November 2025</strong> (amendment to the Ordinance on Reporting of Electricity-Related Matters: fire, explosion or damage to major equipment must be reported in outline within 24 hours and in detail within 30 days). Every low-voltage storage station in the 100–200 kWh class is caught. The Interpretation of the Technical Standards for Electrical Installations was amended the same day, incorporating the lithium-ion battery standard JIS C 8715-2. Third, the Fire Service Act. The amendment to the ministerial ordinance on fire-use equipment, in force from 1 January 2024, changed the unit of regulation to kWh: above 10 kWh a system is regulated, and above 20 kWh a filing with the fire department is required. Fire-prevention ordinances are set municipality by municipality, and outdoor installations must as a rule sit at least 3 m from buildings (relaxed with fire-spread prevention measures or a cubicle-type enclosure). If the volume of electrolyte exceeds the designated quantity under the Fire Service Act (1,000 L for Class 4, Petroleums Class 2), a separate hazardous-materials regime can apply alongside the fire-use equipment ordinance. Pre-consultation with the local fire department cannot be skipped, even at low voltage.</p>
+
+<p>Some things, on the other hand, you genuinely do not need at low voltage. Notification as a power generation business is triggered at an aggregate connected capacity above 10,000 kW; the construction plan notification and pre-service self-inspection apply at 10,000 kW or more of output or 80,000 kWh or more of capacity. A standalone low-voltage unit needs neither. In an urbanization control area, however, the question of whether the facility is a Category 1 Designated Structure (MLIT notice of 8 April 2025, COLUMN 43) applies at low voltage too.</p>
+
+<p>The reading is this. The "notification is all it takes" instinct learned from low-voltage solar does not transfer to storage stations on the safety side. <strong>The lightness of low voltage lies in the grid interconnection procedure, not in the treatment under the Electricity Business Act.</strong></p>
+
+<h2><span class="no">02</span>The applicant is not you — the counterparty to the supply contract is the retailer</h2>
+
+<p>A low-voltage storage station that discharges (exports) is filed with every TDSO under the category of the Generation Output Adjustment Supply Contract (発電量調整供給契約, "hatsuchō" contract). And the party to that contract is not the owner but the retail electricity provider — the generation contract holder. TEPCO Power Grid states expressly that where reverse power flow occurs a generation-side application is required, that the generation contract holder applies to TEPCO PG for the contract, and that applications go through its web application system. <strong>You are the owner, not the contracting party.</strong> Hokkaido Electric Power Network, Chubu Electric Power Grid and Kyushu Electric Power Transmission &amp; Distribution require a "letter of consent from the generator" to be attached to the retailer's application form. The owner is not the party who applies; the owner is the party who signs the consent.</p>
+
+<figure>
+<svg viewBox="0 0 720 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 2 — Contract relationships around a low-voltage storage station. The owner contracts with a retail electricity provider, and the retailer signs the Generation Output Adjustment Supply Contract with the TDSO. Operation is mandated to an aggregator, which bids into EPRX">
+  <defs>
+    <marker id="ah2n" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1B2A4A"/></marker>
+    <marker id="ah2g" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#C49A3C"/></marker>
+    <marker id="ah2s" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#9aa5b1"/></marker>
+  </defs>
+  <rect width="720" height="350" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#6C7A89" letter-spacing="0.8">Fig. 2 / Who contracts with whom — the counterparty is the retail electricity provider</text>
+  <rect x="40" y="52" width="160" height="50" rx="8" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="2"/>
+  <text x="120" y="71" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">Electrical contractor</text>
+  <text x="120" y="86" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">Files the application under</text>
+  <text x="120" y="97" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">mandate from the retailer</text>
+  <rect x="40" y="150" width="160" height="70" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="120" y="180" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="13.5" font-weight="700" fill="#1B2A4A">Owner (you)</text>
+  <text x="120" y="201" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">Owns the equipment</text>
+  <text x="120" y="242" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#cc4444">× The owner cannot be</text>
+  <text x="120" y="256" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#cc4444">the contracting party</text>
+  <rect x="290" y="70" width="180" height="76" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="380" y="100" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12" font-weight="700" fill="#A07916">Retail electricity provider</text>
+  <text x="380" y="119" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">= generation contract holder</text>
+  <text x="380" y="134" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">(the party to the contract)</text>
+  <rect x="530" y="70" width="150" height="76" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="605" y="100" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">TDSO</text>
+  <text x="605" y="119" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">Each utility's own</text>
+  <text x="605" y="134" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">web application system</text>
+  <rect x="290" y="220" width="180" height="76" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="380" y="250" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="13.5" font-weight="700" fill="#1B2A4A">Aggregator</text>
+  <text x="380" y="269" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">Specified Wholesale Supplier</text>
+  <text x="380" y="284" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">(registered with METI)</text>
+  <rect x="530" y="220" width="150" height="76" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="605" y="250" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">EPRX / capacity mkt</text>
+  <text x="605" y="271" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">Minimum bid 1,000 kW</text>
+  <line x1="200" y1="77" x2="288" y2="100" stroke="#9aa5b1" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#ah2s)"/>
+  <text x="206" y="66" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">Delegated filing (Chugoku NW)</text>
+  <line x1="200" y1="172" x2="288" y2="122" stroke="#1B2A4A" stroke-width="2" marker-end="url(#ah2n)"/>
+  <text x="208" y="158" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#1B2A4A">Retail contract &amp; mandate</text>
+  <line x1="200" y1="200" x2="288" y2="248" stroke="#1B2A4A" stroke-width="2" marker-end="url(#ah2n)"/>
+  <text x="208" y="240" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#1B2A4A">Operation mandate</text>
+  <line x1="470" y1="108" x2="528" y2="108" stroke="#C49A3C" stroke-width="2.5" marker-end="url(#ah2g)"/>
+  <text x="500" y="168" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#A07916">Generation Output Adjustment Supply Contract</text>
+  <text x="500" y="184" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#2C3E50">+ Connection Supply Contract (charging side)</text>
+  <text x="500" y="200" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">From 1 June 2026: filed in parallel</text>
+  <line x1="470" y1="258" x2="528" y2="258" stroke="#1B2A4A" stroke-width="2" marker-end="url(#ah2n)"/>
+  <text x="500" y="318" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#2C3E50">Bundled to 1 MW or more and bid (list / pattern)</text>
+  <text x="120" y="306" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">Order: retailer and aggregator first,</text>
+  <text x="120" y="320" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">land and equipment after</text>
+</svg>
+<figcaption>Figure 2 — The owner is not the contracting party. The retailer signs the contract, and the aggregator holds the route to revenue.</figcaption>
+</figure>
+
+<p>The channel differs by utility (Table 1). Kansai has "Takusō-kun", Kyushu has "Takusō Net", Chugoku has its "Wheeling Web New/Expanded Works Application", Shikoku has a "Works Application Reception System" (paper still accepted for now), Hokuriku has its "Wheeling New/Expanded Application System", Chubu and Hokkaido take internet applications, and Tohoku takes applications by e-mail and internet while grid interconnection applications go by post. It is not only the names that differ: the forms, the required documents and the standard processing times differ too.</p>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>Table 1 — Application channels for low-voltage Generation Output Adjustment Supply Contracts, and the treatment of third-party agents (as of 22 August 2026, per each utility's grid interconnection and wheeling pages)</caption>
+<thead><tr><th>Area</th><th>Application channel (LV, supply contract)</th><th>Statement on third-party agents</th><th>Cap on connection studies (HV/EHV, from 1 Aug 2026)</th></tr></thead>
+<tbody>
+<tr><td>Hokkaido</td><td>Web application service for demand-side wheeling new/expanded works. A copy of the generator's letter of consent is submitted with the supply contract application</td><td>Not stated ❓</td><td>5</td></tr>
+<tr><td>Tohoku</td><td>Two tracks: grid interconnection application (from the generator, by post) and supply contract application (from the retailer)</td><td class="ok">FAQ refers to "the generator (including an application agent)"</td><td>6</td></tr>
+<tr><td>Tokyo</td><td>The retailer (generation contract holder) uses the web application system. New technical-consultation request form from 15 May 2026 (field for grid charge/discharge)</td><td>Not stated ❓</td><td>11</td></tr>
+<tr><td>Chubu</td><td>Internet application system. Combined supply and basic contract application form plus the generator's letter of consent. Response as a rule within one month of receipt</td><td>Not stated ❓</td><td>7</td></tr>
+<tr><td>Hokuriku</td><td>Wheeling new/expanded application system (low-voltage purchase menu). Handled by the Network Service Centre's grid interconnection section</td><td class="ok">FAQ refers to "an application agent (electrical works / electrical contractor / architectural design)"</td><td>5</td></tr>
+<tr><td>Kansai</td><td>"Takusō-kun" internet application for low-voltage works. Interconnection response as a rule within one month</td><td>Not stated ❓</td><td>12</td></tr>
+<tr><td>Chugoku</td><td>Under 50 kW goes through the "Wheeling Web New/Expanded Works Application". Low-voltage contributions are set on a unit-price schedule (since Feb 2021)</td><td class="ok">Filing by an electrical contractor as agent is permitted (conditional on the connection supply and generation supply contracts already being in place)</td><td>5</td></tr>
+<tr><td>Shikoku</td><td>Received by the Wheeling Service Centre (there is a works application flow for low-voltage non-FIT)</td><td>Not stated ❓</td><td>5</td></tr>
+<tr><td>Kyushu</td><td>Wheeling new/expanded reception system ("Takusō Net"). Non-firm consent form plus, for low-voltage storage equipment, a PCS specification sheet. Contribution calculated as a rule after design is complete</td><td>Not stated ❓</td><td>8</td></tr>
+<tr><td>Okinawa (reference)</td><td>Internet new/expanded application system (revised 27 March 2026)</td><td>Not stated ❓</td><td>None set</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">The caps come from each TDSO's own calculation (11th Next-Generation Power Grid Working Group, 10 June 2026, Document 2) and their published pages. Because the scheme applies to "connection studies" for grid-scale batteries, there is no express text applying it to low-voltage grid batteries, which have no connection study (see §07).</p>
+
+<p>Let us be precise about agency. You sometimes hear that "low voltage cannot be filed by an agent", but that is not what the utilities' application rules say. That the contracting party is fixed as the retail electricity provider, and that the mechanics of filing can be delegated under a mandate, are two different things. Chugoku Electric Power Network states expressly that new/expanded applications (including the Wheeling Web application) may be filed by an electrical contractor acting as agent, provided the connection supply contract and the generation supply contract are already concluded. Tohoku Electric Power Network runs two tracks — low-voltage grid interconnection applications from "the generator (including an application agent)", and supply contract applications from the retailer that will buy the power — and Hokuriku Electric Power Transmission &amp; Distribution likewise assumes in its FAQ that applications come from "an application agent (electrical works / electrical contractor / architectural design)". For the remaining six utilities (Hokkaido, Tokyo, Chubu, Kansai, Shikoku, Kyushu), no page could be found that states verbatim whether a third party may file the supply contract application under mandate ❓. No utility allows a dedicated permitting agency to sign the supply contract in its own name, so <strong>if you want to use an agent, the starting point is a power of attorney from the retailer</strong>.</p>
+
+<p>One more. From 1 June 2026, filing the generation side (discharge) and the demand side (charging) simultaneously became a condition of accepting a contract application for grid-scale batteries ✅. Low voltage is covered as well. TEPCO PG introduced a new technical-consultation request form for low-voltage supply contracts on 15 May 2026, adding a field for whether grid charging and discharging occur. Kyushu Electric Power T&amp;D requires a non-firm connection consent form with the supply contract application, and, for storage equipment connected at low voltage with reverse power flow, a PCS specification sheet covering power factor and ramp rate.</p>
+
+<p>The reading is that the order is inverted. The solar instinct is "land → equipment → application". For a low-voltage storage station it is <strong>"retail electricity provider (and aggregator) → land and equipment → application"</strong>. Until the generation contract holder is settled, you cannot take the first step.</p>
+<h2><span class="no">03</span>The price is set after you apply — there is no connection study at low voltage</h2>
+
+<p>The better you know high-voltage development, the more likely you are to trip here. At high voltage you apply for a connection study, receive a response within three months as a rule (two months for units under 500 kW using inverters), and move to the contract application after seeing the estimated grid connection cost contribution written in it. At low voltage there is no such connection study ✅. Under OCCTO's "Flow of Grid Access for Generation and Related Facilities" and TEPCO PG's grid access rules, the TDSO carries out a technical review in connection with the contract application, and <strong>the cost contribution is fixed only after the design is complete</strong>. Kyushu Electric Power T&amp;D's low-voltage procedure page likewise states that where a contribution arises, the amount is as a rule calculated after design completion. "Decide once you have seen the estimate" is not structurally available. Time, on the other hand, is short: the response to a contract application is one month as a rule at low voltage, against six months or an agreed period at high voltage and above.</p>
+
+<figure>
+<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 3 — At high voltage the connection study response gives an estimated cost contribution before the contract application. At low voltage there is no connection study; the technical review and design follow the contract application, and the contribution is fixed after design completion">
+  <defs>
+    <marker id="ah3n" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1B2A4A"/></marker>
+  </defs>
+  <rect width="720" height="320" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="0.8">Fig. 3 / When you learn the price — before the decision at HV, after it at LV</text>
+  <text x="40" y="62" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">High voltage (2 MW class)</text>
+  <rect x="40" y="74" width="120" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="100" y="102" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#1B2A4A">Connection study</text>
+  <line x1="160" y1="97" x2="188" y2="97" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="190" y="74" width="150" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="265" y="93" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">Study response</text>
+  <text x="265" y="110" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">Est. contribution, ≤3 months</text>
+  <rect x="205" y="128" width="120" height="20" rx="3" fill="#C49A3C"/>
+  <text x="265" y="142" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">Price is known</text>
+  <line x1="340" y1="97" x2="365" y2="97" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <polygon points="395,69 423,97 395,125 367,97" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="395" y="101" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="11.5" font-weight="700" fill="#A07916">Decide</text>
+  <line x1="423" y1="97" x2="453" y2="97" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="455" y="74" width="110" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="510" y="102" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#1B2A4A">Contract filing</text>
+  <line x1="565" y1="97" x2="593" y2="97" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="595" y="74" width="95" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="642" y="95" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">Build &amp;</text>
+  <text x="642" y="110" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">connect</text>
+  <line x1="40" y1="170" x2="690" y2="170" stroke="#E2E6EC" stroke-width="1"/>
+  <text x="40" y="196" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">Low voltage (under 50 kW)</text>
+  <polygon points="70,199 98,227 70,255 42,227" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="70" y="231" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="11.5" font-weight="700" fill="#A07916">Decide</text>
+  <text x="70" y="275" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#cc4444">Commit first</text>
+  <line x1="98" y1="227" x2="118" y2="227" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="120" y="204" width="130" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="185" y="223" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#1B2A4A">Contract filing</text>
+  <text x="185" y="240" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">in the retailer's name</text>
+  <line x1="250" y1="227" x2="278" y2="227" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="280" y="204" width="100" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="330" y="223" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#1B2A4A">Technical review</text>
+  <text x="330" y="240" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#6C7A89">no connection study</text>
+  <line x1="380" y1="227" x2="408" y2="227" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="410" y="204" width="150" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="485" y="223" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#1B2A4A">Design complete</text>
+  <text x="485" y="240" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">cost contribution fixed</text>
+  <rect x="425" y="258" width="120" height="20" rx="3" fill="#C49A3C"/>
+  <text x="485" y="272" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">Price is known</text>
+  <line x1="560" y1="227" x2="593" y2="227" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="595" y="204" width="95" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="642" y="225" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">Build &amp;</text>
+  <text x="642" y="240" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">connect</text>
+  <text x="360" y="298" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">High voltage sees the price, then decides. Low voltage decides, then sees the price.</text>
+  <text x="360" y="313" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">Low voltage still gets a technical review — it simply comes after the application.</text>
+</svg>
+<figcaption>Figure 3 — The point at which "the price is known" swaps places: before the decision at high voltage, after it at low voltage. Per OCCTO's "Flow of Grid Access for Generation and Related Facilities" and TEPCO PG's grid access rules.</figcaption>
+</figure>
+
+<p>The easy confusion here is between "no connection study" and "no technical review". Even at low voltage you must submit interconnection documentation — single-line diagram, PCS ratings, protective relay settings, CT locations — and the feasibility and conditions of interconnection are judged on that basis. It is only the timing of that judgment that moves behind the application.</p>
+
+<p>What about the deposit? OCCTO's "Methodology for Calculating Deposits on Contract Applications for Generation and Related Facilities" (updated 18 March 2026) sets the deposit for grid-scale batteries at 10% of the estimated cost contribution stated in the connection study response (for applications received from 1 April 2026), and states in a footnote that for applications where no connection study is required, the estimated contribution is treated as zero. Followed literally, the formula puts the low-voltage deposit at zero. However, TEPCO PG's notice on the deposit increase expressly scopes it to [high voltage and extra-high voltage], and no notice could be found on any utility's site stating either that low voltage is subject to a deposit or that it is exempt ❓. <strong>There is no document that lets you conclude "no deposit at low voltage"; you have to ask each utility's wheeling desk.</strong></p>
+
+<p>The level of the cost contribution is unknowable in advance for the same reason. Some utilities, such as Chugoku Electric Power Network, apply a unit-price schedule to low-voltage interconnection contributions (since February 2021), but those are common unit prices for low-voltage generation facilities including solar. No published case could be found giving an actual contribution figure for a standalone low-voltage grid battery ❓.</p>
+
+<p>Two readings follow. If your funding plan requires the contribution to be fixed before you apply, low voltage is structurally unsuited to you. Conversely, the advantage of low voltage is that it avoids the connection queue that has stretched to 18–24 months at high voltage (<a target="_top" href="/en/column-grid-rules">COLUMN 09</a>). <strong>It is a trade: price later, time sooner.</strong></p>
+
+<h2><span class="no">04</span>The "4-year rule" does not exist — but the rules do name storage stations</h2>
+
+<p>Two claims are circulating in the market. "If the landowner is the same going four years back, it is a split project." And "1 MW — that is, about 21 units of under 50 kW — is the lot size for applications." Neither appears anywhere in ANRE's Q&amp;A, the enforcement ordinance under the Electricity Business Act, or the TDSOs' application guidance ❓. That does not mean there are no rules. <strong>There are, and they name storage stations expressly.</strong> Let us set it out.</p>
+
+<p>The basis is not FIT. The prohibition on splitting solar sits in Article 5(1)(ii) of the enforcement ordinance under the Renewable Energy Special Measures Act (in force April 2014), which is a certification requirement for FIT and FIP. It does not reach non-FIT storage stations directly. What applies instead is <strong>the proviso to Article 3(2)(ii) of the Enforcement Ordinance of the Electricity Business Act</strong>. The amendment of 1 April 2022 added to the definition of "a single demand location" an exclusion to the effect that where multiple generation-and-storage electrical facilities are installed on adjacent premises without a special reason, they are not treated as separate demand locations (they are aggregated); the amendment of 1 April 2023 widened the scope to "generation and storage electrical facilities" — that is, both generating and storage equipment. ANRE's "Q&amp;A on Countermeasures Against the Segmentation of Generation and Related Facilities" (last updated 11 June 2026) expressly lists "grid-scale batteries (storage stations)" among the concrete examples in scope ✅.</p>
+
+<figure>
+<svg viewBox="0 0 720 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 4 — The segmentation test. Whether there is an existing or simultaneously filed facility on adjacent or nearby land, whether the installer or landowner is the same (as a rule within one year back from the filing fiscal year), and whether a special reason exists; if caught, the sites are treated as one demand location and the low-voltage application cannot stand">
+  <defs>
+    <marker id="ah4n" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1B2A4A"/></marker>
+    <marker id="ah4g" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1A7A4C"/></marker>
+  </defs>
+  <rect width="720" height="440" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="0.8">Fig. 4 / The segmentation test — elements of ANRE's segmentation Q&amp;A, rearranged</text>
+  <rect x="140" y="48" width="360" height="50" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="320" y="69" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">Is there an existing or simultaneously filed</text>
+  <text x="320" y="87" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">generation or storage facility on nearby land?</text>
+  <line x1="500" y1="73" x2="558" y2="73" stroke="#1A7A4C" stroke-width="1.8" marker-end="url(#ah4g)"/>
+  <text x="529" y="66" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1A7A4C">No</text>
+  <rect x="560" y="50" width="130" height="46" rx="8" fill="#EAF5EE" stroke="#1A7A4C" stroke-width="1.8"/>
+  <text x="625" y="78" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#1A7A4C">Not segmentation</text>
+  <line x1="320" y1="98" x2="320" y2="128" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah4n)"/>
+  <text x="330" y="118" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1B2A4A">Yes</text>
+  <rect x="140" y="130" width="360" height="62" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="320" y="152" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#1B2A4A">Same installer, or same landowner?</text>
+  <text x="320" y="168" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">Landowner identity: as a rule, 1 year back from the filing FY</text>
+  <text x="320" y="184" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">Even where the names differ on paper, it is judged on substance</text>
+  <line x1="500" y1="161" x2="558" y2="161" stroke="#1A7A4C" stroke-width="1.8" marker-end="url(#ah4g)"/>
+  <text x="529" y="154" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1A7A4C">No</text>
+  <rect x="560" y="138" width="130" height="46" rx="8" fill="#EAF5EE" stroke="#1A7A4C" stroke-width="1.8"/>
+  <text x="625" y="166" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#1A7A4C">Not segmentation</text>
+  <line x1="320" y1="192" x2="320" y2="222" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah4n)"/>
+  <text x="330" y="212" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1B2A4A">Yes</text>
+  <rect x="140" y="224" width="360" height="82" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="320" y="245" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#A07916">Is there a "special reason"?</text>
+  <text x="320" y="262" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#2C3E50">Pre-existing road, footpath, waterway, farmland or forest between</text>
+  <text x="320" y="278" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#2C3E50">Each parcel would still be EHV / facilities of different types</text>
+  <text x="320" y="294" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#2C3E50">Joined by private line / no change in service connections</text>
+  <line x1="500" y1="265" x2="558" y2="265" stroke="#1A7A4C" stroke-width="1.8" marker-end="url(#ah4g)"/>
+  <text x="529" y="258" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1A7A4C">Yes</text>
+  <rect x="560" y="242" width="130" height="46" rx="8" fill="#EAF5EE" stroke="#1A7A4C" stroke-width="1.8"/>
+  <text x="625" y="270" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#1A7A4C">Not segmentation</text>
+  <line x1="320" y1="306" x2="320" y2="336" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah4n)"/>
+  <text x="330" y="326" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1B2A4A">No</text>
+  <rect x="100" y="338" width="440" height="58" rx="8" fill="#FBEDEA" stroke="#cc4444" stroke-width="2"/>
+  <text x="320" y="357" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#cc4444">Segmentation — combined into one demand location</text>
+  <text x="320" y="373" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#cc4444">The low-voltage application cannot stand</text>
+  <text x="320" y="389" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#2C3E50">Chubu PG: filings refused; contracts may be terminated if found later (2022/3/7)</text>
+  <text x="360" y="416" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">The figure "four years" appears in neither the Q&amp;A nor the enforcement ordinance.</text>
+  <text x="360" y="431" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">A battery installed as ancillary equipment is not a storage station; adjacency is not segmentation (Q10).</text>
+</svg>
+<figcaption>Figure 4 — The axis of the test is not a look-back period but identity of installer and landowner, plus "special reason". The judging party is the TDSO; at low voltage, the technical review is where it happens.</figcaption>
+</figure>
+
+<p>The elements of the test are set out in the same Q&amp;A. That the installer of the new facility and the installer of an existing adjacent or nearby facility are the same. That, even where the installers differ, the landowner of the new site and the existing site is the same. That the same installer is building several facilities on adjacent or nearby land. That, even where the installers differ, the land is recognised as substantively one location. And that even where names differ formally, the judgment is made on substance — "substantively the same". The judging party is the TDSO, and it happens during the review of the connection study or the technical review. Low voltage has no connection study, but the technical review seen in §03 plays that role.</p>
+
+<p>The look-back period is "as a rule, where the landowner is the same within one year back from the fiscal year of the application" (same Q&amp;A, A4-1). Only for low-voltage solar of 10 kW to under 50 kW does the look-back extend as far back as FY2014, on the grounds that deliberate splitting was common there (A4-2). Because item 2 is confined to solar generation facilities, on the face of the text the one-year rule applies to storage stations (there is no passage in the Q&amp;A that names storage stations and sets a look-back period for them). And neither contains "four years". Nor could "1 MW = 21 units" be found: the figure of 1 MW appears as the minimum bid size in the balancing market (§05), not as an application lot or a unit for the segmentation test.</p>
+
+<p>The examples that count as a "special reason", and therefore do not amount to segmentation, are in the same material. A road, river, historic footpath or waterway — public property outside the statutory categories — has always sat in between, so the sites cannot physically be combined. Land subject to objectively recognised restrictions on other uses, such as farmland or protection forest, lies in between. Even if split, each part would still be extra-high voltage. The facilities are of different types. A private line is run from the existing facility so that everything is combined into one demand location. The number of service connections from the grid is unchanged (except where the purpose is to avoid safety regulation). A battery installed as ancillary equipment is not a storage station, so placing a storage station adjacent to it is not segmentation (Q10). The Q&amp;A also states, however, that even where a case formally meets a "special reason" it may be judged as segmentation on the substance — for instance where the purpose is to avoid stepping up voltage — that splitting high voltage into high voltage is also in scope (Q11), and that the test may be applied again at the change-of-name procedure on a transfer. <strong>These rules bite on the buyer too.</strong></p>
+
+<p>Enforcement comes in two stages. If segmentation is found at the application stage, the several sites are treated together as one demand location, and an application under 50 kW cannot stand. Chubu Electric Power Grid states expressly that it will not accept applications judged to be split projects. As for cases discovered after interconnection, Chubu Electric Power Grid states in its notice of 7 March 2022 that where it requests remediation to a proper generating state and the operator does not comply, it may terminate the contract ✅. That said, no case of a storage station being rejected, revoked or terminated on segmentation grounds could be found in METI's published enforcement actions, or in notices from ANRE or the TDSOs ❓. Every published action concerns solar. FIT/FIP certification revocations in FY2025 numbered 55 (against 13 the previous year), and among them the Tajima-Minami No. 1 power plant (revoked March 2026) was a case of forging official documents to make a project appear not to be a split one (published by METI on 6 April 2026). <strong>Split the names to evade the test and it stops being a segmentation problem and becomes a forgery problem.</strong></p>
+
+<p>The background to the rules is worth holding onto as well. The body of the Q&amp;A takes as its starting point the sharp increase, from April 2021 onwards, in projects split below 50 kW in order to apply for connection contracts while avoiding safety regulation — safety regulations, construction plans, chief engineers — and lists three concerns: the unfairness of escaping regulation that ought to apply, the pass-through of TDSO management costs into wheeling charges, and the inefficiency of unnecessary poles and meters. As §01 showed, a storage station is a business-use electrical facility whatever its output, so slicing below 50 kW does not escape safety regulation. Even so, the pattern of one landowner or installer placing many units on nearby land is precisely the pattern these rules are aimed at. From January 2026, newly built generation and storage facilities requiring a connection study must submit documentation of the results of checking the land register for the installation site (on the face of the text, low voltage, which has no connection study, is not covered).</p>
+
+<p>The reading is this. "Four years" may be gone, but the pattern of one landowner filing several applications at the same time is the archetype of segmentation, and the look-back period never comes into play. The contested point shifts to whether a "special reason" applies — whether a road, footpath or farmland has always sat between the parcels, whether the service connections are separate per parcel and can be explained as having no safety-avoidance purpose. Consult the connecting utility early in the planning phase, and if it does not qualify, change the design. <strong>Splitting the names is the worst move available.</strong></p>
+<h2><span class="no">05</span>One unit sells nothing — a 1 MW minimum bid, and 49.5 kW is a twentieth of it</h2>
+
+<p>The minimum bid size in the balancing market is 1 MW (1,000 kW) (EPRX, "Introduction to the Balancing Market"). Resources below 1,000 kW are bundled before bidding. The capacity market likewise sets 1,000 kW as the minimum, with anything below that bundled as a dispatch-instruction resource. <strong>49.5 kW is roughly one twentieth of 1 MW.</strong> A low-voltage storage station can sell nothing into any market on its own.</p>
+
+<figure>
+<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 5 — Against a 1,000 kW minimum bid in the balancing market, one low-voltage unit is 49.5 kW. Twenty units bundled make only 990 kW. Owners mandate operation to an aggregator, which bundles them under the list and pattern method and bids into EPRX">
+  <defs>
+    <marker id="ah5n" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1B2A4A"/></marker>
+  </defs>
+  <rect width="720" height="320" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="0.8">Fig. 5 / A 1,000 kW minimum bid against a 49.5 kW low-voltage unit</text>
+  <text x="40" y="62" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">Balancing market minimum bid = 1,000 kW</text>
+  <rect x="40" y="72" width="600" height="26" fill="#1B2A4A"/>
+  <text x="632" y="90" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">1,000 kW</text>
+  <text x="40" y="128" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">One low-voltage storage station = 49.5 kW (about a twentieth of the minimum bid)</text>
+  <rect x="40" y="138" width="28" height="26" fill="#C49A3C"/>
+  <text x="54" y="156" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">1</text>
+  <rect x="70" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="100" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="130" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="160" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="190" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="220" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="250" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="280" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="310" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="340" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="370" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="400" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="430" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="460" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="490" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="520" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="550" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="580" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="610" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="646" y="156" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">×20 = 990 kW</text>
+  <rect x="40" y="206" width="170" height="60" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="125" y="231" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">Owners (20+)</text>
+  <text x="125" y="251" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">Resource providers</text>
+  <line x1="210" y1="236" x2="260" y2="236" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah5n)"/>
+  <text x="235" y="228" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">Operations</text>
+  <rect x="262" y="206" width="206" height="60" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="365" y="231" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#A07916">Aggregator</text>
+  <text x="365" y="251" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Registers a list, bundles to 1 MW+</text>
+  <line x1="468" y1="236" x2="518" y2="236" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah5n)"/>
+  <text x="493" y="228" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9.5" fill="#6C7A89">Bids</text>
+  <rect x="520" y="206" width="170" height="60" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="605" y="231" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12.5" font-weight="700" fill="#1B2A4A">EPRX balancing market</text>
+  <text x="605" y="251" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">LV from delivery 2026/3/14</text>
+  <text x="360" y="300" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">One unit cannot bid. Without an aggregator to bundle it, there is no route to revenue.</text>
+</svg>
+<figcaption>Figure 5 — 49.5 kW &times; 20 units gets you to 990 kW. The owner is a resource provider; the party accountable to the market is the aggregator.</figcaption>
+</figure>
+
+<p>How low-voltage resources became eligible is clear enough. Per EPRX's FAQ, completion of the market management system (MMS) update made trading possible for resources meeting the entry requirements from the trading date of 13 March 2026 (delivery date 14 March). OCCTO's 57th Balancing Market Subcommittee (26 September 2025) established that low-voltage resources metered at the receiving point can participate in all products under the list and pattern method — registering multiple resources as a "list" and bidding, evaluating and settling on a list basis — and the TDSO-side registration ceilings were raised to 100,000 resources and 500 lists/patterns. The framework on the bundling side is in place.</p>
+
+<p>The party doing the bundling is an aggregator registered with the Minister of Economy, Trade and Industry as a Specified Wholesale Supplier. Connection to the simplified command system, compliance with the cyber-security guidelines for ERAB (energy resource aggregation business), responsibility for planned-value balancing, and absorbing the penalties for non-performance — the party accountable to the market is the aggregator, and the owner is a resource provider.</p>
+
+<p>Here is the state of disclosure on intake terms. RE100 Denryoku advertises a 5% management fee, but conditional on a bundled aggregation-plus-O&amp;M package (advertised figure). FPS uses a combination of a revenue share and a fixed monthly fee (rate undisclosed), and states on its own site that it has suspended new intake of low-voltage batteries, including residential and self-consumption types. Digital Grid states in its own FAQ that it takes on low voltage from 30 units. WATT-TUNE (basic agreement announced 14 March 2026 under a four-way tie-up with Eco-Kaku, GoodWe Japan and REVIX JAPAN) and Tensor Energy (which announced the start of its business on 14 March 2026; 500 units by 2028 and 1,000 by 2030 are targets) disclose neither fee rate, nor contract term, nor whether the contract survives a change of owner. <strong>Not one aggregator in the scope of our search discloses whether the operating contract can be assigned when the owner changes</strong> ❓.</p>
+
+<p>Treat the yield figures the same way. "Over 20%" and "payback in five to six years" are sellers' advertised figures; commentary sites present ranges such as annual gross revenue of ¥2.63–6.32 million and a pre-tax IRR of 5.8–17.4%, but market operation at low voltage only began in April 2026 and no full-year record exists ❓. On top of that, the price cap in the balancing market falls to ¥10 from the delivery date of 1 September 2026, with further conditional step-downs already signalled (<a target="_top" href="/en/column-price-cap">COLUMN 41</a>). The initial cost of ¥12.5–27 million and the footprint of about six tsubo are advertised figures too, and exclude land acquisition, the grid connection cost contribution, site preparation and ground improvement.</p>
+
+<p>There is one reading. Revenue at low voltage is determined not by the performance of your battery but by the aggregator's bidding and operating capability and by how it takes its fee. The gap between gross and net described in <a target="_top" href="/en/column-aggregator-fee">COLUMN 17</a> bites harder at low voltage, where each unit is small and the fixed-cost ratio is high, than it does at high voltage. <strong>Choose the aggregator before the equipment. That is the order.</strong></p>
+<h2><span class="no">06</span>Low voltage or high voltage — the table of the dividing line</h2>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>Table 2 — Where low voltage (under 50 kW) and high voltage (2 MW / 8 MWh class) part company (as of 22 August 2026)</caption>
+<thead><tr><th>Item</th><th>Low voltage (under 50 kW)</th><th>High voltage (2 MW / 8 MWh class)</th></tr></thead>
+<tbody>
+<tr><td>Receiving capacity</td><td>Under 50 kW</td><td>50 kW to under 2,000 kW</td></tr>
+<tr><td>Class under the Electricity Business Act</td><td>Business-use electrical facility (storage station)</td><td>Same</td></tr>
+<tr><td>Safety regulations / chief electrical engineer</td><td>Required (may be outsourced)</td><td>Required</td></tr>
+<tr><td>Connection study</td><td><strong>None.</strong> Technical review at the contract application</td><td>Yes. Response within three months as a rule</td></tr>
+<tr><td>When the cost contribution is known</td><td><strong>After design completion</strong></td><td>At the connection study response (estimate)</td></tr>
+<tr><td>Deposit</td><td>Possibly ¥0 on the formula. No express text ❓</td><td>10% of the estimated contribution (from 1 Apr 2026)</td></tr>
+<tr><td>Response to the contract application</td><td>One month as a rule</td><td>Six months as a rule, or an agreed period</td></tr>
+<tr><td>Cap on connection studies per operator</td><td>Not directly in scope, as there is no connection study. No express text ⚠️</td><td>5–12 per area (from 1 Aug 2026)</td></tr>
+<tr><td>Market participation</td><td><strong>Not possible alone.</strong> An aggregator bundles to 1 MW or more</td><td>Can participate alone</td></tr>
+<tr><td>Fire-department filing (above 20 kWh)</td><td>Applies</td><td>Applies</td></tr>
+<tr><td>Incident reporting (above 20 kWh)</td><td>Applies</td><td>Applies</td></tr>
+<tr><td>Notification as a power generation business</td><td>Not required (threshold above 10,000 kW)</td><td>Not required (standalone)</td></tr>
+<tr><td>Land area required</td><td>From about 6 tsubo, roughly 20 m&sup2; (advertised figure)</td><td>Our own intake guideline is 600 m&sup2; or more</td></tr>
+<tr><td>Initial cost</td><td>¥12.5–27 million per unit (advertised figure)</td><td>¥700–800 million turnkey (<a target="_top" href="/en/column-buyer-structures">COLUMN 39</a>)</td></tr>
+<tr><td>JC-STAR ★1</td><td>Contract applications from October 2027</td><td>Contract applications from April 2027</td></tr>
+<tr><td>Land use title documents</td><td>In scope from 1 October 2026</td><td>Same</td></tr>
+<tr><td>Hands-off operation</td><td>Each unit is small and the fixed-cost ratio high. Managing many units in parallel</td><td>Concentrated on one site</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">"Advertised figure" means a number from sellers' material or commentary sites, not a regulatory or operating figure. Low-voltage procedures are per OCCTO's "Flow of Grid Access for Generation and Related Facilities" and each utility's low-voltage pages; deposits are per OCCTO's calculation methodology (18 March 2026).</p>
+
+<p>Here is the reading. The conditions under which low voltage becomes rational come down to three. You already own a small idle parcel and do not need to pay for land. You want to avoid the high-voltage connection queue. You want to spread your exposure in units of tens of millions of yen rather than hundreds of millions. Conversely, if you have concentrated capital and a site, and want a single location you can hold at arm's length, high voltage is the answer. A design in which "2 MW-equivalent spread across 40 low-voltage units matches a high-voltage project" is also being marketed (advertised figure), but that is also 40 supply contracts, 40 safety regimes, 40 fire-department filings and 40 access roads — and it takes the segmentation test in §04 forty times.</p>
+
+<figure>
+<svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 6 — Split 2 MW-equivalent into 40 low-voltage units and the supply contracts, safety regimes, fire filings, access roads and segmentation tests are each multiplied by forty">
+  <rect width="720" height="240" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="0.8">Fig. 6 / Split 2 MW into 40 low-voltage units — what gets multiplied by forty</text>
+  <rect x="40" y="56" width="26" height="22" rx="3" fill="#C49A3C" stroke="#C49A3C" stroke-width="1.5"/>
+  <rect x="72" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="40" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="72" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="40" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="72" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="40" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="72" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="40" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="72" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="165" y="212" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">49.5 kW × 40 units = 1,980 kW</text>
+  <text x="340" y="74" font-family="'Noto Serif JP',serif" font-size="12.5" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40</tspan> generation supply contracts (retailer's name)</text>
+  <text x="340" y="102" font-family="'Noto Serif JP',serif" font-size="12.5" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40</tspan> sets of safety regulations and chief engineers</text>
+  <text x="340" y="130" font-family="'Noto Serif JP',serif" font-size="12.5" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40</tspan> fire-department filings, plus incident reporting</text>
+  <text x="340" y="158" font-family="'Noto Serif JP',serif" font-size="12.5" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40</tspan> access roads and foundations</text>
+  <text x="340" y="186" font-family="'Noto Serif JP',serif" font-size="12.5" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40</tspan> segmentation tests (§04)</text>
+  <text x="520" y="226" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">Scale adds up. The work does not.</text>
+</svg>
+<figcaption>Figure 6 — The design of lining up low-voltage units to reach high-voltage scale is on the market (advertised figure), but contracts, safety, filings and tests all multiply by the number of units.</figcaption>
+</figure>
+
+<p><strong>Scale adds up. The work does not.</strong></p>
+
+<h2><span class="no">07</span>What takes effect from here — the 2026–27 rules and how they reach low voltage</h2>
+
+<p>The run of new rules introduced during 2026 is designed to tighten the connection study process in order to stop speculative queue-holding. Much of it does not reach low voltage, which has no connection study, but three things certainly do: parallel filing (1 June), land use title documents (1 October) and JC-STAR ★1 (October 2027).</p>
+
+<figure>
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 7 — Timeline of rule changes from January 2026 to October 2027 and how they reach low-voltage grid batteries. Parallel filing, land use title documents and JC-STAR star 1 cover low voltage; the deposit and the connection study cap have no express text">
+  <rect width="720" height="300" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="0.8">Fig. 7 / Rule changes in 2026–27 and how far they reach low voltage</text>
+  <line x1="40" y1="160" x2="700" y2="160" stroke="#C9CFD8" stroke-width="2"/>
+  <line x1="150" y1="140" x2="150" y2="158" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="150" cy="160" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="150" y="102" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/4/1</text>
+  <text x="150" y="118" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">10% deposit</text>
+  <text x="150" y="134" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">no express text ❓</text>
+  <line x1="300" y1="140" x2="300" y2="158" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="300" cy="160" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="300" y="102" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/8/1</text>
+  <text x="300" y="118" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Cap on connection studies</text>
+  <text x="300" y="134" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">out of scope, not stated ⚠️</text>
+  <line x1="540" y1="140" x2="540" y2="158" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="540" cy="160" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="540" y="102" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2027/4</text>
+  <text x="540" y="118" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">JC-STAR ★1: HV / EHV</text>
+  <text x="540" y="134" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">LV not yet</text>
+  <line x1="64" y1="162" x2="64" y2="180" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="64" cy="160" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="64" y="194" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/1/5</text>
+  <text x="64" y="210" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#2C3E50">Registry submission</text>
+  <text x="64" y="226" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">not stated ❓</text>
+  <line x1="225" y1="162" x2="225" y2="180" stroke="#1A7A4C" stroke-width="1.5"/>
+  <circle cx="225" cy="160" r="6" fill="#1A7A4C"/>
+  <text x="225" y="194" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/6/1</text>
+  <text x="225" y="210" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Generation + demand filed together</text>
+  <text x="225" y="226" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#1A7A4C">LV in scope ✅</text>
+  <line x1="395" y1="162" x2="395" y2="180" stroke="#1A7A4C" stroke-width="1.5"/>
+  <circle cx="395" cy="160" r="6" fill="#1A7A4C"/>
+  <text x="395" y="194" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/10/1</text>
+  <text x="395" y="210" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">Land use title documents</text>
+  <text x="395" y="226" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#1A7A4C">LV in scope ✅</text>
+  <line x1="680" y1="162" x2="680" y2="180" stroke="#1A7A4C" stroke-width="1.5"/>
+  <circle cx="680" cy="160" r="6" fill="#1A7A4C"/>
+  <text x="690" y="194" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2027/10</text>
+  <text x="690" y="210" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">JC-STAR ★1: LV</text>
+  <text x="690" y="226" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#1A7A4C">LV in scope ✅</text>
+  <line x1="322" y1="150" x2="322" y2="170" stroke="#cc4444" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <text x="322" y="147" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#cc4444">now</text>
+  <text x="360" y="262" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">✅ = covers low voltage  ·  ❓ = not stated in any document  ·  ⚠️ = out of scope by design, but not stated</text>
+  <text x="360" y="278" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">JC-STAR is keyed to the contract application date, not the interconnection date.</text>
+</svg>
+<figcaption>Figure 7 — Green = reaches low voltage. White = schemes premised on a connection study, whose application to low voltage is not written down anywhere.</figcaption>
+</figure>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>Table 3 — Rule changes in 2026–27 and how far they reach low-voltage grid batteries</caption>
+<thead><tr><th>From</th><th>Rule</th><th>Main scope</th><th>Reach at low voltage</th></tr></thead>
+<tbody>
+<tr><td>2026/1/5</td><td>Submit the results of checking the land register for the installation site with the connection study and contract application</td><td>New generation and storage facilities requiring a connection study</td><td>On the face of the text, low voltage, which has no connection study, is outside the scope (Q&amp;A A4)</td></tr>
+<tr><td>2026/4/1</td><td>Deposit for grid-scale batteries raised from 5% to 10%. First instalment of the cost contribution at least 50%</td><td>Grid-scale batteries (from contract applications received)</td><td>Possibly ¥0 on the formula. No express text ❓</td></tr>
+<tr><td>2026/6/1</td><td>Simultaneous filing of the generation and demand sides becomes a condition of accepting a contract application</td><td>Grid-scale batteries</td><td class="ok">Low voltage files both sides too ✅</td></tr>
+<tr><td>2026/8/1</td><td>Cap on the number of connection studies per operator (Tokyo 11, Kansai 12, Kyushu 8, Chubu 7, Tohoku 6, Hokkaido / Hokuriku / Chugoku / Shikoku 5, Okinawa none)</td><td>Connection studies for grid-scale batteries</td><td>Not directly in scope, as there is no connection study. No express text ⚠️</td></tr>
+<tr><td>2026/10/1 (planned)</td><td>Submission of documents proving title to use the project land. Within two months of interconnection consent; failure to submit cancels the interconnection reservation</td><td>Non-FIT, non-FIP generation sources</td><td class="ok">Low voltage in scope ✅</td></tr>
+<tr><td>2027/4</td><td>Use of JC-STAR ★1 certified products becomes a grid interconnection technical requirement</td><td>High- and extra-high-voltage contract applications</td><td>—</td></tr>
+<tr><td>2027/10</td><td>Same, for low voltage</td><td>Contract applications at low voltage (under 50 kW)</td><td class="ok">Low voltage in scope ✅</td></tr>
+<tr><td>Ongoing</td><td>Additional measures for early interconnection (connection without reinforcement, conditional on charging restrictions)</td><td>High voltage and above</td><td>Low voltage not covered at present. Expansion under consideration ✅</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Two of these deserve detail. On land use title, the ten TDSOs have applied for approval of amendments to their wheeling service tariffs, with implementation planned for 1 October 2026. Non-FIT and non-FIP sources are covered, and unless a copy of the land register or the lease agreement is submitted within two months of interconnection consent, the interconnection reservation is cancelled. A low-voltage storage station falls within that category of "non-FIT, non-FIP source". <strong>Land rights have become something you settle before you apply.</strong></p>
+
+<p>JC-STAR ★1 becomes mandatory with the April 2027 revision of the grid interconnection technical requirements; products connecting at low voltage (under 50 kW) get a transitional six-month lag, applying to contract applications from October 2027 (7th Next-Generation Power Grid Working Group, 9 February 2026, Document 2, "On the Grid Code"; 20th Grid Code Study Group, 16 December 2025). The trigger is the contract application date, not the interconnection date (<a target="_top" href="/en/column-jcstar">COLUMN 14</a>, COLUMN 27). In scope are PCS, EMS, gateways and other equipment involved in control over IP communications. ★1 is a self-declaration of conformity, valid for at most two years. Low-voltage projects filing from October 2027 need to check the IPA's list of products holding conformity labels before ordering equipment.</p>
+
+<h2><span class="no">08</span>Five checks before you file</h2>
+
+<ol class="actions">
+<li><b>Are the retail electricity provider and the aggregator settled?</b> As §02 and §05 show, you cannot take the first step until the generation contract holder is fixed, and there is no revenue until you have someone to bundle with. Get in writing: the minimum intake unit (a 1 MW bundle? from 30 units?), how the fee is taken (success fee, fixed monthly, any up-front charge), the contract term, whether the contract survives a change of owner, and where liability sits for imbalance and outages. Most operators publish none of this, so asking before you sign is the only way to find out.</li>
+<li><b>Is the safety regime in place?</b> As §01 shows, a storage station is a business-use electrical facility whatever its output. Line up the external chief electrical engineer, the safety regulations, and the fire-department filing and incident-reporting arrangements required above 20 kWh — for every unit. The "notification only" routine you used on low-voltage solar does not transfer as it stands.</li>
+<li><b>Have you built into your funding plan that the cost contribution only emerges after design completion?</b> As §03 shows, "decide once you have seen the estimate" is not available at low voltage. Whether a deposit applies is not written down either, so ask each utility's wheeling desk. Do not lock in decisions on land, equipment and finance ahead of the application.</li>
+<li><b>Is there a facility on adjacent or nearby land with the same installer or the same landowner?</b> As §04 shows, "four years" does not exist but the rules do. If there is, consult the connecting utility early in the planning phase about whether a "special reason" — a pre-existing road, footpath or farmland, separate service connections — applies. Do not take the route of splitting names to change how it looks.</li>
+<li><b>Will you make October 2026 and October 2027?</b> As §07 shows, land use title documents are due within two months of interconnection consent, and JC-STAR ★1 applies to contract applications from October 2027. Confirm land rights and equipment conformity before you file.</li>
+</ol>
+
+<h2><span class="no">END</span>A low-voltage storage station is not a small version of low-voltage solar</h2>
+
+<p>To restate the five. A storage station is a business-use electrical facility whatever its output, and needs safety regulations and a chief electrical engineer. The applicant is not you but the retail electricity provider, and from June 2026 the charging side must be filed in parallel. There is no connection study at low voltage, and the grid connection cost contribution is set after design completion. The "4-year rule" appears in no document, but the segmentation rules under the Electricity Business Act name storage stations expressly, and the test turns not on a look-back period but on identity of installer and landowner and on "special reason". And 49.5 kW is one twentieth of the 1 MW minimum bid: a single unit sells nothing.</p>
+
+<p>The advantages of low voltage are real. You can start on a small parcel, avoid the high-voltage connection queue, and spread your exposure in units of tens of millions of yen. But those advantages come from the lightness of the grid interconnection procedure — not from any lightness in the treatment under the Electricity Business Act, in the unit of market participation, or in the segmentation rules. <strong>When you look at low voltage, the order is not land, and not equipment, but the retailer and the aggregator.</strong> Only once those are settled can you go back to land and equipment.</p>
+
+<hr class="sep">
+<p><strong>❓ Unconfirmed — the limits of this column</strong></p>
+<div class="tablewrap wraptext">
+<table>
+<thead><tr><th>Item</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Deposit for low-voltage grid batteries</td><td>Zero on OCCTO's formula (no connection study = estimate of ¥0), but there is no notice stating that low voltage is covered, and none stating that it is exempt. Ask each utility's wheeling desk</td></tr>
+<tr><td>Actual cost contribution for a standalone low-voltage grid battery</td><td>No published case. The unit-price schedules are common to low-voltage generation facilities including solar</td></tr>
+<tr><td>Whether a third party may file the supply contract application as agent</td><td>Stated only by Chugoku Electric Power NW (agent permitted), Tohoku Electric Power NW (application agent) and Hokuriku Electric Power T&amp;D (application agent). The other six utilities' pages say nothing</td></tr>
+<tr><td>Application of the connection study cap to low voltage</td><td>Read as out of scope because there is no connection study, but no express text</td></tr>
+<tr><td>Look-back period for the segmentation test at low-voltage storage stations</td><td>On the face of the Q&amp;A, the general one year (the FY2014 look-back is confined to low-voltage solar). There is no provision setting a look-back period that names storage stations, and "four years" exists in neither</td></tr>
+<tr><td>Cases of rejection, revocation or termination of a storage station on segmentation grounds</td><td>None published. Every published enforcement action concerns solar</td></tr>
+<tr><td>Aggregator fee rates, contract terms and assignability</td><td>Mostly undisclosed. Not one operator in the scope of our search publishes whether the contract survives a change of owner</td></tr>
+<tr><td>Operating revenue record at low voltage</td><td>No full-year record. Every figure presented is either an assumption or an advertised figure</td></tr>
+<tr><td>Initial cost and land area required</td><td>All advertised figures from sales material. There is no official per-kWh cost figure specific to low voltage</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="tnote"><strong>Null finding:</strong> No detailed operating rules on segmentation specific to low-voltage grid batteries — look-back years, or a unit expressed in capacity or number of projects — exist in ANRE's Q&amp;A or in the TDSOs' application guidance. As far as can be confirmed, the segmentation test for batteries is carried out by the TDSOs on the basis of the proviso in the Enforcement Ordinance of the Electricity Business Act, applying by analogy the test elements built up in the solar context.</p>
+
+<hr class="sep">
+
+<div class="refs">
+<p><strong>Sources (as of 22 August 2026)</strong></p>
+
+<h3>Statutes and government materials</h3>
+<ul>
+<li>ANRE, "Q&amp;A on Countermeasures Against the Segmentation of Generation and Related Facilities" (発電等設備の分割対策に関するQ&amp;A), last updated 11 June 2026 — scope includes "grid-scale batteries (storage stations)"; test elements A3 and A4; look-back period; special reasons; Q10 <a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/electric/summary/regulations/02_faq/index.html">enecho.meti.go.jp/…/02_faq</a></li>
+<li>ANRE, "On the Installation Site of Renewable Energy Generation Facilities in Renewable Energy Generation Business Plans", 14 July 2017 (revised 1 April 2026) <a href="https://www.enecho.meti.go.jp/category/saving_and_new/saiene/kaitori/dl/fit_2017/legal/nintei_seti.pdf">enecho.meti.go.jp/…/nintei_seti.pdf</a></li>
+<li>Proviso to Article 3(2)(ii) of the Enforcement Ordinance of the Electricity Business Act (amended 1 April 2022; amended 1 April 2023 to cover "generation and storage electrical facilities") / Article 5(1)(ii) of the enforcement ordinance under the Renewable Energy Special Measures Act (in force 1 April 2014) / Articles 39, 42 and 43 of the Electricity Business Act</li>
+<li>METI, "Publication of enforcement actions taken in FY2025 under the Renewable Energy Special Measures Act", 6 April 2026 — 55 certification revocations, Tajima-Minami No. 1 <a href="https://www.meti.go.jp/press/2026/04/20260406002/20260406002.html">meti.go.jp/press/2026/04/20260406002</a></li>
+<li>METI, "Guide to Installing Electricity Storage Devices (Batteries) and Storage Stations", 14 November 2025 — a storage station is a business-use electrical facility whatever its output / amendment to the Ordinance on Reporting of Electricity-Related Matters, in force 20 November 2025 — incident reporting for storage devices above 20 kWh / amendment to the Interpretation of the Technical Standards for Electrical Installations, 20 November 2025 — incorporation of JIS C 8715-2</li>
+<li>ANRE Next-Generation Power Grid Working Group (5th, 14 November 2025, Document 2; 6th, 24 December 2025, Document 3: submission of land use title documents / 9th, 27 March 2026, Document 1: parallel filing and the connection study cap / 11th, 10 June 2026, Document 2: calculated caps by area) <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/index.html">meti.go.jp/shingikai/…/smart_power_grid_wg</a></li>
+<li>ANRE, "On the Grid Code", 7th Next-Generation Power Grid Working Group, Document 2, 9 February 2026 — JC-STAR ★1 from April 2027, low voltage from October 2027 / 20th Grid Code Study Group, 16 December 2025</li>
+<li>Fire and Disaster Management Agency, amendment to the ministerial ordinance on fire-use equipment, promulgated 31 May 2023, in force 1 January 2024 — unit of regulation changed to kWh, regulated above 10 kWh, filing above 20 kWh; "Outline of the revised regulation of battery installations"</li>
+<li>MLIT notice, 8 April 2025 — whether grid-scale batteries containing hazardous materials constitute a Category 1 Designated Structure</li>
+<li>IPA JC-STAR — ★1 applications opened 25 March 2025; self-declaration of conformity; validity up to two years</li>
+</ul>
+
+<h3>OCCTO, EPRX and the TDSOs</h3>
+<ul>
+<li>OCCTO, "Flow of Grid Access for Generation and Related Facilities", July 2026 edition — low-voltage procedures; response to a contract application within one month at low voltage; parallel filing; connection study caps and the list of utility pages <a href="https://www.occto.or.jp/institution/access/kentou/access_process.html">occto.or.jp/institution/access/kentou/access_process.html</a> (PDF: <a href="https://www.occto.or.jp/assets/access_nagare_20260724.pdf">access_nagare_20260724.pdf</a>)</li>
+<li>OCCTO, "Methodology for Calculating Deposits on Contract Applications for Generation and Related Facilities", updated 18 March 2026 — 10% for grid-scale batteries; applications not requiring a connection study treated as an estimate of ¥0 <a href="https://www.occto.or.jp/news/access_oshirase_2020_200917_dengen_kentou.html">occto.or.jp/news/access_oshirase_2020_200917_dengen_kentou.html</a> / same, "Approach to Accepting Changes to the Payment Terms of Grid Connection Cost Contributions", updated 18 March 2026 — first instalment of at least 50% for grid-scale batteries, from contract applications on and after 1 April 2026 <a href="https://www.occto.or.jp/news/access_oshirase_2018_181214_koujifutankin_kangaekata.html">occto.or.jp/news/…/koujifutankin_kangaekata</a></li>
+<li>EPRX, "Introduction to the Balancing Market" — minimum bid 1,000 kW, anything below aggregated before bidding / OCCTO Balancing Market Subcommittee, 57th meeting, 26 September 2025, Document 3 — list and pattern method for low voltage, registration ceilings of 100,000 resources and 500 patterns / EPRX FAQ — entry of low-voltage resources from the trading date of 13 March 2026 (delivery date 14 March)</li>
+<li>TEPCO Power Grid, "On the cap on the number of connection studies", 24 July 2026 — cap of 11 <a href="https://www.tepco.co.jp/pg/consignment/workshop/information/renewable/adjustment/20260724_01.html">tepco.co.jp/…/20260724_01</a> / same, "Revision of deposits and instalment payment of cost contributions", 1 April 2026 — scoped to [high and extra-high voltage] <a href="https://www.tepco.co.jp/pg/consignment/workshop/information/renewable/adjustment/20260401_02.html">tepco.co.jp/…/20260401_02</a> / same, Generation Output Adjustment Supply Contract (non-FIT/FIP) low voltage, grid access rules, and the new technical-consultation request form for low-voltage supply contracts of 15 May 2026</li>
+<li>Chubu Electric Power Grid, "On regulation of generation facilities within the same premises (notice)", 7 March 2022 — termination of the contract where the issue is found after interconnection and remediation is refused <a href="https://powergrid.chuden.co.jp/resource/goannai/ippan/powerconnection/saiene/sai_imp_20220307_01.pdf">powergrid.chuden.co.jp/…/sai_imp_20220307_01.pdf</a> / same, low-voltage interconnection guidance and the FY2026 unit-price schedule for cost contributions</li>
+<li>Chugoku Electric Power Network, new/expanded applications — filing by an electrical contractor as agent, conditional on the connection supply and generation supply contracts already being concluded <a href="https://www.energia.co.jp/nw/service/retailer/shinzousetsu/">energia.co.jp/nw/service/retailer/shinzousetsu</a> / same, unit-price system for low-voltage interconnection cost contributions (from 1 February 2021) / Tohoku Electric Power Network, FAQ on Generation Output Adjustment Supply Contracts — "the generator (including an application agent)"; the generation contract holder is the retailer buying the power <a href="https://nw.tohoku-epco.co.jp/consignment/request/emit/pdf/electric-faq.pdf">nw.tohoku-epco.co.jp/…/electric-faq.pdf</a></li>
+<li>Hokuriku Electric Power T&amp;D, FAQ "Preliminary review of low-voltage generation sites" — application agent; non-FIT goes to the retailer <a href="https://faq-nw.rikuden.co.jp/faq/show/356">faq-nw.rikuden.co.jp/faq/show/356</a> / Hokkaido Electric Power Network, application for generation output adjustment supply — generator's letter of consent <a href="https://www.hepco.co.jp/network/con_service/supply_overview/genecapacity/index.html">hepco.co.jp/network/…/genecapacity</a> / Chubu Electric Power Grid, generation output adjustment supply — generator's letter of consent, response as a rule within one month <a href="https://powergrid.chuden.co.jp/goannai/hatsuden_kouri/takuso_kyokyu/takuso_etc/etc_chousei/index.html">powergrid.chuden.co.jp/…/etc_chousei</a> / TEPCO Power Grid, Generation Output Adjustment Supply Contract (non-FIT/FIP), low voltage <a href="https://www.tepco.co.jp/pg/consignment/workshop/procedure/renewable/retailservice/low-pressure.html">tepco.co.jp/…/low-pressure</a></li>
+<li>Kyushu Electric Power T&amp;D, application procedures for low-voltage grid interconnection of generation facilities — cost contribution calculated as a rule after design completion <a href="https://www.kyuden.co.jp/td/renewable-energy/purchase/user/procedure.html">kyuden.co.jp/td/…/procedure</a> / same, applications — non-firm consent form, PCS specifications for low-voltage storage equipment <a href="https://www.kyuden.co.jp/td/application/electric-power-generation-business/application.html">kyuden.co.jp/td/application/…</a> / same, flow up to the start of wheeling supply — letters of consent from generator and consumer, first instalment of at least 50% <a href="https://www.kyuden.co.jp/td/service/wheeling/outline/flow.html">kyuden.co.jp/td/service/wheeling/outline/flow</a> / Kansai Transmission &amp; Distribution, "Takusō-kun" internet application for low-voltage works / Shikoku Electric Power T&amp;D, "On low-voltage works applications (generation side)", November 2023 / Okinawa Electric Power, internet new/expanded application system (revised 27 March 2026)</li>
+</ul>
+
+<h3>Company announcements and press coverage (includes advertised figures)</h3>
+<ul>
+<li>Digital Grid, battery aggregation service FAQ — takes on high- and extra-high-voltage projects; low voltage from 30 units <a href="https://www.digitalgrid.com/dgp-battery/">digitalgrid.com/dgp-battery</a> / FPS, grid-scale battery aggregation service — new intake of low-voltage batteries including residential and self-consumption types suspended; a share of revenue plus a fixed monthly fee <a href="https://fps-inc.jp/service/grid-scale-battery/">fps-inc.jp/service/grid-scale-battery</a> / RE100 Denryoku, announcement of 16 June 2025 — 5% management fee, zero up-front cost on a five-year contract / Technologies (Eco-Kaku, WATT-TUNE, GoodWe Japan, REVIX JAPAN), announcement of 15 March 2026 — four-party basic agreement, about six tsubo, AC 49.9 kW <a href="https://prtimes.jp/main/html/rd/p/000000027.000013775.html">prtimes.jp/…/000000027.000013775</a> / Tensor Energy, announcement of 27 July 2026 — collaboration with Rising Corporation, targets of 500 units by 2028 and 1,000 by 2030</li>
+<li>Nikkei BP Mega Solar Business, 19 March 2026, "'Low-voltage grid batteries' opened up, aggregation business picks up" — the four-party model; capex of about ¥17 million excl. tax for 49.5 kW / 100 kWh; IRR estimates; Tensor Energy's 14 March announcement / REVIX JAPAN and WATT-TUNE, August 2026 exhibition notice for SMART ENERGY WEEK [Autumn] — 49.9 kW / 100 kWh class from ¥12.5 million excl. tax / SOLAR JOURNAL — 49.9 kW × 21 sites for 1 MW / Mirai Densetsu, LehmanSoft and other commentary sites (initial costs and projections = advertised and commentary figures)</li>
+</ul>
+
+<h3>Notes</h3>
+<ul>
+<li>Low-voltage grid batteries only gained a slot in the balancing market in 2026, and the TDSOs' low-voltage pages are still written largely around solar and post-FIT systems, without covering the procedure for a standalone storage station. The ❓ marks in this column reflect that gap in the published record; final confirmation requires an enquiry to each utility's wheeling desk (Network Service Centre). The next update is planned for October 2026, when the land use title rules take effect</li>
+<li>Note on regulatory developments: safety regulation under the Electricity Business Act, the operation of the segmentation countermeasures, the entry requirements for the balancing market and the timing of JC-STAR are all subject to continuing change, principally by ANRE, OCCTO, EPRX and IPA. This column is based on those bodies' publications as of 22 August 2026. Please always check the latest announcements from each body before acting</li>
+</ul>
+</div>
+
+<hr class="sep">
+
+<div class="related">
+<p><strong>Read next</strong> &nbsp;<a target="_top" href="/en/column-grid-rules">The new rules for connection studies and contract applications — what the April 2026 "anti-queue-holding" measures change (COLUMN 09) →</a></p>
+<p><strong>Related columns</strong></p>
+<ul>
+<li><a target="_top" href="/en/column-development">C13 The full development sequence for a storage station — from site selection to grid interconnection</a></li>
+<li><a target="_top" href="/en/column-jcstar">C14 The trigger for JC-STAR ★1 is not the interconnection date</a></li>
+<li><a target="_top" href="/en/column-aggregator-fee">C17 Gross versus net in aggregator fees</a></li>
+<li>C27 JC-STAR ★1 to ★4 — the differences and the equipment covered</li>
+<li><a target="_top" href="/en/column-four-labels">C31 Grid-scale storage stations: the whole picture of regulation, tax and siting</a></li>
+<li><a target="_top" href="/en/column-price-cap">C41 The ceiling drops by ¥5 — the ¥10 price cap in the balancing market</a></li>
+<li>C43 Can land in an urbanization control area be used for a battery site?</li>
+</ul>
+</div>
+<div class="author-box">
+  <div class="ab-label">Supervised by</div>
+  <div><span class="ab-name">Shinya Nakashima, Ph.D. (Eng.)</span> — Representative Director, Science X Inc.</div>
+  <p style="margin:6px 0 0">Works on the development, sale and technical due diligence of grid-scale battery storage plants in Japan. This column is written and supervised on the basis of that hands-on transaction and due-diligence practice.</p>
+</div>
+</div>
+
+<!-- scix-column-cta : one per article. Primary = form, secondary = explainer page -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.5;text-align:center">Under 600 m&sup2;? Let us check whether low voltage works on your land</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.85;margin:0 0 22px;text-align:center">Even land that falls short of the minimum for high voltage (our guideline is 600 m&sup2;) can be a candidate for low voltage, depending on available grid capacity, the facilities on adjacent parcels and the ownership structure. Send us the location, area and land category, and we will tell you which line — high voltage or low — the site can be taken forward on, following the five checks in this column.</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/en/contact" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">Contact us about your land →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.75;margin:10px 0 0">Opens our contact form. Give us the location, area and land category in the message field — we handle the checks on adjacent parcels and the grid.</p>
+  </div>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <a target="_top" href="https://www.scix.co.jp/en/qa" style="color:#1B2A4A;font-weight:600;font-size:13.5px;text-decoration:none;border-bottom:1px solid #C49A3C;padding-bottom:2px">Read the introductory Q&amp;A →</a>
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.8;margin:10px 0 0">How grid-scale batteries work, in 24 questions for newcomers. The difference between low and high voltage, and who decides what — shorter than this column.</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        8-2 Nihonbashi-Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        TEL: <a href="tel:+81366913484">+81-3-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>

@@ -349,21 +349,93 @@
 </main>
 
 <script>
+// 送信後の案内を用件別に差し替える。
+// 用件は /contact が ?intent= で、/sell-form が ?type=land または ?intent=seller で渡す。
+// どれにも当たらなければ、下のHTMLに書いてある汎用の文面のまま表示する。
 (function () {
-  if (new URLSearchParams(location.search).get('type') !== 'land') return;
+  var q = new URLSearchParams(location.search);
+  var intent = (q.get('type') === 'land') ? 'land' : (q.get('intent') || '').toLowerCase();
   var card = document.querySelector('.thanks-card');
-  if (!card) return;
-  card.querySelector('h1').textContent = 'お申込みありがとうございました';
-  card.querySelector('.lead').innerHTML = 'お申込み内容を受け付けました。<br>原則<strong>1営業日以内</strong>に、担当よりご連絡いたします。';
-  card.querySelector('.next-steps').innerHTML =
-    '<h3>今後の流れ</h3>' +
-    '<div class="step-item"><span class="step-num">1</span><span class="step-text">机上確認のうえ、進められる場合は<strong>同意書の取り交わし</strong>をご案内いたします</span></div>' +
-    '<div class="step-item"><span class="step-num">2</span><span class="step-text"><strong>当社費用で接続検討</strong>をお申込みします（回答まで約3ヶ月）</span></div>' +
-    '<div class="step-item"><span class="step-num">3</span><span class="step-text">電力会社からの<strong>回答書をご共有</strong>し、今後の進め方をご相談いたします</span></div>';
+  if (!card || !intent) return;
+
+  var P = {
+    buyer: {
+      h: 'お問い合わせありがとうございました',
+      lead: '内容を受け付けました。<br>原則<strong>1営業日以内</strong>に、代表の中島よりご返信します。',
+      steps: [
+        ['ご関心の案件について、<strong>公開していない情報</strong>を含めてお返しします', ''],
+        ['ご希望の管内・規模・連系の時期をうかがい、<strong>合う案件を他にもお出しします</strong>', ''],
+        ['資料をお出しする段階で<strong>秘密保持契約</strong>を結び、DealRoomで一括してご覧いただきます', '']
+      ],
+      sub: ['/projects', '販売中の案件一覧を見る']
+    },
+    investor: {
+      h: 'お問い合わせありがとうございました',
+      lead: '内容を受け付けました。<br>原則<strong>1営業日以内</strong>に、代表の中島よりご返信します。',
+      steps: [
+        ['ご検討の形（<strong>1棟で持つ／まとめて出資する</strong>）をうかがいます', ''],
+        ['決算期と受電の時期から、<strong>間に合う案件</strong>を絞ってご案内します', ''],
+        ['オンラインでの<strong>個別ご説明</strong>も承ります', '']
+      ],
+      sub: ['/projects', '販売中の案件一覧を見る']
+    },
+    seller: {
+      h: 'お問い合わせありがとうございました',
+      lead: '内容を受け付けました。<br>粗いリストの段階で構いません。<strong>1週間以内</strong>に、買い手が付くかの一次判断をお返しします。',
+      steps: [
+        ['所在地・出力・概算の工事費負担金から、<strong>机上で確認</strong>します', ''],
+        ['お出しいただきたい書類（接続検討の回答書・登記・負担金の証憑など）を<strong>一覧でお送りします</strong>', ''],
+        ['売主様と直接お話しできることを条件に、<strong>買い手にお声がけ</strong>します', '']
+      ],
+      sub: ['/sourcing', '案件・権利を売る（進め方）']
+    },
+    land: {
+      h: 'お申込みありがとうございました',
+      lead: 'お申込み内容を受け付けました。<br>原則<strong>1営業日以内</strong>に、代表の中島よりご連絡いたします。',
+      steps: [
+        ['机上確認のうえ、進められる場合は<strong>同意書の取り交わし</strong>をご案内いたします', ''],
+        ['<strong>当社費用で接続検討</strong>をお申込みします（回答まで約3ヶ月）', ''],
+        ['電力会社からの<strong>回答書をご共有</strong>し、今後の進め方をご相談いたします', '']
+      ],
+      sub: ['/land', 'よくあるご質問を見る']
+    },
+    other: {
+      h: 'お問い合わせありがとうございました',
+      lead: '内容を受け付けました。<br>原則<strong>1営業日以内</strong>に、代表の中島よりご返信します。',
+      steps: [
+        ['ご提案・ご紹介の内容を確認します', ''],
+        ['お取り組みの形と、<strong>すでにある実績</strong>をうかがいます', ''],
+        ['オンラインでの<strong>打ち合わせ</strong>も承ります', '']
+      ],
+      sub: ['/company', '会社案内を見る']
+    }
+  };
+  P.owner = P.investor;
+  P.partner = P.other;
+  P.proposal = P.other;
+
+  var c = P[intent];
+  if (!c) return;
+
+  var h1 = card.querySelector('h1');
+  if (h1) h1.textContent = c.h;
+  var lead = card.querySelector('.lead');
+  if (lead) lead.innerHTML = c.lead;
+
+  var ns = card.querySelector('.next-steps');
+  if (ns) {
+    var html = '<h3>今後の流れ</h3>';
+    for (var i = 0; i < c.steps.length; i++) {
+      html += '<div class="step-item"><span class="step-num">' + (i + 1) + '</span>' +
+              '<span class="step-text">' + c.steps[i][0] + '</span></div>';
+    }
+    ns.innerHTML = html;
+  }
+
   var subBtn = card.querySelector('.btn-secondary');
   if (subBtn) {
-    subBtn.href = 'https://www.scix.co.jp/land';
-    subBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>よくあるご質問を見る';
+    subBtn.href = 'https://www.scix.co.jp' + c.sub[0];
+    subBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>' + c.sub[1];
   }
 })();
 </script>
@@ -469,7 +541,7 @@
         <div class="company-name">サイエンスエックス株式会社</div>
         〒103-0016 東京都中央区日本橋小網町8-2<br>
         BIZMARKS日本橋茅場町<br>
-        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
         MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
         <div class="representative">代表取締役 中島 晋也（工学博士）</div>
       </div>

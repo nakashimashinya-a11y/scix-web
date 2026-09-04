@@ -42,6 +42,26 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
 .filter-chip:hover{border-color:var(--gold-light);color:var(--navy);}
 .filter-chip.active{border-color:var(--gold);color:var(--navy);background:rgba(196,154,60,0.08);font-weight:500;}
 .count-line{font-size:0.82rem;color:var(--text-light);margin:18px 0 24px;}
+.filters{margin-bottom:6px;}
+.frow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px;}
+.frow .tb-label{font-size:0.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);min-width:74px;}
+.sortrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 0;}
+.sortrow label{font-size:0.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);}
+.sortsel{padding:7px 12px;border:1.5px solid #D1CFC9;border-radius:6px;background:var(--white);color:var(--text-secondary);font-family:inherit;font-size:0.8rem;cursor:pointer;}
+.sortsel:focus-visible{outline:2px solid var(--gold);outline-offset:1px;}
+.card{position:relative;}
+.card.picked{border-color:var(--gold);box-shadow:0 6px 22px rgba(196,154,60,0.18);}
+.pick{display:flex;align-items:center;gap:7px;font-size:0.76rem;color:var(--text-secondary);cursor:pointer;user-select:none;margin-bottom:12px;}
+.pick input{width:15px;height:15px;accent-color:var(--gold);cursor:pointer;margin:0;}
+.avail{display:inline-block;margin-top:10px;font-size:0.74rem;color:var(--text-light);text-decoration:none;border-bottom:1px dotted var(--text-light);}
+.avail:hover{color:var(--navy);border-bottom-color:var(--gold);}
+.tray{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--navy);color:#fff;padding:14px 24px;display:none;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;box-shadow:0 -6px 24px rgba(27,42,74,0.22);}
+.tray.on{display:flex;}
+.tray .tn{font-size:0.86rem;}
+.tray .tn b{font-family:var(--font-serif);font-size:1.1rem;}
+.tray a{display:inline-flex;align-items:center;gap:7px;padding:10px 22px;background:var(--gold);color:var(--navy);font-size:0.84rem;font-weight:600;text-decoration:none;border-radius:4px;}
+.tray button{background:none;border:1px solid rgba(255,255,255,0.4);color:rgba(255,255,255,0.8);font-family:inherit;font-size:0.78rem;padding:9px 14px;border-radius:4px;cursor:pointer;}
+@media(max-width:600px){.frow .tb-label{min-width:100%;}.tray{padding:12px 16px;gap:10px;}}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;}
 .card{background:var(--off-white);border:1px solid var(--border);border-radius:10px;padding:24px 24px 22px;border-top:3px solid var(--gold);display:flex;flex-direction:column;transition:box-shadow .25s ease,transform .25s ease;}
@@ -138,7 +158,7 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
   <span class="badge">NDA不要・匿名ティーザー</span>
   <div class="section-label">Project List</div>
   <h1>開発済みの案件を、<br><em>匿名のティーザーでご確認いただけます。</em></h1>
-  <p>系統接続・工事費負担金・用地が固まった系統用蓄電池案件を、管内・都道府県・電圧区分・規模・連系目安（年度）・進捗・スキームの範囲でご覧いただけます。<br>地番・事業者名・売主・価格は本ページでは開示していません。個別の案件資料（DD資料）は、NDA締結後に一括でご提供します。</p>
+  <p>接続検討の回答が出た系統用蓄電池案件を、管内・都道府県・電圧区分・規模・連系の見込み・進み具合・取得の形の範囲でご覧いただけます。連系の見込みは年月で、過ぎている案件は「要確認」と表示します。<br>地番・事業者名・売主・価格は本ページでは開示していません。個別の案件資料（DD資料）は、NDA締結後に一括でご提供します。</p>
 </div></section>
 
 <!-- LIST -->
@@ -146,13 +166,31 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
   <div class="section-label">Projects</div>
   <h2 class="section-title">案件一覧</h2>
 
-  <div class="toolbar" id="filterArea"><span class="tb-label">管内</span></div>
-  <div class="toolbar" id="filterVoltage" style="margin-top:10px;"><span class="tb-label">電圧</span></div>
+  <div class="filters">
+    <div class="frow" id="fArea"><span class="tb-label">管内</span></div>
+    <div class="frow" id="fVoltage"><span class="tb-label">電圧</span></div>
+    <div class="frow" id="fScheme"><span class="tb-label">取得の形</span></div>
+    <div class="frow" id="fCod"><span class="tb-label">連系</span></div>
+    <div class="frow" id="fStatus"><span class="tb-label">進み具合</span></div>
+    <div class="sortrow">
+      <label for="sortSel">並び順</label>
+      <select class="sortsel" id="sortSel">
+        <option value="cod">連系が早い順</option>
+        <option value="mw">規模が大きい順</option>
+        <option value="new">新着順</option>
+      </select>
+    </div>
+  </div>
 
   <div class="count-line" id="countLine"></div>
 
   <div class="grid" id="projectsGrid"></div>
   <div class="state-msg" id="stateMsg">案件を読み込んでいます…</div>
+  <div class="tray" id="tray">
+    <span class="tn"><b id="trayN">0</b> 件を選択中</span>
+    <a target="_top" id="trayGo" href="/contact?intent=buyer">選んだ案件の資料をまとめて請求 →</a>
+    <button type="button" id="trayClear">選択を解除</button>
+  </div>
 
   <div class="note">
     <div class="t">本ページの開示範囲について</div>
@@ -164,9 +202,9 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
 <!-- CTA -->
 <section class="cta"><div class="container">
   <h2>気になる案件があれば、まずはお問い合わせください</h2>
-  <p>各案件の「この案件について問い合わせる」から、案件IDを添えてお送りいただけます。<br>NDA締結後、確定数字とDD資料を一括で開示します。</p>
+  <p>気になる案件にチェックを入れると、複数まとめて資料を請求できます。<br>NDAは資料をお出しする段階で結びます。締結後、確定数字とDD資料を一括で開示します。</p>
   <a target="_top" href="/contact?intent=buyer" class="btn-primary">案件取得のお問い合わせ →</a>
-  <div><a target="_top" href="/overview" class="back">概要資料を見る（NDA不要）→</a></div>
+  <div><a target="_top" href="/transfer" class="back">買うまでの流れを読む →</a></div>
 </div></section>
 
 <script>
@@ -174,13 +212,32 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
   var grid = document.getElementById('projectsGrid');
   var stateMsg = document.getElementById('stateMsg');
   var countLine = document.getElementById('countLine');
-  var areaBar = document.getElementById('filterArea');
-  var voltageBar = document.getElementById('filterVoltage');
+  var sortSel = document.getElementById('sortSel');
+  var tray = document.getElementById('tray');
+  var trayN = document.getElementById('trayN');
+  var trayGo = document.getElementById('trayGo');
+  var trayClear = document.getElementById('trayClear');
 
-  var ALL = [];
-  var fArea = 'all';
-  var fVoltage = 'all';
+  var BARS = {
+    area:    document.getElementById('fArea'),
+    voltage: document.getElementById('fVoltage'),
+    scheme:  document.getElementById('fScheme'),
+    cod:     document.getElementById('fCod'),
+    status:  document.getElementById('fStatus')
+  };
 
+  var ALL = [], GENERATED_AT = '';
+  var F = { area:'all', voltage:'all', scheme:'all', cod:'all', status:'all' };
+  var SORT = 'cod';
+  var picked = {};
+
+  // 今日が属する年度（4月始まり）。連系の「今年度内」判定に使う。
+  var now = new Date();
+  var FY = now.getMonth() + 1 >= 4 ? now.getFullYear() : now.getFullYear() - 1;
+  var TODAY_YM = now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2);
+
+  function esc(v){ return String(v == null ? '' : v).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function fmtNum(n){ if(n == null || n === '') return '—'; var x = Number(n); return Number.isFinite(x) ? (Math.round(x*10)/10) : esc(n); }
   function statusClass(s){
     if(!s) return 's-applied';
     if(s.indexOf('連系') === 0) return 's-live';
@@ -188,78 +245,198 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
     if(s.indexOf('接続検討') === 0) return 's-grid';
     return 's-applied';
   }
-  function esc(v){ return String(v == null ? '' : v).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-  function fmtNum(n){ if(n == null || n === '') return '—'; var x = Number(n); return Number.isFinite(x) ? (Math.round(x*10)/10) : esc(n); }
+
+  // 連系の見込み。過ぎた日付は「要確認」にする。
+  // 販売中なのに連系予定が過去なら、その日付はもう当てにならないため。
+  function codView(p){
+    if(p.codYm && p.codYm >= TODAY_YM) return p.codYm.replace('-', '年') + '月';
+    if(p.codYm) return '要確認';
+    return p.cod ? '要確認' : '未定';
+  }
+  function codBucket(p){
+    if(!p.codYm || p.codYm < TODAY_YM) return 'tbd';
+    var y = Number(p.codYm.slice(0,4)), m = Number(p.codYm.slice(5,7));
+    var fy = m >= 4 ? y : y - 1;
+    if(fy <= FY) return 'thisfy';
+    if(fy === FY + 1) return 'nextfy';
+    return 'later';
+  }
+  // 並べ替え用。未定・要確認は必ず最後に置く。
+  function codKey(p){
+    return (p.codYm && p.codYm >= TODAY_YM) ? p.codYm : '9999-99';
+  }
+  function idNum(p){ var m = /(\d+)/.exec(p.id || ''); return m ? Number(m[1]) : 0; }
+
+  var COD_LABELS = [
+    ['thisfy', '今年度内'],
+    ['nextfy', '来年度'],
+    ['later',  '再来年度以降'],
+    ['tbd',    '未定・要確認']
+  ];
+
+  function track(name, params){
+    if(typeof window.gtag !== 'function') return;
+    try { window.gtag('event', name, params || {}); } catch(e) {}
+  }
 
   function cardHTML(p){
     var loc = (p.area ? '<span class="area">' + esc(p.area) + '管内</span>' : '') + (p.pref ? '（' + esc(p.pref) + '）' : '');
-    var mw = fmtNum(p.mw), mwh = fmtNum(p.mwh);
-    var cta = '/contact?intent=buyer&pid=' + encodeURIComponent(p.id || '');
+    var id = p.id || '';
+    var cta = '/contact?intent=buyer&pid=' + encodeURIComponent(id);
+    var avail = '/contact?intent=buyer&q=avail&pid=' + encodeURIComponent(id);
     return '' +
-      '<div class="card">' +
+      '<div class="card' + (picked[id] ? ' picked' : '') + '" data-id="' + esc(id) + '">' +
         '<div class="card-top">' +
-          '<span class="card-id">' + esc(p.id || '—') + '</span>' +
+          '<span class="card-id">' + esc(id || '—') + '</span>' +
           (p.status ? '<span class="status-pill ' + statusClass(p.status) + '">' + esc(p.status) + '</span>' : '') +
         '</div>' +
         '<div class="card-loc">' + loc + '</div>' +
         '<div class="specs">' +
           '<div class="spec"><div class="sk">電圧区分</div><div class="sv">' + esc(p.voltage || '—') + '</div></div>' +
-          '<div class="spec"><div class="sk">規模</div><div class="sv">' + mw + ' MW / ' + mwh + ' MWh</div></div>' +
-          '<div class="spec"><div class="sk">連系目安</div><div class="sv">' + esc(p.cod || '—') + '</div></div>' +
-          '<div class="spec"><div class="sk">スキーム</div><div class="sv">' + esc(p.scheme || '—') + '</div></div>' +
+          '<div class="spec"><div class="sk">規模</div><div class="sv">' + fmtNum(p.mw) + ' MW / ' + fmtNum(p.mwh) + ' MWh</div></div>' +
+          '<div class="spec"><div class="sk">連系の見込み</div><div class="sv">' + esc(codView(p)) + '</div></div>' +
+          '<div class="spec"><div class="sk">取得の形</div><div class="sv">' + esc(p.scheme || '—') + '</div></div>' +
         '</div>' +
+        '<label class="pick"><input type="checkbox" data-pick="' + esc(id) + '"' + (picked[id] ? ' checked' : '') + '>まとめて請求する案件に加える</label>' +
         '<a class="card-cta" target="_top" href="' + cta + '">この案件について問い合わせる' +
           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
         '</a>' +
+        '<a class="avail" target="_top" href="' + avail + '">この案件、まだありますか？</a>' +
       '</div>';
   }
 
   function uniq(arr){ var o = {}, r = []; arr.forEach(function(v){ if(v && !o[v]){ o[v] = 1; r.push(v); } }); return r; }
 
+  function chip(bar, group, key, label){
+    var c = document.createElement('span');
+    c.className = 'filter-chip' + (F[group] === key ? ' active' : '');
+    c.textContent = label;
+    c.setAttribute('data-key', key);
+    c.addEventListener('click', function(){
+      F[group] = key;
+      if(key !== 'all') track('projects_filter', { filter_group: group, filter_value: key });
+      render();
+    });
+    bar.appendChild(c);
+  }
+
   function buildFilters(){
-    var areas = uniq(ALL.map(function(p){ return p.area; }));
-    var volts = uniq(ALL.map(function(p){ return p.voltage; }));
-    function chip(bar, key, label, group){
-      var c = document.createElement('span');
-      c.className = 'filter-chip' + ((group === 'area' ? fArea : fVoltage) === key ? ' active' : '');
-      c.textContent = label;
-      c.addEventListener('click', function(){
-        if(group === 'area') fArea = key; else fVoltage = key;
-        render();
+    chip(BARS.area, 'area', 'all', 'すべて');
+    uniq(ALL.map(function(p){ return p.area; })).forEach(function(a){ chip(BARS.area, 'area', a, a); });
+
+    chip(BARS.voltage, 'voltage', 'all', 'すべて');
+    uniq(ALL.map(function(p){ return p.voltage; })).forEach(function(v){ chip(BARS.voltage, 'voltage', v, v); });
+
+    chip(BARS.scheme, 'scheme', 'all', 'すべて');
+    uniq(ALL.map(function(p){ return p.scheme; })).forEach(function(v){ chip(BARS.scheme, 'scheme', v, v); });
+
+    chip(BARS.cod, 'cod', 'all', 'すべて');
+    COD_LABELS.forEach(function(pair){
+      if(ALL.some(function(p){ return codBucket(p) === pair[0]; })) chip(BARS.cod, 'cod', pair[0], pair[1]);
+    });
+
+    chip(BARS.status, 'status', 'all', 'すべて');
+    uniq(ALL.map(function(p){ return p.status; })).forEach(function(v){ chip(BARS.status, 'status', v, v); });
+  }
+
+  function match(p){
+    return (F.area === 'all' || p.area === F.area)
+        && (F.voltage === 'all' || p.voltage === F.voltage)
+        && (F.scheme === 'all' || p.scheme === F.scheme)
+        && (F.status === 'all' || p.status === F.status)
+        && (F.cod === 'all' || codBucket(p) === F.cod);
+  }
+
+  function sortList(list){
+    var by = {
+      cod: function(a, b){ return codKey(a) < codKey(b) ? -1 : codKey(a) > codKey(b) ? 1 : idNum(b) - idNum(a); },
+      mw:  function(a, b){ return (Number(b.mw) || 0) - (Number(a.mw) || 0); },
+      new: function(a, b){ return idNum(b) - idNum(a); }
+    };
+    return list.slice().sort(by[SORT] || by.cod);
+  }
+
+  function syncChips(){
+    Object.keys(BARS).forEach(function(g){
+      [].forEach.call(BARS[g].querySelectorAll('.filter-chip'), function(c){
+        c.classList.toggle('active', c.getAttribute('data-key') === F[g]);
       });
-      bar.appendChild(c);
-    }
-    chip(areaBar, 'all', 'すべて', 'area');
-    areas.forEach(function(a){ chip(areaBar, a, a, 'area'); });
-    chip(voltageBar, 'all', 'すべて', 'voltage');
-    volts.forEach(function(v){ chip(voltageBar, v, v, 'voltage'); });
+    });
+  }
+
+  function syncTray(){
+    var ids = Object.keys(picked).filter(function(k){ return picked[k]; });
+    trayN.textContent = ids.length;
+    tray.classList.toggle('on', ids.length > 0);
+    trayGo.href = '/contact?intent=buyer&pid=' + encodeURIComponent(ids.join(','));
   }
 
   function render(){
-    // refresh active state on chips
-    [].forEach.call(areaBar.querySelectorAll('.filter-chip'), function(c){ c.classList.toggle('active', c.textContent === (fArea === 'all' ? 'すべて' : fArea)); });
-    [].forEach.call(voltageBar.querySelectorAll('.filter-chip'), function(c){ c.classList.toggle('active', c.textContent === (fVoltage === 'all' ? 'すべて' : fVoltage)); });
-
-    var list = ALL.filter(function(p){
-      return (fArea === 'all' || p.area === fArea) && (fVoltage === 'all' || p.voltage === fVoltage);
-    });
+    syncChips();
+    var list = sortList(ALL.filter(match));
     grid.innerHTML = list.map(cardHTML).join('');
-    countLine.textContent = '該当 ' + list.length + ' 件' + (list.length !== ALL.length ? '（全 ' + ALL.length + ' 件中）' : '');
+    countLine.textContent = '該当 ' + list.length + ' 件'
+      + (list.length !== ALL.length ? '（全 ' + ALL.length + ' 件中）' : '')
+      + (GENERATED_AT ? '　｜　' + GENERATED_AT + ' 更新' : '');
+    syncTray();
+  }
+
+  grid.addEventListener('change', function(e){
+    var t = e.target;
+    if(!t || !t.getAttribute || !t.getAttribute('data-pick')) return;
+    var id = t.getAttribute('data-pick');
+    picked[id] = t.checked;
+    var card = t.closest('.card');
+    if(card) card.classList.toggle('picked', t.checked);
+    syncTray();
+  });
+
+  grid.addEventListener('click', function(e){
+    var a = e.target.closest ? e.target.closest('a') : null;
+    if(!a) return;
+    if(a.classList.contains('avail')) track('avail_check', { pid: (a.href.split('pid=')[1] || '') });
+  });
+
+  trayGo.addEventListener('click', function(){
+    track('intro_request', { pid_count: Object.keys(picked).filter(function(k){ return picked[k]; }).length });
+  });
+
+  trayClear.addEventListener('click', function(){
+    picked = {};
+    render();
+  });
+
+  sortSel.addEventListener('change', function(){
+    SORT = sortSel.value;
+    track('projects_filter', { filter_group: 'sort', filter_value: SORT });
+    render();
+  });
+
+  // URL から初期フィルタを受ける（/?cod=thisfy・?voltage=特別高圧 など）
+  function presetFromQuery(){
+    var q = new URLSearchParams(location.search);
+    ['area','voltage','scheme','cod','status'].forEach(function(g){
+      var v = q.get(g);
+      if(v) F[g] = v;
+    });
+    var s = q.get('sort');
+    if(s && ['cod','mw','new'].indexOf(s) >= 0){ SORT = s; sortSel.value = s; }
   }
 
   fetch('/projects.json', { cache: 'no-store' })
     .then(function(r){ if(!r.ok) throw new Error('http ' + r.status); return r.json(); })
     .then(function(data){
       ALL = (data && data.projects) || [];
+      GENERATED_AT = (data && data.generatedAt) || '';
       if(!ALL.length){ throw new Error('empty'); }
       stateMsg.style.display = 'none';
+      presetFromQuery();
       buildFilters();
       render();
     })
     .catch(function(){
       stateMsg.innerHTML = '案件一覧を読み込めませんでした。お手数ですが <a target="_top" href="/contact?intent=buyer">お問い合わせ</a> ください。';
-      areaBar.style.display = 'none';
-      voltageBar.style.display = 'none';
+      document.querySelector('.filters').style.display = 'none';
     });
 })();
 </script>
@@ -289,7 +466,7 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
         <div class="company-name">サイエンスエックス株式会社</div>
         〒103-0016 東京都中央区日本橋小網町8-2<br>
         BIZMARKS日本橋茅場町<br>
-        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
         MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
         <div class="representative">代表取締役 中島 晋也（工学博士）</div>
       </div>

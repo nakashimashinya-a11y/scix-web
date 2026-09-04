@@ -26,12 +26,35 @@ import re
 import subprocess
 import sys
 
-DEFAULT_D2 = os.environ.get(
-    "SCIX_DEALROOM2_DIR",
-    "/Users/dr.shinyanakashima/Library/CloudStorage/GoogleDrive-s@scix.co.jp/"
-    "マイドライブ/書類GD/1AI営業支援/scix/scix-dealroom2",
-)
+def _resolve_d2_dir():
+    """dealroom2 アプリのディレクトリを決める。
+
+    環境変数 SCIX_DEALROOM2_DIR があればそれを使う。無ければ既知の候補を順に探す。
+    ⚠️ 実在しないパスを既定値にして黙って先へ進むと、D1 が引けないまま
+    projects-end.json だけの短い一覧を「最新」として書き出してしまう（2026-09 に発覚）。
+    見つからなければ None を返し、呼び出し側で止める。
+    """
+    env = os.environ.get("SCIX_DEALROOM2_DIR")
+    if env:
+        return env if os.path.isdir(env) else None
+    home = os.path.expanduser("~")
+    candidates = [
+        os.path.join(home, "マイドライブ/9_システム/1AI営業支援/scix/scix-dealroom2"),
+        os.path.join(home, "Library/CloudStorage/GoogleDrive-s@scix.co.jp/"
+                           "マイドライブ/9_システム/1AI営業支援/scix/scix-dealroom2"),
+    ]
+    for c in candidates:
+        if os.path.isdir(c):
+            return c
+    return None
+
+
+DEFAULT_D2 = _resolve_d2_dir()
 D1_DB = "scix-dealroom-db"
+
+# 公開してよい販売ステータスはこれだけ。売却済み・交渉中・準備中は一覧に出さない。
+# （2026-09 まで絞り込みが無く、売却済みの案件が「販売中」として載り続けていた）
+PUBLIC_SALES_STATUS = {"販売中"}
 
 # 一般送配電事業者 → 電力管内（都道府県の上位の地域区分）
 AREA_MAP = {
@@ -79,18 +102,39 @@ OVERLAY_STR = ["status", "voltage", "gridOperator", "area", "connectionDate", "s
 OVERLAY_NUM = ["mw", "capacity", "maxPower"]
 
 
+class D1Unavailable(RuntimeError):
+    """D1 が引けなかった。部分的な一覧を書き出さずに止めるための例外。"""
+
+
 def wrangler_json(command):
-    """dealroom2 ディレクトリで wrangler d1 を実行し results を返す。"""
+    """dealroom2 ディレクトリで wrangler d1 を実行し results を返す。
+
+    ⚠️ 失敗を握りつぶさない。D1 が引けないまま続けると、D1 にしか無い案件
+    （新規登録分）が丸ごと落ちた一覧を「最新」として公開してしまう。
+    """
+    # 非対話（launchd・cron）では npx wrangler の OAuth が失効する。
+    # SCIX_WRANGLER にトークン自動更新ラッパー（~/.config/scix-cockpit/wr）を渡せるようにする。
+    wrangler = os.environ.get("SCIX_WRANGLER")
+    argv = ([wrangler] if wrangler else ["npx", "wrangler"]) + [
+        "d1", "execute", D1_DB, "--remote", "--json", "--command", command]
     try:
         out = subprocess.run(
-            ["npx", "wrangler", "d1", "execute", D1_DB, "--remote", "--json", "--command", command],
-            cwd=DEFAULT_D2, capture_output=True, text=True, timeout=120,
+            argv, cwd=DEFAULT_D2, capture_output=True, text=True, timeout=180,
         )
-        data = json.loads(out.stdout)
-        return data[0]["results"]
     except Exception as e:  # noqa
-        print(f"[warn] wrangler query failed ({e}); 続行（D1分はスキップ）", file=sys.stderr)
-        return []
+        raise D1Unavailable(f"wrangler の起動に失敗: {e}")
+    if out.returncode != 0:
+        tail = (out.stderr or out.stdout or "").strip().splitlines()[-3:]
+        raise D1Unavailable(f"wrangler が exit {out.returncode}: {' / '.join(tail)}")
+    try:
+        data = json.loads(out.stdout)
+    except json.JSONDecodeError as e:
+        raise D1Unavailable(f"wrangler の出力が JSON でない: {e}")
+    if isinstance(data, list):
+        return data[0]["results"]
+    if isinstance(data, dict) and "result" in data:
+        return data["result"][0]["results"]
+    raise D1Unavailable(f"wrangler の出力の形が想定外: {type(data).__name__}")
 
 
 def extract_pref(address):
@@ -141,6 +185,17 @@ def fiscal_year(date_str):
     return f"{fy}年度"
 
 
+def cod_month(date_str):
+    """'2027-04-01' → '2027-04'。年度だけでは決算期に間に合うかを答えられないため、
+    月まで出す（2026-09-05 判断①で公開可）。日は出さない。"""
+    if not date_str:
+        return None
+    m = re.match(r"(\d{4})-(\d{1,2})", str(date_str))
+    if not m:
+        return None
+    return f"{int(m.group(1)):04d}-{int(m.group(2)):02d}"
+
+
 def derive_status(p, today):
     """過剰主張を避けた進捗ラベル。
     連系予定日が過去でも「実際に連系済み」とは限らない（計画日が後ろ倒しの可能性）ため、
@@ -188,6 +243,7 @@ def to_public(p, today):
         "mw": round(float(mw), 2) if isinstance(mw, (int, float)) else None,
         "mwh": round(float(mwh), 1) if isinstance(mwh, (int, float)) else None,
         "cod": fiscal_year(p.get("connectionDate")),
+        "codYm": cod_month(p.get("connectionDate")),
         "status": derive_status(p, today),
         "scheme": norm_scheme(p.get("saleType")),
     }
@@ -197,9 +253,30 @@ def to_public(p, today):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(os.path.dirname(__file__), "..", "projects.json"))
-    ap.add_argument("--end", default=os.path.join(DEFAULT_D2, "data", "projects-end.json"))
+    ap.add_argument("--end", default=None,
+                    help="projects-end.json のパス（既定は dealroom2 ディレクトリの data/ 配下）")
     args = ap.parse_args()
     today = datetime.date.today()
+
+    if not DEFAULT_D2:
+        print("[error] dealroom2 のディレクトリが見つからない。"
+              "SCIX_DEALROOM2_DIR を指定して再実行する。", file=sys.stderr)
+        return 2
+    if args.end is None:
+        args.end = os.path.join(DEFAULT_D2, "data", "projects-end.json")
+
+    # 生成前の一覧（差分を出すため）
+    out_path = os.path.abspath(args.out)
+    before_ids = set()
+    before_generated = None
+    if os.path.exists(out_path):
+        try:
+            with open(out_path, encoding="utf-8") as f:
+                prev = json.load(f)
+            before_ids = {p.get("id") for p in prev.get("projects", [])}
+            before_generated = prev.get("generatedAt")
+        except (OSError, json.JSONDecodeError):
+            pass
 
     with open(args.end, encoding="utf-8") as f:
         end = json.load(f)
@@ -226,6 +303,7 @@ def main():
     public = []
     hidden = 0
     skipped_no_id = 0
+    not_for_sale = {}
     for p in base:
         pid = p.get("id")
         if not pid:
@@ -234,6 +312,11 @@ def main():
         o = apply_overlay(p, overlays.get(pid))
         if str(o.get("dealroom2Visible") or "") == "off":
             hidden += 1
+            continue
+        # 販売中だけを公開する。売却済み・交渉中・準備中は落とす。
+        sales = str(o.get("status") or "").strip()
+        if sales not in PUBLIC_SALES_STATUS:
+            not_for_sale[sales or "(空欄)"] = not_for_sale.get(sales or "(空欄)", 0) + 1
             continue
         public.append(to_public(o, today))
 
@@ -259,7 +342,6 @@ def main():
         "projectCount": len(public),
         "projects": public,
     }
-    out_path = os.path.abspath(args.out)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
 
@@ -267,14 +349,31 @@ def main():
     from collections import Counter
     print(f"[ok] wrote {out_path}", file=sys.stderr)
     print(f"  total visible: {len(public)}  (hidden/off: {hidden}, no-id skipped: {skipped_no_id})", file=sys.stderr)
+    print(f"  除外（販売中以外）: {not_for_sale or 'なし'}", file=sys.stderr)
     print(f"  area: {dict(Counter(r['area'] for r in public))}", file=sys.stderr)
     print(f"  voltage: {dict(Counter(r['voltage'] for r in public))}", file=sys.stderr)
     print(f"  status: {dict(Counter(r['status'] for r in public))}", file=sys.stderr)
     print(f"  scheme: {dict(Counter(r['scheme'] for r in public))}", file=sys.stderr)
+
+    after_ids = {r["id"] for r in public}
+    if before_ids:
+        added = sorted(after_ids - before_ids)
+        removed = sorted(before_ids - after_ids)
+        print(f"  差分（前回 {before_generated} / {len(before_ids)}件 → 今回 {len(after_ids)}件）:",
+              file=sys.stderr)
+        print(f"    追加 {len(added)}件: {', '.join(added) or 'なし'}", file=sys.stderr)
+        print(f"    削除 {len(removed)}件: {', '.join(removed) or 'なし'}", file=sys.stderr)
+
     missing = [r["id"] for r in public if not r["pref"] or not r["area"]]
     if missing:
         print(f"  [warn] pref/area 欠落: {missing}", file=sys.stderr)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        sys.exit(main())
+    except D1Unavailable as e:
+        # 部分的な一覧を書き出さない。commit させないため非ゼロで終わる。
+        print(f"[error] D1 を読めなかったので projects.json を更新しない: {e}", file=sys.stderr)
+        sys.exit(3)

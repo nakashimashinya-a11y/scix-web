@@ -39,8 +39,13 @@
   var JA_ONLY_COLUMNS = [
     '/column-capacity-market',
     '/column-day-ahead',
+    '/column-investment-tax-law',
+    '/column-investment-tax-practice',
+    '/column-investment-tax-schedule',
     '/column-jcstar-levels',
-    '/column-land-buyback'
+    '/column-land-buyback',
+    '/column-land-lease',
+    '/column-land-zoning'
   ];
   // Pages with no Japanese counterpart. /grid-storage is the closest JA page
   // (it is the "what is grid-scale storage" explainer these two translate).
@@ -239,17 +244,18 @@
     '<div class="scix-nav-dd">' +
       '<button type="button" class="scix-nav-dd-toggle" aria-haspopup="true" aria-expanded="false">案件<span class="scix-dd-caret" aria-hidden="true">▾</span></button>' +
       '<div class="scix-nav-dd-menu">' +
-        '<a href="/transfer" data-page="/transfer">案件を買う</a>' +
         '<a href="/projects" data-page="/projects">販売中の案件一覧</a>' +
+        '<a href="/transfer" data-page="/transfer">案件を買う</a>' +
         '<a href="/sourcing" data-page="/sourcing">案件・権利を売る</a>' +
         '<a href="/land"     data-page="/land">土地を売る・貸す</a>' +
       '</div>' +
     '</div>',
+    '<a href="/fund"      data-page="/fund">ファンド（投資家向け）</a>',
     '<a href="/knowledge" data-page="/knowledge">ナレッジ</a>',
     '<a href="/qa"        data-page="/qa">入門Q&amp;A</a>',
     '<a href="/company"   data-page="/company">会社案内</a>',
     '<a href="/contact"   data-page="/contact">お問い合わせ</a>',
-    '<a href="/fund"      data-page="/fund" class="scix-cta">ファンド（投資家向け）</a>'
+    '<a href="/projects"  data-page="/projects" class="scix-cta">販売中の案件を見る</a>'
   ];
 
   // --------------- Language switcher (JA / EN / 简中) ---------------
@@ -408,48 +414,10 @@
     } catch (err) { /* ignore */ }
   }, true);
 
-  // --------------- 6. 30分オンライン面談 予約ボタン（BOOKING_URL 1か所管理） ---------------
-  // 中島さんへ: 下の SCIX_BOOKING_URL に Google カレンダーの「予約スケジュール」URLを
-  // 入れるだけで、[data-scix-booking] を持つ全ページの予約ボタンが自動で表示・リンクされます。
-  // 空のままなら全ボタンは非表示のまま（=未公開）。公開はこの1行の差し替えのみ。
-  var SCIX_BOOKING_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1M5E-PWY4tH6mJBOWU_a8Gim1dgijI3_ATJ6mXitk9pu6Xq-Ltog3HinFnhpeZBSbupGaVHU_K'; // 30分オンライン面談（ScienceX）／Googleカレンダー予約スケジュール
+  // --------------- 6. 面談の予約について ---------------
+  // 2026-09-05 撤去。Googleカレンダーの「予約スケジュール」は Google Meet のリンクを発行するため、
+  // 「こちらが主催する会議は必ず Zoom」（2026-08-23 決定）に反する。
+  // 面談は問い合わせへの返信で候補日時を出して決める。各ページの予約ボタンも同時に削除した。
+  // 復活させるときは Zoom 側の予約ページを用意してからにする。
 
-  function activateBookingButtons() {
-    var btns = document.querySelectorAll('[data-scix-booking]');
-    for (var i = 0; i < btns.length; i++) {
-      var b = btns[i];
-      if (SCIX_BOOKING_URL) {
-        b.setAttribute('href', SCIX_BOOKING_URL);
-        b.setAttribute('target', '_blank');
-        b.setAttribute('rel', 'noopener');
-        b.style.display = '';
-        b.removeAttribute('aria-hidden');
-        // 予約ボタンのクリックを GA4 で計測（コンバージョン候補・T6）。
-        // book_meeting イベントを送る。重複バインド防止に data 属性でガード。
-        if (!b.hasAttribute('data-scix-booking-tracked')) {
-          b.setAttribute('data-scix-booking-tracked', '1');
-          b.addEventListener('click', function () {
-            if (typeof window.gtag !== 'function') return;
-            try {
-              window.gtag('event', 'book_meeting', {
-                method: 'calendar',
-                page_lang: (document.documentElement.lang || 'ja'),
-                transport_type: 'beacon'
-              });
-            } catch (err) { /* ignore */ }
-          });
-        }
-      } else {
-        b.style.display = 'none';
-        b.setAttribute('aria-hidden', 'true');
-      }
-    }
-  }
-  // header.js は body 先頭で同期実行されるため、予約ボタン本体がまだ未パースの可能性がある。
-  // DOM 構築完了後に有効化する。
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', activateBookingButtons);
-  } else {
-    activateBookingButtons();
-  }
 })();

@@ -541,7 +541,7 @@
     }
   }
 </style>
-<meta name="description" content="系統用蓄電池の開発権譲渡・用地査定・事業参入に関するお問い合わせ。サイエンスエックス株式会社。">
+<meta name="description" content="サイエンスエックス株式会社の問い合わせ窓口。系統用蓄電池の投資・取得・売却・用地に関するご質問や資料請求を、投資家、案件取得、売却・査定、用地、協業の用件別フォームで受け付けます。原則1営業日以内にご返信し、詳細資料・収支シミュレーションの提供や個別のご説明にも対応。">
 <link rel="canonical" href="https://www.scix.co.jp/contact">
 <link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/contact">
 <link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/contact">
@@ -549,14 +549,14 @@
 <link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/contact">
 <meta property="og:type" content="website">
 <meta property="og:title" content="お問い合わせ | ScienceX — 系統用蓄電池のご相談">
-<meta property="og:description" content="系統用蓄電池の開発権譲渡・用地査定・事業参入に関するお問い合わせ。サイエンスエックス株式会社。">
+<meta property="og:description" content="サイエンスエックス株式会社の問い合わせ窓口。系統用蓄電池の投資・取得・売却・用地に関するご質問や資料請求を、投資家、案件取得、売却・査定、用地、協業の用件別フォームで受け付けます。原則1営業日以内にご返信し、詳細資料・収支シミュレーションの提供や個別のご説明にも対応。">
 <meta property="og:url" content="https://www.scix.co.jp/contact">
 <meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
 <meta property="og:site_name" content="ScienceX">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="お問い合わせ | ScienceX — 系統用蓄電池のご相談">
-<meta name="twitter:description" content="系統用蓄電池の開発権譲渡・用地査定・事業参入に関するお問い合わせ。サイエンスエックス株式会社。">
+<meta name="twitter:description" content="サイエンスエックス株式会社の問い合わせ窓口。系統用蓄電池の投資・取得・売却・用地に関するご質問や資料請求を、投資家、案件取得、売却・査定、用地、協業の用件別フォームで受け付けます。原則1営業日以内にご返信し、詳細資料・収支シミュレーションの提供や個別のご説明にも対応。">
 <meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
 </head>
 <body>
@@ -587,11 +587,14 @@
           <!-- Inquiry Type -->
           <div class="inquiry-types">
             <label>ご用件<span class="required">*</span></label>
-            <span class="chip active" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="投資家（実物資産投資）" data-intent="investor" checked>投資家</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="案件取得（買い手）" data-intent="buyer">案件取得（買い手）</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="売却・査定（事業権利）" data-intent="seller">売却・査定</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="用地（売却・賃貸）" data-intent="land">用地</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="協業・その他" data-intent="other">協業・その他</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="案件取得（買い手）" data-intent="buyer" required>案件を買う</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="1棟取得（自社保有・決算対策）" data-intent="owner">1棟を自社で持つ</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="投資家（ファンド・共同投資）" data-intent="investor">ファンド・共同投資</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="売却・査定（事業権利）" data-intent="seller">案件・権利を売る</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="用地（売却・賃貸）" data-intent="land">土地を売る・貸す</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="紹介（案件・投資家）" data-intent="partner">案件・投資家を紹介する</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="サービス提案" data-intent="proposal">サービスを提案する</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="協業・その他" data-intent="other">その他</span>
           </div>
 
           <!-- 案件IDバナー（/projects から ?pid= 付きで来訪したとき表示） -->
@@ -636,6 +639,66 @@
             </div>
           </div>
 
+          <!-- 用件別の追加項目（買い手・1棟のときだけ出す） -->
+          <div id="buyerFields" style="display:none;">
+            <div class="form-row">
+              <div class="form-group">
+                <label>ご希望の管内</label>
+                <input type="text" name="want_area" placeholder="東京・中部・関西 など（複数可・こだわらない場合は空欄で）">
+              </div>
+              <div class="form-group">
+                <label>ご希望の規模</label>
+                <select name="want_size">
+                  <option value="">選択してください</option>
+                  <option>高圧2MW級</option>
+                  <option>特別高圧（10MW以上）</option>
+                  <option>まとめて複数</option>
+                  <option>こだわらない</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>連系の希望時期</label>
+                <select name="want_cod">
+                  <option value="">選択してください</option>
+                  <option>今年度内</option>
+                  <option>来年度</option>
+                  <option>再来年度以降でよい</option>
+                  <option>こだわらない</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>取得の形</label>
+                <select name="want_scheme">
+                  <option value="">選択してください</option>
+                  <option>権利譲渡（自分で建てる）</option>
+                  <option>完成渡し</option>
+                  <option>稼働中の案件</option>
+                  <option>どれでもよい</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>資金</label>
+                <select name="want_funding">
+                  <option value="">選択してください</option>
+                  <option>自己資金</option>
+                  <option>借入を予定</option>
+                  <option>未定</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>決算月</label>
+                <input type="text" name="fiscal_month" placeholder="11月 など（税制の当期適用を見るために使います）">
+              </div>
+            </div>
+            <p style="font-size:12px;color:var(--text-secondary);line-height:1.8;margin:-8px 0 22px;">
+              分かる範囲で結構です。ここが埋まっていると、条件に合う案件だけを選んでお返しできます。
+            </p>
+          </div>
+
           <!-- Message -->
           <div class="form-group">
             <label>メッセージ</label>
@@ -644,7 +707,7 @@
 
           <!-- web-contact (scix-dealroom2 / Resend) 設定 -->
           <input type="hidden" name="_form" value="contact">
-          <input type="hidden" name="intent" id="intentField" value="investor">
+          <input type="hidden" name="intent" id="intentField" value="">
           <input type="hidden" name="pid" id="pidField" value="">
           <input type="text" name="_honey" style="display:none">
 
@@ -703,7 +766,7 @@
             <svg class="ci-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
             <div>
               <div class="ci-label">TEL</div>
-              <div class="ci-value"><a href="tel:03-6403-4095">03-6403-4095</a></div>
+              <div class="ci-value"><a href="tel:03-6691-3484">03-6691-3484</a></div>
             </div>
           </div>
           <div class="contact-info-item">
@@ -734,19 +797,46 @@ function toggleChip(el) {
   el.classList.add('active');
   var input = el.querySelector('input');
   input.checked = true;
+  var intent = input.getAttribute('data-intent') || '';
   var intentField = document.getElementById('intentField');
-  if (intentField) intentField.value = input.getAttribute('data-intent') || '';
+  if (intentField) intentField.value = intent;
+  syncConditionalFields(intent);
 }
 
-// /projects などからの ?intent= / ?pid= をフォームへプリセット
+// 案件を買う／1棟を持つ のときだけ、条件の欄を出す。
+// 用件を聞いてから返す往復をなくすため。
+function syncConditionalFields(intent) {
+  var box = document.getElementById('buyerFields');
+  if (!box) return;
+  var show = (intent === 'buyer' || intent === 'owner');
+  box.style.display = show ? 'block' : 'none';
+  // 会社名は個人・地主のときは任意にする
+  var company = document.querySelector('input[name="company"]');
+  if (company) {
+    var optional = (intent === 'land' || intent === 'owner');
+    company.required = !optional;
+    var label = company.closest('.form-group').querySelector('label .required');
+    if (label) label.style.display = optional ? 'none' : '';
+  }
+}
+
+// /projects などからの ?intent= / ?pid= / ?q= をフォームへプリセット
+// pid はカンマ区切りで複数受ける（一覧でチェックした案件をまとめて請求する導線）。
+// q=avail は「この案件、まだありますか？」からの在庫確認。
 (function presetFromQuery() {
   var q = new URLSearchParams(window.location.search);
   var intent = (q.get('intent') || '').toLowerCase();
-  var pid = (q.get('pid') || '').trim().substring(0, 40);
+  var kind = (q.get('q') || '').toLowerCase();
+  var ids = (q.get('pid') || '').split(',')
+    .map(function (v) { return v.trim().replace(/[^A-Za-z0-9\-]/g, ''); })
+    .filter(Boolean)
+    .slice(0, 20);
+  var pid = ids.join(', ').substring(0, 300);
 
   if (intent) {
     var chipInput = document.querySelector('.chip input[data-intent="' + intent.replace(/[^a-z]/g, '') + '"]');
     if (chipInput) { toggleChip(chipInput.closest('.chip')); }
+    else { syncConditionalFields(intent); }
   }
   if (pid) {
     var pidField = document.getElementById('pidField');
@@ -756,7 +846,15 @@ function toggleChip(el) {
     if (banner && label) { label.textContent = pid; banner.style.display = 'block'; }
     // メッセージ欄に案件IDを下書き（未入力時のみ）
     var msg = document.querySelector('textarea[name="message"]');
-    if (msg && !msg.value) { msg.value = '案件 ' + pid + ' について、詳細・DD資料の提供を希望します。'; }
+    if (msg && !msg.value) {
+      if (kind === 'avail') {
+        msg.value = '案件 ' + pid + ' は、まだ販売中でしょうか。販売中であれば、詳細・DD資料の提供を希望します。';
+      } else if (ids.length > 1) {
+        msg.value = '下記 ' + ids.length + ' 件について、詳細・DD資料の提供を希望します。\n' + ids.join('\n');
+      } else {
+        msg.value = '案件 ' + pid + ' について、詳細・DD資料の提供を希望します。';
+      }
+    }
   }
 })();
 
@@ -796,7 +894,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
            /用地|Land/i.test(_v) ? 'land' : 'other');
         if (window.gtag) gtag('event', 'generate_lead', { form_type: 'contact', intent: _intent, page_lang: (document.documentElement.lang || 'ja'), transport_type: 'beacon' });
       } catch (e) {}
-      window.location.href = '/thanks';
+      window.location.href = '/thanks?intent=' + encodeURIComponent(_intent || 'other');
     } else {
       throw new Error((result && result.message) || 'submit failed');
     }
@@ -834,7 +932,7 @@ function showMailFallback(form, data) {
     box.style.cssText = 'margin-top:20px;padding:18px 20px;border:1px solid #E0DCD6;border-left:3px solid #C49A3C;border-radius:8px;background:#FFFBF3;color:#1B2A4A;font-size:0.9rem;line-height:1.85;';
     form.appendChild(box);
   }
-  box.innerHTML = '送信サーバーが一時的に応答していません。お手数ですが、下のボタンからメールでお送りください（ご入力内容は本文に自動で入ります）。<br>または <a href="mailto:' + TO + '" style="color:#C49A3C;font-weight:600;">' + TO + '</a> ／ TEL <a href="tel:0364034095" style="color:#C49A3C;font-weight:600;">03-6403-4095</a> まで直接ご連絡ください。<div style="margin-top:14px;"><a href="' + mailto + '" style="display:inline-block;padding:13px 30px;background:#C49A3C;color:#ffffff;text-decoration:none;border-radius:4px;font-weight:600;">&#9993; メールで送信する</a></div>';
+  box.innerHTML = '送信サーバーが一時的に応答していません。お手数ですが、下のボタンからメールでお送りください（ご入力内容は本文に自動で入ります）。<br>または <a href="mailto:' + TO + '" style="color:#C49A3C;font-weight:600;">' + TO + '</a> ／ TEL <a href="tel:0366913484" style="color:#C49A3C;font-weight:600;">03-6691-3484</a> まで直接ご連絡ください。<div style="margin-top:14px;"><a href="' + mailto + '" style="display:inline-block;padding:13px 30px;background:#C49A3C;color:#ffffff;text-decoration:none;border-radius:4px;font-weight:600;">&#9993; メールで送信する</a></div>';
   box.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 </script>
@@ -940,7 +1038,7 @@ function showMailFallback(form, data) {
         <div class="company-name">サイエンスエックス株式会社</div>
         〒103-0016 東京都中央区日本橋小網町8-2<br>
         BIZMARKS日本橋茅場町<br>
-        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
         MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
         <div class="representative">代表取締役 中島 晋也（工学博士）</div>
       </div>

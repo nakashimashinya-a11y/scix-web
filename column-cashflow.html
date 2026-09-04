@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>蓄電池事業の20年キャッシュフロー — IRR・DSCRの考え方｜ScienceX</title>
-<meta name="description" content="LDA型とフルマーチャント型の20年キャッシュフロー構造を比較。還付率の3段階構造、IRR算出の前提条件、DSCRの考え方を解説。">
+<meta name="description" content="LDA型とフルマーチャント型の20年キャッシュフロー構造を比較。市場収益の還付率95%・90%・85%の3段階構造、IRR目安2〜4%と8〜15%の差、金融機関が求めるDSCR水準、連系工事費がIRRを左右する理由、感度分析で検討すべき主要変数を解説します。">
 <link rel="canonical" href="https://www.scix.co.jp/column-cashflow">
 <link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-cashflow">
 <link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-cashflow">
@@ -15,14 +15,14 @@
 <link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-cashflow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="蓄電池事業の20年キャッシュフロー — IRR・DSCRの考え方｜ScienceX">
-<meta property="og:description" content="LDA型とフルマーチャント型の20年キャッシュフロー構造を比較。還付率の3段階構造、IRR算出の前提条件、DSCRの考え方を解説。">
+<meta property="og:description" content="LDA型とフルマーチャント型の20年キャッシュフロー構造を比較。市場収益の還付率95%・90%・85%の3段階構造、IRR目安2〜4%と8〜15%の差、金融機関が求めるDSCR水準、連系工事費がIRRを左右する理由、感度分析で検討すべき主要変数を解説します。">
 <meta property="og:url" content="https://www.scix.co.jp/column-cashflow">
 <meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
 <meta property="og:site_name" content="ScienceX">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="蓄電池事業の20年キャッシュフロー — IRR・DSCRの考え方｜ScienceX">
-<meta name="twitter:description" content="LDA型とフルマーチャント型の20年キャッシュフロー構造を比較。還付率の3段階構造、IRR算出の前提条件、DSCRの考え方を解説。">
+<meta name="twitter:description" content="LDA型とフルマーチャント型の20年キャッシュフロー構造を比較。市場収益の還付率95%・90%・85%の3段階構造、IRR目安2〜4%と8〜15%の差、金融機関が求めるDSCR水準、連系工事費がIRRを左右する理由、感度分析で検討すべき主要変数を解説します。">
 <meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
@@ -59,6 +59,9 @@
   .source { font-size: 0.78em; color: var(--text-light); margin-top: 4px; }
   .related { background: var(--light-bg); border-radius: 8px; padding: 20px 24px; margin: 32px 0; }
   .related h3 { font-size: 0.92em; color: var(--navy); margin-bottom: 10px; }
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
 </style>
 
 <script type="application/ld+json">
@@ -66,10 +69,17 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "蓄電池事業の20年キャッシュフロー — IRR・DSCRの考え方｜ScienceX",
-  "description": "LDA型とフルマーチャント型の20年キャッシュフロー構造を比較。還付率の3段階構造、IRR算出の前提条件、DSCRの考え方を解説。",
+  "description": "LDA型とフルマーチャント型の20年キャッシュフロー構造を比較。市場収益の還付率95%・90%・85%の3段階構造、IRR目安2〜4%と8〜15%の差、金融機関が求めるDSCR水準、連系工事費がIRRを左右する理由、感度分析で検討すべき主要変数を解説します。",
   "author": {
-    "@type": "Organization",
-    "name": "Science X Inc."
+    "@type": "Person",
+    "name": "中島 晋也",
+    "jobTitle": "代表取締役（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": ["https://www.linkedin.com/in/dr-shinya-nakashima"]
   },
   "publisher": {
     "@type": "Organization",
@@ -310,6 +320,12 @@
   ・BloombergNEF 電池パック価格調査（2024年）<br>
   ・経産省 定置用蓄電システム普及拡大検討会 第5回資料（2025年1月30日）
 </div>
+<div class="author-box">
+  <div class="ab-label">この記事の監修</div>
+  <div><span class="ab-name">中島 晋也</span>（サイエンスエックス株式会社 代表取締役・工学博士）</div>
+  <p style="margin:6px 0 0">系統用蓄電池発電所の開発・売買・技術デューデリジェンスを手がける。本コラムは、実案件の組成と評価の実務に基づいて執筆・監修しています。</p>
+</div>
+
 </div>
 
 <!-- scix-column-cta : 1記事1つ。主＝フォーム、副＝解説ページ（それぞれ行き先の中身を明記） -->
@@ -433,7 +449,7 @@
         <div class="company-name">サイエンスエックス株式会社</div>
         〒103-0016 東京都中央区日本橋小網町8-2<br>
         BIZMARKS日本橋茅場町<br>
-        TEL: <a href="tel:0364034095">03-6403-4095</a><br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
         MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
         <div class="representative">代表取締役 中島 晋也（工学博士）</div>
       </div>

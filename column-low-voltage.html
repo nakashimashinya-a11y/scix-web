@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Serif JP',serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.down{color:var(--warn);font-weight:700}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tr.total td{background:rgba(196,154,60,0.08);font-weight:700;border-top:2px solid var(--accent)}
+td.max{color:var(--warn);font-weight:700}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.wraptext td{text-align:left;vertical-align:top}
+.wraptext thead th{text-align:left}
+.scope th{width:10em;vertical-align:top}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-16px 0 28px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.related{font-size:.9em;line-height:2.05}
+.related ul{margin:8px 0;padding-left:1.3em}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+td.ok{color:var(--green);font-weight:700}
+td.ng{color:var(--warn);font-weight:700}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px}
+}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+</style>
+<title>「低圧なら簡単」は、蓄電所には通用しない ── 50kW未満の系統用蓄電池、申し込む前に直す5つの前提｜ScienceX</title>
+<meta name="description" content="低圧（50kW未満）の系統用蓄電池は、低圧太陽光の小さい版ではない。蓄電所は出力にかかわらず事業用電気工作物で保安規程と電気主任技術者が要る。申込者は小売電気事業者、工事費負担金は申し込んだ後に決まり、業界で流れる「4年ルール」は資源エネルギー庁のQ&Aにも施行規則にもない。49.5kWは最低入札量1MWの20分の1。5つの前提を図と表で整理し、高圧との分かれ目を示す。">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-low-voltage">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-low-voltage">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-low-voltage">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-low-voltage">
+<link rel="canonical" href="https://www.scix.co.jp/column-low-voltage">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「低圧なら簡単」は、蓄電所には通用しない ── 50kW未満の系統用蓄電池、申し込む前に直す5つの前提｜ScienceX">
+<meta property="og:description" content="蓄電所は出力にかかわらず事業用電気工作物。申込者は小売電気事業者、負担金は申込の後に確定、「4年ルール」はどこにも書かれていない、49.5kWは最低入札量の20分の1。低圧の5つの前提と、高圧との分かれ目。">
+<meta property="og:url" content="https://www.scix.co.jp/column-low-voltage">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="「低圧なら簡単」は、蓄電所には通用しない ── 50kW未満の系統用蓄電池、申し込む前に直す5つの前提｜ScienceX">
+<meta name="twitter:description" content="蓄電所は出力にかかわらず事業用電気工作物。申込者は小売電気事業者、負担金は申込の後に確定、「4年ルール」はどこにも書かれていない、49.5kWは最低入札量の20分の1。低圧の5つの前提と、高圧との分かれ目。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-08-23">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "「低圧なら簡単」は、蓄電所には通用しない ── 50kW未満の系統用蓄電池、申し込む前に直す5つの前提｜ScienceX",
+  "description": "低圧（50kW未満）の系統用蓄電池は、低圧太陽光の小さい版ではない。蓄電所は出力にかかわらず事業用電気工作物で保安規程と電気主任技術者が要る。申込者は小売電気事業者、工事費負担金は申し込んだ後に決まり、業界で流れる「4年ルール」は資源エネルギー庁のQ&Aにも施行規則にもない。49.5kWは最低入札量1MWの20分の1。5つの前提を図と表で整理し、高圧との分かれ目を示す。",
+  "author": {
+    "@type": "Person",
+    "name": "中島 晋也",
+    "jobTitle": "代表取締役（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": ["https://www.linkedin.com/in/dr-shinya-nakashima"]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-08-23",
+  "dateModified": "2026-08-23",
+  "mainEntityOfPage": "https://www.scix.co.jp/column-low-voltage"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.scix.co.jp/" },
+    { "@type": "ListItem", "position": 2, "name": "ナレッジ", "item": "https://www.scix.co.jp/knowledge" },
+    { "@type": "ListItem", "position": 3, "name": "「低圧なら簡単」は、蓄電所には通用しない", "item": "https://www.scix.co.jp/column-low-voltage" }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">「低圧なら簡単」は、蓄電所には通用しない</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 44</span>
+      <span class="header-tag">制度解説 / 低圧・系統連系×電気事業法</span>
+      <time class="header-date" datetime="2026-08-23">2026.08.23</time>
+    </div>
+    <h1>「低圧なら簡単」は、<em>蓄電所</em>には通用しない</h1>
+    <p class="header-desc">50kW未満の系統用蓄電池。申し込む前に直す5つの前提と、高圧との分かれ目。</p>
+  </div>
+</div>
+
+<div class="article-body">
+<p>「低圧なら、届出だけで済む」。太陽光の低圧を経験した人ほど、そう思って蓄電池に入ってきます。外れます。同じ49.5kWでも、太陽光は小規模事業用電気工作物、蓄電所は出力にかかわらず事業用電気工作物で、<strong>保安規程の届出と電気主任技術者の選任が要ります</strong>。申込者もあなたではなく小売電気事業者で、工事費負担金は申し込んだ後に決まり、1基では市場に何も売れません。<strong>低圧の蓄電所は、低圧太陽光の小さい版ではありません。</strong></p>
+
+<p>低圧（受電電力50kW未満）の蓄電池リソースが需給調整市場に参加できるようになったのは、2026年3月14日の実需給分からです（EPRX）。それから半年、「49.5kW・約6坪・2,000万円台」の分譲やパッケージが出回り、当社への土地のご相談も、高圧の最低ラインに届かない小さな区画が増えました。ところが、現場で語られている前提を、法令と国のQ&A、一般送配電事業者10社の申込ルールに当てると、五つが外れます。本稿は、その五つを資源エネルギー庁・電力広域的運営推進機関（OCCTO）・EPRX・一般送配電事業者10社が出している文書で確認した範囲だけで書きます（2026年8月22日時点）。</p>
+
+<p>順に、線はどこに引かれているか（01）、申込者はあなたではない（02）、値段は申し込んだ後に決まる（03）、「4年ルール」は存在しない（04）、1基では何も売れない（05）、低圧と高圧のどちらを選ぶか（06）、これから効くもの（07）、申し込む前の5つの確認（08）です。</p>
+
+<div class="note"><b>編集メモ：</b>本稿の制度の記述は、資源エネルギー庁「発電等設備の分割対策に関するQ&A」（最終更新2026年6月11日）、OCCTO「発電設備等に関する系統アクセスの流れ」（2026年7月版）と保証金の算定方法・工事費負担金の分割払いの考え方（いずれも2026年3月18日更新）、EPRXのFAQ、一般送配電事業者10社の系統連系・託送ページ、経済産業省「電力貯蔵装置（蓄電池）・蓄電所を設置する場合の手引き」と処分の公表、消防庁の対象火気省令改正の資料で、2026年8月22日に確認し、翌23日に第三者の事実確認を経て元の文書で再照合しました。<b>初期費用・面積・利回りなど、販売資料に由来する数値は本文で「広告値」と明記し、制度の判断には使っていません。</b>低圧の系統用蓄電池には2026年8月時点で通年の運用実績がなく、収益に関する数値はすべて想定値です。どの文書にも書かれていなかった項目は本文に❓を付け、文末の表にまとめました。本稿は制度の整理であり、投資・税務・法務の助言ではありません。制度は2026〜27年にかけて続けて変わるため、変更にあわせて本記事も更新します。</div>
+
+<p style="margin-bottom:.4em"><strong>5つの前提 ── こう聞いていた／実際はこう</strong></p>
+<div class="tablewrap wraptext">
+<table>
+<thead><tr><th style="width:3em">#</th><th>現場で聞く話</th><th>法令・国のQ&A・各社のルールではこう</th><th style="width:4em">章</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>低圧は届出だけで動かせる</td><td>蓄電所は出力にかかわらず<strong>事業用電気工作物</strong>。保安規程と電気主任技術者が要る。20kWh超は事故報告と消防届出も</td><td>01</td></tr>
+<tr><td>2</td><td>土地と機器を決めてから申し込めばいい</td><td>契約の当事者は<strong>小売電気事業者</strong>。発電契約者が決まらないと申込みの1歩目が出ない。2026年6月からは充電側との両建てが受付要件</td><td>02</td></tr>
+<tr><td>3</td><td>工事費負担金の見積もりを見てから決める</td><td>低圧に接続検討はない。<strong>負担金は設計完了後に確定</strong>。決めてから値段が出る</td><td>03</td></tr>
+<tr><td>4</td><td>4年遡って地主が同じなら分割案件</td><td>「4年」はどの文書にもない。根拠は<strong>電気事業法施行規則</strong>で、Q&Aは蓄電所を名指し。遡及は原則1年、争点は「特段の理由」</td><td>04</td></tr>
+<tr><td>5</td><td>1基から市場で売れる</td><td>最低入札量1MW。49.5kWは<strong>20分の1</strong>。束ねる先（アグリゲーター）が決まらないと収益の出口がない</td><td>05</td></tr>
+</tbody>
+</table>
+</div>
+
+<p style="margin-bottom:.4em"><strong>本稿の射程</strong></p>
+<div class="tablewrap wraptext">
+<table class="scope">
+<tbody>
+<tr><th>対象</th><td>受電電力50kW未満で系統に単独接続し、放電（逆潮流）して売る系統用蓄電池（蓄電所）。住宅用・自家消費用・太陽光併設は対象外</td></tr>
+<tr><th>電気事業法上の扱い✅</th><td>出力にかかわらず<strong>事業用電気工作物</strong>。保安規程の届出・電気主任技術者の選任が必要（外部委託可）</td></tr>
+<tr><th>申込の主体✅</th><td>発電量調整供給契約の契約者は<strong>小売電気事業者</strong>。設置者は承諾書を出す側</td></tr>
+<tr><th>接続検討✅</th><td>低圧にはない。工事費負担金は<strong>設計完了後</strong>に確定</td></tr>
+<tr><th>分割規制✅</th><td>根拠は電気事業法施行規則第3条第2項第2号ただし書き。資源エネルギー庁のQ&Aが「系統用蓄電池（蓄電所）」を明記。遡及は原則1年</td></tr>
+<tr><th>「4年遡及」「1MW＝21件」❓</th><td>資源エネルギー庁のQ&Aにも、電気事業法の施行規則にも、各社の申込要領にも出てこない</td></tr>
+<tr><th>市場参加✅</th><td>最低入札量1MW。49.5kWは単独不可、アグリゲーター経由が仕組みの上で避けられない</td></tr>
+<tr><th>これから効くもの✅</th><td>土地使用権原の書類（2026年10月1日〜・低圧も対象）、JC-STAR★1（低圧は2027年10月以降の契約申込から）</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2><span class="no">01</span>線はどこに引かれているか ── 50kW、2,000kW、そして「蓄電所」</h2>
+
+<p>系統連系の区分は、受電電力で引かれます。50kW未満が低圧、50kW以上2,000kW未満が高圧、2,000kW以上が特別高圧。高圧の案件が1,990kWや1,999kWで設計されるのは、2,000kWの線を越えると特別高圧の受電設備と手続きになるからで、低圧の案件が49.5kWで設計されるのも同じ理屈です。ここまでは、太陽光と同じです。</p>
+
+<p>電気事業法は、これとは別の線を引いています。電気工作物は一般用・小規模事業用・事業用の3つに分かれ、小規模事業用電気工作物に入るのは太陽光の10kW以上50kW未満と風力の20kW未満だけです。蓄電所──構外から受けた電力を貯め、同じ電圧・周波数で構外へ送り返す設備──は、<strong>出力にかかわらず事業用電気工作物</strong>です（経済産業省「電力貯蔵装置（蓄電池）・蓄電所を設置する場合の手引き」2025年11月14日）。低圧太陽光が「届出で済む」のは小規模事業用の枠があるからで、蓄電所にその枠はありません。</p>
+
+<figure>
+<svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図1 — 系統連系の区分（低圧・高圧・特別高圧）と電気事業法の区分（一般用・小規模事業用・事業用）は別の線。蓄電所はどの電圧でも事業用電気工作物">
+  <rect width="720" height="340" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">図1 ／ 二つの線引き ── 電圧の区分と、電気事業法の区分は別物</text>
+  <text x="40" y="64" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">系統連系の区分（受電電力で引かれる線）</text>
+  <rect x="40" y="76" width="200" height="58" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="140" y="100" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">低圧</text>
+  <text x="140" y="120" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">50kW未満（設計は49.5kW）</text>
+  <rect x="260" y="76" width="200" height="58" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="360" y="100" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">高圧</text>
+  <text x="360" y="120" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">50kW以上2,000kW未満（設計は1,999kW）</text>
+  <rect x="480" y="76" width="200" height="58" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="580" y="100" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">特別高圧</text>
+  <text x="580" y="120" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">2,000kW以上</text>
+  <text x="360" y="152" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" font-weight="700" fill="#A07916">蓄電所は、どの電圧でも ↓</text>
+  <line x1="40" y1="158" x2="680" y2="158" stroke="#C49A3C" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="555" y1="160" x2="555" y2="198" stroke="#C49A3C" stroke-width="2.5"/>
+  <polygon points="549,196 561,196 555,206" fill="#C49A3C"/>
+  <text x="40" y="190" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">電気事業法の区分（電気工作物）</text>
+  <rect x="40" y="208" width="150" height="64" rx="8" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="2"/>
+  <text x="115" y="234" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">一般用</text>
+  <text x="115" y="254" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">住宅など</text>
+  <rect x="210" y="208" width="200" height="64" rx="8" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="2"/>
+  <text x="310" y="234" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">小規模事業用</text>
+  <text x="310" y="254" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">太陽光10〜50kW・風力20kW未満だけ</text>
+  <rect x="430" y="208" width="250" height="64" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="555" y="234" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#A07916">事業用</text>
+  <text x="555" y="254" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#2C3E50">蓄電所は出力にかかわらずここ</text>
+  <text x="360" y="312" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">低圧太陽光が「届出だけ」で済むのは、小規模事業用の枠があるから。蓄電所にその枠はない。</text>
+</svg>
+<figcaption>図1 ── 電圧の区分（上）と電気事業法の区分（下）は別の線。蓄電所は49.5kWでも事業用電気工作物に入る。</figcaption>
+</figure>
+
+<p>付いてくるものは三つです。第一に、技術基準への適合維持（電気事業法第39条）、保安規程の届出（第42条）、電気主任技術者の選任（第43条）。高圧以下で連系する出力5,000kW未満は外部委託承認制度で保安管理を委託できますから、自分で主任技術者になる必要はありません。ただし委託費は、1基ごとの年間固定費として乗ります。第二に、<strong>20kWh超の電力貯蔵装置は2025年11月20日から事故報告の対象</strong>です（電気関係報告規則の改正。火災・爆発・主要設備の破損は24時間以内に速報、30日以内に詳報）。100〜200kWh級の低圧蓄電所は、すべて該当します。同じ日に電気設備の技術基準の解釈も改正され、リチウムイオン蓄電池の規格（JIS C 8715-2）が引用されています。第三に、消防法。2024年1月1日施行の対象火気省令の改正で規制の単位がkWhに変わり、10kWh超で規制対象、20kWh超で消防署への届出が要ります。火災予防条例は市町村ごとに定められ、屋外設置は建築物から3m以上の離隔が原則（延焼防止措置やキュービクル式で緩和）。電解液の量が消防法の指定数量（第4類第2石油類で1,000L）を超えると、対象火気省令とは別系統の危険物規制が掛かることもあります。所轄消防署への事前相談は、低圧でも省けません。</p>
+
+<p>一方で、低圧だから要らないものもあります。発電事業の届出は接続最大電力の合計1万kW超が閾値、工事計画の届出と使用前自主検査は出力1万kW以上または容量8万kWh以上が対象で、低圧単体はどちらも不要です。市街化調整区域であれば、第一種特定工作物の該当性（国土交通省2025年4月8日通知、<a target="_top" href="/column-land-zoning">COLUMN 43</a>）は低圧でも掛かります。</p>
+
+<p>読みはこうです。太陽光の低圧で覚えた「届出だけ」の感覚は、蓄電所では保安の部分で使えません。<strong>低圧の手軽さは系統連系の手続きにあるのであって、電気事業法の扱いにはありません。</strong></p>
+
+<h2><span class="no">02</span>申込者はあなたではない ── 発電量調整供給契約の主体は小売電気事業者</h2>
+
+<p>放電（逆潮流）する低圧の蓄電所は、一般送配電事業者各社とも「発電量調整供給契約（発調契約）」の区分で申し込みます。そしてこの契約の当事者は、設置者ではなく小売電気事業者（発電契約者）です。東京電力パワーグリッドは、逆潮流が発生する場合は発電側の申込みが必要で、発電契約者から同社へ発調契約を申し込むこと、申込先はWeb申込システムであることを明記しています。<strong>あなたは設置者であって、契約者ではありません。</strong>北海道電力ネットワーク・中部電力パワーグリッド・九州電力送配電は、小売電気事業者の申込書に添える「発電者の承諾書」を求めています。設置者は申し込む側ではなく、承諾書を出す側です。</p>
+
+<figure>
+<svg viewBox="0 0 720 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図2 — 低圧の蓄電所をめぐる契約の関係。設置者は小売電気事業者と契約し、小売電気事業者が一般送配電事業者と発電量調整供給契約を結ぶ。運用はアグリゲーターに委託し、アグリゲーターがEPRXに入札する">
+  <defs>
+    <marker id="ah2n" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1B2A4A"/></marker>
+    <marker id="ah2g" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#C49A3C"/></marker>
+    <marker id="ah2s" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#9aa5b1"/></marker>
+  </defs>
+  <rect width="720" height="350" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">図2 ／ 低圧の蓄電所をめぐる契約の関係 ── 契約の当事者は小売電気事業者</text>
+  <rect x="40" y="52" width="160" height="50" rx="8" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="2"/>
+  <text x="120" y="73" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">工事店</text>
+  <text x="120" y="91" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">小売の委任で申込操作を代行</text>
+  <rect x="40" y="150" width="160" height="70" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="120" y="180" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">設置者（あなた）</text>
+  <text x="120" y="201" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">設備の所有者</text>
+  <text x="120" y="244" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#cc4444">✕ 設置者は契約者になれない</text>
+  <rect x="290" y="70" width="180" height="76" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="380" y="100" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#A07916">小売電気事業者</text>
+  <text x="380" y="121" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#2C3E50">＝発電契約者（契約の当事者）</text>
+  <rect x="530" y="70" width="150" height="76" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="605" y="100" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">一般送配電事業者</text>
+  <text x="605" y="121" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">各社のWeb申込システム</text>
+  <rect x="290" y="220" width="180" height="76" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="380" y="250" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">アグリゲーター</text>
+  <text x="380" y="271" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">特定卸供給事業者（経産大臣登録）</text>
+  <rect x="530" y="220" width="150" height="76" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="605" y="250" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="14" font-weight="700" fill="#1B2A4A">EPRX・容量市場</text>
+  <text x="605" y="271" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">最低入札量1,000kW</text>
+  <line x1="200" y1="77" x2="288" y2="100" stroke="#9aa5b1" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#ah2s)"/>
+  <text x="206" y="66" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">委任で代行（中国NWが明記）</text>
+  <line x1="200" y1="172" x2="288" y2="122" stroke="#1B2A4A" stroke-width="2" marker-end="url(#ah2n)"/>
+  <text x="208" y="158" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1B2A4A">小売契約・委任</text>
+  <line x1="200" y1="200" x2="288" y2="248" stroke="#1B2A4A" stroke-width="2" marker-end="url(#ah2n)"/>
+  <text x="208" y="240" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1B2A4A">運用委託</text>
+  <line x1="470" y1="108" x2="528" y2="108" stroke="#C49A3C" stroke-width="2.5" marker-end="url(#ah2g)"/>
+  <text x="500" y="168" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#A07916">発電量調整供給契約（放電側）</text>
+  <text x="500" y="184" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">＋接続供給契約（充電側）</text>
+  <text x="500" y="200" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">2026/6/1〜 同時受付が要件</text>
+  <line x1="470" y1="258" x2="528" y2="258" stroke="#1B2A4A" stroke-width="2" marker-end="url(#ah2n)"/>
+  <text x="500" y="318" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">1MW以上に束ねて入札（リスト・パターン）</text>
+  <text x="120" y="318" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">順番：小売とアグリが先、土地と機器が後</text>
+</svg>
+<figcaption>図2 ── 設置者は契約者ではない。契約は小売電気事業者が結び、収益の出口はアグリゲーターが握る。</figcaption>
+</figure>
+
+<p>経路は各社で違います（表1）。関西の「たくそう君」、九州の「託送ネット」、中国の「託送Web新増設工事申込み」、四国の「工事申込受付システム」（当面は紙も併用）、北陸の「託送新増設申込システム」、中部・北海道のインターネット申込、東北はメール・インターネットで受け付け、系統連系申込は郵送。名前が違うだけでなく、様式・必要書類・標準処理日数も違います。</p>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>表1 ── 低圧・発電量調整供給契約の申込経路と、第三者代行の扱い（2026年8月22日時点。各社の系統連系・託送ページによる）</caption>
+<thead><tr><th>エリア</th><th>申込経路（低圧・発調）</th><th>第三者代行の記載</th><th>接続検討数の上限（高圧・特別高圧、2026/8/1〜）</th></tr></thead>
+<tbody>
+<tr><td>北海道</td><td>受電側託送新増設Web申込みサービス。発調申込時に発電者の承諾書の写しを提出</td><td>記載なし ❓</td><td>5件</td></tr>
+<tr><td>東北</td><td>系統連系申込（発電者から、郵送）と発調申込（小売から）の二本立て</td><td class="ok">FAQに「発電者（申込代理人含む）」の文言あり</td><td>6件</td></tr>
+<tr><td>東京</td><td>小売（発電契約者）がWeb申込システム。技術協議依頼票は2026/5/15新書式（系統充放電の有無欄）</td><td>記載なし ❓</td><td>11件</td></tr>
+<tr><td>中部</td><td>インターネット申込システム。発調兼基本契約申込書＋発電者の承諾書。回答は原則受付から1か月以内</td><td>記載なし ❓</td><td>7件</td></tr>
+<tr><td>北陸</td><td>託送新増設申込システム（低圧買取申込メニュー）。窓口はネットワークサービスセンター系統連系課</td><td class="ok">FAQに「申込代理人（電気施工業／電気工事店／建築設計業）」の文言あり</td><td>5件</td></tr>
+<tr><td>関西</td><td>インターネット低圧工事申込み「たくそう君」。連系回答は原則1か月以内</td><td>記載なし ❓</td><td>12件</td></tr>
+<tr><td>中国</td><td>50kW未満は「託送Web新増設工事申込み」。低圧の負担金は単価制（2021/2〜）</td><td class="ok">電気工事店の代行申込可（事前の接続供給契約・発調契約の締結が条件）</td><td>5件</td></tr>
+<tr><td>四国</td><td>託送サービスセンターが受付（低圧非FITの工事申込フローあり）</td><td>記載なし ❓</td><td>5件</td></tr>
+<tr><td>九州</td><td>託送新増設受付システム（託送ネット）。ノンファーム同意書＋低圧蓄電設備はPCS仕様書。負担金は原則設計完了後に算定</td><td>記載なし ❓</td><td>8件</td></tr>
+<tr><td>沖縄（参考）</td><td>インターネット新増設申込システム（2026/3/27改定）</td><td>記載なし ❓</td><td>設定なし</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">上限件数は各一般送配電事業者の算定結果（第11回次世代電力系統ワーキンググループ 2026/6/10 資料2）と各社の公表ページによる。系統用蓄電池の「接続検討」を対象とする制度のため、接続検討のない低圧の系統用蓄電池への適用は明文がない（07参照）。</p>
+
+<p>代行の話を正確にしておきます。「低圧は代行できない」と聞くことがありますが、各社の申込ルールはそう書いていません。契約の主体が小売電気事業者で固定される、ということと、申込みの操作を委任で代行できる、ということは別です。中国電力ネットワークは、新増設申込み（託送Web新増設工事申込みを含む）は電気工事店による代行申込みも可能で、その場合は事前に接続供給契約と発調契約が締結されていることが必要、と明記しています。東北電力ネットワークは低圧の系統連系申込を「発電者（申込代理人を含む）」から受け、発調契約の申込みは売電先の小売電気事業者から受ける二本立てで、北陸電力送配電もFAQで「申込代理人（電気施工業／電気工事店／建築設計業）」からの申込みを前提にしています。残る6社（北海道・東京・中部・関西・四国・九州）は、発調契約の申込みを第三者が委任で代行できるかを逐語で書いたページが見当たりません❓。専業の申請代行業者が自社名義で発調契約を結ぶことはどの社でもできず、<strong>代行を頼むなら小売の委任状が出発点</strong>です。</p>
+
+<p>もう一つ。2026年6月1日から、系統用蓄電池は発電側（放電）と需要側（充電）の申込みを同時に受け付けることが、契約申込の受付要件になりました✅。低圧も両建てです。東京電力PGは2026年5月15日から低圧発調契約の技術協議依頼票を新書式にし、系統充放電の有無の記載欄を設けました。九州電力送配電は、発調契約の申込みにノンファーム型接続の同意書を、低圧に連系する逆潮流ありの蓄電設備には力率と出力変化速度に関するPCS仕様書を求めています。</p>
+
+<p>読みは、順番が逆になる、ということです。太陽光の感覚では「土地→機器→申請」ですが、低圧の蓄電所は<strong>「小売電気事業者（とアグリゲーター）→土地・機器→申請」</strong>。発電契約者が決まらないと、申込みの1歩目が出ません。</p>
+<h2><span class="no">03</span>値段は申し込んだ後に決まる ── 低圧には接続検討がない</h2>
+
+<p>高圧の開発を知っている人ほど、ここでつまずきます。高圧は接続検討を申し込み、原則3か月以内（逆変換装置で500kW未満は2か月以内）に回答書を受け取り、そこに書かれた工事費負担金の概算を見てから契約申込に進みます。低圧には、この接続検討がありません✅。OCCTOの「発電設備等に関する系統アクセスの流れ」と東京電力PGの系統アクセスルールでは、低圧は契約申込に伴って一般送配電事業者が技術検討を行い、<strong>工事費負担金は設計が完了した後に確定します</strong>。九州電力送配電の低圧の手続きページも、工事費負担金が発生する場合は原則として設計完了後に金額を算定する、と書いています。「見積もりを見てから決める」が、仕組みの上でできません。一方で時間は短く、契約申込みへの回答は低圧なら原則1か月（高圧以上は原則6か月または合意した期間）です。</p>
+
+<figure>
+<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図3 — 高圧は接続検討の回答で工事費負担金の概算を見てから契約申込に進む。低圧は接続検討がなく、契約申込の後に技術検討と設計が行われ、設計完了後に負担金が確定する">
+  <defs>
+    <marker id="ah3n" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1B2A4A"/></marker>
+  </defs>
+  <rect width="720" height="320" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">図3 ／ 値段が分かる時点 ── 高圧は判断の前、低圧は判断の後</text>
+  <text x="40" y="62" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">高圧（2MW級）</text>
+  <rect x="40" y="74" width="120" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="100" y="102" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">接続検討申込</text>
+  <line x1="160" y1="97" x2="188" y2="97" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="190" y="74" width="150" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="265" y="93" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">回答書</text>
+  <text x="265" y="110" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">負担金の概算・原則3か月以内</text>
+  <rect x="205" y="128" width="120" height="20" rx="3" fill="#C49A3C"/>
+  <text x="265" y="142" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">値段が分かる</text>
+  <line x1="340" y1="97" x2="365" y2="97" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <polygon points="395,69 423,97 395,125 367,97" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="395" y="101" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12" font-weight="700" fill="#A07916">判断</text>
+  <line x1="423" y1="97" x2="453" y2="97" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="455" y="74" width="110" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="510" y="102" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">契約申込</text>
+  <line x1="565" y1="97" x2="593" y2="97" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="595" y="74" width="95" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="642" y="102" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">工事・連系</text>
+  <line x1="40" y1="170" x2="690" y2="170" stroke="#E2E6EC" stroke-width="1"/>
+  <text x="40" y="196" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">低圧（50kW未満）</text>
+  <polygon points="70,199 98,227 70,255 42,227" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="70" y="231" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="12" font-weight="700" fill="#A07916">判断</text>
+  <text x="70" y="275" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#cc4444">決めるのが先</text>
+  <line x1="98" y1="227" x2="118" y2="227" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="120" y="204" width="130" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="185" y="223" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">契約申込</text>
+  <text x="185" y="240" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">小売電気事業者の名義</text>
+  <line x1="250" y1="227" x2="278" y2="227" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="280" y="204" width="100" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="330" y="223" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">技術検討</text>
+  <text x="330" y="240" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">接続検討はない</text>
+  <line x1="380" y1="227" x2="408" y2="227" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="410" y="204" width="150" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="485" y="223" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">設計完了</text>
+  <text x="485" y="240" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">工事費負担金が確定</text>
+  <rect x="425" y="258" width="120" height="20" rx="3" fill="#C49A3C"/>
+  <text x="485" y="272" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1B2A4A">値段が分かる</text>
+  <line x1="560" y1="227" x2="593" y2="227" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah3n)"/>
+  <rect x="595" y="204" width="95" height="46" rx="7" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.8"/>
+  <text x="642" y="232" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">工事・連系</text>
+  <text x="360" y="306" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">高圧は値段を見てから決める。低圧は決めてから値段が出る。低圧にも技術検討はあるが、時点が申込の後ろに来る。</text>
+</svg>
+<figcaption>図3 ── 「値段が分かる」の位置が、判断の前（高圧）と後（低圧）で入れ替わる。OCCTO「発電設備等に関する系統アクセスの流れ」と東京電力PGの系統アクセスルールによる。</figcaption>
+</figure>
+
+<p>ここで混同しやすいのは、接続検討がないことと技術検討がないことは違う、という点です。低圧でも単線結線図、PCSの定格、保護継電器の整定値、CTの位置といった系統連系資料は求められ、連系の可否と条件はそこで判断されます。判断される時点が、申込みの後ろに来るだけです。</p>
+
+<p>保証金はどうなるか。OCCTO「発電設備等に関する契約申込み等における保証金の算定方法について」（2026年3月18日更新）は、系統用蓄電池の保証金を接続検討回答の工事費負担金概算の10%とし（2026年4月1日以降に契約申込を受領する案件から）、脚注で、接続検討が不要な申込みについては工事費負担金概算を0円として扱う、としています。算式どおりなら、低圧の保証金は0円です。ただし、東京電力PGの保証金増額の告知は対象を【高圧・特別高圧】と明示しており、低圧を保証金の対象と書いた告知も、対象外と書いた告知も、各社のサイトには見当たりません❓。<strong>「低圧は保証金不要」と断定できる文書はなく、各社の託送窓口への照会が要ります。</strong></p>
+
+<p>工事費負担金の水準も、同じ理由で事前には分かりません。中国電力ネットワークのように低圧連系の負担金に単価制（2021年2月から）を採る社もありますが、太陽光を含む低圧発電設備共通の単価です。低圧の系統用蓄電池単体の負担金の実額が公表された事例は確認できませんでした❓。</p>
+
+<p>読みは二つです。資金計画の上で負担金を申込前に確定させたいなら、低圧は仕組みとして向いていません。逆に、高圧で18〜24か月に伸びている接続待ち（<a target="_top" href="/column-grid-rules">COLUMN 09</a>）を避けられるのが低圧の利点で、<strong>「値段は後、時間は先」という取引</strong>です。</p>
+
+<h2><span class="no">04</span>「4年ルール」は存在しない ── しかし規制は蓄電所を名指ししている</h2>
+
+<p>業界でいま流れている話が二つあります。「過去4年遡って地主が同じなら分割案件になる」。「1MW、つまり50kW未満×約21件が申込みのロット単位だ」。資源エネルギー庁のQ&A、電気事業法の施行規則、一般送配電事業者の申込要領──どこを読んでも、どちらも出てきません❓。しかし、だから規制がないのではありません。<strong>規制はあり、しかも蓄電所を名指ししています。</strong>整理します。</p>
+
+<p>根拠はFITではありません。太陽光の分割禁止は再エネ特措法施行規則第5条第1項第2号（2014年4月施行）で、これはFIT・FIPの認定要件です。非FITの蓄電所に直接は及びません。代わりに効くのが、<strong>電気事業法施行規則第3条第2項第2号のただし書き</strong>です。2022年4月1日の改正で、「一の需要場所」の定義に、特段の理由がないのに複数の発電等用電気工作物を隣接した構内に設置する場合は一の需要場所として扱わない（合算する）趣旨の除外が加わり、2023年4月1日の改正で対象が「発電等用電気工作物」──発電用と蓄電用の電気工作物──に広がりました。資源エネルギー庁の「発電等設備の分割対策に関するQ&A」（最終更新2026年6月11日）は、対象の具体例に「系統用蓄電池（蓄電所）」を明記しています✅。</p>
+
+<figure>
+<svg viewBox="0 0 720 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図4 — 分割設置の判定の流れ。隣接・近接地に既設または同時申込の設備があるか、設置者または地権者が同一か（原則は申込年度から1年以内）、特段の理由があるかの順に判断され、該当すれば一の需要場所として扱われ、低圧の申込みは成り立たない">
+  <defs>
+    <marker id="ah4n" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1B2A4A"/></marker>
+    <marker id="ah4g" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1A7A4C"/></marker>
+  </defs>
+  <rect width="720" height="440" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">図4 ／ 分割設置の判定 ── 資源エネルギー庁「発電等設備の分割対策に関するQ&amp;A」の要素を並べ直したもの</text>
+  <rect x="140" y="48" width="360" height="50" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="320" y="69" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">隣接・近接地に、既設の発電等設備や</text>
+  <text x="320" y="87" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">同時に申し込む設備があるか</text>
+  <line x1="500" y1="73" x2="558" y2="73" stroke="#1A7A4C" stroke-width="1.8" marker-end="url(#ah4g)"/>
+  <text x="529" y="66" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1A7A4C">いいえ</text>
+  <rect x="560" y="50" width="130" height="46" rx="8" fill="#EAF5EE" stroke="#1A7A4C" stroke-width="1.8"/>
+  <text x="625" y="78" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1A7A4C">分割に当たらない</text>
+  <line x1="320" y1="98" x2="320" y2="128" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah4n)"/>
+  <text x="330" y="118" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1B2A4A">はい</text>
+  <rect x="140" y="130" width="360" height="62" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="320" y="152" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B2A4A">設置者が同一か、地権者が同一か</text>
+  <text x="320" y="168" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">地権者の同一性は、原則として申込年度から遡って1年以内で見る</text>
+  <text x="320" y="184" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">名義が形式的に違っても、実態で「実質的に同一」と判断される</text>
+  <line x1="500" y1="161" x2="558" y2="161" stroke="#1A7A4C" stroke-width="1.8" marker-end="url(#ah4g)"/>
+  <text x="529" y="154" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1A7A4C">いいえ</text>
+  <rect x="560" y="138" width="130" height="46" rx="8" fill="#EAF5EE" stroke="#1A7A4C" stroke-width="1.8"/>
+  <text x="625" y="166" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1A7A4C">分割に当たらない</text>
+  <line x1="320" y1="192" x2="320" y2="222" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah4n)"/>
+  <text x="330" y="212" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1B2A4A">はい</text>
+  <rect x="140" y="224" width="360" height="82" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="320" y="246" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#A07916">「特段の理由」があるか</text>
+  <text x="320" y="264" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">元からの道路・里道・水路・農地・保安林を挟む ／ それぞれが特別高圧</text>
+  <text x="320" y="280" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">種類の違う設備 ／ 自営線で一の需要場所にまとめる</text>
+  <text x="320" y="296" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">引込み数が変わらない（保安規制の回避目的を除く）</text>
+  <line x1="500" y1="265" x2="558" y2="265" stroke="#1A7A4C" stroke-width="1.8" marker-end="url(#ah4g)"/>
+  <text x="529" y="258" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1A7A4C">ある</text>
+  <rect x="560" y="242" width="130" height="46" rx="8" fill="#EAF5EE" stroke="#1A7A4C" stroke-width="1.8"/>
+  <text x="625" y="270" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1A7A4C">分割に当たらない</text>
+  <line x1="320" y1="306" x2="320" y2="336" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah4n)"/>
+  <text x="330" y="326" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#1B2A4A">ない</text>
+  <rect x="100" y="338" width="440" height="58" rx="8" fill="#FBEDEA" stroke="#cc4444" stroke-width="2"/>
+  <text x="320" y="361" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12.5" font-weight="700" fill="#cc4444">分割設置 ── まとめて一の需要場所に。低圧の申込みは成り立たない</text>
+  <text x="320" y="381" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">中部電力PG：申込みは不受理／連系後の判明で改善に応じなければ解約も（2022/3/7）</text>
+  <text x="360" y="424" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">「4年」という数字は、Q&amp;Aにも施行規則にもない。附属設備として置く蓄電池は蓄電所ではなく、隣接しても分割に当たらない（Q10）。</text>
+</svg>
+<figcaption>図4 ── 判定の軸は遡及年数ではなく、設置者・地権者の同一性と「特段の理由」。判定の主体は一般送配電事業者で、低圧では技術検討の場がそれにあたる。</figcaption>
+</figure>
+
+<p>判定の要素は、同じQ&amp;Aに書いてあります。新設設備の設置者と、隣接・近接する既設設備の設置者が同一であること。設置者が違っても、新設地と既設地の地権者が同一であること。同一の設置者が隣接・近接地に複数を新設すること。設置者が別でも、土地が実質的に一つの場所と認められること。そして名義が形式的に異なっても、実態で「実質的に同一」と判断すること。判定の主体は一般送配電事業者で、接続検討や技術検討の審査の場で行われます。低圧に接続検討はありませんが、03で見た技術検討の場がそれにあたります。</p>
+
+<p>遡及期間は「原則として、申込みを行う年度から遡って1年以内に地権者が同一の場合」（同Q&amp;A A4の1）。10kW以上50kW未満の低圧太陽光に限って、意図的な分割が多かったことを理由に最大2014年度まで遡ります（A4の2）。2は太陽電池発電設備に限った定めなので、文面上、蓄電所には原則の1年が当たります（Q&amp;Aが蓄電所を名指しして遡及期間を定めた箇所はありません）。そしてどちらにも「4年」はありません。「1MW＝21件」も見当たらず、1MWという数字が出てくるのは需給調整市場の最低入札量（05）であって、申込みのロットでも分割の判定単位でもありません。</p>
+
+<p>「特段の理由」として分割に当たらないとされる例も、同じ資料にあります。道路・河川・里道・水路といった法定外公共物を元から挟んでいて、物理的に統合できない。農地・保安林など、他用途への使用制限が客観的に認められる土地を挟む。分割しても、それぞれが特別高圧になる。種類の異なる設備である。既設から自営線を引いて一の需要場所にまとめる。系統からの引込み数が変わらない（保安規制の回避目的があるものは除く）。附属設備として置く蓄電池は蓄電所ではないので、隣接して蓄電所を置いても分割には当たらない（Q10）。ただしQ&amp;Aは、形式的に「特段の理由」に当たっても昇圧回避などの実態から分割と判断する場合がある、高圧を高圧に分ける形も対象になる（Q11）、譲渡に伴う名義変更の手続きでも改めて判定する場合がある、とも書いています。<strong>買う側にも効く規制です。</strong></p>
+
+<p>措置は二段です。申込段階で分割設置と判断されれば、複数の設置場所をまとめて一の需要場所として扱われ、50kW未満の申込みは成り立ちません。中部電力パワーグリッドは、分割案件と判定される場合は申込みを受け付けないと明記しています。連系後に判明した場合について、中部電力パワーグリッドは2022年3月7日のお知らせで、適正な発電状態への改善を求めても応じないときは契約を解約することがあると明記しています✅。ただし、蓄電所が分割を理由に却下・取消・解除された事例は、経済産業省の処分の公表にも、資源エネルギー庁や一般送配電事業者のお知らせにも見当たりません❓。公表されている処分は、すべて太陽光です。2025年度のFIT・FIP認定取消は55件（前年度13件）で、うち田島南第1発電所（2026年3月取消）は、公文書を偽造して分割案件に該当しないよう装った事案でした（経済産業省2026年4月6日公表）。<strong>名義を分けて回避を図れば、分割の問題ではなく偽造の問題になります。</strong></p>
+
+<p>規制の背景も押さえておきます。Q&amp;A本文は、2021年4月以降、保安規程・工事計画・主任技術者といった保安規制を回避するために50kW未満へ分割して接続契約を申し込む案件が急増したことを出発点に挙げ、本来の規制を逃れる不公平、一般送配電事業者の管理コストの託送料金への転嫁、不要な電柱・メーターの非効率の3点を懸念として並べています。01で見たとおり蓄電所は出力にかかわらず事業用電気工作物なので、50kW未満に刻んでも保安規制は逃れられません。それでも、同一の地権者・設置者が近接地に多数を置く形は、この規制が狙っている形そのものです。2026年1月からは、接続検討が必要となる新設の発電等設備について、設置場所の登記簿等の確認結果を記した書類の提出が要件化されました（接続検討のない低圧は、文面上この対象ではありません）。</p>
+
+<p>読みはこうです。「4年」が消えても、同一の地権者が同時期に複数を申し込む形は分割の典型であって、遡及年数はそもそも問題になりません。争点は「特段の理由」に当たるか──区画の間に元から道路や里道や農地があるか、引込みが区画ごとに別で保安回避の目的がないと説明できるか──に移ります。計画の初期に連系先へ事前相談し、当たらないなら設計を変える。<strong>名義を分けるのは、最悪手です。</strong></p>
+
+<h2><span class="no">05</span>1基では何も売れない ── 最低入札量1MW、49.5kWはその20分の1</h2>
+
+<p>需給調整市場の最低入札量は1MW（1,000kW）です（EPRX「需給調整市場かいせつ資料」）。1,000kW未満のリソースは、束ねて入札します。容量市場も1,000kWが最低で、それ未満は発動指令電源として束ねます。<strong>49.5kWは、1MWの約20分の1です。</strong>低圧の蓄電所は、単独では市場に何も売れません。</p>
+
+<figure>
+<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図5 — 需給調整市場の最低入札量1,000kWに対し、低圧1基は49.5kW。20基を束ねてようやく990kW。オーナーはアグリゲーターに運用を委託し、アグリゲーターがリスト・パターンで束ねてEPRXに入札する">
+  <defs>
+    <marker id="ah5n" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 z" fill="#1B2A4A"/></marker>
+  </defs>
+  <rect width="720" height="320" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">図5 ／ 最低入札量1,000kWと、低圧1基49.5kW</text>
+  <text x="40" y="62" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">需給調整市場の最低入札量 ＝ 1,000kW</text>
+  <rect x="40" y="72" width="600" height="26" fill="#1B2A4A"/>
+  <text x="632" y="90" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">1,000kW</text>
+  <text x="40" y="128" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">低圧の蓄電所1基 ＝ 49.5kW（最低入札量の約20分の1）</text>
+  <rect x="40" y="138" width="28" height="26" fill="#C49A3C"/>
+  <text x="54" y="156" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">1基</text>
+  <rect x="70" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="100" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="130" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="160" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="190" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="220" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="250" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="280" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="310" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="340" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="370" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="400" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="430" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="460" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="490" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="520" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="550" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="580" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <rect x="610" y="138" width="28" height="26" fill="#F8F9FB" stroke="#C9CFD8" stroke-width="1.5"/>
+  <text x="650" y="156" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">×20＝990kW</text>
+  <rect x="40" y="206" width="170" height="60" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="125" y="231" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">オーナー（20人〜）</text>
+  <text x="125" y="251" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">リソースの提供者</text>
+  <line x1="210" y1="236" x2="260" y2="236" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah5n)"/>
+  <text x="235" y="228" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">運用委託</text>
+  <rect x="262" y="206" width="206" height="60" rx="8" fill="#FFFFFF" stroke="#C49A3C" stroke-width="2.5"/>
+  <text x="365" y="231" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#A07916">アグリゲーター</text>
+  <text x="365" y="251" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#2C3E50">リストに登録し、1MW以上に束ねる</text>
+  <line x1="468" y1="236" x2="518" y2="236" stroke="#1B2A4A" stroke-width="1.8" marker-end="url(#ah5n)"/>
+  <text x="493" y="228" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#6C7A89">入札</text>
+  <rect x="520" y="206" width="170" height="60" rx="8" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="605" y="231" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="13" font-weight="700" fill="#1B2A4A">EPRX 需給調整市場</text>
+  <text x="605" y="251" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">低圧は2026/3/14実需給分〜</text>
+  <text x="360" y="300" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">1基では入札できない。束ねる先（アグリゲーター）が先に決まらないと、収益の出口がない。</text>
+</svg>
+<figcaption>図5 ── 49.5kW×20基でようやく990kW。オーナーはリソースの提供者で、市場に対する責任主体はアグリゲーター。</figcaption>
+</figure>
+
+<p>低圧リソースが入れるようになった経緯は明確です。EPRXのFAQによれば、MMS（市場管理システム）の対応完了により、2026年3月13日の取引（3月14日実需給分）から、参入要件を満たせば取引可能になりました。OCCTOの第57回需給調整市場検討小委員会（2025年9月26日）は、受電点計測の低圧リソースをリスト・パターン方式──複数リソースを「リスト」として登録し、リスト単位で入札・評価・精算する方式──で全商品に参入可能と整理し、一般送配電事業者側の登録上限はリソース10万件・リスト・パターン500件に拡大されました。束ねる側の制度は、整っています。</p>
+
+<p>束ねる側が誰かというと、特定卸供給事業者として経済産業大臣に登録したアグリゲーターです。簡易指令システムへの接続、ERAB（エネルギー・リソース・アグリゲーション・ビジネス）のサイバーセキュリティガイドラインへの準拠、計画値同時同量の責任、不履行時のペナルティの引受け──市場に対する責任主体はアグリゲーターで、オーナーはリソースの提供者です。</p>
+
+<p>受託条件の公表状況を並べます。RE100電力は業務委託料5%を掲げますが、アグリゲーションとO&amp;Mの一括パッケージ前提の条件付きです（広告値）。FPSは収益の一部と月額固定費の組み合わせ（料率は非公表）で、しかも家庭用・自家消費型を含む低圧の蓄電池の新規受付を停止中と自社サイトに明記しています。デジタルグリッドは、低圧は30件から受託、と自社FAQで明記。WATT-TUNE（2026年3月14日、エコ革・GoodWe Japan・REVIX JAPANとの4社連携で基本合意）とTensor Energy（2026年3月14日に事業開始を発表。2028年までに500機、2030年までに1,000機は目標値）は、手数料率・契約期間・承継可否をいずれも公表していません。<strong>オーナーが変わったときに運用契約を承継できるかを公表しているアグリゲーターは、調べた範囲で一社もありませんでした</strong>❓。</p>
+
+<p>利回りの数字も、同じ目で見てください。「20%台」「回収5〜6年」は販売会社の広告値、解説サイトの試算では年粗収益263万〜632万円・税引前IRR 5.8〜17.4%といった幅が示されますが、低圧の市場運用は2026年4月に始まったばかりで、通年の実績は存在しません❓。しかも需給調整市場の上限価格は2026年9月1日実需給分から10円に下がり、その先も条件付きで段階的な引下げが予告されています（<a target="_top" href="/column-price-cap">COLUMN 41</a>）。初期費用1,250万〜2,700万円、面積約6坪という数字も広告値で、土地取得費・工事費負担金・造成・地盤改良は別です。</p>
+
+<p>読みは一つです。低圧の収益は、あなたの蓄電池の性能ではなく、アグリゲーターの入札・運用の力と手数料の取り方で決まります。<a target="_top" href="/column-aggregator-fee">COLUMN 17</a>で書いたグロスとネットの差は、1基が小さく固定費比率が高い低圧では、高圧より重く効きます。<strong>機器より先にアグリゲーターを選ぶ。順番はそこです。</strong></p>
+<h2><span class="no">06</span>低圧と高圧、どちらを選ぶか ── 分かれ目の表</h2>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>表2 ── 低圧（50kW未満）と高圧（2MW／8MWh級）の分かれ目（2026年8月22日時点）</caption>
+<thead><tr><th>項目</th><th>低圧（50kW未満）</th><th>高圧（2MW／8MWh級）</th></tr></thead>
+<tbody>
+<tr><td>受電電力</td><td>50kW未満</td><td>50kW以上2,000kW未満</td></tr>
+<tr><td>電気事業法上の区分</td><td>事業用電気工作物（蓄電所）</td><td>同じ</td></tr>
+<tr><td>保安規程・電気主任技術者</td><td>必要（外部委託可）</td><td>必要</td></tr>
+<tr><td>接続検討</td><td><strong>なし。</strong>契約申込時に技術検討</td><td>あり。回答は原則3か月以内</td></tr>
+<tr><td>工事費負担金が分かる時点</td><td><strong>設計完了後</strong></td><td>接続検討回答時（概算）</td></tr>
+<tr><td>保証金</td><td>算式上0円の可能性。明文なし ❓</td><td>概算負担金×10%（2026/4/1〜）</td></tr>
+<tr><td>契約申込みへの回答</td><td>原則1か月</td><td>原則6か月または合意した期間</td></tr>
+<tr><td>一事業者あたり接続検討数の上限</td><td>接続検討がないため直接の対象外。明文なし ⚠️</td><td>エリアごとに5〜12件（2026/8/1〜）</td></tr>
+<tr><td>市場参加</td><td><strong>単独不可。</strong>アグリゲーターが1MW以上に束ねる</td><td>単独で参加可</td></tr>
+<tr><td>消防署への届出（20kWh超）</td><td>該当</td><td>該当</td></tr>
+<tr><td>事故報告（20kWh超）</td><td>該当</td><td>該当</td></tr>
+<tr><td>発電事業の届出</td><td>不要（1万kW超が閾値）</td><td>不要（単体）</td></tr>
+<tr><td>必要面積</td><td>約6坪〜（広告値）</td><td>当社の受付目安は600㎡以上</td></tr>
+<tr><td>初期費用</td><td>1,250万〜2,700万円／基（広告値）</td><td>完成渡しで7〜8億円（<a target="_top" href="/column-buyer-structures">COLUMN 39</a>）</td></tr>
+<tr><td>JC-STAR★1</td><td>2027年10月以降の契約申込から</td><td>2027年4月以降の契約申込から</td></tr>
+<tr><td>土地使用権原の書類</td><td>2026年10月1日から対象</td><td>同じ</td></tr>
+<tr><td>手離れ</td><td>1基が小さく固定費比率が高い。複数基の横串管理</td><td>1拠点集中</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">「広告値」は販売会社の資料・解説サイトの数値で、制度・実績の数字ではない。低圧の手続きはOCCTO「発電設備等に関する系統アクセスの流れ」と各社の低圧ページ、保証金はOCCTOの算定方法（2026/3/18）による。</p>
+
+<p>読みです。低圧が合理的になる条件は、三つに絞れます。すでに小さな遊休地を持っていて、土地代が要らない。高圧の接続待ちを避けたい。数億円ではなく数千万円の単位で分散したい。逆に、まとまった資本と用地があり、1拠点で手離れよく持ちたいなら高圧です。「2MW相当を低圧40基に分散すれば高圧と同じ規模になる」という設計も提示されていますが（広告値）、それは40件の発調契約・40か所の保安・40通の消防届出・40本の搬入路でもあり、04の分割判定も40回受けます。</p>
+
+<figure>
+<svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図6 — 2MW相当を低圧40基に分けると、発電量調整供給契約・保安・消防届出・搬入路・分割判定がそれぞれ40倍になる">
+  <rect width="720" height="240" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">図6 ／ 2MW相当を低圧40基に分けると、何が40倍になるか</text>
+  <rect x="40" y="56" width="26" height="22" rx="3" fill="#C49A3C" stroke="#C49A3C" stroke-width="1.5"/>
+  <rect x="72" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="56" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="40" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="72" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="84" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="40" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="72" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="112" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="40" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="72" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="140" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="40" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="72" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="104" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="136" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="168" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="200" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="232" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <rect x="264" y="168" width="26" height="22" rx="3" fill="#F8F9FB" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="165" y="212" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">49.5kW × 40基 ＝ 1,980kW</text>
+  <text x="340" y="74" font-family="'Noto Serif JP',serif" font-size="13" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40件</tspan> の発電量調整供給契約（小売電気事業者の名義）</text>
+  <text x="340" y="102" font-family="'Noto Serif JP',serif" font-size="13" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40か所</tspan> の保安規程と電気主任技術者</text>
+  <text x="340" y="130" font-family="'Noto Serif JP',serif" font-size="13" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40通</tspan> の消防届出と、事故報告の体制</text>
+  <text x="340" y="158" font-family="'Noto Serif JP',serif" font-size="13" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40本</tspan> の搬入路と基礎</text>
+  <text x="340" y="186" font-family="'Noto Serif JP',serif" font-size="13" fill="#1B2A4A"><tspan font-weight="700" fill="#A07916">40回</tspan> の分割判定（04）</text>
+  <text x="520" y="226" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11.5" fill="#6C7A89">規模は足し算できる。手間は足し算では済まない。</text>
+</svg>
+<figcaption>図6 ── 低圧を並べて高圧の規模にする設計は提示されているが（広告値）、契約・保安・届出・判定は基数のぶんだけ増える。</figcaption>
+</figure>
+
+<p><strong>規模は足し算できても、手間は足し算では済みません。</strong></p>
+
+<h2><span class="no">07</span>これから効くもの ── 2026〜27年のルールと低圧への波及</h2>
+
+<p>2026年に入ってからの一連の新ルールは、「空押さえ」を止めるために接続検討のプロセスを締める設計です。接続検討のない低圧には直接効かないものが多い一方で、確実に効くものが三つあります。同時受付（6月1日）、土地使用権原の書類（10月1日）、JC-STAR★1（2027年10月）です。</p>
+
+<figure>
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図7 — 2026年1月から2027年10月までの制度変更の時系列と、低圧の系統用蓄電池への波及。同時受付・土地使用権原の書類・JC-STAR★1は低圧も対象、保証金と接続検討上限は明文なし">
+  <rect width="720" height="300" fill="#FFFFFF"/>
+  <text x="40" y="32" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#6C7A89" letter-spacing="1.5">図7 ／ 2026〜27年の制度変更と、低圧への波及</text>
+  <line x1="40" y1="160" x2="700" y2="160" stroke="#C9CFD8" stroke-width="2"/>
+  <line x1="150" y1="140" x2="150" y2="158" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="150" cy="160" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="150" y="102" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/4/1</text>
+  <text x="150" y="118" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#2C3E50">保証金10%</text>
+  <text x="150" y="134" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">明文なし ❓</text>
+  <line x1="300" y1="140" x2="300" y2="158" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="300" cy="160" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="300" y="102" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/8/1</text>
+  <text x="300" y="118" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#2C3E50">接続検討数の上限</text>
+  <text x="300" y="134" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">対象外・明文なし ⚠️</text>
+  <line x1="540" y1="140" x2="540" y2="158" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="540" cy="160" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="540" y="102" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2027/4</text>
+  <text x="540" y="118" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#2C3E50">JC-STAR★1 高圧・特高</text>
+  <text x="540" y="134" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">低圧はまだ</text>
+  <line x1="64" y1="162" x2="64" y2="180" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="64" cy="160" r="5" fill="#FFFFFF" stroke="#6C7A89" stroke-width="2"/>
+  <text x="64" y="194" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/1/5</text>
+  <text x="64" y="210" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#2C3E50">登記簿等の提出</text>
+  <text x="64" y="226" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" fill="#6C7A89">明記なし ❓</text>
+  <line x1="225" y1="162" x2="225" y2="180" stroke="#1A7A4C" stroke-width="1.5"/>
+  <circle cx="225" cy="160" r="6" fill="#1A7A4C"/>
+  <text x="225" y="194" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/6/1</text>
+  <text x="225" y="210" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#2C3E50">発電側＋需要側の同時受付</text>
+  <text x="225" y="226" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1A7A4C">低圧も対象 ✅</text>
+  <line x1="395" y1="162" x2="395" y2="180" stroke="#1A7A4C" stroke-width="1.5"/>
+  <circle cx="395" cy="160" r="6" fill="#1A7A4C"/>
+  <text x="395" y="194" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2026/10/1</text>
+  <text x="395" y="210" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#2C3E50">土地使用権原の書類</text>
+  <text x="395" y="226" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1A7A4C">低圧も対象 ✅</text>
+  <line x1="680" y1="162" x2="680" y2="180" stroke="#1A7A4C" stroke-width="1.5"/>
+  <circle cx="680" cy="160" r="6" fill="#1A7A4C"/>
+  <text x="690" y="194" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#1B2A4A">2027/10</text>
+  <text x="690" y="210" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#2C3E50">JC-STAR★1 低圧</text>
+  <text x="690" y="226" text-anchor="end" font-family="'Noto Sans JP',sans-serif" font-size="10.5" font-weight="700" fill="#1A7A4C">低圧も対象 ✅</text>
+  <line x1="322" y1="150" x2="322" y2="170" stroke="#cc4444" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <text x="322" y="147" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#cc4444">今</text>
+  <text x="360" y="268" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#6C7A89">✅＝低圧も対象　❓＝文書に明記なし　⚠️＝仕組み上は対象外だが明文なし。JC-STARの基準は契約申込日（連系日ではない）。</text>
+</svg>
+<figcaption>図7 ── 緑＝低圧に効く。白＝接続検討を前提とする制度で、低圧への適用は文書に書かれていない。</figcaption>
+</figure>
+
+<div class="tablewrap wraptext">
+<table>
+<caption>表3 ── 2026〜27年の制度変更と、低圧の系統用蓄電池への波及</caption>
+<thead><tr><th>開始</th><th>ルール</th><th>主な対象</th><th>低圧への波及</th></tr></thead>
+<tbody>
+<tr><td>2026/1/5</td><td>接続検討・契約申込で設置場所の登記簿等の確認結果を提出</td><td>接続検討が必要な新設の発電等設備</td><td>接続検討のない低圧は文面上対象外（Q&amp;A A4）</td></tr>
+<tr><td>2026/4/1</td><td>系統用蓄電池の保証金5%→10%。工事費負担金の分割払いは初回50%以上</td><td>系統用蓄電池（契約申込受領分から）</td><td>算式上は0円の可能性。明文なし ❓</td></tr>
+<tr><td>2026/6/1</td><td>発電側＋需要側の同時受付が契約申込の受付要件</td><td>系統用蓄電池</td><td class="ok">低圧も両建て ✅</td></tr>
+<tr><td>2026/8/1</td><td>一事業者あたりの接続検討数に上限（東京11・関西12・九州8・中部7・東北6・北海道／北陸／中国／四国5・沖縄なし）</td><td>系統用蓄電池の接続検討</td><td>接続検討がないため直接の対象外。明文なし ⚠️</td></tr>
+<tr><td>2026/10/1（予定）</td><td>事業用地の使用権原を証する書類の提出。連系承諾から2か月以内、不提出は連系予約取消</td><td>非FIT・非FIPの電源</td><td class="ok">低圧も対象 ✅</td></tr>
+<tr><td>2027/4</td><td>JC-STAR★1取得製品の利用を系統連系技術要件に</td><td>高圧・特別高圧の契約申込</td><td>──</td></tr>
+<tr><td>2027/10</td><td>同・低圧</td><td>低圧（50kW未満）の契約申込</td><td class="ok">低圧も対象 ✅</td></tr>
+<tr><td>継続中</td><td>早期連系追加対策（充電制限を条件に増強なしで接続）</td><td>高圧以上</td><td>低圧は現時点で対象外。今後拡大を検討 ✅</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>二つだけ、詳しく書きます。土地使用権原の提出は、一般送配電事業者10社が託送供給等約款の変更認可を申請し、2026年10月1日に実施される予定です。非FIT・非FIPの電源が対象で、連系承諾から2か月以内に登記簿謄本や賃貸借契約書の写しを出さなければ、連系予約が取り消されます。低圧の蓄電所は、この「非FIT・非FIP電源」に入ります。<strong>土地の権利関係は、申し込む前に固めておくものになりました。</strong></p>
+
+<p>JC-STAR★1は、2027年4月の系統連系技術要件の改定で必須化され、低圧（50kW未満）で連系する製品は経過措置として半年遅れの2027年10月以降の契約申込から適用されます（第7回次世代電力系統ワーキンググループ 2026年2月9日 資料2「グリッドコードについて」、第20回グリッドコード検討会 2025年12月16日）。基準は連系日ではなく契約申込日です（<a target="_top" href="/column-jcstar">COLUMN 14</a>・<a target="_top" href="/column-jcstar-levels">27</a>）。対象はPCS・EMS・ゲートウェイなど、IP通信で制御に関わる機器。★1は自己適合宣言で、有効期間は最長2年。2027年10月以降に申し込む低圧案件は、機器を発注する前に、IPAの適合ラベル取得製品リストで確認しておく必要があります。</p>
+
+<h2><span class="no">08</span>申し込む前の、5つの確認</h2>
+
+<ol class="actions">
+<li><b>小売電気事業者とアグリゲーターが決まっているか。</b>02と05のとおり、発電契約者が決まらないと申込みの1歩目が出ず、束ねる先が決まらないと収益が立ちません。受託の最小単位（1MW束ねか、30件からか）、手数料の取り方（成功報酬か、月額固定か、初期費用の有無）、契約期間、オーナーが変わったときの承継の可否、インバランスや停止時の責任分界──これを書面でもらう。公表していない事業者が大半ですから、契約前に出してもらう以外に確かめる方法がありません。</li>
+<li><b>保安の体制が組めているか。</b>01のとおり、蓄電所は出力にかかわらず事業用電気工作物です。電気主任技術者の外部委託先、保安規程、20kWh超の消防届出と事故報告の体制を、1基ごとに用意する。太陽光の低圧で使った「届出だけ」の段取りは、そのままでは使えません。</li>
+<li><b>工事費負担金が設計完了後にしか出ないことを、資金計画に織り込んでいるか。</b>03のとおり、低圧は「見積もりを見てから決める」ができません。保証金の要否も明文がないので、各社の託送窓口に照会する。土地・機器・資金の意思決定を、申込みより先に確定させない。</li>
+<li><b>隣接・近接地に、同一設置者・同一地権者の設備がないか。</b>04のとおり、「4年」はありませんが規制はあります。あるなら「特段の理由」──元からの道路・里道・農地・引込みの別──に当たるかを、連系先に計画の初期に事前相談する。名義を分けて見え方を変える出し方は、採らない。</li>
+<li><b>2026年10月と2027年10月に間に合うか。</b>07のとおり、土地使用権原の書類は連系承諾から2か月以内、JC-STAR★1は2027年10月以降の契約申込から。土地の権利関係と機器の適合を、申込みの前に確かめる。</li>
+</ol>
+
+<h2><span class="no">結</span>低圧の蓄電所は、低圧太陽光の小さい版ではない</h2>
+
+<p>五つを並べ直します。蓄電所は出力にかかわらず事業用電気工作物で、保安規程と電気主任技術者が要る。申込者はあなたではなく小売電気事業者で、2026年6月からは充電側との両建てが要件。低圧に接続検討はなく、工事費負担金は設計完了後に決まる。「4年ルール」はどの文書にもないが、電気事業法の分割規制は蓄電所を名指ししており、判定は遡及年数ではなく設置者・地権者の同一性と「特段の理由」で動く。そして49.5kWは最低入札量1MWの20分の1で、1基では何も売れない。</p>
+
+<p>低圧の利点は本物です。小さな土地で始められ、高圧の接続待ちを避けられ、数千万円の単位で分散できる。ただしその利点は、系統連系の手続きが軽いことから来ているのであって、電気事業法の扱い・市場の参加単位・分割規制の軽さから来ているのではありません。<strong>低圧を検討するときの順番は、土地でも機器でもなく、小売とアグリゲーターから。</strong>そこが決まって初めて、土地と機器の話に戻れます。</p>
+
+<hr class="sep">
+<p><strong>❓ 未確認・本稿の限界</strong></p>
+<div class="tablewrap wraptext">
+<table>
+<thead><tr><th>項目</th><th>状態</th></tr></thead>
+<tbody>
+<tr><td>低圧の系統用蓄電池の保証金</td><td>OCCTOの算式（接続検討不要＝概算0円）上は0円だが、低圧を対象と書いた告知も、対象外と書いた告知もない。各社の託送窓口へ照会</td></tr>
+<tr><td>低圧の系統用蓄電池単体の工事費負担金の実額</td><td>公表された事例なし。単価表は太陽光を含む低圧発電設備共通</td></tr>
+<tr><td>発調契約申込の第三者代行の可否</td><td>書いてあるのは中国電力NW（代行可）と東北電力NW（申込代理人）と北陸電力送配電（申込代理人）のみ。他6社のページには記載がない</td></tr>
+<tr><td>接続検討数の上限の低圧への適用</td><td>接続検討がないため対象外と解されるが、明文なし</td></tr>
+<tr><td>低圧蓄電所の分割判定の遡及期間</td><td>Q&amp;Aの文面上は原則の1年（2014年度遡及は低圧太陽光限定）。蓄電所を名指しした遡及期間の定めはなく、「4年」はいずれにも存在しない</td></tr>
+<tr><td>蓄電所の分割を理由とした却下・取消・解除の事例</td><td>公表なし。公表されている処分はすべて太陽光</td></tr>
+<tr><td>アグリゲーターの手数料率・契約年数・承継の可否</td><td>大半が非公表。承継の可否を公表する社は調べた範囲で皆無</td></tr>
+<tr><td>低圧の収益実績</td><td>通年実績なし。提示されている数値はすべて想定値または広告値</td></tr>
+<tr><td>初期費用・必要面積</td><td>すべて販売資料由来の広告値。低圧に限ったkWh単価の公的な数字はない</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="tnote"><strong>ヌル所見：</strong>低圧の系統用蓄電池に特化した分割の運用細則（遡及年数・容量や件数の単位）は、資源エネルギー庁のQ&amp;Aにも一般送配電事業者の申込要領にも存在しない。蓄電池の分割判定は、電気事業法施行規則のただし書きを根拠に、太陽光で積み上がった判定要素を援用して一般送配電事業者が行っている、というのが確認できる範囲の姿。</p>
+
+<hr class="sep">
+
+<div class="refs">
+<p><strong>出典（2026年8月22日時点）</strong></p>
+
+<h3>法令・国の資料</h3>
+<ul>
+<li>資源エネルギー庁「発電等設備の分割対策に関するQ&amp;A」最終更新2026/6/11（対象に「系統用蓄電池（蓄電所）」、判定要素A3・A4、遡及期間、特段の理由、Q10）<a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/electric/summary/regulations/02_faq/index.html">enecho.meti.go.jp/…/02_faq</a></li>
+<li>資源エネルギー庁「再生可能エネルギー発電事業計画における再生可能エネルギー発電設備の設置場所について」2017/7/14（2026/4/1改訂）<a href="https://www.enecho.meti.go.jp/category/saving_and_new/saiene/kaitori/dl/fit_2017/legal/nintei_seti.pdf">enecho.meti.go.jp/…/nintei_seti.pdf</a></li>
+<li>電気事業法施行規則第3条第2項第2号ただし書き（2022/4/1改正、2023/4/1改正で「発電等用電気工作物」）／再エネ特措法施行規則第5条第1項第2号（2014/4/1施行）／電気事業法第39条・第42条・第43条</li>
+<li>経済産業省「2025年度に行った再エネ特措法に基づく処分の実績を公表します」2026/4/6（認定取消55件、田島南第1発電所）<a href="https://www.meti.go.jp/press/2026/04/20260406002/20260406002.html">meti.go.jp/press/2026/04/20260406002</a></li>
+<li>経済産業省「電力貯蔵装置（蓄電池）・蓄電所を設置する場合の手引き」2025/11/14（蓄電所は出力にかかわらず事業用電気工作物）／電気関係報告規則改正 2025/11/20施行（20kWh超の電力貯蔵装置の事故報告）／電気設備の技術基準の解釈改正 2025/11/20（JIS C 8715-2の引用）</li>
+<li>資源エネルギー庁 次世代電力系統ワーキンググループ（第5回 2025/11/14 資料2・第6回 2025/12/24 資料3：土地使用権原の書類提出／第9回 2026/3/27 資料1：同時受付・接続検討数上限／第11回 2026/6/10 資料2：エリア別上限数の算定結果）<a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/index.html">meti.go.jp/shingikai/…/smart_power_grid_wg</a></li>
+<li>資源エネルギー庁「グリッドコードについて」第7回次世代電力系統ワーキンググループ 資料2 2026/2/9（JC-STAR★1 2027/4、低圧は2027/10）／第20回グリッドコード検討会 2025/12/16</li>
+<li>総務省消防庁 対象火気省令改正 2023/5/31公布・2024/1/1施行（規制単位のkWh化、10kWh超で規制・20kWh超で届出）「蓄電池設備の規制の見直しイメージ」</li>
+<li>国土交通省 通知 2025/4/8（危険物を含有する系統用蓄電池の第一種特定工作物該当性）</li>
+<li>IPA JC-STAR（★1申請受付 2025/3/25開始、自己適合宣言、有効期間最長2年）</li>
+</ul>
+
+<h3>OCCTO・EPRX・一般送配電事業者</h3>
+<ul>
+<li>OCCTO「発電設備等に関する系統アクセスの流れ」2026年7月版（低圧の手続き、契約申込みの回答は低圧原則1か月、同時受付、接続検討数上限と各社ページ一覧）<a href="https://www.occto.or.jp/institution/access/kentou/access_process.html">occto.or.jp/institution/access/kentou/access_process.html</a>（PDF: <a href="https://www.occto.or.jp/assets/access_nagare_20260724.pdf">access_nagare_20260724.pdf</a>）</li>
+<li>OCCTO「発電設備等に関する契約申込み等における保証金の算定方法について」2026/3/18更新（系統用蓄電池10%、接続検討不要の申込みは概算0円扱い）<a href="https://www.occto.or.jp/news/access_oshirase_2020_200917_dengen_kentou.html">occto.or.jp/news/access_oshirase_2020_200917_dengen_kentou.html</a>／同「工事費負担金の支払い条件の変更に応じる場合の考え方について」2026/3/18更新（系統用蓄電池の分割払いは初回50%以上、2026/4/1以降の契約申込から）<a href="https://www.occto.or.jp/news/access_oshirase_2018_181214_koujifutankin_kangaekata.html">occto.or.jp/news/…/koujifutankin_kangaekata</a></li>
+<li>EPRX「需給調整市場かいせつ資料」（最低入札量1,000kW、未満はアグリゲートして入札）／OCCTO 需給調整市場検討小委員会 第57回 2025/9/26 資料3（低圧のリスト・パターン方式、登録上限10万件・500パターン）／EPRX FAQ（低圧リソースの参入 2026/3/13取引・3/14実需給分から）</li>
+<li>東京電力パワーグリッド「接続検討数の上限について」2026/7/24（上限11件）<a href="https://www.tepco.co.jp/pg/consignment/workshop/information/renewable/adjustment/20260724_01.html">tepco.co.jp/…/20260724_01</a>／同「保証金・工事費負担金分割払いの見直し」2026/4/1（【高圧・特別高圧】）<a href="https://www.tepco.co.jp/pg/consignment/workshop/information/renewable/adjustment/20260401_02.html">tepco.co.jp/…/20260401_02</a>／同 発電量調整供給契約（非FIT・FIP）低圧・系統アクセスルール、技術協議依頼票（低圧発調契約）2026/5/15新書式</li>
+<li>中部電力パワーグリッド「同一敷地内における発電設備に係る規制について（お知らせ）」2022/3/7（連系後に判明・改善に応じない場合の契約解約）<a href="https://powergrid.chuden.co.jp/resource/goannai/ippan/powerconnection/saiene/sai_imp_20220307_01.pdf">powergrid.chuden.co.jp/…/sai_imp_20220307_01.pdf</a>／同 低圧連系要綱・2026年度工事費負担金単価表</li>
+<li>中国電力ネットワーク 新増設申込み（電気工事店による代行申込・事前の接続供給契約と発調契約の締結）<a href="https://www.energia.co.jp/nw/service/retailer/shinzousetsu/">energia.co.jp/nw/service/retailer/shinzousetsu</a>／同 低圧連系の工事費負担金単価制（2021/2/1〜）／東北電力ネットワーク 発電量調整供給契約に関するよくあるお問い合せ（発電者（申込代理人含む）、発電契約者は売電先の小売）<a href="https://nw.tohoku-epco.co.jp/consignment/request/emit/pdf/electric-faq.pdf">nw.tohoku-epco.co.jp/…/electric-faq.pdf</a></li>
+<li>北陸電力送配電 FAQ「低圧の発電場所に関する事前検討」（申込代理人、非FITは小売へ）<a href="https://faq-nw.rikuden.co.jp/faq/show/356">faq-nw.rikuden.co.jp/faq/show/356</a>／北海道電力ネットワーク 発電量調整供給の申込み（発電者の承諾書）<a href="https://www.hepco.co.jp/network/con_service/supply_overview/genecapacity/index.html">hepco.co.jp/network/…/genecapacity</a>／中部電力パワーグリッド 発電量調整供給（発電者の承諾書、回答は原則1か月以内）<a href="https://powergrid.chuden.co.jp/goannai/hatsuden_kouri/takuso_kyokyu/takuso_etc/etc_chousei/index.html">powergrid.chuden.co.jp/…/etc_chousei</a>／東京電力パワーグリッド 発電量調整供給契約（非FIT・FIP）低圧<a href="https://www.tepco.co.jp/pg/consignment/workshop/procedure/renewable/retailservice/low-pressure.html">tepco.co.jp/…/low-pressure</a></li>
+<li>九州電力送配電 発電設備等の低圧系統連系に関する申込み手続き（工事費負担金は原則設計完了後に算定）<a href="https://www.kyuden.co.jp/td/renewable-energy/purchase/user/procedure.html">kyuden.co.jp/td/…/procedure</a>／同 各種お申し込み（ノンファーム同意書、低圧蓄電設備のPCS仕様）<a href="https://www.kyuden.co.jp/td/application/electric-power-generation-business/application.html">kyuden.co.jp/td/application/…</a>／同 託送供給等開始までのフロー（発電者・需要者の承諾書、分割払い初回50%以上）<a href="https://www.kyuden.co.jp/td/service/wheeling/outline/flow.html">kyuden.co.jp/td/service/wheeling/outline/flow</a>／関西電力送配電「たくそう君」（インターネット低圧工事申込み）／四国電力送配電「低圧工事申込について（発電側）」2023/11／沖縄電力 インターネット新増設申込システム（2026/3/27改定）</li>
+</ul>
+
+<h3>事業者の発表・報道（広告値を含む）</h3>
+<ul>
+<li>デジタルグリッド 蓄電池アグリゲーションサービス FAQ（高圧・特高案件を受託、低圧は30件から）<a href="https://www.digitalgrid.com/dgp-battery/">digitalgrid.com/dgp-battery</a>／FPS 系統用蓄電池アグリゲーションサービス（家庭用・自家消費型など低圧の蓄電池の新規受付停止、収益の一部＋月ぎめ固定費）<a href="https://fps-inc.jp/service/grid-scale-battery/">fps-inc.jp/service/grid-scale-battery</a>／RE100電力 2025/6/16発表（業務委託料5%・初期費用0円は5年契約時）／テクノロジーズ（エコ革・WATT-TUNE・GoodWe Japan・REVIX JAPAN）2026/3/15発表（4社の基本合意、約6坪・AC49.9kW）<a href="https://prtimes.jp/main/html/rd/p/000000027.000013775.html">prtimes.jp/…/000000027.000013775</a>／Tensor Energy 2026/7/27発表（ライジングコーポレーションとの協業、2028年500機・2030年1,000機の目標）</li>
+<li>日経BPメガソーラービジネス 2026/3/19「『低圧系統用蓄電池』が解禁、アグリ事業が活発化」（4社連携モデル・49.5kW／100kWhで設備投資約1,700万円税別、IRR試算、Tensor Energyの3/14発表）／REVIX JAPAN・WATT-TUNE 2026/8「SMART ENERGY WEEK【秋】」出展案内（49.9kW／100kWh級・税別1,250万円から）／SOLAR JOURNAL（49.9kW×21か所で1MW）／みらい電設・LehmanSoft ほか解説サイト（初期費用・試算＝広告値・解説値）</li>
+</ul>
+
+<h3>注記</h3>
+<ul>
+<li>低圧の系統用蓄電池は、2026年に需給調整市場の枠が開いたばかりで、一般送配電事業者各社の低圧ページは太陽光・卒FIT中心の記述が多く、蓄電所単独の手続きを網羅していません。本稿の❓はこの情報不足を反映しており、最終確定は各社の託送窓口（ネットワークサービスセンター）への照会が必要です。次回更新は、土地使用権原の運用が始まる2026年10月を予定します</li>
+<li>規制動向に関する注記: 電気事業法の保安規制、分割対策の運用、需給調整市場の参加要件、JC-STARの適用時期は、資源エネルギー庁・OCCTO・EPRX・IPAを中心に続けて変更されています。本コラムは2026年8月22日時点の各機関の発表に基づきます。判断にあたっては、各機関の最新の発表を必ずご確認ください</li>
+</ul>
+</div>
+
+<hr class="sep">
+
+<div class="related">
+<p><strong>あわせて読む</strong>　<a target="_top" href="/column-grid-rules">接続検討・契約申込みの新ルール ── 2026年4月「空押さえ対策」で何が変わるか（COLUMN 09）→</a></p>
+<p><strong>関連コラム</strong></p>
+<ul>
+<li><a target="_top" href="/column-development">C13 蓄電所開発の全工程 ── 用地選定から系統連系まで</a></li>
+<li><a target="_top" href="/column-jcstar">C14 JC-STAR★1の起点は「連系日」ではない</a></li>
+<li><a target="_top" href="/column-aggregator-fee">C17 アグリゲーター手数料の「グロスとネット」</a></li>
+<li><a target="_top" href="/column-jcstar-levels">C27 JC-STAR★1〜★4の違いと対象機器</a></li>
+<li><a target="_top" href="/column-four-labels">C31 系統用蓄電所、規制・税・立地の全体像がわかる</a></li>
+<li><a target="_top" href="/column-price-cap">C41 天井が、5円下がる ── 需給調整市場の上限10円化</a></li>
+<li><a target="_top" href="/column-land-zoning">C43 市街化調整区域の土地は蓄電池用地になるか</a></li>
+</ul>
+</div>
+<div class="author-box">
+  <div class="ab-label">この記事の監修</div>
+  <div><span class="ab-name">中島 晋也</span>（サイエンスエックス株式会社 代表取締役・工学博士）</div>
+  <p style="margin:6px 0 0">系統用蓄電池発電所の開発・売買・技術デューデリジェンスを手がける。本コラムは、実案件の組成と評価の実務に基づいて執筆・監修しています。</p>
+</div>
+</div>
+
+<!-- scix-column-cta : 1記事1つ。主＝フォーム、副＝解説ページ（それぞれ行き先の中身を明記） -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">600㎡に満たない土地でも、低圧で成立するかを確認しませんか</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">高圧の最低ライン（当社の目安は600㎡）に届かない土地でも、系統の空き・隣接地の設備・地権者の構成によっては、低圧で検討できます。所在地・面積・地目をお送りいただければ、高圧と低圧のどちらの線で進められるかを、本稿の5つの確認に沿ってお答えします。</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/land" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">土地を売る・貸す →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">土地のページが開きます。所在地・面積・地目・連絡先だけで送信できます。隣接地の状況や系統の確認は、こちらで行います。</p>
+  </div>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <a target="_top" href="https://www.scix.co.jp/qa" style="color:#1B2A4A;font-weight:600;font-size:13.5px;text-decoration:none;border-bottom:1px solid #C49A3C;padding-bottom:2px">「入門Q&amp;A」を読む →</a>
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.85;margin:10px 0 0">系統用蓄電池のしくみを、はじめての方向けに24問で。低圧と高圧の違い、誰が何を決めるのかを、本稿より短く。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/land" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">土地を売る・貸す</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
