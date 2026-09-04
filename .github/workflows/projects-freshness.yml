@@ -1,0 +1,70 @@
+name: 公開案件一覧の鮮度チェック
+
+# 本番の projects.json が古くなっていないかを Mac の外から毎日見る。
+# 生成は Mac の launchd（ai.scix.projects-json・06:50）が担うが、Mac が落ちていると
+# 生成も Mac 側の健診も同時に黙る。その沈黙に気づくための1本。
+# 失敗すると GitHub がリポジトリ所有者にメールを送る（秘密の設定は要らない）。
+
+on:
+  schedule:
+    - cron: '0 1 * * *'   # 10:00 JST（Mac の 06:50 生成から3時間後）
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 本番の projects.json を読んで生成日を見る
+        run: |
+          set -euo pipefail
+          MAX_AGE_DAYS=7
+
+          curl -fsSL --retry 3 --retry-delay 5 \
+            -H 'Cache-Control: no-cache' \
+            https://www.scix.co.jp/projects.json -o projects.json
+
+          python3 - "$MAX_AGE_DAYS" <<'PY'
+          import datetime, json, sys
+
+          max_age = int(sys.argv[1])
+          data = json.load(open("projects.json", encoding="utf-8"))
+
+          generated = data.get("generatedAt")
+          count = data.get("projectCount")
+          projects = data.get("projects") or []
+
+          problems = []
+
+          if not generated:
+              problems.append("generatedAt が無い")
+          else:
+              age = (datetime.date.today() - datetime.date.fromisoformat(generated)).days
+              print(f"生成日 {generated}（{age}日前） 件数 {count}")
+              if age > max_age:
+                  problems.append(
+                      f"公開一覧が{age}日前のまま（上限{max_age}日）。"
+                      "Mac の launchd ai.scix.projects-json が回っていない可能性がある"
+                  )
+
+          if not projects:
+              problems.append("案件が0件")
+          elif count != len(projects):
+              problems.append(f"projectCount({count}) と実際の件数({len(projects)})が合わない")
+
+          allowed = {"id", "area", "pref", "voltage", "mw", "mwh", "cod", "status", "scheme"}
+          extra = set()
+          for p in projects:
+              extra |= set(p) - allowed
+          if extra:
+              problems.append(f"公開セーフ9項目以外のキーが混ざっている: {sorted(extra)}")
+
+          if problems:
+              for p in problems:
+                  print(f"::error::{p}")
+              sys.exit(1)
+
+          print("OK 鮮度・件数・項目とも問題なし")
+          PY

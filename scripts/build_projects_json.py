@@ -112,10 +112,14 @@ def wrangler_json(command):
     ⚠️ 失敗を握りつぶさない。D1 が引けないまま続けると、D1 にしか無い案件
     （新規登録分）が丸ごと落ちた一覧を「最新」として公開してしまう。
     """
+    # 非対話（launchd・cron）では npx wrangler の OAuth が失効する。
+    # SCIX_WRANGLER にトークン自動更新ラッパー（~/.config/scix-cockpit/wr）を渡せるようにする。
+    wrangler = os.environ.get("SCIX_WRANGLER")
+    argv = ([wrangler] if wrangler else ["npx", "wrangler"]) + [
+        "d1", "execute", D1_DB, "--remote", "--json", "--command", command]
     try:
         out = subprocess.run(
-            ["npx", "wrangler", "d1", "execute", D1_DB, "--remote", "--json", "--command", command],
-            cwd=DEFAULT_D2, capture_output=True, text=True, timeout=180,
+            argv, cwd=DEFAULT_D2, capture_output=True, text=True, timeout=180,
         )
     except Exception as e:  # noqa
         raise D1Unavailable(f"wrangler の起動に失敗: {e}")
