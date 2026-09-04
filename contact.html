@@ -796,7 +796,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
            /用地|Land/i.test(_v) ? 'land' : 'other');
         if (window.gtag) gtag('event', 'generate_lead', { form_type: 'contact', intent: _intent, page_lang: (document.documentElement.lang || 'ja'), transport_type: 'beacon' });
       } catch (e) {}
-      window.location.href = '/thanks';
+      window.location.href = '/thanks?intent=' + encodeURIComponent(_intent || 'other');
     } else {
       throw new Error((result && result.message) || 'submit failed');
     }
