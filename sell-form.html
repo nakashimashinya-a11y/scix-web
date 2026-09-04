@@ -879,7 +879,7 @@
       .then(function (resp) {
         if (resp && (resp.success === true || resp.success === 'true')) {
           if (typeof gtag === 'function') gtag('event', 'generate_lead', { lead_type: personaField.value });
-          window.location.href = personaField.value === 'land' ? '/thanks?type=land' : '/thanks';
+          window.location.href = personaField.value === 'land' ? '/thanks?type=land' : '/thanks?intent=seller';
         } else {
           throw new Error((resp && resp.message) || 'submit failed');
         }
