@@ -587,11 +587,14 @@
           <!-- Inquiry Type -->
           <div class="inquiry-types">
             <label>ご用件<span class="required">*</span></label>
-            <span class="chip active" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="投資家（実物資産投資）" data-intent="investor" checked>投資家</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="案件取得（買い手）" data-intent="buyer">案件取得（買い手）</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="売却・査定（事業権利）" data-intent="seller">売却・査定</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="用地（売却・賃貸）" data-intent="land">用地</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="協業・その他" data-intent="other">協業・その他</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="案件取得（買い手）" data-intent="buyer" required>案件を買う</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="1棟取得（自社保有・決算対策）" data-intent="owner">1棟を自社で持つ</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="投資家（ファンド・共同投資）" data-intent="investor">ファンド・共同投資</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="売却・査定（事業権利）" data-intent="seller">案件・権利を売る</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="用地（売却・賃貸）" data-intent="land">土地を売る・貸す</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="紹介（案件・投資家）" data-intent="partner">案件・投資家を紹介する</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="サービス提案" data-intent="proposal">サービスを提案する</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="協業・その他" data-intent="other">その他</span>
           </div>
 
           <!-- 案件IDバナー（/projects から ?pid= 付きで来訪したとき表示） -->
@@ -636,6 +639,66 @@
             </div>
           </div>
 
+          <!-- 用件別の追加項目（買い手・1棟のときだけ出す） -->
+          <div id="buyerFields" style="display:none;">
+            <div class="form-row">
+              <div class="form-group">
+                <label>ご希望の管内</label>
+                <input type="text" name="want_area" placeholder="東京・中部・関西 など（複数可・こだわらない場合は空欄で）">
+              </div>
+              <div class="form-group">
+                <label>ご希望の規模</label>
+                <select name="want_size">
+                  <option value="">選択してください</option>
+                  <option>高圧2MW級</option>
+                  <option>特別高圧（10MW以上）</option>
+                  <option>まとめて複数</option>
+                  <option>こだわらない</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>連系の希望時期</label>
+                <select name="want_cod">
+                  <option value="">選択してください</option>
+                  <option>今年度内</option>
+                  <option>来年度</option>
+                  <option>再来年度以降でよい</option>
+                  <option>こだわらない</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>取得の形</label>
+                <select name="want_scheme">
+                  <option value="">選択してください</option>
+                  <option>権利譲渡（自分で建てる）</option>
+                  <option>完成渡し</option>
+                  <option>稼働中の案件</option>
+                  <option>どれでもよい</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>資金</label>
+                <select name="want_funding">
+                  <option value="">選択してください</option>
+                  <option>自己資金</option>
+                  <option>借入を予定</option>
+                  <option>未定</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>決算月</label>
+                <input type="text" name="fiscal_month" placeholder="11月 など（税制の当期適用を見るために使います）">
+              </div>
+            </div>
+            <p style="font-size:12px;color:var(--text-secondary);line-height:1.8;margin:-8px 0 22px;">
+              分かる範囲で結構です。ここが埋まっていると、条件に合う案件だけを選んでお返しできます。
+            </p>
+          </div>
+
           <!-- Message -->
           <div class="form-group">
             <label>メッセージ</label>
@@ -644,7 +707,7 @@
 
           <!-- web-contact (scix-dealroom2 / Resend) 設定 -->
           <input type="hidden" name="_form" value="contact">
-          <input type="hidden" name="intent" id="intentField" value="investor">
+          <input type="hidden" name="intent" id="intentField" value="">
           <input type="hidden" name="pid" id="pidField" value="">
           <input type="text" name="_honey" style="display:none">
 
@@ -734,8 +797,27 @@ function toggleChip(el) {
   el.classList.add('active');
   var input = el.querySelector('input');
   input.checked = true;
+  var intent = input.getAttribute('data-intent') || '';
   var intentField = document.getElementById('intentField');
-  if (intentField) intentField.value = input.getAttribute('data-intent') || '';
+  if (intentField) intentField.value = intent;
+  syncConditionalFields(intent);
+}
+
+// 案件を買う／1棟を持つ のときだけ、条件の欄を出す。
+// 用件を聞いてから返す往復をなくすため。
+function syncConditionalFields(intent) {
+  var box = document.getElementById('buyerFields');
+  if (!box) return;
+  var show = (intent === 'buyer' || intent === 'owner');
+  box.style.display = show ? 'block' : 'none';
+  // 会社名は個人・地主のときは任意にする
+  var company = document.querySelector('input[name="company"]');
+  if (company) {
+    var optional = (intent === 'land' || intent === 'owner');
+    company.required = !optional;
+    var label = company.closest('.form-group').querySelector('label .required');
+    if (label) label.style.display = optional ? 'none' : '';
+  }
 }
 
 // /projects などからの ?intent= / ?pid= / ?q= をフォームへプリセット
@@ -754,6 +836,7 @@ function toggleChip(el) {
   if (intent) {
     var chipInput = document.querySelector('.chip input[data-intent="' + intent.replace(/[^a-z]/g, '') + '"]');
     if (chipInput) { toggleChip(chipInput.closest('.chip')); }
+    else { syncConditionalFields(intent); }
   }
   if (pid) {
     var pidField = document.getElementById('pidField');
