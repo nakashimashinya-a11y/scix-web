@@ -738,11 +738,18 @@ function toggleChip(el) {
   if (intentField) intentField.value = input.getAttribute('data-intent') || '';
 }
 
-// /projects などからの ?intent= / ?pid= をフォームへプリセット
+// /projects などからの ?intent= / ?pid= / ?q= をフォームへプリセット
+// pid はカンマ区切りで複数受ける（一覧でチェックした案件をまとめて請求する導線）。
+// q=avail は「この案件、まだありますか？」からの在庫確認。
 (function presetFromQuery() {
   var q = new URLSearchParams(window.location.search);
   var intent = (q.get('intent') || '').toLowerCase();
-  var pid = (q.get('pid') || '').trim().substring(0, 40);
+  var kind = (q.get('q') || '').toLowerCase();
+  var ids = (q.get('pid') || '').split(',')
+    .map(function (v) { return v.trim().replace(/[^A-Za-z0-9\-]/g, ''); })
+    .filter(Boolean)
+    .slice(0, 20);
+  var pid = ids.join(', ').substring(0, 300);
 
   if (intent) {
     var chipInput = document.querySelector('.chip input[data-intent="' + intent.replace(/[^a-z]/g, '') + '"]');
@@ -756,7 +763,15 @@ function toggleChip(el) {
     if (banner && label) { label.textContent = pid; banner.style.display = 'block'; }
     // メッセージ欄に案件IDを下書き（未入力時のみ）
     var msg = document.querySelector('textarea[name="message"]');
-    if (msg && !msg.value) { msg.value = '案件 ' + pid + ' について、詳細・DD資料の提供を希望します。'; }
+    if (msg && !msg.value) {
+      if (kind === 'avail') {
+        msg.value = '案件 ' + pid + ' は、まだ販売中でしょうか。販売中であれば、詳細・DD資料の提供を希望します。';
+      } else if (ids.length > 1) {
+        msg.value = '下記 ' + ids.length + ' 件について、詳細・DD資料の提供を希望します。\n' + ids.join('\n');
+      } else {
+        msg.value = '案件 ' + pid + ' について、詳細・DD資料の提供を希望します。';
+      }
+    }
   }
 })();
 

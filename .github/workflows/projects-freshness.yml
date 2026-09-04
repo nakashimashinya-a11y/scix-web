@@ -54,12 +54,12 @@ jobs:
           elif count != len(projects):
               problems.append(f"projectCount({count}) と実際の件数({len(projects)})が合わない")
 
-          allowed = {"id", "area", "pref", "voltage", "mw", "mwh", "cod", "status", "scheme"}
+          allowed = {"id", "area", "pref", "voltage", "mw", "mwh", "cod", "codYm", "status", "scheme"}
           extra = set()
           for p in projects:
               extra |= set(p) - allowed
           if extra:
-              problems.append(f"公開セーフ9項目以外のキーが混ざっている: {sorted(extra)}")
+              problems.append(f"公開してよい項目以外のキーが混ざっている: {sorted(extra)}")
 
           if problems:
               for p in problems:
