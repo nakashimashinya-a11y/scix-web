@@ -13,6 +13,7 @@
 
 | 変更日 | ページ | 変更 | PR | 変更前の基準（GSC 3か月） | 確認日 | 結果 |
 |---|---|---|---|---|---|---|
+| 2026-09-06 | meta description 34ページ | Bing 指摘「description が短い」を実測で検証して範囲を確定。**JA 17・ZH 8 は自サイトの中央値（122/120字）より短かったので 118〜134字へ**。**EN 9 は逆に長すぎた（最長740字）ので 144〜155字へ**（サイト規約 英meta≤155字）。日本語を英語基準で水増しはしない。og/twitter も同文だったものは追随、JSON-LD Article の長い description は AI 検索の材料なので据置。検証で既存説明文の**事実誤り3件**も判明し訂正（land-value の5基準／options の3択／grid-rules で上限額を示す主体） | #84 | JA min 81→108・ZH min 88→105・EN max 740→155 | 2026-09-19 | |
 | 2026-09-06 | 英語ページ 40本の title | Bing 指摘「title が70文字超（高）」に対応。EN 47本のうち71〜164字だった40本を70字以内に（主題語を前半に・h1/description/本文は不変・og:title/twitter:title/JSON-LD headline が title と同文だったものだけ追随）。/en の og:title の「Science X Inc.」も title に揃えた | #83 | Bing 3か月: EN ページの表示は少数（上位25語に EN 語なし）。Google: EN 64クリック/3か月 | 2026-10-05 | |
 | 2026-09-05 | /sourcing（本文増補）・「中立」の自称を除去（JA/EN/ZH 28ファイル） | /sourcing の本文を約1,000字→約3,300字（何を仕入れるか・出口2つ・最初に見る書類・順番・止まる型・用意するもの。title/description/h1 は不変）。サイト全体で当社を「中立」「neutral」「independent」と呼ぶ文を「メーカー・EPCと資本関係がない」「仕入れて売る側」の事実表現に置換（判断⑥） | #82 | 「系統用蓄電所 物件 売りたい」45表示・21.2位（/land 33・/sourcing 10）／「系統用蓄電池 買取」61表示・16.0位（/sourcing 31）／「系統用蓄電池 売買 仲介」19表示・29.9位 | 2026-09-19 / 2026-10-05 | |
 | 2026-09-05 | /en/column-trading・/zh-column-trading（COLUMN 46 の EN/ZH）・/zh FAQ | COLUMN 46 を3言語に（JA_ONLY 解除・hreflang 3本・sitemap・索引カード EN/ZH）。zh トップ FAQ「海外の外国人も買えるか」に外為法の1文 | #80 | 「蓄電所 売買」EN/ZH 語は GSC で表示なし（EN 64クリック/3か月・投資家ページ着地 0） | 2026-10-05 | |
@@ -53,6 +54,8 @@
 | 2026-09-06 | URL 送信 | 09-05以降に変えた146ページを手動送信（1日の枠10,000） |
 | 2026-09-06 | サイトマップ | sitemap.xml を再送信（前回クロール 09-04・153 URL・エラー0）。EN/ZH の column-trading を含む再読込待ち |
 | 2026-09-06 | Recommendations | 高: title が70文字超 5ページ（/en /en/column-area-data /en/column-bess-insurance /en/column-equipment /en/market-entry-guide）。実測では EN 47ページ中40が70超（JA/ZH は0）→ EN title を全面的に70字以内へ（別PR）。中: meta description が短い 22ページ（一覧は Recommendations から開けず。サイトスキャンの結果で特定） |
+| 2026-09-06 | サイトスキャン結果 | 75ページ・エラー1・警告0。唯一のエラーは `/files/scix-nda-template.docx` が robots.txt でブロック＝**意図どおり**（NDA雛形を検索結果に出さない）。技術的な問題は無し |
+| 2026-09-06 | Bing の表示回数の読み方（注意） | 表示 43.2K の大半は eprx 3.5K・jc-star 3.0K・jcstar 1.9K など**他組織の名称を探すナビゲーショナル検索**。順位5〜8位でも CTR 0.37〜0.43%＝探し物が当社ではない。表示の多さを需要と読まない。6月 約900表示/日 → 9月 約450表示/日 に半減しているが、減っているのはこの層。買い手・売り手・投資家の語は Bing でも上位25に無し |
 | 2026-09-06 | AI Performance（Copilot 等の引用・3か月） | 引用 14.1K 回・引用ページ 平均13/日。引用を集める問い: jc-star制度（2.3K・シェア11.6%）・jcstar制度 748・eprxとは 712（シェア68%）・電力需給調整力取引所 351（41%）・需給調整市場 複合商品とは 305（45%）・フルマーチャント 189／とは 170（36%）・蓄電所 騒音 124・トーリング契約 106・系統用蓄電所 設置までの流れ 90。買い手・売り手・投資家の問いは上位25に無し＝AI 引用も制度解説に偏る |
 | 2026-09-06 | AI Performance 引用ページ（3か月・61ページ） | column-jcstar 5.0K・column-balancing-market 1.8K・column-eprx 1.3K・column-noise 970・column-merchant 601・column-jcstar-levels 590・column-tax 392・column-grid-rules 353・column-area-data 342・column-development 190・column-lda 183・column-long-term-contract 179・column-capacity-market 176。/projects /transfer /investors /sourcing は上位25に無し（column-transfer 66）→ 90日後にここが増えるかを見る |
 | 2026-09-06 | サイトスキャン | 「scix-web 2026-09-06」を200ページ上限で開始（キュー登録）。結果で meta description の短いページと他の指摘を確定 |
