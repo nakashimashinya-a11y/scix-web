@@ -13,6 +13,7 @@
 
 | 変更日 | ページ | 変更 | PR | 変更前の基準（GSC 3か月） | 確認日 | 結果 |
 |---|---|---|---|---|---|---|
+| 2026-09-05 | /en/column-trading・/zh-column-trading（COLUMN 46 の EN/ZH）・/zh FAQ | COLUMN 46 を3言語に（JA_ONLY 解除・hreflang 3本・sitemap・索引カード EN/ZH）。zh トップ FAQ「海外の外国人も買えるか」に外為法の1文 | #80 | 「蓄電所 売買」EN/ZH 語は GSC で表示なし（EN 64クリック/3か月・投資家ページ着地 0） | 2026-10-05 | |
 | 2026-09-05 | 制度コラム12本（aggregator-fee / area-data / auction / balancing-market / biz / capacity-market / day-ahead / eprx / lda / merchant / nonfirm / revenue） | 末尾CTAブロック内のリンクを3本→2本（主 /projects・副 /investors。説明文中のフォームリンクを外し PR#46 の確定形に戻す） | #79 | 28日: 上位4コラム＋/knowledge 1,646セッションでキーイベント0 | 2026-09-19 | |
 | 2026-09-05 | /column-trading（COLUMN 46 新設・JA先行） | 「蓄電所の売買はどう進むか」約4,200字 | #78 | 「蓄電所 売買」scix 圏外・AI概要あり（09-05 SERP） | 2026-10-05 | |
 | 2026-09-05 | 制度コラム12本 | CTA 主 /contact→/projects・副 /grid-storage→/investors（h3 は記事ごと） | #77 | 同上（28日 KE0）。内部被リンク /projects 13→25・/investors 2→14 | 2026-09-19 | |

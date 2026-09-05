@@ -118,7 +118,7 @@ Cloudflare D1 だけを見て「DR2 はこのセッションから到達不能�
 
 - ビルド工程なし。素の HTML を直接編集する。`.html` 拡張子は `vercel.json` の `cleanUrls` で省略される。
 - 日本語URLのリダイレクトも `vercel.json` 側のルール。
-- 3言語（JA / EN `en/` / ZH `zh-*.html`）。コラムを足すときは 3言語そろえるのが既定。
+- 3言語（JA / EN `en/` / ZH `zh-*.html`）。コラムを足すときの言語範囲（2026-09-05 中島決定）: **買い手・投資家が主題のコラムは3言語**、**国内の制度・税務・土地など日本の実務だけの話は JA 専用**（`header.js` の `JA_ONLY_COLUMNS` に登録し、sitemap は hreflang ja 1本）。JA 先行で出して後から EN/ZH を足すときは、EN/ZH 公開時に `JA_ONLY_COLUMNS` から外す。
 - ヘッダーは `header.js` で共通化。各ページに直書きしない。
 - ページを更新したら `sitemap.xml` の `lastmod` を更新し（変更したページだけ手で）、デプロイ後に `python3 scripts/ping_indexnow.py /path1 /path2`（Bing等へ即時通知。Google は GSC の URL 検査から手動で）。
 - GA4 測定ID・秘密情報はコミットしない。
