@@ -93,7 +93,7 @@ BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 cp "$TMP" projects.json && rm -f "$TMP"
 # トップに焼き込んである件数・MW・都道府県数も一緒に更新する（JSでは描かない）
 python3 scripts/inject_stats.py || fail "件数の焼き込みに失敗"
-git add projects.json index.html || fail "git add に失敗"
+git add projects.json index.html projects.html || fail "git add に失敗"
 git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" \
     commit -q -m "chore(projects): 公開案件一覧をDR2に同期（${OLD}→${NEW}件・${DELTA}）
 
