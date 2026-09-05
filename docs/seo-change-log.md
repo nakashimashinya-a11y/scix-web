@@ -66,7 +66,8 @@ Chrome（Googleログイン済み・`hl=ja&gl=jp&pws=0&num=10`）で見た、sci
 
 | 日 | URL | 結果 |
 |---|---|---|
-| 2026-09-05 | /projects /transfer /sourcing /fund /column-financing | リクエスト済み |
-| 2026-09-05 | /column-subsidies /column-trading /knowledge | （続き） |
+| 2026-09-05 | /projects /transfer /sourcing /fund /column-financing /knowledge | リクエスト済み（いずれも登録済みページの再クロール依頼） |
+| 2026-09-05 | /column-subsidies | リクエスト済み。06-10 クロール以降「クロール済み・インデックス未登録」だった。P2 で壊れた JS 文字列を直したので、登録されるかを 2026-09-19 に確認 |
+| 2026-09-05 | /column-trading | リクエスト済み（新設・Google 未認識だった。サイトマップの再読込も待ち） |
 
 IndexNow（Bing 等）は `python3 scripts/ping_indexnow.py /path…` で送る。09-05 送信済み: /projects /transfer /sourcing /fund /grid-storage /knowledge /investors /partners /column-trading ほか変更ページ。
