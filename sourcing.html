@@ -768,6 +768,24 @@ body {
   transition: color 0.3s;
 }
 .k-more:hover { color: var(--gold-light); }
+
+/* ---- 2026-09-05 増補で追加 ---- */
+.author-box{background:var(--off-white,#F8F7F4);border:1px solid var(--border,#E0DCD6);border-radius:8px;padding:20px 24px;margin:0 auto 40px;max-width:860px;font-size:.88rem;line-height:1.9}
+.author-box .ab-label{font-size:.78rem;font-weight:700;color:var(--gold,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+.author-box .ab-dates{font-size:.8rem;color:var(--text-light,#8A92A0);margin-top:8px}
+.flow-list{list-style:none;counter-reset:flow;max-width:840px;margin:0 auto;padding:0}
+.flow-list li{counter-increment:flow;display:grid;grid-template-columns:48px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--border,#E0DCD4);font-size:.9rem;line-height:1.9;color:var(--text-secondary,#5A6577)}
+.flow-list li:last-child{border-bottom:none}
+.flow-list li::before{content:counter(flow,decimal-leading-zero);font-family:var(--font-serif);font-size:1.5rem;font-weight:700;color:var(--gold,#C49A3C);opacity:.8;line-height:1.3}
+.flow-list li strong{color:var(--navy,#1B2A4A);font-weight:600;font-size:.95rem}
+.prep-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;max-width:960px;margin:0 auto}
+.prep-card{background:var(--white,#fff);border:1px solid var(--border,#E0DCD4);border-radius:8px;padding:28px 30px}
+.prep-card h4{font-size:1rem;font-weight:600;color:var(--navy,#1B2A4A);margin:0 0 14px}
+.prep-card ul{margin:0;padding-left:1.25em;font-size:.86rem;line-height:1.9;color:var(--text-secondary,#5A6577)}
+.prep-card li{margin-bottom:6px}
+.prep-card p{margin:14px 0 0;font-size:.86rem;line-height:1.9;color:var(--text-secondary,#5A6577)}
+@media (max-width:768px){.prep-grid{grid-template-columns:1fr}.flow-list li{grid-template-columns:40px 1fr}}
 </style>
 <meta name="description" content="系統用蓄電池の案件・権利・稼働済みの蓄電所を売りたい方へ。接続検討の回答が出た案件を当社が仕入れるか、全国の買い手へつなぎます。手数料は初回のご連絡で明示し、NDA先行で無料査定します。土地だけをお持ちの方は蓄電池用地のページをご覧ください。">
 <link rel="canonical" href="https://www.scix.co.jp/sourcing">
@@ -834,13 +852,14 @@ body {
 {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "系統用蓄電池の事業権利・用地の売却支援",
-  "serviceType": "系統用蓄電池の事業権利・用地の売却支援",
+  "name": "系統用蓄電池の案件・事業権利の買取・仲介",
+  "serviceType": "系統用蓄電池の案件・事業権利の買取・仲介",
   "provider": {
     "@type": "Organization",
     "name": "Science X Inc.",
     "url": "https://www.scix.co.jp/"
   },
+  "description": "接続検討の回答が出た高圧・特別高圧の系統用蓄電池の案件（権利譲渡・完成渡し・稼働中）を、当社が買い取るか、全国の買い手へ仲介します。手数料の考え方は初回のご連絡で明示し、NDA先行で無料査定します。",
   "areaServed": "JP",
   "url": "https://www.scix.co.jp/sourcing"
 }
@@ -855,64 +874,155 @@ body {
   <div class="hero-content">
     <div class="hero-label">For Sellers</div>
     <h1>系統用蓄電池の案件を売りたい方へ。<br><em>当社が仕入れるか、買い手につなぎます。</em></h1>
-    <p class="hero-desc">事業権利をお持ちの開発・EPC事業者様へ。<br>お持ち込みいただければ、ScienceXが正しく整え、<br>足りないところは全国ネットワークで補完。最適な買い手・資本につなぎます。</p>
+    <p class="hero-desc">接続検討の回答が出た案件、連系承諾済みの権利、稼働している蓄電所をお持ちの方向けです。売主本人か、売主と直接話せる仲介の方からお預かりします。<br>土地だけをお持ちで、まだ接続検討を申し込んでいない方は <a target="_top" href="/land" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">土地を売る・貸す</a> へ。手順が別です。</p>
     <div class="hero-actions">
       <a target="_top" href="/sell-form" class="btn-primary">無料査定を依頼 →</a>
-      <a target="_top" href="/sourcing-criteria" class="btn-secondary">査定の事前条件を見る</a>
-      <a target="_top" href="/land" class="btn-secondary">用地をお持ちの方はこちら</a>
+      <a href="#prepare" class="btn-secondary">用意するものを見る</a>
+      <a target="_top" href="/land" class="btn-secondary">土地だけをお持ちの方</a>
     </div>
   </div>
   <div class="hero-visual"><div class="hero-card">
     <div class="hero-stats">
-      <div class="stat-item"><div class="stat-number">高圧<span> 2MW級</span></div><div class="stat-label">事業権利</div></div>
-      <div class="stat-item"><div class="stat-number">特別高圧<span> 50MW級</span></div><div class="stat-label">大規模案件</div></div>
-      <div class="stat-item"><div class="stat-number">NDA<span> 先行</span></div><div class="stat-label">機密保持を徹底</div></div>
-      <div class="stat-item"><div class="stat-number">全国<span> 対応</span></div><div class="stat-label">どのエリアも</div></div>
+      <div class="stat-item"><div class="stat-number">買取<span> ／ 仲介</span></div><div class="stat-label">見立ては最初の返事で</div></div>
+      <div class="stat-item"><div class="stat-number">売主<span> 直接</span></div><div class="stat-label">間に他社が入った案件は扱わない</div></div>
+      <div class="stat-item"><div class="stat-number">NDA<span> 先行</span></div><div class="stat-label">書類はNDAの後に一括で</div></div>
+      <div class="stat-item"><div class="stat-number">成功<span> 報酬</span></div><div class="stat-label">率と負担者は最初の返事で</div></div>
     </div>
     <div class="hero-card-divider"></div>
-    <div class="hero-card-note">正しく整え、ネットワークで補完。<br><strong>貴社の案件価値を最大化して売却。</strong></div>
+    <div class="hero-card-note"><strong>買う見込みがあるか、つなぐ形か、足りない書類を、最初の返事に書きます。</strong></div>
   </div></div>
 </div></section>
 
+<!-- 1. 何を仕入れているか -->
 <section class="strengths" id="what"><div class="container">
-  <div class="strengths-header"><div class="section-label">What We Do</div><h2 class="section-title">持ち込んでから、売れるまで</h2>
-  <p class="section-subtitle">単に仲介するのではなく、<br>確定・連系済みの案件に整えてから、最適な買い手へ。</p></div>
+  <div class="strengths-header"><div class="section-label">What We Buy</div>
+  <h2 class="section-title">お預かりするのは、接続検討の回答が出た案件からです</h2>
+  <p class="section-subtitle">高圧・特別高圧の系統用蓄電池。事前相談の段階では買い手が付きません。<br>長期脱炭素電源オークション（LDA）で落札した案件は、途中で売る商流がないため扱いません。</p></div>
   <div class="strengths-grid">
-    <div class="strength-card"><div class="strength-num">01</div><h4>見極めて、整える</h4><p>技術・契約・収益の面から案件を精査し、整えます。工学博士が、事業性のある形にします。</p></div>
-    <div class="strength-card"><div class="strength-num">02</div><h4>ネットワークで補完</h4><p>連系・用地・運用設計・買い手など、足りないピースを全国ネットワークで補完します。</p></div>
-    <div class="strength-card"><div class="strength-num">03</div><h4>最適な買い手・資本につなぐ</h4><p>確定・連系済みの案件に整え、リース・証券化AM・投資家など最適な買い手・資本へつなぎます。</p></div>
+    <div class="strength-card"><div class="strength-num">01</div><h4>権利譲渡（開発中）</h4><p>接続検討の回答書と用地の権利を、建てる前に手放す形です。契約申込みの回答（本回答）まで進み、工事費負担金を支払済みなら、段階がひとつ上がります。</p></div>
+    <div class="strength-card"><div class="strength-num">02</div><h4>完成渡し</h4><p>建った状態で引き渡す形です。買い手は完成前に代金の大半を払うので、売主の与信と工程表を見ます。</p></div>
+    <div class="strength-card"><div class="strength-num">03</div><h4>稼働中の案件</h4><p>通電して市場に参加している蓄電所です。保有者が出口として売る形で、市場参加の資格は自動では買い手に移りません。</p></div>
   </div>
+  <p style="text-align:center;margin-top:32px;font-size:0.9rem;color:rgba(255,255,255,0.7);line-height:2;">
+    地主の方は <a target="_top" href="/land" style="color:#fff;font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">土地を売る・貸す</a> へ。用地の基準は <a target="_top" href="/sourcing-criteria" style="color:#fff;font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">用地・売却の事前条件</a> に。<br>開発事業者の方が用地だけを売るときは、フォームの「お売りになる形」で「用地のみ」を選んでください。
+  </p>
 </div></section>
 
-<section id="depth" style="background:var(--navy);padding:60px 0;"><div class="container" style="text-align:center;max-width:840px;">
-  <div class="section-label" style="color:var(--gold);">Our Position</div>
-  <h2 style="font-family:var(--font-serif);font-weight:600;color:#fff;font-size:clamp(1.3rem,2.6vw,1.7rem);line-height:1.6;margin:8px 0 14px;">業界を知り尽くし、全国の確定権利を扱う</h2>
-  <p style="color:rgba(255,255,255,0.82);line-height:1.95;font-weight:300;">ScienceXは、案件の発掘から運用設計まで系統用蓄電池の業界を知り尽くし、全国の確定権利を継続的に扱い、整えています。だからこそ、貴社の案件を正しく評価し、最適な買い手・資本へつなげます。</p>
-</div></section>
-
-<!-- 立場と、いま買い手が待っている条件 -->
-<section class="strengths" id="position" style="background:var(--off-white);"><div class="container">
+<!-- 2. 2つの出口 -->
+<section class="strengths" id="exit" style="background:var(--off-white);"><div class="container">
   <div class="strengths-header"><div class="section-label">Our Position</div>
-  <h2 class="section-title">当社は、案件を仕入れて売る会社です</h2>
-  <p class="section-subtitle">売主様と直接お会いできることが、お預かりの条件です。</p></div>
+  <h2 class="section-title">出口は買取か仲介の2つ。お預かりの段階で費用はいただきません</h2>
+  <p class="section-subtitle">どちらになるかの見立ては最初の返事で、決めるのは書類を見てからです。</p></div>
   <div class="strengths-grid">
-    <div class="strength-card"><div class="strength-num">01</div><h4>報酬は成約したときだけ</h4><p>料率と、どちらが負担するかは案件の建て付けごとに決まります。最初のご案内で金額を明示します。お預かりの段階で費用をいただくことはありません。</p></div>
-    <div class="strength-card"><div class="strength-num">02</div><h4>間に仲介が重なった案件は扱いません</h4><p>伝言が重なるほど条件がずれ、最後に話が壊れます。売主様と直接お話しできる形でお預かりします。</p></div>
-    <div class="strength-card"><div class="strength-num">03</div><h4>いま買い手が探しているもの</h4><p>年度内に電気が来る案件。すでに通電して市場に入っている案件。市街化調整区域ではない土地。この3つは、出せばすぐに動きます。</p></div>
+    <div class="strength-card"><div class="strength-num">01</div><h4>当社が買う（仕入れ）</h4><p>権利を買い取り、次は当社が売主として売ります。契約の相手も、条件を決める相手も、当社です。買い手を探す段を挟みません。この形では手数料はありません。買取の値段が条件です。</p></div>
+    <div class="strength-card"><div class="strength-num">02</div><h4>買い手につなぐ（仲介）</h4><p>契約は売主様と買主が直接結び、当社は間に立つだけです。つなぐ先は、自分で建てる事業者、決算期に1棟持つ事業会社、まとめて持つ投資家です。全国の買い手に、所在県・規模・連系の見込みまでを匿名で見せ、社名と場所は秘密保持契約の後に開きます。</p></div>
+    <div class="strength-card"><div class="strength-num">03</div><h4>報酬は成約したときだけ</h4><p>料率と、売主・買主のどちらが負担するかは案件の建て付けごとに決まります。最初の返事で明示します。お預かりの段階で費用をいただくことはありません。</p></div>
   </div>
-  <p style="text-align:center;margin-top:32px;font-size:0.9rem;color:var(--text-secondary);">
-    売買がどの順番で進み、どこで止まりやすいかは <a target="_top" href="/column-trading" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">蓄電所の売買はどう進むか</a> にまとめています。<br>ご自身の案件ではなく、他社の案件や買い手をご紹介いただける場合は
-    <a target="_top" href="/partners" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">紹介・提携のページ</a>をご覧ください。
+  <p style="text-align:center;margin-top:32px;font-size:0.9rem;color:var(--text-secondary);line-height:2;">
+    仲介のとき、買い手に案件がどう見えるかは <a target="_top" href="/projects" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">販売中の案件一覧</a> に。売主名は、買い手に出しません。<br>買い手にお示しする価格の建て方（手数料を含めるか）は、一覧に載せてよいかとあわせて売主様に確認します。価格は一覧には出さず、秘密保持契約の後に個別にお伝えします。
+  </p>
+</div></section>
+
+<!-- 3. 最初に見る書類と、値の付き方 -->
+<section class="strengths" id="check"><div class="container">
+  <div class="strengths-header"><div class="section-label">What We Check First</div>
+  <h2 class="section-title">最初に見る書類と、値の付き方</h2>
+  <p class="section-subtitle">買い手が見る順番と同じです。進み具合で、最初の返事が変わります。</p></div>
+  <div class="strengths-grid">
+    <div class="strength-card"><div class="strength-num">01</div><h4>接続検討回答書</h4><p>日付、連系の見込み、工事費負担金の記載。回答から時間が経った案件は、条件がそのままかを電力会社に確かめ直します。</p></div>
+    <div class="strength-card"><div class="strength-num">02</div><h4>契約申込みの状態と、工事費負担金</h4><p>接続検討の回答までか、契約申込みの本回答まで進んでいるか。負担金が未確定か、金額は確定・未払いか、支払済みかで、案件の段階が変わります。</p></div>
+    <div class="strength-card"><div class="strength-num">03</div><h4>用地の権原</h4><p>所有か賃借か。どちらも扱います。登記と契約で確かめます。</p></div>
+    <div class="strength-card"><div class="strength-num">04</div><h4>区域と許認可</h4><p>市街化調整区域か、農地を含むか、関係法令の照会結果があるか。区域によっては次の買い手が持てないことがあり、値に響きます。</p></div>
+    <div class="strength-card"><div class="strength-num">05</div><h4>設備計画</h4><p>配置図と座標。機器を決めていれば型式とJC-STARの登録番号。完成渡し・稼働中の書類は、下の「用意するもの」に。</p></div>
+    <div class="strength-card"><div class="strength-num">06</div><h4>値は、何で動くか</h4><p>工事費負担金が大きければ下がり、連系が早ければ上がり、管内で違い、稼働していれば売上の分が乗ります。金額はこのサイトには載せず、案件ごとに秘密保持契約の後にお出しします。</p></div>
+  </div>
+  <p style="text-align:center;margin-top:32px;font-size:0.9rem;color:rgba(255,255,255,0.7);line-height:2;">
+    値を決める変数は <a target="_top" href="/column-pricing" style="color:#fff;font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">開発権の価格はどう決まるのか</a> に、買う側がどこを見ているかは <a target="_top" href="/transfer" style="color:#fff;font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">案件を買う</a> に。
+  </p>
+</div></section>
+
+<!-- 4. 順番 -->
+<section class="strengths" id="flow" style="background:var(--off-white);padding:80px 0;"><div class="container">
+  <div class="strengths-header" style="margin-bottom:36px;"><div class="section-label">How It Works</div>
+  <h2 class="section-title">持ち込みから名義変更までの順番</h2>
+  <p class="section-subtitle">期間は案件と電力会社で変わるため、日数は書きません。</p></div>
+  <ol class="flow-list">
+    <li><div><strong>粗いリスト</strong><br>下の「用意するもの」の5行で足ります。</div></li>
+    <li><div><strong>秘密保持契約</strong><br>当社のひな形でも、御社のひな形でも構いません。ここまでは社名も場所も伏せたままで進められます。</div></li>
+    <li><div><strong>書類を一括で</strong><br>下の「用意するもの」の書類をまとめてお預かりします。バラ紙で届く案件は、買い手側の机上確認で毎回止まります。</div></li>
+    <li><div><strong>当社の確認</strong><br>書類を工学博士が確かめます。値に響くところを洗い出し、当社が買う場合は条件を、つなぐ場合は掲載の形を組みます。</div></li>
+    <li><div><strong>提示</strong><br>当社が買う場合は、条件をお示しします。つなぐ場合は、掲載の可否を確認したうえで匿名のティーザーを買い手に出します。買い手の資金の出どころは、この段で先に確かめます。</div></li>
+    <li><div><strong>基本合意</strong><br>買付意向書か基本合意書。金額と条件を書面にします。</div></li>
+    <li><div><strong>契約と手付</strong><br>売買契約。本回答で条件が変わったときの扱いを契約書に書いてから、手付を受けます。</div></li>
+    <li><div><strong>名義変更と残金</strong><br>電力会社への名義変更の申請と完了で支払いを分けるのが通例です。申請に添える書面は電力会社ごとに違うので、契約前に確かめます。</div></li>
+  </ol>
+  <p style="text-align:center;margin-top:32px;font-size:0.9rem;color:var(--text-secondary);line-height:2;">
+    順番の表と、どこでお金が動くかは <a target="_top" href="/column-trading" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">蓄電所の売買はどう進むか</a> に。契約の直前で止まる型は <a target="_top" href="/column-contract-flow" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">契約フローの実務</a> に。
+  </p>
+</div></section>
+
+<!-- 5. 止まる型 -->
+<section class="strengths" id="blockers"><div class="container">
+  <div class="strengths-header"><div class="section-label">Blockers</div>
+  <h2 class="section-title">止まる型は、だいたい決まっています</h2>
+  <p class="section-subtitle">01と02の見出しは、査定フォームの選択肢と同じ言葉です。</p></div>
+  <div class="strengths-grid">
+    <div class="strength-card"><div class="strength-num">01</div><h4>お立場が「間に他社が入っている」</h4><p>伝言が重なるほど条件がずれ、最後に金額が違っていたことが実際にあります。</p></div>
+    <div class="strength-card"><div class="strength-num">02</div><h4>他社にも相談中で、窓口が定まらない</h4><p>専任を前提にはしていません。ただし同じ案件が別の経路で届いたときは、売主様に確認して窓口が一つになるまで止めます。</p></div>
+    <div class="strength-card"><div class="strength-num">03</div><h4>工事費負担金が未払いで、期限が近い</h4><p>支払いの期限と回答書の日付は、買い手が最初に見るところです。猶予が短い案件は、価格と条件を先に決めておかないと間に合いません。</p></div>
+    <div class="strength-card"><div class="strength-num">04</div><h4>用地の権原が固まっていない</h4><p>地権者が複数で同意が揃わない。土地の名義と権利の名義が別。地主が仮登記を嫌がる。電力の権利だけでは、買い手は動けません。</p></div>
+    <div class="strength-card"><div class="strength-num">05</div><h4>希望価格が、書類から出る値と離れている</h4><p>負担金・連系時期・区域から見た値と希望価格が離れていると、買い手が付きません。根拠になる書類から組み直します。</p></div>
+    <div class="strength-card"><div class="strength-num">06</div><h4>いちばん近い住宅が近い</h4><p>冷却ファンとPCSは夜も止まりません。人が住んでいる建物との距離と、敷地境界での騒音の見込みを、買い手は先に見ます。近隣から声が上がっている案件は、そこが解けるまで動きません。</p></div>
+  </div>
+</div></section>
+
+<!-- 6. 用意するもの -->
+<section class="strengths" id="prepare" style="background:var(--off-white);padding:80px 0;"><div class="container">
+  <div class="strengths-header" style="margin-bottom:36px;"><div class="section-label">Prepare</div>
+  <h2 class="section-title">用意するもの</h2>
+  <p class="section-subtitle">最初の連絡は、5行で足ります。書類は秘密保持契約の後に、一括で。</p></div>
+  <div class="prep-grid">
+    <div class="prep-card"><h4>最初の連絡で</h4>
+      <ul>
+        <li>所在の県と電力管内、出力、案件件数（件数のほかは「その他ご要望・補足」に一行で）</li>
+        <li>お売りになる形：権利譲渡（開発中）／完成渡し／稼働中の案件</li>
+        <li>電力会社の回答の段階：接続検討の回答を取得済み／契約申込みの回答（本回答）を取得済み／連系済み</li>
+        <li>工事費負担金：未確定／金額は確定・未払い／支払済み</li>
+        <li>お立場：売主本人／売主と直接つながっている。他社にも相談中かどうか</li>
+      </ul>
+      <p>希望価格が決まっていれば「その他ご要望・補足」に。決まっていなくても構いません。<br>接続検討回答書が手元にあれば、査定フォームに添付できます。規模・負担金・連系時期の聞き取りを省けます。</p>
+    </div>
+    <div class="prep-card"><h4>秘密保持契約の後に</h4>
+      <ul>
+        <li>接続検討回答書（本回答があればそれも）</li>
+        <li>用地の登記と公図。賃借なら契約書</li>
+        <li>工事費負担金の支払いの証憑</li>
+        <li>配置図、関係法令の照会結果、座標</li>
+        <li>機器を決めていれば、仕様書とJC-STARの登録番号</li>
+        <li>完成渡しなら工程表と発注状況。稼働中なら売上の記録・アグリゲーター契約・保守の記録</li>
+      </ul>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:32px;font-size:0.9rem;color:var(--text-secondary);line-height:2;">
+    権利の段で手放す手続きは <a target="_top" href="/column-transfer" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">開発権の譲渡の手続きと注意点</a> に、開発を続けるか手放すかの判断は <a target="_top" href="/column-options" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">事業化しない3つの選択肢</a> に。<br>他社の案件や買い手をご紹介いただける方は <a target="_top" href="/partners" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">紹介・提携のページ</a> へ。
   </p>
 </div></section>
 
 <section class="cta" id="contact"><div class="container">
   <h2>まずは無料査定から</h2>
-  <p>接続検討回答書をお持ちの開発・EPC事業者様。<br>NDA先行で機密を守りつつ、案件を適正に評価します。</p>
+  <p>粗いリストの段階で構いません。返信するのは代表の中島です。<br>買う見込みがあるか、つなぐ形か。手数料の率と負担者。足りない書類。この3つを、最初の返事に書きます。</p>
   <a target="_top" href="/sell-form" class="btn-primary">無料査定を依頼 →</a>
   <p style="margin-top:20px;font-size:0.75rem;color:rgba(255,255,255,0.35);">s@scix.co.jp ｜ 03-6691-3484</p>
 </div></section>
 
+<section style="padding:40px 0;">
+<div class="container"><div class="author-box">
+  <div class="ab-label">このページの監修</div>
+  <div><span class="ab-name">中島 晋也</span>（サイエンスエックス株式会社 代表取締役・工学博士）</div>
+  <p style="margin:6px 0 0">系統用蓄電池の案件を仕入れて売る実務と、案件の技術確認の経験に基づいて執筆・監修しています。数字は一次資料または当社の公開データ記事に出典があるもののみ載せています。</p>
+  <div class="ab-dates">公開 2026-05-31　／　最終更新 2026-09-05</div>
+</div></div>
+</section>
 
 <!-- ScienceX Footer — Wix HTML embed用 self-contained -->
 <style>
