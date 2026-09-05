@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Serif JP',serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.down{color:var(--warn);font-weight:700}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tr.total td{background:rgba(196,154,60,0.08);font-weight:700;border-top:2px solid var(--accent)}
+td.max{color:var(--warn);font-weight:700}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.wraptext td{text-align:left;vertical-align:top}
+.wraptext thead th{text-align:left}
+.scope th{width:10em;vertical-align:top}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-16px 0 28px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.series-map{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px 22px 14px;margin:28px 0;font-size:.88em;line-height:2}
+.series-map .sm-title{font-weight:700;color:var(--navy);margin-bottom:4px}
+.series-map ul{margin:0 0 8px;padding-left:1.3em}
+.series-map li{margin:2px 0}
+.series-map .sm-foot{color:var(--text-light);font-size:.92em;margin-bottom:0}
+.related{font-size:.9em;line-height:2.05}
+.related ul{margin:8px 0;padding-left:1.3em}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+td.ok{color:var(--green);font-weight:700}
+td.ng{color:var(--warn);font-weight:700}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px}
+}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+
+details{margin:24px 0;border:1px solid var(--border);border-radius:6px;background:var(--light-bg);padding:14px 18px}
+details summary{cursor:pointer;font-weight:600;color:var(--navy);font-size:.92em}
+details[open]{background:var(--white)}
+details p{font-size:.86em;color:var(--text-light);margin-bottom:12px}
+</style>
+<title>蓄電所の売買はどう進むか｜権利・完成・稼働、段階ごとの書類と順番｜ScienceX</title>
+<meta name="description" content="系統用蓄電池（蓄電所）の売買は、用地・接続検討の回答つき権利・連系承諾済み・稼働済みの4段で対象が変わります。誰が売り、誰が何を見て値を付け、ティーザーから名義変更までどの順番で何が動くか。仲介と「仕入れて売る」の違い、止まりやすい型まで、案件を仕入れて売る会社が実務の側から整理します。">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-trading">
+<link rel="canonical" href="https://www.scix.co.jp/column-trading">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓄電所の売買はどう進むか｜権利・完成・稼働、段階ごとの書類と順番｜ScienceX">
+<meta property="og:description" content="系統用蓄電池（蓄電所）の売買は、用地・接続検討の回答つき権利・連系承諾済み・稼働済みの4段で対象が変わります。誰が売り、誰が何を見て値を付け、ティーザーから名義変更までどの順番で何が動くか。仲介と「仕入れて売る」の違い、止まりやすい型まで、案件を仕入れて売る会社が実務の側から整理します。">
+<meta property="og:url" content="https://www.scix.co.jp/column-trading">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="蓄電所の売買はどう進むか｜権利・完成・稼働、段階ごとの書類と順番｜ScienceX">
+<meta name="twitter:description" content="系統用蓄電池（蓄電所）の売買は、用地・接続検討の回答つき権利・連系承諾済み・稼働済みの4段で対象が変わります。誰が売り、誰が何を見て値を付け、ティーザーから名義変更までどの順番で何が動くか。仲介と「仕入れて売る」の違い、止まりやすい型まで、案件を仕入れて売る会社が実務の側から整理します。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-09-05">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "蓄電所の売買はどう進むか｜権利・完成・稼働、段階ごとの書類と順番｜ScienceX",
+  "description": "系統用蓄電池（蓄電所）の売買は、用地・接続検討の回答つき権利・連系承諾済み・稼働済みの4段で対象が変わります。誰が売り、誰が何を見て値を付け、ティーザーから名義変更までどの順番で何が動くか。仲介と「仕入れて売る」の違い、止まりやすい型まで、案件を仕入れて売る会社が実務の側から整理します。",
+  "author": {
+    "@type": "Person",
+    "name": "中島 晋也",
+    "jobTitle": "代表取締役（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp.png"
+  },
+  "datePublished": "2026-09-05",
+  "dateModified": "2026-09-05",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.scix.co.jp/column-trading"
+  },
+  "url": "https://www.scix.co.jp/column-trading",
+  "keywords": "蓄電所 売買, 系統用蓄電池 売買, 権利譲渡, 完成渡し, 稼働済み, 買付意向書, 手付, 名義変更, 仲介"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://www.scix.co.jp/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ナレッジ",
+      "item": "https://www.scix.co.jp/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "蓄電所の売買はどう進むか",
+      "item": "https://www.scix.co.jp/column-trading"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">蓄電所の売買はどう進むか</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 46</span>
+      <span class="header-tag">売買の実務 / 権利・完成・稼働</span>
+      <time class="header-date" datetime="2026-09-05">2026.09.05</time>
+    </div>
+    <h1>蓄電所の売買はどう進むか<br>── <em>権利・完成・稼働</em>、段階ごとの書類と順番</h1>
+    <p class="header-desc">売り物は4段で変わる。誰が売り、誰が何を見て値を付け、ティーザーから名義変更までどの順番で何が動くか。仲介と「仕入れて売る」の違いまで。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<p>買い手から届くメールで、いちばん多い一文は「この案件、まだありますか」です。次に多いのが「御社は売主ですか、仲介ですか」。蓄電所の売買は、太陽光のセカンダリーと違って売り物の段階が4つに分かれ、誰が相手なのかも案件ごとに違います。この記事は、その4段と、順番と、止まりやすい場所を、案件を仕入れて売る側から書きます。</p>
+
+<p>先に範囲を決めておきます。<strong>長期脱炭素電源オークション（LDA）で落札した案件は、本稿の対象外です。</strong>落札者が自分で建てて20年運転する前提の制度で、途中で売る商流がありません。ここで扱うのは、需給調整市場・容量市場・卸電力市場で稼ぐ、いわゆるフルマーチャントの高圧・特別高圧の蓄電所です。</p>
+
+<h2>売買の対象は4段ある ── 用地、権利、連系承諾、稼働</h2>
+
+<p>「蓄電所を買う」と言っても、買っているものは段階ごとに違います。用地だけ、接続検討の回答が出た権利、電力会社との契約まで済んだ権利、そして動いている設備。値段の桁も、確かめる書類も、買った後に残る仕事も、この4段で変わります。</p>
+
+<div class="wraptext">
+<table>
+<thead><tr><th>段</th><th>売り物の中身</th><th>買い手が最初に確かめる書類</th><th>買った後に残る仕事</th></tr></thead>
+<tbody>
+<tr><td><strong>① 用地</strong></td><td>土地の所有権か賃借権。系統の空きが確かめられているかは案件次第</td><td>登記、地目、都市計画上の区域、電柱までの距離</td><td>接続検討の申込みから全部</td></tr>
+<tr><td><strong>② 接続検討の回答つき権利</strong></td><td>電力会社が「この場所に、この規模でつなげる」と答えた回答書と、用地の権利</td><td>回答書の日付と工事費負担金の額、工期の起算、用地の契約</td><td>契約申込み、負担金の支払い、機器の手配、工事</td></tr>
+<tr><td><strong>③ 連系承諾済み・負担金支払済み</strong></td><td>電力会社との契約が済み、連系の時期が見えている権利。建っていることも建っていないこともある</td><td>負担金の領収証、連系承諾の書面、機器の仕様とJC-STARの登録番号</td><td>工事の完成、アグリゲーターとの契約、市場への参加手続き</td></tr>
+<tr><td><strong>④ 稼働済み</strong></td><td>通電して市場に参加している設備。売上の実績がある</td><td>約定の実績、アグリゲーター契約、保守の記録、機器の劣化</td><td>運用を引き継ぐこと。市場参加の資格は自動では移らない</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>買い手の言葉で言い直すと、①は「これから開発する人」、②は「自分で建てる人」、③は「完成渡しを待つ人」、④は「満室のアパートを買う人」の売り物です。同じ2MWでも、④は②より高く扱われます。売上が見えているぶん、リスクの引受け料が違うからです。段ごとの値段の階段は <a target="_top" href="/column-buyer-structures">買い方は4つある（COLUMN 39）</a> に書いたので、ここでは繰り返しません。</p>
+
+<h2>売り手は誰で、なぜ手放すのか</h2>
+
+<p>売り手は3種類です。ひとつは開発者やEPCで、権利を取ってから建てるまでの資金を回したい。次に、権利は取ったが建てられなくなった事業者。負担金の額が想定を超えた、融資が付かなかった、別の案件に資金を寄せたい、という理由で②の段で手放します。最後に、動いている設備を出口として売る保有者。これは④です。</p>
+
+<p>売り手が求めるものは、ほとんどの場合「確実に買う相手」と「早い現金化」です。資料請求だけの買い手に何度も付き合った売主は、次から窓口を絞ります。当社が売主様に「粗いリストで構いません。ただし直接お会いできる方だけお預かりします」と言うのは、この消耗を止めるためです。</p>
+
+<h2>買い手は誰で、何を見て値を付けるのか</h2>
+
+<p>買い手も3種類に分かれます。自分で建てて運転するEPCや電力系の事業者。決算期に合わせて1棟を自社で持つ事業会社。そして複数の設備をまとめて持つ投資家です。見る順番はだいたい決まっています。</p>
+
+<ol>
+<li><strong>接続検討回答書の日付と、工期の起算。</strong>回答から1年近く経った案件は、その回答がまだ有効かを電力会社に確かめる必要があります。連系の見込みが「23か月後」と書いてあれば、23か月をどこから数えるかを聞きます。</li>
+<li><strong>工事費負担金の額と、支払いの状態。</strong>本回答で確定しているか、まだ接続検討の概算か。払い込み済みかどうかで、案件の段階がひとつ変わります。</li>
+<li><strong>管内と連系の時期。</strong>東京は足が速く、現金で買える相手に先に決まります。中部・関西には連系の早い案件が残っていることがあります。決算期の会社は、連系が決算月の前か後かで買えるかどうかが決まります。</li>
+<li><strong>用地の権利と、都市計画上の区域。</strong>市街化調整区域の蓄電所は、電気事業者でないと持てないことがあります。買った後に売れなくなる話でもあるので、ここで止まる買い手は多い。</li>
+<li><strong>機器と認証。</strong>蓄電池とPCSの型式、JC-STARの登録番号。補助金を使うなら対象機器かどうかがここで決まります。</li>
+</ol>
+
+<p>値段は、この5つで動きます。工事費負担金が大きければ権利の値段は下がり、連系が早ければ上がり、管内で相場が違い、稼働していれば実績の分が乗る。当社は個別の金額をこのサイトには載せていません。案件ごとに、秘密保持契約のあとにお出ししています。</p>
+
+<h2>「仲介」と「仕入れて売る」は別のことだ</h2>
+
+<p>商談の冒頭で「御社は売主ですか、仲介ですか」と聞かれるのは、この2つで買い手の手続きが変わるからです。仲介なら、契約の相手は売主本人で、当社は間に立つだけです。仕入れて売る場合は、当社が先に権利を買い取っているので、契約の相手は当社です。</p>
+
+<p>当社はどちらもやります。ただし名義を挟むことはしません。仲介のときは売主と買主が直接契約し、当社は成約したときだけ報酬を受け取ります。料率と、売主と買主のどちらが負担するかは案件の建て付けごとに決まるので、初回のご案内で金額を明示します。当社が売主のときは、その旨を最初にお伝えします。</p>
+
+<p>もうひとつ、間に仲介が重なった案件はお預かりしません。伝言が一段増えるごとに条件がずれ、最後に金額が違っていたことが実際にあります。売主様に直接お会いできることが、扱う条件です。</p>
+
+<h2>順番は決まっている ── ティーザーから名義変更まで</h2>
+
+<p>どこで秘密保持契約を結び、どこでお金が動くか。買い手が最も不安に思うのはここなので、当社の標準を表にします。期間は案件と電力会社で変わるため、日数は書きません。</p>
+
+<div class="wraptext">
+<table>
+<thead><tr><th>順</th><th>段階</th><th>動く書類</th><th>ここで決まること</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>ティーザー（匿名）</td><td>所在県・規模・連系の見込み・進み具合。秘密保持契約は不要</td><td>候補に入るかどうか。複数まとめて請求できる</td></tr>
+<tr><td>2</td><td>秘密保持契約</td><td>NDA。資料を出す直前に結ぶ</td><td>案件の名前と場所が開く</td></tr>
+<tr><td>3</td><td>DD資料の一括開示</td><td>接続検討回答書、登記、負担金の証憑、システム構成、JC-STAR、契約書のひな形</td><td>机上で買えるかどうか。稟議に添える材料が揃う</td></tr>
+<tr><td>4</td><td>買付意向書</td><td>金額と条件を書いた文書。稟議が途中でも出せる</td><td>先着の順位。ここで初めて他の買い手より前に立つ</td></tr>
+<tr><td>5</td><td>手付</td><td>売買契約と同時か、その直前。本回答で条件が変わったときの扱いを契約書に書いてから入れる</td><td>案件が止まる。売主は他の買い手との話を止める</td></tr>
+<tr><td>6</td><td>契約 → 名義変更の申請</td><td>売買契約、電力会社への名義変更の申請書</td><td>代金の大半をここで払うのが通例</td></tr>
+<tr><td>7</td><td>名義変更の完了 → 残金</td><td>電力会社の承認</td><td>残金。名義変更には時間がかかるので、申請と完了で支払いを分ける</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>買い手が急ぐなら、4の買付意向書を早く出すのが唯一の近道です。資料を全部読み終えるまで出さない会社は、条件のいい案件ほど間に合いません。売り手が急ぐなら、3の資料を最初から揃えておくこと。「バラ紙で持ってくる」案件は、買い手側の机上確認で毎回止まります。</p>
+
+<h2>事業譲渡、SPC持分譲渡、資産譲渡は何が違うか</h2>
+
+<p>買うものの法的な形は3つあります。設備と権利をそのまま買う資産譲渡。案件を持つ会社（SPC）の持分を買う持分譲渡。事業ごと引き受ける事業譲渡。税の扱い、建設業法の当たり方、契約の承継の仕方が、この3つで変わります。稼働済みの案件を買っても、市場に参加するための資格は自動では新しい持ち主に移らないことも、ここで確かめる項目です。詳しくは <a target="_top" href="/column-buyer-structures">COLUMN 39</a> の後半にまとめています。</p>
+
+<h2>売買が止まる型は、だいたい決まっている</h2>
+
+<ul>
+<li><strong>売主の与信。</strong>完成渡しでは、建つ前に代金の大半を払う形になります。相手の規模によっては、その形が社内で通りません。権利で買う、工事を分けて発注する、動いている案件を買う、で組み直せます。</li>
+<li><strong>市街化調整区域。</strong>持ち方を組み替えないと買えない、あるいは次に売れない。</li>
+<li><strong>融資。</strong>蓄電池は担保になりにくく、都市銀行の融資は付きにくい。自己資金で買える相手に案件が集まります。</li>
+<li><strong>回答書の古さ。</strong>接続検討の回答から時間が経った案件は、条件がそのままかを確かめ直す必要があります。</li>
+<li><strong>仲介の多重。</strong>条件が段ごとにずれる。当社が扱わない理由でもあります。</li>
+<li><strong>稟議の速さ。</strong>条件のいい案件ほど先に売れる。買付意向書を出す時期で決まります。</li>
+</ul>
+
+<p>契約の直前で止まる型と、その避け方は <a target="_top" href="/column-contract-flow">契約までの流れ（COLUMN 21）</a> に、買う前に確かめる技術の項目は <a target="_top" href="/column-buyer-check">買う前の技術チェック（COLUMN 37）</a> に書いています。権利の段で買う場合の手続きは <a target="_top" href="/column-transfer">権利譲渡の実務（COLUMN 08）</a> をご覧ください。</p>
+
+<h2>参考にした一次資料と、関連する記事</h2>
+<ul>
+<li>電力広域的運営推進機関（OCCTO）「発電設備等の系統連系手続き」— 接続検討・契約申込みの流れ</li>
+<li>一般社団法人電力需給調整力取引所（EPRX）「取引規程」— 市場参加の要件</li>
+<li>当社コラム: <a target="_top" href="/column-buyer-structures">買い方は4つある</a>／<a target="_top" href="/column-buyer-check">買う前の技術チェック</a>／<a target="_top" href="/column-contract-flow">契約までの流れ</a>／<a target="_top" href="/column-transfer">権利譲渡の実務</a>／<a target="_top" href="/column-financing">なぜ現金で買われるのか</a></li>
+</ul>
+
+<div class="author-box">
+<div class="ab-label">この記事の監修</div>
+<div><span class="ab-name">中島 晋也</span>（サイエンスエックス株式会社 代表取締役・工学博士）</div>
+<p style="margin:6px 0 0">系統用蓄電池の案件を仕入れて売る実務に基づいて執筆・監修しています。本稿の誤りのご指摘は <a href="mailto:s@scix.co.jp">s@scix.co.jp</a> まで。</p>
+</div>
+
+</div>
+
+<!-- scix-column-cta : 1記事1つ。主＝案件一覧（NDA不要）、副＝売る方・買う方の入口（それぞれ行き先の中身を明記） -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">いま売りに出ている案件を、段階ごとに確かめられます</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">所在県・規模・連系の見込み・進み具合までは、秘密保持契約なしで公開しています。載せているのは接続検討の回答が出た案件だけです。</p>
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/projects" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">匿名ティーザーで売り案件を確認する →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">案件一覧が開きます。気になる案件は、その場で複数まとめて資料を請求できます。</p>
+  </div>
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.85;margin:0">案件をお持ちで売りたい方は <a target="_top" href="https://www.scix.co.jp/sourcing" style="color:#1B2A4A;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">案件を売りたい方へ</a>（粗いリストの段階で構いません）。買う側の手順を先に読みたい方は <a target="_top" href="https://www.scix.co.jp/transfer" style="color:#1B2A4A;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">案件を買う</a> へ。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/land" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">土地を売る・貸す</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
