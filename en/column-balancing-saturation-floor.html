@@ -1,0 +1,3050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.seo-note{display:none}
+.bar-chart{margin:28px 0}
+.bar-row{display:flex;align-items:center;margin-bottom:6px;font-size:.85em}
+.bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.bar-track{flex:1;background:#EBEEF2;height:28px;border-radius:3px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;min-width:2px;transition:width .6s ease}
+.bar-fill.high{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.bar-fill.mid{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.bar-fill.low{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.bar-fill.over{background:linear-gradient(90deg,#2980B9,#3498DB)}
+.bar-value{margin-left:8px;font-size:.82em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:80px}
+.heatmap-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.82em}
+.heatmap-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:center;font-weight:500;font-size:.78em}
+.heatmap-table td{padding:8px 10px;text-align:center;border:1px solid #E2E6EC;font-weight:600}
+.heatmap-table td.h5{background:#FDEBEB;color:#922B21}
+.heatmap-table td.h4{background:#FDEBD0;color:#935116}
+.heatmap-table td.h3{background:#FEF9E7;color:#7D6608}
+.heatmap-table td.h2{background:#EAFAF1;color:#1E8449}
+.heatmap-table td.h1{background:#D4EFDF;color:#196F3D}
+.heatmap-table td.h0{background:#D6EAF8;color:#21618C}
+.heatmap-table .area-cell{text-align:left;font-weight:700;background:#F8F9FB;color:var(--navy)}
+.tab-bar{display:flex;border-bottom:2px solid var(--border);margin:24px 0 0;gap:0;flex-wrap:wrap}
+.tab-item{padding:10px 20px;font-size:.88em;font-weight:600;color:var(--text-light);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
+.tab-item:hover{color:var(--navy)}
+.tab-item.active{color:var(--navy);border-bottom-color:var(--accent)}
+@media(max-width:480px){.tab-item{padding:8px 12px;font-size:.78em}}
+.ts-legend{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 16px;font-size:.78em;color:var(--text-light)}
+.ts-leg-item{display:flex;align-items:center;gap:5px}
+.ts-leg-box{width:14px;height:14px;border-radius:2px;flex-shrink:0}
+.chart-container{position:relative;margin:0 0 16px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff}
+.chart-header{display:flex;justify-content:space-between;align-items:baseline;padding:12px 20px 4px}
+.chart-area-name{font-weight:700;color:var(--navy);font-size:1em}
+.chart-stats{font-size:.82em;color:var(--text-light)}
+.chart-stats strong{color:var(--navy)}
+.chart-stats .surplus{color:#2980B9}
+.chart-no-data{padding:12px 20px 16px;font-size:.82em;color:var(--text-light);text-align:center}
+.chart-canvas-wrap{position:relative;padding:0 16px 4px}
+.chart-canvas{width:100%;height:80px;display:block}
+.chart-tooltip{position:absolute;background:rgba(27,42,74,0.95);color:#fff;padding:8px 12px;border-radius:4px;font-size:.75em;line-height:1.5;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
+.chart-axis{display:flex;justify-content:space-between;font-size:.68em;color:var(--text-light);padding:0 16px 10px}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .bar-label{width:44px;font-size:.78em}
+  .heatmap-table{font-size:.72em}
+  .heatmap-table th,.heatmap-table td{padding:5px 4px}
+  .chart-canvas{height:64px}
+  .chart-header{padding:10px 12px 3px}
+  .chart-canvas-wrap{padding:0 12px 3px}
+  .chart-axis{padding:0 12px 8px;font-size:.6em}
+}
+.s-bar-row{display:flex;align-items:center;margin-bottom:5px;font-size:.85em}
+.s-bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.s-bar-wrap{flex:1;position:relative;height:28px;background:#EBEEF2;border-radius:3px;overflow:hidden}
+.s-bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;transition:width .4s ease}
+.s-bar-fill.sh{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.s-bar-fill.sm{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.s-bar-fill.sl{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.s-bar-meta{margin-left:8px;font-size:.8em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:120px}
+.s-bar-meta strong{color:var(--navy)}
+.tieline-flow{margin:28px 0;font-size:.85em}
+.tl-row{display:flex;align-items:center;margin-bottom:4px;gap:4px}
+.tl-label{width:100px;text-align:right;font-weight:500;color:var(--navy);flex-shrink:0;font-size:.82em}
+.tl-bar-wrap{flex:1;display:flex;gap:2px}
+.tl-bar{height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.7em;font-weight:600;color:#fff;min-width:20px}
+.tl-fwd{background:var(--accent)}
+.tl-rev{background:var(--navy-light)}
+.tl-val{width:44px;font-size:.78em;color:var(--text-light);text-align:right;flex-shrink:0}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+
+
+:root{--c47-cyan:#4599c6}
+figure.c47{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c47 .c47scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--white);
+  border:1px solid var(--border);border-radius:3px}
+figure.c47 .c47scroll>svg{display:block;min-width:var(--fmin,0)}
+figure.c47 figcaption{font-size:.78em;color:var(--text-light);margin-top:10px;line-height:1.7}
+figure.c47 .c47hint{font-size:.72em;color:var(--text-light);margin:0 0 7px;letter-spacing:.04em}
+/* 本文（712px）に収まらない図は、字を縮めずに本文の外へ広げる。
+   画面がそれより狭いときだけ中で横スクロールになる。 */
+figure.c47.wide{width:min(calc(100vw - 32px), var(--fw));margin-left:50%;transform:translateX(-50%)}
+figure.c47.wide .c47hint{display:none}
+@media(max-width:1100px){figure.c47.wide .c47hint{display:block}}
+figure.c47fig{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c47fig .c47top{font-size:.78em;color:var(--text-light);margin:0 0 12px;line-height:1.7}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.table-wrap .comparison-table{margin:0;min-width:520px}
+ul.source-list{font-size:.82em;line-height:1.95;color:var(--text-light);word-break:break-word;
+  padding-left:1.15em;margin:0 0 8px}
+ul.source-list a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--border)}
+ul.source-list a:hover{border-bottom-color:var(--accent)}
+.c47series{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 30px;padding:12px 14px;
+  background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+.c47series .lb{font-size:.74em;color:var(--text-light);letter-spacing:.06em;width:100%;margin-bottom:2px}
+.c47series a,.c47series span.cur{font-size:.83em;text-decoration:none;padding:3px 10px;border-radius:3px;line-height:1.7}
+.c47series a{color:var(--navy);background:var(--white);border:1px solid var(--border)}
+.c47series a:hover{border-color:var(--accent)}
+.c47series span.cur{color:var(--white);background:var(--navy);font-weight:600}
+@media(max-width:768px){figure.c47,figure.c47fig{padding:12px}}
+
+
+.c47cards{display:grid;gap:14px;margin:0}
+.c47cards.n3{grid-template-columns:repeat(3,1fr)}
+.c47cards.n4{grid-template-columns:repeat(2,1fr)}
+.c47card{border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;
+  background:var(--white);padding:16px 18px 14px;display:flex;flex-direction:column}
+.c47card.k-volume{border-top-color:var(--navy)}
+.c47card.k-supply{border-top-color:#4599c6}
+.c47card.k-floor{border-top-color:var(--accent)}
+.c47card .k{font-size:.78em;letter-spacing:.06em;color:var(--text-light);margin-bottom:6px}
+.c47card .v{font-family:'Noto Serif JP',serif;font-weight:600;color:var(--navy);
+  font-size:1.02em;line-height:1.5;margin-bottom:10px}
+.c47card ul{list-style:none;margin:0 0 10px;padding:0;font-size:.84em;line-height:1.8;color:var(--text)}
+.c47card ul li{padding-left:11px;position:relative}
+.c47card ul li::before{content:'';position:absolute;left:0;top:.72em;width:4px;height:4px;
+  border-radius:50%;background:var(--accent)}
+.c47card .go{margin-top:auto;font-size:.82em;font-weight:600;color:var(--navy);
+  text-decoration:none;border-bottom:1px solid var(--accent);align-self:flex-start;padding-bottom:2px}
+.c47card .go:hover{color:var(--accent)}
+@media(max-width:700px){.c47cards.n3,.c47cards.n4{grid-template-columns:1fr}}
+
+</style>
+<title>Where Is the Floor Below ¥7.21? The Battery Sets It | ScienceX</title>
+<meta name="description" content="The ΔkW floor is what a battery could earn on JEPX: ¥6–8 in the evening, in the ¥1 range over a day. Kyushu cleared at ¥4.9 in August with the cap at ¥15.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-balancing-saturation-floor">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-balancing-saturation-floor">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-balancing-saturation-floor">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-balancing-saturation-floor">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-balancing-saturation-floor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Where Is the Floor Below ¥7.21? The Battery Sets It | ScienceX">
+<meta property="og:description" content="The ΔkW floor is what a battery could earn on JEPX — ¥6–8 in the evening. Kyushu cleared at ¥4.9 in August, cap still ¥15.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-balancing-saturation-floor">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Where Is the Floor Below ¥7.21? The Battery Sets It | ScienceX">
+<meta name="twitter:description" content="The ΔkW floor is what a battery could earn on JEPX — ¥6–8 in the evening. Kyushu cleared at ¥4.9 in August, cap still ¥15.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="article:published_time" content="2026-09-07">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Where Is the Floor Below ¥7.21? The Battery Sets It | ScienceX",
+  "description": "The ΔkW floor is what a battery could earn on JEPX: ¥6–8 in the evening, in the ¥1 range over a day. Kyushu cleared at ¥4.9 in August with the cap at ¥15.",
+  "author": {
+    "@type": "Person",
+    "name": "Shinya Nakashima",
+    "jobTitle": "CEO, Ph.D. in Engineering",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-09-07",
+  "dateModified": "2026-09-07",
+  "inLanguage": "en",
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-balancing-saturation-floor",
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "name": "COLUMN 47",
+    "url": "https://www.scix.co.jp/en/column-balancing-saturation"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Will the ΔkW price fall to thermal's ¥3?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "That is not the floor. Since April 2025 thermal has been able to settle start-up costs ex post, so it can bid lower; thermal takes about 70% of primary online awards, at a nationwide average of ¥4.4 in August. A battery in the evening stops higher than that, at the ¥6–8 it could otherwise earn on JEPX."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What sets the floor for a battery's ΔkW bid?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "What the battery could earn elsewhere. For a 4-hour battery charging in the 8 cheapest JEPX slots and discharging in the 8 dearest, the evening figure converts to ¥5.9–8.5 per ΔkW·30min depending on the area, while the 48-slot average is ¥1.0–1.4. So the floor is not one line but the shape of a day, high in the evening and near zero late at night."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Has the price already fallen before the cap came down?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, in the areas where bidding grew. Kyushu's primary offline averaged ¥4.9 in August with the cap still at ¥15, against ¥11.5 in Tokyo and ¥13.6 in Tohoku. From the ¥10 cap on 1 September the nationwide average was ¥6.8, with Kyushu at ¥3.4 and Kansai at ¥5.1 sitting well away from the new ceiling."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Floor: where the ΔkW price stops",
+      "item": "https://www.scix.co.jp/en/column-balancing-saturation-floor"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/en" style="color:#5A6577;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#5A6577;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">Floor: where the ΔkW price stops</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 47-4</span>
+      <span class="header-tag">Market Analysis</span>
+      <time class="header-date" datetime="2026-09-07">2026.09.07</time>
+    </div>
+    <h1>Where is the floor below ¥7.21? The ceiling is set by rules, the floor by batteries themselves</h1>
+    <p class="header-desc">We count the floor not from thermal&#x27;s ¥3 but from what a battery itself can earn elsewhere on JEPX. It is not one number but the shape of a day — ¥6–8 in the evening, around ¥1 overnight. Kyushu fell to ¥4.9 in August with the cap still at ¥15. Four overseas markets show where prices settled.</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/en/knowledge" class="back-link">← Back to Knowledge</a>
+<nav class="c47series" aria-label="COLUMN 47"><span class="lb">A four-part series</span><a target="_top" href="/en/column-balancing-saturation">COLUMN 47 Overview</a><a target="_top" href="/en/column-balancing-saturation-volume">47-2 Procurement volume</a><a target="_top" href="/en/column-balancing-saturation-supply">47-3 Supply</a><span class="cur">47-4 Floor</span></nav>
+<p>With the price cap moving from ¥15 to ¥10 and ¥7.21 named as the next step, the question becomes how far it goes after that. Some people say "down to thermal's ¥3." Follow the data and the floor is set not by the price of thermal but by what the battery itself could earn elsewhere. And that amount is not a single number: it differs by time of day.</p>
+<p>This page deals only with price. The size of the room (procurement volume) is on 47-2, and the volume arriving is on 47-3.</p>
+<h2>1. The market moved before the cap came down</h2>
+<figure class="c47" id="f1"><div class="c47scroll"><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 605.88 328.04" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:c2pa="http://c2pa.org/manifest" preserveAspectRatio="xMidYMid meet" role="img" stroke-linejoin="round" stroke-linecap="butt" style="width:100%;height:auto;display:block">
+ <g id="f1-figure_1">
+  <g id="f1-patch_1">
+   <path d="M 0 328.04 
+L 605.88 328.04 
+L 605.88 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="f1-axes_1">
+   <g id="f1-patch_2">
+    <path d="M 40.69 301.54 
+L 598.68 301.54 
+L 598.68 24.34 
+L 40.69 24.34 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="f1-matplotlib.axis_1">
+    <g id="f1-xtick_1">
+     <g id="f1-line2d_1">
+      <defs>
+       <path id="f1-mb99b01cca2" d="M 0 0 
+L 0 3.5 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#f1-mb99b01cca2" x="66.05" y="301.54" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_1">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="66.05" y="318.09" transform="rotate(-0 66.05 318.09)">Apr</text>
+     </g>
+    </g>
+    <g id="f1-xtick_2">
+     <g id="f1-line2d_2">
+      <g>
+       <use xlink:href="#f1-mb99b01cca2" x="167.5" y="301.54" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_2">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="167.5" y="318.09" transform="rotate(-0 167.5 318.09)">May</text>
+     </g>
+    </g>
+    <g id="f1-xtick_3">
+     <g id="f1-line2d_3">
+      <g>
+       <use xlink:href="#f1-mb99b01cca2" x="268.96" y="301.54" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_3">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="268.96" y="318.09" transform="rotate(-0 268.96 318.09)">Jun</text>
+     </g>
+    </g>
+    <g id="f1-xtick_4">
+     <g id="f1-line2d_4">
+      <g>
+       <use xlink:href="#f1-mb99b01cca2" x="370.41" y="301.54" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_4">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="370.41" y="318.09" transform="rotate(-0 370.41 318.09)">Jul</text>
+     </g>
+    </g>
+    <g id="f1-xtick_5">
+     <g id="f1-line2d_5">
+      <g>
+       <use xlink:href="#f1-mb99b01cca2" x="471.87" y="301.54" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_5">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="471.87" y="318.09" transform="rotate(-0 471.87 318.09)">Aug</text>
+     </g>
+    </g>
+    <g id="f1-xtick_6">
+     <g id="f1-line2d_6">
+      <g>
+       <use xlink:href="#f1-mb99b01cca2" x="573.32" y="301.54" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_6">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="573.32" y="318.09" transform="rotate(-0 573.32 318.09)">Sep</text>
+     </g>
+    </g>
+   </g>
+   <g id="f1-matplotlib.axis_2">
+    <g id="f1-ytick_1">
+     <g id="f1-line2d_7">
+      <defs>
+       <path id="f1-ma32e610a1a" d="M 0 0 
+L -3.5 0 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#f1-ma32e610a1a" x="40.69" y="301.54" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_7">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="305.52" transform="rotate(-0 33.69 305.52)">0</text>
+     </g>
+    </g>
+    <g id="f1-ytick_2">
+     <g id="f1-line2d_8">
+      <g>
+       <use xlink:href="#f1-ma32e610a1a" x="40.69" y="268.93" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_8">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="272.91" transform="rotate(-0 33.69 272.91)">2</text>
+     </g>
+    </g>
+    <g id="f1-ytick_3">
+     <g id="f1-line2d_9">
+      <g>
+       <use xlink:href="#f1-ma32e610a1a" x="40.69" y="236.32" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_9">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="240.3" transform="rotate(-0 33.69 240.3)">4</text>
+     </g>
+    </g>
+    <g id="f1-ytick_4">
+     <g id="f1-line2d_10">
+      <g>
+       <use xlink:href="#f1-ma32e610a1a" x="40.69" y="203.71" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_10">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="207.69" transform="rotate(-0 33.69 207.69)">6</text>
+     </g>
+    </g>
+    <g id="f1-ytick_5">
+     <g id="f1-line2d_11">
+      <g>
+       <use xlink:href="#f1-ma32e610a1a" x="40.69" y="171.1" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_11">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="175.08" transform="rotate(-0 33.69 175.08)">8</text>
+     </g>
+    </g>
+    <g id="f1-ytick_6">
+     <g id="f1-line2d_12">
+      <g>
+       <use xlink:href="#f1-ma32e610a1a" x="40.69" y="138.48" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_12">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="142.46" transform="rotate(-0 33.69 142.46)">10</text>
+     </g>
+    </g>
+    <g id="f1-ytick_7">
+     <g id="f1-line2d_13">
+      <g>
+       <use xlink:href="#f1-ma32e610a1a" x="40.69" y="105.87" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_13">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="109.85" transform="rotate(-0 33.69 109.85)">12</text>
+     </g>
+    </g>
+    <g id="f1-ytick_8">
+     <g id="f1-line2d_14">
+      <g>
+       <use xlink:href="#f1-ma32e610a1a" x="40.69" y="73.26" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_14">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="77.24" transform="rotate(-0 33.69 77.24)">14</text>
+     </g>
+    </g>
+    <g id="f1-ytick_9">
+     <g id="f1-line2d_15">
+      <g>
+       <use xlink:href="#f1-ma32e610a1a" x="40.69" y="40.65" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f1-text_15">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="44.63" transform="rotate(-0 33.69 44.63)">16</text>
+     </g>
+    </g>
+    <g id="f1-text_16">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="16.07" y="162.94" transform="rotate(-90 16.07 162.94)">JPY/ΔkW·30min (award-weighted average)</text>
+    </g>
+   </g>
+   <g id="f1-line2d_16">
+    <path d="M 66.05 56.95 
+L 116.78 56.95 
+L 116.78 56.95 
+L 218.23 56.95 
+L 218.23 56.95 
+L 319.69 56.95 
+L 319.69 56.95 
+L 421.14 56.95 
+L 421.14 56.95 
+L 522.59 56.95 
+L 522.59 138.48 
+L 573.32 138.48 
+" clip-path="url(#f1-pae9083d09b)" style="fill: none; stroke: #8A94A3; stroke-width: 3; stroke-linecap: square"/>
+   </g>
+   <g id="f1-line2d_17">
+    <path d="M 66.05 81.58 
+L 167.5 60.59 
+L 268.96 84.18 
+L 370.41 83.03 
+L 471.87 79.38 
+L 573.32 148.86 
+" clip-path="url(#f1-pae9083d09b)" style="fill: none; stroke: #325197; stroke-width: 2.5; stroke-linecap: square"/>
+    <defs>
+     <path id="f1-mecb622a197" d="M 0 3 
+C 0.8 3 1.56 2.68 2.12 2.12 
+C 2.68 1.56 3 0.8 3 0 
+C 3 -0.8 2.68 -1.56 2.12 -2.12 
+C 1.56 -2.68 0.8 -3 0 -3 
+C -0.8 -3 -1.56 -2.68 -2.12 -2.12 
+C -2.68 -1.56 -3 -0.8 -3 0 
+C -3 0.8 -2.68 1.56 -2.12 2.12 
+C -1.56 2.68 -0.8 3 0 3 
+z
+" style="stroke: #325197"/>
+    </defs>
+    <g clip-path="url(#f1-pae9083d09b)">
+     <use xlink:href="#f1-mecb622a197" x="66.05" y="81.58" style="fill: #325197; stroke: #325197"/>
+     <use xlink:href="#f1-mecb622a197" x="167.5" y="60.59" style="fill: #325197; stroke: #325197"/>
+     <use xlink:href="#f1-mecb622a197" x="268.96" y="84.18" style="fill: #325197; stroke: #325197"/>
+     <use xlink:href="#f1-mecb622a197" x="370.41" y="83.03" style="fill: #325197; stroke: #325197"/>
+     <use xlink:href="#f1-mecb622a197" x="471.87" y="79.38" style="fill: #325197; stroke: #325197"/>
+     <use xlink:href="#f1-mecb622a197" x="573.32" y="148.86" style="fill: #325197; stroke: #325197"/>
+    </g>
+   </g>
+   <g id="f1-line2d_18">
+    <path d="M 66.05 114.52 
+L 167.5 112.53 
+L 268.96 104.12 
+L 370.41 108.68 
+L 471.87 114.44 
+L 573.32 161.25 
+" clip-path="url(#f1-pae9083d09b)" style="fill: none; stroke: #4599c6; stroke-width: 2.5; stroke-linecap: square"/>
+    <defs>
+     <path id="f1-m497f4b51f4" d="M 0 3 
+C 0.8 3 1.56 2.68 2.12 2.12 
+C 2.68 1.56 3 0.8 3 0 
+C 3 -0.8 2.68 -1.56 2.12 -2.12 
+C 1.56 -2.68 0.8 -3 0 -3 
+C -0.8 -3 -1.56 -2.68 -2.12 -2.12 
+C -2.68 -1.56 -3 -0.8 -3 0 
+C -3 0.8 -2.68 1.56 -2.12 2.12 
+C -1.56 2.68 -0.8 3 0 3 
+z
+" style="stroke: #4599c6"/>
+    </defs>
+    <g clip-path="url(#f1-pae9083d09b)">
+     <use xlink:href="#f1-m497f4b51f4" x="66.05" y="114.52" style="fill: #4599c6; stroke: #4599c6"/>
+     <use xlink:href="#f1-m497f4b51f4" x="167.5" y="112.53" style="fill: #4599c6; stroke: #4599c6"/>
+     <use xlink:href="#f1-m497f4b51f4" x="268.96" y="104.12" style="fill: #4599c6; stroke: #4599c6"/>
+     <use xlink:href="#f1-m497f4b51f4" x="370.41" y="108.68" style="fill: #4599c6; stroke: #4599c6"/>
+     <use xlink:href="#f1-m497f4b51f4" x="471.87" y="114.44" style="fill: #4599c6; stroke: #4599c6"/>
+     <use xlink:href="#f1-m497f4b51f4" x="573.32" y="161.25" style="fill: #4599c6; stroke: #4599c6"/>
+    </g>
+   </g>
+   <g id="f1-line2d_19">
+    <path d="M 66.05 101.1 
+L 167.5 97.31 
+L 268.96 110.57 
+L 370.41 134.36 
+L 471.87 144.52 
+L 573.32 190.02 
+" clip-path="url(#f1-pae9083d09b)" style="fill: none; stroke-dasharray: 9.25,4; stroke-dashoffset: 0; stroke: #8A94A3; stroke-width: 2.5"/>
+    <defs>
+     <path id="f1-m4e5e1b8dcd" d="M 0 3 
+C 0.8 3 1.56 2.68 2.12 2.12 
+C 2.68 1.56 3 0.8 3 0 
+C 3 -0.8 2.68 -1.56 2.12 -2.12 
+C 1.56 -2.68 0.8 -3 0 -3 
+C -0.8 -3 -1.56 -2.68 -2.12 -2.12 
+C -2.68 -1.56 -3 -0.8 -3 0 
+C -3 0.8 -2.68 1.56 -2.12 2.12 
+C -1.56 2.68 -0.8 3 0 3 
+z
+" style="stroke: #8A94A3"/>
+    </defs>
+    <g clip-path="url(#f1-pae9083d09b)">
+     <use xlink:href="#f1-m4e5e1b8dcd" x="66.05" y="101.1" style="fill: #8A94A3; stroke: #8A94A3"/>
+     <use xlink:href="#f1-m4e5e1b8dcd" x="167.5" y="97.31" style="fill: #8A94A3; stroke: #8A94A3"/>
+     <use xlink:href="#f1-m4e5e1b8dcd" x="268.96" y="110.57" style="fill: #8A94A3; stroke: #8A94A3"/>
+     <use xlink:href="#f1-m4e5e1b8dcd" x="370.41" y="134.36" style="fill: #8A94A3; stroke: #8A94A3"/>
+     <use xlink:href="#f1-m4e5e1b8dcd" x="471.87" y="144.52" style="fill: #8A94A3; stroke: #8A94A3"/>
+     <use xlink:href="#f1-m4e5e1b8dcd" x="573.32" y="190.02" style="fill: #8A94A3; stroke: #8A94A3"/>
+    </g>
+   </g>
+   <g id="f1-line2d_20">
+    <path d="M 66.05 63.73 
+L 167.5 67.36 
+L 268.96 84.41 
+L 370.41 132.9 
+L 471.87 154.46 
+L 573.32 199.68 
+" clip-path="url(#f1-pae9083d09b)" style="fill: none; stroke: #6E86B8; stroke-width: 2.5; stroke-linecap: square"/>
+    <defs>
+     <path id="f1-m0c19d234c8" d="M 0 3 
+C 0.8 3 1.56 2.68 2.12 2.12 
+C 2.68 1.56 3 0.8 3 0 
+C 3 -0.8 2.68 -1.56 2.12 -2.12 
+C 1.56 -2.68 0.8 -3 0 -3 
+C -0.8 -3 -1.56 -2.68 -2.12 -2.12 
+C -2.68 -1.56 -3 -0.8 -3 0 
+C -3 0.8 -2.68 1.56 -2.12 2.12 
+C -1.56 2.68 -0.8 3 0 3 
+z
+" style="stroke: #6E86B8"/>
+    </defs>
+    <g clip-path="url(#f1-pae9083d09b)">
+     <use xlink:href="#f1-m0c19d234c8" x="66.05" y="63.73" style="fill: #6E86B8; stroke: #6E86B8"/>
+     <use xlink:href="#f1-m0c19d234c8" x="167.5" y="67.36" style="fill: #6E86B8; stroke: #6E86B8"/>
+     <use xlink:href="#f1-m0c19d234c8" x="268.96" y="84.41" style="fill: #6E86B8; stroke: #6E86B8"/>
+     <use xlink:href="#f1-m0c19d234c8" x="370.41" y="132.9" style="fill: #6E86B8; stroke: #6E86B8"/>
+     <use xlink:href="#f1-m0c19d234c8" x="471.87" y="154.46" style="fill: #6E86B8; stroke: #6E86B8"/>
+     <use xlink:href="#f1-m0c19d234c8" x="573.32" y="199.68" style="fill: #6E86B8; stroke: #6E86B8"/>
+    </g>
+   </g>
+   <g id="f1-line2d_21">
+    <path d="M 66.05 103.68 
+L 167.5 120.78 
+L 268.96 179.14 
+L 370.41 210.47 
+L 471.87 222.06 
+L 573.32 245.76 
+" clip-path="url(#f1-pae9083d09b)" style="fill: none; stroke: #C49A3C; stroke-width: 2.5; stroke-linecap: square"/>
+    <defs>
+     <path id="f1-mc6b65536ef" d="M 0 3 
+C 0.8 3 1.56 2.68 2.12 2.12 
+C 2.68 1.56 3 0.8 3 0 
+C 3 -0.8 2.68 -1.56 2.12 -2.12 
+C 1.56 -2.68 0.8 -3 0 -3 
+C -0.8 -3 -1.56 -2.68 -2.12 -2.12 
+C -2.68 -1.56 -3 -0.8 -3 0 
+C -3 0.8 -2.68 1.56 -2.12 2.12 
+C -1.56 2.68 -0.8 3 0 3 
+z
+" style="stroke: #C49A3C"/>
+    </defs>
+    <g clip-path="url(#f1-pae9083d09b)">
+     <use xlink:href="#f1-mc6b65536ef" x="66.05" y="103.68" style="fill: #C49A3C; stroke: #C49A3C"/>
+     <use xlink:href="#f1-mc6b65536ef" x="167.5" y="120.78" style="fill: #C49A3C; stroke: #C49A3C"/>
+     <use xlink:href="#f1-mc6b65536ef" x="268.96" y="179.14" style="fill: #C49A3C; stroke: #C49A3C"/>
+     <use xlink:href="#f1-mc6b65536ef" x="370.41" y="210.47" style="fill: #C49A3C; stroke: #C49A3C"/>
+     <use xlink:href="#f1-mc6b65536ef" x="471.87" y="222.06" style="fill: #C49A3C; stroke: #C49A3C"/>
+     <use xlink:href="#f1-mc6b65536ef" x="573.32" y="245.76" style="fill: #C49A3C; stroke: #C49A3C"/>
+    </g>
+   </g>
+   <g id="f1-patch_3">
+    <path d="M 40.69 301.54 
+L 40.69 24.34 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f1-patch_4">
+    <path d="M 40.69 301.54 
+L 598.68 301.54 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f1-text_17">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; fill: #C49A3C" transform="translate(482.01 220.03)">Kyushu ¥4.9</text>
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; fill: #C49A3C" transform="translate(482.01 233.06)">(cap still ¥15)</text>
+   </g>
+   <g id="f1-text_18">
+    <text style="font-size: 14px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #1B2A4A" x="40.69" y="18.34" transform="rotate(-0 40.69 18.34)">Figure 1 Primary offline price: before the cap fell, bids brought Kyushu down (2026)</text>
+   </g>
+   <g id="f1-legend_1">
+    <g id="f1-line2d_22">
+     <path d="M 50.13 253.99 
+L 55.38 253.99 
+L 55.38 253.99 
+L 65.89 253.99 
+L 65.89 253.99 
+L 71.14 253.99 
+" style="fill: none; stroke: #8A94A3; stroke-width: 3; stroke-linecap: square"/>
+    </g>
+    <g id="f1-text_19">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="79.53" y="257.66" transform="rotate(-0 79.53 257.66)">Price cap</text>
+    </g>
+    <g id="f1-line2d_23">
+     <path d="M 50.13 270 
+L 60.63 270 
+L 71.14 270 
+" style="fill: none; stroke: #325197; stroke-width: 2.5; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#f1-mecb622a197" x="60.63" y="270" style="fill: #325197; stroke: #325197"/>
+     </g>
+    </g>
+    <g id="f1-text_20">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="79.53" y="273.68" transform="rotate(-0 79.53 273.68)">Tohoku</text>
+    </g>
+    <g id="f1-line2d_24">
+     <path d="M 50.13 286.01 
+L 60.63 286.01 
+L 71.14 286.01 
+" style="fill: none; stroke: #4599c6; stroke-width: 2.5; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#f1-m497f4b51f4" x="60.63" y="286.01" style="fill: #4599c6; stroke: #4599c6"/>
+     </g>
+    </g>
+    <g id="f1-text_21">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="79.53" y="289.69" transform="rotate(-0 79.53 289.69)">Tokyo</text>
+    </g>
+    <g id="f1-line2d_25">
+     <path d="M 142.53 253.99 
+L 153.03 253.99 
+L 163.53 253.99 
+" style="fill: none; stroke-dasharray: 9.25,4; stroke-dashoffset: 0; stroke: #8A94A3; stroke-width: 2.5"/>
+     <g>
+      <use xlink:href="#f1-m4e5e1b8dcd" x="153.03" y="253.99" style="fill: #8A94A3; stroke: #8A94A3"/>
+     </g>
+    </g>
+    <g id="f1-text_22">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="171.94" y="257.66" transform="rotate(-0 171.94 257.66)">Japan</text>
+    </g>
+    <g id="f1-line2d_26">
+     <path d="M 142.53 270 
+L 153.03 270 
+L 163.53 270 
+" style="fill: none; stroke: #6E86B8; stroke-width: 2.5; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#f1-m0c19d234c8" x="153.03" y="270" style="fill: #6E86B8; stroke: #6E86B8"/>
+     </g>
+    </g>
+    <g id="f1-text_23">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="171.94" y="273.68" transform="rotate(-0 171.94 273.68)">Chubu</text>
+    </g>
+    <g id="f1-line2d_27">
+     <path d="M 142.53 286.01 
+L 153.03 286.01 
+L 163.53 286.01 
+" style="fill: none; stroke: #C49A3C; stroke-width: 2.5; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#f1-mc6b65536ef" x="153.03" y="286.01" style="fill: #C49A3C; stroke: #C49A3C"/>
+     </g>
+    </g>
+    <g id="f1-text_24">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="171.94" y="289.69" transform="rotate(-0 171.94 289.69)">Kyushu</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="f1-pae9083d09b">
+   <rect x="40.69" y="24.34" width="558" height="277.2"/>
+  </clipPath>
+ </defs>
+</svg></div></figure>
+<p>Figure 1 is the actual clearing price of primary offline, the battery seat (the average weighted by awarded volume). From April to June a bid reaching the ¥15 cap was there in almost every slot, and the nationwide average sat around ¥12 without moving. Bidding was short, so a bid placed at the cap still cleared.</p>
+<p>From July it changes. In Kyushu, with the cap still at ¥15, August fell as far as ¥4.9. Chubu and Kansai came into the ¥9 range. Meanwhile, ¥11–14 is where Tokyo and Tohoku stayed. As 47-3 showed, the battery seat was still half open even in August. Even so, area by area as bidding grew, the price began to be set by bids rather than by the cap. The way bids are placed changed without waiting for the seats to fill.</p>
+<p>When the cap came down to ¥10 on 1 September, the nationwide average was ¥6.8. Tokyo at ¥8.6 and Tohoku at ¥9.4 sit just under the new cap, while Kyushu at ¥3.4, Chugoku at ¥4.6 and Kansai at ¥5.1 sit away from it. At the same time as the rules lowered the ceiling, the market itself has begun to set the price.</p>
+<h2>2. The floor is "what the battery could earn elsewhere"</h2>
+<figure class="c47 wide" id="f2" style="--fw:888px;--fmin:848px"><p class="c47hint">← scroll horizontally →</p><div class="c47scroll"><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 847.44 408.34" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:c2pa="http://c2pa.org/manifest" preserveAspectRatio="xMidYMid meet" role="img" stroke-linejoin="round" stroke-linecap="butt" style="width:100%;height:auto;display:block">
+ <g id="f2-figure_1">
+  <g id="f2-patch_1">
+   <path d="M 0 408.34 
+L 847.44 408.34 
+L 847.44 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="f2-axes_1">
+   <g id="f2-patch_2">
+    <path d="M 114.84 340.42 
+L 481.2 340.42 
+L 481.2 52.13 
+L 114.84 52.13 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="f2-FillBetweenPolyCollection_1">
+    <path d="M 237.79 233.95 
+L 237.79 340.42 
+L 237.79 233.95 
+L 237.79 233.95 
+z
+" clip-path="url(#f2-pa133d9bdc2)" style="fill: #4599c6; fill-opacity: 0.35; stroke: #4599c6; stroke-opacity: 0.35"/>
+    <path d="M 273.22 235.97 
+L 273.22 340.42 
+L 280.31 340.42 
+L 287.39 340.42 
+L 294.48 340.42 
+L 301.56 340.42 
+L 308.65 340.42 
+L 315.74 340.42 
+L 315.74 233.1 
+L 315.74 233.1 
+L 308.65 247.7 
+L 301.56 249.53 
+L 294.48 236.99 
+L 287.39 236.91 
+L 280.31 237.89 
+L 273.22 235.97 
+z
+" clip-path="url(#f2-pa133d9bdc2)" style="fill: #4599c6; fill-opacity: 0.35; stroke: #4599c6; stroke-opacity: 0.35"/>
+   </g>
+   <g id="f2-FillBetweenPolyCollection_2">
+    <defs>
+     <path id="f2-ma1874dfb59" d="M 365.34 -254.59 
+L 365.34 -67.93 
+L 372.43 -67.93 
+L 379.51 -67.93 
+L 386.6 -67.93 
+L 393.69 -67.93 
+L 400.77 -67.93 
+L 407.86 -67.93 
+L 414.95 -67.93 
+L 414.95 -259.12 
+L 414.95 -259.12 
+L 407.86 -269.69 
+L 400.77 -283.05 
+L 393.69 -289.69 
+L 386.6 -283.78 
+L 379.51 -276.83 
+L 372.43 -260.8 
+L 365.34 -254.59 
+z
+" style="stroke: #C49A3C; stroke-opacity: 0.4"/>
+    </defs>
+    <g clip-path="url(#f2-pa133d9bdc2)">
+     <use xlink:href="#f2-ma1874dfb59" x="0" y="408.34" style="fill: #C49A3C; fill-opacity: 0.4; stroke: #C49A3C; stroke-opacity: 0.4"/>
+    </g>
+   </g>
+   <g id="f2-matplotlib.axis_1">
+    <g id="f2-xtick_1">
+     <g id="f2-line2d_1">
+      <defs>
+       <path id="f2-m35295ff84a" d="M 0 0 
+L 0 3.5 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#f2-m35295ff84a" x="131.49" y="340.42" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_1">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="131.49" y="356.17" transform="rotate(-0 131.49 356.17)">0h</text>
+     </g>
+    </g>
+    <g id="f2-xtick_2">
+     <g id="f2-line2d_2">
+      <g>
+       <use xlink:href="#f2-m35295ff84a" x="216.53" y="340.42" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_2">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="216.53" y="356.17" transform="rotate(-0 216.53 356.17)">6h</text>
+     </g>
+    </g>
+    <g id="f2-xtick_3">
+     <g id="f2-line2d_3">
+      <g>
+       <use xlink:href="#f2-m35295ff84a" x="301.56" y="340.42" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_3">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="301.56" y="356.17" transform="rotate(-0 301.56 356.17)">12h</text>
+     </g>
+    </g>
+    <g id="f2-xtick_4">
+     <g id="f2-line2d_4">
+      <g>
+       <use xlink:href="#f2-m35295ff84a" x="386.6" y="340.42" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_4">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="386.6" y="356.17" transform="rotate(-0 386.6 356.17)">18h</text>
+     </g>
+    </g>
+    <g id="f2-xtick_5">
+     <g id="f2-line2d_5">
+      <g>
+       <use xlink:href="#f2-m35295ff84a" x="464.55" y="340.42" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_5">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="464.55" y="356.17" transform="rotate(-0 464.55 356.17)">24h</text>
+     </g>
+    </g>
+   </g>
+   <g id="f2-matplotlib.axis_2">
+    <g id="f2-ytick_1">
+     <g id="f2-line2d_6">
+      <defs>
+       <path id="f2-maaa5d0d15a" d="M 0 0 
+L -3.5 0 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="114.84" y="340.42" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_6">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="107.84" y="344.4" transform="rotate(-0 107.84 344.4)">0</text>
+     </g>
+    </g>
+    <g id="f2-ytick_2">
+     <g id="f2-line2d_7">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="114.84" y="296.47" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_7">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="107.84" y="300.45" transform="rotate(-0 107.84 300.45)">5</text>
+     </g>
+    </g>
+    <g id="f2-ytick_3">
+     <g id="f2-line2d_8">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="114.84" y="252.52" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_8">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="107.84" y="256.5" transform="rotate(-0 107.84 256.5)">10</text>
+     </g>
+    </g>
+    <g id="f2-ytick_4">
+     <g id="f2-line2d_9">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="114.84" y="208.57" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_9">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="107.84" y="212.55" transform="rotate(-0 107.84 212.55)">15</text>
+     </g>
+    </g>
+    <g id="f2-ytick_5">
+     <g id="f2-line2d_10">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="114.84" y="164.62" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_10">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="107.84" y="168.6" transform="rotate(-0 107.84 168.6)">20</text>
+     </g>
+    </g>
+    <g id="f2-ytick_6">
+     <g id="f2-line2d_11">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="114.84" y="120.67" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_11">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="107.84" y="124.65" transform="rotate(-0 107.84 124.65)">25</text>
+     </g>
+    </g>
+    <g id="f2-ytick_7">
+     <g id="f2-line2d_12">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="114.84" y="76.72" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_12">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="107.84" y="80.7" transform="rotate(-0 107.84 80.7)">30</text>
+     </g>
+    </g>
+    <g id="f2-text_13">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="90.22" y="196.27" transform="rotate(-90 90.22 196.27)">JPY/kWh</text>
+    </g>
+   </g>
+   <g id="f2-line2d_13">
+    <path d="M 131.49 195.67 
+L 138.58 202.34 
+L 145.67 207.96 
+L 152.75 208.47 
+L 159.84 207.37 
+L 166.92 204.48 
+L 174.01 202.05 
+L 181.1 199.62 
+L 188.18 198.64 
+L 195.27 196.07 
+L 202.36 194.56 
+L 209.44 202.4 
+L 216.53 209.34 
+L 223.62 222.94 
+L 230.7 232.77 
+L 237.79 233.95 
+L 244.87 230.05 
+L 251.96 225.79 
+L 259.05 227.24 
+L 266.13 230.35 
+L 273.22 235.97 
+L 280.31 237.89 
+L 287.39 236.91 
+L 294.48 236.99 
+L 301.56 249.53 
+L 308.65 247.7 
+L 315.74 233.1 
+L 322.82 222.32 
+L 329.91 215.46 
+L 337 204.99 
+L 344.08 202.22 
+L 351.17 179.92 
+L 358.26 175.23 
+L 365.34 153.75 
+L 372.43 147.54 
+L 379.51 131.52 
+L 386.6 124.56 
+L 393.69 118.66 
+L 400.77 125.29 
+L 407.86 138.65 
+L 414.95 149.22 
+L 422.03 161.26 
+L 429.12 168.78 
+L 436.21 168.74 
+L 443.29 172.84 
+L 450.38 179.47 
+L 457.46 181.22 
+L 464.55 193.67 
+" clip-path="url(#f2-pa133d9bdc2)" style="fill: none; stroke: #325197; stroke-width: 2.5; stroke-linecap: square"/>
+   </g>
+   <g id="f2-patch_3">
+    <path d="M 114.84 340.42 
+L 114.84 52.13 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f2-patch_4">
+    <path d="M 114.84 340.42 
+L 481.2 340.42 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f2-patch_5">
+    <path d="M 329.91 230.83 
+Q 329.91 224.71 329.91 218.58 
+" style="fill: none; stroke: #5A6577; stroke-linecap: round"/>
+    <path d="M 331.91 226.83 
+L 329.91 230.83 
+L 327.91 226.83 
+" style="fill: none; stroke: #5A6577; stroke-linecap: round"/>
+    <path d="M 327.91 222.58 
+L 329.91 218.58 
+L 331.91 222.58 
+" style="fill: none; stroke: #5A6577; stroke-linecap: round"/>
+   </g>
+   <g id="f2-text_14">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; fill: #5A6577" transform="translate(337 221.46)">This gap</text>
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; fill: #5A6577" transform="translate(337 233.9)">"what batteries earn elsewhere"</text>
+   </g>
+   <g id="f2-text_15">
+    <text style="font-size: 12px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #1B2A4A" x="114.84" y="46.13" transform="rotate(-0 114.84 46.13)">Shape of a JEPX day (FY2026 Apr–Sep average, system price)</text>
+   </g>
+   <g id="f2-legend_1">
+    <g id="f2-patch_6">
+     <path d="M 124.29 69.94 
+L 145.29 69.94 
+L 145.29 62.59 
+L 124.29 62.59 
+z
+" style="fill: #4599c6; fill-opacity: 0.35; stroke: #4599c6; stroke-opacity: 0.35; stroke-linejoin: miter"/>
+    </g>
+    <g id="f2-text_16">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="153.69" y="69.94" transform="rotate(-0 153.69 69.94)">8 cheap slots: charge (buy)</text>
+    </g>
+    <g id="f2-patch_7">
+     <path d="M 124.29 85.95 
+L 145.29 85.95 
+L 145.29 78.6 
+L 124.29 78.6 
+z
+" style="fill: #C49A3C; fill-opacity: 0.4; stroke: #C49A3C; stroke-opacity: 0.4; stroke-linejoin: miter"/>
+    </g>
+    <g id="f2-text_17">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="153.69" y="85.95" transform="rotate(-0 153.69 85.95)">8 top slots: discharge (sell)</text>
+    </g>
+   </g>
+  </g>
+  <g id="f2-axes_2">
+   <g id="f2-patch_8">
+    <path d="M 547.15 340.42 
+L 840.24 340.42 
+L 840.24 52.13 
+L 547.15 52.13 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="f2-patch_9">
+    <path d="M 547.15 76.05 
+L 784.41 76.05 
+L 784.41 65.23 
+L 547.15 65.23 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #C49A3C"/>
+   </g>
+   <g id="f2-patch_10">
+    <path d="M 547.15 106.11 
+L 776.04 106.11 
+L 776.04 95.29 
+L 547.15 95.29 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #C49A3C"/>
+   </g>
+   <g id="f2-patch_11">
+    <path d="M 547.15 136.16 
+L 739.75 136.16 
+L 739.75 125.34 
+L 547.15 125.34 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #C49A3C"/>
+   </g>
+   <g id="f2-patch_12">
+    <path d="M 547.15 166.22 
+L 736.96 166.22 
+L 736.96 155.4 
+L 547.15 155.4 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #C49A3C"/>
+   </g>
+   <g id="f2-patch_13">
+    <path d="M 547.15 196.27 
+L 731.38 196.27 
+L 731.38 185.45 
+L 547.15 185.45 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #C49A3C"/>
+   </g>
+   <g id="f2-patch_14">
+    <path d="M 547.15 226.33 
+L 731.38 226.33 
+L 731.38 215.51 
+L 547.15 215.51 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #C49A3C"/>
+   </g>
+   <g id="f2-patch_15">
+    <path d="M 547.15 256.38 
+L 725.79 256.38 
+L 725.79 245.56 
+L 547.15 245.56 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #C49A3C"/>
+   </g>
+   <g id="f2-patch_16">
+    <path d="M 547.15 286.44 
+L 711.84 286.44 
+L 711.84 275.62 
+L 547.15 275.62 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #C49A3C"/>
+   </g>
+   <g id="f2-patch_17">
+    <path d="M 547.15 316.49 
+L 711.84 316.49 
+L 711.84 305.67 
+L 547.15 305.67 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #C49A3C"/>
+   </g>
+   <g id="f2-patch_18">
+    <path d="M 547.15 86.87 
+L 586.23 86.87 
+L 586.23 76.05 
+L 547.15 76.05 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #4599c6"/>
+   </g>
+   <g id="f2-patch_19">
+    <path d="M 547.15 116.93 
+L 586.23 116.93 
+L 586.23 106.11 
+L 547.15 106.11 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #4599c6"/>
+   </g>
+   <g id="f2-patch_20">
+    <path d="M 547.15 146.98 
+L 580.65 146.98 
+L 580.65 136.16 
+L 547.15 136.16 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #4599c6"/>
+   </g>
+   <g id="f2-patch_21">
+    <path d="M 547.15 177.04 
+L 577.85 177.04 
+L 577.85 166.22 
+L 547.15 166.22 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #4599c6"/>
+   </g>
+   <g id="f2-patch_22">
+    <path d="M 547.15 207.09 
+L 577.85 207.09 
+L 577.85 196.27 
+L 547.15 196.27 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #4599c6"/>
+   </g>
+   <g id="f2-patch_23">
+    <path d="M 547.15 237.15 
+L 577.85 237.15 
+L 577.85 226.33 
+L 547.15 226.33 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #4599c6"/>
+   </g>
+   <g id="f2-patch_24">
+    <path d="M 547.15 267.2 
+L 577.85 267.2 
+L 577.85 256.38 
+L 547.15 256.38 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #4599c6"/>
+   </g>
+   <g id="f2-patch_25">
+    <path d="M 547.15 297.26 
+L 575.06 297.26 
+L 575.06 286.44 
+L 547.15 286.44 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #4599c6"/>
+   </g>
+   <g id="f2-patch_26">
+    <path d="M 547.15 327.31 
+L 575.06 327.31 
+L 575.06 316.49 
+L 547.15 316.49 
+z
+" clip-path="url(#f2-pa363bc464c)" style="fill: #4599c6"/>
+   </g>
+   <g id="f2-matplotlib.axis_3">
+    <g id="f2-xtick_6">
+     <g id="f2-line2d_14">
+      <g>
+       <use xlink:href="#f2-m35295ff84a" x="547.15" y="340.42" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_18">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="547.15" y="355.38" transform="rotate(-0 547.15 355.38)">0</text>
+     </g>
+    </g>
+    <g id="f2-xtick_7">
+     <g id="f2-line2d_15">
+      <g>
+       <use xlink:href="#f2-m35295ff84a" x="602.98" y="340.42" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_19">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="602.98" y="355.38" transform="rotate(-0 602.98 355.38)">2</text>
+     </g>
+    </g>
+    <g id="f2-xtick_8">
+     <g id="f2-line2d_16">
+      <g>
+       <use xlink:href="#f2-m35295ff84a" x="658.8" y="340.42" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_20">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="658.8" y="355.38" transform="rotate(-0 658.8 355.38)">4</text>
+     </g>
+    </g>
+    <g id="f2-xtick_9">
+     <g id="f2-line2d_17">
+      <g>
+       <use xlink:href="#f2-m35295ff84a" x="714.63" y="340.42" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_21">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="714.63" y="355.38" transform="rotate(-0 714.63 355.38)">6</text>
+     </g>
+    </g>
+    <g id="f2-xtick_10">
+     <g id="f2-line2d_18">
+      <g>
+       <use xlink:href="#f2-m35295ff84a" x="770.46" y="340.42" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_22">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="770.46" y="355.38" transform="rotate(-0 770.46 355.38)">8</text>
+     </g>
+    </g>
+    <g id="f2-xtick_11">
+     <g id="f2-line2d_19">
+      <g>
+       <use xlink:href="#f2-m35295ff84a" x="826.28" y="340.42" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_23">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="826.28" y="355.38" transform="rotate(-0 826.28 355.38)">10</text>
+     </g>
+    </g>
+    <g id="f2-text_24">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="693.69" y="370.02" transform="rotate(-0 693.69 370.02)">JPY/ΔkW·30min</text>
+    </g>
+   </g>
+   <g id="f2-matplotlib.axis_4">
+    <g id="f2-ytick_8">
+     <g id="f2-line2d_20">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="547.15" y="76.05" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_25">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="540.15" y="80.43" transform="rotate(-0 540.15 80.43)">Tohoku</text>
+     </g>
+    </g>
+    <g id="f2-ytick_9">
+     <g id="f2-line2d_21">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="547.15" y="106.11" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_26">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="540.15" y="110.48" transform="rotate(-0 540.15 110.48)">Hokkaido</text>
+     </g>
+    </g>
+    <g id="f2-ytick_10">
+     <g id="f2-line2d_22">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="547.15" y="136.16" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_27">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="540.15" y="140.54" transform="rotate(-0 540.15 140.54)">Kyushu</text>
+     </g>
+    </g>
+    <g id="f2-ytick_11">
+     <g id="f2-line2d_23">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="547.15" y="166.22" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_28">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="540.15" y="170.59" transform="rotate(-0 540.15 170.59)">Shikoku</text>
+     </g>
+    </g>
+    <g id="f2-ytick_12">
+     <g id="f2-line2d_24">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="547.15" y="196.27" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_29">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="540.15" y="200.65" transform="rotate(-0 540.15 200.65)">Tokyo</text>
+     </g>
+    </g>
+    <g id="f2-ytick_13">
+     <g id="f2-line2d_25">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="547.15" y="226.33" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_30">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="540.15" y="230.7" transform="rotate(-0 540.15 230.7)">Chubu</text>
+     </g>
+    </g>
+    <g id="f2-ytick_14">
+     <g id="f2-line2d_26">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="547.15" y="256.38" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_31">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="540.15" y="260.76" transform="rotate(-0 540.15 260.76)">Chugoku</text>
+     </g>
+    </g>
+    <g id="f2-ytick_15">
+     <g id="f2-line2d_27">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="547.15" y="286.44" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_32">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="540.15" y="290.81" transform="rotate(-0 540.15 290.81)">Hokuriku</text>
+     </g>
+    </g>
+    <g id="f2-ytick_16">
+     <g id="f2-line2d_28">
+      <g>
+       <use xlink:href="#f2-maaa5d0d15a" x="547.15" y="316.49" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f2-text_33">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="540.15" y="320.87" transform="rotate(-0 540.15 320.87)">Kansai</text>
+     </g>
+    </g>
+   </g>
+   <g id="f2-line2d_29">
+    <path d="M 748.4 340.42 
+L 748.4 52.13 
+" clip-path="url(#f2-pa363bc464c)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #8A94A3; stroke-width: 1.2"/>
+   </g>
+   <g id="f2-patch_27">
+    <path d="M 547.15 340.42 
+L 547.15 52.13 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f2-patch_28">
+    <path d="M 547.15 340.42 
+L 840.24 340.42 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f2-text_34">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #C49A3C" x="787.2" y="73.48" transform="rotate(-0 787.2 73.48)">8.5</text>
+   </g>
+   <g id="f2-text_35">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #4599c6" x="589.02" y="84.3" transform="rotate(-0 589.02 84.3)">1.4</text>
+   </g>
+   <g id="f2-text_36">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #C49A3C" x="778.83" y="103.53" transform="rotate(-0 778.83 103.53)">8.2</text>
+   </g>
+   <g id="f2-text_37">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #4599c6" x="589.02" y="114.35" transform="rotate(-0 589.02 114.35)">1.4</text>
+   </g>
+   <g id="f2-text_38">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #C49A3C" x="742.54" y="133.59" transform="rotate(-0 742.54 133.59)">6.9</text>
+   </g>
+   <g id="f2-text_39">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #4599c6" x="583.44" y="144.41" transform="rotate(-0 583.44 144.41)">1.2</text>
+   </g>
+   <g id="f2-text_40">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #C49A3C" x="739.75" y="163.64" transform="rotate(-0 739.75 163.64)">6.8</text>
+   </g>
+   <g id="f2-text_41">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #4599c6" x="580.65" y="174.46" transform="rotate(-0 580.65 174.46)">1.1</text>
+   </g>
+   <g id="f2-text_42">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #C49A3C" x="734.17" y="193.7" transform="rotate(-0 734.17 193.7)">6.6</text>
+   </g>
+   <g id="f2-text_43">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #4599c6" x="580.65" y="204.52" transform="rotate(-0 580.65 204.52)">1.1</text>
+   </g>
+   <g id="f2-text_44">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #C49A3C" x="734.17" y="223.75" transform="rotate(-0 734.17 223.75)">6.6</text>
+   </g>
+   <g id="f2-text_45">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #4599c6" x="580.65" y="234.57" transform="rotate(-0 580.65 234.57)">1.1</text>
+   </g>
+   <g id="f2-text_46">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #C49A3C" x="728.59" y="253.81" transform="rotate(-0 728.59 253.81)">6.4</text>
+   </g>
+   <g id="f2-text_47">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #4599c6" x="580.65" y="264.63" transform="rotate(-0 580.65 264.63)">1.1</text>
+   </g>
+   <g id="f2-text_48">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #C49A3C" x="714.63" y="283.86" transform="rotate(-0 714.63 283.86)">5.9</text>
+   </g>
+   <g id="f2-text_49">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #4599c6" x="577.85" y="294.68" transform="rotate(-0 577.85 294.68)">1.0</text>
+   </g>
+   <g id="f2-text_50">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #C49A3C" x="714.63" y="313.92" transform="rotate(-0 714.63 313.92)">5.9</text>
+   </g>
+   <g id="f2-text_51">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #4599c6" x="577.85" y="324.74" transform="rotate(-0 577.85 324.74)">1.0</text>
+   </g>
+   <g id="f2-text_52">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #6C7A89" x="750.92" y="66.01" transform="rotate(-0 750.92 55.01)">¥7.21</text>
+   </g>
+   <g id="f2-text_53">
+    <text style="font-size: 12px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #1B2A4A" x="547.15" y="46.13" transform="rotate(-0 547.15 46.13)">Converted to ΔkW (4-hour battery, by area, FY2026)</text>
+   </g>
+   <g id="f2-legend_2">
+    <g id="f2-patch_29">
+     <path d="M 582.37 394.85 
+L 602.37 394.85 
+L 602.37 387.85 
+L 582.37 387.85 
+z
+" style="fill: #C49A3C"/>
+    </g>
+    <g id="f2-text_54">
+     <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="610.37" y="394.85" transform="rotate(-0 610.37 394.85)">8 evening slots</text>
+    </g>
+    <g id="f2-patch_30">
+     <path d="M 705.92 394.85 
+L 725.92 394.85 
+L 725.92 387.85 
+L 705.92 387.85 
+z
+" style="fill: #4599c6"/>
+    </g>
+    <g id="f2-text_55">
+     <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="733.92" y="394.85" transform="rotate(-0 733.92 394.85)">Over 48 slots</text>
+    </g>
+   </g>
+  </g>
+  <g id="f2-text_56">
+   <text style="font-size: 14px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #1B2A4A" x="7.2" y="18.34" transform="rotate(-0 7.2 18.34)">Figure 2 The battery floor is what JEPX pays: ¥6–8 in the evening, ~¥1 over a day</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="f2-pa133d9bdc2">
+   <rect x="114.84" y="52.13" width="366.36" height="288.29"/>
+  </clipPath>
+  <clipPath id="f2-pa363bc464c">
+   <rect x="547.15" y="52.13" width="293.09" height="288.29"/>
+  </clipPath>
+ </defs>
+</svg></div></figure>
+<p>In the hours it is not offered into the balancing market, a battery can earn on JEPX, the wholesale power market: charge in the cheap hours and discharge in the expensive ones, which is arbitrage. Selling ΔkW in the balancing market means giving up the arbitrage in those hours. So the lowest price a battery puts on ΔkW is what it could earn from arbitrage at that time. Economists abroad call this opportunity cost (what the battery could earn elsewhere).</p>
+<p>The left of Figure 2 is the shape of a JEPX day in FY2026: cheap at midday, expensive in the evening. With a 4-hour battery charging in the 8 cheap slots and discharging in the 8 expensive ones, that difference is "what it could earn elsewhere."</p>
+<p>The right converts that into ΔkW units. Looking only at the 8 evening slots, it is ¥6–8 depending on the area. Tohoku and Hokkaido are in the ¥8 range, above the next cap of ¥7.21. Averaged across 48 slots, on the other hand, it is in the ¥1 range. Late at night there is no arbitrage opportunity, so the floor in those hours approaches zero.</p>
+<p>So the floor is not one line but the shape of a day: high in the evening, low late at night.</p>
+<h2>3. The areas where bidding grew are already in that shape</h2>
+<figure class="c47" id="f3"><div class="c47scroll"><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0.00 0.00 649.38 315.93" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:c2pa="http://c2pa.org/manifest" preserveAspectRatio="xMidYMid meet" role="img" stroke-linejoin="round" stroke-linecap="butt" style="width:100%;height:auto;display:block">
+ <g id="f3-figure_1">
+  <g id="f3-patch_1">
+   <path d="M 0 315.93 
+L 605.88 315.93 
+L 605.88 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="f3-axes_1">
+   <g id="f3-patch_2">
+    <path d="M 40.69 290.46 
+L 598.68 290.46 
+L 598.68 24.34 
+L 40.69 24.34 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="f3-matplotlib.axis_1">
+    <g id="f3-xtick_1">
+     <g id="f3-line2d_1">
+      <defs>
+       <path id="f3-m5ad450a575" d="M 0 0 
+L 0 3.5 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#f3-m5ad450a575" x="66.05" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_1">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="66.05" y="306.21" transform="rotate(-0 66.05 306.21)">0h</text>
+     </g>
+    </g>
+    <g id="f3-xtick_2">
+     <g id="f3-line2d_2">
+      <g>
+       <use xlink:href="#f3-m5ad450a575" x="195.57" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_2">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="195.57" y="306.21" transform="rotate(-0 195.57 306.21)">6h</text>
+     </g>
+    </g>
+    <g id="f3-xtick_3">
+     <g id="f3-line2d_3">
+      <g>
+       <use xlink:href="#f3-m5ad450a575" x="325.08" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_3">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="325.08" y="306.21" transform="rotate(-0 325.08 306.21)">12h</text>
+     </g>
+    </g>
+    <g id="f3-xtick_4">
+     <g id="f3-line2d_4">
+      <g>
+       <use xlink:href="#f3-m5ad450a575" x="454.6" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_4">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="454.6" y="306.21" transform="rotate(-0 454.6 306.21)">18h</text>
+     </g>
+    </g>
+    <g id="f3-xtick_5">
+     <g id="f3-line2d_5">
+      <g>
+       <use xlink:href="#f3-m5ad450a575" x="573.32" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_5">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="573.32" y="306.21" transform="rotate(-0 573.32 306.21)">24h</text>
+     </g>
+    </g>
+   </g>
+   <g id="f3-matplotlib.axis_2">
+    <g id="f3-ytick_1">
+     <g id="f3-line2d_6">
+      <defs>
+       <path id="f3-m165d02d3ce" d="M 0 0 
+L -3.5 0 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#f3-m165d02d3ce" x="40.69" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_6">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="294.43" transform="rotate(-0 33.69 294.43)">0</text>
+     </g>
+    </g>
+    <g id="f3-ytick_2">
+     <g id="f3-line2d_7">
+      <g>
+       <use xlink:href="#f3-m165d02d3ce" x="40.69" y="259.15" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_7">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="263.13" transform="rotate(-0 33.69 263.13)">2</text>
+     </g>
+    </g>
+    <g id="f3-ytick_3">
+     <g id="f3-line2d_8">
+      <g>
+       <use xlink:href="#f3-m165d02d3ce" x="40.69" y="227.84" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_8">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="231.82" transform="rotate(-0 33.69 231.82)">4</text>
+     </g>
+    </g>
+    <g id="f3-ytick_4">
+     <g id="f3-line2d_9">
+      <g>
+       <use xlink:href="#f3-m165d02d3ce" x="40.69" y="196.53" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_9">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="200.51" transform="rotate(-0 33.69 200.51)">6</text>
+     </g>
+    </g>
+    <g id="f3-ytick_5">
+     <g id="f3-line2d_10">
+      <g>
+       <use xlink:href="#f3-m165d02d3ce" x="40.69" y="165.23" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_10">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="169.21" transform="rotate(-0 33.69 169.21)">8</text>
+     </g>
+    </g>
+    <g id="f3-ytick_6">
+     <g id="f3-line2d_11">
+      <g>
+       <use xlink:href="#f3-m165d02d3ce" x="40.69" y="133.92" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_11">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="137.9" transform="rotate(-0 33.69 137.9)">10</text>
+     </g>
+    </g>
+    <g id="f3-ytick_7">
+     <g id="f3-line2d_12">
+      <g>
+       <use xlink:href="#f3-m165d02d3ce" x="40.69" y="102.61" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_12">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="106.59" transform="rotate(-0 33.69 106.59)">12</text>
+     </g>
+    </g>
+    <g id="f3-ytick_8">
+     <g id="f3-line2d_13">
+      <g>
+       <use xlink:href="#f3-m165d02d3ce" x="40.69" y="71.3" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_13">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="75.28" transform="rotate(-0 33.69 75.28)">14</text>
+     </g>
+    </g>
+    <g id="f3-ytick_9">
+     <g id="f3-line2d_14">
+      <g>
+       <use xlink:href="#f3-m165d02d3ce" x="40.69" y="40" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f3-text_14">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="33.69" y="43.98" transform="rotate(-0 33.69 43.98)">16</text>
+     </g>
+    </g>
+    <g id="f3-text_15">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="16.07" y="157.4" transform="rotate(-90 16.07 157.4)">JPY/ΔkW·30min (award-weighted average)</text>
+    </g>
+   </g>
+   <g id="f3-line2d_15">
+    <path d="M 66.05 95.99 
+L 76.84 104.53 
+L 87.63 103.2 
+L 98.43 110.95 
+L 109.22 114.09 
+L 120.01 114.44 
+L 130.81 118.29 
+L 141.6 117.42 
+L 152.39 116.87 
+L 163.19 118.84 
+L 173.98 118.97 
+L 184.77 119.69 
+L 195.57 112.32 
+L 206.36 109.8 
+L 217.15 106.65 
+L 227.94 106.81 
+L 238.74 109.91 
+L 249.53 109.58 
+L 260.32 111.98 
+L 271.12 113.46 
+L 281.91 122.88 
+L 292.7 120.83 
+L 303.5 116.8 
+L 314.29 115.02 
+L 325.08 108.55 
+L 335.87 109.37 
+L 346.67 113.59 
+L 357.46 115.8 
+L 368.25 108.32 
+L 379.05 108.02 
+L 389.84 110.02 
+L 400.63 107.47 
+L 411.43 109.77 
+L 422.22 109.47 
+L 433.01 106.38 
+L 443.8 107.02 
+L 454.6 108.94 
+L 465.39 111.7 
+L 476.18 106.87 
+L 486.98 106.46 
+L 497.77 109.95 
+L 508.56 110.97 
+L 519.36 116.91 
+L 530.15 109.27 
+L 540.94 105.3 
+L 551.74 109.88 
+L 562.53 108.16 
+L 573.32 103.79 
+" clip-path="url(#f3-p961bb85364)" style="fill: none; stroke: #4599c6; stroke-width: 2.5; stroke-linecap: square"/>
+   </g>
+   <g id="f3-line2d_16">
+    <path d="M 66.05 192.55 
+L 76.84 182.29 
+L 87.63 193.3 
+L 98.43 195.51 
+L 109.22 182.75 
+L 120.01 194.63 
+L 130.81 204.05 
+L 141.6 196.52 
+L 152.39 199.47 
+L 163.19 199.03 
+L 173.98 224.24 
+L 184.77 220.27 
+L 195.57 142.03 
+L 206.36 140.8 
+L 217.15 122.03 
+L 227.94 132.06 
+L 238.74 119.45 
+L 249.53 120.73 
+L 260.32 110.8 
+L 271.12 112.52 
+L 281.91 117.24 
+L 292.7 122.16 
+L 303.5 113.96 
+L 314.29 118.83 
+L 325.08 121.04 
+L 335.87 125.13 
+L 346.67 122.05 
+L 357.46 119.19 
+L 368.25 119.51 
+L 379.05 117.67 
+L 389.84 117.47 
+L 400.63 118.78 
+L 411.43 127.13 
+L 422.22 132.15 
+L 433.01 156.14 
+L 443.8 165.32 
+L 454.6 167.73 
+L 465.39 170.69 
+L 476.18 169.1 
+L 486.98 170.15 
+L 497.77 181.04 
+L 508.56 175.59 
+L 519.36 175.99 
+L 530.15 182.17 
+L 540.94 191.14 
+L 551.74 177.48 
+L 562.53 146.09 
+L 573.32 133.07 
+" clip-path="url(#f3-p961bb85364)" style="fill: none; stroke: #325197; stroke-width: 2.5; stroke-linecap: square"/>
+   </g>
+   <g id="f3-line2d_17">
+    <path d="M 66.05 259.21 
+L 76.84 205.45 
+L 87.63 212.46 
+L 98.43 198.34 
+L 109.22 191.3 
+L 120.01 205.35 
+L 130.81 195.53 
+L 141.6 203.46 
+L 152.39 204.77 
+L 163.19 226.21 
+L 173.98 213.48 
+L 184.77 237.65 
+L 195.57 179 
+L 206.36 179.66 
+L 217.15 176.61 
+L 227.94 172.44 
+L 238.74 156.78 
+L 249.53 158.55 
+L 260.32 176.09 
+L 271.12 172.83 
+L 281.91 197.29 
+L 292.7 189.69 
+L 303.5 192.82 
+L 314.29 177.89 
+L 325.08 202.84 
+L 335.87 214.37 
+L 346.67 208.1 
+L 357.46 170.96 
+L 368.25 188.15 
+L 379.05 186.28 
+L 389.84 179 
+L 400.63 183.7 
+L 411.43 179.82 
+L 422.22 179.22 
+L 433.01 180.59 
+L 443.8 179.79 
+L 454.6 183.23 
+L 465.39 185.3 
+L 476.18 190.05 
+L 486.98 191.24 
+L 497.77 192.2 
+L 508.56 198.83 
+L 519.36 193.02 
+L 530.15 188.87 
+L 540.94 195.53 
+L 551.74 198.26 
+L 562.53 194.79 
+L 573.32 168.41 
+" clip-path="url(#f3-p961bb85364)" style="fill: none; stroke: #1A7A4C; stroke-width: 2.5; stroke-linecap: square"/>
+   </g>
+   <g id="f3-line2d_18">
+    <path d="M 66.05 214.6 
+L 76.84 207.31 
+L 87.63 205.74 
+L 98.43 200.92 
+L 109.22 206.5 
+L 120.01 201.04 
+L 130.81 217.61 
+L 141.6 216.21 
+L 152.39 220.96 
+L 163.19 225.67 
+L 173.98 226.47 
+L 184.77 228.08 
+L 195.57 226.31 
+L 206.36 227.42 
+L 217.15 208.33 
+L 227.94 223.4 
+L 238.74 221.54 
+L 249.53 222.79 
+L 260.32 219.14 
+L 271.12 225.3 
+L 281.91 226.22 
+L 292.7 226 
+L 303.5 232.32 
+L 314.29 223.57 
+L 325.08 237.01 
+L 335.87 235.29 
+L 346.67 230.16 
+L 357.46 224.88 
+L 368.25 209.07 
+L 379.05 206.08 
+L 389.84 200.41 
+L 400.63 194.42 
+L 411.43 196.17 
+L 422.22 196.65 
+L 433.01 199.17 
+L 443.8 200.11 
+L 454.6 192.5 
+L 465.39 197.51 
+L 476.18 202.21 
+L 486.98 204.88 
+L 497.77 204.93 
+L 508.56 210.24 
+L 519.36 210.79 
+L 530.15 202.25 
+L 540.94 203.73 
+L 551.74 215.71 
+L 562.53 213.06 
+L 573.32 214.22 
+" clip-path="url(#f3-p961bb85364)" style="fill: none; stroke: #C49A3C; stroke-width: 2.5; stroke-linecap: square"/>
+   </g>
+   <g id="f3-line2d_19">
+    <path d="M 40.69 55.65 
+L 598.68 55.65 
+" clip-path="url(#f3-p961bb85364)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #8A94A3"/>
+   </g>
+   <g id="f3-patch_3">
+    <path d="M 40.69 290.46 
+L 40.69 24.34 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f3-patch_4">
+    <path d="M 40.69 290.46 
+L 598.68 290.46 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f3-text_16">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #6C7A89" x="66.05" y="50.95" transform="rotate(-0 66.05 50.95)">Cap ¥15 (as of August)</text>
+   </g>
+   <g id="f3-text_17">
+    <text style="font-size: 14px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #1B2A4A" x="40.69" y="18.34" transform="rotate(-0 40.69 18.34)">Figure 3 Full areas took the shape "high by day, cheap by night" (primary offline, August 2026)</text>
+   </g>
+   <g id="f3-legend_1">
+    <g id="f3-line2d_20">
+     <path d="M 50.59 274.19 
+L 61.59 274.19 
+L 72.58 274.19 
+" style="fill: none; stroke: #4599c6; stroke-width: 2.5; stroke-linecap: square"/>
+    </g>
+    <g id="f3-text_18">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="81.39" y="278.04" transform="rotate(-0 81.39 278.04)">Tokyo</text>
+    </g>
+    <g id="f3-line2d_21">
+     <path d="M 125.39 274.19 
+L 136.38 274.19 
+L 147.38 274.19 
+" style="fill: none; stroke: #325197; stroke-width: 2.5; stroke-linecap: square"/>
+    </g>
+    <g id="f3-text_19">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="156.19" y="278.04" transform="rotate(-0 156.19 278.04)">Kansai</text>
+    </g>
+    <g id="f3-line2d_22">
+     <path d="M 200.19 274.19 
+L 211.19 274.19 
+L 222.19 274.19 
+" style="fill: none; stroke: #1A7A4C; stroke-width: 2.5; stroke-linecap: square"/>
+    </g>
+    <g id="f3-text_20">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="230.99" y="278.04" transform="rotate(-0 230.99 278.04)">Chugoku</text>
+    </g>
+    <g id="f3-line2d_23">
+     <path d="M 274.99 274.19 
+L 285.99 274.19 
+L 296.99 274.19 
+" style="fill: none; stroke: #C49A3C; stroke-width: 2.5; stroke-linecap: square"/>
+    </g>
+    <g id="f3-text_21">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="305.79" y="278.04" transform="rotate(-0 305.79 278.04)">Kyushu</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="f3-p961bb85364">
+   <rect x="40.69" y="24.34" width="558" height="266.11"/>
+  </clipPath>
+ </defs>
+</svg></div></figure>
+<p>Figure 3 lines up the primary offline price for August 2026 by time of day. Tokyo is almost flat across all slots at ¥11–12. Kansai, Chugoku and Kyushu, where bidding grew, have taken the shape of high by day and cheap by night. Kansai is in the ¥11 range by day and around ¥6 late at night.</p>
+<p>It is high by day because that is when the battery is busy charging. It is cheap at night because there is nothing else to do. When bidding grows, the price does not collapse uniformly; it takes the shape of the battery's own day. What happened overseas is happening the same way in Japan's 30-minute slots.</p>
+<p>The median of the lowest awarded price (the cheapest bid to clear in that hour) is ¥2.4–3.0 in Kyushu, ¥1.4–2.5 in Kansai and ¥2.6–3.5 in Tokyo. That sits exactly between Figure 2's "averaged across 48 slots" (¥1.0–1.4) and its "evening" figure (¥6–8).</p>
+<h2>4. The ladder of ceiling and floor</h2>
+<figure class="c47" id="f4"><div class="c47scroll"><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 575.17 374.53" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:c2pa="http://c2pa.org/manifest" preserveAspectRatio="xMidYMid meet" role="img" stroke-linejoin="round" stroke-linecap="butt" style="width:100%;height:auto;display:block">
+ <g id="f4-figure_1">
+  <g id="f4-patch_1">
+   <path d="M 0 374.53 
+L 575.17 374.53 
+L 575.17 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="f4-axes_1">
+   <g id="f4-patch_2">
+    <path d="M 9.97 334.81 
+L 567.98 334.81 
+L 567.98 24.34 
+L 9.97 24.34 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="f4-patch_3">
+    <path d="M 9.97 59.02 
+L 338.21 59.02 
+L 338.21 38.46 
+L 9.97 38.46 
+z
+" clip-path="url(#f4-p04fd386377)" style="fill: #8A94A3; opacity: 0.6"/>
+   </g>
+   <g id="f4-patch_4">
+    <path d="M 9.97 96.4 
+L 246.63 96.4 
+L 246.63 75.84 
+L 9.97 75.84 
+z
+" clip-path="url(#f4-p04fd386377)" style="fill: #8A94A3; opacity: 0.6"/>
+   </g>
+   <g id="f4-patch_5">
+    <path d="M 9.97 133.78 
+L 246.3 133.78 
+L 246.3 113.22 
+L 9.97 113.22 
+z
+" clip-path="url(#f4-p04fd386377)" style="fill: #C49A3C; opacity: 0.9"/>
+   </g>
+   <g id="f4-patch_6">
+    <path d="M 9.97 171.16 
+L 170.81 171.16 
+L 170.81 150.6 
+L 9.97 150.6 
+z
+" clip-path="url(#f4-p04fd386377)" style="fill: #C49A3C; opacity: 0.9"/>
+   </g>
+   <g id="f4-patch_7">
+    <path d="M 9.97 208.55 
+L 92.03 208.55 
+L 92.03 187.99 
+L 9.97 187.99 
+z
+" clip-path="url(#f4-p04fd386377)" style="fill: #C49A3C; opacity: 0.9"/>
+   </g>
+   <g id="f4-patch_8">
+    <path d="M 9.97 245.93 
+L 49.36 245.93 
+L 49.36 225.37 
+L 9.97 225.37 
+z
+" clip-path="url(#f4-p04fd386377)" style="fill: #C49A3C; opacity: 0.9"/>
+   </g>
+   <g id="f4-patch_9">
+    <path d="M 9.97 283.31 
+L 24.75 283.31 
+L 24.75 262.75 
+L 9.97 262.75 
+z
+" clip-path="url(#f4-p04fd386377)" style="fill: #4599c6; opacity: 0.9"/>
+   </g>
+   <g id="f4-patch_10">
+    <path d="M 9.97 320.7 
+L 13.26 320.7 
+L 13.26 300.13 
+L 9.97 300.13 
+z
+" clip-path="url(#f4-p04fd386377)" style="fill: #4599c6; opacity: 0.9"/>
+   </g>
+   <g id="f4-matplotlib.axis_1">
+    <g id="f4-xtick_1">
+     <g id="f4-line2d_1">
+      <defs>
+       <path id="f4-m57e5183e84" d="M 0 0 
+L 0 3.5 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#f4-m57e5183e84" x="9.97" y="334.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f4-text_1">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="9.97" y="349.77" transform="rotate(-0 9.97 349.77)">0</text>
+     </g>
+    </g>
+    <g id="f4-xtick_2">
+     <g id="f4-line2d_2">
+      <g>
+       <use xlink:href="#f4-m57e5183e84" x="75.62" y="334.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f4-text_2">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="75.62" y="349.77" transform="rotate(-0 75.62 349.77)">2</text>
+     </g>
+    </g>
+    <g id="f4-xtick_3">
+     <g id="f4-line2d_3">
+      <g>
+       <use xlink:href="#f4-m57e5183e84" x="141.27" y="334.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f4-text_3">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="141.27" y="349.77" transform="rotate(-0 141.27 349.77)">4</text>
+     </g>
+    </g>
+    <g id="f4-xtick_4">
+     <g id="f4-line2d_4">
+      <g>
+       <use xlink:href="#f4-m57e5183e84" x="206.92" y="334.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f4-text_4">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="206.92" y="349.77" transform="rotate(-0 206.92 349.77)">6</text>
+     </g>
+    </g>
+    <g id="f4-xtick_5">
+     <g id="f4-line2d_5">
+      <g>
+       <use xlink:href="#f4-m57e5183e84" x="272.56" y="334.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f4-text_5">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="272.56" y="349.77" transform="rotate(-0 272.56 349.77)">8</text>
+     </g>
+    </g>
+    <g id="f4-xtick_6">
+     <g id="f4-line2d_6">
+      <g>
+       <use xlink:href="#f4-m57e5183e84" x="338.21" y="334.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f4-text_6">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="338.21" y="349.77" transform="rotate(-0 338.21 349.77)">10</text>
+     </g>
+    </g>
+    <g id="f4-xtick_7">
+     <g id="f4-line2d_7">
+      <g>
+       <use xlink:href="#f4-m57e5183e84" x="403.86" y="334.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f4-text_7">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="403.86" y="349.77" transform="rotate(-0 403.86 349.77)">12</text>
+     </g>
+    </g>
+    <g id="f4-xtick_8">
+     <g id="f4-line2d_8">
+      <g>
+       <use xlink:href="#f4-m57e5183e84" x="469.5" y="334.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f4-text_8">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="469.5" y="349.77" transform="rotate(-0 469.5 349.77)">14</text>
+     </g>
+    </g>
+    <g id="f4-xtick_9">
+     <g id="f4-line2d_9">
+      <g>
+       <use xlink:href="#f4-m57e5183e84" x="535.15" y="334.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f4-text_9">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="535.15" y="349.77" transform="rotate(-0 535.15 349.77)">16</text>
+     </g>
+    </g>
+    <g id="f4-text_10">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="288.98" y="364.81" transform="rotate(-0 288.98 364.81)">JPY/ΔkW·30min</text>
+    </g>
+   </g>
+   <g id="f4-matplotlib.axis_2"/>
+   <g id="f4-patch_11">
+    <path d="M 9.97 334.81 
+L 9.97 24.34 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f4-patch_12">
+    <path d="M 9.97 334.81 
+L 567.98 334.81 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f4-text_11">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #2C3E50" x="343.13" y="51.85" transform="rotate(-0 343.13 51.85)">Price cap (from 9/1)</text>
+   </g>
+   <g id="f4-text_12">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #2C3E50" x="251.56" y="89.24" transform="rotate(-0 251.56 89.24)">Next step (conditional)</text>
+   </g>
+   <g id="f4-text_13">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #2C3E50" x="251.23" y="126.62" transform="rotate(-0 251.23 126.62)">Battery's evening earnings elsewhere (¥6–8 by area)</text>
+   </g>
+   <g id="f4-text_14">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #2C3E50" x="175.73" y="164" transform="rotate(-0 175.73 164)">Kyushu actual (August, cap still ¥15)</text>
+   </g>
+   <g id="f4-text_15">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #2C3E50" x="96.96" y="201.38" transform="rotate(-0 96.96 201.38)">Median lowest award (¥1.4–3.5)</text>
+   </g>
+   <g id="f4-text_16">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #2C3E50" x="54.29" y="238.77" transform="rotate(-0 54.29 238.77)">Battery's daily-average earnings elsewhere (¥1.0–1.4)</text>
+   </g>
+   <g id="f4-text_17">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #2C3E50" x="29.67" y="276.15" transform="rotate(-0 29.67 276.15)">Pumped bilateral (¥0.2–0.7, per 30min)</text>
+   </g>
+   <g id="f4-text_18">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #2C3E50" x="18.18" y="313.53" transform="rotate(-0 18.18 313.53)">Thermal (start-up settled ex post; can bid near zero)</text>
+   </g>
+   <g id="f4-text_19">
+    <text style="font-size: 14px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #1B2A4A" x="9.97" y="18.34" transform="rotate(-0 9.97 18.34)">Figure 4 Price ladder: ceiling by rules, floor by the battery itself</text>
+   </g>
+   <g id="f4-legend_1">
+    <g id="f4-patch_13">
+     <path d="M 340.12 290.93 
+L 361.12 290.93 
+L 361.12 283.58 
+L 340.12 283.58 
+z
+" style="fill: #8A94A3; opacity: 0.6"/>
+    </g>
+    <g id="f4-text_20">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="369.52" y="290.93" transform="rotate(-0 369.52 290.93)">Ceiling set by rules</text>
+    </g>
+    <g id="f4-patch_14">
+     <path d="M 340.12 306.94 
+L 361.12 306.94 
+L 361.12 299.59 
+L 340.12 299.59 
+z
+" style="fill: #C49A3C"/>
+    </g>
+    <g id="f4-text_21">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="369.52" y="306.94" transform="rotate(-0 369.52 306.94)">Battery floor (set by itself)</text>
+    </g>
+    <g id="f4-patch_15">
+     <path d="M 340.12 322.95 
+L 361.12 322.95 
+L 361.12 315.6 
+L 340.12 315.6 
+z
+" style="fill: #4599c6"/>
+    </g>
+    <g id="f4-text_22">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start" x="369.52" y="322.95" transform="rotate(-0 369.52 322.95)">Floor outside the market (TSO's options)</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="f4-p04fd386377">
+   <rect x="9.97" y="24.34" width="558" height="310.46"/>
+  </clipPath>
+ </defs>
+</svg></div></figure>
+<p>Figure 4 puts the ceiling and the floor on one ladder.</p>
+<p>The ceiling is set by the rules: a cap of ¥10, with ¥7.21 as the next step. The indicators and the timing of the decision are as written on 47-2.</p>
+<p>The battery's floor is set by the battery itself: ¥6–8 in the evening, in the ¥1 range averaged over a day. Kyushu's ¥4.9 in August and the median lowest award of ¥1.4–3.5 both fall in between.</p>
+<p>There is a floor outside the market as well. The bilateral contract under which a transmission and distribution operator (TSO) contracts pumped storage directly ran at ¥0.47–1.34 per kW per hour on FY2025 results, or ¥0.2–0.7 on a 30-minute basis, and in FY2026 5 companies locked up 266 × 10,000 kW in total. Since April 2025 thermal has been able to settle start-up costs ex post, so it no longer has to load start-up costs onto the ΔkW price and can bid lower. In practice 70% of primary online awards are thermal, and the nationwide average in August was ¥4.4. Governor-free response only leaves a little headroom on a plant that is already running, so the ΔkW bid can be cheap. You see it said that thermal cannot bid below ¥10, but that does not match the record.</p>
+<p>There is no single floor at "thermal's ¥3." Thermal can go down to a price with start-up costs taken out, and a battery in the evening stops higher than that.</p>
+<h2>5. How it landed overseas</h2>
+<figure class="c47 wide" id="f5" style="--fw:1000px;--fmin:960px"><p class="c47hint">← scroll horizontally →</p><div class="c47scroll"><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 911.52 338.63" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:c2pa="http://c2pa.org/manifest" preserveAspectRatio="xMidYMid meet" role="img" stroke-linejoin="round" stroke-linecap="butt" style="width:100%;height:auto;display:block">
+ <g id="f5-figure_1">
+  <g id="f5-patch_1">
+   <path d="M 0 338.63 
+L 911.52 338.63 
+L 911.52 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="f5-axes_1">
+   <g id="f5-patch_2">
+    <path d="M 123.12 248.98 
+L 269.14 248.98 
+L 269.14 56.88 
+L 123.12 56.88 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="f5-patch_3">
+    <path d="M 129.76 248.98 
+L 176.86 248.98 
+L 176.86 95.3 
+L 129.76 95.3 
+z
+" clip-path="url(#f5-pb992be8e5e)" style="fill: #DDE4EE; stroke: #8A94A3; stroke-linejoin: miter"/>
+   </g>
+   <g id="f5-patch_4">
+    <path d="M 215.4 248.98 
+L 262.5 248.98 
+L 262.5 197.75 
+L 215.4 197.75 
+z
+" clip-path="url(#f5-pb992be8e5e)" style="fill: #325197; stroke: #8A94A3; stroke-linejoin: miter"/>
+   </g>
+   <g id="f5-matplotlib.axis_1">
+    <g id="f5-xtick_1">
+     <g id="f5-line2d_1">
+      <defs>
+       <path id="f5-mc29bb76435" d="M 0 0 
+L 0 3.5 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#f5-mc29bb76435" x="153.31" y="248.98" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_1">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="153.31" y="263.94" transform="rotate(-0 153.31 263.94)">2022</text>
+     </g>
+    </g>
+    <g id="f5-xtick_2">
+     <g id="f5-line2d_2">
+      <g>
+       <use xlink:href="#f5-mc29bb76435" x="238.95" y="248.98" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_2">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="238.95" y="263.94" transform="rotate(-0 238.95 263.94)">2023</text>
+     </g>
+    </g>
+   </g>
+   <g id="f5-matplotlib.axis_2">
+    <g id="f5-ytick_1">
+     <g id="f5-line2d_3">
+      <defs>
+       <path id="f5-m3d2aaebd91" d="M 0 0 
+L -3.5 0 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="123.12" y="248.98" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_3">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="116.12" y="252.96" transform="rotate(-0 116.12 252.96)">0</text>
+     </g>
+    </g>
+    <g id="f5-ytick_2">
+     <g id="f5-line2d_4">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="123.12" y="223.36" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_4">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="116.12" y="227.34" transform="rotate(-0 116.12 227.34)">25</text>
+     </g>
+    </g>
+    <g id="f5-ytick_3">
+     <g id="f5-line2d_5">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="123.12" y="197.75" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_5">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="116.12" y="201.73" transform="rotate(-0 116.12 201.73)">50</text>
+     </g>
+    </g>
+    <g id="f5-ytick_4">
+     <g id="f5-line2d_6">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="123.12" y="172.14" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_6">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="116.12" y="176.12" transform="rotate(-0 116.12 176.12)">75</text>
+     </g>
+    </g>
+    <g id="f5-ytick_5">
+     <g id="f5-line2d_7">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="123.12" y="146.52" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_7">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="116.12" y="150.5" transform="rotate(-0 116.12 150.5)">100</text>
+     </g>
+    </g>
+    <g id="f5-ytick_6">
+     <g id="f5-line2d_8">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="123.12" y="120.91" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_8">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="116.12" y="124.89" transform="rotate(-0 116.12 124.89)">125</text>
+     </g>
+    </g>
+    <g id="f5-ytick_7">
+     <g id="f5-line2d_9">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="123.12" y="95.3" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_9">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="116.12" y="99.28" transform="rotate(-0 116.12 99.28)">150</text>
+     </g>
+    </g>
+    <g id="f5-ytick_8">
+     <g id="f5-line2d_10">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="123.12" y="69.69" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_10">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="116.12" y="73.67" transform="rotate(-0 116.12 73.67)">175</text>
+     </g>
+    </g>
+    <g id="f5-text_11">
+     <text style="fill: #2C3E50; font-size: 9.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="93.29" y="152.93" transform="rotate(-90 93.29 152.93)">Frequency response revenue (£k/MW-year)</text>
+    </g>
+   </g>
+   <g id="f5-patch_5">
+    <path d="M 123.12 248.98 
+L 123.12 56.88 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f5-patch_6">
+    <path d="M 123.12 248.98 
+L 269.14 248.98 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f5-text_12">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle; fill: #2C3E50" x="153.31" y="92.23" transform="rotate(-0 153.31 92.23)">150</text>
+   </g>
+   <g id="f5-text_13">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle; fill: #2C3E50" x="238.95" y="194.68" transform="rotate(-0 238.95 194.68)">50</text>
+   </g>
+   <g id="f5-text_14">
+    <text style="font-size: 9.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; fill: #5A6577" transform="translate(113.81 318.01)">Floor was not provision cost (£0.5–1.5)</text>
+    <text style="font-size: 9.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; fill: #5A6577" transform="translate(113.41 329.26)">stopped at opportunity cost £5/MW/h</text>
+   </g>
+   <g id="f5-text_15">
+    <text style="font-size: 13px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle; fill: #1B2A4A" x="196.13" y="50.88" transform="rotate(-0 196.13 50.88)">UK</text>
+   </g>
+  </g>
+  <g id="f5-axes_2">
+   <g id="f5-patch_7">
+    <path d="M 334.85 248.98 
+L 480.87 248.98 
+L 480.87 56.88 
+L 334.85 56.88 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="f5-patch_8">
+    <path d="M 341.48 248.98 
+L 388.59 248.98 
+L 388.59 95.3 
+L 341.48 95.3 
+z
+" clip-path="url(#f5-p91aa20aeb3)" style="fill: #DDE4EE; stroke: #8A94A3; stroke-linejoin: miter"/>
+   </g>
+   <g id="f5-patch_9">
+    <path d="M 427.13 248.98 
+L 474.23 248.98 
+L 474.23 161.16 
+L 427.13 161.16 
+z
+" clip-path="url(#f5-p91aa20aeb3)" style="fill: #325197; stroke: #8A94A3; stroke-linejoin: miter"/>
+   </g>
+   <g id="f5-matplotlib.axis_3">
+    <g id="f5-xtick_3">
+     <g id="f5-line2d_11">
+      <g>
+       <use xlink:href="#f5-mc29bb76435" x="365.04" y="248.98" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_16">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="365.04" y="263.94" transform="rotate(-0 365.04 263.94)">Jul 2025</text>
+     </g>
+    </g>
+    <g id="f5-xtick_4">
+     <g id="f5-line2d_12">
+      <g>
+       <use xlink:href="#f5-mc29bb76435" x="450.68" y="248.98" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_17">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="450.68" y="263.94" transform="rotate(-0 450.68 263.94)">Jul 2026</text>
+     </g>
+    </g>
+   </g>
+   <g id="f5-matplotlib.axis_4">
+    <g id="f5-ytick_9">
+     <g id="f5-line2d_13">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="334.85" y="248.98" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_18">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="327.85" y="252.96" transform="rotate(-0 327.85 252.96)">0</text>
+     </g>
+    </g>
+    <g id="f5-ytick_10">
+     <g id="f5-line2d_14">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="334.85" y="215.2" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_19">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="327.85" y="219.18" transform="rotate(-0 327.85 219.18)">20</text>
+     </g>
+    </g>
+    <g id="f5-ytick_11">
+     <g id="f5-line2d_15">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="334.85" y="181.43" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_20">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="327.85" y="185.41" transform="rotate(-0 327.85 185.41)">40</text>
+     </g>
+    </g>
+    <g id="f5-ytick_12">
+     <g id="f5-line2d_16">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="334.85" y="147.65" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_21">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="327.85" y="151.63" transform="rotate(-0 327.85 151.63)">60</text>
+     </g>
+    </g>
+    <g id="f5-ytick_13">
+     <g id="f5-line2d_17">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="334.85" y="113.88" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_22">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="327.85" y="117.86" transform="rotate(-0 327.85 117.86)">80</text>
+     </g>
+    </g>
+    <g id="f5-ytick_14">
+     <g id="f5-line2d_18">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="334.85" y="80.1" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_23">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="327.85" y="84.08" transform="rotate(-0 327.85 84.08)">100</text>
+     </g>
+    </g>
+    <g id="f5-text_24">
+     <text style="fill: #2C3E50; font-size: 9.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="305.02" y="152.93" transform="rotate(-90 305.02 152.93)">aFRR share of revenue (%)</text>
+    </g>
+   </g>
+   <g id="f5-patch_10">
+    <path d="M 334.85 248.98 
+L 334.85 56.88 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f5-patch_11">
+    <path d="M 334.85 248.98 
+L 480.87 248.98 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f5-text_25">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle; fill: #2C3E50" x="365.04" y="92.23" transform="rotate(-0 365.04 92.23)">91</text>
+   </g>
+   <g id="f5-text_26">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle; fill: #2C3E50" x="450.68" y="158.09" transform="rotate(-0 450.68 158.09)">52</text>
+   </g>
+   <g id="f5-text_27">
+    <text style="font-size: 9.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; fill: #5A6577" transform="translate(322.36 318.01)">Below thermal, above its own opportunity cost</text>
+    <text style="font-size: 9.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; fill: #5A6577" transform="translate(331.86 329.26)">clearing level (still pre-saturation)</text>
+   </g>
+   <g id="f5-text_28">
+    <text style="font-size: 13px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle; fill: #1B2A4A" x="407.86" y="50.88" transform="rotate(-0 407.86 50.88)">Germany</text>
+   </g>
+  </g>
+  <g id="f5-axes_3">
+   <g id="f5-patch_12">
+    <path d="M 546.57 248.98 
+L 692.59 248.98 
+L 692.59 56.88 
+L 546.57 56.88 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="f5-patch_13">
+    <path d="M 553.21 248.98 
+L 600.31 248.98 
+L 600.31 95.3 
+L 553.21 95.3 
+z
+" clip-path="url(#f5-pcfa19acd98)" style="fill: #DDE4EE; stroke: #8A94A3; stroke-linejoin: miter"/>
+   </g>
+   <g id="f5-patch_14">
+    <path d="M 638.85 248.98 
+L 685.96 248.98 
+L 685.96 161.16 
+L 638.85 161.16 
+z
+" clip-path="url(#f5-pcfa19acd98)" style="fill: #325197; stroke: #8A94A3; stroke-linejoin: miter"/>
+   </g>
+   <g id="f5-matplotlib.axis_5">
+    <g id="f5-xtick_5">
+     <g id="f5-line2d_19">
+      <g>
+       <use xlink:href="#f5-mc29bb76435" x="576.76" y="248.98" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_29">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="576.76" y="263.94" transform="rotate(-0 576.76 263.94)">2023</text>
+     </g>
+    </g>
+    <g id="f5-xtick_6">
+     <g id="f5-line2d_20">
+      <g>
+       <use xlink:href="#f5-mc29bb76435" x="662.4" y="248.98" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_30">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="662.4" y="263.94" transform="rotate(-0 662.4 263.94)">2025</text>
+     </g>
+    </g>
+   </g>
+   <g id="f5-matplotlib.axis_6">
+    <g id="f5-ytick_15">
+     <g id="f5-line2d_21">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="546.57" y="248.98" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_31">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="539.57" y="252.96" transform="rotate(-0 539.57 252.96)">0</text>
+     </g>
+    </g>
+    <g id="f5-ytick_16">
+     <g id="f5-line2d_22">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="546.57" y="212.39" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_32">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="539.57" y="216.37" transform="rotate(-0 539.57 216.37)">20</text>
+     </g>
+    </g>
+    <g id="f5-ytick_17">
+     <g id="f5-line2d_23">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="546.57" y="175.8" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_33">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="539.57" y="179.78" transform="rotate(-0 539.57 179.78)">40</text>
+     </g>
+    </g>
+    <g id="f5-ytick_18">
+     <g id="f5-line2d_24">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="546.57" y="139.21" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_34">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="539.57" y="143.19" transform="rotate(-0 539.57 143.19)">60</text>
+     </g>
+    </g>
+    <g id="f5-ytick_19">
+     <g id="f5-line2d_25">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="546.57" y="102.62" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_35">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="539.57" y="106.6" transform="rotate(-0 539.57 106.6)">80</text>
+     </g>
+    </g>
+    <g id="f5-ytick_20">
+     <g id="f5-line2d_26">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="546.57" y="66.03" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_36">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="539.57" y="70.01" transform="rotate(-0 539.57 70.01)">100</text>
+     </g>
+    </g>
+    <g id="f5-text_37">
+     <text style="fill: #2C3E50; font-size: 9.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="516.75" y="152.93" transform="rotate(-90 516.75 152.93)">Ancillary services revenue share (%)</text>
+    </g>
+   </g>
+   <g id="f5-patch_15">
+    <path d="M 546.57 248.98 
+L 546.57 56.88 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f5-patch_16">
+    <path d="M 546.57 248.98 
+L 692.59 248.98 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f5-text_38">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle; fill: #2C3E50" x="576.76" y="92.23" transform="rotate(-0 576.76 92.23)">84</text>
+   </g>
+   <g id="f5-text_39">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle; fill: #2C3E50" x="662.4" y="158.09" transform="rotate(-0 662.4 158.09)">48</text>
+   </g>
+   <g id="f5-text_40">
+    <text style="font-size: 9.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; fill: #5A6577" transform="translate(572.08 318.01)">Ancillary service prices</text>
+    <text style="font-size: 9.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; fill: #5A6577" transform="translate(548.33 329.26)">fell to the level of arbitrage earnings</text>
+   </g>
+   <g id="f5-text_41">
+    <text style="font-size: 13px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle; fill: #1B2A4A" x="619.58" y="50.88" transform="rotate(-0 619.58 50.88)">US ERCOT</text>
+   </g>
+  </g>
+  <g id="f5-axes_4">
+   <g id="f5-patch_17">
+    <path d="M 758.3 248.98 
+L 904.32 248.98 
+L 904.32 56.88 
+L 758.3 56.88 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="f5-patch_18">
+    <path d="M 764.94 248.98 
+L 793.57 248.98 
+L 793.57 95.3 
+L 764.94 95.3 
+z
+" clip-path="url(#f5-pa3e239b673)" style="fill: #DDE4EE; stroke: #8A94A3; stroke-linejoin: miter"/>
+   </g>
+   <g id="f5-patch_19">
+    <path d="M 817 248.98 
+L 845.63 248.98 
+L 845.63 132.6 
+L 817 132.6 
+z
+" clip-path="url(#f5-pa3e239b673)" style="fill: #DDE4EE; stroke: #8A94A3; stroke-linejoin: miter"/>
+   </g>
+   <g id="f5-patch_20">
+    <path d="M 869.05 248.98 
+L 897.68 248.98 
+L 897.68 169.9 
+L 869.05 169.9 
+z
+" clip-path="url(#f5-pa3e239b673)" style="fill: #325197; stroke: #8A94A3; stroke-linejoin: miter"/>
+   </g>
+   <g id="f5-matplotlib.axis_7">
+    <g id="f5-xtick_7">
+     <g id="f5-line2d_27">
+      <g>
+       <use xlink:href="#f5-mc29bb76435" x="779.25" y="248.98" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_42">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="779.25" y="263.94" transform="rotate(-0 779.25 263.94)">2022</text>
+     </g>
+    </g>
+    <g id="f5-xtick_8">
+     <g id="f5-line2d_28">
+      <g>
+       <use xlink:href="#f5-mc29bb76435" x="831.31" y="248.98" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_43">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="831.31" y="263.94" transform="rotate(-0 831.31 263.94)">2023</text>
+     </g>
+    </g>
+    <g id="f5-xtick_9">
+     <g id="f5-line2d_29">
+      <g>
+       <use xlink:href="#f5-mc29bb76435" x="883.37" y="248.98" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_44">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="883.37" y="263.94" transform="rotate(-0 883.37 263.94)">2024</text>
+     </g>
+    </g>
+   </g>
+   <g id="f5-matplotlib.axis_8">
+    <g id="f5-ytick_21">
+     <g id="f5-line2d_30">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="758.3" y="248.98" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_45">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="751.3" y="252.96" transform="rotate(-0 751.3 252.96)">0</text>
+     </g>
+    </g>
+    <g id="f5-ytick_22">
+     <g id="f5-line2d_31">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="758.3" y="219.14" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_46">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="751.3" y="223.12" transform="rotate(-0 751.3 223.12)">20</text>
+     </g>
+    </g>
+    <g id="f5-ytick_23">
+     <g id="f5-line2d_32">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="758.3" y="189.3" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_47">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="751.3" y="193.28" transform="rotate(-0 751.3 193.28)">40</text>
+     </g>
+    </g>
+    <g id="f5-ytick_24">
+     <g id="f5-line2d_33">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="758.3" y="159.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_48">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="751.3" y="163.44" transform="rotate(-0 751.3 163.44)">60</text>
+     </g>
+    </g>
+    <g id="f5-ytick_25">
+     <g id="f5-line2d_34">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="758.3" y="129.62" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_49">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="751.3" y="133.6" transform="rotate(-0 751.3 133.6)">80</text>
+     </g>
+    </g>
+    <g id="f5-ytick_26">
+     <g id="f5-line2d_35">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="758.3" y="99.78" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_50">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="751.3" y="103.75" transform="rotate(-0 751.3 103.75)">100</text>
+     </g>
+    </g>
+    <g id="f5-ytick_27">
+     <g id="f5-line2d_36">
+      <g>
+       <use xlink:href="#f5-m3d2aaebd91" x="758.3" y="69.94" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="f5-text_51">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: end" x="751.3" y="73.91" transform="rotate(-0 751.3 73.91)">120</text>
+     </g>
+    </g>
+    <g id="f5-text_52">
+     <text style="fill: #2C3E50; font-size: 9.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle" x="728.48" y="152.93" transform="rotate(-90 728.48 152.93)">Battery revenue ($/kW-year)</text>
+    </g>
+   </g>
+   <g id="f5-patch_21">
+    <path d="M 758.3 248.98 
+L 758.3 56.88 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f5-patch_22">
+    <path d="M 758.3 248.98 
+L 904.32 248.98 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="f5-text_53">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle; fill: #2C3E50" x="779.25" y="92.23" transform="rotate(-0 779.25 92.23)">103</text>
+   </g>
+   <g id="f5-text_54">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle; fill: #2C3E50" x="831.31" y="129.53" transform="rotate(-0 831.31 129.53)">78</text>
+   </g>
+   <g id="f5-text_55">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle; fill: #2C3E50" x="883.37" y="166.83" transform="rotate(-0 883.37 166.83)">53</text>
+   </g>
+   <g id="f5-text_56">
+    <text style="font-size: 9.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; fill: #5A6577" transform="translate(782.62 318.01)">In 2024, 82% of revenue</text>
+    <text style="font-size: 9.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; fill: #5A6577" transform="translate(779.06 329.26)">came from energy (arbitrage)</text>
+   </g>
+   <g id="f5-text_57">
+    <text style="font-size: 13px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: middle; fill: #1B2A4A" x="831.31" y="50.88" transform="rotate(-0 831.31 50.88)">US CAISO</text>
+   </g>
+  </g>
+  <g id="f5-text_58">
+   <text style="font-size: 13.5px; font-family: 'Noto Sans JP','Helvetica Neue',Helvetica,Arial,sans-serif; text-anchor: start; fill: #1B2A4A" x="7.2" y="17.95" transform="rotate(-0 7.2 17.95)">Figure 5 4 overseas markets: after saturation ΔkW revenue fell, shifting to arbitrage and capacity (batteries stayed in use)</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="f5-pb992be8e5e">
+   <rect x="123.12" y="56.88" width="146.02" height="192.1"/>
+  </clipPath>
+  <clipPath id="f5-p91aa20aeb3">
+   <rect x="334.85" y="56.88" width="146.02" height="192.1"/>
+  </clipPath>
+  <clipPath id="f5-pcfa19acd98">
+   <rect x="546.57" y="56.88" width="146.02" height="192.1"/>
+  </clipPath>
+  <clipPath id="f5-pa3e239b673">
+   <rect x="758.3" y="56.88" width="146.02" height="192.1"/>
+  </clipPath>
+ </defs>
+</svg></div></figure>
+<p>There are 4 markets overseas where batteries have saturated the balancing capacity market. What they have in common is that the price floor was set not by "the cost of the cheapest provider" but by the batteries' own opportunity cost.</p>
+<p>In the UK, frequency response revenue fell from £150k/MW-year in 2022 to about £50k in 2023, but the price did not fall to the cost of provision (£0.5–1.5/MW/h); it stopped at about £5/MW/h, the opportunity cost (Modo Energy estimate). In CAISO in the US, battery revenue fell from $103/kW-year in 2022 to $53 in 2024, and 82% of it came from energy (arbitrage) (CAISO Department of Market Monitoring). In ERCOT, the ancillary services share of revenue went from 84% to 48% (Enverus estimate). In every case batteries kept being used, and the center of revenue moved to arbitrage and capacity. System operators in each country are adding new products (Quick Reserve and Balancing Reserve in the UK, ECRS in ERCOT).</p>
+<p>The closest to Japan is Germany. Batteries there clear below thermal but above their own opportunity cost, still short of saturation — the state the analyst Modo Energy describes overlaps with Japan today, clearing near the cap while beginning to feel for the floor.</p>
+<h2>6. Where Japan differs from overseas</h2>
+<p>There are three.</p>
+<p><strong>The ceiling bites first.</strong> Overseas the fall was free, with no cap; in Japan the rules are lowering the ceiling in steps. With less room between ceiling and floor, price movement is gentler.</p>
+<p><strong>30-minute slots.</strong> The UK and Germany use 4-hour blocks; Japan uses 30 minutes. The market catches up faster with the floor for each part of the day. That is why the shape in Figure 3 appeared within 1 to 2 months of saturation.</p>
+<p><strong>There is a floor outside the market.</strong> The bilateral contract for pumped storage and the spare-capacity utilization contract are mechanisms with no overseas equivalent, and the higher the market, the more procurement goes outside it. Conversely, when bidding thickens, some areas move back to market procurement, as Hokkaido has.</p>
+<p>One more thing, a little further out, is the co-optimized market. The direction under review is a shift in the first half of the 2030s to a mechanism that clears kWh and ΔkW together. There the concepts of a price cap and a procurement volume are themselves replaced by optimized clearing based on lost profit. It is a world in which "what the battery could earn elsewhere" becomes the market's pricing as it stands.</p>
+<h2>7. What an owner can do</h2>
+<p>If the price is not one line but the shape of a day, the way you offer does not have to be one line either.</p>
+<ul><li><strong>Change the price by slot.</strong> In the evening, do not sell below what you could earn on JEPX; late at night, offer even on a thin margin. The 30-minute slot is the unit made for that.</li><li><strong>Move seats.</strong> In areas where the primary offline frame is filling up, there are the online seats (primary online 1,500 MW, combined 3,700 MW). That is a displacement contest against thermal and pumped storage, so the order of play is to lower the bid within the range that does not go below what you could earn on JEPX (47-3).</li><li><strong>Combine with fixed revenue.</strong> The capacity market, the Long-term Decarbonization Power Source Auction (LDA) and tolling agreements are revenue separate from the ups and downs of the ΔkW price.</li></ul>
+<h2>Summary</h2>
+<ul><li>Before the cap came down, in the areas where bidding grew, bids began to set the price. Kyushu came in at ¥4.9 in August with the cap still at ¥15.</li><li>The floor is "what the battery could earn elsewhere": ¥6–8 in the evening, in the ¥1 range averaged over a day. Not one line but the shape of a day.</li><li>"Thermal's ¥3" is not the floor. Thermal can go close to zero, and a battery in the evening stops higher.</li><li>In the 4 overseas markets batteries kept being used, and the center of revenue moved to arbitrage and capacity. Japan, with a ceiling, moves more gently.</li></ul>
+<p>Back to the overview (COLUMN 47).</p>
+<h2>Reference tables</h2>
+<p><strong>Reference table 1</strong> Primary offline clearing price (average weighted by awarded volume, JPY/ΔkW·30min, 2026)</p>
+<div class="table-wrap"><table class="comparison-table"><thead><tr><th>Area</th><th>April</th><th>June</th><th>August</th><th>September (1–7)</th></tr></thead><tbody><tr><td>Hokkaido</td><td>3.9</td><td>5.3</td><td>4.0</td><td>1.5</td></tr><tr><td>Tohoku</td><td>13.5</td><td>13.3</td><td>13.6</td><td>9.4</td></tr><tr><td>Tokyo</td><td>11.5</td><td>12.1</td><td>11.5</td><td>8.6</td></tr><tr><td>Chubu</td><td>14.6</td><td>13.3</td><td>9.0</td><td>6.3</td></tr><tr><td>Hokuriku</td><td>14.5</td><td>12.7</td><td>8.8</td><td>5.4</td></tr><tr><td>Kansai</td><td>13.3</td><td>12.5</td><td>9.3</td><td>5.1</td></tr><tr><td>Chugoku</td><td>12.2</td><td>10.1</td><td>6.6</td><td>4.6</td></tr><tr><td>Shikoku</td><td>3.7</td><td>3.2</td><td>4.0</td><td>4.0</td></tr><tr><td>Kyushu</td><td>12.1</td><td>7.5</td><td>4.9</td><td>3.4</td></tr><tr><td>Nationwide</td><td>12.3</td><td>11.7</td><td>9.6</td><td>6.8</td></tr></tbody></table></div>
+<p>Source: our calculation from EPRX trading results (preliminary). The price cap was ¥15 through August and ¥10 from 1 September. The aggregation window differs from the August figure in COLUMN 41 (nationwide ¥9.80, deliveries through 8/17)</p>
+<p><strong>Reference table 2</strong> JEPX arbitrage converted into ΔkW (4-hour battery, top 8 slots and bottom 8 slots, efficiency 0.85, April–September FY2026)</p>
+<div class="table-wrap"><table class="comparison-table"><thead><tr><th>Area</th><th>Evening 8 slots (JPY/ΔkW·30min)</th><th>48-slot average</th></tr></thead><tbody><tr><td>Tohoku</td><td>8.5</td><td>1.4</td></tr><tr><td>Hokkaido</td><td>8.2</td><td>1.4</td></tr><tr><td>Kyushu</td><td>6.9</td><td>1.2</td></tr><tr><td>Shikoku</td><td>6.8</td><td>1.1</td></tr><tr><td>Tokyo</td><td>6.6</td><td>1.1</td></tr><tr><td>Chubu</td><td>6.6</td><td>1.1</td></tr><tr><td>Chugoku</td><td>6.4</td><td>1.1</td></tr><tr><td>Hokuriku</td><td>5.9</td><td>1.0</td></tr><tr><td>Kansai</td><td>5.9</td><td>1.0</td></tr></tbody></table></div>
+<p>Source: our calculation from JEPX spot market area prices. Wheeling charges, degradation costs and fees are not included. Deducting the volumetric wheeling charge on the charging side (extra-high voltage, excluding tax; on the discharging side the energy charge is exempted under special measures in each company's terms) brings the evening 8 slots down to ¥5.5–8.0 and the 48-slot average to ¥0.9–1.3</p>
+<p>Notes: September in Figures 1 and 3 and in Reference table 1 is preliminary for 1–7 September. The JEPX shape on the left of Figure 2 is the April–September FY2026 average of the system price. The pumped storage bilateral contract unit prices in Figure 4 are FY2025 results converted to a 30-minute basis. The overseas figures are from published materials of each market's operator and monitor and from Modo Energy's analysis (details in Sources).</p>
+<h2 id="sources">Sources</h2>
+<ul class="source-list"><li>EPRX, trading results (clearing data by area) (取引実績（エリア別約定データ）) <a href="https://www.eprx.or.jp/information/results.php" target="_blank" rel="noopener">https://www.eprx.or.jp/information/results.php</a></li><li>EPRX, on the ΔkW price cap in the balancing market (需給調整市場のΔkW上限価格について) <a href="https://www.eprx.or.jp/information/post.php" target="_blank" rel="noopener">https://www.eprx.or.jp/information/post.php</a></li><li>EPRX, "On ex-post settlement of start-up costs and of economic substitution" (起動費等および経済差替時の扱いに関する事後精算について) (in operation from 1 April 2025; revised version of 31 July 2026) <a href="https://www.eprx.or.jp/outline/docs/kidouhi_sashikae_20260731.pdf" target="_blank" rel="noopener">https://www.eprx.or.jp/outline/docs/kidouhi_sashikae_20260731.pdf</a></li><li>JEPX, spot market trading results (area prices) (スポット市場 取引結果（エリアプライス）) <a href="https://www.jepx.jp/electricpower/market-data/spot/" target="_blank" rel="noopener">https://www.jepx.jp/electricpower/market-data/spot/</a></li><li>Agency for Natural Resources and Energy (ANRE), System Design Working Group, 110th meeting, Document 4 (23 January 2026, the price cap steps and the decision) <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_review/pdf/110_04_00.pdf" target="_blank" rel="noopener">https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_review/pdf/110_04_00.pdf</a></li><li>Electricity and Gas Market Surveillance Commission (EGC), Expert Committee on System Design and Market Surveillance (制度設計・監視専門会合), 19th meeting (30 March 2026), Documents 5-1 to 5-5; 20th meeting (29 May), Document 5 (actual unit prices of the bilateral contracts for pumped storage) <a href="https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/" target="_blank" rel="noopener">https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/</a></li><li>Transmission &amp; Distribution Grid Council, "Outline of and application for the spare-capacity utilization contract" (余力活用に関する契約の概要と申込) <a href="https://www.tdgc.jp/yoryoku/outline/" target="_blank" rel="noopener">https://www.tdgc.jp/yoryoku/outline/</a></li><li>Study Group on the Design of a Co-optimized Market, Second Interim Report (同時市場の在り方等に関する検討会 第二次中間取りまとめ) (15 October 2025) <a href="https://www.meti.go.jp/shingikai/energy_environment/doji_shijo_kento/pdf/20251015_1.pdf" target="_blank" rel="noopener">https://www.meti.go.jp/shingikai/energy_environment/doji_shijo_kento/pdf/20251015_1.pdf</a></li><li>CAISO Department of Market Monitoring, "2024 Special Report on Battery Storage" (29 May 2025)</li><li>AEMO, "Quarterly Energy Dynamics," Q3 2024, Q4 2024, Q1 2026</li><li>NESO, "Balancing Cost Winter Report 2023/24"; NESO Data Portal (Dynamic Containment / Moderation / Regulation)</li><li>regelleistung.net (German FCR and aFRR procurement results)</li><li>Modo Energy, "Germany: Europe's biggest merchant market," "German aFRR market data explained" and others (secondary sources)</li><li>Enverus Intelligence Research (ERCOT battery revenue, secondary source)</li><li>Ascend Analytics (commentary on opportunity cost in ancillary services, published on Energy-Storage.news, secondary source)</li></ul>
+<div class="author-box">
+  <div class="ab-label">Supervised by</div>
+  <div><span class="ab-name">Shinya Nakashima, Ph.D. (Eng.)</span> — Representative Director, Science X Inc.</div>
+  <p style="margin:6px 0 0">Works on the development, sale and technical due diligence of grid-scale battery storage plants in Japan. This column is written and supervised on the basis of that hands-on transaction and due-diligence practice.</p>
+</div>
+
+<div class="cta-section">
+  <h3>Energy Business Consultation</h3>
+  <p>Project-specific information not covered in our articles<br>will be disclosed after NDA execution following your inquiry.</p>
+  <a target="_top" href="/en/contact" class="cta-btn">Contact Us →</a>
+</div>
+
+</div>
+</div>
+<div class="cta-section">
+  <h3>Energy Business Consultation</h3>
+  <p>Project-specific information not covered in our articles<br>will be disclosed after NDA execution following your inquiry.</p>
+  <a target="_top" href="/en/contact" class="cta-btn">Contact Us →</a>
+</div>
+
+</div>
+<style>
+
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1B2A4A;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0 auto;
+  }
+</style>
+
+<!-- Global-investor CTA (discovery funnel → market-entry) -->
+<section style="background:#1B2A4A;padding:52px 24px;text-align:center;font-family:'Noto Sans JP',sans-serif;">
+  <div style="max-width:720px;margin:0 auto;">
+    <div style="font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:#C49A3C;margin-bottom:12px;">For Global Investors</div>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(1.3rem,3vw,1.7rem);color:#fff;font-weight:600;line-height:1.5;margin:0 0 14px;">Investing in Japan's grid-scale storage?</h2>
+    <p style="color:rgba(255,255,255,0.78);font-size:0.92rem;line-height:1.85;margin:0 0 26px;">We vet, structure and operate confirmed, grid-connected BESS projects — so global investors deploy into operating Japanese assets. Engineer-led.</p>
+    <a href="/en" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;text-decoration:none;padding:14px 34px;border-radius:4px;font-size:0.9rem;">See the market-entry guide →</a>
+  </div>
+</section>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img
+        src="/img/logo-white.png"
+        alt="ScienceX - Science X Inc."
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>

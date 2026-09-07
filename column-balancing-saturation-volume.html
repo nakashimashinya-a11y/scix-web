@@ -1,0 +1,5202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.seo-note{display:none}
+.bar-chart{margin:28px 0}
+.bar-row{display:flex;align-items:center;margin-bottom:6px;font-size:.85em}
+.bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.bar-track{flex:1;background:#EBEEF2;height:28px;border-radius:3px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;min-width:2px;transition:width .6s ease}
+.bar-fill.high{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.bar-fill.mid{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.bar-fill.low{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.bar-fill.over{background:linear-gradient(90deg,#2980B9,#3498DB)}
+.bar-value{margin-left:8px;font-size:.82em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:80px}
+.heatmap-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.82em}
+.heatmap-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:center;font-weight:500;font-size:.78em}
+.heatmap-table td{padding:8px 10px;text-align:center;border:1px solid #E2E6EC;font-weight:600}
+.heatmap-table td.h5{background:#FDEBEB;color:#922B21}
+.heatmap-table td.h4{background:#FDEBD0;color:#935116}
+.heatmap-table td.h3{background:#FEF9E7;color:#7D6608}
+.heatmap-table td.h2{background:#EAFAF1;color:#1E8449}
+.heatmap-table td.h1{background:#D4EFDF;color:#196F3D}
+.heatmap-table td.h0{background:#D6EAF8;color:#21618C}
+.heatmap-table .area-cell{text-align:left;font-weight:700;background:#F8F9FB;color:var(--navy)}
+.tab-bar{display:flex;border-bottom:2px solid var(--border);margin:24px 0 0;gap:0;flex-wrap:wrap}
+.tab-item{padding:10px 20px;font-size:.88em;font-weight:600;color:var(--text-light);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
+.tab-item:hover{color:var(--navy)}
+.tab-item.active{color:var(--navy);border-bottom-color:var(--accent)}
+@media(max-width:480px){.tab-item{padding:8px 12px;font-size:.78em}}
+.ts-legend{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 16px;font-size:.78em;color:var(--text-light)}
+.ts-leg-item{display:flex;align-items:center;gap:5px}
+.ts-leg-box{width:14px;height:14px;border-radius:2px;flex-shrink:0}
+.chart-container{position:relative;margin:0 0 16px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff}
+.chart-header{display:flex;justify-content:space-between;align-items:baseline;padding:12px 20px 4px}
+.chart-area-name{font-weight:700;color:var(--navy);font-size:1em}
+.chart-stats{font-size:.82em;color:var(--text-light)}
+.chart-stats strong{color:var(--navy)}
+.chart-stats .surplus{color:#2980B9}
+.chart-no-data{padding:12px 20px 16px;font-size:.82em;color:var(--text-light);text-align:center}
+.chart-canvas-wrap{position:relative;padding:0 16px 4px}
+.chart-canvas{width:100%;height:80px;display:block}
+.chart-tooltip{position:absolute;background:rgba(27,42,74,0.95);color:#fff;padding:8px 12px;border-radius:4px;font-size:.75em;line-height:1.5;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
+.chart-axis{display:flex;justify-content:space-between;font-size:.68em;color:var(--text-light);padding:0 16px 10px}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .bar-label{width:44px;font-size:.78em}
+  .heatmap-table{font-size:.72em}
+  .heatmap-table th,.heatmap-table td{padding:5px 4px}
+  .chart-canvas{height:64px}
+  .chart-header{padding:10px 12px 3px}
+  .chart-canvas-wrap{padding:0 12px 3px}
+  .chart-axis{padding:0 12px 8px;font-size:.6em}
+}
+.s-bar-row{display:flex;align-items:center;margin-bottom:5px;font-size:.85em}
+.s-bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.s-bar-wrap{flex:1;position:relative;height:28px;background:#EBEEF2;border-radius:3px;overflow:hidden}
+.s-bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;transition:width .4s ease}
+.s-bar-fill.sh{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.s-bar-fill.sm{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.s-bar-fill.sl{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.s-bar-meta{margin-left:8px;font-size:.8em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:120px}
+.s-bar-meta strong{color:var(--navy)}
+.tieline-flow{margin:28px 0;font-size:.85em}
+.tl-row{display:flex;align-items:center;margin-bottom:4px;gap:4px}
+.tl-label{width:100px;text-align:right;font-weight:500;color:var(--navy);flex-shrink:0;font-size:.82em}
+.tl-bar-wrap{flex:1;display:flex;gap:2px}
+.tl-bar{height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.7em;font-weight:600;color:#fff;min-width:20px}
+.tl-fwd{background:var(--accent)}
+.tl-rev{background:var(--navy-light)}
+.tl-val{width:44px;font-size:.78em;color:var(--text-light);text-align:right;flex-shrink:0}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+
+
+:root{--c47-cyan:#4599c6}
+figure.c47{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c47 .c47scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--white);
+  border:1px solid var(--border);border-radius:3px}
+figure.c47 .c47scroll>svg{display:block;min-width:var(--fmin,0)}
+figure.c47 figcaption{font-size:.78em;color:var(--text-light);margin-top:10px;line-height:1.7}
+figure.c47 .c47hint{font-size:.72em;color:var(--text-light);margin:0 0 7px;letter-spacing:.04em}
+/* 本文（712px）に収まらない図は、字を縮めずに本文の外へ広げる。
+   画面がそれより狭いときだけ中で横スクロールになる。 */
+figure.c47.wide{width:min(calc(100vw - 32px), var(--fw));margin-left:50%;transform:translateX(-50%)}
+figure.c47.wide .c47hint{display:none}
+@media(max-width:1100px){figure.c47.wide .c47hint{display:block}}
+figure.c47fig{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c47fig .c47top{font-size:.78em;color:var(--text-light);margin:0 0 12px;line-height:1.7}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.table-wrap .comparison-table{margin:0;min-width:520px}
+ul.source-list{font-size:.82em;line-height:1.95;color:var(--text-light);word-break:break-word;
+  padding-left:1.15em;margin:0 0 8px}
+ul.source-list a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--border)}
+ul.source-list a:hover{border-bottom-color:var(--accent)}
+.c47series{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 30px;padding:12px 14px;
+  background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+.c47series .lb{font-size:.74em;color:var(--text-light);letter-spacing:.06em;width:100%;margin-bottom:2px}
+.c47series a,.c47series span.cur{font-size:.83em;text-decoration:none;padding:3px 10px;border-radius:3px;line-height:1.7}
+.c47series a{color:var(--navy);background:var(--white);border:1px solid var(--border)}
+.c47series a:hover{border-color:var(--accent)}
+.c47series span.cur{color:var(--white);background:var(--navy);font-weight:600}
+@media(max-width:768px){figure.c47,figure.c47fig{padding:12px}}
+
+
+.c47cards{display:grid;gap:14px;margin:0}
+.c47cards.n3{grid-template-columns:repeat(3,1fr)}
+.c47cards.n4{grid-template-columns:repeat(2,1fr)}
+.c47card{border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;
+  background:var(--white);padding:16px 18px 14px;display:flex;flex-direction:column}
+.c47card.k-volume{border-top-color:var(--navy)}
+.c47card.k-supply{border-top-color:#4599c6}
+.c47card.k-floor{border-top-color:var(--accent)}
+.c47card .k{font-size:.78em;letter-spacing:.06em;color:var(--text-light);margin-bottom:6px}
+.c47card .v{font-family:'Noto Serif JP',serif;font-weight:600;color:var(--navy);
+  font-size:1.02em;line-height:1.5;margin-bottom:10px}
+.c47card ul{list-style:none;margin:0 0 10px;padding:0;font-size:.84em;line-height:1.8;color:var(--text)}
+.c47card ul li{padding-left:11px;position:relative}
+.c47card ul li::before{content:'';position:absolute;left:0;top:.72em;width:4px;height:4px;
+  border-radius:50%;background:var(--accent)}
+.c47card .go{margin-top:auto;font-size:.82em;font-weight:600;color:var(--navy);
+  text-decoration:none;border-bottom:1px solid var(--accent);align-self:flex-start;padding-bottom:2px}
+.c47card .go:hover{color:var(--accent)}
+@media(max-width:700px){.c47cards.n3,.c47cards.n4{grid-template-columns:1fr}}
+
+</style>
+<title>需給調整市場の募集量と1σ化 — 必要量0.55・募集量0.62・複合0.97｜ScienceX</title>
+<meta name="description" content="1σ化で募集量は3分の1になったと言われますが、EPRXの公表値で割ると必要量0.55、募集量0.62、複合商品は0.97。半分になったのは蓄電池の席（一次オフライン0.45・約500MW）だけで、市場の大きさは前年並みです。差を作ったのは揚水随契266万kW。">
+<link rel="canonical" href="https://www.scix.co.jp/column-balancing-saturation-volume">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-balancing-saturation-volume">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-balancing-saturation-volume">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-balancing-saturation-volume">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-balancing-saturation-volume">
+<meta property="og:type" content="article">
+<meta property="og:title" content="需給調整市場の募集量と1σ化 — 必要量0.55・募集量0.62・複合0.97｜ScienceX">
+<meta property="og:description" content="1σ化で減ったのは必要量0.55・募集量0.62、複合は0.97。半分になったのは蓄電池の席（一次オフライン0.45）だけ。差を作った揚水随契266万kWまで。">
+<meta property="og:url" content="https://www.scix.co.jp/column-balancing-saturation-volume">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="需給調整市場の募集量と1σ化 — 必要量0.55・募集量0.62・複合0.97｜ScienceX">
+<meta name="twitter:description" content="1σ化で減ったのは必要量0.55・募集量0.62、複合は0.97。半分になったのは蓄電池の席（一次オフライン0.45）だけ。差を作った揚水随契266万kWまで。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-09-07">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "需給調整市場の募集量と1σ化 — 必要量0.55・募集量0.62・複合0.97｜ScienceX",
+  "description": "1σ化で募集量は3分の1になったと言われますが、EPRXの公表値で割ると必要量0.55、募集量0.62、複合商品は0.97。半分になったのは蓄電池の席（一次オフライン0.45・約500MW）だけで、市場の大きさは前年並みです。差を作ったのは揚水随契266万kW。",
+  "author": {
+    "@type": "Person",
+    "name": "中島 晋也",
+    "jobTitle": "代表取締役（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-09-07",
+  "dateModified": "2026-09-07",
+  "inLanguage": "ja",
+  "mainEntityOfPage": "https://www.scix.co.jp/column-balancing-saturation-volume",
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "name": "COLUMN 47",
+    "url": "https://www.scix.co.jp/column-balancing-saturation"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "需給調整市場の募集量は1σ化で3分の1になりましたか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "なりません。EPRXの調達必要量表を4〜9月平均で割ると全国で一次0.55・二次①0.56、約定データの募集量（4〜8月平均）では一次0.62、いちばん大きい複合商品は0.97です。3分の1になった商品×管区は一つもなく、最小は四国の二次①0.44でした。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "なぜ複合商品の募集量は50%増にならなかったのですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "制度検討作業部会 第109回 資料6は「1σ相当に統一すると複合商品は50%増」と見込んでいましたが、実測は0.97でした。2026年度は5社が揚水発電の随意契約を合計266万kW結び、その分が募集量の側で控除されているためです。東京は前年60万kWの2倍の120万kWを市場の外で押さえています。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "減った募集量が元に戻る条件はありますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "制度検討作業部会 第110回 資料4に「市場において十分な競争が働いていることが確認できた場合には、募集量を増加させる」と明記されており、1σ相当は暫定の扱いです。上限価格も同じ資料で次の段階として7.21円が示され、判定指標は募集量に対する応札量・応札価格の分布・余力の価格水準とされています。"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://www.scix.co.jp//"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ナレッジ",
+      "item": "https://www.scix.co.jp/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "1σ化で何がいくら減ったか — 必要量0.55・募集量0.62・複合0.97",
+      "item": "https://www.scix.co.jp/column-balancing-saturation-volume"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">1σ化で何がいくら減ったか — 必要量0.55・募集量0.62・複合0.97</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 47-2</span>
+      <span class="header-tag">制度解説</span>
+      <time class="header-date" datetime="2026-09-07">2026.09.07</time>
+    </div>
+    <h1>1σ化で何がいくら減ったか<br>— 必要量は0.55、募集量は0.62、複合は0.97</h1>
+    <p class="header-desc">需給調整市場は2026年3月14日受渡分から前日取引と30分コマに移り、一次・二次①の募集量は「3σ相当」から「1σ相当」へ、上限価格は19.51円から15円、9月1日実需給分からは10円になりました。「3σが1σになったのだから募集量は3分の1」という説明を、EPRXが公表している数字で割り算して確かめます。</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
+<nav class="c47series" aria-label="COLUMN 47"><span class="lb">この連載は4本です</span><a target="_top" href="/column-balancing-saturation">COLUMN 47 入口</a><span class="cur">47-2 募集量編</span><a target="_top" href="/column-balancing-saturation-supply">47-3 供給編</a><a target="_top" href="/column-balancing-saturation-floor">47-4 床編</a></nav>
+<p>需給調整市場は2026年3月14日受渡分（3月13日取引分）から前日取引と30分コマに移り、一次・二次①の募集量は「3σ相当」から「1σ相当」に（複合商品はもともと1σ相当）、一次・二次①・複合の上限価格は19.51円から15円/ΔkW・30分に変わりました。9月1日実需給分からは上限が10円です。その後、「3σが1σになったのだから募集量は3分の1」という説明をよく目にします。EPRXが公表している数字で割り算すると、そうはなっていません。</p>
+<p>このページは需要側だけを扱います。募集量がどう決まり、何がいくら減り、何が減らなかったか、これから何が動かすか。蓄電池がいつ・どこに来るかは47-3、価格がどこで止まるかは47-4に分けました。数式は使いません。図で追える順に並べています。</p>
+<h2>1. 「1σ」は、どこまで備えるかの幅</h2>
+<p>需給調整力は、電力の需要と供給のぶれを埋めるために送配電事業者が買っておく「余力」です。ぶれは毎日起きますが、大きさは日によって違います。小さいぶれはよく起き、大きいぶれはまれにしか起きない。この「よく起きる・まれに起きる」の分布を表すのが図1の山で、山の幅の単位がσ（シグマ）です。</p>
+<figure class="c47" id="v1"><div class="c47scroll"><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 576.76 322.17" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:c2pa="http://c2pa.org/manifest" preserveAspectRatio="xMidYMid meet" role="img" stroke-linejoin="round" stroke-linecap="butt" style="width:100%;height:auto;display:block">
+ <g id="v1-figure_1">
+  <g id="v1-patch_1">
+   <path d="M 0 322.17 
+L 576.76 322.17 
+L 576.76 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="v1-axes_1">
+   <g id="v1-patch_2">
+    <path d="M 7.2 279.37 
+L 509.4 279.37 
+L 509.4 24.34 
+L 7.2 24.34 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="v1-FillBetweenPolyCollection_1">
+    <defs>
+     <path id="v1-m682045f31f" d="M 30.03 -42.88 
+L 30.03 -42.8 
+L 30.6 -42.8 
+L 31.17 -42.8 
+L 31.74 -42.8 
+L 32.31 -42.8 
+L 32.88 -42.8 
+L 33.46 -42.8 
+L 34.03 -42.8 
+L 34.6 -42.8 
+L 35.17 -42.8 
+L 35.74 -42.8 
+L 36.31 -42.8 
+L 36.88 -42.8 
+L 37.46 -42.8 
+L 38.03 -42.8 
+L 38.6 -42.8 
+L 39.17 -42.8 
+L 39.74 -42.8 
+L 40.31 -42.8 
+L 40.88 -42.8 
+L 41.46 -42.8 
+L 42.03 -42.8 
+L 42.6 -42.8 
+L 43.17 -42.8 
+L 43.74 -42.8 
+L 44.31 -42.8 
+L 44.88 -42.8 
+L 45.45 -42.8 
+L 46.03 -42.8 
+L 46.6 -42.8 
+L 47.17 -42.8 
+L 47.74 -42.8 
+L 48.31 -42.8 
+L 48.88 -42.8 
+L 49.45 -42.8 
+L 50.03 -42.8 
+L 50.6 -42.8 
+L 51.17 -42.8 
+L 51.74 -42.8 
+L 52.31 -42.8 
+L 52.88 -42.8 
+L 53.45 -42.8 
+L 54.03 -42.8 
+L 54.6 -42.8 
+L 55.17 -42.8 
+L 55.74 -42.8 
+L 56.31 -42.8 
+L 56.88 -42.8 
+L 57.45 -42.8 
+L 58.03 -42.8 
+L 58.6 -42.8 
+L 59.17 -42.8 
+L 59.74 -42.8 
+L 60.31 -42.8 
+L 60.88 -42.8 
+L 61.45 -42.8 
+L 62.03 -42.8 
+L 62.6 -42.8 
+L 63.17 -42.8 
+L 63.74 -42.8 
+L 64.31 -42.8 
+L 64.88 -42.8 
+L 65.45 -42.8 
+L 66.03 -42.8 
+L 66.6 -42.8 
+L 67.17 -42.8 
+L 67.74 -42.8 
+L 68.31 -42.8 
+L 68.88 -42.8 
+L 69.45 -42.8 
+L 70.02 -42.8 
+L 70.6 -42.8 
+L 71.17 -42.8 
+L 71.74 -42.8 
+L 72.31 -42.8 
+L 72.88 -42.8 
+L 73.45 -42.8 
+L 74.02 -42.8 
+L 74.6 -42.8 
+L 75.17 -42.8 
+L 75.74 -42.8 
+L 76.31 -42.8 
+L 76.88 -42.8 
+L 77.45 -42.8 
+L 78.02 -42.8 
+L 78.6 -42.8 
+L 79.17 -42.8 
+L 79.74 -42.8 
+L 80.31 -42.8 
+L 80.88 -42.8 
+L 81.45 -42.8 
+L 82.02 -42.8 
+L 82.6 -42.8 
+L 83.17 -42.8 
+L 83.74 -42.8 
+L 84.31 -42.8 
+L 84.88 -42.8 
+L 85.45 -42.8 
+L 86.02 -42.8 
+L 86.6 -42.8 
+L 87.17 -42.8 
+L 87.74 -42.8 
+L 88.31 -42.8 
+L 88.88 -42.8 
+L 89.45 -42.8 
+L 90.02 -42.8 
+L 90.6 -42.8 
+L 91.17 -42.8 
+L 91.74 -42.8 
+L 92.31 -42.8 
+L 92.88 -42.8 
+L 93.45 -42.8 
+L 94.02 -42.8 
+L 94.6 -42.8 
+L 95.17 -42.8 
+L 95.74 -42.8 
+L 96.31 -42.8 
+L 96.88 -42.8 
+L 97.45 -42.8 
+L 98.02 -42.8 
+L 98.59 -42.8 
+L 99.17 -42.8 
+L 99.74 -42.8 
+L 100.31 -42.8 
+L 100.88 -42.8 
+L 101.45 -42.8 
+L 102.02 -42.8 
+L 102.59 -42.8 
+L 103.17 -42.8 
+L 103.74 -42.8 
+L 104.31 -42.8 
+L 104.88 -42.8 
+L 105.45 -42.8 
+L 106.02 -42.8 
+L 106.59 -42.8 
+L 107.17 -42.8 
+L 107.74 -42.8 
+L 108.31 -42.8 
+L 108.88 -42.8 
+L 109.45 -42.8 
+L 110.02 -42.8 
+L 110.59 -42.8 
+L 111.17 -42.8 
+L 111.74 -42.8 
+L 112.31 -42.8 
+L 112.88 -42.8 
+L 113.45 -42.8 
+L 114.02 -42.8 
+L 114.59 -42.8 
+L 115.17 -42.8 
+L 115.74 -42.8 
+L 116.31 -42.8 
+L 116.88 -42.8 
+L 117.45 -42.8 
+L 118.02 -42.8 
+L 118.59 -42.8 
+L 119.17 -42.8 
+L 119.74 -42.8 
+L 120.31 -42.8 
+L 120.88 -42.8 
+L 121.45 -42.8 
+L 122.02 -42.8 
+L 122.59 -42.8 
+L 123.16 -42.8 
+L 123.74 -42.8 
+L 124.31 -42.8 
+L 124.88 -42.8 
+L 125.45 -42.8 
+L 126.02 -42.8 
+L 126.59 -42.8 
+L 127.16 -42.8 
+L 127.74 -42.8 
+L 128.31 -42.8 
+L 128.88 -42.8 
+L 129.45 -42.8 
+L 130.02 -42.8 
+L 130.59 -42.8 
+L 131.16 -42.8 
+L 131.74 -42.8 
+L 132.31 -42.8 
+L 132.88 -42.8 
+L 133.45 -42.8 
+L 134.02 -42.8 
+L 134.59 -42.8 
+L 135.16 -42.8 
+L 135.74 -42.8 
+L 136.31 -42.8 
+L 136.88 -42.8 
+L 137.45 -42.8 
+L 138.02 -42.8 
+L 138.59 -42.8 
+L 139.16 -42.8 
+L 139.74 -42.8 
+L 140.31 -42.8 
+L 140.88 -42.8 
+L 141.45 -42.8 
+L 142.02 -42.8 
+L 142.59 -42.8 
+L 143.16 -42.8 
+L 143.74 -42.8 
+L 144.31 -42.8 
+L 144.88 -42.8 
+L 145.45 -42.8 
+L 146.02 -42.8 
+L 146.59 -42.8 
+L 147.16 -42.8 
+L 147.73 -42.8 
+L 148.31 -42.8 
+L 148.88 -42.8 
+L 149.45 -42.8 
+L 150.02 -42.8 
+L 150.59 -42.8 
+L 151.16 -42.8 
+L 151.73 -42.8 
+L 152.31 -42.8 
+L 152.88 -42.8 
+L 153.45 -42.8 
+L 154.02 -42.8 
+L 154.59 -42.8 
+L 155.16 -42.8 
+L 155.73 -42.8 
+L 156.31 -42.8 
+L 156.88 -42.8 
+L 157.45 -42.8 
+L 158.02 -42.8 
+L 158.59 -42.8 
+L 159.16 -42.8 
+L 159.73 -42.8 
+L 160.31 -42.8 
+L 160.88 -42.8 
+L 161.45 -42.8 
+L 162.02 -42.8 
+L 162.59 -42.8 
+L 163.16 -42.8 
+L 163.73 -42.8 
+L 164.31 -42.8 
+L 164.88 -42.8 
+L 165.45 -42.8 
+L 166.02 -42.8 
+L 166.59 -42.8 
+L 167.16 -42.8 
+L 167.73 -42.8 
+L 168.31 -42.8 
+L 168.88 -42.8 
+L 169.45 -42.8 
+L 170.02 -42.8 
+L 170.59 -42.8 
+L 171.16 -42.8 
+L 171.73 -42.8 
+L 172.3 -42.8 
+L 172.88 -42.8 
+L 173.45 -42.8 
+L 174.02 -42.8 
+L 174.59 -42.8 
+L 175.16 -42.8 
+L 175.73 -42.8 
+L 176.3 -42.8 
+L 176.88 -42.8 
+L 177.45 -42.8 
+L 178.02 -42.8 
+L 178.59 -42.8 
+L 179.16 -42.8 
+L 179.73 -42.8 
+L 180.3 -42.8 
+L 180.88 -42.8 
+L 181.45 -42.8 
+L 182.02 -42.8 
+L 182.59 -42.8 
+L 183.16 -42.8 
+L 183.73 -42.8 
+L 184.3 -42.8 
+L 184.88 -42.8 
+L 185.45 -42.8 
+L 186.02 -42.8 
+L 186.59 -42.8 
+L 187.16 -42.8 
+L 187.73 -42.8 
+L 188.3 -42.8 
+L 188.88 -42.8 
+L 189.45 -42.8 
+L 190.02 -42.8 
+L 190.59 -42.8 
+L 191.16 -42.8 
+L 191.73 -42.8 
+L 192.3 -42.8 
+L 192.88 -42.8 
+L 193.45 -42.8 
+L 194.02 -42.8 
+L 194.59 -42.8 
+L 195.16 -42.8 
+L 195.73 -42.8 
+L 196.3 -42.8 
+L 196.87 -42.8 
+L 197.45 -42.8 
+L 198.02 -42.8 
+L 198.59 -42.8 
+L 199.16 -42.8 
+L 199.73 -42.8 
+L 200.3 -42.8 
+L 200.87 -42.8 
+L 201.45 -42.8 
+L 202.02 -42.8 
+L 202.59 -42.8 
+L 203.16 -42.8 
+L 203.73 -42.8 
+L 204.3 -42.8 
+L 204.87 -42.8 
+L 205.45 -42.8 
+L 206.02 -42.8 
+L 206.59 -42.8 
+L 207.16 -42.8 
+L 207.73 -42.8 
+L 208.3 -42.8 
+L 208.87 -42.8 
+L 209.45 -42.8 
+L 210.02 -42.8 
+L 210.59 -42.8 
+L 211.16 -42.8 
+L 211.73 -42.8 
+L 212.3 -42.8 
+L 212.87 -42.8 
+L 213.45 -42.8 
+L 214.02 -42.8 
+L 214.59 -42.8 
+L 215.16 -42.8 
+L 215.73 -42.8 
+L 216.3 -42.8 
+L 216.87 -42.8 
+L 217.45 -42.8 
+L 218.02 -42.8 
+L 218.59 -42.8 
+L 219.16 -42.8 
+L 219.73 -42.8 
+L 220.3 -42.8 
+L 220.87 -42.8 
+L 221.44 -42.8 
+L 222.02 -42.8 
+L 222.59 -42.8 
+L 223.16 -42.8 
+L 223.73 -42.8 
+L 224.3 -42.8 
+L 224.87 -42.8 
+L 225.44 -42.8 
+L 226.02 -42.8 
+L 226.59 -42.8 
+L 227.16 -42.8 
+L 227.73 -42.8 
+L 228.3 -42.8 
+L 228.87 -42.8 
+L 229.44 -42.8 
+L 230.02 -42.8 
+L 230.59 -42.8 
+L 231.16 -42.8 
+L 231.73 -42.8 
+L 232.3 -42.8 
+L 232.87 -42.8 
+L 233.44 -42.8 
+L 234.02 -42.8 
+L 234.59 -42.8 
+L 235.16 -42.8 
+L 235.73 -42.8 
+L 236.3 -42.8 
+L 236.87 -42.8 
+L 237.44 -42.8 
+L 238.02 -42.8 
+L 238.59 -42.8 
+L 239.16 -42.8 
+L 239.73 -42.8 
+L 240.3 -42.8 
+L 240.87 -42.8 
+L 241.44 -42.8 
+L 242.02 -42.8 
+L 242.59 -42.8 
+L 243.16 -42.8 
+L 243.73 -42.8 
+L 244.3 -42.8 
+L 244.87 -42.8 
+L 245.44 -42.8 
+L 246.01 -42.8 
+L 246.59 -42.8 
+L 247.16 -42.8 
+L 247.73 -42.8 
+L 248.3 -42.8 
+L 248.87 -42.8 
+L 249.44 -42.8 
+L 250.01 -42.8 
+L 250.59 -42.8 
+L 251.16 -42.8 
+L 251.73 -42.8 
+L 252.3 -42.8 
+L 252.87 -42.8 
+L 253.44 -42.8 
+L 254.01 -42.8 
+L 254.59 -42.8 
+L 255.16 -42.8 
+L 255.73 -42.8 
+L 256.3 -42.8 
+L 256.87 -42.8 
+L 257.44 -42.8 
+L 258.01 -42.8 
+L 258.59 -42.8 
+L 259.16 -42.8 
+L 259.73 -42.8 
+L 260.3 -42.8 
+L 260.87 -42.8 
+L 261.44 -42.8 
+L 262.01 -42.8 
+L 262.59 -42.8 
+L 263.16 -42.8 
+L 263.73 -42.8 
+L 264.3 -42.8 
+L 264.87 -42.8 
+L 265.44 -42.8 
+L 266.01 -42.8 
+L 266.59 -42.8 
+L 267.16 -42.8 
+L 267.73 -42.8 
+L 268.3 -42.8 
+L 268.87 -42.8 
+L 269.44 -42.8 
+L 270.01 -42.8 
+L 270.59 -42.8 
+L 271.16 -42.8 
+L 271.73 -42.8 
+L 272.3 -42.8 
+L 272.87 -42.8 
+L 273.44 -42.8 
+L 274.01 -42.8 
+L 274.58 -42.8 
+L 275.16 -42.8 
+L 275.73 -42.8 
+L 276.3 -42.8 
+L 276.87 -42.8 
+L 277.44 -42.8 
+L 278.01 -42.8 
+L 278.58 -42.8 
+L 279.16 -42.8 
+L 279.73 -42.8 
+L 280.3 -42.8 
+L 280.87 -42.8 
+L 281.44 -42.8 
+L 282.01 -42.8 
+L 282.58 -42.8 
+L 283.16 -42.8 
+L 283.73 -42.8 
+L 284.3 -42.8 
+L 284.87 -42.8 
+L 285.44 -42.8 
+L 286.01 -42.8 
+L 286.58 -42.8 
+L 287.16 -42.8 
+L 287.73 -42.8 
+L 288.3 -42.8 
+L 288.87 -42.8 
+L 289.44 -42.8 
+L 290.01 -42.8 
+L 290.58 -42.8 
+L 291.16 -42.8 
+L 291.73 -42.8 
+L 292.3 -42.8 
+L 292.87 -42.8 
+L 293.44 -42.8 
+L 294.01 -42.8 
+L 294.58 -42.8 
+L 295.16 -42.8 
+L 295.73 -42.8 
+L 296.3 -42.8 
+L 296.87 -42.8 
+L 297.44 -42.8 
+L 298.01 -42.8 
+L 298.58 -42.8 
+L 299.15 -42.8 
+L 299.73 -42.8 
+L 300.3 -42.8 
+L 300.87 -42.8 
+L 301.44 -42.8 
+L 302.01 -42.8 
+L 302.58 -42.8 
+L 303.15 -42.8 
+L 303.73 -42.8 
+L 304.3 -42.8 
+L 304.87 -42.8 
+L 305.44 -42.8 
+L 306.01 -42.8 
+L 306.58 -42.8 
+L 307.15 -42.8 
+L 307.73 -42.8 
+L 308.3 -42.8 
+L 308.87 -42.8 
+L 309.44 -42.8 
+L 310.01 -42.8 
+L 310.58 -42.8 
+L 311.15 -42.8 
+L 311.73 -42.8 
+L 312.3 -42.8 
+L 312.87 -42.8 
+L 313.44 -42.8 
+L 314.01 -42.8 
+L 314.58 -42.8 
+L 315.15 -42.8 
+L 315.73 -42.8 
+L 316.3 -42.8 
+L 316.87 -42.8 
+L 317.44 -42.8 
+L 318.01 -42.8 
+L 318.58 -42.8 
+L 319.15 -42.8 
+L 319.73 -42.8 
+L 320.3 -42.8 
+L 320.87 -42.8 
+L 321.44 -42.8 
+L 322.01 -42.8 
+L 322.58 -42.8 
+L 323.15 -42.8 
+L 323.72 -42.8 
+L 324.3 -42.8 
+L 324.87 -42.8 
+L 325.44 -42.8 
+L 326.01 -42.8 
+L 326.58 -42.8 
+L 327.15 -42.8 
+L 327.72 -42.8 
+L 328.3 -42.8 
+L 328.87 -42.8 
+L 329.44 -42.8 
+L 330.01 -42.8 
+L 330.58 -42.8 
+L 331.15 -42.8 
+L 331.72 -42.8 
+L 332.3 -42.8 
+L 332.87 -42.8 
+L 333.44 -42.8 
+L 334.01 -42.8 
+L 334.58 -42.8 
+L 335.15 -42.8 
+L 335.72 -42.8 
+L 336.3 -42.8 
+L 336.87 -42.8 
+L 337.44 -42.8 
+L 338.01 -42.8 
+L 338.58 -42.8 
+L 339.15 -42.8 
+L 339.72 -42.8 
+L 340.3 -42.8 
+L 340.87 -42.8 
+L 341.44 -42.8 
+L 342.01 -42.8 
+L 342.58 -42.8 
+L 343.15 -42.8 
+L 343.72 -42.8 
+L 344.3 -42.8 
+L 344.87 -42.8 
+L 345.44 -42.8 
+L 346.01 -42.8 
+L 346.58 -42.8 
+L 347.15 -42.8 
+L 347.72 -42.8 
+L 348.29 -42.8 
+L 348.87 -42.8 
+L 349.44 -42.8 
+L 350.01 -42.8 
+L 350.58 -42.8 
+L 351.15 -42.8 
+L 351.72 -42.8 
+L 352.29 -42.8 
+L 352.87 -42.8 
+L 353.44 -42.8 
+L 354.01 -42.8 
+L 354.58 -42.8 
+L 355.15 -42.8 
+L 355.72 -42.8 
+L 356.29 -42.8 
+L 356.87 -42.8 
+L 357.44 -42.8 
+L 358.01 -42.8 
+L 358.58 -42.8 
+L 359.15 -42.8 
+L 359.72 -42.8 
+L 360.29 -42.8 
+L 360.87 -42.8 
+L 361.44 -42.8 
+L 362.01 -42.8 
+L 362.58 -42.8 
+L 363.15 -42.8 
+L 363.72 -42.8 
+L 364.29 -42.8 
+L 364.87 -42.8 
+L 365.44 -42.8 
+L 366.01 -42.8 
+L 366.58 -42.8 
+L 367.15 -42.8 
+L 367.72 -42.8 
+L 368.29 -42.8 
+L 368.87 -42.8 
+L 369.44 -42.8 
+L 370.01 -42.8 
+L 370.58 -42.8 
+L 371.15 -42.8 
+L 371.72 -42.8 
+L 372.29 -42.8 
+L 372.86 -42.8 
+L 373.44 -42.8 
+L 374.01 -42.8 
+L 374.58 -42.8 
+L 375.15 -42.8 
+L 375.72 -42.8 
+L 376.29 -42.8 
+L 376.86 -42.8 
+L 377.44 -42.8 
+L 378.01 -42.8 
+L 378.58 -42.8 
+L 379.15 -42.8 
+L 379.72 -42.8 
+L 380.29 -42.8 
+L 380.86 -42.8 
+L 381.44 -42.8 
+L 382.01 -42.8 
+L 382.58 -42.8 
+L 383.15 -42.8 
+L 383.72 -42.8 
+L 384.29 -42.8 
+L 384.86 -42.8 
+L 385.44 -42.8 
+L 386.01 -42.8 
+L 386.58 -42.8 
+L 387.15 -42.8 
+L 387.72 -42.8 
+L 388.29 -42.8 
+L 388.86 -42.8 
+L 389.44 -42.8 
+L 390.01 -42.8 
+L 390.58 -42.8 
+L 391.15 -42.8 
+L 391.72 -42.8 
+L 392.29 -42.8 
+L 392.86 -42.8 
+L 393.44 -42.8 
+L 394.01 -42.8 
+L 394.58 -42.8 
+L 395.15 -42.8 
+L 395.72 -42.8 
+L 396.29 -42.8 
+L 396.86 -42.8 
+L 397.43 -42.8 
+L 398.01 -42.8 
+L 398.58 -42.8 
+L 399.15 -42.8 
+L 399.72 -42.8 
+L 400.29 -42.8 
+L 400.86 -42.8 
+L 401.43 -42.8 
+L 402.01 -42.8 
+L 402.58 -42.8 
+L 403.15 -42.8 
+L 403.72 -42.8 
+L 404.29 -42.8 
+L 404.86 -42.8 
+L 405.43 -42.8 
+L 406.01 -42.8 
+L 406.58 -42.8 
+L 407.15 -42.8 
+L 407.72 -42.8 
+L 408.29 -42.8 
+L 408.86 -42.8 
+L 409.43 -42.8 
+L 410.01 -42.8 
+L 410.58 -42.8 
+L 411.15 -42.8 
+L 411.72 -42.8 
+L 412.29 -42.8 
+L 412.86 -42.8 
+L 413.43 -42.8 
+L 414.01 -42.8 
+L 414.58 -42.8 
+L 415.15 -42.8 
+L 415.72 -42.8 
+L 416.29 -42.8 
+L 416.86 -42.8 
+L 417.43 -42.8 
+L 418.01 -42.8 
+L 418.58 -42.8 
+L 419.15 -42.8 
+L 419.72 -42.8 
+L 420.29 -42.8 
+L 420.86 -42.8 
+L 421.43 -42.8 
+L 422 -42.8 
+L 422.58 -42.8 
+L 423.15 -42.8 
+L 423.72 -42.8 
+L 424.29 -42.8 
+L 424.86 -42.8 
+L 425.43 -42.8 
+L 426 -42.8 
+L 426.58 -42.8 
+L 427.15 -42.8 
+L 427.72 -42.8 
+L 428.29 -42.8 
+L 428.86 -42.8 
+L 429.43 -42.8 
+L 429.43 -45.32 
+L 429.43 -45.32 
+L 428.86 -45.4 
+L 428.29 -45.48 
+L 427.72 -45.56 
+L 427.15 -45.64 
+L 426.58 -45.73 
+L 426 -45.81 
+L 425.43 -45.9 
+L 424.86 -46 
+L 424.29 -46.09 
+L 423.72 -46.19 
+L 423.15 -46.29 
+L 422.58 -46.39 
+L 422 -46.49 
+L 421.43 -46.6 
+L 420.86 -46.71 
+L 420.29 -46.82 
+L 419.72 -46.94 
+L 419.15 -47.06 
+L 418.58 -47.18 
+L 418.01 -47.3 
+L 417.43 -47.43 
+L 416.86 -47.56 
+L 416.29 -47.7 
+L 415.72 -47.83 
+L 415.15 -47.98 
+L 414.58 -48.12 
+L 414.01 -48.27 
+L 413.43 -48.42 
+L 412.86 -48.57 
+L 412.29 -48.73 
+L 411.72 -48.89 
+L 411.15 -49.06 
+L 410.58 -49.23 
+L 410.01 -49.4 
+L 409.43 -49.58 
+L 408.86 -49.76 
+L 408.29 -49.95 
+L 407.72 -50.14 
+L 407.15 -50.33 
+L 406.58 -50.53 
+L 406.01 -50.74 
+L 405.43 -50.94 
+L 404.86 -51.16 
+L 404.29 -51.37 
+L 403.72 -51.6 
+L 403.15 -51.82 
+L 402.58 -52.05 
+L 402.01 -52.29 
+L 401.43 -52.53 
+L 400.86 -52.78 
+L 400.29 -53.03 
+L 399.72 -53.29 
+L 399.15 -53.55 
+L 398.58 -53.82 
+L 398.01 -54.1 
+L 397.43 -54.38 
+L 396.86 -54.66 
+L 396.29 -54.95 
+L 395.72 -55.25 
+L 395.15 -55.55 
+L 394.58 -55.86 
+L 394.01 -56.18 
+L 393.44 -56.5 
+L 392.86 -56.83 
+L 392.29 -57.16 
+L 391.72 -57.5 
+L 391.15 -57.85 
+L 390.58 -58.2 
+L 390.01 -58.56 
+L 389.44 -58.93 
+L 388.86 -59.31 
+L 388.29 -59.69 
+L 387.72 -60.08 
+L 387.15 -60.47 
+L 386.58 -60.88 
+L 386.01 -61.29 
+L 385.44 -61.7 
+L 384.86 -62.13 
+L 384.29 -62.56 
+L 383.72 -63 
+L 383.15 -63.45 
+L 382.58 -63.91 
+L 382.01 -64.37 
+L 381.44 -64.85 
+L 380.86 -65.33 
+L 380.29 -65.81 
+L 379.72 -66.31 
+L 379.15 -66.82 
+L 378.58 -67.33 
+L 378.01 -67.85 
+L 377.44 -68.38 
+L 376.86 -68.92 
+L 376.29 -69.47 
+L 375.72 -70.02 
+L 375.15 -70.59 
+L 374.58 -71.16 
+L 374.01 -71.75 
+L 373.44 -72.34 
+L 372.86 -72.94 
+L 372.29 -73.55 
+L 371.72 -74.17 
+L 371.15 -74.8 
+L 370.58 -75.44 
+L 370.01 -76.09 
+L 369.44 -76.74 
+L 368.87 -77.41 
+L 368.29 -78.09 
+L 367.72 -78.77 
+L 367.15 -79.47 
+L 366.58 -80.17 
+L 366.01 -80.89 
+L 365.44 -81.61 
+L 364.87 -82.35 
+L 364.29 -83.09 
+L 363.72 -83.84 
+L 363.15 -84.61 
+L 362.58 -85.38 
+L 362.01 -86.17 
+L 361.44 -86.96 
+L 360.87 -87.76 
+L 360.29 -88.58 
+L 359.72 -89.4 
+L 359.15 -90.24 
+L 358.58 -91.08 
+L 358.01 -91.94 
+L 357.44 -92.8 
+L 356.87 -93.68 
+L 356.29 -94.56 
+L 355.72 -95.46 
+L 355.15 -96.36 
+L 354.58 -97.28 
+L 354.01 -98.2 
+L 353.44 -99.14 
+L 352.87 -100.08 
+L 352.29 -101.04 
+L 351.72 -102 
+L 351.15 -102.98 
+L 350.58 -103.96 
+L 350.01 -104.96 
+L 349.44 -105.96 
+L 348.87 -106.98 
+L 348.29 -108 
+L 347.72 -109.04 
+L 347.15 -110.08 
+L 346.58 -111.14 
+L 346.01 -112.2 
+L 345.44 -113.27 
+L 344.87 -114.35 
+L 344.3 -115.44 
+L 343.72 -116.55 
+L 343.15 -117.65 
+L 342.58 -118.77 
+L 342.01 -119.9 
+L 341.44 -121.04 
+L 340.87 -122.18 
+L 340.3 -123.34 
+L 339.72 -124.5 
+L 339.15 -125.67 
+L 338.58 -126.85 
+L 338.01 -128.04 
+L 337.44 -129.24 
+L 336.87 -130.44 
+L 336.3 -131.65 
+L 335.72 -132.87 
+L 335.15 -134.1 
+L 334.58 -135.33 
+L 334.01 -136.58 
+L 333.44 -137.83 
+L 332.87 -139.08 
+L 332.3 -140.35 
+L 331.72 -141.61 
+L 331.15 -142.89 
+L 330.58 -144.17 
+L 330.01 -145.46 
+L 329.44 -146.76 
+L 328.87 -148.06 
+L 328.3 -149.36 
+L 327.72 -150.67 
+L 327.15 -151.99 
+L 326.58 -153.31 
+L 326.01 -154.64 
+L 325.44 -155.97 
+L 324.87 -157.3 
+L 324.3 -158.64 
+L 323.72 -159.99 
+L 323.15 -161.33 
+L 322.58 -162.68 
+L 322.01 -164.04 
+L 321.44 -165.39 
+L 320.87 -166.75 
+L 320.3 -168.12 
+L 319.73 -169.48 
+L 319.15 -170.85 
+L 318.58 -172.21 
+L 318.01 -173.58 
+L 317.44 -174.95 
+L 316.87 -176.33 
+L 316.3 -177.7 
+L 315.73 -179.07 
+L 315.15 -180.44 
+L 314.58 -181.82 
+L 314.01 -183.19 
+L 313.44 -184.56 
+L 312.87 -185.93 
+L 312.3 -187.3 
+L 311.73 -188.67 
+L 311.15 -190.04 
+L 310.58 -191.4 
+L 310.01 -192.76 
+L 309.44 -194.12 
+L 308.87 -195.48 
+L 308.3 -196.83 
+L 307.73 -198.18 
+L 307.15 -199.53 
+L 306.58 -200.87 
+L 306.01 -202.2 
+L 305.44 -203.54 
+L 304.87 -204.86 
+L 304.3 -206.18 
+L 303.73 -207.5 
+L 303.15 -208.81 
+L 302.58 -210.11 
+L 302.01 -211.41 
+L 301.44 -212.7 
+L 300.87 -213.98 
+L 300.3 -215.26 
+L 299.73 -216.52 
+L 299.15 -217.78 
+L 298.58 -219.03 
+L 298.01 -220.27 
+L 297.44 -221.5 
+L 296.87 -222.73 
+L 296.3 -223.94 
+L 295.73 -225.14 
+L 295.16 -226.33 
+L 294.58 -227.51 
+L 294.01 -228.68 
+L 293.44 -229.84 
+L 292.87 -230.99 
+L 292.3 -232.13 
+L 291.73 -233.25 
+L 291.16 -234.36 
+L 290.58 -235.46 
+L 290.01 -236.54 
+L 289.44 -237.61 
+L 288.87 -238.67 
+L 288.3 -239.71 
+L 287.73 -240.74 
+L 287.16 -241.76 
+L 286.58 -242.76 
+L 286.01 -243.74 
+L 285.44 -244.71 
+L 284.87 -245.67 
+L 284.3 -246.6 
+L 283.73 -247.52 
+L 283.16 -248.43 
+L 282.58 -249.32 
+L 282.01 -250.19 
+L 281.44 -251.04 
+L 280.87 -251.88 
+L 280.3 -252.7 
+L 279.73 -253.5 
+L 279.16 -254.28 
+L 278.58 -255.05 
+L 278.01 -255.79 
+L 277.44 -256.52 
+L 276.87 -257.23 
+L 276.3 -257.92 
+L 275.73 -258.59 
+L 275.16 -259.24 
+L 274.58 -259.87 
+L 274.01 -260.48 
+L 273.44 -261.07 
+L 272.87 -261.64 
+L 272.3 -262.19 
+L 271.73 -262.72 
+L 271.16 -263.22 
+L 270.59 -263.71 
+L 270.01 -264.18 
+L 269.44 -264.62 
+L 268.87 -265.04 
+L 268.3 -265.44 
+L 267.73 -265.82 
+L 267.16 -266.18 
+L 266.59 -266.52 
+L 266.01 -266.83 
+L 265.44 -267.12 
+L 264.87 -267.39 
+L 264.3 -267.64 
+L 263.73 -267.87 
+L 263.16 -268.07 
+L 262.59 -268.25 
+L 262.01 -268.41 
+L 261.44 -268.55 
+L 260.87 -268.66 
+L 260.3 -268.75 
+L 259.73 -268.82 
+L 259.16 -268.86 
+L 258.59 -268.89 
+L 258.01 -268.89 
+L 257.44 -268.86 
+L 256.87 -268.82 
+L 256.3 -268.75 
+L 255.73 -268.66 
+L 255.16 -268.55 
+L 254.59 -268.41 
+L 254.01 -268.25 
+L 253.44 -268.07 
+L 252.87 -267.87 
+L 252.3 -267.64 
+L 251.73 -267.39 
+L 251.16 -267.12 
+L 250.59 -266.83 
+L 250.01 -266.52 
+L 249.44 -266.18 
+L 248.87 -265.82 
+L 248.3 -265.44 
+L 247.73 -265.04 
+L 247.16 -264.62 
+L 246.59 -264.18 
+L 246.01 -263.71 
+L 245.44 -263.22 
+L 244.87 -262.72 
+L 244.3 -262.19 
+L 243.73 -261.64 
+L 243.16 -261.07 
+L 242.59 -260.48 
+L 242.02 -259.87 
+L 241.44 -259.24 
+L 240.87 -258.59 
+L 240.3 -257.92 
+L 239.73 -257.23 
+L 239.16 -256.52 
+L 238.59 -255.79 
+L 238.02 -255.05 
+L 237.44 -254.28 
+L 236.87 -253.5 
+L 236.3 -252.7 
+L 235.73 -251.88 
+L 235.16 -251.04 
+L 234.59 -250.19 
+L 234.02 -249.32 
+L 233.44 -248.43 
+L 232.87 -247.52 
+L 232.3 -246.6 
+L 231.73 -245.67 
+L 231.16 -244.71 
+L 230.59 -243.74 
+L 230.02 -242.76 
+L 229.44 -241.76 
+L 228.87 -240.74 
+L 228.3 -239.71 
+L 227.73 -238.67 
+L 227.16 -237.61 
+L 226.59 -236.54 
+L 226.02 -235.46 
+L 225.44 -234.36 
+L 224.87 -233.25 
+L 224.3 -232.13 
+L 223.73 -230.99 
+L 223.16 -229.84 
+L 222.59 -228.68 
+L 222.02 -227.51 
+L 221.44 -226.33 
+L 220.87 -225.14 
+L 220.3 -223.94 
+L 219.73 -222.73 
+L 219.16 -221.5 
+L 218.59 -220.27 
+L 218.02 -219.03 
+L 217.45 -217.78 
+L 216.87 -216.52 
+L 216.3 -215.26 
+L 215.73 -213.98 
+L 215.16 -212.7 
+L 214.59 -211.41 
+L 214.02 -210.11 
+L 213.45 -208.81 
+L 212.87 -207.5 
+L 212.3 -206.18 
+L 211.73 -204.86 
+L 211.16 -203.54 
+L 210.59 -202.2 
+L 210.02 -200.87 
+L 209.45 -199.53 
+L 208.87 -198.18 
+L 208.3 -196.83 
+L 207.73 -195.48 
+L 207.16 -194.12 
+L 206.59 -192.76 
+L 206.02 -191.4 
+L 205.45 -190.04 
+L 204.87 -188.67 
+L 204.3 -187.3 
+L 203.73 -185.93 
+L 203.16 -184.56 
+L 202.59 -183.19 
+L 202.02 -181.82 
+L 201.45 -180.44 
+L 200.87 -179.07 
+L 200.3 -177.7 
+L 199.73 -176.33 
+L 199.16 -174.95 
+L 198.59 -173.58 
+L 198.02 -172.21 
+L 197.45 -170.85 
+L 196.87 -169.48 
+L 196.3 -168.12 
+L 195.73 -166.75 
+L 195.16 -165.39 
+L 194.59 -164.04 
+L 194.02 -162.68 
+L 193.45 -161.33 
+L 192.88 -159.99 
+L 192.3 -158.64 
+L 191.73 -157.3 
+L 191.16 -155.97 
+L 190.59 -154.64 
+L 190.02 -153.31 
+L 189.45 -151.99 
+L 188.88 -150.67 
+L 188.3 -149.36 
+L 187.73 -148.06 
+L 187.16 -146.76 
+L 186.59 -145.46 
+L 186.02 -144.17 
+L 185.45 -142.89 
+L 184.88 -141.61 
+L 184.3 -140.35 
+L 183.73 -139.08 
+L 183.16 -137.83 
+L 182.59 -136.58 
+L 182.02 -135.33 
+L 181.45 -134.1 
+L 180.88 -132.87 
+L 180.3 -131.65 
+L 179.73 -130.44 
+L 179.16 -129.24 
+L 178.59 -128.04 
+L 178.02 -126.85 
+L 177.45 -125.67 
+L 176.88 -124.5 
+L 176.3 -123.34 
+L 175.73 -122.18 
+L 175.16 -121.04 
+L 174.59 -119.9 
+L 174.02 -118.77 
+L 173.45 -117.65 
+L 172.88 -116.55 
+L 172.3 -115.44 
+L 171.73 -114.35 
+L 171.16 -113.27 
+L 170.59 -112.2 
+L 170.02 -111.14 
+L 169.45 -110.08 
+L 168.88 -109.04 
+L 168.31 -108 
+L 167.73 -106.98 
+L 167.16 -105.96 
+L 166.59 -104.96 
+L 166.02 -103.96 
+L 165.45 -102.98 
+L 164.88 -102 
+L 164.31 -101.04 
+L 163.73 -100.08 
+L 163.16 -99.14 
+L 162.59 -98.2 
+L 162.02 -97.28 
+L 161.45 -96.36 
+L 160.88 -95.46 
+L 160.31 -94.56 
+L 159.73 -93.68 
+L 159.16 -92.8 
+L 158.59 -91.94 
+L 158.02 -91.08 
+L 157.45 -90.24 
+L 156.88 -89.4 
+L 156.31 -88.58 
+L 155.73 -87.76 
+L 155.16 -86.96 
+L 154.59 -86.17 
+L 154.02 -85.38 
+L 153.45 -84.61 
+L 152.88 -83.84 
+L 152.31 -83.09 
+L 151.73 -82.35 
+L 151.16 -81.61 
+L 150.59 -80.89 
+L 150.02 -80.17 
+L 149.45 -79.47 
+L 148.88 -78.77 
+L 148.31 -78.09 
+L 147.73 -77.41 
+L 147.16 -76.74 
+L 146.59 -76.09 
+L 146.02 -75.44 
+L 145.45 -74.8 
+L 144.88 -74.17 
+L 144.31 -73.55 
+L 143.74 -72.94 
+L 143.16 -72.34 
+L 142.59 -71.75 
+L 142.02 -71.16 
+L 141.45 -70.59 
+L 140.88 -70.02 
+L 140.31 -69.47 
+L 139.74 -68.92 
+L 139.16 -68.38 
+L 138.59 -67.85 
+L 138.02 -67.33 
+L 137.45 -66.82 
+L 136.88 -66.31 
+L 136.31 -65.81 
+L 135.74 -65.33 
+L 135.16 -64.85 
+L 134.59 -64.37 
+L 134.02 -63.91 
+L 133.45 -63.45 
+L 132.88 -63 
+L 132.31 -62.56 
+L 131.74 -62.13 
+L 131.16 -61.7 
+L 130.59 -61.29 
+L 130.02 -60.88 
+L 129.45 -60.47 
+L 128.88 -60.08 
+L 128.31 -59.69 
+L 127.74 -59.31 
+L 127.16 -58.93 
+L 126.59 -58.56 
+L 126.02 -58.2 
+L 125.45 -57.85 
+L 124.88 -57.5 
+L 124.31 -57.16 
+L 123.74 -56.83 
+L 123.16 -56.5 
+L 122.59 -56.18 
+L 122.02 -55.86 
+L 121.45 -55.55 
+L 120.88 -55.25 
+L 120.31 -54.95 
+L 119.74 -54.66 
+L 119.17 -54.38 
+L 118.59 -54.1 
+L 118.02 -53.82 
+L 117.45 -53.55 
+L 116.88 -53.29 
+L 116.31 -53.03 
+L 115.74 -52.78 
+L 115.17 -52.53 
+L 114.59 -52.29 
+L 114.02 -52.05 
+L 113.45 -51.82 
+L 112.88 -51.6 
+L 112.31 -51.37 
+L 111.74 -51.16 
+L 111.17 -50.94 
+L 110.59 -50.74 
+L 110.02 -50.53 
+L 109.45 -50.33 
+L 108.88 -50.14 
+L 108.31 -49.95 
+L 107.74 -49.76 
+L 107.17 -49.58 
+L 106.59 -49.4 
+L 106.02 -49.23 
+L 105.45 -49.06 
+L 104.88 -48.89 
+L 104.31 -48.73 
+L 103.74 -48.57 
+L 103.17 -48.42 
+L 102.59 -48.27 
+L 102.02 -48.12 
+L 101.45 -47.98 
+L 100.88 -47.83 
+L 100.31 -47.7 
+L 99.74 -47.56 
+L 99.17 -47.43 
+L 98.59 -47.3 
+L 98.02 -47.18 
+L 97.45 -47.06 
+L 96.88 -46.94 
+L 96.31 -46.82 
+L 95.74 -46.71 
+L 95.17 -46.6 
+L 94.6 -46.49 
+L 94.02 -46.39 
+L 93.45 -46.29 
+L 92.88 -46.19 
+L 92.31 -46.09 
+L 91.74 -46 
+L 91.17 -45.9 
+L 90.6 -45.81 
+L 90.02 -45.73 
+L 89.45 -45.64 
+L 88.88 -45.56 
+L 88.31 -45.48 
+L 87.74 -45.4 
+L 87.17 -45.32 
+L 86.6 -45.25 
+L 86.02 -45.17 
+L 85.45 -45.1 
+L 84.88 -45.03 
+L 84.31 -44.97 
+L 83.74 -44.9 
+L 83.17 -44.84 
+L 82.6 -44.78 
+L 82.02 -44.72 
+L 81.45 -44.66 
+L 80.88 -44.6 
+L 80.31 -44.55 
+L 79.74 -44.49 
+L 79.17 -44.44 
+L 78.6 -44.39 
+L 78.02 -44.34 
+L 77.45 -44.29 
+L 76.88 -44.24 
+L 76.31 -44.2 
+L 75.74 -44.16 
+L 75.17 -44.11 
+L 74.6 -44.07 
+L 74.02 -44.03 
+L 73.45 -43.99 
+L 72.88 -43.95 
+L 72.31 -43.92 
+L 71.74 -43.88 
+L 71.17 -43.85 
+L 70.6 -43.81 
+L 70.02 -43.78 
+L 69.45 -43.75 
+L 68.88 -43.72 
+L 68.31 -43.69 
+L 67.74 -43.66 
+L 67.17 -43.63 
+L 66.6 -43.6 
+L 66.03 -43.58 
+L 65.45 -43.55 
+L 64.88 -43.52 
+L 64.31 -43.5 
+L 63.74 -43.48 
+L 63.17 -43.45 
+L 62.6 -43.43 
+L 62.03 -43.41 
+L 61.45 -43.39 
+L 60.88 -43.37 
+L 60.31 -43.35 
+L 59.74 -43.33 
+L 59.17 -43.31 
+L 58.6 -43.3 
+L 58.03 -43.28 
+L 57.45 -43.26 
+L 56.88 -43.25 
+L 56.31 -43.23 
+L 55.74 -43.22 
+L 55.17 -43.2 
+L 54.6 -43.19 
+L 54.03 -43.17 
+L 53.45 -43.16 
+L 52.88 -43.15 
+L 52.31 -43.14 
+L 51.74 -43.12 
+L 51.17 -43.11 
+L 50.6 -43.1 
+L 50.03 -43.09 
+L 49.45 -43.08 
+L 48.88 -43.07 
+L 48.31 -43.06 
+L 47.74 -43.05 
+L 47.17 -43.04 
+L 46.6 -43.03 
+L 46.03 -43.02 
+L 45.45 -43.02 
+L 44.88 -43.01 
+L 44.31 -43 
+L 43.74 -42.99 
+L 43.17 -42.99 
+L 42.6 -42.98 
+L 42.03 -42.97 
+L 41.46 -42.97 
+L 40.88 -42.96 
+L 40.31 -42.95 
+L 39.74 -42.95 
+L 39.17 -42.94 
+L 38.6 -42.94 
+L 38.03 -42.93 
+L 37.46 -42.93 
+L 36.88 -42.92 
+L 36.31 -42.92 
+L 35.74 -42.91 
+L 35.17 -42.91 
+L 34.6 -42.9 
+L 34.03 -42.9 
+L 33.46 -42.9 
+L 32.88 -42.89 
+L 32.31 -42.89 
+L 31.74 -42.89 
+L 31.17 -42.88 
+L 30.6 -42.88 
+L 30.03 -42.88 
+z
+" style="stroke: #DDE4EE"/>
+    </defs>
+    <g clip-path="url(#v1-pd6437839be)">
+     <use xlink:href="#v1-m682045f31f" x="0" y="322.17" style="fill: #DDE4EE; stroke: #DDE4EE"/>
+    </g>
+   </g>
+   <g id="v1-FillBetweenPolyCollection_2">
+    <defs>
+     <path id="v1-md6db146e86" d="M 30.03 -42.88 
+L 30.03 -42.8 
+L 30.6 -42.8 
+L 31.17 -42.8 
+L 31.74 -42.8 
+L 32.31 -42.8 
+L 32.88 -42.8 
+L 33.46 -42.8 
+L 34.03 -42.8 
+L 34.6 -42.8 
+L 35.17 -42.8 
+L 35.74 -42.8 
+L 36.31 -42.8 
+L 36.88 -42.8 
+L 37.46 -42.8 
+L 38.03 -42.8 
+L 38.6 -42.8 
+L 39.17 -42.8 
+L 39.74 -42.8 
+L 40.31 -42.8 
+L 40.88 -42.8 
+L 41.46 -42.8 
+L 42.03 -42.8 
+L 42.6 -42.8 
+L 43.17 -42.8 
+L 43.74 -42.8 
+L 44.31 -42.8 
+L 44.88 -42.8 
+L 45.45 -42.8 
+L 46.03 -42.8 
+L 46.6 -42.8 
+L 47.17 -42.8 
+L 47.74 -42.8 
+L 48.31 -42.8 
+L 48.88 -42.8 
+L 49.45 -42.8 
+L 50.03 -42.8 
+L 50.6 -42.8 
+L 51.17 -42.8 
+L 51.74 -42.8 
+L 52.31 -42.8 
+L 52.88 -42.8 
+L 53.45 -42.8 
+L 54.03 -42.8 
+L 54.6 -42.8 
+L 55.17 -42.8 
+L 55.74 -42.8 
+L 56.31 -42.8 
+L 56.88 -42.8 
+L 57.45 -42.8 
+L 58.03 -42.8 
+L 58.6 -42.8 
+L 59.17 -42.8 
+L 59.74 -42.8 
+L 60.31 -42.8 
+L 60.88 -42.8 
+L 61.45 -42.8 
+L 62.03 -42.8 
+L 62.6 -42.8 
+L 63.17 -42.8 
+L 63.74 -42.8 
+L 64.31 -42.8 
+L 64.88 -42.8 
+L 65.45 -42.8 
+L 66.03 -42.8 
+L 66.6 -42.8 
+L 67.17 -42.8 
+L 67.74 -42.8 
+L 68.31 -42.8 
+L 68.88 -42.8 
+L 69.45 -42.8 
+L 70.02 -42.8 
+L 70.6 -42.8 
+L 71.17 -42.8 
+L 71.74 -42.8 
+L 72.31 -42.8 
+L 72.88 -42.8 
+L 73.45 -42.8 
+L 74.02 -42.8 
+L 74.6 -42.8 
+L 75.17 -42.8 
+L 75.74 -42.8 
+L 76.31 -42.8 
+L 76.88 -42.8 
+L 77.45 -42.8 
+L 78.02 -42.8 
+L 78.6 -42.8 
+L 79.17 -42.8 
+L 79.74 -42.8 
+L 80.31 -42.8 
+L 80.88 -42.8 
+L 81.45 -42.8 
+L 82.02 -42.8 
+L 82.6 -42.8 
+L 83.17 -42.8 
+L 83.74 -42.8 
+L 84.31 -42.8 
+L 84.88 -42.8 
+L 85.45 -42.8 
+L 86.02 -42.8 
+L 86.6 -42.8 
+L 87.17 -42.8 
+L 87.74 -42.8 
+L 88.31 -42.8 
+L 88.88 -42.8 
+L 89.45 -42.8 
+L 90.02 -42.8 
+L 90.6 -42.8 
+L 91.17 -42.8 
+L 91.74 -42.8 
+L 92.31 -42.8 
+L 92.88 -42.8 
+L 93.45 -42.8 
+L 94.02 -42.8 
+L 94.6 -42.8 
+L 95.17 -42.8 
+L 95.74 -42.8 
+L 96.31 -42.8 
+L 96.88 -42.8 
+L 97.45 -42.8 
+L 98.02 -42.8 
+L 98.59 -42.8 
+L 99.17 -42.8 
+L 99.74 -42.8 
+L 100.31 -42.8 
+L 100.88 -42.8 
+L 101.45 -42.8 
+L 102.02 -42.8 
+L 102.59 -42.8 
+L 103.17 -42.8 
+L 103.74 -42.8 
+L 104.31 -42.8 
+L 104.88 -42.8 
+L 105.45 -42.8 
+L 106.02 -42.8 
+L 106.59 -42.8 
+L 107.17 -42.8 
+L 107.74 -42.8 
+L 108.31 -42.8 
+L 108.88 -42.8 
+L 109.45 -42.8 
+L 110.02 -42.8 
+L 110.59 -42.8 
+L 111.17 -42.8 
+L 111.74 -42.8 
+L 112.31 -42.8 
+L 112.88 -42.8 
+L 113.45 -42.8 
+L 114.02 -42.8 
+L 114.59 -42.8 
+L 115.17 -42.8 
+L 115.74 -42.8 
+L 116.31 -42.8 
+L 116.88 -42.8 
+L 117.45 -42.8 
+L 118.02 -42.8 
+L 118.59 -42.8 
+L 119.17 -42.8 
+L 119.74 -42.8 
+L 120.31 -42.8 
+L 120.88 -42.8 
+L 121.45 -42.8 
+L 122.02 -42.8 
+L 122.59 -42.8 
+L 123.16 -42.8 
+L 123.74 -42.8 
+L 124.31 -42.8 
+L 124.88 -42.8 
+L 125.45 -42.8 
+L 126.02 -42.8 
+L 126.59 -42.8 
+L 127.16 -42.8 
+L 127.74 -42.8 
+L 128.31 -42.8 
+L 128.88 -42.8 
+L 129.45 -42.8 
+L 130.02 -42.8 
+L 130.59 -42.8 
+L 131.16 -42.8 
+L 131.74 -42.8 
+L 132.31 -42.8 
+L 132.88 -42.8 
+L 133.45 -42.8 
+L 134.02 -42.8 
+L 134.59 -42.8 
+L 135.16 -42.8 
+L 135.74 -42.8 
+L 136.31 -42.8 
+L 136.88 -42.8 
+L 137.45 -42.8 
+L 138.02 -42.8 
+L 138.59 -42.8 
+L 139.16 -42.8 
+L 139.74 -42.8 
+L 140.31 -42.8 
+L 140.88 -42.8 
+L 141.45 -42.8 
+L 142.02 -42.8 
+L 142.59 -42.8 
+L 143.16 -42.8 
+L 143.74 -42.8 
+L 144.31 -42.8 
+L 144.88 -42.8 
+L 145.45 -42.8 
+L 146.02 -42.8 
+L 146.59 -42.8 
+L 147.16 -42.8 
+L 147.73 -42.8 
+L 148.31 -42.8 
+L 148.88 -42.8 
+L 149.45 -42.8 
+L 150.02 -42.8 
+L 150.59 -42.8 
+L 151.16 -42.8 
+L 151.73 -42.8 
+L 152.31 -42.8 
+L 152.88 -42.8 
+L 153.45 -42.8 
+L 154.02 -42.8 
+L 154.59 -42.8 
+L 155.16 -42.8 
+L 155.73 -42.8 
+L 156.31 -42.8 
+L 156.88 -42.8 
+L 157.45 -42.8 
+L 158.02 -42.8 
+L 158.59 -42.8 
+L 159.16 -42.8 
+L 159.73 -42.8 
+L 160.31 -42.8 
+L 160.88 -42.8 
+L 161.45 -42.8 
+L 162.02 -42.8 
+L 162.59 -42.8 
+L 163.16 -42.8 
+L 163.73 -42.8 
+L 164.31 -42.8 
+L 164.88 -42.8 
+L 165.45 -42.8 
+L 166.02 -42.8 
+L 166.59 -42.8 
+L 167.16 -42.8 
+L 167.73 -42.8 
+L 168.31 -42.8 
+L 168.88 -42.8 
+L 169.45 -42.8 
+L 170.02 -42.8 
+L 170.59 -42.8 
+L 171.16 -42.8 
+L 171.73 -42.8 
+L 172.3 -42.8 
+L 172.88 -42.8 
+L 173.45 -42.8 
+L 174.02 -42.8 
+L 174.59 -42.8 
+L 175.16 -42.8 
+L 175.73 -42.8 
+L 176.3 -42.8 
+L 176.88 -42.8 
+L 177.45 -42.8 
+L 178.02 -42.8 
+L 178.59 -42.8 
+L 179.16 -42.8 
+L 179.73 -42.8 
+L 180.3 -42.8 
+L 180.88 -42.8 
+L 181.45 -42.8 
+L 182.02 -42.8 
+L 182.59 -42.8 
+L 183.16 -42.8 
+L 183.73 -42.8 
+L 184.3 -42.8 
+L 184.88 -42.8 
+L 185.45 -42.8 
+L 186.02 -42.8 
+L 186.59 -42.8 
+L 187.16 -42.8 
+L 187.73 -42.8 
+L 188.3 -42.8 
+L 188.88 -42.8 
+L 189.45 -42.8 
+L 190.02 -42.8 
+L 190.59 -42.8 
+L 191.16 -42.8 
+L 191.73 -42.8 
+L 192.3 -42.8 
+L 192.88 -42.8 
+L 193.45 -42.8 
+L 194.02 -42.8 
+L 194.59 -42.8 
+L 195.16 -42.8 
+L 195.73 -42.8 
+L 196.3 -42.8 
+L 196.87 -42.8 
+L 197.45 -42.8 
+L 198.02 -42.8 
+L 198.59 -42.8 
+L 199.16 -42.8 
+L 199.73 -42.8 
+L 200.3 -42.8 
+L 200.87 -42.8 
+L 201.45 -42.8 
+L 202.02 -42.8 
+L 202.59 -42.8 
+L 203.16 -42.8 
+L 203.73 -42.8 
+L 204.3 -42.8 
+L 204.87 -42.8 
+L 205.45 -42.8 
+L 206.02 -42.8 
+L 206.59 -42.8 
+L 207.16 -42.8 
+L 207.73 -42.8 
+L 208.3 -42.8 
+L 208.87 -42.8 
+L 209.45 -42.8 
+L 210.02 -42.8 
+L 210.59 -42.8 
+L 211.16 -42.8 
+L 211.73 -42.8 
+L 212.3 -42.8 
+L 212.87 -42.8 
+L 213.45 -42.8 
+L 214.02 -42.8 
+L 214.59 -42.8 
+L 215.16 -42.8 
+L 215.73 -42.8 
+L 216.3 -42.8 
+L 216.87 -42.8 
+L 217.45 -42.8 
+L 218.02 -42.8 
+L 218.59 -42.8 
+L 219.16 -42.8 
+L 219.73 -42.8 
+L 220.3 -42.8 
+L 220.87 -42.8 
+L 221.44 -42.8 
+L 222.02 -42.8 
+L 222.59 -42.8 
+L 223.16 -42.8 
+L 223.73 -42.8 
+L 224.3 -42.8 
+L 224.87 -42.8 
+L 225.44 -42.8 
+L 226.02 -42.8 
+L 226.59 -42.8 
+L 227.16 -42.8 
+L 227.73 -42.8 
+L 228.3 -42.8 
+L 228.87 -42.8 
+L 229.44 -42.8 
+L 230.02 -42.8 
+L 230.59 -42.8 
+L 231.16 -42.8 
+L 231.73 -42.8 
+L 232.3 -42.8 
+L 232.87 -42.8 
+L 233.44 -42.8 
+L 234.02 -42.8 
+L 234.59 -42.8 
+L 235.16 -42.8 
+L 235.73 -42.8 
+L 236.3 -42.8 
+L 236.87 -42.8 
+L 237.44 -42.8 
+L 238.02 -42.8 
+L 238.59 -42.8 
+L 239.16 -42.8 
+L 239.73 -42.8 
+L 240.3 -42.8 
+L 240.87 -42.8 
+L 241.44 -42.8 
+L 242.02 -42.8 
+L 242.59 -42.8 
+L 243.16 -42.8 
+L 243.73 -42.8 
+L 244.3 -42.8 
+L 244.87 -42.8 
+L 245.44 -42.8 
+L 246.01 -42.8 
+L 246.59 -42.8 
+L 247.16 -42.8 
+L 247.73 -42.8 
+L 248.3 -42.8 
+L 248.87 -42.8 
+L 249.44 -42.8 
+L 250.01 -42.8 
+L 250.59 -42.8 
+L 251.16 -42.8 
+L 251.73 -42.8 
+L 252.3 -42.8 
+L 252.87 -42.8 
+L 253.44 -42.8 
+L 254.01 -42.8 
+L 254.59 -42.8 
+L 255.16 -42.8 
+L 255.73 -42.8 
+L 256.3 -42.8 
+L 256.87 -42.8 
+L 257.44 -42.8 
+L 258.01 -42.8 
+L 258.59 -42.8 
+L 259.16 -42.8 
+L 259.73 -42.8 
+L 260.3 -42.8 
+L 260.87 -42.8 
+L 261.44 -42.8 
+L 262.01 -42.8 
+L 262.59 -42.8 
+L 263.16 -42.8 
+L 263.73 -42.8 
+L 264.3 -42.8 
+L 264.87 -42.8 
+L 265.44 -42.8 
+L 266.01 -42.8 
+L 266.59 -42.8 
+L 267.16 -42.8 
+L 267.73 -42.8 
+L 268.3 -42.8 
+L 268.87 -42.8 
+L 269.44 -42.8 
+L 270.01 -42.8 
+L 270.59 -42.8 
+L 271.16 -42.8 
+L 271.73 -42.8 
+L 272.3 -42.8 
+L 272.87 -42.8 
+L 273.44 -42.8 
+L 274.01 -42.8 
+L 274.58 -42.8 
+L 275.16 -42.8 
+L 275.73 -42.8 
+L 276.3 -42.8 
+L 276.87 -42.8 
+L 277.44 -42.8 
+L 278.01 -42.8 
+L 278.58 -42.8 
+L 279.16 -42.8 
+L 279.73 -42.8 
+L 280.3 -42.8 
+L 280.87 -42.8 
+L 281.44 -42.8 
+L 282.01 -42.8 
+L 282.58 -42.8 
+L 283.16 -42.8 
+L 283.73 -42.8 
+L 284.3 -42.8 
+L 284.87 -42.8 
+L 285.44 -42.8 
+L 286.01 -42.8 
+L 286.58 -42.8 
+L 287.16 -42.8 
+L 287.73 -42.8 
+L 288.3 -42.8 
+L 288.87 -42.8 
+L 289.44 -42.8 
+L 290.01 -42.8 
+L 290.58 -42.8 
+L 291.16 -42.8 
+L 291.73 -42.8 
+L 292.3 -42.8 
+L 292.87 -42.8 
+L 293.44 -42.8 
+L 294.01 -42.8 
+L 294.58 -42.8 
+L 295.16 -42.8 
+L 295.73 -42.8 
+L 296.3 -42.8 
+L 296.87 -42.8 
+L 297.44 -42.8 
+L 298.01 -42.8 
+L 298.58 -42.8 
+L 299.15 -42.8 
+L 299.73 -42.8 
+L 300.3 -42.8 
+L 300.87 -42.8 
+L 301.44 -42.8 
+L 302.01 -42.8 
+L 302.58 -42.8 
+L 303.15 -42.8 
+L 303.73 -42.8 
+L 304.3 -42.8 
+L 304.87 -42.8 
+L 305.44 -42.8 
+L 306.01 -42.8 
+L 306.58 -42.8 
+L 307.15 -42.8 
+L 307.73 -42.8 
+L 308.3 -42.8 
+L 308.87 -42.8 
+L 309.44 -42.8 
+L 310.01 -42.8 
+L 310.58 -42.8 
+L 311.15 -42.8 
+L 311.73 -42.8 
+L 312.3 -42.8 
+L 312.87 -42.8 
+L 313.44 -42.8 
+L 314.01 -42.8 
+L 314.58 -42.8 
+L 315.15 -42.8 
+L 315.15 -180.44 
+L 315.15 -180.44 
+L 314.58 -181.82 
+L 314.01 -183.19 
+L 313.44 -184.56 
+L 312.87 -185.93 
+L 312.3 -187.3 
+L 311.73 -188.67 
+L 311.15 -190.04 
+L 310.58 -191.4 
+L 310.01 -192.76 
+L 309.44 -194.12 
+L 308.87 -195.48 
+L 308.3 -196.83 
+L 307.73 -198.18 
+L 307.15 -199.53 
+L 306.58 -200.87 
+L 306.01 -202.2 
+L 305.44 -203.54 
+L 304.87 -204.86 
+L 304.3 -206.18 
+L 303.73 -207.5 
+L 303.15 -208.81 
+L 302.58 -210.11 
+L 302.01 -211.41 
+L 301.44 -212.7 
+L 300.87 -213.98 
+L 300.3 -215.26 
+L 299.73 -216.52 
+L 299.15 -217.78 
+L 298.58 -219.03 
+L 298.01 -220.27 
+L 297.44 -221.5 
+L 296.87 -222.73 
+L 296.3 -223.94 
+L 295.73 -225.14 
+L 295.16 -226.33 
+L 294.58 -227.51 
+L 294.01 -228.68 
+L 293.44 -229.84 
+L 292.87 -230.99 
+L 292.3 -232.13 
+L 291.73 -233.25 
+L 291.16 -234.36 
+L 290.58 -235.46 
+L 290.01 -236.54 
+L 289.44 -237.61 
+L 288.87 -238.67 
+L 288.3 -239.71 
+L 287.73 -240.74 
+L 287.16 -241.76 
+L 286.58 -242.76 
+L 286.01 -243.74 
+L 285.44 -244.71 
+L 284.87 -245.67 
+L 284.3 -246.6 
+L 283.73 -247.52 
+L 283.16 -248.43 
+L 282.58 -249.32 
+L 282.01 -250.19 
+L 281.44 -251.04 
+L 280.87 -251.88 
+L 280.3 -252.7 
+L 279.73 -253.5 
+L 279.16 -254.28 
+L 278.58 -255.05 
+L 278.01 -255.79 
+L 277.44 -256.52 
+L 276.87 -257.23 
+L 276.3 -257.92 
+L 275.73 -258.59 
+L 275.16 -259.24 
+L 274.58 -259.87 
+L 274.01 -260.48 
+L 273.44 -261.07 
+L 272.87 -261.64 
+L 272.3 -262.19 
+L 271.73 -262.72 
+L 271.16 -263.22 
+L 270.59 -263.71 
+L 270.01 -264.18 
+L 269.44 -264.62 
+L 268.87 -265.04 
+L 268.3 -265.44 
+L 267.73 -265.82 
+L 267.16 -266.18 
+L 266.59 -266.52 
+L 266.01 -266.83 
+L 265.44 -267.12 
+L 264.87 -267.39 
+L 264.3 -267.64 
+L 263.73 -267.87 
+L 263.16 -268.07 
+L 262.59 -268.25 
+L 262.01 -268.41 
+L 261.44 -268.55 
+L 260.87 -268.66 
+L 260.3 -268.75 
+L 259.73 -268.82 
+L 259.16 -268.86 
+L 258.59 -268.89 
+L 258.01 -268.89 
+L 257.44 -268.86 
+L 256.87 -268.82 
+L 256.3 -268.75 
+L 255.73 -268.66 
+L 255.16 -268.55 
+L 254.59 -268.41 
+L 254.01 -268.25 
+L 253.44 -268.07 
+L 252.87 -267.87 
+L 252.3 -267.64 
+L 251.73 -267.39 
+L 251.16 -267.12 
+L 250.59 -266.83 
+L 250.01 -266.52 
+L 249.44 -266.18 
+L 248.87 -265.82 
+L 248.3 -265.44 
+L 247.73 -265.04 
+L 247.16 -264.62 
+L 246.59 -264.18 
+L 246.01 -263.71 
+L 245.44 -263.22 
+L 244.87 -262.72 
+L 244.3 -262.19 
+L 243.73 -261.64 
+L 243.16 -261.07 
+L 242.59 -260.48 
+L 242.02 -259.87 
+L 241.44 -259.24 
+L 240.87 -258.59 
+L 240.3 -257.92 
+L 239.73 -257.23 
+L 239.16 -256.52 
+L 238.59 -255.79 
+L 238.02 -255.05 
+L 237.44 -254.28 
+L 236.87 -253.5 
+L 236.3 -252.7 
+L 235.73 -251.88 
+L 235.16 -251.04 
+L 234.59 -250.19 
+L 234.02 -249.32 
+L 233.44 -248.43 
+L 232.87 -247.52 
+L 232.3 -246.6 
+L 231.73 -245.67 
+L 231.16 -244.71 
+L 230.59 -243.74 
+L 230.02 -242.76 
+L 229.44 -241.76 
+L 228.87 -240.74 
+L 228.3 -239.71 
+L 227.73 -238.67 
+L 227.16 -237.61 
+L 226.59 -236.54 
+L 226.02 -235.46 
+L 225.44 -234.36 
+L 224.87 -233.25 
+L 224.3 -232.13 
+L 223.73 -230.99 
+L 223.16 -229.84 
+L 222.59 -228.68 
+L 222.02 -227.51 
+L 221.44 -226.33 
+L 220.87 -225.14 
+L 220.3 -223.94 
+L 219.73 -222.73 
+L 219.16 -221.5 
+L 218.59 -220.27 
+L 218.02 -219.03 
+L 217.45 -217.78 
+L 216.87 -216.52 
+L 216.3 -215.26 
+L 215.73 -213.98 
+L 215.16 -212.7 
+L 214.59 -211.41 
+L 214.02 -210.11 
+L 213.45 -208.81 
+L 212.87 -207.5 
+L 212.3 -206.18 
+L 211.73 -204.86 
+L 211.16 -203.54 
+L 210.59 -202.2 
+L 210.02 -200.87 
+L 209.45 -199.53 
+L 208.87 -198.18 
+L 208.3 -196.83 
+L 207.73 -195.48 
+L 207.16 -194.12 
+L 206.59 -192.76 
+L 206.02 -191.4 
+L 205.45 -190.04 
+L 204.87 -188.67 
+L 204.3 -187.3 
+L 203.73 -185.93 
+L 203.16 -184.56 
+L 202.59 -183.19 
+L 202.02 -181.82 
+L 201.45 -180.44 
+L 200.87 -179.07 
+L 200.3 -177.7 
+L 199.73 -176.33 
+L 199.16 -174.95 
+L 198.59 -173.58 
+L 198.02 -172.21 
+L 197.45 -170.85 
+L 196.87 -169.48 
+L 196.3 -168.12 
+L 195.73 -166.75 
+L 195.16 -165.39 
+L 194.59 -164.04 
+L 194.02 -162.68 
+L 193.45 -161.33 
+L 192.88 -159.99 
+L 192.3 -158.64 
+L 191.73 -157.3 
+L 191.16 -155.97 
+L 190.59 -154.64 
+L 190.02 -153.31 
+L 189.45 -151.99 
+L 188.88 -150.67 
+L 188.3 -149.36 
+L 187.73 -148.06 
+L 187.16 -146.76 
+L 186.59 -145.46 
+L 186.02 -144.17 
+L 185.45 -142.89 
+L 184.88 -141.61 
+L 184.3 -140.35 
+L 183.73 -139.08 
+L 183.16 -137.83 
+L 182.59 -136.58 
+L 182.02 -135.33 
+L 181.45 -134.1 
+L 180.88 -132.87 
+L 180.3 -131.65 
+L 179.73 -130.44 
+L 179.16 -129.24 
+L 178.59 -128.04 
+L 178.02 -126.85 
+L 177.45 -125.67 
+L 176.88 -124.5 
+L 176.3 -123.34 
+L 175.73 -122.18 
+L 175.16 -121.04 
+L 174.59 -119.9 
+L 174.02 -118.77 
+L 173.45 -117.65 
+L 172.88 -116.55 
+L 172.3 -115.44 
+L 171.73 -114.35 
+L 171.16 -113.27 
+L 170.59 -112.2 
+L 170.02 -111.14 
+L 169.45 -110.08 
+L 168.88 -109.04 
+L 168.31 -108 
+L 167.73 -106.98 
+L 167.16 -105.96 
+L 166.59 -104.96 
+L 166.02 -103.96 
+L 165.45 -102.98 
+L 164.88 -102 
+L 164.31 -101.04 
+L 163.73 -100.08 
+L 163.16 -99.14 
+L 162.59 -98.2 
+L 162.02 -97.28 
+L 161.45 -96.36 
+L 160.88 -95.46 
+L 160.31 -94.56 
+L 159.73 -93.68 
+L 159.16 -92.8 
+L 158.59 -91.94 
+L 158.02 -91.08 
+L 157.45 -90.24 
+L 156.88 -89.4 
+L 156.31 -88.58 
+L 155.73 -87.76 
+L 155.16 -86.96 
+L 154.59 -86.17 
+L 154.02 -85.38 
+L 153.45 -84.61 
+L 152.88 -83.84 
+L 152.31 -83.09 
+L 151.73 -82.35 
+L 151.16 -81.61 
+L 150.59 -80.89 
+L 150.02 -80.17 
+L 149.45 -79.47 
+L 148.88 -78.77 
+L 148.31 -78.09 
+L 147.73 -77.41 
+L 147.16 -76.74 
+L 146.59 -76.09 
+L 146.02 -75.44 
+L 145.45 -74.8 
+L 144.88 -74.17 
+L 144.31 -73.55 
+L 143.74 -72.94 
+L 143.16 -72.34 
+L 142.59 -71.75 
+L 142.02 -71.16 
+L 141.45 -70.59 
+L 140.88 -70.02 
+L 140.31 -69.47 
+L 139.74 -68.92 
+L 139.16 -68.38 
+L 138.59 -67.85 
+L 138.02 -67.33 
+L 137.45 -66.82 
+L 136.88 -66.31 
+L 136.31 -65.81 
+L 135.74 -65.33 
+L 135.16 -64.85 
+L 134.59 -64.37 
+L 134.02 -63.91 
+L 133.45 -63.45 
+L 132.88 -63 
+L 132.31 -62.56 
+L 131.74 -62.13 
+L 131.16 -61.7 
+L 130.59 -61.29 
+L 130.02 -60.88 
+L 129.45 -60.47 
+L 128.88 -60.08 
+L 128.31 -59.69 
+L 127.74 -59.31 
+L 127.16 -58.93 
+L 126.59 -58.56 
+L 126.02 -58.2 
+L 125.45 -57.85 
+L 124.88 -57.5 
+L 124.31 -57.16 
+L 123.74 -56.83 
+L 123.16 -56.5 
+L 122.59 -56.18 
+L 122.02 -55.86 
+L 121.45 -55.55 
+L 120.88 -55.25 
+L 120.31 -54.95 
+L 119.74 -54.66 
+L 119.17 -54.38 
+L 118.59 -54.1 
+L 118.02 -53.82 
+L 117.45 -53.55 
+L 116.88 -53.29 
+L 116.31 -53.03 
+L 115.74 -52.78 
+L 115.17 -52.53 
+L 114.59 -52.29 
+L 114.02 -52.05 
+L 113.45 -51.82 
+L 112.88 -51.6 
+L 112.31 -51.37 
+L 111.74 -51.16 
+L 111.17 -50.94 
+L 110.59 -50.74 
+L 110.02 -50.53 
+L 109.45 -50.33 
+L 108.88 -50.14 
+L 108.31 -49.95 
+L 107.74 -49.76 
+L 107.17 -49.58 
+L 106.59 -49.4 
+L 106.02 -49.23 
+L 105.45 -49.06 
+L 104.88 -48.89 
+L 104.31 -48.73 
+L 103.74 -48.57 
+L 103.17 -48.42 
+L 102.59 -48.27 
+L 102.02 -48.12 
+L 101.45 -47.98 
+L 100.88 -47.83 
+L 100.31 -47.7 
+L 99.74 -47.56 
+L 99.17 -47.43 
+L 98.59 -47.3 
+L 98.02 -47.18 
+L 97.45 -47.06 
+L 96.88 -46.94 
+L 96.31 -46.82 
+L 95.74 -46.71 
+L 95.17 -46.6 
+L 94.6 -46.49 
+L 94.02 -46.39 
+L 93.45 -46.29 
+L 92.88 -46.19 
+L 92.31 -46.09 
+L 91.74 -46 
+L 91.17 -45.9 
+L 90.6 -45.81 
+L 90.02 -45.73 
+L 89.45 -45.64 
+L 88.88 -45.56 
+L 88.31 -45.48 
+L 87.74 -45.4 
+L 87.17 -45.32 
+L 86.6 -45.25 
+L 86.02 -45.17 
+L 85.45 -45.1 
+L 84.88 -45.03 
+L 84.31 -44.97 
+L 83.74 -44.9 
+L 83.17 -44.84 
+L 82.6 -44.78 
+L 82.02 -44.72 
+L 81.45 -44.66 
+L 80.88 -44.6 
+L 80.31 -44.55 
+L 79.74 -44.49 
+L 79.17 -44.44 
+L 78.6 -44.39 
+L 78.02 -44.34 
+L 77.45 -44.29 
+L 76.88 -44.24 
+L 76.31 -44.2 
+L 75.74 -44.16 
+L 75.17 -44.11 
+L 74.6 -44.07 
+L 74.02 -44.03 
+L 73.45 -43.99 
+L 72.88 -43.95 
+L 72.31 -43.92 
+L 71.74 -43.88 
+L 71.17 -43.85 
+L 70.6 -43.81 
+L 70.02 -43.78 
+L 69.45 -43.75 
+L 68.88 -43.72 
+L 68.31 -43.69 
+L 67.74 -43.66 
+L 67.17 -43.63 
+L 66.6 -43.6 
+L 66.03 -43.58 
+L 65.45 -43.55 
+L 64.88 -43.52 
+L 64.31 -43.5 
+L 63.74 -43.48 
+L 63.17 -43.45 
+L 62.6 -43.43 
+L 62.03 -43.41 
+L 61.45 -43.39 
+L 60.88 -43.37 
+L 60.31 -43.35 
+L 59.74 -43.33 
+L 59.17 -43.31 
+L 58.6 -43.3 
+L 58.03 -43.28 
+L 57.45 -43.26 
+L 56.88 -43.25 
+L 56.31 -43.23 
+L 55.74 -43.22 
+L 55.17 -43.2 
+L 54.6 -43.19 
+L 54.03 -43.17 
+L 53.45 -43.16 
+L 52.88 -43.15 
+L 52.31 -43.14 
+L 51.74 -43.12 
+L 51.17 -43.11 
+L 50.6 -43.1 
+L 50.03 -43.09 
+L 49.45 -43.08 
+L 48.88 -43.07 
+L 48.31 -43.06 
+L 47.74 -43.05 
+L 47.17 -43.04 
+L 46.6 -43.03 
+L 46.03 -43.02 
+L 45.45 -43.02 
+L 44.88 -43.01 
+L 44.31 -43 
+L 43.74 -42.99 
+L 43.17 -42.99 
+L 42.6 -42.98 
+L 42.03 -42.97 
+L 41.46 -42.97 
+L 40.88 -42.96 
+L 40.31 -42.95 
+L 39.74 -42.95 
+L 39.17 -42.94 
+L 38.6 -42.94 
+L 38.03 -42.93 
+L 37.46 -42.93 
+L 36.88 -42.92 
+L 36.31 -42.92 
+L 35.74 -42.91 
+L 35.17 -42.91 
+L 34.6 -42.9 
+L 34.03 -42.9 
+L 33.46 -42.9 
+L 32.88 -42.89 
+L 32.31 -42.89 
+L 31.74 -42.89 
+L 31.17 -42.88 
+L 30.6 -42.88 
+L 30.03 -42.88 
+z
+" style="stroke: #4599c6; stroke-opacity: 0.55"/>
+    </defs>
+    <g clip-path="url(#v1-pd6437839be)">
+     <use xlink:href="#v1-md6db146e86" x="0" y="322.17" style="fill: #4599c6; fill-opacity: 0.55; stroke: #4599c6; stroke-opacity: 0.55"/>
+    </g>
+   </g>
+   <g id="v1-matplotlib.axis_1">
+    <g id="v1-xtick_1">
+     <g id="v1-line2d_1">
+      <defs>
+       <path id="v1-m4e34bc9485" d="M 0 0 
+L 0 3.5 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#v1-m4e34bc9485" x="87.1" y="279.37" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v1-text_1">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="87.1" y="295.92" transform="rotate(-0 87.1 295.92)">-3σ</text>
+     </g>
+    </g>
+    <g id="v1-xtick_2">
+     <g id="v1-line2d_2">
+      <g>
+       <use xlink:href="#v1-m4e34bc9485" x="144.16" y="279.37" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v1-text_2">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="144.16" y="295.92" transform="rotate(-0 144.16 295.92)">-2σ</text>
+     </g>
+    </g>
+    <g id="v1-xtick_3">
+     <g id="v1-line2d_3">
+      <g>
+       <use xlink:href="#v1-m4e34bc9485" x="201.23" y="279.37" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v1-text_3">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="201.23" y="295.92" transform="rotate(-0 201.23 295.92)">-1σ</text>
+     </g>
+    </g>
+    <g id="v1-xtick_4">
+     <g id="v1-line2d_4">
+      <g>
+       <use xlink:href="#v1-m4e34bc9485" x="258.3" y="279.37" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v1-text_4">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="258.3" y="295.92" transform="rotate(-0 258.3 295.92)">0</text>
+     </g>
+    </g>
+    <g id="v1-xtick_5">
+     <g id="v1-line2d_5">
+      <g>
+       <use xlink:href="#v1-m4e34bc9485" x="315.37" y="279.37" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v1-text_5">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="315.37" y="295.92" transform="rotate(-0 315.37 295.92)">1σ</text>
+     </g>
+    </g>
+    <g id="v1-xtick_6">
+     <g id="v1-line2d_6">
+      <g>
+       <use xlink:href="#v1-m4e34bc9485" x="372.44" y="279.37" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v1-text_6">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="372.44" y="295.92" transform="rotate(-0 372.44 295.92)">2σ</text>
+     </g>
+    </g>
+    <g id="v1-xtick_7">
+     <g id="v1-line2d_7">
+      <g>
+       <use xlink:href="#v1-m4e34bc9485" x="429.5" y="279.37" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v1-text_7">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="429.5" y="295.92" transform="rotate(-0 429.5 295.92)">3σ</text>
+     </g>
+    </g>
+    <g id="v1-text_8">
+     <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="258.3" y="312.22" transform="rotate(-0 258.3 312.22)">需要のぶれの大きさ（σ＝標準偏差）</text>
+    </g>
+   </g>
+   <g id="v1-matplotlib.axis_2"/>
+   <g id="v1-line2d_8">
+    <path d="M 30.03 279.29 
+L 50.03 279.08 
+L 62.6 278.74 
+L 72.31 278.25 
+L 79.74 277.68 
+L 86.6 276.92 
+L 92.31 276.08 
+L 97.45 275.11 
+L 102.02 274.05 
+L 106.59 272.76 
+L 110.59 271.43 
+L 114.59 269.88 
+L 118.59 268.07 
+L 122.59 265.99 
+L 126.02 263.96 
+L 129.45 261.69 
+L 132.88 259.16 
+L 136.31 256.35 
+L 139.74 253.25 
+L 143.16 249.83 
+L 146.59 246.08 
+L 150.02 242 
+L 153.45 237.56 
+L 156.88 232.76 
+L 160.31 227.61 
+L 163.73 222.09 
+L 167.73 215.19 
+L 171.73 207.81 
+L 175.73 199.98 
+L 180.3 190.51 
+L 185.45 179.28 
+L 191.16 166.2 
+L 198.59 148.58 
+L 211.73 117.3 
+L 216.87 105.65 
+L 221.44 95.83 
+L 225.44 87.81 
+L 228.87 81.42 
+L 231.73 76.5 
+L 234.59 71.98 
+L 237.44 67.88 
+L 239.73 64.94 
+L 242.02 62.3 
+L 244.3 59.98 
+L 246.59 57.99 
+L 248.87 56.34 
+L 250.59 55.33 
+L 252.3 54.52 
+L 254.01 53.92 
+L 255.73 53.51 
+L 257.44 53.3 
+L 259.16 53.3 
+L 260.87 53.51 
+L 262.59 53.92 
+L 264.3 54.52 
+L 266.01 55.33 
+L 267.73 56.34 
+L 270.01 57.99 
+L 272.3 59.98 
+L 274.58 62.3 
+L 276.87 64.94 
+L 279.16 67.88 
+L 282.01 71.98 
+L 284.87 76.5 
+L 287.73 81.42 
+L 291.16 87.81 
+L 294.58 94.65 
+L 298.58 103.14 
+L 303.15 113.36 
+L 308.87 126.69 
+L 330.58 177.99 
+L 335.72 189.29 
+L 340.3 198.83 
+L 344.87 207.81 
+L 348.87 215.19 
+L 352.87 222.09 
+L 356.87 228.49 
+L 360.29 233.59 
+L 363.72 238.32 
+L 367.15 242.7 
+L 370.58 246.73 
+L 374.01 250.42 
+L 377.44 253.79 
+L 380.86 256.84 
+L 384.29 259.6 
+L 387.72 262.09 
+L 391.15 264.32 
+L 394.58 266.31 
+L 398.58 268.35 
+L 402.58 270.11 
+L 406.58 271.63 
+L 410.58 272.94 
+L 415.15 274.19 
+L 419.72 275.23 
+L 424.86 276.17 
+L 430.58 276.99 
+L 436.86 277.68 
+L 444.29 278.25 
+L 452.86 278.69 
+L 463.72 279.02 
+L 478.57 279.24 
+L 486.57 279.29 
+L 486.57 279.29 
+" clip-path="url(#v1-pd6437839be)" style="fill: none; stroke: #325197; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="v1-line2d_9">
+    <path d="M 315.37 279.37 
+L 315.37 24.34 
+" clip-path="url(#v1-pd6437839be)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #325197"/>
+   </g>
+   <g id="v1-line2d_10">
+    <path d="M 429.5 279.37 
+L 429.5 24.34 
+" clip-path="url(#v1-pd6437839be)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #325197"/>
+   </g>
+   <g id="v1-patch_3">
+    <path d="M 7.2 279.37 
+L 7.2 24.34 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="v1-patch_4">
+    <path d="M 7.2 279.37 
+L 509.4 279.37 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="v1-text_9">
+    <text style="font-size: 13px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="315.37" y="47.01" transform="rotate(-0 315.37 47.01)">1σ</text>
+   </g>
+   <g id="v1-text_10">
+    <text style="font-size: 13px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="429.5" y="47.01" transform="rotate(-0 429.5 47.01)">3σ</text>
+   </g>
+   <g id="v1-text_11">
+    <text style="font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #ffffff" x="258.3" y="194.36" transform="rotate(-0 258.3 194.36)">平均</text>
+   </g>
+   <g id="v1-patch_5">
+    <path d="M 465.05 160.96 
+Q 419.4 213.74 374.48 265.67 
+" style="fill: none; stroke: #325197; stroke-linecap: round"/>
+    <path d="M 379.43 263.61 
+L 374.48 265.67 
+L 375.8 260.47 
+" style="fill: none; stroke: #325197; stroke-linecap: round"/>
+   </g>
+   <g id="v1-text_12">
+    <text style="font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #1B2A4A" transform="translate(389.56 140.48)">この幅を「どこまで備えるか」が</text>
+    <text style="font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #1B2A4A" transform="translate(389.56 154.69)">3σ→1σの変更</text>
+   </g>
+   <g id="v1-text_13">
+    <text style="font-size: 14px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #1B2A4A" x="7.2" y="18.34" transform="rotate(-0 7.2 18.34)">図1　「1σ相当」と「3σ相当」の違い（正規分布の場合）</text>
+   </g>
+   <g id="v1-legend_1">
+    <g id="v1-patch_6">
+     <path d="M 17.1 43 
+L 39.1 43 
+L 39.1 35.3 
+L 17.1 35.3 
+z
+" style="fill: #DDE4EE; stroke: #DDE4EE; stroke-linejoin: miter"/>
+    </g>
+    <g id="v1-text_14">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="47.9" y="43" transform="rotate(-0 47.9 43)">3σまで備える：平均より上のぶれの99.9%を覆う</text>
+    </g>
+    <g id="v1-patch_7">
+     <path d="M 17.1 59.77 
+L 39.1 59.77 
+L 39.1 52.07 
+L 17.1 52.07 
+z
+" style="fill: #4599c6; fill-opacity: 0.55; stroke: #4599c6; stroke-opacity: 0.55; stroke-linejoin: miter"/>
+    </g>
+    <g id="v1-text_15">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="47.9" y="59.77" transform="rotate(-0 47.9 59.77)">1σまで備える：84%を覆う</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="v1-pd6437839be">
+   <rect x="7.2" y="24.34" width="502.2" height="255.02"/>
+  </clipPath>
+ </defs>
+</svg></div></figure>
+<p>3σまで備えるとは、平均より上に振れるぶれの99.9%を覆う量を買っておくこと。1σまで備えるとは、84%を覆う量で止めること。残りの16%は市場の外の手段で手当てします。「3σ→1σ」は、この備えの幅を狭めた、という意味です。</p>
+<p>ここで大事なのは、幅を3分の1にしても、買う量が3分の1にならないことです。理由は次の図にあります。</p>
+<h2>2. 買う量は3層でできている</h2>
+<figure class="c47" id="v2"><div class="c47scroll"><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 572.4 425.9" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:c2pa="http://c2pa.org/manifest" preserveAspectRatio="xMidYMid meet" role="img" stroke-linejoin="round" stroke-linecap="butt" style="width:100%;height:auto;display:block">
+ <g id="v2-figure_1">
+  <g id="v2-patch_1">
+   <path d="M 0 425.9 
+L 572.4 425.9 
+L 572.4 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="v2-axes_1">
+   <g id="v2-patch_2">
+    <path d="M 7.2 334.81 
+L 565.2 334.81 
+L 565.2 24.34 
+L 7.2 24.34 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="v2-patch_3">
+    <path d="M 37.82 334.81 
+L 112.68 334.81 
+L 112.68 257.19 
+L 37.82 257.19 
+z
+" clip-path="url(#v2-p936b923fb2)" style="fill: #8A94A3"/>
+   </g>
+   <g id="v2-patch_4">
+    <path d="M 173.92 334.81 
+L 248.77 334.81 
+L 248.77 257.19 
+L 173.92 257.19 
+z
+" clip-path="url(#v2-p936b923fb2)" style="fill: #8A94A3"/>
+   </g>
+   <g id="v2-patch_5">
+    <path d="M 37.82 257.19 
+L 112.68 257.19 
+L 112.68 63.15 
+L 37.82 63.15 
+z
+" clip-path="url(#v2-p936b923fb2)" style="fill: #4599c6"/>
+   </g>
+   <g id="v2-patch_6">
+    <path d="M 173.92 257.19 
+L 248.77 257.19 
+L 248.77 192.51 
+L 173.92 192.51 
+z
+" clip-path="url(#v2-p936b923fb2)" style="fill: #4599c6"/>
+   </g>
+   <g id="v2-patch_7">
+    <path d="M 310.02 334.81 
+L 384.87 334.81 
+L 384.87 237.79 
+L 310.02 237.79 
+z
+" clip-path="url(#v2-p936b923fb2)" style="fill: #325197"/>
+   </g>
+   <g id="v2-patch_8">
+    <path d="M 310.02 237.79 
+L 384.87 237.79 
+L 384.87 192.51 
+L 310.02 192.51 
+z
+" clip-path="url(#v2-p936b923fb2)" style="fill: url(#v2-hbca93cd408); stroke: #C49A3C; stroke-linejoin: miter"/>
+   </g>
+   <g id="v2-matplotlib.axis_1">
+    <g id="v2-xtick_1">
+     <g id="v2-line2d_1">
+      <defs>
+       <path id="v2-mbdf88d2858" d="M 0 0 
+L 0 3.5 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#v2-mbdf88d2858" x="75.25" y="334.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v2-text_1">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(49.93 351.36)">2025年度</text>
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(57.25 365.57)">必要量</text>
+     </g>
+    </g>
+    <g id="v2-xtick_2">
+     <g id="v2-line2d_2">
+      <g>
+       <use xlink:href="#v2-mbdf88d2858" x="211.35" y="334.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v2-text_2">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(186.03 351.36)">2026年度</text>
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(193.35 365.57)">必要量</text>
+     </g>
+    </g>
+    <g id="v2-xtick_3">
+     <g id="v2-line2d_3">
+      <g>
+       <use xlink:href="#v2-mbdf88d2858" x="347.44" y="334.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v2-text_3">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(322.12 351.36)">2026年度</text>
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(329.44 365.57)">募集量</text>
+     </g>
+    </g>
+   </g>
+   <g id="v2-matplotlib.axis_2"/>
+   <g id="v2-patch_9">
+    <path d="M 7.2 334.81 
+L 7.2 24.34 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="v2-patch_10">
+    <path d="M 7.2 334.81 
+L 565.2 334.81 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="v2-text_4">
+    <text style="font-size: 13px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #4599c6" x="75.25" y="53.45" transform="rotate(-0 75.25 53.45)">3σ</text>
+   </g>
+   <g id="v2-text_5">
+    <text style="font-size: 13px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #4599c6" x="211.35" y="182.81" transform="rotate(-0 211.35 182.81)">1σ</text>
+   </g>
+   <g id="v2-patch_11">
+    <path d="M 302.95 218.31 
+Q 276.77 256.33 251.22 293.43 
+" style="fill: none; stroke: #5A6577; stroke-linecap: round"/>
+    <path d="M 255.92 290.84 
+L 251.22 293.43 
+L 251.97 288.12 
+" style="fill: none; stroke: #5A6577; stroke-linecap: round"/>
+   </g>
+   <g id="v2-text_6">
+    <text style="font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #5A6577" transform="translate(272.59 197.7)">σを下げても</text>
+    <text style="font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #5A6577" transform="translate(272.59 211.92)">ここは減らない</text>
+   </g>
+   <g id="v2-patch_12">
+    <path d="M 441.5 153.47 
+Q 414.2 183.57 387.65 212.84 
+" style="fill: none; stroke: #C49A3C; stroke-linecap: round"/>
+    <path d="M 392.65 210.9 
+L 387.65 212.84 
+L 389.09 207.67 
+" style="fill: none; stroke: #C49A3C; stroke-linecap: round"/>
+   </g>
+   <g id="v2-text_7">
+    <text style="font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #C49A3C" transform="translate(408.69 133.02)">必要量から</text>
+    <text style="font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #C49A3C" transform="translate(408.69 147.24)">市場外の分を引く</text>
+   </g>
+   <g id="v2-text_8">
+    <text style="font-size: 14px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #1B2A4A" x="7.2" y="18.34" transform="rotate(-0 7.2 18.34)">図2　募集量ができるまでの3層（概念図：高さは例）</text>
+   </g>
+   <g id="v2-legend_1">
+    <g id="v2-patch_13">
+     <path d="M 54.39 396.08 
+L 75.39 396.08 
+L 75.39 388.73 
+L 54.39 388.73 
+z
+" style="fill: #8A94A3"/>
+    </g>
+    <g id="v2-text_9">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="83.79" y="396.08" transform="rotate(-0 83.79 396.08)">異常時分（最大の発電所1台が止まる備え）</text>
+    </g>
+    <g id="v2-patch_14">
+     <path d="M 54.39 412.09 
+L 75.39 412.09 
+L 75.39 404.74 
+L 54.39 404.74 
+z
+" style="fill: #4599c6"/>
+    </g>
+    <g id="v2-text_10">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="83.79" y="412.09" transform="rotate(-0 83.79 412.09)">平常時分（需要のぶれに備える幅）</text>
+    </g>
+    <g id="v2-patch_15">
+     <path d="M 310.11 396.08 
+L 331.11 396.08 
+L 331.11 388.73 
+L 310.11 388.73 
+z
+" style="fill: #325197"/>
+    </g>
+    <g id="v2-text_11">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="339.51" y="396.08" transform="rotate(-0 339.51 396.08)">市場の募集量</text>
+    </g>
+    <g id="v2-patch_16">
+     <path d="M 310.11 412.09 
+L 331.11 412.09 
+L 331.11 404.74 
+L 310.11 404.74 
+z
+" style="fill: url(#v2-hbca93cd408); stroke: #C49A3C; stroke-linejoin: miter"/>
+    </g>
+    <g id="v2-text_12">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="339.51" y="412.09" transform="rotate(-0 339.51 412.09)">市場外で確保（揚水随契・余力活用）</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="v2-p936b923fb2">
+   <rect x="7.2" y="24.34" width="558" height="310.46"/>
+  </clipPath>
+ </defs>
+ <defs>
+  <pattern id="v2-hbca93cd408" patternUnits="userSpaceOnUse" x="0" y="0" width="72" height="72">
+   <rect x="0" y="0" width="73" height="73" fill="#ffffff"/>
+   <path d="M -36 36 
+L 36 -36 
+M -30 42 
+L 42 -30 
+M -24 48 
+L 48 -24 
+M -18 54 
+L 54 -18 
+M -12 60 
+L 60 -12 
+M -6 66 
+L 66 -6 
+M 0 72 
+L 72 0 
+M 6 78 
+L 78 6 
+M 12 84 
+L 84 12 
+M 18 90 
+L 90 18 
+M 24 96 
+L 96 24 
+M 30 102 
+L 102 30 
+M 36 108 
+L 108 36 
+" style="fill: #C49A3C; stroke: #C49A3C; stroke-width: 1.0; stroke-linecap: butt; stroke-linejoin: miter"/>
+  </pattern>
+ </defs>
+</svg></div></figure>
+<p>一次調整力の必要量は、二つの部分の足し算です（制度検討作業部会 第110回 資料4。二次①も同じ考え方で、事故時の分が別に立ちます）。</p>
+<ul><li><strong>平常時分</strong>：日々の需要のぶれに備える幅。ここにσが掛かります。</li><li><strong>異常時分</strong>：その管区でいちばん大きな発電所が1台止まったときの備え。発電所の大きさで決まるので、σを動かしても変わりません。</li></ul>
+<p>たとえるなら、平常時分は傘、異常時分はスペアタイヤです。天気予報の精度を変えても、スペアタイヤの数は変わりません。</p>
+<p>その必要量から、市場の外で確保する分を差し引いたものが、市場の募集量です。市場の外とは、揚水発電を送配電事業者が直接契約する「随意契約」と、容量市場の落札電源との「余力活用契約」の二つ。2025年度は「3σ相当量から市場外調整力を控除した量」が募集され、控除の期限は2026年3月とされていました（第109回 資料6）。</p>
+<p>つまり「必要量」と「募集量」は別の数字です。次の2節で、両方を実際に割ってみます。</p>
+<h2>3. 必要量は0.55——3分の1にはならない</h2>
+<p>EPRXが公表する調達必要量表（年度当初発効）を4〜9月で平均し、2026年度を2025年度で割りました。全国では一次0.55、二次①0.56、複合0.78、二次②0.90、三次①0.77です。1σ化の対象である一次と二次①でも、半分より少し下で止まります。スペアタイヤ（異常時分）が残るからです。</p>
+<p>管区で見ると、北海道・東北・東京は0.60〜0.70、中部以西は0.44〜0.50。いちばん大きな発電所の大きさが系統の規模に対して大きい東の3管区ほど、スペアタイヤの比率が高く、幅を狭めても減りが小さい——当社はそう読んでいます（管区ごとの内訳は公表されていないので、これは読みであって実測ではありません）。3分の1になった商品×管区は一つもなく、最小は四国の二次①0.44です（管区別の表は末尾の参考表1）。</p>
+<h2>4. 募集量は0.62、複合は0.97</h2>
+<p>市場が実際に募集した量は、必要量よりさらに減っていません。約定データの募集量（TSO別）を、2025年度・2026年度とも4〜8月の同じ窓で平均したのが図3です。</p>
+<figure class="c47" id="v3"><div class="c47scroll"><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 667.81 328.96" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:c2pa="http://c2pa.org/manifest" preserveAspectRatio="xMidYMid meet" role="img" stroke-linejoin="round" stroke-linecap="butt" style="width:100%;height:auto;display:block">
+ <g id="v3-figure_1">
+  <g id="v3-patch_1">
+   <path d="M 0 328.96 
+L 667.81 328.96 
+L 667.81 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="v3-axes_1">
+   <g id="v3-patch_2">
+    <path d="M 43.35 290.46 
+L 601.35 290.46 
+L 601.35 24.34 
+L 43.35 24.34 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="v3-patch_3">
+    <path d="M 0 0 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #DDE4EE; stroke: #4599c6; stroke-linejoin: miter"/>
+   </g>
+   <g id="v3-patch_4">
+    <path d="M 0 0 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #DDE4EE; stroke: #4599c6; stroke-linejoin: miter"/>
+   </g>
+   <g id="v3-patch_5">
+    <path d="M 197.52 290.46 
+L 227.74 290.46 
+L 227.74 177.87 
+L 197.52 177.87 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #DDE4EE; stroke: #4599c6; stroke-linejoin: miter"/>
+   </g>
+   <g id="v3-patch_6">
+    <path d="M 277.03 290.46 
+L 307.25 290.46 
+L 307.25 175.82 
+L 277.03 175.82 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #DDE4EE; stroke: #4599c6; stroke-linejoin: miter"/>
+   </g>
+   <g id="v3-patch_7">
+    <path d="M 356.54 290.46 
+L 386.76 290.46 
+L 386.76 130.79 
+L 356.54 130.79 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #DDE4EE; stroke: #4599c6; stroke-linejoin: miter"/>
+   </g>
+   <g id="v3-patch_8">
+    <path d="M 436.05 290.46 
+L 466.27 290.46 
+L 466.27 132.83 
+L 436.05 132.83 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #DDE4EE; stroke: #4599c6; stroke-linejoin: miter"/>
+   </g>
+   <g id="v3-patch_9">
+    <path d="M 515.56 290.46 
+L 545.78 290.46 
+L 545.78 106.22 
+L 515.56 106.22 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #DDE4EE; stroke: #4599c6; stroke-linejoin: miter"/>
+   </g>
+   <g id="v3-patch_10">
+    <path d="M 68.72 290.46 
+L 98.93 290.46 
+L 98.93 198.34 
+L 68.72 198.34 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v3-patch_11">
+    <path d="M 148.23 290.46 
+L 178.44 290.46 
+L 178.44 145.12 
+L 148.23 145.12 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #325197"/>
+   </g>
+   <g id="v3-patch_12">
+    <path d="M 227.74 290.46 
+L 257.95 290.46 
+L 257.95 163.54 
+L 227.74 163.54 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #325197"/>
+   </g>
+   <g id="v3-patch_13">
+    <path d="M 307.25 290.46 
+L 337.46 290.46 
+L 337.46 145.12 
+L 307.25 145.12 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #325197"/>
+   </g>
+   <g id="v3-patch_14">
+    <path d="M 386.76 290.46 
+L 416.97 290.46 
+L 416.97 91.89 
+L 386.76 91.89 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #325197"/>
+   </g>
+   <g id="v3-patch_15">
+    <path d="M 466.27 290.46 
+L 496.48 290.46 
+L 496.48 93.94 
+L 466.27 93.94 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #325197"/>
+   </g>
+   <g id="v3-patch_16">
+    <path d="M 545.78 290.46 
+L 575.99 290.46 
+L 575.99 55.05 
+L 545.78 55.05 
+z
+" clip-path="url(#v3-pca77137b50)" style="fill: #325197"/>
+   </g>
+   <g id="v3-matplotlib.axis_1">
+    <g id="v3-xtick_1">
+     <g id="v3-line2d_1">
+      <defs>
+       <path id="v3-md7cf659189" d="M 0 0 
+L 0 3.5 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#v3-md7cf659189" x="68.72" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_1">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(57.72 306.21)">一次</text>
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(41.22 319.24)">オフライン</text>
+     </g>
+    </g>
+    <g id="v3-xtick_2">
+     <g id="v3-line2d_2">
+      <g>
+       <use xlink:href="#v3-md7cf659189" x="148.23" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_2">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(137.23 306.21)">一次</text>
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(120.73 319.24)">オンライン</text>
+     </g>
+    </g>
+    <g id="v3-xtick_3">
+     <g id="v3-line2d_3">
+      <g>
+       <use xlink:href="#v3-md7cf659189" x="227.74" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_3">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(216.74 306.21)">一次</text>
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(216.74 319.24)">合計</text>
+     </g>
+    </g>
+    <g id="v3-xtick_4">
+     <g id="v3-line2d_4">
+      <g>
+       <use xlink:href="#v3-md7cf659189" x="307.25" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_4">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="307.25" y="306.21" transform="rotate(-0 307.25 306.21)">二次①</text>
+     </g>
+    </g>
+    <g id="v3-xtick_5">
+     <g id="v3-line2d_5">
+      <g>
+       <use xlink:href="#v3-md7cf659189" x="386.76" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_5">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="386.76" y="306.21" transform="rotate(-0 386.76 306.21)">複合</text>
+     </g>
+    </g>
+    <g id="v3-xtick_6">
+     <g id="v3-line2d_6">
+      <g>
+       <use xlink:href="#v3-md7cf659189" x="466.27" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_6">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="466.27" y="306.21" transform="rotate(-0 466.27 306.21)">三次①</text>
+     </g>
+    </g>
+    <g id="v3-xtick_7">
+     <g id="v3-line2d_7">
+      <g>
+       <use xlink:href="#v3-md7cf659189" x="545.78" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_7">
+      <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="545.78" y="306.21" transform="rotate(-0 545.78 306.21)">二次②</text>
+     </g>
+    </g>
+   </g>
+   <g id="v3-matplotlib.axis_2">
+    <g id="v3-ytick_1">
+     <g id="v3-line2d_8">
+      <defs>
+       <path id="v3-m8a4a2635ba" d="M 0 0 
+L -3.5 0 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#v3-m8a4a2635ba" x="43.35" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_8">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="294.43" transform="rotate(-0 36.35 294.43)">0.0</text>
+     </g>
+    </g>
+    <g id="v3-ytick_2">
+     <g id="v3-line2d_9">
+      <g>
+       <use xlink:href="#v3-m8a4a2635ba" x="43.35" y="249.51" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_9">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="253.49" transform="rotate(-0 36.35 253.49)">0.2</text>
+     </g>
+    </g>
+    <g id="v3-ytick_3">
+     <g id="v3-line2d_10">
+      <g>
+       <use xlink:href="#v3-m8a4a2635ba" x="43.35" y="208.57" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_10">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="212.55" transform="rotate(-0 36.35 212.55)">0.4</text>
+     </g>
+    </g>
+    <g id="v3-ytick_4">
+     <g id="v3-line2d_11">
+      <g>
+       <use xlink:href="#v3-m8a4a2635ba" x="43.35" y="167.63" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_11">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="171.61" transform="rotate(-0 36.35 171.61)">0.6</text>
+     </g>
+    </g>
+    <g id="v3-ytick_5">
+     <g id="v3-line2d_12">
+      <g>
+       <use xlink:href="#v3-m8a4a2635ba" x="43.35" y="126.69" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_12">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="130.67" transform="rotate(-0 36.35 130.67)">0.8</text>
+     </g>
+    </g>
+    <g id="v3-ytick_6">
+     <g id="v3-line2d_13">
+      <g>
+       <use xlink:href="#v3-m8a4a2635ba" x="43.35" y="85.75" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_13">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="89.73" transform="rotate(-0 36.35 89.73)">1.0</text>
+     </g>
+    </g>
+    <g id="v3-ytick_7">
+     <g id="v3-line2d_14">
+      <g>
+       <use xlink:href="#v3-m8a4a2635ba" x="43.35" y="44.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v3-text_14">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="48.79" transform="rotate(-0 36.35 48.79)">1.2</text>
+     </g>
+    </g>
+    <g id="v3-text_15">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="15.96" y="157.4" transform="rotate(-90 15.96 157.4)">2026年度 ÷ 2025年度</text>
+    </g>
+   </g>
+   <g id="v3-line2d_15">
+    <path d="M 43.35 85.75 
+L 601.35 85.75 
+" clip-path="url(#v3-pca77137b50)" style="fill: none; stroke: #8A94A3; stroke-linecap: square"/>
+   </g>
+   <g id="v3-line2d_16">
+    <path d="M 43.35 222.22 
+L 601.35 222.22 
+" clip-path="url(#v3-pca77137b50)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #C49A3C; stroke-width: 1.2"/>
+   </g>
+   <g id="v3-patch_17">
+    <path d="M 43.35 290.46 
+L 43.35 24.34 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="v3-patch_18">
+    <path d="M 43.35 290.46 
+L 601.35 290.46 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="v3-text_16">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #4599c6" x="212.63" y="173.78" transform="rotate(-0 212.63 173.78)">0.55</text>
+   </g>
+   <g id="v3-text_17">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #4599c6" x="292.14" y="171.73" transform="rotate(-0 292.14 171.73)">0.56</text>
+   </g>
+   <g id="v3-text_18">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #4599c6" x="371.65" y="126.69" transform="rotate(-0 371.65 126.69)">0.78</text>
+   </g>
+   <g id="v3-text_19">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #4599c6" x="451.16" y="128.74" transform="rotate(-0 451.16 128.74)">0.77</text>
+   </g>
+   <g id="v3-text_20">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #4599c6" x="530.67" y="102.13" transform="rotate(-0 530.67 102.13)">0.90</text>
+   </g>
+   <g id="v3-text_21">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #C49A3C" x="83.83" y="194.25" transform="rotate(-0 83.83 194.25)">0.45</text>
+   </g>
+   <g id="v3-text_22">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="163.34" y="141.02" transform="rotate(-0 163.34 141.02)">0.71</text>
+   </g>
+   <g id="v3-text_23">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="242.84" y="159.45" transform="rotate(-0 242.84 159.45)">0.62</text>
+   </g>
+   <g id="v3-text_24">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="322.35" y="141.02" transform="rotate(-0 322.35 141.02)">0.71</text>
+   </g>
+   <g id="v3-text_25">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="401.86" y="87.8" transform="rotate(-0 401.86 87.8)">0.97</text>
+   </g>
+   <g id="v3-text_26">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="481.37" y="89.85" transform="rotate(-0 481.37 89.85)">0.96</text>
+   </g>
+   <g id="v3-text_27">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="560.88" y="50.95" transform="rotate(-0 560.88 50.95)">1.15</text>
+   </g>
+   <g id="v3-text_28">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #6C7A89" x="589.51" y="81.42" transform="rotate(-0 589.51 81.42)">前年並み</text>
+   </g>
+   <g id="v3-text_29">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #C49A3C" x="589.51" y="237" transform="rotate(-0 589.51 237)">「3分の1」の線</text>
+   </g>
+   <g id="v3-text_30">
+    <text style="font-size: 14px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #1B2A4A" x="43.35" y="18.34" transform="rotate(-0 43.35 18.34)">図3　商品別：「3分の1」の線を割った商品はない（全国）</text>
+   </g>
+   <g id="v3-legend_1">
+    <g id="v3-patch_19">
+     <path d="M 52.8 42.15 
+L 73.8 42.15 
+L 73.8 34.8 
+L 52.8 34.8 
+z
+" style="fill: #DDE4EE; stroke: #4599c6; stroke-linejoin: miter"/>
+    </g>
+    <g id="v3-text_31">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="82.2" y="42.15" transform="rotate(-0 82.2 42.15)">必要量の比（3σ→1σの計算上の減り）</text>
+    </g>
+    <g id="v3-patch_20">
+     <path d="M 52.8 58.16 
+L 73.8 58.16 
+L 73.8 50.81 
+L 52.8 50.81 
+z
+" style="fill: #325197"/>
+    </g>
+    <g id="v3-text_32">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="82.2" y="58.16" transform="rotate(-0 82.2 58.16)">募集量の比（市場に実際に出た量）</text>
+    </g>
+    <g id="v3-patch_21">
+     <path d="M 52.8 74.18 
+L 73.8 74.18 
+L 73.8 66.83 
+L 52.8 66.83 
+z
+" style="fill: #C49A3C"/>
+    </g>
+    <g id="v3-text_33">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="82.2" y="74.18" transform="rotate(-0 82.2 74.18)">蓄電池の席（一次オフライン枠）</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="v3-pca77137b50">
+   <rect x="43.35" y="24.34" width="558" height="266.11"/>
+  </clipPath>
+ </defs>
+</svg></div></figure>
+<p><strong>表1</strong> 募集量の比 2026年度／2025年度（4〜8月平均、全国）</p>
+<div class="table-wrap"><table class="comparison-table"><thead><tr><th>商品</th><th>2025年度 MW</th><th>2026年度 MW</th><th>比</th></tr></thead><tbody><tr><td>一次オンライン</td><td>2,105</td><td>1,497</td><td>0.71</td></tr><tr><td>一次オフライン</td><td>1,099</td><td>498</td><td><strong>0.45</strong></td></tr><tr><td>一次 合計</td><td>3,203</td><td>1,995</td><td>0.62</td></tr><tr><td>二次①</td><td>1,597</td><td>1,141</td><td>0.71</td></tr><tr><td>複合（一次〜三次①）</td><td>3,830</td><td>3,700</td><td><strong>0.97</strong></td></tr><tr><td>三次①</td><td>2,970</td><td>2,857</td><td>0.96</td></tr><tr><td>二次②</td><td>969</td><td>1,110</td><td>1.15</td></tr><tr><td>三次②</td><td>720</td><td>553</td><td>0.77</td></tr></tbody></table></div>
+<p>出典：EPRX 取引実績（エリア別約定データ）から当社計算。2025年度は週間商品（3時間ブロック）、2026年度は30分コマの募集量をそれぞれ平均</p>
+<p>読み方は二つです。</p>
+<p><strong>蓄電池の席は半分になった。</strong> 一次オフライン枠は0.45です。この枠の上限は「平常時分の1σ相当値」と定められたので（第110回 資料4）、σを狭めた効果がほぼそのまま出ました。蓄電池の落札シェアが98〜100%を占めるのがこのオフライン枠で（→47-3）、全国で約500MW/コマ。「蓄電池の席」に限れば、半分以下になったのは事実です。</p>
+<p><strong>市場の大きさは変わっていない。</strong> 複合商品は0.97、三次①は0.96、二次②は1.15。複合3,700MW、一次オンライン1,500MWという器は、前年並みのまま残っています。「3分の1」説のいちばんの誤りはここです。</p>
+<p>管区で見ても同じ形です（図4）。北海道・中部・九州の複合は前年より増え、減った管区でも関西の0.72が下限。複合商品に3分の1はありません（管区別の数字は参考表2）。</p>
+<figure class="c47 wide" id="v4" style="--fw:720px;--fmin:680px"><p class="c47hint">← 横にスクロールできます →</p><div class="c47scroll"><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 679.91 316.96" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:c2pa="http://c2pa.org/manifest" preserveAspectRatio="xMidYMid meet" role="img" stroke-linejoin="round" stroke-linecap="butt" style="width:100%;height:auto;display:block">
+ <g id="v4-figure_1">
+  <g id="v4-patch_1">
+   <path d="M -0 316.96 
+L 679.91 316.96 
+L 679.91 0 
+L -0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="v4-axes_1">
+   <g id="v4-patch_2">
+    <path d="M 43.35 290.46 
+L 657.15 290.46 
+L 657.15 24.34 
+L 43.35 24.34 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="v4-patch_3">
+    <path d="M 71.25 290.46 
+L 88.36 290.46 
+L 88.36 224.81 
+L 71.25 224.81 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v4-patch_4">
+    <path d="M 134.59 290.46 
+L 151.69 290.46 
+L 151.69 166.27 
+L 134.59 166.27 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v4-patch_5">
+    <path d="M 197.93 290.46 
+L 215.03 290.46 
+L 215.03 215.94 
+L 197.93 215.94 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v4-patch_6">
+    <path d="M 261.27 290.46 
+L 278.37 290.46 
+L 278.37 207.07 
+L 261.27 207.07 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v4-patch_7">
+    <path d="M 324.6 290.46 
+L 341.7 290.46 
+L 341.7 217.72 
+L 324.6 217.72 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v4-patch_8">
+    <path d="M 387.94 290.46 
+L 405.04 290.46 
+L 405.04 214.17 
+L 387.94 214.17 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v4-patch_9">
+    <path d="M 451.28 290.46 
+L 468.38 290.46 
+L 468.38 214.17 
+L 451.28 214.17 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v4-patch_10">
+    <path d="M 514.61 290.46 
+L 531.72 290.46 
+L 531.72 178.69 
+L 514.61 178.69 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v4-patch_11">
+    <path d="M 577.95 290.46 
+L 595.05 290.46 
+L 595.05 214.17 
+L 577.95 214.17 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v4-patch_12">
+    <path d="M 88.36 290.46 
+L 105.46 290.46 
+L 105.46 146.75 
+L 88.36 146.75 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #4599c6"/>
+   </g>
+   <g id="v4-patch_13">
+    <path d="M 151.69 290.46 
+L 168.79 290.46 
+L 168.79 157.4 
+L 151.69 157.4 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #4599c6"/>
+   </g>
+   <g id="v4-patch_14">
+    <path d="M 215.03 290.46 
+L 232.13 290.46 
+L 232.13 137.88 
+L 215.03 137.88 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #4599c6"/>
+   </g>
+   <g id="v4-patch_15">
+    <path d="M 278.37 290.46 
+L 295.47 290.46 
+L 295.47 125.47 
+L 278.37 125.47 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #4599c6"/>
+   </g>
+   <g id="v4-patch_16">
+    <path d="M 341.7 290.46 
+L 358.81 290.46 
+L 358.81 185.78 
+L 341.7 185.78 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #4599c6"/>
+   </g>
+   <g id="v4-patch_17">
+    <path d="M 405.04 290.46 
+L 422.14 290.46 
+L 422.14 199.98 
+L 405.04 199.98 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #4599c6"/>
+   </g>
+   <g id="v4-patch_18">
+    <path d="M 468.38 290.46 
+L 485.48 290.46 
+L 485.48 192.88 
+L 468.38 192.88 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #4599c6"/>
+   </g>
+   <g id="v4-patch_19">
+    <path d="M 531.72 290.46 
+L 548.82 290.46 
+L 548.82 173.37 
+L 531.72 173.37 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #4599c6"/>
+   </g>
+   <g id="v4-patch_20">
+    <path d="M 595.05 290.46 
+L 612.15 290.46 
+L 612.15 173.37 
+L 595.05 173.37 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #4599c6"/>
+   </g>
+   <g id="v4-patch_21">
+    <path d="M 105.46 290.46 
+L 122.56 290.46 
+L 122.56 70.47 
+L 105.46 70.47 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #325197"/>
+   </g>
+   <g id="v4-patch_22">
+    <path d="M 168.79 290.46 
+L 185.89 290.46 
+L 185.89 91.76 
+L 168.79 91.76 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #325197"/>
+   </g>
+   <g id="v4-patch_23">
+    <path d="M 232.13 290.46 
+L 249.23 290.46 
+L 249.23 136.11 
+L 232.13 136.11 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #325197"/>
+   </g>
+   <g id="v4-patch_24">
+    <path d="M 295.47 290.46 
+L 312.57 290.46 
+L 312.57 54.5 
+L 295.47 54.5 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #325197"/>
+   </g>
+   <g id="v4-patch_25">
+    <path d="M 358.81 290.46 
+L 375.91 290.46 
+L 375.91 118.37 
+L 358.81 118.37 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #325197"/>
+   </g>
+   <g id="v4-patch_26">
+    <path d="M 422.14 290.46 
+L 439.24 290.46 
+L 439.24 162.72 
+L 422.14 162.72 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #325197"/>
+   </g>
+   <g id="v4-patch_27">
+    <path d="M 485.48 290.46 
+L 502.58 290.46 
+L 502.58 123.69 
+L 485.48 123.69 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #325197"/>
+   </g>
+   <g id="v4-patch_28">
+    <path d="M 548.82 290.46 
+L 565.92 290.46 
+L 565.92 160.95 
+L 548.82 160.95 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #325197"/>
+   </g>
+   <g id="v4-patch_29">
+    <path d="M 612.15 290.46 
+L 629.25 290.46 
+L 629.25 77.57 
+L 612.15 77.57 
+z
+" clip-path="url(#v4-p20c75fe77e)" style="fill: #325197"/>
+   </g>
+   <g id="v4-matplotlib.axis_1">
+    <g id="v4-xtick_1">
+     <g id="v4-line2d_1">
+      <defs>
+       <path id="v4-mfd4ea715e7" d="M 0 0 
+L 0 3.5 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#v4-mfd4ea715e7" x="96.91" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_1">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="96.91" y="307.01" transform="rotate(-0 96.91 307.01)">北海道</text>
+     </g>
+    </g>
+    <g id="v4-xtick_2">
+     <g id="v4-line2d_2">
+      <g>
+       <use xlink:href="#v4-mfd4ea715e7" x="160.24" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_2">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="160.24" y="307.01" transform="rotate(-0 160.24 307.01)">東北</text>
+     </g>
+    </g>
+    <g id="v4-xtick_3">
+     <g id="v4-line2d_3">
+      <g>
+       <use xlink:href="#v4-mfd4ea715e7" x="223.58" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_3">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="223.58" y="307.01" transform="rotate(-0 223.58 307.01)">東京</text>
+     </g>
+    </g>
+    <g id="v4-xtick_4">
+     <g id="v4-line2d_4">
+      <g>
+       <use xlink:href="#v4-mfd4ea715e7" x="286.92" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_4">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="286.92" y="307.01" transform="rotate(-0 286.92 307.01)">中部</text>
+     </g>
+    </g>
+    <g id="v4-xtick_5">
+     <g id="v4-line2d_5">
+      <g>
+       <use xlink:href="#v4-mfd4ea715e7" x="350.25" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_5">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="350.25" y="307.01" transform="rotate(-0 350.25 307.01)">北陸</text>
+     </g>
+    </g>
+    <g id="v4-xtick_6">
+     <g id="v4-line2d_6">
+      <g>
+       <use xlink:href="#v4-mfd4ea715e7" x="413.59" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_6">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="413.59" y="307.01" transform="rotate(-0 413.59 307.01)">関西</text>
+     </g>
+    </g>
+    <g id="v4-xtick_7">
+     <g id="v4-line2d_7">
+      <g>
+       <use xlink:href="#v4-mfd4ea715e7" x="476.93" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_7">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="476.93" y="307.01" transform="rotate(-0 476.93 307.01)">中国</text>
+     </g>
+    </g>
+    <g id="v4-xtick_8">
+     <g id="v4-line2d_8">
+      <g>
+       <use xlink:href="#v4-mfd4ea715e7" x="540.27" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_8">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="540.27" y="307.01" transform="rotate(-0 540.27 307.01)">四国</text>
+     </g>
+    </g>
+    <g id="v4-xtick_9">
+     <g id="v4-line2d_9">
+      <g>
+       <use xlink:href="#v4-mfd4ea715e7" x="603.6" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_9">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="603.6" y="307.01" transform="rotate(-0 603.6 307.01)">九州</text>
+     </g>
+    </g>
+   </g>
+   <g id="v4-matplotlib.axis_2">
+    <g id="v4-ytick_1">
+     <g id="v4-line2d_10">
+      <defs>
+       <path id="v4-m6b887c38c4" d="M 0 0 
+L -3.5 0 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#v4-m6b887c38c4" x="43.35" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_10">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="294.43" transform="rotate(-0 36.35 294.43)">0.0</text>
+     </g>
+    </g>
+    <g id="v4-ytick_2">
+     <g id="v4-line2d_11">
+      <g>
+       <use xlink:href="#v4-m6b887c38c4" x="43.35" y="254.97" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_11">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="258.95" transform="rotate(-0 36.35 258.95)">0.2</text>
+     </g>
+    </g>
+    <g id="v4-ytick_3">
+     <g id="v4-line2d_12">
+      <g>
+       <use xlink:href="#v4-m6b887c38c4" x="43.35" y="219.49" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_12">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="223.47" transform="rotate(-0 36.35 223.47)">0.4</text>
+     </g>
+    </g>
+    <g id="v4-ytick_4">
+     <g id="v4-line2d_13">
+      <g>
+       <use xlink:href="#v4-m6b887c38c4" x="43.35" y="184.01" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_13">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="187.99" transform="rotate(-0 36.35 187.99)">0.6</text>
+     </g>
+    </g>
+    <g id="v4-ytick_5">
+     <g id="v4-line2d_14">
+      <g>
+       <use xlink:href="#v4-m6b887c38c4" x="43.35" y="148.53" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_14">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="152.51" transform="rotate(-0 36.35 152.51)">0.8</text>
+     </g>
+    </g>
+    <g id="v4-ytick_6">
+     <g id="v4-line2d_15">
+      <g>
+       <use xlink:href="#v4-m6b887c38c4" x="43.35" y="113.05" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_15">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="117.03" transform="rotate(-0 36.35 117.03)">1.0</text>
+     </g>
+    </g>
+    <g id="v4-ytick_7">
+     <g id="v4-line2d_16">
+      <g>
+       <use xlink:href="#v4-m6b887c38c4" x="43.35" y="77.57" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_16">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="81.55" transform="rotate(-0 36.35 81.55)">1.2</text>
+     </g>
+    </g>
+    <g id="v4-ytick_8">
+     <g id="v4-line2d_17">
+      <g>
+       <use xlink:href="#v4-m6b887c38c4" x="43.35" y="42.08" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v4-text_17">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="36.35" y="46.06" transform="rotate(-0 36.35 46.06)">1.4</text>
+     </g>
+    </g>
+    <g id="v4-text_18">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="15.96" y="157.4" transform="rotate(-90 15.96 157.4)">募集量の比（2026年度÷2025年度）</text>
+    </g>
+   </g>
+   <g id="v4-line2d_18">
+    <path d="M 43.35 113.05 
+L 657.15 113.05 
+" clip-path="url(#v4-p20c75fe77e)" style="fill: none; stroke: #8A94A3; stroke-linecap: square"/>
+   </g>
+   <g id="v4-line2d_19">
+    <path d="M 43.35 231.32 
+L 657.15 231.32 
+" clip-path="url(#v4-p20c75fe77e)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #C49A3C; stroke-width: 1.2"/>
+   </g>
+   <g id="v4-patch_30">
+    <path d="M 43.35 290.46 
+L 43.35 24.34 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="v4-patch_31">
+    <path d="M 43.35 290.46 
+L 657.15 290.46 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="v4-text_19">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #C49A3C" x="641.61" y="245.19" transform="rotate(-0 641.61 245.19)">3分の1</text>
+   </g>
+   <g id="v4-text_20">
+    <text style="font-size: 14px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #1B2A4A" x="43.35" y="18.34" transform="rotate(-0 43.35 18.34)">図4　管区別：減ったのは蓄電池の席、複合は横ばいか増加</text>
+   </g>
+   <g id="v4-legend_1">
+    <g id="v4-patch_32">
+     <path d="M 122.4 42.15 
+L 143.4 42.15 
+L 143.4 34.8 
+L 122.4 34.8 
+z
+" style="fill: #C49A3C"/>
+    </g>
+    <g id="v4-text_21">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="151.8" y="42.15" transform="rotate(-0 151.8 42.15)">一次オフライン（蓄電池の席）</text>
+    </g>
+    <g id="v4-patch_33">
+     <path d="M 319.8 42.15 
+L 340.8 42.15 
+L 340.8 34.8 
+L 319.8 34.8 
+z
+" style="fill: #4599c6"/>
+    </g>
+    <g id="v4-text_22">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="349.2" y="42.15" transform="rotate(-0 349.2 42.15)">一次オンライン</text>
+    </g>
+    <g id="v4-patch_34">
+     <path d="M 443.7 42.15 
+L 464.7 42.15 
+L 464.7 34.8 
+L 443.7 34.8 
+z
+" style="fill: #325197"/>
+    </g>
+    <g id="v4-text_23">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="473.1" y="42.15" transform="rotate(-0 473.1 42.15)">複合（一次〜三次①）</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="v4-p20c75fe77e">
+   <rect x="43.35" y="24.34" width="613.8" height="266.11"/>
+  </clipPath>
+ </defs>
+</svg></div></figure>
+<h2>5. なぜ複合は増えなかったのか——揚水随契266万kW</h2>
+<p>制度検討作業部会は2025年12月に「1σ相当に統一すると、2026年度の募集量見込は一次・二次①で13%減、複合商品で50%増」と示していました（第109回 資料6）。実測は一次0.62、複合0.97。見込みとの差を作ったのは、図2の斜線の部分——市場の外で確保した分です。2026年度の必要量表は年度途中で一度も改定されておらず、控除は必要量ではなく募集量の側で行われています。管区ごとに「必要量−募集量」を出すと、東京で約1,400MW、中部で約980MW、関西で約860MW。揚水随契の契約容量を上回るので、余力活用契約など他の市場外調整力も併せて控除されていると読めます。</p>
+<p>同じ資料の脚注に「2026年4月以降、状況に応じて必要あらば再度の控除の検討はあり得る」とあります。実際に2026年度は5社が揚水の随意契約を結び、EPRXがそのつど募集量の見直しを告知しました。</p>
+<p><strong>表2</strong> 2026年度の揚水随意契約</p>
+<div class="table-wrap"><table class="comparison-table"><thead><tr><th>管区</th><th>契約容量</th><th>契約期間</th><th>2025年度実績単価 円/ΔkW・h</th><th>RC申請単価 円/ΔkW・h</th></tr></thead><tbody><tr><td>東京</td><td>約120万kW</td><td>2026/5/22〜2027/3/31</td><td>0.47</td><td>2.19</td></tr><tr><td>中部</td><td>最大61万kW</td><td>2026/4/1〜2027/3/31</td><td>0.67</td><td>2.25</td></tr><tr><td>関西</td><td>47万kW</td><td>2026/4/4〜2027/3/31</td><td>0.67</td><td>3.24</td></tr><tr><td>東北</td><td>最大23万kW</td><td>2026/4/1〜2027/3/31</td><td>1.34</td><td>3.04</td></tr><tr><td>中国</td><td>約15万kW（新規）</td><td>2026/6/8〜2027/3/31</td><td>—</td><td>4.4</td></tr><tr><td>北海道</td><td>2026年度は実施せず</td><td>—</td><td>—</td><td>—</td></tr></tbody></table></div>
+<p>出典：電力・ガス取引監視等委員会 制度設計・監視専門会合 第19回（2026年3月30日）資料5-1〜5-4、第20回（2026年5月29日）資料5、各社お知らせ。北海道の見送りは二次情報</p>
+<figure class="c47" id="v5"><div class="c47scroll"><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 616.88 316.96" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:c2pa="http://c2pa.org/manifest" preserveAspectRatio="xMidYMid meet" role="img" stroke-linejoin="round" stroke-linecap="butt" style="width:100%;height:auto;display:block">
+ <g id="v5-figure_1">
+  <g id="v5-patch_1">
+   <path d="M 0 316.96 
+L 616.88 316.96 
+L 616.88 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="v5-axes_1">
+   <g id="v5-patch_2">
+    <path d="M 51.67 290.46 
+L 609.67 290.46 
+L 609.67 24.34 
+L 51.67 24.34 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="v5-patch_3">
+    <path d="M 77.04 290.46 
+L 110.5 290.46 
+L 110.5 62.36 
+L 77.04 62.36 
+z
+" clip-path="url(#v5-p6f6a011c9f)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v5-patch_4">
+    <path d="M 165.11 290.46 
+L 198.57 290.46 
+L 198.57 174.51 
+L 165.11 174.51 
+z
+" clip-path="url(#v5-p6f6a011c9f)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v5-patch_5">
+    <path d="M 253.18 290.46 
+L 286.64 290.46 
+L 286.64 201.12 
+L 253.18 201.12 
+z
+" clip-path="url(#v5-p6f6a011c9f)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v5-patch_6">
+    <path d="M 341.24 290.46 
+L 374.71 290.46 
+L 374.71 246.74 
+L 341.24 246.74 
+z
+" clip-path="url(#v5-p6f6a011c9f)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v5-patch_7">
+    <path d="M 429.31 290.46 
+L 462.78 290.46 
+L 462.78 261.94 
+L 429.31 261.94 
+z
+" clip-path="url(#v5-p6f6a011c9f)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v5-patch_8">
+    <path d="M 517.38 290.46 
+L 550.85 290.46 
+L 550.85 290.46 
+L 517.38 290.46 
+z
+" clip-path="url(#v5-p6f6a011c9f)" style="fill: #C49A3C"/>
+   </g>
+   <g id="v5-patch_9">
+    <path d="M 110.5 290.46 
+L 143.97 290.46 
+L 143.97 88.78 
+L 110.5 88.78 
+z
+" clip-path="url(#v5-p6f6a011c9f)" style="fill: #325197"/>
+   </g>
+   <g id="v5-patch_10">
+    <path d="M 198.57 290.46 
+L 232.04 290.46 
+L 232.04 228.49 
+L 198.57 228.49 
+z
+" clip-path="url(#v5-p6f6a011c9f)" style="fill: #325197"/>
+   </g>
+   <g id="v5-patch_11">
+    <path d="M 286.64 290.46 
+L 320.11 290.46 
+L 320.11 206.63 
+L 286.64 206.63 
+z
+" clip-path="url(#v5-p6f6a011c9f)" style="fill: #325197"/>
+   </g>
+   <g id="v5-patch_12">
+    <path d="M 374.71 290.46 
+L 408.18 290.46 
+L 408.18 200.93 
+L 374.71 200.93 
+z
+" clip-path="url(#v5-p6f6a011c9f)" style="fill: #325197"/>
+   </g>
+   <g id="v5-patch_13">
+    <path d="M 462.78 290.46 
+L 496.24 290.46 
+L 496.24 230.77 
+L 462.78 230.77 
+z
+" clip-path="url(#v5-p6f6a011c9f)" style="fill: #325197"/>
+   </g>
+   <g id="v5-patch_14">
+    <path d="M 550.85 290.46 
+L 584.31 290.46 
+L 584.31 240.84 
+L 550.85 240.84 
+z
+" clip-path="url(#v5-p6f6a011c9f)" style="fill: #325197"/>
+   </g>
+   <g id="v5-matplotlib.axis_1">
+    <g id="v5-xtick_1">
+     <g id="v5-line2d_1">
+      <defs>
+       <path id="v5-m6a40ce02c7" d="M 0 0 
+L 0 3.5 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#v5-m6a40ce02c7" x="110.5" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_1">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="110.5" y="307.01" transform="rotate(-0 110.5 307.01)">東京</text>
+     </g>
+    </g>
+    <g id="v5-xtick_2">
+     <g id="v5-line2d_2">
+      <g>
+       <use xlink:href="#v5-m6a40ce02c7" x="198.57" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_2">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="198.57" y="307.01" transform="rotate(-0 198.57 307.01)">中部</text>
+     </g>
+    </g>
+    <g id="v5-xtick_3">
+     <g id="v5-line2d_3">
+      <g>
+       <use xlink:href="#v5-m6a40ce02c7" x="286.64" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_3">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="286.64" y="307.01" transform="rotate(-0 286.64 307.01)">関西</text>
+     </g>
+    </g>
+    <g id="v5-xtick_4">
+     <g id="v5-line2d_4">
+      <g>
+       <use xlink:href="#v5-m6a40ce02c7" x="374.71" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_4">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="374.71" y="307.01" transform="rotate(-0 374.71 307.01)">東北</text>
+     </g>
+    </g>
+    <g id="v5-xtick_5">
+     <g id="v5-line2d_5">
+      <g>
+       <use xlink:href="#v5-m6a40ce02c7" x="462.78" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_5">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="462.78" y="307.01" transform="rotate(-0 462.78 307.01)">中国</text>
+     </g>
+    </g>
+    <g id="v5-xtick_6">
+     <g id="v5-line2d_6">
+      <g>
+       <use xlink:href="#v5-m6a40ce02c7" x="550.85" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_6">
+      <text style="fill: #2C3E50; font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="550.85" y="307.01" transform="rotate(-0 550.85 307.01)">北海道</text>
+     </g>
+    </g>
+   </g>
+   <g id="v5-matplotlib.axis_2">
+    <g id="v5-ytick_1">
+     <g id="v5-line2d_7">
+      <defs>
+       <path id="v5-m9d5d857776" d="M 0 0 
+L -3.5 0 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#v5-m9d5d857776" x="51.67" y="290.46" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_7">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="44.67" y="294.43" transform="rotate(-0 44.67 294.43)">0</text>
+     </g>
+    </g>
+    <g id="v5-ytick_2">
+     <g id="v5-line2d_8">
+      <g>
+       <use xlink:href="#v5-m9d5d857776" x="51.67" y="252.44" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_8">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="44.67" y="256.42" transform="rotate(-0 44.67 256.42)">200</text>
+     </g>
+    </g>
+    <g id="v5-ytick_3">
+     <g id="v5-line2d_9">
+      <g>
+       <use xlink:href="#v5-m9d5d857776" x="51.67" y="214.42" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_9">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="44.67" y="218.4" transform="rotate(-0 44.67 218.4)">400</text>
+     </g>
+    </g>
+    <g id="v5-ytick_4">
+     <g id="v5-line2d_10">
+      <g>
+       <use xlink:href="#v5-m9d5d857776" x="51.67" y="176.41" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_10">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="44.67" y="180.39" transform="rotate(-0 44.67 180.39)">600</text>
+     </g>
+    </g>
+    <g id="v5-ytick_5">
+     <g id="v5-line2d_11">
+      <g>
+       <use xlink:href="#v5-m9d5d857776" x="51.67" y="138.39" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_11">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="44.67" y="142.37" transform="rotate(-0 44.67 142.37)">800</text>
+     </g>
+    </g>
+    <g id="v5-ytick_6">
+     <g id="v5-line2d_12">
+      <g>
+       <use xlink:href="#v5-m9d5d857776" x="51.67" y="100.38" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_12">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="44.67" y="104.35" transform="rotate(-0 44.67 104.35)">1000</text>
+     </g>
+    </g>
+    <g id="v5-ytick_7">
+     <g id="v5-line2d_13">
+      <g>
+       <use xlink:href="#v5-m9d5d857776" x="51.67" y="62.36" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_13">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="44.67" y="66.34" transform="rotate(-0 44.67 66.34)">1200</text>
+     </g>
+    </g>
+    <g id="v5-ytick_8">
+     <g id="v5-line2d_14">
+      <g>
+       <use xlink:href="#v5-m9d5d857776" x="51.67" y="24.34" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v5-text_14">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="44.67" y="28.32" transform="rotate(-0 44.67 28.32)">1400</text>
+     </g>
+    </g>
+    <g id="v5-text_15">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="15.96" y="157.4" transform="rotate(-90 15.96 157.4)">MW</text>
+    </g>
+   </g>
+   <g id="v5-patch_15">
+    <path d="M 51.67 290.46 
+L 51.67 24.34 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="v5-patch_16">
+    <path d="M 51.67 290.46 
+L 609.67 290.46 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="v5-text_16">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #C49A3C" x="93.77" y="58.56" transform="rotate(-0 93.77 58.56)">1,200</text>
+   </g>
+   <g id="v5-text_17">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #C49A3C" x="181.84" y="170.7" transform="rotate(-0 181.84 170.7)">610</text>
+   </g>
+   <g id="v5-text_18">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #C49A3C" x="269.91" y="197.32" transform="rotate(-0 269.91 197.32)">470</text>
+   </g>
+   <g id="v5-text_19">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #C49A3C" x="357.98" y="242.94" transform="rotate(-0 357.98 242.94)">230</text>
+   </g>
+   <g id="v5-text_20">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #C49A3C" x="446.04" y="258.14" transform="rotate(-0 446.04 258.14)">150</text>
+   </g>
+   <g id="v5-text_21">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #C49A3C" x="534.11" y="286.65" transform="rotate(-0 534.11 286.65)">実施せず</text>
+   </g>
+   <g id="v5-text_22">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="127.24" y="84.98" transform="rotate(-0 127.24 84.98)">1,061</text>
+   </g>
+   <g id="v5-text_23">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="215.31" y="224.69" transform="rotate(-0 215.31 224.69)">326</text>
+   </g>
+   <g id="v5-text_24">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="303.37" y="202.83" transform="rotate(-0 303.37 202.83)">441</text>
+   </g>
+   <g id="v5-text_25">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="391.44" y="197.13" transform="rotate(-0 391.44 197.13)">471</text>
+   </g>
+   <g id="v5-text_26">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="479.51" y="226.97" transform="rotate(-0 479.51 226.97)">314</text>
+   </g>
+   <g id="v5-text_27">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #1B2A4A" x="567.58" y="237.04" transform="rotate(-0 567.58 237.04)">261</text>
+   </g>
+   <g id="v5-text_28">
+    <text style="font-size: 14px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #1B2A4A" x="51.67" y="18.34" transform="rotate(-0 51.67 18.34)">図5　2026年度：市場の外で押さえた量と、市場で募集した量</text>
+   </g>
+   <g id="v5-legend_1">
+    <g id="v5-patch_17">
+     <path d="M 349.17 42.15 
+L 370.17 42.15 
+L 370.17 34.8 
+L 349.17 34.8 
+z
+" style="fill: #C49A3C"/>
+    </g>
+    <g id="v5-text_29">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="378.57" y="42.15" transform="rotate(-0 378.57 42.15)">揚水随意契約の契約容量（市場の外で確保）</text>
+    </g>
+    <g id="v5-patch_18">
+     <path d="M 349.17 58.16 
+L 370.17 58.16 
+L 370.17 50.81 
+L 349.17 50.81 
+z
+" style="fill: #325197"/>
+    </g>
+    <g id="v5-text_30">
+     <text style="fill: #2C3E50; font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start" x="378.57" y="58.16" transform="rotate(-0 378.57 58.16)">複合商品の募集量（市場で募集、4〜8月平均）</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="v5-p6f6a011c9f">
+   <rect x="51.67" y="24.34" width="558" height="266.11"/>
+  </clipPath>
+ </defs>
+</svg></div></figure>
+<p>合計266万kW。東京は前年60万kWの2倍の120万kWで、東京エリアの複合募集量（1,061MW）を上回る量を市場の外で押さえたことになります（図5）。2025年度の実績単価は0.47〜1.34円/ΔkW・h、30分あたりに直すと0.2〜0.7円で、市場の上限10円とは桁が違います。契約の建て付け（発電機の固定費と機会費用の事後精算）が市場の札と違うので単純な比較はできませんが、送配電事業者にとって安い選択肢であることは確かです。</p>
+<p>中国電力ネットワークが2026年6月に新規で随契に踏み切った理由は、「前日取引化後に市場の調達単価がRC申請単価（4.4円/ΔkW・h）と同水準まで上がった」ことでした（第20回 資料5）。市場が高いほど、調達は外へ逃げる。これが複合の募集量を50%増にしなかった理由です。</p>
+<p>逆の動きもあります。北海道は2026年度の随契を見送り、市場調達に一本化したと報じられています（一次資料は3月と5月の会合で「市場実績を見て判断」まで）。北海道だけは「必要量−募集量」がほぼゼロで、控除が無いこととも整合します。市場の応札が厚くなれば、随契は減る方向にも動く。募集量は一方通行ではありません。</p>
+<p>三次②だけは別の仕組みです。1σ相当の表に、市場外調整力の単価を反映する「募集量削減係数」を掛けて募集量が決まります。この係数が下がった結果、実効募集量は約780MWから約590MWへ、0.76倍になりました（EPRXが公表する1σ表と月次の係数から当社計算）。</p>
+<h2>6. 上限価格の次と、募集量が戻る条件</h2>
+<figure class="c47" id="v6"><div class="c47scroll"><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 614.21 281.23" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:c2pa="http://c2pa.org/manifest" preserveAspectRatio="xMidYMid meet" role="img" stroke-linejoin="round" stroke-linecap="butt" style="width:100%;height:auto;display:block">
+ <g id="v6-figure_1">
+  <g id="v6-patch_1">
+   <path d="M 0 281.23 
+L 614.21 281.23 
+L 614.21 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="v6-axes_1">
+   <g id="v6-patch_2">
+    <path d="M 49.01 239.77 
+L 607.01 239.77 
+L 607.01 24.34 
+L 49.01 24.34 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="v6-matplotlib.axis_1">
+    <g id="v6-xtick_1">
+     <g id="v6-line2d_1">
+      <defs>
+       <path id="v6-ma228f92373" d="M 0 0 
+L 0 3.5 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#v6-ma228f92373" x="80.7" y="239.77" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_1">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(47.71 272.05) rotate(-30)">2025-11</text>
+     </g>
+    </g>
+    <g id="v6-xtick_2">
+     <g id="v6-line2d_2">
+      <g>
+       <use xlink:href="#v6-ma228f92373" x="143.04" y="239.77" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_2">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(110.05 272.05) rotate(-30)">2026-01</text>
+     </g>
+    </g>
+    <g id="v6-xtick_3">
+     <g id="v6-line2d_3">
+      <g>
+       <use xlink:href="#v6-ma228f92373" x="203.33" y="239.77" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_3">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(170.34 272.05) rotate(-30)">2026-03</text>
+     </g>
+    </g>
+    <g id="v6-xtick_4">
+     <g id="v6-line2d_4">
+      <g>
+       <use xlink:href="#v6-ma228f92373" x="265.67" y="239.77" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_4">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(232.68 272.05) rotate(-30)">2026-05</text>
+     </g>
+    </g>
+    <g id="v6-xtick_5">
+     <g id="v6-line2d_5">
+      <g>
+       <use xlink:href="#v6-ma228f92373" x="328.01" y="239.77" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_5">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(295.03 272.05) rotate(-30)">2026-07</text>
+     </g>
+    </g>
+    <g id="v6-xtick_6">
+     <g id="v6-line2d_6">
+      <g>
+       <use xlink:href="#v6-ma228f92373" x="391.38" y="239.77" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_6">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(358.39 272.05) rotate(-30)">2026-09</text>
+     </g>
+    </g>
+    <g id="v6-xtick_7">
+     <g id="v6-line2d_7">
+      <g>
+       <use xlink:href="#v6-ma228f92373" x="453.72" y="239.77" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_7">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(420.73 272.05) rotate(-30)">2026-11</text>
+     </g>
+    </g>
+    <g id="v6-xtick_8">
+     <g id="v6-line2d_8">
+      <g>
+       <use xlink:href="#v6-ma228f92373" x="516.06" y="239.77" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_8">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(483.07 272.05) rotate(-30)">2027-01</text>
+     </g>
+    </g>
+    <g id="v6-xtick_9">
+     <g id="v6-line2d_9">
+      <g>
+       <use xlink:href="#v6-ma228f92373" x="576.36" y="239.77" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_9">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif" transform="translate(543.37 272.05) rotate(-30)">2027-03</text>
+     </g>
+    </g>
+   </g>
+   <g id="v6-matplotlib.axis_2">
+    <g id="v6-ytick_1">
+     <g id="v6-line2d_10">
+      <defs>
+       <path id="v6-md27770d4da" d="M 0 0 
+L -3.5 0 
+" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#v6-md27770d4da" x="49.01" y="234.38" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_10">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="42.01" y="238.36" transform="rotate(-0 42.01 238.36)">2.5</text>
+     </g>
+    </g>
+    <g id="v6-ytick_2">
+     <g id="v6-line2d_11">
+      <g>
+       <use xlink:href="#v6-md27770d4da" x="49.01" y="207.45" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_11">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="42.01" y="211.43" transform="rotate(-0 42.01 211.43)">5.0</text>
+     </g>
+    </g>
+    <g id="v6-ytick_3">
+     <g id="v6-line2d_12">
+      <g>
+       <use xlink:href="#v6-md27770d4da" x="49.01" y="180.53" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_12">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="42.01" y="184.51" transform="rotate(-0 42.01 184.51)">7.5</text>
+     </g>
+    </g>
+    <g id="v6-ytick_4">
+     <g id="v6-line2d_13">
+      <g>
+       <use xlink:href="#v6-md27770d4da" x="49.01" y="153.6" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_13">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="42.01" y="157.58" transform="rotate(-0 42.01 157.58)">10.0</text>
+     </g>
+    </g>
+    <g id="v6-ytick_5">
+     <g id="v6-line2d_14">
+      <g>
+       <use xlink:href="#v6-md27770d4da" x="49.01" y="126.67" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_14">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="42.01" y="130.65" transform="rotate(-0 42.01 130.65)">12.5</text>
+     </g>
+    </g>
+    <g id="v6-ytick_6">
+     <g id="v6-line2d_15">
+      <g>
+       <use xlink:href="#v6-md27770d4da" x="49.01" y="99.74" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_15">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="42.01" y="103.72" transform="rotate(-0 42.01 103.72)">15.0</text>
+     </g>
+    </g>
+    <g id="v6-ytick_7">
+     <g id="v6-line2d_16">
+      <g>
+       <use xlink:href="#v6-md27770d4da" x="49.01" y="72.81" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_16">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="42.01" y="76.79" transform="rotate(-0 42.01 76.79)">17.5</text>
+     </g>
+    </g>
+    <g id="v6-ytick_8">
+     <g id="v6-line2d_17">
+      <g>
+       <use xlink:href="#v6-md27770d4da" x="49.01" y="45.89" style="stroke: #C9D1DC; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="v6-text_17">
+      <text style="fill: #2C3E50; font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: end" x="42.01" y="49.87" transform="rotate(-0 42.01 49.87)">20.0</text>
+     </g>
+    </g>
+    <g id="v6-text_18">
+     <text style="fill: #2C3E50; font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle" x="16.07" y="132.06" transform="rotate(-90 16.07 132.06)">上限価格（円/ΔkW・30分）</text>
+    </g>
+   </g>
+   <g id="v6-line2d_18">
+    <path d="M 49.01 51.16 
+L 216.62 51.16 
+L 216.62 99.74 
+L 391.38 99.74 
+L 391.38 153.6 
+L 607.01 153.6 
+" clip-path="url(#v6-p6e94f5d5b6)" style="fill: none; stroke: #325197; stroke-width: 2.5; stroke-linecap: square"/>
+   </g>
+   <g id="v6-line2d_19">
+    <path d="M 391.38 183.65 
+L 607.01 183.65 
+" clip-path="url(#v6-p6e94f5d5b6)" style="fill: none; stroke-dasharray: 7.4,3.2; stroke-dashoffset: 0; stroke: #C49A3C; stroke-width: 2"/>
+   </g>
+   <g id="v6-line2d_20">
+    <path d="M 248.3 239.77 
+L 248.3 24.34 
+" clip-path="url(#v6-p6e94f5d5b6)" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8A94A3"/>
+   </g>
+   <g id="v6-line2d_21">
+    <path d="M 278.96 239.77 
+L 278.96 24.34 
+" clip-path="url(#v6-p6e94f5d5b6)" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8A94A3"/>
+   </g>
+   <g id="v6-line2d_22">
+    <path d="M 310.64 239.77 
+L 310.64 24.34 
+" clip-path="url(#v6-p6e94f5d5b6)" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8A94A3"/>
+   </g>
+   <g id="v6-line2d_23">
+    <path d="M 404.66 239.77 
+L 404.66 24.34 
+" clip-path="url(#v6-p6e94f5d5b6)" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8A94A3"/>
+   </g>
+   <g id="v6-patch_3">
+    <path d="M 49.01 239.77 
+L 49.01 24.34 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="v6-patch_4">
+    <path d="M 49.01 239.77 
+L 607.01 239.77 
+" style="fill: none; stroke: #C9D1DC; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="v6-text_19">
+    <text style="font-size: 11px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #C49A3C" x="436.34" y="181.06" transform="rotate(-0 436.34 181.06)">7.21円（条件付き・時期未定）</text>
+   </g>
+   <g id="v6-text_20">
+    <text style="font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #1B2A4A" x="68.43" y="46.96" transform="rotate(-0 68.43 46.96)">19.51円</text>
+   </g>
+   <g id="v6-text_21">
+    <text style="font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #1B2A4A" x="235.01" y="95.43" transform="rotate(-0 235.01 95.43)">15円（3/14受渡〜）</text>
+   </g>
+   <g id="v6-text_22">
+    <text style="font-size: 12px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #1B2A4A" x="410.79" y="149.29" transform="rotate(-0 410.79 149.29)">10円（9/1実需給〜）</text>
+   </g>
+   <g id="v6-text_23">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #5A6577" x="248.3" y="211.76" transform="rotate(-0 248.3 211.76)">1か月</text>
+   </g>
+   <g id="v6-text_24">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #5A6577" x="278.96" y="211.76" transform="rotate(-0 278.96 211.76)">2か月</text>
+   </g>
+   <g id="v6-text_25">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #5A6577" x="310.64" y="211.76" transform="rotate(-0 310.64 211.76)">3か月</text>
+   </g>
+   <g id="v6-text_26">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #5A6577" x="404.66" y="211.76" transform="rotate(-0 404.66 211.76)">6か月</text>
+   </g>
+   <g id="v6-text_27">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #5A6577" x="248.3" y="226.84" transform="rotate(-0 248.3 226.84)">← 前日取引開始後の判定時期（第110回 資料4）</text>
+   </g>
+   <g id="v6-patch_5">
+    <path d="M 355.14 78.89 
+Q 348.77 88.48 343.02 97.14 
+" style="fill: none; stroke: #5A6577; stroke-linecap: round"/>
+    <path d="M 347.1 94.8 
+L 343.02 97.14 
+L 343.6 92.48 
+" style="fill: none; stroke: #5A6577; stroke-linecap: round"/>
+   </g>
+   <g id="v6-text_28">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #5A6577" x="290.2" y="72.81" transform="rotate(-0 290.2 72.81)">7/14 第4回WGが10円化を提示</text>
+   </g>
+   <g id="v6-text_29">
+    <text style="font-size: 14px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #1B2A4A" x="49.01" y="18.34" transform="rotate(-0 49.01 18.34)">図6　上限価格の階段と、判定の時期</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="v6-p6e94f5d5b6">
+   <rect x="49.01" y="24.34" width="558" height="215.42"/>
+  </clipPath>
+ </defs>
+</svg></div></figure>
+<p>上限価格は19.51円→15円（3月14日受渡〜）→10円（9月1日実需給〜）と下がり、次の段階として7.21円が示されています。発動条件は「市場における競争状況に改善が見られない場合」。判定指標は募集量に対する応札量、応札価格の分布、余力の価格水準で、判定時期は「前日取引開始後1か月、2か月、3か月、6か月など」の実績です（第110回 資料4）。10円化を決めた第4回電力安定供給WG（7月14日）の資料は、14円超の約定が数量では約3%なのに調達費用の約17%を占めたことを理由に挙げています。資料の書き方は「6か月など」で目安ですが、前日取引開始から6か月は9月中旬に当たります。7月29日の第5回、8月31日の第6回のWGに需給調整市場の議題はありませんでした。</p>
+<p>同じ資料群に、逆方向の条項があります。「市場において十分な競争が働いていることが確認できた場合には、募集量を増加させる」（第110回 資料4）。1σ相当は暫定で、応札の状況を見て増やす手順が明記されています。減る一方の設計ではありません。応札が増えて競争が確認されることが、募集量を戻す条件そのものです。応札の実態は47-3で数えます。</p>
+<p>1σを超えて3σまでの部分は、容量市場で「調整機能有」として落札した電源との余力活用契約で手当てされます。この契約はkWh精算のみで、ΔkWの対価はありません（送配電網協議会）。需要が消えたのではなく、ΔkW対価の付かない経路に移った、というのが正確な言い方です。</p>
+<h2>7. これから募集量を動かす4つ</h2>
+<figure class="c47" id="v7"><div class="c47scroll"><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 645.97 231.13" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:c2pa="http://c2pa.org/manifest" preserveAspectRatio="xMidYMid meet" role="img" stroke-linejoin="round" stroke-linecap="butt" style="width:100%;height:auto;display:block">
+ <g id="v7-figure_1">
+  <g id="v7-patch_1">
+   <path d="M 0 231.13 
+L 645.97 231.13 
+L 645.97 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="v7-axes_1">
+   <g id="v7-LineCollection_1">
+    <path d="M 24.97 124.14 
+L 638.77 124.14 
+" clip-path="url(#v7-pa464ccdcae)" style="fill: none; stroke: #8A94A3; stroke-width: 2"/>
+   </g>
+   <g id="v7-line2d_1">
+    <defs>
+     <path id="v7-m42dbaa0c62" d="M 0 4.5 
+C 1.19 4.5 2.34 4.03 3.18 3.18 
+C 4.03 2.34 4.5 1.19 4.5 0 
+C 4.5 -1.19 4.03 -2.34 3.18 -3.18 
+C 2.34 -4.03 1.19 -4.5 0 -4.5 
+C -1.19 -4.5 -2.34 -4.03 -3.18 -3.18 
+C -4.03 -2.34 -4.5 -1.19 -4.5 0 
+C -4.5 1.19 -4.03 2.34 -3.18 3.18 
+C -2.34 4.03 -1.19 4.5 0 4.5 
+z
+" style="stroke: #325197"/>
+    </defs>
+    <g clip-path="url(#v7-pa464ccdcae)">
+     <use xlink:href="#v7-m42dbaa0c62" x="49.2" y="124.14" style="fill: #325197; stroke: #325197"/>
+    </g>
+   </g>
+   <g id="v7-line2d_2">
+    <path d="M 49.2 124.14 
+L 49.2 100.61 
+" clip-path="url(#v7-pa464ccdcae)" style="fill: none; stroke: #325197; stroke-linecap: square"/>
+   </g>
+   <g id="v7-line2d_3">
+    <defs>
+     <path id="v7-mdffe6983e6" d="M 0 4.5 
+C 1.19 4.5 2.34 4.03 3.18 3.18 
+C 4.03 2.34 4.5 1.19 4.5 0 
+C 4.5 -1.19 4.03 -2.34 3.18 -3.18 
+C 2.34 -4.03 1.19 -4.5 0 -4.5 
+C -1.19 -4.5 -2.34 -4.03 -3.18 -3.18 
+C -4.03 -2.34 -4.5 -1.19 -4.5 0 
+C -4.5 1.19 -4.03 2.34 -3.18 3.18 
+C -2.34 4.03 -1.19 4.5 0 4.5 
+z
+" style="stroke: #8A94A3"/>
+    </defs>
+    <g clip-path="url(#v7-pa464ccdcae)">
+     <use xlink:href="#v7-mdffe6983e6" x="72.62" y="124.14" style="fill: #8A94A3; stroke: #8A94A3"/>
+    </g>
+   </g>
+   <g id="v7-line2d_4">
+    <path d="M 72.62 124.14 
+L 72.62 147.66 
+" clip-path="url(#v7-pa464ccdcae)" style="fill: none; stroke: #8A94A3; stroke-linecap: square"/>
+   </g>
+   <g id="v7-line2d_5">
+    <g clip-path="url(#v7-pa464ccdcae)">
+     <use xlink:href="#v7-m42dbaa0c62" x="197" y="124.14" style="fill: #325197; stroke: #325197"/>
+    </g>
+   </g>
+   <g id="v7-line2d_6">
+    <path d="M 197 124.14 
+L 197 100.61 
+" clip-path="url(#v7-pa464ccdcae)" style="fill: none; stroke: #325197; stroke-linecap: square"/>
+   </g>
+   <g id="v7-line2d_7">
+    <g clip-path="url(#v7-pa464ccdcae)">
+     <use xlink:href="#v7-m42dbaa0c62" x="251.11" y="124.14" style="fill: #325197; stroke: #325197"/>
+    </g>
+   </g>
+   <g id="v7-line2d_8">
+    <path d="M 251.11 124.14 
+L 251.11 147.66 
+" clip-path="url(#v7-pa464ccdcae)" style="fill: none; stroke: #325197; stroke-linecap: square"/>
+   </g>
+   <g id="v7-line2d_9">
+    <g clip-path="url(#v7-pa464ccdcae)">
+     <use xlink:href="#v7-m42dbaa0c62" x="404.56" y="124.14" style="fill: #325197; stroke: #325197"/>
+    </g>
+   </g>
+   <g id="v7-line2d_10">
+    <path d="M 404.56 124.14 
+L 404.56 100.61 
+" clip-path="url(#v7-pa464ccdcae)" style="fill: none; stroke: #325197; stroke-linecap: square"/>
+   </g>
+   <g id="v7-line2d_11">
+    <g clip-path="url(#v7-pa464ccdcae)">
+     <use xlink:href="#v7-m42dbaa0c62" x="444.94" y="124.14" style="fill: #325197; stroke: #325197"/>
+    </g>
+   </g>
+   <g id="v7-line2d_12">
+    <path d="M 444.94 124.14 
+L 444.94 147.66 
+" clip-path="url(#v7-pa464ccdcae)" style="fill: none; stroke: #325197; stroke-linecap: square"/>
+   </g>
+   <g id="v7-line2d_13">
+    <defs>
+     <path id="v7-mec311b34b1" d="M 0 4.5 
+C 1.19 4.5 2.34 4.03 3.18 3.18 
+C 4.03 2.34 4.5 1.19 4.5 0 
+C 4.5 -1.19 4.03 -2.34 3.18 -3.18 
+C 2.34 -4.03 1.19 -4.5 0 -4.5 
+C -1.19 -4.5 -2.34 -4.03 -3.18 -3.18 
+C -4.03 -2.34 -4.5 -1.19 -4.5 0 
+C -4.5 1.19 -4.03 2.34 -3.18 3.18 
+C -2.34 4.03 -1.19 4.5 0 4.5 
+z
+" style="stroke: #C49A3C"/>
+    </defs>
+    <g clip-path="url(#v7-pa464ccdcae)">
+     <use xlink:href="#v7-mec311b34b1" x="574.16" y="124.14" style="fill: #C49A3C; stroke: #C49A3C"/>
+    </g>
+   </g>
+   <g id="v7-line2d_14">
+    <path d="M 574.16 124.14 
+L 574.16 100.61 
+" clip-path="url(#v7-pa464ccdcae)" style="fill: none; stroke: #C49A3C; stroke-linecap: square"/>
+   </g>
+   <g id="v7-text_1">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #1B2A4A" transform="translate(7.2 66.53)">中地域交流ループ</text>
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #1B2A4A" transform="translate(28.2 78.96)">運用開始</text>
+   </g>
+   <g id="v7-text_2">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #6C7A89" transform="translate(43.46 175.26)">柏崎刈羽6号</text>
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #6C7A89" transform="translate(30.32 187.82)">営業運転（4/16）</text>
+   </g>
+   <g id="v7-text_3">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #1B2A4A" transform="translate(170.75 66.26)">東北東京間</text>
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #1B2A4A" transform="translate(135.56 78.96)">573→1,028万kW（11月）</text>
+   </g>
+   <g id="v7-text_4">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #1B2A4A" transform="translate(218.61 175.26)">東京中部間FC</text>
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #1B2A4A" transform="translate(191.7 187.69)">300万kW（〜2028年度）</text>
+   </g>
+   <g id="v7-text_5">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #1B2A4A" transform="translate(394.06 66.53)">関門</text>
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #1B2A4A" transform="translate(350.4 78.96)">300→600万kW（6月）</text>
+   </g>
+   <g id="v7-text_6">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #1B2A4A" transform="translate(418.69 175.26)">中部関西間</text>
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #1B2A4A" transform="translate(408.19 187.69)">関ケ原北近江線</text>
+   </g>
+   <g id="v7-text_7">
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #C49A3C" transform="translate(553.16 66.53)">同時市場</text>
+    <text style="font-size: 10.5px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; fill: #C49A3C" transform="translate(531.01 78.96)">（2030年代前半）</text>
+   </g>
+   <g id="v7-text_8">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #5A6577" x="49.2" y="140.65" transform="rotate(-0 49.2 140.65)">2026</text>
+   </g>
+   <g id="v7-text_9">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #5A6577" x="129.96" y="140.65" transform="rotate(-0 129.96 140.65)">2027</text>
+   </g>
+   <g id="v7-text_10">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #5A6577" x="210.73" y="140.65" transform="rotate(-0 210.73 140.65)">2028</text>
+   </g>
+   <g id="v7-text_11">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #5A6577" x="291.49" y="140.65" transform="rotate(-0 291.49 140.65)">2029</text>
+   </g>
+   <g id="v7-text_12">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #5A6577" x="372.25" y="140.65" transform="rotate(-0 372.25 140.65)">2030</text>
+   </g>
+   <g id="v7-text_13">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #5A6577" x="453.02" y="140.65" transform="rotate(-0 453.02 140.65)">2031</text>
+   </g>
+   <g id="v7-text_14">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #5A6577" x="533.78" y="140.65" transform="rotate(-0 533.78 140.65)">2032</text>
+   </g>
+   <g id="v7-text_15">
+    <text style="font-size: 10px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: middle; fill: #5A6577" x="614.54" y="140.65" transform="rotate(-0 614.54 140.65)">2033</text>
+   </g>
+   <g id="v7-text_16">
+    <text style="font-size: 14px; font-family: 'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif; text-anchor: start; fill: #1B2A4A" x="24.97" y="18.34" transform="rotate(-0 24.97 18.34)">図7　募集量の器を繋ぐ年表（連系線・原子力・同時市場）</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="v7-pa464ccdcae">
+   <rect x="24.97" y="24.34" width="613.8" height="199.58"/>
+  </clipPath>
+ </defs>
+</svg></div></figure>
+<p><strong>需要の増加。</strong> データセンターと半導体工場の個別計上は、全国最大需要で83万kW（2026年度）→420万kW（2030年度）→762万kW（2035年度）、全国比0.5%→4.6%です（広域機関 需要想定2026）。平常時分は需要のぶれの大きさに比例するので、募集量への効きは数%の桁にとどまります。データセンターが効くのは需給調整市場よりもJEPXの側です（→47-4）。</p>
+<p><strong>太陽光。</strong> 予測誤差は三次②の必要量に、短い周期のぶれは一次・二次①の平常時分に入ります。供給計画では太陽光が2026年度8,359万kW→2030年度9,642万kWで、こちらは募集量を押し上げる側です。</p>
+<p><strong>原子力。</strong> 異常時分は「いちばん大きな発電所」で決まります。柏崎刈羽6号（135.6万kW）が2026年2月に発送電を再開し、4月16日に営業運転に入ったことは、東京の一次必要量を押し上げる側に働きます。同時に、原発が動くと夜間に火力が止まるので、火力が座っているオンラインの席が空く方向にも働きます（→47-3）。原発そのものは需給調整市場に応札しません。</p>
+<p><strong>連系線。</strong> 東北東京間は2027年11月に573→1,028万kW（電源動向により段階的）、東京中部間の周波数変換設備は2028年度までに300万kW、関門は2030年6月に600万kW（広域機関）。需給調整市場はすでに広域で約定しており、連系線に空きがあればエリア外の電源が他エリアの募集量に約定できます。二次①だけは2027年度からです。混雑時は市場が分断されます（EPRX 取引規程 第32条第3項）。管区の募集量は固定の器ではなく、連系線の年表で繋がっていく器です。</p>
+<p>その先に同時市場（kWhとΔkWの同時約定、2030年代前半）があります。上限価格と募集量という概念そのものが、逸失利益に基づく最適化約定へ置き換わる方向で検討されています。</p>
+<h2>まとめ</h2>
+<ul><li>必要量は0.55、募集量は0.62、複合は0.97。「3分の1」はどの商品にも当てはまらない。</li><li>減ったのは蓄電池の席（一次オフライン、0.45・約500MW）。市場の大きさ（複合3,700MW・一次オンライン1,500MW）は変わっていない。</li><li>募集量を戻さなかったのは揚水随契266万kW。市場が高いほど調達は外へ出て、応札が厚くなれば戻る。</li><li>募集量を戻す条件は競争の確認。応札が増えることが、その条件そのもの。</li></ul>
+<p>蓄電池がいつ・どこに来るかは47-3、価格がどこで止まるかは47-4へ。</p>
+<h2>参考表</h2>
+<p><strong>参考表1</strong> 調達必要量の比 2026年度／2025年度（4〜9月平均）</p>
+<div class="table-wrap"><table class="comparison-table"><thead><tr><th>管区</th><th>一次</th><th>二次①</th><th>複合</th><th>二次②</th><th>三次①</th></tr></thead><tbody><tr><td>北海道</td><td>0.60</td><td>0.63</td><td>0.88</td><td>0.70</td><td>0.91</td></tr><tr><td>東北</td><td>0.61</td><td>0.62</td><td>0.85</td><td>0.88</td><td>0.83</td></tr><tr><td>東京</td><td>0.68</td><td>0.70</td><td>0.82</td><td>0.92</td><td>0.81</td></tr><tr><td>中部</td><td>0.50</td><td>0.48</td><td>0.67</td><td>0.86</td><td>0.67</td></tr><tr><td>北陸</td><td>0.46</td><td>0.48</td><td>0.76</td><td>0.92</td><td>0.72</td></tr><tr><td>関西</td><td>0.48</td><td>0.49</td><td>0.72</td><td>0.91</td><td>0.70</td></tr><tr><td>中国</td><td>0.47</td><td>0.47</td><td>0.81</td><td>0.98</td><td>0.78</td></tr><tr><td>四国</td><td>0.46</td><td>0.44</td><td>0.63</td><td>0.86</td><td>0.62</td></tr><tr><td>九州</td><td>0.48</td><td>0.47</td><td>0.82</td><td>0.98</td><td>0.87</td></tr><tr><td>全国</td><td>0.55</td><td>0.56</td><td>0.78</td><td>0.90</td><td>0.77</td></tr></tbody></table></div>
+<p>出典：EPRX 調達必要量（2025年度・2026年度 年度当初発効表）から当社計算</p>
+<p><strong>参考表2</strong> 募集量の比 2026年度／2025年度（4〜8月平均、管区別）</p>
+<div class="table-wrap"><table class="comparison-table"><thead><tr><th>管区</th><th>一次オン</th><th>一次オフ</th><th>二次①</th><th>複合</th><th>三次①</th><th>二次②</th></tr></thead><tbody><tr><td>北海道</td><td>0.81</td><td>0.37</td><td>0.87</td><td>1.24</td><td>1.33</td><td>0.96</td></tr><tr><td>東北</td><td>0.75</td><td>0.70</td><td>0.96</td><td>1.12</td><td>1.00</td><td>1.30</td></tr><tr><td>東京</td><td>0.86</td><td>0.42</td><td>0.74</td><td>0.87</td><td>0.84</td><td>0.70</td></tr><tr><td>中部</td><td>0.93</td><td>0.47</td><td>0.76</td><td>1.33</td><td>1.43</td><td>2.58</td></tr><tr><td>北陸</td><td>0.59</td><td>0.41</td><td>0.79</td><td>0.97</td><td>0.97</td><td>0.78</td></tr><tr><td>関西</td><td>0.51</td><td>0.43</td><td>0.48</td><td>0.72</td><td>0.69</td><td>0.82</td></tr><tr><td>中国</td><td>0.55</td><td>0.43</td><td>0.55</td><td>0.94</td><td>0.98</td><td>1.00</td></tr><tr><td>四国</td><td>0.66</td><td>0.63</td><td>0.65</td><td>0.73</td><td>0.74</td><td>0.90</td></tr><tr><td>九州</td><td>0.66</td><td>0.43</td><td>0.81</td><td>1.20</td><td>1.52</td><td>1.86</td></tr><tr><td>全国</td><td>0.71</td><td>0.45</td><td>0.71</td><td>0.97</td><td>0.96</td><td>1.15</td></tr></tbody></table></div>
+<p>出典：EPRX 取引実績（エリア別約定データ）から当社計算</p>
+<p>注：参考表1は年度当初発効の必要量表に載っている月（4〜9月）の平均、表1・参考表2は約定データの募集量（TSO別）を4〜8月で平均した値。2026年8月は速報値を含む。図1の84%・99.9%は正規分布の片側の値で、実際の需要のぶれは正規分布ではないため、各一般送配電事業者は「相当量」として算定している。</p>
+<h2 id="sources">出典</h2>
+<ul class="source-list"><li>EPRX 調整力必要量 <a href="https://www.eprx.or.jp/information/requirements_table.php" target="_blank" rel="noopener">https://www.eprx.or.jp/information/requirements_table.php</a></li><li>EPRX 取引実績（エリア別約定データ） <a href="https://www.eprx.or.jp/information/results.php" target="_blank" rel="noopener">https://www.eprx.or.jp/information/results.php</a></li><li>EPRX 揚水随意契約締結に伴う募集量見直し告知：中部・東北（2026年3月31日） <a href="https://www.eprx.or.jp/j_information/docs/news_202603311700.pdf" target="_blank" rel="noopener">https://www.eprx.or.jp/j_information/docs/news_202603311700.pdf</a> ／関西（4月1日） <a href="https://www.eprx.or.jp/j_information/docs/news_202604011500.pdf" target="_blank" rel="noopener">https://www.eprx.or.jp/j_information/docs/news_202604011500.pdf</a> ／東京（5月22日） <a href="https://www.eprx.or.jp/j_information/docs/news_202605221500.pdf" target="_blank" rel="noopener">https://www.eprx.or.jp/j_information/docs/news_202605221500.pdf</a> ／中国（6月8日） <a href="https://www.eprx.or.jp/j_information/docs/news_202606081600.pdf" target="_blank" rel="noopener">https://www.eprx.or.jp/j_information/docs/news_202606081600.pdf</a></li><li>EPRX 需給調整市場取引規程 ver.18（2026年7月1日施行） <a href="https://www.eprx.or.jp/outline/docs/kitei_ver.18_260701.pdf" target="_blank" rel="noopener">https://www.eprx.or.jp/outline/docs/kitei_ver.18_260701.pdf</a></li><li>資源エネルギー庁 制度検討作業部会 第109回 資料6「需給調整市場について」（2025年12月12日） <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_review/pdf/109_06_00.pdf" target="_blank" rel="noopener">https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_review/pdf/109_06_00.pdf</a></li><li>同 第110回 資料4「需給調整市場について」（2026年1月23日） <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_review/pdf/110_04_00.pdf" target="_blank" rel="noopener">https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/system_review/pdf/110_04_00.pdf</a></li><li>資源エネルギー庁 電力安定供給WG 第4回 資料6「需給調整市場について」（2026年7月14日） <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/stable_power_supply_wg/pdf/004_06_00.pdf" target="_blank" rel="noopener">https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/stable_power_supply_wg/pdf/004_06_00.pdf</a> ／第5回 議事次第（7月29日） <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/stable_power_supply_wg/pdf/005_01_00.pdf" target="_blank" rel="noopener">https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/stable_power_supply_wg/pdf/005_01_00.pdf</a> ／第6回 議事次第（8月31日） <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/stable_power_supply_wg/pdf/006_01_00.pdf" target="_blank" rel="noopener">https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/stable_power_supply_wg/pdf/006_01_00.pdf</a></li><li>電力・ガス取引監視等委員会 制度設計・監視専門会合 第19回（2026年3月30日）資料5-1 中部 <a href="https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/019_05_01.pdf" target="_blank" rel="noopener">https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/019_05_01.pdf</a> ／資料5-2 東北 <a href="https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/019_05_02.pdf" target="_blank" rel="noopener">https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/019_05_02.pdf</a> ／資料5-3 関西 <a href="https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/019_05_03.pdf" target="_blank" rel="noopener">https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/019_05_03.pdf</a> ／資料5-4 東京 <a href="https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/019_05_04.pdf" target="_blank" rel="noopener">https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/019_05_04.pdf</a> ／資料5-5 北海道 <a href="https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/019_05_05.pdf" target="_blank" rel="noopener">https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/019_05_05.pdf</a> ／第20回（5月29日）資料5 中国 <a href="https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/020_05_00.pdf" target="_blank" rel="noopener">https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/020_05_00.pdf</a></li><li>各社お知らせ：東京電力パワーグリッド（2026年5月22日） <a href="https://www.tepco.co.jp/pg/company/press-information/information/2026/pdf/26x1301.pdf" target="_blank" rel="noopener">https://www.tepco.co.jp/pg/company/press-information/information/2026/pdf/26x1301.pdf</a> ／関西電力送配電（4月1日） <a href="https://www.kansai-td.co.jp/corporate/information/2026/pdf/20260401_2_01.pdf" target="_blank" rel="noopener">https://www.kansai-td.co.jp/corporate/information/2026/pdf/20260401_2_01.pdf</a> ／中部電力パワーグリッド（3月31日） <a href="https://powergrid.chuden.co.jp/news/topics/1217576_3288.html" target="_blank" rel="noopener">https://powergrid.chuden.co.jp/news/topics/1217576_3288.html</a> ／東北電力ネットワーク（3月31日） <a href="https://nw.tohoku-epco.co.jp/information/1248501_2390.html" target="_blank" rel="noopener">https://nw.tohoku-epco.co.jp/information/1248501_2390.html</a> ／中国電力ネットワーク（6月8日） <a href="https://www.energia.co.jp/nw/information/news/16498.html" target="_blank" rel="noopener">https://www.energia.co.jp/nw/information/news/16498.html</a></li><li>北海道電力ネットワークの2026年度随契見送り（二次情報）：エネハブ（2026年7月29日） <a href="https://enehub.jp/news/北電nw_2026年度_揚水随契を実施せず/" target="_blank" rel="noopener">https://enehub.jp/news/北電nw_2026年度_揚水随契を実施せず/</a></li><li>送配電網協議会「余力活用に関する契約の概要と申込」 <a href="https://www.tdgc.jp/yoryoku/outline/" target="_blank" rel="noopener">https://www.tdgc.jp/yoryoku/outline/</a></li><li>電力広域的運営推進機関 第117回 調整力及び需給バランス評価等に関する委員会 資料4（2026年3月16日） <a href="https://www.occto.or.jp/assets/chousei_117_04.pdf" target="_blank" rel="noopener">https://www.occto.or.jp/assets/chousei_117_04.pdf</a></li><li>電力広域的運営推進機関「2026〜2035年度の連系線の運用容量」別紙1（2026年3月1日） <a href="https://www.occto.or.jp/assets/renkeisenriyou/oshirase/2025/files/oshirase_1_2026-2035_unyouyouryou.pdf" target="_blank" rel="noopener">https://www.occto.or.jp/assets/renkeisenriyou/oshirase/2025/files/oshirase_1_2026-2035_unyouyouryou.pdf</a></li><li>電力広域的運営推進機関「全国及び供給区域ごとの需要想定（2026年度）」（2026年1月21日） <a href="https://www.occto.or.jp/assets/news/juyousoutei/260121_juyousoutei_r1.pdf" target="_blank" rel="noopener">https://www.occto.or.jp/assets/news/juyousoutei/260121_juyousoutei_r1.pdf</a></li><li>電力広域的運営推進機関「2026年度供給計画の取りまとめ」（2026年3月30日） <a href="https://www.occto.or.jp/assets/various/kyoukei/torimatome/260330_kyokyukeikaku_torimatome/260330_kyokei_torimatome.pdf" target="_blank" rel="noopener">https://www.occto.or.jp/assets/various/kyoukei/torimatome/260330_kyokyukeikaku_torimatome/260330_kyokei_torimatome.pdf</a></li><li>資源エネルギー庁「原子力政策の最近の動向」（2026年3月31日） <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/genshiryoku/pdf/048_01_00.pdf" target="_blank" rel="noopener">https://www.meti.go.jp/shingikai/enecho/denryoku_gas/genshiryoku/pdf/048_01_00.pdf</a></li><li>同時市場の在り方等に関する検討会 第二次中間取りまとめ（2025年10月15日） <a href="https://www.meti.go.jp/shingikai/energy_environment/doji_shijo_kento/pdf/20251015_1.pdf" target="_blank" rel="noopener">https://www.meti.go.jp/shingikai/energy_environment/doji_shijo_kento/pdf/20251015_1.pdf</a></li></ul>
+<div class="author-box">
+  <div class="ab-label">この記事の監修</div>
+  <div><span class="ab-name">中島 晋也</span>（サイエンスエックス株式会社 代表取締役・工学博士）</div>
+  <p style="margin:6px 0 0">系統用蓄電池発電所の開発・売買・技術デューデリジェンスを手がける。本コラムは、実案件の組成と評価の実務に基づいて執筆・監修しています。</p>
+</div>
+
+</div>
+</div>
+<!-- scix-column-cta : 1記事1つ。主＝案件一覧（NDA不要）、副＝投資の考え方（それぞれ行き先の中身を明記） -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">このデータで立地を選んだ案件を、一覧で確かめられます</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">所在県・規模・連系の見込み・進み具合までは、秘密保持契約なしで公開しています。載せているのは接続検討の回答が出た案件だけです。</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/projects" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">販売中の案件を見る →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">案件一覧が開きます。気になる案件は、その場で複数まとめて資料を請求できます。</p>
+  </div>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <a target="_top" href="https://www.scix.co.jp/investors" style="color:#1B2A4A;font-weight:600;font-size:13.5px;text-decoration:none;border-bottom:1px solid #C49A3C;padding-bottom:2px">系統用蓄電池に投資する、2つのかたち →</a>
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.85;margin:10px 0 0">1棟を自社で持つか、ファンドで持つか。収入が市場で決まる意味と、判断の前に確かめる書類を整理しています。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer — Wix HTML embed用 self-contained -->
+<style>
+
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1B2A4A;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0 auto;
+  }
+</style>
+
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">関連記事</div>
+  <a target="_top" href="/column-balancing-market" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">需給調整市場の商品構造を理解する— 5商品・複合約定・オンライン接続の全体像 →</a>
+  <a target="_top" href="/column-eprx" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">EPRX（電力需給調整力取引所）とは— 需給調整市場の仕組みと蓄電池の参加方法 →</a>
+</div>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img
+        src="/img/logo-white.png"
+        alt="ScienceX サイエンスエックス株式会社"
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/land" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">土地を売る・貸す</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>

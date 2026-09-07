@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.seo-note{display:none}
+.bar-chart{margin:28px 0}
+.bar-row{display:flex;align-items:center;margin-bottom:6px;font-size:.85em}
+.bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.bar-track{flex:1;background:#EBEEF2;height:28px;border-radius:3px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;min-width:2px;transition:width .6s ease}
+.bar-fill.high{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.bar-fill.mid{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.bar-fill.low{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.bar-fill.over{background:linear-gradient(90deg,#2980B9,#3498DB)}
+.bar-value{margin-left:8px;font-size:.82em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:80px}
+.heatmap-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.82em}
+.heatmap-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:center;font-weight:500;font-size:.78em}
+.heatmap-table td{padding:8px 10px;text-align:center;border:1px solid #E2E6EC;font-weight:600}
+.heatmap-table td.h5{background:#FDEBEB;color:#922B21}
+.heatmap-table td.h4{background:#FDEBD0;color:#935116}
+.heatmap-table td.h3{background:#FEF9E7;color:#7D6608}
+.heatmap-table td.h2{background:#EAFAF1;color:#1E8449}
+.heatmap-table td.h1{background:#D4EFDF;color:#196F3D}
+.heatmap-table td.h0{background:#D6EAF8;color:#21618C}
+.heatmap-table .area-cell{text-align:left;font-weight:700;background:#F8F9FB;color:var(--navy)}
+.tab-bar{display:flex;border-bottom:2px solid var(--border);margin:24px 0 0;gap:0;flex-wrap:wrap}
+.tab-item{padding:10px 20px;font-size:.88em;font-weight:600;color:var(--text-light);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
+.tab-item:hover{color:var(--navy)}
+.tab-item.active{color:var(--navy);border-bottom-color:var(--accent)}
+@media(max-width:480px){.tab-item{padding:8px 12px;font-size:.78em}}
+.ts-legend{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 16px;font-size:.78em;color:var(--text-light)}
+.ts-leg-item{display:flex;align-items:center;gap:5px}
+.ts-leg-box{width:14px;height:14px;border-radius:2px;flex-shrink:0}
+.chart-container{position:relative;margin:0 0 16px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff}
+.chart-header{display:flex;justify-content:space-between;align-items:baseline;padding:12px 20px 4px}
+.chart-area-name{font-weight:700;color:var(--navy);font-size:1em}
+.chart-stats{font-size:.82em;color:var(--text-light)}
+.chart-stats strong{color:var(--navy)}
+.chart-stats .surplus{color:#2980B9}
+.chart-no-data{padding:12px 20px 16px;font-size:.82em;color:var(--text-light);text-align:center}
+.chart-canvas-wrap{position:relative;padding:0 16px 4px}
+.chart-canvas{width:100%;height:80px;display:block}
+.chart-tooltip{position:absolute;background:rgba(27,42,74,0.95);color:#fff;padding:8px 12px;border-radius:4px;font-size:.75em;line-height:1.5;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
+.chart-axis{display:flex;justify-content:space-between;font-size:.68em;color:var(--text-light);padding:0 16px 10px}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .bar-label{width:44px;font-size:.78em}
+  .heatmap-table{font-size:.72em}
+  .heatmap-table th,.heatmap-table td{padding:5px 4px}
+  .chart-canvas{height:64px}
+  .chart-header{padding:10px 12px 3px}
+  .chart-canvas-wrap{padding:0 12px 3px}
+  .chart-axis{padding:0 12px 8px;font-size:.6em}
+}
+.s-bar-row{display:flex;align-items:center;margin-bottom:5px;font-size:.85em}
+.s-bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.s-bar-wrap{flex:1;position:relative;height:28px;background:#EBEEF2;border-radius:3px;overflow:hidden}
+.s-bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;transition:width .4s ease}
+.s-bar-fill.sh{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.s-bar-fill.sm{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.s-bar-fill.sl{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.s-bar-meta{margin-left:8px;font-size:.8em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:120px}
+.s-bar-meta strong{color:var(--navy)}
+.tieline-flow{margin:28px 0;font-size:.85em}
+.tl-row{display:flex;align-items:center;margin-bottom:4px;gap:4px}
+.tl-label{width:100px;text-align:right;font-weight:500;color:var(--navy);flex-shrink:0;font-size:.82em}
+.tl-bar-wrap{flex:1;display:flex;gap:2px}
+.tl-bar{height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.7em;font-weight:600;color:#fff;min-width:20px}
+.tl-fwd{background:var(--accent)}
+.tl-rev{background:var(--navy-light)}
+.tl-val{width:44px;font-size:.78em;color:var(--text-light);text-align:right;flex-shrink:0}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+
+
+:root{--c47-cyan:#4599c6}
+figure.c47{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c47 .c47scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--white);
+  border:1px solid var(--border);border-radius:3px}
+figure.c47 .c47scroll>svg{display:block;min-width:var(--fmin,0)}
+figure.c47 figcaption{font-size:.78em;color:var(--text-light);margin-top:10px;line-height:1.7}
+figure.c47 .c47hint{font-size:.72em;color:var(--text-light);margin:0 0 7px;letter-spacing:.04em}
+/* 本文（712px）に収まらない図は、字を縮めずに本文の外へ広げる。
+   画面がそれより狭いときだけ中で横スクロールになる。 */
+figure.c47.wide{width:min(calc(100vw - 32px), var(--fw));margin-left:50%;transform:translateX(-50%)}
+figure.c47.wide .c47hint{display:none}
+@media(max-width:1100px){figure.c47.wide .c47hint{display:block}}
+figure.c47fig{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c47fig .c47top{font-size:.78em;color:var(--text-light);margin:0 0 12px;line-height:1.7}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.table-wrap .comparison-table{margin:0;min-width:520px}
+ul.source-list{font-size:.82em;line-height:1.95;color:var(--text-light);word-break:break-word;
+  padding-left:1.15em;margin:0 0 8px}
+ul.source-list a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--border)}
+ul.source-list a:hover{border-bottom-color:var(--accent)}
+.c47series{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 30px;padding:12px 14px;
+  background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+.c47series .lb{font-size:.74em;color:var(--text-light);letter-spacing:.06em;width:100%;margin-bottom:2px}
+.c47series a,.c47series span.cur{font-size:.83em;text-decoration:none;padding:3px 10px;border-radius:3px;line-height:1.7}
+.c47series a{color:var(--navy);background:var(--white);border:1px solid var(--border)}
+.c47series a:hover{border-color:var(--accent)}
+.c47series span.cur{color:var(--white);background:var(--navy);font-weight:600}
+@media(max-width:768px){figure.c47,figure.c47fig{padding:12px}}
+
+
+.c47cards{display:grid;gap:14px;margin:0}
+.c47cards.n3{grid-template-columns:repeat(3,1fr)}
+.c47cards.n4{grid-template-columns:repeat(2,1fr)}
+.c47card{border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;
+  background:var(--white);padding:16px 18px 14px;display:flex;flex-direction:column}
+.c47card.k-volume{border-top-color:var(--navy)}
+.c47card.k-supply{border-top-color:#4599c6}
+.c47card.k-floor{border-top-color:var(--accent)}
+.c47card .k{font-size:.78em;letter-spacing:.06em;color:var(--text-light);margin-bottom:6px}
+.c47card .v{font-family:'Noto Serif JP',serif;font-weight:600;color:var(--navy);
+  font-size:1.02em;line-height:1.5;margin-bottom:10px}
+.c47card ul{list-style:none;margin:0 0 10px;padding:0;font-size:.84em;line-height:1.8;color:var(--text)}
+.c47card ul li{padding-left:11px;position:relative}
+.c47card ul li::before{content:'';position:absolute;left:0;top:.72em;width:4px;height:4px;
+  border-radius:50%;background:var(--accent)}
+.c47card .go{margin-top:auto;font-size:.82em;font-weight:600;color:var(--navy);
+  text-decoration:none;border-bottom:1px solid var(--accent);align-self:flex-start;padding-bottom:2px}
+.c47card .go:hover{color:var(--accent)}
+@media(max-width:700px){.c47cards.n3,.c47cards.n4{grid-template-columns:1fr}}
+
+</style>
+<title>Are Batteries Saturated? Their Seats Are Under 10% | ScienceX</title>
+<meta name="description" content="Japan&#x27;s ΔkW price cap fell from ¥15 to ¥10 on 1 September, with ¥7.21 next. Counted from EPRX data, the seats batteries hold are under 10% of the market.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-balancing-saturation">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-balancing-saturation">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-balancing-saturation">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-balancing-saturation">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-balancing-saturation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Are Batteries Saturated? Their Seats Are Under 10% | ScienceX">
+<meta property="og:description" content="The ΔkW cap fell from ¥15 to ¥10 on 1 September. Counted from EPRX data, the seats batteries hold are under 10% of the market.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-balancing-saturation">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Are Batteries Saturated? Their Seats Are Under 10% | ScienceX">
+<meta name="twitter:description" content="The ΔkW cap fell from ¥15 to ¥10 on 1 September. Counted from EPRX data, the seats batteries hold are under 10% of the market.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="article:published_time" content="2026-09-07">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Are Batteries Saturated? Their Seats Are Under 10% | ScienceX",
+  "description": "Japan's ΔkW price cap fell from ¥15 to ¥10 on 1 September, with ¥7.21 next. Counted from EPRX data, the seats batteries hold are under 10% of the market.",
+  "author": {
+    "@type": "Person",
+    "name": "Shinya Nakashima",
+    "jobTitle": "CEO, Ph.D. in Engineering",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-09-07",
+  "dateModified": "2026-09-07",
+  "inLanguage": "en",
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-balancing-saturation",
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "name": "COLUMN 47",
+    "url": "https://www.scix.co.jp/en/column-balancing-saturation"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are grid batteries in Japan already saturated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not across the market. Batteries hold 9% of the combined product and 23% of primary online, so the seats they sit in come to under 10% of the balancing market as a whole. Their own frame — primary offline, about 500 MW nationwide — has begun to fill, with the shortfall rate down from 67.9% in April–June to 53% in August."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Did procurement volume really fall to one third when 3σ became 1σ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Required volume is 0.55 of last year and the procurement volume actually put to the market is 0.62, while the largest product, the combined product, is 0.97 — essentially flat. Half of the reason for the fall is that the transmission and distribution operators locked up 266 × 10,000 kW of pumped storage outside the market."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far can the ΔkW price fall below ¥7.21?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The floor is what the battery could earn elsewhere, on JEPX: ¥6–8 in the evening and in the ¥1 range averaged over a day, so it is not one line but the shape of a day. Kyushu already cleared at ¥4.9 in August with the cap still at ¥15, and \"thermal's ¥3\" is not the floor."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Are batteries saturated? Seats under 10%",
+      "item": "https://www.scix.co.jp/en/column-balancing-saturation"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/en" style="color:#5A6577;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#5A6577;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">Are batteries saturated? Seats under 10%</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 47</span>
+      <span class="header-tag">Market Analysis</span>
+      <time class="header-date" datetime="2026-09-07">2026.09.07</time>
+    </div>
+    <h1>Are batteries saturated? Their seats are under 10%<br>— and the market moved before the cap did</h1>
+    <p class="header-desc">On 1 September Japan&#x27;s ΔkW price cap fell from ¥15 to ¥10, with ¥7.21 shown as the next step, and since March procurement volume has moved from 3σ-equivalent to 1σ-equivalent. We re-read the published data of EPRX and JEPX and the primary materials of the government councils and counted: the small seat has begun to fill, and the room is still wide.</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/en/knowledge" class="back-link">← Back to Knowledge</a>
+<nav class="c47series" aria-label="COLUMN 47"><span class="lb">A four-part series</span><span class="cur">COLUMN 47 Overview</span><a target="_top" href="/en/column-balancing-saturation-volume">47-2 Procurement volume</a><a target="_top" href="/en/column-balancing-saturation-supply">47-3 Supply</a><a target="_top" href="/en/column-balancing-saturation-floor">47-4 Floor</a></nav>
+<p>On 1 September the price cap in Japan's balancing market for ΔkW (EPRX) went from ¥15 to ¥10. The next step shown is ¥7.21. Since March, procurement volume has moved from "3σ-equivalent" to "1σ-equivalent," and an explanation is going around that it "fell to one third." In Kyushu the August clearing price fell to ¥4.9. Line those three up, and some people say batteries are already saturated.</p>
+<p>We re-read the published data of EPRX and JEPX and the primary materials of the government councils, and counted. The answer is that the small seat has begun to fill, and the room is still wide. This page sets out only the concluding numbers. The evidence and the figures are on the 3 pages below.</p>
+<figure class="c47fig"><figcaption class="c47top">Figure 1 Saturation read through 3 quantities</figcaption><div class="c47cards n3"><div class="c47card k-volume"><div class="k">Room size (volume sought)</div><div class="v">Not down to 1/3</div><ul><li>Required 0.55 / sought 0.62</li><li>Combined ~flat 0.97</li></ul><a class="go" target="_top" href="/en/column-balancing-saturation-volume">→ 47-2 Procurement volume</a></div><div class="c47card k-supply"><div class="k">Arriving (supply)</div><div class="v">Batteries have 2 seats</div><ul><li>Own frame (500MW): shortfall 67.9%→53%</li><li>Online seats: displacement vs thermal & pumped</li><li>Vessel still wide in FY2030</li></ul><a class="go" target="_top" href="/en/column-balancing-saturation-supply">→ 47-3 Supply</a></div><div class="c47card k-floor"><div class="k">Floor</div><div class="v">Market moved before the cap</div><ul><li>Kyushu ¥4.9 in Aug, cap still ¥15</li><li>Floor varies by hour (evening ¥6–8, night ~¥1)</li></ul><a class="go" target="_top" href="/en/column-balancing-saturation-floor">→ 47-4 Floor</a></div></div></figure>
+<h2>How to read this series</h2>
+<p>The overview (this page) carries only the concluding numbers. The evidence is split into 3 pages, each laid out so that you can follow it through the figures. The order is 47-2 → 47-3 → 47-4, but you can start from whichever question interests you.</p>
+<ul><li><strong>47-2 Procurement volume</strong>: how the size of the room is set, and what fell by how much. From the normal distribution through to the bilateral contracts for pumped storage and the price-cap ladder.</li><li><strong>47-3 Supply</strong>: when and where batteries arrive. The 2 kinds of seat, the frame that is still half open, the gap between applications and what actually arrives, and the interconnector calendar.</li><li><strong>47-4 Floor</strong>: where the price stops. Kyushu, which moved before the cap; what a battery can earn on JEPX; the shape that is high by day and cheap at night; and where 4 overseas markets landed.</li></ul>
+<h2>The 5 numbers</h2>
+<p><strong>1. Procurement volume did not fall to one third.</strong> What 3σ → 1σ cuts is only the width that covers day-to-day fluctuation; the cover for "the largest power plant stopping" does not shrink. Required volume is 0.55, and the procurement volume actually put to the market is 0.62. The largest product, the combined product, is 0.97 — essentially flat. Half of the reason for the fall is that the transmission and distribution operators (TSOs) locked up 266 × 10,000 kW of pumped storage outside the market. → 47-2 Procurement volume</p>
+<p><strong>2. Batteries have 2 kinds of seat.</strong> Their own frame (primary offline, about 500 MW) is 100% batteries. In the online seats — the combined market that procures primary through tertiary ① together, 3,800 MW in its largest frame — they compete against thermal and pumped storage on the same bids, and batteries hold 9% of the combined product and 23% of primary online. Extra-high-voltage batteries sit in the latter. → 47-3 Supply</p>
+<p><strong>3. The small frame has begun to fill, but is still half open.</strong> The shortfall rate (the share of procurement volume not awarded) for the batteries-only frame went from 67.9% in April–June (COLUMN 16) to 53% in August. Awarded battery volume rose about 1.8-fold in 4 months. Only Tokyo is 80% full; Kansai, Chugoku and Hokkaido are still largely open. The online seats are filled by thermal and pumped storage, but they are not partitioned by procurement volume: a cheaper bid gets in and the seat changes hands. → 47-3 Supply</p>
+<p><strong>4. The market moved before the cap did.</strong> In Kyushu, with the cap still at ¥15, August came in at ¥4.9. Even with the seats still half open, in the areas where bidding has thickened the price has begun to be set by bids rather than by the cap. The floor is "what the battery could earn elsewhere (on JEPX)" — ¥6–8 in the evening, and in the ¥1 range late at night. It is not one line but the shape of a day. "Thermal's ¥3" is not the floor. → 47-4 Floor</p>
+<p><strong>5. The vessel is still wide.</strong> Not all of the 3,527 × 10,000 kW of contract applications will arrive. On the developers' own plans it is 631 × 10,000 kW in FY2030, which does not even reach the vessel formed by primary, secondary ① and the combined product together (680 × 10,000 kW). Procurement volume is defined to "be increased once competition is confirmed," and the interconnectors will keep tying the areas together, beginning with Tohoku–Tokyo in 2027/11. → 47-3 Supply, 47-2 Procurement volume</p>
+<h2>Why now</h2>
+<p>6 months from the 14 March start of day-ahead trading falls in mid-September (the materials write "6 months and so on," as a rough guide). The indicators for deciding whether to go on to ¥7.21 are bid volume against procurement volume, the distribution of bid prices, and the price level of spare capacity. The Working Groups of 7/29 and 8/31 had no balancing-market item on the agenda, so the decision is still ahead. The numbers above are counted from the same data that will be used for it.</p>
+<h2>Placing your own battery</h2>
+<figure class="c47fig"><figcaption class="c47top">Figure 2 The 4 quantities that place your battery (voltage is not the axis)</figcaption><div class="c47cards n4"><div class="c47card"><div class="k">① Area</div><div class="v">How full are the seats now?</div><ul><li>80%: Tokyo</li><li>Half: Chubu, Tohoku, Kyushu</li><li>20–30%: Kansai/Chugoku/Hokkaido/Hokuriku/Shikoku</li></ul></div><div class="c47card"><div class="k">② Grid year</div><div class="v">Before or after the link widens</div><ul><li>2027/11 Tohoku→Tokyo</li><li>FY2028 Tokyo⇄Chubu</li><li>2030/6 Kyushu, Chugoku→Kansai</li></ul></div><div class="c47card"><div class="k">③ Contract</div><div class="v">Fixed revenue?</div><ul><li>LDA, tolling, capacity market</li><li>Sources with fixed revenue can bid low</li></ul></div><div class="c47card"><div class="k">④ Products</div><div class="v">Offline only, or the next room too?</div><ul><li>Primary online: online-linked equipment</li><li>Combined: 3 hours continuous</li></ul></div></div></figure>
+<p>"Should we drop high voltage and go extra-high voltage?" was a question we were asked often this summer. Voltage is not the axis. 4 quantities set the position.</p>
+<ul><li><strong>Area.</strong> How full the seats are now (Tokyo 80%, Kansai, Chugoku and Hokkaido 20–30%).</li><li><strong>Connection year.</strong> Before or after 2027/11 (Tohoku → Tokyo) and 2030/6 (Kyushu and Chugoku → Kansai).</li><li><strong>Contract form.</strong> Whether there is fixed revenue (Long-term Decarbonization Power Source Auction (LDA), tolling agreement, capacity market).</li><li><strong>Products you can offer.</strong> Primary offline only, or primary online and the combined product as well.</li></ul>
+<p>Even for the same 2 MW high-voltage battery, one that takes an open seat in Kansai and can bid as far as the combined product sits in a different position from one that bids only into Tokyo's filling primary offline frame. Being extra-high-voltage settles none of these 4 by itself.</p>
+<h2>In closing</h2>
+<p>If the 5 numbers on this page are enough for you, you can stop here. If you want to check the evidence, go to the 3 pages above.</p>
+<p>All of the numbers are ones we counted from published materials of EPRX, JEPX, the government councils, the Organization for Cross-regional Coordination of Transmission Operators (OCCTO) and the Electricity and Gas Market Surveillance Commission (EGC). Sources are listed at the foot of each page.</p>
+<div class="author-box">
+  <div class="ab-label">Supervised by</div>
+  <div><span class="ab-name">Shinya Nakashima, Ph.D. (Eng.)</span> — Representative Director, Science X Inc.</div>
+  <p style="margin:6px 0 0">Works on the development, sale and technical due diligence of grid-scale battery storage plants in Japan. This column is written and supervised on the basis of that hands-on transaction and due-diligence practice.</p>
+</div>
+
+<div class="cta-section">
+  <h3>Energy Business Consultation</h3>
+  <p>Project-specific information not covered in our articles<br>will be disclosed after NDA execution following your inquiry.</p>
+  <a target="_top" href="/en/contact" class="cta-btn">Contact Us →</a>
+</div>
+
+</div>
+</div>
+<div class="cta-section">
+  <h3>Energy Business Consultation</h3>
+  <p>Project-specific information not covered in our articles<br>will be disclosed after NDA execution following your inquiry.</p>
+  <a target="_top" href="/en/contact" class="cta-btn">Contact Us →</a>
+</div>
+
+</div>
+<style>
+
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1B2A4A;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0 auto;
+  }
+</style>
+
+<!-- Global-investor CTA (discovery funnel → market-entry) -->
+<section style="background:#1B2A4A;padding:52px 24px;text-align:center;font-family:'Noto Sans JP',sans-serif;">
+  <div style="max-width:720px;margin:0 auto;">
+    <div style="font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:#C49A3C;margin-bottom:12px;">For Global Investors</div>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(1.3rem,3vw,1.7rem);color:#fff;font-weight:600;line-height:1.5;margin:0 0 14px;">Investing in Japan's grid-scale storage?</h2>
+    <p style="color:rgba(255,255,255,0.78);font-size:0.92rem;line-height:1.85;margin:0 0 26px;">We vet, structure and operate confirmed, grid-connected BESS projects — so global investors deploy into operating Japanese assets. Engineer-led.</p>
+    <a href="/en" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;text-decoration:none;padding:14px 34px;border-radius:4px;font-size:0.9rem;">See the market-entry guide →</a>
+  </div>
+</section>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img
+        src="/img/logo-white.png"
+        alt="ScienceX - Science X Inc."
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>
