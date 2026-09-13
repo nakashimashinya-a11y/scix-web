@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.seo-note{display:none}
+.bar-chart{margin:28px 0}
+.bar-row{display:flex;align-items:center;margin-bottom:6px;font-size:.85em}
+.bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.bar-track{flex:1;background:#EBEEF2;height:28px;border-radius:3px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;min-width:2px;transition:width .6s ease}
+.bar-fill.high{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.bar-fill.mid{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.bar-fill.low{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.bar-fill.over{background:linear-gradient(90deg,#2980B9,#3498DB)}
+.bar-value{margin-left:8px;font-size:.82em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:80px}
+.heatmap-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.82em}
+.heatmap-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:center;font-weight:500;font-size:.78em}
+.heatmap-table td{padding:8px 10px;text-align:center;border:1px solid #E2E6EC;font-weight:600}
+.heatmap-table td.h5{background:#FDEBEB;color:#922B21}
+.heatmap-table td.h4{background:#FDEBD0;color:#935116}
+.heatmap-table td.h3{background:#FEF9E7;color:#7D6608}
+.heatmap-table td.h2{background:#EAFAF1;color:#1E8449}
+.heatmap-table td.h1{background:#D4EFDF;color:#196F3D}
+.heatmap-table td.h0{background:#D6EAF8;color:#21618C}
+.heatmap-table .area-cell{text-align:left;font-weight:700;background:#F8F9FB;color:var(--navy)}
+.tab-bar{display:flex;border-bottom:2px solid var(--border);margin:24px 0 0;gap:0;flex-wrap:wrap}
+.tab-item{padding:10px 20px;font-size:.88em;font-weight:600;color:var(--text-light);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
+.tab-item:hover{color:var(--navy)}
+.tab-item.active{color:var(--navy);border-bottom-color:var(--accent)}
+@media(max-width:480px){.tab-item{padding:8px 12px;font-size:.78em}}
+.ts-legend{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 16px;font-size:.78em;color:var(--text-light)}
+.ts-leg-item{display:flex;align-items:center;gap:5px}
+.ts-leg-box{width:14px;height:14px;border-radius:2px;flex-shrink:0}
+.chart-container{position:relative;margin:0 0 16px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff}
+.chart-header{display:flex;justify-content:space-between;align-items:baseline;padding:12px 20px 4px}
+.chart-area-name{font-weight:700;color:var(--navy);font-size:1em}
+.chart-stats{font-size:.82em;color:var(--text-light)}
+.chart-stats strong{color:var(--navy)}
+.chart-stats .surplus{color:#2980B9}
+.chart-no-data{padding:12px 20px 16px;font-size:.82em;color:var(--text-light);text-align:center}
+.chart-canvas-wrap{position:relative;padding:0 16px 4px}
+.chart-canvas{width:100%;height:80px;display:block}
+.chart-tooltip{position:absolute;background:rgba(27,42,74,0.95);color:#fff;padding:8px 12px;border-radius:4px;font-size:.75em;line-height:1.5;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
+.chart-axis{display:flex;justify-content:space-between;font-size:.68em;color:var(--text-light);padding:0 16px 10px}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .bar-label{width:44px;font-size:.78em}
+  .heatmap-table{font-size:.72em}
+  .heatmap-table th,.heatmap-table td{padding:5px 4px}
+  .chart-canvas{height:64px}
+  .chart-header{padding:10px 12px 3px}
+  .chart-canvas-wrap{padding:0 12px 3px}
+  .chart-axis{padding:0 12px 8px;font-size:.6em}
+}
+.s-bar-row{display:flex;align-items:center;margin-bottom:5px;font-size:.85em}
+.s-bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.s-bar-wrap{flex:1;position:relative;height:28px;background:#EBEEF2;border-radius:3px;overflow:hidden}
+.s-bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;transition:width .4s ease}
+.s-bar-fill.sh{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.s-bar-fill.sm{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.s-bar-fill.sl{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.s-bar-meta{margin-left:8px;font-size:.8em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:120px}
+.s-bar-meta strong{color:var(--navy)}
+.tieline-flow{margin:28px 0;font-size:.85em}
+.tl-row{display:flex;align-items:center;margin-bottom:4px;gap:4px}
+.tl-label{width:100px;text-align:right;font-weight:500;color:var(--navy);flex-shrink:0;font-size:.82em}
+.tl-bar-wrap{flex:1;display:flex;gap:2px}
+.tl-bar{height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.7em;font-weight:600;color:#fff;min-width:20px}
+.tl-fwd{background:var(--accent)}
+.tl-rev{background:var(--navy-light)}
+.tl-val{width:44px;font-size:.78em;color:var(--text-light);text-align:right;flex-shrink:0}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+
+:root{--c47-cyan:#4599c6}
+figure.c47{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c47 .c47scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--white);
+  border:1px solid var(--border);border-radius:3px}
+figure.c47 .c47scroll>svg{display:block;min-width:var(--fmin,0)}
+figure.c47 figcaption{font-size:.78em;color:var(--text-light);margin-top:10px;line-height:1.7}
+figure.c47 .c47hint{font-size:.72em;color:var(--text-light);margin:0 0 7px;letter-spacing:.04em}
+/* 本文（712px）に収まらない図は、字を縮めずに本文の外へ広げる。
+   画面がそれより狭いときだけ中で横スクロールになる。 */
+figure.c47.wide{width:min(calc(100vw - 32px), var(--fw));margin-left:50%;transform:translateX(-50%)}
+figure.c47.wide .c47hint{display:none}
+@media(max-width:1100px){figure.c47.wide .c47hint{display:block}}
+figure.c47fig{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c47fig .c47top{font-size:.78em;color:var(--text-light);margin:0 0 12px;line-height:1.7}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.table-wrap .comparison-table{margin:0;min-width:520px}
+ul.source-list{font-size:.82em;line-height:1.95;color:var(--text-light);word-break:break-word;
+  padding-left:1.15em;margin:0 0 8px}
+ul.source-list a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--border)}
+ul.source-list a:hover{border-bottom-color:var(--accent)}
+.c47series{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 30px;padding:12px 14px;
+  background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+.c47series .lb{font-size:.74em;color:var(--text-light);letter-spacing:.06em;width:100%;margin-bottom:2px}
+.c47series a,.c47series span.cur{font-size:.83em;text-decoration:none;padding:3px 10px;border-radius:3px;line-height:1.7}
+.c47series a{color:var(--navy);background:var(--white);border:1px solid var(--border)}
+.c47series a:hover{border-color:var(--accent)}
+.c47series span.cur{color:var(--white);background:var(--navy);font-weight:600}
+@media(max-width:768px){figure.c47,figure.c47fig{padding:12px}}
+
+.c47cards{display:grid;gap:14px;margin:0}
+.c47cards.n3{grid-template-columns:repeat(3,1fr)}
+.c47cards.n4{grid-template-columns:repeat(2,1fr)}
+.c47card{border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;
+  background:var(--white);padding:16px 18px 14px;display:flex;flex-direction:column}
+.c47card.k-volume{border-top-color:var(--navy)}
+.c47card.k-supply{border-top-color:#4599c6}
+.c47card.k-floor{border-top-color:var(--accent)}
+.c47card .k{font-size:.78em;letter-spacing:.06em;color:var(--text-light);margin-bottom:6px}
+.c47card .v{font-family:'Noto Serif JP',serif;font-weight:600;color:var(--navy);
+  font-size:1.02em;line-height:1.5;margin-bottom:10px}
+.c47card ul{list-style:none;margin:0 0 10px;padding:0;font-size:.84em;line-height:1.8;color:var(--text)}
+.c47card ul li{padding-left:11px;position:relative}
+.c47card ul li::before{content:'';position:absolute;left:0;top:.72em;width:4px;height:4px;
+  border-radius:50%;background:var(--accent)}
+.c47card .go{margin-top:auto;font-size:.82em;font-weight:600;color:var(--navy);
+  text-decoration:none;border-bottom:1px solid var(--accent);align-self:flex-start;padding-bottom:2px}
+.c47card .go:hover{color:var(--accent)}
+@media(max-width:700px){.c47cards.n3,.c47cards.n4{grid-template-columns:1fr}}
+
+figure.c47 .c47scroll>svg{width:100%;height:auto}
+.answer{font-family:'Noto Serif JP',serif;font-size:1.15em;font-weight:600;color:var(--navy);line-height:1.8;margin:0 0 24px;padding:18px 22px;background:var(--light-bg);border-left:4px solid var(--accent);border-radius:0 6px 6px 0}
+.investor{background:#FBF6EA;border:1px solid #E8D9B5;border-radius:6px;padding:22px 26px;margin:34px 0;font-size:.95em;line-height:2}
+.investor .lb{font-size:.8em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:6px}
+.c47series a{margin-right:4px}
+.sidx{margin:40px 0 10px;padding:22px 24px 18px;background:var(--light-bg);border-radius:6px;font-family:'Noto Sans JP',sans-serif}
+.sidx .lb{font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.1em;margin-bottom:6px}
+.sidx .g{font-family:'Noto Serif JP',serif;font-weight:600;font-size:.92em;color:var(--navy);margin:12px 0 4px}
+.sidx ol{list-style:none;margin:0;padding:0;columns:2;column-gap:24px}
+@media (max-width:640px){.sidx ol{columns:1}}
+.sidx li{font-size:.86em;line-height:1.7;padding:2px 0;break-inside:avoid}
+.sidx li span{display:inline-block;width:3.2em;color:var(--text-light);font-size:.85em}
+.sidx li a{color:var(--navy);text-decoration:none;border-bottom:1px solid transparent}
+.sidx li a:hover{border-bottom-color:var(--accent)}
+.sidx li.cur{color:var(--text-light)}
+.sidx .last{display:block;margin-top:18px;padding:16px 18px;background:#fff;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;text-decoration:none;color:var(--text)}
+.sidx .last:hover{box-shadow:0 6px 18px rgba(27,42,74,.12)}
+.sidx .last .ll{display:block;font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.sidx .last .lt{display:block;font-family:'Noto Serif JP',serif;font-weight:600;font-size:1.02em;color:var(--navy);margin-bottom:4px}
+.sidx .last .ld{display:block;font-size:.86em;line-height:1.6;color:var(--text-light)}
+.calc{background:#fff;border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;padding:20px 22px 12px;margin:20px 0 26px;font-family:'Noto Sans JP',sans-serif}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}
+@media (max-width:640px){.calc-grid{grid-template-columns:1fr}}
+.calc label{display:block;font-size:.86em;color:var(--navy);font-weight:600}
+.calc label .v{float:right;font-weight:400;color:var(--text)}
+.calc label .v b{color:var(--navy)}
+.calc label small{display:block;font-weight:400;color:var(--text-light);font-size:.8em;line-height:1.5;margin-top:2px}
+.calc input[type=range]{width:100%;margin:6px 0 2px;accent-color:#C49A3C}
+.calc-out{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;margin:18px 0 8px;padding:14px 16px;background:var(--light-bg);border-radius:6px}
+@media (max-width:640px){.calc-out{grid-template-columns:1fr}}
+.calc-out div{display:flex;justify-content:space-between;align-items:baseline;font-size:.9em;padding:4px 0;border-bottom:1px solid #E6E1D8}
+.calc-out div span{color:var(--text-light)}
+.calc-out div b{font-family:'Noto Serif JP',serif;font-size:1.15em;color:var(--navy)}
+.calc-out div.hl b{color:#8a6a1e;font-size:1.35em}
+.calc-note{font-size:.8em;color:var(--text-light);line-height:1.6;margin:8px 0 0}
+</style>
+<title>原発が増えたら、蓄電池はいらなくなる？｜蓄電池の、そもそも 48-7｜ScienceX</title>
+<meta name="description" content="逆です。電気が余ったときに止める順番は国が決めていて、原発は最後。昼に太陽光が余っても原発は出力を下げません。九州は原発4基を動かしたまま太陽光を止め、止めた割合は全国最大です。原発が戻るほど昼の余剰は増え、蓄電池の出番が増えます。">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-somosomo-7">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-somosomo-7">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-somosomo-7">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-somosomo-7">
+<link rel="canonical" href="https://www.scix.co.jp/column-somosomo-7">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+<meta name="author" content="中島 晋也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原発が増えたら、蓄電池はいらなくなる？｜蓄電池の、そもそも 48-7｜ScienceX">
+<meta property="og:description" content="逆です。電気が余ったときに止める順番は国が決めていて、原発は最後。昼に太陽光が余っても原発は出力を下げません。九州は原発4基を動かしたまま太陽光を止め、止めた割合は全国最大です。原発が戻るほど昼の余剰は増え、蓄電池の出番が増えます。">
+<meta property="og:url" content="https://www.scix.co.jp/column-somosomo-7">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="原発が増えたら、蓄電池はいらなくなる？｜蓄電池の、そもそも 48-7｜ScienceX">
+<meta name="twitter:description" content="逆です。電気が余ったときに止める順番は国が決めていて、原発は最後。昼に太陽光が余っても原発は出力を下げません。九州は原発4基を動かしたまま太陽光を止め、止めた割合は全国最大です。原発が戻るほど昼の余剰は増え、蓄電池の出番が増えます。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-09-13">
+<meta property="article:modified_time" content="2026-09-13">
+<meta property="article:section" content="蓄電池の基礎">
+<meta property="article:author" content="https://www.scix.co.jp/company">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "原発が増えたら、蓄電池はいらなくなる？｜蓄電池の、そもそも 48-7｜ScienceX",
+  "description": "逆です。電気が余ったときに止める順番は国が決めていて、原発は最後。昼に太陽光が余っても原発は出力を下げません。九州は原発4基を動かしたまま太陽光を止め、止めた割合は全国最大です。原発が戻るほど昼の余剰は増え、蓄電池の出番が増えます。",
+  "inLanguage": "ja",
+  "author": {
+    "@type": "Person",
+    "name": "中島 晋也",
+    "jobTitle": "代表取締役（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-09-13",
+  "dateModified": "2026-09-13",
+  "articleSection": "蓄電池の基礎",
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "name": "蓄電池の、そもそも",
+    "url": "https://www.scix.co.jp/column-somosomo"
+  },
+  "mainEntityOfPage": "https://www.scix.co.jp/column-somosomo-7"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://www.scix.co.jp/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ナレッジ",
+      "item": "https://www.scix.co.jp/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "蓄電池の、そもそも",
+      "item": "https://www.scix.co.jp/column-somosomo"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "原発が増えたら、蓄電池はいらなくなる？",
+      "item": "https://www.scix.co.jp/column-somosomo-7"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/column-somosomo" style="color:#5A6577;text-decoration:none">蓄電池の、そもそも</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">48-7</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 48-7</span>
+      <span class="header-tag">そもそも編</span>
+      <time class="header-date" datetime="2026-09-13">2026.09.13</time>
+    </div>
+    <h1>原発が増えたら、蓄電池はいらなくなる？</h1>
+    <p class="header-desc">逆です。電気が余ったときに止める順番は国が決めていて、原発は最後。昼に太陽光が余っても原発は出力を下げません。九州は原発4基を動かしたまま太陽光を止め、止めた割合は全国最大です。原発が戻るほど昼の余剰は増え、蓄電池の出番が増えます。</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/column-somosomo" class="back-link">← 入口（19の問いの一覧）に戻る</a>
+<nav class="c47series" aria-label="COLUMN 48"><span class="lb">この連載は20本です（入口＋19の問い）</span><a target="_top" href="/column-somosomo">COLUMN 48 入口（19の問いの一覧）</a><span class="cur">48-7</span><a target="_top" href="/column-somosomo-20">最後の問い：いくらで買って、いくら戻るのか →</a><a target="_top" href="/column-somosomo-6">← 48-6 火力に調整させれば、足りるのでは</a><a target="_top" href="/column-somosomo-8">48-8 揚水を増やせば、足りるのでは →</a></nav>
+<p class="answer">逆です。原発は昼に出力を下げないので、昼の余りが増え、蓄電池の仕事が増えます。</p>
+<p>「原発が戻れば電気は足りる。蓄電池は要らなくなる」。よく聞く見立てですが、系統の動きは逆です。理由は、原発が「昼に出力を下げない電源」だからです。</p>
+<h2>止める順番は決まっていて、原発は最後</h2>
+<p>晴れた休日の昼、太陽光が需要を超えると、どこかを止めなければなりません。止める順番は国のルール（優先給電ルール）で決まっています。最初に火力を最低まで絞り、次に揚水の汲み上げと他地域への送電で吸収し、それでも余ればバイオマス、次に太陽光と風力を止めます。水力・原子力・地熱は最後です。理由は資源エネルギー庁の説明どおり、「出力を短時間で小刻みに調整することが技術的に難しく、一度下げるとすぐに戻せない」からです。</p>
+<figure class="c47"><p class="c47hint">← 横にスクロールできます →</p><div class="c47scroll" style="--fmin:560px"><svg viewBox="0 0 640 161" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans JP',sans-serif"><rect width="640" height="161" fill="#fff"/><text x="20" y="26" font-size="14" fill="#1B2A4A" font-weight="700" text-anchor="start" >電気が余ったとき、止める順番（優先給電ルール）</text><rect x="20.0" y="48" width="105.6" height="83" rx="6" fill="#1B2A4A"/><text x="72.8" y="72" font-size="13" fill="#fff" font-weight="700" text-anchor="middle" >火力を</text><text x="72.8" y="89" font-size="13" fill="#fff" font-weight="700" text-anchor="middle" >最低まで絞る</text><text x="72.8" y="112" font-size="10.5" fill="#fff" font-weight="400" text-anchor="middle" >調整力は残す</text><polygon points="127.6,82.5 141.6,89.5 127.6,96.5" fill="#C49A3C"/><rect x="143.6" y="48" width="105.6" height="83" rx="6" fill="#1B2A4A"/><text x="196.39999999999998" y="72" font-size="13" fill="#fff" font-weight="700" text-anchor="middle" >揚水で汲み上げ</text><text x="196.39999999999998" y="89" font-size="13" fill="#fff" font-weight="700" text-anchor="middle" >他地域へ送る</text><text x="196.39999999999998" y="112" font-size="10.5" fill="#fff" font-weight="400" text-anchor="middle" >吸収できる分だけ</text><polygon points="251.2,82.5 265.2,89.5 251.2,96.5" fill="#C49A3C"/><rect x="267.2" y="48" width="105.6" height="83" rx="6" fill="#1B2A4A"/><text x="320.0" y="72" font-size="13" fill="#fff" font-weight="700" text-anchor="middle" >バイオマス</text><text x="320.0" y="89" font-size="13" fill="#fff" font-weight="700" text-anchor="middle" >を止める</text><polygon points="374.8,82.5 388.8,89.5 374.8,96.5" fill="#C49A3C"/><rect x="390.8" y="48" width="105.6" height="83" rx="6" fill="#1B2A4A"/><text x="443.59999999999997" y="72" font-size="13" fill="#fff" font-weight="700" text-anchor="middle" >太陽光・風力</text><text x="443.59999999999997" y="89" font-size="13" fill="#fff" font-weight="700" text-anchor="middle" >を止める</text><text x="443.59999999999997" y="112" font-size="10.5" fill="#fff" font-weight="400" text-anchor="middle" >＝出力制御</text><polygon points="498.4,82.5 512.4,89.5 498.4,96.5" fill="#C49A3C"/><rect x="514.4" y="48" width="105.6" height="83" rx="6" fill="#C49A3C"/><text x="567.1999999999999" y="72" font-size="13" fill="#fff" font-weight="700" text-anchor="middle" >水力・原子力</text><text x="567.1999999999999" y="89" font-size="13" fill="#fff" font-weight="700" text-anchor="middle" >地熱</text><text x="567.1999999999999" y="112" font-size="10.5" fill="#fff" font-weight="400" text-anchor="middle" >最後まで下げない</text></svg></div><figcaption>図1　余ったときに止める順番。原発は「長期固定電源」として最後で、実際には昼も下げない。出典：資源エネルギー庁「なるほど！グリッド 出力制御について」。</figcaption></figure>
+<h2>九州で起きていること</h2>
+<p>九州には、川内1・2号機（各89万kW）と玄海3・4号機（計236万kW）の原発4基、合計414万kWがあります。この4基は、定期検査で止まる期間を除けば、昼も夜も同じ出力で動きます。そこに日本一の密度で太陽光が乗ると、晴れた昼は作る量が使う量を超えます。原発は下げないので、止めるのは太陽光です。九州の太陽光・風力を止めた割合は、2023年度に8.3%（12.9億kWh）で過去最高、2024年度は4.8%（7.5億kWh）、2025年度の見込みは6.1%で、全国でいちばん高い状態が続いています。</p>
+<p>実際の日を見ます。2025年5月4日12時半、九州の需要は653万kW。太陽光が968万kW、原子力・水力・地熱が334万kW出ていました。揚水で189万kW汲み上げ、他地域へ134万kW送り、蓄電池が4万kW貯めても余り、太陽光と風力を509万kW止めました（資源エネルギー庁 第3回次世代電力系統WG 資料1、2025年6月27日 p.6）。この日、原子力は下がっていません。電力広域的運営推進機関の2031年度の系統シミュレーションでも、再稼働済みと再稼働見通しのある原発17基は「年間を通してマストラン（一定出力）」で置かれています（第103回広域系統整備委員会 資料3 p.52）。</p>
+<figure class="c47"><p class="c47hint">← 横にスクロールできます →</p><div class="c47scroll" style="--fmin:560px"><svg viewBox="0 0 640 340" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans JP',sans-serif"><rect width="640" height="340" fill="#fff"/><rect x="60" y="210" width="550" height="70" fill="#1B2A4A" opacity="0.85"/><rect x="60" y="188" width="550" height="22" fill="#8A92A0" opacity="0.6"/><polygon points="60.0,188.0 65.7,188.0 71.5,188.0 77.2,188.0 82.9,188.0 88.6,188.0 94.4,188.0 100.1,188.0 105.8,188.0 111.6,188.0 117.3,188.0 123.0,188.0 128.8,188.0 134.5,188.0 140.2,188.0 145.9,188.0 151.7,188.0 157.4,188.0 163.1,188.0 168.9,188.0 174.6,188.0 180.3,188.0 186.0,188.0 191.8,178.9 197.5,169.9 203.2,161.0 209.0,152.1 214.7,143.4 220.4,134.8 226.1,126.4 231.9,118.3 237.6,110.4 243.3,102.8 249.1,95.5 254.8,88.5 260.5,81.9 266.2,75.7 272.0,69.9 277.7,64.6 283.4,59.6 289.2,55.2 294.9,51.2 300.6,47.7 306.4,44.8 312.1,42.4 317.8,40.5 323.5,39.1 329.3,38.3 335.0,38.0 340.7,38.3 346.5,39.1 352.2,40.5 357.9,42.4 363.6,44.8 369.4,47.7 375.1,51.2 380.8,55.2 386.6,59.6 392.3,64.6 398.0,69.9 403.8,75.7 409.5,81.9 415.2,88.5 420.9,95.5 426.7,102.8 432.4,110.4 438.1,118.3 443.9,126.4 449.6,134.8 455.3,143.4 461.0,152.1 466.8,161.0 472.5,169.9 478.2,178.9 484.0,188.0 489.7,188.0 495.4,188.0 501.1,188.0 506.9,188.0 512.6,188.0 518.3,188.0 524.1,188.0 529.8,188.0 535.5,188.0 541.2,188.0 547.0,188.0 552.7,188.0 558.4,188.0 564.2,188.0 569.9,188.0 575.6,188.0 581.4,188.0 587.1,188.0 592.8,188.0 598.5,188.0 604.3,188.0 610.0,188.0 610.0,188.0 60.0,188.0" fill="#C49A3C" opacity="0.8"/><defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#C0392B" stroke-width="2"/></pattern></defs><polygon points="231.9,118.3 237.6,110.4 243.3,102.8 249.1,95.5 254.8,88.5 260.5,81.9 266.2,75.7 272.0,69.9 277.7,64.6 283.4,59.6 289.2,55.2 294.9,51.2 300.6,47.7 306.4,44.8 312.1,42.4 317.8,40.5 323.5,39.1 329.3,38.3 335.0,38.0 340.7,38.3 346.5,39.1 352.2,40.5 357.9,42.4 363.6,44.8 369.4,47.7 375.1,51.2 380.8,55.2 386.6,59.6 392.3,64.6 398.0,69.9 403.8,75.7 409.5,81.9 415.2,88.5 420.9,95.5 420.9,96.5 415.2,99.0 409.5,101.5 403.8,104.0 398.0,104.0 392.3,104.0 386.6,104.0 380.8,104.0 375.1,104.0 369.4,104.0 363.6,104.0 357.9,104.0 352.2,104.0 346.5,104.0 340.7,104.0 335.0,104.0 329.3,104.3 323.5,104.7 317.8,105.0 312.1,105.3 306.4,105.7 300.6,106.0 294.9,106.3 289.2,106.7 283.4,107.0 277.7,107.3 272.0,107.7 266.2,108.0 260.5,110.2 254.8,112.5 249.1,114.8 243.3,117.0 237.6,119.2 231.9,121.5" fill="url(#hatch)" stroke="#C0392B" stroke-width="1.5"/><text x="329.2708333333333" y="24.273666866502367" font-size="13" fill="#C0392B" font-weight="700" text-anchor="middle" >余った分＝太陽光を止める</text><path d="M 60.0 130.0 L 65.7 130.8 L 71.5 131.7 L 77.2 132.5 L 82.9 133.3 L 88.6 134.2 L 94.4 135.0 L 100.1 135.8 L 105.8 136.7 L 111.6 137.5 L 117.3 138.3 L 123.0 139.2 L 128.8 140.0 L 134.5 139.6 L 140.2 139.2 L 145.9 138.8 L 151.7 138.3 L 157.4 137.9 L 163.1 137.5 L 168.9 137.1 L 174.6 136.7 L 180.3 136.2 L 186.0 135.8 L 191.8 135.4 L 197.5 135.0 L 203.2 132.8 L 209.0 130.5 L 214.7 128.2 L 220.4 126.0 L 226.1 123.8 L 231.9 121.5 L 237.6 119.2 L 243.3 117.0 L 249.1 114.8 L 254.8 112.5 L 260.5 110.2 L 266.2 108.0 L 272.0 107.7 L 277.7 107.3 L 283.4 107.0 L 289.2 106.7 L 294.9 106.3 L 300.6 106.0 L 306.4 105.7 L 312.1 105.3 L 317.8 105.0 L 323.5 104.7 L 329.3 104.3 L 335.0 104.0 L 340.7 104.0 L 346.5 104.0 L 352.2 104.0 L 357.9 104.0 L 363.6 104.0 L 369.4 104.0 L 375.1 104.0 L 380.8 104.0 L 386.6 104.0 L 392.3 104.0 L 398.0 104.0 L 403.8 104.0 L 409.5 101.5 L 415.2 99.0 L 420.9 96.5 L 426.7 94.0 L 432.4 91.5 L 438.1 89.0 L 443.9 86.5 L 449.6 84.0 L 455.3 81.5 L 461.0 79.0 L 466.8 76.5 L 472.5 74.0 L 478.2 75.2 L 484.0 76.3 L 489.7 77.5 L 495.4 78.7 L 501.1 79.8 L 506.9 81.0 L 512.6 82.2 L 518.3 83.3 L 524.1 84.5 L 529.8 85.7 L 535.5 86.8 L 541.2 88.0 L 547.0 91.0 L 552.7 94.0 L 558.4 97.0 L 564.2 100.0 L 569.9 103.0 L 575.6 106.0 L 581.4 109.0 L 587.1 112.0 L 592.8 115.0 L 598.5 118.0 L 604.3 121.0 L 610.0 124.0" fill="none" stroke="#2C3E50" stroke-width="3"/><text x="481.6666666666667" y="65.86666666666667" font-size="13" fill="#2C3E50" font-weight="700" text-anchor="start" >使う量（需要）</text><text x="87.5" y="250.0" font-size="13" fill="#fff" font-weight="700" text-anchor="start" >原発：昼も下げない</text><text x="87.5" y="203.0" font-size="12" fill="#fff" font-weight="700" text-anchor="start" >火力：最低まで絞る</text><text x="335.0" y="128" font-size="15" fill="#fff" font-weight="700" text-anchor="middle" >太陽光</text><line x1="60" y1="280" x2="610" y2="280" stroke="#8A92A0"/><text x="60.0" y="300" font-size="12" fill="#8A92A0" font-weight="400" text-anchor="middle" >0時</text><text x="197.5" y="300" font-size="12" fill="#8A92A0" font-weight="400" text-anchor="middle" >6時</text><text x="335.0" y="300" font-size="12" fill="#8A92A0" font-weight="400" text-anchor="middle" >12時</text><text x="472.5" y="300" font-size="12" fill="#8A92A0" font-weight="400" text-anchor="middle" >18時</text><text x="610.0" y="300" font-size="12" fill="#8A92A0" font-weight="400" text-anchor="middle" >24時</text><text x="335.0" y="326" font-size="12" fill="#8A92A0" font-weight="400" text-anchor="middle" >晴れた休日の1日（概念図。九州の太陽光を止めた割合は2024年度4.8%、2025年度見込み6.1%）</text><text x="20" y="26" font-size="14" fill="#1B2A4A" font-weight="700" text-anchor="start" >昼の余剰は、こうしてできる</text></svg></div><figcaption>図2　晴れた休日の昼。原発は昼も出力を下げず、火力は最低まで絞っても止められない分が残る。その上に太陽光が乗ると昼は使う量を超え、超えた分は太陽光を止める。蓄電池はこの余りを貯めて夕方に出す（概念図。九州の実績は本文）。</figcaption></figure>
+<p>止めた電気は、誰かが貯めれば捨てずに済みます。昼に安く貯め、夕方の高い時間に売るのが蓄電池の仕事です。原発が動くほど昼の余りは増え、その仕事も増えます。資源エネルギー庁の資料は、中国エリアで2024年度に止める量が増える要因の一つに「原子力の営業運転再開」を挙げています。</p>
+<h2>どこで、いつ戻るのか</h2>
+<p>2026年4月時点で動いている原発は15基です。九州4基（川内1・2、玄海3・4）、関西7基（高浜1〜4、大飯3・4、美浜3）、四国1基（伊方3）、東北1基（女川2、2024年11月）、中国1基（島根2、2024年12月）、東京1基（柏崎刈羽6、2026年2月）。つまり昼の余りが「原発で押し上げられている」管区は、九州・関西・四国・東北・中国・東京です。中部と北陸には動いている原発がありません。</p>
+<p>次に戻るのは、北海道と東京です。北海道の泊3号機（91.2万kW）は2025年7月に設置変更許可を受け、12月に道知事が再稼働に同意しました（事業者は2027年のできるだけ早い時期の再稼働を目指しています）。北海道の春・秋の昼の最低需要は281万kW（2025年5月6日、資源エネルギー庁）なので、泊3号機が再稼働すれば、1基で最低需要の約3分の1が「下げない電源」になる計算です。北海道の長期の出力制御率の見通しは30%で、全国で最も高い値です（48-11）。東京では柏崎刈羽7号機（135.6万kW）が6号機に続く位置にいて、県知事は2025年12月に6号機と7号機の理解要請を了承しています。東海第二（110万kW）は安全対策工事の完成時期が2026年12月に間に合わない見込みと事業者が公表しています（日本原子力発電 2026年1月、報道）。</p>
+<h2>原発はこれから増える</h2>
+<p>東京でも同じことが起きました。2026年1月21日、柏崎刈羽6号機（135.6万kW）が約14年ぶりに再稼働しました（不具合で一時停止し、2月9日に再起動、2月16日に送電開始、4月16日に営業運転）。送電を始めた2週間後の3月1日、東京エリアで初めて太陽光を止めました。東京電力パワーグリッドの指示はコマごとに3〜118万kWで、公表された制御量の合計は184万kW（太陽光・風力181万kW＋バイオマス4万kW）です（東電PG公表値、日経BP 2026年3月。集計方法が異なります）。東電PGは「休日で需要が少なかった」ことを規模の理由に挙げています。第7次エネルギー基本計画（2025年2月）は2040年度の原子力を2割程度と置き、「依存度を可能な限り低減する」という文言を外しました。2024年度の実績は9.4%です。原発の割合が2倍になる前提で、昼の余りは各地で増えます。</p>
+<p>原発に昼の調整をさせている国もあります。フランスは原発が電気の約7割を占め（2025年は68.1%、送電会社RTE）、多くの原子炉が春と夏の昼に出力を下げる運転をしています。日本の原発は、規制と運用の慣行からそうした運転をしていません。だから日本では、原発が増えるほど、昼の余りを引き受ける蓄電池が要ります。</p>
+
+<div class="investor"><div class="lb">投資家の読み方</div>原発が戻る地域は、昼の余りが増える地域です。いま原発で昼が押し上げられているのは九州・関西・四国・東北・中国・東京で、次に押し上がるのは北海道（泊3号機、地元同意済み）と東京（柏崎刈羽7号機）です。九州は原発4基と日本一の太陽光で止める割合が全国最大、北海道は長期の見通しが30%。止める電気は「安く貯められる電気」で、蓄電池の差益の元になります。2040年度に原子力2割の前提は、昼の余りを増やす方向に働きます。</div>
+<div class="sidx"><div class="lb">この連載の問い</div><div class="g">一、昔はなぜ蓄電池なしで回っていたのか</div><ol><li><span>48-2</span><a target="_top" href="/column-somosomo-2">昔は蓄電池がなくても回っていたよね</a></li><li><span>48-3</span><a target="_top" href="/column-somosomo-3">回る機械が減った系統では、何が消えるのか</a></li><li><span>48-4</span><a target="_top" href="/column-somosomo-4">なぜ「10秒」なのか</a></li><li><span>48-5</span><a target="_top" href="/column-somosomo-5">再エネが増えるほど、調整力が要るのか</a></li></ol><div class="g">二、火力・原発・揚水では、なぜ足りないのか</div><ol><li><span>48-6</span><a target="_top" href="/column-somosomo-6">火力に調整させれば、足りるのでは</a></li><li class="cur"><span>48-7</span>原発が増えたら、蓄電池はいらなくなる？（この記事）</li><li><span>48-8</span><a target="_top" href="/column-somosomo-8">揚水を増やせば、足りるのでは</a></li><li><span>48-9</span><a target="_top" href="/column-somosomo-9">市場で買えなかった調整力は、どこから来ているのか</a></li></ol><div class="g">三、これから電気の需要と電源はどうなるのか</div><ol><li><span>48-10</span><a target="_top" href="/column-somosomo-10">データセンターが増えると、なぜ蓄電池なのか</a></li><li><span>48-11</span><a target="_top" href="/column-somosomo-11">太陽光は、これからどうなる</a></li><li><span>48-12</span><a target="_top" href="/column-somosomo-12">火力の量は、原発の稼働は、需要は</a></li><li><span>48-13</span><a target="_top" href="/column-somosomo-13">蓄電池は、どれだけ増えるのか</a></li></ol><div class="g">四、お金と、国の本音</div><ol><li><span>48-14</span><a target="_top" href="/column-somosomo-14">国は、蓄電池を増やしたいのか</a></li><li><span>48-15</span><a target="_top" href="/column-somosomo-15">インフラ投資としての蓄電池は、何に似ているのか</a></li><li><span>48-16</span><a target="_top" href="/column-somosomo-16">稼ぎは細るって言うけど、本当？</a></li><li><span>48-17</span><a target="_top" href="/column-somosomo-17">海外の真似をして、日本で儲かるか</a></li><li><span>48-18</span><a target="_top" href="/column-somosomo-18">蓄電池は、将来どれだけ必要なのか</a></li><li><span>48-19</span><a target="_top" href="/column-somosomo-19">蓄電池は、どこに置いても同じなのか</a></li></ol><a target="_top" class="last" href="/column-somosomo-20"><span class="ll">18の問いの先にある、ひとつの問い</span><span class="lt">48-20 いくらで買って、いくら戻るのか</span><span class="ld">答えは案件ごとに違う。だから公表値だけを目盛りにした計算機を置いた。単価・約定率・席代・差益・建設費を、自分で動かせる。</span></a></div>
+<h2>出典</h2>
+<ul class="source-list"><li>資源エネルギー庁「なるほど！グリッド 出力制御について」（優先給電ルール、原子力は最後）</li><li>資源エネルギー庁「再エネ出力制御の短期見通し等について」2025年1月23日（九州2023年度8.3%・12.9億kWh）／第8回次世代電力系統WG 資料1、2026年3月16日（九州2024年度4.8%、2025年度見込6.1%）</li><li>九州電力（川内1・2号機、玄海3・4号機）</li><li>資源エネルギー庁「原子力政策に関する最近の動向について」2026年6月5日 資料1（柏崎刈羽6号機：2026年1月21日起動、2月9日再起動、2月16日発電・送電、4月16日営業運転）／東京電力パワーグリッド プレスリリース 2026年3月1日（指示3〜118万kW）／日経BP メガソーラービジネス 2026年3月（制御量合計184万kW、東電PG公表値）</li><li>資源エネルギー庁 第3回次世代電力系統WG 資料1、2025年6月27日（最小需要日 2025年5月4日 九州の需給バランス）／電力広域的運営推進機関 第103回広域系統整備委員会 資料3、2026年9月1日（原子力17基を年間マストランで想定）</li><li>九州電力 玄海原子力発電所の概要（3・4号機 計236万kW）／鹿児島県「川内原子力発電所1，2号機の概要」（認可出力89万kW）</li><li>資源エネルギー庁「原子力政策に関する最近の動向について」2026年3月31日 資料1・2026年6月5日 資料1（稼働状況、泊3号機の許可・同意、柏崎刈羽6・7号機の県知事了承、東海第二の工事状況）／日本原子力産業協会「日本の原子力発電炉」2026年3月9日現在（運転中の炉一覧）／北海道庁「泊発電所3号機再稼働の同意判断に関する経緯」2025年12月10日／日本原子力発電の公表を伝えた報道 2026年1月（東海第二の工事完成時期）／資源エネルギー庁 第3回次世代電力系統WG 資料1 2025年6月27日 p.6（北海道の最小需要日 281万kW）</li><li>第7次エネルギー基本計画 2025年2月18日閣議決定（2040年度 原子力20%程度）／経済産業省「令和6年度エネルギー需給実績（確報）」2026年4月14日（2024年度 原子力9.4%）</li><li>資源エネルギー庁 系統WG 第50回（中国エリアの2024年度制御増加要因に原子力の営業運転再開）</li><li>RTE「Bilan électrique 2025」（フランスの原子力比率68.1%、昼間の出力低下運転）／World Nuclear Association（負荷追従の一般記述）</li></ul>
+<div class="author-box">
+  <div class="ab-label">この記事の監修</div>
+  <div><span class="ab-name">中島 晋也</span>（サイエンスエックス株式会社 代表取締役・工学博士）</div>
+  <p style="margin:6px 0 0">系統用蓄電池発電所の開発・売買・技術デューデリジェンスを手がける。本コラムは、実案件の組成と評価の実務に基づいて執筆・監修しています。</p>
+</div>
+</div>
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans JP',sans-serif"><div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">関連記事</div><a target="_top" href="/column-nonfirm" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">ノンファーム型接続と出力制御リスク →</a><a target="_top" href="/column-somosomo-11" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">48-11 太陽光は、これからどうなる →</a></div>
+<!-- ScienceX Footer — Wix HTML embed用 self-contained -->
+<style>
+
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1B2A4A;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0 auto;
+  }
+</style>
+
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">関連記事</div>
+  <a target="_top" href="/column-balancing-market" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">需給調整市場の商品構造を理解する— 5商品・複合約定・オンライン接続の全体像 →</a>
+  <a target="_top" href="/column-eprx" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">EPRX（電力需給調整力取引所）とは— 需給調整市場の仕組みと蓄電池の参加方法 →</a>
+</div>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img
+        src="/img/logo-white.png"
+        alt="ScienceX サイエンスエックス株式会社"
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/land" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">土地を売る・貸す</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>

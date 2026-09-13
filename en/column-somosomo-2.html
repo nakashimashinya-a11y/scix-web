@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.seo-note{display:none}
+.bar-chart{margin:28px 0}
+.bar-row{display:flex;align-items:center;margin-bottom:6px;font-size:.85em}
+.bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.bar-track{flex:1;background:#EBEEF2;height:28px;border-radius:3px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;min-width:2px;transition:width .6s ease}
+.bar-fill.high{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.bar-fill.mid{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.bar-fill.low{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.bar-fill.over{background:linear-gradient(90deg,#2980B9,#3498DB)}
+.bar-value{margin-left:8px;font-size:.82em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:80px}
+.heatmap-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.82em}
+.heatmap-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:center;font-weight:500;font-size:.78em}
+.heatmap-table td{padding:8px 10px;text-align:center;border:1px solid #E2E6EC;font-weight:600}
+.heatmap-table td.h5{background:#FDEBEB;color:#922B21}
+.heatmap-table td.h4{background:#FDEBD0;color:#935116}
+.heatmap-table td.h3{background:#FEF9E7;color:#7D6608}
+.heatmap-table td.h2{background:#EAFAF1;color:#1E8449}
+.heatmap-table td.h1{background:#D4EFDF;color:#196F3D}
+.heatmap-table td.h0{background:#D6EAF8;color:#21618C}
+.heatmap-table .area-cell{text-align:left;font-weight:700;background:#F8F9FB;color:var(--navy)}
+.tab-bar{display:flex;border-bottom:2px solid var(--border);margin:24px 0 0;gap:0;flex-wrap:wrap}
+.tab-item{padding:10px 20px;font-size:.88em;font-weight:600;color:var(--text-light);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
+.tab-item:hover{color:var(--navy)}
+.tab-item.active{color:var(--navy);border-bottom-color:var(--accent)}
+@media(max-width:480px){.tab-item{padding:8px 12px;font-size:.78em}}
+.ts-legend{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 16px;font-size:.78em;color:var(--text-light)}
+.ts-leg-item{display:flex;align-items:center;gap:5px}
+.ts-leg-box{width:14px;height:14px;border-radius:2px;flex-shrink:0}
+.chart-container{position:relative;margin:0 0 16px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff}
+.chart-header{display:flex;justify-content:space-between;align-items:baseline;padding:12px 20px 4px}
+.chart-area-name{font-weight:700;color:var(--navy);font-size:1em}
+.chart-stats{font-size:.82em;color:var(--text-light)}
+.chart-stats strong{color:var(--navy)}
+.chart-stats .surplus{color:#2980B9}
+.chart-no-data{padding:12px 20px 16px;font-size:.82em;color:var(--text-light);text-align:center}
+.chart-canvas-wrap{position:relative;padding:0 16px 4px}
+.chart-canvas{width:100%;height:80px;display:block}
+.chart-tooltip{position:absolute;background:rgba(27,42,74,0.95);color:#fff;padding:8px 12px;border-radius:4px;font-size:.75em;line-height:1.5;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
+.chart-axis{display:flex;justify-content:space-between;font-size:.68em;color:var(--text-light);padding:0 16px 10px}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .bar-label{width:44px;font-size:.78em}
+  .heatmap-table{font-size:.72em}
+  .heatmap-table th,.heatmap-table td{padding:5px 4px}
+  .chart-canvas{height:64px}
+  .chart-header{padding:10px 12px 3px}
+  .chart-canvas-wrap{padding:0 12px 3px}
+  .chart-axis{padding:0 12px 8px;font-size:.6em}
+}
+.s-bar-row{display:flex;align-items:center;margin-bottom:5px;font-size:.85em}
+.s-bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.s-bar-wrap{flex:1;position:relative;height:28px;background:#EBEEF2;border-radius:3px;overflow:hidden}
+.s-bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;transition:width .4s ease}
+.s-bar-fill.sh{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.s-bar-fill.sm{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.s-bar-fill.sl{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.s-bar-meta{margin-left:8px;font-size:.8em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:120px}
+.s-bar-meta strong{color:var(--navy)}
+.tieline-flow{margin:28px 0;font-size:.85em}
+.tl-row{display:flex;align-items:center;margin-bottom:4px;gap:4px}
+.tl-label{width:100px;text-align:right;font-weight:500;color:var(--navy);flex-shrink:0;font-size:.82em}
+.tl-bar-wrap{flex:1;display:flex;gap:2px}
+.tl-bar{height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.7em;font-weight:600;color:#fff;min-width:20px}
+.tl-fwd{background:var(--accent)}
+.tl-rev{background:var(--navy-light)}
+.tl-val{width:44px;font-size:.78em;color:var(--text-light);text-align:right;flex-shrink:0}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+
+:root{--c47-cyan:#4599c6}
+figure.c47{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c47 .c47scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--white);
+  border:1px solid var(--border);border-radius:3px}
+figure.c47 .c47scroll>svg{display:block;min-width:var(--fmin,0)}
+figure.c47 figcaption{font-size:.78em;color:var(--text-light);margin-top:10px;line-height:1.7}
+figure.c47 .c47hint{font-size:.72em;color:var(--text-light);margin:0 0 7px;letter-spacing:.04em}
+/* Figures wider than the 712px body column expand outside it rather than
+   shrinking the type. Narrower screens scroll sideways within the figure. */
+figure.c47.wide{width:min(calc(100vw - 32px), var(--fw));margin-left:50%;transform:translateX(-50%)}
+figure.c47.wide .c47hint{display:none}
+@media(max-width:1100px){figure.c47.wide .c47hint{display:block}}
+figure.c47fig{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c47fig .c47top{font-size:.78em;color:var(--text-light);margin:0 0 12px;line-height:1.7}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.table-wrap .comparison-table{margin:0;min-width:520px}
+ul.source-list{font-size:.82em;line-height:1.95;color:var(--text-light);word-break:break-word;
+  padding-left:1.15em;margin:0 0 8px}
+ul.source-list a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--border)}
+ul.source-list a:hover{border-bottom-color:var(--accent)}
+.c47series{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 30px;padding:12px 14px;
+  background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+.c47series .lb{font-size:.74em;color:var(--text-light);letter-spacing:.06em;width:100%;margin-bottom:2px}
+.c47series a,.c47series span.cur{font-size:.83em;text-decoration:none;padding:3px 10px;border-radius:3px;line-height:1.7}
+.c47series a{color:var(--navy);background:var(--white);border:1px solid var(--border)}
+.c47series a:hover{border-color:var(--accent)}
+.c47series span.cur{color:var(--white);background:var(--navy);font-weight:600}
+@media(max-width:768px){figure.c47,figure.c47fig{padding:12px}}
+
+.c47cards{display:grid;gap:14px;margin:0}
+.c47cards.n3{grid-template-columns:repeat(3,1fr)}
+.c47cards.n4{grid-template-columns:repeat(2,1fr)}
+.c47card{border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;
+  background:var(--white);padding:16px 18px 14px;display:flex;flex-direction:column}
+.c47card.k-volume{border-top-color:var(--navy)}
+.c47card.k-supply{border-top-color:#4599c6}
+.c47card.k-floor{border-top-color:var(--accent)}
+.c47card .k{font-size:.78em;letter-spacing:.06em;color:var(--text-light);margin-bottom:6px}
+.c47card .v{font-family:'Noto Serif JP',serif;font-weight:600;color:var(--navy);
+  font-size:1.02em;line-height:1.5;margin-bottom:10px}
+.c47card ul{list-style:none;margin:0 0 10px;padding:0;font-size:.84em;line-height:1.8;color:var(--text)}
+.c47card ul li{padding-left:11px;position:relative}
+.c47card ul li::before{content:'';position:absolute;left:0;top:.72em;width:4px;height:4px;
+  border-radius:50%;background:var(--accent)}
+.c47card .go{margin-top:auto;font-size:.82em;font-weight:600;color:var(--navy);
+  text-decoration:none;border-bottom:1px solid var(--accent);align-self:flex-start;padding-bottom:2px}
+.c47card .go:hover{color:var(--accent)}
+@media(max-width:700px){.c47cards.n3,.c47cards.n4{grid-template-columns:1fr}}
+
+figure.c47 .c47scroll>svg{width:100%;height:auto}
+.answer{font-family:'Noto Serif JP',serif;font-size:1.15em;font-weight:600;color:var(--navy);line-height:1.8;margin:0 0 24px;padding:18px 22px;background:var(--light-bg);border-left:4px solid var(--accent);border-radius:0 6px 6px 0}
+.investor{background:#FBF6EA;border:1px solid #E8D9B5;border-radius:6px;padding:22px 26px;margin:34px 0;font-size:.95em;line-height:2}
+.investor .lb{font-size:.8em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:6px}
+.c47series a{margin-right:4px}
+.sidx{margin:40px 0 10px;padding:22px 24px 18px;background:var(--light-bg);border-radius:6px;font-family:'Noto Sans JP',sans-serif}
+.sidx .lb{font-size:.78em;font-weight:700;color:var(--accent);letter-spacing:.1em;margin-bottom:6px}
+.sidx .g{font-family:'Noto Serif JP',serif;font-weight:600;font-size:.92em;color:var(--navy);margin:12px 0 4px}
+.sidx ol{list-style:none;margin:0;padding:0;columns:2;column-gap:24px}
+@media (max-width:640px){.sidx ol{columns:1}}
+.sidx li{font-size:.86em;line-height:1.7;padding:2px 0;break-inside:avoid}
+.sidx li span{display:inline-block;width:3.2em;color:var(--text-light);font-size:.85em}
+.sidx li a{color:var(--navy);text-decoration:none;border-bottom:1px solid transparent}
+.sidx li a:hover{border-bottom-color:var(--accent)}
+.sidx li.cur{color:var(--text-light)}
+.sidx .last{display:block;margin-top:18px;padding:16px 18px;background:#fff;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;text-decoration:none;color:var(--text)}
+.sidx .last:hover{box-shadow:0 6px 18px rgba(27,42,74,.12)}
+.sidx .last .ll{display:block;font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.sidx .last .lt{display:block;font-family:'Noto Serif JP',serif;font-weight:600;font-size:1.02em;color:var(--navy);margin-bottom:4px}
+.sidx .last .ld{display:block;font-size:.86em;line-height:1.6;color:var(--text-light)}
+.calc{background:#fff;border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;padding:20px 22px 12px;margin:20px 0 26px;font-family:'Noto Sans JP',sans-serif}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}
+@media (max-width:640px){.calc-grid{grid-template-columns:1fr}}
+.calc label{display:block;font-size:.86em;color:var(--navy);font-weight:600}
+.calc label .v{float:right;font-weight:400;color:var(--text)}
+.calc label .v b{color:var(--navy)}
+.calc label small{display:block;font-weight:400;color:var(--text-light);font-size:.8em;line-height:1.5;margin-top:2px}
+.calc input[type=range]{width:100%;margin:6px 0 2px;accent-color:#C49A3C}
+.calc-out{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;margin:18px 0 8px;padding:14px 16px;background:var(--light-bg);border-radius:6px}
+@media (max-width:640px){.calc-out{grid-template-columns:1fr}}
+.calc-out div{display:flex;justify-content:space-between;align-items:baseline;font-size:.9em;padding:4px 0;border-bottom:1px solid #E6E1D8}
+.calc-out div span{color:var(--text-light)}
+.calc-out div b{font-family:'Noto Serif JP',serif;font-size:1.15em;color:var(--navy)}
+.calc-out div.hl b{color:#8a6a1e;font-size:1.35em}
+.calc-note{font-size:.8em;color:var(--text-light);line-height:1.6;margin:8px 0 0}
+</style>
+<title>The grid used to run fine without batteries, didn&#x27;t it? | ScienceX</title>
+<meta name="description" content="It did. Thermal, hydro and nuclear plants generated by spinning large machines, and the work of holding frequency and voltage came with them as a free extra.">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-somosomo-2">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-somosomo-2">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-somosomo-2">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-somosomo-2">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-somosomo-2">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+<meta name="author" content="Shinya Nakashima">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The grid used to run fine without batteries, didn&#x27;t it? | ScienceX">
+<meta property="og:description" content="It did. Thermal, hydro and nuclear plants generated by spinning large machines, and the work of holding frequency and voltage came with them as a free extra.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-somosomo-2">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The grid used to run fine without batteries, didn&#x27;t it? | ScienceX">
+<meta name="twitter:description" content="It did. Thermal, hydro and nuclear plants generated by spinning large machines, and the work of holding frequency and voltage came with them as a free extra.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="article:published_time" content="2026-09-13">
+<meta property="article:modified_time" content="2026-09-13">
+<meta property="article:section" content="BESS Fundamentals">
+<meta property="article:author" content="https://www.scix.co.jp/company">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The grid used to run fine without batteries, didn't it? | ScienceX",
+  "description": "It did. Thermal, hydro and nuclear plants generated by spinning large machines, and the work of holding frequency and voltage came with them as a free extra.",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Shinya Nakashima",
+    "jobTitle": "Representative Director, Ph.D. (Eng.)",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-09-13",
+  "dateModified": "2026-09-13",
+  "articleSection": "BESS Fundamentals",
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "name": "Battery Storage, From First Principles",
+    "url": "https://www.scix.co.jp/en/column-somosomo"
+  },
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-somosomo-2"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Battery Storage, From First Principles",
+      "item": "https://www.scix.co.jp/en/column-somosomo"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "The grid used to run fine without batteries, didn't it?",
+      "item": "https://www.scix.co.jp/en/column-somosomo-2"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/en" style="color:#5A6577;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#5A6577;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/column-somosomo" style="color:#5A6577;text-decoration:none">Battery Storage, From First Principles</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">48-2</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 48-2</span>
+      <span class="header-tag">First Principles</span>
+      <time class="header-date" datetime="2026-09-13">2026.09.13</time>
+    </div>
+    <h1>The grid used to run fine without batteries, didn't it?</h1>
+    <p class="header-desc">It did. Thermal, hydro and nuclear plants generated by spinning large machines, and the work of holding frequency and voltage came with them as a free extra. That extra acquired a price in FY2016, became a market in April 2021, and had its full set of five products by April 2024.</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/en/column-somosomo" class="back-link">← Back to the entry point (all 19 questions)</a>
+<nav class="c47series" aria-label="COLUMN 48"><span class="lb">This series runs to 20 pieces (this entry point + 19 questions)</span><a target="_top" href="/en/column-somosomo">COLUMN 48 Entry (all 19 questions)</a><span class="cur">48-2</span><a target="_top" href="/en/column-somosomo-20">The final question: what do you pay, and what comes back? →</a><a target="_top" href="/en/column-somosomo-3">48-3 What disappears from a grid with fewer spinning machines? →</a></nav>
+<p class="answer">It did. The spinning machines were doing the balancing work for free.</p>
+<p>Electricity cannot be stored. Unless the amount used and the amount generated are matched second by second, frequency (50 Hz in eastern Japan, 60 Hz in western Japan) drifts and machines trip. The ability to close that gap on the spot is what is called balancing power (調整力).</p>
+<p>Japan's electricity used to come almost entirely from thermal, hydro and nuclear plants. All of them generate by spinning a large machine. Three free extras come with a spinning machine.</p>
+<ul>
+<li><strong>Momentum.</strong>A heavy machine already spinning cannot stop suddenly. Even if a power station somewhere trips, it slows the rate at which frequency falls.</li>
+<li><strong>Automatic adjustment of output.</strong>When frequency falls, the machine raises its own output slightly. It acts before anyone issues an instruction.</li>
+<li><strong>Voltage support.</strong>A spinning machine holds steady the "pressure" that pushes electricity out.</li>
+</ul>
+<figure class="c47"><p class="c47hint">← scroll sideways →</p><div class="c47scroll" style="--fmin:560px"><svg viewBox="0 0 640 330" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans JP',sans-serif"><rect width="640" height="330" fill="#fff"/><circle cx="105" cy="120" r="52" fill="none" stroke="#1B2A4A" stroke-width="6"/><circle cx="105" cy="120" r="10" fill="#1B2A4A"/><line x1="105" y1="120" x2="149.0" y2="120.0" stroke="#1B2A4A" stroke-width="5" stroke-linecap="round"/><line x1="105" y1="120" x2="83.0" y2="158.1" stroke="#1B2A4A" stroke-width="5" stroke-linecap="round"/><line x1="105" y1="120" x2="83.0" y2="81.9" stroke="#1B2A4A" stroke-width="5" stroke-linecap="round"/><path d="M 35 90 A 74 74 0 0 1 75 52" fill="none" stroke="#C49A3C" stroke-width="3"/><polygon points="79,46 67,58 83,62" fill="#C49A3C"/><text x="105" y="202" font-size="13" fill="#1B2A4A" font-weight="700" text-anchor="middle" >Thermal / hydro / nuclear</text><text x="105" y="220" font-size="12" fill="#2C3E50" font-weight="400" text-anchor="middle" >Machines that spin to generate</text><line x1="157" y1="120" x2="200" y2="72" stroke="#C49A3C" stroke-width="1.5"/><rect x="200" y="52" width="190" height="42" rx="4" fill="#FBF6EA" stroke="#C49A3C"/><text x="210" y="69" font-size="13" fill="#1B2A4A" font-weight="700" text-anchor="start" >Momentum (inertia)</text><text x="210" y="86" font-size="11" fill="#2C3E50" font-weight="400" text-anchor="start" >Slows down sudden change</text><line x1="157" y1="120" x2="200" y2="134" stroke="#C49A3C" stroke-width="1.5"/><rect x="200" y="114" width="190" height="42" rx="4" fill="#FBF6EA" stroke="#C49A3C"/><text x="210" y="131" font-size="13" fill="#1B2A4A" font-weight="700" text-anchor="start" >Automatic output up and down</text><text x="210" y="148" font-size="11" fill="#2C3E50" font-weight="400" text-anchor="start" >Corrects frequency drift on the spot</text><line x1="157" y1="120" x2="200" y2="196" stroke="#C49A3C" stroke-width="1.5"/><rect x="200" y="176" width="190" height="42" rx="4" fill="#FBF6EA" stroke="#C49A3C"/><text x="210" y="193" font-size="13" fill="#1B2A4A" font-weight="700" text-anchor="start" >Holds voltage</text><text x="210" y="210" font-size="11" fill="#2C3E50" font-weight="400" text-anchor="start" >If it stops, neighbouring machines drop off too</text><text x="295" y="250" font-size="12" fill="#C49A3C" font-weight="700" text-anchor="middle" >Free extras. No price, no market</text><rect x="445" y="60" width="150" height="70" rx="3" fill="#1B2A4A"/><line x1="482.5" y1="60" x2="482.5" y2="130" stroke="#fff" stroke-width="1"/><line x1="520.0" y1="60" x2="520.0" y2="130" stroke="#fff" stroke-width="1"/><line x1="557.5" y1="60" x2="557.5" y2="130" stroke="#fff" stroke-width="1"/><line x1="445" y1="95" x2="595" y2="95" stroke="#fff" stroke-width="1"/><text x="520" y="150" font-size="13" fill="#1B2A4A" font-weight="700" text-anchor="middle" >Solar / wind</text><text x="520" y="167" font-size="12" fill="#2C3E50" font-weight="400" text-anchor="middle" >Do not spin. No free extras</text><rect x="465" y="190" width="110" height="46" rx="6" fill="none" stroke="#1B2A4A" stroke-width="3"/><rect x="575" y="204" width="8" height="18" rx="2" fill="#1B2A4A"/><rect x="471" y="196" width="70" height="34" rx="3" fill="#C49A3C"/><text x="520" y="256" font-size="13" fill="#1B2A4A" font-weight="700" text-anchor="middle" >Battery storage</text><text x="520" y="273" font-size="12" fill="#2C3E50" font-weight="400" text-anchor="middle" >Does not spin, but responds within one second on command</text><rect x="20" y="288" width="600" height="30" rx="4" fill="#1B2A4A"/><text x="320" y="308" font-size="13" fill="#fff" font-weight="600" text-anchor="middle" >Thermal declines → the free extras vanish → they must be procured separately (= balancing power acquires a price)</text></svg></div><figcaption>Fig. 1 — The free extras of spinning machines. Thermal, hydro and nuclear delivered momentum (the inertia that slows a fall), frequency restoration (the movement that fills back what was lost) and voltage support as a by-product of generating. Solar and wind do not spin, so no free extras come with them.</figcaption></figure>
+<p>Momentum and frequency restoration are two different jobs. On a bicycle, momentum is the inertia that keeps you rolling after you stop pedalling; frequency restoration is somebody pushing the pedals harder. The instant one power station trips, momentum slows the fall and buys time, and within those few seconds frequency restoration fills back what was lost. Momentum is simply the mass of the spinning machine and works without being told. Frequency restoration is the machine sensing the drift and moving its output up or down — it corresponds to the fast end of the balancing products bought and sold in the market.</p>
+<p>All three came automatically once you built a power station. So nobody priced them and no market existed. It was work the utilities did as a matter of course, using their own plants.</p>
+<h2>The extras have only had a price for ten years</h2>
+<p>Electricity retail was fully liberalised in 2016, and transmission and distribution were legally unbundled in 2020. The companies that carry electricity (the TSOs) became entities that own no power stations of their own. From FY2016, therefore, a scheme began under which they buy balancing power from generators through competitive tender. That was the first time the free extras had a price.</p>
+<p>In April 2021 a nationwide market (the balancing market) opened, starting with the slower-moving products. The faster-moving products were complete by April 2024, and all five products came to be bought through the market. From March 2026 trading moved to day-ahead, in 30-minute blocks, and on 1 September the price ceiling became ¥10.</p>
+<figure class="c47"><p class="c47hint">← scroll sideways →</p><div class="c47scroll" style="--fmin:560px"><svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans JP',sans-serif"><rect width="640" height="230" fill="#fff"/><text x="20" y="26" font-size="14" fill="#1B2A4A" font-weight="700" text-anchor="start" >How balancing power went from free extra to traded product</text><line x1="60" y1="110" x2="580" y2="110" stroke="#8A92A0" stroke-width="2"/><circle cx="60.0" cy="110" r="8" fill="#1B2A4A" stroke="#fff" stroke-width="2"/><text x="60.0" y="92" font-size="12" fill="#1B2A4A" font-weight="700" text-anchor="middle" >FY2016</text><text x="60.0" y="142" font-size="11" fill="#2C3E50" font-weight="400" text-anchor="middle" >Competitive tender for balancing power begins</text><text x="60.0" y="158" font-size="11" fill="#2C3E50" font-weight="400" text-anchor="middle" >(it acquires a price)</text><circle cx="190.0" cy="110" r="8" fill="#1B2A4A" stroke="#fff" stroke-width="2"/><text x="190.0" y="92" font-size="12" fill="#1B2A4A" font-weight="700" text-anchor="middle" >April 2021</text><text x="190.0" y="142" font-size="11" fill="#2C3E50" font-weight="400" text-anchor="middle" >The balancing market opens</text><text x="190.0" y="158" font-size="11" fill="#2C3E50" font-weight="400" text-anchor="middle" >(slower products first)</text><circle cx="320.0" cy="110" r="8" fill="#1B2A4A" stroke="#fff" stroke-width="2"/><text x="320.0" y="92" font-size="12" fill="#1B2A4A" font-weight="700" text-anchor="middle" >April 2024</text><text x="320.0" y="142" font-size="11" fill="#2C3E50" font-weight="400" text-anchor="middle" >All five products in place</text><text x="320.0" y="158" font-size="11" fill="#2C3E50" font-weight="400" text-anchor="middle" >(fast products join the market)</text><circle cx="450.0" cy="110" r="8" fill="#1B2A4A" stroke="#fff" stroke-width="2"/><text x="450.0" y="92" font-size="12" fill="#1B2A4A" font-weight="700" text-anchor="middle" >March 2026</text><text x="450.0" y="142" font-size="11" fill="#2C3E50" font-weight="400" text-anchor="middle" >Day-ahead trading,</text><text x="450.0" y="158" font-size="11" fill="#2C3E50" font-weight="400" text-anchor="middle" >in 30-minute blocks</text><circle cx="580.0" cy="110" r="8" fill="#C49A3C" stroke="#fff" stroke-width="2"/><text x="580.0" y="92" font-size="12" fill="#C49A3C" font-weight="700" text-anchor="middle" >September 2026</text><text x="580.0" y="142" font-size="11" fill="#2C3E50" font-weight="400" text-anchor="middle" >Price ceiling ¥10</text></svg></div><figcaption>Fig. 2 — A timeline of how balancing power became a product in Japan. It is only ten years since the tender (FY2016) and five since the market (2021). Sources: METI, 17 October 2016; Agency for Natural Resources and Energy, 96th Working Group on Institutional Design, Material 3, 27 September 2024; EPRX.</figcaption></figure>
+<h2>Momentum still has no price</h2>
+<p>Of the three free extras, frequency restoration acquired a market. Momentum, however, still has no price in Japan. As solar and wind grow and spinning machines decline, momentum declines with them. In July 2024 OCCTO published an estimate that, under its assumed future generation mix, the rate at which frequency falls would exceed the reference value (2.0 Hz per second) in six areas of western Japan by 2050. The cost of countermeasures is estimated at ¥210–820 million per year. Mechanisms for supplying momentum separately — synchronous condensers, and batteries able to imitate momentum — are under study now.</p>
+
+<div class="investor"><div class="lb">How an investor should read this</div>In Japan, balancing power is a young product: ten years since it had a price, five since it had a market. Young markets mean moving rules. The next stage to arrive is a price on momentum and on speed, and among non-spinning resources batteries are the easiest to supply both from. The more thermal declines, the greater the need to procure the free extras separately.</div>
+<div class="sidx"><div class="lb">The questions in this series</div><div class="g">I. Why the grid ran without batteries in the past</div><ol><li class="cur"><span>48-2</span>The grid used to run fine without batteries, didn't it? (this article)</li><li><span>48-3</span><a target="_top" href="/en/column-somosomo-3">What disappears from a grid with fewer spinning machines?</a></li><li><span>48-4</span><a target="_top" href="/en/column-somosomo-4">Why "ten seconds"?</a></li><li><span>48-5</span><a target="_top" href="/en/column-somosomo-5">Does more renewables mean more balancing power is needed?</a></li></ol><div class="g">II. Why thermal, nuclear and pumped storage are not enough</div><ol><li><span>48-6</span><a target="_top" href="/en/column-somosomo-6">Can't thermal just do the balancing?</a></li><li><span>48-7</span><a target="_top" href="/en/column-somosomo-7">If nuclear grows, do we stop needing batteries?</a></li><li><span>48-8</span><a target="_top" href="/en/column-somosomo-8">Wouldn't more pumped storage be enough?</a></li><li><span>48-9</span><a target="_top" href="/en/column-somosomo-9">Where does the balancing power that the market failed to buy come from?</a></li></ol><div class="g">III. Where demand and the generation mix are heading</div><ol><li><span>48-10</span><a target="_top" href="/en/column-somosomo-10">Why do data centres point to batteries?</a></li><li><span>48-11</span><a target="_top" href="/en/column-somosomo-11">What happens to solar from here?</a></li><li><span>48-12</span><a target="_top" href="/en/column-somosomo-12">Thermal volume, nuclear operation, demand — what next?</a></li><li><span>48-13</span><a target="_top" href="/en/column-somosomo-13">How much battery capacity is actually coming?</a></li></ol><div class="g">IV. The money, and what the state really wants</div><ol><li><span>48-14</span><a target="_top" href="/en/column-somosomo-14">Does the government actually want more batteries?</a></li><li><span>48-15</span><a target="_top" href="/en/column-somosomo-15">What does battery storage resemble as an infrastructure investment?</a></li><li><span>48-16</span><a target="_top" href="/en/column-somosomo-16">They say the earnings will thin out. Is that true?</a></li><li><span>48-17</span><a target="_top" href="/en/column-somosomo-17">Can you copy the overseas playbook and make money in Japan?</a></li><li><span>48-18</span><a target="_top" href="/en/column-somosomo-18">How much battery storage will Japan ultimately need?</a></li><li><span>48-19</span><a target="_top" href="/en/column-somosomo-19">Is a battery the same wherever you put it?</a></li></ol><a target="_top" class="last" href="/en/column-somosomo-20"><span class="ll">The one question beyond the 18</span><span class="lt">48-20 What do you pay, and what comes back?</span><span class="ld">The answer differs by project, so we have built a calculator whose dials are made only from published figures. You can move unit price, clearing rate, seat fee, arbitrage spread and construction cost yourself.</span></a></div>
+<h2>Sources</h2>
+<ul class="source-list"><li>METI, "Approach to Competitive Procurement of Balancing Power by TSOs," 17 October 2016</li><li>Agency for Natural Resources and Energy, "On the Balancing Market," 96th Working Group on Institutional Design, Material 3, 27 September 2024 (opened April 2021; all products from April 2024)</li><li>EPRX, "Balancing Market Explanatory Materials," 2nd ed., 13 March 2026 (day-ahead trading, 30-minute blocks); EPRX ΔkW price-ceiling table (updated 30 July 2026; ¥10 applies from delivery on 1 September 2026)</li><li>OCCTO, 99th Committee on Balancing Capability and Supply-Demand Balance Assessment, Material 1, 23 July 2024 (declining inertia, RoCoF 2.0 Hz/s, cost estimates for countermeasures)</li><li>OCCTO, 18th Grid Code Study Group, Material 4 (grid-forming and inertia requirements from Phase 3 onward)</li></ul>
+<div class="author-box">
+  <div class="ab-label">Supervised by</div>
+  <div><span class="ab-name">Shinya Nakashima</span>(Representative Director, Science X Inc.; Ph.D. in Engineering)</div>
+  <p style="margin:6px 0 0">Works on the development, sale and technical due diligence of grid-scale battery storage plants. This column is written and supervised on the basis of hands-on transaction and evaluation practice.</p>
+</div>
+</div>
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans JP',sans-serif"><div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">Related reading</div><a target="_top" href="/en/column-balancing-market" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">Understanding the five products of the balancing market →</a><a target="_top" href="/en/column-balancing-saturation-volume" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">47-2 Tendered volumes →</a></div>
+<!-- ScienceX Footer — self-contained for Wix HTML embed -->
+<style>
+
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1B2A4A;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0 auto;
+  }
+</style>
+
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">Related reading</div>
+  <a target="_top" href="/en/column-balancing-market" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">Understanding the product structure of the balancing market — five products, composite clearing and online connection →</a>
+  <a target="_top" href="/en/column-eprx" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">What EPRX (the Electric Power Procurement Exchange) is — how the balancing market works and how batteries take part →</a>
+</div>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img
+        src="/img/logo-white.png"
+        alt="ScienceX — Science X Inc."
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>
