@@ -409,6 +409,126 @@
     document.body.appendChild(fcta);
   }
 
+  // --------------- 2b. 週1本の更新をメールで受け取る（JAのみ・2026-09-17 中島「つくって。入力はなるべく簡単に」） ---------------
+  // 入力はメールアドレスだけ（お名前は任意）。受け口は scix-dealroom2 の /api/newsletter（D1に積む→毎朝
+  // blastmail_sync.py がブラストメールへ登録）。置き場所: <div data-scix-newsletter> があればそこ、
+  // 無ければ JA コラムの末尾（関連記事の下・フッターの上）。コラムの1記事1CTA（案件/フォーム）とは別物＝更新通知。
+  var NL_API = 'https://scix-dealroom2.pages.dev/api/newsletter';
+  var NL_SKIP = /^\/(contact|sell-form|thanks|privacy)$/;
+  if (isJa && !NL_SKIP.test(loc)) {
+    var nlCss = [
+      '.scix-nl{max-width:760px;margin:40px auto 0;padding:26px 26px 22px;background:#1B2A4A;color:#fff;border-radius:10px;font-family:"Noto Sans JP",sans-serif;box-sizing:border-box}',
+      '.scix-nl *{box-sizing:border-box}',
+      '.scix-nl-label{font-size:.68rem;letter-spacing:.2em;color:#D2B65F;font-weight:700;margin-bottom:8px}',
+      '.scix-nl h3{font-family:"Noto Serif JP",serif;font-size:1.08rem;font-weight:600;line-height:1.55;margin:0 0 6px;color:#fff}',
+      '.scix-nl p{font-size:.84rem;line-height:1.8;color:rgba(255,255,255,.78);margin:0 0 16px}',
+      '.scix-nl form{display:flex;flex-wrap:wrap;gap:8px}',
+      '.scix-nl input{flex:1 1 200px;min-width:0;font:inherit;font-size:.95rem;padding:12px 14px;border:1px solid rgba(255,255,255,.28);border-radius:6px;background:#fff;color:#1B2A4A;outline:none}',
+      '.scix-nl input:focus{border-color:#D2B65F;box-shadow:0 0 0 3px rgba(210,182,95,.25)}',
+      '.scix-nl input.scix-nl-name{flex:0 1 160px}',
+      '.scix-nl button{flex:0 0 auto;font:inherit;font-size:.92rem;font-weight:700;padding:12px 22px;background:#C49A3C;color:#1B2A4A;border:none;border-radius:6px;cursor:pointer;white-space:nowrap}',
+      '.scix-nl button:hover{background:#D4AD5A}',
+      '.scix-nl button[disabled]{opacity:.6;cursor:default}',
+      '.scix-nl-note{font-size:.72rem;color:rgba(255,255,255,.55);line-height:1.7;margin:10px 0 0}',
+      '.scix-nl-note a{color:rgba(255,255,255,.75)}',
+      '.scix-nl-done{font-size:.95rem;font-weight:600;color:#E4C871;line-height:1.7}',
+      '.scix-nl-err{font-size:.82rem;color:#FFB4A2;margin-top:8px}',
+      '.scix-nl .scix-nl-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}',
+      '@media(max-width:600px){.scix-nl{margin:32px 16px 0;padding:22px 18px 18px;border-radius:8px}.scix-nl input.scix-nl-name{flex:1 1 100%}.scix-nl button{flex:1 1 100%}}'
+    ].join('\n');
+    var nlStyle = document.createElement('style');
+    nlStyle.id = 'scix-newsletter-css';
+    nlStyle.textContent = nlCss;
+    document.head.appendChild(nlStyle);
+
+    var nlHtml = [
+      '<div class="scix-nl-label">NEWSLETTER</div>',
+      '<h3>週1本の新しい記事を、メールで受け取る</h3>',
+      '<p>毎週1本、その週に書いた記事の要点とリンクをお送りします。メールアドレスだけで登録できます。</p>',
+      '<form novalidate>',
+      '  <input type="email" name="email" class="scix-nl-mail" placeholder="メールアドレス" autocomplete="email" inputmode="email" required aria-label="メールアドレス">',
+      '  <input type="text" name="name" class="scix-nl-name" placeholder="お名前（任意）" autocomplete="name" aria-label="お名前（任意）">',
+      '  <input type="text" name="_honey" class="scix-nl-hp" tabindex="-1" autocomplete="off" aria-hidden="true">',
+      '  <button type="submit">受け取る</button>',
+      '</form>',
+      '<p class="scix-nl-note">配信は各メールの末尾からいつでも解除できます。アドレスは更新のお知らせにだけ使います（<a href="/privacy" target="_top">プライバシーポリシー</a>）。</p>'
+    ].join('\n');
+
+    function nlMount(el, where) {
+      el.className = 'scix-nl';
+      el.setAttribute('data-where', where);
+      el.innerHTML = nlHtml;
+      var form = el.querySelector('form');
+      var mail = el.querySelector('.scix-nl-mail');
+      var btn = el.querySelector('button');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = (mail.value || '').trim();
+        var name = (el.querySelector('.scix-nl-name').value || '').trim();
+        var old = el.querySelector('.scix-nl-err');
+        if (old) old.parentNode.removeChild(old);
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) {
+          var er = document.createElement('div');
+          er.className = 'scix-nl-err';
+          er.textContent = 'メールアドレスの形をご確認ください。';
+          form.parentNode.insertBefore(er, form.nextSibling);
+          mail.focus();
+          return;
+        }
+        btn.disabled = true;
+        btn.textContent = '登録中…';
+        var payload = { email: email, name: name, _honey: el.querySelector('.scix-nl-hp').value || '',
+                        _page: path, _lang: 'ja' };
+        fetch(NL_API, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify(payload) })
+          .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+          .then(function (res) {
+            if (!res.ok || !res.j || res.j.success !== true) throw new Error((res.j && res.j.error) || 'failed');
+            var done = document.createElement('div');
+            done.className = 'scix-nl-done';
+            done.textContent = res.j.already
+              ? 'このアドレスは登録済みです。次の記事からお届けします。'
+              : '登録しました。次の記事からお届けします。';
+            form.parentNode.replaceChild(done, form);
+            try {
+              if (typeof window.gtag === 'function') {
+                window.gtag('event', 'newsletter_signup', { form_type: 'newsletter', placement: where,
+                  page_lang: 'ja', already: res.j.already ? 1 : 0, transport_type: 'beacon' });
+              }
+            } catch (err) { /* ignore */ }
+          })
+          .catch(function () {
+            btn.disabled = false;
+            btn.textContent = '受け取る';
+            var er2 = document.createElement('div');
+            er2.className = 'scix-nl-err';
+            er2.innerHTML = '送信できませんでした。お手数ですが <a href="mailto:s@scix.co.jp?subject=' +
+              encodeURIComponent('ナレッジ更新メールの登録') + '&body=' + encodeURIComponent(email) +
+              '" style="color:#fff">s@scix.co.jp</a> へ「更新メール希望」とお送りください。';
+            form.parentNode.insertBefore(er2, form.nextSibling);
+          });
+      });
+    }
+
+    function nlPlace() {
+      var slots = document.querySelectorAll('[data-scix-newsletter]');
+      if (slots.length) {
+        for (var s = 0; s < slots.length; s++) nlMount(slots[s], slots[s].getAttribute('data-scix-newsletter') || 'slot');
+        return;
+      }
+      if (!isCol) return;
+      var footer = document.querySelector('footer.scix-footer');
+      if (!footer) return;
+      var box = document.createElement('div');
+      footer.parentNode.insertBefore(box, footer);
+      // フッター直前は余白が詰まるので下に空ける
+      box.style.marginBottom = '48px';
+      nlMount(box, 'column');
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', nlPlace);
+    else nlPlace();
+  }
+
   // --------------- 3. Active page detection ---------------
   var links = header.querySelectorAll('.scix-header-nav a');
   // A column page lights up "すべての記事" only when no link names that page
