@@ -758,6 +758,32 @@ body {
   transition: color 0.3s;
 }
 .k-more:hover { color: var(--gold-light); }
+
+/* ===== ナレッジ帯（ヒーロー直下・2026-09-17）===== */
+.knowledge-top { padding: 72px 0 64px; background: var(--white); border-bottom: 1px solid var(--border); }
+.kt-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 40px; align-items: start; margin-top: 36px; }
+.kt-col h3 { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+.kt-new { display: grid; gap: 14px; }
+.kt-new .k-card { padding: 20px 22px; }
+.kt-new .k-card h4 { margin-bottom: 6px; }
+.kt-new .k-desc { -webkit-line-clamp: 2; }
+.kt-pop { list-style: none; margin: 0; padding: 0; }
+.kt-pop li { border-top: 1px solid var(--border); }
+.kt-pop li:last-child { border-bottom: 1px solid var(--border); }
+.kt-pop a { display: flex; gap: 14px; align-items: baseline; padding: 13px 4px; text-decoration: none; color: var(--navy); font-size: 0.9rem; font-weight: 500; line-height: 1.6; transition: color 0.25s; }
+.kt-pop a:hover { color: var(--gold); }
+.kt-pop .kt-rank { font-family: var(--font-serif); color: var(--gold); font-weight: 700; min-width: 1.6em; font-size: 0.85rem; }
+.kt-pop .kt-cat { margin-left: auto; font-size: 0.68rem; color: var(--text-light); white-space: nowrap; }
+.kt-paths { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+.kt-paths a { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border: 1px solid var(--border); border-radius: 100px; font-size: 0.85rem; font-weight: 600; color: var(--navy); text-decoration: none; background: var(--off-white); transition: all 0.25s; }
+.kt-paths a:hover { border-color: var(--gold); color: var(--gold); }
+.kt-foot { display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: center; margin-top: 28px; font-size: 0.85rem; color: var(--text-secondary); }
+.kt-foot .k-more { margin-top: 0; }
+@media (max-width: 768px) {
+  .knowledge-top { padding: 52px 0 44px; }
+  .kt-grid { grid-template-columns: 1fr; gap: 28px; margin-top: 24px; }
+  .kt-pop .kt-cat { display: none; }
+}
 </style>
 <meta name="description" content="系統用蓄電池の案件を仕入れて売る会社です。接続検討の回答が出た案件だけを、所在県・規模・連系の見込みまで秘密保持契約なしで公開しています。資料請求から契約・名義変更までの進め方と、売買が止まりやすい理由もあわせて載せています。売る前に工学博士が書類を確かめます。">
 <link rel="canonical" href="https://www.scix.co.jp/">
@@ -853,7 +879,12 @@ body {
   "alternateName": "サイエンスエックス株式会社",
   "url": "https://www.scix.co.jp/",
   "inLanguage": ["ja", "en", "zh-CN"],
-  "publisher": { "@type": "Organization", "name": "ScienceX" }
+  "publisher": { "@type": "Organization", "name": "ScienceX" },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": { "@type": "EntryPoint", "urlTemplate": "https://www.scix.co.jp/knowledge?q={search_term_string}" },
+    "query-input": "required name=search_term_string"
+  }
 }
 </script>
 <style>
@@ -925,6 +956,63 @@ body {
     <div class="cred-item"><div class="cred-icon">✓</div>メーカー・EPCと資本関係なし</div>
   </div>
 </div>
+
+<!-- ===== KNOWLEDGE（ヒーロー直下）=====
+     GA4 90日: トップから次に押されるのは /knowledge が1位（/company・/projects より多い）。
+     コラム着地の読者が次に行くのも /knowledge。だから案件の次に、ナレッジを置く。
+     「新着」は公開日順（新しいコラムを出したら差し替える）。「よく読まれている」は GSC 90日のクリック順。 -->
+<section class="knowledge-top" id="knowledge">
+  <div class="container">
+    <div class="knowledge-header" style="margin-bottom:0;">
+      <div class="section-label">Knowledge</div>
+      <h2 class="section-title">系統用蓄電池のナレッジ。一次情報で、毎週書いています。</h2>
+      <p class="section-subtitle">制度・市場・税制・用地・売買の実務を、出典付きで全<!--S:kcount-->67<!--/S:kcount-->記事。営業資料ではなく、買う前・売る前・投資する前に、ご自身で判断するための材料です。</p>
+    </div>
+    <div class="kt-grid">
+      <div class="kt-col">
+        <h3>新着</h3>
+        <div class="kt-new"><!--S:knew-->
+          <a target="_top" href="/column-somosomo" class="k-card">
+            <div class="k-num">COLUMN 48 <span class="k-tag">そもそも・入門</span></div>
+            <h4>蓄電池の、そもそも — なぜ日本に蓄電池が要るのか。18の素朴な疑問に、一行で答える</h4>
+            <p class="k-desc">電気は貯められない。昔は回る機械のおまけで調整できていたが、そのおまけが消えていく。だから蓄電池。なぜ10秒か、原発が増えたらどうなるか、揚水ではだめか、どこに置いても同じか。18の素朴な疑問に、一行で答える入口。</p>
+          </a>
+          <a target="_top" href="/column-balancing-saturation" class="k-card">
+            <div class="k-num">COLUMN 47 <span class="k-tag">収益・市場</span></div>
+            <h4>蓄電池は飽和したのか — 席は全体の1割弱、上限より先に市場が動いた</h4>
+            <p class="k-desc">上限価格の10円化、募集量の1σ化、九州の4.9円——この三つを並べて「蓄電池は飽和した」と言われます。EPRX・JEPXと審議会の一次資料を数え直すと、必要量0.55・募集量0.62に対して複合商品は0.97で市場の大きさは前年並み、蓄電池が座る席は全体の1割弱、蓄電池だけの枠は8月でも53%が空席。上限より先に応札が価格を決め始めた管区の形まで、募集量編・供給編・床編の3本に分けて数えます。</p>
+          </a>
+          <a target="_top" href="/column-trading" class="k-card">
+            <div class="k-num">COLUMN 46 <span class="k-tag">売買の実務</span></div>
+            <h4>蓄電所の売買はどう進むか — 権利・完成・稼働、段階ごとの書類と順番</h4>
+            <p class="k-desc">売り物は用地・回答つき権利・連系承諾済み・稼働済みの4段で変わる。誰が売り、誰が何を見て値を付け、ティーザーから名義変更までどの順番で何が動くか。仲介と「仕入れて売る」の違い、止まりやすい型まで、案件を仕入れて売る側から整理。</p>
+          </a>
+        <!--/S:knew-->
+        </div>
+      </div>
+      <div class="kt-col">
+        <h3>よく読まれている</h3>
+        <ol class="kt-pop">
+          <li><a target="_top" href="/column-jcstar"><span class="kt-rank">01</span>JC-STAR★1の起点は「連系日」ではない<span class="kt-cat">税制・制度・規制</span></a></li>
+          <li><a target="_top" href="/column-balancing-market"><span class="kt-rank">02</span>需給調整市場の5商品を理解する<span class="kt-cat">収益・市場</span></a></li>
+          <li><a target="_top" href="/column-area-data"><span class="kt-rank">03</span>需給調整市場のエリア別約定実績<span class="kt-cat">収益・市場</span></a></li>
+          <li><a target="_top" href="/column-tax"><span class="kt-rank">04</span>即時償却は「取れる」ものではなく「通す」もの<span class="kt-cat">税制・制度・規制</span></a></li>
+          <li><a target="_top" href="/column-noise"><span class="kt-rank">05</span>蓄電所の騒音リスク — 夜間基準<span class="kt-cat">土地・用地</span></a></li>
+        </ol>
+        <div class="kt-paths" style="margin-top:22px;">
+          <a target="_top" href="/knowledge#for-buyers">買う前に読む4本 →</a>
+          <a target="_top" href="/knowledge#for-sellers">売る前に読む4本 →</a>
+          <a target="_top" href="/knowledge#for-investors">投資・税制の前に読む4本 →</a>
+          <a target="_top" href="/qa">はじめての方の入門Q&amp;A →</a>
+        </div>
+      </div>
+    </div>
+    <div class="kt-foot">
+      <a target="_top" href="/knowledge" class="k-more">ナレッジをすべて見る（全<!--S:kcount-->67<!--/S:kcount-->記事・テーマ別）→</a>
+      <span>書いているのは、案件の書類を毎日読んでいる工学博士です。<a target="_top" href="/company" style="color:var(--navy);border-bottom:1px solid var(--gold);text-decoration:none;">会社案内 →</a></span>
+    </div>
+  </div>
+</section>
 
 <!-- ===== 探し方で選ぶ ===== -->
 <section class="strengths" id="find">
@@ -1191,7 +1279,7 @@ body {
 </section>
 
 <!-- ===== KNOWLEDGE（買う前に読む3本） ===== -->
-<section class="knowledge" id="knowledge">
+<section class="knowledge" id="knowledge-buyers">
   <div class="container">
     <div class="knowledge-header">
       <div class="section-label">Knowledge</div>
