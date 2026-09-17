@@ -50,6 +50,7 @@
 
 | 日 | 項目 | 値・結果 |
 |---|---|---|
+| 2026-09-17 | URL 送信 | `/` を手動送信（ヘッダー再編 #85。IndexNow でも `/`＋日本語88本を送信済み） |
 | 2026-09-06 | 3か月の検索パフォーマンス（06-05〜09-03） | クリック 1.6K・表示 43.2K・CTR 3.81%。上位語は jc-star／jcstar／eprx 系（表示の大半）、ブランド語（サイエンスエックス・sciencex）約90クリック。買い手・売り手・投資家の語は上位25に無し。日次クリックは6月の30台→8〜9月は20前後に減少 |
 | 2026-09-06 | IndexNow | 過去16時間で51 URL 受理・累計1.9K。送信元は自サイトの ping_indexnow.py |
 | 2026-09-06 | URL 送信 | 09-05以降に変えた146ページを手動送信（1日の枠10,000） |
@@ -86,9 +87,10 @@ Chrome（Googleログイン済み・`hl=ja&gl=jp&pws=0&num=10`）で見た、sci
 
 | 日 | URL | 結果 |
 |---|---|---|
+| 2026-09-17 | / | リクエスト済み（ヘッダー再編 #85。ライブテストは「URL は Google に登録できます」、Googlebot（スマートフォン）のレンダリング結果に新ヘッダーを確認） |
 | 2026-09-05 | /projects /transfer /sourcing /fund /column-financing /knowledge | リクエスト済み（いずれも登録済みページの再クロール依頼） |
 | 2026-09-05 | /column-subsidies | リクエスト済み。06-10 クロール以降「クロール済み・インデックス未登録」だった。P2 で壊れた JS 文字列を直したので、登録されるかを 2026-09-19 に確認 |
 | 2026-09-05 | /column-trading | リクエスト済み（新設・Google 未認識だった。サイトマップの再読込も待ち） |
 | 2026-09-05 | /en/column-trading・/zh-column-trading | リクエスト済み（新設・Google 未認識）。IndexNow も送信済み（/column-trading /en/knowledge /zh-knowledge /zh を含む） |
 
-IndexNow（Bing 等）は `python3 scripts/ping_indexnow.py /path…` で送る。09-05 送信済み: /projects /transfer /sourcing /fund /grid-storage /knowledge /investors /partners /column-trading ほか変更ページ。
+IndexNow（Bing 等）は `python3 scripts/ping_indexnow.py /path…` で送る。 09-17 送信済み: `/` と日本語ページ88本（ヘッダー再編 #85 でレンダリング後のナビ文言が変わったページ。EN/ZH は不変なので送っていない）。いずれも HTTP 200。09-05 送信済み: /projects /transfer /sourcing /fund /grid-storage /knowledge /investors /partners /column-trading ほか変更ページ。
