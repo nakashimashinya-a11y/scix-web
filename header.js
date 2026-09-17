@@ -135,7 +135,7 @@
     '.scix-header-nav a.scix-cta:hover{background:#E4C871;box-shadow:0 6px 18px rgba(210,182,95,.6);transform:translateY(-1px)}',
     '.scix-header-nav a.scix-cta.active{background:#E4C871;color:#16223C}',
 
-    '/* === Dropdown groups (買う / 売る / 学ぶ) === */',
+    '/* === Dropdown groups (ナレッジ / 買う / 売る) === */',
     '.scix-nav-dd{position:relative;display:flex;align-items:center;}',
     '.scix-nav-dd-toggle{display:inline-flex;align-items:center;gap:5px;}',
     '.scix-dd-caret{font-size:.7em;transition:transform .25s;opacity:.85}',
@@ -161,13 +161,19 @@
     '.scix-nav-dd-menu a.scix-dd-all{font-weight:600;color:#fff}',
 
     '/* === Language switcher (inside the nav) === */',
+    '/* 2026-09-17: made visible (中島「地味すぎてわからない」) — globe icon, bordered pill group, current language on white */',
     '.scix-lang{',
-    '  display:flex;align-items:center;gap:0;flex-shrink:0;',
-    '  margin-left:12px;padding-left:12px;border-left:1px solid rgba(255,255,255,.18);',
+    '  display:flex;align-items:center;gap:2px;flex-shrink:0;',
+    '  margin-left:14px;padding:3px 4px 3px 10px;',
+    '  border:1px solid rgba(255,255,255,.38);border-radius:100px;',
     '}',
-    '.scix-header-nav .scix-lang a{font-size:.72rem;color:rgba(255,255,255,.55);padding:6px 7px;letter-spacing:.3px}',
-    '.scix-header-nav .scix-lang a:hover{color:#fff;background:rgba(255,255,255,.08)}',
-    '.scix-header-nav .scix-lang a.active{color:#fff;font-weight:600;background:none}',
+    '.scix-lang::before{',
+    '  content:"";width:15px;height:15px;margin-right:5px;flex-shrink:0;opacity:.9;',
+    '  background:url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23fff\' stroke-width=\'1.8\'%3E%3Ccircle cx=\'12\' cy=\'12\' r=\'9.5\'/%3E%3Cpath d=\'M2.5 12h19M12 2.5c3 3.2 3 15.8 0 19M12 2.5c-3 3.2-3 15.8 0 19\'/%3E%3C/svg%3E") center/contain no-repeat;',
+    '}',
+    '.scix-header-nav .scix-lang a{font-size:.74rem;font-weight:600;color:rgba(255,255,255,.88);padding:4px 9px;border-radius:100px;letter-spacing:.3px;line-height:1.3}',
+    '.scix-header-nav .scix-lang a:hover{color:#fff;background:rgba(255,255,255,.16)}',
+    '.scix-header-nav .scix-lang a.active{color:#1B2A4A;font-weight:700;background:#fff}',
 
     '/* === Hamburger button (mobile only) === */',
     '.scix-header-burger{',
@@ -232,10 +238,11 @@
     '  .scix-nav-dd.open .scix-dd-caret{transform:rotate(180deg)}',
     '  .scix-nav-dd-menu a{padding:12px 12px 12px 28px;font-size:.88rem;border-bottom:1px solid rgba(255,255,255,.06);border-radius:0;}',
     '  .scix-nav-dd-menu a:last-child{border-bottom:none}',
-    '  .scix-lang{margin:22px 0 0;padding:0;border-left:none;justify-content:center;gap:6px;}',
-    '  .scix-header-nav .scix-lang a{font-size:.85rem;padding:8px 14px;border-bottom:none;border-radius:16px;}',
-    '  .scix-header-nav .scix-lang a.active{background:rgba(255,255,255,.14)}',
-    '  .scix-nav-dd-menu.scix-dd-wide{flex-direction:column;gap:0;padding:2px 0}',
+    '  /* drawer: language row first, so it is seen the moment the menu opens */',
+    '  .scix-lang{order:-1;margin:0 0 14px;padding:4px 6px 4px 12px;justify-content:flex-start;gap:4px;border:1px solid rgba(255,255,255,.38);border-radius:100px;align-self:flex-start;}',
+    '  .scix-header-nav .scix-lang a{font-size:.88rem;padding:7px 14px;border-bottom:none;border-radius:100px;}',
+    '  .scix-header-nav .scix-lang a.active{background:#fff;color:#1B2A4A}',
+    '  .scix-nav-dd-menu.scix-dd-wide{min-width:0;flex-direction:column;gap:0;padding:2px 0}',
     '  .scix-dd-col+.scix-dd-col{border-left:none;padding-left:0;margin-top:2px}',
     '  .scix-dd-head{padding:10px 12px 2px 28px;font-size:.64rem}',
     '  .scix-header-burger{display:block}',
@@ -255,7 +262,7 @@
   // JP = three-sided marketplace, grouped by what the visitor came to do:
   //   買う (buy a project / how buying works / hold via the fund)
   //   売る (sell a project or its rights / sell or lease land / introduce)
-  //   学ぶ (how the business works / beginner Q&A / knowledge columns)
+  //   ナレッジ (two columns: テーマで読む / はじめての方)
   // EN & 简中 = single inbound funnel for foreign capital → Home / Knowledge / Contact only.
   // items: [[href, label], ...] for a plain list, or
   //        [{head: 'テーマで読む', items: [[href, label, cls?], ...]}, ...] for a
@@ -404,6 +411,12 @@
 
   // --------------- 3. Active page detection ---------------
   var links = header.querySelectorAll('.scix-header-nav a');
+  // A column page lights up "すべての記事" only when no link names that page
+  // exactly (e.g. /column-somosomo has its own row in the ナレッジ menu).
+  var exactHit = false;
+  for (var e0 = 0; e0 < links.length; e0++) {
+    if (links[e0].getAttribute('data-page') === loc) { exactHit = true; break; }
+  }
   for (var i = 0; i < links.length; i++) {
     var page = links[i].getAttribute('data-page');
     if (!page) continue;
@@ -413,12 +426,12 @@
     if (page === '/' && (loc === '' || loc === '/index')) {
       links[i].classList.add('active');
     }
-    if (page === '/knowledge' && isCol) {
+    if (page === '/knowledge' && isCol && !exactHit) {
       links[i].classList.add('active');
     }
   }
 
-  // --------------- 3b. Dropdown groups (買う / 売る / 学ぶ) ---------------
+  // --------------- 3b. Dropdown groups (ナレッジ / 買う / 売る) ---------------
   function isNarrowNow() {
     return !!(window.matchMedia && window.matchMedia('(max-width:' + BP + 'px)').matches);
   }
@@ -585,8 +598,10 @@
   burger.addEventListener('click', toggleMenu);
   overlay.addEventListener('click', closeMenu);
 
+  // Same-document hash links (/knowledge#cat-…) do not navigate away, so a
+  // click-pinned dropdown would otherwise stay open over the scrolled content.
   for (var j = 0; j < links.length; j++) {
-    links[j].addEventListener('click', closeMenu);
+    links[j].addEventListener('click', function () { closeMenu(); closeAllDropdowns(null); });
   }
 
   document.addEventListener('keydown', function (e) {
