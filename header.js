@@ -448,7 +448,7 @@
       '<form novalidate>',
       '  <input type="email" name="email" class="scix-nl-mail" placeholder="メールアドレス" autocomplete="email" inputmode="email" required aria-label="メールアドレス">',
       '  <input type="text" name="name" class="scix-nl-name" placeholder="お名前（任意）" autocomplete="name" aria-label="お名前（任意）">',
-      '  <input type="text" name="_honey" class="scix-nl-hp" tabindex="-1" autocomplete="off" aria-hidden="true">',
+      '  <input type="text" name="_honey" class="scix-nl-hp" tabindex="-1" autocomplete="off">',
       '  <button type="submit">受け取る</button>',
       '</form>',
       '<p class="scix-nl-note">配信は各メールの末尾からいつでも解除できます。アドレスは更新のお知らせにだけ使います（<a href="/privacy" target="_top">プライバシーポリシー</a>）。</p>'
@@ -470,6 +470,7 @@
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) {
           var er = document.createElement('div');
           er.className = 'scix-nl-err';
+          er.setAttribute('role', 'alert');
           er.textContent = 'メールアドレスの形をご確認ください。';
           form.parentNode.insertBefore(er, form.nextSibling);
           mail.focus();
@@ -486,10 +487,15 @@
             if (!res.ok || !res.j || res.j.success !== true) throw new Error((res.j && res.j.error) || 'failed');
             var done = document.createElement('div');
             done.className = 'scix-nl-done';
-            done.textContent = res.j.already
-              ? 'このアドレスは登録済みです。次の記事からお届けします。'
-              : '登録しました。次の記事からお届けします。';
+            done.setAttribute('role', 'status');
+            done.setAttribute('tabindex', '-1');
+            done.textContent = res.j.unsubscribed
+              ? 'このアドレスは以前に配信を停止されています。再開をご希望の場合は s@scix.co.jp へ「更新メール再開希望」とお送りください。'
+              : (res.j.already
+                ? 'このアドレスは登録済みです。次の記事からお届けします。'
+                : '登録しました。次の記事からお届けします。');
             form.parentNode.replaceChild(done, form);
+            try { done.focus(); } catch (err) { /* ignore */ }
             try {
               if (typeof window.gtag === 'function') {
                 window.gtag('event', 'newsletter_signup', { form_type: 'newsletter', placement: where,
@@ -502,6 +508,7 @@
             btn.textContent = '受け取る';
             var er2 = document.createElement('div');
             er2.className = 'scix-nl-err';
+            er2.setAttribute('role', 'alert');
             er2.innerHTML = '送信できませんでした。お手数ですが <a href="mailto:s@scix.co.jp?subject=' +
               encodeURIComponent('ナレッジ更新メールの登録') + '&body=' + encodeURIComponent(email) +
               '" style="color:#fff">s@scix.co.jp</a> へ「更新メール希望」とお送りください。';
