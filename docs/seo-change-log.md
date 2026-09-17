@@ -88,10 +88,12 @@ Chrome（Googleログイン済み・`hl=ja&gl=jp&pws=0&num=10`）で見た、sci
 
 | 日 | URL | 結果 |
 |---|---|---|
+| 2026-09-17 | / | リクエスト済み（#86 公開後の再リクエスト。トースト確認） |
+| 2026-09-17 | /knowledge | リクエスト済み（ナレッジ再設計 #86。「URL は Google に登録されています」→再リクエスト、トースト「インデックス登録をリクエスト済み」を確認） |
 | 2026-09-17 | / | リクエスト済み（ヘッダー再編 #85。ライブテストは「URL は Google に登録できます」、Googlebot（スマートフォン）のレンダリング結果に新ヘッダーを確認） |
 | 2026-09-05 | /projects /transfer /sourcing /fund /column-financing /knowledge | リクエスト済み（いずれも登録済みページの再クロール依頼） |
 | 2026-09-05 | /column-subsidies | リクエスト済み。06-10 クロール以降「クロール済み・インデックス未登録」だった。P2 で壊れた JS 文字列を直したので、登録されるかを 2026-09-19 に確認 |
 | 2026-09-05 | /column-trading | リクエスト済み（新設・Google 未認識だった。サイトマップの再読込も待ち） |
 | 2026-09-05 | /en/column-trading・/zh-column-trading | リクエスト済み（新設・Google 未認識）。IndexNow も送信済み（/column-trading /en/knowledge /zh-knowledge /zh を含む） |
 
-IndexNow（Bing 等）は `python3 scripts/ping_indexnow.py /path…` で送る。 09-17 送信済み: `/` と日本語ページ88本（ヘッダー再編 #85 でレンダリング後のナビ文言が変わったページ。EN/ZH は不変なので送っていない）。いずれも HTTP 200。09-05 送信済み: /projects /transfer /sourcing /fund /grid-storage /knowledge /investors /partners /column-trading ほか変更ページ。
+IndexNow（Bing 等）は `python3 scripts/ping_indexnow.py /path…` で送る。 09-17（#86 公開後）送信済み: `/`・`/knowledge`・`/company`・コラム54本（カテゴリパンくずを足した48本＋深掘り子6本）＝57 URL・HTTP 200。09-17 送信済み: `/` と日本語ページ88本（ヘッダー再編 #85 でレンダリング後のナビ文言が変わったページ。EN/ZH は不変なので送っていない）。いずれも HTTP 200。09-05 送信済み: /projects /transfer /sourcing /fund /grid-storage /knowledge /investors /partners /column-trading ほか変更ページ。
