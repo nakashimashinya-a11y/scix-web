@@ -3,6 +3,11 @@
      ScienceX — Shared Navigation Header (JP + EN + 简中)
      Single source of truth for all pages.
 
+     2026-09-17 (2): ナレッジ moved to the first slot as its own two-column
+       menu (テーマで読む / はじめての方). GA4 shows /knowledge is the #1
+       next click from the top page and from column pages, and the #2 most
+       viewed page — it was buried as the 3rd item of 学ぶ ▾.
+       ナレッジ ▾ / 買う ▾ / 売る ▾ / 会社案内 / お問い合わせ / gold CTA.
      2026-09-17: JP nav regrouped by the visitor's position —
        買う ▾ / 売る ▾ / 学ぶ ▾ / 会社案内 / お問い合わせ / gold CTA.
        (Was: 9 flat items + 1 dropdown + 3 language pills = 16 targets.)
@@ -148,6 +153,12 @@
     '  .scix-nav-dd:hover .scix-dd-caret{transform:rotate(180deg)}',
     '}',
     '.scix-nav-dd-menu a{padding:10px 12px;border-radius:4px;}',
+    '/* two-column menu (ナレッジ): テーマで読む | はじめての方 */',
+    '.scix-nav-dd-menu.scix-dd-wide{min-width:560px;flex-direction:row;gap:12px;padding:10px 12px 12px}',
+    '.scix-dd-col{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}',
+    '.scix-dd-col+.scix-dd-col{border-left:1px solid rgba(255,255,255,.12);padding-left:12px}',
+    '.scix-dd-head{font-size:.66rem;letter-spacing:.14em;color:#D2B65F;padding:6px 12px 4px;white-space:nowrap}',
+    '.scix-nav-dd-menu a.scix-dd-all{font-weight:600;color:#fff}',
 
     '/* === Language switcher (inside the nav) === */',
     '.scix-lang{',
@@ -224,6 +235,9 @@
     '  .scix-lang{margin:22px 0 0;padding:0;border-left:none;justify-content:center;gap:6px;}',
     '  .scix-header-nav .scix-lang a{font-size:.85rem;padding:8px 14px;border-bottom:none;border-radius:16px;}',
     '  .scix-header-nav .scix-lang a.active{background:rgba(255,255,255,.14)}',
+    '  .scix-nav-dd-menu.scix-dd-wide{flex-direction:column;gap:0;padding:2px 0}',
+    '  .scix-dd-col+.scix-dd-col{border-left:none;padding-left:0;margin-top:2px}',
+    '  .scix-dd-head{padding:10px 12px 2px 28px;font-size:.64rem}',
     '  .scix-header-burger{display:block}',
     '}'
   ].join('\n');
@@ -243,23 +257,39 @@
   //   売る (sell a project or its rights / sell or lease land / introduce)
   //   学ぶ (how the business works / beginner Q&A / knowledge columns)
   // EN & 简中 = single inbound funnel for foreign capital → Home / Knowledge / Contact only.
+  // items: [[href, label], ...] for a plain list, or
+  //        [{head: 'テーマで読む', items: [[href, label, cls?], ...]}, ...] for a
+  //        two-column menu. Anchor links (/knowledge#cat-…) carry no data-page so
+  //        they never light up as "current".
+  function ddLink(it) {
+    var href = it[0], label = it[1], cls = it[2] || '';
+    var page = href.indexOf('#') === -1 ? ' data-page="' + href + '"' : '';
+    return '<a href="' + href + '"' + page + (cls ? ' class="' + cls + '"' : '') + '>' + label + '</a>';
+  }
   function ddGroup(key, label, items) {
+    var wide = !!(items.length && items[0] && items[0].items);
     var out = '<div class="scix-nav-dd" data-group="' + key + '">' +
       '<button type="button" class="scix-nav-dd-toggle" aria-expanded="false" aria-controls="scix-dd-' + key + '">' +
         label + '<span class="scix-dd-caret" aria-hidden="true">▾</span>' +
       '</button>' +
-      '<div class="scix-nav-dd-menu" id="scix-dd-' + key + '">';
-    for (var i = 0; i < items.length; i++) {
-      out += '<a href="' + items[i][0] + '" data-page="' + items[i][0] + '">' + items[i][1] + '</a>';
+      '<div class="scix-nav-dd-menu' + (wide ? ' scix-dd-wide' : '') + '" id="scix-dd-' + key + '">';
+    if (wide) {
+      for (var c = 0; c < items.length; c++) {
+        out += '<div class="scix-dd-col"><div class="scix-dd-head">' + items[c].head + '</div>';
+        for (var j = 0; j < items[c].items.length; j++) out += ddLink(items[c].items[j]);
+        out += '</div>';
+      }
+    } else {
+      for (var i = 0; i < items.length; i++) out += ddLink(items[i]);
     }
     return out + '</div></div>';
   }
 
   // Pages that light up each group (beyond the links listed inside it).
   var GROUP_PAGES = {
+    knowledge: ['/knowledge', '/qa', '/grid-storage'],
     buy:   ['/projects', '/transfer', '/fund', '/investors'],
-    sell:  ['/sourcing', '/sourcing-criteria', '/land', '/partners', '/sell-form'],
-    learn: ['/grid-storage', '/qa', '/knowledge']
+    sell:  ['/sourcing', '/sourcing-criteria', '/land', '/partners', '/sell-form']
   };
 
   var nav = isZh ? [
@@ -274,6 +304,23 @@
     '<a href="/en/market-entry-guide" data-page="/market-entry-guide">Market Entry Guide</a>',
     '<a href="/en/contact" class="scix-cta">Contact</a>'
   ] : [
+    // ナレッジ first: it is what visitors actually click (GA4 path: top → /knowledge
+    // beats /company and /projects; column readers who continue go there too).
+    ddGroup('knowledge', 'ナレッジ', [
+      { head: 'テーマで読む', items: [
+        ['/knowledge',            'すべての記事（毎週更新）', 'scix-dd-all'],
+        ['/knowledge#cat-market', '収益・市場'],
+        ['/knowledge#cat-rules',  '税制・制度・規制'],
+        ['/knowledge#cat-deal',   '売買の実務'],
+        ['/knowledge#cat-land',   '土地・用地'],
+        ['/knowledge#cat-tech',   '技術・安全・運用']
+      ]},
+      { head: 'はじめての方', items: [
+        ['/qa',              '入門Q&amp;A（24問）'],
+        ['/column-somosomo', '蓄電池の、そもそも（連載20本）'],
+        ['/grid-storage',    '蓄電池事業のしくみ']
+      ]}
+    ]),
     ddGroup('buy', '買う', [
       ['/projects', '販売中の案件一覧'],
       ['/transfer', '買うまでの流れ'],
@@ -283,11 +330,6 @@
       ['/sourcing', '案件・権利を売る'],
       ['/land',     '土地を売る・貸す'],
       ['/partners', '案件・投資家を紹介する']
-    ]),
-    ddGroup('learn', '学ぶ', [
-      ['/grid-storage', '蓄電池事業のしくみ'],
-      ['/qa',           '入門Q&amp;A'],
-      ['/knowledge',    'ナレッジ（コラム一覧）']
     ]),
     '<a href="/company"  data-page="/company">会社案内</a>',
     '<a href="/contact"  data-page="/contact">お問い合わせ</a>',
@@ -413,7 +455,7 @@
       var key = dd.getAttribute('data-group');
       var toggle = dd.querySelector('.scix-nav-dd-toggle');
       var pages = GROUP_PAGES[key] || [];
-      var holdsCurrent = pages.indexOf(loc) !== -1 || (key === 'learn' && isCol);
+      var holdsCurrent = pages.indexOf(loc) !== -1 || (key === 'knowledge' && isCol);
       if (holdsCurrent) {
         toggle.classList.add('active');
         dd.classList.add('is-current');
@@ -588,7 +630,7 @@
 
   // --------------- 5b. ヘッダー内リンクのクリック計測 (nav_click・GA4) ---------------
   // 2026-09-17 のナビ再編の効果を測るための計測。nav_group は
-  // buy / sell / learn（引き出しの中）・top（会社案内・お問い合わせ）・cta（金ボタン）・
+  // knowledge / buy / sell（引き出しの中）・top（会社案内・お問い合わせ）・cta（金ボタン）・
   // lang（言語切替）・logo のいずれか。
   header.addEventListener('click', function (e) {
     var t = e.target;
