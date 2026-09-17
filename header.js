@@ -380,6 +380,20 @@
   function isNarrowNow() {
     return !!(window.matchMedia && window.matchMedia('(max-width:' + BP + 'px)').matches);
   }
+  function hoverCapable() {
+    return !!(window.matchMedia && window.matchMedia('(hover:hover)').matches);
+  }
+  function trackOpen(group, by) {
+    if (typeof window.gtag !== 'function') return;
+    try {
+      window.gtag('event', 'nav_open', {
+        nav_group: group,
+        open_by: by,
+        page_lang: (document.documentElement.lang || 'ja'),
+        transport_type: 'beacon'
+      });
+    } catch (err) { /* ignore */ }
+  }
   var isNarrow = isNarrowNow();
   var dds = header.querySelectorAll('.scix-nav-dd');
 
@@ -402,6 +416,7 @@
       var holdsCurrent = pages.indexOf(loc) !== -1 || (key === 'learn' && isCol);
       if (holdsCurrent) {
         toggle.classList.add('active');
+        dd.classList.add('is-current');
         // In the drawer, start with the visitor's own group unfolded.
         if (isNarrow) setOpen(dd, true);
       }
@@ -410,18 +425,11 @@
         e.preventDefault();
         e.stopPropagation();
         var willOpen = !dd.classList.contains('open');
+        // Already visible through :hover → this click pins it, it is not a new open.
+        var shownByHover = !isNarrowNow() && hoverCapable() && !!(dd.matches && dd.matches(':hover'));
         closeAllDropdowns(dd);
         setOpen(dd, willOpen);
-        if (willOpen && typeof window.gtag === 'function') {
-          try {
-            window.gtag('event', 'nav_open', {
-              nav_group: key,
-              open_by: 'click',
-              page_lang: (document.documentElement.lang || 'ja'),
-              transport_type: 'beacon'
-            });
-          } catch (err) { /* ignore */ }
-        }
+        if (willOpen && !shownByHover) trackOpen(key, 'click');
       });
       // Keyboard: ArrowDown opens the group and moves focus to its first link;
       // Enter / Space keep the native button click. Focus leaving the group
@@ -429,27 +437,31 @@
       toggle.addEventListener('keydown', function (e) {
         if (e.key !== 'ArrowDown') return;
         e.preventDefault();
+        var wasOpen = dd.classList.contains('open');
         closeAllDropdowns(dd);
         setOpen(dd, true);
+        if (!wasOpen) trackOpen(key, 'keyboard');
         var first = dd.querySelector('.scix-nav-dd-menu a');
         if (first) first.focus();
       });
       var hoverCounted = false;
       dd.addEventListener('mouseenter', function () {
-        if (hoverCounted || isNarrowNow() || typeof window.gtag !== 'function') return;
-        if (!(window.matchMedia && window.matchMedia('(hover:hover)').matches)) return;
+        if (isNarrowNow() || !hoverCapable()) return;
+        // Only one menu at a time: a click-pinned neighbour folds when hovering here.
+        closeAllDropdowns(dd);
+        if (hoverCounted) return;
         hoverCounted = true;
-        try {
-          window.gtag('event', 'nav_open', {
-            nav_group: key,
-            open_by: 'hover',
-            page_lang: (document.documentElement.lang || 'ja'),
-            transport_type: 'beacon'
-          });
-        } catch (err) { /* ignore */ }
+        trackOpen(key, 'hover');
+      });
+      // WebKit does not focus buttons/links on pointer-down, so a tap inside the
+      // group can fire focusout with relatedTarget=null before the click lands.
+      var pointerInside = false;
+      dd.addEventListener('pointerdown', function () {
+        pointerInside = true;
+        setTimeout(function () { pointerInside = false; }, 400);
       });
       dd.addEventListener('focusout', function (e) {
-        if (isNarrowNow()) return;
+        if (isNarrowNow() || pointerInside) return;
         var to = e.relatedTarget;
         if (!to || !dd.contains(to)) setOpen(dd, false);
       });
@@ -478,16 +490,7 @@
     burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     burger.setAttribute('aria-label', isOpen ? closeLabel : openLabel);
     syncInert();
-    if (isOpen && typeof window.gtag === 'function') {
-      try {
-        window.gtag('event', 'nav_open', {
-          nav_group: 'drawer',
-          open_by: 'click',
-          page_lang: (document.documentElement.lang || 'ja'),
-          transport_type: 'beacon'
-        });
-      } catch (err) { /* ignore */ }
-    }
+    if (isOpen) trackOpen('drawer', 'click');
   }
 
   function closeMenu() {
@@ -505,11 +508,37 @@
     if (hide) navEl.setAttribute('inert', ''); else navEl.removeAttribute('inert');
   }
   syncInert();
+  // Crossing the breakpoint (iPad rotation, window resize): drop the state that
+  // only makes sense in the other layout — an unfolded accordion would hang as a
+  // floating dropdown on wide, an open drawer would leave the overlay + scroll
+  // lock on wide with no burger to clear it.
+  function onBreakpointChange() {
+    if (isNarrowNow()) {
+      closeAllDropdowns(null);
+      for (var k = 0; k < dds.length; k++) {
+        if (dds[k].classList.contains('is-current')) setOpen(dds[k], true);
+      }
+    } else {
+      if (header.classList.contains('scix-header-open')) closeMenu();
+      closeAllDropdowns(null);
+    }
+    syncInert();
+  }
+  var lastNarrow = isNarrowNow();
+  function checkBreakpoint() {
+    var n = isNarrowNow();
+    if (n === lastNarrow) return;
+    lastNarrow = n;
+    onBreakpointChange();
+  }
   if (window.matchMedia) {
     var mq = window.matchMedia('(max-width:' + BP + 'px)');
-    if (mq.addEventListener) mq.addEventListener('change', syncInert);
-    else if (mq.addListener) mq.addListener(syncInert);
+    if (mq.addEventListener) mq.addEventListener('change', checkBreakpoint);
+    else if (mq.addListener) mq.addListener(checkBreakpoint);
   }
+  // Belt and braces: some embedded/emulated viewports resize without a
+  // MediaQueryList change event.
+  window.addEventListener('resize', checkBreakpoint);
 
   burger.addEventListener('click', toggleMenu);
   overlay.addEventListener('click', closeMenu);
@@ -520,6 +549,14 @@
 
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
+    if (isNarrowNow()) {
+      // Drawer: close it, keep the accordion state (the current-page group stays unfolded).
+      if (header.classList.contains('scix-header-open')) {
+        closeMenu();
+        burger.focus();
+      }
+      return;
+    }
     var focused = document.activeElement;
     for (var k = 0; k < dds.length; k++) {
       if (dds[k].classList.contains('open') && focused && dds[k].contains(focused)) {
@@ -528,10 +565,6 @@
       }
     }
     closeAllDropdowns(null);
-    if (header.classList.contains('scix-header-open')) {
-      closeMenu();
-      burger.focus();
-    }
   });
 
   // --------------- 5. tel: / mailto: クリック計測 (全ページ共通・GA4) ---------------
