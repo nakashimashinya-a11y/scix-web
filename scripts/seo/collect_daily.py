@@ -108,13 +108,14 @@ def collect_ga4(days: int) -> int:
             "channels": ga4_report(g, s, e, ["sessionDefaultChannelGroup"], ["sessions", lead]),
             "events": ga4_report(g, s, e, ["eventName"], ["eventCount"]),
             "lead_intent": _try(lambda: ga4_report(g, s, e, ["customEvent:intent", "landingPage"], [lead]), "intent"),
-            "lead_type": _try(lambda: ga4_report(g, s, e, ["customEvent:lead_type"], [lead]), "lead_type"),
+            # GA4 に登録済みのカスタムディメンションは intent / nav_group / form_type だけ（2026-09-19 実測）。
+            # placement（更新メール登録の置き場）と search_term（ナレッジ検索の語）は未登録＝GA4 管理画面で
+            # イベントパラメータをカスタムディメンションに登録すれば下の2行を戻せる。
+            "lead_type": _try(lambda: ga4_report(g, s, e, ["customEvent:form_type"], [lead]), "form_type"),
             "nav_click": _try(lambda: ga4_report(g, s, e, ["customEvent:nav_group"], ["eventCount"],
                                                  dim_filter={"filter": {"fieldName": "eventName", "stringFilter": {"value": "nav_click"}}}), "nav_group"),
-            "newsletter": _try(lambda: ga4_report(g, s, e, ["customEvent:placement"], ["eventCount"],
-                                                  dim_filter={"filter": {"fieldName": "eventName", "stringFilter": {"value": "newsletter_signup"}}}), "placement"),
-            "knowledge_search": _try(lambda: ga4_report(g, s, e, ["customEvent:search_term"], ["eventCount"],
-                                                        dim_filter={"filter": {"fieldName": "eventName", "stringFilter": {"value": "knowledge_search"}}}), "search_term"),
+            "newsletter": None,
+            "knowledge_search": None,
         }
         # 空の lead_intent 行は落とす（着地ごとに0が並ぶ）
         if rec["lead_intent"]:
