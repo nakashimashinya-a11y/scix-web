@@ -122,3 +122,4 @@ Cloudflare D1 だけを見て「DR2 はこのセッションから到達不能�
 - ヘッダーは `header.js` で共通化。各ページに直書きしない。
 - ページを更新したら `sitemap.xml` の `lastmod` を更新し（変更したページだけ手で）、デプロイ後に `python3 scripts/ping_indexnow.py /path1 /path2`（Bing等へ即時通知。Google は GSC の URL 検査から手動で）。
 - GA4 測定ID・秘密情報はコミットしない。
+- **週次自動更新が動いている**（月曜 07:30・承認なしで公開）。仕組み・止め方・戻し方は `docs/seo-automation.md`。台帳は Drive `9_システム/scix-web解析/`。自動のコミットは `auto(seo):`、差し戻しは `git revert`。
