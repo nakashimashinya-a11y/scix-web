@@ -25,6 +25,22 @@ fail() { log "NG $*"; exit 1; }
 cd "$REPO" || fail "リポジトリが無い: $REPO"
 [ -x "$WR" ] || fail "wrangler ラッパーが無い: $WR"
 
+# 手元の main を本番（origin/main）に合わせてから始める。週次自動更新や PR のマージで origin が先へ進んでいると、
+# 手元で commit しても push が non-fast-forward で弾かれる。未 push の commit が手元に残っている場合は載せ直す。
+# どうしても合わせられないときは黙って進めない: 比較相手が古い手元の projects.json になり、
+# 「OK 変化なし」と記録しながら本番が古いまま、という静かな陳腐化になる。
+if [ "$DRY_RUN" != "1" ] && [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ]; then
+  if git fetch -q origin 2>/dev/null; then
+    if [ "$(git rev-list --count main..origin/main)" != "0" ] || [ "$(git rev-list --count origin/main..main)" != "0" ]; then
+      git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" pull -q --rebase --autostash origin main \
+        || { git rebase --abort >/dev/null 2>&1; fail "手元の main を origin/main に合わせられない（分岐している）。git status を見て手で直す。"; }
+      log "手元の main を origin/main に合わせた"
+    fi
+  else
+    log "git fetch に失敗（続行。push で弾かれたら下で止まる）"
+  fi
+fi
+
 # 生成。D1が引けなければ build 側が非ゼロで止まる（部分的な一覧を書かない）。
 # トークン更新の直後に1回だけ失敗することがある（2026-09-05 実測）ので、間を置いて3回まで試す。
 GEN_OK=0
@@ -83,9 +99,10 @@ if [ "$DRY_RUN" = "1" ]; then
   rm -f "$TMP"; exit 0
 fi
 
-# 作業ツリーを汚さない。projects.json 以外に手を付けている最中なら見送る。
-if ! git diff --quiet -- projects.json; then
-  rm -f "$TMP"; fail "projects.json に未コミットの変更がある。人の作業中とみなして見送る。"
+# 作業ツリーを汚さない。下で git add する3ファイルのどれかに未コミットの変更があれば、人の作業中とみなして見送る。
+# （projects.json だけを見ていた頃は、書きかけの index.html / projects.html が同期の commit に混ざって本番に出る穴があった）
+if ! git diff --quiet -- projects.json index.html projects.html || ! git diff --cached --quiet -- projects.json index.html projects.html; then
+  rm -f "$TMP"; fail "projects.json / index.html / projects.html に未コミットの変更がある。人の作業中とみなして見送る。"
 fi
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 [ "$BRANCH" = "main" ] || { rm -f "$TMP"; fail "main 以外（$BRANCH）なので見送る。"; }
@@ -102,5 +119,11 @@ git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" \
 
 scripts/sync_projects_json.sh による自動同期。" || fail "commit に失敗"
 
-git push -q origin main || fail "push に失敗（commit は残っている）"
+if ! git push -q origin main 2>/dev/null; then
+  # 生成している数十秒の間に origin が進んだ。1回だけ載せ直して出し直す。
+  log "push が弾かれた。origin/main に載せ直して出し直す。"
+  git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" pull -q --rebase origin main \
+    || { git rebase --abort >/dev/null 2>&1; fail "push に失敗し、載せ直しも衝突した（commit は手元に残っている。次回の冒頭で再度合わせる）"; }
+  git push -q origin main || fail "push に失敗（commit は手元に残っている。次回の冒頭で再度合わせる）"
+fi
 log "OK ${OLD}→${NEW}件（${DELTA}）を公開した。追加=${ADDED:-なし} 削除=${REMOVED:-なし}"
