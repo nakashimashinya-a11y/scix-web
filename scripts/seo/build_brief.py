@@ -182,8 +182,10 @@ def render(days=28, for_latest=False):
         for k, v in top_l[:20]:
             L.append(f"| {k} | {v['leads']} | {v['sessions']} | {planding.get(k, {}).get('leads', 0)} |")
         if intents:
-            L.append("\n用件（intent）別: " + "・".join(f"{i or '(not set)'}={n}" for (i, _), n in sorted(
-                ((k, v) for k, v in intents.items()), key=lambda kv: -kv[1])[:12]))
+            by_intent = {}
+            for (i, _), n in intents.items():
+                by_intent[i or "(not set)"] = by_intent.get(i or "(not set)", 0) + n
+            L.append("\n用件（intent）別: " + "・".join(f"{i}={n}" for i, n in sorted(by_intent.items(), key=lambda kv: -kv[1])))
         if news:
             L.append("更新メール登録（placement 別）: " + "・".join(f"{k}={v}" for k, v in sorted(news.items(), key=lambda kv: -kv[1])))
         if nav:
