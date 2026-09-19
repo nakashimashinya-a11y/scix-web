@@ -1,0 +1,42 @@
+name: IndexNow（main に入った HTML の変更を Bing 等へ通知）
+
+# main へ push されるたび（週次自動更新・毎朝の案件一覧同期・手動 PR のマージすべて）に、
+# 変わった HTML の URL を IndexNow へ送る。Google は IndexNow 非対応なので sitemap の lastmod と
+# GSC の手動リクエストが Google 側の経路。鍵ファイルは公開前提の仕様（リポジトリに入っている）。
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 変わった HTML を IndexNow へ（Vercel の反映を待ってから）
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          if [ -z "${BEFORE:-}" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            echo "比較元が無い（手動起動または新規ブランチ）。sitemap は送らない。"; exit 0
+          fi
+          CHANGED=$(git diff --name-only "$BEFORE" "$AFTER" -- '*.html' | grep -v '^404.html$' || true)
+          if [ -z "$CHANGED" ]; then echo "HTML の変更なし"; exit 0; fi
+          echo "$CHANGED"
+          # Vercel の本番反映を待つ（静的サイトなので通常1〜2分）。最大10分。
+          FIRST=$(echo "$CHANGED" | head -1)
+          URL="https://www.scix.co.jp/${FIRST%.html}"; [ "$FIRST" = "index.html" ] && URL="https://www.scix.co.jp/"; [ "$FIRST" = "en/index.html" ] && URL="https://www.scix.co.jp/en"
+          LOCAL_HASH=$(git show "$AFTER:$FIRST" | md5sum | cut -c1-8)
+          for i in $(seq 1 30); do
+            if [ "$(curl -fsSL -H 'Cache-Control: no-cache' "$URL" | md5sum | cut -c1-8)" = "$LOCAL_HASH" ]; then echo "本番に反映済み（$i 回目）"; break; fi
+            sleep 20
+          done
+          python3 scripts/ping_indexnow.py --changed-since "$BEFORE"
