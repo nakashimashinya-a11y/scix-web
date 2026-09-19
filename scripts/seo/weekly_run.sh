@@ -24,6 +24,7 @@ DRY_RUN="${DRY_RUN:-0}"
 TODAY="$(date +%F)"
 RUN_DIR="$LEDGER/weekly/$TODAY"
 WT="$HOME/projects/.scix-web-weekly"
+BASE_REF="${SCIX_WEB_BASE_REF:-origin/main}"       # 試験のときだけ別ブランチを指定できる
 LOCK="$STATE/web_weekly.lock"
 TG_TARGET="8811825170"
 
@@ -58,11 +59,11 @@ python3 scripts/seo/build_brief.py >>"$RUN_DIR/collect.log" 2>&1 || fail "ブリ
 [ -s "$RUN_DIR/brief.md" ] || fail "ブリーフが空"
 
 # 2. 作業ツリー（origin/main の最新。人の未コミット作業と混ぜない）
-git fetch -q origin main || fail "git fetch"
+git fetch -q origin || fail "git fetch"
 git worktree remove --force "$WT" >/dev/null 2>&1; rm -rf "$WT"; git worktree prune >/dev/null 2>&1
-git worktree add -q --detach "$WT" origin/main || fail "worktree を作れない"
+git worktree add -q --detach "$WT" "$BASE_REF" || fail "worktree を作れない（$BASE_REF）"
 BASE_SHA="$(git -C "$WT" rev-parse HEAD)"
-[ -f "$WT/scripts/seo/guard_diff.py" ] || fail "origin/main に scripts/seo が無い"
+[ -f "$WT/scripts/seo/guard_diff.py" ] || fail "$BASE_REF に scripts/seo が無い"
 
 # 3. Claude が判断して編集する（このアカウントの枠＝OpenClaw 用。中島さんの枠には落とさない）
 #    道具は明示した分だけ。許可の無い道具は -p モードでは黙って拒否される＝止まる側に倒れる。
