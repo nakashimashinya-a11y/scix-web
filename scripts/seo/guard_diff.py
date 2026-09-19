@@ -5,7 +5,7 @@
 
 止める理由は全部表示する。通らなければ weekly_run.sh は何も公開しない（作業ツリーを捨てる）。
 検査の中身:
-  - 触ってよいファイルだけか（HTML・sitemap・header.js の JA_ONLY_COLUMNS 行・docs/seo-change-log.md）
+  - 触ってよいファイルだけか（HTML・sitemap・header.js の JA_ONLY_COLUMNS 行。変更日台帳はシェルが記帳するので Claude は書かない）
   - 触ってはいけないもの（フォーム・/fund・vercel.json・projects.json・scripts・.github・robots・img・files・削除）
   - 量の上限（既存ページの変更 12 本まで／新規 HTML 3 本まで／1ファイルの差し替え率）
   - HTML の骨格（title・description・canonical・h1 1つ・header.js・JSON-LD が壊れていない・内部リンク切れ無し）
@@ -28,7 +28,7 @@ from common import BASE, file_to_url, path_of  # noqa: E402
 
 REPO = Path(os.environ.get("SCIX_WEB_REPO", Path.cwd()))
 ALLOWED_HTML = re.compile(r"^(en/)?[a-z0-9-]+\.html$|^zh-[a-z0-9-]+\.html$")
-FORBIDDEN = {"fund.html", "contact.html", "sell-form.html", "thanks.html", "privacy.html", "404.html",
+FORBIDDEN = {"docs/seo-change-log.md", "fund.html", "contact.html", "sell-form.html", "thanks.html", "privacy.html", "404.html",
              "en/contact.html", "en/thanks.html", "zh-contact.html", "zh-thanks.html",
              "projects.json", "vercel.json", "robots.txt", "README.md", "CLAUDE.md"}
 FORBIDDEN_PREFIX = ("scripts/", ".github/", "img/", "files/", "notes/", ".claude/", "docs/new-mac-setup.md")
@@ -166,7 +166,7 @@ def main() -> int:
         is_new = path in added
         if path in FORBIDDEN or path.startswith(FORBIDDEN_PREFIX):
             problems.append(f"触ってはいけないファイル: {path}"); continue
-        if path == "sitemap.xml" or path == "docs/seo-change-log.md":
+        if path == "sitemap.xml":
             continue
         if path == "header.js":
             diff = sh("git", "diff", "--", "header.js")

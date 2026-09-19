@@ -28,8 +28,12 @@
 
 ## 検査（guard_diff.py）で止まるもの
 
-触ってよいのは HTML・sitemap・`header.js` の `JA_ONLY_COLUMNS` 行・`docs/seo-change-log.md` だけ。フォーム（contact / sell-form / thanks / privacy）・`/fund`・`vercel.json`・`projects.json`・`robots.txt`・`scripts/`・`.github/`・`img/`・`files/`・削除は弾く。
+触ってよいのは HTML・sitemap・`header.js` の `JA_ONLY_COLUMNS` 行だけ（`docs/seo-change-log.md` はマニフェストからシェルが記帳する）。フォーム（contact / sell-form / thanks / privacy）・`/fund`・`vercel.json`・`projects.json`・`robots.txt`・`scripts/`・`.github/`・`img/`・`files/`・削除は弾く。
 既存ページ 12 本／新規 3 本まで、1 ファイルの差し替えは半分未満・削除は 1/4 未満。title・description・canonical・h1 1 つ・`/header.js`・JSON-LD・内部リンク切れ・EN の title 70 字／description 155 字・新コラムの必須ブロック（監修・Article author=Person・パンくず・CTA・sitemap 登録・JA 専用の登録）・自称「中立」・実績の主張・鍵らしき文字列・マニフェストと差分の不一致。
+
+## 試験結果（2026-09-19 DRY_RUN）
+
+Opus・53 ターン・7 分で 3 件: `/land` の Q&A に「蓄電所そのものを売りたい」節と /sourcing への導線（「系統用蓄電所 物件 売りたい」42 表示・0 クリック・23.7 位が /land 着地）、`/zh-column-financing` の title/description 短縮（152 表示・0 クリック）、`/zh-column-low-voltage` の description 172→128 字。凍結ページ（09-05／09-17 の変更）と票割れになる新コラムは見送った。検査 OK。差分は台帳 `weekly/2026-09-19/dryrun.diff`。
 
 ## 手で回す・止める・戻す
 

@@ -106,7 +106,8 @@ fi
 python3 scripts/gen_knowledge_jsonld.py --write >>"$RUN_DIR/collect.log" 2>&1 || fail "gen_knowledge_jsonld"
 SCIX_WEB_REPO="$WT" python3 scripts/seo/guard_diff.py --manifest "$RUN_DIR/changes.json" > "$RUN_DIR/guard.log" 2>&1 \
   || fail "検査で止めた: $(grep -- '^ -' "$RUN_DIR/guard.log" | head -5 | tr '\n' ' ')"
-HTML_CHANGED="$(git status --porcelain --untracked-files=all | awk '{print $2}' | grep -E '\.html$' || true)"
+# lastmod を進めるのはマニフェストに書かれたファイルと新規ファイルだけ（NEW バッジ落ちなどの焼き直しで hub の日付を動かさない）
+HTML_CHANGED="$( { mj 'print("\n".join(f for c in j.get("changes",[]) for f in c.get("files",[])))'; git status --porcelain --untracked-files=all | awk '$1=="??"{print $2}'; } | grep -E '\.html$' | sort -u || true)"
 if [ -n "$HTML_CHANGED" ]; then
   # shellcheck disable=SC2086
   python3 scripts/seo/stamp_sitemap.py $HTML_CHANGED >>"$RUN_DIR/collect.log" 2>&1

@@ -42,6 +42,7 @@
 - **LDA（長期脱炭素電源オークション）落札案件の売却・名義変更のコンテンツを作らない**
 - **触らない**: `/fund`（fund.html）・フォーム（contact / sell-form / thanks / privacy）・`vercel.json`・`projects.json`・`robots.txt`・`scripts/`・`.github/`・`img/`・`files/`・`header.js`（`JA_ONLY_COLUMNS` の配列に行を足す／消す以外）・ナビ構成・トップのヒーロー
 - **ファイルを削除しない。** git commit / push / branch / gh は使わない（公開はシェルが行う）。サブエージェントを起動しない。Web を取りに行かない
+- **`docs/seo-change-log.md` は書かない**（マニフェストからシェルが自動で記帳する。書くと検査で止まる）
 - **同じページを 2 週間以内に 2 度変えない**
 - **EN / ZH の既存ページ**は title / description / リンクの修正まで。本文の書き換え・新規翻訳は、その週に 3 言語を自分でそろえられるときだけ
 - title は `<title>`・og:title・twitter:title・Article JSON-LD の headline が同文なら全部そろえる。description も meta / og / twitter / JSON-LD description をそろえる。`content="..."` の中に素の `"` を入れない
@@ -87,7 +88,7 @@
 }
 ```
 
-`class` は title / description / body / internal-link / cta / new-column / rollback / hub / faq / structured-data のどれか。`files` は変更したファイル（ハブと sitemap は書かなくてよい）。`pages` は効果測定に使う URL パス。
+`class` は title / description / body / internal-link / cta / new-column / rollback / hub / faq / structured-data のどれか。`files` は変更したファイル（sitemap は書かなくてよい。ハブにカードを足したときはハブも書く＝sitemap の lastmod はここに書いたファイルだけ更新される）。`pages` は効果測定に使う URL パス。
 
 ## 時間と量
 
