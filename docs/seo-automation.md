@@ -18,6 +18,8 @@
 | 変更の 2 週後・4 週後 | 前後 14 日の GSC（クリック・CTR・順位）と GA4（着地→リード）を比べ、better / flat / worse を台帳に書く。worse は翌週の候補「差し戻し」 | `collect_daily.py` の中で `measure_changes.py` | `scix-web解析/ledger/` |
 | main への push の都度 | 変わった HTML を IndexNow へ（Bing・Yandex 等）。Google は sitemap の lastmod と GSC の手動リクエスト | GitHub Action `.github/workflows/indexnow-on-push.yml` | |
 
+両ジョブは実行前に `git pull --ff-only origin main` を打つ（launchd の plist 側）。GitHub で PR をマージすればローカルの main も追いつき、手で pull しなくてよい。ローカルに未 push のコミットがあれば pull は黙って見送られ、そのまま動く。
+
 ナビや構成そのものの再検討は月 1 回、ナビの組み替えは四半期に 1 回まで（週次では触らない＝`header.js` は `JA_ONLY_COLUMNS` 以外を検査で弾く）。
 
 ## 週次の Claude に渡すもの・渡さないもの
