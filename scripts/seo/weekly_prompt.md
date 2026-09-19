@@ -63,7 +63,8 @@
 1. `python3 scripts/gen_knowledge_jsonld.py --write`（ハブやコラムを触ったとき）
 2. `python3 scripts/seo/guard_diff.py --manifest <指定された changes.json>` を自分で走らせ、**OK が出るまで直す**（止める理由が出たら、その理由を直す。ガードを回避しない）
 3. マニフェスト `changes.json` を書く（形式は下）。変更が 1 件も無いと判断したときは `"changes": []` と `no_change_reason` を書く（それも正しい仕事）
-4. 最後の応答は日本語 3 行: 何を変えたか／なぜ（ブリーフの数字）／何で効果を見るか
+4. **`column_ideas` を 1〜3 件、必ず書く**（サイトの変更が 0 件の週も）。中島さんが今週書くコラムの主題の提案で、日曜朝の Telegram に先頭の 1 件が載る。根拠はブリーフ 5c（商用の意図がある語）と 5a（4〜20 位の語）、6 節（コラムからの遷移）。既存コラムでの言及回数を grep で数え、既に厚い主題は出さない。買い手・投資家向けを優先し、LDA 落札案件の売却は出さない。`title` は仮題（検索語の言い回しを含む）、`why` は数字つきの 1 文、`for` は buyer / investor / seller / land、`queries` は狙う検索語、`langs` は `ja` か `3`（買い手・投資家向けは `3`）
+5. 最後の応答は日本語 3 行: 何を変えたか／なぜ（ブリーフの数字）／何で効果を見るか
 
 ### changes.json の形式
 
@@ -72,6 +73,9 @@
   "week": "2026-09-22",
   "summary_lines": ["/transfer の title を「系統用蓄電池の案件を買う」に（表示 240・CTR 0.8%・9 位）", "制度コラム 3 本に /projects への本文内リンク", "効果は 10-06 / 10-20 の CTR とリードで見る"],
   "no_change_reason": null,
+  "column_ideas": [
+    {"title": "系統用蓄電池の案件を買う前に見る5つの書類", "why": "「系統用蓄電池 案件」42表示・クリック0が /land に着地し、買い手向けの受け皿が無い", "for": "buyer", "queries": ["系統用蓄電池 案件", "蓄電所 買いたい"], "langs": "3"}
+  ],
   "changes": [
     {
       "files": ["transfer.html"],

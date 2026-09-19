@@ -14,7 +14,7 @@
 | 周期 | 何が | 誰が | 場所 |
 |---|---|---|---|
 | 毎日 07:10 | GSC（検索語×ページ・端末・国）・GA4（着地・回遊・内部遷移・イベント）・本番 HTML の健診を台帳に蓄積。期限が来た変更の効果測定。**変更はしない** | launchd `ai.scix.web-metrics` → `scripts/seo/collect_daily.py` | 台帳 Drive `9_システム/scix-web解析/` |
-| 月曜 07:30 | 台帳からブリーフ → Claude（Opus）が判断・編集 → 機械の検査 → 通ったものだけ commit/push（Vercel が公開）→ IndexNow → Telegram 3 行 | launchd `ai.scix.web-weekly` → `scripts/seo/weekly_run.sh` | 作業ツリー `~/projects/.scix-web-weekly` |
+| 日曜 06:00 | 台帳からブリーフ → Claude（Opus）が判断・編集 → 機械の検査 → 通ったものだけ commit/push（Vercel が公開）→ IndexNow → Telegram 3 行＋「✍️ 今週書くなら」（コラム主題の提案。マニフェスト `column_ideas`） | launchd `ai.scix.web-weekly` → `scripts/seo/weekly_run.sh` | 作業ツリー `~/projects/.scix-web-weekly` |
 | 変更の 2 週後・4 週後 | 前後 14 日の GSC（クリック・CTR・順位）と GA4（着地→リード）を比べ、better / flat / worse を台帳に書く。worse は翌週の候補「差し戻し」 | `collect_daily.py` の中で `measure_changes.py` | `scix-web解析/ledger/` |
 | main への push の都度 | 変わった HTML を IndexNow へ（Bing・Yandex 等）。Google は sitemap の lastmod と GSC の手動リクエスト | GitHub Action `.github/workflows/indexnow-on-push.yml` | |
 

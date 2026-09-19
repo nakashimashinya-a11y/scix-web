@@ -1,5 +1,5 @@
 #!/bin/bash
-# weekly_run.sh — scix.co.jp の週次自動更新（launchd ai.scix.web-weekly・月曜 07:30）
+# weekly_run.sh — scix.co.jp の週次自動更新（launchd ai.scix.web-weekly・日曜 06:00）
 #
 # 2026-09-19 新設（中島「自動公開は承認しなくて公開していい。進めて」）。
 # 流れ: 台帳を最新に → ブリーフ生成 → main の作業ツリーで Claude が判断・編集 → 機械の検査（guard_diff.py）
@@ -46,6 +46,12 @@ fail() {
   cleanup; exit 1
 }
 mj() { python3 -c "import json,sys; j=json.load(open(sys.argv[1])); exec(sys.argv[2])" "$RUN_DIR/changes.json" "$1"; }
+# 今週書くコラムの主題（マニフェスト column_ideas の先頭）。中島「して。毎週日曜の6amに」（2026-09-20）
+idea_line() {
+  mj 'ideas=j.get("column_ideas") or []
+i=ideas[0] if ideas else None
+print(("✍️ 今週書くなら: "+str(i.get("title",""))+"（"+str(i.get("for",""))+"向け・"+("3言語" if str(i.get("langs"))=="3" else "JA")+"）— "+str(i.get("why",""))) if i else "✍️ 今週の主題提案: なし")' 2>/dev/null || echo "✍️ 今週の主題提案: 取得失敗"
+}
 
 mkdir "$LOCK" 2>/dev/null || { log "前回の実行が残っている（$LOCK）。止める。"; exit 1; }
 mkdir -p "$RUN_DIR"
@@ -98,7 +104,8 @@ git reset -q 2>/dev/null   # Claude が git add していても、こちらで a
 if ! git status --porcelain --untracked-files=all | grep -q . ; then
   REASON="$(mj 'print(j.get("no_change_reason") or "理由の記載なし")' 2>/dev/null)"
   log "今週は変更なし: $REASON"
-  notify "🌐 scix.co.jp 週次自動更新 $TODAY: 今週は変更なし。$REASON"
+  notify "🌐 scix.co.jp 週次自動更新 $TODAY: 今週は変更なし。$REASON
+$(idea_line)"
   cleanup; exit 0
 fi
 
@@ -156,6 +163,7 @@ python3 scripts/ping_indexnow.py --changed-since "$BASE_SHA" >>"$RUN_DIR/collect
 LINES="$(mj 'print("\n".join("・"+l for l in j.get("summary_lines",[])[:3]))')"
 notify "🌐 scix.co.jp 週次自動更新 $TODAY（公開済み）
 $LINES
+$(idea_line)
 https://github.com/nakashimashinya-a11y/scix-web/commit/${SHA:0:10}
 差し戻すなら: git revert ${SHA:0:10} → push。ブリーフ: 9_システム/scix-web解析/weekly/$TODAY/"
 log "OK 週次自動更新 完了 $SHA"
