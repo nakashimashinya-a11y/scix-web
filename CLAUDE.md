@@ -126,4 +126,4 @@ DR2 の自由記述（運転開始予定・負担金の欄）はそのまま出�
 - ヘッダーは `header.js` で共通化。各ページに直書きしない。
 - ページを更新したら `sitemap.xml` の `lastmod` を更新し（変更したページだけ手で）、デプロイ後に `python3 scripts/ping_indexnow.py /path1 /path2`（Bing等へ即時通知。Google は GSC の URL 検査から手動で）。
 - GA4 測定ID・秘密情報はコミットしない。
-- **週次自動更新が動いている**（日曜 06:00・承認なしで公開）。仕組み・止め方・戻し方は `docs/seo-automation.md`。台帳は Drive `9_システム/scix-web解析/`。自動のコミットは `auto(seo):`、差し戻しは `git revert`。
+- **週次自動更新が動いている**（日曜 06:00・承認なしで公開）。仕組み・止め方・戻し方は `docs/seo-automation.md`。台帳は Drive `9_システム/scix-web解析/`。自動のコミットは `auto(seo):`、差し戻しは `git revert`。PR で足した新規ページは翌朝、変更台帳に自動で載る（`scripts/seo/register_new_pages.py`＝手で記帳しなくてよい）。立ち上がりは週次ブリーフの 10 節に出る。**構成**（ハブの並び・トップの節の順・CTA の行き先・導線・ナビ）は月の第 1 日曜に同じジョブが PR `auto/structure-YYYY-MM` で提案する（自動では公開しない＝マージで公開・閉じれば不採用。ナビの組み替えは 90 日に 1 回まで）。

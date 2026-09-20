@@ -3,9 +3,14 @@
 
     python3 scripts/seo/build_brief.py                 # weekly/<今日>/brief.md と brief.json を書く
     python3 scripts/seo/build_brief.py --stdout        # 画面に出すだけ
+    python3 scripts/seo/build_brief.py --structure     # 月1回の構成レビュー用（S1〜S8 節を足す）。weekly/<今日>/structure/ に書く
 
 ここは決定論。判断（何を変えるか）は weekly_run.sh が呼ぶ Claude が brief を読んで行う。
+10 節（新規ページの立ち上がり・90日表示ゼロ）は台帳と git（origin/main）だけで作る＝追加 API なし。
+--structure の S1〜S8 節（ナビのクリック・遷移の太さ・コラムの送客・セッション0・孤立・カテゴリ別・トップの節・過去の提案）も同じ
+（中身は structure.py）。通常の週次のブリーフ（weekly/<今日>/brief.md）は上書きしない。
 """
+from __future__ import annotations  # launchd の python3 は 3.9
 import datetime
 import json
 import os
@@ -16,11 +21,19 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import (COMMERCIAL, LEDGER, REPO, d, daterange, file_to_url, jload, path_of,  # noqa: E402
-                    read_jsonl, today)
+                    read_jsonl, safe_d, today)
+import newpages as npg  # noqa: E402
 
 LEAD = "keyEvents:generate_lead"
 COMMERCIAL_RE = re.compile(r"買(い|う|取|収)|売(り|る|買|却)|案件|物件|投資|ファンド|譲渡|価格|利回り|相場|完成渡し|権利|仲介|for sale|invest|acqui")
 COOLDOWN_DAYS = 14
+NEW_DAYS = 60            # 「新規ページ」= 公開からこの日数以内
+NEW_GRACE_DAYS = 14      # 公開からこの日数を超えて表示ゼロなら旗
+ZERO_WINDOW = 90         # sitemap にあるのに表示ゼロ、を見る窓
+FLAG_ZERO = "公開14日超で表示ゼロ"
+FLAG_INBOUND = "被リンク1以下"
+FLAG_SITEMAP = "sitemap 未登録"
+FLAG_JA_ONLY = "JA専用の登録漏れ"
 
 
 # ---------------------------------------------------------------- 読み込み
@@ -93,9 +106,18 @@ def agg_ga4(recs):
     return tot, landing, trans, events, intents, nav, news, search
 
 
-def cooldown_pages():
-    """直近14日に人か自動が触ったページ（案件一覧の自動同期は除く）。今週は触らない。"""
+def cooldown_pages(structure=False):
+    """直近14日に人か自動が触ったページ（案件一覧の自動同期は除く）。今週は触らない。
+
+    structure=True（月1回の構成レビュー用）: ハブ・トップ（structure.HUB_TOP_FILES）の凍結は、**変更台帳の構成系の
+    エントリだけ** で決める（structure.is_structure_entry: class が hub／hub-order／top-order／nav、または
+    source=structure で、そのページが pages に載っているもの）。git の履歴と、それ以外の class のエントリでは凍結しない
+    （毎週コラムを足すたびにハブ・トップはカード・件数・新着が変わる＝全コミットで数えると / と /knowledge が常に
+    凍結され、hub-order・top-order を一度も提案できない）。ハブ・トップ以外のページは週次と同じ数え方。"""
     out = {}
+    st = None
+    if structure:
+        import structure as st  # noqa: PLC0415
     try:
         log_ = subprocess.run(["git", "log", f"--since={COOLDOWN_DAYS}.days", "--format=%H%x09%cs%x09%s"],
                               cwd=REPO, capture_output=True, text=True).stdout.splitlines()
@@ -107,15 +129,156 @@ def cooldown_pages():
                                    capture_output=True, text=True).stdout.split()
             for f in files:
                 u = file_to_url(f)
-                if u:
-                    out.setdefault(path_of(u), (date, subj[:60]))
+                if not u:
+                    continue
+                if st is not None and f in st.HUB_TOP_FILES:
+                    continue  # 構成レビューでは、ハブ・トップを git の履歴で凍結しない（下の変更台帳だけで決める）
+                out.setdefault(path_of(u), (date, subj[:60]))
     except Exception:  # noqa: BLE001
         pass
     for e in read_jsonl(LEDGER / "ledger" / "changes.jsonl"):
-        if (today() - d(e["date"])).days <= COOLDOWN_DAYS:
-            for p in e["pages"]:
-                out.setdefault(p, (e["date"], e.get("summary", "")[:60]))
+        day = safe_d(e.get("date"))
+        if day and (today() - day).days <= COOLDOWN_DAYS:
+            for p in e.get("pages") or []:
+                if st is not None and p in st.HUB_TOP_PAGES and not st.is_structure_entry(e):
+                    continue  # title・description などの変更では、構成レビューのハブ・トップは凍結しない
+                out.setdefault(p, (e["date"], (e.get("summary") or "")[:60]))
     return out
+
+
+def hub_top_freeze_lines(cd) -> list:
+    """9 節の末尾に足す行（構成レビュー用のブリーフだけ）。cd＝cooldown_pages(structure=True)。"""
+    import structure as st  # noqa: PLC0415
+    hubs = sorted(st.HUB_TOP_PAGES)
+    frozen = [f"{p}（{cd[p][0]}・{cd[p][1]}）" for p in hubs if p in cd]
+    out = ["\nハブ・トップ（" + "・".join(hubs) + "）の凍結は、この構成レビュー用のブリーフでは **変更台帳の構成系のエントリだけ** で"
+           "決めている: class が hub／hub-order／top-order／nav、または構成レビューの PR がマージされたもの（source=structure）で、"
+           "そのページが測る対象（pages）に載っている変更。コラムを足したときのカード・件数・新着・JSON-LD の焼き直しや、"
+           "title・description の変更では凍結しない（毎週コラムを足すたびに触られるため）。"
+           "いま凍結中のハブ・トップ: " + ("・".join(frozen) if frozen else "なし") + "。"]
+    try:
+        loose = st.unrecorded_layout_commits(COOLDOWN_DAYS, frozen=set(cd), cwd=REPO)
+    except Exception:  # noqa: BLE001
+        loose = []
+    if loose:
+        out.append("\n参考（凍結ではない）: 直近 14 日に、変更台帳に構成系の記帳が無いままハブ・トップの並び・見出し・本文を変えたコミットがある: "
+                   + "・".join(f"{p}（{dt}・{subj}）" for p, dt, subj in loose)
+                   + "。そのページの 28 日の数字には変更前の期間が混ざる＝根拠にするなら、そのことを rationale に書く。")
+    return out
+
+
+# ---------------------------------------------------------------- 新規ページ（10 節）
+
+def new_pages_data(latest, pages28, landing):
+    """(new_rows, zero_rows)。どちらも旗・緊急度の順に並べた全件（描画側で行数を切る）。
+
+    new_rows:  公開 NEW_DAYS 日以内のページ。公開日は Article JSON-LD の datePublished、無ければ git の初回コミット日
+    zero_rows: 本番の sitemap（＝健診のページ一覧）にあり、公開 NEW_GRACE_DAYS 日以上で、GSC ZERO_WINDOW 日の表示がゼロ
+    """
+    health = npg.latest_health() or {}
+    hpages = {p["url"]: p for p in health.get("pages", [])}
+    inbound = npg.inbound_counts(health)
+    hdate = health.get("date")
+    site = npg.site_pages()
+    files = {r["file"] for r in site}
+    ja_only = npg.ja_only_columns()
+    sums90, first90, _ = npg.gsc_page_sums(latest - datetime.timedelta(days=ZERO_WINDOW - 1), latest)
+
+    new_rows = []
+    for r in site:
+        age = npg.days_since(r["published"], today())
+        if age is None or age < 0 or age > NEW_DAYS:
+            continue
+        p = r["page"]
+        a = pages28.get(p) or {"impressions": 0, "clicks": 0}
+        in_health = p in hpages
+        flags = []
+        if age > NEW_GRACE_DAYS and not a["impressions"]:
+            flags.append(FLAG_ZERO)
+        if in_health and inbound.get(p, 0) <= 1:
+            flags.append(FLAG_INBOUND)
+        if hpages and not in_health and hdate and r["published"] < hdate:
+            flags.append(FLAG_SITEMAP)  # 健診は本番の sitemap を辿る＝そこに居ない
+        if r["lang"] == "ja" and npg.is_column(p) and p not in ja_only and not (
+                "en/" + r["file"] in files and "zh-" + r["file"] in files):
+            flags.append(FLAG_JA_ONLY)
+        new_rows.append({"page": p, "lang": r["lang"], "published": r["published"], "published_by": r["published_by"],
+                         "age_days": age, "first_shown": first90.get(p), "impressions": a["impressions"],
+                         "clicks": a["clicks"], "ga4_sessions": (landing.get(p) or {}).get("sessions", 0),
+                         "inbound": inbound.get(p, 0) if in_health else None, "flags": flags})
+    # 旗つき（旗の多い順・古い順）→ 旗なしは「まだ表示が出ていない」ものを先に（次に旗が立つ候補）
+    new_rows.sort(key=lambda x: (0, -len(x["flags"]), -x["age_days"], x["page"]) if x["flags"]
+                  else (1, 1 if x["impressions"] else 0, -x["age_days"], x["page"]))
+
+    pub = {r["page"]: r for r in site}
+    zero_rows = []
+    for p, h in hpages.items():
+        if h.get("status") != 200 or sums90.get(p, {}).get("impressions", 0):
+            continue
+        r = pub.get(p) or {}
+        age = npg.days_since(r.get("published"), today())
+        if age is not None and age < NEW_GRACE_DAYS:
+            continue
+        zero_rows.append({"page": p, "lang": npg.lang_of(p), "published": r.get("published"), "age_days": age,
+                          "inbound": inbound.get(p, 0), "ga4_sessions": (landing.get(p) or {}).get("sessions", 0)})
+    zero_rows.sort(key=lambda x: (x["inbound"], -(x["age_days"] or 10 ** 6), x["page"]))
+    return new_rows, zero_rows
+
+
+def render_new_pages(L, new_rows, zero_rows, latest, lim_new=40, lim_zero=20):
+    L.append(f"## 10. 新規ページ（公開{NEW_DAYS}日以内）の立ち上がり\n")
+    if not new_rows:
+        L.append(f"公開{NEW_DAYS}日以内のページは無い。\n")
+    else:
+        flagged = [x for x in new_rows if x["flags"]]
+        by_flag = {}
+        for x in flagged:
+            for f in x["flags"]:
+                by_flag[f] = by_flag.get(f, 0) + 1
+        L.append(f"{len(new_rows)}ページ・旗つき {len(flagged)}"
+                 + ("（" + "・".join(f"{k} {v}" for k, v in sorted(by_flag.items(), key=lambda kv: -kv[1])) + "）" if by_flag else "")
+                 + f"。表示・クリックは GSC の28日窓（最新日 {latest}）、初表示日は台帳で最初に表示が出た日、"
+                   "被リンクは健診（サイト内でそのページを指すページ数・自分自身は除く）。旗つきを先に並べる。\n")
+        L.append("| ページ | 公開日 | 経過日数 | 初表示日 | 表示 | クリック | GA4 着地 | 被リンク | 旗 |\n|---|---|---|---|---|---|---|---|---|")
+        for x in new_rows[:lim_new]:
+            L.append(f"| {x['page']} | {x['published']}{'（git）' if x['published_by'] == 'git' else ''} | {x['age_days']} | "
+                     f"{x['first_shown'] or '未'} | {x['impressions']} | {x['clicks']} | {x['ga4_sessions']} | "
+                     f"{'-' if x['inbound'] is None else x['inbound']} | {'・'.join(x['flags'])} |")
+        if len(new_rows) > lim_new:
+            L.append(f"\n（ほか {len(new_rows) - lim_new} ページ。全件は brief.json の new_pages）")
+        L.append("")
+    L.append(f"### 10b. sitemap にあるのに{ZERO_WINDOW}日表示ゼロ（公開{NEW_GRACE_DAYS}日以上）\n")
+    if not zero_rows:
+        L.append("なし。\n")
+        return
+    L.append(f"{len(zero_rows)}ページ。被リンクの少ない順。\n")
+    L.append("| ページ | 公開日 | 経過日数 | 被リンク | GA4 着地（28日） |\n|---|---|---|---|---|")
+    for x in zero_rows[:lim_zero]:
+        L.append(f"| {x['page']} | {x['published'] or '-'} | {'-' if x['age_days'] is None else x['age_days']} | {x['inbound']} | {x['ga4_sessions']} |")
+    if len(zero_rows) > lim_zero:
+        L.append(f"\n（ほか {len(zero_rows) - lim_zero} ページ。全件は brief.json の zero_impression）")
+    L.append("")
+
+
+def ramp_needs_care(entries, pages28):
+    """新規ページの立ち上がり判定（measure_changes.py の mode=ramp）で手当てが要るもの。
+    ページごとに最新の判定を見る。判定のあとで表示が出たページ（直近28日に表示あり）は not-shown から外す。
+    返り値 (not_shown, below_median)＝[(page, check, 表示, 中央値)]"""
+    not_shown, below = [], []
+    for e in entries:
+        m = e.get("measured") or {}
+        ramp = sorted((int(k), v) for k, v in m.items() if isinstance(v, dict) and v.get("mode") == "ramp")
+        if not ramp:
+            continue
+        check, last = ramp[-1]
+        for p, x in (last.get("by_page") or {}).items():
+            if x.get("verdict") == "not-shown":
+                if (pages28.get(p) or {}).get("impressions"):
+                    continue
+                not_shown.append((p, check, x.get("impressions", 0), x.get("median")))
+            elif x.get("verdict") == "below-median":
+                below.append((p, check, x.get("impressions", 0), x.get("median")))
+    return not_shown, below
 
 
 # ---------------------------------------------------------------- 描画
@@ -135,7 +298,7 @@ def delta(a, b):
     return f"{r:+.0f}%"
 
 
-def render(days=28, for_latest=False):
+def render(days=28, for_latest=False, structure=False):
     gd = gsc_days()
     if not gd:
         return "# ブリーフ\n\nGSC の台帳がまだ空です。`python3 scripts/seo/collect_daily.py --days 90` を先に。\n"
@@ -296,25 +459,65 @@ def render(days=28, for_latest=False):
     if not for_latest:
         L.append("## 8. 変更台帳（60日）と効果測定\n")
         L.append("| 変更日 | id | 種別 | ページ | 要約 | 2週後 | 4週後 |\n|---|---|---|---|---|---|---|")
-        for e in sorted(read_jsonl(LEDGER / "ledger" / "changes.jsonl"), key=lambda x: x["date"], reverse=True):
-            if (today() - d(e["date"])).days > 60:
-                continue
+        ledger = [e for e in read_jsonl(LEDGER / "ledger" / "changes.jsonl")
+                  if safe_d(e.get("date")) and (today() - safe_d(e["date"])).days <= 60]
+        auto_new = [e for e in ledger if e.get("source") == "manual-auto"]
+        for e in sorted(ledger, key=lambda x: x["date"], reverse=True):
+            if e.get("source") == "manual-auto":
+                continue  # 新規ページの自動記帳は下に件数だけ（個別は 10 節）
             m = e.get("measured") or {}
             def vs(k):
                 x = m.get(k)
                 if not x:
                     return "未"
+                if x.get("mode") == "ramp":  # 新規ページ＝前後比較ではなく立ち上がり
+                    return f"{x['verdict']}（表示 {x['post']['impressions']}・クリック {x['post']['clicks']}）"
                 return f"{x['verdict']}（{x['pre']['clicks']}→{x['post']['clicks']}, CTR {pct(x['pre']['ctr'])}→{pct(x['post']['ctr'])}, lead {x['pre']['leads']}→{x['post']['leads']}）"
-            L.append(f"| {e['date']} | {e['id']} | {e.get('class','')} | {' '.join(e['pages'][:6])}{'…' if len(e['pages'])>6 else ''} | {e.get('summary','')[:80]} | {vs('14')} | {vs('28')} |")
+            ep = e.get("pages") or []
+            L.append(f"| {e['date']} | {e.get('id')} | {e.get('class','')} | {' '.join(ep[:6])}{'…' if len(ep)>6 else ''} | {(e.get('summary') or '')[:80]} | {vs('14')} | {vs('28')} |")
         L.append("\n**worse の変更は差し戻し候補**（同じ変更を繰り返さない）。\n")
-        cd = cooldown_pages()
+        if auto_new:
+            tally = {}
+            for e in auto_new:
+                for k in ("14", "28"):
+                    v = ((e.get("measured") or {}).get(k) or {}).get("verdict", "未")
+                    tally.setdefault(k, {})[v] = tally.setdefault(k, {}).get(v, 0) + 1
+            L.append(f"新規ページの自動記帳（手動 PR で足したページ・register_new_pages.py）: {len(auto_new)} 件。"
+                     + "／".join(f"{k}日後 " + "・".join(f"{v} {n}" for v, n in sorted(t.items())) for k, t in sorted(tally.items()))
+                     + "。個別は 10 節。\n")
+        not_shown, below = ramp_needs_care(ledger, pages)
+        if not_shown:
+            L.append("**要手当て（新規ページ・判定は not-shown で、直近28日も表示ゼロ）**: "
+                     + "・".join(f"{p}（{c}日後）" for p, c, _, _ in sorted(not_shown))
+                     + "\n差し戻しではなく育成＝関連コラム・ハブからの内部リンク、sitemap・ハブカードの登録漏れの点検（10 節の旗）。\n")
+        if below:
+            L.append("中央値未満（新規ページ・28日後。同じ言語の既存コラムの中央値と比較）: "
+                     + "・".join(f"{p}（表示 {i}／中央値 {m:g}）" for p, _, i, m in sorted(below)) + "\n")
+        cd = cooldown_pages(structure=structure)
         L.append("## 9. 今週触らないページ（14日以内に変更済み・効果測定中）\n")
         L.append("・".join(f"{p}（{dt}）" for p, (dt, _) in sorted(cd.items())) or "なし")
+        if structure:
+            L.extend(hub_top_freeze_lines(cd))
         L.append("")
+
+    # 10. 新規ページの立ち上がり（最新.md には短く）
+    try:
+        new_rows, zero_rows = new_pages_data(latest, pages, landing)
+        render_new_pages(L, new_rows, zero_rows, latest, *((15, 10) if for_latest else (40, 20)))
+    except Exception as e:  # noqa: BLE001 — ここが落ちてもブリーフの他の節は出す
+        L.append(f"## 10. 新規ページ（公開{NEW_DAYS}日以内）の立ち上がり\n\n生成に失敗: {e}\n")
+
+    # S1〜S8. 構成レビュー（月1回・--structure のときだけ）
+    if structure:
+        try:
+            import structure as st
+            st.render_sections(L, st.data(ga_cur, ga_prev, pages, landing, health))
+        except Exception as e:  # noqa: BLE001 — ここが落ちても上の節は出す
+            L.append(f"\n# 構成レビュー用の節\n\n生成に失敗: {e}\n")
     return "\n".join(L) + "\n"
 
 
-def brief_json(days=28):
+def brief_json(days=28, structure=False):
     gd = gsc_days()
     if not gd:
         return {}
@@ -323,18 +526,38 @@ def brief_json(days=28):
     tot, pages, _, _ = agg_gsc(cur)
     ga = load_range("ga4", latest - datetime.timedelta(days=days - 1), latest)
     _, landing, *_ = agg_ga4(ga)
-    return {"generated": str(today()), "latest_gsc": str(latest), "days": days, "totals": tot,
-            "pages": pages, "landing": landing, "cooldown": {k: v[0] for k, v in cooldown_pages().items()}}
+    try:
+        new_rows, zero_rows = new_pages_data(latest, pages, landing)
+    except Exception:  # noqa: BLE001
+        new_rows, zero_rows = [], []
+    out = {"generated": str(today()), "latest_gsc": str(latest), "days": days, "totals": tot,
+           "pages": pages, "landing": landing,
+           "cooldown": {k: v[0] for k, v in cooldown_pages(structure=structure).items()},
+           "new_pages": new_rows, "zero_impression": zero_rows}
+    if structure:
+        try:
+            import structure as st
+            ga_prev = load_range("ga4", latest - datetime.timedelta(days=2 * days - 1), latest - datetime.timedelta(days=days))
+            health = npg.latest_health()
+            s = st.data(ga, ga_prev, pages, landing, health)
+            s["matrix"] = {a: dict(b) for a, b in s["matrix"].items()}
+            out["structure"] = s
+        except Exception as e:  # noqa: BLE001
+            out["structure"] = {"error": str(e)}
+    return out
 
 
 def main() -> int:
-    text = render()
+    structure = "--structure" in sys.argv
+    text = render(structure=structure)
     if "--stdout" in sys.argv:
         print(text); return 0
     out = LEDGER / "weekly" / str(today())
+    if structure:
+        out = out / "structure"   # 同じ日の週次のブリーフを上書きしない
     out.mkdir(parents=True, exist_ok=True)
     (out / "brief.md").write_text(text, encoding="utf-8")
-    (out / "brief.json").write_text(json.dumps(brief_json(), ensure_ascii=False), encoding="utf-8")
+    (out / "brief.json").write_text(json.dumps(brief_json(structure=structure), ensure_ascii=False, default=list), encoding="utf-8")
     print(out / "brief.md")
     return 0
 

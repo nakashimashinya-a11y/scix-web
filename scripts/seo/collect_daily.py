@@ -6,6 +6,8 @@
     python3 scripts/seo/collect_daily.py --no-health   # 健診（本番へのアクセス）を飛ばす
 
 データの遅れ: GSC は2〜3日、GA4 は1〜2日。若い日付は毎回取り直して上書きする。
+収集のあと、origin/main に足された新規ページを変更台帳へ自動で記帳し（register_new_pages.py）、月1回の構成レビューの
+提案がマージされていればそれも記帳し（register_structure_merges.py）、期限が来た変更を計測する。
 GA4 のトークンが無ければ GA4 だけ飛ばす（他は止めない）。
 """
 import argparse
@@ -307,6 +309,7 @@ def main() -> int:
     ap.add_argument("--no-gsc", action="store_true")
     ap.add_argument("--no-ga4", action="store_true")
     ap.add_argument("--no-health", action="store_true")
+    ap.add_argument("--no-register", action="store_true", help="新規ページの自動記帳を飛ばす")
     ap.add_argument("--no-measure", action="store_true")
     a = ap.parse_args()
     rc = 0
@@ -325,12 +328,29 @@ def main() -> int:
             collect_health()
         except Exception as e:  # noqa: BLE001
             log(f"健診で失敗: {e}"); rc = 1
+    if not a.no_register:
+        # 手動 PR で足したページを変更台帳へ（効果測定の前に。measure が同じ朝に拾えるように）
+        try:
+            import register_new_pages
+            for e in register_new_pages.run():
+                log(f"新規ページを記帳: {e['id']} {' '.join(e['pages'])}")
+        except Exception as e:  # noqa: BLE001
+            log(f"新規ページの記帳で失敗: {e}"); rc = 1
+    if not a.no_register:
+        # 月1回の構成レビューの提案（PR）がマージされていたら変更台帳へ（提案が無ければ何もしない）
+        try:
+            import register_structure_merges
+            for e in register_structure_merges.run():
+                log(f"構成の提案がマージされた → 変更台帳へ: {e['id']} {' '.join(e['pages'])}")
+        except Exception as e:  # noqa: BLE001
+            log(f"構成の提案の記帳で失敗: {e}"); rc = 1
     if not a.no_measure:
         try:
             import measure_changes
             new = measure_changes.run()
             for m in new:
-                log(f"計測: {m['id']} {m['check']}日後 → {m['verdict']}")
+                ns = [p for p, x in (m.get("by_page") or {}).items() if x.get("verdict") == "not-shown"]
+                log(f"計測: {m['id']} {m['check']}日後 → {m['verdict']}" + (f"（表示ゼロ: {' '.join(ns)}）" if ns else ""))
         except Exception as e:  # noqa: BLE001
             log(f"効果測定で失敗: {e}"); rc = 1
     try:
