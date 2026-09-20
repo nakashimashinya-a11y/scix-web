@@ -153,12 +153,20 @@ run_structure() {
   run_claude "今月（$MONTH）の構成レビューを実行してください。ブリーフ: $RUN_DIR/brief.md 。マニフェストの出力先: $RUN_DIR/changes.json 。作業ディレクトリ（リポジトリ）: $WT 。検査は python3 scripts/seo/guard_diff.py --manifest $RUN_DIR/changes.json --profile structure 。" \
     "$WT/scripts/seo/structure_prompt.md"
 
-  # 4. マニフェストと変更の有無
+  # 4. マニフェストと変更の有無。提案の有無は **マニフェストの changes の件数** で決める（git status だけで決めない）:
+  #    Claude は仕上げで gen_knowledge_jsonld.py --write を走らせる。そのあと提案を取り下げて changes: [] にしても、
+  #    焼き直しの差分（NEW バッジの期限切れ・ItemList の順）は作業ツリーに残る（git checkout／restore は渡していない）。
+  #    それを「提案あり」と読むと、中身のない PR が出て、その月の枝（1か月に1回）を使ってしまう。
   [ -s "$RUN_DIR/changes.json" ] || fail "マニフェスト changes.json が無い"
   cd "$WT" || fail "作業ツリーへ移動できない"
   git reset -q 2>/dev/null
-  if ! git status --porcelain --untracked-files=all | grep -q . ; then
+  N_CHANGES="$(mj 'c=j.get("changes"); print(len(c) if isinstance(c, list) else 0)' 2>/dev/null)"
+  case "$N_CHANGES" in ''|*[!0-9]*) fail "マニフェスト changes.json を読めない（JSON が壊れている）" ;; esac
+  if [ "$N_CHANGES" = "0" ] || ! git status --porcelain --untracked-files=all | grep -q . ; then
     REASON="$(mj 'print(j.get("no_change_reason") or "理由の記載なし")' 2>/dev/null)"
+    if [ "$N_CHANGES" = "0" ] && git status --porcelain --untracked-files=all | grep -q . ; then
+      log "マニフェストは 0 件。作業ツリーに残っている差分は焼き直しだけ＝PR にしない: $(git status --porcelain --untracked-files=all | head -5 | tr '\n' ' ')"
+    fi
     log "今月は構成の提案なし: $REASON"
     notify "🧭 scix.co.jp 構成レビュー $MONTH: 今月は提案なし。$REASON"
     cleanup; exit 0

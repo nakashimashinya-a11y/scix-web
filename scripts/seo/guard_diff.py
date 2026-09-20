@@ -13,7 +13,7 @@
   - EN は title 70字以内・description 155字以内（Bing の指摘）
   - 新コラムの必須ブロック（監修・Article JSON-LD author=Person・パンくず・CTA・sitemap 登録）
   - 禁止語（自称「中立」・実績の主張・鍵らしき文字列）
-  - マニフェスト（何をなぜ変えたか）と実際の差分が一致している
+  - マニフェスト（何をなぜ変えたか）と実際の差分が一致している。各変更に pages（効果測定に使う URL パス）が要る
   - トップ（index.html・en/index.html・zh.html）のヒーローより上は変えない（<body> の先頭〜<section class="hero"> の終わり）
 
 --profile structure（月1回の構成レビュー。公開はせず PR で提案する＝weekly_run.sh の MODE=structure）で変わるところ:
@@ -28,7 +28,9 @@
     nav_rule.last_nav_change）と、変更台帳＋origin/main の header.js の履歴（structure.nav_rule）とで照合する。
     ナビ定義と JA_ONLY_COLUMNS 以外（CSS・計測・更新メール）は変えられない
   - マニフェストの各変更に pages・measure（いつ何で測るか）が要る。rationale には根拠の数字が要る。class は
-    hub-order / top-order / cta-route / funnel-block / nav。PR の本文（公開）に載る欄に、問い合わせの件数を書かない
+    hub-order / top-order / cta-route / funnel-block / nav。PR の題・本文・コミットの件名（公開）に載る欄
+    （proposal_title・summary_lines・summary・rationale・hypothesis・kpi・measure・before・after）に、問い合わせの件数を書かない
+  - マニフェストの changes が 0 件なのに差分がある（焼き直しだけが残っている）なら止める＝中身のない PR を出さない
   それ以外（触ってはいけないファイル・title・canonical・JSON-LD・リンク切れ・鍵・自称中立など）は週次と同じ。
 """
 from __future__ import annotations  # launchd の python3 は 3.9
@@ -166,14 +168,17 @@ def sh(*args):
 class Page(html.parser.HTMLParser):
     def __init__(self):
         super().__init__()
-        self.title = ""; self._t = False; self.desc = None; self.canonical = None; self.h1 = 0
+        self.title = ""; self._t = False; self._title_seen = False; self.desc = None; self.canonical = None; self.h1 = 0
         self.header_js = False; self.inline_header = False; self.ld = []; self._ld = None
         self.links = []; self.author_box = False; self.breadcrumb = False; self.hreflang = {}
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         cls = a.get("class") or ""
-        if tag == "title": self._t = True
+        if tag == "title":
+            # ページの title は最初の 1 つだけ。本文のインライン SVG にも <title id="fig2-title"> があり、連結すると
+            # 「title の重複」が黙って外れ、EN の 70 字検査が図つきページを誤って止める（2026-09-20）
+            if not self._title_seen: self._t = True; self._title_seen = True
         elif tag == "meta" and (a.get("name") or "").lower() == "description": self.desc = a.get("content", "")
         elif tag == "link":
             rel = (a.get("rel") or "").lower()
@@ -253,19 +258,30 @@ def main() -> int:
     if structure and len(entries) > STRUCT_MAX_ENTRIES:
         problems.append(f"構成の変更は {STRUCT_MAX_ENTRIES} 件まで（{len(entries)} 件）")
     if structure:
-        for l in manifest.get("summary_lines") or []:
-            if LEAD_NUMBER_RE.search(str(l)):
-                problems.append(f"summary_lines: 問い合わせの件数は公開の PR 本文に書かない: {str(l)[:60]}")
+        if not entries:
+            # 差分はあるのに提案が 0 件＝焼き直し（NEW バッジ落ち・ItemList の順）だけが残っている。PR にしない
+            problems.append("構成レビュー: マニフェストの changes が 0 件なのに差分がある（焼き直しの差分だけでは提案にならない。"
+                            "提案なしなら changes: [] と no_change_reason のまま終えてよい＝シェルは PR を作らない）")
+        # PR の題・コミットの件名にもなる欄（proposal_title）を含め、公開される欄は全部見る
+        for k in ("proposal_title", "summary_lines"):
+            v = manifest.get(k)
+            for l in (v if isinstance(v, list) else [v] if v else []):
+                if LEAD_NUMBER_RE.search(str(l)):
+                    problems.append(f"{k}: 問い合わせの件数は公開の PR（題・本文・コミットの件名）に書かない: {str(l)[:60]}")
     for i, e in enumerate(entries):
-        for k in ("files", "class", "summary", "rationale", "kpi") + (("pages", "measure") if structure else ()):
+        # pages は週次でも必須: 空のまま変更台帳に入ると効果測定の対象が無い（new-column は 14 日後の立ち上がり判定で使う）
+        for k in ("files", "class", "summary", "rationale", "kpi", "pages") + (("measure",) if structure else ()):
             if not e.get(k):
                 problems.append(f"マニフェスト {i}: {k} が無い")
+        pg_ = e.get("pages")
+        if pg_ and not (isinstance(pg_, list) and all(isinstance(p, str) and p.startswith("/") for p in pg_)):
+            problems.append(f"マニフェスト {i}: pages は URL パス（/ で始まる文字列）の配列で書く: {str(pg_)[:80]}")
         if e.get("class") not in (STRUCT_CLASSES if structure else CLASSES):
             problems.append(f"マニフェスト {i}: class が想定外 {e.get('class')}")
         if structure:
             if not re.search(r"[0-9０-９]", str(e.get("rationale", ""))):
                 problems.append(f"マニフェスト {i}: rationale に根拠の数字が無い")
-            for k in ("summary", "rationale", "kpi", "measure", "hypothesis"):
+            for k in ("summary", "rationale", "kpi", "measure", "hypothesis", "before", "after"):   # before／after も PR 本文に出る
                 if LEAD_NUMBER_RE.search(str(e.get(k, ""))):
                     problems.append(f"マニフェスト {i}: {k} に問い合わせの件数を書かない（PR の本文は公開。件数は private_note へ）")
         if len(str(e.get("summary", ""))) > 300:
@@ -288,8 +304,8 @@ def main() -> int:
     all_titles = {}
     for f in list(REPO.glob("*.html")) + list((REPO / "en").glob("*.html")):
         m = re.search(r"<title>(.*?)</title>", f.read_text(encoding="utf-8", errors="replace"), re.S)
-        if m:
-            all_titles.setdefault(m.group(1).strip(), []).append(str(f.relative_to(REPO)))
+        if m:   # Page と同じ読み方にそろえる（最初の <title>・実体参照は戻す＝「O&amp;M」の title も重複を見つけられる）
+            all_titles.setdefault(html.unescape(m.group(1)).strip(), []).append(str(f.relative_to(REPO)))
 
     n_existing = n_new = 0
     for path in changed + added:

@@ -20,17 +20,22 @@
   not-shown は worse と同じ扱い＝翌週のブリーフ 8 節に「要手当て」として出る（差し戻しではなく内部リンクで育てる）。
   既に判定済みのレコードは触らない。
 
+1 件の不正で全体を止めない: エントリごとに例外を受け、そのエントリだけ飛ばして次へ進む（ログに id を出す）。
+pages が空の新規ページ（マニフェストの書き落とし）は insufficient で閉じる。measurements.jsonl への追記は
+changes.jsonl を書き戻したあと＝途中で落ちても同じ行が毎朝増えない（(id, check) が既にある行も足さない）。
+
     python3 scripts/seo/measure_changes.py          # 期限が来たものを計測して台帳に書く
     python3 scripts/seo/measure_changes.py --list   # 台帳を表示
 """
 from __future__ import annotations  # launchd の python3 は 3.9
 import datetime
+import json
 import os
 import statistics
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import LEDGER, d, daterange, jload, log, read_jsonl, today, write_jsonl, append_jsonl  # noqa: E402
+from common import LEDGER, d, daterange, jload, log, read_jsonl, safe_d, today, write_jsonl, append_jsonl  # noqa: E402
 import newpages as npg  # noqa: E402
 
 CHANGES = LEDGER / "ledger" / "changes.jsonl"
@@ -99,22 +104,30 @@ def measure_ramp(e, check, entries, health):
     day = d(e["date"])
     end = day + datetime.timedelta(days=check)
     start = day if check == 14 else day + datetime.timedelta(days=1)
+    pages = [p for p in (e.get("pages") or []) if isinstance(p, str) and p]
+    if not pages:
+        # 測る対象が無い（マニフェストで pages を書き落とした new-column など）。落とさずに insufficient で閉じる
+        # ＝翌朝また同じところで止まらない。旧方式（前後比較）でも pages が空なら insufficient だった
+        return {"verdict": "insufficient", "mode": "ramp", "window": [str(start), str(end)], "note": "pages が空",
+                "pre": dict(ZERO), "post": dict(ZERO), "by_page": {}, "on": str(today())}
     sums, first, days = npg.gsc_page_sums(start, end)
     if days < (end - start).days // 2:
-        verdicts = {p: "insufficient" for p in e["pages"]}
+        verdicts = {p: "insufficient" for p in pages}
     else:
         verdicts = {}
     # 既存コラムの母集団から外す「新規」: 窓の終わりの60日前より後に公開されたページ（台帳＋git の公開日。
     # 窓より後に出たページも外す＝その窓では表示ゼロで当たり前なので、中央値を不当に下げる）
-    recent = set(e["pages"])
+    recent = set(pages)
     for x in entries:
-        if x.get("class") in npg.NEW_CLASSES and (end - d(x["date"])).days <= NEW_EXCLUDE_DAYS:
+        xd = safe_d(x.get("date"))   # 他のエントリの日付が壊れていても、このエントリの判定は落とさない
+        if x.get("class") in npg.NEW_CLASSES and xd and (end - xd).days <= NEW_EXCLUDE_DAYS:
             recent.update(x.get("pages") or [])
     for r in npg.site_pages():
-        if r["published"] and (end - d(r["published"])).days <= NEW_EXCLUDE_DAYS:
+        rd = safe_d(r["published"])
+        if rd and (end - rd).days <= NEW_EXCLUDE_DAYS:
             recent.add(r["page"])
     by_page, medians = {}, {}
-    for p in e["pages"]:
+    for p in pages:
         imp = sums.get(p, {}).get("impressions", 0)
         rec = {"impressions": imp, "clicks": sums.get(p, {}).get("clicks", 0), "first_shown": first.get(p)}
         if check == 28 and p not in verdicts:
@@ -128,10 +141,41 @@ def measure_ramp(e, check, entries, health):
         else:
             rec["verdict"] = verdicts.get(p) or ("shown" if imp else "not-shown")
         by_page[p] = rec
-    primary = sorted(e["pages"], key=lambda p: npg.LANG_ORDER[npg.lang_of(p)])[0]
+    primary = sorted(pages, key=lambda p: npg.LANG_ORDER[npg.lang_of(p)])[0]
     return {"verdict": by_page[primary]["verdict"], "mode": "ramp", "window": [str(start), str(end)],
-            "pre": dict(ZERO), "post": window_metrics(e["pages"], start, end), "by_page": by_page,
+            "pre": dict(ZERO), "post": window_metrics(pages, start, end), "by_page": by_page,
             "on": str(today())}
+
+
+def measure_entry(e, latest, entries, health_box):
+    """1 エントリの、期限が来た未判定の check を測る。返り値 [(key, measured に入れる dict, measurements の行)]。
+    台帳（e）は書き換えない＝途中で例外が出ても、そのエントリには半端な measured が残らない。"""
+    day = d(e["date"])
+    pages = e.get("pages") or []
+    out = []
+    for check, (ps, pe) in WINDOWS.items():
+        key = str(check)
+        if key in (e.get("measured") or {}):
+            continue
+        if e.get("class") in npg.NEW_CLASSES:
+            if latest < day + datetime.timedelta(days=check):
+                continue
+            if health_box[0] is None:
+                health_box[0] = npg.latest_health() or {}
+            m = measure_ramp(e, check, entries, health_box[0])
+            rec = {"id": e["id"], "check": check, "measured_on": str(today()), "pages": pages, **m}
+            rec.pop("on", None)
+            out.append((key, m, rec))
+            continue
+        if latest < day + datetime.timedelta(days=pe):
+            continue
+        pre = window_metrics(pages, day + datetime.timedelta(days=PRE[0]), day + datetime.timedelta(days=PRE[1]))
+        post = window_metrics(pages, day + datetime.timedelta(days=ps), day + datetime.timedelta(days=pe))
+        v = verdict(pre, post)
+        rec = {"id": e["id"], "check": check, "measured_on": str(today()), "pages": pages,
+               "pre": pre, "post": post, "verdict": v}
+        out.append((key, {"verdict": v, "pre": pre, "post": post, "on": str(today())}, rec))
+    return out
 
 
 def run():
@@ -140,42 +184,30 @@ def run():
     if not entries or not latest:
         return []
     new = []
-    changed = False
-    health = None
+    health_box = [None]
     for e in entries:
-        day = d(e["date"])
-        for check, (ps, pe) in WINDOWS.items():
-            key = str(check)
-            if key in (e.get("measured") or {}):
-                continue
-            if e.get("class") in npg.NEW_CLASSES:
-                if latest < day + datetime.timedelta(days=check):
-                    continue
-                if health is None:
-                    health = npg.latest_health() or {}
-                m = measure_ramp(e, check, entries, health)
-                if not isinstance(e.get("measured"), dict):
-                    e["measured"] = {}
-                e["measured"][key] = m
-                rec = {"id": e["id"], "check": check, "measured_on": str(today()), "pages": e["pages"], **m}
-                rec.pop("on", None)
-                append_jsonl(MEASURES, rec)
-                new.append(rec)
-                changed = True
-                continue
-            if latest < day + datetime.timedelta(days=pe):
-                continue
-            pre = window_metrics(e["pages"], day + datetime.timedelta(days=PRE[0]), day + datetime.timedelta(days=PRE[1]))
-            post = window_metrics(e["pages"], day + datetime.timedelta(days=ps), day + datetime.timedelta(days=pe))
-            v = verdict(pre, post)
-            rec = {"id": e["id"], "check": check, "measured_on": str(today()), "pages": e["pages"],
-                   "pre": pre, "post": post, "verdict": v}
-            e.setdefault("measured", {})[key] = {"verdict": v, "pre": pre, "post": post, "on": str(today())}
-            append_jsonl(MEASURES, rec)
+        try:
+            got = measure_entry(e, latest, entries, health_box)
+        except Exception as ex:  # noqa: BLE001 — 1 件の不正（壊れた日付・想定外の形）で、後ろのエントリの計測まで止めない
+            log(f"効果測定: {e.get('id')} を飛ばす（{type(ex).__name__}: {ex}）")
+            continue
+        for key, m, rec in got:
+            if not isinstance(e.get("measured"), dict):
+                e["measured"] = {}
+            e["measured"][key] = m
             new.append(rec)
-            changed = True
-    if changed:
-        write_jsonl(CHANGES, entries)
+    if not new:
+        return []
+    # 先に変更台帳（正本）を書き戻す。ここで落ちたら measurements には何も足さない＝翌朝の測り直しで行が重複しない
+    write_jsonl(CHANGES, entries)
+    try:
+        seen = {(r.get("id"), r.get("check")) for r in read_jsonl(MEASURES)}
+    except (json.JSONDecodeError, OSError):
+        seen = set()
+    for rec in new:
+        if (rec["id"], rec["check"]) not in seen:
+            append_jsonl(MEASURES, rec)
+            seen.add((rec["id"], rec["check"]))
     return new
 
 
@@ -183,8 +215,8 @@ def main() -> int:
     if "--list" in sys.argv:
         for e in read_jsonl(CHANGES):
             m = e.get("measured") or {}
-            print(e["date"], e["id"], e.get("class"), ",".join(e["pages"])[:60],
-                  {k: v["verdict"] for k, v in m.items()})
+            print(e.get("date"), e.get("id"), e.get("class"), ",".join(e.get("pages") or [])[:60],
+                  {k: (v or {}).get("verdict") for k, v in m.items()})
         return 0
     for r in run():
         pre, post = r["pre"], r["post"]

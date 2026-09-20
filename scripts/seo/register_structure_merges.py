@@ -7,8 +7,11 @@
 提案は weekly_run.sh（MODE=structure）が ledger/proposals.jsonl に status=proposed で残す（PR 番号つき・未公開）。
 ここでは origin/main の履歴だけを見て、マージされたものを見つける（gh は使わない＝launchd でも認証に依らない）:
   1. PR 番号があれば、件名が「…(#NN)」（squash マージ＝このリポジトリの慣例）か「Merge pull request #NN …」のコミット
-  2. PR 番号が無い（gh が失敗して枝だけ push した）ときは、提案のコミットと同じ中身のファイルを持つコミット
-     （提案のコミットが手元に残っているときだけ。見つからなければ proposed のまま）
+  2. PR 番号が無い（gh が失敗して枝だけ push した）ときは、提案のコミットと同じ中身のファイルを **最初に持ち込んだ**
+     コミット（そのコミットでは同じ中身・親コミットでは違う中身）。提案のコミットが手元に残っているときだけ。
+     見つからなければ proposed のまま。1 つの提案（同じ commit）はマニフェストの変更 1 件ごとに 1 行あるので、
+     同じ提案の別の行は同じマージコミットに当たってよい。別の提案（commit が違う）が記帳済みのマージコミットは
+     飛ばして先を探す（同じ中身の出し直しを二重に数えない。ただし探すのをそこで打ち切らない）
 見つけたら、変更日＝マージコミットの日付で変更台帳に足し（id は提案と同じ＝何度走っても重複しない。効果測定は
 measure_changes.py が 14 日後・28 日後に前後比較）、提案を status=merged にする。class=nav は nav_change=true を
 付ける＝「ナビの組み替えは90日に1回まで」の起点になる。60 日マージされなかった提案は expired（不採用とみなす）。
@@ -42,7 +45,9 @@ def blob(sha: str, rel: str) -> str:
     return npg.git("rev-parse", "--verify", "--quiet", f"{sha}:{rel}").strip()
 
 
-def find_merge(p: dict, claimed=()):
+def find_merge(p: dict, claimed=None):
+    """claimed＝{マージコミット: それを記帳した提案の commit の集合}。"""
+    claimed = claimed or {}
     rows = commits_since(p["date"])
     pr = p.get("pr")
     if pr:
@@ -56,10 +61,18 @@ def find_merge(p: dict, claimed=()):
     if not files or not all(want.values()):
         return None  # 提案のコミットが手元に無い
     for sha, date, subj in rows:
-        if sha in claimed:   # 別の提案のマージとして記帳済み（同じ中身の出し直しを二重に数えない）
-            return None
-        if sha != p.get("commit") and all(blob(sha, f) == want[f] for f in files):
-            return sha, date, subj
+        if sha == p.get("commit"):
+            continue
+        # 別の提案のマージとして記帳済み → このコミットは採らないが、探すのは続ける（ここで打ち切ると、前月の PR が
+        # 先にマージされているだけで、後ろにある本物のマージが永久に見つからない）。同じ提案の別の行は同じコミットでよい
+        if claimed.get(sha, set()) - {p.get("commit")}:
+            continue
+        if not all(blob(sha, f) == want[f] for f in files):
+            continue
+        # その中身を最初に持ち込んだコミットだけ（マージのあとのコミットは、ファイルが変わるまで全部同じ中身を持つ）
+        if all(blob(sha + "^", f) == want[f] for f in files):
+            continue
+        return sha, date, subj
     return None
 
 
@@ -77,7 +90,10 @@ def run(dry: bool = False) -> list:
         return []
     ids = {e.get("id") for e in read_jsonl(st.CHANGES)}
     new, changed = [], False
-    claimed = {p.get("merge_commit") for p in props if p.get("merge_commit")}
+    claimed = {}
+    for p in props:
+        if p.get("merge_commit"):
+            claimed.setdefault(p["merge_commit"], set()).add(p.get("commit"))
     for p in sorted(props, key=lambda x: 0 if x.get("pr") else 1):   # PR 番号のある提案を先に（確実なほうから）
         if p.get("status") != "proposed":
             continue
@@ -98,7 +114,7 @@ def run(dry: bool = False) -> list:
                 if not dry:
                     append_jsonl(st.CHANGES, e)
             p.update({"status": "merged", "merged_on": date, "merge_commit": sha}); changed = True
-            claimed.add(sha)
+            claimed.setdefault(sha, set()).add(p.get("commit"))
         elif (today() - d(p["date"])).days > EXPIRE_DAYS:
             p.update({"status": "expired", "expired_on": str(today())}); changed = True
     if changed and not dry:

@@ -14,7 +14,7 @@ import html
 import re
 import subprocess
 
-from common import COMMERCIAL, LEDGER, REPO, d, read_jsonl, today
+from common import COMMERCIAL, LEDGER, REPO, d, read_jsonl, safe_d, today
 import newpages as npg
 
 NAV_FREEZE_DAYS = 90     # ナビの組み替えは四半期に1回まで
@@ -181,7 +181,8 @@ def nav_changes(days: int = NAV_FREEZE_DAYS, cwd=None, asof=None) -> list:
     since = asof - datetime.timedelta(days=days)
     out = []
     for e in read_jsonl(CHANGES):
-        if (e.get("class") == "nav" or e.get("nav_change")) and e.get("date") and d(e["date"]) >= since:
+        day = safe_d(e.get("date"))   # 台帳の 1 行の日付が壊れていても、ナビの90日ルールの照合とブリーフは止めない
+        if (e.get("class") == "nav" or e.get("nav_change")) and day and day >= since:
             out.append({"date": e["date"], "source": "ledger", "ref": e.get("id"), "summary": (e.get("summary") or "")[:80]})
     log_ = _git("log", npg.ref(), f"--since={since - datetime.timedelta(days=1)}", "--format=%H%x09%cs%x09%s",
                 "--", "header.js", cwd=cwd)
@@ -210,6 +211,84 @@ def nav_rule(cwd=None, asof=None) -> dict:
 
 def proposals() -> list:
     return read_jsonl(PROPOSALS)
+
+
+# ---------------------------------------------------------------- ハブ・トップの凍結（ブリーフ 9 節・構成レビュー用）
+# 週次のブリーフの 9 節は「直近14日に触った全コミット」で凍結する。ハブ・トップはコラムを 1 本足すたびに
+# カードが足され、件数・新着（<!--S:kcount--> <!--S:knew-->）・ItemList が焼き直される＝毎週触られる。それを凍結に
+# 数えると、構成レビューの主目的（hub-order・top-order）が一度も提案できない。だから構成レビュー用のブリーフでは、
+# ハブ・トップの凍結を **変更台帳の構成系のエントリだけ** で決める（is_structure_entry。git の履歴では凍結しない）。
+# 人が手で構成を変えたときも、台帳に class=hub で記帳してあれば凍結される（効果測定もそこから走る）。
+HUB_TOP_FILES = {"knowledge.html": "/knowledge", "en/knowledge.html": "/en/knowledge", "zh-knowledge.html": "/zh-knowledge",
+                 "index.html": "/", "en/index.html": "/en", "zh.html": "/zh"}
+HUB_TOP_PAGES = frozenset(HUB_TOP_FILES.values())
+FREEZE_CLASSES = ("hub", "hub-order", "top-order", "nav")   # 週次の hub と、構成レビューの hub-order／top-order／nav
+
+
+def is_structure_entry(e: dict) -> bool:
+    """変更台帳のエントリが構成系か（ハブ・トップを凍結する変更か）。構成レビューの PR がマージされたもの
+    （source=structure。cta-route・funnel-block も含む）と、class が hub／hub-order／top-order／nav のもの。"""
+    return e.get("class") in FREEZE_CLASSES or e.get("source") == "structure"
+
+
+# 参考の表示用（凍結には使わない）: 台帳に記帳の無い、ハブ・トップの構成を変えたコミットを見つける。
+# ブリーフの 28 日の数字はその変更より前のものが混ざる＝根拠として弱い、と Claude に知らせるため。
+_S_BLOCK_RE = re.compile(r"<!--S:([a-z]+)-->.*?<!--/S:\1-->", re.S)
+_LD_BLOCK_RE = re.compile(r"<script\b[^>]*application/ld\+json[^>]*>.*?</script>", re.S | re.I)
+_CARD_BLOCK_RE = re.compile(r'<a\b[^>]*class="(?:ac|kn-card)(?:\s[^"]*)?"[^>]*>.*?</a>', re.S)
+
+
+def layout_signature(text: str):
+    """(骨格, カードの並び)。骨格＝<!--S:…--> の中身・JSON-LD・カード（a.ac／a.kn-card）を抜き、数字を N にした行の列
+    （「全 N 記事」・カテゴリの件数の焼き直しを無視する）。カードの並び＝カードの href を出てくる順に。"""
+    s = _S_BLOCK_RE.sub(lambda m: f"<!--S:{m.group(1)}--><!--/S:{m.group(1)}-->", text or "")
+    s = _LD_BLOCK_RE.sub("", s)
+    cards = []
+
+    def take(m):
+        h = re.search(r'href="([^"#?]+)', m.group(0))
+        cards.append(norm(h.group(1)) if h else m.group(0)[:60])
+        return ""
+    s = _CARD_BLOCK_RE.sub(take, s)
+    skeleton = tuple(re.sub(r"[0-9０-９]+", "N", l.strip()) for l in s.splitlines() if l.strip())
+    return skeleton, cards
+
+
+def layout_changed(before: str, after: str) -> bool:
+    """ハブ・トップの構成（並び・見出し・導線・本文）が変わったか。カードの追加と、件数・新着・JSON-LD の
+    焼き直しだけなら False。カードを消した・入れ替えた、カード以外の行が 1 行でも変わった、なら True。"""
+    sb, cb = layout_signature(before)
+    sa, ca = layout_signature(after)
+    if sb != sa:
+        return True
+    it = iter(ca)
+    return not all(c in it for c in cb)   # 前のカードの並びが、後の並びの部分列（＝足しただけ）でなければ構成の変更
+
+
+def layout_changed_in(sha: str, rel: str, cwd=None) -> bool:
+    """コミット sha がファイル rel の構成を変えたか（親コミットと比べる。読めなければ安全側＝変えた）。"""
+    after = _git("show", f"{sha}:{rel}", cwd=cwd)
+    before = _git("show", f"{sha}^:{rel}", cwd=cwd)
+    if not after or not before:
+        return True
+    return layout_changed(before, after)
+
+
+def unrecorded_layout_commits(days: int, frozen=(), cwd=None) -> list:
+    """[(ページ, 日付, 件名)]。直近 days 日の履歴（HEAD）で、ハブ・トップの構成（並び・見出し・導線・本文）を変えた
+    コミットのうち、そのページが frozen（台帳の構成系エントリで凍結中）に入っていないもの。ページごとに新しい 1 件。
+    案件一覧の自動同期と、カードの追加・件数／新着／JSON-LD の焼き直しだけのコミットは出さない。"""
+    out = {}
+    for line in _git("log", f"--since={days}.days", "--format=%H%x09%cs%x09%s", "--", *sorted(HUB_TOP_FILES), cwd=cwd).splitlines():
+        parts = line.split("\t", 2)
+        if len(parts) != 3 or parts[2].startswith("chore(projects)"):
+            continue
+        sha, date, subj = parts
+        for rel in _git("show", "--name-only", "--format=", sha, cwd=cwd).split():
+            page = HUB_TOP_FILES.get(rel)
+            if page and page not in frozen and page not in out and layout_changed_in(sha, rel, cwd=cwd):
+                out[page] = (page, date, subj[:60])
+    return sorted(out.values())
 
 
 # ---------------------------------------------------------------- ブリーフの節

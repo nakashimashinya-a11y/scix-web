@@ -14,7 +14,7 @@ import os
 import re
 import subprocess
 
-from common import LEDGER, REPO, d, daterange, file_to_url, jload, path_of
+from common import LEDGER, REPO, d, daterange, file_to_url, jload, path_of, safe_d
 
 NEW_CLASSES = ("new-column", "new-page")
 # ページでないもの（検索に出さない・sitemap に載せない）。noindex のファイルも site_pages() が落とす
@@ -93,7 +93,8 @@ def jsonld_published() -> dict:
     res = {}
     for line in out.splitlines():
         parts = line.split(":", 2)  # <ref>:<path>:<match>
-        if len(parts) == 3:
+        # 正規表現は桁数しか見ない＝"2026-09-31" も拾う。暦に無い日付は無いものとして扱う（呼ぶ側は git の初回コミット日へ落ちる）
+        if len(parts) == 3 and safe_d(parts[2][-10:]):
             res.setdefault(parts[1], parts[2][-10:])
     return res
 
@@ -165,4 +166,5 @@ def peer_columns(lang: str, exclude, health=None) -> list:
 
 
 def days_since(date_str, today_: datetime.date):
-    return (today_ - d(date_str)).days if date_str else None
+    day = safe_d(date_str)
+    return (today_ - day).days if day else None

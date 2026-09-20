@@ -21,7 +21,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import (COMMERCIAL, LEDGER, REPO, d, daterange, file_to_url, jload, path_of,  # noqa: E402
-                    read_jsonl, today)
+                    read_jsonl, safe_d, today)
 import newpages as npg  # noqa: E402
 
 LEAD = "keyEvents:generate_lead"
@@ -106,9 +106,18 @@ def agg_ga4(recs):
     return tot, landing, trans, events, intents, nav, news, search
 
 
-def cooldown_pages():
-    """直近14日に人か自動が触ったページ（案件一覧の自動同期は除く）。今週は触らない。"""
+def cooldown_pages(structure=False):
+    """直近14日に人か自動が触ったページ（案件一覧の自動同期は除く）。今週は触らない。
+
+    structure=True（月1回の構成レビュー用）: ハブ・トップ（structure.HUB_TOP_FILES）の凍結は、**変更台帳の構成系の
+    エントリだけ** で決める（structure.is_structure_entry: class が hub／hub-order／top-order／nav、または
+    source=structure で、そのページが pages に載っているもの）。git の履歴と、それ以外の class のエントリでは凍結しない
+    （毎週コラムを足すたびにハブ・トップはカード・件数・新着が変わる＝全コミットで数えると / と /knowledge が常に
+    凍結され、hub-order・top-order を一度も提案できない）。ハブ・トップ以外のページは週次と同じ数え方。"""
     out = {}
+    st = None
+    if structure:
+        import structure as st  # noqa: PLC0415
     try:
         log_ = subprocess.run(["git", "log", f"--since={COOLDOWN_DAYS}.days", "--format=%H%x09%cs%x09%s"],
                               cwd=REPO, capture_output=True, text=True).stdout.splitlines()
@@ -120,14 +129,41 @@ def cooldown_pages():
                                    capture_output=True, text=True).stdout.split()
             for f in files:
                 u = file_to_url(f)
-                if u:
-                    out.setdefault(path_of(u), (date, subj[:60]))
+                if not u:
+                    continue
+                if st is not None and f in st.HUB_TOP_FILES:
+                    continue  # 構成レビューでは、ハブ・トップを git の履歴で凍結しない（下の変更台帳だけで決める）
+                out.setdefault(path_of(u), (date, subj[:60]))
     except Exception:  # noqa: BLE001
         pass
     for e in read_jsonl(LEDGER / "ledger" / "changes.jsonl"):
-        if (today() - d(e["date"])).days <= COOLDOWN_DAYS:
-            for p in e["pages"]:
-                out.setdefault(p, (e["date"], e.get("summary", "")[:60]))
+        day = safe_d(e.get("date"))
+        if day and (today() - day).days <= COOLDOWN_DAYS:
+            for p in e.get("pages") or []:
+                if st is not None and p in st.HUB_TOP_PAGES and not st.is_structure_entry(e):
+                    continue  # title・description などの変更では、構成レビューのハブ・トップは凍結しない
+                out.setdefault(p, (e["date"], (e.get("summary") or "")[:60]))
+    return out
+
+
+def hub_top_freeze_lines(cd) -> list:
+    """9 節の末尾に足す行（構成レビュー用のブリーフだけ）。cd＝cooldown_pages(structure=True)。"""
+    import structure as st  # noqa: PLC0415
+    hubs = sorted(st.HUB_TOP_PAGES)
+    frozen = [f"{p}（{cd[p][0]}・{cd[p][1]}）" for p in hubs if p in cd]
+    out = ["\nハブ・トップ（" + "・".join(hubs) + "）の凍結は、この構成レビュー用のブリーフでは **変更台帳の構成系のエントリだけ** で"
+           "決めている: class が hub／hub-order／top-order／nav、または構成レビューの PR がマージされたもの（source=structure）で、"
+           "そのページが測る対象（pages）に載っている変更。コラムを足したときのカード・件数・新着・JSON-LD の焼き直しや、"
+           "title・description の変更では凍結しない（毎週コラムを足すたびに触られるため）。"
+           "いま凍結中のハブ・トップ: " + ("・".join(frozen) if frozen else "なし") + "。"]
+    try:
+        loose = st.unrecorded_layout_commits(COOLDOWN_DAYS, frozen=set(cd), cwd=REPO)
+    except Exception:  # noqa: BLE001
+        loose = []
+    if loose:
+        out.append("\n参考（凍結ではない）: 直近 14 日に、変更台帳に構成系の記帳が無いままハブ・トップの並び・見出し・本文を変えたコミットがある: "
+                   + "・".join(f"{p}（{dt}・{subj}）" for p, dt, subj in loose)
+                   + "。そのページの 28 日の数字には変更前の期間が混ざる＝根拠にするなら、そのことを rationale に書く。")
     return out
 
 
@@ -423,7 +459,8 @@ def render(days=28, for_latest=False, structure=False):
     if not for_latest:
         L.append("## 8. 変更台帳（60日）と効果測定\n")
         L.append("| 変更日 | id | 種別 | ページ | 要約 | 2週後 | 4週後 |\n|---|---|---|---|---|---|---|")
-        ledger = [e for e in read_jsonl(LEDGER / "ledger" / "changes.jsonl") if (today() - d(e["date"])).days <= 60]
+        ledger = [e for e in read_jsonl(LEDGER / "ledger" / "changes.jsonl")
+                  if safe_d(e.get("date")) and (today() - safe_d(e["date"])).days <= 60]
         auto_new = [e for e in ledger if e.get("source") == "manual-auto"]
         for e in sorted(ledger, key=lambda x: x["date"], reverse=True):
             if e.get("source") == "manual-auto":
@@ -436,7 +473,8 @@ def render(days=28, for_latest=False, structure=False):
                 if x.get("mode") == "ramp":  # 新規ページ＝前後比較ではなく立ち上がり
                     return f"{x['verdict']}（表示 {x['post']['impressions']}・クリック {x['post']['clicks']}）"
                 return f"{x['verdict']}（{x['pre']['clicks']}→{x['post']['clicks']}, CTR {pct(x['pre']['ctr'])}→{pct(x['post']['ctr'])}, lead {x['pre']['leads']}→{x['post']['leads']}）"
-            L.append(f"| {e['date']} | {e['id']} | {e.get('class','')} | {' '.join(e['pages'][:6])}{'…' if len(e['pages'])>6 else ''} | {e.get('summary','')[:80]} | {vs('14')} | {vs('28')} |")
+            ep = e.get("pages") or []
+            L.append(f"| {e['date']} | {e.get('id')} | {e.get('class','')} | {' '.join(ep[:6])}{'…' if len(ep)>6 else ''} | {(e.get('summary') or '')[:80]} | {vs('14')} | {vs('28')} |")
         L.append("\n**worse の変更は差し戻し候補**（同じ変更を繰り返さない）。\n")
         if auto_new:
             tally = {}
@@ -455,9 +493,11 @@ def render(days=28, for_latest=False, structure=False):
         if below:
             L.append("中央値未満（新規ページ・28日後。同じ言語の既存コラムの中央値と比較）: "
                      + "・".join(f"{p}（表示 {i}／中央値 {m:g}）" for p, _, i, m in sorted(below)) + "\n")
-        cd = cooldown_pages()
+        cd = cooldown_pages(structure=structure)
         L.append("## 9. 今週触らないページ（14日以内に変更済み・効果測定中）\n")
         L.append("・".join(f"{p}（{dt}）" for p, (dt, _) in sorted(cd.items())) or "なし")
+        if structure:
+            L.extend(hub_top_freeze_lines(cd))
         L.append("")
 
     # 10. 新規ページの立ち上がり（最新.md には短く）
@@ -491,7 +531,8 @@ def brief_json(days=28, structure=False):
     except Exception:  # noqa: BLE001
         new_rows, zero_rows = [], []
     out = {"generated": str(today()), "latest_gsc": str(latest), "days": days, "totals": tot,
-           "pages": pages, "landing": landing, "cooldown": {k: v[0] for k, v in cooldown_pages().items()},
+           "pages": pages, "landing": landing,
+           "cooldown": {k: v[0] for k, v in cooldown_pages(structure=structure).items()},
            "new_pages": new_rows, "zero_impression": zero_rows}
     if structure:
         try:

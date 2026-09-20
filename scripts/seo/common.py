@@ -55,6 +55,14 @@ def d(s: str) -> datetime.date:
     return datetime.date.fromisoformat(s)
 
 
+def safe_d(s):
+    """d() と同じ。ただし暦に無い日付（"2026-09-31"）・空・文字列でないものは None（落とさない）。"""
+    try:
+        return datetime.date.fromisoformat(s)
+    except (TypeError, ValueError):
+        return None
+
+
 def daterange(start: datetime.date, end: datetime.date):
     cur = start
     while cur <= end:

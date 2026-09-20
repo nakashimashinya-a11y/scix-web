@@ -93,7 +93,7 @@
 }
 ```
 
-`class` は title / description / body / internal-link / cta / new-column / rollback / hub / faq / structured-data のどれか。`files` は変更したファイル（sitemap は書かなくてよい。ハブにカードを足したときはハブも書く＝sitemap の lastmod はここに書いたファイルだけ更新される）。`pages` は効果測定に使う URL パス。
+`class` は title / description / body / internal-link / cta / new-column / rollback / hub / faq / structured-data のどれか。`files` は変更したファイル（sitemap は書かなくてよい。ハブにカードを足したときはハブも書く＝sitemap の lastmod はここに書いたファイルだけ更新される）。`pages` は効果測定に使う URL パス（`/` で始まる。**全部の変更に必須**＝無いと検査で止まる。new-column はその新コラムのパスを 3 言語ぶん書く＝14 日後・28 日後の立ち上がり判定の対象になる）。
 
 ## 時間と量
 

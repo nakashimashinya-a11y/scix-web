@@ -66,6 +66,10 @@ def build() -> None:
     old_style = {"verdict": "better", "pre": dict(mc.ZERO), "post": dict(mc.ZERO), "on": ago(20)}
     common.write_jsonl(TMP / "ledger" / "changes.jsonl", [
         entry("new-column-new-a", ago(38), "new-column", ["/column-new-a", "/en/column-new-a", "/zh-column-new-a"]),
+        # pages を書き落とした new-column（週次のマニフェストの書き落とし）と、日付が壊れたエントリ。どちらも台帳の途中に置く
+        # ＝ここで落ちると後ろのエントリが測られず、前のエントリが measurements.jsonl に毎朝重複する（2026-09-20 の欠陥）
+        entry("auto-empty-pages", ago(20), "new-column", [], source="auto"),
+        entry("auto-bad-date", "2026-02-30", "new-column", ["/column-new-b"], source="auto"),
         entry("new-column-new-b", ago(33), "new-column", ["/column-new-b"], source="manual"),  # 手で記帳した新設（pr78 と同じ形）
         entry("new-partners-x", ago(16), "new-page", ["/partners-x"]),
         entry("new-column-new-d", ago(7), "new-column", ["/column-new-d"]),
@@ -81,6 +85,7 @@ def main() -> int:
     TMP = pathlib.Path(tempfile.mkdtemp(prefix="scix-seo-selftest-"))
     os.environ["SCIX_WEB_LEDGER"] = str(TMP)  # common を読み込む前に向き先を変える
     import common, measure_changes as mc, build_brief  # noqa: E401,E402
+    import newpages as npg  # noqa: E402
     assert common.LEDGER == TMP and mc.CHANGES.parent.parent == TMP, "台帳の向き先が一時ディレクトリになっていない"
     build()
     new = mc.run()
@@ -113,6 +118,15 @@ def main() -> int:
     check("既存の前後比較はそのまま（title・クリック倍）", (got[("pr-old-title", 14)]["verdict"], "mode" in got[("pr-old-title", 14)]), ("better", False))
     check("新規は既存コラムの母集団に入らない（JA 5本）", a28["by_page"]["/column-new-a"]["peers"], 5)
     check("2回目は何も足さない", mc.run(), [])
+    # 1 件の不正で全体を止めない
+    e14 = got.get(("auto-empty-pages", 14)) or {}
+    check("pages が空の new-column は落ちずに insufficient で閉じる", (e14.get("verdict"), e14.get("mode"), e14.get("by_page")), ("insufficient", "ramp", {}))
+    check("日付が壊れたエントリは飛ばす（後ろのエントリは測られている）", ([k for k in got if k[0] == "auto-bad-date"], ("new-column-new-g", 28) in got), ([], True))
+    rows = common.read_jsonl(TMP / "ledger" / "measurements.jsonl")
+    keys = [(r["id"], r["check"]) for r in rows]
+    check("measurements.jsonl に同じ (id, check) が重複しない（2回走らせたあと）", (len(keys), len(keys) == len(set(keys))), (len(new), True))
+    check("変更台帳に判定が残っている（measurements と同じ件数）", sum(len(e.get("measured") or {}) for e in led.values()) - 1, len(new))  # -1＝F の判定済み 14
+    check("暦に無い日付は None（days_since・safe_d）", (npg.days_since("2026-09-31", datetime.date.today()), common.safe_d("2026-02-30"), common.safe_d(None)), (None, None, None))
 
     # ブリーフ 8 節: not-shown で今も表示ゼロ → 要手当て。G は判定後に表示が出た → 外れる。中央値未満は別行
     pages28 = build_brief.agg_gsc(build_brief.load_range("gsc", LATEST - datetime.timedelta(days=27), LATEST))[1]
