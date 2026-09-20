@@ -3,9 +3,12 @@
 
     python3 scripts/seo/build_brief.py                 # weekly/<今日>/brief.md と brief.json を書く
     python3 scripts/seo/build_brief.py --stdout        # 画面に出すだけ
+    python3 scripts/seo/build_brief.py --structure     # 月1回の構成レビュー用（S1〜S8 節を足す）。weekly/<今日>/structure/ に書く
 
 ここは決定論。判断（何を変えるか）は weekly_run.sh が呼ぶ Claude が brief を読んで行う。
 10 節（新規ページの立ち上がり・90日表示ゼロ）は台帳と git（origin/main）だけで作る＝追加 API なし。
+--structure の S1〜S8 節（ナビのクリック・遷移の太さ・コラムの送客・セッション0・孤立・カテゴリ別・トップの節・過去の提案）も同じ
+（中身は structure.py）。通常の週次のブリーフ（weekly/<今日>/brief.md）は上書きしない。
 """
 from __future__ import annotations  # launchd の python3 は 3.9
 import datetime
@@ -259,7 +262,7 @@ def delta(a, b):
     return f"{r:+.0f}%"
 
 
-def render(days=28, for_latest=False):
+def render(days=28, for_latest=False, structure=False):
     gd = gsc_days()
     if not gd:
         return "# ブリーフ\n\nGSC の台帳がまだ空です。`python3 scripts/seo/collect_daily.py --days 90` を先に。\n"
@@ -463,10 +466,18 @@ def render(days=28, for_latest=False):
         render_new_pages(L, new_rows, zero_rows, latest, *((15, 10) if for_latest else (40, 20)))
     except Exception as e:  # noqa: BLE001 — ここが落ちてもブリーフの他の節は出す
         L.append(f"## 10. 新規ページ（公開{NEW_DAYS}日以内）の立ち上がり\n\n生成に失敗: {e}\n")
+
+    # S1〜S8. 構成レビュー（月1回・--structure のときだけ）
+    if structure:
+        try:
+            import structure as st
+            st.render_sections(L, st.data(ga_cur, ga_prev, pages, landing, health))
+        except Exception as e:  # noqa: BLE001 — ここが落ちても上の節は出す
+            L.append(f"\n# 構成レビュー用の節\n\n生成に失敗: {e}\n")
     return "\n".join(L) + "\n"
 
 
-def brief_json(days=28):
+def brief_json(days=28, structure=False):
     gd = gsc_days()
     if not gd:
         return {}
@@ -479,19 +490,33 @@ def brief_json(days=28):
         new_rows, zero_rows = new_pages_data(latest, pages, landing)
     except Exception:  # noqa: BLE001
         new_rows, zero_rows = [], []
-    return {"generated": str(today()), "latest_gsc": str(latest), "days": days, "totals": tot,
-            "pages": pages, "landing": landing, "cooldown": {k: v[0] for k, v in cooldown_pages().items()},
-            "new_pages": new_rows, "zero_impression": zero_rows}
+    out = {"generated": str(today()), "latest_gsc": str(latest), "days": days, "totals": tot,
+           "pages": pages, "landing": landing, "cooldown": {k: v[0] for k, v in cooldown_pages().items()},
+           "new_pages": new_rows, "zero_impression": zero_rows}
+    if structure:
+        try:
+            import structure as st
+            ga_prev = load_range("ga4", latest - datetime.timedelta(days=2 * days - 1), latest - datetime.timedelta(days=days))
+            health = npg.latest_health()
+            s = st.data(ga, ga_prev, pages, landing, health)
+            s["matrix"] = {a: dict(b) for a, b in s["matrix"].items()}
+            out["structure"] = s
+        except Exception as e:  # noqa: BLE001
+            out["structure"] = {"error": str(e)}
+    return out
 
 
 def main() -> int:
-    text = render()
+    structure = "--structure" in sys.argv
+    text = render(structure=structure)
     if "--stdout" in sys.argv:
         print(text); return 0
     out = LEDGER / "weekly" / str(today())
+    if structure:
+        out = out / "structure"   # 同じ日の週次のブリーフを上書きしない
     out.mkdir(parents=True, exist_ok=True)
     (out / "brief.md").write_text(text, encoding="utf-8")
-    (out / "brief.json").write_text(json.dumps(brief_json(), ensure_ascii=False), encoding="utf-8")
+    (out / "brief.json").write_text(json.dumps(brief_json(structure=structure), ensure_ascii=False, default=list), encoding="utf-8")
     print(out / "brief.md")
     return 0
 

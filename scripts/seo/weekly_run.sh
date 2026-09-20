@@ -12,23 +12,63 @@
 # 手で回す:      bash scripts/seo/weekly_run.sh
 # 公開せず確認:  DRY_RUN=1 bash scripts/seo/weekly_run.sh   （作業ツリー ~/projects/.scix-web-weekly を残す）
 # 差し戻し:      git revert <auto(seo) のコミット>  → push（IndexNow は Action が送る）
+#
+# 月1回の構成レビュー（MODE=structure・2026-09-20 追加。中島「何週間かに一度ページ内容やページ構成を変える」）:
+#   月の第1日曜は、通常の週次が終わったあと、同じこのスクリプトが続けて MODE=structure を1回だけ走らせる
+#   （新しい launchd は作らない）。構成（ハブの並び・トップの節の順・CTA の行き先・収益ページへの導線・ナビ）の
+#   見直しを Claude が 1〜3 件に絞って編集 → 検査（guard_diff.py --profile structure）→ **公開しない**:
+#   枝 auto/structure-YYYY-MM へ push して gh pr create（マージで公開・閉じれば不採用）。main へは push しない・
+#   IndexNow も送らない・台帳は「提案（未公開）」として ledger/proposals.jsonl に残す（マージ後の記帳は毎朝の
+#   register_structure_merges.py）。週次は子プロセスで今までどおり走り、終了コードもそのまま返す
+#   ＝構成レビューが失敗しても週次の結果は壊れない。
+#   手で回す:  MODE=structure bash scripts/seo/weekly_run.sh        （日付に関係なく1回）
+#   確認だけ:  MODE=structure DRY_RUN=1 bash scripts/seo/weekly_run.sh  （push も PR もしない。作業ツリー ~/projects/.scix-web-structure と proposal.diff を残す）
+#   止める:    NO_STRUCTURE=1（第1日曜でも続けて走らせない）
 set -uo pipefail
 
+SELF="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+MODE="${MODE:-weekly}"                             # weekly＝通常の週次（公開する）／structure＝月1回の構成レビュー（PR で提案）
+case "$MODE" in weekly|structure) ;; *) echo "MODE は weekly か structure（指定: $MODE）" >&2; exit 2 ;; esac
 REPO="${SCIX_WEB_REPO:-$HOME/projects/scix-web}"
 LEDGER="${SCIX_WEB_LEDGER:-$HOME/マイドライブ/9_システム/scix-web解析}"
-STATE="$HOME/.openclaw/workspace/state"
+STATE="${SCIX_WEB_STATE:-$HOME/.openclaw/workspace/state}"
 MODEL="${SCIX_WEB_MODEL:-claude-opus-5}"          # 判断の質に効く所は Opus。Fable は同じ仕事に枠5倍（2026-09-17 実測）
 MAX_TURNS="${SCIX_WEB_MAX_TURNS:-250}"
 TIMEOUT_SEC="${SCIX_WEB_TIMEOUT:-5400}"
 DRY_RUN="${DRY_RUN:-0}"
 TODAY="$(date +%F)"
 RUN_DIR="$LEDGER/weekly/$TODAY"
-WT="$HOME/projects/.scix-web-weekly"
+WT="${SCIX_WEB_WT:-$HOME/projects/.scix-web-weekly}"
+LABEL="週次自動更新"
+if [ "$MODE" = "structure" ]; then                 # 同じ日の週次の成果物（brief.md・changes.json・DRY_RUN の作業ツリー）を上書きしない
+  RUN_DIR="$LEDGER/weekly/$TODAY/structure"
+  WT="${SCIX_WEB_WT_STRUCTURE:-$HOME/projects/.scix-web-structure}"
+  LABEL="構成レビュー"
+fi
 BASE_REF="${SCIX_WEB_BASE_REF:-origin/main}"       # 試験のときだけ別ブランチを指定できる
-LOCK="$STATE/web_weekly.lock"
+LOCK="$STATE/web_weekly.lock"                      # 週次と構成レビューで共用（同じリポジトリの worktree と fetch を同時に触らせない）
 TG_TARGET="8811825170"
 
 log() { echo "$(date '+%F %T') $*"; }
+# 月の第1日曜か（launchd は日曜にしか起こさないが、手で回した日にも続けて走らないよう曜日も見る）
+structure_due() {
+  [ "${NO_STRUCTURE:-0}" = "1" ] && return 1
+  [ "${FORCE_STRUCTURE:-0}" = "1" ] && return 0
+  local dom dow
+  dom="${SCIX_WEB_DOM:-$(date +%d)}"; dow="${SCIX_WEB_DOW:-$(date +%u)}"
+  [ "$dow" = "7" ] && [ "$((10#$dom))" -ge 1 ] && [ "$((10#$dom))" -le 7 ]
+}
+
+# ---- 入口: 通常の週次は子プロセスで今までどおり走らせ、第1日曜だけ続けて構成レビューを1回走らせる。
+if [ "$MODE" = "weekly" ] && [ "${SCIX_WEB_CHILD:-0}" != "1" ]; then
+  SCIX_WEB_CHILD=1 MODE=weekly /bin/bash "$SELF"; WEEKLY_RC=$?
+  if structure_due; then
+    log "月の第1日曜: 通常の週次（rc=$WEEKLY_RC）に続けて、構成レビュー（MODE=structure）を走らせる"
+    SCIX_WEB_CHILD=1 SCIX_WEB_AFTER_WEEKLY=1 MODE=structure /bin/bash "$SELF" \
+      || log "構成レビューは失敗か見送り（週次の結果 rc=$WEEKLY_RC には影響しない）"
+  fi
+  exit $WEEKLY_RC
+fi
 notify() {
   openclaw message send --channel telegram --target "$TG_TARGET" --message "$1" >/dev/null 2>&1 \
     || log "Telegram 送信失敗（本文: ${1:0:120}）"
@@ -42,7 +82,7 @@ cleanup() {
 }
 fail() {
   log "NG $*"
-  notify "🌐 scix.co.jp 週次自動更新 $TODAY: 失敗（$*）。公開はしていない。ログ: $RUN_DIR"
+  notify "🌐 scix.co.jp $LABEL $TODAY: 失敗（$*）。公開はしていない。ログ: $RUN_DIR"
   cleanup; exit 1
 }
 mj() { python3 -c "import json,sys; j=json.load(open(sys.argv[1])); exec(sys.argv[2])" "$RUN_DIR/changes.json" "$1"; }
@@ -53,14 +93,177 @@ i=ideas[0] if ideas else None
 print(("✍️ 今週書くなら: "+str(i.get("title",""))+"（"+str(i.get("for",""))+"向け・"+("3言語" if str(i.get("langs"))=="3" else "JA")+"）— "+str(i.get("why",""))) if i else "✍️ 今週の主題提案: なし")' 2>/dev/null || echo "✍️ 今週の主題提案: 取得失敗"
 }
 
+# Claude が判断して編集する（このアカウントの枠＝OpenClaw 用。中島さんの枠には落とさない）。週次も構成レビューも同じ条件で起こす。
+#    道具は明示した分だけ。許可の無い道具は -p モードでは黙って拒否される＝止まる側に倒れる。
+run_claude() {  # $1=ユーザープロンプト  $2=システムプロンプトのファイル（作業ツリーの中）
+  export CLAUDE_CONFIG_DIR="$CC_DIR"
+  unset CLAUDE_CODE_OAUTH_TOKEN
+  log "Claude 開始 model=$MODEL turns<=$MAX_TURNS timeout=${TIMEOUT_SEC}s"
+  ( cd "$WT" && perl -e 'alarm shift; exec @ARGV' "$TIMEOUT_SEC" \
+      claude -p "$1" --model "$MODEL" \
+        --append-system-prompt-file "$2" \
+        --permission-mode acceptEdits --strict-mcp-config \
+        --allowedTools "Read" "Edit" "Write" "MultiEdit" "Glob" "Grep" "LS" "TodoWrite" \
+          "Bash(python3 scripts/*)" "Bash(python3 -c *)" "Bash(grep *)" "Bash(rg *)" "Bash(ls *)" "Bash(wc *)" \
+          "Bash(cat *)" "Bash(head *)" "Bash(tail *)" "Bash(sed -n *)" "Bash(diff *)" "Bash(git status*)" \
+          "Bash(git diff*)" "Bash(git log*)" "Bash(git show*)" "Bash(git add *)" "Bash(find *)" "Bash(sort *)" "Bash(uniq *)" \
+        --max-turns "$MAX_TURNS" --output-format json \
+      > "$RUN_DIR/claude_result.json" 2> "$RUN_DIR/claude_stderr.log" )
+  RC=$?
+  [ $RC -eq 0 ] || fail "Claude の実行が失敗（rc=$RC）: $(tail -c 300 "$RUN_DIR/claude_stderr.log" | tr '\n' ' ')"
+  python3 - "$RUN_DIR/claude_result.json" > "$RUN_DIR/claude_result.md" <<'PY'
+import json, sys
+j = json.load(open(sys.argv[1]))
+print(j.get("result", ""))
+print(f"\n\n<!-- is_error={j.get('is_error')} cost_usd={j.get('total_cost_usd')} turns={j.get('num_turns')} duration_ms={j.get('duration_ms')} -->")
+PY
+  log "Claude 終了: $(tail -1 "$RUN_DIR/claude_result.md")"
+}
+
+# ---------------------------------------------------------------- 月1回の構成レビュー（MODE=structure）
+# 公開しない。作業ツリーで commit → 枝 auto/structure-YYYY-MM へ push → gh pr create。main・IndexNow・変更日台帳には触らない。
+run_structure() {
+  local MONTH BRANCH PR_TITLE PR_URL PR_NUM SHA LINE1 REASON
+  MONTH="$(date +%Y-%m)"
+  BRANCH="${SCIX_WEB_STRUCTURE_BRANCH:-auto/structure-$MONTH}"
+  mkdir "$LOCK" 2>/dev/null || { log "前回の実行が残っている（$LOCK）。構成レビューは見送る。"; exit 1; }
+  mkdir -p "$RUN_DIR"
+  cd "$REPO" || fail "リポジトリが無い: $REPO"
+  CC_DIR="$(python3 -c 'import json,os;print(os.path.expanduser(json.load(open(os.path.expanduser("~/.openclaw/openclaw.json")))["agents"]["defaults"]["cliBackends"]["claude-cli"]["env"]["CLAUDE_CONFIG_DIR"]))' 2>/dev/null || true)"
+  [ -n "$CC_DIR" ] && [ -d "$CC_DIR" ] || fail "CLAUDE_CONFIG_DIR が決まらない（openclaw.json）"
+
+  # 1. ブリーフ（通常の節＋構成レビュー用の S1〜S8）。週次の直後なら台帳は取り直さない
+  if [ "${SCIX_WEB_AFTER_WEEKLY:-0}" != "1" ] && [ "${NO_COLLECT:-0}" != "1" ]; then
+    python3 scripts/seo/collect_daily.py --days 10 --no-health >>"$RUN_DIR/collect.log" 2>&1 || log "収集に一部失敗（続行）"
+  fi
+  python3 scripts/seo/build_brief.py --structure >>"$RUN_DIR/collect.log" 2>&1 || fail "ブリーフ生成（--structure）"
+  [ -s "$RUN_DIR/brief.md" ] || fail "ブリーフが空"
+
+  # 2. 今月の提案がもう出ているなら走らせない（1か月に1回だけ）→ 作業ツリー
+  git fetch -q origin || fail "git fetch"
+  if [ "$DRY_RUN" != "1" ] && git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+    log "今月の提案の枝が既にある（$BRANCH）。構成レビューは1か月に1回だけ＝何もしない。出し直すなら PR を閉じて枝を消す。"
+    rmdir "$LOCK" 2>/dev/null; exit 0
+  fi
+  git worktree remove --force "$WT" >/dev/null 2>&1; rm -rf "$WT"; git worktree prune >/dev/null 2>&1
+  git worktree add -q --detach "$WT" "$BASE_REF" || fail "worktree を作れない（$BASE_REF）"
+  [ -f "$WT/scripts/seo/structure_prompt.md" ] || fail "$BASE_REF に scripts/seo/structure_prompt.md が無い"
+
+  # 3. Claude（アカウント・道具・モデルは週次と同じ）
+  run_claude "今月（$MONTH）の構成レビューを実行してください。ブリーフ: $RUN_DIR/brief.md 。マニフェストの出力先: $RUN_DIR/changes.json 。作業ディレクトリ（リポジトリ）: $WT 。検査は python3 scripts/seo/guard_diff.py --manifest $RUN_DIR/changes.json --profile structure 。" \
+    "$WT/scripts/seo/structure_prompt.md"
+
+  # 4. マニフェストと変更の有無
+  [ -s "$RUN_DIR/changes.json" ] || fail "マニフェスト changes.json が無い"
+  cd "$WT" || fail "作業ツリーへ移動できない"
+  git reset -q 2>/dev/null
+  if ! git status --porcelain --untracked-files=all | grep -q . ; then
+    REASON="$(mj 'print(j.get("no_change_reason") or "理由の記載なし")' 2>/dev/null)"
+    log "今月は構成の提案なし: $REASON"
+    notify "🧭 scix.co.jp 構成レビュー $MONTH: 今月は提案なし。$REASON"
+    cleanup; exit 0
+  fi
+
+  # 5. 焼き直し → 検査（構成レビューのプロファイル）。sitemap の lastmod と変更日台帳は PR に入れない
+  #    （毎朝の案件一覧の同期・毎週の自動更新が同じ行を書くので、PR が開いている間に衝突する）
+  python3 scripts/gen_knowledge_jsonld.py --write >>"$RUN_DIR/collect.log" 2>&1 || fail "gen_knowledge_jsonld"
+  SCIX_WEB_REPO="$WT" python3 scripts/seo/guard_diff.py --manifest "$RUN_DIR/changes.json" --profile structure > "$RUN_DIR/guard.log" 2>&1 \
+    || fail "検査で止めた: $(grep -- '^ -' "$RUN_DIR/guard.log" | head -5 | tr '\n' ' ')"
+  git add -A -- . ':!.claude' || fail "git add"
+  git diff --cached > "$RUN_DIR/proposal.diff" 2>/dev/null
+
+  # PR の題と本文（公開リポジトリに載る＝マニフェストの公開欄だけ。private_note は載せない）
+  PR_TITLE="auto(structure): $(mj 'print(str(j.get("proposal_title") or (j.get("summary_lines") or ["構成の見直し案"])[0])[:64])')"
+  python3 - "$RUN_DIR/changes.json" "$MONTH" "$TODAY" "$(tail -1 "$RUN_DIR/guard.log")" > "$RUN_DIR/pr_body.md" <<'PY' || fail "PR 本文の生成"
+import json, sys
+j = json.load(open(sys.argv[1])); month, today, guard = sys.argv[2], sys.argv[3], sys.argv[4]
+L = [f"## 構成の見直し案（{month}・月1回の自動レビュー）", ""]
+L += [f"- {l}" for l in (j.get("summary_lines") or [])[:3]]
+for n, c in enumerate(j.get("changes") or [], 1):
+    L += ["", f"### {n}. {c.get('summary', '')}", "",
+          f"- 種別: `{c.get('class')}`／ファイル: {', '.join('`' + f + '`' for f in c.get('files') or [])}",
+          f"- **根拠の数字**: {c.get('rationale', '')}"]
+    if c.get("hypothesis"):
+        L.append(f"- 仮説: {c['hypothesis']}")
+    L += [f"- **何が増えれば成功か**: {c.get('kpi', '')}", f"- **いつ測るか**: {c.get('measure', '')}"]
+    if c.get("before") or c.get("after"):
+        L.append(f"- 変更前: {c.get('before', '')}／変更後: {c.get('after', '')}")
+    if isinstance(c.get("nav_rule"), dict):
+        L.append(f"- ナビの90日ルール: 申告 last_nav_change={c['nav_rule'].get('last_nav_change')}（検査が変更台帳と origin/main の履歴で照合済み）")
+L += ["", "---", "", "**マージで公開、閉じれば不採用。**", "",
+      f"- 機械の検査（`guard_diff.py --profile structure`）: {guard}",
+      "- マージされると、翌朝の収集（`register_structure_merges.py`）が変更台帳へ記帳し、14日後・28日後に効果測定します。"
+      "sitemap の lastmod と `docs/seo-change-log.md` はこの PR に入れていません（毎朝・毎週の自動コミットと同じ行で衝突するため）。",
+      f"- ブリーフとマニフェスト: Drive `9_システム/scix-web解析/weekly/{today}/structure/`",
+      "- 開いている間に main と衝突したら、閉じてください（翌月、その時点の数字でまた提案されます）。",
+      "", "🤖 Generated with [Claude Code](https://claude.com/claude-code)"]
+print("\n".join(L))
+PY
+
+  if [ "$DRY_RUN" = "1" ]; then
+    log "DRY_RUN: push も PR もしない。作業ツリー $WT と $RUN_DIR/proposal.diff・pr_body.md を残す。題: $PR_TITLE"
+    git status --short
+    rmdir "$LOCK" 2>/dev/null; exit 0
+  fi
+
+  # 6. commit → 枝へ push（main には push しない）→ PR
+  git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" commit -q -F - <<EOF3 || fail "commit"
+$PR_TITLE
+
+$(mj 'print("\n".join("- "+l for l in (j.get("summary_lines") or [])[:3]))')
+
+scripts/seo/weekly_run.sh（MODE=structure）による月1回の構成レビューの提案。マージで公開、閉じれば不採用。
+ブリーフとマニフェスト: 9_システム/scix-web解析/weekly/$TODAY/structure
+EOF3
+  SHA="$(git rev-parse HEAD)"
+  git push -q origin "HEAD:refs/heads/$BRANCH" || fail "枝 $BRANCH への push（commit $SHA は作業ツリーに残っている）"
+  log "提案の枝を push 済み $BRANCH $SHA（main には push していない）"
+  PR_URL=""; PR_NUM=""
+  if command -v gh >/dev/null 2>&1; then
+    PR_URL="$(gh pr create --base main --head "$BRANCH" --title "$PR_TITLE" --body-file "$RUN_DIR/pr_body.md" 2>>"$RUN_DIR/gh.log" | grep -Eo 'https://[^ ]+/pull/[0-9]+' | tail -1)"
+    PR_NUM="${PR_URL##*/}"
+    case "$PR_NUM" in
+      ''|*[!0-9]*) PR_NUM=""; PR_URL=""; log "gh pr create が失敗: $(tail -c 300 "$RUN_DIR/gh.log" 2>/dev/null | tr '\n' ' ')" ;;
+    esac
+  else
+    log "gh が無い。枝だけ push した。"
+  fi
+
+  # 7. 台帳には「提案（未公開）」として残す。変更台帳・変更日台帳には書かない＝マージ後に register_structure_merges.py が記帳する
+  if [ -n "$PR_NUM" ]; then
+    python3 scripts/seo/record_changes.py --manifest "$RUN_DIR/changes.json" --brief "$RUN_DIR/brief.json" --proposal \
+      --commit "$SHA" --branch "$BRANCH" --pr "$PR_NUM" --pr-url "$PR_URL" >"$RUN_DIR/record.log" 2>&1 || log "提案の記帳に失敗（PR は出ている）"
+  else
+    python3 scripts/seo/record_changes.py --manifest "$RUN_DIR/changes.json" --brief "$RUN_DIR/brief.json" --proposal \
+      --commit "$SHA" --branch "$BRANCH" >"$RUN_DIR/record.log" 2>&1 || log "提案の記帳に失敗（枝は push 済み）"
+  fi
+
+  # 8. 通知（1通3行以内）
+  LINE1="$(mj 'print(str((j.get("summary_lines") or [""])[0])[:140])' 2>/dev/null)"
+  if [ -n "$PR_NUM" ]; then
+    notify "🧭 scix.co.jp 構成の見直し案を PR #$PR_NUM に置きました
+根拠: $LINE1
+マージで公開・閉じれば不採用 $PR_URL"
+  else
+    notify "🧭 scix.co.jp 構成の見直し案を枝 $BRANCH に置きました（PR は作れなかった）
+根拠: $LINE1
+PR を作ってマージで公開: https://github.com/nakashimashinya-a11y/scix-web/compare/main...$BRANCH"
+  fi
+  log "OK 構成レビュー 完了 $BRANCH ${PR_NUM:+PR #$PR_NUM }$SHA"
+  cleanup
+  exit 0
+}
+
+if [ "$MODE" = "structure" ]; then run_structure; exit 0; fi
+
 mkdir "$LOCK" 2>/dev/null || { log "前回の実行が残っている（$LOCK）。止める。"; exit 1; }
 mkdir -p "$RUN_DIR"
 cd "$REPO" || fail "リポジトリが無い: $REPO"
 CC_DIR="$(python3 -c 'import json,os;print(os.path.expanduser(json.load(open(os.path.expanduser("~/.openclaw/openclaw.json")))["agents"]["defaults"]["cliBackends"]["claude-cli"]["env"]["CLAUDE_CONFIG_DIR"]))' 2>/dev/null || true)"
 [ -n "$CC_DIR" ] && [ -d "$CC_DIR" ] || fail "CLAUDE_CONFIG_DIR が決まらない（openclaw.json）"
 
-# 1. 台帳を最新にしてブリーフ
-python3 scripts/seo/collect_daily.py --days 10 --no-health >>"$RUN_DIR/collect.log" 2>&1 || log "収集に一部失敗（続行）"
+# 1. 台帳を最新にしてブリーフ（NO_COLLECT=1 は試験用＝API を叩かず、いまの台帳のまま）
+[ "${NO_COLLECT:-0}" = "1" ] || python3 scripts/seo/collect_daily.py --days 10 --no-health >>"$RUN_DIR/collect.log" 2>&1 || log "収集に一部失敗（続行）"
 python3 scripts/seo/build_brief.py >>"$RUN_DIR/collect.log" 2>&1 || fail "ブリーフ生成"
 [ -s "$RUN_DIR/brief.md" ] || fail "ブリーフが空"
 
@@ -71,31 +274,9 @@ git worktree add -q --detach "$WT" "$BASE_REF" || fail "worktree を作れない
 BASE_SHA="$(git -C "$WT" rev-parse HEAD)"
 [ -f "$WT/scripts/seo/guard_diff.py" ] || fail "$BASE_REF に scripts/seo が無い"
 
-# 3. Claude が判断して編集する（このアカウントの枠＝OpenClaw 用。中島さんの枠には落とさない）
-#    道具は明示した分だけ。許可の無い道具は -p モードでは黙って拒否される＝止まる側に倒れる。
+# 3. Claude が判断して編集する（起動の条件は上の run_claude）
 PROMPT="今週（$TODAY）の自動更新を実行してください。ブリーフ: $RUN_DIR/brief.md 。マニフェストの出力先: $RUN_DIR/changes.json 。作業ディレクトリ（リポジトリ）: $WT 。"
-export CLAUDE_CONFIG_DIR="$CC_DIR"
-unset CLAUDE_CODE_OAUTH_TOKEN
-log "Claude 開始 model=$MODEL turns<=$MAX_TURNS timeout=${TIMEOUT_SEC}s"
-( cd "$WT" && perl -e 'alarm shift; exec @ARGV' "$TIMEOUT_SEC" \
-    claude -p "$PROMPT" --model "$MODEL" \
-      --append-system-prompt-file "$WT/scripts/seo/weekly_prompt.md" \
-      --permission-mode acceptEdits --strict-mcp-config \
-      --allowedTools "Read" "Edit" "Write" "MultiEdit" "Glob" "Grep" "LS" "TodoWrite" \
-        "Bash(python3 scripts/*)" "Bash(python3 -c *)" "Bash(grep *)" "Bash(rg *)" "Bash(ls *)" "Bash(wc *)" \
-        "Bash(cat *)" "Bash(head *)" "Bash(tail *)" "Bash(sed -n *)" "Bash(diff *)" "Bash(git status*)" \
-        "Bash(git diff*)" "Bash(git log*)" "Bash(git show*)" "Bash(git add *)" "Bash(find *)" "Bash(sort *)" "Bash(uniq *)" \
-      --max-turns "$MAX_TURNS" --output-format json \
-    > "$RUN_DIR/claude_result.json" 2> "$RUN_DIR/claude_stderr.log" )
-RC=$?
-[ $RC -eq 0 ] || fail "Claude の実行が失敗（rc=$RC）: $(tail -c 300 "$RUN_DIR/claude_stderr.log" | tr '\n' ' ')"
-python3 - "$RUN_DIR/claude_result.json" > "$RUN_DIR/claude_result.md" <<'PY'
-import json, sys
-j = json.load(open(sys.argv[1]))
-print(j.get("result", ""))
-print(f"\n\n<!-- is_error={j.get('is_error')} cost_usd={j.get('total_cost_usd')} turns={j.get('num_turns')} duration_ms={j.get('duration_ms')} -->")
-PY
-log "Claude 終了: $(tail -1 "$RUN_DIR/claude_result.md")"
+run_claude "$PROMPT" "$WT/scripts/seo/weekly_prompt.md"
 
 # 4. マニフェストと変更の有無
 [ -s "$RUN_DIR/changes.json" ] || fail "マニフェスト changes.json が無い"

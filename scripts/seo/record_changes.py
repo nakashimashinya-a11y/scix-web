@@ -2,7 +2,12 @@
 """週次自動更新の記帳。マニフェスト（changes.json）から
   --changelog PATH  docs/seo-change-log.md の表の先頭に行を足す（公開リポジトリ＝GSC の数字だけ・GA4 のリード数は書かない）
   --commit SHA      Drive の台帳 ledger/changes.jsonl に効果測定の対象として追記する（変更前の28日値を焼き込む）
+  --proposal --commit SHA --branch B [--pr N --pr-url U]
+                    月1回の構成レビュー（未公開・PR で提案）。ledger/proposals.jsonl に status=proposed で残す。
+                    変更台帳には書かない＝公開されるまで効果測定も「今週触らないページ」も動かさない。マージされたら
+                    register_structure_merges.py が変更台帳へ移す
 """
+from __future__ import annotations  # launchd の python3 は 3.9
 import argparse
 import datetime
 import json
@@ -12,7 +17,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import LEDGER, append_jsonl, today  # noqa: E402
+from common import LEDGER, append_jsonl, read_jsonl, today  # noqa: E402
 
 
 def before_text(pages, brief):
@@ -34,6 +39,10 @@ def main() -> int:
     ap.add_argument("--changelog")
     ap.add_argument("--commit")
     ap.add_argument("--dry-ledger", action="store_true", help="台帳には書かない（changelog だけ）")
+    ap.add_argument("--proposal", action="store_true", help="構成レビューの提案として proposals.jsonl に残す（未公開）")
+    ap.add_argument("--branch")
+    ap.add_argument("--pr", type=int)
+    ap.add_argument("--pr-url")
     a = ap.parse_args()
     man = json.loads(Path(a.manifest).read_text(encoding="utf-8"))
     brief = json.loads(Path(a.brief).read_text(encoding="utf-8")) if Path(a.brief).exists() else {}
@@ -61,6 +70,29 @@ def main() -> int:
         text = text[:j] + "\n".join(rows) + "\n" + text[j:]
         p.write_text(text, encoding="utf-8")
         print(f"changelog に {len(rows)} 行")
+
+    if a.proposal:
+        if a.dry_ledger or not a.commit:
+            print("提案の記帳は --commit が要る（--dry-ledger なら書かない）"); return 0
+        path = LEDGER / "ledger" / "proposals.jsonl"
+        have = {e.get("id") for e in read_jsonl(path)}
+        n_written = 0
+        for n, c in enumerate(changes, 1):
+            pid = f"structure-{day.strftime('%Y%m')}-{n}"
+            while pid in have:   # 同じ月に出し直したとき
+                pid += "b"
+            have.add(pid)
+            rec = {"id": pid, "date": str(day), "status": "proposed", "source": "structure", "branch": a.branch,
+                   "pr": a.pr, "pr_url": a.pr_url, "commit": a.commit, "files": c.get("files"),
+                   "pages": c.get("pages") or [], "class": c.get("class"), "summary": c.get("summary"),
+                   "rationale": c.get("rationale"), "hypothesis": c.get("hypothesis"), "kpi": c.get("kpi"),
+                   "measure": c.get("measure"), "private_note": c.get("private_note"),
+                   "before": {p: (brief.get("pages") or {}).get(p) for p in (c.get("pages") or [])}}
+            if c.get("nav_rule") is not None:
+                rec["nav_rule"] = c.get("nav_rule")
+            append_jsonl(path, rec); n_written += 1
+        print(f"提案を {n_written} 件（{path.name}・未公開）")
+        return 0
 
     if a.commit and not a.dry_ledger:
         for n, c in enumerate(changes, 1):

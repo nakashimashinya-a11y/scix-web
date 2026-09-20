@@ -6,7 +6,8 @@
     python3 scripts/seo/collect_daily.py --no-health   # 健診（本番へのアクセス）を飛ばす
 
 データの遅れ: GSC は2〜3日、GA4 は1〜2日。若い日付は毎回取り直して上書きする。
-収集のあと、origin/main に足された新規ページを変更台帳へ自動で記帳し（register_new_pages.py）、期限が来た変更を計測する。
+収集のあと、origin/main に足された新規ページを変更台帳へ自動で記帳し（register_new_pages.py）、月1回の構成レビューの
+提案がマージされていればそれも記帳し（register_structure_merges.py）、期限が来た変更を計測する。
 GA4 のトークンが無ければ GA4 だけ飛ばす（他は止めない）。
 """
 import argparse
@@ -335,6 +336,14 @@ def main() -> int:
                 log(f"新規ページを記帳: {e['id']} {' '.join(e['pages'])}")
         except Exception as e:  # noqa: BLE001
             log(f"新規ページの記帳で失敗: {e}"); rc = 1
+    if not a.no_register:
+        # 月1回の構成レビューの提案（PR）がマージされていたら変更台帳へ（提案が無ければ何もしない）
+        try:
+            import register_structure_merges
+            for e in register_structure_merges.run():
+                log(f"構成の提案がマージされた → 変更台帳へ: {e['id']} {' '.join(e['pages'])}")
+        except Exception as e:  # noqa: BLE001
+            log(f"構成の提案の記帳で失敗: {e}"); rc = 1
     if not a.no_measure:
         try:
             import measure_changes
