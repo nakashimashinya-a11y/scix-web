@@ -7,7 +7,8 @@
 
 データの遅れ: GSC は2〜3日、GA4 は1〜2日。若い日付は毎回取り直して上書きする。
 収集のあと、origin/main に足された新規ページを変更台帳へ自動で記帳し（register_new_pages.py）、月1回の構成レビューの
-提案がマージされていればそれも記帳し（register_structure_merges.py）、期限が来た変更を計測する。
+提案がマージされていればそれも記帳し（register_structure_merges.py）、自動で公開したのに変更台帳に無いコミット
+（push のあとの記帳が失敗した回）を拾い直し（register_auto_commits.py）、期限が来た変更を計測する。
 GA4 のトークンが無ければ GA4 だけ飛ばす（他は止めない）。
 """
 import argparse
@@ -344,6 +345,14 @@ def main() -> int:
                 log(f"構成の提案がマージされた → 変更台帳へ: {e['id']} {' '.join(e['pages'])}")
         except Exception as e:  # noqa: BLE001
             log(f"構成の提案の記帳で失敗: {e}"); rc = 1
+    if not a.no_register:
+        # 自動で公開したのに変更台帳に無いコミット（push のあとの記帳が失敗した回）を拾い直す＝効果測定から黙って外さない
+        try:
+            import register_auto_commits
+            for e in register_auto_commits.run():
+                log(f"自動公開の記帳を拾い直した: {e['id']} {' '.join(e['pages'])} — {e['commit'][:10]}")
+        except Exception as e:  # noqa: BLE001
+            log(f"自動公開の拾い直しで失敗: {e}"); rc = 1
     if not a.no_measure:
         try:
             import measure_changes

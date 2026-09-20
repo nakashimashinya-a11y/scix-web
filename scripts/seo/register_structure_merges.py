@@ -107,6 +107,9 @@ def run(dry: bool = False) -> list:
                  "rationale": p.get("rationale"), "hypothesis": p.get("hypothesis"), "kpi": p.get("kpi"),
                  "measure": p.get("measure"), "before": p.get("before") or {}, "proposed_on": p.get("date"),
                  "check_days": [14, 28], "measured": {}}
+            for k in ("private_note", "kpi_pages"):   # 自動公開の回の記帳（record_changes.ledger_records）と同じ欄を残す
+                if p.get(k):
+                    e[k] = p[k]
             if p.get("pr"):
                 e["pr"] = p["pr"]
             if p.get("class") == "nav":

@@ -223,12 +223,15 @@ def proposals() -> list:
 HUB_TOP_FILES = {"knowledge.html": "/knowledge", "en/knowledge.html": "/en/knowledge", "zh-knowledge.html": "/zh-knowledge",
                  "index.html": "/", "en/index.html": "/en", "zh.html": "/zh"}
 HUB_TOP_PAGES = frozenset(HUB_TOP_FILES.values())
-FREEZE_CLASSES = ("hub", "hub-order", "top-order", "nav")   # 週次の hub と、構成レビューの hub-order／top-order／nav
+# 週次の hub・rollback と、構成レビューの hub-order／top-order／nav。rollback＝週次が構成の変更を差し戻したとき（source=auto・
+# pages は元の変更と同じ）。これを数えないと、差し戻しの 7 日後（同じ朝のこともある）に構成レビューが同じハブをまた並べ替え、
+# 「同じページを 14 日以内に 2 度変えない」が破れて、差し戻しの前後比較に別の変更が混ざる
+FREEZE_CLASSES = ("hub", "hub-order", "top-order", "nav", "rollback")
 
 
 def is_structure_entry(e: dict) -> bool:
     """変更台帳のエントリが構成系か（ハブ・トップを凍結する変更か）。構成レビューが公開したもの（自動公開・PR のマージ。
-    source=structure。cta-route・funnel-block も含む）と、class が hub／hub-order／top-order／nav のもの。"""
+    source=structure。cta-route・funnel-block も含む）と、class が hub／hub-order／top-order／nav／rollback のもの。"""
     return e.get("class") in FREEZE_CLASSES or e.get("source") == "structure"
 
 

@@ -2,6 +2,8 @@
 """新規ページの立ち上がり判定（measure_changes.py の mode=ramp）を合成データで確かめる。
 月1回の構成レビューが自動で公開した変更（変更台帳の source=structure）が、週次の変更と同じ流れに乗ることもここで確かめる:
 14 日後・28 日後の前後比較 → worse ならブリーフ 8 節に出る（差し戻し候補）→ 8 節の「構成の変更」の表に着地リードの前後。
+判定は GSC のクリックと CTR で決まるので、GSC は横ばいのまま問い合わせ・送客だけ減った構成の変更は flat になる。その行に
+表の「注意」（リード減・送客減）が付くこと、送客先（kpi_pages）が前後比較にも凍結にも使われないこともここで確かめる。
 
     python3 scripts/seo/selftest_ramp.py        # 0=全部通った（--keep で合成台帳を残す）
 
@@ -60,6 +62,10 @@ def build() -> None:
                       "ctr": 0.04 if day > D(TITLE_DAY) else 0.02, "position": 8.0})
         after = day > D(STRUCT_DAY)
         pages.append({"page": "/hub-x", "clicks": 3 if after else 10, "impressions": 100, "ctr": 0.03 if after else 0.10, "position": 6.0})
+        # GSC は前後で同じ（＝判定は flat）のコラム。CTA の行き先を変えたら、着地リードと送客だけが減った
+        pages.append({"page": "/col-z", "clicks": 10, "impressions": 100, "ctr": 0.10, "position": 6.0})
+        # 送客先の収益ページ。検索のクリックが 10→4 に落ちる（構成の変更とは無関係の揺れ）＝pages に入れていたら worse になる
+        pages.append({"page": "/investors", "clicks": 4 if after else 10, "impressions": 100, "ctr": 0.04 if after else 0.10, "position": 6.0})
         common.jdump(TMP / "gsc" / f"{day}.json", {"date": str(day), "totals": {"clicks": 0, "impressions": 0, "ctr": 0, "position": 0},
                                                    "pages": pages, "query_page": []})
         # GA4: /hub-x に着地したセッションと問い合わせ。変更前は 2 日に 1 件、変更後は 0 件（合成の数字）
@@ -67,7 +73,13 @@ def build() -> None:
         common.jdump(TMP / "ga4" / f"{day}.json", {"date": str(day), "totals": {"sessions": 20, "keyEvents:generate_lead": lead, "engagedSessions": 10},
                                                    "landing": [{"landingPage": "/hub-x", "sessions": 4 if after else 8,
                                                                 "keyEvents:generate_lead": lead, "engagedSessions": 3},
-                                                               {"landingPage": "/hub-y", "sessions": 5, "keyEvents:generate_lead": 0, "engagedSessions": 2}]})
+                                                               {"landingPage": "/hub-y", "sessions": 5, "keyEvents:generate_lead": 0, "engagedSessions": 2},
+                                                               {"landingPage": "/col-z", "sessions": 6, "keyEvents:generate_lead": 0 if after else 1, "engagedSessions": 3},
+                                                               {"landingPage": "/investors", "sessions": 3, "keyEvents:generate_lead": 1, "engagedSessions": 1}],
+                                                   "transitions": [{"from": "/hub-x", "to": "/projects", "views": 1 if after else 3},
+                                                                   {"from": "/hub-x.html", "to": "/column-old-1", "views": 9},
+                                                                   {"from": "/col-z", "to": "/investors", "views": 0 if after else 2},
+                                                                   {"from": "/col-z", "to": "/projects", "views": 5}]})
     urls = list(PEERS) + list(NEW) + list(LATE) + ["/old-title", "/knowledge"]
     common.jdump(TMP / "health" / f"{datetime.date.today()}.json", {
         "date": str(datetime.date.today()), "n": len(urls), "issues": [], "inbound": {},
@@ -97,6 +109,10 @@ def build() -> None:
          "pages": ["/hub-y"], "files": ["column-x.html"], "summary": "CTA の行き先", "check_days": [14, 28], "measured": {}},
         {"id": "structure-test-3", "date": ago(-2), "source": "structure", "commit": STRUCT_COMMIT, "class": "funnel-block",
          "pages": ["/hub-y"], "files": ["column-y.html"], "summary": "導線ブロック", "check_days": [14, 28], "measured": {}},
+        # pages＝編集したコラムだけ。送客先の収益ページは kpi_pages（前後比較にも凍結にも使わない）
+        {"id": "structure-test-4", "date": STRUCT_DAY, "source": "structure", "commit": STRUCT_COMMIT, "class": "cta-route",
+         "pages": ["/col-z"], "kpi_pages": ["/investors"], "files": ["col-z.html"], "summary": "CTA を /investors へ",
+         "check_days": [14, 28], "measured": {}},
     ])
 
 
@@ -144,6 +160,11 @@ def main() -> int:
           ((s14.get("pre") or {}).get("leads"), (s14.get("post") or {}).get("leads"), (s14.get("pre") or {}).get("sessions"), (s14.get("post") or {}).get("sessions")),
           (7, 0, 112, 56))
     check("構成の変更: 期限前のものはまだ測らない", [k for k in got if k[0] in ("structure-test-2", "structure-test-3")], [])
+    z14 = got.get(("structure-test-4", 14)) or {}
+    check("構成の変更: GSC が横ばいなら、着地リードが 14→0 に減っても判定は flat（worse にならない＝表の「注意」で拾う）",
+          (z14.get("verdict"), (z14.get("pre") or {}).get("leads"), (z14.get("post") or {}).get("leads")), ("flat", 14, 0))
+    check("構成の変更: 送客先（kpi_pages）の検索の揺れ・直着地のリードは判定に混ざらない（測るのは pages だけ）",
+          (z14.get("pages"), (z14.get("pre") or {}).get("clicks"), (z14.get("post") or {}).get("clicks")), (["/col-z"], 140, 140))
     check("新規は既存コラムの母集団に入らない（JA 5本）", a28["by_page"]["/column-new-a"]["peers"], 5)
     check("2回目は何も足さない", mc.run(), [])
     # 1 件の不正で全体を止めない
@@ -167,13 +188,22 @@ def main() -> int:
           "| structure-test-1 | hub-order | /hub-x | ハブの並び | worse（140→42, CTR 10.0%→3.0%, lead 7→0） | worse（140→42, CTR 10.0%→3.0%, lead 7→0） |" in text, True)
     check("8 節の「構成の変更」の表: commit・着地セッション・着地リードの前後・判定",
           ("### 構成の変更（月1回の構成レビューが公開したもの" in text,
-           f"| structure-test-1 | hub-order | /hub-x | {STRUCT_COMMIT[:10]} | 112→56 | 7→0 | 28日後の判定の窓 | worse／worse |" in text,
-           f"| structure-test-2 | cta-route | /hub-y | {STRUCT_COMMIT[:10]} | 70→30 | 0→0 | 途中（GA4 6日ぶん） | 未／未 |" in text,
-           "| 0→- | まだ（公開から3日未満） | 未／未 |" in text), (True, True, True, True))
+           f"| structure-test-1 | hub-order | /hub-x | {STRUCT_COMMIT[:10]} | 112→56 | 7→0 | 42→14 | 28日後の判定の窓 | worse／worse | **リード減・送客減** |" in text,
+           f"| structure-test-2 | cta-route | /hub-y | {STRUCT_COMMIT[:10]} | 70→30 | 0→0 | 0→0 | 途中（GA4 6日ぶん） | 未／未 |  |" in text,
+           "| 0→- | 0→- | まだ（公開から3日未満） | 未／未 |  |" in text), (True, True, True, True))
+    check("8 節の表: 判定が flat でも、着地リードと送客（kpi_pages への遷移だけを数える）が減った構成の変更に「注意」が付く",
+          f"| structure-test-4 | cta-route | /col-z | {STRUCT_COMMIT[:10]} | 84→84 | 14→0 | 28→0（/investors） | 28日後の判定の窓 | flat／flat | **リード減・送客減** |" in text, True)
+    check("8 節: 注意の読み方（worse と注意つきが差し戻し候補・件数は公開欄に写さない）が書いてある",
+          ("注意（リード減・送客減）の付いた行は差し戻し候補" in text, "公開される欄" in text), (True, True))
+    cd = build_brief.cooldown_pages()
+    check("9 節: 送客先（kpi_pages）は「今週触らないページ」にならない（pages だけが凍結される）",
+          ("/investors" in cd, "/hub-y" in cd), (False, True))
     latest_md = build_brief.render(for_latest=True)
     check("最新.md（毎朝の写し）には構成の変更の表もリードの前後も出さない", "### 構成の変更" in latest_md, False)
     bj = build_brief.brief_json()
-    check("brief.json の structure_changes（Drive にだけ置く）", [(r["id"], r["leads"]) for r in bj.get("structure_changes", [])][-1], ("structure-test-1", [7, 0]))
+    sc = {r["id"]: r for r in bj.get("structure_changes", [])}
+    check("brief.json の structure_changes（Drive にだけ置く）", (sc["structure-test-1"]["leads"], sc["structure-test-1"]["flags"], sc["structure-test-4"]["feed"],
+                                                       sc["structure-test-4"]["kpi_pages"]), ([7, 0], ["リード減", "送客減"], [28, 0], ["/investors"]))
     check("8 節の表: 手で記帳した新設は立ち上がりの書式・自動記帳は件数だけ",
           ("| new-column-new-b | new-column | /column-new-b | new-column-new-b | not-shown（表示 0・クリック 0） | not-shown（表示 0・クリック 0） |" in text,
            "| new-column-new-a |" in text, "新規ページの自動記帳" in text), (True, False, True))

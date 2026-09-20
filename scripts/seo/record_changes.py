@@ -7,6 +7,11 @@
                     source=structure・id structure-YYYYMM-N・check_days [14, 28] で入る＝週次の変更と同じく measure_changes.py が
                     14 日後・28 日後に前後比較し、worse なら翌週のブリーフ 8 節で差し戻し候補になる。measure と private_note
                     （問い合わせの件数はここにだけ書ける）も台帳に残す。既定は auto（週次）
+  private_note（問い合わせの件数など、公開される欄に書けない根拠）と kpi_pages（送客先の収益ページ＝前後比較にも凍結にも
+  使わない参考）は、週次・構成レビューとも変更台帳にだけ残す（変更日台帳＝公開リポジトリには出さない）。
+  --commit は **中身のコミット**（auto(seo): ／ auto(structure):）の SHA。sitemap の lastmod と変更日台帳は別の記帳用コミット
+  （chore(seo-log):）に分けてある＝`git revert <中身のコミット>` が、後続の週次の行と衝突しない。
+  push のあとでここが失敗したときは、翌朝の収集が拾い直す（register_auto_commits.py。ledger_records を共用）
   --proposal --commit SHA --branch B [--pr N --pr-url U]
                     構成レビューのうちナビ（header.js）を含む回（未公開・PR で提案）。ledger/proposals.jsonl に status=proposed で残す。
                     変更台帳には書かない＝公開されるまで効果測定も「今週触らないページ」も動かさない。マージされたら
@@ -35,6 +40,34 @@ def before_text(pages, brief):
         else:
             parts.append(f"{p} 表示なし")
     return "／".join(parts)
+
+
+def ledger_records(changes, brief, source, commit, day, have) -> list:
+    """変更台帳（ledger/changes.jsonl）に足すレコード。day＝変更日（公開した日）。have＝既にある id の集合（重ならない id を振り、
+    振った id を足す）。weekly_run.sh の記帳と、翌朝の拾い直し（register_auto_commits.py）で同じ形にする。"""
+    structure = source == "structure"
+    out = []
+    for n, c in enumerate(changes, 1):
+        cid = f"structure-{day.strftime('%Y%m')}-{n}" if structure else f"auto-{day.strftime('%Y%m%d')}-{n}"
+        while cid in have:   # 同じ月（週次は同じ日）に手で回し直したとき。構成レビューは PR のマージの記帳とも重ならないように
+            cid += "b"
+        have.add(cid)
+        rec = {"id": cid, "date": str(day), "source": source,
+               "commit": commit, "files": c.get("files"), "pages": c.get("pages") or [],
+               "class": c.get("class"), "summary": c.get("summary"), "rationale": c.get("rationale"),
+               "hypothesis": c.get("hypothesis"), "kpi": c.get("kpi"),
+               "before": {p: (brief.get("pages") or {}).get(p) for p in (c.get("pages") or [])},
+               "check_days": [14, 28], "measured": {}}
+        if c.get("private_note"):   # 公開される欄に書けない根拠（問い合わせの件数）。週次でも残す
+            rec["private_note"] = c.get("private_note")
+        if c.get("kpi_pages"):      # 送客先の収益ページ（参考。前後比較にも「今週触らないページ」にも使わない）
+            rec["kpi_pages"] = c.get("kpi_pages")
+        if structure:
+            rec["measure"] = c.get("measure")
+            if c.get("class") == "nav":   # ナビは PR の経路にしか出さないが、万一ここへ来ても90日ルールの起点にする
+                rec["nav_change"] = True
+        out.append(rec)
+    return out
 
 
 def main() -> int:
@@ -97,6 +130,8 @@ def main() -> int:
                    "rationale": c.get("rationale"), "hypothesis": c.get("hypothesis"), "kpi": c.get("kpi"),
                    "measure": c.get("measure"), "private_note": c.get("private_note"),
                    "before": {p: (brief.get("pages") or {}).get(p) for p in (c.get("pages") or [])}}
+            if c.get("kpi_pages"):
+                rec["kpi_pages"] = c.get("kpi_pages")
             if c.get("nav_rule") is not None:
                 rec["nav_rule"] = c.get("nav_rule")
             append_jsonl(path, rec); n_written += 1
@@ -105,28 +140,16 @@ def main() -> int:
 
     if a.commit and not a.dry_ledger:
         path = LEDGER / "ledger" / "changes.jsonl"
-        # 構成レビューの id は提案（PR の経路）と同じ形＝同じ月に手で回し直しても、PR のマージの記帳とも重ならないようにする
-        have = ({e.get("id") for e in read_jsonl(path)} | {e.get("id") for e in read_jsonl(LEDGER / "ledger" / "proposals.jsonl")}
-                if structure else set())
-        for n, c in enumerate(changes, 1):
-            cid = f"structure-{day.strftime('%Y%m')}-{n}" if structure else f"auto-{day.strftime('%Y%m%d')}-{n}"
-            while cid in have:
-                cid += "b"
-            have.add(cid)
-            rec = {"id": cid, "date": str(day), "source": a.source,
-                   "commit": a.commit, "files": c.get("files"), "pages": c.get("pages") or [],
-                   "class": c.get("class"), "summary": c.get("summary"), "rationale": c.get("rationale"),
-                   "hypothesis": c.get("hypothesis"), "kpi": c.get("kpi"),
-                   "before": {p: (brief.get("pages") or {}).get(p) for p in (c.get("pages") or [])},
-                   "check_days": [14, 28], "measured": {}}
-            if structure:
-                rec["measure"] = c.get("measure")
-                if c.get("private_note"):
-                    rec["private_note"] = c.get("private_note")
-                if c.get("class") == "nav":   # ナビは PR の経路にしか出さないが、万一ここへ来ても90日ルールの起点にする
-                    rec["nav_change"] = True
-            append_jsonl(path, rec)
-        print(f"台帳に {len(changes)} 件（source={a.source}）")
+        ledger = read_jsonl(path)
+        if any(str(e.get("commit") or "") == a.commit for e in ledger):
+            print(f"台帳に {a.commit[:10]} は記帳済み（足さない）")   # weekly_run.sh のやり直し・翌朝の拾い直しと二重にしない
+            return 0
+        have = {e.get("id") for e in ledger} | {e.get("id") for e in read_jsonl(LEDGER / "ledger" / "proposals.jsonl")}
+        recs = ledger_records(changes, brief, a.source, a.commit, day, have)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with open(path, "a", encoding="utf-8") as f:   # 1 回の書き込みで全部＝途中まで書いて落ちた半端な記帳を残さない
+            f.write("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in recs))
+        print(f"台帳に {len(recs)} 件（source={a.source}）")
     return 0
 
 
