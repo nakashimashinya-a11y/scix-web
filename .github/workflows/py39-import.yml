@@ -1,0 +1,49 @@
+name: Python 3.9 で全スクリプトが import できるか
+
+# Mac の launchd から走るジョブ（ai.scix.web-metrics・web-weekly・projects-json）の python3 は
+# /usr/bin/python3 = 3.9。手元の対話シェルは 3.14 なので、3.10 以降でしか通らない書き方
+# （実行時に評価される `X | None` の注釈など）が手元のテストを素通りする。
+# 2026-09-20 に web-metrics と web-weekly が初回走行でこれで落ちた。ここで先に止める。
+
+on:
+  pull_request:
+    paths: ['scripts/**']
+  push:
+    branches: [main]
+    paths: ['scripts/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - name: 全スクリプトを 3.9 で import する（main は呼ばない）
+        run: |
+          set -euo pipefail
+          python3 --version
+          python3 - <<'PY'
+          import importlib.util, pathlib, sys, traceback
+          sys.path[:0] = ["scripts/seo", "scripts"]
+          bad = 0
+          for p in sorted(list(pathlib.Path("scripts/seo").glob("*.py")) + list(pathlib.Path("scripts").glob("*.py"))):
+              name = "chk_" + p.stem
+              try:
+                  spec = importlib.util.spec_from_file_location(name, p)
+                  mod = importlib.util.module_from_spec(spec)
+                  spec.loader.exec_module(mod)   # __name__ != "__main__" なので本処理は走らない
+                  print("OK ", p)
+              except SystemExit:
+                  print("OK ", p, "(SystemExit)")
+              except Exception:
+                  bad += 1
+                  print("::error file=%s::Python 3.9 で import できない" % p)
+                  traceback.print_exc()
+          sys.exit(1 if bad else 0)
+          PY

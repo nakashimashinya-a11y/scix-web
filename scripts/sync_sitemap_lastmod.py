@@ -16,6 +16,7 @@ a link fix, a font cleanup) — it would stamp every page as updated today and
 turn the sitemap's freshness signal into noise. In that situation, edit the
 handful of genuinely-changed entries by hand instead.
 """
+from __future__ import annotations  # launchd の python3 は 3.9＝`X | None` の注釈を実行時に評価させない
 import re
 import subprocess
 import sys

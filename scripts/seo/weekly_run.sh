@@ -142,11 +142,25 @@ $BODY
 scripts/seo/weekly_run.sh による週次自動更新。ブリーフとマニフェスト: 9_システム/scix-web解析/weekly/$TODAY
 差し戻し: git revert <このコミット>
 EOF2
+# Claude が作業している間（最長90分）に main が進んでいることがある（毎朝06:50 の案件一覧の同期など）。
+# そのまま push すると non-fast-forward で弾かれるので、先に最新の origin/main へ載せ直す。
+# 載せ直しで衝突したら公開しない（安全側）。
+git fetch -q origin || fail "push 前の git fetch"
+if [ "$(git rev-parse origin/main)" != "$BASE_SHA" ]; then
+  log "作業中に main が進んだ（$BASE_SHA → $(git rev-parse --short origin/main)）。載せ直す。"
+  git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" rebase -q origin/main \
+    || { git rebase --abort >/dev/null 2>&1; fail "push 前の載せ直しで衝突した（公開していない）"; }
+fi
 SHA="$(git rev-parse HEAD)"
 git tag -f "auto/weekly-$TODAY" >/dev/null 2>&1
 git push -q origin HEAD:main || fail "push（commit $SHA は作業ツリーに残っている）"
 git push -q origin "auto/weekly-$TODAY" >/dev/null 2>&1 || true
 log "公開 push 済み $SHA"
+# 手元の main を追いつかせる。これをしないと、06:50 の案件一覧の同期（手元の main に commit して push）が
+# non-fast-forward で弾かれ、以後ずっと手元と本番が分かれたままになる。main 以外に居るときは触らない。
+if [ "$(git -C "$REPO" rev-parse --abbrev-ref HEAD)" = "main" ]; then
+  git -C "$REPO" pull -q --ff-only origin main >/dev/null 2>&1 || log "手元の main を追いつかせられなかった（次の同期が pull する）"
+fi
 python3 scripts/seo/record_changes.py --manifest "$RUN_DIR/changes.json" --brief "$RUN_DIR/brief.json" --commit "$SHA" \
   >>"$RUN_DIR/record.log" 2>&1 || log "台帳の記帳に失敗（公開は済んでいる）"
 

@@ -13,6 +13,7 @@ Google の認証はコックピットと同じ `~/.config/scix-cockpit/` のト�
   sc_token.json   Search Console（webmasters.readonly）
   ga4_token.json  GA4 Data API（analytics.readonly）— 無ければ `python3 scripts/seo/ga4_auth.py` で1回だけ取得
 """
+from __future__ import annotations  # launchd の python3 は 3.9＝`X | None` の注釈を実行時に評価させない
 import datetime
 import json
 import os

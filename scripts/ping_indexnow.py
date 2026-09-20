@@ -10,6 +10,7 @@ Google は IndexNow に参加していないので、Google 側は Search Consol
 
 デプロイ「後」に実行すること。まだ本番に出ていないURLを送っても意味がない。
 """
+from __future__ import annotations  # launchd の python3 は 3.9＝`X | None` の注釈を実行時に評価させない
 import argparse
 import json
 import re
