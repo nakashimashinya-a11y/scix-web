@@ -7,6 +7,9 @@
 
 ここは決定論。判断（何を変えるか）は weekly_run.sh が呼ぶ Claude が brief を読んで行う。
 10 節（新規ページの立ち上がり・90日表示ゼロ）は台帳と git（origin/main）だけで作る＝追加 API なし。
+8 節の末尾「構成の変更」の表は、月1回の構成レビューが公開した変更（変更台帳の source=structure）の、測る対象のページに着地した
+セッションと問い合わせ（generate_lead）の前後。構成の変更の KPI は問い合わせ＝GSC の判定（better／flat／worse）だけでは見えない分を
+ここで見る。数字は Drive のブリーフにだけ出る（公開リポジトリ・コミット文・PR には写さない）。
 --structure の S1〜S8 節（ナビのクリック・遷移の太さ・コラムの送客・セッション0・孤立・カテゴリ別・トップの節・過去の提案）も同じ
 （中身は structure.py）。通常の週次のブリーフ（weekly/<今日>/brief.md）は上書きしない。
 """
@@ -152,7 +155,7 @@ def hub_top_freeze_lines(cd) -> list:
     hubs = sorted(st.HUB_TOP_PAGES)
     frozen = [f"{p}（{cd[p][0]}・{cd[p][1]}）" for p in hubs if p in cd]
     out = ["\nハブ・トップ（" + "・".join(hubs) + "）の凍結は、この構成レビュー用のブリーフでは **変更台帳の構成系のエントリだけ** で"
-           "決めている: class が hub／hub-order／top-order／nav、または構成レビューの PR がマージされたもの（source=structure）で、"
+           "決めている: class が hub／hub-order／top-order／nav、または構成レビューが公開したもの（自動公開・PR のマージ＝source=structure）で、"
            "そのページが測る対象（pages）に載っている変更。コラムを足したときのカード・件数・新着・JSON-LD の焼き直しや、"
            "title・description の変更では凍結しない（毎週コラムを足すたびに触られるため）。"
            "いま凍結中のハブ・トップ: " + ("・".join(frozen) if frozen else "なし") + "。"]
@@ -279,6 +282,57 @@ def ramp_needs_care(entries, pages28):
             elif x.get("verdict") == "below-median":
                 below.append((p, check, x.get("impressions", 0), x.get("median")))
     return not_shown, below
+
+
+def structure_change_rows(ledger) -> list:
+    """構成の変更（変更台帳の source=structure）ごとに、測る対象のページ（pages）に着地したセッションと問い合わせの前後。
+    判定済みなら効果測定（measure_changes.py）の窓の値をそのまま使う（28 日後が出ていればそちら）。まだなら、
+    前＝変更日の 15〜2 日前、後＝変更日の 3 日後〜（最長 16 日後・GA4 が届いている日まで）を途中経過として数える。"""
+    import measure_changes as mc  # noqa: PLC0415
+    ga_days = sorted(p.stem for p in (LEDGER / "ga4").glob("????-??-??.json"))
+    latest_ga = d(ga_days[-1]) if ga_days else None
+    rows = []
+    for e in ledger:
+        day = safe_d(e.get("date"))
+        if e.get("source") != "structure" or not day:
+            continue
+        pages = [p for p in (e.get("pages") or []) if isinstance(p, str)]
+        m = e.get("measured") or {}
+        verdicts = {k: (m.get(k) or {}).get("verdict") for k in ("14", "28")}
+        done = next((k for k in ("28", "14") if isinstance(m.get(k), dict) and isinstance(m[k].get("pre"), dict)
+                     and isinstance(m[k].get("post"), dict)), None)
+        if done:
+            pre, post, window = m[done]["pre"], m[done]["post"], f"{done}日後の判定の窓"
+        else:
+            pre = mc.window_metrics(pages, day + datetime.timedelta(days=mc.PRE[0]), day + datetime.timedelta(days=mc.PRE[1]))
+            start = day + datetime.timedelta(days=mc.WINDOWS[14][0])
+            if latest_ga and latest_ga >= start:
+                post = mc.window_metrics(pages, start, min(day + datetime.timedelta(days=mc.WINDOWS[14][1]), latest_ga))
+                window = f"途中（GA4 {post['ga4_days']}日ぶん）"
+            else:
+                post, window = None, "まだ（公開から3日未満）"
+        rows.append({"date": e["date"], "id": e.get("id"), "class": e.get("class"), "pages": pages,
+                     "commit": (e.get("commit") or "")[:10], "summary": (e.get("summary") or "")[:80], "window": window,
+                     "sessions": [pre.get("sessions", 0), None if post is None else post.get("sessions", 0)],
+                     "leads": [pre.get("leads", 0), None if post is None else post.get("leads", 0)],
+                     "verdict_14": verdicts["14"], "verdict_28": verdicts["28"]})
+    rows.sort(key=lambda r: r["date"], reverse=True)
+    return rows
+
+
+def render_structure_changes(L, rows) -> None:
+    if not rows:
+        return
+    L.append("### 構成の変更（月1回の構成レビューが公開したもの・source=structure）— 着地と問い合わせの前後\n")
+    L.append("測る対象のページに着地したセッションと問い合わせ（generate_lead）。前＝変更日の 15〜2 日前の 14 日。"
+             "**worse は差し戻し候補**（`git show <commit>` で差分を見て戻す）。問い合わせは件数が少ないので、1〜2 件の差は揺れとして読む。\n")
+    L.append("| 変更日 | id | 種別 | ページ | commit | 着地セッション 前→後 | 着地リード 前→後 | 後の窓 | 判定 14日／28日 |\n|---|---|---|---|---|---|---|---|---|")
+    def arrow(v):
+        return f"{v[0]}→{'-' if v[1] is None else v[1]}"
+    for r in rows:
+        L.append(f"| {r['date']} | {r['id']} | {r['class']} | {' '.join(r['pages'][:6])}{'…' if len(r['pages']) > 6 else ''} | {r['commit']} | "
+                 f"{arrow(r['sessions'])} | {arrow(r['leads'])} | {r['window']} | {r['verdict_14'] or '未'}／{r['verdict_28'] or '未'} |")
+    L.append("")
 
 
 # ---------------------------------------------------------------- 描画
@@ -476,6 +530,10 @@ def render(days=28, for_latest=False, structure=False):
             ep = e.get("pages") or []
             L.append(f"| {e['date']} | {e.get('id')} | {e.get('class','')} | {' '.join(ep[:6])}{'…' if len(ep)>6 else ''} | {(e.get('summary') or '')[:80]} | {vs('14')} | {vs('28')} |")
         L.append("\n**worse の変更は差し戻し候補**（同じ変更を繰り返さない）。\n")
+        try:
+            render_structure_changes(L, structure_change_rows(ledger))
+        except Exception as e:  # noqa: BLE001 — ここが落ちても 8 節の残りと 9 節以降は出す
+            L.append(f"構成の変更の表の生成に失敗: {e}\n")
         if auto_new:
             tally = {}
             for e in auto_new:
@@ -534,6 +592,12 @@ def brief_json(days=28, structure=False):
            "pages": pages, "landing": landing,
            "cooldown": {k: v[0] for k, v in cooldown_pages(structure=structure).items()},
            "new_pages": new_rows, "zero_impression": zero_rows}
+    try:
+        out["structure_changes"] = structure_change_rows(
+            [e for e in read_jsonl(LEDGER / "ledger" / "changes.jsonl")
+             if safe_d(e.get("date")) and (today() - safe_d(e["date"])).days <= 60])
+    except Exception:  # noqa: BLE001
+        out["structure_changes"] = []
     if structure:
         try:
             import structure as st

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """新規ページの立ち上がり判定（measure_changes.py の mode=ramp）を合成データで確かめる。
+月1回の構成レビューが自動で公開した変更（変更台帳の source=structure）が、週次の変更と同じ流れに乗ることもここで確かめる:
+14 日後・28 日後の前後比較 → worse ならブリーフ 8 節に出る（差し戻し候補）→ 8 節の「構成の変更」の表に着地リードの前後。
 
     python3 scripts/seo/selftest_ramp.py        # 0=全部通った（--keep で合成台帳を残す）
 
@@ -39,6 +41,9 @@ NEW = {"/column-new-a": (ago(38), 15), "/en/column-new-a": (ago(38), 0), "/zh-co
 # 公開から20日目に初めて表示が出るページ（14日時点 not-shown → 28日時点は中央値未満）
 LATE = {"/column-new-g": (ago(43), 20, 1)}
 TITLE_DAY = ago(47)   # 旧方式（前後比較）の対象の変更日
+# 構成の変更（source=structure）: STRUCT_DAY にハブの並びを変えたら、クリックも CTR も着地リードも落ちた（＝worse）
+STRUCT_DAY = ago(47)
+STRUCT_COMMIT = "abcdef1234567890abcdef1234567890abcdef12"
 
 
 def build() -> None:
@@ -53,8 +58,16 @@ def build() -> None:
         # 旧方式（前後比較）の対象: title を変えて、クリックが倍になった
         pages.append({"page": "/old-title", "clicks": 4 if day > D(TITLE_DAY) else 2, "impressions": 100,
                       "ctr": 0.04 if day > D(TITLE_DAY) else 0.02, "position": 8.0})
+        after = day > D(STRUCT_DAY)
+        pages.append({"page": "/hub-x", "clicks": 3 if after else 10, "impressions": 100, "ctr": 0.03 if after else 0.10, "position": 6.0})
         common.jdump(TMP / "gsc" / f"{day}.json", {"date": str(day), "totals": {"clicks": 0, "impressions": 0, "ctr": 0, "position": 0},
                                                    "pages": pages, "query_page": []})
+        # GA4: /hub-x に着地したセッションと問い合わせ。変更前は 2 日に 1 件、変更後は 0 件（合成の数字）
+        lead = 0 if after else (day.toordinal() % 2)
+        common.jdump(TMP / "ga4" / f"{day}.json", {"date": str(day), "totals": {"sessions": 20, "keyEvents:generate_lead": lead, "engagedSessions": 10},
+                                                   "landing": [{"landingPage": "/hub-x", "sessions": 4 if after else 8,
+                                                                "keyEvents:generate_lead": lead, "engagedSessions": 3},
+                                                               {"landingPage": "/hub-y", "sessions": 5, "keyEvents:generate_lead": 0, "engagedSessions": 2}]})
     urls = list(PEERS) + list(NEW) + list(LATE) + ["/old-title", "/knowledge"]
     common.jdump(TMP / "health" / f"{datetime.date.today()}.json", {
         "date": str(datetime.date.today()), "n": len(urls), "issues": [], "inbound": {},
@@ -77,6 +90,13 @@ def build() -> None:
         entry("new-column-new-g", ago(43), "new-column", ["/column-new-g"]),
         {"id": "pr-old-title", "date": TITLE_DAY, "source": "manual", "class": "title", "pages": ["/old-title"],
          "summary": "title", "check_days": [14, 28], "measured": {}},
+        # 構成レビューが自動で公開した変更（record_changes.py --source structure と同じ形）。判定済みになる／途中経過／公開直後
+        {"id": "structure-test-1", "date": STRUCT_DAY, "source": "structure", "commit": STRUCT_COMMIT, "class": "hub-order",
+         "pages": ["/hub-x"], "files": ["knowledge.html"], "summary": "ハブの並び", "measure": "14日後・28日後", "check_days": [14, 28], "measured": {}},
+        {"id": "structure-test-2", "date": ago(8), "source": "structure", "commit": STRUCT_COMMIT, "class": "cta-route",
+         "pages": ["/hub-y"], "files": ["column-x.html"], "summary": "CTA の行き先", "check_days": [14, 28], "measured": {}},
+        {"id": "structure-test-3", "date": ago(-2), "source": "structure", "commit": STRUCT_COMMIT, "class": "funnel-block",
+         "pages": ["/hub-y"], "files": ["column-y.html"], "summary": "導線ブロック", "check_days": [14, 28], "measured": {}},
     ])
 
 
@@ -116,6 +136,14 @@ def main() -> int:
     check("F 未判定の 28 は立ち上がりで（56 対 280）", got[("new-column-new-f", 28)]["verdict"], "below-median")
     check("G 14日 not-shown → 28日 below-median", (got[("new-column-new-g", 14)]["verdict"], got[("new-column-new-g", 28)]["verdict"]), ("not-shown", "below-median"))
     check("既存の前後比較はそのまま（title・クリック倍）", (got[("pr-old-title", 14)]["verdict"], "mode" in got[("pr-old-title", 14)]), ("better", False))
+    # 構成の変更（source=structure）は週次の変更と同じ前後比較に乗る。クリック 0.3 倍・CTR 0.3 倍 → worse。リードも台帳に残る
+    s14, s28 = got.get(("structure-test-1", 14)) or {}, got.get(("structure-test-1", 28)) or {}
+    check("構成の変更: 14日後・28日後に前後比較され worse（mode=ramp ではない）",
+          (s14.get("verdict"), s28.get("verdict"), "mode" in s14), ("worse", "worse", False))
+    check("構成の変更: 着地リードの前後が判定に残る（前 14 日で 7 件 → 後 0 件）",
+          ((s14.get("pre") or {}).get("leads"), (s14.get("post") or {}).get("leads"), (s14.get("pre") or {}).get("sessions"), (s14.get("post") or {}).get("sessions")),
+          (7, 0, 112, 56))
+    check("構成の変更: 期限前のものはまだ測らない", [k for k in got if k[0] in ("structure-test-2", "structure-test-3")], [])
     check("新規は既存コラムの母集団に入らない（JA 5本）", a28["by_page"]["/column-new-a"]["peers"], 5)
     check("2回目は何も足さない", mc.run(), [])
     # 1 件の不正で全体を止めない
@@ -135,6 +163,17 @@ def main() -> int:
     check("中央値未満", sorted(p for p, *_ in below), ["/column-new-f", "/column-new-g"])
     text = build_brief.render()
     check("ブリーフに 8 節の要手当てと 10 節", ("**要手当て" in text, "## 10. 新規ページ" in text, "### 10b." in text), (True, True, True))
+    check("8 節: worse の構成の変更が表に出る（＝翌週の週次で差し戻し候補）",
+          "| structure-test-1 | hub-order | /hub-x | ハブの並び | worse（140→42, CTR 10.0%→3.0%, lead 7→0） | worse（140→42, CTR 10.0%→3.0%, lead 7→0） |" in text, True)
+    check("8 節の「構成の変更」の表: commit・着地セッション・着地リードの前後・判定",
+          ("### 構成の変更（月1回の構成レビューが公開したもの" in text,
+           f"| structure-test-1 | hub-order | /hub-x | {STRUCT_COMMIT[:10]} | 112→56 | 7→0 | 28日後の判定の窓 | worse／worse |" in text,
+           f"| structure-test-2 | cta-route | /hub-y | {STRUCT_COMMIT[:10]} | 70→30 | 0→0 | 途中（GA4 6日ぶん） | 未／未 |" in text,
+           "| 0→- | まだ（公開から3日未満） | 未／未 |" in text), (True, True, True, True))
+    latest_md = build_brief.render(for_latest=True)
+    check("最新.md（毎朝の写し）には構成の変更の表もリードの前後も出さない", "### 構成の変更" in latest_md, False)
+    bj = build_brief.brief_json()
+    check("brief.json の structure_changes（Drive にだけ置く）", [(r["id"], r["leads"]) for r in bj.get("structure_changes", [])][-1], ("structure-test-1", [7, 0]))
     check("8 節の表: 手で記帳した新設は立ち上がりの書式・自動記帳は件数だけ",
           ("| new-column-new-b | new-column | /column-new-b | new-column-new-b | not-shown（表示 0・クリック 0） | not-shown（表示 0・クリック 0） |" in text,
            "| new-column-new-a |" in text, "新規ページの自動記帳" in text), (True, False, True))

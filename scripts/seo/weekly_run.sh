@@ -13,21 +13,31 @@
 # 公開せず確認:  DRY_RUN=1 bash scripts/seo/weekly_run.sh   （作業ツリー ~/projects/.scix-web-weekly を残す）
 # 差し戻し:      git revert <auto(seo) のコミット>  → push（IndexNow は Action が送る）
 #
-# 月1回の構成レビュー（MODE=structure・2026-09-20 追加。中島「何週間かに一度ページ内容やページ構成を変える」）:
+# コラムは書かない（2026-09-20 中島「Column は僕が書くから君は書かない」）: 週次も構成レビューも新しいページを作らない
+#   （guard_diff.py が新規ファイルと class=new-column を止める）。足りない主題は column_ideas で Telegram に 1 行出すだけ。
+#   中島さんが足したコラムの育成（内部リンク・ハブカード・新着・sitemap・JA_ONLY_COLUMNS の登録漏れ）は週次が続ける。
+#
+# 月1回の構成レビュー（MODE=structure・2026-09-20 追加。中島「ページのアクセスや検索ヒットをみて、ページ構成や流れを変えて、
+#   よりヒットを多くする、問い合わせを多くするを検索エンジン対策を含めて自動でやってほしい」）:
 #   月の第1日曜は、通常の週次が終わったあと、同じこのスクリプトが続けて MODE=structure を1回だけ走らせる
-#   （新しい launchd は作らない）。構成（ハブの並び・トップの節の順・CTA の行き先・収益ページへの導線・ナビ）の
-#   見直しを Claude が 1〜3 件に絞って編集 → 検査（guard_diff.py --profile structure）→ **公開しない**:
-#   枝 auto/structure-YYYY-MM へ push して gh pr create（マージで公開・閉じれば不採用）。main へは push しない・
-#   IndexNow も送らない・台帳は「提案（未公開）」として ledger/proposals.jsonl に残す（マージ後の記帳は毎朝の
-#   register_structure_merges.py）。週次は子プロセスで今までどおり走り、終了コードもそのまま返す
-#   ＝構成レビューが失敗しても週次の結果は壊れない。
-#   手で回す:  MODE=structure bash scripts/seo/weekly_run.sh        （日付に関係なく1回）
-#   確認だけ:  MODE=structure DRY_RUN=1 bash scripts/seo/weekly_run.sh  （push も PR もしない。作業ツリー ~/projects/.scix-web-structure と proposal.diff を残す）
+#   （新しい launchd は作らない）。構成（ハブの並び・トップの節の順・CTA の行き先・収益ページへの導線）の見直しを
+#   Claude が 1〜3 件に絞って編集 → 検査（guard_diff.py --profile structure）→ **通れば週次と同じ手順で自動公開**:
+#   最新の origin/main へ載せ直し（衝突したら公開しない）→ push → タグ auto/structure-YYYY-MM → 手元の main を早送り →
+#   変更台帳に source=structure・check_days [14, 28] で記帳（14 日後・28 日後に前後比較。worse は翌週のブリーフ 8 節で差し戻し候補）
+#   → Telegram 3 行（何を変えたか・根拠・戻し方 git revert <sha>）。IndexNow は push 時の GitHub Action が送る。
+#   **例外: ナビ（header.js）を含む回は自動公開しない**（全ページに効く）。その回は全体を従来どおり枝 auto/structure-YYYY-MM へ
+#   push して gh pr create（マージで公開・閉じれば不採用。一部だけ公開、をしない＝検査済みの単位を崩さない）。台帳は
+#   「提案（未公開）」として ledger/proposals.jsonl、マージ後の記帳は毎朝の register_structure_merges.py。
+#   週次は子プロセスで今までどおり走り、終了コードもそのまま返す＝構成レビューが失敗しても週次の結果は壊れない。
+#   頻度が月1回の理由: Google の反映に 1〜2 週・効果測定に 2〜4 週・同じページを 14 日以内に 2 度変えない。
+#   手で回す:  MODE=structure bash scripts/seo/weekly_run.sh        （日付に関係なく1回。今月のタグか枝が origin にあれば何もしない）
+#   確認だけ:  MODE=structure DRY_RUN=1 bash scripts/seo/weekly_run.sh  （push も記帳も PR もしない。作業ツリー ~/projects/.scix-web-structure と proposal.diff を残す）
 #   止める:    NO_STRUCTURE=1（第1日曜でも続けて走らせない）
+#   戻す:      git revert <auto(structure) のコミット> → push
 set -uo pipefail
 
 SELF="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
-MODE="${MODE:-weekly}"                             # weekly＝通常の週次（公開する）／structure＝月1回の構成レビュー（PR で提案）
+MODE="${MODE:-weekly}"                             # weekly＝通常の週次／structure＝月1回の構成レビュー。どちらも検査を通れば公開（ナビを含む回だけ PR）
 case "$MODE" in weekly|structure) ;; *) echo "MODE は weekly か structure（指定: $MODE）" >&2; exit 2 ;; esac
 REPO="${SCIX_WEB_REPO:-$HOME/projects/scix-web}"
 LEDGER="${SCIX_WEB_LEDGER:-$HOME/マイドライブ/9_システム/scix-web解析}"
@@ -120,12 +130,37 @@ PY
   log "Claude 終了: $(tail -1 "$RUN_DIR/claude_result.md")"
 }
 
+# 公開（週次と、構成レビューの自動公開の経路で共用）。呼ぶ前に: 作業ツリー（cwd）で commit 済み・BASE_SHA＝作業ツリーを切った時点の origin/main。
+# Claude が作業している間（最長90分）に main が進んでいることがある（毎朝06:50 の案件一覧の同期など）。
+# そのまま push すると non-fast-forward で弾かれるので、先に最新の origin/main へ載せ直す。載せ直しで衝突したら公開しない（安全側）。
+# 終わると SHA に公開したコミットが入っている。
+publish_main() {  # $1=タグ名
+  git fetch -q origin || fail "push 前の git fetch"
+  if [ "$(git rev-parse origin/main)" != "$BASE_SHA" ]; then
+    log "作業中に main が進んだ（$BASE_SHA → $(git rev-parse --short origin/main)）。載せ直す。"
+    git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" rebase -q origin/main \
+      || { git rebase --abort >/dev/null 2>&1; fail "push 前の載せ直しで衝突した（公開していない）"; }
+  fi
+  SHA="$(git rev-parse HEAD)"
+  git tag -f "$1" >/dev/null 2>&1
+  git push -q origin HEAD:main || fail "push（commit $SHA は作業ツリーに残っている）"
+  git push -q origin "refs/tags/$1" >/dev/null 2>&1 || log "タグ $1 を push できなかった（公開は済んでいる）"
+  log "公開 push 済み $SHA"
+  # 手元の main を追いつかせる。これをしないと、06:50 の案件一覧の同期（手元の main に commit して push）が
+  # non-fast-forward で弾かれ、以後ずっと手元と本番が分かれたままになる。main 以外に居るときは触らない。
+  if [ "$(git -C "$REPO" rev-parse --abbrev-ref HEAD)" = "main" ]; then
+    git -C "$REPO" pull -q --ff-only origin main >/dev/null 2>&1 || log "手元の main を追いつかせられなかった（次の同期が pull する）"
+  fi
+}
+
 # ---------------------------------------------------------------- 月1回の構成レビュー（MODE=structure）
-# 公開しない。作業ツリーで commit → 枝 auto/structure-YYYY-MM へ push → gh pr create。main・IndexNow・変更日台帳には触らない。
+# 検査を通れば週次と同じ手順で自動公開する（2026-09-20 中島。提案で止めない）。例外はナビ（header.js）を含む回だけ:
+# 全ページに効くので、その回は全体を枝 auto/structure-YYYY-MM へ push → gh pr create（main・変更台帳・変更日台帳には触らない）。
 run_structure() {
-  local MONTH BRANCH PR_TITLE PR_URL PR_NUM SHA LINE1 REASON
+  local MONTH BRANCH TAG TITLE BODY PR_TITLE PR_URL PR_NUM LINE1 LINE2 REASON ROUTE HTML_CHANGED
   MONTH="$(date +%Y-%m)"
-  BRANCH="${SCIX_WEB_STRUCTURE_BRANCH:-auto/structure-$MONTH}"
+  BRANCH="${SCIX_WEB_STRUCTURE_BRANCH:-auto/structure-$MONTH}"   # PR の経路の枝
+  TAG="auto/structure-$MONTH"                                    # 自動公開の経路のタグ（1か月に1回の目印も兼ねる）
   mkdir "$LOCK" 2>/dev/null || { log "前回の実行が残っている（$LOCK）。構成レビューは見送る。"; exit 1; }
   mkdir -p "$RUN_DIR"
   cd "$REPO" || fail "リポジトリが無い: $REPO"
@@ -139,24 +174,31 @@ run_structure() {
   python3 scripts/seo/build_brief.py --structure >>"$RUN_DIR/collect.log" 2>&1 || fail "ブリーフ生成（--structure）"
   [ -s "$RUN_DIR/brief.md" ] || fail "ブリーフが空"
 
-  # 2. 今月の提案がもう出ているなら走らせない（1か月に1回だけ）→ 作業ツリー
+  # 2. 今月ぶんがもう出ているなら走らせない（1か月に1回だけ。公開済み＝タグ／PR で提案中＝枝）→ 作業ツリー
   git fetch -q origin || fail "git fetch"
-  if [ "$DRY_RUN" != "1" ] && git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
-    log "今月の提案の枝が既にある（$BRANCH）。構成レビューは1か月に1回だけ＝何もしない。出し直すなら PR を閉じて枝を消す。"
-    rmdir "$LOCK" 2>/dev/null; exit 0
+  if [ "$DRY_RUN" != "1" ]; then
+    if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
+      log "今月の構成レビューは公開済み（タグ $TAG）。1か月に1回だけ＝何もしない。"
+      rmdir "$LOCK" 2>/dev/null; exit 0
+    fi
+    if git ls-remote --exit-code --heads origin "refs/heads/$BRANCH" >/dev/null 2>&1; then
+      log "今月の提案の枝が既にある（$BRANCH）。構成レビューは1か月に1回だけ＝何もしない。出し直すなら PR を閉じて枝を消す。"
+      rmdir "$LOCK" 2>/dev/null; exit 0
+    fi
   fi
   git worktree remove --force "$WT" >/dev/null 2>&1; rm -rf "$WT"; git worktree prune >/dev/null 2>&1
   git worktree add -q --detach "$WT" "$BASE_REF" || fail "worktree を作れない（$BASE_REF）"
+  BASE_SHA="$(git -C "$WT" rev-parse HEAD)"
   [ -f "$WT/scripts/seo/structure_prompt.md" ] || fail "$BASE_REF に scripts/seo/structure_prompt.md が無い"
 
   # 3. Claude（アカウント・道具・モデルは週次と同じ）
   run_claude "今月（$MONTH）の構成レビューを実行してください。ブリーフ: $RUN_DIR/brief.md 。マニフェストの出力先: $RUN_DIR/changes.json 。作業ディレクトリ（リポジトリ）: $WT 。検査は python3 scripts/seo/guard_diff.py --manifest $RUN_DIR/changes.json --profile structure 。" \
     "$WT/scripts/seo/structure_prompt.md"
 
-  # 4. マニフェストと変更の有無。提案の有無は **マニフェストの changes の件数** で決める（git status だけで決めない）:
-  #    Claude は仕上げで gen_knowledge_jsonld.py --write を走らせる。そのあと提案を取り下げて changes: [] にしても、
+  # 4. マニフェストと変更の有無。変更の有無は **マニフェストの changes の件数** で決める（git status だけで決めない）:
+  #    Claude は仕上げで gen_knowledge_jsonld.py --write を走らせる。そのあと変更を取り下げて changes: [] にしても、
   #    焼き直しの差分（NEW バッジの期限切れ・ItemList の順）は作業ツリーに残る（git checkout／restore は渡していない）。
-  #    それを「提案あり」と読むと、中身のない PR が出て、その月の枝（1か月に1回）を使ってしまう。
+  #    それを「変更あり」と読むと、中身のない公開（か PR）が出て、その月の 1 回を使ってしまう。
   [ -s "$RUN_DIR/changes.json" ] || fail "マニフェスト changes.json が無い"
   cd "$WT" || fail "作業ツリーへ移動できない"
   git reset -q 2>/dev/null
@@ -165,27 +207,77 @@ run_structure() {
   if [ "$N_CHANGES" = "0" ] || ! git status --porcelain --untracked-files=all | grep -q . ; then
     REASON="$(mj 'print(j.get("no_change_reason") or "理由の記載なし")' 2>/dev/null)"
     if [ "$N_CHANGES" = "0" ] && git status --porcelain --untracked-files=all | grep -q . ; then
-      log "マニフェストは 0 件。作業ツリーに残っている差分は焼き直しだけ＝PR にしない: $(git status --porcelain --untracked-files=all | head -5 | tr '\n' ' ')"
+      log "マニフェストは 0 件。作業ツリーに残っている差分は焼き直しだけ＝公開も PR もしない: $(git status --porcelain --untracked-files=all | head -5 | tr '\n' ' ')"
     fi
-    log "今月は構成の提案なし: $REASON"
-    notify "🧭 scix.co.jp 構成レビュー $MONTH: 今月は提案なし。$REASON"
+    log "今月は構成の変更なし: $REASON"
+    notify "🧭 scix.co.jp 構成レビュー $MONTH: 今月は変更なし。$REASON"
     cleanup; exit 0
   fi
 
-  # 5. 焼き直し → 検査（構成レビューのプロファイル）。sitemap の lastmod と変更日台帳は PR に入れない
-  #    （毎朝の案件一覧の同期・毎週の自動更新が同じ行を書くので、PR が開いている間に衝突する）
+  # 5. 焼き直し → 検査（構成レビューのプロファイル）→ 経路。ナビ（header.js）を含む回は全体を PR へ（一部だけ公開、をしない）。
+  #    経路は検査の出力と、シェル自身が見た差分・マニフェストの両方で決める（どちらかが PR と言えば PR＝公開しない側に倒す）
   python3 scripts/gen_knowledge_jsonld.py --write >>"$RUN_DIR/collect.log" 2>&1 || fail "gen_knowledge_jsonld"
   SCIX_WEB_REPO="$WT" python3 scripts/seo/guard_diff.py --manifest "$RUN_DIR/changes.json" --profile structure > "$RUN_DIR/guard.log" 2>&1 \
     || fail "検査で止めた: $(grep -- '^ -' "$RUN_DIR/guard.log" | head -5 | tr '\n' ' ')"
+  ROUTE="publish"
+  grep -q '^経路: 自動公開' "$RUN_DIR/guard.log" || ROUTE="pr"
+  git status --porcelain --untracked-files=all -- header.js | grep -q . && ROUTE="pr"
+  [ "$(mj 'print(int(any(c.get("class") == "nav" or "header.js" in (c.get("files") or []) for c in j.get("changes") or [])))' 2>/dev/null)" = "0" ] || ROUTE="pr"
+  log "検査 OK。経路: $ROUTE（$(grep '^経路:' "$RUN_DIR/guard.log" | tail -1)）"
+  TITLE="$(mj 'print(str(j.get("proposal_title") or (j.get("summary_lines") or ["構成の見直し"])[0])[:64])')"
+  LINE1="$(mj 'print(str((j.get("summary_lines") or [""])[0])[:140])' 2>/dev/null)"
+
+  if [ "$ROUTE" = "publish" ]; then
+    # ---- 自動公開の経路（週次と同じ扱い: sitemap の lastmod・公開リポジトリの変更日台帳もコミットに含める）
+    HTML_CHANGED="$(mj 'print("\n".join(f for c in j.get("changes",[]) for f in c.get("files",[])))' | grep -E '\.html$' | sort -u || true)"
+    if [ -n "$HTML_CHANGED" ]; then
+      # shellcheck disable=SC2086
+      python3 scripts/seo/stamp_sitemap.py $HTML_CHANGED >>"$RUN_DIR/collect.log" 2>&1
+    fi
+    python3 scripts/seo/record_changes.py --manifest "$RUN_DIR/changes.json" --brief "$RUN_DIR/brief.json" --source structure \
+      --changelog "$WT/docs/seo-change-log.md" --dry-ledger >"$RUN_DIR/record.log" 2>&1 || fail "変更日台帳の記帳"
+    git add -A -- . ':!.claude' || fail "git add"
+    git diff --cached > "$RUN_DIR/proposal.diff" 2>/dev/null
+    if [ "$DRY_RUN" = "1" ]; then
+      log "DRY_RUN: 経路は自動公開。push も記帳もしない。作業ツリー $WT と $RUN_DIR/proposal.diff を残す。題: auto(structure): $TITLE"
+      git status --short
+      rmdir "$LOCK" 2>/dev/null; exit 0
+    fi
+    BODY="$(mj 'print("\n".join("- "+l for l in (j.get("summary_lines") or [])[:3])); print(); print("\n".join("- "+", ".join(c.get("files",[]))+": "+str(c.get("summary","")) for c in j.get("changes",[])))')"
+    git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" commit -q -F - <<EOF4 || fail "commit"
+auto(structure): $TITLE
+
+$BODY
+
+scripts/seo/weekly_run.sh（MODE=structure）による月1回の構成レビュー（検査を通ったので自動公開）。
+ブリーフとマニフェスト: 9_システム/scix-web解析/weekly/$TODAY/structure
+差し戻し: git revert <このコミット>
+EOF4
+    publish_main "$TAG"
+    python3 scripts/seo/record_changes.py --manifest "$RUN_DIR/changes.json" --brief "$RUN_DIR/brief.json" --source structure --commit "$SHA" \
+      >>"$RUN_DIR/record.log" 2>&1 || log "台帳の記帳に失敗（公開は済んでいる）"
+    # 通知（1通3行: 何を変えたか・根拠・戻し方）。IndexNow は push 時の GitHub Action が送る
+    LINE2="$(mj 'c=(j.get("changes") or [{}])[0]; print(str(c.get("rationale") or "")[:140])' 2>/dev/null)"
+    notify "🧭 scix.co.jp 構成を見直して公開しました（$MONTH）: $LINE1
+根拠: $LINE2
+戻すなら: git revert ${SHA:0:10} → push（効果は 14 日後・28 日後に自動で測り、悪ければ週次が戻す）"
+    log "OK 構成レビュー 完了（自動公開）$TAG $SHA"
+    cleanup
+    exit 0
+  fi
+
+  # ---- PR の経路（ナビを含む回）。sitemap の lastmod と変更日台帳は PR に入れない
+  #    （毎朝の案件一覧の同期・毎週の自動更新が同じ行を書くので、PR が開いている間に衝突する）
   git add -A -- . ':!.claude' || fail "git add"
   git diff --cached > "$RUN_DIR/proposal.diff" 2>/dev/null
 
   # PR の題と本文（公開リポジトリに載る＝マニフェストの公開欄だけ。private_note は載せない）
-  PR_TITLE="auto(structure): $(mj 'print(str(j.get("proposal_title") or (j.get("summary_lines") or ["構成の見直し案"])[0])[:64])')"
+  PR_TITLE="auto(structure): $TITLE"
   python3 - "$RUN_DIR/changes.json" "$MONTH" "$TODAY" "$(tail -1 "$RUN_DIR/guard.log")" > "$RUN_DIR/pr_body.md" <<'PY' || fail "PR 本文の生成"
 import json, sys
 j = json.load(open(sys.argv[1])); month, today, guard = sys.argv[2], sys.argv[3], sys.argv[4]
-L = [f"## 構成の見直し案（{month}・月1回の自動レビュー）", ""]
+L = [f"## 構成の見直し案（{month}・月1回の自動レビュー）", "",
+     "ナビ（`header.js`）を含むので自動公開していません（全ページに効くため）。同じ回のほかの変更もまとめてここに入っています。", ""]
 L += [f"- {l}" for l in (j.get("summary_lines") or [])[:3]]
 for n, c in enumerate(j.get("changes") or [], 1):
     L += ["", f"### {n}. {c.get('summary', '')}", "",
@@ -203,13 +295,13 @@ L += ["", "---", "", "**マージで公開、閉じれば不採用。**", "",
       "- マージされると、翌朝の収集（`register_structure_merges.py`）が変更台帳へ記帳し、14日後・28日後に効果測定します。"
       "sitemap の lastmod と `docs/seo-change-log.md` はこの PR に入れていません（毎朝・毎週の自動コミットと同じ行で衝突するため）。",
       f"- ブリーフとマニフェスト: Drive `9_システム/scix-web解析/weekly/{today}/structure/`",
-      "- 開いている間に main と衝突したら、閉じてください（翌月、その時点の数字でまた提案されます）。",
+      "- 開いている間に main と衝突したら、閉じてください（翌月、その時点の数字でまた見直されます）。",
       "", "🤖 Generated with [Claude Code](https://claude.com/claude-code)"]
 print("\n".join(L))
 PY
 
   if [ "$DRY_RUN" = "1" ]; then
-    log "DRY_RUN: push も PR もしない。作業ツリー $WT と $RUN_DIR/proposal.diff・pr_body.md を残す。題: $PR_TITLE"
+    log "DRY_RUN: 経路は PR（ナビを含む）。push も PR もしない。作業ツリー $WT と $RUN_DIR/proposal.diff・pr_body.md を残す。題: $PR_TITLE"
     git status --short
     rmdir "$LOCK" 2>/dev/null; exit 0
   fi
@@ -220,7 +312,7 @@ $PR_TITLE
 
 $(mj 'print("\n".join("- "+l for l in (j.get("summary_lines") or [])[:3]))')
 
-scripts/seo/weekly_run.sh（MODE=structure）による月1回の構成レビューの提案。マージで公開、閉じれば不採用。
+scripts/seo/weekly_run.sh（MODE=structure）による月1回の構成レビュー。ナビ（header.js）を含むので自動公開せず PR で提案。マージで公開、閉じれば不採用。
 ブリーフとマニフェスト: 9_システム/scix-web解析/weekly/$TODAY/structure
 EOF3
   SHA="$(git rev-parse HEAD)"
@@ -247,17 +339,16 @@ EOF3
   fi
 
   # 8. 通知（1通3行以内）
-  LINE1="$(mj 'print(str((j.get("summary_lines") or [""])[0])[:140])' 2>/dev/null)"
   if [ -n "$PR_NUM" ]; then
-    notify "🧭 scix.co.jp 構成の見直し案を PR #$PR_NUM に置きました
+    notify "🧭 scix.co.jp 構成の見直し案（ナビを含むので自動公開せず）を PR #$PR_NUM に置きました
 根拠: $LINE1
 マージで公開・閉じれば不採用 $PR_URL"
   else
-    notify "🧭 scix.co.jp 構成の見直し案を枝 $BRANCH に置きました（PR は作れなかった）
+    notify "🧭 scix.co.jp 構成の見直し案（ナビを含むので自動公開せず）を枝 $BRANCH に置きました（PR は作れなかった）
 根拠: $LINE1
 PR を作ってマージで公開: https://github.com/nakashimashinya-a11y/scix-web/compare/main...$BRANCH"
   fi
-  log "OK 構成レビュー 完了 $BRANCH ${PR_NUM:+PR #$PR_NUM }$SHA"
+  log "OK 構成レビュー 完了（PR の経路）$BRANCH ${PR_NUM:+PR #$PR_NUM }$SHA"
   cleanup
   exit 0
 }
@@ -302,8 +393,8 @@ fi
 python3 scripts/gen_knowledge_jsonld.py --write >>"$RUN_DIR/collect.log" 2>&1 || fail "gen_knowledge_jsonld"
 SCIX_WEB_REPO="$WT" python3 scripts/seo/guard_diff.py --manifest "$RUN_DIR/changes.json" > "$RUN_DIR/guard.log" 2>&1 \
   || fail "検査で止めた: $(grep -- '^ -' "$RUN_DIR/guard.log" | head -5 | tr '\n' ' ')"
-# lastmod を進めるのはマニフェストに書かれたファイルと新規ファイルだけ（NEW バッジ落ちなどの焼き直しで hub の日付を動かさない）
-HTML_CHANGED="$( { mj 'print("\n".join(f for c in j.get("changes",[]) for f in c.get("files",[])))'; git status --porcelain --untracked-files=all | awk '$1=="??"{print $2}'; } | grep -E '\.html$' | sort -u || true)"
+# lastmod を進めるのはマニフェストに書かれたファイルだけ（NEW バッジ落ちなどの焼き直しで hub の日付を動かさない。新規ファイルは検査が止める）
+HTML_CHANGED="$(mj 'print("\n".join(f for c in j.get("changes",[]) for f in c.get("files",[])))' | grep -E '\.html$' | sort -u || true)"
 if [ -n "$HTML_CHANGED" ]; then
   # shellcheck disable=SC2086
   python3 scripts/seo/stamp_sitemap.py $HTML_CHANGED >>"$RUN_DIR/collect.log" 2>&1
@@ -331,25 +422,8 @@ $BODY
 scripts/seo/weekly_run.sh による週次自動更新。ブリーフとマニフェスト: 9_システム/scix-web解析/weekly/$TODAY
 差し戻し: git revert <このコミット>
 EOF2
-# Claude が作業している間（最長90分）に main が進んでいることがある（毎朝06:50 の案件一覧の同期など）。
-# そのまま push すると non-fast-forward で弾かれるので、先に最新の origin/main へ載せ直す。
-# 載せ直しで衝突したら公開しない（安全側）。
-git fetch -q origin || fail "push 前の git fetch"
-if [ "$(git rev-parse origin/main)" != "$BASE_SHA" ]; then
-  log "作業中に main が進んだ（$BASE_SHA → $(git rev-parse --short origin/main)）。載せ直す。"
-  git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" rebase -q origin/main \
-    || { git rebase --abort >/dev/null 2>&1; fail "push 前の載せ直しで衝突した（公開していない）"; }
-fi
-SHA="$(git rev-parse HEAD)"
-git tag -f "auto/weekly-$TODAY" >/dev/null 2>&1
-git push -q origin HEAD:main || fail "push（commit $SHA は作業ツリーに残っている）"
-git push -q origin "auto/weekly-$TODAY" >/dev/null 2>&1 || true
-log "公開 push 済み $SHA"
-# 手元の main を追いつかせる。これをしないと、06:50 の案件一覧の同期（手元の main に commit して push）が
-# non-fast-forward で弾かれ、以後ずっと手元と本番が分かれたままになる。main 以外に居るときは触らない。
-if [ "$(git -C "$REPO" rev-parse --abbrev-ref HEAD)" = "main" ]; then
-  git -C "$REPO" pull -q --ff-only origin main >/dev/null 2>&1 || log "手元の main を追いつかせられなかった（次の同期が pull する）"
-fi
+# 最新の origin/main へ載せ直し → push → タグ → 手元の main を早送り（衝突したら公開しない）
+publish_main "auto/weekly-$TODAY"
 python3 scripts/seo/record_changes.py --manifest "$RUN_DIR/changes.json" --brief "$RUN_DIR/brief.json" --commit "$SHA" \
   >>"$RUN_DIR/record.log" 2>&1 || log "台帳の記帳に失敗（公開は済んでいる）"
 

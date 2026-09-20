@@ -337,7 +337,7 @@ def main() -> int:
         except Exception as e:  # noqa: BLE001
             log(f"新規ページの記帳で失敗: {e}"); rc = 1
     if not a.no_register:
-        # 月1回の構成レビューの提案（PR）がマージされていたら変更台帳へ（提案が無ければ何もしない）
+        # 月1回の構成レビューのうち PR の経路（ナビを含む回）の提案がマージされていたら変更台帳へ（提案が無ければ何もしない）
         try:
             import register_structure_merges
             for e in register_structure_merges.run():

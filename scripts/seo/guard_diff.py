@@ -1,23 +1,26 @@
 #!/usr/bin/env python3
-"""週次自動更新の安全弁。Claude が作業ツリーに加えた変更を、公開前に機械で検査する。
+"""週次自動更新と月1回の構成レビューの安全弁。Claude が作業ツリーに加えた変更を、公開前に機械で検査する。
+**自動フロー専用**（weekly_run.sh が呼ぶ）。人が PR で足すコラムはここを通らない。
 
     python3 scripts/seo/guard_diff.py --manifest <changes.json>     # 検査（0=通す／1=止める）
-    python3 scripts/seo/guard_diff.py --manifest <changes.json> --profile structure   # 月1回の構成レビュー（PR で提案）
+    python3 scripts/seo/guard_diff.py --manifest <changes.json> --profile structure   # 月1回の構成レビュー
 
 止める理由は全部表示する。通らなければ weekly_run.sh は何も公開しない（作業ツリーを捨てる）。
 検査の中身:
   - 触ってよいファイルだけか（HTML・sitemap・header.js の JA_ONLY_COLUMNS 行。変更日台帳はシェルが記帳するので Claude は書かない）
   - 触ってはいけないもの（フォーム・/fund・vercel.json・projects.json・scripts・.github・robots・img・files・削除）
-  - 量の上限（既存ページの変更 12 本まで／新規 HTML 3 本まで／1ファイルの差し替え率）
+  - **新規ファイルは 0**（2026-09-20 中島「Column は僕が書くから君は書かない」）。新しいページは自動では作らない。
+    マニフェストの class=new-column も止める。人が足したコラムの育成（内部リンク・ハブカード・sitemap・JA_ONLY_COLUMNS）は既存ファイルの変更なので通る
+  - 量の上限（既存ページの変更 12 本まで／1ファイルの差し替え率）
   - HTML の骨格（title・description・canonical・h1 1つ・header.js・JSON-LD が壊れていない・内部リンク切れ無し）
   - EN は title 70字以内・description 155字以内（Bing の指摘）
-  - 新コラムの必須ブロック（監修・Article JSON-LD author=Person・パンくず・CTA・sitemap 登録）
   - 禁止語（自称「中立」・実績の主張・鍵らしき文字列）
   - マニフェスト（何をなぜ変えたか）と実際の差分が一致している。各変更に pages（効果測定に使う URL パス）が要る
   - トップ（index.html・en/index.html・zh.html）のヒーローより上は変えない（<body> の先頭〜<section class="hero"> の終わり）
 
---profile structure（月1回の構成レビュー。公開はせず PR で提案する＝weekly_run.sh の MODE=structure）で変わるところ:
-  - 量: マニフェストは 3 件まで・新規ファイルは 0・1ファイルの差し替えは「並べ替えを除いた正味」で測る
+--profile structure（月1回の構成レビュー＝weekly_run.sh の MODE=structure。2026-09-20 から **検査を通れば承認なしで公開**。
+ナビ（header.js）を含む回だけは全体を PR に出す）で変わるところ:
+  - 量: マニフェストは 3 件まで・1ファイルの差し替えは「並べ替えを除いた正味」で測る
     （行を多重集合で比べる。節やカードを動かしただけなら正味 0。正味の書き換え 1/4 まで・正味の削除 15% まで・
       見かけの差し替え（+と−の合計）は 120% まで＝動かした行は両方に数えられる）
   - ハブ・トップ（HUBS）はヒーローより下だけ: <body> の先頭〜ヒーローの終わり（ハブは最初の </h1> まで）が同一、
@@ -27,11 +30,17 @@
     ナビ定義が変わっていたら「ナビの組み替えは90日に1回まで」を、マニフェストの申告（class=nav のエントリの
     nav_rule.last_nav_change）と、変更台帳＋origin/main の header.js の履歴（structure.nav_rule）とで照合する。
     ナビ定義と JA_ONLY_COLUMNS 以外（CSS・計測・更新メール）は変えられない
-  - マニフェストの各変更に pages・measure（いつ何で測るか）が要る。rationale には根拠の数字が要る。class は
-    hub-order / top-order / cta-route / funnel-block / nav。PR の題・本文・コミットの件名（公開）に載る欄
-    （proposal_title・summary_lines・summary・rationale・hypothesis・kpi・measure・before・after）に、問い合わせの件数を書かない
-  - マニフェストの changes が 0 件なのに差分がある（焼き直しだけが残っている）なら止める＝中身のない PR を出さない
-  それ以外（触ってはいけないファイル・title・canonical・JSON-LD・リンク切れ・鍵・自称中立など）は週次と同じ。
+  - マニフェストの各変更に pages・hypothesis（仮説）・kpi（何が増えれば成功か）・measure（いつ何で測るか）が要る。
+    rationale には根拠の数字が要る。class は hub-order / top-order / cta-route / funnel-block / nav。コミットの件名・
+    変更日台帳・PR の題と本文（どれも公開）に載る欄（proposal_title・summary_lines・summary・rationale・hypothesis・kpi・
+    measure・before・after）に、問い合わせの件数を書かない
+  - **収益ページ・フォームへの導線を減らさない**: 変更したファイルごとに、href が FUNNEL_TARGETS（/contact・/projects・
+    /transfer・/investors・/fund・/sourcing・/land・/sell-form と EN/ZH のフォーム）を指す <a> の本数が、変更前より
+    減っていたら止める（行き先の付け替えは可）。人の目が入らない分、「流れを良くする変更が導線を消す」事故を機械で止める
+  - マニフェストの changes が 0 件なのに差分がある（焼き直しだけが残っている）なら止める＝中身のない公開をしない
+  - 最後に公開の経路を 1 行で出す（「経路: 自動公開」か「経路: PR」）。header.js の変更か class=nav のエントリが
+    1 つでもあれば、その回は全体が PR（一部だけ公開、をしない＝検査済みの単位を崩さない）。シェルはこの行と自分の目の両方で決める
+  それ以外（触ってはいけないファイル・新規ファイル 0・title・canonical・JSON-LD・リンク切れ・鍵・自称中立など）は週次と同じ。
 """
 from __future__ import annotations  # launchd の python3 は 3.9
 import argparse
@@ -55,18 +64,21 @@ FORBIDDEN = {"docs/seo-change-log.md", "fund.html", "contact.html", "sell-form.h
 FORBIDDEN_PREFIX = ("scripts/", ".github/", "img/", "files/", "notes/", ".claude/", "docs/new-mac-setup.md")
 HUBS = {"knowledge.html", "en/knowledge.html", "zh-knowledge.html", "index.html", "en/index.html", "zh.html"}
 MAX_EXISTING = 12
-MAX_NEW = 3
+MAX_NEW = 0                      # 新規ファイルは週次・構成レビューとも 0（コラムを書くのは中島さん。2026-09-20）
+NO_NEW_PAGE = "新しいページは自動では作らない（コラムは中島さんが書く）"
 MAX_REPLACE_RATIO = 0.5
 MAX_DELETE_RATIO = 0.25
-CLASSES = {"title", "description", "body", "internal-link", "cta", "new-column", "rollback", "hub", "faq", "structured-data"}
+CLASSES = {"title", "description", "body", "internal-link", "cta", "rollback", "hub", "faq", "structured-data"}
 # 構成レビュー（--profile structure）
 STRUCT_CLASSES = {"hub-order", "top-order", "cta-route", "funnel-block", "nav"}
 STRUCT_MAX_ENTRIES = 3
-STRUCT_MAX_NEW = 0
 STRUCT_MAX_REPLACE_RATIO = 1.2   # 見かけの差し替え（動かした行は + と − の両方に数えられる）
 STRUCT_NET_RATIO = 0.25          # 並べ替えを除いた正味の書き換え（足した行＋消した行）
 STRUCT_NET_DELETE = 0.15         # 正味の削除
 HERO_TOPS = {"index.html", "en/index.html", "zh.html"}
+# 収益ページとフォームへの導線（構成レビューでは、変更したファイルごとにこの本数を減らさない）
+FUNNEL_TARGETS = {"/contact", "/projects", "/transfer", "/investors", "/fund", "/sourcing", "/land", "/sell-form",
+                  "/en/contact", "/zh-contact"}
 # PR の本文は公開リポジトリに載る。問い合わせ（generate_lead）の件数・用件別は Drive の台帳側だけ
 LEAD_NUMBER_RE = re.compile(r"(?:generate_lead|リード数?|問い合わせ(?:件数|数)?|キーイベント|intent)\s*[=:＝：はがを]?\s*[0-9０-９]+")
 BAD_WORDS = [(re.compile(r"中立"), "自称「中立」は禁止（メーカー・EPCと資本関係がない、と事実で書く）"),
@@ -117,6 +129,29 @@ def net_change(before: str, after: str):
 
 def same_but_digits(x, y) -> bool:
     return re.sub(r"[0-9０-９]+", "N", (x or "").strip()) == re.sub(r"[0-9０-９]+", "N", (y or "").strip())
+
+
+def funnel_links(text: str) -> collections.Counter:
+    """収益ページ・フォーム（FUNNEL_TARGETS）を指す <a href> の本数（行き先別）。?query・#hash・.html・末尾の / と
+    自サイトの絶対 URL はそろえてから数える。コメントアウトした <a> は数えない（＝消したのと同じ扱い）。"""
+    pg = Page(); pg.feed(text)
+    c = collections.Counter()
+    for href in pg.links:
+        p = path_of(href.strip())
+        if p.endswith(".html"):
+            p = p[:-5]
+        if len(p) > 1 and p.endswith("/"):
+            p = p[:-1]
+        if p in FUNNEL_TARGETS:
+            c[p] += 1
+    return c
+
+
+def pr_route(entries: list, changed: list) -> bool:
+    """構成レビューの公開の経路。ナビ（header.js）は全ページに効くので自動公開しない＝header.js の差分か、
+    class=nav／files に header.js のエントリが 1 つでもあれば、その回は全体を PR に出す。"""
+    return "header.js" in changed or any(
+        e.get("class") == "nav" or "header.js" in (e.get("files") or []) for e in entries if isinstance(e, dict))
 
 
 def check_header_js(profile: str, entries: list, problems: list) -> None:
@@ -170,7 +205,7 @@ class Page(html.parser.HTMLParser):
         super().__init__()
         self.title = ""; self._t = False; self._title_seen = False; self.desc = None; self.canonical = None; self.h1 = 0
         self.header_js = False; self.inline_header = False; self.ld = []; self._ld = None
-        self.links = []; self.author_box = False; self.breadcrumb = False; self.hreflang = {}
+        self.links = []; self.hreflang = {}
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -190,8 +225,6 @@ class Page(html.parser.HTMLParser):
             elif a.get("src") == "/header.js": self.header_js = True
         elif tag == "header" and "scix-header" in cls: self.inline_header = True
         elif tag == "a" and a.get("href"): self.links.append(a["href"])
-        elif tag == "nav" and "data-scix-breadcrumb" in a: self.breadcrumb = True
-        elif "author-box" in cls.split(): self.author_box = True
 
     def handle_endtag(self, tag):
         if tag == "title": self._t = False
@@ -226,7 +259,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--manifest", required=True)
     ap.add_argument("--profile", choices=("weekly", "structure"), default="weekly",
-                    help="structure＝月1回の構成レビュー（並べ替えの分だけ量を緩め、ナビは90日ルールを照合）")
+                    help="structure＝月1回の構成レビュー（並べ替えの分だけ量を緩め、導線の本数を守り、ナビは90日ルールを照合して PR の経路へ）")
     a = ap.parse_args()
     structure = a.profile == "structure"
     problems = []
@@ -247,6 +280,9 @@ def main() -> int:
         print("変更なし"); return 0
     for p in deleted:
         problems.append(f"削除は禁止: {p}")
+    if len(added) > MAX_NEW:   # 週次・構成レビューとも新規ファイルは 0。中身の検査には進まない
+        for p in added:
+            problems.append(f"新規ファイル {p}: {NO_NEW_PAGE}")
 
     manifest = {}
     try:
@@ -259,31 +295,33 @@ def main() -> int:
         problems.append(f"構成の変更は {STRUCT_MAX_ENTRIES} 件まで（{len(entries)} 件）")
     if structure:
         if not entries:
-            # 差分はあるのに提案が 0 件＝焼き直し（NEW バッジ落ち・ItemList の順）だけが残っている。PR にしない
-            problems.append("構成レビュー: マニフェストの changes が 0 件なのに差分がある（焼き直しの差分だけでは提案にならない。"
-                            "提案なしなら changes: [] と no_change_reason のまま終えてよい＝シェルは PR を作らない）")
-        # PR の題・コミットの件名にもなる欄（proposal_title）を含め、公開される欄は全部見る
+            # 差分はあるのに変更が 0 件＝焼き直し（NEW バッジ落ち・ItemList の順）だけが残っている。公開も PR もしない
+            problems.append("構成レビュー: マニフェストの changes が 0 件なのに差分がある（焼き直しの差分だけでは変更にならない。"
+                            "変更なしなら changes: [] と no_change_reason のまま終えてよい＝シェルは公開も PR もしない）")
+        # コミットの件名・PR の題にもなる欄（proposal_title）を含め、公開される欄は全部見る
         for k in ("proposal_title", "summary_lines"):
             v = manifest.get(k)
             for l in (v if isinstance(v, list) else [v] if v else []):
                 if LEAD_NUMBER_RE.search(str(l)):
-                    problems.append(f"{k}: 問い合わせの件数は公開の PR（題・本文・コミットの件名）に書かない: {str(l)[:60]}")
+                    problems.append(f"{k}: 問い合わせの件数は公開される欄（コミットの件名・変更日台帳・PR の題と本文）に書かない: {str(l)[:60]}")
     for i, e in enumerate(entries):
-        # pages は週次でも必須: 空のまま変更台帳に入ると効果測定の対象が無い（new-column は 14 日後の立ち上がり判定で使う）
-        for k in ("files", "class", "summary", "rationale", "kpi", "pages") + (("measure",) if structure else ()):
+        # pages は週次でも必須: 空のまま変更台帳に入ると効果測定の対象が無い
+        for k in ("files", "class", "summary", "rationale", "kpi", "pages") + (("hypothesis", "measure") if structure else ()):
             if not e.get(k):
                 problems.append(f"マニフェスト {i}: {k} が無い")
         pg_ = e.get("pages")
         if pg_ and not (isinstance(pg_, list) and all(isinstance(p, str) and p.startswith("/") for p in pg_)):
             problems.append(f"マニフェスト {i}: pages は URL パス（/ で始まる文字列）の配列で書く: {str(pg_)[:80]}")
-        if e.get("class") not in (STRUCT_CLASSES if structure else CLASSES):
+        if e.get("class") == "new-column":
+            problems.append(f"マニフェスト {i}: class=new-column は使えない。{NO_NEW_PAGE}。足りない主題は column_ideas に出す")
+        elif e.get("class") not in (STRUCT_CLASSES if structure else CLASSES):
             problems.append(f"マニフェスト {i}: class が想定外 {e.get('class')}")
         if structure:
             if not re.search(r"[0-9０-９]", str(e.get("rationale", ""))):
                 problems.append(f"マニフェスト {i}: rationale に根拠の数字が無い")
-            for k in ("summary", "rationale", "kpi", "measure", "hypothesis", "before", "after"):   # before／after も PR 本文に出る
+            for k in ("summary", "rationale", "kpi", "measure", "hypothesis", "before", "after"):   # どれもコミット・変更日台帳・PR 本文に出る
                 if LEAD_NUMBER_RE.search(str(e.get(k, ""))):
-                    problems.append(f"マニフェスト {i}: {k} に問い合わせの件数を書かない（PR の本文は公開。件数は private_note へ）")
+                    problems.append(f"マニフェスト {i}: {k} に問い合わせの件数を書かない（コミット・変更日台帳・PR は公開。件数は private_note へ）")
         if len(str(e.get("summary", ""))) > 300:
             problems.append(f"マニフェスト {i}: summary が長すぎる")
         for f in e.get("files") or []:
@@ -307,16 +345,16 @@ def main() -> int:
         if m:   # Page と同じ読み方にそろえる（最初の <title>・実体参照は戻す＝「O&amp;M」の title も重複を見つけられる）
             all_titles.setdefault(html.unescape(m.group(1)).strip(), []).append(str(f.relative_to(REPO)))
 
-    n_existing = n_new = 0
+    n_existing = 0
+    funnel_before = funnel_after = 0
     for path in changed + added:
-        is_new = path in added
         if path in FORBIDDEN or path.startswith(FORBIDDEN_PREFIX):
             problems.append(f"触ってはいけないファイル: {path}"); continue
+        if path in added:
+            continue   # 新規ファイルは上で止めてある（中身は見ない）
         if path == "sitemap.xml":
             continue
         if path == "header.js":
-            if is_new:
-                problems.append("header.js が新規ファイルになっている"); continue
             check_header_js(a.profile, entries, problems)
             continue
         if not ALLOWED_HTML.match(path):
@@ -324,10 +362,8 @@ def main() -> int:
         if path not in listed and path not in HUBS:
             problems.append(f"マニフェストに載っていない変更: {path}")
         text = (REPO / path).read_text(encoding="utf-8", errors="replace")
-        before = "" if is_new else sh("git", "show", f"HEAD:{path}")
-        if is_new:
-            n_new += 1
-        elif structure:
+        before = sh("git", "show", f"HEAD:{path}")
+        if structure:
             if path not in HUBS:
                 n_existing += 1
             num = sh("git", "diff", "--numstat", "--", path).split()
@@ -339,6 +375,13 @@ def main() -> int:
                 problems.append(f"{path}: 並べ替えを除いた正味の書き換えが大きすぎる（足した行 {add_}・消した行 {del_} of {base}行・上限 {STRUCT_NET_RATIO:.0%}）")
             if del_ / base > STRUCT_NET_DELETE:
                 problems.append(f"{path}: 正味の削除が多すぎる（{del_} of {base}行・上限 {STRUCT_NET_DELETE:.0%}）")
+            # 収益ページ・フォームへの導線は、ファイルごとに減らさない（行き先の付け替えは可）
+            fb, fa = funnel_links(before), funnel_links(text)
+            funnel_before += sum(fb.values()); funnel_after += sum(fa.values())
+            if sum(fa.values()) < sum(fb.values()):
+                lost = "・".join(f"{t} {fb[t]}→{fa[t]}" for t in sorted(fb) if fa[t] < fb[t])
+                problems.append(f"{path}: 収益ページ・フォームへの導線が減っている（{sum(fb.values())} → {sum(fa.values())} 本。{lost}）。"
+                                "構成を変えても導線は消さない（行き先の付け替え・置き場所の移動は同じファイルの中で）")
         elif path not in HUBS:
             n_existing += 1
             num = sh("git", "diff", "--numstat", "--", path).split()
@@ -349,22 +392,21 @@ def main() -> int:
                     problems.append(f"{path}: 差し替えが大きすぎる（+{add_}/-{del_} of {total}行）")
                 if del_ / total > MAX_DELETE_RATIO:
                     problems.append(f"{path}: 削除が多すぎる（-{del_} of {total}行）")
-        if not is_new:
-            sb, sa = synced_regions(before), synced_regions(text)
-            if (sorted(sb) != sorted(sa)) if structure else (sb != sa):
-                problems.append(f"{path}: <!--S:…--> の内側は毎朝の同期が書く場所（件数・一覧・新着）。"
-                                + ("節ごと動かすのはよいが、中身は変えない" if structure else "週次では触らない"))
-            if path == "projects.html" and PAGE_JS_RE.findall(before) != PAGE_JS_RE.findall(text):
-                problems.append("projects.html: 一覧を描く JS は週次では触らない（scripts/inject_stats.py の静的一覧と文言をそろえてある）")
-            if path in HERO_TOPS or (structure and path in HUBS):
-                hb, ha = hero_region(before), hero_region(text)
-                if hb is None or ha is None:
-                    problems.append(f"{path}: ヒーローの範囲（<body> 〜 hero の終わり）を取れない＝検査できないので止める")
-                elif hb != ha:
-                    problems.append(f"{path}: ヒーローより上は変えない（<body> の先頭〜"
-                                    + ("<section class=\"hero\"> の終わり" if 'class="hero"' in hb else "最初の </h1>") + "）")
+        sb, sa = synced_regions(before), synced_regions(text)
+        if (sorted(sb) != sorted(sa)) if structure else (sb != sa):   # 構成レビューは節ごと動かすのを許す＝並び順を問わず同じ中身
+            problems.append(f"{path}: <!--S:…--> の内側は毎朝の同期が書く場所（件数・一覧・新着）。"
+                            + ("節ごと動かすのはよいが、中身は変えない" if structure else "週次では触らない"))
+        if path == "projects.html" and PAGE_JS_RE.findall(before) != PAGE_JS_RE.findall(text):
+            problems.append("projects.html: 一覧を描く JS は自動では触らない（scripts/inject_stats.py の静的一覧と文言をそろえてある）")
+        if path in HERO_TOPS or (structure and path in HUBS):
+            hb, ha = hero_region(before), hero_region(text)
+            if hb is None or ha is None:
+                problems.append(f"{path}: ヒーローの範囲（<body> 〜 hero の終わり）を取れない＝検査できないので止める")
+            elif hb != ha:
+                problems.append(f"{path}: ヒーローより上は変えない（<body> の先頭〜"
+                                + ("<section class=\"hero\"> の終わり" if 'class="hero"' in hb else "最初の </h1>") + "）")
         pg = Page(); pg.feed(text)
-        if structure and not is_new and path in HUBS:
+        if structure and path in HUBS:
             pb = Page(); pb.feed(before)
             if not (same_but_digits(pb.title, pg.title) and same_but_digits(pb.desc, pg.desc) and pb.canonical == pg.canonical):
                 problems.append(f"{path}: 構成レビューではハブ・トップの title／description／canonical を変えない")
@@ -377,8 +419,6 @@ def main() -> int:
                 problems.append(f"{path}: title が他ページと重複 {others}")
         if pg.desc is None or not pg.desc.strip():
             problems.append(f"{path}: description が無い")
-        if '"' in (pg.desc or "") and "&quot;" not in text:
-            pass
         if not pg.canonical or path_of(pg.canonical) != path_of(url or ""):
             problems.append(f"{path}: canonical が自分を指していない（{pg.canonical}）")
         if pg.h1 != 1:
@@ -403,36 +443,8 @@ def main() -> int:
         for lang, href in pg.hreflang.items():
             if href and href.startswith(BASE) and not resolves(path_of(href), redirects, sitemap_paths):
                 problems.append(f"{path}: hreflang {lang} の先が無い {href}")
-        # 新コラムの骨格
-        if is_new and re.search(r"(^|/|^zh-)column-", path):
-            arts = [x for x in pg.ld if isinstance(x, dict) and x.get("@type") == "Article"]
-            if not arts:
-                problems.append(f"{path}: Article JSON-LD が無い")
-            else:
-                au = arts[0].get("author") or {}
-                if (au.get("@type") if isinstance(au, dict) else None) != "Person":
-                    problems.append(f"{path}: Article.author が Person でない")
-            if not any(isinstance(x, dict) and x.get("@type") == "BreadcrumbList" for x in pg.ld):
-                problems.append(f"{path}: BreadcrumbList JSON-LD が無い")
-            if not pg.author_box:
-                problems.append(f"{path}: 監修ブロック（.author-box）が無い")
-            if not pg.breadcrumb:
-                problems.append(f"{path}: 可視パンくず（data-scix-breadcrumb）が無い")
-            if not any(l.split("?")[0].rstrip("/") in ("/projects", "/sourcing", "/transfer", "/investors", "/contact", "/land",
-                                                        "/en/contact", "/zh-contact") for l in pg.links):
-                problems.append(f"{path}: 収益ページへの CTA リンクが無い")
-            if url and path_of(url) not in sitemap_paths:
-                problems.append(f"{path}: sitemap.xml に載っていない")
-            if not path.startswith(("en/", "zh-")):
-                # JA コラム: EN/ZH が無ければ JA_ONLY_COLUMNS に登録されているべき
-                slug = "/" + path[:-5]
-                has_en = (REPO / "en" / path).exists(); has_zh = (REPO / ("zh-" + path)).exists()
-                hj = (REPO / "header.js").read_text(encoding="utf-8")
-                if not (has_en and has_zh) and f"'{slug}'" not in hj:
-                    problems.append(f"{path}: EN/ZH が無いのに header.js の JA_ONLY_COLUMNS に無い")
         # 禁止語（追加行だけ見る）
-        diff = sh("git", "diff", "--", path) if not is_new else "\n".join("+" + l for l in text.splitlines())
-        for line in diff.splitlines():
+        for line in sh("git", "diff", "--", path).splitlines():
             if not line.startswith("+") or line.startswith("+++"):
                 continue
             for rx, why in BAD_WORDS:
@@ -440,8 +452,6 @@ def main() -> int:
                     problems.append(f"{path}: {why}: {line[1:90].strip()}")
     if n_existing > MAX_EXISTING:
         problems.append(f"既存ページの変更が多すぎる（{n_existing} > {MAX_EXISTING}）")
-    if n_new > (STRUCT_MAX_NEW if structure else MAX_NEW):
-        problems.append("構成レビューでは新規ファイルを作らない" if structure else f"新規ファイルが多すぎる（{n_new} > {MAX_NEW}）")
     # sitemap の整合
     if "sitemap.xml" in changed:
         try:
@@ -458,7 +468,12 @@ def main() -> int:
         for p in problems:
             print(" -", p)
         return 1
-    print(f"OK{'（structure）' if structure else ''} 既存 {n_existing}・新規 {n_new}・マニフェスト {len(entries)} 件")
+    if structure:
+        # 公開の経路。シェル（weekly_run.sh）はこの行と、自分で見た header.js の差分の両方で決める（どちらかが PR なら PR）
+        print("経路: PR（header.js の変更を含む＝ナビは全ページに効くので自動公開しない。この回は全体を PR に出す）"
+              if pr_route(entries, changed) else "経路: 自動公開（ナビを含まない）")
+    print(f"OK{'（structure）' if structure else ''} 既存 {n_existing}・新規 {len(added)}・マニフェスト {len(entries)} 件"
+          + (f"・収益ページとフォームへの導線 {funnel_before}→{funnel_after} 本" if structure else ""))
     return 0
 
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""月1回の構成レビューの提案（PR）がマージされたら、変更台帳（ledger/changes.jsonl）へ記帳する。
+"""月1回の構成レビューのうち **PR の経路**（ナビ＝header.js を含む回）の提案がマージされたら、変更台帳（ledger/changes.jsonl）へ記帳する。
+ナビを含まない回は検査を通れば自動で公開され、その場で weekly_run.sh が変更台帳へ記帳する（record_changes.py --source structure。
+2026-09-20〜）＝ここは通らない。
 
     python3 scripts/seo/register_structure_merges.py         # 記帳する（collect_daily.py が毎朝、効果測定の前に呼ぶ）
     python3 scripts/seo/register_structure_merges.py --dry   # 書かずに一覧

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """構成レビュー（guard_diff.py --profile structure・structure.py・register_structure_merges.py）を合成差分で確かめる。
+週次の検査のうち「コラムは書かない＝新規ファイル 0・class=new-column は無い」（2026-09-20）もここで確かめる。
 
     python3 scripts/seo/selftest_structure.py        # 0=全部通った（--keep で一時ディレクトリを残す）
 
@@ -65,7 +66,8 @@ class Case:
             env["SCIX_WEB_REF"] = ref
         r = run([sys.executable, str(GUARD), "--manifest", str(mf), "--profile", profile], self.repo, env=env)
         out = r.stdout + r.stderr
-        ok = (r.returncode == 0) == expect_ok and (needle is None or needle in out)
+        needles = [needle] if isinstance(needle, str) else list(needle or [])   # 複数なら全部が出力に出ていること
+        ok = (r.returncode == 0) == expect_ok and all(n in out for n in needles)
         results.append((ok, name, "通す" if expect_ok else "止める", out.strip().splitlines()[-1][:110] if out.strip() else ""))
         if not ok:
             print(f"--- {name} の出力 ---\n{out}")
@@ -95,6 +97,37 @@ def swap_top_sections(s):
     m2 = re.search(r'<section class="strengths" id="find">.*?</section>', s, re.S)
     assert m1 and m2 and m1.end() <= m2.start()
     return s[:m1.start()] + m2.group(0) + s[m1.end():m2.start()] + m1.group(0) + s[m2.end():]
+
+
+def drop_one_funnel_link(s):
+    """ハブの本文から、収益ページ（/projects）へのリンクを 1 本だけ消す（ほかは触らない）。"""
+    m = re.search(r'<a\b[^>]*href="/projects"[^>]*>.*?</a>', s, re.S)
+    assert m, "knowledge.html に /projects へのリンクが無い（selftest を直す）"
+    return s[:m.start()] + s[m.end():]
+
+
+def reroute_one_funnel_link(s):
+    """収益ページへのリンクの行き先を 1 本だけ付け替える（/contact → /projects。本数は変わらない）。"""
+    assert 'href="/contact"' in s, "/contact へのリンクが無い（selftest を直す）"
+    return s.replace('href="/contact"', 'href="/projects"', 1)
+
+
+def hero_below_next_section(s):
+    """index.html のヒーローを、次の節（#knowledge）の下へ動かす（中身は 1 文字も変えない）。"""
+    h = re.search(r'<section class="hero">.*?</section>', s, re.S)
+    k = re.search(r'<section class="knowledge-top" id="knowledge">.*?</section>', s, re.S)
+    assert h and k and h.end() <= k.start()
+    return s[:h.start()] + s[h.end():k.end()] + "\n" + h.group(0) + s[k.end():]
+
+
+def add_card_for_existing(s):
+    """ハブの cat-market の先頭に、既存コラム（/column-auction）のカードを 1 枚足す（週次の「登録漏れの手当て」と同じ形）。"""
+    card = ('      <a target="_top" href="/column-auction" class="ac">\n        <div class="am"><span class="an">COLUMN</span>'
+            '<span class="at">selftest</span></div>\n        <h3>selftest: 登録漏れのカード</h3>\n'
+            '        <p class="ad">selftest</p>\n        <div class="aa">→</div>\n      </a>\n')
+    a = s.index('id="cat-market"')
+    pos = s.rfind("\n", 0, a + re.search(r'<a [^>]*class="ac', s[a:]).start()) + 1
+    return s[:pos] + card + s[pos:]
 
 
 def nav_swap(s):
@@ -131,7 +164,8 @@ def main() -> int:
         # ---- 通す例
         edit(repo, "knowledge.html", swap_cat_blocks)
         run([sys.executable, "scripts/gen_knowledge_jsonld.py", "--write"], repo)
-        c.guard("ハブのカテゴリ順を入れ替え（並べ替えだけ）", {"changes": [hub()]}, True, "OK（structure）", ref="selftest-quiet")
+        c.guard("ハブのカテゴリ順を入れ替え（並べ替えだけ）→ 経路は自動公開", {"changes": [hub()]}, True,
+                ("OK（structure）", "経路: 自動公開"), ref="selftest-quiet")
 
         edit(repo, "index.html", swap_top_sections)
         c.guard("トップの節を入れ替え（ヒーローより下・S マーカーごと移動）",
@@ -139,7 +173,30 @@ def main() -> int:
 
         edit(repo, "header.js", nav_swap)
         nav = entry(["header.js"], ["/"], "nav", nav_rule={"last_nav_change": None})
-        c.guard("ナビの組み替え（直近90日に変更なし・申告 null）", {"changes": [nav]}, True, ref="selftest-quiet")
+        c.guard("ナビの組み替え（直近90日に変更なし・申告 null）→ 検査は通るが経路は PR", {"changes": [nav]}, True,
+                ("OK（structure）", "経路: PR"), ref="selftest-quiet")
+
+        edit(repo, "knowledge.html", swap_cat_blocks)
+        run([sys.executable, "scripts/gen_knowledge_jsonld.py", "--write"], repo)
+        edit(repo, "header.js", nav_swap)
+        c.guard("ハブの並べ替え＋ナビの組み替え → その回は全体が PR（一部だけ公開、をしない）", {"changes": [hub(), nav]}, True,
+                "経路: PR", ref="selftest-quiet")
+
+        # ---- 収益ページ・フォームへの導線の本数（人の目が入らない分、流れを変える変更が導線を消す事故を止める）
+        edit(repo, "knowledge.html", drop_one_funnel_link)
+        c.guard("収益ページ（/projects）へのリンクを 1 本消した", {"changes": [dict(hub(), **{"class": "funnel-block"})]}, False,
+                ("導線が減っている", "/projects"), ref="selftest-quiet")
+        edit(repo, "knowledge.html", lambda s: s.replace('href="/projects"', 'href="/knowledge"', 1))
+        c.guard("収益ページへのリンクを、収益ページでない行き先に付け替えた（＝1 本減った）", {"changes": [dict(hub(), **{"class": "funnel-block"})]},
+                False, "導線が減っている", ref="selftest-quiet")
+        edit(repo, "knowledge.html", reroute_one_funnel_link)
+        c.guard("行き先の付け替え（/contact → /projects・本数は同じ）は通す", {"changes": [dict(hub(), **{"class": "funnel-block"})]}, True,
+                "経路: 自動公開", ref="selftest-quiet")
+        edit(repo, "knowledge.html", lambda s: s.replace('</body>', '<p><a href="/investors?ref=hub#top">投資家の方へ</a></p>\n</body>', 1))
+        c.guard("導線を 1 本足す（?query・#hash つきでも数える）", {"changes": [dict(hub(), **{"class": "funnel-block"})]}, True,
+                "収益ページとフォームへの導線", ref="selftest-quiet")
+        edit(repo, "knowledge.html", swap_cat_blocks)
+        c.guard("hypothesis（仮説）が無い", {"changes": [hub(hypothesis="")]}, False, "hypothesis が無い")
 
         # ---- 弾く例: ナビ
         edit(repo, "header.js", nav_swap)
@@ -177,6 +234,10 @@ def main() -> int:
         c.guard("週次プロファイルでもトップのヒーローは弾く", {"changes": [dict(entry(["index.html"], ["/"], "hub"))]}, False,
                 "ヒーローより上は変えない", profile="weekly")
 
+        edit(repo, "index.html", hero_below_next_section)
+        c.guard("トップのヒーローを次の節の下へ動かした（中身は同じ）", {"changes": [entry(["index.html"], ["/"], "top-order")]}, False,
+                "ヒーローより上は変えない")
+
         edit(repo, "knowledge.html", lambda s: s.replace("<h1>系統用蓄電池のナレッジ</h1>", "<h1>蓄電池のナレッジ集</h1>", 1))
         c.guard("ハブの h1 を書き換え", {"changes": [hub()]}, False, "ヒーローより上は変えない")
 
@@ -199,7 +260,7 @@ def main() -> int:
 
         (repo / "column-selftest.html").write_text((repo / "column-trading.html").read_text(encoding="utf-8"), encoding="utf-8")
         c.guard("新規ファイル", {"changes": [entry(["column-selftest.html"], ["/column-selftest"], "funnel-block")]}, False,
-                "新規ファイルを作らない")
+                "新しいページは自動では作らない")
 
         # ---- 弾く例: マニフェスト
         edit(repo, "knowledge.html", swap_cat_blocks)
@@ -235,6 +296,25 @@ def main() -> int:
                 False, "pages は URL パス", profile="weekly")
         edit(repo, "column-auction.html", link)
         c.guard("週次: pages があれば通す", {"changes": [weekly_entry(["column-auction.html"], ["/column-auction"])]}, True, profile="weekly")
+
+        # ---- 週次プロファイル: コラムは書かない（2026-09-20 中島）。新規ファイル 0・class=new-column は無い
+        def new_column(name="column-selftest.html"):   # 既存コラムを写した「骨格は完璧な新コラム」でも止まること
+            (repo / name).write_text((repo / "column-trading.html").read_text(encoding="utf-8").replace("/column-trading", "/" + name[:-5]), encoding="utf-8")
+        new_column()
+        c.guard("週次: 新規 HTML を 1 本足したら止める（class=body で申告しても）",
+                {"changes": [weekly_entry(["column-selftest.html"], ["/column-selftest"], "body")]}, False,
+                "新しいページは自動では作らない（コラムは中島さんが書く）", profile="weekly")
+        new_column("en/column-selftest.html")
+        c.guard("週次: EN の新規翻訳（新しいファイル）も止める",
+                {"changes": [weekly_entry(["en/column-selftest.html"], ["/en/column-selftest"], "body")]}, False,
+                "新規ファイル en/column-selftest.html", profile="weekly")
+        edit(repo, "column-auction.html", link)
+        c.guard("週次: class=new-column のマニフェストは止める（ファイルは既存でも）",
+                {"changes": [weekly_entry(["column-auction.html"], ["/column-auction"], "new-column")]}, False,
+                "class=new-column は使えない", profile="weekly")
+        edit(repo, "knowledge.html", add_card_for_existing)
+        c.guard("週次: 人が足したコラムの育成（ハブにカードを足す）は今までどおり通す",
+                {"changes": [dict(weekly_entry(["knowledge.html"], ["/column-auction"], "hub"))]}, True, profile="weekly")
 
         # ---- title は最初の 1 つだけ読む（本文のインライン SVG の <title id="fig…"> を連結しない）
         grid_title = re.search(r"<title>(.*?)</title>", (repo / "column-grid.html").read_text(encoding="utf-8"), re.S).group(1)
