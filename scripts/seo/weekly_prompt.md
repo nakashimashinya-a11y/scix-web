@@ -40,7 +40,7 @@
 - **実績を書かない**（成約件数・取扱高・顧客名）。自称「中立」「neutral」「independent」を書かない（「メーカー・EPC と資本関係がない」「仕入れて売る側」と事実で書く）
 - **機密を書かない**（公開リポジトリ）: 売主名・仕入値・販売価格・住所・地番・緯度経度・担当者名・買い手情報
 - **LDA（長期脱炭素電源オークション）落札案件の売却・名義変更のコンテンツを作らない**
-- **触らない**: `/fund`（fund.html）・フォーム（contact / sell-form / thanks / privacy）・`vercel.json`・`projects.json`・`robots.txt`・`scripts/`・`.github/`・`img/`・`files/`・`header.js`（`JA_ONLY_COLUMNS` の配列に行を足す／消す以外）・ナビ構成・トップのヒーロー
+- **触らない**: `/fund`（fund.html）・フォーム（contact / sell-form / thanks / privacy）・`vercel.json`・`projects.json`・`robots.txt`・`scripts/`・`.github/`・`img/`・`files/`・`header.js`（`JA_ONLY_COLUMNS` の配列に行を足す／消す以外）・ナビ構成・トップのヒーロー・**`<!--S:…-->` マーカーの内側**（件数・案件の静的一覧・新着。毎朝の同期が書く＝触っても翌朝戻る）・**`projects.html` の `<script>`**（連系の見込みの文言は `scripts/inject_stats.py` とそろえてある）。どちらも検査で弾かれる
 - **ファイルを削除しない。** git commit / push / branch / gh は使わない（公開はシェルが行う）。サブエージェントを起動しない。Web を取りに行かない
 - **`docs/seo-change-log.md` は書かない**（マニフェストからシェルが自動で記帳する。書くと検査で止まる）
 - **同じページを 2 週間以内に 2 度変えない**

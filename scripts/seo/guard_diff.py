@@ -44,6 +44,21 @@ BAD_WORDS = [(re.compile(r"中立"), "自称「中立」は禁止（メーカー
              (re.compile(r"AKIA[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|AIza[0-9A-Za-z_-]{30,}"), "鍵らしき文字列")]
 
 
+# 毎朝の案件一覧の同期（scripts/inject_stats.py）が書く場所。週次がここを書き換えても翌朝に黙って戻るか、
+# 静的一覧と JS の文言がずれたまま残る。projects.html の一覧を描く JS も同じ理由で週次の対象外。
+SYNCED_RE = re.compile(r"<!--S:([a-z]+)-->(.*?)<!--/S:\1-->", re.S)
+PAGE_JS_RE = re.compile(r"<script(?![^>]*ld\+json)[^>]*>(.*?)</script>", re.S)
+
+
+# scripts/inject_stats.py の compute() が返すキーと同じ集合。ナレッジ側の kcount/kdate/knew は
+# 週次シェル自身が検査の直前に gen_knowledge_jsonld.py --write で焼き直すので対象にしない。
+INJECT_KEYS = {"list", "count", "mw", "prefs", "areas", "shv", "maxmw", "date", "pjnew"}
+
+
+def synced_regions(text: str) -> list:
+    return [(m.group(1), m.group(2)) for m in SYNCED_RE.finditer(text) if m.group(1) in INJECT_KEYS]
+
+
 def sh(*args):
     return subprocess.run(args, cwd=REPO, capture_output=True, text=True).stdout
 
@@ -193,6 +208,12 @@ def main() -> int:
                 if del_ / total > MAX_DELETE_RATIO:
                     problems.append(f"{path}: 削除が多すぎる（-{del_} of {total}行）")
         text = (REPO / path).read_text(encoding="utf-8", errors="replace")
+        if not is_new:
+            before = sh("git", "show", f"HEAD:{path}")
+            if synced_regions(before) != synced_regions(text):
+                problems.append(f"{path}: <!--S:…--> の内側は毎朝の同期が書く場所（件数・一覧・新着）。週次では触らない")
+            if path == "projects.html" and PAGE_JS_RE.findall(before) != PAGE_JS_RE.findall(text):
+                problems.append("projects.html: 一覧を描く JS は週次では触らない（scripts/inject_stats.py の静的一覧と文言をそろえてある）")
         pg = Page(); pg.feed(text)
         url = file_to_url(path)
         if not pg.title.strip():
