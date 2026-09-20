@@ -13,14 +13,27 @@
 
 | 周期 | 何が | 誰が | 場所 |
 |---|---|---|---|
-| 毎日 07:10 | GSC（検索語×ページ・端末・国）・GA4（着地・回遊・内部遷移・イベント）・本番 HTML の健診を台帳に蓄積。期限が来た変更の効果測定。**変更はしない** | launchd `ai.scix.web-metrics` → `scripts/seo/collect_daily.py` | 台帳 Drive `9_システム/scix-web解析/` |
+| 毎日 07:10 | GSC（検索語×ページ・端末・国）・GA4（着地・回遊・内部遷移・イベント）・本番 HTML の健診を台帳に蓄積。**手動 PR で足した新規ページを変更台帳へ自動で記帳**（`register_new_pages.py`）。期限が来た変更の効果測定。**サイトの変更はしない** | launchd `ai.scix.web-metrics` → `scripts/seo/collect_daily.py` | 台帳 Drive `9_システム/scix-web解析/` |
 | 日曜 06:00 | 台帳からブリーフ → Claude（Opus）が判断・編集 → 機械の検査 → 通ったものだけ commit/push（Vercel が公開）→ IndexNow → Telegram 3 行＋「✍️ 今週書くなら」（コラム主題の提案。マニフェスト `column_ideas`） | launchd `ai.scix.web-weekly` → `scripts/seo/weekly_run.sh` | 作業ツリー `~/projects/.scix-web-weekly` |
-| 変更の 2 週後・4 週後 | 前後 14 日の GSC（クリック・CTR・順位）と GA4（着地→リード）を比べ、better / flat / worse を台帳に書く。worse は翌週の候補「差し戻し」 | `collect_daily.py` の中で `measure_changes.py` | `scix-web解析/ledger/` |
+| 変更の 2 週後・4 週後 | 前後 14 日の GSC（クリック・CTR・順位）と GA4（着地→リード）を比べ、better / flat / worse を台帳に書く。worse は翌週の候補「差し戻し」。**新規ページは前後比較をせず立ち上がりで判定**（下の節） | `collect_daily.py` の中で `measure_changes.py` | `scix-web解析/ledger/` |
 | main への push の都度 | 変わった HTML を IndexNow へ（Bing・Yandex 等）。Google は sitemap の lastmod と GSC の手動リクエスト | GitHub Action `.github/workflows/indexnow-on-push.yml` | |
 
 両ジョブは実行前に `git pull --ff-only origin main` を打つ（launchd の plist 側）。GitHub で PR をマージすればローカルの main も追いつき、手で pull しなくてよい。ローカルに未 push のコミットがあれば pull は黙って見送られ、そのまま動く。
 
 ナビや構成そのものの再検討は月 1 回、ナビの組み替えは四半期に 1 回まで（週次では触らない＝`header.js` は `JA_ONLY_COLUMNS` 以外を検査で弾く）。
+
+## 新規ページ（毎週足すコラム）の流れ — 毎日の記録 → 週次の方針 → 効果測定
+
+2026-09-20 追加。それまでは、人が PR で足したコラムが変更台帳に載らず（直近 28 日の新規 HTML 85 本のうち台帳にあったのは 1 本）、ブリーフにも新規ページの節が無く、効果測定は前の窓が 0 なので 1 クリックで必ず better になっていた。
+
+| いつ | 何が | どこに |
+|---|---|---|
+| 毎日 07:10（収集のあと・効果測定の前）。週次の冒頭でも同じものが走る | `scripts/seo/register_new_pages.py` が **origin/main の git 履歴** から直近 28 日に足された `*.html` を拾って記帳。3 言語版（`column-x.html`・`en/column-x.html`・`zh-column-x.html`）は 1 エントリ。id は `new-<slug>` 固定＝何度走っても重複しない。台帳のどれかのエントリの `pages` に既に居るページは足さない（手で記帳した PR・週次の自動 new-column と二重にしない）。JA 先行で EN/ZH を後から足したときは `new-<slug>-en-zh` に残りだけ。`404`・`thanks`・noindex は除く | `ledger/changes.jsonl`（`source: "manual-auto"`・`class: "new-column"`／コラム以外は `"new-page"`・`check_days: [14, 28]`） |
+| 公開の 14 日後・28 日後（GSC がその日まで届いたら） | `measure_changes.py` が class `new-column`／`new-page` を **立ち上がり**（`mode: "ramp"`）で判定。14 日: 公開日〜+14 日に表示が 1 以上あれば `shown`、無ければ `not-shown`。28 日: 公開翌日〜+28 日の表示を、**同じ言語の既存コラム**（健診のページ一覧＝sitemap。公開 60 日以内の新規は母集団から外す。表示ゼロのコラムも入れる）の同じ 28 日の表示の中央値と比べて `above-median`／`below-median`、表示ゼロは `not-shown`。ページごとの判定は `by_page`、エントリの判定は主たるページ（JA→EN→ZH の順で最初）。判定済みのレコードは触らない | `ledger/changes.jsonl` の `measured`・`ledger/measurements.jsonl` |
+| 日曜 06:00（ブリーフ） | `build_brief.py` の **10 節「新規ページ（公開 60 日以内）の立ち上がり」**: ページ／公開日（Article JSON-LD の `datePublished`、無ければ git の初回コミット日）／経過日数／初表示日／28 日の表示・クリック／GA4 着地／サイト内被リンク数（自分自身は除く）／旗。旗は「公開14日超で表示ゼロ」「被リンク1以下」「sitemap 未登録」「JA専用の登録漏れ」。旗つきを先に最大 40 行。**10b**「sitemap にあるのに 90 日表示ゼロ（公開 14 日以上）」最大 20 行。8 節には `not-shown` のまま直近 28 日も表示ゼロのページが **要手当て** として出る（worse と同じ位置。ただし差し戻しではなく育成）。自動記帳のエントリは 8 節の表には並べず件数だけ | `weekly/<日付>/brief.md`・`brief.json` の `new_pages`・`zero_impression`。`最新.md` にも 10 節を短く |
+| 日曜 06:00（Claude） | `weekly_prompt.md`「今週やること」7『新規ページの育成』: 旗・要手当てのページへ、関連コラム・ハブから内部リンクを足す（**リンクを置く側が 9 節「今週触らないページ」なら置かない**）。その週に人が足したコラムのハブカード・新着・sitemap・`JA_ONLY_COLUMNS` の登録漏れを点検。1 週の変更件数の上限は変えない | 公開は従来どおりシェルと `guard_diff.py` |
+
+どれも台帳と git だけで決定論に作る（追加 API なし）。ページ一覧と公開日は作業ツリーではなく `origin/main` から読む（別ブランチに居ても、未コミットの原稿があっても結果が変わらない。`origin/main` が無いときは記帳しない）。試すときは `SCIX_WEB_LEDGER=<複製>` で台帳の向き先を変える（`common.py`）。
 
 ## 週次の Claude に渡すもの・渡さないもの
 
@@ -45,6 +58,9 @@ python3 scripts/seo/build_brief.py --stdout             # ブリーフを見る
 DRY_RUN=1 bash scripts/seo/weekly_run.sh                # 公開せずに一周（作業ツリーを残す）
 bash scripts/seo/weekly_run.sh                          # 本番と同じ一周
 python3 scripts/seo/measure_changes.py --list           # 効果測定の台帳
+python3 scripts/seo/register_new_pages.py --dry         # 新規ページの自動記帳を書かずに一覧（--days 60 で窓を広げる）
+python3 scripts/seo/selftest_ramp.py                    # 立ち上がり判定の合成テスト（一時ディレクトリ・本物の台帳に触らない）
+SCIX_WEB_LEDGER=/private/tmp/ledger-copy python3 scripts/seo/collect_daily.py --no-gsc --no-ga4 --no-health   # 複製した台帳で記帳→計測→最新.md だけ試す
 git revert <auto(seo) のコミット> && git push           # 差し戻し（IndexNow は Action が送る）
 launchctl bootout gui/$(id -u)/ai.scix.web-weekly       # 週次を止める
 ```
