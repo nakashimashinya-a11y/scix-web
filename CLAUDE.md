@@ -94,8 +94,12 @@ Cloudflare D1 だけを見て「DR2 はこのセッションから到達不能�
 ### 公開サイトへの反映は別工程
 
 公開案件一覧 `projects.json` は **DR2 からの自動生成物**。手で追記しない。毎朝6:50に launchd `ai.scix.projects-json` が `scripts/sync_projects_json.sh` で再生成し、変化があれば main へ直接 commit/push する（2026-09-05 中島合意）。トップの件数は `scripts/inject_stats.py` が同時に焼き直す。
-`scripts/build_projects_json.py` が DR2（`projects-end.json` ＋ D1）から公開セーフな
-9項目（id / area / pref / voltage / mw / mwh / cod / status / scheme）だけを書き出す。
+`scripts/build_projects_json.py` が DR2（D1 `dealroom2_new_projects` ＋ `deal_edits`）から公開セーフな項目だけを書き出す:
+id / area / pref / voltage / mw / mwh / status / scheme ／ 連系の見込み（cod・codYm・leadMonths・leadBasis・live）／ firstSeen・updatedAt。
+項目を足すときは `PUBLIC_KEYS`（生成器）・`.github/workflows/projects-freshness.yml` の allowed・この節の3か所をそろえる。
+**連系の見込みは DR2 の `operationStartDate`（運転開始予定日）と月数（`leadMonthsFromPayment` ほか）から作る。`connectionDate` は「回答日」＝過去の実績日で、連系予定ではない。**
+DR2 の自由記述（運転開始予定・負担金の欄）はそのまま出さない＝年月・整数・列挙値だけ（売主の説明や金額が混じっている）。
+表示の文言は `scripts/inject_stats.py`（静的一覧）と `projects.html` の JS の2か所にあり、必ず同時に直す。同期は案件の出入りだけでなく項目の変更も公開する。
 
 ---
 
@@ -110,7 +114,7 @@ Cloudflare D1 だけを見て「DR2 はこのセッションから到達不能�
 - 電力会社の「秘密情報」表記のある資料（契約申込回答書・検討結果説明書など）およびその抜粋
 
 案件の実データは Drive（DR2）か private リポジトリに置く。
-公開してよいのは `projects.json` の公開セーフ9項目まで（＝都道府県レベル・匿名）。
+公開してよいのは `projects.json` の公開セーフ項目まで（＝都道府県レベル・匿名。一覧は上の「公開サイトへの反映は別工程」）。
 
 ---
 

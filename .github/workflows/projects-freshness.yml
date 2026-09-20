@@ -54,7 +54,9 @@ jobs:
           elif count != len(projects):
               problems.append(f"projectCount({count}) と実際の件数({len(projects)})が合わない")
 
-          allowed = {"id", "area", "pref", "voltage", "mw", "mwh", "cod", "codYm", "status", "scheme"}
+          # scripts/build_projects_json.py の PUBLIC_KEYS と同じ集合にする（2026-09-05 判断①で公開可とされた範囲）
+          allowed = {"id", "area", "pref", "voltage", "mw", "mwh", "cod", "codYm", "leadMonths", "leadBasis",
+                     "live", "status", "scheme", "firstSeen", "updatedAt"}
           extra = set()
           for p in projects:
               extra |= set(p) - allowed

@@ -74,6 +74,9 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
 .card:hover{box-shadow:0 8px 28px rgba(27,42,74,0.08);transform:translateY(-2px);}
 .card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
 .card-id{font-family:var(--font-serif);font-size:1.05rem;font-weight:700;color:var(--navy);letter-spacing:1px;}
+.tag-new,.tag-upd{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:100px;font-family:var(--font-sans,'Noto Sans JP',sans-serif);font-size:0.64rem;font-weight:600;letter-spacing:.3px;vertical-align:middle;}
+.tag-new{background:var(--gold,#C49A3C);color:var(--navy,#1B2A4A);}
+.tag-upd{background:rgba(43,61,102,0.1);color:var(--navy-light,#2B3D66);}
 .status-pill{font-size:0.68rem;font-weight:600;letter-spacing:.5px;padding:4px 10px;border-radius:100px;white-space:nowrap;}
 .status-pill.s-grid{background:rgba(26,122,76,0.1);color:var(--green-dark);}
 .status-pill.s-deposit{background:rgba(196,154,60,0.14);color:#946f1d;}
@@ -150,7 +153,7 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
     "name": "ScienceX",
     "url": "https://www.scix.co.jp/"
   },
-  "about": "系統用蓄電池の確定・連系済みプロジェクト",
+  "about": "接続検討の回答が出た系統用蓄電池プロジェクト（販売中）",
   "url": "https://www.scix.co.jp/projects"
 }
 </script>
@@ -164,7 +167,7 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
   <span class="badge">NDA不要・匿名ティーザー</span>
   <div class="section-label">Project List</div>
   <h1>開発済みの案件を、<br><em>匿名のティーザーでご確認いただけます。</em></h1>
-  <p>接続検討の回答が出た系統用蓄電池案件を、管内・都道府県・電圧区分・規模・連系の見込み・進み具合・取得の形の範囲でご覧いただけます。連系の見込みは年月で、過ぎている案件は「要確認」と表示します。<br>地番・事業者名・売主・価格は本ページでは開示していません。個別の案件資料（DD資料）は、NDA締結後に一括でご提供します。</p>
+  <p>接続検討の回答が出た系統用蓄電池案件を、管内・都道府県・電圧区分・規模・連系の見込み・進み具合・取得の形の範囲でご覧いただけます。連系の見込みは、運転開始の予定が決まっている案件は年月で、決まっていない案件は連系までにかかる月数（送配電の回答書の記載。工事費負担金の入金から数えるものが中心）でお出ししています。<br>地番・事業者名・売主・価格は本ページでは開示していません。個別の案件資料（DD資料）は、NDA締結後に一括でご提供します。</p>
 </div></section>
 
 <!-- LIST -->
@@ -371,7 +374,7 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
     status:  document.getElementById('fStatus')
   };
 
-  var ALL = [], GENERATED_AT = '';
+  var ALL = [], GENERATED_AT = '', N_NEW = 0;
   var F = { area:'all', voltage:'all', scheme:'all', cod:'all', status:'all' };
   var SORT = 'cod';
   var picked = {};
@@ -391,32 +394,64 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
     return 's-applied';
   }
 
-  // 連系の見込み。過ぎた日付は「要確認」にする。
-  // 販売中なのに連系予定が過去なら、その日付はもう当てにならないため。
-  function codView(p){
-    if(p.codYm && p.codYm >= TODAY_YM) return p.codYm.replace('-', '年') + '月';
-    if(p.codYm) return '要確認';
-    return p.cod ? '要確認' : '未定';
+  // 連系の見込み。scripts/inject_stats.py の cod_text() と同じ規則・同じ文言にする
+  // （片方だけ直すと、JS を実行しない読み手＝AI検索と、画面で見る読み手とで表示が割れる）。
+  //   連系済み・稼働中 ／ 2027年6月ごろ ／ 2027年6月ごろ（工事費負担金の入金から約8か月）／ 工事費負担金の入金から約12か月 ／ 時期を確認中
+  // 年月は projects.json の生成側で「守れる見込み」だけに絞ってある（運転開始予定が過去・今から入金しても
+  // 間に合わないものは年月を出さず月数にする）。ここで過去を落とすのは同期が止まった日の保険。
+  var NEW_DAYS = 14;
+  var LEAD_TEXT = {
+    payment: '工事費負担金の入金から約{n}か月',
+    apply: '接続契約の申込みから約{n}か月',
+    contract: 'ご契約から約{n}か月',
+    unspecified: '連系工事に約{n}か月'
+  };
+  function codYmOf(p){ return (p.codYm && p.codYm >= TODAY_YM) ? p.codYm : ''; }
+  function leadText(p){
+    if(!p.leadMonths) return '';
+    return (LEAD_TEXT[p.leadBasis] || LEAD_TEXT.unspecified).replace('{n}', p.leadMonths);
   }
+  function codView(p){
+    if(p.live) return '連系済み・稼働中';
+    var ym = codYmOf(p), lead = leadText(p);
+    if(ym) return ym.slice(0,4) + '年' + Number(ym.slice(5,7)) + '月ごろ' + (lead ? '（' + lead + '）' : '');
+    return lead || '時期を確認中';
+  }
+  // 絞り込み。キー（thisfy/nextfy/later/tbd）はトップやコラムのリンクと GA4 のイベント値で使っているので変えない。
   function codBucket(p){
-    if(!p.codYm || p.codYm < TODAY_YM) return 'tbd';
-    var y = Number(p.codYm.slice(0,4)), m = Number(p.codYm.slice(5,7));
+    if(p.live) return 'live';
+    var ym = codYmOf(p);
+    if(!ym) return p.leadMonths ? 'lead' : 'tbd';
+    var y = Number(ym.slice(0,4)), m = Number(ym.slice(5,7));
     var fy = m >= 4 ? y : y - 1;
     if(fy <= FY) return 'thisfy';
     if(fy === FY + 1) return 'nextfy';
     return 'later';
   }
-  // 並べ替え用。未定・要確認は必ず最後に置く。
+  // 並べ替え用。連系済み → 年月の早い順 → 月数の短い順 → 確認中。
   function codKey(p){
-    return (p.codYm && p.codYm >= TODAY_YM) ? p.codYm : '9999-99';
+    if(p.live) return '0000-00';
+    var ym = codYmOf(p);
+    if(ym) return ym;
+    return p.leadMonths ? '8000-' + ('00' + p.leadMonths).slice(-3) : '9999-99';
   }
+  function daysSince(iso){
+    if(!iso) return Infinity;
+    var t = Date.parse(iso + 'T00:00:00+09:00');
+    return isNaN(t) ? Infinity : Math.floor((now.getTime() - t) / 86400000);
+  }
+  function isNew(p){ return daysSince(p.firstSeen) <= NEW_DAYS; }
+  function isUpdated(p){ return !isNew(p) && p.updatedAt && daysSince(p.updatedAt) <= NEW_DAYS; }
+  function md(iso){ return Number(iso.slice(5,7)) + '/' + Number(iso.slice(8,10)); }
   function idNum(p){ var m = /(\d+)/.exec(p.id || ''); return m ? Number(m[1]) : 0; }
 
   var COD_LABELS = [
+    ['live',   '連系済み'],
     ['thisfy', '今年度内'],
     ['nextfy', '来年度'],
     ['later',  '再来年度以降'],
-    ['tbd',    '未定・要確認']
+    ['lead',   '月数でご案内'],
+    ['tbd',    '確認中']
   ];
 
   function track(name, params){
@@ -432,7 +467,10 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
     return '' +
       '<div class="card' + (picked[id] ? ' picked' : '') + '" data-id="' + esc(id) + '">' +
         '<div class="card-top">' +
-          '<span class="card-id">' + esc(id || '—') + '</span>' +
+          '<span class="card-id">' + esc(id || '—') +
+            (isNew(p) ? '<span class="tag-new">新着 ' + esc(md(p.firstSeen)) + '</span>' :
+             isUpdated(p) ? '<span class="tag-upd">更新 ' + esc(md(p.updatedAt)) + '</span>' : '') +
+          '</span>' +
           (p.status ? '<span class="status-pill ' + statusClass(p.status) + '">' + esc(p.status) + '</span>' : '') +
         '</div>' +
         '<div class="card-loc">' + loc + '</div>' +
@@ -496,7 +534,10 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
     var by = {
       cod: function(a, b){ return codKey(a) < codKey(b) ? -1 : codKey(a) > codKey(b) ? 1 : idNum(b) - idNum(a); },
       mw:  function(a, b){ return (Number(b.mw) || 0) - (Number(a.mw) || 0); },
-      new: function(a, b){ return idNum(b) - idNum(a); }
+      new: function(a, b){
+        var fa = a.firstSeen || '', fb = b.firstSeen || '';   // 掲載日の新しい順。掲載日が同じ・無いときは番号の大きい順
+        return fa < fb ? 1 : fa > fb ? -1 : idNum(b) - idNum(a);
+      }
     };
     return list.slice().sort(by[SORT] || by.cod);
   }
@@ -523,7 +564,8 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
     grid.innerHTML = list.map(cardHTML).join('');
     countLine.textContent = '該当 ' + list.length + ' 件'
       + (list.length !== ALL.length ? '（全 ' + ALL.length + ' 件中）' : '')
-      + (GENERATED_AT ? '　｜　' + GENERATED_AT + ' 更新' : '');
+      + (GENERATED_AT ? '　｜　' + GENERATED_AT + ' 更新' : '')
+      + (N_NEW ? '　｜　この' + NEW_DAYS + '日の新着 ' + N_NEW + ' 件' : '');
     syncTray();
   }
 
@@ -574,6 +616,7 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
     .then(function(data){
       ALL = (data && data.projects) || [];
       GENERATED_AT = (data && data.generatedAt) || '';
+      N_NEW = ALL.filter(isNew).length;
       if(!ALL.length){ throw new Error('empty'); }
       var st = document.getElementById('staticList');
       if(st) st.hidden = true;
