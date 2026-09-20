@@ -123,6 +123,7 @@ def lead_number(s) -> bool:
 
 
 BAD_WORDS = [(re.compile(r"中立"), "自称「中立」は禁止（メーカー・EPCと資本関係がない、と事実で書く）"),
+             (re.compile(r"一次情報|一次ソース|１次情報|1次情報"), "「一次情報」「一次ソース」は書かない（2026-09-21 中島指示「クロードの口癖」。公表資料・原文・原典・出典と書く）"),
              (re.compile(r"\bneutral\b|\bindependent (advisor|broker|party)\b", re.I), "neutral/independent の自称は禁止"),
              (re.compile(r"当社の(成約|取引|導入)実績|成約実績|実績多数"), "実績の主張は出さない（中島決定 2026-09-05）"),
              (re.compile(r"AKIA[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|AIza[0-9A-Za-z_-]{30,}"), "鍵らしき文字列")]
