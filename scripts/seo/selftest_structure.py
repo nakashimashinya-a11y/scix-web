@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 """構成レビュー（guard_diff.py --profile structure・structure.py・register_structure_merges.py）を合成差分で確かめる。
+週次の検査のうち「コラムは書かない＝新規ファイル 0・class=new-column は無い」（2026-09-20）もここで確かめる。
+人の目が入らない分の検査（2026-09-20 のレビューで再現した抜け）もここ: 閉じタグを置き去りにした節の移動・節の削除・削除だけの差分・
+ヒーローを消す CSS・noindex・既存コラムの本文の総入れ替え・ハブへの記事ぶんの書き足し・公開欄の問い合わせの件数（自然な言い回し・
+週次プロファイル）・pages に入れた送客先の収益ページ・週次が差し戻した直後のハブの凍結。
+公開の手順（2 コミット・差し戻しが衝突しない・記帳の失敗と拾い直し）は selftest_publish.py、効果測定とブリーフ 8 節は selftest_ramp.py。
 
     python3 scripts/seo/selftest_structure.py        # 0=全部通った（--keep で一時ディレクトリを残す）
 
@@ -65,7 +70,8 @@ class Case:
             env["SCIX_WEB_REF"] = ref
         r = run([sys.executable, str(GUARD), "--manifest", str(mf), "--profile", profile], self.repo, env=env)
         out = r.stdout + r.stderr
-        ok = (r.returncode == 0) == expect_ok and (needle is None or needle in out)
+        needles = [needle] if isinstance(needle, str) else list(needle or [])   # 複数なら全部が出力に出ていること
+        ok = (r.returncode == 0) == expect_ok and all(n in out for n in needles)
         results.append((ok, name, "通す" if expect_ok else "止める", out.strip().splitlines()[-1][:110] if out.strip() else ""))
         if not ok:
             print(f"--- {name} の出力 ---\n{out}")
@@ -95,6 +101,90 @@ def swap_top_sections(s):
     m2 = re.search(r'<section class="strengths" id="find">.*?</section>', s, re.S)
     assert m1 and m2 and m1.end() <= m2.start()
     return s[:m1.start()] + m2.group(0) + s[m1.end():m2.start()] + m1.group(0) + s[m2.end():]
+
+
+def drop_one_funnel_link(s):
+    """ハブの本文から、収益ページ（/projects）へのリンクを 1 本だけ消す（ほかは触らない）。"""
+    m = re.search(r'<a\b[^>]*href="/projects"[^>]*>.*?</a>', s, re.S)
+    assert m, "knowledge.html に /projects へのリンクが無い（selftest を直す）"
+    return s[:m.start()] + s[m.end():]
+
+
+def reroute_one_funnel_link(s):
+    """収益ページへのリンクの行き先を 1 本だけ付け替える（/contact → /projects。本数は変わらない）。"""
+    assert 'href="/contact"' in s, "/contact へのリンクが無い（selftest を直す）"
+    return s.replace('href="/contact"', 'href="/projects"', 1)
+
+
+def hero_below_next_section(s):
+    """index.html のヒーローを、次の節（#knowledge）の下へ動かす（中身は 1 文字も変えない）。"""
+    h = re.search(r'<section class="hero">.*?</section>', s, re.S)
+    k = re.search(r'<section class="knowledge-top" id="knowledge">.*?</section>', s, re.S)
+    assert h and k and h.end() <= k.start()
+    return s[:h.start()] + s[h.end():k.end()] + "\n" + h.group(0) + s[k.end():]
+
+
+def add_card_for_existing(s):
+    """ハブの cat-market の先頭に、既存コラム（/column-auction）のカードを 1 枚足す（週次の「登録漏れの手当て」と同じ形）。"""
+    card = ('      <a target="_top" href="/column-auction" class="ac">\n        <div class="am"><span class="an">COLUMN</span>'
+            '<span class="at">selftest</span></div>\n        <h3>selftest: 登録漏れのカード</h3>\n'
+            '        <p class="ad">selftest</p>\n        <div class="aa">→</div>\n      </a>\n')
+    a = s.index('id="cat-market"')
+    pos = s.rfind("\n", 0, a + re.search(r'<a [^>]*class="ac', s[a:]).start()) + 1
+    return s[:pos] + card + s[pos:]
+
+
+def move_section_leaving_close(s):
+    """index.html の #find を、閉じ </section> を元の場所に置き去りにして #flow の前へ動かす。行の多重集合は同じ（正味 0）だが、
+    #flow 以降の節と footer が全部 #find の子になる（＝公開されると以降の見出しが紺地の白文字の規則を引き継ぐ）。"""
+    L = s.splitlines(keepends=True)
+    a = next(i for i, l in enumerate(L) if '<section class="strengths" id="find">' in l)
+    e = next(i for i in range(a, len(L)) if L[i].strip() == "</section>")
+    f = next(i for i, l in enumerate(L) if 'id="flow"' in l)
+    assert a < e < f
+    return "".join(L[:a] + L[e:f] + L[a:e] + L[f:])
+
+
+def move_cat_block_leaving_close(s):
+    """knowledge.html の cat-land を、閉じ </div> を置き去りにして cat-basics の前へ動かす。同じ div どうしなので開閉の数は
+    合ったまま＝cat-basics が cat-land の子になる。"""
+    L = s.splitlines(keepends=True)
+    a = next(i for i, l in enumerate(L) if 'id="cat-land"' in l)
+    b = next(i for i, l in enumerate(L) if 'id="cat-market"' in l)
+    end = max(i for i in range(a, b) if L[i].strip() == "</div>")
+    bas = next(i for i, l in enumerate(L) if 'id="cat-basics"' in l)
+    assert bas < a < end < b
+    return "".join(L[:bas] + L[a:end] + L[bas:a] + L[end:])
+
+
+def drop_section(sid):
+    def fn(s):
+        m = re.search(r'<section\b[^>]*id="%s".*?</section>\n' % sid, s, re.S)
+        assert m, f"#{sid} の節が無い（selftest を直す）"
+        return s[:m.start()] + s[m.end():]
+    return fn
+
+
+def rewrite_body_text(s):
+    """既存コラムの本文（<article>／<main> の中の p・h2・h3・li）と h1・title を、別の主題の文に総入れ替えする
+    （タグと行数はそのまま＝行数の比率では 1 割に満たない）。"""
+    n = [0]
+
+    def repl(m):
+        n[0] += 1
+        return f"{m.group(1)}selftest の別の主題の文 {n[0]}。元の記事とは関係のない内容に置き換えた。{m.group(3)}"
+    b = s.index("<body")
+    body = re.sub(r"(<(p|h2|h3|li)\b[^>]*>)(?:(?!</\2>).)+(</\2>)", repl, s[b:], flags=re.S)
+    out = s[:b] + body
+    out = re.sub(r"(<h1\b[^>]*>).*?(</h1>)", r"\g<1>selftest: 別の主題の記事\g<2>", out, count=1, flags=re.S)
+    return re.sub(r"<title>.*?</title>", "<title>selftest: 別の主題の記事｜ScienceX</title>", out, count=1, flags=re.S)
+
+
+def add_article_section(s):
+    """ハブのフッターの前に、記事 1 本ぶんの節を足す（ヒーローより下）。"""
+    para = "".join(f"<p>selftest の段落 {i}。ハブの下に記事の本文を書き足している。系統用蓄電池の市場と制度についての長い説明が続く想定の文。</p>\n" for i in range(40))
+    i = s.index("<footer")
+    return s[:i] + '<div class="selftest-article">\n<h2>selftest: ハブに書き足した記事</h2>\n' + para + "</div>\n" + s[i:]
 
 
 def nav_swap(s):
@@ -131,7 +221,8 @@ def main() -> int:
         # ---- 通す例
         edit(repo, "knowledge.html", swap_cat_blocks)
         run([sys.executable, "scripts/gen_knowledge_jsonld.py", "--write"], repo)
-        c.guard("ハブのカテゴリ順を入れ替え（並べ替えだけ）", {"changes": [hub()]}, True, "OK（structure）", ref="selftest-quiet")
+        c.guard("ハブのカテゴリ順を入れ替え（並べ替えだけ）→ 経路は自動公開", {"changes": [hub()]}, True,
+                ("OK（structure）", "経路: 自動公開"), ref="selftest-quiet")
 
         edit(repo, "index.html", swap_top_sections)
         c.guard("トップの節を入れ替え（ヒーローより下・S マーカーごと移動）",
@@ -139,7 +230,30 @@ def main() -> int:
 
         edit(repo, "header.js", nav_swap)
         nav = entry(["header.js"], ["/"], "nav", nav_rule={"last_nav_change": None})
-        c.guard("ナビの組み替え（直近90日に変更なし・申告 null）", {"changes": [nav]}, True, ref="selftest-quiet")
+        c.guard("ナビの組み替え（直近90日に変更なし・申告 null）→ 検査は通るが経路は PR", {"changes": [nav]}, True,
+                ("OK（structure）", "経路: PR"), ref="selftest-quiet")
+
+        edit(repo, "knowledge.html", swap_cat_blocks)
+        run([sys.executable, "scripts/gen_knowledge_jsonld.py", "--write"], repo)
+        edit(repo, "header.js", nav_swap)
+        c.guard("ハブの並べ替え＋ナビの組み替え → その回は全体が PR（一部だけ公開、をしない）", {"changes": [hub(), nav]}, True,
+                "経路: PR", ref="selftest-quiet")
+
+        # ---- 収益ページ・フォームへの導線の本数（人の目が入らない分、流れを変える変更が導線を消す事故を止める）
+        edit(repo, "knowledge.html", drop_one_funnel_link)
+        c.guard("収益ページ（/projects）へのリンクを 1 本消した", {"changes": [dict(hub(), **{"class": "funnel-block"})]}, False,
+                ("導線が減っている", "/projects"), ref="selftest-quiet")
+        edit(repo, "knowledge.html", lambda s: s.replace('href="/projects"', 'href="/knowledge"', 1))
+        c.guard("収益ページへのリンクを、収益ページでない行き先に付け替えた（＝1 本減った）", {"changes": [dict(hub(), **{"class": "funnel-block"})]},
+                False, "導線が減っている", ref="selftest-quiet")
+        edit(repo, "knowledge.html", reroute_one_funnel_link)
+        c.guard("行き先の付け替え（/contact → /projects・本数は同じ）は通す", {"changes": [dict(hub(), **{"class": "funnel-block"})]}, True,
+                "経路: 自動公開", ref="selftest-quiet")
+        edit(repo, "knowledge.html", lambda s: s.replace('</body>', '<p><a href="/investors?ref=hub#top">投資家の方へ</a></p>\n</body>', 1))
+        c.guard("導線を 1 本足す（?query・#hash つきでも数える）", {"changes": [dict(hub(), **{"class": "funnel-block"})]}, True,
+                "収益ページとフォームへの導線", ref="selftest-quiet")
+        edit(repo, "knowledge.html", swap_cat_blocks)
+        c.guard("hypothesis（仮説）が無い", {"changes": [hub(hypothesis="")]}, False, "hypothesis が無い")
 
         # ---- 弾く例: ナビ
         edit(repo, "header.js", nav_swap)
@@ -177,6 +291,10 @@ def main() -> int:
         c.guard("週次プロファイルでもトップのヒーローは弾く", {"changes": [dict(entry(["index.html"], ["/"], "hub"))]}, False,
                 "ヒーローより上は変えない", profile="weekly")
 
+        edit(repo, "index.html", hero_below_next_section)
+        c.guard("トップのヒーローを次の節の下へ動かした（中身は同じ）", {"changes": [entry(["index.html"], ["/"], "top-order")]}, False,
+                "ヒーローより上は変えない")
+
         edit(repo, "knowledge.html", lambda s: s.replace("<h1>系統用蓄電池のナレッジ</h1>", "<h1>蓄電池のナレッジ集</h1>", 1))
         c.guard("ハブの h1 を書き換え", {"changes": [hub()]}, False, "ヒーローより上は変えない")
 
@@ -199,7 +317,77 @@ def main() -> int:
 
         (repo / "column-selftest.html").write_text((repo / "column-trading.html").read_text(encoding="utf-8"), encoding="utf-8")
         c.guard("新規ファイル", {"changes": [entry(["column-selftest.html"], ["/column-selftest"], "funnel-block")]}, False,
-                "新規ファイルを作らない")
+                "新しいページは自動では作らない")
+
+        # ---- 人の目が入らない分の検査（2026-09-20 のレビューで再現した抜け）
+        #   HTML の入れ子: 行の多重集合は同じでも、閉じタグを置き去りにすると以降の節が全部その節の子になる
+        top = entry(["index.html"], ["/"], "top-order")
+        edit(repo, "index.html", move_section_leaving_close)
+        c.guard("トップの節を、閉じ </section> を置き去りにして動かした（行の集合は同じ）", {"changes": [top]}, False,
+                ("タグの開閉が合わない箇所が増えた", "入れ子の位置が変わった", "#flow"))
+        edit(repo, "knowledge.html", move_cat_block_leaving_close)
+        c.guard("ハブのカテゴリを、閉じ </div> を置き去りにして動かした（開閉の数は合ったまま）", {"changes": [hub()]}, False,
+                ("入れ子の位置が変わった", "#cat-basics"))
+        edit(repo, "index.html", drop_section("position"))
+        c.guard("トップの節を丸ごと消した（導線リンクの無い節・削除は 15% 以内）", {"changes": [top]}, False, ("id つきの要素が消えた", "#position"))
+        edit(repo, "index.html", move_section_leaving_close)
+        c.guard("週次プロファイルでも、閉じタグの置き去りは止める", {"changes": [dict(top, **{"class": "hub"})]}, False,
+                "タグの開閉が合わない箇所が増えた", profile="weekly")
+        #   削除だけの差分（「変更なし」で素通りしていた）
+        for prof in ("weekly", "structure"):
+            (repo / "column-noise.html").unlink()
+            c.guard(f"{prof}: ファイルの削除だけの差分は止める（「変更なし」で通さない）", {"changes": []}, False, "削除は禁止: column-noise.html", profile=prof)
+        #   ヒーローを CSS で消す・noindex を足す（<body> のヒーローの中身は同じ）
+        def hide_hero(s):
+            i = s.index("</style>")
+            return s[:i] + ".hero{display:none}\n" + s[i:]
+        edit(repo, "index.html", hide_hero)
+        c.guard("トップの <style> にヒーローを消す規則を足した", {"changes": [top]}, False, "<style> と <script>")
+        edit(repo, "index.html", hide_hero)
+        c.guard("週次プロファイルでも、トップの <style> は変えさせない", {"changes": [dict(top, **{"class": "hub"})]}, False,
+                "<style> と <script>", profile="weekly")
+        noindex = lambda s: s.replace("</head>", '<meta name="robots" content="noindex,nofollow">\n</head>', 1)  # noqa: E731
+        edit(repo, "knowledge.html", noindex)
+        c.guard("ハブに robots noindex を足した", {"changes": [hub()]}, False, "noindex を足さない")
+        edit(repo, "column-auction.html", noindex)
+        c.guard("週次: コラムに robots noindex を足した", {"changes": [dict(entry(["column-auction.html"], ["/column-auction"], "body"))]}, False,
+                "noindex を足さない", profile="weekly")
+        edit(repo, "knowledge.html", lambda s: s.replace('<link rel="alternate" hreflang="en"', '<link rel="alternate" hreflang="en-US"', 1))
+        c.guard("ハブの <head> の hreflang を書き換えた", {"changes": [hub()]}, False, "<head>（meta・link・hreflang・og）を変えない")
+        #   既存コラムの本文の総入れ替え（行数では 1 割未満＝「コラムは書かない」の抜け道だった）
+        col = "column-somosomo-19.html"
+        edit(repo, col, rewrite_body_text)
+        c.guard("週次: 既存コラムの本文・h1・title を別の主題に総入れ替え（class=body）", {"changes": [entry([col], ["/" + col[:-5]], "body")]}, False,
+                ("本文の書き換えが大きすぎる", "本文の削除・書き換えが多すぎる"), profile="weekly")
+        edit(repo, col, rewrite_body_text)
+        c.guard("構成: 同じ総入れ替えを class=cta-route と申告", {"changes": [entry([col], ["/" + col[:-5]], "cta-route")]}, False,
+                ("本文の正味の書き換えが大きすぎる", "title／description／h1 を変えない"))
+        edit(repo, col, lambda s: re.sub(r"(<h1\b[^>]*>).*?(</h1>)", r"\g<1>selftest: 見出しだけ変えた\g<2>", s, count=1, flags=re.S))
+        c.guard("構成: コラムの h1 だけを書き換え（cta-route は本文を書き換えない型）", {"changes": [entry([col], ["/" + col[:-5]], "cta-route")]}, False,
+                "title／description／h1 を変えない")
+        edit(repo, "knowledge.html", add_article_section)
+        c.guard("週次: ハブに記事ぶんの節を足し、マニフェストは 0 件", {"changes": [], "no_change_reason": "x"}, False,
+                "マニフェストに載っていないのに本文が変わっている", profile="weekly")
+        edit(repo, "knowledge.html", add_article_section)
+        c.guard("週次: ハブに記事ぶんの節を足した（files に書いても量で止める）", {"changes": [dict(hub(), **{"class": "hub"})]}, False,
+                "ハブ・トップに足した本文が多すぎる", profile="weekly")
+        #   差し戻し（class=rollback）のファイルだけ、足した節を消してよい
+        edit(repo, "land.html", drop_section("representative"))
+        c.guard("週次: id つきの節を消した（class=body）", {"changes": [entry(["land.html"], ["/land"], "body")]}, False,
+                "id つきの要素が消えた", profile="weekly")
+        edit(repo, "land.html", drop_section("representative"))
+        c.guard("週次: 差し戻し（class=rollback）なら、足した節を消すのは通す", {"changes": [entry(["land.html"], ["/land"], "rollback")]}, True,
+                profile="weekly")
+        #   pages は編集したページだけ（送客先の収益ページは kpi_pages）
+        edit(repo, "knowledge.html", reroute_one_funnel_link)
+        c.guard("pages に、編集していない送客先の収益ページを入れた",
+                {"changes": [dict(hub(pages=["/knowledge", "/investors"]), **{"class": "funnel-block"})]}, False,
+                ("pages は編集したページ", "/investors", "kpi_pages"))
+        edit(repo, "knowledge.html", reroute_one_funnel_link)
+        c.guard("送客先は kpi_pages に書けば通す", {"changes": [dict(hub(kpi_pages=["/investors", "/projects"]), **{"class": "funnel-block"})]},
+                True, "経路: 自動公開", ref="selftest-quiet")
+        edit(repo, "knowledge.html", reroute_one_funnel_link)
+        c.guard("kpi_pages が URL パスでない", {"changes": [dict(hub(kpi_pages="/investors"), **{"class": "funnel-block"})]}, False, "kpi_pages は URL パス")
 
         # ---- 弾く例: マニフェスト
         edit(repo, "knowledge.html", swap_cat_blocks)
@@ -218,6 +406,26 @@ def main() -> int:
                 {"proposal_title": "問い合わせ 6 件のうちハブ経由 4 件 → ハブの並びを変える", "changes": [hub()]}, False, "proposal_title")
         edit(repo, "knowledge.html", swap_cat_blocks)
         c.guard("公開欄（before／after）に問い合わせの件数", {"changes": [hub(before="問い合わせ 6 件", after="リード数 9")]}, False, "after に問い合わせの件数")
+        #   ブリーフ自身の言い回し（括弧・「前→後」が挟まる形・数字が先の形・語彙）。どれも以前は素通しした。数字はどれも合成（実データではない）
+        leaks = [("rationale", "S2 の遷移 40。問い合わせ（generate_lead）は 28 日で 3 件、うちハブ着地は 1 件"),
+                 ("kpi", "フォーム送信が 28 日で 3 件 → 5 件"), ("hypothesis", "3 件の問い合わせが 5 件に増える"),
+                 ("measure", "リード前 1 → 後 3 を 14 日後に確かめる"), ("summary", "CV 3 件のページを先頭へ")]
+        for k, v in leaks:
+            edit(repo, "knowledge.html", swap_cat_blocks)
+            c.guard(f"公開欄（{k}）に問い合わせの件数: {v[:24]}…", {"changes": [hub(**{k: v})]}, False, f"{k} に問い合わせの件数")
+        edit(repo, "knowledge.html", swap_cat_blocks)
+        c.guard("公開欄（summary_lines）に「着地リード 前→後 は 2→0」", {"summary_lines": ["着地リード 前→後 は 2→0 のページを先頭へ"], "changes": [hub()]},
+                False, "summary_lines: 問い合わせの件数")
+        edit(repo, "knowledge.html", swap_cat_blocks)
+        c.guard("件数でない数字（日付・遷移・リードタイム）は止めない",
+                {"summary_lines": ["効果は 14 日後・28 日後の CTR と着地リードで見る"],
+                 "changes": [hub(kpi="ハブ → コラムの遷移と、GA4 の着地→generate_lead", measure="着地リードを 14 日後・28 日後に見る",
+                                 summary="連系のリードタイム 18→12 か月の説明があるカテゴリを先に")]}, True, ref="selftest-quiet")
+        #   週次プロファイルでも同じ検査（構成の変更の差し戻しの根拠は「着地リード 前→後」の表＝週次の公開欄に写りやすい）
+        edit(repo, "column-auction.html", lambda s: s.replace("</body>", '<p><a href="/projects">販売中の案件一覧</a></p>\n</body>', 1))
+        rb = entry(["column-auction.html"], ["/column-auction"], "rollback", rationale="構成の変更が worse。着地リード 9→0・問い合わせ 9 件が 0 件に")
+        c.guard("週次: 差し戻しの根拠に問い合わせの件数を書いた", {"summary_lines": ["着地リード 9→0 の変更を戻した"], "changes": [rb]}, False,
+                ("summary_lines: 問い合わせの件数", "rationale に問い合わせの件数"), profile="weekly")
         # 提案なし（changes: []）なのに焼き直しの差分だけが残っている → 中身のない PR を出さない
         edit(repo, "knowledge.html", lambda s: s.replace(' is-new"', '"', 1).replace('<span class="new">NEW</span>', "", 1))
         c.guard("マニフェスト 0 件なのに差分（焼き直しだけ）", {"changes": [], "no_change_reason": "根拠が弱い"}, False, "changes が 0 件なのに差分がある")
@@ -235,6 +443,25 @@ def main() -> int:
                 False, "pages は URL パス", profile="weekly")
         edit(repo, "column-auction.html", link)
         c.guard("週次: pages があれば通す", {"changes": [weekly_entry(["column-auction.html"], ["/column-auction"])]}, True, profile="weekly")
+
+        # ---- 週次プロファイル: コラムは書かない（2026-09-20 中島）。新規ファイル 0・class=new-column は無い
+        def new_column(name="column-selftest.html"):   # 既存コラムを写した「骨格は完璧な新コラム」でも止まること
+            (repo / name).write_text((repo / "column-trading.html").read_text(encoding="utf-8").replace("/column-trading", "/" + name[:-5]), encoding="utf-8")
+        new_column()
+        c.guard("週次: 新規 HTML を 1 本足したら止める（class=body で申告しても）",
+                {"changes": [weekly_entry(["column-selftest.html"], ["/column-selftest"], "body")]}, False,
+                "新しいページは自動では作らない（コラムは中島さんが書く）", profile="weekly")
+        new_column("en/column-selftest.html")
+        c.guard("週次: EN の新規翻訳（新しいファイル）も止める",
+                {"changes": [weekly_entry(["en/column-selftest.html"], ["/en/column-selftest"], "body")]}, False,
+                "新規ファイル en/column-selftest.html", profile="weekly")
+        edit(repo, "column-auction.html", link)
+        c.guard("週次: class=new-column のマニフェストは止める（ファイルは既存でも）",
+                {"changes": [weekly_entry(["column-auction.html"], ["/column-auction"], "new-column")]}, False,
+                "class=new-column は使えない", profile="weekly")
+        edit(repo, "knowledge.html", add_card_for_existing)
+        c.guard("週次: 人が足したコラムの育成（ハブにカードを足す）は今までどおり通す",
+                {"changes": [dict(weekly_entry(["knowledge.html"], ["/column-auction"], "hub"))]}, True, profile="weekly")
 
         # ---- title は最初の 1 つだけ読む（本文のインライン SVG の <title id="fig…"> を連結しない）
         grid_title = re.search(r"<title>(.*?)</title>", (repo / "column-grid.html").read_text(encoding="utf-8"), re.S).group(1)
@@ -377,6 +604,14 @@ def main() -> int:
         results.append(("/knowledge" not in cs and "/" not in cs and "/column-auction" in cs and "/knowledge" in cw,
                         "9 節: 台帳の title・new-column のエントリでは、構成レビュー用のハブ・トップは凍結しない（ハブ以外のページと週次用は凍結）",
                         "凍結", f"structure={[p for p in cs if p in hubtop]} weekly={[p for p in cw if p in hubtop]}"))
+        # 週次が構成の変更を差し戻した（class=rollback・source=auto・pages は元の変更と同じ）直後は、そのハブ・トップを凍結する
+        ledger_rows([led_row("s-old-hub", "hub-order", ["/knowledge"], source="structure", days_ago=28),
+                     led_row("w-rollback", "rollback", ["/knowledge"], days_ago=7),
+                     led_row("w-rollback-today", "rollback", ["/en/knowledge"], days_ago=0)])
+        cs = cooldown(True)
+        results.append(([p for p in cs if p in hubtop] == ["/en/knowledge", "/knowledge"],
+                        "9 節: 週次が差し戻した（class=rollback）ハブは、構成レビュー用のブリーフでも 14 日凍結する（7 日前・同じ朝）",
+                        "凍結", f"structure={[p for p in cs if p in hubtop]}"))
         ledger_rows([led_row("w-hub", "hub", ["/knowledge"], source="manual"),
                      led_row("s-cta", "cta-route", ["/", "/column-grid"], source="structure"),
                      led_row("s-top", "top-order", ["/en"], source="structure"),

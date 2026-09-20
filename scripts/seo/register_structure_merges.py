@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""月1回の構成レビューの提案（PR）がマージされたら、変更台帳（ledger/changes.jsonl）へ記帳する。
+"""月1回の構成レビューのうち **PR の経路**（ナビ＝header.js を含む回）の提案がマージされたら、変更台帳（ledger/changes.jsonl）へ記帳する。
+ナビを含まない回は検査を通れば自動で公開され、その場で weekly_run.sh が変更台帳へ記帳する（record_changes.py --source structure。
+2026-09-20〜）＝ここは通らない。
 
     python3 scripts/seo/register_structure_merges.py         # 記帳する（collect_daily.py が毎朝、効果測定の前に呼ぶ）
     python3 scripts/seo/register_structure_merges.py --dry   # 書かずに一覧
@@ -105,6 +107,9 @@ def run(dry: bool = False) -> list:
                  "rationale": p.get("rationale"), "hypothesis": p.get("hypothesis"), "kpi": p.get("kpi"),
                  "measure": p.get("measure"), "before": p.get("before") or {}, "proposed_on": p.get("date"),
                  "check_days": [14, 28], "measured": {}}
+            for k in ("private_note", "kpi_pages"):   # 自動公開の回の記帳（record_changes.ledger_records）と同じ欄を残す
+                if p.get(k):
+                    e[k] = p[k]
             if p.get("pr"):
                 e["pr"] = p["pr"]
             if p.get("class") == "nav":

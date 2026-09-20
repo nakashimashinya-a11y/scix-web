@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """月1回の構成レビュー（第1日曜・weekly_run.sh の MODE=structure）の共通部品。
+構成レビューは検査を通れば自動で公開する（2026-09-20〜。変更台帳に source=structure）。ナビ（header.js）を含む回だけ PR。
 
-  build_brief.py --structure   … ブリーフに S1〜S8 節を足す（ナビ・遷移の太さ・コラムの送客・セッション0・孤立・カテゴリ・トップの節・過去の提案）
+  build_brief.py --structure   … ブリーフに S1〜S8 節を足す（ナビ・遷移の太さ・コラムの送客・セッション0・孤立・カテゴリ・トップの節・過去の変更と提案）
   guard_diff.py --profile structure … ナビ配列の変更を見つけ、「ナビの組み替えは90日に1回まで」を台帳と git で照合する
-  register_structure_merges.py … 提案 PR（ledger/proposals.jsonl）がマージされたら変更台帳へ記帳する
+  register_structure_merges.py … PR の経路の提案（ledger/proposals.jsonl）がマージされたら変更台帳へ記帳する
 
 どれも台帳（GSC・GA4・健診・変更台帳）と git（origin/main）だけで決定論に作る。追加 API なし。
 サイトの現物（ハブのカテゴリ・トップの節・ナビ）は作業ツリーではなく git の ref（既定 origin/main）から読む。
@@ -222,12 +223,15 @@ def proposals() -> list:
 HUB_TOP_FILES = {"knowledge.html": "/knowledge", "en/knowledge.html": "/en/knowledge", "zh-knowledge.html": "/zh-knowledge",
                  "index.html": "/", "en/index.html": "/en", "zh.html": "/zh"}
 HUB_TOP_PAGES = frozenset(HUB_TOP_FILES.values())
-FREEZE_CLASSES = ("hub", "hub-order", "top-order", "nav")   # 週次の hub と、構成レビューの hub-order／top-order／nav
+# 週次の hub・rollback と、構成レビューの hub-order／top-order／nav。rollback＝週次が構成の変更を差し戻したとき（source=auto・
+# pages は元の変更と同じ）。これを数えないと、差し戻しの 7 日後（同じ朝のこともある）に構成レビューが同じハブをまた並べ替え、
+# 「同じページを 14 日以内に 2 度変えない」が破れて、差し戻しの前後比較に別の変更が混ざる
+FREEZE_CLASSES = ("hub", "hub-order", "top-order", "nav", "rollback")
 
 
 def is_structure_entry(e: dict) -> bool:
-    """変更台帳のエントリが構成系か（ハブ・トップを凍結する変更か）。構成レビューの PR がマージされたもの
-    （source=structure。cta-route・funnel-block も含む）と、class が hub／hub-order／top-order／nav のもの。"""
+    """変更台帳のエントリが構成系か（ハブ・トップを凍結する変更か）。構成レビューが公開したもの（自動公開・PR のマージ。
+    source=structure。cta-route・funnel-block も含む）と、class が hub／hub-order／top-order／nav／rollback のもの。"""
     return e.get("class") in FREEZE_CLASSES or e.get("source") == "structure"
 
 
@@ -369,7 +373,8 @@ def data(ga_cur, ga_prev, pages28, landing, health, cwd=None) -> dict:
                                        if t in ("/contact", "/sell-form") and f in COMMERCIAL), key=lambda kv: -kv[1]),
             "top_feed": top_feed, "zero_feed": zero_feed, "n_columns": len(columns),
             "zero_sessions": zero_sessions, "orphans": orphans, "categories": cats, "top_sections": secs,
-            "nav_rule": nav_rule(cwd=cwd), "proposals": proposals()}
+            "nav_rule": nav_rule(cwd=cwd), "proposals": proposals(),
+            "published": [e for e in read_jsonl(CHANGES) if e.get("source") == "structure"]}
 
 
 
@@ -500,14 +505,27 @@ def render_sections(L: list, s: dict, lim: int = 20) -> None:
     L.append("")
 
     # S8
-    L.append("## S8. これまでの構成の提案\n")
+    L.append("## S8. これまでの構成の変更（自動公開）と提案（PR）\n")
+    pub = s.get("published") or []
+    if pub:
+        L.append("公開済みの構成の変更（変更台帳の source=structure。判定は 14 日後／28 日後の前後比較。着地と問い合わせの前後は 8 節の「構成の変更」の表）。"
+                 "**worse だった変更と同じ案は出さない**（差し戻しは週次がやる）。\n")
+        L.append("| 公開日 | id | 種別 | ページ | 要約 | 14日後 | 28日後 |\n|---|---|---|---|---|---|---|")
+        for e in sorted(pub, key=lambda x: x.get("date", ""), reverse=True)[:20]:
+            m = e.get("measured") or {}
+            L.append(f"| {e.get('date')} | {e.get('id')} | {e.get('class', '')} | {' '.join((e.get('pages') or [])[:5])} | "
+                     f"{(e.get('summary') or '')[:80]} | {(m.get('14') or {}).get('verdict', '未')} | {(m.get('28') or {}).get('verdict', '未')} |")
+        L.append("")
+    else:
+        L.append("公開済みの構成の変更はまだ無い。\n")
+    L.append("PR の経路（ナビを含む回）の提案:\n")
     pr = s["proposals"]
     if pr:
         L.append("| 提案日 | id | 状態 | PR | 種別 | ページ | 要約 |\n|---|---|---|---|---|---|---|")
         for e in sorted(pr, key=lambda x: x.get("date", ""), reverse=True)[:20]:
             L.append(f"| {e.get('date')} | {e.get('id')} | {e.get('status')} | {('#' + str(e['pr'])) if e.get('pr') else e.get('branch', '')} | "
                      f"{e.get('class', '')} | {' '.join((e.get('pages') or [])[:5])} | {(e.get('summary') or '')[:80]} |")
-        L.append("\nproposed＝PR が開いたまま（同じ提案を重ねない）。merged＝公開済み（効果は 8 節の変更台帳）。"
+        L.append("\nproposed＝PR が開いたまま（同じ提案を重ねない）。merged＝公開済み（上の表と 8 節の変更台帳に出る）。"
                  "expired＝60日マージされなかった（不採用とみなす。同じ案を出すなら根拠の数字が変わっていること）。")
     else:
         L.append("まだ無い。")
