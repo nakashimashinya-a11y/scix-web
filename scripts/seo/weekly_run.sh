@@ -469,12 +469,24 @@ record_ledger auto || LEDGER_NOTE="
 ⚠️ 台帳の記帳に失敗＝まだ効果測定の対象になっていない（明朝の収集 register_auto_commits.py が拾い直す）"
 
 # 8. 本番反映を待って IndexNow（Action も送るが、ここでも送って二重化。Bing は重複を受け付ける）
+#   反映の判定は「変えたページの本番の中身が、今 push した版と同じか」（GitHub Action と同じ方式）。
+#   2026-09-20 まで sitemap の今日の lastmod を `curl | grep -q` で見ていたが、pipefail の下では grep -q が先に
+#   閉じて curl が rc≠0 になり、反映済みでも毎回10分空振りしていた。しかも今日の lastmod は毎朝の案件一覧の
+#   同期でも立つので、判定としても当てにならなかった。
 DEPLOYED=0
-for i in $(seq 1 30); do
-  sleep 20
-  if curl -fsS -H 'Cache-Control: no-cache' https://www.scix.co.jp/sitemap.xml 2>/dev/null | grep -q "<lastmod>$TODAY</lastmod>"; then DEPLOYED=1; break; fi
-done
-[ "$DEPLOYED" = "1" ] && log "本番に反映を確認" || log "本番反映を10分待ったが sitemap に今日の lastmod が見えない（Action 側の送信に任せる）"
+FIRST_HTML="$(printf '%s\n' "$HTML_CHANGED" | sed -n '1p')"
+if [ -n "$FIRST_HTML" ]; then
+  CHECK_URL="$(python3 -c 'import sys; sys.path.insert(0, "scripts/seo"); from common import file_to_url; print(file_to_url(sys.argv[1]) or "")' "$FIRST_HTML" 2>/dev/null || true)"
+  WANT_SUM="$(git show "HEAD:$FIRST_HTML" 2>/dev/null | cksum | awk '{print $1":"$2}')"
+  if [ -n "$CHECK_URL" ] && [ -n "$WANT_SUM" ]; then
+    for i in $(seq 1 30); do
+      sleep 20
+      GOT_SUM="$( (curl -fsS -H 'Cache-Control: no-cache' "$CHECK_URL" 2>/dev/null || true) | cksum | awk '{print $1":"$2}')"
+      if [ "$GOT_SUM" = "$WANT_SUM" ]; then DEPLOYED=1; break; fi
+    done
+  fi
+fi
+[ "$DEPLOYED" = "1" ] && log "本番に反映を確認（$FIRST_HTML）" || log "本番反映を10分待ったが確認できない（${FIRST_HTML:-変えた HTML なし}。Action 側の送信に任せる）"
 python3 scripts/ping_indexnow.py --changed-since "$BASE_SHA" >>"$RUN_DIR/collect.log" 2>&1 || log "IndexNow 送信失敗"
 
 # 9. 通知（3行＋コミット）
