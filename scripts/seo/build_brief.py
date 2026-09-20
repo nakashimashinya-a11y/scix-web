@@ -128,7 +128,7 @@ def cooldown_pages(structure=False):
                               cwd=REPO, capture_output=True, text=True).stdout.splitlines()
         for line in log_:
             sha, date, subj = line.split("\t", 2)
-            if subj.startswith("chore(projects)"):
+            if subj.startswith("chore("):   # chore(projects)=毎朝の同期、chore(copy)=表現の一括直し。どちらも内容の変更ではない
                 continue
             files = subprocess.run(["git", "show", "--name-only", "--format=", sha], cwd=REPO,
                                    capture_output=True, text=True).stdout.split()
