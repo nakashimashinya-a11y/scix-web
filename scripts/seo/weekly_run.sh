@@ -115,20 +115,24 @@ i=ideas[0] if ideas else None
 print(("✍️ 今週書くなら: "+str(i.get("title",""))+"（"+str(i.get("for",""))+"向け・"+("3言語" if str(i.get("langs"))=="3" else "JA")+"）— "+str(i.get("why",""))) if i else "✍️ 今週の主題提案: なし")' 2>/dev/null || echo "✍️ 今週の主題提案: 取得失敗"
 }
 
-# 本文の時点が古いページ（ブリーフ 11 節＝brief.json の stale_pages）。中島決定 2026-09-22（選択肢①）:
-#   週次の Claude は外に出られないので時点更新は自動でやらず、先頭の 1 本と本数を 1 行で知らせる。更新は CC の作業セッションで。
-stale_line() {
+# アクセスが減ったページ（ブリーフ 11 節＝brief.json の access_drops）。中島決定 2026-09-22:
+#   トリガーはアクセス減。週次の Claude は外に出られないので本文の時点更新は自動でやらず、先頭の 1 本（原因の型・本文の時点つき）と本数を
+#   1 行で知らせる。時点更新は CC の作業セッションで。
+drop_line() {
   python3 - "$RUN_DIR/brief.json" <<'PY' 2>/dev/null || true
 import json, sys
 try:
-    rows = json.load(open(sys.argv[1])).get("stale_pages") or []
+    rows = json.load(open(sys.argv[1])).get("access_drops") or []
 except Exception:
     rows = []
 if rows:
     r = rows[0]
+    f = lambda x: "-" if x is None else "%.1f" % x
+    asof = ("%s＝%s日前" % (r.get("expr"), r.get("age_days"))) if r.get("expr") else "時点表現なし"
     more = " ほか%d本" % (len(rows) - 1) if len(rows) > 1 else ""
-    print("🕰 本文の時点が古い: %s（%s・%s日前・28日%sクリック）%s → CC の作業セッションで一次資料を当てて更新（週次は触らない）"
-          % (r.get("page"), r.get("expr"), r.get("age_days"), r.get("clicks28"), more))
+    print("📉 アクセスが減った: %s（28日 %s→%s・%+d%%・%s %s→%s位・%s）%s → %s。時点更新は CC の作業セッションで（週次は title・description まで）"
+          % (r.get("page"), r.get("clicks_prev"), r.get("clicks_cur"), r.get("pct") or 0, r.get("judge"),
+             f(r.get("pos_prev")), f(r.get("pos_cur")), asof, more, r.get("next")))
 PY
 }
 
@@ -509,7 +513,7 @@ python3 scripts/ping_indexnow.py --changed-since "$BASE_SHA" >>"$RUN_DIR/collect
 
 # 9. 通知（3行＋コミット）
 LINES="$(mj 'print("\n".join("・"+l for l in j.get("summary_lines",[])[:3]))')"
-STALE="$(stale_line)"
+STALE="$(drop_line)"
 notify "🌐 scix.co.jp 週次自動更新 ${TODAY}（公開済み）
 $LINES
 $(idea_line)${STALE:+
