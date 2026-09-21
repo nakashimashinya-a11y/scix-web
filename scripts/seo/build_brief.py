@@ -617,6 +617,13 @@ def render(days=28, for_latest=False, structure=False):
     except Exception as e:  # noqa: BLE001 — ここが落ちてもブリーフの他の節は出す
         L.append(f"## 10. 新規ページ（公開{NEW_DAYS}日以内）の立ち上がり\n\n生成に失敗: {e}\n")
 
+    # 11. 本文の時点が古いページ（2026-09-22 中島決定①: 週次は直さず 1 行で知らせ、更新は CC の作業セッションで一次資料を当てる）
+    try:
+        import stale_pages as sp
+        sp.render(L, sp.scan(clicks={pg: v.get("clicks", 0) for pg, v in pages.items()}), limit=(10 if for_latest else 30))
+    except Exception as e:  # noqa: BLE001 — ここが落ちてもブリーフの他の節は出す
+        L.append(f"## 11. 本文の時点が古いページ\n\n生成に失敗: {e}\n")
+
     # S1〜S8. 構成レビュー（月1回・--structure のときだけ）
     if structure:
         try:
@@ -644,6 +651,11 @@ def brief_json(days=28, structure=False):
            "pages": pages, "landing": landing,
            "cooldown": {k: v[0] for k, v in cooldown_pages(structure=structure).items()},
            "new_pages": new_rows, "zero_impression": zero_rows}
+    try:
+        import stale_pages as sp
+        out["stale_pages"] = sp.scan(clicks={pg: v.get("clicks", 0) for pg, v in pages.items()})
+    except Exception:  # noqa: BLE001
+        out["stale_pages"] = []
     try:
         out["structure_changes"] = structure_change_rows(
             [e for e in read_jsonl(LEDGER / "ledger" / "changes.jsonl")
