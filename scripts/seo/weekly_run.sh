@@ -65,7 +65,7 @@ if [ "$MODE" = "structure" ]; then                 # 同じ日の週次の成果
 fi
 BASE_REF="${SCIX_WEB_BASE_REF:-origin/main}"       # 試験のときだけ別ブランチを指定できる
 LOCK="$STATE/web_weekly.lock"                      # 週次と構成レビューで共用（同じリポジトリの worktree と fetch を同時に触らせない）
-TG_TARGET="8811825170"
+TG_TARGET="${SCIX_TG_TARGET:-$(cat "$HOME/.config/scix-web/tg_target" 2>/dev/null || true)}"  # 宛先はリポジトリの外から（公開リポジトリに個人の宛先を書かない）
 
 log() { echo "$(date '+%F %T') $*"; }
 # 月の第1日曜か（launchd は日曜にしか起こさないが、手で回した日にも続けて走らないよう曜日も見る）
@@ -88,6 +88,10 @@ if [ "$MODE" = "weekly" ] && [ "${SCIX_WEB_CHILD:-0}" != "1" ]; then
   exit $WEEKLY_RC
 fi
 notify() {
+  # 2026-09-21 中島指示「リストを人間に出すだけじゃだめ」。出してよいのは
+  #   ①公開した（取り消し方つき）②今日動かないと損が出る、の2つだけ。
+  #   失敗・変化なしの報告はログに残す（朝ルーチンが bundle ⑦ で読む）。
+  if [ -z "$TG_TARGET" ]; then log "Telegram 宛先が未設定（SCIX_TG_TARGET）。送らずに続ける"; return 0; fi
   openclaw message send --channel telegram --target "$TG_TARGET" --message "$1" >/dev/null 2>&1 \
     || log "Telegram 送信失敗（本文: ${1:0:120}）"
 }
@@ -100,7 +104,7 @@ cleanup() {
 }
 fail() {
   log "NG $*"
-  notify "🌐 scix.co.jp $LABEL $TODAY: 失敗（$*）。公開はしていない。ログ: $RUN_DIR"
+  log "失敗のため公開していない。朝ルーチンが bundle ⑦ でこのログを読む（Telegram には出さない）"
   cleanup; exit 1
 }
 mj() { python3 -c "import json,sys; j=json.load(open(sys.argv[1])); exec(sys.argv[2])" "$RUN_DIR/changes.json" "$1"; }
@@ -255,7 +259,6 @@ run_structure() {
       log "マニフェストは 0 件。作業ツリーに残っている差分は焼き直しだけ＝公開も PR もしない: $(git status --porcelain --untracked-files=all | head -5 | tr '\n' ' ')"
     fi
     log "今月は構成の変更なし: $REASON"
-    notify "🧭 scix.co.jp 構成レビュー $MONTH: 今月は変更なし。$REASON"
     cleanup; exit 0
   fi
 
@@ -428,9 +431,7 @@ cd "$WT" || fail "作業ツリーへ移動できない"
 git reset -q 2>/dev/null   # Claude が git add していても、こちらで add し直す
 if ! git status --porcelain --untracked-files=all | grep -q . ; then
   REASON="$(mj 'print(j.get("no_change_reason") or "理由の記載なし")' 2>/dev/null)"
-  log "今週は変更なし: $REASON"
-  notify "🌐 scix.co.jp 週次自動更新 $TODAY: 今週は変更なし。$REASON
-$(idea_line)"
+  log "今週は変更なし: $REASON / $(idea_line)"
   cleanup; exit 0
 fi
 
