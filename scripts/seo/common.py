@@ -35,7 +35,19 @@ GSC_SITE = "sc-domain:scix.co.jp"
 GA4_PROPERTY = "532483329"
 HOST = "www.scix.co.jp"
 BASE = f"https://{HOST}"
-TG_TARGET = "8811825170"
+def _tg_target() -> str:
+    """宛先はリポジトリの外から取る（公開リポジトリに個人の宛先を書かない）。"""
+    v = os.environ.get("SCIX_TG_TARGET")
+    if v:
+        return v.strip()
+    try:
+        with open(os.path.expanduser("~/.config/scix-web/tg_target"), encoding="utf-8") as f:
+            return f.read().strip()
+    except OSError:
+        return ""
+
+
+TG_TARGET = _tg_target()
 UA = "scix-web-metrics/1.0 (+https://www.scix.co.jp/company)"
 
 # 収益ページ（問い合わせに直結する着地・遷移先）。優先順位は 買い手 ≧ 投資家 ＞ 土地。
@@ -234,6 +246,9 @@ def ga4_report(g: Google, start, end, dims, mets, dim_filter=None, limit=100000,
 
 def tg_send(msg: str) -> bool:
     """Telegram（中島さん宛）。rc を必ず見る。--target/--message が正しいフラグ（--to/--text は無い）。"""
+    if not TG_TARGET:
+        log("Telegram 宛先が未設定（SCIX_TG_TARGET）。送らずに続ける: %s" % msg[:80])
+        return False
     try:
         r = subprocess.run(["openclaw", "message", "send", "--channel", "telegram",
                             "--target", TG_TARGET, "--message", msg],
