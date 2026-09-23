@@ -185,7 +185,7 @@ def main() -> int:
     text = build_brief.render()
     check("ブリーフに 8 節の要手当てと 10 節", ("**要手当て" in text, "## 10. 新規ページ" in text, "### 10b." in text), (True, True, True))
     check("8 節: worse の構成の変更が表に出る（＝翌週の週次で差し戻し候補）",
-          "| structure-test-1 | hub-order | /hub-x | ハブの並び | worse（140→42, CTR 10.0%→3.0%, lead 7→0） | worse（140→42, CTR 10.0%→3.0%, lead 7→0） |" in text, True)
+          f"| structure-test-1 | hub-order | /hub-x | {STRUCT_COMMIT[:10]} | ハブの並び | worse（140→42, CTR 10.0%→3.0%, lead 7→0） | worse（140→42, CTR 10.0%→3.0%, lead 7→0） |" in text, True)
     check("8 節の「構成の変更」の表: commit・着地セッション・着地リードの前後・判定",
           ("### 構成の変更（月1回の構成レビューが公開したもの" in text,
            f"| structure-test-1 | hub-order | /hub-x | {STRUCT_COMMIT[:10]} | 112→56 | 7→0 | 42→14 | 28日後の判定の窓 | worse／worse | **リード減・送客減** |" in text,
@@ -205,7 +205,7 @@ def main() -> int:
     check("brief.json の structure_changes（Drive にだけ置く）", (sc["structure-test-1"]["leads"], sc["structure-test-1"]["flags"], sc["structure-test-4"]["feed"],
                                                        sc["structure-test-4"]["kpi_pages"]), ([7, 0], ["リード減", "送客減"], [28, 0], ["/investors"]))
     check("8 節の表: 手で記帳した新設は立ち上がりの書式・自動記帳は件数だけ",
-          ("| new-column-new-b | new-column | /column-new-b | new-column-new-b | not-shown（表示 0・クリック 0） | not-shown（表示 0・クリック 0） |" in text,
+          ("| new-column-new-b | new-column | /column-new-b |  | new-column-new-b | not-shown（表示 0・クリック 0） | not-shown（表示 0・クリック 0） |" in text,
            "| new-column-new-a |" in text, "新規ページの自動記帳" in text), (True, False, True))
     keep = "--keep" in sys.argv or not ok
     print(("全部通った" if ok else "失敗あり") + (f"（合成台帳を残した: {TMP}）" if keep else ""))

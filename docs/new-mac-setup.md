@@ -1,6 +1,6 @@
 # scix-web 新Mac セットアップ手順
 
-最終更新: 2026-06-21
+最終更新: 2026-09-23
 対象: コーポレートサイト `scix-web`（静的HTML・ビルド工程なし・Vercelデプロイ）
 
 > cockpit環境（OpenClaw / D1 / CRM / トークン類）の移行は別手順書を参照。本書は **scix-web のサイト編集を新Macで再開する**ためだけのもの。
@@ -88,6 +88,14 @@ vercel --prod    # 本番反映
   python3 scripts/ping_indexnow.py https://www.scix.co.jp/更新したページ
   # 引数なしで sitemap.xml の全URLを送信
   ```
+- **週次の自動更新（`scripts/seo/weekly_run.sh`）を動かす Mac だけ: リポジトリの外に 2 つのファイルを置く**（公開リポジトリに置けないもの。サイトの手の編集には要らない）
+  - `~/.config/scix-web/tg_target` — Telegram の宛先（無いと通知を送らずに続ける）
+  - `~/.config/scix-web/private_banned.tsv` — 非公開の禁止語の一覧（公開前の検査 `scripts/seo/guard_diff.py` が読む。1 行＝正規表現<TAB>規則ID。**無い・読めないと毎週「読めないので止める」で自動公開されない**。止まった知らせはログにだけ出る）
+  - どちらも clone では戻らない。旧 Mac から `~/.config/scix-web/` ごと rsync で移す（OpenClaw 側の移行手順 `MIGRATION_new_mac.md` の §2 #11 `~/.config/scix-web/`。中身はこの公開リポジトリには書かない）。移したら `chmod 700 ~/.config/scix-web && chmod 600 ~/.config/scix-web/*`
+  - 置いたら、一覧が読めることを確かめる（語も式も出さず、式の数だけ出る）:
+    ```zsh
+    python3 -c "import sys; sys.path.insert(0, 'scripts/seo'); import guard_diff as g; p, _, e = g.load_private_banned(); print(len(p), e or 'OK')"
+    ```
 
 ---
 
