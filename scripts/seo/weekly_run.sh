@@ -51,6 +51,7 @@ REPO="${SCIX_WEB_REPO:-$HOME/projects/scix-web}"
 LEDGER="${SCIX_WEB_LEDGER:-$HOME/マイドライブ/9_システム/scix-web解析}"
 STATE="${SCIX_WEB_STATE:-$HOME/.openclaw/workspace/state}"
 MODEL="${SCIX_WEB_MODEL:-claude-opus-5-5}"        # 判断の質に効く所は Opus（2026-09-23〜 Opus 5.5）。Fable は同じ仕事に枠5倍（2026-09-17 実測）
+EFFORT="${SCIX_WEB_EFFORT:-max}"                   # 思考の強さ（2026-09-24〜 判断の係は max）
 MAX_TURNS="${SCIX_WEB_MAX_TURNS:-250}"
 TIMEOUT_SEC="${SCIX_WEB_TIMEOUT:-5400}"
 DRY_RUN="${DRY_RUN:-0}"
@@ -151,9 +152,9 @@ PY
 run_claude() {  # $1=ユーザープロンプト  $2=システムプロンプトのファイル（作業ツリーの中）
   export CLAUDE_CONFIG_DIR="$CC_DIR"
   unset CLAUDE_CODE_OAUTH_TOKEN
-  log "Claude 開始 model=$MODEL turns<=$MAX_TURNS timeout=${TIMEOUT_SEC}s"
+  log "Claude 開始 model=$MODEL effort=$EFFORT turns<=$MAX_TURNS timeout=${TIMEOUT_SEC}s"
   ( cd "$WT" && perl -e 'alarm shift; exec @ARGV' "$TIMEOUT_SEC" \
-      claude -p "$1" --model "$MODEL" \
+      claude -p "$1" --model "$MODEL" --effort "$EFFORT" \
         --append-system-prompt-file "$2" \
         --permission-mode acceptEdits --strict-mcp-config \
         --allowedTools "Read" "Edit" "Write" "MultiEdit" "Glob" "Grep" "LS" "TodoWrite" \
