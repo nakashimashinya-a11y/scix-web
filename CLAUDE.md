@@ -23,12 +23,13 @@
 - 立場は「案件を仕入れて、売る会社」で全ページ揃え、「中立」「neutral」「independent」を自称せず、「メーカー・EPCと資本関係がない」と事実で書く `O16-10`
 - LDA（長期脱炭素電源オークション）落札案件の売却・名義変更は、記事も導線も主題の提案も作らない（対象外と書く1文は除く） `O16-13`
 - /fund を noindex にも sitemap 除外にもせず、提案もしない（中島さんが明示で決める） `O16-15`
+- コラムから /fund へ導線を張らない `O16-67`
 - サイトの文章は AI の紋切り調にしない。既存コラム2〜3本を読み、です・ます＋短い断言・場面から入る声に合わせる `O16-54`
 
 **★ 参考**
 
 - /investors は残し（301 しない）、zh.html の収益モデルの数字は触らない `O16-11`
-- 買い手・投資家が主題のコラムは3言語で出し、日本の制度・税務・土地の実務の話は JA 専用にする `O16-53`
+- 買い手・投資家が主題のコラムは3言語で出し、日本の制度・税務・土地の実務の話は JA 専用にする。英語・中文のページには証券化（GK-TK）を載せない `O16-53`
   - JA 専用は `header.js` の `JA_ONLY_COLUMNS` に登録し、sitemap は hreflang ja 1本。JA 先行で出して後から EN/ZH を足したら `JA_ONLY_COLUMNS` から外す
 - 一度やめた施策（gBizINFO への登録・Microsoft Clarity の導入）は再提案しない `O16-59`
 
@@ -43,7 +44,7 @@
 
 **★ 参考**
 
-- 作業セッションで直した scix-web は main に入れて公開まで通し、反映の可否を毎回訊かない `O17-30`
+- 作業セッションで直した scix-web は main へ直接 push せず、PR を出してマージまで通し、反映の可否を毎回訊かない（O02-5） `O17-30`
 - ナビの組み替えは、手の変更も含めて90日に1回までにする `O16-26`
 
 **手順**
@@ -132,7 +133,7 @@ DR2 の置き場は3か所ある。混同しない（同じ名前のフォルダ
   5. 作業フォルダ（`マイドライブ/1_案件/{案件ID}_{案件名}/`）の `_必要書類チェックリスト.md` を更新する（✅/⚠️/⬜/➖ の判定を最新化）。
   6. DR2 アプリの案件一覧に載せる（Drive フォルダを作っただけでは出ない）。「DR2登録」は ①案件フォルダ（Drive）と ②案件レコード（DR2アプリ）の2段構え。**①だけで終わらせない** `O07-11`
      - 新規案件のレコードは D1 `dealroom2_new_projects` に入れる。`data/projects-source.json` は既存案件用で、新規をここに書いても増えない
-     - 仕入れ値と既存案件の手直し（インライン編集）も D1 側に入れる（既存案件への上書きは `deal_edits`）。再デプロイは要らない。既存案件の表示を直す前に `projects-source.json` と `deal_edits` の両方を見て、効いている側を直す `O17-34`
+     - 仕入れ値と既存案件の手直し（インライン編集）も D1 側に入れる（既存案件への上書きは `deal_edits`）。再デプロイは要らない。既存案件の表示を直すときは 1AI営業支援/scix/scix-dealroom2/CLAUDE.md の O17-34 に従う
      - `dr2_register.py add`（上の2）を使わないときの投入経路は2つだけ: owner 画面の「+ 新規案件」か、SQL を生成して wrangler で流す（`scix-dealroom2/` 直下で `npx wrangler d1 execute scix-dealroom-db --remote --file=dr2-<ID>-insert.sql`。`scripts/04_update_d1_drivefolderurl.py` と同じ流儀）。無人（フック・cron・エージェント）で流すときは `npx wrangler` でなくラッパー wr（`~/.config/scix-cockpit/wr d1 execute …`）を通す（共通ルール O17-7）
      - `dealroom2_new_projects` が受け付ける列は限られる（`functions/api/admin/projects.ts` の `ALLOWED`）: `id` / `no` / `name` / `address` / `lat` / `lng` / `voltage` / `mw` / `capacity` / `maxPower` / `gridOperator` / `saleType` / `status` / `landType` / `landArea` / `connectionDate` / `operationStartDate` / `price`。数値として入れるのは `lat` / `lng` / `mw` / `capacity` / `maxPower`（と採番の整数 `no`）だけで、残りは `price` も含めて文字列（SQL を生成して渡すときも同じ）。**書く前に `ALLOWED` を見る。** これ以外（`seller`・`constructionCost`・`constructionNote`・`driveFolderUrl`・機器仕様など）は `deal_edits` に UPSERT、社内メモは `memos` テーブルに入れる
      - `deal_edits` はホワイトリスト制。`functions/api/projects.ts` の `OVERLAY_STRING_FIELDS` / `OVERLAY_NUMERIC_FIELDS` に無いフィールド名で入れてもエラーにならず画面に出ないだけ（行はDBに残るので気づけない）。**書く前に必ずこの2配列を見る**（蓄電池は `battery` ではなく `equipmentBattery`、PCSは `equipmentPcs`） `O17-12`

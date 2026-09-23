@@ -45,9 +45,15 @@ if scenario == "structure":      # ハブのカテゴリ順を入れ替える（
     man = {"proposal_title": "selftest: ハブのカテゴリ順を流入の多い順に", "summary_lines": ["selftest: ハブのカテゴリ順を入れ替えた"],
            "changes": [ss.entry(["knowledge.html"], ["/knowledge"], "hub-order", kpi_pages=["/projects"], private_note="selftest の非公開メモ")]}
 else:                            # 週次: コラムの末尾に内部リンクを 1 本
-    p = pathlib.Path("column-auction.html")
+    # 14 日以内に触ったページは検査が止める（O16-37）。複製は本物の履歴を持つ＝日によって凍結が変わるので、凍結していないコラムを選ぶ
+    import build_brief as bb
+    bb.REPO = pathlib.Path.cwd()
+    frozen = bb.cooldown_pages()
+    cands = [pathlib.Path("column-auction.html")] + [f for g in ("column-*.html", "en/column-*.html", "zh-column-*.html")
+                                                     for f in sorted(pathlib.Path(".").glob(g))]
+    p = next(f for f in cands if "/" + str(f)[:-5] not in frozen)
     p.write_text(p.read_text(encoding="utf-8").replace("</body>", '<p><a href="/projects">販売中の案件一覧</a></p>\n</body>', 1), encoding="utf-8")
-    e = ss.entry(["column-auction.html"], ["/column-auction"], "internal-link", summary="selftest: /projects への内部リンク"); e.pop("measure")
+    e = ss.entry([str(p)], ["/" + str(p)[:-5]], "internal-link", summary="selftest: /projects への内部リンク"); e.pop("measure")
     man = {"summary_lines": ["selftest: コラムに /projects への内部リンク"], "column_ideas": [], "changes": [e]}
 out.write_text(json.dumps(man, ensure_ascii=False), encoding="utf-8")
 if os.environ.get("STUB_ADVANCE_MAIN") == "1":   # Claude の作業中に main が進んだ（毎朝の案件一覧の同期など）＝push の前に載せ直しになる
@@ -117,7 +123,11 @@ def main() -> int:
             p = bin_ / name
             p.write_text(body, encoding="utf-8")
             p.chmod(p.stat().st_mode | stat.S_IXUSR)
+        # 非公開の禁止語（O16-7・O16-12）の一覧は本物の HOME（~/.config/scix-web）にある＝一時 HOME には無い。
+        # 検査は一覧が無いと止めるので、合成の一覧を SCIX_WEB_PRIVATE_BANNED で指す
+        (tmp / "private_banned.tsv").write_text("# 合成の一覧（selftest 専用）\nゼクシ(?:リアル|テスト)語\tSYN-1\n", encoding="utf-8")
         base_env = {"HOME": str(home), "PATH": f"{bin_}:/usr/bin:/bin:/usr/sbin:/sbin", "LANG": "en_US.UTF-8",
+                    "SCIX_WEB_PRIVATE_BANNED": str(tmp / "private_banned.tsv"),
                     "SCIX_WEB_REPO": str(repo), "SCIX_WEB_LEDGER": str(ledger), "SCIX_WEB_STATE": str(state),
                     "SCIX_WEB_WT": str(tmp / "wt-weekly"), "SCIX_WEB_WT_STRUCTURE": str(tmp / "wt-structure"),
                     "NO_COLLECT": "1", "NO_STRUCTURE": "1", "STUB_HERE": str(HERE), "STUB_TMP": str(tmp),

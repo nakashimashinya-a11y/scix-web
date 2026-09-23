@@ -3,7 +3,8 @@
 週次の検査のうち「コラムは書かない＝新規ファイル 0・class=new-column は無い」（2026-09-20）もここで確かめる。
 人の目が入らない分の検査（2026-09-20 のレビューで再現した抜け）もここ: 閉じタグを置き去りにした節の移動・節の削除・削除だけの差分・
 ヒーローを消す CSS・noindex・既存コラムの本文の総入れ替え・ハブへの記事ぶんの書き足し・公開欄の問い合わせの件数（自然な言い回し・
-週次プロファイル）・pages に入れた送客先の収益ページ・週次が差し戻した直後のハブの凍結。
+週次プロファイル）・pages に入れた送客先の収益ページ・週次が差し戻した直後のハブの凍結・非公開の禁止語（O16-7・O16-12。
+合成の一覧を SCIX_WEB_PRIVATE_BANNED で指す＝止める理由に語も式も出さない・一覧が読めなければ止める）。
 公開の手順（2 コミット・差し戻しが衝突しない・記帳の失敗と拾い直し）は selftest_publish.py、効果測定とブリーフ 8 節は selftest_ramp.py。
 
     python3 scripts/seo/selftest_structure.py        # 0=全部通った（--keep で一時ディレクトリを残す）
@@ -53,25 +54,35 @@ def entry(files, pages, cls, **kw):
     return e
 
 
+# 非公開の禁止語（O16-7・O16-12）の合成の一覧。本物の語は公開リポジトリに置けない＝検査は ~/.config/scix-web/private_banned.tsv を
+# 読むが、selftest は SCIX_WEB_PRIVATE_BANNED でこの合成の一覧を指す（CI など本物の一覧が無い所でも同じ結果になる）
+SYN_BANNED = "# 合成の一覧（selftest 専用）\nゼクシ(?:リアル|テスト)語\tSYN-1\n(?i:zxq-?value)\tSYN-2\n"
+SYN_SHOWN = ("ゼクシ", "zxq", "Zxq", "(?:")   # 止める理由に出てはいけないもの（語と式）
+
+
 class Case:
     def __init__(self, repo, ledger, tmp):
         self.repo, self.ledger, self.tmp = repo, ledger, tmp
+        self.banned = tmp / "private_banned.tsv"
+        self.banned.write_text(SYN_BANNED, encoding="utf-8")
 
     def reset(self):
         git(self.repo, "checkout", "-q", "--", ".")
         git(self.repo, "clean", "-fdq")
 
-    def guard(self, name, manifest, expect_ok, needle=None, profile="structure", ref=None):
+    def guard(self, name, manifest, expect_ok, needle=None, profile="structure", ref=None, banned=None, forbid=()):
         mf = self.tmp / "changes.json"
         mf.write_text(json.dumps(manifest, ensure_ascii=False), encoding="utf-8")
-        env = dict(os.environ, SCIX_WEB_REPO=str(self.repo), SCIX_WEB_LEDGER=str(self.ledger))
+        env = dict(os.environ, SCIX_WEB_REPO=str(self.repo), SCIX_WEB_LEDGER=str(self.ledger),
+                   SCIX_WEB_PRIVATE_BANNED=str(banned or self.banned))
         env.pop("SCIX_WEB_REF", None)
         if ref:
             env["SCIX_WEB_REF"] = ref
         r = run([sys.executable, str(GUARD), "--manifest", str(mf), "--profile", profile], self.repo, env=env)
         out = r.stdout + r.stderr
         needles = [needle] if isinstance(needle, str) else list(needle or [])   # 複数なら全部が出力に出ていること
-        ok = (r.returncode == 0) == expect_ok and all(n in out for n in needles)
+        ok = ((r.returncode == 0) == expect_ok and all(n in out for n in needles)
+              and not any(f in out for f in forbid))                             # forbid は 1 つも出ていないこと
         results.append((ok, name, "通す" if expect_ok else "止める", out.strip().splitlines()[-1][:110] if out.strip() else ""))
         if not ok:
             print(f"--- {name} の出力 ---\n{out}")
@@ -443,6 +454,43 @@ def main() -> int:
                 False, "pages は URL パス", profile="weekly")
         edit(repo, "column-auction.html", link)
         c.guard("週次: pages があれば通す", {"changes": [weekly_entry(["column-auction.html"], ["/column-auction"])]}, True, profile="weekly")
+
+        # ---- 非公開の禁止語（O16-7・O16-12）。合成の一覧（SYN-1・SYN-2）で確かめる。止める理由は規則IDだけ＝語も式も出さない
+        def add_line(html_line):
+            return lambda s: s.replace("</body>", html_line + "\n</body>", 1)
+        wk = {"changes": [weekly_entry(["column-auction.html"], ["/column-auction"])]}
+        edit(repo, "column-auction.html", add_line("<p>ゼクシリアル語の説明</p>"))
+        c.guard("週次: 非公開の禁止語を足した行は止める（規則IDだけ出す）", wk, False, "column-auction.html: 非公開の禁止語（SYN-1）",
+                profile="weekly", forbid=SYN_SHOWN)
+        edit(repo, "column-auction.html", add_line("<p>&#12476;&#12463;&#12471;テスト語</p>"))
+        c.guard("週次: 実体参照で書いた非公開の禁止語も止める", wk, False, "非公開の禁止語（SYN-1）", profile="weekly", forbid=SYN_SHOWN)
+        edit(repo, "column-auction.html", add_line("<p>中立の立場。利回りはZxq-value比で 12%</p>"))
+        c.guard("週次: 同じ行を写すほかの理由（自称中立・利回りの数字）も、非公開の禁止語の行は抜粋を出さない", wk, False,
+                ("自称「中立」", "O16-8", "非公開の禁止語（SYN-2）", "抜粋は出さない"), profile="weekly", forbid=SYN_SHOWN)
+        edit(repo, "column-auction.html", add_line('<p><a href="/zxq-value">x</a></p>'))
+        c.guard("週次: リンク先など、ほかの理由に紛れた語も伏せる", wk, False, ("内部リンク切れ", "伏せ字 SYN-2"), profile="weekly",
+                forbid=SYN_SHOWN)
+        edit(repo, "column-auction.html", link)
+        c.guard("週次: 公開される欄（summary_lines・summary）の非公開の禁止語も止める（件数の理由も抜粋を出さない）",
+                {"summary_lines": ["ゼクシテスト語のページは問い合わせ 3 件"],
+                 "changes": [dict(weekly_entry(["column-auction.html"], ["/column-auction"]), summary="Zxq-value へのリンクを足した")]},
+                False, ("summary_lines: 非公開の禁止語（SYN-1）", "マニフェスト 0: summary: 非公開の禁止語（SYN-2）",
+                        "summary_lines: 問い合わせの件数"), profile="weekly", forbid=SYN_SHOWN)
+        edit(repo, "knowledge.html", swap_cat_blocks)
+        c.guard("構成レビュー: 公開される欄の非公開の禁止語も止める", {"changes": [hub(summary="ゼクシリアル語のカテゴリを先に")]}, False,
+                "マニフェスト 0: summary: 非公開の禁止語（SYN-1）", ref="selftest-quiet", forbid=SYN_SHOWN)
+        #   一覧が無い・式が 0 個・壊れた行 → 止める（黙って通さない）。本番の一覧（~/.config/scix-web/private_banned.tsv）が消えた回と同じ
+        edit(repo, "column-auction.html", link)
+        c.guard("週次: 非公開の禁止語一覧が無ければ止める", wk, False, "非公開の禁止語一覧が読めないので止める（O16-7・O16-12）",
+                profile="weekly", banned=tmp / "no-such-list.tsv")
+        (tmp / "banned_empty.tsv").write_text("# 式なし\n\n", encoding="utf-8")
+        edit(repo, "column-auction.html", link)
+        c.guard("週次: 一覧に式が 1 つも無ければ止める", wk, False, ("非公開の禁止語一覧が読めないので止める", "式が 1 つも無い"),
+                profile="weekly", banned=tmp / "banned_empty.tsv")
+        (tmp / "banned_broken.tsv").write_text("ゼクシ[語\tSYN-9\n", encoding="utf-8")
+        edit(repo, "column-auction.html", link)
+        c.guard("週次: 壊れた式の行があれば止める（式は出さない）", wk, False, ("非公開の禁止語一覧が読めないので止める", "SYN-9"),
+                profile="weekly", banned=tmp / "banned_broken.tsv", forbid=("ゼクシ[",))
 
         # ---- 週次プロファイル: コラムは書かない（2026-09-20 中島）。新規ファイル 0・class=new-column は無い
         def new_column(name="column-selftest.html"):   # 既存コラムを写した「骨格は完璧な新コラム」でも止まること

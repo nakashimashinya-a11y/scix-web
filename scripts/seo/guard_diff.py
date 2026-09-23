@@ -9,11 +9,11 @@
 検査の中身:
   - 触ってよいファイルだけか（HTML・sitemap・header.js の JA_ONLY_COLUMNS 行。変更日台帳はシェルが記帳するので Claude は書かない）
   - 触ってはいけないもの（フォーム・/fund・vercel.json・projects.json・scripts・.github・robots・img・files・削除）
-  - **新規ファイルは 0**（2026-09-20 中島「Column は僕が書くから君は書かない」）。新しいページは自動では作らない。
+  - **新規ファイルは 0**（O16-3。コラムは中島さんが書く）。新しいページは自動では作らない。
     マニフェストの class=new-column も止める。人が足したコラムの育成（内部リンク・ハブカード・sitemap・JA_ONLY_COLUMNS）は既存ファイルの変更なので通る
-  - 量の上限（既存ページの変更 12 本まで／1ファイルの差し替え率）。差し替え率は行数に加えて **本文の字数** でも測る
+  - 量の上限（週次のマニフェストは 8 件まで・既存ページの変更 12 本まで＝O16-36／1ファイルの差し替え率）。差し替え率は行数に加えて **本文の字数** でも測る
     （body_units: <body> の見える文字。コラムは CSS と script が行の大半＝行数だけだと本文を総入れ替えしても 1 割に満たない）。
-    週次: 本文の足し＋消し 50% まで・消し 25% まで。ハブ・トップは、マニフェストに無ければ焼き直しの範囲（600 字）まで、
+    週次: 本文の足し＋消し 50% 未満（O16-39＝半分未満。ちょうど半分も止める）・消し 25% まで。ハブ・トップは、マニフェストに無ければ焼き直しの範囲（600 字）まで、
     あっても足せるのは 1500 字まで（記事ぶんの節は足せない）
   - HTML の入れ子（Nest）: タグの開閉の不一致が変更前より増えていない／id つきの要素・section・footer の入れ子の位置
     （深さと祖先の id）が変わっていない／id つきの要素と節が消えていない（差し戻し class=rollback のファイルだけ消してよい）。
@@ -23,14 +23,26 @@
   - ファイルの削除だけの差分も止める（「変更なし」で通さない）
   - HTML の骨格（title・description・canonical・h1 1つ・header.js・JSON-LD が壊れていない・内部リンク切れ無し）
   - EN は title 70字以内・description 155字以内（Bing の指摘）
-  - 禁止語（自称「中立」・実績の主張・鍵らしき文字列）
+  - 禁止語（自称「中立」「neutral」「independent」＝O16-10・「一次情報」「一次ソース」＝T06-12・実績の主張＝O16-7・鍵らしき文字列）
+  - 非公開の禁止語（O16-7・O16-12。語そのものは公開リポジトリに置けない＝リポジトリの外の一覧
+    ~/.config/scix-web/private_banned.tsv から読む。1 行＝正規表現<TAB>規則ID・# で始まる行は読み飛ばす）。足した HTML の行と
+    マニフェストの公開される欄に掛ける。止める理由には規則IDとファイル（欄）だけを出し、語も式も出さない（ログ・Telegram・PR に写さない。
+    同じ行を写すほかの理由も、その行に当たれば抜粋を出さない）。一覧が無い・読めない・式が 0 個・壊れた行があるときは止める（黙って通さない）。
+    SCIX_WEB_PRIVATE_BANNED は selftest が合成の一覧を指すためのもの（本番の weekly_run.sh は設定しない）
+  - 足した本文に IRR・利回り・手数料率・手付・募集額・1口の数字（％・円）を新たに書かない（O16-8・O16-66）。行の差分ではなく
+    ページ全体の出現の前後で見る＝変更前のページに同じ書き方があれば数えない（既存の文・動かしただけの行・同じ行への書き足しは止めない）
+  - 14 日以内に変えたページは変えない（O16-37・O16-38）。数え方はブリーフ 9 節と同じ build_brief.cooldown_pages()
+    （REPO の HEAD までのコミット＋変更台帳＝いま検査している未コミットの差分は数えない）。見るのはマニフェストの files（編集した
+    ページ）。差し戻し（class=rollback）と、ハブ・トップ（HUBS。カードの追加は O16-38 の例外・量は別の上限で見る）は除く。
+    凍結を確かめられない（台帳が無い・読めない）ときは止める
   - マニフェスト（何をなぜ変えたか）と実際の差分が一致している。各変更に pages（効果測定に使う URL パス）が要る
   - 公開される欄（コミットの件名と本文・変更日台帳・PR に載る summary_lines・proposal_title・summary・rationale・hypothesis・
     kpi・measure・before・after）に問い合わせの件数を書かない（LEAD_NUMBER_RES。件数は private_note へ＝Drive の台帳だけ）。
-    週次・構成レビューの両方で見る
+    同じ欄に案件ID（SHV-／HV-／UR-／GT- ＋数字）・円の金額（O16-19）と「一次情報」（T06-12）も書かない（本文の HTML には掛けない＝
+    公開の案件一覧 projects.json 由来の ID がある）。週次・構成レビューの両方で見る
   - トップ（index.html・en/index.html・zh.html）のヒーローより上は変えない（<body> の先頭〜<section class="hero"> の終わり）
 
---profile structure（月1回の構成レビュー＝weekly_run.sh の MODE=structure。2026-09-20 から **検査を通れば承認なしで公開**。
+--profile structure（月1回の構成レビュー＝weekly_run.sh の MODE=structure。**検査を通れば承認なしで公開**＝O16-25。
 ナビ（header.js）を含む回だけは全体を PR に出す）で変わるところ:
   - 量: マニフェストは 3 件まで・1ファイルの差し替えは「並べ替えを除いた正味」で測る
     （行を多重集合で比べる。節やカードを動かしただけなら正味 0。正味の書き換え 1/4 まで・正味の削除 15% まで・
@@ -53,7 +65,8 @@
   - マニフェストの changes が 0 件なのに差分がある（焼き直しだけが残っている）なら止める＝中身のない公開をしない
   - 最後に公開の経路を 1 行で出す（「経路: 自動公開」か「経路: PR」）。header.js の変更か class=nav のエントリが
     1 つでもあれば、その回は全体が PR（一部だけ公開、をしない＝検査済みの単位を崩さない）。シェルはこの行と自分の目の両方で決める
-  それ以外（触ってはいけないファイル・新規ファイル 0・title・canonical・JSON-LD・リンク切れ・鍵・自称中立など）は週次と同じ。
+  それ以外（触ってはいけないファイル・新規ファイル 0・title・canonical・JSON-LD・リンク切れ・鍵・自称中立・14 日の凍結など）は週次と同じ
+  （凍結の数え方は build_brief.cooldown_pages(structure=True)＝ハブ・トップ以外は週次と同じ）。
 """
 from __future__ import annotations  # launchd の python3 は 3.9
 import argparse
@@ -77,9 +90,10 @@ FORBIDDEN = {"docs/seo-change-log.md", "fund.html", "contact.html", "sell-form.h
 FORBIDDEN_PREFIX = ("scripts/", ".github/", "img/", "files/", "notes/", ".claude/", "docs/new-mac-setup.md")
 HUBS = {"knowledge.html", "en/knowledge.html", "zh-knowledge.html", "index.html", "en/index.html", "zh.html"}
 MAX_EXISTING = 12
-MAX_NEW = 0                      # 新規ファイルは週次・構成レビューとも 0（コラムを書くのは中島さん。2026-09-20）
+MAX_NEW = 0                      # 新規ファイルは週次・構成レビューとも 0（O16-3。コラムを書くのは中島さん）
 NO_NEW_PAGE = "新しいページは自動では作らない（コラムは中島さんが書く）"
-MAX_REPLACE_RATIO = 0.5
+MAX_WEEKLY_ENTRIES = 8           # 週次のマニフェストは 8 件まで（O16-36。既存ページ 12 本までは MAX_EXISTING）
+MAX_REPLACE_RATIO = 0.5          # 週次: 差し替えはこの比率「未満」（O16-39＝本文の半分未満。ちょうど半分も止める）
 MAX_DELETE_RATIO = 0.25
 # 本文（<body> の見える文字。<style>・<script>・<!--S:…-->・コメントは除く）で測る量。行数で割ると、コラムは CSS と script が
 # 行の大半なので本文を 100% 書き換えても 1 割に満たない（2026-09-20 実測）＝「コラムは書かない」の抜け道になる
@@ -122,11 +136,84 @@ def lead_number(s) -> bool:
     return any(rx.search(str(s or "")) for rx in LEAD_NUMBER_RES)
 
 
-BAD_WORDS = [(re.compile(r"中立"), "自称「中立」は禁止（メーカー・EPCと資本関係がない、と事実で書く）"),
-             (re.compile(r"一次情報|一次ソース|１次情報|1次情報"), "「一次情報」「一次ソース」は書かない（2026-09-21 中島指示「クロードの口癖」。公表資料・原文・原典・出典と書く）"),
-             (re.compile(r"\bneutral\b|\bindependent (advisor|broker|party)\b", re.I), "neutral/independent の自称は禁止"),
-             (re.compile(r"当社の(成約|取引|導入)実績|成約実績|実績多数"), "実績の主張は出さない（中島決定 2026-09-05）"),
+ICHIJI_RE = re.compile(r"一次情報|一次ソース|[1１]次情報|[1１]次ソース")
+ICHIJI_WHY = "「一次情報」「一次ソース」は書かない（T06-12: 公表資料・原文・原典・出典と書く）"
+BAD_WORDS = [(re.compile(r"中立"), "自称「中立」は禁止（O16-10: メーカー・EPCと資本関係がない、と事実で書く）"),
+             (ICHIJI_RE, ICHIJI_WHY),
+             # independent power producer（発電事業者）は止めない＝自称に使う名詞が続くときだけ
+             (re.compile(r"\bneutral\b|\bindependent (?:advisor|adviser|broker|party|intermediary|marketplace|platform|firm|company)\b", re.I),
+              "neutral/independent の自称は禁止（O16-10）"),
+             (re.compile(r"当社の(成約|取引|導入)実績|成約実績|実績多数"), "実績の主張は出さない（O16-7）"),
              (re.compile(r"AKIA[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|AIza[0-9A-Za-z_-]{30,}"), "鍵らしき文字列")]
+
+# O16-8・O16-66: IRR・利回り・手数料率・手付・募集額・1口の金額をサイトに新たに書かない。語のあと 16 字以内に数字＋％／円。
+# 既存のコラムには公表資料の数字（制度の想定 IRR など）がある＝ページ全体の出現の前後で比べ、増えた分だけ止める
+FUND_NUM_RE = re.compile(r"(?:IRR|利回り|手数料率|手付|募集額|[1１一]口)[^。\n]{0,16}?[0-9０-９][0-9０-９,.]*\s*(?:％|%|万円|億円|円)")
+FUND_NUM_WHY = "サイトに IRR・利回り・手数料率・募集額・1口金額を新たに書かない（O16-8・O16-66）"
+# O16-19: 公開される欄（コミット・PR・変更日台帳）に案件ID・金額を写さない。本文の HTML には掛けない（公開の案件一覧
+# projects.json 由来の ID がある）。\b は日本語の文字も語の文字に数える（「案件」の直後・「の」の直前で外れる）＝前後は英数字だけで切る
+DEAL_ID_RE = re.compile(r"(?<![A-Za-z0-9])(?:SHV|HV|UR|GT)[-－][0-9０-９]{2,4}(?![0-9０-９])")
+YEN_RE = re.compile(r"[0-9０-９][0-9０-９,.]*\s*[千万億兆]*\s*円|[¥￥]\s*[0-9０-９]|\bJPY\s*[0-9]"
+                    r"|[0-9][0-9,.]*\s*(?:(?:million|billion|bn)\s*)?(?:yen|JPY)\b", re.I)
+PUBLIC_ID_WHY = "コミット・PR・変更日台帳に案件ID・金額を写さない（O16-19）"
+
+
+def public_text_problems(label: str, v) -> list:
+    """公開される欄 1 つ分（問い合わせの件数 lead_number は呼ぶ側で見る）。案件ID・金額（O16-19）と「一次情報」（T06-12）。"""
+    s = str(v or "")
+    out = []
+    if DEAL_ID_RE.search(s) or YEN_RE.search(s):
+        out.append(f"{label}: {PUBLIC_ID_WHY}")
+    if ICHIJI_RE.search(s):
+        out.append(f"{label}: {ICHIJI_WHY}")
+    return out
+
+
+# O16-7・O16-12: 語そのものを公開リポジトリに書けない禁止語（O16-7・O16-12 が名指しする語。規則の本文は共通ルールにある）は、
+# リポジトリの外の一覧から読む。止める理由には規則IDとファイル（欄）だけを出す＝語も式も、ログ・Telegram・PR 本文に写さない。
+# 一覧が読めないときは止める（公開しない側に倒す）。SCIX_WEB_PRIVATE_BANNED は selftest が合成の一覧を指すためだけのもの
+PRIVATE_BANNED_ENV = "SCIX_WEB_PRIVATE_BANNED"
+PRIVATE_BANNED_DEFAULT = Path.home() / ".config" / "scix-web" / "private_banned.tsv"
+PRIVATE_BANNED_UNREADABLE = "非公開の禁止語一覧が読めないので止める（O16-7・O16-12）"
+PRIVATE_HIDDEN = "（非公開の禁止語に当たるので抜粋は出さない）"
+
+
+def load_private_banned():
+    """(式の一覧, 一覧の呼び名, 止める理由) を返す。式の一覧は [(compiled, 規則ID)]。理由には語も式も入れない（行番号と規則IDまで）。"""
+    override = os.environ.get(PRIVATE_BANNED_ENV)
+    label = f"{PRIVATE_BANNED_ENV} の一覧" if override else "~/.config/scix-web/private_banned.tsv"
+    try:
+        lines = Path(override or PRIVATE_BANNED_DEFAULT).read_text(encoding="utf-8-sig").splitlines()
+    except Exception:  # noqa: BLE001 — 無い・権限が無い・UTF-8 でない。どれも止める
+        return [], label, PRIVATE_BANNED_UNREADABLE
+    pats = []
+    for n, raw in enumerate(lines, 1):
+        if not raw.strip() or raw.lstrip().startswith("#"):
+            continue
+        rx, _, rid = raw.partition("\t")
+        rid = rid.strip()
+        if not rx or not rid:
+            return [], label, f"{PRIVATE_BANNED_UNREADABLE}: {n} 行目が「正規表現<TAB>規則ID」になっていない（{label}）"
+        try:
+            pats.append((re.compile(rx), rid))
+        except re.error:
+            return [], label, f"{PRIVATE_BANNED_UNREADABLE}: {n} 行目（{rid}）の式が壊れている（{label}）"
+    if not pats:
+        return [], label, f"{PRIVATE_BANNED_UNREADABLE}: 式が 1 つも無い（{label}）"
+    return pats, label, None
+
+
+def private_hits(s, pats) -> list:
+    """当たった規則IDだけを返す（語も式も返さない）。実体参照で書いた語も拾う。"""
+    s = str(s or "")
+    u = html.unescape(s)
+    return sorted({rid for rx, rid in pats if rx.search(s) or rx.search(u)})
+
+
+def shown(s, n: int, pats) -> str:
+    """止める理由に写す抜粋。非公開の禁止語に当たる文は写さない。"""
+    s = str(s or "")
+    return PRIVATE_HIDDEN if private_hits(s, pats) else s[:n]
 
 
 # 毎朝の案件一覧の同期（scripts/inject_stats.py）が書く場所。週次がここを書き換えても翌朝に黙って戻るか、
@@ -395,6 +482,37 @@ def sh(*args):
     return subprocess.run(args, cwd=REPO, capture_output=True, text=True).stdout
 
 
+def cooldown_problems(entries: list, changed: list, structure: bool) -> list:
+    """O16-37・O16-38: 14 日以内に変えたページ（ブリーフ 9 節「今週触らないページ」）は変えない。
+    数え方は build_brief.cooldown_pages() と同じ（REPO の HEAD までのコミット＋変更台帳）。いま検査している未コミットの差分は、
+    コミットにも変更台帳（push のあとに記帳）にもまだ無い＝数えない。見るのはマニフェストの files（編集したページ）: pages は測る
+    対象で、internal-link・hub では編集していないリンク先や人が足した新しいコラムが入る（ハブのカード追加は O16-38 の例外）。
+    差し戻し（class=rollback）と、ハブ・トップ（HUBS。毎週の焼き直しとカードの追加で触る＝量は別の上限で見る）は除く。
+    凍結を確かめられないときは止める（台帳が無い・git の HEAD を読めない・読み込みの失敗）。"""
+    targets = {}   # 編集したページ → ファイル（差し戻しとハブ・トップを除く）
+    for e in entries:
+        if not isinstance(e, dict) or e.get("class") == "rollback":
+            continue
+        for f in e.get("files") or []:
+            u = file_to_url(f) if isinstance(f, str) and f not in HUBS and f in changed else None
+            if u:
+                targets.setdefault(path_of(u), f)
+    if not targets:
+        return []
+    try:
+        import build_brief as bb  # noqa: PLC0415 — 読み込みは定数の定義だけ（API も台帳の書き込みも無い）
+        bb.REPO = REPO            # 検査と同じリポジトリの履歴を読む（common.REPO は SCIX_WEB_REPO が無いと ~/projects/scix-web を指す）
+        if not sh("git", "rev-parse", "--verify", "HEAD").strip():
+            raise RuntimeError(f"git の HEAD を読めない（{REPO}）")
+        if not (bb.LEDGER / "ledger").is_dir():
+            raise FileNotFoundError(f"変更台帳の置き場が無い（{bb.LEDGER / 'ledger'}）")
+        cd = bb.cooldown_pages(structure=structure)
+    except Exception as ex:  # noqa: BLE001
+        return [f"凍結ページを確かめられないので止める（O16-37）: {str(ex)[:160]}"]
+    return [f"{page}: 14日以内に変えたページは変えない（O16-37・O16-38。前回 {cd[page][0]} {cd[page][1]}）"
+            for page in sorted(targets) if page in cd]
+
+
 class Page(html.parser.HTMLParser):
     def __init__(self):
         super().__init__()
@@ -484,6 +602,14 @@ def main() -> int:
     if len(added) > MAX_NEW:   # 週次・構成レビューとも新規ファイルは 0。中身の検査には進まない
         for p in added:
             problems.append(f"新規ファイル {p}: {NO_NEW_PAGE}")
+    # O16-7・O16-12: 非公開の禁止語（リポジトリの外の一覧）。読めなければ止める＝一覧が無いまま公開しない
+    private_pats, private_label, private_err = load_private_banned()
+    if private_err:
+        problems.append(private_err)
+
+    def private_problem(where: str, s) -> list:
+        return [f"{where}: 非公開の禁止語（{rid}）に当たる。語は出さない＝{private_label} の {rid} と O16-7・O16-12 を見て外す"
+                for rid in private_hits(s, private_pats)]
 
     manifest = {}
     try:
@@ -494,6 +620,8 @@ def main() -> int:
     listed = set()
     if structure and len(entries) > STRUCT_MAX_ENTRIES:
         problems.append(f"構成の変更は {STRUCT_MAX_ENTRIES} 件まで（{len(entries)} 件）")
+    if not structure and len(entries) > MAX_WEEKLY_ENTRIES:
+        problems.append(f"週次の変更は {MAX_WEEKLY_ENTRIES} 件まで（{len(entries)} 件・O16-36）")
     if structure:
         if not entries:
             # 差分はあるのに変更が 0 件＝焼き直し（NEW バッジ落ち・ItemList の順）だけが残っている。公開も PR もしない
@@ -505,7 +633,9 @@ def main() -> int:
         for l in (v if isinstance(v, list) else [v] if v else []):
             if lead_number(l):
                 problems.append(f"{k}: 問い合わせの件数は公開される欄（コミットの件名と本文・変更日台帳・PR の題と本文）に書かない"
-                                f"（件数は private_note へ＝Drive の台帳にだけ残る）: {str(l)[:60]}")
+                                f"（件数は private_note へ＝Drive の台帳にだけ残る）: {shown(l, 60, private_pats)}")
+            problems.extend(public_text_problems(k, l))   # 案件ID・金額（O16-19）と「一次情報」（T06-12）。欄の中身は写さない
+            problems.extend(private_problem(k, l))        # O16-7・O16-12（規則IDだけ）
     for i, e in enumerate(entries):
         # pages は週次でも必須: 空のまま変更台帳に入ると効果測定の対象が無い
         for k in ("files", "class", "summary", "rationale", "kpi", "pages") + (("hypothesis", "measure") if structure else ()):
@@ -521,6 +651,8 @@ def main() -> int:
         for k in PUBLIC_ENTRY_KEYS:   # どれもコミット・変更日台帳・PR 本文に出る（週次の rationale・kpi も変更日台帳の行になる）
             if lead_number(e.get(k)):
                 problems.append(f"マニフェスト {i}: {k} に問い合わせの件数を書かない（コミット・変更日台帳・PR は公開。件数は private_note へ）")
+            problems.extend(public_text_problems(f"マニフェスト {i}: {k}", e.get(k)))
+            problems.extend(private_problem(f"マニフェスト {i}: {k}", e.get(k)))
         if structure:
             if not re.search(r"[0-9０-９]", str(e.get("rationale", ""))):
                 problems.append(f"マニフェスト {i}: rationale に根拠の数字が無い")
@@ -541,6 +673,8 @@ def main() -> int:
     for f in listed:
         if f not in changed and f not in added:
             problems.append(f"マニフェストにあるが実際には変わっていない: {f}")
+    # 14 日以内に変えたページ（ブリーフ 9 節）は変えない（O16-37・O16-38）。確かめられなければ止める
+    problems.extend(cooldown_problems(entries, changed, structure))
     # 差し戻し（class=rollback）のファイルだけ、足した節（id つきの要素・section）を消してよい
     rollback_files = {f for e in entries if isinstance(e, dict) and e.get("class") == "rollback" for f in e.get("files") or []}
 
@@ -610,12 +744,12 @@ def main() -> int:
             if len(num) >= 2:
                 add_, del_ = int(num[0]), int(num[1])
                 total = max(1, len(text.splitlines()))
-                if (add_ + del_) / total > MAX_REPLACE_RATIO:
-                    problems.append(f"{path}: 差し替えが大きすぎる（+{add_}/-{del_} of {total}行）")
+                if (add_ + del_) / total >= MAX_REPLACE_RATIO:   # O16-39: 半分「未満」
+                    problems.append(f"{path}: 差し替えが大きすぎる（+{add_}/-{del_} of {total}行・{MAX_REPLACE_RATIO:.0%} 未満に収める）")
                 if del_ / total > MAX_DELETE_RATIO:
                     problems.append(f"{path}: 削除が多すぎる（-{del_} of {total}行）")
-            if (t_add + t_del) / t_room > MAX_REPLACE_RATIO:
-                problems.append(f"{path}: 本文の書き換えが大きすぎる（足した {t_add} 字・消した {t_del} 字 of {t_base} 字・上限 {MAX_REPLACE_RATIO:.0%}）。"
+            if (t_add + t_del) / t_room >= MAX_REPLACE_RATIO:   # O16-39: 本文の半分「未満」（ちょうど半分も止める）
+                problems.append(f"{path}: 本文の書き換えが大きすぎる（足した {t_add} 字・消した {t_del} 字 of {t_base} 字・{MAX_REPLACE_RATIO:.0%} 未満に収める＝O16-39）。"
                                 "既存ページの本文を別の記事に置き換えない（コラムを書くのは中島さん）")
             if t_del / t_base > MAX_DELETE_RATIO:
                 problems.append(f"{path}: 本文の削除・書き換えが多すぎる（{t_del} of {t_base} 字・上限 {MAX_DELETE_RATIO:.0%}）")
@@ -694,13 +828,22 @@ def main() -> int:
         for lang, href in pg.hreflang.items():
             if href and href.startswith(BASE) and not resolves(path_of(href), redirects, sitemap_paths):
                 problems.append(f"{path}: hreflang {lang} の先が無い {href}")
-        # 禁止語（追加行だけ見る）
+        # 禁止語（追加行だけ見る）。非公開の禁止語（O16-7・O16-12）は規則IDだけ出し、その行はほかの理由でも写さない
+        private_seen = set()
         for line in sh("git", "diff", "--", path).splitlines():
             if not line.startswith("+") or line.startswith("+++"):
                 continue
             for rx, why in BAD_WORDS:
                 if rx.search(line):
-                    problems.append(f"{path}: {why}: {line[1:90].strip()}")
+                    problems.append(f"{path}: {why}: {shown(line[1:], 89, private_pats).strip()}")
+            for p_ in private_problem(path, line[1:]):
+                if p_ not in private_seen:
+                    private_seen.add(p_)
+                    problems.append(p_)
+        # IRR・利回り・手数料率・手付・募集額・1口の数字（O16-8・O16-66）。足した行の差分ではなく、ページ全体の出現の前後で比べる
+        # ＝既存の文（公表資料の数字）・動かしただけの行・既存の行への書き足しは止めず、新しく書いた分だけ止める
+        for m in collections.Counter(FUND_NUM_RE.findall(text)) - collections.Counter(FUND_NUM_RE.findall(before)):
+            problems.append(f"{path}: {FUND_NUM_WHY}: {shown(m, 80, private_pats)}")
     if n_existing > MAX_EXISTING:
         problems.append(f"既存ページの変更が多すぎる（{n_existing} > {MAX_EXISTING}）")
     # sitemap の整合
@@ -717,6 +860,9 @@ def main() -> int:
     if problems:
         print("止める理由:")
         for p in problems:
+            # 最後の網: ファイル名・リンク先・欄の抜粋など、どの理由に語が紛れても伏せてから出す（語も式も出さない）
+            for rx, rid in private_pats:
+                p = rx.sub(f"〔伏せ字 {rid}〕", p)
             print(" -", p)
         return 1
     if structure:
