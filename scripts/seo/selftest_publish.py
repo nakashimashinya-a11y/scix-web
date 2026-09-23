@@ -44,6 +44,11 @@ if scenario == "structure":      # ハブのカテゴリ順を入れ替える（
     p.write_text(ss.swap_cat_blocks(p.read_text(encoding="utf-8")), encoding="utf-8")
     man = {"proposal_title": "selftest: ハブのカテゴリ順を流入の多い順に", "summary_lines": ["selftest: ハブのカテゴリ順を入れ替えた"],
            "changes": [ss.entry(["knowledge.html"], ["/knowledge"], "hub-order", kpi_pages=["/projects"], private_note="selftest の非公開メモ")]}
+elif scenario == "structure-top":   # 同じ日の 2 回目の構成レビュー: /knowledge は 1 回目の hub-order で凍結中（O16-37）＝トップの節の順を変える
+    p = pathlib.Path("index.html")
+    p.write_text(ss.swap_top_sections(p.read_text(encoding="utf-8")), encoding="utf-8")
+    man = {"proposal_title": "selftest: トップの節の順を入れ替え", "summary_lines": ["selftest: トップの節の順を入れ替えた"],
+           "changes": [ss.entry(["index.html"], ["/"], "top-order", summary="トップの節の順を入れ替えた")]}
 else:                            # 週次: コラムの末尾に内部リンクを 1 本
     # 14 日以内に触ったページは検査が止める（O16-37）。複製は本物の履歴を持つ＝日によって凍結が変わるので、凍結していないコラムを選ぶ
     import build_brief as bb
@@ -128,6 +133,9 @@ def main() -> int:
         (tmp / "private_banned.tsv").write_text("# 合成の一覧（selftest 専用）\nゼクシ(?:リアル|テスト)語\tSYN-1\n", encoding="utf-8")
         base_env = {"HOME": str(home), "PATH": f"{bin_}:/usr/bin:/bin:/usr/sbin:/sbin", "LANG": "en_US.UTF-8",
                     "SCIX_WEB_PRIVATE_BANNED": str(tmp / "private_banned.tsv"),
+                    # Telegram の宛先は本物の HOME（~/.config/scix-web/tg_target）にある＝一時 HOME には無く、無いと送らずに続ける。
+                    # 合成の宛先を渡して、openclaw のスタブに届く文面（git revert・台帳の記帳の失敗）を確かめる
+                    "SCIX_TG_TARGET": "selftest",
                     "SCIX_WEB_REPO": str(repo), "SCIX_WEB_LEDGER": str(ledger), "SCIX_WEB_STATE": str(state),
                     "SCIX_WEB_WT": str(tmp / "wt-weekly"), "SCIX_WEB_WT_STRUCTURE": str(tmp / "wt-structure"),
                     "NO_COLLECT": "1", "NO_STRUCTURE": "1", "STUB_HERE": str(HERE), "STUB_TMP": str(tmp),
@@ -205,7 +213,8 @@ def main() -> int:
         n_before = len(ledger_rows())
         led_file.parent.mkdir(parents=True, exist_ok=True); led_file.touch()   # 上の回が何も記帳していなくても、ここで落とさない
         led_file.chmod(0o444)
-        r, tg = weekly_run("structure", "structure")
+        # 1 回目の hub-order で /knowledge は構成レビューでも 14 日凍結（変更台帳の source=structure）＝2 回目はトップの節の順を変える
+        r, tg = weekly_run("structure", "structure-top")
         led_file.chmod(0o644)
         log = main_log()
         b_sha = log[1][0] if len(log) > 1 and log[1][1].startswith("auto(structure): ") else ""

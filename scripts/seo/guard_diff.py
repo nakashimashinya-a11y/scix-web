@@ -14,7 +14,9 @@
   - 量の上限（週次のマニフェストは 8 件まで・既存ページの変更 12 本まで＝O16-36／1ファイルの差し替え率）。差し替え率は行数に加えて **本文の字数** でも測る
     （body_units: <body> の見える文字。コラムは CSS と script が行の大半＝行数だけだと本文を総入れ替えしても 1 割に満たない）。
     週次: 本文の足し＋消し 50% 未満（O16-39＝半分未満。ちょうど半分も止める）・消し 25% まで。ハブ・トップは、マニフェストに無ければ焼き直しの範囲（600 字）まで、
-    あっても足せるのは 1500 字まで（記事ぶんの節は足せない）
+    あっても足せるのは 1500 字まで（記事ぶんの節は足せない）。マニフェストに無いハブ・トップで、焼き直しの所（BAKE_PARTS）をそろえても
+    差分が残るもの（焼き直しでない書き換え）は、凍結中なら止める（申告しないだけで凍結を抜けさせない）。焼き直しが書かない
+    en/index.html・zh.html と構成レビューは、載っていない書き換えをそのまま止める
   - HTML の入れ子（Nest）: タグの開閉の不一致が変更前より増えていない／id つきの要素・section・footer の入れ子の位置
     （深さと祖先の id）が変わっていない／id つきの要素と節が消えていない（差し戻し class=rollback のファイルだけ消してよい）。
     行の多重集合では、閉じタグを置き去りにした節の移動と、素の並べ替えを区別できない
@@ -23,23 +25,41 @@
   - ファイルの削除だけの差分も止める（「変更なし」で通さない）
   - HTML の骨格（title・description・canonical・h1 1つ・header.js・JSON-LD が壊れていない・内部リンク切れ無し）
   - EN は title 70字以内・description 155字以内（Bing の指摘）
-  - 禁止語（自称「中立」「neutral」「independent」＝O16-10・「一次情報」「一次ソース」＝T06-12・実績の主張＝O16-7・鍵らしき文字列）
+  - 禁止語（自称「中立」「neutral」「independent」＝O16-10。シナリオ名の「強気・中立・弱気」・「中立」シナリオ・技術中立・
+    neutral scenario・the neutral case・carbon-／climate-／net-／technology-neutral・アンカーの id は自称ではないので止めない。
+    引用符でくくっただけの自称・vendor-neutral・a neutral case manager などは止める。「中立」「neutral」はページ全体の出現（同じ行の前後 20 字の文脈）の前後で比べ、新しく現れた分だけ止める＝既存の行を
+    動かすだけなら止めない。「一次情報」「一次ソース」＝T06-12・実績の主張＝O16-7・鍵らしき文字列は足した行に掛ける）
   - 非公開の禁止語（O16-7・O16-12。語そのものは公開リポジトリに置けない＝リポジトリの外の一覧
     ~/.config/scix-web/private_banned.tsv から読む。1 行＝正規表現<TAB>規則ID・# で始まる行は読み飛ばす）。足した HTML の行と
     マニフェストの公開される欄に掛ける。止める理由には規則IDとファイル（欄）だけを出し、語も式も出さない（ログ・Telegram・PR に写さない。
-    同じ行を写すほかの理由も、その行に当たれば抜粋を出さない）。一覧が無い・読めない・式が 0 個・壊れた行があるときは止める（黙って通さない）。
+    同じ行を写すほかの理由も、その行に当たれば抜粋を出さない。抜粋は、切る前の文と出現を含む行の全体に当ててから写す＝窓の端で
+    切れた語の残りも出さない）。一覧が無い・読めない・式が 0 個・壊れた行があるときは止める（黙って通さない）。
     SCIX_WEB_PRIVATE_BANNED は selftest が合成の一覧を指すためのもの（本番の weekly_run.sh は設定しない）
-  - 足した本文に IRR・利回り・手数料率・手付・募集額・1口の数字（％・円）を新たに書かない（O16-8・O16-66）。行の差分ではなく
+  - 足した本文に IRR・利回り・年利・リターン・手数料（率）・手付・募集（総・金）額・出資額・分配・配当・1口の数字（％・円）を新たに
+    書かない（O16-8・O16-66。成功報酬・フィー・英語・中文の yield・return・fee・dividend・minimum investment・subscription・per unit・
+    carry・carried interest・hurdle・收益率・回报率・手续费・认购・分红・年化も。「3%の手数料」「a 3% fee」「8% annual return」
+    「5% p.a. return」のように数字が先に来る形と「年N%を目指す」も）。行の差分ではなく
     ページ全体の出現の前後で見る＝変更前のページに同じ書き方があれば数えない（既存の文・動かしただけの行・同じ行への書き足しは止めない）
-  - 14 日以内に変えたページは変えない（O16-37・O16-38）。数え方はブリーフ 9 節と同じ build_brief.cooldown_pages()
+  - 英語・中文のページ（en/・zh-・zh.html）に証券化（GK-TK・securitization・匿名組合・证券化）を新たに書かない（O16-69。数え方は上と同じ）
+  - コラム（column-*・en/column-*・zh-column-*）で /fund を指す <a> の本数を増やさない（O16-67。既存のフッターの 1 本は数えるだけ。
+    https://scix.co.jp/fund・//www.scix.co.jp/fund・相対の fund.html／../fund・リダイレクト・invest.scix.co.jp（vercel.json の host の
+    rewrites に出るホストは、どのパスも自サイト）も site_path でそろえて数える。vercel.json が読めなければ止める）
+  - 14 日以内に変えたページは変えない（O16-37・O16-38）。数え方はブリーフ 9 節と同じ build_brief.cooldown_pages(strict=True)
     （REPO の HEAD までのコミット＋変更台帳＝いま検査している未コミットの差分は数えない）。見るのはマニフェストの files（編集した
-    ページ）。差し戻し（class=rollback）と、ハブ・トップ（HUBS。カードの追加は O16-38 の例外・量は別の上限で見る）は除く。
-    凍結を確かめられない（台帳が無い・読めない）ときは止める
+    ページ）。除くのは、元の commit の逆向きと確かめられた差し戻し（class=rollback。rollback_of が必須＝無ければ止める。
+    足した行が元の commit で消えた行・消した行が元の commit で足した行であること。焼き直しの所をそろえるのは焼き直しが書くファイル
+    （BAKE_PARTS）だけで、コラムなどは JSON-LD・<!--S:…-->・NEW バッジも比べる。そろえると差分が空なら確かめられない扱い。
+    確かめられなければ普通の変更と同じに凍結を当て、節も消させない）と、週次のハブ・トップのカードの追加（class=hub＝O16-38 の例外。
+    凍結中なら title・description・<head> は変えさせず、足した行が既存のカードと同じ形のカード＝コラムへのリンク 1 本だけで、
+    そのコラムのカードが変更前のハブに無いか（登録漏れの手当て）を確かめる。それ以外が混じれば凍結を当てる）だけ。ハブ・トップでも class=hub 以外（title・description・internal-link…）は凍結を当てる。
+    マニフェストに載せずにハブ・トップの title・description・<head> を変えるのも止める（焼き直しは「全N記事」の数字だけ）。
+    凍結を確かめられない（台帳が無い・読めない・git の履歴を読めない）ときは止める
   - マニフェスト（何をなぜ変えたか）と実際の差分が一致している。各変更に pages（効果測定に使う URL パス）が要る
   - 公開される欄（コミットの件名と本文・変更日台帳・PR に載る summary_lines・proposal_title・summary・rationale・hypothesis・
     kpi・measure・before・after）に問い合わせの件数を書かない（LEAD_NUMBER_RES。件数は private_note へ＝Drive の台帳だけ）。
     同じ欄に案件ID（SHV-／HV-／UR-／GT- ＋数字）・円の金額（O16-19）と「一次情報」（T06-12）も書かない（本文の HTML には掛けない＝
-    公開の案件一覧 projects.json 由来の ID がある）。週次・構成レビューの両方で見る
+    公開の案件一覧 projects.json 由来の ID がある）。週次・構成レビューの両方で見る。ただし before・after が公開されるのは構成レビューの
+    PR 本文だけ＝週次の before・after には案件ID・金額・「一次情報」の検査を掛けない（件数の検査は掛ける）
   - トップ（index.html・en/index.html・zh.html）のヒーローより上は変えない（<body> の先頭〜<section class="hero"> の終わり）
 
 --profile structure（月1回の構成レビュー＝weekly_run.sh の MODE=structure。**検査を通れば承認なしで公開**＝O16-25。
@@ -66,17 +86,20 @@
   - 最後に公開の経路を 1 行で出す（「経路: 自動公開」か「経路: PR」）。header.js の変更か class=nav のエントリが
     1 つでもあれば、その回は全体が PR（一部だけ公開、をしない＝検査済みの単位を崩さない）。シェルはこの行と自分の目の両方で決める
   それ以外（触ってはいけないファイル・新規ファイル 0・title・canonical・JSON-LD・リンク切れ・鍵・自称中立・14 日の凍結など）は週次と同じ
-  （凍結の数え方は build_brief.cooldown_pages(structure=True)＝ハブ・トップ以外は週次と同じ）。
+  （凍結の数え方は build_brief.cooldown_pages(structure=True)。ハブ・トップも凍結を当てる＝構成系の記帳（hub・hub-order・top-order・
+  nav・rollback・source=structure）だけで数えるので、コラムを足しただけの週は凍結されない。ハブ・トップ以外は週次と同じ）。
 """
 from __future__ import annotations  # launchd の python3 は 3.9
 import argparse
 import collections
+import difflib
 import html.parser
 import json
 import os
 import re
 import subprocess
 import sys
+import urllib.parse
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -138,18 +161,100 @@ def lead_number(s) -> bool:
 
 ICHIJI_RE = re.compile(r"一次情報|一次ソース|[1１]次情報|[1１]次ソース")
 ICHIJI_WHY = "「一次情報」「一次ソース」は書かない（T06-12: 公表資料・原文・原典・出典と書く）"
-BAD_WORDS = [(re.compile(r"中立"), "自称「中立」は禁止（O16-10: メーカー・EPCと資本関係がない、と事実で書く）"),
-             (ICHIJI_RE, ICHIJI_WHY),
+# O16-10: 自称の「中立」「neutral」を止める。外すのは自称でない決まった書き方だけ: シナリオ名（強気・中立・弱気／「中立：約…」
+# 「中立＝…」・表の見出し <th>中立</th>・「中立」シナリオ／"neutral" scenario）、技術中立、carbon-／climate-／net-／technology-neutral、
+# アンカーの id（#neutral・id="neutral"）。引用符でくくっただけの自称（当社は「中立」の立場・“neutral” party）と
+# vendor-neutral・manufacturer-neutral・EPC-neutral は止める（2026-09-23 の確かめ: ハイフン・引用符を丸ごと外すと自称が素通りした）。
+# 既存の行を動かす・手直しするときに止めすぎないよう、ページ全体の出現（前後 20 字の文脈）を前後で比べ、新しく現れた分だけ止める
+_SCENARIO_AFTER = r"\s*[」』\"”'’]?\s*(?:シナリオ|ケース|(?i:scenarios?|cases?)\b)"
+NEUTRAL_JA_RE = re.compile(r"(?<!技術)(?<!強気・)(?<!強気、)(?<!弱気・)(?<!弱気、)中立(?![＝=：:]|</t[hd]>|" + _SCENARIO_AFTER + ")")
+# 英語で外すのは neutral scenario(s) と the neutral case(s) の形だけ（2026-09-23 の確かめ: 「neutral case(s)」を丸ごと外すと
+# 「a neutral case manager」の自称が素通りした）。the neutral case でも、後ろに manager などの名詞が続けば自称として止める
+_EN_SCENARIO_AFTER = r"[\"”'’]?\s*scenarios?\b"
+_EN_CASE_AFTER = (r"[\"”'’]?\s+cases?\b(?![\s‐-]*(?:managers?|management|handl\w*|workers?|officers?|agents?|advis[eo]rs?|brokers?"
+                  r"|consultants?|reviewers?|coordinators?)\b)")
+NEUTRAL_EN_RE = re.compile(r"(?<!#)(?<!id=\")(?<!id=')(?<!\bcarbon[-‐ ])(?<!\bclimate[-‐ ])(?<!\bnet[-‐ ])(?<!\btechnology[-‐ ])"
+                           r"(?:(?<!\bthe\s)(?<!\bthe\s[\"“'‘])\bneutral\b|\bneutral\b(?!" + _EN_CASE_AFTER + r"))"
+                           r"(?!\s*" + _EN_SCENARIO_AFTER + ")", re.I)
+NEUTRAL_RULES = [(NEUTRAL_JA_RE, "自称「中立」は禁止（O16-10: メーカー・EPCと資本関係がない、と事実で書く）"),
+                 (NEUTRAL_EN_RE, "neutral/independent の自称は禁止（O16-10）")]
+
+
+def _occurrences(rx, t: str, key):
+    """rx の出現を key(t, m, 行の頭, 行の終わり) で数えた多重集合と、key ごとの「出現を含む行の全体」（出現が行をまたげば
+    またいだ行まで）の一覧。"""
+    c, lines = collections.Counter(), {}
+    for m in rx.finditer(t):
+        ls = t.rfind("\n", 0, m.start()) + 1
+        le = t.find("\n", m.end())
+        le = le if le >= 0 else len(t)
+        k = key(t, m, ls, le)
+        c[k] += 1
+        lines.setdefault(k, []).append(t[ls:le])
+    return c, lines
+
+
+def new_occurrences(rx, before: str, after: str, key=lambda t, m, ls, le: m.group(0)) -> list:
+    """変更後に増えた出現。[(key, その出現を含む行の全体の一覧)]。行の全体は、止める理由に抜粋を写す前に非公開の禁止語を
+    当てるためのもの（抜粋の窓で切ると、窓の端にまたがった語の残りが出る＝2026-09-23 の確かめ）。"""
+    ca, la = _occurrences(rx, after, key)
+    cb, _ = _occurrences(rx, before, key)
+    return [(k, la[k]) for k in ca - cb]
+
+
+def _ctx20(t, m, ls, le):
+    return re.sub(r"\s+", " ", t[max(ls, m.start() - 20):min(le, m.end() + 20)]).strip()
+
+
+def new_contexts(rx, before: str, after: str) -> list:
+    """rx の出現を、同じ行の前後 20 字の文脈（空白をそろえる）で数え、変更後に増えた分（[(文脈, 出現を含む行の全体の一覧)]）。
+    行を動かす・字下げを変える・同じ行の離れた所を直すだけなら 0。新しく書いた文・出現のすぐ近くの書き換えは数える。"""
+    return new_occurrences(rx, before, after, _ctx20)
+
+
+BAD_WORDS = [(ICHIJI_RE, ICHIJI_WHY),
              # independent power producer（発電事業者）は止めない＝自称に使う名詞が続くときだけ
-             (re.compile(r"\bneutral\b|\bindependent (?:advisor|adviser|broker|party|intermediary|marketplace|platform|firm|company)\b", re.I),
+             (re.compile(r"\bindependent (?:advisor|adviser|broker|party|intermediary|marketplace|platform|firm|company)\b", re.I),
               "neutral/independent の自称は禁止（O16-10）"),
              (re.compile(r"当社の(成約|取引|導入)実績|成約実績|実績多数"), "実績の主張は出さない（O16-7）"),
              (re.compile(r"AKIA[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|AIza[0-9A-Za-z_-]{30,}"), "鍵らしき文字列")]
 
-# O16-8・O16-66: IRR・利回り・手数料率・手付・募集額・1口の金額をサイトに新たに書かない。語のあと 16 字以内に数字＋％／円。
-# 既存のコラムには公表資料の数字（制度の想定 IRR など）がある＝ページ全体の出現の前後で比べ、増えた分だけ止める
-FUND_NUM_RE = re.compile(r"(?:IRR|利回り|手数料率|手付|募集額|[1１一]口)[^。\n]{0,16}?[0-9０-９][0-9０-９,.]*\s*(?:％|%|万円|億円|円)")
-FUND_NUM_WHY = "サイトに IRR・利回り・手数料率・募集額・1口金額を新たに書かない（O16-8・O16-66）"
+# O16-8・O16-66: IRR・利回り・手数料（率）・手付・募集（総）額・分配・1口の金額をサイトに新たに書かない（英語・中文のページも）。
+# 語のあと 16 字以内に数字＋％／円（「手数料は売買価格の N%」「Target yield of N%」「收益率 N%」「募集総額 N億円」「年利 N%」
+# 「期待リターン N%」「最低出資額 N万円」「Minimum investment of JPY N million」「分红率 N%」「年化收益 N%」）と、
+# 数字＋％が先に来る形（「出資額の N%を分配」「an N% IRR」「N%の手数料」「a N% fee」「N% management fee」「N% annual return」）。
+# 既存のコラムには公表資料の数字（制度の想定 IRR・市場の利回りなど）がある＝ページ全体の出現の前後で比べ、増えた分だけ止める
+# 成功報酬・フィー・carry・carried interest・hurdle も（2026-09-23 の確かめ #64 の言い換え）。フィーはフィード（FIP＝フィードイン
+# プレミアム）・フィールド・フィーリングを除く。carry は「carry of／at／:」の形だけ（「lines carry 5% of flows」は拾わない）
+_FUND_WORD = (r"(?:IRR|利回り|年利|リターン|手数料|成功報酬|フィー(?![ドダルリ])|手付|募集(?:総|金)?額|出資(?:金)?額|[1１一]口|分配|配当"
+              r"|收益率|回报率|回報率|手续费|手續費|认购|認購|分红|分紅|年化"
+              r"|(?i:\b(?:yields?|returns?|fees?|subscriptions?|per[ -]unit|dividends?|minimum investment|carried interest"
+              r"|hurdle(?: rates?)?)\b)"
+              r"|(?i:\bcarry\b)(?=\s*(?:(?i:of|at)\b|[:=(（])))")
+_FUND_AMOUNT = (r"(?:[0-9０-９][0-9０-９,.]*\s*(?:％|%|万円|億円|円|万日元|亿日元|日元|(?i:(?:million |billion )?(?:yen|JPY)\b))"
+                r"|(?:[¥￥]|(?i:JPY|yen)\s*)[0-9０-９][0-9０-９,.]*)")
+# 数字＋％のあと（「の」「を」と英語の語 2 つまでを挟んでよい。p.a. のように「.」を含む語も）に来る語
+_FUND_AFTER_PCT = (r"(?:分配|配当|利回り|手数料|成功報酬|フィー(?![ドダルリ])|リターン"
+                   r"|(?i:yields?|returns?|fees?|IRR|dividends?|carried interest|carry|hurdle)\b)")
+# 「年N%を目指す」（年率の目標＝利回りの言い換え）
+_FUND_ANNUAL_TARGET = (r"年率?\s*[0-9０-９][0-9０-９,.]*\s*(?:％|%)\s*(?:程度|前後|以上|超)?\s*(?:を|の)?\s*"
+                       r"(?:目指|めざ|目標|狙|ねら|確保)")
+FUND_NUM_RE = re.compile(_FUND_WORD + r"[^。\n]{0,16}?" + _FUND_AMOUNT
+                         + r"|[0-9０-９][0-9０-９,.]*\s*(?:％|%)\s*(?:を|の)?\s*(?:(?i:[a-z][a-z.]*)\s+){0,2}" + _FUND_AFTER_PCT
+                         + r"|" + _FUND_ANNUAL_TARGET)
+FUND_NUM_WHY = "サイトに IRR・利回り・リターン・手数料率・募集額・出資額・分配・1口金額を新たに書かない（O16-8・O16-66）"
+# O16-69: 英語・中文のページには証券化（GK-TK）を載せない。ページ全体の出現の前後で比べ、増えた分だけ止める
+# （既存の EN/ZH コラムに触れている文がある＝動かす・手直しするだけなら止めない）
+SECURITIZATION_RE = re.compile(r"(?i:securiti[sz]\w*|GK\s*[-‐‑–−/・]?\s*TK(?![A-Za-z])|tokumei[- ]?kumiai)|TK出[資资]|[証证證]券化|匿名[組组]合")
+SECURITIZATION_WHY = "英語・中文のページには証券化（GK-TK）を載せない（O16-69）"
+# O16-67: コラムから /fund へ導線を張らない。コラム（JA・EN・ZH）で /fund を指す <a> の本数が増えたら止める
+# （既存のコラムはフッターに /fund を 1 本ずつ持つ＝減らす・動かすのは止めない）
+COLUMN_FILE_RE = re.compile(r"^(?:en/)?column-[a-z0-9-]+\.html$|^zh-column-[a-z0-9-]+\.html$")
+FUND_LINK_WHY = "コラムから /fund へ導線を張らない（O16-67）"
+
+
+def en_zh_page(path: str) -> bool:
+    return path.startswith(("en/", "zh-")) or path == "zh.html"
 # O16-19: 公開される欄（コミット・PR・変更日台帳）に案件ID・金額を写さない。本文の HTML には掛けない（公開の案件一覧
 # projects.json 由来の ID がある）。\b は日本語の文字も語の文字に数える（「案件」の直後・「の」の直前で外れる）＝前後は英数字だけで切る
 DEAL_ID_RE = re.compile(r"(?<![A-Za-z0-9])(?:SHV|HV|UR|GT)[-－][0-9０-９]{2,4}(?![0-9０-９])")
@@ -210,10 +315,11 @@ def private_hits(s, pats) -> list:
     return sorted({rid for rx, rid in pats if rx.search(s) or rx.search(u)})
 
 
-def shown(s, n: int, pats) -> str:
-    """止める理由に写す抜粋。非公開の禁止語に当たる文は写さない。"""
+def shown(s, n: int, pats, whole=()) -> str:
+    """止める理由に写す抜粋（先頭 n 字）。非公開の禁止語は、切る前の s の全体と、抜粋を取った元の行の全体（whole）に当て、
+    どれかに当たれば抜粋を写さない（抜粋の端で語が切れると、式に当たらない語の残りが出る）。"""
     s = str(s or "")
-    return PRIVATE_HIDDEN if private_hits(s, pats) else s[:n]
+    return PRIVATE_HIDDEN if private_hits(s, pats) or any(private_hits(w, pats) for w in whole) else s[:n]
 
 
 # 毎朝の案件一覧の同期（scripts/inject_stats.py）が書く場所。週次がここを書き換えても翌朝に黙って戻るか、
@@ -413,17 +519,73 @@ def same_but_digits(x, y) -> bool:
     return re.sub(r"[0-9０-９]+", "N", (x or "").strip()) == re.sub(r"[0-9０-９]+", "N", (y or "").strip())
 
 
-def funnel_links(text: str) -> collections.Counter:
-    """収益ページ・フォーム（FUNNEL_TARGETS）を指す <a href> の本数（行き先別）。?query・#hash・.html・末尾の / と
-    自サイトの絶対 URL はそろえてから数える。コメントアウトした <a> は数えない（＝消したのと同じ扱い）。"""
+SITE_HOSTS = {"www.scix.co.jp", "scix.co.jp"}
+
+
+VERCEL_UNREADABLE = ("vercel.json を読めないので止める（リダイレクトと invest.scix.co.jp 経由の /fund を数えられない＝"
+                     "O16-67 の数え方が甘くなる）")
+
+
+def vercel_routes():
+    """vercel.json の redirects（source → destination）と、ホストで振り分ける rewrites（(ホスト, source) → destination。
+    invest.scix.co.jp の / → /fund）。読めなければ None（呼ぶ側が止める。空で続けるとリダイレクトと invest 経由の /fund を
+    数えなくなる＝甘くなる側）。"""
+    try:
+        v = json.loads((REPO / "vercel.json").read_text(encoding="utf-8"))
+        if not isinstance(v, dict):
+            raise ValueError("vercel.json がオブジェクトでない")
+    except Exception:  # noqa: BLE001
+        return None
+    red = {r["source"]: r["destination"] for r in v.get("redirects") or []
+           if isinstance(r, dict) and isinstance(r.get("source"), str) and isinstance(r.get("destination"), str)}
+    host = {}
+    for r in v.get("rewrites") or []:
+        if not isinstance(r, dict) or not isinstance(r.get("destination"), str):
+            continue
+        for h in r.get("has") or []:
+            if isinstance(h, dict) and h.get("type") == "host" and h.get("value"):
+                host[(str(h["value"]).lower(), r.get("source"))] = r["destination"]
+    return red, host
+
+
+def _clean_path(p: str) -> str:
+    if p.endswith(".html"):
+        p = p[:-5]
+    if len(p) > 1 and p.endswith("/"):
+        p = p[:-1]
+    return p or "/"
+
+
+def site_path(href: str, page_url: str = BASE + "/", routes=None):
+    """自サイトを指す href を URL パス（.html・末尾の / を外す）に。www の有無・http・//・相対（fund.html・../fund）・?query・#hash を
+    そろえ、vercel.json の redirects とホストの rewrites（invest.scix.co.jp → /fund）も 1 段たどる。外のサイト・mailto などは None。
+    vercel.json の host の rewrites に出てくるホスト（invest.scix.co.jp）は同じデプロイ＝自サイトとして数え、rewrite の無いパス
+    （/fund・/fund.html）もそのまま同じパスに読む（2026-09-23 の確かめ: invest.scix.co.jp/fund が外部扱いで 0 本だった）。
+    common.path_of は https://www.scix.co.jp の形しかそろえない（2026-09-23 の確かめ: https://scix.co.jp/fund・//www…・相対が 0 本だった）。"""
+    try:
+        u = urllib.parse.urlsplit(urllib.parse.urljoin(page_url, (href or "").strip()))
+    except ValueError:
+        return None
+    if u.scheme not in ("http", "https"):
+        return None
+    red, rw = routes if routes is not None else ({}, {})
+    host, p = (u.hostname or "").lower(), u.path or "/"
+    if (host, p) in rw:
+        p = rw[(host, p)]
+    elif host not in SITE_HOSTS and host not in {h for h, _ in rw}:
+        return None
+    p = _clean_path(p)
+    return _clean_path(red.get(p, p))
+
+
+def funnel_links(text: str, page_url: str = BASE + "/", routes=None) -> collections.Counter:
+    """収益ページ・フォーム（FUNNEL_TARGETS）を指す <a href> の本数（行き先別）。自サイトの書き方（絶対 URL の www の有無・//・相対・
+    ?query・#hash・.html・末尾の /・リダイレクト）は site_path でそろえてから数える。page_url は相対リンクの基準（そのページの URL）。
+    コメントアウトした <a> は数えない（＝消したのと同じ扱い）。"""
     pg = Page(); pg.feed(text)
     c = collections.Counter()
     for href in pg.links:
-        p = path_of(href.strip())
-        if p.endswith(".html"):
-            p = p[:-5]
-        if len(p) > 1 and p.endswith("/"):
-            p = p[:-1]
+        p = site_path(href, page_url, routes)
         if p in FUNNEL_TARGETS:
             c[p] += 1
     return c
@@ -436,15 +598,16 @@ def pr_route(entries: list, changed: list) -> bool:
         e.get("class") == "nav" or "header.js" in (e.get("files") or []) for e in entries if isinstance(e, dict))
 
 
-def check_header_js(profile: str, entries: list, problems: list) -> None:
-    """header.js。週次＝JA_ONLY_COLUMNS の行だけ。構成レビュー＝加えてナビ定義（90日ルールを台帳と照合）。"""
+def check_header_js(profile: str, entries: list, problems: list, pats=()) -> None:
+    """header.js。週次＝JA_ONLY_COLUMNS の行だけ。構成レビュー＝加えてナビ定義（90日ルールを台帳と照合）。
+    pats＝非公開の禁止語（行の抜粋を写す前に、切る前の行の全体に当てる）。"""
     if profile != "structure":
         diff = sh("git", "diff", "--", "header.js")
         for line in diff.splitlines():
             if line.startswith(("+++", "---", "@@", "diff", "index")):
                 continue
             if line.startswith(("+", "-")) and not re.match(r"^[+-]\s*'/column-[a-z0-9-]+',?\s*$", line):
-                problems.append(f"header.js は JA_ONLY_COLUMNS の行しか変えられない: {line[:80]}")
+                problems.append(f"header.js は JA_ONLY_COLUMNS の行しか変えられない: {shown(line, 80, pats)}")
         return
     import structure as st
     before = sh("git", "show", "HEAD:header.js")
@@ -458,7 +621,7 @@ def check_header_js(profile: str, entries: list, problems: list) -> None:
     m = st.JA_ONLY_RE.search(after)
     for line in (m.group(2).splitlines() if m else []):
         if line.strip() and not re.match(r"^\s*'/column-[a-z0-9-]+',?\s*$", line):
-            problems.append(f"header.js: JA_ONLY_COLUMNS の行の形が想定外: {line.strip()[:60]}")
+            problems.append(f"header.js: JA_ONLY_COLUMNS の行の形が想定外: {shown(line.strip(), 60, pats)}")
     if nb == na:
         return
     # ナビ定義が変わった → 90日ルール。申告（マニフェスト）と実績（変更台帳＋origin/main の履歴）の両方が要る
@@ -482,22 +645,195 @@ def sh(*args):
     return subprocess.run(args, cwd=REPO, capture_output=True, text=True).stdout
 
 
-def cooldown_problems(entries: list, changed: list, structure: bool) -> list:
+# 週次のシェルが検査の前に回す焼き直し（scripts/gen_knowledge_jsonld.py --write）が書くファイルと、そのファイルで書く所。
+# ld＝ナレッジのハブの ItemList（<!-- scix-knowledge-jsonld --> の JSON-LD 2 つ）・s＝<!--S:kcount／kdate／knew--> の中身・
+# new＝カードの NEW バッジ（.is-new と <span class="new">）・count＝<head> の「全N記事」
+BAKE_PARTS = {"knowledge.html": {"ld", "s", "new", "count"}, "en/knowledge.html": {"ld"}, "zh-knowledge.html": {"ld"},
+              "index.html": {"s"}}
+_BAKE_LD_RE = re.compile(r"<!-- scix-knowledge-jsonld -->.*?</script>\s*<script type=\"application/ld\+json\">.*?</script>", re.S)
+_BAKE_S_RE = re.compile(r"<!--S:(kcount|kdate|knew)-->.*?<!--/S:\1-->", re.S)
+BAKE_WHAT = "焼き直しの所（ハブの ItemList・<!--S:kcount／kdate／knew-->・NEW バッジ・全N記事）"
+
+
+def _bake_norm_lines(text: str, path: str) -> list:
+    """差し戻しの照合と、凍結中のハブ・トップのカードの検査に使う行の列。焼き直しが書くファイル（BAKE_PARTS）では、焼き直しが
+    書く所だけそろえる。ほかのファイル（コラムなど）はそろえない＝JSON-LD・<!--S:…-->・NEW バッジの書き換えも差分に数える
+    （2026-09-23 の確かめ: どのファイルでも JSON-LD をそろえていたので、JSON-LD だけの書き換えが差分 0＝「確かめられた差し戻し」になった）。
+    空行は数えない（前後の空白は削る）。"""
+    parts, t = BAKE_PARTS.get(path, set()), text
+    if "ld" in parts:
+        t = _BAKE_LD_RE.sub("<!-- scix-knowledge-jsonld -->", t)
+    if "s" in parts:
+        t = _BAKE_S_RE.sub(lambda m: f"<!--S:{m.group(1)}--><!--/S:{m.group(1)}-->", t)
+    if "new" in parts:
+        t = t.replace('<span class="new">NEW</span>', "").replace(" is-new", "")
+    if "count" in parts:
+        t = re.sub(r"全[0-9０-９]+記事", "全N記事", t)
+    return [l.strip() for l in t.splitlines() if l.strip()]
+
+
+def _plus_minus(a: list, b: list):
+    """行の列 a → b の差分（並びも見る）。(足した行の多重集合, 消した行の多重集合)。動かした塊は両方に入る。"""
+    plus, minus = collections.Counter(), collections.Counter()
+    for op, i1, i2, j1, j2 in difflib.SequenceMatcher(None, a, b, autojunk=False).get_opcodes():
+        if op in ("replace", "delete"):
+            minus.update(a[i1:i2])
+        if op in ("replace", "insert"):
+            plus.update(b[j1:j2])
+    return plus, minus
+
+
+def rollback_unverified(sha, path: str, before: str, after: str):
+    """差し戻し（class=rollback）が、元の commit（rollback_of）の逆向きの差分かを確かめる。確かめられたら None、
+    だめなら理由（止める理由の文に添える）。足した行が元の commit で消えた行であり、消した行が元の commit で足した行であること
+    （焼き直しの差・並べ替えも同じ物差しで比べる）。焼き直しの所をそろえると差分が空になる（焼き直しの所しか変えていない）ときも
+    確かめられない扱い＝何も戻していない。確かめられないファイルは普通の変更として 14 日の凍結を当て、節も消させない。"""
+    sha = str(sha or "").strip()
+    if not re.fullmatch(r"[0-9a-f]{7,40}", sha):
+        return "rollback_of に戻す元の commit（SHA）が無い"
+    r = subprocess.run(["git", "rev-parse", "--verify", "--quiet", sha + "^{commit}"], cwd=REPO, capture_output=True, text=True)
+    full = r.stdout.strip()
+    if r.returncode != 0 or not full:
+        return f"rollback_of の commit {sha} が見つからない"
+    if subprocess.run(["git", "merge-base", "--is-ancestor", full, "HEAD"], cwd=REPO, capture_output=True).returncode != 0:
+        return f"rollback_of の commit {sha} が HEAD の履歴に無い"
+    new = subprocess.run(["git", "show", f"{full}:{path}"], cwd=REPO, capture_output=True, text=True)
+    old = subprocess.run(["git", "show", f"{full}^:{path}"], cwd=REPO, capture_output=True, text=True)
+    if new.returncode != 0:
+        return f"commit {sha} に {path} が無い"
+    o_old, o_new = _bake_norm_lines(old.stdout if old.returncode == 0 else "", path), _bake_norm_lines(new.stdout, path)
+    if o_old == o_new:
+        return f"commit {sha} は {path} を変えていない"
+    o_plus, o_minus = _plus_minus(o_old, o_new)
+    plus, minus = _plus_minus(_bake_norm_lines(before, path), _bake_norm_lines(after, path))
+    if not (plus or minus):
+        return f"{BAKE_WHAT}と前後の空白のほかに差分が無い＝commit {sha} の逆向きと確かめられない（何も戻していない）"
+    extra_plus, extra_minus = plus - o_minus, minus - o_plus
+    if extra_plus or extra_minus:
+        return (f"commit {sha} の逆向きの差分と確かめられない（元の commit で消えていない行を {sum(extra_plus.values())} 行足した・"
+                f"元の commit で足していない行を {sum(extra_minus.values())} 行消した）")
+    return None
+
+
+COLUMN_PATH_RE = re.compile(r"^/(?:en/)?column-[a-z0-9-]+$|^/zh-column-[a-z0-9-]+$")
+_A_SPAN_RE = re.compile(r"<a\b[^>]*>.*?</a\s*>", re.S | re.I)
+
+
+class _Shape(html.parser.HTMLParser):
+    """要素の形: 開きタグの列（タグ名・class・href と class 以外の属性の名前）と、<a> の href。文字の中身は見ない。"""
+
+    def __init__(self):
+        super().__init__()
+        self.tags, self.hrefs = [], []
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        self.tags.append((tag, a.get("class") or "", tuple(sorted(k for k in a if k not in ("href", "class")))))
+        if tag == "a":
+            self.hrefs.append(a.get("href") or "")
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+
+
+def card_shape(span: str):
+    """<a class=…>…</a> がカードなら形（開きタグの列）を、でなければ None。カード＝class つきの <a> の中に要素があり、<a> は
+    それ 1 本だけ（中にリンクを入れない）で、行き先がコラム（/column-…・/en/column-…・/zh-column-…）。"""
+    p = _Shape(); p.feed(span); p.close()
+    if len(p.hrefs) != 1 or len(p.tags) < 2 or p.tags[0][0] != "a" or not p.tags[0][1]:
+        return None
+    return tuple(p.tags) if COLUMN_PATH_RE.match(site_path(p.hrefs[0]) or "") else None
+
+
+def _card_column(span: str):
+    """カード（card_shape が形を返す <a>）の行き先のコラムの URL パス。"""
+    p = _Shape(); p.feed(span); p.close()
+    return site_path(p.hrefs[0]) if p.hrefs else None
+
+
+def card_only_change(path: str, before: str, after: str) -> bool:
+    """週次の class=hub（O16-38 の例外＝カードの登録漏れの手当て）か。焼き直しの所（BAKE_PARTS）をそろえたうえで、変更前の
+    ページにあるカードと同じ形のカード（コラムへのリンク 1 本）を足しただけで、足したカードを抜くと変更前と同じ行の列に戻ること。
+    足したカードの行き先のコラムは、変更前のハブのカードに無いこと（1 本のコラムに 1 枚まで。既にカードのあるコラムの複製に
+    宣伝文を書いて足すのは登録漏れの手当てではない＝2026-09-23 の確かめ）。
+    焼き直しだけ（そろえると差分なし）も True。段落・見出し・カードでないリンク・消した行・書き換えた行があれば False。"""
+    b = _bake_norm_lines(before, path)
+    a = "\n".join(_bake_norm_lines(after, path))
+    if a.splitlines() == b:
+        return True
+    bt = "\n".join(b)
+    before_cards = [s for s in _A_SPAN_RE.findall(bt) if card_shape(s)]
+    shapes = {card_shape(s) for s in before_cards}
+    carded = {_card_column(s) for s in before_cards}
+    added = collections.Counter(_A_SPAN_RE.findall(a)) - collections.Counter(_A_SPAN_RE.findall(bt))
+    if not added or not shapes:
+        return False
+    for span, n in added.items():
+        col = _card_column(span)
+        if card_shape(span) not in shapes or n != 1 or not col or col in carded:
+            return False
+        carded.add(col)   # 同じコラムのカードを 2 枚足すのも止める
+        a = a.replace(span, "", n)
+    return [l.strip() for l in a.splitlines() if l.strip()] == b
+
+
+def head_changed(before: str, after: str) -> bool:
+    """title・description・canonical（数字だけの違いは無視＝「全N記事」の焼き直し）と、<head> のほかの meta・link が変わったか。"""
+    pb, pa = Page(), Page()
+    pb.feed(before); pa.feed(after)
+    same = (same_but_digits(pb.title, pa.title) and same_but_digits(pb.desc, pa.desc) and pb.canonical == pa.canonical)
+    return not same or head_rest(before) is None or head_rest(before) != head_rest(after)
+
+
+def unlisted_hub_edits(changed: list, listed: set) -> list:
+    """マニフェストの files に無いのに、焼き直しの所（BAKE_PARTS）をそろえても差分が残るハブ・トップ＝焼き直しでない書き換え。
+    焼き直しが書かないファイル（en/index.html・zh.html）は、どんな差分でもここに入る。"""
+    out = []
+    for f in changed:
+        if f in HUBS and f not in listed:
+            before, after = sh("git", "show", f"HEAD:{f}"), (REPO / f).read_text(encoding="utf-8", errors="replace")
+            if _bake_norm_lines(before, f) != _bake_norm_lines(after, f):
+                out.append(f)
+    return out
+
+
+def cooldown_problems(entries: list, changed: list, structure: bool, rollback_why: dict, unlisted=()) -> list:
     """O16-37・O16-38: 14 日以内に変えたページ（ブリーフ 9 節「今週触らないページ」）は変えない。
     数え方は build_brief.cooldown_pages() と同じ（REPO の HEAD までのコミット＋変更台帳）。いま検査している未コミットの差分は、
     コミットにも変更台帳（push のあとに記帳）にもまだ無い＝数えない。見るのはマニフェストの files（編集したページ）: pages は測る
-    対象で、internal-link・hub では編集していないリンク先や人が足した新しいコラムが入る（ハブのカード追加は O16-38 の例外）。
-    差し戻し（class=rollback）と、ハブ・トップ（HUBS。毎週の焼き直しとカードの追加で触る＝量は別の上限で見る）は除く。
-    凍結を確かめられないときは止める（台帳が無い・git の HEAD を読めない・読み込みの失敗）。"""
-    targets = {}   # 編集したページ → ファイル（差し戻しとハブ・トップを除く）
+    対象で、internal-link・hub では編集していないリンク先や人が足した新しいコラムが入る。
+    除くのは、元の commit の逆向きと確かめられた差し戻し（rollback_why[ファイル] が None）だけ。確かめられない差し戻しは普通の変更と同じ。
+    ハブ・トップ（HUBS）: 構成レビューは凍結を当てる（cooldown_pages(structure=True) がハブ・トップを構成系の記帳だけで数える＝
+    コラムを足しただけの週は凍結されない）。週次は O16-38 の例外（カードの追加＝class=hub）だけ凍結を当てず、その場合も凍結中なら
+    title・description・<head> は変えさせず、足した行が既存のカードと同じ形のカード（コラムへのリンク 1 本）だけであることを
+    確かめる（card_only_change。それ以外が混じれば凍結を当てる＝申告した class だけで抜けさせない）。
+    class=hub 以外（title・description・internal-link…）は凍結を当てる。
+    unlisted＝マニフェストに載せずに焼き直しでない書き換えをしたハブ・トップ（unlisted_hub_edits）。凍結を当てる＝凍結中なら
+    焼き直しだけの差分であることを求める（申告しないだけで凍結を抜けさせない。カードを足すなら class=hub で files に書く）。
+    凍結を確かめられないときは止める（台帳が無い・git の HEAD や履歴を読めない・読み込みの失敗）。"""
+    targets = {}     # 凍結を当てるページ → ファイル
+    hub_cards = {}   # 週次: class=hub だけで触ったハブ・トップ（凍結中なら <head> を見る）
+    unlisted_pages = set()
+    for f in unlisted:
+        u = file_to_url(f)
+        if u:
+            targets.setdefault(path_of(u), f)
+            unlisted_pages.add(path_of(u))
     for e in entries:
-        if not isinstance(e, dict) or e.get("class") == "rollback":
+        if not isinstance(e, dict):
             continue
+        cls = e.get("class")
         for f in e.get("files") or []:
-            u = file_to_url(f) if isinstance(f, str) and f not in HUBS and f in changed else None
-            if u:
-                targets.setdefault(path_of(u), f)
-    if not targets:
+            u = file_to_url(f) if isinstance(f, str) and f in changed else None
+            if not u:
+                continue
+            if cls == "rollback" and rollback_why.get(f, "") is None:
+                continue   # 確かめられた差し戻し
+            if not structure and cls == "hub" and f in HUBS:
+                hub_cards.setdefault(path_of(u), f)
+                continue
+            targets.setdefault(path_of(u), f)
+    if not (targets or hub_cards):
         return []
     try:
         import build_brief as bb  # noqa: PLC0415 — 読み込みは定数の定義だけ（API も台帳の書き込みも無い）
@@ -506,11 +842,32 @@ def cooldown_problems(entries: list, changed: list, structure: bool) -> list:
             raise RuntimeError(f"git の HEAD を読めない（{REPO}）")
         if not (bb.LEDGER / "ledger").is_dir():
             raise FileNotFoundError(f"変更台帳の置き場が無い（{bb.LEDGER / 'ledger'}）")
-        cd = bb.cooldown_pages(structure=structure)
+        cd = bb.cooldown_pages(structure=structure, strict=True)   # git log の失敗も例外にする（黙って凍結ゼロにしない）
     except Exception as ex:  # noqa: BLE001
         return [f"凍結ページを確かめられないので止める（O16-37）: {str(ex)[:160]}"]
-    return [f"{page}: 14日以内に変えたページは変えない（O16-37・O16-38。前回 {cd[page][0]} {cd[page][1]}）"
-            for page in sorted(targets) if page in cd]
+    out = []
+    for page in sorted(targets):
+        if page in cd:
+            f = targets[page]
+            why = rollback_why.get(f)
+            out.append(f"{page}: 14日以内に変えたページは変えない（O16-37・O16-38。前回 {cd[page][0]} {cd[page][1]}）"
+                       + (f"。class=rollback だが {why}" if why else "")
+                       + ("。マニフェストに載せずに、焼き直しの所のほかを変えている（載せなければ焼き直しだけ。"
+                          "カードの登録漏れの手当ては class=hub で files に書く）" if page in unlisted_pages else ""))
+    for page in sorted(hub_cards):
+        if page in cd and page not in targets:
+            f = hub_cards[page]
+            hb, ha = sh("git", "show", f"HEAD:{f}"), (REPO / f).read_text(encoding="utf-8", errors="replace")
+            if head_changed(hb, ha):
+                out.append(f"{page}: 凍結中のハブ・トップは、カードの追加（class=hub）でも title・description・<head> を変えない"
+                           f"（O16-37・O16-38。前回 {cd[page][0]} {cd[page][1]}）")
+            elif not card_only_change(f, hb, ha):
+                # 申告した class だけで凍結を外さない: 足した行が既存のカードと同じ形のカード（コラムへのリンク 1 本）だけかを確かめる
+                out.append(f"{page}: 14日以内に変えたページは変えない（O16-37・O16-38。前回 {cd[page][0]} {cd[page][1]}）。"
+                           "class=hub で凍結を外せるのはカードの追加だけ（既存のカードと同じ要素と class・コラムへのリンク 1 本・"
+                           "変更前のハブにカードの無いコラム＝登録漏れの手当て）。カードでない段落・リンク・見出し、既にカードのある"
+                           "コラムのカード、消した行・書き換えた行がある")
+    return out
 
 
 class Page(html.parser.HTMLParser):
@@ -643,15 +1000,20 @@ def main() -> int:
                 problems.append(f"マニフェスト {i}: {k} が無い")
         pg_ = e.get("pages")
         if pg_ and not (isinstance(pg_, list) and all(isinstance(p, str) and p.startswith("/") for p in pg_)):
-            problems.append(f"マニフェスト {i}: pages は URL パス（/ で始まる文字列）の配列で書く: {str(pg_)[:80]}")
+            problems.append(f"マニフェスト {i}: pages は URL パス（/ で始まる文字列）の配列で書く: {shown(pg_, 80, private_pats)}")
         if e.get("class") == "new-column":
             problems.append(f"マニフェスト {i}: class=new-column は使えない。{NO_NEW_PAGE}。足りない主題は column_ideas に出す")
+        if e.get("class") == "rollback" and not str(e.get("rollback_of") or "").strip():
+            problems.append(f"マニフェスト {i}: class=rollback には rollback_of（戻す元の commit）が要る")
         elif e.get("class") not in (STRUCT_CLASSES if structure else CLASSES):
             problems.append(f"マニフェスト {i}: class が想定外 {e.get('class')}")
         for k in PUBLIC_ENTRY_KEYS:   # どれもコミット・変更日台帳・PR 本文に出る（週次の rationale・kpi も変更日台帳の行になる）
             if lead_number(e.get(k)):
                 problems.append(f"マニフェスト {i}: {k} に問い合わせの件数を書かない（コミット・変更日台帳・PR は公開。件数は private_note へ）")
-            problems.extend(public_text_problems(f"マニフェスト {i}: {k}", e.get(k)))
+            # 案件ID・金額・「一次情報」: before／after が公開されるのは構成レビューの PR 本文だけ（週次のコミット文と変更日台帳には
+            # 載らない）＝週次では見ない（元の title に円の金額があるページの title を直すと止まっていた）
+            if structure or k not in ("before", "after"):
+                problems.extend(public_text_problems(f"マニフェスト {i}: {k}", e.get(k)))
             problems.extend(private_problem(f"マニフェスト {i}: {k}", e.get(k)))
         if structure:
             if not re.search(r"[0-9０-９]", str(e.get("rationale", ""))):
@@ -661,11 +1023,11 @@ def main() -> int:
             own = {path_of(file_to_url(f)) for f in e.get("files") or [] if isinstance(f, str) and file_to_url(f)}
             extra = [p for p in (pg_ if isinstance(pg_, list) else []) if isinstance(p, str) and p not in own]
             if extra and e.get("class") != "nav":
-                problems.append(f"マニフェスト {i}: pages は編集したページ（files の URL）だけ: {' '.join(extra)[:80]}。"
+                problems.append(f"マニフェスト {i}: pages は編集したページ（files の URL）だけ: {shown(' '.join(extra), 80, private_pats)}。"
                                 "送客先の収益ページは kpi_pages に書く（前後比較にも凍結にも使わない＝ブリーフ 8 節の参考列）")
             kp = e.get("kpi_pages")
             if kp is not None and not (isinstance(kp, list) and all(isinstance(p, str) and p.startswith("/") for p in kp)):
-                problems.append(f"マニフェスト {i}: kpi_pages は URL パス（/ で始まる文字列）の配列で書く: {str(kp)[:80]}")
+                problems.append(f"マニフェスト {i}: kpi_pages は URL パス（/ で始まる文字列）の配列で書く: {shown(kp, 80, private_pats)}")
         if len(str(e.get("summary", ""))) > 300:
             problems.append(f"マニフェスト {i}: summary が長すぎる")
         for f in e.get("files") or []:
@@ -673,10 +1035,27 @@ def main() -> int:
     for f in listed:
         if f not in changed and f not in added:
             problems.append(f"マニフェストにあるが実際には変わっていない: {f}")
+    # 差し戻し（class=rollback・週次だけ）は、元の commit（rollback_of）の逆向きの差分かを確かめる。None＝確かめられた
+    rollback_why = {}
+    for e in entries:
+        if not isinstance(e, dict) or e.get("class") != "rollback":
+            continue
+        for f in e.get("files") or []:
+            if isinstance(f, str) and f in changed and ALLOWED_HTML.match(f) and f not in rollback_why:
+                rollback_why[f] = rollback_unverified(e.get("rollback_of"), f, sh("git", "show", f"HEAD:{f}"),
+                                                      (REPO / f).read_text(encoding="utf-8", errors="replace"))
+    # マニフェストに載せずに、焼き直しの所のほかを変えたハブ・トップ（2026-09-23 の確かめ #66: 申告しないだけで凍結を抜けられた）。
+    # 焼き直しが書かないファイル（en/index.html・zh.html）と構成レビューは、載っていない変更をそのまま止める。
+    # 週次の焼き直しが書くファイルは凍結を当てる（凍結中でなければ、下の焼き直しの範囲 600 字と <head> の検査）
+    unlisted = unlisted_hub_edits(changed, listed)
+    for f in unlisted:
+        if structure or f not in BAKE_PARTS:
+            problems.append(f"マニフェストに載っていない変更: {f}（焼き直しの所のほかに差分がある。ハブ・トップを触ったら files に書く）")
     # 14 日以内に変えたページ（ブリーフ 9 節）は変えない（O16-37・O16-38）。確かめられなければ止める
-    problems.extend(cooldown_problems(entries, changed, structure))
-    # 差し戻し（class=rollback）のファイルだけ、足した節（id つきの要素・section）を消してよい
-    rollback_files = {f for e in entries if isinstance(e, dict) and e.get("class") == "rollback" for f in e.get("files") or []}
+    problems.extend(cooldown_problems(entries, changed, structure, rollback_why,
+                                      [] if structure else [f for f in unlisted if f in BAKE_PARTS]))
+    # 確かめられた差し戻しのファイルだけ、足した節（id つきの要素・section）を消してよい
+    rollback_files = {f for f, why in rollback_why.items() if why is None}
 
     redirects = set()
     try:
@@ -695,6 +1074,10 @@ def main() -> int:
 
     n_existing = 0
     funnel_before = funnel_after = 0
+    routes = vercel_routes()   # 導線の本数を数えるときに、リダイレクトとホストの rewrites（invest.scix.co.jp → /fund）をたどる
+    if routes is None:         # 読めなければ止める（空で続けると /fund の数え方が甘くなる）
+        problems.append(VERCEL_UNREADABLE)
+        routes = ({}, {})
     for path in changed + added:
         if path in FORBIDDEN or path.startswith(FORBIDDEN_PREFIX):
             problems.append(f"触ってはいけないファイル: {path}"); continue
@@ -703,7 +1086,7 @@ def main() -> int:
         if path == "sitemap.xml":
             continue
         if path == "header.js":
-            check_header_js(a.profile, entries, problems)
+            check_header_js(a.profile, entries, problems, private_pats)
             continue
         if not ALLOWED_HTML.match(path):
             problems.append(f"想定外のファイル: {path}"); continue
@@ -732,7 +1115,8 @@ def main() -> int:
             if t_del / t_base > STRUCT_NET_DELETE:
                 problems.append(f"{path}: 本文の正味の削除が多すぎる（{t_del} of {t_base} 字・上限 {STRUCT_NET_DELETE:.0%}）")
             # 収益ページ・フォームへの導線は、ファイルごとに減らさない（行き先の付け替えは可）
-            fb, fa = funnel_links(before), funnel_links(text)
+            page_url = file_to_url(path) or BASE + "/"
+            fb, fa = funnel_links(before, page_url, routes), funnel_links(text, page_url, routes)
             funnel_before += sum(fb.values()); funnel_after += sum(fa.values())
             if sum(fa.values()) < sum(fb.values()):
                 lost = "・".join(f"{t} {fb[t]}→{fa[t]}" for t in sorted(fb) if fa[t] < fb[t])
@@ -758,6 +1142,9 @@ def main() -> int:
             if t_add + t_del > HUB_BAKE_CHARS:
                 problems.append(f"{path}: マニフェストに載っていないのに本文が変わっている（足した {t_add} 字・消した {t_del} 字。"
                                 f"焼き直しの範囲は {HUB_BAKE_CHARS} 字まで）。ハブ・トップを触ったら files に書く")
+            if head_changed(before, text):   # 焼き直しが <head> で変えるのは「全N記事」の数字と JSON-LD だけ
+                problems.append(f"{path}: マニフェストに載っていないのに title・description・<head> が変わっている"
+                                "（焼き直しが変えるのは「全N記事」の数字と JSON-LD だけ）。ハブ・トップを触ったら files に書く")
         else:
             if t_add > HUB_MAX_ADD_CHARS:
                 problems.append(f"{path}: ハブ・トップに足した本文が多すぎる（{t_add} 字・上限 {HUB_MAX_ADD_CHARS} 字）。"
@@ -840,10 +1227,25 @@ def main() -> int:
                 if p_ not in private_seen:
                     private_seen.add(p_)
                     problems.append(p_)
+        # O16-10: 自称の「中立」「neutral」。ページ全体の出現（同じ行の前後 20 字の文脈）の前後で比べ、新しく現れた分だけ止める。
+        # 抜粋（前後 20 字の窓）を写す前に、出現を含む行の全体に非公開の禁止語を当てる（窓の端で切れた語の残りを出さない）
+        for rx, why in NEUTRAL_RULES:
+            for m, whole in new_contexts(rx, before, text):
+                problems.append(f"{path}: {why}: {shown(m, 89, private_pats, whole)}")
         # IRR・利回り・手数料率・手付・募集額・1口の数字（O16-8・O16-66）。足した行の差分ではなく、ページ全体の出現の前後で比べる
         # ＝既存の文（公表資料の数字）・動かしただけの行・既存の行への書き足しは止めず、新しく書いた分だけ止める
-        for m in collections.Counter(FUND_NUM_RE.findall(text)) - collections.Counter(FUND_NUM_RE.findall(before)):
-            problems.append(f"{path}: {FUND_NUM_WHY}: {shown(m, 80, private_pats)}")
+        for m, whole in new_occurrences(FUND_NUM_RE, before, text):
+            problems.append(f"{path}: {FUND_NUM_WHY}: {shown(m, 80, private_pats, whole)}")
+        # O16-69: 英語・中文のページに証券化（GK-TK）を新たに書かない（ページ全体の出現の前後。既存の文を動かす・直すのは止めない）
+        if en_zh_page(path):
+            for m, whole in new_occurrences(SECURITIZATION_RE, before, text, key=lambda t, m, ls, le: m.group(0).lower()):
+                problems.append(f"{path}: {SECURITIZATION_WHY}: {shown(m, 40, private_pats, whole)}")
+        # O16-67: コラムから /fund への導線を増やさない（既存のフッターの 1 本は数えるだけ）
+        if COLUMN_FILE_RE.match(path):
+            page_url = file_to_url(path) or BASE + "/"
+            fund_b, fund_a = funnel_links(before, page_url, routes)["/fund"], funnel_links(text, page_url, routes)["/fund"]
+            if fund_a > fund_b:
+                problems.append(f"{path}: {FUND_LINK_WHY}（/fund を指すリンク {fund_b} → {fund_a} 本）")
     if n_existing > MAX_EXISTING:
         problems.append(f"既存ページの変更が多すぎる（{n_existing} > {MAX_EXISTING}）")
     # sitemap の整合

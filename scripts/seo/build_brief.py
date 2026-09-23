@@ -111,8 +111,11 @@ def agg_ga4(recs):
     return tot, landing, trans, events, intents, nav, news, search
 
 
-def cooldown_pages(structure=False):
+def cooldown_pages(structure=False, strict=False):
     """直近14日に人か自動が触ったページ（案件一覧の自動同期は除く）。今週は触らない。
+
+    strict=True（公開前の検査 guard_diff.py から呼ぶとき）: git log・git show が失敗したら例外を上げる（出力が空のまま
+    「凍結ゼロ」で通さない）。ブリーフから呼ぶとき（strict=False）は今までどおり落とさずに続ける。
 
     structure=True（月1回の構成レビュー用）: ハブ・トップ（structure.HUB_TOP_FILES）の凍結は、**変更台帳の構成系の
     エントリだけ** で決める（structure.is_structure_entry: class が hub／hub-order／top-order／nav／rollback、または
@@ -124,14 +127,18 @@ def cooldown_pages(structure=False):
     if structure:
         import structure as st  # noqa: PLC0415
     try:
-        log_ = subprocess.run(["git", "log", f"--since={COOLDOWN_DAYS}.days", "--format=%H%x09%cs%x09%s"],
-                              cwd=REPO, capture_output=True, text=True).stdout.splitlines()
-        for line in log_:
+        r = subprocess.run(["git", "log", f"--since={COOLDOWN_DAYS}.days", "--format=%H%x09%cs%x09%s"],
+                           cwd=REPO, capture_output=True, text=True)
+        if strict and r.returncode != 0:
+            raise RuntimeError(f"git log が失敗した（rc={r.returncode}・{REPO}）: {r.stderr.strip()[:120]}")
+        for line in r.stdout.splitlines():
             sha, date, subj = line.split("\t", 2)
             if subj.startswith("chore("):   # chore(projects)=毎朝の同期、chore(copy)=表現の一括直し。どちらも内容の変更ではない
                 continue
-            files = subprocess.run(["git", "show", "--name-only", "--format=", sha], cwd=REPO,
-                                   capture_output=True, text=True).stdout.split()
+            r2 = subprocess.run(["git", "show", "--name-only", "--format=", sha], cwd=REPO, capture_output=True, text=True)
+            if strict and r2.returncode != 0:
+                raise RuntimeError(f"git show {sha[:10]} が失敗した（rc={r2.returncode}）: {r2.stderr.strip()[:120]}")
+            files = r2.stdout.split()
             for f in files:
                 u = file_to_url(f)
                 if not u:
@@ -140,7 +147,8 @@ def cooldown_pages(structure=False):
                     continue  # 構成レビューでは、ハブ・トップを git の履歴で凍結しない（下の変更台帳だけで決める）
                 out.setdefault(path_of(u), (date, subj[:60]))
     except Exception:  # noqa: BLE001
-        pass
+        if strict:
+            raise
     for e in read_jsonl(LEDGER / "ledger" / "changes.jsonl"):
         day = safe_d(e.get("date"))
         if day and (today() - day).days <= COOLDOWN_DAYS:
@@ -555,7 +563,7 @@ def render(days=28, for_latest=False, structure=False):
     # 8. 変更台帳と計測
     if not for_latest:
         L.append("## 8. 変更台帳（60日）と効果測定\n")
-        L.append("| 変更日 | id | 種別 | ページ | 要約 | 2週後 | 4週後 |\n|---|---|---|---|---|---|---|")
+        L.append("| 変更日 | id | 種別 | ページ | commit | 要約 | 2週後 | 4週後 |\n|---|---|---|---|---|---|---|---|")
         ledger = [e for e in read_jsonl(LEDGER / "ledger" / "changes.jsonl")
                   if safe_d(e.get("date")) and (today() - safe_d(e["date"])).days <= 60]
         auto_new = [e for e in ledger if e.get("source") == "manual-auto"]
@@ -571,8 +579,9 @@ def render(days=28, for_latest=False, structure=False):
                     return f"{x['verdict']}（表示 {x['post']['impressions']}・クリック {x['post']['clicks']}）"
                 return f"{x['verdict']}（{x['pre']['clicks']}→{x['post']['clicks']}, CTR {pct(x['pre']['ctr'])}→{pct(x['post']['ctr'])}, lead {x['pre']['leads']}→{x['post']['leads']}）"
             ep = e.get("pages") or []
-            L.append(f"| {e['date']} | {e.get('id')} | {e.get('class','')} | {' '.join(ep[:6])}{'…' if len(ep)>6 else ''} | {(e.get('summary') or '')[:80]} | {vs('14')} | {vs('28')} |")
-        L.append("\n**worse の変更は差し戻し候補**（同じ変更を繰り返さない）。構成の変更（source=structure）は、下の表の「注意」も見る。\n")
+            L.append(f"| {e['date']} | {e.get('id')} | {e.get('class','')} | {' '.join(ep[:6])}{'…' if len(ep)>6 else ''} | {(e.get('commit') or '')[:10]} | {(e.get('summary') or '')[:80]} | {vs('14')} | {vs('28')} |")
+        L.append("\n**worse の変更は差し戻し候補**（同じ変更を繰り返さない。戻すときはマニフェストの rollback_of に commit 列の値を書く＝"
+                 "空の行は `git log -- <ファイル>` で変更日の commit を引く）。構成の変更（source=structure）は、下の表の「注意」も見る。\n")
         try:
             render_structure_changes(L, structure_change_rows(ledger))
         except Exception as e:  # noqa: BLE001 — ここが落ちても 8 節の残りと 9 節以降は出す

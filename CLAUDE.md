@@ -29,8 +29,10 @@
 **★ 参考**
 
 - /investors は残し（301 しない）、zh.html の収益モデルの数字は触らない `O16-11`
-- 買い手・投資家が主題のコラムは3言語で出し、日本の制度・税務・土地の実務の話は JA 専用にする。英語・中文のページには証券化（GK-TK）を載せない `O16-53`
+- 買い手・投資家が主題のコラムは3言語で出し、日本の制度・税務・土地の実務の話は JA 専用にする `O16-53`
   - JA 専用は `header.js` の `JA_ONLY_COLUMNS` に登録し、sitemap は hreflang ja 1本。JA 先行で出して後から EN/ZH を足したら `JA_ONLY_COLUMNS` から外す
+- 英語・中文のページには証券化（GK-TK）を載せない。今あるページは対象外（これから足す分だけ） `O16-69`
+- 商用の語が着地するコラム・送客しないコラムは、本文末の導線を読者の立場に合う収益ページへ向ける。売主向けの主ボタンは /sell-form へ直行し、/sourcing などの解説ページは副リンクにする `O16-43`
 - 一度やめた施策（gBizINFO への登録・Microsoft Clarity の導入）は再提案しない `O16-59`
 
 ## 編集と公開
@@ -38,6 +40,7 @@
 **★★★ 必須**
 
 - scix-web（公開リポジトリ）には、案件は都道府県・匿名の公開セーフ項目（生成器の `PUBLIC_KEYS`）までしか置かず、住所・地番・緯度経度・価格類（仕入値・販売価格・工事費負担金・土地代・価格の決め方）・関係者（売主・仲介者・担当者）の名前と連絡先・社内メモ・買い手情報・電力会社の秘密資料とその抜粋・認証情報を置かない。コード・テスト・コミット文・PR には DR2 の実文言・案件ID・金額も写さない。実データは Drive（DR2）か非公開リポジトリに置く `O16-19`
+
 **★★ 原則**
 
 - ログイン・DB・API・添付が要る機能は scix-web に作らず、DR2 か cockpit に置く `O17-33`
@@ -105,7 +108,7 @@ DR2 の置き場は3か所ある。混同しない（同じ名前のフォルダ
 |---|---|---|
 | 案件フォルダ（棚） | Drive `マイドライブ/5_共有Drive/_DealRoom2/{ID}_{案件名}/` | 「DR2登録して」と言われたらここ。案件ごとの買い手向け資料フォルダ |
 | 作業フォルダ | Drive `マイドライブ/1_案件/{案件ID}_{案件名}/` | 受領直後の生資料・必要書類チェックリスト・買い手想定質問 |
-| DR2 アプリ（コード） | Drive `マイドライブ/9_システム/1AI営業支援/scix/scix-dealroom2/` | Cloudflare Pages ＋ D1（新規案件のレコードは D1）。既存案件の正本は `data/projects-source.json`。`projects-end.json` は transform の生成物なので手で直さない `O17-35` |
+| DR2 アプリ（コード） | Drive `マイドライブ/9_システム/1AI営業支援/scix/scix-dealroom2/` | Cloudflare Pages ＋ D1。案件データは D1（`dealroom2_new_projects`＋上書き `deal_edits`。表示を直すときは scix-dealroom2/CLAUDE.md の O17-34）。`data/projects-source.json` は DR2 の画面（`functions/api/projects.ts`）が読まない旧データ。`projects-end.json` は transform の生成物なので手で直さない `O17-35` |
 
 **手順**
 
@@ -132,7 +135,7 @@ DR2 の置き場は3か所ある。混同しない（同じ名前のフォルダ
   4. 公開まで通す — `bash ~/マイドライブ/9_システム/1AI営業支援/scix/scix-dealroom2/scripts/dr2_publish.sh`（毎朝 launchd が自動実行するので急がなければ不要。git push では反映されない）
   5. 作業フォルダ（`マイドライブ/1_案件/{案件ID}_{案件名}/`）の `_必要書類チェックリスト.md` を更新する（✅/⚠️/⬜/➖ の判定を最新化）。
   6. DR2 アプリの案件一覧に載せる（Drive フォルダを作っただけでは出ない）。「DR2登録」は ①案件フォルダ（Drive）と ②案件レコード（DR2アプリ）の2段構え。**①だけで終わらせない** `O07-11`
-     - 新規案件のレコードは D1 `dealroom2_new_projects` に入れる。`data/projects-source.json` は既存案件用で、新規をここに書いても増えない
+     - 新規案件のレコードは D1 `dealroom2_new_projects` に入れる。`data/projects-source.json` は DR2 の画面が読まない旧データで、ここに書いても増えない
      - 仕入れ値と既存案件の手直し（インライン編集）も D1 側に入れる（既存案件への上書きは `deal_edits`）。再デプロイは要らない。既存案件の表示を直すときは 1AI営業支援/scix/scix-dealroom2/CLAUDE.md の O17-34 に従う
      - `dr2_register.py add`（上の2）を使わないときの投入経路は2つだけ: owner 画面の「+ 新規案件」か、SQL を生成して wrangler で流す（`scix-dealroom2/` 直下で `npx wrangler d1 execute scix-dealroom-db --remote --file=dr2-<ID>-insert.sql`。`scripts/04_update_d1_drivefolderurl.py` と同じ流儀）。無人（フック・cron・エージェント）で流すときは `npx wrangler` でなくラッパー wr（`~/.config/scix-cockpit/wr d1 execute …`）を通す（共通ルール O17-7）
      - `dealroom2_new_projects` が受け付ける列は限られる（`functions/api/admin/projects.ts` の `ALLOWED`）: `id` / `no` / `name` / `address` / `lat` / `lng` / `voltage` / `mw` / `capacity` / `maxPower` / `gridOperator` / `saleType` / `status` / `landType` / `landArea` / `connectionDate` / `operationStartDate` / `price`。数値として入れるのは `lat` / `lng` / `mw` / `capacity` / `maxPower`（と採番の整数 `no`）だけで、残りは `price` も含めて文字列（SQL を生成して渡すときも同じ）。**書く前に `ALLOWED` を見る。** これ以外（`seller`・`constructionCost`・`constructionNote`・`driveFolderUrl`・機器仕様など）は `deal_edits` に UPSERT、社内メモは `memos` テーブルに入れる

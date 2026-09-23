@@ -5,6 +5,14 @@
 ヒーローを消す CSS・noindex・既存コラムの本文の総入れ替え・ハブへの記事ぶんの書き足し・公開欄の問い合わせの件数（自然な言い回し・
 週次プロファイル）・pages に入れた送客先の収益ページ・週次が差し戻した直後のハブの凍結・非公開の禁止語（O16-7・O16-12。
 合成の一覧を SCIX_WEB_PRIVATE_BANNED で指す＝止める理由に語も式も出さない・一覧が読めなければ止める）。
+2026-09-23 の確かめ役の指摘の分: 差し戻しは rollback_of の逆向きと確かめたときだけ凍結を外す・ハブ・トップの凍結（週次はカードの追加
+だけ例外・構成レビューは差し戻し直後に止める）・英中のファンドの数字（yield・fee・收益率）と「手数料は N%」・コラムの /fund リンク
+（O16-67）・英中の証券化（O16-69）・自称でない「中立」「neutral」・週次の before／after の金額・cooldown_pages(strict=True)。
+同じ日の 2 回目の確かめの分: vendor-neutral・引用符でくくった自称は止める・JSON-LD だけ／焼き直しの所だけの差し戻しは凍結を外さない・
+凍結中のハブの class=hub はカードの形の追加だけ・/fund の書き方（www 無し・//・相対・invest.scix.co.jp）・数字が先のファンドの数字。
+4 回目の確かめの分: マニフェストに載せないハブ・トップは焼き直しだけ（凍結中・en/index.html・構成レビュー）・既にカードのあるコラムの
+カードは登録漏れの手当てではない・抜粋の窓の端で切れた非公開の禁止語の残りを出さない・invest.scix.co.jp のほかのパスと vercel.json が
+読めないとき・a neutral case manager・成功報酬／フィー／carry／hurdle／p.a.／年N%を目指す。
 公開の手順（2 コミット・差し戻しが衝突しない・記帳の失敗と拾い直し）は selftest_publish.py、効果測定とブリーフ 8 節は selftest_ramp.py。
 
     python3 scripts/seo/selftest_structure.py        # 0=全部通った（--keep で一時ディレクトリを残す）
@@ -58,6 +66,12 @@ def entry(files, pages, cls, **kw):
 # 読むが、selftest は SCIX_WEB_PRIVATE_BANNED でこの合成の一覧を指す（CI など本物の一覧が無い所でも同じ結果になる）
 SYN_BANNED = "# 合成の一覧（selftest 専用）\nゼクシ(?:リアル|テスト)語\tSYN-1\n(?i:zxq-?value)\tSYN-2\n"
 SYN_SHOWN = ("ゼクシ", "zxq", "Zxq", "(?:")   # 止める理由に出てはいけないもの（語と式）
+
+
+def syn_amount(tpl, n):
+    """合成の金額（selftest 専用・実データではない）を実行時に組む。公開リポジトリの本文には金額の形の文字列を置かない
+    （O16-19。テストに書いてよい金額は合成の % だけ）。円の検出（公開される欄の金額・ファンドの数字の円）を確かめるためだけに使う。"""
+    return tpl.format(n)
 
 
 class Case:
@@ -135,14 +149,42 @@ def hero_below_next_section(s):
     return s[:h.start()] + s[h.end():k.end()] + "\n" + h.group(0) + s[k.end():]
 
 
-def add_card_for_existing(s):
-    """ハブの cat-market の先頭に、既存コラム（/column-auction）のカードを 1 枚足す（週次の「登録漏れの手当て」と同じ形）。"""
-    card = ('      <a target="_top" href="/column-auction" class="ac">\n        <div class="am"><span class="an">COLUMN</span>'
+# 登録漏れの手当て（class=hub）に使うコラム＝ファイルはあるのにハブにカードの無いコラム。main が複製の中で探して入れる
+# （既にカードのあるコラムのカードは「登録漏れの手当て」ではない＝凍結中のハブでは止まる。2026-09-23 の確かめ）
+CARD_COL = "/column-auction"
+ZH_CARD_COL = "/zh-column-auction"
+JA_CARD_RE = r'<a target="_top" href="(/column-[^"]+)" class="ac'
+ZH_CARD_RE = r'<a class="kn-card" href="(/zh-column-[^"]+)"'
+
+
+def uncarded_column(repo, hub, card_re, pattern):
+    """ハブにカードの無い既存コラムの URL パス（名前順の最初）。"""
+    carded = set(re.findall(card_re, (repo / hub).read_text(encoding="utf-8")))
+    cols = sorted("/" + f.name[:-5] for f in repo.glob(pattern) if "/" + f.name[:-5] not in carded)
+    assert cols, f"{hub} にカードの無いコラムが無い（selftest を直す）"
+    return cols[0]
+
+
+def selftest_card(href=None, ad="selftest"):
+    return ('      <a target="_top" href="%s" class="ac">\n        <div class="am"><span class="an">COLUMN</span>'
             '<span class="at">selftest</span></div>\n        <h3>selftest: 登録漏れのカード</h3>\n'
-            '        <p class="ad">selftest</p>\n        <div class="aa">→</div>\n      </a>\n')
+            '        <p class="ad">%s</p>\n        <div class="aa">→</div>\n      </a>\n') % (href or CARD_COL, ad)
+
+
+def add_card_for_existing(s, card=None):
+    """ハブの cat-market の先頭に、ハブにカードの無い既存コラム（CARD_COL）のカードを 1 枚足す（週次の「登録漏れの手当て」と同じ形）。"""
+    card = card or selftest_card()
     a = s.index('id="cat-market"')
     pos = s.rfind("\n", 0, a + re.search(r'<a [^>]*class="ac', s[a:]).start()) + 1
     return s[:pos] + card + s[pos:]
+
+
+def add_zh_card(s):
+    """中文ハブ（zh-knowledge.html）の最初の kn-card の前に、カードの無い既存の中文コラムのカードを 1 枚足す（既存のカードと同じ形）。"""
+    card = ('    <a class="kn-card" href="%s">\n      <div class="kn-tag">COLUMN · selftest</div>\n'
+            '      <div class="kn-title">selftest：登录遗漏的卡片</div>\n      <div class="kn-desc">selftest</div>\n    </a>\n') % ZH_CARD_COL
+    i = s.index('    <a class="kn-card"')
+    return s[:i] + card + s[i:]
 
 
 def move_section_leaving_close(s):
@@ -207,6 +249,7 @@ def nav_swap(s):
 
 
 def main() -> int:
+    global CARD_COL, ZH_CARD_COL
     keep = "--keep" in sys.argv
     tmp = pathlib.Path(tempfile.mkdtemp(prefix="scix-structure-selftest-"))
     try:
@@ -226,6 +269,8 @@ def main() -> int:
         git(repo, "commit", "-qam", "selftest: ナビを組み替えた (#999)")
         git(repo, "checkout", "-q", "--detach", quiet)
         c = Case(repo, ledger, tmp)
+        CARD_COL = uncarded_column(repo, "knowledge.html", JA_CARD_RE, "column-*.html")
+        ZH_CARD_COL = uncarded_column(repo, "zh-knowledge.html", ZH_CARD_RE, "zh-column-*.html")
         def hub(**kw):
             return dict(entry(["knowledge.html"], ["/knowledge"], "hub-order"), **kw)
 
@@ -238,6 +283,11 @@ def main() -> int:
         edit(repo, "index.html", swap_top_sections)
         c.guard("トップの節を入れ替え（ヒーローより下・S マーカーごと移動）",
                 {"changes": [entry(["index.html"], ["/"], "top-order")]}, True, ref="selftest-quiet")
+        edit(repo, "index.html", swap_top_sections)
+        edit(repo, "knowledge.html", lambda s: s.replace('<div class="cat-block', '<p class="selftest"><a href="/projects">販売中の案件一覧</a></p>\n'
+                                                         '<div class="cat-block', 1))
+        c.guard("構成: マニフェストに載せずにハブを書き換えたら止める（焼き直しの所のほかに差分がある）",
+                {"changes": [entry(["index.html"], ["/"], "top-order")]}, False, "マニフェストに載っていない変更: knowledge.html", ref="selftest-quiet")
 
         edit(repo, "header.js", nav_swap)
         nav = entry(["header.js"], ["/"], "nav", nav_rule={"last_nav_change": None})
@@ -382,13 +432,47 @@ def main() -> int:
         edit(repo, "knowledge.html", add_article_section)
         c.guard("週次: ハブに記事ぶんの節を足した（files に書いても量で止める）", {"changes": [dict(hub(), **{"class": "hub"})]}, False,
                 "ハブ・トップに足した本文が多すぎる", profile="weekly")
-        #   差し戻し（class=rollback）のファイルだけ、足した節を消してよい
+        #   差し戻し（class=rollback）: 元の commit（rollback_of）の逆向きと確かめられたファイルだけ、凍結を外し・足した節を消してよい
         edit(repo, "land.html", drop_section("representative"))
         c.guard("週次: id つきの節を消した（class=body）", {"changes": [entry(["land.html"], ["/land"], "body")]}, False,
                 "id つきの要素が消えた", profile="weekly")
-        edit(repo, "land.html", drop_section("representative"))
-        c.guard("週次: 差し戻し（class=rollback）なら、足した節を消すのは通す", {"changes": [entry(["land.html"], ["/land"], "rollback")]}, True,
+        rb_sec = '<section class="section" id="selftest-rb">\n<h2>selftest: 足した節</h2>\n<p>selftest の節の本文。</p>\n</section>\n'
+        edit(repo, "land.html", lambda s: s[:s.index("<footer")] + rb_sec + s[s.index("<footer"):])
+        git(repo, "commit", "-qam", "feat(land): selftest の節を足した（元の commit＝今日＝land.html は 14 日凍結）")
+        rb_sha = git(repo, "rev-parse", "HEAD")
+        undo_rb = lambda s: s.replace(rb_sec, "", 1)  # noqa: E731
+        def rb(**kw):
+            return {"changes": [entry(["land.html"], ["/land"], "rollback", **kw)]}
+        edit(repo, "land.html", undo_rb)
+        c.guard("週次: 元の commit の逆向きと確かめられた差し戻しは、凍結中でも・足した節を消しても通す", rb(rollback_of=rb_sha[:10]), True,
                 profile="weekly")
+        edit(repo, "land.html", undo_rb)
+        c.guard("週次: rollback_of の無い差し戻しは止める", rb(), False, "rollback_of（戻す元の commit）が要る", profile="weekly")
+        edit(repo, "land.html", lambda s: s.replace("</body>", '<p><a href="/projects">販売中の案件一覧</a></p>\n</body>', 1))
+        c.guard("週次: 凍結中のページへの普通の手直しを rollback と申告しても、逆向きと確かめられなければ凍結で止める", rb(rollback_of=rb_sha),
+                False, ("/land: 14日以内に変えたページは変えない", "逆向きの差分と確かめられない"), profile="weekly")
+        edit(repo, "land.html", drop_section("representative"))
+        c.guard("週次: 元の commit が足していない節を rollback で消したら止める（凍結・節の削除）", rb(rollback_of=rb_sha), False,
+                ("/land: 14日以内に変えたページは変えない", "id つきの要素が消えた"), profile="weekly")
+        edit(repo, "land.html", undo_rb)
+        c.guard("週次: rollback_of が HEAD の履歴に無い commit なら確かめられない＝凍結で止める", rb(rollback_of="0123456789abcdef"), False,
+                ("/land: 14日以内に変えたページは変えない", "class=rollback だが"), profile="weekly")
+        #   JSON-LD だけ・焼き直しの所だけの書き換えを rollback と申告しても、凍結を外さない（2026-09-23 の確かめ #78）
+        edit(repo, "land.html", lambda s: s.replace('"description": "', '"description": "selftest: ', 1))
+        c.guard("週次: 凍結中のコラムの JSON-LD だけを rollback と申告して書き換えたら凍結で止める（コラムは JSON-LD も比べる）",
+                rb(rollback_of=rb_sha), False, ("/land: 14日以内に変えたページは変えない", "逆向きの差分と確かめられない"), profile="weekly")
+        edit(repo, "knowledge.html", add_card_for_existing)
+        git(repo, "commit", "-qam", "feat(knowledge): selftest のカードを足した（元の commit＝今日＝/knowledge は 14 日凍結）")
+        kb_sha = git(repo, "rev-parse", "HEAD")
+        def rbk(**kw):
+            return {"changes": [entry(["knowledge.html"], ["/knowledge"], "rollback", **kw)]}
+        edit(repo, "knowledge.html", lambda s: s.replace('<span class="new">NEW</span>', "", 1))
+        c.guard("週次: ハブの NEW バッジだけ（焼き直しの所だけ）を rollback と申告しても、差分が空＝確かめられない＝凍結で止める",
+                rbk(rollback_of=kb_sha), False, ("/knowledge: 14日以内に変えたページは変えない", "焼き直しの所"), profile="weekly")
+        edit(repo, "knowledge.html", lambda s: s.replace(selftest_card(), "", 1))
+        c.guard("週次: ハブに足したカードを抜く差し戻し（元の commit の逆向き）は、凍結中でも通す", rbk(rollback_of=kb_sha), True,
+                profile="weekly")
+        git(repo, "checkout", "-q", "--detach", quiet)
         #   pages は編集したページだけ（送客先の収益ページは kpi_pages）
         edit(repo, "knowledge.html", reroute_one_funnel_link)
         c.guard("pages に、編集していない送客先の収益ページを入れた",
@@ -455,6 +539,212 @@ def main() -> int:
         edit(repo, "column-auction.html", link)
         c.guard("週次: pages があれば通す", {"changes": [weekly_entry(["column-auction.html"], ["/column-auction"])]}, True, profile="weekly")
 
+        # ---- 凍結: ハブ・トップ（O16-38 の例外はカードの追加だけ）・構成レビューの差し戻し直後のハブ
+        def led_put(*rows):
+            led.write_text("".join(json.dumps(dict({"source": "auto", "date": str(TODAY), "summary": "selftest"}, **r), ensure_ascii=False) + "\n"
+                                   for r in rows), encoding="utf-8")
+        led_put({"id": "w-rollback", "class": "rollback", "pages": ["/knowledge"]})
+        edit(repo, "knowledge.html", swap_cat_blocks)
+        c.guard("構成: 週次が差し戻した直後（台帳に class=rollback）のハブの hub-order は凍結で止める", {"changes": [hub()]}, False,
+                "/knowledge: 14日以内に変えたページは変えない", ref="selftest-quiet")
+        led_put({"id": "w-title", "class": "title", "pages": ["/knowledge"]})
+        edit(repo, "knowledge.html", swap_cat_blocks)
+        c.guard("構成: 台帳の title の変更ではハブを凍結しない＝hub-order は通す（コラムを足しただけの週と同じ）", {"changes": [hub()]}, True,
+                "経路: 自動公開", ref="selftest-quiet")
+        led_put({"id": "w-t2", "class": "title", "pages": ["/", "/knowledge", "/zh-knowledge"]})   # 週次の数え方では /・/knowledge・/zh-knowledge が凍結中
+        top_title = lambda s: re.sub(r"<title>.*?</title>", "<title>selftest: トップの title を書き換えた｜ScienceX</title>", s, count=1, flags=re.S)  # noqa: E731
+        edit(repo, "index.html", top_title)
+        c.guard("週次: 凍結中のトップの title を class=title で変えたら凍結で止める", {"changes": [weekly_entry(["index.html"], ["/"], "title")]},
+                False, "/: 14日以内に変えたページは変えない", profile="weekly")
+        edit(repo, "index.html", top_title)
+        c.guard("週次: 凍結中のトップの title を class=hub と申告しても、<head> を変えたら止める", {"changes": [weekly_entry(["index.html"], ["/"], "hub")]},
+                False, "カードの追加（class=hub）でも title", profile="weekly")
+        edit(repo, "index.html", top_title)
+        c.guard("週次: マニフェストに載せずにトップの title を変えたら止める", {"changes": [], "no_change_reason": "x"}, False,
+                "マニフェストに載っていないのに title", profile="weekly")
+        edit(repo, "knowledge.html", add_card_for_existing)
+        c.guard("週次: 凍結中のハブでも、カードの追加（class=hub）は O16-38 の例外として通す",
+                {"changes": [weekly_entry(["knowledge.html"], ["/column-auction"], "hub")]}, True, profile="weekly")
+        edit(repo, "knowledge.html", add_card_for_existing)
+        c.guard("週次: 凍結中のハブへの内部リンク（class=internal-link）は凍結で止める",
+                {"changes": [weekly_entry(["knowledge.html"], ["/column-auction"], "internal-link")]}, False,
+                "/knowledge: 14日以内に変えたページは変えない", profile="weekly")
+        #   class=hub と申告しても、足した行がカードの形でなければ凍結を当てる（2026-09-23 の確かめ #66: 申告した class だけで抜けていた）
+        hubk = {"changes": [weekly_entry(["knowledge.html"], ["/knowledge"], "hub")]}
+        edit(repo, "knowledge.html", lambda s: s.replace('<div class="cat-block', '<p class="selftest"><a href="/projects">販売中の案件一覧</a></p>\n'
+                                                         '<div class="cat-block', 1))
+        c.guard("週次: 凍結中のハブに、カードでない段落（/projects へのリンク）を class=hub と申告して足したら凍結で止める", hubk, False,
+                ("/knowledge: 14日以内に変えたページは変えない", "カードの追加だけ"), profile="weekly")
+        edit(repo, "knowledge.html", lambda s: add_card_for_existing(s, selftest_card("/projects")))
+        c.guard("週次: 凍結中のハブに、カードの形でも行き先がコラムでないもの（/projects）を class=hub で足したら凍結で止める", hubk, False,
+                "カードの追加だけ", profile="weekly")
+        edit(repo, "knowledge.html", lambda s: add_card_for_existing(s, selftest_card(ad="selftest <strong>販売中</strong>")))
+        c.guard("週次: 凍結中のハブに、既存のカードと要素が違うカード（中に strong）を class=hub で足したら凍結で止める", hubk, False,
+                "カードの追加だけ", profile="weekly")
+        edit(repo, "knowledge.html", lambda s: add_card_for_existing(s).replace("<h3>", "<h3>selftest: ", 1))
+        c.guard("週次: 凍結中のハブに、カードの追加と既存のカードの見出しの書き換えを class=hub で混ぜたら凍結で止める", hubk, False,
+                "カードの追加だけ", profile="weekly")
+        edit(repo, "zh-knowledge.html", add_zh_card)
+        c.guard("週次: 凍結中の中文ハブでも、既存のカードと同じ形（kn-card）のカードの追加は通す",
+                {"changes": [weekly_entry(["zh-knowledge.html"], [ZH_CARD_COL], "hub")]}, True, profile="weekly")
+        #   足したカードのコラムが、変更前のハブに既にカードのあるコラムなら止める（2026-09-23 の確かめ #66 の残り: 既存のカードを
+        #   複製して宣伝文に書き換えたカードが通った）。同じコラムのカードを 2 枚足すのも止める
+        carded_col = re.search(JA_CARD_RE, (repo / "knowledge.html").read_text(encoding="utf-8")).group(1)
+        edit(repo, "knowledge.html", lambda s: add_card_for_existing(s, selftest_card(carded_col, "selftest: 販売中の案件は一覧から")))
+        c.guard("週次: 凍結中のハブに、既にカードのあるコラムのカード（宣伝文）を class=hub で足したら凍結で止める", hubk, False,
+                ("/knowledge: 14日以内に変えたページは変えない", "既にカードのあるコラム"), profile="weekly")
+        edit(repo, "knowledge.html", lambda s: add_card_for_existing(add_card_for_existing(s), selftest_card(ad="selftest 2")))
+        c.guard("週次: 凍結中のハブに、同じコラムのカードを 2 枚、class=hub で足したら凍結で止める", hubk, False,
+                "カードの追加だけ", profile="weekly")
+        #   マニフェストに載せないハブ・トップの書き換え（2026-09-23 の確かめ #66: 申告しないだけで凍結を抜けられた）
+        en_only = {"changes": [weekly_entry(["en/column-auction.html"], ["/en/column-auction"])]}
+        edit(repo, "knowledge.html", lambda s: s.replace('<div class="cat-block', '<p class="selftest"><a href="/projects">販売中の案件一覧</a></p>\n'
+                                                         '<div class="cat-block', 1))
+        edit(repo, "en/column-auction.html", link)
+        c.guard("週次: 凍結中のハブをマニフェストに載せずに書き換えたら（焼き直しでない差分）凍結で止める", en_only, False,
+                ("/knowledge: 14日以内に変えたページは変えない", "マニフェストに載せずに"), profile="weekly")
+        edit(repo, "knowledge.html", add_card_for_existing)
+        edit(repo, "en/column-auction.html", link)
+        c.guard("週次: 凍結中のハブへのカードの追加も、マニフェストに載せなければ止める（class=hub で files に書く）", en_only, False,
+                ("/knowledge: 14日以内に変えたページは変えない", "class=hub で files に書く"), profile="weekly")
+        edit(repo, "knowledge.html", lambda s: s.replace(' is-new"', '"', 1).replace('<span class="new">NEW</span>', "", 1))
+        edit(repo, "en/column-auction.html", link)
+        c.guard("週次: 凍結中のハブでも、焼き直しの所だけ（NEW バッジ落ち）ならマニフェストに載せなくても通す", en_only, True, profile="weekly")
+        edit(repo, "en/index.html", lambda s: s.replace("<footer", '<p class="selftest"><a href="/en/contact">Contact</a></p>\n<footer', 1))
+        edit(repo, "en/column-auction.html", link)
+        c.guard("週次: 焼き直しが書かないトップ（en/index.html）の書き換えは、凍結の外でもマニフェストに無ければ止める", en_only, False,
+                "マニフェストに載っていない変更: en/index.html", profile="weekly")
+        led.unlink()
+
+        # ---- O16-8・O16-66: ファンドの数字（英中の yield・fee と「手数料は N%」も）。既存の文を動かしただけなら止めない
+        def add_p(t):
+            return lambda s: s.replace("</body>", f"<p>{t}</p>\n</body>", 1)
+        def wk1(f, **kw):
+            return {"changes": [dict(weekly_entry([f], ["/" + f[:-5]]), **kw)]}
+        edit(repo, "en/column-auction.html", add_p("selftest: projects of this kind yield 8% annually; fee 3%."))
+        c.guard("週次: EN に yield N%・fee N% を足したら止める", wk1("en/column-auction.html"), False, ("O16-8", "yield 8%", "fee 3%"), profile="weekly")
+        edit(repo, "column-auction.html", add_p("selftest の手数料は売買価格の 9% とする。selftest の出資額の 7% を分配する。"))
+        c.guard("週次: 「手数料は N%」「N% を分配」を足したら止める（出資額も語に入れた＝「出資額の N%」で拾う）", wk1("column-auction.html"), False,
+                ("手数料は売買価格の 9%", "出資額の 7%"),
+                profile="weekly")
+        edit(repo, "zh-column-auction.html", add_p("selftest：内部收益率8%，手续费 3%。"))
+        c.guard("週次: ZH に收益率・手续费の数字を足したら止める", wk1("zh-column-auction.html"), False, ("收益率8%", "手续费 3%"), profile="weekly")
+        sys.path.insert(0, str(HERE))
+        import guard_diff as gd  # noqa: PLC0415 — 式だけ使う
+        mv = None
+        for f in sorted(repo.glob("column-*.html")):
+            L = f.read_text(encoding="utf-8").splitlines(keepends=True)
+            i = next((i for i, l in enumerate(L) if gd.FUND_NUM_RE.search(l) and re.fullmatch(r"\s*<p>.*</p>\s*", l) and l.count("<p") == 1), None)
+            if i is not None:
+                mv = (f.name, L[i])
+                break
+        assert mv, "ファンドの数字を含む <p> の行が既存コラムに無い（selftest を直す）"
+        edit(repo, mv[0], lambda s: s.replace(mv[1], "", 1).replace("</body>", mv[1] + "</body>", 1))
+        c.guard("週次: 既存のファンドの数字の文を動かしただけなら通す（ページ全体の出現の前後で比べる）", wk1(mv[0]), True, profile="weekly")
+        #   数字が先に来る形と言い換え（2026-09-23 の確かめ #64）。合成の文だけ（実データではない）
+        fund_pos = ["3%の手数料", "a 3% fee", "3% management fee", "8% annual return", "年利5%", "期待リターン8%", syn_amount("募集金額{}億円", 10),
+                    syn_amount("最低出資額 {}万円", 100), syn_amount("Minimum investment of JPY {} million", 10), "dividend of 5%", "分红率5%", "年化收益8%", "利益の 7% を分配",
+                    # 2026-09-23 の 4 回目の確かめの言い換え（成功報酬・フィー・carry・carried interest・hurdle・p.a.・年N%を目指す）
+                    "成功報酬 3%", "3%のフィー", "carry of 20%", "20% carried interest", "hurdle rate of 8%", "5% p.a. return", "年8%を目指す"]
+        miss = [x for x in fund_pos if not gd.FUND_NUM_RE.search(x)]
+        results.append((not miss, "式: 数字が先の形・言い換え（手数料・fee・return・年利・リターン・募集金額・出資額・minimum investment・dividend・分红・年化・"
+                        "成功報酬・フィー・carry・hurdle・p.a.・年N%を目指す）を拾う",
+                        "式", f"拾えなかった {miss}" if miss else f"{len(fund_pos)} 文とも拾う"))
+        fund_neg = ["SOC 90%", "上位 3% のコラム", "3% of capacity", "効率は 85%", "出力の 3% を失う", "distribution losses of 5%",
+                    "地価が5%上昇", "劣化率 2%/年", "2% p.a. degradation", "FIP（フィードインプレミアム）の上乗せは 3%", "lines carry 5% of flows",
+                    "年3%の成長を見込む"]
+        hits = [x for x in fund_neg if gd.FUND_NUM_RE.search(x)]
+        results.append((not hits, "式: ファンドでない数字（SOC・効率・上位 N%・capacity・地価・劣化・フィードイン・carry N% of flows）は拾わない",
+                        "式", f"拾った {hits}" if hits else ""))
+        edit(repo, "en/column-auction.html", add_p("selftest: a 3% management fee and an 8% annual return; " + syn_amount("minimum investment of JPY {} million.", 10)))
+        c.guard("週次: EN に数字が先の fee・return と minimum investment を足したら止める", wk1("en/column-auction.html"), False,
+                ("O16-8", "3% management fee", "8% annual return", syn_amount("JPY {}", 10)), profile="weekly")
+        edit(repo, "column-auction.html", add_p("selftest の年利5%、期待リターン8%、3%の手数料。"))
+        c.guard("週次: JA に年利・リターン・「N%の手数料」を足したら止める", wk1("column-auction.html"), False,
+                ("年利5%", "リターン8%", "3%の手数料"), profile="weekly")
+
+        # ---- O16-67: コラムから /fund へ導線を張らない／O16-69: 英語・中文のページに証券化（GK-TK）を載せない
+        edit(repo, "en/column-auction.html", add_p('<a href="/fund">Fund</a>'))
+        c.guard("週次: EN コラムに /fund へのリンクを足したら止める（O16-67）", wk1("en/column-auction.html"), False, ("O16-67", "/fund を指すリンク"), profile="weekly")
+        edit(repo, "column-auction.html", add_p('<a href="https://www.scix.co.jp/fund?ref=col">ファンドの案内</a>'))
+        c.guard("週次: JA コラムでも /fund（絶対 URL・?query つき）へのリンクを足したら止める", wk1("column-auction.html"), False,
+                "/fund を指すリンク", profile="weekly")
+        #   www 無し・//・相対・invest.scix.co.jp（vercel.json の rewrites で /fund）も同じ /fund に数える（2026-09-23 の確かめ #70）
+        for href, f in (("https://scix.co.jp/fund", "en/column-auction.html"), ("//www.scix.co.jp/fund", "column-auction.html"),
+                        ("fund.html", "column-auction.html"), ("../fund", "en/column-auction.html"),
+                        ("https://invest.scix.co.jp/", "zh-column-auction.html"),
+                        # host の rewrites に出るホストは、rewrite の無いパスも自サイト（2026-09-23 の 4 回目の確かめ #70 の残り）
+                        ("https://invest.scix.co.jp/fund", "en/column-auction.html"), ("https://invest.scix.co.jp/fund.html", "column-auction.html")):
+            edit(repo, f, add_p(f'<a href="{href}">selftest</a>'))
+            c.guard(f"週次: コラムから /fund への導線は書き方を変えても止める（{href}・{f}）", wk1(f), False,
+                    ("O16-67", "/fund を指すリンク"), profile="weekly")
+        edit(repo, "column-auction.html", add_p('<a href="https://www.example.com/fund/detail/1">selftest の外部</a>'))
+        c.guard("週次: 外のサイトの /fund（別のドメイン）は数えない（通す）", wk1("column-auction.html"), True, profile="weekly")
+        #   vercel.json が読めなければ止める（空で続けるとリダイレクトと invest 経由の /fund を数えない＝甘くなる側）
+        edit(repo, "vercel.json", lambda s: s.rstrip()[:-1])
+        edit(repo, "en/column-auction.html", link)
+        c.guard("週次: vercel.json が読めなければ止める（O16-67 の数え方が甘くなる）", wk1("en/column-auction.html"), False,
+                "vercel.json を読めないので止める", profile="weekly")
+        edit(repo, "en/column-auction.html", add_p("selftest: securitization via GK-TK structures."))
+        c.guard("週次: EN に証券化（GK-TK）を足したら止める（O16-69）", wk1("en/column-auction.html"), False, ("O16-69", "gk-tk"), profile="weekly")
+        edit(repo, "zh-column-auction.html", add_p("selftest：证券化。"))
+        c.guard("週次: ZH に证券化を足したら止める（O16-69）", wk1("zh-column-auction.html"), False, "O16-69", profile="weekly")
+        edit(repo, "column-auction.html", add_p("selftest：証券化の語は JA では止めない。"))
+        c.guard("週次: JA のページの「証券化」は O16-69 の対象外（通す）", wk1("column-auction.html"), True, profile="weekly")
+
+        # ---- O16-10: 自称でない「中立」「neutral」は止めない（シナリオ名・引用符・carbon-neutral）。自称は止める
+        edit(repo, "column-auction.html", add_p("selftest：強気・中立・弱気の 3 シナリオ。中立：約 5 割。"))
+        c.guard("週次: シナリオ名の「中立」は自称ではない（通す）", wk1("column-auction.html"), True, profile="weekly")
+        edit(repo, "en/column-auction.html", add_p('selftest: carbon-neutral fuels and a "neutral" scenario.'))
+        c.guard("週次: carbon-neutral・引用符の \"neutral\" は自称ではない（通す）", wk1("en/column-auction.html"), True, profile="weekly")
+        edit(repo, "en/column-auction.html", add_p("selftest: we are a neutral intermediary."))
+        c.guard("週次: 自称の neutral は止める", wk1("en/column-auction.html"), False, "neutral/independent の自称は禁止", profile="weekly")
+        #   ハイフン・引用符を丸ごと外すと自称が素通りした（2026-09-23 の確かめ #76）。外すのは carbon-／climate-／net-／technology- だけ
+        for f, t, needle in (("en/column-auction.html", "selftest: a vendor-neutral marketplace.", "neutral/independent の自称は禁止"),
+                             ("en/column-auction.html", "selftest: a manufacturer-neutral broker and an EPC-neutral platform.",
+                              "neutral/independent の自称は禁止"),
+                             ("en/column-auction.html", "selftest: we act as a “neutral” party.", "neutral/independent の自称は禁止"),
+                             ("column-auction.html", "selftest：当社は「中立」の立場です。", "自称「中立」は禁止")):
+            edit(repo, f, add_p(t))
+            c.guard(f"週次: 自称は止める（{t.split(': ', 1)[-1].split('：', 1)[-1][:28]}）", wk1(f), False, needle, profile="weekly")
+        #   英語で外すのは neutral scenario と the neutral case の形だけ（2026-09-23 の 4 回目の確かめ #76 の残り）
+        for t in ("selftest: We act as a neutral case manager for your sale.", "selftest: As the neutral case manager, we handle your sale.",
+                  "selftest: neutral cases are what we handle."):
+            edit(repo, "en/column-auction.html", add_p(t))
+            c.guard(f"週次: 自称は止める（{t.split(': ', 1)[-1][:32]}）", wk1("en/column-auction.html"), False, "neutral/independent の自称は禁止",
+                    profile="weekly")
+        edit(repo, "en/column-auction.html", add_p("selftest: in the neutral case, prices fall; the “neutral” scenarios differ; The neutral cases vary."))
+        c.guard("週次: the neutral case・neutral scenario は自称ではない（通す）", wk1("en/column-auction.html"), True, profile="weekly")
+        edit(repo, "en/column-auction.html", add_p("selftest: climate-neutral, net-neutral and technology-neutral rules; the neutral case."))
+        c.guard("週次: climate-／net-／technology-neutral と neutral case は自称ではない（通す）", wk1("en/column-auction.html"), True,
+                profile="weekly")
+        edit(repo, "column-auction.html", add_p("selftest：「中立」シナリオと中立ケース。"))
+        c.guard("週次: 「中立」シナリオ・中立ケースは自称ではない（通す）", wk1("column-auction.html"), True, profile="weekly")
+        #   既存の引用符つきの行（自己診断の文言）を手直ししても、新しく現れた「中立」「neutral」ではない＝止めない（ページ全体の前後で比べる）
+        for f, a_, b_ in (("en/column-subsidies.html", "The three strategies are roughly tied.", "The three strategies are roughly even."),
+                          ("column-subsidies.html", "3戦略がほぼ拮抗", "3戦略がほぼ互角")):
+            edit(repo, f, lambda s, a_=a_, b_=b_: s.replace(a_, b_, 1))
+            c.guard(f"週次: 既存の引用符つきの「中立」「neutral」の行の、離れた所を直すだけなら止めない（{f}）", wk1(f), True, profile="weekly")
+
+        # ---- 公開される欄の案件ID・金額（O16-19）: 週次の before／after は公開されない＝掛けない。構成レビューは PR 本文に載る＝掛ける
+        edit(repo, "column-auction.html", link)
+        c.guard("週次: before に円の金額（元の title）があっても止めない（週次の before／after は公開されない）",
+                wk1("column-auction.html", before=syn_amount("title: selftest の費用は 1 件 {} 万円", 9), after="title: selftest の費用の目安"), True, profile="weekly")
+        edit(repo, "knowledge.html", swap_cat_blocks)
+        c.guard("構成: before に円の金額は止める（PR 本文に載る）", {"changes": [hub(before=syn_amount("並び: selftest の {} 万円のカテゴリが先", 9))]}, False,
+                "before: コミット・PR・変更日台帳に案件ID・金額を写さない", ref="selftest-quiet")
+
+        # ---- cooldown_pages(strict=True): git の履歴を読めないときは例外（検査が止める）。ブリーフ用（strict=False）は落とさない
+        nogit, empty_led = tmp / "not-a-repo", tmp / "ledger-empty"
+        nogit.mkdir(); (empty_led / "ledger").mkdir(parents=True)
+        code = ("import json, pathlib, sys; sys.path.insert(0, %r); import build_brief as b; b.REPO = pathlib.Path(%r)\n"
+                "try:\n    b.cooldown_pages(strict=True); print('noraise')\nexcept Exception:\n    print('raised')\n"
+                "print(json.dumps(b.cooldown_pages()))") % (str(HERE), str(nogit))
+        r = run([sys.executable, "-c", code], tmp, env=dict(os.environ, SCIX_WEB_LEDGER=str(empty_led)))
+        results.append((r.returncode == 0 and r.stdout.split()[:2] == ["raised", "{}"],
+                        "凍結: git の履歴を読めないとき、検査用（strict=True）は例外・ブリーフ用は落とさず空", "凍結",
+                        (r.stdout.strip() + " " + r.stderr.strip()[-80:])[:110]))
+
         # ---- 非公開の禁止語（O16-7・O16-12）。合成の一覧（SYN-1・SYN-2）で確かめる。止める理由は規則IDだけ＝語も式も出さない
         def add_line(html_line):
             return lambda s: s.replace("</body>", html_line + "\n</body>", 1)
@@ -467,6 +757,10 @@ def main() -> int:
         edit(repo, "column-auction.html", add_line("<p>中立の立場。利回りはZxq-value比で 12%</p>"))
         c.guard("週次: 同じ行を写すほかの理由（自称中立・利回りの数字）も、非公開の禁止語の行は抜粋を出さない", wk, False,
                 ("自称「中立」", "O16-8", "非公開の禁止語（SYN-2）", "抜粋は出さない"), profile="weekly", forbid=SYN_SHOWN)
+        #   抜粋の窓（前後 20 字）の端で語が切れても、語の残りを出さない＝出現を含む行の全体に当てる（2026-09-23 の 4 回目の確かめ）
+        edit(repo, "column-auction.html", add_line("<p>ゼクシリアル語の説明とは別に、当社は完全に中立の立場です。</p>"))
+        c.guard("週次: 自称「中立」の抜粋の窓の端で非公開の禁止語が切れても、語の残りを出さない", wk, False,
+                ("自称「中立」", "抜粋は出さない", "非公開の禁止語（SYN-1）"), profile="weekly", forbid=SYN_SHOWN + ("クシリアル", "シリアル語"))
         edit(repo, "column-auction.html", add_line('<p><a href="/zxq-value">x</a></p>'))
         c.guard("週次: リンク先など、ほかの理由に紛れた語も伏せる", wk, False, ("内部リンク切れ", "伏せ字 SYN-2"), profile="weekly",
                 forbid=SYN_SHOWN)
