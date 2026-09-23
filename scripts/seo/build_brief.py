@@ -414,7 +414,7 @@ def render(days=28, for_latest=False, structure=False):
 
     cur = load_range("gsc", cur_s, cur_e); prev = load_range("gsc", prev_s, prev_e)
     w7 = load_range("gsc", w7_s, latest); w7p = load_range("gsc", w7p_s, w7p_e)
-    tot, pages, qp, q = agg_gsc(cur); ptot, ppages, _, pq = agg_gsc(prev)
+    tot, pages, qp, q = agg_gsc(cur); ptot, ppages, pqp, pq = agg_gsc(prev)
     t7, _, _, _ = agg_gsc(w7); t7p, _, _, _ = agg_gsc(w7p)
 
     ga_cur = load_range("ga4", cur_s, cur_e); ga_prev = load_range("ga4", prev_s, prev_e)
@@ -617,6 +617,14 @@ def render(days=28, for_latest=False, structure=False):
     except Exception as e:  # noqa: BLE001 — ここが落ちてもブリーフの他の節は出す
         L.append(f"## 10. 新規ページ（公開{NEW_DAYS}日以内）の立ち上がり\n\n生成に失敗: {e}\n")
 
+    # 11. アクセスが減ったページ＋原因の型＋本文の時点（2026-09-22 中島決定: トリガーはアクセス減。
+    #     時点更新は週次では直さず 1 行で知らせ、CC の作業セッションで一次資料を当てる）
+    try:
+        import access_drop as ad
+        ad.render(L, ad.drops(pages, ppages, qp, pqp), limit=(10 if for_latest else 30))
+    except Exception as e:  # noqa: BLE001 — ここが落ちてもブリーフの他の節は出す
+        L.append(f"## 11. アクセスが減ったページ\n\n生成に失敗: {e}\n")
+
     # S1〜S8. 構成レビュー（月1回・--structure のときだけ）
     if structure:
         try:
@@ -633,7 +641,7 @@ def brief_json(days=28, structure=False):
         return {}
     latest = d(gd[-1])
     cur = load_range("gsc", latest - datetime.timedelta(days=days - 1), latest)
-    tot, pages, _, _ = agg_gsc(cur)
+    tot, pages, qp, _ = agg_gsc(cur)
     ga = load_range("ga4", latest - datetime.timedelta(days=days - 1), latest)
     _, landing, *_ = agg_ga4(ga)
     try:
@@ -644,6 +652,12 @@ def brief_json(days=28, structure=False):
            "pages": pages, "landing": landing,
            "cooldown": {k: v[0] for k, v in cooldown_pages(structure=structure).items()},
            "new_pages": new_rows, "zero_impression": zero_rows}
+    try:
+        import access_drop as ad
+        _, ppages, pqp, _ = agg_gsc(load_range("gsc", latest - datetime.timedelta(days=2 * days - 1), latest - datetime.timedelta(days=days)))
+        out["access_drops"] = ad.drops(pages, ppages, qp, pqp)
+    except Exception:  # noqa: BLE001
+        out["access_drops"] = []
     try:
         out["structure_changes"] = structure_change_rows(
             [e for e in read_jsonl(LEDGER / "ledger" / "changes.jsonl")
