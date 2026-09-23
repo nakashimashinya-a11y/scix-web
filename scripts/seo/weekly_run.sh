@@ -65,7 +65,6 @@ if [ "$MODE" = "structure" ]; then                 # 同じ日の週次の成果
 fi
 BASE_REF="${SCIX_WEB_BASE_REF:-origin/main}"       # 試験のときだけ別ブランチを指定できる
 LOCK="$STATE/web_weekly.lock"                      # 週次と構成レビューで共用（同じリポジトリの worktree と fetch を同時に触らせない）
-TG_TARGET="${SCIX_TG_TARGET:-$(cat "$HOME/.config/scix-web/tg_target" 2>/dev/null || true)}"  # 宛先はリポジトリの外から（公開リポジトリに個人の宛先を書かない）
 
 log() { echo "$(date '+%F %T') $*"; }
 # 月の第1日曜か（launchd は日曜にしか起こさないが、手で回した日にも続けて走らないよう曜日も見る）
@@ -87,13 +86,23 @@ if [ "$MODE" = "weekly" ] && [ "${SCIX_WEB_CHILD:-0}" != "1" ]; then
   fi
   exit $WEEKLY_RC
 fi
-notify() {
-  # 2026-09-21 中島指示「リストを人間に出すだけじゃだめ」。出してよいのは
-  #   ①公開した（取り消し方つき）②今日動かないと損が出る、の2つだけ。
-  #   失敗・変化なしの報告はログに残す（朝ルーチンが bundle ⑦ で読む）。
-  if [ -z "$TG_TARGET" ]; then log "Telegram 宛先が未設定（SCIX_TG_TARGET）。送らずに続ける"; return 0; fi
-  openclaw message send --channel telegram --target "$TG_TARGET" --message "$1" >/dev/null 2>&1 \
-    || log "Telegram 送信失敗（本文: ${1:0:120}）"
+TG_GATE="${SCIX_TG_GATE:-$HOME/.openclaw/workspace/bin/tg_gate.py}"   # Telegram の関所（リポジトリの外。宛先も関所が持つ）
+notify() {  # $1=本文 $2=種類（undo＝公開の戻し方・ask＝1問） $3=key（同じ用件は1回だけ）
+  # Telegram は tg_gate を通す（種類・上限・送信台帳＝O13-2・O13-26・O13-27）。出せない種類は関所が行動ログに回す。
+  #   失敗・変化なしは Telegram に出さず行動ログへ1行（applog）。
+  if [ ! -f "$TG_GATE" ]; then log "Telegram の関所が無い（${TG_GATE}）。送らずに続ける"; return 0; fi
+  local rc=0
+  printf '%s' "$1" | python3 "$TG_GATE" send --kind "$2" --job web-weekly --key "$3" --message - --apply >/dev/null 2>&1 || rc=$?
+  case "$rc" in
+    0) ;;
+    6) log "Telegram: 同じ知らせは送り済みか上限（key=$3）" ;;
+    9) log "Telegram: 届いたか不明（key=$3・送り直さない）" ;;
+    *) log "Telegram 送信失敗 rc=${rc}（key=$3）" ;;
+  esac
+}
+applog() {  # 行動ログに1行（O13-3）。Telegram には出さない
+  [ -f "$TG_GATE" ] || return 0
+  printf '%s' "$1" | python3 "$TG_GATE" send --kind log --job web-weekly --key "web-weekly-log:$(date +%F-%H%M%S)" --message - --apply >/dev/null 2>&1 || log "行動ログに書けない"
 }
 cleanup() {
   if [ "$DRY_RUN" != "1" ]; then
@@ -105,6 +114,7 @@ cleanup() {
 fail() {
   log "NG $*"
   log "失敗のため公開していない。朝ルーチンが bundle ⑦ でこのログを読む（Telegram には出さない）"
+  applog "scix.co.jp ${MODE:-weekly} の自動更新は失敗して公開していない: $*"
   cleanup; exit 1
 }
 mj() { python3 -c "import json,sys; j=json.load(open(sys.argv[1])); exec(sys.argv[2])" "$RUN_DIR/changes.json" "$1"; }
@@ -236,6 +246,7 @@ run_structure() {
   cd "$REPO" || fail "リポジトリが無い: $REPO"
   CC_DIR="$(python3 -c 'import json,os;print(os.path.expanduser(json.load(open(os.path.expanduser("~/.openclaw/openclaw.json")))["agents"]["defaults"]["cliBackends"]["claude-cli"]["env"]["CLAUDE_CONFIG_DIR"]))' 2>/dev/null || true)"
   [ -n "$CC_DIR" ] && [ -d "$CC_DIR" ] || fail "CLAUDE_CONFIG_DIR が決まらない（openclaw.json）"
+  [ "$(cd "$CC_DIR" && pwd -P)" != "$(cd "$HOME/.claude" && pwd -P)" ] || fail "CLAUDE_CONFIG_DIR が中島さんの枠（~/.claude）を指している（共通ルール O14-10）"
 
   # 1. ブリーフ（通常の節＋構成レビュー用の S1〜S8）。週次の直後なら台帳は取り直さない
   if [ "${SCIX_WEB_AFTER_WEEKLY:-0}" != "1" ] && [ "${NO_COLLECT:-0}" != "1" ]; then
@@ -280,6 +291,7 @@ run_structure() {
       log "マニフェストは 0 件。作業ツリーに残っている差分は焼き直しだけ＝公開も PR もしない: $(git status --porcelain --untracked-files=all | head -5 | tr '\n' ' ')"
     fi
     log "今月は構成の変更なし: $REASON"
+    applog "scix.co.jp 構成レビュー（${MONTH}）: 変更なし（${REASON}）"
     cleanup; exit 0
   fi
 
@@ -329,7 +341,7 @@ EOF4
     fi
     notify "🧭 scix.co.jp 構成を見直して公開しました（${MONTH}）: $LINE1
 根拠: $LINE2
-$LINE3"
+$LINE3" undo "web-structure:${MONTH}"
     log "OK 構成レビュー 完了（自動公開${LEDGER_NOTE}）$TAG $SHA"
     cleanup
     exit 0
@@ -409,13 +421,9 @@ EOF3
 
   # 8. 通知（1通3行以内）
   if [ -n "$PR_NUM" ]; then
-    notify "🧭 scix.co.jp 構成の見直し案（ナビを含むので自動公開せず）を PR #$PR_NUM に置きました
-根拠: $LINE1
-マージで公開・閉じれば不採用 $PR_URL"
+    notify "🧭 scix.co.jp 構成の見直し案（ナビを含むので自動公開せず）を PR #$PR_NUM に置きました。①マージして公開 ②閉じて不採用 $PR_URL" ask "web-structure-pr:${MONTH}"
   else
-    notify "🧭 scix.co.jp 構成の見直し案（ナビを含むので自動公開せず）を枝 $BRANCH に置きました（PR は作れなかった）
-根拠: $LINE1
-PR を作ってマージで公開: https://github.com/nakashimashinya-a11y/scix-web/compare/main...$BRANCH"
+    notify "🧭 scix.co.jp 構成の見直し案（ナビを含む）を枝 $BRANCH に置きました（PR は作れなかった）。①PR を作ってマージ ②見送る https://github.com/nakashimashinya-a11y/scix-web/compare/main...$BRANCH" ask "web-structure-pr:${MONTH}"
   fi
   log "OK 構成レビュー 完了（PR の経路）$BRANCH ${PR_NUM:+PR #$PR_NUM }$SHA"
   cleanup
@@ -429,6 +437,7 @@ mkdir -p "$RUN_DIR"
 cd "$REPO" || fail "リポジトリが無い: $REPO"
 CC_DIR="$(python3 -c 'import json,os;print(os.path.expanduser(json.load(open(os.path.expanduser("~/.openclaw/openclaw.json")))["agents"]["defaults"]["cliBackends"]["claude-cli"]["env"]["CLAUDE_CONFIG_DIR"]))' 2>/dev/null || true)"
 [ -n "$CC_DIR" ] && [ -d "$CC_DIR" ] || fail "CLAUDE_CONFIG_DIR が決まらない（openclaw.json）"
+[ "$(cd "$CC_DIR" && pwd -P)" != "$(cd "$HOME/.claude" && pwd -P)" ] || fail "CLAUDE_CONFIG_DIR が中島さんの枠（~/.claude）を指している（共通ルール O14-10）"
 
 # 1. 台帳を最新にしてブリーフ（NO_COLLECT=1 は試験用＝API を叩かず、いまの台帳のまま）
 [ "${NO_COLLECT:-0}" = "1" ] || python3 scripts/seo/collect_daily.py --days 10 --no-health >>"$RUN_DIR/collect.log" 2>&1 || log "収集に一部失敗（続行）"
@@ -453,6 +462,7 @@ git reset -q 2>/dev/null   # Claude が git add していても、こちらで a
 if ! git status --porcelain --untracked-files=all | grep -q . ; then
   REASON="$(mj 'print(j.get("no_change_reason") or "理由の記載なし")' 2>/dev/null)"
   log "今週は変更なし: $REASON / $(idea_line)"
+  applog "scix.co.jp 週次 ${TODAY}: 変更なし（${REASON}）"
   cleanup; exit 0
 fi
 
@@ -508,7 +518,7 @@ if [ -n "$FIRST_HTML" ]; then
     done
   fi
 fi
-[ "$DEPLOYED" = "1" ] && log "本番に反映を確認（$FIRST_HTML）" || log "本番反映を10分待ったが確認できない（${FIRST_HTML:-変えた HTML なし}。Action 側の送信に任せる）"
+[ "$DEPLOYED" = "1" ] && log "本番に反映を確認（${FIRST_HTML}）" || log "本番反映を10分待ったが確認できない（${FIRST_HTML:-変えた HTML なし}。Action 側の送信に任せる）"
 python3 scripts/ping_indexnow.py --changed-since "$BASE_SHA" >>"$RUN_DIR/collect.log" 2>&1 || log "IndexNow 送信失敗"
 
 # 9. 通知（3行＋コミット）
@@ -519,7 +529,7 @@ $LINES
 $(idea_line)${STALE:+
 $STALE}
 https://github.com/nakashimashinya-a11y/scix-web/commit/${SHA:0:10}
-差し戻すなら: git revert ${SHA:0:10} → push。ブリーフ: 9_システム/scix-web解析/weekly/$TODAY/$LEDGER_NOTE"
+差し戻すなら: git revert ${SHA:0:10} → push。ブリーフ: 9_システム/scix-web解析/weekly/$TODAY/$LEDGER_NOTE" undo "web-weekly:${TODAY}"
 log "OK 週次自動更新 完了${LEDGER_NOTE:+（⚠️ 台帳の記帳は失敗＝明朝の収集が拾い直す）} $SHA"
 cleanup
 exit 0
