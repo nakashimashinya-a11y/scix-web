@@ -124,6 +124,18 @@ def main() -> int:
         stubs = {"claude": f'#!/bin/bash\nexec python3 "{tmp}/claude_stub.py" "$@"\n',
                  "openclaw": f'#!/bin/bash\nprintf "%s\\n----\\n" "$*" >> "{tmp}/telegram.log"\n',
                  "gh": "#!/bin/bash\nexit 1\n", "curl": "#!/bin/bash\nexit 1\n", "sleep": "#!/bin/bash\nexit 0\n"}
+        # Telegram は関所（~/.openclaw/workspace/bin/tg_gate.py）を通る。一時 HOME には無いので、関所のスタブを SCIX_TG_GATE で指す
+        # （送る種類は telegram.log、行動ログ＝kind=log は actionlog.log に書く）
+        (tmp / "tg_gate_stub.py").write_text(
+            "import sys\n"
+            "a = sys.argv[1:]\n"
+            "kind = a[a.index('--kind') + 1] if '--kind' in a else '?'\n"
+            "key = a[a.index('--key') + 1] if '--key' in a else '?'\n"
+            "msg = sys.stdin.read()\n"
+            f"out = {str(tmp)!r} + ('/actionlog.log' if kind == 'log' else '/telegram.log')\n"
+            "open(out, 'a', encoding='utf-8').write('%s\\n----\\n' % msg)\n"
+            f"open({str(tmp)!r} + '/tg_meta.log', 'a', encoding='utf-8').write('kind=%s key=%s\\n' % (kind, key))\n",
+            encoding="utf-8")
         for name, body in stubs.items():
             p = bin_ / name
             p.write_text(body, encoding="utf-8")
@@ -133,9 +145,8 @@ def main() -> int:
         (tmp / "private_banned.tsv").write_text("# 合成の一覧（selftest 専用）\nゼクシ(?:リアル|テスト)語\tSYN-1\n", encoding="utf-8")
         base_env = {"HOME": str(home), "PATH": f"{bin_}:/usr/bin:/bin:/usr/sbin:/sbin", "LANG": "en_US.UTF-8",
                     "SCIX_WEB_PRIVATE_BANNED": str(tmp / "private_banned.tsv"),
-                    # Telegram の宛先は本物の HOME（~/.config/scix-web/tg_target）にある＝一時 HOME には無く、無いと送らずに続ける。
-                    # 合成の宛先を渡して、openclaw のスタブに届く文面（git revert・台帳の記帳の失敗）を確かめる
-                    "SCIX_TG_TARGET": "selftest",
+                    # Telegram は関所のスタブで受ける（git revert の案内・台帳の記帳の失敗の文面を確かめる）
+                    "SCIX_TG_GATE": str(tmp / "tg_gate_stub.py"),
                     "SCIX_WEB_REPO": str(repo), "SCIX_WEB_LEDGER": str(ledger), "SCIX_WEB_STATE": str(state),
                     "SCIX_WEB_WT": str(tmp / "wt-weekly"), "SCIX_WEB_WT_STRUCTURE": str(tmp / "wt-structure"),
                     "NO_COLLECT": "1", "NO_STRUCTURE": "1", "STUB_HERE": str(HERE), "STUB_TMP": str(tmp),
