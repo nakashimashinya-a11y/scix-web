@@ -102,45 +102,7 @@
 
 DR2 登録の規則の正本は Drive `マイドライブ/5_共有Drive/_DealRoom2/_DR2登録ルール (1).md`（書類番号の表もここ）。
 
-DR2 の置き場は3か所ある。混同しない（同じ名前のフォルダが `_DealRoom2` と `1_案件` の両方にあるのは正常）。
-
-| 呼び名 | 場所 | 用途 |
-|---|---|---|
-| 案件フォルダ（棚） | Drive `マイドライブ/5_共有Drive/_DealRoom2/{ID}_{案件名}/` | 「DR2登録して」と言われたらここ。案件ごとの買い手向け資料フォルダ |
-| 作業フォルダ | Drive `マイドライブ/1_案件/{案件ID}_{案件名}/` | 受領直後の生資料・必要書類チェックリスト・買い手想定質問 |
-| DR2 アプリ（コード） | Drive `マイドライブ/9_システム/1AI営業支援/scix/scix-dealroom2/` | Cloudflare Pages ＋ D1。案件データは D1（`dealroom2_new_projects`＋上書き `deal_edits`。表示を直すときは scix-dealroom2/CLAUDE.md の O17-34）。`data/projects-source.json` は DR2 の画面（`functions/api/projects.ts`）が読まない旧データ。`projects-end.json` は transform の生成物なので手で直さない `O17-35` |
-
 **手順**
 
-- 「DR2に届かない・見つからない」と言う前に、Drive の `_DealRoom2` を検索し、`1_案件` の作業フォルダも検索する（「登録できない」と言う前も同じ）。このリポジトリやコードのローカルパス・D1 だけを見て到達できないと結論しない（Drive はコネクタ〔MCP〕で読み書きできる。クラウド実行でも同じで、Mac に限られるのは D1 への書き込みだけ） `O07-8`
 - 「DR2登録して」と言われたら:
-  1. まず Drive を検索して既存を確認する（`_DealRoom2` の棚と `1_案件` の作業フォルダの両方。`fullText contains 'HV-xxx'` / `title contains '<地名>'`）。**案件フォルダが既にあれば作り直さない。** 差分だけ埋める `O07-9`
-  2. 手で採番せず `~/.openclaw/workspace/bin/dr2_register.py add` を使えば `MAX(no)+1` を自動採番し、重複ガード・販売価格の自動計算・undo付きジャーナルまで面倒を見る（価格ルールの中身はこの公開リポジトリに書かない。スクリプトの docstring を見ること）。採番の線引き:
-     - D1 `SELECT MAX(no) FROM dealroom2_new_projects` と `_DealRoom2/` 直下のフォルダ名の最大値、**両方を見て大きい方 ＋1**。どちらか片方だけを見ると既存IDを踏む（D1レコードだけ先に作られ、Driveフォルダが未作成の案件がある）
-     - 公開 `projects.json` の最大IDを採番根拠にしない（非公開案件が除外されており実態より小さい）
-     - 旧 dealroom1（GitHub `nakashimashinya-a11y/scix-dealroom`・private）は現行台帳ではない。採番の根拠に使わない
-     - 接頭辞は 高圧=`HV-`／特別高圧=`SHV-`。`_DealRoom2` 直下に作る案件フォルダの名前は `{ID}_{案件名}`（例 `HV-###_○○市△△町蓄電所`）
-  3. 資料を `_DealRoom2` の案件フォルダの次の標準サブフォルダに振り分ける（`1_案件` の作業フォルダの仕分けとは別）。物件概要書は案件フォルダ直下に置く。
-
-     | フォルダ | 入れるもの |
-     |---|---|
-     | `A_土地・現地` | 地番一覧・敷地平面図・公図・位置図・現地写真・登記簿 |
-     | `B_系統連系` | 契約申込回答書・検討結果説明書・添付資料1〜6・連系承諾のご案内・工事概要図 |
-     | `C_関係法令` | 都市計画法／農地法／森林法／盛土規制法などの照会回答 |
-     | `D_設備・計画` | システム構成図・レイアウト図・機器仕様書・認証書 |
-     | `99_確認中` | 区分が決まらないもの |
-
-     棚に置くファイルの名前には書類番号を必ず頭に付け、`{番号}_{案件短縮名}_{内容}.拡張子`（例 `A-3_○○_土地全部事項証明書.pdf`）にする。番号の頭文字は置くサブフォルダと合わせ、合わない書類は先に正しいサブフォルダへ移す。**番号が無いと DR2 アプリの必要書類チェックが永久に付かない**（日本語だけの名前は何個置いてもゼロ件と出る）。番号表は正本の「4. 書類番号」（共通ルール O07-19）。
-
-  4. 公開まで通す — `bash ~/マイドライブ/9_システム/1AI営業支援/scix/scix-dealroom2/scripts/dr2_publish.sh`（毎朝 launchd が自動実行するので急がなければ不要。git push では反映されない）
-  5. 作業フォルダ（`マイドライブ/1_案件/{案件ID}_{案件名}/`）の `_必要書類チェックリスト.md` を更新する（✅/⚠️/⬜/➖ の判定を最新化）。
-  6. DR2 アプリの案件一覧に載せる（Drive フォルダを作っただけでは出ない）。「DR2登録」は ①案件フォルダ（Drive）と ②案件レコード（DR2アプリ）の2段構え。**①だけで終わらせない** `O07-11`
-     - 新規案件のレコードは D1 `dealroom2_new_projects` に入れる。`data/projects-source.json` は DR2 の画面が読まない旧データで、ここに書いても増えない
-     - 仕入れ値と既存案件の手直し（インライン編集）も D1 側に入れる（既存案件への上書きは `deal_edits`）。再デプロイは要らない。既存案件の表示を直すときは 1AI営業支援/scix/scix-dealroom2/CLAUDE.md の O17-34 に従う
-     - `dr2_register.py add`（上の2）を使わないときの投入経路は2つだけ: owner 画面の「+ 新規案件」か、SQL を生成して wrangler で流す（`scix-dealroom2/` 直下で `npx wrangler d1 execute scix-dealroom-db --remote --file=dr2-<ID>-insert.sql`。`scripts/04_update_d1_drivefolderurl.py` と同じ流儀）。無人（フック・cron・エージェント）で流すときは `npx wrangler` でなくラッパー wr（`~/.config/scix-cockpit/wr d1 execute …`）を通す（共通ルール O17-7）
-     - `dealroom2_new_projects` が受け付ける列は限られる（`functions/api/admin/projects.ts` の `ALLOWED`）: `id` / `no` / `name` / `address` / `lat` / `lng` / `voltage` / `mw` / `capacity` / `maxPower` / `gridOperator` / `saleType` / `status` / `landType` / `landArea` / `connectionDate` / `operationStartDate` / `price`。数値として入れるのは `lat` / `lng` / `mw` / `capacity` / `maxPower`（と採番の整数 `no`）だけで、残りは `price` も含めて文字列（SQL を生成して渡すときも同じ）。**書く前に `ALLOWED` を見る。** これ以外（`seller`・`constructionCost`・`constructionNote`・`driveFolderUrl`・機器仕様など）は `deal_edits` に UPSERT、社内メモは `memos` テーブルに入れる
-     - `deal_edits` はホワイトリスト制。`functions/api/projects.ts` の `OVERLAY_STRING_FIELDS` / `OVERLAY_NUMERIC_FIELDS` に無いフィールド名で入れてもエラーにならず画面に出ないだけ（行はDBに残るので気づけない）。**書く前に必ずこの2配列を見る**（蓄電池は `battery` ではなく `equipmentBattery`、PCSは `equipmentPcs`） `O17-12`
      - **D1への書き込みはMacからしかできない。** クラウド実行環境（Claude Code on the web 等）では拒否される＝迂回しない・報告する。その場合は**適用できるSQLを生成して渡す**。「できません」で終わらせない `O07-35`
-     - 生成したSQLは `scix-dealroom2/` 直下（`~/マイドライブ/9_システム/1AI営業支援/scix/scix-dealroom2/`＝Drive経由でMacに同期される場所）に `dr2-<ID>-insert.sql` として置く。作業フォルダにも同じものを残しておく
-  7. `driveFolderUrl` に `_DealRoom2` の案件フォルダURLを入れて紐付ける（`1_案件` の作業フォルダは指さない）。
-     - 緯度経度が資料に無い案件は `deal_edits` の `showMap` を `'off'` にする（`'off'` のときだけ非表示。`false`・`true` を入れても変わらない）。非公開（`dealroom2Visible` を `'off'`）にするのは共通ルール O07-2 の3つの場合だけ
