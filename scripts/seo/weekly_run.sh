@@ -50,8 +50,8 @@ case "$MODE" in weekly|structure) ;; *) echo "MODE は weekly か structure（�
 REPO="${SCIX_WEB_REPO:-$HOME/projects/scix-web}"
 LEDGER="${SCIX_WEB_LEDGER:-$HOME/マイドライブ/9_システム/scix-web解析}"
 STATE="${SCIX_WEB_STATE:-$HOME/.openclaw/workspace/state}"
-MODEL="${SCIX_WEB_MODEL:-claude-opus-5-5}"        # 判断の質に効く所は Opus（2026-09-23〜 Opus 5.5）。Fable は同じ仕事に枠5倍（2026-09-17 実測）
-EFFORT="${SCIX_WEB_EFFORT:-high}"                  # 思考の強さ（2026-09-25〜 Opus のジョブは high。対外の本文は Fable max）
+MODEL="${SCIX_WEB_MODEL:-claude-fable-5-1}"        # 判断の質に効く所は Opus（2026-09-23〜 Opus 5.5）。Fable は同じ仕事に枠5倍（2026-09-17 実測）
+EFFORT="${SCIX_WEB_EFFORT:-xhigh}"                  # 思考の強さ（2026-09-25〜 Opus のジョブは high。対外の本文は Fable max）
 MAX_TURNS="${SCIX_WEB_MAX_TURNS:-250}"
 TIMEOUT_SEC="${SCIX_WEB_TIMEOUT:-5400}"
 DRY_RUN="${DRY_RUN:-0}"
