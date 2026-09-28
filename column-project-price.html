@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Serif JP',serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.down{color:var(--warn);font-weight:700}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tr.total td{background:rgba(196,154,60,0.08);font-weight:700;border-top:2px solid var(--accent)}
+td.max{color:var(--warn);font-weight:700}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.wraptext td{text-align:left;vertical-align:top}
+.wraptext thead th{text-align:left}
+.wraptext td.nw{white-space:nowrap}
+.scope th{width:10em;vertical-align:top}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-14px 0 28px}
+.wraptext{margin:28px 0;overflow-x:auto}
+.wraptext table{margin:0;min-width:620px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.toc{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px 16px;margin:0 0 32px;font-size:.9em}
+.toc-title{font-weight:700;color:var(--navy);margin-bottom:8px;font-size:.95em}
+.toc a{color:var(--text);text-decoration:none;display:block;padding:3px 0}
+.toc a:hover{color:var(--accent)}
+.toc a::before{content:'›';color:var(--accent);margin-right:8px}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text);margin-bottom:0}
+.faq-a::before{content:'A. ';color:var(--text-light);font-weight:700}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+td.ok{color:var(--green);font-weight:700}
+td.ng{color:var(--warn);font-weight:700}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px;overflow-x:auto}
+  figure svg{min-width:620px}
+}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:8px 0 6px}
+.kpi-item{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:16px 12px;text-align:center}
+.k-label{font-size:.8em;color:var(--text-light);line-height:1.5}
+.k-value{font-size:2.1em;font-weight:700;color:var(--navy);line-height:1.2;margin:6px 0 4px}
+.k-value span{font-size:.48em;margin-left:2px;font-weight:600}
+.k-sub{font-size:.74em;color:var(--text-light);line-height:1.5}
+.kpi-note{font-size:.78em;color:var(--text-light);margin:0 0 28px;line-height:1.8}
+@media(max-width:600px){.kpi{gap:6px}.kpi-item{padding:12px 6px}.k-value{font-size:1.45em}.k-label{font-size:.72em}.k-sub{font-size:.66em}}
+td.mid{color:#8F6F22;font-weight:700}
+details{margin:24px 0;border:1px solid var(--border);border-radius:6px;background:var(--light-bg);padding:14px 18px}
+details summary{cursor:pointer;font-weight:600;color:var(--navy);font-size:.92em}
+details[open]{background:var(--white)}
+details .tablewrap,details .wraptext{margin:16px 0 4px}
+details .tnote{margin:8px 0 4px}
+.buyers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.buyer-group{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:14px 14px 10px}
+.bg-title{font-weight:700;color:var(--navy);font-size:.9em;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid var(--accent)}
+.bg-title small{font-weight:500;color:var(--text-light);margin-left:6px}
+.chip{display:inline-block;background:var(--white);border:1px solid var(--border);border-radius:14px;padding:2px 10px;font-size:.78em;margin:0 6px 6px 0;color:var(--text)}
+.chip b{color:var(--navy);font-weight:600}
+@media(max-width:640px){.buyers{grid-template-columns:1fr}}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+</style>
+<title>蓄電所は、いくらで買えるのか｜用地ではなく、案件・設備の取得価格｜ScienceX</title>
+<meta name="description" content="上場企業の開示は値段を伏せます。当社がこの9か月に見た売り出しを数えると、高圧2MW級の値段は権利1.2億円、完成渡し6.7億円、連系済み7.5億円（中央値・税別・当社観測）。公表された取得価格、値段を動かす条件、買う形4つで何が引き継げるか、税、売る側の手取りと期限まで、案件を仕入れて売る会社が整理します。">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-project-price">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-project-price">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-project-price">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-project-price">
+<link rel="canonical" href="https://www.scix.co.jp/column-project-price">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓄電所は、いくらで買えるのか｜用地ではなく、案件・設備の取得価格｜ScienceX">
+<meta property="og:description" content="上場企業の開示は値段を伏せます。当社がこの9か月に見た売り出しを数えると、高圧2MW級の値段は権利1.2億円、完成渡し6.7億円、連系済み7.5億円（中央値・税別・当社観測）。公表された取得価格、値段を動かす条件、買う形4つで何が引き継げるか、税、売る側の手取りと期限まで、案件を仕入れて売る会社が整理します。">
+<meta property="og:url" content="https://www.scix.co.jp/column-project-price">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="蓄電所は、いくらで買えるのか｜用地ではなく、案件・設備の取得価格｜ScienceX">
+<meta name="twitter:description" content="上場企業の開示は値段を伏せます。当社がこの9か月に見た売り出しを数えると、高圧2MW級の値段は権利1.2億円、完成渡し6.7億円、連系済み7.5億円（中央値・税別・当社観測）。公表された取得価格、値段を動かす条件、買う形4つで何が引き継げるか、税、売る側の手取りと期限まで、案件を仕入れて売る会社が整理します。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-09-28">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "蓄電所は、いくらで買えるのか｜用地ではなく、案件・設備の取得価格｜ScienceX",
+  "description": "上場企業の開示は値段を伏せます。当社がこの9か月に見た売り出しを数えると、高圧2MW級の値段は権利1.2億円、完成渡し6.7億円、連系済み7.5億円（中央値・税別・当社観測）。公表された取得価格、値段を動かす条件、買う形4つで何が引き継げるか、税、売る側の手取りと期限まで、案件を仕入れて売る会社が整理します。",
+  "author": {
+    "@type": "Person",
+    "name": "中島 晋也",
+    "jobTitle": "代表取締役（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp.png"
+  },
+  "datePublished": "2026-09-28",
+  "dateModified": "2026-09-28",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.scix.co.jp/column-project-price"
+  },
+  "url": "https://www.scix.co.jp/column-project-price",
+  "keywords": "蓄電所 価格, 蓄電所 取得価格, 蓄電所 売買 相場, 系統用蓄電池 案件 価格, 蓄電所 売却, 蓄電所 買取, 系統用蓄電池 買取, 権利譲渡, 完成渡し, 稼働済み, 名義変更, 譲渡所得, 接続検討回答書"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://www.scix.co.jp/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ナレッジ",
+      "item": "https://www.scix.co.jp/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "売買の実務",
+      "item": "https://www.scix.co.jp/knowledge#cat-deal"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "蓄電所は、いくらで買えるのか",
+      "item": "https://www.scix.co.jp/column-project-price"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "蓄電所は、いくらで買えますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "高圧2MW級（土地と工事費負担金を含む1件の総額・税別）で、当社が2026年1月から9月に見た売り出しの中央値は、接続検討の回答つきの権利で1.2億円、完成渡し（連系前）で6.7億円、連系済み・稼働済みで7.5億円です。適時開示で公表された取得価格（荘川 約7億円・みやま 約6.84億円・霧島 1.2億円）も同じ帯にあります。決まる値段は、売り出しの中央値より少し下に寄ります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "権利を買って自分で建てるのと、完成渡しを買うのと、どちらが得ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "権利1.2億円と完成渡し6.7億円の差5.5億円の大半は建設費です。国の検討会の国内平均（6.8万円/kWh＝8MWhで5.4億円）を権利に足すと6.6億円で、完成渡しの値札とほぼ同じ水準です。売主（開発者・EPC）の利益は建設費の中に入っていて、別の層として乗っているわけではありません。権利を買って自分で建てても払う相手はEPCで、差が出るのは建設費をどれだけ下げられるかと、負担金の確定・工期・機器の性能のリスクを自分で持つかどうかです。EPCを選び工程を管理する体制があるかで決めます。連系済みは連系前より0.8億円高く、待てるなら連系前で買う方が安く、決算期に間に合わせるならその差で時間を買う関係です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "東京の案件は、ほかの管内より高いですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "件数のある6管内では差は0.5億円以内で、東京7.0億円、九州6.8億円、中部・関西・中国6.7億円、東北6.5億円（完成渡し・中央値）です。北陸は3案件で5.5億円と低いですが、件数が少なく帯として読めません。値段を動かすのは管内ではなく、連系が済んでいるか、工事費負担金が確定しているか、保証金と契約申込みの手続が済んでいるかです。稼ぎは管内で変わるので、東北や中国の案件は同じ値段で年商が大きい関係にあります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "稼働済みの蓄電所を買えば、市場の契約はそのまま引き継げますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "容量市場は広域機関の事前の同意で地位を承継でき、リクワイアメントの達成状況も引き継がれます。需給調整市場は契約ひな型26条で、合併・事業譲渡のときは書面通知と相手方の承認で承継、設備だけを買う資産譲渡なら新規契約です。JEPXは取引会員の地位を譲渡できず（承継は合併・分割だけ）、買い手が自分で会員になります。電力会社の名義は九州電力送配電が届出の様式を公表しており、ほかは案件ごとに照会します。補助金で入れた設備は処分制限期間内の譲渡にSIIの事前承認が要ります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "案件を売りたい場合、いくらで売れますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "買い手が払っている値段と同じ帯です。高圧2MW級で権利1.2億円、完成渡し6.7億円、連系済み7.5億円が売り出しの中央値で、決まる値段はその少し下に寄ります。完成渡しの値札は国内平均の建設費で建てた原価とほぼ同じ水準で、値札の上に確実に付く上乗せは連系してからの0.8億円です。査定は無料で、費用は成約まで発生しません。当社が買い手になるか、買い手につなぐかは最初の返事に書きます。"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge#cat-deal" style="color:#5A6577;text-decoration:none">売買の実務</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">蓄電所は、いくらで買えるのか</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 49</span>
+      <span class="header-tag">売買の実務 / 取得価格</span>
+      <time class="header-date" datetime="2026-09-28">2026.09.28</time>
+    </div>
+    <h1>蓄電所は、いくらで買えるのか<br>── 用地ではなく、<em>案件・設備の取得価格</em></h1>
+    <p class="header-desc">権利で1.2億円、完成渡しで6.7億円、連系済みで7.5億円。当社がこの9か月に見た売り出しの中央値と、公表された取得価格を並べる。値段を動かす条件、買う形4つで何が引き継げるか、税、売る側の手取りと期限まで。</p>
+  </div>
+</div>
+
+<div class="article-body">
+
+<p>上場企業が蓄電所を買ったという開示は、この1年で、確かめられただけで8社あります。ところが取得価格が書いてある開示は、そのうち3件です。買い手は、値段を横に並べて見る材料を持っていません。8月の <a target="_top" href="/column-buyer-structures">COLUMN 39</a> で、値段に階段があることを書きました。今回は、その階段を数えました。当社がこの9か月に見た売り出しの値段を案件ごとに束ね、公表された取得価格を横に置きます。</p>
+
+<p>先に範囲を決めます。数えたのは高圧2MW級（出力1.5〜2MW、継続時間3.5時間以上）で、土地と工事費負担金を含めた1件の総額、税別です。特別高圧は規模がばらばらなので、kWあたりの帯だけ出します。長期脱炭素電源オークション（LDA）で落札した案件は、地位の移転に広域機関の事前の同意が要り（約款32条）、当社の観測に売り出しが無いので対象外です。「蓄電池 買取」で検索して来られた方へ。家庭用の中古蓄電池の話ではなく、系統用の案件と設備の値段です。売る側の手取りと手順は後半に書きました。</p>
+
+<div class="kpi">
+  <div class="kpi-item"><div class="k-label">権利<br>接続検討の回答つき・土地込み</div><div class="k-value">1.2<span>億円</span></div><div class="k-sub">中央値・48案件<br>範囲 0.3〜1.8億円</div></div>
+  <div class="kpi-item"><div class="k-label">完成渡し<br>連系前・建設中を含む</div><div class="k-value">6.7<span>億円</span></div><div class="k-sub">中央値・180案件<br>範囲 4.8〜9.0億円</div></div>
+  <div class="kpi-item"><div class="k-label">連系済み・稼働済み<br>&nbsp;</div><div class="k-value">7.5<span>億円</span></div><div class="k-sub">中央値・9案件<br>範囲 6.6〜8.4億円</div></div>
+</div>
+<p class="kpi-note">高圧2MW級（出力1.5〜2MW・3.5時間以上）・土地と工事費負担金を含む1件の総額・税別。2026年1月〜9月に当社が見た売り出しの値段を案件ごとに1値に束ねた中央値（当社観測。公表統計ではありません）。連系済みは9案件で、帯として読んでください。</p>
+
+<div class="toc">
+  <div class="toc-title">この記事の内容</div>
+  <a href="#dan">値段は三段。権利1.2億、完成渡し6.7億、連系済み7.5億</a>
+  <a href="#sabun">権利と完成渡しの差は、大半が建設費</a>
+  <a href="#hachigatsu">8月に書いた帯と、どこが違うか</a>
+  <a href="#ugokasu">値段を動かすのは、管内ではなく連系</a>
+  <a href="#tashikameru">帯の中で、何を確かめるか</a>
+  <a href="#katachi">買う形は4つ。何が引き継げて、誰の同意が要るか</a>
+  <a href="#zei">買い手の税と、売り手の手取り</a>
+  <a href="#dare">誰が買っているか</a>
+  <a href="#urugawa">売る側から見ると ── 書類、期限、仕入れか仲介か</a>
+  <a href="#faq">よくある質問</a>
+</div>
+
+<h2 id="dan">値段は三段。権利1.2億、完成渡し6.7億、連系済み7.5億</h2>
+
+<p>数えたのは、2026年1月から9月までに当社が見た「売り出しの値段」です。当社が買い手に示した販売価格と、他社の案件が仲介や開発者を通じて売りに出た価格を、案件ごとに1つの値に束ねました。売主から当社への提示と、当社の仕入値は入れていません。買い手の目の前に出てくる値札の相場です。</p>
+
+<figure>
+<svg viewBox="0 0 780 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="売り出し価格の帯と公表された取得価格。権利は0.3〜1.8億円で中央値1.2億円、公表の霧島1.2億円が帯の中。完成渡しは4.8〜9.0億円で中央値6.7億円、公表のみやま約6.84億円と荘川約7億円が帯の中。連系済みは6.6〜8.4億円で中央値7.5億円">
+<g font-family="'Noto Sans JP',sans-serif" font-size="14" fill="#2C3E50">
+<line x1="170.0" y1="50.0" x2="170.0" y2="258.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="170.0" y="278.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">0</text>
+<line x1="233.3" y1="50.0" x2="233.3" y2="258.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="233.3" y="278.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">1</text>
+<line x1="296.7" y1="50.0" x2="296.7" y2="258.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="296.7" y="278.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">2</text>
+<line x1="360.0" y1="50.0" x2="360.0" y2="258.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="360.0" y="278.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">3</text>
+<line x1="423.3" y1="50.0" x2="423.3" y2="258.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="423.3" y="278.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">4</text>
+<line x1="486.7" y1="50.0" x2="486.7" y2="258.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="486.7" y="278.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">5</text>
+<line x1="550.0" y1="50.0" x2="550.0" y2="258.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="550.0" y="278.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">6</text>
+<line x1="613.3" y1="50.0" x2="613.3" y2="258.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="613.3" y="278.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">7</text>
+<line x1="676.7" y1="50.0" x2="676.7" y2="258.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="676.7" y="278.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">8</text>
+<line x1="740.0" y1="50.0" x2="740.0" y2="258.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="740.0" y="278.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">9</text>
+<text x="740.0" y="296.0" font-size="12" fill="#6C7A89" text-anchor="end">億円（高圧2MW級・1件の総額・税別）</text>
+<text x="158.0" y="85.0" font-size="13.5" fill="#1B2A4A" text-anchor="end" font-weight="600">権利</text>
+<rect x="189.0" y="72.0" width="95.0" height="16.0" rx="8" fill="#DCE1E8"><title>権利 範囲 0.3〜1.8億円</title></rect>
+<rect x="244.0" y="67.0" width="4.0" height="26.0" rx="2" fill="#1B2A4A"><title>権利 中央値 1.2億円</title></rect>
+<text x="246.0" y="62.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">中央値 1.2</text>
+<circle cx="246.0" cy="104.0" r="7" fill="#FFFFFF"/><circle cx="246.0" cy="104.0" r="5" fill="#C49A3C"><title>霧島 1.2億円（開示）</title></circle>
+<text x="256.0" y="109.0" font-size="12" fill="#2C3E50" text-anchor="start">霧島 1.2億円（開示・税抜）</text>
+<text x="158.0" y="151.0" font-size="13.5" fill="#1B2A4A" text-anchor="end" font-weight="600">完成渡し（連系前）</text>
+<rect x="474.0" y="138.0" width="266.0" height="16.0" rx="8" fill="#DCE1E8"><title>完成渡し（連系前） 範囲 4.8〜9.0億円</title></rect>
+<rect x="592.3" y="133.0" width="4.0" height="26.0" rx="2" fill="#1B2A4A"><title>完成渡し（連系前） 中央値 6.7億円</title></rect>
+<text x="594.3" y="128.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">中央値 6.7</text>
+<circle cx="603.2" cy="170.0" r="7" fill="#FFFFFF"/><circle cx="603.2" cy="170.0" r="5" fill="#C49A3C"><title>みやま 約6.84億円（開示）</title></circle>
+<circle cx="613.3" cy="170.0" r="7" fill="#FFFFFF"/><circle cx="613.3" cy="170.0" r="5" fill="#C49A3C"><title>荘川 約7億円（開示）</title></circle>
+<text x="591.2" y="175.0" font-size="12" fill="#2C3E50" text-anchor="end">みやま 約6.84・荘川 約7（開示）</text>
+<text x="158.0" y="217.0" font-size="13.5" fill="#1B2A4A" text-anchor="end" font-weight="600">連系済み・稼働済み</text>
+<rect x="588.0" y="204.0" width="114.0" height="16.0" rx="8" fill="#DCE1E8"><title>連系済み・稼働済み 範囲 6.6〜8.4億円</title></rect>
+<rect x="643.0" y="199.0" width="4.0" height="26.0" rx="2" fill="#1B2A4A"><title>連系済み・稼働済み 中央値 7.5億円</title></rect>
+<text x="645.0" y="194.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">中央値 7.5</text>
+<rect x="170.0" y="23.0" width="26.0" height="12.0" rx="6" fill="#DCE1E8"></rect>
+<text x="202.0" y="34.0" font-size="12.5" fill="#2C3E50" text-anchor="start">売り出しの範囲</text>
+<rect x="310.0" y="20.0" width="4.0" height="18.0" rx="2" fill="#1B2A4A"></rect>
+<text x="322.0" y="34.0" font-size="12.5" fill="#2C3E50" text-anchor="start">中央値</text>
+<circle cx="396.0" cy="29.0" r="7" fill="#FFFFFF"/><circle cx="396.0" cy="29.0" r="5" fill="#C49A3C"></circle>
+<text x="408.0" y="34.0" font-size="12.5" fill="#2C3E50" text-anchor="start">公表された取得価格</text>
+</g>
+</svg>
+<figcaption>図1｜売り出しの帯と、公表された取得価格。帯は範囲、縦棒は中央値（案件ごとに1値・高圧2MW級・税別・当社観測）。金の点は適時開示の取得価格で、3つとも帯の中にある。</figcaption>
+</figure>
+<div class="wraptext">
+<table>
+<caption>図1の数字。売り出しの中央値・範囲・観測数と、公表された取得価格</caption>
+<thead><tr><th>買うもの</th><th>中央値</th><th>範囲</th><th>観測</th><th>公表された取得価格</th></tr></thead>
+<tbody>
+<tr><td><strong>権利</strong><br>接続検討の回答つき。土地の権利を含む</td><td class="nw"><strong>1.2億円</strong></td><td class="nw">0.3〜1.8億円</td><td class="nw">48案件</td><td>鹿児島県霧島市 1.2億円（税抜。多摩川ホールディングス 2025年10月31日開示。総開発費用5.7億円も併記）</td></tr>
+<tr><td><strong>完成渡し</strong><br>連系前。建設中を含む</td><td class="nw"><strong>6.7億円</strong></td><td class="nw">4.8〜9.0億円</td><td class="nw">180案件</td><td>岐阜県高山市・荘川 約7億円（ジェイ・ホールディングス 2026年7月30日開示。11月取得・12月連系の予定）<br>福岡県みやま市 約6.84億円（多摩川ホールディングス 2026年5月25日開示。機器設置済み・連系待ちで取得）</td></tr>
+<tr><td><strong>連系済み・稼働済み</strong></td><td class="nw"><strong>7.5億円</strong></td><td class="nw">6.6〜8.4億円</td><td class="nw">9案件</td><td>金額の公表なし</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">高圧2MW級・土地と工事費負担金を含む1件の総額・税別。当社観測（2026年1月〜9月）。案件数は、同じ案件の複数の提示を1つに束ねて数えた。公表の3件は開示の「約」つきの値をそのまま。みやまの容量は開示原文で「約8MW」と表記。土地の扱いと税の区分は、みやま・荘川の開示に記載がない。</p>
+
+<p>公表された取得価格は、当社の帯とほぼ重なります。荘川の約7億円（約2MW/約8MWh、11月に取得して12月に連系の予定）と、みやまの約6.84億円（約2MW、機器を据え付けて連系を待つ状態で取得）は、連系前の中央値6.7億円のすぐ隣にあります。霧島の1.2億円（事業用地と発電権利の購入額）は、権利の中央値そのものです。上場企業の開示の多くは「純資産の30%未満」のように金額を伏せるので、確かめられる公表値はこの3つですが、当社が見ている値札と離れていません。</p>
+
+<p>値札と、実際に決まる値段のあいだには差があります。当社の観測では、決まる値段は売り出しの中央値より少し下、1割前後の幅に入ることが多い。<strong>買う側はここを目安に指値をし、売る側はここを目安に値札を付ければ、話が早く進みます。</strong></p>
+
+<h2 id="sabun">権利と完成渡しの差は、大半が建設費</h2>
+
+<p>権利1.2億円と完成渡し6.7億円の差、5.5億円は何か。大半は建設費です。国の検討会が示す2024年度の国内平均は6.8万円/kWh（蓄電システム5.4＋工事1.4。<a target="_top" href="/column-construction-cost">COLUMN 40</a>）で、8MWhなら5.4億円。8月の COLUMN 39 では実費を3.5〜4.5億円と置きました。公表の例では、霧島の総開発費用が5.7億円（税抜。取得費の1.2億円を含むかは開示に書いていない）です。権利1.2億円に国内平均の5.4億円を足すと6.6億円で、完成渡しの中央値6.7億円とほぼ同じです。</p>
+
+<figure>
+<svg viewBox="0 0 780 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="高圧2MW級の値段の階段。権利1.2億円。権利1.2億円に国内平均の建設費5.4億円を積むと6.6億円で、完成渡しの中央値6.7億円とほぼ同じ。連系済み7.5億円は完成渡しの値段に連系の上乗せ0.8億円が乗る">
+<g font-family="'Noto Sans JP',sans-serif" font-size="14" fill="#2C3E50">
+<line x1="80.0" y1="330.0" x2="560.0" y2="330.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="70.0" y="335.0" font-size="12.5" fill="#6C7A89" text-anchor="end">0</text>
+<line x1="80.0" y1="265.0" x2="560.0" y2="265.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="70.0" y="270.0" font-size="12.5" fill="#6C7A89" text-anchor="end">2億円</text>
+<line x1="80.0" y1="200.0" x2="560.0" y2="200.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="70.0" y="205.0" font-size="12.5" fill="#6C7A89" text-anchor="end">4億円</text>
+<line x1="80.0" y1="135.0" x2="560.0" y2="135.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="70.0" y="140.0" font-size="12.5" fill="#6C7A89" text-anchor="end">6億円</text>
+<line x1="80.0" y1="70.0" x2="560.0" y2="70.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="70.0" y="75.0" font-size="12.5" fill="#6C7A89" text-anchor="end">8億円</text>
+<path d="M114.0,330.0 V295.0 Q114.0,291.0 118.0,291.0 H182.0 Q186.0,291.0 186.0,295.0 V330.0 Z" fill="#1B2A4A"><title>権利 1.2億円</title></path>
+<text x="150.0" y="281.0" font-size="15" fill="#1B2A4A" text-anchor="middle" font-weight="700">1.2億円</text>
+<text x="150.0" y="352.0" font-size="13.5" fill="#1B2A4A" text-anchor="middle" font-weight="600">権利</text>
+<text x="150.0" y="370.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">回答つき・土地込み</text>
+<rect x="284.0" y="291.0" width="72.0" height="37.0" rx="0" fill="#1B2A4A"><title>権利 1.2億円</title></rect>
+<path d="M284.0,291.0 V119.5 Q284.0,115.5 288.0,115.5 H352.0 Q356.0,115.5 356.0,119.5 V291.0 Z" fill="#C9D0DA"><title>建設費 5.4億円（国内平均6.8万円/kWh×8MWh）</title></path>
+<text x="320.0" y="105.5" font-size="15" fill="#1B2A4A" text-anchor="middle" font-weight="700">6.6億円</text>
+<text x="320.0" y="352.0" font-size="13.5" fill="#1B2A4A" text-anchor="middle" font-weight="600">完成渡し（連系前）</text>
+<text x="320.0" y="370.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">権利＋国内平均の建設費</text>
+<rect x="454.0" y="112.2" width="72.0" height="215.8" rx="0" fill="#E6EAF0"><title>完成渡しの値段 6.7億円</title></rect>
+<path d="M454.0,112.2 V90.2 Q454.0,86.2 458.0,86.2 H522.0 Q526.0,86.2 526.0,90.2 V112.2 Z" fill="#C49A3C"><title>連系の上乗せ 0.8億円</title></path>
+<text x="490.0" y="76.2" font-size="15" fill="#1B2A4A" text-anchor="middle" font-weight="700">7.5億円</text>
+<text x="490.0" y="352.0" font-size="13.5" fill="#1B2A4A" text-anchor="middle" font-weight="600">連系済み・稼働済み</text>
+<text x="490.0" y="370.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">中央値・9案件</text>
+<text x="320.0" y="208.2" font-size="12" fill="#2C3E50" text-anchor="middle">建設費 5.4</text>
+<text x="320.0" y="315.5" font-size="12" fill="#FFFFFF" text-anchor="middle">権利 1.2</text>
+<text x="490.0" y="226.1" font-size="12" fill="#2C3E50" text-anchor="middle">完成渡し 6.7</text>
+<text x="446.0" y="104.2" font-size="12.5" fill="#1B2A4A" text-anchor="end" font-weight="700">＋0.8</text>
+<line x1="270.0" y1="112.2" x2="370.0" y2="112.2" stroke="#C49A3C" stroke-width="2"/>
+<text x="264.0" y="116.2" font-size="12" fill="#C49A3C" text-anchor="end" font-weight="700">売り出しの中央値 6.7</text>
+<rect x="600.0" y="90.0" width="14.0" height="14.0" rx="2" fill="#1B2A4A"></rect>
+<text x="622.0" y="102.0" font-size="12.5" fill="#2C3E50" text-anchor="start">権利（土地＋回答）</text>
+<rect x="600.0" y="116.0" width="14.0" height="14.0" rx="2" fill="#C9D0DA"></rect>
+<text x="622.0" y="128.0" font-size="12.5" fill="#2C3E50" text-anchor="start">建設費（国内平均・</text>
+<text x="622.0" y="154.0" font-size="12.5" fill="#2C3E50" text-anchor="start">EPCの利益を含む）</text>
+<rect x="600.0" y="168.0" width="14.0" height="14.0" rx="2" fill="#E6EAF0"></rect>
+<text x="622.0" y="180.0" font-size="12.5" fill="#2C3E50" text-anchor="start">完成渡しの値段</text>
+<rect x="600.0" y="194.0" width="14.0" height="14.0" rx="2" fill="#C49A3C"></rect>
+<text x="622.0" y="206.0" font-size="12.5" fill="#2C3E50" text-anchor="start">連系の上乗せ</text>
+<text x="600.0" y="236.0" font-size="11.5" fill="#6C7A89" text-anchor="start">建設費に工事費負担金と</text>
+<text x="600.0" y="254.0" font-size="11.5" fill="#6C7A89" text-anchor="start">補助金は含まない</text>
+</g>
+</svg>
+<figcaption>図2｜値段の階段（売り出しの中央値・高圧2MW級・税別・当社観測）。権利1.2億円に国の検討会の国内平均の建設費（6.8万円/kWh×8MWh＝5.4億円。工事費負担金と補助金は含まない）を積むと6.6億円で、完成渡しの中央値6.7億円とほぼ同じ。連系済みは、完成渡しの値段に0.8億円が乗る。</figcaption>
+</figure>
+
+<p>つまり<strong>完成渡しの値札は、国内平均の建設費で建てた原価と、ほぼ同じ水準です。</strong>売主の多くは開発者かEPCで、その利益は建設費の中（機器の仕入れと工事の利益）に入っています。値札の上に別の層として乗っているわけではありません。工事費負担金は建設費の外なので、負担金の大きい案件ほど、売主の手元に残る分は薄くなります。補助金で建てた設備は、法定耐用年数の処分制限期間の中で譲渡するとSIIの承認と返還が要るので、完成渡しの売り物にはまず乗りません。建設費は補助金なしで考えます。</p>
+
+<p>買い手にとっての意味はこうです。権利を1.2億円で買って自分で建てても、払う相手はEPCで、その利益は同じように建設費に入ります。差が出るのは、EPCの選び方と機器の仕入れで建設費をどれだけ下げられるかと、工事費負担金の確定、工期の遅れ、機器の性能というリスクを自分で持つかどうかです。EPCを選び、工程を管理し、完工まで見届ける体制があるなら権利で、無いなら完成渡しで。値段の差だけで決めることではありません。</p>
+
+<p><strong>上乗せがはっきり付くのは、連系してからです。</strong>連系前の6.7億円に対し、連系済み・稼働済みは7.5億円で、0.8億円、1割ほど高い。設備は1円も増えていません。増えたのは「つながった」という事実と、市場で稼ぐまでの時間が消えたことです。連系まで待てる買い手は連系前で買えば0.8億円安く、決算期に間に合わせたい買い手はその0.8億円で時間を買う、という関係です。連系済みは9案件で、帯として読んでください。</p>
+
+<p>売り手から見ると、建ててから売る値札は原価と同じ水準で、上乗せは建設費の中の工事の利益として取る形です。値札の上に確実に付く上乗せは、連系してからの0.8億円だけです。持てるなら連系までは持つ価値があります。</p>
+
+<h2 id="hachigatsu">8月に書いた帯と、どこが違うか</h2>
+
+<p>8月の <a target="_top" href="/column-buyer-structures">COLUMN 39</a> に、権利1.5〜2億円、完成渡し7〜8億円、需給調整市場の実績付き8〜10億円と書きました。その時点で目にしていた提示の帯です。今回、9か月分の売り出しを案件ごとに束ねて数え直すと、中央値はどの段も8月の帯の下端か、その少し下にありました。実績付きの8〜10億円は、今回の数え方では連系済みの範囲の上端（8.4億円）までしか観測がありません。こちらの方が実勢に近いので、以後はこの記事の数字を使います。一次調整力・二次調整力①・複合商品の上限価格が10円に下がった9月1日以降の観測はまだ少なく、9月以降の値動きとして読める段階ではありません。</p>
+
+<h2 id="ugokasu">値段を動かすのは、管内ではなく連系</h2>
+
+<p>「東京の案件だから高い」「東北は安い」という話をよく聞きます。売り出しを管内で分けると、差はほとんどありません。</p>
+
+<figure>
+<svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="完成渡しの売り出し価格。左は管内別で、東京7.0・九州6.8・中部6.7・関西6.7・中国6.7・東北6.5億円と6管内の差は0.5億円以内、北陸は3案件で5.5億円。右は連系の時期別で、連系済み7.5、2026年度6.7、2027年度6.7、2028年度7.0億円と、連系済みだけが高い">
+<g font-family="'Noto Sans JP',sans-serif" font-size="14" fill="#2C3E50">
+<text x="10.0" y="48.0" font-size="14" fill="#1B2A4A" text-anchor="start" font-weight="700">管内別 ── 6管内は0.5億円以内</text>
+<line x1="110.0" y1="64.0" x2="110.0" y2="298.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="110.0" y="316.0" font-size="12" fill="#6C7A89" text-anchor="middle">4</text>
+<line x1="162.0" y1="64.0" x2="162.0" y2="298.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="162.0" y="316.0" font-size="12" fill="#6C7A89" text-anchor="middle">5</text>
+<line x1="214.0" y1="64.0" x2="214.0" y2="298.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="214.0" y="316.0" font-size="12" fill="#6C7A89" text-anchor="middle">6</text>
+<line x1="266.0" y1="64.0" x2="266.0" y2="298.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="266.0" y="316.0" font-size="12" fill="#6C7A89" text-anchor="middle">7</text>
+<line x1="318.0" y1="64.0" x2="318.0" y2="298.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="318.0" y="316.0" font-size="12" fill="#6C7A89" text-anchor="middle">8</text>
+<line x1="370.0" y1="64.0" x2="370.0" y2="298.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="370.0" y="316.0" font-size="12" fill="#6C7A89" text-anchor="middle">9</text>
+<line x1="250.4" y1="64.0" x2="250.4" y2="298.0" stroke="#C49A3C" stroke-width="1.5"/>
+<text x="250.4" y="332.0" font-size="11.5" fill="#C49A3C" text-anchor="middle" font-weight="700">全体の中央値 6.7億円</text>
+<text x="98.0" y="81.0" font-size="13" fill="#1B2A4A" text-anchor="end" font-weight="600">東京</text>
+<line x1="198.4" y1="76.0" x2="349.2" y2="76.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="198.4" y1="71.0" x2="198.4" y2="81.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="349.2" y1="71.0" x2="349.2" y2="81.0" stroke="#C9D0DA" stroke-width="2"/>
+<circle cx="266.0" cy="76.0" r="8" fill="#FFFFFF"/><circle cx="266.0" cy="76.0" r="6" fill="#1B2A4A"><title>東京 中央値 7.0億円（範囲 5.7〜8.6・43案件）</title></circle>
+<text x="266.0" y="65.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">7.0</text>
+<text x="98.0" y="115.0" font-size="13" fill="#1B2A4A" text-anchor="end" font-weight="600">九州</text>
+<line x1="162.0" y1="110.0" x2="370.0" y2="110.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="162.0" y1="105.0" x2="162.0" y2="115.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="370.0" y1="105.0" x2="370.0" y2="115.0" stroke="#C9D0DA" stroke-width="2"/>
+<circle cx="255.6" cy="110.0" r="8" fill="#FFFFFF"/><circle cx="255.6" cy="110.0" r="6" fill="#1B2A4A"><title>九州 中央値 6.8億円（範囲 5.0〜9.0・33案件）</title></circle>
+<text x="255.6" y="99.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">6.8</text>
+<text x="98.0" y="149.0" font-size="13" fill="#1B2A4A" text-anchor="end" font-weight="600">中部</text>
+<line x1="151.6" y1="144.0" x2="338.8" y2="144.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="151.6" y1="139.0" x2="151.6" y2="149.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="338.8" y1="139.0" x2="338.8" y2="149.0" stroke="#C9D0DA" stroke-width="2"/>
+<circle cx="250.4" cy="144.0" r="8" fill="#FFFFFF"/><circle cx="250.4" cy="144.0" r="6" fill="#1B2A4A"><title>中部 中央値 6.7億円（範囲 4.8〜8.4・47案件）</title></circle>
+<text x="250.4" y="133.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">6.7</text>
+<text x="98.0" y="183.0" font-size="13" fill="#1B2A4A" text-anchor="end" font-weight="600">関西</text>
+<line x1="188.0" y1="178.0" x2="312.8" y2="178.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="188.0" y1="173.0" x2="188.0" y2="183.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="312.8" y1="173.0" x2="312.8" y2="183.0" stroke="#C9D0DA" stroke-width="2"/>
+<circle cx="250.4" cy="178.0" r="8" fill="#FFFFFF"/><circle cx="250.4" cy="178.0" r="6" fill="#1B2A4A"><title>関西 中央値 6.7億円（範囲 5.5〜7.9・18案件）</title></circle>
+<text x="250.4" y="167.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">6.7</text>
+<text x="98.0" y="217.0" font-size="13" fill="#1B2A4A" text-anchor="end" font-weight="600">中国</text>
+<line x1="224.4" y1="212.0" x2="281.6" y2="212.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="224.4" y1="207.0" x2="224.4" y2="217.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="281.6" y1="207.0" x2="281.6" y2="217.0" stroke="#C9D0DA" stroke-width="2"/>
+<circle cx="250.4" cy="212.0" r="8" fill="#FFFFFF"/><circle cx="250.4" cy="212.0" r="6" fill="#1B2A4A"><title>中国 中央値 6.7億円（範囲 6.2〜7.3・7案件）</title></circle>
+<text x="250.4" y="201.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">6.7</text>
+<text x="98.0" y="251.0" font-size="13" fill="#1B2A4A" text-anchor="end" font-weight="600">東北</text>
+<line x1="193.2" y1="246.0" x2="318.0" y2="246.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="193.2" y1="241.0" x2="193.2" y2="251.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="318.0" y1="241.0" x2="318.0" y2="251.0" stroke="#C9D0DA" stroke-width="2"/>
+<circle cx="240.0" cy="246.0" r="8" fill="#FFFFFF"/><circle cx="240.0" cy="246.0" r="6" fill="#1B2A4A"><title>東北 中央値 6.5億円（範囲 5.6〜8.0・20案件）</title></circle>
+<text x="240.0" y="235.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">6.5</text>
+<text x="98.0" y="285.0" font-size="13" fill="#1B2A4A" text-anchor="end" font-weight="600">北陸</text>
+<line x1="188.0" y1="280.0" x2="307.6" y2="280.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="188.0" y1="275.0" x2="188.0" y2="285.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="307.6" y1="275.0" x2="307.6" y2="285.0" stroke="#C9D0DA" stroke-width="2"/>
+<circle cx="188.0" cy="280.0" r="8" fill="#FFFFFF"/><circle cx="188.0" cy="280.0" r="6" fill="#1B2A4A"><title>北陸 中央値 5.5億円（範囲 5.5〜7.8・3案件）</title></circle>
+<text x="188.0" y="269.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">5.5</text>
+<text x="400.0" y="48.0" font-size="14" fill="#1B2A4A" text-anchor="start" font-weight="700">連系の時期別 ── 連系済みだけ高い</text>
+<line x1="500.0" y1="64.0" x2="500.0" y2="196.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="500.0" y="214.0" font-size="12" fill="#6C7A89" text-anchor="middle">4</text>
+<line x1="552.0" y1="64.0" x2="552.0" y2="196.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="552.0" y="214.0" font-size="12" fill="#6C7A89" text-anchor="middle">5</text>
+<line x1="604.0" y1="64.0" x2="604.0" y2="196.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="604.0" y="214.0" font-size="12" fill="#6C7A89" text-anchor="middle">6</text>
+<line x1="656.0" y1="64.0" x2="656.0" y2="196.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="656.0" y="214.0" font-size="12" fill="#6C7A89" text-anchor="middle">7</text>
+<line x1="708.0" y1="64.0" x2="708.0" y2="196.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="708.0" y="214.0" font-size="12" fill="#6C7A89" text-anchor="middle">8</text>
+<line x1="760.0" y1="64.0" x2="760.0" y2="196.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="760.0" y="214.0" font-size="12" fill="#6C7A89" text-anchor="middle">9</text>
+<line x1="640.4" y1="64.0" x2="640.4" y2="196.0" stroke="#C49A3C" stroke-width="1.5"/>
+<text x="640.4" y="230.0" font-size="11.5" fill="#C49A3C" text-anchor="middle" font-weight="700">全体の中央値 6.7億円</text>
+<text x="488.0" y="81.0" font-size="13" fill="#1B2A4A" text-anchor="end" font-weight="600">連系済み</text>
+<line x1="635.2" y1="76.0" x2="728.8" y2="76.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="635.2" y1="71.0" x2="635.2" y2="81.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="728.8" y1="71.0" x2="728.8" y2="81.0" stroke="#C9D0DA" stroke-width="2"/>
+<circle cx="682.0" cy="76.0" r="8" fill="#FFFFFF"/><circle cx="682.0" cy="76.0" r="6" fill="#1B2A4A"><title>連系済み 中央値 7.5億円（範囲 6.6〜8.4・9案件）</title></circle>
+<text x="682.0" y="65.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">7.5</text>
+<text x="488.0" y="115.0" font-size="13" fill="#1B2A4A" text-anchor="end" font-weight="600">2026年度</text>
+<line x1="552.0" y1="110.0" x2="760.0" y2="110.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="552.0" y1="105.0" x2="552.0" y2="115.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="760.0" y1="105.0" x2="760.0" y2="115.0" stroke="#C9D0DA" stroke-width="2"/>
+<circle cx="640.4" cy="110.0" r="8" fill="#FFFFFF"/><circle cx="640.4" cy="110.0" r="6" fill="#1B2A4A"><title>2026年度 中央値 6.7億円（範囲 5.0〜9.0・76案件）</title></circle>
+<text x="640.4" y="99.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">6.7</text>
+<text x="488.0" y="149.0" font-size="13" fill="#1B2A4A" text-anchor="end" font-weight="600">2027年度</text>
+<line x1="541.6" y1="144.0" x2="671.6" y2="144.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="541.6" y1="139.0" x2="541.6" y2="149.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="671.6" y1="139.0" x2="671.6" y2="149.0" stroke="#C9D0DA" stroke-width="2"/>
+<circle cx="640.4" cy="144.0" r="8" fill="#FFFFFF"/><circle cx="640.4" cy="144.0" r="6" fill="#1B2A4A"><title>2027年度 中央値 6.7億円（範囲 4.8〜7.3・57案件）</title></circle>
+<text x="640.4" y="133.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">6.7</text>
+<text x="488.0" y="183.0" font-size="13" fill="#1B2A4A" text-anchor="end" font-weight="600">2028年度</text>
+<line x1="588.4" y1="178.0" x2="656.0" y2="178.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="588.4" y1="173.0" x2="588.4" y2="183.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="656.0" y1="173.0" x2="656.0" y2="183.0" stroke="#C9D0DA" stroke-width="2"/>
+<circle cx="656.0" cy="178.0" r="8" fill="#FFFFFF"/><circle cx="656.0" cy="178.0" r="6" fill="#1B2A4A"><title>2028年度 中央値 7.0億円（範囲 5.7〜7.0・7案件）</title></circle>
+<text x="656.0" y="167.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">7.0</text>
+<text x="760.0" y="345.0" font-size="11.5" fill="#6C7A89" text-anchor="end">億円（完成渡し・連系済みを含む・高圧2MW級・税別）</text>
+</g>
+</svg>
+<figcaption>図3｜完成渡しの売り出し価格（連系済みを含む）。点は中央値、線は範囲。左は管内別、右は連系の時期別。金の線は全体の中央値6.7億円。北陸は3案件。</figcaption>
+</figure>
+<details><summary>図3の数字を表で見る（管内別）</summary>
+<div class="tablewrap">
+<table>
+<caption>完成渡し（連系済みを含む）の売り出し価格 ── 管内別。高圧2MW級・1件の総額・税別・当社観測</caption>
+<thead><tr><th>管内</th><th>中央値</th><th>範囲</th><th>観測</th></tr></thead>
+<tbody>
+<tr><td>東京</td><td>7.0億円</td><td>5.7〜8.6億円</td><td>43案件</td></tr>
+<tr><td>九州</td><td>6.8億円</td><td>5.0〜9.0億円</td><td>33案件</td></tr>
+<tr><td>中部</td><td>6.7億円</td><td>4.8〜8.4億円</td><td>47案件</td></tr>
+<tr><td>関西</td><td>6.7億円</td><td>5.5〜7.9億円</td><td>18案件</td></tr>
+<tr><td>中国</td><td>6.7億円</td><td>6.2〜7.3億円</td><td>7案件</td></tr>
+<tr><td>東北</td><td>6.5億円</td><td>5.6〜8.0億円</td><td>20案件</td></tr>
+<tr><td>北陸</td><td>5.5億円</td><td>5.5〜7.8億円</td><td>3案件</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">四国・北海道は1〜2案件なので出していません。管内の不明15案件は表に入れていません。</p>
+</details>
+
+<p>件数のある6管内は、東京7.0億円から東北6.5億円まで、差は0.5億円です。北陸は3案件で5.5億円と低いですが、件数が少なく帯として読めません。権利も、東京1.2億円、中部1.0億円、関西1.3億円（3案件）、九州1.1億円、中国1.2億円で、1.0〜1.3億円の幅に収まり、管内の順位は完成渡しと一致しません。<a target="_top" href="/column-regional-revenue">COLUMN 35</a> で、同じ2MWの年商は東北が首位で約2.9億円、管区で大きな差があると書きました。稼ぎの地図と値札の地図は重なっていません。<strong>買い手には、東北や中国の案件は同じ値段で稼ぎが大きい</strong>、という意味です。売り手には、管内を理由に値引きされる筋合いはない、という意味です。</p>
+
+
+<p>動くのは連系です。</p>
+
+<p>2026年度に連系する案件と2027年度の案件が同じ6.7億円で、連系が済むと7.5億円。年度の差ではなく、「つながったか」で段が変わります。特別高圧は逆に、連系の年度で単価が動きます。権利の売り出しは中央値2.2万円/kW（0.3〜4.1万円/kW、23案件）で、2027年度と2028年度に連系する案件が2.7〜3.1万円/kW、2029年度以降が1.6万円/kW。件数は少ない（それぞれ4・5・10案件）ので帯として読んでください。完成渡しの特別高圧は件数が少なく、帯を出せません。</p>
+
+<details><summary>図3の数字を表で見る（連系の時期別）</summary>
+<div class="tablewrap">
+<table>
+<caption>完成渡しの売り出し価格 ── 連系の時期別。高圧2MW級・1件の総額・税別・当社観測</caption>
+<thead><tr><th>連系の時期</th><th>中央値</th><th>範囲</th><th>観測</th></tr></thead>
+<tbody>
+<tr><td>連系済み</td><td><strong>7.5億円</strong></td><td>6.6〜8.4億円</td><td>9案件</td></tr>
+<tr><td>2026年度中に連系</td><td>6.7億円</td><td>5.0〜9.0億円</td><td>76案件</td></tr>
+<tr><td>2027年度に連系</td><td>6.7億円</td><td>4.8〜7.3億円</td><td>57案件</td></tr>
+<tr><td>2028年度に連系</td><td>7.0億円</td><td>5.7〜7.0億円</td><td>7案件</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">連系の時期は運転開始の予定から付けた年度（4月〜翌3月）。連系済みは9案件で、帯として読んでください。</p>
+</details>
+
+<figure>
+<svg viewBox="0 0 780 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="特別高圧の権利の売り出し単価。連系が2027年度の案件は2.7万円/kW、2028年度は3.1万円/kW、2029年度以降は1.6万円/kW。全体の中央値は2.2万円/kW">
+<g font-family="'Noto Sans JP',sans-serif" font-size="14" fill="#2C3E50">
+<line x1="90.0" y1="200.0" x2="520.0" y2="200.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="80.0" y="205.0" font-size="12.5" fill="#6C7A89" text-anchor="end">0</text>
+<line x1="90.0" y1="162.5" x2="520.0" y2="162.5" stroke="#E2E6EC" stroke-width="1"/>
+<text x="80.0" y="167.5" font-size="12.5" fill="#6C7A89" text-anchor="end">1</text>
+<line x1="90.0" y1="125.0" x2="520.0" y2="125.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="80.0" y="130.0" font-size="12.5" fill="#6C7A89" text-anchor="end">2</text>
+<line x1="90.0" y1="87.5" x2="520.0" y2="87.5" stroke="#E2E6EC" stroke-width="1"/>
+<text x="80.0" y="92.5" font-size="12.5" fill="#6C7A89" text-anchor="end">3</text>
+<line x1="90.0" y1="50.0" x2="520.0" y2="50.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="80.0" y="55.0" font-size="12.5" fill="#6C7A89" text-anchor="end">4</text>
+<text x="80.0" y="34.0" font-size="12" fill="#6C7A89" text-anchor="end">万円/kW</text>
+<line x1="90.0" y1="117.5" x2="520.0" y2="117.5" stroke="#C49A3C" stroke-width="1.5"/>
+<path d="M142.0,200.0 V102.8 Q142.0,98.8 146.0,98.8 H194.0 Q198.0,98.8 198.0,102.8 V200.0 Z" fill="#1B2A4A"><title>2027年度に連系 中央値 2.7万円/kW（4案件）</title></path>
+<text x="170.0" y="90.8" font-size="14" fill="#1B2A4A" text-anchor="middle" font-weight="700">2.7</text>
+<text x="170.0" y="220.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="600">2027年度に連系</text>
+<text x="170.0" y="237.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">4案件</text>
+<path d="M282.0,200.0 V87.8 Q282.0,83.8 286.0,83.8 H334.0 Q338.0,83.8 338.0,87.8 V200.0 Z" fill="#1B2A4A"><title>2028年度に連系 中央値 3.1万円/kW（5案件）</title></path>
+<text x="310.0" y="75.8" font-size="14" fill="#1B2A4A" text-anchor="middle" font-weight="700">3.1</text>
+<text x="310.0" y="220.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="600">2028年度に連系</text>
+<text x="310.0" y="237.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">5案件</text>
+<path d="M422.0,200.0 V144.0 Q422.0,140.0 426.0,140.0 H474.0 Q478.0,140.0 478.0,144.0 V200.0 Z" fill="#1B2A4A"><title>2029年度以降 中央値 1.6万円/kW（10案件）</title></path>
+<text x="450.0" y="132.0" font-size="14" fill="#1B2A4A" text-anchor="middle" font-weight="700">1.6</text>
+<text x="450.0" y="220.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="600">2029年度以降</text>
+<text x="450.0" y="237.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">10案件</text>
+<text x="528.0" y="121.5" font-size="12" fill="#C49A3C" text-anchor="start" font-weight="700">全体の中央値 2.2万円/kW（23案件）</text>
+<text x="528.0" y="139.5" font-size="12" fill="#6C7A89" text-anchor="start">範囲 0.3〜4.1万円/kW</text>
+</g>
+</svg>
+<figcaption>図4｜特別高圧・権利の売り出し単価（万円/kW・中央値・税別・当社観測）。連系の年度で単価が動く。件数が少ないので帯として読む。</figcaption>
+</figure>
+
+<h2 id="tashikameru">帯の中で、何を確かめるか</h2>
+
+<p>帯の中で上下を分けた条件は、提示に添えられた言葉を数えると、この順でした。下げた条件に当たる案件は、帯の下で指値をする根拠になります。上げた条件が揃っている案件は、帯の上でも先に決まります。</p>
+
+<figure>
+<svg viewBox="0 0 780 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="帯を上げる条件と下げる条件。上げる条件は多い順に、連系の時期が近い、工事費負担金が確定、保証金と契約申込みの手続が済んでいる、土地の権利が固まっている、市街化調整区域・農地の外。下げる条件は、連系の時期が遠い、負担金が別または未確定、市街化調整区域・農地、稼働の実績が薄い">
+<g font-family="'Noto Sans JP',sans-serif" font-size="14" fill="#2C3E50">
+<rect x="240.0" y="140.0" width="300.0" height="50.0" rx="8" fill="#DCE1E8"></rect>
+<text x="390.0" y="161.0" font-size="13.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">完成渡しの帯 4.8〜9.0億円</text>
+<text x="390.0" y="180.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">中央値 6.7億円</text>
+<line x1="390" y1="128" x2="390" y2="68" stroke="#1B2A4A" stroke-width="3" stroke-linecap="round"/><path d="M383,68 L390,60 L397,68 Z" fill="#1B2A4A"/>
+<line x1="390" y1="202" x2="390" y2="262" stroke="#6C7A89" stroke-width="3" stroke-linecap="round"/><path d="M383,262 L390,270 L397,262 Z" fill="#6C7A89"/>
+<text x="404.0" y="70.0" font-size="13" fill="#1B2A4A" text-anchor="start" font-weight="700">帯の上に付く</text>
+<text x="404.0" y="262.0" font-size="13" fill="#6C7A89" text-anchor="start" font-weight="700">帯の下に付く</text>
+<text x="60.0" y="34.0" font-size="12.5" fill="#1B2A4A" text-anchor="end" font-weight="700">1.</text>
+<text x="68.0" y="34.0" font-size="13" fill="#2C3E50" text-anchor="start">連系の時期が近い</text>
+<text x="60.0" y="56.0" font-size="12.5" fill="#1B2A4A" text-anchor="end" font-weight="700">2.</text>
+<text x="68.0" y="56.0" font-size="13" fill="#2C3E50" text-anchor="start">工事費負担金が確定している</text>
+<text x="60.0" y="78.0" font-size="12.5" fill="#1B2A4A" text-anchor="end" font-weight="700">3.</text>
+<text x="68.0" y="78.0" font-size="13" fill="#2C3E50" text-anchor="start">保証金と契約申込みの手続が済んでいる</text>
+<text x="60.0" y="100.0" font-size="12.5" fill="#1B2A4A" text-anchor="end" font-weight="700">4.</text>
+<text x="68.0" y="100.0" font-size="13" fill="#2C3E50" text-anchor="start">土地の権利が固まっている（所有・長期の賃借）</text>
+<text x="60.0" y="122.0" font-size="12.5" fill="#1B2A4A" text-anchor="end" font-weight="700">5.</text>
+<text x="68.0" y="122.0" font-size="13" fill="#2C3E50" text-anchor="start">市街化調整区域・農地の外にある</text>
+<text x="60.0" y="228.0" font-size="12.5" fill="#6C7A89" text-anchor="end" font-weight="700">1.</text>
+<text x="68.0" y="228.0" font-size="13" fill="#2C3E50" text-anchor="start">連系の時期が遠い</text>
+<text x="60.0" y="250.0" font-size="12.5" fill="#6C7A89" text-anchor="end" font-weight="700">2.</text>
+<text x="68.0" y="250.0" font-size="13" fill="#2C3E50" text-anchor="start">工事費負担金が別、または未確定</text>
+<text x="60.0" y="272.0" font-size="12.5" fill="#6C7A89" text-anchor="end" font-weight="700">3.</text>
+<text x="68.0" y="272.0" font-size="13" fill="#2C3E50" text-anchor="start">市街化調整区域・農地</text>
+<text x="60.0" y="294.0" font-size="12.5" fill="#6C7A89" text-anchor="end" font-weight="700">4.</text>
+<text x="68.0" y="294.0" font-size="13" fill="#2C3E50" text-anchor="start">稼働の実績が薄い（需給調整市場の約定がない）</text>
+<text x="60.0" y="12.0" font-size="11.5" fill="#6C7A89" text-anchor="start">多い順</text>
+</g>
+</svg>
+<figcaption>図5｜帯の上下を分けた条件。提示に添えられた言葉を数え、多い順に並べた（高圧・完成渡しと権利の売り出し）。</figcaption>
+</figure>
+
+<p>用地の記事（<a target="_top" href="/column-land-buyback">COLUMN 26</a>）に書いた5つの要因と重なりますが、案件になると順番が変わります。土地の条件より先に、連系と負担金と手続の進み具合で値段が動きます。値段を見たあとに確かめる点は5つで足ります。</p>
+
+<ol class="actions">
+<li><b>値段は帯の中か。</b>完成渡しで6.7億円前後、連系済みで7.5億円前後。管内で値段が変わる理由はなく、稼ぎは管内で変わります。</li>
+<li><b>保証金と負担金を、誰がいくら払ったか。</b>段を決めるのはここです。領収と確定通知を原本で見ます。</li>
+<li><b>土地の使用権原の書類が出ているか。</b>10月1日以降の契約申込みは、連系承諾から2か月以内に提出が要り、出せなければ連系予約が取り消されます（後述）。</li>
+<li><b>何が引き継げるか。</b>容量市場は同意で承継、需給調整市場とJEPXは資産譲渡なら新規契約、電力会社の名義は九州以外は照会、補助金の設備は承認と返還（次章）。</li>
+<li><b>中古の即時償却は前提にしない。</b>大胆な投資促進税制での扱いが公表で確かめられるまで（税の章）。</li>
+</ol>
+
+<p>技術の項目は <a target="_top" href="/column-buyer-check">買う前の技術チェック（COLUMN 37）</a> に、順番と書類は <a target="_top" href="/column-trading">売買はどう進むか（COLUMN 46）</a> に書いています。</p>
+
+<h2 id="katachi">買う形は4つ。何が引き継げて、誰の同意が要るか</h2>
+
+<p>買う形は、権利を買う、完成渡しで買う、稼働済みを資産として買う、案件を持つ会社（SPC）の持分を買うの4つです。何が動き、誰の同意が要るかを、公表されている規定で確かめられた範囲で書きます。電力会社ごとの名義変更の手続は、10社のうち九州電力送配電の様式だけ公表を確かめられました。ほかは案件ごとに電力会社に照会します。</p>
+
+<div class="wraptext">
+<table>
+<caption>買う形ごとに、何が引き継げるか（◯ 引き継げる／△ 手続か条件つき／× 引き継げない）</caption>
+<thead><tr><th>引き継ぐもの</th><th>権利を買う</th><th>完成渡しで買う</th><th>稼働済みを買う<br>（資産譲渡）</th><th>SPC持分を買う</th></tr></thead>
+<tbody>
+<tr><td><strong>電力会社の名義</strong><br>接続検討・契約申込み</td><td class="mid">△ 九州は届出。他は照会</td><td class="mid">△ 照会</td><td class="mid">△ 照会</td><td class="ok">◯ 名義は動かない</td></tr>
+<tr><td><strong>土地</strong></td><td class="mid">△ 賃借なら地主の承諾</td><td class="mid">△ 同左</td><td class="mid">△ 同左</td><td class="ok">◯ 動かない</td></tr>
+<tr><td><strong>容量市場の契約</strong></td><td>—</td><td>—</td><td class="ok">◯ 事前の同意で承継</td><td class="ok">◯ そのまま（約款27条の解除事由に注意）</td></tr>
+<tr><td><strong>需給調整市場の契約</strong></td><td>—</td><td>—</td><td class="mid">△ 合併・事業譲渡なら書面通知と承認で承継。設備だけなら新規</td><td class="ok">◯ そのまま</td></tr>
+<tr><td><strong>JEPXの取引会員</strong></td><td>—</td><td>—</td><td class="ng">× 譲渡できない（承継は合併・分割だけ）。自分で会員に</td><td class="ok">◯ 届出で足りる</td></tr>
+<tr><td><strong>補助金の設備</strong></td><td>—</td><td class="mid">△ SIIの事前承認。返還の場合あり</td><td class="mid">△ 同左</td><td>要確認</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>根拠になる規定を、型ごとに並べます。</p>
+
+<div class="wraptext">
+<table>
+<thead><tr><th>型</th><th>動くもの</th><th>同意・手続（公表の規定で確かめられたもの）</th></tr></thead>
+<tbody>
+<tr><td><strong>権利を買う</strong></td><td>接続検討の回答（申込者の地位）と、土地の権利</td><td>九州電力送配電は「事業承継届出書（接続検討申込者用）」で、接続検討から契約申込みまでの間の承継を受け付けています。賃借地は地主の承諾（民法612条）。回答から1年を過ぎると再検討です。</td></tr>
+<tr><td><strong>完成渡しで買う</strong></td><td>土地か賃借権、設備、電力会社との契約上の地位（契約申込み・連系承諾・工事費負担金）</td><td>電力会社の名義変更の規定は要照会。EPC契約と土地の契約は、相手方の承諾を得て地位を移します。工事費負担金は原則、工事の着手前に一括払いです。</td></tr>
+<tr><td><strong>稼働済みを買う</strong><br>資産譲渡</td><td>上に加えて、市場の契約</td><td>容量市場は広域機関（OCCTO）の事前の同意で地位を承継でき、リクワイアメントの達成状況も引き継がれます（容量確保契約約款26条）。需給調整市場は、契約書のひな型（2026年3月14日改定）26条で、合併と事業譲渡のときは事前に書面で通知し、相手方（送配電事業者）の承認を受けて承継。JEPXは取引会員の地位を譲渡できず（取引会員規程19条4項。承継は合併・分割だけ）、買い手が自分で会員になります（純資産1,000万円以上、信認金100万円）。</td></tr>
+<tr><td><strong>SPC持分を買う</strong></td><td>合同会社の持分か、匿名組合の出資持分。契約と許認可の名義は動かない</td><td>名義が動かないので個別の名義変更は要りません。ただし容量確保契約約款27条1項4号は「信用資力に影響を及ぼす運営上の重要な変更」を解除事由にしています。JEPXは資本金額（出資総額を含む）・定款の重要な変更・代表権を持つ取締役等の氏名の変更と、合併・分割・重要財産の譲渡が届出事項（取引会員規程13条）です。</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>8月の COLUMN 39 では、制度上承継される資格・地位は容量市場にほぼ限られ、需給調整市場に明文はない、と書きました。補います。需給調整市場の契約ひな型26条には、合併と事業譲渡のときに書面通知と相手方の承認で承継させる定めがあり、JEPXの取引会員規程19条には合併・分割の承継の定めがあります。ただしどちらも、設備だけを買う資産譲渡には当たりません。<strong>資産譲渡で稼働済みを買うなら、需給調整市場とJEPXは買い手が新しく契約する前提で見積もる</strong>、という8月の結論は変わりません。連系済みの上乗せ0.8億円は「つながった」ことの対価であって、市場の契約が付いてくる対価ではありません。</p>
+
+<h2 id="zei">買い手の税と、売り手の手取り</h2>
+
+<p>買い手側で値段に効く税は2つあります。ひとつは即時償却です。中小企業経営強化税制と中小企業投資促進税制は新品の設備に限られ、電気業は指定事業に入っていません（<a target="_top" href="/column-investment-tax">COLUMN 45</a>）。7月31日に受付が始まった大胆な投資促進税制で、完成渡しや稼働済みの設備が「中古」としてどう扱われるかは、公表資料でまだ確かめられていません。即時償却を前提に値段を付けるなら、確認申請でここを先に確かめる必要があります。もうひとつは補助金です。補助金で入れた設備は、法定耐用年数の処分制限期間の中で譲渡するとき、事前にSIIの承認が要り、補助金の返還が発生する場合があります（補助金適正化法22条、SII公募要領）。売主に交付決定通知の有無を最初に聞くのは、このためです。</p>
+
+<p>売り手の手取りも、値段の交渉に効きます。個人の売主が土地を5年以内に売ると短期譲渡で税率が倍になるので、5年を待ちたい売主がいます。法人の売主は益金なので、決算期のどちら側で決済するかを気にします。率と区分だけ表にします。当てはめは案件ごとに違い、本稿は税務上の助言ではありません。適用は顧問税理士にご確認ください。</p>
+
+<div class="wraptext">
+<table>
+<thead><tr><th>売るもの</th><th>消費税</th><th>譲渡益（売主が個人）</th><th>譲渡益（売主が法人）</th><th>印紙税</th></tr></thead>
+<tbody>
+<tr><td><strong>土地</strong></td><td>非課税</td><td>分離課税。所有5年超で15%（住民税5%）、5年以下で30%（住民税9%）</td><td>益金。法人税23.2%（中小法人は年800万円以下の部分15%。所得10億円超の事業年度は17%）</td><td>不動産の譲渡契約書（第1号の1文書）。1億円超5億円以下は本則10万円、令和9年3月31日までは軽減</td></tr>
+<tr><td><strong>権利</strong><br>接続検討の回答つきの地位</td><td>公表の一次資料なし。要確認</td><td>総合課税（所有5年で長期・短期を分ける）</td><td>同上</td><td>印紙税法の無体財産権8種に当たらず、権利だけの契約書は課税文書に当たらないと読めます</td></tr>
+<tr><td><strong>設備</strong><br>機械装置</td><td>課税（非課税の列挙にない）。買い手は還付まで立て替える</td><td>総合課税</td><td>同上</td><td>設備を含む一括の譲渡が「営業の譲渡」に当たれば第1号の1文書</td></tr>
+<tr><td><strong>SPC持分</strong><br>合同会社の持分・匿名組合の出資持分</td><td>非課税</td><td>株式等の譲渡として20%（所得税15%、住民税5%）。合同会社の持分が「一般株式等」に当たるかは条文で確認</td><td>同上</td><td>要確認</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">出典は国税庁タックスアンサー No.6201・3105・3208・3211・1463・5759・7140・7108、印紙税法基本通達、質疑応答事例。令和8年4月1日以後に開始する事業年度から防衛特別法人税（基準法人税額＝一定の税額控除を適用しない法人税の額から、基礎控除の年500万円を引いた額の4%）が加わります。個人の所得税には復興特別所得税2.1%が上乗せされます。</p>
+
+<h2 id="dare">誰が買っているか</h2>
+
+<p>2025年10月から2026年9月に系統用蓄電所の取得や出資を公表した主体は、確かめられた範囲で、上場の事業会社6社（ジャルコホールディングス、多摩川ホールディングス、ジェイ・ホールディングス、グローム・ホールディングス、コレックホールディングス、ADワークスグループ）、電力2社（イーレックス、エネルギーパワー）、ファンド2件（関西電力・きんでん・MUFGの「カン-denchiファンド1号」、SBIマネープラザ）でした。ジャルコは1社で、完成品の取得、土地と権利の取得、SPCの匿名組合出資持分、稼働済みの取得と、段の違う買い方を1年に4つ公表しています。開示に書かれた動機は「早期の事業開始を図るため」（多摩川）、「安定的かつインフラ性の高い収益機会」（グローム）で、本文を確かめられた開示に、即時償却を動機に書いたものはありませんでした。</p>
+
+<div class="buyers">
+  <div class="buyer-group"><div class="bg-title">上場の事業会社<small>6社</small></div>
+    <span class="chip"><b>ジャルコHD</b> 完成品・権利・SPC持分・稼働済み</span><span class="chip"><b>多摩川HD</b> 権利・連系待ち</span><span class="chip"><b>ジェイHD</b> 連系前で取得</span><span class="chip"><b>グロームHD</b> 完成渡し（工事中→引渡し）</span><span class="chip"><b>コレックHD</b> 用地＋蓄電所（着工前）</span><span class="chip"><b>ADワークス</b> 用地＋権利</span></div>
+  <div class="buyer-group"><div class="bg-title">電力<small>2社</small></div>
+    <span class="chip"><b>イーレックス</b> 開発案件に投資（EPC契約）</span><span class="chip"><b>エネルギーパワー</b> 取得（複数）</span></div>
+  <div class="buyer-group"><div class="bg-title">ファンド<small>2件</small></div>
+    <span class="chip"><b>関電・きんでん・MUFG</b> 1号ファンド（特高のSPC持分）</span><span class="chip"><b>SBIマネープラザ</b> 蓄電所ファンド（高圧1件）</span></div>
+</div>
+<p class="tnote" style="margin-top:-8px">2025年10月〜2026年9月に取得・出資を公表した主体（適時開示・プレスリリース。一部は転載で確認）。段は開示の記載による。全件を網羅した集計ではありません。</p>
+
+<p>買い手が増える一方で、売り物の入口は狭くなっています。2026年8月1日から、一事業者が申し込める接続検討の件数に上限が付きました（北海道5・東北6・東京11・中部7・北陸5・関西12・中国5・四国5・九州8件）。新しい回答が取りにくくなった分、回答つきの案件の希少性は上がります。買う側にとっては、帯の中で条件の揃った案件ほど先に決まる、ということです。買付意向書を出す時期で決まります。</p>
+
+<h2 id="urugawa">売る側から見ると ── 書類、期限、仕入れか仲介か</h2>
+
+<p>ここからは売る側です。値段は買い手が払っている帯と同じで、決まるのは中央値の少し下。売り手ができることは、帯の上に付く条件を書類で示すことと、期限を過ぎないことの2つです。</p>
+
+<p>当社に届く案件の半分近くは、回答書・申込みの受付・保証金・負担金・土地・機器の、どの書類も付いていません。いちばん多いのは、希望価格だけを伝えてくる形です。それで買い手の机上確認が止まります。売り出す前に、この7つを揃えてください。</p>
+
+<ol class="actions">
+<li><b>接続検討回答書（原本のPDF）。</b>回答日が、有効期限1年の起点です。</li>
+<li><b>契約申込みの控えと、保証金の領収。</b>ここまで進んでいれば段がひとつ上がります。</li>
+<li><b>工事費負担金の確定通知。</b>概算のままか、確定か。確定した案件は帯の上に付きます。</li>
+<li><b>土地の登記か、賃貸借契約書。</b>賃借なら、譲渡のときに地主の承諾が要るかを契約書で確かめておきます。</li>
+<li><b>機器の型式。</b>PCSとEMSの型式と、JC-STARの登録状況。高圧は2027年4月以降の接続契約申込みから要件になります（<a target="_top" href="/column-jcstar">COLUMN 14</a>）。</li>
+<li><b>稼働しているなら、約定と収入の実績。</b>アグリゲーターの月次の明細で足ります。</li>
+<li><b>補助金を受けていれば、交付決定通知。</b>譲渡の前に承認が要ります。</li>
+</ol>
+
+<p>期限は公表されています。持ったままにした案件は、期限で価値が消えます。</p>
+
+<figure>
+<svg viewBox="0 0 780 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="売り手に効く期限。案件の時計は、接続検討の回答日から1年で失効、契約申込みで保証金10%、連系承諾から2か月以内に土地の使用権原の書類。制度のカレンダーは、2026年4月1日 保証金10%、8月1日 接続検討の件数上限、10月1日 土地権原の書類の要件化、2027年4月 JC-STAR★1が高圧の連系要件">
+<g font-family="'Noto Sans JP',sans-serif" font-size="14" fill="#2C3E50">
+<text x="40.0" y="24.0" font-size="14" fill="#1B2A4A" text-anchor="start" font-weight="700">案件の時計 ── 接続検討の回答日から</text>
+<line x1="60.0" y1="112.0" x2="740.0" y2="112.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="60.0" y1="108.0" x2="60.0" y2="116.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="116.7" y1="108.0" x2="116.7" y2="116.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="173.3" y1="108.0" x2="173.3" y2="116.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="230.0" y1="108.0" x2="230.0" y2="116.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="286.7" y1="108.0" x2="286.7" y2="116.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="343.3" y1="108.0" x2="343.3" y2="116.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="400.0" y1="108.0" x2="400.0" y2="116.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="456.7" y1="108.0" x2="456.7" y2="116.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="513.3" y1="108.0" x2="513.3" y2="116.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="570.0" y1="108.0" x2="570.0" y2="116.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="626.7" y1="108.0" x2="626.7" y2="116.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="683.3" y1="108.0" x2="683.3" y2="116.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="740.0" y1="108.0" x2="740.0" y2="116.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<circle cx="60.0" cy="112.0" r="8" fill="#FFFFFF"/><circle cx="60.0" cy="112.0" r="6" fill="#1B2A4A"><title>接続検討回答書の回答日（有効期限1年の起点）</title></circle>
+<text x="60.0" y="136.0" font-size="12.5" fill="#1B2A4A" text-anchor="start" font-weight="700">回答日</text>
+<circle cx="740.0" cy="112.0" r="8" fill="#FFFFFF"/><circle cx="740.0" cy="112.0" r="6" fill="#C49A3C"><title>回答から1年：失効。再検討は検討料20万円＋税、原則3か月</title></circle>
+<text x="740.0" y="136.0" font-size="12.5" fill="#2C3E50" text-anchor="end" font-weight="700">12か月：回答が失効（再検討＝20万円＋税・3か月）</text>
+<rect x="224.0" y="40.0" width="12.0" height="12.0" rx="2" fill="#1B2A4A"></rect>
+<text x="242.0" y="50.0" font-size="12.5" fill="#2C3E50" text-anchor="start">契約申込み → 保証金（概算負担金の10%）。事業者都合の辞退で没収</text>
+<line x1="230.0" y1="54.0" x2="230.0" y2="104.0" stroke="#1B2A4A" stroke-width="1"/>
+<rect x="479.0" y="70.0" width="12.0" height="12.0" rx="2" fill="#1B2A4A"></rect>
+<text x="497.0" y="80.0" font-size="12.5" fill="#2C3E50" text-anchor="start">連系承諾 → 2か月以内に土地の使用権原の書類</text>
+<line x1="485.0" y1="84.0" x2="485.0" y2="104.0" stroke="#1B2A4A" stroke-width="1"/>
+<text x="60.0" y="156.0" font-size="11.5" fill="#6C7A89" text-anchor="start">契約申込みと連系承諾の位置は案件で違う（図は例）。回答日から数えるのは失効だけ。</text>
+<text x="40.0" y="196.0" font-size="14" fill="#1B2A4A" text-anchor="start" font-weight="700">制度のカレンダー ── 2026年4月〜2027年4月</text>
+<line x1="60.0" y1="256.0" x2="740.0" y2="256.0" stroke="#C9D0DA" stroke-width="2"/>
+<line x1="60.0" y1="252.0" x2="60.0" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="108.6" y1="252.0" x2="108.6" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="157.1" y1="252.0" x2="157.1" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="205.7" y1="252.0" x2="205.7" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="254.3" y1="252.0" x2="254.3" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="302.9" y1="252.0" x2="302.9" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="351.4" y1="252.0" x2="351.4" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="400.0" y1="252.0" x2="400.0" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="448.6" y1="252.0" x2="448.6" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="497.1" y1="252.0" x2="497.1" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="545.7" y1="252.0" x2="545.7" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="594.3" y1="252.0" x2="594.3" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="642.9" y1="252.0" x2="642.9" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="691.4" y1="252.0" x2="691.4" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<line x1="740.0" y1="252.0" x2="740.0" y2="260.0" stroke="#C9D0DA" stroke-width="1.5"/>
+<text x="108.6" y="278.0" font-size="12" fill="#6C7A89" text-anchor="middle">2026/4</text>
+<text x="254.3" y="278.0" font-size="12" fill="#6C7A89" text-anchor="middle">7</text>
+<text x="400.0" y="278.0" font-size="12" fill="#6C7A89" text-anchor="middle">10</text>
+<text x="545.7" y="278.0" font-size="12" fill="#6C7A89" text-anchor="middle">2027/1</text>
+<text x="691.4" y="278.0" font-size="12" fill="#6C7A89" text-anchor="middle">4</text>
+<circle cx="108.6" cy="256.0" r="8" fill="#FFFFFF"/><circle cx="108.6" cy="256.0" r="6" fill="#1B2A4A"><title>4/1 保証金 5%→10%</title></circle>
+<line x1="108.6" y1="248.0" x2="108.6" y2="222.0" stroke="#C9D0DA" stroke-width="1"/>
+<text x="108.6" y="216.0" font-size="12.5" fill="#2C3E50" text-anchor="start" font-weight="700">4/1 保証金 5%→10%</text>
+<circle cx="302.9" cy="256.0" r="8" fill="#FFFFFF"/><circle cx="302.9" cy="256.0" r="6" fill="#1B2A4A"><title>8/1 接続検討の件数上限</title></circle>
+<line x1="302.9" y1="264.0" x2="302.9" y2="296.0" stroke="#C9D0DA" stroke-width="1"/>
+<text x="302.9" y="312.0" font-size="12.5" fill="#2C3E50" text-anchor="start" font-weight="700">8/1 接続検討の件数上限</text>
+<circle cx="400.0" cy="256.0" r="8" fill="#FFFFFF"/><circle cx="400.0" cy="256.0" r="6" fill="#C49A3C"><title>10/1 土地の使用権原の書類が要件に</title></circle>
+<line x1="400.0" y1="248.0" x2="400.0" y2="222.0" stroke="#C9D0DA" stroke-width="1"/>
+<text x="400.0" y="216.0" font-size="12.5" fill="#2C3E50" text-anchor="start" font-weight="700">10/1 土地の使用権原の書類が要件に</text>
+<circle cx="691.4" cy="256.0" r="8" fill="#FFFFFF"/><circle cx="691.4" cy="256.0" r="6" fill="#1B2A4A"><title>2027/4 JC-STAR★1が高圧の連系要件に</title></circle>
+<line x1="691.4" y1="264.0" x2="691.4" y2="296.0" stroke="#C9D0DA" stroke-width="1"/>
+<text x="691.4" y="312.0" font-size="12.5" fill="#2C3E50" text-anchor="end" font-weight="700">2027/4 JC-STAR★1が高圧の連系要件に</text>
+</g>
+</svg>
+<figcaption>図6｜売り手に効く期限。上は案件ごとの時計（接続検討の回答日から数える）、下は制度のカレンダー。根拠は表に。</figcaption>
+</figure>
+<details><summary>期限の表と根拠を開く</summary>
+<div class="wraptext">
+<table>
+<thead><tr><th>期限</th><th>過ぎると</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td><strong>接続検討の回答から1年</strong></td><td>回答が失効し、契約申込みには再検討が要る。検討料は1受電地点1検討につき20万円＋税（東京電力パワーグリッドは22万円）、回答まで原則3か月</td><td>送配電等業務指針89条1項6号、各社の申込み案内</td></tr>
+<tr><td><strong>契約申込み時の保証金</strong><br>概算工事費負担金の10%（2026年4月1日から）</td><td>事業者都合の辞退で没収。2026年4月以降に受領した契約申込みから</td><td>資源エネルギー庁 次世代電力系統WG 第6回 資料3（2025年12月24日）・第7回 資料1-1（2026年2月9日）、OCCTOお知らせ（2026年3月18日）、東京電力パワーグリッド告知（2026年4月1日）</td></tr>
+<tr><td><strong>工事費負担金の分割払い</strong></td><td>初回に全体の50%以上</td><td>同上</td></tr>
+<tr><td><strong>連系承諾から2か月</strong><br>土地の使用権原の書類</td><td>出せなければ連系予約の取消し。2026年10月1日以降の契約申込みから。経済産業省が7月22日に10社の託送供給等約款の変更（接続検討申込み時の土地に関する書類提出の要件化等）を認可。実施日10月1日を公表しているのは東京・北陸・四国で、ほかは各社の告知で確認</td><td>同WG（2026年6月10日）、経済産業省ニュースリリース</td></tr>
+<tr><td><strong>一事業者あたりの接続検討の件数上限</strong><br>2026年8月1日から</td><td>上限を超える申込みは受け付けない。北海道5・東北6・東京11・中部7・北陸5・関西12・中国5・四国5・九州8件</td><td>同WG、東京電力パワーグリッド・北海道電力ネットワークの告知</td></tr>
+<tr><td><strong>2027年4月以降の接続契約申込み（高圧）</strong></td><td>JC-STAR★1が連系の要件に。改定ガイドラインの公布は2026年9月末時点で確認できず</td><td>次世代電力系統WG（2026年2月9日）</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<p>回答から1年を過ぎた案件は、希少性ごと消えます。自社で事業化する・開発権を売る・取り下げるの3択（<a target="_top" href="/column-options">「接続検討回答を取得したが事業化しない場合」</a>）を、回答日から数えて決めてください。</p>
+
+<p>当社が買い手になるか、買い手につなぐかは案件ごとで、費用は成約まで発生しません。所在（都道府県・管内）、出力、売り方、回答の段階、負担金の状態の5点をいただければ、買う見込みがあるか、つなぐ形か、足りない書類を最初の返事に書きます（<a target="_top" href="/sourcing">案件・権利を売る</a>）。</p>
+
+<h2 id="faq">よくある質問</h2>
+
+<div class="faq-item">
+<p class="faq-q">蓄電所は、いくらで買えますか？</p>
+<p class="faq-a">高圧2MW級（土地と工事費負担金を含む1件の総額・税別）で、当社が2026年1月から9月に見た売り出しの中央値は、接続検討の回答つきの権利で1.2億円、完成渡し（連系前）で6.7億円、連系済み・稼働済みで7.5億円です。適時開示で公表された取得価格（荘川 約7億円・みやま 約6.84億円・霧島 1.2億円）も同じ帯にあります。決まる値段は、売り出しの中央値より少し下に寄ります。</p>
+</div>
+<div class="faq-item">
+<p class="faq-q">権利を買って自分で建てるのと、完成渡しを買うのと、どちらが得ですか？</p>
+<p class="faq-a">権利1.2億円と完成渡し6.7億円の差5.5億円の大半は建設費です。国の検討会の国内平均（6.8万円/kWh＝8MWhで5.4億円）を権利に足すと6.6億円で、完成渡しの値札とほぼ同じ水準です。売主（開発者・EPC）の利益は建設費の中に入っていて、別の層として乗っているわけではありません。権利を買って自分で建てても払う相手はEPCで、差が出るのは建設費をどれだけ下げられるかと、負担金の確定・工期・機器の性能のリスクを自分で持つかどうかです。EPCを選び工程を管理する体制があるかで決めます。連系済みは連系前より0.8億円高く、待てるなら連系前で買う方が安く、決算期に間に合わせるならその差で時間を買う関係です。</p>
+</div>
+<div class="faq-item">
+<p class="faq-q">東京の案件は、ほかの管内より高いですか？</p>
+<p class="faq-a">件数のある6管内では差は0.5億円以内で、東京7.0億円、九州6.8億円、中部・関西・中国6.7億円、東北6.5億円（完成渡し・中央値）です。北陸は3案件で5.5億円と低いですが、件数が少なく帯として読めません。値段を動かすのは管内ではなく、連系が済んでいるか、工事費負担金が確定しているか、保証金と契約申込みの手続が済んでいるかです。稼ぎは管内で変わるので、東北や中国の案件は同じ値段で年商が大きい関係にあります。</p>
+</div>
+<div class="faq-item">
+<p class="faq-q">稼働済みの蓄電所を買えば、市場の契約はそのまま引き継げますか？</p>
+<p class="faq-a">容量市場は広域機関の事前の同意で地位を承継でき、リクワイアメントの達成状況も引き継がれます。需給調整市場は契約ひな型26条で、合併・事業譲渡のときは書面通知と相手方の承認で承継、設備だけを買う資産譲渡なら新規契約です。JEPXは取引会員の地位を譲渡できず（承継は合併・分割だけ）、買い手が自分で会員になります。電力会社の名義は九州電力送配電が届出の様式を公表しており、ほかは案件ごとに照会します。補助金で入れた設備は処分制限期間内の譲渡にSIIの事前承認が要ります。</p>
+</div>
+<div class="faq-item">
+<p class="faq-q">案件を売りたい場合、いくらで売れますか？</p>
+<p class="faq-a">買い手が払っている値段と同じ帯です。高圧2MW級で権利1.2億円、完成渡し6.7億円、連系済み7.5億円が売り出しの中央値で、決まる値段はその少し下に寄ります。完成渡しの値札は国内平均の建設費で建てた原価とほぼ同じ水準で、値札の上に確実に付く上乗せは連系してからの0.8億円です。査定は無料で、費用は成約まで発生しません。当社が買い手になるか、買い手につなぐかは最初の返事に書きます。</p>
+</div>
+
+<h2>参考にした一次資料と、関連する記事</h2>
+<div class="refs">
+<h3>価格の出典</h3>
+<ul>
+<li>当社観測：2026年1月〜9月に当社が見た売り出し価格（当社の販売価格と、他社案件の仲介・開発者の提示）を案件ごとに1値に束ねたもの。税別。売主から当社への提示と仕入値は含まない。</li>
+<li>ジェイ・ホールディングス 適時開示（2026年7月30日）— 荘川蓄電所（仮称）約7億円・約2MW/約8MWh・2026年11月取得・12月系統連系の予定</li>
+<li>多摩川ホールディングス「株式会社多摩川エナジーにおける固定資産（系統用蓄電所）の取得に関するお知らせ」（2026年5月25日）— みやま 約6.84億円・約2MW/約8MWh <a href="https://prtimes.jp/main/html/rd/p/000000016.000009336.html" target="_blank" rel="noopener">prtimes.jp</a></li>
+<li>多摩川ホールディングス「当社子会社における固定資産の取得」（2025年10月31日）— 霧島 事業用地・発電権利購入額120百万円（税抜）・系統用蓄電所総開発費用570百万円（税抜） <a href="https://www.tmex.co.jp/dcms_media/other/20251031J.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>資源エネルギー庁 定置用蓄電システム普及拡大検討会 2024年度第5回 資料3（2025年1月30日）— 2024年度の蓄電システム価格5.4万円/kWh・工事費1.4万円/kWh <a href="https://www.meti.go.jp/shingikai/energy_environment/storage_system/pdf/2024_005_03_00.pdf" target="_blank" rel="noopener">PDF</a>／当社コラム <a target="_top" href="/column-construction-cost">COLUMN 40</a></li>
+</ul>
+<h3>手続・期限</h3>
+<ul>
+<li>電力広域的運営推進機関（OCCTO）「発電設備等系統アクセスの流れ」— 回答の有効期限1年（送配電等業務指針89条1項6号）、検討料、工事費負担金の支払い <a href="https://www.occto.or.jp/institution/access/kentou/access_process.html" target="_blank" rel="noopener">occto.or.jp</a></li>
+<li>OCCTO「容量確保契約約款」（2026年7月変更）第26条・第27条 <a href="https://www.occto.or.jp/assets/market-board/market/jitsujukyukanren/260730_kakuhokeiyaku_2024-2029.pdf" target="_blank" rel="noopener">PDF</a>／長期脱炭素電源オークション 容量確保契約約款（2025年9月3日）第32条 <a href="https://www.occto.or.jp/assets/market-board/market/jitsujukyukanren/files/250903_kakuhokeiyaku_long.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>電力需給調整力取引所（EPRX）「需給調整市場に関する契約書（ひな型）」（2026年3月14日改定）第26条 <a href="https://www.eprx.or.jp/outline/docs/keiyaku_260314.pdf" target="_blank" rel="noopener">PDF</a>／「需給調整市場のΔkW上限価格について」（2026年7月30日） <a href="https://www.eprx.or.jp/information/docs/14b85fbe8942da7d3bdddda80243e7e170f64d9e.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>日本卸電力取引所（JEPX）「取引会員規程」第3条・第11条・第13条・第19条 <a href="https://www.jepx.jp/electricpower/outline/pdf/memb_rules.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>資源エネルギー庁 第6回次世代電力系統ワーキンググループ 資料3（2025年12月24日）— 保証金10%・分割初回50%・土地の使用権原の書類 <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/pdf/006_03_00.pdf" target="_blank" rel="noopener">PDF</a>／第7回 資料1-1（2026年2月9日）— 2026年4月以降に受領する契約申込みから <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/pdf/007_01_01.pdf" target="_blank" rel="noopener">PDF</a>／第11回 資料2（2026年6月10日）— 接続検討の件数上限 <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/pdf/011_02_00.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>東京電力パワーグリッド「系統用蓄電池の契約申込み時の保証金の増額」ほか（2026年4月1日） <a href="https://www.tepco.co.jp/pg/consignment/workshop/information/renewable/adjustment/20260401_02.html" target="_blank" rel="noopener">tepco.co.jp</a>／「一事業者あたりの接続検討数の上限設定」（2026年7月24日） <a href="https://www.tepco.co.jp/pg/consignment/workshop/information/renewable/adjustment/20260724_01.html" target="_blank" rel="noopener">tepco.co.jp</a>／経済産業省「託送供給等約款の変更の認可」（2026年7月22日） <a href="https://www.meti.go.jp/press/2026/07/20270722003.html" target="_blank" rel="noopener">meti.go.jp</a></li>
+<li>九州電力送配電「各種お申し込み」— 事業承継届出書（接続検討申込者用） <a href="https://www.kyuden.co.jp/td/service/electric-power-generation-business/application.html" target="_blank" rel="noopener">kyuden.co.jp</a></li>
+</ul>
+<h3>税・補助金</h3>
+<ul>
+<li>国税庁 タックスアンサー No.6201（非課税となる取引）、No.3105（譲渡所得の対象となる資産と課税方法）、No.3208・No.3211（長期・短期譲渡所得の税額）、No.1463（株式等の譲渡）、No.5759（法人税の税率）、No.5433・No.5434（中小企業投資促進税制・経営強化税制）、No.7140（印紙税額の一覧表）、No.7108（不動産の譲渡契約書の軽減）、質疑応答事例「匿名組合の出資者の持分の譲渡」「無体財産権の範囲」、印紙税法基本通達 別表第1、「防衛特別法人税の概要」パンフレット <a href="https://www.nta.go.jp/publication/pamph/pdf/0025004-109_1.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>経済産業省「大胆な投資促進税制（特定生産性向上設備等投資促進税制）」制度ページ <a href="https://www.meti.go.jp/policy/economy/kyosoryoku_kyoka/henkashien/daitanzeisei/daitan.html" target="_blank" rel="noopener">meti.go.jp</a></li>
+<li>環境共創イニシアチブ（SII）令和7年度 系統用蓄電池等電力貯蔵システム導入支援事業 公募要領 — 処分制限期間内の財産処分 <a href="https://sii.or.jp/chikudenchi07/uploads/R7kess_kouboyouryou.pdf" target="_blank" rel="noopener">PDF</a>／補助金等に係る予算の執行の適正化に関する法律 第22条</li>
+</ul>
+<h3>関連する記事</h3>
+<ul>
+<li><a target="_top" href="/column-buyer-structures">買い方は4つある（COLUMN 39）</a>／<a target="_top" href="/column-trading">蓄電所の売買はどう進むか（COLUMN 46）</a>／<a target="_top" href="/column-buyer-check">買う前の技術チェック（COLUMN 37）</a>／<a target="_top" href="/column-regional-revenue">同じ2MWが、年2.9億円にも6千万円にもなる（COLUMN 35）</a>／<a target="_top" href="/column-construction-cost">建設費は1kWhあたりいくらか（COLUMN 40）</a>／<a target="_top" href="/column-land-buyback">蓄電池用地の買取相場はどう決まるか（COLUMN 26）</a>／<a target="_top" href="/column-options">接続検討回答を取得したが事業化しない場合</a>／<a target="_top" href="/column-investment-tax">即時償却、受付が始まった（COLUMN 45）</a></li>
+</ul>
+</div>
+
+<div class="author-box">
+<div class="ab-label">この記事の監修</div>
+<div><span class="ab-name">中島 晋也</span>（サイエンスエックス株式会社 代表取締役・工学博士）</div>
+<p style="margin:6px 0 0">系統用蓄電池の案件を仕入れて売る実務に基づいて執筆・監修しています。価格の帯は当社の観測で、公表統計ではありません。税の記述は制度の整理であり、税務上の助言ではありません。本稿の誤りのご指摘は <a href="mailto:s@scix.co.jp">s@scix.co.jp</a> まで。</p>
+</div>
+
+</div>
+
+<!-- scix-column-cta : 1記事1つ。主＝案件一覧（NDA不要）、副＝売る方・買う方の入口（それぞれ行き先の中身を明記） -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">この帯のどこにある案件が、いま売りに出ているか</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">所在県・規模・連系の見込み・進み具合までは、秘密保持契約なしで公開しています。値段は案件ごとに、登録のうえでお出しします。</p>
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/projects" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">匿名ティーザーで売り案件を確認する →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">案件一覧が開きます。気になる案件は、その場で複数まとめて資料を請求できます。</p>
+  </div>
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.85;margin:0">案件をお持ちで売りたい方は <a target="_top" href="https://www.scix.co.jp/sell-form" style="color:#1B2A4A;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">案件の無料査定を依頼する</a>（接続検討回答書のPDFを添付できます。売る義務はありません）。売る手順を先に読みたい方は <a target="_top" href="https://www.scix.co.jp/sourcing" style="color:#1B2A4A;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">案件・権利を売る</a>、買う側の手順は <a target="_top" href="https://www.scix.co.jp/transfer" style="color:#1B2A4A;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">案件を買う</a> へ。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/land" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">土地を売る・貸す</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
