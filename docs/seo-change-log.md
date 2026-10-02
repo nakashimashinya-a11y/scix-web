@@ -105,6 +105,7 @@ Chrome（Googleログイン済み・`hl=ja&gl=jp&pws=0&num=10`）で見た、sci
 
 | 日 | URL | 結果 |
 |---|---|---|
+| 2026-10-02 | /column-tax /column-capacity-market /column-jcstar /column-lda /column-subsidies /column-area-data /column-noise /column-revenue /column-day-ahead | リクエスト済み（#109・#95・#110 公開後。9本とも「URL は Google に登録されています」→公開 URL のテスト→「インデックス登録をリクエスト済み（優先クロール キューに追加）」を確認。/column-tax は誤って2回送った）。IndexNow は push 時の Action が #109 26件・#95 2件・#110 2件を送信（いずれも HTTP 200） |
 | 2026-09-17 | / | リクエスト済み（#86 公開後の再リクエスト。トースト確認） |
 | 2026-09-17 | /knowledge | リクエスト済み（ナレッジ再設計 #86。「URL は Google に登録されています」→再リクエスト、トースト「インデックス登録をリクエスト済み」を確認） |
 | 2026-09-17 | / | リクエスト済み（ヘッダー再編 #85。ライブテストは「URL は Google に登録できます」、Googlebot（スマートフォン）のレンダリング結果に新ヘッダーを確認） |
