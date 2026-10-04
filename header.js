@@ -54,6 +54,7 @@
     '/column-bidding-ceiling',
     '/column-bidding-ceiling-calc',
     '/column-bidding-ceiling-law',
+    '/column-bidding-ceiling-market',
     '/column-bidding-ceiling-monitoring',
     '/column-capacity-market',
     '/column-day-ahead',
