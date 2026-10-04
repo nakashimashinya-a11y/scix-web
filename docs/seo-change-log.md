@@ -116,6 +116,7 @@ Chrome（Googleログイン済み・`hl=ja&gl=jp&pws=0&num=10`）で見た、sci
 
 | 日 | URL | 結果 |
 |---|---|---|
+| 2026-10-04 | /column-bidding-ceiling /column-bidding-ceiling-law /column-bidding-ceiling-calc /column-bidding-ceiling-market /column-bidding-ceiling-monitoring /en/column-bidding-ceiling /en/column-bidding-ceiling-law /en/column-bidding-ceiling-calc /en/column-bidding-ceiling-market /en/column-bidding-ceiling-monitoring /zh-column-bidding-ceiling /zh-column-bidding-ceiling-law /zh-column-bidding-ceiling-calc /zh-column-bidding-ceiling-market /zh-column-bidding-ceiling-monitoring /knowledge /en/knowledge /zh-knowledge | リクエスト済み（#112・#114 公開後。新規15本は「URL が Google に登録されていません」→リクエスト、ハブ3本は「URL は Google に登録されています」→再クロールの依頼。18本とも「インデックス登録をリクエスト済み（優先クロール キューに追加）」を確認。18本でも1日の枠には当たらなかった）。同日に GSC のサイトマップを再送信（「サイトマップを送信しました」）。Bing Webmaster Tools でも同じ18本と「あわせて読む」を足した12本の計30本を URL 送信（Success: 30 URLs）、サイトマップを再送信（successfully submitted）。IndexNow は main への push で Action が送信（HTTP 200 受理） |
 | 2026-10-02 | /column-tax /column-capacity-market /column-jcstar /column-lda /column-subsidies /column-area-data /column-noise /column-revenue /column-day-ahead | リクエスト済み（#109・#95・#110 公開後。9本とも「URL は Google に登録されています」→公開 URL のテスト→「インデックス登録をリクエスト済み（優先クロール キューに追加）」を確認。/column-tax は誤って2回送った）。IndexNow は push 時の Action が #109 26件・#95 2件・#110 2件を送信（いずれも HTTP 200） |
 | 2026-09-17 | / | リクエスト済み（#86 公開後の再リクエスト。トースト確認） |
 | 2026-09-17 | /knowledge | リクエスト済み（ナレッジ再設計 #86。「URL は Google に登録されています」→再リクエスト、トースト「インデックス登録をリクエスト済み」を確認） |
