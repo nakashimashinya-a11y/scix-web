@@ -341,7 +341,7 @@ blockquote.gl cite{display:block;font-style:normal;font-size:.82em;color:var(--t
 <div class="article-body">
 <a target="_top" href="/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
 <nav class="c50series" aria-label="COLUMN 50"><span class="lb">この連載は5本です</span><a target="_top" href="/column-bidding-ceiling">COLUMN 50 入口</a><span class="cur">50-2 条文編</span><a target="_top" href="/column-bidding-ceiling-calc">50-3 試算編</a><a target="_top" href="/column-bidding-ceiling-market">50-4 市場編</a><a target="_top" href="/column-bidding-ceiling-monitoring">50-5 監視編</a></nav>
-<p>需給調整市場の上限価格は、2026年9月1日の実需給分から一次調整力・二次調整力①・複合商品で10.00円/ΔkW・30分です。一次オフライン枠にも、一次調整力の上限が当たります。ここまでは「市場の天井」で、全員に同じ高さです。</p>
+<p>一次オフラインの上限価格は、2026年9月1日の実需給分から10.00円/ΔkW・30分です。ここまでは「市場の天井」で、全員に同じ高さです。</p>
 <p>その下に、事業者ごとに高さの違う天井がもう一枚あります。需給調整市場ガイドライン（2026年3月13日改定）のⅢ.2です。この編は条文だけを読みます。問いは一つ、<strong>「蓄電所のΔkW入札価格の上限は、条文ではどう決まっているか」</strong>です。数字を入れた試算は<a target="_top" href="/column-bidding-ceiling-calc">50-3 試算編</a>に分けました。</p>
 
 <h2>1. 式は一行</h2>
@@ -363,12 +363,13 @@ blockquote.gl cite{display:block;font-style:normal;font-size:.82em;color:var(--t
 <h2>3. 一定額 ── A種0.33円とB種</h2>
 <blockquote class="gl">「一定額」については、0.33円/ΔkW・30分（A種電源）又は「固定費回収のための合理的な額」の考え方に基づき算定した額（B種電源）とし、「等」は売買手数料とする。<cite>需給調整市場ガイドライン 2026年3月13日改定 p.6</cite></blockquote>
 <p>すぐ下に一文があります。「当年度分の固定費回収後の一定額は、A種電源とする」。B種は、その年度の固定費をまだ回収していない間だけの枠です。回収し終えた年は、その時点から0.33円に落ちます。「等」の売買手数料は、2026年度は0.06円/ΔkW・30分です（EPRX）。</p>
-<p>B種の額は、三つの文で決まります（p.6）。</p>
+<p>B種の額は、三つの文で決まります（p.6）。条文は式を一文では書いていません。上限額の定義と、上限額を想定応札量で割ることを、別々の箇条に書いています。</p>
 <ul>
 <li>固定費回収の対象期間は「適切に期間按分された固定費の当年度分」。</li>
 <li>固定費回収の上限額は「当年度分の減価償却費等を含む固定費から他市場で得られる収益を差し引いた額」。</li>
 <li>一定額は「固定費回収の上限額を想定応札量で除した額」。</li>
 </ul>
+<p>二つの箇条を一文にまとめた「（当年度分の固定費－他市場から得られる収益）÷想定応札量」という形は、第21回制度設計・監視専門会合（2026年6月19日）の資料6 p.4 の注にあります。この連載で「一定額の式」と書くときは、この二つの箇条のことです。</p>
 
 <h2>4. 四つの段</h2>
 <figure class="c50fig"><figcaption class="c50top">図1　B種の一定額を出す4つの段（需給調整市場ガイドライン p.6〜7）</figcaption><div class="c50cards n4">
@@ -389,7 +390,7 @@ blockquote.gl cite{display:block;font-style:normal;font-size:.82em;color:var(--t
 <p>短い期間で運開できる蓄電池は、前者に当たるものが大半だったとされています（第15回制度設計・監視専門会合 資料7）。引き始める年に一定額は大きく下がり、当社の試算ではそれが20年でいちばん大きい段差でした（<a target="_top" href="/column-bidding-ceiling-calc">50-3 試算編</a>）。何年目まで「時間的に応札できなかった」と言えるかは条文にありません。<span class="mk open">未確定</span></p>
 <h3>③ 想定応札量で割る</h3>
 <p>分母は「定期検査や燃料制約等による停止期間や蓄電池の充放電制約等を考慮し、当年度に応札することが可能なΔkWを基に、応札事業者が…算定する」（p.7）。約定できそうな量ではなく、応札できる量です。分母は、第15回制度設計・監視専門会合（2025年11月21日）で「想定約定量」から「想定応札量」に見直されました（ガイドラインの検討経緯 p.13）。約定を小さく見込んで一定額を大きくする道は、ここで閉じています。</p>
-<p>蓄電池は1日48コマのほとんどに応札できます。分母が大きいので、一定額は小さくなります。止まっている間は応札できない火力とは、ここが違います。</p>
+<p>蓄電池は1日48コマのほとんどに応札できます。分母が大きいので、一定額は小さくなります。定期検査などで止まる期間を分母から引かなければならない電源とは、ここが違います。</p>
 
 <h2>5. 何が新しいのか</h2>
 <p>「固定費から他市場収益を引いて割る」式そのものは、新しくありません。2021年1月に公正取引委員会のサイトに掲載された策定案に、すでにありました。ΔkW市場は「｛電源等の固定費－他市場で得られる収益｝÷想定年間約定ブロック数」です。</p>
@@ -405,7 +406,7 @@ blockquote.gl cite{display:block;font-style:normal;font-size:.82em;color:var(--t
 </ul>
 
 <h2>7. 2MW/8MWh・一次オフラインに当てると</h2>
-<p>一次オフラインは独立した商品ではなく、一次調整力の中の監視方法の区分です。オフライン監視の応動時間は30秒以内、継続時間は「設定なし」、最低入札量は1MWです（EPRX「需給調整市場の商品要件と取引スケジュール」第6版）。商品の全体像は<a target="_top" href="/column-balancing-market">COLUMN 15</a>にあります。</p>
+<p>一次オフラインは独立した商品ではなく、一次調整力の中の監視方法の区分で、高圧で1MW以上10MW未満の蓄電池はオフラインで参入できます（EPRX「揚水発電設備または蓄電池設備を用いて需給調整市場に参入する場合の取扱いガイド」第3版 p.24）。商品の全体像は<a target="_top" href="/column-balancing-market">COLUMN 15</a>にあります。</p>
 <p>高圧の2MWはアグリゲーター経由で入札することが多く、ここで条文の言葉が一つ足りなくなります。式は「当該電源等」ごとですが、「電源等」がアグリゲーターの入札単位（リスト・パターン）を指すのか、一つひとつの蓄電所を指すのかは定義がありません。<span class="mk open">未確定</span> 束ねたときの固定費と想定応札量の按分も同じです。</p>
 <p>事前の確認と四半期ごとの報告を受けるのは、市場支配力を持つ蓋然性が高いとされた事業者です（p.4〜5）。2MWの所有者本人がそこに入ることは考えにくいですが、委託先のアグリゲーターが入っていれば、その枠組みの中で入札されます。対象の事業者は、監視等委員会の制度設計・監視専門会合の資料で示されています。</p>
 
@@ -431,7 +432,8 @@ blockquote.gl cite{display:block;font-style:normal;font-size:.82em;color:var(--t
 <li>電力・ガス取引監視等委員会 第15回制度設計・監視専門会合 資料7（2025年11月21日） <a href="https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/015_07_00.pdf" target="_blank" rel="noopener">https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/015_07_00.pdf</a></li>
 <li>経済産業省・公正取引委員会「「適正な電力取引についての指針（改定案）」及び「需給調整市場ガイドライン（改定案）」に対する意見募集の結果について」（2026年3月13日） <a href="https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000309544" target="_blank" rel="noopener">https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000309544</a></li>
 <li>EPRX「需給調整市場のΔkW上限価格について」（2026年7月30日） <a href="https://www.eprx.or.jp/information/docs/14b85fbe8942da7d3bdddda80243e7e170f64d9e.pdf" target="_blank" rel="noopener">https://www.eprx.or.jp/information/docs/14b85fbe8942da7d3bdddda80243e7e170f64d9e.pdf</a></li>
-<li>EPRX「需給調整市場の商品要件と取引スケジュール」第6版（2026年3月13日） <a href="https://www.eprx.or.jp/outline/docs/shouhin_ver.6_20260313.pdf" target="_blank" rel="noopener">https://www.eprx.or.jp/outline/docs/shouhin_ver.6_20260313.pdf</a></li>
+<li>EPRX「揚水発電設備または蓄電池設備を用いて需給調整市場に参入する場合の取扱いガイド」第3版（2026年3月14日） <a href="https://www.eprx.or.jp/outline/docs/yousuichikudenchi_guide_260314.pdf" target="_blank" rel="noopener">https://www.eprx.or.jp/outline/docs/yousuichikudenchi_guide_260314.pdf</a></li>
+<li>電力・ガス取引監視等委員会 第21回制度設計・監視専門会合 資料6（2026年6月19日） <a href="https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/021_06_00.pdf" target="_blank" rel="noopener">https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/021_06_00.pdf</a></li>
 <li>EPRX「2026年度需給調整市場の売買手数料単価の決定について」（2026年2月13日） <a href="https://www.eprx.or.jp/j_information/2026/02/13_0955.php" target="_blank" rel="noopener">https://www.eprx.or.jp/j_information/2026/02/13_0955.php</a></li>
 </ul>
 <div class="author-box">
@@ -542,7 +544,7 @@ blockquote.gl cite{display:block;font-style:normal;font-size:.82em;color:var(--t
 
 <div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans JP',sans-serif">
   <div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">関連記事</div>
-  <a target="_top" href="/column-balancing-market" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">需給調整市場とは — 5商品・複合約定・一次〜三次調整力（COLUMN 15） →</a>
+  <a target="_top" href="/column-balancing-market" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">需給調整市場とは（COLUMN 15） →</a>
   <a target="_top" href="/column-aggregator-fee" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">アグリゲーター手数料の「グロスとネット」（COLUMN 17） →</a>
 </div>
 
