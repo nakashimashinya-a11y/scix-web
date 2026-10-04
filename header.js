@@ -51,11 +51,6 @@
   // Columns that exist in Japanese only. Switching language from these must
   // fall back to the knowledge hub instead of a URL that does not exist.
   var JA_ONLY_COLUMNS = [
-    '/column-bidding-ceiling',
-    '/column-bidding-ceiling-calc',
-    '/column-bidding-ceiling-law',
-    '/column-bidding-ceiling-market',
-    '/column-bidding-ceiling-monitoring',
     '/column-capacity-market',
     '/column-day-ahead',
     '/column-investment-tax-law',

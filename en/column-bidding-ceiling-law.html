@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.seo-note{display:none}
+.bar-chart{margin:28px 0}
+.bar-row{display:flex;align-items:center;margin-bottom:6px;font-size:.85em}
+.bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.bar-track{flex:1;background:#EBEEF2;height:28px;border-radius:3px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;min-width:2px;transition:width .6s ease}
+.bar-fill.high{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.bar-fill.mid{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.bar-fill.low{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.bar-fill.over{background:linear-gradient(90deg,#2980B9,#3498DB)}
+.bar-value{margin-left:8px;font-size:.82em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:80px}
+.heatmap-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.82em}
+.heatmap-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:center;font-weight:500;font-size:.78em}
+.heatmap-table td{padding:8px 10px;text-align:center;border:1px solid #E2E6EC;font-weight:600}
+.heatmap-table td.h5{background:#FDEBEB;color:#922B21}
+.heatmap-table td.h4{background:#FDEBD0;color:#935116}
+.heatmap-table td.h3{background:#FEF9E7;color:#7D6608}
+.heatmap-table td.h2{background:#EAFAF1;color:#1E8449}
+.heatmap-table td.h1{background:#D4EFDF;color:#196F3D}
+.heatmap-table td.h0{background:#D6EAF8;color:#21618C}
+.heatmap-table .area-cell{text-align:left;font-weight:700;background:#F8F9FB;color:var(--navy)}
+.tab-bar{display:flex;border-bottom:2px solid var(--border);margin:24px 0 0;gap:0;flex-wrap:wrap}
+.tab-item{padding:10px 20px;font-size:.88em;font-weight:600;color:var(--text-light);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
+.tab-item:hover{color:var(--navy)}
+.tab-item.active{color:var(--navy);border-bottom-color:var(--accent)}
+@media(max-width:480px){.tab-item{padding:8px 12px;font-size:.78em}}
+.ts-legend{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 16px;font-size:.78em;color:var(--text-light)}
+.ts-leg-item{display:flex;align-items:center;gap:5px}
+.ts-leg-box{width:14px;height:14px;border-radius:2px;flex-shrink:0}
+.chart-container{position:relative;margin:0 0 16px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff}
+.chart-header{display:flex;justify-content:space-between;align-items:baseline;padding:12px 20px 4px}
+.chart-area-name{font-weight:700;color:var(--navy);font-size:1em}
+.chart-stats{font-size:.82em;color:var(--text-light)}
+.chart-stats strong{color:var(--navy)}
+.chart-stats .surplus{color:#2980B9}
+.chart-no-data{padding:12px 20px 16px;font-size:.82em;color:var(--text-light);text-align:center}
+.chart-canvas-wrap{position:relative;padding:0 16px 4px}
+.chart-canvas{width:100%;height:80px;display:block}
+.chart-tooltip{position:absolute;background:rgba(27,42,74,0.95);color:#fff;padding:8px 12px;border-radius:4px;font-size:.75em;line-height:1.5;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
+.chart-axis{display:flex;justify-content:space-between;font-size:.68em;color:var(--text-light);padding:0 16px 10px}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .bar-label{width:44px;font-size:.78em}
+  .heatmap-table{font-size:.72em}
+  .heatmap-table th,.heatmap-table td{padding:5px 4px}
+  .chart-canvas{height:64px}
+  .chart-header{padding:10px 12px 3px}
+  .chart-canvas-wrap{padding:0 12px 3px}
+  .chart-axis{padding:0 12px 8px;font-size:.6em}
+}
+.s-bar-row{display:flex;align-items:center;margin-bottom:5px;font-size:.85em}
+.s-bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.s-bar-wrap{flex:1;position:relative;height:28px;background:#EBEEF2;border-radius:3px;overflow:hidden}
+.s-bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;transition:width .4s ease}
+.s-bar-fill.sh{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.s-bar-fill.sm{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.s-bar-fill.sl{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.s-bar-meta{margin-left:8px;font-size:.8em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:120px}
+.s-bar-meta strong{color:var(--navy)}
+.tieline-flow{margin:28px 0;font-size:.85em}
+.tl-row{display:flex;align-items:center;margin-bottom:4px;gap:4px}
+.tl-label{width:100px;text-align:right;font-weight:500;color:var(--navy);flex-shrink:0;font-size:.82em}
+.tl-bar-wrap{flex:1;display:flex;gap:2px}
+.tl-bar{height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.7em;font-weight:600;color:#fff;min-width:20px}
+.tl-fwd{background:var(--accent)}
+.tl-rev{background:var(--navy-light)}
+.tl-val{width:44px;font-size:.78em;color:var(--text-light);text-align:right;flex-shrink:0}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+
+
+:root{--c50-cyan:#4599c6}
+figure.c50{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c50 .c50scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--white);
+  border:1px solid var(--border);border-radius:3px}
+figure.c50 .c50scroll>svg{display:block;min-width:var(--fmin,0)}
+figure.c50 figcaption{font-size:.78em;color:var(--text-light);margin-top:10px;line-height:1.7}
+figure.c50 .c50hint{font-size:.72em;color:var(--text-light);margin:0 0 7px;letter-spacing:.04em}
+/* Figures that do not fit the 712px text column widen beyond it rather than shrinking the type;
+   only when the screen is narrower than that do they scroll sideways inside. */
+figure.c50.wide{width:min(calc(100vw - 32px), var(--fw));margin-left:50%;transform:translateX(-50%)}
+figure.c50.wide .c50hint{display:none}
+@media(max-width:1100px){figure.c50.wide .c50hint{display:block}}
+figure.c50fig{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c50fig .c50top{font-size:.78em;color:var(--text-light);margin:0 0 12px;line-height:1.7}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.table-wrap .comparison-table{margin:0;min-width:520px}
+ul.source-list{font-size:.82em;line-height:1.95;color:var(--text-light);word-break:break-word;
+  padding-left:1.15em;margin:0 0 8px}
+ul.source-list a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--border)}
+ul.source-list a:hover{border-bottom-color:var(--accent)}
+.c50series{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 30px;padding:12px 14px;
+  background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+.c50series .lb{font-size:.74em;color:var(--text-light);letter-spacing:.06em;width:100%;margin-bottom:2px}
+.c50series a,.c50series span.cur{font-size:.83em;text-decoration:none;padding:3px 10px;border-radius:3px;line-height:1.7}
+.c50series a{color:var(--navy);background:var(--white);border:1px solid var(--border)}
+.c50series a:hover{border-color:var(--accent)}
+.c50series span.cur{color:var(--white);background:var(--navy);font-weight:600}
+@media(max-width:768px){figure.c50,figure.c50fig{padding:12px}}
+
+
+.c50cards{display:grid;gap:14px;margin:0}
+.c50cards.n3{grid-template-columns:repeat(3,1fr)}
+.c50cards.n4{grid-template-columns:repeat(2,1fr)}
+.c50card{border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;
+  background:var(--white);padding:16px 18px 14px;display:flex;flex-direction:column}
+.c50card.k-volume{border-top-color:var(--navy)}
+.c50card.k-supply{border-top-color:#4599c6}
+.c50card.k-floor{border-top-color:var(--accent)}
+.c50card .k{font-size:.78em;letter-spacing:.06em;color:var(--text-light);margin-bottom:6px}
+.c50card .v{font-family:'Noto Serif JP',serif;font-weight:600;color:var(--navy);
+  font-size:1.02em;line-height:1.5;margin-bottom:10px}
+.c50card ul{list-style:none;margin:0 0 10px;padding:0;font-size:.84em;line-height:1.8;color:var(--text)}
+.c50card ul li{padding-left:11px;position:relative}
+.c50card ul li::before{content:'';position:absolute;left:0;top:.72em;width:4px;height:4px;
+  border-radius:50%;background:var(--accent)}
+.c50card .go{margin-top:auto;font-size:.82em;font-weight:600;color:var(--navy);
+  text-decoration:none;border-bottom:1px solid var(--accent);align-self:flex-start;padding-bottom:2px}
+.c50card .go:hover{color:var(--accent)}
+@media(max-width:700px){.c50cards.n3,.c50cards.n4{grid-template-columns:1fr}}
+
+/* COLUMN 50 */
+figure.c50fig svg{display:block;width:100%;height:auto;font-family:'Noto Sans JP',sans-serif}
+figure.c50fig .c50scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--white);border:1px solid var(--border);border-radius:3px}
+figure.c50fig .c50scroll>svg{min-width:var(--fmin,0)}
+figure.c50fig .c50hint{font-size:.72em;color:var(--text-light);margin:0 0 7px;letter-spacing:.04em;display:none}
+@media(max-width:600px){figure.c50fig .c50hint{display:block}}
+.mk{display:inline-block;font-size:.7em;font-weight:700;letter-spacing:.04em;padding:0 6px;border-radius:3px;line-height:1.75;margin:0 2px;vertical-align:.12em;white-space:nowrap}
+.mk.ok{background:var(--navy);color:#fff}
+.mk.say{background:#F3EBD8;color:#7A5A12}
+.mk.open{background:#fff;color:#6C7A89;border:1px dashed #9AA5B1}
+.comparison-table td.blank{background:repeating-linear-gradient(135deg,#fff,#fff 6px,#F3F5F8 6px,#F3F5F8 12px);color:var(--text-light);font-size:.92em}
+.comparison-table td.num,.comparison-table th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.open-list{list-style:none;padding:0;margin:20px 0}
+.open-list li{border:1px solid var(--border);border-left:3px solid #9AA5B1;border-radius:0 6px 6px 0;padding:12px 16px;margin-bottom:10px;font-size:.9em;line-height:1.85;background:var(--white)}
+.open-list li b{color:var(--navy)}
+.open-list li .to{display:block;font-size:.88em;color:var(--text-light);margin-top:2px}
+.formula{font-family:'Noto Serif JP',serif;font-size:1.02em;color:var(--navy);background:var(--white);border:1px solid var(--border);border-radius:6px;padding:14px 18px;margin:20px 0;line-height:1.9;text-align:center}
+blockquote.gl{margin:20px 0;padding:12px 18px;border-left:3px solid var(--navy);background:var(--light-bg);font-size:.9em;line-height:1.95;color:var(--text)}
+blockquote.gl cite{display:block;font-style:normal;font-size:.82em;color:var(--text-light);margin-top:4px}
+
+.ja-tag{display:inline-block;margin-left:.35em;padding:0 .4em;font-size:.66em;font-weight:700;letter-spacing:.07em;color:#A07916;background:rgba(196,154,60,.15);border-radius:2px;vertical-align:.14em;text-decoration:none}
+</style>
+<title>Japan's Balancing Market Guideline III.2: The Fixed-Cost Adder | ScienceX</title>
+<meta name="description" content="Section III.2 of Japan&#x27;s Balancing Market Guideline, read line by line: the bid-price formula, Type A ¥0.33 and Type B, what counts as fixed cost, and 8 open points.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-bidding-ceiling-law">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-bidding-ceiling-law">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-bidding-ceiling-law">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-bidding-ceiling-law">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-bidding-ceiling-law">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Japan&#x27;s Balancing Market Guideline III.2: The Fixed-Cost Adder | ScienceX">
+<meta property="og:description" content="Section III.2 of Japan&#x27;s Balancing Market Guideline (revised 13 March 2026), read with the technical terms explained.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-bidding-ceiling-law">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Japan&#x27;s Balancing Market Guideline III.2: The Fixed-Cost Adder | ScienceX">
+<meta name="twitter:description" content="Section III.2 of Japan&#x27;s Balancing Market Guideline (revised 13 March 2026), read with the technical terms explained.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="article:published_time" content="2026-10-04">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Japan's Balancing Market Guideline III.2: The Fixed-Cost Adder | ScienceX",
+  "description": "Section III.2 of Japan's Balancing Market Guideline (revised 13 March 2026), read with the technical terms explained: the bid-price formula, the Type A ¥0.33 and Type B fixed-cost adder, what goes into fixed costs and what does not, the deemed capacity-market deduction, expected bid volume, how it applies to 2 MW / 8 MWh in primary offline, and the eight points the text leaves open.",
+  "author": {
+    "@type": "Person",
+    "name": "Shinya Nakashima",
+    "jobTitle": "Representative Director, Ph.D. (Eng.)",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-10-04",
+  "dateModified": "2026-10-04",
+  "inLanguage": "en",
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-bidding-ceiling-law",
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "name": "COLUMN 50",
+    "url": "https://www.scix.co.jp/en/column-bidding-ceiling"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Was the fixed-cost adder formula created by the 2026 revision?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The formula that subtracts revenue from other markets from fixed costs and divides was already in the original draft posted on the Japan Fair Trade Commission's website in January 2021 (with the expected annual number of awarded blocks as the denominator). What the March 2026 revision changed is that the denominator became the expected bid volume, that examples of what goes into fixed costs and what does not were added, and that consultation with the secretariat (the Type B consultation) was abolished."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does a battery plant that is not in the capacity market still deduct capacity-market revenue?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The text says that where there is no capacity-market revenue, it is deducted as revenue from other markets on the assumption that it is obtained; the amount is the area price × expected capacity in the capacity market. The only two exemptions are resources that, being newly in operation, could not bid in time, and resources that bid but were not awarded."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can aggregator fees be included in fixed costs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aggregator costs needed to enter and bid into the balancing market (personnel, system costs and so on) can be included “once the fixed costs have been identified”. In the Type B consultations there were cases where the merit share was added as it stood; the secretariat checked the breakdowns and counted the fixed costs. The part of the commission identifiable as fixed costs goes in."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Revenue & Markets",
+      "item": "https://www.scix.co.jp/en/knowledge#cat-market"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "The fixed-cost adder, read from the text — the formula in Section III.2, what goes in and what is deducted",
+      "item": "https://www.scix.co.jp/en/column-bidding-ceiling-law"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/en" style="color:#5A6577;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#5A6577;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge#cat-market" style="color:#5A6577;text-decoration:none">Revenue &amp; Markets</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">The fixed-cost adder, read from the text — the formula in Section III.2, what goes in and what is deducted</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 50-2</span>
+      <span class="header-tag">Regulation</span>
+      <time class="header-date" datetime="2026-10-04">2026.10.04</time>
+    </div>
+    <h1>The fixed-cost adder, read from the text<br>— the formula in Section III.2, what goes in and what is deducted</h1>
+    <p class="header-desc">The ceiling on a bid price is set by a one-line formula in Section III.2 of the Balancing Market Guideline: opportunity cost + fixed-cost adder + fee. The adder is a year's fixed costs minus revenue from other markets, divided by the volume you can bid in a year. We read what may go into fixed costs, what is deducted, how the divisor is counted, and the eight points the text leaves open — explaining the technical terms as we go.</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/en/knowledge" class="back-link">← Back to Knowledge</a>
+<nav class="c50series" aria-label="COLUMN 50"><span class="lb">A five-part series</span><a target="_top" href="/en/column-bidding-ceiling">COLUMN 50 Overview</a><span class="cur">50-2 Rules</span><a target="_top" href="/en/column-bidding-ceiling-calc">50-3 Calculation</a><a target="_top" href="/en/column-bidding-ceiling-market">50-4 Market</a><a target="_top" href="/en/column-bidding-ceiling-monitoring">50-5 Monitoring</a></nav>
+<p>Primary offline bids have carried a cap of ¥10.00/ΔkW·30min since the 1 September 2026 delivery. That is the market's ceiling, at the same height for everyone.</p>
+<p>Below it is a second ceiling whose height differs from operator to operator: Section III.2 of the Balancing Market Guideline (需給調整市場ガイドライン, revised 13 March 2026). This article reads only the text. It asks one question: how does the text set the upper limit on a storage plant's bid price? The estimates with numbers in them are in <a target="_top" href="/en/column-bidding-ceiling-calc">50-3 Calculation</a>.</p>
+
+<h2>1. The formula is one line</h2>
+<p>This is the whole formula in the text.</p>
+<div class="formula">ΔkW price ≤ lost profit (opportunity cost) of the resource concerned + fixed-cost adder, etc.</div>
+<figure class="c50fig" style="--fmin:640px"><figcaption class="c50top">Figure 1 The bid-price formula (Balancing Market Guideline, pp. 4 and 6)</figcaption><p class="c50hint">← Scroll sideways →</p><div class="c50scroll"><svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c50l1-t c50l1-d">
+<title id="c50l1-t">The bid-price formula</title>
+<desc id="c50l1-d">It is desirable for the ΔkW price to be no more than opportunity cost (what is not earned on the wholesale market) + the fixed-cost adder (recovering fixed costs: ¥0.33 for Type A or a calculated value for Type B) + the ¥0.06 exchange trading fee. Whichever is lower, this or the ¥10 market cap, is the real ceiling.</desc>
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F3F5F8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#B9C2CE" stroke-width="3"/></pattern></defs>
+<text x="360.0" y="30.0" font-size="17" fill="#1B2A4A" text-anchor="middle" font-weight="700">Bid price (ΔkW)  ≤  Opportunity cost  +  Adder  +  Trading fee</text>
+<rect x="14.0" y="60.0" width="236.0" height="118.0" fill="#FFFFFF" rx="8" stroke="#6C7A89" stroke-width="2"/>
+<text x="132.0" y="86.0" font-size="14" fill="#6C7A89" text-anchor="middle" font-weight="700">Opportunity cost</text>
+<text x="132.0" y="116.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">Wholesale earnings lost by holding</text>
+<text x="132.0" y="140.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">capacity open. No battery formula</text>
+<text x="262.0" y="125.0" font-size="22" fill="#6C7A89" text-anchor="middle" font-weight="700">+</text>
+<rect x="272.0" y="60.0" width="236.0" height="118.0" fill="#FFFFFF" rx="8" stroke="#C49A3C" stroke-width="2"/>
+<text x="390.0" y="86.0" font-size="14" fill="#C49A3C" text-anchor="middle" font-weight="700">Fixed-cost adder</text>
+<text x="390.0" y="116.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">Recovers fixed costs. Type A: ¥0.33;</text>
+<text x="390.0" y="140.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">Type B: (fixed − other rev.) ÷ volume</text>
+<text x="520.0" y="125.0" font-size="22" fill="#6C7A89" text-anchor="middle" font-weight="700">+</text>
+<rect x="530.0" y="60.0" width="176.0" height="118.0" fill="#FFFFFF" rx="8" stroke="#1B2A4A" stroke-width="2"/>
+<text x="618.0" y="86.0" font-size="14" fill="#1B2A4A" text-anchor="middle" font-weight="700">Trading fee</text>
+<text x="618.0" y="116.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">FY2026 (excl. tax):</text>
+<text x="618.0" y="140.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">¥0.06/ΔkW·30min</text>
+<text x="76.0" y="162.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">Examples: generators</text>
+<text x="390.0" y="162.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">Falls to ¥0.33 once costs are recovered</text>
+<rect x="14.0" y="192.0" width="692.0" height="48.0" fill="#F8F9FB" rx="6" stroke="#E2E6EC" stroke-width="1"/>
+<text x="360.0" y="212.0" font-size="12" fill="#2C3E50" text-anchor="middle">Bids inside the formula are deemed not to aim at moving prices: no business improvement order (safe harbour).</text>
+<text x="360.0" y="232.0" font-size="12" fill="#2C3E50" text-anchor="middle">Against the ¥10 market cap, the lower of the two is the real ceiling.</text>
+</svg></div><figcaption>The “etc.” is the exchange trading fee. EPRX's trading fee for FY2026 is ¥0.06/ΔkW·30min (excl. tax). Against the ¥10 market cap, the lower of the two is the real ceiling.</figcaption></figure>
+<p>The text says a bid that satisfies this formula “is deemed not to be intended to cause market prices to fluctuate”, and that as long as it is followed, it will not be subject to a business improvement order (p. 4). Section I at the start calls this a “safe harbour” (p. 1).</p>
+<p>It also says whom the formula is for. For operators deemed likely to hold significant market power, registering at this price is “desirable”. For all other operators it is also “desirable” (pp. 4–5). The March 2025 edition “requested” it of the former, so the wording has softened a little.</p>
+<p>But the same revision added to the list of “problematic conduct”. Section IV.1 names “conduct that unfairly earns profits through the unreasonable setting of bid prices or bid volumes … in the balancing-capacity ΔkW market” as conduct that can be subject to a business improvement order or recommendation (p. 9). It draws no line by market power. The formula is not an obligation, but a bid outside it is exposed unless the reason can be explained. The plain reading is that <strong>in practice it works as a ceiling</strong>.</p>
+
+<h2>2. Opportunity cost — there is no formula for batteries</h2>
+<p>The first term of the formula, “lost profit (opportunity cost)”, is what you fail to earn elsewhere because you hold capacity open for the balancing market. The text defines it as something “arising from bidding into the balancing market” (p. 5) and gives two types. One is the start-up cost and the like when a generator that would otherwise not run is started up additionally. The other, when output that would have gone to the wholesale market is reduced, is the difference between the wholesale price and fuel costs and the like.</p>
+<p>The wholesale price is “the expected intraday market price”, which is “calculated on the basis of the spot market price” (p. 6). For a battery, the equivalent of fuel cost (marginal cost) is the cost of the electricity used for charging, and electricity charged through imbalance supply may not be used (p. 3).</p>
+<p>Both types are about generators. <strong>There is no formula for counting the opportunity cost when a battery holds back discharge to keep capacity open.</strong> <span class="mk open">Unsettled</span> The place to check is the Network Business Surveillance Division of the EGC secretariat. In our view, “what a battery can earn on JEPX”, which we counted in <a target="_top" href="/en/column-balancing-saturation-floor">47-4 Floor</a>, is the closest thing to this term, but those are not the words of the text.</p>
+
+<h2>3. The fixed-cost adder — Type A at ¥0.33, and Type B</h2>
+<blockquote class="gl">The “certain amount” [the fixed-cost adder] shall be ¥0.33/ΔkW·30min (Type A resources) or an amount calculated on the basis of the concept of “a reasonable amount for fixed-cost recovery” (Type B resources), and “etc.” shall be the trading fee.<cite>Balancing Market Guideline, revised 13 March 2026, p. 6</cite></blockquote>
+<p>Type A is ¥0.33, open to anyone. Type B is a “calculated amount” that can be used only while fixed costs have not yet been recovered. Just below comes one sentence: “After the fixed costs for the current fiscal year have been recovered, the certain amount shall be that of a Type A resource.” <strong>Once the year's fixed costs have been recovered, it falls to ¥0.33 from that moment.</strong></p>
+<p>The Type B amount is set by three sentences (p. 6). The text does not write it as an equation; it defines it in words.</p>
+<ul>
+<li>The period for fixed-cost recovery is “the current year's share of fixed costs, appropriately apportioned over time”.</li>
+<li>The upper limit on fixed-cost recovery is “the amount obtained by subtracting revenue obtainable in other markets from fixed costs, including depreciation and the like, for the current year”.</li>
+<li>The certain amount is “the upper limit on fixed-cost recovery divided by the expected bid volume”.</li>
+</ul>
+<p>The single-formula form, “(current year's fixed costs − revenue obtainable from other markets) ÷ expected bid volume”, appears in a note on p. 4 of Document 6 for the 21st meeting of the Expert Committee on System Design and Market Surveillance (19 June 2026). When this series writes “the adder formula”, it means these three sentences.</p>
+<figure class="c50fig" style="--fmin:600px"><figcaption class="c50top">Figure 2 The four steps to the Type B adder (Balancing Market Guideline, pp. 6–7)</figcaption><p class="c50hint">← Scroll sideways →</p><div class="c50scroll"><svg viewBox="0 0 720 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c50l2-t c50l2-d">
+<title id="c50l2-t">The four steps to the Type B adder</title>
+<desc id="c50l2-d">① A year's fixed costs (personnel, depreciation, repairs, outsourcing, the kW portion of the generator-side charge; corporate tax and capacity contributions are excluded). ② Deduct revenue from other markets (capacity-market revenue is deducted even if you did not bid). ③ Divide by the volume you can bid (allowing for inspection outages and charge/discharge constraints). ④ The adder. Add opportunity cost and ¥0.06 and you have the ceiling; once fixed costs are recovered, it is ¥0.33.</desc>
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F3F5F8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#B9C2CE" stroke-width="3"/></pattern><marker id="arrc50l2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#6C7A89"/></marker></defs>
+<rect x="14.0" y="14.0" width="692.0" height="96.0" fill="#FFFFFF" rx="8" stroke="#1B2A4A" stroke-width="2"/>
+<rect x="14.0" y="14.0" width="8.0" height="96.0" fill="#1B2A4A"/>
+<text x="34.0" y="40.0" font-size="14" fill="#1B2A4A" font-weight="700">① Add up a year's fixed costs</text>
+<text x="34.0" y="62.0" font-size="11.8" fill="#2C3E50">• In (examples): personnel, depreciation, repairs, outsourcing, kW portion of the generator-side charge</text>
+<text x="34.0" y="82.0" font-size="11.8" fill="#2C3E50">• Conditional: aggregator costs “once fixed costs are identified”; system upgrades with a recovery plan</text>
+<text x="34.0" y="102.0" font-size="11.8" fill="#2C3E50">• Out: corporate tax, capacity contributions (business return and interest were also refused)</text>
+<line x1="360.0" y1="112.0" x2="360.0" y2="124.0" stroke="#6C7A89" stroke-width="1.6" marker-end="url(#arrc50l2)"/>
+<rect x="14.0" y="128.0" width="692.0" height="96.0" fill="#FFFFFF" rx="8" stroke="#1A7A4C" stroke-width="2"/>
+<rect x="14.0" y="128.0" width="8.0" height="96.0" fill="#1A7A4C"/>
+<text x="34.0" y="154.0" font-size="14" fill="#1A7A4C" font-weight="700">② Deduct revenue from other markets</text>
+<text x="34.0" y="176.0" font-size="11.8" fill="#2C3E50">• Capacity-market, wholesale-market and bilateral-contract revenue, etc.</text>
+<text x="34.0" y="196.0" font-size="11.8" fill="#2C3E50">• Capacity market: deduct “what you would have earned” even if you did not bid (area price × expected capacity)</text>
+<text x="34.0" y="216.0" font-size="11.8" fill="#2C3E50">• Only two exemptions: too new to bid in time / bid but not awarded</text>
+<line x1="360.0" y1="226.0" x2="360.0" y2="238.0" stroke="#6C7A89" stroke-width="1.6" marker-end="url(#arrc50l2)"/>
+<rect x="14.0" y="242.0" width="692.0" height="96.0" fill="#FFFFFF" rx="8" stroke="#4599c6" stroke-width="2"/>
+<rect x="14.0" y="242.0" width="8.0" height="96.0" fill="#4599c6"/>
+<text x="34.0" y="268.0" font-size="14" fill="#4599c6" font-weight="700">③ Divide by the volume you can bid</text>
+<text x="34.0" y="290.0" font-size="11.8" fill="#2C3E50">• Not “volume awarded” but “volume you can bid”; take off only inspection outages and charge/discharge limits</text>
+<text x="34.0" y="310.0" font-size="11.8" fill="#2C3E50">• A battery can bid into most of the 48 daily slots = large divisor = small adder</text>
+<text x="34.0" y="330.0" font-size="11.8" fill="#2C3E50">• The 2026 revision closed the route of understating awards to inflate the adder</text>
+<line x1="360.0" y1="340.0" x2="360.0" y2="352.0" stroke="#6C7A89" stroke-width="1.6" marker-end="url(#arrc50l2)"/>
+<rect x="14.0" y="356.0" width="692.0" height="96.0" fill="#FFFFFF" rx="8" stroke="#C49A3C" stroke-width="2"/>
+<rect x="14.0" y="356.0" width="8.0" height="96.0" fill="#C49A3C"/>
+<text x="34.0" y="382.0" font-size="14" fill="#C49A3C" font-weight="700">④ The adder is set</text>
+<text x="34.0" y="404.0" font-size="11.8" fill="#2C3E50">• Bid ceiling = opportunity cost + adder + ¥0.06 fee, or the ¥10 market cap if that is lower</text>
+<text x="34.0" y="424.0" font-size="11.8" fill="#2C3E50">• Once the year's fixed costs are recovered, it falls to ¥0.33 (Type A) from that point</text>
+<text x="34.0" y="444.0" font-size="11.8" fill="#2C3E50">• If the calculated amount is negative or below ¥0.33, read it as ¥0.33 (our reading)</text>
+</svg></div><figcaption>①–③ follow the order of the text. In ④, “¥0.33 when negative or below ¥0.33” is not stated in the text; it is our reading.</figcaption></figure>
+
+<h2>4. What goes into fixed costs, and what does not</h2>
+<p>The text says “for example, the following items are included” and lists personnel costs, depreciation, repairs, outsourcing costs and the kW portion of the generator-side charge (p. 7). With “for example” attached, these are examples. Only two items are expressly excluded: corporate tax and capacity contributions.</p>
+<div class="c50cards n3" style="margin:20px 0 26px">
+<div class="c50card k-volume"><div class="k">In (examples)</div><div class="v">What fixed costs contain</div><ul><li>Personnel costs</li><li>Depreciation</li><li>Repairs</li><li>Outsourcing costs</li><li>kW portion of the generator-side charge</li><li>Basic wheeling charge on storage losses (“can be included”, per the public-comment responses)</li></ul></div>
+<div class="c50card k-supply"><div class="k">In, with conditions</div><div class="v">Need identification or a plan</div><ul><li>Aggregator costs (personnel, systems, etc.) “once the fixed costs are identified”</li><li>System upgrades for market participation “once a year-by-year recovery plan is set”</li><li>For a battery co-located with a FIP plant, only the battery's fixed costs</li></ul></div>
+<div class="c50card"><div class="k">Out</div><div class="v">Excluded by the text or in consultations</div><ul><li>Corporate tax, capacity contributions (the text)</li><li>Business return (public-comment responses)</li><li>Interest on loans and bonds (removal requested in consultations)</li><li>Fixed asset tax, insurance and land rent: not mentioned in the text (unsettled)</li></ul></div>
+</div>
+<p>The wording on aggregator costs has a history. In the consultations there were cases where the aggregator's success fee (merit share) was added to fixed costs as it stood; the secretariat reportedly checked the breakdowns and counted only personnel and system costs (Document 7, 15th meeting of the Expert Committee on System Design and Market Surveillance). The text does not say that success fees may not be included. The plain reading is that <strong>the part of the commission identifiable as fixed costs goes in</strong>. How the fees work is covered in <a target="_top" href="/en/column-aggregator-fee">COLUMN 17</a>.</p>
+
+<h2>5. Deducting revenue from other markets — even if you are not in them</h2>
+<p>Revenue from other markets “includes, for example, capacity-market revenue, wholesale-market revenue and bilateral revenue” (p. 7). For batteries, what matters is how the capacity market is treated.</p>
+<blockquote class="gl">Where there is no capacity-market revenue, it shall be deducted as revenue from other markets on the assumption that capacity-market revenue is obtained.<cite>Balancing Market Guideline, revised 13 March 2026, p. 7</cite></blockquote>
+<p>The amount deducted is “the clearing price (the area price published by OCCTO) × expected capacity in the capacity market”. Even a plant that is not in the capacity market deducts what it would have earned there. The only two exemptions are “resources that, being newly in operation, could not bid into the capacity market in time” and “resources that bid into the capacity market but were not awarded”.</p>
+<figure class="c50fig" style="--fmin:640px"><figcaption class="c50top">Figure 3 Deducted even if you are not in the capacity market (Balancing Market Guideline, p. 7)</figcaption><p class="c50hint">← Scroll sideways →</p><div class="c50scroll"><svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c50l3-t c50l3-d">
+<title id="c50l3-t">Deducted even if you are not in the capacity market</title>
+<desc id="c50l3-d">In calculating the adder, “area price × expected capacity” is deducted as if earned, even with no capacity-market revenue. The two exceptions are a year in which the plant was too new to bid in time, and a bid that was not awarded.</desc>
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F3F5F8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#B9C2CE" stroke-width="3"/></pattern><marker id="arrc50l3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#6C7A89"/></marker></defs>
+<rect x="14.0" y="20.0" width="220.0" height="196.0" fill="#FFFFFF" rx="8" stroke="#1A7A4C" stroke-width="2"/>
+<text x="124.0" y="46.0" font-size="13.5" fill="#1A7A4C" text-anchor="middle" font-weight="700">In the capacity market, awarded</text>
+<text x="124.0" y="76.0" font-size="12" fill="#2C3E50" text-anchor="middle">Actual revenue comes in</text>
+<text x="124.0" y="96.0" font-size="12" fill="#2C3E50" text-anchor="middle">(FY2029 Tokyo: ¥15,111/kW)</text>
+<rect x="34.0" y="124.0" width="180.0" height="60.0" fill="#F8F9FB" rx="6" stroke="#E2E6EC" stroke-width="1"/>
+<text x="124.0" y="150.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">In the adder calculation</text>
+<text x="124.0" y="172.0" font-size="14" fill="#1A7A4C" text-anchor="middle" font-weight="700">Deduct actual revenue</text>
+<rect x="250.0" y="20.0" width="220.0" height="196.0" fill="#FFFFFF" rx="8" stroke="#B03A2E" stroke-width="2"/>
+<text x="360.0" y="46.0" font-size="13.5" fill="#B03A2E" text-anchor="middle" font-weight="700">Not in the capacity market</text>
+<text x="360.0" y="76.0" font-size="12" fill="#2C3E50" text-anchor="middle">Revenue is zero</text>
+<text x="360.0" y="96.0" font-size="12" fill="#2C3E50" text-anchor="middle"></text>
+<rect x="270.0" y="124.0" width="180.0" height="60.0" fill="#F8F9FB" rx="6" stroke="#E2E6EC" stroke-width="1"/>
+<text x="360.0" y="150.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">In the adder calculation</text>
+<text x="360.0" y="172.0" font-size="14" fill="#B03A2E" text-anchor="middle" font-weight="700">Deduct as if you had bid</text>
+<rect x="486.0" y="20.0" width="220.0" height="196.0" fill="#FFFFFF" rx="8" stroke="#1B2A4A" stroke-width="2"/>
+<text x="596.0" y="46.0" font-size="13.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">Bid but lost / too new</text>
+<text x="596.0" y="76.0" font-size="12" fill="#2C3E50" text-anchor="middle">Bid but not awarded,</text>
+<text x="596.0" y="96.0" font-size="12" fill="#2C3E50" text-anchor="middle">or could not bid in time</text>
+<rect x="506.0" y="124.0" width="180.0" height="60.0" fill="#F8F9FB" rx="6" stroke="#E2E6EC" stroke-width="1"/>
+<text x="596.0" y="150.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">In the adder calculation</text>
+<text x="596.0" y="172.0" font-size="14" fill="#1B2A4A" text-anchor="middle" font-weight="700">No deduction needed</text>
+<rect x="14.0" y="232.0" width="692.0" height="54.0" fill="#F8F9FB" rx="6" stroke="#E2E6EC" stroke-width="1"/>
+<text x="360.0" y="254.0" font-size="12" fill="#2C3E50" text-anchor="middle">“Chose not to bid” is not an exemption (a public comment asking for it was not adopted).</text>
+<text x="360.0" y="274.0" font-size="12" fill="#2C3E50" text-anchor="middle">In our 2 MW / 8 MWh Tokyo estimate, this ¥21.38 million of deemed revenue cuts the adder by ¥0.45 in year 2.</text>
+</svg></div><figcaption>Expected capacity is the plant's output multiplied by the adjustment coefficient published by OCCTO (50-3 Calculation).</figcaption></figure>
+<p>Batteries, which can start operating within a short time, were reportedly mostly in the first group (15th meeting, Document 7). The adder drops sharply in the year deduction starts, and in our estimate that was the biggest step in 20 years (<a target="_top" href="/en/column-bidding-ceiling-calc">50-3 Calculation</a>). The text does not say up to which year a plant can claim it “could not bid in time”. <span class="mk open">Unsettled</span></p>
+
+<h2>6. Dividing by the volume you can bid</h2>
+<p>The divisor is “calculated by the bidding operator … on the basis of the ΔkW that can be bid in the current year, taking into account outage periods due to periodic inspections, fuel constraints and the like, and battery charge/discharge constraints and the like” (p. 7). <strong>It is not the volume you expect to win, but the volume you can bid.</strong> This denominator was changed from “expected awarded volume” to “expected bid volume” at the 15th meeting of the Expert Committee on System Design and Market Surveillance (21 November 2025). That closed the route of inflating the adder by assuming few awards.</p>
+<p>A battery can bid into most of the 48 slots in a day. The denominator is large, so the adder is small. That is the difference from resources that take outage periods for periodic inspections out of the denominator.</p>
+
+<h2>7. What is new</h2>
+<figure class="c50fig" style="--fmin:600px"><figcaption class="c50top">Figure 4 How the guideline has evolved (established 30 March 2021 to the 13 March 2026 revision)</figcaption><p class="c50hint">← Scroll sideways →</p><div class="c50scroll"><svg viewBox="0 0 720 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c50l4-t c50l4-d">
+<title id="c50l4-t">How the guideline has evolved</title>
+<desc id="c50l4-d">Established on 30 March 2021 and revised on 10 March 2023, 25 March 2024, 24 March 2025 and 13 March 2026. In FY2024 and FY2025 the amount was set through Type B consultations; from FY2026 operators calculate it themselves and the Commission checks afterwards.</desc>
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F3F5F8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#B9C2CE" stroke-width="3"/></pattern></defs>
+<line x1="40.0" y1="70.0" x2="680.0" y2="70.0" stroke="#E2E6EC" stroke-width="3"/>
+<circle cx="73.4" cy="70.0" r="7" fill="#C49A3C" stroke="#FFFFFF" stroke-width="2"/>
+<text x="73.4" y="48.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">Mar 2021</text>
+<text x="73.4" y="96.0" font-size="11.5" fill="#2C3E50" text-anchor="middle">Formula from here</text>
+<circle cx="259.7" cy="70.0" r="7" fill="#1B2A4A" stroke="#FFFFFF" stroke-width="2"/>
+<text x="259.7" y="30.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">Mar 2023</text>
+<text x="259.7" y="112.0" font-size="11.5" fill="#2C3E50" text-anchor="middle">Opp. cost clarified</text>
+<circle cx="358.1" cy="70.0" r="7" fill="#1B2A4A" stroke="#FFFFFF" stroke-width="2"/>
+<text x="358.1" y="48.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">Mar 2024</text>
+<text x="358.1" y="96.0" font-size="11.5" fill="#2C3E50" text-anchor="middle">Type A ¥0.33, Type B talks</text>
+<circle cx="453.6" cy="70.0" r="7" fill="#1B2A4A" stroke="#FFFFFF" stroke-width="2"/>
+<text x="453.6" y="30.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">Mar 2025</text>
+<text x="453.6" y="112.0" font-size="11.5" fill="#2C3E50" text-anchor="middle">Fixed − other revenue</text>
+<circle cx="546.3" cy="70.0" r="7" fill="#1B2A4A" stroke="#FFFFFF" stroke-width="2"/>
+<text x="546.3" y="48.0" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">Mar 2026</text>
+<text x="546.3" y="96.0" font-size="11.5" fill="#2C3E50" text-anchor="middle">÷ bid volume, cost list</text>
+<rect x="336.1" y="126.0" width="191.0" height="24.0" fill="#F8F9FB" rx="4" stroke="#E2E6EC" stroke-width="1"/>
+<text x="431.6" y="142.0" font-size="11" fill="#6C7A89" text-anchor="middle">FY2024–25: set by consultation</text>
+<rect x="531.2" y="126.0" width="148.8" height="24.0" fill="#F3EBD8" rx="4" stroke="#E2E6EC" stroke-width="1"/>
+<text x="605.6" y="142.0" font-size="11" fill="#7A5A12" text-anchor="middle">FY2026 on: own calculation</text>
+</svg></div><figcaption>Each revision was preceded by a formal recommendation from the Commission (13 December 2022, 21 November 2023, 2 December 2024, 10 December 2025). The 13 March 2026 revision applies from deliveries on 14 March.</figcaption></figure>
+<p>The formula itself — “take other-market revenue from fixed costs and divide” — is not new. It was already in the original draft (prepared by METI) put out for public comment jointly by the Japan Fair Trade Commission and METI on 29 January 2021. The March 2025 text went only as far as the numerator, and the Type B amount was “the amount decided after consultation with the secretariat of the Electricity and Gas Market Surveillance Commission”. Three things are new. The divisor became “the volume you can bid”; examples of what goes into fixed costs and what does not were written into the text; and consultation with the secretariat (the Type B consultation) has gone, replaced by calculating the amount yourself and keeping the basis. The revised text applies from deliveries on 14 March 2026 (p. 9).</p>
+
+<h2>8. What has been settled outside the text</h2>
+<p>Some of the gaps in the text are filled by the expert committees' conclusions and by the responses to public comments on the draft revision (published 13 March 2026 on e-Gov under the joint names of the Japan Fair Trade Commission and the Agency for Natural Resources and Energy). Here are the ones that matter for batteries.</p>
+<ul>
+<li><strong>Business return is not included.</strong> To a comment asking for a fair profit to be included in the upper limit, the response was that it had already been settled at the 90th meeting of the Expert Committee on System Design (31 October 2023) that the adder does not take business return into account.</li>
+<li><strong>The basic wheeling charge on storage losses is included.</strong> The response said it can be included, but that the draft would stay as it was because listing every includable fixed cost is difficult.</li>
+<li><strong>Register start-up cost as zero.</strong> Resources with no start-up cost are told to “enter zero”.</li>
+<li><strong>Storage losses in primary reserve do not go into the ΔkW price.</strong> They are costs that arise with operation, so it was concluded at the 10th meeting of the Expert Committee on System Design and Market Surveillance (27 June 2025) that the ΔkW price, which pays for the reservation, is not the right place for them.</li>
+</ul>
+
+<h2>9. Applied to 2 MW / 8 MWh in primary offline</h2>
+<p>Primary offline is not a separate product but a category of “how it is monitored” within primary reserve. High-voltage batteries of at least 1 MW and under 10 MW can enter offline, without laying a dedicated line (EPRX, “Guide to entering the balancing market with pumped-storage or battery facilities”, 3rd edition, p. 24). The requirements for offline monitoring are a response time within 30 seconds, a duration of “not set” and a minimum bid of 1 MW (EPRX, “Product requirements and trading schedule of the balancing market”, 6th edition, p. 2). The products as a whole are covered in <a target="_top" href="/en/column-balancing-market">COLUMN 15</a>.</p>
+<p>A high-voltage 2 MW plant often bids through an aggregator, and here the text runs one word short. The formula applies per “resource concerned”, but there is no definition of whether a “resource” means the aggregator's bidding unit (list or pattern) or each individual plant. <span class="mk open">Unsettled</span> The same goes for how fixed costs and bid volumes are allocated when plants are pooled.</p>
+<p>The prior checks and quarterly reports apply to operators deemed likely to hold significant market power (pp. 4–5). A 2 MW owner is unlikely to be one of them, but if the aggregator you contract with is, your bids go in within that framework. The operators covered are named in the documents of the EGC's Expert Committee on System Design and Market Surveillance.</p>
+
+<h2>10. What the text does not say</h2>
+<p>Here is what stays open even after reading the text to the end, with whom to ask. Every “Unsettled” in the body corresponds to an item here.</p>
+<ul class="open-list">
+<li><b>How to count a battery's opportunity cost</b><span class="to">Ask: Network Business Surveillance Division, EGC secretariat</span></li>
+<li><b>Is a “resource” the bidding unit or the plant? Allocation when pooled</b><span class="to">Same as above</span></li>
+<li><b>Depreciation: accounting or tax? Treatment of special and immediate depreciation</b><span class="to">Same as above. Immediate depreciation is covered in <a target="_top" href="/en/column-investment-tax">COLUMN 45</a></span></li>
+<li><b>In judging that “the current year's fixed costs have been recovered”, is the opportunity-cost part of ΔkW revenue counted?</b><span class="to">Same as above</span></li>
+<li><b>Years in which the upper limit turns negative</b><span class="to">Same as above</span></li>
+<li><b>Can fixed asset tax, insurance and land rent be included?</b><span class="to">Same as above (the basic wheeling charge on storage losses has been answered as “can be included”)</span></li>
+<li><b>Up to which year of operation a plant can say it “could not bid into the capacity market in time”</b><span class="to">Same as above (the judgement); OCCTO capacity market team (the auction schedule)</span></li>
+<li><b>How to count a battery's “expected capacity in the capacity market”</b><span class="to">OCCTO capacity market team</span></li>
+</ul>
+<p>As answers are published in the Commission's or OCCTO's documents, we will update this article item by item.</p>
+
+<h2 id="sources">Sources</h2>
+<ul class="source-list">
+<li>METI, “Balancing Market Guideline” (需給調整市場ガイドライン), revised 13 March 2026 <a href="https://www.egc.meti.go.jp/info/guideline/pdf/20260313001a.pdf" target="_blank" rel="noopener">https://www.egc.meti.go.jp/info/guideline/pdf/20260313001a.pdf</a> (page numbers are those of the PDF)</li>
+<li>METI, “Balancing Market Guideline”, revised 24 March 2025 <a href="https://www.egc.meti.go.jp/info/guideline/pdf/20250324001a.pdf" target="_blank" rel="noopener">https://www.egc.meti.go.jp/info/guideline/pdf/20250324001a.pdf</a></li>
+<li>Japan Fair Trade Commission, original draft of the “Balancing Market Guideline” (posted 29 January 2021) <a href="https://www.jftc.go.jp/houdou/pressrelease/2021/jan/210129_denryokugl/210129besshi_jukyu.pdf" target="_blank" rel="noopener">https://www.jftc.go.jp/houdou/pressrelease/2021/jan/210129_denryokugl/210129besshi_jukyu.pdf</a></li>
+<li>Electricity and Gas Market Surveillance Commission (EGC), Expert Committee on System Design and Market Surveillance (制度設計・監視専門会合), 15th meeting, Document 7 (21 November 2025) <a href="https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/015_07_00.pdf" target="_blank" rel="noopener">https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/015_07_00.pdf</a></li>
+<li>METI and Japan Fair Trade Commission, “Results of the public comment on the ‘Guidelines for Proper Electric Power Trade (draft revision)’ and the ‘Balancing Market Guideline (draft revision)’” (13 March 2026) <a href="https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000309544" target="_blank" rel="noopener">https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000309544</a></li>
+<li>EPRX, “On the ΔkW price cap in the balancing market” (30 July 2026) <a href="https://www.eprx.or.jp/information/docs/14b85fbe8942da7d3bdddda80243e7e170f64d9e.pdf" target="_blank" rel="noopener">https://www.eprx.or.jp/information/docs/14b85fbe8942da7d3bdddda80243e7e170f64d9e.pdf</a></li>
+<li>EPRX, “Product requirements and trading schedule of the balancing market”, 6th edition (13 March 2026) <a href="https://www.eprx.or.jp/outline/docs/shouhin_ver.6_20260313.pdf" target="_blank" rel="noopener">https://www.eprx.or.jp/outline/docs/shouhin_ver.6_20260313.pdf</a></li>
+<li>EPRX, “Guide to entering the balancing market with pumped-storage or battery facilities”, 3rd edition (14 March 2026) <a href="https://www.eprx.or.jp/outline/docs/yousuichikudenchi_guide_260314.pdf" target="_blank" rel="noopener">https://www.eprx.or.jp/outline/docs/yousuichikudenchi_guide_260314.pdf</a></li>
+<li>EGC, Expert Committee on System Design and Market Surveillance, 21st meeting, Document 6 (19 June 2026) <a href="https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/021_06_00.pdf" target="_blank" rel="noopener">https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/021_06_00.pdf</a></li>
+<li>EPRX, “On the trading fee unit price for the balancing market in FY2026” (13 February 2026) <a href="https://www.eprx.or.jp/j_information/2026/02/13_0955.php" target="_blank" rel="noopener">https://www.eprx.or.jp/j_information/2026/02/13_0955.php</a></li>
+</ul>
+<div class="author-box">
+  <div class="ab-label">Supervised by</div>
+  <div><span class="ab-name">Shinya Nakashima, Ph.D. (Eng.)</span> — Representative Director, Science X Inc.</div>
+  <p style="margin:6px 0 0">Works on the development, sale and technical due diligence of grid-scale battery storage plants in Japan. This column is written and supervised on the basis of that hands-on transaction and due-diligence practice. This English edition is a translation of the Japanese original; where the wording of the guideline matters, the Japanese primary sources govern.</p>
+</div>
+
+</div>
+</div>
+<!-- scix-column-cta : one per article. Primary = contact (EN); secondary = the seller's valuation form and the anonymised project list (both in Japanese) -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">If you own a battery storage plant or rights</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">When the balancing market's ceiling moves, the economics a buyer sees change, even for the same project. Talk to us, including about whether to sell at all.</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/en/contact" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">Ask us for a free valuation →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">Opens our contact form, in English. Give the area, size and stage in the message box; we will evaluate it and get back to you.</p>
+  </div>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.85;margin:0">The valuation form itself is in Japanese: <a target="_top" href="https://www.scix.co.jp/sell-form" hreflang="ja" style="color:#1B2A4A;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">request a free valuation</a><span class="ja-tag">JA</span>, attaching a copy of the connection study response if you have one. Our project list, with prefecture, size and expected connection timing and no NDA, is also in Japanese: <a target="_top" href="https://www.scix.co.jp/projects" hreflang="ja" style="color:#1B2A4A;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">browse the projects for sale</a><span class="ja-tag">JA</span>.</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer — self-contained for Wix HTML embed -->
+<style>
+
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1B2A4A;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0 auto;
+  }
+</style>
+
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">Related reading</div>
+  <a target="_top" href="/en/column-balancing-market" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">Japan's balancing market — the five reserve products (COLUMN 15) →</a>
+  <a target="_top" href="/en/column-aggregator-fee" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">Aggregator fees: gross vs net (COLUMN 17) →</a>
+</div>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img
+        src="/img/logo-white.png"
+        alt="ScienceX — Science X Inc."
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:+81366913484">+81-3-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>
