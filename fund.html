@@ -684,7 +684,7 @@
     <div class="eyebrow rv-up">Contact</div>
     <h2 class="head rv-up">法人の方の、<em>お問い合わせ。</em></h2>
     <p class="lead rv-up" style="margin-bottom:34px">サイエンスエックスの系統用蓄電池事業について、法人の方からのお問い合わせを承ります。<b>本ページでは、出資の勧誘・お申込みの受付、利回り・分配・出資条件等の提示は行いません。</b>詳細は、適格性の確認後に個別にご案内します。</p>
-    <form class="rv-up" id="invForm" action="https://scix-dealroom2.pages.dev/api/web-contact" method="POST" novalidate>
+    <form class="rv-up" id="invForm" action="/api/contact" method="POST" novalidate>
       <div class="form-grid">
         <div class="field"><label>会社名 <span class="req">必須</span></label><input name="company" type="text" placeholder="例）〇〇株式会社" required></div>
         <div class="field"><label>部署・役職</label><input name="title" type="text" placeholder="例）財務部 部長"></div>
@@ -803,51 +803,75 @@
       ev.preventDefault();
       var ok = f.company.value.trim() && f.name.value.trim() && f.email.value.trim() && document.getElementById('agree').checked;
       if(!ok){ alert('必須項目（会社名・お名前・メールアドレス・同意）をご確認ください。'); return; }
+      // 受け口と同じ形の確認。通らない形は送ると「サーバーが応答しない」と誤って出るので、ここで止めて理由を出す。
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.value.trim())){ alert('メールアドレスの形をご確認ください。'); return; }
 
       var btn = f.querySelector('button[type=submit]');
       var origHTML = btn.innerHTML;
-      btn.innerHTML = '送信中...';
-      btn.style.opacity = '0.7';
-      btn.disabled = true;
+      var data = {};
+      var settled = false;
+      var timer = null;
 
-      // 既存お問い合わせ(web-contact)と同じフィールド名へ整形。tel→phone、経路を本文にも明記。
-      var raw = Object.fromEntries(new FormData(f));
-      var userMsg = (raw.message || '').trim();
-      var data = {
-        _form: 'contact',
-        inquiry: '法人お問い合わせ（系統用蓄電池）',
-        intent: 'corporate',
-        inquiry_type: 'general',
-        source: 'scix-fund-page',
-        company: raw.company || '',
-        title: raw.title || '',
-        name: raw.name || '',
-        email: raw.email || '',
-        phone: raw.tel || '',
-        message: '【系統用蓄電池に関するお問い合わせ（/fund）】\n\n'
-               + userMsg,
-        _honey: raw._honey || ''
-      };
-
-      fetch(f.action, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-      })
-      .then(function(res){ if(!res.ok) throw new Error('server ' + res.status); return res.json(); })
-      .then(function(result){
-        if (result && (result.success === true || result.success === 'true')) {
-          window.location.href = '/thanks';
-        } else {
-          throw new Error((result && result.message) || 'submit failed');
-        }
-      })
-      .catch(function(){
+      // 失敗・例外・25秒の無応答は、メールで送る導線に切り替える（「送信中...」のまま止めない）。
+      function fail(reason){
+        if (timer) clearTimeout(timer);
+        if (settled) return;
+        settled = true;
+        try { if (window.gtag) gtag('event', 'form_error', { form_type: 'fund', reason: reason }); } catch (_) {}
         showFallback(data);
         btn.innerHTML = origHTML;
         btn.style.opacity = '1';
         btn.disabled = false;
-      });
+      }
+
+      btn.innerHTML = '送信中...';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
+
+      try {
+        // 既存お問い合わせ(web-contact)と同じフィールド名へ整形。tel→phone、経路を本文にも明記。
+        // Object.fromEntries は古いブラウザに無いので、欄を直接読む。
+        var val = function(n){ var el = f.elements[n]; return (el && el.value) || ''; };
+        data = {
+          _form: 'contact',
+          inquiry: '法人お問い合わせ（系統用蓄電池）',
+          intent: 'corporate',
+          inquiry_type: 'general',
+          source: 'scix-fund-page',
+          company: val('company'),
+          title: val('title'),
+          name: val('name'),
+          email: val('email'),
+          phone: val('tel'),
+          message: '【系統用蓄電池に関するお問い合わせ（/fund）】\n\n'
+                 + val('message').trim(),
+          _honey: val('_honey')
+        };
+
+        // 送信は同じドメインの /api/contact へ（vercel.json の rewrite で DR2 の受け口へ中継）。
+        timer = setTimeout(function(){ fail('timeout'); }, 25000);
+        fetch(f.action, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+        })
+        .then(function(res){ if(!res.ok) throw new Error('http_' + res.status); return res.json(); })
+        .then(function(result){
+          if (result && (result.success === true || result.success === 'true')) {
+            if (timer) clearTimeout(timer);
+            settled = true;
+            window.location.href = '/thanks';
+          } else {
+            throw new Error('response');
+          }
+        })
+        .catch(function(err){
+          var m = String((err && err.message) || '');
+          fail(/^(http_\d+|response)$/.test(m) ? m : 'network');
+        });
+      } catch (err) {
+        fail('exception');
+      }
     });
   })();
 </script>
