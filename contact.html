@@ -250,6 +250,7 @@
   }
 
   .chip {
+    position: relative;
     display: inline-flex;
     align-items: center;
     padding: 9px 18px;
@@ -277,7 +278,33 @@
     font-weight: 500;
   }
 
-  .chip input { display: none; }
+  /* ラジオは見せないが display:none にはしない。
+     消してしまうと、ご用件が未選択のまま送信したときにブラウザが案内を出せず、
+     何も表示せずに送信を止める（押しても反応しない、になる）。 */
+  .chip input {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .chip:focus-within {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  .inquiry-types.is-missing .chip { border-color: #C0392B; }
+
+  .inquiry-error {
+    width: 100%;
+    margin: 2px 0 0;
+    font-size: 12.5px;
+    color: #C0392B;
+  }
 
   /* Submit Button */
   .submit-btn {
@@ -583,7 +610,7 @@
         <h2>お問い合わせフォーム</h2>
         <p class="form-lead">以下のフォームにご記入ください。内容を確認の上、担当よりご連絡いたします。</p>
 
-        <form id="contactForm" action="https://scix-dealroom2.pages.dev/api/web-contact" method="POST">
+        <form id="contactForm" action="/api/contact" method="POST">
           <!-- Inquiry Type -->
           <div class="inquiry-types">
             <label>ご用件<span class="required">*</span></label>
@@ -595,6 +622,7 @@
             <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="紹介（案件・投資家）" data-intent="partner">案件・投資家を紹介する</span>
             <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="サービス提案" data-intent="proposal">サービスを提案する</span>
             <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="協業・その他" data-intent="other">その他</span>
+            <p class="inquiry-error" id="inquiryError" role="alert" hidden>ご用件を1つ選んでください。</p>
           </div>
 
           <!-- 案件IDバナー（/projects から ?pid= 付きで来訪したとき表示） -->
@@ -793,7 +821,8 @@
 
 <script>
 function toggleChip(el) {
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  var chips = document.querySelectorAll('.chip');
+  for (var i = 0; i < chips.length; i++) chips[i].classList.remove('active');
   el.classList.add('active');
   var input = el.querySelector('input');
   input.checked = true;
@@ -801,7 +830,37 @@ function toggleChip(el) {
   var intentField = document.getElementById('intentField');
   if (intentField) intentField.value = intent;
   syncConditionalFields(intent);
+  setInquiryMissing(false);
 }
+
+// ご用件が未選択のまま送信したとき、選択肢の所に理由を出す（ブラウザの吹き出しと併せて）。
+function setInquiryMissing(on) {
+  var box = document.querySelector('.inquiry-types');
+  var msg = document.getElementById('inquiryError');
+  if (box) { if (on) box.classList.add('is-missing'); else box.classList.remove('is-missing'); }
+  if (msg) msg.hidden = !on;
+}
+
+(function watchInquiry() {
+  var radios = document.querySelectorAll('input[name="inquiry"]');
+  var reported = false;
+  for (var i = 0; i < radios.length; i++) {
+    radios[i].addEventListener('invalid', function () {
+      setInquiryMissing(true);
+      // 選択肢の塊を画面の中ほどへ（固定ヘッダーの下に隠れないように）
+      var box = document.querySelector('.inquiry-types');
+      if (box && box.scrollIntoView) box.scrollIntoView({ block: 'center' });
+      if (!reported && window.gtag) {
+        reported = true;
+        gtag('event', 'form_invalid', { form_type: 'contact', field: 'inquiry' });
+      }
+    });
+    // キーボードで選んだときも、クリックと同じく用件別の欄を切り替える
+    radios[i].addEventListener('change', function () {
+      if (this.checked) toggleChip(this.parentNode);
+    });
+  }
+})();
 
 // 案件を買う／1棟を持つ のときだけ、条件の欄を出す。
 // 用件を聞いてから返す往復をなくすため。
@@ -858,53 +917,89 @@ function syncConditionalFields(intent) {
   }
 })();
 
-// Fetch送信 ＋ 送信サーバー障害時はメール下書きへフォールバック
+// 入力を素のオブジェクトにする（Object.fromEntries の無い古いブラウザでも動く書き方）
+function formToObject(form) {
+  var out = {};
+  for (var i = 0; i < form.elements.length; i++) {
+    var el = form.elements[i];
+    var t = (el.type || '').toLowerCase();
+    if (!el.name || el.disabled) continue;
+    if (t === 'submit' || t === 'button' || t === 'reset' || t === 'file') continue;
+    if ((t === 'radio' || t === 'checkbox') && !el.checked) continue;
+    out[el.name] = el.value;
+  }
+  return out;
+}
+
+// 送信は同じドメインの /api/contact へ（vercel.json の rewrite で DR2 の受け口へ中継）。
+// 別ドメインへ直接送ると、社内網・セキュリティソフトがそのドメインを止めた環境で届かない。
+// 失敗・例外・25秒の無応答は、メールで送る導線に切り替える（「送信中...」のまま止めない）。
 document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
   var form = this;
   var btn = form.querySelector('.submit-btn');
   var origHTML = btn.innerHTML;
-  btn.innerHTML = '送信中...';
-  btn.style.opacity = '0.7';
-  btn.disabled = true;
+  var data = {};
+  var settled = false;
+  var timer = null;
 
-  var data = Object.fromEntries(new FormData(form));
-
-  fetch(form.action, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  })
-  .then(function(res) {
-    if (!res.ok) throw new Error('server ' + res.status);
-    return res.json();
-  })
-  .then(function(result) {
-    if (result && (result.success === true || result.success === 'true')) {
-      try {
-        var _il = document.querySelector('input[name="inquiry"]:checked');
-        var _v = (_il && _il.value) || '';
-        var _intent = ((document.getElementById('intentField') || {}).value) ||
-          (/投資家|投资|Investor/i.test(_v) ? 'investor' :
-           /買い手|案件取得/i.test(_v) ? 'buyer' :
-           /売却|査定|Seller/i.test(_v) ? 'seller' :
-           /用地|Land/i.test(_v) ? 'land' : 'other');
-        if (window.gtag) gtag('event', 'generate_lead', { form_type: 'contact', intent: _intent, page_lang: (document.documentElement.lang || 'ja'), transport_type: 'beacon' });
-      } catch (e) {}
-      window.location.href = '/thanks?intent=' + encodeURIComponent(_intent || 'other');
-    } else {
-      throw new Error((result && result.message) || 'submit failed');
-    }
-  })
-  .catch(function(err) {
+  function fail(reason) {
+    if (timer) clearTimeout(timer);
+    if (settled) return;
+    settled = true;
+    try { if (window.gtag) gtag('event', 'form_error', { form_type: 'contact', reason: reason }); } catch (_) {}
     showMailFallback(form, data);
     btn.innerHTML = origHTML;
     btn.style.opacity = '1';
     btn.disabled = false;
-  });
+  }
+
+  btn.innerHTML = '送信中...';
+  btn.style.opacity = '0.7';
+  btn.disabled = true;
+
+  try {
+    data = formToObject(form);
+    timer = setTimeout(function () { fail('timeout'); }, 25000);
+
+    fetch(form.action, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    .then(function(res) {
+      if (!res.ok) throw new Error('http_' + res.status);
+      return res.json();
+    })
+    .then(function(result) {
+      if (result && (result.success === true || result.success === 'true')) {
+        if (timer) clearTimeout(timer);
+        settled = true;
+        try {
+          var _il = document.querySelector('input[name="inquiry"]:checked');
+          var _v = (_il && _il.value) || '';
+          var _intent = ((document.getElementById('intentField') || {}).value) ||
+            (/投資家|投资|Investor/i.test(_v) ? 'investor' :
+             /買い手|案件取得/i.test(_v) ? 'buyer' :
+             /売却|査定|Seller/i.test(_v) ? 'seller' :
+             /用地|Land/i.test(_v) ? 'land' : 'other');
+          if (window.gtag) gtag('event', 'generate_lead', { form_type: 'contact', intent: _intent, page_lang: (document.documentElement.lang || 'ja'), transport_type: 'beacon' });
+        } catch (e) {}
+        window.location.href = '/thanks?intent=' + encodeURIComponent(_intent || 'other');
+      } else {
+        throw new Error('response');
+      }
+    })
+    .catch(function(err) {
+      var m = String((err && err.message) || '');
+      fail(/^(http_\d+|response)$/.test(m) ? m : 'network');
+    });
+  } catch (err) {
+    fail('exception');
+  }
 });
 
 // 送信先サーバー(FormSubmit)障害時でも問い合わせを取りこぼさないための退避導線
