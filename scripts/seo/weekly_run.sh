@@ -128,22 +128,19 @@ print(("✍️ 今週書くなら: "+str(i.get("title",""))+"（"+str(i.get("for
 
 # アクセスが減ったページ（ブリーフ 11 節＝brief.json の access_drops）。中島決定 2026-09-22:
 #   トリガーはアクセス減。週次の Claude は外に出られないので本文の時点更新は自動でやらず、先頭の 1 本（原因の型・本文の時点つき）と本数を
-#   1 行で知らせる。時点更新は CC の作業セッションで。
+#   1 行で知らせる。時点更新は CC の作業セッションで。文は access_drop.tg_line の 1 か所で作る（山の戻りは本数だけ添える）。
 drop_line() {
-  python3 - "$RUN_DIR/brief.json" <<'PY' 2>/dev/null || true
+  python3 - "$RUN_DIR/brief.json" "$(dirname "$SELF")" <<'PY' 2>/dev/null || true
 import json, sys
+sys.path.insert(0, sys.argv[2])
+import access_drop as ad
 try:
     rows = json.load(open(sys.argv[1])).get("access_drops") or []
 except Exception:
     rows = []
-if rows:
-    r = rows[0]
-    f = lambda x: "-" if x is None else "%.1f" % x
-    asof = ("%s＝%s日前" % (r.get("expr"), r.get("age_days"))) if r.get("expr") else "時点表現なし"
-    more = " ほか%d本" % (len(rows) - 1) if len(rows) > 1 else ""
-    print("📉 アクセスが減った: %s（28日 %s→%s・%+d%%・%s %s→%s位・%s）%s → %s。時点更新は CC の作業セッションで（週次は title・description まで）"
-          % (r.get("page"), r.get("clicks_prev"), r.get("clicks_cur"), r.get("pct") or 0, r.get("judge"),
-             f(r.get("pos_prev")), f(r.get("pos_cur")), asof, more, r.get("next")))
+line = ad.tg_line(rows)
+if line:
+    print(line)
 PY
 }
 

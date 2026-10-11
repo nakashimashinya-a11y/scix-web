@@ -83,6 +83,29 @@ def main() -> int:
         L = []; ad.render(L, rows, limit=2)
         if "…ほか" not in "\n".join(L) or "| /column-a |" not in "\n".join(L):
             ok = False; print("NG 11 節:", L[-3:])
+        # 山の戻り（2026-10-11）: 前々 28 日を渡すと、今が前々の 7 割以上のページは「様子見」に分かれて後ろへ並ぶ
+        PREV2 = {"/column-a": pg(150, 5000, 6.0),   # 前々150→前152→今92＝前々の61%＝本当に減った
+                 "/column-b": pg(10, 300, 6.0),     # 前々10→前40→今20＝前々の200%＝山の戻り
+                 "/column-c": pg(20, 900, 7.0)}     # 前々20→前30→今15＝前々の75%＝山の戻り（時点は660日前でも時点更新にしない）
+        # /column-d は前々に無い（新しいページ）＝山かどうか分からないので今までどおり
+        rs = ad.drops(CUR, PREV, repo=repo, today=TODAY, pppages=PREV2)
+        sp = {r["page"]: r for r in rs}
+        if [r["page"] for r in rs] != ["/column-a", "/column-d", "/column-b", "/column-c"]:
+            ok = False; print("NG 山の戻りの並び（本当に減った順→山の戻り）:", [r["page"] for r in rs])
+        if not (sp["/column-b"]["spike"] and sp["/column-c"]["spike"] and sp["/column-c"]["next"] == ad.SPIKE_NEXT
+                and not sp["/column-a"]["spike"] and sp["/column-a"]["next"] == "本文の時点更新（CC）"
+                and not sp["/column-d"]["spike"] and sp["/column-d"]["clicks_prev2"] == 0 and sp["/column-b"]["clicks_prev2"] == 10):
+            ok = False; print("NG 山の戻りの判定:", {p: (r["spike"], r["clicks_prev2"], r["next"]) for p, r in sp.items()})
+        if any(r.get("spike") or r.get("clicks_prev2") is not None for r in rows):
+            ok = False; print("NG 前々を渡さないのに山の戻りの列が付いた")
+        line = ad.tg_line(rs)
+        if not (line.startswith("📉 アクセスが減った: /column-a") and "ほか1本" in line and "（ほか2本は前28日の山が引いて" in line):
+            ok = False; print("NG 山の戻りつきの Telegram の 1 行:", line)
+        if not ad.tg_line([sp["/column-b"], sp["/column-c"]]).startswith("📉 アクセス減 2本は、どれも前28日の山が引いて"):
+            ok = False; print("NG 全部が山の戻りの Telegram の 1 行:", ad.tg_line([sp["/column-b"], sp["/column-c"]]))
+        L = []; ad.render(L, rs)
+        if "クリック 前々→前→今" not in "\n".join(L) or "| /column-b | 10→40→20（-50%）" not in "\n".join(L):
+            ok = False; print("NG 山の戻りつきの 11 節:", [x for x in L if "column-b" in x or "前々" in x])
         # 4 節と同じ基準（前28日20以上・7割未満）
         if ad.MIN_PREV_CLICKS != 20 or ad.DROP_RATIO != 0.7:
             ok = False; print("NG しきい値が 4 節とずれた")
