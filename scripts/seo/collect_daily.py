@@ -134,7 +134,7 @@ def collect_ga4(days: int) -> int:
 class Meta(html.parser.HTMLParser):
     def __init__(self):
         super().__init__()
-        self.title = ""; self._in_title = False
+        self.title = ""; self._in_title = False; self._title_seen = False
         self.desc = None; self.canonical = None; self.h1 = 0; self.og_image = False
         self.hreflang = 0; self.jsonld = []; self._in_ld = False; self._ld = ""
         self.links = []; self.robots = None; self.text_len = 0; self._skip = 0
@@ -143,7 +143,10 @@ class Meta(html.parser.HTMLParser):
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         if tag == "title":
-            self._in_title = True
+            # ページの title は最初の 1 つだけ。本文のインライン SVG の <title>（図の説明）まで連結すると、EN の 70 字検査が
+            # 図つきページを毎日誤って挙げ、title の重複も黙って外れる（guard_diff.py の Page と同じ読み方・2026-10-11）
+            if not self._title_seen:
+                self._in_title = True; self._title_seen = True
         elif tag == "meta":
             name = (a.get("name") or a.get("property") or "").lower()
             if name == "description":

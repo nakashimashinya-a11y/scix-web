@@ -16,7 +16,11 @@
     「YYYY年M月[D日](時点|版|現在|更新)」「令和N年…」のいちばん新しい日付（無ければ「時点表現なし」）。
     「公表」「改定」「締切」は外部文書・予定の日付なので見ない。
   次の手: 時点が 90 日以上前 → 本文の時点更新（CC）／CTR落ちだけ → title・description（週次の 3 の仕事）／それ以外 → 本文の受け皿を見直す（CC 判断）。
-  並びは失ったクリック数。
+  山の戻り（2026-10-11）: 前 28 日だけが山（ニュースで伸びた）で、直近 28 日が前々 28 日の 7 割以上あるページは「様子見」にする
+    ＝元の水準に戻っただけで、時点更新も title の変更も効かない。2026-10-11 のブリーフは 14 本を挙げたが、12 本は 8 月の山が
+    引いて 7 月並み以上に戻っただけ（サイト全体は前々 28 日の 128%）で、毎週の Telegram が「減った」と言い続けていた。
+    前々 28 日にそのページの表示が無い（新しいページ）か、台帳が 28 日そろわないときは、山かどうか分からないので今までどおり。
+  並びは本当に減ったページが先、その中は失ったクリック数。
 
     python3 scripts/seo/access_drop.py            # 表（GSC の台帳から直近 28 日と前 28 日）
     python3 scripts/seo/access_drop.py --json
@@ -36,6 +40,7 @@ MIN_PREV_CLICKS = 20     # 4 節と同じ
 DROP_RATIO = 0.7         # 4 節と同じ（3 割減）
 POS_WORSE = 1.0          # 順位落ちと見なす悪化幅
 ASOF_OLD_DAYS = 90       # これ以上前の時点なら「本文の時点更新（CC）」
+SPIKE_NEXT = "様子見（前28日の山が引いて前々28日並み）"
 ASOF_SUFFIX = r"(?:時点|版|現在|更新)"
 _Z2H = str.maketrans("０１２３４５６７８９", "0123456789")
 RE_WESTERN = re.compile(r"(\d{4})年(\d{1,2})月(?:(\d{1,2})日)?" + ASOF_SUFFIX)
@@ -139,8 +144,9 @@ def next_step(judgement: str, age_days) -> str:
 
 
 def drops(pages: dict, ppages: dict, qp: dict | None = None, pqp: dict | None = None,
-          repo: pathlib.Path = REPO, today: datetime.date | None = None) -> list:
-    """減ったページの行。並びは失ったクリック数（多い順）。qp/pqp（(検索語, ページ) → 集計）があれば原因は語ごとに帰属する。"""
+          repo: pathlib.Path = REPO, today: datetime.date | None = None, pppages: dict | None = None) -> list:
+    """減ったページの行。並びは本当に減ったページが先、その中は失ったクリック数（多い順）。qp/pqp（(検索語, ページ) → 集計）が
+    あれば原因は語ごとに帰属する。pppages（前々 28 日。28 日そろったときだけ渡す）があれば山の戻りを「様子見」に分ける。"""
     today = today or datetime.date.today()
     rows = []
     for page, a in pages.items():
@@ -151,14 +157,17 @@ def drops(pages: dict, ppages: dict, qp: dict | None = None, pqp: dict | None = 
         age = (today - asof[0]).days if asof else None
         jq = judge_by_queries(page, qp, pqp) if (qp and pqp) else None
         jd, detail = (jq[0], jq[1]) if jq else (judge(a, b), "")
+        c = (pppages or {}).get(page) or {}   # 今 < 前の7割 かつ 今 ≧ 前々の7割 なら、前が前々より上（＝山）だったことにもなる
+        spike = bool(c.get("impressions")) and a["clicks"] >= c.get("clicks", 0) * DROP_RATIO
         rows.append({"page": page, "clicks_prev": b["clicks"], "clicks_cur": a["clicks"], "judge_detail": detail,
+                     "clicks_prev2": c.get("clicks", 0) if pppages is not None else None, "spike": spike,
                      "pct": round((a["clicks"] - b["clicks"]) / b["clicks"] * 100),
                      "imp_prev": b.get("impressions", 0), "imp_cur": a.get("impressions", 0),
                      "ctr_prev": b.get("ctr", 0.0), "ctr_cur": a.get("ctr", 0.0),
                      "pos_prev": b.get("position"), "pos_cur": a.get("position"),
                      "judge": jd, "asof": str(asof[0]) if asof else None, "expr": asof[1] if asof else None,
-                     "age_days": age, "next": next_step(jd, age)})
-    rows.sort(key=lambda r: r["clicks_cur"] - r["clicks_prev"])
+                     "age_days": age, "next": SPIKE_NEXT if spike else next_step(jd, age)})
+    rows.sort(key=lambda r: (r["spike"], r["clicks_cur"] - r["clicks_prev"]))
     return rows
 
 
@@ -175,13 +184,16 @@ def render(L: list, rows: list, limit: int = 30) -> None:
     L.append(f"## 11. アクセスが減ったページ（28日クリックが前28日の{int(DROP_RATIO * 100)}%未満・前28日{MIN_PREV_CLICKS}クリック以上）\n")
     L.append("原因の型と本文の時点を添える。**「本文の時点更新（CC）」の行は週次では日付・件数・数字を直さない**"
              "（一次資料に出られないので取り違える）＝CC の作業セッションで中島さんの指示で更新する。"
-             "「title・description（週次）」の行は 3 の仕事として受けてよい。日曜朝の Telegram に先頭の 1 本と本数を出す。\n")
+             "「title・description（週次）」の行は 3 の仕事として受けてよい。"
+             "**「様子見」の行は前28日だけが山で、今は前々28日の7割以上ある＝元の水準に戻っただけ**なので、時点更新も title の変更もしない。"
+             "日曜朝の Telegram に本当に減った先頭の 1 本と本数を出す。\n")
     if not rows:
         L.append("なし\n")
         return
-    L.append("| ページ | クリック 前→今 | 順位 前→今 | CTR 前→今 | 表示 前→今 | 原因の型 | 本文の時点 | 次の手 |\n|---|---|---|---|---|---|---|---|")
+    p2 = any(r.get("clicks_prev2") is not None for r in rows)
+    L.append(f"| ページ | クリック {'前々→' if p2 else ''}前→今 | 順位 前→今 | CTR 前→今 | 表示 前→今 | 原因の型 | 本文の時点 | 次の手 |\n|---|---|---|---|---|---|---|---|")
     for r in rows[:limit]:
-        L.append(f"| {r['page']} | {r['clicks_prev']}→{r['clicks_cur']}（{r['pct']:+d}%） | {_f(r['pos_prev'])}→{_f(r['pos_cur'])} "
+        L.append(f"| {r['page']} | {str(r['clicks_prev2']) + '→' if r.get('clicks_prev2') is not None else ''}{r['clicks_prev']}→{r['clicks_cur']}（{r['pct']:+d}%） | {_f(r['pos_prev'])}→{_f(r['pos_cur'])} "
                  f"| {r['ctr_prev'] * 100:.1f}%→{r['ctr_cur'] * 100:.1f}% | {r['imp_prev']}→{r['imp_cur']} | {r['judge']}{('（' + r['judge_detail'] + '）') if r.get('judge_detail') else ''} | {_asof_txt(r)} | {r['next']} |")
     if len(rows) > limit:
         L.append(f"\n…ほか {len(rows) - limit} 本")
@@ -189,13 +201,18 @@ def render(L: list, rows: list, limit: int = 30) -> None:
 
 
 def tg_line(rows: list) -> str:
-    """日曜朝の Telegram の 1 行（先頭 1 本＋本数）。0 本なら空。"""
+    """日曜朝の Telegram の 1 行（本当に減った先頭 1 本＋本数。山の戻りは本数だけ添える）。0 本なら空。weekly_run.sh もこれを呼ぶ。"""
     if not rows:
         return ""
-    r = rows[0]
-    more = f" ほか{len(rows) - 1}本" if len(rows) > 1 else ""
+    real = [r for r in rows if not r.get("spike")]
+    n_spike = len(rows) - len(real)
+    if not real:
+        return f"📉 アクセス減 {n_spike}本は、どれも前28日の山が引いて前々28日並みに戻っただけ（直すものなし）"
+    r = real[0]
+    more = f" ほか{len(real) - 1}本" if len(real) > 1 else ""
+    tail = f"（ほか{n_spike}本は前28日の山が引いて前々28日並みに戻っただけ）" if n_spike else ""
     return (f"📉 アクセスが減った: {r['page']}（28日 {r['clicks_prev']}→{r['clicks_cur']}・{r['pct']:+d}%・{r['judge']} "
-            f"{_f(r['pos_prev'])}→{_f(r['pos_cur'])}位・{_asof_txt(r)}）{more} → {r['next']}。時点更新は CC の作業セッションで（週次は title・description まで）")
+            f"{_f(r['pos_prev'])}→{_f(r['pos_cur'])}位・{_asof_txt(r)}）{more} → {r['next']}。時点更新は CC の作業セッションで（週次は title・description まで）{tail}")
 
 
 def main() -> int:
@@ -207,7 +224,7 @@ def main() -> int:
     cur_s = latest - datetime.timedelta(days=days - 1)
     _, pages, qp, _ = bb.agg_gsc(bb.load_range("gsc", cur_s, latest))
     _, ppages, pqp, _ = bb.agg_gsc(bb.load_range("gsc", cur_s - datetime.timedelta(days=days), cur_s - datetime.timedelta(days=1)))
-    rows = drops(pages, ppages, qp, pqp)
+    rows = drops(pages, ppages, qp, pqp, pppages=bb.prev2_pages(cur_s, days))
     if "--json" in sys.argv:
         print(json.dumps(rows, ensure_ascii=False, indent=1)); return 0
     L = []; render(L, rows, limit=200); print("\n".join(L))

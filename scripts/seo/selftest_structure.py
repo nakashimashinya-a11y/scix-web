@@ -111,12 +111,19 @@ def edit(repo, rel, fn):
     p.write_text(t, encoding="utf-8")
 
 
-def swap_cat_blocks(s):
-    """knowledge.html の cat-land と cat-market を入れ替える（並べ替えだけ＝正味の書き換え 0）。"""
-    starts = [m.start() for m in re.finditer(r'<div class="cat-block[^"]*" id="cat-', s)]
+def cat_block_ids(s):
+    """knowledge.html のカテゴリブロックの id（並び順）。試験は id で名指しせず、並びの位置で選ぶ
+    （構成レビューがハブの順を変えても同じ形の試験になる。2026-10-04 に土地・用地が 2 番目から 5 番目へ動いた）。"""
     ids = re.findall(r'<div class="cat-block[^"]*" id="(cat-[a-z]+)"', s)
-    i = ids.index("cat-land")
-    a, b, c = starts[i], starts[i + 1], starts[i + 2]
+    assert len(ids) >= 4, "knowledge.html のカテゴリブロックが 4 つ未満（selftest を直す）"
+    return ids
+
+
+def swap_cat_blocks(s):
+    """knowledge.html の 2 番目と 3 番目のカテゴリブロックを入れ替える（並べ替えだけ＝正味の書き換え 0）。"""
+    cat_block_ids(s)
+    starts = [m.start() for m in re.finditer(r'<div class="cat-block[^"]*" id="cat-', s)]
+    a, b, c = starts[1], starts[2], starts[3]
     return s[:a] + s[b:c] + s[a:b] + s[c:]
 
 
@@ -199,13 +206,14 @@ def move_section_leaving_close(s):
 
 
 def move_cat_block_leaving_close(s):
-    """knowledge.html の cat-land を、閉じ </div> を置き去りにして cat-basics の前へ動かす。同じ div どうしなので開閉の数は
-    合ったまま＝cat-basics が cat-land の子になる。"""
+    """knowledge.html の 2 番目のカテゴリブロックを、閉じ </div> を置き去りにして先頭のブロックの前へ動かす。同じ div どうしなので
+    開閉の数は合ったまま＝先頭のブロックが動かしたブロックの子になる。"""
+    ids = cat_block_ids(s)
     L = s.splitlines(keepends=True)
-    a = next(i for i, l in enumerate(L) if 'id="cat-land"' in l)
-    b = next(i for i, l in enumerate(L) if 'id="cat-market"' in l)
+    a = next(i for i, l in enumerate(L) if 'id="%s"' % ids[1] in l)
+    b = next(i for i, l in enumerate(L) if 'id="%s"' % ids[2] in l)
     end = max(i for i in range(a, b) if L[i].strip() == "</div>")
-    bas = next(i for i, l in enumerate(L) if 'id="cat-basics"' in l)
+    bas = next(i for i, l in enumerate(L) if 'id="%s"' % ids[0] in l)
     assert bas < a < end < b
     return "".join(L[:bas] + L[a:end] + L[bas:a] + L[end:])
 
@@ -364,7 +372,7 @@ def main() -> int:
 
         def rewrite(s):
             lines = s.splitlines()
-            a = next(i for i, l in enumerate(lines) if 'id="cat-land"' in l)
+            a = next(i for i, l in enumerate(lines) if 'id="%s"' % cat_block_ids(s)[1] in l)
             for i in range(a, a + int(len(lines) * 0.2)):
                 if lines[i].strip() and "<!--" not in lines[i]:
                     lines[i] = lines[i] + " "  # 行は同じでも strip で同一になるので中身を変える

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 百度/中文搜索引擎向け -->
+<meta name="applicable-device" content="pc,mobile">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-transform">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif SC','Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.seo-note{display:none}
+.bar-chart{margin:28px 0}
+.bar-row{display:flex;align-items:center;margin-bottom:6px;font-size:.85em}
+.bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.bar-track{flex:1;background:#EBEEF2;height:28px;border-radius:3px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;min-width:2px;transition:width .6s ease}
+.bar-fill.high{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.bar-fill.mid{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.bar-fill.low{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.bar-fill.over{background:linear-gradient(90deg,#2980B9,#3498DB)}
+.bar-value{margin-left:8px;font-size:.82em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:80px}
+.heatmap-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.82em}
+.heatmap-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:center;font-weight:500;font-size:.78em}
+.heatmap-table td{padding:8px 10px;text-align:center;border:1px solid #E2E6EC;font-weight:600}
+.heatmap-table td.h5{background:#FDEBEB;color:#922B21}
+.heatmap-table td.h4{background:#FDEBD0;color:#935116}
+.heatmap-table td.h3{background:#FEF9E7;color:#7D6608}
+.heatmap-table td.h2{background:#EAFAF1;color:#1E8449}
+.heatmap-table td.h1{background:#D4EFDF;color:#196F3D}
+.heatmap-table td.h0{background:#D6EAF8;color:#21618C}
+.heatmap-table .area-cell{text-align:left;font-weight:700;background:#F8F9FB;color:var(--navy)}
+.tab-bar{display:flex;border-bottom:2px solid var(--border);margin:24px 0 0;gap:0;flex-wrap:wrap}
+.tab-item{padding:10px 20px;font-size:.88em;font-weight:600;color:var(--text-light);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
+.tab-item:hover{color:var(--navy)}
+.tab-item.active{color:var(--navy);border-bottom-color:var(--accent)}
+@media(max-width:480px){.tab-item{padding:8px 12px;font-size:.78em}}
+.ts-legend{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 16px;font-size:.78em;color:var(--text-light)}
+.ts-leg-item{display:flex;align-items:center;gap:5px}
+.ts-leg-box{width:14px;height:14px;border-radius:2px;flex-shrink:0}
+.chart-container{position:relative;margin:0 0 16px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff}
+.chart-header{display:flex;justify-content:space-between;align-items:baseline;padding:12px 20px 4px}
+.chart-area-name{font-weight:700;color:var(--navy);font-size:1em}
+.chart-stats{font-size:.82em;color:var(--text-light)}
+.chart-stats strong{color:var(--navy)}
+.chart-stats .surplus{color:#2980B9}
+.chart-no-data{padding:12px 20px 16px;font-size:.82em;color:var(--text-light);text-align:center}
+.chart-canvas-wrap{position:relative;padding:0 16px 4px}
+.chart-canvas{width:100%;height:80px;display:block}
+.chart-tooltip{position:absolute;background:rgba(27,42,74,0.95);color:#fff;padding:8px 12px;border-radius:4px;font-size:.75em;line-height:1.5;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
+.chart-axis{display:flex;justify-content:space-between;font-size:.68em;color:var(--text-light);padding:0 16px 10px}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .bar-label{width:44px;font-size:.78em}
+  .heatmap-table{font-size:.72em}
+  .heatmap-table th,.heatmap-table td{padding:5px 4px}
+  .chart-canvas{height:64px}
+  .chart-header{padding:10px 12px 3px}
+  .chart-canvas-wrap{padding:0 12px 3px}
+  .chart-axis{padding:0 12px 8px;font-size:.6em}
+}
+.s-bar-row{display:flex;align-items:center;margin-bottom:5px;font-size:.85em}
+.s-bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.s-bar-wrap{flex:1;position:relative;height:28px;background:#EBEEF2;border-radius:3px;overflow:hidden}
+.s-bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;transition:width .4s ease}
+.s-bar-fill.sh{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.s-bar-fill.sm{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.s-bar-fill.sl{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.s-bar-meta{margin-left:8px;font-size:.8em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:120px}
+.s-bar-meta strong{color:var(--navy)}
+.tieline-flow{margin:28px 0;font-size:.85em}
+.tl-row{display:flex;align-items:center;margin-bottom:4px;gap:4px}
+.tl-label{width:100px;text-align:right;font-weight:500;color:var(--navy);flex-shrink:0;font-size:.82em}
+.tl-bar-wrap{flex:1;display:flex;gap:2px}
+.tl-bar{height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.7em;font-weight:600;color:#fff;min-width:20px}
+.tl-fwd{background:var(--accent)}
+.tl-rev{background:var(--navy-light)}
+.tl-val{width:44px;font-size:.78em;color:var(--text-light);text-align:right;flex-shrink:0}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+
+
+:root{--c50-cyan:#4599c6}
+figure.c50{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c50 .c50scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--white);
+  border:1px solid var(--border);border-radius:3px}
+figure.c50 .c50scroll>svg{display:block;min-width:var(--fmin,0)}
+figure.c50 figcaption{font-size:.78em;color:var(--text-light);margin-top:10px;line-height:1.7}
+figure.c50 .c50hint{font-size:.72em;color:var(--text-light);margin:0 0 7px;letter-spacing:.04em}
+/* 本文（712px）に収まらない図は、字を縮めずに本文の外へ広げる。
+   画面がそれより狭いときだけ中で横スクロールになる。 */
+figure.c50.wide{width:min(calc(100vw - 32px), var(--fw));margin-left:50%;transform:translateX(-50%)}
+figure.c50.wide .c50hint{display:none}
+@media(max-width:1100px){figure.c50.wide .c50hint{display:block}}
+figure.c50fig{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c50fig .c50top{font-size:.78em;color:var(--text-light);margin:0 0 12px;line-height:1.7}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.table-wrap .comparison-table{margin:0;min-width:520px}
+ul.source-list{font-size:.82em;line-height:1.95;color:var(--text-light);word-break:break-word;
+  padding-left:1.15em;margin:0 0 8px}
+ul.source-list a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--border)}
+ul.source-list a:hover{border-bottom-color:var(--accent)}
+.c50series{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 30px;padding:12px 14px;
+  background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+.c50series .lb{font-size:.74em;color:var(--text-light);letter-spacing:.06em;width:100%;margin-bottom:2px}
+.c50series a,.c50series span.cur{font-size:.83em;text-decoration:none;padding:3px 10px;border-radius:3px;line-height:1.7}
+.c50series a{color:var(--navy);background:var(--white);border:1px solid var(--border)}
+.c50series a:hover{border-color:var(--accent)}
+.c50series span.cur{color:var(--white);background:var(--navy);font-weight:600}
+@media(max-width:768px){figure.c50,figure.c50fig{padding:12px}}
+
+
+.c50cards{display:grid;gap:14px;margin:0}
+.c50cards.n3{grid-template-columns:repeat(3,1fr)}
+.c50cards.n4{grid-template-columns:repeat(2,1fr)}
+.c50card{border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;
+  background:var(--white);padding:16px 18px 14px;display:flex;flex-direction:column}
+.c50card.k-volume{border-top-color:var(--navy)}
+.c50card.k-supply{border-top-color:#4599c6}
+.c50card.k-floor{border-top-color:var(--accent)}
+.c50card .k{font-size:.78em;letter-spacing:.06em;color:var(--text-light);margin-bottom:6px}
+.c50card .v{font-family:'Noto Serif SC','Noto Serif JP',serif;font-weight:600;color:var(--navy);
+  font-size:1.02em;line-height:1.5;margin-bottom:10px}
+.c50card ul{list-style:none;margin:0 0 10px;padding:0;font-size:.84em;line-height:1.8;color:var(--text)}
+.c50card ul li{padding-left:11px;position:relative}
+.c50card ul li::before{content:'';position:absolute;left:0;top:.72em;width:4px;height:4px;
+  border-radius:50%;background:var(--accent)}
+.c50card .go{margin-top:auto;font-size:.82em;font-weight:600;color:var(--navy);
+  text-decoration:none;border-bottom:1px solid var(--accent);align-self:flex-start;padding-bottom:2px}
+.c50card .go:hover{color:var(--accent)}
+@media(max-width:700px){.c50cards.n3,.c50cards.n4{grid-template-columns:1fr}}
+
+/* COLUMN 50 */
+figure.c50fig svg{display:block;width:100%;height:auto;font-family:'Noto Sans SC','Noto Sans JP',sans-serif}
+figure.c50fig .c50scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--white);border:1px solid var(--border);border-radius:3px}
+figure.c50fig .c50scroll>svg{min-width:var(--fmin,0)}
+figure.c50fig .c50hint{font-size:.72em;color:var(--text-light);margin:0 0 7px;letter-spacing:.04em;display:none}
+@media(max-width:600px){figure.c50fig .c50hint{display:block}}
+.mk{display:inline-block;font-size:.7em;font-weight:700;letter-spacing:.04em;padding:0 6px;border-radius:3px;line-height:1.75;margin:0 2px;vertical-align:.12em;white-space:nowrap}
+.mk.ok{background:var(--navy);color:#fff}
+.mk.say{background:#F3EBD8;color:#7A5A12}
+.mk.open{background:#fff;color:#6C7A89;border:1px dashed #9AA5B1}
+.comparison-table td.blank{background:repeating-linear-gradient(135deg,#fff,#fff 6px,#F3F5F8 6px,#F3F5F8 12px);color:var(--text-light);font-size:.92em}
+.comparison-table td.num,.comparison-table th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.open-list{list-style:none;padding:0;margin:20px 0}
+.open-list li{border:1px solid var(--border);border-left:3px solid #9AA5B1;border-radius:0 6px 6px 0;padding:12px 16px;margin-bottom:10px;font-size:.9em;line-height:1.85;background:var(--white)}
+.open-list li b{color:var(--navy)}
+.open-list li .to{display:block;font-size:.88em;color:var(--text-light);margin-top:2px}
+.formula{font-family:'Noto Serif SC','Noto Serif JP',serif;font-size:1.02em;color:var(--navy);background:var(--white);border:1px solid var(--border);border-radius:6px;padding:14px 18px;margin:20px 0;line-height:1.9;text-align:center}
+blockquote.gl{margin:20px 0;padding:12px 18px;border-left:3px solid var(--navy);background:var(--light-bg);font-size:.9em;line-height:1.95;color:var(--text)}
+blockquote.gl cite{display:block;font-style:normal;font-size:.82em;color:var(--text-light);margin-top:4px}
+
+</style>
+<title>另一层天花板 — 用2MW/8MWh的公开数值，算出《供需调整市场指南》的“一定额”｜ScienceX</title>
+<meta name="description" content="辅助服务市场10日元上限之下，还有另一层天花板——“一定额”。只用公开数值为2MW/8MWh储能电站估算，第1年1.4日元、第2年0.96日元、第18年0.33日元。本文边解释术语边梳理：为什么它只压在储能身上，以及持有者、买方、卖方各自要把握的要点。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-bidding-ceiling">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-bidding-ceiling">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-bidding-ceiling">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-bidding-ceiling">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-bidding-ceiling">
+<meta property="og:type" content="article">
+<meta property="og:title" content="另一层天花板 — 用2MW/8MWh的公开数值，算出《供需调整市场指南》的“一定额”｜ScienceX">
+<meta property="og:description" content="辅助服务市场10日元上限之下，还有另一层天花板——“一定额”。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-bidding-ceiling">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="另一层天花板 — 用2MW/8MWh的公开数值，算出《供需调整市场指南》的“一定额”｜ScienceX">
+<meta name="twitter:description" content="辅助服务市场10日元上限之下，还有另一层天花板——“一定额”。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-zh.png">
+<meta property="article:published_time" content="2026-10-04">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "另一层天花板 — 用2MW/8MWh的公开数值，算出《供需调整市场指南》的“一定额”｜ScienceX",
+  "description": "辅助服务市场10日元上限之下，还有另一层天花板——“一定额”。只用公开数值为2MW/8MWh储能电站估算，第1年1.4日元、第2年0.96日元、第18年0.33日元。本文边解释术语边梳理：为什么它只压在储能身上，以及持有者、买方、卖方各自要把握的要点。",
+  "inLanguage": "zh-CN",
+  "author": {
+    "@type": "Person",
+    "name": "中岛晋也",
+    "jobTitle": "代表董事（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-zh.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-10-04",
+  "dateModified": "2026-10-04",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-bidding-ceiling",
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "name": "COLUMN 50",
+    "url": "https://www.scix.co.jp/zh-column-bidding-ceiling"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "《供需调整市场指南》中的“一定额”是什么？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "它是ΔkW投标价格参考线“逸失利益（机会成本）＋一定额＋交易手续费”中的一定额。取0.33日元/ΔkW·30分钟（A类），或用当年度的固定成本减去其他市场收益、再除以预计投标量所得的金额（B类）；当年度的固定成本回收之后，降为0.33日元（2026年3月13日修订版Ⅲ.2）。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "2MW/8MWh的储能电站，一定额是多少？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "只用公开单价估算，东京分区投运第1年为1.411日元、第2年0.959日元、第18年起0.33日元（单位均为日元/ΔkW·30分钟）。从第2年起要扣除容量市场的视同收入，因此大幅下降。人工成本、聚合商费用等没有公开单价的费目未计入。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "它与10日元的上限价格有什么不同？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "10.00日元是对所有人都一样的市场上限。指南的天花板按事业者分别确定；储能可投标的时段多、分母大，所以天花板的高度是1日元上下的一定额加上机会成本。公式以内的价格是被视为“理想”的参考线，偏离公式的报价，可能会被要求说明其是否属于不正当获取收益的行为。"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://www.scix.co.jp/zh"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "洞见",
+      "item": "https://www.scix.co.jp/zh-knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "另一层天花板 — 用2MW/8MWh的公开数值，算出《供需调整市场指南》的“一定额”",
+      "item": "https://www.scix.co.jp/zh-column-bidding-ceiling"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans SC',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/zh" style="color:#5A6577;text-decoration:none">首页</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/zh-knowledge" style="color:#5A6577;text-decoration:none">洞见</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">另一层天花板 — 用2MW/8MWh的公开数值，算出《供需调整市场指南》的“一定额”</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 50</span>
+      <span class="header-tag">制度×实测</span>
+      <time class="header-date" datetime="2026-10-04">2026.10.04</time>
+    </div>
+    <h1>另一层天花板<br>— 用2MW/8MWh的公开数值，算出《供需调整市场指南》的“一定额”</h1>
+    <p class="header-desc">储能电站收入的支柱是辅助服务市场，那里的报价有一层“上限10日元”的天花板。在它下面，还有一层不容易看见的天花板——指南所允许的“一定额”。只用公开数字估算，2MW/8MWh的储能电站第1年1.4日元、第2年0.96日元、第18年0.33日元（东京）。这层天花板压不到火电等其他电源，只压在储能身上。我们用4篇文章，浅显地把它讲清楚。</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/zh-knowledge" class="back-link">← 返回洞见一览</a>
+<nav class="c50series" aria-label="COLUMN 50"><span class="lb">本系列共5篇</span><span class="cur">COLUMN 50 导读</span><a target="_top" href="/zh-column-bidding-ceiling-law">50-2 条文篇</a><a target="_top" href="/zh-column-bidding-ceiling-calc">50-3 试算篇</a><a target="_top" href="/zh-column-bidding-ceiling-market">50-4 市场篇</a><a target="_top" href="/zh-column-bidding-ceiling-monitoring">50-5 监视篇</a></nav>
+<p>储能电站收入的支柱，是辅助服务（供需调整）市场。为了瞬时填平发电方与用电方之间的偏差，输配电事业者会在前一天买下“随时能放出的能力”，这就是这个市场。2MW/8MWh级的储能电站，向其中名为<strong>一次离线</strong>的额度投标。这些报价自2026年9月1日起有一层<strong>上限10日元</strong>（每1kW·30分钟）的天花板。这是对所有人高度相同的、市场的天花板。</p>
+<p>本系列讲的是在它下面的<strong>另一层天花板</strong>。日本政府的《供需调整市场指南》（2026年3月13日修订）写道：报价最好控制在“机会成本＋一定额＋手续费”以内。这不是义务。但在同一次修订中补写了一条：以不合理的高价报价、不正当获利的行为，可能成为业务改善命令的对象。</p>
+<p>本公司只把公开的数字代入这个公式，为2MW/8MWh的储能电站算了一遍。“一定额”在东京为<strong>投运第1年1.4日元、第2年0.96日元、第18年0.33日元</strong>，与10日元的上限差了一个数量级。而且这层天花板压不到火电等其他电源，<strong>只压在储能身上</strong>。</p>
+
+<div class="data-box">
+<strong>先说5个词。</strong><br>
+<strong>ΔkW（Delta千瓦）</strong>──为了随时能放电而预留出来的能力的量。在这个市场里，与实际放出的电量分开，“预留”这个承诺本身就能拿到钱。单位是“日元／ΔkW·30分钟”。<br>
+<strong>一次离线</strong>──不必铺设专用线路也能参与的额度。对象是高压1MW以上、不足10MW的储能电站，2MW/8MWh就投在这里。<br>
+<strong>一定额</strong>──指南认可的、“为了收回固定成本，可以加到这个程度”的金额。它是本系列的主角。<br>
+<strong>机会成本（指南原文为“逸失利益”）</strong>──因为给辅助服务市场预留能力，而在批发电力市场（JEPX）少赚的部分。<br>
+<strong>预计投标量</strong>──1年里可以投标的量。储能在1天48个时段的大部分都能投标，所以这个量很大。
+</div>
+
+<figure class="c50fig" style="--fmin:600px"><figcaption class="c50top">图1　压在储能报价上的两层天花板（日元/ΔkW·30分钟）</figcaption><p class="c50hint">← 可左右滑动查看 →</p><div class="c50scroll"><svg viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c50e1-t c50e1-d">
+<title id="c50e1-t">压在储能报价上的两层天花板</title>
+<desc id="c50e1-d">在上限价格10日元的线下面，还有指南的天花板（机会成本＋一定额＋手续费）。按2MW/8MWh、东京的估算，一定额第1年1.411日元、第2年0.959日元、第18年0.33日元。右侧并列了2026年9月一次离线的实际价格（东北9.51、东京8.58、中部3.69、九州3.04、北海道1.39）。</desc>
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F3F5F8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#B9C2CE" stroke-width="3"/></pattern></defs>
+<line x1="62.0" y1="360.0" x2="700.0" y2="360.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="364.5" font-size="13" fill="#6C7A89" text-anchor="end">0</text>
+<line x1="62.0" y1="309.3" x2="700.0" y2="309.3" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="313.8" font-size="13" fill="#6C7A89" text-anchor="end">2</text>
+<line x1="62.0" y1="258.7" x2="700.0" y2="258.7" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="263.2" font-size="13" fill="#6C7A89" text-anchor="end">4</text>
+<line x1="62.0" y1="208.0" x2="700.0" y2="208.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="212.5" font-size="13" fill="#6C7A89" text-anchor="end">6</text>
+<line x1="62.0" y1="157.3" x2="700.0" y2="157.3" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="161.8" font-size="13" fill="#6C7A89" text-anchor="end">8</text>
+<line x1="62.0" y1="106.7" x2="700.0" y2="106.7" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="111.2" font-size="13" fill="#6C7A89" text-anchor="end">10</text>
+<line x1="62.0" y1="56.0" x2="700.0" y2="56.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="60.5" font-size="13" fill="#6C7A89" text-anchor="end">12</text>
+<text x="12.0" y="18.0" font-size="12.5" fill="#6C7A89">日元/ΔkW·30分钟</text>
+<line x1="62.0" y1="106.7" x2="700.0" y2="106.7" stroke="#B03A2E" stroke-width="2.5" stroke-dasharray="8 5"/>
+<text x="68.0" y="98.7" font-size="13.5" fill="#B03A2E" font-weight="700">第一层天花板：上限价格 10.00日元（2026年9月1日起）</text>
+<rect x="110.0" y="324.3" width="70.0" height="35.7" fill="#C49A3C"/>
+<rect x="110.0" y="322.7" width="70.0" height="1.5" fill="#1B2A4A"/>
+<rect x="110.0" y="267.0" width="70.0" height="55.7" fill="url(#hatch)"/>
+<text x="145.0" y="338.3" font-size="13" fill="#FFFFFF" text-anchor="middle" font-weight="700">1.411</text>
+<text x="145.0" y="378.0" font-size="13" fill="#2C3E50" text-anchor="middle">投运第1年</text>
+<rect x="215.0" y="335.7" width="70.0" height="24.3" fill="#C49A3C"/>
+<rect x="215.0" y="334.2" width="70.0" height="1.5" fill="#1B2A4A"/>
+<rect x="215.0" y="278.5" width="70.0" height="55.7" fill="url(#hatch)"/>
+<text x="250.0" y="349.7" font-size="13" fill="#FFFFFF" text-anchor="middle" font-weight="700">0.959</text>
+<text x="250.0" y="378.0" font-size="13" fill="#2C3E50" text-anchor="middle">第2年</text>
+<rect x="320.0" y="351.6" width="70.0" height="8.4" fill="#C49A3C"/>
+<rect x="320.0" y="350.1" width="70.0" height="1.5" fill="#1B2A4A"/>
+<rect x="320.0" y="294.4" width="70.0" height="55.7" fill="url(#hatch)"/>
+<text x="355.0" y="346.6" font-size="13" fill="#1B2A4A" text-anchor="middle" font-weight="700">0.33</text>
+<text x="355.0" y="378.0" font-size="13" fill="#2C3E50" text-anchor="middle">第18年起</text>
+<text x="250.0" y="396.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">第二层天花板（东京·用公开数值估算的一定额）</text>
+<rect x="112.0" y="128.0" width="14.0" height="12.0" fill="url(#hatch)" stroke="#E2E6EC" stroke-width="1"/>
+<text x="132.0" y="139.0" font-size="12" fill="#2C3E50">机会成本（高度无法确定）</text>
+<rect x="112.0" y="148.0" width="14.0" height="12.0" fill="#1B2A4A"/>
+<text x="132.0" y="159.0" font-size="12" fill="#2C3E50">交易手续费 0.06日元（不含税）</text>
+<rect x="112.0" y="168.0" width="14.0" height="12.0" fill="#C49A3C"/>
+<text x="132.0" y="179.0" font-size="12" fill="#2C3E50">一定额（收回固定成本的部分）</text>
+<line x1="395.0" y1="156.0" x2="395.0" y2="360.0" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="560.0" y="396.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">2026年9月的实际价格（一次离线·加权平均）</text>
+<line x1="440.0" y1="360.0" x2="440.0" y2="119.1" stroke="#4599c6" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="440.0" cy="119.1" r="6" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="440.0" y="108.1" font-size="12" fill="#4599c6" text-anchor="middle" font-weight="700">9.51</text>
+<text x="440.0" y="378.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">东北</text>
+<line x1="500.0" y1="360.0" x2="500.0" y2="142.6" stroke="#4599c6" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="500.0" cy="142.6" r="6" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="500.0" y="131.6" font-size="12" fill="#4599c6" text-anchor="middle" font-weight="700">8.58</text>
+<text x="500.0" y="378.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">东京</text>
+<line x1="560.0" y1="360.0" x2="560.0" y2="266.5" stroke="#4599c6" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="560.0" cy="266.5" r="6" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="560.0" y="255.5" font-size="12" fill="#4599c6" text-anchor="middle" font-weight="700">3.69</text>
+<text x="560.0" y="378.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">中部</text>
+<line x1="620.0" y1="360.0" x2="620.0" y2="283.0" stroke="#4599c6" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="620.0" cy="283.0" r="6" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="620.0" y="272.0" font-size="12" fill="#4599c6" text-anchor="middle" font-weight="700">3.04</text>
+<text x="620.0" y="378.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">九州</text>
+<line x1="680.0" y1="360.0" x2="680.0" y2="324.8" stroke="#4599c6" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="680.0" cy="324.8" r="6" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="680.0" y="313.8" font-size="12" fill="#4599c6" text-anchor="middle" font-weight="700">1.39</text>
+<text x="680.0" y="378.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">北海道</text>
+</svg></div><figcaption>一定额是本公司用公开数值、以2MW/8MWh·东京分区为对象的估算（50-3 试算篇）。机会成本一段只是示意“高度无法确定”，并非数值。右侧的点由本公司依EPRX交易结果（速报值，2026年9月1日〜29日）汇总（50-4 市场篇）。</figcaption></figure>
+
+<h2>一定额是这样确定的</h2>
+<p>一定额的算法只有减法和除法。从<strong>1年的固定成本</strong>（折旧费、维修费等）中，减去<strong>在其他市场能得到的收入</strong>（容量市场收入等），再用剩下的部分除以<strong>1年里可以投标的量</strong>。得出的金额，就是每个时段可以加上的“一定额”。</p>
+<figure class="c50fig" style="--fmin:640px"><figcaption class="c50top">图2　一定额的算法（以2MW/8MWh·东京为例）</figcaption><p class="c50hint">← 可左右滑动查看 →</p><div class="c50scroll"><svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c50e2-t c50e2-d">
+<title id="c50e2-t">一定额的算法（以2MW/8MWh·东京为例）</title>
+<desc id="c50e2-d">一定额＝从1年的固定成本中减去在其他市场能得到的收入，再除以1年里可以投标的量。第1年用4,450万日元除以3,154万，得1.41日元。第2年用5,163万日元减去容量市场视同收入2,138万日元后的3,025万日元相除，得0.96日元。</desc>
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F3F5F8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#B9C2CE" stroke-width="3"/></pattern><marker id="arrc50e2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#6C7A89"/></marker></defs>
+<text x="14.0" y="24.0" font-size="13.5" fill="#1B2A4A" font-weight="700">投运第1年</text>
+<rect x="14.0" y="34.0" width="170.0" height="86.0" fill="#FFFFFF" rx="8" stroke="#1B2A4A" stroke-width="2"/>
+<text x="99.0" y="56.0" font-size="13" fill="#1B2A4A" text-anchor="middle" font-weight="700">① 1年的固定成本</text>
+<text x="99.0" y="84.0" font-size="17" fill="#1B2A4A" text-anchor="middle" font-weight="700">4,450万日元</text>
+<text x="99.0" y="106.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">折旧、维修费、发电侧收费</text>
+<text x="194.0" y="86.0" font-size="22" fill="#6C7A89" text-anchor="middle" font-weight="700">−</text>
+<rect x="204.0" y="34.0" width="166.0" height="86.0" fill="#FFFFFF" rx="8" stroke="#1A7A4C" stroke-width="2"/>
+<text x="287.0" y="56.0" font-size="13" fill="#1A7A4C" text-anchor="middle" font-weight="700">② 其他市场的收入</text>
+<text x="287.0" y="84.0" font-size="17" fill="#1B2A4A" text-anchor="middle" font-weight="700">0日元</text>
+<text x="287.0" y="106.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">首年度无法参加容量市场</text>
+<text x="380.0" y="86.0" font-size="22" fill="#6C7A89" text-anchor="middle" font-weight="700">÷</text>
+<rect x="390.0" y="34.0" width="168.0" height="86.0" fill="#FFFFFF" rx="8" stroke="#4599c6" stroke-width="2"/>
+<text x="474.0" y="56.0" font-size="13" fill="#4599c6" text-anchor="middle" font-weight="700">③ 可以投标的量</text>
+<text x="474.0" y="84.0" font-size="17" fill="#1B2A4A" text-anchor="middle" font-weight="700">3,154万</text>
+<text x="474.0" y="106.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">2,000kW×48时段×365天×90%</text>
+<line x1="564.0" y1="77.0" x2="582.0" y2="77.0" stroke="#6C7A89" stroke-width="1.6" marker-end="url(#arrc50e2)"/>
+<rect x="586.0" y="34.0" width="120.0" height="86.0" fill="#FFFFFF" rx="8" stroke="#C49A3C" stroke-width="2"/>
+<text x="646.0" y="56.0" font-size="13" fill="#C49A3C" text-anchor="middle" font-weight="700">一定额</text>
+<text x="646.0" y="84.0" font-size="17" fill="#1B2A4A" text-anchor="middle" font-weight="700">1.41日元</text>
+<text x="646.0" y="106.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">／ΔkW·30分钟</text>
+<text x="14.0" y="164.0" font-size="13.5" fill="#1B2A4A" font-weight="700">第2年（开始扣除容量市场视同收入）</text>
+<rect x="14.0" y="174.0" width="170.0" height="86.0" fill="#FFFFFF" rx="8" stroke="#1B2A4A" stroke-width="2"/>
+<text x="99.0" y="196.0" font-size="13" fill="#1B2A4A" text-anchor="middle" font-weight="700">① 1年的固定成本</text>
+<text x="99.0" y="224.0" font-size="17" fill="#1B2A4A" text-anchor="middle" font-weight="700">5,163万日元</text>
+<text x="99.0" y="246.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">加上固定资产税</text>
+<text x="194.0" y="226.0" font-size="22" fill="#6C7A89" text-anchor="middle" font-weight="700">−</text>
+<rect x="204.0" y="174.0" width="166.0" height="86.0" fill="#FFFFFF" rx="8" stroke="#1A7A4C" stroke-width="2"/>
+<text x="287.0" y="196.0" font-size="13" fill="#1A7A4C" text-anchor="middle" font-weight="700">② 其他市场的收入</text>
+<text x="287.0" y="224.0" font-size="17" fill="#1B2A4A" text-anchor="middle" font-weight="700">2,138万日元</text>
+<text x="287.0" y="246.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">容量市场：未参加也扣除</text>
+<text x="380.0" y="226.0" font-size="22" fill="#6C7A89" text-anchor="middle" font-weight="700">÷</text>
+<rect x="390.0" y="174.0" width="168.0" height="86.0" fill="#FFFFFF" rx="8" stroke="#4599c6" stroke-width="2"/>
+<text x="474.0" y="196.0" font-size="13" fill="#4599c6" text-anchor="middle" font-weight="700">③ 可以投标的量</text>
+<text x="474.0" y="224.0" font-size="17" fill="#1B2A4A" text-anchor="middle" font-weight="700">3,154万</text>
+<text x="474.0" y="246.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">与第1年相同</text>
+<line x1="564.0" y1="217.0" x2="582.0" y2="217.0" stroke="#6C7A89" stroke-width="1.6" marker-end="url(#arrc50e2)"/>
+<rect x="586.0" y="174.0" width="120.0" height="86.0" fill="#FFFFFF" rx="8" stroke="#C49A3C" stroke-width="2"/>
+<text x="646.0" y="196.0" font-size="13" fill="#C49A3C" text-anchor="middle" font-weight="700">一定额</text>
+<text x="646.0" y="224.0" font-size="17" fill="#1B2A4A" text-anchor="middle" font-weight="700">0.96日元</text>
+<text x="646.0" y="246.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">／ΔkW·30分钟</text>
+<text x="360.0" y="288.0" font-size="11.5" fill="#6C7A89" text-anchor="middle">固定成本只计入有公开单价的费目。人工成本、委托费、保险费等为空栏（加上则相应上升）。</text>
+</svg></div><figcaption>数字为本公司用公开数值所作的估算（50-3 试算篇）。固定成本包括：把6.8万日元/kWh的建设费分17年折旧的金额、维修费、发电侧收费、固定资产税。容量市场的收入按规定“即使没有参加，也按参加的前提扣除”。</figcaption></figure>
+<p>这里重要的有两点。第一，<strong>即使没有参加容量市场，参加了本可得到的收入也会被扣除</strong>（例外只有“刚投运、来不及投标的年份”和“投了标但未中标”两种情形）。第二，除数不是“实际中标的量”，而是“<strong>可以投标的量</strong>”。储能在1天的大部分时段都能投标，除数大，一定额就算得小。</p>
+
+<h2>为什么只压在储能身上</h2>
+<p>火电等电源固定成本高，又有检修等停机期间，可以投标的量少。所以一定额大，天花板远在市场价格之上。实际上，2024、2025年度与委员会事务局协议一定额的34件中，有28件是储能、储能VPP以外的电源，委员会对协议金额的评价是“实质上难以成交的高价水平”（<a target="_top" href="/zh-column-bidding-ceiling-monitoring">50-5 监视篇</a>）。因为太高，所以压不到。</p>
+<p>储能正好相反。固定成本小，几乎每个时段都能投标。用公开数值估算的一定额在1日元上下。另一方面，2026年9月一次离线的实际价格，在中部、北陆、关西、中国（指日本中国地区，下同）、四国、九州这6个分区为2.74〜3.69日元，东北为9.51日元、东京为8.58日元（<a target="_top" href="/zh-column-bidding-ceiling-market">50-4 市场篇</a>）。<strong>市场价格与一定额之间的差额，必须能用机会成本来解释。</strong>在天花板附近投标的，正是储能。</p>
+<figure class="c50fig" style="--fmin:600px"><figcaption class="c50top">图3　2026年9月一次离线的价格与两层天花板（日元/ΔkW·30分钟）</figcaption><p class="c50hint">← 可左右滑动查看 →</p><div class="c50scroll"><svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c50e3-t c50e3-d">
+<title id="c50e3-t">2026年9月一次离线的价格与两层天花板</title>
+<desc id="c50e3-d">2026年9月1日〜29日一次离线按中标量加权平均价格：北海道1.39、东北9.51、东京8.58、中部3.69、北陆3.19、关西3.26、中国3.34、四国2.74、九州3.04日元。叠加了上限10日元的线，以及用公开数值估算的一定额区间（0.96〜1.41日元）。</desc>
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F3F5F8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#B9C2CE" stroke-width="3"/></pattern></defs>
+<line x1="62.0" y1="326.0" x2="700.0" y2="326.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="330.5" font-size="13" fill="#6C7A89" text-anchor="end">0</text>
+<line x1="62.0" y1="279.7" x2="700.0" y2="279.7" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="284.2" font-size="13" fill="#6C7A89" text-anchor="end">2</text>
+<line x1="62.0" y1="233.3" x2="700.0" y2="233.3" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="237.8" font-size="13" fill="#6C7A89" text-anchor="end">4</text>
+<line x1="62.0" y1="187.0" x2="700.0" y2="187.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="191.5" font-size="13" fill="#6C7A89" text-anchor="end">6</text>
+<line x1="62.0" y1="140.7" x2="700.0" y2="140.7" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="145.2" font-size="13" fill="#6C7A89" text-anchor="end">8</text>
+<line x1="62.0" y1="94.3" x2="700.0" y2="94.3" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="98.8" font-size="13" fill="#6C7A89" text-anchor="end">10</text>
+<line x1="62.0" y1="48.0" x2="700.0" y2="48.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="52.5" font-size="13" fill="#6C7A89" text-anchor="end">12</text>
+<text x="12.0" y="18.0" font-size="12.5" fill="#6C7A89">日元/ΔkW·30分钟</text>
+<rect x="62.0" y="293.3" width="638.0" height="10.4" fill="#C49A3C" opacity="0.18"/>
+<rect x="62.0" y="28.0" width="14.0" height="10.0" fill="#C49A3C" opacity="0.5"/>
+<text x="81.0" y="37.0" font-size="12" fill="#2C3E50">用公开数值估算的一定额（第2年0.96〜第1年1.41日元）</text>
+<rect x="76.4" y="293.8" width="42.0" height="32.2" fill="#4599c6"/>
+<text x="97.4" y="288.8" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">1.39</text>
+<text x="97.4" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">北海道</text>
+<rect x="147.3" y="105.7" width="42.0" height="220.3" fill="#4599c6"/>
+<text x="168.3" y="120.7" font-size="11.5" fill="#FFFFFF" text-anchor="middle" font-weight="700">9.51</text>
+<text x="168.3" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">东北</text>
+<rect x="218.2" y="127.2" width="42.0" height="198.8" fill="#4599c6"/>
+<text x="239.2" y="122.2" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">8.58</text>
+<text x="239.2" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">东京</text>
+<rect x="289.1" y="240.5" width="42.0" height="85.5" fill="#4599c6"/>
+<text x="310.1" y="235.5" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">3.69</text>
+<text x="310.1" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">中部</text>
+<rect x="360.0" y="252.1" width="42.0" height="73.9" fill="#4599c6"/>
+<text x="381.0" y="247.1" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">3.19</text>
+<text x="381.0" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">北陆</text>
+<rect x="430.9" y="250.5" width="42.0" height="75.5" fill="#4599c6"/>
+<text x="451.9" y="245.5" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">3.26</text>
+<text x="451.9" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">关西</text>
+<rect x="501.8" y="248.6" width="42.0" height="77.4" fill="#4599c6"/>
+<text x="522.8" y="243.6" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">3.34</text>
+<text x="522.8" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">中国</text>
+<rect x="572.7" y="262.5" width="42.0" height="63.5" fill="#4599c6"/>
+<text x="593.7" y="257.5" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">2.74</text>
+<text x="593.7" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">四国</text>
+<rect x="643.6" y="255.6" width="42.0" height="70.4" fill="#4599c6"/>
+<text x="664.6" y="250.6" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">3.04</text>
+<text x="664.6" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">九州</text>
+<line x1="62.0" y1="94.3" x2="700.0" y2="94.3" stroke="#B03A2E" stroke-width="2.5" stroke-dasharray="8 5"/>
+<text x="696.0" y="87.3" font-size="13" fill="#B03A2E" text-anchor="end" font-weight="700">上限价格 10.00日元</text>
+</svg></div><figcaption>柱为2026年9月1日〜29日按中标量加权平均（EPRX速报值，按电源所在分区，本公司汇总）。红色虚线为上限价格10日元。黄色区间为用公开数值估算的2MW/8MWh一定额（第2年0.96日元〜第1年1.41日元，东京）。区间以上的部分，要用机会成本来解释。</figcaption></figure>
+
+<h2>为什么是现在</h2>
+<p>2026年度，是事业者<strong>自己计算一定额的第一年</strong>。到2025年度为止，大型事业者都与委员会事务局协议确定一定额（B类电源协议）。这一做法结束了，改为自己保留计算依据。2026年6月的专门会合上，事务局要求4〜6月以高价中标的事业者重新审视其计算。9月1日的上限10日元又叠加了上来。</p>
+<p>上限下调后的9月，一次离线的价格按分区分成了两组。东北9.51日元、东京8.58日元留在上限正下方，其余7个分区在1〜3日元区间。越是留在上限附近的报价，越会被追问“能否用公式解释”。9月的确定值（确报值）将在10月底前公布。</p>
+
+<h2>本系列的读法</h2>
+<p>导读（本页）只放结论。依据分成了4篇。顺序是 50-2 → 50-5，但从您关心的问题读起也读得通。</p>
+<div class="c50cards n4" style="margin:24px 0 30px">
+<div class="c50card k-volume"><div class="k">50-2 条文篇</div><div class="v">条文如何确定天花板</div><ul><li>公式只有一行。一定额是0.33日元，或由固定成本算出的金额</li><li>固定成本里计入什么、不计入什么</li><li>条文未确定的8点</li></ul><a class="go" target="_top" href="/zh-column-bidding-ceiling-law">→ 50-2 条文篇</a></div>
+<div class="c50card k-supply"><div class="k">50-3 试算篇</div><div class="v">只用公开数值，是多少日元</div><ul><li>第1年1.411日元，第2年0.959日元（东京）</li><li>9个分区，以及改变建设费、可投标比例时</li><li>空栏留给您填入自己的数字</li></ul><a class="go" target="_top" href="/zh-column-bidding-ceiling-calc">→ 50-3 试算篇</a></div>
+<div class="c50card k-floor"><div class="k">50-4 市场篇</div><div class="v">9月，报价落在了哪里</div><ul><li>一次离线全国11.07日元→5.81日元</li><li>只有东北、东京留在上限之下</li><li>白天与夜间价格几乎相同</li></ul><a class="go" target="_top" href="/zh-column-bidding-ceiling-market">→ 50-4 市场篇</a></div>
+<div class="c50card"><div class="k">50-5 监视篇</div><div class="v">由谁、如何监视</div><ul><li>从报告征收到协议，再到事后监视</li><li>2026年6月，要求重新审视高价的计算</li><li>与海外规则的差异</li></ul><a class="go" target="_top" href="/zh-column-bidding-ceiling-monitoring">→ 50-5 监视篇</a></div>
+</div>
+
+<h2>常听到的说法，与资料的回答</h2>
+<ul>
+<li><strong>“公式是这次修订才有的”</strong>──从固定成本中减去其他市场收入再相除的公式，2021年的制定草案里就有了。新的是两点：除数变成了“可以投标的量”，以及固定成本计入、不计入的费目写进了条文。→ <a target="_top" href="/zh-column-bidding-ceiling-law">50-2 条文篇</a></li>
+<li><strong>“一定额有好几日元”</strong>──用公开数值估算，第1年也只有1日元多，第2年起不到1日元。人工成本、聚合商费用等没有公开单价的费目没有计入，那是需要您自己加上的栏目。→ <a target="_top" href="/zh-column-bidding-ceiling-calc">50-3 试算篇</a></li>
+<li><strong>“聚合商的成功报酬可以计入固定成本”</strong>──条文写的是“在特定固定成本的基础上计入”。不是把分成直接加上，而是从明细中挑出人工成本、系统费用等固定成本再计入。→ <a target="_top" href="/zh-column-bidding-ceiling-law">50-2 条文篇</a></li>
+<li><strong>“降得最多的是折旧结束那年”</strong>──最大的台阶出现在开始扣除容量市场视同收入的那一年（估算中为第2年）。因为即使没有参加容量市场，也要扣除参加了本可得到的金额。→ <a target="_top" href="/zh-column-bidding-ceiling-calc">50-3 试算篇</a></li>
+</ul>
+
+<h2>尚未确定的事项</h2>
+<p>把条文读完，仍有一些事项无法确定：储能的机会成本怎么算；“电源等”指聚合商的投标单位还是单个储能电站；折旧按会计还是按税务计提；“已收回固定成本”如何判定，等等。正文中标为“未确定”，并列出了确认对象（<a target="_top" href="/zh-column-bidding-ceiling-law">50-2 条文篇</a>末尾）。使用即时全额折旧时的处理也是其中之一，制度本身见<a target="_top" href="/zh-column-investment-tax">COLUMN 45</a>。</p>
+
+<h2>本估算的设定</h2>
+<p>一定额的数字，以高压2MW/8MWh、经由聚合商投标一次离线的储能电站为对象。计入的只有建设费（折旧）、维修费、发电侧收费、固定资产税，以及容量市场的视同收入。全部是国家、广域机构、输配电事业者公开的单价，没有自行设定的单价。</p>
+<p>人工成本、O&amp;M委托费、保险费、土地租金，以及聚合商费用中可特定为固定成本的部分，因为没有公开单价，留作空栏。加上这些，一定额会相应上升：每年1,000万日元约0.32日元。所以请不要把这个数字当作天花板本身的高度，而要当作<strong>下限一侧的参考</strong>。</p>
+
+<h2>致持有者、买方、卖方</h2>
+<ul>
+<li><strong>持有者。</strong>通过协议确定金额的机制在2025年度结束，2026年度起改为自己计算并保留依据。固定成本明细、可投标量的计算方法、能否参加容量市场投标的记录——手边备齐这三样，被要求说明时就不会为难。</li>
+<li><strong>买方。</strong>收支测算中的ΔkW单价，不要用上限10日元，取“所在分区的实际价格”与“能用公式解释的高度”两者中较低的一个更稳妥。9月的实际价格，按分区从1日元区间到9日元区间不等。</li>
+<li><strong>卖方。</strong>买方把这层天花板计入收支后，ΔkW单价会设得比上限低。如果有参加容量市场投标的记录、聚合商费用的明细，就能有依据地说明天花板的高度。</li>
+</ul>
+<p>数字均由本公司依据EPRX、电力·燃气交易监视等委员会、电力广域运营推进机构等的公开资料清点得出，计算脚本也已公开。出处见各页末尾。</p>
+
+<div class="author-box">
+  <div class="ab-label">本文监修</div>
+  <div><span class="ab-name">中岛晋也</span>（Science X Inc. 代表董事、工学博士）</div>
+  <p style="margin:6px 0 0">从事日本电网侧储能电站的开发、买卖与技术尽职调查。本文基于实际项目的组建与评估经验撰写并监修。</p>
+</div>
+
+</div>
+</div>
+<!-- scix-column-cta : 1記事1つ。ZH は単一ファネル（/zh-contact）。案件一覧 /projects は日本語のみ -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans SC','Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif SC','Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">计入这层天花板、重新测算收支后，再挑选项目</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">所在都道府县、规模、并网预期、推进程度，无需签订保密协议即可查看。只刊登已取得接入研究答复的项目。</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/zh-contact" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">联系我们 →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">将打开咨询表单。请在留言栏写明您是买方还是卖方。持有储能电站或权利、考虑出售的一方，如有接入研究答复书，请附上副本。</p>
+  </div>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <a target="_top" href="https://www.scix.co.jp/projects" style="color:#1B2A4A;font-weight:600;font-size:13.5px;text-decoration:none;border-bottom:1px solid #C49A3C;padding-bottom:2px">在售项目一览（日文） →</a>
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.85;margin:10px 0 0">项目一览页面目前仅有日文版。感兴趣的项目，可在页面上一次申请多个项目的资料。</p>
+  </div>
+</div>
+
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans SC','Noto Sans JP',sans-serif">
+  <div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">相关文章</div>
+  <a target="_top" href="/zh-column-price-cap" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">天花板，下调5日元 — 辅助服务市场上限降至10日元（COLUMN 41） →</a>
+  <a target="_top" href="/zh-column-balancing-saturation-floor" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">7.21日元之后的地板在哪里 — 天花板由制度决定，地板由储能自身决定（COLUMN 47-4） →</a>
+</div>
+
+<!-- ScienceX Footer — self-contained (zh-CN) -->
+<style>
+  .scix-footer *{margin:0;padding:0;box-sizing:border-box}
+  .scix-footer{background-color:#1B2A4A;color:rgba(255,255,255,0.85);font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+  .scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px}
+  .scix-footer-logo img{height:48px;width:auto;display:block;opacity:0.95}
+  .scix-footer-info{text-align:center}
+  .scix-footer-copyright{font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px}
+  .scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8)}
+  .scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+  .scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+  .scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none;transition:color 0.2s ease}
+  .scix-footer-company a:hover{color:#C49A3C}
+  .scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12);margin:0 auto}
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img src="/img/logo-white.png" alt="ScienceX Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.（赛恩斯艾克斯）</div>
+        日本〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/zh" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">首页</a>
+        <a href="/zh-knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">洞见</a>
+        <a href="/zh-qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">问答</a>
+        <a href="/zh-contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">联系我们</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">隐私政策</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

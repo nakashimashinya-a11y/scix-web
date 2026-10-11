@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.85em}
+.comparison-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Serif JP',serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#1B2A4A;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.seo-note{display:none}
+.bar-chart{margin:28px 0}
+.bar-row{display:flex;align-items:center;margin-bottom:6px;font-size:.85em}
+.bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.bar-track{flex:1;background:#EBEEF2;height:28px;border-radius:3px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;min-width:2px;transition:width .6s ease}
+.bar-fill.high{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.bar-fill.mid{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.bar-fill.low{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.bar-fill.over{background:linear-gradient(90deg,#2980B9,#3498DB)}
+.bar-value{margin-left:8px;font-size:.82em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:80px}
+.heatmap-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.82em}
+.heatmap-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:center;font-weight:500;font-size:.78em}
+.heatmap-table td{padding:8px 10px;text-align:center;border:1px solid #E2E6EC;font-weight:600}
+.heatmap-table td.h5{background:#FDEBEB;color:#922B21}
+.heatmap-table td.h4{background:#FDEBD0;color:#935116}
+.heatmap-table td.h3{background:#FEF9E7;color:#7D6608}
+.heatmap-table td.h2{background:#EAFAF1;color:#1E8449}
+.heatmap-table td.h1{background:#D4EFDF;color:#196F3D}
+.heatmap-table td.h0{background:#D6EAF8;color:#21618C}
+.heatmap-table .area-cell{text-align:left;font-weight:700;background:#F8F9FB;color:var(--navy)}
+.tab-bar{display:flex;border-bottom:2px solid var(--border);margin:24px 0 0;gap:0;flex-wrap:wrap}
+.tab-item{padding:10px 20px;font-size:.88em;font-weight:600;color:var(--text-light);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
+.tab-item:hover{color:var(--navy)}
+.tab-item.active{color:var(--navy);border-bottom-color:var(--accent)}
+@media(max-width:480px){.tab-item{padding:8px 12px;font-size:.78em}}
+.ts-legend{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 16px;font-size:.78em;color:var(--text-light)}
+.ts-leg-item{display:flex;align-items:center;gap:5px}
+.ts-leg-box{width:14px;height:14px;border-radius:2px;flex-shrink:0}
+.chart-container{position:relative;margin:0 0 16px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff}
+.chart-header{display:flex;justify-content:space-between;align-items:baseline;padding:12px 20px 4px}
+.chart-area-name{font-weight:700;color:var(--navy);font-size:1em}
+.chart-stats{font-size:.82em;color:var(--text-light)}
+.chart-stats strong{color:var(--navy)}
+.chart-stats .surplus{color:#2980B9}
+.chart-no-data{padding:12px 20px 16px;font-size:.82em;color:var(--text-light);text-align:center}
+.chart-canvas-wrap{position:relative;padding:0 16px 4px}
+.chart-canvas{width:100%;height:80px;display:block}
+.chart-tooltip{position:absolute;background:rgba(27,42,74,0.95);color:#fff;padding:8px 12px;border-radius:4px;font-size:.75em;line-height:1.5;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;white-space:nowrap}
+.chart-axis{display:flex;justify-content:space-between;font-size:.68em;color:var(--text-light);padding:0 16px 10px}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  .comparison-table{font-size:.78em}
+  .comparison-table th,.comparison-table td{padding:6px 8px}
+  .bar-label{width:44px;font-size:.78em}
+  .heatmap-table{font-size:.72em}
+  .heatmap-table th,.heatmap-table td{padding:5px 4px}
+  .chart-canvas{height:64px}
+  .chart-header{padding:10px 12px 3px}
+  .chart-canvas-wrap{padding:0 12px 3px}
+  .chart-axis{padding:0 12px 8px;font-size:.6em}
+}
+.s-bar-row{display:flex;align-items:center;margin-bottom:5px;font-size:.85em}
+.s-bar-label{width:52px;text-align:right;padding-right:10px;font-weight:500;color:var(--navy);flex-shrink:0}
+.s-bar-wrap{flex:1;position:relative;height:28px;background:#EBEEF2;border-radius:3px;overflow:hidden}
+.s-bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:.78em;font-weight:600;color:#fff;transition:width .4s ease}
+.s-bar-fill.sh{background:linear-gradient(90deg,#C0392B,#E74C3C)}
+.s-bar-fill.sm{background:linear-gradient(90deg,#E67E22,#F39C12)}
+.s-bar-fill.sl{background:linear-gradient(90deg,#27AE60,#2ECC71)}
+.s-bar-meta{margin-left:8px;font-size:.8em;color:var(--text-light);white-space:nowrap;flex-shrink:0;width:120px}
+.s-bar-meta strong{color:var(--navy)}
+.tieline-flow{margin:28px 0;font-size:.85em}
+.tl-row{display:flex;align-items:center;margin-bottom:4px;gap:4px}
+.tl-label{width:100px;text-align:right;font-weight:500;color:var(--navy);flex-shrink:0;font-size:.82em}
+.tl-bar-wrap{flex:1;display:flex;gap:2px}
+.tl-bar{height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.7em;font-weight:600;color:#fff;min-width:20px}
+.tl-fwd{background:var(--accent)}
+.tl-rev{background:var(--navy-light)}
+.tl-val{width:44px;font-size:.78em;color:var(--text-light);text-align:right;flex-shrink:0}
+.author-box{background:var(--light-bg,#F8F9FB);border:1px solid var(--border,#E2E6EC);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
+
+
+:root{--c50-cyan:#4599c6}
+figure.c50{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c50 .c50scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--white);
+  border:1px solid var(--border);border-radius:3px}
+figure.c50 .c50scroll>svg{display:block;min-width:var(--fmin,0)}
+figure.c50 figcaption{font-size:.78em;color:var(--text-light);margin-top:10px;line-height:1.7}
+figure.c50 .c50hint{font-size:.72em;color:var(--text-light);margin:0 0 7px;letter-spacing:.04em}
+/* Figures that do not fit the 712px text column widen beyond it rather than shrinking the type;
+   only when the screen is narrower than that do they scroll sideways inside. */
+figure.c50.wide{width:min(calc(100vw - 32px), var(--fw));margin-left:50%;transform:translateX(-50%)}
+figure.c50.wide .c50hint{display:none}
+@media(max-width:1100px){figure.c50.wide .c50hint{display:block}}
+figure.c50fig{margin:30px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:18px}
+figure.c50fig .c50top{font-size:.78em;color:var(--text-light);margin:0 0 12px;line-height:1.7}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.table-wrap .comparison-table{margin:0;min-width:520px}
+ul.source-list{font-size:.82em;line-height:1.95;color:var(--text-light);word-break:break-word;
+  padding-left:1.15em;margin:0 0 8px}
+ul.source-list a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--border)}
+ul.source-list a:hover{border-bottom-color:var(--accent)}
+.c50series{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 30px;padding:12px 14px;
+  background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+.c50series .lb{font-size:.74em;color:var(--text-light);letter-spacing:.06em;width:100%;margin-bottom:2px}
+.c50series a,.c50series span.cur{font-size:.83em;text-decoration:none;padding:3px 10px;border-radius:3px;line-height:1.7}
+.c50series a{color:var(--navy);background:var(--white);border:1px solid var(--border)}
+.c50series a:hover{border-color:var(--accent)}
+.c50series span.cur{color:var(--white);background:var(--navy);font-weight:600}
+@media(max-width:768px){figure.c50,figure.c50fig{padding:12px}}
+
+
+.c50cards{display:grid;gap:14px;margin:0}
+.c50cards.n3{grid-template-columns:repeat(3,1fr)}
+.c50cards.n4{grid-template-columns:repeat(2,1fr)}
+.c50card{border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;
+  background:var(--white);padding:16px 18px 14px;display:flex;flex-direction:column}
+.c50card.k-volume{border-top-color:var(--navy)}
+.c50card.k-supply{border-top-color:#4599c6}
+.c50card.k-floor{border-top-color:var(--accent)}
+.c50card .k{font-size:.78em;letter-spacing:.06em;color:var(--text-light);margin-bottom:6px}
+.c50card .v{font-family:'Noto Serif JP',serif;font-weight:600;color:var(--navy);
+  font-size:1.02em;line-height:1.5;margin-bottom:10px}
+.c50card ul{list-style:none;margin:0 0 10px;padding:0;font-size:.84em;line-height:1.8;color:var(--text)}
+.c50card ul li{padding-left:11px;position:relative}
+.c50card ul li::before{content:'';position:absolute;left:0;top:.72em;width:4px;height:4px;
+  border-radius:50%;background:var(--accent)}
+.c50card .go{margin-top:auto;font-size:.82em;font-weight:600;color:var(--navy);
+  text-decoration:none;border-bottom:1px solid var(--accent);align-self:flex-start;padding-bottom:2px}
+.c50card .go:hover{color:var(--accent)}
+@media(max-width:700px){.c50cards.n3,.c50cards.n4{grid-template-columns:1fr}}
+
+/* COLUMN 50 */
+figure.c50fig svg{display:block;width:100%;height:auto;font-family:'Noto Sans JP',sans-serif}
+figure.c50fig .c50scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--white);border:1px solid var(--border);border-radius:3px}
+figure.c50fig .c50scroll>svg{min-width:var(--fmin,0)}
+figure.c50fig .c50hint{font-size:.72em;color:var(--text-light);margin:0 0 7px;letter-spacing:.04em;display:none}
+@media(max-width:600px){figure.c50fig .c50hint{display:block}}
+.mk{display:inline-block;font-size:.7em;font-weight:700;letter-spacing:.04em;padding:0 6px;border-radius:3px;line-height:1.75;margin:0 2px;vertical-align:.12em;white-space:nowrap}
+.mk.ok{background:var(--navy);color:#fff}
+.mk.say{background:#F3EBD8;color:#7A5A12}
+.mk.open{background:#fff;color:#6C7A89;border:1px dashed #9AA5B1}
+.comparison-table td.blank{background:repeating-linear-gradient(135deg,#fff,#fff 6px,#F3F5F8 6px,#F3F5F8 12px);color:var(--text-light);font-size:.92em}
+.comparison-table td.num,.comparison-table th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.open-list{list-style:none;padding:0;margin:20px 0}
+.open-list li{border:1px solid var(--border);border-left:3px solid #9AA5B1;border-radius:0 6px 6px 0;padding:12px 16px;margin-bottom:10px;font-size:.9em;line-height:1.85;background:var(--white)}
+.open-list li b{color:var(--navy)}
+.open-list li .to{display:block;font-size:.88em;color:var(--text-light);margin-top:2px}
+.formula{font-family:'Noto Serif JP',serif;font-size:1.02em;color:var(--navy);background:var(--white);border:1px solid var(--border);border-radius:6px;padding:14px 18px;margin:20px 0;line-height:1.9;text-align:center}
+blockquote.gl{margin:20px 0;padding:12px 18px;border-left:3px solid var(--navy);background:var(--light-bg);font-size:.9em;line-height:1.95;color:var(--text)}
+blockquote.gl cite{display:block;font-style:normal;font-size:.82em;color:var(--text-light);margin-top:4px}
+
+.ja-tag{display:inline-block;margin-left:.35em;padding:0 .4em;font-size:.66em;font-weight:700;letter-spacing:.07em;color:#A07916;background:rgba(196,154,60,.15);border-radius:2px;vertical-align:.14em;text-decoration:none}
+</style>
+<title>Primary Offline Under the ¥10 Cap: September 2026 at ¥5.81 | ScienceX</title>
+<meta name="description" content="September 2026, the first month of the ¥10 cap: primary offline fell from ¥11.07 to ¥5.81 nationally. Tohoku and Tokyo stayed near the cap; seven areas fell to ¥1–3.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-bidding-ceiling-market">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-bidding-ceiling-market">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-bidding-ceiling-market">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-bidding-ceiling-market">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-bidding-ceiling-market">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Primary Offline Under the ¥10 Cap: September 2026 at ¥5.81 | ScienceX">
+<meta property="og:description" content="Where primary offline bids landed in September 2026, the first month under the ¥10 cap.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-bidding-ceiling-market">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Primary Offline Under the ¥10 Cap: September 2026 at ¥5.81 | ScienceX">
+<meta name="twitter:description" content="Where primary offline bids landed in September 2026, the first month under the ¥10 cap.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-en.png">
+<meta property="article:published_time" content="2026-10-04">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Primary Offline Under the ¥10 Cap: September 2026 at ¥5.81 | ScienceX",
+  "description": "Where primary offline bids landed in September 2026, the first month under the ¥10 cap. The national weighted average went from ¥11.07 to ¥5.81; Tohoku at ¥9.51 and Tokyo at ¥8.58 stayed under the cap, while seven areas fell to the ¥1–3 range. By month, by area, by award rate and by time of day — our aggregation of EPRX trading results, explained with figures.",
+  "author": {
+    "@type": "Person",
+    "name": "Shinya Nakashima",
+    "jobTitle": "Representative Director, Ph.D. (Eng.)",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-10-04",
+  "dateModified": "2026-10-04",
+  "inLanguage": "en",
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-bidding-ceiling-market",
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "name": "COLUMN 50",
+    "url": "https://www.scix.co.jp/en/column-bidding-ceiling"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What happened to primary offline prices in September, when the cap became ¥10?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On EPRX preliminary figures, the volume-weighted average for primary offline went from ¥11.07 for 1 April – 31 August to ¥5.81 for 1–29 September. Tohoku at ¥9.51 and Tokyo at ¥8.58 stayed under the cap, while Hokkaido, Chubu, Hokuriku, Kansai, Chugoku, Shikoku and Kyushu fell to the ¥1–3 range."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which areas had awards at ¥10 or more in September?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In primary offline, the displayed maximum awarded price was ¥10 or more on all 29 days from 1 to 29 September in Tohoku (1,260 slots), on 11 days in Tokyo (83 slots), on 3 days in Kansai and on 1 day in Chugoku. Of Tohoku's 1,260 slots, only 21 on 1 September were displayed above ¥10; the rest were exactly ¥10.00. Bids above the cap are cut to ¥10.00 at settlement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do primary offline prices differ by time of day?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hardly at all in September. The national weighted average was ¥5.68–5.95 across six 4-hour blocks, and Tohoku was at ¥9.58 even from 0:00 to 4:00. What a battery can earn on JEPX differs greatly between the evening and the small hours, so the higher a night-time bid, the harder it is to explain with the guideline's formula."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Revenue & Markets",
+      "item": "https://www.scix.co.jp/en/knowledge#cat-market"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "September under the ¥10 cap: primary offline at ¥5.81 — only Tohoku and Tokyo stayed under the ceiling",
+      "item": "https://www.scix.co.jp/en/column-bidding-ceiling-market"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/en" style="color:#5A6577;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#5A6577;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge#cat-market" style="color:#5A6577;text-decoration:none">Revenue &amp; Markets</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">September under the ¥10 cap: primary offline at ¥5.81 — only Tohoku and Tokyo stayed under the ceiling</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 50-4</span>
+      <span class="header-tag">Market Analysis</span>
+      <time class="header-date" datetime="2026-10-04">2026.10.04</time>
+    </div>
+    <h1>September under the ¥10 cap: primary offline at ¥5.81<br>— only Tohoku and Tokyo stayed just under the ceiling</h1>
+    <p class="header-desc">In September 2026, the first month under the ¥10 cap, the national average primary offline price went from ¥11.07 to ¥5.81. Tohoku at ¥9.51 and Tokyo at ¥8.58 stayed just under the cap, while the other seven areas fell to the ¥1–3 range. The more of the bids get through in an area, the closer the price sits to the cap — and prices are almost the same by night and by day. We go through EPRX's trading results in figures.</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/en/knowledge" class="back-link">← Back to Knowledge</a>
+<nav class="c50series" aria-label="COLUMN 50"><span class="lb">A five-part series</span><a target="_top" href="/en/column-bidding-ceiling">COLUMN 50 Overview</a><a target="_top" href="/en/column-bidding-ceiling-law">50-2 Rules</a><a target="_top" href="/en/column-bidding-ceiling-calc">50-3 Calculation</a><span class="cur">50-4 Market</span><a target="_top" href="/en/column-bidding-ceiling-monitoring">50-5 Monitoring</a></nav>
+<p>From the 1 September 2026 delivery, the primary offline cap became ¥10.00/ΔkW·30min. This article counts where primary offline bids landed before and after that, using the trading results of EPRX (the Electric Power Reserve Exchange). The one question: in September, with the cap at ¥10, how far did battery bids fall, and where did they hold?</p>
+<p>There are two windows: 1 April – 31 August under the ¥15 cap (153 days), and 1–29 September under the ¥10 cap (29 days). Both use EPRX preliminary figures; areas are by where the resource is located, and prices are volume-weighted averages (Σ average awarded price × awarded volume ÷ Σ awarded volume). How the cap came down, and how much it removes, is in <a target="_top" href="/en/column-price-cap">COLUMN 41</a>.</p>
+<div class="data-box"><strong>How to read this article.</strong> These figures are not split by resource type. When we counted earlier, batteries accounted for over 99% of awarded primary offline volume from April to mid-August 2026 (<a target="_top" href="/en/column-price-cap">COLUMN 41</a>), so we read the offline totals as values for 2 MW / 8 MWh-class batteries.</div>
+
+<h2>1. Nationally, it halved</h2>
+<figure class="c50fig" style="--fmin:600px"><figcaption class="c50top">Figure 1 Primary offline prices by month (volume-weighted average, preliminary, April–September 2026)</figcaption><p class="c50hint">← Scroll sideways →</p><div class="c50scroll"><svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c50m1-t c50m1-d">
+<title id="c50m1-t">Primary offline prices by month (April–September 2026)</title>
+<desc id="c50m1-d">The national volume-weighted average was ¥12.29 in April, ¥12.53 in May, ¥11.71 in June, ¥10.25 in July, ¥9.63 in August and ¥5.81 in September. Tohoku went from 13.49 to 9.51, Tokyo 11.47 to 8.58, Chubu 14.57 to 3.69, Kyushu 11.94 to 3.04 and Hokkaido 3.86 to 1.39 yen.</desc>
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F3F5F8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#B9C2CE" stroke-width="3"/></pattern></defs>
+<rect x="535.3" y="48.0" width="94.7" height="298.0" fill="#B03A2E" opacity="0.12"/>
+<text x="541.3" y="62.0" font-size="11.5" fill="#B03A2E" font-weight="700">¥10 cap</text>
+<line x1="62.0" y1="346.0" x2="630.0" y2="346.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="350.5" font-size="13" fill="#6C7A89" text-anchor="end">0</text>
+<line x1="62.0" y1="308.8" x2="630.0" y2="308.8" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="313.2" font-size="13" fill="#6C7A89" text-anchor="end">2</text>
+<line x1="62.0" y1="271.5" x2="630.0" y2="271.5" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="276.0" font-size="13" fill="#6C7A89" text-anchor="end">4</text>
+<line x1="62.0" y1="234.2" x2="630.0" y2="234.2" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="238.8" font-size="13" fill="#6C7A89" text-anchor="end">6</text>
+<line x1="62.0" y1="197.0" x2="630.0" y2="197.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="201.5" font-size="13" fill="#6C7A89" text-anchor="end">8</text>
+<line x1="62.0" y1="159.8" x2="630.0" y2="159.8" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="164.2" font-size="13" fill="#6C7A89" text-anchor="end">10</text>
+<line x1="62.0" y1="122.5" x2="630.0" y2="122.5" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="127.0" font-size="13" fill="#6C7A89" text-anchor="end">12</text>
+<line x1="62.0" y1="85.2" x2="630.0" y2="85.2" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="89.8" font-size="13" fill="#6C7A89" text-anchor="end">14</text>
+<line x1="62.0" y1="48.0" x2="630.0" y2="48.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="52.5" font-size="13" fill="#6C7A89" text-anchor="end">16</text>
+<text x="12.0" y="18.0" font-size="12.5" fill="#6C7A89">¥/ΔkW·30min</text>
+<text x="109.3" y="364.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">Apr</text>
+<text x="204.0" y="364.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">May</text>
+<text x="298.7" y="364.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">Jun</text>
+<text x="393.3" y="364.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">Jul</text>
+<text x="488.0" y="364.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">Aug</text>
+<text x="582.7" y="364.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">Sep</text>
+<line x1="62.0" y1="66.6" x2="630.0" y2="66.6" stroke="#B03A2E" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="68.0" y="60.6" font-size="12.5" fill="#B03A2E" font-weight="700">¥15 cap (to August)</text>
+<line x1="62.0" y1="159.8" x2="630.0" y2="159.8" stroke="#B03A2E" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="68.0" y="153.8" font-size="12.5" fill="#B03A2E" font-weight="700">¥10 cap (from 1 September)</text>
+<path d="M109.3,94.8 L204.0,69.3 L298.7,73.0 L393.3,76.1 L488.0,75.6 L582.7,168.9" stroke="#B03A2E" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="109.3" cy="94.8" r="3.5" fill="#B03A2E"/>
+<circle cx="204.0" cy="69.3" r="3.5" fill="#B03A2E"/>
+<circle cx="298.7" cy="73.0" r="3.5" fill="#B03A2E"/>
+<circle cx="393.3" cy="76.1" r="3.5" fill="#B03A2E"/>
+<circle cx="488.0" cy="75.6" r="3.5" fill="#B03A2E"/>
+<circle cx="582.7" cy="168.9" r="3.5" fill="#B03A2E"/>
+<text x="590.7" y="172.9" font-size="12.5" fill="#B03A2E" font-weight="700">Tohoku</text>
+<path d="M109.3,132.4 L204.0,130.1 L298.7,120.8 L393.3,127.0 L488.0,133.3 L582.7,186.3" stroke="#C49A3C" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="109.3" cy="132.4" r="3.5" fill="#C49A3C"/>
+<circle cx="204.0" cy="130.1" r="3.5" fill="#C49A3C"/>
+<circle cx="298.7" cy="120.8" r="3.5" fill="#C49A3C"/>
+<circle cx="393.3" cy="127.0" r="3.5" fill="#C49A3C"/>
+<circle cx="488.0" cy="133.3" r="3.5" fill="#C49A3C"/>
+<circle cx="582.7" cy="186.3" r="3.5" fill="#C49A3C"/>
+<text x="590.7" y="190.3" font-size="12.5" fill="#C49A3C" font-weight="700">Tokyo</text>
+<path d="M109.3,74.7 L204.0,78.9 L298.7,101.0 L393.3,155.1 L488.0,177.0 L582.7,277.2" stroke="#4599c6" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="109.3" cy="74.7" r="3.5" fill="#4599c6"/>
+<circle cx="204.0" cy="78.9" r="3.5" fill="#4599c6"/>
+<circle cx="298.7" cy="101.0" r="3.5" fill="#4599c6"/>
+<circle cx="393.3" cy="155.1" r="3.5" fill="#4599c6"/>
+<circle cx="488.0" cy="177.0" r="3.5" fill="#4599c6"/>
+<circle cx="582.7" cy="277.2" r="3.5" fill="#4599c6"/>
+<text x="590.7" y="274.2" font-size="12.5" fill="#4599c6" font-weight="700">Chubu</text>
+<path d="M109.3,123.7 L204.0,143.5 L298.7,217.7 L393.3,240.4 L488.0,253.5 L582.7,289.4" stroke="#1A7A4C" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="109.3" cy="123.7" r="3.5" fill="#1A7A4C"/>
+<circle cx="204.0" cy="143.5" r="3.5" fill="#1A7A4C"/>
+<circle cx="298.7" cy="217.7" r="3.5" fill="#1A7A4C"/>
+<circle cx="393.3" cy="240.4" r="3.5" fill="#1A7A4C"/>
+<circle cx="488.0" cy="253.5" r="3.5" fill="#1A7A4C"/>
+<circle cx="582.7" cy="289.4" r="3.5" fill="#1A7A4C"/>
+<text x="590.7" y="301.4" font-size="12.5" fill="#1A7A4C" font-weight="700">Kyushu</text>
+<path d="M109.3,274.1 L204.0,194.3 L298.7,246.7 L393.3,249.4 L488.0,272.1 L582.7,320.0" stroke="#6C7A89" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="109.3" cy="274.1" r="3.5" fill="#6C7A89"/>
+<circle cx="204.0" cy="194.3" r="3.5" fill="#6C7A89"/>
+<circle cx="298.7" cy="246.7" r="3.5" fill="#6C7A89"/>
+<circle cx="393.3" cy="249.4" r="3.5" fill="#6C7A89"/>
+<circle cx="488.0" cy="272.1" r="3.5" fill="#6C7A89"/>
+<circle cx="582.7" cy="320.0" r="3.5" fill="#6C7A89"/>
+<text x="590.7" y="324.0" font-size="12.5" fill="#6C7A89" font-weight="700">Hokkaido</text>
+<path d="M109.3,117.1 L204.0,112.7 L298.7,127.9 L393.3,155.0 L488.0,166.6 L582.7,237.7" stroke="#1B2A4A" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="109.3" cy="117.1" r="3.5" fill="#1B2A4A"/>
+<circle cx="204.0" cy="112.7" r="3.5" fill="#1B2A4A"/>
+<circle cx="298.7" cy="127.9" r="3.5" fill="#1B2A4A"/>
+<circle cx="393.3" cy="155.0" r="3.5" fill="#1B2A4A"/>
+<circle cx="488.0" cy="166.6" r="3.5" fill="#1B2A4A"/>
+<circle cx="582.7" cy="237.7" r="3.5" fill="#1B2A4A"/>
+<text x="590.7" y="241.7" font-size="12.5" fill="#1B2A4A" font-weight="700">National</text>
+</svg></div><figcaption>Our aggregation of EPRX trading results. September covers the 1st to the 29th. The national figure adds together areas that fell in different ways.</figcaption></figure>
+<p>The national weighted average for primary offline went from ¥11.07 in April–August to ¥5.81 in September. On final figures April–August is ¥11.08, a difference of ¥0.01 from the preliminary figures. Final figures for September will be published by the end of October.</p>
+<div class="table-wrap"><table class="comparison-table">
+<tr><th>Area</th><th class="num">Apr</th><th class="num">May</th><th class="num">Jun</th><th class="num">Jul</th><th class="num">Aug</th><th class="num">Sep</th></tr>
+<tr><td>Tohoku</td><td class='num'>13.49</td><td class='num'>14.86</td><td class='num'>14.66</td><td class='num'>14.49</td><td class='num'>14.52</td><td class='num'>9.51</td></tr><tr><td>Tokyo</td><td class='num'>11.47</td><td class='num'>11.59</td><td class='num'>12.09</td><td class='num'>11.76</td><td class='num'>11.42</td><td class='num'>8.58</td></tr><tr><td>Chubu</td><td class='num'>14.57</td><td class='num'>14.34</td><td class='num'>13.15</td><td class='num'>10.25</td><td class='num'>9.08</td><td class='num'>3.69</td></tr><tr><td>Kyushu</td><td class='num'>11.94</td><td class='num'>10.87</td><td class='num'>6.89</td><td class='num'>5.67</td><td class='num'>4.97</td><td class='num'>3.04</td></tr><tr><td>National</td><td class='num'>12.29</td><td class='num'>12.53</td><td class='num'>11.71</td><td class='num'>10.25</td><td class='num'>9.63</td><td class='num'>5.81</td></tr>
+</table></div>
+<p>Nationally, from ¥12.53 in May the price had already fallen into the ¥10 range in July and the ¥9 range in August, before the cap came down. Chubu and Kyushu fell sharply over the summer and dropped another step in September. Tohoku and Tokyo did not move until August and came down with the cap on 1 September. The national figure is the sum of these two different movements.</p>
+
+<h2>2. A split in two</h2>
+<figure class="c50fig" style="--fmin:600px"><figcaption class="c50top">Figure 2 By area: April–August under the ¥15 cap, and September under the ¥10 cap (volume-weighted average, preliminary)</figcaption><p class="c50hint">← Scroll sideways →</p><div class="c50scroll"><svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c50m2-t c50m2-d">
+<title id="c50m2-t">By area: April–August under the ¥15 cap, and September under the ¥10 cap</title>
+<desc id="c50m2-d">Primary offline volume-weighted averages, April–August → September: Hokkaido 5.50 → 1.39, Tohoku 14.51 → 9.51, Tokyo 11.67 → 8.58, Chubu 11.75 → 3.69, Hokuriku 9.38 → 3.19, Kansai 11.67 → 3.26, Chugoku 10.02 → 3.34, Shikoku 5.92 → 2.74, Kyushu 7.54 → 3.04 yen.</desc>
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F3F5F8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#B9C2CE" stroke-width="3"/></pattern></defs>
+<line x1="62.0" y1="326.0" x2="700.0" y2="326.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="330.5" font-size="13" fill="#6C7A89" text-anchor="end">0</text>
+<line x1="62.0" y1="291.2" x2="700.0" y2="291.2" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="295.8" font-size="13" fill="#6C7A89" text-anchor="end">2</text>
+<line x1="62.0" y1="256.5" x2="700.0" y2="256.5" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="261.0" font-size="13" fill="#6C7A89" text-anchor="end">4</text>
+<line x1="62.0" y1="221.8" x2="700.0" y2="221.8" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="226.2" font-size="13" fill="#6C7A89" text-anchor="end">6</text>
+<line x1="62.0" y1="187.0" x2="700.0" y2="187.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="191.5" font-size="13" fill="#6C7A89" text-anchor="end">8</text>
+<line x1="62.0" y1="152.2" x2="700.0" y2="152.2" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="156.8" font-size="13" fill="#6C7A89" text-anchor="end">10</text>
+<line x1="62.0" y1="117.5" x2="700.0" y2="117.5" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="122.0" font-size="13" fill="#6C7A89" text-anchor="end">12</text>
+<line x1="62.0" y1="82.8" x2="700.0" y2="82.8" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="87.2" font-size="13" fill="#6C7A89" text-anchor="end">14</text>
+<line x1="62.0" y1="48.0" x2="700.0" y2="48.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="52.5" font-size="13" fill="#6C7A89" text-anchor="end">16</text>
+<text x="12.0" y="18.0" font-size="12.5" fill="#6C7A89">¥/ΔkW·30min</text>
+<rect x="73.6" y="230.4" width="22.8" height="95.6" fill="#B9C2CE"/>
+<text x="85.0" y="225.4" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">5.50</text>
+<rect x="98.4" y="301.8" width="22.8" height="24.2" fill="#4599c6"/>
+<text x="109.8" y="296.8" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">1.39</text>
+<text x="97.4" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">Hokkaido</text>
+<rect x="144.5" y="73.9" width="22.8" height="252.1" fill="#B9C2CE"/>
+<text x="155.9" y="88.9" font-size="11.5" fill="#FFFFFF" text-anchor="middle" font-weight="700">14.51</text>
+<rect x="169.3" y="160.8" width="22.8" height="165.2" fill="#4599c6"/>
+<text x="180.7" y="155.8" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">9.51</text>
+<text x="168.3" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">Tohoku</text>
+<rect x="215.4" y="123.2" width="22.8" height="202.8" fill="#B9C2CE"/>
+<text x="226.8" y="118.2" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">11.67</text>
+<rect x="240.2" y="176.9" width="22.8" height="149.1" fill="#4599c6"/>
+<text x="251.6" y="171.9" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">8.58</text>
+<text x="239.2" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">Tokyo</text>
+<rect x="286.3" y="121.8" width="22.8" height="204.2" fill="#B9C2CE"/>
+<text x="297.7" y="116.8" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">11.75</text>
+<rect x="311.1" y="261.9" width="22.8" height="64.1" fill="#4599c6"/>
+<text x="322.5" y="256.9" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">3.69</text>
+<text x="310.1" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">Chubu</text>
+<rect x="357.2" y="163.0" width="22.8" height="163.0" fill="#B9C2CE"/>
+<text x="368.6" y="158.0" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">9.38</text>
+<rect x="382.0" y="270.6" width="22.8" height="55.4" fill="#4599c6"/>
+<text x="393.4" y="265.6" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">3.19</text>
+<text x="381.0" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">Hokuriku</text>
+<rect x="428.1" y="123.2" width="22.8" height="202.8" fill="#B9C2CE"/>
+<text x="439.5" y="118.2" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">11.67</text>
+<rect x="452.9" y="269.4" width="22.8" height="56.6" fill="#4599c6"/>
+<text x="464.3" y="264.4" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">3.26</text>
+<text x="451.9" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">Kansai</text>
+<rect x="499.0" y="151.9" width="22.8" height="174.1" fill="#B9C2CE"/>
+<text x="510.4" y="146.9" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">10.02</text>
+<rect x="523.8" y="268.0" width="22.8" height="58.0" fill="#4599c6"/>
+<text x="535.2" y="263.0" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">3.34</text>
+<text x="522.8" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">Chugoku</text>
+<rect x="569.9" y="223.1" width="22.8" height="102.9" fill="#B9C2CE"/>
+<text x="581.3" y="218.1" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">5.92</text>
+<rect x="594.7" y="278.4" width="22.8" height="47.6" fill="#4599c6"/>
+<text x="606.1" y="273.4" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">2.74</text>
+<text x="593.7" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">Shikoku</text>
+<rect x="640.7" y="195.0" width="22.8" height="131.0" fill="#B9C2CE"/>
+<text x="652.1" y="190.0" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">7.54</text>
+<rect x="665.6" y="273.2" width="22.8" height="52.8" fill="#4599c6"/>
+<text x="677.0" y="268.2" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700">3.04</text>
+<text x="664.6" y="344.0" font-size="13" fill="#2C3E50" text-anchor="middle">Kyushu</text>
+<line x1="62.0" y1="152.2" x2="700.0" y2="152.2" stroke="#B03A2E" stroke-width="2.5" stroke-dasharray="8 5"/>
+<text x="696.0" y="145.2" font-size="13" fill="#B03A2E" text-anchor="end" font-weight="700">¥10 cap (from September)</text>
+<rect x="62.0" y="28.0" width="14.0" height="10.0" fill="#B9C2CE"/>
+<text x="81.0" y="37.0" font-size="12" fill="#2C3E50">Apr–Aug (¥15 cap)</text>
+<rect x="209.9" y="28.0" width="14.0" height="10.0" fill="#4599c6"/>
+<text x="228.9" y="37.0" font-size="12" fill="#2C3E50">Sep (¥10 cap)</text>
+</svg></div><figcaption>Our aggregation of EPRX trading results. Prices are displayed values before settlement; bids displayed above the cap are cut to the cap at settlement.</figcaption></figure>
+<div class="table-wrap"><table class="comparison-table">
+<tr><th>Area</th><th class="num">Apr–Aug</th><th class="num">Sep</th><th class="num">Award rate (Sep)</th></tr>
+<tr><td>Hokkaido</td><td class='num'>5.50</td><td class='num'>1.39</td><td class='num'>77.2%</td></tr><tr><td>Tohoku</td><td class='num'>14.51</td><td class='num'>9.51</td><td class='num'>95.6%</td></tr><tr><td>Tokyo</td><td class='num'>11.67</td><td class='num'>8.58</td><td class='num'>85.1%</td></tr><tr><td>Chubu</td><td class='num'>11.75</td><td class='num'>3.69</td><td class='num'>45.6%</td></tr><tr><td>Hokuriku</td><td class='num'>9.38</td><td class='num'>3.19</td><td class='num'>66.0%</td></tr><tr><td>Kansai</td><td class='num'>11.67</td><td class='num'>3.26</td><td class='num'>62.6%</td></tr><tr><td>Chugoku</td><td class='num'>10.02</td><td class='num'>3.34</td><td class='num'>48.5%</td></tr><tr><td>Shikoku</td><td class='num'>5.92</td><td class='num'>2.74</td><td class='num'>33.8%</td></tr><tr><td>Kyushu</td><td class='num'>7.54</td><td class='num'>3.04</td><td class='num'>53.9%</td></tr>
+<tr><td class="em">National</td><td class="num em">11.07</td><td class="num em">5.81</td><td class="num em">63.2%</td></tr>
+</table></div>
+<p>Tohoku and Tokyo stayed just under the cap. In Tohoku, bids of ¥10 or more were awarded on all 29 days of September — 1,260 slots in all. Only 21 slots, on 1 September, were displayed above ¥10; the rest were exactly ¥10.00, pinned to the cap. Tokyo came in at ¥8.58, with ¥10 or more on 11 days.</p>
+<p>The other seven areas fell to the ¥1–3 range. Chubu went from ¥11.75 to ¥3.69, Kansai from ¥11.67 to ¥3.26. In the month the cap fell to ¥10, they were awarded more than ¥6 below it.</p>
+<p>The displayed maximum awarded price also changed in September. In April–August the maximum reached ¥15.00 in all nine areas. In September the only displays above ¥10 were ¥15.00 in Tohoku and ¥12.50 in Kansai, both on 1 September. EPRX's system does not reject bids above the cap; it cuts them to the cap at settlement, so what is received is ¥10.00. From the second day on, no display above ¥10 has appeared.</p>
+
+<h2>3. Why it split — the award rate</h2>
+<figure class="c50fig" style="--fmin:600px"><figcaption class="c50top">Figure 3 The award rate and September prices (nine areas)</figcaption><p class="c50hint">← Scroll sideways →</p><div class="c50scroll"><svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c50m3-t c50m3-d">
+<title id="c50m3-t">The award rate and September prices</title>
+<desc id="c50m3-d">The horizontal axis is awarded volume ÷ bid volume (the share of bids that got through); the vertical axis is September's volume-weighted average. Tohoku 95.6%, ¥9.51; Tokyo 85.1%, ¥8.58; Hokkaido 77.2%, ¥1.39; Hokuriku 66.0%, ¥3.19; Kansai 62.6%, ¥3.26; Kyushu 53.9%, ¥3.04; Chugoku 48.5%, ¥3.34; Chubu 45.6%, ¥3.69; Shikoku 33.8%, ¥2.74.</desc>
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F3F5F8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#B9C2CE" stroke-width="3"/></pattern></defs>
+<line x1="62.0" y1="340.0" x2="696.0" y2="340.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="344.5" font-size="13" fill="#6C7A89" text-anchor="end">0</text>
+<line x1="62.0" y1="290.0" x2="696.0" y2="290.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="294.5" font-size="13" fill="#6C7A89" text-anchor="end">2</text>
+<line x1="62.0" y1="240.0" x2="696.0" y2="240.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="244.5" font-size="13" fill="#6C7A89" text-anchor="end">4</text>
+<line x1="62.0" y1="190.0" x2="696.0" y2="190.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="194.5" font-size="13" fill="#6C7A89" text-anchor="end">6</text>
+<line x1="62.0" y1="140.0" x2="696.0" y2="140.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="144.5" font-size="13" fill="#6C7A89" text-anchor="end">8</text>
+<line x1="62.0" y1="90.0" x2="696.0" y2="90.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="94.5" font-size="13" fill="#6C7A89" text-anchor="end">10</text>
+<line x1="62.0" y1="40.0" x2="696.0" y2="40.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="44.5" font-size="13" fill="#6C7A89" text-anchor="end">12</text>
+<line x1="62.0" y1="40.0" x2="62.0" y2="340.0" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="62.0" y="362.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">30%</text>
+<line x1="152.6" y1="40.0" x2="152.6" y2="340.0" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="152.6" y="362.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">40%</text>
+<line x1="243.1" y1="40.0" x2="243.1" y2="340.0" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="243.1" y="362.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">50%</text>
+<line x1="333.7" y1="40.0" x2="333.7" y2="340.0" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="333.7" y="362.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">60%</text>
+<line x1="424.3" y1="40.0" x2="424.3" y2="340.0" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="424.3" y="362.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">70%</text>
+<line x1="514.9" y1="40.0" x2="514.9" y2="340.0" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="514.9" y="362.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">80%</text>
+<line x1="605.4" y1="40.0" x2="605.4" y2="340.0" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="605.4" y="362.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">90%</text>
+<line x1="696.0" y1="40.0" x2="696.0" y2="340.0" stroke="#E2E6EC" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="696.0" y="362.0" font-size="12.5" fill="#6C7A89" text-anchor="middle">100%</text>
+<text x="12.0" y="18.0" font-size="12.5" fill="#6C7A89">¥/ΔkW·30min (September weighted average)</text>
+<text x="696.0" y="380.0" font-size="12.5" fill="#6C7A89" text-anchor="end">Award rate (awarded ÷ bid volume, September 2026)</text>
+<line x1="62.0" y1="90.0" x2="696.0" y2="90.0" stroke="#B03A2E" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="68.0" y="84.0" font-size="12.5" fill="#B03A2E" font-weight="700">¥10 cap</text>
+<circle cx="489.5" cy="305.2" r="7" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="499.5" y="309.2" font-size="12.5" fill="#2C3E50" font-weight="700">Hokkaido</text>
+<circle cx="656.1" cy="102.2" r="7" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="644.1" y="106.2" font-size="12.5" fill="#2C3E50" text-anchor="end" font-weight="700">Tohoku</text>
+<circle cx="561.0" cy="125.5" r="7" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="561.0" y="113.5" font-size="12.5" fill="#2C3E50" text-anchor="middle" font-weight="700">Tokyo</text>
+<circle cx="203.3" cy="247.8" r="7" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="191.3" y="245.8" font-size="12.5" fill="#2C3E50" text-anchor="end" font-weight="700">Chubu</text>
+<circle cx="388.1" cy="260.2" r="7" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="398.1" y="264.2" font-size="12.5" fill="#2C3E50" font-weight="700">Hokuriku</text>
+<circle cx="357.3" cy="258.5" r="7" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="357.3" y="245.5" font-size="12.5" fill="#2C3E50" text-anchor="middle" font-weight="700">Kansai</text>
+<circle cx="229.6" cy="256.5" r="7" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="229.6" y="276.5" font-size="12.5" fill="#2C3E50" font-weight="700" text-anchor="middle">Chugoku</text>
+<circle cx="96.4" cy="271.5" r="7" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="106.4" y="275.5" font-size="12.5" fill="#2C3E50" font-weight="700">Shikoku</text>
+<circle cx="278.5" cy="264.0" r="7" fill="#4599c6" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="278.5" y="251.0" font-size="12.5" fill="#2C3E50" font-weight="700" text-anchor="middle">Kyushu</text>
+</svg></div><figcaption>The horizontal axis is the share of bids awarded (awarded volume ÷ bid volume). The vertical axis is September's volume-weighted average. Our aggregation of EPRX trading results (preliminary).</figcaption></figure>
+<p>If one number separates the two groups, it is the award rate: the share of bids that were awarded. Tohoku is at 95.6% and Tokyo at 85.1%. <strong>In areas where almost every bid gets through, the price leans towards the cap.</strong> In areas where about half the bids fail — Chubu 45.6%, Chugoku 48.5%, Kyushu 53.9% — the price is in the ¥3 range.</p>
+<p>Tohoku was at ¥14.51 in April–August too, close to the ¥15 cap. Bid volume was 0.28 times the procurement volume — a market where bids do not reach even 30% of what is sought. In September it rose to 0.62 times, but still falls short. In a market that is short, there is no reason to cut bids, and when the cap comes down the price comes down by just that much. Tohoku's ¥9.51 is that shape. In Tokyo, bids exceed the procurement volume (1.16 times), yet 85% of bids still get through.</p>
+
+<h2>4. Hardly any change by time of day</h2>
+<figure class="c50fig" style="--fmin:600px"><figcaption class="c50top">Figure 4 Prices by time of day (1–29 September 2026, primary offline, volume-weighted average)</figcaption><p class="c50hint">← Scroll sideways →</p><div class="c50scroll"><svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c50m4-t c50m4-d">
+<title id="c50m4-t">Prices by time of day (September 2026, primary offline)</title>
+<desc id="c50m4-d">Volume-weighted averages in 4-hour blocks: Tohoku ¥9.43–9.58, Tokyo ¥8.50–8.64, national ¥5.68–5.95, Chubu ¥2.92–4.34, Kyushu ¥2.77–3.33. There is almost no difference by time of day.</desc>
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F3F5F8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#B9C2CE" stroke-width="3"/></pattern></defs>
+<line x1="62.0" y1="326.0" x2="630.0" y2="326.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="330.5" font-size="13" fill="#6C7A89" text-anchor="end">0</text>
+<line x1="62.0" y1="279.7" x2="630.0" y2="279.7" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="284.2" font-size="13" fill="#6C7A89" text-anchor="end">2</text>
+<line x1="62.0" y1="233.3" x2="630.0" y2="233.3" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="237.8" font-size="13" fill="#6C7A89" text-anchor="end">4</text>
+<line x1="62.0" y1="187.0" x2="630.0" y2="187.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="191.5" font-size="13" fill="#6C7A89" text-anchor="end">6</text>
+<line x1="62.0" y1="140.7" x2="630.0" y2="140.7" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="145.2" font-size="13" fill="#6C7A89" text-anchor="end">8</text>
+<line x1="62.0" y1="94.3" x2="630.0" y2="94.3" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="98.8" font-size="13" fill="#6C7A89" text-anchor="end">10</text>
+<line x1="62.0" y1="48.0" x2="630.0" y2="48.0" stroke="#E2E6EC" stroke-width="1"/>
+<text x="54.0" y="52.5" font-size="13" fill="#6C7A89" text-anchor="end">12</text>
+<text x="12.0" y="18.0" font-size="12.5" fill="#6C7A89">¥/ΔkW·30min</text>
+<text x="109.3" y="344.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">0:00–4:00</text>
+<text x="204.0" y="344.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">4:00–8:00</text>
+<text x="298.7" y="344.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">8:00–12:00</text>
+<text x="393.3" y="344.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">12:00–16:00</text>
+<text x="488.0" y="344.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">16:00–20:00</text>
+<text x="582.7" y="344.0" font-size="12.5" fill="#2C3E50" text-anchor="middle">20:00–24:00</text>
+<line x1="62.0" y1="94.3" x2="630.0" y2="94.3" stroke="#B03A2E" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="68.0" y="88.3" font-size="12.5" fill="#B03A2E" font-weight="700">¥10 cap</text>
+<path d="M109.3,104.1 L204.0,105.0 L298.7,105.7 L393.3,107.5 L488.0,105.5 L582.7,106.0" stroke="#B03A2E" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="109.3" cy="104.1" r="3.5" fill="#B03A2E"/>
+<circle cx="204.0" cy="105.0" r="3.5" fill="#B03A2E"/>
+<circle cx="298.7" cy="105.7" r="3.5" fill="#B03A2E"/>
+<circle cx="393.3" cy="107.5" r="3.5" fill="#B03A2E"/>
+<circle cx="488.0" cy="105.5" r="3.5" fill="#B03A2E"/>
+<circle cx="582.7" cy="106.0" r="3.5" fill="#B03A2E"/>
+<text x="590.7" y="110.0" font-size="12.5" fill="#B03A2E" font-weight="700">Tohoku</text>
+<path d="M109.3,129.1 L204.0,129.2 L298.7,126.9 L393.3,127.5 L488.0,126.0 L582.7,125.9" stroke="#C49A3C" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="109.3" cy="129.1" r="3.5" fill="#C49A3C"/>
+<circle cx="204.0" cy="129.2" r="3.5" fill="#C49A3C"/>
+<circle cx="298.7" cy="126.9" r="3.5" fill="#C49A3C"/>
+<circle cx="393.3" cy="127.5" r="3.5" fill="#C49A3C"/>
+<circle cx="488.0" cy="126.0" r="3.5" fill="#C49A3C"/>
+<circle cx="582.7" cy="125.9" r="3.5" fill="#C49A3C"/>
+<text x="590.7" y="129.9" font-size="12.5" fill="#C49A3C" font-weight="700">Tokyo</text>
+<path d="M109.3,194.4 L204.0,192.5 L298.7,188.2 L393.3,189.2 L488.0,191.2 L582.7,193.9" stroke="#1B2A4A" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="109.3" cy="194.4" r="3.5" fill="#1B2A4A"/>
+<circle cx="204.0" cy="192.5" r="3.5" fill="#1B2A4A"/>
+<circle cx="298.7" cy="188.2" r="3.5" fill="#1B2A4A"/>
+<circle cx="393.3" cy="189.2" r="3.5" fill="#1B2A4A"/>
+<circle cx="488.0" cy="191.2" r="3.5" fill="#1B2A4A"/>
+<circle cx="582.7" cy="193.9" r="3.5" fill="#1B2A4A"/>
+<text x="590.7" y="197.9" font-size="12.5" fill="#1B2A4A" font-weight="700">National</text>
+<path d="M109.3,248.6 L204.0,247.6 L298.7,225.5 L393.3,230.3 L488.0,245.4 L582.7,258.3" stroke="#4599c6" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="109.3" cy="248.6" r="3.5" fill="#4599c6"/>
+<circle cx="204.0" cy="247.6" r="3.5" fill="#4599c6"/>
+<circle cx="298.7" cy="225.5" r="3.5" fill="#4599c6"/>
+<circle cx="393.3" cy="230.3" r="3.5" fill="#4599c6"/>
+<circle cx="488.0" cy="245.4" r="3.5" fill="#4599c6"/>
+<circle cx="582.7" cy="258.3" r="3.5" fill="#4599c6"/>
+<text x="590.7" y="255.3" font-size="12.5" fill="#4599c6" font-weight="700">Chubu</text>
+<path d="M109.3,261.9 L204.0,261.8 L298.7,253.6 L393.3,248.8 L488.0,250.0 L582.7,261.7" stroke="#1A7A4C" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="109.3" cy="261.9" r="3.5" fill="#1A7A4C"/>
+<circle cx="204.0" cy="261.8" r="3.5" fill="#1A7A4C"/>
+<circle cx="298.7" cy="253.6" r="3.5" fill="#1A7A4C"/>
+<circle cx="393.3" cy="248.8" r="3.5" fill="#1A7A4C"/>
+<circle cx="488.0" cy="250.0" r="3.5" fill="#1A7A4C"/>
+<circle cx="582.7" cy="261.7" r="3.5" fill="#1A7A4C"/>
+<text x="590.7" y="273.7" font-size="12.5" fill="#1A7A4C" font-weight="700">Kyushu</text>
+</svg></div><figcaption>Averages over six 4-hour blocks. The table for all nine areas is in our aggregation files. Our aggregation of EPRX trading results.</figcaption></figure>
+<div class="table-wrap"><table class="comparison-table">
+<tr><th>Area</th><th class="num">0:00–4:00</th><th class="num">4:00–8:00</th><th class="num">8:00–12:00</th><th class="num">12:00–16:00</th><th class="num">16:00–20:00</th><th class="num">20:00–24:00</th></tr>
+<tr><td>Tohoku</td><td class='num'>9.58</td><td class='num'>9.54</td><td class='num'>9.51</td><td class='num'>9.43</td><td class='num'>9.52</td><td class='num'>9.49</td></tr><tr><td>Tokyo</td><td class='num'>8.50</td><td class='num'>8.50</td><td class='num'>8.59</td><td class='num'>8.57</td><td class='num'>8.63</td><td class='num'>8.64</td></tr><tr><td>Chubu</td><td class='num'>3.34</td><td class='num'>3.39</td><td class='num'>4.34</td><td class='num'>4.13</td><td class='num'>3.48</td><td class='num'>2.92</td></tr><tr><td>Kyushu</td><td class='num'>2.77</td><td class='num'>2.77</td><td class='num'>3.13</td><td class='num'>3.33</td><td class='num'>3.28</td><td class='num'>2.77</td></tr><tr><td>National</td><td class='num'>5.68</td><td class='num'>5.76</td><td class='num'>5.95</td><td class='num'>5.90</td><td class='num'>5.82</td><td class='num'>5.70</td></tr>
+</table></div>
+<p>Nationally, prices stay between ¥5.68 and ¥5.95, and Tohoku is at ¥9.58 even in the small hours, 0:00–4:00. By contrast, what a battery can earn on JEPX (the wholesale market) varies a great deal by time of day: ¥5.8–8.5 for the 8 evening slots depending on the area, and ¥1.0–1.4 averaged over 48 slots (<a target="_top" href="/en/column-balancing-saturation-floor">47-4 Floor</a>).</p>
+<p>The guideline's ceiling is “opportunity cost + fixed-cost adder + trading fee”. How to count a battery's opportunity cost is not settled in the text (unsettled), but on a view close to “what you fail to earn on the wholesale market”, night-time opportunity cost is small. The adder set from published figures is in the ¥1 range even in year 1 (<a target="_top" href="/en/column-bidding-ceiling-calc">50-3 Calculation</a>). <strong>Explaining a ¥9 bid in the middle of the night with the formula is not easy.</strong> Where the second ceiling bites hardest is on night-time bids in the areas where prices are pinned to the cap.</p>
+
+<h2>5. How to read the numbers</h2>
+<ul>
+<li><strong>These are preliminary figures.</strong> Final figures for September will be published by the end of October; when they are, we will replace this article's September numbers with them. For April–August, preliminary and final figures differed by no more than ¥0.03.</li>
+<li><strong>These are displayed values before settlement.</strong> EPRX's system does not reject bids above the cap; it cuts them to the cap at settlement. In September's primary offline, the only displays above ¥10 were 21 slots in Tohoku and 2 in Kansai, both on 1 September.</li>
+<li><strong>Some areas are thin markets.</strong> In Shikoku in September, 880 of 1,392 slots had no award; in Hokuriku it was 314 slots. Those areas' averages come from correspondingly fewer slots.</li>
+<li><strong>It is 29 days.</strong> This is the first month under the ¥10 cap, and seasonal differences cannot be seen yet.</li>
+</ul>
+
+<h2>6. For owners of 2 MW / 8 MWh</h2>
+<p>Within the same primary offline, September's position split in two by area. In Tohoku and Tokyo, the ¥10 market cap is the ceiling as it stands. In the other seven areas prices sit more than ¥6 below the cap, and competition sets the price before any ceiling does.</p>
+<p>In both groups of areas, the guideline's second ceiling has not gone away. Where prices are pinned to the cap, even bids in the middle of the night are being awarded close to ¥10. Whether that can be explained by opportunity cost and the adder is exactly what will be asked when the Commission checks high-priced awards after the fact (<a target="_top" href="/en/column-bidding-ceiling-monitoring">50-5 Monitoring</a>). For the unit price in a business plan, the safe choice is not the ¥10 cap but the lower of your area's actual September price and the height to which your own bids can be explained by the formula.</p>
+
+<h2 id="sources">Sources</h2>
+<ul class="source-list">
+<li>EPRX, trading results (primary offline results, preliminary and final) <a href="https://www.eprx.or.jp/information/results.php" target="_blank" rel="noopener">https://www.eprx.or.jp/information/results.php</a> (retrieved 29 September and 4 October 2026; deliveries 1 April – 29 September 2026)</li>
+<li>EPRX, “On the ΔkW price cap in the balancing market” (30 July 2026) <a href="https://www.eprx.or.jp/information/docs/14b85fbe8942da7d3bdddda80243e7e170f64d9e.pdf" target="_blank" rel="noopener">https://www.eprx.or.jp/information/docs/14b85fbe8942da7d3bdddda80243e7e170f64d9e.pdf</a></li>
+<li>METI, “Balancing Market Guideline” (需給調整市場ガイドライン), revised 13 March 2026 <a href="https://www.egc.meti.go.jp/info/guideline/pdf/20260313001a.pdf" target="_blank" rel="noopener">https://www.egc.meti.go.jp/info/guideline/pdf/20260313001a.pdf</a></li>
+</ul>
+<p class="source">The aggregation formulas, CSV field names and full result tables are in the documentation of our public aggregation script (scripts/eprx/README.md in the scix-web repository).</p>
+<div class="author-box">
+  <div class="ab-label">Supervised by</div>
+  <div><span class="ab-name">Shinya Nakashima, Ph.D. (Eng.)</span> — Representative Director, Science X Inc.</div>
+  <p style="margin:6px 0 0">Works on the development, sale and technical due diligence of grid-scale battery storage plants in Japan. This column is written and supervised on the basis of that hands-on transaction and due-diligence practice. This English edition is a translation of the Japanese original; where the wording of the guideline matters, the Japanese primary sources govern.</p>
+</div>
+
+</div>
+</div>
+<!-- scix-column-cta : one per article. Primary = contact (EN); secondary = the anonymised project list and the seller's valuation form (both in Japanese) -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">Choose projects on economics rebuilt to include this ceiling</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">We publish each project's prefecture, size, expected connection timing and progress without an NDA. We list only projects that already have a connection study response.</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/en/contact" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">Tell us what you are looking for →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">Opens our contact form, in English. Four required fields — enquiry type, name, company and email — plus a message box.</p>
+  </div>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.85;margin:0">The project list itself is in Japanese: <a target="_top" href="https://www.scix.co.jp/projects" hreflang="ja" style="color:#1B2A4A;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">browse the projects for sale</a><span class="ja-tag">JA</span> — documents for several projects can be requested at once. If you hold a plant or rights, <a target="_top" href="https://www.scix.co.jp/sell-form" hreflang="ja" style="color:#1B2A4A;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">ask for a valuation</a><span class="ja-tag">JA</span> and attach a copy of the connection study response if you have one.</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer — self-contained for Wix HTML embed -->
+<style>
+
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1B2A4A;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0 auto;
+  }
+</style>
+
+<div data-scix-related style="max-width:760px;margin:44px auto 0;padding:18px 24px 4px;border-top:1px solid #E0DCD4;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;color:#8A92A0;letter-spacing:.08em;margin-bottom:6px">Related reading</div>
+  <a target="_top" href="/en/column-price-cap" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">The ceiling drops by five yen — the ¥10 cap in the balancing market (COLUMN 41) →</a>
+  <a target="_top" href="/en/column-area-data" style="display:block;color:#1B2A4A;text-decoration:none;font-weight:600;font-size:14.5px;padding:6px 0">Balancing market results by area (COLUMN 16) →</a>
+</div>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img
+        src="/img/logo-white.png"
+        alt="ScienceX — Science X Inc."
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:+81366913484">+81-3-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>
