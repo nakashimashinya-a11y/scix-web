@@ -56,6 +56,13 @@ def load_range(kind, start, end):
     return out
 
 
+def prev2_pages(cur_s, days=28):
+    """前々 days 日（直近の窓の始まり cur_s の 2*days 日前から days 日）のページ別 GSC。台帳がそろわなければ None
+    （欠けた窓で比べると、山の戻りでないページまで「様子見」に落ちる）。access_drop.drops の pppages に渡す。"""
+    recs = load_range("gsc", cur_s - datetime.timedelta(days=2 * days), cur_s - datetime.timedelta(days=days + 1))
+    return agg_gsc(recs)[1] if len(recs) == days else None
+
+
 def agg_gsc(recs):
     tot = {"clicks": 0, "impressions": 0, "pos_w": 0.0, "days": len(recs)}
     pages, qp, q = {}, {}, {}
@@ -621,7 +628,7 @@ def render(days=28, for_latest=False, structure=False):
     #     時点更新は週次では直さず 1 行で知らせ、CC の作業セッションで一次資料を当てる）
     try:
         import access_drop as ad
-        ad.render(L, ad.drops(pages, ppages, qp, pqp), limit=(10 if for_latest else 30))
+        ad.render(L, ad.drops(pages, ppages, qp, pqp, pppages=prev2_pages(cur_s, days)), limit=(10 if for_latest else 30))
     except Exception as e:  # noqa: BLE001 — ここが落ちてもブリーフの他の節は出す
         L.append(f"## 11. アクセスが減ったページ\n\n生成に失敗: {e}\n")
 
@@ -655,7 +662,8 @@ def brief_json(days=28, structure=False):
     try:
         import access_drop as ad
         _, ppages, pqp, _ = agg_gsc(load_range("gsc", latest - datetime.timedelta(days=2 * days - 1), latest - datetime.timedelta(days=days)))
-        out["access_drops"] = ad.drops(pages, ppages, qp, pqp)
+        out["access_drops"] = ad.drops(pages, ppages, qp, pqp,
+                                       pppages=prev2_pages(latest - datetime.timedelta(days=days - 1), days))
     except Exception:  # noqa: BLE001
         out["access_drops"] = []
     try:

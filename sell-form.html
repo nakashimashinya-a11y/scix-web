@@ -462,7 +462,7 @@
           </button>
         </div>
 
-        <form id="sellForm" action="https://scix-dealroom2.pages.dev/api/web-contact" method="POST">
+        <form id="sellForm" action="/api/contact" method="POST">
 
           <!-- ===== COMMON: Name & Company ===== -->
           <div class="form-row">
@@ -954,7 +954,22 @@
     }
   });
 
-  // Form submit (fetch JSON to FormSubmit.co)
+  // 入力を素のオブジェクトにする（Object.fromEntries の無い古いブラウザでも動く書き方）
+  function formToObject(f) {
+    var out = {};
+    for (var i = 0; i < f.elements.length; i++) {
+      var el = f.elements[i];
+      var t = (el.type || '').toLowerCase();
+      if (!el.name || el.disabled) continue;
+      if (t === 'submit' || t === 'button' || t === 'reset' || t === 'file') continue;
+      if ((t === 'radio' || t === 'checkbox') && !el.checked) continue;
+      out[el.name] = el.value;
+    }
+    return out;
+  }
+
+  // 送信は同じドメインの /api/contact へ（vercel.json の rewrite で DR2 の受け口へ中継）。
+  // 失敗・例外・25秒の無応答は、メールで送る導線に切り替える（「送信中...」のまま止めない）。
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var uploading = uploadedFiles.some(function (f) { return f.status === 'uploading'; });
@@ -963,36 +978,55 @@
       return;
     }
     var originalBtnHTML = submitBtn.innerHTML;
+    var data = {};
+    var settled = false;
+    var timer = null;
+
+    function fail(reason) {
+      if (timer) clearTimeout(timer);
+      if (settled) return;
+      settled = true;
+      try { if (typeof gtag === 'function') gtag('event', 'form_error', { form_type: 'sell', reason: reason }); } catch (_) {}
+      showMailFallback(form, data);
+      submitBtn.innerHTML = originalBtnHTML;
+      submitBtn.style.opacity = '1';
+      submitBtn.disabled = false;
+    }
+
     submitBtn.innerHTML = '送信中...';
     submitBtn.style.opacity = '0.7';
     submitBtn.disabled = true;
 
-    syncUploadedFilesField();
-
-    var data = Object.fromEntries(new FormData(form));
-    fetch(form.action, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    })
-      .then(function (res) {
-        if (!res.ok) throw new Error('server ' + res.status);
-        return res.json();
+    try {
+      syncUploadedFilesField();
+      data = formToObject(form);
+      timer = setTimeout(function () { fail('timeout'); }, 25000);
+      fetch(form.action, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       })
-      .then(function (resp) {
-        if (resp && (resp.success === true || resp.success === 'true')) {
-          if (typeof gtag === 'function') gtag('event', 'generate_lead', { lead_type: personaField.value });
-          window.location.href = personaField.value === 'land' ? '/thanks?type=land' : '/thanks?intent=seller';
-        } else {
-          throw new Error((resp && resp.message) || 'submit failed');
-        }
-      })
-      .catch(function (err) {
-        showMailFallback(form, data);
-        submitBtn.innerHTML = originalBtnHTML;
-        submitBtn.style.opacity = '1';
-        submitBtn.disabled = false;
-      });
+        .then(function (res) {
+          if (!res.ok) throw new Error('http_' + res.status);
+          return res.json();
+        })
+        .then(function (resp) {
+          if (resp && (resp.success === true || resp.success === 'true')) {
+            if (timer) clearTimeout(timer);
+            settled = true;
+            try { if (typeof gtag === 'function') gtag('event', 'generate_lead', { lead_type: personaField.value }); } catch (_) {}
+            window.location.href = personaField.value === 'land' ? '/thanks?type=land' : '/thanks?intent=seller';
+          } else {
+            throw new Error('response');
+          }
+        })
+        .catch(function (err) {
+          var m = String((err && err.message) || '');
+          fail(/^(http_\d+|response)$/.test(m) ? m : 'network');
+        });
+    } catch (err) {
+      fail('exception');
+    }
   });
 
   // 送信先サーバー(FormSubmit)障害時でも相談を取りこぼさない退避導線
