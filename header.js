@@ -3,6 +3,10 @@
      ScienceX — Shared Navigation Header (JP + EN + 简中)
      Single source of truth for all pages.
 
+     2026-10-18: 中島「土地は買いたくない。案件を売る・買うをメインに」。
+       売る ▾ から「土地を売る・貸す」(/land) を外し、売却査定のフォーム
+       (/sell-form) を入れた。/land と /sourcing-criteria は /sourcing へ 301。
+       スマホの追従ボタンは、売主向けのページだけ /sell-form（売却査定）。
      2026-09-17 (2): ナレッジ moved to the first slot as its own two-column
        menu (テーマで読む / はじめての方). GA4 shows /knowledge is the #1
        next click from the top page and from column pages, and the #2 most
@@ -261,7 +265,8 @@
   // --------------- 2. HTML (language-aware) ---------------
   // JP = three-sided marketplace, grouped by what the visitor came to do:
   //   買う (buy a project / how buying works / hold via the fund)
-  //   売る (sell a project or its rights / sell or lease land / introduce)
+  //   売る (sell a project or its rights / ask for a valuation / introduce)
+  //   土地だけの買取・賃借はしない（2026-10-18）ので、土地の入口は置かない。
   //   ナレッジ (two columns: テーマで読む / はじめての方)
   // EN & 简中 = single inbound funnel for foreign capital → Home / Knowledge / Contact only.
   // items: [[href, label], ...] for a plain list, or
@@ -296,7 +301,7 @@
   var GROUP_PAGES = {
     knowledge: ['/knowledge', '/qa', '/grid-storage'],
     buy:   ['/projects', '/transfer', '/fund', '/investors'],
-    sell:  ['/sourcing', '/sourcing-criteria', '/land', '/partners', '/sell-form']
+    sell:  ['/sourcing', '/sell-form', '/partners']
   };
 
   var nav = isZh ? [
@@ -334,9 +339,9 @@
       ['/fund',     'ファンドで持つ']
     ]),
     ddGroup('sell', '売る', [
-      ['/sourcing', '案件・権利を売る'],
-      ['/land',     '土地を売る・貸す'],
-      ['/partners', '案件・投資家を紹介する']
+      ['/sourcing',  '案件・権利を売る'],
+      ['/sell-form', '案件・権利の売却査定（無料）'],
+      ['/partners',  '案件・投資家を紹介する']
     ]),
     '<a href="/company"  data-page="/company">会社案内</a>',
     '<a href="/contact"  data-page="/contact">お問い合わせ</a>',
@@ -398,14 +403,15 @@
   document.body.insertBefore(header, document.body.firstChild);
 
   // Floating contact CTA (mobile only; hidden on the contact/sell-form/thanks pages themselves)
+  // 売主向けのページ（案件・権利を売る話）だけ、売却査定のフォームへ直行させる。
   if (!/contact|sell-form|thanks/.test(path)) {
-    var isLandPage = ['/land', '/column-land-buyback', '/column-land-value', '/column-noise'].indexOf(path) !== -1;
+    var isSellPage = ['/sourcing', '/partners', '/column-transfer', '/column-options', '/column-pricing'].indexOf(path) !== -1;
     var fcta = document.createElement('a');
     fcta.className = 'scix-float-cta';
-    fcta.href = isLandPage ? '/sell-form?type=land' : (isZh ? '/zh-contact' : (isEn ? '/en/contact' : '/contact'));
+    fcta.href = isSellPage ? '/sell-form' : (isZh ? '/zh-contact' : (isEn ? '/en/contact' : '/contact'));
     fcta.setAttribute('target', '_top');
-    fcta.setAttribute('aria-label', isLandPage ? '無料で用地査定' : (isEn ? 'Contact us' : (isZh ? '咨询' : 'ご相談・お問い合わせ')));
-    fcta.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' + (isLandPage ? '無料で用地査定' : (isEn ? 'Contact' : (isZh ? '咨询' : '相談する')));
+    fcta.setAttribute('aria-label', isSellPage ? '無料で売却査定' : (isEn ? 'Contact us' : (isZh ? '咨询' : 'ご相談・お問い合わせ')));
+    fcta.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' + (isSellPage ? '無料で売却査定' : (isEn ? 'Contact' : (isZh ? '咨询' : '相談する')));
     document.body.appendChild(fcta);
   }
 

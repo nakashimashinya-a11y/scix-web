@@ -47,7 +47,7 @@
 1. **効果測定で worse だった変更** → 元に戻す（class=rollback。マニフェストの `rollback_of` に戻す元の commit を書く＝8 節の表の commit 列、無ければ `git log --format='%h %ad %s' --date=short -- <ファイル>` で変更日の commit を引く。検査は、足した行が元の commit で消えた行か・消した行が元の commit で足した行かを確かめ、確かめられなければ普通の変更として 14 日の凍結を当てる。コラムは JSON-LD も比べ、ハブの焼き直しの所（ItemList・件数・新着・NEW バッジ）しか変わらない差し戻しは確かめられない扱い）。新規ページの `not-shown`（8 節の「要手当て」）は戻さない＝下の 6 で育てる。**月 1 回の構成レビューが自動で公開した変更**（8 節の「構成の変更」の表・source=structure）が worse のときも同じ: `git show <表の commit>` で差分を見て、並び・CTA の行き先・導線ブロックを元に戻す（`files` に戻したファイルを全部書く。`pages` は元の変更と同じ）。構成の変更の判定は GSC のクリックと CTR で決まり、本来の KPI（問い合わせ・送客）が減っても worse にならない。だから **表の「注意」（リード減・送客減）が付いた行も差し戻し候補** として読む: 着地・リード・送客の前後を見て、ほかの要因（その間に足されたコラム・季節）で説明がつかなければ戻す。逆に worse でも着地・リード・送客が落ちていなければ GSC の揺れのことがある＝28 日後の判定を待ってよい（どちらも理由を `rationale` に。**件数は `private_note` に**）
 2. 健診で出た問題は直す `O16-40`
 3. 収益ページの CTR が低ければ、title・description を検索語に合わせる（「｜ScienceX」は保つ） `O16-41`
-   - 収益ページは /projects /transfer /investors /fund /sourcing /land
+   - 収益ページは /projects /transfer /sourcing /sell-form /investors /fund（/land は無い＝土地だけの買取・賃借はしない。土地の持ち主を呼び込む title・description・導線を足さない＝CLAUDE.md の O16-5）
    - 対象: 表示があるのに CTR が帯の中央値の半分未満
 4. 4〜20位で表示が多い語は、着地ページの見出し・定義文・本文で受け、関連コラムから内部リンクを1〜2本足す `O16-42`
 5. 商用の語が着地するコラム・送客しないコラムの本文末の導線は、CLAUDE.md の O16-43 に従って直す（コラムから /fund へは向けない＝CLAUDE.md の O16-67）

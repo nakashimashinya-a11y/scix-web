@@ -350,7 +350,7 @@
 
 <script>
 // 送信後の案内を用件別に差し替える。
-// 用件は /contact が ?intent= で、/sell-form が ?type=land または ?intent=seller で渡す。
+// 用件は /contact が ?intent= で、/sell-form が ?intent=seller で渡す（?type=land は 2026-10-18 に土地の受付をやめるまでの形）。
 // どれにも当たらなければ、下のHTMLに書いてある汎用の文面のまま表示する。
 (function () {
   var q = new URLSearchParams(location.search);
@@ -390,16 +390,6 @@
       ],
       sub: ['/sourcing', '案件・権利を売る（進め方）']
     },
-    land: {
-      h: 'お申込みありがとうございました',
-      lead: 'お申込み内容を受け付けました。<br>原則<strong>1営業日以内</strong>に、代表の中島よりご連絡いたします。',
-      steps: [
-        ['机上確認のうえ、進められる場合は<strong>同意書の取り交わし</strong>をご案内いたします', ''],
-        ['<strong>当社費用で接続検討</strong>をお申込みします（回答まで約3ヶ月）', ''],
-        ['電力会社からの<strong>回答書をご共有</strong>し、今後の進め方をご相談いたします', '']
-      ],
-      sub: ['/land', 'よくあるご質問を見る']
-    },
     other: {
       h: 'お問い合わせありがとうございました',
       lead: '内容を受け付けました。<br>原則<strong>1営業日以内</strong>に、代表の中島よりご返信します。',
@@ -413,6 +403,7 @@
   };
   P.owner = P.investor;
   P.partner = P.other;
+  P.land = P.other;   // 2026-10-18: 土地だけの買取・賃借はしない（古い ?type=land の戻り先）
   P.proposal = P.other;
 
   var c = P[intent];
@@ -551,7 +542,7 @@
         <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
         <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
         <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
-        <a href="/land" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">土地を売る・貸す</a>
+        <a href="/sell-form" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利の売却査定</a>
         <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
         <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
         <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>

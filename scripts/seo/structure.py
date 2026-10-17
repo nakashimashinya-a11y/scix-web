@@ -21,8 +21,9 @@ import newpages as npg
 NAV_FREEZE_DAYS = 90     # ナビの組み替えは四半期に1回まで
 PROPOSALS = LEDGER / "ledger" / "proposals.jsonl"
 CHANGES = LEDGER / "ledger" / "changes.jsonl"
-# 構成レビューで「収益ページ」と呼ぶ7本（表の列）。COMMERCIAL のそれ以外（/sell-form・EN/ZH の contact）は「ほか」に足す
-REVENUE = ["/projects", "/transfer", "/investors", "/fund", "/sourcing", "/land", "/contact"]
+# 構成レビューで「収益ページ」と呼ぶ6本（表の列）。COMMERCIAL のそれ以外（/sell-form・EN/ZH の contact）は「ほか」に足す
+# （/land は 2026-10-18 に /sourcing へ 301＝土地だけの買取・賃借はしない）
+REVENUE = ["/projects", "/transfer", "/sourcing", "/investors", "/fund", "/contact"]
 TOPS = {"/", "/en", "/zh"}
 HUB_PAGES = {"/knowledge", "/en/knowledge", "/zh-knowledge"}
 HUB_FILES = {"ja": "knowledge.html", "en": "en/knowledge.html", "zh": "zh-knowledge.html"}
