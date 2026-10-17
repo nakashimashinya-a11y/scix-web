@@ -118,6 +118,23 @@ fail() {
   applog "scix.co.jp ${MODE:-weekly} の自動更新は失敗して公開していない: $*"
   cleanup; exit 1
 }
+# ゲートウェイの claude の置き場（CLAUDE_CONFIG_DIR）を openclaw.json から読む。読めなければ空（呼ぶ側が fail する）。
+#   古い版は agents.defaults.cliBackends.claude-cli.env、OpenClaw 2026.10〜 は cliBackends が無くなり env.vars に置く
+#   ＝この順に両方を見る（~/.openclaw/workspace/bin/oc_compat.py の gateway_claude_config_dir と同じ）。
+#   古い置き場しか見ていなかったので、版上げのあと最初の日曜（2026-10-18）の週次が「決まらない」で止まった。
+oc_claude_config_dir() {
+  python3 - "$HOME/.openclaw/openclaw.json" <<'PY' 2>/dev/null || true
+import json, os, sys
+d = json.load(open(sys.argv[1], encoding="utf-8"))
+for path in (("agents", "defaults", "cliBackends", "claude-cli", "env", "CLAUDE_CONFIG_DIR"), ("env", "vars", "CLAUDE_CONFIG_DIR")):
+    o = d
+    for k in path:
+        o = o.get(k) if isinstance(o, dict) else None
+    if isinstance(o, str) and o.strip():
+        print(os.path.expanduser(o.strip()).rstrip("/"))
+        break
+PY
+}
 mj() { python3 -c "import json,sys; j=json.load(open(sys.argv[1])); exec(sys.argv[2])" "$RUN_DIR/changes.json" "$1"; }
 # 今週書くコラムの主題（マニフェスト column_ideas の先頭）。中島「して。毎週日曜の6amに」（2026-09-20）
 idea_line() {
@@ -242,8 +259,8 @@ run_structure() {
   mkdir "$LOCK" 2>/dev/null || { log "前回の実行が残っている（${LOCK}）。構成レビューは見送る。"; exit 1; }
   mkdir -p "$RUN_DIR"
   cd "$REPO" || fail "リポジトリが無い: $REPO"
-  CC_DIR="$(python3 -c 'import json,os;print(os.path.expanduser(json.load(open(os.path.expanduser("~/.openclaw/openclaw.json")))["agents"]["defaults"]["cliBackends"]["claude-cli"]["env"]["CLAUDE_CONFIG_DIR"]))' 2>/dev/null || true)"
-  [ -n "$CC_DIR" ] && [ -d "$CC_DIR" ] || fail "CLAUDE_CONFIG_DIR が決まらない（openclaw.json）"
+  CC_DIR="$(oc_claude_config_dir)"
+  [ -n "$CC_DIR" ] && [ -d "$CC_DIR" ] || fail "CLAUDE_CONFIG_DIR が決まらない（openclaw.json の cliBackends.claude-cli.env にも env.vars にも無いか、その置き場が無い）"
   [ "$(cd "$CC_DIR" && pwd -P)" != "$(cd "$HOME/.claude" && pwd -P)" ] || fail "CLAUDE_CONFIG_DIR が中島さんの枠（~/.claude）を指している（共通ルール O14-10）"
 
   # 1. ブリーフ（通常の節＋構成レビュー用の S1〜S8）。週次の直後なら台帳は取り直さない
@@ -433,8 +450,8 @@ if [ "$MODE" = "structure" ]; then run_structure; exit 0; fi
 mkdir "$LOCK" 2>/dev/null || { log "前回の実行が残っている（${LOCK}）。止める。"; exit 1; }
 mkdir -p "$RUN_DIR"
 cd "$REPO" || fail "リポジトリが無い: $REPO"
-CC_DIR="$(python3 -c 'import json,os;print(os.path.expanduser(json.load(open(os.path.expanduser("~/.openclaw/openclaw.json")))["agents"]["defaults"]["cliBackends"]["claude-cli"]["env"]["CLAUDE_CONFIG_DIR"]))' 2>/dev/null || true)"
-[ -n "$CC_DIR" ] && [ -d "$CC_DIR" ] || fail "CLAUDE_CONFIG_DIR が決まらない（openclaw.json）"
+CC_DIR="$(oc_claude_config_dir)"
+[ -n "$CC_DIR" ] && [ -d "$CC_DIR" ] || fail "CLAUDE_CONFIG_DIR が決まらない（openclaw.json の cliBackends.claude-cli.env にも env.vars にも無いか、その置き場が無い）"
 [ "$(cd "$CC_DIR" && pwd -P)" != "$(cd "$HOME/.claude" && pwd -P)" ] || fail "CLAUDE_CONFIG_DIR が中島さんの枠（~/.claude）を指している（共通ルール O14-10）"
 
 # 1. 台帳を最新にしてブリーフ（NO_COLLECT=1 は試験用＝API を叩かず、いまの台帳のまま）

@@ -13,6 +13,8 @@ IndexNow（scripts/ping_indexnow.py）は複製の中で何もしないスクリ
      （同じコミットに変更日台帳の行を入れていた頃は、次の自動コミット 1 つで必ず衝突した）
   3. push のあとで変更台帳（Drive）に書けなかった回: Telegram に出す（「自動で測る」と言い切らない）。翌朝の拾い直し
      （register_auto_commits.py）が同じ形で記帳する・2 回走っても重複しない・記帳済みのコミットは足さない
+  4. openclaw.json の CLAUDE_CONFIG_DIR を、古い版の置き場（cliBackends.claude-cli.env）でも 2026.10〜 の置き場（env.vars）でも
+     読む・どちらにも無ければ公開せずに止まる（2026-10-18 の週次は古い置き場しか見ずに止まった）
 """
 from __future__ import annotations  # launchd の python3 は 3.9
 import datetime
@@ -111,6 +113,14 @@ def main() -> int:
             if f.is_file():
                 shutil.copy2(f, repo / "scripts" / "seo" / f.name)
         (repo / "scripts" / "ping_indexnow.py").write_text("#!/usr/bin/env python3\nprint('selftest: IndexNow は送らない')\n", encoding="utf-8")
+        # 本物の main が今日 sitemap の lastmod を付けた日（自動公開・手の PR の当日）は、回の記帳で lastmod が変わらず
+        # 「記帳のコミットに sitemap が入る」の検査が日付しだいで落ちる（2026-10-18 は朝の公開で /knowledge が今日だった）。
+        # 複製の中だけ、今日の lastmod を前日にしてから回す
+        sm = repo / "sitemap.xml"
+        if sm.exists():
+            prev = (TODAY - datetime.timedelta(days=1)).isoformat()
+            sm.write_text(sm.read_text(encoding="utf-8").replace(f"<lastmod>{TODAY}</lastmod>", f"<lastmod>{prev}</lastmod>"),
+                          encoding="utf-8")
         git(repo, "add", "-A")
         git(repo, "commit", "-q", "--allow-empty", "-m", "selftest: 作業ツリーの scripts/seo・IndexNow は送らない")
         git(repo, "push", "-q", "-f", "origin", "main")
@@ -118,8 +128,14 @@ def main() -> int:
         assert git(repo, "remote", "get-url", "origin") == str(origin)
 
         # ---- スタブ
-        (home / ".openclaw" / "openclaw.json").write_text(json.dumps(
-            {"agents": {"defaults": {"cliBackends": {"claude-cli": {"env": {"CLAUDE_CONFIG_DIR": str(home / "ccdir")}}}}}}), encoding="utf-8")
+        # openclaw.json の CLAUDE_CONFIG_DIR は OpenClaw の版で置き場が違う（古い版は agents.defaults.cliBackends.claude-cli.env、
+        # 2026.10〜 は env.vars）。1 回目（構成レビュー）は古い置き場、2 回目からは新しい置き場で回す＝週次が両方を読めるか
+        # （2026-10-18 の週次は古い置き場しか見ずに止まった）。"none" はどちらにも無い回（4.）
+        def write_oc_json(kind):
+            cc = {} if kind == "none" else {"CLAUDE_CONFIG_DIR": str(home / "ccdir")}
+            body = {"agents": {"defaults": {"cliBackends": {"claude-cli": {"env": cc}}}}} if kind == "old" else {"env": {"vars": cc}}
+            (home / ".openclaw" / "openclaw.json").write_text(json.dumps(body), encoding="utf-8")
+        write_oc_json("old")
         (tmp / "claude_stub.py").write_text(CLAUDE_STUB, encoding="utf-8")
         stubs = {"claude": f'#!/bin/bash\nexec python3 "{tmp}/claude_stub.py" "$@"\n',
                  "openclaw": f'#!/bin/bash\nprintf "%s\\n----\\n" "$*" >> "{tmp}/telegram.log"\n',
@@ -199,6 +215,7 @@ def main() -> int:
 
         # ---- 2. 翌週の週次の公開 → 構成レビューの中身のコミットを案内どおり revert（衝突しない）
         #    週次の作業中に main が進む（載せ直し）: 2 コミットとも載せ直され、SHA・タグ・変更台帳は載せ直したあとの中身のコミット
+        write_oc_json("new")   # ここからは 2026.10〜 の置き場（env.vars）
         r, tg = weekly_run("weekly", "weekly", STUB_ADVANCE_MAIN="1")
         log = main_log()
         ok_w = (len(log) >= 5 and log[0][1].startswith("chore(seo-log): auto(seo)") and log[1][1].startswith("auto(seo): ")
@@ -243,6 +260,15 @@ def main() -> int:
         rec2 = run(["python3", repo / "scripts" / "seo" / "register_auto_commits.py"], repo, env=env_py)
         check("拾い直し: 2 回走っても重複しない・記帳済みの auto(seo)／auto(structure) のコミットは足さない",
               rec2.returncode == 0 and len(ledger_rows()) == n_before + 1, (rec2.stdout + rec2.stderr).strip()[:160])
+
+        # ---- 4. openclaw.json のどちらの置き場にも CLAUDE_CONFIG_DIR が無い回 → 公開せずに止まる
+        write_oc_json("none")
+        o_before = git(origin, "rev-parse", "refs/heads/main")
+        r, tg = weekly_run("weekly", "weekly")
+        out = (r.stdout + r.stderr).strip()
+        check("置き場が読めない回: 止まる（rc≠0）・「CLAUDE_CONFIG_DIR が決まらない」と出す・origin の main は進まない",
+              r.returncode != 0 and "CLAUDE_CONFIG_DIR が決まらない" in out and git(origin, "rev-parse", "refs/heads/main") == o_before,
+              out.splitlines()[-1] if out else "")
 
         bad = [x for x in results if not x[0]]
         for ok_, name, tail in results:
