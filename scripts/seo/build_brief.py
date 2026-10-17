@@ -472,7 +472,7 @@ def render(days=28, for_latest=False, structure=False):
         L.append("GA4 未収集。\n")
 
     # 3. 収益ページ
-    L.append("## 3. 収益ページ（買い手 ≧ 投資家 ＞ 土地）\n")
+    L.append("## 3. 収益ページ（案件の買い手・売り手 ＞ 投資家。土地は扱わない）\n")
     L.append("| ページ | クリック | 前28日 | 表示 | CTR | 順位 | GA4 着地 | リード | 被リンク |\n|---|---|---|---|---|---|---|---|---|")
     for p in COMMERCIAL:
         a = pages.get(p, {"clicks": 0, "impressions": 0, "ctr": 0, "position": None}); b = ppages.get(p, {"clicks": 0})

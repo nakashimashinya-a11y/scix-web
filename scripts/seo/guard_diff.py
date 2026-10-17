@@ -80,7 +80,7 @@
   - マニフェストの各変更に pages・hypothesis（仮説）・kpi（何が増えれば成功か）・measure（いつ何で測るか）が要る。
     rationale には根拠の数字が要る。class は hub-order / top-order / cta-route / funnel-block / nav
   - **収益ページ・フォームへの導線を減らさない**: 変更したファイルごとに、href が FUNNEL_TARGETS（/contact・/projects・
-    /transfer・/investors・/fund・/sourcing・/land・/sell-form と EN/ZH のフォーム）を指す <a> の本数が、変更前より
+    /transfer・/investors・/fund・/sourcing・/sell-form と EN/ZH のフォーム）を指す <a> の本数が、変更前より
     減っていたら止める（行き先の付け替えは可）。人の目が入らない分、「流れを良くする変更が導線を消す」事故を機械で止める
   - マニフェストの changes が 0 件なのに差分がある（焼き直しだけが残っている）なら止める＝中身のない公開をしない
   - 最後に公開の経路を 1 行で出す（「経路: 自動公開」か「経路: PR」）。header.js の変更か class=nav のエントリが
@@ -133,7 +133,7 @@ STRUCT_NET_RATIO = 0.25          # 並べ替えを除いた正味の書き換え
 STRUCT_NET_DELETE = 0.15         # 正味の削除
 HERO_TOPS = {"index.html", "en/index.html", "zh.html"}
 # 収益ページとフォームへの導線（構成レビューでは、変更したファイルごとにこの本数を減らさない）
-FUNNEL_TARGETS = {"/contact", "/projects", "/transfer", "/investors", "/fund", "/sourcing", "/land", "/sell-form",
+FUNNEL_TARGETS = {"/contact", "/projects", "/transfer", "/investors", "/fund", "/sourcing", "/sell-form",
                   "/en/contact", "/zh-contact"}
 # コミットの件名と本文・変更日台帳（docs/seo-change-log.md）・PR の題と本文は公開リポジトリに載る（revert しても履歴に残る）。
 # 問い合わせ（generate_lead）の件数・用件別は Drive の台帳側だけ＝公開される欄に書かせない。週次・構成レビューの両方で見る。

@@ -441,34 +441,34 @@ def main() -> int:
         c.guard("週次: ハブに記事ぶんの節を足した（files に書いても量で止める）", {"changes": [dict(hub(), **{"class": "hub"})]}, False,
                 "ハブ・トップに足した本文が多すぎる", profile="weekly")
         #   差し戻し（class=rollback）: 元の commit（rollback_of）の逆向きと確かめられたファイルだけ、凍結を外し・足した節を消してよい
-        edit(repo, "land.html", drop_section("representative"))
-        c.guard("週次: id つきの節を消した（class=body）", {"changes": [entry(["land.html"], ["/land"], "body")]}, False,
+        edit(repo, "partners.html", drop_section("decline"))
+        c.guard("週次: id つきの節を消した（class=body）", {"changes": [entry(["partners.html"], ["/partners"], "body")]}, False,
                 "id つきの要素が消えた", profile="weekly")
         rb_sec = '<section class="section" id="selftest-rb">\n<h2>selftest: 足した節</h2>\n<p>selftest の節の本文。</p>\n</section>\n'
-        edit(repo, "land.html", lambda s: s[:s.index("<footer")] + rb_sec + s[s.index("<footer"):])
-        git(repo, "commit", "-qam", "feat(land): selftest の節を足した（元の commit＝今日＝land.html は 14 日凍結）")
+        edit(repo, "partners.html", lambda s: s[:s.index("<footer")] + rb_sec + s[s.index("<footer"):])
+        git(repo, "commit", "-qam", "feat(partners): selftest の節を足した（元の commit＝今日＝partners.html は 14 日凍結）")
         rb_sha = git(repo, "rev-parse", "HEAD")
         undo_rb = lambda s: s.replace(rb_sec, "", 1)  # noqa: E731
         def rb(**kw):
-            return {"changes": [entry(["land.html"], ["/land"], "rollback", **kw)]}
-        edit(repo, "land.html", undo_rb)
+            return {"changes": [entry(["partners.html"], ["/partners"], "rollback", **kw)]}
+        edit(repo, "partners.html", undo_rb)
         c.guard("週次: 元の commit の逆向きと確かめられた差し戻しは、凍結中でも・足した節を消しても通す", rb(rollback_of=rb_sha[:10]), True,
                 profile="weekly")
-        edit(repo, "land.html", undo_rb)
+        edit(repo, "partners.html", undo_rb)
         c.guard("週次: rollback_of の無い差し戻しは止める", rb(), False, "rollback_of（戻す元の commit）が要る", profile="weekly")
-        edit(repo, "land.html", lambda s: s.replace("</body>", '<p><a href="/projects">販売中の案件一覧</a></p>\n</body>', 1))
+        edit(repo, "partners.html", lambda s: s.replace("</body>", '<p><a href="/projects">販売中の案件一覧</a></p>\n</body>', 1))
         c.guard("週次: 凍結中のページへの普通の手直しを rollback と申告しても、逆向きと確かめられなければ凍結で止める", rb(rollback_of=rb_sha),
-                False, ("/land: 14日以内に変えたページは変えない", "逆向きの差分と確かめられない"), profile="weekly")
-        edit(repo, "land.html", drop_section("representative"))
+                False, ("/partners: 14日以内に変えたページは変えない", "逆向きの差分と確かめられない"), profile="weekly")
+        edit(repo, "partners.html", drop_section("decline"))
         c.guard("週次: 元の commit が足していない節を rollback で消したら止める（凍結・節の削除）", rb(rollback_of=rb_sha), False,
-                ("/land: 14日以内に変えたページは変えない", "id つきの要素が消えた"), profile="weekly")
-        edit(repo, "land.html", undo_rb)
+                ("/partners: 14日以内に変えたページは変えない", "id つきの要素が消えた"), profile="weekly")
+        edit(repo, "partners.html", undo_rb)
         c.guard("週次: rollback_of が HEAD の履歴に無い commit なら確かめられない＝凍結で止める", rb(rollback_of="0123456789abcdef"), False,
-                ("/land: 14日以内に変えたページは変えない", "class=rollback だが"), profile="weekly")
+                ("/partners: 14日以内に変えたページは変えない", "class=rollback だが"), profile="weekly")
         #   JSON-LD だけ・焼き直しの所だけの書き換えを rollback と申告しても、凍結を外さない（2026-09-23 の確かめ #78）
-        edit(repo, "land.html", lambda s: s.replace('"description": "', '"description": "selftest: ', 1))
+        edit(repo, "partners.html", lambda s: s.replace('"description": "', '"description": "selftest: ', 1))
         c.guard("週次: 凍結中のコラムの JSON-LD だけを rollback と申告して書き換えたら凍結で止める（コラムは JSON-LD も比べる）",
-                rb(rollback_of=rb_sha), False, ("/land: 14日以内に変えたページは変えない", "逆向きの差分と確かめられない"), profile="weekly")
+                rb(rollback_of=rb_sha), False, ("/partners: 14日以内に変えたページは変えない", "逆向きの差分と確かめられない"), profile="weekly")
         edit(repo, "knowledge.html", add_card_for_existing)
         git(repo, "commit", "-qam", "feat(knowledge): selftest のカードを足した（元の commit＝今日＝/knowledge は 14 日凍結）")
         kb_sha = git(repo, "rev-parse", "HEAD")

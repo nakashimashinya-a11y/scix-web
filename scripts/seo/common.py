@@ -50,9 +50,10 @@ def _tg_target() -> str:
 TG_TARGET = _tg_target()
 UA = "scix-web-metrics/1.0 (+https://www.scix.co.jp/company)"
 
-# 収益ページ（問い合わせに直結する着地・遷移先）。優先順位は 買い手 ≧ 投資家 ＞ 土地。
-COMMERCIAL = ["/projects", "/transfer", "/investors", "/fund", "/sourcing", "/land",
-              "/contact", "/sell-form", "/en/contact", "/zh-contact"]
+# 収益ページ（問い合わせに直結する着地・遷移先）。優先は 案件の買い手・売り手 ＞ 投資家。
+# 土地だけの買取・賃借はしない（2026-10-18 中島）ので /land は無い（/sourcing へ 301）。
+COMMERCIAL = ["/projects", "/transfer", "/sourcing", "/sell-form", "/investors", "/fund",
+              "/contact", "/en/contact", "/zh-contact"]
 
 
 def log(msg: str) -> None:
