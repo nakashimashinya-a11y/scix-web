@@ -63,7 +63,11 @@
     '/column-jcstar-levels',
     '/column-land-buyback',
     '/column-land-lease',
-    '/column-land-zoning'
+    '/column-land-zoning',
+    '/column-study-reply',
+    '/column-study-reply-2',
+    '/column-study-reply-3',
+    '/column-study-reply-4'
   ];
   // Pages with no Japanese counterpart. /grid-storage is the closest JA page
   // (it is the "what is grid-scale storage" explainer these two translate).

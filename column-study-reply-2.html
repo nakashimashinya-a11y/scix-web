@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-light:#2A3D66;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#2C3E50;--text-light:#6C7A89;--light-bg:#F8F9FB;--border:#E2E6EC;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#0F1A2E 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Serif JP',serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+h3{font-size:1.05em;font-weight:700;color:var(--navy);margin:30px 0 10px;line-height:1.6}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.lead{font-size:1.02em}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.wraptext td{text-align:left;vertical-align:top}
+.wraptext thead th{text-align:left}
+.wraptext td.nw{white-space:nowrap}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-14px 0 28px}
+.wraptext{margin:28px 0;overflow-x:auto}
+.wraptext table{margin:0;min-width:620px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+ul.checks{list-style:none;padding:0;margin:20px 0}
+ul.checks li{position:relative;padding:10px 12px 10px 44px;border-bottom:1px solid var(--border);line-height:1.8}
+ul.checks li::before{content:'';position:absolute;left:10px;top:14px;width:18px;height:18px;border:2px solid var(--accent);border-radius:4px;background:var(--white)}
+ul.checks li:last-child{border-bottom:none}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.toc{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px 16px;margin:0 0 32px;font-size:.9em}
+.toc-title{font-weight:700;color:var(--navy);margin-bottom:8px;font-size:.95em}
+.toc a{color:var(--text);text-decoration:none;display:block;padding:3px 0}
+.toc a:hover{color:var(--accent)}
+.toc a::before{content:'›';color:var(--accent);margin-right:8px}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text);margin-bottom:0}
+.faq-a::before{content:'A. ';color:var(--text-light);font-weight:700}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:8px 0 6px}
+.kpi-item{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:16px 12px;text-align:center}
+.k-label{font-size:.8em;color:var(--text-light);line-height:1.5}
+.k-value{font-size:2.1em;font-weight:700;color:var(--navy);line-height:1.2;margin:6px 0 4px}
+.k-value span{font-size:.48em;margin-left:2px;font-weight:600}
+.k-sub{font-size:.74em;color:var(--text-light);line-height:1.5}
+.kpi-note{font-size:.78em;color:var(--text-light);margin:0 0 28px;line-height:1.8}
+@media(max-width:600px){.kpi{gap:6px}.kpi-item{padding:12px 6px}.k-value{font-size:1.45em}.k-label{font-size:.72em}.k-sub{font-size:.66em}}
+.author-box{background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy)}
+/* 連載ナビ（COLUMN 48 と同じ部品） */
+.c47series{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 30px;padding:12px 14px;background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+.c47series .lb{font-size:.74em;color:var(--text-light);letter-spacing:.06em;width:100%;margin-bottom:2px}
+.c47series a,.c47series span.cur{font-size:.83em;text-decoration:none;padding:3px 10px;border-radius:3px;line-height:1.7}
+.c47series a{color:var(--navy);background:var(--white);border:1px solid var(--border)}
+.c47series a:hover{border-color:var(--accent)}
+.c47series span.cur{color:var(--white);background:var(--navy);font-weight:600}
+/* 重さのバッジ */
+.w{display:inline-block;min-width:1.9em;text-align:center;font-weight:700;border-radius:3px;padding:0 4px;font-size:.92em;line-height:1.6}
+.w1{background:var(--navy);color:#fff}
+.w2{background:#FBF6EA;color:#8F6F22;border:1px solid var(--accent)}
+.w3{background:var(--light-bg);color:var(--text-light);border:1px solid var(--border)}
+.wkey{font-size:.82em;color:var(--text-light);margin:-10px 0 20px;line-height:1.9}
+/* カード */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 28px}
+.cards.n2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--light-bg);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;padding:14px 14px 12px;font-size:.88em;line-height:1.8}
+.card .cn{font-family:'Noto Serif JP',serif;color:var(--accent);font-weight:700;font-size:.9em;letter-spacing:.06em}
+.card .ct{font-weight:700;color:var(--navy);margin:2px 0 6px;line-height:1.55}
+.card .cb{color:var(--text);font-size:.95em}
+.card.dark{background:var(--navy);border-color:var(--navy);color:#fff}
+.card.dark .ct,.card.dark .cb{color:#fff}
+@media(max-width:680px){.cards,.cards.n2{grid-template-columns:1fr}}
+/* 6か所の見出し番号 */
+.six{display:flex;align-items:flex-start;gap:12px;margin:26px 0 10px}
+.six .n{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--navy);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:1em}
+.six h3{margin:4px 0 0}
+/* 手順 */
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:20px 0}
+ol.steps li{counter-increment:s;position:relative;padding:10px 0 10px 48px;border-bottom:1px solid var(--border);line-height:1.8}
+ol.steps li::before{content:counter(s);position:absolute;left:4px;top:12px;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:.85em;display:flex;align-items:center;justify-content:center}
+ol.steps li:last-child{border-bottom:none}
+ol.steps li b{color:var(--navy)}
+.next{background:#FBF6EA;border:1px solid var(--accent);border-radius:6px;padding:16px 20px;margin:28px 0;font-size:.92em;line-height:1.9}
+.next b{color:var(--navy)}
+/* 見本（回答書の文面）と、書き方ごとの読み方 */
+.mk{display:inline-flex;align-items:center;justify-content:center;width:1.5em;height:1.5em;border-radius:50%;background:var(--accent);color:var(--navy);font-family:'Noto Sans JP',sans-serif;font-weight:800;font-size:.72em;line-height:1;vertical-align:.12em;margin:0 3px;flex:0 0 auto}
+.mihon{margin:26px 0 10px;border:1px solid var(--border);border-radius:6px;background:var(--light-bg)}
+.mihon .mh-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:10px 14px;border-bottom:1px solid var(--border);font-size:.8em;color:var(--text-light);line-height:1.6}
+.mihon .mh-tag{display:inline-block;background:var(--navy);color:#fff;font-weight:700;letter-spacing:.14em;padding:1px 10px;border-radius:2px;font-size:.95em}
+.mihon .mh-t{color:var(--navy);font-weight:700}
+.mh-doc{margin:14px;background:#fff;border:1px solid #D3D9E1;box-shadow:3px 3px 0 #E6E9EE;padding:14px 18px 12px;font-family:'Noto Serif JP',serif;font-size:.86em;line-height:1.95;color:#1F2A3A;overflow-wrap:anywhere}
+.mh-doc .mh-conf{font-family:'Noto Sans JP',sans-serif;font-size:.76em;color:#9AA1AD;text-align:center;margin:10px 0 -2px;padding-top:6px;border-top:1px dashed #E2E6EC;letter-spacing:.03em;line-height:1.5}
+.mh-doc .mh-sec{font-weight:700;color:var(--navy);margin:10px 0 2px}
+.mh-doc .mh-sec:first-child{margin-top:0}
+.mh-doc p{margin:0 0 6px}
+.mh-doc .ind{padding-left:1.1em}
+.mh-doc .ind2{padding-left:2.2em}
+.mh-doc .gap{height:6px}
+.mh-doc .cut{text-align:center;color:#AAB1BC;font-family:'Noto Sans JP',sans-serif;font-size:.78em;letter-spacing:.3em;margin:4px 0}
+.mh-doc mark{background:linear-gradient(transparent 55%,#F2E1B2 55%);color:inherit;padding:0 1px}
+.mh-doc .dtab{overflow-x:auto;margin:6px 0 8px;padding:0 1px 1px 0}
+.mh-doc table.gantt th{white-space:nowrap}
+.mh-doc table.gantt td{min-width:2.2em}
+.mh-doc table{white-space:normal;font-size:.94em;line-height:1.6;margin:0;font-family:'Noto Serif JP',serif;min-width:0}
+.mh-doc th,.mh-doc td{padding:4px 8px;border:1px solid #D3D9E1;text-align:left;vertical-align:top}
+.mh-doc thead th{background:#F1F3F6;color:var(--navy);font-weight:600;letter-spacing:0}
+.mh-doc tbody th{background:#FAFBFC;font-weight:600;color:#1F2A3A}
+.mh-doc td.r,.mh-doc th.r{text-align:right;white-space:nowrap}
+.mh-doc td.on{background:#E9D6A2}
+.mh-doc td.on2{background:#1B2A4A}
+.mh-f{padding:0 14px 12px;font-size:.74em;color:var(--text-light);line-height:1.75}
+.mh-notes{list-style:none;margin:0;padding:2px 14px 12px;font-size:.88em;line-height:1.85}
+.mh-notes li{display:flex;gap:8px;align-items:flex-start;padding:8px 0;border-top:1px dashed #D3D9E1}
+.mh-notes li .mk{margin-top:.3em;font-size:.8em}
+.mh-notes li b{color:var(--navy)}
+.kaki{margin:16px 0 30px;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--white)}
+.kaki .kk-h{background:var(--navy);color:#fff;font-size:.82em;font-weight:600;padding:8px 14px;letter-spacing:.03em;line-height:1.6}
+.kaki .kk{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);border-top:1px solid var(--border);font-size:.85em;line-height:1.8}
+.kaki .kk-h+.kk{border-top:none}
+.kaki .kk>div{padding:10px 12px}
+.kaki .kk .q{background:#FBF6EA;font-family:'Noto Serif JP',serif;color:#1F2A3A;border-right:1px solid var(--border)}
+.kaki .kk .a{border-right:1px solid var(--border)}
+.kaki .kk i{display:block;font-style:normal;font-size:.78em;color:var(--text-light);font-weight:600;letter-spacing:.04em;margin-bottom:1px;font-family:'Noto Sans JP',sans-serif}
+.kaki .kk b{color:var(--navy)}
+@media(max-width:680px){.kaki .kk{grid-template-columns:1fr}.kaki .kk .q,.kaki .kk .a{border-right:none;border-bottom:1px dashed var(--border)}.mh-doc{margin:10px;padding:12px 12px 10px;font-size:.84em}}
+.case{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0 10px}
+.case .cs{border:1px solid var(--border);border-radius:6px;background:var(--white);overflow:hidden;font-size:.86em;line-height:1.8}
+.case .cs-h{padding:10px 14px;background:var(--light-bg);border-bottom:1px solid var(--border)}
+.case .cs-h .cn{font-family:'Noto Serif JP',serif;color:var(--accent);font-weight:700;letter-spacing:.06em;font-size:.9em}
+.case .cs-h .ct{font-weight:700;color:var(--navy);line-height:1.55}
+.case dl{margin:0;padding:6px 14px 12px}
+.case dt{font-size:.8em;color:var(--text-light);font-weight:600;margin-top:8px;display:flex;align-items:center;gap:2px}
+.case dd{margin:0;color:var(--text)}
+.case dd q{quotes:'「' '」';font-family:'Noto Serif JP',serif;color:#1F2A3A}
+.case .cs-r{margin:0 14px 14px;padding:10px 12px;background:#FBF6EA;border:1px solid var(--accent);border-radius:4px}
+.case .cs-r b{color:var(--navy)}
+@media(max-width:680px){.case{grid-template-columns:1fr}}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px;overflow-x:auto}
+  figure svg{min-width:620px}
+  figure::before{content:'← 横にスクロールできます →';display:block;font-size:.72em;color:var(--text-light);text-align:center;margin-bottom:6px}
+}
+</style>
+<title>回答書の6か所を、当社はこう読む｜充電kW・但し書き・選定理由・内訳・起算点・注意事項｜ScienceX</title>
+<meta name="description" content="接続検討回答書で当社が最初に見る6か所を、1か所ずつ読む。各か所に、広域機関の記載例の文言で作った回答書の見本と、書き方ごとの読み方の表。件名の早見表、連系予定日の組み直し方、架空の2通を並べた事例、買う人が売主に求める書類のチェックリスト。連載の読み方編。">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-study-reply-2">
+<link rel="canonical" href="https://www.scix.co.jp/column-study-reply-2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="回答書の6か所を、当社はこう読む｜充電kW・但し書き・選定理由・内訳・起算点・注意事項｜ScienceX">
+<meta property="og:description" content="接続検討回答書で当社が最初に見る6か所を、1か所ずつ読む。各か所に、広域機関の記載例の文言で作った回答書の見本と、書き方ごとの読み方の表。件名の早見表、連系予定日の組み直し方、架空の2通を並べた事例、買う人が売主に求める書類のチェックリスト。連載の読み方編。">
+<meta property="og:url" content="https://www.scix.co.jp/column-study-reply-2">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="回答書の6か所を、当社はこう読む｜充電kW・但し書き・選定理由・内訳・起算点・注意事項｜ScienceX">
+<meta name="twitter:description" content="接続検討回答書で当社が最初に見る6か所を、1か所ずつ読む。各か所に、広域機関の記載例の文言で作った回答書の見本と、書き方ごとの読み方の表。件名の早見表、連系予定日の組み直し方、架空の2通を並べた事例、買う人が売主に求める書類のチェックリスト。連載の読み方編。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp.png">
+<meta property="article:published_time" content="2026-10-20">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "回答書の6か所を、当社はこう読む｜充電kW・但し書き・選定理由・内訳・起算点・注意事項｜ScienceX",
+  "description": "接続検討回答書で当社が最初に見る6か所を、1か所ずつ読む。各か所に、広域機関の記載例の文言で作った回答書の見本と、書き方ごとの読み方の表。件名の早見表、連系予定日の組み直し方、架空の2通を並べた事例、買う人が売主に求める書類のチェックリスト。連載の読み方編。",
+  "author": {
+    "@type": "Person",
+    "name": "中島 晋也",
+    "jobTitle": "代表取締役（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp.png"
+  },
+  "datePublished": "2026-10-20",
+  "dateModified": "2026-10-20",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.scix.co.jp/column-study-reply-2"
+  },
+  "url": "https://www.scix.co.jp/column-study-reply-2",
+  "keywords": "接続検討回答書 読み方, 工事費負担金 内訳, 所要工期 起算, 最大自家消費電力, 順潮流 逆潮流 蓄電池, 連系点 選定理由, ノンファーム型接続, 申込者に必要な対策, 系統用蓄電池 買う"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://www.scix.co.jp/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ナレッジ",
+      "item": "https://www.scix.co.jp/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "売買の実務",
+      "item": "https://www.scix.co.jp/knowledge#cat-deal"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "回答書の6か所を、当社はこう読む",
+      "item": "https://www.scix.co.jp/column-study-reply-2"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "事前相談で「制限なし」だったのに、回答書では充電側の対策工事が付きました。なぜですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "無料の事前相談は、配電用変圧器の熱容量から簡易的に評価した結果で、充電側を検討したとは書かれていません。回答書は「逆潮流（受電）側と順潮流（供給）側を包含した検討結果」で、充電側（順潮流）も見た結果です。充電側が原因の対策工事は、回答書で初めて出てきます。当社の束では、充電側起因の対策や制約が書かれた回答が4分の1強あり、付いた回答は工期の中央値が約1.6倍でした。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "負担金の総額が予算に収まっていれば、内訳は見なくてよいですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "内訳の行で、工期と動きやすさが決まります。架空線と計量・通信だけなら標準形で、当社の束では内訳の行の中で架空線工事がいちばん大きく、全体の37%でした。変電設備・地中線・上位系統工事の行に金額が入っていれば年単位の工事で、精算でも動きやすい。総額が同じでも、中身で案件の性格が違います。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "売主から回答書のPDFをそのまま送ってもらってよいですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "回答書には守秘の条項があり、各ページに「秘密情報 目的外使用・第三者への開示を禁止します」とあります。売主が電力会社の了解を取っているか、墨消し版かを確かめてください。当社は了解を取るか、墨消し版を使っています。買い手候補への開示を一般に認めた公式の文は、今のところ見つかっていません。"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8A92A0"><a href="/" style="color:#5A6577;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#5A6577;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge#cat-deal" style="color:#5A6577;text-decoration:none">売買の実務</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8A92A0">回答書の6か所を、当社はこう読む</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 51-2</span>
+      <span class="header-tag">売買の実務 / 回答書の読み方（読み方編）</span>
+      <time class="header-date" datetime="2026-10-20">2026.10.20</time>
+    </div>
+    <h1>回答書の6か所を、当社はこう読む<br>── <em>充電kW・但し書き・選定理由・内訳・起算点・注意事項</em></h1>
+    <p class="header-desc">入口編で見取り図にした6か所を、当社が実際に見る順で1つずつ。回答書の文面の見本と、書き方ごとの読み方を添えて、素人の方にも同じ所が見えるように。</p>
+  </div>
+</div>
+
+<div class="article-body">
+<nav class="c47series" aria-label="COLUMN 51 連載"><span class="lb">この連載は4本です。買う人と、自分で申し込む人のために、接続検討回答書と連系承諾の読み方を順に書きます</span><a target="_top" href="/column-study-reply">COLUMN 51　入口編</a><span class="cur">COLUMN 51-2　読み方編</span><a target="_top" href="/column-study-reply-3">COLUMN 51-3　承諾編</a><a target="_top" href="/column-study-reply-4">COLUMN 51-4　数字編</a></nav>
+
+<p class="lead"><a target="_top" href="/column-study-reply">入口編</a>で、回答書が3つの紙でできていて、当社が最初に見る6か所がどこにあるかを見取り図にしました。この回では、その6か所を1つずつ読みます。言葉は入口編の<a target="_top" href="/column-study-reply#kotoba">早見表</a>にまとめました。順番は当社が実際に見る順です。件名で紙を見分けてから、申込内容、連系可否、工事の概要、負担金の内訳、工期、注意事項説明書。最後に、○の行（申込者に必要な対策・運用上の制約）と、買う人が売主に求めるもののチェックリストを置きます。</p>
+
+<div class="toc">
+  <div class="toc-title">この記事の内容</div>
+  <a href="#kenmei">まず、件名で紙を見分ける</a>
+  <a href="#six">6か所を、1つずつ</a>
+  <a href="#p1">① 申込内容：充電kWと機器が、資料と同じか</a>
+  <a href="#p2">② 連系可否：「可」の横の但し書きと、検討範囲の1文</a>
+  <a href="#p3">③ 工事の概要：連系点は最寄りか、変電所からの新設線か</a>
+  <a href="#p4">④ 負担金の内訳：総額の前に、行を見る</a>
+  <a href="#p5">⑤ 工期の起算点：回答日からではない</a>
+  <a href="#p6">⑥ 有効期限（本文4.）と守秘（注意事項説明書）</a>
+  <a href="#maru">○の行も、同じ流れで見る</a>
+  <a href="#jirei">事例：総額は約4倍、連系予定日は1年4か月違う2通</a>
+  <a href="#check">買う人が売主に求めるもの</a>
+  <a href="#faq">よくある質問</a>
+</div>
+
+<h2 id="kenmei">まず、件名で紙を見分ける</h2>
+
+<p>「回答書あり」と言われて届くPDFには、2種類あります。接続検討の回答書と、契約申込みの回答（連系承諾）です。見た目が似ていて、承諾の本文の見出しも「接続検討結果」のままのことがあるので、表紙の件名で決めてから読みます。</p>
+<figure><svg viewBox="0 0 780 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="件名で2つの紙を見分ける。接続検討申込みに対する回答が回答書、契約申込みに対する回答が連系承諾" font-family="'Noto Sans JP',sans-serif"><rect width="780" height="250" fill="#FFFFFF"/><rect x="34" y="34" width="330" height="176" rx="3" fill="#EEF1F5"/><rect x="30" y="30" width="330" height="176" rx="3" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="1.5" /><text x="46" y="54" font-size="10" fill="#6C7A89" text-anchor="start" font-weight="400" >様式 AP7</text><text x="46" y="80" font-size="14" fill="#1B2A4A" text-anchor="start" font-weight="700" >接続検討申込みに対する</text><text x="46" y="100" font-size="14" fill="#1B2A4A" text-anchor="start" font-weight="700" >回答について</text><text x="46" y="128" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >受付番号・受付日・回答日</text><text x="46" y="145" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >別添：接続検討回答書（AP8／AK7）</text><text x="46" y="162" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >別添：注意事項説明書（AP9）</text><text x="46" y="179" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >→ 机上検討。約束ではない</text><rect x="230" y="40" width="118" height="22" rx="11" fill="#C49A3C" stroke="#C49A3C" stroke-width="1.5" /><text x="289" y="55" font-size="10.5" fill="#1B2A4A" text-anchor="middle" font-weight="700" >接続検討回答書</text><rect x="424" y="34" width="330" height="176" rx="3" fill="#EEF1F5"/><rect x="420" y="30" width="330" height="176" rx="3" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="1.5" /><text x="436" y="54" font-size="10" fill="#6C7A89" text-anchor="start" font-weight="400" >様式 PP3</text><text x="436" y="80" font-size="14" fill="#1B2A4A" text-anchor="start" font-weight="700" >発電設備等に関する</text><text x="436" y="100" font-size="14" fill="#1B2A4A" text-anchor="start" font-weight="700" >契約申込みの回答について（承諾）</text><text x="436" y="128" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >契約申込みの申込日・受付日・承諾日</text><text x="436" y="145" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >承諾の一文と、容量確定の一文</text><text x="436" y="162" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >別紙：工事概要・負担金・工期・検討結果…</text><text x="436" y="179" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >→ 契約の成立。ここから期限が動く</text><rect x="620" y="40" width="118" height="22" rx="11" fill="#1B2A4A" stroke="#1B2A4A" stroke-width="1.5" /><text x="679" y="55" font-size="10.5" fill="#FFFFFF" text-anchor="middle" font-weight="700" >連系承諾</text><text x="390.0" y="232" font-size="11" fill="#6C7A89" text-anchor="middle" font-weight="400" >見た目が似ていて、承諾の本文の見出しも「接続検討結果」のままのことがある。件名で決めてから読む</text></svg></figure>
+<figcaption style="margin-top:-18px;margin-bottom:28px">図1｜件名で見分ける。左が接続検討回答書（様式AP7）、右が連系承諾（様式PP3）。右は契約の成立を知らせる紙で、読み方は承諾編に。</figcaption>
+
+<p>この回で読むのは左の紙です。右の紙が届いている案件は、席（連系予約）が確定した案件で、値段の階段が1段上がります。両方ある案件は、左で系統の条件を、右で権利の状態を見ます。</p>
+
+<p>題名は全部で7種類ほどあります。表紙の題と、様式番号の対応を表にしました。様式番号は表紙の右上か左上に小さく書かれています。</p>
+<div class="wraptext"><table>
+<caption>表1｜表紙の題（件名）で、何の紙かを決める</caption>
+<thead><tr><th>様式</th><th>表紙の題</th><th>何の紙か</th><th>読む回</th></tr></thead>
+<tbody>
+<tr><td>CK3</td><td>事前相談に対する回答書（高圧）／（特別高圧）</td><td>無料の事前相談の回答。変圧器などの熱容量から簡易に見た結果で、工事・負担金・工期は書かれない</td><td class="nw">この回の②</td></tr>
+<tr><td>AP7<br>AP8・AK7<br>AP9</td><td>接続検討申込みに対する回答について（別添「接続検討回答書」と「注意事項説明書」）</td><td>接続検討の回答。この回で読む紙</td><td class="nw">この回</td></tr>
+<tr><td>APy3</td><td>接続検討の要否確認依頼に対する結果について</td><td>最大受電電力が変わらない・減るとき、受電設備や保護装置などを変えるときに、接続検討をやり直す必要があるかの確認結果</td><td class="nw"><a target="_top" href="/column-equipment">COLUMN 06</a></td></tr>
+<tr><td>PP3</td><td>発電設備等に関する契約申込みの回答について（承諾）。中部は「契約申込みに対する回答書」、東北は「系統連系承諾書」など</td><td>連系承諾。契約が成立し、系統の席が確定する</td><td class="nw"><a target="_top" href="/column-study-reply-3">承諾編</a></td></tr>
+<tr><td>PP4</td><td>発電設備等に関する契約申込みの回答について（承諾不可）</td><td>承諾されなかった。理由は別紙</td><td class="nw"><a target="_top" href="/column-study-reply-3">承諾編</a></td></tr>
+<tr><td>会社の書式</td><td>技術検討回答書（九州）</td><td>契約申込みのあとの技術検討で、接続検討から内容が変わったときだけ先に届く紙</td><td class="nw"><a target="_top" href="/column-study-reply-3">承諾編</a></td></tr>
+<tr><td>LP3</td><td>需要設備に関する契約申込みの回答について</td><td>充電側（需要側）の契約申込みへの回答</td><td class="nw"><a target="_top" href="/column-study-reply-3">承諾編</a></td></tr>
+</tbody></table></div>
+<p class="tnote">様式番号は広域機関「系統アクセス手続きで用いる様式集」による。会社によって自社の書式と題を使う。</p>
+
+<p>ここから先は、6か所ごとに<strong>回答書の文面の見本</strong>を置きます。文言は広域機関が公開している記載例のもので、名称と数字は架空です。見本の金の丸の英字（A、B…）が付いた所が、当社が読む所です。その下の表は、同じ欄に別の書き方が来たときの読み方です。</p>
+
+<h2 id="six">6か所を、1つずつ</h2>
+
+<div class="six"><div class="n">1</div><h3 id="p1">申込内容：充電kWと機器が、資料と同じか</h3></div>
+
+<p>回答書の最初の欄は、電力会社が「何について検討したか」です。最大受電電力は放電の出力kW、その横の括弧書き（多くの回答書は「最大自家消費電力」、2026年10月版の記載例は「系統からの最大供給電力」）は充電の電力kW。買う人は放電kWだけを見がちですが、対策工事を決めるのは充電側のことがあります。このkWと、接続検討申込書に書いた蓄電池とPCSの種類・出力が、売主の資料や見積の構成と同じかを見ます。</p>
+<figure><svg viewBox="0 0 780 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="蓄電池は放電と充電の両方向に電気が流れる。無料の事前相談は変圧器の熱容量から簡易に評価したもので、回答書は放電側と充電側の両方を見た結果" font-family="'Noto Sans JP',sans-serif"><rect width="780" height="340" fill="#FFFFFF"/><defs><marker id="arN" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1B2A4A"/></marker></defs><marker id="arG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#C49A3C"/></marker><rect x="70" y="90" width="140" height="76" rx="8" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="3" /><rect x="210" y="114" width="12" height="28" rx="2" fill="#1B2A4A" stroke="#1B2A4A" stroke-width="1.5" /><rect x="80" y="100" width="90" height="56" rx="4" fill="#C49A3C" stroke="#C49A3C" stroke-width="1.5" /><text x="140" y="194" font-size="13" fill="#1B2A4A" text-anchor="middle" font-weight="700" >蓄電所</text><text x="140" y="212" font-size="10.5" fill="#2C3E50" text-anchor="middle" font-weight="400" >最大受電電力＝放電kW</text><text x="140" y="228" font-size="10.5" fill="#2C3E50" text-anchor="middle" font-weight="400" >最大自家消費電力＝充電kW</text><line x1="620" y1="60" x2="620" y2="190" stroke="#1B2A4A" stroke-width="4"/><line x1="580" y1="80" x2="660" y2="80" stroke="#1B2A4A" stroke-width="3"/><line x1="586" y1="104" x2="654" y2="104" stroke="#1B2A4A" stroke-width="3"/><text x="620" y="216" font-size="13" fill="#1B2A4A" text-anchor="middle" font-weight="700" >電力会社の系統</text><text x="620" y="234" font-size="10.5" fill="#2C3E50" text-anchor="middle" font-weight="400" >配電線・変電所</text><line x1="220" y1="110" x2="570" y2="110" stroke="#1B2A4A" stroke-width="3" marker-end="url(#arN)"/><text x="390.0" y="100" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700" >放電（逆潮流・受電側）</text><line x1="570" y1="150" x2="220" y2="150" stroke="#C49A3C" stroke-width="3" marker-end="url(#arG)"/><text x="390.0" y="172" font-size="12.5" fill="#8F6F22" text-anchor="middle" font-weight="700" >充電（順潮流・供給側）</text><rect x="40" y="272" width="330" height="52" rx="6" fill="#EEF1F5" stroke="#E2E6EC" stroke-width="1" /><text x="55" y="292" font-size="11.5" fill="#1B2A4A" text-anchor="start" font-weight="700" >事前相談（無料）</text><text x="55" y="311" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >変圧器の熱容量から簡易に評価。充電側の記載なし</text><rect x="410" y="272" width="340" height="52" rx="6" fill="#FBF6EA" stroke="#C49A3C" stroke-width="1" /><text x="425" y="292" font-size="11.5" fill="#1B2A4A" text-anchor="start" font-weight="700" >接続検討回答書</text><text x="425" y="311" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >「逆潮流（受電）側と順潮流（供給）側を包含」の1文がある</text></svg></figure>
+<figcaption style="margin-top:-18px;margin-bottom:28px">図2｜蓄電池は、放電（逆潮流・受電側）と充電（順潮流・供給側）の両方向に電気が流れる。回答書はその両方を見た結果。</figcaption>
+
+<p>違っていれば、注意事項説明書の第4項（内容が変われば再検討）の対象で、回答書の値のほうが古い。機器のメーカー・型式の変更は「接続検討の要否確認」という手続きで済むこともありますが、充電電力を変えると接続検討のやり直し（再度の接続検討）になりえます（<a target="_top" href="/column-equipment">COLUMN 06</a>）。</p>
+<div class="mihon"><div class="mh-h"><span class="mh-tag">見本1</span><span class="mh-t">申込内容の欄</span><span>接続検討回答書（別添）2.・3.(8)</span></div><div class="mh-doc"><p class="mh-sec">２．接続検討の申込内容</p>
+<div class="dtab"><table><tbody>
+<tr><th>発電者の名称</th><td>○○蓄電所</td></tr>
+<tr><th>発電場所（住所）</th><td>○○県○○市○○町○○番</td></tr>
+<tr><th>最大受電電力</th><td><mark>1,990kW</mark><span class="mk">A</span>（系統からの最大供給電力：<mark>1,990kW</mark>）<span class="mk">B</span></td></tr>
+<tr><th>アクセス設備の運用開始希望日</th><td>2028年4月1日<span class="mk">C</span></td></tr>
+</tbody></table></div>
+<div class="cut">（中略）</div>
+<p class="mh-sec">（８）その他</p>
+<p>・…本回答書は、接続検討申込書の最大受電電力（受電側）及び最小受電電力（供給側）から充放電両面を考慮した検討結果のため、接続供給契約の申込内容が今回検討した条件から異なる場合は、本回答書の工事概要や工事費負担金、所要工期が変更となる可能性があります。<span class="mk">D</span></p><div class="mh-conf">秘密情報　目的外使用・第三者への開示を禁止します　○○株式会社</div></div><ul class="mh-notes"><li><span class="mk">A</span><div><b>最大受電電力＝放電のkW。</b>電力会社が受け取る（受電する）向きなので、こう呼びます。</div></li><li><span class="mk">B</span><div><b>括弧の中が充電のkW。</b>2026年10月版の記載例では「系統からの最大供給電力」。それより前の回答書では「最大自家消費電力」（中部・中国・東北など）や「最大自家用消費電力」（東京・九州）と書かれ、四国の特別高圧は「放電側」「充電側」と書きます。買う人が見落とすのはこちらです。</div></li><li><span class="mk">C</span><div><b>希望日は申込者が書いた日</b>で、電力会社が約束した日ではありません。連系できる日は⑤の工期から組み直します。</div></li><li><span class="mk">D</span><div><b>充電側の契約（接続供給契約）を別の値で申し込むと、工事も負担金も工期も変わりうる</b>、という一文です。充電のkWは、回答書のあとで変えにくい値だと読みます。</div></li></ul><p class="mh-f">文言は電力広域的運営推進機関の記載例（高圧・様式AP8-202610）から。名称・地名・数字は架空で、実在の回答書ではありません。会社によって言い回しや欄の番号が少し違います。記載例の申込内容は、名称・場所・最大受電電力・運用開始希望日の4行です。蓄電池やPCSの型式は本文に出ないことが多く、出るときは別紙です（当社が読んだ中部の回答書では、逆変換装置の定格出力と台数）。出ていなければ、接続検討申込書の控えで突き合わせます。</p></div>
+
+<div class="kaki"><div class="kk-h">申込内容の欄に、こう書いてあったら</div><div class="kk"><div class="q"><i>回答書の書き方</i>「最大受電電力 1,990kW（系統からの最大供給電力：1,990kW）」</div><div class="a"><i>意味</i>放電も充電も同じ大きさで検討した回答。いちばん多い形</div><div class="d"><i>次にすること</i>売主の資料と、EPC（建設会社）の見積の充電kWが同じか</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「最大受電電力 1,990kW（最大自家消費電力：1,990kW）」。東京・九州は「最大自家用消費電力」</div><div class="a"><i>意味</i>2026年10月より前の書式での充電kW。いま手元にある回答書の多くはこの形</div><div class="d"><i>次にすること</i>「系統からの最大供給電力」と同じ意味で読む</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>（特別高圧・四国）「放電側：1,990kW、充電側：1,990kW」</div><div class="a"><i>意味</i>放電と充電を並べて書く会社もある</div><div class="d"><i>次にすること</i>同じく、充電側の値を資料と突き合わせる</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>充電の値が放電より小さい（例：放電1,990kW・充電1,000kW）</div><div class="a"><i>意味</i>充電を絞って申し込んだ回答。充電側の対策工事を軽くするための設計のことがある</div><div class="d"><i>次にすること</i>運用の計画（何時間で満充電にするか）と合うか。あとで充電を上げると接続検討のやり直しになりうる</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>申込書の控えと違う値が書いてある</div><div class="a"><i>意味</i>電力会社と協議して条件を変えて検討した（記載例の注記にある扱い）か、申込みのあとで変えた</div><div class="d"><i>次にすること</i>変えた理由と、そのときのやり取りの記録を売主に求める</div></div></div>
+
+
+<div class="six"><div class="n">2</div><h3 id="p2">連系可否：「可」の横の但し書きと、検討範囲の1文</h3></div>
+
+<p>連系可否は「可」か「否」ですが、「可」の横に「（※但し、「（５）申込者に必要な対策」が必要となります）」と付きます。対策は、電気方式・力率・保護装置・FRT要件・保安通信用電話設備・給電情報伝送装置・発電出力の抑制機能など、高圧の記載例で19項目（特高の記載例は23項目、会社の書式でさらに違う）の適合表で、契約申込みの前提です。機器の見積に直結します。</p>
+
+<p>同じ欄に、「本回答は、蓄電池連系における逆潮流（受電）側と順潮流（供給）側を包含した検討結果となります」という1文があります。放電だけでなく充電も見た、という宣言です。無料の事前相談にはこれがありません。事前相談の回答は「配電用変圧器…の熱容量から簡易的に評価した結果」で、充電側を検討したとは書かれていません。事前相談で「制限なし」でも、回答書で充電側の対策工事が付くのは、この違いからです。会社で言葉が違い、放電・充電と書く会社と、受電・供給と書く会社があります。</p>
+
+<p>「ノンファーム型接続適用により、系統に連系が可能となります」の文もここにあります。混雑時に無補償で出力を止められることを受け入れて、増強を待たずにつなぐ方式です。当社の束では、約9割の回答書に付いていました。収益の前提なので、運用上の制約の行とあわせて見ます。</p>
+<div class="mihon"><div class="mh-h"><span class="mh-tag">見本2</span><span class="mh-t">連系可否の欄</span><span>接続検討回答書（別添）3.(1)</span></div><div class="mh-doc"><p class="mh-sec">３．接続検討結果</p>
+<p class="mh-sec">（１）希望受電電力に対する連系可否</p>
+<p><mark>本回答は、蓄電池連系における逆潮流（受電）側と順潮流（供給）側を包含した検討結果となります。</mark><span class="mk">A</span></p>
+<p>(a) 連系可否：<mark>可</mark>　（※但し、「（５）申込者に必要な対策」が必要となります）<span class="mk">B</span></p>
+<p class="ind">・系統混雑時において発電設備等を出力制御していただくことを前提とした<mark>ノンファーム型接続適用</mark>により、系統に連系が可能となります。このため、系統混雑時の無補償での出力制御（オンライン制御）にあたり、貴社負担で必要な出力制御機器（通信装置含む）を導入していただきます。<span class="mk">C</span></p><div class="cut">（中略）</div>
+<p class="ind">出力制御量に影響を与える主な設備名：<mark>275kV○○線</mark><span class="mk">D</span></p>
+<p class="ind">貴社の発電設備に関しては、基幹系統設備の混雑に対する<mark>再給電方式（一定の順序）</mark>による混雑管理が適用されます。<span class="mk">E</span></p><div class="mh-conf">秘密情報　目的外使用・第三者への開示を禁止します　○○株式会社</div></div><ul class="mh-notes"><li><span class="mk">A</span><div><b>充電側も見た、という宣言。</b>放電（逆潮流・受電）と充電（順潮流・供給）の両方で検討した結果です。会社によって「放電側と充電側」と書きます。</div></li><li><span class="mk">B</span><div><b>条件付きの「可」。</b>（５）の対策をそろえて、はじめて契約申込みができます。</div></li><li><span class="mk">C</span><div><b>混んだら無補償で止められる前提。</b>出力制御の機器と通信装置は申込者の負担です。見積に入っているかを見ます。</div></li><li><span class="mk">D</span><div><b>この設備が混むと止められる。</b>設備名が書いてあれば、その線の潮流実績と作業停止の日数を見ます（○の行）。</div></li><li><span class="mk">E</span><div><b>上位の送電線が混んだときに、決まった順番で止めるルール。</b>収益の試算に抑制を入れるかどうかの根拠です。</div></li></ul><p class="mh-f">文言は電力広域的運営推進機関の記載例（高圧・様式AP8-202610）から。名称・地名・数字は架空で、実在の回答書ではありません。会社によって言い回しや欄の番号が少し違います。</p></div>
+
+<p>比べるために、無料の事前相談の回答も見本にします。同じ「連系できるか」でも、見ている範囲が違います。</p>
+
+<div class="mihon"><div class="mh-h"><span class="mh-tag">見本3</span><span class="mh-t">事前相談の回答</span><span>事前相談に対する回答書（高圧）3.</span></div><div class="mh-doc"><p class="mh-sec">事前相談に対する回答書（高圧）</p>
+<p class="mh-sec">３．回答内容</p>
+<div class="dtab"><table><tbody>
+<tr><th>熱容量に起因する連系制限の有無</th><td>最大受電電力に対する<mark>［連系制限なし］</mark><span class="mk">F</span></td></tr>
+<tr><th>バンク逆潮流の発生に伴う連系制限の有無</th><td>最大受電電力に対する［連系制限なし］</td></tr>
+<tr><th>連系点(想定)</th><td>電柱番号 ○○ ▲号柱　電圧 6kV</td></tr>
+<tr><th>連系点(想定)から連系予定変電所までの既設配電線路亘長</th><td>約2km<span class="mk">G</span></td></tr>
+</tbody></table></div>
+<p class="mh-sec">＜注意事項＞</p>
+<p>・本回答は、連系を予定する配電用変電所における<mark>配電用変圧器</mark>（…）<mark>の熱容量から簡易的に評価した結果</mark>であり、接続検討では、本回答と異なる結果となる可能性があります。<span class="mk">H</span></p>
+<p>・連系に必要な工事の内容、工期等の検討は接続検討において行います。</p></div><ul class="mh-notes"><li><span class="mk">F</span><div><b>熱容量の行の「制限なし」は、変電所の変圧器に空きがある、という意味だけ。</b>バンク逆潮流の行の「制限なし」は、対策工事が済んでいる場合も含みます。どちらも配電線の新設・増強は評価の外で、工事や負担金が要らないという意味ではありません。</div></li><li><span class="mk">G</span><div><b>変電所までの線の長さ。</b>記載例の注意事項は「亘長が長くなるほど、対策工事費が高額になる可能性が高くなります」と書いています。</div></li><li><span class="mk">H</span><div><b>見ているのは、変電所の変圧器の熱容量とバンク逆潮流だけ。</b>充電側の検討の宣言（見本2のA）がありません。</div></li></ul><p class="mh-f">文言は広域機関の記載例（様式CK3 高圧-202507）から。地名・数字は架空です。</p></div>
+
+<div class="kaki"><div class="kk-h">連系可否の欄に、こう書いてあったら</div><div class="kk"><div class="q"><i>回答書の書き方</i>「可（※但し、「（５）申込者に必要な対策」が必要となります）」</div><div class="a"><i>意味</i>条件付きの可。対策をそろえて申込みができる</div><div class="d"><i>次にすること</i>（５）で「不適」や「提出要」の項目を拾い、見積に入っているかを見る</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「逆潮流（放電）側と順潮流（充電）側を包含」（四国）、「逆潮流（受電）側：軽負荷時及び重負荷時、順潮流（供給）側：重負荷時」と「充放電両面を考慮」（東京）</div><div class="a"><i>意味</i>言い方は違うが、どれも充電側も見た、という宣言</div><div class="d"><i>次にすること</i>見本2のAと同じに読む</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>古い特別高圧の回答書に「蓄電池への充電（供給側）については考慮しておりません」</div><div class="a"><i>意味</i>充電側を見ていない回答</div><div class="d"><i>次にすること</i>充電側の検討は別に要る。充電側の工事や制限が後から付くものとして値段を考える</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「否」と、否とする理由「申込者が連系に必要な配電用変電所（配電塔）の増強を希望していないため」</div><div class="a"><i>意味</i>申込書で「増強を希望しない」を選んだ結果</div><div class="d"><i>次にすること</i>増強を希望して出し直せば可になりうる。負担金と工期は増える</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「否」と、「連系に必要な工事費負担金額が、申込者が提示した負担可能上限額を超過するため」</div><div class="a"><i>意味</i>申込書に書いた負担できる上限を超えた。工事費負担金の概算額が書かれることもある</div><div class="d"><i>次にすること</i>上限を上げて出し直すか、出力を下げるか。この回答書では申込みに進めない</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「出力制御量に影響を与える主な設備名：275kV○○線」</div><div class="a"><i>意味</i>その設備が混むと、無補償で止められる</div><div class="d"><i>次にすること</i>潮流実績と作業停止の日数を見る（○の行）。当社の束では約半数に設備名がある</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「出力制御量に影響を与える主な設備名：対象なし」</div><div class="a"><i>意味</i>今の時点では、止められる原因になる設備が無い</div><div class="d"><i>次にすること</i>将来の申込みで変わりうる。当社の束では2割弱で、東京に多い</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>事前相談の「［連系制限なし］」だけがある</div><div class="a"><i>意味</i>変圧器の熱容量で見た簡易な評価。充電側を検討したとは書かれていない</div><div class="d"><i>次にすること</i>接続検討の回答書が来るまで、負担金と工期は分からないと読む</div></div></div>
+
+
+<div class="six"><div class="n">3</div><h3 id="p3">工事の概要：連系点は最寄りか、変電所からの新設線か</h3></div>
+
+<p>「系統連系工事の概要」には、どの変電所・どの線につなぐか、工事概要図、そして「連系点・送電線ルートの選定理由」が書かれます。記載例の選定理由は、最も近い配電線に入る、最寄りでなければ経済性で比べて選んだ、景観法の区域を避けた、架空線が難しいので地中線にした、といった形です（見本4と下の表）。</p>
+<figure><svg viewBox="0 0 780 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="連系点の選定理由。最寄りの配電線に入れるのか、容量不足で変電所から新設線を引くのか。後者は負担金の桁が変わることがあり、工期は年単位で変わる" font-family="'Noto Sans JP',sans-serif"><rect width="780" height="300" fill="#FFFFFF"/><line x1="40" y1="150" x2="740" y2="150" stroke="#B8C0CC" stroke-width="10"/><text x="60" y="136" font-size="11" fill="#6C7A89" text-anchor="start" font-weight="400" >道路沿いの配電線（既設）</text><line x1="80" y1="120" x2="80" y2="180" stroke="#6C7A89" stroke-width="2"/><line x1="190" y1="120" x2="190" y2="180" stroke="#6C7A89" stroke-width="2"/><line x1="300" y1="120" x2="300" y2="180" stroke="#6C7A89" stroke-width="2"/><line x1="410" y1="120" x2="410" y2="180" stroke="#6C7A89" stroke-width="2"/><line x1="520" y1="120" x2="520" y2="180" stroke="#6C7A89" stroke-width="2"/><line x1="630" y1="120" x2="630" y2="180" stroke="#6C7A89" stroke-width="2"/><rect x="330" y="200" width="120" height="60" rx="6" fill="#C49A3C" stroke="#1B2A4A" stroke-width="2" /><text x="390" y="236" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700" >蓄電所の土地</text><line x1="390" y1="200" x2="390" y2="155" stroke="#1B2A4A" stroke-width="3"/><circle cx="390" cy="152" r="7" fill="#1B2A4A"/><rect x="405" y="170" width="165" height="24" rx="4" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="1" /><text x="487" y="186" font-size="10.5" fill="#1B2A4A" text-anchor="middle" font-weight="700" >最寄りの線に入る（8割）</text><rect x="40" y="40" width="110" height="56" rx="4" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="2" /><text x="95" y="64" font-size="12.5" fill="#1B2A4A" text-anchor="middle" font-weight="700" >変電所</text><text x="95" y="82" font-size="10.5" fill="#6C7A89" text-anchor="middle" font-weight="400" >数km先</text><path d="M 150 68 L 300 68 L 300 110 L 365 110 L 365 200" fill="none" stroke="#C0392B" stroke-width="2.5" stroke-dasharray="7 5"/><rect x="160" y="20" width="230" height="24" rx="4" fill="#FFFFFF" stroke="#C0392B" stroke-width="1" /><text x="275" y="36" font-size="10.5" fill="#C0392B" text-anchor="middle" font-weight="700" >最寄りが容量不足 → 変電所から新設線</text><rect x="470" y="40" width="280" height="70" rx="6" fill="#EEF1F5" stroke="#E2E6EC" stroke-width="1" /><text x="482" y="60" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >回答書3.(2)「連系点・送電線ルートの選定理由」</text><text x="482" y="77" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >「最も近い」線か、最寄りでない理由（経済性、</text><text x="482" y="94" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >架空線が困難で地中線など）が書かれる</text><text x="390.0" y="286" font-size="11" fill="#6C7A89" text-anchor="middle" font-weight="400" >新設線や上位系統（変電所・送電線）の工事が付くと、負担金は上がり、工期は年単位になる</text></svg></figure>
+<figcaption style="margin-top:-18px;margin-bottom:28px">図3｜最寄りの線に入るのか、容量不足で変電所から新設線を引くのか。当社の束では8割が「最寄り・最低コスト」、最寄りが容量不足だった回答は6%。</figcaption>
+
+<p>工事が要る理由の欄には、バンク逆潮流対策（変電所の変圧器を電気が逆向きに流れることへの対策）、熱容量、短絡電流、そして「蓄電池の順潮流対策」が並びます。ここに「順潮流」「充電」の語があれば、充電側が原因の工事です。変電所からの新設線が理由なら、出力を下げて既設線に入れる余地があるかを電力会社に聞く価値があります。余地がある例は多くありませんが、充電側の対策が付いた回答では、充電kWを下げると順潮流の対策が要らなくなることがあるので、聞いてみる所です。</p>
+<div class="mihon"><div class="mh-h"><span class="mh-tag">見本4</span><span class="mh-t">工事の概要の欄</span><span>接続検討回答書（別添）3.(2)</span></div><div class="mh-doc"><p class="mh-sec">（２）系統連系工事の概要（工事費負担金工事以外も含めた全ての工事）</p>
+<p>(a) 工事概要図</p>
+<p class="ind">連系方法：<mark>6kV○○線 ○○号柱より分岐し</mark>、貴社発電所の構内柱と接続する。<span class="mk">A</span></p>
+<p class="ind" style="color:#6C7A89">（別の回答書の書き方）連系方法：<mark>○○変電所に新設する6kV○○線より</mark>、貴社発電所の構内柱と接続する。<span class="mk">B</span></p>
+<p>(b) 連系点・送電線ルートの選定理由：</p>
+<p class="ind">・近傍に存在する送電系統のうち、貴社受電設備に<mark>最も近く連系が可能な</mark>6kV○○線での架空線連系といたします。<span class="mk">C</span></p>
+<p>(c) 工事の必要性と設備規模：</p>
+<p class="ind" style="color:#6C7A89">（別の回答書の書き方）・貴社連系による<mark>順潮流</mark>により設備健全時に、○○変電所○号変圧器（○○kV○○線）の設備容量（熱容量）を超過するため、○○変電所○号変圧器（○○線）の<mark>増強工事</mark>（○○MVA→○○MVA）が必要となります。<span class="mk">D</span></p><div class="mh-conf">秘密情報　目的外使用・第三者への開示を禁止します　○○株式会社</div></div><ul class="mh-notes"><li><span class="mk">A</span><div><b>近くの既設の線から枝分かれする形。</b>標準形で、負担金は引込みの架空線と計量・通信が中心になるはずです。</div></li><li><span class="mk">B</span><div><b>変電所から専用の線を新しく引く形。</b>負担金も工期も跳ねます。線の長さ（亘長）は、負担金の算定根拠の表に出ます。</div></li><li><span class="mk">C</span><div><b>最寄りの線に入る、という理由。</b>当社の束では8割がこの形でした。最寄りでないときは、その理由が具体的に書かれます（下の表）。</div></li><li><span class="mk">D</span><div><b>「順潮流」の語があれば、充電側が原因の工事。</b>変圧器の増強は年単位です。充電kWを下げる余地を電力会社に聞く所です。</div></li></ul><p class="mh-f">文言は電力広域的運営推進機関の記載例（高圧・様式AP8-202610）から。名称・地名・数字は架空で、実在の回答書ではありません。会社によって言い回しや欄の番号が少し違います。</p></div>
+
+<div class="kaki"><div class="kk-h">工事の概要の欄に、こう書いてあったら</div><div class="kk"><div class="q"><i>回答書の書き方</i>「○○号柱より分岐し、貴社発電所の構内柱と接続する」</div><div class="a"><i>意味</i>近くの既設の線から枝分かれ。標準形</div><div class="d"><i>次にすること</i>負担金の内訳が架空線・計量・通信だけになっているか</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「○○変電所に新設する6kV○○線より」</div><div class="a"><i>意味</i>変電所から専用の線を引く</div><div class="d"><i>次にすること</i>線の長さと、工程表の用地交渉の行。承諾や精算で動きやすい</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「近傍に存在する当社系統のうち、最も低コストで連系が可能である○○線への連系といたします」（東京）、「保守および保安に支障のない範囲で、最も経済的に連系可能である○○配電線」（関西）</div><div class="a"><i>意味</i>最寄り・最低コストの、会社ごとの言い方</div><div class="d"><i>次にすること</i>見本4のCと同じ。追加で聞くことは少ない</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「○○線からの連系については、○○線の増強区間が○○km必要となります。…比較した結果、▲▲線への連系がより経済性に優位であるため」</div><div class="a"><i>意味</i>最寄りの線は増強が要るので、比べて別の線にした</div><div class="d"><i>次にすること</i>比べた2つの案の額を聞く価値がある</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「近い系統は○○線ですが、連系ルート上の電流値（熱容量）を超過するため、増強・延長の上で△△線へ」</div><div class="a"><i>意味</i>最寄りの線は容量が足りないので、延ばして別の線へ。当社の束では6%</div><div class="d"><i>次にすること</i>延長の距離と、その分の架空線・地中線の額</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「○○市○○整備計画・方針により電柱施設が困難であるため、…地中線連系といたします」、または「景観法による制限区域を回避する」</div><div class="a"><i>意味</i>電柱を立てられない、または迂回が要る</div><div class="d"><i>次にすること</i>負担金の地中線工事の行と、工期。道路の手続きで延びやすい</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「貴社連系による逆潮流により、○○変電所○号変圧器がバンク逆潮流…となるため、この対策として（電圧調整リレー取替・…）が必要」</div><div class="a"><i>意味</i>変電所の変圧器を、電気が逆向きに流れることへの対策</div><div class="d"><i>次にすること</i>バンク逆潮流対策の行と工期。事前相談の注意事項は「機器設置スペースの都合等により対策工事が実施できない場合」もあると書く</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「貴社連系による順潮流により…変圧器の増強工事（○○MVA→○○MVA）が必要」</div><div class="a"><i>意味</i>充電側が原因の変電所工事。年単位</div><div class="d"><i>次にすること</i>充電kWを下げる余地と、早期連系追加対策（充電制限）を使えるかを電力会社に聞く</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「貴社連系による順潮流により設備健全時に、○○変電所○号変圧器（○○kV○○線）の設備容量（熱容量）を超過するため、早期連系追加対策（充電制限）を適用しております」（特高の記載例）。あわせて、充電制限に同意しなければ増強工事と再度の接続検討が要りうる旨</div><div class="a"><i>意味</i>増強を待たずにつなぐ代わりに、決められた時間帯は充電を止める。対象は高圧以上（広域機関の系統用蓄電池のルール）</div><div class="d"><i>次にすること</i>制限の時間（上限の目安は1日12時間）と、それで収益が成り立つか。同意しなければ増強と再検討になる</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「順潮流によりN-1故障時に過負荷が生じることがあり、転送遮断装置が必要」（九州）、「N-1充電停止装置を設置」（四国・中国）</div><div class="a"><i>意味</i>線の事故のときに、充電を自動で止める装置が要る</div><div class="d"><i>次にすること</i>装置の費用と設置場所。記載例は、信号を受けて充電を止める盤は申込者が設置する、としている</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>バンク逆潮流について「…対策工事は完了しております」（東京）</div><div class="a"><i>意味</i>変電所の対策は先に済んでいる</div><div class="d"><i>次にすること</i>バンク逆潮流対策の行と工期の心配は小さい</div></div></div>
+
+
+<div class="six"><div class="n">4</div><h3 id="p4">負担金の内訳：総額の前に、行を見る</h3></div>
+
+<p>工事費負担金は、総額の下に内訳の表があります。架空線工事／地中線工事／バンク逆潮流対策／通信設備工事／計量設備工事／その他（上位系統工事：送電・変電）／一般負担の上限額超過分。当社が見るのは総額ではなく、どの行に金額が入っているかです。</p>
+<figure><svg viewBox="0 0 780 390" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="負担金の内訳の構成比（当社の束・金額の合計に占める割合）" font-family="'Noto Sans JP',sans-serif"><rect width="780" height="390" fill="#FFFFFF"/><text x="20" y="28" font-size="13" fill="#1B2A4A" text-anchor="start" font-weight="700" >負担金の内訳の構成比（当社の束・金額の合計に占める割合）</text><text x="760" y="28" font-size="10.5" fill="#6C7A89" text-anchor="end" font-weight="400" >当社が読んだ接続検討回答書（最新版）</text><text x="190" y="69.4" font-size="12" fill="#2C3E50" text-anchor="end" font-weight="400" >架空線工事</text><rect x="200" y="54" width="540.0" height="22" rx="4" fill="#1B2A4A"/><text x="732.0" y="69.4" font-size="12" fill="#FFFFFF" text-anchor="end" font-weight="700" >37%</text><text x="190" y="105.4" font-size="12" fill="#2C3E50" text-anchor="end" font-weight="400" >変電設備工事</text><rect x="200" y="90" width="204.3" height="22" rx="4" fill="#1B2A4A"/><text x="412.3243243243243" y="105.4" font-size="12" fill="#1B2A4A" text-anchor="start" font-weight="700" >14%</text><text x="190" y="141.4" font-size="12" fill="#2C3E50" text-anchor="end" font-weight="400" >地中線工事</text><rect x="200" y="126" width="73.0" height="22" rx="4" fill="#1B2A4A"/><text x="280.97297297297297" y="141.4" font-size="12" fill="#1B2A4A" text-anchor="start" font-weight="700" >5%</text><text x="190" y="177.4" font-size="12" fill="#2C3E50" text-anchor="end" font-weight="400" >通信設備工事</text><rect x="200" y="162" width="73.0" height="22" rx="4" fill="#1B2A4A"/><text x="280.97297297297297" y="177.4" font-size="12" fill="#1B2A4A" text-anchor="start" font-weight="700" >5%</text><text x="190" y="213.4" font-size="12" fill="#2C3E50" text-anchor="end" font-weight="400" >計量設備工事</text><rect x="200" y="198" width="29.2" height="22" rx="4" fill="#1B2A4A"/><text x="237.1891891891892" y="213.4" font-size="12" fill="#1B2A4A" text-anchor="start" font-weight="700" >2%</text><text x="190" y="249.4" font-size="12" fill="#2C3E50" text-anchor="end" font-weight="400" >その他</text><rect x="200" y="234" width="14.6" height="22" rx="4" fill="#1B2A4A"/><text x="222.59459459459458" y="249.4" font-size="12" fill="#1B2A4A" text-anchor="start" font-weight="700" >1%</text><text x="190" y="285.4" font-size="12" fill="#2C3E50" text-anchor="end" font-weight="400" >バンク逆潮流対策</text><rect x="200" y="270" width="4.4" height="22" rx="4" fill="#1B2A4A"/><text x="212.3783783783784" y="285.4" font-size="12" fill="#1B2A4A" text-anchor="start" font-weight="700" >ほぼ0（1割の回答書にある）</text><text x="190" y="321.4" font-size="12" fill="#2C3E50" text-anchor="end" font-weight="400" >上位系統工事（送電・変電）</text><rect x="200" y="306" width="3.0" height="22" rx="4" fill="#1B2A4A"/><text x="211" y="321.4" font-size="12" fill="#1B2A4A" text-anchor="start" font-weight="700" >ほぼ0（金額の入った回答はほとんどない）</text><text x="20" y="348" font-size="10.5" fill="#6C7A89" text-anchor="start" font-weight="400" >内訳の行の中では、ほぼ全部の回答書にある架空線工事がいちばん大きい。変電設備工事は一部の回答書にだけあるが、入ると大きい。</text><text x="20" y="364" font-size="10.5" fill="#6C7A89" text-anchor="start" font-weight="400" >割合は各行の金額を合計に対して見たもので、行に割り振れない額があるため合計は100%にならない。</text></svg></figure>
+<figcaption style="margin-top:-18px;margin-bottom:28px">図4｜負担金の内訳の構成比。行に割り振れた額では架空線工事が最大（37%）で、変電設備工事は入ると大きい（当社の束。高圧と特別高圧の両方。変電設備工事の行は特別高圧の様式と一部の会社の高圧の書式にある）。</figcaption>
+
+<p>架空線と計量・通信だけなら標準形です。変電設備・地中線・上位系統工事の行に金額が入っていれば、高額で年単位の工事になり、承諾や精算でも動きやすい。</p>
+
+<p>税抜か税込かも確かめます。回答書3.(3)には、項目ごとの概算工事費を電力会社に求めるときは秘密保持誓約書が要る、と書かれています。</p>
+<div class="mihon"><div class="mh-h"><span class="mh-tag">見本5</span><span class="mh-t">負担金の欄（標準形）</span><span>接続検討回答書（別添）3.(3)</span></div><div class="mh-doc"><p class="mh-sec">（３）概算工事費及び工事費負担金概算</p>
+<p>○概算工事費及び工事費負担金の総額（内訳を含む）</p>
+<p class="ind">概算工事費の総額　6.8百万円（消費税等相当額0.6百万円を含む）<span class="mk">A</span></p>
+<p class="ind">工事費負担金の総額　<mark>6.2百万円（消費税等相当額0.6百万円を含む）</mark><span class="mk">B</span></p>
+<div class="dtab"><table>
+<thead><tr><th>設備区分</th><th class="r">工事費負担金概算<br>（百万円・消費税等相当額を除く）</th><th class="r">概算工事費<br>（同）</th></tr></thead>
+<tbody>
+<tr><th>架空線工事</th><td class="r"><mark>3.6</mark></td><td class="r">4.2</td></tr>
+<tr><th>地中線工事</th><td class="r">－</td><td class="r">－</td></tr>
+<tr><th>バンク逆潮流対策</th><td class="r">－</td><td class="r">－</td></tr>
+<tr><th>通信設備工事</th><td class="r"><mark>0.9</mark></td><td class="r">0.9</td></tr>
+<tr><th>計量設備工事</th><td class="r"><mark>1.1</mark></td><td class="r">1.1</td></tr>
+<tr><th>その他（上位系統工事：送電）</th><td class="r">－<span class="mk">C</span></td><td class="r">－</td></tr>
+<tr><th>その他（上位系統工事：変電）</th><td class="r">－</td><td class="r">－</td></tr>
+<tr><th>一般負担の上限額超過分</th><td class="r">－<span class="mk">D</span></td><td class="r"></td></tr>
+<tr><th>総額（消費税等相当額を除く）</th><td class="r">5.6</td><td class="r">6.2</td></tr>
+</tbody></table></div>
+<p>※ 項目ごとの概算工事費の提示を求める場合は、秘密保持誓約書を提示していただく必要があります。<span class="mk">E</span></p><div class="mh-conf">秘密情報　目的外使用・第三者への開示を禁止します　○○株式会社</div></div><ul class="mh-notes"><li><span class="mk">A</span><div><b>概算工事費は工事全体の額</b>で、電力会社が持つ分（一般負担）も含みます。申込者が払うのはBです。</div></li><li><span class="mk">B</span><div><b>総額は税込で書かれます。</b>買値や事業計画と比べるときは、表の下の「消費税等相当額を除く」総額にそろえます。</div></li><li><span class="mk">C</span><div><b>上位系統工事の行が「－」か。</b>ここに金額があれば、変電所や送電線の増強が絡む年単位の工事です。当社の束では、金額が入った回答はほとんどありませんでした。</div></li><li><span class="mk">D</span><div><b>一般負担の上限額超過分。</b>電力会社が持つ分のうち、1kWあたり4.1万円（税抜き。広域機関が2018年6月に指定）の上限を超えた額を申込者が持つ行です。金額があれば、大きな増強が絡んでいる印です。</div></li><li><span class="mk">E</span><div><b>工事ごとの内訳の額を聞くには、秘密保持誓約書が要る</b>、という注記です。</div></li></ul><p class="mh-f">文言は電力広域的運営推進機関の記載例（高圧・様式AP8-202610）から。名称・地名・数字は架空で、実在の回答書ではありません。会社によって言い回しや欄の番号が少し違います。特別高圧の様式（AK7）は、内訳の行が架空線・地中線・変電設備・給電設備・通信設備・計量設備・その他になります。</p></div>
+
+<div class="kaki"><div class="kk-h">負担金の内訳に、こう書いてあったら</div><div class="kk"><div class="q"><i>回答書の書き方</i>架空線・通信設備・計量設備の行だけに金額があり、ほかは「－」</div><div class="a"><i>意味</i>引込みの線と、出力制御の通信・計量器だけの標準形</div><div class="d"><i>次にすること</i>同じ管区・同じ電圧の中央値の帯に入っているか（数字編の表1）</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>地中線工事の行に金額がある</div><div class="a"><i>意味</i>線を地中に埋める。高額で、道路の手続きで工期が延びやすい</div><div class="d"><i>次にすること</i>③の選定理由（電柱が立てられない理由）と、承諾での動き</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>バンク逆潮流対策の行に金額がある</div><div class="a"><i>意味</i>変電所の機器の対策（電圧調整リレーの取替など）。当社の束では1割の回答書にある</div><div class="d"><i>次にすること</i>額は小さいことが多いが、工期の行を見る</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「変電設備工事」（特別高圧の様式と、一部の会社の高圧の書式）や「その他（上位系統工事：変電）」に金額がある</div><div class="a"><i>意味</i>変電所の変圧器の増強など。入ると大きい</div><div class="d"><i>次にすること</i>③で原因が充電側（順潮流）かどうか。工程表で何か月か</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「一般負担の上限額超過分」に金額がある</div><div class="a"><i>意味</i>電力会社が持つ上限（4.1万円/kW）を超えた</div><div class="d"><i>次にすること</i>大きな増強が絡んでいる。総額が回答書と承諾でどう動くかを追う</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>承諾の書類で「工事費負担金 ○,○○○,○○○円（材料費等…円、工費等…円）」のように円単位</div><div class="a"><i>意味</i>承諾では円単位で、材料費と工費に分けて書く会社もある（中部の承諾の公開書式）</div><div class="d"><i>次にすること</i>百万円単位の回答書と比べるときは、単位と税抜・税込をそろえる</div></div></div>
+
+
+<div class="six"><div class="n">5</div><h3 id="p5">工期の起算点：回答日からではない</h3></div>
+
+<p>所要工期は「工事費負担金の入金後 ●年●ヶ月程度」と書かれています。回答日からではありません。記載例には「所要工期には、契約手続（契約申込み～技術検討～連系承諾～工事費負担金契約～入金）に係る期間は含まれておりません」と注記があります。</p>
+<figure><svg viewBox="0 0 780 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="回答書の工期は回答日からではなく工事費負担金の入金後から数える。契約申込み・技術検討・承諾・負担金契約・入金の期間は工期に含まれない" font-family="'Noto Sans JP',sans-serif"><rect width="780" height="330" fill="#FFFFFF"/><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1B2A4A"/></marker></defs><rect x="40" y="110" width="80" height="40" rx="6" fill="#EEF1F5" stroke="#E2E6EC" stroke-width="1.5" /><text x="80.0" y="135" font-size="11" fill="#1B2A4A" text-anchor="middle" font-weight="600" >回答書が届く</text><circle cx="40" cy="170" r="5" fill="#1B2A4A"/><text x="40" y="192" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700" >回答日</text><rect x="124" y="110" width="146" height="40" rx="6" fill="#EEF1F5" stroke="#E2E6EC" stroke-width="1.5" /><text x="197.0" y="135" font-size="11" fill="#1B2A4A" text-anchor="middle" font-weight="600" >1年以内に申込み（受付）</text><circle cx="124" cy="170" r="5" fill="#1B2A4A"/><text x="124" y="192" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700" >契約申込みへ</text><rect x="274" y="110" width="96" height="40" rx="6" fill="#EEF1F5" stroke="#E2E6EC" stroke-width="1.5" /><text x="322.0" y="135" font-size="11" fill="#1B2A4A" text-anchor="middle" font-weight="600" >原則6か月</text><circle cx="274" cy="170" r="5" fill="#1B2A4A"/><text x="274" y="192" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700" >技術検討</text><rect x="374" y="110" width="106" height="40" rx="6" fill="#EEF1F5" stroke="#E2E6EC" stroke-width="1.5" /><text x="427.0" y="135" font-size="11" fill="#1B2A4A" text-anchor="middle" font-weight="600" >負担金契約 1か月</text><circle cx="374" cy="170" r="5" fill="#1B2A4A"/><text x="374" y="192" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700" >承諾</text><rect x="484" y="110" width="252" height="40" rx="6" fill="#FBF6EA" stroke="#C49A3C" stroke-width="1.5" /><text x="610.0" y="135" font-size="11" fill="#1B2A4A" text-anchor="middle" font-weight="600" >工期 ●年●ヶ月（入金後）</text><circle cx="484" cy="170" r="5" fill="#1B2A4A"/><text x="484" y="192" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700" >入金</text><circle cx="736" cy="170" r="5" fill="#C49A3C"/><text x="736" y="192" font-size="11.5" fill="#1B2A4A" text-anchor="middle" font-weight="700" >連系</text><line x1="40" y1="170" x2="736" y2="170" stroke="#1B2A4A" stroke-width="1.5"/><path d="M 44 70 L 44 50 L 736 50 L 736 70" fill="none" stroke="#C0392B" stroke-width="1.5" stroke-dasharray="6 4"/><text x="390" y="40" font-size="11.5" fill="#C0392B" text-anchor="middle" font-weight="700" >× 回答日から「●年●ヶ月」と読むと、契約手続きの分だけ前倒しに見える</text><path d="M 484 206 L 484 222 L 736 222 L 736 206" fill="none" stroke="#C49A3C" stroke-width="2"/><text x="610" y="240" font-size="11.5" fill="#8F6F22" text-anchor="middle" font-weight="700" >○ 入金の日から数える（記載例：契約手続の期間は含まない）</text><rect x="40" y="262" width="700" height="52" rx="6" fill="#EEF1F5" stroke="#E2E6EC" stroke-width="1" /><text x="56" y="284" font-size="11.5" fill="#1B2A4A" text-anchor="start" font-weight="700" >東京電力PGは時計を2本書く</text><text x="56" y="303" font-size="10.5" fill="#2C3E50" text-anchor="start" font-weight="400" >「受給契約申込後 ●年●ヶ月」と「入金後 ●年●ヶ月」。当社の束では前者の中央値は約17か月、後者は8か月。短いほうだけで読まない</text></svg></figure>
+<figcaption style="margin-top:-18px;margin-bottom:28px">図5｜工期の時計は、入金の日から動く。契約申込み・技術検討・承諾・負担金契約・入金の期間は入っていない。東京電力PGは2本の時計を書く。</figcaption>
+
+<p>東京電力PGの回答書は、「受給契約申込後 ●年●ヶ月」と「入金後 ●年●ヶ月」の2本の時計を書きます。上位系統の対策工事がある回答書では前者が年単位になります。希望日には連系できないので時期の調整が必要だ、と回答書自身が書いている例もあります。当社の束では、その文がある回答は九州で約6割、関西で4割、中部で3割でした。希望日が守れないことを、回答書が先に言っています。</p>
+
+<p>連系予定日は、この行から自分で組み直します。回答日から1年以内に契約申込み、受付から原則6か月の技術検討、承諾から1か月以内の負担金契約、入金、そして入金後の工期。売買の資料に写っている連系予定は、回答日起算のことが珍しくありません。</p>
+<div class="mihon"><div class="mh-h"><span class="mh-tag">見本6</span><span class="mh-t">所要工期の欄</span><span>接続検討回答書（別添）3.(4)</span></div><div class="mh-doc"><p class="mh-sec">（４）所要工期（発電設備等の運転に必要な設備の運用開始までに必要な期間）</p>
+<p class="ind"><mark>工事費負担金の入金後</mark>　1年2ヶ月程度<span class="mk">A</span></p>
+<p class="ind">連系工事には1年2ヶ月必要となり<mark>アクセス線運転開始希望日には連系不可となりますので、連系時期の調整が必要となります。</mark><span class="mk">B</span></p>
+<p>○概略工程表<span class="mk">C</span></p>
+<div class="dtab"><table class="gantt">
+<thead><tr><th>工事内容</th><th class="r">〜3か月</th><th class="r">〜6</th><th class="r">〜9</th><th class="r">〜12</th><th class="r">〜14</th></tr></thead>
+<tbody>
+<tr><th>調査・設計</th><td class="on"></td><td class="on"></td><td></td><td></td><td></td></tr>
+<tr><th>用地交渉</th><td></td><td class="on"></td><td class="on"></td><td></td><td></td></tr>
+<tr><th>工事施工</th><td></td><td></td><td class="on"></td><td class="on"></td><td></td></tr>
+<tr><th>通信設備工事</th><td></td><td></td><td></td><td class="on"></td><td class="on"></td></tr>
+<tr><th>計量設備工事</th><td></td><td></td><td></td><td class="on"></td><td class="on"></td></tr>
+</tbody></table></div>
+<p>※上記所要工期には、<mark>契約手続（契約申込み～技術検討～連系承諾～工事費負担金契約～入金）に係る期間は含まれておりません。</mark><span class="mk">D</span></p><div class="mh-conf">秘密情報　目的外使用・第三者への開示を禁止します　○○株式会社</div></div><ul class="mh-notes"><li><span class="mk">A</span><div><b>入金の日から数える。</b>回答日からではありません。記載例は「原則、工事費負担金入金後」とし、調査・測量で入金までに時間がかかるときは「起算点を明確にして」示してよい、としています。東京の2本の時計は、これに当たると当社は読んでいます。</div></li><li><span class="mk">B</span><div><b>希望日に間に合わないことを、回答書が先に言っている文。</b>記載例は「運用開始希望日に間に合わない場合にはその旨記載」としています。</div></li><li><span class="mk">C</span><div><b>工程表でいちばん右まで伸びる行が、工期を決めている工程。</b>この見本では通信と計量（機器の納期）です。</div></li><li><span class="mk">D</span><div><b>契約手続きの期間は入っていない。</b>下の計算のように、自分で足します。</div></li></ul><p class="mh-f">文言は電力広域的運営推進機関の記載例（高圧・様式AP8-202610）から。名称・地名・数字は架空で、実在の回答書ではありません。会社によって言い回しや欄の番号が少し違います。工程表の月数は架空です。</p></div>
+
+<div class="note"><b>連系予定日を組み直す（見本6の工期で、回答日が2026年3月10日のとき）</b><br>
+回答日 2026年3月10日 → 契約申込みの受付 2026年6月（書類と保証金の入金がそろった日）→ 技術検討 原則6か月 → 連系承諾 2026年12月 → 工事費負担金契約 承諾から1か月以内 → 入金 2027年2月 → 工期1年2か月 → <b>連系 2028年4月ごろ</b>。<br>
+回答日から「1年2か月」と読むと2027年5月になり、<b>11か月早く見えます</b>。受付まで3か月かけた想定で、受付が早ければ、そのぶん前に寄ります。</div>
+
+<div class="kaki"><div class="kk-h">工期の欄に、こう書いてあったら</div><div class="kk"><div class="q"><i>回答書の書き方</i>「工事費負担金の入金後 ○年○ヶ月程度」</div><div class="a"><i>意味</i>入金の日から数える。いちばん多い形</div><div class="d"><i>次にすること</i>契約申込み・技術検討（6か月）・承諾・負担金契約（1か月）・入金の期間を足す</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「工事費負担金の入金後 ○ヶ月程度。なお、受給契約申込後からは ○ヶ月程度」（東京）</div><div class="a"><i>意味</i>入金の前から始まる工事があるので、起点を2つ書いている</div><div class="d"><i>次にすること</i>契約申込みから数えるほうで組む。入金後の短い月数だけで読まない</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「アクセス線工事 ○年／その他の工事 ○年○ヶ月」（東北）</div><div class="a"><i>意味</i>工事ごとに工期を分けて書いている</div><div class="d"><i>次にすること</i>長いほうが、連系できる日を決める</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「○○変電所増強工事完了後の連系」（九州）、「別の契約申込の完了後に工事開始」（中部）</div><div class="a"><i>意味</i>起点が自分の入金ではなく、電力会社の別の工事や、先の申込みの工事の完了</div><div class="d"><i>次にすること</i>その工事の完了予定を電力会社に聞く。連系予定日は自分では決められない</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「連系工事には○年○ヶ月必要となりアクセス線運転開始希望日には連系不可となりますので、連系時期の調整が必要となります」（記載例）。会社によって「延期が必要」「連系時期の変更が必要」</div><div class="a"><i>意味</i>希望日には間に合わない</div><div class="d"><i>次にすること</i>売買資料と事業計画の連系予定日を直す。当社の束では九州で約6割に付く</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>工程表に「用地交渉」「環境影響調査」の行（特別高圧に多い）</div><div class="a"><i>意味</i>電力会社側の線を通す土地の交渉。動きやすい工程</div><div class="d"><i>次にすること</i>注意事項説明書の第3項（用地交渉で変わる）とあわせ、連系予定日に幅を持たせる</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>工程表の最後が「計量設備工事」「通信設備工事」</div><div class="a"><i>意味</i>機器の納期で工期が決まっている</div><div class="d"><i>次にすること</i>承諾の工程表で、納期が変わっていないかを見る（承諾編）</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>承諾の別紙で「工事費負担金入金後 ○週間」</div><div class="a"><i>意味</i>小さな工事は週単位で書く会社がある（関西の公開書式）</div><div class="d"><i>次にすること</i>同じく入金の日から数える</div></div></div>
+
+
+<div class="six"><div class="n">6</div><h3 id="p6">有効期限（本文4.）と守秘（注意事項説明書）</h3></div>
+
+<p>6項目は入口編で1枚ずつ書きました。ここでは、買う人が見落としやすい2点だけ補います。</p>
+
+<p><strong>有効期限は回答日の翌日から1年</strong>で、1年の中に契約申込みの「受付」まで進む必要があります。受付は、申込書類に不備がなく保証金の入金が確認された日です。残り日数が少ない回答書は、それだけで値段が変わります。</p>
+
+<p><strong>守秘。</strong>各ページに「秘密情報 目的外使用・第三者への開示を禁止します」とあり、注意事項説明書は目的外利用と第三者への漏えい等の禁止、漏えいした場合の損害賠償の可能性を書いています。売主が回答書を買い手候補にそのまま渡してよいかは、この条項の問題です。当社は電力会社の了解を取るか、墨消し版を使っています。</p>
+
+<div class="mihon"><div class="mh-h"><span class="mh-tag">見本7</span><span class="mh-t">有効期限と守秘</span><span>接続検討回答書（別添）4.(1)・注意事項説明書 第6項</span></div><div class="mh-doc"><p class="mh-sec">４．今後の手続について</p>
+<p class="mh-sec">（１）契約申込みについて</p>
+<p>・契約申込みにあたっては、本回答書３（５）に記載する「申込者に必要な対策」等が具備されている必要があります。また、…<mark>保証金を支払う必要があります</mark>。<span class="mk">A</span></p>
+<p>・…連系承諾の通知後…、<mark>２か月以内</mark>に発電設備等を設置する用地の使用権原を証する書類…の提出が必要となります。<span class="mk">B</span></p>
+<p>※１ 次のア～ウいずれかに該当する場合は、契約申込みを受け付けることができません。</p>
+<p class="ind">ウ　<mark>接続検討の回答日から１年を経過した場合</mark><span class="mk">C</span></p>
+<div class="cut">（別添「接続検討回答書」の注意事項説明書）</div>
+<p>６．本回答書に含まれる内容は、守秘性の高い情報が含まれており、本回答書に基づき知りえた情報についての<mark>目的外利用、第三者への漏えい等を禁止します</mark>。…損害賠償の責任が発生する可能性があることにご留意ください。<span class="mk">D</span></p><div class="mh-conf">秘密情報　目的外使用・第三者への開示を禁止します　○○株式会社</div></div><ul class="mh-notes"><li><span class="mk">A</span><div><b>受付には保証金の入金まで要る。</b>系統用蓄電池は、2026年4月1日以降の契約申込みから概算負担金の10%です。</div></li><li><span class="mk">B</span><div><b>承諾のあとに動く2か月の時計。</b>非FIT・非FIPの案件で、出さなければ連系予約が取り消されます（承諾編）。</div></li><li><span class="mk">C</span><div><b>有効期限は、注意事項説明書ではなく本文のここに書かれる。</b>回答日の当日は数えません。広域機関の「系統アクセスの流れ」は、2020年10月1日の回答なら2021年10月1日まで有効、と例を示しています。</div></li><li><span class="mk">D</span><div><b>守秘。</b>各ページの下の端にある「秘密情報」の一行と同じ趣旨です。</div></li></ul><p class="mh-f">文言は電力広域的運営推進機関の記載例（高圧・様式AP8-202610）から。名称・地名・数字は架空で、実在の回答書ではありません。会社によって言い回しや欄の番号が少し違います。注意事項説明書は様式AP9-20230703。</p></div>
+
+<div class="note"><b>残り日数を数える（回答日が2026年3月10日のとき）</b><br>
+有効期限は2027年3月10日。この日までに契約申込みの「受付」まで進む必要があります。九州電力送配電は、有効期限日の2か月程度前までに申し込むよう案内していて、九州ならこの例では2027年1月上旬が申込みの目安です。ほかの会社でも、書類の確認と保証金の入金に日数がかかるので、期限の直前は避けます。</div>
+
+<div class="kaki"><div class="kk-h">期限と守秘に関わる行に、こう書いてあったら</div><div class="kk"><div class="q"><i>回答書の書き方</i>注意事項説明書の特記事項に「本回答書の有効期限は、本回答書の右肩の回答日から1年間となります」（九州）、「本回答書の有効期限は1年間です」（関西）</div><div class="a"><i>意味</i>本文の4.(1)と同じことを、注意事項にも書いている</div><div class="d"><i>次にすること</i>どの会社でも回答日の翌日から1年。残り日数を数える</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>九州の特記事項に、用地が確保できず辞退した場合は保証金を原則没収、契約申込み前までに地権者等との調整に努めること</div><div class="a"><i>意味</i>土地が固まらないまま申し込むと、保証金を失いうる</div><div class="d"><i>次にすること</i>申込みの前に、土地の契約か地権者の同意を固める</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>（九州のQA集）「入金期限は、接続検討回答書の有効期限日（回答日から1年後の日）となります。」</div><div class="a"><i>意味</i>受付には保証金の入金まで要り、その期限も同じ日</div><div class="d"><i>次にすること</i>期限の近い回答書を買うなら、申込みの書類と保証金の段取りを先に決める</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>各ページの下の端の「秘密情報　目的外使用・第三者への開示を禁止します」</div><div class="a"><i>意味</i>回答書そのものが守秘の対象</div><div class="d"><i>次にすること</i>売主が電力会社の了解を取ったか、墨消し版か</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>注意事項説明書に、同封の「ノンファーム型接続」の同意書を出すよう書かれている（東京）</div><div class="a"><i>意味</i>ノンファーム型接続への同意を書面で出す。記載例も、契約申込みの受付時に同意が要ると書く</div><div class="d"><i>次にすること</i>申込みの書類一式に入れる</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>注意事項説明書に、標準的な単価の参照先と、撤去資材の残存価額は精算時に確定（東北）</div><div class="a"><i>意味</i>精算で動く項目を先に言っている</div><div class="d"><i>次にすること</i>精算の差額をどちらが持つかを、売買契約に書く</div></div></div>
+
+
+<h2 id="maru">○の行も、同じ流れで見る</h2>
+
+<p><strong>申込者に必要な対策（3.(5)）。</strong>適合表で、「不適」や「提出要」になっている項目を拾います。通信装置・出力制御の機器・保護装置は見積に乗ります。「今回未提出データ提出要」の行があれば、接続検討は代わりのデータで検討しています。出す時期は連系の実施の段（業務指針第104条）で、出せない諸元は協議になります。</p>
+
+<p><strong>運用上の制約（3.(7)）。</strong>制約の有無、作業停止時の抑制・停止、基幹系統の再給電方式（混雑したときに出力を止める順番のルール）、ノンファーム型接続の適用に係る抑制（潮流実績、設備停止作業の日数・頻度）。収益の前提がここにあります。「出力制御量に影響を与える主な設備名」は、記載例では連系可否の欄（見本2のD）にあります。特別高圧の記載例には充電制限（早期連系追加対策）の想定潮流が付き、止める時間の上限は1日12時間が目安とされています。会社によっては、ローカル系統の混雑管理の扱いもこの欄に書かれます。</p>
+
+<p><strong>前提条件（3.(6)）とその他（3.(8)）。</strong>(6)は検討対象年度と断面（高圧の記載例は放電側が軽負荷時・重負荷時、充電側が重負荷時。特高は放電側が軽負荷時のみ）と、代わりに使ったデータ。(8)は、容量市場・需給調整市場に参加できない場合を容認すること、国の審議会の結論で充電側の対策が変わりうること、他の申込み状況で対策が変わりうること。読んでおけばよい行です。</p>
+
+<p><strong>今後の手続（4.）。</strong>契約申込みに要るもの（対策の具備と保証金）、承諾後2か月以内の使用権原の書類、有効期限、一括検討の対象になる可能性。一括検討（特別高圧の系統の工事の負担金を共同で持つ申込者を募る手続き）の対象になる可能性がある場合や、始まった場合は、手元の回答書では契約申込みを受け付けてもらえず、一括検討への応募で進めることになります。</p>
+<div class="mihon"><div class="mh-h"><span class="mh-tag">見本8</span><span class="mh-t">○の行（対策・運用上の制約・その他）</span><span>接続検討回答書（別添）3.(5)・(7)・(8)</span></div><div class="mh-doc"><p class="mh-sec">（５）申込者に必要な対策</p>
+<div class="dtab"><table>
+<thead><tr><th>項目</th><th>適合状況</th><th>適合しない場合の追加対策内容</th></tr></thead>
+<tbody>
+<tr><th>② 発電機定数・諸元</th><td><mark>その他（今回未提出データ提出要）</mark><span class="mk">A</span></td><td></td></tr>
+<tr><th>③ 力率</th><td>不適</td><td>進み○○～遅れ○○とする必要があります。<span class="mk">B</span></td></tr>
+<tr><th>⑧ 電圧変動対策</th><td>不適</td><td>力率一定制御としていただく必要があります。</td></tr>
+<tr><th>⑪ 保護装置</th><td>適</td><td></td></tr>
+<tr><th>⑱ 発電出力の抑制機能</th><td>適</td><td></td></tr>
+</tbody></table></div>
+<div class="cut">（中略）</div><p class="mh-sec">（７）運用上の制約</p>
+<p>(a) 制約有無：あり</p>
+<p class="ind">・○○kV○○線、□□線、▽▽変電所の<mark>作業停止時</mark>及び周辺系統の作業停止に伴う系統切替等、系統運用上必要な場合には、発電抑制、もしくは停止していただくことがあります。<span class="mk">C</span></p>
+<div class="cut">（中略）</div><p class="ind">・275kV○○線における設備停止作業日数実績　過去3年間（20○○年度～20○○年度）の当該線路<mark>平均停止作業計画日数：○日／年</mark><span class="mk">D</span></p>
+<p class="mh-sec">（８）その他</p>
+<p>・貴社発電所がノンファーム型接続による系統連系をすることで、<mark>容量市場および需給調整市場に参加できない場合は、これを容認</mark>していただきます。<span class="mk">E</span></p>
+<div class="cut">（中略）</div><p>・現在、国の審議会（系統WGなど）において、系統接続時における充電側の課題への対応について議論されており、その結論によっては、<mark>対策工事の内容等が変更となる可能性</mark>があります。<span class="mk">F</span></p><div class="mh-conf">秘密情報　目的外使用・第三者への開示を禁止します　○○株式会社</div></div><ul class="mh-notes"><li><span class="mk">A</span><div><b>接続検討のときに出していないデータがある。</b>前提条件の欄に「今回未提出の発電機データは以下の代替データを使用」とあれば、代わりの値で検討しています。出す時期は連系の実施の段です（記載例4.(3)）。</div></li><li><span class="mk">B</span><div><b>「不適」には、どうすればよいかが横に書かれる。</b>PCSの設定や機器で対応する内容なので、EPCの見積と機器の仕様に入っているかを見ます。</div></li><li><span class="mk">C</span><div><b>点検や工事のときに止められる。</b>ノンファームの抑制とは別の止まり方です。</div></li><li><span class="mk">D</span><div><b>止まる日数の実績。</b>年間の稼働日数と収益の試算に入れます。記載例には、作業の種類ごとの停止日数・頻度の目安の表も付きます。</div></li><li><span class="mk">E</span><div><b>ノンファームの電源は、市場に出られない場面がある。</b>どの市場で稼ぐかの前提に効きます。</div></li><li><span class="mk">F</span><div><b>充電側のルールは国で議論中。</b>結論によって対策工事が変わりうる、という予告です。</div></li></ul><p class="mh-f">文言は電力広域的運営推進機関の記載例（高圧・様式AP8-202610）から。名称・地名・数字は架空で、実在の回答書ではありません。会社によって言い回しや欄の番号が少し違います。適合状況の「適・不適」は見本として埋めたもので、記載例では「適・不適・その他」の選択肢のままです。19項目のうち5項目だけ載せました。</p></div>
+
+<div class="kaki"><div class="kk-h">○の行に、こう書いてあったら</div><div class="kk"><div class="q"><i>回答書の書き方</i>「（今回未提出データ提出要）」（記載例の書き方）</div><div class="a"><i>意味</i>出していないデータがあり、代わりの値で検討した</div><div class="d"><i>次にすること</i>連系の実施の段までに出す。誰がいつ出すかを決める</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「その他（代表機、実機試験データにて確認）」</div><div class="a"><i>意味</i>同じ型の代表機のデータで検討した。実機の試験データで後から確かめる</div><div class="d"><i>次にすること</i>実機の試験成績書を出す段取り（東北は「実機試験成績書の提出が必要」と書く）</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>力率が「適」でも、「力率一定制御（放電時○%・充電時100%）」</div><div class="a"><i>意味</i>放電と充電で、力率の設定値が決められている</div><div class="d"><i>次にすること</i>PCSの設定でできるか。施工会社に確かめる</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「不適」と、追加対策「力率一定制御としていただく必要があります」など</div><div class="a"><i>意味</i>PCSの設定や機器で対応する</div><div class="d"><i>次にすること</i>EPCの見積と機器の仕様に入っているか</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「作業停止時…発電抑制、もしくは停止していただくことがあります」と、停止日数の実績。(8)の注に「※蓄電池の場合は、充電停止を含みます」（特高の記載例は作業停止の文自体に充電停止がある）</div><div class="a"><i>意味</i>点検・工事で止まる日がある。充電も止められる</div><div class="d"><i>次にすること</i>年間の稼働日数に反映する。充電の時間帯が収益の前提なら、そこも</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「ローカル系統の混雑管理システム運開前は、当社が事前に連絡する抑制に無補償で応じていただきます」（中部）、「システム運開後に連系可能」（東北）</div><div class="a"><i>意味</i>混雑を管理する仕組みができるまでの扱い。連絡で止められるか、運開まで連系できないか</div><div class="d"><i>次にすること</i>その仕組みの運開予定と、それまでの抑制の頻度</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「容量市場および需給調整市場に参加できない場合は、これを容認していただきます」</div><div class="a"><i>意味</i>ノンファームの電源は、市場に出られない場面がある</div><div class="d"><i>次にすること</i>収益の前提（どの市場で稼ぐか）を見直す</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>4.(2)「電源接続案件一括検討プロセスを開始する場合があります。開始となった場合、本接続検討の回答による貴社の契約申込みは受け付けず」</div><div class="a"><i>意味</i>一括検討が始まると、この回答書のままでは申込みできない</div><div class="d"><i>次にすること</i>対象になる可能性の記載と、近くの申込みの状況を電力会社に聞く</div></div><div class="kk"><div class="q"><i>回答書の書き方</i>「…電源接続案件一括検討プロセス開始の申込みを行うことができる系統連系希望者に該当いたしません」</div><div class="a"><i>意味</i>一括検討の開始を、自分から申し込める立場ではない、という記載</div><div class="d"><i>次にすること</i>工事が一括検討の対象になる可能性は、同じ4.の「契約申込みを受け付けない場合」で別に見る</div></div></div>
+
+
+
+<h2 id="jirei">事例：総額は約4倍、連系予定日は1年4か月違う2通</h2>
+
+<p>6か所を読むと、同じ「高圧・2,000kW弱・回答書あり」でも、まったく別の案件に見えてきます。当社が読んだ回答書によくある形を合成した、架空の2通で比べます。どちらも回答日は2026年3月10日で、回答から3か月で契約申込みの受付、受付から6か月で承諾、承諾から2か月で入金とします。</p>
+<div class="case">
+<div class="cs"><div class="cs-h"><div class="cn">回答書A</div><div class="ct">最寄りの線に枝分かれする標準形</div></div>
+<dl>
+<dt><span class="mk">1</span>申込内容</dt><dd>放電1,990kW・充電1,990kW。売主の資料と同じ</dd>
+<dt><span class="mk">2</span>連系可否</dt><dd>可（対策が前提）。主な設備名：対象なし</dd>
+<dt><span class="mk">3</span>工事の概要</dt><dd><q>○○号柱より分岐し</q>。選定理由は<q>最も近く連系が可能な</q>線</dd>
+<dt><span class="mk">4</span>負担金の内訳</dt><dd>架空線3.6・通信0.9・計量1.1＝5.6百万円（税抜）</dd>
+<dt><span class="mk">5</span>工期</dt><dd><q>工事費負担金の入金後 10ヶ月程度</q></dd>
+<dt><span class="mk">6</span>注意事項</dt><dd>標準の6項目。有効期限は2027年3月10日</dd>
+</dl>
+<div class="cs-r"><b>当社の読み：</b>標準形。入金が2027年2月なら、連系は<b>2027年12月ごろ</b>。負担金は精算で動いても幅が小さい。</div></div>
+<div class="cs"><div class="cs-h"><div class="cn">回答書B</div><div class="ct">充電側の工事と、変電所からの新設線</div></div>
+<dl>
+<dt><span class="mk">1</span>申込内容</dt><dd>放電1,990kW・充電1,990kW。売主の資料と同じ</dd>
+<dt><span class="mk">2</span>連系可否</dt><dd>可（対策が前提）。主な設備名：66kV○○線。再給電方式</dd>
+<dt><span class="mk">3</span>工事の概要</dt><dd><q>○○変電所に新設する6kV○○線より</q>。必要性に<q>貴社連系による順潮流により…変圧器の増強工事</q></dd>
+<dt><span class="mk">4</span>負担金の内訳</dt><dd>架空線6.8・地中線9.5・変電設備工事5.2・通信0.9・計量1.1＝23.5百万円（税抜）</dd>
+<dt><span class="mk">5</span>工期</dt><dd><q>入金後 2年2ヶ月程度</q>。<q>運転開始希望日には連系不可…調整が必要</q></dd>
+<dt><span class="mk">6</span>注意事項</dt><dd>標準の6項目。有効期限は2027年3月10日</dd>
+</dl>
+<div class="cs-r"><b>当社の読み：</b>総額はAの約4倍だが、差の本体は工期。連系は<b>2029年4月ごろ</b>で、Aより1年4か月遅い。変圧器と地中線は承諾・精算で動きやすい。充電kWを下げて順潮流の工事を外せないかを、電力会社に聞く。</div></div>
+</div>
+<p class="tnote" style="margin-top:0">2通とも架空です。地名・数字は当社が読んだ回答書をもとに作った例で、特定の案件のものではありません。</p>
+<p>売買の資料では、2通とも「高圧・回答書取得済み・負担金○百万円」の1行になりがちです。Bの値付けは、負担金の差額よりも、連系までの時間と、そのあいだの金利・地代・期限切れのリスクで決まります。当社が値段を考えるときに効くのも、負担金の差額よりこの時間の差です。</p>
+
+<h2 id="check">買う人が売主に求めるもの</h2>
+
+<p>6か所を読んだあと、売主にこう頼みます。</p>
+
+<ul class="checks">
+<li>回答書の原本一式（表紙・別添・注意事項説明書）と回答日。有効期限（回答日の翌日から1年）までの残り日数</li>
+<li>件名で紙を見分ける。接続検討の回答書か、連系承諾か。両方あるなら承諾日</li>
+<li>回答書の申込内容（最大受電電力・最大自家消費電力・機器・地番）と、売主の資料の値が同じか。違えば再検討の種</li>
+<li>負担金の内訳の表と、連系点の選定理由。負担金はどの工事から来ているか、最寄りの線か</li>
+<li>工期の起算点。入金後何か月か。契約手続きの期間を足して、連系予定日を自分で組み直す。「希望日には連系できない」旨の文の有無</li>
+<li>契約申込みの記録。発電側と需要側の受付日の通知、保証金の請求書と入金の記録。承諾済みなら、承諾書・工事費負担金契約の締結日・入金の記録・使用権原の書類の提出</li>
+<li>申込者（発電契約者）の名義と、買うときの名義変更・地位の移転をどの書類で行うか。回答書を見せてもらう前に、売主が電力会社の了解を取っているか（守秘）</li>
+</ul>
+
+<div class="next"><b>次は承諾編（51-3）。</b>契約申込みのあとに届く「連系承諾」で、何が確定し、何がまだ動くのか。承諾日から動く3つの時計と、額が承諾と精算で2回動く理由。自分で申し込む人の段取りも。→ <a target="_top" href="/column-study-reply-3">連系承諾で確定するもの、まだ動くもの</a></div>
+<h2 id="faq">よくある質問</h2>
+<div class="faq-item">
+<p class="faq-q">事前相談で「制限なし」だったのに、回答書では充電側の対策工事が付きました。なぜですか？</p>
+<p class="faq-a">無料の事前相談は、配電用変圧器の熱容量から簡易的に評価した結果で、充電側を検討したとは書かれていません。回答書は「逆潮流（受電）側と順潮流（供給）側を包含した検討結果」で、充電側（順潮流）も見た結果です。充電側が原因の対策工事は、回答書で初めて出てきます。当社の束では、充電側起因の対策や制約が書かれた回答が4分の1強あり、付いた回答は工期の中央値が約1.6倍でした。</p>
+</div>
+<div class="faq-item">
+<p class="faq-q">負担金の総額が予算に収まっていれば、内訳は見なくてよいですか？</p>
+<p class="faq-a">内訳の行で、工期と動きやすさが決まります。架空線と計量・通信だけなら標準形で、当社の束では内訳の行の中で架空線工事がいちばん大きく、全体の37%でした。変電設備・地中線・上位系統工事の行に金額が入っていれば年単位の工事で、精算でも動きやすい。総額が同じでも、中身で案件の性格が違います。</p>
+</div>
+<div class="faq-item">
+<p class="faq-q">売主から回答書のPDFをそのまま送ってもらってよいですか？</p>
+<p class="faq-a">回答書には守秘の条項があり、各ページに「秘密情報 目的外使用・第三者への開示を禁止します」とあります。売主が電力会社の了解を取っているか、墨消し版かを確かめてください。当社は了解を取るか、墨消し版を使っています。買い手候補への開示を一般に認めた公式の文は、今のところ見つかっていません。</p>
+</div><h2>参考にした一次資料と、関連する記事</h2>
+<div class="refs">
+<h3>様式と記載例</h3><ul>
+<li>電力広域的運営推進機関「接続検討回答書 記載例」AP8-202610（高圧） <a href="https://www.occto.or.jp/assets/AP8_kisairei_202610.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>同 AK7-202610（特別高圧） <a href="https://www.occto.or.jp/assets/AK7_kisairei_202610.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>同「事前相談に対する回答書」記載例（様式 CK3高圧-202507） <a href="https://www.occto.or.jp/assets/access/kentou/files/CK3K_kisairei_202507.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>中部電力パワーグリッド「契約申込みに対する回答書」（高圧の書式） <a href="https://powergrid.chuden.co.jp/resource/goannai/ippan/powerconnection/saiene/sai_high/high_moushikomi/h_mou_keiyaku/h_mou_keiyaku_10.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>関西電力送配電「発電設備等に関する契約申込みの回答について（承諾）」記載例（様式PP3-20181001） <a href="https://www.kansai-td.co.jp/application/pdf/setsubi_answer_01.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>電力広域的運営推進機関「系統アクセス手続きで用いる様式集」（AP7・AP8・AK7・AP9・PP3・PP4・LP3） <a href="https://www.occto.or.jp/institution/access/kentou/youshiki.html" target="_blank" rel="noopener">www.occto.or.jp</a></li>
+<li>電力広域的運営推進機関「発電設備等に関する系統アクセスの流れ」（2026年9月版） <a href="https://www.occto.or.jp/assets/access_nagare_20260928.pdf" target="_blank" rel="noopener">PDF</a></li>
+</ul>
+<h3>有効期限・保証金</h3><ul>
+<li>電力広域的運営推進機関「送配電等業務指針」（2026年8月1日変更）第89条第1項第6号・第98条・第103条 <a href="https://www.occto.or.jp/assets/occto/article/index/shishin2608.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>九州電力送配電「発電側申込に関するよくあるQA集」（有効期限・保証金の入金期限・系統容量の確保の時点） <a href="https://www.kyuden.co.jp/var/rev0/0881/4208/E4rLmZja.pdf" target="_blank" rel="noopener">PDF</a>（掲載ページ <a href="https://www.kyuden.co.jp/td_service_wheeling_retail_application.html" target="_blank" rel="noopener">www.kyuden.co.jp</a>）</li>
+</ul>
+<h3>事前相談・要否確認・費用負担</h3><ul>
+<li>資源エネルギー庁「系統接続に関する事例集」 <a href="https://www.enecho.meti.go.jp/category/saving_and_new/saiene/grid/02_jirei.html" target="_blank" rel="noopener">www.enecho.meti.go.jp</a></li>
+<li>東京電力パワーグリッド「事前相談・接続検討のお申込みに対する概算負担金・概算工期の提示について」 <a href="https://www.tepco.co.jp/pg/consignment/fit/notice/pdf/shinsei20220401.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>電力広域的運営推進機関「系統接続および利用ルールについて～系統用蓄電池～」（2025年4月1日） <a href="https://www.occto.or.jp/grid/business/documents/chikudenchi_20250401.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>資源エネルギー庁「発電等設備の設置に伴う電力系統の増強及び事業者の費用負担等の在り方に関する指針」（令和6年5月15日改定）。一般負担の上限は広域機関が指定（4.1万円/kW＝税抜き、2018年6月6日の見直し後一律。資源エネルギー庁 事例集 Q2-1）</li>
+</ul>
+<h3>関連する記事</h3><ul><li><a target="_top" href="/column-buyer-check">その「承諾済み」は本物か（COLUMN 37）</a>／<a target="_top" href="/column-trading">蓄電所の売買はどう進むか（COLUMN 46）</a>／<a target="_top" href="/column-contract-flow">三語・三層分離・二つの4月（COLUMN 21）</a>／<a target="_top" href="/column-grid-rules">接続検討・契約申込みの新ルール（COLUMN 09）</a>／<a target="_top" href="/column-grid">系統連系工事費が10倍違う理由（COLUMN 04）</a>／<a target="_top" href="/column-equipment">接続検討回答後の設備変更（COLUMN 06）</a>／<a target="_top" href="/column-project-price">蓄電所は、いくらで買えるのか（COLUMN 49）</a>／<a target="_top" href="/column-low-voltage">「低圧なら簡単」は、蓄電所には通用しない（COLUMN 44）</a></li></ul>
+<p style="margin-top:12px">当社の集計は、当社に売却や紹介で来た案件の接続検討回答書・連系承諾を読んで数えた範囲の観測です。地点・社名・個別の金額は出していません。</p>
+</div>
+<div class="author-box">
+<div class="ab-label">この記事の監修</div>
+<div><span class="ab-name">中島 晋也</span>（サイエンスエックス株式会社 代表取締役・工学博士）</div>
+<p style="margin:6px 0 0">系統用蓄電池の案件を仕入れて売る実務に基づいて執筆・監修しています。接続検討回答書・連系承諾の読み方は広域機関と一般送配電事業者の公開資料によるもので、当社の集計は当社に来た案件の範囲の観測です。公表統計ではありません。本稿の誤りのご指摘は <a href="mailto:s@scix.co.jp">s@scix.co.jp</a> まで。</p>
+</div>
+
+</div>
+
+<!-- scix-column-cta : 1記事1つ。主＝案件一覧（NDA不要）、副＝売る方・買う方の入口（それぞれ行き先の中身を明記） -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F8F7F4;border:1px solid #E0DCD4;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Serif JP',serif;color:#1B2A4A;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">6か所を読んだ案件を、横に並べて見る</h3>
+  <p style="color:#5A6577;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">販売中の案件は、所在県・規模・連系の見込み・進み具合（回答書か、承諾済みか）までを秘密保持契約なしで公開しています。回答書の中身は案件ごとに、登録のうえでお出しします。</p>
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/projects" style="display:inline-block;background:#C49A3C;color:#1B2A4A;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">匿名ティーザーで売り案件を確認する →</a>
+    <p style="color:#8A92A0;font-size:12.5px;line-height:1.8;margin:10px 0 0">案件一覧が開きます。気になる案件は、その場で複数まとめて資料を請求できます。</p>
+  </div>
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E0DCD4">
+    <p style="color:#5A6577;font-size:12.5px;line-height:1.85;margin:0">回答書をお持ちで売りたい方は <a target="_top" href="https://www.scix.co.jp/sell-form" style="color:#1B2A4A;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">案件の無料査定を依頼する</a>（接続検討回答書のPDFを添付できます。売る義務はありません）。売る手順を先に読みたい方は <a target="_top" href="https://www.scix.co.jp/sourcing" style="color:#1B2A4A;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">案件・権利を売る</a>、買う側の手順は <a target="_top" href="https://www.scix.co.jp/transfer" style="color:#1B2A4A;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">案件を買う</a> へ。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1B2A4A; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/sell-form" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利の売却査定</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body></html>
