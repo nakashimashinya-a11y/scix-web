@@ -109,7 +109,7 @@ REPO = Path(os.environ.get("SCIX_WEB_REPO", Path.cwd()))
 ALLOWED_HTML = re.compile(r"^(en/)?[a-z0-9-]+\.html$|^zh-[a-z0-9-]+\.html$")
 FORBIDDEN = {"docs/seo-change-log.md", "fund.html", "contact.html", "sell-form.html", "thanks.html", "privacy.html", "404.html",
              "en/contact.html", "en/thanks.html", "zh-contact.html", "zh-thanks.html",
-             "projects.json", "vercel.json", "robots.txt", "README.md", "CLAUDE.md"}
+             "projects.json", "feed.xml", "projects-feed.xml", "vercel.json", "robots.txt", "README.md", "CLAUDE.md"}
 FORBIDDEN_PREFIX = ("scripts/", ".github/", "img/", "files/", "notes/", ".claude/", "docs/new-mac-setup.md")
 HUBS = {"knowledge.html", "en/knowledge.html", "zh-knowledge.html", "index.html", "en/index.html", "zh.html"}
 MAX_EXISTING = 12
