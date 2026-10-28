@@ -110,7 +110,8 @@ ALLOWED_HTML = re.compile(r"^(en/)?[a-z0-9-]+\.html$|^zh-[a-z0-9-]+\.html$")
 FORBIDDEN = {"docs/seo-change-log.md", "fund.html", "contact.html", "sell-form.html", "thanks.html", "privacy.html", "404.html",
              "en/contact.html", "en/thanks.html", "zh-contact.html", "zh-thanks.html",
              "projects.json", "feed.xml", "projects-feed.xml", "vercel.json", "robots.txt", "README.md", "CLAUDE.md"}
-FORBIDDEN_PREFIX = ("scripts/", ".github/", "img/", "files/", "notes/", ".claude/", "docs/new-mac-setup.md")
+FORBIDDEN_PREFIX = ("scripts/", ".github/", "img/", "files/", "notes/", ".claude/", "docs/new-mac-setup.md",
+                    "market-data.html", "projects-")   # 2026-10-29 市場データと管内別の一覧は毎朝の同期が焼き直す生成物
 HUBS = {"knowledge.html", "en/knowledge.html", "zh-knowledge.html", "index.html", "en/index.html", "zh.html"}
 MAX_EXISTING = 12
 MAX_NEW = 0                      # 新規ファイルは週次・構成レビューとも 0（O16-3。コラムを書くのは中島さん）
