@@ -25,6 +25,15 @@
       ]
     },
     {
+      "source": "/(feed|projects-feed).xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/rss+xml; charset=utf-8"
+        }
+      ]
+    },
+    {
       "source": "/header.js",
       "headers": [
         {
@@ -278,17 +287,12 @@
     },
     {
       "source": "/feed",
-      "destination": "/knowledge",
-      "permanent": true
-    },
-    {
-      "source": "/feed.xml",
-      "destination": "/knowledge",
+      "destination": "/feed.xml",
       "permanent": true
     },
     {
       "source": "/feeds/all.atom.xml",
-      "destination": "/knowledge",
+      "destination": "/feed.xml",
       "permanent": true
     },
     {
