@@ -81,7 +81,8 @@
     '/contact': { en: '/en/contact', zh: '/zh-contact' },
     '/thanks': { en: '/en/thanks', zh: '/zh-thanks' },
     '/primer': { en: '/en/primer', zh: '/zh-primer' },
-    '/market-entry-guide': { en: '/en/market-entry-guide', zh: '/zh' }
+    '/market-entry-guide': { en: '/en/market-entry-guide', zh: '/zh' },
+    '/press': { en: '/en/press', zh: '/zh' }
   };
 
   // Below this width the nav collapses into the drawer. The regrouped nav is
