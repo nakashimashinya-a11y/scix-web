@@ -145,3 +145,6 @@ GA4 のトークンが無いときは GA4 だけ飛ばして動く。取得は `
 ## 数字の置き場
 
 公開リポジトリ（この docs と change-log）には GSC の数字だけ。GA4 のリード数・用件別は Drive の台帳側（`scix-web解析/`）。Web 版 Claude・スマホは `scix-web解析/最新.md`（毎朝の写し・読み取り専用）。
+
+## SmartNews 用の全文フィード（2026-10-30）
+`scripts/build_feed.py` が `feed.xml`・`projects-feed.xml` と一緒に `smartnews.xml`（SmartFormat 2.2・全文・新しい順20本・1MB 未満）を焼く。本文は記事の `.article-body` から導線の箱（`data-scix-*`）・目次・連載の箱・署名・CTA を外し、`style`/`target` 属性を落とし、リンクと錨を絶対 URL にしたもの。SmartNews の申請（`_作成物/20261029_被リンク施策/08`）の前提で、検証は https://sf-validator.smartnews.com/ 。
