@@ -154,7 +154,8 @@ class _SNSanitizer(HTMLParser):
             return
         cls = a.get("class", "") or ""
         if tag in SN_DROP_WHOLE or any(k.startswith("data-scix-") for k in a) \
-           or (tag == "div" and ("author-box" in cls or "press-note" in cls or "series" in cls or cls.split() and cls.split()[0] == "toc")) \
+           or "series" in cls or (cls.split() and cls.split()[0] == "toc") \
+           or (tag == "div" and ("author-box" in cls or "press-note" in cls)) \
            or (tag == "a" and ("back-link" in cls or "next-link" in cls)) \
            or (tag == "p" and "press-note" in cls):
             self.drop = 1
