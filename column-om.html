@@ -119,16 +119,16 @@ body{padding-top:64px}
 .author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
 .author-box .ab-name{font-weight:700;color:var(--navy,#1B2A4A)}
 </style>
-<title>系統用蓄電所のO&amp;M｜止まったとき誰が直すのか｜サイエンスエックス</title>
-<meta name="description" content="系統用蓄電所のO&Mを判断枠組みとして解説。法が遂行主体を名指しするのは受変電の保安監督と連系サイバーの2点だけで、直流側の是正と通信は契約で埋める『空白』になる——責任マトリクスで可視化。計画外停止5倍カウント、機器単位のJC-STAR要件、商品別の通信要件、国際LTSAの可用性保証までを公表資料から整理する。">
+<title>系統用蓄電所のO&amp;M・機器の置き換え｜止まったとき誰が直すのか｜サイエンスエックス</title>
+<meta name="description" content="系統用蓄電所のO&Mを判断枠組みとして解説。法が遂行主体を名指しするのは受変電の保安監督と連系サイバーの2点だけで、直流側の是正と通信は契約で埋める空白になる。責任マトリクス、計画外停止のペナルティ、機器単位のJC-STAR要件、機器の置き換え・交換（リプレース）で確かめる4点まで。">
 <link rel="canonical" href="https://www.scix.co.jp/column-om">
 <link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-om">
 <link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-om">
 <link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-om">
 <link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-om">
 <meta property="og:type" content="article">
-<meta property="og:title" content="系統用蓄電所のO&amp;M｜止まったとき誰が直すのか｜サイエンスエックス">
-<meta property="og:description" content="系統用蓄電所のO&Mを判断枠組みとして解説。法が遂行主体を名指しするのは受変電の保安監督と連系サイバーの2点だけで、直流側の是正と通信は契約で埋める『空白』になる——責任マトリクスで可視化。計画外停止5倍カウント、機器単位のJC-STAR要件、商品別の通信要件、国際LTSAの可用性保証までを公表資料から整理する。">
+<meta property="og:title" content="系統用蓄電所のO&amp;M・機器の置き換え｜止まったとき誰が直すのか｜サイエンスエックス">
+<meta property="og:description" content="系統用蓄電所のO&Mを判断枠組みとして解説。法が遂行主体を名指しするのは受変電の保安監督と連系サイバーの2点だけで、直流側の是正と通信は契約で埋める空白になる。責任マトリクス、計画外停止のペナルティ、機器単位のJC-STAR要件、機器の置き換え・交換（リプレース）で確かめる4点まで。">
 <meta property="og:url" content="https://www.scix.co.jp/column-om">
 <meta property="og:image" content="https://www.scix.co.jp/img/ogp.png">
 <meta property="og:site_name" content="ScienceX">
@@ -138,8 +138,8 @@ body{padding-top:64px}
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "系統用蓄電所のO&amp;M｜止まったとき誰が直すのか｜サイエンスエックス",
-  "description": "系統用蓄電所のO&Mを判断枠組みとして解説。法が遂行主体を名指しするのは受変電の保安監督と連系サイバーの2点だけで、直流側の是正と通信は契約で埋める『空白』になる——責任マトリクスで可視化。計画外停止5倍カウント、機器単位のJC-STAR要件、商品別の通信要件、国際LTSAの可用性保証までを公表資料から整理する。",
+  "headline": "系統用蓄電所のO&amp;M・機器の置き換え｜止まったとき誰が直すのか｜サイエンスエックス",
+  "description": "系統用蓄電所のO&Mを判断枠組みとして解説。法が遂行主体を名指しするのは受変電の保安監督と連系サイバーの2点だけで、直流側の是正と通信は契約で埋める空白になる。責任マトリクス、計画外停止のペナルティ、機器単位のJC-STAR要件、機器の置き換え・交換（リプレース）で確かめる4点まで。",
   "author": {
     "@type": "Person",
     "name": "中島 晋也",
@@ -166,7 +166,7 @@ body{padding-top:64px}
     "height": 630
   },
   "datePublished": "2026-05-31",
-  "dateModified": "2026-07-27",
+  "dateModified": "2026-10-30",
   "mainEntityOfPage": "https://www.scix.co.jp/column-om"
 }
 </script>
@@ -733,7 +733,19 @@ body{padding-top:64px}
 </div>
 <p class="note-small">※ 上記は設計上の確認軸であって、個別案件の法令適合や契約交渉を代替するものではありません。設備区分・出力規模・系統条件により適用関係は変わります。</p>
 
-<h2>10 — 今後の論点</h2>
+<h2 id="replace">10 — 機器の置き換え・交換（リプレース）で確かめること</h2>
+<p>稼働中の蓄電所で機器を置き換える・交換する場面は、劣化した蓄電池の増設・総入替、PCS や EMS・ゲートウェイの更新、故障した通信機器の交換の3つに分かれます。どれも「壊れたら直す」の延長に見えますが、確かめる相手と手続きが違います。発注の前に、次の4点を順に確かめます。</p>
+<p><strong>① 接続検討回答書の設備と変わるか。</strong>回答書に書かれた蓄電池・PCS は前提条件であって指定ではありませんが、メーカーや型式を変えるなら、一般送配電事業者に「接続検討の要否確認」を出し、再検討が不要か要るかを確かめます。手続きの3つの型（不要・要否確認・再検討）は<a target="_top" href="/column-equipment">接続検討回答後の設備変更</a>にまとめています。</p>
+<p><strong>② 2027年4月以降の機器更新は JC-STAR★1 の機器単位の適合。</strong>グリッドコードには、既設でもリプレースや装置切替の際に最新の要件を適用する一般原則があります。PCS 交換・EMS 刷新時にサイバーセキュリティ要件をどう扱うかは改定案で明示されておらず未確定ですが、ゲートウェイ一括では免除されない前提で対象機器を洗い出し、IPA の取得製品リストでステータスが「有効」かを確かめます（<a target="_top" href="/column-jcstar">JC-STARとは・★1の義務化はいつから</a>）。</p>
+<p><strong>③ 補助金で入れた設備は処分制限。</strong>補助金で取得した財産は、処分制限期間内の売却・交換・貸付・廃棄・担保供与に SII の事前承認が要ります。交換する機器が補助対象なら、発注の前に承認の要否を確かめます（<a target="_top" href="/column-subsidies">系統用蓄電池の補助金</a>）。</p>
+<p><strong>④ 保証と O&amp;M の境界。</strong>劣化（SoH）保証の算定式と維持条件、認定外作業による保証失効の条件を契約で確かめ、「誰がどの機器に手を入れてよいか」を決めておきます。20年運用での容量劣化を増設・総入替で補う augmentation（劣化補償）は、長期脱炭素電源オークションでは追加取得・総入替の費用算入が認められています。</p>
+<p>案件を買う側も同じ4点を見ます。未適合機器で構成された案件は、交換費用とスケジュール影響を織り込んで評価します（<a target="_top" href="/column-buyer-check">系統用蓄電所を買う前の技術チェック</a>）。</p>
+<h3>Q. 蓄電所の蓄電池は何年で交換（入れ替え）が必要ですか？</h3>
+<p>一律には決まりません。充放電を重ねるほど容量が減るので、メーカーの劣化（SoH）保証の算定式と、増設・総入替で補う augmentation の計画で決めます。保証の維持には、温度・電流・SoC を15分間隔で記録し保持する運用が求められます。</p>
+<h3>Q. PCS を別メーカーに交換すると、接続検討はやり直しですか？</h3>
+<p>回答書の設備は前提条件であって指定ではないので、変更が「再検討不要」に当たるか、「接続検討の要否確認」で一般送配電事業者に確かめます。再検討が必要になる条件は<a target="_top" href="/column-equipment">設備変更の記事</a>に整理しています。</p>
+
+<h2>11 — 今後の論点</h2>
 
 <p>系統用蓄電所のO&Mは、制度と市場の両面でまだ動いている領域です。最後に、これから固まっていく論点を挙げておきます。</p>
 
