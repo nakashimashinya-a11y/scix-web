@@ -4,6 +4,7 @@
 
   feed.xml           日本語コラム column-*.html の新しい順 30 本
   projects-feed.xml  projects.json の新着案件（直近 60 日。無ければ最新 20 件）
+  smartnews.xml      SmartNews 用の SmartFormat 2.2（全文・新しい順 20 本・1MB 未満）。申請の前提（2026-10-30）
 
 案件の項目は projects.json の公開セーフ項目だけ（価格・住所・売主は元から無い）。
 毎朝の scripts/sync_projects_json.sh が inject_stats.py の直後に呼ぶ。
@@ -17,6 +18,7 @@ import datetime
 import email.utils
 import glob
 import html
+from html.parser import HTMLParser
 import json
 import os
 import re
@@ -118,6 +120,153 @@ def project_items(today):
     return items
 
 
+SMARTNEWS_LIMIT = 20
+SN_ALLOWED = {"a", "b", "blockquote", "br", "caption", "code", "dd", "div", "dl", "dt", "em", "figcaption", "figure",
+              "h1", "h2", "h3", "h4", "h5", "h6", "hr", "i", "img", "li", "ol", "p", "pre", "section", "small", "span",
+              "strong", "sub", "sup", "table", "tbody", "td", "tfoot", "th", "thead", "tr", "u", "ul"}
+SN_DROP_WHOLE = {"script", "style", "svg", "aside", "form", "button", "iframe", "noscript"}
+SN_KEEP_ATTR = {"a": ("href",), "img": ("src", "alt", "width", "height")}
+
+
+class _SNSanitizer(HTMLParser):
+    """記事本文を SmartFormat の content:encoded 用に削る: 許可タグだけ残し、script/style/svg/aside は中身ごと落とし、
+    導線の箱（data-scix-*）・CTA・署名・戻る/次へのリンクを落とし、style 属性を外し、リンクを絶対 URL にする。"""
+
+    def __init__(self, link=""):
+        super().__init__(convert_charrefs=True)
+        self.link = link
+        self.out = []
+        self.drop = 0          # 中身ごと落とす深さ
+        self.skip_div = []     # 落とす div/a の入れ子（True=落とす）
+
+    def _abs(self, u):
+        if u.startswith("/"):
+            return BASE + u
+        if u.startswith("#"):
+            return self.link + u
+        return u
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if self.drop:
+            if tag not in ("br", "img", "hr"):
+                self.drop += 1
+            return
+        cls = a.get("class", "") or ""
+        if tag in SN_DROP_WHOLE or any(k.startswith("data-scix-") for k in a) \
+           or "series" in cls or (cls.split() and cls.split()[0] == "toc") \
+           or (tag == "div" and ("author-box" in cls or "press-note" in cls)) \
+           or (tag == "a" and ("back-link" in cls or "next-link" in cls)) \
+           or (tag == "p" and "press-note" in cls):
+            self.drop = 1
+            return
+        if tag not in SN_ALLOWED:
+            return
+        keep = []
+        for k in SN_KEEP_ATTR.get(tag, ()):
+            if a.get(k):
+                v = a[k]
+                if k in ("href", "src"):
+                    v = self._abs(v)
+                keep.append(f'{k}="{html.escape(v, quote=True)}"')
+        if tag == "img" and not a.get("src"):
+            return
+        self.out.append("<" + tag + (" " + " ".join(keep) if keep else "") + (" />" if tag in ("br", "img", "hr") else ">"))
+
+    def handle_endtag(self, tag):
+        if self.drop:
+            if tag not in ("br", "img", "hr"):
+                self.drop -= 1
+            return
+        if tag in SN_ALLOWED and tag not in ("br", "img", "hr"):
+            self.out.append(f"</{tag}>")
+
+    def handle_data(self, data):
+        if self.drop:
+            return
+        self.out.append(html.escape(data, quote=False))
+
+
+def sn_body(src, link=""):
+    """<div class="article-body"> の中身（CTA の前まで）を許可タグだけにして返す。"""
+    i = src.find('<div class="article-body">')
+    if i < 0:
+        return ""
+    j = src.find("<!-- scix-column-cta", i)
+    if j < 0:
+        j = src.find("<!-- ScienceX Footer", i)
+    body = src[i + len('<div class="article-body">'):j if j > 0 else None]
+    p = _SNSanitizer(link)
+    p.feed(body)
+    out = "".join(p.out)
+    out = re.sub(r"<(p|div|section|span|figure)>\s*</\1>", "", out)   # 空の箱
+    out = re.sub(r"\n{3,}", "\n\n", out)
+    return out.strip()
+
+
+def smartnews_items():
+    items = []
+    for path in sorted(glob.glob(os.path.join(ROOT, "column-*.html"))):
+        name = os.path.basename(path)
+        src = open(path, encoding="utf-8").read()
+        t = re.search(r"<title>(.*?)</title>", src, re.S)
+        d = re.search(r'<meta name="description" content="(.*?)"', src, re.S)
+        if not t:
+            continue
+        pub = date_published(src, name)
+        if not pub:
+            continue
+        tag = re.search(r'class="header-tag">([^<]*)<', src)
+        og = re.search(r'<meta property="og:image" content="([^"]*)"', src)
+        items.append({
+            "title": html.unescape(t.group(1)).split("｜")[0].strip(),
+            "link": f"{BASE}/{name[:-5]}",
+            "desc": html.unescape(d.group(1)).strip() if d else "",
+            "date": pub,
+            "category": html.unescape(tag.group(1)).strip() if tag else "系統用蓄電池",
+            "thumb": (og.group(1) if og else f"{BASE}/img/ogp.png"),
+            "body": sn_body(src, f"{BASE}/{name[:-5]}"),
+        })
+    items.sort(key=lambda x: (x["date"], x["link"]), reverse=True)
+    return [x for x in items if x["body"]][:SMARTNEWS_LIMIT]
+
+
+def render_smartnews(items):
+    last = max((i["date"] for i in items), default=datetime.date.today())
+    out = ['<?xml version="1.0" encoding="utf-8"?>',
+           '<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" '
+           'xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" '
+           'xmlns:snf="http://www.smartnews.be/snf">',
+           '<channel>',
+           '<title>サイエンスエックス ナレッジ</title>',
+           f'<link>{BASE}/knowledge</link>',
+           '<description>系統用蓄電池の制度・市場・売買の解説</description>',
+           f'<pubDate>{rfc822(last)}</pubDate>',
+           '<language>ja</language>',
+           '<copyright>© Science X Inc.</copyright>',
+           '<ttl>60</ttl>',
+           f'<snf:logo><url>{BASE}/img/press/logo-navy-700x100.png</url></snf:logo>',
+           f'<snf:darkModeLogo><url>{BASE}/img/press/logo-white-700x100.png</url></snf:darkModeLogo>']
+    for i in items:
+        body = i["body"].replace("]]>", "]]]]><![CDATA[>")
+        out += ['<item>',
+                f'<title>{esc(i["title"])}</title>',
+                f'<link>{esc(i["link"])}</link>',
+                f'<guid>{esc(i["link"])}</guid>',
+                f'<description><![CDATA[{i["desc"].replace("]]>", "")}]]></description>',
+                f'<pubDate>{rfc822(i["date"])}</pubDate>',
+                f'<content:encoded><![CDATA[<img src="{i["thumb"]}" alt="{esc(i["title"])}" />\n{body}\n'
+                f'<p>元の記事（図表つき）: <a href="{i["link"]}">{i["link"]}</a></p>]]></content:encoded>',
+                f'<category>{esc(i["category"])},系統用蓄電池,蓄電所</category>',
+                '<dc:creator>中島 晋也</dc:creator>',
+                '<dc:language>ja</dc:language>',
+                f'<media:thumbnail url="{esc(i["thumb"])}" />',
+                '<media:status>active</media:status>',
+                '</item>']
+    out += ['</channel>', '</rss>', '']
+    return "\n".join(out)
+
+
 def render(title, link, desc, self_url, items):
     last = max((i["date"] for i in items), default=None)
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
@@ -152,6 +301,7 @@ def main():
         "projects-feed.xml": render("サイエンスエックス 販売中の系統用蓄電池案件（新着）", f"{BASE}/projects",
                                     "サイエンスエックスが販売中の系統用蓄電池案件の新着。公開できる項目のみ。",
                                     f"{BASE}/projects-feed.xml", project_items(today)),
+        "smartnews.xml": render_smartnews(smartnews_items()),
     }
     stale = []
     for name, body in files.items():
