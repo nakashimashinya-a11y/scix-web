@@ -13,6 +13,8 @@
 
 | 変更日 | ページ | 変更 | PR | 変更前の基準（GSC 3か月） | 確認日 | 結果 |
 |---|---|---|---|---|---|---|
+| 2026-10-30 | /en/press（新規） ・/press ・header.js | 英語版の引用・転載ガイド /en/press（海外媒体・研究機関向け。図の PNG・表の CSV は日本語版と共用）と、/press・/en/press に CSV 3つの Dataset JSON-LD（Google Dataset Search 向け）。header.js の TRILINGUAL に /press。 | #154 | 新規ページ・基準値なし | 2026-11-13 | |
+| 2026-10-30 | /press | 図8枚の埋め込みコード（元記事へのリンクと出典付き）の節を追加。貼った側から元記事への被リンクが付く形。 | #153 | — | 2026-11-13 | |
 | 2026-10-30 | /press（新規） ・/knowledge /column-area-data /column-price-cap /column-project-price ・smartnews.xml（新規） | 引用・転載ガイド /press（出典の書き方・使える範囲・取引実績の表3つの CSV・上限価格と取得価格の図8枚の PNG・取材と寄稿の窓口・ロゴ）。ハブとデータ記事3本から導線1文ずつ。SmartNews 申請用の SmartFormat 2.2 全文フィード smartnews.xml（新しい順20本・毎朝の sync で焼き直し）。被リンク・媒体の引用を増やす狙い。 | #151 | 新規ページ・基準値なし。データ記事3本は既存（28日: area-data 表示の集計は台帳） | 2026-11-13 | |
 | 2026-10-30 | /contact /column-land-lease /column-construction-cost /column-investment-tax-law /column-financing /column-investment-tax /column-land-value /column-grid-rules /transfer /column-project-price /column-trading /column-options（/column-price-cap は未確認） | GSC の URL 検査で手動のインデックス登録リクエスト 13 本（10/29 朝・夜の続き。/market-data は朝には登録済みでリクエスト不要）。内容の変更なし。 | — | — | — | 12本は「リクエスト済み」の箱を確認 |
 | 2026-10-30 | /column-om ・/column-development /column-equipment | 「蓄電所 置き換え」「蓄電所 交換」（計230表示超・8〜12位・クリック0・/column-development に着地）の受け皿として、/column-om に「10 — 機器の置き換え・交換（リプレース）で確かめること」（#replace）と Q&A 2問。title を「系統用蓄電所のO&M・機器の置き換え｜…」、description を 439→170字以内。開発・設備変更の記事から1文ずつ導線。 | #150 | /column-om: 「蓄電所 置き換え」6表示・77位。/column-development: 145表示・7.9位（置き換え）・87表示・11.6位（交換） | 2026-11-13 | |
