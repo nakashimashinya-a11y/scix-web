@@ -42,6 +42,7 @@
     if (path === '/zh') loc = '/';
     else if (path === '/zh-knowledge') loc = '/knowledge';
     else if (path === '/zh-qa') loc = '/qa';
+    else if (path === '/zh-glossary') loc = '/glossary';
     else if (path === '/zh-contact') loc = '/contact';
     else if (path === '/zh-thanks') loc = '/thanks';
     else if (path === '/zh-primer') loc = '/primer';
@@ -77,6 +78,7 @@
     '/': { en: '/en', zh: '/zh' },
     '/knowledge': { en: '/en/knowledge', zh: '/zh-knowledge' },
     '/qa': { en: '/en/qa', zh: '/zh-qa' },
+    '/glossary': { en: '/en/glossary', zh: '/zh-glossary' },
     '/contact': { en: '/en/contact', zh: '/zh-contact' },
     '/thanks': { en: '/en/thanks', zh: '/zh-thanks' },
     '/primer': { en: '/en/primer', zh: '/zh-primer' },
