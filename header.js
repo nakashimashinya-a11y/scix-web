@@ -61,7 +61,6 @@
     '/column-investment-tax-law',
     '/column-investment-tax-practice',
     '/column-investment-tax-schedule',
-    '/column-jcstar-levels',
     '/column-land-buyback',
     '/column-land-lease',
     '/column-land-zoning',
