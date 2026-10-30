@@ -140,11 +140,13 @@ body *:not(img):not(svg *):not(.scix-lang):not(.scix-lang *):not(input[type=radi
 :is(.strengths,section.cta,div.cta,.sec-navy,.on-navy,.contact-hero,.kh,.cta-section,.article-header,.hero) .btn-secondary{background:transparent!important;color:var(--x-ink)!important;border:2px solid var(--x-ink)!important}
 :is(section.cta,div.cta,.cta-section) :is(.btn-primary,.cta-btn,a[class*="btn"]){background:var(--x-ink)!important;color:#fff!important;border:none!important;box-shadow:none!important}
 
-/* 3. 節の見出し: 左寄せ。小見出し｜題と説明 の2列、上に紺の線 */
-div:has(> .section-label):has(> .section-title){text-align:left!important;display:grid!important;grid-template-columns:minmax(170px,240px) 1fr;column-gap:48px;align-items:start;border-top:2px solid var(--x-ink);padding-top:26px}
-div:has(> .section-label):has(> .section-title) > .section-label{grid-column:1;grid-row:1 / span 4;margin:8px 0 0!important;justify-self:start}
-div:has(> .section-label):has(> .section-title) > :not(.section-label){grid-column:2}
-div:has(> .section-label):has(> .section-title) > .section-subtitle{margin:0!important;max-width:680px}
+/* 3. 節の見出し: 左寄せ。小見出し｜題と説明 の2列、上に紺の線。
+   当てるのは見出しだけの箱（小見出し・題・説明・段落だけを持つ div）。一覧や絵まで同じ箱に入っているページ（案件一覧など）に当てると、
+   中身まで右の列に押し込まれる（2026-10-31 #166 で案件一覧のカードが3列→2列になった）ので、そういう箱は縦に積むだけにする */
+div:has(> .section-label):has(> .section-title):not(:has(> :not(.section-label,.section-title,.section-subtitle,p,br))){text-align:left!important;display:grid!important;grid-template-columns:minmax(170px,240px) 1fr;column-gap:48px;align-items:start;border-top:2px solid var(--x-ink);padding-top:26px}
+div:has(> .section-label):has(> .section-title):not(:has(> :not(.section-label,.section-title,.section-subtitle,p,br))) > .section-label{grid-column:1;grid-row:1 / span 4;margin:8px 0 0!important;justify-self:start}
+div:has(> .section-label):has(> .section-title):not(:has(> :not(.section-label,.section-title,.section-subtitle,p,br))) > :not(.section-label){grid-column:2}
+div:has(> .section-label):has(> .section-title):not(:has(> :not(.section-label,.section-title,.section-subtitle,p,br))) > .section-subtitle{margin:0!important;max-width:680px}
 .section-title{font-size:clamp(1.7rem,3.3vw,2.5rem)!important;line-height:1.3!important;color:var(--x-ink)}
 section.cta{text-align:left!important}
 section.cta h2{font-size:clamp(1.6rem,3vw,2.3rem)!important;line-height:1.3!important}
@@ -267,9 +269,32 @@ a.back{color:var(--x-ink-2)!important}
 .risk-card[style*="background:var(--navy)"] strong{color:var(--x-gold-label)!important}
 .on-navy :is(label,.req){color:var(--x-ink)!important}
 
+/* 18. 案件一覧の DealRoom の案内（2026-10-31〜 /projects）。一番目のボタンは「資料を請求」のまま、ここは2番目の入口 */
+.dr2-promo{padding:72px 0;background:var(--x-soft);border-top:1px solid var(--x-line);border-bottom:1px solid var(--x-line)}
+.dr2-promo .container > .section-label{margin-bottom:10px}
+.dr2-promo .section-subtitle{max-width:760px;margin:0 0 32px!important;color:var(--x-ink-2)}
+.dr2-shots{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.dr2-shots figure{margin:0;background:#fff;border:1px solid var(--x-line);border-top:3px solid var(--x-ink)}
+.dr2-shots img{display:block;width:100%;height:220px;object-fit:cover;object-position:top left}
+.dr2-shots figcaption{padding:12px 14px;font-size:.86rem;font-weight:700;color:var(--x-ink)}
+.dr2-note{font-size:.78rem;color:#777;margin:10px 0 0}
+.dr2-steps{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:36px 0 0;padding:0}
+.dr2-steps li{counter-increment:s;background:#fff;border:1px solid var(--x-line);border-top:3px solid var(--x-ink);padding:22px 22px 24px;font-size:.88rem;line-height:1.85;color:var(--x-ink-2)}
+.dr2-steps li::before{content:counter(s,decimal-leading-zero) ".";display:block;font-family:var(--x-num);font-weight:800;font-size:2rem;line-height:1;color:var(--x-ink);margin-bottom:12px;letter-spacing:-.03em}
+.dr2-steps li b{display:block;font-size:1rem;color:var(--x-ink);margin-bottom:6px}
+.dr2-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;margin-top:30px}
+.dr2-actions .btn-secondary{display:inline-flex;align-items:center;padding:14px 26px;border:2px solid var(--x-ink);color:var(--x-ink);font-weight:700;text-decoration:none;background:#fff}
+.dr2-actions .btn-secondary:hover{background:var(--x-ink);color:#fff}
+.dr2-pdf{font-weight:700;color:var(--x-ink);text-decoration:underline;text-decoration-color:var(--x-gold);text-underline-offset:4px}
 @media (max-width:768px){
-  div:has(> .section-label):has(> .section-title){grid-template-columns:1fr;padding-top:20px}
-  div:has(> .section-label):has(> .section-title) > .section-label{grid-row:auto;margin:0 0 10px!important}
-  div:has(> .section-label):has(> .section-title) > :not(.section-label){grid-column:1}
+  .dr2-promo{padding:48px 0}
+  .dr2-shots,.dr2-steps{grid-template-columns:1fr}
+  .dr2-shots img{height:auto;max-height:260px}
+}
+
+@media (max-width:768px){
+  div:has(> .section-label):has(> .section-title):not(:has(> :not(.section-label,.section-title,.section-subtitle,p,br))){grid-template-columns:1fr;padding-top:20px}
+  div:has(> .section-label):has(> .section-title):not(:has(> :not(.section-label,.section-title,.section-subtitle,p,br))) > .section-label{grid-row:auto;margin:0 0 10px!important}
+  div:has(> .section-label):has(> .section-title):not(:has(> :not(.section-label,.section-title,.section-subtitle,p,br))) > :not(.section-label){grid-column:1}
   .article-header{padding:36px 16px 26px!important}
 }
