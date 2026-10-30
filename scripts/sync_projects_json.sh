@@ -12,6 +12,9 @@
 #
 # 手で回すとき:  bash scripts/sync_projects_json.sh
 # 変更せず確認:  DRY_RUN=1 bash scripts/sync_projects_json.sh
+# 外すだけの速い回: FAST_REMOVE=1 bash scripts/sync_projects_json.sh（launchd ai.scix.projects-json-fast が10分おきに回す）。
+#   DR2 で売却済み・非表示・販売中以外にした案件が公開一覧に残っているときだけ公開する（2026-10-31 中島さん「すぐ外して」）。
+#   外す物が無ければ何もせず黙って終わる（追加・項目の変更・焼き直しは毎朝の回に任せる）。外す回は、その時点の追加・変更も一緒に出る。
 
 set -uo pipefail
 
@@ -19,6 +22,7 @@ REPO="${SCIX_WEB_REPO:-$HOME/projects/scix-web}"
 WR="$HOME/.config/scix-cockpit/wr"
 TMP="$(mktemp -t projects_new)".json
 DRY_RUN="${DRY_RUN:-0}"
+FAST_REMOVE="${FAST_REMOVE:-0}"
 # 一覧がこの割合より大きく減ったら、事故を疑って公開しない（D1の部分読みなど）
 MAX_SHRINK_RATIO="${MAX_SHRINK_RATIO:-0.30}"
 
@@ -26,6 +30,14 @@ log() { echo "$(date '+%F %T') $*"; }
 fail() { log "NG $*"; exit 1; }
 
 cd "$REPO" || fail "リポジトリが無い: $REPO"
+# 朝の回と速い回（FAST_REMOVE）が同じ作業ツリーで重ならないように鍵を取る。取れなければ今回は見送る（次の回が拾う）。
+LOCK="${TMPDIR:-/tmp}/scix-projects-sync.lock"
+if ! mkdir "$LOCK" 2>/dev/null; then
+  if [ -n "$(find "$LOCK" -maxdepth 0 -mmin +30 2>/dev/null)" ]; then rmdir "$LOCK" 2>/dev/null; mkdir "$LOCK" 2>/dev/null || exit 0
+  else [ "$FAST_REMOVE" = "1" ] || log "別の同期が走っている。今回は見送る。"; exit 0; fi
+fi
+release_lock() { rmdir "$LOCK" 2>/dev/null; }
+trap release_lock EXIT
 [ -x "$WR" ] || fail "wrangler ラッパーが無い: $WR"
 
 # 手元の main を本番（origin/main）に合わせてから始める。週次自動更新や PR のマージで origin が先へ進んでいると、
@@ -48,7 +60,7 @@ if [ "$DRY_RUN" != "1" ] && [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ]; t
       # pull でこのスクリプト自身が新しくなったら、古い判定のまま進めずに読み直す（1回だけ）
       if [ -z "${SCIX_SYNC_REEXEC:-}" ] && ! git diff --quiet "ORIG_HEAD" HEAD -- scripts/sync_projects_json.sh 2>/dev/null; then
         log "同期スクリプトが更新された。読み直す。"
-        rm -f "$TMP"; SCIX_SYNC_REEXEC=1 exec bash "$REPO/scripts/sync_projects_json.sh"
+        rm -f "$TMP"; release_lock; SCIX_SYNC_REEXEC=1 FAST_REMOVE="$FAST_REMOVE" exec bash "$REPO/scripts/sync_projects_json.sh"   # 鍵は読み直す前に外す
       fi
     fi
   else
@@ -104,6 +116,7 @@ KIND="$(printf '%s' "$VERDICT" | cut -f1)"
 case "$KIND" in
   SAME)
     rm -f "$TMP"
+    [ "$FAST_REMOVE" = "1" ] && exit 0   # 速い回は外す物が無ければ黙って終わる
     # 中身は同じでも、月が替わると静的一覧の「◯年◯月ごろ」と件数の出し分けが変わる。ずれていたら焼き直して出す。
     if [ "$DRY_RUN" != "1" ] && [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] \
        && git diff --quiet -- index.html projects.html sitemap.xml feed.xml projects-feed.xml market-data.html projects-tokyo.html projects-chubu.html projects-kyushu.html projects-kansai.html projects-chugoku.html projects-tohoku.html projects-hokkaido.html projects-hokuriku.html projects-shikoku.html && git diff --cached --quiet \
@@ -133,6 +146,9 @@ DELTA="$(printf '%s' "$VERDICT" | cut -f4)"
 ADDED="$(printf '%s' "$VERDICT" | cut -f5)"
 REMOVED="$(printf '%s' "$VERDICT" | cut -f6)"
 CHANGED="$(printf '%s' "$VERDICT" | cut -f7)"
+if [ "$FAST_REMOVE" = "1" ] && [ -z "$REMOVED" ]; then
+  rm -f "$TMP"; exit 0   # 外す物が無い＝追加・項目の変更は毎朝の回に任せる
+fi
 
 if [ "$DRY_RUN" = "1" ]; then
   log "DRY_RUN ${OLD}→${NEW}（${DELTA}） 追加=${ADDED:-なし} 削除=${REMOVED:-なし} 項目変更=${CHANGED:-なし}"
@@ -153,7 +169,7 @@ rollback_generated() {
   git reset -q HEAD -- projects.json index.html projects.html sitemap.xml feed.xml projects-feed.xml market-data.html projects-tokyo.html projects-chubu.html projects-kyushu.html projects-kansai.html projects-chugoku.html projects-tohoku.html projects-hokkaido.html projects-hokuriku.html projects-shikoku.html >/dev/null 2>&1
   git checkout -q -- projects.json index.html projects.html sitemap.xml feed.xml projects-feed.xml market-data.html projects-tokyo.html projects-chubu.html projects-kyushu.html projects-kansai.html projects-chugoku.html projects-tohoku.html projects-hokkaido.html projects-hokuriku.html projects-shikoku.html >/dev/null 2>&1
 }
-trap rollback_generated EXIT
+trap 'rollback_generated; release_lock' EXIT
 cp "$TMP" projects.json && rm -f "$TMP"
 # トップに焼き込んである件数・MW・都道府県数も一緒に更新する（JSでは描かない）
 python3 scripts/inject_stats.py || fail "件数の焼き込みに失敗"
@@ -172,14 +188,14 @@ for f in $MD_FILES; do git diff --quiet -- "$f" || STAMP="$STAMP $f"; done
 # shellcheck disable=SC2086
 git add projects.json index.html projects.html sitemap.xml feed.xml projects-feed.xml $MD_FILES || fail "git add に失敗"
 git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" \
-    commit -q -m "chore(projects): 公開案件一覧をDR2に同期（${OLD}→${NEW}件・${DELTA}）
+    commit -q -m "chore(projects): 公開案件一覧をDR2に同期（${OLD}→${NEW}件・${DELTA}）$([ "$FAST_REMOVE" = "1" ] && echo '・売却済み等を外す速い回')
 
 追加: ${ADDED:-なし}
 削除: ${REMOVED:-なし}
 項目変更: ${CHANGED:-なし}
 
 scripts/sync_projects_json.sh による自動同期。" || fail "commit に失敗"
-trap - EXIT   # commit できた。ここから先で落ちても commit は手元に残り、次回の冒頭で出し直す
+trap release_lock EXIT   # commit できた。ここから先で落ちても commit は手元に残り、次回の冒頭で出し直す
 
 if ! git push -q origin main 2>/dev/null; then
   # 生成している数十秒の間に origin が進んだ。1回だけ載せ直して出し直す。
@@ -189,4 +205,4 @@ if ! git push -q origin main 2>/dev/null; then
   [ -z "$(git ls-files -u)" ] || fail "載せ直しのあと、手元の未コミット変更を戻すときに衝突した（変更は git stash に残っている）"
   git push -q origin main || fail "push に失敗（commit は手元に残っている。次回の冒頭で出し直す）"
 fi
-log "OK ${OLD}→${NEW}件（${DELTA}）を公開した。追加=${ADDED:-なし} 削除=${REMOVED:-なし} 項目変更=${CHANGED:-なし}"
+log "OK$([ "$FAST_REMOVE" = "1" ] && echo '（速い回）') ${OLD}→${NEW}件（${DELTA}）を公開した。追加=${ADDED:-なし} 削除=${REMOVED:-なし} 項目変更=${CHANGED:-なし}"
