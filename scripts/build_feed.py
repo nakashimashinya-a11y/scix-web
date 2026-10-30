@@ -224,7 +224,7 @@ def smartnews_items():
             "desc": html.unescape(d.group(1)).strip() if d else "",
             "date": pub,
             "category": html.unescape(tag.group(1)).strip() if tag else "系統用蓄電池",
-            "thumb": (og.group(1) if og else f"{BASE}/img/ogp.png"),
+            "thumb": (og.group(1) if og else f"{BASE}/img/ogp-x.png"),
             "body": sn_body(src, f"{BASE}/{name[:-5]}"),
         })
     items.sort(key=lambda x: (x["date"], x["link"]), reverse=True)

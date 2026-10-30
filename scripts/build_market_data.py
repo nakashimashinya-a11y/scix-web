@@ -237,11 +237,11 @@ def head(title, desc, path, jsonld, robots="index,follow,max-image-preview:large
 <meta property="og:url" content="{url}">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="ScienceX">
-<meta property="og:image" content="{BASE}/img/ogp.png">
+<meta property="og:image" content="{BASE}/img/ogp-x.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{_esc(title)}">
 <meta name="twitter:description" content="{_esc(desc)}">
-<meta name="twitter:image" content="{BASE}/img/ogp.png">
+<meta name="twitter:image" content="{BASE}/img/ogp-x.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="{FONTS}" onload="this.onload=null;this.rel='stylesheet'">
