@@ -23,7 +23,7 @@
 - 立場は「案件を仕入れて、売る会社」で全ページ揃え、「中立」「neutral」「independent」を自称せず、「メーカー・EPCと資本関係がない」と事実で書く `O16-10`
 - LDA（長期脱炭素電源オークション）落札案件の売却・名義変更は、記事も導線も主題の提案も作らない（対象外と書く1文は除く） `O16-13`
 - /fund を noindex にも sitemap 除外にもせず、提案もしない（中島さんが明示で決める） `O16-15`
-- コラムから /fund へ導線を張らない `O16-67`
+- コラムの本文と本文末の導線から /fund へのリンクを足さない（全ページ共通のフッターの1本は今のまま残す） `O16-67`
 - サイトの文章は AI の紋切り調にしない。既存コラム2〜3本を読み、です・ます＋短い断言・場面から入る声に合わせる `O16-54`
 
 **★ 参考**
@@ -39,7 +39,7 @@
 
 **★★★ 必須**
 
-- scix-web（公開リポジトリ）には、案件は都道府県・匿名の公開セーフ項目（生成器の `PUBLIC_KEYS`）までしか置かず、住所・地番・緯度経度・価格類（仕入値・販売価格・工事費負担金・土地代・価格の決め方）・関係者（売主・仲介者・担当者）の名前と連絡先・社内メモ・買い手情報・電力会社の秘密資料とその抜粋・認証情報を置かない。コード・テスト・コミット文・PR には DR2 の実文言・案件ID・金額も写さない。実データは Drive（DR2）か非公開リポジトリに置く `O16-19`
+- scix-web（公開リポジトリ）には、案件は都道府県・匿名の公開セーフ項目（生成器の `PUBLIC_KEYS`。その匿名の id は projects.json に出てよい）までしか置かず、住所・地番・緯度経度・価格類（仕入値・販売価格・工事費負担金・土地代・価格の決め方）・関係者（売主・仲介者・担当者）の名前と連絡先・社内メモ・買い手情報・電力会社の秘密資料とその抜粋・認証情報を置かない。projects.json の外（コード・テスト・コミット文・PR・変更日台帳）には、DR2 の実文言・案件ID・金額も写さない。実データは Drive（DR2）か非公開リポジトリに置く `O16-19`
 
 **★★ 原則**
 
@@ -72,12 +72,12 @@
 
 - 自動更新は新しいページを作らない（新コラム・既存コラムの EN/ZH 版・収益ページも） `O16-3`
 - 自動更新は週1回、構成の見直しは月1回にし、頻度を上げない `O16-24`
-- 自動更新と構成の見直しは、検査を通れば承認なしで公開する。ナビ（header.js）を含む回だけ PR に出す `O16-25`
+- 自動更新と構成の見直しは、検査を通れば承認なしで公開する。ナビの項目（header.js のナビ定義）を変える回だけ PR に出し、`JA_ONLY_COLUMNS` の行の出し入れはナビの変更に数えない `O16-25`
 
 **手順**
 
 - 同じページを14日以内に2度変えない `O16-37`
-- 「今週触らないページ」は週次も人も触らない（ハブのカード追加と sitemap は除く） `O16-38`
+- 「今週触らないページ」は週次も人も触らない。ハブ・トップは構成の変更（並び・ナビ・差し戻し）だけを凍結に数え、カードの追加・件数や新着の焼き直し・sitemap は凍結中でも行ってよい `O16-38`
 - 自動のコミットは `auto(seo):`（週次）と `auto(structure):`（構成）。差し戻しはそのコミットを `git revert` し、すぐ上の `chore(seo-log):`（sitemap の lastmod と変更日台帳の記帳）は revert しない
 
 ## 公開案件一覧（projects.json）
@@ -90,13 +90,12 @@
 
 - 公開サイトの案件一覧（projects.json）はDR2からの自動生成に任せ、手で追記しない `O07-46`
   - 生成は `scripts/build_projects_json.py`、同期（再生成→変化があれば main へ直接 commit/push）は `scripts/sync_projects_json.sh`。ふだんは毎朝 launchd が回す
-  - 生成器は DR2（D1 `dealroom2_new_projects` ＋ `deal_edits`）から公開セーフな項目だけを書き出す: id / area / pref / voltage / mw / mwh / status / scheme ／ 連系の見込み（cod・codYm・leadMonths・leadBasis・live）／ firstSeen・updatedAt。項目を足すときは `PUBLIC_KEYS`（生成器）・`.github/workflows/projects-freshness.yml` の allowed・この一覧の3か所をそろえる
+  - 生成器は DR2（D1 `dealroom2_new_projects` ＋ `deal_edits`）から公開セーフな項目だけを書き出す: id / area / pref / voltage / mw / mwh / status / scheme ／ 連系の見込み（cod・codYm・leadMonths・leadBasis・live）／ firstSeen・updatedAt。項目を足すときの揃え先は `O16-23`
   - 同期は案件の出入りだけでなく項目の変更も公開する
   - トップの件数は `scripts/inject_stats.py` が同時に焼き直す（`index.html`・`projects.html` の `<!--S:…-->` マーカーの中。手で直さない）
 - 連系の見込みは DR2 の運転開始予定日と月数から作り、connectionDate（回答日）は使わない `O16-21`
-- DR2 の自由記述（運転開始予定・負担金の欄）はサイトにそのまま出さず、年月・整数・列挙値だけにする `O16-20`
-- 公開項目や連系見込みの文言を変えるときは、対になる箇所（生成器と検査・静的一覧と JS）を同時に直す `O16-23`
-  - 生成器（`scripts/build_projects_json.py`）の `PUBLIC_KEYS` と `.github/workflows/projects-freshness.yml` の allowed、静的一覧の `scripts/inject_stats.py` と `projects.html` の JS
+- DR2 の自由記述（運転開始予定など）はサイトにそのまま出さず、年月・整数・列挙値だけにする。負担金は見込みの月数などに直す場合も含め、額をサイトに書き出さない `O16-20`
+- 公開項目や連系見込みの文言を足す・変えるときは、`scripts/build_projects_json.py` の `PUBLIC_KEYS`・`.github/workflows/projects-freshness.yml` の allowed・この一覧・`scripts/inject_stats.py`・`projects.html` の JS を同じ変更でそろえる `O16-23`
 
 ## DR2 登録（案件データはこのリポジトリに無い）
 
@@ -105,4 +104,4 @@ DR2 登録の規則の正本は Drive `9_システム/_DR2登録ルール.md`（
 **手順**
 
 - 「DR2登録して」と言われたら:
-     - **D1への書き込みはMacからしかできない。** クラウド実行環境（Claude Code on the web 等）では拒否される＝迂回しない・報告する。その場合は**適用できるSQLを生成して渡す**。「できません」で終わらせない `O07-35`
+     - **D1への書き込みはMacからしかできない。** クラウド実行環境（Claude Code on the web 等）で拒否されたら迂回せず報告し、Mac で回す `dr2-auto-register`（既存案件なら `dr2_register.py` の決まった呼び出し）の呼び出しと入力をそろえて渡す。生の SQL は渡さない（売主欄・memos を守る CLI を素通りするため＝O07-3・O02-12）。「できません」で終わらせない `O07-35`
