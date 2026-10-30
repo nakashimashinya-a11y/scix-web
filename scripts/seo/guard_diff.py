@@ -60,7 +60,7 @@
     同じ欄に案件ID（SHV-／HV-／UR-／GT- ＋数字）・円の金額（O16-19）と「一次情報」（T06-12）も書かない（本文の HTML には掛けない＝
     公開の案件一覧 projects.json 由来の ID がある）。週次・構成レビューの両方で見る。ただし before・after が公開されるのは構成レビューの
     PR 本文だけ＝週次の before・after には案件ID・金額・「一次情報」の検査を掛けない（件数の検査は掛ける）
-  - トップ（index.html・en/index.html・zh.html）のヒーローより上は変えない（<body> の先頭〜<section class="hero"> の終わり）
+  - トップ（index.html・en/index.html・zh.html）のヒーローより上は変えない（<body> の先頭〜class が hero で始まる <section> の終わり）
 
 --profile structure（月1回の構成レビュー＝weekly_run.sh の MODE=structure。**検査を通れば承認なしで公開**＝O16-25。
 ナビ（header.js）を含む回だけは全体を PR に出す）で変わるところ:
@@ -369,13 +369,17 @@ def synced_regions(text: str) -> list:
     return [(m.group(1), m.group(2)) for m in SYNCED_RE.finditer(text) if m.group(1) in INJECT_KEYS]
 
 
+# class の先頭が hero の節（2026-10-31 の見た目の作り直しで class="hero x-top" になった＝完全一致だと最初の </h1> までしか守れなかった）
+HERO_RE = re.compile(r'<section\b[^>]*class="hero(?:\s[^"]*)?"')
+
+
 def hero_region(text: str):
-    """<body> の先頭からヒーローの終わりまで。トップ＝<section class="hero">…</section>、それ以外（ハブ）＝最初の </h1>。
+    """<body> の先頭からヒーローの終わりまで。トップ＝<section class="hero …">…</section>、それ以外（ハブ）＝最初の </h1>。
     <!--S:…--> の中身は同期・焼き直しが書くので空にして比べる。取れなければ None。"""
     b = text.find("<body")
     if b < 0:
         return None
-    m = re.search(r'<section\b[^>]*class="hero"', text[b:])
+    m = HERO_RE.search(text[b:])
     if m:
         end = text.find("</section>", b + m.start())
         end = end + len("</section>") if end >= 0 else -1
@@ -1196,7 +1200,7 @@ def main() -> int:
                 problems.append(f"{path}: ヒーローの範囲（<body> 〜 hero の終わり）を取れない＝検査できないので止める")
             elif hb != ha:
                 problems.append(f"{path}: ヒーローより上は変えない（<body> の先頭〜"
-                                + ("<section class=\"hero\"> の終わり" if 'class="hero"' in hb else "最初の </h1>") + "）")
+                                + ("<section class=\"hero …\"> の終わり" if HERO_RE.search(hb) else "最初の </h1>") + "）")
         if path in HUBS and styles_and_scripts(before) != styles_and_scripts(text):
             # ヒーローの中身が同じでも CSS（.hero{display:none}）や JS で消せる。ハブ・トップの見た目の土台は人が変える
             problems.append(f"{path}: ハブ・トップの <style> と <script>（JSON-LD 以外）は自動では変えない"
