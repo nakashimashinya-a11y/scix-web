@@ -150,7 +150,7 @@ def reroute_one_funnel_link(s):
 
 def hero_below_next_section(s):
     """index.html のヒーローを、次の節（#knowledge）の下へ動かす（中身は 1 文字も変えない）。"""
-    h = re.search(r'<section class="hero">.*?</section>', s, re.S)
+    h = re.search(r'<section class="hero(?: [^"]*)?">.*?</section>', s, re.S)
     k = re.search(r'<section class="knowledge-top" id="knowledge">.*?</section>', s, re.S)
     assert h and k and h.end() <= k.start()
     return s[:h.start()] + s[h.end():k.end()] + "\n" + h.group(0) + s[k.end():]
