@@ -3,21 +3,22 @@
 
    中島「タイムズカー集団訴訟のページとデザインが全く同じ。嫌」。
    同じに見えた元は、紺の地・金の差し色・明朝体の見出し・生成り色の地・
-   金の細線つきの英字の小見出し。これをやめて、白地・墨の字・太いゴシック体、
+   金の細線つきの英字の小見出し。これをやめて、白地・紺の字（名刺とロゴと同じ #1F2A48）・
+   太いゴシック体、
    金はロゴの X と小さな印だけに使う。
 
-   色の値（紺→墨・生成り→白に近い灰色）と書体（明朝→ゴシック）は各ページの
+   色の値（紺→名刺の紺・生成り→白に近い灰色）と書体（明朝→ゴシック）は各ページの
    <style> で置き換え済み。ここは各ページの </head> の直前で読み、形
    （見出しの太さ・英字の小見出し・ボタン）をそろえる。ページの <style> より
    後に来るので、同じ強さの規則はこちらが勝つ。
    ====================================================== */
 
 :root{
-  --x-ink:#111111;
+  --x-ink:#1F2A48;
   --x-ink-2:#555555;
   --x-gold:#C49A3C;
   --x-gold-deep:#8E6C1F;
-  --x-gold-label:#95752D; /* 白地でも黒地でもコントラスト 4.3 で読める金（小見出しの字） */
+  --x-gold-label:#8E6C1F; /* 白地でコントラスト 4.9 の金（小見出しの字）。紺の帯の中は明るい金に替える（下） */
   --x-num:"Inter Tight","Noto Sans JP","Noto Sans SC",sans-serif;
 }
 
@@ -25,7 +26,7 @@
 h1,h2{font-weight:900!important;letter-spacing:-.02em!important}
 h3{font-weight:700}
 
-/* 見出しの中の強調（金の字）→ 墨の字に金の下線 */
+/* 見出しの中の強調（金の字）→ 紺の字に金の下線 */
 h1 em,.hero h1 em{font-style:normal;color:inherit!important;background:linear-gradient(transparent 70%,rgba(196,154,60,.45) 70%)}
 
 /* 英字の小見出し（金の細線つき・字間の広い大文字）→ 小さな金の X＋太い英字 */
@@ -48,10 +49,10 @@ h1 em,.hero h1 em{font-style:normal;color:inherit!important;background:linear-gr
 
 /* ボタン: 角を立て、主ボタンは黒（暗い帯の中で金にしているページの指定は、そちらが強いのでそのまま残る） */
 .btn-primary{background:var(--x-ink);color:#fff;border-radius:0!important}
-.btn-primary:hover{background:#333;box-shadow:none!important}
+.btn-primary:hover{background:#2D3A5C;box-shadow:none!important}
 .btn-secondary{border-radius:0!important}
 
-/* フッター: 墨の地に金の線 */
+/* フッター: 紺の地に金の線 */
 .scix-footer{border-top:4px solid var(--x-gold)}
 
 /* ===== 数字の札つきのヒーロー（トップ・会社案内・売る・買う・投資家・提携）=====
@@ -76,7 +77,7 @@ h1 em,.hero h1 em{font-style:normal;color:inherit!important;background:linear-gr
 
 /* 売る・買うの入口ボタン（トップ）: 買う＝黒、売る＝黒い枠 */
 .hero-door{border-radius:0!important;background:var(--x-ink)!important;color:#fff!important;padding:16px 22px!important;box-shadow:none!important}
-.hero-door:hover{background:#333!important;transform:translateY(-2px)}
+.hero-door:hover{background:#2D3A5C!important;transform:translateY(-2px)}
 .hero-door.sell{background:#fff!important;color:var(--x-ink)!important;box-shadow:inset 0 0 0 2px var(--x-ink)!important}
 .hero-door.sell:hover{background:var(--x-ink)!important;color:#fff!important}
 .hero-door-k{font-weight:500;opacity:.75!important}
@@ -93,7 +94,7 @@ h1 em,.hero h1 em{font-style:normal;color:inherit!important;background:linear-gr
 }
 .hero.x-top::after{background:#D9B565!important;transform:rotate(-45deg)}
 
-/* 4つの約束の帯（トップ）: 墨の地に金の印 */
+/* 4つの約束の帯（トップ）: 紺の地に金の印 */
 .credibility-bar{background:var(--x-ink)!important}
 .cred-item{color:#fff!important;font-weight:700;font-size:.86rem!important;letter-spacing:0!important}
 .cred-icon{background:none!important;border-radius:0!important;color:var(--x-gold)!important;font-size:.9rem!important;font-weight:900}
@@ -114,3 +115,8 @@ html[lang="en"] .hero:has(.hero-card) h1{font-size:clamp(2rem,4.2vw,3.4rem)!impo
 /* 細かい読みやすさ（色の置き換えで目立った所） */
 .biz-badge:not(.core){color:var(--x-gold-label)!important;font-family:var(--x-num);font-weight:800!important}
 .hero-inner a:not([class]){color:inherit;text-decoration:underline;text-decoration-color:var(--x-gold);text-underline-offset:3px}
+
+/* 紺の帯（.strengths で地を明るくしていない節）の中: 小見出しは明るい金、地の文は白に近い色
+   （地の文は元のサイトでも紺の地に灰色の字＝コントラスト 2.3 で読みにくかった） */
+.strengths:not([style*="off-white"]) .section-label,.sec-navy .section-label,.credibility-bar .section-label{color:var(--x-gold)!important}
+:where(.strengths:not([style*="off-white"])) p:not([class]){color:rgba(255,255,255,.8)}
