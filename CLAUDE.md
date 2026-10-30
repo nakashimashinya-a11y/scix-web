@@ -90,7 +90,7 @@
 **手順**
 
 - 公開サイトの案件一覧（projects.json）はDR2からの自動生成に任せ、手で追記しない `O07-46`
-  - 生成は `scripts/build_projects_json.py`、同期（再生成→変化があれば main へ直接 commit/push）は `scripts/sync_projects_json.sh`。ふだんは毎朝 launchd が回す
+  - 生成は `scripts/build_projects_json.py`、同期（再生成→変化があれば main へ直接 commit/push）は `scripts/sync_projects_json.sh`。ふだんは毎朝 launchd が回す（DR2 で売却済み・非表示・販売中以外にした案件は、launchd `ai.scix.projects-json-fast` が10分おきに `FAST_REMOVE=1` で見て、公開一覧に残っていればその場で外す＝2026-10-31 中島さん「すぐ外して」。追加と項目の変更は毎朝の回）
   - 生成器は DR2（D1 `dealroom2_new_projects` ＋ `deal_edits`）から公開セーフな項目だけを書き出す: id / area / pref / voltage / mw / mwh / status / scheme ／ 連系の見込み（cod・codYm・leadMonths・leadBasis・live）／ firstSeen・updatedAt。項目を足すときの揃え先は `O16-23`
   - 同期は案件の出入りだけでなく項目の変更も公開する
   - トップの件数は `scripts/inject_stats.py` が同時に焼き直す（`index.html`・`projects.html` の `<!--S:…-->` マーカーの中。手で直さない）
