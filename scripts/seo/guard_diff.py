@@ -254,6 +254,37 @@ COLUMN_FILE_RE = re.compile(r"^(?:en/)?column-[a-z0-9-]+\.html$|^zh-column-[a-z0
 FUND_LINK_WHY = "コラムから /fund へ導線を張らない（O16-67）"
 
 
+# O16-50: title・description を変えたページは、meta の属性に素の二重引用符が混ざっていないかを機械で見る（週次は承認なしで公開される）。
+# og／twitter／JSON-LD の同文の検査は入れていない: 既存 342 ページ中 og・twitter の description は意図して短い版を使っていて、回帰（O15-8）で 456 件が当たったため
+_TITLE_RE = re.compile(r"<title[^>]*>(.*?)</title>", re.S | re.I)
+_META_RE = re.compile(r"<meta\b[^>]*>", re.I)
+_ATTR_RE = re.compile(r"""\s[\w:.-]+\s*=\s*(?:"[^"]*"|'[^']*')""")
+
+
+def _meta_content(text: str, key: str):
+    for m in _META_RE.finditer(text):
+        tag = m.group(0)
+        if re.search(r"""(?:name|property)\s*=\s*["']%s["']""" % re.escape(key), tag, re.I):
+            c = re.search(r"""content\s*=\s*"([^"]*)\"""", tag)
+            return html.unescape(c.group(1)).strip() if c else None
+    return None
+
+
+def meta_sync_problems(path: str, before: str, after: str) -> list:
+    out = []
+    def title_of(t):
+        m = _TITLE_RE.search(t)
+        return html.unescape(m.group(1)).strip() if m else None
+    t_a, d_a = title_of(after), _meta_content(after, "description")
+    if (t_a, d_a) == (title_of(before), _meta_content(before, "description")):
+        return out
+    for m in _META_RE.finditer(after):
+        if '"' in _ATTR_RE.sub("", m.group(0)):
+            out.append(f"{path}: meta の属性に素の二重引用符が混ざっている（O16-50）")
+            break
+    return out
+
+
 def en_zh_page(path: str) -> bool:
     return path.startswith(("en/", "zh-")) or path == "zh.html"
 # O16-19: 公開される欄（コミット・PR・変更日台帳）に案件ID・金額を写さない。本文の HTML には掛けない（公開の案件一覧
@@ -966,7 +997,7 @@ def main() -> int:
         problems.append(private_err)
 
     def private_problem(where: str, s) -> list:
-        return [f"{where}: 非公開の禁止語（{rid}）に当たる。語は出さない＝{private_label} の {rid} と O16-7・O16-12 を見て外す"
+        return [f"{where}: 非公開の禁止語（{rid}）に当たる。語は出さない＝{private_label} の {rid} と規則 {rid} を見て外す"
                 for rid in private_hits(s, private_pats)]
 
     manifest = {}
@@ -1210,6 +1241,7 @@ def main() -> int:
         else:
             if pg.desc and len(pg.desc) > 170:
                 problems.append(f"{path}: description が長すぎる（{len(pg.desc)}字・目安120）")
+        problems.extend(meta_sync_problems(path, before, text))
         for href in set(pg.links):
             if not resolves(href, redirects, sitemap_paths):
                 problems.append(f"{path}: 内部リンク切れ {href}")
