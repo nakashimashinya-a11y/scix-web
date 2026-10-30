@@ -52,7 +52,7 @@ elif scenario == "structure-top":   # 同じ日の 2 回目の構成レビュー
     man = {"proposal_title": "selftest: トップの節の順を入れ替え", "summary_lines": ["selftest: トップの節の順を入れ替えた"],
            "changes": [ss.entry(["index.html"], ["/"], "top-order", summary="トップの節の順を入れ替えた")]}
 else:                            # 週次: コラムの末尾に内部リンクを 1 本
-    # 14 日以内に触ったページは検査が止める（O16-37）。複製は本物の履歴を持つ＝日によって凍結が変わるので、凍結していないコラムを選ぶ
+    # 14 日以内に触ったページは検査が止める（O16-37）。複製の履歴は30日前の1コミット＋回の中のコミット＝凍結していないコラムを選ぶ
     import build_brief as bb
     bb.REPO = pathlib.Path.cwd()
     frozen = bb.cooldown_pages()
@@ -108,7 +108,16 @@ def main() -> int:
         for r_ in (origin, repo):                                   # 複製に付いてきた本物の自動公開のタグ（今日の週次・今月の構成）を外す
             for t in git(r_, "tag", "-l", "auto/*").split():
                 git(r_, "tag", "-d", t)
-        git(repo, "checkout", "-q", "-B", "main", head)
+        # 本物の履歴のままだと、14日以内に触ったページ（O16-37）が日によってほぼ全部になり、週次の場面で触れるコラムが無くなる
+        # （2026-10-31: 10/29〜30 の一括の手当てで 343 本中 268 本が凍結＝偽の Claude が StopIteration で落ちた）。
+        # 複製は今の main の中身を 30 日前の1コミットにまとめた履歴で回す＝凍結は回の中で作るコミットと合成の変更台帳だけで決まる
+        git(repo, "checkout", "-q", "--detach", head)
+        run(["git", "branch", "-q", "-D", "main"], repo)   # 作業ツリーから回すと複製に main が無いことがある＝無ければそのまま
+        git(repo, "checkout", "-q", "--orphan", "main")
+        old_day = (datetime.datetime.now() - datetime.timedelta(days=30)).strftime("%Y-%m-%dT%H:%M:%S")
+        run(["git", "-c", "user.name=selftest", "-c", "user.email=selftest@example.invalid", "commit", "-q", "-m",
+             "selftest: 今の main の中身（30日前の1コミット）"], repo, check=True,
+            env=dict(os.environ, GIT_AUTHOR_DATE=old_day, GIT_COMMITTER_DATE=old_day))
         for f in (SRC / "scripts" / "seo").iterdir():
             if f.is_file():
                 shutil.copy2(f, repo / "scripts" / "seo" / f.name)
