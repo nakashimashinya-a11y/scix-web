@@ -1,0 +1,116 @@
+/* ======================================================
+   ScienceX — 全ページ共通の見た目（2026-10-31〜 案C「大きな X」）
+
+   中島「タイムズカー集団訴訟のページとデザインが全く同じ。嫌」。
+   同じに見えた元は、紺の地・金の差し色・明朝体の見出し・生成り色の地・
+   金の細線つきの英字の小見出し。これをやめて、白地・墨の字・太いゴシック体、
+   金はロゴの X と小さな印だけに使う。
+
+   色の値（紺→墨・生成り→白に近い灰色）と書体（明朝→ゴシック）は各ページの
+   <style> で置き換え済み。ここは各ページの </head> の直前で読み、形
+   （見出しの太さ・英字の小見出し・ボタン）をそろえる。ページの <style> より
+   後に来るので、同じ強さの規則はこちらが勝つ。
+   ====================================================== */
+
+:root{
+  --x-ink:#111111;
+  --x-ink-2:#555555;
+  --x-gold:#C49A3C;
+  --x-gold-deep:#8E6C1F;
+  --x-gold-label:#95752D; /* 白地でも黒地でもコントラスト 4.3 で読める金（小見出しの字） */
+  --x-num:"Inter Tight","Noto Sans JP","Noto Sans SC",sans-serif;
+}
+
+/* 見出し: 太く・字間を詰める */
+h1,h2{font-weight:900!important;letter-spacing:-.02em!important}
+h3{font-weight:700}
+
+/* 見出しの中の強調（金の字）→ 墨の字に金の下線 */
+h1 em,.hero h1 em{font-style:normal;color:inherit!important;background:linear-gradient(transparent 70%,rgba(196,154,60,.45) 70%)}
+
+/* 英字の小見出し（金の細線つき・字間の広い大文字）→ 小さな金の X＋太い英字 */
+.section-label,.hero-label,.page-label,.header-tag{
+  font-family:var(--x-num)!important;font-weight:800!important;letter-spacing:.04em!important;
+}
+.section-label,.hero-label{
+  display:inline-flex!important;align-items:center;gap:8px;
+  font-size:.78rem!important;color:var(--x-gold-label)!important;text-transform:uppercase;
+}
+.section-label::before,.hero-label::before{
+  content:""!important;flex:0 0 auto;width:11px!important;height:11px!important;
+  background:
+    linear-gradient(45deg,transparent 40%,var(--x-gold) 40%,var(--x-gold) 60%,transparent 60%),
+    linear-gradient(-45deg,transparent 40%,var(--x-gold) 40%,var(--x-gold) 60%,transparent 60%)!important;
+}
+
+/* 数字は Inter Tight（日本語は Noto Sans に落ちる） */
+.stat-number,.strength-num,.diff-num,.header-num,.data-box .num,.kpi b{font-family:var(--x-num)!important;letter-spacing:-.02em}
+
+/* ボタン: 角を立て、主ボタンは黒（暗い帯の中で金にしているページの指定は、そちらが強いのでそのまま残る） */
+.btn-primary{background:var(--x-ink);color:#fff;border-radius:0!important}
+.btn-primary:hover{background:#333;box-shadow:none!important}
+.btn-secondary{border-radius:0!important}
+
+/* フッター: 墨の地に金の線 */
+.scix-footer{border-top:4px solid var(--x-gold)}
+
+/* ===== 数字の札つきのヒーロー（トップ・会社案内・売る・買う・投資家・提携）=====
+   右の白い札をやめ、見出しの下に大きな数字を横一列に並べる */
+.hero:has(.hero-card){background:#fff!important;border-bottom:2px solid var(--x-ink);padding-bottom:0!important}
+.hero:has(.hero-card)::before{display:none}
+.hero:has(.hero-card) .container{display:grid;grid-template-columns:1fr!important;gap:44px!important;align-items:start!important}
+.hero:has(.hero-card) .hero-content{position:relative;z-index:1;max-width:800px}
+.hero:has(.hero-card) h1{font-size:clamp(2.1rem,5vw,4rem)!important;line-height:1.14!important;color:var(--x-ink)!important;margin-bottom:28px!important}
+.hero:has(.hero-card) .hero-desc{color:var(--x-ink-2);font-weight:500;max-width:600px}
+.hero:has(.hero-card) .hero-visual{position:relative;z-index:1;background:#fff;animation:none}
+.hero-card{background:transparent!important;box-shadow:none!important;border:none!important;border-top:2px solid var(--x-ink)!important;border-radius:0!important;padding:0!important}
+.hero-stats{display:grid!important;grid-template-columns:none!important;grid-auto-flow:column;grid-auto-columns:1fr;gap:0!important}
+.hero-stats .stat-item{text-align:left!important;padding:22px 20px 26px 0}
+.hero-stats .stat-item + .stat-item{padding-left:24px;border-left:1px solid #E6E6E6}
+.hero-stats .stat-number{font-weight:800!important;font-size:clamp(2.4rem,5vw,4rem)!important;line-height:1!important;color:var(--x-ink)!important;letter-spacing:-.04em!important;white-space:nowrap}
+.hero-stats .stat-number span{font-family:"Noto Sans JP","Noto Sans SC",sans-serif;font-size:.95rem!important;font-weight:700!important;color:var(--x-ink)!important;letter-spacing:0;margin-left:4px}
+.hero-stats .stat-label{font-size:.84rem!important;color:var(--x-ink-2)!important;margin-top:12px!important;letter-spacing:0!important;font-weight:500}
+.hero-card-divider{display:none!important}
+.hero-card-note{text-align:left!important;font-size:.8rem!important;color:var(--x-ink-2)!important;padding:0 0 26px;line-height:1.9!important}
+.hero-card-note strong{color:var(--x-ink)!important;font-weight:700}
+
+/* 売る・買うの入口ボタン（トップ）: 買う＝黒、売る＝黒い枠 */
+.hero-door{border-radius:0!important;background:var(--x-ink)!important;color:#fff!important;padding:16px 22px!important;box-shadow:none!important}
+.hero-door:hover{background:#333!important;transform:translateY(-2px)}
+.hero-door.sell{background:#fff!important;color:var(--x-ink)!important;box-shadow:inset 0 0 0 2px var(--x-ink)!important}
+.hero-door.sell:hover{background:var(--x-ink)!important;color:#fff!important}
+.hero-door-k{font-weight:500;opacity:.75!important}
+.hero-door-v{font-weight:900!important;font-size:1.02rem!important}
+.hero-sublinks a{border-bottom:2px solid var(--x-gold)!important;font-weight:700!important;color:var(--x-ink)!important}
+
+/* トップだけ: ロゴの X を大きく置く */
+.hero.x-top{position:relative;overflow:hidden}
+.hero.x-top::before,.hero.x-top::after{
+  content:""!important;display:block!important;position:absolute!important;
+  top:230px!important;right:-330px!important;left:auto!important;bottom:auto!important;
+  width:880px!important;height:84px!important;border-radius:0!important;
+  background:var(--x-gold)!important;transform:rotate(45deg);pointer-events:none;z-index:0;
+}
+.hero.x-top::after{background:#D9B565!important;transform:rotate(-45deg)}
+
+/* 4つの約束の帯（トップ）: 墨の地に金の印 */
+.credibility-bar{background:var(--x-ink)!important}
+.cred-item{color:#fff!important;font-weight:700;font-size:.86rem!important;letter-spacing:0!important}
+.cred-icon{background:none!important;border-radius:0!important;color:var(--x-gold)!important;font-size:.9rem!important;font-weight:900}
+
+@media (max-width:768px){
+  .hero:has(.hero-card) h1{font-size:min(7.6vw,2.15rem)!important}
+  .hero.x-top{padding-top:118px!important}
+  .hero-stats{grid-auto-flow:row;grid-template-columns:1fr 1fr!important}
+  .hero-stats .stat-item,.hero-stats .stat-item + .stat-item{padding:16px 10px 16px 0;border-left:none;border-bottom:1px solid #E6E6E6}
+  .hero-stats .stat-number{font-size:2.4rem!important}
+  .hero.x-top::before,.hero.x-top::after{top:8px!important;right:-60px!important;width:220px!important;height:26px!important}
+}
+
+/* 英語のページ: 見出しの英字は Inter Tight で（Noto Sans JP の英字は太すぎる） */
+html[lang="en"] h1,html[lang="en"] h2,html[lang="en"] h3{font-family:var(--x-num)!important;letter-spacing:-.025em!important}
+html[lang="en"] .hero:has(.hero-card) h1{font-size:clamp(2rem,4.2vw,3.4rem)!important;line-height:1.08!important}
+
+/* 細かい読みやすさ（色の置き換えで目立った所） */
+.biz-badge:not(.core){color:var(--x-gold-label)!important;font-family:var(--x-num);font-weight:800!important}
+.hero-inner a:not([class]){color:inherit;text-decoration:underline;text-decoration-color:var(--x-gold);text-underline-offset:3px}
