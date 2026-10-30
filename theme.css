@@ -18,6 +18,8 @@
   --x-ink-2:#555555;
   --x-gold:#C49A3C;
   --x-gold-deep:#8E6C1F;
+  --x-soft:#F5F5F3;
+  --x-line:#E6E6E6;
   --x-gold-label:#8E6C1F; /* 白地でコントラスト 4.9 の金（小見出しの字）。紺の帯の中は明るい金に替える（下） */
   --x-num:"Inter Tight","Noto Sans JP","Noto Sans SC",sans-serif;
 }
@@ -116,7 +118,158 @@ html[lang="en"] .hero:has(.hero-card) h1{font-size:clamp(2rem,4.2vw,3.4rem)!impo
 .biz-badge:not(.core){color:var(--x-gold-label)!important;font-family:var(--x-num);font-weight:800!important}
 .hero-inner a:not([class]){color:inherit;text-decoration:underline;text-decoration-color:var(--x-gold);text-underline-offset:3px}
 
-/* 紺の帯（.strengths で地を明るくしていない節）の中: 小見出しは明るい金、地の文は白に近い色
-   （地の文は元のサイトでも紺の地に灰色の字＝コントラスト 2.3 で読みにくかった） */
-.strengths:not([style*="off-white"]) .section-label,.sec-navy .section-label,.credibility-bar .section-label{color:var(--x-gold)!important}
-:where(.strengths:not([style*="off-white"])) p:not([class]){color:rgba(255,255,255,.8)}
+/* ======================================================
+   部品の形（2026-10-31 夕〜）
+   中島「このへん全く変わってない。TOPのとこをちょっと直しただけ。全体の全ページ直さないといみない」。
+   紺の帯・角の丸い半透明のカード・金の番号・中央寄せの見出し、という前の形を全ページでやめる。
+   紺の地を残すのは、ヘッダーのボタン・トップの4つの約束の帯・メルマガの箱・フッターだけ。
+   ====================================================== */
+
+/* 1. 角の丸みをなくす（言語の切り替え・写真・丸い印は除く） */
+body *:not(img):not(svg *):not(.scix-lang):not(.scix-lang *):not(input[type=radio]):not(input[type=checkbox]):not([class*="dot"]):not([class*="avatar"]){border-radius:0!important}
+
+/* 2. 紺の帯の節・紺のヒーロー・紺の誘導の箱を、白い地に */
+:is(.strengths,section.cta,div.cta,.sec-navy,.on-navy,.contact-hero,.kh,.cta-section,.article-header,.hero){background:#fff!important;background-image:none!important;color:var(--x-ink)!important;box-shadow:none!important}
+.strengths[style*="off-white"],section.cta,div.cta,.cta-section{background:var(--x-soft)!important}
+.strengths,section.cta,.sec-navy,.on-navy,.faq,.deal,.sellflow,.knowledge-top,.business,.company{border-top:1px solid var(--x-line)}
+.hero::before{display:none!important}
+/* その中の字（前は白・薄い白・金だった） */
+:is(.strengths,section.cta,div.cta,.sec-navy,.on-navy,.contact-hero,.kh,.cta-section,.article-header,.hero) :is(h1,h2,h3,h4,h5,.section-title,[class*="title"],strong,b):not([class*="btn"]):not([class*="tag"]){color:var(--x-ink)!important}
+:is(.strengths,section.cta,div.cta,.sec-navy,.on-navy,.contact-hero,.kh,.cta-section,.article-header,.hero) :is(p,li,dd,dt,small,blockquote,[class*="desc"],[class*="subtitle"],[class*="lead"],[class*="note"],[class*="meta"],[class*="date"]):not([class*="btn"]):not([class*="tag"]):not([class*="badge"]){color:var(--x-ink-2)!important}
+:is(.strengths,section.cta,div.cta,.sec-navy,.on-navy,.contact-hero,.kh,.cta-section,.article-header,.hero) a:not([class]){color:var(--x-ink)!important;text-decoration:underline;text-decoration-color:var(--x-gold);text-underline-offset:3px}
+:is(.strengths,section.cta,div.cta,.sec-navy,.on-navy,.contact-hero,.kh,.cta-section,.article-header,.hero) .btn-secondary{background:transparent!important;color:var(--x-ink)!important;border:2px solid var(--x-ink)!important}
+:is(section.cta,div.cta,.cta-section) :is(.btn-primary,.cta-btn,a[class*="btn"]){background:var(--x-ink)!important;color:#fff!important;border:none!important;box-shadow:none!important}
+
+/* 3. 節の見出し: 左寄せ。小見出し｜題と説明 の2列、上に紺の線 */
+div:has(> .section-label):has(> .section-title){text-align:left!important;display:grid!important;grid-template-columns:minmax(170px,240px) 1fr;column-gap:48px;align-items:start;border-top:2px solid var(--x-ink);padding-top:26px}
+div:has(> .section-label):has(> .section-title) > .section-label{grid-column:1;grid-row:1 / span 4;margin:8px 0 0!important;justify-self:start}
+div:has(> .section-label):has(> .section-title) > :not(.section-label){grid-column:2}
+div:has(> .section-label):has(> .section-title) > .section-subtitle{margin:0!important;max-width:680px}
+.section-title{font-size:clamp(1.7rem,3.3vw,2.5rem)!important;line-height:1.3!important;color:var(--x-ink)}
+section.cta{text-align:left!important}
+section.cta h2{font-size:clamp(1.6rem,3vw,2.3rem)!important;line-height:1.3!important}
+section.cta :is(.cta-actions,.hero-actions){justify-content:flex-start!important}
+
+/* 4. カード: 白地・細い枠・上に紺の線。影と半透明をやめる */
+:is(.strength-card,.deal-card,.biz-card,.k-card,.sellflow-card,.svc-card,.pick-card,.risk-card,.layer-card,.diff-card,.sidebar-card,.form-card,.result-card,.dcard,.pillar,.ac,.card:not(.dark),.audit-item,.officer-section):not([style*="background"]){background:#fff!important;background-image:none!important;border:1px solid var(--x-line)!important;border-top:3px solid var(--x-ink)!important;box-shadow:none!important;color:var(--x-ink)}
+:is(.strength-card,.deal-card,.biz-card,.k-card,.sellflow-card,.svc-card,.pick-card,.ac,.card:not(.dark)):hover{border-top-color:var(--x-gold)!important;transform:none!important;box-shadow:none!important}
+:is(.strength-card,.sellflow-card,.svc-card,.pick-card,.risk-card,.layer-card,.audit-item) :is(h3,h4){color:var(--x-ink)!important}
+:is(.strength-card,.sellflow-card,.svc-card,.pick-card,.risk-card,.layer-card,.audit-item) p{color:var(--x-ink-2)!important}
+
+/* 5. 番号: 英字の太字に、終わりに金の点 */
+:is(.strength-num,.sellflow-num){font-family:var(--x-num)!important;font-weight:800!important;color:var(--x-ink)!important;opacity:1!important;font-size:2.6rem!important;line-height:1!important;letter-spacing:-.04em!important}
+:is(.strength-num,.sellflow-num)::after{content:".";color:var(--x-gold)}
+:is(.k-num,.kt-rank,.risk-no,.n,.an){font-family:var(--x-num)!important;font-weight:800!important;color:var(--x-gold-label)!important}
+
+/* 6. コラムの上部: 紺のグラデーションの帯 → 白地に大きな左寄せの題、右に金の X */
+.article-header{text-align:left!important;padding:56px 24px 34px!important;border-bottom:2px solid var(--x-ink)!important;position:relative;overflow:hidden}
+.article-header::before,.article-header::after{display:none!important}
+.article-header .header-inner{max-width:760px!important;margin:0 auto!important;position:relative;z-index:1}
+.article-header .header-meta{justify-content:flex-start!important}
+.header-tag{background:var(--x-ink)!important;color:#fff!important;font-family:var(--x-num)!important}
+.article-header :is(.header-num,.header-date){color:var(--x-ink-2)!important;font-family:var(--x-num)!important}
+.article-header h1{font-size:clamp(26px,4.2vw,40px)!important;line-height:1.32!important;margin-bottom:18px!important;text-align:left!important}
+.article-header h1 em{color:inherit!important;background:linear-gradient(transparent 70%,rgba(196,154,60,.45) 70%)}
+.article-header .header-desc{margin:0!important;max-width:680px!important}
+@media (min-width:1180px){
+  .article-header::before,.article-header::after{content:""!important;display:block!important;position:absolute!important;top:50%!important;right:-120px!important;left:auto!important;bottom:auto!important;width:440px!important;height:40px!important;background:var(--x-gold)!important;transform:translateY(-50%) rotate(45deg)}
+  .article-header::after{background:#D9B565!important;transform:translateY(-50%) rotate(-45deg)}
+}
+/* 古い型のコラム（.column-container）の題 */
+.column-container > h1,.column-container header h1{font-size:clamp(26px,4.2vw,38px)!important;line-height:1.32!important;color:var(--x-ink)!important}
+
+/* 7. 本文の見出し: 金の短い線＋細い線（金の下線・左の金の帯をやめる） */
+:is(.article-body,.column-container,article,.legal-body) h2{border:none!important;border-top:1px solid var(--x-line)!important;padding:22px 0 0!important;background:linear-gradient(var(--x-gold),var(--x-gold)) left top / 56px 4px no-repeat!important;color:var(--x-ink)!important;font-size:1.5em!important;line-height:1.45!important;margin-top:56px!important}
+
+/* 8. 本文の箱 */
+.highlight-box{background:var(--x-soft)!important;background-image:none!important;border:none!important;border-left:4px solid var(--x-ink)!important}
+.highlight-box strong{color:var(--x-ink)!important}
+:is(.data-box,.related,.next-link,.toc){background:#fff!important;background-image:none!important;border:1px solid var(--x-line)!important;border-top:3px solid var(--x-ink)!important}
+.related a,.next-link{color:var(--x-ink)!important}
+.author-box{background:#fff!important;border:1px solid var(--x-line)!important;border-left:4px solid var(--x-gold)!important}
+.cta-section{text-align:left!important;border-top:3px solid var(--x-ink)!important;padding:40px 36px!important}
+.back-link{color:var(--x-gold-label)!important}
+
+/* 9. 表: 紺の見出しの行 → 淡い地に紺の太い線 */
+table th{background:var(--x-soft)!important;color:var(--x-ink)!important;border-bottom:2px solid var(--x-ink)!important;font-weight:800!important}
+
+/* 10. 入力欄とボタン */
+:is(input[type=text],input[type=email],input[type=tel],input:not([type]),textarea,select){border-color:#CFCFCF!important}
+:is(input,textarea,select):focus{outline:2px solid var(--x-gold)!important;outline-offset:0;border-color:var(--x-ink)!important}
+:is(.submit-btn,button[type=submit]){background:var(--x-ink)!important;color:#fff!important}
+
+/* 11. 字間の広い金の英字の小見出し（前の形）を、全ページで同じ形に */
+:is(.eyebrow,.column-meta,.colmeta,.part-label,.lbl,.legal-hero .label,.dk,.pk,.vh,.col-tag,.kt-col h3,.next-steps h3,.hl-label,.column-container > .meta,.cb-tag,.ab-label,.stage-no,.part-lead,.kh-fresh h2),[style*="text-transform:uppercase"][style*="#C49A3C"],[style*="letter-spacing"][style*="color:#C49A3C"],[style*="letter-spacing"][style*="color:var(--gold)"]{font-family:var(--x-num)!important;font-weight:800!important;letter-spacing:.04em!important;color:var(--x-gold-label)!important}
+:is(.section-label,.hero-label,.eyebrow,.page-label)::after{content:none!important;display:none!important}
+.eyebrow::before{content:""!important;width:11px!important;height:11px!important;flex:0 0 auto;background:linear-gradient(45deg,transparent 40%,var(--x-gold) 40%,var(--x-gold) 60%,transparent 60%),linear-gradient(-45deg,transparent 40%,var(--x-gold) 40%,var(--x-gold) 60%,transparent 60%)!important}
+
+/* 12. 金の大きな字・金の見出し → 紺（強調は金の下線） */
+:is(h1 .g,h2.head em,.punch .pt b,span.big,.code,span.no,div.layer-no){color:var(--x-ink)!important}
+:is(h1 .g,h2.head em){background:linear-gradient(transparent 70%,rgba(196,154,60,.45) 70%)}
+:is(span.no,div.layer-no,.code){font-family:var(--x-num)!important}
+
+/* 13. 本文の中の紺の箱・グラデーションの箱 → 淡い地に紺の字 */
+.highlight-box,.highlight-box :is(p,li,span,div){color:var(--x-ink)!important}
+.highlight-box em{color:inherit!important;background:linear-gradient(transparent 70%,rgba(196,154,60,.45) 70%)}
+.cta-box{background:var(--x-soft)!important;background-image:none!important;color:var(--x-ink)!important;text-align:left!important;border-top:3px solid var(--x-ink)!important}
+.cta-box :is(h3,strong){color:var(--x-ink)!important}
+.cta-box :is(p,.coproduce){color:var(--x-ink-2)!important}
+:is(.credit-box,.quote-box,.cn-primer){background-image:none!important}
+.update-badge{background:var(--x-ink)!important;color:#fff!important}
+.hero .back,.hero a.back{color:var(--x-ink-2)!important}
+/* 中国語のトップの「書面のリスク説明書」の強調カード（style で紺の地） → 淡い地に金の線 */
+.risk-card[style*="background:var(--navy)"]{background:var(--x-soft)!important;border:1px solid var(--x-line)!important;border-top:3px solid var(--x-gold)!important}
+.risk-card[style*="background:var(--navy)"] [style*="color:rgba(255,255,255"]{color:var(--x-ink-2)!important}
+.risk-card[style*="background:var(--navy)"] strong{color:var(--x-gold-label)!important}
+/* 白地の上の金の字のリンク（コントラスト 2.6）→ 読める金 */
+:is(.k-more,a.k-more,.kt-paths a:hover,.deal-more:hover){color:var(--x-gold-label)!important}
+
+/* 14. 英語のコラムの末尾「For Global Investors」（style 直書きの紺の節）と、引用ガイド・プライバシーの上部 */
+section[style*="background:#1F2A48"],.legal-hero{background:var(--x-soft)!important;background-image:none!important;text-align:left!important;border-top:3px solid var(--x-ink)}
+.legal-hero{background:#fff!important;border-top:none;border-bottom:2px solid var(--x-ink)}
+:is(section[style*="background:#1F2A48"],.legal-hero) :is(h1,h2,h3,strong){color:var(--x-ink)!important}
+:is(section[style*="background:#1F2A48"],.legal-hero) p{color:var(--x-ink-2)!important}
+section[style*="background:#1F2A48"] > div{margin-left:auto;margin-right:auto}
+section[style*="background:#1F2A48"] a[style*="background"]{background:var(--x-ink)!important;color:#fff!important;border-radius:0!important}
+section[style*="background:#1F2A48"] a:not([style*="background"]){color:var(--x-ink)!important}
+
+/* 15. ファンド・系統用蓄電池とは（独自の作りのページ）: 紺のヘッダー・紺のヒーロー・金のボタン */
+body > header:not(.scix-header){background:#fff!important;backdrop-filter:none!important;border-bottom:2px solid var(--x-ink)!important}
+body > header:not(.scix-header) :is(.brand,.nav-links a:not(.nav-cta)){color:var(--x-ink)!important}
+body > header:not(.scix-header) :is(.back,a[class*="back"]){color:var(--x-ink-2)!important;border-color:var(--x-line)!important}
+:is(.nav-cta,.btn-gold,.menu-btn,.kh-go,a.cb,.cta-btn,.cta-button,a.primary){background:var(--x-ink)!important;color:#fff!important;box-shadow:none!important}
+.btn-ghost{background:transparent!important;color:var(--x-ink)!important;border:2px solid var(--x-ink)!important}
+.hero:not(.x-top)::after{display:none!important}
+.hero :is(.hero-sub,.rv,.k,.v,label,.note){color:var(--x-ink-2)!important}
+.hero :is(.k,.tv,.big){color:var(--x-ink)!important}
+.solicit{background:var(--x-soft)!important;color:var(--x-ink-2)!important;border-top:1px solid var(--x-line)}
+.solicit b{color:var(--x-ink)!important}
+.punch,.vscard.us{background:var(--x-soft)!important;color:var(--x-ink)!important}
+.punch::before{background:var(--x-gold)!important}
+.punch :is(.pt,.ps,p){color:var(--x-ink)!important}
+.on-navy :is(p.body,.caveat,.note,.lead){color:var(--x-ink-2)!important}
+.vscard.us :is(h3,h4,p,li,span,div){color:var(--x-ink)!important}
+
+/* 16. style 直書きの金のボタン・紺の囲みのリンク（コラムの末尾・投資家・英語のナレッジ） */
+:is(a,span)[style*="background:#C49A3C"]{background:var(--x-ink)!important;color:#fff!important;border-radius:0!important}
+a:is([style*="background:#1F2A48"],[style*="gradient(90deg,#1F2A48"],[style*="gradient(160deg,#1F2A48"]){background:var(--x-soft)!important;background-image:none!important;border:1px solid var(--x-line)!important;border-left:4px solid var(--x-gold)!important;border-radius:0!important}
+a:is([style*="background:#1F2A48"],[style*="gradient(90deg,#1F2A48"],[style*="gradient(160deg,#1F2A48"]) :is([style*="color:#fff"],[style*="color: #fff"],[style*="color:#FFF"]){color:var(--x-ink)!important}
+a:is([style*="background:#1F2A48"],[style*="gradient(90deg,#1F2A48"],[style*="gradient(160deg,#1F2A48"]) [style*="color:rgba(255,255,255"]{color:var(--x-ink-2)!important}
+a:is([style*="background:#1F2A48"],[style*="gradient(90deg,#1F2A48"],[style*="gradient(160deg,#1F2A48"]) [style*="color:#C49A3C"]{color:var(--x-gold-label)!important}
+
+/* 17. 小さな残り */
+:is(.article-header,.hero) .update-badge{background:var(--x-ink)!important;color:#fff!important}
+.coproduce{color:var(--x-ink-2)!important}
+a.back{color:var(--x-ink-2)!important}
+/* 中国語のトップの「書面のリスク説明書」の強調カード（style で紺の地） → 淡い地に金の線 */
+.risk-card[style*="background:var(--navy)"]{background:var(--x-soft)!important;border:1px solid var(--x-line)!important;border-top:3px solid var(--x-gold)!important}
+.risk-card[style*="background:var(--navy)"] [style*="color:rgba(255,255,255"]{color:var(--x-ink-2)!important}
+.risk-card[style*="background:var(--navy)"] strong{color:var(--x-gold-label)!important}
+.on-navy :is(label,.req){color:var(--x-ink)!important}
+
+@media (max-width:768px){
+  div:has(> .section-label):has(> .section-title){grid-template-columns:1fr;padding-top:20px}
+  div:has(> .section-label):has(> .section-title) > .section-label{grid-row:auto;margin:0 0 10px!important}
+  div:has(> .section-label):has(> .section-title) > :not(.section-label){grid-column:1}
+  .article-header{padding:36px 16px 26px!important}
+}
