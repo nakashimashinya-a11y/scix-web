@@ -195,7 +195,17 @@ def main() -> int:
           f"| structure-test-4 | cta-route | /col-z | {STRUCT_COMMIT[:10]} | 84→84 | 14→0 | 28→0（/investors） | 28日後の判定の窓 | flat／flat | **リード減・送客減** |" in text, True)
     check("8 節: 注意の読み方（worse と注意つきが差し戻し候補・件数は公開欄に写さない）が書いてある",
           ("注意（リード減・送客減）の付いた行は差し戻し候補" in text, "公開される欄" in text), (True, True))
-    cd = build_brief.cooldown_pages()
+    # git の履歴での凍結は本物のリポジトリの日々の変更で変わる（2026-10-31: 10/29〜30 の一括の手当てで /investors も凍結され、
+    # この検査が落ちた）＝履歴の無いリポジトリに向けて、合成の変更台帳だけで凍結を見る
+    import subprocess  # noqa: PLC0415
+    empty = TMP / "empty-repo"
+    empty.mkdir(exist_ok=True)
+    subprocess.run(["git", "init", "-q", str(empty)], check=True, capture_output=True)
+    real_repo, build_brief.REPO = build_brief.REPO, empty
+    try:
+        cd = build_brief.cooldown_pages()
+    finally:
+        build_brief.REPO = real_repo
     check("9 節: 送客先（kpi_pages）は「今週触らないページ」にならない（pages だけが凍結される）",
           ("/investors" in cd, "/hub-y" in cd), (False, True))
     latest_md = build_brief.render(for_latest=True)
