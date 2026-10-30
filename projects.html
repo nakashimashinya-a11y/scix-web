@@ -22,7 +22,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"></noscript>
 <style>
-:root{--navy:#111111;--navy-light:#333333;--gold:#C49A3C;--gold-light:#D4AD5A;--green:#1A7A4C;--green-dark:#156B41;--white:#FFFFFF;--off-white:#F5F5F3;--light-gray:#F0F0EE;--text-primary:#111111;--text-secondary:#555555;--text-light:#8C8C8C;--border:#E6E6E6;--font-sans:'Noto Sans JP',sans-serif;--font-serif:'Noto Sans JP',sans-serif;}
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--gold:#C49A3C;--gold-light:#D4AD5A;--green:#1A7A4C;--green-dark:#156B41;--white:#FFFFFF;--off-white:#F5F5F3;--light-gray:#F0F0EE;--text-primary:#1F2A48;--text-secondary:#555555;--text-light:#8C8C8C;--border:#E6E6E6;--font-sans:'Noto Sans JP',sans-serif;--font-serif:'Noto Sans JP',sans-serif;}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;font-size:16px;}
 body{font-family:var(--font-sans);color:var(--text-primary);background:var(--white);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
@@ -64,7 +64,7 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
 .pick input{width:15px;height:15px;accent-color:var(--gold);cursor:pointer;margin:0;}
 .avail{display:inline-block;margin-top:10px;font-size:0.74rem;color:var(--text-light);text-decoration:none;border-bottom:1px dotted var(--text-light);}
 .avail:hover{color:var(--navy);border-bottom-color:var(--gold);}
-.tray{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--navy);color:#fff;padding:14px 24px;display:none;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;box-shadow:0 -6px 24px rgba(17,17,17,0.22);}
+.tray{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--navy);color:#fff;padding:14px 24px;display:none;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;box-shadow:0 -6px 24px rgba(31,42,72,0.22);}
 .tray.on{display:flex;}
 .tray .tn{font-size:0.86rem;}
 .tray .tn b{font-family:var(--font-serif);font-size:1.1rem;}
@@ -74,16 +74,16 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;}
 .card{background:var(--off-white);border:1px solid var(--border);border-radius:10px;padding:24px 24px 22px;border-top:3px solid var(--gold);display:flex;flex-direction:column;transition:box-shadow .25s ease,transform .25s ease;}
-.card:hover{box-shadow:0 8px 28px rgba(17,17,17,0.08);transform:translateY(-2px);}
+.card:hover{box-shadow:0 8px 28px rgba(31,42,72,0.08);transform:translateY(-2px);}
 .card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
 .card-id{font-family:var(--font-serif);font-size:1.05rem;font-weight:700;color:var(--navy);letter-spacing:1px;}
 .tag-new,.tag-upd{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:100px;font-family:var(--font-sans,'Noto Sans JP',sans-serif);font-size:0.64rem;font-weight:600;letter-spacing:.3px;vertical-align:middle;}
-.tag-new{background:var(--gold,#C49A3C);color:var(--navy,#111111);}
-.tag-upd{background:rgba(51,51,51,0.1);color:var(--navy-light,#2B3D66);}
+.tag-new{background:var(--gold,#C49A3C);color:var(--navy,#1F2A48);}
+.tag-upd{background:rgba(45,58,92,0.1);color:var(--navy-light,#2B3D66);}
 .status-pill{font-size:0.68rem;font-weight:600;letter-spacing:.5px;padding:4px 10px;border-radius:100px;white-space:nowrap;}
 .status-pill.s-grid{background:rgba(26,122,76,0.1);color:var(--green-dark);}
 .status-pill.s-deposit{background:rgba(196,154,60,0.14);color:#946f1d;}
-.status-pill.s-applied{background:rgba(51,51,51,0.1);color:var(--navy-light);}
+.status-pill.s-applied{background:rgba(45,58,92,0.1);color:var(--navy-light);}
 .status-pill.s-live{background:var(--navy);color:#fff;}
 .card-loc{font-size:0.86rem;color:var(--text-secondary);margin-bottom:16px;}
 .card-loc .area{font-weight:600;color:var(--navy);}
@@ -91,7 +91,7 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
 .spec .sk{font-size:0.64rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text-light);margin-bottom:2px;}
 .spec .sv{font-size:0.92rem;font-weight:500;color:var(--navy);font-family:var(--font-serif);}
 .card-cta{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;background:var(--navy);color:#fff;font-size:0.82rem;font-weight:500;text-decoration:none;border-radius:6px;transition:all .25s ease;}
-.card-cta:hover{background:var(--navy-light);box-shadow:0 4px 14px rgba(17,17,17,0.18);}
+.card-cta:hover{background:var(--navy-light);box-shadow:0 4px 14px rgba(31,42,72,0.18);}
 .card-cta svg{width:15px;height:15px;}
 
 .state-msg{padding:48px 0;text-align:center;color:var(--text-secondary);font-size:0.92rem;}
@@ -169,7 +169,7 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
 .faq-list{max-width:860px;margin:0 auto}
 .faq-item{border-top:1px solid var(--border,#E6E6E6);padding:20px 4px}
 .faq-item:last-child{border-bottom:1px solid var(--border,#E6E6E6)}
-.faq-item h3{font-family:var(--font-serif,'Noto Sans JP',sans-serif);font-size:1.05rem;color:var(--navy,#111111);line-height:1.6;margin:0 0 8px}
+.faq-item h3{font-family:var(--font-serif,'Noto Sans JP',sans-serif);font-size:1.05rem;color:var(--navy,#1F2A48);line-height:1.6;margin:0 0 8px}
 .faq-item p{font-size:.88rem;color:var(--text-secondary,#555555);line-height:1.9;margin:0}
 @media (max-width:768px){.faq{padding:56px 0}}
 </style>
@@ -767,7 +767,7 @@ body{font-family:var(--font-sans);color:var(--text-primary);background:var(--whi
 
 <style>
   .scix-footer *{margin:0;padding:0;box-sizing:border-box;}
-  .scix-footer{background-color:#111111;color:rgba(255,255,255,0.85);font-family:'Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%;}
+  .scix-footer{background-color:#1F2A48;color:rgba(255,255,255,0.85);font-family:'Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%;}
   .scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px;}
   .scix-footer-logo img{height:48px;width:auto;display:block;opacity:0.95;}
   .scix-footer-info{text-align:center;}

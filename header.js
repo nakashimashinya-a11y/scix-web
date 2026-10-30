@@ -98,12 +98,12 @@
     'body{padding-top:64px!important}',
 
     '/* === Header bar === */',
-    '/* 2026-10-31: 中島「タイムズカー集団訴訟のページとデザインが全く同じ。嫌」＝紺の地・金のボタンをやめ、白地・墨の字・黒いボタン（案C「大きな X」） */',
+    '/* 2026-10-31: 中島「タイムズカー集団訴訟のページとデザインが全く同じ。嫌」＝紺の地・金のボタンをやめ、白地・紺の字・紺のボタン（案C「大きな X」。字とボタンの紺は名刺とロゴの #1F2A48） */',
     '.scix-header{',
     '  position:fixed;top:0;left:0;right:0;height:64px;',
     '  background:#fff;',
     '  z-index:9999;',
-    '  border-bottom:2px solid #111;',
+    '  border-bottom:2px solid #1F2A48;',
     '  font-family:"Noto Sans JP",sans-serif;',
     '}',
 
@@ -126,24 +126,24 @@
     '  display:flex;align-items:center;gap:2px;',
     '}',
     '.scix-header-nav a,.scix-nav-dd-toggle{',
-    '  text-decoration:none;color:#333;',
+    '  text-decoration:none;color:#2D3A5C;',
     '  font-size:.86rem;font-weight:700;letter-spacing:0;line-height:1.4;',
     '  padding:8px 11px;border-radius:0;',
     '  background:none;border:none;cursor:pointer;font-family:inherit;',
     '  transition:color .2s,background .2s,box-shadow .2s;',
     '  white-space:nowrap;',
     '}',
-    '.scix-header-nav a:hover,.scix-nav-dd-toggle:hover{color:#111;box-shadow:inset 0 -2px 0 #C49A3C}',
-    '.scix-header-nav a.active,.scix-nav-dd-toggle.active{color:#111;font-weight:900;box-shadow:inset 0 -2px 0 #111}',
+    '.scix-header-nav a:hover,.scix-nav-dd-toggle:hover{color:#1F2A48;box-shadow:inset 0 -2px 0 #C49A3C}',
+    '.scix-header-nav a.active,.scix-nav-dd-toggle.active{color:#1F2A48;font-weight:900;box-shadow:inset 0 -2px 0 #1F2A48}',
     '.scix-header-nav a:focus-visible,.scix-nav-dd-toggle:focus-visible{outline:2px solid #C49A3C;outline-offset:2px}',
 
     '/* === Primary CTA button (black) === */',
     '.scix-header-nav a.scix-cta{',
-    '  background:#111;color:#fff;font-weight:700;letter-spacing:0;',
+    '  background:#1F2A48;color:#fff;font-weight:700;letter-spacing:0;',
     '  padding:10px 20px;border-radius:0;margin-left:14px;',
     '}',
-    '.scix-header-nav a.scix-cta:hover{background:#333;color:#fff;box-shadow:none}',
-    '.scix-header-nav a.scix-cta.active{background:#111;color:#fff;box-shadow:inset 0 -3px 0 #C49A3C}',
+    '.scix-header-nav a.scix-cta:hover{background:#2D3A5C;color:#fff;box-shadow:none}',
+    '.scix-header-nav a.scix-cta.active{background:#1F2A48;color:#fff;box-shadow:inset 0 -3px 0 #C49A3C}',
 
     '/* === Dropdown groups (ナレッジ / 買う / 売る) === */',
     '.scix-nav-dd{position:relative;display:flex;align-items:center;}',
@@ -151,7 +151,7 @@
     '.scix-dd-caret{font-size:.7em;transition:transform .25s;opacity:.85}',
     '.scix-nav-dd-menu{',
     '  position:absolute;top:100%;left:0;min-width:224px;',
-    '  background:#fff;border:2px solid #111;border-radius:0;',
+    '  background:#fff;border:2px solid #1F2A48;border-radius:0;',
     '  padding:6px;display:none;flex-direction:column;gap:2px;',
     '  box-shadow:0 14px 30px rgba(0,0,0,.12);z-index:10003;',
     '}',
@@ -169,7 +169,7 @@
     '.scix-dd-col{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}',
     '.scix-dd-col+.scix-dd-col{border-left:1px solid #E6E6E6;padding-left:12px}',
     '.scix-dd-head{font-family:"Inter Tight","Noto Sans JP",sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.06em;color:#8E6C1F;padding:6px 12px 4px;white-space:nowrap}',
-    '.scix-nav-dd-menu a.scix-dd-all{font-weight:900;color:#111}',
+    '.scix-nav-dd-menu a.scix-dd-all{font-weight:900;color:#1F2A48}',
 
     '/* === Language switcher (inside the nav) === */',
     '/* 2026-09-17: made visible (中島「地味すぎてわからない」) — globe icon, bordered pill group, current language on black */',
@@ -183,8 +183,8 @@
     '  background:url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23111\' stroke-width=\'1.8\'%3E%3Ccircle cx=\'12\' cy=\'12\' r=\'9.5\'/%3E%3Cpath d=\'M2.5 12h19M12 2.5c3 3.2 3 15.8 0 19M12 2.5c-3 3.2-3 15.8 0 19\'/%3E%3C/svg%3E") center/contain no-repeat;',
     '}',
     '.scix-header-nav .scix-lang a{font-family:"Inter Tight","Noto Sans JP","Noto Sans SC",sans-serif;font-size:.74rem;font-weight:800;color:#555;padding:4px 9px;border-radius:100px;letter-spacing:.02em;line-height:1.3}',
-    '.scix-header-nav .scix-lang a:hover{color:#111;background:#F0F0EE;box-shadow:none}',
-    '.scix-header-nav .scix-lang a.active{color:#fff;font-weight:800;background:#111;box-shadow:none}',
+    '.scix-header-nav .scix-lang a:hover{color:#1F2A48;background:#F0F0EE;box-shadow:none}',
+    '.scix-header-nav .scix-lang a.active{color:#fff;font-weight:800;background:#1F2A48;box-shadow:none}',
 
     '/* === Hamburger button (mobile only) === */',
     '.scix-header-burger{',
@@ -194,7 +194,7 @@
     '}',
     '.scix-header-burger span{',
     '  display:block;position:absolute;left:0;width:100%;height:2px;',
-    '  background:#111;border-radius:0;',
+    '  background:#1F2A48;border-radius:0;',
     '  transition:transform .3s,opacity .3s;',
     '}',
     '.scix-header-burger span:nth-child(1){top:0}',
@@ -254,7 +254,7 @@
     '  /* drawer: language row first, so it is seen the moment the menu opens */',
     '  .scix-lang{order:-1;margin:0 0 14px;padding:4px 6px 4px 12px;justify-content:flex-start;gap:4px;border:1px solid #CCC;border-radius:100px;align-self:flex-start;}',
     '  .scix-header-nav .scix-lang a{font-size:.88rem;padding:7px 14px;border-bottom:none;border-radius:100px;}',
-    '  .scix-header-nav .scix-lang a.active{background:#111;color:#fff}',
+    '  .scix-header-nav .scix-lang a.active{background:#1F2A48;color:#fff}',
     '  .scix-nav-dd-menu.scix-dd-wide{min-width:0;flex-direction:column;gap:0;padding:2px 0}',
     '  .scix-dd-col+.scix-dd-col{border-left:none;padding-left:0;margin-top:2px}',
     '  .scix-dd-head{padding:10px 12px 2px 28px;font-size:.66rem}',
@@ -264,7 +264,7 @@
 
   // Floating mobile contact CTA — on mobile the nav collapses into the hamburger,
   // so keep a persistent, always-visible conversion path. white-on-black = WCAG AAA.
-  css += "\n.scix-float-cta{position:fixed;right:16px;bottom:16px;z-index:9000;display:none;align-items:center;gap:7px;padding:13px 20px;background:#111;color:#fff;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:700;text-decoration:none;border-radius:0;box-shadow:0 6px 20px rgba(0,0,0,.28);border-bottom:3px solid #C49A3C}.scix-float-cta:active{transform:translateY(1px)}.scix-float-cta svg{width:16px;height:16px}@media(max-width:768px){.scix-float-cta{display:inline-flex}}";
+  css += "\n.scix-float-cta{position:fixed;right:16px;bottom:16px;z-index:9000;display:none;align-items:center;gap:7px;padding:13px 20px;background:#1F2A48;color:#fff;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:700;text-decoration:none;border-radius:0;box-shadow:0 6px 20px rgba(0,0,0,.28);border-bottom:3px solid #C49A3C}.scix-float-cta:active{transform:translateY(1px)}.scix-float-cta svg{width:16px;height:16px}@media(max-width:768px){.scix-float-cta{display:inline-flex}}";
 
   var style = document.createElement('style');
   style.id = 'scix-header-css';
@@ -432,16 +432,16 @@
   var NL_SKIP = /^\/(contact|sell-form|thanks|privacy)$/;
   if (isJa && !NL_SKIP.test(loc)) {
     var nlCss = [
-      '.scix-nl{max-width:760px;margin:40px auto 0;padding:26px 26px 22px;background:#111;color:#fff;border-radius:0;border-left:6px solid #C49A3C;font-family:"Noto Sans JP",sans-serif;box-sizing:border-box}',
+      '.scix-nl{max-width:760px;margin:40px auto 0;padding:26px 26px 22px;background:#1F2A48;color:#fff;border-radius:0;border-left:6px solid #C49A3C;font-family:"Noto Sans JP",sans-serif;box-sizing:border-box}',
       '.scix-nl *{box-sizing:border-box}',
       '.scix-nl-label{font-family:"Inter Tight","Noto Sans JP",sans-serif;font-size:.74rem;letter-spacing:.06em;color:#C49A3C;font-weight:800;margin-bottom:8px}',
       '.scix-nl h3{font-family:"Noto Sans JP",sans-serif;font-size:1.1rem;font-weight:900;line-height:1.55;margin:0 0 6px;color:#fff}',
       '.scix-nl p{font-size:.84rem;line-height:1.8;color:rgba(255,255,255,.78);margin:0 0 16px}',
       '.scix-nl form{display:flex;flex-wrap:wrap;gap:8px}',
-      '.scix-nl input{flex:1 1 200px;min-width:0;font:inherit;font-size:.95rem;padding:12px 14px;border:1px solid rgba(255,255,255,.28);border-radius:0;background:#fff;color:#111;outline:none}',
+      '.scix-nl input{flex:1 1 200px;min-width:0;font:inherit;font-size:.95rem;padding:12px 14px;border:1px solid rgba(255,255,255,.28);border-radius:0;background:#fff;color:#1F2A48;outline:none}',
       '.scix-nl input:focus{border-color:#C49A3C;box-shadow:0 0 0 3px rgba(196,154,60,.3)}',
       '.scix-nl input.scix-nl-name{flex:0 1 160px}',
-      '.scix-nl button{flex:0 0 auto;font:inherit;font-size:.92rem;font-weight:700;padding:12px 22px;background:#C49A3C;color:#111;border:none;border-radius:0;cursor:pointer;white-space:nowrap}',
+      '.scix-nl button{flex:0 0 auto;font:inherit;font-size:.92rem;font-weight:700;padding:12px 22px;background:#C49A3C;color:#1F2A48;border:none;border-radius:0;cursor:pointer;white-space:nowrap}',
       '.scix-nl button:hover{background:#D4AD5A}',
       '.scix-nl button[disabled]{opacity:.6;cursor:default}',
       '.scix-nl-note{font-size:.72rem;color:rgba(255,255,255,.55);line-height:1.7;margin:10px 0 0}',
