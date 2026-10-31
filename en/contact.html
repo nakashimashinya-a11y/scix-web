@@ -366,6 +366,7 @@
           <div class="inquiry-types">
             <label>Inquiry Type<span class="required">*</span></label>
             <span class="chip active" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="Investor (real-asset investment)" checked>Investor</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="DealRoom access request" data-intent="dealroom">DealRoom access</span>
             <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="Partnership / collaboration">Partnership</span>
             <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="Other">Other</span>
           </div>
@@ -497,6 +498,19 @@
 </section>
 
 <script>
+// ?intent=dealroom (from /en/projects) opens the form with the DealRoom chip selected
+(function () {
+  try {
+    var q = new URLSearchParams(window.location.search);
+    if ((q.get('intent') || '').toLowerCase() === 'dealroom') {
+      var inp = document.querySelector('.chip input[data-intent="dealroom"]');
+      if (inp) toggleChip(inp.closest('.chip'));
+      var msg = document.querySelector('textarea[name="message"]');
+      if (msg && !msg.value) msg.value = 'I would like to apply for DealRoom access. Please send the confidentiality undertaking (NDA).';
+    }
+  } catch (e) {}
+})();
+
 function toggleChip(el) {
   var chips = document.querySelectorAll('.chip');
   for (var i = 0; i < chips.length; i++) chips[i].classList.remove('active');
@@ -564,7 +578,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
         try {
           var _il = document.querySelector('input[name="inquiry"]:checked');
           var _v = (_il && _il.value) || '';
-          var _intent = /投資家|投资|Investor/i.test(_v) ? 'investor' :
+          var _intent = /DealRoom/i.test(_v) ? 'dealroom' : /投資家|投资|Investor/i.test(_v) ? 'investor' :
              /Buyer|案件取得|買い手/i.test(_v) ? 'buyer' :
              /Seller|売却|査定/i.test(_v) ? 'seller' :
              /Land|用地/i.test(_v) ? 'land' : 'other';

@@ -316,6 +316,7 @@
 
   var nav = isZh ? [
     '<a href="/zh"           data-page="/">首页</a>',
+    '<a href="/en/projects">在售项目（英文）</a>',
     '<a href="/zh-knowledge" data-page="/knowledge">洞见</a>',
     '<a href="/zh-qa"        data-page="/qa">问答</a>',
     '<a href="/zh-contact" class="scix-cta">联系我们</a>'

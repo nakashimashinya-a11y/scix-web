@@ -375,6 +375,7 @@
           <div class="inquiry-types">
             <label>询问类型<span class="required">*</span></label>
             <span class="chip active" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="投资（实物资产投资）" checked>投资</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="申请 DealRoom 访问权限" data-intent="dealroom">申请 DealRoom</span>
             <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="协作 / 合作">协作</span>
             <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="其他">其他</span>
           </div>
@@ -518,6 +519,19 @@
 </section>
 
 <script>
+// ?intent=dealroom（来自 /zh）时，默认选中“申请 DealRoom”
+(function () {
+  try {
+    var q = new URLSearchParams(window.location.search);
+    if ((q.get('intent') || '').toLowerCase() === 'dealroom') {
+      var inp = document.querySelector('.chip input[data-intent="dealroom"]');
+      if (inp) toggleChip(inp.closest('.chip'));
+      var msg = document.querySelector('textarea[name="message"]');
+      if (msg && !msg.value) msg.value = '我想申请 DealRoom 的访问权限，请发送保密承诺书。';
+    }
+  } catch (e) {}
+})();
+
 function toggleChip(el) {
   var chips = document.querySelectorAll('.chip');
   for (var i = 0; i < chips.length; i++) chips[i].classList.remove('active');
@@ -585,7 +599,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
         try {
           var _il = document.querySelector('input[name="inquiry"]:checked');
           var _v = (_il && _il.value) || '';
-          var _intent = /投资|投資家|Investor/i.test(_v) ? 'investor' :
+          var _intent = /DealRoom/i.test(_v) ? 'dealroom' : /投资|投資家|Investor/i.test(_v) ? 'investor' :
              /案件取得|買い手|Buyer/i.test(_v) ? 'buyer' :
              /售|売却|査定|Seller/i.test(_v) ? 'seller' :
              /用地|Land/i.test(_v) ? 'land' : 'other';
