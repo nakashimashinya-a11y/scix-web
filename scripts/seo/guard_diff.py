@@ -109,7 +109,7 @@ from common import BASE, file_to_url, path_of  # noqa: E402
 REPO = Path(os.environ.get("SCIX_WEB_REPO", Path.cwd()))
 ALLOWED_HTML = re.compile(r"^(en/)?[a-z0-9-]+\.html$|^zh-[a-z0-9-]+\.html$")
 FORBIDDEN = {"docs/seo-change-log.md", "fund.html", "contact.html", "sell-form.html", "thanks.html", "privacy.html", "404.html",
-             "en/contact.html", "en/thanks.html", "zh-contact.html", "zh-thanks.html",
+             "en/contact.html", "en/thanks.html", "en/projects.html", "zh-contact.html", "zh-thanks.html",
              "projects.json", "feed.xml", "projects-feed.xml", "vercel.json", "robots.txt", "README.md", "CLAUDE.md"}
 FORBIDDEN_PREFIX = ("scripts/", ".github/", "img/", "files/", "notes/", ".claude/", "docs/new-mac-setup.md",
                     "market-data.html", "projects-")   # 2026-10-29 市場データと管内別の一覧は毎朝の同期が焼き直す生成物

@@ -75,6 +75,7 @@
   // Pages that exist in all three languages under language-specific slugs.
   var TRILINGUAL = {
     '/': { en: '/en', zh: '/zh' },
+    '/projects': { en: '/en/projects', zh: '/zh' },
     '/knowledge': { en: '/en/knowledge', zh: '/zh-knowledge' },
     '/qa': { en: '/en/qa', zh: '/zh-qa' },
     '/glossary': { en: '/en/glossary', zh: '/zh-glossary' },
@@ -320,6 +321,7 @@
     '<a href="/zh-contact" class="scix-cta">联系我们</a>'
   ] : isEn ? [
     '<a href="/en"           data-page="/">Home</a>',
+    '<a href="/en/projects" data-page="/projects">Projects</a>',
     '<a href="/en/knowledge" data-page="/knowledge">Knowledge</a>',
     '<a href="/en/qa"        data-page="/qa">Q&amp;A</a>',
     '<a href="/en/market-entry-guide" data-page="/market-entry-guide">Market Entry Guide</a>',

@@ -14,6 +14,7 @@
 使い方:
     python3 scripts/build_market_data.py            # 書き換えて差分を報告
     python3 scripts/build_market_data.py --check    # 書き換えずに、ずれているかだけ見る（ずれていれば 1）
+  en/projects.html            英語の案件一覧（海外の買い手向け・1枚・価格なし・2026-10-31 新設）
 毎朝の同期（scripts/sync_projects_json.sh）が inject_stats.py の直後に呼ぶ。
 """
 from __future__ import annotations  # launchd の python3 は 3.9
@@ -42,7 +43,7 @@ AREAS = [
     ("北陸", "hokuriku", "北陸電力送配電"),
     ("四国", "shikoku", "四国電力送配電"),
 ]
-OUTPUTS = ["market-data.html"] + [f"projects-{slug}.html" for _, slug, _ in AREAS]
+OUTPUTS = ["market-data.html", "en/projects.html"] + [f"projects-{slug}.html" for _, slug, _ in AREAS]
 
 
 # ---------------------------------------------------------------- 集計
@@ -463,6 +464,233 @@ def render_area(ps_all, area, slug, operator, today, generated):
     return head(title, desc, path, jsonld, robots) + body
 
 
+# ---------------------------------------------------------------- 英語の案件一覧（en/projects.html）
+# 公開してよい項目（projects.json の PUBLIC_KEYS）だけを使う。価格・住所・売主は持っていないので出せない。
+EN_AREA = {"北海道": "Hokkaido", "東北": "Tohoku", "東京": "Tokyo", "中部": "Chubu", "北陸": "Hokuriku", "関西": "Kansai",
+           "中国": "Chugoku", "四国": "Shikoku", "九州": "Kyushu", "沖縄": "Okinawa"}
+EN_PREF = {
+    "北海道": "Hokkaido", "青森県": "Aomori", "岩手県": "Iwate", "宮城県": "Miyagi", "秋田県": "Akita", "山形県": "Yamagata",
+    "福島県": "Fukushima", "茨城県": "Ibaraki", "栃木県": "Tochigi", "群馬県": "Gunma", "埼玉県": "Saitama", "千葉県": "Chiba",
+    "東京都": "Tokyo", "神奈川県": "Kanagawa", "新潟県": "Niigata", "富山県": "Toyama", "石川県": "Ishikawa", "福井県": "Fukui",
+    "山梨県": "Yamanashi", "長野県": "Nagano", "岐阜県": "Gifu", "静岡県": "Shizuoka", "愛知県": "Aichi", "三重県": "Mie",
+    "滋賀県": "Shiga", "京都府": "Kyoto", "大阪府": "Osaka", "兵庫県": "Hyogo", "奈良県": "Nara", "和歌山県": "Wakayama",
+    "鳥取県": "Tottori", "島根県": "Shimane", "岡山県": "Okayama", "広島県": "Hiroshima", "山口県": "Yamaguchi",
+    "徳島県": "Tokushima", "香川県": "Kagawa", "愛媛県": "Ehime", "高知県": "Kochi", "福岡県": "Fukuoka", "佐賀県": "Saga",
+    "長崎県": "Nagasaki", "熊本県": "Kumamoto", "大分県": "Oita", "宮崎県": "Miyazaki", "鹿児島県": "Kagoshima",
+    "沖縄県": "Okinawa",
+}
+EN_VOLT = {"高圧": "High voltage", "特別高圧": "Extra-high voltage", "低圧": "Low voltage"}
+EN_STATUS = {"接続検討回答済": "Grid connection study answered", "負担金確定": "Grid cost confirmed", "連系済": "Grid-connected"}
+EN_SCHEME = {"完成渡し": "Completed-build handover", "権利譲渡": "Transfer of rights"}
+EN_LEAD = {"payment": "about {n} months after grid cost payment", "apply": "about {n} months after connection application",
+           "contract": "about {n} months after contract", "unspecified": "about {n} months of grid work"}
+EN_MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+EN_CSS = """
+.pj-sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:26px 0 0}
+.pj-sum div{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px 18px}
+.pj-sum b{display:block;font-size:1.5rem;color:var(--navy);line-height:1.3}.pj-sum span{font-size:.78rem;color:var(--text-2)}
+.pj-filter{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:flex-end;margin:0 0 14px}
+.pj-filter label{display:flex;flex-direction:column;font-size:.76rem;color:var(--text-2);gap:4px;min-width:0}
+.pj-filter select{font:inherit;font-size:.9rem;padding:8px 10px;border:1px solid #C9C9C9;border-radius:6px;background:#fff;color:var(--navy);max-width:100%}
+.pj-count{font-size:.86rem;color:var(--text-2);margin-left:auto}
+.pj-t{border-collapse:collapse;width:100%;font-size:.86rem}
+.pj-t th,.pj-t td{border-bottom:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top}
+.pj-t th{background:var(--off-white);color:var(--text-2);font-weight:500;white-space:nowrap}
+.pj-t td.n,.pj-t th.n{text-align:right;font-variant-numeric:tabular-nums}
+.pj-t tr[hidden]{display:none!important}
+.pj-new{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:3px;background:rgba(26,122,76,.12);color:var(--green);font-size:.7rem;font-weight:600}
+.pj-none{display:none;padding:18px 0;color:var(--text-2)}
+.pj-dr{background:var(--off-white);border:1px solid var(--border);border-radius:8px;padding:22px 24px;max-width:860px}
+.pj-dr ol{margin:10px 0 18px 1.3em;font-size:.92rem;color:var(--text-2)}
+@media(max-width:700px){
+  .pj-t,.pj-t tbody,.pj-t tr,.pj-t td{display:block;width:100%}
+  .pj-t thead{display:none}
+  .pj-t tr{border:1px solid var(--border);border-radius:8px;margin-bottom:10px;padding:6px 12px}
+  .pj-t td{border:none;padding:3px 0;text-align:left!important;display:flex;justify-content:space-between;gap:12px}
+  .pj-t td::before{content:attr(data-l);color:var(--text-3);font-size:.78rem;flex:0 0 38%}
+  .pj-count{margin-left:0;width:100%}
+  .pj-filter label{flex:1 1 44%}
+}
+"""
+
+EN_FOOTER = """<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img width="300" height="118" src="/img/logo-white.png" alt="ScienceX — Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="/en/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Projects</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">&copy; 2025–2026 Science X Inc. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>"""
+
+
+def en_cod(p, today_ym):
+    """Expected COD（連系の見込み）の英語表示。inject_stats.cod_text と同じ規則（年月が過去なら出さない）。"""
+    if p.get("live"):
+        return "Grid-connected"
+    ym = p.get("codYm")
+    ym = ym if (ym and ym >= today_ym) else None
+    n = p.get("leadMonths")
+    lead = EN_LEAD.get(p.get("leadBasis") or "unspecified", EN_LEAD["unspecified"]).format(n=n) if n else ""
+    if ym:
+        return f"{EN_MON[int(ym[5:7]) - 1]} {ym[:4]}" + (f" ({lead})" if lead else "")
+    return lead or "Under review"
+
+
+def render_en_projects(ps, today, generated):
+    today_ym = today.strftime("%Y-%m")
+    path = "/en/projects"
+    url = BASE + path
+    n = len(ps)
+    mw = round(sum(p.get("mw") or 0 for p in ps))
+    volt = Counter(p.get("voltage") for p in ps)
+    prefs = len({p.get("pref") for p in ps if p.get("pref")})
+
+    def key(p):
+        num = int("".join(ch for ch in (p.get("id") or "") if ch.isdigit()) or 0)
+        return (cod_sort_key(p, today_ym), -num)
+
+    ps = sorted(ps, key=key)
+    title = "Japan Grid-Scale BESS Projects Listed by ScienceX | High-Voltage & Extra-High-Voltage"
+    desc = (f"{n} grid-scale battery storage (BESS) projects in Japan listed by ScienceX, about {mw:,} MW in total: "
+            "high-voltage (~2 MW) and extra-high-voltage, from development rights with grid connection answers to grid-connected assets. "
+            "Area, prefecture, voltage, size, status and expected COD. No prices shown. Updated daily.")
+    areas = [a for a in EN_AREA if any(p.get("area") == a for p in ps)]
+    area_opts = "".join(f'<option value="{_esc(a)}">{EN_AREA[a]}</option>' for a in areas)
+    volt_opts = "".join(f'<option value="{_esc(v)}">{EN_VOLT[v]}</option>' for v in EN_VOLT if volt.get(v))
+    stat_opts = "".join(f'<option value="{_esc(k)}">{v}</option>' for k, v in EN_STATUS.items() if any(p.get("status") == k for p in ps))
+    rows = []
+    for p in ps:
+        pid = _esc(p.get("id") or "")
+        m, mh = p.get("mw"), p.get("mwh")
+        new = '<span class="pj-new">New</span>' if is_new(p, today) else ""
+        rows.append(
+            f'<tr id="p-{pid}" data-area="{_esc(p.get("area") or "")}" data-volt="{_esc(p.get("voltage") or "")}" data-status="{_esc(p.get("status") or "")}">'
+            f'<td data-l="ID">{pid}{new}</td>'
+            f'<td data-l="Area">{EN_AREA.get(p.get("area"), "TBC")}</td>'
+            f'<td data-l="Prefecture">{EN_PREF.get(p.get("pref"), "Under review")}</td>'
+            f'<td data-l="Voltage">{EN_VOLT.get(p.get("voltage"), "—")}</td>'
+            f'<td class="n" data-l="MW">{f"{m:g}" if isinstance(m, (int, float)) else "—"}</td>'
+            f'<td class="n" data-l="MWh">{f"{mh:g}" if isinstance(mh, (int, float)) else "—"}</td>'
+            f'<td data-l="Status">{EN_STATUS.get(p.get("status"), "—")}</td>'
+            f'<td data-l="Structure">{EN_SCHEME.get(p.get("scheme"), "Under review")}</td>'
+            f'<td data-l="Expected COD">{_esc(en_cod(p, today_ym))}</td></tr>')
+    items = [{"@type": "ListItem", "position": i + 1, "name": f"{p.get('id')} {EN_PREF.get(p.get('pref'), '')} {EN_VOLT.get(p.get('voltage'), '')} {p.get('mw') or ''} MW".replace("  ", " ")}
+             for i, p in enumerate(ps)]
+    jsonld = "\n".join([
+        ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": url + "#webpage", "url": url, "name": title,
+            "description": desc, "inLanguage": "en", "dateModified": generated,
+            "isPartOf": {"@type": "WebSite", "url": BASE + "/en", "name": "ScienceX"},
+            "publisher": {"@type": "Organization", "@id": BASE + "/#organization", "name": "ScienceX", "legalName": "Science X Inc.", "url": BASE + "/en"},
+            "mainEntity": {"@type": "ItemList", "numberOfItems": n, "itemListElement": items}}),
+        ld(crumbs([("Home", BASE + "/en"), ("Projects", url)])),
+    ])
+    head_html = (head(title, desc, path, jsonld)
+                 .replace('<html lang="ja">', '<html lang="en">')
+                 .replace(f'<link rel="alternate" hreflang="ja" href="{url}">',
+                          f'<link rel="alternate" hreflang="en" href="{url}">\n<link rel="alternate" hreflang="ja" href="{BASE}/projects">')
+                 .replace('content="ja_JP"', 'content="en_US"')
+                 .replace(f'{BASE}/img/ogp-x.png', f'{BASE}/img/ogp-x-en.png')
+                 .replace(f"<style>{CSS}</style>", f"<style>{CSS}{EN_CSS}</style>"))
+    body = f"""<section class="hero"><div class="container">
+  <span class="badge">Updated daily · {_esc(generated)}</span>
+  <div class="section-label">Projects</div>
+  <h1>Japan grid-scale BESS projects available through ScienceX</h1>
+  <p>High-voltage (~2 MW) and extra-high-voltage battery storage projects, from development rights with grid connection answers to grid-connected assets. Area, prefecture, voltage, size, status and expected COD are shown below. Prices, exact sites and counterparties are not published here.</p>
+  <div class="pj-sum">
+    <div><b>{n}</b><span>Listed projects</span></div>
+    <div><b>{mw:,} MW</b><span>Total output</span></div>
+    <div><b>{volt.get('高圧', 0)}</b><span>High voltage (~2 MW class)</span></div>
+    <div><b>{volt.get('特別高圧', 0)}</b><span>Extra-high voltage</span></div>
+    <div><b>{prefs}</b><span>Prefectures</span></div>
+  </div>
+</div></section>
+
+<section class="md"><div class="container">
+  <div class="section-label">Listed projects</div>
+  <h2 class="md-h">Project list ({n} projects · updated {_esc(generated)})</h2>
+  <p class="md-lead">Sorted by earliest expected COD (commercial operation date). Use the filters to narrow the list.</p>
+  <div class="pj-filter">
+    <label>Area<select id="f-area"><option value="">All areas</option>{area_opts}</select></label>
+    <label>Voltage<select id="f-volt"><option value="">All voltage classes</option>{volt_opts}</select></label>
+    <label>Status<select id="f-status"><option value="">All statuses</option>{stat_opts}</select></label>
+    <span class="pj-count" id="pj-count" aria-live="polite">{n} of {n} projects</span>
+  </div>
+  <table class="pj-t" id="pj-table">
+    <thead><tr><th>ID</th><th>Area</th><th>Prefecture</th><th>Voltage</th><th class="n">MW</th><th class="n">MWh</th><th>Status</th><th>Structure</th><th>Expected COD</th></tr></thead>
+    <tbody>
+{chr(10).join(rows)}
+    </tbody>
+  </table>
+  <p class="pj-none" id="pj-none">No listed project matches these filters.</p>
+  <p class="md-note" style="margin-top:14px">Area = the grid area of the transmission and distribution operator (Tokyo, Chubu, Kyushu and so on). Status: &ldquo;Grid connection study answered&rdquo; means the utility has issued its answer on the connection study; &ldquo;Grid cost confirmed&rdquo; means the grid construction cost has been fixed; &ldquo;Grid-connected&rdquo; means the project is already connected. Structure: &ldquo;Completed-build handover&rdquo; or &ldquo;Transfer of rights&rdquo; (the buyer builds). Expected COD is an estimate taken from the utility&rsquo;s answer and may change. These are ScienceX&rsquo;s own listings, not statistics for the whole Japanese market.</p>
+</div></section>
+
+<section class="md" id="dealroom"><div class="container">
+  <div class="section-label">DealRoom</div>
+  <h2 class="md-h">Detailed materials are in DealRoom, after an NDA</h2>
+  <div class="pj-dr">
+    <p class="md-lead" style="margin-bottom:6px">This list is an anonymous teaser. Site details, technical documents, grid-utility correspondence and the Q&amp;A for each project are shown in DealRoom, our members-only data room.</p>
+    <ol>
+      <li>Register on DealRoom (free of charge).</li>
+      <li>Submit a confidentiality undertaking (NDA); it is accepted by email, with no postal step.</li>
+      <li>After our review, you can open the detailed information and documents for each project.</li>
+    </ol>
+    <a class="btn-primary" href="https://scix-dealroom2.pages.dev/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'register_en'}})">Register on DealRoom &rarr;</a>
+    <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/contact">Contact us</a>
+  </div>
+</div></section>
+
+<section class="cta"><div class="container">
+  <h2>Looking for something specific?</h2>
+  <p>Tell us the area, voltage class, size and timing you are looking for, and we will tell you which listed projects fit. Questions about NDA, structure or process are welcome.</p>
+  <a class="btn-primary" href="/en/contact">Contact ScienceX &rarr;</a>
+</div></section>
+<script>
+(function(){{
+  var rows=[].slice.call(document.querySelectorAll('#pj-table tbody tr'));
+  var sel={{area:document.getElementById('f-area'),volt:document.getElementById('f-volt'),status:document.getElementById('f-status')}};
+  var cnt=document.getElementById('pj-count'),none=document.getElementById('pj-none');
+  function apply(){{
+    var shown=0;
+    rows.forEach(function(r){{
+      var ok=(!sel.area.value||r.dataset.area===sel.area.value)&&(!sel.volt.value||r.dataset.volt===sel.volt.value)&&(!sel.status.value||r.dataset.status===sel.status.value);
+      r.hidden=!ok; if(ok)shown++;
+    }});
+    cnt.textContent=shown+' of '+rows.length+' projects';
+    none.style.display=shown?'none':'block';
+  }}
+  Object.keys(sel).forEach(function(k){{sel[k].addEventListener('change',apply);}});
+}})();
+</script>
+{EN_FOOTER}
+</body>
+</html>
+"""
+    return head_html + body
+
+
 def main():
     check = "--check" in sys.argv
     with open(os.path.join(ROOT, "projects.json"), encoding="utf-8") as f:
@@ -473,6 +701,7 @@ def main():
     pages = {"market-data.html": render_market(ps, today, generated)}
     for area, slug, operator in AREAS:
         pages[f"projects-{slug}.html"] = render_area(ps, area, slug, operator, today, generated)
+    pages["en/projects.html"] = render_en_projects(ps, today, generated)
     changed = []
     for name, html in pages.items():
         path = os.path.join(ROOT, name)
