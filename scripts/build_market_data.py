@@ -654,11 +654,12 @@ def render_en_projects(ps, today, generated):
     <p class="md-lead" style="margin-bottom:6px">This list is an anonymous teaser. Site details, technical documents, grid-utility correspondence and the Q&amp;A for each project are shown in DealRoom, our members-only data room.</p>
     <ol>
       <li>Register on DealRoom (free of charge).</li>
-      <li>Submit a confidentiality undertaking (NDA); it is accepted by email, with no postal step.</li>
-      <li>After our review, you can open the detailed information and documents for each project.</li>
+      <li>Sign a confidentiality undertaking (NDA), in English or in Japanese, and email the signed PDF to us; there is no postal step.</li>
+      <li>After our review, we enable your login and you can open the detailed information and documents for each project.</li>
     </ol>
-    <a class="btn-primary" href="https://scix-dealroom2.pages.dev/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'register_en'}})">Register on DealRoom &rarr;</a>
-    <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/contact">Contact us</a>
+    <a class="btn-primary" href="https://scix-dealroom2.pages.dev/en/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'register_en'}})">Register on DealRoom &rarr;</a>
+    <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/contact?intent=dealroom" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'apply_en'}})">Or apply through our contact form</a>
+    <p class="md-note" style="margin-top:12px">Undertaking (PDF, fillable): <a href="/files/scix-nda-pledge-en.pdf">English</a> / <a href="/files/scix-nda-pledge.pdf">Japanese</a>. Either version may be submitted.</p>
   </div>
 </div></section>
 
