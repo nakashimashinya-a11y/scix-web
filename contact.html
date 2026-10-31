@@ -671,12 +671,12 @@
           <!-- Inquiry Type -->
           <div class="inquiry-types">
             <label>ご用件<span class="required">*</span></label>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="案件取得（買い手）" data-intent="buyer" required>案件を買う</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="売却・査定（事業権利）" data-intent="seller">案件・権利を売る</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="1棟取得（自社保有・決算対策）" data-intent="owner">1棟を自社で持つ</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="投資家（ファンド・共同投資）" data-intent="investor">ファンド・共同投資</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="紹介（案件・投資家）" data-intent="partner">案件・投資家を紹介する</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="サービス提案" data-intent="proposal">サービスを提案する</span>
+<span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="案件取得（買い手）" data-intent="buyer" required>買い手</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="売主（事業・土地の売却）" data-intent="seller">売主（事業・土地の売却）</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="土地の相談" data-intent="land">土地の相談</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="業者（EPC・施工・保守）" data-intent="vendor">業者（EPC・施工・保守）</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="媒体・取材" data-intent="media">媒体・取材</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="紹介（案件・投資家）" data-intent="partner">販売店・紹介</span>
             <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="協業・その他" data-intent="other">その他</span>
             <p class="inquiry-error" id="inquiryError" role="alert" hidden>ご用件を1つ選んでください。</p>
           </div>
@@ -720,6 +720,50 @@
             <div class="form-group">
               <label>電話番号</label>
               <input type="tel" name="phone" placeholder="03-0000-0000">
+            </div>
+          </div>
+
+          <!-- 買い手のときだけ出す条件（すべて任意・required は付けない） -->
+          <div id="buyerNewFields" style="display:none;">
+            <div class="form-row">
+              <div class="form-group">
+                <label>電圧</label>
+                <select name="want_voltage">
+                  <option value="">選択してください</option>
+                  <option>高圧</option>
+                  <option>特別高圧</option>
+                  <option>どちらも</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>規模（MW）</label>
+                <input type="text" name="want_mw" placeholder="2〜10 など">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>エリア（複数選べます）</label>
+              <div id="areaBoxes" style="display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;">
+                <label style="font-weight:400;"><input type="checkbox" style="width:auto;padding:0;margin-right:4px;" value="北海道"> 北海道</label>
+                <label style="font-weight:400;"><input type="checkbox" style="width:auto;padding:0;margin-right:4px;" value="東北"> 東北</label>
+                <label style="font-weight:400;"><input type="checkbox" style="width:auto;padding:0;margin-right:4px;" value="東京"> 東京</label>
+                <label style="font-weight:400;"><input type="checkbox" style="width:auto;padding:0;margin-right:4px;" value="中部"> 中部</label>
+                <label style="font-weight:400;"><input type="checkbox" style="width:auto;padding:0;margin-right:4px;" value="北陸"> 北陸</label>
+                <label style="font-weight:400;"><input type="checkbox" style="width:auto;padding:0;margin-right:4px;" value="関西"> 関西</label>
+                <label style="font-weight:400;"><input type="checkbox" style="width:auto;padding:0;margin-right:4px;" value="中国"> 中国</label>
+                <label style="font-weight:400;"><input type="checkbox" style="width:auto;padding:0;margin-right:4px;" value="四国"> 四国</label>
+                <label style="font-weight:400;"><input type="checkbox" style="width:auto;padding:0;margin-right:4px;" value="九州"> 九州</label>
+              </div>
+              <input type="hidden" name="want_areas" id="wantAreas" value="">
+            </div>
+            <div class="form-group">
+              <label>時期</label>
+              <select name="want_when">
+                <option value="">選択してください</option>
+                <option>今年度内</option>
+                <option>来年度</option>
+                <option>再来年度以降でよい</option>
+                <option>こだわらない</option>
+              </select>
             </div>
           </div>
 
@@ -793,6 +837,7 @@
           <input type="hidden" name="_form" value="contact">
           <input type="hidden" name="intent" id="intentField" value="">
           <input type="hidden" name="pid" id="pidField" value="">
+          <input type="hidden" name="source_page" id="sourcePage" value="">
           <input type="text" name="_honey" style="display:none">
 
           <!-- Submit -->
@@ -923,8 +968,10 @@ function setInquiryMissing(on) {
 function syncConditionalFields(intent) {
   var box = document.getElementById('buyerFields');
   if (!box) return;
-  var show = (intent === 'buyer' || intent === 'owner');
+  var show = (intent === 'owner');
   box.style.display = show ? 'block' : 'none';
+  var nb = document.getElementById('buyerNewFields');
+  if (nb) nb.style.display = (intent === 'buyer') ? 'block' : 'none';
   // 会社名は個人・地主のときは任意にする
   var company = document.querySelector('input[name="company"]');
   if (company) {
@@ -949,8 +996,17 @@ function syncConditionalFields(intent) {
   var pid = ids.join(', ').substring(0, 300);
 
   if (intent) {
-    var chipInput = document.querySelector('.chip input[data-intent="' + intent.replace(/[^a-z]/g, '') + '"]');
-    if (chipInput) { toggleChip(chipInput.closest('.chip')); }
+    // 旧い ?intent= は、いまの選択肢に寄せる（送る intent は元の値のまま）
+    var alias = { investor: 'other', proposal: 'vendor', owner: 'buyer', dealroom: 'buyer' };
+    var key = intent.replace(/[^a-z]/g, '');
+    var chipInput = document.querySelector('.chip input[data-intent="' + key + '"]') ||
+      (alias[key] ? document.querySelector('.chip input[data-intent="' + alias[key] + '"]') : null);
+    if (chipInput) {
+      toggleChip(chipInput.closest('.chip'));
+      var intentField0 = document.getElementById('intentField');
+      if (intentField0 && alias[key]) intentField0.value = key;
+      if (key === 'owner') syncConditionalFields('owner');
+    }
     else { syncConditionalFields(intent); }
   }
   if (pid) {
@@ -973,6 +1029,22 @@ function syncConditionalFields(intent) {
   }
 })();
 
+// 元ページ: 直前に見ていたページの path（同じサイト内のときだけ）。?from= があればそちらを優先。
+(function setSourcePage() {
+  var f = document.getElementById('sourcePage');
+  if (!f) return;
+  var v = '';
+  try {
+    var q = new URLSearchParams(window.location.search).get('from') || '';
+    if (q.charAt(0) === '/') v = q;
+    else if (document.referrer) {
+      var u = new URL(document.referrer);
+      if (u.host === window.location.host && u.pathname !== '/contact') v = u.pathname;
+    }
+  } catch (e) {}
+  f.value = v.substring(0, 200);
+})();
+
 // 入力を素のオブジェクトにする（Object.fromEntries の無い古いブラウザでも動く書き方）
 function formToObject(form) {
   var out = {};
@@ -984,6 +1056,11 @@ function formToObject(form) {
     if ((t === 'radio' || t === 'checkbox') && !el.checked) continue;
     out[el.name] = el.value;
   }
+  // エリアは複数選べる。チェックの値を「、」でつないで want_areas に入れる
+  var picked = [];
+  var boxes = document.querySelectorAll('#areaBoxes input[type=checkbox]:checked');
+  for (var b = 0; b < boxes.length; b++) picked.push(boxes[b].value);
+  out.want_areas = picked.join('、');
   return out;
 }
 
@@ -1069,6 +1146,10 @@ function showMailFallback(form, data) {
     '役職: ' + (data.title || ''),
     'メール: ' + (data.email || ''),
     '電話: ' + (data.phone || ''),
+    (data.want_voltage ? '電圧: ' + data.want_voltage : ''),
+    (data.want_areas ? 'エリア: ' + data.want_areas : ''),
+    (data.want_mw ? '規模(MW): ' + data.want_mw : ''),
+    (data.want_when ? '時期: ' + data.want_when : ''),
     '',
     'メッセージ:',
     (data.message || '')
