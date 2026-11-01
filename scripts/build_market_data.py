@@ -28,7 +28,7 @@ from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
-from inject_stats import NEW_DAYS, _esc, cod_sort_key, cod_text, is_new  # noqa: E402
+from inject_stats import BAND_EVERY, NEW_DAYS, _esc, cod_bucket, cod_sort_key, cod_text, is_new  # noqa: E402
 
 BASE = "https://www.scix.co.jp"
 MIN_INDEX = 5   # 管内の件数がこれ未満なら noindex
@@ -484,6 +484,8 @@ EN_STATUS = {"接続検討回答済": "Grid connection study answered", "負担�
 EN_SCHEME = {"完成渡し": "Completed-build handover", "権利譲渡": "Transfer of rights"}
 EN_LEAD = {"payment": "about {n} months after grid cost payment", "apply": "about {n} months after connection application",
            "contract": "about {n} months after contract", "unspecified": "about {n} months of grid work"}
+EN_COD_LABELS = [("live", "Grid-connected"), ("thisfy", "This fiscal year"), ("nextfy", "Next fiscal year"),
+                 ("later", "Later"), ("lead", "Given in months"), ("tbd", "Under review")]
 EN_MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 EN_CSS = """
@@ -501,9 +503,22 @@ EN_CSS = """
 .pj-t tr[hidden]{display:none!important}
 .pj-new{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:3px;background:rgba(26,122,76,.12);color:var(--green);font-size:.7rem;font-weight:600}
 .pj-none{display:none;padding:18px 0;color:var(--text-2)}
+.hero.pj-hero{padding:26px 0 20px}
+.pj-hero h1{font-size:clamp(1.3rem,3.2vw,1.9rem);margin-bottom:8px}
+.pj-hero p.sub{font-size:.9rem;line-height:1.8;margin-bottom:14px}
+.hero-btns{display:flex;flex-wrap:wrap;gap:10px}
+.hb{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;font-size:.84rem;font-weight:600;text-decoration:none;border-radius:4px}
+.hb-list{background:var(--navy);color:#fff}.hb-dr{background:var(--gold);color:var(--navy)}
+section.pj-list{padding:20px 0 40px;border-top:none;scroll-margin-top:72px}
+.pj-lock{display:inline-block;padding:4px 12px;border:1.5px solid var(--navy);border-radius:100px;color:var(--navy);font-size:.76rem;font-weight:600;text-decoration:none;white-space:nowrap}
+.pj-lock::before{content:"\1F512  "}.pj-lock:hover{background:var(--navy);color:#fff}
+.pj-t th.c-lock,.pj-t td.c-lock{background:rgba(196,154,60,.07)}
+.pj-t tr.pj-band td{background:var(--navy);color:#fff;padding:9px 14px;border:none}
+.pj-t tr.pj-band td span{margin-right:14px;font-size:.82rem}
+.pj-band-btn{display:inline-block;padding:4px 14px;background:var(--gold);color:var(--navy);border-radius:4px;font-size:.78rem;font-weight:600;text-decoration:none;white-space:nowrap}
 .pj-dr{background:var(--off-white);border:1px solid var(--border);border-radius:8px;padding:22px 24px;max-width:860px}
 .pj-dr ol{margin:10px 0 18px 1.3em;font-size:.92rem;color:var(--text-2)}
-@media(max-width:700px){
+@media(max-width:900px){
   .pj-t,.pj-t tbody,.pj-t tr,.pj-t td{display:block;width:100%}
   .pj-t thead{display:none}
   .pj-t tr{border:1px solid var(--border);border-radius:8px;margin-bottom:10px;padding:6px 12px}
@@ -511,6 +526,11 @@ EN_CSS = """
   .pj-t td::before{content:attr(data-l);color:var(--text-3);font-size:.78rem;flex:0 0 38%}
   .pj-count{margin-left:0;width:100%}
   .pj-filter label{flex:1 1 44%}
+  .pj-filter select{width:100%}
+  .pj-t td.c-lock{background:none;margin-top:6px}
+  .pj-t tr.pj-band{border:none;padding:0;margin:0 0 10px}
+  .pj-t tr.pj-band td{display:block}.pj-t tr.pj-band td::before{content:none}
+  .pj-t tr.pj-band td span{display:block;margin:0 0 6px}
 }
 """
 
@@ -579,14 +599,23 @@ def render_en_projects(ps, today, generated):
     areas = [a for a in EN_AREA if any(p.get("area") == a for p in ps)]
     area_opts = "".join(f'<option value="{_esc(a)}">{EN_AREA[a]}</option>' for a in areas)
     volt_opts = "".join(f'<option value="{_esc(v)}">{EN_VOLT[v]}</option>' for v in EN_VOLT if volt.get(v))
-    stat_opts = "".join(f'<option value="{_esc(k)}">{v}</option>' for k, v in EN_STATUS.items() if any(p.get("status") == k for p in ps))
+    scheme_opts = "".join(f'<option value="{_esc(k)}">{v}</option>' for k, v in EN_SCHEME.items() if any(p.get("scheme") == k for p in ps))
+    buckets = {cod_bucket(p, today_ym) for p in ps}
+    cod_opts = "".join(f'<option value="{k}">{v}</option>' for k, v in EN_COD_LABELS if k in buckets)
+    reg = "https://scix-dealroom2.pages.dev/en/register"
+
+    def band():
+        return ('<tr class="pj-band"><td colspan="9"><span>Prices, exact sites and documents are in DealRoom (free registration, NDA)</span>'
+                f'<a class="pj-band-btn" href="{reg}" rel="nofollow" onclick="window.gtag&&gtag(\'event\',\'dr2_promo_click\',{{target:\'band_en\'}})">Register on DealRoom &rarr;</a></td></tr>')
+
     rows = []
-    for p in ps:
+    for i, p in enumerate(ps, 1):
         pid = _esc(p.get("id") or "")
         m, mh = p.get("mw"), p.get("mwh")
         new = '<span class="pj-new">New</span>' if is_new(p, today) else ""
         rows.append(
-            f'<tr id="p-{pid}" data-area="{_esc(p.get("area") or "")}" data-volt="{_esc(p.get("voltage") or "")}" data-status="{_esc(p.get("status") or "")}">'
+            f'<tr class="pj-row" id="p-{pid}" data-area="{_esc(p.get("area") or "")}" data-volt="{_esc(p.get("voltage") or "")}" '
+            f'data-scheme="{_esc(p.get("scheme") or "")}" data-cod="{cod_bucket(p, today_ym)}">'
             f'<td data-l="ID">{pid}{new}</td>'
             f'<td data-l="Area">{EN_AREA.get(p.get("area"), "TBC")}</td>'
             f'<td data-l="Prefecture">{EN_PREF.get(p.get("pref"), "Under review")}</td>'
@@ -595,7 +624,12 @@ def render_en_projects(ps, today, generated):
             f'<td class="n" data-l="MWh">{f"{mh:g}" if isinstance(mh, (int, float)) else "—"}</td>'
             f'<td data-l="Status">{EN_STATUS.get(p.get("status"), "—")}</td>'
             f'<td data-l="Structure">{EN_SCHEME.get(p.get("scheme"), "Under review")}</td>'
-            f'<td data-l="Expected COD">{_esc(en_cod(p, today_ym))}</td></tr>')
+            f'<td data-l="Expected COD">{_esc(en_cod(p, today_ym))}</td>'
+            f'<td class="c-lock" data-l="Price, site, documents"><a class="pj-lock" href="{reg}" rel="nofollow" '
+            f'onclick="window.gtag&&gtag(\'event\',\'dr2_promo_click\',{{target:\'row_en\'}})">View in DealRoom</a></td></tr>')
+        if i % BAND_EVERY == 0 and i != len(ps):
+            rows.append(band())
+    rows.append(band())
     items = [{"@type": "ListItem", "position": i + 1, "name": f"{p.get('id')} {EN_PREF.get(p.get('pref'), '')} {EN_VOLT.get(p.get('voltage'), '')} {p.get('mw') or ''} MW".replace("  ", " ")}
              for i, p in enumerate(ps)]
     jsonld = "\n".join([
@@ -613,38 +647,30 @@ def render_en_projects(ps, today, generated):
                  .replace('content="ja_JP"', 'content="en_US"')
                  .replace(f'{BASE}/img/ogp-x.png', f'{BASE}/img/ogp-x-en.png')
                  .replace(f"<style>{CSS}</style>", f"<style>{CSS}{EN_CSS}</style>"))
-    body = f"""<section class="hero"><div class="container">
-  <span class="badge">Updated daily · {_esc(generated)}</span>
-  <div class="section-label">Projects</div>
-  <h1>Japan grid-scale BESS projects available through ScienceX</h1>
-  <p>High-voltage (~2 MW) and extra-high-voltage battery storage projects, from development rights with grid connection answers to grid-connected assets. Area, prefecture, voltage, size, status and expected COD are shown below. Prices, exact sites and counterparties are not published here.</p>
-  <div class="pj-sum">
-    <div><b>{n}</b><span>Listed projects</span></div>
-    <div><b>{mw:,} MW</b><span>Total output</span></div>
-    <div><b>{volt.get('高圧', 0)}</b><span>High voltage (~2 MW class)</span></div>
-    <div><b>{volt.get('特別高圧', 0)}</b><span>Extra-high voltage</span></div>
-    <div><b>{prefs}</b><span>Prefectures</span></div>
+    body = f"""<section class="hero pj-hero"><div class="container">
+  <h1>{n} grid-scale BESS projects for sale in Japan <span style="font-size:.7em;font-weight:500;color:var(--text-2)">(high voltage {volt.get('高圧', 0)} · extra-high voltage {volt.get('特別高圧', 0)})</span></h1>
+  <p class="sub">Location is shown to prefecture level. Prices, sites and documents are in DealRoom (free registration, NDA).</p>
+  <div class="hero-btns">
+    <a class="hb hb-list" href="#list">View the list</a>
+    <a class="hb hb-dr" href="https://scix-dealroom2.pages.dev/en/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'hero_en'}})">Register on DealRoom</a>
   </div>
 </div></section>
 
-<section class="md"><div class="container">
-  <div class="section-label">Listed projects</div>
-  <h2 class="md-h">Project list ({n} projects · updated {_esc(generated)})</h2>
-  <p class="md-lead">Sorted by earliest expected COD (commercial operation date). Use the filters to narrow the list.</p>
+<section class="md pj-list" id="list"><div class="container">
   <div class="pj-filter">
     <label>Area<select id="f-area"><option value="">All areas</option>{area_opts}</select></label>
     <label>Voltage<select id="f-volt"><option value="">All voltage classes</option>{volt_opts}</select></label>
-    <label>Status<select id="f-status"><option value="">All statuses</option>{stat_opts}</select></label>
-    <span class="pj-count" id="pj-count" aria-live="polite">{n} of {n} projects</span>
+    <label>Structure<select id="f-scheme"><option value="">All structures</option>{scheme_opts}</select></label>
+    <label>Expected COD<select id="f-cod"><option value="">Any time</option>{cod_opts}</select></label>
+    <span class="pj-count" id="pj-count" aria-live="polite">{n} of {n} projects · updated {_esc(generated)}</span>
   </div>
   <table class="pj-t" id="pj-table">
-    <thead><tr><th>ID</th><th>Area</th><th>Prefecture</th><th>Voltage</th><th class="n">MW</th><th class="n">MWh</th><th>Status</th><th>Structure</th><th>Expected COD</th></tr></thead>
+    <thead><tr><th>ID</th><th>Area</th><th>Prefecture</th><th>Voltage</th><th class="n">MW</th><th class="n">MWh</th><th>Status</th><th>Structure</th><th>Expected COD</th><th class="c-lock">&#128274; Price, site, documents</th></tr></thead>
     <tbody>
 {chr(10).join(rows)}
     </tbody>
   </table>
   <p class="pj-none" id="pj-none">No listed project matches these filters.</p>
-  <p class="md-note" style="margin-top:14px">Area = the grid area of the transmission and distribution operator (Tokyo, Chubu, Kyushu and so on). Status: &ldquo;Grid connection study answered&rdquo; means the utility has issued its answer on the connection study; &ldquo;Grid cost confirmed&rdquo; means the grid construction cost has been fixed; &ldquo;Grid-connected&rdquo; means the project is already connected. Structure: &ldquo;Completed-build handover&rdquo; or &ldquo;Transfer of rights&rdquo; (the buyer builds). Expected COD is an estimate taken from the utility&rsquo;s answer and may change. These are ScienceX&rsquo;s own listings, not statistics for the whole Japanese market.</p>
 </div></section>
 
 <section class="md" id="dealroom"><div class="container">
@@ -663,6 +689,12 @@ def render_en_projects(ps, today, generated):
   </div>
 </div></section>
 
+<section class="md" id="about"><div class="container">
+  <h2 class="md-h">About this list</h2>
+  <p class="md-lead">High-voltage (~2 MW) and extra-high-voltage battery storage projects, from development rights with grid connection answers to grid-connected assets. Sorted by earliest expected COD (commercial operation date). Total: about {mw:,} MW across {prefs} prefectures. Prices, exact sites and counterparties are not published here.</p>
+  <p class="md-note" style="margin-top:14px">Area = the grid area of the transmission and distribution operator (Tokyo, Chubu, Kyushu and so on). Status: &ldquo;Grid connection study answered&rdquo; means the utility has issued its answer on the connection study; &ldquo;Grid cost confirmed&rdquo; means the grid construction cost has been fixed; &ldquo;Grid-connected&rdquo; means the project is already connected. Structure: &ldquo;Completed-build handover&rdquo; or &ldquo;Transfer of rights&rdquo; (the buyer builds). Expected COD is an estimate taken from the utility&rsquo;s answer and may change. These are ScienceX&rsquo;s own listings, not statistics for the whole Japanese market.</p>
+</div></section>
+
 <section class="cta"><div class="container">
   <h2>Looking for something specific?</h2>
   <p>Tell us the area, voltage class, size and timing you are looking for, and we will tell you which listed projects fit. Questions about NDA, structure or process are welcome.</p>
@@ -670,17 +702,27 @@ def render_en_projects(ps, today, generated):
 </div></section>
 <script>
 (function(){{
-  var rows=[].slice.call(document.querySelectorAll('#pj-table tbody tr'));
-  var sel={{area:document.getElementById('f-area'),volt:document.getElementById('f-volt'),status:document.getElementById('f-status')}};
+  var tbody=document.querySelector('#pj-table tbody');
+  var rows=[].slice.call(tbody.querySelectorAll('tr.pj-row'));
+  var bandTpl=tbody.querySelector('tr.pj-band');
+  var BAND_EVERY={BAND_EVERY};
+  var sel={{area:document.getElementById('f-area'),volt:document.getElementById('f-volt'),scheme:document.getElementById('f-scheme'),cod:document.getElementById('f-cod')}};
   var cnt=document.getElementById('pj-count'),none=document.getElementById('pj-none');
+  var tail=cnt.textContent.replace(/^\\d+ of \\d+ projects/,'');
   function apply(){{
-    var shown=0;
+    var shown=[];
     rows.forEach(function(r){{
-      var ok=(!sel.area.value||r.dataset.area===sel.area.value)&&(!sel.volt.value||r.dataset.volt===sel.volt.value)&&(!sel.status.value||r.dataset.status===sel.status.value);
-      r.hidden=!ok; if(ok)shown++;
+      var ok=(!sel.area.value||r.dataset.area===sel.area.value)&&(!sel.volt.value||r.dataset.volt===sel.volt.value)&&(!sel.scheme.value||r.dataset.scheme===sel.scheme.value)&&(!sel.cod.value||r.dataset.cod===sel.cod.value);
+      r.hidden=!ok; if(ok)shown.push(r);
     }});
-    cnt.textContent=shown+' of '+rows.length+' projects';
-    none.style.display=shown?'none':'block';
+    [].forEach.call(tbody.querySelectorAll('tr.pj-band'),function(b){{b.parentNode.removeChild(b);}});
+    shown.forEach(function(r,i){{
+      tbody.appendChild(r);
+      if((i+1)%BAND_EVERY===0&&i+1!==shown.length)tbody.appendChild(bandTpl.cloneNode(true));
+    }});
+    if(shown.length)tbody.appendChild(bandTpl.cloneNode(true));
+    cnt.textContent=shown.length+' of '+rows.length+' projects'+tail;
+    none.style.display=shown.length?'none':'block';
   }}
   Object.keys(sel).forEach(function(k){{sel[k].addEventListener('change',apply);}});
 }})();
