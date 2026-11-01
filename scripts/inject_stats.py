@@ -76,10 +76,47 @@ def is_new(p, today):
         return False
 
 
+DR2_REGISTER = "https://scix-dealroom2.pages.dev/register.html"
+BAND_EVERY = 10   # 一覧の何行ごとに DealRoom の帯を挟むか。projects.html の JS（BAND_EVERY）と同じ値にする
+
+
+def cod_bucket(p, today_ym):
+    """絞り込みの「連系」の区分。キー（live/thisfy/nextfy/later/lead/tbd）はトップやコラムのリンクと
+    GA4 のイベント値で使っているので変えない。年度は4月始まり。"""
+    if p.get("live"):
+        return "live"
+    ym = p.get("codYm")
+    if not (ym and ym >= today_ym):
+        return "lead" if p.get("leadMonths") else "tbd"
+    y, m = int(ym[:4]), int(ym[5:7])
+    fy = y if m >= 4 else y - 1
+    today_fy = int(today_ym[:4]) if int(today_ym[5:7]) >= 4 else int(today_ym[:4]) - 1
+    if fy <= today_fy:
+        return "thisfy"
+    return "nextfy" if fy == today_fy + 1 else "later"
+
+
+COD_LABELS = [("live", "連系済み"), ("thisfy", "今年度内"), ("nextfy", "来年度"),
+              ("later", "再来年度以降"), ("lead", "月数でご案内"), ("tbd", "確認中")]
+
+
+def _select(sid, label, options):
+    opts = "".join(f'<option value="{_esc(v)}">{_esc(t)}</option>' for v, t in options)
+    return (f'<label class="pj-f"><span>{label}</span><select id="{sid}">'
+            f'<option value="all">すべて</option>{opts}</select></label>')
+
+
+def band_row(cols):
+    return (f'<tr class="pj-band"><td colspan="{cols}"><span>価格・所在地・資料は DealRoom で見られます（無料登録・誓約書）</span>'
+            f'<a target="_top" rel="nofollow" href="{DR2_REGISTER}" class="pj-band-btn" '
+            f"onclick=\"window.gtag&&gtag('event','dr2_promo_click',{{target:'band'}})\">DealRoom に登録 →</a></td></tr>")
+
+
 def render_list(ps, generated_at):
-    """/projects 用の静的一覧。JSが動かない読み手（検索エンジンの一次クロール・AI検索）が
-    全件の中身を読めるようにする。JSが動けばカードUIに置き換わる。
-    載せるのは projects.json の公開項目だけ。並びはJSの既定と同じ「連系が早い順・確認中は最後」。"""
+    """/projects の一覧（絞り込み・表）。静的に焼くので、JS を実行しない読み手（検索エンジンの一次クロール・
+    AI検索）も全件の中身を読める。JS は絞り込みと並べ替えだけを受け持つ（行の見た目は変えない）。
+    載せるのは projects.json の公開項目だけ（価格・住所・売主は元から無い）。
+    並びの既定は「連系が早い順・確認中は最後」。右端の 🔒 の列は DealRoom（登録）への入口。"""
     import datetime
     today = datetime.date.today()
     today_ym = today.strftime("%Y-%m")
@@ -88,38 +125,51 @@ def render_list(ps, generated_at):
         num = int("".join(ch for ch in (p.get("id") or "") if ch.isdigit()) or 0)
         return (cod_sort_key(p, today_ym), -num)
 
-    from collections import Counter
-    volt = Counter(p.get("voltage") for p in ps if p.get("voltage"))
-    area = Counter(p.get("area") for p in ps if p.get("area"))
-    prefs = len({p.get("pref") for p in ps if p.get("pref")})
-    area_txt = "・".join(f"{a}{n}" for a, n in area.most_common())
     n_new = sum(1 for p in ps if is_new(p, today))
-    lines = [
-        f'<h2 class="pj-static-h">販売中の案件 {len(ps)}件（{_esc(generated_at)} 更新）</h2>',
-        f'<p class="pj-static-sum">高圧 {volt.get("高圧", 0)}件・特別高圧 {volt.get("特別高圧", 0)}件 ／ '
-        f'{prefs}都道府県 ／ 管内: {_esc(area_txt)}'
-        + (f' ／ この{NEW_DAYS}日の新着 {n_new}件' if n_new else '') + '</p>',
-        '<ul class="pj-static">',
-    ]
-    for p in sorted(ps, key=key):
+    uniq = lambda vals: [v for v in dict.fromkeys(vals) if v]
+    buckets = {cod_bucket(p, today_ym) for p in ps}
+    filters = (
+        '<div class="pj-filters">'
+        + _select("fArea", "管内", [(a, a) for a in uniq(p.get("area") for p in ps)])
+        + _select("fVoltage", "電圧", [(v, v) for v in uniq(p.get("voltage") for p in ps)])
+        + _select("fScheme", "取得の形", [(v, v) for v in uniq(p.get("scheme") for p in ps)])
+        + _select("fCod", "連系の見込み", [(k, t) for k, t in COD_LABELS if k in buckets])
+        + '<label class="pj-f"><span>並び順</span><select id="sortSel">'
+          '<option value="cod">連系が早い順</option><option value="mw">規模が大きい順</option>'
+          '<option value="new">新着順</option></select></label></div>')
+    count_line = (f'<div class="count-line" id="countLine">全 {len(ps)} 件'
+                  f'　｜　{_esc(generated_at)} 更新' + (f'　｜　この{NEW_DAYS}日の新着 {n_new} 件' if n_new else '') + '</div>')
+    head = ('<thead><tr><th>案件</th><th>所在地</th><th>電圧</th><th>規模</th><th>連系の見込み</th>'
+            '<th>進み具合</th><th>取得の形</th><th class="c-lock">🔒 価格・所在地・資料</th></tr></thead>')
+    rows = []
+    for i, p in enumerate(sorted(ps, key=key), 1):
         mw = p.get("mw"); mwh = p.get("mwh")
         size = (f"{mw:g}MW" if isinstance(mw, (int, float)) else "—") + \
                (f"／{mwh:g}MWh" if isinstance(mwh, (int, float)) else "")
-        cod = cod_text(p, today_ym)
-        parts = [
-            f"{_esc(p.get('pref') or '所在県 確認中')}（{_esc(p.get('area') or '—')}管内）",
-            _esc(p.get("voltage") or "—"), size,
-            _esc(cod if p.get("live") else "連系の見込み " + cod),
-        ]
-        if not p.get("live"):          # 連系済みは上の欄で言っているので、進み具合の「連系済」を重ねない
-            parts.append(_esc(p.get("status") or "—"))
-        parts.append(_esc(p.get("scheme") or "取得の形 確認中"))
-        if is_new(p, today):
-            parts.append(f"新着（{_esc(p['firstSeen'])} 掲載）")
         pid = _esc(p.get("id") or "")
-        lines.append(f'<li id="p-{pid}"><b>{pid}</b>　' + "｜".join(parts) + "</li>")
-    lines.append("</ul>")
-    return "\n".join(lines)
+        num = int("".join(ch for ch in (p.get("id") or "") if ch.isdigit()) or 0)
+        tag = f'<span class="tag-new">新着 {int(p["firstSeen"][5:7])}/{int(p["firstSeen"][8:10])}</span>' if is_new(p, today) else ""
+        attrs = (f'data-area="{_esc(p.get("area") or "")}" data-volt="{_esc(p.get("voltage") or "")}" '
+                 f'data-scheme="{_esc(p.get("scheme") or "")}" data-cod="{cod_bucket(p, today_ym)}" '
+                 f'data-codkey="{cod_sort_key(p, today_ym)}" data-mw="{mw if isinstance(mw, (int, float)) else 0}" '
+                 f'data-first="{_esc(p.get("firstSeen") or "")}" data-num="{num}"')
+        rows.append(
+            f'<tr class="pj-row" id="p-{pid}" {attrs}>'
+            f'<td class="c-id" data-l="案件"><label class="pick"><input type="checkbox" data-pick="{pid}" aria-label="{pid} を資料請求に加える"></label><b>{pid}</b>{tag}</td>'
+            f'<td data-l="所在地">{_esc(p.get("pref") or "所在県 確認中")}<small>（{_esc(p.get("area") or "—")}管内）</small></td>'
+            f'<td data-l="電圧">{_esc(p.get("voltage") or "—")}</td>'
+            f'<td data-l="規模">{_esc(size)}</td>'
+            f'<td data-l="連系の見込み">{_esc(cod_text(p, today_ym))}</td>'
+            f'<td data-l="進み具合">{_esc(p.get("status") or "—")}</td>'
+            f'<td data-l="取得の形">{_esc(p.get("scheme") or "確認中")}</td>'
+            f'<td class="c-lock" data-l="🔒 価格・所在地・資料"><a class="pj-lock" target="_top" rel="nofollow" href="{DR2_REGISTER}" '
+            f"onclick=\"window.gtag&&gtag('event','dr2_promo_click',{{target:'row'}})\">DealRoom で見る</a></td></tr>")
+        if i % BAND_EVERY == 0 and i != len(ps):
+            rows.append(band_row(8))
+    rows.append(band_row(8))
+    return (filters + "\n" + count_line + "\n"
+            '<table class="pj-table" id="pjTable">' + head + "<tbody>\n" + "\n".join(rows) + "\n</tbody></table>"
+            '<p class="state-msg" id="stateMsg" style="display:none">該当する案件はありません。絞り込みを変えてください。</p>')
 
 
 def render_new_line(ps):
@@ -147,6 +197,7 @@ def compute(projects_json):
         "prefs": str(len({p.get("pref") for p in ps if p.get("pref")})),
         "areas": str(len({p.get("area") for p in ps if p.get("area")})),
         "shv": str(sum(1 for p in ps if p.get("voltage") == "特別高圧")),
+        "hv": str(sum(1 for p in ps if p.get("voltage") == "高圧")),
         "maxmw": f"{round(max(mws)) if mws else 0:,}",
         "date": data.get("generatedAt", ""),
         "pjnew": render_new_line(ps),
