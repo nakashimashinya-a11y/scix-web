@@ -9,11 +9,15 @@
   ~/マイドライブ/9_システム/_作成物/<YYYYMM>_月報/系統用蓄電池の月報_<YYYY-MM>.md と .pdf
   図: ~/.openclaw/workspace/build/*月報*/<YYYYMM>/figs/f1.png〜（monthly_report_figs.py の出力）。
       無ければ PDF の各ページを画像にして載せる。
+英語版（2026-11-02〜）: 同じフォルダの 系統用蓄電池の月報_<YYYY-MM>_en.md と _en.pdf、図は build/*月報*/<YYYYMM>/figs_en/（bin/monthly_report.py build-en が作る）が
+  そろった月だけ en/report/<YYYY-MM>/index.html と en/report/index.html を焼く（図Nのファイルは f<N>.png。図の番号→ファイルは FIG_FILE）。
+  日本語のページとは hreflang で相互に結ぶ（sitemap.xml も）。
 生成するもの（全文を書き直す。手で直さない）:
   report/index.html                 月報の一覧（新しい月が上）
   report/<YYYY-MM>/index.html       各月のページ（今月の動き3つ・図・PDF・出典と試算の前提・引用の案内）
   report/<YYYY-MM>/f1.png …, scix-bess-monthly-<YYYY-MM>.pdf
-  sitemap.xml                       /report と各月の行（無ければ足す）
+  en/report/index.html, en/report/<YYYY-MM>/index.html, f1.png〜, scix-bess-monthly-<YYYY-MM>-en.pdf（英語版）
+  sitemap.xml                       /report と各月の行（無ければ足す。英語版があれば hreflang の相互の行も）
 
 置く前の検査（公開リポジトリ＝O16-19）: MD と PDF の文字に、住所・地番・案件ID・価格類（仕入値・売値・土地代）・
 売主・成約実績の語が1つでもあれば、何も書かずに終了コード 2 で止まる。図の PNG は文字を持たないので、
@@ -44,6 +48,11 @@ SRC = os.environ.get("SCIX_REPORT_SRC", os.path.join(HOME, "マイドライブ",
 FIGS = os.environ.get("SCIX_REPORT_FIGS", os.path.join(HOME, ".openclaw", "workspace", "build"))
 BASE = bmd.BASE
 DR2_REGISTER = "https://scix-dealroom2.pages.dev/register"
+DR2_REGISTER_EN = "https://scix-dealroom2.pages.dev/en/register"
+# 図N → 図のファイル（bin/monthly_report.py の FIG_FILE と同じ。月報の節の並び）
+FIG_FILE = {1: "f1", 2: "f2", 3: "f3", 4: "f9", 5: "f4", 6: "f5", 7: "f10", 8: "f6", 9: "f7", 10: "f8"}
+MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+EN_ORG = {"@type": "Organization", "@id": bmd.BASE + "/#organization", "name": "ScienceX", "legalName": "Science X Inc.", "url": bmd.BASE + "/en"}
 
 # 公開してはいけない語（O16-19・O16-7）。「円」「価格」は卸電気の価格や試算で正当に出るので語としては禁じない。
 FORBIDDEN = [
@@ -54,6 +63,12 @@ FORBIDDEN = [
     (r"成約|取扱高|取引実績|買取実績", "実績の語（O16-7）"),
     (r"[\w.+-]+@(?!scix\.co\.jp)[\w-]+\.[\w.]+", "scix 以外のメールアドレス"),
     (r"(?:https?://)?(?:\S*\.)?(?:drive|docs)\.google\.com\S*", "Drive のリンク"),
+]
+
+
+# 英語の月報の安全の検査（案件 ID・メール・Drive のリンクは日本語と同じ正規表現）。英語の語を足す。
+FORBIDDEN_EN = [f for f in FORBIDDEN if f[1] in ("案件ID", "scix 以外のメールアドレス", "Drive のリンク")] + [
+    (r"(?i)\b(?:sellers?|purchase price|acquisition price|land price|closed deals|track record)\b", "価格類・関係者・実績の英語の語（O16-19・O16-7）"),
 ]
 
 
@@ -70,7 +85,11 @@ def find_months():
         md = os.path.join(d, f"系統用蓄電池の月報_{key}.md")
         pdf = os.path.join(d, f"系統用蓄電池の月報_{key}.pdf")
         if os.path.isfile(md) and os.path.isfile(pdf):
-            out.append({"ym": ym, "key": key, "md": md, "pdf": pdf})
+            m = {"ym": ym, "key": key, "md": md, "pdf": pdf, "en_md": None, "en_pdf": None}
+            em, ep = os.path.join(d, f"系統用蓄電池の月報_{key}_en.md"), os.path.join(d, f"系統用蓄電池の月報_{key}_en.pdf")
+            if os.path.isfile(em) and os.path.isfile(ep) and fig_sources(m, "figs_en"):
+                m["en_md"], m["en_pdf"] = em, ep
+            out.append(m)
     return sorted(out, key=lambda m: m["key"], reverse=True)
 
 
@@ -81,24 +100,30 @@ def pdf_text(pdf):
         raise SystemExit(f"NG PDF の文字を取れない（pdftotext）: {pdf}: {e}")
 
 
-def safety_scan(m, md_text, pdf_txt):
+def safety_scan(m, md_text, pdf_txt, lang="ja"):
     hits = []
     for label, text in (("md", md_text), ("pdf", pdf_txt)):
-        for pat, why in FORBIDDEN:
+        for pat, why in (FORBIDDEN if lang == "ja" else FORBIDDEN_EN):
             for mt in re.finditer(pat, text):
-                hits.append(f"{m['key']} {label}: {why}: 「{mt.group(0)[:40]}」")
+                hits.append(f"{m['key']} {lang} {label}: {why}: 「{mt.group(0)[:40]}」")
     return hits
 
 
-def parse_md(text):
-    """MD を { title, issued, intro, sections:[{title, items:[(kind, text)]}], footer } にする。"""
-    text = text.replace("最終ページ", "末尾の「試算の前提と用語」")  # PDF では最終ページ・Web では末尾の節
+def parse_md(text, lang="ja"):
+    """MD を { title, issued, intro, sections:[{title, items:[(kind, text)]}], footer } にする。lang=en は英語版（Published … / (Figure N …)）。"""
+    if lang == "ja":
+        text = text.replace("最終ページ", "末尾の「試算の前提と用語」")  # PDF では最終ページ・Web では末尾の節
     lines = text.splitlines()
     title = next((l[2:].strip() for l in lines if l.startswith("# ")), "")
     issued = ""
-    mt = re.search(r"発行\s*(\d{4})年(\d{1,2})月(\d{1,2})日", text)
-    if mt:
-        issued = f"{mt.group(1)}-{int(mt.group(2)):02d}-{int(mt.group(3)):02d}"
+    if lang == "ja":
+        mt = re.search(r"発行\s*(\d{4})年(\d{1,2})月(\d{1,2})日", text)
+        if mt:
+            issued = f"{mt.group(1)}-{int(mt.group(2)):02d}-{int(mt.group(3)):02d}"
+    else:
+        mt = re.search(r"Published\s+([A-Z][a-z]+)\s+(\d{1,2}),\s+(\d{4})", text)
+        if mt and mt.group(1) in MONTHS_EN:
+            issued = f"{mt.group(3)}-{MONTHS_EN.index(mt.group(1)) + 1:02d}-{int(mt.group(2)):02d}"
     body = text.split("\n---\n")[0]
     footer = text.split("\n---\n")[1] if "\n---\n" in text else ""
     sections, cur, intro = [], None, []
@@ -106,7 +131,7 @@ def parse_md(text):
         s = l.strip()
         if not s or s.startswith("<!--") or s.startswith("# "):
             continue
-        if re.match(r"サイエンスエックス株式会社　発行", s):
+        if re.match(r"サイエンスエックス株式会社　発行", s) or re.match(r"Science X Inc\.\s+Published", s):
             continue
         if s.startswith("## "):
             cur = {"title": re.sub(r"^\d+\.\s*", "", s[3:].strip()), "num": (re.match(r"^## (\d+)\.", s) or [None, ""])[1], "items": []}
@@ -118,6 +143,8 @@ def parse_md(text):
                 cur["items"].append(("li", s[2:].strip()))
             elif re.match(r"^（図\d+", s):
                 cur["items"].append(("fig", s[1:-1] if s.endswith("）") else s[1:]))
+            elif re.match(r"^\(Figure \d+", s):
+                cur["items"].append(("fig", s[1:-1] if s.endswith(")") else s[1:]))
             else:
                 cur["items"].append(("p", s))
     nl = re.search(r"https://www\.linkedin\.com/newsletters/\d+/?", footer)
@@ -131,9 +158,9 @@ def jp_date(iso):
 
 
 # ---------------------------------------------------------------- 図
-def fig_sources(m):
-    """図 f1..fN の PNG パスの dict。無ければ空。"""
-    for d in glob.glob(os.path.join(FIGS, "*月報*", m["ym"], "figs")):
+def fig_sources(m, sub="figs"):
+    """図 f1..fN の PNG パスの dict。無ければ空。sub=figs_en は英語の図（ファイル番号で返す）。"""
+    for d in glob.glob(os.path.join(FIGS, "*月報*", m["ym"], sub)):
         got = {}
         for p in glob.glob(os.path.join(d, "f*.png")):
             mt = re.match(r"f(\d+)\.png$", os.path.basename(p))
@@ -142,6 +169,11 @@ def fig_sources(m):
         if got:
             return got
     return {}
+
+
+def en_fig_by_number(files):
+    """英語の図（ファイル番号 → パス）を、図の番号 → パスにする（図4 は f9.png など）。"""
+    return {n: files[k] for n, k in ((n, int(f[1:])) for n, f in FIG_FILE.items()) if k in files}
 
 
 def render_pdf_pages(pdf, tmp):
@@ -171,12 +203,36 @@ EXTRA_CSS = """
 SEC_MORE = {"1": "three"}
 
 
-def page_head(title, desc, path, jsonld):
+def page_head(title, desc, path, jsonld, en_path=None):
+    """日本語ページの head。英語版があれば hreflang="en" の行を足す（ほかは変えない）。"""
     h = bmd.head(title, desc, path, jsonld)
+    if en_path:
+        ja = f'<link rel="alternate" hreflang="ja" href="{BASE}{path}">'
+        assert ja in h
+        h = h.replace(ja, ja + f'\n<link rel="alternate" hreflang="en" href="{BASE}{en_path}">', 1)
     return h.replace("</style>", EXTRA_CSS + "</style>", 1)
 
 
-def render_section(sec, figs, month_key, used):
+def page_head_en(title, desc, path, jsonld, ja_path):
+    """英語ページの head（render_en_projects と同じ置き換え。日本語のページと hreflang で相互に結ぶ）。"""
+    url = BASE + path
+    h = (bmd.head(title, desc, path, jsonld)
+         .replace('<html lang="ja">', '<html lang="en">')
+         .replace(f'<link rel="alternate" hreflang="ja" href="{url}">',
+                  f'<link rel="alternate" hreflang="en" href="{url}">\n<link rel="alternate" hreflang="ja" href="{BASE}{ja_path}">')
+         .replace('content="ja_JP"', 'content="en_US"')
+         .replace(f"{BASE}/img/ogp-x.png", f"{BASE}/img/ogp-x-en.png"))
+    return h.replace("</style>", EXTRA_CSS + "</style>", 1)
+
+
+def en_date(iso):
+    y, m, d = iso.split("-")
+    return f"{MONTHS_EN[int(m) - 1]} {int(d)}, {y}"
+
+
+def render_section(sec, figs, month_key, used, lang="ja"):
+    src_pre = "出典:" if lang == "ja" else "Source"
+    base = "/report" if lang == "ja" else "/en/report"
     out = [f'<section class="md" id="s{sec["num"] or ""}"><div class="container rp-body">']
     if sec["num"]:
         out.append(f'<div class="section-label">{sec["num"].zfill(2)}</div>')
@@ -190,23 +246,23 @@ def render_section(sec, figs, month_key, used):
             out.append(f"<p>{esc(txt)}</p>")
             prev_fig = False
         elif kind == "li":
-            if txt.startswith("出典:") and prev_fig:
+            if txt.startswith(src_pre) and prev_fig:
                 out.append(f'<p class="md-note">{esc(txt)}</p>')
             else:
                 j = i
                 lis = []
-                while j < len(items) and items[j][0] == "li" and not (items[j][1].startswith("出典:") and prev_fig):
+                while j < len(items) and items[j][0] == "li" and not (items[j][1].startswith(src_pre) and prev_fig):
                     lis.append(items[j][1]); j += 1
                 cls = ' class="rp-three"' if first and lis else ""
                 out.append(f"<ul{cls}>" + "".join(f"<li>{esc(t)}</li>" for t in lis) + "</ul>")
                 i = j - 1
             prev_fig = False
         elif kind == "fig":
-            n = int(re.match(r"図(\d+)", txt).group(1))
+            n = int(re.match(r"(?:図|Figure )(\d+)", txt).group(1))
             src = figs.get(n)
             if src:
                 used.add(n)
-                out.append(f'<figure class="rp-fig"><img src="/report/{month_key}/f{n}.png" alt="{esc(txt)}" loading="lazy">'
+                out.append(f'<figure class="rp-fig"><img src="{base}/{month_key}/f{n}.png" alt="{esc(txt)}" loading="lazy">'
                            f"<figcaption>{esc(txt)}</figcaption></figure>")
             prev_fig = True
         i += 1
@@ -214,7 +270,7 @@ def render_section(sec, figs, month_key, used):
     return "\n".join(out)
 
 
-def render_month(m, doc, figs, page_imgs):
+def render_month(m, doc, figs, page_imgs, has_en=False):
     key = m["key"]
     y, mo = key.split("-")
     path = f"/report/{key}"
@@ -270,21 +326,108 @@ def render_month(m, doc, figs, page_imgs):
 </body>
 </html>
 """
-    return page_head(title, desc, path, jsonld) + body, desc
+    return page_head(title, desc, path, jsonld, f"/en/report/{key}" if has_en else None) + body, desc
+
+
+def render_month_en(m, doc, figs):
+    """英語の月報のページ（en/report/<YYYY-MM>/index.html）。図は図の番号 → パス。"""
+    key = m["key"]
+    path = f"/en/report/{key}"
+    title_h = doc["title"]
+    title = f"{title_h} | Prices, Balancing Market, Grid Connection | ScienceX"
+    s1 = next((s for s in doc["sections"] if s["num"] == "1"), None)
+    moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith("Source")]
+    desc = (f"{title_h}. " + (moves[0] if moves else doc["intro"]))[:160]
+    pdf_name = f"scix-bess-monthly-{key}-en.pdf"
+    jsonld = "\n".join([
+        bmd.ld({"@context": "https://schema.org", "@type": "Report", "@id": BASE + path + "#report", "url": BASE + path,
+                "name": title_h, "description": desc, "inLanguage": "en", "datePublished": doc["issued"],
+                "dateModified": doc["issued"], "author": EN_ORG, "publisher": EN_ORG,
+                "encoding": {"@type": "MediaObject", "contentUrl": f"{BASE}{path}/{pdf_name}", "encodingFormat": "application/pdf"}}),
+        bmd.ld(bmd.crumbs([("Home", BASE + "/en"), ("Reports", BASE + "/en/report"), (title_h, BASE + path)])),
+    ])
+    used = set()
+    secs = [render_section(s, figs, key, used, "en") for s in doc["sections"]]
+    nl = (f'<p>Each month\'s update also arrives in our LinkedIn newsletter, &ldquo;Japan grid-scale BESS: primary data&rdquo;. '
+          f'<a href="{esc(doc["newsletter"])}" rel="noopener" target="_blank">Subscribe to the newsletter &rarr;</a></p>') if doc["newsletter"] else ""
+    cite = f"""<section class="md"><div class="container rp-body">
+  <div class="cite"><div class="cite-h">Quoting and reuse</div>
+  Charts and figures may be reused as they are, with the source stated (<a href="/en/press">citation guide</a>).
+  The figures are tallies of published data and our own records, and the estimates are rough guides. They do not show or guarantee actual revenue. The assumptions are in section 11 above.</div>
+  {nl}
+</div></section>"""
+    cta = """<section class="cta"><div class="container">
+  <h2>Want the projects behind these numbers? Join DealRoom</h2>
+  <p>Register on our data room, DealRoom (free), to request project-level documents such as grid connection answers. The list of projects can be viewed without registering.</p>
+  <a class="btn-primary" href="%s" target="_top" rel="nofollow">Register on DealRoom &rarr;</a>
+  <a class="btn-secondary" href="/en/projects">See projects for sale</a>
+</div></section>
+""" % DR2_REGISTER_EN
+    body = f"""{bmd.nav_crumbs([("Home", "/en"), ("Reports", "/en/report"), (title_h, path)])}
+<section class="hero"><div class="container">
+  <span class="badge">Monthly &middot; Sources cited</span>
+  <div class="section-label">Monthly Report</div>
+  <h1>{esc(title_h)}</h1>
+  <p>{esc(doc["intro"])}</p>
+  <p class="md-note">Science X Inc. &middot; Published {en_date(doc["issued"])} &middot; A4, {page_count(m, True)} pages</p>
+  <div class="rp-btns"><a class="btn-primary" href="{path}/{pdf_name}" download="{pdf_name}">Download the PDF</a>
+  <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/report">All reports</a></div>
+</div></section>
+{chr(10).join(secs)}
+{cite}
+{cta}{bmd.EN_FOOTER}
+</body>
+</html>
+"""
+    return page_head_en(title, desc, path, jsonld, f"/report/{key}") + body, desc
 
 
 _PAGES = {}
 
 
-def page_count(m):
-    if m["key"] not in _PAGES:
-        out = subprocess.run(["pdfinfo", m["pdf"]], capture_output=True, text=True).stdout
+def page_count(m, en=False):
+    ck = (m["key"], en)
+    if ck not in _PAGES:
+        out = subprocess.run(["pdfinfo", m["en_pdf" if en else "pdf"]], capture_output=True, text=True).stdout
         mt = re.search(r"Pages:\s+(\d+)", out)
-        _PAGES[m["key"]] = int(mt.group(1)) if mt else 0
-    return _PAGES[m["key"]]
+        _PAGES[ck] = int(mt.group(1)) if mt else 0
+    return _PAGES[ck]
 
 
-def render_index(rows):
+def render_index_en(rows):
+    path = "/en/report"
+    title = "Reports | Grid-Scale Battery Storage Monthly Report (Prices, Balancing Market, Grid Connection) | ScienceX"
+    desc = "A monthly chart report on Japan's grid-scale battery storage, from published data (JEPX, EPRX) and ScienceX's own records. Published monthly, sources cited, PDF available."
+    jsonld = "\n".join([
+        bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
+                "name": title, "description": desc, "inLanguage": "en", "publisher": EN_ORG,
+                "mainEntity": {"@type": "ItemList", "itemListElement": [
+                    {"@type": "ListItem", "position": i + 1, "url": f"{BASE}/en/report/{r['key']}", "name": r["title_h"]}
+                    for i, r in enumerate(rows)]}}),
+        bmd.ld(bmd.crumbs([("Home", BASE + "/en"), ("Reports", BASE + path)])),
+    ])
+    li = "".join(
+        f'<li><a class="t" href="/en/report/{r["key"]}">{esc(r["title_h"])}</a>'
+        f'<div class="d">Published {en_date(r["issued"])} &middot; PDF available</div><p>{esc(r["lead"])}</p></li>' for r in rows)
+    body = f"""{bmd.nav_crumbs([("Home", "/en"), ("Reports", path)])}
+<section class="hero"><div class="container">
+  <span class="badge">Published monthly</span>
+  <div class="section-label">Report</div>
+  <h1>Grid-Scale Battery Storage Monthly Report</h1>
+  <p>Electricity prices change with the time of day, and grid-scale batteries earn from that difference. Each month we show the latest figures in charts, from published data (JEPX, EPRX) and our own records. Newest first. These reports are compiled automatically every month and are separate from our columns.</p>
+</div></section>
+<section class="md"><div class="container rp-body">
+  <ul class="rp-list">{li}</ul>
+  <p class="md-note" style="margin-top:16px">Charts and figures may be reused with the source stated (<a href="/en/press">citation guide</a>). For the projects we list, see <a href="/en/projects">Projects</a> (updated daily).</p>
+</div></section>
+{bmd.EN_FOOTER}
+</body>
+</html>
+"""
+    return page_head_en(title, desc, path, jsonld, "/report") + body
+
+
+def render_index(rows, has_en=False):
     path = "/report"
     title = "レポート｜系統用蓄電池の月報（卸電気の価格・調整力市場・接続検討・土地の相談）｜サイエンスエックス"
     desc = "公表データ（JEPX・EPRX）と当社の記録の集計から、系統用蓄電池の今月の動きを図でまとめた月報。毎月発行、出典つき、PDF あり。"
@@ -314,16 +457,36 @@ def render_index(rows):
 </body>
 </html>
 """
-    return page_head(title, desc, path, jsonld) + body
+    return page_head(title, desc, path, jsonld, "/en/report" if has_en else None) + body
 
 
 # ---------------------------------------------------------------- 書き出し
-def sitemap_add(text, rows):
-    def ent(path, lastmod, pr):
-        return (f'  <url><loc>{BASE}{path}</loc><xhtml:link rel="alternate" hreflang="ja" href="{BASE}{path}"/>'
-                f"<priority>{pr}</priority><lastmod>{lastmod}</lastmod></url>\n")
-    want = [("/report", rows[0]["issued"], "0.7")] + [(f"/report/{r['key']}", r["issued"], "0.6") for r in rows]
-    add = "".join(ent(p, d, pr) for p, d, pr in want if f"<loc>{BASE}{p}</loc>" not in text)
+def sitemap_add(text, rows, en_rows=()):
+    """/report と各月の行を足す。英語版（en_rows＝英語のページがある月）があれば hreflang の相互の行も（日本語の行は書き直す）。"""
+    en_keys = {r["key"] for r in en_rows}
+
+    def ent(path, lastmod, pr, en_path=None, lang="ja"):
+        other = ""
+        if en_path:
+            ja_p, en_p = (path, en_path) if lang == "ja" else (en_path, path)
+            self_en, self_ja = f'<xhtml:link rel="alternate" hreflang="en" href="{BASE}{en_p}"/>', f'<xhtml:link rel="alternate" hreflang="ja" href="{BASE}{ja_p}"/>'
+            links = (self_ja + self_en) if lang == "ja" else (self_en + self_ja)
+        else:
+            links = f'<xhtml:link rel="alternate" hreflang="ja" href="{BASE}{path}"/>'
+        return f"  <url><loc>{BASE}{path}</loc>{links}<priority>{pr}</priority><lastmod>{lastmod}</lastmod></url>\n"
+    want = [("/report", rows[0]["issued"], "0.7", "/en/report" if en_keys else None, "ja")] + [
+        (f"/report/{r['key']}", r["issued"], "0.6", f"/en/report/{r['key']}" if r["key"] in en_keys else None, "ja") for r in rows]
+    if en_keys:
+        want += [("/en/report", max(r["issued"] for r in en_rows), "0.6", "/report", "en")] + [
+            (f"/en/report/{r['key']}", r["issued"], "0.5", f"/report/{r['key']}", "en") for r in en_rows]
+    add = ""
+    for p, d, pr, enp, lang in want:
+        new = ent(p, d, pr, enp, lang)
+        pat = re.compile(r"  <url><loc>" + re.escape(BASE + p) + r"</loc>.*?</url>\n")
+        if pat.search(text):
+            text = pat.sub(lambda _m: new, text, count=1)   # 既にある行は同じ形に（日本語の行に hreflang="en" が足されるだけ）
+        else:
+            add += new
     if not add:
         return text
     return text.replace("</urlset>", add + "</urlset>", 1)
@@ -340,6 +503,10 @@ def main():
         md_text = open(m["md"], encoding="utf-8").read()
         hits += safety_scan(m, md_text, pdf_text(m["pdf"]))
         docs[m["key"]] = parse_md(md_text)
+        if m["en_md"]:
+            en_text = open(m["en_md"], encoding="utf-8").read()
+            hits += safety_scan(m, en_text, pdf_text(m["en_pdf"]), "en")
+            docs[m["key"] + ":en"] = parse_md(en_text, "en")
     if hits:
         print("NG 公開してはいけない語が月報の中にある。何も書かずに止める:")
         print("\n".join(hits))
@@ -354,7 +521,7 @@ def main():
                 print(f"NG {m['key']}: 発行日が MD に無い"); return 2
             figs = fig_sources(m)
             page_imgs = {} if figs else render_pdf_pages(m["pdf"], tmp)
-            html_, _ = render_month(m, doc, figs, page_imgs)
+            html_, _ = render_month(m, doc, figs, page_imgs, bool(m["en_md"]))
             d = f"report/{m['key']}"
             files[f"{d}/index.html"] = html_.encode("utf-8")
             files[f"{d}/scix-bess-monthly-{m['key']}.pdf"] = open(m["pdf"], "rb").read()
@@ -367,10 +534,29 @@ def main():
             y, mo = m["key"].split("-")
             rows.append({"key": m["key"], "issued": doc["issued"], "title_h": f"系統用蓄電池の月報 {y}年{int(mo)}月",
                          "lead": " ".join(moves[:2]) or doc["intro"]})
-        files["report/index.html"] = render_index(rows).encode("utf-8")
+        files["report/index.html"] = render_index(rows, any(m["en_md"] for m in months)).encode("utf-8")
+        en_rows = []
+        for m in months:
+            if not m["en_md"]:
+                continue
+            doc = docs[m["key"] + ":en"]
+            if not doc["issued"]:
+                print(f"NG {m['key']}: 英語版の発行日（Published …）が MD に無い"); return 2
+            figs = en_fig_by_number(fig_sources(m, "figs_en"))
+            html_, _ = render_month_en(m, doc, figs)
+            d = f"en/report/{m['key']}"
+            files[f"{d}/index.html"] = html_.encode("utf-8")
+            files[f"{d}/scix-bess-monthly-{m['key']}-en.pdf"] = open(m["en_pdf"], "rb").read()
+            for n, p in figs.items():
+                files[f"{d}/f{n}.png"] = open(p, "rb").read()
+            s1 = next((s for s in doc["sections"] if s["num"] == "1"), None)
+            moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith("Source")]
+            en_rows.append({"key": m["key"], "issued": doc["issued"], "title_h": doc["title"], "lead": " ".join(moves[:2]) or doc["intro"]})
+        if en_rows:
+            files["en/report/index.html"] = render_index_en(en_rows).encode("utf-8")
         sm_path = os.path.join(ROOT, "sitemap.xml")
         sm = open(sm_path, encoding="utf-8").read()
-        sm2 = sitemap_add(sm, rows)
+        sm2 = sitemap_add(sm, rows, en_rows)
         if sm2 != sm:
             files["sitemap.xml"] = sm2.encode("utf-8")
 
