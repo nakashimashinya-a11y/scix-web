@@ -78,6 +78,7 @@
     '/projects': { en: '/en/projects', zh: '/zh' },
     '/knowledge': { en: '/en/knowledge', zh: '/zh-knowledge' },
     '/qa': { en: '/en/qa', zh: '/zh-qa' },
+    '/faq': { en: '/en/faq', zh: '/zh' },
     '/glossary': { en: '/en/glossary', zh: '/zh-glossary' },
     '/contact': { en: '/en/contact', zh: '/zh-contact' },
     '/thanks': { en: '/en/thanks', zh: '/zh-thanks' },
