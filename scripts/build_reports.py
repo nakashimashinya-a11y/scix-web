@@ -519,7 +519,7 @@ def main():
             doc = docs[m["key"]]
             if not doc["issued"]:
                 print(f"NG {m['key']}: 発行日が MD に無い"); return 2
-            figs = fig_sources(m)
+            figs = en_fig_by_number(fig_sources(m))      # 図N → ファイル（図4 は f9.png など。日本語も同じ対応＝2026-11-02 まで図4〜10 が題と別の図だった）
             page_imgs = {} if figs else render_pdf_pages(m["pdf"], tmp)
             html_, _ = render_month(m, doc, figs, page_imgs, bool(m["en_md"]))
             d = f"report/{m['key']}"
