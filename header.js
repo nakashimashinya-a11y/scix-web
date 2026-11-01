@@ -385,6 +385,19 @@
   else if (TRILINGUAL[loc]) zhHref = TRILINGUAL[loc].zh;
   else zhHref = '/zh';
 
+  // Report pages (/report, /report/<month>, /en/report...): follow the page's own hreflang
+  // alternates, so JP and EN land on the matching month and never on a month that has no English page.
+  if (loc === '/report' || loc.indexOf('/report/') === 0) {
+    var altPath = function (lang) {
+      var l = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
+      if (!l) return '';
+      try { return new URL(l.href, window.location.href).pathname; } catch (e) { return ''; }
+    };
+    var altJa = altPath('ja'), altEn = altPath('en');
+    if (isEn && altJa) jpHref = altJa;
+    if (!isEn && altEn) enHref = altEn;
+  }
+
   var langSwitch = [
     '<div class="scix-lang" role="group" aria-label="' + (isEn ? 'Language' : (isZh ? '语言' : '言語')) + '">',
     '  <a href="' + jpHref + '" hreflang="ja" lang="ja"' + (isJa ? ' class="active" aria-current="true"' : '') + '>JP</a>',

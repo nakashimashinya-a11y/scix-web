@@ -71,12 +71,12 @@ fi
 # 月報（Drive の _作成物/<YYYYMM>_月報/）を /report に焼く。月報が出た月にだけ差分が出る（2026-11-01）。
 # 公開してはいけない語が月報にあれば build_reports.py が何も書かずに止まる（rc 2）。止まっても案件の同期は続ける。
 if [ "$DRY_RUN" != "1" ] && [ "$FAST_REMOVE" != "1" ] && [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] \
-   && git diff --quiet -- sitemap.xml report && git diff --cached --quiet && [ -z "$(git ls-files -o --exclude-standard report)" ]; then
+   && git diff --quiet -- sitemap.xml report en/report && git diff --cached --quiet && [ -z "$(git ls-files -o --exclude-standard report en/report)" ]; then
   python3 scripts/build_reports.py; RC=$?
   if [ "$RC" = "2" ]; then
     log "NG 月報に公開してはいけない語がある。/report は更新しない（月報を直すまで毎朝ここで止まる）"
-  elif [ "$RC" = "0" ] && { ! git diff --quiet -- sitemap.xml report || [ -n "$(git ls-files -o --exclude-standard report)" ]; }; then
-    git add report sitemap.xml \
+  elif [ "$RC" = "0" ] && { ! git diff --quiet -- sitemap.xml report en/report || [ -n "$(git ls-files -o --exclude-standard report en/report)" ]; }; then
+    git add report en/report sitemap.xml \
       && git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" \
            commit -q -m "chore(report): 月報を /report に反映（scripts/build_reports.py による自動発行）" \
       && git push -q origin main && log "OK 月報を /report に公開した" \
