@@ -334,10 +334,12 @@ def render_month_en(m, doc, figs):
     key = m["key"]
     path = f"/en/report/{key}"
     title_h = doc["title"]
-    title = f"{title_h} | Prices, Balancing Market, Grid Connection | ScienceX"
+    title = f"{title_h} | ScienceX"
     s1 = next((s for s in doc["sections"] if s["num"] == "1"), None)
     moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith("Source")]
-    desc = (f"{title_h}. " + (moves[0] if moves else doc["intro"]))[:160]
+    desc = f"{title_h}. " + (moves[0] if moves else doc["intro"])
+    if len(desc) > 155:  # 検索結果の description は155字まで。語の切れ目で切る
+        desc = desc[:154].rsplit(" ", 1)[0].rstrip(" ,;:.") + "…"
     pdf_name = f"scix-bess-monthly-{key}-en.pdf"
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "Report", "@id": BASE + path + "#report", "url": BASE + path,
@@ -396,8 +398,8 @@ def page_count(m, en=False):
 
 def render_index_en(rows):
     path = "/en/report"
-    title = "Reports | Grid-Scale Battery Storage Monthly Report (Prices, Balancing Market, Grid Connection) | ScienceX"
-    desc = "A monthly chart report on Japan's grid-scale battery storage, from published data (JEPX, EPRX) and ScienceX's own records. Published monthly, sources cited, PDF available."
+    title = "Reports | Grid-Scale Battery Monthly Report | ScienceX"
+    desc = "Monthly chart report on Japan's grid-scale battery storage, from published data (JEPX, EPRX) and ScienceX records. Sources cited, PDF available."
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
                 "name": title, "description": desc, "inLanguage": "en", "publisher": EN_ORG,

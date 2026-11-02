@@ -592,10 +592,9 @@ def render_en_projects(ps, today, generated):
         return (cod_sort_key(p, today_ym), -num)
 
     ps = sorted(ps, key=key)
-    title = "Japan Grid-Scale BESS Projects Listed by ScienceX | High-Voltage & Extra-High-Voltage"
-    desc = (f"{n} grid-scale battery storage (BESS) projects in Japan listed by ScienceX, about {mw:,} MW in total: "
-            "high-voltage (~2 MW) and extra-high-voltage, from development rights with grid connection answers to grid-connected assets. "
-            "Area, prefecture, voltage, size, status and expected COD. No prices shown. Updated daily.")
+    title = "Japan Grid-Scale BESS Projects Listed | ScienceX"
+    desc = (f"{n} grid-scale battery storage (BESS) projects in Japan, about {mw:,} MW. "
+            "Area, voltage, size, status, expected COD. No prices. Updated daily.")
     areas = [a for a in EN_AREA if any(p.get("area") == a for p in ps)]
     area_opts = "".join(f'<option value="{_esc(a)}">{EN_AREA[a]}</option>' for a in areas)
     volt_opts = "".join(f'<option value="{_esc(v)}">{EN_VOLT[v]}</option>' for v in EN_VOLT if volt.get(v))
@@ -734,6 +733,25 @@ def render_en_projects(ps, today, generated):
     return head_html + body
 
 
+def sync_area_sitemap(ps, today):
+    """noindex の管内ページ（件数が MIN_INDEX 未満）は sitemap から外し、索引に出す管内は載せる。"""
+    path = os.path.join(ROOT, "sitemap.xml")
+    lines = open(path, encoding="utf-8").read().split("\n")
+    for area, slug, _ in AREAS:
+        n = sum(1 for p in ps if p.get("area") == area)
+        loc = f"<loc>{BASE}/projects-{slug}</loc>"
+        idx = [i for i, l in enumerate(lines) if loc in l]
+        if n < MIN_INDEX:
+            for i in reversed(idx):
+                del lines[i]
+        elif not idx:
+            last = max(i for i, l in enumerate(lines) if f"<loc>{BASE}/projects-" in l)
+            u = f"{BASE}/projects-{slug}"
+            lines.insert(last + 1, f'  <url>{loc}<xhtml:link rel="alternate" hreflang="ja" href="{u}"/>'
+                                   f'<priority>0.7</priority><lastmod>{today.isoformat()}</lastmod></url>')
+    return "\n".join(lines)
+
+
 def main():
     check = "--check" in sys.argv
     with open(os.path.join(ROOT, "projects.json"), encoding="utf-8") as f:
@@ -745,6 +763,7 @@ def main():
     for area, slug, operator in AREAS:
         pages[f"projects-{slug}.html"] = render_area(ps, area, slug, operator, today, generated)
     pages["en/projects.html"] = render_en_projects(ps, today, generated)
+    pages["sitemap.xml"] = sync_area_sitemap(ps, today)
     changed = []
     for name, html in pages.items():
         path = os.path.join(ROOT, name)
