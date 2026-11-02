@@ -47,8 +47,8 @@ HOME = os.path.expanduser("~")
 SRC = os.environ.get("SCIX_REPORT_SRC", os.path.join(HOME, "マイドライブ", "9_システム", "_作成物"))
 FIGS = os.environ.get("SCIX_REPORT_FIGS", os.path.join(HOME, ".openclaw", "workspace", "build"))
 BASE = bmd.BASE
-DR2_REGISTER = "https://scix-dealroom2.pages.dev/register"
-DR2_REGISTER_EN = "https://scix-dealroom2.pages.dev/en/register"
+DR2_REGISTER = "https://dealroom.scix.co.jp/register"
+DR2_REGISTER_EN = "https://dealroom.scix.co.jp/en/register"
 # 図N → 図のファイル（bin/monthly_report.py の FIG_FILE と同じ。月報の節の並び）
 FIG_FILE = {1: "f1", 2: "f2", 3: "f3", 4: "f9", 5: "f4", 6: "f5", 7: "f10", 8: "f6", 9: "f7", 10: "f8"}
 MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
