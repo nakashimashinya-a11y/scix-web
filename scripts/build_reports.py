@@ -207,10 +207,11 @@ EXTRA_CSS = """
 .rp-btns{margin-top:18px}.rp-btns a{margin:4px 10px 4px 0}
 .rp-page{max-width:860px;display:flex;flex-direction:column;gap:14px}
 .rp-table{overflow-x:auto;margin:14px 0 6px;max-width:860px}
-.rp-table table{border-collapse:collapse;width:100%;font-size:.84rem;line-height:1.5}
-.rp-table th{background:var(--navy);color:#fff;font-weight:700;text-align:left;padding:7px 9px;vertical-align:bottom}
-.rp-table td{border-bottom:1px solid var(--border);padding:6px 9px;color:var(--text-2)}
-.rp-table td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rp-table table{border-collapse:collapse;width:max-content;min-width:100%;font-size:.84rem;line-height:1.5}
+.rp-table th{background:var(--navy);color:#fff;font-weight:700;text-align:left;padding:7px 9px;vertical-align:bottom;min-width:5.5em;max-width:13em}
+.rp-table td{border-bottom:1px solid var(--border);padding:6px 9px;color:var(--text-2);white-space:nowrap}
+.rp-table td.rp-n{text-align:right;font-variant-numeric:tabular-nums}
+.rp-answer{font-size:1.12rem;font-weight:700;color:var(--navy);line-height:1.8;border-left:4px solid var(--gold);padding:4px 0 4px 14px;margin:14px 0}
 .rp-table tbody tr:nth-child(even){background:var(--off-white)}
 """
 
@@ -220,6 +221,12 @@ MOVES_RE = re.compile(r"今月の動き|Three (?:trends|things|moves)", re.I)   
 
 def moves_sec(doc):
     return next((s for s in doc["sections"] if MOVES_RE.search(s["title"])), None)
+
+
+def answer_of(doc):
+    """冒頭の節（2MW・8MWh の蓄電所の管区別の収入の目安）の1文目。無ければ空。"""
+    h = next((s for s in doc["sections"] if s["num"] == "1"), None)
+    return next((t for k, t in (h["items"] if h else []) if k == "p"), "")
 
 
 def page_head(title, desc, path, jsonld, en_path=None):
@@ -280,7 +287,7 @@ def render_section(sec, figs, month_key, used, lang="ja"):
             head, *body_rows = txt
             num = re.compile(r"^[-−—\d,.%]+$")
             out.append('<div class="rp-table"><table><thead><tr>' + "".join(f"<th>{esc(c)}</th>" for c in head) + "</tr></thead><tbody>"
-                       + "".join("<tr>" + "".join(f'<td{" class=n" if j and num.match(c) else ""}>{esc(c)}</td>' for j, c in enumerate(r)) + "</tr>" for r in body_rows)
+                       + "".join("<tr>" + "".join(f'<td{" class=rp-n" if j and num.match(c) else ""}>{esc(c)}</td>' for j, c in enumerate(r)) + "</tr>" for r in body_rows)
                        + "</tbody></table></div>")
             prev_fig = False
         elif kind == "fig":
@@ -340,6 +347,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False):
   <span class="badge">毎月発行・出典つき</span>
   <div class="section-label">Monthly Report</div>
   <h1>{esc(title_h)}</h1>
+  {f'<p class="rp-answer"><a href="#s1" style="color:inherit;text-decoration:none">{esc(answer_of(doc))}</a></p>' if answer_of(doc) else ""}
   <p>{esc(doc["intro"])}</p>
   <p class="md-note">サイエンスエックス株式会社　発行 {jp_date(doc["issued"])}　A4・全{page_count(m)}ページ</p>
   <div class="rp-btns"><a class="btn-primary" href="{path}/{pdf_name}" download="系統用蓄電池の月報_{key}.pdf">PDF をダウンロード</a>
@@ -396,6 +404,7 @@ def render_month_en(m, doc, figs):
   <span class="badge">Monthly &middot; Sources cited</span>
   <div class="section-label">Monthly Report</div>
   <h1>{esc(title_h)}</h1>
+  {f'<p class="rp-answer"><a href="#s1" style="color:inherit;text-decoration:none">{esc(answer_of(doc))}</a></p>' if answer_of(doc) else ""}
   <p>{esc(doc["intro"])}</p>
   <p class="md-note">Science X Inc. &middot; Published {en_date(doc["issued"])} &middot; A4, {page_count(m, True)} pages</p>
   <div class="rp-btns"><a class="btn-primary" href="{path}/{pdf_name}" download="{pdf_name}">Download the PDF</a>
@@ -512,8 +521,7 @@ def home_card(m, doc, figs, lang="ja"):
     src = "出典:" if lang == "ja" else "Source"
     moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith(src)][:3]
     fig1 = next((t for s in doc["sections"] for k, t in s["items"] if k == "fig" and re.match(r"(?:図|Figure )1\b", t)), "")
-    h = next((s for s in doc["sections"] if s["num"] == "1"), None)
-    answer = next((t for k, t in (h["items"] if h else []) if k == "p"), "")     # 冒頭の節の1文目＝「10月の収入の目安は、多い順に…」
+    answer = answer_of(doc)     # 冒頭の節の1文目＝「10月の収入の目安は、多い順に…」
     if lang == "ja":
         base, pdf = f"/report/{key}", f"/report/{key}/scix-bess-monthly-{key}.pdf"
         title = f"系統用蓄電池の月報 {y}年{int(mo)}月号"
