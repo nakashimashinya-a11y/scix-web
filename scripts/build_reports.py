@@ -50,7 +50,7 @@ BASE = bmd.BASE
 DR2_REGISTER = "https://dealroom.scix.co.jp/register"
 DR2_REGISTER_EN = "https://dealroom.scix.co.jp/en/register"
 # 図N → 図のファイル（bin/monthly_report.py の FIG_FILE と同じ。月報の節の並び）
-FIG_FILE = {1: "f1", 2: "f2", 3: "f3", 4: "f9", 5: "f4", 6: "f5", 7: "f10", 8: "f6", 9: "f7"}   # 用地の県別（旧 図10＝f8）は 2026-11-03 に外した
+FIG_FILE = {1: "f11", 2: "f1", 3: "f2", 4: "f3", 5: "f9", 6: "f4", 7: "f5", 8: "f10", 9: "f6", 10: "f7"}   # 用地の県別（旧 図10＝f8）は外した・図1は管区別の収入の目安（f11）＝2026-11-03
 MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 EN_ORG = {"@type": "Organization", "@id": bmd.BASE + "/#organization", "name": "ScienceX", "legalName": "Science X Inc.", "url": bmd.BASE + "/en"}
 
@@ -139,7 +139,15 @@ def parse_md(text, lang="ja"):
         elif cur is None:
             intro.append(s)
         else:
-            if s.startswith("- "):
+            if s.startswith("|"):                       # 表（2026-11-03〜 5節の積み上げ・10節の市場の数字）
+                cells = [c.strip() for c in s.strip("|").split("|")]
+                if set("".join(cells)) <= set("-: "):
+                    continue
+                if cur["items"] and cur["items"][-1][0] == "table":
+                    cur["items"][-1][1].append(cells)
+                else:
+                    cur["items"].append(("table", [cells]))
+            elif s.startswith("- "):
                 cur["items"].append(("li", s[2:].strip()))
             elif re.match(r"^（図\d+", s):
                 cur["items"].append(("fig", s[1:-1] if s.endswith("）") else s[1:]))
@@ -198,9 +206,20 @@ EXTRA_CSS = """
 .rp-three li{margin:10px 0;line-height:1.9}
 .rp-btns{margin-top:18px}.rp-btns a{margin:4px 10px 4px 0}
 .rp-page{max-width:860px;display:flex;flex-direction:column;gap:14px}
+.rp-table{overflow-x:auto;margin:14px 0 6px;max-width:860px}
+.rp-table table{border-collapse:collapse;width:100%;font-size:.84rem;line-height:1.5}
+.rp-table th{background:var(--navy);color:#fff;font-weight:700;text-align:left;padding:7px 9px;vertical-align:bottom}
+.rp-table td{border-bottom:1px solid var(--border);padding:6px 9px;color:var(--text-2)}
+.rp-table td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rp-table tbody tr:nth-child(even){background:var(--off-white)}
 """
 
 SEC_MORE = {"1": "three"}
+MOVES_RE = re.compile(r"今月の動き|Three (?:trends|things|moves)", re.I)   # 「今月の動き3つ」の節（2026-11-03〜 2節。冒頭は管区別の収入の目安）
+
+
+def moves_sec(doc):
+    return next((s for s in doc["sections"] if MOVES_RE.search(s["title"])), None)
 
 
 def page_head(title, desc, path, jsonld, en_path=None):
@@ -238,7 +257,7 @@ def render_section(sec, figs, month_key, used, lang="ja"):
         out.append(f'<div class="section-label">{sec["num"].zfill(2)}</div>')
     out.append(f'<h2 class="md-h">{esc(sec["title"])}</h2>')
     items, i = sec["items"], 0
-    first = sec["num"] == "1"
+    first = bool(MOVES_RE.search(sec["title"]))
     prev_fig = False
     while i < len(items):
         kind, txt = items[i]
@@ -256,6 +275,13 @@ def render_section(sec, figs, month_key, used, lang="ja"):
                 cls = ' class="rp-three"' if first and lis else ""
                 out.append(f"<ul{cls}>" + "".join(f"<li>{esc(t)}</li>" for t in lis) + "</ul>")
                 i = j - 1
+            prev_fig = False
+        elif kind == "table":
+            head, *body_rows = txt
+            num = re.compile(r"^[-−—\d,.%]+$")
+            out.append('<div class="rp-table"><table><thead><tr>' + "".join(f"<th>{esc(c)}</th>" for c in head) + "</tr></thead><tbody>"
+                       + "".join("<tr>" + "".join(f'<td{" class=n" if j and num.match(c) else ""}>{esc(c)}</td>' for j, c in enumerate(r)) + "</tr>" for r in body_rows)
+                       + "</tbody></table></div>")
             prev_fig = False
         elif kind == "fig":
             n = int(re.match(r"(?:図|Figure )(\d+)", txt).group(1))
@@ -275,8 +301,8 @@ def render_month(m, doc, figs, page_imgs, has_en=False):
     y, mo = key.split("-")
     path = f"/report/{key}"
     title_h = f"系統用蓄電池の月報 {y}年{int(mo)}月"
-    title = f"{title_h}｜卸電気の価格・調整力市場・接続検討｜サイエンスエックス"
-    s1 = next((s for s in doc["sections"] if s["num"] == "1"), None)
+    title = f"{title_h}｜卸電気の価格・需給調整市場・容量市場・接続検討｜サイエンスエックス"
+    s1 = moves_sec(doc)
     moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith("出典:")]
     desc = (f"{title_h}。" + (moves[0] if moves else doc["intro"]))[:160]
     pdf_name = f"scix-bess-monthly-{key}.pdf"
@@ -335,7 +361,7 @@ def render_month_en(m, doc, figs):
     path = f"/en/report/{key}"
     title_h = doc["title"]
     title = f"{title_h} | ScienceX"
-    s1 = next((s for s in doc["sections"] if s["num"] == "1"), None)
+    s1 = moves_sec(doc)
     moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith("Source")]
     desc = f"{title_h}. " + (moves[0] if moves else doc["intro"])
     if len(desc) > 155:  # 検索結果の description は155字まで。語の切れ目で切る
@@ -431,8 +457,8 @@ def render_index_en(rows):
 
 def render_index(rows, has_en=False):
     path = "/report"
-    title = "レポート｜系統用蓄電池の月報（卸電気の価格・調整力市場・接続検討）｜サイエンスエックス"
-    desc = "公表データ（JEPX・EPRX）と当社の記録の集計から、系統用蓄電池の今月の動きを図でまとめた月報。毎月発行、出典つき、PDF あり。"
+    title = "レポート｜系統用蓄電池の月報（卸電気の価格・需給調整市場・容量市場・接続検討）｜サイエンスエックス"
+    desc = "公表データ（JEPX・EPRX・OCCTO）と当社の記録の集計から、系統用蓄電池の今月の動きを図と表でまとめた月報。卸電気の価格、需給調整市場の商品ごとの応札倍率・約定率、容量市場の約定価格、蓄電所1か所の収益の試算の積み上げ。毎月発行、出典つき、PDF あり。"
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
                 "name": title, "description": desc, "inLanguage": "ja", "publisher": bmd.ORG,
@@ -460,6 +486,73 @@ def render_index(rows, has_en=False):
 </html>
 """
     return page_head(title, desc, path, jsonld, "/en/report" if has_en else None) + body
+
+
+# ---------------------------------------------------------------- トップの「今月の月報」の札（2026-11-03 中島「この月報いいのに全然目立たない」）
+HOME_MARK = ("<!--R:latest-->", "<!--/R:latest-->")
+HOME_CSS = """<style>
+.rp-home{padding:56px 0;background:#fff;border-top:4px solid var(--gold);border-bottom:1px solid var(--border,#e5e5e5)}
+.rp-home-in{display:grid;grid-template-columns:1.05fr 1fr;gap:36px;align-items:center}
+.rp-home ul{margin:14px 0 18px;padding-left:1.2em;line-height:1.85;color:var(--text-secondary,#555)}
+.rp-home ul li{margin:6px 0}
+.rp-home-lead{color:var(--text-secondary,#555);line-height:1.9;font-size:.92rem}
+.rp-home-answer{font-size:1.08rem;font-weight:700;color:var(--navy);line-height:1.8;margin:6px 0 10px}
+.rp-home-btns a{margin:4px 12px 4px 0;display:inline-block}
+.rp-home-fig{display:block;text-decoration:none;color:var(--text-secondary,#555);font-size:.84rem}
+.rp-home-fig img{display:block;width:100%;height:auto;border:1px solid var(--border,#e5e5e5);border-radius:8px;background:#fff;margin-bottom:6px}
+@media (max-width:860px){.rp-home-in{grid-template-columns:1fr;gap:22px}.rp-home{padding:40px 0}}
+</style>"""
+
+
+def home_card(m, doc, figs, lang="ja"):
+    """トップに置く最新の月報の札（今月の動き3つ・図5・読む／PDF）。月報が出るたびに書き換わる。"""
+    key = m["key"]
+    y, mo = key.split("-")
+    s1 = moves_sec(doc)
+    src = "出典:" if lang == "ja" else "Source"
+    moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith(src)][:3]
+    fig1 = next((t for s in doc["sections"] for k, t in s["items"] if k == "fig" and re.match(r"(?:図|Figure )1\b", t)), "")
+    h = next((s for s in doc["sections"] if s["num"] == "1"), None)
+    answer = next((t for k, t in (h["items"] if h else []) if k == "p"), "")     # 冒頭の節の1文目＝「10月の収入の目安は、多い順に…」
+    if lang == "ja":
+        base, pdf = f"/report/{key}", f"/report/{key}/scix-bess-monthly-{key}.pdf"
+        title = f"系統用蓄電池の月報 {y}年{int(mo)}月号"
+        lead = "2MW・8MWh の蓄電所1か所が先月いくら稼いだか（9管区・試算）を先頭に、卸電気の価格（JEPX）、需給調整市場の商品ごとの応札倍率・約定率・価格、容量市場の約定価格、接続検討の工期と負担金を、公表データと当社の記録から毎月まとめています。図と表は、出典を書けば資料にそのままお使いいただけます。"
+        btn, pdf_l, back = f"{int(mo)}月号を読む", "PDF をダウンロード", "バックナンバー"
+        back_href, label = "/report", "今月の月報"
+    else:
+        base, pdf = f"/en/report/{key}", f"/en/report/{key}/scix-bess-monthly-{key}-en.pdf"
+        title = doc["title"]
+        lead = "First, how much one 2 MW / 8 MWh battery site earned last month in each of the 9 grid areas (estimate). Then, every month, we compile Japan's wholesale power prices (JEPX), the balancing market by product (bid ratio, award rate, prices), capacity market clearing prices, and grid connection lead times and costs, from public data and our own records. Charts and tables may be reused with the source stated."
+        btn, pdf_l, back = "Read this issue", "Download PDF", "All issues"
+        back_href, label = "/en/report", "Monthly report"
+    fig = (f'<a class="rp-home-fig" href="{base}#s1"><img src="{base}/f1.png" alt="{esc(fig1)}" loading="lazy">{esc(fig1)}</a>'
+           if 1 in figs else "")
+    return (f"""{HOME_MARK[0]}
+{HOME_CSS}
+<section class="rp-home" id="monthly-report"><div class="container"><div class="rp-home-in">
+  <div>
+    <div class="section-label">{label}</div>
+    <h2 class="section-title" style="margin-bottom:10px"><a href="{base}" style="color:inherit;text-decoration:none">{esc(title)}</a></h2>
+    <p class="rp-home-answer">{esc(answer)}</p>
+    <p class="rp-home-lead">{esc(lead)}</p>
+    <ul>{"".join(f"<li>{esc(t)}</li>" for t in moves)}</ul>
+    <p class="rp-home-btns"><a class="btn-primary" href="{base}">{btn}</a><a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="{pdf}" download>{pdf_l}</a><a href="{back_href}" style="color:var(--navy);border-bottom:1px solid var(--gold);text-decoration:none">{back}</a></p>
+  </div>
+  {fig}
+</div></div></section>
+{HOME_MARK[1]}""")
+
+
+def put_home(rel, card):
+    """index.html の印の間を札に替えた中身を返す（印が無ければ None）。"""
+    p = os.path.join(ROOT, rel)
+    t = open(p, encoding="utf-8").read()
+    i, j = t.find(HOME_MARK[0]), t.find(HOME_MARK[1])
+    if i < 0 or j < i:
+        print(f"注意: {rel} に {HOME_MARK[0]} の印が無い（トップの札は書かない）")
+        return None
+    return t[:i] + card + t[j + len(HOME_MARK[1]):]
 
 
 # ---------------------------------------------------------------- 書き出し
@@ -531,12 +624,16 @@ def main():
                 files[f"{d}/f{n}.png"] = open(p, "rb").read()
             for n, p in page_imgs.items():
                 files[f"{d}/p{n}.png"] = open(p, "rb").read()
-            s1 = next((s for s in doc["sections"] if s["num"] == "1"), None)
+            s1 = moves_sec(doc)
             moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith("出典:")]
             y, mo = m["key"].split("-")
             rows.append({"key": m["key"], "issued": doc["issued"], "title_h": f"系統用蓄電池の月報 {y}年{int(mo)}月",
                          "lead": " ".join(moves[:2]) or doc["intro"]})
         files["report/index.html"] = render_index(rows, any(m["en_md"] for m in months)).encode("utf-8")
+        latest = months[-1]
+        home = put_home("index.html", home_card(latest, docs[latest["key"]], en_fig_by_number(fig_sources(latest))))
+        if home is not None:
+            files["index.html"] = home.encode("utf-8")
         en_rows = []
         for m in months:
             if not m["en_md"]:
@@ -551,11 +648,15 @@ def main():
             files[f"{d}/scix-bess-monthly-{m['key']}-en.pdf"] = open(m["en_pdf"], "rb").read()
             for n, p in figs.items():
                 files[f"{d}/f{n}.png"] = open(p, "rb").read()
-            s1 = next((s for s in doc["sections"] if s["num"] == "1"), None)
+            s1 = moves_sec(doc)
             moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith("Source")]
             en_rows.append({"key": m["key"], "issued": doc["issued"], "title_h": doc["title"], "lead": " ".join(moves[:2]) or doc["intro"]})
         if en_rows:
             files["en/report/index.html"] = render_index_en(en_rows).encode("utf-8")
+            le = [m for m in months if m["en_md"]][-1]
+            home = put_home("en/index.html", home_card(le, docs[le["key"] + ":en"], en_fig_by_number(fig_sources(le, "figs_en")), "en"))
+            if home is not None:
+                files["en/index.html"] = home.encode("utf-8")
         sm_path = os.path.join(ROOT, "sitemap.xml")
         sm = open(sm_path, encoding="utf-8").read()
         sm2 = sitemap_add(sm, rows, en_rows)
