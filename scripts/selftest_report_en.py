@@ -45,7 +45,7 @@ rows = [{"key": "2026-10", "issued": "2026-11-01"}]
 out = B.sitemap_add(sm, rows, rows)
 ok('hreflang="en" href="https://www.scix.co.jp/en/report/2026-10"' in out and out.count("<loc>https://www.scix.co.jp/report</loc>") == 1, "sitemap en")
 ok(B.sitemap_add(sm, rows) .count('hreflang="en"') == 0, "sitemap without en keeps ja only")
-fa = B.en_fig_by_number({12: "p12", 9: "p9", 13: "p13", 1: "p1"})   # 2026-11-03〜 図3＝f12（値差）・図5＝f9・図6＝f13（需給調整の推移）
-ok(fa.get(1) == "p1" and fa.get(3) == "p12" and fa.get(5) == "p9" and fa.get(6) == "p13" and 2 not in fa, fa)
+fa = B.en_fig_by_number({9: "p9", 12: "p12", 16: "p16", 1: "p1"})   # 2026-11-03〜 図1＝f9（3つの稼ぎ口）・図2＝f1・図4＝f12（値差）・図7＝f16（一次の席の取り合い）
+ok(fa.get(1) == "p9" and fa.get(2) == "p1" and fa.get(4) == "p12" and fa.get(7) == "p16" and 3 not in fa, fa)
 print("\n".join("NG " + str(f) for f in fails) if fails else "OK report_en")
 sys.exit(1 if fails else 0)
