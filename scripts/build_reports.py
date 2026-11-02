@@ -50,7 +50,7 @@ BASE = bmd.BASE
 DR2_REGISTER = "https://dealroom.scix.co.jp/register"
 DR2_REGISTER_EN = "https://dealroom.scix.co.jp/en/register"
 # 図N → 図のファイル（bin/monthly_report.py の FIG_FILE と同じ。月報の節の並び）
-FIG_FILE = {1: "f1", 2: "f2", 3: "f3", 4: "f9", 5: "f4", 6: "f5", 7: "f10", 8: "f6", 9: "f7", 10: "f8"}
+FIG_FILE = {1: "f1", 2: "f2", 3: "f3", 4: "f9", 5: "f4", 6: "f5", 7: "f10", 8: "f6", 9: "f7"}   # 用地の県別（旧 図10＝f8）は 2026-11-03 に外した
 MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 EN_ORG = {"@type": "Organization", "@id": bmd.BASE + "/#organization", "name": "ScienceX", "legalName": "Science X Inc.", "url": bmd.BASE + "/en"}
 
@@ -275,7 +275,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False):
     y, mo = key.split("-")
     path = f"/report/{key}"
     title_h = f"系統用蓄電池の月報 {y}年{int(mo)}月"
-    title = f"{title_h}｜卸電気の価格・調整力市場・接続検討・土地の相談｜サイエンスエックス"
+    title = f"{title_h}｜卸電気の価格・調整力市場・接続検討｜サイエンスエックス"
     s1 = next((s for s in doc["sections"] if s["num"] == "1"), None)
     moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith("出典:")]
     desc = (f"{title_h}。" + (moves[0] if moves else doc["intro"]))[:160]
@@ -431,7 +431,7 @@ def render_index_en(rows):
 
 def render_index(rows, has_en=False):
     path = "/report"
-    title = "レポート｜系統用蓄電池の月報（卸電気の価格・調整力市場・接続検討・土地の相談）｜サイエンスエックス"
+    title = "レポート｜系統用蓄電池の月報（卸電気の価格・調整力市場・接続検討）｜サイエンスエックス"
     desc = "公表データ（JEPX・EPRX）と当社の記録の集計から、系統用蓄電池の今月の動きを図でまとめた月報。毎月発行、出典つき、PDF あり。"
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
