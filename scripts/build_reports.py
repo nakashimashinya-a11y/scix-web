@@ -50,7 +50,7 @@ BASE = bmd.BASE
 DR2_REGISTER = "https://dealroom.scix.co.jp/register"
 DR2_REGISTER_EN = "https://dealroom.scix.co.jp/en/register"
 # 図N → 図のファイル（bin/monthly_report.py の FIG_FILE と同じ。月報の節の並び）
-FIG_FILE = {1: "f11", 2: "f1", 3: "f2", 4: "f3", 5: "f9", 6: "f4", 7: "f5", 8: "f10", 9: "f6", 10: "f7"}   # 用地の県別（旧 図10＝f8）は外した・図1は管区別の収入の目安（f11）＝2026-11-03
+FIG_FILE = {1: "f1", 2: "f2", 3: "f12", 4: "f3", 5: "f9", 6: "f13", 7: "f14", 8: "f5", 9: "f10", 10: "f6", 11: "f7"}   # 2026-11-03〜 試算（f4・f11）と用地の県別（f8）は外した・図3は値差（f12）・図6〜7は需給調整の商品ごと（f13・f14）
 MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 EN_ORG = {"@type": "Organization", "@id": bmd.BASE + "/#organization", "name": "ScienceX", "legalName": "Science X Inc.", "url": bmd.BASE + "/en"}
 
@@ -112,7 +112,7 @@ def safety_scan(m, md_text, pdf_txt, lang="ja"):
 def parse_md(text, lang="ja"):
     """MD を { title, issued, intro, sections:[{title, items:[(kind, text)]}], footer } にする。lang=en は英語版（Published … / (Figure N …)）。"""
     if lang == "ja":
-        text = text.replace("最終ページ", "末尾の「試算の前提と用語」")  # PDF では最終ページ・Web では末尾の節
+        text = text.replace("最終ページ", "末尾の「前提と用語」")  # PDF では最終ページ・Web では末尾の節
     lines = text.splitlines()
     title = next((l[2:].strip() for l in lines if l.startswith("# ")), "")
     issued = ""
@@ -211,22 +211,15 @@ EXTRA_CSS = """
 .rp-table th{background:var(--navy);color:#fff;font-weight:700;text-align:left;padding:7px 9px;vertical-align:bottom;min-width:5.5em;max-width:13em}
 .rp-table td{border-bottom:1px solid var(--border);padding:6px 9px;color:var(--text-2);white-space:nowrap}
 .rp-table td.rp-n{text-align:right;font-variant-numeric:tabular-nums}
-.rp-answer{font-size:1.12rem;font-weight:700;color:var(--navy);line-height:1.8;border-left:4px solid var(--gold);padding:4px 0 4px 14px;margin:14px 0}
 .rp-table tbody tr:nth-child(even){background:var(--off-white)}
 """
 
 SEC_MORE = {"1": "three"}
-MOVES_RE = re.compile(r"今月の動き|Three (?:trends|things|moves)", re.I)   # 「今月の動き3つ」の節（2026-11-03〜 2節。冒頭は管区別の収入の目安）
+MOVES_RE = re.compile(r"今月の動き|Three (?:trends|things|moves)", re.I)   # 「今月の動き3つ」の節
 
 
 def moves_sec(doc):
     return next((s for s in doc["sections"] if MOVES_RE.search(s["title"])), None)
-
-
-def answer_of(doc):
-    """冒頭の節（2MW・8MWh の蓄電所の管区別の収入の目安）の1文目。無ければ空。"""
-    h = next((s for s in doc["sections"] if s["num"] == "1"), None)
-    return next((t for k, t in (h["items"] if h else []) if k == "p"), "")
 
 
 def page_head(title, desc, path, jsonld, en_path=None):
@@ -332,7 +325,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False):
     cite = f"""<section class="md"><div class="container rp-body">
   <div class="cite"><div class="cite-h">引用・転載について</div>
   図表や数値は、出典を明記すればそのままお使いいただけます（<a href="/press">引用・転載ガイド</a>）。
-  数字は公表データと当社の記録の集計で、試算は目安です。実際の収益を示すものでも、保証するものでもありません。前提は上の「試算の前提と用語」に書きました。</div>
+  数字は公表データと当社の記録の集計です。値差は1kWh あたりの価格の差で、実際の収益を示すものではありません。集計のしかたは上の「前提と用語」に書きました。</div>
   {nl}
 </div></section>"""
     cta = """<section class="cta"><div class="container">
@@ -347,7 +340,6 @@ def render_month(m, doc, figs, page_imgs, has_en=False):
   <span class="badge">毎月発行・出典つき</span>
   <div class="section-label">Monthly Report</div>
   <h1>{esc(title_h)}</h1>
-  {f'<p class="rp-answer"><a href="#s1" style="color:inherit;text-decoration:none">{esc(answer_of(doc))}</a></p>' if answer_of(doc) else ""}
   <p>{esc(doc["intro"])}</p>
   <p class="md-note">サイエンスエックス株式会社　発行 {jp_date(doc["issued"])}　A4・全{page_count(m)}ページ</p>
   <div class="rp-btns"><a class="btn-primary" href="{path}/{pdf_name}" download="系統用蓄電池の月報_{key}.pdf">PDF をダウンロード</a>
@@ -389,7 +381,7 @@ def render_month_en(m, doc, figs):
     cite = f"""<section class="md"><div class="container rp-body">
   <div class="cite"><div class="cite-h">Quoting and reuse</div>
   Charts and figures may be reused as they are, with the source stated (<a href="/en/press">citation guide</a>).
-  The figures are tallies of published data and our own records, and the estimates are rough guides. They do not show or guarantee actual revenue. The assumptions are in section 11 above.</div>
+  The figures are tallies of published data and our own records. The price spread is a difference in price per kWh and does not show actual revenue. How we compiled them is in the last section, "Assumptions and terms".</div>
   {nl}
 </div></section>"""
     cta = """<section class="cta"><div class="container">
@@ -404,7 +396,6 @@ def render_month_en(m, doc, figs):
   <span class="badge">Monthly &middot; Sources cited</span>
   <div class="section-label">Monthly Report</div>
   <h1>{esc(title_h)}</h1>
-  {f'<p class="rp-answer"><a href="#s1" style="color:inherit;text-decoration:none">{esc(answer_of(doc))}</a></p>' if answer_of(doc) else ""}
   <p>{esc(doc["intro"])}</p>
   <p class="md-note">Science X Inc. &middot; Published {en_date(doc["issued"])} &middot; A4, {page_count(m, True)} pages</p>
   <div class="rp-btns"><a class="btn-primary" href="{path}/{pdf_name}" download="{pdf_name}">Download the PDF</a>
@@ -466,8 +457,8 @@ def render_index_en(rows):
 
 def render_index(rows, has_en=False):
     path = "/report"
-    title = "レポート｜系統用蓄電池の月報（卸電気の価格・需給調整市場・容量市場・接続検討）｜サイエンスエックス"
-    desc = "公表データ（JEPX・EPRX・OCCTO）と当社の記録の集計から、系統用蓄電池の今月の動きを図と表でまとめた月報。卸電気の価格、需給調整市場の商品ごとの応札倍率・約定率、容量市場の約定価格、蓄電所1か所の収益の試算の積み上げ。毎月発行、出典つき、PDF あり。"
+    title = "レポート｜系統用蓄電池の月報（卸電気の価格と値差・需給調整市場・容量市場・接続検討）｜サイエンスエックス"
+    desc = "公表データ（JEPX・EPRX・OCCTO）と当社の記録の集計から、系統用蓄電池の今月の動きを図と表でまとめた月報。卸電気の価格と1kWh あたりの値差、需給調整市場の商品ごとの値段・応札倍率・約定率・蓄電池の使われ方、容量市場の約定価格。毎月発行、出典つき、PDF あり。"
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
                 "name": title, "description": desc, "inLanguage": "ja", "publisher": bmd.ORG,
@@ -505,7 +496,6 @@ HOME_CSS = """<style>
 .rp-home ul{margin:14px 0 18px;padding-left:1.2em;line-height:1.85;color:var(--text-secondary,#555)}
 .rp-home ul li{margin:6px 0}
 .rp-home-lead{color:var(--text-secondary,#555);line-height:1.9;font-size:.92rem}
-.rp-home-answer{font-size:1.08rem;font-weight:700;color:var(--navy);line-height:1.8;margin:6px 0 10px}
 .rp-home-btns a{margin:4px 12px 4px 0;display:inline-block}
 .rp-home-fig{display:block;text-decoration:none;color:var(--text-secondary,#555);font-size:.84rem}
 .rp-home-fig img{display:block;width:100%;height:auto;border:1px solid var(--border,#e5e5e5);border-radius:8px;background:#fff;margin-bottom:6px}
@@ -520,29 +510,28 @@ def home_card(m, doc, figs, lang="ja"):
     s1 = moves_sec(doc)
     src = "出典:" if lang == "ja" else "Source"
     moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith(src)][:3]
-    fig1 = next((t for s in doc["sections"] for k, t in s["items"] if k == "fig" and re.match(r"(?:図|Figure )1\b", t)), "")
-    answer = answer_of(doc)     # 冒頭の節の1文目＝「10月の収入の目安は、多い順に…」
+    fig3 = next((t for s in doc["sections"] for k, t in s["items"] if k == "fig" and re.match(r"(?:図|Figure )3\b", t)), "")
+    sec3 = next((s for s in doc["sections"] if s["num"] == "3"), None)
     if lang == "ja":
         base, pdf = f"/report/{key}", f"/report/{key}/scix-bess-monthly-{key}.pdf"
         title = f"系統用蓄電池の月報 {y}年{int(mo)}月号"
-        lead = "2MW・8MWh の蓄電所1か所が先月いくら稼いだか（9管区・試算）を先頭に、卸電気の価格（JEPX）、需給調整市場の商品ごとの応札倍率・約定率・価格、容量市場の約定価格、接続検討の工期と負担金を、公表データと当社の記録から毎月まとめています。図と表は、出典を書けば資料にそのままお使いいただけます。"
+        lead = "卸電気（JEPX）の価格と1kWh あたりの値差、需給調整市場の商品ごとの値段・応札倍率・約定率と蓄電池の使われ方、容量市場の約定価格、接続検討の工期と負担金を、公表データと当社の記録から毎月まとめています。図と表は、出典を書けば資料にそのままお使いいただけます。"
         btn, pdf_l, back = f"{int(mo)}月号を読む", "PDF をダウンロード", "バックナンバー"
         back_href, label = "/report", "今月の月報"
     else:
         base, pdf = f"/en/report/{key}", f"/en/report/{key}/scix-bess-monthly-{key}-en.pdf"
         title = doc["title"]
-        lead = "First, how much one 2 MW / 8 MWh battery site earned last month in each of the 9 grid areas (estimate). Then, every month, we compile Japan's wholesale power prices (JEPX), the balancing market by product (bid ratio, award rate, prices), capacity market clearing prices, and grid connection lead times and costs, from public data and our own records. Charts and tables may be reused with the source stated."
+        lead = "Every month we compile Japan's wholesale power prices and the price spread per kWh (JEPX), the balancing market by product (prices, bid ratio, award rate, and how batteries are used), capacity market clearing prices, and grid connection lead times and costs, from public data and our own records. Charts and tables may be reused with the source stated."
         btn, pdf_l, back = "Read this issue", "Download PDF", "All issues"
         back_href, label = "/en/report", "Monthly report"
-    fig = (f'<a class="rp-home-fig" href="{base}#s1"><img src="{base}/f1.png" alt="{esc(fig1)}" loading="lazy">{esc(fig1)}</a>'
-           if 1 in figs else "")
+    fig = (f'<a class="rp-home-fig" href="{base}#s3"><img src="{base}/f3.png" alt="{esc(fig3)}" loading="lazy">{esc(fig3)}</a>'
+           if 3 in figs and sec3 else "")
     return (f"""{HOME_MARK[0]}
 {HOME_CSS}
 <section class="rp-home" id="monthly-report"><div class="container"><div class="rp-home-in">
   <div>
     <div class="section-label">{label}</div>
     <h2 class="section-title" style="margin-bottom:10px"><a href="{base}" style="color:inherit;text-decoration:none">{esc(title)}</a></h2>
-    <p class="rp-home-answer">{esc(answer)}</p>
     <p class="rp-home-lead">{esc(lead)}</p>
     <ul>{"".join(f"<li>{esc(t)}</li>" for t in moves)}</ul>
     <p class="rp-home-btns"><a class="btn-primary" href="{base}">{btn}</a><a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="{pdf}" download>{pdf_l}</a><a href="{back_href}" style="color:var(--navy);border-bottom:1px solid var(--gold);text-decoration:none">{back}</a></p>
