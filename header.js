@@ -168,6 +168,7 @@
     '.scix-nav-dd-menu a:hover{background:#F5F5F3;box-shadow:none}',
     '/* two-column menu (ナレッジ): テーマで読む | はじめての方 */',
     '.scix-nav-dd-menu.scix-dd-wide{min-width:560px;flex-direction:row;gap:12px;padding:10px 12px 12px}',
+    '.scix-nav-dd-menu.scix-dd-wide.scix-dd-3{min-width:720px;max-width:calc(100vw - 240px)}',
     '.scix-dd-col{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}',
     '.scix-dd-col+.scix-dd-col{border-left:1px solid #E6E6E6;padding-left:12px}',
     '.scix-dd-head{font-family:"Inter Tight","Noto Sans JP",sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.06em;color:#8E6C1F;padding:6px 12px 4px;white-space:nowrap}',
@@ -258,6 +259,7 @@
     '  .scix-header-nav .scix-lang a{font-size:.88rem;padding:7px 14px;border-bottom:none;border-radius:100px;}',
     '  .scix-header-nav .scix-lang a.active{background:#1F2A48;color:#fff}',
     '  .scix-nav-dd-menu.scix-dd-wide{min-width:0;flex-direction:column;gap:0;padding:2px 0}',
+    '  .scix-nav-dd-menu.scix-dd-wide.scix-dd-3{min-width:0;max-width:none}',
     '  .scix-dd-col+.scix-dd-col{border-left:none;padding-left:0;margin-top:2px}',
     '  .scix-dd-head{padding:10px 12px 2px 28px;font-size:.66rem}',
     '  .scix-header-burger{display:block}',
@@ -278,7 +280,7 @@
   //   買う (buy a project / how buying works / hold via the fund)
   //   売る (sell a project or its rights / ask for a valuation / introduce)
   //   土地だけの買取・賃借はしない（2026-10-18）ので、土地の入口は置かない。
-  //   ナレッジ (two columns: テーマで読む / はじめての方)
+  //   ナレッジ (three columns: テーマで読む / はじめての方 / データ＝月報・市場データ・2026-11-02)
   // EN & 简中 = single inbound funnel for foreign capital → Home / Knowledge / Contact only.
   // items: [[href, label], ...] for a plain list, or
   //        [{head: 'テーマで読む', items: [[href, label, cls?], ...]}, ...] for a
@@ -295,7 +297,7 @@
       '<button type="button" class="scix-nav-dd-toggle" aria-expanded="false" aria-controls="scix-dd-' + key + '">' +
         label + '<span class="scix-dd-caret" aria-hidden="true">▾</span>' +
       '</button>' +
-      '<div class="scix-nav-dd-menu' + (wide ? ' scix-dd-wide' : '') + '" id="scix-dd-' + key + '">';
+      '<div class="scix-nav-dd-menu' + (wide ? ' scix-dd-wide' : '') + (wide && items.length >= 3 ? ' scix-dd-3' : '') + '" id="scix-dd-' + key + '">';
     if (wide) {
       for (var c = 0; c < items.length; c++) {
         out += '<div class="scix-dd-col"><div class="scix-dd-head">' + items[c].head + '</div>';
@@ -310,7 +312,7 @@
 
   // Pages that light up each group (beyond the links listed inside it).
   var GROUP_PAGES = {
-    knowledge: ['/knowledge', '/qa', '/grid-storage'],
+    knowledge: ['/knowledge', '/qa', '/grid-storage', '/report', '/market-data'],
     buy:   ['/projects', '/transfer', '/fund', '/investors'],
     sell:  ['/sourcing', '/sell-form', '/partners']
   };
@@ -344,6 +346,11 @@
         ['/qa',              '入門Q&amp;A（24問）'],
         ['/column-somosomo', '蓄電池の、そもそも（連載20本）'],
         ['/grid-storage',    '蓄電池事業のしくみ']
+      ]},
+      // 2026-11-02 中島「月報はメニューからわからない」: 月報と市場データは本文の1文からしか辿れなかった
+      { head: 'データ', items: [
+        ['/report',      '系統用蓄電池の月報'],
+        ['/market-data', '売り案件の市場データ']
       ]}
     ]),
     ddGroup('buy', '買う', [
@@ -627,7 +634,7 @@
       var key = dd.getAttribute('data-group');
       var toggle = dd.querySelector('.scix-nav-dd-toggle');
       var pages = GROUP_PAGES[key] || [];
-      var holdsCurrent = pages.indexOf(loc) !== -1 || (key === 'knowledge' && isCol);
+      var holdsCurrent = pages.indexOf(loc) !== -1 || (key === 'knowledge' && (isCol || loc.indexOf('/report/') === 0));
       if (holdsCurrent) {
         toggle.classList.add('active');
         dd.classList.add('is-current');
