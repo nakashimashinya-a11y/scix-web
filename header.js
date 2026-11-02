@@ -328,6 +328,7 @@
     '<a href="/en/projects" data-page="/projects">Projects</a>',
     '<a href="/en/knowledge" data-page="/knowledge">Knowledge</a>',
     '<a href="/en/qa"        data-page="/qa">Q&amp;A</a>',
+    '<a href="/en/report"   data-page="/report">Monthly Report</a>',
     '<a href="/en/market-entry-guide" data-page="/market-entry-guide">Market Entry Guide</a>',
     '<a href="/en/contact" class="scix-cta">Contact</a>'
   ] : [
@@ -363,6 +364,8 @@
       ['/sell-form', '案件・権利の売却査定（無料）'],
       ['/partners',  '案件・投資家を紹介する']
     ]),
+    // 2026-11-03 中島「この月報いいのに全然目立たない」: ナレッジの奥（3列目）からしか行けなかったので1段目に出す
+    '<a href="/report"   data-page="/report">月報</a>',
     '<a href="/company"  data-page="/company">会社案内</a>',
     '<a href="/contact"  data-page="/contact">お問い合わせ</a>',
     '<a href="/projects" data-page="/projects" class="scix-cta">販売中の案件を見る</a>'
