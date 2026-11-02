@@ -76,7 +76,7 @@ def is_new(p, today):
         return False
 
 
-DR2_REGISTER = "https://scix-dealroom2.pages.dev/register.html"
+DR2_REGISTER = "https://dealroom.scix.co.jp/register.html"
 BAND_EVERY = 10   # 一覧の何行ごとに DealRoom の帯を挟むか。projects.html の JS（BAND_EVERY）と同じ値にする
 
 

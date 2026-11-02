@@ -601,7 +601,7 @@ def render_en_projects(ps, today, generated):
     scheme_opts = "".join(f'<option value="{_esc(k)}">{v}</option>' for k, v in EN_SCHEME.items() if any(p.get("scheme") == k for p in ps))
     buckets = {cod_bucket(p, today_ym) for p in ps}
     cod_opts = "".join(f'<option value="{k}">{v}</option>' for k, v in EN_COD_LABELS if k in buckets)
-    reg = "https://scix-dealroom2.pages.dev/en/register"
+    reg = "https://dealroom.scix.co.jp/en/register"
 
     def band():
         return ('<tr class="pj-band"><td colspan="9"><span>Prices, exact sites and documents are in DealRoom (free registration, NDA)</span>'
@@ -651,7 +651,7 @@ def render_en_projects(ps, today, generated):
   <p class="sub">Location is shown to prefecture level. Prices, sites and documents are in DealRoom (free registration, NDA).</p>
   <div class="hero-btns">
     <a class="hb hb-list" href="#list">View the list</a>
-    <a class="hb hb-dr" href="https://scix-dealroom2.pages.dev/en/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'hero_en'}})">Register on DealRoom</a>
+    <a class="hb hb-dr" href="https://dealroom.scix.co.jp/en/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'hero_en'}})">Register on DealRoom</a>
   </div>
 </div></section>
 
@@ -682,7 +682,7 @@ def render_en_projects(ps, today, generated):
       <li>Sign a confidentiality undertaking (NDA), in English or in Japanese, and email the signed PDF to us; there is no postal step.</li>
       <li>After our review, we enable your login and you can open the detailed information and documents for each project.</li>
     </ol>
-    <a class="btn-primary" href="https://scix-dealroom2.pages.dev/en/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'register_en'}})">Register on DealRoom &rarr;</a>
+    <a class="btn-primary" href="https://dealroom.scix.co.jp/en/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'register_en'}})">Register on DealRoom &rarr;</a>
     <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/contact?intent=dealroom" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'apply_en'}})">Or apply through our contact form</a>
     <p class="md-note" style="margin-top:12px">Undertaking (PDF, fillable): <a href="/files/scix-nda-pledge-en.pdf">English</a> / <a href="/files/scix-nda-pledge.pdf">Japanese</a>. Either version may be submitted.</p>
   </div>

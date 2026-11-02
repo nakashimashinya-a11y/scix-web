@@ -11,7 +11,7 @@ import glob
 import re
 import sys
 
-REG = "https://scix-dealroom2.pages.dev/register"
+REG = "https://dealroom.scix.co.jp/register"
 BEGIN = "<!-- scix-entrances:begin -->"
 END = "<!-- scix-entrances:end -->"
 DOORS = {
