@@ -674,17 +674,16 @@ def render_en_projects(ps, today, generated):
 
 <section class="md" id="dealroom"><div class="container">
   <div class="section-label">DealRoom</div>
-  <h2 class="md-h">Detailed materials are in DealRoom, after an NDA</h2>
+  <h2 class="md-h">Detailed materials are in DealRoom, after you agree to the undertaking</h2>
   <div class="pj-dr">
     <p class="md-lead" style="margin-bottom:6px">This list is an anonymous teaser. Site details, technical documents, grid-utility correspondence and the Q&amp;A for each project are shown in DealRoom, our members-only data room.</p>
     <ol>
-      <li>Register on DealRoom (free of charge).</li>
-      <li>Sign a confidentiality undertaking (NDA), in English or in Japanese, and email the signed PDF to us; there is no postal step.</li>
+      <li>Register on DealRoom (free of charge) and agree to the confidentiality undertaking on the registration page &mdash; no signed or sealed paper is needed.</li>
       <li>After our review, we enable your login and you can open the detailed information and documents for each project.</li>
     </ol>
     <a class="btn-primary" href="https://dealroom.scix.co.jp/en/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'register_en'}})">Register on DealRoom &rarr;</a>
     <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/contact?intent=dealroom" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'apply_en'}})">Or apply through our contact form</a>
-    <p class="md-note" style="margin-top:12px">Undertaking (PDF, fillable): <a href="/files/scix-nda-pledge-en.pdf">English</a> / <a href="/files/scix-nda-pledge.pdf">Japanese</a>. Either version may be submitted.</p>
+    <p class="md-note" style="margin-top:12px">If you prefer paper, the undertaking is also available as a PDF: <a href="/files/scix-nda-pledge-en.pdf">English</a> / <a href="/files/scix-nda-pledge.pdf">Japanese</a>.</p>
   </div>
 </div></section>
 
