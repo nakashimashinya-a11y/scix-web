@@ -135,12 +135,12 @@ case "$KIND" in
     [ "$FAST_REMOVE" = "1" ] && exit 0   # 速い回は外す物が無ければ黙って終わる
     # 中身は同じでも、月が替わると静的一覧の「◯年◯月ごろ」と件数の出し分けが変わる。ずれていたら焼き直して出す。
     if [ "$DRY_RUN" != "1" ] && [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] \
-       && git diff --quiet -- index.html projects.html sitemap.xml feed.xml projects-feed.xml market-data.html projects-tokyo.html projects-chubu.html projects-kyushu.html projects-kansai.html projects-chugoku.html projects-tohoku.html projects-hokkaido.html projects-hokuriku.html projects-shikoku.html en/projects.html && git diff --cached --quiet \
+       && git diff --quiet -- index.html projects.html sitemap.xml feed.xml projects-feed.xml smartnews.xml market-data.html projects-tokyo.html projects-chubu.html projects-kyushu.html projects-kansai.html projects-chugoku.html projects-tohoku.html projects-hokkaido.html projects-hokuriku.html projects-shikoku.html en/projects.html && git diff --cached --quiet \
        && { ! python3 scripts/inject_stats.py --check >/dev/null 2>&1 || ! python3 scripts/build_feed.py --check >/dev/null 2>&1 || ! python3 scripts/build_market_data.py --check >/dev/null 2>&1; }; then
       python3 scripts/inject_stats.py >/dev/null || fail "静的一覧の焼き直しに失敗"
       python3 scripts/build_feed.py >/dev/null || fail "フィードの焼き直しに失敗"
       python3 scripts/build_market_data.py >/dev/null || fail "市場データの焼き直しに失敗"
-      git add index.html projects.html feed.xml projects-feed.xml market-data.html projects-tokyo.html projects-chubu.html projects-kyushu.html projects-kansai.html projects-chugoku.html projects-tohoku.html projects-hokkaido.html projects-hokuriku.html projects-shikoku.html en/projects.html || fail "git add に失敗"
+      git add index.html projects.html feed.xml projects-feed.xml smartnews.xml market-data.html projects-tokyo.html projects-chubu.html projects-kyushu.html projects-kansai.html projects-chugoku.html projects-tohoku.html projects-hokkaido.html projects-hokuriku.html projects-shikoku.html en/projects.html || fail "git add に失敗"
       git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" \
           commit -q -m "chore(projects): 静的一覧を焼き直し（案件の中身は変化なし・日付の出し分けだけ）" || fail "commit に失敗"
       git push -q origin main || fail "push に失敗（commit は手元に残っている。次回の冒頭で出し直す）"
@@ -173,7 +173,7 @@ fi
 
 # 作業ツリーを汚さない。下で git add する3ファイルのどれかに未コミットの変更があれば、人の作業中とみなして見送る。
 # （projects.json だけを見ていた頃は、書きかけの index.html / projects.html が同期の commit に混ざって本番に出る穴があった）
-if ! git diff --quiet -- projects.json index.html projects.html sitemap.xml feed.xml projects-feed.xml market-data.html projects-tokyo.html projects-chubu.html projects-kyushu.html projects-kansai.html projects-chugoku.html projects-tohoku.html projects-hokkaido.html projects-hokuriku.html projects-shikoku.html en/projects.html || ! git diff --cached --quiet; then
+if ! git diff --quiet -- projects.json index.html projects.html sitemap.xml feed.xml projects-feed.xml smartnews.xml market-data.html projects-tokyo.html projects-chubu.html projects-kyushu.html projects-kansai.html projects-chugoku.html projects-tohoku.html projects-hokkaido.html projects-hokuriku.html projects-shikoku.html en/projects.html || ! git diff --cached --quiet; then
   rm -f "$TMP"; fail "projects.json / index.html / projects.html / sitemap.xml に未コミットの変更がある。人の作業中とみなして見送る。"
 fi
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
@@ -182,8 +182,8 @@ BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 # ここから先は作業ツリーに生成物を書く。途中で落ちたら必ず元に戻す（残骸が残ると、翌朝はそれと比べて
 # 「変化なし」と記録しながら本番は古いまま、になる）。commit まで行けば解除する。
 rollback_generated() {
-  git reset -q HEAD -- projects.json index.html projects.html sitemap.xml feed.xml projects-feed.xml market-data.html projects-tokyo.html projects-chubu.html projects-kyushu.html projects-kansai.html projects-chugoku.html projects-tohoku.html projects-hokkaido.html projects-hokuriku.html projects-shikoku.html en/projects.html >/dev/null 2>&1
-  git checkout -q -- projects.json index.html projects.html sitemap.xml feed.xml projects-feed.xml market-data.html projects-tokyo.html projects-chubu.html projects-kyushu.html projects-kansai.html projects-chugoku.html projects-tohoku.html projects-hokkaido.html projects-hokuriku.html projects-shikoku.html en/projects.html >/dev/null 2>&1
+  git reset -q HEAD -- projects.json index.html projects.html sitemap.xml feed.xml projects-feed.xml smartnews.xml market-data.html projects-tokyo.html projects-chubu.html projects-kyushu.html projects-kansai.html projects-chugoku.html projects-tohoku.html projects-hokkaido.html projects-hokuriku.html projects-shikoku.html en/projects.html >/dev/null 2>&1
+  git checkout -q -- projects.json index.html projects.html sitemap.xml feed.xml projects-feed.xml smartnews.xml market-data.html projects-tokyo.html projects-chubu.html projects-kyushu.html projects-kansai.html projects-chugoku.html projects-tohoku.html projects-hokkaido.html projects-hokuriku.html projects-shikoku.html en/projects.html >/dev/null 2>&1
 }
 trap 'rollback_generated; release_lock' EXIT
 cp "$TMP" projects.json && rm -f "$TMP"
@@ -202,7 +202,7 @@ for f in $MD_FILES; do git diff --quiet -- "$f" || STAMP="$STAMP $f"; done
 # shellcheck disable=SC2086
 [ -n "$STAMP" ] && { python3 scripts/seo/stamp_sitemap.py $STAMP >/dev/null 2>&1 || log "sitemap の lastmod 更新に失敗（続行）"; }
 # shellcheck disable=SC2086
-git add projects.json index.html projects.html sitemap.xml feed.xml projects-feed.xml $MD_FILES || fail "git add に失敗"
+git add projects.json index.html projects.html sitemap.xml feed.xml projects-feed.xml smartnews.xml $MD_FILES || fail "git add に失敗"
 git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" \
     commit -q -m "chore(projects): 公開案件一覧をDR2に同期（${OLD}→${NEW}件・${DELTA}）$([ "$FAST_REMOVE" = "1" ] && echo '・売却済み等を外す速い回')
 
