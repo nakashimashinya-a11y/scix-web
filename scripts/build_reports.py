@@ -51,7 +51,7 @@ BASE = bmd.BASE
 DR2_REGISTER = "https://dealroom.scix.co.jp/register"
 DR2_REGISTER_EN = "https://dealroom.scix.co.jp/en/register"
 # 図N → 図のファイル（bin/monthly_report.py の FIG_FILE と同じ。月報の節の並び）
-FIG_FILE = {1: "f9", 2: "f1", 3: "f2", 4: "f12", 5: "f3", 6: "f15", 7: "f16", 8: "f13", 9: "f14", 10: "f5", 11: "f17", 12: "f10", 13: "f6", 14: "f7"}   # bin/monthly_report.py の FIG_FILE と同じ（2026-11-03 の並び: 3つの稼ぎ口→①卸電気→②需給調整→③容量→当社の記録）
+FIG_FILE = {1: "f9", 2: "f1", 3: "f2", 4: "f12", 5: "f3", 6: "f15", 7: "f18", 8: "f16", 9: "f13", 10: "f14", 11: "f5", 12: "f17", 13: "f10", 14: "f6", 15: "f7"}   # bin/monthly_report.py の FIG_FILE と同じ（2026-11-03 の並び: 3つの稼ぎ口→①卸電気→②需給調整→③容量→当社の記録。2026-11-05 に図7＝管区ごとの約定率 f18 を足した）
 NAME, NAME_EN = "蓄電所の市場ノート", "Battery Storage Market Notes"
 HOME_FIG = "f16"          # トップの札に出す図（一次調整力の席の取り合い）
 MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
