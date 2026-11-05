@@ -51,7 +51,7 @@ BASE = bmd.BASE
 DR2_REGISTER = "https://dealroom.scix.co.jp/register"
 DR2_REGISTER_EN = "https://dealroom.scix.co.jp/en/register"
 # 図N → 図のファイル（bin/monthly_report.py の FIG_FILE と同じ。月報の節の並び）
-FIG_FILE = {1: "f9", 2: "f1", 3: "f2", 4: "f12", 5: "f3", 6: "f15", 7: "f18", 8: "f16", 9: "f13", 10: "f14", 11: "f5", 12: "f17", 13: "f10", 14: "f6", 15: "f7"}   # bin/monthly_report.py の FIG_FILE と同じ（2026-11-03 の並び: 3つの稼ぎ口→①卸電気→②需給調整→③容量→当社の記録。2026-11-05 に図7＝管区ごとの約定率 f18 を足した）
+FIG_FILE = {1: "f9", 2: "f15", 3: "f18", 4: "f16", 5: "f13", 6: "f14", 7: "f5", 8: "f17", 9: "f1", 10: "f2", 11: "f12", 12: "f3", 13: "f10", 14: "f6", 15: "f7"}   # bin/monthly_report.py の FIG_FILE と同じ（2026-11-05 の並び: 3つの稼ぎ口→①需給調整→②卸電気→③容量→当社の記録。2026-11-05 に図7＝管区ごとの約定率 f18 を足した）
 NAME, NAME_EN = "蓄電所の市場ノート", "Battery Storage Market Notes"
 HOME_FIG = "f16"          # トップの札に出す図（一次調整力の席の取り合い）
 MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -322,7 +322,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
     y, mo = key.split("-")
     path = f"/report/{key}"
     title_h = f"{NAME} {y}年{int(mo)}月号"
-    title = f"{title_h}｜卸電気の価格・需給調整市場・容量市場・接続検討｜サイエンスエックス"
+    title = f"{title_h}｜需給調整市場・卸電気の価格・容量市場・接続検討｜サイエンスエックス"
     s1 = moves_sec(doc)
     moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith("出典:")]
     desc = (f"{title_h}。" + (moves[0] if moves else doc["intro"]))[:160]
@@ -447,8 +447,8 @@ def page_count(m, en=False):
 
 def render_index_en(rows):
     path = "/en/report"
-    title = "Battery Storage Market Notes | Wholesale, balancing and capacity markets in Japan | ScienceX"
-    desc = "Monthly charts on Japan's three markets for battery storage (JEPX wholesale, EPRX balancing, OCCTO capacity), from published data and ScienceX records. Sources cited, PDF available."
+    title = "Battery Storage Market Notes | Balancing, wholesale and capacity markets in Japan | ScienceX"
+    desc = "Monthly charts on Japan's three markets for battery storage (EPRX balancing, JEPX wholesale, OCCTO capacity), from published data and ScienceX records. Sources cited, PDF available."
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
                 "name": title, "description": desc, "inLanguage": "en", "publisher": EN_ORG,
@@ -465,7 +465,7 @@ def render_index_en(rows):
   <span class="badge">Published monthly</span>
   <div class="section-label">Market Notes</div>
   <h1>Battery Storage Market Notes</h1>
-  <p>A battery storage site earns from three markets: wholesale power (JEPX), the balancing market (EPRX) and the capacity market (OCCTO). Each month we chart the latest figures for all three, from published data and our own records. Newest first.</p>
+  <p>A battery storage site earns from three markets: the balancing market (EPRX), wholesale power (JEPX) and the capacity market (OCCTO). Each month we chart the latest figures for all three, from published data and our own records. Newest first.</p>
 </div></section>
 <section class="md"><div class="container rp-body">
   <ul class="rp-list">{li}</ul>
@@ -480,8 +480,8 @@ def render_index_en(rows):
 
 def render_index(rows, has_en=False):
     path = "/report"
-    title = "蓄電所の市場ノート｜卸電気・需給調整市場・容量市場の数字を毎月｜サイエンスエックス"
-    desc = "蓄電所の3つの稼ぎ口（卸電気 JEPX・需給調整市場 EPRX・容量市場 OCCTO）の数字を、公表データと当社の記録から毎月まとめたノート。卸電気の価格と1kWh あたりの値差、需給調整市場の商品ごとの値段・応札倍率・約定率・蓄電池の使われ方、容量市場の約定価格。毎月発行、出典つき、PDF あり。"
+    title = "蓄電所の市場ノート｜需給調整市場・卸電気・容量市場の数字を毎月｜サイエンスエックス"
+    desc = "蓄電所の3つの稼ぎ口（需給調整市場 EPRX・卸電気 JEPX・容量市場 OCCTO）の数字を、公表データと当社の記録から毎月まとめたノート。需給調整市場の商品ごとの値段・応札倍率・約定率・蓄電池の使われ方、卸電気の価格と1kWh あたりの値差、容量市場の約定価格。毎月発行、出典つき、PDF あり。"
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
                 "name": title, "description": desc, "inLanguage": "ja", "publisher": bmd.ORG,
@@ -498,7 +498,7 @@ def render_index(rows, has_en=False):
   <span class="badge">毎月発行</span>
   <div class="section-label">Report</div>
   <h1>蓄電所の市場ノート</h1>
-  <p>蓄電所（系統用蓄電池）の収入は、①卸電気（JEPX）・②需給調整市場（EPRX）・③容量市場（OCCTO）の3つの市場から入ります。その3つの数字を、公表データと当社の記録から毎月まとめています。新しい号が上です。</p>
+  <p>蓄電所（系統用蓄電池）の収入は、①需給調整市場（EPRX）・②卸電気（JEPX）・③容量市場（OCCTO）の3つの市場から入ります。その3つの数字を、公表データと当社の記録から毎月まとめています。新しい号が上です。</p>
 </div></section>
 <section class="md"><div class="container rp-body">
   <ul class="rp-list">{li}</ul>
@@ -539,13 +539,13 @@ def home_card(m, doc, figs, lang="ja"):
     if lang == "ja":
         base, pdf = f"/report/{key}", f"/report/{key}/scix-bess-monthly-{key}.pdf"
         title = f"{NAME} {y}年{int(mo)}月号"
-        lead = "蓄電所の3つの稼ぎ口、①卸電気（JEPX）・②需給調整市場（EPRX）・③容量市場（OCCTO）の数字を、公表データと当社の記録から毎月まとめています。図と表は、出典を書けば資料にそのままお使いいただけます。"
+        lead = "蓄電所の3つの稼ぎ口、①需給調整市場（EPRX）・②卸電気（JEPX）・③容量市場（OCCTO）の数字を、公表データと当社の記録から毎月まとめています。図と表は、出典を書けば資料にそのままお使いいただけます。"
         btn, pdf_l, back = f"{int(mo)}月号を読む", "PDF をダウンロード", "バックナンバー"
         back_href, label = "/report", "蓄電所の市場ノート"
     else:
         base, pdf = f"/en/report/{key}", f"/en/report/{key}/scix-bess-monthly-{key}-en.pdf"
         title = doc["title"]
-        lead = "A battery storage site earns from three markets: wholesale power (JEPX), the balancing market (EPRX) and the capacity market (OCCTO). Every month we chart the figures for all three from public data and our own records. Charts and tables may be reused with the source stated."
+        lead = "A battery storage site earns from three markets: the balancing market (EPRX), wholesale power (JEPX) and the capacity market (OCCTO). Every month we chart the figures for all three from public data and our own records. Charts and tables may be reused with the source stated."
         btn, pdf_l, back = "Read this issue", "Download PDF", "All issues"
         back_href, label = "/en/report", "Market Notes"
     fig = (f'<a class="rp-home-fig" href="{base}#s{sec_f["num"]}"><img src="{base}/f{fn}.png" alt="{esc(cap_f)}" loading="lazy">{esc(cap_f)}</a>'
