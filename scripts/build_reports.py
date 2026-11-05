@@ -215,6 +215,7 @@ EXTRA_CSS = """
 .rp-table td{border-bottom:1px solid var(--border);padding:6px 9px;color:var(--text-2);white-space:nowrap}
 .rp-table td.rp-n{text-align:right;font-variant-numeric:tabular-nums}
 .rp-table tbody tr:nth-child(even){background:var(--off-white)}
+.rp-nav{margin-top:14px;font-size:.86rem}.rp-nav a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold)}.rp-nav-sep{margin:0 10px;color:var(--text-3)}
 """
 
 SEC_MORE = {"1": "three"}
@@ -299,7 +300,24 @@ def render_section(sec, figs, month_key, used, lang="ja"):
     return "\n".join(out)
 
 
-def render_month(m, doc, figs, page_imgs, has_en=False):
+def issue_nav(nav, lang="ja"):
+    """前の号・次の号のリンク（nav=(古い月, 新しい月)。無い側は出さない）。2026-11-05 バックナンバー（4月〜）を足したとき。"""
+    older, newer = nav or (None, None)
+    if not older and not newer:
+        return ""
+    def name(k):
+        y, mo = k.split("-")
+        return f"{y}年{int(mo)}月号" if lang == "ja" else f"{MONTHS_EN[int(mo) - 1]} {y}"
+    base = "/report" if lang == "ja" else "/en/report"
+    parts = []
+    if older:
+        parts.append(f'<a href="{base}/{older}" rel="prev">← {"前の号" if lang == "ja" else "Previous"}: {esc(name(older))}</a>')
+    if newer:
+        parts.append(f'<a href="{base}/{newer}" rel="next">{"次の号" if lang == "ja" else "Next"}: {esc(name(newer))} →</a>')
+    return '<p class="rp-nav">' + '<span class="rp-nav-sep">｜</span>'.join(parts) + "</p>"
+
+
+def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
     key = m["key"]
     y, mo = key.split("-")
     path = f"/report/{key}"
@@ -347,6 +365,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False):
   <p class="md-note">サイエンスエックス株式会社　発行 {jp_date(doc["issued"])}　A4・全{page_count(m)}ページ</p>
   <div class="rp-btns"><a class="btn-primary" href="{path}/{pdf_name}" download="{NAME}_{key}.pdf">PDF をダウンロード</a>
   <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/report">これまでの号</a></div>
+  {issue_nav(nav)}
 </div></section>
 {chr(10).join(secs)}
 {gallery}
@@ -358,7 +377,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False):
     return page_head(title, desc, path, jsonld, f"/en/report/{key}" if has_en else None) + body, desc
 
 
-def render_month_en(m, doc, figs):
+def render_month_en(m, doc, figs, nav=None):
     """英語の市場ノートのページ（en/report/<YYYY-MM>/index.html）。図は図の番号 → パス。"""
     key = m["key"]
     path = f"/en/report/{key}"
@@ -403,6 +422,7 @@ def render_month_en(m, doc, figs):
   <p class="md-note">Science X Inc. &middot; Published {en_date(doc["issued"])} &middot; A4, {page_count(m, True)} pages</p>
   <div class="rp-btns"><a class="btn-primary" href="{path}/{pdf_name}" download="{pdf_name}">Download the PDF</a>
   <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/report">All reports</a></div>
+  {issue_nav(nav, "en")}
 </div></section>
 {chr(10).join(secs)}
 {cite}
@@ -570,7 +590,7 @@ def sitemap_add(text, rows, en_rows=()):
         else:
             links = f'<xhtml:link rel="alternate" hreflang="ja" href="{BASE}{path}"/>'
         return f"  <url><loc>{BASE}{path}</loc>{links}<priority>{pr}</priority><lastmod>{lastmod}</lastmod></url>\n"
-    want = [("/report", rows[0]["issued"], "0.7", "/en/report" if en_keys else None, "ja")] + [
+    want = [("/report", max(r["issued"] for r in rows), "0.7", "/en/report" if en_keys else None, "ja")] + [
         (f"/report/{r['key']}", r["issued"], "0.6", f"/en/report/{r['key']}" if r["key"] in en_keys else None, "ja") for r in rows]
     if en_keys:
         want += [("/en/report", max(r["issued"] for r in en_rows), "0.6", "/report", "en")] + [
@@ -611,13 +631,14 @@ def main():
     files = {}   # 相対パス -> bytes
     rows = []
     with tempfile.TemporaryDirectory() as tmp:
-        for m in months:
+        for i, m in enumerate(months):                   # 新しい月が先
             doc = docs[m["key"]]
+            nav = (months[i + 1]["key"] if i + 1 < len(months) else None, months[i - 1]["key"] if i > 0 else None)
             if not doc["issued"]:
                 print(f"NG {m['key']}: 発行日が MD に無い"); return 2
             figs = en_fig_by_number(fig_sources(m))      # 図N → ファイル（図4 は f9.png など。日本語も同じ対応＝2026-11-02 まで図4〜10 が題と別の図だった）
             page_imgs = {} if figs else render_pdf_pages(m["pdf"], tmp)
-            html_, _ = render_month(m, doc, figs, page_imgs, bool(m["en_md"]))
+            html_, _ = render_month(m, doc, figs, page_imgs, bool(m["en_md"]), nav)
             d = f"report/{m['key']}"
             files[f"{d}/index.html"] = html_.encode("utf-8")
             files[f"{d}/scix-bess-monthly-{m['key']}.pdf"] = open(m["pdf"], "rb").read()
@@ -631,19 +652,19 @@ def main():
             rows.append({"key": m["key"], "issued": doc["issued"], "title_h": f"{NAME} {y}年{int(mo)}月号",
                          "lead": " ".join(moves[:2]) or doc["intro"]})
         files["report/index.html"] = render_index(rows, any(m["en_md"] for m in months)).encode("utf-8")
-        latest = months[-1]
+        latest = months[0]                                # find_months は新しい月が先（2026-11-05 バックナンバーを足したら [-1] は一番古い4月号になる＝中島「最新月が一番上に来るように」）
         home = put_home("index.html", home_card(latest, docs[latest["key"]], en_fig_by_number(fig_sources(latest))))
         if home is not None:
             files["index.html"] = home.encode("utf-8")
         en_rows = []
-        for m in months:
-            if not m["en_md"]:
-                continue
+        en_months = [m for m in months if m["en_md"]]
+        for i, m in enumerate(en_months):
+            nav_en = (en_months[i + 1]["key"] if i + 1 < len(en_months) else None, en_months[i - 1]["key"] if i > 0 else None)
             doc = docs[m["key"] + ":en"]
             if not doc["issued"]:
                 print(f"NG {m['key']}: 英語版の発行日（Published …）が MD に無い"); return 2
             figs = en_fig_by_number(fig_sources(m, "figs_en"))
-            html_, _ = render_month_en(m, doc, figs)
+            html_, _ = render_month_en(m, doc, figs, nav_en)
             d = f"en/report/{m['key']}"
             files[f"{d}/index.html"] = html_.encode("utf-8")
             files[f"{d}/scix-bess-monthly-{m['key']}-en.pdf"] = open(m["en_pdf"], "rb").read()
@@ -654,7 +675,7 @@ def main():
             en_rows.append({"key": m["key"], "issued": doc["issued"], "title_h": doc["title"], "lead": " ".join(moves[:2]) or doc["intro"]})
         if en_rows:
             files["en/report/index.html"] = render_index_en(en_rows).encode("utf-8")
-            le = [m for m in months if m["en_md"]][-1]
+            le = [m for m in months if m["en_md"]][0]     # 英語版のある最新の月
             home = put_home("en/index.html", home_card(le, docs[le["key"] + ":en"], en_fig_by_number(fig_sources(le, "figs_en")), "en"))
             if home is not None:
                 files["en/index.html"] = home.encode("utf-8")
