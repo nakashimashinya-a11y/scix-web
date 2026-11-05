@@ -3,6 +3,10 @@
      ScienceX — Shared Navigation Header (JP + EN + 简中)
      Single source of truth for all pages.
 
+     2026-11-06: 中島「JP,EN,中国語の切り替えが目立たない。国旗とかカラーで
+       つけてもっと大きく目立たせて」。言語の切り替えをナビの外に出し、国旗
+       （SVG）＋言語の名前（日本語 / English / 中文）・紺の太い枠・今の言語は
+       紺地に白。スマホでは引き出しの中でなく、ヘッダーの帯に国旗を常に出す。
      2026-10-18: 中島「土地は買いたくない。案件を売る・買うをメインに」。
        売る ▾ から「土地を売る・貸す」(/land) を外し、売却査定のフォーム
        (/sell-form) を入れた。/land と /sourcing-criteria は /sourcing へ 301。
@@ -89,7 +93,7 @@
 
   // Below this width the nav collapses into the drawer. The regrouped nav is
   // short enough that an iPad in landscape (1024px) keeps the full bar.
-  var BP = 900;
+  var BP = 960; // 2026-11-06: 900 だと 901〜955px でナビが右へはみ出していた（旧版から）＝国旗の切り替えと同時に上げた
 
   // --------------- 1. CSS ---------------
   var css = [
@@ -125,7 +129,7 @@
 
     '/* === Desktop nav === */',
     '.scix-header-nav{',
-    '  display:flex;align-items:center;gap:2px;',
+    '  display:flex;align-items:center;gap:2px;margin-left:auto;',
     '}',
     '.scix-header-nav a,.scix-nav-dd-toggle{',
     '  text-decoration:none;color:#2D3A5C;',
@@ -174,20 +178,30 @@
     '.scix-dd-head{font-family:"Inter Tight","Noto Sans JP",sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.06em;color:#8E6C1F;padding:6px 12px 4px;white-space:nowrap}',
     '.scix-nav-dd-menu a.scix-dd-all{font-weight:900;color:#1F2A48}',
 
-    '/* === Language switcher (inside the nav) === */',
-    '/* 2026-09-17: made visible (中島「地味すぎてわからない」) — globe icon, bordered pill group, current language on black */',
+    '/* === Language switcher (next to the nav; flags + names) === */',
+    '/* 2026-11-06: 中島「JP,EN,中国語の切り替えが目立たない。国旗とかカラーでつけてもっと大きく目立たせて」 */',
+    '/* 2026-09-17: made visible (中島「地味すぎてわからない」) — globe icon, bordered pill group（→ 2026-11-06 に国旗へ） */',
     '.scix-lang{',
-    '  display:flex;align-items:center;gap:2px;flex-shrink:0;',
-    '  margin-left:14px;padding:3px 4px 3px 10px;',
-    '  border:1px solid #CCC;border-radius:100px;',
+    '  display:flex;align-items:center;gap:3px;flex-shrink:0;',
+    '  margin-left:14px;padding:3px;',
+    '  border:2px solid #1F2A48;border-radius:100px;background:#fff;',
     '}',
-    '.scix-lang::before{',
-    '  content:"";width:15px;height:15px;margin-right:5px;flex-shrink:0;opacity:.9;',
-    '  background:url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23111\' stroke-width=\'1.8\'%3E%3Ccircle cx=\'12\' cy=\'12\' r=\'9.5\'/%3E%3Cpath d=\'M2.5 12h19M12 2.5c3 3.2 3 15.8 0 19M12 2.5c-3 3.2-3 15.8 0 19\'/%3E%3C/svg%3E") center/contain no-repeat;',
+    '.scix-lang a{',
+    '  display:inline-flex;align-items:center;gap:7px;',
+    '  font-family:"Inter Tight","Noto Sans JP","Noto Sans SC",sans-serif;',
+    '  font-size:.88rem;font-weight:800;color:#1F2A48;text-decoration:none;',
+    '  padding:5px 13px 5px 8px;border-radius:100px;line-height:1.3;white-space:nowrap;',
+    '  transition:background .2s,color .2s;',
     '}',
-    '.scix-header-nav .scix-lang a{font-family:"Inter Tight","Noto Sans JP","Noto Sans SC",sans-serif;font-size:.74rem;font-weight:800;color:#555;padding:4px 9px;border-radius:100px;letter-spacing:.02em;line-height:1.3}',
-    '.scix-header-nav .scix-lang a:hover{color:#1F2A48;background:#F0F0EE;box-shadow:none}',
-    '.scix-header-nav .scix-lang a.active{color:#fff;font-weight:800;background:#1F2A48;box-shadow:none}',
+    '.scix-lang a:hover{background:#E9EBF1;color:#1F2A48}',
+    '.scix-lang a.active{background:#1F2A48;color:#fff}',
+    '.scix-flag{width:24px;height:16px;flex-shrink:0;display:block;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.18)}',
+    '.scix-lang a.active .scix-flag{box-shadow:0 0 0 2px #fff}',
+    '/* 1100px 以下はナビと競るので、国旗だけにする（言語の名前は aria-label に残す） */',
+    '@media(max-width:1120px){',
+    '  .scix-lang-label{display:none}',
+    '  .scix-lang a{padding:5px 7px;gap:0}',
+    '}',
 
     '/* === Hamburger button (mobile only) === */',
     '.scix-header-burger{',
@@ -254,10 +268,11 @@
     '  .scix-nav-dd.open .scix-dd-caret{transform:rotate(180deg)}',
     '  .scix-nav-dd-menu a{padding:12px 12px 12px 28px;font-size:.88rem;border-bottom:1px solid #EEE;border-radius:0;}',
     '  .scix-nav-dd-menu a:last-child{border-bottom:none}',
-    '  /* drawer: language row first, so it is seen the moment the menu opens */',
-    '  .scix-lang{order:-1;margin:0 0 14px;padding:4px 6px 4px 12px;justify-content:flex-start;gap:4px;border:1px solid #CCC;border-radius:100px;align-self:flex-start;}',
-    '  .scix-header-nav .scix-lang a{font-size:.88rem;padding:7px 14px;border-bottom:none;border-radius:100px;}',
-    '  .scix-header-nav .scix-lang a.active{background:#1F2A48;color:#fff}',
+    '  /* header bar: flags always visible next to the burger (not hidden in the drawer) */',
+    '  .scix-lang{margin:0 14px 0 auto;padding:2px;gap:2px}',
+    '  .scix-lang a{padding:4px 6px;gap:0}',
+    '  .scix-lang-label{display:none}',
+    '  .scix-flag{width:27px;height:18px}',
     '  .scix-nav-dd-menu.scix-dd-wide{min-width:0;flex-direction:column;gap:0;padding:2px 0}',
     '  .scix-nav-dd-menu.scix-dd-wide.scix-dd-3{min-width:0;max-width:none}',
     '  .scix-dd-col+.scix-dd-col{border-left:none;padding-left:0;margin-top:2px}',
@@ -409,11 +424,29 @@
     if (!isEn && altEn) enHref = altEn;
   }
 
+  // 国旗は SVG を直書き（絵文字の国旗は Windows で「JP」の文字に化けるので使わない）。
+  var STAR = 'M0,-1 L0.2245,-0.309 0.9511,-0.309 0.3633,0.118 0.5878,0.809 0,0.382 -0.5878,0.809 -0.3633,0.118 -0.9511,-0.309 -0.2245,-0.309Z';
+  var FLAG = {
+    ja: '<svg class="scix-flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#BC002D"/></svg>',
+    en: '<svg class="scix-flag" viewBox="0 0 60 30" aria-hidden="true" focusable="false"><clipPath id="scix-flag-uk"><path d="M30,15h30v15zv15H0zH0V0zV0h30z"/></clipPath><path d="M0,0v30h60V0z" fill="#012169"/><path d="M0,0L60,30M60,0L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" clip-path="url(#scix-flag-uk)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg>',
+    zh: '<svg class="scix-flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#DE2910"/><g fill="#FFDE00">' +
+        '<path d="' + STAR + '" transform="translate(5,5) scale(3)"/>' +
+        '<path d="' + STAR + '" transform="translate(10,2) rotate(239)"/>' +
+        '<path d="' + STAR + '" transform="translate(12,4) rotate(262)"/>' +
+        '<path d="' + STAR + '" transform="translate(12,7) rotate(-74)"/>' +
+        '<path d="' + STAR + '" transform="translate(10,9) rotate(-51)"/>' +
+        '</g></svg>'
+  };
+  function langLink(code, href, label, on) {
+    return '<a href="' + href + '" hreflang="' + code + '" lang="' + code + '" aria-label="' + label + '"' +
+      (on ? ' class="active" aria-current="true"' : '') + '>' +
+      FLAG[code] + '<span class="scix-lang-label">' + label + '</span></a>';
+  }
   var langSwitch = [
     '<div class="scix-lang" role="group" aria-label="' + (isEn ? 'Language' : (isZh ? '语言' : '言語')) + '">',
-    '  <a href="' + jpHref + '" hreflang="ja" lang="ja"' + (isJa ? ' class="active" aria-current="true"' : '') + '>JP</a>',
-    '  <a href="' + enHref + '" hreflang="en" lang="en"' + (isEn ? ' class="active" aria-current="true"' : '') + '>EN</a>',
-    '  <a href="' + zhHref + '" hreflang="zh" lang="zh"' + (isZh ? ' class="active" aria-current="true"' : '') + '>简中</a>',
+    '  ' + langLink('ja', jpHref, '日本語', isJa),
+    '  ' + langLink('en', enHref, 'English', isEn),
+    '  ' + langLink('zh', zhHref, '中文', isZh),
     '</div>'
   ].join('\n');
 
@@ -429,8 +462,8 @@
     '  <a href="' + logoHref + '" class="scix-header-logo"><img src="/img/logo-navy.png" alt="ScienceX" width="91" height="36" decoding="async"></a>',
     '  <nav class="scix-header-nav" id="scix-header-nav" aria-label="' + navLabel + '">',
          nav.join('\n'),
-         langSwitch,
     '  </nav>',
+       langSwitch,
     '  <button class="scix-header-burger" id="scix-header-burger" aria-label="' + burgerLabel + '" aria-expanded="false" aria-controls="scix-header-nav">',
     '    <span></span><span></span><span></span>',
     '  </button>',
@@ -819,7 +852,7 @@
   // lang（言語切替）・logo のいずれか。
   header.addEventListener('click', function (e) {
     var t = e.target;
-    var a = t && t.closest ? t.closest('.scix-header-nav a, .scix-header-logo') : null;
+    var a = t && t.closest ? t.closest('.scix-header-nav a, .scix-lang a, .scix-header-logo') : null;
     if (!a || typeof window.gtag !== 'function') return;
     var group;
     if (a.classList.contains('scix-header-logo')) group = 'logo';
