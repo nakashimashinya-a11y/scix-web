@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""コラム（column-*.html）の末尾に「この話題に近い入口」と DealRoom 登録のボタンを足す。
+"""コラム（column-*.html）の末尾に「この話題に近い入口」と案件ルーム登録のボタンを足す。
 
 コラム本文は触らない（O16-1）。フッターの直前に、印のコメントで囲った1区画を入れる。
 もう入っていれば作り直す（何度走らせても同じ）。
@@ -53,7 +53,7 @@ def block(name):
         '  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">' + cards + "</div>\n"
         '  <p style="margin:18px 0 0;text-align:center"><a target="_top" href="' + REG + '" '
         "onclick=\"window.gtag&&gtag('event','dr2_register_click',{target:'column_end'})\" "
-        'style="display:inline-block;background:#1F2A48;color:#fff;font-weight:700;font-size:14px;padding:13px 30px;text-decoration:none">DealRoom に登録 →</a></p>\n'
+        'style="display:inline-block;background:#1F2A48;color:#fff;font-weight:700;font-size:14px;padding:13px 30px;text-decoration:none">案件ルームに登録 →</a></p>\n'
         "</div>\n" + END + "\n"
     )
 
