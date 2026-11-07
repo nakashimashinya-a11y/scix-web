@@ -351,8 +351,8 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
 </div></section>"""
     cta = """<section class="cta"><div class="container">
   <h2>このノートの数字の元になった案件を、買い手の方へ</h2>
-  <p>当社の案件ルームに登録（無料）すると、接続検討の回答書など、案件ごとの資料を申請できます。案件の一覧は、登録なしでご覧いただけます。</p>
-  <a class="btn-primary" href="%s" target="_top" rel="nofollow">案件ルームに登録する →</a>
+  <p>当社の非公開案件ページに登録（無料）すると、接続検討の回答書など、案件ごとの資料を申請できます。案件の一覧は、登録なしでご覧いただけます。</p>
+  <a class="btn-primary" href="%s" target="_top" rel="nofollow">非公開案件ページに登録する →</a>
   <a class="btn-secondary" href="/projects">販売中の案件を見る</a>
 </div></section>
 """ % DR2_REGISTER
