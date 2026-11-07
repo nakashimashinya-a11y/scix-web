@@ -77,7 +77,7 @@ def is_new(p, today):
 
 
 DR2_REGISTER = "https://dealroom.scix.co.jp/register.html"
-BAND_EVERY = 10   # 一覧の何行ごとに案件ルームの帯を挟むか。projects.html の JS（BAND_EVERY）と同じ値にする
+BAND_EVERY = 10   # 一覧の何行ごとに非公開案件ページの帯を挟むか。projects.html の JS（BAND_EVERY）と同じ値にする
 
 
 def cod_bucket(p, today_ym):
@@ -107,16 +107,16 @@ def _select(sid, label, options):
 
 
 def band_row(cols):
-    return (f'<tr class="pj-band"><td colspan="{cols}"><span>価格・所在地・資料は案件ルームで見られます（無料登録・誓約書）</span>'
+    return (f'<tr class="pj-band"><td colspan="{cols}"><span>価格・所在地・資料は非公開案件ページで見られます（無料登録・誓約書）</span>'
             f'<a target="_top" rel="nofollow" href="{DR2_REGISTER}" class="pj-band-btn" '
-            f"onclick=\"window.gtag&&gtag('event','dr2_promo_click',{{target:'band'}})\">案件ルームに登録 →</a></td></tr>")
+            f"onclick=\"window.gtag&&gtag('event','dr2_promo_click',{{target:'band'}})\">非公開案件ページに登録 →</a></td></tr>")
 
 
 def render_list(ps, generated_at):
     """/projects の一覧（絞り込み・表）。静的に焼くので、JS を実行しない読み手（検索エンジンの一次クロール・
     AI検索）も全件の中身を読める。JS は絞り込みと並べ替えだけを受け持つ（行の見た目は変えない）。
     載せるのは projects.json の公開項目だけ（価格・住所・売主は元から無い）。
-    並びの既定は「連系が早い順・確認中は最後」。右端の 🔒 の列は案件ルーム（登録）への入口。"""
+    並びの既定は「連系が早い順・確認中は最後」。右端の 🔒 の列は非公開案件ページ（登録）への入口。"""
     import datetime
     today = datetime.date.today()
     today_ym = today.strftime("%Y-%m")
@@ -163,7 +163,7 @@ def render_list(ps, generated_at):
             f'<td data-l="進み具合">{_esc(p.get("status") or "—")}</td>'
             f'<td data-l="取得の形">{_esc(p.get("scheme") or "確認中")}</td>'
             f'<td class="c-lock" data-l="🔒 価格・所在地・資料"><a class="pj-lock" target="_top" rel="nofollow" href="{DR2_REGISTER}" '
-            f"onclick=\"window.gtag&&gtag('event','dr2_promo_click',{{target:'row'}})\">案件ルームで見る</a></td></tr>")
+            f"onclick=\"window.gtag&&gtag('event','dr2_promo_click',{{target:'row'}})\">非公開案件ページで見る</a></td></tr>")
         if i % BAND_EVERY == 0 and i != len(ps):
             rows.append(band_row(8))
     rows.append(band_row(8))
