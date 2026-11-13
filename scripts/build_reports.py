@@ -219,7 +219,7 @@ EXTRA_CSS = """
 """
 
 SEC_MORE = {"1": "three"}
-MOVES_RE = re.compile(r"今月の動き|Three (?:trends|things|moves)", re.I)   # 「今月の動き3つ」の節
+MOVES_RE = re.compile(r"今月の動き|(?:Three|3) (?:trends|things|moves|movements)", re.I)   # 「今月の動き3つ」の節
 
 
 def moves_sec(doc):
