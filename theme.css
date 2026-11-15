@@ -538,3 +538,6 @@ body > footer:not(.scix-footer){background:#13203D!important;color:#CBD5E1!impor
 section :is(p,li,dd,td) a:not([class]):not([style*="color"]){color:var(--m-blue)!important;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
 /* 締めの帯（お問い合わせ）も冒頭と同じ幅の札 */
 @media (min-width:769px){section.cta{max-width:1024px!important;width:calc(100% - 56px)!important;margin:56px auto 0!important;box-sizing:border-box!important}}
+/* 冒頭の札は1つ（「用語集・61語」と「用語集」のような2枚重ねをやめる）。残す札は白い丸い札 */
+:is(.hero,.f-hero,.kh,.contact-hero,.legal-hero) .badge + .section-label{display:none!important}
+:is(.hero,.f-hero,.kh,.contact-hero,.legal-hero) .badge{display:inline-flex!important;align-items:center;gap:7px;background:#fff!important;color:var(--acc-2)!important;border:0!important;border-radius:999px!important;padding:6px 14px!important;font-size:12.5px!important;font-weight:800!important;letter-spacing:.02em!important;box-shadow:0 2px 8px rgba(31,42,72,.08)!important;margin-bottom:14px!important}
