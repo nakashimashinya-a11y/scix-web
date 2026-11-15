@@ -57,6 +57,16 @@
   }
   var isCol = loc.indexOf('/column-') === 0;
 
+  // ページの側（色と絵）を <html data-side> に付ける。theme.css が帯の色・札の色・冒頭の絵を側ごとに替える
+  // （2026-11-15 中島「これに合わせて、サイエンスエックスの本体のサイトも再デザインして」＝蓄電所マーケットと同じ、買う＝青・売る＝橙・読む＝紫）
+  var side = loc === '/' ? 'home'
+    : /^\/(transfer|projects|investors|market-data|fund|grid-storage|for\/)/.test(loc) ? 'buy'
+    : /^\/(sourcing|sell-form|partners)/.test(loc) ? 'sell'
+    : /^\/(knowledge|column-|report|glossary|qa|faq|primer|market-entry|citation)/.test(loc) ? 'read'
+    : 'co';
+  if (/^\/(projects|market-data)/.test(loc)) side = 'deal';
+  document.documentElement.setAttribute('data-side', side);
+
   // Columns that exist in Japanese only. Switching language from these must
   // fall back to the knowledge hub instead of a URL that does not exist.
   var JA_ONLY_COLUMNS = [
@@ -104,12 +114,13 @@
     'body{padding-top:64px!important}',
 
     '/* === Header bar === */',
-    '/* 2026-10-31: 中島「タイムズカー集団訴訟のページとデザインが全く同じ。嫌」＝紺の地・金のボタンをやめ、白地・紺の字・紺のボタン（案C「大きな X」。字とボタンの紺は名刺とロゴの #1F2A48） */',
+    '/* 2026-11-15: 中島「これに合わせて、サイエンスエックスの本体のサイトも再デザインして」＝蓄電所マーケットと同じ、温かい白・丸み・側ごとの色。ロゴは名刺と同じ紺のまま */',
     '.scix-header{',
     '  position:fixed;top:0;left:0;right:0;height:64px;',
-    '  background:#fff;',
+    '  background:rgba(255,252,245,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);',
     '  z-index:9999;',
-    '  border-bottom:2px solid #1F2A48;',
+    '  box-shadow:0 4px 18px rgba(31,42,72,.07);',
+    '  border-bottom:3px solid transparent;border-image:linear-gradient(90deg,#2563EB,#F97316 50%,#10B981) 1;',
     '  font-family:"Noto Sans JP",sans-serif;',
     '}',
 
@@ -134,22 +145,22 @@
     '.scix-header-nav a,.scix-nav-dd-toggle{',
     '  text-decoration:none;color:#2D3A5C;',
     '  font-size:.86rem;font-weight:700;letter-spacing:0;line-height:1.4;',
-    '  padding:8px 11px;border-radius:0;',
+    '  padding:8px 12px;border-radius:999px;',
     '  background:none;border:none;cursor:pointer;font-family:inherit;',
     '  transition:color .2s,background .2s,box-shadow .2s;',
     '  white-space:nowrap;',
     '}',
-    '.scix-header-nav a:hover,.scix-nav-dd-toggle:hover{color:#1F2A48;box-shadow:inset 0 -2px 0 #C49A3C}',
-    '.scix-header-nav a.active,.scix-nav-dd-toggle.active{color:#1F2A48;font-weight:900;box-shadow:inset 0 -2px 0 #1F2A48}',
-    '.scix-header-nav a:focus-visible,.scix-nav-dd-toggle:focus-visible{outline:2px solid #C49A3C;outline-offset:2px}',
+    '.scix-header-nav a:hover,.scix-nav-dd-toggle:hover{color:#1F2A48;background:#FFF1E3}',
+    '.scix-header-nav a.active,.scix-nav-dd-toggle.active{color:#1D4ED8;font-weight:900;background:#EAF1FF}',
+    '.scix-header-nav a:focus-visible,.scix-nav-dd-toggle:focus-visible{outline:2px solid #F97316;outline-offset:2px}',
 
     '/* === Primary CTA button (black) === */',
     '.scix-header-nav a.scix-cta{',
-    '  background:#1F2A48;color:#fff;font-weight:700;letter-spacing:0;',
-    '  padding:10px 20px;border-radius:0;margin-left:14px;',
+    '  background:linear-gradient(135deg,#F97316,#F59E0B);color:#fff;font-weight:900;letter-spacing:0;',
+    '  padding:10px 20px;border-radius:999px;margin-left:14px;box-shadow:0 6px 16px rgba(234,88,12,.30);',
     '}',
-    '.scix-header-nav a.scix-cta:hover{background:#2D3A5C;color:#fff;box-shadow:none}',
-    '.scix-header-nav a.scix-cta.active{background:#1F2A48;color:#fff;box-shadow:inset 0 -3px 0 #C49A3C}',
+    '.scix-header-nav a.scix-cta:hover{filter:brightness(1.06);color:#fff;background:linear-gradient(135deg,#F97316,#F59E0B)}',
+    '.scix-header-nav a.scix-cta.active{color:#fff;background:linear-gradient(135deg,#F97316,#F59E0B)}',
     '/* === 蓄電所マーケットへのボタン（2026-11-15 中島「こんな地味なボタン誰も押さない」）: マーケットと同じ橙の丸いボタンと印 === */',
     '.scix-header-nav a.scix-mk{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#F97316,#F59E0B);color:#fff;font-weight:900;',
     '  padding:8px 18px 8px 8px;border-radius:999px;margin-left:14px;box-shadow:0 6px 16px rgba(234,88,12,.30);white-space:nowrap}',
@@ -162,9 +173,9 @@
     '.scix-dd-caret{font-size:.7em;transition:transform .25s;opacity:.85}',
     '.scix-nav-dd-menu{',
     '  position:absolute;top:100%;left:0;min-width:224px;',
-    '  background:#fff;border:2px solid #1F2A48;border-radius:0;',
-    '  padding:6px;display:none;flex-direction:column;gap:2px;',
-    '  box-shadow:0 14px 30px rgba(0,0,0,.12);z-index:10003;',
+    '  background:#fff;border:0;border-radius:18px;',
+    '  padding:8px;display:none;flex-direction:column;gap:2px;',
+    '  box-shadow:0 18px 40px rgba(31,42,72,.18);z-index:10003;',
     '}',
     '.scix-nav-dd.open .scix-nav-dd-menu{display:flex}',
     '.scix-nav-dd.open .scix-dd-caret{transform:rotate(180deg)}',
@@ -173,14 +184,14 @@
     '  .scix-nav-dd:hover .scix-nav-dd-menu{display:flex}',
     '  .scix-nav-dd:hover .scix-dd-caret{transform:rotate(180deg)}',
     '}',
-    '.scix-nav-dd-menu a{padding:10px 12px;font-weight:500;}',
-    '.scix-nav-dd-menu a:hover{background:#F5F5F3;box-shadow:none}',
+    '.scix-nav-dd-menu a{padding:10px 12px;font-weight:500;border-radius:12px;}',
+    '.scix-nav-dd-menu a:hover{background:#FFF1E3;box-shadow:none}',
     '/* two-column menu (ナレッジ): テーマで読む | はじめての方 */',
     '.scix-nav-dd-menu.scix-dd-wide{min-width:560px;flex-direction:row;gap:12px;padding:10px 12px 12px}',
     '.scix-nav-dd-menu.scix-dd-wide.scix-dd-3{min-width:720px;max-width:calc(100vw - 240px)}',
     '.scix-dd-col{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}',
-    '.scix-dd-col+.scix-dd-col{border-left:1px solid #E6E6E6;padding-left:12px}',
-    '.scix-dd-head{font-family:"Inter Tight","Noto Sans JP",sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.06em;color:#8E6C1F;padding:6px 12px 4px;white-space:nowrap}',
+    '.scix-dd-col+.scix-dd-col{border-left:1px solid #E3E8F2;padding-left:12px}',
+    '.scix-dd-head{font-family:"Inter Tight","Noto Sans JP",sans-serif;font-size:.72rem;font-weight:900;letter-spacing:.04em;color:#C2560A;padding:6px 12px 4px;white-space:nowrap}',
     '.scix-nav-dd-menu a.scix-dd-all{font-weight:900;color:#1F2A48}',
 
     '/* === Language switcher (next to the nav; flags + names) === */',
@@ -189,7 +200,7 @@
     '.scix-lang{',
     '  display:flex;align-items:center;gap:3px;flex-shrink:0;',
     '  margin-left:14px;padding:3px;',
-    '  border:2px solid #1F2A48;border-radius:100px;background:#fff;',
+    '  border:0;border-radius:100px;background:#fff;box-shadow:0 2px 10px rgba(31,42,72,.12);',
     '}',
     '.scix-lang a{',
     '  display:inline-flex;align-items:center;gap:7px;',
@@ -198,10 +209,12 @@
     '  padding:5px 13px 5px 8px;border-radius:100px;line-height:1.3;white-space:nowrap;',
     '  transition:background .2s,color .2s;',
     '}',
-    '.scix-lang a:hover{background:#E9EBF1;color:#1F2A48}',
+    '.scix-lang a:hover{background:#FFF1E3;color:#1F2A48}',
     '.scix-lang a.active{background:#1F2A48;color:#fff}',
     '.scix-flag{width:24px;height:16px;flex-shrink:0;display:block;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.18)}',
     '.scix-lang a.active .scix-flag{box-shadow:0 0 0 2px #fff}',
+    '/* 英語のナビは項目が多いので、1380px 以下では国旗だけ（2026-11-15 丸いボタンにして 1280px で右端が切れた） */',
+    '@media(max-width:1380px){html[lang="en"] .scix-lang-label{display:none}html[lang="en"] .scix-lang a{padding:5px 7px;gap:0}html[lang="en"] .scix-header-nav a,html[lang="en"] .scix-nav-dd-toggle{padding:8px 9px}}',
     '/* 1100px 以下はナビと競るので、国旗だけにする（言語の名前は aria-label に残す） */',
     '@media(max-width:1120px){',
     '  .scix-lang-label{display:none}',
@@ -216,7 +229,7 @@
     '}',
     '.scix-header-burger span{',
     '  display:block;position:absolute;left:0;width:100%;height:2px;',
-    '  background:#1F2A48;border-radius:0;',
+    '  background:#1F2A48;border-radius:2px;',
     '  transition:transform .3s,opacity .3s;',
     '}',
     '.scix-header-burger span:nth-child(1){top:0}',
@@ -224,7 +237,7 @@
     '.scix-header-burger span:nth-child(3){top:18px}',
 
     '/* Burger → X animation（閉じる印は金の X） */',
-    '.scix-header-open .scix-header-burger span{background:#C49A3C;height:3px}',
+    '.scix-header-open .scix-header-burger span{background:#F97316;height:3px}',
     '.scix-header-open .scix-header-burger span:nth-child(1){transform:translateY(9px) rotate(45deg)}',
     '.scix-header-open .scix-header-burger span:nth-child(2){opacity:0}',
     '.scix-header-open .scix-header-burger span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}',
@@ -242,7 +255,7 @@
     '  .scix-header-nav{',
     '    position:fixed;top:0;right:0;bottom:0;',
     '    width:300px;max-width:84vw;',
-    '    background:#fff;',
+    '    background:#FFFCF5;border-radius:22px 0 0 22px;',
     '    flex-direction:column;align-items:stretch;gap:0;',
     '    padding:76px 20px 32px;',
     '    transform:translateX(100%);',
@@ -255,24 +268,24 @@
     '  .scix-header-nav a,.scix-nav-dd-toggle{',
     '    padding:14px 12px;font-size:.95rem;',
     '    border-bottom:1px solid #EEE;',
-    '    border-radius:0;',
+    '    border-radius:12px;',
     '  }',
     '  .scix-header-nav a:hover,.scix-nav-dd-toggle:hover,.scix-header-nav a.active,.scix-nav-dd-toggle.active{box-shadow:none}',
     '  .scix-header-nav a.scix-cta{',
     '    margin:18px 0 0;text-align:center;',
-    '    border-radius:0;border-bottom:none;',
+    '    border-radius:999px;border-bottom:none;',
     '    padding:14px 20px;',
     '  }',
     '  .scix-header-nav a.scix-mk{margin:18px 0 0;justify-content:center;padding:12px 20px 12px 12px}',
     '  .scix-nav-dd{flex-direction:column;align-items:stretch;}',
     '  .scix-nav-dd-toggle{justify-content:space-between;width:100%;text-align:left;}',
     '  .scix-nav-dd-toggle.active{background:none;}',
-    '  .scix-nav-dd-menu{position:static;display:none;border:none;box-shadow:none;background:#F7F7F7;padding:2px 0;min-width:0;border-radius:0;}',
+    '  .scix-nav-dd-menu{position:static;display:none;border:none;box-shadow:none;background:#FFF1E3;padding:2px 0;min-width:0;border-radius:14px;}',
     '  .scix-nav-dd:hover:not(.open) .scix-nav-dd-menu{display:none}',
     '  .scix-nav-dd:hover:not(.open) .scix-dd-caret{transform:none}',
     '  .scix-nav-dd.open .scix-nav-dd-menu{display:flex}',
     '  .scix-nav-dd.open .scix-dd-caret{transform:rotate(180deg)}',
-    '  .scix-nav-dd-menu a{padding:12px 12px 12px 28px;font-size:.88rem;border-bottom:1px solid #EEE;border-radius:0;}',
+    '  .scix-nav-dd-menu a{padding:12px 12px 12px 28px;font-size:.88rem;border-bottom:1px solid rgba(31,42,72,.06);border-radius:0;}',
     '  .scix-nav-dd-menu a:last-child{border-bottom:none}',
     '  /* header bar: flags always visible next to the burger (not hidden in the drawer) */',
     '  .scix-lang{margin:0 14px 0 auto;padding:2px;gap:2px}',
@@ -289,7 +302,7 @@
 
   // Floating mobile contact CTA — on mobile the nav collapses into the hamburger,
   // so keep a persistent, always-visible conversion path. white-on-black = WCAG AAA.
-  css += "\n.scix-float-cta{position:fixed;right:16px;bottom:16px;z-index:9000;display:none;align-items:center;gap:7px;padding:13px 20px;background:#1F2A48;color:#fff;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:700;text-decoration:none;border-radius:0;box-shadow:0 6px 20px rgba(0,0,0,.28);border-bottom:3px solid #C49A3C}.scix-float-cta:active{transform:translateY(1px)}.scix-float-cta svg{width:16px;height:16px}@media(max-width:768px){.scix-float-cta{display:inline-flex}}";
+  css += "\n.scix-float-cta{position:fixed;right:16px;bottom:16px;z-index:9000;display:none;align-items:center;gap:7px;padding:13px 20px;background:linear-gradient(135deg,#F97316,#F59E0B);color:#fff;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:900;text-decoration:none;border-radius:999px;box-shadow:0 8px 22px rgba(234,88,12,.38)}.scix-float-cta:active{transform:translateY(1px)}.scix-float-cta svg{width:16px;height:16px}@media(max-width:768px){.scix-float-cta{display:inline-flex}}";
 
   var style = document.createElement('style');
   style.id = 'scix-header-css';
@@ -507,24 +520,24 @@
   var NL_SKIP = /^\/(contact|sell-form|thanks|privacy)$/;
   if (isJa && !NL_SKIP.test(loc)) {
     var nlCss = [
-      '.scix-nl{max-width:760px;margin:40px auto 0;padding:26px 26px 22px;background:#1F2A48;color:#fff;border-radius:0;border-left:6px solid #C49A3C;font-family:"Noto Sans JP",sans-serif;box-sizing:border-box}',
+      '.scix-nl{max-width:760px;margin:40px auto 0;padding:26px 26px 22px;background:linear-gradient(118deg,#D4C6FF 0%,#EFE8FF 52%,#FFDDF0 100%);color:#0B1530;border-radius:24px;box-shadow:0 14px 32px rgba(31,42,72,.12);font-family:"Noto Sans JP",sans-serif;box-sizing:border-box}',
       '.scix-nl *{box-sizing:border-box}',
-      '.scix-nl-label{font-family:"Inter Tight","Noto Sans JP",sans-serif;font-size:.74rem;letter-spacing:.06em;color:#C49A3C;font-weight:800;margin-bottom:8px}',
-      '.scix-nl h3{font-family:"Noto Sans JP",sans-serif;font-size:1.1rem;font-weight:900;line-height:1.55;margin:0 0 6px;color:#fff}',
-      '.scix-nl p{font-size:.84rem;line-height:1.8;color:rgba(255,255,255,.78);margin:0 0 16px}',
+      '.scix-nl-label{display:inline-flex;font-family:"Inter Tight","Noto Sans JP",sans-serif;font-size:.76rem;letter-spacing:.02em;color:#5B32B5;background:#fff;border-radius:999px;padding:4px 12px;font-weight:900;margin-bottom:10px;box-shadow:0 2px 8px rgba(31,42,72,.08)}',
+      '.scix-nl h3{font-family:"Noto Sans JP",sans-serif;font-size:1.15rem;font-weight:900;line-height:1.55;margin:0 0 6px;color:#0B1530}',
+      '.scix-nl p{font-size:.86rem;line-height:1.8;color:#24304A;margin:0 0 16px}',
       '.scix-nl form{display:flex;flex-wrap:wrap;gap:8px}',
-      '.scix-nl input{flex:1 1 200px;min-width:0;font:inherit;font-size:.95rem;padding:12px 14px;border:1px solid rgba(255,255,255,.28);border-radius:0;background:#fff;color:#1F2A48;outline:none}',
-      '.scix-nl input:focus{border-color:#C49A3C;box-shadow:0 0 0 3px rgba(196,154,60,.3)}',
+      '.scix-nl input{flex:1 1 200px;min-width:0;font:inherit;font-size:.95rem;padding:12px 14px;border:2px solid #fff;border-radius:999px;background:#fff;color:#1F2A48;outline:none}',
+      '.scix-nl input:focus{border-color:#7C4DDB;box-shadow:0 0 0 3px rgba(124,77,219,.25)}',
       '.scix-nl input.scix-nl-name{flex:0 1 160px}',
-      '.scix-nl button{flex:0 0 auto;font:inherit;font-size:.92rem;font-weight:700;padding:12px 22px;background:#C49A3C;color:#1F2A48;border:none;border-radius:0;cursor:pointer;white-space:nowrap}',
-      '.scix-nl button:hover{background:#D4AD5A}',
+      '.scix-nl button{flex:0 0 auto;font:inherit;font-size:.92rem;font-weight:700;padding:12px 24px;background:linear-gradient(135deg,#F97316,#F59E0B);color:#fff;font-weight:900;border:none;border-radius:999px;cursor:pointer;white-space:nowrap;box-shadow:0 6px 16px rgba(234,88,12,.30)}',
+      '.scix-nl button:hover{filter:brightness(1.06)}',
       '.scix-nl button[disabled]{opacity:.6;cursor:default}',
-      '.scix-nl-note{font-size:.72rem;color:rgba(255,255,255,.55);line-height:1.7;margin:10px 0 0}',
-      '.scix-nl-note a{color:rgba(255,255,255,.75)}',
-      '.scix-nl-done{font-size:.95rem;font-weight:600;color:#E4C871;line-height:1.7}',
-      '.scix-nl-err{font-size:.82rem;color:#FFB4A2;margin-top:8px}',
+      '.scix-nl-note{font-size:.74rem;color:#4A5568;line-height:1.7;margin:10px 0 0}',
+      '.scix-nl-note a{color:#5B32B5}',
+      '.scix-nl-done{font-size:.95rem;font-weight:800;color:#0F7A52;line-height:1.7}',
+      '.scix-nl-err{font-size:.82rem;color:#B42318;margin-top:8px}',
       '.scix-nl .scix-nl-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}',
-      '@media(max-width:600px){.scix-nl{margin:32px 16px 0;padding:22px 18px 18px;border-radius:8px}.scix-nl input.scix-nl-name{flex:1 1 100%}.scix-nl button{flex:1 1 100%}}'
+      '@media(max-width:600px){.scix-nl{margin:32px 16px 0;padding:22px 18px 18px;border-radius:20px}.scix-nl input.scix-nl-name{flex:1 1 100%}.scix-nl button{flex:1 1 100%}}'
     ].join('\n');
     var nlStyle = document.createElement('style');
     nlStyle.id = 'scix-newsletter-css';
@@ -601,7 +614,7 @@
             er2.setAttribute('role', 'alert');
             er2.innerHTML = '送信できませんでした。お手数ですが <a href="mailto:s@scix.co.jp?subject=' +
               encodeURIComponent('ナレッジ更新メールの登録') + '&body=' + encodeURIComponent(email) +
-              '" style="color:#fff">s@scix.co.jp</a> へ「更新メール希望」とお送りください。';
+              '" style="color:#5B32B5">s@scix.co.jp</a> へ「更新メール希望」とお送りください。';
             form.parentNode.insertBefore(er2, form.nextSibling);
           });
       });
