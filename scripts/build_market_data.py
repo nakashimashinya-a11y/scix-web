@@ -189,7 +189,7 @@ FOOTER = """<footer class="scix-footer">
       <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
         <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
         <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
-        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="https://dealroom.scix.co.jp/" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電所マーケット</a>
         <a href="/market-data" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">売り案件の市場データ</a>
         <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
         <a href="/sell-form" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利の売却査定</a>
@@ -277,15 +277,15 @@ ORG = {"@type": "Organization", "@id": BASE + "/#organization", "name": "Science
        "url": BASE + "/"}
 
 CTA = """<section class="cta"><div class="container">
-  <h2>案件そのものは、一覧でご覧いただけます</h2>
-  <p>所在県・規模・連系の見込み・進み具合までは秘密保持契約なしで公開しています。売りたい方は、査定は無料で、最初の連絡は5行で足ります。</p>
-  <a class="btn-primary" href="/projects">販売中の案件を見る →</a>
+  <h2>案件そのものは、蓄電所マーケットでご覧いただけます</h2>
+  <p>今ある案件は、登録なしで蓄電所マーケットで見られます。価格と資料は、無料登録のあとで見られます（登録画面で秘密保持の誓約に同意いただきます）。売りたい方は、査定は無料で、最初の連絡は5行で足ります。</p>
+  <a class="btn-primary" href="https://dealroom.scix.co.jp/catalog" target="_top">蓄電所マーケットで案件を見る →</a>
   <a class="btn-secondary" href="/sell-form">案件・権利の売却査定（無料）</a>
 </div></section>
 """
 
 NOTE_SCOPE = ("ここで数えているのは、当社に持ち込まれ、一覧への掲載を了承いただいた系統用蓄電池（蓄電所）の売り案件です。"
-              "日本の市場全体の統計ではなく、当社の観測です。価格・地番・売主は載せていません（秘密保持契約の後に個別にお出しします）。"
+              "日本の市場全体の統計ではなく、当社の観測です。地番・売主は載せていません（価格と資料は、蓄電所マーケットで無料登録のあとに見られます）。"
               "数字は毎朝、案件一覧と同じデータから自動で集計し直しています。")
 
 
@@ -295,7 +295,7 @@ def render_market(ps, today, generated):
     path = "/market-data"
     title = f"系統用蓄電池の売り案件 市場データ｜管内別の件数・規模・連系の見込み（{s['n']}件・毎朝更新）｜サイエンスエックス"
     desc = (f"当社が扱う系統用蓄電池（蓄電所）の売り案件{s['n']}件・合計{s['mw']:,}MWを、管内別・都道府県別・電圧別・取得の形・"
-            f"連系の見込み・回答書の工期で集計。接続検討の回答が出た案件だけ。毎朝更新。価格は秘密保持契約の後に個別に。")
+            f"連系の見込み・回答書の工期で集計。接続検討の回答が出た案件だけ。毎朝更新。価格と資料は蓄電所マーケットで（無料登録）。")
     area_pairs = [(f"{a}（{nm}）", s["area"].get(a, 0)) for a, _, nm in AREAS if s["area"].get(a)]
     other_areas = [(a, n) for a, n in s["area"].items() if a not in {x[0] for x in AREAS}]
     area_pairs += [(a, n) for a, n in other_areas]
@@ -403,7 +403,7 @@ def render_area(ps_all, area, slug, operator, today, generated):
     if area in ("東京", "中部", "九州", "関西", "中国", "東北", "北海道", "北陸", "四国"):
         title = f"{operator}管内の系統用蓄電池 売り案件 {n}件｜連系の見込み・取得の形｜サイエンスエックス"
     desc = (f"{operator}管内（{area}エリア）で当社が扱う系統用蓄電池（蓄電所）の売り案件{n}件・合計{s['mw']:,}MW。"
-            f"都道府県・電圧・規模・連系の見込み・進み具合・取得の形まで秘密保持契約なしで公開。接続検討の回答が出た案件だけ。毎朝更新。")
+            f"都道府県・電圧・規模・連系の見込み・進み具合・取得の形まで登録なしで公開。価格と資料は蓄電所マーケットで（無料登録）。接続検討の回答が出た案件だけ。毎朝更新。")
     robots = "index,follow,max-image-preview:large" if n >= MIN_INDEX else "noindex,follow"
     pref_pairs = s["pref"].most_common()
     half_pairs = sorted(s["half"].items())
@@ -424,10 +424,10 @@ def render_area(ps_all, area, slug, operator, today, generated):
     list_html = rows_html(ps, today) if ps else '<p class="md-note">いまこの管内に販売中の案件はありません。新しく載ったら、ここと <a href="/projects">案件一覧</a> に出ます。</p>'
     body = f"""{nav_crumbs([("ホーム", "/"), ("案件一覧", "/projects"), (f"{area}電力管内", path)])}
 <section class="hero"><div class="container">
-  <span class="badge">NDA不要・毎朝更新</span>
+  <span class="badge">登録不要・毎朝更新</span>
   <div class="section-label">Projects by Area</div>
   <h1>{_esc(operator)}管内の系統用蓄電池 売り案件 {n}件</h1>
-  <p>{_esc(area)}エリア（{_esc(operator)}管内）で当社が扱う、接続検討の回答が出た系統用蓄電池（蓄電所）の案件です。所在県・電圧・規模・連系の見込み・進み具合・取得の形までは秘密保持契約なしでご覧いただけます。地番・売主・価格は本ページでは開示していません。{_esc(generated)} 時点です。</p>
+  <p>{_esc(area)}エリア（{_esc(operator)}管内）で当社が扱う、接続検討の回答が出た系統用蓄電池（蓄電所）の案件です。所在県・電圧・規模・連系の見込み・進み具合・取得の形までは登録なしでご覧いただけます。価格と資料は蓄電所マーケットで、無料登録のあとに見られます。地番・売主は本ページでは載せていません。{_esc(generated)} 時点です。</p>
   <div class="kpi">
     <div><b>{n}件</b><span>販売中の案件</span></div>
     <div><b>{s['mw']:,}MW</b><span>合計出力（{s['mwh']:,}MWh）</span></div>
@@ -453,7 +453,7 @@ def render_area(ps_all, area, slug, operator, today, generated):
 <section class="md"><div class="container">
   <div class="section-label">Projects</div>
   <h2 class="md-h">{_esc(operator)}管内の案件一覧（{n}件・{_esc(generated)} 更新）</h2>
-  <p class="md-lead">連系が早い順です。案件番号を押すと、全国の一覧の該当行に移ります。そこで案件にチェックを入れると、資料をまとめて請求できます。</p>
+  <p class="md-lead">連系が早い順です。案件番号を押すと、全国の一覧の該当行に移ります。価格と資料は、<a href="https://dealroom.scix.co.jp/catalog" target="_top">蓄電所マーケット</a>で無料登録のあとに見られます。</p>
   {list_html}
   <p class="md-note" style="margin-top:16px">ほかの管内: {others}</p>
 </div></section>
@@ -551,7 +551,7 @@ EN_FOOTER = """<footer class="scix-footer">
       </div>
       <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
         <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
-        <a href="/en/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Projects</a>
+        <a href="https://dealroom.scix.co.jp/?lang=en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Chikudensho Market</a>
         <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
         <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
         <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>
@@ -604,8 +604,8 @@ def render_en_projects(ps, today, generated):
     reg = "https://dealroom.scix.co.jp/en/register"
 
     def band():
-        return ('<tr class="pj-band"><td colspan="9"><span>Prices, exact sites and documents are in DealRoom (free registration, NDA)</span>'
-                f'<a class="pj-band-btn" href="{reg}" rel="nofollow" onclick="window.gtag&&gtag(\'event\',\'dr2_promo_click\',{{target:\'band_en\'}})">Register on DealRoom &rarr;</a></td></tr>')
+        return ('<tr class="pj-band"><td colspan="9"><span>Prices, exact sites and documents are on Chikudensho Market (free registration)</span>'
+                f'<a class="pj-band-btn" href="{reg}" rel="nofollow" onclick="window.gtag&&gtag(\'event\',\'dr2_promo_click\',{{target:\'band_en\'}})">Register on Chikudensho Market &rarr;</a></td></tr>')
 
     rows = []
     for i, p in enumerate(ps, 1):
@@ -625,7 +625,7 @@ def render_en_projects(ps, today, generated):
             f'<td data-l="Structure">{EN_SCHEME.get(p.get("scheme"), "Under review")}</td>'
             f'<td data-l="Expected COD">{_esc(en_cod(p, today_ym))}</td>'
             f'<td class="c-lock" data-l="Price, site, documents"><a class="pj-lock" href="{reg}" rel="nofollow" '
-            f'onclick="window.gtag&&gtag(\'event\',\'dr2_promo_click\',{{target:\'row_en\'}})">View in DealRoom</a></td></tr>')
+            f'onclick="window.gtag&&gtag(\'event\',\'dr2_promo_click\',{{target:\'row_en\'}})">View on Chikudensho Market</a></td></tr>')
         if i % BAND_EVERY == 0 and i != len(ps):
             rows.append(band())
     rows.append(band())
@@ -648,10 +648,10 @@ def render_en_projects(ps, today, generated):
                  .replace(f"<style>{CSS}</style>", f"<style>{CSS}{EN_CSS}</style>"))
     body = f"""<section class="hero pj-hero"><div class="container">
   <h1>{n} grid-scale BESS projects for sale in Japan <span style="font-size:.7em;font-weight:500;color:var(--text-2)">(high voltage {volt.get('高圧', 0)} · extra-high voltage {volt.get('特別高圧', 0)})</span></h1>
-  <p class="sub">Location is shown to prefecture level. Prices, sites and documents are in DealRoom (free registration, NDA).</p>
+  <p class="sub">Location is shown to prefecture level. Prices, sites and documents are on Chikudensho Market (free registration).</p>
   <div class="hero-btns">
     <a class="hb hb-list" href="#list">View the list</a>
-    <a class="hb hb-dr" href="https://dealroom.scix.co.jp/en/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'hero_en'}})">Register on DealRoom</a>
+    <a class="hb hb-dr" href="https://dealroom.scix.co.jp/en/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'hero_en'}})">Register on Chikudensho Market</a>
   </div>
 </div></section>
 
@@ -673,15 +673,15 @@ def render_en_projects(ps, today, generated):
 </div></section>
 
 <section class="md" id="dealroom"><div class="container">
-  <div class="section-label">DealRoom</div>
-  <h2 class="md-h">Detailed materials are in DealRoom, after you agree to the undertaking</h2>
+  <div class="section-label">Chikudensho Market</div>
+  <h2 class="md-h">Detailed materials are on Chikudensho Market, after free registration</h2>
   <div class="pj-dr">
-    <p class="md-lead" style="margin-bottom:6px">This list is an anonymous teaser. Site details, technical documents, grid-utility correspondence and the Q&amp;A for each project are shown in DealRoom, our members-only data room.</p>
+    <p class="md-lead" style="margin-bottom:6px">This list shows only the public fields. Site details, technical documents, grid-utility correspondence and the Q&amp;A for each project are shown on Chikudensho Market, our marketplace for battery storage sites (English screens available).</p>
     <ol>
-      <li>Register on DealRoom (free of charge) and agree to the confidentiality undertaking on the registration page &mdash; no signed or sealed paper is needed.</li>
-      <li>After our review, we enable your login and you can open the detailed information and documents for each project.</li>
+      <li>Register on Chikudensho Market (free of charge) and agree to the confidentiality undertaking on the registration page &mdash; no signed or sealed paper is needed.</li>
+      <li>After registering, you can open the prices and documents for each project.</li>
     </ol>
-    <a class="btn-primary" href="https://dealroom.scix.co.jp/en/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'register_en'}})">Register on DealRoom &rarr;</a>
+    <a class="btn-primary" href="https://dealroom.scix.co.jp/en/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'register_en'}})">Register on Chikudensho Market &rarr;</a>
     <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/contact?intent=dealroom" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'apply_en'}})">Or apply through our contact form</a>
     <p class="md-note" style="margin-top:12px">If you prefer paper, the undertaking is also available as a PDF: <a href="/files/scix-nda-pledge-en.pdf">English</a> / <a href="/files/scix-nda-pledge.pdf">Japanese</a>.</p>
   </div>
@@ -695,7 +695,7 @@ def render_en_projects(ps, today, generated):
 
 <section class="cta"><div class="container">
   <h2>Looking for something specific?</h2>
-  <p>Tell us the area, voltage class, size and timing you are looking for, and we will tell you which listed projects fit. Questions about NDA, structure or process are welcome.</p>
+  <p>Tell us the area, voltage class, size and timing you are looking for, and we will tell you which listed projects fit. Questions about the confidentiality undertaking, structure or process are welcome.</p>
   <a class="btn-primary" href="/en/contact">Contact ScienceX &rarr;</a>
 </div></section>
 <script>

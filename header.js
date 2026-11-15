@@ -150,6 +150,11 @@
     '}',
     '.scix-header-nav a.scix-cta:hover{background:#2D3A5C;color:#fff;box-shadow:none}',
     '.scix-header-nav a.scix-cta.active{background:#1F2A48;color:#fff;box-shadow:inset 0 -3px 0 #C49A3C}',
+    '/* === 蓄電所マーケットへのボタン（2026-11-15 中島「こんな地味なボタン誰も押さない」）: マーケットと同じ橙の丸いボタンと印 === */',
+    '.scix-header-nav a.scix-mk{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#F97316,#F59E0B);color:#fff;font-weight:900;',
+    '  padding:8px 18px 8px 8px;border-radius:999px;margin-left:14px;box-shadow:0 6px 16px rgba(234,88,12,.30);white-space:nowrap}',
+    '.scix-header-nav a.scix-mk:hover{filter:brightness(1.06);color:#fff;box-shadow:0 8px 20px rgba(234,88,12,.38);transform:translateY(-1px)}',
+    '.scix-header-nav a.scix-mk svg{width:24px;height:24px;flex:0 0 auto;display:block}',
 
     '/* === Dropdown groups (ナレッジ / 買う / 売る) === */',
     '.scix-nav-dd{position:relative;display:flex;align-items:center;}',
@@ -258,6 +263,7 @@
     '    border-radius:0;border-bottom:none;',
     '    padding:14px 20px;',
     '  }',
+    '  .scix-header-nav a.scix-mk{margin:18px 0 0;justify-content:center;padding:12px 20px 12px 12px}',
     '  .scix-nav-dd{flex-direction:column;align-items:stretch;}',
     '  .scix-nav-dd-toggle{justify-content:space-between;width:100%;text-align:left;}',
     '  .scix-nav-dd-toggle.active{background:none;}',
@@ -335,14 +341,14 @@
   var nav = isZh ? [
     '<a href="/zh"           data-page="/">首页</a>',
     '<a href="/en/projects">在售项目（英文）</a>',
-    '<a href="https://dealroom.scix.co.jp/">蓄电所市场（Chikudensho Market）</a>',
+    '<a href="https://dealroom.scix.co.jp/?lang=en" class="scix-mk"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="#1E3A8A"/><rect x="8.5" y="13" width="19.5" height="14" rx="3" fill="none" stroke="#fff" stroke-width="2.6"/><rect x="28" y="17.4" width="3.2" height="5.2" rx="1.2" fill="#fff"/><path d="M12.4 20.6h3.1l1.7-3.3 2.6 6.4 1.7-3.1h2.9" fill="none" stroke="#FBBF24" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>蓄电所市场</a>',
     '<a href="/zh-knowledge" data-page="/knowledge">洞见</a>',
     '<a href="/zh-qa"        data-page="/qa">问答</a>',
     '<a href="/zh-contact" class="scix-cta">联系我们</a>'
   ] : isEn ? [
     '<a href="/en"           data-page="/">Home</a>',
     '<a href="/en/projects" data-page="/projects">Projects</a>',
-    '<a href="https://dealroom.scix.co.jp/">Chikudensho Market</a>',   // 2026-11-15: 売り買いの場（英語の表示あり）
+    '<a href="https://dealroom.scix.co.jp/?lang=en" class="scix-mk"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="#1E3A8A"/><rect x="8.5" y="13" width="19.5" height="14" rx="3" fill="none" stroke="#fff" stroke-width="2.6"/><rect x="28" y="17.4" width="3.2" height="5.2" rx="1.2" fill="#fff"/><path d="M12.4 20.6h3.1l1.7-3.3 2.6 6.4 1.7-3.1h2.9" fill="none" stroke="#FBBF24" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Chikudensho Market</a>',   // 2026-11-15: 売り買いの場（英語の表示あり）
     '<a href="/en/knowledge" data-page="/knowledge">Knowledge</a>',
     '<a href="/en/qa"        data-page="/qa">Q&amp;A</a>',
     '<a href="/en/report"   data-page="/report">Market Notes</a>',
@@ -392,7 +398,7 @@
     '<a href="/report"   data-page="/report">市場ノート</a>',
     '<a href="/company"  data-page="/company">会社案内</a>',
     '<a href="/contact"  data-page="/contact">お問い合わせ</a>',
-    '<a href="https://dealroom.scix.co.jp/" class="scix-cta">蓄電所マーケット</a>'   // 2026-11-15: 前は「販売中の案件を見る」（/projects）
+    '<a href="https://dealroom.scix.co.jp/" class="scix-mk"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="#1E3A8A"/><rect x="8.5" y="13" width="19.5" height="14" rx="3" fill="none" stroke="#fff" stroke-width="2.6"/><rect x="28" y="17.4" width="3.2" height="5.2" rx="1.2" fill="#fff"/><path d="M12.4 20.6h3.1l1.7-3.3 2.6 6.4 1.7-3.1h2.9" fill="none" stroke="#FBBF24" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>蓄電所マーケット</a>'   // 2026-11-15: 前は「販売中の案件を見る」（/projects）
   ];
 
   // --------------- Language switcher (JA / EN / 简中) ---------------
@@ -864,7 +870,7 @@
     if (!a || typeof window.gtag !== 'function') return;
     var group;
     if (a.classList.contains('scix-header-logo')) group = 'logo';
-    else if (a.classList.contains('scix-cta')) group = 'cta';
+    else if (a.classList.contains('scix-cta') || a.classList.contains('scix-mk')) group = 'cta';   // 蓄電所マーケットのボタンも cta に数える（2026-11-15）
     else if (a.closest('.scix-lang')) group = 'lang';
     else if (a.closest('.scix-nav-dd')) group = a.closest('.scix-nav-dd').getAttribute('data-group') || 'group';
     else group = 'top';
