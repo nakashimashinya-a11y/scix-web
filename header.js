@@ -335,12 +335,14 @@
   var nav = isZh ? [
     '<a href="/zh"           data-page="/">首页</a>',
     '<a href="/en/projects">在售项目（英文）</a>',
+    '<a href="https://dealroom.scix.co.jp/">蓄电所市场（Chikudensho Market）</a>',
     '<a href="/zh-knowledge" data-page="/knowledge">洞见</a>',
     '<a href="/zh-qa"        data-page="/qa">问答</a>',
     '<a href="/zh-contact" class="scix-cta">联系我们</a>'
   ] : isEn ? [
     '<a href="/en"           data-page="/">Home</a>',
     '<a href="/en/projects" data-page="/projects">Projects</a>',
+    '<a href="https://dealroom.scix.co.jp/">Chikudensho Market</a>',   // 2026-11-15: 売り買いの場（英語の表示あり）
     '<a href="/en/knowledge" data-page="/knowledge">Knowledge</a>',
     '<a href="/en/qa"        data-page="/qa">Q&amp;A</a>',
     '<a href="/en/report"   data-page="/report">Market Notes</a>',
@@ -369,12 +371,18 @@
         ['/market-data', '売り案件の市場データ']
       ]}
     ]),
+    // 2026-11-15 中島「この販売中案件を見るって何？なんで残ってる」「めちゃくちゃぬけ」: 案件の売り買いは「蓄電所マーケット」（dealroom.scix.co.jp）に移った。
+    // 買う・売るの入口はマーケットを先に置く（今ある案件・リクエスト・自分で売る・買主のリクエスト）。地域別の一覧（/projects）は検索から来た人の案内として残す
     ddGroup('buy', '買う', [
-      ['/projects', '販売中の案件一覧'],
+      ['https://dealroom.scix.co.jp/catalog', '今ある案件（蓄電所マーケット）'],
+      ['https://dealroom.scix.co.jp/buy',     'ほしい蓄電所をリクエストする'],
+      ['/projects', '地域別の案件一覧'],
       ['/transfer', '買うまでの流れ'],
       ['/fund',     'ファンドで持つ']
     ]),
     ddGroup('sell', '売る', [
+      ['https://dealroom.scix.co.jp/sellers', '蓄電所マーケットで売る'],
+      ['https://dealroom.scix.co.jp/wanted',  '買主のリクエストを見る'],
       ['/sourcing',  '案件・権利を売る'],
       ['/sell-form', '案件・権利の売却査定（無料）'],
       ['/partners',  '案件・投資家を紹介する']
@@ -384,7 +392,7 @@
     '<a href="/report"   data-page="/report">市場ノート</a>',
     '<a href="/company"  data-page="/company">会社案内</a>',
     '<a href="/contact"  data-page="/contact">お問い合わせ</a>',
-    '<a href="/projects" data-page="/projects" class="scix-cta">販売中の案件を見る</a>'
+    '<a href="https://dealroom.scix.co.jp/" class="scix-cta">蓄電所マーケット</a>'   // 2026-11-15: 前は「販売中の案件を見る」（/projects）
   ];
 
   // --------------- Language switcher (JA / EN / 简中) ---------------

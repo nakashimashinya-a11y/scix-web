@@ -53,7 +53,7 @@ def block(name):
         '  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">' + cards + "</div>\n"
         '  <p style="margin:18px 0 0;text-align:center"><a target="_top" href="' + REG + '" '
         "onclick=\"window.gtag&&gtag('event','dr2_register_click',{target:'column_end'})\" "
-        'style="display:inline-block;background:#1F2A48;color:#fff;font-weight:700;font-size:14px;padding:13px 30px;text-decoration:none">非公開案件ページに登録 →</a></p>\n'
+        'style="display:inline-block;background:#1F2A48;color:#fff;font-weight:700;font-size:14px;padding:13px 30px;text-decoration:none">蓄電所マーケットに無料登録 →</a></p>\n'
         "</div>\n" + END + "\n"
     )
 
