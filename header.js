@@ -539,7 +539,7 @@
   // 入力はメールアドレスだけ（お名前は任意）。受け口は scix-dealroom2 の /api/newsletter（D1に積む→毎朝
   // blastmail_sync.py がブラストメールへ登録）。置き場所: <div data-scix-newsletter> があればそこ、
   // 無ければ JA コラムの末尾（関連記事の下・フッターの上）。コラムの1記事1CTA（案件/フォーム）とは別物＝更新通知。
-  var NL_API = 'https://scix-dealroom2.pages.dev/api/newsletter';
+  var NL_API = 'https://dealroom.scix.co.jp/api/newsletter';
   var NL_SKIP = /^\/(contact|sell-form|thanks|privacy)$/;
   if (isJa && !NL_SKIP.test(loc)) {
     var nlCss = [
