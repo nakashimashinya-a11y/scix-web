@@ -244,7 +244,7 @@ def page_head_en(title, desc, path, jsonld, ja_path):
          .replace(f'<link rel="alternate" hreflang="ja" href="{url}">',
                   f'<link rel="alternate" hreflang="en" href="{url}">\n<link rel="alternate" hreflang="ja" href="{BASE}{ja_path}">')
          .replace('content="ja_JP"', 'content="en_US"')
-         .replace(f"{BASE}/img/ogp-x.png", f"{BASE}/img/ogp-x-en.png"))
+         .replace(f"{BASE}/img/ogp-m.png", f"{BASE}/img/ogp-m-en.png"))
     return h.replace("</style>", EXTRA_CSS + "</style>", 1)
 
 
@@ -359,7 +359,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
     body = f"""{bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", "/report"), (title_h, path)])}
 <section class="hero"><div class="container">
   <span class="badge">毎月発行・出典つき</span>
-  <div class="section-label">Market Notes</div>
+  <div class="section-label">市場ノート</div>
   <h1>{esc(title_h)}</h1>
   <p>{esc(doc["intro"])}</p>
   <p class="md-note">サイエンスエックス株式会社　発行 {jp_date(doc["issued"])}　A4・全{page_count(m)}ページ</p>
@@ -496,7 +496,7 @@ def render_index(rows, has_en=False):
     body = f"""{bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", path)])}
 <section class="hero"><div class="container">
   <span class="badge">毎月発行</span>
-  <div class="section-label">Report</div>
+  <div class="section-label">月報</div>
   <h1>蓄電所の市場ノート</h1>
   <p>蓄電所（系統用蓄電池）の収入は、①需給調整市場（EPRX）・②卸電気（JEPX）・③容量市場（OCCTO）の3つの市場から入ります。その3つの数字を、公表データと当社の記録から毎月まとめています。新しい号が上です。</p>
 </div></section>

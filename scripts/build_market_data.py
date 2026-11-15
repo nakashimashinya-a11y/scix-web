@@ -238,11 +238,11 @@ def head(title, desc, path, jsonld, robots="index,follow,max-image-preview:large
 <meta property="og:url" content="{url}">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="ScienceX">
-<meta property="og:image" content="{BASE}/img/ogp-x.png">
+<meta property="og:image" content="{BASE}/img/ogp-m.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{_esc(title)}">
 <meta name="twitter:description" content="{_esc(desc)}">
-<meta name="twitter:image" content="{BASE}/img/ogp-x.png">
+<meta name="twitter:image" content="{BASE}/img/ogp-m.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="{FONTS}" onload="this.onload=null;this.rel='stylesheet'">
@@ -328,7 +328,7 @@ def render_market(ps, today, generated):
     body = f"""{nav_crumbs([("ホーム", "/"), ("案件一覧", "/projects"), ("売り案件の市場データ", path)])}
 <section class="hero"><div class="container">
   <span class="badge">毎朝更新・当社観測</span>
-  <div class="section-label">Market Data</div>
+  <div class="section-label">市場データ</div>
   <h1>系統用蓄電池の売り案件 市場データ</h1>
   <p>当社が扱う売り案件{s['n']}件を、管内・都道府県・電圧・取得の形・連系の見込み・回答書の工期で数えました。どの管内に何件あり、いつ連系する見込みで、権利で買える案件と完成渡しの案件がどれだけあるか。案件を探す前の見当付けと、売る前の相場観（件数の分布）にお使いください。{_esc(generated)} 時点です。</p>
   <div class="kpi">
@@ -342,7 +342,7 @@ def render_market(ps, today, generated):
 </div></section>
 
 <section class="md"><div class="container">
-  <div class="section-label">By Area</div>
+  <div class="section-label">エリア別</div>
   <h2 class="md-h">管内別の件数と規模</h2>
   <p class="md-lead">一般送配電事業者の管内ごとの件数です。管内名を押すと、その管内の案件一覧に移ります。</p>
   <div class="md-grid">
@@ -352,14 +352,14 @@ def render_market(ps, today, generated):
 </div></section>
 
 <section class="md"><div class="container">
-  <div class="section-label">By Prefecture</div>
+  <div class="section-label">都道府県別</div>
   <h2 class="md-h">都道府県別（上位10）</h2>
   <p class="md-lead">案件の多い都道府県です。{len(s['pref'])}都道府県に案件があります。</p>
   <table class="md-t"><thead><tr><th>都道府県</th><th>件数</th></tr></thead><tbody>{pref_rows}</tbody></table>
 </div></section>
 
 <section class="md"><div class="container">
-  <div class="section-label">Voltage / Scheme / Stage</div>
+  <div class="section-label">電圧・買い方・手続き</div>
   <h2 class="md-h">電圧区分・取得の形・進み具合</h2>
   <p class="md-lead">高圧は2MW級が中心で、特別高圧は10MW以上です。取得の形は、権利で買って自分で建てる「権利譲渡」と、建った状態で受け取る「完成渡し」に分かれます。進み具合は、接続検討の回答までか、契約申込みの本回答まで進んで工事費負担金が確定しているか、連系済みかです。</p>
   <div class="md-grid">
@@ -370,7 +370,7 @@ def render_market(ps, today, generated):
 </div></section>
 
 <section class="md"><div class="container">
-  <div class="section-label">Connection Timing</div>
+  <div class="section-label">連系の時期</div>
   <h2 class="md-h">連系の見込み</h2>
   <p class="md-lead">運転開始の予定が決まっている案件は年度の上期・下期で、決まっていない案件は接続検討回答書に書かれた「連系までにかかる月数」で数えました。予定が決まっているのは{s['ym_known']}件、月数だけが分かるのは{len(s['lead'])}件、時期を確認中が{s['undecided'] - len([1 for p in ps if not p.get('live') and not (p.get('codYm') and p['codYm'] >= today.strftime('%Y-%m')) and isinstance(p.get('leadMonths'), (int, float))])}件です。月数は回答書の記載で、工事費負担金の入金から数えるものが中心です。</p>
   <div class="md-grid">
@@ -381,7 +381,7 @@ def render_market(ps, today, generated):
 </div></section>
 
 <section class="md"><div class="container">
-  <div class="section-label">New Listings</div>
+  <div class="section-label">新着</div>
   <h2 class="md-h">掲載の推移</h2>
   <p class="md-lead">月ごとに一覧へ載せた件数です。売却済み・売り止めで外した案件は含みません。</p>
   <table class="md-t"><thead><tr><th>掲載月</th><th>件数</th></tr></thead><tbody>{month_rows}</tbody></table>
@@ -425,7 +425,7 @@ def render_area(ps_all, area, slug, operator, today, generated):
     body = f"""{nav_crumbs([("ホーム", "/"), ("案件一覧", "/projects"), (f"{area}電力管内", path)])}
 <section class="hero"><div class="container">
   <span class="badge">登録不要・毎朝更新</span>
-  <div class="section-label">Projects by Area</div>
+  <div class="section-label">エリアごとの案件</div>
   <h1>{_esc(operator)}管内の系統用蓄電池 売り案件 {n}件</h1>
   <p>{_esc(area)}エリア（{_esc(operator)}管内）で当社が扱う、接続検討の回答が出た系統用蓄電池（蓄電所）の案件です。所在県・電圧・規模・連系の見込み・進み具合・取得の形までは登録なしでご覧いただけます。価格と資料は蓄電所マーケットで、無料登録のあとに見られます。地番・売主は本ページでは載せていません。{_esc(generated)} 時点です。</p>
   <div class="kpi">
@@ -438,7 +438,7 @@ def render_area(ps_all, area, slug, operator, today, generated):
 </div></section>
 
 <section class="md"><div class="container">
-  <div class="section-label">Overview</div>
+  <div class="section-label">あらまし</div>
   <h2 class="md-h">{_esc(area)}エリアの案件の内訳</h2>
   <div class="md-grid">
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">都道府県</h3>{bar_rows(pref_pairs, n)}</div>
@@ -451,7 +451,7 @@ def render_area(ps_all, area, slug, operator, today, generated):
 </div></section>
 
 <section class="md"><div class="container">
-  <div class="section-label">Projects</div>
+  <div class="section-label">案件</div>
   <h2 class="md-h">{_esc(operator)}管内の案件一覧（{n}件・{_esc(generated)} 更新）</h2>
   <p class="md-lead">連系が早い順です。案件番号を押すと、全国の一覧の該当行に移ります。価格と資料は、<a href="https://dealroom.scix.co.jp/catalog" target="_top">蓄電所マーケット</a>で無料登録のあとに見られます。</p>
   {list_html}
@@ -511,7 +511,7 @@ EN_CSS = """
 .hb-list{background:var(--navy);color:#fff}.hb-dr{background:var(--gold);color:var(--navy)}
 section.pj-list{padding:20px 0 40px;border-top:none;scroll-margin-top:72px}
 .pj-lock{display:inline-block;padding:4px 12px;border:1.5px solid var(--navy);border-radius:100px;color:var(--navy);font-size:.76rem;font-weight:600;text-decoration:none;white-space:nowrap}
-.pj-lock::before{content:"\1F512  "}.pj-lock:hover{background:var(--navy);color:#fff}
+.pj-lock::before{content:"\\01F512\\00A0"}.pj-lock:hover{background:var(--navy);color:#fff}
 .pj-t th.c-lock,.pj-t td.c-lock{background:rgba(196,154,60,.07)}
 .pj-t tr.pj-band td{background:var(--navy);color:#fff;padding:9px 14px;border:none}
 .pj-t tr.pj-band td span{margin-right:14px;font-size:.82rem}
@@ -545,7 +545,7 @@ EN_FOOTER = """<footer class="scix-footer">
         <div class="company-name">Science X Inc.</div>
         8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016<br>
         BIZMARKS Nihonbashi Kayabacho<br>
-        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
         MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
         <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
       </div>
@@ -644,7 +644,7 @@ def render_en_projects(ps, today, generated):
                  .replace(f'<link rel="alternate" hreflang="ja" href="{url}">',
                           f'<link rel="alternate" hreflang="en" href="{url}">\n<link rel="alternate" hreflang="ja" href="{BASE}/projects">')
                  .replace('content="ja_JP"', 'content="en_US"')
-                 .replace(f'{BASE}/img/ogp-x.png', f'{BASE}/img/ogp-x-en.png')
+                 .replace(f'{BASE}/img/ogp-m.png', f'{BASE}/img/ogp-m-en.png')
                  .replace(f"<style>{CSS}</style>", f"<style>{CSS}{EN_CSS}</style>"))
     body = f"""<section class="hero pj-hero"><div class="container">
   <h1>{n} grid-scale BESS projects for sale in Japan <span style="font-size:.7em;font-weight:500;color:var(--text-2)">(high voltage {volt.get('高圧', 0)} · extra-high voltage {volt.get('特別高圧', 0)})</span></h1>
