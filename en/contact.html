@@ -366,7 +366,7 @@
           <div class="inquiry-types">
             <label>Inquiry Type<span class="required">*</span></label>
             <span class="chip active" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="Investor (real-asset investment)" checked>Investor</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="DealRoom access request" data-intent="dealroom">DealRoom access</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="Chikudensho Market access request" data-intent="dealroom">Chikudensho Market access</span>
             <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="Partnership / collaboration">Partnership</span>
             <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="Other">Other</span>
           </div>
@@ -444,7 +444,7 @@
             </li>
             <li>
               <span class="check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
-              <span><strong style="color:var(--navy);">Detailed materials and financial simulations</strong> are disclosed after NDA</span>
+              <span><strong style="color:var(--navy);">Detailed materials and financial simulations</strong> are available on Chikudensho Market after free registration</span>
             </li>
             <li>
               <span class="check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -506,7 +506,7 @@
       var inp = document.querySelector('.chip input[data-intent="dealroom"]');
       if (inp) toggleChip(inp.closest('.chip'));
       var msg = document.querySelector('textarea[name="message"]');
-      if (msg && !msg.value) msg.value = 'I would like to register for DealRoom.';
+      if (msg && !msg.value) msg.value = 'I would like to register for Chikudensho Market.';
     }
   } catch (e) {}
 })();
@@ -578,7 +578,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
         try {
           var _il = document.querySelector('input[name="inquiry"]:checked');
           var _v = (_il && _il.value) || '';
-          var _intent = /DealRoom/i.test(_v) ? 'dealroom' : /投資家|投资|Investor/i.test(_v) ? 'investor' :
+          var _intent = /DealRoom|Chikudensho Market/i.test(_v) ? 'dealroom' : /投資家|投资|Investor/i.test(_v) ? 'investor' :
              /Buyer|案件取得|買い手/i.test(_v) ? 'buyer' :
              /Seller|売却|査定/i.test(_v) ? 'seller' :
              /Land|用地/i.test(_v) ? 'land' : 'other';
@@ -633,7 +633,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
       </div>
       <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
         <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
-        <a href="/en/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Projects</a>
+        <a href="https://dealroom.scix.co.jp/?lang=en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Chikudensho Market</a>
         <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
         <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
         <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>

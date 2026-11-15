@@ -367,10 +367,10 @@
       steps: [
         ['ご関心の案件について、<strong>公開していない情報</strong>を含めてお返しします', ''],
         ['ご希望の管内・規模・連系の時期をうかがい、<strong>合う案件を他にもお出しします</strong>', ''],
-        ['資料をお出しする段階で<strong>秘密保持契約</strong>を結び、非公開案件ページで一括してご覧いただきます', ''],
+        ['価格と資料は、蓄電所マーケットの<strong>無料登録</strong>（秘密保持の誓約に同意）のあとにご覧いただけます', ''],
         ['ご希望があれば、<strong>売主とのオンライン面談（Zoom）</strong>を当社が組みます。質問はその場で片づきます', '']
       ],
-      sub: ['/projects', '販売中の案件一覧を見る']
+      sub: ['https://dealroom.scix.co.jp/catalog', '蓄電所マーケットで案件を見る →']
     },
     investor: {
       h: 'お問い合わせありがとうございました',
@@ -380,7 +380,7 @@
         ['決算期と受電の時期から、<strong>間に合う案件</strong>を絞ってご案内します', ''],
         ['オンラインでの<strong>個別ご説明</strong>も承ります', '']
       ],
-      sub: ['/projects', '販売中の案件一覧を見る']
+      sub: ['https://dealroom.scix.co.jp/catalog', '蓄電所マーケットで案件を見る →']
     },
     seller: {
       h: 'お問い合わせありがとうございました',
@@ -390,7 +390,7 @@
         ['お出しいただきたい書類（接続検討の回答書・登記・負担金の証憑など）を<strong>一覧でお送りします</strong>', ''],
         ['売主様と直接お話しできることを条件に、<strong>買い手にお声がけ</strong>します', '']
       ],
-      sub: ['/sourcing', '案件・権利を売る（進め方）']
+      sub: ['https://dealroom.scix.co.jp/sellers', '蓄電所マーケットで売る →']
     },
     other: {
       h: 'お問い合わせありがとうございました',
@@ -428,7 +428,7 @@
 
   var subBtn = card.querySelector('.btn-secondary');
   if (subBtn) {
-    subBtn.href = 'https://www.scix.co.jp' + c.sub[0];
+    subBtn.href = (/^https?:/.test(c.sub[0]) ? '' : 'https://www.scix.co.jp') + c.sub[0];
     subBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>' + c.sub[1];
   }
 })();

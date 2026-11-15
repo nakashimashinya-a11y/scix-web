@@ -814,6 +814,7 @@ body {
 .strengths[style*="off-white"] .strength-card p{color:var(--text-secondary)}
 </style>
 <link rel="stylesheet" href="/theme.css">
+<link rel="stylesheet" href="/market-promo.css">
 </head>
 <body>
 <script src="/header.js"></script>
@@ -829,8 +830,17 @@ body {
         so global investors can deploy capital into operating Japanese assets.<br>
         An independent origination and execution partner.
       </p>
+<div class="mk-promo">
+  <a class="mk-card" target="_top" href="https://dealroom.scix.co.jp/?lang=en" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'en_market_card'})"><span class="mk-txt"><span class="mk-badge"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="#1E3A8A"/><rect x="8.5" y="13" width="19.5" height="14" rx="3" fill="none" stroke="#fff" stroke-width="2.6"/><rect x="28" y="17.4" width="3.2" height="5.2" rx="1.2" fill="#fff"/><path d="M12.4 20.6h3.1l1.7-3.3 2.6 6.4 1.7-3.1h2.9" fill="none" stroke="#FBBF24" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Chikudensho Market</span><span class="mk-h">Battery storage sites. <span class="b">Buy.</span> <span class="s">Sell.</span></span><span class="mk-p">Completed BESS and grid-connection rights in Japan. Browse the listed projects without registering (English screens).</span><span class="mk-go">Open the market →</span></span><img class="mk-art" src="/img/market/hero.svg" alt="" width="960" height="420"></a>
+  <div class="mk-doors">
+    <a class="mk-door buy" target="_top" href="https://dealroom.scix.co.jp/buy?lang=en" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'en_market_buy'})"><img src="/img/market/buy.svg" alt=""><b>Buy</b><span>Post what you want</span></a>
+    <a class="mk-door sell" target="_top" href="https://dealroom.scix.co.jp/sellers?lang=en" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'en_market_sell'})"><img src="/img/market/sell.svg" alt=""><b>Sell</b><span>List your project</span></a>
+    <a class="mk-door deal" target="_top" href="https://dealroom.scix.co.jp/catalog?lang=en" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'en_market_deals'})"><img src="/img/market/deals.svg" alt=""><b><span class="n" data-mk="deals"></span> projects</b><span>Browse without registering</span></a>
+    <a class="mk-door wants" target="_top" href="https://dealroom.scix.co.jp/wanted?lang=en" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'en_market_wants'})"><img src="/img/market/wants.svg" alt=""><b><span class="n" data-mk="needs"></span> buyer requests</b><span>What buyers want</span></a>
+  </div>
+</div>
+<script>/* 件数はマーケットの公開の口から（公開してよい項目だけ・2026-11-15） */(function(){var B="https://dealroom.scix.co.jp/api/open/";function put(k,n){document.querySelectorAll('[data-mk="'+k+'"]').forEach(function(e){e.textContent=n;});}fetch(B+"deals").then(function(r){return r.json();}).then(function(j){put("deals",(j.deals||[]).length);}).catch(function(){});fetch(B+"needs").then(function(r){return r.json();}).then(function(j){put("needs",(j.needs||[]).length);}).catch(function(){});})();</script>
       <div class="hero-actions">
-        <a target="_top" href="https://dealroom.scix.co.jp/en/register" class="btn-primary" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'en_hero'})">Register for DealRoom →</a>
         <a target="_top" href="/en/contact" class="btn-secondary">Request a briefing</a>
       </div>
       <p style="margin-top:18px;font-size:0.82rem;color:var(--text-light);">简体中文 · <a target="_top" href="/zh" style="color:var(--gold);text-decoration:none;">前往简体中文版 →</a></p>
@@ -944,17 +954,18 @@ body {
 <section class="strengths" id="projects-dealroom" style="background:var(--off-white);">
   <div class="container">
     <div class="strengths-header">
-      <div class="section-label">DealRoom</div>
-      <h2 class="section-title">Register once. Review the listed projects yourself.</h2>
-      <p class="section-subtitle">DealRoom is our data room for buyers. Each listed project comes with grid-utility correspondence and technical documents. You can review several projects as a bundle, including completed high-voltage projects. Register, agree to the confidentiality undertaking, and after our review we open your access.</p>
+      <div class="section-label">Chikudensho Market</div>
+      <h2 class="section-title">Buy and sell battery storage sites on one marketplace.</h2>
+      <p class="section-subtitle">Chikudensho Market is our marketplace for grid-scale battery storage sites in Japan, with English screens. You can browse the listed projects without registering; prices and documents open after free registration. Buyers can post what they want to buy, and sellers can list their own projects. ScienceX checks every listing and request before it goes public.</p>
     </div>
     <ul style="list-style:none;margin:0 0 28px;padding:0;max-width:44em;">
-      <li style="margin-bottom:8px;">&mdash; Agree to the confidentiality undertaking on the registration page (English screen available); no signed paper is needed</li>
+      <li style="margin-bottom:8px;">&mdash; Free registration: agree to the confidentiality undertaking on the registration page (English screen available); no signed paper is needed</li>
+      <li style="margin-bottom:8px;">&mdash; Company names are shared with both sides once a meeting time is set.</li>
       <li style="margin-bottom:8px;">&mdash; We reply within 24 hours.</li>
       <li style="margin-bottom:8px;">&mdash; Meetings can be held in English or Japanese.</li>
     </ul>
-    <a target="_top" href="https://dealroom.scix.co.jp/en/register" class="btn-primary" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'en_projects_section'})">Register for DealRoom &rarr;</a>
-    <a target="_top" href="/en/projects" class="k-more" style="margin-left:20px;" onclick="window.gtag&&gtag('event','dr2_promo_click',{target:'en_home_projects'})">View the anonymous project list &rarr;</a>
+    <a target="_top" href="https://dealroom.scix.co.jp/catalog?lang=en" class="btn-primary" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'en_projects_section'})">See projects on Chikudensho Market &rarr;</a>
+    <a target="_top" href="https://dealroom.scix.co.jp/buy?lang=en" class="k-more" style="margin-left:20px;" onclick="window.gtag&&gtag('event','dr2_promo_click',{target:'en_home_projects'})">Post what you want to buy &rarr;</a>
     <a target="_top" href="/en/faq" class="k-more" style="margin-left:20px;">FAQ &rarr;</a>
   </div>
 </section>
@@ -1164,7 +1175,7 @@ body {
       </div>
       <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
         <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
-        <a href="/en/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Projects</a>
+        <a href="https://dealroom.scix.co.jp/?lang=en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Chikudensho Market</a>
         <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
         <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
         <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>

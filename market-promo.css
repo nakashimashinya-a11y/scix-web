@@ -1,0 +1,34 @@
+/* 蓄電所マーケットへの入口（トップ・日英中で共通）— 2026-11-15
+   中島「蓄電所マーケット　地味で御役所画面が好きだね。せっかくの展開画面がきれいなのに、なにこの御役所バナー」「こんな地味なボタン誰も押さない」。
+   マーケット（dealroom.scix.co.jp）と同じ色の重ね・絵（/img/market/*.svg＝マーケットの art.js から書き出し）・丸み・側ごとの色（買う＝青・売る＝橙・案件＝緑・リクエスト＝琥珀）。 */
+.mk-promo { margin: 8px 0 20px; max-width: 760px; }
+.mk-card { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: 8px 14px;
+  padding: 22px 20px 22px 26px; border-radius: 24px; text-decoration: none; color: #0B1530; overflow: hidden;
+  background: linear-gradient(118deg, #C7D9FF 0%, #FFE1EF 52%, #FFE8B0 100%); box-shadow: 0 16px 36px rgba(31, 42, 72, .16);
+  transition: transform .15s ease, box-shadow .15s ease; }
+.mk-card::before { content: ''; position: absolute; left: -70px; bottom: -110px; width: 260px; height: 260px; border-radius: 50%; background: rgba(255, 255, 255, .45); pointer-events: none; }
+.mk-card:hover { transform: translateY(-3px); box-shadow: 0 22px 46px rgba(31, 42, 72, .22); }
+.mk-card > * { position: relative; }
+.mk-badge { display: inline-flex; align-items: center; gap: 8px; background: #fff; border-radius: 999px; padding: 5px 14px 5px 6px; font-weight: 900; font-size: 14px; color: #1E3A8A; box-shadow: 0 2px 8px rgba(31, 42, 72, .1); }
+.mk-badge svg { width: 26px; height: 26px; display: block; }
+.mk-h { display: block; margin: 12px 0 6px; font-size: clamp(26px, 3.3vw, 38px); font-weight: 900; line-height: 1.25; letter-spacing: -.01em; }
+.mk-h .b { color: #1D4ED8; } .mk-h .s { color: #C2560A; }
+.mk-p { display: block; font-size: 14.5px; line-height: 1.8; color: #24304A; }
+.mk-go { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; background: linear-gradient(135deg, #F97316, #F59E0B); color: #fff; font-weight: 900; font-size: 15px;
+  padding: 12px 24px; border-radius: 999px; box-shadow: 0 8px 18px rgba(234, 88, 12, .32); }
+.mk-card:hover .mk-go { filter: brightness(1.06); }
+.mk-art { width: 100%; height: auto; max-height: 230px; display: block; }
+.mk-doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+.mk-door { --dc: #1F2A48; display: flex; flex-direction: column; gap: 3px; padding: 10px 12px 12px; border-radius: 16px; text-decoration: none; color: #0B1530;
+  background: color-mix(in srgb, var(--dc) 10%, #fff); border-top: 5px solid var(--dc); box-shadow: 0 6px 16px rgba(31, 42, 72, .09); transition: transform .15s ease, box-shadow .15s ease; }
+.mk-door:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(31, 42, 72, .15); }
+.mk-door img { width: 100%; height: 66px; object-fit: contain; display: block; margin-bottom: 4px; }
+.mk-door b { font-size: 15.5px; font-weight: 900; color: var(--dc); line-height: 1.35; }
+.mk-door span { font-size: 12.5px; color: #475569; line-height: 1.55; }
+.mk-door .n { font-size: 20px; font-weight: 900; margin-right: 2px; }
+.mk-door.buy { --dc: #1D4ED8; } .mk-door.sell { --dc: #C2560A; } .mk-door.deal { --dc: #0F7A52; } .mk-door.wants { --dc: #B45309; }
+@media (max-width: 760px) {
+  .mk-card { grid-template-columns: 1fr; padding: 18px; }
+  .mk-art { order: -1; max-height: 150px; }
+  .mk-doors { grid-template-columns: 1fr 1fr; }
+}

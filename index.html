@@ -1027,6 +1027,7 @@ body {
 }
 </script>
 <link rel="stylesheet" href="/theme.css">
+<link rel="stylesheet" href="/market-promo.css">
 </head>
 <body>
 <script src="/header.js"></script>
@@ -1042,11 +1043,16 @@ body {
         売りたい方からは、当社が買い取るか、買い手におつなぎします。買いたい方には、販売中の<!--S:count-->236<!--/S:count-->件（高圧2MWから特別高圧<!--S:maxmw-->150<!--/S:maxmw-->MWまで、<!--S:areas-->9<!--/S:areas-->管内・<!--S:prefs-->35<!--/S:prefs-->都道府県）を、秘密保持契約なしでご覧いただけます。
       </p>
       <p class="hero-desc" style="margin-top:-6px;font-weight:700;">系統の権利が付いた蓄電所用地を、一次資料をそろえた棚で。</p>
-      <p style="margin:0 0 18px;"><a target="_top" href="https://dealroom.scix.co.jp/" class="btn-primary" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'top_hero'})">蓄電所マーケットへ</a></p>
-      <div class="hero-doors">
-        <a target="_top" href="https://dealroom.scix.co.jp/catalog" class="hero-door"><span class="hero-door-k">案件を買いたい方</span><span class="hero-door-v">蓄電所マーケットで案件を見る →</span></a>
-        <a target="_top" href="https://dealroom.scix.co.jp/sellers" class="hero-door sell"><span class="hero-door-k">案件を売りたい方</span><span class="hero-door-v">蓄電所マーケットで売る →</span></a>
-      </div>
+<div class="mk-promo">
+  <a class="mk-card" target="_top" href="https://dealroom.scix.co.jp/" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'ja_market_card'})"><span class="mk-txt"><span class="mk-badge"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="#1E3A8A"/><rect x="8.5" y="13" width="19.5" height="14" rx="3" fill="none" stroke="#fff" stroke-width="2.6"/><rect x="28" y="17.4" width="3.2" height="5.2" rx="1.2" fill="#fff"/><path d="M12.4 20.6h3.1l1.7-3.3 2.6 6.4 1.7-3.1h2.9" fill="none" stroke="#FBBF24" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>蓄電所マーケット</span><span class="mk-h">蓄電所を、<br><span class="b">買う。</span><span class="s">売る。</span></span><span class="mk-p">できあがった蓄電所も、土地と系統の権利も。今ある案件は、登録なしで見られます。</span><span class="mk-go">マーケットを開く →</span></span><img class="mk-art" src="/img/market/hero.svg" alt="" width="960" height="420"></a>
+  <div class="mk-doors">
+    <a class="mk-door buy" target="_top" href="https://dealroom.scix.co.jp/buy" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'ja_market_buy'})"><img src="/img/market/buy.svg" alt=""><b>買いたい</b><span>ほしい蓄電所をリクエスト</span></a>
+    <a class="mk-door sell" target="_top" href="https://dealroom.scix.co.jp/sellers" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'ja_market_sell'})"><img src="/img/market/sell.svg" alt=""><b>売りたい</b><span>自分で登録して売る</span></a>
+    <a class="mk-door deal" target="_top" href="https://dealroom.scix.co.jp/catalog" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'ja_market_deals'})"><img src="/img/market/deals.svg" alt=""><b><span class="n" data-mk="deals"></span>件の案件</b><span>登録なしで見る</span></a>
+    <a class="mk-door wants" target="_top" href="https://dealroom.scix.co.jp/wanted" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'ja_market_wants'})"><img src="/img/market/wants.svg" alt=""><b><span class="n" data-mk="needs"></span>件のリクエスト</b><span>買主がほしい蓄電所</span></a>
+  </div>
+</div>
+<script>/* 件数はマーケットの公開の口から（公開してよい項目だけ・2026-11-15） */(function(){var B="https://dealroom.scix.co.jp/api/open/";function put(k,n){document.querySelectorAll('[data-mk="'+k+'"]').forEach(function(e){e.textContent=n;});}fetch(B+"deals").then(function(r){return r.json();}).then(function(j){put("deals",(j.deals||[]).length);}).catch(function(){});fetch(B+"needs").then(function(r){return r.json();}).then(function(j){put("needs",(j.needs||[]).length);}).catch(function(){});})();</script>
       <p class="hero-sublinks"><a target="_top" href="/transfer">買うまでの流れ</a>　｜　<a target="_top" href="/sourcing">売るまでの流れ</a></p>
       <p style="margin-top:14px;font-size:0.8rem;color:var(--text-light);line-height:1.8;">
         扱うのは、接続検討の回答が出た案件だけです。接続検討の回答とは、電力会社が「この場所に、この規模でつなげる」と書面で答えたものです。
