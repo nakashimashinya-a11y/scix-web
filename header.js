@@ -118,15 +118,14 @@
     '/* 2026-11-15: 中島「これに合わせて、サイエンスエックスの本体のサイトも再デザインして」＝蓄電所マーケットと同じ、温かい白・丸み・側ごとの色。ロゴは名刺と同じ紺のまま */',
     '.scix-header{',
     '  position:fixed;top:0;left:0;right:0;height:64px;',
-    '  background:rgba(255,252,245,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);',
+    '  background:#fff;',
     '  z-index:9999;',
-    '  box-shadow:0 4px 18px rgba(31,42,72,.07);',
-    '  border-bottom:3px solid transparent;border-image:linear-gradient(90deg,#2563EB,#F97316 50%,#10B981) 1;',
+    '  border-bottom:2px solid #1F2A48;',
     '  font-family:"Noto Sans JP",sans-serif;',
     '}',
 
     '.scix-header-inner{',
-    '  max-width:1100px;margin:0 auto;height:100%;',
+    '  max-width:none;margin:0;height:100%;',
     '  display:flex;align-items:center;justify-content:space-between;',
     '  padding:0 24px;',
     '}',
@@ -136,23 +135,34 @@
     '  text-decoration:none;display:flex;align-items:center;flex-shrink:0;',
     '}',
     '.scix-header-logo img{',
-    '  height:36px;width:auto;display:block;',
+    '  height:38px;width:auto;display:block;',
     '}',
 
     '/* === Desktop nav === */',
     '.scix-header-nav{',
-    '  display:flex;align-items:center;gap:2px;margin-left:auto;',
+    '  display:flex;align-items:stretch;align-self:stretch;gap:2px;margin-left:22px;margin-right:auto;',
     '}',
-    '.scix-header-nav a,.scix-nav-dd-toggle{',
-    '  text-decoration:none;color:#2D3A5C;',
-    '  font-size:.86rem;font-weight:700;letter-spacing:0;line-height:1.4;',
-    '  padding:8px 12px;border-radius:999px;',
+    '.scix-header-nav > a,.scix-nav-dd-toggle{',
+    '  display:inline-flex;align-items:center;gap:8px;height:100%;',
+    '  text-decoration:none;color:#1F2A48;',
+    '  font-size:15px;font-weight:800;letter-spacing:0;line-height:1.3;',
+    '  padding:0 14px;border-radius:0;',
     '  background:none;border:none;cursor:pointer;font-family:inherit;',
-    '  transition:color .2s,background .2s,box-shadow .2s;',
-    '  white-space:nowrap;',
+    '  transition:color .15s,background .15s,box-shadow .15s;',
+    '  white-space:nowrap;--pc:#1F2A48;',
     '}',
-    '.scix-header-nav a:hover,.scix-nav-dd-toggle:hover{color:#1F2A48;background:#FFF1E3}',
-    '.scix-header-nav a.active,.scix-nav-dd-toggle.active{color:#1D4ED8;font-weight:900;background:#EAF1FF}',
+    '.scix-ic{width:21px;height:21px;flex:0 0 auto;display:block;color:var(--pc)}',
+    '.scix-nav-dd[data-group=knowledge] .scix-nav-dd-toggle{--pc:#7C4DDB}',
+    '.scix-nav-dd[data-group=buy] .scix-nav-dd-toggle{--pc:#2563EB}',
+    '.scix-nav-dd[data-group=sell] .scix-nav-dd-toggle{--pc:#D4610A}',
+    '.scix-header-nav > a[data-page="/report"]{--pc:#138A62}',
+    '.scix-header-nav > a[data-page="/qa"]{--pc:#7C4DDB}',
+    '.scix-header-nav > a[data-page="/knowledge"]{--pc:#7C4DDB}',
+    '.scix-header-nav > a[data-page="/market-entry-guide"]{--pc:#2563EB}',
+    '.scix-header-nav > a:hover,.scix-nav-dd-toggle:hover{color:#1F2A48;background:#F3F5FA;box-shadow:inset 0 -4px 0 var(--pc)}',
+    '.scix-header-nav > a.active,.scix-nav-dd-toggle.active{color:#fff;font-weight:900;background:var(--pc);box-shadow:none}',
+    '.scix-header-nav > a.active .scix-ic,.scix-nav-dd-toggle.active .scix-ic{color:#fff}',
+    '@media(max-width:1360px){.scix-header-nav > a,.scix-nav-dd-toggle{padding:0 10px;font-size:14px;gap:6px}.scix-ic{width:19px;height:19px}.scix-header-nav{margin-left:12px}}',
     '.scix-header-nav a:focus-visible,.scix-nav-dd-toggle:focus-visible{outline:2px solid #F97316;outline-offset:2px}',
 
     '/* === Primary CTA button (black) === */',
@@ -163,9 +173,10 @@
     '.scix-header-nav a.scix-cta:hover{filter:brightness(1.06);color:#fff;background:linear-gradient(135deg,#F97316,#F59E0B)}',
     '.scix-header-nav a.scix-cta.active{color:#fff;background:linear-gradient(135deg,#F97316,#F59E0B)}',
     '/* === 蓄電所マーケットへのボタン（2026-11-15 中島「こんな地味なボタン誰も押さない」）: マーケットと同じ橙の丸いボタンと印 === */',
-    '.scix-header-nav a.scix-mk{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#F97316,#F59E0B);color:#fff;font-weight:900;',
-    '  padding:8px 18px 8px 8px;border-radius:999px;margin-left:14px;box-shadow:0 6px 16px rgba(234,88,12,.30);white-space:nowrap}',
-    '.scix-header-nav a.scix-mk:hover{filter:brightness(1.06);color:#fff;box-shadow:0 8px 20px rgba(234,88,12,.38);transform:translateY(-1px)}',
+    '.scix-header-nav > a.scix-mk{display:inline-flex;align-items:center;align-self:center;height:auto;gap:8px;background:#D4610A;color:#fff;font-weight:900;font-size:15px;',
+    '  padding:9px 18px 9px 9px;border-radius:999px;margin-left:12px;box-shadow:0 6px 16px rgba(212,97,10,.30);white-space:nowrap}',
+    '.scix-header-nav > a.scix-mk.active{background:#D4610A}',
+    '.scix-header-nav > a.scix-mk:hover{background:#EF7A1A;color:#fff;box-shadow:0 8px 20px rgba(212,97,10,.38);transform:translateY(-1px)}',
     '.scix-header-nav a.scix-mk svg{width:24px;height:24px;flex:0 0 auto;display:block}',
 
     '/* === Dropdown groups (ナレッジ / 買う / 売る) === */',
@@ -201,18 +212,19 @@
     '.scix-lang{',
     '  display:flex;align-items:center;gap:3px;flex-shrink:0;',
     '  margin-left:14px;padding:3px;',
-    '  border:0;border-radius:100px;background:#fff;box-shadow:0 2px 10px rgba(31,42,72,.12);',
+    '  border:2px solid #1F2A48;border-radius:100px;background:#fff;box-shadow:none;',
     '}',
     '.scix-lang a{',
     '  display:inline-flex;align-items:center;gap:7px;',
     '  font-family:"Inter Tight","Noto Sans JP","Noto Sans SC",sans-serif;',
     '  font-size:.88rem;font-weight:800;color:#1F2A48;text-decoration:none;',
-    '  padding:5px 13px 5px 8px;border-radius:100px;line-height:1.3;white-space:nowrap;',
+    '  padding:5px 7px;border-radius:100px;line-height:1.3;white-space:nowrap;',
     '  transition:background .2s,color .2s;',
     '}',
-    '.scix-lang a:hover{background:#FFF1E3;color:#1F2A48}',
+    '.scix-lang a:hover{background:#E9EBF1;color:#1F2A48}',
+    '.scix-lang-label{display:none}',
     '.scix-lang a.active{background:#1F2A48;color:#fff}',
-    '.scix-flag{width:24px;height:16px;flex-shrink:0;display:block;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.18)}',
+    '.scix-flag{width:26px;height:17px;flex-shrink:0;display:block;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.18)}',
     '.scix-lang a.active .scix-flag{box-shadow:0 0 0 2px #fff}',
     '/* 英語のナビは項目が多いので、1380px 以下では国旗だけ（2026-11-15 丸いボタンにして 1280px で右端が切れた） */',
     '@media(max-width:1380px){html[lang="en"] .scix-lang-label{display:none}html[lang="en"] .scix-lang a{padding:5px 7px;gap:0}html[lang="en"] .scix-header-nav a,html[lang="en"] .scix-nav-dd-toggle{padding:8px 9px}}',
@@ -266,11 +278,13 @@
     '    overflow-y:auto;',
     '  }',
     '  .scix-header-open .scix-header-nav{transform:translateX(0)}',
-    '  .scix-header-nav a,.scix-nav-dd-toggle{',
-    '    padding:14px 12px;font-size:.95rem;',
+    '  .scix-header-nav{margin:0}',
+    '  .scix-header-nav > a,.scix-nav-dd-toggle{',
+    '    height:auto;padding:14px 12px;font-size:.95rem;',
     '    border-bottom:1px solid #EEE;',
     '    border-radius:12px;',
     '  }',
+    '  .scix-header-nav > a.scix-mk{align-self:stretch}',
     '  .scix-header-nav a:hover,.scix-nav-dd-toggle:hover,.scix-header-nav a.active,.scix-nav-dd-toggle.active{box-shadow:none}',
     '  .scix-header-nav a.scix-cta{',
     '    margin:18px 0 0;text-align:center;',
@@ -279,7 +293,8 @@
     '  }',
     '  .scix-header-nav a.scix-mk{margin:18px 0 0;justify-content:center;padding:12px 20px 12px 12px}',
     '  .scix-nav-dd{flex-direction:column;align-items:stretch;}',
-    '  .scix-nav-dd-toggle{justify-content:space-between;width:100%;text-align:left;}',
+    '  .scix-nav-dd-toggle{justify-content:flex-start;width:100%;text-align:left;}',
+    '  .scix-nav-dd-toggle .scix-dd-caret{margin-left:auto}',
     '  .scix-nav-dd-toggle.active{background:none;}',
     '  .scix-nav-dd-menu{position:static;display:none;border:none;box-shadow:none;background:#FFF1E3;padding:2px 0;min-width:0;border-radius:14px;}',
     '  .scix-nav-dd:hover:not(.open) .scix-nav-dd-menu{display:none}',
@@ -326,11 +341,11 @@
     var page = href.indexOf('#') === -1 ? ' data-page="' + href + '"' : '';
     return '<a href="' + href + '"' + page + (cls ? ' class="' + cls + '"' : '') + '>' + label + '</a>';
   }
-  function ddGroup(key, label, items) {
+  function ddGroup(key, label, items, icon) {
     var wide = !!(items.length && items[0] && items[0].items);
     var out = '<div class="scix-nav-dd" data-group="' + key + '">' +
       '<button type="button" class="scix-nav-dd-toggle" aria-expanded="false" aria-controls="scix-dd-' + key + '">' +
-        label + '<span class="scix-dd-caret" aria-hidden="true">▾</span>' +
+        (icon ? ic(icon) : '') + '<span>' + label + '</span><span class="scix-dd-caret" aria-hidden="true">▾</span>' +
       '</button>' +
       '<div class="scix-nav-dd-menu' + (wide ? ' scix-dd-wide' : '') + (wide && items.length >= 3 ? ' scix-dd-3' : '') + '" id="scix-dd-' + key + '">';
     if (wide) {
@@ -345,32 +360,47 @@
     return out + '</div></div>';
   }
 
+  // 2026-11-15: マーケットの上の帯と同じ、色の付いた線の絵（買う＝青・売る＝橙・読む＝紫・市場ノート＝緑）
+  var ICON = {
+    book: '<path d="M3 5h6a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H3z"/><path d="M21 5h-6a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H21z"/>',
+    buy: '<path d="M3 4h2.5l2.2 10.5h10.6L20.5 7H7"/><circle cx="9.5" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/>',
+    sell: '<path d="M3 12.5V4h8.5L21 13.5 13.5 21z"/><circle cx="7.5" cy="8.5" r="1.4"/>',
+    chart: '<path d="M3 20h18"/><path d="M6 16v-5M11 16V6M16 16v-8"/>',
+    co: '<path d="M5 21V4h10v17M15 9h4v12M3 21h18"/><path d="M8 8h3M8 12h3M8 16h3"/>',
+    mail: '<rect x="3" y="5" width="18" height="14"/><path d="M3 6l9 7 9-7"/>',
+    home: '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>',
+    q: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.6V14"/><path d="M12 17.2v.1"/>',
+    flag: '<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>'
+  };
+  function ic(k) { return '<svg class="scix-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true">' + ICON[k] + '</svg>'; }
+  var MK = '<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="#1E3A8A"/><rect x="8.5" y="13" width="19.5" height="14" rx="3" fill="none" stroke="#fff" stroke-width="2.6"/><rect x="28" y="17.4" width="3.2" height="5.2" rx="1.2" fill="#fff"/><path d="M12.4 20.6h3.1l1.7-3.3 2.6 6.4 1.7-3.1h2.9" fill="none" stroke="#FBBF24" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
   // Pages that light up each group (beyond the links listed inside it).
   var GROUP_PAGES = {
-    knowledge: ['/knowledge', '/qa', '/grid-storage', '/report', '/market-data'],
-    buy:   ['/projects', '/transfer', '/fund', '/investors'],
-    sell:  ['/sourcing', '/sell-form', '/partners']
+    knowledge: ['/knowledge', '/qa', '/grid-storage', '/glossary', '/column-somosomo'],
+    buy:   ['/projects', '/transfer', '/fund', '/investors', '/market-data', '/for/sme', '/for/major'],
+    sell:  ['/sourcing', '/sell-form', '/partners', '/for/dealers']
   };
 
+  // 2026-11-15 中島「全体のメニューに見直せ。ダブってるに同じことばっかり。全体を整合性とれ」:
+  // 行き先は1か所に1回だけ。マーケット（案件を見る・リクエスト・自分で売る）は右端の橙のボタン1つにまとめ、
+  // 買う・売るの中は当社の窓口（流れ・査定・ファンド・紹介）だけにする。市場ノートは上の段だけ（ナレッジの中に重ねない）。
+  // 地域別の案件一覧（/projects・/en/projects）はマーケットの一覧と同じ中身なのでメニューから外す（ページは検索から来た人のために残す）。
   var nav = isZh ? [
-    '<a href="/zh"           data-page="/">首页</a>',
-    '<a href="/en/projects">在售项目（英文）</a>',
-    '<a href="https://dealroom.scix.co.jp/?lang=en" class="scix-mk"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="#1E3A8A"/><rect x="8.5" y="13" width="19.5" height="14" rx="3" fill="none" stroke="#fff" stroke-width="2.6"/><rect x="28" y="17.4" width="3.2" height="5.2" rx="1.2" fill="#fff"/><path d="M12.4 20.6h3.1l1.7-3.3 2.6 6.4 1.7-3.1h2.9" fill="none" stroke="#FBBF24" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>蓄电所市场</a>',
-    '<a href="/zh-knowledge" data-page="/knowledge">洞见</a>',
-    '<a href="/zh-qa"        data-page="/qa">问答</a>',
-    '<a href="/zh-contact" class="scix-cta">联系我们</a>'
+    '<a href="/zh"           data-page="/">' + ic('home') + '<span>首页</span></a>',
+    '<a href="/zh-knowledge" data-page="/knowledge">' + ic('book') + '<span>洞见</span></a>',
+    '<a href="/zh-qa"        data-page="/qa">' + ic('q') + '<span>问答</span></a>',
+    '<a href="/zh-contact"   data-page="/contact">' + ic('mail') + '<span>联系我们</span></a>',
+    '<a href="https://dealroom.scix.co.jp/?lang=en" class="scix-mk">' + MK + '蓄电所市场</a>'
   ] : isEn ? [
-    '<a href="/en"           data-page="/">Home</a>',
-    '<a href="/en/projects" data-page="/projects">Projects</a>',
-    '<a href="https://dealroom.scix.co.jp/?lang=en" class="scix-mk"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="#1E3A8A"/><rect x="8.5" y="13" width="19.5" height="14" rx="3" fill="none" stroke="#fff" stroke-width="2.6"/><rect x="28" y="17.4" width="3.2" height="5.2" rx="1.2" fill="#fff"/><path d="M12.4 20.6h3.1l1.7-3.3 2.6 6.4 1.7-3.1h2.9" fill="none" stroke="#FBBF24" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Chikudensho Market</a>',   // 2026-11-15: 売り買いの場（英語の表示あり）
-    '<a href="/en/knowledge" data-page="/knowledge">Knowledge</a>',
-    '<a href="/en/qa"        data-page="/qa">Q&amp;A</a>',
-    '<a href="/en/report"   data-page="/report">Market Notes</a>',
-    '<a href="/en/market-entry-guide" data-page="/market-entry-guide">Market Entry Guide</a>',
-    '<a href="/en/contact" class="scix-cta">Contact</a>'
+    '<a href="/en"           data-page="/">' + ic('home') + '<span>Home</span></a>',
+    '<a href="/en/knowledge" data-page="/knowledge">' + ic('book') + '<span>Knowledge</span></a>',
+    '<a href="/en/qa"        data-page="/qa">' + ic('q') + '<span>Q&amp;A</span></a>',
+    '<a href="/en/report"    data-page="/report">' + ic('chart') + '<span>Market Notes</span></a>',
+    '<a href="/en/market-entry-guide" data-page="/market-entry-guide">' + ic('flag') + '<span>Entry Guide</span></a>',
+    '<a href="/en/contact"   data-page="/contact">' + ic('mail') + '<span>Contact</span></a>',
+    '<a href="https://dealroom.scix.co.jp/?lang=en" class="scix-mk">' + MK + 'Chikudensho Market</a>'
   ] : [
-    // ナレッジ first: it is what visitors actually click (GA4 path: top → /knowledge
-    // beats /company and /projects; column readers who continue go there too).
     ddGroup('knowledge', 'ナレッジ', [
       { head: 'テーマで読む', items: [
         ['/knowledge',            'すべての記事（毎週更新）', 'scix-dd-all'],
@@ -383,36 +413,25 @@
       { head: 'はじめての方', items: [
         ['/qa',              '入門Q&amp;A（24問）'],
         ['/column-somosomo', '蓄電池の、そもそも（連載20本）'],
-        ['/grid-storage',    '蓄電池事業のしくみ']
-      ]},
-      // 2026-11-02 中島「月報はメニューからわからない」: 月報と市場データは本文の1文からしか辿れなかった
-      { head: 'データ', items: [
-        ['/report',      '蓄電所の市場ノート'],
-        ['/market-data', '売り案件の市場データ']
+        ['/grid-storage',    '蓄電池事業のしくみ'],
+        ['/glossary',        '用語集']
       ]}
-    ]),
-    // 2026-11-15 中島「この販売中案件を見るって何？なんで残ってる」「めちゃくちゃぬけ」: 案件の売り買いは「蓄電所マーケット」（dealroom.scix.co.jp）に移った。
-    // 買う・売るの入口はマーケットを先に置く（今ある案件・リクエスト・自分で売る・買主のリクエスト）。地域別の一覧（/projects）は検索から来た人の案内として残す
+    ], 'book'),
     ddGroup('buy', '買う', [
-      ['https://dealroom.scix.co.jp/catalog', '今ある案件（蓄電所マーケット）'],
-      ['https://dealroom.scix.co.jp/buy',     'ほしい蓄電所をリクエストする'],
-      ['/projects', '地域別の案件一覧'],
-      ['/transfer', '買うまでの流れ'],
-      ['/fund',     'ファンドで持つ']
-    ]),
+      ['/transfer',    '買うまでの流れ・買い方3つ'],
+      ['/market-data', '売り案件の市場データ'],
+      ['/fund',        'ファンドで持つ']
+    ], 'buy'),
     ddGroup('sell', '売る', [
-      ['https://dealroom.scix.co.jp/sellers', '蓄電所マーケットで売る'],
-      ['https://dealroom.scix.co.jp/wanted',  '買主のリクエストを見る'],
-      ['/sourcing',  '案件・権利を売る'],
-      ['/sell-form', '案件・権利の売却査定（無料）'],
+      ['/sourcing',  '売るまでの流れ'],
+      ['/sell-form', '無料の売却査定'],
       ['/partners',  '案件・投資家を紹介する']
-    ]),
-    // 2026-11-03 中島「この月報いいのに全然目立たない」: ナレッジの奥（3列目）からしか行けなかったので1段目に出す
-    // 2026-11-03 中島「月報って何？社内用って感じ」＝表に出す名前は「市場ノート」
-    '<a href="/report"   data-page="/report">市場ノート</a>',
-    '<a href="/company"  data-page="/company">会社案内</a>',
-    '<a href="/contact"  data-page="/contact">お問い合わせ</a>',
-    '<a href="https://dealroom.scix.co.jp/" class="scix-mk"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="#1E3A8A"/><rect x="8.5" y="13" width="19.5" height="14" rx="3" fill="none" stroke="#fff" stroke-width="2.6"/><rect x="28" y="17.4" width="3.2" height="5.2" rx="1.2" fill="#fff"/><path d="M12.4 20.6h3.1l1.7-3.3 2.6 6.4 1.7-3.1h2.9" fill="none" stroke="#FBBF24" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>蓄電所マーケット</a>'   // 2026-11-15: 前は「販売中の案件を見る」（/projects）
+    ], 'sell'),
+    // 2026-11-03 中島「この月報いいのに全然目立たない」「月報って何？社内用って感じ」＝上の段に「市場ノート」
+    '<a href="/report"   data-page="/report">' + ic('chart') + '<span>市場ノート</span></a>',
+    '<a href="/company"  data-page="/company">' + ic('co') + '<span>会社案内</span></a>',
+    '<a href="/contact"  data-page="/contact">' + ic('mail') + '<span>お問い合わせ</span></a>',
+    '<a href="https://dealroom.scix.co.jp/" class="scix-mk">' + MK + '蓄電所マーケット</a>'
   ];
 
   // --------------- Language switcher (JA / EN / 简中) ---------------
@@ -663,6 +682,9 @@
     if (page === '/knowledge' && isCol && !exactHit) {
       links[i].classList.add('active');
     }
+    if (page === '/report' && loc.indexOf('/report') === 0) {
+      links[i].classList.add('active');
+    }
   }
 
   // --------------- 3b. Dropdown groups (ナレッジ / 買う / 売る) ---------------
@@ -702,7 +724,7 @@
       var key = dd.getAttribute('data-group');
       var toggle = dd.querySelector('.scix-nav-dd-toggle');
       var pages = GROUP_PAGES[key] || [];
-      var holdsCurrent = pages.indexOf(loc) !== -1 || (key === 'knowledge' && (isCol || loc.indexOf('/report/') === 0));
+      var holdsCurrent = pages.indexOf(loc) !== -1 || (key === 'knowledge' && isCol);   // 市場ノートの号は上の段の「市場ノート」が光る（2026-11-15）
       if (holdsCurrent) {
         toggle.classList.add('active');
         dd.classList.add('is-current');

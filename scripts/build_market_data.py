@@ -327,8 +327,7 @@ def render_market(ps, today, generated):
     ])
     body = f"""{nav_crumbs([("ホーム", "/"), ("案件一覧", "/projects"), ("売り案件の市場データ", path)])}
 <section class="hero"><div class="container">
-  <span class="badge">毎朝更新・当社観測</span>
-  <div class="section-label">市場データ</div>
+  <div class="section-label">毎朝更新・当社観測</div>
   <h1>系統用蓄電池の売り案件 市場データ</h1>
   <p>当社が扱う売り案件{s['n']}件を、管内・都道府県・電圧・取得の形・連系の見込み・回答書の工期で数えました。どの管内に何件あり、いつ連系する見込みで、権利で買える案件と完成渡しの案件がどれだけあるか。案件を探す前の見当付けと、売る前の相場観（件数の分布）にお使いください。{_esc(generated)} 時点です。</p>
   <div class="kpi">
@@ -424,8 +423,7 @@ def render_area(ps_all, area, slug, operator, today, generated):
     list_html = rows_html(ps, today) if ps else '<p class="md-note">いまこの管内に販売中の案件はありません。新しく載ったら、ここと <a href="/projects">案件一覧</a> に出ます。</p>'
     body = f"""{nav_crumbs([("ホーム", "/"), ("案件一覧", "/projects"), (f"{area}電力管内", path)])}
 <section class="hero"><div class="container">
-  <span class="badge">登録不要・毎朝更新</span>
-  <div class="section-label">エリアごとの案件</div>
+  <div class="section-label">登録不要・毎朝更新</div>
   <h1>{_esc(operator)}管内の系統用蓄電池 売り案件 {n}件</h1>
   <p>{_esc(area)}エリア（{_esc(operator)}管内）で当社が扱う、接続検討の回答が出た系統用蓄電池（蓄電所）の案件です。所在県・電圧・規模・連系の見込み・進み具合・取得の形までは登録なしでご覧いただけます。価格と資料は蓄電所マーケットで、無料登録のあとに見られます。地番・売主は本ページでは載せていません。{_esc(generated)} 時点です。</p>
   <div class="kpi">

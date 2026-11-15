@@ -358,8 +358,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
 """ % DR2_REGISTER
     body = f"""{bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", "/report"), (title_h, path)])}
 <section class="hero"><div class="container">
-  <span class="badge">毎月発行・出典つき</span>
-  <div class="section-label">市場ノート</div>
+  <div class="section-label">毎月発行・出典つき</div>
   <h1>{esc(title_h)}</h1>
   <p>{esc(doc["intro"])}</p>
   <p class="md-note">サイエンスエックス株式会社　発行 {jp_date(doc["issued"])}　A4・全{page_count(m)}ページ</p>
@@ -415,8 +414,7 @@ def render_month_en(m, doc, figs, nav=None):
 """ % DR2_REGISTER_EN
     body = f"""{bmd.nav_crumbs([("Home", "/en"), ("Reports", "/en/report"), (title_h, path)])}
 <section class="hero"><div class="container">
-  <span class="badge">Monthly &middot; Sources cited</span>
-  <div class="section-label">Market Notes</div>
+  <div class="section-label">Monthly &middot; Sources cited</div>
   <h1>{esc(title_h)}</h1>
   <p>{esc(doc["intro"])}</p>
   <p class="md-note">Science X Inc. &middot; Published {en_date(doc["issued"])} &middot; A4, {page_count(m, True)} pages</p>
@@ -462,8 +460,7 @@ def render_index_en(rows):
         f'<div class="d">Published {en_date(r["issued"])} &middot; PDF available</div><p>{esc(r["lead"])}</p></li>' for r in rows)
     body = f"""{bmd.nav_crumbs([("Home", "/en"), ("Market Notes", path)])}
 <section class="hero"><div class="container">
-  <span class="badge">Published monthly</span>
-  <div class="section-label">Market Notes</div>
+  <div class="section-label">Published monthly</div>
   <h1>Battery Storage Market Notes</h1>
   <p>A battery storage site earns from three markets: the balancing market (EPRX), wholesale power (JEPX) and the capacity market (OCCTO). Each month we chart the latest figures for all three, from published data and our own records. Newest first.</p>
 </div></section>
@@ -495,8 +492,7 @@ def render_index(rows, has_en=False):
         f'<div class="d">発行 {jp_date(r["issued"])}・PDF あり</div><p>{esc(r["lead"])}</p></li>' for r in rows)
     body = f"""{bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", path)])}
 <section class="hero"><div class="container">
-  <span class="badge">毎月発行</span>
-  <div class="section-label">月報</div>
+  <div class="section-label">毎月発行</div>
   <h1>蓄電所の市場ノート</h1>
   <p>蓄電所（系統用蓄電池）の収入は、①需給調整市場（EPRX）・②卸電気（JEPX）・③容量市場（OCCTO）の3つの市場から入ります。その3つの数字を、公表データと当社の記録から毎月まとめています。新しい号が上です。</p>
 </div></section>
