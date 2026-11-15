@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"></noscript>
+<style>
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#1F2A48;--text-light:#666666;--light-bg:#F7F7F7;--border:#E6E6E6;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#141B30 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+h3{font-size:1.05em;font-weight:700;color:var(--navy);margin:30px 0 10px;line-height:1.6}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.lead{font-size:1.02em}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.wraptext td{text-align:left;vertical-align:top}
+.wraptext thead th{text-align:left}
+.wraptext td.nw{white-space:nowrap}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-14px 0 28px}
+.wraptext{margin:28px 0;overflow-x:auto}
+.wraptext table{margin:0;min-width:620px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+ul.checks{list-style:none;padding:0;margin:20px 0}
+ul.checks li{position:relative;padding:10px 12px 10px 44px;border-bottom:1px solid var(--border);line-height:1.8}
+ul.checks li::before{content:'';position:absolute;left:10px;top:14px;width:18px;height:18px;border:2px solid var(--accent);border-radius:4px;background:var(--white)}
+ul.checks li:last-child{border-bottom:none}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.toc{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px 16px;margin:0 0 32px;font-size:.9em}
+.toc-title{font-weight:700;color:var(--navy);margin-bottom:8px;font-size:.95em}
+.toc a{color:var(--text);text-decoration:none;display:block;padding:3px 0}
+.toc a:hover{color:var(--accent)}
+.toc a::before{content:'›';color:var(--accent);margin-right:8px}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text);margin-bottom:0}
+.faq-a::before{content:'A. ';color:var(--text-light);font-weight:700}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:8px 0 6px}
+.kpi-item{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:16px 12px;text-align:center}
+.k-label{font-size:.8em;color:var(--text-light);line-height:1.5}
+.k-value{font-size:2.1em;font-weight:700;color:var(--navy);line-height:1.2;margin:6px 0 4px}
+.k-value span{font-size:.48em;margin-left:2px;font-weight:600}
+.k-sub{font-size:.74em;color:var(--text-light);line-height:1.5}
+.kpi-note{font-size:.78em;color:var(--text-light);margin:0 0 28px;line-height:1.8}
+@media(max-width:600px){.kpi{gap:6px}.kpi-item{padding:12px 6px}.k-value{font-size:1.45em}.k-label{font-size:.72em}.k-sub{font-size:.66em}}
+.author-box{background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy)}
+/* 連載ナビ（COLUMN 48 と同じ部品） */
+.c47series{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 30px;padding:12px 14px;background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+.c47series .lb{font-size:.74em;color:var(--text-light);letter-spacing:.06em;width:100%;margin-bottom:2px}
+.c47series a,.c47series span.cur{font-size:.83em;text-decoration:none;padding:3px 10px;border-radius:3px;line-height:1.7}
+.c47series a{color:var(--navy);background:var(--white);border:1px solid var(--border)}
+.c47series a:hover{border-color:var(--accent)}
+.c47series span.cur{color:var(--white);background:var(--navy);font-weight:600}
+/* 重さのバッジ */
+.w{display:inline-block;min-width:1.9em;text-align:center;font-weight:700;border-radius:3px;padding:0 4px;font-size:.92em;line-height:1.6}
+.w1{background:var(--navy);color:#fff}
+.w2{background:#FBF6EA;color:#8F6F22;border:1px solid var(--accent)}
+.w3{background:var(--light-bg);color:var(--text-light);border:1px solid var(--border)}
+.wkey{font-size:.82em;color:var(--text-light);margin:-10px 0 20px;line-height:1.9}
+/* カード */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 28px}
+.cards.n2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--light-bg);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;padding:14px 14px 12px;font-size:.88em;line-height:1.8}
+.card .cn{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--accent);font-weight:700;font-size:.9em;letter-spacing:.06em}
+.card .ct{font-weight:700;color:var(--navy);margin:2px 0 6px;line-height:1.55}
+.card .cb{color:var(--text);font-size:.95em}
+.card.dark{background:var(--navy);border-color:var(--navy);color:#fff}
+.card.dark .ct,.card.dark .cb{color:#fff}
+@media(max-width:680px){.cards,.cards.n2{grid-template-columns:1fr}}
+/* 6か所の見出し番号 */
+.six{display:flex;align-items:flex-start;gap:12px;margin:26px 0 10px}
+.six .n{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--navy);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:1em}
+.six h3{margin:4px 0 0}
+/* 手順 */
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:20px 0}
+ol.steps li{counter-increment:s;position:relative;padding:10px 0 10px 48px;border-bottom:1px solid var(--border);line-height:1.8}
+ol.steps li::before{content:counter(s);position:absolute;left:4px;top:12px;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:.85em;display:flex;align-items:center;justify-content:center}
+ol.steps li:last-child{border-bottom:none}
+ol.steps li b{color:var(--navy)}
+.next{background:#FBF6EA;border:1px solid var(--accent);border-radius:6px;padding:16px 20px;margin:28px 0;font-size:.92em;line-height:1.9}
+.next b{color:var(--navy)}
+/* 見本（回答書の文面）と、書き方ごとの読み方 */
+.mk{display:inline-flex;align-items:center;justify-content:center;width:1.5em;height:1.5em;border-radius:50%;background:var(--accent);color:var(--navy);font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-weight:800;font-size:.72em;line-height:1;vertical-align:.12em;margin:0 3px;flex:0 0 auto}
+.mihon{margin:26px 0 10px;border:1px solid var(--border);border-radius:6px;background:var(--light-bg)}
+.mihon .mh-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:10px 14px;border-bottom:1px solid var(--border);font-size:.8em;color:var(--text-light);line-height:1.6}
+.mihon .mh-tag{display:inline-block;background:var(--navy);color:#fff;font-weight:700;letter-spacing:.14em;padding:1px 10px;border-radius:2px;font-size:.95em}
+.mihon .mh-t{color:var(--navy);font-weight:700}
+.mh-doc{margin:14px;background:#fff;border:1px solid #D3D9E1;box-shadow:3px 3px 0 #E6E9EE;padding:14px 18px 12px;font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:.86em;line-height:1.95;color:#1F2A3A;overflow-wrap:anywhere}
+.mh-doc .mh-conf{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:.76em;color:#9AA1AD;text-align:center;margin:10px 0 -2px;padding-top:6px;border-top:1px dashed #E6E6E6;letter-spacing:.03em;line-height:1.5}
+.mh-doc .mh-sec{font-weight:700;color:var(--navy);margin:10px 0 2px}
+.mh-doc .mh-sec:first-child{margin-top:0}
+.mh-doc p{margin:0 0 6px}
+.mh-doc .ind{padding-left:1.1em}
+.mh-doc .ind2{padding-left:2.2em}
+.mh-doc .gap{height:6px}
+.mh-doc .cut{text-align:center;color:#AAB1BC;font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:.78em;letter-spacing:.3em;margin:4px 0}
+.mh-doc mark{background:linear-gradient(transparent 55%,#F2E1B2 55%);color:inherit;padding:0 1px}
+.mh-doc .dtab{overflow-x:auto;margin:6px 0 8px;padding:0 1px 1px 0}
+.mh-doc table.gantt th{white-space:nowrap}
+.mh-doc table.gantt td{min-width:2.2em}
+.mh-doc table{white-space:normal;font-size:.94em;line-height:1.6;margin:0;font-family:'Noto Sans SC','Noto Sans JP',sans-serif;min-width:0}
+.mh-doc th,.mh-doc td{padding:4px 8px;border:1px solid #D3D9E1;text-align:left;vertical-align:top}
+.mh-doc thead th{background:#F1F3F6;color:var(--navy);font-weight:600;letter-spacing:0}
+.mh-doc tbody th{background:#FAFBFC;font-weight:600;color:#1F2A3A}
+.mh-doc td.r,.mh-doc th.r{text-align:right;white-space:nowrap}
+.mh-doc td.on{background:#E9D6A2}
+.mh-doc td.on2{background:#1F2A48}
+.mh-f{padding:0 14px 12px;font-size:.74em;color:var(--text-light);line-height:1.75}
+.mh-notes{list-style:none;margin:0;padding:2px 14px 12px;font-size:.88em;line-height:1.85}
+.mh-notes li{display:flex;gap:8px;align-items:flex-start;padding:8px 0;border-top:1px dashed #D3D9E1}
+.mh-notes li .mk{margin-top:.3em;font-size:.8em}
+.mh-notes li b{color:var(--navy)}
+.kaki{margin:16px 0 30px;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--white)}
+.kaki .kk-h{background:var(--navy);color:#fff;font-size:.82em;font-weight:600;padding:8px 14px;letter-spacing:.03em;line-height:1.6}
+.kaki .kk{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);border-top:1px solid var(--border);font-size:.85em;line-height:1.8}
+.kaki .kk-h+.kk{border-top:none}
+.kaki .kk>div{padding:10px 12px}
+.kaki .kk .q{background:#FBF6EA;font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:#1F2A3A;border-right:1px solid var(--border)}
+.kaki .kk .a{border-right:1px solid var(--border)}
+.kaki .kk i{display:block;font-style:normal;font-size:.78em;color:var(--text-light);font-weight:600;letter-spacing:.04em;margin-bottom:1px;font-family:'Noto Sans SC','Noto Sans JP',sans-serif}
+.kaki .kk b{color:var(--navy)}
+@media(max-width:680px){.kaki .kk{grid-template-columns:1fr}.kaki .kk .q,.kaki .kk .a{border-right:none;border-bottom:1px dashed var(--border)}.mh-doc{margin:10px;padding:12px 12px 10px;font-size:.84em}}
+.case{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0 10px}
+.case .cs{border:1px solid var(--border);border-radius:6px;background:var(--white);overflow:hidden;font-size:.86em;line-height:1.8}
+.case .cs-h{padding:10px 14px;background:var(--light-bg);border-bottom:1px solid var(--border)}
+.case .cs-h .cn{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--accent);font-weight:700;letter-spacing:.06em;font-size:.9em}
+.case .cs-h .ct{font-weight:700;color:var(--navy);line-height:1.55}
+.case dl{margin:0;padding:6px 14px 12px}
+.case dt{font-size:.8em;color:var(--text-light);font-weight:600;margin-top:8px;display:flex;align-items:center;gap:2px}
+.case dd{margin:0;color:var(--text)}
+.case dd q{quotes:'「' '」';font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:#1F2A3A}
+.case .cs-r{margin:0 14px 14px;padding:10px 12px;background:#FBF6EA;border:1px solid var(--accent);border-radius:4px}
+.case .cs-r b{color:var(--navy)}
+@media(max-width:680px){.case{grid-template-columns:1fr}}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px;overflow-x:auto}
+  figure svg{min-width:620px}
+  figure::before{content:'← 可左右滑动 →';display:block;font-size:.72em;color:var(--text-light);text-align:center;margin-bottom:6px}
+}
+/* COLUMN 52 だけの部品（51 の部品に足りない分） */
+.kpi.n4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:600px){.kpi.n4{grid-template-columns:repeat(2,1fr)}}
+.c52filter{display:flex;gap:10px;align-items:center;margin:16px 0 4px;flex-wrap:wrap}
+.c52filter input{flex:1;min-width:220px;font:inherit;font-size:.92em;padding:9px 12px;border:1px solid var(--border);border-radius:4px;color:var(--text);background:var(--white)}
+.c52filter input:focus{outline:none;border-color:var(--accent)}
+.c52filter .cnt{font-size:.85em;color:var(--text-light);white-space:nowrap}
+.wraptext tr.exp td{background:#FBF6EA}
+.wraptext td.mono{font-variant-numeric:tabular-nums;letter-spacing:.02em;white-space:nowrap}
+.wraptext td.c{text-align:center}
+.tablewrap td.em,.wraptext td.em{font-weight:700;color:var(--navy)}
+.wraptext td.ng{color:var(--text-light)}
+blockquote cite{display:block;font-style:normal;font-size:.8em;color:var(--text-light);margin-top:6px}
+blockquote cite::before{content:'— '}
+.ab-mark{display:inline-block;min-width:1.6em;text-align:center;font-weight:700;border-radius:3px;padding:0 4px;font-size:.85em;line-height:1.6}
+.ab-mark.a{background:var(--navy);color:#fff}
+.ab-mark.b{background:#FBF6EA;color:#8F6F22;border:1px solid var(--accent)}
+.ab-mark.c{background:var(--light-bg);color:var(--text-light);border:1px solid var(--border)}
+
+.ja-tag{display:inline-block;margin-left:.35em;padding:0 .4em;font-size:.66em;font-weight:700;letter-spacing:.07em;color:#A07916;background:rgba(196,154,60,.15);border-radius:2px;vertical-align:.14em;text-decoration:none}
+.sum3{background:var(--light-bg);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;padding:16px 22px 10px;margin:8px 0 28px}
+.sum3 .s3-t{font-size:.8em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:6px}
+.sum3 ol{margin:0 0 6px;padding-left:1.4em}
+.sum3 li{margin:4px 0;line-height:1.8}
+.tablewrap table.c52tbl,.wraptext table.c52tbl{font-size:.84em}
+.wraptext table.c52w td:first-child{white-space:normal;min-width:8.5em;max-width:15em}
+.tablewrap table.c52w td:first-child{white-space:nowrap}
+
+</style>
+<title>按国籍划线的欧美，按标签划线的日本 — JC-STAR的互认不是漏洞｜ScienceX</title>
+<meta name="description" content="按国家比较光伏、储能控制设备的网络安全监管。欧盟（欧盟资金项目）、立陶宛（超过100kW的远程操控）、美国（FCC Covered List·国防采购·得克萨斯州法）按国籍、产地划线，日本和澳大利亚按标签、标准划线。互认（英国PSTI、新加坡CLS）为什么不是漏洞的3个理由，审查中是否不含国籍的疑问，以及正在筹备的★2。">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-jcstar-2027-nationality">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-jcstar-2027-nationality">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-jcstar-2027-nationality">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-jcstar-2027-nationality">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-jcstar-2027-nationality">
+<meta property="og:type" content="article">
+<meta property="og:title" content="按国籍划线的欧美，按标签划线的日本 — JC-STAR的互认不是漏洞｜ScienceX">
+<meta property="og:description" content="欧盟、立陶宛、美国按国籍划线，日本、澳大利亚按标签划线。通过互认取得★1的产品，395件中为0件。从并网条文和CLS的适用对象来看，不会成为漏洞。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-jcstar-2027-nationality">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-x-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="按国籍划线的欧美，按标签划线的日本 — JC-STAR的互认不是漏洞｜ScienceX">
+<meta name="twitter:description" content="欧盟、立陶宛、美国按国籍划线，日本、澳大利亚按标签划线。通过互认取得★1的产品，395件中为0件。从并网条文和CLS的适用对象来看，不会成为漏洞。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-x-zh.png">
+<meta property="article:published_time" content="2026-11-15">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "按国籍划线的欧美，按标签划线的日本 — JC-STAR的互认不是漏洞｜ScienceX",
+  "description": "按国家比较光伏、储能控制设备的网络安全监管。欧盟（欧盟资金项目）、立陶宛（超过100kW的远程操控）、美国（FCC Covered List·国防采购·得克萨斯州法）按国籍、产地划线，日本和澳大利亚按标签、标准划线。互认（英国PSTI、新加坡CLS）为什么不是漏洞的3个理由，审查中是否不含国籍的疑问，以及正在筹备的★2。",
+  "author": {
+    "@type": "Person",
+    "name": "中岛晋也",
+    "jobTitle": "代表董事（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-x-zh.png"
+  },
+  "datePublished": "2026-11-15",
+  "dateModified": "2026-11-15",
+  "inLanguage": "zh-CN",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.scix.co.jp/zh-column-jcstar-2027-nationality"
+  },
+  "url": "https://www.scix.co.jp/zh-column-jcstar-2027-nationality",
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "name": "COLUMN 52 JC-STAR 的划线",
+    "url": "https://www.scix.co.jp/zh-column-jcstar-2027"
+  },
+  "keywords": "JC-STAR,互认,CLS,PSTI,中国制造逆变器,立陶宛,FCC,欧盟,国籍,网络安全"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "有了新加坡的CLS或英国的PSTI标签，就满足日本的并网要求吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不满足。并网技术要件指南的修订案，要求使用贴有基于IPA标签制度的★1以上合格标签的设备。CLS和PSTI的标签本身，不是IPA制度的标签。符合CLS或PSTI的产品，也需要向IPA申请，领取JC-STAR★1的标签。互认带来的减轻，只是部分确认的免除和手续费（★1为140,000日元）。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "中国制造商能通过新加坡的CLS取得JC-STAR吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "从制度上可以申请，但没有实例。CLS是面向消费者的IoT设备的制度，PCS和储能系统本来就不在对象之内。IPA各产品的页面有互认一栏，2026年11月12日版的395件全部是“未申请”。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "日本也像欧盟、美国那样，点名排除中国制造吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "从条文上看没有排除。并网的要求是不问国籍的标签要求，与澳大利亚属于同一边。不过，日经报道称，申请的检查清单中有询问外国法律等影响的项目，中国制造商反弹称这是“实质上的排除”。经济产业省没有公开个案的判断。"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://www.scix.co.jp/zh"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "洞见",
+      "item": "https://www.scix.co.jp/zh-knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "按国籍划线的欧美，按标签划线的日本 — 互认不是漏洞",
+      "item": "https://www.scix.co.jp/zh-column-jcstar-2027-nationality"
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:&#39;Noto Sans SC&#39;,&#39;Noto Sans JP&#39;,sans-serif;font-size:12.5px;line-height:1.6;color:#8C8C8C"><a href="/zh" style="color:#555555;text-decoration:none">首页</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/zh-knowledge" style="color:#555555;text-decoration:none">洞见</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8C8C8C">按国籍划线的欧美，按标签划线的日本</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 52-4</span>
+      <span class="header-tag">税制·制度·监管 / JC-STAR 的划线（国籍篇）</span>
+      <time class="header-date" datetime="2026-11-15">2026.11.15</time>
+    </div>
+    <h1>按国籍划线的欧美，按标签划线的日本<br>— 互认不是漏洞</h1>
+    <p class="header-desc">欧盟、立陶宛和美国，已开始按国籍或产地把逆变器排除在外。日本和澳大利亚，则是用不问国籍的标签或标准来划线。日本与英国、新加坡有互认，但接入电网所需要的，是IPA发放的JC-STAR标签。通过互认取得的产品，目前清单上一件都没有。</p>
+  </div>
+</div>
+
+<div class="article-body">
+<nav class="c47series" aria-label="COLUMN 52"><span class="lb">本系列共4篇。自2027年4月起，接入日本电网的储能电站，其控制设备须带有 JC-STAR ★1 标签。谁持有标签、既有光伏电站怎么办、世界各国把线划在哪里，依次说明</span><a target="_top" href="/zh-column-jcstar-2027">COLUMN 52　入门篇</a><a target="_top" href="/zh-column-jcstar-2027-list">COLUMN 52-2　清单篇</a><a target="_top" href="/zh-column-jcstar-2027-existing">COLUMN 52-3　既有电站篇</a><span class="cur">COLUMN 52-4　国籍篇</span></nav>
+
+
+<div class="sum3"><div class="s3-t">三句话说清</div><ol><li>欧盟、立陶宛和美国，已开始按国籍或产地把逆变器排除在外。日本和澳大利亚，则是用不问国籍的标签或标准来划线。</li><li>日本与英国、新加坡对标签做了互认，但接入电网所需要的，是IPA发放的JC-STAR标签。通过互认取得的产品，目前清单上一件都没有。</li><li>日本的条文中没有国籍条件。不过有报道称，申请的检查清单中有询问外国法律影响的项目。</li></ol></div>
+
+<p class="lead">一谈到JC-STAR，有时会听到这样的说法：“说白了，不就是把中国制造挡在门外的制度吗？”读一读条文，并没有这么写。欧洲和美国已开始按国籍或产地排除逆变器，而日本设置的是“标签”。</p>
+<p>本文把世界各国的划线方式放在一张图里。然后，针对“经由新加坡是不是就能进来”的疑问，用条文和清单来回答。</p>
+
+<div class="toc">
+  <div class="toc-title">本文内容</div>
+  <a href="#sekai">一张图看世界的划线方式</a>
+  <a href="#kotoba">本系列用语</a>
+  <a href="#kokuseki">按国籍划线的国家</a>
+  <a href="#label">按标签划线的国家</a>
+  <a href="#hikaku">各国比较</a>
+  <a href="#sougo">互认不是漏洞</a>
+  <a href="#shinsa">标签的审查中，难道不含国籍吗</a>
+  <a href="#star2">★2到来之后</a>
+  <a href="#owari">结语</a>
+  <a href="#rensai">本系列的读法</a>
+  <a href="#faq">常见问题</a>
+</div>
+
+
+<h2 id="sekai">一张图看世界的划线方式</h2>
+<p>图1把光伏、储能控制设备的网络安全监管分成两类。上面是按标签或标准划线的国家，下面是按国籍或产地划线的国家。</p>
+<figure id="f1"><svg viewBox="0 0 780 529" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="光伏·储能控制设备的网络安全规定：按标签·标准划线的国家（日本、澳大利亚、欧盟产品法规），与按国籍·产地划线的国家（欧盟资金、立陶宛、美国、中国台湾）" font-family="'Noto Sans SC','Noto Sans JP',sans-serif">
+<defs><marker id="ar-fig5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
+<rect x="0" y="0" width="780" height="529" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1"/>
+<text x="16" y="26" font-size="13" fill="#1F2A48" text-anchor="start" font-weight="700">图1　按标签划线的国家，与按国籍划线的国家</text>
+<text x="16" y="44" font-size="10.5" fill="#666666" text-anchor="start" font-weight="400">光伏·储能控制设备的网络安全规定（截至2026年11月15日）。日期与法规见正文表2</text>
+<rect x="16" y="60" width="748" height="184" rx="6" fill="#EEF1F5" stroke="#1F2A48" stroke-width="1"/>
+<rect x="16" y="60" width="748" height="28" rx="6" fill="#1F2A48" stroke="#1F2A48" stroke-width="1"/>
+<rect x="16" y="74" width="748" height="14" rx="0" fill="#1F2A48" stroke="none" stroke-width="1"/>
+<text x="30" y="79" font-size="12" fill="#FFFFFF" text-anchor="start" font-weight="700">按标签·标准划线（条文中没有国籍条件）</text>
+<text x="30" y="110" font-size="11.5" fill="#1F2A48" text-anchor="start" font-weight="700">日本　JC-STAR★1</text>
+<rect x="149.04000000000002" y="97" width="84" height="18" rx="9" fill="#C49A3C" stroke="#C49A3C" stroke-width="1"/>
+<text x="191.04000000000002" y="110" font-size="9.5" fill="#1F2A48" text-anchor="middle" font-weight="700">日本在此</text>
+<text x="30" y="124" font-size="10" fill="#666666" text-anchor="start" font-weight="400">自2027年4月起，接入电网的光伏·储能控制设备须带★1标签。标签由IPA发放。</text>
+<text x="30" y="156" font-size="11.5" fill="#1F2A48" text-anchor="start" font-weight="700">澳大利亚　逆变器技术标准与认可清单</text>
+<text x="30" y="170" font-size="10" fill="#666666" text-anchor="start" font-weight="400">只能使用符合国家标准和通信规格的逆变器。没有国籍条件。</text>
+<text x="30" y="202" font-size="11.5" fill="#1F2A48" text-anchor="start" font-weight="700">欧盟　产品法规（CE标志）</text>
+<text x="30" y="216" font-size="10" fill="#666666" text-anchor="start" font-weight="400">对无线设备和数字产品提出安全要求。不问国籍。</text>
+<rect x="16" y="260" width="748" height="230" rx="6" fill="#FBF6EA" stroke="#C49A3C" stroke-width="1"/>
+<rect x="16" y="260" width="748" height="28" rx="6" fill="#C49A3C" stroke="#C49A3C" stroke-width="1"/>
+<rect x="16" y="274" width="748" height="14" rx="0" fill="#C49A3C" stroke="none" stroke-width="1"/>
+<text x="30" y="279" font-size="12" fill="#FFFFFF" text-anchor="start" font-weight="700">按国籍·产地划线</text>
+<text x="30" y="310" font-size="11.5" fill="#8F6F22" text-anchor="start" font-weight="700">欧盟　使用欧盟资金的项目</text>
+<text x="30" y="324" font-size="10" fill="#666666" text-anchor="start" font-weight="400">不使用中国等“高风险”供应商逆变器的方针。来自新闻报道，没有正式公布的文件。</text>
+<text x="30" y="356" font-size="11.5" fill="#8F6F22" text-anchor="start" font-weight="700">立陶宛　以法律禁止远程操作</text>
+<text x="30" y="370" font-size="10" fill="#666666" text-anchor="start" font-weight="400">禁止中国等国家的企业远程操作超过100kW的发电站·储能站，既有设施也在范围内。</text>
+<text x="30" y="402" font-size="11.5" fill="#8F6F22" text-anchor="start" font-weight="700">美国　设备认证·国防采购</text>
+<text x="30" y="416" font-size="10" fill="#666666" text-anchor="start" font-weight="400">停止对外国生产、具有通信功能的逆变器发放新的设备认证；国防采购排除中国等国的产品。</text>
+<text x="30" y="448" font-size="11.5" fill="#8F6F22" text-anchor="start" font-weight="700">中国台湾　禁止进口中国大陆太阳能电池</text>
+<text x="30" y="462" font-size="10" fill="#666666" text-anchor="start" font-weight="400">禁止进口中国大陆的太阳能电池片和组件。未找到仅针对逆变器的法规。</text>
+<text x="16" y="512" font-size="10" fill="#1F2A48" text-anchor="start" font-weight="700">日本要件的条文中没有国籍条件。但据报道，申请核对清单中有询问是否受外国法律等影响的项目（日经，2026年7月）。</text>
+</svg></figure>
+
+
+<!-- scix-guide: 按立场的入口 -->
+<aside data-scix-guide style="margin:32px 0;padding:14px 20px 12px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:14.5px;line-height:1.8;color:#1F2A48">
+  <p style="margin:0 0 8px">想看现在在售的项目，请打开<a target="_top" href="/projects" hreflang="ja" style="color:#1F2A48;font-weight:600">在售项目一览</a><span class="ja-tag">日文</span>（无需保密协议）：所在电网区域、规模、预计并网时间，均为匿名。购买的步骤见<a target="_top" href="/zh-column-transfer" style="color:#1F2A48;font-weight:600">如何购买项目</a>。</p>
+  <p style="margin:0;font-size:13px;color:#555555">文中术语的解释见<a target="_top" href="/zh-glossary" style="color:#1F2A48">术语表</a>。</p>
+</aside>
+
+<!-- scix-readnext -->
+<aside data-scix-readnext style="margin:32px 0;padding:14px 20px 10px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans SC','Noto Sans JP',sans-serif">
+  <div style="font-size:12px;font-weight:700;color:#555555;letter-spacing:.08em;margin-bottom:2px">延伸阅读</div>
+  <a target="_top" href="/zh-column-foreign-investor" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">外国资本投资日本高压电网侧储能电站之前要跨过的关口 →</a>
+  <a target="_top" href="/zh-column-jcstar-2027" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">谁持有JC-STAR的标签 — 395件全部是★1，中国大型企业16家为零 →</a>
+  <a target="_top" href="/zh-column-jcstar" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">JC-STAR★1的起点不是“并网日” — 基准是“接续合同申请” →</a>
+</aside>
+
+
+<h2 id="kotoba">本系列用语</h2>
+<p>本系列使用下面这些用语。4篇用的是同一张表。</p>
+<div class="wraptext">
+<table class="c52w">
+<caption>表0｜本系列用语（速查表）</caption>
+<thead><tr><th>用语</th><th>含义</th></tr></thead>
+<tbody>
+<tr><td><b>JC-STAR</b></td><td>经济产业省于2025年3月启动的、针对联网设备（IoT设备）的安全标签制度。由信息处理推进机构（IPA）运营</td></tr>
+<tr><td><b>★1（等级1）</b></td><td>最低的等级。要求不得让用户一直使用初始密码、设有故障联系窗口、软件可以修复等最基本的事项，由制造商自行确认后提出申请。由第三方评估的是★3和★4</td></tr>
+<tr><td><b>PCS（功率转换系统）</b></td><td>在电池（直流）和电网（交流）之间转换电的形态的设备。相当于储能电站的心脏</td></tr>
+<tr><td><b>BMS</b></td><td>监视电池温度和电压的“电池看护”</td></tr>
+<tr><td><b>EMS</b></td><td>决定何时充电、何时放电的指挥中枢</td></tr>
+<tr><td><b>远程监控·网关</b></td><td>连接电站（发电站、储能电站）与外部网络的入口</td></tr>
+<tr><td><b>电网·并网</b></td><td>电网是指电力公司的输电线和配电线。把发电站或储能电站接入电网，称为并网</td></tr>
+<tr><td><b>一般输配电事业者（电网公司）</b></td><td>大型电力公司的输配电公司（东京电力Power Grid等，全国共10家）</td></tr>
+<tr><td><b>接续研讨</b></td><td>请电网公司调查能否接入、工程要花多少钱的手续。在合同申请之前的阶段</td></tr>
+<tr><td><b>合同申请</b></td><td>在接续研讨回复之后提交的正式申请。文件齐备无缺、保证金到账之后，才算“受理”</td></tr>
+<tr><td><b>特高压·高压·低压</b></td><td>接入电压的等级。高压大致指不足2,000kW，低压指不足50kW。特高压比这更大</td></tr>
+</tbody>
+</table>
+</div>
+
+
+<h2 id="kokuseki">按国籍划线的国家</h2>
+<p>按国籍或产地划线的，主要有3个。</p>
+<ul>
+<li><strong>欧盟</strong>：在有欧盟资金投入的项目中，方针是不让使用中国等“高风险”公司的逆变器。2026年4月下旬起已有报道，但没有正式的公开文件。</li>
+<li><strong>立陶宛</strong>：用法律禁止中国等国的公司从远程操控超过100kW的光伏、风电和储能设施。对现有设施也适用。</li>
+<li><strong>美国</strong>：停止了对在国外制造的、具备通信功能的逆变器的新认证。在国防采购中，排除中国等国的产品。得克萨斯州也以州法禁止与敌对国家有关联的公司接触电网的重要设备。</li>
+</ul>
+<p>中国台湾也禁止进口中国制造的太阳电池片·组件。日期和法令编号，汇总在表2中。</p>
+
+<h2 id="label">按标签划线的国家</h2>
+<p>日本和澳大利亚没有设置国籍条件。日本从2027年4月起，要求接入电网的光伏、储能控制设备取得JC-STAR★1。澳大利亚只允许使用符合国家标准和通信规范的逆变器。欧盟的产品规定（CE标志）也不问国籍。</p>
+<p>德国、荷兰、韩国，截至2026年11月，还没有开始实施以逆变器国籍为条件的监管。德国和韩国有研究的报道。</p>
+
+<h2 id="hikaku">各国比较</h2>
+<p>表2把各国的规定，按从何时起、针对什么、如何划线来排列。右侧一列，是本公司凭什么资料确认的。</p>
+<div class="wraptext">
+<table class="c52w" style="min-width:960px">
+<caption>表2｜光伏、储能控制设备的网络安全监管（截至2026年11月15日）</caption>
+<thead><tr><th>国家·地区</th><th>规定</th><th>从何时起</th><th>针对什么</th><th>划线方式</th><th>现有设施</th><th>确认所依据的资料</th></tr></thead>
+<tbody>
+<tr><td class="em nw">日本</td><td>并网技术要件指南的修订（JC-STAR★1）</td><td>特高压·高压 2027年4月1日，低压 10月1日（以合同申请的受理日为起点）</td><td>光伏、储能中具备IP通信的控制设备</td><td class="">标签</td><td>不追溯（新增、更换的设备适用）</td><td class="">一手资料</td></tr>
+<tr><td class="em nw">澳大利亚</td><td>AS/NZS 4777.2 Amd 2、CSIP-AUS v1.2</td><td>Amd 2为2025年8月23日。CSIP-AUS在维多利亚州于2026年11月1日起强制</td><td>接入电网的逆变器</td><td class="">技术标准</td><td>无</td><td class="">一手资料</td></tr>
+<tr><td class="em nw">欧盟（产品）</td><td>RED授权条例、网络韧性法（CRA）</td><td>RED为2025年8月1日，CRA的主要义务为2027年12月</td><td>无线设备·数字产品</td><td class="">标准（CE）</td><td>无</td><td class="">一手资料</td></tr>
+<tr><td class="em nw">欧盟（资金）</td><td>从有欧盟资金投入的项目中，排除高风险供应商的逆变器的方针</td><td>2026年4月下旬起有报道。进行中的项目须在5月1日前申报</td><td>光伏、风电、储能的逆变器·PCS</td><td class="">国籍</td><td>处理方式未公布</td><td class="">报道（无公开文件）</td></tr>
+<tr><td class="em nw">欧盟（招标）</td><td>净零工业法（NZIA）的招标标准</td><td>2025年12月30日</td><td>可再生能源招标年度量的30%以上，或每年6GW</td><td class="">标准＋对国家的依赖度</td><td>无</td><td class="">一手资料</td></tr>
+<tr><td class="em nw">立陶宛</td><td>电力法 第73³条（修正法 XIV-3092，2024年11月12日）</td><td>新建 2025年5月1日。既有设施须在2026年5月1日前符合（向电网运营商的声明截至5月31日）</td><td>超过100kW的发电站·储能设施</td><td class="">国籍</td><td>有</td><td class="">一手资料·报道</td></tr>
+<tr><td class="em nw">美国（FCC）</td><td>追加到Covered List（DA 26-786，由DA 26-870修正）</td><td>2026年7月28日</td><td>在国外制造的、具备通信功能的并网逆变器</td><td class="">生产国</td><td>无（已认证·已购入的除外）</td><td class="">一手资料</td></tr>
+<tr><td class="em nw">美国（国防）</td><td>国防授权法 FY2026 §842（电池）·§847（光伏组件·逆变器）</td><td>自FY2026预算起（§842自2028年1月起分阶段）</td><td>国防部采购的产品</td><td class="">国籍</td><td>无</td><td class="">一手资料</td></tr>
+<tr><td class="em nw">美国（总统令）</td><td>关于大规模电力系统设备的总统令</td><td>2026年8月26日。能源部长的判定尚未作出</td><td>电网设备的交易</td><td class="">国籍</td><td>视判定而定</td><td class="">一手资料</td></tr>
+<tr><td class="em nw">美国（得克萨斯州）</td><td>Lone Star Infrastructure Protection Act（2021年）、SB 2368（2025年6月20日签署）</td><td>2021年。强化自2025年9月1日起</td><td>ERCOT辖区内的重要电网设备</td><td class="">国籍</td><td>要求对过去的购买也采取对策</td><td class="">一手资料</td></tr>
+<tr><td class="em nw">德国</td><td>尚无法令。政府答复（2026年6月23日）称正在研究监管</td><td>未施行</td><td>接入电网的光伏逆变器</td><td class="">研究中</td><td>—</td><td class="">一手资料·报道</td></tr>
+<tr><td class="em nw">荷兰</td><td>网络安全法（NIS2的国内法）</td><td>2026年8月15日</td><td>能源企业·大型发电商</td><td class="">标准</td><td>—</td><td class="">一手资料</td></tr>
+<tr><td class="em nw">韩国</td><td>尚无法令。方向是在KS认证的审查中，确认逆变器内的通信装置</td><td>未施行</td><td>光伏逆变器（有报道称KS认证产品约6成为中国制造）</td><td class="">研究中</td><td>—</td><td class="">报道</td></tr>
+<tr><td class="em nw">中国台湾</td><td>禁止进口中国制造的太阳电池片·组件。未见仅针对逆变器的法令</td><td>—</td><td>太阳电池片·组件</td><td class="">国籍</td><td>—</td><td class="">一手资料·报道</td></tr>
+</tbody>
+</table>
+</div>
+<p class="tnote">“报道”是指一手资料未公布，或本公司没能读到一手资料的情形。欧盟的资金方针没有正式的公开文件。</p>
+
+
+<h2 id="sougo">互认不是漏洞</h2>
+<p>有人会问：“既然与新加坡做了互认，中国企业是不是可以从那里进来？”表3是目前在运行的互认一览。</p>
+<div class="wraptext">
+<table class="c52w">
+<caption>表3｜JC-STAR的互认</caption>
+<thead><tr><th>对方</th><th>状态</th><th>开始运行</th><th>海外 → JC-STAR的手续</th></tr></thead>
+<tbody>
+<tr><td class="em">英国 PSTI法</td><td>运行中（备忘录 2025年11月）</td><td class="nw">2026年1月1日</td><td>符合PSTI的产品，可免除3项要求的确认。手续费★1为140,000日元（通常为198,000日元）</td></tr>
+<tr><td class="em">新加坡 CLS</td><td>运行中（备忘录 2026年3月18日）</td><td class="nw">2026年6月1日</td><td>符合CLS的产品，可免除视为相同的要求的确认。手续费★1为140,000日元</td></tr>
+<tr><td class="em">美国 Cyber Trust Mark</td><td>未公布协议</td><td>—</td><td>—</td></tr>
+<tr><td class="em">欧盟 网络韧性法</td><td>不是互认。2026年10月26日，民间团体之间签署了制度比较的备忘录</td><td>—</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>无论走哪条路，发放JC-STAR标签的都是IPA。不是海外的政府部门。在此前提下，不会成为漏洞的理由有3个。</p>
+<h3>① 要求的是“基于IPA制度的标签”</h3>
+<blockquote>使用已被授予基于独立行政法人信息处理推进机构（IPA）的安全要求符合性评估及标签制度的★1（等级1）（以下称“JC-STAR★1”）以上合格标签的设备。<cite>并网技术要件指南 修订案 第2章第1节5（1）（2026年10月）（本公司译）</cite></blockquote>
+<p>CLS的标签本身，不是IPA制度的标签。符合CLS的产品，也要向IPA申请、领取JC-STAR★1的标签，才算满足要求。互认带来的减轻，只是部分确认的免除和手续费。</p>
+<h3>② CLS是面向家用设备的制度</h3>
+<p>新加坡的CLS，是面向消费者的IoT设备的制度。PCS和储能系统本来就不在对象之内。在CLS的产品清单中，华为（Huawei）的登记只有光纤终端和Wi-Fi设备。</p>
+<h3>③ 通过互认取得的产品，一件都没有</h3>
+<p>IPA各产品的页面上，有“与PSTI的互认”“与CLS的互认”两栏。把11月12日版的395件全部看一遍，两栏全部是“未申请”。使用互认取得★1的产品，目前还没有。</p>
+
+<h2 id="shinsa">标签的审查中，难道不含国籍吗</h2>
+<p>日本要求的条文中，没有国籍条件。尽管如此，中国大型企业的名字并没有出现在清单上。</p>
+<p>据日经报道，中国制造商的一位高管表示：“只有中国企业的申请被驳回。这是实质上的排除。”日经还报道称，申请的检查清单中有一项，询问是否可能受到外国法律等的影响。经济产业省没有公开个案的判断。</p>
+<p>条文不问国籍。不过，审查中看什么，从外部无法确认。准确的说法是：不能说“日本完全不看国籍”。</p>
+
+<h2 id="star2">★2到来之后</h2>
+<p>针对电力设备的★2以上标准的制定已经开始。有报道称，在2026年10月19日的电力子工作组（产业网络安全研究会）上，提出了与IPA商议、推进研究准备的方针。</p>
+<p>国家补助金（电网侧储能系统等导入支援事业）已经先行一步。不属于★1对象的设备，如果之后制定了★2的标准而成为对象，需在开始供货前取得★2。</p>
+<p>互认的对象只到★1。针对电力设备特有的★2要求，CLS和PSTI都没有对应的内容。如果并网要求提高到★2，互认能带来的减轻会更小，这是本公司的判断。</p>
+
+<h2 id="owari">结语</h2>
+<p>在接入电网的条件上，用不问国籍的标签或标准来设定的，是日本和澳大利亚。如果有人推销说“我们有CLS，所以没问题”，依据就是上面的条文。要看的是IPA清单上的登记编号。那张表在 <a target="_top" href="/zh-column-jcstar-2027-list">52-2 清单篇</a> 中。</p>
+<p>也写一下还没有确认清楚的事。10家电网公司修订后的条文，以及修订案意见征集的结果。等★2的标准草案出来后，会重新读一遍互认的范围。</p>
+<h2 id="rensai">本系列的读法</h2>
+<div class="cards n2">
+<a class="card" href="/zh-column-jcstar-2027" target="_top" style="text-decoration:none"><div class="cn">COLUMN 52</div><div class="ct">入门篇</div><div class="cb">395款全部是★1。中国16家大厂为零。先看数字</div></a>
+<a class="card" href="/zh-column-jcstar-2027-list" target="_top" style="text-decoration:none"><div class="cn">COLUMN 52-2</div><div class="ct">清单篇</div><div class="cb">按电网侧、户用、其他分类的清单。另列2027年5月到期的10款</div></a>
+<a class="card" href="/zh-column-jcstar-2027-existing" target="_top" style="text-decoration:none"><div class="cn">COLUMN 52-3</div><div class="ct">既有电站篇</div><div class="cb">起点是合同申请被受理之日。加装只看新增部分，更换原则上须★1</div></a>
+<div class="card dark"><div class="cn">COLUMN 52-4</div><div class="ct">国籍篇</div><div class="cb">欧美按国籍划线，日本按标签划线</div><div class="cb" style="opacity:.75;margin-top:4px">正在阅读本篇</div></div>
+</div>
+<div class="next">回到入口请看 <a target="_top" href="/zh-column-jcstar-2027">52 入门篇</a>。用数字看谁持有标签。</div>
+<h2 id="faq">常见问题</h2>
+<div class="faq-item">
+<p class="faq-q">有了新加坡的CLS或英国的PSTI标签，就满足日本的并网要求吗？</p>
+<p class="faq-a">不满足。并网技术要件指南的修订案，要求使用贴有基于IPA标签制度的★1以上合格标签的设备。CLS和PSTI的标签本身，不是IPA制度的标签。符合CLS或PSTI的产品，也需要向IPA申请，领取JC-STAR★1的标签。互认带来的减轻，只是部分确认的免除和手续费（★1为140,000日元）。</p>
+</div>
+<div class="faq-item">
+<p class="faq-q">中国制造商能通过新加坡的CLS取得JC-STAR吗？</p>
+<p class="faq-a">从制度上可以申请，但没有实例。CLS是面向消费者的IoT设备的制度，PCS和储能系统本来就不在对象之内。IPA各产品的页面有互认一栏，2026年11月12日版的395件全部是“未申请”。</p>
+</div>
+<div class="faq-item">
+<p class="faq-q">日本也像欧盟、美国那样，点名排除中国制造吗？</p>
+<p class="faq-a">从条文上看没有排除。并网的要求是不问国籍的标签要求，与澳大利亚属于同一边。不过，日经报道称，申请的检查清单中有询问外国法律等影响的项目，中国制造商反弹称这是“实质上的排除”。经济产业省没有公开个案的判断。</p>
+</div>
+<h2 id="refs">参考的一手资料与相关文章</h2>
+<div class="refs">
+<h3>日本的要求与互认</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&amp;id=620340012&amp;Mode=0">e-Gov 意见征集“关于确保电能质量的并网技术要件指南”修订案（案件编号620340012，2026年10月）</a><span class="ja-tag">日文</span> 第2章第1节5（1）</li>
+<li><a target="_blank" rel="noopener" href="https://www.ipa.go.jp/security/jc-star/shinsei/psti.html">IPA 与英国PSTI法的互认</a><span class="ja-tag">日文</span>｜<a target="_blank" rel="noopener" href="https://www.ipa.go.jp/security/jc-star/shinsei/cls.html">IPA 新加坡CLS符合的互认申请</a><span class="ja-tag">日文</span>｜<a target="_blank" rel="noopener" href="https://www.meti.go.jp/english/press/2025/1106_002.html">经济产业省 与英国的备忘录（2025年11月6日公布）</a><span class="ja-tag">英文</span>｜<a target="_blank" rel="noopener" href="https://www.meti.go.jp/press/2025/03/20260318001/20260318001.html">经济产业省 与新加坡的备忘录（2026年3月18日）</a><span class="ja-tag">日文</span>｜<a target="_blank" rel="noopener" href="https://www.csa.gov.sg/news-events/press-releases/singapore-signs-memorandum-of-cooperation-with-japan-on-mutual-recognition-of-internet-of-things-cybersecurity-schemes/">新加坡CSA（2026年3月18日）</a><span class="ja-tag">英文</span>｜<a target="_blank" rel="noopener" href="https://www.ipa.go.jp/pressrelease/2026/press20261104.html">IPA 与欧盟CRA的制度比较（2026年11月4日）</a><span class="ja-tag">日文</span></li>
+<li><a target="_blank" rel="noopener" href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/">IPA“合格标签取得产品清单”（2026年11月12日更新）</a><span class="ja-tag">日文</span>与各产品的信息页面（“与PSTI的互认”“与CLS的互认”栏）</li>
+<li><a target="_blank" rel="noopener" href="https://solarjournal.jp/policy/68228/">SOLAR JOURNAL（电力子工作组，2026年10月）</a><span class="ja-tag">日文</span>｜<a target="_blank" rel="noopener" href="https://sii.or.jp/chikudenchi07r/uploads/R7r_kess_kouboyouryou.pdf">SII 电网侧储能系统等导入支援事业 公募要领（2026年9月·PDF）</a><span class="ja-tag">日文</span> ※13</li>
+<li><a target="_blank" rel="noopener" href="https://www.nikkei.com/article/DGXZQOUC19AMF0Z10C26A3000000/">日本经济新闻（2026年7月1日）</a><span class="ja-tag">日文</span>｜<a target="_blank" rel="noopener" href="https://asia.nikkei.com/business/energy/china-storage-battery-makers-denied-cybersecurity-approval-in-japan">Nikkei Asia（同日·英文）</a><span class="ja-tag">英文</span></li>
+</ul>
+<h3>美国</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.fcc.gov/public/attachments/DA-26-786A1.pdf">FCC DA 26-786（2026年7月28日·PDF）</a><span class="ja-tag">英文</span>｜<a target="_blank" rel="noopener" href="https://docs.fcc.gov/public/attachments/DA-26-870A1.pdf">DA 26-870（2026年8月20日·PDF）</a><span class="ja-tag">英文</span></li>
+<li><a target="_blank" rel="noopener" href="https://www.congress.gov/119/plaws/publ60/PLAW-119publ60.pdf">Public Law 119-60（国防授权法 FY2026）§842·§847（PDF）</a><span class="ja-tag">英文</span>｜<a target="_blank" rel="noopener" href="https://www.energy.gov/ceser/declaring-national-emergency-secure-united-states-bulk-power-system-executive-order">美国能源部 总统令（2026年8月26日）</a><span class="ja-tag">英文</span>｜<a target="_blank" rel="noopener" href="https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&amp;Bill=SB2368">得克萨斯州议会 SB 2368的进展（2025年6月20日签署，9月1日施行）</a><span class="ja-tag">英文</span></li>
+</ul>
+<h3>欧洲·其他</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.pv-magazine.com/2026/04/23/eu-moves-to-restrict-funding-for-projects-using-inverters-from-high-risk-suppliers/">pv magazine（欧盟的资金，2026年4月23日）</a><span class="ja-tag">英文</span>｜<a target="_blank" rel="noopener" href="https://www.euronews.com/2026/05/04/eu-moves-to-ban-high-risk-inverters-from-china-over-cybersecurity-threats">Euronews（2026年5月4日）</a><span class="ja-tag">英文</span>｜<a target="_blank" rel="noopener" href="https://single-market-economy.ec.europa.eu/industry/sustainability/net-zero-industry-act_en">欧盟委员会 净零工业法</a><span class="ja-tag">英文</span>｜<a target="_blank" rel="noopener" href="https://www.pv-magazine.com/2026/01/20/eu-to-ban-chinese-inverters-commission-proposal-in-cybersecurity-mulls-high-risk-vendors-list/">pv magazine（网络安全法的修订案，2026年1月20日）</a><span class="ja-tag">英文</span></li>
+<li><a target="_blank" rel="noopener" href="https://www.lrt.lt/en/news-in-english/19/2411602/lithuania-passes-law-to-block-chinese-access-to-solar-and-wind-farm-systems">LRT（立陶宛，2024年11月12日）</a><span class="ja-tag">英文</span>｜<a target="_blank" rel="noopener" href="https://www.e-tar.lt/portal/lt/legalAct/a02c5240a66d11ef90b5ee8931e5ce5e">立陶宛官方公报（修正法 XIV-3092）</a><span class="ja-tag">立陶宛文</span></li>
+<li><a target="_blank" rel="noopener" href="https://www.pv-magazine.de/2026/06/29/cybersecurity-bundesregierung-prueft-regulatorische-schritte-gegen-chinesische-wechselrichter/">pv magazine（德国，2026年6月29日）</a><span class="ja-tag">德文</span>｜<a target="_blank" rel="noopener" href="https://www.rijksoverheid.nl/actueel/nieuws/2026/08/15/cyberbeveiligingswet-en-wet-weerbaarheid-kritieke-entiteiten-vanaf-vandaag-van-kracht">荷兰政府（2026年8月15日）</a><span class="ja-tag">荷兰文</span>｜<a target="_blank" rel="noopener" href="https://cleanenergycouncil.org.au/industry-programs/products-program/inverters/csip-aus-inverters">Clean Energy Council（澳大利亚 CSIP-AUS）</a><span class="ja-tag">英文</span>｜<a target="_blank" rel="noopener" href="https://www.news33.net/news/articleView.html?idxno=118447">韩国的报道（KS认证）</a><span class="ja-tag">韩文</span></li>
+</ul>
+<h3>相关文章</h3><ul><li><a target="_top" href="/zh-column-foreign-investor">外国资本投资日本高压电网侧储能电站之前要跨过的关口</a>／<a target="_top" href="/zh-column-jcstar">JC-STAR★1的起点不是“并网日”（COLUMN 14）</a>／<a target="_top" href="/zh-column-buyer-check">购买电网侧储能电站之前的技术检查</a></li></ul>
+</div>
+<div class="author-box">
+<div class="ab-label">本文审校</div>
+<div><span class="ab-name">中岛晋也</span>（Science X Inc. 代表董事・工学博士）</div>
+<p style="margin:6px 0 0">本文基于本公司收购并转售电网侧储能项目的实务撰写与审校。JC-STAR 的件数是本公司对 IPA 公布清单（Excel 版）的统计。对制度的解读依据资源能源厅、OCCTO（电力广域运营推进机构）和 IPA 的公开资料；依据新闻报道的部分，正文或表格中已注明。本中文版译自日文原文，法律与制度事项以日文一手资料为准。如发现错误，请发邮件至 <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>。</p>
+</div>
+
+</div>
+
+<!-- scix-column-cta : 1記事1つ。ZH は単一ファネル（/zh-contact）。案件一覧 /projects は日本語のみ -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F5F5F3;border:1px solid #E6E6E6;border-radius:8px;font-family:'Noto Sans SC','Noto Sans JP',sans-serif">
+  <h3 style="color:#1F2A48;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">核对的不是设备的国籍，而是登记编号</h3>
+  <p style="color:#555555;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">本公司经手的是已经拿到接续研讨回复的项目。所在县、规模、并网预期和进展情况，无需签署NDA即可查看。</p>
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/zh-contact" style="display:inline-block;background:#C49A3C;color:#1F2A48;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">联系我们 →</a>
+    <p style="color:#8C8C8C;font-size:12.5px;line-height:1.8;margin:10px 0 0">将打开咨询表单。请在留言栏写明您是买方还是卖方，以及关注的设备或项目。项目一览页面目前仅有日文版：<a target="_top" href="https://www.scix.co.jp/projects" hreflang="ja" style="color:#1F2A48">在售项目一览（日文）</a>。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer — self-contained (zh-CN) -->
+<style>
+  .scix-footer *{margin:0;padding:0;box-sizing:border-box}
+  .scix-footer{background-color:#1F2A48;color:rgba(255,255,255,0.85);font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+  .scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px}
+  .scix-footer-logo img{height:48px;width:auto;display:block;opacity:0.95}
+  .scix-footer-info{text-align:center}
+  .scix-footer-copyright{font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px}
+  .scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8)}
+  .scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+  .scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+  .scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none;transition:color 0.2s ease}
+  .scix-footer-company a:hover{color:#C49A3C}
+  .scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12);margin:0 auto}
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img width="300" height="118" src="/img/logo-white.png" alt="ScienceX Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.（赛恩斯艾克斯）</div>
+        日本〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/zh" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">首页</a>
+        <a href="/zh-knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">洞见</a>
+        <a href="/zh-qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">问答</a>
+        <a href="/zh-glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">术语表</a>
+        <a href="/zh-contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">联系我们</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">隐私政策</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

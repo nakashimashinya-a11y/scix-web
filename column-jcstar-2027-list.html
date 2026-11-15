@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"></noscript>
+<style>
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#1F2A48;--text-light:#666666;--light-bg:#F7F7F7;--border:#E6E6E6;--white:#FFFFFF;--warn:#C0392B;--blue:#1a5276;--blue-bg:#eaf2f8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#141B30 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Sans JP',sans-serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Sans JP',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Sans JP',sans-serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.62);line-height:1.85;max-width:600px;margin:0 auto}
+.article-body{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Sans JP',sans-serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h2 .no{font-family:'Noto Sans JP',sans-serif;color:var(--accent);font-size:.9em;margin-right:.55em;letter-spacing:.06em}
+h3{font-size:1.05em;font-weight:700;color:var(--navy);margin:30px 0 10px;line-height:1.6}
+p{margin-bottom:20px}
+strong{color:var(--navy)}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.lead{font-size:1.02em}
+.note{background:var(--light-bg);border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0 28px;font-size:.84em;line-height:1.95;color:var(--text-light);border-radius:0 4px 4px 0}
+.note b{color:var(--navy)}
+.tablewrap{overflow-x:auto;margin:28px 0;border:1px solid var(--border);border-radius:6px;background:var(--white)}
+table{border-collapse:collapse;width:100%;font-size:.82em;line-height:1.65;white-space:nowrap;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-size:.95em;font-weight:600;color:var(--navy);padding:12px 14px 10px;white-space:normal;line-height:1.65;background:var(--light-bg);border-bottom:1px solid var(--border)}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+thead th{background:var(--navy);color:#fff;font-weight:500;letter-spacing:.03em;border-bottom:none}
+tbody th{background:var(--light-bg);color:var(--navy);font-weight:600;text-align:left}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+.wraptext table{white-space:normal}
+.wraptext td:first-child,.wraptext th:first-child{white-space:nowrap;vertical-align:top}
+.wraptext td{text-align:left;vertical-align:top}
+.wraptext thead th{text-align:left}
+.wraptext td.nw{white-space:nowrap}
+.tnote{font-size:.78em;color:var(--text-light);line-height:1.85;margin:-14px 0 28px}
+.wraptext{margin:28px 0;overflow-x:auto}
+.wraptext table{margin:0;min-width:620px}
+figure{margin:28px 0;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px}
+figure svg{width:100%;height:auto;display:block;background:var(--white);border:1px solid var(--border)}
+figcaption{font-size:.78em;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.7}
+blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--light-bg);color:var(--navy);border-radius:0 6px 6px 0}
+ol.actions{padding-left:1.5em;margin:20px 0}
+ol.actions li{margin:14px 0}
+ol.actions li b{display:inline;color:var(--navy)}
+ul.checks{list-style:none;padding:0;margin:20px 0}
+ul.checks li{position:relative;padding:10px 12px 10px 44px;border-bottom:1px solid var(--border);line-height:1.8}
+ul.checks li::before{content:'';position:absolute;left:10px;top:14px;width:18px;height:18px;border:2px solid var(--accent);border-radius:4px;background:var(--white)}
+ul.checks li:last-child{border-bottom:none}
+hr.sep{border:none;border-top:1px solid var(--border);margin:40px 0}
+.toc{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px 16px;margin:0 0 32px;font-size:.9em}
+.toc-title{font-weight:700;color:var(--navy);margin-bottom:8px;font-size:.95em}
+.toc a{color:var(--text);text-decoration:none;display:block;padding:3px 0}
+.toc a:hover{color:var(--accent)}
+.toc a::before{content:'›';color:var(--accent);margin-right:8px}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text);margin-bottom:0}
+.faq-a::before{content:'A. ';color:var(--text-light);font-weight:700}
+.refs{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin:36px 0;font-size:.8em;line-height:1.85;color:var(--text-light)}
+.refs h3{font-size:1.05em;color:var(--navy);margin:14px 0 6px;font-weight:700}
+.refs ul{margin:4px 0;padding-left:20px}
+.refs li{margin:5px 0}
+.refs a{color:var(--blue);word-break:break-all}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:8px 0 6px}
+.kpi-item{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:16px 12px;text-align:center}
+.k-label{font-size:.8em;color:var(--text-light);line-height:1.5}
+.k-value{font-size:2.1em;font-weight:700;color:var(--navy);line-height:1.2;margin:6px 0 4px}
+.k-value span{font-size:.48em;margin-left:2px;font-weight:600}
+.k-sub{font-size:.74em;color:var(--text-light);line-height:1.5}
+.kpi-note{font-size:.78em;color:var(--text-light);margin:0 0 28px;line-height:1.8}
+@media(max-width:600px){.kpi{gap:6px}.kpi-item{padding:12px 6px}.k-value{font-size:1.45em}.k-label{font-size:.72em}.k-sub{font-size:.66em}}
+.author-box{background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy)}
+/* 連載ナビ（COLUMN 48 と同じ部品） */
+.c47series{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 30px;padding:12px 14px;background:var(--light-bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+.c47series .lb{font-size:.74em;color:var(--text-light);letter-spacing:.06em;width:100%;margin-bottom:2px}
+.c47series a,.c47series span.cur{font-size:.83em;text-decoration:none;padding:3px 10px;border-radius:3px;line-height:1.7}
+.c47series a{color:var(--navy);background:var(--white);border:1px solid var(--border)}
+.c47series a:hover{border-color:var(--accent)}
+.c47series span.cur{color:var(--white);background:var(--navy);font-weight:600}
+/* 重さのバッジ */
+.w{display:inline-block;min-width:1.9em;text-align:center;font-weight:700;border-radius:3px;padding:0 4px;font-size:.92em;line-height:1.6}
+.w1{background:var(--navy);color:#fff}
+.w2{background:#FBF6EA;color:#8F6F22;border:1px solid var(--accent)}
+.w3{background:var(--light-bg);color:var(--text-light);border:1px solid var(--border)}
+.wkey{font-size:.82em;color:var(--text-light);margin:-10px 0 20px;line-height:1.9}
+/* カード */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 28px}
+.cards.n2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--light-bg);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:6px;padding:14px 14px 12px;font-size:.88em;line-height:1.8}
+.card .cn{font-family:'Noto Sans JP',sans-serif;color:var(--accent);font-weight:700;font-size:.9em;letter-spacing:.06em}
+.card .ct{font-weight:700;color:var(--navy);margin:2px 0 6px;line-height:1.55}
+.card .cb{color:var(--text);font-size:.95em}
+.card.dark{background:var(--navy);border-color:var(--navy);color:#fff}
+.card.dark .ct,.card.dark .cb{color:#fff}
+@media(max-width:680px){.cards,.cards.n2{grid-template-columns:1fr}}
+/* 6か所の見出し番号 */
+.six{display:flex;align-items:flex-start;gap:12px;margin:26px 0 10px}
+.six .n{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--navy);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:1em}
+.six h3{margin:4px 0 0}
+/* 手順 */
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:20px 0}
+ol.steps li{counter-increment:s;position:relative;padding:10px 0 10px 48px;border-bottom:1px solid var(--border);line-height:1.8}
+ol.steps li::before{content:counter(s);position:absolute;left:4px;top:12px;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:.85em;display:flex;align-items:center;justify-content:center}
+ol.steps li:last-child{border-bottom:none}
+ol.steps li b{color:var(--navy)}
+.next{background:#FBF6EA;border:1px solid var(--accent);border-radius:6px;padding:16px 20px;margin:28px 0;font-size:.92em;line-height:1.9}
+.next b{color:var(--navy)}
+/* 見本（回答書の文面）と、書き方ごとの読み方 */
+.mk{display:inline-flex;align-items:center;justify-content:center;width:1.5em;height:1.5em;border-radius:50%;background:var(--accent);color:var(--navy);font-family:'Noto Sans JP',sans-serif;font-weight:800;font-size:.72em;line-height:1;vertical-align:.12em;margin:0 3px;flex:0 0 auto}
+.mihon{margin:26px 0 10px;border:1px solid var(--border);border-radius:6px;background:var(--light-bg)}
+.mihon .mh-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:10px 14px;border-bottom:1px solid var(--border);font-size:.8em;color:var(--text-light);line-height:1.6}
+.mihon .mh-tag{display:inline-block;background:var(--navy);color:#fff;font-weight:700;letter-spacing:.14em;padding:1px 10px;border-radius:2px;font-size:.95em}
+.mihon .mh-t{color:var(--navy);font-weight:700}
+.mh-doc{margin:14px;background:#fff;border:1px solid #D3D9E1;box-shadow:3px 3px 0 #E6E9EE;padding:14px 18px 12px;font-family:'Noto Sans JP',sans-serif;font-size:.86em;line-height:1.95;color:#1F2A3A;overflow-wrap:anywhere}
+.mh-doc .mh-conf{font-family:'Noto Sans JP',sans-serif;font-size:.76em;color:#9AA1AD;text-align:center;margin:10px 0 -2px;padding-top:6px;border-top:1px dashed #E6E6E6;letter-spacing:.03em;line-height:1.5}
+.mh-doc .mh-sec{font-weight:700;color:var(--navy);margin:10px 0 2px}
+.mh-doc .mh-sec:first-child{margin-top:0}
+.mh-doc p{margin:0 0 6px}
+.mh-doc .ind{padding-left:1.1em}
+.mh-doc .ind2{padding-left:2.2em}
+.mh-doc .gap{height:6px}
+.mh-doc .cut{text-align:center;color:#AAB1BC;font-family:'Noto Sans JP',sans-serif;font-size:.78em;letter-spacing:.3em;margin:4px 0}
+.mh-doc mark{background:linear-gradient(transparent 55%,#F2E1B2 55%);color:inherit;padding:0 1px}
+.mh-doc .dtab{overflow-x:auto;margin:6px 0 8px;padding:0 1px 1px 0}
+.mh-doc table.gantt th{white-space:nowrap}
+.mh-doc table.gantt td{min-width:2.2em}
+.mh-doc table{white-space:normal;font-size:.94em;line-height:1.6;margin:0;font-family:'Noto Sans JP',sans-serif;min-width:0}
+.mh-doc th,.mh-doc td{padding:4px 8px;border:1px solid #D3D9E1;text-align:left;vertical-align:top}
+.mh-doc thead th{background:#F1F3F6;color:var(--navy);font-weight:600;letter-spacing:0}
+.mh-doc tbody th{background:#FAFBFC;font-weight:600;color:#1F2A3A}
+.mh-doc td.r,.mh-doc th.r{text-align:right;white-space:nowrap}
+.mh-doc td.on{background:#E9D6A2}
+.mh-doc td.on2{background:#1F2A48}
+.mh-f{padding:0 14px 12px;font-size:.74em;color:var(--text-light);line-height:1.75}
+.mh-notes{list-style:none;margin:0;padding:2px 14px 12px;font-size:.88em;line-height:1.85}
+.mh-notes li{display:flex;gap:8px;align-items:flex-start;padding:8px 0;border-top:1px dashed #D3D9E1}
+.mh-notes li .mk{margin-top:.3em;font-size:.8em}
+.mh-notes li b{color:var(--navy)}
+.kaki{margin:16px 0 30px;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--white)}
+.kaki .kk-h{background:var(--navy);color:#fff;font-size:.82em;font-weight:600;padding:8px 14px;letter-spacing:.03em;line-height:1.6}
+.kaki .kk{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);border-top:1px solid var(--border);font-size:.85em;line-height:1.8}
+.kaki .kk-h+.kk{border-top:none}
+.kaki .kk>div{padding:10px 12px}
+.kaki .kk .q{background:#FBF6EA;font-family:'Noto Sans JP',sans-serif;color:#1F2A3A;border-right:1px solid var(--border)}
+.kaki .kk .a{border-right:1px solid var(--border)}
+.kaki .kk i{display:block;font-style:normal;font-size:.78em;color:var(--text-light);font-weight:600;letter-spacing:.04em;margin-bottom:1px;font-family:'Noto Sans JP',sans-serif}
+.kaki .kk b{color:var(--navy)}
+@media(max-width:680px){.kaki .kk{grid-template-columns:1fr}.kaki .kk .q,.kaki .kk .a{border-right:none;border-bottom:1px dashed var(--border)}.mh-doc{margin:10px;padding:12px 12px 10px;font-size:.84em}}
+.case{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0 10px}
+.case .cs{border:1px solid var(--border);border-radius:6px;background:var(--white);overflow:hidden;font-size:.86em;line-height:1.8}
+.case .cs-h{padding:10px 14px;background:var(--light-bg);border-bottom:1px solid var(--border)}
+.case .cs-h .cn{font-family:'Noto Sans JP',sans-serif;color:var(--accent);font-weight:700;letter-spacing:.06em;font-size:.9em}
+.case .cs-h .ct{font-weight:700;color:var(--navy);line-height:1.55}
+.case dl{margin:0;padding:6px 14px 12px}
+.case dt{font-size:.8em;color:var(--text-light);font-weight:600;margin-top:8px;display:flex;align-items:center;gap:2px}
+.case dd{margin:0;color:var(--text)}
+.case dd q{quotes:'「' '」';font-family:'Noto Sans JP',sans-serif;color:#1F2A3A}
+.case .cs-r{margin:0 14px 14px;padding:10px 12px;background:#FBF6EA;border:1px solid var(--accent);border-radius:4px}
+.case .cs-r b{color:var(--navy)}
+@media(max-width:680px){.case{grid-template-columns:1fr}}
+@media(max-width:768px){
+  .article-body{padding:32px 16px 60px}
+  h2{font-size:1.2em}
+  table{font-size:.78em}
+  th,td{padding:6px 8px}
+  figure{padding:12px;overflow-x:auto}
+  figure svg{min-width:620px}
+  figure::before{content:'← 横にスクロールできます →';display:block;font-size:.72em;color:var(--text-light);text-align:center;margin-bottom:6px}
+}
+/* COLUMN 52 だけの部品（51 の部品に足りない分） */
+.kpi.n4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:600px){.kpi.n4{grid-template-columns:repeat(2,1fr)}}
+.c52filter{display:flex;gap:10px;align-items:center;margin:16px 0 4px;flex-wrap:wrap}
+.c52filter input{flex:1;min-width:220px;font:inherit;font-size:.92em;padding:9px 12px;border:1px solid var(--border);border-radius:4px;color:var(--text);background:var(--white)}
+.c52filter input:focus{outline:none;border-color:var(--accent)}
+.c52filter .cnt{font-size:.85em;color:var(--text-light);white-space:nowrap}
+.wraptext tr.exp td{background:#FBF6EA}
+.wraptext td.mono{font-variant-numeric:tabular-nums;letter-spacing:.02em;white-space:nowrap}
+.wraptext td.c{text-align:center}
+.tablewrap td.em,.wraptext td.em{font-weight:700;color:var(--navy)}
+.wraptext td.ng{color:var(--text-light)}
+blockquote cite{display:block;font-style:normal;font-size:.8em;color:var(--text-light);margin-top:6px}
+blockquote cite::before{content:'— '}
+.ab-mark{display:inline-block;min-width:1.6em;text-align:center;font-weight:700;border-radius:3px;padding:0 4px;font-size:.85em;line-height:1.6}
+.ab-mark.a{background:var(--navy);color:#fff}
+.ab-mark.b{background:#FBF6EA;color:#8F6F22;border:1px solid var(--accent)}
+.ab-mark.c{background:var(--light-bg);color:var(--text-light);border:1px solid var(--border)}
+
+.ja-tag{display:inline-block;margin-left:.35em;padding:0 .4em;font-size:.66em;font-weight:700;letter-spacing:.07em;color:#A07916;background:rgba(196,154,60,.15);border-radius:2px;vertical-align:.14em;text-decoration:none}
+.sum3{background:var(--light-bg);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;padding:16px 22px 10px;margin:8px 0 28px}
+.sum3 .s3-t{font-size:.8em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:6px}
+.sum3 ol{margin:0 0 6px;padding-left:1.4em}
+.sum3 li{margin:4px 0;line-height:1.8}
+.tablewrap table.c52tbl,.wraptext table.c52tbl{font-size:.84em}
+.wraptext table.c52w td:first-child{white-space:normal;min-width:8.5em;max-width:15em}
+.tablewrap table.c52w td:first-child{white-space:nowrap}
+
+</style>
+<title>JC-STAR★1取得済みの蓄電池・PCS・BMS・EMS 189件 — 2026年11月12日時点の一覧｜サイエンスエックス</title>
+<meta name="description" content="IPAのJC-STAR取得製品リスト（2026年11月12日更新）から、蓄電池システム・PCS・BMS・EMS・計測制御・遠隔監視の189件を、登録番号・取得日・満了日・本社国つきで一覧に。系統用65件、住宅用61件、その他63件。2027年5月に満了する10件と、延長の手続きの現状も。">
+<link rel="canonical" href="https://www.scix.co.jp/column-jcstar-2027-list">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-jcstar-2027-list">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-jcstar-2027-list">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-jcstar-2027-list">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-jcstar-2027-list">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JC-STAR★1取得済みの蓄電池・PCS・BMS・EMS 189件 — 2026年11月12日時点の一覧｜サイエンスエックス">
+<meta property="og:description" content="JC-STAR★1を取った蓄電池・PCS・BMS・EMS 189件を、登録番号つきで一覧に。系統用65・住宅用61・その他63。2027年5月に切れる10件。">
+<meta property="og:url" content="https://www.scix.co.jp/column-jcstar-2027-list">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-x.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JC-STAR★1取得済みの蓄電池・PCS・BMS・EMS 189件 — 2026年11月12日時点の一覧｜サイエンスエックス">
+<meta name="twitter:description" content="JC-STAR★1を取った蓄電池・PCS・BMS・EMS 189件を、登録番号つきで一覧に。系統用65・住宅用61・その他63。2027年5月に切れる10件。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-x.png">
+<meta property="article:published_time" content="2026-11-15">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "JC-STAR★1取得済みの蓄電池・PCS・BMS・EMS 189件 — 2026年11月12日時点の一覧｜サイエンスエックス",
+  "description": "IPAのJC-STAR取得製品リスト（2026年11月12日更新）から、蓄電池システム・PCS・BMS・EMS・計測制御・遠隔監視の189件を、登録番号・取得日・満了日・本社国つきで一覧に。系統用65件、住宅用61件、その他63件。2027年5月に満了する10件と、延長の手続きの現状も。",
+  "author": {
+    "@type": "Person",
+    "name": "中島 晋也",
+    "jobTitle": "代表取締役（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-x.png"
+  },
+  "datePublished": "2026-11-15",
+  "dateModified": "2026-11-15",
+  "inLanguage": "ja",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.scix.co.jp/column-jcstar-2027-list"
+  },
+  "url": "https://www.scix.co.jp/column-jcstar-2027-list",
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "name": "COLUMN 52 JC-STARの線引き",
+    "url": "https://www.scix.co.jp/column-jcstar-2027"
+  },
+  "keywords": "JC-STAR,★1,取得製品一覧,登録番号,PCS,BMS,EMS,蓄電池,有効期限"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "JC-STAR★1を取ったPCSには、どのメーカーのものがありますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "2026年11月12日版のIPAの一覧で、蓄電・系統用のPCSは14件です。日本7（富士電機2・日新電機・TMEIC・明電舎・ニチコン・日立エナジー）、台湾2（泓德能源・デルタ電子）、韓国2（暁星重工業・LS ELECTRIC）、欧州1（Power Electronics）、本社国を確認できず2（GBP）。中国に本社があるメーカーのPCSは0件です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "JC-STAR★1の有効期限は、いつ切れますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "有効期間は、ラベルの発行日から最大2年です。2025年5月に取った10件（GSユアサ3・ジェイシティ4・Shizen Connect 2・NextDrive 1）は、2027年5月6日〜27日に切れます。延長の手続きの細かい決まりは、IPAが「2026年に公表する予定」としており、11月15日の時点ではまだ出ていません。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "IPAの一覧に無いメーカーは、申請していないということですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "分かりません。一覧には発行済みのラベルだけが載り、申請中・却下・未申請は外から区別できません。「載っていない」は、その時点でラベルが発行されていない、という意味までです。"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://www.scix.co.jp/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ナレッジ",
+      "item": "https://www.scix.co.jp/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "税制・制度・規制",
+      "item": "https://www.scix.co.jp/knowledge#cat-rules"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "★1を取った蓄電池・PCS・BMS・EMS 189件 — 2026年11月12日時点、登録番号つきの一覧",
+      "item": "https://www.scix.co.jp/column-jcstar-2027-list"
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:&#39;Noto Sans JP&#39;,sans-serif;font-size:12.5px;line-height:1.6;color:#8C8C8C"><a href="/" style="color:#555555;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#555555;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge#cat-rules" style="color:#555555;text-decoration:none">税制・制度・規制</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8C8C8C">★1を取った蓄電池・PCS・BMS・EMSの一覧</span></nav>
+
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 52-2</span>
+      <span class="header-tag">税制・制度・規制 / JC-STARの線引き（一覧編）</span>
+      <time class="header-date" datetime="2026-11-15">2026.11.15</time>
+    </div>
+    <h1>★1を取った蓄電池・PCS・BMS・EMS 189件<br>— 2026年11月12日時点、登録番号つきの一覧</h1>
+    <p class="header-desc">IPAの取得製品リスト（2026年11月12日更新）から、太陽光・蓄電池まわりの189件を抜き出しました。登録番号・取得日・満了日・本社の国を付け、系統用65件を先頭に置きます。2027年5月に切れる10件も分けて載せました。</p>
+  </div>
+</div>
+
+<div class="article-body">
+<nav class="c47series" aria-label="COLUMN 52"><span class="lb">この連載は4本です。2027年4月から、電力網につなぐ蓄電所の機器にJC-STAR★1が要ります。誰がラベルを持っているか、既設の太陽光はどうなるか、世界の線引きはどこにあるかを順に書きます</span><a target="_top" href="/column-jcstar-2027">COLUMN 52　入口編</a><span class="cur">COLUMN 52-2　一覧編</span><a target="_top" href="/column-jcstar-2027-existing">COLUMN 52-3　既設編</a><a target="_top" href="/column-jcstar-2027-nationality">COLUMN 52-4　国籍編</a></nav>
+
+
+<div class="sum3"><div class="s3-t">3行で言うと</div><ol><li>IPAの一覧（2026年11月12日更新）395件のうち、太陽光・蓄電池まわりの189件を、登録番号つきで並べました。</li><li>登録番号を押すと、IPAの製品ページが開きます。案件の機器の型番と、そこの型番が同じかを見てください。</li><li>2025年5月に取った10件は、2027年5月に切れます。延長の手続きの細かい決まりは、まだ出ていません。</li></ol></div>
+
+<p class="lead">買い手が案件で確かめるのは、機器の国籍ではありません。手元の機器の型番が、IPAの一覧の製品と同じか。そして、その登録番号がいま有効か、です。</p>
+<p>そのための表を、IPAの一覧から太陽光・蓄電池まわりだけ抜き出して置きます。系統用65件を先頭に、住宅用61件、産業用か判別できないもの63件の順です。</p>
+
+<div class="toc">
+  <div class="toc-title">この記事の内容</div>
+  <a href="#yomikata">表の読み方</a>
+  <a href="#kotoba">この連載の言葉</a>
+  <a href="#matome">種類と国でまとめると</a>
+  <a href="#kigen">2027年5月に切れる10件</a>
+  <a href="#ichiran">189件の一覧</a>
+  <a href="#genkai">この表の限界</a>
+  <a href="#rensai">この連載の読み方</a>
+  <a href="#faq">よくある質問</a>
+</div>
+
+
+<div class="kpi n4"><div class="kpi-item"><div class="k-label">系統用</div><div class="k-value">65<span style='font-size:.5em'>件</span></div><div class="k-sub">高圧・特別高圧・蓄電所向け</div></div><div class="kpi-item"><div class="k-label">住宅用</div><div class="k-value">61<span style='font-size:.5em'>件</span></div><div class="k-sub">家庭の太陽光・蓄電池</div></div><div class="kpi-item"><div class="k-label">産業用・判別できない</div><div class="k-value">63<span style='font-size:.5em'>件</span></div><div class="k-sub">工場・店舗向けなど</div></div><div class="kpi-item"><div class="k-label">2027年5月に切れる</div><div class="k-value">10<span style='font-size:.5em'>件</span></div><div class="k-sub">2025年5月に取った製品</div></div></div>
+<p class="kpi-note">用途は製品名と各製品ページの説明から当社が分けた。IPAの一覧に用途の欄は無い。</p>
+
+
+<h2 id="yomikata">表の読み方</h2>
+<ul>
+<li><strong>登録番号</strong>は、IPAが付けた16桁の番号です。押すと、その製品のIPAのページが開きます。型番・製造事業者・サポート期間が書いてあります。</li>
+<li><strong>種別</strong>は、当社のまとめ方です。「EMS／サイトコントローラー」にはPMSやサイトEMSを入れました。「遠隔監視／GW／HEMS」には、ゲートウェイとHEMSを入れました。汎用のルーター（センチュリー・システムズ、Teltonika、Moxaなど）は入れていません。</li>
+<li><strong>本社国</strong>は、親会社の本社の国です。日本法人でも、親会社が海外ならその国にしました。RENON POWERとLehmanSoftは、親会社の国まで確かめられなかったので「確認できず」にしています。</li>
+<li><strong>満了日</strong>は、取得日の2年後の前日です（IPAの表記と同じ）。2027年6月末までに切れる行は、黄色にしました。</li>
+</ul>
+
+<!-- scix-guide: 立場別の導線と用語集 -->
+<aside data-scix-guide style="margin:32px 0;padding:14px 20px 12px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif;font-size:14.5px;line-height:1.8;color:#1F2A48">
+  <p style="margin:0 0 8px">いま売りに出ている案件を見るなら、<a target="_top" href="/projects" style="color:#1F2A48;font-weight:600">販売中の案件一覧</a>（NDA不要）へ。管内・規模・連系の見込みまで、匿名で載せています。買い方の順番は <a target="_top" href="/transfer" style="color:#1F2A48;font-weight:600">案件を買う</a> に。</p>
+  <p style="margin:0;font-size:13px;color:#555555">この記事の用語: <a target="_top" href="/glossary#term-JCSTAR" style="color:#1F2A48">JC-STAR</a> ・ <a target="_top" href="/glossary#term-PCSEMS" style="color:#1F2A48">PCS・EMS</a> ・ <a target="_top" href="/glossary#term-JCSTAR1の義務化" style="color:#1F2A48">★1の義務化</a> ／ <a target="_top" href="/glossary" style="color:#1F2A48">用語集</a></p>
+</aside>
+
+<!-- scix-readnext -->
+<aside data-scix-readnext style="margin:32px 0;padding:14px 20px 10px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;font-weight:700;color:#555555;letter-spacing:.08em;margin-bottom:2px">あわせて読む</div>
+  <a target="_top" href="/column-jcstar-2027" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">JC-STARのラベルを持っているのは誰か — 395件すべて★1、中国の大手16社はゼロ →</a>
+  <a target="_top" href="/column-buyer-check" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">系統用蓄電所を買う前の技術チェック →</a>
+  <a target="_top" href="/column-equipment" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">接続検討回答後の設備変更 — 何が変わり、何が変わらないのか →</a>
+</aside>
+
+
+<h2 id="kotoba">この連載の言葉</h2>
+<p>この連載では、次の言葉を使います。4本とも同じ表です。</p>
+<div class="wraptext">
+<table class="c52w">
+<caption>表0｜この連載の言葉（早見表）</caption>
+<thead><tr><th>言葉</th><th>意味</th></tr></thead>
+<tbody>
+<tr><td><b>JC-STAR</b></td><td>経済産業省が2025年3月に始めた、ネットにつながる機器（IoT機器）のセキュリティのラベル制度。IPA（情報処理推進機構）が運営する</td></tr>
+<tr><td><b>★1（星1つ）</b></td><td>いちばん下のレベル。初期パスワードのまま使わせない、不具合の連絡先がある、ソフトを直せる、といった最低限の決まりを、メーカー自身が確かめて申請する。第三者が評価するのは★3・★4</td></tr>
+<tr><td><b>PCS（パワーコンディショナ）</b></td><td>電池（直流）と電力網（交流）の間で、電気の形を変える機械。蓄電所の心臓にあたる</td></tr>
+<tr><td><b>BMS</b></td><td>電池の温度や電圧を見張る、電池の見張り役</td></tr>
+<tr><td><b>EMS</b></td><td>いつ充電し、いつ放電するかを決める司令塔</td></tr>
+<tr><td><b>遠隔監視・ゲートウェイ</b></td><td>発電所・蓄電所と、外のネットワークをつなぐ玄関口</td></tr>
+<tr><td><b>系統・系統連系</b></td><td>系統は、電力会社の送電線・配電線のこと。そこに発電所や蓄電所をつなぐことを系統連系という</td></tr>
+<tr><td><b>一般送配電事業者</b></td><td>大手電力会社の送配電の会社（東京電力パワーグリッドなど、全国に10社）</td></tr>
+<tr><td><b>接続検討</b></td><td>つなげるか、工事にいくらかかるかを、一般送配電事業者に調べてもらう手続き。契約申込みの前の段階</td></tr>
+<tr><td><b>契約申込み</b></td><td>接続検討の回答のあとに出す、正式な申込み。書類に不備がなく、保証金が入金されて、はじめて「受付」になる</td></tr>
+<tr><td><b>特別高圧・高圧・低圧</b></td><td>つなぐ電圧の区分。高圧はおおむね2,000kW未満、低圧は50kW未満。特別高圧はそれより大きい</td></tr>
+</tbody>
+</table>
+</div>
+
+
+<h2 id="matome">種類と国でまとめると</h2>
+<p>表1は、機器の種類ごとに、本社の国で数を分けたものです。</p>
+<div class="tablewrap">
+<table>
+<caption>表1｜種別 × 本社国</caption>
+<thead><tr><th>種別</th><th>日本</th><th>台湾</th><th>韓国</th><th>欧州</th><th>米・英・加</th><th>中国</th><th>本社国を確認できず</th><th>計</th></tr></thead>
+<tbody>
+<tr><td class="em">蓄電池システム</td><td class="c">55</td><td class="c">4</td><td class="c">3</td><td class="c">1</td><td class="c">1</td><td class="c">–</td><td class="c">5</td><td class="c em">69</td></tr>
+<tr><td class="em">EMS／サイトコントローラー</td><td class="c">31</td><td class="c">4</td><td class="c">3</td><td class="c">1</td><td class="c">4</td><td class="c">–</td><td class="c">3</td><td class="c em">46</td></tr>
+<tr><td class="em">遠隔監視／GW／HEMS</td><td class="c">32</td><td class="c">3</td><td class="c">–</td><td class="c">–</td><td class="c">–</td><td class="c">–</td><td class="c">–</td><td class="c em">35</td></tr>
+<tr><td class="em">PCS（蓄電・系統用）</td><td class="c">7</td><td class="c">2</td><td class="c">2</td><td class="c">1</td><td class="c">–</td><td class="c">–</td><td class="c">2</td><td class="c em">14</td></tr>
+<tr><td class="em">計測制御ユニット</td><td class="c">7</td><td class="c">1</td><td class="c">1</td><td class="c">–</td><td class="c">2</td><td class="c">1</td><td class="c">–</td><td class="c em">12</td></tr>
+<tr><td class="em">太陽光PCS／ハイブリッド</td><td class="c">3</td><td class="c">–</td><td class="c">1</td><td class="c">2</td><td class="c">–</td><td class="c">–</td><td class="c">1</td><td class="c em">7</td></tr>
+<tr><td class="em">BMS</td><td class="c">2</td><td class="c">3</td><td class="c">–</td><td class="c">–</td><td class="c">1</td><td class="c">–</td><td class="c">–</td><td class="c em">6</td></tr>
+<tr><td class="em">計</td><td class="c em">137</td><td class="c em">17</td><td class="c em">10</td><td class="c em">5</td><td class="c em">8</td><td class="c em">1</td><td class="c em">11</td><td class="c em">189</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>表2は、用途ごとに、本社の国で数を分けたものです。</p>
+<div class="tablewrap">
+<table>
+<caption>表2｜用途 × 本社国</caption>
+<thead><tr><th>用途</th><th>日本</th><th>台湾</th><th>韓国</th><th>欧州</th><th>米・英・加</th><th>中国</th><th>本社国を確認できず</th><th>計</th></tr></thead>
+<tbody>
+<tr><td class="em">系統用</td><td class="c">36</td><td class="c">11</td><td class="c">7</td><td class="c">3</td><td class="c">3</td><td class="c">–</td><td class="c">5</td><td class="c em">65</td></tr>
+<tr><td class="em">住宅用</td><td class="c">52</td><td class="c">2</td><td class="c">2</td><td class="c">–</td><td class="c">3</td><td class="c">1</td><td class="c">1</td><td class="c em">61</td></tr>
+<tr><td class="em">産業用・判別できない</td><td class="c">49</td><td class="c">4</td><td class="c">1</td><td class="c">2</td><td class="c">2</td><td class="c">–</td><td class="c">5</td><td class="c em">63</td></tr>
+<tr><td class="em">計</td><td class="c em">137</td><td class="c em">17</td><td class="c em">10</td><td class="c em">5</td><td class="c em">8</td><td class="c em">1</td><td class="c em">11</td><td class="c em">189</td></tr>
+</tbody>
+</table>
+</div>
+
+
+<h2 id="kigen">2027年5月に切れる10件</h2>
+<p>要件が始まるのは2027年4月1日です。その翌月に、最初に取った製品のラベルが切れます。表6は、その10件です。</p>
+<div class="wraptext">
+<table class="c52w">
+<caption>表6｜2027年5月に満了する10件</caption>
+<thead><tr><th>登録番号</th><th>取得事業者</th><th>製品名称</th><th>取得日</th><th>満了日</th></tr></thead>
+<tbody>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01961e45-7a3e-7081-8143-ec44ed8c209e.html">2025051600000186</a></td><td>Shizen Connect</td><td>Shizen Box 1 Industrial</td><td class="nw">2025/5/7</td><td class="nw em">2027/5/6</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01962291-6202-70b4-a49a-6f848c6a3486.html">2025051600000193</a></td><td>Shizen Connect</td><td>Shizen Box 2</td><td class="nw">2025/5/7</td><td class="nw em">2027/5/6</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01963223-492a-72b1-9ef7-4336309d7f95.html">2025050900000219</a></td><td>NextDrive</td><td>EDGE エネルギーマネジメントコントローラー</td><td class="nw">2025/5/7</td><td class="nw em">2027/5/6</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01968457-e767-7085-b81e-307b5b5816b0.html">2025059900000278</a></td><td>ジェイシティ</td><td>HELIOS-B4-Core</td><td class="nw">2025/5/26</td><td class="nw em">2027/5/25</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01968458-6b7d-72ba-92fd-0129e3e9d014.html">2025059900000286</a></td><td>ジェイシティ</td><td>HELIOS-B4-T6</td><td class="nw">2025/5/26</td><td class="nw em">2027/5/25</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01968458-a847-7114-b6af-4b245b010601.html">2025059900000293</a></td><td>ジェイシティ</td><td>HELIOS-B4-F02-Lite</td><td class="nw">2025/5/26</td><td class="nw em">2027/5/25</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01968458-e379-738b-9db3-e95729012cfa.html">2025059900000308</a></td><td>ジェイシティ</td><td>HELIOS-B4-F02</td><td class="nw">2025/5/26</td><td class="nw em">2027/5/25</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0195fac4-5d98-7311-8402-01e114a84add.html">2025059900000319</a></td><td>GSユアサ</td><td>Acroware-NA2</td><td class="nw">2025/5/28</td><td class="nw em">2027/5/27</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0195fac6-be20-72c4-807c-d4bdc1223ab0.html">2025050100000325</a></td><td>GSユアサ</td><td>STARELINK ST</td><td class="nw">2025/5/28</td><td class="nw em">2027/5/27</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0195fac8-c075-7093-989c-11fa0d45de8a.html">2025050100000330</a></td><td>GSユアサ</td><td>STARELINKゲートウェイ</td><td class="nw">2025/5/28</td><td class="nw em">2027/5/27</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>延長の手続きの細かい決まりは、IPAが「2026年に公表する予定」としています。11月15日の時点では、まだ出ていません。</p>
+<p>2024年の説明会資料では、延長は満了の90日前から受け付ける予定で、手数料は新規と同じとされていました。いまの新規の手数料は198,000円（税込）です。IPAは2026年7月31日、申請が急に増えて確認に時間がかかっていると告知しています。早めに動くのが安全です。</p>
+
+<h2 id="ichiran">189件の一覧</h2>
+<p>事業者名・製品名・登録番号の一部を入れると、その行だけに絞れます。</p>
+<div class="c52filter"><input type="search" id="c52q" placeholder="事業者名・製品名・登録番号で絞り込む（例: PCS、TMEIC、台湾）" aria-label="絞り込み"><span class="cnt" id="c52cnt">189件</span></div>
+<h3>系統用（65件）</h3>
+<div class="wraptext">
+<table class="c52tbl" data-seg="系統用">
+<caption>表3｜系統用（高圧・特別高圧・蓄電所向け）</caption>
+<thead><tr><th>登録番号</th><th>取得事業者</th><th>製品名称</th><th>種別</th><th>本社国</th><th>取得日</th><th>満了日</th></tr></thead>
+<tbody>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a01860-f1ca-70a1-bd40-807eef31aff0.html">2026090600003511</a></td><td>AZAPA</td><td>AZP-STC</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/8/30</td><td class="nw">2028/8/29</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0198a14d-3590-7104-b286-c24dc5ac3a80.html">2025090600000623</a></td><td>GSユアサ</td><td>STARELINK Site Controller</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2025/9/30</td><td class="nw">2027/9/29</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a0ad9a-98c9-721d-9333-7d6302e31db6.html">2026100600003751</a></td><td>Hitachi Energy</td><td>3MsWD4</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">日本</td><td class="nw">2026/10/1</td><td class="nw">2028/9/30</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0198cf70-7b0f-702f-9993-ebebe9fb0e22.html">2025100600000668</a></td><td>TMEIC</td><td>TMBCS</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2025/10/2</td><td class="nw">2027/10/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019c73f5-a4d9-7151-b1d0-512f40adf6b8.html">2026040600002000</a></td><td>TMEIC</td><td>蓄電池用変換器</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">日本</td><td class="nw">2026/4/9</td><td class="nw">2028/4/8</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019c73fa-ae81-723b-be08-cabd5a845f89.html">2026040600002013</a></td><td>TMEIC</td><td>BSB-L2200JRN</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/4/9</td><td class="nw">2028/4/8</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019c73fc-f850-71b2-ae84-6779ace07016.html">2026040600002021</a></td><td>TMEIC</td><td>BSU-L0600,BSU-L0675,BSU-L0750</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/4/9</td><td class="nw">2028/4/8</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019cc23c-52cb-7204-ac80-cbf0e09f1698.html">2026040600002037</a></td><td>TMEIC</td><td>TMBCS-B</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/4/9</td><td class="nw">2028/4/8</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ce111-490c-7160-9432-f0618774f36b.html">2026041600002046</a></td><td>TMEIC</td><td>TMEdge</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/4/9</td><td class="nw">2028/4/8</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01985416-027e-7207-9583-d159ee4ccf46.html">2025090600000531</a></td><td>しろくま電力</td><td>サイトEMS</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2025/9/8</td><td class="nw">2027/9/7</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0199992b-d35d-701f-9b7c-8eab8ea5d1ed.html">2025100600000858</a></td><td>しろくま電力</td><td>サイトEMS</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2025/10/6</td><td class="nw">2027/10/5</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01999928-7c36-70f2-a50d-ddc0c32cd409.html">2025100600000849</a></td><td>しろくま電力</td><td>サイトEMS</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2025/10/6</td><td class="nw">2027/10/5</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01999876-2045-7339-b042-69dc23186312.html">2025100600000830</a></td><td>しろくま電力</td><td>サイトEMS</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2025/10/6</td><td class="nw">2027/10/5</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01999d5a-3ab7-72ed-ae52-c11f4bdc01ea.html">2025100600000896</a></td><td>しろくま電力</td><td>サイトEMS</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2025/10/15</td><td class="nw">2027/10/14</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019a3253-dde3-71aa-b1bd-363f8569d2e7.html">2025120600001221</a></td><td>エナジーフロー</td><td>ハイブリッドパワープラントコントローラー</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2025/12/3</td><td class="nw">2027/12/2</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01999ed6-ab0f-721b-a72c-e3eaaa7d2bd5.html">2025100600000874</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2025/10/15</td><td class="nw">2027/10/14</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0199c676-4d33-73eb-8118-9958624ed77f.html">2025100600000922</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2025/10/17</td><td class="nw">2027/10/16</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e3eaa-398f-7218-84eb-233bb816b5f0.html">2026050600002358</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/5/21</td><td class="nw">2028/5/20</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e3eaa-926c-72fb-9762-c55c97236d46.html">2026050600002363</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/5/21</td><td class="nw">2028/5/20</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e3eaa-e2dc-72c4-ad24-6337a2a8cd21.html">2026050600002374</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/5/21</td><td class="nw">2028/5/20</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e3eab-2130-7313-95de-f5a60ec9a7a1.html">2026050600002382</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/5/21</td><td class="nw">2028/5/20</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ef35d-b16b-728e-aefd-96579e09070f.html">2026070600002963</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/7/2</td><td class="nw">2028/7/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0198a64e-41c4-70a3-97f9-8e39499ee3e6.html">2025090600000638</a></td><td>パワーエックス</td><td>Mega Power Series</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2025/9/30</td><td class="nw">2027/9/29</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019de0e4-5185-7142-81e4-1cc3f1f63a32.html">2026050600002301</a></td><td>フィールドロジック</td><td>ダイヘンEMS用DataCube4</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/5/11</td><td class="nw">2028/5/10</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01995107-4740-7031-9c29-1fb83b1dca0e.html">2025100600000741</a></td><td>住友電気工業</td><td>レドックスフロー電池システム</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2025/10/2</td><td class="nw">2027/10/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d65d8-cf4d-7294-b137-39365eb5e701.html">2026050600002248</a></td><td>住友電気工業</td><td>レドックスフロー電池システム</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/4/27</td><td class="nw">2028/4/26</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019902ed-5edd-7205-9d1e-6c4b47ec7be9.html">2025100600000764</a></td><td>富士電機</td><td>大規模蓄電池型パワーコンディショナ</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">日本</td><td class="nw">2025/10/2</td><td class="nw">2027/10/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01993cb8-be02-72cd-b3ba-49c5b2fb4e91.html">2025100600000778</a></td><td>富士電機</td><td>蓄電システムコントローラ(PMS)</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2025/10/2</td><td class="nw">2027/10/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01991256-14d1-7081-b963-f0dc6d380568.html">2025100600000710</a></td><td>富士電機</td><td>大規模蓄電池型パワーコンディショナ</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">日本</td><td class="nw">2025/10/2</td><td class="nw">2027/10/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01993d5f-3b04-73bc-8f18-e685a998a5c3.html">2025100600000817</a></td><td>日新電機</td><td>系統用蓄電池制御装置</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2025/10/6</td><td class="nw">2027/10/5</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0199273f-1c57-7265-b77b-bd11ceabaffe.html">2025100600000793</a></td><td>日新電機</td><td>蓄電池用PCS</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">日本</td><td class="nw">2025/10/6</td><td class="nw">2027/10/5</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01993b8e-4017-7157-adc5-be616fef14c2.html">2025100600000801</a></td><td>日本碍子</td><td>コンテナ型NAS電池用制御部</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2025/10/6</td><td class="nw">2027/10/5</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e3f4c-4a59-7308-ac6a-9fd0be1dbfbf.html">2026060600002596</a></td><td>日本蓄電池</td><td>EMS制御装置</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/6/2</td><td class="nw">2028/6/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a01856-364e-71d7-810c-b8db5dfeca9e.html">2026090600003492</a></td><td>日立アイイーシステム</td><td>蓄電池設備用EMSパッケージ</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/8/30</td><td class="nw">2028/8/29</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e38ff-6808-718e-84db-1ee2edf39fc9.html">2026060600002735</a></td><td>明電舎</td><td>蓄電システム用パワーコンディショナ</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">日本</td><td class="nw">2026/6/12</td><td class="nw">2028/6/11</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01997efc-0f09-71f3-9953-ecfecde59565.html">2025100600000965</a></td><td>本田技研工業</td><td>BESSコンテナ用BMS NeS</td><td class="nw">BMS</td><td class="nw">日本</td><td class="nw">2025/10/21</td><td class="nw">2027/10/20</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9a9-a40d-70a8-b750-4fea50166beb.html">2026070600002883</a></td><td>デルタ電子</td><td>蓄電所用パワーコンディショナー</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">台湾</td><td class="nw">2026/7/2</td><td class="nw">2028/7/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9ac-a8fa-7071-9823-3ebe0607baf3.html">2026070600002925</a></td><td>デルタ電子</td><td>デルタ蓄電システムソリューションCシリーズ</td><td class="nw">蓄電池システム</td><td class="nw">台湾</td><td class="nw">2026/7/2</td><td class="nw">2028/7/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019f3ba4-ddf3-7201-8cb3-3f7847218a6b.html">2026080600003249</a></td><td>新捷能資訊股份有限公司</td><td>MTE-BEMS</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">台湾</td><td class="nw">2026/8/4</td><td class="nw">2028/8/3</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019f1ca2-384a-7301-a507-45ce2d39b57a.html">2026080600003230</a></td><td>明曜科技股份有限公司</td><td>標準20フィート蓄電システムコンテナ</td><td class="nw">蓄電池システム</td><td class="nw">台湾</td><td class="nw">2026/8/4</td><td class="nw">2028/8/3</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9f0-de16-73c1-a59b-134901d36a9e.html">2026070600002780</a></td><td>泓德能源科技股份有限公司</td><td>TAITEN 蓄電用 サイトコントローラー 30 シリーズ</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">台湾</td><td class="nw">2026/6/25</td><td class="nw">2028/6/24</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9f2-e017-7116-ad3b-8dc482b6a130.html">2026070600002795</a></td><td>泓德能源科技股份有限公司</td><td>TAITEN パワーコンディショナ ***kW</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">台湾</td><td class="nw">2026/6/25</td><td class="nw">2028/6/24</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a03661-175e-707a-8f5f-a08bc12b32b1.html">2026090600003587</a></td><td>泓德能源科技股份有限公司</td><td>TAITEN エネルギーマネジメントシステム 30シリーズ</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">台湾</td><td class="nw">2026/9/7</td><td class="nw">2028/9/6</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a06162-1759-7148-b315-4d17d5dbd915.html">2026090600003598</a></td><td>泓德能源科技股份有限公司</td><td>TAITEN バッテリーマネジメントシステム 30シリーズ</td><td class="nw">BMS</td><td class="nw">台湾</td><td class="nw">2026/9/9</td><td class="nw">2028/9/8</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d3c69-feff-716a-92f5-ad92f7d1d13c.html">2026040600002101</a></td><td>熙特爾新能源股份有限公司</td><td>GridLink エネルギーマネジメントシステム</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">台湾</td><td class="nw">2026/4/12</td><td class="nw">2028/4/11</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d50e3-d583-72d6-bad0-e5cd673ec3de.html">2026040600002207</a></td><td>熙特爾新能源股份有限公司</td><td>SEETEL バッテリーマネジメントシステム</td><td class="nw">BMS</td><td class="nw">台湾</td><td class="nw">2026/4/21</td><td class="nw">2028/4/20</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019f2694-31be-7231-ac7b-3aa983fdc918.html">2026080600003263</a></td><td>長庚国際能源股份有限公司</td><td>Cold Electric BESSシリーズ</td><td class="nw">蓄電池システム</td><td class="nw">台湾</td><td class="nw">2026/8/4</td><td class="nw">2028/8/3</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a017e5-f992-7383-b112-3019df1a68f7.html">2026090600003484</a></td><td>H2 Inc</td><td>Vanadium Flow Battery</td><td class="nw">蓄電池システム</td><td class="nw">韓国</td><td class="nw">2026/8/30</td><td class="nw">2028/8/29</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019f58fb-6a8c-7379-9d4c-f871b1d08510.html">2026080600003201</a></td><td>LS ELECTRIC Co., Ltd</td><td>BESS用PCS</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">韓国</td><td class="nw">2026/7/23</td><td class="nw">2028/7/22</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0199bd04-61b0-7356-b5ed-aeb13ca290f8.html">2025100600000933</a></td><td>Samsung SDI co.,Ltd.</td><td>SBB 1.0</td><td class="nw">蓄電池システム</td><td class="nw">韓国</td><td class="nw">2025/10/17</td><td class="nw">2027/10/16</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a06588-dbfa-73a6-a90f-c234152e7d0b.html">2026090600003634</a></td><td>Samsung SDI co.,Ltd.</td><td>SBB 1.0, SBB 1.5K</td><td class="nw">蓄電池システム</td><td class="nw">韓国</td><td class="nw">2026/9/16</td><td class="nw">2028/9/15</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019b5446-82b5-7066-8353-189b69281122.html">2026020600001576</a></td><td>dots energy Co., Ltd</td><td>QUANTUM 2.0 (PMS)</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">韓国</td><td class="nw">2026/2/6</td><td class="nw">2028/2/5</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a06527-6573-72da-9c0a-a1c268b54a49.html">2026100600003679</a></td><td>dots energy Co., Ltd</td><td>S-QUANTUM (EMS)</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">韓国</td><td class="nw">2026/9/18</td><td class="nw">2028/9/17</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a0659f-547d-7088-ad99-b282544fc588.html">2026090600003579</a></td><td>暁星重工業</td><td>エネルギー貯蔵用 系統連系PCS</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">韓国</td><td class="nw">2026/9/18</td><td class="nw">2028/9/17</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0198cba2-ee9a-7096-828e-fd18bfceeeab.html">2025090600000590</a></td><td>SMA ソーラー テクノロジー AG</td><td>サニーセントラル、サニーセントラルストレージ</td><td class="nw">太陽光PCS／ハイブリッド</td><td class="nw">ドイツ</td><td class="nw">2025/9/29</td><td class="nw">2027/9/28</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019b0703-f253-7080-8e80-5ad3ddd4e7e2.html">2026010600001410</a></td><td>サフトジャパン</td><td>ESS-CUBETM</td><td class="nw">蓄電池システム</td><td class="nw">フランス</td><td class="nw">2026/1/5</td><td class="nw">2028/1/4</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ce115-b088-7230-ad30-846a4fbedf0b.html">2026030600001927</a></td><td>パワーエレクトロニクススペインSL</td><td>太陽光発電および蓄電インバータ / HEMKおよびPCSK</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">スペイン</td><td class="nw">2026/3/26</td><td class="nw">2028/3/25</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019b2ff1-a939-700f-b53e-8cafaa182831.html">2026020600001537</a></td><td>Canadian Solar SSES Japan</td><td>アイキューストレージ エネルギーマネジメントシステム</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">カナダ</td><td class="nw">2026/1/29</td><td class="nw">2028/1/28</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0199ffec-cff0-7169-9909-b49dc5707e56.html">2025100600000979</a></td><td>Kraken Technologies Japan</td><td>Kraken SHV BESS制御システム</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">英国</td><td class="nw">2025/10/31</td><td class="nw">2027/10/30</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01999d4d-1986-700c-a2bb-d18036de756c.html">2025100600000940</a></td><td>Tesla Japan</td><td>Tesla System Controller</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">米国</td><td class="nw">2025/10/15</td><td class="nw">2027/10/14</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a17c2f-5c1b-70b8-8ddc-f3c152612a8e.html">2026110600003993</a></td><td>LehmanSoft Japan</td><td>LehmanSoft BESS Gateway</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">確認できず</td><td class="nw">2026/11/10</td><td class="nw">2028/11/9</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01996f0a-4359-7065-9ec9-94f271318c5b.html">2025100600000911</a></td><td>NEXTES</td><td>水冷式蓄電池コンテナ</td><td class="nw">蓄電池システム</td><td class="nw">確認できず</td><td class="nw">2025/10/15</td><td class="nw">2027/10/14</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019de120-b03d-701e-affd-e88ce7cf1d7c.html">2026050600002325</a></td><td>NEXTES</td><td>キャビネット型水冷式蓄電池</td><td class="nw">蓄電池システム</td><td class="nw">確認できず</td><td class="nw">2026/5/11</td><td class="nw">2028/5/10</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a18660-490f-7051-b9cb-6b6dfb19e2ce.html">2026110600003932</a></td><td>RENON POWER</td><td>Smart Matrix B</td><td class="nw">蓄電池システム</td><td class="nw">確認できず</td><td class="nw">2026/11/5</td><td class="nw">2028/11/4</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a01860-491b-7347-ab4f-18f54616ecd4.html">2026090600003506</a></td><td>Recharge Power</td><td>RP-EMS-J</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">確認できず</td><td class="nw">2026/8/30</td><td class="nw">2028/8/29</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>住宅用（61件）</h3>
+<div class="wraptext">
+<table class="c52tbl" data-seg="住宅用">
+<caption>表4｜住宅用</caption>
+<thead><tr><th>登録番号</th><th>取得事業者</th><th>製品名称</th><th>種別</th><th>本社国</th><th>取得日</th><th>満了日</th></tr></thead>
+<tbody>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e4eb1-4470-721c-931a-3ead63716075.html">2026060600002517</a></td><td>LIXIL</td><td>電力計測制御ユニット YLE-PCM6TX</td><td class="nw">計測制御ユニット</td><td class="nw">日本</td><td class="nw">2026/6/5</td><td class="nw">2028/6/4</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0198f4a6-0504-71a0-8204-4fd75badcf86.html">2025101600000697</a></td><td>Nature</td><td>Nature Remo E2 / Nature Remo E2 lite</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2025/10/2</td><td class="nw">2027/10/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0198f4a5-a300-7380-a9cb-919376691de0.html">2025101600000681</a></td><td>Nature</td><td>Nature Remo E / Nature Remo E lite</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2025/10/2</td><td class="nw">2027/10/1</td></tr>
+<tr class="exp"><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01962291-6202-70b4-a49a-6f848c6a3486.html">2025051600000193</a></td><td>Shizen Connect</td><td>Shizen Box 2</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2025/5/7</td><td class="nw">2027/5/6</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019cf57e-9e8a-71c3-88cc-fe07d644db56.html">2026040600002076</a></td><td>エリーパワー</td><td>POWER iE Connect リチウムイオン蓄電池ユニット</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/4/9</td><td class="nw">2028/4/8</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ce48a-ccba-72c4-802f-a259a5d529dc.html">2026040600002068</a></td><td>エリーパワー</td><td>POWER iE Connect(リモコン)</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/4/9</td><td class="nw">2028/4/8</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a13372-ea9a-72d5-8dba-6dd324218c95.html">2026100600003894</a></td><td>エリーパワー</td><td>POWER iE Connect リチウムイオン蓄電池ユニット</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/10/27</td><td class="nw">2028/10/26</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019b29ea-cc9c-731f-911f-8bc14be17753.html">2026010600001503</a></td><td>オムロン ソーシアルソリューションズ</td><td>マルチ蓄電システム用ゲートウェイ KP-GWBP-A</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/1/29</td><td class="nw">2028/1/28</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019bd92f-1023-7354-8bae-5479d343ee48.html">2026020600001592</a></td><td>オムロン ソーシアルソリューションズ</td><td>マルチV2Xシステム用ゲートウェイ KP-GWEP-A</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/2/17</td><td class="nw">2028/2/16</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ce47e-5012-72d8-aaad-67adc82f8ecb.html">2026030600001942</a></td><td>オムロン ソーシアルソリューションズ</td><td>トリプル蓄電システム(トリプル蓄電システム用リモコン) KPTP-A(KP-RC1T-R)</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/26</td><td class="nw">2028/3/25</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e71b9-bae1-70cb-b520-c171de6a7a2a.html">2026070600002871</a></td><td>オムロン ソーシアルソリューションズ</td><td>蓄電システム KPBPシリーズ</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/6/25</td><td class="nw">2028/6/24</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a01898-6f0c-7313-a2fc-935b98b64c7a.html">2026090600003533</a></td><td>サニックスホールディングス</td><td>電力計測制御ユニット SPW280-SN</td><td class="nw">計測制御ユニット</td><td class="nw">日本</td><td class="nw">2026/9/2</td><td class="nw">2028/9/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019b48cf-4185-7127-af78-a1c21cdd129d.html">2026031600001653</a></td><td>シャープ</td><td>クラウド連携エネルギーコントローラ</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/3/4</td><td class="nw">2028/3/3</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019c7407-d68d-706f-81e5-1cc07a8df106.html">2026031600001791</a></td><td>シャープ</td><td>マルチエネルギーモニタ</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/3/12</td><td class="nw">2028/3/11</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d03c7-8c0c-71cc-a1bb-c511d8588dcc.html">2026040600002084</a></td><td>シャープ</td><td>電力計測制御ユニット</td><td class="nw">計測制御ユニット</td><td class="nw">日本</td><td class="nw">2026/4/9</td><td class="nw">2028/4/8</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9a8-eced-73ca-9bf2-cb92ab82d5e3.html">2026070600002772</a></td><td>スマートソーラー</td><td>スマート蓄電システム‐II(スマートアダプター)</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/6/25</td><td class="nw">2028/6/24</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d2407-42f5-7282-be6a-06cdaba9eb4f.html">2026050600002273</a></td><td>ソーラーフロンティア</td><td>電力計測制御ユニット</td><td class="nw">計測制御ユニット</td><td class="nw">日本</td><td class="nw">2026/4/30</td><td class="nw">2028/4/29</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e714c-c0f7-701d-b2b4-d03c03007e60.html">2026060600002694</a></td><td>ダイヤゼブラ電機</td><td>ハイブリッド蓄電システム EIBS No.8</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/6/8</td><td class="nw">2028/6/7</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1ee-3f34-704a-9061-198fafb4984b.html">2026030600001748</a></td><td>ニチコン</td><td>発展型太陽光パワーコンディショナESS-E1シリーズ</td><td class="nw">太陽光PCS／ハイブリッド</td><td class="nw">日本</td><td class="nw">2026/3/12</td><td class="nw">2028/3/11</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1ec-22fa-7085-96ca-4147658e8fb3.html">2026030600001736</a></td><td>ニチコン</td><td>トライブリッド蓄電システムES-T3シリーズ用リモコン</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/12</td><td class="nw">2028/3/11</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1e8-d491-723f-8e1a-7a50a2a60adb.html">2026030600001720</a></td><td>ニチコン</td><td>単機能蓄電システムESS-U5シリーズ</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/12</td><td class="nw">2028/3/11</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1e6-eb4b-7201-b128-6a5d0e127930.html">2026030600001712</a></td><td>ニチコン</td><td>単機能蓄電システムESS-U4シリーズ用リモコン</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/12</td><td class="nw">2028/3/11</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1e0-19b2-70d3-ba29-204989583036.html">2026030600001697</a></td><td>ニチコン</td><td>トライブリッド蓄電システム用リモコン</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/12</td><td class="nw">2028/3/11</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d2312-6817-7280-8c3b-fe4c7d956270.html">2026040600002125</a></td><td>ネクストエナジー・アンド・リソース</td><td>電力計測制御ユニット</td><td class="nw">計測制御ユニット</td><td class="nw">日本</td><td class="nw">2026/4/12</td><td class="nw">2028/4/11</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019a0b3a-7484-7216-a52a-b28a20cc23b3.html">2025120600001173</a></td><td>パナソニック エレクトリックワークス</td><td>電力計測制御ユニット</td><td class="nw">計測制御ユニット</td><td class="nw">日本</td><td class="nw">2025/11/28</td><td class="nw">2027/11/27</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019b1055-ca83-730c-a212-93274bd303e4.html">2026010900001476</a></td><td>パナソニック エレクトリックワークス</td><td>AiSEG3</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/1/8</td><td class="nw">2028/1/7</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ce117-2a50-73b3-bb11-a2857fd972d3.html">2026030600001868</a></td><td>パナソニック エレクトリックワークス</td><td>V2H蓄電システムeneplat 2024年度モデル(ネットリモコン)</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/23</td><td class="nw">2028/3/22</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ce116-9e5e-71fe-b187-d23de9ce4185.html">2026030600001821</a></td><td>パナソニック エレクトリックワークス</td><td>創蓄連携システムT(ネットリモコン)</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/23</td><td class="nw">2028/3/22</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ce47a-4eaf-71cc-93df-7372bf954ac8.html">2026030600001884</a></td><td>パナソニック エレクトリックワークス</td><td>創蓄連携システムS+(ネットリモコン)</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/23</td><td class="nw">2028/3/22</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ce48e-1032-7249-b971-d0e92a7db017.html">2026030600001892</a></td><td>パナソニック エレクトリックワークス</td><td>V2H蓄電システムeneplat 2022年度モデル(ネットリモコン)</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/23</td><td class="nw">2028/3/22</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d18f8-4d89-73d7-a012-72265b97c26c.html">2026030600001859</a></td><td>京セラ</td><td>Enerezza</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/27</td><td class="nw">2028/3/26</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d18b4-31bf-70d5-84be-bf540d72ba7f.html">2026030600001845</a></td><td>京セラ</td><td>Enerezza PlusII</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/27</td><td class="nw">2028/3/26</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d03d2-7506-7082-87dc-c7a9d3fa1cfc.html">2026030600001837</a></td><td>京セラ</td><td>Enerezza Plus</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/27</td><td class="nw">2028/3/26</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a01886-b4f1-704e-ad87-625721618978.html">2026090600003459</a></td><td>京セラ</td><td>リチウムイオン蓄電システム EGS-LM0322G(リモコン)</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/8/27</td><td class="nw">2028/8/26</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d27c3-7bfb-712a-a03a-ab7fe5389caf.html">2026040600002092</a></td><td>伊藤忠商事</td><td>マルチ蓄電システム用ゲートウェイ ITC-SSGW</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/4/9</td><td class="nw">2028/4/8</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a065a0-d84d-704c-958d-7f24103d97b3.html">2026100600003826</a></td><td>伊藤忠商事</td><td>蓄電システムSmart Star</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/10/17</td><td class="nw">2028/10/16</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e3db1-afa3-7299-a811-0e0f8b343a78.html">2026070600002860</a></td><td>住友電気工業</td><td>sEMSA-Home、sEMSA-Lite</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/6/25</td><td class="nw">2028/6/24</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a0612c-d160-71d6-86ad-5354312a077a.html">2026099900003626</a></td><td>大崎電気工業</td><td>ホームゲートウェイ</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/9/16</td><td class="nw">2028/9/15</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1e4-1ced-70f9-9afd-0b9d83d66095.html">2026030600001704</a></td><td>日本産業</td><td>系統連系型蓄電システムESS-E2シリーズ用リモコン</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/4/9</td><td class="nw">2028/4/8</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e71bb-1d90-732b-b187-15f1d61bbc1c.html">2026060600002708</a></td><td>日本産業</td><td>オリジナル太陽光&amp;蓄電システム Type D</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/6/8</td><td class="nw">2028/6/7</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9b1-04b9-7273-9fbf-dbda8ef26e2f.html">2026070600002958</a></td><td>村田製作所</td><td>efinnos</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/7/2</td><td class="nw">2028/7/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019f92fe-8088-7385-9d90-af60b8f70bbc.html">2026080900003295</a></td><td>河村電器産業</td><td>HEMSコントローラークラス対応enステーション EcoEye</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/8/6</td><td class="nw">2028/8/5</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019b29e7-7aaf-723a-b5c2-03cdfc73d20d.html">2026010600001516</a></td><td>長州産業</td><td>マルチ蓄電システム用ゲートウェイ RC-307A</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/1/29</td><td class="nw">2028/1/28</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019bd9c8-59bb-7003-8ee6-838a0e1f4c95.html">2026020600001602</a></td><td>長州産業</td><td>マルチV2Xシステム用ゲートウェイ RC-309A</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/2/17</td><td class="nw">2028/2/16</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ce119-e0eb-7394-a27c-4b78404445a1.html">2026030600001934</a></td><td>長州産業</td><td>電力計測制御ユニット</td><td class="nw">計測制御ユニット</td><td class="nw">日本</td><td class="nw">2026/3/26</td><td class="nw">2028/3/25</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ce482-0b89-735c-9434-09b1c6909bfe.html">2026030600001950</a></td><td>長州産業</td><td>スマートPVエボ(ネットリモコン)</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/26</td><td class="nw">2028/3/25</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ce486-8baf-7059-acfb-5030f8e3b9c4.html">2026030600001969</a></td><td>長州産業</td><td>スマートPVエボ(ネットリモコン)</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/26</td><td class="nw">2028/3/25</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ce491-4aef-7283-a8ff-823f63e600b0.html">2026030600001975</a></td><td>長州産業</td><td>スマートPVエボ(ネットリモコン)</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/26</td><td class="nw">2028/3/25</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e71ca-5a51-7353-abe4-8fbe84464247.html">2026060600002719</a></td><td>長州産業</td><td>スマートPVプラス</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/6/8</td><td class="nw">2028/6/7</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a065a0-16af-7285-8d2e-8ed418cfa335.html">2026100600003818</a></td><td>長州産業</td><td>スマートPVマルチ</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/10/17</td><td class="nw">2028/10/16</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019cc220-adf7-7308-ae30-0bb240551e00.html">2026030600001773</a></td><td>長府工産</td><td>トライブリッド蓄電システ厶 ESS-T5CK / T6CKシリーズ用リモコン</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/13</td><td class="nw">2028/3/12</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1f5-dfcb-70b6-b1bd-6ea59f0bdccf.html">2026030600001761</a></td><td>長府工産</td><td>トライブリッド蓄電システムES-T3CKシリーズ用リモコン</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/13</td><td class="nw">2028/3/12</td></tr>
+<tr class="exp"><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01963223-492a-72b1-9ef7-4336309d7f95.html">2025050900000219</a></td><td>NextDrive</td><td>EDGE エネルギーマネジメントコントローラー</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">台湾</td><td class="nw">2025/5/7</td><td class="nw">2027/5/6</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0197528b-4494-732a-a17c-714d9053543e.html">2025070900000424</a></td><td>NextDrive</td><td>Cube エネルギーマネジメントコントローラー</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">台湾</td><td class="nw">2025/7/10</td><td class="nw">2027/7/9</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1f0-a359-713b-bc2c-4e85563c320c.html">2026030600001757</a></td><td>ハンファジャパン</td><td>Q.READYパワーコンディショナ</td><td class="nw">太陽光PCS／ハイブリッド</td><td class="nw">韓国</td><td class="nw">2026/3/18</td><td class="nw">2028/3/17</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d240f-15cb-72a6-8f7e-ea34c868bff3.html">2026040600002130</a></td><td>ハンファジャパン</td><td>電力計測制御ユニット HWJP-MUKA-5</td><td class="nw">計測制御ユニット</td><td class="nw">韓国</td><td class="nw">2026/4/12</td><td class="nw">2028/4/11</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e6352-8267-714d-a676-f45bd78d6f81.html">2026060600002525</a></td><td>Tesla Japan</td><td>Powerwall3</td><td class="nw">蓄電池システム</td><td class="nw">米国</td><td class="nw">2026/6/5</td><td class="nw">2028/6/4</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e6346-a766-710c-9d60-36e098d990c6.html">2026060600002652</a></td><td>カナディアン・ソーラー・ジャパン</td><td>電力計測制御ユニット CSPDUL</td><td class="nw">計測制御ユニット</td><td class="nw">カナダ</td><td class="nw">2026/6/8</td><td class="nw">2028/6/7</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019f92f0-0125-7156-9611-c8a23f1cd413.html">2026081600003302</a></td><td>カナディアン・ソーラー・ジャパン</td><td>電力計測制御ユニット CSI-EnerLink</td><td class="nw">計測制御ユニット</td><td class="nw">カナダ</td><td class="nw">2026/8/4</td><td class="nw">2028/8/3</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019fca9e-aaca-7280-8b13-4fb34e82299f.html">2026080600003351</a></td><td>サンテックパワージャパン</td><td>パワーコンディショナ用電力計測制御ユニット</td><td class="nw">計測制御ユニット</td><td class="nw">中国</td><td class="nw">2026/8/14</td><td class="nw">2028/8/13</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e66d3-689f-707c-9705-6f6c5d57d074.html">2026070600002847</a></td><td>Sky Electric Japan</td><td>住宅用蓄電池搭載型ハイブリッドパワコン</td><td class="nw">太陽光PCS／ハイブリッド</td><td class="nw">確認できず</td><td class="nw">2026/7/1</td><td class="nw">2028/6/30</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>産業用・判別できないもの（63件）</h3>
+<div class="wraptext">
+<table class="c52tbl" data-seg="産業用・判別不能">
+<caption>表5｜産業用・判別できないもの</caption>
+<thead><tr><th>登録番号</th><th>取得事業者</th><th>製品名称</th><th>種別</th><th>本社国</th><th>取得日</th><th>満了日</th></tr></thead>
+<tbody>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a0612c-39b3-73c9-8a9e-6e56a0763ea2.html">2026090600003642</a></td><td>AZAPA</td><td>AZP-BMS</td><td class="nw">BMS</td><td class="nw">日本</td><td class="nw">2026/9/16</td><td class="nw">2028/9/15</td></tr>
+<tr class="exp"><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0195fac4-5d98-7311-8402-01e114a84add.html">2025059900000319</a></td><td>GSユアサ</td><td>Acroware-NA2</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2025/5/28</td><td class="nw">2027/5/27</td></tr>
+<tr class="exp"><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0195fac6-be20-72c4-807c-d4bdc1223ab0.html">2025050100000325</a></td><td>GSユアサ</td><td>STARELINK ST</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2025/5/28</td><td class="nw">2027/5/27</td></tr>
+<tr class="exp"><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0195fac8-c075-7093-989c-11fa0d45de8a.html">2025050100000330</a></td><td>GSユアサ</td><td>STARELINKゲートウェイ</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2025/5/28</td><td class="nw">2027/5/27</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019853b9-0a3b-73f6-bfb9-b6ad6afec85b.html">2025090600000528</a></td><td>GSユアサ</td><td>GYES3 蓄電システム</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2025/9/8</td><td class="nw">2027/9/7</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019853b2-2ca9-71b2-b088-fc4b1035628f.html">2025090600000515</a></td><td>GSユアサ</td><td>GYES2 蓄電システム</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2025/9/8</td><td class="nw">2027/9/7</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01993cf6-8ac2-735d-857c-76e5bd291287.html">2025100600000882</a></td><td>GSユアサ</td><td>GYES4 蓄電システム</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2025/10/17</td><td class="nw">2027/10/16</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019f92f2-6d05-7272-adce-b81a22a42256.html">2026090600003468</a></td><td>GSユアサ</td><td>GYES5 蓄電システム</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/8/27</td><td class="nw">2028/8/26</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a13351-396b-700d-b2d8-9f58df4547ca.html">2026100600003883</a></td><td>GSユアサ</td><td>Acroware-NA2搭載太陽光パワコン及び出力制御ユニット</td><td class="nw">太陽光PCS／ハイブリッド</td><td class="nw">日本</td><td class="nw">2026/10/27</td><td class="nw">2028/10/26</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e4d2c-65e0-7188-b7e5-cc9be7e6a0c4.html">2026069900002498</a></td><td>Greenphard Energy</td><td>Intelligent IoT DRシステム</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/6/2</td><td class="nw">2028/6/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a06166-3a41-7030-9c21-8f143b2bbde4.html">2026090600003522</a></td><td>NEXT</td><td>NEXT-EMS ローカルゲートウェイ</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/9/16</td><td class="nw">2028/9/15</td></tr>
+<tr class="exp"><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01961e45-7a3e-7081-8143-ec44ed8c209e.html">2025051600000186</a></td><td>Shizen Connect</td><td>Shizen Box 1 Industrial</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2025/5/7</td><td class="nw">2027/5/6</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a0612a-f3b2-7034-af9e-faee0719f0a7.html">2026090600003603</a></td><td>YAMABISHI</td><td>公共・産業用 自家消費向け オールインワン蓄電システム YRWシリーズ PEモデル</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/9/9</td><td class="nw">2028/9/8</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e29f4-a63b-70b1-bee5-85dc60b58eb2.html">2026060900002748</a></td><td>Yanekara</td><td>Yanekara Hub</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/6/15</td><td class="nw">2028/6/14</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9c4-27b3-70b4-829e-f02b142a8ae8.html">2026070600002982</a></td><td>アイ・グリッド・ソリューションズ</td><td>R.E.A.L.Box</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/7/2</td><td class="nw">2028/7/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019c6e7d-fd70-71a7-85e3-2b6765ca6047.html">2026041600002144</a></td><td>エナジー・ソリューションズ</td><td>ESI-EMS-C</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/3/27</td><td class="nw">2028/3/26</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019bd9d9-638a-73e9-bae8-f391e6be0112.html">2026020600001615</a></td><td>オムロン ソーシアルソリューションズ</td><td>エナジーインテリジェントゲートウェイ 計測ユニット KP-GWPV-Bシリーズ</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/2/17</td><td class="nw">2028/2/16</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019bd9d0-85d1-7035-8de1-e3f034c47cbf.html">2026030600001785</a></td><td>オムロン ソーシアルソリューションズ</td><td>太陽光発電用ゲートウェイ KP-GWPV-A</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/3/12</td><td class="nw">2028/3/11</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019dccf6-2cc1-7347-92ad-32b88ce2b7ae.html">2026050600002349</a></td><td>オムロン ソーシアルソリューションズ</td><td>三相システム用ゲートウェイ KP-GWPT-A</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/5/18</td><td class="nw">2028/5/17</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e42d1-c773-70f7-916b-3faa3f65919f.html">2026060600002487</a></td><td>オルテナジー</td><td>エナジーHUB</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/6/2</td><td class="nw">2028/6/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019f2697-348c-738b-aeb2-c945f2552392.html">2026080600003274</a></td><td>オーナンバ</td><td>PVU-Finder Logger</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/8/4</td><td class="nw">2028/8/3</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a17bdf-df51-7348-a95d-c95a71cbe0d3.html">2026110600003978</a></td><td>オーナンバ</td><td>PVU-Finder SC Logger</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/11/6</td><td class="nw">2028/11/5</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019fcb28-0b4e-71db-b8d7-00b21563f306.html">2026090600003565</a></td><td>クールデザイン</td><td>CD-EMSGW-MXシリーズ</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/9/2</td><td class="nw">2028/9/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019abee5-f6ea-70e2-9af5-5c6234504504.html">2025120100001391</a></td><td>シングナリオ</td><td>PHOTON データロガー</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2025/12/22</td><td class="nw">2027/12/21</td></tr>
+<tr class="exp"><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01968457-e767-7085-b81e-307b5b5816b0.html">2025059900000278</a></td><td>ジェイシティ</td><td>HELIOS-B4-Core</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2025/5/26</td><td class="nw">2027/5/25</td></tr>
+<tr class="exp"><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01968458-6b7d-72ba-92fd-0129e3e9d014.html">2025059900000286</a></td><td>ジェイシティ</td><td>HELIOS-B4-T6</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2025/5/26</td><td class="nw">2027/5/25</td></tr>
+<tr class="exp"><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01968458-a847-7114-b6af-4b245b010601.html">2025059900000293</a></td><td>ジェイシティ</td><td>HELIOS-B4-F02-Lite</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2025/5/26</td><td class="nw">2027/5/25</td></tr>
+<tr class="exp"><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01968458-e379-738b-9db3-e95729012cfa.html">2025059900000308</a></td><td>ジェイシティ</td><td>HELIOS-B4-F02</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2025/5/26</td><td class="nw">2027/5/25</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019dbf42-69ac-73be-b480-2fd5b9b1aebd.html">2026050600002299</a></td><td>ジェイシティ</td><td>HELIOS-B4-F02-UltraLite</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/4/30</td><td class="nw">2028/4/29</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019de0d4-74f4-7024-a474-a59dd0ed4c6f.html">2026050600002330</a></td><td>スマートソーラー</td><td>スマートAI</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/5/18</td><td class="nw">2028/5/17</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e2abb-701b-703f-99e1-a015ab3f4a77.html">2026060600002465</a></td><td>スマートパワーシステム</td><td>EMSS</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/6/2</td><td class="nw">2028/6/1</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019a04b8-2cfe-7030-86f3-78fe794c71cc.html">2025110600001106</a></td><td>デジタルグリッド</td><td>digitalgrid-gateway-device</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2025/11/21</td><td class="nw">2027/11/20</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019f2695-dbf4-7364-b84b-b21e1df5dce1.html">2026070600003023</a></td><td>ニチコン</td><td>公共・産業用蓄電システム B1シリーズパワーコンディショナ</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">日本</td><td class="nw">2026/7/9</td><td class="nw">2028/7/8</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019ce117-be07-73bc-bfb3-f72a9016e249.html">2026030600001876</a></td><td>パナソニック エレクトリックワークス</td><td>産業用蓄電システム単相連系タイプV2X対応 2023年度モデル(ネットリモコン)</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/3/23</td><td class="nw">2028/3/22</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a0612b-9abe-7143-a1cf-5fd47803ce2e.html">2026099900003618</a></td><td>ビーシーシー</td><td>受発電収集サーバ</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/9/16</td><td class="nw">2028/9/15</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d5108-ea32-723d-853d-8800ebfd3183.html">2026040600002182</a></td><td>フィールドロジック</td><td>DataCube4</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/4/15</td><td class="nw">2028/4/14</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a065a1-b380-717a-a297-fb1249064bfa.html">2026100600003687</a></td><td>プライム・スター</td><td>EMS制御装置</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/9/18</td><td class="nw">2028/9/17</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019a04ab-d1b0-7002-b689-54c111e76839.html">2025119900001050</a></td><td>ラプラス・システム</td><td>Solar Link ZERO</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2025/11/7</td><td class="nw">2027/11/6</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019efc9c-cf3f-721f-b85a-5ae899463fb4.html">2026070600003067</a></td><td>リミックスポイント</td><td>EMS制御装置</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/7/8</td><td class="nw">2028/7/7</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_0199cc6b-fcb8-7044-a0ee-e974ff99fee8.html">2025100600000906</a></td><td>三菱電機</td><td>BLEnDer RE</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2025/10/17</td><td class="nw">2027/10/16</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01995ae5-1509-71e2-9ee5-dba3479423d5.html">2025100600000954</a></td><td>住友電気工業</td><td>sEMSA-FactoryLite</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2025/10/31</td><td class="nw">2027/10/30</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d03ee-5dd9-70ab-885a-bd599e035e42.html">2026040600002117</a></td><td>住友電気工業</td><td>蓄電池システム POWER DEPORR</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/4/12</td><td class="nw">2028/4/11</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d28d5-f15e-7315-ac76-61c9e1db9983.html">2026040600002158</a></td><td>住友電気工業</td><td>蓄電池システム POWER DEPORH</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/4/21</td><td class="nw">2028/4/20</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d28df-3727-70e5-bfc2-7455514cbbff.html">2026040600002163</a></td><td>住友電気工業</td><td>蓄電池システム POWER DEPORV</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/4/21</td><td class="nw">2028/4/20</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019d28e8-6236-73ab-b7e3-264cafc9254d.html">2026040600002174</a></td><td>住友電気工業</td><td>蓄電池システム POWER DEPORIV</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/4/21</td><td class="nw">2028/4/20</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e715d-4634-7146-80cd-cfafabc4b830.html">2026070600002818</a></td><td>古河電池</td><td>FBESS</td><td class="nw">蓄電池システム</td><td class="nw">日本</td><td class="nw">2026/6/25</td><td class="nw">2028/6/24</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a0ae6f-6955-7088-b573-1947d6db2b1f.html">2026100600003795</a></td><td>富士電機</td><td>太陽光用パワーコンディショナ</td><td class="nw">太陽光PCS／ハイブリッド</td><td class="nw">日本</td><td class="nw">2026/10/13</td><td class="nw">2028/10/12</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019b4ddb-728c-719b-a71d-60fc5791e51b.html">2026020600001568</a></td><td>日新システムズ</td><td>需給調整市場対応GW</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">日本</td><td class="nw">2026/2/3</td><td class="nw">2028/2/2</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e4e54-e031-7185-9e98-2a602d703c99.html">2026060600002582</a></td><td>日立パワーソリューションズ</td><td>IGCS</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">日本</td><td class="nw">2026/6/5</td><td class="nw">2028/6/4</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019fcaa7-07ed-73c0-8e1c-fd2aa0f57bbf.html">2026080600003405</a></td><td>Delta Electronics, Inc</td><td>BSPS-MB0100CT0</td><td class="nw">蓄電池システム</td><td class="nw">台湾</td><td class="nw">2026/8/21</td><td class="nw">2028/8/20</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a18a16-8d03-7269-84bf-7290183106fb.html">2026110600003929</a></td><td>NextDrive</td><td>EMS機能搭載型出力制御機器 EDGE-JPC</td><td class="nw">計測制御ユニット</td><td class="nw">台湾</td><td class="nw">2026/11/5</td><td class="nw">2028/11/4</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019e3915-6aa1-73fe-bc04-2ef1a3c97986.html">2026070600002805</a></td><td>デルタ電子</td><td>データコレクター</td><td class="nw">遠隔監視／GW／HEMS</td><td class="nw">台湾</td><td class="nw">2026/6/25</td><td class="nw">2028/6/24</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a0adc0-f1be-7327-9d93-be2aca71b582.html">2026100600003767</a></td><td>竑瑞科技股份有限公司</td><td>GBG バッテリー管理システム</td><td class="nw">BMS</td><td class="nw">台湾</td><td class="nw">2026/10/5</td><td class="nw">2028/10/4</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a133c4-124d-7006-8ee5-1ecdd96e9a04.html">2026110600003964</a></td><td>コーウィン・エナジー</td><td>コーウィン・パワービュー</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">韓国</td><td class="nw">2026/11/5</td><td class="nw">2028/11/4</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a0adb4-96be-7104-a6a8-f14dbf510cd1.html">2026100600003772</a></td><td>SMA ソーラー テクノロジー AG</td><td>サニーハイパワー、サニーハイパワーストレージ、サニートライパワーストレージ</td><td class="nw">太陽光PCS／ハイブリッド</td><td class="nw">ドイツ</td><td class="nw">2026/10/7</td><td class="nw">2028/10/6</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a0612a-0c97-71a6-b811-8d841a311bbb.html">2026101600003745</a></td><td>エネルエックス・ジャパン</td><td>Enel X Site Server (別称: EnelX-S2C)</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">イタリア</td><td class="nw">2026/10/1</td><td class="nw">2028/9/30</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019a0ea3-8f1f-7020-ba46-531b4a726b0b.html">2025110600001111</a></td><td>Kraken Technologies Japan</td><td>Kraken 制御システム</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">英国</td><td class="nw">2025/11/21</td><td class="nw">2027/11/20</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a17baf-b30e-73a6-830a-17119d324383.html">2026110600003986</a></td><td>バッテリー管理技術</td><td>バッテリーバンク管理ユニット</td><td class="nw">BMS</td><td class="nw">米国</td><td class="nw">2026/11/10</td><td class="nw">2028/11/9</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019f8792-045d-72cf-93fa-da4eeea92de8.html">2026080600003258</a></td><td>GBP</td><td>GBP-EMS-001 EMS制御装置</td><td class="nw">EMS／サイトコントローラー</td><td class="nw">確認できず</td><td class="nw">2026/8/4</td><td class="nw">2028/8/3</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_019fcb36-5074-726c-aa43-04eb64fa7ebf.html">2026080600003367</a></td><td>GBP</td><td>GBP60Mモジュール式PCS</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">確認できず</td><td class="nw">2026/8/14</td><td class="nw">2028/8/13</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a01890-2f29-7372-8068-607118fd4d3e.html">2026090600003476</a></td><td>GBP</td><td>GBP-PCS-20-H/B-XXX-T パワーコンディショナーシステム</td><td class="nw">PCS（蓄電・系統用）</td><td class="nw">確認できず</td><td class="nw">2026/8/30</td><td class="nw">2028/8/29</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a18661-d1af-733e-b45d-882037d2926a.html">2026110600003955</a></td><td>RENON POWER</td><td>MPack 261A</td><td class="nw">蓄電池システム</td><td class="nw">確認できず</td><td class="nw">2026/11/5</td><td class="nw">2028/11/4</td></tr>
+<tr><td class="mono"><a target="_blank" rel="noopener nofollow" href="https://jc-star.ipa.go.jp/conformance/CNF_01a18661-2b73-72e9-90ae-c4fa7143d265.html">2026110600003941</a></td><td>RENON POWER</td><td>ECube 215B</td><td class="nw">蓄電池システム</td><td class="nw">確認できず</td><td class="nw">2026/11/5</td><td class="nw">2028/11/4</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="tnote">黄色の行＝満了日が2027年6月末まで。入れなかった境界の例: エヌエスティ・グローバリスト SpreadRouter-R、ニシム電子 TAMERBA電力管理装置、エコモット クラウドロガー2件、日新システムズ 屋外型IoTゲートウェイ2件、日立製作所 BCT制御ゲートウェイ、AZAPA NexusCore-TBOX、渡辺電機工業 Econo・DataChef、日新電機 FACTMATE-s1EX、オムロン 気象IoTセンサー、Moxa MGate MB3000-G2 ほか。</p>
+<script>
+(function(){
+  var q=document.getElementById('c52q'),c=document.getElementById('c52cnt');
+  if(!q)return;
+  var rows=[].slice.call(document.querySelectorAll('table.c52tbl tbody tr'));
+  function run(){
+    var v=(q.value||'').trim().toLowerCase(),n=0;
+    rows.forEach(function(tr){var hit=!v||tr.textContent.toLowerCase().indexOf(v)!==-1;tr.style.display=hit?'':'none';if(hit)n++;});
+    c.textContent=n+'件';
+    [].forEach.call(document.querySelectorAll('table.c52tbl'),function(t){
+      var any=[].some.call(t.querySelectorAll('tbody tr'),function(tr){return tr.style.display!=='none'});
+      var h=t.parentNode.previousElementSibling; if(h&&h.tagName==='H3'){h.style.display=any?'':'none'} t.parentNode.style.display=any?'':'none';
+    });
+  }
+  q.addEventListener('input',run);
+})();
+</script>
+
+<h2 id="genkai">この表の限界</h2>
+<p>IPAの一覧には、発行済みのラベルだけが載ります。申請中・却下・未申請は、外からは区別できません。「載っていない」は、「その時点でラベルが無い」という意味までです。</p>
+<p>件数は、IPAのExcel版（2026年11月12日更新）を登録番号で数えたものです。一覧は月に何度か更新されます。最新は <a target="_blank" rel="noopener" href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/">IPAのページ</a> で確かめてください。</p>
+<h2 id="rensai">この連載の読み方</h2>
+<div class="cards n2">
+<a class="card" href="/column-jcstar-2027" target="_top" style="text-decoration:none"><div class="cn">COLUMN 52</div><div class="ct">入口編</div><div class="cb">395件はすべて★1。中国の大手16社はゼロ。まず数字を見る入口</div></a>
+<div class="card dark"><div class="cn">COLUMN 52-2</div><div class="ct">一覧編</div><div class="cb">188件を登録番号つきで</div><div class="cb" style="opacity:.75;margin-top:4px">いま読んでいる記事</div></div>
+<a class="card" href="/column-jcstar-2027-existing" target="_top" style="text-decoration:none"><div class="cn">COLUMN 52-3</div><div class="ct">既設編</div><div class="cb">起点は契約申込みの受付日。併設は増やす側だけ、交換は原則★1</div></a>
+<a class="card" href="/column-jcstar-2027-nationality" target="_top" style="text-decoration:none"><div class="cn">COLUMN 52-4</div><div class="ct">国籍編</div><div class="cb">国籍で切る国と、ラベルで切る国。相互承認は抜け道にならない</div></a>
+</div>
+<div class="next">次は <a target="_top" href="/column-jcstar-2027-existing">52-3 既設編</a>。いまある太陽光に蓄電池を足すとき、どの機器に★1が要るかを1枚の図にしました。</div>
+<h2 id="faq">よくある質問</h2>
+<div class="faq-item">
+<p class="faq-q">JC-STAR★1を取ったPCSには、どのメーカーのものがありますか？</p>
+<p class="faq-a">2026年11月12日版のIPAの一覧で、蓄電・系統用のPCSは14件です。日本7（富士電機2・日新電機・TMEIC・明電舎・ニチコン・日立エナジー）、台湾2（泓德能源・デルタ電子）、韓国2（暁星重工業・LS ELECTRIC）、欧州1（Power Electronics）、本社国を確認できず2（GBP）。中国に本社があるメーカーのPCSは0件です。</p>
+</div>
+<div class="faq-item">
+<p class="faq-q">JC-STAR★1の有効期限は、いつ切れますか？</p>
+<p class="faq-a">有効期間は、ラベルの発行日から最大2年です。2025年5月に取った10件（GSユアサ3・ジェイシティ4・Shizen Connect 2・NextDrive 1）は、2027年5月6日〜27日に切れます。延長の手続きの細かい決まりは、IPAが「2026年に公表する予定」としており、11月15日の時点ではまだ出ていません。</p>
+</div>
+<div class="faq-item">
+<p class="faq-q">IPAの一覧に無いメーカーは、申請していないということですか？</p>
+<p class="faq-a">分かりません。一覧には発行済みのラベルだけが載り、申請中・却下・未申請は外から区別できません。「載っていない」は、その時点でラベルが発行されていない、という意味までです。</p>
+</div>
+<h2 id="refs">参考にした一次資料と、関連する記事</h2>
+<div class="refs">
+<h3>JC-STARの一覧と手続き</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/">IPA「適合ラベル取得製品リスト」（2026年11月12日更新・Excel版）</a>。表の登録番号から、各製品の情報ページ（IPA）が開く</li>
+<li><a target="_blank" rel="noopener" href="https://www.ipa.go.jp/security/jc-star/shinsei/index.html">IPA「申請手続き」</a>（有効期間は最大2年・手数料198,000円）｜<a target="_blank" rel="noopener" href="https://www.ipa.go.jp/security/jc-star/shinsei/entyo-1-2/index.html">IPA「★１と★２の延長申請手続き」</a>（「2026年に公表する予定」）｜<a target="_blank" rel="noopener" href="https://www.ipa.go.jp/security/jc-star/begoj9000000gg60-att/JC-STARsetumeikai_2.pdf">IPA JC-STAR説明会資料（2024年・PDF）</a>（延長は満了90日前から受付の予定、と書かれていた）｜<a target="_blank" rel="noopener" href="https://www.ipa.go.jp/security/jc-star/index.html">IPA JC-STAR</a>（2026年7月31日の告知）</li>
+</ul>
+<h3>要件の文言</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&amp;id=620340012&amp;Mode=0">e-Gov 意見公募「電力品質確保に係る系統連系技術要件ガイドライン」改定案（案件番号620340012、2026年10月）</a> 第2章第1節5（1）</li>
+</ul>
+<h3>関連する記事</h3><ul><li><a target="_top" href="/column-jcstar">JC-STAR★1の起点は「連系日」ではない（COLUMN 14）</a>／<a target="_top" href="/column-buyer-check">系統用蓄電所を買う前の技術チェック</a>／<a target="_top" href="/column-om">系統用蓄電所のO&M — 止まったとき誰が直すのか</a></li></ul>
+</div>
+<div class="author-box">
+<div class="ab-label">この記事の監修</div>
+<div><span class="ab-name">中島 晋也</span>（サイエンスエックス株式会社 代表取締役・工学博士）</div>
+<p style="margin:6px 0 0">系統用蓄電池の案件を仕入れて売る実務に基づいて執筆・監修しています。JC-STARの件数はIPAの公表リスト（Excel版）を当社が数えたものです。制度の読みは資源エネルギー庁・広域機関・IPAの公開資料によります。報道に拠る部分は、本文か表にそう書いています。本稿の誤りのご指摘は <a href="mailto:s@scix.co.jp">s@scix.co.jp</a> まで。</p>
+</div>
+
+</div>
+
+<!-- scix-column-cta : 1記事1つ。主＝案件一覧（NDA不要）、副＝買う手順 -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F5F5F3;border:1px solid #E6E6E6;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Sans JP',sans-serif;color:#1F2A48;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">案件の機器と、この表を突き合わせられます</h3>
+  <p style="color:#555555;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">当社が扱うのは、接続検討の回答が出た案件です。所在県・規模・連系の見込み・進み具合を、NDAなしで公開しています。</p>
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/projects" style="display:inline-block;background:#C49A3C;color:#1F2A48;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">販売中の案件を見る →</a>
+    <p style="color:#8C8C8C;font-size:12.5px;line-height:1.8;margin:10px 0 0">案件一覧が開きます。気になる案件は、その場で複数まとめて資料を請求できます。</p>
+  </div>
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E6E6E6">
+    <p style="color:#555555;font-size:12.5px;line-height:1.85;margin:0">買う側の手順は <a target="_top" href="https://www.scix.co.jp/transfer" style="color:#1F2A48;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">案件を買う</a>（資料・QA・面談・書面・条件合意・契約の順と、確かめる項目）。接続検討の回答が出た案件をお持ちで売りたい方は <a target="_top" href="https://www.scix.co.jp/sell-form" style="color:#1F2A48;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">案件の無料査定を依頼する</a> へ。</p>
+  </div>
+</div>
+
+<!-- scix-entrances:begin -->
+<div style="max-width:760px;margin:28px auto 0;padding:0 28px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-size:14px;color:#8C8C8C;margin:0 0 12px;font-weight:700">この話題に近い入口</h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px"><a target="_top" href="/for/dealers" style="display:block;padding:14px 16px;border:1px solid #E6E6E6;background:#fff;text-decoration:none;color:#1F2A48;font-weight:700;font-size:14px;line-height:1.6">案件をご紹介いただく皆様へ<span style="display:block;font-weight:400;font-size:12px;color:#8C8C8C">紹介の窓口 →</span></a><a target="_top" href="/for/major" style="display:block;padding:14px 16px;border:1px solid #E6E6E6;background:#fff;text-decoration:none;color:#1F2A48;font-weight:700;font-size:14px;line-height:1.6">大手事業者・電力・商社の方へ<span style="display:block;font-weight:400;font-size:12px;color:#8C8C8C">特別高圧と高圧 →</span></a><a target="_top" href="/for/sme" style="display:block;padding:14px 16px;border:1px solid #E6E6E6;background:#fff;text-decoration:none;color:#1F2A48;font-weight:700;font-size:14px;line-height:1.6">事業会社の方へ（高圧1件から）<span style="display:block;font-weight:400;font-size:12px;color:#8C8C8C">1件から買う →</span></a></div>
+  <p style="margin:18px 0 0;text-align:center"><a target="_top" href="https://dealroom.scix.co.jp/register" onclick="window.gtag&amp;&amp;gtag('event','dr2_register_click',{target:'column_end'})" style="display:inline-block;background:#1F2A48;color:#fff;font-weight:700;font-size:14px;padding:13px 30px;text-decoration:none">非公開案件ページに登録 →</a></p>
+</div>
+<!-- scix-entrances:end -->
+
+<!-- ScienceX Footer -->
+<style>
+  .scix-footer * { margin:0; padding:0; box-sizing:border-box; }
+  .scix-footer { background-color:#1F2A48; color:rgba(255,255,255,0.85); font-family:'Noto Sans JP',sans-serif; font-weight:300; font-size:12.5px; line-height:1.9; padding:44px 28px 32px; width:100%; }
+  .scix-footer-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
+  .scix-footer-logo { font-family:'Noto Sans JP',sans-serif; font-size:24px; font-weight:700; color:rgba(255,255,255,0.95); text-decoration:none; letter-spacing:.5px; }
+  .scix-footer-logo .x{color:#C49A3C;}
+  .scix-footer-info { text-align:center; }
+  .scix-footer-copyright { font-size:11px; letter-spacing:0.04em; color:rgba(255,255,255,0.55); margin-top:20px; }
+  .scix-footer-company { font-size:12.5px; line-height:2; color:rgba(255,255,255,0.8); }
+  .scix-footer-company .company-name { font-weight:500; font-size:13.5px; color:rgba(255,255,255,0.92); margin-bottom:2px; }
+  .scix-footer-company .representative { margin-top:4px; color:rgba(255,255,255,0.6); font-size:12px; }
+  .scix-footer-company a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s ease; }
+  .scix-footer-company a:hover { color:#C49A3C; }
+  .scix-footer-divider { width:60px; border:none; border-top:1px solid rgba(255,255,255,0.12); margin:0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">Science<span class="x">X</span></a>
+    <hr class="scix-footer-divider">
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="/projects" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">販売中の案件一覧</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/sell-form" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利の売却査定</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">用語集</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/investors" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池への投資</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        © 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
