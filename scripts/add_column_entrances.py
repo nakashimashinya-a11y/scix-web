@@ -19,9 +19,15 @@ DOORS = {
     "major": ("/for/major", "大手事業者・電力・商社の方へ", "特別高圧と高圧"),
     "sme": ("/for/sme", "事業会社の方へ（高圧1件から）", "1件から買う"),
     "dealers": ("/for/dealers", "案件をご紹介いただく皆様へ", "紹介の窓口"),
+    # 売る話のコラム（2026-11-15 売り手の目で歩いた点検＝売る話の末尾が買う入口だけで、どれが自分向けか迷う）
+    "sell": ("/sell-form", "無料で売却査定を依頼する", "5行で届きます"),
+    "sourcing": ("/sourcing", "売るまでの流れと、用意するもの", "案件・権利を売る"),
+    "msell": ("https://dealroom.scix.co.jp/sellers", "蓄電所マーケットで自分で売る", "売りたい方へ"),
 }
 # 話題 → 入口3つ（上から順に近い）。どれにも当たらなければ既定。
 RULES = [
+    (r"transfer|^pricing$|study-reply|development",
+     ["sell", "sourcing", "msell"]),
     (r"foreign|jcstar|eprx|merchant|trading|day-ahead|capacity|balancing|price-cap|regional-revenue|auction|nonfirm|long-term",
      ["overseas", "major", "sme"]),
     (r"financing|buyer|options|investment-tax|tax|cashflow|insurance|om\b|equipment|construction|low-voltage|pricing|project-price|contract|transfer|revenue",
@@ -40,6 +46,8 @@ def doors_for(name):
 
 
 def block(name):
+    seller = doors_for(name)[0] == "sell"
+    btn_href, btn_text, btn_ev = ("/sell-form", "無料で売却査定を依頼する →", "column_end_sell") if seller else (REG, "蓄電所マーケットに無料登録 →", "column_end")
     cards = "".join(
         '<a target="_top" href="%s" style="display:block;padding:14px 16px;border:1px solid #E6E6E6;background:#fff;'
         'text-decoration:none;color:#1F2A48;font-weight:700;font-size:14px;line-height:1.6">%s'
@@ -51,9 +59,9 @@ def block(name):
         '<div style="max-width:760px;margin:28px auto 0;padding:0 28px;font-family:\'Noto Sans JP\',sans-serif">\n'
         '  <h3 style="font-size:14px;color:#8C8C8C;margin:0 0 12px;font-weight:700">この話題に近い入口</h3>\n'
         '  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">' + cards + "</div>\n"
-        '  <p style="margin:18px 0 0;text-align:center"><a target="_top" href="' + REG + '" '
-        "onclick=\"window.gtag&&gtag('event','dr2_register_click',{target:'column_end'})\" "
-        'style="display:inline-block;background:#1F2A48;color:#fff;font-weight:700;font-size:14px;padding:13px 30px;text-decoration:none">蓄電所マーケットに無料登録 →</a></p>\n'
+        '  <p style="margin:18px 0 0;text-align:center"><a target="_top" href="' + btn_href + '" '
+        "onclick=\"window.gtag&&gtag('event','" + ("cta_click" if seller else "dr2_register_click") + "',{target:'" + btn_ev + "'})\" "
+        'style="display:inline-block;background:#1F2A48;color:#fff;font-weight:700;font-size:14px;padding:13px 30px;text-decoration:none">' + btn_text + '</a></p>\n'
         "</div>\n" + END + "\n"
     )
 

@@ -133,7 +133,7 @@ def render_list(ps, generated_at):
         '<div class="pj-filters">'
         + _select("fArea", "管内", [(a, a) for a in uniq(p.get("area") for p in ps)])
         + _select("fVoltage", "電圧", [(v, v) for v in uniq(p.get("voltage") for p in ps)])
-        + _select("fScheme", "取得の形", [(v, v) for v in uniq(p.get("scheme") for p in ps)])
+        + _select("fScheme", "買い方", [(v, v) for v in uniq(p.get("scheme") for p in ps)])
         + _select("fCod", "連系の見込み", [(k, t) for k, t in COD_LABELS if k in buckets])
         + '<label class="pj-f"><span>並び順</span><select id="sortSel">'
           '<option value="cod">連系が早い順</option><option value="mw">規模が大きい順</option>'
@@ -141,7 +141,7 @@ def render_list(ps, generated_at):
     count_line = (f'<div class="count-line" id="countLine">全 {len(ps)} 件'
                   f'　｜　{_esc(generated_at)} 更新' + (f'　｜　この{NEW_DAYS}日の新着 {n_new} 件' if n_new else '') + '</div>')
     head = ('<thead><tr><th>案件</th><th>所在地</th><th>電圧</th><th>規模</th><th>連系の見込み</th>'
-            '<th>進み具合</th><th>取得の形</th><th class="c-lock">🔒 価格・所在地・資料</th></tr></thead>')
+            '<th>電力の手続き</th><th>買い方</th><th class="c-lock">🔒 価格・所在地・資料</th></tr></thead>')
     rows = []
     for i, p in enumerate(sorted(ps, key=key), 1):
         mw = p.get("mw"); mwh = p.get("mwh")
@@ -161,8 +161,8 @@ def render_list(ps, generated_at):
             f'<td data-l="電圧">{_esc(p.get("voltage") or "—")}</td>'
             f'<td data-l="規模">{_esc(size)}</td>'
             f'<td data-l="連系の見込み">{_esc(cod_text(p, today_ym))}</td>'
-            f'<td data-l="進み具合">{_esc(p.get("status") or "—")}</td>'
-            f'<td data-l="取得の形">{_esc(p.get("scheme") or "確認中")}</td>'
+            f'<td data-l="電力の手続き">{_esc(p.get("status") or "—")}</td>'
+            f'<td data-l="買い方">{_esc(p.get("scheme") or "確認中")}</td>'
             f'<td class="c-lock" data-l="🔒 価格・所在地・資料"><a class="pj-lock" target="_top" rel="nofollow" href="{DR2_CATALOG}#p-{pid}" '
             f"onclick=\"window.gtag&&gtag('event','dr2_promo_click',{{target:'row'}})\">価格と資料を見る</a></td></tr>")
         if i % BAND_EVERY == 0 and i != len(ps):

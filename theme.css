@@ -53,6 +53,13 @@ html[data-side=deal] {--acc:#10B981;--acc-2:#0F7A52;--acc-soft:#E3F6EC;--h1:#9EE
 html[data-side=read] {--acc:#7C4DDB;--acc-2:#5B32B5;--acc-soft:#F2EDFF;--h1:#D4C6FF;--h2:#EFE8FF;--h3:#FFDDF0;--art:url(/img/market/how.svg)}
 html[data-side=co]   {--acc:#2563EB;--acc-2:#1D4ED8;--acc-soft:#EAF1FF;--h1:#C7D9FF;--h2:#FFE1EF;--h3:#FFE8B0;--art:url(/img/market/hero.svg)}
 
+/* ページごとの冒頭の絵（同じ絵を何ページも使い回さない・2026-11-15 訪問者の目で歩いた点検） */
+html:is([data-page="/contact"],[data-page="/faq"],[data-page="/qa"],[data-page="/thanks"]){--art:url(/img/site/talk.svg)}
+html:is([data-page="/company"],[data-page="/press"],[data-page="/citation"]){--art:url(/img/site/check.svg)}
+html:is([data-page="/partners"],[data-page="/for/dealers"]){--art:url(/img/site/hand.svg)}
+html:is([data-page="/sell-form"]){--art:url(/img/site/hello.svg)}
+html:is([data-page="/privacy"]){--art:url(/img/site/secret.svg)}
+
 /* ---------- 0. 地と字 ---------- */
 html,body{background:var(--m-bg)!important}
 body{color:var(--m-body)}
@@ -120,7 +127,7 @@ h3{font-weight:800}
 .hero.x-top .container{max-width:1180px!important;padding:0!important}
 .hero.x-top .hero-content{max-width:none!important}
 .xt{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:10px 34px;align-items:center}
-.xt h1{font-size:clamp(2.1rem,4.4vw,3.5rem)!important;line-height:1.2!important;margin:14px 0 16px!important;word-break:keep-all;overflow-wrap:anywhere}
+.hero.x-top .xt h1{font-size:clamp(2.1rem,4.4vw,3.5rem)!important;line-height:1.2!important;margin:14px 0 16px!important;word-break:keep-all;overflow-wrap:anywhere}
 .xt h1 .b{color:#1D4ED8!important}.xt h1 .s{color:#C2560A!important}
 .xt .hero-desc{font-size:1rem!important;line-height:1.9!important;max-width:620px}
 .xt-art{display:block;width:100%;height:auto;max-height:390px}
@@ -134,7 +141,7 @@ h3{font-weight:800}
 @media (max-width:860px){
   .xt{grid-template-columns:1fr}
   .xt-art{order:-1;max-height:190px;margin:0 auto}
-  .xt h1{font-size:clamp(1.6rem,7.2vw,2.3rem)!important}
+  .hero.x-top .xt h1{font-size:clamp(1.55rem,7vw,2.3rem)!important}
   .hero.x-top{padding:22px 16px 24px!important}
   .xt-btn{width:100%;justify-content:center}
 }
@@ -320,6 +327,10 @@ body > header:not(.scix-header) :is(.brand,.nav-links a:not(.nav-cta)){color:var
 .diagram-item{border-radius:12px!important}
 .diagram-item.both{background:#C2560A!important;color:#fff!important}
 .code{color:var(--acc-2)!important}
+/* 地の色が変わって読みにくくなった小さな字（2026-11-15 全ページの走査） */
+.card.dark .cn{color:#FFC845!important}
+.on-navy :is(.req,.alt),.req{color:#C2560A!important}
+.on-navy .alt{color:var(--m-muted)!important}
 /* 本文の囲み（コラムごとの作りの箱）: 角を丸める */
 :is(.c47scroll,.c50scroll,p.answer,.note,.review-note,.sum3,.article-body blockquote,.column-container blockquote,.callout,.field-note,.model-panel,.press-note,.ins-panel,.redflag-box,.memo,.stats,.res,.alert,.edit-memo,.mh-doc,.inquiry-item,.press-cite,.stat-tiles,.risklist,.article-body pre,.column-container pre){border-radius:14px!important}
 a.last{border-radius:999px!important}
@@ -371,6 +382,28 @@ a[style*="border:1px solid #E6E6E6"]:hover{transform:translateY(-2px);box-shadow
   section.cta{padding-right:clamp(300px,28vw,400px)!important}
   section.cta::after{content:"";position:absolute;right:clamp(28px,3.4vw,64px);top:50%;transform:translateY(-50%);width:clamp(240px,23vw,320px);height:min(80%,220px);background:url(/img/site/talk.svg) center/contain no-repeat;pointer-events:none}
 }
+
+/* ---------- 13d. 売り方は2つ（/sourcing）・トップの冒頭の補足の1行 ---------- */
+.ways{padding:30px 0 10px}
+.ways .container{max-width:1180px}
+.ways-head{text-align:center}
+.ways-head .section-title{margin:10px 0 18px!important;font-size:clamp(1.6rem,3vw,2.3rem)!important}
+.ways-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.way{--wc:#1F2A48;display:grid;grid-template-columns:150px 1fr;grid-template-rows:auto 1fr auto;gap:4px 18px;align-items:start;text-decoration:none;color:var(--m-ink);background:#fff;border-radius:var(--m-r-lg);padding:20px 22px;box-shadow:var(--m-shadow);border-top:7px solid var(--wc);transition:transform .15s ease,box-shadow .15s ease}
+.way:hover{transform:translateY(-3px);box-shadow:var(--m-shadow-hi)}
+.way.sx{--wc:#7C4DDB}.way.mk{--wc:#EA580C}
+.way img{grid-row:1 / span 3;width:150px;height:auto;align-self:center}
+.way b{font-size:1.15rem;font-weight:900;line-height:1.45}
+.way span{font-size:.9rem;line-height:1.85;color:var(--m-muted)}
+.way em{font-style:normal;font-weight:900;color:var(--wc);margin-top:6px}
+.xt-sub{margin:12px 0 0!important;font-size:.92rem!important;line-height:1.7!important;color:var(--m-body)!important}
+.xt-sub a{color:var(--m-blue)!important;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+@media (max-width:760px){.pj-lock{white-space:normal!important;max-width:100%;text-align:center}.pj-t td.c-lock{flex-wrap:wrap;gap:6px}}
+@media (max-width:860px){.ways-grid{grid-template-columns:1fr}.way{grid-template-columns:96px 1fr;padding:16px}.way img{width:96px}}
+/* 案件一覧の表: 短い値は折り返さない（「完成渡し」が2行に割れていた） */
+.pj-t td:is([data-l="買い方"],[data-l="電圧"],[data-l="規模"]){white-space:nowrap}
+/* 数字の札の中の言葉（「価格・資料」「資本関係なし」など）が割れないように */
+.hero-stats .stat-number{font-size:clamp(1.5rem,2.6vw,2.2rem)!important}
 
 /* ---------- 14. 英語のページ: 見出しの英字は Inter Tight ---------- */
 html[lang="en"] :is(h1,h2,h3){font-family:var(--m-num)!important;letter-spacing:-.02em!important}

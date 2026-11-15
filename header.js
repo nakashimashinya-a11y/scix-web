@@ -66,6 +66,7 @@
     : 'co';
   if (/^\/(projects|market-data)/.test(loc)) side = 'deal';
   document.documentElement.setAttribute('data-side', side);
+  document.documentElement.setAttribute('data-page', loc);   // theme.css がページごとの冒頭の絵を選ぶ（お問い合わせ＝話す人・会社案内＝書類を確かめる人 など）
 
   // Columns that exist in Japanese only. Switching language from these must
   // fall back to the knowledge hub instead of a URL that does not exist.
@@ -302,7 +303,7 @@
 
   // Floating mobile contact CTA — on mobile the nav collapses into the hamburger,
   // so keep a persistent, always-visible conversion path. white-on-black = WCAG AAA.
-  css += "\n.scix-float-cta{position:fixed;right:16px;bottom:16px;z-index:9000;display:none;align-items:center;gap:7px;padding:13px 20px;background:linear-gradient(135deg,#F97316,#F59E0B);color:#fff;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:900;text-decoration:none;border-radius:999px;box-shadow:0 8px 22px rgba(234,88,12,.38)}.scix-float-cta:active{transform:translateY(1px)}.scix-float-cta svg{width:16px;height:16px}@media(max-width:768px){.scix-float-cta{display:inline-flex}}";
+  css += "\n.scix-float-cta{position:fixed;right:16px;bottom:16px;z-index:9000;display:none;align-items:center;gap:7px;padding:13px 20px;background:linear-gradient(135deg,#F97316,#F59E0B);color:#fff;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:900;text-decoration:none;border-radius:999px;box-shadow:0 8px 22px rgba(234,88,12,.38)}.scix-float-cta:active{transform:translateY(1px)}.scix-float-cta svg{width:16px;height:16px}@media(max-width:768px){.scix-float-cta{display:inline-flex;opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .2s,transform .2s}.scix-float-cta.on{opacity:1;transform:none;pointer-events:auto}}";
 
   var style = document.createElement('style');
   style.id = 'scix-header-css';
@@ -510,6 +511,9 @@
     fcta.setAttribute('aria-label', isSellPage ? '無料で売却査定' : (isEn ? 'Contact us' : (isZh ? '咨询' : 'ご相談・お問い合わせ')));
     fcta.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' + (isSellPage ? '無料で売却査定' : (isEn ? 'Contact' : (isZh ? '咨询' : '相談する')));
     document.body.appendChild(fcta);
+    // 最初の画面では出さない（冒頭の主ボタンに重なって読めなかった＝2026-11-15 訪問者の目で歩いた点検）。1画面ぶん下へ進んだら出す
+    var fctaTick = function () { fcta.classList.toggle('on', (window.scrollY || 0) > window.innerHeight * 0.9); };
+    window.addEventListener('scroll', fctaTick, { passive: true }); fctaTick();
   }
 
   // --------------- 2b. 週1本の更新をメールで受け取る（JAのみ・2026-09-17 中島「つくって。入力はなるべく簡単に」） ---------------
