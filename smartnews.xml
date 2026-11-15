@@ -4,12 +4,879 @@
 <title>サイエンスエックス ナレッジ</title>
 <link>https://www.scix.co.jp/knowledge</link>
 <description>系統用蓄電池の制度・市場・売買の解説</description>
-<pubDate>Tue, 20 Oct 2026 09:00:00 +0900</pubDate>
+<pubDate>Sun, 15 Nov 2026 09:00:00 +0900</pubDate>
 <language>ja</language>
 <copyright>© Science X Inc.</copyright>
 <ttl>60</ttl>
 <snf:logo><url>https://www.scix.co.jp/img/press/logo-navy-700x100.png</url></snf:logo>
 <snf:darkModeLogo><url>https://www.scix.co.jp/img/press/logo-white-700x100.png</url></snf:darkModeLogo>
+<item>
+<title>国籍で線を引く欧米、ラベルで線を引く日本 — JC-STARの相互承認は抜け道にならない</title>
+<link>https://www.scix.co.jp/column-jcstar-2027-nationality</link>
+<guid>https://www.scix.co.jp/column-jcstar-2027-nationality</guid>
+<description><![CDATA[太陽光・蓄電池の制御機器のサイバー規制を国別に比較。EU（EU資金の案件）・リトアニア（100kW超の遠隔操作）・米国（FCC Covered List・国防調達・テキサス州法）は国籍・生産地で、日本と豪州はラベル・基準で線を引く。英国PSTI・シンガポールCLSとの相互承認が抜け道にならない3つの理由と、審査に国籍が入っていないのかという問い、準備中の★2。]]></description>
+<pubDate>Sun, 15 Nov 2026 09:00:00 +0900</pubDate>
+<content:encoded><![CDATA[<img src="https://www.scix.co.jp/img/ogp-m.png" alt="国籍で線を引く欧米、ラベルで線を引く日本 — JC-STARの相互承認は抜け道にならない" />
+<div><div>3行で言うと</div><ol><li>EU・リトアニア・米国は、インバーターを国籍や生産地で外し始めました。日本と豪州は、国籍を問わないラベルや基準で線を引いています。</li><li>日本は英国・シンガポールとラベルを相互承認していますが、系統につなぐのに要るのはIPAが出すJC-STARのラベルです。相互承認で取った製品は、いまの一覧に1件もありません。</li><li>日本の条文に国籍の条件はありません。ただし、申請のチェックリストに外国の法律の影響を問う項目がある、と報じられています。</li></ol></div>
+
+<p>JC-STARの話をすると、「要するに中国製を締め出す制度でしょう」と言われることがあります。条文を読むと、そうは書いてありません。欧州と米国は国籍や生産地でインバーターを外し始めましたが、日本が置いたのは「ラベル」です。</p>
+<p>この記事は、世界の線引きを1枚の図に並べます。そのうえで、「シンガポール経由なら入れるのでは」という問いに、条文と一覧で答えます。</p>
+
+<h2>世界の線引きを1枚で</h2>
+<p>図1は、太陽光・蓄電池の制御機器のサイバー規制を、2つに分けたものです。上がラベルや基準で線を引く国、下が国籍や生産地で線を引く国です。</p>
+
+<h2>この連載の言葉</h2>
+<p>この連載では、次の言葉を使います。4本とも同じ表です。</p>
+<div>
+<table>
+<caption>表0｜この連載の言葉（早見表）</caption>
+<thead><tr><th>言葉</th><th>意味</th></tr></thead>
+<tbody>
+<tr><td><b>JC-STAR</b></td><td>経済産業省が2025年3月に始めた、ネットにつながる機器（IoT機器）のセキュリティのラベル制度。IPA（情報処理推進機構）が運営する</td></tr>
+<tr><td><b>★1（星1つ）</b></td><td>いちばん下のレベル。初期パスワードのまま使わせない、不具合の連絡先がある、ソフトを直せる、といった最低限の決まりを、メーカー自身が確かめて申請する。第三者が評価するのは★3・★4</td></tr>
+<tr><td><b>PCS（パワーコンディショナ）</b></td><td>電池（直流）と電力網（交流）の間で、電気の形を変える機械。蓄電所の心臓にあたる</td></tr>
+<tr><td><b>BMS</b></td><td>電池の温度や電圧を見張る、電池の見張り役</td></tr>
+<tr><td><b>EMS</b></td><td>いつ充電し、いつ放電するかを決める司令塔</td></tr>
+<tr><td><b>遠隔監視・ゲートウェイ</b></td><td>発電所・蓄電所と、外のネットワークをつなぐ玄関口</td></tr>
+<tr><td><b>系統・系統連系</b></td><td>系統は、電力会社の送電線・配電線のこと。そこに発電所や蓄電所をつなぐことを系統連系という</td></tr>
+<tr><td><b>一般送配電事業者</b></td><td>大手電力会社の送配電の会社（東京電力パワーグリッドなど、全国に10社）</td></tr>
+<tr><td><b>接続検討</b></td><td>つなげるか、工事にいくらかかるかを、一般送配電事業者に調べてもらう手続き。契約申込みの前の段階</td></tr>
+<tr><td><b>契約申込み</b></td><td>接続検討の回答のあとに出す、正式な申込み。書類に不備がなく、保証金が入金されて、はじめて「受付」になる</td></tr>
+<tr><td><b>特別高圧・高圧・低圧</b></td><td>つなぐ電圧の区分。高圧はおおむね2,000kW未満、低圧は50kW未満。特別高圧はそれより大きい</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>国籍で線を引く国</h2>
+<p>国籍や生産地で線を引いているのは、主に3つです。</p>
+<ul>
+<li><strong>EU</strong>：EUのお金が入る案件で、中国などの「高リスク」な会社のインバーターを使わせない方針です。2026年4月下旬から報じられていますが、正式な公表文書はありません。</li>
+<li><strong>リトアニア</strong>：100kWを超える太陽光・風力・蓄電を、中国などの会社が遠くから操作することを、法律で禁じました。いまある設備にも当てています。</li>
+<li><strong>米国</strong>：外国でつくられた、通信機能のあるインバーターの新しい認証を止めました。国防の調達では、中国などの製品を外します。テキサス州も、敵対する国に関係する会社が系統の重要な機器に触れることを、州法で禁じています。</li>
+</ul>
+<p>台湾も、中国製の太陽電池セル・モジュールの輸入を禁じています。日付や法令の番号は、表2にまとめました。</p>
+
+<h2>ラベルで線を引く国</h2>
+<p>日本と豪州は、国籍の条件を置いていません。日本は2027年4月から、電力網につなぐ太陽光・蓄電池の制御機器にJC-STAR★1を求めます。豪州は、国の規格と通信の仕様に合うインバーターだけを使わせます。EUの製品の決まり（CEマーク）も、国籍は問いません。</p>
+<p>ドイツ・オランダ・韓国は、2026年11月の時点で、インバーターの国籍を条件にした規制を始めていません。ドイツと韓国では、検討が報じられています。</p>
+
+<h2>国ごとの比較</h2>
+<p>表2は、国ごとの決まりを、いつから・何に・どう線を引くかで並べたものです。右の列は、当社が何で確かめたかです。</p>
+<div>
+<table>
+<caption>表2｜太陽光・蓄電池の制御機器のサイバー規制（2026年11月15日時点）</caption>
+<thead><tr><th>国・地域</th><th>決まり</th><th>いつから</th><th>何に</th><th>線の引き方</th><th>いまある設備</th><th>確かめた資料</th></tr></thead>
+<tbody>
+<tr><td>日本</td><td>系統連系技術要件ガイドラインの改定（JC-STAR★1）</td><td>特別高圧・高圧 2027年4月1日、低圧 10月1日（契約申込みの受付日が起点）</td><td>太陽光・蓄電池のIP通信を持つ制御機器</td><td>ラベル</td><td>さかのぼらない（足す・替える機器には当てる）</td><td>一次資料</td></tr>
+<tr><td>豪州</td><td>AS/NZS 4777.2 Amd 2、CSIP-AUS v1.2</td><td>Amd 2は2025年8月23日。CSIP-AUSはビクトリア州で2026年11月1日に義務化</td><td>系統につなぐインバーター</td><td>技術基準</td><td>なし</td><td>一次資料</td></tr>
+<tr><td>EU（製品）</td><td>RED委任規則、サイバーレジリエンス法（CRA）</td><td>RED 2025年8月1日、CRAの主な義務は2027年12月</td><td>無線機器・デジタル製品</td><td>基準（CE）</td><td>なし</td><td>一次資料</td></tr>
+<tr><td>EU（資金）</td><td>EUのお金が入る案件から、高リスク供給者のインバーターを外す方針</td><td>2026年4月下旬から報道。進行中の案件は5月1日までに届け出</td><td>太陽光・風力・蓄電のインバーター・PCS</td><td>国籍</td><td>扱いは未公表</td><td>報道（公表文書なし）</td></tr>
+<tr><td>EU（入札）</td><td>ネットゼロ産業法（NZIA）の入札の基準</td><td>2025年12月30日</td><td>再エネ入札の年間量の30%以上、または年6GW</td><td>基準＋国への依存度</td><td>なし</td><td>一次資料</td></tr>
+<tr><td>リトアニア</td><td>電力法 第73³条（改正法 XIV-3092、2024年11月12日）</td><td>新設 2025年5月1日。既設は2026年5月1日までに適合（系統運用者への宣言は5月31日まで）</td><td>100kW超の発電所・蓄電設備</td><td>国籍</td><td>あり</td><td>一次資料・報道</td></tr>
+<tr><td>米国（FCC）</td><td>Covered Listへの追加（DA 26-786、DA 26-870で修正）</td><td>2026年7月28日</td><td>外国でつくられた、通信機能のある系統連系インバーター</td><td>生産国</td><td>なし（認証済み・購入済みは除く）</td><td>一次資料</td></tr>
+<tr><td>米国（国防）</td><td>国防授権法 FY2026 §842（電池）・§847（PVモジュール・インバーター）</td><td>FY2026予算から（§842は2028年1月から段階的）</td><td>国防総省が調達する製品</td><td>国籍</td><td>なし</td><td>一次資料</td></tr>
+<tr><td>米国（大統領令）</td><td>大規模電力系統の機器に関する大統領令</td><td>2026年8月26日。エネルギー長官の判定はまだ</td><td>系統の機器の取引</td><td>国籍</td><td>判定しだい</td><td>一次資料</td></tr>
+<tr><td>米国（テキサス州）</td><td>Lone Star Infrastructure Protection Act（2021年）、SB 2368（2025年6月20日署名）</td><td>2021年。強化は2025年9月1日</td><td>ERCOT管内の重要な系統機器</td><td>国籍</td><td>過去の購入にも対策を求める</td><td>一次資料</td></tr>
+<tr><td>ドイツ</td><td>法令なし。政府答弁（2026年6月23日）で規制を検討</td><td>未施行</td><td>系統につなぐPVインバーター</td><td>検討中</td><td>—</td><td>一次資料・報道</td></tr>
+<tr><td>オランダ</td><td>サイバーセキュリティ法（NIS2の国内法）</td><td>2026年8月15日</td><td>エネルギー事業者・大規模発電者</td><td>基準</td><td>—</td><td>一次資料</td></tr>
+<tr><td>韓国</td><td>法令なし。KS認証の審査で、インバーター内の通信装置を確かめる方向</td><td>未施行</td><td>太陽光インバーター（KS認証品の約6割が中国製との報道）</td><td>検討中</td><td>—</td><td>報道</td></tr>
+<tr><td>台湾</td><td>中国製の太陽電池セル・モジュールの輸入禁止。インバーターだけの法令は見当たらない</td><td>—</td><td>太陽電池セル・モジュール</td><td>国籍</td><td>—</td><td>一次資料・報道</td></tr>
+</tbody>
+</table>
+</div>
+<p>「報道」は、一次資料が公表されていないか、当社が一次資料を読めていないもの。EUの資金の方針は、正式な公表文書が無い。</p>
+
+<h2>相互承認は、抜け道にならない</h2>
+<p>「シンガポールと相互承認したのだから、中国勢はそこから入れるのでは」と聞かれることがあります。表3は、いま動いている相互承認の一覧です。</p>
+<div>
+<table>
+<caption>表3｜JC-STARの相互承認</caption>
+<thead><tr><th>相手</th><th>状態</th><th>運用開始</th><th>海外 → JC-STARの手続き</th></tr></thead>
+<tbody>
+<tr><td>英国 PSTI法</td><td>運用中（覚書 2025年11月）</td><td>2026年1月1日</td><td>PSTIに適合した製品は、3つの要件の確認が免除される。手数料は★1で140,000円（通常は198,000円）</td></tr>
+<tr><td>シンガポール CLS</td><td>運用中（覚書 2026年3月18日）</td><td>2026年6月1日</td><td>CLSに適合した製品は、同じとみなした要件の確認が免除される。手数料は★1で140,000円</td></tr>
+<tr><td>米国 Cyber Trust Mark</td><td>合意の公表なし</td><td>—</td><td>—</td></tr>
+<tr><td>EU サイバーレジリエンス法</td><td>相互承認ではない。2026年10月26日に、民間の団体どうしが制度比較の覚書</td><td>—</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>どの道を通っても、JC-STARのラベルを出すのはIPAです。海外の役所ではありません。そのうえで、抜け道にならない理由は3つあります。</p>
+<h3>① 要件は「IPAの制度に基づくラベル」</h3>
+<blockquote>独立行政法人情報処理推進機構（ＩＰＡ）のセキュリティ要件適合評価及びラベリング制度に基づく★１（レベル１）（以下、「ＪＣーＳＴＡＲ★１」という。）以上の適合ラベルが付与された機器を用いることとする。系統連系技術要件ガイドライン 改定案 第2章第1節5（1）（2026年10月）</blockquote>
+<p>CLSのラベルそのものは、IPAの制度のラベルではありません。CLSに適合した製品も、IPAに申請してJC-STAR★1のラベルを受け取って、はじめて要件を満たします。相互承認で軽くなるのは、一部の確認の免除と、手数料だけです。</p>
+<h3>② CLSは、家庭向けの機器の制度</h3>
+<p>シンガポールのCLSは、消費者向けのIoT機器の制度です。PCSや蓄電システムは、もともと対象にありません。CLSの製品リストでは、Huaweiの登録は光回線の端末やWi-Fiの機器だけでした。</p>
+<h3>③ 相互承認で取った製品は、1件も無い</h3>
+<p>IPAの各製品のページには、「PSTIとの相互承認」「CLSとの相互承認」という欄があります。11月12日版の395件を全部見ると、どちらも全件が「申請なし」でした。相互承認を使って★1を取った製品は、まだありません。</p>
+
+<h2>ラベルの審査に、国籍は入っていないのか</h2>
+<p>日本の要件の条文には、国籍の条件がありません。それでも、中国の大手の名前は一覧に出てきません。</p>
+<p>日経によると、中国のメーカーの幹部は「中国企業の申請だけが却下されている。事実上の排除だ」と話しています。日経は、申請のチェックリストに、外国の法律などの影響を受けるおそれが無いかを問う項目がある、とも伝えています。経済産業省は、個別の判断を明かしていません。</p>
+<p>条文は国籍を問いません。ただ、審査で何を見ているかは、外からは確かめられません。「日本は国籍をまったく見ていない」とまでは言えない、というのが正確なところです。</p>
+
+<h2>★2が来ると</h2>
+<p>電力の機器に合わせた★2以上の基準づくりが始まっています。2026年10月19日の電力サブWG（産業サイバーセキュリティ研究会）では、IPAと相談しながら検討の準備を進める方針が示されたと報じられました。</p>
+<p>国の補助金（系統用蓄電システム等導入支援事業）は、もう先の手を打っています。★1の対象にならない機器は、★2の基準ができて対象になれば、供給を始めるまでに★2を取る決まりです。</p>
+<p>相互承認の対象は★1までです。電力の機器に固有の★2の要件には、CLSにもPSTIにも対応するものがありません。系統連系の要件が★2に上がれば、相互承認で軽くなる部分はさらに小さくなる、と当社は見ています。</p>
+
+<h2>おわりに</h2>
+<p>系統につなぐ条件を、国籍を問わないラベルや基準で置いているのは、日本と豪州です。「CLSを持っているから大丈夫」という売り込みを受けたら、根拠は上の条文です。見るのは、IPAの一覧の登録番号です。その表は <a href="https://www.scix.co.jp/column-jcstar-2027-list">52-2 一覧編</a> にあります。</p>
+<p>確かめきれていないことも書いておきます。一般送配電事業者10社の改定後の条文と、改定案の意見公募の結果です。★2の基準案が出たら、相互承認の範囲を読み直します。</p>
+<h2>この連載の読み方</h2>
+<div>
+<a href="https://www.scix.co.jp/column-jcstar-2027"><div>COLUMN 52</div><div>入口編</div><div>395件はすべて★1。中国の大手16社はゼロ。まず数字を見る入口</div></a>
+<a href="https://www.scix.co.jp/column-jcstar-2027-list"><div>COLUMN 52-2</div><div>一覧編</div><div>系統用・住宅用・その他に分けた一覧。2027年5月に切れる10件も</div></a>
+<a href="https://www.scix.co.jp/column-jcstar-2027-existing"><div>COLUMN 52-3</div><div>既設編</div><div>起点は契約申込みの受付日。併設は増やす側だけ、交換は原則★1</div></a>
+<div><div>COLUMN 52-4</div><div>国籍編</div><div>国籍で切る欧米、ラベルで切る日本</div><div>いま読んでいる記事</div></div>
+</div>
+<div>入口に戻るなら <a href="https://www.scix.co.jp/column-jcstar-2027">52 入口編</a>。誰がラベルを持っているかを、数字で見ています。</div>
+<h2>よくある質問</h2>
+<div>
+<p>シンガポールのCLSや英国のPSTIのラベルがあれば、日本の系統連系の要件を満たしますか？</p>
+<p>満たしません。系統連系技術要件ガイドラインの改定案は、IPAのラベリング制度に基づく★1以上の適合ラベルが付いた機器を求めています。CLSやPSTIのラベルそのものは、IPAの制度のラベルではありません。CLSやPSTIに適合した製品も、IPAに申請してJC-STAR★1のラベルを受け取る必要があります。相互承認で軽くなるのは、一部の確認の免除と手数料（★1で140,000円）です。</p>
+</div>
+<div>
+<p>中国のメーカーは、シンガポールのCLSを通ってJC-STARを取れますか？</p>
+<p>制度の上では申請できますが、実例がありません。CLSは消費者向けのIoT機器の制度で、PCSや蓄電システムはもともと対象にありません。IPAの各製品のページには相互承認の欄があり、2026年11月12日版の395件はすべて「申請なし」でした。</p>
+</div>
+<div>
+<p>日本も、EUや米国のように中国製を名指しで外していますか？</p>
+<p>条文の上では外していません。系統連系の要件は国籍を問わないラベルの要件で、豪州と同じ側です。ただし日経は、申請のチェックリストに外国の法律などの影響を問う項目があり、中国のメーカーが「事実上の排除だ」と反発していると報じています。経済産業省は個別の判断を明かしていません。</p>
+</div>
+<h2>参考にした一次資料と、関連する記事</h2>
+<div>
+<h3>日本の要件と相互承認</h3><ul>
+<li><a href="https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&amp;id=620340012&amp;Mode=0">e-Gov 意見公募「電力品質確保に係る系統連系技術要件ガイドライン」改定案（案件番号620340012、2026年10月）</a> 第2章第1節5（1）</li>
+<li><a href="https://www.ipa.go.jp/security/jc-star/shinsei/psti.html">IPA 英国PSTI法との相互承認</a>｜<a href="https://www.ipa.go.jp/security/jc-star/shinsei/cls.html">IPA シンガポールCLS適合の相互承認申請</a>｜<a href="https://www.meti.go.jp/english/press/2025/1106_002.html">経済産業省 英国との覚書（2025年11月6日公表）</a>｜<a href="https://www.meti.go.jp/press/2025/03/20260318001/20260318001.html">経済産業省 シンガポールとの覚書（2026年3月18日）</a>｜<a href="https://www.csa.gov.sg/news-events/press-releases/singapore-signs-memorandum-of-cooperation-with-japan-on-mutual-recognition-of-internet-of-things-cybersecurity-schemes/">シンガポールCSA（2026年3月18日）</a>｜<a href="https://www.ipa.go.jp/pressrelease/2026/press20261104.html">IPA EUのCRAとの制度比較（2026年11月4日）</a></li>
+<li><a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/">IPA「適合ラベル取得製品リスト」（2026年11月12日更新）</a>と各製品の情報ページ（「PSTIとの相互承認」「CLSとの相互承認」の欄）</li>
+<li><a href="https://solarjournal.jp/policy/68228/">SOLAR JOURNAL（電力サブWG、2026年10月）</a>｜<a href="https://sii.or.jp/chikudenchi07r/uploads/R7r_kess_kouboyouryou.pdf">SII 系統用蓄電システム等導入支援事業 公募要領（2026年9月・PDF）</a> ※13</li>
+<li><a href="https://www.nikkei.com/article/DGXZQOUC19AMF0Z10C26A3000000/">日本経済新聞（2026年7月1日）</a>｜<a href="https://asia.nikkei.com/business/energy/china-storage-battery-makers-denied-cybersecurity-approval-in-japan">Nikkei Asia（同日・英語）</a></li>
+</ul>
+<h3>米国</h3><ul>
+<li><a href="https://docs.fcc.gov/public/attachments/DA-26-786A1.pdf">FCC DA 26-786（2026年7月28日・PDF）</a>｜<a href="https://docs.fcc.gov/public/attachments/DA-26-870A1.pdf">DA 26-870（2026年8月20日・PDF）</a></li>
+<li><a href="https://www.congress.gov/119/plaws/publ60/PLAW-119publ60.pdf">Public Law 119-60（国防授権法 FY2026）§842・§847（PDF）</a>｜<a href="https://www.energy.gov/ceser/declaring-national-emergency-secure-united-states-bulk-power-system-executive-order">米エネルギー省 大統領令（2026年8月26日）</a>｜<a href="https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&amp;Bill=SB2368">テキサス州議会 SB 2368の経過（2025年6月20日署名、9月1日施行）</a></li>
+</ul>
+<h3>欧州・そのほか</h3><ul>
+<li><a href="https://www.pv-magazine.com/2026/04/23/eu-moves-to-restrict-funding-for-projects-using-inverters-from-high-risk-suppliers/">pv magazine（EUの資金、2026年4月23日）</a>｜<a href="https://www.euronews.com/2026/05/04/eu-moves-to-ban-high-risk-inverters-from-china-over-cybersecurity-threats">Euronews（2026年5月4日）</a>｜<a href="https://single-market-economy.ec.europa.eu/industry/sustainability/net-zero-industry-act_en">欧州委員会 ネットゼロ産業法</a>｜<a href="https://www.pv-magazine.com/2026/01/20/eu-to-ban-chinese-inverters-commission-proposal-in-cybersecurity-mulls-high-risk-vendors-list/">pv magazine（サイバーセキュリティ法の改正案、2026年1月20日）</a></li>
+<li><a href="https://www.lrt.lt/en/news-in-english/19/2411602/lithuania-passes-law-to-block-chinese-access-to-solar-and-wind-farm-systems">LRT（リトアニア、2024年11月12日）</a>｜<a href="https://www.e-tar.lt/portal/lt/legalAct/a02c5240a66d11ef90b5ee8931e5ce5e">リトアニア官報（改正法 XIV-3092）</a></li>
+<li><a href="https://www.pv-magazine.de/2026/06/29/cybersecurity-bundesregierung-prueft-regulatorische-schritte-gegen-chinesische-wechselrichter/">pv magazine（ドイツ、2026年6月29日）</a>｜<a href="https://www.rijksoverheid.nl/actueel/nieuws/2026/08/15/cyberbeveiligingswet-en-wet-weerbaarheid-kritieke-entiteiten-vanaf-vandaag-van-kracht">オランダ政府（2026年8月15日）</a>｜<a href="https://cleanenergycouncil.org.au/industry-programs/products-program/inverters/csip-aus-inverters">Clean Energy Council（豪州 CSIP-AUS）</a>｜<a href="https://www.news33.net/news/articleView.html?idxno=118447">韓国の報道（KS認証）</a></li>
+</ul>
+<h3>関連する記事</h3><ul><li><a href="https://www.scix.co.jp/column-foreign-investor">外国資本が日本の高圧系統用蓄電所に投資する前に越える関門</a>／<a href="https://www.scix.co.jp/column-jcstar">JC-STARとは — ★1〜★4の違いと、★1の義務化はいつから（COLUMN 14）</a>／<a href="https://www.scix.co.jp/column-buyer-check">系統用蓄電所を買う前の技術チェック</a></li></ul>
+</div>
+
+</div>
+<p>元の記事（図表つき）: <a href="https://www.scix.co.jp/column-jcstar-2027-nationality">https://www.scix.co.jp/column-jcstar-2027-nationality</a></p>]]></content:encoded>
+<category>税制・制度・規制 / JC-STARの線引き（国籍編）,系統用蓄電池,蓄電所</category>
+<dc:creator>中島 晋也</dc:creator>
+<dc:language>ja</dc:language>
+<media:thumbnail url="https://www.scix.co.jp/img/ogp-m.png" />
+<media:status>active</media:status>
+</item>
+<item>
+<title>JC-STAR取得製品一覧（蓄電池・PCS・BMS・EMS）189件 — 2026年11月12日時点・登録番号つき</title>
+<link>https://www.scix.co.jp/column-jcstar-2027-list</link>
+<guid>https://www.scix.co.jp/column-jcstar-2027-list</guid>
+<description><![CDATA[IPAのJC-STAR取得製品リスト（2026年11月12日更新）から、蓄電池システム・PCS・BMS・EMS・計測制御・遠隔監視の189件を、登録番号・取得日・満了日・本社国つきで一覧に。系統用65件、住宅用61件、その他63件。2027年5月に満了する10件と、延長の手続きの現状も。]]></description>
+<pubDate>Sun, 15 Nov 2026 09:00:00 +0900</pubDate>
+<content:encoded><![CDATA[<img src="https://www.scix.co.jp/img/ogp-m.png" alt="JC-STAR取得製品一覧（蓄電池・PCS・BMS・EMS）189件 — 2026年11月12日時点・登録番号つき" />
+<div><div>3行で言うと</div><ol><li>IPAの一覧（2026年11月12日更新）395件のうち、太陽光・蓄電池まわりの189件を、登録番号つきで並べました。</li><li>登録番号を押すと、IPAの製品ページが開きます。案件の機器の型番と、そこの型番が同じかを見てください。</li><li>2025年5月に取った10件は、2027年5月に切れます。延長の手続きの細かい決まりは、まだ出ていません。</li></ol></div>
+
+<p>買い手が案件で確かめるのは、機器の国籍ではありません。手元の機器の型番が、IPAの一覧の製品と同じか。そして、その登録番号がいま有効か、です。</p>
+<p>そのための表を、IPAの一覧から太陽光・蓄電池まわりだけ抜き出して置きます。系統用65件を先頭に、住宅用61件、産業用か判別できないもの63件の順です。</p>
+
+<div><div><div>系統用</div><div>65<span>件</span></div><div>高圧・特別高圧・蓄電所向け</div></div><div><div>住宅用</div><div>61<span>件</span></div><div>家庭の太陽光・蓄電池</div></div><div><div>産業用・判別できない</div><div>63<span>件</span></div><div>工場・店舗向けなど</div></div><div><div>2027年5月に切れる</div><div>10<span>件</span></div><div>2025年5月に取った製品</div></div></div>
+<p>用途は製品名と各製品ページの説明から当社が分けた。IPAの一覧に用途の欄は無い。</p>
+
+<h2>表の読み方</h2>
+<ul>
+<li><strong>登録番号</strong>は、IPAが付けた16桁の番号です。押すと、その製品のIPAのページが開きます。型番・製造事業者・サポート期間が書いてあります。</li>
+<li><strong>種別</strong>は、当社のまとめ方です。「EMS／サイトコントローラー」にはPMSやサイトEMSを入れました。「遠隔監視／GW／HEMS」には、ゲートウェイとHEMSを入れました。汎用のルーター（センチュリー・システムズ、Teltonika、Moxaなど）は入れていません。</li>
+<li><strong>本社国</strong>は、親会社の本社の国です。日本法人でも、親会社が海外ならその国にしました。RENON POWERとLehmanSoftは、親会社の国まで確かめられなかったので「確認できず」にしています。</li>
+<li><strong>満了日</strong>は、取得日の2年後の前日です（IPAの表記と同じ）。2027年6月末までに切れる行は、黄色にしました。</li>
+</ul>
+
+<h2>この連載の言葉</h2>
+<p>この連載では、次の言葉を使います。4本とも同じ表です。</p>
+<div>
+<table>
+<caption>表0｜この連載の言葉（早見表）</caption>
+<thead><tr><th>言葉</th><th>意味</th></tr></thead>
+<tbody>
+<tr><td><b>JC-STAR</b></td><td>経済産業省が2025年3月に始めた、ネットにつながる機器（IoT機器）のセキュリティのラベル制度。IPA（情報処理推進機構）が運営する</td></tr>
+<tr><td><b>★1（星1つ）</b></td><td>いちばん下のレベル。初期パスワードのまま使わせない、不具合の連絡先がある、ソフトを直せる、といった最低限の決まりを、メーカー自身が確かめて申請する。第三者が評価するのは★3・★4</td></tr>
+<tr><td><b>PCS（パワーコンディショナ）</b></td><td>電池（直流）と電力網（交流）の間で、電気の形を変える機械。蓄電所の心臓にあたる</td></tr>
+<tr><td><b>BMS</b></td><td>電池の温度や電圧を見張る、電池の見張り役</td></tr>
+<tr><td><b>EMS</b></td><td>いつ充電し、いつ放電するかを決める司令塔</td></tr>
+<tr><td><b>遠隔監視・ゲートウェイ</b></td><td>発電所・蓄電所と、外のネットワークをつなぐ玄関口</td></tr>
+<tr><td><b>系統・系統連系</b></td><td>系統は、電力会社の送電線・配電線のこと。そこに発電所や蓄電所をつなぐことを系統連系という</td></tr>
+<tr><td><b>一般送配電事業者</b></td><td>大手電力会社の送配電の会社（東京電力パワーグリッドなど、全国に10社）</td></tr>
+<tr><td><b>接続検討</b></td><td>つなげるか、工事にいくらかかるかを、一般送配電事業者に調べてもらう手続き。契約申込みの前の段階</td></tr>
+<tr><td><b>契約申込み</b></td><td>接続検討の回答のあとに出す、正式な申込み。書類に不備がなく、保証金が入金されて、はじめて「受付」になる</td></tr>
+<tr><td><b>特別高圧・高圧・低圧</b></td><td>つなぐ電圧の区分。高圧はおおむね2,000kW未満、低圧は50kW未満。特別高圧はそれより大きい</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>種類と国でまとめると</h2>
+<p>表1は、機器の種類ごとに、本社の国で数を分けたものです。</p>
+<div>
+<table>
+<caption>表1｜種別 × 本社国</caption>
+<thead><tr><th>種別</th><th>日本</th><th>台湾</th><th>韓国</th><th>欧州</th><th>米・英・加</th><th>中国</th><th>本社国を確認できず</th><th>計</th></tr></thead>
+<tbody>
+<tr><td>蓄電池システム</td><td>55</td><td>4</td><td>3</td><td>1</td><td>1</td><td>–</td><td>5</td><td>69</td></tr>
+<tr><td>EMS／サイトコントローラー</td><td>31</td><td>4</td><td>3</td><td>1</td><td>4</td><td>–</td><td>3</td><td>46</td></tr>
+<tr><td>遠隔監視／GW／HEMS</td><td>32</td><td>3</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>35</td></tr>
+<tr><td>PCS（蓄電・系統用）</td><td>7</td><td>2</td><td>2</td><td>1</td><td>–</td><td>–</td><td>2</td><td>14</td></tr>
+<tr><td>計測制御ユニット</td><td>7</td><td>1</td><td>1</td><td>–</td><td>2</td><td>1</td><td>–</td><td>12</td></tr>
+<tr><td>太陽光PCS／ハイブリッド</td><td>3</td><td>–</td><td>1</td><td>2</td><td>–</td><td>–</td><td>1</td><td>7</td></tr>
+<tr><td>BMS</td><td>2</td><td>3</td><td>–</td><td>–</td><td>1</td><td>–</td><td>–</td><td>6</td></tr>
+<tr><td>計</td><td>137</td><td>17</td><td>10</td><td>5</td><td>8</td><td>1</td><td>11</td><td>189</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>表2は、用途ごとに、本社の国で数を分けたものです。</p>
+<div>
+<table>
+<caption>表2｜用途 × 本社国</caption>
+<thead><tr><th>用途</th><th>日本</th><th>台湾</th><th>韓国</th><th>欧州</th><th>米・英・加</th><th>中国</th><th>本社国を確認できず</th><th>計</th></tr></thead>
+<tbody>
+<tr><td>系統用</td><td>36</td><td>11</td><td>7</td><td>3</td><td>3</td><td>–</td><td>5</td><td>65</td></tr>
+<tr><td>住宅用</td><td>52</td><td>2</td><td>2</td><td>–</td><td>3</td><td>1</td><td>1</td><td>61</td></tr>
+<tr><td>産業用・判別できない</td><td>49</td><td>4</td><td>1</td><td>2</td><td>2</td><td>–</td><td>5</td><td>63</td></tr>
+<tr><td>計</td><td>137</td><td>17</td><td>10</td><td>5</td><td>8</td><td>1</td><td>11</td><td>189</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>2027年5月に切れる10件</h2>
+<p>要件が始まるのは2027年4月1日です。その翌月に、最初に取った製品のラベルが切れます。表6は、その10件です。</p>
+<div>
+<table>
+<caption>表6｜2027年5月に満了する10件</caption>
+<thead><tr><th>登録番号</th><th>取得事業者</th><th>製品名称</th><th>取得日</th><th>満了日</th></tr></thead>
+<tbody>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01961e45-7a3e-7081-8143-ec44ed8c209e.html">2025051600000186</a></td><td>Shizen Connect</td><td>Shizen Box 1 Industrial</td><td>2025/5/7</td><td>2027/5/6</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01962291-6202-70b4-a49a-6f848c6a3486.html">2025051600000193</a></td><td>Shizen Connect</td><td>Shizen Box 2</td><td>2025/5/7</td><td>2027/5/6</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01963223-492a-72b1-9ef7-4336309d7f95.html">2025050900000219</a></td><td>NextDrive</td><td>EDGE エネルギーマネジメントコントローラー</td><td>2025/5/7</td><td>2027/5/6</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01968457-e767-7085-b81e-307b5b5816b0.html">2025059900000278</a></td><td>ジェイシティ</td><td>HELIOS-B4-Core</td><td>2025/5/26</td><td>2027/5/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01968458-6b7d-72ba-92fd-0129e3e9d014.html">2025059900000286</a></td><td>ジェイシティ</td><td>HELIOS-B4-T6</td><td>2025/5/26</td><td>2027/5/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01968458-a847-7114-b6af-4b245b010601.html">2025059900000293</a></td><td>ジェイシティ</td><td>HELIOS-B4-F02-Lite</td><td>2025/5/26</td><td>2027/5/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01968458-e379-738b-9db3-e95729012cfa.html">2025059900000308</a></td><td>ジェイシティ</td><td>HELIOS-B4-F02</td><td>2025/5/26</td><td>2027/5/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0195fac4-5d98-7311-8402-01e114a84add.html">2025059900000319</a></td><td>GSユアサ</td><td>Acroware-NA2</td><td>2025/5/28</td><td>2027/5/27</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0195fac6-be20-72c4-807c-d4bdc1223ab0.html">2025050100000325</a></td><td>GSユアサ</td><td>STARELINK ST</td><td>2025/5/28</td><td>2027/5/27</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0195fac8-c075-7093-989c-11fa0d45de8a.html">2025050100000330</a></td><td>GSユアサ</td><td>STARELINKゲートウェイ</td><td>2025/5/28</td><td>2027/5/27</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>延長の手続きの細かい決まりは、IPAが「2026年に公表する予定」としています。11月15日の時点では、まだ出ていません。</p>
+<p>2024年の説明会資料では、延長は満了の90日前から受け付ける予定で、手数料は新規と同じとされていました。いまの新規の手数料は198,000円（税込）です。IPAは2026年7月31日、申請が急に増えて確認に時間がかかっていると告知しています。早めに動くのが安全です。</p>
+
+<h2>189件の一覧</h2>
+<p>事業者名・製品名・登録番号の一部を入れると、その行だけに絞れます。</p>
+<div><span>189件</span></div>
+<h3>系統用（65件）</h3>
+<div>
+<table>
+<caption>表3｜系統用（高圧・特別高圧・蓄電所向け）</caption>
+<thead><tr><th>登録番号</th><th>取得事業者</th><th>製品名称</th><th>種別</th><th>本社国</th><th>取得日</th><th>満了日</th></tr></thead>
+<tbody>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a01860-f1ca-70a1-bd40-807eef31aff0.html">2026090600003511</a></td><td>AZAPA</td><td>AZP-STC</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/8/30</td><td>2028/8/29</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0198a14d-3590-7104-b286-c24dc5ac3a80.html">2025090600000623</a></td><td>GSユアサ</td><td>STARELINK Site Controller</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2025/9/30</td><td>2027/9/29</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a0ad9a-98c9-721d-9333-7d6302e31db6.html">2026100600003751</a></td><td>Hitachi Energy</td><td>3MsWD4</td><td>PCS（蓄電・系統用）</td><td>日本</td><td>2026/10/1</td><td>2028/9/30</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0198cf70-7b0f-702f-9993-ebebe9fb0e22.html">2025100600000668</a></td><td>TMEIC</td><td>TMBCS</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2025/10/2</td><td>2027/10/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019c73f5-a4d9-7151-b1d0-512f40adf6b8.html">2026040600002000</a></td><td>TMEIC</td><td>蓄電池用変換器</td><td>PCS（蓄電・系統用）</td><td>日本</td><td>2026/4/9</td><td>2028/4/8</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019c73fa-ae81-723b-be08-cabd5a845f89.html">2026040600002013</a></td><td>TMEIC</td><td>BSB-L2200JRN</td><td>蓄電池システム</td><td>日本</td><td>2026/4/9</td><td>2028/4/8</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019c73fc-f850-71b2-ae84-6779ace07016.html">2026040600002021</a></td><td>TMEIC</td><td>BSU-L0600,BSU-L0675,BSU-L0750</td><td>蓄電池システム</td><td>日本</td><td>2026/4/9</td><td>2028/4/8</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019cc23c-52cb-7204-ac80-cbf0e09f1698.html">2026040600002037</a></td><td>TMEIC</td><td>TMBCS-B</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/4/9</td><td>2028/4/8</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ce111-490c-7160-9432-f0618774f36b.html">2026041600002046</a></td><td>TMEIC</td><td>TMEdge</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/4/9</td><td>2028/4/8</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01985416-027e-7207-9583-d159ee4ccf46.html">2025090600000531</a></td><td>しろくま電力</td><td>サイトEMS</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2025/9/8</td><td>2027/9/7</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0199992b-d35d-701f-9b7c-8eab8ea5d1ed.html">2025100600000858</a></td><td>しろくま電力</td><td>サイトEMS</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2025/10/6</td><td>2027/10/5</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01999928-7c36-70f2-a50d-ddc0c32cd409.html">2025100600000849</a></td><td>しろくま電力</td><td>サイトEMS</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2025/10/6</td><td>2027/10/5</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01999876-2045-7339-b042-69dc23186312.html">2025100600000830</a></td><td>しろくま電力</td><td>サイトEMS</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2025/10/6</td><td>2027/10/5</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01999d5a-3ab7-72ed-ae52-c11f4bdc01ea.html">2025100600000896</a></td><td>しろくま電力</td><td>サイトEMS</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2025/10/15</td><td>2027/10/14</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019a3253-dde3-71aa-b1bd-363f8569d2e7.html">2025120600001221</a></td><td>エナジーフロー</td><td>ハイブリッドパワープラントコントローラー</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2025/12/3</td><td>2027/12/2</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01999ed6-ab0f-721b-a72c-e3eaaa7d2bd5.html">2025100600000874</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td>蓄電池システム</td><td>日本</td><td>2025/10/15</td><td>2027/10/14</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0199c676-4d33-73eb-8118-9958624ed77f.html">2025100600000922</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td>蓄電池システム</td><td>日本</td><td>2025/10/17</td><td>2027/10/16</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e3eaa-398f-7218-84eb-233bb816b5f0.html">2026050600002358</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td>蓄電池システム</td><td>日本</td><td>2026/5/21</td><td>2028/5/20</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e3eaa-926c-72fb-9762-c55c97236d46.html">2026050600002363</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td>蓄電池システム</td><td>日本</td><td>2026/5/21</td><td>2028/5/20</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e3eaa-e2dc-72c4-ad24-6337a2a8cd21.html">2026050600002374</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td>蓄電池システム</td><td>日本</td><td>2026/5/21</td><td>2028/5/20</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e3eab-2130-7313-95de-f5a60ec9a7a1.html">2026050600002382</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td>蓄電池システム</td><td>日本</td><td>2026/5/21</td><td>2028/5/20</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ef35d-b16b-728e-aefd-96579e09070f.html">2026070600002963</a></td><td>ダイヘン</td><td>蓄電池パッケージ</td><td>蓄電池システム</td><td>日本</td><td>2026/7/2</td><td>2028/7/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0198a64e-41c4-70a3-97f9-8e39499ee3e6.html">2025090600000638</a></td><td>パワーエックス</td><td>Mega Power Series</td><td>蓄電池システム</td><td>日本</td><td>2025/9/30</td><td>2027/9/29</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019de0e4-5185-7142-81e4-1cc3f1f63a32.html">2026050600002301</a></td><td>フィールドロジック</td><td>ダイヘンEMS用DataCube4</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/5/11</td><td>2028/5/10</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01995107-4740-7031-9c29-1fb83b1dca0e.html">2025100600000741</a></td><td>住友電気工業</td><td>レドックスフロー電池システム</td><td>蓄電池システム</td><td>日本</td><td>2025/10/2</td><td>2027/10/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d65d8-cf4d-7294-b137-39365eb5e701.html">2026050600002248</a></td><td>住友電気工業</td><td>レドックスフロー電池システム</td><td>蓄電池システム</td><td>日本</td><td>2026/4/27</td><td>2028/4/26</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019902ed-5edd-7205-9d1e-6c4b47ec7be9.html">2025100600000764</a></td><td>富士電機</td><td>大規模蓄電池型パワーコンディショナ</td><td>PCS（蓄電・系統用）</td><td>日本</td><td>2025/10/2</td><td>2027/10/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01993cb8-be02-72cd-b3ba-49c5b2fb4e91.html">2025100600000778</a></td><td>富士電機</td><td>蓄電システムコントローラ(PMS)</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2025/10/2</td><td>2027/10/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01991256-14d1-7081-b963-f0dc6d380568.html">2025100600000710</a></td><td>富士電機</td><td>大規模蓄電池型パワーコンディショナ</td><td>PCS（蓄電・系統用）</td><td>日本</td><td>2025/10/2</td><td>2027/10/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01993d5f-3b04-73bc-8f18-e685a998a5c3.html">2025100600000817</a></td><td>日新電機</td><td>系統用蓄電池制御装置</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2025/10/6</td><td>2027/10/5</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0199273f-1c57-7265-b77b-bd11ceabaffe.html">2025100600000793</a></td><td>日新電機</td><td>蓄電池用PCS</td><td>PCS（蓄電・系統用）</td><td>日本</td><td>2025/10/6</td><td>2027/10/5</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01993b8e-4017-7157-adc5-be616fef14c2.html">2025100600000801</a></td><td>日本碍子</td><td>コンテナ型NAS電池用制御部</td><td>蓄電池システム</td><td>日本</td><td>2025/10/6</td><td>2027/10/5</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e3f4c-4a59-7308-ac6a-9fd0be1dbfbf.html">2026060600002596</a></td><td>日本蓄電池</td><td>EMS制御装置</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/6/2</td><td>2028/6/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a01856-364e-71d7-810c-b8db5dfeca9e.html">2026090600003492</a></td><td>日立アイイーシステム</td><td>蓄電池設備用EMSパッケージ</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/8/30</td><td>2028/8/29</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e38ff-6808-718e-84db-1ee2edf39fc9.html">2026060600002735</a></td><td>明電舎</td><td>蓄電システム用パワーコンディショナ</td><td>PCS（蓄電・系統用）</td><td>日本</td><td>2026/6/12</td><td>2028/6/11</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01997efc-0f09-71f3-9953-ecfecde59565.html">2025100600000965</a></td><td>本田技研工業</td><td>BESSコンテナ用BMS NeS</td><td>BMS</td><td>日本</td><td>2025/10/21</td><td>2027/10/20</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9a9-a40d-70a8-b750-4fea50166beb.html">2026070600002883</a></td><td>デルタ電子</td><td>蓄電所用パワーコンディショナー</td><td>PCS（蓄電・系統用）</td><td>台湾</td><td>2026/7/2</td><td>2028/7/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9ac-a8fa-7071-9823-3ebe0607baf3.html">2026070600002925</a></td><td>デルタ電子</td><td>デルタ蓄電システムソリューションCシリーズ</td><td>蓄電池システム</td><td>台湾</td><td>2026/7/2</td><td>2028/7/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019f3ba4-ddf3-7201-8cb3-3f7847218a6b.html">2026080600003249</a></td><td>新捷能資訊股份有限公司</td><td>MTE-BEMS</td><td>EMS／サイトコントローラー</td><td>台湾</td><td>2026/8/4</td><td>2028/8/3</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019f1ca2-384a-7301-a507-45ce2d39b57a.html">2026080600003230</a></td><td>明曜科技股份有限公司</td><td>標準20フィート蓄電システムコンテナ</td><td>蓄電池システム</td><td>台湾</td><td>2026/8/4</td><td>2028/8/3</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9f0-de16-73c1-a59b-134901d36a9e.html">2026070600002780</a></td><td>泓德能源科技股份有限公司</td><td>TAITEN 蓄電用 サイトコントローラー 30 シリーズ</td><td>EMS／サイトコントローラー</td><td>台湾</td><td>2026/6/25</td><td>2028/6/24</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9f2-e017-7116-ad3b-8dc482b6a130.html">2026070600002795</a></td><td>泓德能源科技股份有限公司</td><td>TAITEN パワーコンディショナ ***kW</td><td>PCS（蓄電・系統用）</td><td>台湾</td><td>2026/6/25</td><td>2028/6/24</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a03661-175e-707a-8f5f-a08bc12b32b1.html">2026090600003587</a></td><td>泓德能源科技股份有限公司</td><td>TAITEN エネルギーマネジメントシステム 30シリーズ</td><td>EMS／サイトコントローラー</td><td>台湾</td><td>2026/9/7</td><td>2028/9/6</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a06162-1759-7148-b315-4d17d5dbd915.html">2026090600003598</a></td><td>泓德能源科技股份有限公司</td><td>TAITEN バッテリーマネジメントシステム 30シリーズ</td><td>BMS</td><td>台湾</td><td>2026/9/9</td><td>2028/9/8</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d3c69-feff-716a-92f5-ad92f7d1d13c.html">2026040600002101</a></td><td>熙特爾新能源股份有限公司</td><td>GridLink エネルギーマネジメントシステム</td><td>EMS／サイトコントローラー</td><td>台湾</td><td>2026/4/12</td><td>2028/4/11</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d50e3-d583-72d6-bad0-e5cd673ec3de.html">2026040600002207</a></td><td>熙特爾新能源股份有限公司</td><td>SEETEL バッテリーマネジメントシステム</td><td>BMS</td><td>台湾</td><td>2026/4/21</td><td>2028/4/20</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019f2694-31be-7231-ac7b-3aa983fdc918.html">2026080600003263</a></td><td>長庚国際能源股份有限公司</td><td>Cold Electric BESSシリーズ</td><td>蓄電池システム</td><td>台湾</td><td>2026/8/4</td><td>2028/8/3</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a017e5-f992-7383-b112-3019df1a68f7.html">2026090600003484</a></td><td>H2 Inc</td><td>Vanadium Flow Battery</td><td>蓄電池システム</td><td>韓国</td><td>2026/8/30</td><td>2028/8/29</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019f58fb-6a8c-7379-9d4c-f871b1d08510.html">2026080600003201</a></td><td>LS ELECTRIC Co., Ltd</td><td>BESS用PCS</td><td>PCS（蓄電・系統用）</td><td>韓国</td><td>2026/7/23</td><td>2028/7/22</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0199bd04-61b0-7356-b5ed-aeb13ca290f8.html">2025100600000933</a></td><td>Samsung SDI co.,Ltd.</td><td>SBB 1.0</td><td>蓄電池システム</td><td>韓国</td><td>2025/10/17</td><td>2027/10/16</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a06588-dbfa-73a6-a90f-c234152e7d0b.html">2026090600003634</a></td><td>Samsung SDI co.,Ltd.</td><td>SBB 1.0, SBB 1.5K</td><td>蓄電池システム</td><td>韓国</td><td>2026/9/16</td><td>2028/9/15</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019b5446-82b5-7066-8353-189b69281122.html">2026020600001576</a></td><td>dots energy Co., Ltd</td><td>QUANTUM 2.0 (PMS)</td><td>EMS／サイトコントローラー</td><td>韓国</td><td>2026/2/6</td><td>2028/2/5</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a06527-6573-72da-9c0a-a1c268b54a49.html">2026100600003679</a></td><td>dots energy Co., Ltd</td><td>S-QUANTUM (EMS)</td><td>EMS／サイトコントローラー</td><td>韓国</td><td>2026/9/18</td><td>2028/9/17</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a0659f-547d-7088-ad99-b282544fc588.html">2026090600003579</a></td><td>暁星重工業</td><td>エネルギー貯蔵用 系統連系PCS</td><td>PCS（蓄電・系統用）</td><td>韓国</td><td>2026/9/18</td><td>2028/9/17</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0198cba2-ee9a-7096-828e-fd18bfceeeab.html">2025090600000590</a></td><td>SMA ソーラー テクノロジー AG</td><td>サニーセントラル、サニーセントラルストレージ</td><td>太陽光PCS／ハイブリッド</td><td>ドイツ</td><td>2025/9/29</td><td>2027/9/28</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019b0703-f253-7080-8e80-5ad3ddd4e7e2.html">2026010600001410</a></td><td>サフトジャパン</td><td>ESS-CUBETM</td><td>蓄電池システム</td><td>フランス</td><td>2026/1/5</td><td>2028/1/4</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ce115-b088-7230-ad30-846a4fbedf0b.html">2026030600001927</a></td><td>パワーエレクトロニクススペインSL</td><td>太陽光発電および蓄電インバータ / HEMKおよびPCSK</td><td>PCS（蓄電・系統用）</td><td>スペイン</td><td>2026/3/26</td><td>2028/3/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019b2ff1-a939-700f-b53e-8cafaa182831.html">2026020600001537</a></td><td>Canadian Solar SSES Japan</td><td>アイキューストレージ エネルギーマネジメントシステム</td><td>EMS／サイトコントローラー</td><td>カナダ</td><td>2026/1/29</td><td>2028/1/28</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0199ffec-cff0-7169-9909-b49dc5707e56.html">2025100600000979</a></td><td>Kraken Technologies Japan</td><td>Kraken SHV BESS制御システム</td><td>EMS／サイトコントローラー</td><td>英国</td><td>2025/10/31</td><td>2027/10/30</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01999d4d-1986-700c-a2bb-d18036de756c.html">2025100600000940</a></td><td>Tesla Japan</td><td>Tesla System Controller</td><td>EMS／サイトコントローラー</td><td>米国</td><td>2025/10/15</td><td>2027/10/14</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a17c2f-5c1b-70b8-8ddc-f3c152612a8e.html">2026110600003993</a></td><td>LehmanSoft Japan</td><td>LehmanSoft BESS Gateway</td><td>EMS／サイトコントローラー</td><td>確認できず</td><td>2026/11/10</td><td>2028/11/9</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01996f0a-4359-7065-9ec9-94f271318c5b.html">2025100600000911</a></td><td>NEXTES</td><td>水冷式蓄電池コンテナ</td><td>蓄電池システム</td><td>確認できず</td><td>2025/10/15</td><td>2027/10/14</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019de120-b03d-701e-affd-e88ce7cf1d7c.html">2026050600002325</a></td><td>NEXTES</td><td>キャビネット型水冷式蓄電池</td><td>蓄電池システム</td><td>確認できず</td><td>2026/5/11</td><td>2028/5/10</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a18660-490f-7051-b9cb-6b6dfb19e2ce.html">2026110600003932</a></td><td>RENON POWER</td><td>Smart Matrix B</td><td>蓄電池システム</td><td>確認できず</td><td>2026/11/5</td><td>2028/11/4</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a01860-491b-7347-ab4f-18f54616ecd4.html">2026090600003506</a></td><td>Recharge Power</td><td>RP-EMS-J</td><td>EMS／サイトコントローラー</td><td>確認できず</td><td>2026/8/30</td><td>2028/8/29</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>住宅用（61件）</h3>
+<div>
+<table>
+<caption>表4｜住宅用</caption>
+<thead><tr><th>登録番号</th><th>取得事業者</th><th>製品名称</th><th>種別</th><th>本社国</th><th>取得日</th><th>満了日</th></tr></thead>
+<tbody>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e4eb1-4470-721c-931a-3ead63716075.html">2026060600002517</a></td><td>LIXIL</td><td>電力計測制御ユニット YLE-PCM6TX</td><td>計測制御ユニット</td><td>日本</td><td>2026/6/5</td><td>2028/6/4</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0198f4a6-0504-71a0-8204-4fd75badcf86.html">2025101600000697</a></td><td>Nature</td><td>Nature Remo E2 / Nature Remo E2 lite</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2025/10/2</td><td>2027/10/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0198f4a5-a300-7380-a9cb-919376691de0.html">2025101600000681</a></td><td>Nature</td><td>Nature Remo E / Nature Remo E lite</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2025/10/2</td><td>2027/10/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01962291-6202-70b4-a49a-6f848c6a3486.html">2025051600000193</a></td><td>Shizen Connect</td><td>Shizen Box 2</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2025/5/7</td><td>2027/5/6</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019cf57e-9e8a-71c3-88cc-fe07d644db56.html">2026040600002076</a></td><td>エリーパワー</td><td>POWER iE Connect リチウムイオン蓄電池ユニット</td><td>蓄電池システム</td><td>日本</td><td>2026/4/9</td><td>2028/4/8</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ce48a-ccba-72c4-802f-a259a5d529dc.html">2026040600002068</a></td><td>エリーパワー</td><td>POWER iE Connect(リモコン)</td><td>蓄電池システム</td><td>日本</td><td>2026/4/9</td><td>2028/4/8</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a13372-ea9a-72d5-8dba-6dd324218c95.html">2026100600003894</a></td><td>エリーパワー</td><td>POWER iE Connect リチウムイオン蓄電池ユニット</td><td>蓄電池システム</td><td>日本</td><td>2026/10/27</td><td>2028/10/26</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019b29ea-cc9c-731f-911f-8bc14be17753.html">2026010600001503</a></td><td>オムロン ソーシアルソリューションズ</td><td>マルチ蓄電システム用ゲートウェイ KP-GWBP-A</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/1/29</td><td>2028/1/28</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019bd92f-1023-7354-8bae-5479d343ee48.html">2026020600001592</a></td><td>オムロン ソーシアルソリューションズ</td><td>マルチV2Xシステム用ゲートウェイ KP-GWEP-A</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/2/17</td><td>2028/2/16</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ce47e-5012-72d8-aaad-67adc82f8ecb.html">2026030600001942</a></td><td>オムロン ソーシアルソリューションズ</td><td>トリプル蓄電システム(トリプル蓄電システム用リモコン) KPTP-A(KP-RC1T-R)</td><td>蓄電池システム</td><td>日本</td><td>2026/3/26</td><td>2028/3/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e71b9-bae1-70cb-b520-c171de6a7a2a.html">2026070600002871</a></td><td>オムロン ソーシアルソリューションズ</td><td>蓄電システム KPBPシリーズ</td><td>蓄電池システム</td><td>日本</td><td>2026/6/25</td><td>2028/6/24</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a01898-6f0c-7313-a2fc-935b98b64c7a.html">2026090600003533</a></td><td>サニックスホールディングス</td><td>電力計測制御ユニット SPW280-SN</td><td>計測制御ユニット</td><td>日本</td><td>2026/9/2</td><td>2028/9/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019b48cf-4185-7127-af78-a1c21cdd129d.html">2026031600001653</a></td><td>シャープ</td><td>クラウド連携エネルギーコントローラ</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/3/4</td><td>2028/3/3</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019c7407-d68d-706f-81e5-1cc07a8df106.html">2026031600001791</a></td><td>シャープ</td><td>マルチエネルギーモニタ</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/3/12</td><td>2028/3/11</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d03c7-8c0c-71cc-a1bb-c511d8588dcc.html">2026040600002084</a></td><td>シャープ</td><td>電力計測制御ユニット</td><td>計測制御ユニット</td><td>日本</td><td>2026/4/9</td><td>2028/4/8</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9a8-eced-73ca-9bf2-cb92ab82d5e3.html">2026070600002772</a></td><td>スマートソーラー</td><td>スマート蓄電システム‐II(スマートアダプター)</td><td>蓄電池システム</td><td>日本</td><td>2026/6/25</td><td>2028/6/24</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d2407-42f5-7282-be6a-06cdaba9eb4f.html">2026050600002273</a></td><td>ソーラーフロンティア</td><td>電力計測制御ユニット</td><td>計測制御ユニット</td><td>日本</td><td>2026/4/30</td><td>2028/4/29</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e714c-c0f7-701d-b2b4-d03c03007e60.html">2026060600002694</a></td><td>ダイヤゼブラ電機</td><td>ハイブリッド蓄電システム EIBS No.8</td><td>蓄電池システム</td><td>日本</td><td>2026/6/8</td><td>2028/6/7</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1ee-3f34-704a-9061-198fafb4984b.html">2026030600001748</a></td><td>ニチコン</td><td>発展型太陽光パワーコンディショナESS-E1シリーズ</td><td>太陽光PCS／ハイブリッド</td><td>日本</td><td>2026/3/12</td><td>2028/3/11</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1ec-22fa-7085-96ca-4147658e8fb3.html">2026030600001736</a></td><td>ニチコン</td><td>トライブリッド蓄電システムES-T3シリーズ用リモコン</td><td>蓄電池システム</td><td>日本</td><td>2026/3/12</td><td>2028/3/11</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1e8-d491-723f-8e1a-7a50a2a60adb.html">2026030600001720</a></td><td>ニチコン</td><td>単機能蓄電システムESS-U5シリーズ</td><td>蓄電池システム</td><td>日本</td><td>2026/3/12</td><td>2028/3/11</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1e6-eb4b-7201-b128-6a5d0e127930.html">2026030600001712</a></td><td>ニチコン</td><td>単機能蓄電システムESS-U4シリーズ用リモコン</td><td>蓄電池システム</td><td>日本</td><td>2026/3/12</td><td>2028/3/11</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1e0-19b2-70d3-ba29-204989583036.html">2026030600001697</a></td><td>ニチコン</td><td>トライブリッド蓄電システム用リモコン</td><td>蓄電池システム</td><td>日本</td><td>2026/3/12</td><td>2028/3/11</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d2312-6817-7280-8c3b-fe4c7d956270.html">2026040600002125</a></td><td>ネクストエナジー・アンド・リソース</td><td>電力計測制御ユニット</td><td>計測制御ユニット</td><td>日本</td><td>2026/4/12</td><td>2028/4/11</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019a0b3a-7484-7216-a52a-b28a20cc23b3.html">2025120600001173</a></td><td>パナソニック エレクトリックワークス</td><td>電力計測制御ユニット</td><td>計測制御ユニット</td><td>日本</td><td>2025/11/28</td><td>2027/11/27</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019b1055-ca83-730c-a212-93274bd303e4.html">2026010900001476</a></td><td>パナソニック エレクトリックワークス</td><td>AiSEG3</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/1/8</td><td>2028/1/7</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ce117-2a50-73b3-bb11-a2857fd972d3.html">2026030600001868</a></td><td>パナソニック エレクトリックワークス</td><td>V2H蓄電システムeneplat 2024年度モデル(ネットリモコン)</td><td>蓄電池システム</td><td>日本</td><td>2026/3/23</td><td>2028/3/22</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ce116-9e5e-71fe-b187-d23de9ce4185.html">2026030600001821</a></td><td>パナソニック エレクトリックワークス</td><td>創蓄連携システムT(ネットリモコン)</td><td>蓄電池システム</td><td>日本</td><td>2026/3/23</td><td>2028/3/22</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ce47a-4eaf-71cc-93df-7372bf954ac8.html">2026030600001884</a></td><td>パナソニック エレクトリックワークス</td><td>創蓄連携システムS+(ネットリモコン)</td><td>蓄電池システム</td><td>日本</td><td>2026/3/23</td><td>2028/3/22</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ce48e-1032-7249-b971-d0e92a7db017.html">2026030600001892</a></td><td>パナソニック エレクトリックワークス</td><td>V2H蓄電システムeneplat 2022年度モデル(ネットリモコン)</td><td>蓄電池システム</td><td>日本</td><td>2026/3/23</td><td>2028/3/22</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d18f8-4d89-73d7-a012-72265b97c26c.html">2026030600001859</a></td><td>京セラ</td><td>Enerezza</td><td>蓄電池システム</td><td>日本</td><td>2026/3/27</td><td>2028/3/26</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d18b4-31bf-70d5-84be-bf540d72ba7f.html">2026030600001845</a></td><td>京セラ</td><td>Enerezza PlusII</td><td>蓄電池システム</td><td>日本</td><td>2026/3/27</td><td>2028/3/26</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d03d2-7506-7082-87dc-c7a9d3fa1cfc.html">2026030600001837</a></td><td>京セラ</td><td>Enerezza Plus</td><td>蓄電池システム</td><td>日本</td><td>2026/3/27</td><td>2028/3/26</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a01886-b4f1-704e-ad87-625721618978.html">2026090600003459</a></td><td>京セラ</td><td>リチウムイオン蓄電システム EGS-LM0322G(リモコン)</td><td>蓄電池システム</td><td>日本</td><td>2026/8/27</td><td>2028/8/26</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d27c3-7bfb-712a-a03a-ab7fe5389caf.html">2026040600002092</a></td><td>伊藤忠商事</td><td>マルチ蓄電システム用ゲートウェイ ITC-SSGW</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/4/9</td><td>2028/4/8</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a065a0-d84d-704c-958d-7f24103d97b3.html">2026100600003826</a></td><td>伊藤忠商事</td><td>蓄電システムSmart Star</td><td>蓄電池システム</td><td>日本</td><td>2026/10/17</td><td>2028/10/16</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e3db1-afa3-7299-a811-0e0f8b343a78.html">2026070600002860</a></td><td>住友電気工業</td><td>sEMSA-Home、sEMSA-Lite</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/6/25</td><td>2028/6/24</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a0612c-d160-71d6-86ad-5354312a077a.html">2026099900003626</a></td><td>大崎電気工業</td><td>ホームゲートウェイ</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/9/16</td><td>2028/9/15</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1e4-1ced-70f9-9afd-0b9d83d66095.html">2026030600001704</a></td><td>日本産業</td><td>系統連系型蓄電システムESS-E2シリーズ用リモコン</td><td>蓄電池システム</td><td>日本</td><td>2026/4/9</td><td>2028/4/8</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e71bb-1d90-732b-b187-15f1d61bbc1c.html">2026060600002708</a></td><td>日本産業</td><td>オリジナル太陽光&amp;蓄電システム Type D</td><td>蓄電池システム</td><td>日本</td><td>2026/6/8</td><td>2028/6/7</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9b1-04b9-7273-9fbf-dbda8ef26e2f.html">2026070600002958</a></td><td>村田製作所</td><td>efinnos</td><td>蓄電池システム</td><td>日本</td><td>2026/7/2</td><td>2028/7/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019f92fe-8088-7385-9d90-af60b8f70bbc.html">2026080900003295</a></td><td>河村電器産業</td><td>HEMSコントローラークラス対応enステーション EcoEye</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/8/6</td><td>2028/8/5</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019b29e7-7aaf-723a-b5c2-03cdfc73d20d.html">2026010600001516</a></td><td>長州産業</td><td>マルチ蓄電システム用ゲートウェイ RC-307A</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/1/29</td><td>2028/1/28</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019bd9c8-59bb-7003-8ee6-838a0e1f4c95.html">2026020600001602</a></td><td>長州産業</td><td>マルチV2Xシステム用ゲートウェイ RC-309A</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/2/17</td><td>2028/2/16</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ce119-e0eb-7394-a27c-4b78404445a1.html">2026030600001934</a></td><td>長州産業</td><td>電力計測制御ユニット</td><td>計測制御ユニット</td><td>日本</td><td>2026/3/26</td><td>2028/3/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ce482-0b89-735c-9434-09b1c6909bfe.html">2026030600001950</a></td><td>長州産業</td><td>スマートPVエボ(ネットリモコン)</td><td>蓄電池システム</td><td>日本</td><td>2026/3/26</td><td>2028/3/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ce486-8baf-7059-acfb-5030f8e3b9c4.html">2026030600001969</a></td><td>長州産業</td><td>スマートPVエボ(ネットリモコン)</td><td>蓄電池システム</td><td>日本</td><td>2026/3/26</td><td>2028/3/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ce491-4aef-7283-a8ff-823f63e600b0.html">2026030600001975</a></td><td>長州産業</td><td>スマートPVエボ(ネットリモコン)</td><td>蓄電池システム</td><td>日本</td><td>2026/3/26</td><td>2028/3/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e71ca-5a51-7353-abe4-8fbe84464247.html">2026060600002719</a></td><td>長州産業</td><td>スマートPVプラス</td><td>蓄電池システム</td><td>日本</td><td>2026/6/8</td><td>2028/6/7</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a065a0-16af-7285-8d2e-8ed418cfa335.html">2026100600003818</a></td><td>長州産業</td><td>スマートPVマルチ</td><td>蓄電池システム</td><td>日本</td><td>2026/10/17</td><td>2028/10/16</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019cc220-adf7-7308-ae30-0bb240551e00.html">2026030600001773</a></td><td>長府工産</td><td>トライブリッド蓄電システ厶 ESS-T5CK / T6CKシリーズ用リモコン</td><td>蓄電池システム</td><td>日本</td><td>2026/3/13</td><td>2028/3/12</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1f5-dfcb-70b6-b1bd-6ea59f0bdccf.html">2026030600001761</a></td><td>長府工産</td><td>トライブリッド蓄電システムES-T3CKシリーズ用リモコン</td><td>蓄電池システム</td><td>日本</td><td>2026/3/13</td><td>2028/3/12</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01963223-492a-72b1-9ef7-4336309d7f95.html">2025050900000219</a></td><td>NextDrive</td><td>EDGE エネルギーマネジメントコントローラー</td><td>遠隔監視／GW／HEMS</td><td>台湾</td><td>2025/5/7</td><td>2027/5/6</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0197528b-4494-732a-a17c-714d9053543e.html">2025070900000424</a></td><td>NextDrive</td><td>Cube エネルギーマネジメントコントローラー</td><td>遠隔監視／GW／HEMS</td><td>台湾</td><td>2025/7/10</td><td>2027/7/9</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019cc1f0-a359-713b-bc2c-4e85563c320c.html">2026030600001757</a></td><td>ハンファジャパン</td><td>Q.READYパワーコンディショナ</td><td>太陽光PCS／ハイブリッド</td><td>韓国</td><td>2026/3/18</td><td>2028/3/17</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d240f-15cb-72a6-8f7e-ea34c868bff3.html">2026040600002130</a></td><td>ハンファジャパン</td><td>電力計測制御ユニット HWJP-MUKA-5</td><td>計測制御ユニット</td><td>韓国</td><td>2026/4/12</td><td>2028/4/11</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e6352-8267-714d-a676-f45bd78d6f81.html">2026060600002525</a></td><td>Tesla Japan</td><td>Powerwall3</td><td>蓄電池システム</td><td>米国</td><td>2026/6/5</td><td>2028/6/4</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e6346-a766-710c-9d60-36e098d990c6.html">2026060600002652</a></td><td>カナディアン・ソーラー・ジャパン</td><td>電力計測制御ユニット CSPDUL</td><td>計測制御ユニット</td><td>カナダ</td><td>2026/6/8</td><td>2028/6/7</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019f92f0-0125-7156-9611-c8a23f1cd413.html">2026081600003302</a></td><td>カナディアン・ソーラー・ジャパン</td><td>電力計測制御ユニット CSI-EnerLink</td><td>計測制御ユニット</td><td>カナダ</td><td>2026/8/4</td><td>2028/8/3</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019fca9e-aaca-7280-8b13-4fb34e82299f.html">2026080600003351</a></td><td>サンテックパワージャパン</td><td>パワーコンディショナ用電力計測制御ユニット</td><td>計測制御ユニット</td><td>中国</td><td>2026/8/14</td><td>2028/8/13</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e66d3-689f-707c-9705-6f6c5d57d074.html">2026070600002847</a></td><td>Sky Electric Japan</td><td>住宅用蓄電池搭載型ハイブリッドパワコン</td><td>太陽光PCS／ハイブリッド</td><td>確認できず</td><td>2026/7/1</td><td>2028/6/30</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>産業用・判別できないもの（63件）</h3>
+<div>
+<table>
+<caption>表5｜産業用・判別できないもの</caption>
+<thead><tr><th>登録番号</th><th>取得事業者</th><th>製品名称</th><th>種別</th><th>本社国</th><th>取得日</th><th>満了日</th></tr></thead>
+<tbody>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a0612c-39b3-73c9-8a9e-6e56a0763ea2.html">2026090600003642</a></td><td>AZAPA</td><td>AZP-BMS</td><td>BMS</td><td>日本</td><td>2026/9/16</td><td>2028/9/15</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0195fac4-5d98-7311-8402-01e114a84add.html">2025059900000319</a></td><td>GSユアサ</td><td>Acroware-NA2</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2025/5/28</td><td>2027/5/27</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0195fac6-be20-72c4-807c-d4bdc1223ab0.html">2025050100000325</a></td><td>GSユアサ</td><td>STARELINK ST</td><td>蓄電池システム</td><td>日本</td><td>2025/5/28</td><td>2027/5/27</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0195fac8-c075-7093-989c-11fa0d45de8a.html">2025050100000330</a></td><td>GSユアサ</td><td>STARELINKゲートウェイ</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2025/5/28</td><td>2027/5/27</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019853b9-0a3b-73f6-bfb9-b6ad6afec85b.html">2025090600000528</a></td><td>GSユアサ</td><td>GYES3 蓄電システム</td><td>蓄電池システム</td><td>日本</td><td>2025/9/8</td><td>2027/9/7</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019853b2-2ca9-71b2-b088-fc4b1035628f.html">2025090600000515</a></td><td>GSユアサ</td><td>GYES2 蓄電システム</td><td>蓄電池システム</td><td>日本</td><td>2025/9/8</td><td>2027/9/7</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01993cf6-8ac2-735d-857c-76e5bd291287.html">2025100600000882</a></td><td>GSユアサ</td><td>GYES4 蓄電システム</td><td>蓄電池システム</td><td>日本</td><td>2025/10/17</td><td>2027/10/16</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019f92f2-6d05-7272-adce-b81a22a42256.html">2026090600003468</a></td><td>GSユアサ</td><td>GYES5 蓄電システム</td><td>蓄電池システム</td><td>日本</td><td>2026/8/27</td><td>2028/8/26</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a13351-396b-700d-b2d8-9f58df4547ca.html">2026100600003883</a></td><td>GSユアサ</td><td>Acroware-NA2搭載太陽光パワコン及び出力制御ユニット</td><td>太陽光PCS／ハイブリッド</td><td>日本</td><td>2026/10/27</td><td>2028/10/26</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e4d2c-65e0-7188-b7e5-cc9be7e6a0c4.html">2026069900002498</a></td><td>Greenphard Energy</td><td>Intelligent IoT DRシステム</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/6/2</td><td>2028/6/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a06166-3a41-7030-9c21-8f143b2bbde4.html">2026090600003522</a></td><td>NEXT</td><td>NEXT-EMS ローカルゲートウェイ</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/9/16</td><td>2028/9/15</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01961e45-7a3e-7081-8143-ec44ed8c209e.html">2025051600000186</a></td><td>Shizen Connect</td><td>Shizen Box 1 Industrial</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2025/5/7</td><td>2027/5/6</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a0612a-f3b2-7034-af9e-faee0719f0a7.html">2026090600003603</a></td><td>YAMABISHI</td><td>公共・産業用 自家消費向け オールインワン蓄電システム YRWシリーズ PEモデル</td><td>蓄電池システム</td><td>日本</td><td>2026/9/9</td><td>2028/9/8</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e29f4-a63b-70b1-bee5-85dc60b58eb2.html">2026060900002748</a></td><td>Yanekara</td><td>Yanekara Hub</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/6/15</td><td>2028/6/14</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ec9c4-27b3-70b4-829e-f02b142a8ae8.html">2026070600002982</a></td><td>アイ・グリッド・ソリューションズ</td><td>R.E.A.L.Box</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/7/2</td><td>2028/7/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019c6e7d-fd70-71a7-85e3-2b6765ca6047.html">2026041600002144</a></td><td>エナジー・ソリューションズ</td><td>ESI-EMS-C</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/3/27</td><td>2028/3/26</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019bd9d9-638a-73e9-bae8-f391e6be0112.html">2026020600001615</a></td><td>オムロン ソーシアルソリューションズ</td><td>エナジーインテリジェントゲートウェイ 計測ユニット KP-GWPV-Bシリーズ</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/2/17</td><td>2028/2/16</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019bd9d0-85d1-7035-8de1-e3f034c47cbf.html">2026030600001785</a></td><td>オムロン ソーシアルソリューションズ</td><td>太陽光発電用ゲートウェイ KP-GWPV-A</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/3/12</td><td>2028/3/11</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019dccf6-2cc1-7347-92ad-32b88ce2b7ae.html">2026050600002349</a></td><td>オムロン ソーシアルソリューションズ</td><td>三相システム用ゲートウェイ KP-GWPT-A</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/5/18</td><td>2028/5/17</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e42d1-c773-70f7-916b-3faa3f65919f.html">2026060600002487</a></td><td>オルテナジー</td><td>エナジーHUB</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/6/2</td><td>2028/6/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019f2697-348c-738b-aeb2-c945f2552392.html">2026080600003274</a></td><td>オーナンバ</td><td>PVU-Finder Logger</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/8/4</td><td>2028/8/3</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a17bdf-df51-7348-a95d-c95a71cbe0d3.html">2026110600003978</a></td><td>オーナンバ</td><td>PVU-Finder SC Logger</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/11/6</td><td>2028/11/5</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019fcb28-0b4e-71db-b8d7-00b21563f306.html">2026090600003565</a></td><td>クールデザイン</td><td>CD-EMSGW-MXシリーズ</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/9/2</td><td>2028/9/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019abee5-f6ea-70e2-9af5-5c6234504504.html">2025120100001391</a></td><td>シングナリオ</td><td>PHOTON データロガー</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2025/12/22</td><td>2027/12/21</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01968457-e767-7085-b81e-307b5b5816b0.html">2025059900000278</a></td><td>ジェイシティ</td><td>HELIOS-B4-Core</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2025/5/26</td><td>2027/5/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01968458-6b7d-72ba-92fd-0129e3e9d014.html">2025059900000286</a></td><td>ジェイシティ</td><td>HELIOS-B4-T6</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2025/5/26</td><td>2027/5/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01968458-a847-7114-b6af-4b245b010601.html">2025059900000293</a></td><td>ジェイシティ</td><td>HELIOS-B4-F02-Lite</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2025/5/26</td><td>2027/5/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01968458-e379-738b-9db3-e95729012cfa.html">2025059900000308</a></td><td>ジェイシティ</td><td>HELIOS-B4-F02</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2025/5/26</td><td>2027/5/25</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019dbf42-69ac-73be-b480-2fd5b9b1aebd.html">2026050600002299</a></td><td>ジェイシティ</td><td>HELIOS-B4-F02-UltraLite</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/4/30</td><td>2028/4/29</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019de0d4-74f4-7024-a474-a59dd0ed4c6f.html">2026050600002330</a></td><td>スマートソーラー</td><td>スマートAI</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/5/18</td><td>2028/5/17</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e2abb-701b-703f-99e1-a015ab3f4a77.html">2026060600002465</a></td><td>スマートパワーシステム</td><td>EMSS</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/6/2</td><td>2028/6/1</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019a04b8-2cfe-7030-86f3-78fe794c71cc.html">2025110600001106</a></td><td>デジタルグリッド</td><td>digitalgrid-gateway-device</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2025/11/21</td><td>2027/11/20</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019f2695-dbf4-7364-b84b-b21e1df5dce1.html">2026070600003023</a></td><td>ニチコン</td><td>公共・産業用蓄電システム B1シリーズパワーコンディショナ</td><td>PCS（蓄電・系統用）</td><td>日本</td><td>2026/7/9</td><td>2028/7/8</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019ce117-be07-73bc-bfb3-f72a9016e249.html">2026030600001876</a></td><td>パナソニック エレクトリックワークス</td><td>産業用蓄電システム単相連系タイプV2X対応 2023年度モデル(ネットリモコン)</td><td>蓄電池システム</td><td>日本</td><td>2026/3/23</td><td>2028/3/22</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a0612b-9abe-7143-a1cf-5fd47803ce2e.html">2026099900003618</a></td><td>ビーシーシー</td><td>受発電収集サーバ</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/9/16</td><td>2028/9/15</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d5108-ea32-723d-853d-8800ebfd3183.html">2026040600002182</a></td><td>フィールドロジック</td><td>DataCube4</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/4/15</td><td>2028/4/14</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a065a1-b380-717a-a297-fb1249064bfa.html">2026100600003687</a></td><td>プライム・スター</td><td>EMS制御装置</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/9/18</td><td>2028/9/17</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019a04ab-d1b0-7002-b689-54c111e76839.html">2025119900001050</a></td><td>ラプラス・システム</td><td>Solar Link ZERO</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2025/11/7</td><td>2027/11/6</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019efc9c-cf3f-721f-b85a-5ae899463fb4.html">2026070600003067</a></td><td>リミックスポイント</td><td>EMS制御装置</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/7/8</td><td>2028/7/7</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_0199cc6b-fcb8-7044-a0ee-e974ff99fee8.html">2025100600000906</a></td><td>三菱電機</td><td>BLEnDer RE</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2025/10/17</td><td>2027/10/16</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01995ae5-1509-71e2-9ee5-dba3479423d5.html">2025100600000954</a></td><td>住友電気工業</td><td>sEMSA-FactoryLite</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2025/10/31</td><td>2027/10/30</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d03ee-5dd9-70ab-885a-bd599e035e42.html">2026040600002117</a></td><td>住友電気工業</td><td>蓄電池システム POWER DEPORR</td><td>蓄電池システム</td><td>日本</td><td>2026/4/12</td><td>2028/4/11</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d28d5-f15e-7315-ac76-61c9e1db9983.html">2026040600002158</a></td><td>住友電気工業</td><td>蓄電池システム POWER DEPORH</td><td>蓄電池システム</td><td>日本</td><td>2026/4/21</td><td>2028/4/20</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d28df-3727-70e5-bfc2-7455514cbbff.html">2026040600002163</a></td><td>住友電気工業</td><td>蓄電池システム POWER DEPORV</td><td>蓄電池システム</td><td>日本</td><td>2026/4/21</td><td>2028/4/20</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019d28e8-6236-73ab-b7e3-264cafc9254d.html">2026040600002174</a></td><td>住友電気工業</td><td>蓄電池システム POWER DEPORIV</td><td>蓄電池システム</td><td>日本</td><td>2026/4/21</td><td>2028/4/20</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e715d-4634-7146-80cd-cfafabc4b830.html">2026070600002818</a></td><td>古河電池</td><td>FBESS</td><td>蓄電池システム</td><td>日本</td><td>2026/6/25</td><td>2028/6/24</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a0ae6f-6955-7088-b573-1947d6db2b1f.html">2026100600003795</a></td><td>富士電機</td><td>太陽光用パワーコンディショナ</td><td>太陽光PCS／ハイブリッド</td><td>日本</td><td>2026/10/13</td><td>2028/10/12</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019b4ddb-728c-719b-a71d-60fc5791e51b.html">2026020600001568</a></td><td>日新システムズ</td><td>需給調整市場対応GW</td><td>遠隔監視／GW／HEMS</td><td>日本</td><td>2026/2/3</td><td>2028/2/2</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e4e54-e031-7185-9e98-2a602d703c99.html">2026060600002582</a></td><td>日立パワーソリューションズ</td><td>IGCS</td><td>EMS／サイトコントローラー</td><td>日本</td><td>2026/6/5</td><td>2028/6/4</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019fcaa7-07ed-73c0-8e1c-fd2aa0f57bbf.html">2026080600003405</a></td><td>Delta Electronics, Inc</td><td>BSPS-MB0100CT0</td><td>蓄電池システム</td><td>台湾</td><td>2026/8/21</td><td>2028/8/20</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a18a16-8d03-7269-84bf-7290183106fb.html">2026110600003929</a></td><td>NextDrive</td><td>EMS機能搭載型出力制御機器 EDGE-JPC</td><td>計測制御ユニット</td><td>台湾</td><td>2026/11/5</td><td>2028/11/4</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019e3915-6aa1-73fe-bc04-2ef1a3c97986.html">2026070600002805</a></td><td>デルタ電子</td><td>データコレクター</td><td>遠隔監視／GW／HEMS</td><td>台湾</td><td>2026/6/25</td><td>2028/6/24</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a0adc0-f1be-7327-9d93-be2aca71b582.html">2026100600003767</a></td><td>竑瑞科技股份有限公司</td><td>GBG バッテリー管理システム</td><td>BMS</td><td>台湾</td><td>2026/10/5</td><td>2028/10/4</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a133c4-124d-7006-8ee5-1ecdd96e9a04.html">2026110600003964</a></td><td>コーウィン・エナジー</td><td>コーウィン・パワービュー</td><td>EMS／サイトコントローラー</td><td>韓国</td><td>2026/11/5</td><td>2028/11/4</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a0adb4-96be-7104-a6a8-f14dbf510cd1.html">2026100600003772</a></td><td>SMA ソーラー テクノロジー AG</td><td>サニーハイパワー、サニーハイパワーストレージ、サニートライパワーストレージ</td><td>太陽光PCS／ハイブリッド</td><td>ドイツ</td><td>2026/10/7</td><td>2028/10/6</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a0612a-0c97-71a6-b811-8d841a311bbb.html">2026101600003745</a></td><td>エネルエックス・ジャパン</td><td>Enel X Site Server (別称: EnelX-S2C)</td><td>EMS／サイトコントローラー</td><td>イタリア</td><td>2026/10/1</td><td>2028/9/30</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019a0ea3-8f1f-7020-ba46-531b4a726b0b.html">2025110600001111</a></td><td>Kraken Technologies Japan</td><td>Kraken 制御システム</td><td>EMS／サイトコントローラー</td><td>英国</td><td>2025/11/21</td><td>2027/11/20</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a17baf-b30e-73a6-830a-17119d324383.html">2026110600003986</a></td><td>バッテリー管理技術</td><td>バッテリーバンク管理ユニット</td><td>BMS</td><td>米国</td><td>2026/11/10</td><td>2028/11/9</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019f8792-045d-72cf-93fa-da4eeea92de8.html">2026080600003258</a></td><td>GBP</td><td>GBP-EMS-001 EMS制御装置</td><td>EMS／サイトコントローラー</td><td>確認できず</td><td>2026/8/4</td><td>2028/8/3</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_019fcb36-5074-726c-aa43-04eb64fa7ebf.html">2026080600003367</a></td><td>GBP</td><td>GBP60Mモジュール式PCS</td><td>PCS（蓄電・系統用）</td><td>確認できず</td><td>2026/8/14</td><td>2028/8/13</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a01890-2f29-7372-8068-607118fd4d3e.html">2026090600003476</a></td><td>GBP</td><td>GBP-PCS-20-H/B-XXX-T パワーコンディショナーシステム</td><td>PCS（蓄電・系統用）</td><td>確認できず</td><td>2026/8/30</td><td>2028/8/29</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a18661-d1af-733e-b45d-882037d2926a.html">2026110600003955</a></td><td>RENON POWER</td><td>MPack 261A</td><td>蓄電池システム</td><td>確認できず</td><td>2026/11/5</td><td>2028/11/4</td></tr>
+<tr><td><a href="https://jc-star.ipa.go.jp/conformance/CNF_01a18661-2b73-72e9-90ae-c4fa7143d265.html">2026110600003941</a></td><td>RENON POWER</td><td>ECube 215B</td><td>蓄電池システム</td><td>確認できず</td><td>2026/11/5</td><td>2028/11/4</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>黄色の行＝満了日が2027年6月末まで。入れなかった境界の例: エヌエスティ・グローバリスト SpreadRouter-R、ニシム電子 TAMERBA電力管理装置、エコモット クラウドロガー2件、日新システムズ 屋外型IoTゲートウェイ2件、日立製作所 BCT制御ゲートウェイ、AZAPA NexusCore-TBOX、渡辺電機工業 Econo・DataChef、日新電機 FACTMATE-s1EX、オムロン 気象IoTセンサー、Moxa MGate MB3000-G2 ほか。</p>
+
+<h2>この表の限界</h2>
+<p>IPAの一覧には、発行済みのラベルだけが載ります。申請中・却下・未申請は、外からは区別できません。「載っていない」は、「その時点でラベルが無い」という意味までです。</p>
+<p>件数は、IPAのExcel版（2026年11月12日更新）を登録番号で数えたものです。一覧は月に何度か更新されます。最新は <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/">IPAのページ</a> で確かめてください。</p>
+<h2>この連載の読み方</h2>
+<div>
+<a href="https://www.scix.co.jp/column-jcstar-2027"><div>COLUMN 52</div><div>入口編</div><div>395件はすべて★1。中国の大手16社はゼロ。まず数字を見る入口</div></a>
+<div><div>COLUMN 52-2</div><div>一覧編</div><div>188件を登録番号つきで</div><div>いま読んでいる記事</div></div>
+<a href="https://www.scix.co.jp/column-jcstar-2027-existing"><div>COLUMN 52-3</div><div>既設編</div><div>起点は契約申込みの受付日。併設は増やす側だけ、交換は原則★1</div></a>
+<a href="https://www.scix.co.jp/column-jcstar-2027-nationality"><div>COLUMN 52-4</div><div>国籍編</div><div>国籍で切る国と、ラベルで切る国。相互承認は抜け道にならない</div></a>
+</div>
+<div>次は <a href="https://www.scix.co.jp/column-jcstar-2027-existing">52-3 既設編</a>。いまある太陽光に蓄電池を足すとき、どの機器に★1が要るかを1枚の図にしました。</div>
+<h2>よくある質問</h2>
+<div>
+<p>JC-STAR★1を取ったPCSには、どのメーカーのものがありますか？</p>
+<p>2026年11月12日版のIPAの一覧で、蓄電・系統用のPCSは14件です。日本7（富士電機2・日新電機・TMEIC・明電舎・ニチコン・日立エナジー）、台湾2（泓德能源・デルタ電子）、韓国2（暁星重工業・LS ELECTRIC）、欧州1（Power Electronics）、本社国を確認できず2（GBP）。中国に本社があるメーカーのPCSは0件です。</p>
+</div>
+<div>
+<p>JC-STAR★1の有効期限は、いつ切れますか？</p>
+<p>有効期間は、ラベルの発行日から最大2年です。2025年5月に取った10件（GSユアサ3・ジェイシティ4・Shizen Connect 2・NextDrive 1）は、2027年5月6日〜27日に切れます。延長の手続きの細かい決まりは、IPAが「2026年に公表する予定」としており、11月15日の時点ではまだ出ていません。</p>
+</div>
+<div>
+<p>IPAの一覧に無いメーカーは、申請していないということですか？</p>
+<p>分かりません。一覧には発行済みのラベルだけが載り、申請中・却下・未申請は外から区別できません。「載っていない」は、その時点でラベルが発行されていない、という意味までです。</p>
+</div>
+<h2>参考にした一次資料と、関連する記事</h2>
+<div>
+<h3>JC-STARの一覧と手続き</h3><ul>
+<li><a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/">IPA「適合ラベル取得製品リスト」（2026年11月12日更新・Excel版）</a>。表の登録番号から、各製品の情報ページ（IPA）が開く</li>
+<li><a href="https://www.ipa.go.jp/security/jc-star/shinsei/index.html">IPA「申請手続き」</a>（有効期間は最大2年・手数料198,000円）｜<a href="https://www.ipa.go.jp/security/jc-star/shinsei/entyo-1-2/index.html">IPA「★１と★２の延長申請手続き」</a>（「2026年に公表する予定」）｜<a href="https://www.ipa.go.jp/security/jc-star/begoj9000000gg60-att/JC-STARsetumeikai_2.pdf">IPA JC-STAR説明会資料（2024年・PDF）</a>（延長は満了90日前から受付の予定、と書かれていた）｜<a href="https://www.ipa.go.jp/security/jc-star/index.html">IPA JC-STAR</a>（2026年7月31日の告知）</li>
+</ul>
+<h3>要件の文言</h3><ul>
+<li><a href="https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&amp;id=620340012&amp;Mode=0">e-Gov 意見公募「電力品質確保に係る系統連系技術要件ガイドライン」改定案（案件番号620340012、2026年10月）</a> 第2章第1節5（1）</li>
+</ul>
+<h3>関連する記事</h3><ul><li><a href="https://www.scix.co.jp/column-jcstar">JC-STARとは — ★1〜★4の違いと、★1の義務化はいつから（COLUMN 14）</a>／<a href="https://www.scix.co.jp/column-buyer-check">系統用蓄電所を買う前の技術チェック</a>／<a href="https://www.scix.co.jp/column-om">系統用蓄電所のO&amp;M — 止まったとき誰が直すのか</a></li></ul>
+</div>
+
+</div>
+<p>元の記事（図表つき）: <a href="https://www.scix.co.jp/column-jcstar-2027-list">https://www.scix.co.jp/column-jcstar-2027-list</a></p>]]></content:encoded>
+<category>税制・制度・規制 / JC-STARの線引き（一覧編）,系統用蓄電池,蓄電所</category>
+<dc:creator>中島 晋也</dc:creator>
+<dc:language>ja</dc:language>
+<media:thumbnail url="https://www.scix.co.jp/img/ogp-m.png" />
+<media:status>active</media:status>
+</item>
+<item>
+<title>既設の太陽光に蓄電池を足すとき、JC-STAR★1はどこまで要るか — 起点は契約申込みの受付日</title>
+<link>https://www.scix.co.jp/column-jcstar-2027-existing</link>
+<guid>https://www.scix.co.jp/column-jcstar-2027-existing</guid>
+<description><![CDATA[JC-STAR★1要件の既設設備への当たり方を、系統連系技術要件ガイドラインの改定案（2026年10月）と資源エネルギー庁のFAQで整理。さかのぼって適用しない。既設太陽光への蓄電池併設は増設する側の機器だけ。FIP転・卒FITは設備を変えなければ不要。交換は原則★1、過度な負担なら計画書で猶予。起点は契約申込みの受付日（特高・高圧2027年4月1日、低圧10月1日）。]]></description>
+<pubDate>Sun, 15 Nov 2026 09:00:00 +0900</pubDate>
+<content:encoded><![CDATA[<img src="https://www.scix.co.jp/img/ogp-m.png" alt="既設の太陽光に蓄電池を足すとき、JC-STAR★1はどこまで要るか — 起点は契約申込みの受付日" />
+<div><div>3行で言うと</div><ol><li>★1が要るかは、一般送配電事業者が契約申込みを受け付けた日で決まります。特別高圧・高圧は2027年4月1日、低圧は10月1日からです。</li><li>いまある設備には、さかのぼって当てません。いまある太陽光に蓄電池を足すなら、★1が要るのは足す側の機器だけです。</li><li>機器を替えるときは、替える機器が原則★1です。ほかの機器までまとめて替えることになる「過度な負担」のときだけ、計画書を出して猶予を受けられます。</li></ol></div>
+
+<p>「うちの太陽光は2019年に連系している。横に蓄電池を足したら、太陽光のPCSまで替えないといけないのか」。いまある太陽光に蓄電池を足す案件では、まずこの問いが出ます。</p>
+<p><a href="https://www.scix.co.jp/column-jcstar">COLUMN 14</a> を書いた2026年6月の時点では、この扱いは資料に書かれていませんでした。7月に資源エネルギー庁がFAQで答え、10月の改定案で条文になりました。この記事は、その線を1枚の図と1枚の表にまとめます。</p>
+
+<h2>起点は「契約申込みの受付日」</h2>
+<p>★1が要るかどうかは、一般送配電事業者が契約申込みを受け付けた日で決まります。特別高圧・高圧は2027年4月1日以降、低圧は2027年10月1日以降に受け付けた案件からです。</p>
+<p>「受付」は、申込みの書類に不備がなく、保証金が入金された時点です。接続検討を申し込んだ、回答を受け取った、というだけでは足りません。</p>
+<blockquote>接続検討申込みが受付されているだけでは従前の取扱いにはならず、検討結果を踏まえて契約申込みを行っていただき、その契約申込みが一般送配電事業者に受付されている場合、従前の取扱いとなります。資源エネルギー庁「よくあるご質問」A2</blockquote>
+<p>手元の案件が「契約申込みは出したが、保証金はこれから」なら、受付の日が2027年4月をまたぐかもしれません。まず日付を確かめてください。</p>
+<div><strong>まだ確定ではありません。</strong>改定案の意見公募は2026年10月6日〜11月6日でした（e-Gov 案件番号620340012）。一般送配電事業者10社の改定後の条文は、まだ出ていません。この記事は、改定案と資源エネルギー庁のFAQによっています。</div>
+
+<h2>この連載の言葉</h2>
+<p>この連載では、次の言葉を使います。4本とも同じ表です。</p>
+<div>
+<table>
+<caption>表0｜この連載の言葉（早見表）</caption>
+<thead><tr><th>言葉</th><th>意味</th></tr></thead>
+<tbody>
+<tr><td><b>JC-STAR</b></td><td>経済産業省が2025年3月に始めた、ネットにつながる機器（IoT機器）のセキュリティのラベル制度。IPA（情報処理推進機構）が運営する</td></tr>
+<tr><td><b>★1（星1つ）</b></td><td>いちばん下のレベル。初期パスワードのまま使わせない、不具合の連絡先がある、ソフトを直せる、といった最低限の決まりを、メーカー自身が確かめて申請する。第三者が評価するのは★3・★4</td></tr>
+<tr><td><b>PCS（パワーコンディショナ）</b></td><td>電池（直流）と電力網（交流）の間で、電気の形を変える機械。蓄電所の心臓にあたる</td></tr>
+<tr><td><b>BMS</b></td><td>電池の温度や電圧を見張る、電池の見張り役</td></tr>
+<tr><td><b>EMS</b></td><td>いつ充電し、いつ放電するかを決める司令塔</td></tr>
+<tr><td><b>遠隔監視・ゲートウェイ</b></td><td>発電所・蓄電所と、外のネットワークをつなぐ玄関口</td></tr>
+<tr><td><b>系統・系統連系</b></td><td>系統は、電力会社の送電線・配電線のこと。そこに発電所や蓄電所をつなぐことを系統連系という</td></tr>
+<tr><td><b>一般送配電事業者</b></td><td>大手電力会社の送配電の会社（東京電力パワーグリッドなど、全国に10社）</td></tr>
+<tr><td><b>接続検討</b></td><td>つなげるか、工事にいくらかかるかを、一般送配電事業者に調べてもらう手続き。契約申込みの前の段階</td></tr>
+<tr><td><b>契約申込み</b></td><td>接続検討の回答のあとに出す、正式な申込み。書類に不備がなく、保証金が入金されて、はじめて「受付」になる</td></tr>
+<tr><td><b>特別高圧・高圧・低圧</b></td><td>つなぐ電圧の区分。高圧はおおむね2,000kW未満、低圧は50kW未満。特別高圧はそれより大きい</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>図で見る</h2>
+<p>図1は、どの案件のどの機器に★1が要るかの流れです。上から順にたどってください。</p>
+
+<h2>さかのぼっては当てない</h2>
+<p>改定案は、受付が済んでいる案件には「遡って適用しない」と書いています。設備がまだ建っていなくても同じです。</p>
+<blockquote>設備は未設置であっても発電等設備に関する契約申込みの受付が完了しているものについては、本要件は遡って適用しない。系統連系技術要件ガイドライン 改定案 第2章第1節5（1）（2026年10月）</blockquote>
+<p>2019年に連系した太陽光は、そのまま使うなら何も変わりません。</p>
+<p>ただし、受付が済んだ案件でも、2027年4月以降にPCSなどを別の機器に変えるときは、設備の変更の申込みが要ります。そのときの要件が当たるので、変える機器には★1が要ります（FAQ A3）。</p>
+
+<h2>足すなら、足す側だけ</h2>
+<p>いまある太陽光に蓄電池を足すとき、★1が要るのは足す蓄電池側の機器です。PCS・BMS・EMS・遠隔監視装置・ゲートウェイなどが当たります。いまある太陽光のPCSや監視装置は、替えなければ要りません。</p>
+<blockquote>増設する蓄電池に使用する対象機器は、JC-STAR★１取得製品を使用してください。資源エネルギー庁「よくあるご質問」A10</blockquote>
+<p>FIP転と卒FITも、設備を足したり変えたりしなければ当たりません。FIP転と同時に蓄電池を足すときは、足す蓄電池にだけ★1が要ります。電気を外に流さない完全自家消費でも、系統につないでいれば対象です。</p>
+<p>つなぎ方によって、当たる機器が変わります。表1は、構成ごとに★1が要る機器と、その根拠を並べたものです。DC連系の2行は資料に直接の記述が無く、当社の読みです。</p>
+<div>
+<table>
+<caption>表1｜構成と、★1が要る機器</caption>
+<thead><tr><th>構成</th><th>★1が要る機器</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td>新しくつくる</td><td>ネットにつながる制御機器のすべて（PCS・BMS・EMS・遠隔監視・ゲートウェイなど）</td><td>改定案 5（1）</td></tr>
+<tr><td>いまある太陽光に蓄電池を足す（AC連系。いまのPCSはそのまま）</td><td>足す蓄電池側のPCS・BMS・EMS・ゲートウェイ</td><td>FAQ A10</td></tr>
+<tr><td>いまある太陽光に蓄電池を足す（DC連系。PCSを蓄電池にも使える型に替える）</td><td>替えるPCSと、足す蓄電池側の機器</td><td>改定案 5（2）の「交換」。当社の読み</td></tr>
+<tr><td>いまある太陽光に蓄電池を足す（DC連系。いまのPCSのまま、直流側に電池とBMSを足す）</td><td>足す電池側の機器</td><td>当社の読み</td></tr>
+<tr><td>故障などで機器を替える</td><td>替える機器（原則）。替えない機器は対象外</td><td>改定案 5（2）・FAQ A11</td></tr>
+<tr><td>FIP転・卒FIT（設備を変えない）</td><td>要らない</td><td>FAQ</td></tr>
+<tr><td>FIP転・卒FITと同時に蓄電池を足す</td><td>足す蓄電池側だけ</td><td>FAQ A12</td></tr>
+<tr><td>完全自家消費（電気を外に流さない）</td><td>系統につないでいれば、ほかと同じ</td><td>FAQ A13</td></tr>
+</tbody>
+</table>
+</div>
+<p>DC連系の扱いは資料に直接の記述が無い。採る前に、その地域の一般送配電事業者に書面で確かめてください。</p>
+
+<h2>替える機器は原則★1</h2>
+<p>故障でPCSを1台替えるときも、替える1台は原則★1です。替えない機器には当たりません。</p>
+<blockquote>2027年４月以降に対象機器をIP通信機能を有する機器に交換する場合は、交換する機器についてJC-STAR★１取得製品の使用が求められます。資源エネルギー庁「よくあるご質問」A11</blockquote>
+<p>同じ型への交換でも、送配電等業務指針 第79条第1項第2号にもとづく接続検討の申込みが要ります。「軽微な変更」にはなりません。</p>
+<p>例外は「過度な負担」のときだけです。資源エネルギー庁は、例として次の3つを挙げています。</p>
+<ul>
+<li>故障したPCSを1台替えると、古いPCSや変圧器と合わず、設備をまとめて替えることになる。</li>
+<li>2026年3月末までに結んだ延長保証では、★1の製品と交換できない。</li>
+<li>2026年3月末までに、交換用の製品を買って持っていて、★1の製品と取り替えられない。</li>
+</ul>
+<p>このときは、その地域の一般送配電事業者に相談し、次の3点を書いた計画書を出します。了承されれば、当面は★1の無い同じ型の製品に替えられます。</p>
+<ol>
+<li>★1の製品に替えられない理由（証拠になる書類を添える）</li>
+<li>すべての対象機器を★1にする時期（リプレースの予定年など）</li>
+<li>それまでのサイバーセキュリティ対策</li>
+</ol>
+<p>2026年4月のセミナーでは、1台替えるだけでも発電所の機器をすべて★1にする必要があるかもしれない、という説明がありました（オリック法律事務所の報告）。7月のFAQで、対象は「替える機器」に絞られました。30台のうち1台を替えるなら、対象はその1台だけです。</p>
+
+<h2>低圧が10月なのは、流通の在庫のため</h2>
+<p>低圧だけ半年遅いのは、古い製品が流通の在庫に残るからです。</p>
+<blockquote>メーカーがJC-STAR★1を取得した製品を導入した後も、一定期間、流通網に旧製品の在庫が一定数発生すると見込まれることから、2027年10月を適用開始時期とした。広域機関 第21回グリッドコード検討会 資料4（2026年3月31日）p.3</blockquote>
+<p>太陽光発電協会（JPEA）は、低圧と同じPCSを使う高圧などにも、10月までの猶予を求めました。その後の協議で「提案通り進めることとなった」と、第22回の検討会（2026年8月21日）の資料にあります。猶予は広がっていません。</p>
+
+<h2>先に★1を求めている制度</h2>
+<p>系統連系の要件は2027年4月からです。一方、オークションと国の補助金では、もう★1が要ります。表2は、その2つの制度と、求めているものです。</p>
+<div>
+<table>
+<caption>表2｜先に★1を求めている制度</caption>
+<thead><tr><th>制度</th><th>いつから</th><th>求めるもの</th></tr></thead>
+<tbody>
+<tr><td>長期脱炭素電源オークション（2025年度の募集）</td><td>応札の手続きの時点</td><td>蓄電池のEMS・PCSなどについて、型番とJC-STARの登録番号を書く（募集要綱 2025年9月3日）</td></tr>
+<tr><td>国の補助金（系統用蓄電システム等導入支援事業、令和7年度補正）</td><td>申請の時点（公募 2026年9月4日〜11月4日）</td><td>BMS・PCS・EMSなどに★1。★1の対象にならない機器は、あとで★2の基準ができて対象になれば、供給を始めるまでに★2を取る</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>買う前に確かめること</h2>
+<ul>
+<li>契約申込みの受付日（書類に不備なし＋保証金の入金）が、いつになるか。</li>
+<li>いまある太陽光に足す案件なら、AC連系かDC連系か。DC連系なら、PCSを替えるか。</li>
+<li>足す機器・替える機器の型番が、IPAの一覧に載っているか（<a href="https://www.scix.co.jp/column-jcstar-2027-list">52-2 一覧編</a>）。</li>
+<li>過度な負担の例外を使うつもりなら、2026年3月末までの延長保証の契約書や、持っている交換品の書類がそろうか。</li>
+</ul>
+<h2>この連載の読み方</h2>
+<div>
+<a href="https://www.scix.co.jp/column-jcstar-2027"><div>COLUMN 52</div><div>入口編</div><div>395件はすべて★1。中国の大手16社はゼロ。まず数字を見る入口</div></a>
+<a href="https://www.scix.co.jp/column-jcstar-2027-list"><div>COLUMN 52-2</div><div>一覧編</div><div>系統用・住宅用・その他に分けた一覧。2027年5月に切れる10件も</div></a>
+<div><div>COLUMN 52-3</div><div>既設編</div><div>既設の太陽光はどうなるか</div><div>いま読んでいる記事</div></div>
+<a href="https://www.scix.co.jp/column-jcstar-2027-nationality"><div>COLUMN 52-4</div><div>国籍編</div><div>国籍で切る国と、ラベルで切る国。相互承認は抜け道にならない</div></a>
+</div>
+<div>次は <a href="https://www.scix.co.jp/column-jcstar-2027-nationality">52-4 国籍編</a>。日本はラベルで線を引き、欧米は国籍で線を引いています。</div>
+<h2>よくある質問</h2>
+<div>
+<p>いまある太陽光に蓄電池を足すとき、太陽光のPCSにもJC-STAR★1が要りますか？</p>
+<p>要りません。資源エネルギー庁のFAQは、増設する蓄電池に使う機器には★1を求め、既設の設備は機器を替えずにそのまま使うなら★1への交換を求めない、としています。★1が要るのは、足す蓄電池側のPCS・BMS・EMS・遠隔監視・ゲートウェイなどです。</p>
+</div>
+<div>
+<p>接続検討を2027年3月までに申し込めば、★1は要りませんか？</p>
+<p>足りません。起点は、一般送配電事業者が「契約申込み」を受け付けた日です。申込みの書類に不備がなく、保証金が入金された時点を指します。接続検討の申込みや回答だけでは、いままでの扱いになりません。特別高圧・高圧は2027年4月1日以降、低圧（50kW未満）は10月1日以降の受付から★1が要ります。</p>
+</div>
+<div>
+<p>故障したPCSを替えるとき、JC-STAR★1の製品でなければいけませんか？</p>
+<p>原則として要ります。2027年4月以降にIP通信の機能を持つ機器に替えるときは、替える機器に★1が求められます。ほかの機器までまとめて替えることになるなど「過度な負担」になる場合に限り、その地域の一般送配電事業者に相談し、①替えられない理由と証拠 ②すべてを★1にする時期 ③それまでの対策 を書いた計画書を出せば、当面は★1の無い同じ型の製品に替えられます。</p>
+</div>
+<div>
+<p>FIP転や卒FITでも、JC-STAR★1は要りますか？</p>
+<p>設備を足したり変えたりしなければ要りません。FIP転や卒FITと同時に蓄電池を足すときは、足す蓄電池には★1が要り、変えない既設の機器には要りません。</p>
+</div>
+<h2>参考にした一次資料と、関連する記事</h2>
+<div>
+<h3>要件の条文とFAQ</h3><ul>
+<li><a href="https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&amp;id=620340012&amp;Mode=0">e-Gov 意見公募「電力品質確保に係る系統連系技術要件ガイドライン」改定案（案件番号620340012、2026年10月6日〜11月6日）</a> 第2章第1節5（1）（2）</li>
+<li><a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/other/cybersecurity/data/01.pdf">資源エネルギー庁「よくあるご質問」（PDF）</a> A1〜A3・A10〜A13｜<a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/other/cybersecurity/data/gaiyo.pdf">同「分散型電源のサイバーセキュリティ対策について」（2026年7月・PDF）</a>｜<a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/other/cybersecurity/">同「電力分野のサイバーセキュリティについて」</a>（過度な負担の例・同一機器への交換でも接続検討が要ること）</li>
+<li><a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf">広域機関 第21回グリッドコード検討会 資料4（2026年3月31日・PDF）</a> p.3（低圧を10月にした理由）｜<a href="https://www.occto.or.jp/assets/iinkai/gridcode/22/gridcode_22_03.pdf">第22回 資料3（2026年8月21日・PDF）</a>（適用時期の要望は「提案通り進めることとなった」）</li>
+</ul>
+<h3>先に★1を求めている制度</h3><ul>
+<li><a href="https://www.occto.or.jp/assets/market-board/market/jitsujukyukanren/files/250903_boshuyoukou_long_2025.pdf">広域機関 長期脱炭素電源オークション 募集要綱（2025年9月3日・PDF）</a></li>
+<li><a href="https://sii.or.jp/chikudenchi07r/uploads/R7r_kess_kouboyouryou.pdf">環境共創イニシアチブ（SII）系統用蓄電システム等導入支援事業 公募要領（令和7年度補正、2026年9月・PDF）</a> p.15 ⑨ ※12・※13</li>
+</ul>
+<h3>法律事務所の解説</h3><ul>
+<li><a href="https://www.orrick.com/ja-JP/Insights/2026/05/Japan-Renewables-Alert-72">オリック・ヘリントン・アンド・サトクリフ Japan Renewables Alert 72（2026年5月19日）</a>（2026年4月24日のセミナーでの資源エネルギー庁の説明）｜<a href="https://www.mofo.com/pdf/resources/insights/260902-jc-star-grid-code-requirements-jp">モリソン・フォースター（2026年9月2日・PDF）</a></li>
+</ul>
+<h3>関連する記事</h3><ul><li><a href="https://www.scix.co.jp/column-equipment">接続検討回答後の設備変更</a>／<a href="https://www.scix.co.jp/column-study-reply">接続検討回答書を毎日読む当社が、最初に見る6か所（COLUMN 51）</a>／<a href="https://www.scix.co.jp/column-jcstar">JC-STARとは — ★1〜★4の違いと、★1の義務化はいつから（COLUMN 14）</a></li></ul>
+</div>
+
+</div>
+<p>元の記事（図表つき）: <a href="https://www.scix.co.jp/column-jcstar-2027-existing">https://www.scix.co.jp/column-jcstar-2027-existing</a></p>]]></content:encoded>
+<category>税制・制度・規制 / JC-STARの線引き（既設編）,系統用蓄電池,蓄電所</category>
+<dc:creator>中島 晋也</dc:creator>
+<dc:language>ja</dc:language>
+<media:thumbnail url="https://www.scix.co.jp/img/ogp-m.png" />
+<media:status>active</media:status>
+</item>
+<item>
+<title>JC-STARの取得状況 — 395件すべて★1、Huawei・Sungrowなど中国の大手16社はゼロ</title>
+<link>https://www.scix.co.jp/column-jcstar-2027</link>
+<guid>https://www.scix.co.jp/column-jcstar-2027</guid>
+<description><![CDATA[IPAのJC-STAR取得製品リスト（2026年11月12日更新）を全件数えた。395件はすべて★1。太陽光・蓄電池まわり189件の本社国は日本137・台湾17・韓国10・中国1。Sungrow・Huawei・CATL・BYDなど中国の大手16社の自社名義は0件。2027年4月の要件化を前に、誰がラベルを持っているかを図で見る。]]></description>
+<pubDate>Sun, 15 Nov 2026 09:00:00 +0900</pubDate>
+<content:encoded><![CDATA[<img src="https://www.scix.co.jp/img/ogp-m.png" alt="JC-STARの取得状況 — 395件すべて★1、Huawei・Sungrowなど中国の大手16社はゼロ" />
+<div><div>3行で言うと</div><ol><li>2027年4月から、電力網につなぐ蓄電所の制御機器には、JC-STAR★1のラベルが要ります。</li><li>ラベルを取った製品は395件。すべていちばん下の★1で、太陽光・蓄電池まわりは189件です。</li><li>日本の会社が137件と多く、台湾・韓国が続きます。中国の大手16社の名前は、まだ1つもありません。</li></ol></div>
+
+<p>蓄電所を買うとき、これからは機器の「ラベル」を確かめることになります。2027年4月から、電力網につなぐ蓄電所の制御機器に、JC-STAR★1というラベルが要るからです。</p>
+<p>では、そのラベルを持っているのは誰か。IPA（情報処理推進機構）が公表している一覧を、1件ずつ数えました。この記事は、その数字を置く入口です。</p>
+
+<h2>なぜ蓄電所にラベルが要るのか</h2>
+<p>蓄電所は、電池の箱だけで動いているわけではありません。電気の形を変えるPCS、電池を見張るBMS、充電と放電を決めるEMS。どれも、ネットワークにつながった小さなコンピュータです。</p>
+<p>メーカーや保守の会社は、遠くから設定を変えたり、ソフトを直したりできます。便利な反面、その通り道を乗っ取られると、外から蓄電所を止められてしまいます。</p>
+<p>この心配を、各国が取り上げ始めました。2025年5月、ロイターは「米国の専門家が、中国製インバーターの一部から、説明書に無い通信機器を見つけた」と報じました。メーカー名や台数は明かされていません。リトアニアは2024年11月、100kWを超える太陽光・風力・蓄電への、中国などからの遠隔操作を法律で禁じました。</p>
+<p>日本が選んだのは、ラベルで線を引くやり方です。2027年4月1日以降に契約申込みが受け付けられる高圧・特別高圧の太陽光と蓄電池では、ネットにつながる制御機器に★1が要ります。低圧は2027年10月1日からです。</p>
+<p>起点が「契約申込みの受付日」であることは <a href="https://www.scix.co.jp/column-jcstar-2027-existing">52-3 既設編</a> に書きました。制度の全体像は <a href="https://www.scix.co.jp/column-jcstar">COLUMN 14</a> にあります。</p>
+
+<h2>この連載の言葉</h2>
+<p>この連載では、次の言葉を使います。4本とも同じ表です。</p>
+<div>
+<table>
+<caption>表0｜この連載の言葉（早見表）</caption>
+<thead><tr><th>言葉</th><th>意味</th></tr></thead>
+<tbody>
+<tr><td><b>JC-STAR</b></td><td>経済産業省が2025年3月に始めた、ネットにつながる機器（IoT機器）のセキュリティのラベル制度。IPA（情報処理推進機構）が運営する</td></tr>
+<tr><td><b>★1（星1つ）</b></td><td>いちばん下のレベル。初期パスワードのまま使わせない、不具合の連絡先がある、ソフトを直せる、といった最低限の決まりを、メーカー自身が確かめて申請する。第三者が評価するのは★3・★4</td></tr>
+<tr><td><b>PCS（パワーコンディショナ）</b></td><td>電池（直流）と電力網（交流）の間で、電気の形を変える機械。蓄電所の心臓にあたる</td></tr>
+<tr><td><b>BMS</b></td><td>電池の温度や電圧を見張る、電池の見張り役</td></tr>
+<tr><td><b>EMS</b></td><td>いつ充電し、いつ放電するかを決める司令塔</td></tr>
+<tr><td><b>遠隔監視・ゲートウェイ</b></td><td>発電所・蓄電所と、外のネットワークをつなぐ玄関口</td></tr>
+<tr><td><b>系統・系統連系</b></td><td>系統は、電力会社の送電線・配電線のこと。そこに発電所や蓄電所をつなぐことを系統連系という</td></tr>
+<tr><td><b>一般送配電事業者</b></td><td>大手電力会社の送配電の会社（東京電力パワーグリッドなど、全国に10社）</td></tr>
+<tr><td><b>接続検討</b></td><td>つなげるか、工事にいくらかかるかを、一般送配電事業者に調べてもらう手続き。契約申込みの前の段階</td></tr>
+<tr><td><b>契約申込み</b></td><td>接続検討の回答のあとに出す、正式な申込み。書類に不備がなく、保証金が入金されて、はじめて「受付」になる</td></tr>
+<tr><td><b>特別高圧・高圧・低圧</b></td><td>つなぐ電圧の区分。高圧はおおむね2,000kW未満、低圧は50kW未満。特別高圧はそれより大きい</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>数字で見る</h2>
+<p>まず、全体の数字を4つ置きます。どれもIPAの一覧（Excel版、2026年11月12日更新）を当社が数えたものです。</p>
+<div><div><div>ラベルを取った製品</div><div>395<span>件</span></div><div>すべて★1</div></div><div><div>★2以上の製品</div><div>0<span>件</span></div><div>★3・★4は第三者が評価</div></div><div><div>太陽光・蓄電池まわり</div><div>189<span>件</span></div><div>当社が製品から選んだ数</div></div><div><div>中国の大手16社</div><div>0<span>件</span></div><div>自社の名前での取得</div></div></div>
+<p>189件の選び方: 蓄電池システム・PCS・BMS・EMS・計測制御ユニット・遠隔監視の製品を、製品名と各製品ページの説明から当社が選んだ。汎用のルーター・カメラは入れていない。</p>
+
+<p>★1は、いちばん下のレベルです。決まりを満たしているかをメーカー自身が確かめ、IPAに申請します。第三者が評価する★3・★4の製品は、まだありません。</p>
+<p>つまり、いまの「★1取得」は、「最低限の鍵がかかっているとメーカーが確かめ、IPAが受け付けた」という意味です。</p>
+
+<h2>どの国の会社が持っているか</h2>
+<p>図1は、太陽光・蓄電池まわりの189件を、会社の本社がある国で分けたものです。親会社が海外にある日本法人は、親会社の国に入れました。</p>
+
+<p>日本が137件で、全体の7割を占めます。系統用では富士電機・日新電機・TMEIC・明電舎・ダイヘン・GSユアサ・住友電工・日本碍子・パワーエックスなど。住宅用ではニチコン・長州産業・パナソニック・京セラ・オムロンなどです。</p>
+<p>中国に本社がある会社は1件だけです。サンテックパワージャパンの、住宅用の計測制御ユニットです。</p>
+<p>「本社国を確認できず」の11件には、RENON POWERの蓄電池3件を入れました。同社は米国本社と発表していますが、中国にも関連会社があり、親会社の国まで確かめられなかったためです。</p>
+
+<h2>中国の大手は、まだ載っていない</h2>
+<p>日経は2026年7月1日、日本のPCSと蓄電池の市場で大きなシェアを持つ中国勢の製品が、一覧に無いと報じました。11月12日版でも同じです。下の表は、中国に本社がある大手16社のいまの状況です。</p>
+<div>
+<table>
+<caption>表1｜中国の大手16社と、JC-STARの一覧（2026年11月12日版）</caption>
+<thead><tr><th>中国本社のメーカー</th><th>自社の名前での取得</th><th>公表されている動き</th></tr></thead>
+<tbody>
+<tr><td>Sungrow</td><td>なし</td><td>日経の取材に答えず（2026年7月）。日本法人は2026年3月、ブルースカイエナジーと系統用蓄電池の調達の基本合意を発表</td></tr>
+<tr><td>Huawei</td><td>なし</td><td>日経の取材に答えず（2026年7月）</td></tr>
+<tr><td>CATL・BYD</td><td>なし</td><td>6月30日の時点で一覧に無い、と日経が報道</td></tr>
+<tr><td>GoodWe</td><td>なし</td><td>PCSの通信をRS485に限り、外のネットワークに直接つながない構成を発表。★1を取ったロガー・EMSと組み合わせ、案件ごとに確かめて提案する（PR TIMES 2026年8月10日・9月24日）</td></tr>
+<tr><td>Hithium・Trina Storage・Sineng・Kehua・Solis・Envision・Gotion・REPT・EVE・Narada・Pylontech</td><td>なし</td><td>公表されている方針は見つからない</td></tr>
+</tbody>
+</table>
+</div>
+<p>IPAの一覧には、発行済みのラベルだけが載る。申請中か、申請していないかは、外からは分からない。</p>
+
+<p>なぜ取れていないのか。中国のメーカーの幹部は日経に「中国企業の申請だけが却下されている。事実上の排除だ」と語りました。経済産業省は「提出された情報などをもとに総合的に判断している」として、個別の判断を明かしていません。</p>
+<p>日経によると、申請のチェックリストには、外国の法律などの影響を受けるおそれが無いかを問う項目があります。中国の国家情報法がこの項目とぶつかる、という専門家の見方も紹介しています。ただ、本当の理由は外からは確かめられません。</p>
+<p>GoodWeの案は、要件の線に合わせた形です。資源エネルギー庁のFAQは、IP通信の機能を持たない機器を対象外としています。ただし、IP通信の機能があれば、使わない設定でも★1が要ります。受け入れられるかは、案件ごとに一般送配電事業者に確かめる必要があります。</p>
+
+<h2>台湾の会社が入ってきた</h2>
+<p>空いた席に入ってきたのが、台湾の会社です。7社が14件を取りました。このほか、台湾で創業したNextDriveが3件を持っています。</p>
+<div>
+<table>
+<caption>表2｜JC-STAR★1を取った台湾本社の7社</caption>
+<thead><tr><th>台湾本社</th><th>件数</th><th>製品（取得日）</th><th>会社の発表</th></tr></thead>
+<tbody>
+<tr><td>泓德能源（TAITEN）</td><td>4</td><td>サイトコントローラー・PCS（2026/6/25）、EMS（9/7）、BMS（9/9）</td><td>10月13日、5製品で取ったと発表（一覧で社名が合うのは4件）</td></tr>
+<tr><td>デルタ電子</td><td>4</td><td>データコレクター（6/25）、蓄電所用PCS・蓄電システム（7/2）、蓄電池（8/21・台湾本社の名義）</td><td>—</td></tr>
+<tr><td>熙特爾（SEETEL）</td><td>2</td><td>EMS（4/12）、BMS（4/21）</td><td>台湾で初めてEMSとBMSの2つを取った蓄電システムの会社だと発表（2026年5月）</td></tr>
+<tr><td>竑瑞（GBG）</td><td>1</td><td>BMS（10/5）</td><td>—</td></tr>
+<tr><td>長庚国際能源（Cold Electric）</td><td>1</td><td>蓄電システム（8/4）</td><td>日本の提携先はユアサM&amp;B</td></tr>
+<tr><td>明曜科技</td><td>1</td><td>20フィートの蓄電コンテナ（8/4）</td><td>6月に日本の開発会社と4MW/16MWhの覚書（相手は非公表）</td></tr>
+<tr><td>新捷能資訊</td><td>1</td><td>EMS（8/4）</td><td>申請から1か月あまりで取れたと発表（2026年9月）</td></tr>
+</tbody>
+</table>
+</div>
+<p>台普威能源（雲豹能源の子会社）は2026年9月11日にEMSで取ったと発表したが、11月12日版に同社の名前は無い。別の名義で載っている可能性がある。</p>
+
+<p>日本の要件の文言には、国籍の条件がありません。そのため、中国勢が空けた席に、台湾の会社が座れる形になっています。</p>
+
+<h2>取った時期には3つの山がある</h2>
+<p>図2は、ラベルを取った月ごとの件数です。山が3つあります。</p>
+
+<ol>
+<li><strong>2025年10月（24件）</strong>。富士電機・日新電機・ダイヘン・しろくま電力など、国内の系統用の会社が先に動きました。要件化の方針が示された第20回グリッドコード検討会（2025年12月16日）より前です。</li>
+<li><strong>2026年3〜4月（48件）</strong>。住宅用が中心で、48件のうち30件です。</li>
+<li><strong>2026年6月以降</strong>。台湾・韓国の系統用が入ってきました。</li>
+</ol>
+
+<h2>機器の種類で見る</h2>
+<p>図3は、機器の種類と本社の国を掛け合わせた表です。</p>
+
+<p>電気の形を変えるPCS（蓄電・系統用）は14件です。日本7・台湾2・韓国2・欧州1・本社国を確認できず2で、中国は0です。買い手が案件で向き合うPCSの選び先は、いまのところ12社の14製品です。</p>
+
+<h2>2027年5月に、最初の期限が来る</h2>
+<p>★1の有効期間は、取った日から最大2年です。2025年5月に取った10件は、2027年5月6日〜27日に切れます。要件が始まる翌月です。</p>
+<p>延長の手続きの細かい決まりは、IPAが「2026年に公表する予定」としたまま、11月15日の時点でまだ出ていません。どの製品がいつ切れるかは <a href="https://www.scix.co.jp/column-jcstar-2027-list">52-2 一覧編</a> に置きました。</p>
+
+<h2>買い手が見るのは、登録番号</h2>
+<p>日本の要件の文言には、国籍の条件がありません。それでも、中国の大手の名前は一覧に出てきません。その理由は、外からは分かりません。</p>
+<p>買い手が確かめられるのは2つです。案件の機器の型番が、IPAの一覧の製品と同じか。そして、その登録番号がいま有効か。照らし合わせるための表が、次の <a href="https://www.scix.co.jp/column-jcstar-2027-list">52-2 一覧編</a> です。</p>
+<h2>この連載の読み方</h2>
+<div>
+<div><div>COLUMN 52</div><div>入口編</div><div>誰がラベルを持っているか</div><div>いま読んでいる記事</div></div>
+<a href="https://www.scix.co.jp/column-jcstar-2027-list"><div>COLUMN 52-2</div><div>一覧編</div><div>系統用・住宅用・その他に分けた一覧。2027年5月に切れる10件も</div></a>
+<a href="https://www.scix.co.jp/column-jcstar-2027-existing"><div>COLUMN 52-3</div><div>既設編</div><div>起点は契約申込みの受付日。併設は増やす側だけ、交換は原則★1</div></a>
+<a href="https://www.scix.co.jp/column-jcstar-2027-nationality"><div>COLUMN 52-4</div><div>国籍編</div><div>国籍で切る国と、ラベルで切る国。相互承認は抜け道にならない</div></a>
+</div>
+<div>次は <a href="https://www.scix.co.jp/column-jcstar-2027-list">52-2 一覧編</a>。189件を登録番号つきで並べ、2027年5月に切れる10件も分けて載せました。</div>
+<h2>よくある質問</h2>
+<div>
+<p>JC-STARの取得製品は、いま何件ありますか？</p>
+<p>IPAの適合ラベル取得製品リストは、2026年11月12日更新で395件です。すべて★1で、★2以上はありません。このうち太陽光・蓄電池まわり（蓄電池システム・PCS・BMS・EMS・計測制御ユニット・遠隔監視）は、当社の数えで189件です。</p>
+</div>
+<div>
+<p>中国メーカーのPCSや蓄電池は、JC-STARを取っていますか？</p>
+<p>11月12日版では、Sungrow・Huawei・CATL・BYD・GoodWeなど中国の大手16社の、自社の名前での取得は0件です。中国に本社がある会社で載っているのは、サンテックパワージャパンの住宅用の計測制御ユニット1件だけです。中国のメーカー側は「申請が却下されている」と話し、経済産業省は個別の判断を明かしていません（日経、2026年7月1日）。</p>
+</div>
+<div>
+<p>なぜ蓄電所にJC-STARが要るのですか？</p>
+<p>PCS・BMS・EMS・遠隔監視装置は、ネットワークにつながった小さなコンピュータです。その通り道を乗っ取られると、外から蓄電所を止められます。そのため、2027年4月1日以降に契約申込みが受け付けられる高圧・特別高圧の太陽光・蓄電池では、IP通信の機能を持つこれらの機器に★1が要ります。低圧は2027年10月1日からです。</p>
+</div>
+<h2>参考にした一次資料と、関連する記事</h2>
+<div>
+<h3>JC-STARの一覧と手続き</h3><ul>
+<li><a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/">IPA「適合ラベル取得製品リスト」（2026年11月12日更新・Excel版）</a>。各製品の情報ページ（製造事業者・相互承認の欄）もここからたどれる</li>
+<li><a href="https://www.ipa.go.jp/security/jc-star/shinsei/index.html">IPA「申請手続き」</a>（有効期間は最大2年・手数料198,000円）｜<a href="https://www.ipa.go.jp/security/jc-star/shinsei/entyo-1-2/index.html">IPA「★１と★２の延長申請手続き」</a>（「詳細については、2026年に公表する予定」）</li>
+</ul>
+<h3>系統連系の要件</h3><ul>
+<li><a href="https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&amp;id=620340012&amp;Mode=0">e-Gov 意見公募「電力品質確保に係る系統連系技術要件ガイドライン」改定案（案件番号620340012、2026年10月6日〜11月6日）</a></li>
+<li><a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/other/cybersecurity/data/gaiyo.pdf">資源エネルギー庁「分散型電源のサイバーセキュリティ対策について」（2026年7月・PDF）</a>｜<a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/other/cybersecurity/data/01.pdf">同「よくあるご質問」（PDF）</a></li>
+<li><a href="https://www.occto.or.jp/assets/iinkai/gridcode/20/gridcode_20_05.pdf">広域機関 第20回グリッドコード検討会 資料5（2025年12月16日・PDF）</a></li>
+</ul>
+<h3>報道と会社の発表</h3><ul>
+<li><a href="https://www.nikkei.com/article/DGXZQOUC19AMF0Z10C26A3000000/">日本経済新聞「中国蓄電池、日本のサイバー認証いまだゼロ　『事実上の排除』と反発」（2026年7月1日）</a>｜<a href="https://asia.nikkei.com/business/energy/china-storage-battery-makers-denied-cybersecurity-approval-in-japan">Nikkei Asia（同日・英語）</a></li>
+<li>ロイター（2025年5月14日）“Rogue communication devices found in Chinese solar power inverters”（<a href="https://www.pv-tech.org/rogue-devices-found-in-chinese-solar-inverters-raises-cybersecurity-alarm-in-europe/">PV Tech による紹介</a>）</li>
+<li><a href="https://prtimes.jp/main/html/rd/p/000000019.000167163.html">GoodWe Japan（PR TIMES 2026年8月10日）</a>｜<a href="https://prtimes.jp/main/html/rd/p/000000024.000167163.html">同 9月24日</a>｜<a href="https://kyodonewsprwire.jp/release/202603246199">Sungrow 日本法人とブルースカイエナジーの基本合意（2026年3月24日発表）</a>｜<a href="https://prtimes.jp/main/html/rd/p/000000004.000185433.html">RENON POWER（PR TIMES 2026年7月15日）</a></li>
+<li>台湾の会社の発表: <a href="https://money.udn.com/money/story/5612/9483189">熙特爾（経済日報 2026年5月5日）</a>｜<a href="https://www.ctee.com.tw/news/20260901701634-431202">新捷能（工商時報 2026年9月1日）</a>｜<a href="https://www.chinatimes.com/realtimenews/20261013003235-260410">泓德能源（中時新聞網 2026年10月13日）</a>｜<a href="https://money.udn.com/money/story/11799/9707119">長庚国際能源（経済日報）</a>｜<a href="https://cdn.technews.tw/2026/09/11/taipowerway-secures-japans-jc-star-cybersecurity-certification-targeting-2027-energy-storage-threshold/">台普威（TechNews 2026年9月11日）</a></li>
+</ul>
+<h3>関連する記事</h3><ul><li><a href="https://www.scix.co.jp/column-jcstar">JC-STARとは — ★1〜★4の違いと、★1の義務化はいつから（COLUMN 14）</a>／<a href="https://www.scix.co.jp/column-equipment">接続検討回答後の設備変更</a>／<a href="https://www.scix.co.jp/column-buyer-check">系統用蓄電所を買う前の技術チェック</a>／<a href="https://www.scix.co.jp/column-foreign-investor">外国資本が日本の高圧系統用蓄電所に投資する前に越える関門</a></li></ul>
+</div>
+
+</div>
+<p>元の記事（図表つき）: <a href="https://www.scix.co.jp/column-jcstar-2027">https://www.scix.co.jp/column-jcstar-2027</a></p>]]></content:encoded>
+<category>税制・制度・規制 / JC-STARの線引き（入口編）,系統用蓄電池,蓄電所</category>
+<dc:creator>中島 晋也</dc:creator>
+<dc:language>ja</dc:language>
+<media:thumbnail url="https://www.scix.co.jp/img/ogp-m.png" />
+<media:status>active</media:status>
+</item>
 <item>
 <title>数字で見る回答書</title>
 <link>https://www.scix.co.jp/column-study-reply-4</link>
@@ -1454,7 +2321,7 @@
   <div><div>完成渡し<br />連系前・建設中を含む</div><div>6.7<span>億円</span></div><div>中央値・180案件<br />範囲 4.8〜9.0億円</div></div>
   <div><div>連系済み・稼働済み<br /> </div><div>7.5<span>億円</span></div><div>中央値・9案件<br />範囲 6.6〜8.4億円</div></div>
 </div>
-<p>高圧2MW級（出力1.5〜2MW・3.5時間以上）・土地と工事費負担金を含む1件の総額・税別。2026年1月〜9月に<a href="https://www.scix.co.jp/projects">当社が見た売り出しの値段</a>を案件ごとに1値に束ねた中央値（当社観測。公表統計ではありません）。連系済みは9案件で、帯として読んでください。</p>
+<p>高圧2MW級（出力1.5〜2MW・3.5時間以上）・土地と工事費負担金を含む1件の総額・税別。2026年1月〜9月に<a href="https://dealroom.scix.co.jp/catalog">当社が見た売り出しの値段</a>を案件ごとに1値に束ねた中央値（当社観測。公表統計ではありません）。連系済みは9案件で、帯として読んでください。</p>
 
 <h2>値段は三段。権利1.2億、完成渡し6.7億、連系済み7.5億</h2>
 
@@ -1989,214 +2856,6 @@
   <p><a href="https://dealroom.scix.co.jp/register">蓄電所マーケットに無料登録 →</a></p>
 </div>
 <p>元の記事（図表つき）: <a href="https://www.scix.co.jp/column-somosomo-4">https://www.scix.co.jp/column-somosomo-4</a></p>]]></content:encoded>
-<category>そもそも編,系統用蓄電池,蓄電所</category>
-<dc:creator>中島 晋也</dc:creator>
-<dc:language>ja</dc:language>
-<media:thumbnail url="https://www.scix.co.jp/img/ogp-m.png" />
-<media:status>active</media:status>
-</item>
-<item>
-<title>回る機械が減った系統では、何が消えるのか</title>
-<link>https://www.scix.co.jp/column-somosomo-3</link>
-<guid>https://www.scix.co.jp/column-somosomo-3</guid>
-<description><![CDATA[2025年4月28日、スペインとポルトガルの全域が停電しました。原因を調べたENTSO-Eの最終報告（2026年3月20日）が指したのは、はずみの不足ではなく、電圧を保つ働きの不足でした。回る機械が黙ってしていた仕事の一つが、消えていたのです。]]></description>
-<pubDate>Sun, 13 Sep 2026 09:00:00 +0900</pubDate>
-<content:encoded><![CDATA[<img src="https://www.scix.co.jp/img/ogp-m.png" alt="回る機械が減った系統では、何が消えるのか" />
-<p>消えたのは「電圧を保つ働き」でした。はずみではありません。</p>
-<p>2025年4月28日の昼12時33分（現地時間）、スペインとポルトガルの本土が丸ごと停電しました。欧州の送電会社の団体ENTSO-Eは「欧州で20年以上ぶりの、最も深刻な停電」と呼んでいます。この日、昼の太陽光の割合はきわめて高い状態でした。</p>
-<p>停電の直後、「再エネが多くて、はずみが足りなかったからだ」という説明が広まりました。ところが、スペイン政府の報告（2025年6月17日）も、送電会社REEの報告（同6月18日）も、ENTSO-Eの最終報告（2026年3月20日）も、主因を別のところに置きました。</p>
-<h2>電圧が上がり、発電機が次々に外れた</h2>
-<p>ENTSO-Eの最終報告は、原因を「系統の揺れ（振動）、電圧と無効電力の制御の不備、電圧を調整するやり方の違い、スペインで発電機が急に出力を落として次々に外れたこと、安定させる力のばらつき」の組み合わせとしました。順番はこうです。昼の系統で電圧が上がり始める。電圧を抑える役の発電機が足りない。上がりすぎた電圧から自分を守るために、発電所が保護装置で系統から外れる。外れるほど、さらに電圧が上がる。この連鎖が数十秒で進み、フランスとの連系線が切れ、全系が崩れました。スペイン政府の報告は、前日に電圧調整の役として計画した同期発電機10基について、当日つないだ数が年初来で最も少なく、計画された発電所の一部が規定どおりに電圧を調整しなかった、と書いています。</p>
-<figure><p>← 横にスクロールできます →</p><figcaption>図1　2025年4月28日の流れ。主因は「電圧を保つ働きの不足」。スペイン政府は、前日に電圧調整の役として計画した同期発電機10基のうち、当日つないだ数が年初来最少で、一部が規定どおり電圧を調整しなかったことを挙げている。出典：ENTSO-E最終報告 2026年3月20日／スペイン政府（MITECO）報告 2025年6月17日。</figcaption></figure>
-<p>「はずみ（慣性）が足りなかった」を主因に挙げた報告は、スペイン政府・REE・ENTSO-Eのどれにもありません。ENTSO-E理事会議長のダミアン・コルティナス氏は最終報告の発表で「問題は再エネではなく、発電の種類によらず電圧の制御だ」と述べています（Science Media Centre España）。</p>
-
-<h2>発電機は、なぜ電圧を保てるのか</h2>
-<p>電圧は、電気を送電線に押し出す「圧力」です。水道の水圧と同じで、高すぎても低すぎても機器が壊れます。回る発電機は、中の磁石の強さ（励磁）を強めたり弱めたりして、この圧力を上げ下げできます。押す力が足りなければ強め、上がりすぎれば弱める。これを人が命令しなくても自動でやるのが「電圧を保つ働き」です。太陽光や蓄電池も、インバータ（直流を交流に変える装置）に設定すれば同じことができます。ただし当時のスペインでは、それが求められていませんでした。</p>
-<p>48-2で見た3つのおまけのうち、この日足りなかったのは、この「電圧を保つ働き」でした。回る機械が減った昼の系統では、誰かがその役を引き受けないと、同じことが起きます。</p>
-<p>スペインの答えは速かった。停電から2か月後の2025年6月12日に運用ルールを変え、太陽光や風力も電圧の調整に参加できるようにし、2026年3月17日に全面実施しました（SolarPower Europe）。送電会社REEは2026年2月に、蓄電池の接続枠を16GW確保していると公表しています。事故のあと、電圧を保つ役は「回る機械のおまけ」から「誰かに頼む仕事」に変わりました。</p>
-<h2>日本では</h2>
-<p>日本では、電圧を保つ働きは送配電会社の技術要件（託送供給等約款・系統連系技術要件）で確保されていて、値段のつく市場にはなっていません。回る機械が減ったときに誰が電圧を保つかは、電力広域的運営推進機関のグリッドコード検討会で検討されています。蓄電池は、設定すれば電圧の調整にも周波数の調整にも使える設備です。</p>
-
-<div><div>投資家の読み方</div>事故は制度を動かします。英国は2019年8月の停電の翌年に1秒で応える商品を作り（48-4）、スペインは2025年の停電の2か月後に再エネと蓄電池を電圧調整に参加させました。日本では、はずみと電圧の役を誰に頼むかが検討されています。どちらに転んでも、その役を引き受けられる設備の一つが蓄電池で、電圧と周波数の両方に使える点で他の回らない電源より使い道が広い設備です。</div>
-<div><div>この連載の問い</div><div>一、昔はなぜ蓄電池なしで回っていたのか</div><ol><li><span>48-2</span><a href="https://www.scix.co.jp/column-somosomo-2">昔は蓄電池がなくても回っていたよね</a></li><li><span>48-3</span>回る機械が減った系統では、何が消えるのか（この記事）</li><li><span>48-4</span><a href="https://www.scix.co.jp/column-somosomo-4">なぜ「10秒」なのか</a></li><li><span>48-5</span><a href="https://www.scix.co.jp/column-somosomo-5">再エネが増えるほど、調整力が要るのか</a></li></ol><div>二、火力・原発・揚水では、なぜ足りないのか</div><ol><li><span>48-6</span><a href="https://www.scix.co.jp/column-somosomo-6">火力に調整させれば、足りるのでは</a></li><li><span>48-7</span><a href="https://www.scix.co.jp/column-somosomo-7">原発が増えたら、蓄電池はいらなくなる？</a></li><li><span>48-8</span><a href="https://www.scix.co.jp/column-somosomo-8">揚水を増やせば、足りるのでは</a></li><li><span>48-9</span><a href="https://www.scix.co.jp/column-somosomo-9">市場で買えなかった調整力は、どこから来ているのか</a></li></ol><div>三、これから電気の需要と電源はどうなるのか</div><ol><li><span>48-10</span><a href="https://www.scix.co.jp/column-somosomo-10">データセンターが増えると、なぜ蓄電池なのか</a></li><li><span>48-11</span><a href="https://www.scix.co.jp/column-somosomo-11">太陽光は、これからどうなる</a></li><li><span>48-12</span><a href="https://www.scix.co.jp/column-somosomo-12">火力の量は、原発の稼働は、需要は</a></li><li><span>48-13</span><a href="https://www.scix.co.jp/column-somosomo-13">蓄電池は、どれだけ増えるのか</a></li></ol><div>四、お金と、国の本音</div><ol><li><span>48-14</span><a href="https://www.scix.co.jp/column-somosomo-14">国は、蓄電池を増やしたいのか</a></li><li><span>48-15</span><a href="https://www.scix.co.jp/column-somosomo-15">インフラ投資としての蓄電池は、何に似ているのか</a></li><li><span>48-16</span><a href="https://www.scix.co.jp/column-somosomo-16">稼ぎは細るって言うけど、本当？</a></li><li><span>48-17</span><a href="https://www.scix.co.jp/column-somosomo-17">海外の真似をして、日本で儲かるか</a></li><li><span>48-18</span><a href="https://www.scix.co.jp/column-somosomo-18">蓄電池は、将来どれだけ必要なのか</a></li><li><span>48-19</span><a href="https://www.scix.co.jp/column-somosomo-19">蓄電池は、どこに置いても同じなのか</a></li></ol><a href="https://www.scix.co.jp/column-somosomo-20"><span>18の問いの先にある、ひとつの問い</span><span>48-20 いくらで買って、いくら戻るのか</span><span>答えは案件ごとに違う。だから公表値だけを目盛りにした計算機を置いた。単価・約定率・席代・差益・建設費を、自分で動かせる。</span></a></div>
-<h2>出典</h2>
-<ul><li>ENTSO-E "Final Report on the Grid Incident in Spain and Portugal on 28 April 2025" 2026年3月20日／ENTSO-E プレスリリース同日（原因の整理）／理事会議長の発言（Science Media Centre España 2026年3月20日）</li><li>スペイン政府 MITECO「4月28日の停電に関する委員会報告」2025年6月17日（電圧調整用火力10基のうち1基が不稼働）</li><li>Red Eléctrica（REE）報告 2025年6月18日／REE 需要接続容量マップ 2026年2月20日（蓄電池の接続許可容量16GW）</li><li>スペイン運用手順 P.O.7.4 改定 2025年6月12日、完全実施 2026年3月17日（再エネの電圧制御参加）</li><li>電力広域的運営推進機関 グリッドコード検討会（電圧・慣性・グリッドフォーミングの検討）</li></ul>
-
-</div>
-
-<div>
-  <h3>この話題に近い入口</h3>
-  <div><a href="https://www.scix.co.jp/for/dealers">案件をご紹介いただく皆様へ<span>紹介の窓口 →</span></a><a href="https://www.scix.co.jp/for/major">大手事業者・電力・商社の方へ<span>特別高圧と高圧 →</span></a><a href="https://www.scix.co.jp/for/sme">事業会社の方へ（高圧1件から）<span>1件から買う →</span></a></div>
-  <p><a href="https://dealroom.scix.co.jp/register">蓄電所マーケットに無料登録 →</a></p>
-</div>
-<p>元の記事（図表つき）: <a href="https://www.scix.co.jp/column-somosomo-3">https://www.scix.co.jp/column-somosomo-3</a></p>]]></content:encoded>
-<category>そもそも編,系統用蓄電池,蓄電所</category>
-<dc:creator>中島 晋也</dc:creator>
-<dc:language>ja</dc:language>
-<media:thumbnail url="https://www.scix.co.jp/img/ogp-m.png" />
-<media:status>active</media:status>
-</item>
-<item>
-<title>いくらで買って、いくら戻るのか</title>
-<link>https://www.scix.co.jp/column-somosomo-20</link>
-<guid>https://www.scix.co.jp/column-somosomo-20</guid>
-<description><![CDATA[答えは案件ごとに違うので、計算機を置きました。目盛りは全部公表値——調整力の単価（3〜10円）、約定率、席代（8,785〜15,112円/kW）、差益、建設費（2〜8万円/kWh）。]]></description>
-<pubDate>Sun, 13 Sep 2026 09:00:00 +0900</pubDate>
-<content:encoded><![CDATA[<img src="https://www.scix.co.jp/img/ogp-m.png" alt="いくらで買って、いくら戻るのか" />
-<p>答えは案件ごとに違います。だから公表値だけを目盛りにした計算機を置きました。動かすのは、読む人の側です。</p>
-<p>18の問いは、日本に蓄電池が要る理由と、稼ぎの中身が変わる理由でした。ここまで読んだ人が次に聞くのは、たいてい同じ問いです。「で、いくらで買って、いくら戻るのか」。案件の値段は案件ごとに違います。だから、この記事は数字を言い切りません。戻る額を決める目盛りを公表値で並べ、動かせる形で置きます。特別高圧でも高圧でも、同じ計算機で読めます。</p>
-
-<h2>自分で計算する</h2>
-<p>戻る額は、待機料・席代・差益から費用を引いたものです。下の計算機は、公表されている水準だけを目盛りにしています。初期値は50MW・4時間・単価9円・約定率90%。アグリゲータの見立て（席代を軸に、約定率20%前後）に動かすと、回収は長くなります。動かすのは、読む人の側です。</p>
-<div>
-<div>
-規模（送電端）<span><b>50</b> MW</span>
-継続時間<span><b>4</b> 時間</span>
-調整力の単価（円/ΔkW・30分）<span><b>9.0</b> 円</span><small>3.0 最低落札の水準／4.4 全電源の平均（2026年8月）／7.21 次の上限／9.3 蓄電池の平均（3〜6月）／10 上限</small>
-約定率（47コマのうち札が通る割合）<span><b>90</b>%</span><small>エリアの募集量に対する自分の規模と、火力（2.05〜3.39円）との競争で決まる</small>
-席代（容量市場、円/kW・年）<span><b>12000</b> 円</span><small>2029年度向け：8,785〜15,112円。継続時間の係数は自動（4時間80%・2時間50%と仮置き）</small>
-差益（円/kW・年）<span><b>10,000</b> 円</span><small>2MW/8MWh（4時間）の実測は1.1〜1.7万円。2時間はその半分前後</small>
-建設費（万円/kWh、土地・負担金別）<span><b>6.3</b> 万円</span><small>2〜4 海外製・補助なし／4.9＋工事1.4＝6.3 50MWh超／6.8 補助事業の平均</small>
-費用率（アグリ等報酬・O&amp;M・保険・税、年収入比）<span><b>25</b>%</span><small>アグリ等報酬5〜15%、O&amp;Mは建設費の年1〜2%、収入割0.75%、償却資産税、保険</small>
-</div>
-<div>
-<div><span>建設費</span><b>—</b></div>
-<div><span>年収入（待機料＋席代＋差益）</span><b>—</b></div>
-<div><span>年の手取り（費用を引いた後）</span><b>—</b></div>
-<div><span>建設費を手取りで回収する年数</span><b>—</b></div>
-<div><span>1kWあたりの年の手取り</span><b>—</b></div>
-</div>
-<p>単純計算（割引なし・単価は横ばい・電池の劣化と更新は含まない）。土地、系統の工事費負担金、開発の権利、金利は別。数字を決める前提は上の目盛りのとおりで、案件ごとに違います。</p>
-</div>
-
-<p>目盛りの出どころは全部公表値です。単価はEPRXの約定結果、席代は容量市場の約定価格、差益は当社の2MWの実測、建設費は経済産業省の検討会資料（補助事業の平均6.8万円/kWh、50MWh超のシステム4.9万円＋工事1.4万円、海外製・補助なしで2〜4万円）。2時間か4時間かは、何で稼ぐかで決まります。一次調整力（応動10秒・継続5分以上）と二次①（30分）は2時間で座れ、3時間続ける複合商品と席代を厚く取るなら3〜4時間で、建設費はその分増えます。</p>
-<p>この計算機に、案件の実数（エリアの募集量、席の空き、連系の年、建設費の見積り、約定率の実測）を入れた3つのシナリオを、当社は案件と一緒にお示しします。</p>
-
-<h2>約定率は、どこで決まるか</h2>
-<p>表の縦軸（単価）は公表値で読めます。横軸（約定率）は、案件ごとに違います。決めるのは「そのエリアの募集量に対して、自分が何MWか」と「誰と競うか」です。</p>
-<figure><p>← 横にスクロールできます →</p><figcaption>図2　蓄電池が座る席は2種類。10MW未満の蓄電池だけの枠（一次オフライン）はまだ半分空いている。10MW以上が座るオンラインの席は、多くのエリアで揚水と火力が埋めていて、火力より安い札で取りに行く。</figcaption></figure>
-<p>10MW未満の高圧の蓄電池には、蓄電池だけが座れる枠（一次オフライン）があります。全国で約500MW／コマ、2026年8月の時点で東京は8割埋まり、中部・九州は4〜5割、関西・中国・北海道は6〜8割が空席です（47-3）。10MW以上の特別高圧は、この枠に入れません。座るのはオンラインの席で、そこでは火力・揚水と同じ札で競います。北海道・四国・九州・中国のオンラインの席は不足率1%以下、つまり揚水と火力で埋まっていて、東北・北陸に4分の1ほど空きがある状態です。火力の落札単価は2025年度で2.05〜3.39円（EPRX）。大きな蓄電池が高い約定率を取るには、火力より安い札を入れる必要があり、それが表の下の行（3円・4.4円）の意味です。</p>
-<p>ここが、当社とアグリゲータで見立てが分かれる場所です。アグリゲータは席代を軸に、調整力を上乗せとして低い約定率で見ます。当社は調整力を軸に置き、約定率と単価を3本のシナリオで振ります。どちらが正しいかは、エリアの募集量（47-2）と席の埋まり方（47-3）を案件の規模と並べて初めて分かる。だから当社は、案件ごとに、表のどのマスにいるかを示します。</p>
-
-<h2>高圧2MWの実測</h2>
-<p>高圧2MW/8MWhは、実測の年商が公表できます。9管区の直近12か月で、2MWあたり概算4,000万〜8,600万円（kWあたり2.0万〜4.3万円/年）。首位と最下位で2倍違い、うち容量市場と差益の「床」だけで4,340万〜5,841万円、調整力が上に乗ります（コラム「同じ2MWが、年2.9億円にも6千万円にもなる」）。建設費は5〜6億円が目安（日経エネルギーNext）、6.8万円/kWhなら5.4億円です。</p>
-<p>買い手は、国内の事業会社と、海外の資金の両方です。国内の事業会社には、2026年7月31日に施行された「大胆な投資促進税制」の即時償却が効きます。自社で取得して事業に使う場合、取得価額を初年度に一括で損金にできる可能性があります（要件と通し方はコラム45・22）。分配や回収の時期は変わりません。効くのは投資家側の税です。</p>
-
-<h2>公表されている利回りの水準</h2>
-<p>利回りの絶対水準は、公表されているものを引きます。三菱総合研究所が経済産業省の検討会に出した感度分析では、収益を契約で固定しない場合、容量市場の収入を入れてもベースのIRRは−1.5%（建設費6万円/kWh・4時間）。建設費5万円/kWhで0.4%、3万円/kWhで卸の値差が上振れれば約14%です。契約で固定すると、特別高圧47MW/188MWh（4時間）の一般例で、借り上げ（トーリング）に容量市場を重ね、借入75%なら株主の利回りは18%台（コラム30）。上の1kWの表を2時間型の建設費に当てると、この公表水準の外側に出ます。差は約定率と単価の見立てで、当社は案件ごとに3シナリオで示します。前提が書いていない利回りは、どの会社のものでも、まだ土台の決まっていない数字です。</p>
-
-<h2>越える関門は5つ</h2>
-<figure><p>← 横にスクロールできます →</p><figcaption>図3　5つの関門と、それぞれの越え方。出典：財務省 対内直接投資の指定業種・コア業種告示／地方税法（電気供給業の収入割）／消防法・火災予防条例（2024年1月〜kWh基準）／資源エネルギー庁 次世代電力系統WG／RE100電力の公表料率ほか。</figcaption></figure>
-<ol>
-<li><strong>外為法。</strong>電気業は対内直接投資の指定業種で、外国資本による取得は事前届出の対象になる公算が高い。ただし「コア業種」は最大出力5万kW以上の発電事業者に限られ、数十MWの特別高圧も2MWの高圧も規模ではコアに当たらない見込みです。手続きは重いが、越えられる関門です（コラム24）。</li>
-<li><strong>収入割。</strong>地方税法は電気を売っていれば「電気供給業」とみなし、利益が出ていなくても売上に課税します（標準0.75%）。需給調整市場の収入が対象に入るかは県税事務所への事前照会で確定させます（コラム31）。</li>
-<li><strong>消防と立地。</strong>容量20kWh超で消防への設置届出、屋外は建物から原則3m以上。市街化調整区域は開発許可と消防を通せば置けますが、自治体次第です。用地契約の前に事前協議を。</li>
-<li><strong>連系待ち。</strong>接続検討1億7,200万kWに対し連系済み64万kW（48-13）。系統側の工事が3〜5年待ちの案件があります。海外の資金が買うべきは「連系日が確定した案件」か「動いている案件」で、当社の技術デューデリジェンスはそこを見ます。</li>
-<li><strong>運用の委託。</strong>毎日47コマの入札と容量市場のルール対応は、オーナーが自分でやる仕事ではありません。アグリゲータに委託し、報酬は市場収入の5〜15%（公表はRE100電力の5%のみ）。実績の開示が細かいアグリゲータを選ぶことが、銀行を付けるときにも効きます。</li>
-</ol>
-
-<h2>出口はあるのか</h2>
-<figure><p>← 横にスクロールできます →</p><figcaption>図4　買い手は電力会社と、その周りの資金。関西電力は2030年代早期に約100万kWを掲げ、東京ガスは20年の借り上げを積み上げ、銀行・証券・ファンドが付き始めた。</figcaption></figure>
-<p>あります。買い手は電力会社と、その周りの資金です。関西電力は2030年代の早期に約100万kWの蓄電所を開発する目標を掲げ、きんでん・MUFGと約25万kW・65億円のファンドを作りました（2026年6月）。東京ガスは20年の借り上げを3件・110MW、運用予定を6件・300MWまで積み上げています。多奈川99MW（関西電力40%出資）には国内初のフルマーチャント型プロジェクトファイナンスが付き、新潟の49MWには100億円の社債が付きました。伊藤忠商事の蓄電所ファンド（80億円超）、芙蓉総合リースなど8社の6地点・174MWのSPC。開発の途中で入る資金と、完成間近に買う資金の両方に席があり、価格の差は時間と工事のリスクの対価です。</p>
-
-<h2>当社の立ち位置</h2>
-<p>当社は90件超の案件情報を持ち、連系済み・連系確定の蓄電所の技術デューデリジェンスと売買を手がけています。海外の資金には特別高圧を中心に高圧も、国内の事業会社には即時償却の効く型を。案件ごとの数字は、上の表のどのマスにいるかを明示した3シナリオで、案件と一緒にお示しします。</p>
-
-<div><div>投資家の読み方</div>戻る額は、待機料（単価×47コマ×365日×約定率）＋席代＋差益から費用を引いたもので、目盛りは全部公表値です。決め手は約定率と単価で、それは「エリアの募集量に対する自分の規模」と「火力より安い札を入れるか」で決まります。上の計算機を、アグリゲータの見立て（席代を軸に約定率20%前後）と当社の見立ての両方で動かしてみてください。案件ごとの3シナリオは、案件と一緒に。</div>
-<div><div>この連載の問い</div><div>一、昔はなぜ蓄電池なしで回っていたのか</div><ol><li><span>48-2</span><a href="https://www.scix.co.jp/column-somosomo-2">昔は蓄電池がなくても回っていたよね</a></li><li><span>48-3</span><a href="https://www.scix.co.jp/column-somosomo-3">回る機械が減った系統では、何が消えるのか</a></li><li><span>48-4</span><a href="https://www.scix.co.jp/column-somosomo-4">なぜ「10秒」なのか</a></li><li><span>48-5</span><a href="https://www.scix.co.jp/column-somosomo-5">再エネが増えるほど、調整力が要るのか</a></li></ol><div>二、火力・原発・揚水では、なぜ足りないのか</div><ol><li><span>48-6</span><a href="https://www.scix.co.jp/column-somosomo-6">火力に調整させれば、足りるのでは</a></li><li><span>48-7</span><a href="https://www.scix.co.jp/column-somosomo-7">原発が増えたら、蓄電池はいらなくなる？</a></li><li><span>48-8</span><a href="https://www.scix.co.jp/column-somosomo-8">揚水を増やせば、足りるのでは</a></li><li><span>48-9</span><a href="https://www.scix.co.jp/column-somosomo-9">市場で買えなかった調整力は、どこから来ているのか</a></li></ol><div>三、これから電気の需要と電源はどうなるのか</div><ol><li><span>48-10</span><a href="https://www.scix.co.jp/column-somosomo-10">データセンターが増えると、なぜ蓄電池なのか</a></li><li><span>48-11</span><a href="https://www.scix.co.jp/column-somosomo-11">太陽光は、これからどうなる</a></li><li><span>48-12</span><a href="https://www.scix.co.jp/column-somosomo-12">火力の量は、原発の稼働は、需要は</a></li><li><span>48-13</span><a href="https://www.scix.co.jp/column-somosomo-13">蓄電池は、どれだけ増えるのか</a></li></ol><div>四、お金と、国の本音</div><ol><li><span>48-14</span><a href="https://www.scix.co.jp/column-somosomo-14">国は、蓄電池を増やしたいのか</a></li><li><span>48-15</span><a href="https://www.scix.co.jp/column-somosomo-15">インフラ投資としての蓄電池は、何に似ているのか</a></li><li><span>48-16</span><a href="https://www.scix.co.jp/column-somosomo-16">稼ぎは細るって言うけど、本当？</a></li><li><span>48-17</span><a href="https://www.scix.co.jp/column-somosomo-17">海外の真似をして、日本で儲かるか</a></li><li><span>48-18</span><a href="https://www.scix.co.jp/column-somosomo-18">蓄電池は、将来どれだけ必要なのか</a></li><li><span>48-19</span><a href="https://www.scix.co.jp/column-somosomo-19">蓄電池は、どこに置いても同じなのか</a></li></ol></div>
-<h2>出典</h2>
-<ul><li>EPRX 約定結果（2026年3〜8月：蓄電池の一次調整力 全国加重平均9.3円、全電源加重平均4.4円、最低落札価格の中央値3円台）／EPRX「2025年度の取引実績について」2026年6月18日（火力の一次調整力 平均落札単価2.05〜3.39円）／資源エネルギー庁 第4回電力安定供給WG 資料6 2026年7月14日（上限10円、次段階7.21円は条件付き）</li><li>EPRX 取引実績（2026年8月・速報）から当社集計：一次オフライン枠の席と落札（47-3）、一次オンライン募集量 約1,500MW／コマ（47-2）</li><li>電力広域的運営推進機関 容量市場メインオークション約定結果（2029年度向け：北海道・東北・東京14,812円/kW、九州15,112円、中部10,280円、北陸・関西・中国・四国8,785円）／FY2029 調整係数表（2025年7月31日）</li><li>経済産業省 2024年度第5回 定置用蓄電システム普及拡大検討会 資料3（2025年1月30日：6.8万円/kWh、50MWh超 システム4.9万円/kWh）／第3回 資料3（2024年8月29日：海外製・補助なし2〜4万円/kWh）／日経エネルギーNext（高圧2MW/8MWh級の初期投資 5〜6億円）</li><li>当社コラム「同じ2MWが、年2.9億円にも6千万円にもなる」（9管区の2MW年商 概算4,000万〜8,600万円、床4,340万〜5,841万円、JEPX器1.1〜1.7万円/kW/年）／コラム30（4時間・一般例・借入75%で株主IRR18%台）／コラム40（建設費）・07（O&amp;M 1〜2%、アグリ報酬）・24（外国資本の関門）・31（収入割・立地）・45・22（即時償却）</li><li>三菱総合研究所が経済産業省の検討会に提出した感度分析（固定なしのベースIRR −1.5%、建設費5万円/kWhで0.4%、3万円/kWh・値差上振れで約14%）</li><li>経済産業省「大胆な投資促進税制」2026年7月31日施行／財務省 対内直接投資の指定業種・コア業種告示／地方税法（電気供給業の収入割 標準税率0.75%）／消防法・火災予防条例</li><li>関西電力・MUFG プレスリリース 2026年6月16日／日経BP 2025年6月（関西電力 2030年代早期に約100万kW）／東京ガス プレスリリース 2025年6月30日／三菱UFJ銀行 2025年5月7日（多奈川99MW）／みずほ証券 2026年4月17日／日本蓄電池・リコーリース 2026年4月27日／伊藤忠商事 2024年9月30日／芙蓉総合リース 2026年3月26日</li><li>RE100電力（アグリゲータ報酬5%）</li></ul>
-
-</div>
-
-<div>
-  <h3>この話題に近い入口</h3>
-  <div><a href="https://www.scix.co.jp/for/dealers">案件をご紹介いただく皆様へ<span>紹介の窓口 →</span></a><a href="https://www.scix.co.jp/for/major">大手事業者・電力・商社の方へ<span>特別高圧と高圧 →</span></a><a href="https://www.scix.co.jp/for/sme">事業会社の方へ（高圧1件から）<span>1件から買う →</span></a></div>
-  <p><a href="https://dealroom.scix.co.jp/register">蓄電所マーケットに無料登録 →</a></p>
-</div>
-<p>元の記事（図表つき）: <a href="https://www.scix.co.jp/column-somosomo-20">https://www.scix.co.jp/column-somosomo-20</a></p>]]></content:encoded>
-<category>そもそも編,系統用蓄電池,蓄電所</category>
-<dc:creator>中島 晋也</dc:creator>
-<dc:language>ja</dc:language>
-<media:thumbnail url="https://www.scix.co.jp/img/ogp-m.png" />
-<media:status>active</media:status>
-</item>
-<item>
-<title>昔は蓄電池がなくても回っていたよね</title>
-<link>https://www.scix.co.jp/column-somosomo-2</link>
-<guid>https://www.scix.co.jp/column-somosomo-2</guid>
-<description><![CDATA[回っていました。火力・水力・原子力は大きな機械が回って発電し、周波数や電圧を保つ働きが「おまけ」で付いてきたからです。おまけに値段がついたのは2016年度、市場になったのは2021年4月、5つの商品が揃ったのは2024年4月です。]]></description>
-<pubDate>Sun, 13 Sep 2026 09:00:00 +0900</pubDate>
-<content:encoded><![CDATA[<img src="https://www.scix.co.jp/img/ogp-m.png" alt="昔は蓄電池がなくても回っていたよね" />
-<p>回っていました。回る機械が、調整の仕事をただでしていたからです。</p>
-<p>電気は貯めておけません。使う量と作る量を毎秒合わせ続けないと、周波数（東日本50Hz・西日本60Hz）がずれ、機械が止まります。このズレをその場で埋める力が「調整力」です。</p>
-<p>昔の日本の電気は、ほとんどが火力・水力・原子力でした。どれも、大きな機械を回して発電します。回る機械には3つのおまけが付いています。</p>
-<ul>
-<li><strong>はずみ。</strong>回っている重い機械は、急に止まれません。どこかの発電所が落ちても、周波数の落ち方をゆっくりにしてくれます。</li>
-<li><strong>自動で出力を上下する働き。</strong>周波数が下がると、機械は自分で少し出力を上げます。人が命令する前に動きます。</li>
-<li><strong>電圧を保つ働き。</strong>回る機械は、電気を送る「圧」を一定に保ちます。</li>
-</ul>
-<figure><p>← 横にスクロールできます →</p><figcaption>図1　回る機械のおまけ。火力・水力・原子力は発電のついでに、はずみ（落ち方をゆっくりにする惰性）・周波数を戻す力（減った分を埋め戻す動き）・電圧を保つ力を出していた。太陽光や風力は回らないので、おまけは付かない。</figcaption></figure>
-<p>「はずみ」と「周波数を戻す力」は別の仕事です。自転車で言えば、はずみはペダルを止めてもすぐには止まらない惰性で、周波数を戻す力は誰かがペダルを踏み足すことです。発電所が1台落ちた瞬間、はずみが「落ち方をゆっくりにして時間を稼ぎ」、その数秒の間に、周波数を戻す力が「減った分を埋め戻し」ます。はずみは回る機械の重さそのもので、命令しなくても勝手に効きます。周波数を戻す力は、機械が周波数のずれを感じて出力を上下する動きで、市場で売り買いされる調整力の商品のうち、速いものにあたります。</p>
-<p>この3つは、発電所を建てれば自動的に付いてくるものでした。だから誰も値段をつけず、市場もありませんでした。電力会社が自分の発電所で、当たり前にやっていた仕事です。</p>
-<h2>おまけに値段がついたのは、この10年</h2>
-<p>2016年に電力の小売が全面自由化され、2020年には送配電が法的に分離されました。送電を担う会社（一般送配電事業者）は、自分で発電所を持たない立場になります。そこで2016年度から、調整力を発電会社から「公募」で買う仕組みが始まりました。ここで初めて、おまけに値段がつきました。</p>
-<p>2021年4月には全国共通の市場（需給調整市場）が開き、まず動きの遅い商品から取引が始まりました。動きの速い商品も2024年4月に揃い、5つの商品が全部市場で買われるようになりました。2026年3月からは前日に30分単位で取引する形に変わり、9月1日には値段の天井（上限価格）が10円になりました。</p>
-<figure><p>← 横にスクロールできます →</p><figcaption>図2　日本で調整力が商品になった年表。公募（2016年度）から数えて10年、市場（2021年）から数えて5年しか経っていない。出典：経済産業省 2016年10月17日／資源エネルギー庁 2024年9月27日 第96回制度検討作業部会 資料3／EPRX。</figcaption></figure>
-
-<h2>はずみは、まだ値段がついていない</h2>
-<p>3つのおまけのうち、周波数を戻す力には市場ができました。しかし「はずみ」には、日本ではまだ値段がありません。太陽光と風力が増え、回る機械が減ると、はずみも減ります。電力広域的運営推進機関は2024年7月に、将来の電源構成の想定のもとで2050年に中部から九州までの6つのエリアで、周波数の落ち方が基準（1秒あたり2.0Hz）を超えるという試算を示しました。対策が要るのは年に4日と見込まれ、その日に回る機械（火力などの同期電源）を余分に運転して補うとした場合の費用が、年2.1〜8.2億円です。幅があるのは、余分に回す費用の単価を安めと高めの2通りで置いているためです（不足するはずみ1GW・s、1日あたり270万〜1,050万円）。年4日分なので額は小さく見えますが、需要や電源の想定が変われば日数も額も変わると広域機関は注記しています。はずみを別に用意する仕組み（同期調相機や、はずみを真似できる蓄電池）は、いま検討中です。</p>
-
-<div><div>投資家の読み方</div>調整力は、日本では「値段がついて10年、市場になって5年」の若い商品です。若い市場は制度が動きます。次に来るのは「はずみ」と「速さ」に値段がつく段階で、回らない電源のなかでは蓄電池がいちばん出しやすい商品です。火力が減るほど、おまけを別に手当てする必要は増えます。</div>
-<div><div>この連載の問い</div><div>一、昔はなぜ蓄電池なしで回っていたのか</div><ol><li><span>48-2</span>昔は蓄電池がなくても回っていたよね（この記事）</li><li><span>48-3</span><a href="https://www.scix.co.jp/column-somosomo-3">回る機械が減った系統では、何が消えるのか</a></li><li><span>48-4</span><a href="https://www.scix.co.jp/column-somosomo-4">なぜ「10秒」なのか</a></li><li><span>48-5</span><a href="https://www.scix.co.jp/column-somosomo-5">再エネが増えるほど、調整力が要るのか</a></li></ol><div>二、火力・原発・揚水では、なぜ足りないのか</div><ol><li><span>48-6</span><a href="https://www.scix.co.jp/column-somosomo-6">火力に調整させれば、足りるのでは</a></li><li><span>48-7</span><a href="https://www.scix.co.jp/column-somosomo-7">原発が増えたら、蓄電池はいらなくなる？</a></li><li><span>48-8</span><a href="https://www.scix.co.jp/column-somosomo-8">揚水を増やせば、足りるのでは</a></li><li><span>48-9</span><a href="https://www.scix.co.jp/column-somosomo-9">市場で買えなかった調整力は、どこから来ているのか</a></li></ol><div>三、これから電気の需要と電源はどうなるのか</div><ol><li><span>48-10</span><a href="https://www.scix.co.jp/column-somosomo-10">データセンターが増えると、なぜ蓄電池なのか</a></li><li><span>48-11</span><a href="https://www.scix.co.jp/column-somosomo-11">太陽光は、これからどうなる</a></li><li><span>48-12</span><a href="https://www.scix.co.jp/column-somosomo-12">火力の量は、原発の稼働は、需要は</a></li><li><span>48-13</span><a href="https://www.scix.co.jp/column-somosomo-13">蓄電池は、どれだけ増えるのか</a></li></ol><div>四、お金と、国の本音</div><ol><li><span>48-14</span><a href="https://www.scix.co.jp/column-somosomo-14">国は、蓄電池を増やしたいのか</a></li><li><span>48-15</span><a href="https://www.scix.co.jp/column-somosomo-15">インフラ投資としての蓄電池は、何に似ているのか</a></li><li><span>48-16</span><a href="https://www.scix.co.jp/column-somosomo-16">稼ぎは細るって言うけど、本当？</a></li><li><span>48-17</span><a href="https://www.scix.co.jp/column-somosomo-17">海外の真似をして、日本で儲かるか</a></li><li><span>48-18</span><a href="https://www.scix.co.jp/column-somosomo-18">蓄電池は、将来どれだけ必要なのか</a></li><li><span>48-19</span><a href="https://www.scix.co.jp/column-somosomo-19">蓄電池は、どこに置いても同じなのか</a></li></ol><a href="https://www.scix.co.jp/column-somosomo-20"><span>18の問いの先にある、ひとつの問い</span><span>48-20 いくらで買って、いくら戻るのか</span><span>答えは案件ごとに違う。だから公表値だけを目盛りにした計算機を置いた。単価・約定率・席代・差益・建設費を、自分で動かせる。</span></a></div>
-<h2>出典</h2>
-<ul><li>経済産業省「一般送配電事業者が行う調整力の公募調達に係る考え方」2016年10月17日</li><li>資源エネルギー庁「需給調整市場について」第96回制度検討作業部会 資料3、2024年9月27日（2021年4月開設、2024年4月全商品）</li><li>EPRX「需給調整市場かいせつ資料」第2版 2026年3月13日（前日取引・30分コマ）／EPRX ΔkW上限価格表（2026年7月30日更新、10円は2026年9月1日実需給分から）</li><li>電力広域的運営推進機関 第99回 調整力及び需給バランス評価等に関する委員会 資料1、2024年7月23日 p.9（2050年の中西6エリアでRoCoF 2.39Hz/s、対策必要日数4日/年、同期電源の追加で2.1〜8.2億円/年、単価270万〜1,050万円/GW・s・日の設定）</li><li>電力広域的運営推進機関 第18回グリッドコード検討会 資料4（グリッドフォーミング・慣性の要件化はフェーズ3以降）</li></ul>
-
-</div>
-
-<div>
-  <h3>この話題に近い入口</h3>
-  <div><a href="https://www.scix.co.jp/for/dealers">案件をご紹介いただく皆様へ<span>紹介の窓口 →</span></a><a href="https://www.scix.co.jp/for/major">大手事業者・電力・商社の方へ<span>特別高圧と高圧 →</span></a><a href="https://www.scix.co.jp/for/sme">事業会社の方へ（高圧1件から）<span>1件から買う →</span></a></div>
-  <p><a href="https://dealroom.scix.co.jp/register">蓄電所マーケットに無料登録 →</a></p>
-</div>
-<p>元の記事（図表つき）: <a href="https://www.scix.co.jp/column-somosomo-2">https://www.scix.co.jp/column-somosomo-2</a></p>]]></content:encoded>
-<category>そもそも編,系統用蓄電池,蓄電所</category>
-<dc:creator>中島 晋也</dc:creator>
-<dc:language>ja</dc:language>
-<media:thumbnail url="https://www.scix.co.jp/img/ogp-m.png" />
-<media:status>active</media:status>
-</item>
-<item>
-<title>蓄電池は、どこに置いても同じなのか</title>
-<link>https://www.scix.co.jp/column-somosomo-19</link>
-<guid>https://www.scix.co.jp/column-somosomo-19</guid>
-<description><![CDATA[同じエリアの中なら、周波数はほぼ一つで、電気は一瞬で伝わります。新潟の発電所の電気を東京で使えるのと同じで、周波数を戻す働きは場所を選びません。ただし3つの制約があります。エリアをつなぐ線の太さ、送電線の混み具合、そして東と西で周波数が違うことです。]]></description>
-<pubDate>Sun, 13 Sep 2026 09:00:00 +0900</pubDate>
-<content:encoded><![CDATA[<img src="https://www.scix.co.jp/img/ogp-m.png" alt="蓄電池は、どこに置いても同じなのか" />
-<p>周波数を戻す働きは、同じエリアならどこに置いても同じです。効くのは「どのエリアか」「送電線が混んでいないか」、そして電圧の役なら「どこか」です。</p>
-<p>「蓄電池は電線の近くならどこでもいいのか」「遠くにバラバラに置いてもいいのか」。周波数については、答えは「同じエリアの中ならどこでも同じ」です。電気は光の速さに近い速さで伝わり、一つにつながった系統の周波数は、落ち着いた状態ではどこで測ってもほぼ同じ値です（発電所が落ちた直後の数秒は、場所によって差が出ます）。本州の東側は50Hzで一つ、西側は60Hzで一つ。北海道は本州と直流の線でつながっているので周波数は別、沖縄も独立した系統です。新潟の発電所の電気を東京で使えるのも、九州の太陽光が余ると関西の周波数まで上がるのも、同じ系統だからです。蓄電池が周波数を戻す働きも、置いた場所とは関係なく、エリア全体に効きます。一方、電圧を保つ働き（48-3）は電気を押し出す圧力の話なので、置いた場所の近くにしか効きません。</p>
-<h2>制約1：エリアをつなぐ線は、細い</h2>
-<p>日本の系統は9つのエリア（沖縄を含めて10）に分かれ、エリアの間は連系線でつながっています。連系線には運べる量の上限があり、余った電気を隣に送れる量も、隣から調整力を借りられる量も、この上限で決まります。だから調整力の市場（需給調整市場）は連系線の制約のもとで広域に調達され、商品ごとに運用の範囲が違い、席（容量市場）もエリアの縛りを持ちます。東と西は周波数が違うので、間にある変換設備（FC）を通る分しか行き来できません。連系線は太くなっていきますが、時間がかかります。</p>
-<figure><p>← 横にスクロールできます →</p><figcaption>図1　日本の9エリアと連系線。同じ交流系統の中では周波数はほぼ一つ。エリアをまたぐ量は連系線の太さで決まり、東西はFC（周波数変換設備）、北海道は直流連系（北本）を通る分だけ。出典：電力広域的運営推進機関 第103回広域系統整備委員会 資料3（2026年9月1日）の連系線増強計画、資源エネルギー庁「電力ネットワークの次世代化について」2023年10月31日。</figcaption></figure>
-
-<h2>制約2：同じエリアでも、送電線が混む場所がある</h2>
-<p>エリアの中でも、送電線には運べる量があります。太陽光が集まる地域の送電線は昼に混み、そこにつながる蓄電池は「混んでいる時間は出すな（または貯めるな）」と止められることがあります（ノンファーム型接続）。電力広域的運営推進機関は毎年、どの送電線がどれだけ混むかを公表していて、2031年度は北海道の基幹系統と、東日本・中部のローカル系統で混雑が増える見通しです（第103回広域系統整備委員会 資料3 p.24）。置く場所は、周波数には関係なくても、送電線の空き具合には関係します。</p>
-<h2>分散して置くのは、むしろよい</h2>
-<p>制約が2つあるからこそ、蓄電池を小分けにして分散して置くことには意味があります。混んでいない送電線を選べる。1か所の事故で全部が止まらない。一般に、需要の近くに置けば送電の損失も減ります。同じエリアの中で、送電線の空いている場所に分散して置く。これが、置き場所を選ぶときの基本になります。</p>
-
-<div><div>投資家の読み方</div>周波数を戻す効き目は場所を選びません。だから「どこに置くか」は、①どのエリアか（席の空き具合、昼夜の値差、原発の有無＝48-7）、②送電線が混んでいないか（2031年度の混雑見通しは公表済み）、③連系線が太くなる前か後か、の3つで決めます。同じエリアの中で分散して置くことは、混雑と事故を避ける観点では強みだと当社は見ています。</div>
-<div><div>この連載の問い</div><div>一、昔はなぜ蓄電池なしで回っていたのか</div><ol><li><span>48-2</span><a href="https://www.scix.co.jp/column-somosomo-2">昔は蓄電池がなくても回っていたよね</a></li><li><span>48-3</span><a href="https://www.scix.co.jp/column-somosomo-3">回る機械が減った系統では、何が消えるのか</a></li><li><span>48-4</span><a href="https://www.scix.co.jp/column-somosomo-4">なぜ「10秒」なのか</a></li><li><span>48-5</span><a href="https://www.scix.co.jp/column-somosomo-5">再エネが増えるほど、調整力が要るのか</a></li></ol><div>二、火力・原発・揚水では、なぜ足りないのか</div><ol><li><span>48-6</span><a href="https://www.scix.co.jp/column-somosomo-6">火力に調整させれば、足りるのでは</a></li><li><span>48-7</span><a href="https://www.scix.co.jp/column-somosomo-7">原発が増えたら、蓄電池はいらなくなる？</a></li><li><span>48-8</span><a href="https://www.scix.co.jp/column-somosomo-8">揚水を増やせば、足りるのでは</a></li><li><span>48-9</span><a href="https://www.scix.co.jp/column-somosomo-9">市場で買えなかった調整力は、どこから来ているのか</a></li></ol><div>三、これから電気の需要と電源はどうなるのか</div><ol><li><span>48-10</span><a href="https://www.scix.co.jp/column-somosomo-10">データセンターが増えると、なぜ蓄電池なのか</a></li><li><span>48-11</span><a href="https://www.scix.co.jp/column-somosomo-11">太陽光は、これからどうなる</a></li><li><span>48-12</span><a href="https://www.scix.co.jp/column-somosomo-12">火力の量は、原発の稼働は、需要は</a></li><li><span>48-13</span><a href="https://www.scix.co.jp/column-somosomo-13">蓄電池は、どれだけ増えるのか</a></li></ol><div>四、お金と、国の本音</div><ol><li><span>48-14</span><a href="https://www.scix.co.jp/column-somosomo-14">国は、蓄電池を増やしたいのか</a></li><li><span>48-15</span><a href="https://www.scix.co.jp/column-somosomo-15">インフラ投資としての蓄電池は、何に似ているのか</a></li><li><span>48-16</span><a href="https://www.scix.co.jp/column-somosomo-16">稼ぎは細るって言うけど、本当？</a></li><li><span>48-17</span><a href="https://www.scix.co.jp/column-somosomo-17">海外の真似をして、日本で儲かるか</a></li><li><span>48-18</span><a href="https://www.scix.co.jp/column-somosomo-18">蓄電池は、将来どれだけ必要なのか</a></li><li><span>48-19</span>蓄電池は、どこに置いても同じなのか（この記事）</li></ol><a href="https://www.scix.co.jp/column-somosomo-20"><span>18の問いの先にある、ひとつの問い</span><span>48-20 いくらで買って、いくら戻るのか</span><span>答えは案件ごとに違う。だから公表値だけを目盛りにした計算機を置いた。単価・約定率・席代・差益・建設費を、自分で動かせる。</span></a></div>
-<h2>出典</h2>
-<ul><li>電力広域的運営推進機関 第103回広域系統整備委員会 資料3、2026年9月1日（p.24 混雑設備数、p.55 連系線増強計画：北海道本州900→1,200MW 2028年3月、東北東京 2027年11月、東京中部FC 2027年度、中部関西 2030年6月）</li><li>資源エネルギー庁「電力ネットワークの次世代化について」資料6、2023年10月31日（FC 210万kW→300万kW、東北東京間 1,028万kW）</li><li>電力広域的運営推進機関「系統の接続および利用ルールについて〜ノンファーム型接続〜」2026年7月10日</li><li>需給調整市場（EPRX）：エリア単位の募集と広域調達の仕組み</li></ul>
-
-</div>
-
-<div>
-  <h3>この話題に近い入口</h3>
-  <div><a href="https://www.scix.co.jp/for/dealers">案件をご紹介いただく皆様へ<span>紹介の窓口 →</span></a><a href="https://www.scix.co.jp/for/major">大手事業者・電力・商社の方へ<span>特別高圧と高圧 →</span></a><a href="https://www.scix.co.jp/for/sme">事業会社の方へ（高圧1件から）<span>1件から買う →</span></a></div>
-  <p><a href="https://dealroom.scix.co.jp/register">蓄電所マーケットに無料登録 →</a></p>
-</div>
-<p>元の記事（図表つき）: <a href="https://www.scix.co.jp/column-somosomo-19">https://www.scix.co.jp/column-somosomo-19</a></p>]]></content:encoded>
 <category>そもそも編,系統用蓄電池,蓄電所</category>
 <dc:creator>中島 晋也</dc:creator>
 <dc:language>ja</dc:language>
