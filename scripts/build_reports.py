@@ -19,6 +19,12 @@
   report/<YYYY-MM>/f1.png …, scix-bess-monthly-<YYYY-MM>.pdf
   en/report/index.html, en/report/<YYYY-MM>/index.html, f1.png〜, scix-bess-monthly-<YYYY-MM>-en.pdf（英語版）
   sitemap.xml                       /report と各月の行（無ければ足す。英語版があれば hreflang の相互の行も）
+  report/latest.json                最新号の要点（号・URL・今月の動きのうち需給調整市場と卸電気の1文ずつ・対象の月）。
+                                    header.js が記事（需給調整市場・卸電気・容量市場）に「最新の数字」の札を出すのに読む（2026-11-21）。
+                                    中身は号の頁（説明文・今月の動き3つ）に出している文だけで、新しい数字は作らない。
+2026-11-21（中島「この2つのレポートは会社の財産だけど、今ひとつみんな読んでなくないか？」）:
+  号の頁に「この号の数字の読み方」（関係する記事への段＝READING）を足し、SNS の画像（og:image）を号の図（OG_FIG・大きさと縦横比が合う物だけ）に。
+  sitemap の lastmod は、焼き直して頁の中身が変わった日（変わらなければ前の値か発行日の新しいほう）にする。
 
 置く前の検査（公開リポジトリ＝O16-19）: MD と PDF の文字に、住所・地番・案件ID・価格類（仕入値・売値・土地代）・
 売主・成約実績の語が1つでもあれば、何も書かずに終了コード 2 で止まる。図の PNG は文字を持たないので、
@@ -31,9 +37,12 @@
 """
 from __future__ import annotations  # launchd の python3 は 3.9
 
+import datetime
 import glob
 import html
+import json
 import os
+import struct
 import re
 import shutil
 import subprocess
@@ -54,6 +63,21 @@ DR2_REGISTER_EN = "https://dealroom.scix.co.jp/en/register"
 FIG_FILE = {1: "f9", 2: "f15", 3: "f18", 4: "f16", 5: "f13", 6: "f14", 7: "f5", 8: "f17", 9: "f1", 10: "f2", 11: "f12", 12: "f3", 13: "f10", 14: "f6", 15: "f7"}   # bin/monthly_report.py の FIG_FILE と同じ（2026-11-05 の並び: 3つの稼ぎ口→①需給調整→②卸電気→③容量→当社の記録。2026-11-05 に図7＝管区ごとの約定率 f18 を足した）
 NAME, NAME_EN = "蓄電所の市場ノート", "Battery Storage Market Notes"
 HOME_FIG = "f16"          # トップの札に出す図（一次調整力の席の取り合い）
+# 号の頁の SNS 用の画像（og:image）。号ごとに数字の変わる図を、トップの札と同じ図から先に選ぶ。図1（3つの稼ぎ口の模式図）は
+# 毎号同じなので使わない。大きさと縦横比（1.91:1 に近い）が合わなければ次の図、どれも合わなければ今の共通の1枚のまま。
+OG_MIN_W, OG_RATIO = 1200, (1.6, 2.1)
+# 「この号の数字の読み方」＝号の頁から、数字の意味を説明している記事へ（2026-11-21）。記事の題は記事の <title> から読む
+# （無い記事・英語版の無い記事は出さない＝JA 専用の記事は英語の頁に出ない）。
+READING = [
+    (("①需給調整市場（EPRX）", "① Balancing market (EPRX)"),
+     ["balancing-market", "eprx", "area-data", "price-cap", "balancing-saturation"]),
+    (("②卸電気（JEPX）と、3つの稼ぎ方の組み合わせ", "② Wholesale power (JEPX) and stacking the three"),
+     ["revenue", "regional-revenue", "merchant"]),
+    (("③容量市場（OCCTO）", "③ Capacity market (OCCTO)"),
+     ["capacity-market", "auction"]),
+    (("当社の記録（系統につなぐ期間と費用）", "Our records (connecting to the grid)"),
+     ["study-reply-4", "grid"]),
+]
 MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 EN_ORG = {"@type": "Organization", "@id": bmd.BASE + "/#organization", "name": "ScienceX", "legalName": "Science X Inc.", "url": bmd.BASE + "/en"}
 
@@ -194,6 +218,88 @@ def render_pdf_pages(pdf, tmp):
     return {i + 1: p for i, p in enumerate(pages)}
 
 
+def png_size(p):
+    """PNG の幅と高さ（IHDR）。読めなければ (0, 0)。"""
+    try:
+        with open(p, "rb") as f:
+            b = f.read(24)
+        if b[:8] != b"\x89PNG\r\n\x1a\n":
+            return 0, 0
+        return struct.unpack(">II", b[16:24])
+    except OSError:
+        return 0, 0
+
+
+def pick_og(figs):
+    """号の SNS 用の画像にする図の番号（figs＝図の番号 → パス）。合う物が無ければ None（共通の1枚のまま）。"""
+    home_n = next((n for n, f in FIG_FILE.items() if f == HOME_FIG), None)
+    order = ([home_n] if home_n in figs else []) + [n for n in sorted(figs) if n not in (home_n, 1)]
+    for n in order:
+        w, h = png_size(figs[n])
+        if w >= OG_MIN_W and h and OG_RATIO[0] <= w / h <= OG_RATIO[1]:
+            return n, w, h
+    return None
+
+
+def put_og(head_html, url, w, h):
+    """head の og:image / twitter:image を号の図に替え、大きさの行を足す（共通の1枚の行が無ければ何もしない）。"""
+    out = re.sub(r'(<meta property="og:image" content=")[^"]*(">)', lambda mt: mt.group(1) + url + mt.group(2)
+                 + f'\n<meta property="og:image:width" content="{w}">\n<meta property="og:image:height" content="{h}">', head_html, count=1)
+    return re.sub(r'(<meta name="twitter:image" content=")[^"]*(">)', lambda mt: mt.group(1) + url + mt.group(2), out, count=1)
+
+
+def column_title(rel, lang):
+    """記事の題（<title> から「｜サイエンスエックス」などを外した物）。ファイルが無ければ ""。"""
+    p = os.path.join(ROOT, rel)
+    if not os.path.isfile(p):
+        return ""
+    mt = re.search(r"<title>([^<]+)</title>", open(p, encoding="utf-8").read())
+    if not mt:
+        return ""
+    t = html.unescape(mt.group(1)).strip()
+    t = re.sub(r"\s*[｜|]\s*(?:サイエンスエックス|ScienceX)(?:\s*ナレッジ)?\s*$", "", t)
+    return t.strip()
+
+
+def reading_section(lang="ja"):
+    """「この号の数字の読み方」の段（記事への短いリンクの一覧だけ。説明の文は足さない）。"""
+    groups = []
+    for (h_ja, h_en), slugs in READING:
+        links = []
+        for s in slugs:
+            rel, href = (f"column-{s}.html", f"/column-{s}") if lang == "ja" else (f"en/column-{s}.html", f"/en/column-{s}")
+            t = column_title(rel, lang)
+            if t:
+                links.append(f'<li><a href="{href}">{esc(t)}</a></li>')
+        if links:
+            groups.append(f'<div class="rp-read-g"><div class="rp-read-h">{esc(h_ja if lang == "ja" else h_en)}</div><ul>{"".join(links)}</ul></div>')
+    if not groups:
+        return ""
+    h2 = "この号の数字の読み方" if lang == "ja" else "How to read the numbers in this issue"
+    return (f'<section class="md" id="reading"><div class="container rp-body">\n  <h2 class="md-h">{h2}</h2>\n'
+            f'  <div class="rp-read">{"".join(groups)}</div>\n</div></section>')
+
+
+def latest_json(m, doc, md_text, en_doc=None, en_md=""):
+    """report/latest.json の中身。号の頁の「今月の動き3つ」の文をそのまま入れる（言い直さない・数字を作らない）。"""
+    def pick(d, src, eprx_re, jepx_re, month_re, text):
+        s1 = moves_sec(d)
+        moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith(src)]
+        eprx = next((t for t in moves if re.search(eprx_re, t)), "")
+        jepx = next((t for t in moves if re.search(jepx_re, t)), "")
+        mt = re.search(month_re, text)
+        return {"eprx": eprx, "jepx": jepx, "eprx_month": mt.group(1) if mt else ""}, moves
+    y, mo = m["key"].split("-")
+    ja, _ = pick(doc, "出典:", r"需給調整市場（EPRX）.*応札倍率", r"卸電気（JEPX）",
+                 r"対象の月: 需給調整市場（EPRX）は\s*(\d{4}年\d{1,2}月)", md_text)
+    out = {"key": m["key"], "issued": doc["issued"], "title": f"{NAME} {y}年{int(mo)}月号", "url": f"/report/{m['key']}", **ja}
+    if en_doc:
+        en, _ = pick(en_doc, "Source", r"balancing market \(EPRX\).*bid ratio", r"wholesale electricity \(JEPX\)",
+                     r"balancing market \(EPRX\) uses preliminary values for ([A-Z][a-z]+ \d{4})", en_md)
+        out["en"] = {"title": en_doc["title"], "url": f"/en/report/{m['key']}", **en}
+    return json.dumps(out, ensure_ascii=False, indent=1) + "\n"
+
+
 # ---------------------------------------------------------------- ページ
 EXTRA_CSS = """
 .rp-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--border);max-width:900px}
@@ -216,6 +322,14 @@ EXTRA_CSS = """
 .rp-table td.rp-n{text-align:right;font-variant-numeric:tabular-nums}
 .rp-table tbody tr:nth-child(even){background:var(--off-white)}
 .rp-nav{margin-top:14px;font-size:.86rem}.rp-nav a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold)}.rp-nav-sep{margin:0 10px;color:var(--text-3)}
+"""
+# 「この号の数字の読み方」の段（号の頁だけ。一覧の頁の head は変えない）
+READ_CSS = """
+.rp-read{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:14px}
+.rp-read-g{background:#fff;border:1px solid var(--border);border-top:4px solid #138A62;border-radius:16px;padding:14px 18px 10px}
+.rp-read-h{font-weight:800;color:var(--navy);font-size:.92rem;margin-bottom:6px}
+.rp-read-g ul{list-style:none;padding:0;margin:0}.rp-read-g li{margin:0;padding:7px 0;border-top:1px solid var(--border);line-height:1.6;font-size:.88rem}
+.rp-read-g li:first-child{border-top:0}.rp-read-g a{color:var(--navy);text-decoration:none;font-weight:600}.rp-read-g a:hover{text-decoration:underline}
 """
 
 SEC_MORE = {"1": "three"}
@@ -368,12 +482,17 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
 </div></section>
 {chr(10).join(secs)}
 {gallery}
+{reading_section("ja")}
 {cite}
 {cta}{bmd.FOOTER}
 </body>
 </html>
 """
-    return page_head(title, desc, path, jsonld, f"/en/report/{key}" if has_en else None) + body, desc
+    head = page_head(title, desc, path, jsonld, f"/en/report/{key}" if has_en else None).replace("</style>", READ_CSS + "</style>", 1)
+    og = pick_og(figs)
+    if og:
+        head = put_og(head, f"{BASE}{path}/f{og[0]}.png", og[1], og[2])
+    return head + body, desc
 
 
 def render_month_en(m, doc, figs, nav=None):
@@ -423,12 +542,17 @@ def render_month_en(m, doc, figs, nav=None):
   {issue_nav(nav, "en")}
 </div></section>
 {chr(10).join(secs)}
+{reading_section("en")}
 {cite}
 {cta}{bmd.EN_FOOTER}
 </body>
 </html>
 """
-    return page_head_en(title, desc, path, jsonld, f"/report/{key}") + body, desc
+    head = page_head_en(title, desc, path, jsonld, f"/report/{key}").replace("</style>", READ_CSS + "</style>", 1)
+    og = pick_og(figs)
+    if og:
+        head = put_og(head, f"{BASE}{path}/f{og[0]}.png", og[1], og[2])
+    return head + body, desc
 
 
 _PAGES = {}
@@ -573,11 +697,19 @@ def put_home(rel, card):
 
 
 # ---------------------------------------------------------------- 書き出し
-def sitemap_add(text, rows, en_rows=()):
-    """/report と各月の行を足す。英語版（en_rows＝英語のページがある月）があれば hreflang の相互の行も（日本語の行は書き直す）。"""
+def sitemap_add(text, rows, en_rows=(), touched=(), today=""):
+    """/report と各月の行を足す。英語版（en_rows＝英語のページがある月）があれば hreflang の相互の行も（日本語の行は書き直す）。
+    lastmod は 発行日・今の sitemap の値・（touched＝この回に中身が変わった頁なら）今日 のうち新しいもの（2026-11-21 までは
+    毎回発行日に戻していた＝11/13 の直しのあとも lastmod が 11/05 のままだった）。"""
     en_keys = {r["key"] for r in en_rows}
 
+    def lastmod_of(path, issued):
+        mt = re.search(r"<url><loc>" + re.escape(BASE + path) + r"</loc>.*?<lastmod>([0-9-]{10})</lastmod>", text)
+        cands = [issued] + ([mt.group(1)] if mt else []) + ([today] if path in touched and today else [])
+        return max(cands)
+
     def ent(path, lastmod, pr, en_path=None, lang="ja"):
+        lastmod = lastmod_of(path, lastmod)
         other = ""
         if en_path:
             ja_p, en_p = (path, en_path) if lang == "ja" else (en_path, path)
@@ -675,9 +807,21 @@ def main():
             home = put_home("en/index.html", home_card(le, docs[le["key"] + ":en"], en_fig_by_number(fig_sources(le, "figs_en")), "en"))
             if home is not None:
                 files["en/index.html"] = home.encode("utf-8")
+        lt = months[0]
+        files["report/latest.json"] = latest_json(
+            lt, docs[lt["key"]], open(lt["md"], encoding="utf-8").read(),
+            docs.get(lt["key"] + ":en"), open(lt["en_md"], encoding="utf-8").read() if lt["en_md"] else "").encode("utf-8")
+        # この回に中身が変わった頁（sitemap の lastmod を今日にする）
+        touched = set()
+        for rel, data in files.items():
+            if not rel.endswith("/index.html") or not rel.startswith(("report/", "en/report/")):
+                continue
+            p = os.path.join(ROOT, rel)
+            if (open(p, "rb").read() if os.path.isfile(p) else None) != data:
+                touched.add("/" + rel[: -len("/index.html")])
         sm_path = os.path.join(ROOT, "sitemap.xml")
         sm = open(sm_path, encoding="utf-8").read()
-        sm2 = sitemap_add(sm, rows, en_rows)
+        sm2 = sitemap_add(sm, rows, en_rows, touched, datetime.date.today().isoformat())
         if sm2 != sm:
             files["sitemap.xml"] = sm2.encode("utf-8")
 

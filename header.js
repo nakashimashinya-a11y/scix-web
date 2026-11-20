@@ -560,6 +560,9 @@
       '.scix-nl-done{font-size:.95rem;font-weight:800;color:#0F7A52;line-height:1.7}',
       '.scix-nl-err{font-size:.82rem;color:#B42318;margin-top:8px}',
       '.scix-nl .scix-nl-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}',
+      '.scix-nl.scix-nl-rp{background:linear-gradient(118deg,#BDEBD6 0%,#E8F8F0 52%,#FFF0D6 100%)}',
+      '.scix-nl.scix-nl-rp .scix-nl-label{color:#0F7A52}',
+      '.scix-nl.scix-nl-rp input:focus{border-color:#138A62;box-shadow:0 0 0 3px rgba(19,138,98,.22)}',
       '@media(max-width:600px){.scix-nl{margin:32px 16px 0;padding:22px 18px 18px;border-radius:20px}.scix-nl input.scix-nl-name{flex:1 1 100%}.scix-nl button{flex:1 1 100%}}'
     ].join('\n');
     var nlStyle = document.createElement('style');
@@ -580,10 +583,19 @@
       '<p class="scix-nl-note">配信は各メールの末尾からいつでも解除できます。アドレスは更新のお知らせにだけ使います（<a href="/privacy" target="_top">プライバシーポリシー</a>）。</p>'
     ].join('\n');
 
-    function nlMount(el, where) {
-      el.className = 'scix-nl';
+    // 2026-11-21: 市場ノート（/report・/report/<月>）にも登録の箱を出す（中島「この2つのレポートは会社の財産だけど、今ひとつみんな読んでなくないか？」）。
+    // 受け口は記事の箱と同じ /api/newsletter（_page に /report… が残るので、どの箱から来たかは名簿の page で分かる）。置き場所の名前は report_index／report_issue。
+    var isReportPage = loc === '/report' || /^\/report\/\d{4}-\d{2}$/.test(loc);
+    var nlHtmlReport = nlHtml
+      .replace('<div class="scix-nl-label">NEWSLETTER</div>', '<div class="scix-nl-label">市場ノート</div>')
+      .replace('<h3>週1本の新しい記事を、メールで受け取る</h3>', '<h3>毎月の市場ノートを、メールで受け取る</h3>')
+      .replace('<p>毎週1本、その週に書いた記事の要点とリンクをお送りします。メールアドレスだけで登録できます。</p>',
+               '<p>新しい号ができたら、その月の数字の要点とリンクをお送りします。メールアドレスだけで登録できます。</p>');
+
+    function nlMount(el, where, html) {
+      el.className = 'scix-nl' + (html === nlHtmlReport ? ' scix-nl-rp' : '');
       el.setAttribute('data-where', where);
-      el.innerHTML = nlHtml;
+      el.innerHTML = html || nlHtml;
       var form = el.querySelector('form');
       var mail = el.querySelector('.scix-nl-mail');
       var btn = el.querySelector('button');
@@ -618,8 +630,8 @@
             done.textContent = res.j.unsubscribed
               ? 'このアドレスは以前に配信を停止されています。再開をご希望の場合は s@scix.co.jp へ「更新メール再開希望」とお送りください。'
               : (res.j.already
-                ? 'このアドレスは登録済みです。次の記事からお届けします。'
-                : '登録しました。次の記事からお届けします。');
+                ? 'このアドレスは登録済みです。次の' + (html === nlHtmlReport ? '号' : '記事') + 'からお届けします。'
+                : '登録しました。次の' + (html === nlHtmlReport ? '号' : '記事') + 'からお届けします。');
             form.parentNode.replaceChild(done, form);
             try { done.focus(); } catch (err) { /* ignore */ }
             try {
@@ -647,6 +659,18 @@
       var slots = document.querySelectorAll('[data-scix-newsletter]');
       if (slots.length) {
         for (var s = 0; s < slots.length; s++) nlMount(slots[s], slots[s].getAttribute('data-scix-newsletter') || 'slot');
+        return;
+      }
+      if (isReportPage) {
+        try {
+          // 号の頁は「蓄電所マーケットで案件を見る」の帯（section.cta）の上、一覧の頁はフッターの上
+          var at = document.querySelector('section.cta') || document.querySelector('footer.scix-footer');
+          if (!at) return;
+          var rbox = document.createElement('div');
+          at.parentNode.insertBefore(rbox, at);
+          rbox.style.marginBottom = '48px';
+          nlMount(rbox, loc === '/report' ? 'report_index' : 'report_issue', nlHtmlReport);
+        } catch (err) { /* 箱を出せなくても頁はそのまま */ }
         return;
       }
       if (!isCol) return;
@@ -923,6 +947,291 @@
       });
     } catch (err) { /* ignore */ }
   }, true);
+
+  // --------------- 7. 測る仕組み（2026-11-21・中島「この2つのレポートは会社の財産だけど、今ひとつみんな読んでなくないか？」） ---------------
+  // 読まれた後が数えられていなかった（サイトから蓄電所マーケットへのリンクに出所の印が0・問い合わせにどの頁から来たかが残らない）。
+  // 全頁が読むこのファイルで足す。どれも try の中＝失敗しても今の表示とナビは変わらない。
+  //  7a. 出所の印: dealroom.scix.co.jp へのリンクを押す（触る）直前に ?src=<頁の印> を足す（すでに src があれば替えない・lang などは残す）。
+  //      印の形はマーケット側の public/src-mark.js・functions/_lib/signup_src.ts と同じ＝英数と _- だけ・64字まで。
+  //      コラム col-<slug>／市場ノート report・report-<YYYY-MM>／ナレッジの一覧 knowledge／トップ top／ほかは site-<頁>。英語は末尾に -en、中国語は -zh。
+  //      頁を読み込んだ時点では href を変えない（検索エンジンが読むリンクは今のまま）。
+  //  7b. GA4: マーケットへのリンクが押されたら market_click を1回（page_path・src_mark・placement＝header/hero/body/end/footer・link_path）。
+  //      前からの dr2_promo_click・dr2_register_click（各頁の onclick）は内訳として残し、legacy_event・legacy_target に写す＝マーケットへの送客は market_click だけで数える（足さない）。
+  //  7c. 社内の閲覧の印: 一度 ?internal=1 を開いた端末は、GA4 の利用者の印 internal_user=1 を付ける（?internal=0 で外す・localStorage）。
+  //  7d. 問い合わせの出所: 最初に着いた頁・その前のサイト（ホスト名だけ）・直前に見ていた頁・出所の印（src・utm）を sessionStorage に覚え、
+  //      /api/contact へ送るフォームに隠し欄（_entry_page・_entry_ref・_prev_page・_src・_utm）で渡す。受け口（web-contact.ts）は「_」で始まる欄を
+  //      断らずに本文から外すので、今は届いても残らない（受け口に記録の行を足せば残る）。頁の住所は path だけ（問い合わせの引数は持たない）。
+  //  7e. 記事 → 市場ノート: 需給調整市場・卸電気・容量市場の記事に、/report/latest.json（build_reports.py が焼く）の「最新の数字」の札を出す。
+  //      JSON が読めなければ出さない。札の文は号の頁の「今月の動き」の文そのまま（言い直さない）。
+  try { (function () {
+    var MARKET_HOST = 'dealroom.scix.co.jp';
+    var langSfx = isEn ? '-en' : (isZh ? '-zh' : '');
+    var lang = isEn ? 'en' : (isZh ? 'zh' : 'ja');
+    function cleanMark(v) {
+      return String(v == null ? '' : v).replace(/[^A-Za-z0-9_-]+/g, '-').replace(/-{2,}/g, '-').replace(/^-+|-+$/g, '');
+    }
+    function pageMark() {
+      var m;
+      if (isCol) m = 'col-' + loc.slice('/column-'.length);
+      else if (loc === '/report') m = 'report';
+      else if (/^\/report\/\d{4}-\d{2}$/.test(loc)) m = 'report-' + loc.slice('/report/'.length);
+      else if (loc === '/knowledge') m = 'knowledge';
+      else if (loc === '/' || loc === '/index') m = (isZh && path !== '/zh') ? 'site-' + path.replace(/^\/zh-?/, '') : 'top';
+      else m = 'site-' + loc.replace(/^\/+/, '');
+      m = cleanMark(m) || 'site';
+      return m.slice(0, 64 - langSfx.length).replace(/-+$/, '') + langSfx;
+    }
+    var MARK = pageMark();
+    window.SCIX_SRC_MARK = MARK;   // 確かめ用（ほかからは使わない）
+
+    // ---- 7a. 出所の印 ----
+    function marketUrl(a) {
+      try {
+        var href = a && a.getAttribute && a.getAttribute('href');
+        if (!href) return null;
+        var u = new URL(href, window.location.href);
+        return u.hostname === MARKET_HOST ? u : null;
+      } catch (err) { return null; }
+    }
+    function tagLink(a) {
+      var u = marketUrl(a);
+      if (!u) return null;
+      try {
+        if (!/(?:^|[?&])src=/.test(u.search)) {
+          u.search = (u.search && u.search.length > 1 ? u.search + '&' : '?') + 'src=' + MARK;
+          a.setAttribute('href', u.toString());
+        }
+      } catch (err) { /* 印を足せなくてもリンクはそのまま */ }
+      return u;
+    }
+    function linkOf(e) {
+      var t = e && e.target;
+      if (t && t.nodeType !== 1) t = t.parentNode;
+      return t && t.closest ? t.closest('a[href]') : null;
+    }
+    var touch = function (e) { try { var a = linkOf(e); if (a) tagLink(a); } catch (err) { /* ignore */ } };
+    document.addEventListener('mousedown', touch, true);
+    document.addEventListener('touchstart', touch, { capture: true, passive: true });
+    document.addEventListener('focusin', touch, true);
+
+    // ---- 7b. GA4 market_click（1回の押下に1回） ----
+    function placementOf(a) {
+      if (a.closest('.scix-header')) return 'header';
+      if (a.closest('footer, .scix-footer')) return 'footer';
+      var ab = document.querySelector('.author-box');
+      if (ab && (ab.contains(a) || (ab.compareDocumentPosition(a) & 4))) return 'end';   // 4 = 著者欄より後ろ（本文の末尾の導線）
+      if (a.closest('section.cta, .cta, [data-scix-related]')) return 'end';
+      if (a.closest('.hero, [class*="hero"]')) return 'hero';
+      return 'body';
+    }
+    function onClick(e) {
+      try {
+        if (e.type === 'auxclick' && e.button !== 1) return;
+        var a = linkOf(e);
+        if (!a) return;
+        var u = tagLink(a);
+        if (!u || typeof window.gtag !== 'function') return;
+        var lm = /(dr2_[a-z]+_click)'\s*,\s*\{\s*target\s*:\s*'([^']*)'/.exec(a.getAttribute('onclick') || '');
+        window.gtag('event', 'market_click', {
+          page_path: path, src_mark: MARK, placement: placementOf(a), link_path: u.pathname,
+          legacy_event: lm ? lm[1] : '', legacy_target: lm ? lm[2] : '',
+          page_lang: (document.documentElement.lang || lang), transport_type: 'beacon'
+        });
+      } catch (err) { /* ignore */ }
+    }
+    document.addEventListener('click', onClick, true);
+    document.addEventListener('auxclick', onClick, true);
+
+    // ---- 7c. 社内の閲覧の印 ----
+    var INT_KEY = 'scix_internal';
+    var qs = null;
+    try { qs = new URLSearchParams(window.location.search); } catch (err) { qs = null; }
+    var qi = qs ? qs.get('internal') : null;
+    var internal = false;
+    try {
+      if (qi === '1') window.localStorage.setItem(INT_KEY, '1');
+      else if (qi === '0') window.localStorage.removeItem(INT_KEY);
+      internal = window.localStorage.getItem(INT_KEY) === '1';
+    } catch (err) { internal = qi === '1'; }
+    if (internal) {
+      try {
+        var props = { internal_user: '1' };
+        var dl = window.dataLayer, done = false;
+        // gtag.js がまだ読み込まれていなければ（dataLayer がただの配列）、最初の page_view より前に印を差し込む
+        if (dl && dl.push === Array.prototype.push) {
+          for (var di = 0; di < dl.length; di++) {
+            if (dl[di] && dl[di][0] === 'config') {
+              dl.splice(di, 0, (function () { return arguments; })('set', 'user_properties', props));
+              done = true;
+              break;
+            }
+          }
+        }
+        if (!done && typeof window.gtag === 'function') window.gtag('set', 'user_properties', props);
+      } catch (err) { /* ignore */ }
+    }
+    if (qi === '1' || qi === '0') {
+      var showToast = function () {
+        try {
+          var tst = document.createElement('div');
+          tst.setAttribute('role', 'status');
+          tst.style.cssText = 'position:fixed;left:16px;bottom:16px;z-index:10050;max-width:calc(100vw - 32px);background:#1F2A48;color:#fff;font:700 13px/1.6 "Noto Sans JP",sans-serif;padding:10px 16px;border-radius:14px;box-shadow:0 8px 22px rgba(31,42,72,.3)';
+          tst.textContent = qi === '1' ? 'この端末の閲覧に社内の印を付けました（外すときは ?internal=0）' : 'この端末の社内の印を外しました';
+          document.body.appendChild(tst);
+          setTimeout(function () { if (tst.parentNode) tst.parentNode.removeChild(tst); }, 5000);
+        } catch (err) { /* ignore */ }
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', showToast); else showToast();
+    }
+
+    // ---- 7d. 問い合わせの出所 ----
+    var entry = null, prev = '', mark = {};
+    try {
+      var SS = window.sessionStorage;
+      try { entry = JSON.parse(SS.getItem('scix_entry') || 'null'); } catch (err) { entry = null; }
+      if (!entry || typeof entry !== 'object') {
+        var ref = '';
+        try {
+          if (document.referrer) {
+            var ru = new URL(document.referrer);
+            if (ru.hostname && ru.hostname !== window.location.hostname) ref = ru.hostname.slice(0, 100);
+          }
+        } catch (err) { ref = ''; }
+        entry = { p: path.slice(0, 200), r: ref };
+        SS.setItem('scix_entry', JSON.stringify(entry));
+      }
+      var cur = SS.getItem('scix_cur');
+      if (cur && cur !== path) SS.setItem('scix_prev', cur);
+      SS.setItem('scix_cur', path);
+      prev = SS.getItem('scix_prev') || '';
+      if (prev === path) prev = '';
+      try { mark = JSON.parse(SS.getItem('scix_mark') || '{}') || {}; } catch (err) { mark = {}; }
+      if (qs && !mark.src && !mark.utm_source) {
+        var MK_KEYS = ['src', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+        var gotMk = {}, anyMk = false;
+        for (var mk = 0; mk < MK_KEYS.length; mk++) {
+          var mv = String(qs.get(MK_KEYS[mk]) || '').trim().slice(0, 64);
+          if (mv && /^[A-Za-z0-9_.-]+$/.test(mv)) { gotMk[MK_KEYS[mk]] = mv; anyMk = true; }
+        }
+        if (anyMk) { mark = gotMk; SS.setItem('scix_mark', JSON.stringify(mark)); }
+      }
+    } catch (err) { /* sessionStorage が使えない環境＝隠し欄は付けない */ }
+    function utmText() {
+      var out = [];
+      for (var k in mark) {
+        if (Object.prototype.hasOwnProperty.call(mark, k) && k.indexOf('utm_') === 0) out.push(k + '=' + mark[k]);
+      }
+      return out.join(';');
+    }
+    function putHidden(f, name, val) {
+      if (!val || f.querySelector('input[name="' + name + '"]')) return;
+      var i = document.createElement('input');
+      i.type = 'hidden'; i.name = name; i.value = String(val).slice(0, 200);
+      f.appendChild(i);
+    }
+    function fillForms() {
+      try {
+        if (!entry) return;
+        var forms = document.querySelectorAll('form');
+        for (var fi = 0; fi < forms.length; fi++) {
+          var f = forms[fi];
+          if (!/\/api\/contact$/.test(f.getAttribute('action') || '')) continue;
+          putHidden(f, '_entry_page', entry.p);
+          putHidden(f, '_entry_ref', entry.r);
+          putHidden(f, '_prev_page', prev);
+          putHidden(f, '_src', mark.src || '');
+          putHidden(f, '_utm', utmText());
+        }
+      } catch (err) { /* ignore */ }
+    }
+
+    // ---- 7e. 記事 → 市場ノートの「最新の数字」の札 ----
+    // 需給調整市場・卸電気・容量市場を扱う記事（2026-11-21 に選んだ11本。英語は英語版のある物）
+    var RP_COLS = ['/column-balancing-market', '/column-eprx', '/column-area-data', '/column-price-cap', '/column-balancing-saturation',
+      '/column-bidding-ceiling-market', '/column-day-ahead', '/column-revenue', '/column-regional-revenue', '/column-merchant', '/column-capacity-market'];
+    var RP_JA_ONLY = ['/column-day-ahead', '/column-capacity-market'];
+    var wantCard = isCol && ((isJa && RP_COLS.indexOf(loc) !== -1) || (isEn && RP_COLS.indexOf(loc) !== -1 && RP_JA_ONLY.indexOf(loc) === -1));
+    var cardCss = [
+      '.scix-rp-card{max-width:760px;margin:36px 0;padding:18px 22px 16px;background:#fff;border:1px solid #D6E9E0;border-left:6px solid #138A62;border-radius:18px;box-shadow:0 8px 22px rgba(31,42,72,.08);font-family:"Noto Sans JP",sans-serif;box-sizing:border-box;color:#0B1530}',
+      '.scix-rp-card *{box-sizing:border-box}',
+      '.scix-rp-label{display:inline-flex;font-size:.74rem;font-weight:900;color:#0F7A52;background:#E6F7EF;border-radius:999px;padding:3px 12px;margin:0 0 8px}',
+      '.scix-rp-h{font-weight:900;font-size:1.02rem;line-height:1.5;margin:0 0 4px;color:#0B1530}',
+      '.scix-rp-card ul.scix-rp-list{margin:6px 0 12px;padding:0 0 0 1.2em;list-style:disc;line-height:1.8;font-size:.9rem;color:#24304A}',
+      '.scix-rp-card ul.scix-rp-list li{margin:4px 0;padding:0;background:none;border:0}',
+      '.scix-rp-card ul.scix-rp-list li::before{content:none}',
+      '.scix-rp-card a.scix-rp-go{display:inline-block;background:#138A62;color:#fff;font-weight:900;font-size:.9rem;padding:9px 18px;border-radius:999px;text-decoration:none;margin:4px 12px 4px 0;border:0}',
+      '.scix-rp-card a.scix-rp-go:hover{background:#0F7A52;color:#fff}',
+      '.scix-rp-card a.scix-rp-all{font-size:.86rem;color:#0F7A52;text-decoration:underline;border:0}',
+      '@media(max-width:600px){.scix-rp-card{padding:16px 16px 14px;border-radius:16px}}'
+    ].join('\n');
+    function issueName(key, en) {
+      var y = key.slice(0, 4), mo = parseInt(key.slice(5, 7), 10);
+      var M = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      return en ? (M[mo - 1] + ' ' + y + ' issue') : (y + '年' + mo + '月号');
+    }
+    function cardAnchor() {
+      var ab = document.querySelector('.author-box');
+      var hs = document.querySelectorAll('h2');
+      for (var hi = 0; hi < hs.length; hi++) {
+        var tx = (hs[hi].textContent || '').replace(/\s+/g, '');
+        if (/^(よくある質問|FAQ|Frequentlyaskedquestions|FrequentlyAskedQuestions)/i.test(tx) &&
+            (!ab || (hs[hi].compareDocumentPosition(ab) & 4))) return hs[hi];
+      }
+      return ab;
+    }
+    function placeCard(j) {
+      try {
+        var d = isEn ? j.en : j;
+        if (!d || !d.eprx || !/^\/(en\/)?report\/\d{4}-\d{2}$/.test(d.url || '') || !/^\d{4}-\d{2}$/.test(j.key || '')) return;
+        var at = cardAnchor();
+        if (!at || !at.parentNode) return;
+        var st = document.createElement('style');
+        st.id = 'scix-rp-card-css';
+        st.textContent = cardCss;
+        document.head.appendChild(st);
+        var box = document.createElement('aside');
+        box.className = 'scix-rp-card';
+        box.setAttribute('data-where', 'body_end');
+        box.setAttribute('aria-label', isEn ? 'Latest figures from the Market Notes' : '市場ノートの最新の数字');
+        var lb = document.createElement('div'); lb.className = 'scix-rp-label'; lb.textContent = isEn ? 'Market Notes' : '市場ノート';
+        var h = document.createElement('div'); h.className = 'scix-rp-h';
+        h.textContent = isEn ? ('Latest figures (' + issueName(j.key, true) + ')') : ('最新の数字（' + issueName(j.key, false) + '）');
+        var ul = document.createElement('ul'); ul.className = 'scix-rp-list';
+        var items = [d.eprx, d.jepx];
+        for (var ii = 0; ii < items.length; ii++) {
+          if (!items[ii]) continue;
+          var li = document.createElement('li'); li.textContent = String(items[ii]).slice(0, 300); ul.appendChild(li);
+        }
+        var go = document.createElement('a'); go.className = 'scix-rp-go'; go.href = d.url; go.setAttribute('target', '_top');
+        go.textContent = isEn ? ('Read the ' + issueName(j.key, true) + ' →') : (issueName(j.key, false) + 'を読む →');
+        var all = document.createElement('a'); all.className = 'scix-rp-all'; all.href = isEn ? '/en/report' : '/report'; all.setAttribute('target', '_top');
+        all.textContent = isEn ? 'All issues' : 'これまでの号';
+        box.appendChild(lb); box.appendChild(h); box.appendChild(ul); box.appendChild(go); box.appendChild(all);
+        at.parentNode.insertBefore(box, at);
+        box.addEventListener('click', function (e) {
+          var a = linkOf(e);
+          if (!a || typeof window.gtag !== 'function') return;
+          try {
+            window.gtag('event', 'report_card_click', { page_path: path, link_url: a.getAttribute('href') || '', placement: 'body_end',
+              page_lang: (document.documentElement.lang || lang), transport_type: 'beacon' });
+          } catch (err) { /* ignore */ }
+        });
+      } catch (err) { /* 札を出せなくても頁はそのまま */ }
+    }
+    var cardData = null, domReady = document.readyState !== 'loading';
+    function tryCard() { if (cardData && domReady) { placeCard(cardData); cardData = null; } }
+    if (wantCard && window.fetch) {
+      try {
+        window.fetch('/report/latest.json', { credentials: 'omit' })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (j) { if (j && typeof j === 'object') { cardData = j; tryCard(); } })
+          .catch(function () { /* 読めなければ札を出さない */ });
+      } catch (err) { /* ignore */ }
+    }
+
+    function onReady() { domReady = true; fillForms(); tryCard(); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady); else onReady();
+  })(); } catch (err) { /* 測る仕組みが失敗しても頁はそのまま */ }
 
   // --------------- 6. 面談の予約について ---------------
   // 2026-09-05 撤去。Googleカレンダーの「予約スケジュール」は Google Meet のリンクを発行するため、

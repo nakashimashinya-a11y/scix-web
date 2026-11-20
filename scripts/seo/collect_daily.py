@@ -4,6 +4,7 @@
     python3 scripts/seo/collect_daily.py               # 直近10日を取り直す（欠けと未確定を埋める）
     python3 scripts/seo/collect_daily.py --days 90     # 初回の積み上げ
     python3 scripts/seo/collect_daily.py --no-health   # 健診（本番へのアクセス）を飛ばす
+    python3 scripts/seo/collect_daily.py --exclude-internal  # 当社の端末（header.js が付ける利用者の印 internal_user=1）の閲覧を外して数える
 
 データの遅れ: GSC は2〜3日、GA4 は1〜2日。若い日付は毎回取り直して上書きする。
 収集のあと、origin/main に足された新規ページを変更台帳へ自動で記帳し（register_new_pages.py）、月1回の構成レビューの
@@ -23,8 +24,9 @@ import urllib.error
 import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import (BASE, GA4_TOKEN, LEDGER, SC_TOKEN, UA, Google, d, daterange,  # noqa: E402
-                    ga4_report, gsc_query, jdump, jload, log, path_of, today)
+from common import ga4_report as _ga4_report  # noqa: E402
+from common import (BASE, GA4_PROPERTY, GA4_TOKEN, LEDGER, SC_TOKEN, UA, Google, d, daterange,  # noqa: E402
+                    gsc_query, jdump, jload, log, path_of, today)
 
 GSC_LAG = 2          # 今日-2 までを取る
 GSC_REFRESH = 5      # この日数より若い日は毎回取り直す
@@ -78,11 +80,39 @@ def _try(fn, label):
         return None
 
 
-def collect_ga4(days: int) -> int:
+INTERNAL_DIM = "customUser:internal_user"   # header.js（7c）が ?internal=1 を開いた当社の端末に付ける利用者の印（2026-11-21）
+
+
+def internal_dim_ready(g) -> bool:
+    """GA4 に利用者の印 internal_user がユーザー スコープのカスタム ディメンションとして登録されているか（metadata を読むだけ）。"""
+    try:
+        r = g.call(f"https://analyticsdata.googleapis.com/v1beta/properties/{GA4_PROPERTY}/metadata")
+    except Exception as e:  # noqa: BLE001
+        log(f"GA4 metadata が読めない（{str(e)[:120]}）")
+        return False
+    return any(x.get("apiName") == INTERNAL_DIM for x in r.get("dimensions", []))
+
+
+def without_internal(dim_filter):
+    """dim_filter に「internal_user が 1 でない」を AND で足す（印の無い閲覧＝(not set) は残る）。"""
+    ex = {"notExpression": {"filter": {"fieldName": INTERNAL_DIM, "stringFilter": {"value": "1"}}}}
+    return {"andGroup": {"expressions": [dim_filter, ex]}} if dim_filter else ex
+
+
+def collect_ga4(days: int, exclude_internal: bool = False) -> int:
     if not GA4_TOKEN.exists():
         log(f"GA4: トークンが無いので飛ばす（python3 scripts/seo/ga4_auth.py で取得）: {GA4_TOKEN}")
         return 0
     g = Google(GA4_TOKEN)
+    excluded = False
+    if exclude_internal:
+        excluded = internal_dim_ready(g)
+        if not excluded:
+            log(f"GA4: {INTERNAL_DIM} が GA4 のカスタム ディメンションに未登録＝社内の閲覧を外さずに数える"
+                "（GA4 管理 → カスタム定義 → ユーザー スコープ・ユーザー プロパティ internal_user を登録すると外せる）")
+
+    def ga4_report(g_, s_, e_, dims, mets, dim_filter=None, **kw):   # noqa: F811 — 下の呼び出しはそのまま、社内の閲覧だけ外す
+        return _ga4_report(g_, s_, e_, dims, mets, dim_filter=without_internal(dim_filter) if excluded else dim_filter, **kw)
     end = today() - datetime.timedelta(days=GA4_LAG)
     start = end - datetime.timedelta(days=days - 1)
     lead = "keyEvents:generate_lead"
@@ -101,6 +131,7 @@ def collect_ga4(days: int) -> int:
         internal = {"filter": {"fieldName": "pageReferrer", "stringFilter": {"matchType": "CONTAINS", "value": "scix.co.jp"}}}
         rec = {
             "date": str(day), "fetched": str(today()),
+            "internal_excluded": excluded,
             "totals": {k: v for k, v in totals[0].items() if k != "date"},
             "landing": ga4_report(g, s, e, ["landingPage"], ["sessions", "engagedSessions", "newUsers",
                                                                 "averageSessionDuration", lead]),
@@ -315,6 +346,8 @@ def main() -> int:
     ap.add_argument("--no-health", action="store_true")
     ap.add_argument("--no-register", action="store_true", help="新規ページの自動記帳を飛ばす")
     ap.add_argument("--no-measure", action="store_true")
+    ap.add_argument("--exclude-internal", action="store_true",
+                    help="当社の端末（利用者の印 internal_user=1）の閲覧を外して数える。GA4 に印が未登録なら外さずに数え、ログに出す")
     a = ap.parse_args()
     rc = 0
     if not a.no_gsc:
@@ -324,7 +357,7 @@ def main() -> int:
             log(f"GSC 収集で失敗: {e}"); rc = 1
     if not a.no_ga4:
         try:
-            collect_ga4(a.days)
+            collect_ga4(a.days, a.exclude_internal)
         except Exception as e:  # noqa: BLE001
             log(f"GA4 収集で失敗: {e}"); rc = 1
     if not a.no_health:
