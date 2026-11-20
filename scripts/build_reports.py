@@ -323,8 +323,10 @@ EXTRA_CSS = """
 .rp-table tbody tr:nth-child(even){background:var(--off-white)}
 .rp-nav{margin-top:14px;font-size:.86rem}.rp-nav a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold)}.rp-nav-sep{margin:0 10px;color:var(--text-3)}
 """
-# 「この号の数字の読み方」の段（号の頁だけ。一覧の頁の head は変えない）
+# 「この号の数字の読み方」の段と、長い URL（前提と用語の出典）の折り返し（号の頁だけ。一覧の頁の head は変えない）。
+# 折り返しが無いと、スマホの幅で「前提と用語」の OCCTO の PDF の URL が文書の幅を 835px に広げていた（2026-11-21 実測）。
 READ_CSS = """
+.rp-body p,.rp-body li,.rp-body .md-note{overflow-wrap:anywhere}
 .rp-read{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:14px}
 .rp-read-g{background:#fff;border:1px solid var(--border);border-top:4px solid #138A62;border-radius:16px;padding:14px 18px 10px}
 .rp-read-h{font-weight:800;color:var(--navy);font-size:.92rem;margin-bottom:6px}

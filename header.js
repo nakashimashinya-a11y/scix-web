@@ -585,17 +585,13 @@
 
     // 2026-11-21: 市場ノート（/report・/report/<月>）にも登録の箱を出す（中島「この2つのレポートは会社の財産だけど、今ひとつみんな読んでなくないか？」）。
     // 受け口は記事の箱と同じ /api/newsletter（_page に /report… が残るので、どの箱から来たかは名簿の page で分かる）。置き場所の名前は report_index／report_issue。
+    // 文は今の約束（週1本の記事）のまま。毎月の号をメールで送るかは中島さんに伺い中＝決まったら文を替える。
     var isReportPage = loc === '/report' || /^\/report\/\d{4}-\d{2}$/.test(loc);
-    var nlHtmlReport = nlHtml
-      .replace('<div class="scix-nl-label">NEWSLETTER</div>', '<div class="scix-nl-label">市場ノート</div>')
-      .replace('<h3>週1本の新しい記事を、メールで受け取る</h3>', '<h3>毎月の市場ノートを、メールで受け取る</h3>')
-      .replace('<p>毎週1本、その週に書いた記事の要点とリンクをお送りします。メールアドレスだけで登録できます。</p>',
-               '<p>新しい号ができたら、その月の数字の要点とリンクをお送りします。メールアドレスだけで登録できます。</p>');
 
-    function nlMount(el, where, html) {
-      el.className = 'scix-nl' + (html === nlHtmlReport ? ' scix-nl-rp' : '');
+    function nlMount(el, where, isRp) {
+      el.className = 'scix-nl' + (isRp ? ' scix-nl-rp' : '');
       el.setAttribute('data-where', where);
-      el.innerHTML = html || nlHtml;
+      el.innerHTML = nlHtml;
       var form = el.querySelector('form');
       var mail = el.querySelector('.scix-nl-mail');
       var btn = el.querySelector('button');
@@ -630,8 +626,8 @@
             done.textContent = res.j.unsubscribed
               ? 'このアドレスは以前に配信を停止されています。再開をご希望の場合は s@scix.co.jp へ「更新メール再開希望」とお送りください。'
               : (res.j.already
-                ? 'このアドレスは登録済みです。次の' + (html === nlHtmlReport ? '号' : '記事') + 'からお届けします。'
-                : '登録しました。次の' + (html === nlHtmlReport ? '号' : '記事') + 'からお届けします。');
+                ? 'このアドレスは登録済みです。次の記事からお届けします。'
+                : '登録しました。次の記事からお届けします。');
             form.parentNode.replaceChild(done, form);
             try { done.focus(); } catch (err) { /* ignore */ }
             try {
@@ -669,7 +665,7 @@
           var rbox = document.createElement('div');
           at.parentNode.insertBefore(rbox, at);
           rbox.style.marginBottom = '48px';
-          nlMount(rbox, loc === '/report' ? 'report_index' : 'report_issue', nlHtmlReport);
+          nlMount(rbox, loc === '/report' ? 'report_index' : 'report_issue', true);
         } catch (err) { /* 箱を出せなくても頁はそのまま */ }
         return;
       }
