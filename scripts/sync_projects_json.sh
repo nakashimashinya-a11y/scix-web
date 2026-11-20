@@ -203,14 +203,12 @@ for f in $MD_FILES; do git diff --quiet -- "$f" || STAMP="$STAMP $f"; done
 [ -n "$STAMP" ] && { python3 scripts/seo/stamp_sitemap.py $STAMP >/dev/null 2>&1 || log "sitemap の lastmod 更新に失敗（続行）"; }
 # shellcheck disable=SC2086
 git add projects.json index.html projects.html sitemap.xml feed.xml projects-feed.xml smartnews.xml $MD_FILES || fail "git add に失敗"
+# 公開リポジトリのコミット文には案件ID・件数の増減・項目名を書かない（共通ルール O16-19・2026-11-20 点検 W-01）。
+# 内訳（追加・削除・項目変更）は下の log（手元のログ）にだけ残す。
 git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" \
-    commit -q -m "chore(projects): 公開案件一覧をDR2に同期（${OLD}→${NEW}件・${DELTA}）$([ "$FAST_REMOVE" = "1" ] && echo '・売却済み等を外す速い回')
+    commit -q -m "chore(projects): 公開一覧を更新
 
-追加: ${ADDED:-なし}
-削除: ${REMOVED:-なし}
-項目変更: ${CHANGED:-なし}
-
-scripts/sync_projects_json.sh による自動同期。" || fail "commit に失敗"
+scripts/sync_projects_json.sh による自動同期。"  || fail "commit に失敗"
 trap release_lock EXIT   # commit できた。ここから先で落ちても commit は手元に残り、次回の冒頭で出し直す
 
 if ! git push -q origin main 2>/dev/null; then
