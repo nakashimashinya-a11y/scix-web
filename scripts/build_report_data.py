@@ -19,6 +19,7 @@ from __future__ import annotations  # launchd の python3 は 3.9
 import datetime
 import html
 import json
+import urllib.parse
 import os
 import re
 
@@ -863,7 +864,7 @@ def render_data(br, data, months, lang, has_en):
 EN_CTA = """<section class="cta"><div class="container">
   <h2>Want to see the projects behind these numbers? Visit Chikudensho Market</h2>
   <p>On Chikudensho Market, our marketplace for battery storage sites, you can browse current listings without registering. Prices and documents are available after free registration, where you agree to a confidentiality undertaking on the registration screen (no signed paper is needed).</p>
-  <a class="btn-primary" href="https://dealroom.scix.co.jp/catalog?lang=en" target="_top">Browse projects on Chikudensho Market &rarr;</a>
+  <a class="btn-primary" href="https://dealroom.scix.co.jp/en/catalog" target="_top">Browse projects on Chikudensho Market &rarr;</a>
 </div></section>
 """
 
@@ -919,7 +920,7 @@ def projects_block(br, area, slug):
   <div class="rd-two"><div class="rd-card"><h3>都道府県</h3>{svg_hbar([(a, c, f"{c}件") for a, c in pref], w=420, label_w=90, fs=17, color=C_GREEN, aria=f"{area}エリアの案件の都道府県別の件数")}</div>
   <div class="rd-card"><h3>取得の形</h3>{svg_hbar([(a or "確認中", c, f"{c}件") for a, c in sch], w=420, label_w=90, fs=17, color=C_GREEN, aria=f"{area}エリアの案件の取得の形別の件数")}</div>
   <div class="rd-card"><h3>電圧</h3>{svg_hbar([(a or "確認中", c, f"{c}件") for a, c in volt], w=420, label_w=90, fs=17, color=C_GREEN, aria=f"{area}エリアの案件の電圧別の件数")}</div></div>
-  <div class="rd-links"><a href="{CATALOG}" target="_top">蓄電所マーケットで案件を見る →</a><a href="/projects-{slug}">{esc(area)}電力管内の案件一覧（{n}件）</a></div>
+  <div class="rd-links"><a href="{CATALOG}?area={urllib.parse.quote(area)}" target="_top">蓄電所マーケットで{esc(area)}エリアの案件を見る →</a><a href="/projects-{slug}">{esc(area)}電力管内の案件一覧（{n}件）</a></div>
 </div></section>"""
 
 

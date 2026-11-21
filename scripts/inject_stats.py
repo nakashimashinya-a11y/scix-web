@@ -77,7 +77,9 @@ def is_new(p, today):
 
 
 DR2_REGISTER = "https://dealroom.scix.co.jp/register"
-DR2_CATALOG = "https://dealroom.scix.co.jp/catalog"
+DR2_CATALOG = "https://dealroom.scix.co.jp/catalog"   # 案件ごとの公開の頁は {DR2_CATALOG}/<id>（マーケットの sitemap に載る・売れたら 410）。
+# 行のリンクは公開の頁へ（2026-11-21 中島「SEO対策…やって公開」）。前は一覧の #p-<id> へ nofollow で飛ばしていた＝検索エンジンが案件の頁を辿れなかった。
+# 出所の印 ?src= は header.js（7a）が押す直前に足す（静的な href は印なし＝検索エンジンが読む住所を1つにする）。
 BAND_EVERY = 10   # 一覧の何行ごとに蓄電所マーケットの帯を挟むか。projects.html の JS（BAND_EVERY）と同じ値にする
 
 
@@ -163,7 +165,7 @@ def render_list(ps, generated_at):
             f'<td data-l="連系の見込み">{_esc(cod_text(p, today_ym))}</td>'
             f'<td data-l="電力の手続き">{_esc(p.get("status") or "—")}</td>'
             f'<td data-l="買い方">{_esc(p.get("scheme") or "確認中")}</td>'
-            f'<td class="c-lock" data-l="🔒 価格・所在地・資料"><a class="pj-lock" target="_top" rel="nofollow" href="{DR2_CATALOG}#p-{pid}" '
+            f'<td class="c-lock" data-l="🔒 価格・所在地・資料"><a class="pj-lock" target="_top" href="{DR2_CATALOG}/{pid}" '
             f"onclick=\"window.gtag&&gtag('event','dr2_promo_click',{{target:'row'}})\">価格と資料を見る</a></td></tr>")
         if i % BAND_EVERY == 0 and i != len(ps):
             rows.append(band_row(8))

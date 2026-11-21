@@ -555,7 +555,7 @@ def render_month_en(m, doc, figs, nav=None):
   <h2>Want to see the projects behind these numbers? Visit Chikudensho Market</h2>
   <p>On Chikudensho Market, our marketplace for battery storage sites, you can browse current listings without registering. Prices and documents are available after free registration, where you agree to a confidentiality undertaking on the registration screen (no signed paper is needed).</p>
   <a class="btn-primary" href="%s" target="_top" rel="nofollow">Register free to see prices and documents &rarr;</a>
-  <a class="btn-secondary" href="https://dealroom.scix.co.jp/catalog?lang=en" target="_top">Browse projects on Chikudensho Market</a>
+  <a class="btn-secondary" href="https://dealroom.scix.co.jp/en/catalog" target="_top">Browse projects on Chikudensho Market</a>
 </div></section>
 """ % DR2_REGISTER_EN
     body = f"""{bmd.nav_crumbs([("Home", "/en"), ("Reports", "/en/report"), (title_h, path)])}
