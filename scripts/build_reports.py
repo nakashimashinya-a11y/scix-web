@@ -19,6 +19,7 @@
   report/<YYYY-MM>/f1.png …, scix-bess-monthly-<YYYY-MM>.pdf
   en/report/index.html, en/report/<YYYY-MM>/index.html, f1.png〜, scix-bess-monthly-<YYYY-MM>-en.pdf（英語版）
   sitemap.xml                       /report と各月の行（無ければ足す。英語版があれば hreflang の相互の行も）
+  report/data/, en/report/data/, report/area/<slug>/   号をまたいだ推移の頁と CSV（scripts/build_report_data.py。号と同じ md の表から）
 
 置く前の検査（公開リポジトリ＝O16-19）: MD と PDF の文字に、住所・地番・案件ID・価格類（仕入値・売値・土地代）・
 売主・成約実績の語が1つでもあれば、何も書かずに終了コード 2 で止まる。図の PNG は文字を持たないので、
@@ -43,6 +44,7 @@ import tempfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import build_market_data as bmd  # noqa: E402  head / FOOTER / CSS / ld / crumbs / nav_crumbs / ORG を共用する
+import build_report_data as brd  # noqa: E402  市場データ（/report/data）とエリアの頁（/report/area/<slug>）
 
 HOME = os.path.expanduser("~")
 SRC = os.environ.get("SCIX_REPORT_SRC", os.path.join(HOME, "マイドライブ", "9_システム", "_作成物"))
@@ -678,6 +680,12 @@ def main():
         sm_path = os.path.join(ROOT, "sitemap.xml")
         sm = open(sm_path, encoding="utf-8").read()
         sm2 = sitemap_add(sm, rows, en_rows)
+        # 市場データ（号をまたいだ推移）とエリアの頁（2026-11-21）。号と同じ md の表から焼く（build_report_data.py）
+        rd_files, rd_sm, rd_notes = brd.build(sys.modules[__name__], months, docs)
+        for n in rd_notes:
+            print(n)
+        files.update(rd_files)
+        sm2 = brd.sitemap_add(sm2, rd_sm, BASE)
         if sm2 != sm:
             files["sitemap.xml"] = sm2.encode("utf-8")
 
