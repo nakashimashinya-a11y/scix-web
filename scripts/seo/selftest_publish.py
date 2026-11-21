@@ -8,10 +8,10 @@ claude・openclaw・gh・curl・sleep はスタブで、PATH は「スタブ＋/
 IndexNow（scripts/ping_indexnow.py）は複製の中で何もしないスクリプトに差し替える＝外へ出ない。python3 は /usr/bin/python3（3.9）。
 確かめること（2026-09-20 のレビューで再現した欠陥）:
   1. 公開は 2 コミット: 中身（auto(structure): ／ auto(seo):）と記帳（chore(seo-log):＝sitemap の lastmod・変更日台帳）。
-     タグ・Telegram の `git revert <sha>`・変更台帳の commit は中身のコミットを指す
+     タグ・通知 の `git revert <sha>`・変更台帳の commit は中身のコミットを指す
   2. 構成レビューの公開 → 翌週の週次の公開のあとでも、案内どおりの `git revert <中身のコミット>` が衝突しない
      （同じコミットに変更日台帳の行を入れていた頃は、次の自動コミット 1 つで必ず衝突した）
-  3. push のあとで変更台帳（Drive）に書けなかった回: Telegram に出す（「自動で測る」と言い切らない）。翌朝の拾い直し
+  3. push のあとで変更台帳（Drive）に書けなかった回: 通知 に出す（「自動で測る」と言い切らない）。翌朝の拾い直し
      （register_auto_commits.py）が同じ形で記帳する・2 回走っても重複しない・記帳済みのコミットは足さない
   4. openclaw.json の CLAUDE_CONFIG_DIR を、古い版の置き場（cliBackends.claude-cli.env）でも 2026.10〜 の置き場（env.vars）でも
      読む・どちらにも無ければ公開せずに止まる（2026-10-18 の週次は古い置き場しか見ずに止まった）
@@ -108,7 +108,7 @@ def main() -> int:
         for r_ in (origin, repo):                                   # 複製に付いてきた本物の自動公開のタグ（今日の週次・今月の構成）を外す
             for t in git(r_, "tag", "-l", "auto/*").split():
                 git(r_, "tag", "-d", t)
-        # 本物の履歴のままだと、14日以内に触ったページ（O16-37）が日によってほぼ全部になり、週次の場面で触れるコラムが無くなる
+        # 本物の履歴のままだと、14日以内に触ったページが日によってほぼ全部になり、週次の場面で触れるコラムが無くなる
         # （2026-10-31: 10/29〜30 の一括の手当てで 343 本中 268 本が凍結＝偽の Claude が StopIteration で落ちた）。
         # 複製は今の main の中身を 30 日前の1コミットにまとめた履歴で回す＝凍結は回の中で作るコミットと合成の変更台帳だけで決まる
         git(repo, "checkout", "-q", "--detach", head)
@@ -137,7 +137,7 @@ def main() -> int:
         assert git(repo, "remote", "get-url", "origin") == str(origin)
 
         # ---- スタブ
-        # openclaw.json の CLAUDE_CONFIG_DIR は OpenClaw の版で置き場が違う（古い版は agents.defaults.cliBackends.claude-cli.env、
+        # openclaw.json の CLAUDE_CONFIG_DIR は 自動処理 の版で置き場が違う（古い版は agents.defaults.cliBackends.claude-cli.env、
         # 2026.10〜 は env.vars）。1 回目（構成レビュー）は古い置き場、2 回目からは新しい置き場で回す＝週次が両方を読めるか
         # （2026-10-18 の週次は古い置き場しか見ずに止まった）。"none" はどちらにも無い回（4.）
         def write_oc_json(kind):
@@ -149,7 +149,7 @@ def main() -> int:
         stubs = {"claude": f'#!/bin/bash\nexec python3 "{tmp}/claude_stub.py" "$@"\n',
                  "openclaw": f'#!/bin/bash\nprintf "%s\\n----\\n" "$*" >> "{tmp}/telegram.log"\n',
                  "gh": "#!/bin/bash\nexit 1\n", "curl": "#!/bin/bash\nexit 1\n", "sleep": "#!/bin/bash\nexit 0\n"}
-        # Telegram は関所（~/.openclaw/workspace/bin/tg_gate.py）を通る。一時 HOME には無いので、関所のスタブを SCIX_TG_GATE で指す
+        # 通知 は関所（~/.openclaw/workspace/bin/tg_gate.py）を通る。一時 HOME には無いので、関所のスタブを SCIX_TG_GATE で指す
         # （送る種類は telegram.log、行動ログ＝kind=log は actionlog.log に書く）
         (tmp / "tg_gate_stub.py").write_text(
             "import sys\n"
@@ -165,12 +165,12 @@ def main() -> int:
             p = bin_ / name
             p.write_text(body, encoding="utf-8")
             p.chmod(p.stat().st_mode | stat.S_IXUSR)
-        # 非公開の禁止語（O16-7・O16-12）の一覧は本物の HOME（~/.config/scix-web）にある＝一時 HOME には無い。
+        # 非公開の禁止語の一覧は本物の HOME（~/.config/scix-web）にある＝一時 HOME には無い。
         # 検査は一覧が無いと止めるので、合成の一覧を SCIX_WEB_PRIVATE_BANNED で指す
         (tmp / "private_banned.tsv").write_text("# 合成の一覧（selftest 専用）\nゼクシ(?:リアル|テスト)語\tSYN-1\n", encoding="utf-8")
         base_env = {"HOME": str(home), "PATH": f"{bin_}:/usr/bin:/bin:/usr/sbin:/sbin", "LANG": "en_US.UTF-8",
                     "SCIX_WEB_PRIVATE_BANNED": str(tmp / "private_banned.tsv"),
-                    # Telegram は関所のスタブで受ける（git revert の案内・台帳の記帳の失敗の文面を確かめる）
+                    # 通知 は関所のスタブで受ける（git revert の案内・台帳の記帳の失敗の文面を確かめる）
                     "SCIX_TG_GATE": str(tmp / "tg_gate_stub.py"),
                     "SCIX_WEB_REPO": str(repo), "SCIX_WEB_LEDGER": str(ledger), "SCIX_WEB_STATE": str(state),
                     "SCIX_WEB_WT": str(tmp / "wt-weekly"), "SCIX_WEB_WT_STRUCTURE": str(tmp / "wt-structure"),
@@ -201,7 +201,7 @@ def main() -> int:
         claude_seen = run(["/bin/bash", "-c", "command -v claude; command -v gh; command -v openclaw"], tmp, env=base_env).stdout.split()
         check("スタブだけが見えている（本物の claude／gh／openclaw を起こさない）", claude_seen == [str(bin_ / n) for n in ("claude", "gh", "openclaw")], claude_seen)
 
-        # ---- 1. 構成レビューの自動公開: 2 コミット・タグ・Telegram・変更台帳
+        # ---- 1. 構成レビューの自動公開: 2 コミット・タグ・通知・変更台帳
         r, tg = weekly_run("structure", "structure")
         log = main_log()
         ok_shape = len(log) >= 2 and log[0][1].startswith("chore(seo-log): auto(structure)") and log[1][1].startswith("auto(structure): ")
@@ -243,7 +243,7 @@ def main() -> int:
                   (rv.stdout + rv.stderr).strip().splitlines()[-1] if (rv.stdout + rv.stderr).strip() else "")
             run(["git", "revert", "--abort"], repo); git(repo, "reset", "-q", "--hard", "origin/main")
 
-        # ---- 3. push のあとで変更台帳に書けない回 → Telegram に出す → 翌朝の拾い直し
+        # ---- 3. push のあとで変更台帳に書けない回 → 通知 に出す → 翌朝の拾い直し
         run(["git", "push", "-q", "origin", f":refs/tags/auto/structure-{MONTH}"], repo)   # 同じ月にもう 1 回走らせるため
         run(["git", "tag", "-d", f"auto/structure-{MONTH}"], repo)
         led_file = ledger / "ledger" / "changes.jsonl"

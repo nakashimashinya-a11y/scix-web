@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """「蓄電所の市場ノート」（旧名 系統用蓄電池の月報・Drive の _作成物/<YYYYMM>_月報/）から、公開のページを焼く。
-2026-11-03 改名（中島「月報って RE フォワードのパクリなので変えて」「Web も月報って何？社内用って感じ」）。表に出る語に「月報」「レポート」を使わない。URL の /report はそのまま。
+2026-11-03 改名（「月報」は他社の名称と紛らわしく、社内用に見えたため）。表に出る語に「月報」「レポート」を使わない。URL の /report はそのまま。
 
-2026-11-01 新設。中島「月報は HP に乗せても良くない」。ただしコラムは中島さんが書く（O16-1）ので、
+2026-11-01 新設。ただしコラムは代表が書くので、
 コラムとは別の「レポート」（毎月の機械発行のデータ月報）として /report と /report/<YYYY-MM> に置く。
 
 読むもの（Drive。リポジトリには置かない）:
@@ -27,7 +27,7 @@
   号の頁に「この号の数字の読み方」（関係する記事への段＝READING）を足し、SNS の画像（og:image）を号の図（OG_FIG・大きさと縦横比が合う物だけ）に。
   sitemap の lastmod は、焼き直して頁の中身が変わった日（変わらなければ前の値か発行日の新しいほう）にする。
 
-置く前の検査（公開リポジトリ＝O16-19）: MD と PDF の文字に、住所・地番・案件ID・価格類（仕入値・売値・土地代）・
+置く前の検査（公開リポジトリ）: MD と PDF の文字に、住所・地番・案件ID・価格類（仕入値・売値・土地代）・
 売主・成約実績の語が1つでもあれば、何も書かずに終了コード 2 で止まる。図の PNG は文字を持たないので、
 図の中身は MD の図の説明文（図N …）で見る。
 
@@ -83,7 +83,7 @@ READING = [
 MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 EN_ORG = {"@type": "Organization", "@id": bmd.BASE + "/#organization", "name": "ScienceX", "legalName": "Science X Inc.", "url": bmd.BASE + "/en"}
 
-# 公開してはいけない語（O16-19・O16-7）。「円」「価格」は卸電気の価格や試算で正当に出るので語としては禁じない。
+# 公開してはいけない語。「円」「価格」は卸電気の価格や試算で正当に出るので語としては禁じない。
 FORBIDDEN = [
     (r"[都道府県][^\s、。]{0,8}?[市区町村郡][^\s、。]{0,12}?\d+\s*[-－ー番]\s*\d*", "住所らしい並び"),
     (r"地番|番地|丁目|緯度|経度|〒|登記", "住所・地番の語"),
@@ -661,7 +661,7 @@ def render_index(rows, has_en=False):
     return page_head(title, desc, path, jsonld, "/en/report" if has_en else None) + body
 
 
-# ---------------------------------------------------------------- トップの「今月の月報」の札（2026-11-03 中島「この月報いいのに全然目立たない」）
+# ---------------------------------------------------------------- トップの「今月の月報」の札（2026-11-03: 目立たなかったため追加）
 HOME_MARK = ("<!--R:latest-->", "<!--/R:latest-->")
 HOME_CSS = """<style>
 .rp-home{padding:56px 0;background:#fff;border-top:4px solid var(--gold);border-bottom:1px solid var(--border,#e5e5e5)}
@@ -818,7 +818,7 @@ def main():
             rows.append({"key": m["key"], "issued": doc["issued"], "title_h": f"{NAME} {y}年{int(mo)}月号",
                          "lead": " ".join(moves[:2]) or doc["intro"]})
         files["report/index.html"] = render_index(rows, any(m["en_md"] for m in months)).encode("utf-8")
-        latest = months[0]                                # find_months は新しい月が先（2026-11-05 バックナンバーを足したら [-1] は一番古い4月号になる＝中島「最新月が一番上に来るように」）
+        latest = months[0]                                # find_months は新しい月が先（2026-11-05 バックナンバーを足したら [-1] は一番古い4月号になる。最新月が一番上に来るようにする）
         home = put_home("index.html", home_card(latest, docs[latest["key"]], en_fig_by_number(fig_sources(latest))))
         if home is not None:
             files["index.html"] = home.encode("utf-8")

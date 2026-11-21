@@ -9,11 +9,11 @@
 検査の中身:
   - 触ってよいファイルだけか（HTML・sitemap・header.js の JA_ONLY_COLUMNS 行。変更日台帳はシェルが記帳するので Claude は書かない）
   - 触ってはいけないもの（フォーム・/fund・vercel.json・projects.json・scripts・.github・robots・img・files・削除）
-  - **新規ファイルは 0**（O16-3。コラムは中島さんが書く）。新しいページは自動では作らない。
+  - **新規ファイルは 0**（サイトの決まり。コラムは代表が書く）。新しいページは自動では作らない。
     マニフェストの class=new-column も止める。人が足したコラムの育成（内部リンク・ハブカード・sitemap・JA_ONLY_COLUMNS）は既存ファイルの変更なので通る
-  - 量の上限（週次のマニフェストは 8 件まで・既存ページの変更 12 本まで＝O16-36／1ファイルの差し替え率）。差し替え率は行数に加えて **本文の字数** でも測る
+  - 量の上限（週次のマニフェストは 8 件まで・既存ページの変更 12 本まで＝サイトの決まり／1ファイルの差し替え率）。差し替え率は行数に加えて **本文の字数** でも測る
     （body_units: <body> の見える文字。コラムは CSS と script が行の大半＝行数だけだと本文を総入れ替えしても 1 割に満たない）。
-    週次: 本文の足し＋消し 50% 未満（O16-39＝半分未満。ちょうど半分も止める）・消し 25% まで。ハブ・トップは、マニフェストに無ければ焼き直しの範囲（600 字）まで、
+    週次: 本文の足し＋消し 50% 未満（サイトの決まり＝半分未満。ちょうど半分も止める）・消し 25% まで。ハブ・トップは、マニフェストに無ければ焼き直しの範囲（600 字）まで、
     あっても足せるのは 1500 字まで（記事ぶんの節は足せない）。マニフェストに無いハブ・トップで、焼き直しの所（BAKE_PARTS）をそろえても
     差分が残るもの（焼き直しでない書き換え）は、凍結中なら止める（申告しないだけで凍結を抜けさせない）。焼き直しが書かない
     en/index.html・zh.html と構成レビューは、載っていない書き換えをそのまま止める
@@ -25,32 +25,32 @@
   - ファイルの削除だけの差分も止める（「変更なし」で通さない）
   - HTML の骨格（title・description・canonical・h1 1つ・header.js・JSON-LD が壊れていない・内部リンク切れ無し）
   - EN は title 70字以内・description 155字以内（Bing の指摘）
-  - 禁止語（自称「中立」「neutral」「independent」＝O16-10。シナリオ名の「強気・中立・弱気」・「中立」シナリオ・技術中立・
+  - 禁止語（自称「中立」「neutral」「independent」。シナリオ名の「強気・中立・弱気」・「中立」シナリオ・技術中立・
     neutral scenario・the neutral case・carbon-／climate-／net-／technology-neutral・アンカーの id は自称ではないので止めない。
     引用符でくくっただけの自称・vendor-neutral・a neutral case manager などは止める。「中立」「neutral」はページ全体の出現（同じ行の前後 20 字の文脈）の前後で比べ、新しく現れた分だけ止める＝既存の行を
-    動かすだけなら止めない。「一次情報」「一次ソース」＝T06-12・実績の主張＝O16-7・鍵らしき文字列は足した行に掛ける）
-  - 非公開の禁止語（O16-7・O16-12、DR2 の売主名と地番＝T07-1。語そのものは公開リポジトリに置けない＝リポジトリの外の一覧。
+    動かすだけなら止めない。「一次情報」「一次ソース」＝サイトの決まり・実績の主張＝サイトの決まり・鍵らしき文字列は足した行に掛ける）
+  - 非公開の禁止語（サイトの決まり、DR2 の売主名と地番。語そのものは公開リポジトリに置けない＝リポジトリの外の一覧。
     売主名・地番の行は Mac の毎朝のジョブが DR2 から入れ直す＝印の間だけ。ここでは読むだけ。
     ~/.config/scix-web/private_banned.tsv から読む。1 行＝正規表現<TAB>規則ID・# で始まる行は読み飛ばす）。足した HTML の行と
-    マニフェストの公開される欄に掛ける。止める理由には規則IDとファイル（欄）だけを出し、語も式も出さない（ログ・Telegram・PR に写さない。
+    マニフェストの公開される欄に掛ける。止める理由には規則IDとファイル（欄）だけを出し、語も式も出さない（ログ・通知・PR に写さない。
     同じ行を写すほかの理由も、その行に当たれば抜粋を出さない。抜粋は、切る前の文と出現を含む行の全体に当ててから写す＝窓の端で
     切れた語の残りも出さない）。一覧が無い・読めない・式が 0 個・壊れた行があるときは止める（黙って通さない）。
     SCIX_WEB_PRIVATE_BANNED は selftest が合成の一覧を指すためのもの（本番の weekly_run.sh は設定しない）
   - 足した本文に IRR・利回り・年利・リターン・手数料（率）・手付・募集（総・金）額・出資額・分配・配当・1口の数字（％・円）を新たに
-    書かない（O16-8・O16-66。成功報酬・フィー・英語・中文の yield・return・fee・dividend・minimum investment・subscription・per unit・
+    書かない（サイトの決まり。成功報酬・フィー・英語・中文の yield・return・fee・dividend・minimum investment・subscription・per unit・
     carry・carried interest・hurdle・收益率・回报率・手续费・认购・分红・年化も。「3%の手数料」「a 3% fee」「8% annual return」
     「5% p.a. return」のように数字が先に来る形と「年N%を目指す」も）。行の差分ではなく
     ページ全体の出現の前後で見る＝変更前のページに同じ書き方があれば数えない（既存の文・動かしただけの行・同じ行への書き足しは止めない）
-  - 英語・中文のページ（en/・zh-・zh.html）に証券化（GK-TK・securitization・匿名組合・证券化）を新たに書かない（O16-69。数え方は上と同じ）
-  - コラム（column-*・en/column-*・zh-column-*）で /fund を指す <a> の本数を増やさない（O16-67。既存のフッターの 1 本は数えるだけ。
+  - 英語・中文のページ（en/・zh-・zh.html）に証券化（GK-TK・securitization・匿名組合・证券化）を新たに書かない（サイトの決まり。数え方は上と同じ）
+  - コラム（column-*・en/column-*・zh-column-*）で /fund を指す <a> の本数を増やさない（サイトの決まり。既存のフッターの 1 本は数えるだけ。
     https://scix.co.jp/fund・//www.scix.co.jp/fund・相対の fund.html／../fund・リダイレクト・invest.scix.co.jp（vercel.json の host の
     rewrites に出るホストは、どのパスも自サイト）も site_path でそろえて数える。vercel.json が読めなければ止める）
-  - 14 日以内に変えたページは変えない（O16-37・O16-38）。数え方はブリーフ 9 節と同じ build_brief.cooldown_pages(strict=True)
+  - 14 日以内に変えたページは変えない。数え方はブリーフ 9 節と同じ build_brief.cooldown_pages(strict=True)
     （REPO の HEAD までのコミット＋変更台帳＝いま検査している未コミットの差分は数えない）。見るのはマニフェストの files（編集した
     ページ）。除くのは、元の commit の逆向きと確かめられた差し戻し（class=rollback。rollback_of が必須＝無ければ止める。
     足した行が元の commit で消えた行・消した行が元の commit で足した行であること。焼き直しの所をそろえるのは焼き直しが書くファイル
     （BAKE_PARTS）だけで、コラムなどは JSON-LD・<!--S:…-->・NEW バッジも比べる。そろえると差分が空なら確かめられない扱い。
-    確かめられなければ普通の変更と同じに凍結を当て、節も消させない）と、週次のハブ・トップのカードの追加（class=hub＝O16-38 の例外。
+    確かめられなければ普通の変更と同じに凍結を当て、節も消させない）と、週次のハブ・トップのカードの追加（class=hub の例外。
     凍結中なら title・description・<head> は変えさせず、足した行が既存のカードと同じ形のカード＝コラムへのリンク 1 本だけで、
     そのコラムのカードが変更前のハブに無いか（登録漏れの手当て）を確かめる。それ以外が混じれば凍結を当てる）だけ。ハブ・トップでも class=hub 以外（title・description・internal-link…）は凍結を当てる。
     マニフェストに載せずにハブ・トップの title・description・<head> を変えるのも止める（焼き直しは「全N記事」の数字だけ）。
@@ -58,12 +58,12 @@
   - マニフェスト（何をなぜ変えたか）と実際の差分が一致している。各変更に pages（効果測定に使う URL パス）が要る
   - 公開される欄（コミットの件名と本文・変更日台帳・PR に載る summary_lines・proposal_title・summary・rationale・hypothesis・
     kpi・measure・before・after）に問い合わせの件数を書かない（LEAD_NUMBER_RES。件数は private_note へ＝Drive の台帳だけ）。
-    同じ欄に案件ID（SHV-／HV-／UR-／GT- ＋数字）・円の金額（O16-19）と「一次情報」（T06-12）も書かない（本文の HTML には掛けない＝
+    同じ欄に案件ID（SHV-／HV-／UR-／GT- ＋数字）・円の金額と「一次情報」も書かない（本文の HTML には掛けない＝
     公開の案件一覧 projects.json 由来の ID がある）。週次・構成レビューの両方で見る。ただし before・after が公開されるのは構成レビューの
     PR 本文だけ＝週次の before・after には案件ID・金額・「一次情報」の検査を掛けない（件数の検査は掛ける）
   - トップ（index.html・en/index.html・zh.html）のヒーローより上は変えない（<body> の先頭〜class が hero で始まる <section> の終わり）
 
---profile structure（月1回の構成レビュー＝weekly_run.sh の MODE=structure。**検査を通れば承認なしで公開**＝O16-25。
+--profile structure（月1回の構成レビュー＝weekly_run.sh の MODE=structure。**検査を通れば承認なしで公開**。
 ナビ（header.js）を含む回だけは全体を PR に出す）で変わるところ:
   - 量: マニフェストは 3 件まで・1ファイルの差し替えは「並べ替えを除いた正味」で測る
     （行を多重集合で比べる。節やカードを動かしただけなら正味 0。正味の書き換え 1/4 まで・正味の削除 15% まで・
@@ -115,10 +115,10 @@ FORBIDDEN_PREFIX = ("scripts/", ".github/", "img/", "files/", "notes/", ".claude
                     "market-data.html", "projects-")   # 2026-10-29 市場データと管内別の一覧は毎朝の同期が焼き直す生成物
 HUBS = {"knowledge.html", "en/knowledge.html", "zh-knowledge.html", "index.html", "en/index.html", "zh.html"}
 MAX_EXISTING = 12
-MAX_NEW = 0                      # 新規ファイルは週次・構成レビューとも 0（O16-3。コラムを書くのは中島さん）
+MAX_NEW = 0                      # 新規ファイルは週次・構成レビューとも 0（サイトの決まり。コラムを書くのは代表）
 NO_NEW_PAGE = "新しいページは自動では作らない（コラムは中島さんが書く）"
-MAX_WEEKLY_ENTRIES = 8           # 週次のマニフェストは 8 件まで（O16-36。既存ページ 12 本までは MAX_EXISTING）
-MAX_REPLACE_RATIO = 0.5          # 週次: 差し替えはこの比率「未満」（O16-39＝本文の半分未満。ちょうど半分も止める）
+MAX_WEEKLY_ENTRIES = 8           # 週次のマニフェストは 8 件まで（サイトの決まり。既存ページ 12 本までは MAX_EXISTING）
+MAX_REPLACE_RATIO = 0.5          # 週次: 差し替えはこの比率「未満」（サイトの決まり＝本文の半分未満。ちょうど半分も止める）
 MAX_DELETE_RATIO = 0.25
 # 本文（<body> の見える文字。<style>・<script>・<!--S:…-->・コメントは除く）で測る量。行数で割ると、コラムは CSS と script が
 # 行の大半なので本文を 100% 書き換えても 1 割に満たない（2026-09-20 実測）＝「コラムは書かない」の抜け道になる
@@ -163,7 +163,7 @@ def lead_number(s) -> bool:
 
 ICHIJI_RE = re.compile(r"一次情報|一次ソース|[1１]次情報|[1１]次ソース")
 ICHIJI_WHY = "「一次情報」「一次ソース」は書かない（T06-12: 公表資料・原文・原典・出典と書く）"
-# O16-10: 自称の「中立」「neutral」を止める。外すのは自称でない決まった書き方だけ: シナリオ名（強気・中立・弱気／「中立：約…」
+# サイトの決まり: 自称の「中立」「neutral」を止める。外すのは自称でない決まった書き方だけ: シナリオ名（強気・中立・弱気／「中立：約…」
 # 「中立＝…」・表の見出し <th>中立</th>・「中立」シナリオ／"neutral" scenario）、技術中立、carbon-／climate-／net-／technology-neutral、
 # アンカーの id（#neutral・id="neutral"）。引用符でくくっただけの自称（当社は「中立」の立場・“neutral” party）と
 # vendor-neutral・manufacturer-neutral・EPC-neutral は止める（2026-09-23 の確かめ: ハイフン・引用符を丸ごと外すと自称が素通りした）。
@@ -221,7 +221,7 @@ BAD_WORDS = [(ICHIJI_RE, ICHIJI_WHY),
              (re.compile(r"当社の(成約|取引|導入)実績|成約実績|実績多数"), "実績の主張は出さない（O16-7）"),
              (re.compile(r"AKIA[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|AIza[0-9A-Za-z_-]{30,}"), "鍵らしき文字列")]
 
-# O16-8・O16-66: IRR・利回り・手数料（率）・手付・募集（総）額・分配・1口の金額をサイトに新たに書かない（英語・中文のページも）。
+# サイトの決まり: IRR・利回り・手数料（率）・手付・募集（総）額・分配・1口の金額をサイトに新たに書かない（英語・中文のページも）。
 # 語のあと 16 字以内に数字＋％／円（「手数料は売買価格の N%」「Target yield of N%」「收益率 N%」「募集総額 N億円」「年利 N%」
 # 「期待リターン N%」「最低出資額 N万円」「Minimum investment of JPY N million」「分红率 N%」「年化收益 N%」）と、
 # 数字＋％が先に来る形（「出資額の N%を分配」「an N% IRR」「N%の手数料」「a N% fee」「N% management fee」「N% annual return」）。
@@ -245,18 +245,18 @@ FUND_NUM_RE = re.compile(_FUND_WORD + r"[^。\n]{0,16}?" + _FUND_AMOUNT
                          + r"|[0-9０-９][0-9０-９,.]*\s*(?:％|%)\s*(?:を|の)?\s*(?:(?i:[a-z][a-z.]*)\s+){0,2}" + _FUND_AFTER_PCT
                          + r"|" + _FUND_ANNUAL_TARGET)
 FUND_NUM_WHY = "サイトに IRR・利回り・リターン・手数料率・募集額・出資額・分配・1口金額を新たに書かない（O16-8・O16-66）"
-# O16-69: 英語・中文のページには証券化（GK-TK）を載せない。ページ全体の出現の前後で比べ、増えた分だけ止める
+# サイトの決まり: 英語・中文のページには証券化（GK-TK）を載せない。ページ全体の出現の前後で比べ、増えた分だけ止める
 # （既存の EN/ZH コラムに触れている文がある＝動かす・手直しするだけなら止めない）
 SECURITIZATION_RE = re.compile(r"(?i:securiti[sz]\w*|GK\s*[-‐‑–−/・]?\s*TK(?![A-Za-z])|tokumei[- ]?kumiai)|TK出[資资]|[証证證]券化|匿名[組组]合")
 SECURITIZATION_WHY = "英語・中文のページには証券化（GK-TK）を載せない（O16-69）"
-# O16-67: コラムから /fund へ導線を張らない。コラム（JA・EN・ZH）で /fund を指す <a> の本数が増えたら止める
+# サイトの決まり: コラムから /fund へ導線を張らない。コラム（JA・EN・ZH）で /fund を指す <a> の本数が増えたら止める
 # （既存のコラムはフッターに /fund を 1 本ずつ持つ＝減らす・動かすのは止めない）
 COLUMN_FILE_RE = re.compile(r"^(?:en/)?column-[a-z0-9-]+\.html$|^zh-column-[a-z0-9-]+\.html$")
 FUND_LINK_WHY = "コラムから /fund へ導線を張らない（O16-67）"
 
 
-# O16-50: title・description を変えたページは、meta の属性に素の二重引用符が混ざっていないかを機械で見る（週次は承認なしで公開される）。
-# og／twitter／JSON-LD の同文の検査は入れていない: 既存 342 ページ中 og・twitter の description は意図して短い版を使っていて、回帰（O15-8）で 456 件が当たったため
+# サイトの決まり: title・description を変えたページは、meta の属性に素の二重引用符が混ざっていないかを機械で見る（週次は承認なしで公開される）。
+# og／twitter／JSON-LD の同文の検査は入れていない: 既存 342 ページ中 og・twitter の description は意図して短い版を使っていて、回帰で 456 件が当たったため
 _TITLE_RE = re.compile(r"<title[^>]*>(.*?)</title>", re.S | re.I)
 _META_RE = re.compile(r"<meta\b[^>]*>", re.I)
 _ATTR_RE = re.compile(r"""\s[\w:.-]+\s*=\s*(?:"[^"]*"|'[^']*')""")
@@ -288,7 +288,7 @@ def meta_sync_problems(path: str, before: str, after: str) -> list:
 
 def en_zh_page(path: str) -> bool:
     return path.startswith(("en/", "zh-")) or path == "zh.html"
-# O16-19: 公開される欄（コミット・PR・変更日台帳）に案件ID・金額を写さない。本文の HTML には掛けない（公開の案件一覧
+# サイトの決まり: 公開される欄（コミット・PR・変更日台帳）に案件ID・金額を写さない。本文の HTML には掛けない（公開の案件一覧
 # projects.json 由来の ID がある）。\b は日本語の文字も語の文字に数える（「案件」の直後・「の」の直前で外れる）＝前後は英数字だけで切る
 DEAL_ID_RE = re.compile(r"(?<![A-Za-z0-9])(?:SHV|HV|UR|GT)[-－][0-9０-９]{2,4}(?![0-9０-９])")
 YEN_RE = re.compile(r"[0-9０-９][0-9０-９,.]*\s*[千万億兆]*\s*円|[¥￥]\s*[0-9０-９]|\bJPY\s*[0-9]"
@@ -297,7 +297,7 @@ PUBLIC_ID_WHY = "コミット・PR・変更日台帳に案件ID・金額を写�
 
 
 def public_text_problems(label: str, v) -> list:
-    """公開される欄 1 つ分（問い合わせの件数 lead_number は呼ぶ側で見る）。案件ID・金額（O16-19）と「一次情報」（T06-12）。"""
+    """公開される欄 1 つ分（問い合わせの件数 lead_number は呼ぶ側で見る）。案件ID・金額と「一次情報」。"""
     s = str(v or "")
     out = []
     if DEAL_ID_RE.search(s) or YEN_RE.search(s):
@@ -307,8 +307,8 @@ def public_text_problems(label: str, v) -> list:
     return out
 
 
-# O16-7・O16-12: 語そのものを公開リポジトリに書けない禁止語（O16-7・O16-12 が名指しする語。規則の本文は共通ルールにある）は、
-# リポジトリの外の一覧から読む。止める理由には規則IDとファイル（欄）だけを出す＝語も式も、ログ・Telegram・PR 本文に写さない。
+# サイトの決まり: 語そのものを公開リポジトリに書けない禁止語（サイトの決まり が名指しする語。規則の本文は共通ルールにある）は、
+# リポジトリの外の一覧から読む。止める理由には規則IDとファイル（欄）だけを出す＝語も式も、ログ・通知・PR 本文に写さない。
 # 一覧が読めないときは止める（公開しない側に倒す）。SCIX_WEB_PRIVATE_BANNED は selftest が合成の一覧を指すためだけのもの
 PRIVATE_BANNED_ENV = "SCIX_WEB_PRIVATE_BANNED"
 PRIVATE_BANNED_DEFAULT = Path.home() / ".config" / "scix-web" / "private_banned.tsv"
@@ -789,7 +789,7 @@ def _card_column(span: str):
 
 
 def card_only_change(path: str, before: str, after: str) -> bool:
-    """週次の class=hub（O16-38 の例外＝カードの登録漏れの手当て）か。焼き直しの所（BAKE_PARTS）をそろえたうえで、変更前の
+    """週次の class=hub（サイトの決まり の例外＝カードの登録漏れの手当て）か。焼き直しの所（BAKE_PARTS）をそろえたうえで、変更前の
     ページにあるカードと同じ形のカード（コラムへのリンク 1 本）を足しただけで、足したカードを抜くと変更前と同じ行の列に戻ること。
     足したカードの行き先のコラムは、変更前のハブのカードに無いこと（1 本のコラムに 1 枚まで。既にカードのあるコラムの複製に
     宣伝文を書いて足すのは登録漏れの手当てではない＝2026-09-23 の確かめ）。
@@ -835,13 +835,13 @@ def unlisted_hub_edits(changed: list, listed: set) -> list:
 
 
 def cooldown_problems(entries: list, changed: list, structure: bool, rollback_why: dict, unlisted=()) -> list:
-    """O16-37・O16-38: 14 日以内に変えたページ（ブリーフ 9 節「今週触らないページ」）は変えない。
+    """サイトの決まり: 14 日以内に変えたページ（ブリーフ 9 節「今週触らないページ」）は変えない。
     数え方は build_brief.cooldown_pages() と同じ（REPO の HEAD までのコミット＋変更台帳）。いま検査している未コミットの差分は、
     コミットにも変更台帳（push のあとに記帳）にもまだ無い＝数えない。見るのはマニフェストの files（編集したページ）: pages は測る
     対象で、internal-link・hub では編集していないリンク先や人が足した新しいコラムが入る。
     除くのは、元の commit の逆向きと確かめられた差し戻し（rollback_why[ファイル] が None）だけ。確かめられない差し戻しは普通の変更と同じ。
     ハブ・トップ（HUBS）: 構成レビューは凍結を当てる（cooldown_pages(structure=True) がハブ・トップを構成系の記帳だけで数える＝
-    コラムを足しただけの週は凍結されない）。週次は O16-38 の例外（カードの追加＝class=hub）だけ凍結を当てず、その場合も凍結中なら
+    コラムを足しただけの週は凍結されない）。週次は サイトの決まり の例外（カードの追加＝class=hub）だけ凍結を当てず、その場合も凍結中なら
     title・description・<head> は変えさせず、足した行が既存のカードと同じ形のカード（コラムへのリンク 1 本）だけであることを
     確かめる（card_only_change。それ以外が混じれば凍結を当てる＝申告した class だけで抜けさせない）。
     class=hub 以外（title・description・internal-link…）は凍結を当てる。
@@ -996,7 +996,7 @@ def main() -> int:
     if len(added) > MAX_NEW:   # 週次・構成レビューとも新規ファイルは 0。中身の検査には進まない
         for p in added:
             problems.append(f"新規ファイル {p}: {NO_NEW_PAGE}")
-    # O16-7・O16-12: 非公開の禁止語（リポジトリの外の一覧）。読めなければ止める＝一覧が無いまま公開しない
+    # サイトの決まり: 非公開の禁止語（リポジトリの外の一覧）。読めなければ止める＝一覧が無いまま公開しない
     private_pats, private_label, private_err = load_private_banned()
     if private_err:
         problems.append(private_err)
@@ -1028,8 +1028,8 @@ def main() -> int:
             if lead_number(l):
                 problems.append(f"{k}: 問い合わせの件数は公開される欄（コミットの件名と本文・変更日台帳・PR の題と本文）に書かない"
                                 f"（件数は private_note へ＝Drive の台帳にだけ残る）: {shown(l, 60, private_pats)}")
-            problems.extend(public_text_problems(k, l))   # 案件ID・金額（O16-19）と「一次情報」（T06-12）。欄の中身は写さない
-            problems.extend(private_problem(k, l))        # O16-7・O16-12（規則IDだけ）
+            problems.extend(public_text_problems(k, l))   # 案件ID・金額と「一次情報」。欄の中身は写さない
+            problems.extend(private_problem(k, l))        # サイトの決まり（規則IDだけ）
     for i, e in enumerate(entries):
         # pages は週次でも必須: 空のまま変更台帳に入ると効果測定の対象が無い
         for k in ("files", "class", "summary", "rationale", "kpi", "pages") + (("hypothesis", "measure") if structure else ()):
@@ -1088,7 +1088,7 @@ def main() -> int:
     for f in unlisted:
         if structure or f not in BAKE_PARTS:
             problems.append(f"マニフェストに載っていない変更: {f}（焼き直しの所のほかに差分がある。ハブ・トップを触ったら files に書く）")
-    # 14 日以内に変えたページ（ブリーフ 9 節）は変えない（O16-37・O16-38）。確かめられなければ止める
+    # 14 日以内に変えたページ（ブリーフ 9 節）は変えない。確かめられなければ止める
     problems.extend(cooldown_problems(entries, changed, structure, rollback_why,
                                       [] if structure else [f for f in unlisted if f in BAKE_PARTS]))
     # 確かめられた差し戻しのファイルだけ、足した節（id つきの要素・section）を消してよい
@@ -1165,11 +1165,11 @@ def main() -> int:
             if len(num) >= 2:
                 add_, del_ = int(num[0]), int(num[1])
                 total = max(1, len(text.splitlines()))
-                if (add_ + del_) / total >= MAX_REPLACE_RATIO:   # O16-39: 半分「未満」
+                if (add_ + del_) / total >= MAX_REPLACE_RATIO:   # サイトの決まり: 半分「未満」
                     problems.append(f"{path}: 差し替えが大きすぎる（+{add_}/-{del_} of {total}行・{MAX_REPLACE_RATIO:.0%} 未満に収める）")
                 if del_ / total > MAX_DELETE_RATIO:
                     problems.append(f"{path}: 削除が多すぎる（-{del_} of {total}行）")
-            if (t_add + t_del) / t_room >= MAX_REPLACE_RATIO:   # O16-39: 本文の半分「未満」（ちょうど半分も止める）
+            if (t_add + t_del) / t_room >= MAX_REPLACE_RATIO:   # サイトの決まり: 本文の半分「未満」（ちょうど半分も止める）
                 problems.append(f"{path}: 本文の書き換えが大きすぎる（足した {t_add} 字・消した {t_del} 字 of {t_base} 字・{MAX_REPLACE_RATIO:.0%} 未満に収める＝O16-39）。"
                                 "既存ページの本文を別の記事に置き換えない（コラムを書くのは中島さん）")
             if t_del / t_base > MAX_DELETE_RATIO:
@@ -1253,7 +1253,7 @@ def main() -> int:
         for lang, href in pg.hreflang.items():
             if href and href.startswith(BASE) and not resolves(path_of(href), redirects, sitemap_paths):
                 problems.append(f"{path}: hreflang {lang} の先が無い {href}")
-        # 禁止語（追加行だけ見る）。非公開の禁止語（O16-7・O16-12）は規則IDだけ出し、その行はほかの理由でも写さない
+        # 禁止語（追加行だけ見る）。非公開の禁止語は規則IDだけ出し、その行はほかの理由でも写さない
         private_seen = set()
         for line in sh("git", "diff", "--", path).splitlines():
             if not line.startswith("+") or line.startswith("+++"):
@@ -1265,20 +1265,20 @@ def main() -> int:
                 if p_ not in private_seen:
                     private_seen.add(p_)
                     problems.append(p_)
-        # O16-10: 自称の「中立」「neutral」。ページ全体の出現（同じ行の前後 20 字の文脈）の前後で比べ、新しく現れた分だけ止める。
+        # サイトの決まり: 自称の「中立」「neutral」。ページ全体の出現（同じ行の前後 20 字の文脈）の前後で比べ、新しく現れた分だけ止める。
         # 抜粋（前後 20 字の窓）を写す前に、出現を含む行の全体に非公開の禁止語を当てる（窓の端で切れた語の残りを出さない）
         for rx, why in NEUTRAL_RULES:
             for m, whole in new_contexts(rx, before, text):
                 problems.append(f"{path}: {why}: {shown(m, 89, private_pats, whole)}")
-        # IRR・利回り・手数料率・手付・募集額・1口の数字（O16-8・O16-66）。足した行の差分ではなく、ページ全体の出現の前後で比べる
+        # IRR・利回り・手数料率・手付・募集額・1口の数字。足した行の差分ではなく、ページ全体の出現の前後で比べる
         # ＝既存の文（公表資料の数字）・動かしただけの行・既存の行への書き足しは止めず、新しく書いた分だけ止める
         for m, whole in new_occurrences(FUND_NUM_RE, before, text):
             problems.append(f"{path}: {FUND_NUM_WHY}: {shown(m, 80, private_pats, whole)}")
-        # O16-69: 英語・中文のページに証券化（GK-TK）を新たに書かない（ページ全体の出現の前後。既存の文を動かす・直すのは止めない）
+        # サイトの決まり: 英語・中文のページに証券化（GK-TK）を新たに書かない（ページ全体の出現の前後。既存の文を動かす・直すのは止めない）
         if en_zh_page(path):
             for m, whole in new_occurrences(SECURITIZATION_RE, before, text, key=lambda t, m, ls, le: m.group(0).lower()):
                 problems.append(f"{path}: {SECURITIZATION_WHY}: {shown(m, 40, private_pats, whole)}")
-        # O16-67: コラムから /fund への導線を増やさない（既存のフッターの 1 本は数えるだけ）
+        # サイトの決まり: コラムから /fund への導線を増やさない（既存のフッターの 1 本は数えるだけ）
         if COLUMN_FILE_RE.match(path):
             page_url = file_to_url(path) or BASE + "/"
             fund_b, fund_a = funnel_links(before, page_url, routes)["/fund"], funnel_links(text, page_url, routes)["/fund"]

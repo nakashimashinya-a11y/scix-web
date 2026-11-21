@@ -624,8 +624,8 @@ def render(days=28, for_latest=False, structure=False):
     except Exception as e:  # noqa: BLE001 — ここが落ちてもブリーフの他の節は出す
         L.append(f"## 10. 新規ページ（公開{NEW_DAYS}日以内）の立ち上がり\n\n生成に失敗: {e}\n")
 
-    # 11. アクセスが減ったページ＋原因の型＋本文の時点（2026-09-22 中島決定: トリガーはアクセス減。
-    #     時点更新は週次では直さず 1 行で知らせ、CC の作業セッションで一次資料を当てる）
+    # 11. アクセスが減ったページ＋原因の型＋本文の時点（2026-09-22 代表の決定: トリガーはアクセス減。
+    #     時点更新は週次では直さず 1 行で知らせ、作業セッションで一次資料を当てる）
     try:
         import access_drop as ad
         ad.render(L, ad.drops(pages, ppages, qp, pqp, pppages=prev2_pages(cur_s, days)), limit=(10 if for_latest else 30))
