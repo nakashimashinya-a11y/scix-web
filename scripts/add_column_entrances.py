@@ -10,8 +10,14 @@
 import glob
 import re
 import sys
+import urllib.parse
 
 REG = "https://dealroom.scix.co.jp/register"
+CATALOG = "https://dealroom.scix.co.jp/catalog"
+# 買う話のコラムの末尾に、蓄電所マーケットの今ある案件（登録なし）を電圧・エリアで絞った入口を1行（2026-11-21 中島「SEO対策…やって公開、実行」）。
+# マーケットの一覧は ?voltage=・?area= を受ける（dealroom の catalog の絞り込み）。売る話のコラムには出さない（主ボタンは /sell-form＝O16-43）。
+FILTERS = [("voltage", "特別高圧"), ("voltage", "高圧"), ("area", "北海道"), ("area", "東北"), ("area", "東京"), ("area", "中部"),
+           ("area", "北陸"), ("area", "関西"), ("area", "中国"), ("area", "四国"), ("area", "九州")]
 BEGIN = "<!-- scix-entrances:begin -->"
 END = "<!-- scix-entrances:end -->"
 DOORS = {
@@ -59,7 +65,13 @@ def block(name):
         '<div style="max-width:760px;margin:28px auto 0;padding:0 28px;font-family:\'Noto Sans JP\',sans-serif">\n'
         '  <h3 style="font-size:14px;color:#8C8C8C;margin:0 0 12px;font-weight:700">この話題に近い入口</h3>\n'
         '  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">' + cards + "</div>\n"
-        '  <p style="margin:18px 0 0;text-align:center"><a target="_top" href="' + btn_href + '" '
+        + ("" if seller else
+           '  <p style="margin:14px 0 0;font-size:13px;line-height:2.1;color:#555555">今ある案件を見る（登録なし）：'
+           + "・".join('<a target="_top" href="%s?%s=%s" style="color:#1F2A48;font-weight:700">%s</a>'
+                       % (CATALOG, k, urllib.parse.quote(v), v + ("" if k == "voltage" else "エリア"))
+                       for k, v in FILTERS)
+           + "</p>\n")
+        + '  <p style="margin:18px 0 0;text-align:center"><a target="_top" href="' + btn_href + '" '
         "onclick=\"window.gtag&&gtag('event','" + ("cta_click" if seller else "dr2_register_click") + "',{target:'" + btn_ev + "'})\" "
         'style="display:inline-block;background:#1F2A48;color:#fff;font-weight:700;font-size:14px;padding:13px 30px;text-decoration:none">' + btn_text + '</a></p>\n'
         "</div>\n" + END + "\n"
