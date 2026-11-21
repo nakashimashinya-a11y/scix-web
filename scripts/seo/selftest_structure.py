@@ -3,11 +3,10 @@
 週次の検査のうち「コラムは書かない＝新規ファイル 0・class=new-column は無い」（2026-09-20）もここで確かめる。
 人の目が入らない分の検査（2026-09-20 のレビューで再現した抜け）もここ: 閉じタグを置き去りにした節の移動・節の削除・削除だけの差分・
 ヒーローを消す CSS・noindex・既存コラムの本文の総入れ替え・ハブへの記事ぶんの書き足し・公開欄の問い合わせの件数（自然な言い回し・
-週次プロファイル）・pages に入れた送客先の収益ページ・週次が差し戻した直後のハブの凍結・非公開の禁止語（O16-7・O16-12。
+週次プロファイル）・pages に入れた送客先の収益ページ・週次が差し戻した直後のハブの凍結・非公開の禁止語（サイトの決まり。
 合成の一覧を SCIX_WEB_PRIVATE_BANNED で指す＝止める理由に語も式も出さない・一覧が読めなければ止める）。
 2026-09-23 の確かめ役の指摘の分: 差し戻しは rollback_of の逆向きと確かめたときだけ凍結を外す・ハブ・トップの凍結（週次はカードの追加
-だけ例外・構成レビューは差し戻し直後に止める）・英中のファンドの数字（yield・fee・收益率）と「手数料は N%」・コラムの /fund リンク
-（O16-67）・英中の証券化（O16-69）・自称でない「中立」「neutral」・週次の before／after の金額・cooldown_pages(strict=True)。
+だけ例外・構成レビューは差し戻し直後に止める）・英中のファンドの数字（yield・fee・收益率）と「手数料は N%」・コラムの /fund リンク・英中の証券化・自称でない「中立」「neutral」・週次の before／after の金額・cooldown_pages(strict=True)。
 同じ日の 2 回目の確かめの分: vendor-neutral・引用符でくくった自称は止める・JSON-LD だけ／焼き直しの所だけの差し戻しは凍結を外さない・
 凍結中のハブの class=hub はカードの形の追加だけ・/fund の書き方（www 無し・//・相対・invest.scix.co.jp）・数字が先のファンドの数字。
 4 回目の確かめの分: マニフェストに載せないハブ・トップは焼き直しだけ（凍結中・en/index.html・構成レビュー）・既にカードのあるコラムの
@@ -62,7 +61,7 @@ def entry(files, pages, cls, **kw):
     return e
 
 
-# 非公開の禁止語（O16-7・O16-12）の合成の一覧。本物の語は公開リポジトリに置けない＝検査は ~/.config/scix-web/private_banned.tsv を
+# 非公開の禁止語の合成の一覧。本物の語は公開リポジトリに置けない＝検査は ~/.config/scix-web/private_banned.tsv を
 # 読むが、selftest は SCIX_WEB_PRIVATE_BANNED でこの合成の一覧を指す（CI など本物の一覧が無い所でも同じ結果になる）
 SYN_BANNED = "# 合成の一覧（selftest 専用）\nゼクシ(?:リアル|テスト)語\tSYN-1\n(?i:zxq-?value)\tSYN-2\n"
 SYN_SHOWN = ("ゼクシ", "zxq", "Zxq", "(?:")   # 止める理由に出てはいけないもの（語と式）
@@ -70,7 +69,7 @@ SYN_SHOWN = ("ゼクシ", "zxq", "Zxq", "(?:")   # 止める理由に出ては�
 
 def syn_amount(tpl, n):
     """合成の金額（selftest 専用・実データではない）を実行時に組む。公開リポジトリの本文には金額の形の文字列を置かない
-    （O16-19。テストに書いてよい金額は合成の % だけ）。円の検出（公開される欄の金額・ファンドの数字の円）を確かめるためだけに使う。"""
+    （サイトの決まり。テストに書いてよい金額は合成の % だけ）。円の検出（公開される欄の金額・ファンドの数字の円）を確かめるためだけに使う。"""
     return tpl.format(n)
 
 
@@ -547,7 +546,7 @@ def main() -> int:
         edit(repo, "column-auction.html", link)
         c.guard("週次: pages があれば通す", {"changes": [weekly_entry(["column-auction.html"], ["/column-auction"])]}, True, profile="weekly")
 
-        # ---- 凍結: ハブ・トップ（O16-38 の例外はカードの追加だけ）・構成レビューの差し戻し直後のハブ
+        # ---- 凍結: ハブ・トップ（サイトの決まり の例外はカードの追加だけ）・構成レビューの差し戻し直後のハブ
         def led_put(*rows):
             led.write_text("".join(json.dumps(dict({"source": "auto", "date": str(TODAY), "summary": "selftest"}, **r), ensure_ascii=False) + "\n"
                                    for r in rows), encoding="utf-8")
@@ -624,7 +623,7 @@ def main() -> int:
                 "マニフェストに載っていない変更: en/index.html", profile="weekly")
         led.unlink()
 
-        # ---- O16-8・O16-66: ファンドの数字（英中の yield・fee と「手数料は N%」も）。既存の文を動かしただけなら止めない
+        # ---- サイトの決まり: ファンドの数字（英中の yield・fee と「手数料は N%」も）。既存の文を動かしただけなら止めない
         def add_p(t):
             return lambda s: s.replace("</body>", f"<p>{t}</p>\n</body>", 1)
         def wk1(f, **kw):
@@ -671,7 +670,7 @@ def main() -> int:
         c.guard("週次: JA に年利・リターン・「N%の手数料」を足したら止める", wk1("column-auction.html"), False,
                 ("年利5%", "リターン8%", "3%の手数料"), profile="weekly")
 
-        # ---- O16-67: コラムから /fund へ導線を張らない／O16-69: 英語・中文のページに証券化（GK-TK）を載せない
+        # ---- サイトの決まり: コラムから /fund へ導線を張らない／サイトの決まり: 英語・中文のページに証券化（GK-TK）を載せない
         edit(repo, "en/column-auction.html", add_p('<a href="/fund">Fund</a>'))
         c.guard("週次: EN コラムに /fund へのリンクを足したら止める（O16-67）", wk1("en/column-auction.html"), False, ("O16-67", "/fund を指すリンク"), profile="weekly")
         edit(repo, "column-auction.html", add_p('<a href="https://www.scix.co.jp/fund?ref=col">ファンドの案内</a>'))
@@ -700,7 +699,7 @@ def main() -> int:
         edit(repo, "column-auction.html", add_p("selftest：証券化の語は JA では止めない。"))
         c.guard("週次: JA のページの「証券化」は O16-69 の対象外（通す）", wk1("column-auction.html"), True, profile="weekly")
 
-        # ---- O16-10: 自称でない「中立」「neutral」は止めない（シナリオ名・引用符・carbon-neutral）。自称は止める
+        # ---- サイトの決まり: 自称でない「中立」「neutral」は止めない（シナリオ名・引用符・carbon-neutral）。自称は止める
         edit(repo, "column-auction.html", add_p("selftest：強気・中立・弱気の 3 シナリオ。中立：約 5 割。"))
         c.guard("週次: シナリオ名の「中立」は自称ではない（通す）", wk1("column-auction.html"), True, profile="weekly")
         edit(repo, "en/column-auction.html", add_p('selftest: carbon-neutral fuels and a "neutral" scenario.'))
@@ -734,7 +733,7 @@ def main() -> int:
             edit(repo, f, lambda s, a_=a_, b_=b_: s.replace(a_, b_, 1))
             c.guard(f"週次: 既存の引用符つきの「中立」「neutral」の行の、離れた所を直すだけなら止めない（{f}）", wk1(f), True, profile="weekly")
 
-        # ---- 公開される欄の案件ID・金額（O16-19）: 週次の before／after は公開されない＝掛けない。構成レビューは PR 本文に載る＝掛ける
+        # ---- 公開される欄の案件ID・金額: 週次の before／after は公開されない＝掛けない。構成レビューは PR 本文に載る＝掛ける
         edit(repo, "column-auction.html", link)
         c.guard("週次: before に円の金額（元の title）があっても止めない（週次の before／after は公開されない）",
                 wk1("column-auction.html", before=syn_amount("title: selftest の費用は 1 件 {} 万円", 9), after="title: selftest の費用の目安"), True, profile="weekly")
@@ -753,7 +752,7 @@ def main() -> int:
                         "凍結: git の履歴を読めないとき、検査用（strict=True）は例外・ブリーフ用は落とさず空", "凍結",
                         (r.stdout.strip() + " " + r.stderr.strip()[-80:])[:110]))
 
-        # ---- 非公開の禁止語（O16-7・O16-12）。合成の一覧（SYN-1・SYN-2）で確かめる。止める理由は規則IDだけ＝語も式も出さない
+        # ---- 非公開の禁止語。合成の一覧（SYN-1・SYN-2）で確かめる。止める理由は規則IDだけ＝語も式も出さない
         def add_line(html_line):
             return lambda s: s.replace("</body>", html_line + "\n</body>", 1)
         wk = {"changes": [weekly_entry(["column-auction.html"], ["/column-auction"])]}
@@ -794,7 +793,7 @@ def main() -> int:
         c.guard("週次: 壊れた式の行があれば止める（式は出さない）", wk, False, ("非公開の禁止語一覧が読めないので止める", "SYN-9"),
                 profile="weekly", banned=tmp / "banned_broken.tsv", forbid=("ゼクシ[",))
 
-        # ---- 週次プロファイル: コラムは書かない（2026-09-20 中島）。新規ファイル 0・class=new-column は無い
+        # ---- 週次プロファイル: コラムは書かない（2026-09-20）。新規ファイル 0・class=new-column は無い
         def new_column(name="column-selftest.html"):   # 既存コラムを写した「骨格は完璧な新コラム」でも止まること
             (repo / name).write_text((repo / "column-trading.html").read_text(encoding="utf-8").replace("/column-trading", "/" + name[:-5]), encoding="utf-8")
         new_column()

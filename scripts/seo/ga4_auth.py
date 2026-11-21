@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """GA4 Data API 用のトークンを1回だけ取る（analytics.readonly）。
 
-Search Console のトークンと同じ OAuth クライアントを使い、ブラウザで中島さんが許可を押すと
+Search Console のトークンと同じ OAuth クライアントを使い、ブラウザで代表が許可を押すと
 `~/.config/scix-cockpit/ga4_token.json` に保存される。以後は refresh_token で自動更新。
 
     python3 scripts/seo/ga4_auth.py            # URL を表示して localhost で応答を待つ（最長24時間）
