@@ -77,6 +77,7 @@
     '/column-land-buyback',
     '/column-land-lease',
     '/column-land-zoning',
+    '/column-study-reply',
     '/column-study-reply-2',
     '/column-study-reply-3',
     '/column-study-reply-4'
@@ -84,8 +85,7 @@
   // Columns with an English page but no Chinese page yet: the 简中 link goes to the Chinese knowledge hub.
   var NO_ZH_COLUMNS = [
     '/column-capacity-market',
-    '/column-day-ahead',
-    '/column-study-reply'
+    '/column-day-ahead'
   ];
   // Pages with no Japanese counterpart. /grid-storage is the closest JA page
   // (it is the "what is grid-scale storage" explainer these two translate).
