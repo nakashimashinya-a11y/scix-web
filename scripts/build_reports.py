@@ -22,7 +22,7 @@
   report/latest.json                最新号の要点（号・URL・今月の動きのうち需給調整市場と卸電気の1文ずつ・対象の月）。
                                     header.js が記事（需給調整市場・卸電気・容量市場）に「最新の数字」の札を出すのに読む（2026-11-21）。
                                     中身は号の頁（説明文・今月の動き3つ）に出している文だけで、新しい数字は作らない。
-2026-11-21（中島「この2つのレポートは会社の財産だけど、今ひとつみんな読んでなくないか？」）:
+2026-11-21（読まれやすくする第1段）:
   号の頁に「この号の数字の読み方」（関係する記事への段＝READING）を足し、SNS の画像（og:image）を号の図（OG_FIG・大きさと縦横比が合う物だけ）に。
   sitemap の lastmod は、焼き直して頁の中身が変わった日（変わらなければ前の値か発行日の新しいほう）にする。
 
@@ -571,8 +571,8 @@ def page_count(m, en=False):
 
 def render_index_en(rows):
     path = "/en/report"
-    title = "Battery Storage Market Notes | Balancing, wholesale and capacity markets in Japan | ScienceX"
-    desc = "Monthly charts on Japan's three markets for battery storage (EPRX balancing, JEPX wholesale, OCCTO capacity), from published data and ScienceX records. Sources cited, PDF available."
+    title = "Japan Battery Storage Market Notes (Monthly) | ScienceX"
+    desc = "Monthly charts of Japan's EPRX balancing, JEPX wholesale and OCCTO capacity markets, from public data and our own records. Sources cited, PDF available."
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
                 "name": title, "description": desc, "inLanguage": "en", "publisher": EN_ORG,
