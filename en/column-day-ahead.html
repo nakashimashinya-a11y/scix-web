@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"></noscript>
+<style>
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#1F2A48;--text-light:#666666;--light-bg:#F7F7F7;--border:#E6E6E6;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#141B30 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Sans JP',sans-serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Sans JP',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Sans JP',sans-serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Sans JP',sans-serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .num{font-family:'Noto Sans JP',sans-serif;font-weight:700;color:var(--navy);font-size:1.1em}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.88em}
+.comparison-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text)}
+.faq-a::before{content:'A. ';color:var(--text-light);font-weight:700}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Sans JP',sans-serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+@media(max-width:768px){.article-body{padding:32px 16px 60px}h2{font-size:1.2em}.comparison-table{font-size:.8em}.comparison-table th,.comparison-table td{padding:8px 10px}}
+.author-box{background:var(--light-bg,#F7F7F7);border:1px solid var(--border,#E6E6E6);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1F2A48)}
+.ja-tag{display:inline-block;margin-left:.35em;padding:0 .4em;font-size:.66em;font-weight:700;letter-spacing:.07em;color:#A07916;background:rgba(196,154,60,.15);border-radius:2px;vertical-align:.14em;text-decoration:none}
+</style>
+<title>Balancing Market Moves to Day-Ahead Trading (2026) | ScienceX</title>
+<meta name="description" content="From March 13, 2026, Primary to Tertiary 1 in Japan's balancing market moved from weekly products to day-ahead trading in 30-minute slots.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-day-ahead">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-day-ahead">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-day-ahead">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-day-ahead">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Balancing Market Moves to Day-Ahead Trading (2026) | ScienceX">
+<meta property="og:description" content="From March 13, 2026, Primary to Tertiary 1 in Japan's balancing market moved from weekly products to day-ahead trading in 30-minute slots.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-day-ahead">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-m-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Balancing Market Moves to Day-Ahead Trading (2026) | ScienceX">
+<meta name="twitter:description" content="From March 13, 2026, Primary to Tertiary 1 moved from weekly products to day-ahead trading. How 30-minute slots change a battery's daily allocation with JEPX.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-m-en.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What the Balancing Market's Shift to Day-Ahead Trading Means — The End of Weekly Products and the Impact on Battery Operation (2026)",
+  "description": "From March 13, 2026, Primary through Tertiary Reserve 1 in Japan's balancing market moved from weekly products to day-ahead trading. How this change, together with 30-minute slots and the lower price cap, affects a battery's daily allocation between the market and JEPX, explained on the basis of materials published by EPRX and the Agency for Natural Resources and Energy.",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Shinya Nakashima",
+    "jobTitle": "Representative Director, Ph.D. (Eng.)",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": ["https://www.linkedin.com/in/dr-shinya-nakashima"]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-m-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-06-18",
+  "dateModified": "2026-11-21",
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-day-ahead"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the balancing market's shift to day-ahead trading?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It refers to the change, from transactions on March 13, 2026, in which the \"weekly products\" for Primary through Tertiary Reserve 1, previously bid a week at a time, moved to \"day-ahead trading,\" in which the next day is bid at 14:00 the day before. The trading unit was also subdivided from 3-hour blocks into 30-minute slots, and the duration of every product was unified at 30 minutes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why were weekly products abolished?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Weekly products secured balancing capacity a week ahead, which made it difficult to divide resources optimally between JEPX (the wholesale electricity market) and the balancing market. With day-ahead trading, allocation can be decided daily with the next day's supply and demand outlook factored in, which makes arbitrage between the markets work more easily. At the same time, the trading unit was subdivided into 30-minute slots."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does day-ahead trading affect battery operation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every day, operators must decide for each of the next day's 48 slots whether to \"sell on JEPX or stand by in the balancing market.\" Under the rule that only volume bid into the JEPX spot market and left unsold can be offered into the balancing market, dividing capacity between the two markets has become more strategic. This daily allocation optimization depends on the aggregator's operational capability."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Did the price cap change at the same time as the shift to day-ahead trading?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. From the same March 13, 2026 transactions, the price cap for Primary Reserve, Secondary Reserve 1 and the combined product was lowered from ¥19.51 to ¥15 (¥/ΔkW per 30 minutes), and the procurement volume for Primary Reserve and Secondary Reserve 1 was reduced from the 3σ equivalent to the 1σ equivalent. The revenue ceiling came down, but the fulfillment rate for Primary Reserve is low, at 40.8% online and 3.4% offline, and the shortage remains large."
+      }
+    }
+  ]
+}
+</script>
+<meta property="article:published_time" content="2026-06-18">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Revenue & Markets",
+      "item": "https://www.scix.co.jp/en/knowledge#cat-market"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "What the Balancing Market's Shift to Day-Ahead Trading Means — The End of Weekly Products and the Impact on Battery Operation (2026)",
+      "item": "https://www.scix.co.jp/en/column-day-ahead"
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8C8C8C"><a href="/en" style="color:#555555;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#555555;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge#cat-market" style="color:#555555;text-decoration:none">Revenue &amp; Markets</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8C8C8C">The Balancing Market's Shift to Day-Ahead Trading…</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 29</span>
+      <span class="header-tag">Regulatory Guide</span>
+      <time class="header-date" datetime="2026-06-18">2026.06.18</time>
+    </div>
+    <h1>What the Balancing Market's Shift to Day-Ahead Trading Means<br>— <em>The End of Weekly Products</em> and the Impact on Battery Operation</h1>
+    <p class="header-desc">On March 13, 2026, Primary through Tertiary Reserve 1 in the balancing market moved from "weekly products" to "day-ahead trading." We set out what changed, and how it affects a battery's daily allocation decisions against JEPX.</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/en/knowledge" class="back-link">← Back to Knowledge</a>
+
+<h2>What Day-Ahead Trading Is — The Rule Change of March 13, 2026</h2>
+<p>In the balancing market (operated by EPRX), the trading method for Primary through Tertiary Reserve 1 changed substantially from transactions on March 13, 2026. What had been bid a week at a time as "weekly products" moved to <strong>"day-ahead trading," in which the next day is bid at 14:00 the day before</strong>. At the same time, the trading unit was subdivided from 3-hour blocks into <strong>30-minute slots</strong>, and the duration of every product was unified at 30 minutes (Tertiary Reserve 2 had already changed to 30 minutes ahead of the others, from FY2025).</p>
+<p>This change is not a mere adjustment of administrative procedure. It is a switch from a system that locks in balancing capacity a week ahead to one that decides allocation day by day with the next day's supply and demand outlook factored in, and for battery operators it makes "daily operating decisions" weigh a step more heavily. This column focuses on the shift to day-ahead trading itself. The overall product design — the five balancing market products and the difference between online and offline — is covered in detail in <a target="_top" href="/en/column-balancing-market" style="color:var(--accent);font-weight:600">The 5 Balancing Market Products</a>.</p>
+<div class="highlight-box">
+  <strong>The 3 things that changed from transactions on March 13, 2026:</strong><br>
+  ・<strong>Trading timing</strong> … Weekly (a week's worth in advance, in one batch) → Day-ahead trading (the next day bid at 14:00 the day before)<br>
+  ・<strong>Trading unit</strong> … 3-hour blocks → 30-minute slots (duration of every product unified at 30 minutes)<br>
+  ・<strong>Price cap and procurement volume</strong> … Price cap for Primary, Secondary 1 and the combined product lowered from ¥19.51 to ¥15; procurement volume for Primary and Secondary 1 reduced from 3σ to 1σ<br><br>
+  The products covered are Primary, Secondary 1 and 2 and Tertiary 1 (the combined product). Tertiary 2 has always been traded separately as a day-ahead product.
+</div>
+<div class="source">Source: Electric Power Reserve Exchange (EPRX), "Balancing Market Explanatory Materials," 2nd Edition (March 13, 2026) / Agency for Natural Resources and Energy, "On the Balancing Market," materials for the 110th meeting of the System Design Working Group (January 23, 2026)</div>
+
+<!-- scix-guide -->
+<aside data-scix-guide style="margin:32px 0;padding:14px 20px 12px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif;font-size:14.5px;line-height:1.8;color:#1F2A48">
+  <p style="margin:0 0 8px">To see the projects on sale now, open <a target="_top" href="https://dealroom.scix.co.jp/catalog?lang=en" style="color:#1F2A48;font-weight:600">Chikudensho Market</a> (browsing needs no registration). It shows prefecture, size, voltage, how the project is bought, the stage of the procedures and the expected start of operation; prices and documents are available after free registration. How a purchase runs, step by step, is in <a target="_top" href="/en/column-transfer" style="color:#1F2A48;font-weight:600">buying a project</a>.</p>
+  <p style="margin:0;font-size:13px;color:#555555">Terms used here: <a target="_top" href="/en/glossary#term-day-ahead-trading" style="color:#1F2A48">day-ahead trading</a> ・ <a target="_top" href="/en/glossary#term-balancing-market" style="color:#1F2A48">balancing market</a> ・ <a target="_top" href="/en/glossary#term-eprx" style="color:#1F2A48">EPRX</a> ・ <a target="_top" href="/en/glossary#term-weekly-product" style="color:#1F2A48">weekly products</a> ・ <a target="_top" href="/en/glossary#term-price-cap" style="color:#1F2A48">price cap</a> ／ <a target="_top" href="/en/glossary" style="color:#1F2A48">glossary</a></p>
+</aside>
+<!-- scix-readnext: related articles -->
+<aside data-scix-readnext style="margin:32px 0;padding:14px 20px 10px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;font-weight:700;color:#555555;letter-spacing:.08em;margin-bottom:2px">Related reading</div>
+  <a target="_top" href="/en/column-price-cap" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">The balancing market price cap falls to ¥10 — counting the roughly ¥30 billion that disappears, across 9 areas × 4 products →</a>
+  <a target="_top" href="/en/column-area-data" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">Balancing market trading results — clearing prices across 9 areas × 5 products →</a>
+  <a target="_top" href="/en/column-balancing-saturation" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">Are batteries saturated? — 5 numbers from the balancing market through August 2026 →</a>
+</aside>
+
+<h2>What Weekly Products Were — and Why They Were Abolished</h2>
+<p>From the start of trading in all products in April 2024 until March 12, 2026, Primary, Secondary 1 and 2 and Tertiary 1 were traded as "weekly products." A <strong>weekly product</strong> is a method in which a week's worth of balancing capacity is bid and cleared in one batch, about a week before delivery. Transmission and distribution companies could secure the volume they needed week by week, and operators bid in one batch at the start of each week.</p>
+<p>The weakness of this method was that <strong>dividing capacity between markets was difficult</strong>. A battery's revenue is built by combining the buying and selling of electrical energy (kWh) on JEPX (the wholesale electricity market) with the provision of balancing capacity (ΔkW = standby) in the balancing market. Once balancing capacity has been cleared a week ahead, however, the battery is tied to the balancing market in those hours whatever the JEPX spot price turns out to be. Even if the next day's spot price spikes, capacity already committed to standby in the balancing market cannot be redirected to JEPX. The long, week-long reservation period stood in the way of nimble arbitrage between the two markets.</p>
+<p>Day-ahead trading shortens this time horizon from "a week ahead" to "the day before," so that allocation can be decided with the next day's supply and demand outlook factored in. Together with the subdivision of the trading unit into 30-minute slots, this means that, slot by slot, an operator can choose whether to put capacity into JEPX or into the balancing market.</p>
+<table class="comparison-table">
+  <tr><th>Item</th><th>Weekly products (to March 12, 2026)</th><th>Day-ahead trading (from March 13, 2026)</th></tr>
+  <tr><td class="em">Bid timing</td><td>In one batch about a week before delivery</td><td>The next day, at 14:00 the day before</td></tr>
+  <tr><td class="em">Trading unit</td><td>3-hour blocks</td><td>30-minute slots</td></tr>
+  <tr><td class="em">Duration</td><td>From 30 minutes or more to 3 hours, depending on the product</td><td>Unified at 30 minutes for all products</td></tr>
+  <tr><td class="em">Dividing capacity with JEPX</td><td>Fixed week by week; little flexibility</td><td>Can be decided daily, slot by slot</td></tr>
+</table>
+<p><small style="color:var(--text-light)">* When the scheme was created, the duration was "30 minutes or more" for Secondary 1 and 2 and "3 hours" for Tertiary 1 and 2. With day-ahead trading and 30-minute slots it was unified at "30 minutes" for all products (Tertiary 2 changed ahead of the others, from FY2025). The products covered are Primary, Secondary 1 and 2 and Tertiary 1 (the combined product). Tertiary 2 has been traded separately as a day-ahead product from the outset.</small></p>
+<div class="source">Source: Electric Power Reserve Exchange (EPRX), "Balancing Market Explanatory Materials," 2nd Edition (March 13, 2026) <a href="https://www.eprx.or.jp/outline/docs/kaisetsu.pdf" target="_blank">eprx.or.jp</a></div>
+
+<h2>30-Minute Slots and "48 Slots" — Where the Balancing Market Meets JEPX</h2>
+<p>The practical core of day-ahead trading is that the trading unit became the 30-minute slot. The JEPX spot market has always traded the day in <strong>48 slots</strong> of 30 minutes each. Now that the balancing market has also moved to 30-minute slots, the two markets sit side by side at the same time granularity.</p>
+<p>As a result, every day an operator decides, for each of the next day's 48 slots, whether to "sell electrical energy on JEPX (the wholesale electricity market) or stand by in the balancing market." Moreover, the two markets cannot be chosen independently. Under the rule that <strong>only volume bid into the JEPX spot market and left unsold can be offered into the balancing market</strong>, a sequence arises: first decide the JEPX bids, then build the balancing market offers on the results. A decision that in the era of weekly products could only be changed week by week now comes up 48 times every day.</p>
+<div class="highlight-box">
+  <strong>The daily decision loop created by day-ahead trading (for a battery):</strong><br>
+  ① Forecast the next day's JEPX spot prices and the balancing market outlook<br>
+  ② For each of the 48 slots, assign charging, discharging into JEPX, and standby in the balancing market<br>
+  ③ Bid into the JEPX spot market (gate closure at 10:00 the day before)<br>
+  ④ Offer the unsold capacity into the balancing market (14:00 the day before)<br>
+  ⑤ Clearing → charging/discharging, standby and response during actual delivery → settlement<br><br>
+  Because a battery cannot offer into the market while it is charging, how many of the 48 slots it can put on the market directly determines its revenue.
+</div>
+<p>One point to watch is the physical constraint that a battery cannot offer into the market while it is charging. As long as its basic operation is to charge in low-price hours (late at night, and in the daytime hours of solar surplus) and to discharge or stand by in high-price hours, it cannot put all 48 slots on the market. Revenue opportunities shrink by the slots used for charging. Day-ahead trading can be said to have become a system that confronts operators every day with an optimization problem: how, and to which of JEPX and the balancing market, to allocate this limited number of slots.</p>
+<div class="source">Source: Electric Power Reserve Exchange (EPRX), "Balancing Market Explanatory Materials," 2nd Edition (March 13, 2026)</div>
+
+<h2>The Price Cap and Procurement Volume Were Cut at the Same Time</h2>
+<p>From the same March 13, 2026 transactions as the shift to day-ahead trading, two cuts were also made on the price side. They are changes to keep in view together with day-ahead trading.</p>
+<table class="comparison-table">
+  <tr><th>Item</th><th>Through FY2025</th><th>From FY2026</th></tr>
+  <tr><td class="em">Price cap for Primary, Secondary 1 and the combined product</td><td>¥19.51/ΔkW per 30 min</td><td>¥15/ΔkW per 30 min</td></tr>
+  <tr><td class="em">Price cap for Secondary 2 and Tertiary 1</td><td>¥7.21/ΔkW per 30 min</td><td>¥7.21/ΔkW per 30 min (unchanged)</td></tr>
+  <tr><td class="em">Procurement volume (Primary, Secondary 1)</td><td>3σ equivalent</td><td>1σ equivalent</td></tr>
+  <tr><td class="em">Outlook for further cuts</td><td>—</td><td>Stepwise cuts to ¥10 → ¥7.21 under consideration</td></tr>
+</table>
+<p>The price cap was eased to ¥15 from the initial proposal of ¥7.21, but it is still a cut of about 23% from the previous ¥19.51. Furthermore, a policy has been set out of lowering it in stages, to ¥10 and then ¥7.21, if no improvement is seen in the competitive state of the market. As for procurement volume, the procurement standard for Primary and Secondary 1 was changed from the 3σ equivalent (covering 99.7% of forecast errors) to the 1σ equivalent (covering 68%), so that the total volume of this balancing capacity procured through the market was itself cut substantially.</p>
+<p style="background:#F7F7F7;border-left:3px solid #C49A3C;padding:10px 16px;font-size:.88em;line-height:1.85;margin:0 0 20px">Update: Of these, the ¥10 cap has applied to Primary Reserve, Secondary Reserve 1 and the combined product from delivery on September 1, 2026. Our article estimating the amount that disappears, across 9 areas × 4 products from EPRX clearing results, is <a target="_top" href="/en/column-price-cap" style="color:#1F2A48;font-weight:600;text-decoration:none;border-bottom:1px solid #C49A3C">The balancing market price cap falls to ¥10</a>.</p>
+<p>Where day-ahead trading is a change to "the timing and granularity of trading," the cuts to the price cap and procurement volume are a change to "the revenue ceiling and the size of the market." With both taking effect at once, battery operation is moving toward "finer-grained, more daily, competing for a more limited pie." For actual figures on unit-price ranges and fulfillment rates by product, see <a target="_top" href="/en/column-balancing-market" style="color:var(--accent);font-weight:600">The 5 Balancing Market Products</a>.</p>
+<div class="source">Source: Agency for Natural Resources and Energy, "On the Balancing Market," materials for the 110th meeting of the System Design Working Group (January 23, 2026)</div>
+
+<h2>The Impact on Battery Operation — What Separates Revenue</h2>
+<p>Day-ahead trading has created a market environment in which annual revenue readily differs even between identical battery facilities. What creates the difference is not the performance of the equipment itself, but how skillfully the daily allocation decisions are made.</p>
+<h3>① Daily allocation between JEPX and the balancing market</h3>
+<p>Forecast the next day's spot prices and the balancing market's unit prices and clearing outlook, and decide how to assign the 48 slots. This has become the central variable of revenue since the shift to day-ahead trading. On days when JEPX spot prices are high, capacity goes there; in hours when balancing market unit prices can be expected, it goes to standby — and this decision must be made every day, slot by slot.</p>
+<h3>② The aggregator's operational capability</h3>
+<p>Optimizing the allocation of 48 slots is not a workload that can be run accurately by hand. The aggregator's operating algorithm handles everything from optimizing charging timing, through allocation between JEPX and the balancing market, to setting offer prices. With day-ahead trading, the relative strength of this algorithm now feeds directly into annual revenue. Even with the same facility, revenue changes with the choice of aggregator. Because how fees are taken (gross / net) also bears directly on revenue, the operating design is worth reviewing together with <a target="_top" href="/en/column-revenue" style="color:var(--accent);font-weight:600">The 3 Revenue Sources of Batteries</a>.</p>
+<h3>③ Building in the direction of the rules</h3>
+<p>The price cap has already been lowered to ¥15, and a policy of further stepwise cuts has also been set out. At the same time, the fulfillment rate for Primary Reserve is low, at 40.8% online and 3.4% offline, and the shortage remains large. The picture for now is that, although the revenue ceiling is coming down, revenue opportunities remain depending on product selection and daily operation. Facilities need to be assessed with the downward direction of the rules built in, not only on short-term unit prices.</p>
+<div class="warning-box">
+  <strong>⚠ Day-ahead trading has not "made it easier to earn":</strong><br>
+  Day-ahead trading has made nimble division of capacity with JEPX possible, but it was introduced at the same time as the lower price cap and the reduced procurement volume. For operators who can run daily allocation skillfully, opportunities widen; without operations to match, a business takes only the effect of the lower revenue ceiling. This is a phase in which, more than the quality of the equipment, operating design and the choice of aggregator decide a project's viability.
+</div>
+<div class="source">Source: EPRX trading results (final figures), April 2025 – February 2026 / Agency for Natural Resources and Energy, "On the Balancing Market," materials for the 110th meeting of the System Design Working Group (January 23, 2026)</div>
+
+<h2>Frequently Asked Questions</h2>
+<div class="faq-item">
+  <div class="faq-q">What is the balancing market's shift to day-ahead trading?</div>
+  <div class="faq-a">It refers to the change, from transactions on March 13, 2026, in which the "weekly products" for Primary through Tertiary Reserve 1, previously bid a week at a time, moved to "day-ahead trading," in which the next day is bid at 14:00 the day before. The trading unit was also subdivided from 3-hour blocks into 30-minute slots, and the duration of every product was unified at 30 minutes.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">Why were weekly products abolished?</div>
+  <div class="faq-a">Weekly products secured balancing capacity a week ahead, which made it difficult to divide resources optimally between JEPX (the wholesale electricity market) and the balancing market. With day-ahead trading, allocation can be decided daily with the next day's supply and demand outlook factored in, which makes arbitrage between the markets work more easily. At the same time, the trading unit was subdivided into 30-minute slots.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">How does day-ahead trading affect battery operation?</div>
+  <div class="faq-a">Every day, operators must decide for each of the next day's 48 slots whether to "sell on JEPX or stand by in the balancing market." Under the rule that only volume bid into the JEPX spot market and left unsold can be offered into the balancing market, dividing capacity between the two markets has become more strategic. This daily allocation optimization depends on the aggregator's operational capability.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">Did the price cap change at the same time as the shift to day-ahead trading?</div>
+  <div class="faq-a">Yes. From the same March 13, 2026 transactions, the price cap for Primary Reserve, Secondary Reserve 1 and the combined product was lowered from ¥19.51 to ¥15 (¥/ΔkW per 30 minutes), and the procurement volume for Primary Reserve and Secondary Reserve 1 was reduced from the 3σ equivalent to the 1σ equivalent. The revenue ceiling came down, but the fulfillment rate for Primary Reserve is low, at 40.8% online and 3.4% offline, and the shortage remains large.</div>
+</div>
+
+<a target="_top" href="/en/column-balancing-market" class="next-link">
+  <div>
+    <div class="next-link-label">NEXT → COLUMN 15</div>
+    <div class="next-link-title">Understanding the 5 Balancing Market Products — Online, Offline, and the Combined Product</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="author-box">
+  <div class="ab-label">Supervised by</div>
+  <div><span class="ab-name">Shinya Nakashima, Ph.D. (Eng.)</span> — Representative Director, Science X Inc.</div>
+  <p style="margin:6px 0 0">Works on the development, sale and technical due diligence of grid-scale battery storage plants in Japan. This column is written and supervised on the basis of that hands-on transaction and due-diligence practice.</p>
+</div>
+
+</div>
+
+<!-- scix-column-cta : one per article. Primary = Chikudensho Market; secondary = how to invest (each states where it leads) -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F5F5F3;border:1px solid #E6E6E6;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Sans JP',sans-serif;color:#1F2A48;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">Projects affected by day-ahead trading can be filtered by expected connection timing</h3>
+  <p style="color:#555555;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">Prefecture, size, voltage, how the project is bought, the stage of the procedures and the expected start of operation can be viewed without registration. We list only projects that already have a connection study response.</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://dealroom.scix.co.jp/catalog?lang=en" style="display:inline-block;background:#C49A3C;color:#1F2A48;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">See projects on Chikudensho Market →</a>
+    <p style="color:#8C8C8C;font-size:12.5px;line-height:1.8;margin:10px 0 0">Opens the project list on Chikudensho Market (English screens). No registration needed to browse; prices and documents are available after free registration.</p>
+  </div>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E6E6E6">
+    <a target="_top" href="https://www.scix.co.jp/investors" hreflang="ja" style="color:#1F2A48;font-weight:600;font-size:13.5px;text-decoration:none;border-bottom:1px solid #C49A3C;padding-bottom:2px">Two ways to invest in grid-scale battery storage</a><span class="ja-tag">JA</span>
+    <p style="color:#555555;font-size:12.5px;line-height:1.85;margin:10px 0 0">Owning a plant yourself, or through a fund. What it means for revenue to be set by the market, and the documents to check before deciding.</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer — self-contained -->
+<style>
+  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+  .scix-footer { background-color: #1F2A48; color: rgba(255,255,255, 0.85); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%; }
+  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: 0.95; }
+  .scix-footer-info { text-align: center; }
+  .scix-footer-copyright { font-size: 11px; letter-spacing: 0.04em; color: rgba(255,255,255, 0.55); margin-top: 20px; }
+  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255,255,255, 0.8); }
+  .scix-footer-company .company-name { font-weight: 500; font-size: 13.5px; color: rgba(255,255,255, 0.92); margin-bottom: 2px; }
+  .scix-footer-company .representative { margin-top: 4px; color: rgba(255,255,255, 0.6); font-size: 12px; }
+  .scix-footer-company a { color: rgba(255,255,255, 0.8); text-decoration: none; transition: color 0.2s ease; }
+  .scix-footer-company a:hover { color: #C49A3C; }
+  .scix-footer-divider { width: 60px; border: none; border-top: 1px solid rgba(255,255,255, 0.12); margin: 0 auto; }
+</style>
+
+<!-- Global-investor CTA (discovery funnel → market-entry) -->
+<section style="background:#1F2A48;padding:52px 24px;text-align:center;font-family:'Noto Sans JP',sans-serif;">
+  <div style="max-width:720px;margin:0 auto;">
+    <div style="font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:#C49A3C;margin-bottom:12px;">For Global Investors</div>
+    <h2 style="font-family:'Noto Sans JP',sans-serif;font-size:clamp(1.3rem,3vw,1.7rem);color:#fff;font-weight:600;line-height:1.5;margin:0 0 14px;">Investing in Japan's grid-scale storage?</h2>
+    <p style="color:rgba(255,255,255,0.78);font-size:0.92rem;line-height:1.85;margin:0 0 26px;">We buy and sell grid-scale BESS projects in Japan. If you are selling, we either buy the project ourselves or introduce you to a buyer. If you are buying, we list projects that hold a connection study response on Chikudensho Market, open to view without registration.</p>
+    <a href="/en" style="display:inline-block;background:#C49A3C;color:#1F2A48;font-weight:700;text-decoration:none;padding:14px 34px;border-radius:4px;font-size:0.9rem;">See the market-entry guide →</a>
+    <a href="https://dealroom.scix.co.jp/catalog?lang=en" style="display:inline-block;margin:10px 0 0 12px;color:#fff;font-weight:600;text-decoration:none;padding:12px 26px;border:1px solid rgba(255,255,255,0.45);border-radius:4px;font-size:0.9rem;">See projects on Chikudensho Market →</a>
+  </div>
+</section>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img width="300" height="118"
+        src="/img/logo-white.png"
+        alt="ScienceX - Science X Inc."
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="https://dealroom.scix.co.jp/?lang=en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Chikudensho Market</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>

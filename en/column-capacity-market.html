@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"></noscript>
+<style>
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#1F2A48;--text-light:#666666;--light-bg:#F7F7F7;--border:#E6E6E6;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#141B30 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Sans JP',sans-serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Sans JP',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Sans JP',sans-serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Sans JP',sans-serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .num{font-family:'Noto Sans JP',sans-serif;font-weight:700;color:var(--navy);font-size:1.1em}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.88em}
+.comparison-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text)}
+.faq-a::before{content:'A. ';color:var(--text-light);font-weight:700}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Sans JP',sans-serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+@media(max-width:768px){.article-body{padding:32px 16px 60px}h2{font-size:1.2em}.comparison-table{font-size:.8em}.comparison-table th,.comparison-table td{padding:8px 10px}}
+.author-box{background:var(--light-bg,#F7F7F7);border:1px solid var(--border,#E6E6E6);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1F2A48)}
+.ja-tag{display:inline-block;margin-left:.35em;padding:0 .4em;font-size:.66em;font-weight:700;letter-spacing:.07em;color:#A07916;background:rgba(196,154,60,.15);border-radius:2px;vertical-align:.14em;text-decoration:none}
+</style>
+<title>Capacity Market Main Auction and Batteries: Clearing Prices | ScienceX</title>
+<meta name="description" content="Japan's capacity market main auction, Rounds 1–6: record ¥13,303/kW average, area prices in four blocks, award rates, and how it differs from the LDA.">
+<link rel="canonical" href="https://www.scix.co.jp/en/column-capacity-market">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-capacity-market">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-capacity-market">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-capacity-market">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Capacity Market Main Auction and Batteries: Clearing Prices | ScienceX">
+<meta property="og:description" content="Japan's capacity market main auction, Rounds 1–6: record ¥13,303/kW average, area prices in four blocks, award rates, and how it differs from the LDA.">
+<meta property="og:url" content="https://www.scix.co.jp/en/column-capacity-market">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-m-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Capacity Market Main Auction and Batteries: Clearing Prices | ScienceX">
+<meta name="twitter:description" content="Japan's capacity market main auction, Rounds 1–6: record ¥13,303/kW average, area prices in four blocks, award rates, and how it differs from the LDA.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-m-en.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Capacity Market Main Auction and Batteries — How Clearing Prices Have Moved and How They Feed Through to Revenue",
+  "description": "Clearing prices in Japan's capacity market main auction from Round 1 to Round 6 (delivery year FY2029, published January 2026), organized from primary sources: the overall average unit price reached a record ¥13,303/kW, area prices split into four blocks, award rates, how the auction feeds through to battery revenue, and how it differs from the LDA.",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Shinya Nakashima",
+    "jobTitle": "Representative Director, Ph.D. (Eng.)",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/company",
+    "sameAs": ["https://www.linkedin.com/in/dr-shinya-nakashima"]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-white.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-m-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-06-18",
+  "dateModified": "2026-11-21",
+  "mainEntityOfPage": "https://www.scix.co.jp/en/column-capacity-market"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the capacity market main auction?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is a market run by the Organization for Cross-regional Coordination of Transmission Operators, Japan (OCCTO) to secure future supply capability (kW) in advance. The auction is held four years before the delivery year, and it pays generators for existing and standing ready. It uses a single-price method, contracts are in principle for one year, all generation sources, existing or new, can take part, and batteries can participate from 1,000 kW."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How have capacity market clearing prices moved?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The overall average unit price (after the deduction for transitional measures) was ¥9,534/kW in Round 1 (delivery year FY2024), ¥3,109 in Round 2, ¥5,226 in Round 3, ¥7,847 in Round 4, ¥11,134 in Round 5 and ¥13,303/kW in Round 6 (delivery year FY2029). After the clearing price fell sharply from ¥14,137 to ¥3,495 in Round 2, prices turned upward, and the total contracted amount in Round 6, approximately ¥2.2094 trillion, is the highest on record (OCCTO published figures; aggregation by the Agency for Natural Resources and Energy)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does capacity market revenue depend on where the battery is located?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. In Round 5, Hokkaido, Tohoku and Tokyo cleared at the price cap of ¥14,812/kW, Kyushu at ¥13,177, Chubu at ¥10,280, and Hokuriku, Kansai, Chugoku and Shikoku at ¥8,785/kW, a gap of about 70% between the highest and the lowest. In Round 6, Kyushu cleared at ¥15,112, Tohoku and Tokyo at ¥15,111, Hokkaido at ¥14,972, and Chubu, Hokuriku, Kansai, Chugoku and Shikoku at ¥12,388/kW; the gap narrowed to about 20%, but the same battery still earns different capacity market revenue depending on the area where it is installed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the capacity market main auction differ from the LDA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The main auction uses contracts of in principle one year, a single price and covers all generation sources; existing batteries and projects below 30,000 kW can take part, and they keep all of their revenue from other markets. The LDA (Long-Term Decarbonized Power Source Auction) is for new builds only, with contracts of in principle 20 years and multiple pricing, and it carries an obligation to refund most revenue from other markets. A detailed comparison of the two is in the column 'Main Auction vs LDA'."
+      }
+    }
+  ]
+}
+</script>
+<meta property="article:published_time" content="2026-06-18">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Revenue & Markets",
+      "item": "https://www.scix.co.jp/en/knowledge#cat-market"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "The Capacity Market Main Auction and Batteries — How Clearing Prices Have Moved and How They Feed Through to Revenue",
+      "item": "https://www.scix.co.jp/en/column-capacity-market"
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8C8C8C"><a href="/en" style="color:#555555;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#555555;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge#cat-market" style="color:#555555;text-decoration:none">Revenue &amp; Markets</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8C8C8C">The Capacity Market Main Auction and Batteries</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 28</span>
+      <span class="header-tag">Regulatory Guide</span>
+      <time class="header-date" datetime="2026-06-18">2026.06.18</time>
+    </div>
+    <h1>The Capacity Market Main Auction and Batteries<br>— <em>How Clearing Prices Have Moved</em> and How They Feed Through to Revenue</h1>
+    <p class="header-desc">The main auction of the capacity market, which secures future supply capability (kW), gives a battery fixed revenue "just for existing." We set out, from OCCTO's published data, how clearing prices have swung from Round 1 to Round 6 (published January 2026), how unit prices differ by area, and how all this feeds through to the revenue of a battery business.</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/en/knowledge" class="back-link">← Back to Knowledge</a>
+
+<h2>What the Capacity Market Main Auction Is — A Market That Secures Future Supply Capability</h2>
+<p>The capacity market is run by the <strong>Organization for Cross-regional Coordination of Transmission Operators, Japan (OCCTO)</strong> to secure future supply capability (kW) in advance. It differs both from JEPX, where electrical energy (kWh) itself is bought and sold, and from the balancing market, where balancing capacity (ΔkW) for raising or lowering output is traded: what the capacity market buys is "the existence, in a specified year, of the generating and discharging capability that will be needed." A resource is paid for existing as supply capability and standing ready, whether or not it actually runs.</p>
+<p>At its center is the <strong>main auction</strong>, held four years before the delivery year. Batteries can take part from <strong>1,000 kW or more</strong>; the auction uses a <strong>single price</strong> (the price of the last successful bidder applies to everyone), and contracts are <strong>in principle for one year (a single fiscal year)</strong>. Existing and new resources compete on the same footing, which is the fundamental difference from the LDA (Long-Term Decarbonized Power Source Auction), which is open to new builds only.</p>
+<div class="highlight-box">
+  <strong>The 3 electricity markets a battery faces:</strong><br>
+  ・<strong>JEPX (wholesale electricity market)</strong> … Electrical energy (kWh) is bought and sold. The arena for arbitrage — charging when prices are low and discharging when they are high.<br>
+  ・<strong>Balancing market (operated by EPRX)</strong> … Balancing capacity (ΔkW = standby) is traded. Payment for waiting in a state where output can be raised or lowered.<br>
+  ・<strong>Capacity market (operated by OCCTO)</strong> … Secures future supply capability (kW). Fixed capacity revenue for existing.<br><br>
+  This article focuses on the third, the capacity market, and within it the <strong>main auction</strong>. For the overall picture of how the three markets are combined (stacking), see <a target="_top" href="/en/column-revenue" style="color:var(--accent);font-weight:600">The 3 Revenue Sources of Batteries</a>.
+</div>
+
+<!-- scix-guide -->
+<aside data-scix-guide style="margin:32px 0;padding:14px 20px 12px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif;font-size:14.5px;line-height:1.8;color:#1F2A48">
+  <p style="margin:0 0 8px">To see the projects on sale now, open <a target="_top" href="https://dealroom.scix.co.jp/catalog?lang=en" style="color:#1F2A48;font-weight:600">Chikudensho Market</a> (browsing needs no registration). It shows prefecture, size, voltage, how the project is bought, the stage of the procedures and the expected start of operation; prices and documents are available after free registration. How a purchase runs, step by step, is in <a target="_top" href="/en/column-transfer" style="color:#1F2A48;font-weight:600">buying a project</a>.</p>
+  <p style="margin:0;font-size:13px;color:#555555">Terms used here: <a target="_top" href="/en/glossary#term-capacity-market" style="color:#1F2A48">capacity market</a> ・ <a target="_top" href="/en/glossary#term-jepx" style="color:#1F2A48">JEPX</a> ・ <a target="_top" href="/en/glossary#term-delta-kw" style="color:#1F2A48">ΔkW</a> ・ <a target="_top" href="/en/glossary#term-balancing-market" style="color:#1F2A48">balancing market</a> ・ <a target="_top" href="/en/glossary#term-lda" style="color:#1F2A48">Long-Term Decarbonized Power Source Auction</a> ／ <a target="_top" href="/en/glossary" style="color:#1F2A48">glossary</a></p>
+</aside>
+<!-- scix-readnext: related articles -->
+<aside data-scix-readnext style="margin:32px 0;padding:14px 20px 10px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;font-weight:700;color:#555555;letter-spacing:.08em;margin-bottom:2px">Related reading</div>
+  <a target="_top" href="/en/column-lda" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">What is the Long-Term Decarbonized Power Source Auction (LDA)? — battery award rates and the Round 3 results →</a>
+  <a target="_top" href="/en/column-long-term-contract" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">Does a tolling contract pay for a storage plant? — the revenue breakdown of a 47 MW extra-high-voltage asset →</a>
+  <a target="_top" href="/en/column-regional-revenue" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">Grid-scale storage revenue by area — measured across 9 areas × 3 markets →</a>
+</aside>
+
+<h2>How Clearing Prices Have Moved — From a Sharp Fall to a Rise</h2>
+<p>Main auction prices have swung widely from Round 1 to Round 6. The Round 1 clearing price (¥14,137/kW) was a high price close to the upper end of the demand curve; in Round 2 (¥3,495/kW) it fell sharply to about a quarter of that, and it has been on an upward trend since. Behind this is the growth of new electricity demand, such as data centers and semiconductor plants.</p>
+<table class="comparison-table">
+  <tr><th>Round</th><th>Delivery year</th><th>Overall average unit price (after deduction for transitional measures)</th><th>Notes</th></tr>
+  <tr><td class="em">Round 1</td><td>FY2024</td><td>¥9,534/kW</td><td>Clearing price a uniform ¥14,137/kW nationwide. Criticized for being close to the upper end of the demand curve</td></tr>
+  <tr><td class="em">Round 2</td><td>FY2025</td><td>¥3,109/kW</td><td>Clearing price ¥3,495/kW (¥5,242 in Hokkaido and Kyushu), a sharp fall to about 1/4 of the previous round</td></tr>
+  <tr><td class="em">Round 3</td><td>FY2026</td><td>¥5,226/kW</td><td>Market splitting by area occurred</td></tr>
+  <tr><td class="em">Round 4</td><td>FY2027</td><td>¥7,847/kW</td><td>Turned to an upward trend</td></tr>
+  <tr><td class="em">Round 5</td><td>FY2028</td><td>¥11,134/kW</td><td>Total contracted amount approx. ¥1.8506 trillion</td></tr>
+  <tr><td class="em">Round 6</td><td>FY2029</td><td>¥13,303/kW</td><td>New record high. Total contracted amount approx. ¥2.2094 trillion. Areas split into 4 blocks</td></tr>
+</table>
+<p>The overall average unit price in Round 6 (delivery year FY2029), whose results came out on January 20, 2026, was <strong>¥13,303/kW</strong> (after the deduction for transitional measures), above even Round 5's ¥11,134. The total contracted amount, <strong>approximately ¥2.2094 trillion</strong>, is the highest on record. For the first time apart from Round 1, area prices exceeded the indicative price (¥10,075/kW) in every area. That prices move widely from one year to the next is inherent to the main auction, where capacity revenue is won anew at each annual renewal; since it is not a long-term fixed income, a business has to be designed with this volatility itself built in.</p>
+<div class="source">Source: Organization for Cross-regional Coordination of Transmission Operators, Japan (OCCTO), clearing results for each round / Round 6 (published January 20, 2026; corrected January 23) / Agency for Natural Resources and Energy, "On the Capacity Market" (January 23, 2026, Document 3-3, p. 5; the overall average unit price is the total contracted amount (after the deduction for transitional measures) ÷ total contracted capacity). Covers the rounds published as of October 2, 2026, up to Round 6</div>
+
+<h2>Unit Prices Split by Area — Location Decides Capacity Revenue</h2>
+<p>Since Round 3, the capacity market has cleared not as a single national market but split by area. In Round 5 (delivery year FY2028), the gaps in unit price between areas are decisively large. Build the same battery, and its annual revenue from the capacity market changes greatly depending on the area where it is placed.</p>
+<table class="comparison-table">
+  <tr><th>Area</th><th>Clearing unit price (¥/kW)</th><th>Relative to the price cap</th></tr>
+  <tr><td class="em">Hokkaido, Tohoku, Tokyo</td><td>¥14,812/kW</td><td>Cleared at the price cap</td></tr>
+  <tr><td class="em">Kyushu</td><td>¥13,177/kW</td><td>89% of the cap</td></tr>
+  <tr><td>Chubu</td><td>¥10,280/kW</td><td>69% of the cap</td></tr>
+  <tr><td>Hokuriku, Kansai, Chugoku, Shikoku</td><td>¥8,785/kW</td><td>59% of the cap</td></tr>
+</table>
+<p>In Round 5, the gap between the highest areas (Hokkaido, Tohoku and Tokyo at ¥14,812/kW, pinned to the price cap) and the lowest (Hokuriku, Kansai, Chugoku and Shikoku at ¥8,785/kW) was <strong>about 70%</strong>. Because capacity market revenue is a fixed income per kW, this gap in unit price feeds straight through as a gap in annual revenue. When people say that in battery economics "location is everything," it is because not only grid connection costs but also these area characteristics of the capacity market and the balancing market act in combination. Location assessment that also draws on balancing market data by area is covered in <a target="_top" href="/en/column-revenue" style="color:var(--accent);font-weight:600">The 3 Revenue Sources of Batteries</a> as well.</p>
+<div class="source">Source: Organization for Cross-regional Coordination of Transmission Operators, Japan (OCCTO), "Capacity Market Main Auction Clearing Results (Delivery Year: FY2028)" (January 29, 2025)</div>
+
+<p>In Round 6 (delivery year FY2029), the areas split into four blocks: Hokkaido / Tohoku and Tokyo / Kyushu / Chubu, Hokuriku, Kansai, Chugoku and Shikoku. The gap between the highest and the lowest narrowed to about 20%. Tohoku and Tokyo remained short of supply capability even after additional processing, and became shortage areas for the second year running.</p>
+<table class="comparison-table">
+  <tr><th>Area</th><th>Clearing unit price (¥/kW)</th></tr>
+  <tr><td class="em">Kyushu</td><td>¥15,112/kW</td></tr>
+  <tr><td class="em">Tohoku, Tokyo</td><td>¥15,111/kW</td></tr>
+  <tr><td class="em">Hokkaido</td><td>¥14,972/kW</td></tr>
+  <tr><td>Chubu, Hokuriku, Kansai, Chugoku, Shikoku</td><td>¥12,388/kW</td></tr>
+</table>
+<div class="source">Source: Organization for Cross-regional Coordination of Transmission Operators, Japan (OCCTO), "Capacity Market Main Auction Clearing Results (Delivery Year: FY2029)" (published January 20, 2026; corrected January 23), pp. 9–10 / Agency for Natural Resources and Energy, "On the Capacity Market" (January 23, 2026, Document 3-3), p. 4</div>
+
+<h2>How It Feeds Through to Battery Revenue — Base Income "Just for Existing"</h2>
+<p>For a battery, capacity revenue from the main auction is the most stable income it has: it "comes in even without running." The award rate for batteries is <strong>over 96%</strong>, so almost all of the volume offered is awarded; once a battery takes part, capacity revenue is all but certain. Stacking JEPX arbitrage and balancing market revenue on top of this base income is the basic form of revenue design for the main-auction (full merchant) model.</p>
+<div class="data-box">
+  <strong>Points that matter for a battery in the main auction:</strong><br>
+  ・Award rate <span class="num">over 96%</span> — almost all of the volume offered is awarded, so little capacity revenue is missed<br>
+  ・Contracts are in principle for one year — directly exposed to the year-to-year movement of the clearing price (not a long-term fixed income)<br>
+  ・No restriction on revenue from other markets — all JEPX and balancing market revenue is kept<br>
+  ・Minimum capacity 1,000 kW — small projects can take part too
+</div>
+<p>Note, however, that the main auction is a scheme in which "you keep everything, and in exchange carry the year-to-year price risk yourself." If a swing like the sharp fall from Round 1 to Round 2 occurs, capacity revenue for that year shrinks substantially. In a phase of rising prices it is a tailwind, but a design that leans revenue on the capacity market alone is high-risk; it only works on the premise of stacking with JEPX and the balancing market.</p>
+<div class="warning-box">
+  <strong>⚠ "Get into the capacity market and you are safe" is not true</strong><br><br>
+  Because the main auction uses single-year contracts, the clearing price moves every year. Sharp falls such as Round 1's ¥14,137 → Round 2's ¥3,495 have actually happened. Capacity revenue is only a base; if you want revenue stability on the level of the LDA, the scheme itself is designed differently.<br><br>
+  If you want to lock in revenue with 20 years of fixed income, the LDA; if you want to go after the year-to-year price movements while keeping all revenue from other markets, the main auction — that is how the two divide.
+</div>
+
+<h2>Batteries Have Barely Come to the Main Auction</h2>
+<p>Despite the high award rate of over 96%, the battery capacity bidding into the main auction is very small. Battery bids in the main auction remain at <strong>about 0.1% of the total (about 240,000 kW)</strong>, and most large batteries have gone to the LDA in pursuit of 20 years of fixed income.</p>
+<p>This is not "because the main auction is unpopular." For new large batteries, the LDA's 20 years of fixed income, which makes project finance easier to arrange, suits fundraising better. Put the other way, for <strong>existing batteries</strong> and for <strong>projects below 30,000 kW that do not reach the LDA's minimum capacity</strong>, the main auction is the realistic option for earning capacity revenue. Existing batteries cannot take part in the LDA (new builds only) in the first place, so for them the main auction is the only choice.</p>
+<div class="highlight-box">
+  <strong>Batteries suited to the main auction:</strong><br>
+  ・<strong>Existing batteries</strong> (the LDA is for new builds only, so they cannot take part)<br>
+  ・<strong>Projects below 30,000 kW</strong> (they do not reach the LDA's minimum bid capacity)<br>
+  ・<strong>Full merchant</strong> businesses with market-trading know-how that can take on price risk<br><br>
+  For new large-scale projects, or where long-term stable income comes first, the analysis centers on the LDA side. A 7-point comparison of the two schemes is in <a target="_top" href="/en/column-auction" style="color:var(--accent);font-weight:600">Main Auction vs LDA</a>.
+</div>
+
+<h2>Where the Main Auction and the LDA Stand</h2>
+<p>Although they sit under the same "capacity market" umbrella, the main auction and the LDA differ fundamentally in design philosophy. This article focuses on the main auction side, but the decision to take part is always made by contrasting the two.</p>
+<table class="comparison-table">
+  <tr><th>Item</th><th>Main auction</th><th>LDA</th></tr>
+  <tr><td class="em">Contract period</td><td>In principle 1 year (single fiscal year)</td><td>In principle 20 years</td></tr>
+  <tr><td class="em">Method</td><td>Single price</td><td>Multiple prices</td></tr>
+  <tr><td class="em">Eligible resources</td><td>All resources, existing and new</td><td>New builds, replacements and refurbishments only</td></tr>
+  <tr><td class="em">Minimum capacity for batteries</td><td>1,000 kW</td><td>30,000 kW (from Round 2)</td></tr>
+  <tr><td class="em">Revenue from other markets</td><td>No restriction (kept in full)</td><td>Obligation to refund most of it</td></tr>
+  <tr><td class="em">Award rate for batteries</td><td>Over 96%</td><td>About 20–46% (Rounds 1–3)</td></tr>
+</table>
+<p>The main auction is a market that "secures next year's supply capability, including keeping existing resources in service"; the LDA is a market that "guarantees new decarbonized resources 20 years of investment recovery." The question is not which is better: the best answer changes with whether the battery is existing or new, its size, its risk tolerance and how it is financed. The details of the LDA's 20 years of fixed income and its refund rules are in <a target="_top" href="/en/column-lda" style="color:var(--accent);font-weight:600">What Is the LDA (Long-Term Decarbonized Power Source Auction)?</a>, and a framework for deciding between the two schemes is set out in detail in <a target="_top" href="/en/column-auction" style="color:var(--accent);font-weight:600">Main Auction vs LDA</a>.</p>
+<div class="source">Source: Agency for Natural Resources and Energy, "On the Capacity Market" (February 5, 2025) / OCCTO, clearing results for each round and LDA clearing results</div>
+
+<h2>Frequently Asked Questions</h2>
+<div class="faq-item">
+  <div class="faq-q">What is the capacity market main auction?</div>
+  <div class="faq-a">It is a market run by the Organization for Cross-regional Coordination of Transmission Operators, Japan (OCCTO) to secure future supply capability (kW) in advance. The auction is held four years before the delivery year, and it pays generators for existing and standing ready. It uses a single-price method, contracts are in principle for one year, all generation sources, existing or new, can take part, and batteries can participate from 1,000 kW.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">How have capacity market clearing prices moved?</div>
+  <div class="faq-a">The overall average unit price (after the deduction for transitional measures) was ¥9,534/kW in Round 1 (delivery year FY2024), ¥3,109 in Round 2, ¥5,226 in Round 3, ¥7,847 in Round 4, ¥11,134 in Round 5 and ¥13,303/kW in Round 6 (delivery year FY2029). After the clearing price fell sharply from ¥14,137 to ¥3,495 in Round 2, prices turned upward, and the total contracted amount in Round 6, approximately ¥2.2094 trillion, is the highest on record (OCCTO published figures; aggregation by the Agency for Natural Resources and Energy).</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">Does capacity market revenue depend on where the battery is located?</div>
+  <div class="faq-a">Yes. In Round 5, Hokkaido, Tohoku and Tokyo cleared at the price cap of ¥14,812/kW, Kyushu at ¥13,177, Chubu at ¥10,280, and Hokuriku, Kansai, Chugoku and Shikoku at ¥8,785/kW, a gap of about 70% between the highest and the lowest. In Round 6, Kyushu cleared at ¥15,112, Tohoku and Tokyo at ¥15,111, Hokkaido at ¥14,972, and Chubu, Hokuriku, Kansai, Chugoku and Shikoku at ¥12,388/kW; the gap narrowed to about 20%, but the same battery still earns different capacity market revenue depending on the area where it is installed.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">How does the capacity market main auction differ from the LDA?</div>
+  <div class="faq-a">The main auction uses contracts of in principle one year, a single price and covers all generation sources; existing batteries and projects below 30,000 kW can take part, and they keep all of their revenue from other markets. The LDA (Long-Term Decarbonized Power Source Auction) is for new builds only, with contracts of in principle 20 years and multiple pricing, and it carries an obligation to refund most revenue from other markets. A detailed comparison of the two is in the column "Main Auction vs LDA."</div>
+</div>
+
+<a target="_top" href="/en/column-revenue" class="next-link">
+  <div>
+    <div class="next-link-label">NEXT → COLUMN 02</div>
+    <div class="next-link-title">The 3 Revenue Sources of Batteries — Stacking JEPX, the Balancing Market and the Capacity Market</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="author-box">
+  <div class="ab-label">Supervised by</div>
+  <div><span class="ab-name">Shinya Nakashima, Ph.D. (Eng.)</span> — Representative Director, Science X Inc.</div>
+  <p style="margin:6px 0 0">Works on the development, sale and technical due diligence of grid-scale battery storage plants in Japan. This column is written and supervised on the basis of that hands-on transaction and due-diligence practice.</p>
+</div>
+
+</div>
+
+<!-- scix-column-cta : one per article. Primary = Chikudensho Market; secondary = how to invest (each states where it leads) -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F5F5F3;border:1px solid #E6E6E6;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Sans JP',sans-serif;color:#1F2A48;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">Capacity market unit prices differ by grid area. The project list can be filtered by area</h3>
+  <p style="color:#555555;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">Prefecture, size, voltage, how the project is bought, the stage of the procedures and the expected start of operation can be viewed without registration. We list only projects that already have a connection study response.</p>
+
+  <div style="text-align:center">
+    <a target="_top" href="https://dealroom.scix.co.jp/catalog?lang=en" style="display:inline-block;background:#C49A3C;color:#1F2A48;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">See projects on Chikudensho Market →</a>
+    <p style="color:#8C8C8C;font-size:12.5px;line-height:1.8;margin:10px 0 0">Opens the project list on Chikudensho Market (English screens). No registration needed to browse; prices and documents are available after free registration.</p>
+  </div>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E6E6E6">
+    <a target="_top" href="https://www.scix.co.jp/investors" hreflang="ja" style="color:#1F2A48;font-weight:600;font-size:13.5px;text-decoration:none;border-bottom:1px solid #C49A3C;padding-bottom:2px">Two ways to invest in grid-scale battery storage</a><span class="ja-tag">JA</span>
+    <p style="color:#555555;font-size:12.5px;line-height:1.85;margin:10px 0 0">Owning a plant yourself, or through a fund. What it means for revenue to be set by the market, and the documents to check before deciding.</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer — self-contained -->
+<style>
+  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+  .scix-footer { background-color: #1F2A48; color: rgba(255,255,255, 0.85); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%; }
+  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: 0.95; }
+  .scix-footer-info { text-align: center; }
+  .scix-footer-copyright { font-size: 11px; letter-spacing: 0.04em; color: rgba(255,255,255, 0.55); margin-top: 20px; }
+  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255,255,255, 0.8); }
+  .scix-footer-company .company-name { font-weight: 500; font-size: 13.5px; color: rgba(255,255,255, 0.92); margin-bottom: 2px; }
+  .scix-footer-company .representative { margin-top: 4px; color: rgba(255,255,255, 0.6); font-size: 12px; }
+  .scix-footer-company a { color: rgba(255,255,255, 0.8); text-decoration: none; transition: color 0.2s ease; }
+  .scix-footer-company a:hover { color: #C49A3C; }
+  .scix-footer-divider { width: 60px; border: none; border-top: 1px solid rgba(255,255,255, 0.12); margin: 0 auto; }
+</style>
+
+<!-- Global-investor CTA (discovery funnel → market-entry) -->
+<section style="background:#1F2A48;padding:52px 24px;text-align:center;font-family:'Noto Sans JP',sans-serif;">
+  <div style="max-width:720px;margin:0 auto;">
+    <div style="font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:#C49A3C;margin-bottom:12px;">For Global Investors</div>
+    <h2 style="font-family:'Noto Sans JP',sans-serif;font-size:clamp(1.3rem,3vw,1.7rem);color:#fff;font-weight:600;line-height:1.5;margin:0 0 14px;">Investing in Japan's grid-scale storage?</h2>
+    <p style="color:rgba(255,255,255,0.78);font-size:0.92rem;line-height:1.85;margin:0 0 26px;">We buy and sell grid-scale BESS projects in Japan. If you are selling, we either buy the project ourselves or introduce you to a buyer. If you are buying, we list projects that hold a connection study response on Chikudensho Market, open to view without registration.</p>
+    <a href="/en" style="display:inline-block;background:#C49A3C;color:#1F2A48;font-weight:700;text-decoration:none;padding:14px 34px;border-radius:4px;font-size:0.9rem;">See the market-entry guide →</a>
+    <a href="https://dealroom.scix.co.jp/catalog?lang=en" style="display:inline-block;margin:10px 0 0 12px;color:#fff;font-weight:600;text-decoration:none;padding:12px 26px;border:1px solid rgba(255,255,255,0.45);border-radius:4px;font-size:0.9rem;">See projects on Chikudensho Market →</a>
+  </div>
+</section>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img width="300" height="118"
+        src="/img/logo-white.png"
+        alt="ScienceX - Science X Inc."
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="https://dealroom.scix.co.jp/?lang=en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Chikudensho Market</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>
