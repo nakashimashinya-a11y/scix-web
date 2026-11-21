@@ -123,7 +123,7 @@ def rows_html(ps, today):
         if is_new(p, today):
             parts.append(f"新着（{_esc(p['firstSeen'])} 掲載）")
         pid = _esc(p.get("id") or "")
-        lines.append(f'<li id="p-{pid}"><a href="/projects#p-{pid}"><b>{pid}</b></a>　' + "｜".join(parts) + "</li>")
+        lines.append(f'<li id="p-{pid}"><a href="https://dealroom.scix.co.jp/catalog/{pid}" target="_top"><b>{pid}</b></a>　' + "｜".join(parts) + "</li>")
     lines.append("</ul>")
     return "\n".join(lines)
 
@@ -451,7 +451,7 @@ def render_area(ps_all, area, slug, operator, today, generated):
 <section class="md"><div class="container">
   <div class="section-label">案件</div>
   <h2 class="md-h">{_esc(operator)}管内の案件一覧（{n}件・{_esc(generated)} 更新）</h2>
-  <p class="md-lead">連系が早い順です。案件番号を押すと、全国の一覧の該当行に移ります。価格と資料は、<a href="https://dealroom.scix.co.jp/catalog" target="_top">蓄電所マーケット</a>で無料登録のあとに見られます。</p>
+  <p class="md-lead">連系が早い順です。案件番号を押すと、蓄電所マーケットのその案件の頁（登録なしで見られる公開の項目）が開きます。価格と資料は、<a href="https://dealroom.scix.co.jp/catalog" target="_top">蓄電所マーケット</a>で無料登録のあとに見られます。</p>
   {list_html}
   <p class="md-note" style="margin-top:16px">ほかの管内: {others}</p>
 </div></section>
@@ -623,7 +623,7 @@ def render_en_projects(ps, today, generated):
             f'<td data-l="Status">{EN_STATUS.get(p.get("status"), "—")}</td>'
             f'<td data-l="Structure">{EN_SCHEME.get(p.get("scheme"), "Under review")}</td>'
             f'<td data-l="Expected COD">{_esc(en_cod(p, today_ym))}</td>'
-            f'<td class="c-lock" data-l="Price, site, documents"><a class="pj-lock" href="{reg}" rel="nofollow" '
+            f'<td class="c-lock" data-l="Price, site, documents"><a class="pj-lock" href="https://dealroom.scix.co.jp/en/catalog/{pid}" '
             f'onclick="window.gtag&&gtag(\'event\',\'dr2_promo_click\',{{target:\'row_en\'}})">View on Chikudensho Market</a></td></tr>')
         if i % BAND_EVERY == 0 and i != len(ps):
             rows.append(band())
