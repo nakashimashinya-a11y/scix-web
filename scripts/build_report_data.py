@@ -11,8 +11,7 @@
 数字の元は、号の頁と同じ md の表だけ（手で写さない・文の中の数字は読まない）。表の形で無い月・指標は空欄（—）にし、号へのリンクを置く。
 説明の文は号の「前提と用語」と各節の冒頭の文をそのまま引く（新しく書くのは見出し・列名・リンクの文だけ）。
 
-需給調整市場（EPRX）の表は、EPRX の公開データの商用利用に事前の契約が要る（取引結果の頁の注意書き）ため、
-既定では出さない（SCIX_REPORT_DATA_EPRX=1 のときだけ焼く。出すかどうかは契約か判断が済んでから）。
+需給調整市場（EPRX）の表は、既定では出さない（SCIX_REPORT_DATA_EPRX=1 のときだけ焼く）。号の頁へのリンクだけを置く。
 JEPX は出所の明示で利用可、OCCTO は出典の記載で利用可（編集・加工したときはその旨も書く）。
 """
 from __future__ import annotations  # launchd の python3 は 3.9
@@ -903,6 +902,8 @@ def projects_block(br, area, slug):
     s = br.bmd.stats(ps, datetime.date.today()) if ps else None
     if not s:
         return ""
+    n_mw = sum(1 for x in ps if isinstance(x.get("mw"), (int, float)))      # 出力・容量が未登録の案件は合計に入らない＝何件分かを添える
+    n_mwh = sum(1 for x in ps if isinstance(x.get("mwh"), (int, float)))
     pref = s["pref"].most_common()
     sch = s["scheme"].most_common()
     volt = s["volt"].most_common()
@@ -911,7 +912,7 @@ def projects_block(br, area, slug):
   <p>{esc(area)}エリア（{esc(dict((a, o) for a, _, o in br.bmd.AREAS).get(area, ""))}管内）で当社が扱う、接続検討の回答が出た系統用蓄電池（蓄電所）の案件です。所在県・電圧・規模・連系の見込み・進み具合・取得の形までは登録なしでご覧いただけます。価格と資料は蓄電所マーケットで、無料登録のあとに見られます。</p>
   <div class="rd-kpi">
     <div><b>{n}<small>件</small></b><span>販売中の案件</span></div>
-    <div><b>{s['mw']:,}<small>MW</small></b><span>合計出力（{s['mwh']:,}MWh）</span></div>
+    <div><b>{s['mw']:,}<small>MW</small></b><span>出力が分かる{n_mw}件の合計（容量が分かる{n_mwh}件で{s['mwh']:,}MWh）</span></div>
     <div><b>{s['volt'].get('高圧', 0)}<small>件</small></b><span>高圧</span></div>
     <div><b>{s['volt'].get('特別高圧', 0)}<small>件</small></b><span>特別高圧</span></div>
   </div>
@@ -1086,7 +1087,7 @@ def build(br, months, docs):
         page, main = render_area(br, ja, months, docs, area, slug)
         pages.append((f"report/area/{slug}/index.html", page, main, "ja"))
         sm.append((f"/report/area/{slug}", d, "0.6", None, "ja"))
-    # 公開してはいけない語（O16-19・O16-7）を、焼いた頁の本文にも掛ける（フッターの住所は除く）
+    # 公開してはいけない語を、焼いた頁の本文にも掛ける（フッターの住所は除く）
     hits = []
     for rel, page, main, lang in pages:
         for pat, why in (br.FORBIDDEN if lang == "ja" else br.FORBIDDEN_EN):
