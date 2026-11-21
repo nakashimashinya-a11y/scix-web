@@ -169,7 +169,7 @@ a{color:var(--blue)}
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "JC-STAR ★1 Requirement for Grid Batteries in Japan | ScienceX",
-  "description": "Japan's plan to require JC-STAR ★1-certified equipment for grid connection is fixed in direction but not yet promulgated. The trigger is the interconnection contract application — HV from April 2027, LV under 50 kW from October 2027. Device scope, overseas-PCS status, and open points, placed against the global IoT-security landscape (ETSI EN 303 645, EU CRA, UK PSTI, US Cyber Trust Mark).",
+  "description": "JC-STAR for Japan grid connection: the gate is the contract application, not the connection date. HV from April 2027. What the draft settles, what is open.",
   "author": {
     "@type": "Person",
     "name": "Shinya Nakashima",
@@ -189,7 +189,7 @@ a{color:var(--blue)}
     "height": 630
   },
   "datePublished": "2026-06-08",
-  "dateModified": "2026-11-15",
+  "dateModified": "2026-11-21",
   "mainEntityOfPage": "https://www.scix.co.jp/en/column-jcstar"
 }
 </script>
@@ -203,7 +203,7 @@ a{color:var(--blue)}
       "name": "Is the JC-STAR ★1 requirement triggered by the grid-connection date or by the connection-contract application?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Under the draft revision endorsed at OCCTO's 21st Grid Code Review Committee (March 31, 2026), the trigger is the contract application for grid access — not the connection (interconnection / commissioning) date. The draft applies the requirement to projects that file a grid-access contract application on or after the start date, and this was made explicit for extra-high and high voltage as well, not only low voltage. The governing texts are not yet promulgated, so confirm with the TSO/DSO holding jurisdiction."
+        "text": "In the draft revision at the 21st Grid Code Review Committee (March 31, 2026), the basis was unified, extra-high and high voltage included, to \"the contract application for grid access.\" It reads as keyed to the application stage rather than the connection date (interconnection / commissioning). However, the text is not yet promulgated, so it is not yet a stage at which this can be asserted."
       }
     },
     {
@@ -211,7 +211,7 @@ a{color:var(--blue)}
       "name": "When does the ★1 requirement start for high-voltage (HV) batteries?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Extra-high and high voltage (solar and storage) are slated to apply from April 2027, keyed to the grid-access contract application. This timing was set at the 20th committee (December 16, 2025) and the application-based trigger was unified at the 21st committee (March 31, 2026). It remains a draft revision; the guideline, each utility's interconnection technical requirements, and the Grid Interconnection Code were not yet promulgated as of June 2026."
+        "text": "Under the draft revision, extra-high and high voltage solar and storage are from April 2027, applying to projects that file a grid-access contract application in or after that month. This is the plan at the stage where the committee endorsed the draft revision, and it is fixed on promulgation of the text."
       }
     },
     {
@@ -219,7 +219,7 @@ a{color:var(--blue)}
       "name": "When does it start for low voltage under 50 kW, and why later than HV?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Low voltage under 50 kW (solar and storage) applies from October 2027 — a six-month delay versus the April 2027 HV start. The draft sets the later date as a transitional measure to clear existing channel inventory, such as legacy inverters already in the distribution chain."
+        "text": "Low voltage under 50 kW applies from October 2027, six months later than HV. It is arranged as a transitional measure, delaying by six months in consideration of clearing channel inventory such as existing power conditioners."
       }
     },
     {
@@ -227,7 +227,7 @@ a{color:var(--blue)}
       "name": "Can foreign-made PCS be used, and what must they satisfy?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Overseas makers can be used provided their internet-communicating devices meet JC-STAR ★1; the battery cell/pack itself is out of scope because it does not use IP communication. Overseas makers including SMA (Germany), Power Electronics (Spain), Samsung SDI (Korea) and SEETEL (Taiwan) have already obtained ★1. A PCS with IP communication needs ★1 itself, even behind a ★1-certified gateway (ANRE FAQ A6, A7); devices without IP communication are out of scope (A9). On IPA's 12 November 2026 list, HUAWEI and SUNGROW hold no own-brand ★1."
+        "text": "Battery cells and packs do not communicate directly with the network and are out of scope, so adopting an overseas battery is not itself constrained. What is in question is the communication module of the PCS that handles external communication, and the EMS and gateway. If the PCS has IP communication, the PCS itself needs ★1 even behind a ★1-certified gateway (ANRE FAQ A6, A7). Devices without IP communication are out of scope (A9). Overseas makers such as SMA (Germany), Power Electronics (Spain), Samsung SDI (Korea) and SEETEL (Taiwan) have already obtained ★1."
       }
     },
     {
@@ -235,14 +235,54 @@ a{color:var(--blue)}
       "name": "Are replacements or updates of existing equipment in scope?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Not retroactively. When a device is replaced on or after April 2027, the replacement must in principle carry ★1, and even a like-for-like swap needs a connection study; devices that are not replaced are out of scope. Where this would impose an excessive burden (for example, one swap forcing a wider replacement), the grid operator can allow a non-★1 device of the same type for the time being on a written plan (ANRE FAQ A11, July 2026; draft guideline, October 2026). When storage is added, only the added devices need ★1."
+        "text": "The Grid Code has a general principle that even existing equipment is subject to the latest requirements when it is replaced or swapped. However, how the cybersecurity requirement is treated when a PCS is replaced or an EMS is renewed is not stated explicitly in the 21st draft revision, and it is undecided at present. It is a point to confirm in the revised guideline text and in the FAQs of METI and each general transmission and distribution company."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does ★1 require third-party certification?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "★1 is a self-declaration of conformity and can be obtained on the operator's declaration. External third-party assessment enters from ★3 (★2 is also a self-declaration). A claim of \"★1-compliant\" therefore still warrants cross-checking against IPA's certified-product list."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between JC-STAR ★1, ★2, ★3 and ★4?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The number of stars shows how high a security level is required. ★1 is the baseline requirements (16 items), centered on forced change of the initial password, secure communication and proof of carrying no known vulnerabilities. ★2 adds requirements by product class, ★3 is for critical infrastructure (tamper resistance and hardware-level security elements), and ★4 is the top tier, testing resistance to APT attacks. The assessment method is self-declaration for ★1 and ★2, and third-party certification for ★3 and ★4."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which level (how many stars) applies to grid-scale batteries?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "What the revision of the Grid Code (grid interconnection technical requirements) planned for April 2027 requires is the use of ★1-certified products. The draft revision does not suggest that ★2 or above would be required across the board for grid connection at present. However, this is a summary on the basis of the draft before promulgation, and some criteria for the higher levels are still under study, so check public information for the latest."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which devices exactly are in scope of JC-STAR? Are battery cells and routers also covered?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The core is the PCS (inverter) and the EMS / control unit; gateways and remote-monitoring units are also in scope. The BMS is conditionally in scope, as exemplified in subsidy programs. On the other hand, battery cells and packs do not communicate directly with the network and are out of scope, and general-purpose IP communication devices not involved in control (routers, etc.) are not subject to the obligation either. The draft narrows the scope to \"IP communication devices involved in control,\" and the crux is that evaluation is as a communication-and-control system, not device by device."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a solar PV PCS also in scope of JC-STAR? How does it differ from batteries?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Under the draft revision, use of ★1-certified products is the premise for both solar and storage from April 2027 at extra-high and high voltage and from October 2027 at low voltage under 50 kW (the basis being the grid-access contract application). Wind is shown at April 2027 and fuel cells at April 2028. There is no difference in star level by generation type, and the entry level is ★1 in every case."
       }
     }
   ]
 }
 </script>
 <meta property="article:published_time" content="2026-06-08">
-<meta property="article:modified_time" content="2026-06-13">
+<meta property="article:modified_time" content="2026-11-21">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -283,8 +323,8 @@ a{color:var(--blue)}
       <time class="header-date" datetime="2026-06-08">2026.06.08</time>
       <span class="update-badge">Updated 2026.11</span>
     </div>
-    <h1>JC-STAR ★1 is not triggered by the <em>connection date</em><br>— the gate is the interconnection contract application; HV applies from April 2027</h1>
-    <p class="header-desc">A Grid Code revision that would require JC-STAR ★1 for grid connection is in motion. Extra-high and high voltage from April 2027, low voltage under 50 kW from October 2027 — the draft text agreed by committee in March 2026 keys all of them to the "contract application," not the connection date. But the guideline that would carry the rule is not yet promulgated. This is a primary-source read of which devices, by when, and against which date.</p>
+    <h1>What is JC-STAR — the <em>★1 to ★4</em> levels and in-scope devices,<br>and when ★1 becomes mandatory (the gate is the "contract application")</h1>
+    <p class="header-desc">JC-STAR is Japan's scheme that rates the security of IoT devices from ★1 to ★4, and a Grid Code revision that would require its ★1 for grid connection is in motion. Extra-high and high voltage from April 2027, low voltage under 50 kW from October 2027 — the draft text agreed by committee in March 2026 keys all of them to the "contract application." But the guideline that would carry the rule is not yet promulgated. This is a primary-source read of which devices, by when, and against which date.</p>
   </div>
 </div>
 
@@ -292,24 +332,39 @@ a{color:var(--blue)}
 
 <a target="_top" href="/en/knowledge" class="back-link">← Back to Knowledge</a>
 
-<p class="note-small">Last updated: 15 November 2026 (latest certification figures, the treatment of existing plants and of gateway set-ups, and corrected country labels for two makers). The body was first written in June 2026 on the basis of the draft discussed at OCCTO's Grid Code Review Committee; the box below sets out what has been decided since. Source-based facts are linked at the end of each section.</p>
+<p>This article covers the JC-STAR scheme itself (<a href="#levels">the ★1 to ★4 levels</a>, <a href="#devices">in-scope devices</a> and <a href="#products">the certified products</a>) and when, and against which date, ★1 becomes mandatory for grid connection (<a href="#when">timing and trigger</a>), in one piece. (In October 2026 we merged the former separate article "the ★1 to ★4 levels and in-scope devices" into this one.)</p>
 <div class="highlight-box" style="margin-top:8px">
-<strong>Update — 15 November 2026: what has been decided since June</strong><br>
-• <strong>The trigger</strong> is the date the grid operator accepts the contract application: complete documents and the deposit paid (ANRE FAQ A1). A connection-study application alone does not count (A2). Extra-high / high voltage from 1 April 2027, low voltage (under 50 kW) from 1 October 2027.<br>
-• <strong>Not retroactive.</strong> When storage is added to an existing plant, only the added devices need ★1; when a device is replaced, the replacement needs ★1 in principle, with a written-plan exception for an “excessive burden”. Switching to FIP or reaching the end of FIT needs nothing if equipment is unchanged (ANRE FAQ, July 2026; draft guideline, October 2026). → <a href="/en/column-jcstar-2027-existing">Existing plants (COLUMN 52-3)</a><br>
-• <strong>A PCS with IP communication needs ★1 itself</strong>, even behind a ★1 gateway and even if logically separated (FAQ A6, A7). Devices without IP communication are out of scope (A9).<br>
-• JPEA's request for extra grace was not adopted: the 22nd committee (21 August 2026) recorded that things would “proceed as proposed”. The draft guideline was open for public comment from 6 October to 6 November 2026; the ten grid operators' revised rules are not yet published.<br>
-• <strong>Certified products</strong>: IPA's list (updated 12 November 2026) has 395 entries, all ★1; 189 relate to solar and storage, and the 16 big Chinese makers hold none under their own names. → <a href="/en/column-jcstar-2027">Who holds a JC-STAR label? (COLUMN 52)</a> · <a href="/en/column-jcstar-2027-list">the full list (52-2)</a> · <a href="/en/column-jcstar-2027-nationality">mutual recognition and other countries (52-4)</a><br>
-Where this box and older passages below differ, this box is current.
+<strong>Latest certification status (updated 12 November 2026), and four follow-on articles</strong><br>
+IPA's list of certified products has 395 entries, all ★1. 189 relate to solar and storage, and the 16 major Chinese makers, including Huawei and Sungrow, hold none under their own names. The figures and the follow-ups are in COLUMN 52.<br>
+・Who holds the label (moves in China, Taiwan and South Korea) → <a href="/en/column-jcstar-2027">JC-STAR Status: All 395 Are ★1, No Big Chinese Maker</a><br>
+・The certified-product list (with registration numbers, 189 entries) → <a href="/en/column-jcstar-2027-list">JC-STAR Certified List: 189 Batteries, PCS, BMS, EMS</a><br>
+・Adding storage to existing solar, or replacing devices → <a href="/en/column-jcstar-2027-existing">JC-STAR ★1 for Existing Solar Plants and Added Batteries</a><br>
+・Mutual recognition (UK PSTI, Singapore CLS) and rules in other countries → <a href="/en/column-jcstar-2027-nationality">JC-STAR Mutual Recognition Is Not a Loophole</a>
 </div>
+<p class="note-small">Last updated: November 2026 (latest certification status, the treatment of existing plants and of gateway set-ups updated, and the countries shown for certified companies corrected) · October 2026 (merged the former "★1 to ★4 levels and in-scope devices" article) | This piece was written as of June 2026, on the basis of the <strong>draft revision</strong> discussed at OCCTO's Grid Code Review Committee. Source-based facts are linked at the end of each section. We plan to update it when the texts (guideline, interconnection technical requirements, Grid Interconnection Code) are promulgated.</p>
 
 <p class="lead">JC-STAR — designed in 2024 and operational since March 2025 — is fast ceasing to be a "nice-to-have" quality mark. Through three separate channels — grid connection, subsidies, and public procurement — it has become a variable that shapes the equipment selection of a grid-scale battery itself. The largest of these is the planned mandate for ★1-certified products in the April 2027 revision of the grid interconnection technical requirements. And yet the phrase "mandatory from April 2027" is half right and half premature. <strong>The direction is fixed; the text that would codify it has not been promulgated.</strong> This column separates what the draft revision has settled from what cannot yet be asserted, checking each against primary sources.</p>
 
-<p>For readers who already navigate NERC CIP, IEC 62443, the EU Cyber Resilience Act, or the UK PSTI Act, it pays to place JC-STAR before going further. The orientation below is what spares an overseas investor the two most common misreadings.</p>
+<h2 id="levels">What is JC-STAR — a scheme that shows IoT device security in stars</h2>
 
-<div class="info-box">
-<strong>Where JC-STAR ★1 sits in the global stack.</strong> JC-STAR is Japan's IoT-product security labeling scheme, operated by the IPA under METI. Its baseline level, ★1, is harmonized with the international consumer-IoT baselines ETSI EN 303 645 and NIST IR 8425; its core requirements — no universal default passwords, a vulnerability-disclosure process, secure software updates — are the same three pillars that anchor the UK PSTI Act. In other words, ★1 is a <strong>device-level baseline</strong>, not a system- or operator-level control regime. It is <strong>not</strong> IEC 62443 (the ICS/OT security family) and <strong>not</strong> NERC CIP (the North American bulk-electric-system compliance regime). What is unusual about Japan's move is the placement: a light, device-level baseline is being wired into the grid-connection gate itself. Reading ★1 as if it were IEC 62443 overstates the engineering burden; dismissing it as "just a consumer label" understates the commercial consequence — without it, the asset may not connect.
+<p>JC-STAR is a labeling scheme that evaluates the security functions an IoT device should have and shows how far it conforms as a "number of stars." Its official name is the <strong>Security Requirements Conformity Assessment and Labeling Scheme</strong> (セキュリティ要件適合評価及びラベリング制度). It is run by the IPA (Information-technology Promotion Agency, Japan) under the supervision of the Ministry of Economy, Trade and Industry. It covers IoT products in general that have IP communication functions.</p>
+
+<p>It assesses functions such as encrypted communication, access control, secure firmware updates and a vulnerability-handling process; the higher the level met, the more stars. The first thing to grasp in practice is the switch in assessment method: <strong>★1 and ★2 are self-declarations of conformity; ★3 and ★4 are third-party certification</strong>. For grid connection it is the entry level, ★1, that matters for now, but knowing what each level demands makes it less likely that a maker's explanation or a label is misread. The level and assessment method of each of the four tiers are in the table in "<a href="#structure">How JC-STAR is built</a>" below.</p>
+
+<div class="warning-box">
+<strong>"More stars is better for grid connection" is not the case.</strong> What is required of grid connection for now is the use of ★1-certified products; it is not a scheme in which ★2 or above makes the grid-connection assessment more favorable. The star level shows how strong a security level is met; the first point to check is whether the level the Grid Code requires (= ★1) is met. Some criteria for the higher levels are still under study, so check public information for the latest.
 </div>
+
+<div class="highlight-box">
+<strong>What you will learn in this article:</strong><br>
+・What each of ★1 to ★4 requires, and where self-declaration of conformity switches to third-party certification<br>
+・Which devices of a grid-scale battery (PCS, EMS, gateways, etc.) are in scope, and where the scope ends<br>
+・Where to see the list of products that have obtained stars (IPA's certified-product list), and the main certified products for batteries<br>
+・The timing by generation type (solar, storage, wind, fuel cells), and what the "contract application" trigger means<br>
+・What is decided, and what cannot be asserted until the text is promulgated
+</div>
+
+<p class="source">Source: <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf" target="_blank">OCCTO, 21st Grid Code Review Committee, Document 4 (Mar 31, 2026), p.4 (JC-STAR scheme overview)</a> | <a href="https://www.ipa.go.jp/security/jc-star/detail.html" target="_blank">IPA, "JC-STAR scheme — details"</a></p>
 
 <h2>Why a battery needs cybersecurity at all</h2>
 
@@ -327,7 +382,7 @@ Where this box and older passages below differ, this box is current.
   <a target="_top" href="/en/column-subsidies" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">BESS Subsidies in Japan — A Decision, Not a Default →</a>
 </aside>
 
-<h2>Inside "April 2027" — timing and trigger</h2>
+<h2 id="when">Inside "April 2027" — timing and trigger</h2>
 
 <p>Start with the timing, across four generation categories. Solar and storage had their timing set at the 20th Grid Code Review Committee (Dec 16, 2025); the 21st (Mar 31, 2026) newly added wind and fuel cells. <strong>This part is settled and may be stated as fact.</strong></p>
 
@@ -335,7 +390,7 @@ Where this box and older passages below differ, this box is current.
 <table class="comparison-table">
 <thead><tr><th>Category</th><th>Applies from</th><th>Trigger (draft)</th><th>Transitional / notes</th></tr></thead>
 <tbody>
-<tr class="hl"><td class="em">Extra-high / high voltage<br>(solar, storage)</td><td>Apr 2027</td><td>Contract application<br>for grid access</td><td>JPEA requested grace for self-consumption types; the 22nd committee (21 Aug 2026) recorded that things would proceed as proposed (no extra grace)</td></tr>
+<tr class="hl"><td class="em">Extra-high / high voltage<br>(solar, storage)</td><td>Apr 2027</td><td>Contract application<br>for grid access</td><td>JPEA has asked for grace for self-consumption types, etc. <span class="cond">Undecided</span> (ANRE and JPEA coordinating)</td></tr>
 <tr><td class="em">Low voltage under 50 kW<br>(solar, storage)</td><td>Oct 2027</td><td>Contract application<br>for grid access</td><td>A six-month delay as a transitional measure, to clear existing channel inventory (legacy inverters, etc.)</td></tr>
 <tr><td class="em">Wind</td><td>Apr 2027</td><td>—</td><td>Early application limited first to the gateway firewall (or a device with equivalent protection). Other devices to follow promptly</td></tr>
 <tr><td class="em">Fuel cells</td><td>Apr 2028</td><td>—</td><td>Forms that use a PCS are in scope. Transitional measures as needed</td></tr>
@@ -374,11 +429,9 @@ It is worth quoting the draft itself. Note 1 to the draft guideline revision (21
 
 <p>JPEA's request is concrete. At the 21st committee, for self-consumption types of 500 kW or less and for projects that — though receiving at high voltage — are built with the same product as a low-voltage interconnection's PCS, it asked for the same grace until October 2027 as low voltage. ANRE responded "to consult case by case," and the chair took it up with "ANRE and JPEA to coordinate as a matter of urgency." In short, even at high voltage there is room for application to be pushed back depending on a project's character. If you hold self-consumption or small-scale projects, the follow-up on this coordination looks worth tracking.</p>
 
-<p>The stage is now defined. ANRE's FAQ (A1) says the contract application counts as “accepted” when the grid operator has confirmed complete documents and receipt of the deposit (Article 88 of the Network Operation Guidelines). A connection-study application, or its response, does not count (A2). If a project re-enters the connection study and its contract application is accepted in or after April 2027, the new requirement applies (A4).</p>
-
 <p class="source">Source: <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf" target="_blank">OCCTO, 21st Grid Code Review Committee, Document 4 (gridcode_21_04.pdf), pp.8-9 (contract-application trigger in Note 1, p.9), p.13</a> | <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_gijiroku.pdf" target="_blank">Minutes of the 21st committee, p.3, p.9</a> | <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/pdf/007_02_00.pdf" target="_blank">ANRE Next-Generation Power Grid WG, 7th meeting, Document 2 (Feb 9, 2026)</a> | <a href="https://www.occto.or.jp/assets/iinkai/gridcode/20/gridcode_20_05.pdf" target="_blank">20th committee material (gridcode_20_05.pdf), p.12</a> | <a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/electric/summary/regulations/" target="_blank">ANRE, "Related laws and guidelines"</a> | <a href="https://www.meti.go.jp/shingikai/mono_info_service/sangyo_cyber/wg_seido/wg_denryoku/pdf/019_05_00.pdf" target="_blank">ANRE Industrial Cybersecurity Study Group, Electricity Sub-WG, 19th meeting, Document 5 (Feb 12, 2026)</a> | <a href="https://www.occto.or.jp/iinkai/gridcode/index.html" target="_blank">OCCTO Grid Code Review Committee</a> (note: the 20th committee's cybersecurity material is labeled "Document 4" in the body but filed as gridcode_20_05.pdf)</p>
 
-<h3>Which parts of a battery are in scope</h3>
+<h3 id="devices">Which parts of a battery are in scope</h3>
 
 <p>On where the line is drawn, the two extremes one hears in the field are both wrong.</p>
 
@@ -404,7 +457,7 @@ It is worth quoting the draft itself. Note 1 to the draft guideline revision (21
 <tr><td class="em">PCS (inverter)</td><td class="ok">In scope (settled)</td><td>Where it has an IP communication module for remote control/monitoring. The control hub that receives and executes output-control commands — the highest-risk element</td></tr>
 <tr><td class="em">EMS / site controller</td><td class="ok">In scope</td><td>A cloud-connected EMS / monitoring device is certainly in scope. The most internet-exposed component</td></tr>
 <tr><td class="em">Gateway / remote-monitoring unit</td><td class="ok">In scope</td><td>Relays control commands; links directly to principal equipment</td></tr>
-<tr><td class="em">BMS (battery management)</td><td class="cond">Conditionally in scope</td><td>Named explicitly as "PCS / EMS / BMS, etc." in subsidies and the Long-term Decarbonization Power Source Auction. The Grid Code body exemplifies "PCS / EMS, etc."; in scope where it is involved in control and forms part of the communication path</td></tr>
+<tr><td class="em">BMS (battery management)</td><td class="cond">Conditionally in scope</td><td>Named explicitly as "PCS / EMS / BMS, etc." in subsidies and the Long-Term Decarbonized Power Source Auction. The Grid Code body exemplifies "PCS / EMS, etc."; in scope where it is involved in control and forms part of the communication path</td></tr>
 <tr><td class="em">Legacy PCS (serial only, e.g., RS-485)</td><td class="cond">Room to fall outside the wording</td><td>Reads as out of scope if it has no IP communication. But in a configuration that rides IP communication via an EMS, it can be brought into scope as a system</td></tr>
 <tr><td class="em">General IP devices (routers, etc.)</td><td class="ng">Out of scope</td><td>Router exclusion is limited to consumer-grade installations / GW-mediated monitoring cameras are excluded across all works including business-use (both being non-control-involved)</td></tr>
 <tr><td class="em">Battery cells / packs themselves</td><td class="ng">Out of scope</td><td>Do not communicate directly with the internet (only local communication via the BMS)</td></tr>
@@ -416,13 +469,15 @@ It is worth quoting the draft itself. Note 1 to the draft guideline revision (21
 
 <p class="source">Source: <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf" target="_blank">OCCTO, 21st Grid Code Review Committee, Document 4, p.9</a> | <a href="https://www.occto.or.jp/assets/iinkai/gridcode/20/gridcode_20_05.pdf" target="_blank">20th committee material, p.9</a></p>
 
+<p><strong>"JC-STAR in-scope products" has two meanings.</strong> One is the kinds of devices the scheme covers, in the table above. The other is the list of products that have already obtained stars, which the IPA publishes as the <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank" rel="noopener">"JC-STAR conformance-label product list"</a> (also downloadable in Excel). A table picking out which makers have obtained ★1 for grid-scale battery PCS, EMS and gateways is in "<a href="#products">The state of JC-STAR certified products</a>" below. Before procurement, check that the device you will use is on this list and that its status is "valid." Conversely, battery cells and packs do not communicate directly with the network and are out of scope, so whether to adopt an overseas battery is little constrained by JC-STAR. What is in question is the communication module of the PCS that handles external communication, and the EMS and gateway. This distinction, and how to check a PCS's ★1 status when equipment is changed, are covered in <a target="_top" href="/en/column-equipment">Equipment changes after the connection study reply</a>.</p>
+
 <h3>What about replacing existing equipment</h3>
 
-<p>Existing plants were settled in July 2026. The requirement does not apply retroactively. When storage is added to an existing plant, only the added devices need ★1; existing devices left unchanged do not. When a device is replaced, the replacement needs ★1 in principle, and even a like-for-like swap needs a connection study under Article 79(1)(ii) of the Network Operation Guidelines. An “excessive burden” exception, on a written plan agreed with the grid operator, covers cases such as one swap forcing a wider replacement (ANRE FAQ A10–A12; draft guideline, October 2026). The details are in <a href="/en/column-jcstar-2027-existing">COLUMN 52-3</a>.</p>
+<p>This may look like a story only about new projects, but existing equipment is not entirely unaffected. The Grid Code has a general principle that even for equipment already interconnected, the latest requirements apply when it is replaced or when a device such as a power conditioner is swapped. However, how the cybersecurity requirement is treated when a PCS is replaced or an EMS is renewed is not stated explicitly in the 21st committee's draft revision. Since the application trigger is written as "projects that file a contract application," the relationship between replacement of existing equipment and this trigger is not yet settled in the text — that is the accurate way to put it. We avoid asserting anything here and leave it as an open point to confirm in the revised guideline text and in the FAQs of METI and each general transmission and distribution company.</p>
 
 <p class="source">Source: <a href="https://www.meti.go.jp/shingikai/enecho/shoene_shinene/shin_energy/keito_wg/pdf/051_04_01.pdf" target="_blank">ANRE Next-Generation Power Grid WG, Document 4-1 (May 24, 2024)</a> (general principle of applying the latest requirements at replacement / device swap)</p>
 
-<h2>How JC-STAR is built — ★1 is a self-declaration</h2>
+<h2 id="structure">How JC-STAR is built — ★1 is a self-declaration</h2>
 
 <p>JC-STAR is a labeling scheme that evaluates the security functions an IoT device should hold (encrypted communication, access control, secure firmware update, a vulnerability-handling process, and so on) and expresses the result as a number of stars. The point a practitioner cannot overlook is that <strong>★1 is a self-declaration of conformity</strong>. It can be obtained on the operator's declaration; external third-party assessment enters not at ★2 but at ★3 and above (★2 is still self-declaration). So a claim of "★1-compliant" still warrants cross-checking against the conformance-label product list to confirm it is actually held.</p>
 
@@ -460,72 +515,29 @@ It is worth quoting the draft itself. Note 1 to the draft guideline revision (21
 
 <p><strong>It is advancing in public procurement.</strong> The direction is to require ★1 or above for IoT devices procured by government bodies, and a similar movement is spreading to local public bodies.</p>
 
-<h2>Certified products today (June 1, 2026 snapshot)</h2>
+<h2 id="products">The state of JC-STAR certified products (12 November 2026 edition)</h2>
 
-<p><strong>Latest:</strong> on IPA's list updated 12 November 2026 there are 395 entries, all ★1; 189 relate to solar and storage. The full, current list with registration numbers is in <a href="/en/column-jcstar-2027-list">COLUMN 52-2</a>. The tables below are the June 2026 excerpt.</p>
+<p>IPA's <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank">"JC-STAR conformance-label product list"</a> had <strong>395 entries</strong> as of its 12 November 2026 update. All are ★1; there is nothing at ★2 or above yet. According to the secretariat material of METI (April 2026), labels have been issued to more than 1,500 products on a model-number basis (because one registration can include several model numbers).</p>
 
-<p>IPA's published <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank">"JC-STAR conformance-label product list"</a> shows every certified product (Excel download available). The list was updated on June 1, 2026. Per the secretariat material of METI's Industrial Cybersecurity Study Group, more than 1,500 products on a model-number basis have had labels issued, and ★1 acquisitions related to grid-scale storage have grown sharply over the past several months. The excerpt below, from the June 1, 2026 list, picks out the principal grid-BESS-related acquisitions by device category (all with status "valid," all ★1).</p>
-
-<h3>PCS / battery systems</h3>
+<p>Of these, <strong>189</strong> relate to solar and storage by our count. The full list with registration number, acquisition date and expiry date is in <a href="/en/column-jcstar-2027-list">JC-STAR certified products (COLUMN 52-2)</a> and is replaced as IPA updates. The number of entries and the main makers by type are as follows.</p>
 
 <div class="table-scroll">
 <table class="comparison-table">
-<thead><tr><th>Company</th><th>Conformant products (★1)</th><th>Notes (timing)</th></tr></thead>
+<thead><tr><th>Type</th><th>Entries</th><th>Main makers (★1 obtained)</th></tr></thead>
 <tbody>
-<tr><td class="em">Fuji Electric</td><td>Large-scale storage-type power conditioner / storage system controller (PMS)</td><td>Obtained for both PCS and controller (Oct 2025)</td></tr>
-<tr><td class="em">Nissin Electric</td><td>Storage PCS / grid-storage control unit</td><td>PCS + controller (Oct 2025)</td></tr>
-<tr><td class="em">DAIHEN</td><td>Storage package (multiple models)</td><td>Hardware + communication-control part certified as a unit (added by ~May 2026)<span class="new-tag">NEW</span></td></tr>
-<tr><td class="em">TMEIC (Toshiba Mitsubishi-Electric Industrial Systems)</td><td>TMBCS / TMEdge / BSA, BSB, BSU series</td><td>For large BESS. First label Oct 2025 (TMBCS); the main group including control/edge devices in April 2026<span class="new-tag">NEW</span></td></tr>
-<tr><td class="em">Sumitomo Electric</td><td>POWER DEPO H / V / IV / R / redox-flow battery system</td><td>Redox-flow battery Oct 2025; the POWER DEPO storage systems April 2026<span class="new-tag">NEW</span></td></tr>
-<tr><td class="em">SMA Japan</td><td>Sunny Central / Sunny Central Storage</td><td>Germany. Japan-market certification by an overseas PCS maker</td></tr>
-<tr><td class="em">Power Electronics (Spain)</td><td>HEMK / PCSK</td><td>Overseas inverter maker (Mar 2026)</td></tr>
-<tr><td class="em">GS Yuasa</td><td>GYES2–4 storage systems / STARELINK series</td><td>Multiple acquisitions across storage package + EMS (autumn 2025)</td></tr>
-<tr><td class="em">Kyocera</td><td>Enerezza / Enerezza Plus / Plus II</td><td>Storage systems (Mar 2026)</td></tr>
-<tr><td class="em">Eliiy Power</td><td>POWER iE Connect storage unit / remote control</td><td>April 2026<span class="new-tag">NEW</span></td></tr>
-<tr><td class="em">Hanwha Japan</td><td>Q.READY power conditioner / power-metering control unit</td><td>Korea (Mar–Apr 2026)</td></tr>
-<tr><td class="em">Samsung SDI</td><td>SBB 1.0</td><td>Korea (Oct 2025)</td></tr>
-<tr><td class="em">Tesla Japan</td><td>Tesla System Controller</td><td>Megapack control system (Oct 2025)</td></tr>
-<tr><td class="em">PowerX</td><td>Mega Power Series</td><td>Grid-scale storage system (Sep 2025)</td></tr>
-<tr><td class="em">NGK Insulators</td><td>Control part for containerized NAS battery</td><td>NAS (sodium-sulfur) battery (Oct 2025)</td></tr>
-<tr><td class="em">NExT-e Solutions</td><td>Water-cooled storage container</td><td>Containerized battery</td></tr>
-<tr><td class="em">Honda</td><td>BMS "NeS" for BESS container</td><td>BMS communication control (Oct 2025)</td></tr>
-<tr><td class="em">Saft Japan</td><td>ESS-CUBE</td><td>France (Saft)</td></tr>
+<tr><td class="em">Battery storage systems</td><td class="num">69</td><td>DAIHEN, Sumitomo Electric, TMEIC, PowerX, NGK Insulators, GS Yuasa, Kyocera, Nichicon, Samsung SDI, Saft, etc.</td></tr>
+<tr><td class="em">PCS (storage / grid-scale)</td><td class="num">14</td><td>Fuji Electric, Nissin Electric, TMEIC, Meidensha, Nichicon, Hitachi Energy, Delta Electronics, Hongde Energy (泓德能源), Hyosung Heavy Industries, LS ELECTRIC, Power Electronics, GBP</td></tr>
+<tr><td class="em">EMS / site controllers</td><td class="num">46</td><td>Shirokuma Power, TMEIC, Kraken, dots energy, Hongde Energy (泓德能源), Field Logic, Canadian Solar, etc.</td></tr>
+<tr><td class="em">Remote monitoring, gateways, HEMS</td><td class="num">35</td><td>J-City, OMRON Social Solutions, Onamba, Sharp, Shizen Connect, NextDrive, etc.</td></tr>
+<tr><td class="em">BMS</td><td class="num">6</td><td>Honda, Hongde Energy (泓德能源), SEETEL (熙特爾), Hongrui (竑瑞), AZAPA, BMTech</td></tr>
+<tr><td class="em">Measurement and control units, solar PCS</td><td class="num">19</td><td>SMA, Hanwha Japan, Canadian Solar, Suntech Power Japan, etc.</td></tr>
 </tbody>
 </table>
 </div>
 
-<h3>EMS / gateways / aggregators</h3>
+<p>By country of headquarters: Japan 137, Taiwan 17, South Korea 10, US/UK/Canada 8, Europe 5, China 1, unconfirmed 11. The 16 major Chinese makers, including Huawei and Sungrow, hold none under their own names, even in the 12 November edition. Nikkei (1 July 2026) reported the Chinese side's claim that applications are being rejected, and METI's stance of not disclosing individual decisions. The reason cannot be verified from outside. The breakdown by country and the moves of the Taiwanese makers are summarized in <a href="/en/column-jcstar-2027">Who holds a JC-STAR label? (COLUMN 52)</a>.</p>
 
-<div class="table-scroll">
-<table class="comparison-table">
-<thead><tr><th>Company</th><th>Conformant products (★1)</th><th>Notes (timing)</th></tr></thead>
-<tbody>
-<tr><td class="em">Shizen Connect</td><td>Shizen Box / Shizen Box 2</td><td>DR/VPP platform. IoT terminal for monitoring/control of grid-scale storage</td></tr>
-<tr><td class="em">Digital Grid</td><td>Storage gateway</td><td>Supports multi-maker batteries. Can enter all markets</td></tr>
-<tr><td class="em">Kraken Technologies Japan</td><td>Kraken control system / Kraken SHV BESS control system</td><td>Octopus Energy group. EHV BESS control also obtained</td></tr>
-<tr><td class="em">OMRON Social Solutions</td><td>Gateway KP-GWBP-A / three-phase-system GW KP-GWPT-A</td><td>Jan and May 2026<span class="new-tag">NEW</span></td></tr>
-<tr><td class="em">Mitsubishi Electric</td><td>BLEnDer RE</td><td>Energy management system</td></tr>
-<tr><td class="em">NS Solutions (Nippon Steel)</td><td>IoT communication platform "HAGANE"</td><td>April 2026<span class="new-tag">NEW</span></td></tr>
-<tr><td class="em">Field Logic</td><td>DataCube4 (for DAIHEN EMS and others)</td><td>April 2026<span class="new-tag">NEW</span></td></tr>
-<tr><td class="em">Kokusai Electric</td><td>AI edge controller</td><td>Apr–May 2026<span class="new-tag">NEW</span></td></tr>
-<tr><td class="em">Shirokuma Power</td><td>Site EMS / storage control system</td><td>Obtained across multiple versions</td></tr>
-<tr><td class="em">Energy Flow</td><td>Hybrid power-plant controller</td><td>PCS-control-integrated type</td></tr>
-<tr><td class="em">Nissin Systems</td><td>Balancing-market GW / outdoor IoT gateway</td><td>Specialized for the balancing market</td></tr>
-<tr><td class="em">dots energy</td><td>QUANTUM 2.0 (PMS)</td><td>Korea-affiliated BESS control platform</td></tr>
-<tr><td class="em">NextDrive</td><td>Cube / EDGE energy-management controller</td><td>Taiwan-affiliated. EMS device</td></tr>
-<tr><td class="em">SEETEL</td><td>GridLink EMS / SEETEL BMS</td><td>Taiwan-affiliated. Obtained for EMS + BMS (Apr 2026)<span class="new-tag">NEW</span></td></tr>
-<tr><td class="em">Canadian Solar SSES Japan</td><td>iQ Storage EMS</td><td>April 2026<span class="new-tag">NEW</span></td></tr>
-</tbody>
-</table>
-</div>
-
-<p class="note-small">※ Excerpted from the June 1, 2026 IPA list. This piece centers on registrations of roughly the past year (late 2025 to 2026) and is not exhaustive. For the latest and complete set, including expirations and revocations, see IPA's conformance-label product list (Excel download available).</p>
-
-<div class="warning-box">
-<strong>On IPA's 12 November 2026 list, HUAWEI and SUNGROW still hold no own-brand ★1.</strong> Nikkei (1 July 2026) reported a Chinese maker's claim that applications are being rejected, while METI does not disclose individual decisions (see <a href="/en/column-jcstar-2027">COLUMN 52</a>). Projects premised on the PCS of these two makers — both holding large share in the Japanese market — risk stumbling at grid connection if conformance confirmation or a switch to an alternative maker does not finish before the applicable basis date. That said, "not yet acquired" is only a statement about current public information; one cannot rule out that applications are progressing out of sight. If you plan to adopt them, the sound move is to query each maker's Japanese subsidiary or IPA's contact directly about the acquisition schedule. Better not to conclude "unusable" on conjecture.
-</div>
-
-<p class="source">Source: <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank">IPA, "JC-STAR conformance-label product list" (updated June 1, 2026)</a> | <a href="https://www.meti.go.jp/press/2026/04/20260403003/20260403003-b.pdf" target="_blank">METI, 10th Industrial Cybersecurity Study Group, secretariat material (Apr 3, 2026)</a></p>
+<p class="source">Source: <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank">IPA, "JC-STAR conformance-label product list" (updated 12 November 2026; 395 entries. How the 189 were selected and counted: COLUMN 52-2)</a> | <a href="https://www.meti.go.jp/press/2026/04/20260403003/20260403003-b.pdf" target="_blank">METI, 10th Industrial Cybersecurity Study Group, secretariat material (Apr 3, 2026)</a> | Nihon Keizai Shimbun (1 July 2026)</p>
 
 <h2>Working with overseas hardware — and its new trap</h2>
 
@@ -587,33 +599,30 @@ It is worth quoting the draft itself. Note 1 to the draft guideline revision (21
 
 <p><strong>Periodic monitoring of the IPA list.</strong> Status can be not only "valid" but "grace before expiry," "expired," or "revoked." Validity runs up to two years from issuance; monitor periodically, allowing for status changing after a procurement decision.</p>
 
-<h2>JC-STAR and the schemes you already know</h2>
+<h2>The "non-tariff barrier" aspect, and international mutual recognition</h2>
 
 <p>Said plainly, a nation-specific security certification like JC-STAR works in part as a technical entry barrier (a non-tariff barrier) to overseas makers. Even a globally proven company must shoulder the lead time and cost of reworking communication protocols, redesigning firmware, and obtaining certification. At the same time, for an overseas maker that does obtain conformance it becomes a game-changer that lifts credibility in the Japanese market at a stroke. Overseas players — SMA (Germany), Power Electronics (Spain), Samsung SDI (Korea), SEETEL (Taiwan) — have already obtained it, and with security resilience backed by a public database, they have won a position to compete on even terms with the domestic heavy-electrical incumbents.</p>
 
-<p>For a reader coming from the EU, the UK, the US or the international standards world, the table below is the bridge: it places JC-STAR against the schemes you already operate against, and flags what is — and is not — interchangeable.</p>
+<p>International mutual recognition is also advancing steadily. As set out in published materials, the position at present is as follows.</p>
 
 <div class="table-scroll">
 <table class="comparison-table">
-<thead><tr><th>Scheme / regime</th><th>Relationship to JC-STAR</th><th>Status (June 2026)</th></tr></thead>
+<thead><tr><th>Partner country / scheme</th><th>Status</th><th>Content</th></tr></thead>
 <tbody>
-<tr class="hl"><td class="em">ETSI EN 303 645 / NIST IR 8425</td><td class="ok">The reference baselines</td><td>★1 is harmonized with both. Its three core requirements — no universal default passwords, a vulnerability-disclosure process, secure software updates — map directly onto these baselines</td></tr>
-<tr><td class="em">UK PSTI Act</td><td class="ok">Mutual recognition (live)</td><td>From Jan 1, 2026, a ★1 product is treated as meeting PSTI's three technical requirements, and vice versa (MoC signed Nov 5, 2025). To claim PSTI equivalence, English-language vulnerability reporting / a contact point is required</td></tr>
-<tr><td class="em">Singapore CLS</td><td class="ok">Mutual recognition (in force)</td><td>MoC signed Mar 18, 2026; effective Jun 1, 2026. ★1 and CLS Level 1 are treated as partly equivalent, with a streamlined cross-application path. Japan is Singapore's 5th partner (after Finland, Germany, South Korea, the UK)</td></tr>
-<tr><td class="em">US Cyber Trust Mark</td><td class="cond">No recognition yet; under discussion</td><td>A voluntary FCC scheme; not concluded with Japan. The US program is not yet issuing labels: lead administrator UL Solutions withdrew in Dec 2025 after an FCC national-security review of its China ties; the FCC named ioXt Alliance as new lead administrator on Apr 13, 2026</td></tr>
-<tr><td class="em">EU CRA</td><td class="cond">Independent regulation</td><td>Not a mutual-recognition framework but a standalone, mandatory, lifecycle-wide regulation. Reporting obligations from Sep 11, 2026; full application from Dec 11, 2027. A ★1 label is not CRA compliance</td></tr>
-<tr><td class="em">GCLI</td><td class="ok">Participation</td><td>Global Cybersecurity Labelling Initiative; Japan (METI) a founding member (launched Oct 2025)</td></tr>
+<tr><td class="em">UK PSTI Act</td><td class="ok">In operation</td><td>MoC signed November 2025; mutual recognition began 1 January 2026. The three requirements of ★1 (no universal default passwords / vulnerability-disclosure policy / provision of product information) are treated as mutually equivalent</td></tr>
+<tr><td class="em">Singapore CLS</td><td class="ok">In force</td><td>MoC signed March 2026, <strong>in force 1 June 2026</strong>. Part of the technical criteria of ★1 and CLS Level 1 are treated as equivalent. Japan is Singapore's 5th partner country</td></tr>
+<tr><td class="em">US Cyber Trust Mark</td><td class="cond">Under coordination</td><td>Individual negotiations toward mutual recognition (not concluded). Whether it is at the stage of a working group or action plan cannot be confirmed from primary sources</td></tr>
+<tr><td class="em">EU CRA</td><td class="cond">Independent regulation</td><td>Not mutual recognition but a separate regulation. Reporting obligations apply from 11 September 2026, the main obligations from 11 December 2027</td></tr>
+<tr><td class="em">GCLI</td><td class="ok">Participation</td><td>An international labelling collaboration of 11 countries (launched October 2025). Japan (METI) is an initial member</td></tr>
 </tbody>
 </table>
 </div>
 
-<p>There is a practical consequence for an overseas vendor. Because of the mutual recognition above, a product already PSTI-compliant (UK) or CLS Level 1-certified (Singapore) has a streamlined route to ★1 through IPA — so existing compliance is leverageable for the Japanese grid-connection gate, rather than starting from zero. The caveat on the PSTI route is operational: information provision and a vulnerability contact point in English are required, which a Japan-only setup would have to add first.</p>
+<p class="source">Source: <a href="https://www.ipa.go.jp/security/jc-star/shinsei/psti.html" target="_blank">IPA, "On PSTI Act conformance certification" (mutual recognition)</a> | <a href="https://www.csa.gov.sg/news-events/press-releases/singapore-signs-memorandum-of-cooperation-with-japan-on-mutual-recognition-of-internet-of-things-cybersecurity-schemes/" target="_blank">Cyber Security Agency of Singapore, press release</a> | <a href="https://www.meti.go.jp/english/press/2025/1023_001.html" target="_blank">METI, "GCLI joint statement" (Oct 2025)</a></p>
 
 <div class="info-box">
 The one thing not to conflate: <strong>mutual recognition with PSTI / CLS is a different matter from compliance with the EU CRA.</strong> The CRA is not a mutual-recognition framework but a standalone regulation, carrying lifecycle-wide obligations — maintaining an SBOM (software bill of materials), reporting vulnerabilities to ENISA, and CE conformity. Obtaining JC-STAR ★1 does not, by itself, amount to CRA compliance. "Got ★1, therefore CRA-clear" does not follow.
 </div>
-
-<p class="source">Source: <a href="https://www.ipa.go.jp/en/security/jc-star/index.html" target="_blank">IPA, JC-STAR (English; harmonization with ETSI EN 303 645 / NIST IR 8425, and mutual-recognition dates)</a> | <a href="https://www.ipa.go.jp/security/jc-star/shinsei/psti.html" target="_blank">IPA, "On PSTI Act conformance certification" (mutual recognition from Jan 1, 2026)</a> | <a href="https://www.csa.gov.sg/news-events/press-releases/singapore-signs-memorandum-of-cooperation-with-japan-on-mutual-recognition-of-internet-of-things-cybersecurity-schemes/" target="_blank">Cyber Security Agency of Singapore, press release (effective Jun 1, 2026)</a> | <a href="https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act" target="_blank">European Commission, Cyber Resilience Act</a> | <a href="https://www.fcc.gov/CyberTrustMark" target="_blank">FCC, U.S. Cyber Trust Mark</a> | <a href="https://www.etsi.org/technologies/consumer-iot-security" target="_blank">ETSI, consumer IoT security (EN 303 645)</a> | <a href="https://www.meti.go.jp/english/press/2025/1023_001.html" target="_blank">METI, "GCLI joint statement" (Oct 2025)</a></p>
 
 <h2>Decided / still open</h2>
 
@@ -624,23 +633,25 @@ The one thing not to conflate: <strong>mutual recognition with PSTI / CLS is a d
     <h4>Decided (safe to assert)</h4>
     <ul>
       <li>Timing: EHV/HV April 2027 / LV under 50 kW October 2027 / wind April 2027 (limited to the GW firewall) / fuel cells April 2028</li>
-      <li>Scope concept: PCS, EMS, etc., plus control-involved IP devices. General routers and GW-mediated monitoring cameras excluded</li>
-      <li>★1 is a self-declaration (third-party from ★3)</li>
-      <li>Regulatory vehicle: revision of the guideline + each utility's interconnection technical requirements + the Grid Interconnection Code (the TSO/DSO business guidelines unchanged; not a ministerial-ordinance amendment)</li>
-      <li>Mutual recognition with the UK PSTI Act (from Jan 1, 2026) and Singapore CLS (from Jun 1, 2026) is in force</li>
+      <li>Scope concept: PCS, EMS, etc., plus control-involved IP devices are in scope. General routers and GW-mediated monitoring cameras are excluded</li>
+      <li>The trigger is "acceptance of the contract application" (Article 88 of the Network Operation Guidelines: the point at which the documents are in order and receipt of the deposit is confirmed). A connection-study application alone does not keep the former treatment (ANRE FAQ)</li>
+      <li>★1 is a self-declaration (third-party assessment from ★3)</li>
+      <li>Regulatory vehicle: revision of the guideline + each utility's interconnection technical requirements + the Grid Interconnection Code (the Network Operation Guidelines unchanged; not a ministerial-ordinance amendment)</li>
+      <li>Mutual recognition with the UK PSTI Act (from January 2026) and Singapore CLS (from 1 June 2026) is in force</li>
       <li>The ERAB guideline Ver3.0 is the latest</li>
-      <li>The trigger: acceptance of the contract application (complete documents + deposit); a connection-study application alone does not count (ANRE FAQ A1, A2)</li>
-      <li>Existing plants: not retroactive; added storage — only the added devices; replacements — the replacement in principle, with an “excessive burden” exception on a written plan<span class="src">→ <a href="/en/column-jcstar-2027-existing">COLUMN 52-3</a></span></li>
-      <li>JPEA's grace request: “proceed as proposed” (22nd committee, 21 Aug 2026) — no extra grace</li>
-      <li>A PCS with IP communication needs ★1 even behind a gateway (FAQ A6, A7); devices without IP communication are out of scope (A9)</li>
+      <li>Existing plants: not retroactive. When storage is added, only the added devices; when a device is replaced, the replacement in principle needs ★1 (a written plan can defer it if the burden is excessive). Switching to FIP or reaching the end of FIT: not applicable if equipment is unchanged (ANRE FAQ July 2026; draft guideline October 2026)<span class="src">→ <a href="/en/column-jcstar-2027-existing">COLUMN 52-3 Existing plants</a></span></li>
+      <li>The request for grace for HV projects that use the same PCS as low voltage was "decided to proceed as proposed" (22nd Grid Code Review Committee, Document 3, 21 August 2026) = the grace is not widened</li>
+      <li>The draft guideline was opened for public comment (e-Gov case number 620340012, 6 October to 6 November 2026). The requirement is "equipment bearing a conformance label of ★1 (Level 1) or above under the IPA labeling scheme"</li>
+      <li>A PCS with IP communication needs ★1 even behind a gateway (FAQ A6, A7). Devices without IP communication are out of scope (A9)</li>
     </ul>
   </div>
   <div class="fixmap-col pending">
     <h4>Still open (do not assert)</h4>
     <ul>
-      <li>The final texts of the guideline, each grid operator's technical requirements and the Grid Interconnection Code. The draft guideline was open for comment from 6 Oct to 6 Nov 2026; the ten operators' revised rules are not yet published<span class="src">→ e-Gov / ANRE / each operator's notices</span></li>
-      <li>HUAWEI / SUNGROW own-brand ★1 acquisition (none on the 12 Nov 2026 list)<span class="src">→ latest IPA product list / <a href="/en/column-jcstar-2027">COLUMN 52</a></span></li>
-      <li>Detailed rules for extending a ★1 label (IPA says they will be published in 2026; the first labels expire in May 2027)<span class="src">→ IPA / <a href="/en/column-jcstar-2027-list">COLUMN 52-2</a></span></li>
+      <li>The post-revision texts of the guideline, each company's interconnection technical requirements and the Grid Interconnection Code. The draft guideline was open for public comment from 6 October to 6 November 2026. As of 15 November 2026 the post-revision texts of the ten general transmission and distribution companies are not to be found. ANRE says it will amend each company's interconnection technical requirements "within FY2026"<span class="src">→ e-Gov / ANRE / each T&amp;D company's notices</span></li>
+      <li>Own-brand ★1 acquisition by major Chinese makers such as Huawei and Sungrow (none on the 12 November 2026 list either)<span class="src">→ latest IPA list / <a href="/en/column-jcstar-2027">COLUMN 52</a></span></li>
+      <li>Detailed rules for extending a ★1 label (IPA still says "to be published in 2026"; the first expiry is May 2027)<span class="src">→ IPA / <a href="/en/column-jcstar-2027-list">COLUMN 52-2 the list</a></span></li>
+      <li>Criteria for a ★2 specific to power equipment (reported to be in preparation, in consultation with IPA)<span class="src">→ <a href="/en/column-jcstar-2027-nationality">COLUMN 52-4 nationality</a></span></li>
       <li>Mutual recognition with the US Cyber Trust Mark<span class="src">→ METI / IPA</span></li>
     </ul>
   </div>
@@ -664,6 +675,9 @@ The one thing not to conflate: <strong>mutual recognition with PSTI / CLS is a d
 <div class="sources-box">
 <h4>Principal primary sources</h4>
 <ul>
+  <li>e-Gov public comment: draft revision of the "Guideline on grid interconnection technical requirements for ensuring power quality" (case number 620340012, 6 October to 6 November 2026) <a href="https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&amp;id=620340012&amp;Mode=0" target="_blank">e-Gov</a></li>
+  <li>ANRE, "Cybersecurity measures for distributed energy resources" (July 2026) <a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/other/cybersecurity/data/gaiyo.pdf" target="_blank">PDF</a> / the same, "Frequently asked questions" <a href="https://www.enecho.meti.go.jp/category/electricity_and_gas/other/cybersecurity/data/01.pdf" target="_blank">PDF</a></li>
+  <li>OCCTO, 22nd Grid Code Review Committee, Document 3 (Aug 21, 2026) <a href="https://www.occto.or.jp/assets/iinkai/gridcode/22/gridcode_22_03.pdf" target="_blank">PDF</a></li>
   <li>OCCTO, 21st Grid Code Review Committee, Document 4 (Mar 31, 2026) <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf" target="_blank">PDF</a> / Minutes <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_gijiroku.pdf" target="_blank">PDF</a></li>
   <li>OCCTO, 20th Grid Code Review Committee material (Dec 16, 2025; filename gridcode_20_05.pdf / body label "Document 4") <a href="https://www.occto.or.jp/assets/iinkai/gridcode/20/gridcode_20_05.pdf" target="_blank">PDF</a></li>
   <li>OCCTO, Grid Code Review Committee <a href="https://www.occto.or.jp/iinkai/gridcode/index.html" target="_blank">https://www.occto.or.jp/iinkai/gridcode/index.html</a></li>
@@ -671,45 +685,67 @@ The one thing not to conflate: <strong>mutual recognition with PSTI / CLS is a d
   <li>ANRE, Industrial Cybersecurity Study Group, Electricity Sub-WG, 19th meeting, Document 5 (cybersecurity for distributed energy resources, Feb 12, 2026) <a href="https://www.meti.go.jp/shingikai/mono_info_service/sangyo_cyber/wg_seido/wg_denryoku/pdf/019_05_00.pdf" target="_blank">PDF</a></li>
   <li>ANRE, Next-Generation Power Grid WG, 7th meeting, Document 2 ("On the Grid Code," Feb 9, 2026) <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/pdf/007_02_00.pdf" target="_blank">PDF</a></li>
   <li>ANRE, Next-Generation Power Grid WG, Document 4-1 (May 24, 2024; latest requirements at replacement) <a href="https://www.meti.go.jp/shingikai/enecho/shoene_shinene/shin_energy/keito_wg/pdf/051_04_01.pdf" target="_blank">PDF</a></li>
-  <li>IPA, "JC-STAR conformance-label product list" (updated Jun 1, 2026) <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank">link</a> / scheme details <a href="https://www.ipa.go.jp/security/jc-star/detail.html" target="_blank">link</a> / English scheme page <a href="https://www.ipa.go.jp/en/security/jc-star/index.html" target="_blank">link</a></li>
+  <li>IPA, "JC-STAR conformance-label product list" (updated Nov 12, 2026) <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank">link</a> / scheme details <a href="https://www.ipa.go.jp/security/jc-star/detail.html" target="_blank">link</a> / English scheme page <a href="https://www.ipa.go.jp/en/security/jc-star/index.html" target="_blank">link</a></li>
   <li>METI, "Cybersecurity Guideline for ERAB Ver3.0" (May 22, 2025) <a href="https://www.meti.go.jp/press/2025/05/20250522001/20250522001.html" target="_blank">link</a></li>
   <li>METI, 10th Industrial Cybersecurity Study Group, secretariat material (Apr 3, 2026) <a href="https://www.meti.go.jp/press/2026/04/20260403003/20260403003-b.pdf" target="_blank">PDF</a></li>
   <li>IPA, "On PSTI Act conformance certification" <a href="https://www.ipa.go.jp/security/jc-star/shinsei/psti.html" target="_blank">link</a> / Cyber Security Agency of Singapore press release <a href="https://www.csa.gov.sg/news-events/press-releases/singapore-signs-memorandum-of-cooperation-with-japan-on-mutual-recognition-of-internet-of-things-cybersecurity-schemes/" target="_blank">link</a> / METI "GCLI joint statement" (Oct 23, 2025) <a href="https://www.meti.go.jp/english/press/2025/1023_001.html" target="_blank">link</a></li>
-  <li>European Commission, Cyber Resilience Act (reporting from Sep 11, 2026; full application Dec 11, 2027) <a href="https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act" target="_blank">link</a> | FCC, U.S. Cyber Trust Mark <a href="https://www.fcc.gov/CyberTrustMark" target="_blank">link</a> | ETSI, consumer IoT security (EN 303 645) <a href="https://www.etsi.org/technologies/consumer-iot-security" target="_blank">link</a></li>
   <li>SII (Sustainable open Innovation Initiative), grid-scale storage deployment-support public-offering guidelines (FY2025; non-IP devices obtain ★1 as a configuration incorporating a protocol-conversion device; BMS, PCS, EMS, etc. named as in-scope) <a href="https://sii.or.jp/chikudenchi07/" target="_blank">link</a></li>
   <li>Contec, "Notice regarding SolarView Compact" (May 7, 2024) <a href="https://www.contec.com/info/2024/2024050700/" target="_blank">link</a></li>
 </ul>
-<p style="margin-top:10px;font-size:.95em;color:var(--text-light)">※ The HV basis date is not yet fixed, as the primary text is unpromulgated at the time of writing. Confirm the latest application details in each general transmission and distribution utility's technical-requirements documents.</p>
+<p style="margin-top:10px;font-size:.95em;color:var(--text-light)">※ As of 15 November 2026 the post-revision texts of the ten general transmission and distribution companies are not to be found. That the trigger is "the date the contract application is accepted" is shown by the draft guideline (October 2026) and the ANRE FAQ. Confirm the latest application details in each general transmission and distribution company's technical-requirements documents.</p>
 </div>
 
 <h2>Frequently asked questions</h2>
 
 <div class="highlight-box">
 <h4>Is the JC-STAR ★1 requirement triggered by the grid-connection date or by the connection-contract application?</h4>
-<p style="margin:8px 0 0">Under the draft revision endorsed at OCCTO's 21st Grid Code Review Committee (March 31, 2026), the trigger is the <strong>contract application for grid access</strong> — not the connection (interconnection / commissioning) date. The draft applies the requirement to projects that file a grid-access contract application on or after the start date, and this was made explicit for extra-high and high voltage as well, not only low voltage. <span class="badge open">Pre-promulgation</span> The governing texts are not yet promulgated, so confirm with the TSO/DSO holding jurisdiction.</p>
+<p style="margin:8px 0 0">In the draft revision at the 21st Grid Code Review Committee (March 31, 2026), the basis was unified, extra-high and high voltage included, to "the contract application for grid access." It reads as keyed to the application stage rather than the connection date (interconnection / commissioning). However, the text is not yet promulgated, so it is not yet a stage at which this can be asserted.</p>
 </div>
 
 <div class="highlight-box">
 <h4>When does the ★1 requirement start for high-voltage (HV) batteries?</h4>
-<p style="margin:8px 0 0">Extra-high and high voltage (solar and storage) are slated to apply <strong>from April 2027</strong>, keyed to the grid-access contract application. This timing was set at the 20th committee (December 16, 2025) and the application-based trigger was unified at the 21st committee (March 31, 2026). It remains a draft revision; the guideline, each utility's interconnection technical requirements, and the Grid Interconnection Code were not yet promulgated as of June 2026.</p>
+<p style="margin:8px 0 0">Under the draft revision, extra-high and high voltage solar and storage are from <strong>April 2027</strong>, applying to projects that file a grid-access contract application in or after that month. This is the plan at the stage where the committee endorsed the draft revision, and it is fixed on promulgation of the text.</p>
 </div>
 
 <div class="highlight-box">
 <h4>When does it start for low voltage under 50 kW, and why later than HV?</h4>
-<p style="margin:8px 0 0">Low voltage under 50 kW (solar and storage) applies <strong>from October 2027</strong> — a six-month delay versus the April 2027 HV start. The draft sets the later date as a transitional measure to clear existing channel inventory, such as legacy inverters already in the distribution chain.</p>
+<p style="margin:8px 0 0">Low voltage under 50 kW applies <strong>from October 2027</strong>, six months later than HV. It is arranged as a transitional measure, delaying by six months in consideration of clearing channel inventory such as existing power conditioners.</p>
 </div>
 
 <div class="highlight-box">
 <h4>Can foreign-made PCS be used, and what must they satisfy?</h4>
-<p style="margin:8px 0 0">Yes. Overseas makers can be used provided their internet-communicating devices meet JC-STAR ★1; the battery cell/pack itself is out of scope because it does not use IP communication. Overseas makers including SMA (Germany), Power Electronics (Spain), Samsung SDI (Korea) and SEETEL (Taiwan) have already obtained ★1. A PCS with IP communication needs ★1 itself, even behind a <strong>★1-certified gateway</strong> (ANRE FAQ A6, A7); devices without IP communication are out of scope (A9). On IPA's 12 November 2026 list, HUAWEI and SUNGROW hold no own-brand ★1.</p>
+<p style="margin:8px 0 0">Battery cells and packs do not communicate directly with the network and are out of scope, so adopting an overseas battery is not itself constrained. What is in question is the communication module of the PCS that handles external communication, and the EMS and gateway. If the PCS has IP communication, the PCS itself needs ★1 even behind a <strong>★1-certified gateway</strong> (ANRE FAQ A6, A7). Devices without IP communication are out of scope (A9). Overseas makers such as SMA (Germany), Power Electronics (Spain), Samsung SDI (Korea) and SEETEL (Taiwan) have already obtained ★1.</p>
 </div>
 
 <div class="highlight-box">
 <h4>Are replacements or updates of existing equipment in scope?</h4>
-<p style="margin:8px 0 0">Not retroactively. When a device is replaced on or after April 2027, the replacement must in principle carry ★1, and even a like-for-like swap needs a connection study; devices that are not replaced are out of scope. Where this would impose an excessive burden (for example, one swap forcing a wider replacement), the grid operator can allow a non-★1 device of the same type for the time being on a written plan (ANRE FAQ A11, July 2026; draft guideline, October 2026). When storage is added, only the added devices need ★1. See <a href="/en/column-jcstar-2027-existing">COLUMN 52-3</a>.</p>
+<p style="margin:8px 0 0">The Grid Code has a general principle that even existing equipment is subject to the latest requirements when it is replaced or swapped. However, how the cybersecurity requirement is treated when a PCS is replaced or an EMS is renewed is not stated explicitly in the 21st draft revision, and it is undecided at present. It is a point to confirm in the revised guideline text and in the FAQs of METI and each general transmission and distribution company.</p>
 </div>
 
-<p class="source">Sources for the above: <a href="https://www.occto.or.jp/assets/iinkai/gridcode/21/gridcode_21_04.pdf" target="_blank">OCCTO, 21st Grid Code Review Committee, Document 4, pp.8-9, p.13</a> | <a href="https://www.occto.or.jp/assets/iinkai/gridcode/20/gridcode_20_05.pdf" target="_blank">20th committee material</a> | <a href="https://www.ipa.go.jp/security/jc-star/list/jc-star-product-list/index.html" target="_blank">IPA, JC-STAR conformance-label product list (June 1, 2026)</a></p>
+<div class="highlight-box">
+<h4>Does ★1 require third-party certification?</h4>
+<p style="margin:8px 0 0">★1 is a self-declaration of conformity and can be obtained on the operator's declaration. External third-party assessment enters from ★3 (★2 is also a self-declaration). A claim of "★1-compliant" therefore still warrants cross-checking against IPA's certified-product list.</p>
+</div>
+
+<div class="highlight-box">
+<h4>What is the difference between JC-STAR ★1, ★2, ★3 and ★4?</h4>
+<p style="margin:8px 0 0">The number of stars shows how high a security level is required. ★1 is the baseline requirements (16 items), centered on forced change of the initial password, secure communication and proof of carrying no known vulnerabilities. ★2 adds requirements by product class, ★3 is for critical infrastructure (tamper resistance and hardware-level security elements), and ★4 is the top tier, testing resistance to APT attacks. The assessment method is self-declaration for ★1 and ★2, and third-party certification for ★3 and ★4.</p>
+</div>
+
+<div class="highlight-box">
+<h4>Which level (how many stars) applies to grid-scale batteries?</h4>
+<p style="margin:8px 0 0">What the revision of the Grid Code (grid interconnection technical requirements) planned for April 2027 requires is the use of ★1-certified products. The draft revision does not suggest that ★2 or above would be required across the board for grid connection at present. However, this is a summary on the basis of the draft before promulgation, and some criteria for the higher levels are still under study, so check public information for the latest.</p>
+</div>
+
+<div class="highlight-box">
+<h4>Which devices exactly are in scope of JC-STAR? Are battery cells and routers also covered?</h4>
+<p style="margin:8px 0 0">The core is the PCS (inverter) and the EMS / control unit; gateways and remote-monitoring units are also in scope. The BMS is conditionally in scope, as exemplified in subsidy programs. On the other hand, battery cells and packs do not communicate directly with the network and are out of scope, and general-purpose IP communication devices not involved in control (routers, etc.) are not subject to the obligation either. The draft narrows the scope to "IP communication devices involved in control," and the crux is that evaluation is as a communication-and-control system, not device by device.</p>
+</div>
+
+<div class="highlight-box">
+<h4>Is a solar PV PCS also in scope of JC-STAR? How does it differ from batteries?</h4>
+<p style="margin:8px 0 0">Yes. Under the draft revision, use of ★1-certified products is the premise for both solar and storage from April 2027 at extra-high and high voltage and from October 2027 at low voltage under 50 kW (the basis being the grid-access contract application). Wind is shown at April 2027 and fuel cells at April 2028. There is no difference in star level by generation type, and the entry level is ★1 in every case.</p>
+</div>
 
 <div class="author-box">
   <div class="ab-label">Supervised by</div>
@@ -717,10 +753,18 @@ The one thing not to conflate: <strong>mutual recognition with PSTI / CLS is a d
   <p style="margin:6px 0 0">Works on the development, sale and technical due diligence of grid-scale battery storage plants in Japan. This column is written and supervised on the basis of that hands-on transaction and due-diligence practice.</p>
 </div>
 
-<div class="cta-box">
-  <h3>On battery equipment selection and regulatory readiness</h3>
-  <p>We support the structuring of an equipment-procurement strategy — including JC-STAR readiness — fitted to each project's plant configuration, <strong>from the standpoint of connectivity and timeline</strong>. As a technical advisor (technical due diligence) with no capital ties to any maker or EPC.</p>
-  <p><a target="_top" href="/en/contact" class="cta-button">Contact us →</a></p>
+<!-- scix-column-cta : one per article -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F5F5F3;border:1px solid #E6E6E6;border-radius:8px;font-family:'Noto Sans JP',sans-serif">
+  <h3 style="font-family:'Noto Sans JP',sans-serif;color:#1F2A48;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">You can check JC-STAR registration numbers project by project</h3>
+  <p style="color:#555555;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">We handle projects that already have a connection study reply. We publish the prefecture, size, voltage, how to buy, progress and expected start of operation of each, without registration on Chikudensho Market.</p>
+  <div style="text-align:center">
+    <a target="_top" href="https://dealroom.scix.co.jp/catalog?lang=en" style="display:inline-block;background:#C49A3C;color:#1F2A48;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">See projects on Chikudensho Market →</a>
+    <p style="color:#8C8C8C;font-size:12.5px;line-height:1.8;margin:10px 0 0">Opens the project list (English screens). Prices and documents are available after free registration. If you hold a project you want to sell, request a free valuation from the page below.</p>
+  </div>
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E6E6E6">
+    <a target="_top" href="https://www.scix.co.jp/sell-form" hreflang="ja" style="color:#1F2A48;font-weight:600;font-size:13.5px;text-decoration:none;border-bottom:1px solid #C49A3C;padding-bottom:2px">Request a free valuation of your project (Japanese page) →</a>
+    <p style="color:#555555;font-size:12.5px;line-height:1.85;margin:10px 0 0">For anyone holding a project that already has a connection study reply and prefers to sell rather than keep developing against deadlines. A rough list is fine.</p>
+  </div>
 </div>
 
 </div>
