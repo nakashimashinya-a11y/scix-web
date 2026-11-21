@@ -1,7 +1,7 @@
 #!/bin/bash
 # sync_projects_json.sh — 公開案件一覧を毎朝ライブDR2に合わせる（launchd ai.scix.projects-json から実行）
 #
-# 2026-09-05 新設。中島さん判断①「公開項目の拡張と再生成の定期化＝そうする」に基づく。
+# 2026-09-05 新設。代表判断①「公開項目の拡張と再生成の定期化＝そうする」に基づく。
 # それまでは手で回す運用で、実際には46日間止まり、売却済みの案件が載り続けていた。
 #
 # やること: D1から再生成 → 変化が無ければ無音で終わる → 変化があれば main へ commit/push（Vercelが公開）
@@ -13,7 +13,7 @@
 # 手で回すとき:  bash scripts/sync_projects_json.sh
 # 変更せず確認:  DRY_RUN=1 bash scripts/sync_projects_json.sh
 # 外すだけの速い回: FAST_REMOVE=1 bash scripts/sync_projects_json.sh（launchd ai.scix.projects-json-fast が10分おきに回す）。
-#   DR2 で売却済み・非表示・販売中以外にした案件が公開一覧に残っているときだけ公開する（2026-10-31 中島さん「すぐ外して」）。
+#   DR2 で売却済み・非表示・販売中以外にした案件が公開一覧に残っているときだけ公開する（2026-10-31: 公開一覧から速やかに外すため）。
 #   外す物が無ければ何もせず黙って終わる（追加・項目の変更・焼き直しは毎朝の回に任せる）。外す回は、その時点の追加・変更も一緒に出る。
 
 set -uo pipefail
@@ -203,7 +203,7 @@ for f in $MD_FILES; do git diff --quiet -- "$f" || STAMP="$STAMP $f"; done
 [ -n "$STAMP" ] && { python3 scripts/seo/stamp_sitemap.py $STAMP >/dev/null 2>&1 || log "sitemap の lastmod 更新に失敗（続行）"; }
 # shellcheck disable=SC2086
 git add projects.json index.html projects.html sitemap.xml feed.xml projects-feed.xml smartnews.xml $MD_FILES || fail "git add に失敗"
-# 公開リポジトリのコミット文には案件ID・件数の増減・項目名を書かない（共通ルール O16-19・2026-11-20 点検 W-01）。
+# 公開リポジトリのコミット文には案件ID・件数の増減・項目名を書かない（共通ルール サイトの決まり・2026-11-20 点検 W-01）。
 # 内訳（追加・削除・項目変更）は下の log（手元のログ）にだけ残す。
 git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" \
     commit -q -m "chore(projects): 公開一覧を更新

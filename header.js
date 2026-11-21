@@ -3,11 +3,10 @@
      ScienceX — Shared Navigation Header (JP + EN + 简中)
      Single source of truth for all pages.
 
-     2026-11-06: 中島「JP,EN,中国語の切り替えが目立たない。国旗とかカラーで
-       つけてもっと大きく目立たせて」。言語の切り替えをナビの外に出し、国旗
+     2026-11-06: 言語の切り替えが目立たなかったので、言語の切り替えをナビの外に出し、国旗
        （SVG）＋言語の名前（日本語 / English / 中文）・紺の太い枠・今の言語は
        紺地に白。スマホでは引き出しの中でなく、ヘッダーの帯に国旗を常に出す。
-     2026-10-18: 中島「土地は買いたくない。案件を売る・買うをメインに」。
+     2026-10-18: 案件を売る・買うを中心にする方針に合わせた。
        売る ▾ から「土地を売る・貸す」(/land) を外し、売却査定のフォーム
        (/sell-form) を入れた。/land と /sourcing-criteria は /sourcing へ 301。
        スマホの追従ボタンは、売主向けのページだけ /sell-form（売却査定）。
@@ -58,7 +57,7 @@
   var isCol = loc.indexOf('/column-') === 0;
 
   // ページの側（色と絵）を <html data-side> に付ける。theme.css が帯の色・札の色・冒頭の絵を側ごとに替える
-  // （2026-11-15 中島「これに合わせて、サイエンスエックスの本体のサイトも再デザインして」＝蓄電所マーケットと同じ、買う＝青・売る＝橙・読む＝紫）
+  // （2026-11-15: 蓄電所マーケットと同じ配色にそろえた。買う＝青・売る＝橙・読む＝紫）
   var side = loc === '/' ? 'home'
     : /^\/(transfer|projects|investors|market-data|fund|grid-storage|for\/)/.test(loc) ? 'buy'
     : /^\/(sourcing|sell-form|partners)/.test(loc) ? 'sell'
@@ -120,7 +119,7 @@
     'body{padding-top:64px!important}',
 
     '/* === Header bar === */',
-    '/* 2026-11-15: 中島「これに合わせて、サイエンスエックスの本体のサイトも再デザインして」＝蓄電所マーケットと同じ、温かい白・丸み・側ごとの色。ロゴは名刺と同じ紺のまま */',
+    '/* 2026-11-15: 蓄電所マーケットと同じ、温かい白・丸み・側ごとの色にそろえた。ロゴは名刺と同じ紺のまま */',
     '.scix-header{',
     '  position:fixed;top:0;left:0;right:0;height:64px;',
     '  background:#fff;',
@@ -177,7 +176,7 @@
     '}',
     '.scix-header-nav a.scix-cta:hover{filter:brightness(1.06);color:#fff;background:linear-gradient(135deg,#F97316,#F59E0B)}',
     '.scix-header-nav a.scix-cta.active{color:#fff;background:linear-gradient(135deg,#F97316,#F59E0B)}',
-    '/* === 蓄電所マーケットへのボタン（2026-11-15 中島「こんな地味なボタン誰も押さない」）: マーケットと同じ橙の丸いボタンと印 === */',
+    '/* === 蓄電所マーケットへのボタン（2026-11-15 目立たなかったため変更）: マーケットと同じ橙の丸いボタンと印 === */',
     '.scix-header-nav > a.scix-mk{display:inline-flex;align-items:center;align-self:center;height:auto;gap:8px;background:#D4610A;color:#fff;font-weight:900;font-size:15px;',
     '  padding:9px 18px 9px 9px;border-radius:999px;margin-left:12px;box-shadow:0 6px 16px rgba(212,97,10,.30);white-space:nowrap}',
     '.scix-header-nav > a.scix-mk.active{background:#D4610A}',
@@ -212,8 +211,8 @@
     '.scix-nav-dd-menu a.scix-dd-all{font-weight:900;color:#1F2A48}',
 
     '/* === Language switcher (next to the nav; flags + names) === */',
-    '/* 2026-11-06: 中島「JP,EN,中国語の切り替えが目立たない。国旗とかカラーでつけてもっと大きく目立たせて」 */',
-    '/* 2026-09-17: made visible (中島「地味すぎてわからない」) — globe icon, bordered pill group（→ 2026-11-06 に国旗へ） */',
+    '/* 2026-11-06: 言語の切り替えが目立たなかったため、国旗と色を付けて大きくした */',
+    '/* 2026-09-17: made visible (it was too plain to notice) — globe icon, bordered pill group（→ 2026-11-06 に国旗へ） */',
     '.scix-lang{',
     '  display:flex;align-items:center;gap:3px;flex-shrink:0;',
     '  margin-left:14px;padding:3px;',
@@ -387,7 +386,7 @@
     sell:  ['/sourcing', '/sell-form', '/partners', '/for/dealers']
   };
 
-  // 2026-11-15 中島「全体のメニューに見直せ。ダブってるに同じことばっかり。全体を整合性とれ」:
+  // 2026-11-15 メニュー全体の見直し（重複をなくし、全体の整合をとった）:
   // 行き先は1か所に1回だけ。マーケット（案件を見る・リクエスト・自分で売る）は右端の橙のボタン1つにまとめ、
   // 買う・売るの中は当社の窓口（流れ・査定・ファンド・紹介）だけにする。市場ノートは上の段だけ（ナレッジの中に重ねない）。
   // 地域別の案件一覧（/projects・/en/projects）はマーケットの一覧と同じ中身なのでメニューから外す（ページは検索から来た人のために残す）。
@@ -432,7 +431,7 @@
       ['/sell-form', '無料の売却査定'],
       ['/partners',  '案件・投資家を紹介する']
     ], 'sell'),
-    // 2026-11-03 中島「この月報いいのに全然目立たない」「月報って何？社内用って感じ」＝上の段に「市場ノート」
+    // 2026-11-03: 月報が目立たず「月報」の語も社内用に見えたので、上の段に「市場ノート」として出した
     '<a href="/report"   data-page="/report">' + ic('chart') + '<span>市場ノート</span></a>',
     '<a href="/company"  data-page="/company">' + ic('co') + '<span>会社案内</span></a>',
     '<a href="/contact"  data-page="/contact">' + ic('mail') + '<span>お問い合わせ</span></a>',
@@ -540,7 +539,7 @@
     window.addEventListener('scroll', fctaTick, { passive: true }); fctaTick();
   }
 
-  // --------------- 2b. 週1本の更新をメールで受け取る（JAのみ・2026-09-17 中島「つくって。入力はなるべく簡単に」） ---------------
+  // --------------- 2b. 週1本の更新をメールで受け取る（JAのみ・2026-09-17 追加。入力はなるべく簡単に） ---------------
   // 入力はメールアドレスだけ（お名前は任意）。受け口は scix-dealroom2 の /api/newsletter（D1に積む→毎朝
   // blastmail_sync.py がブラストメールへ登録）。置き場所: <div data-scix-newsletter> があればそこ、
   // 無ければ JA コラムの末尾（関連記事の下・フッターの上）。コラムの1記事1CTA（案件/フォーム）とは別物＝更新通知。

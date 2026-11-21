@@ -1,14 +1,14 @@
 #!/bin/bash
 # weekly_run.sh — scix.co.jp の週次自動更新（launchd ai.scix.web-weekly・日曜 06:00）
 #
-# 2026-09-19 新設（中島「自動公開は承認しなくて公開していい。進めて」）。
+# 2026-09-19 新設（検査を通れば承認なしで自動公開する）。
 # 流れ: 台帳を最新に → ブリーフ生成 → main の作業ツリーで Claude が判断・編集 → 機械の検査（guard_diff.py）
-#       → 通ったものだけ commit/push（Vercel が公開）→ 本番反映を待って IndexNow → 台帳に記帳 → Telegram 3行。
+#       → 通ったものだけ commit/push（Vercel が公開）→ 本番反映を待って IndexNow → 台帳に記帳 → 通知 3行。
 # 止まる条件: 検査に落ちた／Claude が失敗した／push できない。どれも「公開しない」側に倒れる。
 # 公開は 2 コミット: ①中身（auto(seo): ／ auto(structure): …。Claude の編集と焼き直し）②記帳（chore(seo-log): …。sitemap の
 #   lastmod と公開リポジトリの変更日台帳 docs/seo-change-log.md）。変更日台帳は毎週、表の同じ位置に行が足されるので、①に混ぜると
-#   案内している差し戻し `git revert <sha>` が次の自動コミット 1 つで必ず衝突する。Telegram・タグ・変更台帳の commit は ①を指す。
-# push のあとの変更台帳（Drive）への記帳は 3 回までやり直し、だめなら Telegram に出す。翌朝の収集が拾い直す（register_auto_commits.py）。
+#   案内している差し戻し `git revert <sha>` が次の自動コミット 1 つで必ず衝突する。通知・タグ・変更台帳の commit は ①を指す。
+# push のあとの変更台帳（Drive）への記帳は 3 回までやり直し、だめなら 通知 に出す。翌朝の収集が拾い直す（register_auto_commits.py）。
 #
 # Claude に渡す道具は allowedTools で絞る（読む・編集する・リポジトリ内の python3/grep を叩く）。
 # git の commit/push/branch と Web 取得・サブエージェントは渡さない。公開はこのシェルだけが行う。
@@ -17,19 +17,19 @@
 # 公開せず確認:  DRY_RUN=1 bash scripts/seo/weekly_run.sh   （作業ツリー ~/projects/.scix-web-weekly を残す）
 # 差し戻し:      git revert <auto(seo) のコミット>  → push（IndexNow は Action が送る）
 #
-# コラムは書かない（2026-09-20 中島「Column は僕が書くから君は書かない」）: 週次も構成レビューも新しいページを作らない
-#   （guard_diff.py が新規ファイルと class=new-column を止める）。足りない主題は column_ideas で Telegram に 1 行出すだけ。
-#   中島さんが足したコラムの育成（内部リンク・ハブカード・新着・sitemap・JA_ONLY_COLUMNS の登録漏れ）は週次が続ける。
+# コラムは書かない（2026-09-20: コラムは代表が書く）: 週次も構成レビューも新しいページを作らない
+#   （guard_diff.py が新規ファイルと class=new-column を止める）。足りない主題は column_ideas で 通知 に 1 行出すだけ。
+#   代表が足したコラムの育成（内部リンク・ハブカード・新着・sitemap・JA_ONLY_COLUMNS の登録漏れ）は週次が続ける。
 #
-# 月1回の構成レビュー（MODE=structure・2026-09-20 追加。中島「ページのアクセスや検索ヒットをみて、ページ構成や流れを変えて、
-#   よりヒットを多くする、問い合わせを多くするを検索エンジン対策を含めて自動でやってほしい」）:
+# 月1回の構成レビュー（MODE=structure・2026-09-20 追加。アクセスと検索ヒットを見て、ページ構成や流れを変え、
+#   ヒットと問い合わせを増やす検索エンジン対策を自動で行う）:
 #   月の第1日曜は、通常の週次が終わったあと、同じこのスクリプトが続けて MODE=structure を1回だけ走らせる
 #   （新しい launchd は作らない）。構成（ハブの並び・トップの節の順・CTA の行き先・収益ページへの導線）の見直しを
 #   Claude が 1〜3 件に絞って編集 → 検査（guard_diff.py --profile structure）→ **通れば週次と同じ手順で自動公開**:
 #   最新の origin/main へ載せ直し（衝突したら公開しない）→ push → タグ auto/structure-YYYY-MM → 手元の main を早送り →
 #   変更台帳に source=structure・check_days [14, 28] で記帳（14 日後・28 日後に前後比較。worse は翌週のブリーフ 8 節で差し戻し候補。
 #   判定は GSC のクリックと CTR＝問い合わせ・送客の減りは 8 節の表の「注意」で週次が読む）
-#   → Telegram 3 行（何を変えたか・根拠・戻し方 git revert <sha>）。IndexNow は push 時の GitHub Action が送る。
+#   → 通知 3 行（何を変えたか・根拠・戻し方 git revert <sha>）。IndexNow は push 時の GitHub Action が送る。
 #   **例外: ナビ（header.js）を含む回は自動公開しない**（全ページに効く）。その回は全体を従来どおり枝 auto/structure-YYYY-MM へ
 #   push して gh pr create（マージで公開・閉じれば不採用。一部だけ公開、をしない＝検査済みの単位を崩さない）。台帳は
 #   「提案（未公開）」として ledger/proposals.jsonl、マージ後の記帳は毎朝の register_structure_merges.py。
@@ -89,8 +89,8 @@ if [ "$MODE" = "weekly" ] && [ "${SCIX_WEB_CHILD:-0}" != "1" ]; then
 fi
 TG_GATE="${SCIX_TG_GATE:-$HOME/.openclaw/workspace/bin/tg_gate.py}"   # Telegram の関所（リポジトリの外。宛先も関所が持つ）
 notify() {  # $1=本文 $2=種類（undo＝公開の戻し方・ask＝1問） $3=key（同じ用件は1回だけ）
-  # Telegram は tg_gate を通す（種類・上限・送信台帳＝O13-2・O13-26・O13-27）。出せない種類は関所が行動ログに回す。
-  #   失敗・変化なしは Telegram に出さず行動ログへ1行（applog）。
+  # 通知 は tg_gate を通す（種類・上限・送信台帳）。出せない種類は関所が行動ログに回す。
+  #   失敗・変化なしは 通知 に出さず行動ログへ1行（applog）。
   if [ ! -f "$TG_GATE" ]; then log "Telegram の関所が無い（${TG_GATE}）。送らずに続ける"; return 0; fi
   local rc=0
   printf '%s' "$1" | python3 "$TG_GATE" send --kind "$2" --job web-weekly --key "$3" --message - --apply >/dev/null 2>&1 || rc=$?
@@ -101,7 +101,7 @@ notify() {  # $1=本文 $2=種類（undo＝公開の戻し方・ask＝1問） $3
     *) log "Telegram 送信失敗 rc=${rc}（key=$3）" ;;
   esac
 }
-applog() {  # 行動ログに1行（O13-3）。Telegram には出さない
+applog() {  # 行動ログに1行。通知には出さない
   [ -f "$TG_GATE" ] || return 0
   printf '%s' "$1" | python3 "$TG_GATE" send --kind log --job web-weekly --key "web-weekly-log:$(date +%F-%H%M%S)" --message - --apply >/dev/null 2>&1 || log "行動ログに書けない"
 }
@@ -119,7 +119,7 @@ fail() {
   cleanup; exit 1
 }
 # ゲートウェイの claude の置き場（CLAUDE_CONFIG_DIR）を openclaw.json から読む。読めなければ空（呼ぶ側が fail する）。
-#   古い版は agents.defaults.cliBackends.claude-cli.env、OpenClaw 2026.10〜 は cliBackends が無くなり env.vars に置く
+#   古い版は agents.defaults.cliBackends.claude-cli.env、自動処理 2026.10〜 は cliBackends が無くなり env.vars に置く
 #   ＝この順に両方を見る（~/.openclaw/workspace/bin/oc_compat.py の gateway_claude_config_dir と同じ）。
 #   古い置き場しか見ていなかったので、版上げのあと最初の日曜（2026-10-18）の週次が「決まらない」で止まった。
 oc_claude_config_dir() {
@@ -136,16 +136,16 @@ for path in (("agents", "defaults", "cliBackends", "claude-cli", "env", "CLAUDE_
 PY
 }
 mj() { python3 -c "import json,sys; j=json.load(open(sys.argv[1])); exec(sys.argv[2])" "$RUN_DIR/changes.json" "$1"; }
-# 今週書くコラムの主題（マニフェスト column_ideas の先頭）。中島「して。毎週日曜の6amに」（2026-09-20）
+# 今週書くコラムの主題（マニフェスト column_ideas の先頭）（2026-09-20: 毎週日曜の6amに出す）
 idea_line() {
   mj 'ideas=j.get("column_ideas") or []
 i=ideas[0] if ideas else None
 print(("✍️ 今週書くなら: "+str(i.get("title",""))+"（"+str(i.get("for",""))+"向け・"+("3言語" if str(i.get("langs"))=="3" else "JA")+"）— "+str(i.get("why",""))) if i else "✍️ 今週の主題提案: なし")' 2>/dev/null || echo "✍️ 今週の主題提案: 取得失敗"
 }
 
-# アクセスが減ったページ（ブリーフ 11 節＝brief.json の access_drops）。中島決定 2026-09-22:
+# アクセスが減ったページ（ブリーフ 11 節＝brief.json の access_drops）。代表の決定 2026-09-22:
 #   トリガーはアクセス減。週次の Claude は外に出られないので本文の時点更新は自動でやらず、先頭の 1 本（原因の型・本文の時点つき）と本数を
-#   1 行で知らせる。時点更新は CC の作業セッションで。文は access_drop.tg_line の 1 か所で作る（山の戻りは本数だけ添える）。
+#   1 行で知らせる。時点更新は 作業セッションで。文は access_drop.tg_line の 1 か所で作る（山の戻りは本数だけ添える）。
 drop_line() {
   python3 - "$RUN_DIR/brief.json" "$(dirname "$SELF")" <<'PY' 2>/dev/null || true
 import json, sys
@@ -161,7 +161,7 @@ if line:
 PY
 }
 
-# Claude が判断して編集する（このアカウントの枠＝OpenClaw 用。中島さんの枠には落とさない）。週次も構成レビューも同じ条件で起こす。
+# Claude が判断して編集する（このアカウントの枠＝自動処理 用。代表の枠には落とさない）。週次も構成レビューも同じ条件で起こす。
 #    道具は明示した分だけ。許可の無い道具は -p モードでは黙って拒否される＝止まる側に倒れる。
 run_claude() {  # $1=ユーザープロンプト  $2=システムプロンプトのファイル（作業ツリーの中）
   export CLAUDE_CONFIG_DIR="$CC_DIR"
@@ -192,7 +192,7 @@ PY
 # Claude が作業している間（最長90分）に main が進んでいることがある（毎朝06:50 の案件一覧の同期など）。
 # そのまま push すると non-fast-forward で弾かれるので、先に最新の origin/main へ載せ直す。載せ直しで衝突したら公開しない（安全側）。
 # 終わると SHA に **中身のコミット**（auto(seo): ／ auto(structure):）が入っている＝差し戻しで revert する対象。
-# その上に記帳用のコミット（commit_log）が載っていても、タグ・Telegram・変更台帳の commit は中身のコミットを指す。
+# その上に記帳用のコミット（commit_log）が載っていても、タグ・通知・変更台帳の commit は中身のコミットを指す。
 publish_main() {  # $1=タグ名
   git fetch -q origin || fail "push 前の git fetch"
   if [ "$(git rev-parse origin/main)" != "$BASE_SHA" ]; then
@@ -235,7 +235,7 @@ chore(seo-log): $2 の sitemap lastmod と変更日台帳
 中身のコミット（載せ直す前）: $CONTENT 。差し戻すときは中身のコミットだけを git revert する（この記帳は記録として残す）。
 EOF5
 }
-# push のあとの変更台帳（Drive の ledger/changes.jsonl）への記帳。3 回までやり直す。だめなら 1（呼ぶ側が Telegram に出す。
+# push のあとの変更台帳（Drive の ledger/changes.jsonl）への記帳。3 回までやり直す。だめなら 1（呼ぶ側が 通知 に出す。
 # 翌朝の収集 register_auto_commits.py が origin/main とこの回のマニフェストから拾い直す＝効果測定から黙って外れない）。
 record_ledger() {  # $1=--source
   local i
@@ -249,7 +249,7 @@ record_ledger() {  # $1=--source
 }
 
 # ---------------------------------------------------------------- 月1回の構成レビュー（MODE=structure）
-# 検査を通れば週次と同じ手順で自動公開する（2026-09-20 中島。提案で止めない）。例外はナビ（header.js）を含む回だけ:
+# 検査を通れば週次と同じ手順で自動公開する（2026-09-20。提案で止めない）。例外はナビ（header.js）を含む回だけ:
 # 全ページに効くので、その回は全体を枝 auto/structure-YYYY-MM へ push → gh pr create（main・変更台帳・変更日台帳には触らない）。
 run_structure() {
   local MONTH BRANCH TAG TITLE BODY PR_TITLE PR_URL PR_NUM LINE1 LINE2 LINE3 LEDGER_NOTE REASON ROUTE
