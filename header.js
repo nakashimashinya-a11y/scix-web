@@ -99,7 +99,9 @@
     '/thanks': { en: '/en/thanks', zh: '/zh-thanks' },
     '/primer': { en: '/en/primer', zh: '/zh-primer' },
     '/market-entry-guide': { en: '/en/market-entry-guide', zh: '/zh' },
-    '/press': { en: '/en/press', zh: '/zh' }
+    '/press': { en: '/en/press', zh: '/zh' },
+    '/company': { en: '/en/company', zh: '/zh' },
+    '/privacy': { en: '/en/privacy', zh: '/zh' }
   };
 
   // Below this width the nav collapses into the drawer. The regrouped nav is
@@ -398,6 +400,7 @@
     '<a href="/en/qa"        data-page="/qa">' + ic('q') + '<span>Q&amp;A</span></a>',
     '<a href="/en/report"    data-page="/report">' + ic('chart') + '<span>Market Notes</span></a>',
     '<a href="/en/market-entry-guide" data-page="/market-entry-guide">' + ic('flag') + '<span>Entry Guide</span></a>',
+    '<a href="/en/company"   data-page="/company">' + ic('co') + '<span>Company</span></a>',
     '<a href="/en/contact"   data-page="/contact">' + ic('mail') + '<span>Contact</span></a>',
     '<a href="https://dealroom.scix.co.jp/?lang=en" class="scix-mk">' + MK + 'Chikudensho Market</a>'
   ] : [
