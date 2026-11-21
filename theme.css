@@ -1,9 +1,8 @@
 /* ======================================================
    ScienceX — 全ページ共通の見た目（2026-11-15〜 蓄電所マーケットと同じ見た目）
 
-   中島「これに合わせて、サイエンスエックスの本体のサイトも再デザインして」（2026-11-15）。
-   その前に、マーケットの入口を見て「地味で御役所画面」「こんな地味なボタン誰も押さない、客を遠ざけて何が楽しい」、
-   マーケットの画面に「白黒で四角四角でAI画面…もっとイラスト使え」「なんでいつもいつもドヨンとした画面」。
+   2026-11-15: 本体のサイトを蓄電所マーケットの見た目に合わせて再デザインした。
+   背景は、マーケットの入口が地味で目立たない・白黒の四角ばかりで暗い、という見直し（イラストを使い、色と丸みを足す）。
 
    マーケット（dealroom.scix.co.jp の public/pf.css）と同じにする:
    - 地は温かい白。ページの冒頭は、側ごとの色の重ねの帯（角の丸い大きな札）と絵（/img/market/*.svg＝マーケットの art.js から書き出し）
@@ -11,7 +10,7 @@
    - 札は角を丸め、白地に薄い影、上に色の太い線（色は順に青・橙・緑・紫）
    - 主なボタンは橙の丸いボタン、小見出しは白い丸い札に色の字
    変えないもの: ロゴ（名刺と同じ紺の字と金の X）・ゴシック体。
-   戻さないもの: 紺一色の帯・明朝体・生成り色と金の差し色の組み合わせ（訴訟のページの型＝O16-70）・角を立てた白黒の札。
+   戻さないもの: 紺一色の帯・明朝体・生成り色と金の差し色の組み合わせ（訴訟のページの型）・角を立てた白黒の札。
 
    ここは各ページの </head> の直前で読む（ページの <style> より後なので、同じ強さの規則はこちらが勝つ）。
    ページの <style> の色の変数（--navy・--gold・--accent・--off-white…）も、ここで新しい色に置き換える。
@@ -344,7 +343,7 @@ a[style*="border:1px solid #E6E6E6"]:hover{transform:translateY(-2px);box-shadow
 .hb-dr,.pj-band-btn{background:var(--m-go)!important;color:#fff!important;border-radius:999px!important;font-weight:900!important;box-shadow:0 6px 14px rgba(234,88,12,.28)}
 .pj-band td{background:linear-gradient(100deg,#0F7A52,#10B981)!important;color:#fff!important;border-radius:14px}
 
-/* ---------- 13c. はじめての方へ（トップ・2026-11-15 中島「接しやすい会社にして。イメージも」）: 代表の顔と吹き出し・4つの安心の札・相談のボタン ---------- */
+/* ---------- 13c. はじめての方へ（トップ・2026-11-15: 接しやすい会社に見えるように追加）: 代表の顔と吹き出し・4つの安心の札・相談のボタン ---------- */
 .hello{padding:64px 0 56px}
 .hello .container{background:#fff;border-radius:var(--m-r-lg);box-shadow:var(--m-shadow);padding:40px clamp(20px,4vw,44px) 36px!important;max-width:1024px!important}
 .hello-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 36px;align-items:center}
@@ -428,7 +427,7 @@ html[lang="en"] :is(h1,h2,h3){font-family:var(--m-num)!important;letter-spacing:
 }
 
 /* ======================================================
-   マーケットと同じ骨組み（2026-11-15 中島「全然デザイン違うし。片手間」）。
+   マーケットと同じ骨組み（2026-11-15: 本体とマーケットの見た目が違っていたためそろえた）。
    色だけでなく、マーケットの画面の組み方（dealroom の flow.css・pf.css・dr2.css）をそのまま写す:
    - 中身の幅は 1080px（左右 28px の余白）＝冒頭の札の幅は 1024px
    - 区画の見出しは左寄せの太字 26px。小見出しは丸い札でなく、マーケットの .eyebrow（色の字と菱形）
@@ -489,7 +488,7 @@ section:not(:is(.hero,.cta,.f-hero,.kh,.contact-hero,.legal-hero,.article-header
 .scix-footer-company .representative{color:#CBD5E1!important}
 .scix-footer-copyright{margin:0!important;color:#94A3B8!important;font-size:12px!important}
 
-/* トップ（日英中）: 会社の説明と、売る／買うの入口2つ（2026-11-15 中島「蓄電所に変えちゃだめ」「ポエムにするな」） */
+/* トップ（日英中）: 会社の説明と、売る／買うの入口2つ（2026-11-15: 蓄電所の頁にはせず、飾らない説明にした） */
 .hero.x-top .xt h1{font-size:clamp(1.8rem,3.3vw,2.7rem)!important}
 .xt-note{font-size:.86rem!important;color:var(--m-muted)!important;margin:6px 0 0!important;line-height:1.8!important}
 .xt-doors{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0 4px;max-width:620px}
