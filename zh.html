@@ -993,6 +993,74 @@ body {
   ]
 }
 </script>
+<style>
+/* 前の版の参考収益模型の表と微信の案内（規則は前の版のまま） */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.region-table {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+  background: var(--white);
+  border: 1px solid var(--border);
+}
+
+.region-table caption {
+  caption-side: top;
+  text-align: left;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--navy);
+  padding-bottom: 14px;
+}
+
+.region-table th {
+  padding: 14px 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: rgba(255,255,255,0.85);
+  background: var(--navy);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.region-table td {
+  padding: 15px 16px;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.region-table td.num { font-family: var(--font-serif); font-weight: 600; color: var(--navy); }
+.region-table td .sub { display: block; font-size: 0.7rem; color: var(--text-light); font-weight: 400; }
+.region-table tbody tr:nth-child(odd) td { background: rgba(31,42,72,0.015); }
+.region-table tbody tr:last-child td { border-bottom: none; }
+.model-disclaimer {
+  margin-top: 22px;
+  padding: 20px 24px;
+  background: rgba(31,42,72,0.03);
+  border-left: 3px solid var(--gold);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.95;
+  max-width: 860px;
+}
+.wechat-band { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.wechat-band-inner { display: flex; align-items: center; gap: 48px; padding: 52px 0; }
+.wechat-band-text { flex: 1; }
+.wechat-band-text .section-label { color: var(--gold); }
+.wechat-band-title { font-family: var(--font-serif); font-size: 1.55rem; color: var(--navy); margin: 12px 0 12px; line-height: 1.45; }
+.wechat-band-text p { color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 22px; max-width: 540px; }
+.wechat-band-qr { flex-shrink: 0; text-align: center; }
+.wechat-band-qr img { width: 180px; height: 180px; border: 1px solid var(--border); border-radius: 12px; padding: 10px; background: var(--white); display: block; }
+.wechat-band-qr span { display: block; margin-top: 10px; font-size: 0.8rem; color: var(--text-light); letter-spacing: 0.05em; }
+@media (max-width: 768px) {
+  .wechat-band-inner { flex-direction: column; gap: 28px; text-align: center; padding: 40px 0; }
+  .wechat-band-text p { margin-left: auto; margin-right: auto; }
+}
+</style>
 <link rel="stylesheet" href="/theme.css">
 <link rel="stylesheet" href="/market-promo.css">
 </head>
@@ -1052,6 +1120,7 @@ body {
     </div>
     <div class="hello-go">
       <a class="btn-primary" target="_top" href="/zh-contact" onclick="window.gtag&&gtag('event','cta_click',{target:'zh_hello_contact'})">咨询（免费）→</a>
+      <a class="btn-secondary" target="_top" href="#wechat">微信咨询 →</a>
       <a class="btn-secondary" target="_top" href="/sell-form" onclick="window.gtag&&gtag('event','cta_click',{target:'zh_hello_sell'})">向本公司出售的估价（免费·日文页面）→</a>
     </div>
   </div>
@@ -1214,6 +1283,60 @@ body {
   </div>
 </section>
 
+<!-- ===== 参考收益模型（前の版の表の区画。数字と文は前の版のまま） ===== -->
+<section class="strengths" id="models" style="background:var(--off-white);">
+  <div class="container">
+    <div class="strengths-header">
+      <div class="section-label">收益结构</div>
+      <h2 class="section-title">参考收益模型</h2>
+    </div>
+  <div class="table-wrap">
+    <table class="region-table">
+      <caption>四大电力区域 · 参考收益模型一览（2MW / 8MWh 标准单元）</caption>
+      <thead>
+        <tr>
+          <th>电力区域</th>
+          <th>模型运转开始</th>
+          <th>容量市场（制度层）²</th>
+          <th>首年事业收益³</th>
+          <th>20 年累计事业收益³</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>东京</td><td>2027 年 5 月</td>
+          <td>约 3,000 万日元/年<span class="sub">第 4 年起</span></td>
+          <td class="num">约 1.50 亿日元</td>
+          <td class="num">约 30.4 亿日元</td>
+        </tr>
+        <tr>
+          <td>九州</td><td>2028 年 3 月</td>
+          <td>约 3,690 万日元/年<span class="sub">第 4 年起 · 四区域最厚</span></td>
+          <td class="num">约 0.79 亿日元</td>
+          <td class="num">约 20.6 亿日元</td>
+        </tr>
+        <tr>
+          <td>中部</td><td>2027 年 5 月</td>
+          <td>约 2,500 万日元/年<span class="sub">运转首年起</span></td>
+          <td class="num">约 0.64 亿日元</td>
+          <td class="num">约 14.3 亿日元</td>
+        </tr>
+        <tr>
+          <td>东北</td><td>2027 年 5 月</td>
+          <td>约 1,740 万日元/年<span class="sub">第 4 年起</span></td>
+          <td class="num">约 0.95 亿日元</td>
+          <td class="num">约 13.0 亿日元</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="model-disclaimer">
+    ² ³ 上表数字摘自合作方提供的参考收益模型。"事业收益"为扣除聚合商分成（15%）、运维、保险、偿却资产税等费用后的模型值（电池效率 86.5%、年衰减 2% 等前提）。该模型为基于一定前提假设的桌面测算，实际收益将因市场环境、聚合商运营策略、电力制度变更等因素大幅波动，<strong style="color:var(--navy);">不构成收益保证、投资建议或要约</strong>。最终决策请您在充分理解风险后自行作出。
+  </div>
+  </div>
+</section>
+
 <!-- ===== 洞见（中国語でよく読まれている JC-STAR と EPRX を先に） ===== -->
 <section class="knowledge-top" id="knowledge">
   <div class="container">
@@ -1328,6 +1451,22 @@ body {
     </div>
   </div>
 </section>
+
+<!-- ================= WECHAT BAND ================= -->
+<section class="wechat-band" id="wechat"><div class="container">
+  <div class="wechat-band-inner">
+    <div class="wechat-band-text">
+      <div class="section-label">微信咨询</div>
+      <h2 class="wechat-band-title">用微信直接联系我们</h2>
+      <p>扫描或长按识别右侧二维码添加，告诉我们您的预算规模与意向区域，我们将于工作日（JST 9:00–18:00）回复，并按需提供完整收益模型与《风险说明书》。</p>
+      <a target="_top" href="/zh-contact" class="btn-secondary">或填写保密咨询表 →</a>
+    </div>
+    <div class="wechat-band-qr">
+      <img src="/img/wechat-qr.png" alt="ScienceX 中岛晋也 微信二维码" width="180" height="180" loading="lazy">
+      <span>扫码添加</span>
+    </div>
+  </div>
+</div></section>
 
 <!-- ===== 联系我们 ===== -->
 <section class="cta" id="contact">
