@@ -127,7 +127,7 @@ p{margin-bottom:20px}
       "name": "What are the products in the balancing market?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "There are five products: Primary Reserve, Secondary Reserve 1, Secondary Reserve 2, Tertiary Reserve 1 and Tertiary Reserve 2. They differ on two axes, response time (within 10 seconds to within 60 minutes) and duration, and Primary Reserve has two participation methods: Online (dedicated line connection) and Offline (simple command system)."
+        "text": "There are five products: Primary Reserve, Secondary Reserve 1, Secondary Reserve 2, Tertiary Reserve 1 and Tertiary Reserve 2. They differ on two axes, response time (within 10 seconds to within 60 minutes) and duration, and Primary Reserve has two participation methods: Online (dedicated line connection) and Offline (no dedicated line; data submitted afterwards)."
       }
     },
     {
@@ -205,7 +205,7 @@ p{margin-bottom:20px}
 <h2>The Balancing Market Trades "Power Insurance"</h2>
 <p>The power grid must constantly balance supply and demand; otherwise, frequency deviates, leading to large-scale blackouts in the worst case. The Balancing Market is a market for trading the balancing capacity that fills this "gap."</p>
 <p>The buyers are general transmission and distribution companies (T&D companies; Tohoku Electric Power Network, TEPCO Power Grid, etc.), and the sellers are generation companies and battery operators. Sellers receive compensation for "standing by ready to operate at a specified output during specified time periods."</p>
-<p>Trading of all products began in April 2024. The Balancing Market has five products: Primary Reserve, Secondary Reserve 1, Secondary Reserve 2, Tertiary Reserve 1, and Tertiary Reserve 2. Differences between products are determined by two axes: "how quickly can it respond" and "how long can it sustain." Additionally, there is a "Composite" bidding method that bundles four products from Primary through Tertiary 1, allowing simultaneous entry into multiple products with a single bid. Primary Reserve has two participation methods: Online (dedicated line connection) and Offline (simple command system).</p>
+<p>Trading of all products began in April 2024. The Balancing Market has five products: Primary Reserve, Secondary Reserve 1, Secondary Reserve 2, Tertiary Reserve 1, and Tertiary Reserve 2. Differences between products are determined by two axes: "how quickly can it respond" and "how long can it sustain." Additionally, there is a "Composite" bidding method that bundles four products from Primary through Tertiary 1, allowing simultaneous entry into multiple products with a single bid. Primary Reserve has two participation methods: Online (dedicated line connection) and Offline (no dedicated line; data submitted afterwards).</p>
 <!-- scix-readnext: related articles -->
 <aside data-scix-readnext style="margin:32px 0;padding:14px 20px 10px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif">
   <div style="font-size:12px;font-weight:700;color:#555555;letter-spacing:.08em;margin-bottom:2px">Read next</div>
@@ -216,14 +216,14 @@ p{margin-bottom:20px}
 
 <h2 id="primary-reserve">What Is Primary Reserve — The Product Where Batteries Take Over 90%: Requirements, Prices and Response</h2>
 <p>Primary Reserve is the product that first absorbs instantaneous frequency fluctuations, and it requires a response within 10 seconds and a duration of 5 minutes or more. Batteries perform the function equivalent to a generator's governor-free (GF) operation through the automatic response of their inverters. The faster the response, the more advantageous the product, so batteries are best suited to it among the five products.</p>
-<p>There are two participation methods: Online, connected by a dedicated line, and Offline, responding through a simple command system. Batteries with installed capacity of 10 MW or more must use Online connection (per EPRX trading rules). Offline entry is limited to batteries under 10 MW, and the procurement cap for the Offline category is set at 4% of the Primary Reserve requirement.</p>
+<p>There are two participation methods: Online, connected by a dedicated line, and Offline, which needs no dedicated line and submits the response record afterwards. Batteries with installed capacity of 10 MW or more must use Online connection (per EPRX trading rules). Offline entry is limited to batteries under 10 MW, and the procurement cap for the Offline category is set at 4% of the Primary Reserve requirement.</p>
 <p>In market results, the FY2025 annual fulfillment rate was 40.8% for Primary Online (weighted national average) and only 3.4% for Primary Offline, where batteries hold a 97.8% share. Awarded unit prices are 9.6-13.5 yen for batteries and 2.1-3.4 yen for thermal, so the difference in response speed translates directly into a price difference. The price cap has been 15 yen since March 2026 and falls to 10 yen from delivery in September, but because fulfillment rates are low, competition will not intensify immediately. Detailed figures are in the sections below.</p>
 
 <h2>Design Philosophy of 5 Products — Divided by Speed and Purpose</h2>
 <table class="comparison-table">
   <tr><th>Product</th><th>Response Time</th><th>Duration</th><th>Grid Phenomenon</th><th>Battery Suitability</th></tr>
   <tr><td class="em">Primary Reserve<br><small style="color:#666666">Online</small></td><td>Within 10 sec</td><td>5+ min</td><td>Instantaneous frequency fluctuation<br><small style="color:#666666">(GF: Auto response)</small></td><td>Excellent — Most suited</td></tr>
-  <tr><td class="em">Primary Reserve<br><small style="color:#666666">Offline</small></td><td>Within 10 sec<br><small style="color:#666666">(30 sec during monitoring)</small></td><td>5+ min<br><small style="color:#666666">(No setting during monitoring)</small></td><td>Instantaneous frequency fluctuation<br><small style="color:#666666">(GF: Simple command)</small></td><td>Excellent</td></tr>
+  <tr><td class="em">Primary Reserve<br><small style="color:#666666">Offline</small></td><td>Within 30 sec</td><td>No setting</td><td>Instantaneous frequency fluctuation<br><small style="color:#666666">(GF: Auto response)</small></td><td>Excellent</td></tr>
   <tr><td class="em">Secondary Reserve 1</td><td>Within 5 min</td><td>30 min</td><td>Short-cycle supply/demand fluctuation<br><small style="color:#666666">(LFC: Central control)</small></td><td>Excellent</td></tr>
   <tr><td class="em">Secondary Reserve 2</td><td>Within 5 min</td><td>30 min</td><td>Economic load dispatch<br><small style="color:#666666">(EDC: Fast response type)</small></td><td>Good</td></tr>
   <tr><td class="em">Tertiary Reserve 1</td><td>Within 15 min</td><td>30 min</td><td>Economic load dispatch<br><small style="color:#666666">(EDC: Slow response type)</small></td><td>Good</td></tr>
@@ -243,8 +243,8 @@ p{margin-bottom:20px}
 <p>Primary Reserve has two participation methods: "Online" and "Offline." This is an important classification directly linked to battery equipment configuration and costs, with significant differences in market performance. Note that all products from Secondary Reserve onward require Online connection.</p>
 <h3>Online (Dedicated Line Connection)</h3>
 <p>A method of connecting with the transmission operator via a dedicated communication line and responding to real-time commands. Frequency fluctuations are detected and output is adjusted automatically. Installation of the dedicated line costs tens of millions of yen, but enables bidding in all time periods and all slots.</p>
-<h3>Offline (Simple Command System)</h3>
-<p>A method that requires no dedicated line and responds via a simple command system. The barrier to entry is lower since dedicated line costs are not incurred. However, for batteries with installed capacity of 10 MW or more (extra-high voltage connection), Online connection is mandatory for Primary Reserve participation, and Offline entry is limited to batteries under 10 MW (per EPRX trading rules). Note that for generators, Offline applies to single-unit capacity under 1 MW, with a different threshold than batteries. The procurement cap for the Offline category is set at 4% of the Primary Reserve requirement, and from FY2026, the solicitation volume has also been reduced (changed to 1-sigma equivalent, discussed below).</p>
+<h3>Offline (No Dedicated Line; Data Submitted Afterwards)</h3>
+<p>A method that requires no dedicated line: the battery responds under its own control and submits the response data afterwards. The barrier to entry is lower since dedicated line costs are not incurred. However, for batteries with installed capacity of 10 MW or more (extra-high voltage connection), Online connection is mandatory for Primary Reserve participation, and Offline entry is limited to batteries under 10 MW (per EPRX trading rules). Note that for generators, Offline applies to single-unit capacity under 1 MW, with a different threshold than batteries. The procurement cap for the Offline category is set at 4% of the Primary Reserve requirement, and from FY2026, the solicitation volume has also been reduced (changed to 1-sigma equivalent, discussed below).</p>
 <div class="highlight-box">
   <strong>Online vs Offline Market Results (FY2025):</strong><br>
   The Primary Online annual fulfillment rate is 40.8% (weighted national average). Battery share is 19.7%, second behind Thermal (72.2%).<br>
@@ -318,7 +318,7 @@ p{margin-bottom:20px}
 <a target="_top" href="/en/column-area-data" class="next-link">
   <div>
     <div class="next-link-label">NEXT → COLUMN 16</div>
-    <div class="next-link-title">Balancing Market Award Results by Area — Reading the Battery Business Environment from 9 Power Area and 7 Product Data</div>
+    <div class="next-link-title">Balancing Market Award Results by Area — Reading the Battery Business Environment from 9 Power Area and 5 Product Data</div>
   </div>
   <span class="next-link-arrow">→</span>
 </a>
