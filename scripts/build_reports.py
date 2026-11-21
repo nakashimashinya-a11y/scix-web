@@ -445,8 +445,8 @@ def page_count(m, en=False):
 
 def render_index_en(rows):
     path = "/en/report"
-    title = "Battery Storage Market Notes | Balancing, wholesale and capacity markets in Japan | ScienceX"
-    desc = "Monthly charts on Japan's three markets for battery storage (EPRX balancing, JEPX wholesale, OCCTO capacity), from published data and ScienceX records. Sources cited, PDF available."
+    title = "Japan Battery Storage Market Notes (Monthly) | ScienceX"
+    desc = "Monthly charts of Japan's EPRX balancing, JEPX wholesale and OCCTO capacity markets, from public data and our own records. Sources cited, PDF available."
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
                 "name": title, "description": desc, "inLanguage": "en", "publisher": EN_ORG,
