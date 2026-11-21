@@ -22,6 +22,7 @@
   report/latest.json                最新号の要点（号・URL・今月の動きのうち需給調整市場と卸電気の1文ずつ・対象の月）。
                                     header.js が記事（需給調整市場・卸電気・容量市場）に「最新の数字」の札を出すのに読む（2026-11-21）。
                                     中身は号の頁（説明文・今月の動き3つ）に出している文だけで、新しい数字は作らない。
+  report/data/, en/report/data/, report/area/<slug>/   号をまたいだ推移の頁と CSV（scripts/build_report_data.py。号と同じ md の表から）
 2026-11-21（読まれやすくする第1段）:
   号の頁に「この号の数字の読み方」（関係する記事への段＝READING）を足し、SNS の画像（og:image）を号の図（OG_FIG・大きさと縦横比が合う物だけ）に。
   sitemap の lastmod は、焼き直して頁の中身が変わった日（変わらなければ前の値か発行日の新しいほう）にする。
@@ -52,6 +53,7 @@ import tempfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import build_market_data as bmd  # noqa: E402  head / FOOTER / CSS / ld / crumbs / nav_crumbs / ORG を共用する
+import build_report_data as brd  # noqa: E402  市場データ（/report/data）とエリアの頁（/report/area/<slug>）
 
 HOME = os.path.expanduser("~")
 SRC = os.environ.get("SCIX_REPORT_SRC", os.path.join(HOME, "マイドライブ", "9_システム", "_作成物"))
@@ -280,6 +282,28 @@ def reading_section(lang="ja"):
             f'  <div class="rp-read">{"".join(groups)}</div>\n</div></section>')
 
 
+# 号をまたいだ推移の頁（build_report_data.py が焼く）への入口。焼いた頁だけ出す（DATA_PAGES は main が決める）。
+DATA_PAGES = set()
+DATA_LINKS = {
+    "ja": [("/report/data", "市場データ（号をまたいだ推移）", "卸電気（JEPX）の月ごとの平均と4時間の値差、容量市場のエリアプライスを、エリア別に号をまたいで並べました。CSV もあります。"),
+           ("/report/area/tokyo", "東京エリアの市場データ", "東京エリアの卸電気の月ごとの推移と容量市場の約定価格、エリアの公開案件の件数。"),
+           ("/report/area/kyushu", "九州エリアの市場データ", "九州エリアの卸電気の月ごとの推移と容量市場の約定価格、エリアの公開案件の件数。")],
+    "en": [("/en/report/data", "Market Data: JEPX spot and capacity prices across issues",
+            "Monthly JEPX averages and 4-hour spreads by area, and capacity market area prices, laid out across issues. CSV downloads included.")],
+}
+
+
+def data_section(lang="ja"):
+    """市場データ（号をまたいだ推移）とエリアの頁への入口の段（一覧の頁と各号の頁）。頁が焼かれていなければ空。"""
+    items = [(h, t, d) for h, t, d in DATA_LINKS[lang] if h.lstrip("/") + "/index.html" in DATA_PAGES]
+    if not items:
+        return ""
+    li = "".join(f'<li><a class="t" href="{h}">{esc(t)}</a><p>{esc(d)}</p></li>' for h, t, d in items)
+    h2 = "号をまたいだ数字" if lang == "ja" else "Figures across issues"
+    return (f'<section class="md" id="data"><div class="container rp-body">\n  <h2 class="md-h">{h2}</h2>\n'
+            f'  <ul class="rp-list">{li}</ul>\n</div></section>')
+
+
 def latest_json(m, doc, md_text, en_doc=None, en_md=""):
     """report/latest.json の中身。号の頁の「今月の動き3つ」の文をそのまま入れる（言い直さない・数字を作らない）。"""
     def pick(d, src, eprx_re, jepx_re, month_re, text):
@@ -485,6 +509,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
 {chr(10).join(secs)}
 {gallery}
 {reading_section("ja")}
+{data_section("ja")}
 {cite}
 {cta}{bmd.FOOTER}
 </body>
@@ -545,6 +570,7 @@ def render_month_en(m, doc, figs, nav=None):
 </div></section>
 {chr(10).join(secs)}
 {reading_section("en")}
+{data_section("en")}
 {cite}
 {cta}{bmd.EN_FOOTER}
 </body>
@@ -590,6 +616,7 @@ def render_index_en(rows):
   <h1>Battery Storage Market Notes</h1>
   <p>A battery storage site earns from three markets: the balancing market (EPRX), wholesale power (JEPX) and the capacity market (OCCTO). Each month we chart the latest figures for all three, from published data and our own records. Newest first.</p>
 </div></section>
+{data_section("en")}
 <section class="md"><div class="container rp-body">
   <ul class="rp-list">{li}</ul>
   <p class="md-note" style="margin-top:16px">Charts and figures may be reused with the source stated (<a href="/en/press">citation guide</a>). For the projects we list, see <a href="/en/projects">Projects</a> (updated daily).</p>
@@ -622,6 +649,7 @@ def render_index(rows, has_en=False):
   <h1>蓄電所の市場ノート</h1>
   <p>蓄電所（系統用蓄電池）の収入は、①需給調整市場（EPRX）・②卸電気（JEPX）・③容量市場（OCCTO）の3つの市場から入ります。その3つの数字を、公表データと当社の記録から毎月まとめています。新しい号が上です。</p>
 </div></section>
+{data_section("ja")}
 <section class="md"><div class="container rp-body">
   <ul class="rp-list">{li}</ul>
   <p class="md-note" style="margin-top:16px">図表や数値は、出典を明記すればそのままお使いいただけます（<a href="/press">引用・転載ガイド</a>）。売り案件の集計は <a href="/market-data">市場データ</a>（毎朝更新）に。</p>
@@ -760,6 +788,14 @@ def main():
 
     files = {}   # 相対パス -> bytes
     rows = []
+    # 市場データ（号をまたいだ推移）とエリアの頁（2026-11-21）。号と同じ md の表から焼く（build_report_data.py）。
+    # 号の頁・一覧の頁の入口（data_section）が、焼かれた頁だけを指すように、先に焼く。
+    rd_files, rd_sm, rd_notes = brd.build(sys.modules[__name__], months, docs)
+    for n in rd_notes:
+        print(n)
+    files.update(rd_files)
+    DATA_PAGES.clear()
+    DATA_PAGES.update(k for k in rd_files if k.endswith("/index.html"))
     with tempfile.TemporaryDirectory() as tmp:
         for i, m in enumerate(months):                   # 新しい月が先
             doc = docs[m["key"]]
@@ -823,7 +859,14 @@ def main():
                 touched.add("/" + rel[: -len("/index.html")])
         sm_path = os.path.join(ROOT, "sitemap.xml")
         sm = open(sm_path, encoding="utf-8").read()
-        sm2 = sitemap_add(sm, rows, en_rows, touched, datetime.date.today().isoformat())
+        today = datetime.date.today().isoformat()
+        sm2 = sitemap_add(sm, rows, en_rows, touched, today)
+        # 市場データ・エリアの頁の lastmod も号の頁と同じ決め方（発行日・今の値・中身が変わった日のうち新しいもの）
+        rd_ent = []
+        for p_, d_, pr_, alt_, lang_ in rd_sm:
+            mt = re.search(r"<url><loc>" + re.escape(BASE + p_) + r"</loc>.*?<lastmod>([0-9-]{10})</lastmod>", sm2)
+            rd_ent.append((p_, max([d_] + ([mt.group(1)] if mt else []) + ([today] if p_ in touched else [])), pr_, alt_, lang_))
+        sm2 = brd.sitemap_add(sm2, rd_ent, BASE)
         if sm2 != sm:
             files["sitemap.xml"] = sm2.encode("utf-8")
 
