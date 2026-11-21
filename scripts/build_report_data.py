@@ -863,7 +863,7 @@ def render_data(br, data, months, lang, has_en):
 EN_CTA = """<section class="cta"><div class="container">
   <h2>Want to see the projects behind these numbers? Visit Chikudensho Market</h2>
   <p>On Chikudensho Market, our marketplace for battery storage sites, you can browse current listings without registering. Prices and documents are available after free registration, where you agree to a confidentiality undertaking on the registration screen (no signed paper is needed).</p>
-  <a class="btn-primary" href="https://dealroom.scix.co.jp/catalog?lang=en" target="_top">Browse projects on Chikudensho Market &rarr;</a>
+  <a class="btn-primary" href="https://dealroom.scix.co.jp/en/catalog" target="_top">Browse projects on Chikudensho Market &rarr;</a>
 </div></section>
 """
 
