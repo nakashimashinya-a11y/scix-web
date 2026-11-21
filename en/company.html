@@ -861,6 +861,11 @@ body {
 /* Founder message section on a light background (as on the Japanese page) */
 #message{background:var(--off-white);color:var(--text-primary)}
 #message .section-title{color:var(--navy)}
+/* English labels are longer than the Japanese ones: let the hero grid shrink to the screen */
+.hero .container>*{min-width:0}
+.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stat-number{overflow-wrap:anywhere}
+@media (max-width:768px){.stat-number{font-size:1.25rem}}
 </style>
 <script type="application/ld+json">
 {
