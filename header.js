@@ -71,8 +71,6 @@
   // Columns that exist in Japanese only. Switching language from these must
   // fall back to the knowledge hub instead of a URL that does not exist.
   var JA_ONLY_COLUMNS = [
-    '/column-capacity-market',
-    '/column-day-ahead',
     '/column-investment-tax-law',
     '/column-investment-tax-practice',
     '/column-investment-tax-schedule',
@@ -83,6 +81,11 @@
     '/column-study-reply-2',
     '/column-study-reply-3',
     '/column-study-reply-4'
+  ];
+  // Columns with an English page but no Chinese page yet: the 简中 link goes to the Chinese knowledge hub.
+  var NO_ZH_COLUMNS = [
+    '/column-capacity-market',
+    '/column-day-ahead'
   ];
   // Pages with no Japanese counterpart. /grid-storage is the closest JA page
   // (it is the "what is grid-scale storage" explainer these two translate).
@@ -456,7 +459,7 @@
 
   var zhHref;
   if (isZh) zhHref = path;
-  else if (isCol) zhHref = jaOnlyColumn ? '/zh-knowledge' : ('/zh-column-' + loc.slice('/column-'.length));
+  else if (isCol) zhHref = (jaOnlyColumn || NO_ZH_COLUMNS.indexOf(loc) !== -1) ? '/zh-knowledge' : ('/zh-column-' + loc.slice('/column-'.length));
   else if (TRILINGUAL[loc]) zhHref = TRILINGUAL[loc].zh;
   else zhHref = '/zh';
 
@@ -1147,7 +1150,7 @@
     // 需給調整市場・卸電気・容量市場を扱う記事（2026-11-21 に選んだ11本。英語は英語版のある物）
     var RP_COLS = ['/column-balancing-market', '/column-eprx', '/column-area-data', '/column-price-cap', '/column-balancing-saturation',
       '/column-bidding-ceiling-market', '/column-day-ahead', '/column-revenue', '/column-regional-revenue', '/column-merchant', '/column-capacity-market'];
-    var RP_JA_ONLY = ['/column-day-ahead', '/column-capacity-market'];
+    var RP_JA_ONLY = [];   // 英語版の無い記事（容量市場・前日取引化は英語版ができたので外した）
     var wantCard = isCol && ((isJa && RP_COLS.indexOf(loc) !== -1) || (isEn && RP_COLS.indexOf(loc) !== -1 && RP_JA_ONLY.indexOf(loc) === -1));
     var cardCss = [
       '.scix-rp-card{max-width:760px;margin:36px 0;padding:18px 22px 16px;background:#fff;border:1px solid #D6E9E0;border-left:6px solid #138A62;border-radius:18px;box-shadow:0 8px 22px rgba(31,42,72,.08);font-family:"Noto Sans JP",sans-serif;box-sizing:border-box;color:#0B1530}',
