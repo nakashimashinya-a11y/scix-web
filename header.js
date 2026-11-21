@@ -560,6 +560,9 @@
       '.scix-nl-done{font-size:.95rem;font-weight:800;color:#0F7A52;line-height:1.7}',
       '.scix-nl-err{font-size:.82rem;color:#B42318;margin-top:8px}',
       '.scix-nl .scix-nl-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}',
+      '.scix-nl.scix-nl-rp{background:linear-gradient(118deg,#BDEBD6 0%,#E8F8F0 52%,#FFF0D6 100%)}',
+      '.scix-nl.scix-nl-rp .scix-nl-label{color:#0F7A52}',
+      '.scix-nl.scix-nl-rp input:focus{border-color:#138A62;box-shadow:0 0 0 3px rgba(19,138,98,.22)}',
       '@media(max-width:600px){.scix-nl{margin:32px 16px 0;padding:22px 18px 18px;border-radius:20px}.scix-nl input.scix-nl-name{flex:1 1 100%}.scix-nl button{flex:1 1 100%}}'
     ].join('\n');
     var nlStyle = document.createElement('style');
@@ -580,8 +583,13 @@
       '<p class="scix-nl-note">配信は各メールの末尾からいつでも解除できます。アドレスは更新のお知らせにだけ使います（<a href="/privacy" target="_top">プライバシーポリシー</a>）。</p>'
     ].join('\n');
 
-    function nlMount(el, where) {
-      el.className = 'scix-nl';
+    // 2026-11-21: 市場ノート（/report・/report/<月>）にも登録の箱を出す。
+    // 受け口は記事の箱と同じ /api/newsletter（_page に /report… が残るので、どの箱から来たかは名簿の page で分かる）。置き場所の名前は report_index／report_issue。
+    // 文は今の約束（週1本の記事）のまま。毎月の号をメールで送る形にするときは、文もそれに合わせて替える。
+    var isReportPage = loc === '/report' || /^\/report\/\d{4}-\d{2}$/.test(loc);
+
+    function nlMount(el, where, isRp) {
+      el.className = 'scix-nl' + (isRp ? ' scix-nl-rp' : '');
       el.setAttribute('data-where', where);
       el.innerHTML = nlHtml;
       var form = el.querySelector('form');
@@ -647,6 +655,18 @@
       var slots = document.querySelectorAll('[data-scix-newsletter]');
       if (slots.length) {
         for (var s = 0; s < slots.length; s++) nlMount(slots[s], slots[s].getAttribute('data-scix-newsletter') || 'slot');
+        return;
+      }
+      if (isReportPage) {
+        try {
+          // 号の頁は「蓄電所マーケットで案件を見る」の帯（section.cta）の上、一覧の頁はフッターの上
+          var at = document.querySelector('section.cta') || document.querySelector('footer.scix-footer');
+          if (!at) return;
+          var rbox = document.createElement('div');
+          at.parentNode.insertBefore(rbox, at);
+          rbox.style.marginBottom = '48px';
+          nlMount(rbox, loc === '/report' ? 'report_index' : 'report_issue', true);
+        } catch (err) { /* 箱を出せなくても頁はそのまま */ }
         return;
       }
       if (!isCol) return;
@@ -937,6 +957,8 @@
   //  7d. 問い合わせの出所: 最初に着いた頁・その前のサイト（ホスト名だけ）・直前に見ていた頁・出所の印（src・utm）を sessionStorage に覚え、
   //      /api/contact へ送るフォームに隠し欄（_entry_page・_entry_ref・_prev_page・_src・_utm）で渡す。受け口（web-contact.ts）は「_」で始まる欄を
   //      断らずに本文から外すので、今は届いても残らない（受け口に記録の行を足せば残る）。頁の住所は path だけ（問い合わせの引数は持たない）。
+  //  7e. 記事 → 市場ノート: 需給調整市場・卸電気・容量市場の記事に、/report/latest.json（build_reports.py が焼く）の「最新の数字」の札を出す。
+  //      JSON が読めなければ出さない。札の文は号の頁の「今月の動き」の文そのまま（言い直さない）。
   try { (function () {
     var MARKET_HOST = 'dealroom.scix.co.jp';
     var langSfx = isEn ? '-en' : (isZh ? '-zh' : '');
@@ -1119,7 +1141,92 @@
       } catch (err) { /* ignore */ }
     }
 
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fillForms); else fillForms();
+    // ---- 7e. 記事 → 市場ノートの「最新の数字」の札 ----
+    // 需給調整市場・卸電気・容量市場を扱う記事（2026-11-21 に選んだ11本。英語は英語版のある物）
+    var RP_COLS = ['/column-balancing-market', '/column-eprx', '/column-area-data', '/column-price-cap', '/column-balancing-saturation',
+      '/column-bidding-ceiling-market', '/column-day-ahead', '/column-revenue', '/column-regional-revenue', '/column-merchant', '/column-capacity-market'];
+    var RP_JA_ONLY = ['/column-day-ahead', '/column-capacity-market'];
+    var wantCard = isCol && ((isJa && RP_COLS.indexOf(loc) !== -1) || (isEn && RP_COLS.indexOf(loc) !== -1 && RP_JA_ONLY.indexOf(loc) === -1));
+    var cardCss = [
+      '.scix-rp-card{max-width:760px;margin:36px 0;padding:18px 22px 16px;background:#fff;border:1px solid #D6E9E0;border-left:6px solid #138A62;border-radius:18px;box-shadow:0 8px 22px rgba(31,42,72,.08);font-family:"Noto Sans JP",sans-serif;box-sizing:border-box;color:#0B1530}',
+      '.scix-rp-card *{box-sizing:border-box}',
+      '.scix-rp-label{display:inline-flex;font-size:.74rem;font-weight:900;color:#0F7A52;background:#E6F7EF;border-radius:999px;padding:3px 12px;margin:0 0 8px}',
+      '.scix-rp-h{font-weight:900;font-size:1.02rem;line-height:1.5;margin:0 0 4px;color:#0B1530}',
+      '.scix-rp-card ul.scix-rp-list{margin:6px 0 12px;padding:0 0 0 1.2em;list-style:disc;line-height:1.8;font-size:.9rem;color:#24304A}',
+      '.scix-rp-card ul.scix-rp-list li{margin:4px 0;padding:0;background:none;border:0}',
+      '.scix-rp-card ul.scix-rp-list li::before{content:none}',
+      '.scix-rp-card a.scix-rp-go{display:inline-block;background:#138A62;color:#fff;font-weight:900;font-size:.9rem;padding:9px 18px;border-radius:999px;text-decoration:none;margin:4px 12px 4px 0;border:0}',
+      '.scix-rp-card a.scix-rp-go:hover{background:#0F7A52;color:#fff}',
+      '.scix-rp-card a.scix-rp-all{font-size:.86rem;color:#0F7A52;text-decoration:underline;border:0}',
+      '@media(max-width:600px){.scix-rp-card{padding:16px 16px 14px;border-radius:16px}}'
+    ].join('\n');
+    function issueName(key, en) {
+      var y = key.slice(0, 4), mo = parseInt(key.slice(5, 7), 10);
+      var M = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      return en ? (M[mo - 1] + ' ' + y + ' issue') : (y + '年' + mo + '月号');
+    }
+    function cardAnchor() {
+      var ab = document.querySelector('.author-box');
+      var hs = document.querySelectorAll('h2');
+      for (var hi = 0; hi < hs.length; hi++) {
+        var tx = (hs[hi].textContent || '').replace(/\s+/g, '');
+        if (/^(よくある質問|FAQ|Frequentlyaskedquestions|FrequentlyAskedQuestions)/i.test(tx) &&
+            (!ab || (hs[hi].compareDocumentPosition(ab) & 4))) return hs[hi];
+      }
+      return ab;
+    }
+    function placeCard(j) {
+      try {
+        var d = isEn ? j.en : j;
+        if (!d || !d.eprx || !/^\/(en\/)?report\/\d{4}-\d{2}$/.test(d.url || '') || !/^\d{4}-\d{2}$/.test(j.key || '')) return;
+        var at = cardAnchor();
+        if (!at || !at.parentNode) return;
+        var st = document.createElement('style');
+        st.id = 'scix-rp-card-css';
+        st.textContent = cardCss;
+        document.head.appendChild(st);
+        var box = document.createElement('aside');
+        box.className = 'scix-rp-card';
+        box.setAttribute('data-where', 'body_end');
+        box.setAttribute('aria-label', isEn ? 'Latest figures from the Market Notes' : '市場ノートの最新の数字');
+        var lb = document.createElement('div'); lb.className = 'scix-rp-label'; lb.textContent = isEn ? 'Market Notes' : '市場ノート';
+        var h = document.createElement('div'); h.className = 'scix-rp-h';
+        h.textContent = isEn ? ('Latest figures (' + issueName(j.key, true) + ')') : ('最新の数字（' + issueName(j.key, false) + '）');
+        var ul = document.createElement('ul'); ul.className = 'scix-rp-list';
+        var items = [d.eprx, d.jepx];
+        for (var ii = 0; ii < items.length; ii++) {
+          if (!items[ii]) continue;
+          var li = document.createElement('li'); li.textContent = String(items[ii]).slice(0, 300); ul.appendChild(li);
+        }
+        var go = document.createElement('a'); go.className = 'scix-rp-go'; go.href = d.url; go.setAttribute('target', '_top');
+        go.textContent = isEn ? ('Read the ' + issueName(j.key, true) + ' →') : (issueName(j.key, false) + 'を読む →');
+        var all = document.createElement('a'); all.className = 'scix-rp-all'; all.href = isEn ? '/en/report' : '/report'; all.setAttribute('target', '_top');
+        all.textContent = isEn ? 'All issues' : 'これまでの号';
+        box.appendChild(lb); box.appendChild(h); box.appendChild(ul); box.appendChild(go); box.appendChild(all);
+        at.parentNode.insertBefore(box, at);
+        box.addEventListener('click', function (e) {
+          var a = linkOf(e);
+          if (!a || typeof window.gtag !== 'function') return;
+          try {
+            window.gtag('event', 'report_card_click', { page_path: path, link_url: a.getAttribute('href') || '', placement: 'body_end',
+              page_lang: (document.documentElement.lang || lang), transport_type: 'beacon' });
+          } catch (err) { /* ignore */ }
+        });
+      } catch (err) { /* 札を出せなくても頁はそのまま */ }
+    }
+    var cardData = null, domReady = document.readyState !== 'loading';
+    function tryCard() { if (cardData && domReady) { placeCard(cardData); cardData = null; } }
+    if (wantCard && window.fetch) {
+      try {
+        window.fetch('/report/latest.json', { credentials: 'omit' })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (j) { if (j && typeof j === 'object') { cardData = j; tryCard(); } })
+          .catch(function () { /* 読めなければ札を出さない */ });
+      } catch (err) { /* ignore */ }
+    }
+
+    function onReady() { domReady = true; fillForms(); tryCard(); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady); else onReady();
   })(); } catch (err) { /* 測る仕組みが失敗しても頁はそのまま */ }
 
   // --------------- 6. 面談の予約について ---------------
