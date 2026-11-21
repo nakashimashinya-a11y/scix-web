@@ -374,10 +374,13 @@
           <!-- Inquiry Type -->
           <div class="inquiry-types">
             <label>询问类型<span class="required">*</span></label>
-            <span class="chip active" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="投资（实物资产投资）" checked>投资</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="申请蓄电所市场（Chikudensho Market）访问权限" data-intent="dealroom">申请蓄电所市场</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="协作 / 合作">协作</span>
-            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="其他">其他</span>
+            <span class="chip active" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="购买项目（买方）" data-intent="buyer" checked>买方</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="卖方（出售项目·土地）" data-intent="seller">卖方（出售项目·土地）</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="土地咨询" data-intent="land">土地咨询</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="服务企业（EPC·施工·运维）" data-intent="vendor">服务企业（EPC·施工·运维）</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="媒体·采访" data-intent="media">媒体·采访</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="介绍（项目·投资人）" data-intent="partner">介绍项目</span>
+            <span class="chip" onclick="toggleChip(this)"><input type="radio" name="inquiry" value="合作·其他" data-intent="other">其他</span>
           </div>
 
           <!-- Name & Company -->
@@ -453,7 +456,7 @@
             </li>
             <li>
               <span class="check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
-              <span>可依需求提供<strong style="color:var(--navy);">详细资料与收益试算</strong></span>
+              <span>可依需求提供<strong style="color:var(--navy);">详细资料与收支模拟</strong></span>
             </li>
             <li>
               <span class="check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -599,10 +602,10 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
         try {
           var _il = document.querySelector('input[name="inquiry"]:checked');
           var _v = (_il && _il.value) || '';
-          var _intent = /DealRoom|Chikudensho Market|蓄电所市场/i.test(_v) ? 'dealroom' : /投资|投資家|Investor/i.test(_v) ? 'investor' :
+          var _intent = (_il && _il.getAttribute('data-intent')) || (/DealRoom|Chikudensho Market|蓄电所市场/i.test(_v) ? 'dealroom' : /投资|投資家|Investor/i.test(_v) ? 'investor' :
              /案件取得|買い手|Buyer/i.test(_v) ? 'buyer' :
              /售|売却|査定|Seller/i.test(_v) ? 'seller' :
-             /用地|Land/i.test(_v) ? 'land' : 'other';
+             /用地|Land/i.test(_v) ? 'land' : 'other');
           if (window.gtag) gtag('event', 'generate_lead', { form_type: 'contact', intent: _intent, page_lang: (document.documentElement.lang || 'zh-CN'), transport_type: 'beacon' });
         } catch (e) {}
         window.location.href = '/zh-thanks';
