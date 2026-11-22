@@ -829,7 +829,7 @@ def render_en_projects(ps, today, generated, weekly=()):
     jsonld = "\n".join([
         ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": url + "#webpage", "url": url, "name": title,
             "description": desc, "inLanguage": "en", "dateModified": generated,
-            "isPartOf": {"@type": "WebSite", "url": BASE + "/en", "name": "ScienceX"},
+            "isPartOf": {"@type": "WebSite", "@id": BASE + "/#website", "url": BASE + "/", "name": "ScienceX"},
             "publisher": {"@type": "Organization", "@id": BASE + "/#organization", "name": "ScienceX", "legalName": "Science X Inc.", "url": BASE + "/en"},
             "mainEntity": {"@type": "ItemList", "numberOfItems": n, "itemListElement": items}}),
         ld(crumbs([("Home", BASE + "/en"), ("Projects", url)])),
@@ -893,6 +893,7 @@ def render_en_projects(ps, today, generated, weekly=()):
   <h2>Looking for something specific?</h2>
   <p>Tell us the area, voltage class, size and timing you are looking for, and we will tell you which listed projects fit. Questions about the confidentiality undertaking, structure or process are welcome.</p>
   <a class="btn-primary" href="/en/contact">Contact ScienceX &rarr;</a>
+  <a class="btn-secondary" target="_top" href="https://dealroom.scix.co.jp/en" data-cta="hub-end" style="display:inline-block;padding:12px 22px;margin:8px 10px 0 8px;font-size:.95rem;text-decoration:none">See projects on Chikudensho Market &rarr;</a>
 </div></section>
 <script>
 (function(){{

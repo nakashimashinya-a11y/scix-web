@@ -91,8 +91,8 @@ def build(path: Path, cfg: dict) -> tuple[str, int]:
         "name": html.unescape(title).split("｜")[0].split("|")[0].strip(),
         "description": meta(src, "description"),
         "url": cfg["url"],
-        "isPartOf": {"@type": "WebSite", "name": "ScienceX", "url": BASE + "/"},
-        "publisher": {"@type": "Organization", "name": "Science X Inc."},
+        "isPartOf": {"@type": "WebSite", "@id": BASE + "/#website", "name": "ScienceX", "url": BASE + "/"},
+        "publisher": {"@type": "Organization", "@id": BASE + "/#organization", "name": "Science X Inc."},
         "mainEntity": {
             "@type": "ItemList",
             "numberOfItems": len(items),
