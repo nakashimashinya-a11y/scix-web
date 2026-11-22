@@ -18,6 +18,8 @@
 原本で確かめた事だけ。出どころは各区画の data-src に書く。
 制度・税・土地の語と問いは日本語の頁だけに置く（O16-53）。コラムの頁とトップ3頁には触らない。
 """
+from __future__ import annotations
+
 import html
 import json
 import re
@@ -68,7 +70,7 @@ GLOSS = {
     "glossary.html": {
         "set": f"{BASE}/glossary#set",
         "page": f"{BASE}/glossary",
-        "count": [r"(\d+)語"],
+        "count": [r"(\d+)語を", r"用語集・(\d+)語"],
         "terms": {
             "c-0": [
                 ("term-english-name", "系統用蓄電池の英語名（BESS・grid-scale battery storage）", "けいとうようちくでんちのえいごめい",
@@ -91,7 +93,7 @@ GLOSS = {
                  "「接続検討の要否確認」を申し込むときの依頼書。広域機関（OCCTO）が高圧用・特別高圧用の様式を公開していて、連系先の一般送配電事業者に出します。回答は原則1か月で、検討料はかかりません。",
                  "/column-equipment", "接続検討の要否確認とは", "/column-equipment"),
                 ("term-grid-connection-cost", "系統連系費用（工事費負担金の言い方）", "けいとうれんけいひよう",
-                 "系統につなぐための工事費のうち、申込者が負担する分をこう呼ぶことがあります。回答書・請求書の上の名前は「工事費負担金」で、契約申込みへの本回答で確定します。",
+                 "系統につなぐための工事費のうち、申込者が負担する分をこう呼ぶことがあります。回答書・請求書の上の名前は「工事費負担金」です。額は契約申込みへの本回答（連系承諾）で示されますが、最終額ではなく、工事の完了後の精算でもう一度動きます。",
                  "#term-工事費負担金", "工事費負担金", "/glossary#term-工事費負担金 /column-grid"),
                 ("term-wheeling-approval", "託送供給の承諾（連系承諾とあわせて届く紙）", "たくそうきょうきゅうのしょうだく",
                  "契約申込みへの承諾（連系承諾）と同封か、続けて届く書類の一つ。東京電力パワーグリッドでは「託送供給の承諾のお知らせ」が届きます。同じころに、工事費負担金の請求書と負担金契約書、ノンファーム型接続の同意書の控えもそろいます。",
@@ -124,7 +126,7 @@ GLOSS = {
     "en/glossary.html": {
         "set": f"{BASE}/en/glossary#set",
         "page": f"{BASE}/en/glossary",
-        "count": [r"(\d+) terms", r"(\d+) Terms"],
+        "count": [r"Glossary: (\d+) Terms", r"\"(\d+) terms for ", r"Glossary · (\d+) terms"],
         "terms": {
             "c-0": [
                 ("term-bess", "BESS (battery energy storage system)", None,
@@ -143,7 +145,7 @@ GLOSS = {
             ],
             "c-4": [
                 ("term-rights-sale", "Rights sale (権利渡し, 権利売り)", None,
-                 "Another name used in Japan for a rights transfer: the connection study reply and the land rights change hands before anything is built. Our listings show these projects as rights transfer (under development).",
+                 "Another name used in Japan for a rights transfer: the connection study reply and the land rights change hands before anything is built. Our listings show these projects as rights transfer (in development).",
                  "#term-rights-transfer", "Rights transfer", "/en/glossary#term-rights-transfer /en/glossary#term-form-of-acquisition"),
                 ("term-secondary", "Secondary (acquiring an operating storage station)", None,
                  "Buying a storage station that has started commercial operation and has a market trading record. What you buy is less the equipment than a verifiable cash flow that has built up month by month; the vehicle can be the assets or interests in the SPC.",
@@ -157,7 +159,7 @@ GLOSS = {
     "zh-glossary.html": {
         "set": f"{BASE}/zh-glossary#set",
         "page": f"{BASE}/zh-glossary",
-        "count": [r"(\d+)个术语"],
+        "count": [r"的(\d+)个术语", r"术语表・(\d+)个术语"],
         "terms": {
             "c-0": [
                 ("term-bess", "BESS（电池储能系统）・grid-scale battery storage", None,
@@ -213,10 +215,13 @@ def apply_glossary(path: str, src: str) -> str:
                  + json.dumps(ld, ensure_ascii=False, indent=1) + "\n</script>\n")
     src = insert_before(src, "</head>", block, path=path)
     # 語数を、置いた後の g-term の数に合わせる
+    # （定義の文 <dd> の中の数は数えない・書き換えない）
     n = src.count('class="g-term"')
-    for pat in cfg["count"]:
-        src = re.sub(pat, lambda m: m.group(0).replace(m.group(1), str(n)), src)
-    return src
+    parts = re.split(r"(<dd>.*?</dd>)", src, flags=re.S)
+    for k in range(0, len(parts), 2):
+        for pat in cfg["count"]:
+            parts[k] = re.sub(pat, lambda m: m.group(0)[:m.start(1) - m.start(0)] + str(n) + m.group(0)[m.end(1) - m.start(0):], parts[k])
+    return "".join(parts)
 
 
 # ---------------------------------------------------------------- Q&A（日本語だけ）
@@ -238,7 +243,7 @@ QA_NEW = [
     ("q27", "長期脱炭素電源オークション（LDA）の募集要綱は、どこで読めますか。",
      "<p>電力広域的運営推進機関（OCCTO）が公表しています。第4回（応札年度2026年度）の募集要綱は2026年9月2日に公表されました（<a href=\"https://www.occto.or.jp/assets/260902_boshuyoukou_long_2026.pdf\" target=\"_blank\" rel=\"noopener\">長期脱炭素電源オークション募集要綱（応札年度：2026年度）・PDF</a>）。</p>"
      "<p>応札の受付は2027年1月19日〜26日です。その前に事業者情報の登録（2026年10月13日〜16日）と電源等情報の登録（10月19日〜23日）があり、ここに間に合わなければ応札できません。</p>"
-     "<p>蓄電池の参加要件は、第3回（2025年度）から設備容量30MW以上・放電の連続6時間以上で、接続検討回答書の取得が応札の前提です。高圧2MW級の案件は、この要件に届きません。</p>",
+     "<p>蓄電池が参加できるのは、送電端3万kW（30MW）以上（第2回から）で、1日1回以上・連続6時間以上の運転を続けられるもの（第3回から）です。接続検討回答書の取得が応札の前提です。高圧2MW級の案件は、この要件に届きません。</p>",
      [("/column-lda", "長期脱炭素電源オークション（LDA）とは"), ("/column-auction", "メインオークションとLDAの違い")],
      "/column-lda https://www.occto.or.jp/assets/260902_boshuyoukou_long_2026.pdf"),
     ("q28", "接続検討は、申込みから回答まで、どう進みますか。",
@@ -249,7 +254,8 @@ QA_NEW = [
      [("/column-study-reply", "接続検討回答書を毎日読む当社が、最初に見る6か所"), ("/column-grid-rules", "接続検討・契約申込みの新ルール")],
      "/column-study-reply /column-development /column-grid-rules"),
     ("q29", "工事費負担金は、いつ、どう払いますか。",
-     "<p>額が確定するのは、契約申込みへの本回答（連系承諾）です。承諾と同封か続けて、請求書（明細書と振込用紙）と工事費負担金契約書が届きます。</p>"
+     "<p>額は、契約申込みへの本回答（連系承諾）で示されます。ただし最終額ではありません。机上計算の概算額のまま負担金契約を結ぶことがあり、差額は工事の完了後に追加請求か払戻しで精算します。額は承諾と精算で2回動くので、承諾の額を最終額として買値や計画に置かないでください。</p>"
+     "<p>承諾と同封か続けて、請求書（明細書と振込用紙）と工事費負担金契約書が届きます。</p>"
      "<p>負担金の契約は承諾の日から1か月以内に結び、入金は請求書の期日までです。期日は電力会社で違い、九州は発行日から1か月、中部は請求後1か月以内が原則です。分割で払う場合は、初回に50%（九州電力送配電の公表のフローでは50%以上）を払います。</p>"
      "<p>回答書に書かれた連系までの工期は、この入金の日から数えます。会計や税の扱いは、案件ごとに税理士にご確認ください。</p>",
      [("/column-study-reply-3", "連系承諾で確定するもの、まだ動くもの"), ("/column-grid", "系統連系工事費が10倍違う理由")],
@@ -298,7 +304,17 @@ SOMO = {
     "zh": ("/zh-column-somosomo", ["储能的根本——日本为什么需要储能", "过去没有储能，不也转得好好的吗", "旋转机械减少的电网，会失去什么", "为什么是“10秒”", "可再生能源越多，就越需要调整力吗", "让火电去调节，不就够了吗", "核电增加了，储能就不需要了吧？", "多建抽蓄，不就够了吗", "在市场上没买到的调整力，是从哪里来的", "数据中心一多，为什么答案是储能", "光伏，今后会怎样", "火电的量、核电的开机、需求", "储能会增加多少", "国家想让储能增加吗", "作为基础设施投资的储能，像什么", "都说收益会变薄，是真的吗？", "照搬海外做法，在日本能赚钱吗", "储能将来到底需要多少", "储能放在哪里都一样吗", "花多少钱买，能回来多少"]),
 }
 
-# 柱の頁（指令1）。/guide-* は別の持ち場が作っている最中で、決めた住所で先に張る。
+# 柱の頁（指令1）。/guide-* は別の持ち場が作っている最中なので、頁のファイルがリポジトリに
+# あるものだけを出す（無い住所は出さない＝404 を張らない）。柱の頁が入ったら、この生成器を
+# 回し直すと札と1行が足される（--check はその時「直しが要る」を返す）。
+
+
+def page_exists(href: str) -> bool:
+    rel = href.split("#")[0].lstrip("/")
+    if not rel:
+        return True
+    return (ROOT / f"{rel}.html").exists() or (ROOT / rel / "index.html").exists() or (ROOT / rel).is_file()
+
 PILLARS = {
     "ja": [
         ("/guide-balancing-market", "需給調整市場", "5つの商品・約定の実績・上限価格・前日取引化"),
@@ -307,7 +323,8 @@ PILLARS = {
         ("/guide-buy-sell", "案件の売買", "4つの買い方・売買の順番・買う前の確認"),
         ("/guide-siting-risk", "立地と運用のリスク", "区域・騒音・災害・保険・O&M"),
         ("/column-study-reply", "接続検討と系統連系", "回答書・承諾・工事費負担金の読み方（連載）"),
-        ("/column-investment-tax", "税と補助金", "即時償却（大胆な投資促進税制）の受付と手続き（連載）"),
+        ("/column-investment-tax", "税（即時償却）", "大胆な投資促進税制の受付と手続き（連載）"),
+        ("/column-subsidies", "補助金", "実効補助率と、使うかどうかの判断軸"),
         ("/column-jcstar", "JC-STAR", "★1の義務化はいつから・対象機器"),
     ],
     "en": [
@@ -348,7 +365,7 @@ PILLAR_CSS = ("<style>.g-pillars{display:grid;grid-template-columns:repeat(auto-
 
 def pillar_cards(lang: str) -> str:
     lis = "".join(f'<li><a target="_top" href="{h}"><strong>{html.escape(n)}</strong><span>{html.escape(d)}</span></a></li>'
-                  for h, n, d in PILLARS[lang])
+                  for h, n, d in PILLARS[lang] if page_exists(h))
     return f'<ul class="g-pillars">{lis}</ul>'
 
 
@@ -356,7 +373,7 @@ def apply_grid_storage(path: str, src: str) -> str:
     body = ("\n<!-- PILLARS -->\n<section class=\"section\" id=\"pillars\" data-src=\"/knowledge\">" + PILLAR_CSS +
             "\n  <div class=\"wrap\">\n"
             "    <h2 class=\"head\">テーマごとに、<em>くわしく読む。</em></h2>\n"
-            "    <p class=\"lead\">このページは「系統用蓄電池とは」の入口です。市場・収益・売買・手続きは、テーマごとの案内のページにまとめています。</p>\n"
+            "    <p class=\"lead\">このページは「系統用蓄電池とは」の入口です。ここから先は、テーマごとに続けて読めるページに分けています。</p>\n"
             f"    {pillar_cards('ja')}\n"
             "    <h3 style=\"margin:34px 0 0;font-size:1.1rem;color:#1F2A48\">連載「蓄電池の、そもそも」</h3>\n"
             "    <p style=\"margin:6px 0 0\">なぜ日本に蓄電池が要るのかを、電力の仕組みから順に答える連載です。</p>\n"
@@ -368,12 +385,12 @@ def apply_grid_storage(path: str, src: str) -> str:
 def apply_primer(path: str, src: str, lang: str) -> str:
     if lang == "en":
         h2, lead, h3, sub = ("Japan BESS by topic",
-                             "This primer is the entry point. Each topic below has its own guide that gathers our articles in order.",
+                             "This primer is the entry point. The pages below go deeper, one topic at a time.",
                              "Battery Storage, From First Principles",
                              "A series that answers, from how the grid works, why Japan needs batteries.")
     else:
         h2, lead, h3, sub = ("按主题深入阅读",
-                             "本页是入门。下面每个主题都有一篇导读，按顺序汇集本公司的文章。",
+                             "本页是入门。下面的页面按主题逐一深入。",
                              "系列「储能的根本」",
                              "从电力系统的运作出发，依次回答日本为什么需要储能。")
     body = (f'\n<h2 id="topics" data-src="/{"en/knowledge" if lang == "en" else "zh-knowledge"}">{h2}</h2>{PILLAR_CSS}\n'
@@ -386,7 +403,7 @@ KNOW_LINES = {
     "ja": {
         "basics": [("/grid-storage", "系統用蓄電池とは")],
         "market": [("/guide-balancing-market", "需給調整市場"), ("/guide-capacity-lda", "容量市場とLDA・長期契約"), ("/guide-revenue-cost", "収益と費用")],
-        "rules": [("/column-investment-tax", "税と補助金"), ("/column-study-reply", "接続検討と系統連系"), ("/column-jcstar", "JC-STAR")],
+        "rules": [("/column-investment-tax", "税（即時償却）"), ("/column-subsidies", "補助金"), ("/column-study-reply", "接続検討と系統連系"), ("/column-jcstar", "JC-STAR")],
         "deal": [("/guide-buy-sell", "案件の売買")],
         "land": [("/guide-siting-risk", "立地と運用のリスク")],
         "tech": [("/guide-siting-risk", "立地と運用のリスク"), ("/column-jcstar", "JC-STAR")],
@@ -417,6 +434,12 @@ def apply_knowledge(path: str, src: str, lang: str) -> str:
     else:
         blk_tpl, list_anchor = '<div class="cat-block" id="cat-{}">', '<div class="article-list"'
     for cat, links in KNOW_LINES[lang].items():
+        links = [(h, t) for h, t in links if page_exists(h)]
+        if not links:
+            if lang == "zh":
+                anchor = f'<span id="cat-{cat}" style="display:block;position:relative;top:-90px" aria-hidden="true"></span>\n  '
+                src = insert_before(src, blk_tpl.format(cat), wrap(f"anchor-{cat}", anchor), path=path)
+            continue
         a = " ・ ".join(f'<a target="_top" href="{h}">{html.escape(t)} →</a>' for h, t in links)
         line = f'<p class="cat-note" data-scix-pillar="{cat}" style="margin:-6px 0 18px">{KNOW_LABEL[lang]}{a}</p>\n      '
         src = insert_before(src, list_anchor, wrap(f"pillar-{cat}", line), after_from=blk_tpl.format(cat), path=path)
@@ -441,7 +464,7 @@ BTN = "display:inline-block;padding:12px 22px;margin:8px 10px 0 0;font-size:.95r
 
 def mid_cta(lang: str, mark: str = "hub-mid") -> str:
     h, p, b1, b2, href2 = CTA_TEXT[lang]
-    return (f'\n<aside class="scix-hub-cta" data-cta="{mark}" style="max-width:1100px;margin:28px auto;padding:20px 24px;'
+    return (f'\n<aside class="scix-hub-cta" data-cta="{mark}" style="box-sizing:border-box;width:calc(100% - 32px);max-width:1100px;margin:28px auto;padding:20px 24px;'
             f'background:#fff;border-radius:16px;box-shadow:0 6px 18px rgba(31,42,72,.08);border-left:6px solid #F97316">'
             f'<p style="margin:0 0 4px;font-weight:800;color:#1F2A48">{html.escape(h)}</p>'
             f'<p style="margin:0;color:#4A5468;font-size:.92rem;line-height:1.8">{html.escape(p)}</p>'
@@ -457,11 +480,11 @@ def end_btn(lang: str) -> str:
 
 def contact_market(lang: str) -> str:
     if lang == "en":
-        h, p, b = ("Before you write", "The projects themselves are listed on Chikudensho Market, with no registration needed to browse.",
+        h, p, b = ("Before you write", "The projects themselves are listed on Chikudensho Market, with no registration needed to browse. If you have a question, please use the form below.",
                    "See projects on Chikudensho Market →")
     else:
-        h, p, b = ("联系之前", "在售的项目本身已刊登在蓄电所市场，浏览无需注册。", "在蓄电所市场查看项目 →")
-    return (f'\n<aside class="scix-hub-cta" data-cta="contact-market" style="max-width:760px;margin:28px auto 40px;padding:20px 24px;'
+        h, p, b = ("联系之前", "在售的项目本身已刊登在蓄电所市场，浏览无需注册。如有疑问，请使用下方的表单。", "在蓄电所市场查看项目 →")
+    return (f'\n<aside class="scix-hub-cta" data-cta="contact-market" style="box-sizing:border-box;width:calc(100% - 32px);max-width:760px;margin:28px auto 8px;padding:20px 24px;'
             f'background:#fff;border-radius:16px;box-shadow:0 6px 18px rgba(31,42,72,.08);border-left:6px solid #F97316">'
             f'<p style="margin:0 0 4px;font-weight:800;color:#1F2A48">{html.escape(h)}</p>'
             f'<p style="margin:0;color:#4A5468;font-size:.92rem;line-height:1.8">{html.escape(p)}</p>'
@@ -479,6 +502,15 @@ CTA_PAGES = [
     ("en/primer.html", "en", '<h2 id="rights">', 'class="cta-btn">Start a confidential conversation →</a>', '<div class="cta-box">'),
     ("zh-primer.html", "zh", '<h2 id="rights">', 'class="cta-btn">开始保密沟通 →</a>', '<div class="cta-box">'),
     ("en/company.html", "en", None, 'href="/en/contact" class="btn-primary">Contact us →</a>', '<section class="cta" id="contact">'),
+    ("en/faq.html", "en", '<section class="f-sec alt" id="terms">', None, None),
+    ("en/market-entry-guide.html", "en", '<h2>5. Grid-connection mechanics, in brief</h2>', 'href="/en/contact" class="cta-button">Contact us →</a>', '<div class="cta-box">'),
+]
+# 今ある行き先がマーケットのリンクに、data-cta の印を付ける（無いときだけ・何度回しても同じ）
+ATTR_MARKS = [
+    ("en/faq.html", '<a class="f-sub" target="_top" href="https://dealroom.scix.co.jp/en">',
+     '<a class="f-sub" data-cta="hub-end" target="_top" href="https://dealroom.scix.co.jp/en">'),
+    ("en/faq.html", '<a href="https://dealroom.scix.co.jp/en/register" target="_top">',
+     '<a href="https://dealroom.scix.co.jp/en/register" data-cta="faq-register" target="_top">'),
 ]
 CONTACT_PAGES = [("en/contact.html", "en"), ("zh-contact.html", "zh")]
 
@@ -530,7 +562,7 @@ def apply_crumb(path: str, src: str) -> str:
 
 LD_PAGES = ["glossary.html", "grid-storage.html", "qa.html", "company.html", "en/faq.html", "en/glossary.html", "en/knowledge.html", "en/primer.html", "en/qa.html",
             "zh-glossary.html", "zh-knowledge.html", "zh-primer.html", "zh-qa.html",
-            "en/company.html", "en/contact.html", "zh-contact.html"]
+            "en/company.html", "en/contact.html", "zh-contact.html", "en/market-entry-guide.html"]
 # en/projects.html は scripts/build_market_data.py が全体を書く（@id と末尾の導線はそちらで出す）
 LD_RE = re.compile(r'(<script type="application/ld\+json">)(.*?)(</script>)', re.S)
 TOP_TYPES_PARTOF = {"Article", "FAQPage", "CollectionPage", "ContactPage", "WebPage"}
@@ -695,7 +727,10 @@ def build(path: str, src: str) -> str:
             src = apply_cta(path, src, lang, mid, end, end_from)
     for p, lang in CONTACT_PAGES:
         if p == path:
-            src = insert_before(src, '<footer class="scix-footer">', wrap("cta-contact", contact_market(lang)), path=path)
+            src = insert_before(src, '<!-- ===== MAIN CONTENT ===== -->', wrap("cta-contact", contact_market(lang) + "\n"), path=path)
+    for p, old, new in ATTR_MARKS:
+        if p == path:
+            src = src.replace(old, new)
     if path in CRUMB_PAGES:
         src = apply_crumb(path, src)
     if path in LD_PAGES:
