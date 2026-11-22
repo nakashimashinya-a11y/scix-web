@@ -19,6 +19,7 @@
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://www.scix.co.jp/market-data">
 <link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/market-data">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/market-data">
 <meta property="og:type" content="website">
 <meta property="og:title" content="系統用蓄電池の売り案件 市場データ｜管内別の件数・規模・連系の見込み（279件・毎朝更新）｜サイエンスエックス">
 <meta property="og:description" content="当社が扱う系統用蓄電池（蓄電所）の売り案件279件・合計2,195MWを、管内別・都道府県別・電圧別・取得の形・連系の見込み・回答書の工期で集計。接続検討の回答が出た案件だけ。毎朝更新。価格と資料は蓄電所マーケットで（無料登録）。">
@@ -76,6 +77,9 @@ table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}
 .scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(196,154,60,.5)}
 .md-svg{width:100%;height:auto;display:block;max-width:760px}.md-legend{display:flex;gap:16px;font-size:.8rem;color:var(--text-2);margin:4px 0 0}.md-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
 .md-scroll{overflow-x:auto;margin-top:18px}
+.md-t tbody th{background:none;color:var(--text);font-weight:500}.md-t caption{caption-side:top;text-align:left;font-size:.8rem;color:var(--text-3);padding:0 0 6px}
+.cite p{margin:4px 0}.cite .cite-line{margin:8px 0;padding:8px 12px;background:#fff;border:1px solid var(--border);border-radius:6px;overflow-wrap:anywhere}.cite .cite-meta{font-size:.8rem;color:var(--text-3);overflow-wrap:anywhere}
+.md-dl{list-style:none;padding:0;margin:0 0 6px;max-width:760px}.md-dl li{padding:8px 0;border-bottom:1px solid var(--border);font-size:.9rem}.md-dl a{color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold)}.md-dl small{display:block;color:var(--text-3);font-size:.8rem}
 @media(max-width:640px){.md-bar{grid-template-columns:7em 1fr 7em;font-size:.82rem}.hero{padding:48px 0 32px}}
 </style>
 <script type="application/ld+json">
@@ -108,7 +112,7 @@ table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}
  "@type": "Dataset",
  "@id": "https://www.scix.co.jp/market-data#dataset",
  "name": "系統用蓄電池の売り案件 市場データ（サイエンスエックス観測）",
- "description": "系統用蓄電池（蓄電所）の売り案件の件数・規模・電圧区分・取得の形・連系の見込み・回答書の工期を、管内別・都道府県別に集計したデータ。接続検討の回答が出た案件のみ。価格・地番・売主は含まない。毎朝更新。",
+ "description": "系統用蓄電池（蓄電所）の売り案件の件数・規模・電圧区分・取得の形・連系の見込み・回答書の工期を、管内別・都道府県別に集計したデータ。電圧×取得の形・規模の区分・連系までの月数の取得の形別と、週ごとの推移を含む。接続検討の回答が出た案件のみ。価格・単価・負担金の額・案件名・地番・売主は含まない。値のある件だけの集計は母数を併記。掲載の件数の増え方は、当社が一覧に載せた作業の波（まとめて載せた日がある）で、市場の伸びを表すものではありません。毎朝更新。",
  "url": "https://www.scix.co.jp/market-data",
  "inLanguage": "ja",
  "creator": {
@@ -142,12 +146,88 @@ table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}
   "権利譲渡",
   "完成渡し"
  ],
+ "measurementTechnique": "当社が蓄電所マーケットに載せた売り案件の公開項目（projects.json）を、毎朝数え直した集計",
+ "variableMeasured": [
+  {
+   "@type": "PropertyValue",
+   "name": "販売中の案件の件数",
+   "unitText": "件"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "合計出力",
+   "unitText": "MW"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "合計容量",
+   "unitText": "MWh"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "管内（一般送配電事業者の供給区域）"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "都道府県"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "電圧区分（高圧・特別高圧・低圧）"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "取得の形（権利譲渡・完成渡し）"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "進み具合（接続検討回答済・負担金確定・連系済）"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "規模の区分",
+   "unitText": "MW"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "連系までの月数（接続検討回答書の記載・中央値と区分）",
+   "unitText": "か月"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "運転開始の予定（年度・半期）"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "掲載月"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "週ごとの件数と合計出力",
+   "unitText": "件・MW"
+  }
+ ],
  "creditText": "出典: サイエンスエックス株式会社『系統用蓄電池の売り案件 市場データ』https://www.scix.co.jp/market-data",
- "distribution": {
-  "@type": "DataDownload",
-  "encodingFormat": "application/json",
-  "contentUrl": "https://www.scix.co.jp/projects.json"
- },
+ "distribution": [
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://www.scix.co.jp/files/market-data/market-data-summary.csv",
+   "name": "集計（CSV）"
+  },
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://www.scix.co.jp/files/market-data/market-data-weekly.csv",
+   "name": "週ごとの推移（CSV）"
+  },
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "application/json",
+   "contentUrl": "https://www.scix.co.jp/projects.json",
+   "name": "公開の一覧（JSON）"
+  }
+ ],
  "mainEntityOfPage": "https://www.scix.co.jp/market-data"
 }
 </script>
@@ -177,6 +257,72 @@ table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}
  ]
 }
 </script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Dataset",
+ "@id": "https://www.scix.co.jp/market-data#buyer-requests-dataset",
+ "name": "蓄電所マーケットの買主のリクエストの条件（選択肢ごとの数）",
+ "description": "蓄電所マーケットに買主が載せた、買いたい系統用蓄電池（蓄電所）の案件の条件を、いま載っている12件について選択肢ごとに数えたもの。買い方・電圧・求めるエリア・運転開始の希望・電力の手続き。買主の属性・載った日・推移は含まない。",
+ "url": "https://www.scix.co.jp/market-data#buyer-requests",
+ "inLanguage": "ja",
+ "creator": {
+  "@type": "Organization",
+  "@id": "https://www.scix.co.jp/#organization",
+  "name": "ScienceX",
+  "legalName": "サイエンスエックス株式会社",
+  "url": "https://www.scix.co.jp/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "@id": "https://www.scix.co.jp/#organization",
+  "name": "ScienceX",
+  "legalName": "サイエンスエックス株式会社",
+  "url": "https://www.scix.co.jp/"
+ },
+ "isAccessibleForFree": true,
+ "isBasedOn": "https://dealroom.scix.co.jp/needs",
+ "spatialCoverage": {
+  "@type": "Place",
+  "name": "日本"
+ },
+ "variableMeasured": [
+  {
+   "@type": "PropertyValue",
+   "name": "買い方",
+   "unitText": "件"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "電圧",
+   "unitText": "件"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "求めるエリア（複数選べる・延べ）",
+   "unitText": "件"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "運転開始の希望",
+   "unitText": "件"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "電力の手続き",
+   "unitText": "件"
+  }
+ ],
+ "distribution": [
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://www.scix.co.jp/files/market-data/buyer-requests-summary.csv",
+   "name": "買主のリクエストの条件（CSV）"
+  }
+ ]
+}
+</script>
 <link rel="stylesheet" href="/theme.css">
 </head>
 <body>
@@ -185,7 +331,7 @@ table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}
 <section class="hero"><div class="container">
   <div class="section-label">毎朝更新・当社観測</div>
   <h1>系統用蓄電池の売り案件 市場データ</h1>
-  <p>当社が扱う売り案件279件を、管内・都道府県・電圧・取得の形・連系の見込み・回答書の工期で数えました。どの管内に何件あり、いつ連系する見込みで、権利で買える案件と完成渡しの案件がどれだけあるか。案件を探す前の見当付けと、売る前の相場観（件数の分布）にお使いください。2026-11-22 時点です。</p>
+  <p>当社が扱う売り案件279件を、管内・都道府県・電圧・取得の形・連系の見込み・回答書の工期で数えました。どの管内に何件あり、いつ連系する見込みで、権利で買える案件と完成渡しの案件がどれだけあるか。案件を探す前の見当付けと、売る前の相場観（件数の分布）にお使いください。<time datetime="2026-11-22">2026-11-22</time> 時点です。集計は <a href="#download">CSV</a> でも取れます（<a href="/en/market-data" hreflang="en">English</a>）。</p>
   <div class="kpi">
     <div><b>279件</b><span>販売中の案件</span></div>
     <div><b>2,195MW</b><span>合計出力（4,433MWh）</span></div>
@@ -212,7 +358,7 @@ table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}
 <div class="md-bar"><span class="md-bar-l">北陸（北陸電力送配電）</span><span class="md-bar-t"><span class="md-bar-f" style="width:3.4%"></span></span><span class="md-bar-v">3件<small>（1%）</small></span></div>
 <div class="md-bar"><span class="md-bar-l">四国（四国電力送配電）</span><span class="md-bar-t"><span class="md-bar-f" style="width:1.1%"></span></span><span class="md-bar-v">1件<small>（0%）</small></span></div>
 </div></div>
-    <div><table class="md-t"><thead><tr><th>管内</th><th>件数</th><th>合計MW</th></tr></thead><tbody><tr><td><a href="/projects-tokyo">東京（東京電力パワーグリッド）</a></td><td class="n">64</td><td class="n">166</td></tr><tr><td><a href="/projects-chubu">中部（中部電力パワーグリッド）</a></td><td class="n">59</td><td class="n">436</td></tr><tr><td><a href="/projects-kyushu">九州（九州電力送配電）</a></td><td class="n">88</td><td class="n">927</td></tr><tr><td><a href="/projects-kansai">関西（関西電力送配電）</a></td><td class="n">24</td><td class="n">199</td></tr><tr><td><a href="/projects-chugoku">中国（中国電力ネットワーク）</a></td><td class="n">15</td><td class="n">175</td></tr><tr><td><a href="/projects-tohoku">東北（東北電力ネットワーク）</a></td><td class="n">22</td><td class="n">250</td></tr><tr><td><a href="/projects-hokkaido">北海道（北海道電力ネットワーク）</a></td><td class="n">3</td><td class="n">34</td></tr><tr><td><a href="/projects-hokuriku">北陸（北陸電力送配電）</a></td><td class="n">3</td><td class="n">6</td></tr><tr><td><a href="/projects-shikoku">四国（四国電力送配電）</a></td><td class="n">1</td><td class="n">2</td></tr></tbody></table></div>
+    <div><table class="md-t"><caption>管内別の件数と合計出力（合計MWは出力の値がある238件の合計）</caption><thead><tr><th scope="col">管内</th><th scope="col">件数</th><th scope="col">合計MW</th></tr></thead><tbody><tr><th scope="row"><a href="/projects-tokyo">東京（東京電力パワーグリッド）</a></th><td class="n">64</td><td class="n">166</td></tr><tr><th scope="row"><a href="/projects-chubu">中部（中部電力パワーグリッド）</a></th><td class="n">59</td><td class="n">436</td></tr><tr><th scope="row"><a href="/projects-kyushu">九州（九州電力送配電）</a></th><td class="n">88</td><td class="n">927</td></tr><tr><th scope="row"><a href="/projects-kansai">関西（関西電力送配電）</a></th><td class="n">24</td><td class="n">199</td></tr><tr><th scope="row"><a href="/projects-chugoku">中国（中国電力ネットワーク）</a></th><td class="n">15</td><td class="n">175</td></tr><tr><th scope="row"><a href="/projects-tohoku">東北（東北電力ネットワーク）</a></th><td class="n">22</td><td class="n">250</td></tr><tr><th scope="row"><a href="/projects-hokkaido">北海道（北海道電力ネットワーク）</a></th><td class="n">3</td><td class="n">34</td></tr><tr><th scope="row"><a href="/projects-hokuriku">北陸（北陸電力送配電）</a></th><td class="n">3</td><td class="n">6</td></tr><tr><th scope="row"><a href="/projects-shikoku">四国（四国電力送配電）</a></th><td class="n">1</td><td class="n">2</td></tr></tbody></table></div>
   </div>
 </div></section>
 
@@ -220,7 +366,7 @@ table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}
   <div class="section-label">都道府県別</div>
   <h2 class="md-h">都道府県別（上位10）</h2>
   <p class="md-lead">案件の多い都道府県です。38都道府県に案件があります。</p>
-  <table class="md-t"><thead><tr><th>都道府県</th><th>件数</th></tr></thead><tbody><tr><td>鹿児島県</td><td class="n">30</td></tr><tr><td>静岡県</td><td class="n">22</td></tr><tr><td>埼玉県</td><td class="n">20</td></tr><tr><td>熊本県</td><td class="n">18</td></tr><tr><td>岐阜県</td><td class="n">17</td></tr><tr><td>栃木県</td><td class="n">14</td></tr><tr><td>宮崎県</td><td class="n">13</td></tr><tr><td>佐賀県</td><td class="n">11</td></tr><tr><td>福岡県</td><td class="n">10</td></tr><tr><td>福島県</td><td class="n">9</td></tr></tbody></table>
+  <table class="md-t"><caption>都道府県別の件数（上位10）</caption><thead><tr><th scope="col">都道府県</th><th scope="col">件数</th></tr></thead><tbody><tr><th scope="row">鹿児島県</th><td class="n">30</td></tr><tr><th scope="row">静岡県</th><td class="n">22</td></tr><tr><th scope="row">埼玉県</th><td class="n">20</td></tr><tr><th scope="row">熊本県</th><td class="n">18</td></tr><tr><th scope="row">岐阜県</th><td class="n">17</td></tr><tr><th scope="row">栃木県</th><td class="n">14</td></tr><tr><th scope="row">宮崎県</th><td class="n">13</td></tr><tr><th scope="row">佐賀県</th><td class="n">11</td></tr><tr><th scope="row">福岡県</th><td class="n">10</td></tr><tr><th scope="row">福島県</th><td class="n">9</td></tr></tbody></table>
 </div></section>
 
 <section class="md"><div class="container">
@@ -245,11 +391,30 @@ table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}
 </div></div>
   </div>
 </div></section>
+<section class="md" id="voltage-structure"><div class="container">
+  <div class="section-label">電圧×取得の形</div>
+  <h2 class="md-h">電圧と取得の形の組み合わせ</h2>
+  <p class="md-lead">電圧ごとに、権利で買って自分で建てる案件（権利譲渡）と、建った状態で受け取る案件（完成渡し）がどれだけあるかです。高圧は230件のうち185件が完成渡し、特別高圧は46件のうち43件が権利譲渡です。</p>
+  <div class="md-scroll"><table class="md-t"><caption>電圧区分と取得の形の組み合わせごとの件数（全279件）</caption><thead><tr><th scope="col">電圧</th><th scope="col">権利譲渡</th><th scope="col">完成渡し</th><th scope="col">確認中</th><th scope="col">計</th></tr></thead><tbody><tr><th scope="row">高圧</th><td class="n">43</td><td class="n">185</td><td class="n">2</td><td class="n">230</td></tr><tr><th scope="row">特別高圧</th><td class="n">43</td><td class="n">2</td><td class="n">1</td><td class="n">46</td></tr><tr><th scope="row">その他</th><td class="n">3</td><td class="n">0</td><td class="n">0</td><td class="n">3</td></tr><tr><th scope="row">計</th><td class="n">89</td><td class="n">187</td><td class="n">3</td><td class="n">279</td></tr></tbody></table></div>
+  <p class="md-note">全279件を数えています。件数が5件未満の電圧（低圧）は「その他」にまとめました。取得の形がまだ決まっていない案件は「確認中」です。</p>
+</div></section>
+<section class="md" id="size"><div class="container">
+  <div class="section-label">規模</div>
+  <h2 class="md-h">規模の区分（出力 MW）</h2>
+  <p class="md-lead">出力（MW）の値がある238件を、規模で分けました（全279件のうち41件は値が無く、数えていません）。中央値は、高圧が2MW（194件）、特別高圧が37.5MW（44件）です。</p>
+  <div class="md-grid"><div><div class="md-bars">
+<div class="md-bar"><span class="md-bar-l">2MW未満</span><span class="md-bar-t"><span class="md-bar-f" style="width:21.7%"></span></span><span class="md-bar-v">35件<small>（15%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">2〜10MW未満</span><span class="md-bar-t"><span class="md-bar-f" style="width:100.0%"></span></span><span class="md-bar-v">161件<small>（68%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">10〜30MW未満</span><span class="md-bar-t"><span class="md-bar-f" style="width:9.9%"></span></span><span class="md-bar-v">16件<small>（7%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">30MW以上</span><span class="md-bar-t"><span class="md-bar-f" style="width:16.1%"></span></span><span class="md-bar-v">26件<small>（11%）</small></span></div>
+</div></div></div>
+  <p class="md-note">割合は値のある238件に対する割合です。中央値は、件数が5件以上の電圧だけを出しています。</p>
+</div></section>
 
 <section class="md"><div class="container">
   <div class="section-label">連系の時期</div>
   <h2 class="md-h">連系の見込み</h2>
-  <p class="md-lead">運転開始の予定が決まっている案件は年度の上期・下期で、決まっていない案件は接続検討回答書に書かれた「連系までにかかる月数」で数えました。予定が決まっているのは111件、月数だけが分かるのは152件、時期を確認中が45件です。月数は回答書の記載で、工事費負担金の入金から数えるものが中心です。</p>
+  <p class="md-lead">運転開始の予定が決まっている案件は年度の上期・下期で、決まっていない案件は接続検討回答書に書かれた「連系までにかかる月数」で数えました。予定が決まっているのは111件、月数だけが分かるのは152件、時期を確認中が45件です。月数は回答書の記載のままで、起点（工事費負担金の入金からなど）が書かれているのは17件です。</p>
   <div class="md-grid">
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">運転開始の予定（年度・半期）</h3><div class="md-bars">
 <div class="md-bar"><span class="md-bar-l">2026年度下期</span><span class="md-bar-t"><span class="md-bar-f" style="width:36.1%"></span></span><span class="md-bar-v">13件<small>（12%）</small></span></div>
@@ -275,6 +440,13 @@ table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}
 <div class="md-bar"><span class="md-bar-l">工事費負担金の入金から</span><span class="md-bar-t"><span class="md-bar-f" style="width:12.6%"></span></span><span class="md-bar-v">17件<small>（11%）</small></span></div>
 </div></div>
   </div>
+</div></section>
+<section class="md" id="lead-structure"><div class="container">
+  <div class="section-label">連系までの月数×取得の形</div>
+  <h2 class="md-h">連系までの月数を、取得の形ごとに</h2>
+  <p class="md-lead">接続検討回答書に書かれた「連系までにかかる月数」がある152件を、取得の形ごとに数えました（全279件のうち127件は月数が無く、数えていません）。電圧で分けると、中央値は高圧が12か月（122件）、特別高圧が31.5か月（30件）です。</p>
+  <div class="md-scroll"><table class="md-t"><caption>取得の形ごとの、回答書の連系までの月数（中央値と区分ごとの件数・月数のある152件）</caption><thead><tr><th scope="col">取得の形</th><th scope="col">月数のある件</th><th scope="col">中央値</th><th scope="col">6か月以内</th><th scope="col">7〜12か月</th><th scope="col">13〜24か月</th><th scope="col">25か月以上</th></tr></thead><tbody><tr><th scope="row">権利譲渡</th><td class="n">61</td><td class="n">24か月</td><td class="n">5</td><td class="n">10</td><td class="n">17</td><td class="n">29</td></tr><tr><th scope="row">完成渡し</th><td class="n">90</td><td class="n">12か月</td><td class="n">18</td><td class="n">28</td><td class="n">38</td><td class="n">6</td></tr></tbody></table></div>
+  <p class="md-note">月数は回答書の記載のままで、起点（工事費負担金の入金からなど）が書かれているのは17件です（内訳は上の「月数の起点」）。運転開始の予定日から数えた月数ではありません。月数のある件が5件未満の取得の形（1件）は表に出していません。</p>
 </div></section>
 
 <section class="md"><div class="container">
@@ -328,17 +500,59 @@ table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}
 <text x="44" y="12" font-size="11" fill="var(--text-3)">MW</text>
 </svg><p class="md-legend"><span><i style="background:var(--gold)"></i>合計MW</span></p><p class="md-note">値の欠けた5週は図に出していません（表は「—」）。</p></div>
   </div>
-  <div class="md-scroll"><table class="md-t"><thead><tr><th>週（月曜）</th><th>件数</th><th>合計MW</th><th>高圧</th><th>特別高圧</th><th>権利譲渡</th><th>完成渡し</th><th>新しく載った件</th></tr></thead><tbody><tr><td>9/7</td><td class="n">124</td><td class="n">1,386</td><td class="n">104</td><td class="n">20</td><td class="n">33</td><td class="n">90</td><td class="n">5</td></tr><tr><td>9/14</td><td class="n">128</td><td class="n">1,391</td><td class="n">111</td><td class="n">17</td><td class="n">33</td><td class="n">94</td><td class="n">9</td></tr><tr><td>9/21</td><td class="n">124</td><td class="n">1,293</td><td class="n">109</td><td class="n">15</td><td class="n">30</td><td class="n">93</td><td class="n">6</td></tr><tr><td>9/28</td><td class="n">129</td><td class="n">1,283</td><td class="n">113</td><td class="n">16</td><td class="n">35</td><td class="n">94</td><td class="n">10</td></tr><tr><td>10/5</td><td class="n">134</td><td class="n">1,330</td><td class="n">117</td><td class="n">17</td><td class="n">36</td><td class="n">96</td><td class="n">12</td></tr><tr><td>10/12</td><td class="n">133</td><td class="n">1,376</td><td class="n">115</td><td class="n">18</td><td class="n">38</td><td class="n">93</td><td class="n">3</td></tr><tr><td>10/19</td><td class="n">153</td><td class="n">—</td><td class="n">133</td><td class="n">17</td><td class="n">45</td><td class="n">104</td><td class="n">30</td></tr><tr><td>10/26</td><td class="n">177</td><td class="n">—</td><td class="n">150</td><td class="n">24</td><td class="n">55</td><td class="n">113</td><td class="n">26</td></tr><tr><td>11/2</td><td class="n">229</td><td class="n">—</td><td class="n">206</td><td class="n">20</td><td class="n">52</td><td class="n">168</td><td class="n">67</td></tr><tr><td>11/9</td><td class="n">243</td><td class="n">—</td><td class="n">219</td><td class="n">21</td><td class="n">65</td><td class="n">169</td><td class="n">31</td></tr><tr><td>11/16（途中）</td><td class="n">279</td><td class="n">—</td><td class="n">230</td><td class="n">46</td><td class="n">89</td><td class="n">187</td><td class="n">53</td></tr></tbody></table></div>
-  <p class="md-note">図の件数は高圧と特別高圧の積み上げです。電圧が未設定の案件（直近は3件）は図に入らず、表の件数には入ります。合計MWは、出力の値が空の案件が多い週（5週）を表で「—」にし、図からも外しています。値の欠けで増減して見える週を、規模の推移として出さないためです。「新しく載った件」は、その週に一覧へ載った案件の数です。取得の形が確認中の案件は、権利譲渡・完成渡しの列に入りません。当社の観測で、日本の市場全体の数ではありません。価格・案件名・所在地は載せていません。毎朝この表を作り直しています（直近は279件）。</p>
+  <div class="md-scroll"><table class="md-t"><caption>販売中の件数と合計出力の週ごとの推移（直近11週・高圧と特別高圧・権利譲渡と完成渡しの内訳）</caption><thead><tr><th scope="col">週（月曜）</th><th scope="col">件数</th><th scope="col">合計MW</th><th scope="col">高圧</th><th scope="col">特別高圧</th><th scope="col">権利譲渡</th><th scope="col">完成渡し</th><th scope="col">新しく載った件</th></tr></thead><tbody><tr><th scope="row"><time datetime="2026-09-07">9/7</time></th><td class="n">124</td><td class="n">1,386</td><td class="n">104</td><td class="n">20</td><td class="n">33</td><td class="n">90</td><td class="n">5</td></tr><tr><th scope="row"><time datetime="2026-09-14">9/14</time></th><td class="n">128</td><td class="n">1,391</td><td class="n">111</td><td class="n">17</td><td class="n">33</td><td class="n">94</td><td class="n">9</td></tr><tr><th scope="row"><time datetime="2026-09-21">9/21</time></th><td class="n">124</td><td class="n">1,293</td><td class="n">109</td><td class="n">15</td><td class="n">30</td><td class="n">93</td><td class="n">6</td></tr><tr><th scope="row"><time datetime="2026-09-28">9/28</time></th><td class="n">129</td><td class="n">1,283</td><td class="n">113</td><td class="n">16</td><td class="n">35</td><td class="n">94</td><td class="n">10</td></tr><tr><th scope="row"><time datetime="2026-10-05">10/5</time></th><td class="n">134</td><td class="n">1,330</td><td class="n">117</td><td class="n">17</td><td class="n">36</td><td class="n">96</td><td class="n">12</td></tr><tr><th scope="row"><time datetime="2026-10-12">10/12</time></th><td class="n">133</td><td class="n">1,376</td><td class="n">115</td><td class="n">18</td><td class="n">38</td><td class="n">93</td><td class="n">3</td></tr><tr><th scope="row"><time datetime="2026-10-19">10/19</time></th><td class="n">153</td><td class="n">—</td><td class="n">133</td><td class="n">17</td><td class="n">45</td><td class="n">104</td><td class="n">30</td></tr><tr><th scope="row"><time datetime="2026-10-26">10/26</time></th><td class="n">177</td><td class="n">—</td><td class="n">150</td><td class="n">24</td><td class="n">55</td><td class="n">113</td><td class="n">26</td></tr><tr><th scope="row"><time datetime="2026-11-02">11/2</time></th><td class="n">229</td><td class="n">—</td><td class="n">206</td><td class="n">20</td><td class="n">52</td><td class="n">168</td><td class="n">67</td></tr><tr><th scope="row"><time datetime="2026-11-09">11/9</time></th><td class="n">243</td><td class="n">—</td><td class="n">219</td><td class="n">21</td><td class="n">65</td><td class="n">169</td><td class="n">31</td></tr><tr><th scope="row"><time datetime="2026-11-16">11/16</time>（途中）</th><td class="n">279</td><td class="n">—</td><td class="n">230</td><td class="n">46</td><td class="n">89</td><td class="n">187</td><td class="n">53</td></tr></tbody></table></div>
+  <p class="md-note">図の件数は高圧と特別高圧の積み上げです。電圧が未設定の案件（直近は3件）は図に入らず、表の件数には入ります。合計MWは、出力の値が空の案件が多い週（5週）を表で「—」にし、図からも外しています。値の欠けで増減して見える週を、規模の推移として出さないためです。「新しく載った件」は、その週に一覧へ載った案件の数です。掲載の件数の増え方は、当社が一覧に載せた作業の波（まとめて載せた日がある）で、市場の伸びを表すものではありません。取得の形が確認中の案件は、権利譲渡・完成渡しの列に入りません。当社の観測で、日本の市場全体の数ではありません。価格・案件名・所在地は載せていません。毎朝この表を作り直しています（直近は279件）。</p>
 </div></section>
 
 <section class="md"><div class="container">
   <div class="section-label">新着</div>
   <h2 class="md-h">掲載の推移</h2>
-  <p class="md-lead">月ごとに一覧へ載せた件数です。売却済み・売り止めで外した案件は含みません。</p>
-  <table class="md-t"><thead><tr><th>掲載月</th><th>件数</th></tr></thead><tbody><tr><td>2026-06</td><td class="n">36</td></tr><tr><td>2026-07</td><td class="n">21</td></tr><tr><td>2026-09</td><td class="n">24</td></tr><tr><td>2026-10</td><td class="n">62</td></tr><tr><td>2026-11</td><td class="n">136</td></tr></tbody></table>
-  <div class="cite"><div class="cite-h">このデータの引用について</div>本ページの数値は、出典を明記していただければ、記事・資料・社内検討にそのままお使いいただけます。推奨する出典表記: 「出典: サイエンスエックス株式会社『系統用蓄電池の売り案件 市場データ』https://www.scix.co.jp/market-data（確認日 YYYY-MM-DD）」。元データは <a href="/projects.json">projects.json</a>（公開項目のみ）です。数字の読み方は <a href="/column-project-price">蓄電所は、いくらで買えるのか</a>（取得価格の中央値）と <a href="/column-study-reply">接続検討回答書を毎日読む当社が、最初に見る6か所</a> に。</div>
+  <p class="md-lead">月ごとに一覧へ載せた件数です。売却済み・売り止めで外した案件は含みません。掲載の件数の増え方は、当社が一覧に載せた作業の波（まとめて載せた日がある）で、市場の伸びを表すものではありません。</p>
+  <table class="md-t"><caption>掲載月ごとの件数（新しい6か月分・いま販売中の案件）</caption><thead><tr><th scope="col">掲載月</th><th scope="col">件数</th></tr></thead><tbody><tr><th scope="row"><time datetime="2026-06">2026-06</time></th><td class="n">36</td></tr><tr><th scope="row"><time datetime="2026-07">2026-07</time></th><td class="n">21</td></tr><tr><th scope="row"><time datetime="2026-09">2026-09</time></th><td class="n">24</td></tr><tr><th scope="row"><time datetime="2026-10">2026-10</time></th><td class="n">62</td></tr><tr><th scope="row"><time datetime="2026-11">2026-11</time></th><td class="n">136</td></tr></tbody></table>
 </div></section>
+<section class="md" id="buyer-requests"><div class="container">
+  <div class="section-label">買主のリクエスト</div>
+  <h2 class="md-h">いま載っている買主のリクエストの条件（12件）</h2>
+  <p class="md-lead">蓄電所マーケットの<a href="https://dealroom.scix.co.jp/needs" target="_top">買主のリクエスト</a>（買いたい案件の条件を、買主が載せたもの）に、いま載っている12件の条件を、選択肢ごとに数えました。売りたい案件が条件に合うかの見当付けにお使いください。</p>
+  <div class="md-grid"><div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">買い方</h3><div class="md-bars">
+<div class="md-bar"><span class="md-bar-l">権利渡し</span><span class="md-bar-t"><span class="md-bar-f" style="width:100.0%"></span></span><span class="md-bar-v">8件<small>（67%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">完成渡し</span><span class="md-bar-t"><span class="md-bar-f" style="width:37.5%"></span></span><span class="md-bar-v">3件<small>（25%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">指定なし</span><span class="md-bar-t"><span class="md-bar-f" style="width:12.5%"></span></span><span class="md-bar-v">1件<small>（8%）</small></span></div>
+</div></div><div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">電圧</h3><div class="md-bars">
+<div class="md-bar"><span class="md-bar-l">高圧</span><span class="md-bar-t"><span class="md-bar-f" style="width:100.0%"></span></span><span class="md-bar-v">9件<small>（75%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">その他の選択肢</span><span class="md-bar-t"><span class="md-bar-f" style="width:11.1%"></span></span><span class="md-bar-v">1件<small>（8%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">指定なし</span><span class="md-bar-t"><span class="md-bar-f" style="width:22.2%"></span></span><span class="md-bar-v">2件<small>（17%）</small></span></div>
+</div></div><div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">求めるエリア（複数選べる・延べ）</h3><div class="md-bars">
+<div class="md-bar"><span class="md-bar-l">東北</span><span class="md-bar-t"><span class="md-bar-f" style="width:66.7%"></span></span><span class="md-bar-v">6件<small>（50%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">東京</span><span class="md-bar-t"><span class="md-bar-f" style="width:100.0%"></span></span><span class="md-bar-v">9件<small>（75%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">中部</span><span class="md-bar-t"><span class="md-bar-f" style="width:77.8%"></span></span><span class="md-bar-v">7件<small>（58%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">関西</span><span class="md-bar-t"><span class="md-bar-f" style="width:77.8%"></span></span><span class="md-bar-v">7件<small>（58%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">中国</span><span class="md-bar-t"><span class="md-bar-f" style="width:33.3%"></span></span><span class="md-bar-v">3件<small>（25%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">九州</span><span class="md-bar-t"><span class="md-bar-f" style="width:33.3%"></span></span><span class="md-bar-v">3件<small>（25%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">その他の選択肢</span><span class="md-bar-t"><span class="md-bar-f" style="width:22.2%"></span></span><span class="md-bar-v">2件<small>（17%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">指定なし</span><span class="md-bar-t"><span class="md-bar-f" style="width:33.3%"></span></span><span class="md-bar-v">3件<small>（25%）</small></span></div>
+</div></div><div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">運転開始の希望</h3><div class="md-bars">
+<div class="md-bar"><span class="md-bar-l">2027年9月まで</span><span class="md-bar-t"><span class="md-bar-f" style="width:50.0%"></span></span><span class="md-bar-v">3件<small>（25%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">2028年3月まで</span><span class="md-bar-t"><span class="md-bar-f" style="width:100.0%"></span></span><span class="md-bar-v">6件<small>（50%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">その他の選択肢</span><span class="md-bar-t"><span class="md-bar-f" style="width:33.3%"></span></span><span class="md-bar-v">2件<small>（17%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">指定なし</span><span class="md-bar-t"><span class="md-bar-f" style="width:16.7%"></span></span><span class="md-bar-v">1件<small>（8%）</small></span></div>
+</div></div><div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">電力の手続き</h3><div class="md-bars">
+<div class="md-bar"><span class="md-bar-l">本回答あり（またはその先）</span><span class="md-bar-t"><span class="md-bar-f" style="width:75.0%"></span></span><span class="md-bar-v">3件<small>（25%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">工事負担金支払済（またはその先）</span><span class="md-bar-t"><span class="md-bar-f" style="width:75.0%"></span></span><span class="md-bar-v">3件<small>（25%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">その他の選択肢</span><span class="md-bar-t"><span class="md-bar-f" style="width:50.0%"></span></span><span class="md-bar-v">2件<small>（17%）</small></span></div>
+<div class="md-bar"><span class="md-bar-l">指定なし</span><span class="md-bar-t"><span class="md-bar-f" style="width:100.0%"></span></span><span class="md-bar-v">4件<small>（33%）</small></span></div>
+</div></div></div>
+  <p class="md-note">12件と少ないため、増え方（推移）は出していません。買主の会社の属性と、載った日も出していません。求めるエリアは1件で複数を選べるので延べの数で、割合は12件に対する割合です。3件未満の選択肢は「その他の選択肢」にまとめ、条件を書いていないリクエストは「指定なし」にしました。毎朝、蓄電所マーケットの公開の一覧から数え直しています（件数が最後に変わった日: <time datetime="2026-11-22">2026-11-22</time>）。</p>
+</div></section>
+
+<section class="md" id="download"><div class="container">
+  <div class="section-label">ダウンロード・引用</div>
+  <h2 class="md-h">データのダウンロードと、引用のしかた</h2>
+  <p class="md-lead">この頁の集計は CSV でも取れます（UTF-8・BOM 付き）。毎朝、頁と同じデータから作り直しています。価格・案件名・所在地は入っていません。</p>
+  <ul class="md-dl"><li><a href="/files/market-data/market-data-summary.csv" download>集計（CSV）</a><small>管内・都道府県（上位10）・電圧・取得の形・進み具合・電圧×取得の形・規模・連系までの月数・運転開始の予定・掲載月</small></li><li><a href="/files/market-data/market-data-weekly.csv" download>週ごとの推移（CSV）</a><small>週ごとの件数・合計出力・電圧と取得の形の内訳・新しく載った件</small></li><li><a href="/files/market-data/buyer-requests-summary.csv" download>買主のリクエストの条件（CSV）</a><small>いま載っている件数と、選択肢ごとの数</small></li><li><a href="/projects.json">公開の一覧（JSON）</a><small>案件ごとの公開項目（管内・県・電圧・規模・進み具合・取得の形・連系の見込み）</small></li></ul>
+  <div class="cite" id="cite"><div class="cite-h">引用のしかた</div><p>この頁の数字・図表の引用を歓迎します。記事・資料・社内の検討にお使いいただくときは、出典として次の1行をお書きください。</p><p class="cite-line">出典: サイエンスエックス株式会社『系統用蓄電池の売り案件 市場データ』https://www.scix.co.jp/market-data（2026-11-22 更新）</p><p class="cite-meta">頁の住所: <a href="https://www.scix.co.jp/market-data">https://www.scix.co.jp/market-data</a>　更新日: <time datetime="2026-11-22">2026-11-22</time></p><p>数字の読み方は <a href="/column-project-price">蓄電所は、いくらで買えるのか</a>（取得価格の中央値）と <a href="/column-study-reply">接続検討回答書を毎日読む当社が、最初に見る6か所</a> に。</p></div>
+</div></section>
+
 <section class="cta"><div class="container">
   <h2>案件そのものは、蓄電所マーケットでご覧いただけます</h2>
   <p>今ある案件は、登録なしで蓄電所マーケットで見られます。価格と資料は、無料登録のあとで見られます（登録画面で秘密保持の誓約に同意いただきます）。売りたい方は、査定は無料で、最初の連絡は5行で足ります。</p>
