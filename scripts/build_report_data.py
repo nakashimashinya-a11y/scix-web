@@ -33,7 +33,7 @@ MON_EN_S = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"
 
 JEPX_URL = "https://www.jepx.jp/electricpower/market-data/spot/"
 EPRX_URL = "https://www.eprx.or.jp/information/results.php"
-CATALOG = "https://dealroom.scix.co.jp/catalog"
+CATALOG = "https://dealroom.scix.co.jp/"
 
 # 号の表の見出し（この並びのときだけ読む。変わったら読まずに知らせる）
 JEPX_HEAD = ["エリア", "月平均", "前年同月", "日中（8〜16時）", "夕方（16〜20時）", "4時間の値差", "最高", "30円以上のコマ", "0.01円のコマ"]
@@ -87,6 +87,12 @@ CSS = """
 .rd-src a{color:var(--acc-2,#5B32B5)}
 .rd-dl{display:inline-block;margin:4px 0 2px;font-size:.86rem;font-weight:700;color:var(--acc-2,#5B32B5)!important;border:2px solid var(--acc,#7C4DDB);border-radius:999px;padding:5px 14px;text-decoration:none}
 .rd-t table th:first-child,.rd-t table td:first-child{position:sticky;left:0;z-index:1}
+.rd-t caption{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.rd-t table tbody th[scope=row]{background:#fff!important;color:var(--m-ink,#0B1530)!important;font-weight:700!important;text-align:left;vertical-align:baseline;border-bottom:1px solid var(--border)!important;padding:6px 8px;min-width:0;max-width:none;white-space:nowrap}
+.rd-t table tbody tr:nth-child(even) th[scope=row]{background:var(--off-white,#F2F6FF)!important}
+.rd-t table tr.rd-delta th[scope=row]{border-top:2px solid var(--m-line,#E3E8F2)}
+.rd-t table th[scope=row] a{color:var(--acc-2,#5B32B5)}
+.rd-latest{max-width:860px;font-size:.95rem;line-height:1.85;color:var(--m-body,#24304A)}
 .rd-t table td:first-child{background:#fff;font-weight:700;color:var(--m-ink,#0B1530)}
 .rd-t table tbody tr:nth-child(even) td:first-child{background:var(--off-white,#F2F6FF)}
 .rd-t table td a{color:var(--acc-2,#5B32B5)}
@@ -415,28 +421,32 @@ def kpi(items):
         f"<div><b>{esc(v)}<small>{esc(u)}</small></b><span>{esc(lb)}</span>{d}</div>" for v, u, lb, d in items) + "</div>"
 
 
-def table(head, rows, data_keys=None, delta_row=None):
-    """表（横に送れる箱）。rows=[[セルの html…]]、data_keys=[[data-k…]]（突き合わせ用）。"""
+def table(head, rows, data_keys=None, delta_row=None, caption=None):
+    """表（横に送れる箱）。rows=[[セルの html…]]、data_keys=[[data-k…]]（突き合わせ用）。
+    caption＝表の題（画面では隠す・読み上げと検索エンジン向け）。見出しの th は scope=col、1列目の行見出しは th scope=row（2026-11-22 中島「Seo 対策も徹底してやって」）。"""
     num_re = re.compile(r"^[-−—+\d,.%]+$")
-    o = ['<div class="rp-table rd-t"><table><thead><tr>' + "".join(f"<th>{esc(h)}</th>" for h in head) + "</tr></thead><tbody>"]
+    o = ['<div class="rp-table rd-t"><table>' + (f"<caption>{esc(caption)}</caption>" if caption else "")
+         + '<thead><tr>' + "".join(f'<th scope="col">{esc(h)}</th>' for h in head) + "</tr></thead><tbody>"]
     for i, r in enumerate(rows):
         cells = []
         for j, c in enumerate(r):
             plain = re.sub(r"<[^>]+>", "", c)
             cls = ' class="rp-n"' if j and num_re.match(plain) else ""
             dk = f' data-k="{esc(data_keys[i][j])}"' if data_keys and data_keys[i][j] else ""
-            cells.append(f"<td{cls}{dk}>{c}</td>")
+            cells.append(f'<th scope="row"{dk}>{c}</th>' if j == 0 else f"<td{cls}{dk}>{c}</td>")
         o.append("<tr>" + "".join(cells) + "</tr>")
     if delta_row:
-        o.append('<tr class="rd-delta">' + "".join(f'<td{" class=rp-n" if j else ""}>{esc(c)}</td>' for j, c in enumerate(delta_row)) + "</tr>")
+        o.append('<tr class="rd-delta">' + "".join(f'<th scope="row">{esc(c)}</th>' if j == 0 else f'<td class=rp-n>{esc(c)}</td>'
+                                                   for j, c in enumerate(delta_row)) + "</tr>")
     o.append("</tbody></table></div>")
     return "".join(o)
 
 
 def month_cell(ym, rec, base, sec="s17", lang="ja"):
+    t = f'<time datetime="{ym}">{esc(ym_label(ym, lang))}</time>'
     if not rec:
-        return esc(ym_label(ym, lang))
-    return f'<a href="{base}/{rec["issue"]}#{sec}">{esc(ym_label(ym, lang))}</a>'
+        return t
+    return f'<a href="{base}/{rec["issue"]}#{sec}">{t}</a>'
 
 
 def src_line(text, links, lang="ja"):
@@ -448,6 +458,28 @@ def src_line(text, links, lang="ja"):
 
 
 # ---------------------------------------------------------------- 頁
+def latest_jepx_sentence(lang, ym, area, avg, s4, unit, source):
+    """表のいちばん新しい行から機械で作る1文（何の値・いつ・単位・出どころ）。数字は表のセルと同じ文字列（assert_in_table で確かめる）。"""
+    if avg is None or s4 is None:
+        return ""
+    if lang == "ja":
+        t = f"{ym_label(ym)}の{area}の卸電気（JEPX）の月平均は{avg}{unit}、4時間の値差は{s4}{unit}でした（出典: {source}）。"
+    else:
+        t = f"In {ym_label(ym, 'en')}, the JEPX monthly average for {area} was {avg} {unit} and the 4-hour spread was {s4} {unit} (source: {source})."
+    return f'<p class="rd-latest" data-latest="jepx">{esc(t)}</p>'
+
+
+def latest_cap_sentence(lang, year, a_hi, v_hi, a_lo, v_lo, unit, source, area_only=None):
+    """容量市場のいちばん新しい実需給年度の行から機械で作る1文。"""
+    if lang == "ja":
+        t = (f"{year}の容量市場メインオークションのエリアプライスは、{area_only}が{v_hi}{unit}でした（出典: {source}）。" if area_only else
+             f"{year}の容量市場メインオークションのエリアプライスは、いちばん高い{a_hi}が{v_hi}{unit}、いちばん低い{a_lo}が{v_lo}{unit}でした（出典: {source}）。")
+    else:
+        t = (f"The main auction area price for {year} was {v_hi} {unit} in {area_only} (source: {source})." if area_only else
+             f"For {year}, the main auction area price was highest in {a_hi} at {v_hi} {unit} and lowest in {a_lo} at {v_lo} {unit} (source: {source}).")
+    return f'<p class="rd-latest" data-latest="capacity">{esc(t)}</p>'
+
+
 def jepx_section(data, lang, base, latest_doc, csv_href, area_order, area_names):
     """②卸電気。全エリアの推移（小さな図を並べる）と、月平均・4時間・2時間の値差の表。"""
     J = data["jepx"]
@@ -494,6 +526,8 @@ def jepx_section(data, lang, base, latest_doc, csv_href, area_order, area_names)
     def matrix(k):
         head = [("月" if lang == "ja" else "Month")] + [area_names[a] for a in area_order]
         rows, dks = [], []
+        cap = (f"エリア別の卸電気の{LB[k]}（{unit}）の月ごとの推移（{ym_label(yms[0])}〜{ym_label(last)}）" if lang == "ja"
+               else f"JEPX {LB[k].lower()} by area ({unit}), monthly, {ym_label(yms[0], 'en')} to {ym_label(last, 'en')}")
         for y in yms:
             rec = J.get(y)
             rows.append([month_cell(y, rec, base, "s17", lang)] + [esc(v(y, a, k) or "—") for a in area_order])
@@ -504,7 +538,7 @@ def jepx_section(data, lang, base, latest_doc, csv_href, area_order, area_names)
             for a in area_order:
                 x1, x0 = num(v(last, a, k)), num(v(prev, a, k))
                 dr.append(f"{x1 - x0:+.2f}" if x1 is not None and x0 is not None else "—")
-        return table(head, rows, dks, dr)
+        return table(head, rows, dks, dr, caption=cap)
     full_head = [("エリア" if lang == "ja" else "Area")] + [LB[k] for k in JEPX_KEYS + ["s2", "d10"]]
     full_rows = [[esc(area_names[a])] + [esc(v(last, a, k) or "—") for k in JEPX_KEYS + ["s2", "d10"]] for a in area_order]
     full_dk = [[""] + [f"jepx|{last}|{a if lang == 'ja' else AREAS_JA[area_order.index(a)]}|{k}" if v(last, a, k) else "" for k in JEPX_KEYS + ["s2", "d10"]] for a in area_order]
@@ -517,8 +551,10 @@ def jepx_section(data, lang, base, latest_doc, csv_href, area_order, area_names)
          "en": ("② Wholesale electricity (JEPX): monthly averages and spreads by area", "Trend by area", f"Monthly average ({unit})",
                 f"4-hour spread ({unit})", f"2-hour spread ({unit})", f"Figures by area for {ym_label(last, 'en')} ({unit})", "Definitions")}[lang]
     issue_link = f'<a href="{base}/{rec_last["issue"]}#s17">{esc(issue_label(rec_last["issue"], lang))}</a>'
+    latest = latest_jepx_sentence(lang, last, area_names[sysn], v(last, sysn, "avg"), v(last, sysn, "s4"), unit, "JEPX スポット市場" if lang == "ja" else "JEPX spot market")
     return f"""<section class="md" id="jepx"><div class="container rp-body">
   <h2 class="md-h">{esc(h[0])}</h2>
+  {latest}
   <p>{esc(intro)}</p>
   {kpi(ks)}
   <div class="rd-def"><p><b>{esc(h[6])}</b></p><p>{esc(t_avg)}</p><p>{esc(t_spr)}</p></div>
@@ -534,7 +570,7 @@ def jepx_section(data, lang, base, latest_doc, csv_href, area_order, area_names)
   {matrix("s2")}
   {src2}
   <h3 class="md-h" style="font-size:1.05rem;margin-top:22px">{esc(h[5])}</h3>
-  {table(full_head, full_rows, full_dk)}
+  {table(full_head, full_rows, full_dk, caption=h[5])}
   <p class="rd-src">{"載った号" if lang == "ja" else "Issue"}: {issue_link}</p>
   {dl}
 </div></section>"""
@@ -572,10 +608,12 @@ def cap_lda_section(data, lang, base, latest_doc, csv_cap, csv_lda, area_only=No
         chart = svg_line(xl, ser, w=420, h=250, aria=f"{area_only}の容量市場メインオークションのエリアプライス（{unit}）",
                          unit_fmt="{:,.0f}", fs=14)
         tbl = table([head[0], f"{area_only}（{unit}）"], [[esc(r[0]), esc(r[j])] for r in rows],
-                    [["", f"cap|{r[0]}|{area_only}"] for r in rows])
+                    [["", f"cap|{r[0]}|{area_only}"] for r in rows], caption=f"{area_only}の容量市場メインオークションのエリアプライス（{unit}）・実需給年度ごと")
+        cap_latest = latest_cap_sentence("ja", rows[-1][0], area_only, rows[-1][j], area_only, rows[-1][j], unit, "OCCTO", area_only=area_only)
         note = "（このエリアの列を抜き出して表と図にしました）"
         return f"""<section class="md" id="capacity"><div class="container rp-body">
   <h2 class="md-h">③容量市場（OCCTO）｜{esc(area_only)}のエリアプライス</h2>
+  {cap_latest}
   <p>{esc(intro)}</p>
   <div class="rd-two"><div class="rd-card"><h3>実需給年度ごとの約定価格（{esc(unit)}）</h3>{chart}</div><div>{tbl}</div></div>
   <p class="rd-src">{pre}{esc(src_clean)}{esc(note)}{year_links}</p>
@@ -585,6 +623,11 @@ def cap_lda_section(data, lang, base, latest_doc, csv_cap, csv_lda, area_only=No
     # 全エリア
     last = rows[-1]
     a_names = head[1:]
+    _pairs = [(a, num(val)) for a, val in zip(a_names, last[1:]) if num(val) is not None]
+    _hi = max(_pairs, key=lambda x: x[1]) if _pairs else None
+    _lo = min(_pairs, key=lambda x: x[1]) if _pairs else None
+    cap_latest = (latest_cap_sentence(lang, last[0] + ("" if lang == "ja" else ""), _hi[0], dict(zip(a_names, last[1:]))[_hi[0]], _lo[0],
+                                      dict(zip(a_names, last[1:]))[_lo[0]], unit, "OCCTO") if _hi and _lo else "")
     bars = svg_hbar([(a, num(val), val) for a, val in zip(a_names, last[1:])], w=420, color=C_PURPLE,
                     aria=(f"{last[0]}の容量市場メインオークションのエリアプライス（{unit}）" if lang == "ja" else f"Capacity market main auction area prices, {last[0]} ({unit})"),
                     label_w=70 if lang == "ja" else 92, fs=16)
@@ -592,13 +635,17 @@ def cap_lda_section(data, lang, base, latest_doc, csv_cap, csv_lda, area_only=No
     h_cells = [esc(head[0])] + [esc(x) for x in a_names]
     t_rows = [[esc(c) for c in r] for r in rows]
     t_dk = [[""] + [f"cap|{r[0]}|{(a if lang == 'ja' else AREAS_JA[1 + a_names.index(a)])}" for a in a_names] for r in rows]
-    cap_tbl = ('<div class="rp-table rd-t"><table><thead><tr>' + "".join(f"<th>{c}</th>" for c in h_cells) + "</tr></thead><tbody>"
-               + "".join("<tr>" + "".join(f'<td{" class=rp-n" if j else ""}{(" data-k=" + chr(34) + esc(dk) + chr(34)) if dk else ""}>{c}</td>'
+    cap_cap = (f"容量市場メインオークションのエリアプライス（{unit}）・実需給年度ごと" if lang == "ja"
+               else f"Capacity market main auction area prices ({unit}) by delivery year")
+    cap_tbl = ('<div class="rp-table rd-t"><table><caption>' + esc(cap_cap) + '</caption><thead><tr>' + "".join(f'<th scope="col">{c}</th>' for c in h_cells) + "</tr></thead><tbody>"
+               + "".join("<tr>" + "".join((f'<th scope="row">{c}</th>' if j == 0 else f'<td class=rp-n{(" data-k=" + chr(34) + esc(dk) + chr(34)) if dk else ""}>{c}</td>')
                                           for j, (c, dk) in enumerate(zip(r, d))) + "</tr>" for r, d in zip(t_rows, t_dk))
                + "</tbody></table></div>")
     lh, lrows = iss["lda"]["head"], iss["lda"]["rows"]
-    lda_tbl = table([esc(x) for x in lh], [[esc(c) for c in r] for r in lrows], [["", "", f"lda|{r[0]}|{r[1]}"] for r in lrows]) if lang == "ja" else \
-        table([esc(x) for x in lh], [[esc(c) for c in r] for r in lrows], [["", "", f"lda|{i}"] for i, r in enumerate(lrows)])
+    H_LDA = {"ja": "長期脱炭素電源オークションの蓄電池・揚水の約定容量（万kW）",
+             "en": "Battery and pumped hydro capacity in the Long-Term Decarbonization Power Source Auction (10,000 kW)"}
+    lda_tbl = table([esc(x) for x in lh], [[esc(c) for c in r] for r in lrows], [["", "", f"lda|{r[0]}|{r[1]}"] for r in lrows], caption=H_LDA[lang]) if lang == "ja" else \
+        table([esc(x) for x in lh], [[esc(c) for c in r] for r in lrows], [["", "", f"lda|{i}"] for i, r in enumerate(lrows)], caption=H_LDA[lang])
     H = {"ja": ("③容量市場（OCCTO）｜メインオークションと長期脱炭素電源オークション", f"メインオークションのエリアプライス（{unit}）",
                 f"{last[0]}のエリアプライス（{unit}）", "長期脱炭素電源オークションの蓄電池・揚水の約定容量（万kW）",
                 "CSV をダウンロード（エリアプライス）", "CSV をダウンロード（約定容量）", "載った号"),
@@ -611,6 +658,7 @@ def cap_lda_section(data, lang, base, latest_doc, csv_cap, csv_lda, area_only=No
         area_links = '<div class="rd-links">' + "".join(f'<a href="/report/area/{s}">{esc(a)}エリアの頁 →</a>' for a, s in AREA_PAGES) + "</div>"
     return f"""<section class="md" id="capacity"><div class="container rp-body">
   <h2 class="md-h">{esc(H[0])}</h2>
+  {cap_latest}
   <p>{esc(intro)}</p>
   <div class="rd-card"><h3>{esc(H[2])}</h3>{bars}</div>
   <h3 class="md-h" style="font-size:1.05rem;margin-top:22px">{esc(H[1])}</h3>
@@ -675,7 +723,7 @@ def eprx_section(data, lang, base, latest_doc, csv_href, months):
         head = [("月" if lang == "ja" else "Month")] + prods
         rows = [[month_cell(y, E.get(y), base, "s17", lang)] + [esc(v(y, p, k) or "—") for p in prods] for y in yms]
         dks = [[""] + [f"eprx|{y}|{p}|{k}" if v(y, p, k) else "" for p in prods] for y in yms]
-        return table(head, rows, dks)
+        return table(head, rows, dks, caption=(f"需給調整市場の商品別の{LB[k]}の月ごとの推移" if lang == "ja" else f"Balancing market {LB[k].lower()} by product, monthly"))
     src = src_line(data["latest"]["iss"]["src"].get("eprx", ""), [("EPRX 取引結果" if lang == "ja" else "EPRX trading results", EPRX_URL)], lang)
     return f"""<section class="md" id="eprx"><div class="container rp-body">
   <h2 class="md-h">{esc(head_t)}｜{"商品ごとの応札倍率と平均落札価格" if lang == "ja" else "bid ratio and average winning price by product"}</h2>
@@ -756,11 +804,31 @@ def eprx_csv(data, lang, base):
 
 
 # ---------------------------------------------------------------- 頁の組み立て
-def dataset_ld(br, name, desc, path, csvs, temporal, lang, based_on, spatial):
+def variables_measured(lang, cap=True, lda=True):
+    """Dataset の variableMeasured。表の列と同じ名前と単位（数字は表と同じ公表資料のまま・新しい指標は足さない）。"""
+    LB = LBL[lang]
+    u = "円/kWh" if lang == "ja" else "yen/kWh"
+    out = [{"@type": "PropertyValue", "name": LB[k], "unitText": u} for k in ("avg", "yoy", "day", "eve", "s4", "s2", "max")]
+    out += [{"@type": "PropertyValue", "name": LB["n30"], "unitText": "コマ" if lang == "ja" else "slots"},
+            {"@type": "PropertyValue", "name": LB["n001"], "unitText": "コマ" if lang == "ja" else "slots"},
+            {"@type": "PropertyValue", "name": LB["d10"], "unitText": "日" if lang == "ja" else "days"}]
+    if cap:
+        out.append({"@type": "PropertyValue", "name": "容量市場メインオークションのエリアプライス" if lang == "ja" else "Capacity market main auction area price",
+                    "unitText": "円/kW・年" if lang == "ja" else "yen/kW per year"})
+    if lda:
+        out.append({"@type": "PropertyValue", "name": "長期脱炭素電源オークションの蓄電池・揚水の約定容量" if lang == "ja"
+                    else "Battery and pumped hydro capacity in the Long-Term Decarbonization Power Source Auction",
+                    "unitText": "万kW" if lang == "ja" else "10,000 kW"})
+    return out
+
+
+def dataset_ld(br, name, desc, path, csvs, temporal, lang, based_on, spatial, variables=None):
     org = br.bmd.ORG if lang == "ja" else br.EN_ORG
+    pub = br.PUBLISHER if lang == "ja" else br.EN_PUBLISHER
     return br.bmd.ld({"@context": "https://schema.org", "@type": "Dataset", "@id": br.BASE + path + "#dataset", "url": br.BASE + path,
-                      "name": name, "description": desc, "inLanguage": lang, "creator": org, "publisher": org, "isAccessibleForFree": True,
+                      "name": name, "description": desc, "inLanguage": lang, "creator": org, "publisher": pub, "isAccessibleForFree": True,
                       "temporalCoverage": temporal, "spatialCoverage": {"@type": "Place", "name": spatial},
+                      **({"variableMeasured": variables} if variables else {}),
                       "isBasedOn": based_on, "dateModified": temporal_end_date(csvs),
                       "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": br.BASE + u, "name": n} for n, u in csvs]})
 
@@ -835,7 +903,7 @@ def render_data(br, data, months, lang, has_en):
     ds_desc = desc if len(desc) >= 50 else desc + " " + lead
     jsonld = "\n".join([
         dataset_ld(br, title.split("｜")[0].split(" | ")[0] + (f"（{mk}）" if lang == "ja" else f" ({mk})"), ds_desc, path, csvs,
-                   f"{first}/{last}", lang, based, "日本" if lang == "ja" else "Japan"),
+                   f"{first}/{last}", lang, based, "日本" if lang == "ja" else "Japan", variables_measured(lang)),
         br.bmd.ld(br.bmd.crumbs([(n, br.BASE + u) for n, u in crumbs])),
     ])
     toc_html = '<div class="rd-toc">' + "".join(f'<a href="{h}">{esc(n)}</a>' for h, n in toc) + "</div>"
@@ -864,7 +932,7 @@ def render_data(br, data, months, lang, has_en):
 EN_CTA = """<section class="cta"><div class="container">
   <h2>Want to see the projects behind these numbers? Visit Chikudensho Market</h2>
   <p>On Chikudensho Market, our marketplace for battery storage sites, you can browse current listings without registering. Prices and documents are available after free registration, where you agree to a confidentiality undertaking on the registration screen (no signed paper is needed).</p>
-  <a class="btn-primary" href="https://dealroom.scix.co.jp/en/catalog" target="_top">Browse projects on Chikudensho Market &rarr;</a>
+  <a class="btn-primary" href="https://dealroom.scix.co.jp/en" target="_top">Browse projects on Chikudensho Market &rarr;</a>
 </div></section>
 """
 
@@ -889,6 +957,11 @@ def area_quotes(months, docs, area):
                     if area in sent and re.search(r"\d", sent):
                         out.append((m["key"], s["num"], s["title"], sent.strip()))
     return out
+
+
+def market_area_href(area, slug, n):
+    """蓄電所マーケットの、そのエリアの静的な入口 /catalog/area/<slug>（絞り込みの検索 ?area= でなく。件数0なら入口は404なのでトップ /）。"""
+    return "https://dealroom.scix.co.jp/" + (f"catalog/area/{slug}" if n else "")
 
 
 def projects_block(br, area, slug):
@@ -920,7 +993,7 @@ def projects_block(br, area, slug):
   <div class="rd-two"><div class="rd-card"><h3>都道府県</h3>{svg_hbar([(a, c, f"{c}件") for a, c in pref], w=420, label_w=90, fs=17, color=C_GREEN, aria=f"{area}エリアの案件の都道府県別の件数")}</div>
   <div class="rd-card"><h3>取得の形</h3>{svg_hbar([(a or "確認中", c, f"{c}件") for a, c in sch], w=420, label_w=90, fs=17, color=C_GREEN, aria=f"{area}エリアの案件の取得の形別の件数")}</div>
   <div class="rd-card"><h3>電圧</h3>{svg_hbar([(a or "確認中", c, f"{c}件") for a, c in volt], w=420, label_w=90, fs=17, color=C_GREEN, aria=f"{area}エリアの案件の電圧別の件数")}</div></div>
-  <div class="rd-links"><a href="{CATALOG}?area={urllib.parse.quote(area)}" target="_top">蓄電所マーケットで{esc(area)}エリアの案件を見る →</a><a href="/projects-{slug}">{esc(area)}電力管内の案件一覧（{n}件）</a></div>
+  <div class="rd-links"><a href="{market_area_href(area, slug, n)}" target="_top">蓄電所マーケットで{esc(area)}エリアの案件を見る →</a><a href="/projects-{slug}">{esc(area)}電力管内の案件一覧（{n}件）</a></div>
 </div></section>"""
 
 
@@ -981,7 +1054,7 @@ def render_area(br, data, months, docs, area, slug):
             f"{ym_label(last)}の月平均は{v(last, 'avg')}円/kWh、4時間の値差は{v(last, 's4')}円/kWh。容量市場のエリアプライスと、このエリアの公開案件の件数も。")
     jsonld = "\n".join([
         dataset_ld(br, f"{area}エリアの卸電気の月ごとの数字", desc, path, [("JEPX", "/report/data/jepx-spot-monthly.csv")],
-                   f"{first}/{last}", "ja", [JEPX_URL], f"{area}エリア"),
+                   f"{first}/{last}", "ja", [JEPX_URL], f"{area}エリア", variables_measured("ja", lda=False)),
         br.bmd.ld(br.bmd.crumbs([("ホーム", br.BASE + "/"), ("市場ノート", br.BASE + "/report"), ("市場データ", br.BASE + "/report/data"),
                                  (f"{area}エリア", br.BASE + path)])),
     ])
@@ -996,12 +1069,13 @@ def render_area(br, data, months, docs, area, slug):
 </div></section>
 <section class="md" id="jepx"><div class="container rp-body">
   <h2 class="md-h">②卸電気（JEPX）｜{esc(area)}のエリアプライスと値差</h2>
+  {latest_jepx_sentence("ja", last, area, v(last, "avg"), v(last, "s4"), unit, "JEPX スポット市場")}
   <p>{esc(intro)}</p>
   {kpi(kp)}
   <div class="rd-def"><p><b>定義</b></p><p>{esc(t_avg)}</p><p>{esc(t_spr)}</p></div>
   <div class="rd-two"><div class="rd-card"><h3>月平均・前年同月・日中・夕方（{unit}）</h3>{legend([(LB["avg"], C_PURPLE, False), (LB["yoy"], C_GRAY, True), (LB["day"], C_BLUE, False), (LB["eve"], C_PINK, False)])}{ch1}</div>
   <div class="rd-card"><h3>値差（{unit}）</h3>{legend([(LB["s4"], C_ORANGE, False), (LB["s2"], C_GREEN, False)])}{ch2}</div></div>
-  {table(head, rows, dks, dr)}
+  {table(head, rows, dks, dr, caption=f"{area}の卸電気の月ごとの数字（{unit}）・月平均・前年同月・日中・夕方・値差")}
   {src}
   <a class="rd-dl" href="/report/data/jepx-spot-monthly.csv" download>CSV をダウンロード（全エリア）</a>
 </div></section>
@@ -1048,7 +1122,8 @@ def build(br, months, docs):
     if not ja["jepx"] or not ja["latest"] or "cap" not in ja["latest"]["iss"]:
         notes.append("市場データ: 号の表が読めない（卸電気か容量市場の表が無い）。市場データの頁は焼かない")
         return files, sm, notes
-    _MOD["date"] = ja["latest"]["doc"]["issued"]
+    # 頁の dateModified＝sitemap の lastmod＝最新の号の発行日と、今の sitemap の値（頁を変えた日に stamp_sitemap.py が進める）の新しいほう
+    _MOD["date"] = br.modified_of("/report/data", ja["latest"]["doc"]["issued"])
     en_months = [m for m in months if m.get("en_md")]
     en = collect(en_months, docs, "en") if en_months else None
     has_en = False
@@ -1069,7 +1144,7 @@ def build(br, months, docs):
     files["report/data/long-term-decarbonization-auction.csv"] = lda_csv(ja, "ja").encode("utf-8")
     if SHOW_EPRX and ja["eprx"]:
         files["report/data/eprx-monthly.csv"] = eprx_csv(ja, "ja", "/report").encode("utf-8")
-    d = ja["latest"]["doc"]["issued"]
+    d = _MOD["date"]
     sm.append(("/report/data", d, "0.7", "/en/report/data" if has_en else None, "ja"))
     if has_en:
         en_order = en["jepx"][max(en["jepx"])]["order"]

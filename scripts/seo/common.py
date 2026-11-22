@@ -284,6 +284,8 @@ def file_to_url(rel: str) -> str | None:
         return BASE + "/"
     if slug == "en/index":
         return BASE + "/en"
+    if slug.endswith("/index"):   # report/data/index.html → /report/data（ディレクトリの頁）
+        return f"{BASE}/{slug[:-6]}"
     return f"{BASE}/{slug}"
 
 

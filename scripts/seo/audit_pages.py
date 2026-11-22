@@ -16,6 +16,18 @@
              /site-cards.js を読む・最初の節に会社案内とお問い合わせのリンクがある（2026-11-22 トップ＝蓄電所マーケットのカードの一覧）
 表示幅は全角2・半角1で数える（検索結果の切れ目のおおよそ）。
 
+  2026-11-22 に足した物（中島「Seo 対策も徹底してやって」）:
+  FAQPage    問いが頁の本文に無い（画面に無い問いを構造化データに出さない）
+  Article    author / publisher に @id が無い・ロゴが白（logo-white）・inLanguage が無い
+  Breadcrumb 3段目以降にアンカー（#…）の住所がある
+  robots     index の頁に max-image-preview:large が無い
+  sitemap    hreflang が頁の中と違う（x-default を含む）・lastmod が頁の dateModified と違う
+  llms.txt   sitemap の頁の題を全部載せていない
+  入口リンク コラムの末尾の蓄電所マーケットの入口が絞り込みの検索（?area=・?voltage=）・件数0の入口を指している
+  市場データ 表に caption・th scope・time が無い・「いちばん新しい行の1文」の数字が表に無い・月報の img に width・height が無い
+  対の頁     英語・中国語のコラムに「あわせて読む」・用語集へのリンクが無い（日本語の対にあるものだけ）
+「注意」（title・description の長さ）は --strict の判定に数えない（全頁の見直しが済むまでの目安）。
+
 使い方:
     python3 scripts/seo/audit_pages.py            # 要約と、問題ごとの頁の一覧
     python3 scripts/seo/audit_pages.py --json     # 機械向け
@@ -24,6 +36,7 @@
 """
 from __future__ import annotations  # launchd の python3 は 3.9
 
+import html as _html
 import json
 import os
 import re
@@ -39,6 +52,7 @@ DESC_MIN = 70      # 全角35字
 DESC_MAX = 250     # 全角125字
 SKIP_DIRS = {".git", "node_modules", "files", "docs", "scripts", ".github", "img", "api"}
 SKIP_FILES = {"404.html", "thanks.html", "en/thanks.html", "zh-thanks.html"}
+ADVISORY = {"title 長すぎ", "description 長すぎ", "description 短すぎ"}
 
 
 def width(s: str) -> int:
@@ -130,6 +144,38 @@ def ld_types(blocks):
         except Exception:
             bad += 1
     return types, bad
+
+
+def norm_text(t: str) -> str:
+    return re.sub(r"\s+", "", unicodedata.normalize("NFKC", _html.unescape(re.sub(r"<[^>]+>", "", t)))).lower()
+
+
+def ld_objects(blocks):
+    for b in blocks:
+        try:
+            j = json.loads(b)
+        except Exception:
+            continue
+        for o in (j if isinstance(j, list) else [j]):
+            if isinstance(o, dict):
+                yield o
+
+
+def projects_counts():
+    try:
+        ps = json.load(open(os.path.join(ROOT, "projects.json"), encoding="utf-8"))["projects"]
+    except (OSError, ValueError, KeyError):
+        return {}, {}
+    area, volt = {}, {}
+    for x in ps:
+        area[x.get("area")] = area.get(x.get("area"), 0) + 1
+        volt[x.get("voltage")] = volt.get(x.get("voltage"), 0) + 1
+    return area, volt
+
+
+AREA_SLUG = {"hokkaido": "北海道", "tohoku": "東北", "tokyo": "東京", "chubu": "中部", "hokuriku": "北陸", "kansai": "関西",
+             "chugoku": "中国", "shikoku": "四国", "kyushu": "九州"}
+VOLT_SLUG = {"extra-high-voltage": "特別高圧", "high-voltage": "高圧"}
 
 
 def pages():
@@ -251,6 +297,61 @@ def main():
                 issues["og:image の画像が無い"].append((rel, img))
         for src in h.img_noalt:
             issues["img の alt 無し"].append((rel, src))
+        raw = open(os.path.join(ROOT, rel), encoding="utf-8").read()
+        for o in ld_objects(h.ld):
+            t = o.get("@type")
+            if t == "FAQPage":
+                body = norm_text(re.sub(r"<script.*?</script>", "", raw, flags=re.S))
+                for q in o.get("mainEntity", []):
+                    if norm_text(q.get("name", "")) not in body:
+                        issues["FAQPage の問いが本文に無い"].append((rel, q.get("name", "")[:50]))
+            if t == "Article":
+                a, pub = o.get("author") or {}, o.get("publisher") or {}
+                if isinstance(a, dict) and "@id" not in a:
+                    issues["Article の author に @id 無し"].append((rel, ""))
+                if "@id" not in pub:
+                    issues["Article の publisher に @id 無し"].append((rel, ""))
+                if "inLanguage" not in o:
+                    issues["Article に inLanguage 無し"].append((rel, ""))
+            if t == "BreadcrumbList":
+                for it in o.get("itemListElement", []):
+                    if "#" in str(it.get("item", "")):
+                        issues["パンくずの住所にアンカー（#）がある"].append((rel, str(it.get("item"))))
+        if any("logo-white" in b for b in h.ld):
+            issues["構造化データのロゴが白（logo-white）"].append((rel, ""))
+        if not noindex and "max-image-preview:large" not in h.robots:
+            issues["robots に max-image-preview:large 無し"].append((rel, ""))
+        if re.search(r"catalog\?(?:area|voltage)=", raw):
+            issues["マーケットの絞り込み検索（?area=・?voltage=）へのリンク"].append((rel, ""))
+        if rel.startswith(("column-", "zh-column-", "en/column-")) or rel.startswith("report/area/"):
+            area_n, volt_n = projects_counts()
+            for kind, slug in re.findall(r"dealroom\.scix\.co\.jp/catalog/(area|voltage)/([a-z-]+)", raw):
+                n = (area_n if kind == "area" else volt_n).get((AREA_SLUG if kind == "area" else VOLT_SLUG).get(slug), 0)
+                if not n:
+                    issues["件数0の入口を指している（入口は404）"].append((rel, f"{kind}/{slug}"))
+        if rel.startswith(("report/", "en/report/")) and "<table" in raw:
+            n_tab = raw.count("<table")
+            if raw.count("<caption>") < n_tab or len(re.findall(r'<th scope="(?:col|row)"', raw)) < n_tab or "<time " not in raw:
+                if "/data/" in rel or "/area/" in rel:
+                    issues["市場データの表に caption・th scope・time 無し"].append((rel, f"table {n_tab}・caption {raw.count('<caption>')}"))
+            for m in re.finditer(r'<p class="rd-latest"[^>]*>(.*?)</p>', raw):
+                cells = norm_text(" ".join(re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", raw, flags=re.S)))
+                for num in re.findall(r"\d+\.\d+|\d{1,3}(?:,\d{3})+", re.sub(r"<[^>]+>", "", m.group(1))):
+                    if norm_text(num) not in cells:
+                        issues["「いちばん新しい行の1文」の数字が表に無い"].append((rel, num))
+        if rel.startswith(("report/", "en/report/")):
+            for im in re.findall(r"<img\b[^>]*>", raw):
+                if "/report/" in im and ("width=" not in im or "height=" not in im) and "logo" not in im:
+                    issues["月報の img に width・height 無し"].append((rel, im[:60]))
+        if is_column(rel) and (rel.startswith("zh-") or rel.startswith("en/")):
+            slug = os.path.basename(rel).split("column-", 1)[1]
+            ja = os.path.join(ROOT, "column-" + slug)
+            if os.path.isfile(ja):
+                ja_raw = open(ja, encoding="utf-8").read()
+                if "data-scix-readnext" in ja_raw and "data-scix-readnext" not in raw:
+                    issues["英語・中国語のコラムに「あわせて読む」無し"].append((rel, ""))
+                if "data-scix-guide" in ja_raw and not re.search(r"<aside data-scix-guide.*?glossary", raw, re.S):
+                    issues["英語・中国語のコラムに用語集へのリンク無し"].append((rel, ""))
         in_sm = me in sm_locs or me.rstrip("/") in sm_locs
         if noindex and in_sm:
             issues["noindex なのに sitemap にある"].append((rel, ""))
@@ -270,15 +371,41 @@ def main():
         if not file_of(loc):
             issues["sitemap の住所にファイルが無い"].append((loc, ""))
 
+    # sitemap の hreflang・lastmod が頁の中と同じか
+    for m in re.finditer(r"<url>(.*?)</url>", sm_text, flags=re.S):
+        blk = m.group(1)
+        loc = re.search(r"<loc>([^<]+)</loc>", blk).group(1)
+        f = file_of(loc)
+        if not f or not isinstance(info.get(f), Head):
+            continue
+        h = info[f]
+        s_alts = dict(re.findall(r'hreflang="([^"]+)" href="([^"]+)"', blk))
+        if h.alts and s_alts != h.alts:
+            issues["sitemap の hreflang が頁の中と違う"].append((f, ""))
+        raw = open(os.path.join(ROOT, f), encoding="utf-8").read()
+        dm = re.search(r'"dateModified"\s*:\s*"(\d{4}-\d\d-\d\d)', raw)
+        lm = re.search(r"<lastmod>([^<]+)</lastmod>", blk)
+        if dm and lm and dm.group(1) != lm.group(1):
+            issues["sitemap の lastmod が頁の dateModified と違う"].append((f, f"{lm.group(1)} / {dm.group(1)}"))
+    lp = os.path.join(ROOT, "llms.txt")
+    if not os.path.isfile(lp):
+        issues["llms.txt が無い"].append(("llms.txt", ""))
+    else:
+        ll = open(lp, encoding="utf-8").read()
+        for loc in sorted(sm_locs):
+            f = file_of(loc)
+            if f and isinstance(info.get(f), Head) and info[f].title and f"[{info[f].title}]({loc})" not in ll:
+                issues["llms.txt に頁の題が載っていない"].append((f, ""))
+
     if as_json:
         print(json.dumps({k: v for k, v in issues.items()}, ensure_ascii=False, indent=1))
     else:
         print(f"頁 {len(info)} 本・sitemap {len(sm_locs)} 本")
         for k in sorted(issues, key=lambda k: -len(issues[k])):
-            print(f"\n## {k}（{len(issues[k])}）")
+            print(f"\n## {k}（{len(issues[k])}）" + ("（注意・--strict に数えない）" if k in ADVISORY else ""))
             for rel, d in issues[k][:400]:
                 print(f"  {rel}  {d}")
-    return 1 if (strict and issues) else 0
+    return 1 if (strict and any(k not in ADVISORY for k in issues)) else 0
 
 
 if __name__ == "__main__":

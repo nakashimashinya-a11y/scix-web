@@ -142,6 +142,20 @@ launchctl bootout gui/$(id -u)/ai.scix.web-weekly       # 週次を止める
 
 GA4 のトークンが無いときは GA4 だけ飛ばして動く。取得は `python3 scripts/seo/ga4_auth.py`（ブラウザで 1 回許可）。
 
+## 頁の形の検査と、機械で作る頁の部品（2026-11-22 中島「Seo 対策も徹底してやって」）
+
+| 物 | 何をするか | 使い方 |
+|---|---|---|
+| `scripts/seo/audit_pages.py` | 全頁の head・構造化データ・sitemap を手元のファイルだけで点検する。FAQPage の問いが本文にあるか・Article の author／publisher の `@id`・ロゴ（紺）・パンくずにアンカーが無いか・`max-image-preview:large`・sitemap の hreflang／lastmod が頁と同じか・llms.txt・コラム末尾の入口の行き先（絞り込みの検索や件数0の入口を指さない）・市場データの表（caption・th scope・time・「いちばん新しい行の1文」の数字が表にあるか）・月報の画像の幅高さ・英語中国語のコラムの対のリンク。題と説明の長さは「注意」で `--strict` に数えない。トップ3頁（index.html・en/index.html・zh.html）も同じ検査を受ける（2026-11-22 に除外を外した） | `python3 scripts/seo/audit_pages.py --strict`（PR の前に通す） |
+| `scripts/add_column_entrances.py` | 日本語のコラム末尾の入口の区画（マーケットの静的な入口・市場の数字への静的リンク）を作り直す | `python3 scripts/add_column_entrances.py [--check]`（projects.json の件数が変わって件数0の入口ができたら回す） |
+| `scripts/add_column_related.py` | 英語・中国語のコラムに、日本語の対と同じ「あわせて読む」・用語集・市場の数字のリンクを作る | `python3 scripts/add_column_related.py [--check]` |
+| `scripts/build_llms_txt.py` | `/llms.txt`（sitemap の頁の題と説明の一覧）を作る。title・description を変えたら回す | `python3 scripts/build_llms_txt.py [--check]` |
+| `scripts/seo/market_side.py` | 週のブリーフの「12. マーケット側の検索」（ホスト別・dealroom の頁の種類別・語の定点25語・URL 検査の定点20本）。URL 検査は週に1回、台帳 `inspect_market/` に溜める（案件の頁は projects.json から実行時に選ぶ＝案件の住所をコードに書かない。301 で移る古い入口 /catalog・/wanted は入れず、移った先の /・/needs を見る） | `collect_daily.py` が自動（`--inspect` で今日取る） |
+
+sitemap の lastmod は頁の JSON-LD `dateModified` と同じ値にし、前の値より古くしない。題・説明・区画・リンクなど頁を変えた日に、その頁だけ `stamp_sitemap.py <頁>` で今日にする（lastmod と一緒に `dateModified`・`article:modified_time` も同じ日に動く）。構造化データ・robots・img の寸法だけの直しは頁を変えた日に数えない。月報の頁・市場データの頁は生成器（`build_reports.py`・`build_report_data.py`）が「発行日と今の sitemap の値の新しいほう」を JSON-LD と sitemap の両方に書くので、焼き直しで日付が戻らない。`sync_sitemap_lastmod.py --write` は頁の dateModified があればその値に揃え、無ければ最後の commit の日（広い直しの直後に回さない）。
+
+トップ3頁（`/`・`/en`・`/zh`）の作り替え（#237）は、sitemap.xml と変更台帳の2本が、同じ週に入る広い直し（#238 など）と行の並びで衝突した。取り込む側は、sitemap.xml を先に入った main の版にしたうえで `python3 scripts/seo/stamp_sitemap.py index.html en/index.html zh.html` でトップ3行の lastmod を今日にし直す（自分の側の版にすると、main が進めた lastmod と x-default が戻る）。変更台帳（`docs/seo-change-log.md`）は同じ日の行の並びで衝突するので、衝突の印だけ消して両方の行を残す。
+
 ## 数字の置き場
 
 公開リポジトリ（この docs と change-log）には GSC の数字だけ。GA4 のリード数・用件別は Drive の台帳側（`scix-web解析/`）。Web 版 Claude・スマホは `scix-web解析/最新.md`（毎朝の写し・読み取り専用）。
