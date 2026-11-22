@@ -25,7 +25,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import (COMMERCIAL, LEDGER, REPO, d, daterange, file_to_url, jload, path_of,  # noqa: E402
+from common import (COMMERCIAL, HOST, LEDGER, REPO, bot_reason, d, daterange, file_to_url, jload, path_of,  # noqa: E402
                     read_jsonl, safe_d, today)
 import newpages as npg  # noqa: E402
 
@@ -116,6 +116,107 @@ def agg_ga4(recs):
         for x in r.get("knowledge_search") or []:
             k = x.get("customEvent:search_term"); search[k] = search.get(k, 0) + int(x.get("eventCount") or 0)
     return tot, landing, trans, events, intents, nav, news, search
+
+
+def agg_mix(recs):
+    """13 節の材料（2026-11-22・指示4／指示5）。台帳に mix・ai・host の無い日（取り方を変える前）は数えず、日数を返す。
+
+    返す物: days（mix のある日）・host_days（hostName=www だけで取った日）・tot（その日の全体 sessions・engaged・leads）・
+    bot（機械らしい群の合計）・by_reason・cc（(国, 経路) → sessions・engaged・leads・bot）・ai_src（参照元 → …）・ai_land（着地 → …）・
+    hosts（外した住所 → 閲覧数）。"""
+    out = {"days": 0, "host_days": 0, "tot": {"sessions": 0, "engaged": 0, "leads": 0},
+           "bot": {"sessions": 0, "engaged": 0, "leads": 0}, "by_reason": {}, "cc": {}, "ai_src": {}, "ai_land": {}, "hosts": {}}
+    def add(a, r):
+        a["sessions"] = a.get("sessions", 0) + int(r.get("sessions") or 0)
+        a["engaged"] = a.get("engaged", 0) + int(r.get("engagedSessions") or 0)
+        a["leads"] = a.get("leads", 0) + int(r.get(LEAD) or 0)
+    for r in recs:
+        if r.get("host") == HOST:
+            out["host_days"] += 1
+            for h in r.get("hosts") or []:
+                if h.get("hostName") != HOST:
+                    out["hosts"][h.get("hostName")] = out["hosts"].get(h.get("hostName"), 0) + int(h.get("screenPageViews") or 0)
+        if r.get("mix") is None:
+            continue
+        out["days"] += 1
+        t = r.get("totals") or {}
+        out["tot"]["sessions"] += int(t.get("sessions") or 0); out["tot"]["engaged"] += int(t.get("engagedSessions") or 0)
+        out["tot"]["leads"] += int(t.get(LEAD) or 0)
+        for x in r["mix"]:
+            why = bot_reason(x.get("country"), x.get("sessionDefaultChannelGroup"), x.get("screenResolution"), x.get("landingPage"))
+            k = (x.get("country") or "(not set)", x.get("sessionDefaultChannelGroup") or "(not set)")
+            c = out["cc"].setdefault(k, {"sessions": 0, "engaged": 0, "leads": 0, "bot": 0})
+            add(c, x)
+            if why:
+                c["bot"] += int(x.get("sessions") or 0)
+                add(out["bot"], x)
+                add(out["by_reason"].setdefault(why, {}), x)
+        for x in r.get("ai") or []:
+            add(out["ai_src"].setdefault(x.get("sessionSource") or "(not set)", {}), x)
+            add(out["ai_land"].setdefault(x.get("landingPage") or "(not set)", {}), x)
+    return out
+
+
+def render_mix(L, mx, days, lim=15) -> None:
+    """13 節: 人らしい来訪と機械らしい群・国×経路・AI 経由。数はブリーフ（Drive）にだけ出す。"""
+    L.append("## 13. 人らしい来訪と機械らしい群・国×経路・AI 経由（GA4・28日）\n")
+    if not mx["days"]:
+        L.append("台帳に国×経路（mix）のある日がまだ無い（2026-11-22 に取り方を変えた。"
+                 "`collect_daily.py --days 90 --ga4-refresh-all --no-gsc --no-health` で取り直せる）。\n")
+        return
+    t, b = mx["tot"], mx["bot"]
+    L.append(f"数えた日: {mx['days']}/{days}（mix のある日）・本番の住所（{HOST}）だけで取った日 {mx['host_days']}/{days}。"
+             "主に見る数はエンゲージのあるセッション。機械らしい群＝着地なし／画面 1280x1200・800x600／日本以外の Direct・Unassigned"
+             "（重なりは先の理由に1回）。日本の Direct は本人が URL を開いて問い合わせる群なので機械に数えない。"
+             "全体は totals、機械らしい群は国×経路×画面×着地の行の合計から出すので、GA4 の数え方の違いで人らしい来訪には少し誤差が出る（目安として読む）。\n")
+    L.append("| | セッション | エンゲージ | 問い合わせ |\n|---|---|---|---|")
+    L.append(f"| 全体 | {t['sessions']} | {t['engaged']} | {t['leads']} |")
+    L.append(f"| うち機械らしい群 | {b['sessions']} | {b['engaged']} | {b['leads']} |")
+    L.append(f"| **人らしい来訪（全体−機械らしい群）** | **{t['sessions'] - b['sessions']}** | **{t['engaged'] - b['engaged']}** | {t['leads'] - b['leads']} |")
+    for why, v in sorted(mx["by_reason"].items(), key=lambda kv: -kv[1].get("sessions", 0)):
+        L.append(f"| 　機械らしい: {why} | {v.get('sessions', 0)} | {v.get('engaged', 0)} | {v.get('leads', 0)} |")
+    if mx["hosts"]:
+        L.append("\n本番以外の住所（数に入れていない・閲覧数）: " + "・".join(f"{h} {n}" for h, n in sorted(mx["hosts"].items(), key=lambda kv: -kv[1])))
+    L.append(f"\n### 13a. 国×経路（セッション上位{lim}）\n")
+    L.append("| 国 | 経路 | セッション | エンゲージ | エンゲージ率 | 問い合わせ | うち機械らしい |\n|---|---|---|---|---|---|---|")
+    for (c, ch), v in sorted(mx["cc"].items(), key=lambda kv: -kv[1]["sessions"])[:lim]:
+        rate = v["engaged"] / v["sessions"] if v["sessions"] else 0.0
+        L.append(f"| {c} | {ch} | {v['sessions']} | {v['engaged']} | {pct(rate)} | {v['leads']} | {v['bot']} |")
+    human_abroad = [(k, v) for k, v in mx["cc"].items() if k[0] != "Japan" and k[1] not in ("Direct", "Unassigned")]
+    if human_abroad:
+        L.append("\n日本以外で人らしい経路（Direct・Unassigned 以外）: "
+                 + "・".join(f"{c}/{ch} {v['sessions']}（エンゲージ {v['engaged']}）"
+                             for (c, ch), v in sorted(human_abroad, key=lambda kv: -kv[1]["engaged"])[:12]))
+    L.append(f"\n### 13b. AI 経由（チャネル AI Assistant か、参照元が AI の名前）\n")
+    if not mx["ai_src"]:
+        L.append("なし。\n")
+        return
+    L.append("| 参照元 | セッション | エンゲージ | 問い合わせ |\n|---|---|---|---|")
+    for k, v in sorted(mx["ai_src"].items(), key=lambda kv: -kv[1].get("sessions", 0))[:lim]:
+        L.append(f"| {k} | {v.get('sessions', 0)} | {v.get('engaged', 0)} | {v.get('leads', 0)} |")
+    L.append("\nAI 経由の着地（セッション上位）: " + "・".join(
+        f"{k} {v.get('sessions', 0)}（エンゲージ {v.get('engaged', 0)}・問い合わせ {v.get('leads', 0)}）"
+        for k, v in sorted(mx["ai_land"].items(), key=lambda kv: -kv[1].get("sessions", 0))[:lim]))
+    L.append("エンゲージ 0 の参照元（source=openai など）は、AI の名前でも巡回のことがある。\n")
+
+
+def title_fix_queries(q, min_impr=100, ratio=0.5):
+    """題（title）と説明の直しを見る語: 表示 min_impr 以上で、CTR が同じ順位帯の語の中央値の ratio 倍未満（順位 20 位まで）。"""
+    def band(pos):
+        return "1-3" if pos <= 3 else "4-10" if pos <= 10 else "11-20" if pos <= 20 else "21+"
+    bands = {}
+    for k, v in q.items():
+        if v["impressions"] >= 30 and v["position"]:
+            bands.setdefault(band(v["position"]), []).append(v["ctr"])
+    med = {b: statistics.median(v) for b, v in bands.items()}
+    rows = []
+    for k, v in q.items():
+        if v["impressions"] >= min_impr and v["position"] and v["position"] <= 20:
+            m = med.get(band(v["position"]))
+            if m and v["ctr"] < m * ratio:
+                rows.append((k, v, m))
+    rows.sort(key=lambda x: -x[1]["impressions"])
+    return rows, med
 
 
 def cooldown_pages(structure=False, strict=False):
@@ -443,11 +544,13 @@ def render(days=28, for_latest=False, structure=False):
     L.append(f"| GSC CTR | {pct(t7['ctr'])} | {pct(t7p['ctr'])} | | {pct(tot['ctr'])} | {pct(ptot['ctr'])} | |")
     L.append(f"| GSC 平均順位 | {fnum(t7['position'])} | {fnum(t7p['position'])} | | {fnum(tot['position'])} | {fnum(ptot['position'])} | |")
     if gtot["days"]:
+        L.append(f"| **GA4 エンゲージのあるセッション（主に見る数）** | {g7['engaged']} | {g7p['engaged']} | {delta(g7['engaged'], g7p['engaged'])} | {gtot['engaged']} | {gptot['engaged']} | {delta(gtot['engaged'], gptot['engaged'])} |")
         L.append(f"| GA4 セッション | {g7['sessions']} | {g7p['sessions']} | {delta(g7['sessions'], g7p['sessions'])} | {gtot['sessions']} | {gptot['sessions']} | {delta(gtot['sessions'], gptot['sessions'])} |")
         L.append(f"| GA4 問い合わせ（generate_lead） | {g7['leads']} | {g7p['leads']} | | {gtot['leads']} | {gptot['leads']} | |")
     else:
         L.append("| GA4 | （トークン未取得＝未収集） | | | | | |")
-    L.append(f"\nデータ日数: GSC {tot['days']}/{days}・GA4 {gtot['days']}/{days}\n")
+    L.append(f"\nデータ日数: GSC {tot['days']}/{days}・GA4 {gtot['days']}/{days}。"
+             "GA4 のセッションには機械らしい群（日本以外の Direct など）が入る＝増減はエンゲージのある数で読み、内訳は 13 節。\n")
 
     # 2. リード
     L.append("## 2. 問い合わせ（GA4 generate_lead・28日）\n")
@@ -530,6 +633,17 @@ def render(days=28, for_latest=False, structure=False):
     L.append(f"\n### 5d. 表示30以上でクリック0の語\n")
     zero = [(k, v) for k, v in q.items() if v["impressions"] >= 30 and v["clicks"] == 0]
     L.append("・".join(f"{k}({v['impressions']}/{fnum(v['position'])}位)" for k, v in sorted(zero, key=lambda kv: -kv[1]["impressions"])[:lim]) or "なし")
+    L.append(f"\n### 5e. 題の直しを見る語（表示が多く CTR が低い語・表示100以上・同じ順位帯の語の CTR 中央値の半分未満・20位まで）\n")
+    tq, tmed = title_fix_queries(q)
+    if tq:
+        L.append("帯の中央値（語・表示30以上）: " + "・".join(f"{b} {pct(m)}" for b, m in sorted(tmed.items())) + "\n")
+        L.append("| 検索語 | 表示 | クリック | CTR | 順位 | 帯の中央値 | 主な着地 |\n|---|---|---|---|---|---|---|")
+        for k, v, m in tq[:lim]:
+            top = max(v["pages"].items(), key=lambda kv: kv[1])[0]
+            L.append(f"| {k} | {v['impressions']} | {v['clicks']} | {pct(v['ctr'])} | {fnum(v['position'])} | {pct(m)} | {top} |")
+        L.append("\n直すのは題・説明・要点の枠（本文と h1 は変えない）。同じ語が複数の頁に分かれているときは、どの頁が受けるかを先に決める。")
+    else:
+        L.append("なし")
     L.append("")
 
     # 6. 行動
@@ -638,6 +752,12 @@ def render(days=28, for_latest=False, structure=False):
         market_side.render(L, cur, w7, w7p, q, pq, LEDGER, str(REPO), fnum, pct)
     except Exception as e:  # noqa: BLE001 — ここが落ちてもブリーフの他の節は出す
         L.append(f"## 12. マーケット側の検索\n\n生成に失敗: {e}\n")
+
+    # 13. 人らしい来訪と機械らしい群・国×経路・AI 経由（2026-11-22）
+    try:
+        render_mix(L, agg_mix(ga_cur), days, lim=(10 if for_latest else 20))
+    except Exception as e:  # noqa: BLE001 — ここが落ちてもブリーフの他の節は出す
+        L.append(f"## 13. 人らしい来訪と機械らしい群\n\n生成に失敗: {e}\n")
 
     # S1〜S8. 構成レビュー（月1回・--structure のときだけ）
     if structure:

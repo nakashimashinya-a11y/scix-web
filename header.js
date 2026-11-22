@@ -1029,14 +1029,17 @@
   //      印の形はマーケット側の public/src-mark.js・functions/_lib/signup_src.ts と同じ＝英数と _- だけ・64字まで。
   //      コラム col-<slug>／市場ノート report・report-<YYYY-MM>／ナレッジの一覧 knowledge／トップ top／ほかは site-<頁>。英語は末尾に -en、中国語は -zh。
   //      頁を読み込んだ時点では href を変えない（検索エンジンが読むリンクは今のまま）。
-  //  7b. GA4: マーケットへのリンクが押されたら market_click を1回（page_path・src_mark・placement＝header/card/hero/body/end/footer・link_path）。
+  //  7b. GA4: マーケットへのリンクが押されたら market_click を1回（from_path・src_mark・placement＝header/card/hero/body/end/footer・link_path）。
   //      前からの dr2_promo_click・dr2_register_click（各頁の onclick）は内訳として残し、legacy_event・legacy_target に写す＝マーケットへの送客は market_click だけで数える（足さない）。
   //  7c. 社内の閲覧の印: 一度 ?internal=1 を開いた端末は、GA4 の利用者の印 internal_user=1 を付ける（?internal=0 で外す・localStorage）。
+  //      GA4 のデータフィルタが読む traffic_type=internal は、各頁の head の GA の区画（scripts/build_ga_tag.py・同じ鍵 scix_internal）が config に付ける
+  //      （config は head で先に走るので、ここでは付けられない）。同じ区画が、本番以外の住所と自動操作のブラウザからは送らない。
   //  7d. 問い合わせの出所: 最初に着いた頁・その前のサイト（ホスト名だけ）・直前に見ていた頁・出所の印（src・utm）を sessionStorage に覚え、
   //      /api/contact へ送るフォームに隠し欄（_entry_page・_entry_ref・_prev_page・_src・_utm）で渡す。受け口（web-contact.ts）は「_」で始まる欄を
   //      断らずに本文から外すので、今は届いても残らない（受け口に記録の行を足せば残る）。頁の住所は path だけ（問い合わせの引数は持たない）。
   //  7e. 記事 → 市場ノート: 需給調整市場・卸電気・容量市場の記事に、/report/latest.json（build_reports.py が焼く）の「最新の数字」の札を出す。
   //      JSON が読めなければ出さない。札の文は号の頁の「今月の動き」の文そのまま（言い直さない）。
+  //  7f. 導線の押下: a[data-cta] が押されたら cta_click（placement・target・src_mark）を1回（2026-11-22）。
   try { (function () {
     var MARKET_HOST = 'dealroom.scix.co.jp';
     var langSfx = isEn ? '-en' : (isZh ? '-zh' : '');
@@ -1111,7 +1114,7 @@
         if (!u || typeof window.gtag !== 'function') return;
         var lm = /(dr2_[a-z]+_click)'\s*,\s*\{\s*target\s*:\s*'([^']*)'/.exec(a.getAttribute('onclick') || '');
         window.gtag('event', 'market_click', {
-          page_path: path, src_mark: markOf(a), placement: placementOf(a), link_path: u.pathname,
+          page_path: path, from_path: path, src_mark: markOf(a), placement: placementOf(a), link_path: u.pathname,
           legacy_event: lm ? lm[1] : '', legacy_target: lm ? lm[2] : '',
           page_lang: (document.documentElement.lang || lang), transport_type: 'beacon'
         });
@@ -1119,6 +1122,41 @@
     }
     document.addEventListener('click', onClick, true);
     document.addEventListener('auxclick', onClick, true);
+
+    // ---- 7f. 導線の押下 cta_click（2026-11-22・a[data-cta] の委任） ----
+    // 記事の途中・末尾などの導線は <a data-cta="<置き場>" data-cta-target="<行き先の名>" href="…"> と書く（onclick は書かない）。
+    // placement＝data-cta の値（例 mid・end）、target＝data-cta-target（無ければ行き先から market／contact／sell_form／site-<頁>）、
+    // src_mark＝頁の印（7a と同じ）、from_path＝押した頁の道（page_path は gtag が予約語として外して届かないので使わない）。前からの onclick で cta_click を送っているリンクには足さない（二重に数えない）。
+    // マーケットへのリンクは、7b の market_click も今のまま1回出る（送客の数は market_click で数える）。
+    function ctaTarget(a) {
+      var t = cleanMark(a.getAttribute('data-cta-target'));
+      if (t) return t.slice(0, 64);
+      var u = null;
+      try { u = new URL(a.getAttribute('href') || '', window.location.href); } catch (err) { return 'other'; }
+      if (u.hostname === MARKET_HOST) return 'market';
+      if (u.hostname !== window.location.hostname) return 'external';
+      var p = u.pathname.replace(/\.html$/, '');
+      if (/^\/(?:en\/|zh-)?contact$/.test(p)) return 'contact';
+      if (/^\/(?:en\/)?sell-form$/.test(p)) return 'sell_form';
+      return (cleanMark('site-' + p.replace(/^\/+/, '')) || 'site').slice(0, 64);
+    }
+    function onCta(e) {
+      try {
+        if (e.type === 'auxclick' && e.button !== 1) return;
+        var a = linkOf(e);
+        if (!a || !a.hasAttribute('data-cta') || typeof window.gtag !== 'function') return;
+        if (/'cta_click'/.test(a.getAttribute('onclick') || '')) return;
+        var lp = '';
+        try { lp = new URL(a.getAttribute('href') || '', window.location.href).pathname; } catch (err) { lp = ''; }
+        window.gtag('event', 'cta_click', {
+          placement: (cleanMark(a.getAttribute('data-cta')) || 'body').slice(0, 40), target: ctaTarget(a),
+          src_mark: markOf(a), from_path: path, link_path: lp,
+          page_lang: (document.documentElement.lang || lang), transport_type: 'beacon'
+        });
+      } catch (err) { /* ignore */ }
+    }
+    document.addEventListener('click', onCta, true);
+    document.addEventListener('auxclick', onCta, true);
 
     // ---- 7c. 社内の閲覧の印 ----
     var INT_KEY = 'scix_internal';
