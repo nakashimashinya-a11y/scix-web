@@ -35,7 +35,7 @@ if "--root" in sys.argv:
     ROOT = os.path.abspath(sys.argv[sys.argv.index("--root") + 1])
 BASE = "https://www.scix.co.jp"
 B, E = "<!-- scix-cluster:begin -->", "<!-- scix-cluster:end -->"
-LAND = {"land-buyback", "land-lease", "land-value"}   # 土地の持ち主向け（O16-5）
+LAND = {"land-buyback", "land-lease", "land-value", "land-zoning"}   # 土地の持ち主向け（O16-5・コラムの持ち場の column_blocks.py と同じ4本）
 
 # まとまり: (柱の頁 {言葉: 住所}, 属するコラムの slug)
 CLUSTERS = {
@@ -152,6 +152,7 @@ def fix_ld(s: str, pil: str, name: str, pillars: set) -> str:
             return m.group(0)
         if not isinstance(o, dict) or o.get("@type") != "BreadcrumbList":
             return m.group(0)
+        before = json.dumps(o, sort_keys=True)
         items = [it for it in o.get("itemListElement", []) if str(it.get("item", "")).replace(BASE, "") not in pillars]
         if len(items) < 2:
             return m.group(0)
@@ -159,7 +160,17 @@ def fix_ld(s: str, pil: str, name: str, pillars: set) -> str:
         for n, it in enumerate(items, 1):
             it["position"] = n
         o["itemListElement"] = items
-        return '<script type="application/ld+json">\n' + json.dumps(o, ensure_ascii=False, indent=2) + "\n</script>"
+        if json.dumps(o, sort_keys=True) == before:
+            return m.group(0)
+        # 元の書式（1行か、字下げの幅）に合わせて書き、区画の外の書式の差分を出さない
+        orig = m.group(1)
+        lines = orig.strip().split("\n")
+        if len(lines) == 1:
+            dumped = json.dumps(o, ensure_ascii=False)
+        else:
+            ind = len(lines[1]) - len(lines[1].lstrip(" ")) or 2
+            dumped = json.dumps(o, ensure_ascii=False, indent=ind)
+        return m.group(0).replace(orig, dumped, 1)
     return re.sub(r'<script type="application/ld\+json">\s*(\{.*?\})\s*</script>', one, s, flags=re.S)
 
 

@@ -442,7 +442,8 @@ def render(d: dict, langs: set, generated: dict) -> tuple[str, list, list]:
     xdef = BASE + path_of(slug, "en" if "en" in langs else "ja")
     alt_html = "\n".join(f'<link rel="alternate" hreflang="{h}" href="{u}">' for h, u in alts)
     alt_html += f'\n<link rel="alternate" hreflang="x-default" href="{xdef}">'
-    org = {"@type": "Organization", "@id": ORG_ID, "name": "Science X Inc.", "alternateName": "サイエンスエックス株式会社",
+    org = {"@type": "Organization", "@id": ORG_ID, "name": "ScienceX",
+           "alternateName": ["サイエンスエックス", "サイエンスエックス株式会社", "Science X Inc.", "Science X"],
            "url": BASE + "/", "logo": {"@type": "ImageObject", "url": BASE + "/img/logo-navy.png"}}
     ld_page = {
         "@context": "https://schema.org", "@type": "CollectionPage", "@id": url + "#webpage", "url": url,

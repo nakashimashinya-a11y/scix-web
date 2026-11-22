@@ -158,5 +158,5 @@ Grid-scale BESS projects in Japan that hold a connection study response are for 
 → [See projects on Chikudensho Market](https://dealroom.scix.co.jp/en)
 
 ### If you are selling
-If you hold a project with a connection study response, we either buy the project ourselves or introduce you to a buyer.
+If you hold a project with a connection study response, we either buy the project ourselves or introduce you to a buyer. Projects awarded in the LDA are not covered.
 → [Talk to us about selling (form in Japanese)](/sell-form) · [Contact us in English](/en/contact)

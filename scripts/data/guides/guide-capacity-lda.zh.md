@@ -4,7 +4,7 @@ lang: zh
 title: 容量市场主拍卖、LDA、容量租赁与全市场型 — 日本储能收入指南｜ScienceX
 h1: 容量市场主拍卖、LDA、容量租赁与全市场型 — 日本储能的长期收入如何组合
 description: 日本容量市场主拍卖的价格变迁、长期脱碳电源拍卖（LDA）的20年固定收入与中标率、容量租赁（Tolling）合约与全市场型的含义，以本公司4篇洞见汇成一页指南。
-columns: zh-column-auction, zh-column-lda, zh-column-merchant, zh-column-long-term-contract, en/column-capacity-market
+columns: zh-column-auction, zh-column-lda, zh-column-merchant, zh-column-long-term-contract, zh-column-capacity-market
 published: 2026-11-22
 modified: 2026-11-22
 ---
@@ -53,7 +53,7 @@ more: 详见：[什么是全市场型（Full Merchant）— 储能仅靠市场�
 
 主拍卖的价格起伏很大。依洞见正文的表：第1次（2024年度实际供需）为14,137日元/kW，第2次（2025年度）骤降至3,495日元/kW，约为前次的1/4；之后第3次5,226日元/kW、第4次7,847日元/kW，转为上升基调；第5次（2028年度）为11,134日元/kW，成交总额约1.8506万亿日元，在当时刷新历史新高。
 
-中文洞见的数据截至第5次。2026年1月公布的第6次结果，见英文页面：[The Capacity Market Main Auction and Batteries（英文页面）](/en/column-capacity-market)
+2026年1月公布的第6次结果，见：[容量市场主拍卖与储能 — 单价（成交价格）的变迁与对收益的影响](/zh-column-capacity-market)
 
 第5次各分区差距巨大：北海道、东北、东京贴住上限价14,812日元/kW，九州13,177日元，中部10,280日元，北陆、关西、中国、四国8,785日元。储能设在哪个分区，直接关系容量市场收入。
 
@@ -145,5 +145,5 @@ LDA中标的电源不参加主拍卖。若LDA未中标，可改为参加主拍�
 → [在蓄电所市场查看项目（英文页面）](https://dealroom.scix.co.jp/en)
 
 ### 想出售项目的读者
-持有已取得接入系统研究答复的项目，可由本公司收购，或为您介绍买方。
+持有已取得接入系统研究答复的项目，可由本公司收购，或为您介绍买方。通过LDA中标的项目不在受理范围内。
 → [出售咨询表单（日文）](/sell-form)　·　[中文咨询](/zh-contact)
