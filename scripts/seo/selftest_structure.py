@@ -127,17 +127,17 @@ def swap_cat_blocks(s):
 
 
 def swap_top_sections(s):
-    """index.html の #knowledge と #find を入れ替える（ヒーローより下）。"""
+    """index.html の #knowledge と #entrances を入れ替える（ヒーロー＝案件のカードの節より下）。"""
     m1 = re.search(r'<section class="knowledge-top" id="knowledge">.*?</section>', s, re.S)
-    m2 = re.search(r'<section class="strengths" id="find">.*?</section>', s, re.S)
+    m2 = re.search(r'<section class="deal" id="entrances">.*?</section>', s, re.S)
     assert m1 and m2 and m1.end() <= m2.start()
     return s[:m1.start()] + m2.group(0) + s[m1.end():m2.start()] + m1.group(0) + s[m2.end():]
 
 
 def drop_one_funnel_link(s):
-    """ハブの本文から、収益ページ（/projects）へのリンクを 1 本だけ消す（ほかは触らない）。"""
-    m = re.search(r'<a\b[^>]*href="/projects"[^>]*>.*?</a>', s, re.S)
-    assert m, "knowledge.html に /projects へのリンクが無い（selftest を直す）"
+    """ハブの本文から、収益ページ（/transfer）へのリンクを 1 本だけ消す（ほかは触らない）。"""
+    m = re.search(r'<a\b[^>]*href="/transfer"[^>]*>.*?</a>', s, re.S)
+    assert m, "knowledge.html に /transfer へのリンクが無い（selftest を直す）"
     return s[:m.start()] + s[m.end():]
 
 
@@ -149,7 +149,7 @@ def reroute_one_funnel_link(s):
 
 def hero_below_next_section(s):
     """index.html のヒーローを、次の節（#knowledge）の下へ動かす（中身は 1 文字も変えない）。"""
-    h = re.search(r'<section class="hero(?: [^"]*)?">.*?</section>', s, re.S)
+    h = re.search(r'<section class="hero(?: [^"]*)?"[^>]*>.*?</section>', s, re.S)
     k = re.search(r'<section class="knowledge-top" id="knowledge">.*?</section>', s, re.S)
     assert h and k and h.end() <= k.start()
     return s[:h.start()] + s[h.end():k.end()] + "\n" + h.group(0) + s[k.end():]
@@ -194,10 +194,10 @@ def add_zh_card(s):
 
 
 def move_section_leaving_close(s):
-    """index.html の #find を、閉じ </section> を元の場所に置き去りにして #flow の前へ動かす。行の多重集合は同じ（正味 0）だが、
-    #flow 以降の節と footer が全部 #find の子になる（＝公開されると以降の見出しが紺地の白文字の規則を引き継ぐ）。"""
+    """index.html の #entrances を、閉じ </section> を元の場所に置き去りにして #flow の前へ動かす。行の多重集合は同じ（正味 0）だが、
+    #flow 以降の節と footer が全部 #entrances の子になる（＝公開されると以降の見出しが紺地の白文字の規則を引き継ぐ）。"""
     L = s.splitlines(keepends=True)
-    a = next(i for i, l in enumerate(L) if '<section class="strengths" id="find">' in l)
+    a = next(i for i, l in enumerate(L) if '<section class="deal" id="entrances">' in l)
     e = next(i for i in range(a, len(L)) if L[i].strip() == "</section>")
     f = next(i for i, l in enumerate(L) if 'id="flow"' in l)
     assert a < e < f
@@ -309,9 +309,9 @@ def main() -> int:
 
         # ---- 収益ページ・フォームへの導線の本数（人の目が入らない分、流れを変える変更が導線を消す事故を止める）
         edit(repo, "knowledge.html", drop_one_funnel_link)
-        c.guard("収益ページ（/projects）へのリンクを 1 本消した", {"changes": [dict(hub(), **{"class": "funnel-block"})]}, False,
-                ("導線が減っている", "/projects"), ref="selftest-quiet")
-        edit(repo, "knowledge.html", lambda s: s.replace('href="/projects"', 'href="/knowledge"', 1))
+        c.guard("収益ページ（/transfer）へのリンクを 1 本消した", {"changes": [dict(hub(), **{"class": "funnel-block"})]}, False,
+                ("導線が減っている", "/transfer"), ref="selftest-quiet")
+        edit(repo, "knowledge.html", lambda s: s.replace('href="/transfer"', 'href="/knowledge"', 1))
         c.guard("収益ページへのリンクを、収益ページでない行き先に付け替えた（＝1 本減った）", {"changes": [dict(hub(), **{"class": "funnel-block"})]},
                 False, "導線が減っている", ref="selftest-quiet")
         edit(repo, "knowledge.html", reroute_one_funnel_link)
@@ -352,10 +352,10 @@ def main() -> int:
                 "JA_ONLY_COLUMNS の行しか", profile="weekly")
 
         # ---- 弾く例: ヒーロー・S マーカー・量
-        edit(repo, "index.html", lambda s: s.replace('<div class="hero-label">', '<div class="hero-label">NEW ', 1))
+        edit(repo, "index.html", lambda s: s.replace('<div class="hm-head">', '<div class="hm-head">NEW ', 1))
         c.guard("トップのヒーローを書き換え", {"changes": [entry(["index.html"], ["/"], "top-order")]}, False, "ヒーローより上は変えない")
 
-        edit(repo, "index.html", lambda s: s.replace('<div class="hero-label">', '<div class="hero-label">NEW ', 1))
+        edit(repo, "index.html", lambda s: s.replace('<div class="hm-head">', '<div class="hm-head">NEW ', 1))
         c.guard("週次プロファイルでもトップのヒーローは弾く", {"changes": [dict(entry(["index.html"], ["/"], "hub"))]}, False,
                 "ヒーローより上は変えない", profile="weekly")
 
@@ -366,7 +366,7 @@ def main() -> int:
         edit(repo, "knowledge.html", lambda s: s.replace("<h1>系統用蓄電池のナレッジ</h1>", "<h1>蓄電池のナレッジ集</h1>", 1))
         c.guard("ハブの h1 を書き換え", {"changes": [hub()]}, False, "ヒーローより上は変えない")
 
-        edit(repo, "index.html", lambda s: re.sub(r"(<!--S:shv-->)\d+", r"\g<1>99", s, count=1))
+        edit(repo, "index.html", lambda s: re.sub(r"(<!--S:count-->)\d+", r"\g<1>99", s, count=1))
         c.guard("S マーカーの中身を書き換え", {"changes": [entry(["index.html"], ["/"], "top-order")]}, False, "<!--S:")
 
         def rewrite(s):
@@ -396,8 +396,8 @@ def main() -> int:
         edit(repo, "knowledge.html", move_cat_block_leaving_close)
         c.guard("ハブのカテゴリを、閉じ </div> を置き去りにして動かした（開閉の数は合ったまま）", {"changes": [hub()]}, False,
                 ("入れ子の位置が変わった", "#cat-basics"))
-        edit(repo, "index.html", drop_section("position"))
-        c.guard("トップの節を丸ごと消した（導線リンクの無い節・削除は 15% 以内）", {"changes": [top]}, False, ("id つきの要素が消えた", "#position"))
+        edit(repo, "index.html", drop_section("blockers"))
+        c.guard("トップの節を丸ごと消した（導線リンクの無い節・削除は 15% 以内）", {"changes": [top]}, False, ("id つきの要素が消えた", "#blockers"))
         edit(repo, "index.html", move_section_leaving_close)
         c.guard("週次プロファイルでも、閉じタグの置き去りは止める", {"changes": [dict(top, **{"class": "hub"})]}, False,
                 "タグの開閉が合わない箇所が増えた", profile="weekly")
