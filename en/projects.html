@@ -57,7 +57,7 @@ h2.md-h{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--n
 .md-bar-v{color:var(--text-2);text-align:right}.md-bar-v small{color:var(--text-3);font-size:.8em;margin-left:2px}
 .md-note{font-size:.84rem;color:var(--text-3);margin-top:8px}
 .md-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px 40px}
-table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}.md-t th,.md-t td{border-bottom:1px solid var(--border);padding:7px 10px;text-align:left}.md-t th{color:var(--text-2);font-weight:500;background:var(--off-white)}.md-t td.n{text-align:right;font-variant-numeric:tabular-nums}
+table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}.md-t th,.md-t td{border-bottom:1px solid var(--border);padding:7px 10px;text-align:left}.md-t th{color:var(--text-2);font-weight:500;background:var(--off-white)}.md-t td.n{text-align:right;font-variant-numeric:tabular-nums}.md-scroll .md-t th,.md-scroll .md-t td.n{white-space:nowrap}
 .areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;max-width:900px}
 .areas a{display:block;border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--text);background:var(--white)}
 .areas a:hover{border-color:var(--gold)}.areas b{display:block;color:var(--navy);font-size:1rem}.areas span{font-size:.82rem;color:var(--text-2)}
@@ -77,6 +77,9 @@ table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}
 .scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(196,154,60,.5)}
 .md-svg{width:100%;height:auto;display:block;max-width:760px}.md-legend{display:flex;gap:16px;font-size:.8rem;color:var(--text-2);margin:4px 0 0}.md-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
 .md-scroll{overflow-x:auto;margin-top:18px}
+.md-t tbody th{background:none;color:var(--text);font-weight:500}.md-t caption{caption-side:top;text-align:left;font-size:.8rem;color:var(--text-3);padding:0 0 6px}
+.cite p{margin:4px 0}.cite .cite-line{margin:8px 0;padding:8px 12px;background:#fff;border:1px solid var(--border);border-radius:6px;overflow-wrap:anywhere}.cite .cite-meta{font-size:.8rem;color:var(--text-3);overflow-wrap:anywhere}
+.md-dl{list-style:none;padding:0;margin:0 0 6px;max-width:760px}.md-dl li{padding:8px 0;border-bottom:1px solid var(--border);font-size:.9rem}.md-dl a{color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold)}.md-dl small{display:block;color:var(--text-3);font-size:.8rem}
 @media(max-width:640px){.md-bar{grid-template-columns:7em 1fr 7em;font-size:.82rem}.hero{padding:48px 0 32px}}
 
 .pj-sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:26px 0 0}
@@ -1551,6 +1554,124 @@ section.pj-list{padding:20px 0 40px;border-top:none;scroll-margin-top:72px}
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
+ "@type": "Dataset",
+ "@id": "https://www.scix.co.jp/en/projects#dataset",
+ "name": "Grid-scale battery storage projects listed for sale in Japan: counts",
+ "description": "Counts of the grid-scale battery storage projects ScienceX lists for sale in Japan: number of projects and total capacity by grid area, prefecture, voltage class, structure, status and expected grid connection, and weekly figures. Aggregate counts only; no prices, sites or sellers. Growth in the number of listings reflects when we added projects to the list (some were added in batches), not growth of the market. Updated every morning.",
+ "url": "https://www.scix.co.jp/en/projects",
+ "inLanguage": "en",
+ "creator": {
+  "@type": "Organization",
+  "@id": "https://www.scix.co.jp/#organization",
+  "name": "ScienceX",
+  "legalName": "Science X Inc.",
+  "url": "https://www.scix.co.jp/en"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "@id": "https://www.scix.co.jp/#organization",
+  "name": "ScienceX",
+  "legalName": "Science X Inc.",
+  "url": "https://www.scix.co.jp/en"
+ },
+ "isAccessibleForFree": true,
+ "dateModified": "2026-11-22",
+ "temporalCoverage": "2026-06/2026-11",
+ "spatialCoverage": {
+  "@type": "Place",
+  "name": "Japan (9 grid areas)"
+ },
+ "keywords": [
+  "Japan",
+  "grid-scale battery storage",
+  "BESS",
+  "projects for sale",
+  "market data",
+  "grid connection",
+  "COD"
+ ],
+ "measurementTechnique": "Counts of the public fields of the projects ScienceX lists on Chikudensho Market (projects.json), recounted every morning",
+ "variableMeasured": [
+  {
+   "@type": "PropertyValue",
+   "name": "Number of projects listed for sale",
+   "unitText": "projects"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "Total capacity",
+   "unitText": "MW"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "Total energy",
+   "unitText": "MWh"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "Grid area (transmission and distribution operator)"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "Prefecture"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "Voltage class"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "Structure (transfer of rights or completed-build handover)"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "Status"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "Size band",
+   "unitText": "MW"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "Months to grid connection stated in the utility answer (median and bands)",
+   "unitText": "months"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "Planned commercial operation (fiscal half-year)"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "Month first listed"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "Projects and total MW per week",
+   "unitText": "projects, MW"
+  }
+ ],
+ "creditText": "Source: Science X Inc., “Grid-scale battery storage projects listed for sale in Japan: counts”, https://www.scix.co.jp/en/projects",
+ "distribution": [
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://www.scix.co.jp/files/market-data/market-data-summary-en.csv",
+   "name": "Summary tables (CSV)"
+  },
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://www.scix.co.jp/files/market-data/market-data-weekly-en.csv",
+   "name": "Weekly figures (CSV)"
+  }
+ ],
+ "mainEntityOfPage": "https://www.scix.co.jp/en/projects"
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
  "@type": "BreadcrumbList",
  "itemListElement": [
   {
@@ -1949,14 +2070,16 @@ section.pj-list{padding:20px 0 40px;border-top:none;scroll-margin-top:72px}
 <text x="681.6" y="216" text-anchor="middle" font-size="11" fill="var(--text-3)">11/16</text>
 <text x="44" y="12" font-size="11" fill="var(--text-3)">projects</text>
 </svg><p class="md-legend"><span><i style="background:var(--gold)"></i>High voltage</span><span><i style="background:var(--navy)"></i>Extra-high voltage</span></p>
-  <div class="md-scroll"><table class="md-t"><thead><tr><th>Week of</th><th>Projects</th><th>Total MW</th><th>High voltage</th><th>Extra-high</th><th>Transfer of rights</th><th>Completed-build</th><th>New listings</th></tr></thead><tbody><tr><td>9/7</td><td class="n">124</td><td class="n">1,386</td><td class="n">104</td><td class="n">20</td><td class="n">33</td><td class="n">90</td><td class="n">5</td></tr><tr><td>9/14</td><td class="n">128</td><td class="n">1,391</td><td class="n">111</td><td class="n">17</td><td class="n">33</td><td class="n">94</td><td class="n">9</td></tr><tr><td>9/21</td><td class="n">124</td><td class="n">1,293</td><td class="n">109</td><td class="n">15</td><td class="n">30</td><td class="n">93</td><td class="n">6</td></tr><tr><td>9/28</td><td class="n">129</td><td class="n">1,283</td><td class="n">113</td><td class="n">16</td><td class="n">35</td><td class="n">94</td><td class="n">10</td></tr><tr><td>10/5</td><td class="n">134</td><td class="n">1,330</td><td class="n">117</td><td class="n">17</td><td class="n">36</td><td class="n">96</td><td class="n">12</td></tr><tr><td>10/12</td><td class="n">133</td><td class="n">1,376</td><td class="n">115</td><td class="n">18</td><td class="n">38</td><td class="n">93</td><td class="n">3</td></tr><tr><td>10/19</td><td class="n">153</td><td class="n">—</td><td class="n">133</td><td class="n">17</td><td class="n">45</td><td class="n">104</td><td class="n">30</td></tr><tr><td>10/26</td><td class="n">177</td><td class="n">—</td><td class="n">150</td><td class="n">24</td><td class="n">55</td><td class="n">113</td><td class="n">26</td></tr><tr><td>11/2</td><td class="n">229</td><td class="n">—</td><td class="n">206</td><td class="n">20</td><td class="n">52</td><td class="n">168</td><td class="n">67</td></tr><tr><td>11/9</td><td class="n">243</td><td class="n">—</td><td class="n">219</td><td class="n">21</td><td class="n">65</td><td class="n">169</td><td class="n">31</td></tr><tr><td>11/16 (partial)</td><td class="n">279</td><td class="n">—</td><td class="n">230</td><td class="n">46</td><td class="n">89</td><td class="n">187</td><td class="n">53</td></tr></tbody></table></div>
-  <p class="md-note">The chart stacks high voltage and extra-high voltage; projects without a voltage (3 in the latest week) are not in the chart but are in the table counts. Total MW is shown as &ldquo;&mdash;&rdquo; for weeks when many projects had no capacity value, so that gaps in the data are not read as a change in market size. ScienceX&rsquo;s own listings, not statistics for the whole Japanese market. Projects whose structure is under review are not in the last two structure columns. No prices, sites or names are published here.</p>
+  <div class="md-scroll"><table class="md-t"><caption>Listed projects and total capacity by week (last 11 weeks, by voltage class and structure)</caption><thead><tr><th scope="col">Week of</th><th scope="col">Projects</th><th scope="col">Total MW</th><th scope="col">High voltage</th><th scope="col">Extra-high</th><th scope="col">Transfer of rights</th><th scope="col">Completed-build</th><th scope="col">New listings</th></tr></thead><tbody><tr><th scope="row"><time datetime="2026-09-07">9/7</time></th><td class="n">124</td><td class="n">1,386</td><td class="n">104</td><td class="n">20</td><td class="n">33</td><td class="n">90</td><td class="n">5</td></tr><tr><th scope="row"><time datetime="2026-09-14">9/14</time></th><td class="n">128</td><td class="n">1,391</td><td class="n">111</td><td class="n">17</td><td class="n">33</td><td class="n">94</td><td class="n">9</td></tr><tr><th scope="row"><time datetime="2026-09-21">9/21</time></th><td class="n">124</td><td class="n">1,293</td><td class="n">109</td><td class="n">15</td><td class="n">30</td><td class="n">93</td><td class="n">6</td></tr><tr><th scope="row"><time datetime="2026-09-28">9/28</time></th><td class="n">129</td><td class="n">1,283</td><td class="n">113</td><td class="n">16</td><td class="n">35</td><td class="n">94</td><td class="n">10</td></tr><tr><th scope="row"><time datetime="2026-10-05">10/5</time></th><td class="n">134</td><td class="n">1,330</td><td class="n">117</td><td class="n">17</td><td class="n">36</td><td class="n">96</td><td class="n">12</td></tr><tr><th scope="row"><time datetime="2026-10-12">10/12</time></th><td class="n">133</td><td class="n">1,376</td><td class="n">115</td><td class="n">18</td><td class="n">38</td><td class="n">93</td><td class="n">3</td></tr><tr><th scope="row"><time datetime="2026-10-19">10/19</time></th><td class="n">153</td><td class="n">—</td><td class="n">133</td><td class="n">17</td><td class="n">45</td><td class="n">104</td><td class="n">30</td></tr><tr><th scope="row"><time datetime="2026-10-26">10/26</time></th><td class="n">177</td><td class="n">—</td><td class="n">150</td><td class="n">24</td><td class="n">55</td><td class="n">113</td><td class="n">26</td></tr><tr><th scope="row"><time datetime="2026-11-02">11/2</time></th><td class="n">229</td><td class="n">—</td><td class="n">206</td><td class="n">20</td><td class="n">52</td><td class="n">168</td><td class="n">67</td></tr><tr><th scope="row"><time datetime="2026-11-09">11/9</time></th><td class="n">243</td><td class="n">—</td><td class="n">219</td><td class="n">21</td><td class="n">65</td><td class="n">169</td><td class="n">31</td></tr><tr><th scope="row"><time datetime="2026-11-16">11/16</time> (partial)</th><td class="n">279</td><td class="n">—</td><td class="n">230</td><td class="n">46</td><td class="n">89</td><td class="n">187</td><td class="n">53</td></tr></tbody></table></div>
+  <p class="md-note">The chart stacks high voltage and extra-high voltage; projects without a voltage (3 in the latest week) are not in the chart but are in the table counts. Total MW is shown as &ldquo;&mdash;&rdquo; for weeks when many projects had no capacity value, so that gaps in the data are not read as a change in market size. Growth in the number of listings reflects when we added projects to the list (some were added in batches), not growth of the market. ScienceX&rsquo;s own listings, not statistics for the whole Japanese market. Projects whose structure is under review are not in the last two structure columns. No prices, sites or names are published here.</p>
 </div></section>
 
 <section class="md" id="about"><div class="container">
   <h2 class="md-h">About this list</h2>
   <p class="md-lead">High-voltage (~2 MW) and extra-high-voltage battery storage projects, from development rights with grid connection answers to grid-connected assets. Sorted by earliest expected COD (commercial operation date). Total: about 2,195 MW across 38 prefectures. Prices, exact sites and counterparties are not published here.</p>
   <p class="md-note" style="margin-top:14px">Area = the grid area of the transmission and distribution operator (Tokyo, Chubu, Kyushu and so on). Status: &ldquo;Grid connection study answered&rdquo; means the utility has issued its answer on the connection study; &ldquo;Grid cost confirmed&rdquo; means the grid construction cost has been fixed; &ldquo;Grid-connected&rdquo; means the project is already connected. Structure: &ldquo;Completed-build handover&rdquo; or &ldquo;Transfer of rights&rdquo; (the buyer builds). Expected COD is an estimate taken from the utility&rsquo;s answer and may change. These are ScienceX&rsquo;s own listings, not statistics for the whole Japanese market.</p>
+  <p class="md-lead" style="margin-top:14px">Counts by grid area, voltage class, structure, size and months to grid connection, with CSV downloads, are on <a href="/en/market-data">Market data</a>.</p>
+  <div class="cite" id="cite"><div class="cite-h">How to cite</div><p>You are welcome to quote the figures and charts on this page. Please give the source as follows.</p><p class="cite-line">Source: Science X Inc., &ldquo;Grid-scale battery storage projects listed for sale in Japan: counts&rdquo; (updated 2026-11-22), https://www.scix.co.jp/en/projects</p><p class="cite-meta">Page: <a href="https://www.scix.co.jp/en/projects">https://www.scix.co.jp/en/projects</a> &middot; Updated: <time datetime="2026-11-22">2026-11-22</time></p><p>CSV: <a href="/files/market-data/market-data-summary-en.csv" download>summary tables</a> &middot; <a href="/files/market-data/market-data-weekly-en.csv" download>weekly figures</a> &middot; counts only, no prices or sites.</p></div>
 </div></section>
 
 <section class="cta"><div class="container">
@@ -2009,6 +2132,7 @@ section.pj-list{padding:20px 0 40px;border-top:none;scroll-margin-top:72px}
       <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
         <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
         <a href="https://dealroom.scix.co.jp/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Chikudensho Market</a>
+        <a href="/en/market-data" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Data</a>
         <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
         <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
         <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>
