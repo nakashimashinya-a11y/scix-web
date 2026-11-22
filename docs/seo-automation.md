@@ -154,6 +154,8 @@ GA4 のトークンが無いときは GA4 だけ飛ばして動く。取得は `
 
 sitemap の lastmod は頁の JSON-LD `dateModified` と同じ値にし、前の値より古くしない。題・説明・区画・リンクなど頁を変えた日に、その頁だけ `stamp_sitemap.py <頁>` で今日にする（lastmod と一緒に `dateModified`・`article:modified_time` も同じ日に動く）。構造化データ・robots・img の寸法だけの直しは頁を変えた日に数えない。月報の頁・市場データの頁は生成器（`build_reports.py`・`build_report_data.py`）が「発行日と今の sitemap の値の新しいほう」を JSON-LD と sitemap の両方に書くので、焼き直しで日付が戻らない。`sync_sitemap_lastmod.py --write` は頁の dateModified があればその値に揃え、無ければ最後の commit の日（広い直しの直後に回さない）。
 
+トップ3頁（`/`・`/en`・`/zh`）の作り替え（#237）と同じ週に入るときは、sitemap.xml が行の並びで衝突する。取り込む側は sitemap.xml を自分の側の版にしたうえで、`python3 scripts/seo/stamp_sitemap.py index.html en/index.html zh.html` でトップ3行の lastmod を今日にし直す（変更台帳は両方の行を残す。`audit_pages.py` の `TOP_PENDING` は、トップの側が「ロゴ・robots の max-image-preview・/ の hreflang」を直すまで残す）。
+
 ## 数字の置き場
 
 公開リポジトリ（この docs と change-log）には GSC の数字だけ。GA4 のリード数・用件別は Drive の台帳側（`scix-web解析/`）。Web 版 Claude・スマホは `scix-web解析/最新.md`（毎朝の写し・読み取り専用）。

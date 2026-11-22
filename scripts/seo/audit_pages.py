@@ -50,7 +50,9 @@ DESC_MIN = 70      # 全角35字
 DESC_MAX = 250     # 全角125字
 SKIP_DIRS = {".git", "node_modules", "files", "docs", "scripts", ".github", "img", "api"}
 SKIP_FILES = {"404.html", "thanks.html", "en/thanks.html", "zh-thanks.html"}
-# トップの3頁は、トップの作り替えが入るまで下の新しい検査から外す（作り替えの側で直す）
+# トップの3頁は、下の新しい検査（2026-11-22）から外す。トップの作り替え（#237＝案件のカードから始まる並び）が入ったあとも、
+# 構造化データのロゴ（logo-white）・robots の max-image-preview:large・/ の sitemap の hreflang の3点が残る
+# ＝トップの側がそれを直したら TOPS（トップの並びの検査 top_issues・#237）と同じ頁として、ここを空にする
 TOP_PENDING = {"index.html", "en/index.html", "zh.html"}
 ADVISORY = {"title 長すぎ", "description 長すぎ", "description 短すぎ"}
 
