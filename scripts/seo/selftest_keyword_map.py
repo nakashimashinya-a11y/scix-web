@@ -78,6 +78,7 @@ def test_classify() -> None:
         ("蓄電池 投資", "invest"),
         ("蓄電池 投資 利回り", None),
         ("九州 系統用蓄電池 案件", "area-kyushu"),
+        ("東京都 系統用蓄電池 補助金", None),
         ("特別高圧 蓄電所 売却", "volt-ehv"),
         ("高圧 系統用蓄電池 案件", "volt-hv"),
         ("系統用蓄電池 権利 売買", "buy-types"),

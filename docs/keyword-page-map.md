@@ -25,7 +25,7 @@
 | 束（機械版の id） | 言葉の例 | 正 | 副（出てよい頁） | 90日の実際（束の表示・クリック・順位／出ている頁） | 割れと直す向き |
 |---|---|---|---|---|---|
 | 売り案件の一覧・物件（`buy-list`） | 系統用蓄電池 案件／売り案件／物件／販売中／一覧／買いたい | www:/projects | www:/projects-<管区>・www:/column-buyer-structures | 40・1・37.0／/projects 17・/ 6・/fund 4・/knowledge 4 | /・/fund・/knowledge・/investors が「案件」の語に出ている。トップは社名の頁なので題は触らない。/knowledge・/investors・/fund の説明で「案件を探す」を言う文は、/projects へ渡す1行に寄せる |
-| <管区>の売り案件（`area-tokyo` ほか9） | 東京・中部・関西・九州・東北・中国・北海道・北陸・四国 ＋ 案件／売り案件 | www:/projects-tokyo・-chubu・-kansai・-kyushu・-tohoku・-chugoku（北海道・北陸・四国は noindex のため dealroom:/catalog/area/<管区>） | www:/projects | 東京 21・中部 5・関西 10・九州 1（すべて www /projects-<管区> が受けている・dealroom は表示0） | www /projects-<管区> と dealroom /catalog/area/<管区> は同じ件数で題が違う。**どちらを正にするかは 2026-12-20**（下の節） |
+| <管区>の売り案件（`area-tokyo` ほか9） | 東京・中部・関西・九州・東北・中国・北海道・北陸・四国 ＋ 案件／売り案件 | www:/projects-tokyo・-chubu・-kansai・-kyushu・-tohoku・-chugoku（北海道・北陸・四国は noindex のため dealroom:/catalog/area/<管区>） | www:/projects | 東京 15・中部 5・関西 10・九州 1（すべて www /projects-<管区> が受けている・dealroom は表示0。補助金・助成・条例・規制の語は束に入れない） | www /projects-<管区> と dealroom /catalog/area/<管区> は同じ件数で題が違う。**どちらを正にするかは 2026-12-20**（下の節） |
 | 特別高圧の売り案件（`volt-ehv`） | 特別高圧／特高 ＋ 案件／売却／買い | dealroom:/catalog/voltage/extra-high-voltage | www:/projects・www:/transfer | 0（語として見えていない） | www に特別高圧だけの頁は無いので、マーケットの電圧の頁を受け口にする。dealroom の索引が進んでから表示を見る |
 | 高圧の売り案件（`volt-hv`） | 高圧 ＋ 案件／売却／買い | dealroom:/catalog/voltage/high-voltage | www:/projects・www:/transfer | 0 | 同上 |
 | 権利渡し・完成渡し・開発権（`buy-types`） | 権利渡し／完成渡し／開発権／権利 売買／権利 譲渡 | www:/transfer | www:/column-buyer-structures・www:/column-transfer・www:/column-four-labels・www:/guide-buy-sell | 0 | 取得の形を言う語は /transfer が受ける（題に「権利譲渡・完成渡し・特別高圧」） |
