@@ -19,7 +19,9 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TARGETS = ["index.html", "projects.html"]
+TARGETS = ["index.html", "en/index.html", "zh.html", "projects.html"]
+# トップ3頁の言葉（<!--S:cards-->・<!--S:count-->・<!--S:date--> の言葉）。projects.html は日本語
+TARGET_LANG = {"index.html": "ja", "en/index.html": "en", "zh.html": "zh", "projects.html": "ja"}
 
 
 def _esc(v):
@@ -183,8 +185,102 @@ def render_new_line(ps):
     if not fresh:
         return ""
     ids = "・".join(_esc(p.get("id") or "") for p in fresh[:4]) + (" ほか" if len(fresh) > 4 else "")
-    return (f'<br><a target="_top" href="/projects?sort=new" style="color:inherit">'
+    return (f'<a target="_top" href="/projects?sort=new" style="color:inherit">'
             f'この{NEW_DAYS}日の新着 {len(fresh)}件（{ids}）</a>')
+
+
+# ---------------------------------------------------------------- トップの匿名の案件カード（<!--S:cards-->）
+# トップ（日英中）の最初の節に、projects.json（公開項目だけ）から焼いた匿名の行を12件置く。画面（/site-cards.js）が蓄電所マーケットの
+# ログイン前のカードを読めたときだけ、同じ場所を写真つきのカードに差し替える。読めない（マーケット停止・巡回・遅い）ときは、この行が残る
+# ＝上の半分が空かず、検索に見える本文（売り案件の行）も残る。案件名・市区町村・写真・価格は projects.json に無いので、ここにも出ない。
+# 行のリンクはマーケットの案件ごとの公開の頁（日本語 /catalog/<id>・英語と中国語は /en/catalog/<id>）。出所の印は header.js が押す直前に足す。
+CARDS_N = 12
+MARKET_ORIGIN = "https://dealroom.scix.co.jp"
+CARD_ART = {"高圧": ("hv", "/img/market/deals.svg"), "特別高圧": ("ehv", "/img/market/how.svg"), "低圧": ("lv", "/img/market/wants.svg")}
+# 電力の手続きの段（projects.json の status の3値）→ 帯の長さ（%）。マーケットの8段のうち、接続検討の回答・工事費負担金・完工の位置
+STATUS_PCT = {"接続検討回答済": 13, "負担金確定": 75, "連系済": 88}
+CARD_TEXT = {
+    "ja": {"vol": {"高圧": "高圧", "特別高圧": "特別高圧", "低圧": "低圧"}, "pick": "新着", "none": "所在県 確認中",
+           "name": lambda pref, v, mw: f"{pref}の{v}案件", "loc": lambda pref, area: f"{pref}（{area}管内）" if area else pref,
+           "scheme": {"完成渡し": "完成渡し", "権利譲渡": "権利渡し", "権利渡し": "権利渡し"},
+           "out": "出力", "cap": "容量", "cod": "連系の見込み", "now": "電力の手続き",
+           "status": {"接続検討回答済": "接続検討 回答あり", "負担金確定": "負担金 確定", "連系済": "連系済み"}},
+    "en": {"vol": {"高圧": "High voltage", "特別高圧": "Extra-high voltage", "低圧": "Low voltage"}, "pick": "New", "none": "Prefecture to be confirmed",
+           "name": lambda pref, v, mw: f"{v} project in {pref}", "loc": lambda pref, area: f"{pref} ({area} area)" if area else pref,
+           "scheme": {"完成渡し": "Sold on completion", "権利譲渡": "Rights transfer", "権利渡し": "Rights transfer"},
+           "out": "Output", "cap": "Capacity", "cod": "Grid connection", "now": "Grid procedure",
+           "status": {"接続検討回答済": "Connection study answered", "負担金確定": "Grid cost confirmed", "連系済": "Grid-connected"}},
+    "zh": {"vol": {"高圧": "高压", "特別高圧": "特别高压", "低圧": "低压"}, "pick": "新上架", "none": "所在县待确认",
+           "name": lambda pref, v, mw: f"{pref}的{v}项目", "loc": lambda pref, area: f"{pref}（{area}区域）" if area else pref,
+           "scheme": {"完成渡し": "竣工后转让", "権利譲渡": "权利转让", "権利渡し": "权利转让"},
+           "out": "输出功率", "cap": "容量", "cod": "并网预期", "now": "电力手续",
+           "status": {"接続検討回答済": "已取得接入系统研究答复", "負担金確定": "并网工程费已确定", "連系済": "已并网"}},
+}
+
+
+def card_cod(p, today_ym, lang):
+    """カードの「連系の見込み」。ja は cod_text と同じ規則・短い言い方。en は build_market_data.en_cod と同じ規則。"""
+    if p.get("live"):
+        return {"ja": "連系済み・稼働中", "en": "Grid-connected", "zh": "已并网运行"}[lang]
+    ym = p.get("codYm")
+    ym = ym if (ym and ym >= today_ym) else None
+    n = p.get("leadMonths")
+    if ym:
+        y, m = ym[:4], int(ym[5:7])
+        return {"ja": f"{y}年{m}月ごろ",
+                "en": f"{['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m - 1]} {y}",
+                "zh": f"约{y}年{m}月"}[lang]
+    if n:
+        return {"ja": f"連系まで約{n}か月", "en": f"About {n} months", "zh": f"约{n}个月"}[lang]
+    return {"ja": "時期を確認中", "en": "Under review", "zh": "待确认"}[lang]
+
+
+def render_cards(ps, lang="ja", today=None):
+    """トップの最初の節に置く匿名の案件カード12件（新着順）。使う項目は projects.json の公開項目だけ。"""
+    import datetime
+    today = today or datetime.date.today()
+    today_ym = today.strftime("%Y-%m")
+    t = CARD_TEXT[lang]
+    if lang != "ja":
+        import build_market_data as bmd   # 英語の県名・管内名（同じ表を2か所に持たない）。ここで読む＝import の輪を作らない
+        en_pref, en_area = bmd.EN_PREF, bmd.EN_AREA
+    ps = [p for p in ps if p.get("id")]
+    ps = sorted(ps, key=lambda p: (p.get("firstSeen") or "", int("".join(ch for ch in p["id"] if ch.isdigit()) or 0)), reverse=True)[:CARDS_N]
+    out = []
+    for i, p in enumerate(ps):
+        pid = _esc(p["id"])
+        volt = p.get("voltage") or ""
+        vk, art = CARD_ART.get(volt, ("hv", CARD_ART["高圧"][1]))
+        pref_ja = p.get("pref") or ""
+        area_ja = p.get("area") or ""
+        pref = (en_pref.get(pref_ja, pref_ja) if lang == "en" else pref_ja) or t["none"]
+        area = en_area.get(area_ja, area_ja) if lang == "en" else area_ja
+        vname = t["vol"].get(volt, volt)
+        mw, mwh = p.get("mw"), p.get("mwh")
+        cells = []
+        if isinstance(mw, (int, float)):
+            cells.append(f'<div><small>{t["out"]}</small><b>{mw:g}<i class="u"> MW</i></b></div>')
+        if isinstance(mwh, (int, float)):
+            cells.append(f'<div><small>{t["cap"]}</small><b>{mwh:g}<i class="u"> MWh</i></b></div>')
+        cells.append(f'<div><small>{t["cod"]}</small><b>{_esc(card_cod(p, today_ym, lang))}</b></div>')
+        spec = f'<div class="sc-spec" style="--n:{len(cells)}">' + "".join(cells) + "</div>"
+        st = p.get("status") or ""
+        gs = (f'<div class="sc-gs"><div class="bar"><i style="width:{STATUS_PCT.get(st, 0)}%"></i></div>'
+              f'<span class="now">{t["now"]}: <b>{_esc(t["status"].get(st, st) or "—")}</b></span></div>')
+        scheme = t["scheme"].get(p.get("scheme") or "", "")
+        tags = (f'<span class="vtag {vk}">{_esc(vname)}</span>' if vname else "") + \
+               (f'<span class="atag">{_esc(scheme)}</span>' if scheme else "") + f'<span class="atag sc-idtag">{pid}</span>'
+        new = f'<div class="sc-tl"><span class="sc-new">{t["pick"]}</span></div>' if is_new(p, today) else ""
+        prefix = "/en/catalog/" if lang != "ja" else "/catalog/"
+        href = MARKET_ORIGIN + prefix + p["id"]
+        name = t["name"](pref, vname, mw)
+        lazy = "" if i < 4 else ' loading="lazy"'   # 最初の4枚だけ先に読む（LCP の候補）
+        out.append(
+            f'<article class="sc" data-id="{pid}"><div class="sc-img" data-v="{vk}">'
+            f'<img class="art" src="{art}" width="640" height="360" alt=""{lazy} decoding="async">{new}</div>'
+            f'<div class="sc-body"><h3 class="sc-name"><a class="sc-lk" target="_top" href="{_esc(href)}" data-placement="card">{_esc(name)}</a></h3>'
+            f'<div class="sc-loc">{_esc(t["loc"](pref, area))}</div><div class="sc-tags">{tags}</div>{spec}{gs}</div></article>')
+    return "\n" + "\n".join(out) + "\n"
 
 
 def compute(projects_json):
@@ -194,6 +290,7 @@ def compute(projects_json):
     mw_total = sum(p["mw"] for p in ps if isinstance(p.get("mw"), (int, float)))
     mws = [p["mw"] for p in ps if isinstance(p.get("mw"), (int, float))]
     return {
+        "_ps": ps,
         "list": render_list(ps, data.get("generatedAt", "")),
         "count": f"{len(ps):,}",
         "mw": f"{round(mw_total):,}",
@@ -210,6 +307,7 @@ def compute(projects_json):
 def main():
     check = "--check" in sys.argv
     stats = compute(os.path.join(ROOT, "projects.json"))
+    ps = stats.pop("_ps")
     changed, stale = 0, []
 
     for name in TARGETS:
@@ -218,7 +316,11 @@ def main():
             continue
         src = open(path, encoding="utf-8").read()
         out = src
-        for key, value in stats.items():
+        # 言葉ごとの中身（トップ3頁のカード）。印が無い頁は何も書かない
+        per_page = dict(stats)
+        if "<!--S:cards-->" in src:
+            per_page["cards"] = render_cards(ps, TARGET_LANG.get(name, "ja"))
+        for key, value in per_page.items():
             pattern = re.compile(
                 r"(<!--S:" + key + r"-->)(.*?)(<!--/S:" + key + r"-->)", re.S)
             def repl(m, v=value, k=key, n=name):
@@ -233,7 +335,7 @@ def main():
 
     for line in stale:
         head = line.split(":")[0]
-        print("  " + (head + ": (再生成)" if head.endswith((" list", " pjnew")) else line))
+        print("  " + (head + ": (再生成)" if head.endswith((" list", " pjnew", " cards")) else line))
     if check:
         print(f"[check] 要更新 {changed} ファイル")
         return 1 if changed else 0

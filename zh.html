@@ -867,6 +867,7 @@ body {
 .strengths[style*="off-white"] .strength-card p{color:var(--text-secondary)}
 </style>
 <meta name="description" content="我们是收购并出售日本电网侧储能（蓄电所）项目的公司。对想出售的一方，由本公司收购或为其介绍买方；对想购买的一方，已取得接入系统研究答复的项目，所在县、规模与并网预期时间无需签署保密协议即可查看。估价免费，报酬只在成交时收取。">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://www.scix.co.jp/zh">
 <link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/">
 <link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en">
@@ -890,7 +891,7 @@ body {
   "name": "Science X Inc.",
   "alternateName": "サイエンスエックス株式会社",
   "url": "https://www.scix.co.jp",
-  "logo": "https://www.scix.co.jp/img/logo-white.png",
+  "logo": "https://www.scix.co.jp/img/logo-navy.png",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Nihonbashi Koamicho 8-2, BIZMARKS Nihonbashi Kayabacho",
@@ -1063,90 +1064,99 @@ body {
 </style>
 <link rel="stylesheet" href="/theme.css">
 <link rel="stylesheet" href="/market-promo.css">
+<link rel="preconnect" href="https://dealroom.scix.co.jp" crossorigin>
+<script src="/site-cards.js" defer></script>
 </head>
 <body>
 <script src="/header.js"></script>
 
-<!-- ===== HERO（日本語のトップと同じ組み: 会社の説明と、売る・買うの2つの入口） ===== -->
-<section class="hero x-top">
+<!-- ===== 开头（2026-11-22）：从蓄电所市场的项目卡片开始。不放说明框与入口图。class 以 hero 开头，周更检查（scripts/seo/guard_diff.py）仍把这里当作开头。
+     卡片行由 scripts/inject_stats.py 每天用 projects.json（只含可公开项目）烘焙；仅当市场可读时，/site-cards.js 才替换为实时卡片（市场只有日文和英文页面，卡片取英文数据） ===== -->
+<section class="hero x-top hero-market" id="market">
   <div class="container">
-    <div class="hero-content">
-<div class="xt"><div class="xt-txt">
-      <div class="hero-label">日本电网侧储能项目的买卖</div>
+    <div class="hm-head">
       <h1>我们是收购并出售日本电网侧储能项目的公司</h1>
-      <p class="hero-desc">在蓄电所市场（Chikudensho Market）上，想卖电网侧储能（系統用蓄電池）项目的一方可以发布项目；想买的一方无需签署保密协议，即可浏览已取得接入系统研究（接続検討）答复的项目。由本公司收购、或为您寻找买方的咨询，也可以通过免费的出售估价提出。</p>
-      <p class="xt-note">接入系统研究答复，是电力公司以书面形式答复“可以在这个地点、以这个规模接入电网”的文件。</p>
-      <div class="xt-doors">
-        <a class="xt-door sell" target="_top" href="https://dealroom.scix.co.jp/en/sellers" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'zh_hero_sell'})"><span>想卖的一方（蓄电所市场·英文页面）</span><b>发布储能项目 →</b></a>
-        <a class="xt-door buy" target="_top" href="https://dealroom.scix.co.jp/en/catalog" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'zh_hero_buy'})"><span>想买的一方（蓄电所市场·英文页面）</span><b>查看项目 →</b></a>
-      </div>
-      <p class="xt-sub"><a target="_top" href="/zh-column-foreign-investor">海外资本能否持有日本的储能项目？需跨越的关口，逐一说明 →</a></p>
-</div><img class="xt-art" src="/img/site/hand.svg" alt="" width="260" height="170"></div>
+      <p class="hm-line"><b>蓄电所市场（英文页面）</b>　<span class="nw">在售 <!--S:count-->279<!--/S:count--> 个项目 · <!--S:date-->2026-11-22<!--/S:date--> 更新</span>　<span class="hm-pr">价格与资料在免费登记后可见</span></p>
+      <p class="hm-op">运营 ScienceX｜<a class="hm-lk" target="_top" href="/en/company">公司介绍（英文）</a>｜<a class="hm-lk" target="_top" href="/zh-contact">联系我们</a></p>
     </div>
-    <div class="hero-visual">
-      <div class="hero-card">
-        <div class="hero-stats">
-          <div class="stat-item"><div class="stat-number">接入<span>答复</span></div><div class="stat-label">只经手已取得接入系统研究答复的项目</div></div>
-          <div class="stat-item"><div class="stat-number">直接<span>对接</span></div><div class="stat-label">与卖方直接对接，不经手多家中介层层转手的项目</div></div>
-          <div class="stat-item"><div class="stat-number">博士<span>核查</span></div><div class="stat-label">上架之前，由工学博士核查文件</div></div>
-          <div class="stat-item"><div class="stat-number">无<span>资本关系</span></div><div class="stat-label">与厂商·EPC 均无资本关系</div></div>
+    <div class="hm-volts" role="group" aria-label="按电压筛选">
+      <a class="hm-volt hv" target="_top" href="https://dealroom.scix.co.jp/en?voltage=high-voltage">高压<span>查看项目 →</span></a>
+      <a class="hm-volt ehv" target="_top" href="https://dealroom.scix.co.jp/en?voltage=extra-high-voltage">特别高压<span>查看项目 →</span></a>
+      <a class="hm-volt lv" target="_top" href="https://dealroom.scix.co.jp/en?voltage=low-voltage">低压<span>查看项目 →</span></a>
+    </div>
+    <div class="sc-grid" id="top-cards" data-lang="zh"><!--S:cards-->
+<article class="sc" data-id="HV-622"><div class="sc-img" data-v="hv"><img class="art" src="/img/market/deals.svg" width="640" height="360" alt="" decoding="async"><div class="sc-tl"><span class="sc-new">新上架</span></div></div><div class="sc-body"><h3 class="sc-name"><a class="sc-lk" target="_top" href="https://dealroom.scix.co.jp/en/catalog/HV-622" data-placement="card">熊本県的高压项目</a></h3><div class="sc-loc">熊本県（九州区域）</div><div class="sc-tags"><span class="vtag hv">高压</span><span class="atag">竣工后转让</span><span class="atag sc-idtag">HV-622</span></div><div class="sc-spec" style="--n:3"><div><small>输出功率</small><b>1.99<i class="u"> MW</i></b></div><div><small>容量</small><b>9<i class="u"> MWh</i></b></div><div><small>并网预期</small><b>约11个月</b></div></div><div class="sc-gs"><div class="bar"><i style="width:13%"></i></div><span class="now">电力手续: <b>已取得接入系统研究答复</b></span></div></div></article>
+<article class="sc" data-id="HV-621"><div class="sc-img" data-v="hv"><img class="art" src="/img/market/deals.svg" width="640" height="360" alt="" decoding="async"><div class="sc-tl"><span class="sc-new">新上架</span></div></div><div class="sc-body"><h3 class="sc-name"><a class="sc-lk" target="_top" href="https://dealroom.scix.co.jp/en/catalog/HV-621" data-placement="card">兵庫県的高压项目</a></h3><div class="sc-loc">兵庫県（関西区域）</div><div class="sc-tags"><span class="vtag hv">高压</span><span class="atag">竣工后转让</span><span class="atag sc-idtag">HV-621</span></div><div class="sc-spec" style="--n:3"><div><small>输出功率</small><b>2<i class="u"> MW</i></b></div><div><small>容量</small><b>8<i class="u"> MWh</i></b></div><div><small>并网预期</small><b>约12个月</b></div></div><div class="sc-gs"><div class="bar"><i style="width:13%"></i></div><span class="now">电力手续: <b>已取得接入系统研究答复</b></span></div></div></article>
+<article class="sc" data-id="HV-620"><div class="sc-img" data-v="hv"><img class="art" src="/img/market/deals.svg" width="640" height="360" alt="" decoding="async"><div class="sc-tl"><span class="sc-new">新上架</span></div></div><div class="sc-body"><h3 class="sc-name"><a class="sc-lk" target="_top" href="https://dealroom.scix.co.jp/en/catalog/HV-620" data-placement="card">岐阜県的高压项目</a></h3><div class="sc-loc">岐阜県（中部区域）</div><div class="sc-tags"><span class="vtag hv">高压</span><span class="atag">竣工后转让</span><span class="atag sc-idtag">HV-620</span></div><div class="sc-spec" style="--n:3"><div><small>输出功率</small><b>2<i class="u"> MW</i></b></div><div><small>容量</small><b>8<i class="u"> MWh</i></b></div><div><small>并网预期</small><b>约2027年12月</b></div></div><div class="sc-gs"><div class="bar"><i style="width:13%"></i></div><span class="now">电力手续: <b>已取得接入系统研究答复</b></span></div></div></article>
+<article class="sc" data-id="HV-619"><div class="sc-img" data-v="hv"><img class="art" src="/img/market/deals.svg" width="640" height="360" alt="" decoding="async"><div class="sc-tl"><span class="sc-new">新上架</span></div></div><div class="sc-body"><h3 class="sc-name"><a class="sc-lk" target="_top" href="https://dealroom.scix.co.jp/en/catalog/HV-619" data-placement="card">静岡県的高压项目</a></h3><div class="sc-loc">静岡県（中部区域）</div><div class="sc-tags"><span class="vtag hv">高压</span><span class="atag">竣工后转让</span><span class="atag sc-idtag">HV-619</span></div><div class="sc-spec" style="--n:3"><div><small>输出功率</small><b>2<i class="u"> MW</i></b></div><div><small>容量</small><b>8<i class="u"> MWh</i></b></div><div><small>并网预期</small><b>约2028年8月</b></div></div><div class="sc-gs"><div class="bar"><i style="width:13%"></i></div><span class="now">电力手续: <b>已取得接入系统研究答复</b></span></div></div></article>
+<article class="sc" data-id="HV-618"><div class="sc-img" data-v="hv"><img class="art" src="/img/market/deals.svg" width="640" height="360" alt="" loading="lazy" decoding="async"><div class="sc-tl"><span class="sc-new">新上架</span></div></div><div class="sc-body"><h3 class="sc-name"><a class="sc-lk" target="_top" href="https://dealroom.scix.co.jp/en/catalog/HV-618" data-placement="card">福岡県的高压项目</a></h3><div class="sc-loc">福岡県（九州区域）</div><div class="sc-tags"><span class="vtag hv">高压</span><span class="atag">竣工后转让</span><span class="atag sc-idtag">HV-618</span></div><div class="sc-spec" style="--n:3"><div><small>输出功率</small><b>2<i class="u"> MW</i></b></div><div><small>容量</small><b>8.1<i class="u"> MWh</i></b></div><div><small>并网预期</small><b>待确认</b></div></div><div class="sc-gs"><div class="bar"><i style="width:13%"></i></div><span class="now">电力手续: <b>已取得接入系统研究答复</b></span></div></div></article>
+<article class="sc" data-id="HV-617"><div class="sc-img" data-v="hv"><img class="art" src="/img/market/deals.svg" width="640" height="360" alt="" loading="lazy" decoding="async"><div class="sc-tl"><span class="sc-new">新上架</span></div></div><div class="sc-body"><h3 class="sc-name"><a class="sc-lk" target="_top" href="https://dealroom.scix.co.jp/en/catalog/HV-617" data-placement="card">熊本県的高压项目</a></h3><div class="sc-loc">熊本県（九州区域）</div><div class="sc-tags"><span class="vtag hv">高压</span><span class="atag">竣工后转让</span><span class="atag sc-idtag">HV-617</span></div><div class="sc-spec" style="--n:1"><div><small>并网预期</small><b>约7个月</b></div></div><div class="sc-gs"><div class="bar"><i style="width:13%"></i></div><span class="now">电力手续: <b>已取得接入系统研究答复</b></span></div></div></article>
+<article class="sc" data-id="HV-612"><div class="sc-img" data-v="hv"><img class="art" src="/img/market/deals.svg" width="640" height="360" alt="" loading="lazy" decoding="async"><div class="sc-tl"><span class="sc-new">新上架</span></div></div><div class="sc-body"><h3 class="sc-name"><a class="sc-lk" target="_top" href="https://dealroom.scix.co.jp/en/catalog/HV-612" data-placement="card">埼玉県的高压项目</a></h3><div class="sc-loc">埼玉県（東京区域）</div><div class="sc-tags"><span class="vtag hv">高压</span><span class="atag">竣工后转让</span><span class="atag sc-idtag">HV-612</span></div><div class="sc-spec" style="--n:3"><div><small>输出功率</small><b>1.97<i class="u"> MW</i></b></div><div><small>容量</small><b>8<i class="u"> MWh</i></b></div><div><small>并网预期</small><b>约2027年5月</b></div></div><div class="sc-gs"><div class="bar"><i style="width:75%"></i></div><span class="now">电力手续: <b>并网工程费已确定</b></span></div></div></article>
+<article class="sc" data-id="HV-611"><div class="sc-img" data-v="hv"><img class="art" src="/img/market/deals.svg" width="640" height="360" alt="" loading="lazy" decoding="async"><div class="sc-tl"><span class="sc-new">新上架</span></div></div><div class="sc-body"><h3 class="sc-name"><a class="sc-lk" target="_top" href="https://dealroom.scix.co.jp/en/catalog/HV-611" data-placement="card">埼玉県的高压项目</a></h3><div class="sc-loc">埼玉県（東京区域）</div><div class="sc-tags"><span class="vtag hv">高压</span><span class="atag">竣工后转让</span><span class="atag sc-idtag">HV-611</span></div><div class="sc-spec" style="--n:3"><div><small>输出功率</small><b>1.97<i class="u"> MW</i></b></div><div><small>容量</small><b>8.1<i class="u"> MWh</i></b></div><div><small>并网预期</small><b>约2027年2月</b></div></div><div class="sc-gs"><div class="bar"><i style="width:13%"></i></div><span class="now">电力手续: <b>已取得接入系统研究答复</b></span></div></div></article>
+<article class="sc" data-id="HV-610"><div class="sc-img" data-v="hv"><img class="art" src="/img/market/deals.svg" width="640" height="360" alt="" loading="lazy" decoding="async"><div class="sc-tl"><span class="sc-new">新上架</span></div></div><div class="sc-body"><h3 class="sc-name"><a class="sc-lk" target="_top" href="https://dealroom.scix.co.jp/en/catalog/HV-610" data-placement="card">岐阜県的高压项目</a></h3><div class="sc-loc">岐阜県（中部区域）</div><div class="sc-tags"><span class="vtag hv">高压</span><span class="atag">权利转让</span><span class="atag sc-idtag">HV-610</span></div><div class="sc-spec" style="--n:3"><div><small>输出功率</small><b>1.99<i class="u"> MW</i></b></div><div><small>容量</small><b>8.4<i class="u"> MWh</i></b></div><div><small>并网预期</small><b>约2027年9月</b></div></div><div class="sc-gs"><div class="bar"><i style="width:13%"></i></div><span class="now">电力手续: <b>已取得接入系统研究答复</b></span></div></div></article>
+<article class="sc" data-id="SHV-608"><div class="sc-img" data-v="ehv"><img class="art" src="/img/market/how.svg" width="640" height="360" alt="" loading="lazy" decoding="async"><div class="sc-tl"><span class="sc-new">新上架</span></div></div><div class="sc-body"><h3 class="sc-name"><a class="sc-lk" target="_top" href="https://dealroom.scix.co.jp/en/catalog/SHV-608" data-placement="card">佐賀県的特别高压项目</a></h3><div class="sc-loc">佐賀県（九州区域）</div><div class="sc-tags"><span class="vtag ehv">特别高压</span><span class="atag">权利转让</span><span class="atag sc-idtag">SHV-608</span></div><div class="sc-spec" style="--n:2"><div><small>输出功率</small><b>40.23<i class="u"> MW</i></b></div><div><small>并网预期</small><b>约38个月</b></div></div><div class="sc-gs"><div class="bar"><i style="width:13%"></i></div><span class="now">电力手续: <b>已取得接入系统研究答复</b></span></div></div></article>
+<article class="sc" data-id="SHV-607"><div class="sc-img" data-v="ehv"><img class="art" src="/img/market/how.svg" width="640" height="360" alt="" loading="lazy" decoding="async"><div class="sc-tl"><span class="sc-new">新上架</span></div></div><div class="sc-body"><h3 class="sc-name"><a class="sc-lk" target="_top" href="https://dealroom.scix.co.jp/en/catalog/SHV-607" data-placement="card">鹿児島県的特别高压项目</a></h3><div class="sc-loc">鹿児島県（九州区域）</div><div class="sc-tags"><span class="vtag ehv">特别高压</span><span class="atag">权利转让</span><span class="atag sc-idtag">SHV-607</span></div><div class="sc-spec" style="--n:2"><div><small>输出功率</small><b>44.9<i class="u"> MW</i></b></div><div><small>并网预期</small><b>约24个月</b></div></div><div class="sc-gs"><div class="bar"><i style="width:75%"></i></div><span class="now">电力手续: <b>并网工程费已确定</b></span></div></div></article>
+<article class="sc" data-id="HV-605"><div class="sc-img" data-v="hv"><img class="art" src="/img/market/deals.svg" width="640" height="360" alt="" loading="lazy" decoding="async"><div class="sc-tl"><span class="sc-new">新上架</span></div></div><div class="sc-body"><h3 class="sc-name"><a class="sc-lk" target="_top" href="https://dealroom.scix.co.jp/en/catalog/HV-605" data-placement="card">栃木県的高压项目</a></h3><div class="sc-loc">栃木県（東京区域）</div><div class="sc-tags"><span class="vtag hv">高压</span><span class="atag">竣工后转让</span><span class="atag sc-idtag">HV-605</span></div><div class="sc-spec" style="--n:3"><div><small>输出功率</small><b>2<i class="u"> MW</i></b></div><div><small>容量</small><b>8.3<i class="u"> MWh</i></b></div><div><small>并网预期</small><b>约2028年1月</b></div></div><div class="sc-gs"><div class="bar"><i style="width:13%"></i></div><span class="now">电力手续: <b>已取得接入系统研究答复</b></span></div></div></article>
+<!--/S:cards--></div>
+    <div class="hm-more">
+      <a class="hm-go" target="_top" href="https://dealroom.scix.co.jp/en">查看全部项目（<!--S:count-->279<!--/S:count-->个·英文）→</a>
+    </div>
+    <p class="hm-sell">想卖的一方｜<a class="hm-lk" target="_top" href="https://dealroom.scix.co.jp/en/needs">买方的求购需求<span class="n" data-mk="needs"></span>（英文）→</a>｜<a class="hm-lk" target="_top" href="/sell-form" onclick="window.gtag&&gtag('event','cta_click',{target:'zh_top_sell_form'})">向本公司出售的估价（免费·日文页面）→</a></p>
+  </div>
+</section>
+
+<!-- ===== 洞见（中国語でよく読まれている JC-STAR と EPRX を先に） ===== -->
+<section class="knowledge-top" id="knowledge">
+  <div class="container">
+    <div class="knowledge-header" style="margin-bottom:0;">
+      <div class="section-label">洞见</div>
+      <h2 class="section-title">电网侧储能的洞见</h2>
+      <p class="section-subtitle">制度、市场、税制、用地与买卖实务，均附出处。不是营销资料，而是供您在购买、出售、投资之前自行判断的材料。</p>
+    </div>
+    <div class="kt-grid">
+      <div class="kt-col">
+        <h3>中文读者常读</h3>
+        <div class="kt-new">
+          <a target="_top" href="/zh-column-jcstar" class="k-card">
+            <div class="k-num">JC-STAR <span class="k-tag">税制·制度·监管</span></div>
+            <h4>JC-STAR 是什么 — ★1至★4的区别·对象设备，储能的★1何时成为必备</h4>
+            <p class="k-desc">日本的 IoT 设备安全符合性评价制度。★1至★4的区别，电网侧储能的 PCS·EMS·网关等对象设备，以及★1成为必备的时间（高压2027年4月，基准是接入合同申请而非并网日）。</p>
+          </a>
+          <a target="_top" href="/zh-column-jcstar-2027" class="k-card">
+            <div class="k-num">JC-STAR <span class="k-tag">税制·制度·监管</span></div>
+            <h4>JC-STAR取得情况 — 395款全部为★1，华为、阳光电源等中国大陆16家大厂为零</h4>
+            <p class="k-desc">逐件数了 IPA 的 JC-STAR 取得产品清单（2026年11月12日更新）。395件全部是★1；中国大型企业16家以自家名义取得的为0件。</p>
+          </a>
+          <a target="_top" href="/zh-column-eprx" class="k-card">
+            <div class="k-num">EPRX <span class="k-tag">收益·市场</span></div>
+            <h4>EPRX（电力供需调整力交易所）是什么 — 辅助服务市场的机制与储能的参与方式</h4>
+            <p class="k-desc">与 JEPX、容量市场的区别，交易的五项商品，以及储能参与的三步（交易会员登记、10MW 之墙与连接方式、聚合商选择）。</p>
+          </a>
         </div>
-        <div class="hero-card-divider"></div>
-        <div class="hero-card-note">本公司不承包建设。</div>
       </div>
+      <div class="kt-col">
+        <h3>接着读</h3>
+        <ol class="kt-pop">
+          <li><a target="_top" href="/zh-column-regional-revenue"><span class="kt-rank">01</span>电网侧储能赚钱的分区与赚法<span class="kt-cat">收益·市场</span></a></li>
+          <li><a target="_top" href="/zh-column-balancing-market"><span class="kt-rank">02</span>理解日本辅助服务市场的商品结构<span class="kt-cat">收益·市场</span></a></li>
+          <li><a target="_top" href="/zh-column-area-data"><span class="kt-rank">03</span>辅助服务市场的分区成交结果<span class="kt-cat">收益·市场</span></a></li>
+          <li><a target="_top" href="/zh-column-buyer-check"><span class="kt-rank">04</span>购买电网侧储能电站前的技术核查<span class="kt-cat">买卖实务</span></a></li>
+          <li><a target="_top" href="/zh-column-foreign-investor"><span class="kt-rank">05</span>外国资本投资日本储能电站前需跨越的关口<span class="kt-cat">买卖实务</span></a></li>
+        </ol>
+        <div class="kt-paths" style="margin-top:22px;">
+          <a target="_top" href="/zh-primer">初次了解？先看入门指南 →</a>
+          <a target="_top" href="/zh-qa">入门问答 →</a>
+          <a target="_top" href="/zh-glossary">术语表 →</a>
+          <a target="_top" href="/en/report">市场笔记（每月·英文版）→</a>
+        </div>
+      </div>
+    </div>
+    <div class="kt-foot">
+      <a target="_top" href="/zh-knowledge" class="k-more">查看全部洞见（按主题）→</a>
+      <span>执笔者是每天阅读项目文件的工学博士。<a target="_top" href="#about">关于我们 →</a></span>
     </div>
   </div>
 </section>
-
-<!-- ===== 咨询方式（日本語の「ご相談の進め方」と同じ事実だけ） ===== -->
-<section class="hello" id="hello">
-  <div class="container">
-    <div class="hello-top">
-      <div class="hello-head">
-        <div class="section-label">咨询</div>
-        <h2 class="section-title">咨询的方式</h2>
-        <p class="section-subtitle">还在犹豫是否出售，或是购买前的调研阶段，都欢迎咨询。</p>
-      </div>
-      <div class="hello-me">
-        <img src="/img/nakashima.png" width="372" height="509" alt="代表董事 中岛晋也（工学博士）">
-        <p class="hello-bubble"><b>第一封回复，由代表中岛亲自撰写。</b><span>代表董事　中岛晋也（工学博士）</span></p>
-      </div>
-    </div>
-    <div class="hello-grid">
-      <div class="hello-card"><img src="/img/site/talk.svg" alt="" width="260" height="170"><b>咨询与估价均免费</b><span>报酬只在成交时收取。洽谈过程中不收取任何费用。</span></div>
-      <div class="hello-card"><img src="/img/site/hello.svg" alt="" width="260" height="170"><b>第一次联系，写5行即可</b><span>原则上1个工作日内回复。</span></div>
-      <div class="hello-card"><img src="/img/site/secret.svg" alt="" width="260" height="170"><b>可以先不透露公司名称</b><span>签署保密协议之前，公司名称与地点都可以保密。</span></div>
-      <div class="hello-card"><img src="/img/site/hand.svg" alt="" width="260" height="170"><b>合同由卖方与买方直接签订</b><span>本公司不以合同当事人的名义介入。由本公司收购后再出售的项目，本公司即为卖方。本公司不承包建设。</span></div>
-    </div>
-    <div class="hello-go">
-      <a class="btn-primary" target="_top" href="/zh-contact" onclick="window.gtag&&gtag('event','cta_click',{target:'zh_hello_contact'})">咨询（免费）→</a>
-      <a class="btn-secondary" target="_top" href="#wechat">微信咨询 →</a>
-      <a class="btn-secondary" target="_top" href="/sell-form" onclick="window.gtag&&gtag('event','cta_click',{target:'zh_hello_sell'})">向本公司出售的估价（免费·日文页面）→</a>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 蓄电所市场（トップでマーケットを紹介するのはここ1か所。中国語の画面は無いので英語の画面へ） ===== -->
-<section class="strengths" id="market" style="background:var(--off-white);">
-  <div class="container">
-    <div class="strengths-header">
-      <div class="section-label">蓄电所市场</div>
-      <h2 class="section-title">蓄电所市场（Chikudensho Market）</h2>
-      <p class="section-subtitle">本公司运营的电网侧储能项目买卖平台（页面为日文和英文）。无需登记即可浏览项目；价格与资料在免费登记（同意保密承诺）后可见。</p>
-    </div>
-    <div class="mk-doors mk-2">
-      <a class="mk-door buy" target="_top" href="https://dealroom.scix.co.jp/en/buy" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'zh_market_buy'})"><img src="/img/market/buy.svg" alt=""><b>发布求购需求</b><span>符合条件的项目，由卖方提交给您（英文页面）</span></a>
-      <a class="mk-door wants" target="_top" href="https://dealroom.scix.co.jp/en/wanted" onclick="window.gtag&&gtag('event','dr2_register_click',{target:'zh_market_wants'})"><img src="/img/market/wants.svg" alt=""><b>买方的求购需求<span class="n" data-mk="needs"></span></b><span>买方想要的储能电站一览（英文页面）</span></a>
-    </div>
-    <ul class="mk-notes">
-      <li>免费登记：在登记页面同意保密承诺书即可（有英文页面），无需签名盖章。</li>
-      <li>会谈时间确定后，双方再互相告知公司名称。</li>
-      <li>原则上1个工作日内回复。</li>
-      <li>会谈可用英语或日语进行。</li>
-    </ul>
-  </div>
-</section>
-<script>/* 求购需求的件数取自市场的公开接口（只含可公开的项目） */(function(){fetch("https://dealroom.scix.co.jp/api/open/needs").then(function(r){return r.json();}).then(function(j){var n=(j.needs||[]).length;if(n)document.querySelectorAll('[data-mk="needs"]').forEach(function(e){e.textContent="（"+n+"条）";});}).catch(function(){});})();</script>
 
 <!-- ===== 购买流程 ===== -->
 <section class="strengths" id="flow">
@@ -1337,76 +1347,31 @@ body {
   </div>
 </section>
 
-<!-- ===== 洞见（中国語でよく読まれている JC-STAR と EPRX を先に） ===== -->
-<section class="knowledge-top" id="knowledge">
+<!-- ===== 咨询方式（日本語の「ご相談の進め方」と同じ事実だけ） ===== -->
+<section class="hello" id="hello">
   <div class="container">
-    <div class="knowledge-header" style="margin-bottom:0;">
-      <div class="section-label">洞见</div>
-      <h2 class="section-title">电网侧储能的洞见</h2>
-      <p class="section-subtitle">制度、市场、税制、用地与买卖实务，均附出处。不是营销资料，而是供您在购买、出售、投资之前自行判断的材料。</p>
-    </div>
-    <div class="kt-grid">
-      <div class="kt-col">
-        <h3>中文读者常读</h3>
-        <div class="kt-new">
-          <a target="_top" href="/zh-column-jcstar" class="k-card">
-            <div class="k-num">JC-STAR <span class="k-tag">税制·制度·监管</span></div>
-            <h4>JC-STAR 是什么 — ★1至★4的区别·对象设备，储能的★1何时成为必备</h4>
-            <p class="k-desc">日本的 IoT 设备安全符合性评价制度。★1至★4的区别，电网侧储能的 PCS·EMS·网关等对象设备，以及★1成为必备的时间（高压2027年4月，基准是接入合同申请而非并网日）。</p>
-          </a>
-          <a target="_top" href="/zh-column-jcstar-2027" class="k-card">
-            <div class="k-num">JC-STAR <span class="k-tag">税制·制度·监管</span></div>
-            <h4>JC-STAR取得情况 — 395款全部为★1，华为、阳光电源等中国大陆16家大厂为零</h4>
-            <p class="k-desc">逐件数了 IPA 的 JC-STAR 取得产品清单（2026年11月12日更新）。395件全部是★1；中国大型企业16家以自家名义取得的为0件。</p>
-          </a>
-          <a target="_top" href="/zh-column-eprx" class="k-card">
-            <div class="k-num">EPRX <span class="k-tag">收益·市场</span></div>
-            <h4>EPRX（电力供需调整力交易所）是什么 — 辅助服务市场的机制与储能的参与方式</h4>
-            <p class="k-desc">与 JEPX、容量市场的区别，交易的五项商品，以及储能参与的三步（交易会员登记、10MW 之墙与连接方式、聚合商选择）。</p>
-          </a>
-        </div>
+    <div class="hello-top">
+      <div class="hello-head">
+        <div class="section-label">咨询</div>
+        <h2 class="section-title">咨询的方式</h2>
+        <p class="section-subtitle">还在犹豫是否出售，或是购买前的调研阶段，都欢迎咨询。</p>
       </div>
-      <div class="kt-col">
-        <h3>接着读</h3>
-        <ol class="kt-pop">
-          <li><a target="_top" href="/zh-column-regional-revenue"><span class="kt-rank">01</span>电网侧储能赚钱的分区与赚法<span class="kt-cat">收益·市场</span></a></li>
-          <li><a target="_top" href="/zh-column-balancing-market"><span class="kt-rank">02</span>理解日本辅助服务市场的商品结构<span class="kt-cat">收益·市场</span></a></li>
-          <li><a target="_top" href="/zh-column-area-data"><span class="kt-rank">03</span>辅助服务市场的分区成交结果<span class="kt-cat">收益·市场</span></a></li>
-          <li><a target="_top" href="/zh-column-buyer-check"><span class="kt-rank">04</span>购买电网侧储能电站前的技术核查<span class="kt-cat">买卖实务</span></a></li>
-          <li><a target="_top" href="/zh-column-foreign-investor"><span class="kt-rank">05</span>外国资本投资日本储能电站前需跨越的关口<span class="kt-cat">买卖实务</span></a></li>
-        </ol>
-        <div class="kt-paths" style="margin-top:22px;">
-          <a target="_top" href="/zh-primer">初次了解？先看入门指南 →</a>
-          <a target="_top" href="/zh-qa">入门问答 →</a>
-          <a target="_top" href="/zh-glossary">术语表 →</a>
-          <a target="_top" href="/en/report">市场笔记（每月·英文版）→</a>
-        </div>
+      <div class="hello-me">
+        <img src="/img/nakashima.png" width="372" height="509" alt="代表董事 中岛晋也（工学博士）">
+        <p class="hello-bubble"><b>第一封回复，由代表中岛亲自撰写。</b><span>代表董事　中岛晋也（工学博士）</span></p>
       </div>
     </div>
-    <div class="kt-foot">
-      <a target="_top" href="/zh-knowledge" class="k-more">查看全部洞见（按主题）→</a>
-      <span>执笔者是每天阅读项目文件的工学博士。<a target="_top" href="#about">关于我们 →</a></span>
+    <div class="hello-grid">
+      <div class="hello-card"><img src="/img/site/talk.svg" alt="" width="260" height="170"><b>咨询与估价均免费</b><span>报酬只在成交时收取。洽谈过程中不收取任何费用。</span></div>
+      <div class="hello-card"><img src="/img/site/hello.svg" alt="" width="260" height="170"><b>第一次联系，写5行即可</b><span>原则上1个工作日内回复。</span></div>
+      <div class="hello-card"><img src="/img/site/secret.svg" alt="" width="260" height="170"><b>可以先不透露公司名称</b><span>签署保密协议之前，公司名称与地点都可以保密。</span></div>
+      <div class="hello-card"><img src="/img/site/hand.svg" alt="" width="260" height="170"><b>合同由卖方与买方直接签订</b><span>本公司不以合同当事人的名义介入。由本公司收购后再出售的项目，本公司即为卖方。本公司不承包建设。</span></div>
     </div>
-  </div>
-</section>
-
-<!-- ===== 常见问题（FAQPage の JSON-LD と同じ文） ===== -->
-<section class="faq" id="faq">
-  <div class="container">
-    <div class="faq-header">
-      <div class="section-label">常见问题</div>
-      <h2 class="section-title">常见问题</h2>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item"><h3>ScienceX 是做什么的公司？</h3><p>我们是收购并出售电网侧储能（蓄电所）项目的公司。对想出售项目的一方，由本公司收购，或为其介绍买方。对想购买项目的一方，我们公开已取得接入系统研究答复的项目，所在县、规模与并网预期时间无需签署保密协议即可查看。本公司不承包建设，与特定厂商·EPC 无资本关系。</p></div>
-      <div class="faq-item"><h3>想出售电网侧储能项目，应从哪里开始？</h3><p>请通过出售估价表（日文页面），发送所在县与电力管区、输出功率、出售形式（权利转让·竣工后转让·运行中）、电力公司答复所处的阶段，以及并网工程费分摊的情况。5行就够。如有接入系统研究答复书，可一并附上。估价免费，由代表中岛亲自回复。</p></div>
-      <div class="faq-item"><h3>ScienceX 会自己收购项目吗？</h3><p>会。出路有两种：由本公司收购，或为您介绍买方。由本公司收购时，之后由本公司作为卖方出售。这种方式不收手续费，条件就是收购价格。会走哪一种，第一次回复时给出初步判断，看过文件后再决定。</p></div>
-      <div class="faq-item"><h3>什么阶段的项目可以受理？</h3><p>从取得接入系统研究答复的项目开始。已取得并网承诺（連系承諾）的权利、竣工后转让的项目、正在运行的储能电站也都受理。事前咨询（事前相談，接入系统研究之前的预备咨询）阶段的项目找不到买方。在长期脱碳电源拍卖（長期脱炭素電源オークション，LDA）中标的项目，由于没有中途转售的商业流程，不予受理。</p></div>
-      <div class="faq-item"><h3>只有土地，也可以收购吗？</h3><p>不受理单纯土地的收购或租借。如已取得电力公司的接入系统研究答复、形成了项目，即可受理。</p></div>
-      <div class="faq-item"><h3>购买项目之前，需要先签保密协议吗？</h3><p>不需要。所在县、规模、并网预期时间与进展，在蓄电所市场无需登记即可查看。价格与资料在免费登记（同意保密承诺）后可见。</p></div>
-      <div class="faq-item"><h3>需要支付手续费吗？</h3><p>报酬是只在成交时收取的成功报酬。费率以及由卖方还是买方承担，按每个项目的交易结构决定，在第一次介绍时明确告知。洽谈过程中不收取任何费用。由本公司收购的方式不收手续费。</p></div>
-      <div class="faq-item"><h3>海外的企业也能购买吗？</h3><p>可以。持有架构按个案商议。另外，日本《外汇及外国贸易法》将电气业列为指定行业，海外资本的收购很可能成为事前申报的对象；这道手续须在交割前走通。详见<a href="/zh-column-foreign-investor">《海外投资者收购日本储能电站前需跨越的关口》</a>。</p></div>
-      <div class="faq-item"><h3>卖方名称和项目地点会被买方知道吗？</h3><p>卖方名称不会告知买方。买方只能匿名看到所在县、规模与并网预期时间；所在地与资料在免费登记（同意保密承诺）后可见，公司名称在会谈时间确定后告知。</p></div>
+    <div class="hello-go">
+      <a class="btn-primary" target="_top" href="/zh-contact" onclick="window.gtag&&gtag('event','cta_click',{target:'zh_hello_contact'})">咨询（免费）→</a>
+      <a class="btn-secondary" target="_top" href="#wechat">微信咨询 →</a>
+      <a class="btn-secondary" target="_top" href="/en/company">公司介绍（英文页面）→</a>
+      <a class="btn-secondary" target="_top" href="/sell-form" onclick="window.gtag&&gtag('event','cta_click',{target:'zh_hello_sell'})">向本公司出售的估价（免费·日文页面）→</a>
     </div>
   </div>
 </section>
@@ -1452,6 +1417,27 @@ body {
   </div>
 </section>
 
+<!-- ===== 常见问题（FAQPage の JSON-LD と同じ文） ===== -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="faq-header">
+      <div class="section-label">常见问题</div>
+      <h2 class="section-title">常见问题</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><h3>ScienceX 是做什么的公司？</h3><p>我们是收购并出售电网侧储能（蓄电所）项目的公司。对想出售项目的一方，由本公司收购，或为其介绍买方。对想购买项目的一方，我们公开已取得接入系统研究答复的项目，所在县、规模与并网预期时间无需签署保密协议即可查看。本公司不承包建设，与特定厂商·EPC 无资本关系。</p></div>
+      <div class="faq-item"><h3>想出售电网侧储能项目，应从哪里开始？</h3><p>请通过出售估价表（日文页面），发送所在县与电力管区、输出功率、出售形式（权利转让·竣工后转让·运行中）、电力公司答复所处的阶段，以及并网工程费分摊的情况。5行就够。如有接入系统研究答复书，可一并附上。估价免费，由代表中岛亲自回复。</p></div>
+      <div class="faq-item"><h3>ScienceX 会自己收购项目吗？</h3><p>会。出路有两种：由本公司收购，或为您介绍买方。由本公司收购时，之后由本公司作为卖方出售。这种方式不收手续费，条件就是收购价格。会走哪一种，第一次回复时给出初步判断，看过文件后再决定。</p></div>
+      <div class="faq-item"><h3>什么阶段的项目可以受理？</h3><p>从取得接入系统研究答复的项目开始。已取得并网承诺（連系承諾）的权利、竣工后转让的项目、正在运行的储能电站也都受理。事前咨询（事前相談，接入系统研究之前的预备咨询）阶段的项目找不到买方。在长期脱碳电源拍卖（長期脱炭素電源オークション，LDA）中标的项目，由于没有中途转售的商业流程，不予受理。</p></div>
+      <div class="faq-item"><h3>只有土地，也可以收购吗？</h3><p>不受理单纯土地的收购或租借。如已取得电力公司的接入系统研究答复、形成了项目，即可受理。</p></div>
+      <div class="faq-item"><h3>购买项目之前，需要先签保密协议吗？</h3><p>不需要。所在县、规模、并网预期时间与进展，在蓄电所市场无需登记即可查看。价格与资料在免费登记（同意保密承诺）后可见。</p></div>
+      <div class="faq-item"><h3>需要支付手续费吗？</h3><p>报酬是只在成交时收取的成功报酬。费率以及由卖方还是买方承担，按每个项目的交易结构决定，在第一次介绍时明确告知。洽谈过程中不收取任何费用。由本公司收购的方式不收手续费。</p></div>
+      <div class="faq-item"><h3>海外的企业也能购买吗？</h3><p>可以。持有架构按个案商议。另外，日本《外汇及外国贸易法》将电气业列为指定行业，海外资本的收购很可能成为事前申报的对象；这道手续须在交割前走通。详见<a href="/zh-column-foreign-investor">《海外投资者收购日本储能电站前需跨越的关口》</a>。</p></div>
+      <div class="faq-item"><h3>卖方名称和项目地点会被买方知道吗？</h3><p>卖方名称不会告知买方。买方只能匿名看到所在县、规模与并网预期时间；所在地与资料在免费登记（同意保密承诺）后可见，公司名称在会谈时间确定后告知。</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= WECHAT BAND ================= -->
 <section class="wechat-band" id="wechat"><div class="container">
   <div class="wechat-band-inner">
@@ -1480,6 +1466,19 @@ body {
     <p style="margin-top:20px;font-size:0.75rem;color:rgba(255,255,255,0.35);">s@scix.co.jp ｜ +81 3 6691 3484 ｜ 日本·东京</p>
   </div>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!-- ScienceX Footer — Wix HTML embed用 self-contained -->

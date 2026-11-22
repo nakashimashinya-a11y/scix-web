@@ -363,7 +363,7 @@ PAGE_JS_RE = re.compile(r"<script(?![^>]*ld\+json)[^>]*>(.*?)</script>", re.S)
 
 # scripts/inject_stats.py の compute() が返すキーと同じ集合。ナレッジ側の kcount/kdate/knew は
 # 週次シェル自身が検査の直前に gen_knowledge_jsonld.py --write で焼き直すので対象にしない。
-INJECT_KEYS = {"list", "count", "mw", "prefs", "areas", "shv", "maxmw", "date", "pjnew"}
+INJECT_KEYS = {"list", "count", "mw", "prefs", "areas", "shv", "maxmw", "date", "pjnew", "cards"}   # cards＝トップの匿名の案件カードの焼いた行（2026-11-22）
 
 
 def synced_regions(text: str) -> list:

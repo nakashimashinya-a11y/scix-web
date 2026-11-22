@@ -3,6 +3,12 @@
      ScienceX — Shared Navigation Header (JP + EN + 简中)
      Single source of truth for all pages.
 
+     2026-11-22: 上の帯を蓄電所マーケットと同じ並びにした（買いたい・売りたい・ナレッジ・市場リサーチ・会社案内・お問い合わせ＋右端にログイン・無料で登録）。
+       「買いたい」「売りたい」は札を押すとマーケットの画面へ直接行き（間の画面を挟まない）、横の ▾ だけが引き出しを開く（割りボタン）。
+       「市場リサーチ」の引き出しに市場ノート・市場データを置いた（「買う」の引き出しにあった売り案件の市場データはここへ移した＝行き先は1か所に1回）。
+       蓄電所マーケットの帯（dealroom の public/platform-nav.js）と同じ並び・同じ札の言葉。2つのリポジトリの並びは手で写す（docs/seo-change-log.md の行き先の表）。
+       トップの案件カード（/site-cards.js）の出所の印は src=top-card（英語 -en・中国語 -zh）、placement=card。
+
      2026-11-06: 言語の切り替えが目立たなかったので、言語の切り替えをナビの外に出し、国旗
        （SVG）＋言語の名前（日本語 / English / 中文）・紺の太い枠・今の言語は
        紺地に白。スマホでは引き出しの中でなく、ヘッダーの帯に国旗を常に出す。
@@ -108,7 +114,7 @@
 
   // Below this width the nav collapses into the drawer. The regrouped nav is
   // short enough that an iPad in landscape (1024px) keeps the full bar.
-  var BP = 960; // 2026-11-06: 900 だと 901〜955px でナビが右へはみ出していた（旧版から）＝国旗の切り替えと同時に上げた
+  var BP = 1100; // 2026-11-22: 札が8つ（買いたい・売りたい・ナレッジ・市場リサーチ・会社案内・お問い合わせ・ログイン・無料で登録）になったので 960 から上げた（2026-11-06: 900 だと 901〜955px でナビが右へはみ出していた）
 
   // --------------- 1. CSS ---------------
   var css = [
@@ -146,7 +152,7 @@
     '.scix-header-nav{',
     '  display:flex;align-items:stretch;align-self:stretch;gap:2px;margin-left:22px;margin-right:auto;',
     '}',
-    '.scix-header-nav > a,.scix-nav-dd-toggle{',
+    '.scix-header-nav > a,.scix-nav-dd-toggle,.scix-nav-main{',
     '  display:inline-flex;align-items:center;gap:8px;height:100%;',
     '  text-decoration:none;color:#1F2A48;',
     '  font-size:15px;font-weight:800;letter-spacing:0;line-height:1.3;',
@@ -156,18 +162,29 @@
     '  white-space:nowrap;--pc:#1F2A48;',
     '}',
     '.scix-ic{width:21px;height:21px;flex:0 0 auto;display:block;color:var(--pc)}',
-    '.scix-nav-dd[data-group=knowledge] .scix-nav-dd-toggle{--pc:#7C4DDB}',
-    '.scix-nav-dd[data-group=buy] .scix-nav-dd-toggle{--pc:#2563EB}',
-    '.scix-nav-dd[data-group=sell] .scix-nav-dd-toggle{--pc:#D4610A}',
+    '.scix-nav-dd[data-group=knowledge] :is(.scix-nav-dd-toggle,.scix-nav-main){--pc:#7C4DDB}',
+    '.scix-nav-dd[data-group=buy] :is(.scix-nav-dd-toggle,.scix-nav-main){--pc:#2563EB}',
+    '.scix-nav-dd[data-group=sell] :is(.scix-nav-dd-toggle,.scix-nav-main){--pc:#D4610A}',
+    '.scix-nav-dd[data-group=research] :is(.scix-nav-dd-toggle,.scix-nav-main){--pc:#138A62}',
+    '.scix-header-nav > a.scix-top-buy{--pc:#2563EB}',
+    '.scix-header-nav > a.scix-top-sell{--pc:#D4610A}',
     '.scix-header-nav > a[data-page="/report"]{--pc:#138A62}',
     '.scix-header-nav > a[data-page="/qa"]{--pc:#7C4DDB}',
     '.scix-header-nav > a[data-page="/knowledge"]{--pc:#7C4DDB}',
     '.scix-header-nav > a[data-page="/market-entry-guide"]{--pc:#2563EB}',
-    '.scix-header-nav > a:hover,.scix-nav-dd-toggle:hover{color:#1F2A48;background:#F3F5FA;box-shadow:inset 0 -4px 0 var(--pc)}',
-    '.scix-header-nav > a.active,.scix-nav-dd-toggle.active{color:#fff;font-weight:900;background:var(--pc);box-shadow:none}',
-    '.scix-header-nav > a.active .scix-ic,.scix-nav-dd-toggle.active .scix-ic{color:#fff}',
-    '@media(max-width:1360px){.scix-header-nav > a,.scix-nav-dd-toggle{padding:0 10px;font-size:14px;gap:6px}.scix-ic{width:19px;height:19px}.scix-header-nav{margin-left:12px}}',
-    '.scix-header-nav a:focus-visible,.scix-nav-dd-toggle:focus-visible{outline:2px solid #F97316;outline-offset:2px}',
+    '.scix-header-nav > a:hover,.scix-nav-dd-toggle:hover,.scix-nav-main:hover,.scix-nav-dd.split:hover :is(.scix-nav-main,.scix-dd-split-btn){color:#1F2A48;background:#F3F5FA;box-shadow:inset 0 -4px 0 var(--pc)}',
+    '.scix-header-nav > a.active,.scix-nav-dd-toggle.active,.scix-nav-main.active{color:#fff;font-weight:900;background:var(--pc);box-shadow:none}',
+    '.scix-header-nav > a.active .scix-ic,.scix-nav-dd-toggle.active .scix-ic,.scix-nav-main.active .scix-ic{color:#fff}',
+    '/* 割りボタン（買いたい・売りたい）: 札は直接その画面へ、横の ▾ だけが引き出しを開く */',
+    '.scix-nav-dd.split{gap:0}',
+    '.scix-nav-main{padding-right:4px!important}',
+    '.scix-dd-split-btn{padding:0 10px 0 4px!important;gap:0!important}',
+    '.scix-header-nav a.scix-login{--pc:#1F2A48}',
+    '.scix-header-nav > a.scix-mk.scix-reg{padding:9px 18px}',
+    '.scix-en-tag{font-size:.66em;font-weight:800;color:#5B667A;border:1px solid #C9D2E3;border-radius:999px;padding:0 6px;margin-left:5px;line-height:1.6;white-space:nowrap}',
+    '@media(max-width:1279px){.scix-ic{display:none}.scix-header-nav > a,.scix-nav-dd-toggle,.scix-nav-main{padding:0 9px;font-size:14px;gap:6px}.scix-nav-main{padding-right:3px}.scix-dd-split-btn{padding:0 8px 0 3px!important}.scix-header-nav{margin-left:10px}}',
+    '@media(min-width:1280px) and (max-width:1360px){.scix-header-nav > a,.scix-nav-dd-toggle,.scix-nav-main{padding:0 10px;font-size:14px;gap:6px}.scix-ic{width:19px;height:19px}.scix-header-nav{margin-left:12px}.scix-nav-main{padding-right:4px}.scix-dd-split-btn{padding:0 8px 0 4px!important}}',
+    '.scix-header-nav a:focus-visible,.scix-nav-dd-toggle:focus-visible,.scix-nav-main:focus-visible{outline:2px solid #F97316;outline-offset:2px}',
 
     '/* === Primary CTA button (black) === */',
     '.scix-header-nav a.scix-cta{',
@@ -200,7 +217,7 @@
     '  .scix-nav-dd:hover .scix-nav-dd-menu{display:flex}',
     '  .scix-nav-dd:hover .scix-dd-caret{transform:rotate(180deg)}',
     '}',
-    '.scix-nav-dd-menu a{padding:10px 12px;font-weight:500;border-radius:12px;}',
+    '.scix-nav-dd-menu a{padding:10px 12px;font-weight:500;border-radius:12px;color:#1F2A48;text-decoration:none;font-size:15px;line-height:1.5}',
     '.scix-nav-dd-menu a:hover{background:#FFF1E3;box-shadow:none}',
     '/* two-column menu (ナレッジ): テーマで読む | はじめての方 */',
     '.scix-nav-dd-menu.scix-dd-wide{min-width:560px;flex-direction:row;gap:12px;padding:10px 12px 12px}',
@@ -283,12 +300,19 @@
     '  }',
     '  .scix-header-open .scix-header-nav{transform:translateX(0)}',
     '  .scix-header-nav{margin:0}',
-    '  .scix-header-nav > a,.scix-nav-dd-toggle{',
-    '    height:auto;padding:14px 12px;font-size:.95rem;',
+    '  .scix-ic{display:block}',
+    '  .scix-header-nav > a,.scix-nav-dd-toggle,.scix-nav-main{',
+    '    height:auto;padding:14px 12px;font-size:.95rem;gap:8px;',
     '    border-bottom:1px solid #EEE;',
     '    border-radius:12px;',
     '  }',
     '  .scix-header-nav > a.scix-mk{align-self:stretch}',
+    '  .scix-header-nav > a.scix-mk.scix-reg{padding:13px 20px}',
+    '  /* 割りボタン: 札の行（直接その画面へ）と ▾（中身の行を開く）を1行に並べ、中身はその下に開く */',
+    '  .scix-nav-dd.split{flex-direction:row;flex-wrap:wrap;align-items:stretch}',
+    '  .scix-nav-dd.split .scix-nav-main{flex:1 1 0;min-width:0;padding:14px 12px!important}',
+    '  .scix-nav-dd.split .scix-dd-split-btn{flex:0 0 56px;width:56px;justify-content:center;padding:14px 0!important}',
+    '  .scix-nav-dd.split .scix-nav-dd-menu{flex:1 1 100%}',
     '  .scix-header-nav a:hover,.scix-nav-dd-toggle:hover,.scix-header-nav a.active,.scix-nav-dd-toggle.active{box-shadow:none}',
     '  .scix-header-nav a.scix-cta{',
     '    margin:18px 0 0;text-align:center;',
@@ -298,6 +322,7 @@
     '  .scix-header-nav a.scix-mk{margin:18px 0 0;justify-content:center;padding:12px 20px 12px 12px}',
     '  .scix-nav-dd{flex-direction:column;align-items:stretch;}',
     '  .scix-nav-dd-toggle{justify-content:flex-start;width:100%;text-align:left;}',
+    '  .scix-nav-dd.split .scix-dd-split-btn .scix-dd-caret{margin-left:0}',
     '  .scix-nav-dd-toggle .scix-dd-caret{margin-left:auto}',
     '  .scix-nav-dd-toggle.active{background:none;}',
     '  .scix-nav-dd-menu{position:static;display:none;border:none;box-shadow:none;background:#FFF1E3;padding:2px 0;min-width:0;border-radius:14px;}',
@@ -342,7 +367,7 @@
   //        they never light up as "current".
   function ddLink(it) {
     var href = it[0], label = it[1], cls = it[2] || '';
-    var page = href.indexOf('#') === -1 ? ' data-page="' + href + '"' : '';
+    var page = href.indexOf('#') === -1 ? ' data-page="' + (it[3] || href) + '"' : '';   // it[3]＝言語をまたいだ頁の名前（英語の /en/report は '/report'）
     return '<a href="' + href + '"' + page + (cls ? ' class="' + cls + '"' : '') + '>' + label + '</a>';
   }
   function ddGroup(key, label, items, icon) {
@@ -364,6 +389,18 @@
     return out + '</div></div>';
   }
 
+  // 割りボタン（2026-11-22 買いたい・売りたい）: 札（a）は押すとその画面へ直接行き、横の ▾（button）だけが引き出しを開く。
+  // 札の行き先はマーケットの入口＝間の画面を挟まない。引き出しの中身は当社の窓口（流れ・査定・ファンド・紹介）。
+  function ddSplit(key, label, href, items, icon, caretLabel) {
+    var out = '<div class="scix-nav-dd split" data-group="' + key + '">' +
+      '<a class="scix-nav-main" href="' + href + '">' + (icon ? ic(icon) : '') + '<span>' + label + '</span></a>' +
+      '<button type="button" class="scix-nav-dd-toggle scix-dd-split-btn" aria-expanded="false" aria-controls="scix-dd-' + key + '" aria-label="' + caretLabel + '">' +
+        '<span class="scix-dd-caret" aria-hidden="true">▾</span></button>' +
+      '<div class="scix-nav-dd-menu" id="scix-dd-' + key + '">';
+    for (var i = 0; i < items.length; i++) out += ddLink(items[i]);
+    return out + '</div></div>';
+  }
+
   // 2026-11-15: マーケットの上の帯と同じ、色の付いた線の絵（買う＝青・売る＝橙・読む＝紫・市場ノート＝緑）
   var ICON = {
     book: '<path d="M3 5h6a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H3z"/><path d="M21 5h-6a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H21z"/>',
@@ -377,34 +414,62 @@
     flag: '<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>'
   };
   function ic(k) { return '<svg class="scix-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true">' + ICON[k] + '</svg>'; }
-  var MK = '<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="#1E3A8A"/><rect x="8.5" y="13" width="19.5" height="14" rx="3" fill="none" stroke="#fff" stroke-width="2.6"/><rect x="28" y="17.4" width="3.2" height="5.2" rx="1.2" fill="#fff"/><path d="M12.4 20.6h3.1l1.7-3.3 2.6 6.4 1.7-3.1h2.9" fill="none" stroke="#FBBF24" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   // Pages that light up each group (beyond the links listed inside it).
   var GROUP_PAGES = {
-    knowledge: ['/knowledge', '/qa', '/grid-storage', '/glossary', '/column-somosomo'],
-    buy:   ['/projects', '/transfer', '/fund', '/investors', '/market-data', '/for/sme', '/for/major'],
-    sell:  ['/sourcing', '/sell-form', '/partners', '/for/dealers']
+    knowledge: ['/knowledge', '/qa', '/grid-storage', '/glossary', '/column-somosomo', '/primer', '/market-entry-guide'],
+    buy:   ['/projects', '/transfer', '/fund', '/investors', '/for/sme', '/for/major'],
+    sell:  ['/sourcing', '/sell-form', '/partners', '/for/dealers'],
+    research: ['/report', '/market-data']
   };
 
   // 2026-11-15 メニュー全体の見直し（重複をなくし、全体の整合をとった）:
   // 行き先は1か所に1回だけ。マーケット（案件を見る・リクエスト・自分で売る）は右端の橙のボタン1つにまとめ、
   // 買う・売るの中は当社の窓口（流れ・査定・ファンド・紹介）だけにする。市場ノートは上の段だけ（ナレッジの中に重ねない）。
   // 地域別の案件一覧（/projects・/en/projects）はマーケットの一覧と同じ中身なのでメニューから外す（ページは検索から来た人のために残す）。
+  // 2026-11-22: 上の帯は蓄電所マーケット（platform-nav.js）と同じ並び: 買いたい・売りたい・ナレッジ・市場リサーチ・会社案内・お問い合わせ＋右端のログイン・無料で登録。
+  // 「買いたい」「売りたい」はマーケットへ直接（日本語の売りたいは買主のリクエストの一覧 /needs・英語と中国語は /en/needs）。中国語の画面はマーケットに無いので英語の画面へ。
+  // 札の言葉と行き先は、2つのリポジトリで同じ表を手で写す（片方の実行時にもう片方を読む形は、落ちたとき帯が欠けるので採らない）。
+  var MKT = 'https://dealroom.scix.co.jp';
+  var EN_TAG = '<span class="scix-en-tag">英文</span>';
   var nav = isZh ? [
-    '<a href="/zh"           data-page="/">' + ic('home') + '<span>首页</span></a>',
-    '<a href="/zh-knowledge" data-page="/knowledge">' + ic('book') + '<span>洞见</span></a>',
-    '<a href="/zh-qa"        data-page="/qa">' + ic('q') + '<span>问答</span></a>',
-    '<a href="/zh-contact"   data-page="/contact">' + ic('mail') + '<span>联系我们</span></a>',
-    '<a href="https://dealroom.scix.co.jp/?lang=en" class="scix-mk">' + MK + '蓄电所市场</a>'
+    '<a href="' + MKT + '/en" class="scix-top-buy" data-k="buy">' + ic('buy') + '<span>购买</span></a>',
+    '<a href="' + MKT + '/en/needs" class="scix-top-sell" data-k="sell">' + ic('sell') + '<span>出售</span></a>',
+    ddGroup('knowledge', '洞见', [
+      ['/zh-knowledge', '洞见', '', '/knowledge'],
+      ['/zh-qa',        '问答', '', '/qa']
+    ], 'book'),
+    '<a href="/en/report" data-page="/report">' + ic('chart') + '<span>市场研究</span>' + EN_TAG + '</a>',
+    '<a href="/en/company" data-page="/company">' + ic('co') + '<span>公司介绍</span>' + EN_TAG + '</a>',
+    '<a href="/zh-contact" data-page="/contact">' + ic('mail') + '<span>联系我们</span></a>',
+    '<a href="' + MKT + '/en/login.html" class="scix-login">登录</a>',
+    '<a href="' + MKT + '/en/register.html" class="scix-mk scix-reg">免费注册</a>'
   ] : isEn ? [
-    '<a href="/en"           data-page="/">' + ic('home') + '<span>Home</span></a>',
-    '<a href="/en/knowledge" data-page="/knowledge">' + ic('book') + '<span>Knowledge</span></a>',
-    '<a href="/en/qa"        data-page="/qa">' + ic('q') + '<span>Q&amp;A</span></a>',
-    '<a href="/en/report"    data-page="/report">' + ic('chart') + '<span>Market Notes</span></a>',
-    '<a href="/en/market-entry-guide" data-page="/market-entry-guide">' + ic('flag') + '<span>Entry Guide</span></a>',
-    '<a href="/en/contact"   data-page="/contact">' + ic('mail') + '<span>Contact</span></a>',
-    '<a href="https://dealroom.scix.co.jp/?lang=en" class="scix-mk">' + MK + 'Chikudensho Market</a>'
+    '<a href="' + MKT + '/en" class="scix-top-buy" data-k="buy">' + ic('buy') + '<span>Buy</span></a>',
+    '<a href="' + MKT + '/en/needs" class="scix-top-sell" data-k="sell">' + ic('sell') + '<span>Sell</span></a>',
+    ddGroup('knowledge', 'Knowledge', [
+      ['/en/knowledge',          'Knowledge',   '', '/knowledge'],
+      ['/en/qa',                 'Q&amp;A',     '', '/qa'],
+      ['/en/market-entry-guide', 'Entry Guide', '', '/market-entry-guide']
+    ], 'book'),
+    ddGroup('research', 'Market Research', [
+      ['/en/report',      'Market Notes', '', '/report'],
+      ['/en/report/data', 'Market Data',  '', '/report/data']
+    ], 'chart'),
+    '<a href="/en/company" data-page="/company">' + ic('co') + '<span>Company</span></a>',
+    '<a href="/en/contact" data-page="/contact">' + ic('mail') + '<span>Contact</span></a>',
+    '<a href="' + MKT + '/en/login.html" class="scix-login">Log in</a>',
+    '<a href="' + MKT + '/en/register.html" class="scix-mk scix-reg">Sign up</a>'
   ] : [
+    ddSplit('buy', '買いたい', MKT + '/', [
+      ['/transfer', '買うまでの流れ・買い方3つ'],
+      ['/fund',     'ファンドで持つ']
+    ], 'buy', '買いたいのメニューを開く'),
+    ddSplit('sell', '売りたい', MKT + '/needs', [
+      ['/sell-form', '当社に無料で売却査定'],
+      ['/sourcing',  '売るまでの流れ'],
+      ['/partners',  '案件・投資家を紹介する']
+    ], 'sell', '売りたいのメニューを開く'),
     ddGroup('knowledge', 'ナレッジ', [
       { head: 'テーマで読む', items: [
         ['/knowledge',            'すべての記事（毎週更新）', 'scix-dd-all'],
@@ -421,21 +486,16 @@
         ['/glossary',        '用語集']
       ]}
     ], 'book'),
-    ddGroup('buy', '買う', [
-      ['/transfer',    '買うまでの流れ・買い方3つ'],
-      ['/market-data', '売り案件の市場データ'],
-      ['/fund',        'ファンドで持つ']
-    ], 'buy'),
-    ddGroup('sell', '売る', [
-      ['/sourcing',  '売るまでの流れ'],
-      ['/sell-form', '無料の売却査定'],
-      ['/partners',  '案件・投資家を紹介する']
-    ], 'sell'),
-    // 2026-11-03: 月報が目立たず「月報」の語も社内用に見えたので、上の段に「市場ノート」として出した
-    '<a href="/report"   data-page="/report">' + ic('chart') + '<span>市場ノート</span></a>',
+    // 市場リサーチ: 引き出しの中の札は、行き先の h1 と同じ言葉（O16-27）。売り案件の市場データは「買う」の引き出しからここへ移した（行き先は1か所に1回）
+    ddGroup('research', '市場リサーチ', [
+      ['/report',      '蓄電所の市場ノート'],
+      ['/report/data', '蓄電所の市場データ'],
+      ['/market-data', '系統用蓄電池の売り案件 市場データ']
+    ], 'chart'),
     '<a href="/company"  data-page="/company">' + ic('co') + '<span>会社案内</span></a>',
     '<a href="/contact"  data-page="/contact">' + ic('mail') + '<span>お問い合わせ</span></a>',
-    '<a href="https://dealroom.scix.co.jp/" class="scix-mk">' + MK + '蓄電所マーケット</a>'
+    '<a href="' + MKT + '/login.html" class="scix-login">ログイン</a>',
+    '<a href="' + MKT + '/register.html" class="scix-mk scix-reg">無料で登録</a>'
   ];
 
   // --------------- Language switcher (JA / EN / 简中) ---------------
@@ -748,9 +808,12 @@
       var key = dd.getAttribute('data-group');
       var toggle = dd.querySelector('.scix-nav-dd-toggle');
       var pages = GROUP_PAGES[key] || [];
-      var holdsCurrent = pages.indexOf(loc) !== -1 || (key === 'knowledge' && isCol);   // 市場ノートの号は上の段の「市場ノート」が光る（2026-11-15）
+      var main = dd.querySelector('.scix-nav-main');   // 割りボタンの札（買いたい・売りたい）
+      var holdsCurrent = pages.indexOf(loc) !== -1 || (key === 'knowledge' && isCol) ||
+        (key === 'research' && (loc === '/report' || loc.indexOf('/report/') === 0));   // 市場ノートの号は「市場リサーチ」が光る（2026-11-22）
       if (holdsCurrent) {
         toggle.classList.add('active');
+        if (main) main.classList.add('active');
         dd.classList.add('is-current');
         // In the drawer, start with the visitor's own group unfolded.
         if (isNarrow) setOpen(dd, true);
@@ -933,7 +996,8 @@
     if (!a || typeof window.gtag !== 'function') return;
     var group;
     if (a.classList.contains('scix-header-logo')) group = 'logo';
-    else if (a.classList.contains('scix-cta') || a.classList.contains('scix-mk')) group = 'cta';   // 蓄電所マーケットのボタンも cta に数える（2026-11-15）
+    else if (a.classList.contains('scix-cta') || a.classList.contains('scix-mk') || a.classList.contains('scix-login')) group = 'cta';   // 蓄電所マーケットのボタン（無料で登録・ログイン）も cta に数える（2026-11-15）
+    else if (a.classList.contains('scix-top-buy') || a.classList.contains('scix-top-sell')) group = a.getAttribute('data-k') || 'top';   // 英語・中国語の買う・売る（引き出しなし）
     else if (a.closest('.scix-lang')) group = 'lang';
     else if (a.closest('.scix-nav-dd')) group = a.closest('.scix-nav-dd').getAttribute('data-group') || 'group';
     else group = 'top';
@@ -955,7 +1019,7 @@
   //      印の形はマーケット側の public/src-mark.js・functions/_lib/signup_src.ts と同じ＝英数と _- だけ・64字まで。
   //      コラム col-<slug>／市場ノート report・report-<YYYY-MM>／ナレッジの一覧 knowledge／トップ top／ほかは site-<頁>。英語は末尾に -en、中国語は -zh。
   //      頁を読み込んだ時点では href を変えない（検索エンジンが読むリンクは今のまま）。
-  //  7b. GA4: マーケットへのリンクが押されたら market_click を1回（page_path・src_mark・placement＝header/hero/body/end/footer・link_path）。
+  //  7b. GA4: マーケットへのリンクが押されたら market_click を1回（page_path・src_mark・placement＝header/card/hero/body/end/footer・link_path）。
   //      前からの dr2_promo_click・dr2_register_click（各頁の onclick）は内訳として残し、legacy_event・legacy_target に写す＝マーケットへの送客は market_click だけで数える（足さない）。
   //  7c. 社内の閲覧の印: 一度 ?internal=1 を開いた端末は、GA4 の利用者の印 internal_user=1 を付ける（?internal=0 で外す・localStorage）。
   //  7d. 問い合わせの出所: 最初に着いた頁・その前のサイト（ホスト名だけ）・直前に見ていた頁・出所の印（src・utm）を sessionStorage に覚え、
@@ -983,6 +1047,9 @@
     }
     var MARK = pageMark();
     window.SCIX_SRC_MARK = MARK;   // 確かめ用（ほかからは使わない）
+    // トップの案件カード（data-placement="card"）の出所の印は top-card（英語 -en・中国語 -zh）。GA4 の placement も card
+    var CARD_MARK = ('top-card' + langSfx);
+    function markOf(a) { return a && a.closest && a.closest('[data-placement="card"]') ? CARD_MARK : MARK; }
 
     // ---- 7a. 出所の印 ----
     function marketUrl(a) {
@@ -998,7 +1065,7 @@
       if (!u) return null;
       try {
         if (!/(?:^|[?&])src=/.test(u.search)) {
-          u.search = (u.search && u.search.length > 1 ? u.search + '&' : '?') + 'src=' + MARK;
+          u.search = (u.search && u.search.length > 1 ? u.search + '&' : '?') + 'src=' + markOf(a);
           a.setAttribute('href', u.toString());
         }
       } catch (err) { /* 印を足せなくてもリンクはそのまま */ }
@@ -1016,6 +1083,7 @@
 
     // ---- 7b. GA4 market_click（1回の押下に1回） ----
     function placementOf(a) {
+      if (a.closest('[data-placement="card"]')) return 'card';
       if (a.closest('.scix-header')) return 'header';
       if (a.closest('footer, .scix-footer')) return 'footer';
       var ab = document.querySelector('.author-box');
@@ -1033,7 +1101,7 @@
         if (!u || typeof window.gtag !== 'function') return;
         var lm = /(dr2_[a-z]+_click)'\s*,\s*\{\s*target\s*:\s*'([^']*)'/.exec(a.getAttribute('onclick') || '');
         window.gtag('event', 'market_click', {
-          page_path: path, src_mark: MARK, placement: placementOf(a), link_path: u.pathname,
+          page_path: path, src_mark: markOf(a), placement: placementOf(a), link_path: u.pathname,
           legacy_event: lm ? lm[1] : '', legacy_target: lm ? lm[2] : '',
           page_lang: (document.documentElement.lang || lang), transport_type: 'beacon'
         });

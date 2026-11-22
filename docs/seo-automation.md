@@ -146,7 +146,7 @@ GA4 のトークンが無いときは GA4 だけ飛ばして動く。取得は `
 
 | 物 | 何をするか | 使い方 |
 |---|---|---|
-| `scripts/seo/audit_pages.py` | 全頁の head・構造化データ・sitemap を手元のファイルだけで点検する。FAQPage の問いが本文にあるか・Article の author／publisher の `@id`・ロゴ（紺）・パンくずにアンカーが無いか・`max-image-preview:large`・sitemap の hreflang／lastmod が頁と同じか・llms.txt・コラム末尾の入口の行き先（絞り込みの検索や件数0の入口を指さない）・市場データの表（caption・th scope・time・「いちばん新しい行の1文」の数字が表にあるか）・月報の画像の幅高さ・英語中国語のコラムの対のリンク。題と説明の長さは「注意」で `--strict` に数えない。トップ3頁（index.html・en/index.html・zh.html）は `TOP_PENDING` で新しい検査から外している（トップの作り替えの側で直す） | `python3 scripts/seo/audit_pages.py --strict`（PR の前に通す） |
+| `scripts/seo/audit_pages.py` | 全頁の head・構造化データ・sitemap を手元のファイルだけで点検する。FAQPage の問いが本文にあるか・Article の author／publisher の `@id`・ロゴ（紺）・パンくずにアンカーが無いか・`max-image-preview:large`・sitemap の hreflang／lastmod が頁と同じか・llms.txt・コラム末尾の入口の行き先（絞り込みの検索や件数0の入口を指さない）・市場データの表（caption・th scope・time・「いちばん新しい行の1文」の数字が表にあるか）・月報の画像の幅高さ・英語中国語のコラムの対のリンク。題と説明の長さは「注意」で `--strict` に数えない。トップ3頁（index.html・en/index.html・zh.html）も同じ検査を受ける（2026-11-22 に除外を外した） | `python3 scripts/seo/audit_pages.py --strict`（PR の前に通す） |
 | `scripts/add_column_entrances.py` | 日本語のコラム末尾の入口の区画（マーケットの静的な入口・市場の数字への静的リンク）を作り直す | `python3 scripts/add_column_entrances.py [--check]`（projects.json の件数が変わって件数0の入口ができたら回す） |
 | `scripts/add_column_related.py` | 英語・中国語のコラムに、日本語の対と同じ「あわせて読む」・用語集・市場の数字のリンクを作る | `python3 scripts/add_column_related.py [--check]` |
 | `scripts/build_llms_txt.py` | `/llms.txt`（sitemap の頁の題と説明の一覧）を作る。title・description を変えたら回す | `python3 scripts/build_llms_txt.py [--check]` |
@@ -154,7 +154,7 @@ GA4 のトークンが無いときは GA4 だけ飛ばして動く。取得は `
 
 sitemap の lastmod は頁の JSON-LD `dateModified` と同じ値にし、前の値より古くしない。題・説明・区画・リンクなど頁を変えた日に、その頁だけ `stamp_sitemap.py <頁>` で今日にする（lastmod と一緒に `dateModified`・`article:modified_time` も同じ日に動く）。構造化データ・robots・img の寸法だけの直しは頁を変えた日に数えない。月報の頁・市場データの頁は生成器（`build_reports.py`・`build_report_data.py`）が「発行日と今の sitemap の値の新しいほう」を JSON-LD と sitemap の両方に書くので、焼き直しで日付が戻らない。`sync_sitemap_lastmod.py --write` は頁の dateModified があればその値に揃え、無ければ最後の commit の日（広い直しの直後に回さない）。
 
-トップ3頁（`/`・`/en`・`/zh`）の作り替え（#237）と同じ週に入るときは、sitemap.xml と変更台帳の2本が行の並びで衝突する。取り込む側は sitemap.xml を自分の側の版にしたうえで、`python3 scripts/seo/stamp_sitemap.py index.html en/index.html zh.html` でトップ3行の lastmod を今日にし直す。変更台帳（`docs/seo-change-log.md`）も同じ日の行の並びで衝突するので、衝突の印だけ消して両方の行を残す（`audit_pages.py` は自動で入る）。`audit_pages.py` の `TOP_PENDING` は、トップの側が「ロゴ・robots の max-image-preview・/ の hreflang」を直すまで残す。
+トップ3頁（`/`・`/en`・`/zh`）の作り替え（#237）は、sitemap.xml と変更台帳の2本が、同じ週に入る広い直し（#238 など）と行の並びで衝突した。取り込む側は、sitemap.xml を先に入った main の版にしたうえで `python3 scripts/seo/stamp_sitemap.py index.html en/index.html zh.html` でトップ3行の lastmod を今日にし直す（自分の側の版にすると、main が進めた lastmod と x-default が戻る）。変更台帳（`docs/seo-change-log.md`）は同じ日の行の並びで衝突するので、衝突の印だけ消して両方の行を残す。
 
 ## 数字の置き場
 
@@ -169,8 +169,32 @@ sitemap の lastmod は頁の JSON-LD `dateModified` と同じ値にし、前の
 | 仕組み | 中身 | 見る所 |
 |---|---|---|
 | 出所の印 | 蓄電所マーケット（dealroom.scix.co.jp）へのリンクを押す（触る）直前に `src=<頁の印>` を足す（すでに src があれば替えない・`lang=en` などは残す）。印はコラム `col-<slug>`・市場ノート `report`／`report-<YYYY-MM>`・ナレッジの一覧 `knowledge`・トップ `top`・ほか `site-<頁>`。英語は末尾 `-en`、中国語は `-zh`。形はマーケットの `public/src-mark.js`・`functions/_lib/signup_src.ts` と同じ（英数と `_-`・64字まで・最初の印を上書きしない） | マーケットの登録の `dealroom2_users.signup_src` |
-| 送客の数 | GA4 `market_click`（page_path・src_mark・placement＝header/hero/body/end/footer・link_path・legacy_event・legacy_target）。前からの各頁の `dr2_promo_click`・`dr2_register_click` は内訳として残し legacy_* に写す＝**マーケットへの送客は market_click だけで数える（足さない）** | GA4 のイベント |
+| 送客の数 | GA4 `market_click`（page_path・src_mark・placement＝header/card/hero/body/end/footer（card＝トップの案件カード）・link_path・legacy_event・legacy_target）。前からの各頁の `dr2_promo_click`・`dr2_register_click` は内訳として残し legacy_* に写す＝**マーケットへの送客は market_click だけで数える（足さない）** | GA4 のイベント |
 | 問い合わせの出所 | `/api/contact` へ送るフォームに隠し欄 `_entry_page`（最初に着いた頁）・`_entry_ref`（その前のサイトのホスト名だけ）・`_prev_page`（直前の頁）・`_src`・`_utm`（sessionStorage・最初の印を優先）。頁の住所は path だけ。受け口 `web-contact.ts` は「_」で始まる欄を断らずに本文から外す＝受け口に記録の行を足すまでは残らない。/fund のフォームは送る中身を手で組むので付かない | 受け口を直したあとの通知メール・記録 |
 | 社内の閲覧 | 一度 `https://www.scix.co.jp/?internal=1` を開いた端末は GA4 の利用者の印 `internal_user=1`（`?internal=0` で外す・localStorage）。gtag.js が header.js より先に読まれた頁では、その頁の最初の page_view に印が乗らないことがある | `collect_daily.py --exclude-internal` |
 
 GA4 の管理画面（カスタム定義）で登録が要る物（代表）: ユーザー スコープ `internal_user`／イベント スコープ `src_mark`・`placement`・`legacy_target`。`internal_user` を登録するまで、`collect_daily.py --exclude-internal` は外さずに数えてログに出す（既定は今のまま外さない）。
+
+## トップの案件カードと上の帯の並び（2026-11-22）
+
+トップ3頁（`/`・`/en`・`/zh`）の最初の節は、蓄電所マーケットの案件のカードの一覧（`<section class="hero x-top hero-market" id="market">`。class の先頭は hero のまま＝`guard_diff.py` の「ヒーローより上は変えない」の範囲が、カードの節の終わりまでになる）。
+
+- **焼いた行（土台）**: `scripts/inject_stats.py` が毎朝 `projects.json`（公開項目だけ）から、`<!--S:cards-->` の中に匿名の行12件（新着順・県・電圧・規模・渡し方・連系の見込み）を言葉ごと（日・英・中）に焼く。案件名・市区町村・写真・価格はこのリポジトリに置かない（O16-19）。行のリンクはマーケットの案件ごとの公開の頁（`/catalog/<id>`・英語と中国語は `/en/catalog/<id>`）。
+- **画面の差し替え**: `/site-cards.js`（コードだけ）が `https://dealroom.scix.co.jp/api/open/cards?limit=12&lang=<ja|en>` を読み（3秒で打ち切り・Cookie なし）、読めたときだけ同じ場所を写真つきのカードに差し替える。読めない（マーケット停止・CORS が閉じている・遅い・形が違う）ときは何もしない＝焼いた行のまま。中国語の頁は英語のカードを中国語の字の枠で出す。カードのリンクの出所の印は `src=top-card`（英語 `-en`・中国語 `-zh`）・GA4 の `market_click` の placement は `card`（`header.js` の 7a・7b）。
+- **確かめ**: 手元は `python3 -m http.server 3847`。CORS は scix.co.jp の2つの住所だけなので、手元ではカードは焼いた行のまま出る（落ちたときの形の確かめを兼ねる）。マーケットの口が読める形は、`/site-cards.js` のマーケットの住所だけを手元の見本に替えて確かめる。`python3 scripts/seo/audit_pages.py` がトップ3頁の並び（最初の節・カード・価格の語が無いこと・`/site-cards.js`）を見る。
+- **戻し方**: マージの commit を `git revert`（`chore(seo-log):` は revert しない）。マーケット側の口だけを止めたいときは、マーケットの CORS を外せばよい（トップは焼いた行で残る）。
+- **出す順番（マーケットが先・この順を変えない）**: （①②は 2026-11-22 に済んだ＝マーケットの口と入口は本番に出ていて、手元で本番の口につないで確かめた。残りは③以降）①マーケットの口と入口（枝 open-list）を本番へ出す → ②本番を curl で確かめる（`/api/open/cards?limit=12` が200で JSON・scix.co.jp の2つの Origin だけに `Access-Control-Allow-Origin`・`/needs` と `/en/needs` がログイン画面を挟まず売りたいの入口に着く・ログイン前の `/deal?id=` が登録の画面へ・`/?voltage=high-voltage` の絞りが一覧で効く）→ ③この PR をマージ（確かめる前に出すと、口が閉じている間は写真が無く、英語の Sell・中国語の 出售 がログイン画面に着く）→ ④マージの直後に Drive の変更台帳へ記帳する: `python3 scripts/seo/record_changes.py --source structure --manifest <トップの変更の控え changes.json> --brief ~/マイドライブ/9_システム/scix-web解析/weekly/<日付>/brief.json --commit <マージの SHA>`（class は top-order と nav・check_days は 14 と 28。記帳するまで、第1日曜の構成レビューと週次がトップ3頁を触れる）→ ⑤`docs/seo-change-log.md` の確認日を、公開日から数えた14日後・28日後に書き直す → ⑥画面で /en と /zh の Sell・出售・「買主のリクエストを見る」の行き先を確かめる → ⑦sitemap の更新日・IndexNow（`python3 scripts/ping_indexnow.py / /en /zh`）・GSC の URL 検査（3つ）。
+
+上の帯（`header.js` の `var nav`）は蓄電所マーケットの帯（`public/platform-nav.js`）と同じ並び・同じ札の言葉。2つのリポジトリで片方を直したらもう片方も手で写す（実行時に相手のサイトから定義を読む形は、片方が落ちると帯が欠けるので採らない）。
+
+| 札 | scix.co.jp（日本語） | マーケット |
+|---|---|---|
+| 買いたい | 札＝マーケットの `/`・▾＝/transfer・/fund | `/` |
+| 売りたい | 札＝マーケットの売りたいの入口（今は `/needs`）・▾＝/sell-form・/sourcing・/partners | `/needs`（今の sell） |
+| ナレッジ | 引き出しのみ（/knowledge ほか今のまま） | `https://www.scix.co.jp/knowledge` |
+| 市場リサーチ | 引き出しのみ（/report・/report/data・/market-data） | `https://www.scix.co.jp/report` |
+| 会社案内 | /company | `https://www.scix.co.jp/company` |
+| お問い合わせ | /contact | `https://www.scix.co.jp/contact` |
+| ログイン・無料で登録 | `https://dealroom.scix.co.jp/login.html`・`/register.html` | 右端 |
+
+英語は Buy（マーケットの `/en`）・Sell（`/en/needs`）・Knowledge・Market Research（/en/report・/en/report/data）・Company・Contact｜Log in・Sign up（マーケットの英語の頁）。中国語は 购买・出售（どちらもマーケットの英語の頁）・洞见・市场研究（英文）・公司介绍（英文）・联系我们｜登录・免费注册。
