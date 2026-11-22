@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics（scripts/build_ga_tag.py が全頁に入れる・手で直さない） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  (function () {
+    var cfg = {}, q = null, mk = false;
+    // 本番（www.scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）からは送らない
+    try { if (location.hostname !== 'www.scix.co.jp' || navigator.webdriver) window['ga-disable-G-SNNK8MP9N9'] = true; }
+    catch (e) { window['ga-disable-G-SNNK8MP9N9'] = true; }
+    // 社内の印（?internal=1 で付く・?internal=0 で外れる・header.js の 7c と同じ鍵）。印のある端末だけ traffic_type を付ける
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try {
+      if (q === '1') localStorage.setItem('scix_internal', '1');
+      else if (q === '0') localStorage.removeItem('scix_internal');
+      mk = localStorage.getItem('scix_internal') === '1';
+    } catch (e) { mk = q === '1'; }
+    if (mk) cfg.traffic_type = 'internal';
+    gtag('js', new Date());
+    gtag('config', 'G-SNNK8MP9N9', cfg);
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- scripts/build_guides.py が scripts/data/guides/guide-balancing-market.en.md から作る頁（手で直さない） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"></noscript>
+<style>
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#1F2A48;--text-light:#666666;--light-bg:#F7F7F7;--border:#E6E6E6;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#141B30 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-date{font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h2{font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:28px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+ul,ol{margin:0 0 20px 1.4em}
+li{margin-bottom:8px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.95em;line-height:2}
+.highlight-box .box-label{font-weight:700;color:var(--navy);margin-bottom:6px}
+.highlight-box ul{margin-bottom:0}
+.source{font-size:.78em;color:var(--text-light);margin:-8px 0 20px}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.comparison-table{width:100%;border-collapse:collapse;font-size:.88em}
+.comparison-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-weight:500;font-size:.88em}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.guide-more{font-size:.9em;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:10px 16px}
+.guide-more a,.guide-go a,.article-body p a,.article-body li a{color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--accent)}
+.guide-go{font-weight:600}
+.guide-toc{margin:28px 0;padding:16px 22px;border:1px solid var(--border);border-radius:6px;font-size:.92em}
+.guide-toc .box-label{font-weight:700;margin-bottom:6px}
+.guide-toc ol{margin:0 0 0 1.4em}
+.guide-toc li{margin-bottom:2px}
+.guide-toc a{color:var(--navy);text-decoration:none}
+.guide-cta-top{margin:28px 0;padding:18px 22px;background:#F7F7F7;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;font-size:.95em;line-height:1.85}
+.guide-cta-top p{margin-bottom:12px}
+.guide-cta-top .sub{margin:12px 0 0;font-size:.92em;color:#555555}
+.cta-btn{display:inline-block;background:var(--accent);color:#1F2A48;padding:12px 28px;border-radius:4px;font-weight:700;font-size:.92em;text-decoration:none}
+.guide-cols ul{list-style:none;margin:0;padding:0}
+.guide-cols li{border-bottom:1px solid var(--border);margin:0;padding:10px 0}
+.guide-cols li a{color:var(--navy);font-weight:600;text-decoration:none}
+.guide-cols .note{font-size:.85em;color:var(--text-light)}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text)}
+.faq-a p:last-child{margin-bottom:0}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:40px 28px;border-radius:8px;margin-top:48px}
+.cta-section h2{color:#fff;border-bottom:0;margin:0 0 16px;padding:0}
+.cta-section p,.cta-section li{color:rgba(255,255,255,.8)}
+@media(max-width:768px){.article-body{padding:32px 16px 60px}h2{font-size:1.2em}.comparison-table{font-size:.8em}.comparison-table th,.comparison-table td{padding:8px 10px}}
+</style>
+<title>EPRX and Japan&#x27;s Balancing Market: A Guide | ScienceX</title>
+<meta name="description" content="EPRX and Japan&#x27;s balancing market on one page: 5 products, area results, the ¥10 cap, the fixed-cost adder, saturation.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.scix.co.jp/en/guide-balancing-market">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/guide-balancing-market">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/guide-balancing-market">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-guide-balancing-market">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/guide-balancing-market">
+<meta property="og:type" content="website">
+<meta property="og:title" content="EPRX and Japan&#x27;s Balancing Market: A Guide | ScienceX">
+<meta property="og:description" content="EPRX and Japan&#x27;s balancing market on one page: 5 products, area results, the ¥10 cap, the fixed-cost adder, saturation.">
+<meta property="og:url" content="https://www.scix.co.jp/en/guide-balancing-market">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-m-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EPRX and Japan&#x27;s Balancing Market: A Guide | ScienceX">
+<meta name="twitter:description" content="EPRX and Japan&#x27;s balancing market on one page: 5 products, area results, the ¥10 cap, the fixed-cost adder, saturation.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-m-en.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://www.scix.co.jp/en/guide-balancing-market#webpage",
+  "url": "https://www.scix.co.jp/en/guide-balancing-market",
+  "name": "EPRX and Japan's Balancing Market: A Guide | ScienceX",
+  "description": "EPRX and Japan's balancing market on one page: 5 products, area results, the ¥10 cap, the fixed-cost adder, saturation.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://www.scix.co.jp/#website",
+    "url": "https://www.scix.co.jp/",
+    "name": "ScienceX"
+  },
+  "author": {
+    "@type": "Organization",
+    "@id": "https://www.scix.co.jp/#organization",
+    "name": "ScienceX",
+    "alternateName": [
+      "サイエンスエックス",
+      "サイエンスエックス株式会社",
+      "Science X Inc.",
+      "Science X"
+    ],
+    "url": "https://www.scix.co.jp/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-navy.png"
+    }
+  },
+  "publisher": {
+    "@id": "https://www.scix.co.jp/#organization"
+  },
+  "datePublished": "2026-11-22",
+  "dateModified": "2026-11-22",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-m-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "breadcrumb": {
+    "@id": "https://www.scix.co.jp/en/guide-balancing-market#breadcrumb"
+  },
+  "mainEntity": {
+    "@id": "https://www.scix.co.jp/en/guide-balancing-market#itemlist"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "https://www.scix.co.jp/en/guide-balancing-market#breadcrumb",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "EPRX and Japan's balancing market — a guide",
+      "item": "https://www.scix.co.jp/en/guide-balancing-market"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "https://www.scix.co.jp/en/guide-balancing-market#itemlist",
+  "name": "Columns in this guide (15)",
+  "numberOfItems": 15,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "url": "https://www.scix.co.jp/en/column-balancing-market",
+      "name": "Japan's Balancing Market"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "url": "https://www.scix.co.jp/en/column-eprx",
+      "name": "What Is EPRX"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "url": "https://www.scix.co.jp/en/column-area-data",
+      "name": "Balancing Market Prices and Results"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "url": "https://www.scix.co.jp/en/column-day-ahead",
+      "name": "Balancing Market Moves to Day-Ahead Trading (2026)"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "url": "https://www.scix.co.jp/en/column-price-cap",
+      "name": "Balancing Market Price Cap Falls to ¥10"
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "url": "https://www.scix.co.jp/en/column-bidding-ceiling-market",
+      "name": "Primary Offline Under the ¥10 Cap: September 2026 at ¥5.81"
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "url": "https://www.scix.co.jp/en/column-bidding-ceiling",
+      "name": "Second Ceiling on Battery Bids in Japan's Balancing Market"
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "url": "https://www.scix.co.jp/en/column-bidding-ceiling-law",
+      "name": "Japan's Balancing Market Guideline (Revised March 2026) III.2: Fixed-Cost Adder"
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "url": "https://www.scix.co.jp/en/column-bidding-ceiling-calc",
+      "name": "Estimating the Fixed-Cost Adder for a 2 MW / 8 MWh Battery"
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
+      "url": "https://www.scix.co.jp/en/column-bidding-ceiling-monitoring",
+      "name": "Who Watches ΔkW Prices in Japan's Balancing Market, and How"
+    },
+    {
+      "@type": "ListItem",
+      "position": 11,
+      "url": "https://www.scix.co.jp/en/column-balancing-saturation",
+      "name": "Are Batteries Saturated? Their Seats Are Under 10%"
+    },
+    {
+      "@type": "ListItem",
+      "position": 12,
+      "url": "https://www.scix.co.jp/en/column-balancing-saturation-volume",
+      "name": "What the 1σ Change Cut: Required 0.55, Procured 0.62"
+    },
+    {
+      "@type": "ListItem",
+      "position": 13,
+      "url": "https://www.scix.co.jp/en/column-balancing-saturation-supply",
+      "name": "When and Where Batteries Arrive: The Room Is Still Wide"
+    },
+    {
+      "@type": "ListItem",
+      "position": 14,
+      "url": "https://www.scix.co.jp/en/column-balancing-saturation-floor",
+      "name": "Where Is the Floor Below ¥7.21? The Battery Sets It"
+    },
+    {
+      "@type": "ListItem",
+      "position": 15,
+      "url": "https://www.scix.co.jp/en/column-aggregator-fee",
+      "name": "Aggregator Fees: Gross vs Net"
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8C8C8C"><a href="/en" style="color:#555555;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#555555;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8C8C8C">EPRX and Japan&#x27;s balancing market — a guide</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-tag">Guide</span>
+      <time class="header-date" datetime="2026-11-22">Published 2026.11.22</time>
+    </div>
+    <h1>EPRX and Japan&#x27;s balancing market — a guide<br><em>Products, trading results, the price cap and saturation on one page</em></h1>
+    <p class="header-desc">The balancing market is one of the main sources of income for a battery in Japan. This page walks through the key points of our 15 columns on this market, in the order readers usually ask. Figures keep each column&#x27;s data window (which data, from when). The evidence and sources are in each column.</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/en/knowledge" class="back-link">← Back to Knowledge</a>
+
+<div class="highlight-box" data-scix-guide-tldr>
+<div class="box-label">In three lines</div>
+<ul><li>The balancing market is where the general transmission and distribution companies buy balancing capacity (ΔkW) to keep frequency stable. It is run by EPRX (Electric Power Reserve Exchange). For batteries, the fast products, Primary Reserve and Secondary Reserve 1, are the most advantageous.</li><li>From transactions on March 13, 2026, trading moved to day-ahead, 30-minute slots, and the cap for Primary, Secondary 1 and the composite product fell from ¥19.51 to ¥15; from delivery on September 1, 2026 it is ¥10.00 (per ΔkW·30 min).</li><li>In September, the first month under the ¥10 cap, primary offline averaged ¥5.81 nationally. Only Tohoku (¥9.51) and Tokyo (¥8.58) stayed just under the cap, and in August the batteries-only frame was still half open (shortfall rate 53%).</li></ul>
+</div>
+
+<aside class="guide-cta-top" data-scix-guide-cta="top">
+<p>Grid-scale battery projects in Japan that hold a connection study response are for sale on Chikudensho Market, open to view without registration.</p>
+<p><a href="https://dealroom.scix.co.jp/en" target="_top" class="cta-btn" data-cta="top" data-cta-target="market">See projects on Chikudensho Market →</a></p>
+<p class="sub">Questions are welcome through the contact form. <a href="/en/contact" target="_top" data-cta="top" data-cta-target="contact">Contact us</a></p>
+</aside>
+
+<nav class="guide-toc" aria-label="On this page">
+<div class="box-label">On this page</div>
+<ol>
+<li><a href="#g1">What the balancing market and EPRX are</a></li>
+<li><a href="#g2">The five products, and Primary Reserve where batteries are strongest</a></li>
+<li><a href="#g3">Reading the trading results — 9 areas × 5 products</a></li>
+<li><a href="#g4">What changed in 2026 — day-ahead trading and the price cap</a></li>
+<li><a href="#g5">What the ¥10 cap changed — the estimate, and September in practice</a></li>
+<li><a href="#g6">The second ceiling — the fixed-cost adder</a></li>
+<li><a href="#g7">Are batteries saturated?</a></li>
+<li><a href="#g8">Taking part — trading membership and the aggregator</a></li>
+<li><a href="#cols">Columns in this guide (15)</a></li>
+<li><a href="#faq">Frequently asked questions</a></li>
+</ol>
+</nav>
+
+<h2 id="g1">1. What the balancing market and EPRX are</h2>
+<p>The balancing market trades balancing capacity, not electrical energy itself. The buyers are the general transmission and distribution companies (TSOs); the sellers are generation companies and battery operators. Sellers are paid for "standing by ready to operate at any time, at a specified output, during specified time periods." Because batteries can change their output in milliseconds, they have a structural advantage in this market.</p>
+<p>The market is run by EPRX, the Electric Power Reserve Exchange, a general incorporated association. It took on this role in line with the start of trading for all balancing market products in April 2024. EPRX is a separate entity and a separate market from JEPX (Japan Electric Power Exchange). A battery faces three markets: JEPX trades electrical energy (kWh), EPRX trades balancing capacity (ΔkW = standby), and the Capacity Market run by OCCTO secures future supply capability (kW). How the three are combined (stacked) decides a battery's business viability.</p>
+<p class="guide-more">Read more: <a href="/en/column-balancing-market" target="_top">Japan's Balancing Market — 5 products and composite bidding</a> / <a href="/en/column-eprx" target="_top">What is EPRX</a> / <a href="/en/column-revenue" target="_top">The 3 revenue sources of batteries</a></p>
+<h2 id="g2">2. The five products, and Primary Reserve where batteries are strongest</h2>
+<p>There are five products: Primary Reserve, Secondary Reserve 1, Secondary Reserve 2, Tertiary Reserve 1 and Tertiary Reserve 2. They differ by how quickly they respond and how long they sustain: Primary within 10 seconds, Secondary 1 and 2 within 5 minutes, Tertiary 1 within 15 minutes, Tertiary 2 within 60 minutes. Primary through Tertiary 1 can be entered with a single bid as the composite product; only Tertiary 2 trades in an independent market.</p>
+<p>Primary Reserve has two ways to take part: Online, connected by a dedicated line, and Offline, with no dedicated line and the response record submitted afterwards. Under EPRX trading rules, Offline is open to batteries of 1 MW or more but less than 10 MW (or aggregated batteries under 1 MW); batteries of 10 MW or more must use Online for Primary Reserve. All products from Secondary Reserve onward require Online connection.</p>
+<p>In the FY2025 first half, Primary Reserve awards ran at 9.6–13.5 yen for batteries and 2.1–3.4 yen for thermal (per ΔkW·30 min, monthly range). The gap in response speed shows up directly as a gap in price.</p>
+<p class="guide-more">Read more: <a href="/en/column-balancing-market" target="_top">The 5 balancing market products — Online, Offline and composite</a></p>
+<h2 id="g3">3. Reading the trading results — 9 areas × 5 products</h2>
+<p>EPRX publishes its trading results, so you can check which product cleared, in which area and at what price (EPRX trading results: <a href="https://www.eprx.or.jp/information/results.php" target="_blank" rel="noopener">https://www.eprx.or.jp/information/results.php</a> ). We organize them by 9 power areas and 5 products, using the first complete quarter after the move to day-ahead trading, April–June 2026 (preliminary figures), as the main data.</p>
+<ul><li>Primary Online: the national shortage rate is 28.3% (59.2% in FY2025 under the old system). Tohoku (60.9%) and Tokyo (46.2%) stay high; Chugoku (3.7%) and Kyushu (4.9%) are nearly fulfilled; Shikoku and Hokkaido are in oversupply.</li><li>Primary Offline: the national shortage rate is 67.9% (96.6% in FY2025). Batteries take 98.9% of awarded volume, and the average awarded price is about 12 yen per ΔkW·30 min.</li><li>Secondary 1: Kansai (86.8%), Tohoku (53.0%) and Hokuriku (50.2%) are short; Hokkaido, Chubu, Chugoku and Kyushu are in oversupply.</li><li>Secondary 2, Tertiary 1 and Tertiary 2: nearly fully supplied.</li></ul>
+<p>The shortage rate is (solicited volume − awarded volume) / solicited volume. It does not mean blackout risk: TSOs secure what the market does not supply through bilateral contracts with thermal and pumped-hydro plants and similar means. Read together with Capacity Market prices (FY2028 clearing), Tohoku and Tokyo are the most advantaged on both fronts.</p>
+<p class="guide-more">Read more: <a href="/en/column-area-data" target="_top">Balancing market results by area — 9 areas × 5 products</a> (figures, CSVs and how to credit them: <a href="/en/press" target="_top">Citation &amp; Press Guide</a>)</p>
+<h2 id="g4">4. What changed in 2026 — day-ahead trading and the price cap</h2>
+<p>From transactions on March 13, 2026, Primary through Tertiary 1 moved from weekly products to day-ahead trading, in which the next day is bid at 14:00 the day before. The trading unit went from 3-hour blocks to 30-minute slots, and every product's duration was unified at 30 minutes. At the same time, the cap for Primary, Secondary 1 and the composite product fell from ¥19.51 to ¥15, and procurement volume for Primary and Secondary 1 went from 3σ to 1σ.</p>
+<p>The cap then fell to ¥10.00 from delivery on September 1, 2026 (EPRX announcement, July 30, 2026). Secondary 2 and Tertiary 1 stay at ¥7.21; Tertiary 2 has never had a cap. The next step, ¥7.21, applies "if no improvement in competitive conditions is observed in the market."</p>
+<p>What matters in operation is the daily split with JEPX. Only volume bid into the JEPX spot market and left unsold can be offered into the balancing market, so every day an operator decides, for each of the next day's 48 slots, whether to sell on JEPX or stand by in the balancing market. Because a battery cannot offer into the market while it is charging, how many of the 48 slots it can put on the market directly determines its revenue.</p>
+<p class="guide-more">Read more: <a href="/en/column-day-ahead" target="_top">The balancing market's shift to day-ahead trading</a> / <a href="/en/column-balancing-market" target="_top">The 5 products (FY2026 policy changes)</a> / <a href="/en/column-price-cap" target="_top">The ceiling drops by five yen</a></p>
+<h2 id="g5">5. What the ¥10 cap changed — the estimate, and September in practice</h2>
+<p>From EPRX's awarded-results CSVs (delivery 2026/3/14–8/18, 158 days), our central estimate is that the ¥10 cap removes −8.6% of ΔkW fees across the four capped products, about ¥30 billion a year (range −3 to −18%). The largest cut by product is −22% for primary offline, where batteries hold a 99% share; the largest area × product cell is Tohoku × primary offline at −32%. A bid above the cap can still clear, but it is clipped down to ¥10 at settlement.</p>
+<p>The market did not wait for September 1. The share of primary-offline volume pinned at ¥15 collapsed from 83% in April to 10% in August, and the national average awarded price in August, ¥9.80, was already under the new ceiling before it applied.</p>
+<p>In September 2026 (1–29 September, preliminary figures), primary offline averaged ¥5.81 nationally, down from ¥11.07 in April–August. Tohoku at ¥9.51 and Tokyo at ¥8.58 stayed just under the cap; the other seven areas fell to the ¥1–3 range. What split them was the award rate — the share of bids that were awarded: Tohoku 95.6%, Tokyo 85.1%. Where almost every bid gets through, the price leans towards the cap.</p>
+<p class="guide-more">Read more: <a href="/en/column-price-cap" target="_top">The ceiling drops by five yen</a> / <a href="/en/column-bidding-ceiling-market" target="_top">September under the ¥10 cap: primary offline at ¥5.81</a></p>
+<h2 id="g6">6. The second ceiling — the fixed-cost adder</h2>
+<p>Below the ¥10 cap is a second ceiling whose height differs from operator to operator: Section III.2 of the Balancing Market Guideline (revised 13 March 2026), "ΔkW price ≤ lost profit (opportunity cost) of the resource concerned + fixed-cost adder, etc." The adder is either Type A, ¥0.33 and open to anyone, or Type B, a calculated amount that can be used only while fixed costs have not yet been recovered: a year's fixed costs minus revenue from other markets, divided by the volume you can bid in a year. Even a plant that is not in the capacity market deducts what it would have earned there.</p>
+<p>Put in only published figures, a 2 MW / 8 MWh plant in Tokyo gets an adder of ¥1.411 in year 1 of operation, ¥0.959 in year 2 and ¥0.33 in year 18. A battery can bid into most slots of the day, so the divisor is large and the adder comes out small. This ceiling concerns almost only batteries.</p>
+<p>The text says "desirable", not obligatory. But the same revision added that unfairly earning profits through unreasonably high bids can be subject to a business improvement order. The Type B consultation with the EGC secretariat (5 cases in FY2024, 34 in FY2025 as of 17 October 2025) has ended; from FY2026 operators calculate the adder themselves and keep the basis. At the June 2026 expert committee, operators that had won at high prices were asked to revise their calculations — a request, not a sanction. The formula is reviewed every year: the next recommendation is due in December 2026 and the amendment in March 2027.</p>
+<p class="guide-more">Read more: <a href="/en/column-bidding-ceiling" target="_top">The second ceiling</a> / <a href="/en/column-bidding-ceiling-law" target="_top">The fixed-cost adder, read from the text</a> / <a href="/en/column-bidding-ceiling-calc" target="_top">Setting the adder from published figures</a> / <a href="/en/column-bidding-ceiling-monitoring" target="_top">Who has watched ΔkW prices, and how</a></p>
+<h2 id="g7">7. Are batteries saturated?</h2>
+<p>We re-read the published data of EPRX and JEPX and the government councils' primary materials and counted. The answer: the small seat has begun to fill, and the room is still wide.</p>
+<ul><li>Procurement volume did not fall to one third. FY2026 over FY2025, required volume is 0.55, the procurement volume put to the market is 0.62, and the largest product, the combined product, is 0.97. What halved is the batteries' own seat, primary offline (0.45, about 500 MW per slot nationwide). Half of the reason for the fall is that the TSOs locked up 266 × 10,000 kW of pumped storage outside the market.</li><li>The shortfall rate of the batteries-only frame (primary offline) went from 67.9% in April–June to 53% in August. Awarded battery volume rose about 1.8-fold in four months, but only Tokyo is 80% full; Kansai, Chugoku and Hokkaido are still largely open. In the online seats batteries compete with thermal and pumped storage on the same bids, holding 9% of the combined product and 23% of primary online.</li><li>What arrives is part of what is applied for: contract applications are about 3,527 × 10,000 kW (end of March 2026). On the developers' own plans it is 631 × 10,000 kW in FY2030 — short even of the vessel formed by primary, secondary 1 and the combined product (680 × 10,000 kW).</li><li>The price floor is not "thermal's ¥3" but what a battery could earn on JEPX: ¥6–8 in the 8 evening slots depending on the area, in the ¥1 range averaged across 48 slots. Kyushu cleared at ¥4.9 in August with the cap still at ¥15.</li></ul>
+<p class="guide-more">Read more: <a href="/en/column-balancing-saturation" target="_top">Are batteries saturated?</a> / <a href="/en/column-balancing-saturation-volume" target="_top">What the 1σ change actually cut</a> / <a href="/en/column-balancing-saturation-supply" target="_top">When and where batteries arrive</a> / <a href="/en/column-balancing-saturation-floor" target="_top">Where is the floor below ¥7.21?</a></p>
+<h2 id="g8">8. Taking part — trading membership and the aggregator</h2>
+<p>To bid in the balancing market, you register as an EPRX trading member and conclude a generation sales contract with a general transmission and distribution company to join a balancing group. The party that concludes the generation sales contract and the trading member need not be the same: the owner can be the trading member while an aggregator handles operations, or an aggregator can take part collectively as the trading member. Taking part as an aggregator requires registration as a Specified Wholesale Supply Operator under the Electricity Business Act; as of March 2026, 142 companies are registered.</p>
+<p>After the move to day-ahead trading, the allocation across 48 slots depends on the aggregator's algorithms, and the same facility can yield different annual revenue. Fee rates alone do not compare: with the same rate, a gross or a net calculation base changes what the owner keeps. Before signing, check five points — the calculation base in writing, the scope of the fee (balancing market only, or JEPX arbitrage and capacity market income too), who bears imbalance penalties, contract duration and termination, and whether the aggregator can disclose the past 12 months of performance (revenue per MW, award rate, utilization rate).</p>
+<p class="guide-more">Read more: <a href="/en/column-eprx" target="_top">What is EPRX (steps to participate)</a> / <a href="/en/column-aggregator-fee" target="_top">Aggregator fees: gross vs net</a></p>
+
+<section class="guide-cols" id="cols">
+<h2>Columns in this guide (15)</h2>
+<p class="note">Each column gives the data window and sources for its figures.</p>
+<ul>
+<li><a href="/en/column-balancing-market" target="_top">Japan&#x27;s Balancing Market</a></li>
+<li><a href="/en/column-eprx" target="_top">What Is EPRX</a></li>
+<li><a href="/en/column-area-data" target="_top">Balancing Market Prices and Results</a></li>
+<li><a href="/en/column-day-ahead" target="_top">Balancing Market Moves to Day-Ahead Trading (2026)</a></li>
+<li><a href="/en/column-price-cap" target="_top">Balancing Market Price Cap Falls to ¥10</a></li>
+<li><a href="/en/column-bidding-ceiling-market" target="_top">Primary Offline Under the ¥10 Cap: September 2026 at ¥5.81</a></li>
+<li><a href="/en/column-bidding-ceiling" target="_top">Second Ceiling on Battery Bids in Japan&#x27;s Balancing Market</a></li>
+<li><a href="/en/column-bidding-ceiling-law" target="_top">Japan&#x27;s Balancing Market Guideline (Revised March 2026) III.2: Fixed-Cost Adder</a></li>
+<li><a href="/en/column-bidding-ceiling-calc" target="_top">Estimating the Fixed-Cost Adder for a 2 MW / 8 MWh Battery</a></li>
+<li><a href="/en/column-bidding-ceiling-monitoring" target="_top">Who Watches ΔkW Prices in Japan&#x27;s Balancing Market, and How</a></li>
+<li><a href="/en/column-balancing-saturation" target="_top">Are Batteries Saturated? Their Seats Are Under 10%</a></li>
+<li><a href="/en/column-balancing-saturation-volume" target="_top">What the 1σ Change Cut: Required 0.55, Procured 0.62</a></li>
+<li><a href="/en/column-balancing-saturation-supply" target="_top">When and Where Batteries Arrive: The Room Is Still Wide</a></li>
+<li><a href="/en/column-balancing-saturation-floor" target="_top">Where Is the Floor Below ¥7.21? The Battery Sets It</a></li>
+<li><a href="/en/column-aggregator-fee" target="_top">Aggregator Fees: Gross vs Net</a></li>
+</ul>
+</section>
+
+<section id="faq">
+<h2>Frequently asked questions</h2>
+<div class="faq-item">
+  <div class="faq-q">What is EPRX?</div>
+  <div class="faq-a"><p>EPRX is the Electric Power Reserve Exchange, a general incorporated association that runs Japan's balancing market. It took on this role in line with the start of trading for all balancing market products in April 2024. JEPX trades electrical energy (kWh); EPRX trades balancing capacity (ΔkW = standby). They are separate entities and separate markets.</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">Where can I see the balancing market trading results?</div>
+  <div class="faq-a"><p>EPRX publishes them on its website (<a href="https://www.eprx.or.jp/information/results.php" target="_blank" rel="noopener">https://www.eprx.or.jp/information/results.php</a> ), showing which product cleared, in which area and at what price. We organize them by 9 areas × 5 products, with April–June 2026 (preliminary) as the main data: <a href="/en/column-area-data" target="_top">Balancing market results by area</a>.</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">What products does the balancing market have?</div>
+  <div class="faq-a"><p>Five: Primary Reserve, Secondary Reserve 1, Secondary Reserve 2, Tertiary Reserve 1 and Tertiary Reserve 2. Primary through Tertiary 1 can be entered with one bid as the composite product; Tertiary 2 trades in an independent market. The faster the response, the better the fit for batteries.</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">What is the balancing market price cap?</div>
+  <div class="faq-a"><p>From delivery on September 1, 2026, the cap for primary reserve (including the offline quota), secondary reserve 1 and the composite product is ¥10.00 per ΔkW·30 min (¥15 for delivery from 14 March to 31 August 2026, ¥19.51 before that). Secondary 2 and tertiary 1 stay at ¥7.21; tertiary 2 has no cap. A bid above the cap can still clear but is clipped to ¥10 at settlement.</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">Are batteries saturated in Japan&#x27;s balancing market?</div>
+  <div class="faq-a"><p>On our count, the small seat has begun to fill and the room is still wide. The batteries-only frame (primary offline) still had a 53% shortfall rate in August 2026. In September, though, primary offline averaged ¥5.81, and outside Tohoku and Tokyo competition, not the cap, set the price.</p></div>
+</div>
+</section>
+
+<div class="cta-section" data-scix-guide-cta="end">
+<h2>What to do next</h2>
+<ul><li>Buying: projects that hold a connection study response are for sale on <a href="https://dealroom.scix.co.jp/en" target="_top" data-cta="end" data-cta-target="market">Chikudensho Market</a>, open to view without registration. Project-specific information not covered in our articles is available after free registration.</li><li>Selling a project that holds a connection study response: we either buy the project ourselves or introduce you to a buyer. → <a href="/en/contact" target="_top" data-cta="end" data-cta-target="contact">Contact us</a></li><li>Read the revenue side: <a href="/en/column-revenue" target="_top" data-cta="end">The 3 revenue sources of batteries</a> / <a href="/en/column-regional-revenue" target="_top" data-cta="end">Revenue by area</a> / <a href="/en/column-capacity-market" target="_top" data-cta="end">The capacity market main auction</a></li><li>Terms: <a href="/en/glossary" target="_top" data-cta="end">Glossary</a> / all columns: <a href="/en/knowledge" target="_top" data-cta="end">Knowledge</a></li></ul>
+</div>
+
+</div>
+
+<!-- ScienceX Footer — self-contained -->
+<style>
+  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+  .scix-footer { background-color: #1F2A48; color: rgba(255,255,255, 0.85); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%; }
+  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: 0.95; }
+  .scix-footer-info { text-align: center; }
+  .scix-footer-copyright { font-size: 11px; letter-spacing: 0.04em; color: rgba(255,255,255, 0.55); margin-top: 20px; }
+  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255,255,255, 0.8); }
+  .scix-footer-company .company-name { font-weight: 500; font-size: 13.5px; color: rgba(255,255,255, 0.92); margin-bottom: 2px; }
+  .scix-footer-company .representative { margin-top: 4px; color: rgba(255,255,255, 0.6); font-size: 12px; }
+  .scix-footer-company a { color: rgba(255,255,255, 0.8); text-decoration: none; transition: color 0.2s ease; }
+  .scix-footer-company a:hover { color: #C49A3C; }
+  .scix-footer-divider { width: 60px; border: none; border-top: 1px solid rgba(255,255,255, 0.12); margin: 0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img width="300" height="118"
+        src="/img/logo-white.png"
+        alt="ScienceX - Science X Inc."
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="https://dealroom.scix.co.jp/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Chikudensho Market</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Company</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/en/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>

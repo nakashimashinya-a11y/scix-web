@@ -58,6 +58,7 @@
     else if (path === '/zh-company') loc = '/company';
     else if (path === '/zh-privacy') loc = '/privacy';
     else if (path.indexOf('/zh-column-') === 0) loc = '/column-' + path.slice('/zh-column-'.length);
+    else if (path.indexOf('/zh-guide-') === 0) loc = '/guide-' + path.slice('/zh-guide-'.length);   // 柱の頁（scripts/build_guides.py）
     else loc = '/';
   } else {
     loc = path;
@@ -69,7 +70,7 @@
   var side = loc === '/' ? 'home'
     : /^\/(transfer|projects|investors|market-data|fund|grid-storage|for\/)/.test(loc) ? 'buy'
     : /^\/(sourcing|sell-form|partners)/.test(loc) ? 'sell'
-    : /^\/(knowledge|column-|report|glossary|qa|faq|primer|market-entry|citation)/.test(loc) ? 'read'
+    : /^\/(knowledge|column-|guide-|report|glossary|qa|faq|primer|market-entry|citation)/.test(loc) ? 'read'
     : 'co';
   if (/^\/(projects|market-data)/.test(loc)) side = 'deal';
   document.documentElement.setAttribute('data-side', side);
@@ -540,6 +541,18 @@
     var altJa = altPath('ja'), altEn = altPath('en');
     if (isEn && altJa) jpHref = altJa;
     if (!isEn && altEn) enHref = altEn;
+  }
+
+  // 柱の頁（/guide-*・scripts/build_guides.py）: 言葉の対は頁の hreflang のとおり（無い言葉はその言葉のトップのまま）。
+  if (loc.indexOf('/guide-') === 0) {
+    var guideAlt = function (lang) {
+      var l = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
+      if (!l) return '';
+      try { return new URL(l.href, window.location.href).pathname; } catch (e) { return ''; }
+    };
+    if (!isJa && guideAlt('ja')) jpHref = guideAlt('ja');
+    if (!isEn && guideAlt('en')) enHref = guideAlt('en');
+    if (!isZh && guideAlt('zh-CN')) zhHref = guideAlt('zh-CN');
   }
 
   // 国旗は SVG を直書き（絵文字の国旗は Windows で「JP」の文字に化けるので使わない）。
