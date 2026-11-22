@@ -92,7 +92,7 @@ def build(path: Path, cfg: dict) -> tuple[str, int]:
         "description": meta(src, "description"),
         "url": cfg["url"],
         "isPartOf": {"@type": "WebSite", "@id": BASE + "/#website", "name": "ScienceX", "url": BASE + "/"},
-        "publisher": {"@type": "Organization", "@id": BASE + "/#organization", "name": "Science X Inc."},
+        "publisher": {"@type": "Organization", "@id": BASE + "/#organization", "name": "ScienceX"},
         "mainEntity": {
             "@type": "ItemList",
             "numberOfItems": len(items),
