@@ -474,7 +474,7 @@ ORG = {"@type": "Organization", "@id": BASE + "/#organization", "name": "Science
 CTA = """<section class="cta"><div class="container">
   <h2>案件そのものは、蓄電所マーケットでご覧いただけます</h2>
   <p>今ある案件は、登録なしで蓄電所マーケットで見られます。価格と資料は、無料登録のあとで見られます（登録画面で秘密保持の誓約に同意いただきます）。売りたい方は、査定は無料で、最初の連絡は5行で足ります。</p>
-  <a class="btn-primary" href="https://dealroom.scix.co.jp/catalog" target="_top">蓄電所マーケットで案件を見る →</a>
+  <a class="btn-primary" href="https://dealroom.scix.co.jp/" target="_top">蓄電所マーケットで案件を見る →</a>
   <a class="btn-secondary" href="/sell-form">案件・権利の売却査定（無料）</a>
 </div></section>
 """
@@ -647,7 +647,7 @@ def render_area(ps_all, area, slug, operator, today, generated):
 <section class="md"><div class="container">
   <div class="section-label">案件</div>
   <h2 class="md-h">{_esc(operator)}管内の案件一覧（{n}件・{_esc(generated)} 更新）</h2>
-  <p class="md-lead">連系が早い順です。案件番号を押すと、蓄電所マーケットのその案件の頁（登録なしで見られる公開の項目）が開きます。価格と資料は、<a href="https://dealroom.scix.co.jp/catalog" target="_top">蓄電所マーケット</a>で無料登録のあとに見られます。</p>
+  <p class="md-lead">連系が早い順です。案件番号を押すと、蓄電所マーケットのその案件の頁（登録なしで見られる公開の項目）が開きます。価格と資料は、<a href="https://dealroom.scix.co.jp/" target="_top">蓄電所マーケット</a>で無料登録のあとに見られます。</p>
   {list_html}
   <p class="md-note" style="margin-top:16px">ほかの管内: {others}</p>
 </div></section>

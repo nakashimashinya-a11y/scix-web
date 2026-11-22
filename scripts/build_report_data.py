@@ -33,7 +33,7 @@ MON_EN_S = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"
 
 JEPX_URL = "https://www.jepx.jp/electricpower/market-data/spot/"
 EPRX_URL = "https://www.eprx.or.jp/information/results.php"
-CATALOG = "https://dealroom.scix.co.jp/catalog"
+CATALOG = "https://dealroom.scix.co.jp/"
 
 # 号の表の見出し（この並びのときだけ読む。変わったら読まずに知らせる）
 JEPX_HEAD = ["エリア", "月平均", "前年同月", "日中（8〜16時）", "夕方（16〜20時）", "4時間の値差", "最高", "30円以上のコマ", "0.01円のコマ"]
@@ -932,7 +932,7 @@ def render_data(br, data, months, lang, has_en):
 EN_CTA = """<section class="cta"><div class="container">
   <h2>Want to see the projects behind these numbers? Visit Chikudensho Market</h2>
   <p>On Chikudensho Market, our marketplace for battery storage sites, you can browse current listings without registering. Prices and documents are available after free registration, where you agree to a confidentiality undertaking on the registration screen (no signed paper is needed).</p>
-  <a class="btn-primary" href="https://dealroom.scix.co.jp/en/catalog" target="_top">Browse projects on Chikudensho Market &rarr;</a>
+  <a class="btn-primary" href="https://dealroom.scix.co.jp/en" target="_top">Browse projects on Chikudensho Market &rarr;</a>
 </div></section>
 """
 

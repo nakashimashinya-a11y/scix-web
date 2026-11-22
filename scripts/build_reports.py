@@ -521,7 +521,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
   <h2>このノートの数字の元になった案件を、買い手の方へ</h2>
   <p>当社の蓄電所マーケットでは、今ある案件を登録なしでご覧いただけます。価格と資料は、無料登録のあとで見られます（登録画面で秘密保持の誓約に同意いただきます。紙の署名は要りません）。</p>
   <a class="btn-primary" href="%s" target="_top" rel="nofollow">無料登録して価格と資料を見る →</a>
-  <a class="btn-secondary" href="https://dealroom.scix.co.jp/catalog" target="_top">蓄電所マーケットで案件を見る</a>
+  <a class="btn-secondary" href="https://dealroom.scix.co.jp/" target="_top">蓄電所マーケットで案件を見る</a>
 </div></section>
 """ % DR2_REGISTER
     body = f"""{bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", "/report"), (title_h, path)])}
@@ -583,7 +583,7 @@ def render_month_en(m, doc, figs, nav=None):
   <h2>Want to see the projects behind these numbers? Visit Chikudensho Market</h2>
   <p>On Chikudensho Market, our marketplace for battery storage sites, you can browse current listings without registering. Prices and documents are available after free registration, where you agree to a confidentiality undertaking on the registration screen (no signed paper is needed).</p>
   <a class="btn-primary" href="%s" target="_top" rel="nofollow">Register free to see prices and documents &rarr;</a>
-  <a class="btn-secondary" href="https://dealroom.scix.co.jp/en/catalog" target="_top">Browse projects on Chikudensho Market</a>
+  <a class="btn-secondary" href="https://dealroom.scix.co.jp/en" target="_top">Browse projects on Chikudensho Market</a>
 </div></section>
 """ % DR2_REGISTER_EN
     body = f"""{bmd.nav_crumbs([("Home", "/en"), ("Reports", "/en/report"), (title_h, path)])}

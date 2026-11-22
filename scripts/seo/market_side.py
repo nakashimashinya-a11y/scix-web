@@ -7,7 +7,7 @@
 
   1. マーケット側の検索の動き: www と dealroom に分けた表示・クリック、dealroom の頁の種類（案件・入口・トップと一覧）別、検索語の上位。
   2. 語の定点25語（売買10・解説10・英語5）: 28日の表示・クリック・順位と前28日の表示。語ごとの検索数は取れないので、当社の表示で見る。
-  3. URL 検査の定点20本（案件5・入口10・トップと一覧5）: 索引に入ったかを毎週同じ頁で見る（Search Console の URL 検査 API・読み取り）。
+  3. URL 検査の定点20本（案件5・入口11・トップと売りたいの入口4）: 索引に入ったかを毎週同じ頁で見る（Search Console の URL 検査 API・読み取り）。
 
 案件の住所は公開リポジトリのコードに書かない（O16-19）＝案件の頁は projects.json（公開セーフ）から実行時に選ぶ。
 数字は Drive のブリーフにだけ出る（公開リポジトリ・コミット文・PR には写さない）。
@@ -63,10 +63,12 @@ def deal_urls(repo: str, n: int = 5) -> list:
 
 
 def inspect_targets(repo: str) -> list:
-    """URL 検査の定点20本＝案件5・入口10（エリア9＋特別高圧）・トップと一覧5。"""
+    """URL 検査の定点20本＝案件5・入口11（エリア9＋電圧2）・トップと売りたいの入口4（日本語・英語）。
+    301 で移る古い入口（/catalog・/wanted・/en/catalog）は入れない（移った先の / ・ /needs を見る）。"""
     urls = deal_urls(repo, 5)
-    urls += [f"{MARKET}/catalog/area/{a}" for a in AREAS] + [f"{MARKET}/catalog/voltage/extra-high-voltage"]
-    urls += [f"{MARKET}/", f"{MARKET}/en", f"{MARKET}/catalog", f"{MARKET}/wanted", f"{MARKET}/en/catalog"]
+    urls += [f"{MARKET}/catalog/area/{a}" for a in AREAS]
+    urls += [f"{MARKET}/catalog/voltage/extra-high-voltage", f"{MARKET}/catalog/voltage/high-voltage"]
+    urls += [f"{MARKET}/", f"{MARKET}/en", f"{MARKET}/needs", f"{MARKET}/en/needs"]
     return urls
 
 
