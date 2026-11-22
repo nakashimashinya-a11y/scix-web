@@ -510,7 +510,8 @@ def issue_nav(nav, lang="ja"):
         parts.append(f'<a href="{base}/{older}" rel="prev">← {"前の号" if lang == "ja" else "Previous"}: {esc(name(older))}</a>')
     if newer:
         parts.append(f'<a href="{base}/{newer}" rel="next">{"次の号" if lang == "ja" else "Next"}: {esc(name(newer))} →</a>')
-    return '<p class="rp-nav">' + '<span class="rp-nav-sep">｜</span>'.join(parts) + "</p>"
+    sep = "｜" if lang == "ja" else "|"   # 英語の号は半角の縦線（全角の「｜」は日本語の約物）
+    return '<p class="rp-nav">' + f'<span class="rp-nav-sep">{sep}</span>'.join(parts) + "</p>"
 
 
 def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):

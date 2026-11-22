@@ -55,6 +55,8 @@
     else if (path === '/zh-contact') loc = '/contact';
     else if (path === '/zh-thanks') loc = '/thanks';
     else if (path === '/zh-primer') loc = '/primer';
+    else if (path === '/zh-company') loc = '/company';
+    else if (path === '/zh-privacy') loc = '/privacy';
     else if (path.indexOf('/zh-column-') === 0) loc = '/column-' + path.slice('/zh-column-'.length);
     else if (path.indexOf('/zh-guide-') === 0) loc = '/guide-' + path.slice('/zh-guide-'.length);   // 柱の頁（scripts/build_guides.py）
     else loc = '/';
@@ -89,10 +91,7 @@
     '/column-study-reply-4'
   ];
   // Columns with an English page but no Chinese page yet: the 简中 link goes to the Chinese knowledge hub.
-  var NO_ZH_COLUMNS = [
-    '/column-capacity-market',
-    '/column-day-ahead'
-  ];
+  var NO_ZH_COLUMNS = [];
   // Pages with no Japanese counterpart. /grid-storage is the closest JA page
   // (it is the "what is grid-scale storage" explainer these two translate).
   var NO_JA_PAGE = { '/primer': '/grid-storage', '/market-entry-guide': '/grid-storage' };
@@ -109,8 +108,8 @@
     '/primer': { en: '/en/primer', zh: '/zh-primer' },
     '/market-entry-guide': { en: '/en/market-entry-guide', zh: '/zh' },
     '/press': { en: '/en/press', zh: '/zh' },
-    '/company': { en: '/en/company', zh: '/zh' },
-    '/privacy': { en: '/en/privacy', zh: '/zh' }
+    '/company': { en: '/en/company', zh: '/zh-company' },
+    '/privacy': { en: '/en/privacy', zh: '/zh-privacy' }
   };
 
   // Below this width the nav collapses into the drawer. The regrouped nav is
