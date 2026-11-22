@@ -248,11 +248,11 @@ def add_article_section(s):
 
 
 def nav_swap(s):
-    """「買う」の引き出しの中で /projects と /transfer の順を入れ替える（ナビ定義の変更）。"""
-    a = "      ['/projects', '販売中の案件一覧'],\n"
-    b = "      ['/transfer', '買うまでの流れ'],\n"
+    """「買いたい」の引き出しの中で /transfer と /fund の順を入れ替える（ナビ定義の変更）。"""
+    a = "      ['/transfer', '買うまでの流れ・買い方3つ'],\n"
+    b = "      ['/fund',     'ファンドで持つ']\n"
     assert a + b in s, "header.js のナビ定義が想定と違う（selftest を直す）"
-    return s.replace(a + b, b + a, 1)
+    return s.replace(a + b, b.rstrip("\n") + ",\n" + a.rstrip(",\n") + "\n", 1)
 
 
 def main() -> int:

@@ -12,6 +12,8 @@
   OGP        og:title・og:description・og:image が無い・og:image の画像がリポジトリに無い
   img        alt が無い
   sitemap    index の頁が sitemap に無い・sitemap の住所にファイルが無い・noindex の頁が sitemap にある
+  トップ3頁  最初の節が class の先頭 hero の節で、案件のカード（id="top-cards"・<!--S:cards-->の焼いた行）から始まる・価格を書いていない・
+             /site-cards.js を読む・最初の節に会社案内とお問い合わせのリンクがある（2026-11-22 トップ＝蓄電所マーケットのカードの一覧）
 表示幅は全角2・半角1で数える（検索結果の切れ目のおおよそ）。
 
 使い方:
@@ -141,6 +143,37 @@ def pages():
                     yield rel
 
 
+TOPS = ("index.html", "en/index.html", "zh.html")
+CARDS_RX = re.compile(r"<!--S:cards-->(.*?)<!--/S:cards-->", re.S)
+PRICE_RX = re.compile(r"[¥￥]|円|万円|JPY|yen|日元|\d\s*%")
+
+
+def top_issues(rel: str, src: str):
+    """トップ（日英中）の並び。最初の節＝案件のカード。実績・価格・手数料の率を焼いた行に書かない（O16-7・O16-8・O16-19）。"""
+    out = []
+    b = src.find("<body")
+    m = re.search(r"<section\b([^>]*)>(.*?)</section>", src[b:], re.S) if b >= 0 else None
+    if not m:
+        return [("トップの最初の節が読めない", "")]
+    attrs, first = m.group(1), m.group(2)
+    if not re.search(r'class="hero(?:\s[^"]*)?"', attrs):
+        out.append(("トップの最初の節が hero でない", attrs[:60]))
+    if 'id="top-cards"' not in first:
+        out.append(("トップの最初の節に案件のカード（#top-cards）が無い", ""))
+    cards = CARDS_RX.search(first)
+    n = len(re.findall(r'<article class="sc"', cards.group(1))) if cards else 0
+    if not cards or n < 1:
+        out.append(("トップに焼いた案件の行（<!--S:cards-->）が無い", str(n)))
+    elif PRICE_RX.search(re.sub(r"<[^>]+>", " ", cards.group(1))):
+        out.append(("トップの焼いた案件の行に価格・率の語がある", ""))
+    for need, label in (("/company", "会社案内"), ("/contact", "お問い合わせ")):
+        if need not in first.replace("/zh-contact", "/contact").replace("/en/company", "/company").replace("/en/contact", "/contact"):
+            out.append((f"トップの最初の節に {label} のリンクが無い", ""))
+    if "/site-cards.js" not in src:
+        out.append(("トップが /site-cards.js を読んでいない", ""))
+    return out
+
+
 def is_column(rel: str) -> bool:
     b = os.path.basename(rel)
     return b.startswith("column-") or b.startswith("zh-column-")
@@ -223,6 +256,10 @@ def main():
             issues["noindex なのに sitemap にある"].append((rel, ""))
         if not noindex and not in_sm:
             issues["sitemap に無い"].append((rel, me))
+    for rel in TOPS:
+        if isinstance(info.get(rel), Head):
+            for k, d in top_issues(rel, open(os.path.join(ROOT, rel), encoding="utf-8").read()):
+                issues[k].append((rel, d))
     for t, rels in by_title.items():
         if len(rels) > 1:
             issues["title 重なり"].append((", ".join(rels), t))

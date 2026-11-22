@@ -155,8 +155,31 @@ GA4 のトークンが無いときは GA4 だけ飛ばして動く。取得は `
 | 仕組み | 中身 | 見る所 |
 |---|---|---|
 | 出所の印 | 蓄電所マーケット（dealroom.scix.co.jp）へのリンクを押す（触る）直前に `src=<頁の印>` を足す（すでに src があれば替えない・`lang=en` などは残す）。印はコラム `col-<slug>`・市場ノート `report`／`report-<YYYY-MM>`・ナレッジの一覧 `knowledge`・トップ `top`・ほか `site-<頁>`。英語は末尾 `-en`、中国語は `-zh`。形はマーケットの `public/src-mark.js`・`functions/_lib/signup_src.ts` と同じ（英数と `_-`・64字まで・最初の印を上書きしない） | マーケットの登録の `dealroom2_users.signup_src` |
-| 送客の数 | GA4 `market_click`（page_path・src_mark・placement＝header/hero/body/end/footer・link_path・legacy_event・legacy_target）。前からの各頁の `dr2_promo_click`・`dr2_register_click` は内訳として残し legacy_* に写す＝**マーケットへの送客は market_click だけで数える（足さない）** | GA4 のイベント |
+| 送客の数 | GA4 `market_click`（page_path・src_mark・placement＝header/card/hero/body/end/footer（card＝トップの案件カード）・link_path・legacy_event・legacy_target）。前からの各頁の `dr2_promo_click`・`dr2_register_click` は内訳として残し legacy_* に写す＝**マーケットへの送客は market_click だけで数える（足さない）** | GA4 のイベント |
 | 問い合わせの出所 | `/api/contact` へ送るフォームに隠し欄 `_entry_page`（最初に着いた頁）・`_entry_ref`（その前のサイトのホスト名だけ）・`_prev_page`（直前の頁）・`_src`・`_utm`（sessionStorage・最初の印を優先）。頁の住所は path だけ。受け口 `web-contact.ts` は「_」で始まる欄を断らずに本文から外す＝受け口に記録の行を足すまでは残らない。/fund のフォームは送る中身を手で組むので付かない | 受け口を直したあとの通知メール・記録 |
 | 社内の閲覧 | 一度 `https://www.scix.co.jp/?internal=1` を開いた端末は GA4 の利用者の印 `internal_user=1`（`?internal=0` で外す・localStorage）。gtag.js が header.js より先に読まれた頁では、その頁の最初の page_view に印が乗らないことがある | `collect_daily.py --exclude-internal` |
 
 GA4 の管理画面（カスタム定義）で登録が要る物（代表）: ユーザー スコープ `internal_user`／イベント スコープ `src_mark`・`placement`・`legacy_target`。`internal_user` を登録するまで、`collect_daily.py --exclude-internal` は外さずに数えてログに出す（既定は今のまま外さない）。
+
+## トップの案件カードと上の帯の並び（2026-11-22）
+
+トップ3頁（`/`・`/en`・`/zh`）の最初の節は、蓄電所マーケットの案件のカードの一覧（`<section class="hero x-top hero-market" id="market">`。class の先頭は hero のまま＝`guard_diff.py` の「ヒーローより上は変えない」の範囲が、カードの節の終わりまでになる）。
+
+- **焼いた行（土台）**: `scripts/inject_stats.py` が毎朝 `projects.json`（公開項目だけ）から、`<!--S:cards-->` の中に匿名の行12件（新着順・県・電圧・規模・渡し方・連系の見込み）を言葉ごと（日・英・中）に焼く。案件名・市区町村・写真・価格はこのリポジトリに置かない（O16-19）。行のリンクはマーケットの案件ごとの公開の頁（`/catalog/<id>`・英語と中国語は `/en/catalog/<id>`）。
+- **画面の差し替え**: `/site-cards.js`（コードだけ）が `https://dealroom.scix.co.jp/api/open/cards?limit=12&lang=<ja|en>` を読み（3秒で打ち切り・Cookie なし）、読めたときだけ同じ場所を写真つきのカードに差し替える。読めない（マーケット停止・CORS が閉じている・遅い・形が違う）ときは何もしない＝焼いた行のまま。中国語の頁は英語のカードを中国語の字の枠で出す。カードのリンクの出所の印は `src=top-card`（英語 `-en`・中国語 `-zh`）・GA4 の `market_click` の placement は `card`（`header.js` の 7a・7b）。
+- **確かめ**: 手元は `python3 -m http.server 3847`。CORS は scix.co.jp の2つの住所だけなので、手元ではカードは焼いた行のまま出る（落ちたときの形の確かめを兼ねる）。マーケットの口が読める形は、`/site-cards.js` のマーケットの住所だけを手元の見本に替えて確かめる。`python3 scripts/seo/audit_pages.py` がトップ3頁の並び（最初の節・カード・価格の語が無いこと・`/site-cards.js`）を見る。
+- **戻し方**: マージの commit を `git revert`（`chore(seo-log):` は revert しない）。マーケット側の口だけを止めたいときは、マーケットの CORS を外せばよい（トップは焼いた行で残る）。
+
+上の帯（`header.js` の `var nav`）は蓄電所マーケットの帯（`public/platform-nav.js`）と同じ並び・同じ札の言葉。2つのリポジトリで片方を直したらもう片方も手で写す（実行時に相手のサイトから定義を読む形は、片方が落ちると帯が欠けるので採らない）。
+
+| 札 | scix.co.jp（日本語） | マーケット |
+|---|---|---|
+| 買いたい | 札＝マーケットの `/`・▾＝/transfer・/fund | `/` |
+| 売りたい | 札＝マーケットの売りたいの入口（今は `/needs`）・▾＝/sell-form・/sourcing・/partners | `/needs`（今の sell） |
+| ナレッジ | 引き出しのみ（/knowledge ほか今のまま） | `https://www.scix.co.jp/knowledge` |
+| 市場リサーチ | 引き出しのみ（/report・/report/data・/market-data） | `https://www.scix.co.jp/report` |
+| 会社案内 | /company | `https://www.scix.co.jp/company` |
+| お問い合わせ | /contact | `https://www.scix.co.jp/contact` |
+| ログイン・無料で登録 | `https://dealroom.scix.co.jp/login.html`・`/register.html` | 右端 |
+
+英語は Buy（マーケットの `/en`）・Sell（`/en/needs`）・Knowledge・Market Research（/en/report・/en/report/data）・Company・Contact｜Log in・Sign up（マーケットの英語の頁）。中国語は 购买・出售（どちらもマーケットの英語の頁）・洞见・市场研究（英文）・公司介绍（英文）・联系我们｜登录・免费注册。
