@@ -113,6 +113,8 @@ def stats(ps, today):
         "lead": lead, "lead_median": (lead[len(lead) // 2] if lead else None), "bands": bands,
         "basis": Counter(p.get("leadBasis") or "unspecified" for p in ps if isinstance(p.get("leadMonths"), (int, float))),
         "undecided": sum(1 for p in ps if not p.get("live") and not (p.get("codYm") and p["codYm"] >= today_ym)),
+        "lead_only": sum(1 for p in ps if not p.get("live") and not (p.get("codYm") and p["codYm"] >= today_ym)
+                         and isinstance(p.get("leadMonths"), (int, float))),
         "new14": sum(1 for p in ps if is_new(p, today)),
         "first_seen": sorted(fs.items())[-6:],
     }
@@ -380,7 +382,7 @@ h2.md-h{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--n
 .md-bar-v{color:var(--text-2);text-align:right}.md-bar-v small{color:var(--text-3);font-size:.8em;margin-left:2px}
 .md-note{font-size:.84rem;color:var(--text-3);margin-top:8px}
 .md-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px 40px}
-table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}.md-t th,.md-t td{border-bottom:1px solid var(--border);padding:7px 10px;text-align:left}.md-t th{color:var(--text-2);font-weight:500;background:var(--off-white)}.md-t td.n{text-align:right;font-variant-numeric:tabular-nums}
+table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}.md-t th,.md-t td{border-bottom:1px solid var(--border);padding:7px 10px;text-align:left}.md-t th{color:var(--text-2);font-weight:500;background:var(--off-white)}.md-t td.n{text-align:right;font-variant-numeric:tabular-nums}.md-scroll .md-t th,.md-scroll .md-t td.n{white-space:nowrap}
 .areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;max-width:900px}
 .areas a{display:block;border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--text);background:var(--white)}
 .areas a:hover{border-color:var(--gold)}.areas b{display:block;color:var(--navy);font-size:1rem}.areas span{font-size:.82rem;color:var(--text-2)}
@@ -641,13 +643,27 @@ def needs_counts(items):
             for part in (v.split("・") if k == "grid_area" else [v]):
                 vals[part.strip()] += 1
         out["fields"][k] = {"set": n_set, "values": dict(sorted(vals.items()))}
-    return out
+    return merge_small_needs(out)
+
+
+def merge_small_needs(nd):
+    """NEEDS_MIN 未満の選択肢を「その他の選択肢」に足し込む。公開の控え（buyer-requests.json）も頁と同じ、まとめた後の数だけを持つ。"""
+    if not nd:
+        return nd
+    for f in nd.get("fields", {}).values():
+        vals = f.get("values", {})
+        small = sum(v for x, v in vals.items() if x == "その他の選択肢" or v < NEEDS_MIN)
+        kept = {x: v for x, v in vals.items() if x != "その他の選択肢" and v >= NEEDS_MIN}
+        if small:
+            kept["その他の選択肢"] = small
+        f["values"] = dict(sorted(kept.items()))
+    return nd
 
 
 def load_needs():
     try:
         with open(os.path.join(ROOT, NEEDS_JSON), encoding="utf-8") as f:
-            return json.load(f)
+            return merge_small_needs(json.load(f))
     except (OSError, ValueError):
         return None
 
@@ -691,8 +707,8 @@ def needs_pairs(nd, k):
         keys = [x for x in order if x in vals] + sorted(x for x in vals if x not in order)
     else:
         keys = sorted(vals)
-    pairs = [(x, vals[x]) for x in keys if vals[x] >= NEEDS_MIN]
-    small = sum(vals[x] for x in keys if vals[x] < NEEDS_MIN)
+    pairs = [(x, vals[x]) for x in keys if vals[x] >= NEEDS_MIN and x != "その他の選択肢"]
+    small = sum(vals[x] for x in keys if vals[x] < NEEDS_MIN or x == "その他の選択肢")
     if small:
         pairs.append(("その他の選択肢", small))
     return pairs, nd["n"] - f["set"], f["set"]
@@ -718,11 +734,11 @@ def cite_html(lang, name, url, updated, extra=""):
     if lang == "ja":
         return (f'<div class="cite" id="cite"><div class="cite-h">引用のしかた</div>'
                 f'<p>この頁の数字・図表の引用を歓迎します。記事・資料・社内の検討にお使いいただくときは、出典として次の1行をお書きください。</p>'
-                f'<p class="cite-line">出典: サイエンスエックス株式会社『{_esc(name)}』{_esc(url)}（{_esc(updated)} 更新）</p>'
+                f'<p class="cite-line">出典: サイエンスエックス株式会社『{_esc(name)}』（{_esc(updated)} 更新） {_esc(url)}</p>'
                 f'<p class="cite-meta">頁の住所: <a href="{_esc(url)}">{_esc(url)}</a>　更新日: {t}</p>{extra}</div>')
     return (f'<div class="cite" id="cite"><div class="cite-h">How to cite</div>'
             f'<p>You are welcome to quote the figures and charts on this page. Please give the source as follows.</p>'
-            f'<p class="cite-line">Source: Science X Inc., &ldquo;{_esc(name)}&rdquo;, {_esc(url)} (updated {_esc(updated)})</p>'
+            f'<p class="cite-line">Source: Science X Inc., &ldquo;{_esc(name)}&rdquo; (updated {_esc(updated)}), {_esc(url)}</p>'
             f'<p class="cite-meta">Page: <a href="{_esc(url)}">{_esc(url)}</a> &middot; Updated: {t}</p>{extra}</div>')
 
 
@@ -1153,7 +1169,7 @@ def render_market(ps, today, generated, weekly=(), nd=None):
     <div><b>{s['n']}件</b><span>販売中の案件</span></div>
     <div><b>{s['mw']:,}MW</b><span>合計出力（{s['mwh']:,}MWh）</span></div>
     <div><b>{len(s['pref'])}都道府県</b><span>{len(s['area'])}管内</span></div>
-    <div><b>{s['volt'].get('特別高圧', 0)}件</b><span>特別高圧（10MW以上）</span></div>
+    <div><b>{s['volt'].get('特別高圧', 0)}件</b><span>特別高圧（おおむね10MW以上）</span></div>
     <div><b>{s['new14']}件</b><span>この{NEW_DAYS}日の新着</span></div>
   </div>
   <p class="md-note" style="margin-top:14px">{NOTE_SCOPE}</p>
@@ -1179,7 +1195,7 @@ def render_market(ps, today, generated, weekly=(), nd=None):
 <section class="md"><div class="container">
   <div class="section-label">電圧・買い方・手続き</div>
   <h2 class="md-h">電圧区分・取得の形・進み具合</h2>
-  <p class="md-lead">高圧は2MW級が中心で、特別高圧は10MW以上です。取得の形は、権利で買って自分で建てる「権利譲渡」と、建った状態で受け取る「完成渡し」に分かれます。進み具合は、接続検討の回答までか、契約申込みの本回答まで進んで工事費負担金が確定しているか、連系済みかです。</p>
+  <p class="md-lead">高圧は2MW級が中心で、特別高圧はおおむね10MW以上です。取得の形は、権利で買って自分で建てる「権利譲渡」と、建った状態で受け取る「完成渡し」に分かれます。進み具合は、接続検討の回答までか、契約申込みの本回答まで進んで工事費負担金が確定しているか、連系済みかです。</p>
   <div class="md-grid">
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">電圧区分</h3>{bar_rows(s['volt'].most_common(), s['n'])}</div>
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">取得の形</h3>{bar_rows(s['scheme'].most_common(), s['n'])}</div>
@@ -1190,7 +1206,7 @@ def render_market(ps, today, generated, weekly=(), nd=None):
 <section class="md"><div class="container">
   <div class="section-label">連系の時期</div>
   <h2 class="md-h">連系の見込み</h2>
-  <p class="md-lead">運転開始の予定が決まっている案件は年度の上期・下期で、決まっていない案件は接続検討回答書に書かれた「連系までにかかる月数」で数えました。予定が決まっているのは{s['ym_known']}件、月数だけが分かるのは{len(s['lead'])}件、時期を確認中が{s['undecided'] - len([1 for p in ps if not p.get('live') and not (p.get('codYm') and p['codYm'] >= today.strftime('%Y-%m')) and isinstance(p.get('leadMonths'), (int, float))])}件です。月数は回答書の記載のままで、起点（工事費負担金の入金からなど）が書かれているのは{len(s['lead']) - s['basis'].get('unspecified', 0)}件です。</p>
+  <p class="md-lead">運転開始の予定が決まっている案件は年度の上期・下期で、決まっていない案件は接続検討回答書に書かれた「連系までにかかる月数」で数えました。予定が決まっているのは{s['ym_known']}件、予定は決まっていないが月数が分かるのは{s['lead_only']}件、時期を確認中が{s['undecided'] - len([1 for p in ps if not p.get('live') and not (p.get('codYm') and p['codYm'] >= today.strftime('%Y-%m')) and isinstance(p.get('leadMonths'), (int, float))])}件です。回答書に月数が書かれているのは、予定の決まっている件も合わせて{len(s['lead'])}件で、「回答書の工期」の図はこの{len(s['lead'])}件を数えています。月数は回答書の記載のままで、起点（工事費負担金の入金からなど）が書かれているのは{len(s['lead']) - s['basis'].get('unspecified', 0)}件です。</p>
   <div class="md-grid">
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">運転開始の予定（年度・半期）</h3>{bar_rows(half_pairs, s['ym_known'])}</div>
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">回答書の工期（連系までの月数）{f'　中央値 {s["lead_median"]}か月' if s['lead_median'] else ''}</h3>{bar_rows(band_pairs, len(s['lead']))}
@@ -1203,7 +1219,7 @@ def render_market(ps, today, generated, weekly=(), nd=None):
   <div class="section-label">新着</div>
   <h2 class="md-h">掲載の推移</h2>
   <p class="md-lead">月ごとに一覧へ載せた件数です。売却済み・売り止めで外した案件は含みません。{GROWTH_NOTE}</p>
-  <table class="md-t"><caption>掲載月ごとの件数（新しい6か月分・いま販売中の案件）</caption><thead><tr>{_ths(["掲載月", "件数"])}</tr></thead><tbody>{month_rows}</tbody></table>
+  <table class="md-t"><caption>掲載月ごとの件数（件数のある月の新しい6つまで・いま販売中の案件）</caption><thead><tr>{_ths(["掲載月", "件数"])}</tr></thead><tbody>{month_rows}</tbody></table>
 </div></section>
 {section_needs(nd, "ja")}
 {section_download("ja", generated, len(weekly) >= 2, bool(nd and nd.get("n")), "系統用蓄電池の売り案件 市場データ", BASE + path,
@@ -1255,7 +1271,7 @@ def render_area(ps_all, area, slug, operator, today, generated):
     <div><b>{n}件</b><span>販売中の案件</span></div>
     <div><b>{s['mw']:,}MW</b><span>合計出力（{s['mwh']:,}MWh）</span></div>
     <div><b>{s['volt'].get('高圧', 0)}件</b><span>高圧（2MW級が中心）</span></div>
-    <div><b>{s['volt'].get('特別高圧', 0)}件</b><span>特別高圧（10MW以上）</span></div>
+    <div><b>{s['volt'].get('特別高圧', 0)}件</b><span>特別高圧（おおむね10MW以上）</span></div>
     <div><b>{s['scheme'].get('権利譲渡', 0)}件</b><span>権利譲渡（自分で建てる）</span></div>
   </div>
 </div></section>
@@ -1526,7 +1542,7 @@ def render_en_projects(ps, today, generated, weekly=()):
   <p class="md-lead">High-voltage (~2 MW) and extra-high-voltage battery storage projects, from development rights with grid connection answers to grid-connected assets. Sorted by earliest expected COD (commercial operation date). Total: about {mw:,} MW across {prefs} prefectures. Prices, exact sites and counterparties are not published here.</p>
   <p class="md-note" style="margin-top:14px">Area = the grid area of the transmission and distribution operator (Tokyo, Chubu, Kyushu and so on). Status: &ldquo;Grid connection study answered&rdquo; means the utility has issued its answer on the connection study; &ldquo;Grid cost confirmed&rdquo; means the grid construction cost has been fixed; &ldquo;Grid-connected&rdquo; means the project is already connected. Structure: &ldquo;Completed-build handover&rdquo; or &ldquo;Transfer of rights&rdquo; (the buyer builds). Expected COD is an estimate taken from the utility&rsquo;s answer and may change. These are ScienceX&rsquo;s own listings, not statistics for the whole Japanese market.</p>
   <p class="md-lead" style="margin-top:14px">Counts by grid area, voltage class, structure, size and months to grid connection, with CSV downloads, are on <a href="/en/market-data">Market data</a>.</p>
-  {cite_html("en", "Japan Grid-Scale BESS Projects Listed", url, generated,
+  {cite_html("en", "Grid-scale battery storage projects listed for sale in Japan: counts", url, generated,
              f'<p>CSV: <a href="{CSV_EN["summary"]}" download>summary tables</a> &middot; <a href="{CSV_EN["weekly"]}" download>weekly figures</a> &middot; counts only, no prices or sites.</p>')}
 </div></section>
 
@@ -1651,7 +1667,7 @@ def render_en_market(ps, today, generated, weekly=(), nd=None):
     <div><b>{n}</b><span>projects listed for sale</span></div>
     <div><b>{s['mw']:,} MW</b><span>total capacity ({s['mwh']:,} MWh)</span></div>
     <div><b>{len(s['pref'])}</b><span>prefectures, {len(s['area'])} grid areas</span></div>
-    <div><b>{s['volt'].get('特別高圧', 0)}</b><span>extra-high voltage (10 MW and above)</span></div>
+    <div><b>{s['volt'].get('特別高圧', 0)}</b><span>extra-high voltage (roughly 10 MW and above)</span></div>
     <div><b>{s['new14']}</b><span>new in the last {NEW_DAYS} days</span></div>
   </div>
   <p class="md-note" style="margin-top:14px">These are the battery storage projects for sale that have been brought to ScienceX and cleared for listing, all with a grid connection study answer from the utility. They are ScienceX&rsquo;s own listings, not statistics for the whole Japanese market. Sites and sellers are not published (prices and documents are on Chikudensho Market after free registration). The figures are recounted every morning from the same data as the project list.</p>
@@ -1677,7 +1693,7 @@ def render_en_market(ps, today, generated, weekly=(), nd=None):
 <section class="md"><div class="container">
   <div class="section-label">Voltage, structure, status</div>
   <h2 class="md-h">Voltage class, structure and status</h2>
-  <p class="md-lead">High-voltage projects are mostly around 2 MW; extra-high-voltage projects are 10 MW and above. A project is sold either as development rights that the buyer builds out (transfer of rights) or as a completed-build handover. Status shows whether the utility has answered the grid connection study, whether the grid construction cost has been fixed, or whether the project is already connected.</p>
+  <p class="md-lead">High-voltage projects are mostly around 2 MW; extra-high-voltage projects are roughly 10 MW and above. A project is sold either as development rights that the buyer builds out (transfer of rights) or as a completed-build handover. Status shows whether the utility has answered the grid connection study, whether the grid construction cost has been fixed, or whether the project is already connected.</p>
   <div class="md-grid">
     <div>{H3}Voltage class</h3>{bar_rows(volt_pairs, n, lang="en")}</div>
     <div>{H3}Structure</h3>{bar_rows(scheme_pairs, n, lang="en")}</div>
@@ -1688,7 +1704,7 @@ def render_en_market(ps, today, generated, weekly=(), nd=None):
 <section class="md"><div class="container">
   <div class="section-label">Grid connection timing</div>
   <h2 class="md-h">Expected grid connection</h2>
-  <p class="md-lead">Projects with a planned operation date are counted by Japanese fiscal half-year (the fiscal year starts in April); the others by the months to connection stated in the grid connection study answer. {s['ym_known']} projects have a planned date, {len(s['lead'])} have a stated number of months, and {undated} are under review.</p>
+  <p class="md-lead">Projects with a planned operation date are counted by Japanese fiscal half-year (the fiscal year starts in April); the others by the months to connection stated in the grid connection study answer. {s['ym_known']} projects have a planned date, {s['lead_only']} have no planned date but a stated number of months, and {undated} are under review. In all, {len(s['lead'])} projects (including some with a planned date) have a stated number of months; the &ldquo;Months to connection&rdquo; chart counts these {len(s['lead'])}.</p>
   <div class="md-grid">
     <div>{H3}Planned operation (fiscal half-year)</h3>{bar_rows(half_pairs, s['ym_known'], lang="en")}</div>
     <div>{H3}Months to connection in the answer{f" &middot; median {s['lead_median']} months" if s['lead_median'] else ""}</h3>{bar_rows(band_pairs, len(s['lead']), lang="en")}
@@ -1701,7 +1717,7 @@ def render_en_market(ps, today, generated, weekly=(), nd=None):
   <div class="section-label">New listings</div>
   <h2 class="md-h">Listings by month first listed</h2>
   <p class="md-lead">Projects now listed, by the month they were first listed. Projects taken off the list are not included. {GROWTH_NOTE_EN}</p>
-  <table class="md-t"><caption>Projects by month first listed (latest six months, projects now listed)</caption><thead><tr>{_ths(["Month first listed", "Projects"])}</tr></thead><tbody>{month_rows}</tbody></table>
+  <table class="md-t"><caption>Projects by month first listed (up to the latest six months with listings, projects now listed)</caption><thead><tr>{_ths(["Month first listed", "Projects"])}</tr></thead><tbody>{month_rows}</tbody></table>
 </div></section>
 {section_needs(nd, "en")}
 {section_download("en", generated, len(weekly) >= 2, bool(nd and nd.get("n")), name, BASE + path,
