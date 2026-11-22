@@ -35,7 +35,7 @@ LINK = "display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-si
 LANGS = {
     "en": dict(pre="en/column-", url="/en/column-", gl="/en/glossary", gl_name="glossary", terms="Terms used here:", rn="Related reading",
                font="'Noto Sans JP',sans-serif", report=[("/en/report/data", "Battery Storage Market Data"), ("/en/report", "Battery Storage Market Notes")],
-               numbers="Market numbers:", sep=" ・ ", slash=" ／ "),
+               numbers="Market numbers:", sep=" · ", slash=" / "),
     "zh": dict(pre="zh-column-", url="/zh-column-", gl="/zh-glossary", gl_name="术语表", terms="本文术语：", rn="相关文章",
                font="'Noto Sans SC','Noto Sans JP',sans-serif", report=[("/en/report/data", "市场数据（英文页面）"), ("/en/report", "市场笔记（英文页面）")],
                numbers="市场数字：", sep="・", slash="／"),

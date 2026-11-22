@@ -441,7 +441,7 @@
       ['/zh-qa',        '问答', '', '/qa']
     ], 'book'),
     '<a href="/en/report" data-page="/report">' + ic('chart') + '<span>市场研究</span>' + EN_TAG + '</a>',
-    '<a href="/en/company" data-page="/company">' + ic('co') + '<span>公司介绍</span>' + EN_TAG + '</a>',
+    '<a href="/zh-company" data-page="/company">' + ic('co') + '<span>公司介绍</span></a>',
     '<a href="/zh-contact" data-page="/contact">' + ic('mail') + '<span>联系我们</span></a>'
   ] : isEn ? [
     '<a href="' + MKT + '/en" class="scix-top-buy" data-k="buy">' + ic('buy') + '<span>Buy</span></a>',
