@@ -160,3 +160,15 @@ GA4 のトークンが無いときは GA4 だけ飛ばして動く。取得は `
 | 社内の閲覧 | 一度 `https://www.scix.co.jp/?internal=1` を開いた端末は GA4 の利用者の印 `internal_user=1`（`?internal=0` で外す・localStorage）。gtag.js が header.js より先に読まれた頁では、その頁の最初の page_view に印が乗らないことがある | `collect_daily.py --exclude-internal` |
 
 GA4 の管理画面（カスタム定義）で登録が要る物（代表）: ユーザー スコープ `internal_user`／イベント スコープ `src_mark`・`placement`・`legacy_target`。`internal_user` を登録するまで、`collect_daily.py --exclude-internal` は外さずに数えてログに出す（既定は今のまま外さない）。
+
+## 頁の形の検査と、機械で作る頁の部品（2026-11-22 中島「Seo 対策も徹底してやって」）
+
+| 物 | 何をするか | 使い方 |
+|---|---|---|
+| `scripts/seo/audit_pages.py` | 全頁の head・構造化データ・sitemap を手元のファイルだけで点検する。FAQPage の問いが本文にあるか・Article の author／publisher の `@id`・ロゴ（紺）・パンくずにアンカーが無いか・`max-image-preview:large`・sitemap の hreflang／lastmod が頁と同じか・llms.txt・コラム末尾の入口の行き先（絞り込みの検索や件数0の入口を指さない）・市場データの表（caption・th scope・time・「いちばん新しい行の1文」の数字が表にあるか）・月報の画像の幅高さ・英語中国語のコラムの対のリンク。題と説明の長さは「注意」で `--strict` に数えない。トップ3頁（index.html・en/index.html・zh.html）は `TOP_PENDING` で新しい検査から外している（トップの作り替えの側で直す） | `python3 scripts/seo/audit_pages.py --strict`（PR の前に通す） |
+| `scripts/add_column_entrances.py` | 日本語のコラム末尾の入口の区画（マーケットの静的な入口・市場の数字への静的リンク）を作り直す | `python3 scripts/add_column_entrances.py [--check]`（projects.json の件数が変わって件数0の入口ができたら回す） |
+| `scripts/add_column_related.py` | 英語・中国語のコラムに、日本語の対と同じ「あわせて読む」・用語集・市場の数字のリンクを作る | `python3 scripts/add_column_related.py [--check]` |
+| `scripts/build_llms_txt.py` | `/llms.txt`（sitemap の頁の題と説明の一覧）を作る。title・description を変えたら回す | `python3 scripts/build_llms_txt.py [--check]` |
+| `scripts/seo/market_side.py` | 週のブリーフの「12. マーケット側の検索」（ホスト別・dealroom の頁の種類別・語の定点25語・URL 検査の定点20本）。URL 検査は週に1回、台帳 `inspect_market/` に溜める（案件の頁は projects.json から実行時に選ぶ＝案件の住所をコードに書かない） | `collect_daily.py` が自動（`--inspect` で今日取る） |
+
+sitemap の lastmod は頁の JSON-LD `dateModified` と同じ値にする（本文を変えた日だけ動く）。`stamp_sitemap.py` は lastmod と一緒に `dateModified`・`article:modified_time` も同じ日に動かし、`build_reports.py` は月報の頁の lastmod を発行日（＝dateModified）にする。
