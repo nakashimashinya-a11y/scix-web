@@ -300,6 +300,34 @@ def reading_section(lang="ja"):
 
 # 号をまたいだ推移の頁（build_report_data.py が焼く）への入口。焼いた頁だけ出す（DATA_PAGES は main が決める）。
 DATA_PAGES = set()
+DATA_CSVS = set()   # 焼いた CSV（号の頁の Dataset の distribution に結ぶ・2026-11-22）
+CSV_NAMES = {"jepx-spot-monthly.csv": ("卸電気（JEPX）の月ごとの数字（号をまたいだ CSV）", "JEPX spot prices by month (CSV across issues)"),
+             "capacity-main-auction.csv": ("容量市場メインオークションのエリアプライス（CSV）", "Capacity market main auction area prices (CSV)"),
+             "long-term-decarbonization-auction.csv": ("長期脱炭素電源オークションの約定容量（CSV）", "Long-Term Decarbonization Power Source Auction results (CSV)"),
+             "eprx-monthly.csv": ("需給調整市場（EPRX）の月ごとの数字（CSV）", "EPRX balancing market by month (CSV)")}
+
+
+def issue_dataset(path, title_h, desc, issued, modified, lang, pdf_url):
+    """号の頁の Dataset（2026-11-22・Gemini の助言 指令2）。この号の PDF と、号をまたいだ推移の CSV（/report/data・焼いた物だけ）へ結ぶ。
+    license は付けない（利用条件を名乗るかは中島さんの決め）。数字は号の本文のまま・新しい数字は作らない。"""
+    J = lang == "ja"
+    pre = "report/data/" if J else "en/report/data/"
+    csvs = sorted(k for k in DATA_CSVS if k.startswith(pre))
+    dist = [{"@type": "DataDownload", "encodingFormat": "application/pdf", "contentUrl": pdf_url, "name": "この号の PDF" if J else "This issue (PDF)"}]
+    dist += [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": f"{BASE}/{k}",
+              "name": CSV_NAMES.get(os.path.basename(k), (os.path.basename(k),) * 2)[0 if J else 1]} for k in csvs]
+    return {"@context": "https://schema.org", "@type": "Dataset", "@id": BASE + path + "#dataset", "url": BASE + path,
+            "name": f"{title_h}の数字" if J else f"{title_h}: figures",
+            "description": ((f"{title_h}に載せた、蓄電所の3つの稼ぎ口（需給調整市場 EPRX・卸電気 JEPX・容量市場 OCCTO）の数字と当社の記録の集計（図表・PDF）。"
+                             "数字は公表データの表示どおりで、出典は号の本文に書いた。号をまたいだ推移の CSV は市場データ（/report/data）。") if J else
+                            (f"The figures in {title_h}: the three income streams of a battery storage site (EPRX balancing market, JEPX wholesale power, "
+                             "OCCTO capacity market) and our own records, as charts, tables and a PDF. Sources are given in the issue. "
+                             "CSV files across issues are on the market data page (/en/report/data).")),
+            "inLanguage": lang, "creator": bmd.ORG if J else EN_ORG, "publisher": PUBLISHER if J else EN_PUBLISHER,
+            "isAccessibleForFree": True, "datePublished": issued, "dateModified": modified,
+            "spatialCoverage": {"@type": "Place", "name": "日本" if J else "Japan"},
+            "creditText": (f"出典: サイエンスエックス株式会社『{title_h}』{BASE}{path}" if J else f"Source: Science X Inc., \u201c{title_h}\u201d, {BASE}{path}"),
+            "distribution": dist, "mainEntityOfPage": BASE + path}
 DATA_LINKS = {
     "ja": [("/report/data", "市場データ（号をまたいだ推移）", "卸電気（JEPX）の月ごとの平均と4時間の値差、容量市場のエリアプライスを、エリア別に号をまたいで並べました。CSV もあります。"),
            ("/report/area/tokyo", "東京エリアの市場データ", "東京エリアの卸電気の月ごとの推移と容量市場の約定価格、エリアの公開案件の件数。"),
@@ -495,11 +523,13 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
     moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith("出典:")]
     desc = (f"{title_h}。" + (moves[0] if moves else doc["intro"]))[:160]
     pdf_name = f"scix-bess-monthly-{key}.pdf"
+    mod = modified_of(path, doc["issued"])
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "Report", "@id": BASE + path + "#report", "url": BASE + path,
                 "name": title_h, "description": desc, "inLanguage": "ja", "datePublished": doc["issued"],
-                "dateModified": modified_of(path, doc["issued"]), "author": bmd.ORG, "publisher": PUBLISHER,
+                "dateModified": mod, "author": bmd.ORG, "publisher": PUBLISHER,
                 "encoding": {"@type": "MediaObject", "contentUrl": f"{BASE}{path}/{pdf_name}", "encodingFormat": "application/pdf"}}),
+        bmd.ld(issue_dataset(path, title_h, desc, doc["issued"], mod, "ja", f"{BASE}{path}/{pdf_name}")),
         bmd.ld(bmd.crumbs([("ホーム", BASE + "/"), ("市場ノート", BASE + "/report"), (title_h, BASE + path)])),
     ])
     used = set()
@@ -512,9 +542,9 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
     nl = (f'<p>毎月の更新は、LinkedIn のニュースレター「系統用蓄電池の一次データ」でもお届けしています。'
           f'<a href="{esc(doc["newsletter"])}" rel="noopener" target="_blank">ニュースレターを購読する →</a></p>') if doc["newsletter"] else ""
     cite = f"""<section class="md"><div class="container rp-body">
-  <div class="cite"><div class="cite-h">引用・転載について</div>
-  図表や数値は、出典を明記すればそのままお使いいただけます（<a href="/press">引用・転載ガイド</a>）。
-  数字は公表データと当社の記録の集計です。値差は1kWh あたりの価格の差で、実際の収益を示すものではありません。集計のしかたは上の「前提と用語」に書きました。</div>
+  {bmd.cite_html("ja", title_h, BASE + path, mod,
+                 '<p>数字は公表データと当社の記録の集計です。値差は1kWh あたりの価格の差で、実際の収益を示すものではありません。集計のしかたは上の「前提と用語」に書きました。'
+                 '号をまたいだ推移は <a href="/report/data">市場データ</a>（CSV あり）に、転載の決まりは <a href="/press">引用・転載ガイド</a> に。</p>')}
   {nl}
 </div></section>"""
     cta = """<section class="cta"><div class="container">
@@ -562,11 +592,13 @@ def render_month_en(m, doc, figs, nav=None):
     if len(desc) > 155:  # 検索結果の description は155字まで。語の切れ目で切る
         desc = desc[:154].rsplit(" ", 1)[0].rstrip(" ,;:.") + "…"
     pdf_name = f"scix-bess-monthly-{key}-en.pdf"
+    mod = modified_of(path, doc["issued"])
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "Report", "@id": BASE + path + "#report", "url": BASE + path,
                 "name": title_h, "description": desc, "inLanguage": "en", "datePublished": doc["issued"],
-                "dateModified": modified_of(path, doc["issued"]), "author": EN_ORG, "publisher": EN_PUBLISHER,
+                "dateModified": mod, "author": EN_ORG, "publisher": EN_PUBLISHER,
                 "encoding": {"@type": "MediaObject", "contentUrl": f"{BASE}{path}/{pdf_name}", "encodingFormat": "application/pdf"}}),
+        bmd.ld(issue_dataset(path, title_h, desc, doc["issued"], mod, "en", f"{BASE}{path}/{pdf_name}")),
         bmd.ld(bmd.crumbs([("Home", BASE + "/en"), ("Reports", BASE + "/en/report"), (title_h, BASE + path)])),
     ])
     used = set()
@@ -574,9 +606,10 @@ def render_month_en(m, doc, figs, nav=None):
     nl = (f'<p>Each month\'s update also arrives in our LinkedIn newsletter, &ldquo;Japan grid-scale BESS: primary data&rdquo;. '
           f'<a href="{esc(doc["newsletter"])}" rel="noopener" target="_blank">Subscribe to the newsletter &rarr;</a></p>') if doc["newsletter"] else ""
     cite = f"""<section class="md"><div class="container rp-body">
-  <div class="cite"><div class="cite-h">Quoting and reuse</div>
-  Charts and figures may be reused as they are, with the source stated (<a href="/en/press">citation guide</a>).
-  The figures are tallies of published data and our own records. The price spread is a difference in price per kWh and does not show actual revenue. How we compiled them is in the last section, "Assumptions and terms".</div>
+  {bmd.cite_html("en", title_h, BASE + path, mod,
+                 '<p>The figures are tallies of published data and our own records. The price spread is a difference in price per kWh and does not show actual revenue. '
+                 'How we compiled them is in the last section, &ldquo;Assumptions and terms&rdquo;. Figures across issues are on <a href="/en/report/data">market data</a> (CSV), '
+                 'and the reuse terms are in the <a href="/en/press">citation guide</a>.</p>')}
   {nl}
 </div></section>"""
     cta = """<section class="cta"><div class="container">
@@ -647,7 +680,7 @@ def render_index_en(rows):
 {data_section("en")}
 <section class="md"><div class="container rp-body">
   <ul class="rp-list">{li}</ul>
-  <p class="md-note" style="margin-top:16px">Charts and figures may be reused with the source stated (<a href="/en/press">citation guide</a>). For the projects we list, see <a href="/en/projects">Projects</a> (updated daily).</p>
+  <p class="md-note" style="margin-top:16px">Charts and figures may be reused with the source stated (<a href="/en/press">citation guide</a>). For the projects we list, see <a href="/en/projects">Projects</a> and the counts on <a href="/en/market-data">Market data</a> (updated daily).</p>
 </div></section>
 {bmd.EN_FOOTER}
 </body>
@@ -822,6 +855,8 @@ def main():
     files.update(rd_files)
     DATA_PAGES.clear()
     DATA_PAGES.update(k for k in rd_files if k.endswith("/index.html"))
+    DATA_CSVS.clear()
+    DATA_CSVS.update(k for k in rd_files if k.endswith(".csv"))
     with tempfile.TemporaryDirectory() as tmp:
         for i, m in enumerate(months):                   # 新しい月が先
             doc = docs[m["key"]]

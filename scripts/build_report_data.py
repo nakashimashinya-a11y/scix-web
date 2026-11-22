@@ -871,9 +871,9 @@ def render_data(br, data, months, lang, has_en):
         label = "毎月更新・出典つき・CSV あり"
         toc = [("#jepx", "②卸電気"), ("#capacity", "③容量市場")] + ([("#eprx", "①需給調整市場")])
         crumbs = [("ホーム", "/"), ("市場ノート", "/report"), ("市場データ", path)]
-        cite = """<div class="cite"><div class="cite-h">引用・転載について</div>
-  図表や数値は、出典を明記すればそのままお使いいただけます（<a href="/press">引用・転載ガイド</a>）。
-  数字は公表データと当社の記録の集計です。値差は1kWh あたりの価格の差で、実際の収益を示すものではありません。</div>"""
+        cite = br.bmd.cite_html("ja", h1, br.BASE + path, _MOD["date"],
+                                '<p>数字は公表データと当社の記録の集計です。値差は1kWh あたりの価格の差で、実際の収益を示すものではありません。'
+                                'CSV は各節の下から取れます。転載の決まりは <a href="/press">引用・転載ガイド</a> に。</p>')
         meta = f"{ym_label(first)}〜{ym_label(last)}・{len(months)}号から・最新は{issue_label(data['latest']['key'])}（発行 {br.jp_date(data['latest']['doc']['issued'])}）"
     else:
         h1 = "Battery Storage Market Data"
@@ -887,9 +887,9 @@ def render_data(br, data, months, lang, has_en):
         label = "Updated monthly · Sources cited · CSV"
         toc = [("#jepx", "② Wholesale (JEPX)"), ("#capacity", "③ Capacity (OCCTO)"), ("#eprx", "① Balancing (EPRX)")]
         crumbs = [("Home", "/en"), ("Market Notes", "/en/report"), ("Market data", path)]
-        cite = """<div class="cite"><div class="cite-h">Quoting and reuse</div>
-  Charts and figures may be reused as they are, with the source stated (<a href="/en/press">citation guide</a>).
-  The figures are tallies of published data and our own records. The price spread is a difference in price per kWh and does not show actual revenue.</div>"""
+        cite = br.bmd.cite_html("en", h1, br.BASE + path, _MOD["date"],
+                                '<p>The figures are tallies of published data and our own records. The price spread is a difference in price per kWh and does not show actual revenue. '
+                                'CSV downloads are below each section; the reuse terms are in the <a href="/en/press">citation guide</a>.</p>')
         meta = f"{ym_label(first, 'en')}–{ym_label(last, 'en')} · from {len(months)} issues · latest: {issue_label(data['latest']['key'], 'en')}"
     jsec = jepx_section(data, lang, base, latest_doc, csv_j, area_order, area_names)
     csec = cap_lda_section(data, lang, base, latest_doc, csv_c, csv_l)
@@ -1084,9 +1084,9 @@ def render_area(br, data, months, docs, area, slug):
 {projects_block(br, area, slug)}
 <section class="md"><div class="container rp-body">
   <div class="rd-links"><a href="/report/data">全エリアの市場データ →</a>{others}<a href="/report">市場ノートの号の一覧 →</a></div>
-  <div class="cite"><div class="cite-h">引用・転載について</div>
-  図表や数値は、出典を明記すればそのままお使いいただけます（<a href="/press">引用・転載ガイド</a>）。
-  数字は公表データと当社の記録の集計です。値差は1kWh あたりの価格の差で、実際の収益を示すものではありません。</div>
+  {br.bmd.cite_html("ja", f"{area}エリアの市場データ", br.BASE + path, _MOD["date"],
+                    '<p>数字は公表データと当社の記録の集計です。値差は1kWh あたりの価格の差で、実際の収益を示すものではありません。'
+                    '転載の決まりは <a href="/press">引用・転載ガイド</a> に。</p>')}
 </div></section>
 """
     h = br.page_head(title, desc, path, jsonld, None)
