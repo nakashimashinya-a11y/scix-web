@@ -30,6 +30,7 @@ from collections import Counter
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 from inject_stats import BAND_EVERY, NEW_DAYS, _esc, cod_bucket, cod_sort_key, cod_text, is_new  # noqa: E402
+from build_ga_tag import BLOCK as GA_BLOCK  # noqa: E402  全頁と同じ GA の区画（本番以外・自動操作は送らない・社内の印）
 
 BASE = "https://www.scix.co.jp"
 MIN_INDEX = 5   # 管内の件数がこれ未満なら noindex
@@ -412,14 +413,7 @@ def head(title, desc, path, jsonld, robots="index,follow,max-image-preview:large
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){{dataLayer.push(arguments);}}
-  gtag('js', new Date());
-  gtag('config', 'G-SNNK8MP9N9');
-</script>
+{GA_BLOCK}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{_esc(title)}</title>
