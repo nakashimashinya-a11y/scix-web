@@ -167,7 +167,8 @@ def render_mix(L, mx, days, lim=15) -> None:
     t, b = mx["tot"], mx["bot"]
     L.append(f"数えた日: {mx['days']}/{days}（mix のある日）・本番の住所（{HOST}）だけで取った日 {mx['host_days']}/{days}。"
              "主に見る数はエンゲージのあるセッション。機械らしい群＝着地なし／画面 1280x1200・800x600／日本以外の Direct・Unassigned"
-             "（重なりは先の理由に1回）。日本の Direct は本人が URL を開いて問い合わせる群なので機械に数えない。\n")
+             "（重なりは先の理由に1回）。日本の Direct は本人が URL を開いて問い合わせる群なので機械に数えない。"
+             "全体は totals、機械らしい群は国×経路×画面×着地の行の合計から出すので、GA4 の数え方の違いで人らしい来訪には少し誤差が出る（目安として読む）。\n")
     L.append("| | セッション | エンゲージ | 問い合わせ |\n|---|---|---|---|")
     L.append(f"| 全体 | {t['sessions']} | {t['engaged']} | {t['leads']} |")
     L.append(f"| うち機械らしい群 | {b['sessions']} | {b['engaged']} | {b['leads']} |")
