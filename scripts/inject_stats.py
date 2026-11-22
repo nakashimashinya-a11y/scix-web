@@ -19,9 +19,10 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TARGETS = ["index.html", "en/index.html", "zh.html", "projects.html"]
-# トップ3頁の言葉（<!--S:cards-->・<!--S:count-->・<!--S:date--> の言葉）。projects.html は日本語
-TARGET_LANG = {"index.html": "ja", "en/index.html": "en", "zh.html": "zh", "projects.html": "ja"}
+TARGETS = ["index.html", "en/index.html", "zh.html", "company.html", "en/company.html", "projects.html"]
+# トップ3頁の言葉（<!--S:cards-->・<!--S:count-->・<!--S:date--> の言葉）。projects.html は日本語。
+# 会社案内（company.html・en/company.html）は冒頭の札の <!--S:count-->・<!--S:prefs--> だけを焼く（中国語の会社案内の頁は無い）
+TARGET_LANG = {"index.html": "ja", "en/index.html": "en", "zh.html": "zh", "company.html": "ja", "en/company.html": "en", "projects.html": "ja"}
 
 
 def _esc(v):
