@@ -10,11 +10,25 @@
   market-data.html            系統用蓄電池の売り案件 市場データ（当社観測）
   projects-<slug>.html ×9      管内別の案件一覧（東京・中部・九州・関西・中国・東北・北海道・北陸・四国）
                               件数が MIN_INDEX 未満の管内は noindex（薄いページを索引に出さない）
+  en/projects.html           英語の案件一覧（海外の買い手向け・1枚・価格なし・2026-10-31 新設）
+  en/market-data.html         英語の市場データ（日本語の /market-data と同じ集計・hreflang で相互に結ぶ・2026-11-22 新設）
+  files/market-data/*.csv     集計の CSV（日英・UTF-8 BOM 付き・CRLF）: 集計・週ごとの推移・買主のリクエストの条件
+  files/market-data/buyer-requests.json  買主のリクエスト（蓄電所マーケットの公開の口 /api/open/needs）の選択肢ごとの数の控え。
+                              --fetch-needs のときだけ口を読み、数が変わったときだけ書き直す（件数と選択肢ごとの数だけ。
+                              番号・載った日・買主の属性は持たない）。口が読めなければ前の控えのまま。
+
+2026-11-22（中島「これ全部やって。売上UPのために徹底的に進めて。すべて漏らさずやって。」・Gemini の助言 指令2＝一次情報）:
+  集計の節を3つ（電圧×取得の形・規模の区分・連系までの月数の取得の形別）、買主のリクエストの条件の集計、CSV、
+  Dataset の variableMeasured・distribution、表の caption・th scope・time、「引用のしかた」、英語の /en/market-data、
+  /en/projects の Dataset（件数の集計だけ）を足した。値のある件だけの集計は母数と欠けを併記し、件数の少ない区分は
+  MIN_GROUP（買主のリクエストは NEEDS_MIN）未満を「その他」にまとめる。価格・単価・負担金の額・案件の番号・市区町村は出さない
+  （CSV にも JSON-LD にも。O16-19・O16-20）。掲載の増え方は当社が一覧に載せた作業の波で、市場の伸びではないと注を付ける。
 
 使い方:
-    python3 scripts/build_market_data.py            # 書き換えて差分を報告
-    python3 scripts/build_market_data.py --check    # 書き換えずに、ずれているかだけ見る（ずれていれば 1）
-  en/projects.html            英語の案件一覧（海外の買い手向け・1枚・価格なし・2026-10-31 新設）
+    python3 scripts/build_market_data.py                  # 書き換えて差分を報告
+    python3 scripts/build_market_data.py --check          # 書き換えずに、ずれているかだけ見る（ずれていれば 1）
+    python3 scripts/build_market_data.py --fetch-needs    # 買主のリクエストを公開の口から数え直してから焼く（毎朝の同期）
+    python3 scripts/build_market_data.py --check --fetch-needs   # 口の今の数で、ずれているかだけ見る（控えは書かない）
 毎朝の同期（scripts/sync_projects_json.sh）が inject_stats.py の直後に呼ぶ。
 """
 from __future__ import annotations  # launchd の python3 は 3.9
@@ -23,8 +37,10 @@ import datetime
 import json
 import os
 import re
+import statistics
 import subprocess
 import sys
+import urllib.request
 from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -45,7 +61,22 @@ AREAS = [
     ("北陸", "hokuriku", "北陸電力送配電"),
     ("四国", "shikoku", "四国電力送配電"),
 ]
-OUTPUTS = ["market-data.html", "en/projects.html"] + [f"projects-{slug}.html" for _, slug, _ in AREAS]
+OUTPUTS = ["market-data.html", "en/projects.html", "en/market-data.html"] + [f"projects-{slug}.html" for _, slug, _ in AREAS]
+
+# 2026-11-22 足した集計・CSV・買主のリクエスト
+MIN_GROUP = 5    # 新しい集計の区分（電圧・取得の形の行・月数の行・CSV の管内と都道府県）は、件数がこれ未満なら「その他」にまとめる
+NEEDS_MIN = 3    # 買主のリクエストの選択肢は、数がこれ未満なら「その他の選択肢」にまとめる
+CSV_DIR = "files/market-data"
+CSV = {"summary": f"/{CSV_DIR}/market-data-summary.csv", "weekly": f"/{CSV_DIR}/market-data-weekly.csv",
+       "needs": f"/{CSV_DIR}/buyer-requests-summary.csv"}
+CSV_EN = {k: v.replace(".csv", "-en.csv") for k, v in CSV.items()}
+NEEDS_JSON = f"{CSV_DIR}/buyer-requests.json"
+NEEDS_API = "https://dealroom.scix.co.jp/api/open/needs"
+NEEDS_PAGE = "https://dealroom.scix.co.jp/needs"
+NEEDS_PAGE_EN = "https://dealroom.scix.co.jp/en/needs"
+GROWTH_NOTE = "掲載の件数の増え方は、当社が一覧に載せた作業の波（まとめて載せた日がある）で、市場の伸びを表すものではありません。"
+GROWTH_NOTE_EN = ("Growth in the number of listings reflects when we added projects to the list (some were added in batches), "
+                  "not growth of the market.")
 
 
 # ---------------------------------------------------------------- 集計
@@ -83,6 +114,8 @@ def stats(ps, today):
         "lead": lead, "lead_median": (lead[len(lead) // 2] if lead else None), "bands": bands,
         "basis": Counter(p.get("leadBasis") or "unspecified" for p in ps if isinstance(p.get("leadMonths"), (int, float))),
         "undecided": sum(1 for p in ps if not p.get("live") and not (p.get("codYm") and p["codYm"] >= today_ym)),
+        "lead_only": sum(1 for p in ps if not p.get("live") and not (p.get("codYm") and p["codYm"] >= today_ym)
+                         and isinstance(p.get("leadMonths"), (int, float))),
         "new14": sum(1 for p in ps if is_new(p, today)),
         "first_seen": sorted(fs.items())[-6:],
     }
@@ -235,12 +268,17 @@ def _mw_chart_ja(rows):
     return svg
 
 
+def _ths(cols):
+    """表の見出しの行（th scope=col）。"""
+    return "".join(f'<th scope="col">{_esc(c)}</th>' for c in cols)
+
+
 def weekly_section_ja(rows, generated):
     if len(rows) < 2:
         return ""
     last = rows[-1]
     body = "".join(
-        f'<tr><td>{_esc(_short(r["week"]))}{"（途中）" if i == len(rows) - 1 else ""}</td><td class="n">{r["n"]}</td><td class="n">{_mwcell(r)}</td>'
+        f'<tr><th scope="row"><time datetime="{r["week"]}">{_esc(_short(r["week"]))}</time>{"（途中）" if i == len(rows) - 1 else ""}</th><td class="n">{r["n"]}</td><td class="n">{_mwcell(r)}</td>'
         f'<td class="n">{r["hv"]}</td><td class="n">{r["ehv"]}</td><td class="n">{r["rights"]}</td><td class="n">{r["built"]}</td>'
         f'<td class="n">{r["new"]}</td></tr>' for i, r in enumerate(rows))
     nmw = sum(1 for r in rows if not r["mw_ok"])
@@ -255,8 +293,8 @@ def weekly_section_ja(rows, generated):
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">件数（高圧・特別高圧の積み上げ）</h3>{weekly_svg(rows, "hv", "ehv", "高圧", "特別高圧", "販売中の件数の週ごとの推移（高圧・特別高圧）", "件")}</div>
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">合計出力（MW）</h3>{_mw_chart_ja(rows)}</div>
   </div>
-  <div class="md-scroll"><table class="md-t"><thead><tr><th>週（月曜）</th><th>件数</th><th>合計MW</th><th>高圧</th><th>特別高圧</th><th>権利譲渡</th><th>完成渡し</th><th>新しく載った件</th></tr></thead><tbody>{body}</tbody></table></div>
-  <p class="md-note">図の件数は高圧と特別高圧の積み上げです。電圧が未設定の案件（直近は{last["other_v"]}件）は図に入らず、表の件数には入ります。{mw_note}「新しく載った件」は、その週に一覧へ載った案件の数です。取得の形が確認中の案件は、権利譲渡・完成渡しの列に入りません。当社の観測で、日本の市場全体の数ではありません。価格・案件名・所在地は載せていません。毎朝この表を作り直しています（直近は{last["n"]}件{last_mw}）。</p>
+  <div class="md-scroll"><table class="md-t"><caption>販売中の件数と合計出力の週ごとの推移（直近{len(rows)}週・高圧と特別高圧・権利譲渡と完成渡しの内訳）</caption><thead><tr>{_ths(["週（月曜）", "件数", "合計MW", "高圧", "特別高圧", "権利譲渡", "完成渡し", "新しく載った件"])}</tr></thead><tbody>{body}</tbody></table></div>
+  <p class="md-note">図の件数は高圧と特別高圧の積み上げです。電圧が未設定の案件（直近は{last["other_v"]}件）は図に入らず、表の件数には入ります。{mw_note}「新しく載った件」は、その週に一覧へ載った案件の数です。{GROWTH_NOTE}取得の形が確認中の案件は、権利譲渡・完成渡しの列に入りません。当社の観測で、日本の市場全体の数ではありません。価格・案件名・所在地は載せていません。毎朝この表を作り直しています（直近は{last["n"]}件{last_mw}）。</p>
 </div></section>
 """
 
@@ -266,7 +304,7 @@ def weekly_section_en(rows, generated):
         return ""
     last = rows[-1]
     body = "".join(
-        f'<tr><td>{_esc(_short(r["week"]))}{" (partial)" if i == len(rows) - 1 else ""}</td><td class="n">{r["n"]}</td><td class="n">{_mwcell(r)}</td>'
+        f'<tr><th scope="row"><time datetime="{r["week"]}">{_esc(_short(r["week"]))}</time>{" (partial)" if i == len(rows) - 1 else ""}</th><td class="n">{r["n"]}</td><td class="n">{_mwcell(r)}</td>'
         f'<td class="n">{r["hv"]}</td><td class="n">{r["ehv"]}</td><td class="n">{r["rights"]}</td><td class="n">{r["built"]}</td>'
         f'<td class="n">{r["new"]}</td></tr>' for i, r in enumerate(rows))
     return f"""<section class="md" id="weekly"><div class="container">
@@ -274,24 +312,25 @@ def weekly_section_en(rows, generated):
   <h2 class="md-h">Listed projects by week</h2>
   <p class="md-lead">Number and total capacity of the projects visible to buyers at the end of each week (Monday-start weeks, last {len(rows)}). The latest week is partial, as of {_esc(generated)}.</p>
   {weekly_svg(rows, "hv", "ehv", "High voltage", "Extra-high voltage", "Listed projects per week (high voltage and extra-high voltage)", "projects")}
-  <div class="md-scroll"><table class="md-t"><thead><tr><th>Week of</th><th>Projects</th><th>Total MW</th><th>High voltage</th><th>Extra-high</th><th>Transfer of rights</th><th>Completed-build</th><th>New listings</th></tr></thead><tbody>{body}</tbody></table></div>
-  <p class="md-note">The chart stacks high voltage and extra-high voltage; projects without a voltage ({last["other_v"]} in the latest week) are not in the chart but are in the table counts. {"Total MW is shown as &ldquo;&mdash;&rdquo; for weeks when many projects had no capacity value, so that gaps in the data are not read as a change in market size. " if any(not r["mw_ok"] for r in rows) else ""}ScienceX&rsquo;s own listings, not statistics for the whole Japanese market. Projects whose structure is under review are not in the last two structure columns. No prices, sites or names are published here.</p>
+  <div class="md-scroll"><table class="md-t"><caption>Listed projects and total capacity by week (last {len(rows)} weeks, by voltage class and structure)</caption><thead><tr>{_ths(["Week of", "Projects", "Total MW", "High voltage", "Extra-high", "Transfer of rights", "Completed-build", "New listings"])}</tr></thead><tbody>{body}</tbody></table></div>
+  <p class="md-note">The chart stacks high voltage and extra-high voltage; projects without a voltage ({last["other_v"]} in the latest week) are not in the chart but are in the table counts. {"Total MW is shown as &ldquo;&mdash;&rdquo; for weeks when many projects had no capacity value, so that gaps in the data are not read as a change in market size. " if any(not r["mw_ok"] for r in rows) else ""}{GROWTH_NOTE_EN} ScienceX&rsquo;s own listings, not statistics for the whole Japanese market. Projects whose structure is under review are not in the last two structure columns. No prices, sites or names are published here.</p>
 </div></section>
 """
 
 
 # ---------------------------------------------------------------- 部品
-def bar_rows(pairs, total, unit="件"):
+def bar_rows(pairs, total, unit="件", lang="ja"):
     """横棒の行。pairs=[(ラベル, 値)]。CSS だけで描く（JS 無し）。"""
     if not pairs or not total:
-        return "<p class=\"md-note\">該当なし</p>"
+        return "<p class=\"md-note\">該当なし</p>" if lang == "ja" else "<p class=\"md-note\">None</p>"
     mx = max(v for _, v in pairs) or 1
     out = ['<div class="md-bars">']
     for label, v in pairs:
         pct = v / total * 100
         out.append(f'<div class="md-bar"><span class="md-bar-l">{_esc(label)}</span>'
                    f'<span class="md-bar-t"><span class="md-bar-f" style="width:{v / mx * 100:.1f}%"></span></span>'
-                   f'<span class="md-bar-v">{v}{unit}<small>（{pct:.0f}%）</small></span></div>')
+                   + (f'<span class="md-bar-v">{v}{unit}<small>（{pct:.0f}%）</small></span></div>' if lang == "ja"
+                      else f'<span class="md-bar-v">{v}<small> ({pct:.0f}%)</small></span></div>'))
     out.append("</div>")
     return "\n".join(out)
 
@@ -344,7 +383,7 @@ h2.md-h{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--n
 .md-bar-v{color:var(--text-2);text-align:right}.md-bar-v small{color:var(--text-3);font-size:.8em;margin-left:2px}
 .md-note{font-size:.84rem;color:var(--text-3);margin-top:8px}
 .md-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px 40px}
-table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}.md-t th,.md-t td{border-bottom:1px solid var(--border);padding:7px 10px;text-align:left}.md-t th{color:var(--text-2);font-weight:500;background:var(--off-white)}.md-t td.n{text-align:right;font-variant-numeric:tabular-nums}
+table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}.md-t th,.md-t td{border-bottom:1px solid var(--border);padding:7px 10px;text-align:left}.md-t th{color:var(--text-2);font-weight:500;background:var(--off-white)}.md-t td.n{text-align:right;font-variant-numeric:tabular-nums}.md-scroll .md-t th,.md-scroll .md-t td.n{white-space:nowrap}
 .areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;max-width:900px}
 .areas a{display:block;border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--text);background:var(--white)}
 .areas a:hover{border-color:var(--gold)}.areas b{display:block;color:var(--navy);font-size:1rem}.areas span{font-size:.82rem;color:var(--text-2)}
@@ -364,6 +403,9 @@ table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}
 .scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(196,154,60,.5)}
 .md-svg{width:100%;height:auto;display:block;max-width:760px}.md-legend{display:flex;gap:16px;font-size:.8rem;color:var(--text-2);margin:4px 0 0}.md-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
 .md-scroll{overflow-x:auto;margin-top:18px}
+.md-t tbody th{background:none;color:var(--text);font-weight:500}.md-t caption{caption-side:top;text-align:left;font-size:.8rem;color:var(--text-3);padding:0 0 6px}
+.cite p{margin:4px 0}.cite .cite-line{margin:8px 0;padding:8px 12px;background:#fff;border:1px solid var(--border);border-radius:6px;overflow-wrap:anywhere}.cite .cite-meta{font-size:.8rem;color:var(--text-3);overflow-wrap:anywhere}
+.md-dl{list-style:none;padding:0;margin:0 0 6px;max-width:760px}.md-dl li{padding:8px 0;border-bottom:1px solid var(--border);font-size:.9rem}.md-dl a{color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold)}.md-dl small{display:block;color:var(--text-3);font-size:.8rem}
 @media(max-width:640px){.md-bar{grid-template-columns:7em 1fr 7em;font-size:.82rem}.hero{padding:48px 0 32px}}
 """
 
@@ -464,6 +506,7 @@ def nav_crumbs(items):
 
 ORG = {"@type": "Organization", "@id": BASE + "/#organization", "name": "ScienceX", "legalName": "サイエンスエックス株式会社",
        "url": BASE + "/"}
+EN_ORG = {"@type": "Organization", "@id": BASE + "/#organization", "name": "ScienceX", "legalName": "Science X Inc.", "url": BASE + "/en"}
 
 CTA = """<section class="cta"><div class="container">
   <h2>案件そのものは、蓄電所マーケットでご覧いただけます</h2>
@@ -478,9 +521,598 @@ NOTE_SCOPE = ("ここで数えているのは、当社に持ち込まれ、一�
               "数字は毎朝、案件一覧と同じデータから自動で集計し直しています。")
 
 
+# ---------------------------------------------------------------- 2026-11-22 足した集計（値のある件だけ・母数と欠けを併記）
+SIZE_BINS = [(None, 2, "2MW未満", "Under 2 MW"), (2, 10, "2〜10MW未満", "2 to under 10 MW"),
+             (10, 30, "10〜30MW未満", "10 to under 30 MW"), (30, None, "30MW以上", "30 MW or more")]
+LEAD_BANDS = [("6か月以内", "Within 6 months"), ("7〜12か月", "7–12 months"), ("13〜24か月", "13–24 months"), ("25か月以上", "25 months or more")]
+VOLT_ORDER = ["高圧", "特別高圧", "低圧", "確認中"]
+SCHEME_COLS = ["権利譲渡", "完成渡し", "確認中"]
+OTHER = "その他"
+
+
+def _num(v):
+    return isinstance(v, (int, float)) and not isinstance(v, bool)
+
+
+def lead_band(n):
+    return "6か月以内" if n <= 6 else "7〜12か月" if n <= 12 else "13〜24か月" if n <= 24 else "25か月以上"
+
+
+def size_bin(mw):
+    for lo, hi, ja, _ in SIZE_BINS:
+        if (lo is None or mw >= lo) and (hi is None or mw < hi):
+            return ja
+    return SIZE_BINS[-1][2]
+
+
+def _med(xs):
+    """中央値（偶数個なら真ん中2つの平均）。表示は小数1桁まで。"""
+    m = statistics.median(xs)
+    return round(m, 1) if isinstance(m, float) else m
+
+
+def _g(v):
+    return f"{v:g}" if _num(v) else "—"
+
+
+def extra_stats(ps):
+    """電圧×取得の形・規模の区分・連系までの月数（取得の形別・電圧別）。件数が MIN_GROUP 未満の電圧は「その他」にまとめる。"""
+    n = len(ps)
+
+    def vg(p):
+        return p.get("voltage") or "確認中"
+
+    def sg(p):
+        s = p.get("scheme")
+        return s if s in ("権利譲渡", "完成渡し") else "確認中"
+    vt = Counter(vg(p) for p in ps)
+    keep = [v for v in VOLT_ORDER if vt.get(v, 0) >= MIN_GROUP] + sorted(v for v in vt if v not in VOLT_ORDER and vt[v] >= MIN_GROUP)
+    merged = sorted((v for v in vt if v not in keep), key=lambda v: (VOLT_ORDER.index(v) if v in VOLT_ORDER else 99, v))
+
+    def vgm(p):
+        v = vg(p)
+        return v if v in keep else OTHER
+    vrows = keep + ([OTHER] if merged else [])
+    cross = Counter((vgm(p), sg(p)) for p in ps)
+    scols = [s for s in SCHEME_COLS if any(sg(p) == s for p in ps)]
+    mw_ps = [p for p in ps if _num(p.get("mw"))]
+    size = Counter(size_bin(p["mw"]) for p in mw_ps)
+    size_med = []
+    for v in vrows:
+        xs = [p["mw"] for p in mw_ps if vgm(p) == v]
+        if len(xs) >= MIN_GROUP:
+            size_med.append((v, _med(xs), len(xs)))
+    lead_ps = [p for p in ps if _num(p.get("leadMonths"))]
+
+    def lead_rows(key, order):
+        rows, other = [], 0
+        for k in order:
+            xs = sorted(p["leadMonths"] for p in lead_ps if key(p) == k)
+            if len(xs) >= MIN_GROUP:
+                rows.append({"k": k, "n": len(xs), "med": _med(xs), "bands": Counter(lead_band(x) for x in xs)})
+            else:
+                other += len(xs)
+        return rows, other
+    lead_s, lead_s_other = lead_rows(sg, SCHEME_COLS)
+    lead_v, lead_v_other = lead_rows(vgm, vrows)
+    return {"n": n, "vrows": vrows, "vmerged": merged, "scols": scols, "cross": cross,
+            "vtotal": Counter(vgm(p) for p in ps), "stotal": Counter(sg(p) for p in ps),
+            "n_mw": len(mw_ps), "size": size, "size_med": size_med,
+            "n_lead": len(lead_ps), "lead_s": lead_s, "lead_s_other": lead_s_other, "lead_v": lead_v, "lead_v_other": lead_v_other}
+
+
+def merge_small(counter, keep_min, other_label=OTHER):
+    """[(区分, 件数)]。件数が keep_min 未満の区分を other_label にまとめ、まとめた区分の名前も返す。"""
+    keep = [(k, v) for k, v in counter.most_common() if v >= keep_min]
+    small = sorted(k for k, v in counter.items() if v < keep_min)
+    if small:
+        keep.append((other_label, sum(counter[k] for k in small)))
+    return keep, small
+
+
+# ---------------------------------------------------------------- 買主のリクエスト（公開の口の選択肢ごとの数だけ）
+NEEDS_FIELDS = [("sale_type", "買い方", "Purchase structure"), ("voltage", "電圧", "Voltage"),
+                ("grid_area", "求めるエリア（複数選べる・延べ）", "Grid areas wanted (several allowed)"),
+                ("cod", "運転開始の希望", "Wanted commercial operation"), ("grid_stage", "電力の手続き", "Grid-process stage wanted")]
+NEEDS_ORDER = {"sale_type": ["権利渡し", "完成渡し"], "voltage": ["高圧", "特別高圧", "高圧・特別高圧", "低圧"],
+               "grid_area": ["北海道", "東北", "東京", "中部", "北陸", "関西", "中国", "四国", "九州", "沖縄"],
+               "grid_stage": ["本回答あり（またはその先）", "保証金支払済（またはその先）", "工事負担金支払済（またはその先）"]}
+NEEDS_EN = {"権利渡し": "Transfer of rights", "完成渡し": "Completed-build handover", "高圧": "High voltage", "特別高圧": "Extra-high voltage",
+            "高圧・特別高圧": "High or extra-high voltage", "低圧": "Low voltage",
+            "本回答あり（またはその先）": "Answer to the connection application received (or later)",
+            "保証金支払済（またはその先）": "Grid deposit paid (or later)",
+            "工事負担金支払済（またはその先）": "Grid construction cost paid (or later)"}
+
+
+def needs_counts(items):
+    """公開の口の needs[] → {"n", "fields": {k: {"set": 書いた件数, "values": {選択肢: 数}}}}。エリアは「・」で分けて延べで数える。"""
+    out = {"n": len(items), "fields": {}}
+    for k, _, _ in NEEDS_FIELDS:
+        vals, n_set = Counter(), 0
+        for it in items:
+            v = next((r.get("value") for r in it.get("rows", []) if r.get("k") == k and r.get("value")), None)
+            if not v:
+                continue
+            n_set += 1
+            for part in (v.split("・") if k == "grid_area" else [v]):
+                vals[part.strip()] += 1
+        out["fields"][k] = {"set": n_set, "values": dict(sorted(vals.items()))}
+    return merge_small_needs(out)
+
+
+def merge_small_needs(nd):
+    """NEEDS_MIN 未満の選択肢を「その他の選択肢」に足し込む。公開の控え（buyer-requests.json）も頁と同じ、まとめた後の数だけを持つ。"""
+    if not nd:
+        return nd
+    for f in nd.get("fields", {}).values():
+        vals = f.get("values", {})
+        small = sum(v for x, v in vals.items() if x == "その他の選択肢" or v < NEEDS_MIN)
+        kept = {x: v for x, v in vals.items() if x != "その他の選択肢" and v >= NEEDS_MIN}
+        if small:
+            kept["その他の選択肢"] = small
+        f["values"] = dict(sorted(kept.items()))
+    return nd
+
+
+def load_needs():
+    try:
+        with open(os.path.join(ROOT, NEEDS_JSON), encoding="utf-8") as f:
+            return merge_small_needs(json.load(f))
+    except (OSError, ValueError):
+        return None
+
+
+def fetch_needs(today):
+    """公開の口を読み、選択肢ごとの数の控え（dict）を返す。数が前の控えと同じなら前の控えをそのまま返す（日付を動かさない）。
+    読めない・形が違うときは前の控え（無ければ None）。"""
+    old = load_needs()
+    try:
+        req = urllib.request.Request(NEEDS_API, headers={"User-Agent": "scix-web-build/1.0", "Accept": "application/json"})
+        with urllib.request.urlopen(req, timeout=20) as r:
+            items = json.loads(r.read().decode("utf-8")).get("needs")
+        if not isinstance(items, list):
+            raise ValueError("needs が配列でない")
+    except (OSError, ValueError) as e:
+        print(f"注意: 買主のリクエストの口が読めない（前の控えのまま）: {e}", file=sys.stderr)
+        return old
+    c = needs_counts(items)
+    if old and old.get("n") == c["n"] and old.get("fields") == c["fields"]:
+        return old
+    return {"source": NEEDS_PAGE, "asOf": today.isoformat(), **c}
+
+
+def needs_text(nd):
+    return json.dumps(nd, ensure_ascii=False, indent=1, sort_keys=True) + "\n"
+
+
+def _cod_key(v):
+    m = re.match(r"(\d{4})年(\d{1,2})月", v)
+    return (int(m.group(1)), int(m.group(2))) if m else (9999, 99)
+
+
+def needs_pairs(nd, k):
+    """1つの項目の [(選択肢, 数)]（並びは決まった順・NEEDS_MIN 未満は「その他の選択肢」）と「指定なし」の数。"""
+    f = nd["fields"].get(k) or {"set": 0, "values": {}}
+    vals = f["values"]
+    order = NEEDS_ORDER.get(k)
+    if k == "cod":
+        keys = sorted(vals, key=_cod_key)
+    elif order:
+        keys = [x for x in order if x in vals] + sorted(x for x in vals if x not in order)
+    else:
+        keys = sorted(vals)
+    pairs = [(x, vals[x]) for x in keys if vals[x] >= NEEDS_MIN and x != "その他の選択肢"]
+    small = sum(vals[x] for x in keys if vals[x] < NEEDS_MIN or x == "その他の選択肢")
+    if small:
+        pairs.append(("その他の選択肢", small))
+    return pairs, nd["n"] - f["set"], f["set"]
+
+
+def needs_en(v):
+    if v in NEEDS_EN:
+        return NEEDS_EN[v]
+    if v in EN_AREA:
+        return EN_AREA[v]
+    if v == "その他の選択肢":
+        return "Other options"
+    m = re.match(r"(\d{4})年(\d{1,2})月まで$", v)
+    if m:
+        return f"By {EN_MON[int(m.group(2)) - 1]} {m.group(1)}"
+    return None
+
+
+# ---------------------------------------------------------------- 引用のしかた（データの頁に共通）
+def cite_html(lang, name, url, updated, extra=""):
+    """「引用のしかた」の箱: 出典として書く1行・頁の住所・更新日。license の住所は付けない（利用条件を名乗るかは中島さんの決め）。"""
+    t = f'<time datetime="{_esc(updated)}">{_esc(updated)}</time>'
+    if lang == "ja":
+        return (f'<div class="cite" id="cite"><div class="cite-h">引用のしかた</div>'
+                f'<p>この頁の数字・図表の引用を歓迎します。記事・資料・社内の検討にお使いいただくときは、出典として次の1行をお書きください。</p>'
+                f'<p class="cite-line">出典: サイエンスエックス株式会社『{_esc(name)}』（{_esc(updated)} 更新） {_esc(url)}</p>'
+                f'<p class="cite-meta">頁の住所: <a href="{_esc(url)}">{_esc(url)}</a>　更新日: {t}</p>{extra}</div>')
+    return (f'<div class="cite" id="cite"><div class="cite-h">How to cite</div>'
+            f'<p>You are welcome to quote the figures and charts on this page. Please give the source as follows.</p>'
+            f'<p class="cite-line">Source: Science X Inc., &ldquo;{_esc(name)}&rdquo; (updated {_esc(updated)}), {_esc(url)}</p>'
+            f'<p class="cite-meta">Page: <a href="{_esc(url)}">{_esc(url)}</a> &middot; Updated: {t}</p>{extra}</div>')
+
+
+# ---------------------------------------------------------------- CSV（UTF-8 BOM 付き・CRLF。/report/data と同じ型）
+def csv_text(rows):
+    def q(c):
+        c = "" if c is None else str(c)
+        return '"' + c.replace('"', '""') + '"' if any(x in c for x in ',"\n') else c
+    return "﻿" + "".join(",".join(q(c) for c in r) + "\r\n" for r in rows)
+
+
+def _en_label(kind, v):
+    """CSV・英語の頁の区分の英語。"""
+    if v == OTHER:
+        return "Other"
+    if kind == "area":
+        return EN_AREA.get(v, v)
+    if kind == "pref":
+        return EN_PREF.get(v, v)
+    if kind == "volt":
+        return EN_VOLT.get(v, "Under review" if v == "確認中" else v)
+    if kind == "scheme":
+        return EN_SCHEME.get(v, "Under review" if v == "確認中" else v)
+    if kind == "status":
+        return EN_STATUS.get(v, "Under review" if v == "確認中" else v)
+    if kind == "size":
+        return next((en for _, _, ja, en in SIZE_BINS if ja == v), v)
+    if kind == "band":
+        return dict(LEAD_BANDS).get(v, v)
+    if kind == "half":
+        m = re.match(r"(\d{4})年度(上期|下期)", v)
+        return f"FY{m.group(1)} {'H1 (Apr–Sep)' if m.group(2) == '上期' else 'H2 (Oct–Mar)'}" if m else v
+    return v
+
+
+def summary_rows(ps, s, x, generated, today):
+    """集計の CSV の行（日英の組）。1行＝(集計, 区分, 内訳, 値, 単位, 母数, 注記) の (ja, en)。"""
+    rows = []
+
+    def add(kind, cat, sub, val, unit, base, note=("", "")):
+        rows.append((kind, cat, sub, val, unit, base, note))
+    n = s["n"]
+    U = ("件", "projects")
+    n_mw = sum(1 for p in ps if _num(p.get("mw")))
+    n_mwh = sum(1 for p in ps if _num(p.get("mwh")))
+    add(("全体", "Overall"), ("販売中の案件", "Projects listed for sale"), ("", ""), n, U, n)
+    add(("全体", "Overall"), ("合計出力", "Total capacity"), ("", ""), s["mw"], ("MW", "MW"), n_mw,
+        (f"出力の値が無い{n - n_mw}件は除く", f"Excludes {n - n_mw} projects without a MW value"))
+    add(("全体", "Overall"), ("合計容量", "Total energy"), ("", ""), s["mwh"], ("MWh", "MWh"), n_mwh,
+        (f"容量の値が無い{n - n_mwh}件は除く", f"Excludes {n - n_mwh} projects without a MWh value"))
+    pairs, small = merge_small(s["area"], MIN_GROUP)
+    for a, c in pairs:
+        note = (f"{MIN_GROUP}件未満の管内（{'・'.join(small)}）をまとめた", f"Grid areas with fewer than {MIN_GROUP} projects combined") if a == OTHER else ("", "")
+        add(("管内別", "By grid area"), (a, _en_label("area", a)), ("", ""), c, U, n, note)
+    top = s["pref"].most_common(10)
+    rest = n - sum(c for _, c in top)
+    for p_, c in top:
+        add(("都道府県別（上位10）", "By prefecture (top 10)"), (p_, _en_label("pref", p_)), ("", ""), c, U, n)
+    if rest:
+        k = len(s["pref"]) - len(top)
+        add(("都道府県別（上位10）", "By prefecture (top 10)"), (OTHER, "Other"), ("", ""), rest, U, n,
+            (f"上位10の外の{k}都道府県（と所在県が確認中の案件）", f"The other {k} prefectures (and projects whose prefecture is under review)"))
+    for kind, key, lab in (("電圧区分", "voltage", "By voltage class"), ("取得の形", "scheme", "By structure"), ("進み具合", "status", "By status")):
+        lk = {"voltage": "volt", "scheme": "scheme", "status": "status"}[key]
+        for k, c in Counter(p.get(key) or "確認中" for p in ps).most_common():
+            add((kind, lab), (k, _en_label(lk, k)), ("", ""), c, U, n)
+    for v in x["vrows"]:
+        for sc in x["scols"]:
+            note = (f"{MIN_GROUP}件未満の電圧（{'・'.join(x['vmerged'])}）をまとめた", f"Voltage classes with fewer than {MIN_GROUP} projects combined") if v == OTHER else ("", "")
+            add(("電圧×取得の形", "Voltage class × structure"), (v, _en_label("volt", v)), (sc, _en_label("scheme", sc)),
+                x["cross"].get((v, sc), 0), U, x["vtotal"][v], note)
+    for _, _, ja, en in SIZE_BINS:
+        add(("規模の区分", "By size"), (ja, en), ("", ""), x["size"].get(ja, 0), U, x["n_mw"],
+            (f"出力の値が無い{n - x['n_mw']}件は除く", f"Excludes {n - x['n_mw']} projects without a MW value"))
+    for v, med, k in x["size_med"]:
+        add(("規模の中央値（電圧別）", "Median size by voltage class"), (v, _en_label("volt", v)), ("", ""), _g(med), ("MW（中央値）", "MW (median)"), k)
+    for ja, en in LEAD_BANDS:
+        add(("連系までの月数の区分", "Months to grid connection (bands)"), (ja, en), ("", ""), s["bands"].get(ja, 0), U, len(s["lead"]),
+            (f"月数の無い{n - len(s['lead'])}件は除く・起点は回答書の記載のまま", f"Excludes {n - len(s['lead'])} projects without a figure; start point as written in the utility's answer"))
+    for kind, rws, other, lk in ((("連系までの月数（取得の形別）", "Months to grid connection by structure"), x["lead_s"], x["lead_s_other"], "scheme"),
+                                 (("連系までの月数（電圧別）", "Months to grid connection by voltage class"), x["lead_v"], x["lead_v_other"], "volt")):
+        for r in rws:
+            add(kind, (r["k"], _en_label(lk, r["k"])), ("中央値", "median"), _g(r["med"]), ("か月", "months"), r["n"],
+                ((f"月数のある{MIN_GROUP}件未満の区分（{other}件）は除く" if other else ""), (f"Groups with fewer than {MIN_GROUP} figures ({other} projects) excluded" if other else "")))
+            for ja, en in LEAD_BANDS:
+                add(kind, (r["k"], _en_label(lk, r["k"])), (ja, en), r["bands"].get(ja, 0), U, r["n"])
+    for h, c in sorted(s["half"].items()):
+        add(("運転開始の予定（年度・半期）", "Planned COD (Japanese fiscal half-year)"), (h, _en_label("half", h)), ("", ""), c, U, s["ym_known"],
+            ("今日より後の予定がある件だけ（連系済みは除く）", "Only projects with a future planned date (grid-connected excluded)"))
+    fs = Counter((p.get("firstSeen") or "")[:7] for p in ps if p.get("firstSeen"))
+    for m, c in sorted(fs.items()):
+        add(("掲載月", "Month first listed"), (m, m), ("", ""), c, U, n,
+            ("当社が一覧に載せた作業の波で、市場の伸びではない", "Reflects when we added projects to the list, not market growth"))
+    return rows
+
+
+def summary_csv(rows, lang, generated):
+    i = 0 if lang == "ja" else 1
+    src = BASE + ("/market-data" if lang == "ja" else "/en/market-data")
+    head = (["集計日", "集計", "区分", "内訳", "値", "単位", "母数", "注記", "出典"] if lang == "ja"
+            else ["as_of", "table", "category", "breakdown", "value", "unit", "base", "note", "source"])
+    out = [head]
+    for kind, cat, sub, val, unit, base, note in rows:
+        out.append([generated, kind[i], cat[i], sub[i], val, unit[i], base, note[i], src])
+    return csv_text(out)
+
+
+def weekly_csv(weekly, lang, generated):
+    src = BASE + ("/market-data" if lang == "ja" else "/en/market-data")
+    head = (["週（月曜はじまり）", "途中の週", "件数", "合計出力（MW）", "高圧", "特別高圧", "権利譲渡", "完成渡し", "新しく載った件", "注記", "出典"] if lang == "ja"
+            else ["week_start_monday", "partial_week", "projects", "total_mw", "high_voltage", "extra_high_voltage", "transfer_of_rights", "completed_build", "new_listings", "note", "source"])
+    out = [head]
+    rows = list(weekly)
+    for j, r in enumerate(rows):
+        last = j == len(rows) - 1
+        note = []
+        if not r["mw_ok"]:
+            note.append("出力の値が空の案件が多い週のため合計出力は空欄" if lang == "ja" else "Total MW left blank: many projects had no MW value that week")
+        if j == 0:
+            note.append(GROWTH_NOTE if lang == "ja" else GROWTH_NOTE_EN)
+        if last:
+            note.append(f"{generated}時点の途中の数" if lang == "ja" else f"Partial week, as of {generated}")
+        out.append([r["week"], ("はい" if lang == "ja" else "yes") if last else "", r["n"], r["mw"] if r["mw_ok"] else "", r["hv"], r["ehv"],
+                    r["rights"], r["built"], r["new"], " / ".join(note), src])
+    return csv_text(out)
+
+
+def needs_csv(nd, lang):
+    src = NEEDS_PAGE if lang == "ja" else NEEDS_PAGE_EN
+    head = (["件数が変わった日", "集計", "選択肢", "数", "母数", "注記", "出典"] if lang == "ja"
+            else ["last_changed", "field", "option", "count", "base", "note", "source"])
+    out = [head, [nd["asOf"], "いま載っているリクエスト" if lang == "ja" else "Requests now listed", "", nd["n"], nd["n"], "", src]]
+    for k, ja, en in NEEDS_FIELDS:
+        pairs, unset, n_set = needs_pairs(nd, k)
+        for v, c in pairs:
+            lab = v if lang == "ja" else (needs_en(v) or "Other options")
+            note = (f"{NEEDS_MIN}件未満の選択肢をまとめた" if lang == "ja" else f"Options with fewer than {NEEDS_MIN} combined") if v == "その他の選択肢" else ""
+            if k == "grid_area" and not note:
+                note = "延べ（1件で複数を選べる）" if lang == "ja" else "Several areas per request allowed"
+            out.append([nd["asOf"], ja if lang == "ja" else en, lab, c, nd["n"], note, src])
+        if unset:
+            out.append([nd["asOf"], ja if lang == "ja" else en, "指定なし" if lang == "ja" else "Not specified", unset, nd["n"], "", src])
+    return csv_text(out)
+
+
+# ---------------------------------------------------------------- 2026-11-22 足した節（日英）
+H3 = '<h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">'
+H3B = '<h3 style="font-size:.95rem;color:var(--navy);margin:14px 0 6px">'
+
+
+def _vl(v, lang):
+    return (v if v != "確認中" else "電圧 確認中") if lang == "ja" else _en_label("volt", v)
+
+
+def _sl(v, lang):
+    return v if lang == "ja" else _en_label("scheme", v)
+
+
+def _list_ja(items):
+    return "・".join(items)
+
+
+def section_voltage_scheme(x, lang):
+    cols = x["scols"]
+    J = lang == "ja"
+    head = [("電圧" if J else "Voltage class")] + [_sl(c, lang) for c in cols] + [("計" if J else "Total")]
+    body = "".join(
+        f'<tr><th scope="row">{_esc(_vl(v, lang))}</th>' + "".join(f'<td class="n">{x["cross"].get((v, c), 0)}</td>' for c in cols)
+        + f'<td class="n">{x["vtotal"][v]}</td></tr>' for v in x["vrows"])
+    body += (f'<tr><th scope="row">{"計" if J else "Total"}</th>' + "".join(f'<td class="n">{x["stotal"].get(c, 0)}</td>' for c in cols)
+             + f'<td class="n">{x["n"]}</td></tr>')
+    hv, ehv = x["vtotal"].get("高圧", 0), x["vtotal"].get("特別高圧", 0)
+    if J:
+        say = ""
+        if hv and ehv:
+            say = (f"高圧は{hv}件のうち{x['cross'].get(('高圧', '完成渡し'), 0)}件が完成渡し、"
+                   f"特別高圧は{ehv}件のうち{x['cross'].get(('特別高圧', '権利譲渡'), 0)}件が権利譲渡です。")
+        merged = f"件数が{MIN_GROUP}件未満の電圧（{_list_ja(x['vmerged'])}）は「その他」にまとめました。" if x["vmerged"] else ""
+        return f"""<section class="md" id="voltage-structure"><div class="container">
+  <div class="section-label">電圧×取得の形</div>
+  <h2 class="md-h">電圧と取得の形の組み合わせ</h2>
+  <p class="md-lead">電圧ごとに、権利で買って自分で建てる案件（権利譲渡）と、建った状態で受け取る案件（完成渡し）がどれだけあるかです。{say}</p>
+  <div class="md-scroll"><table class="md-t"><caption>電圧区分と取得の形の組み合わせごとの件数（全{x['n']}件）</caption><thead><tr>{_ths(head)}</tr></thead><tbody>{body}</tbody></table></div>
+  <p class="md-note">全{x['n']}件を数えています。{merged}取得の形がまだ決まっていない案件は「確認中」です。</p>
+</div></section>
+"""
+    say = ""
+    if hv and ehv:
+        say = (f" Of {hv} high-voltage projects, {x['cross'].get(('高圧', '完成渡し'), 0)} are completed-build handovers; "
+               f"of {ehv} extra-high-voltage projects, {x['cross'].get(('特別高圧', '権利譲渡'), 0)} are transfers of rights.")
+    merged = (f" Voltage classes with fewer than {MIN_GROUP} projects ({', '.join(_en_label('volt', v) for v in x['vmerged'])}) are combined as &ldquo;Other&rdquo;."
+              if x["vmerged"] else "")
+    return f"""<section class="md" id="voltage-structure"><div class="container">
+  <div class="section-label">Voltage × structure</div>
+  <h2 class="md-h">Voltage class and structure combined</h2>
+  <p class="md-lead">For each voltage class, how many projects are sold as development rights (the buyer builds) and how many as completed-build handovers.{say}</p>
+  <div class="md-scroll"><table class="md-t"><caption>Projects by voltage class and structure (all {x['n']} projects)</caption><thead><tr>{_ths(head)}</tr></thead><tbody>{body}</tbody></table></div>
+  <p class="md-note">All {x['n']} projects are counted.{merged} &ldquo;Under review&rdquo; means the structure is not yet fixed.</p>
+</div></section>
+"""
+
+
+def section_size(x, lang):
+    J = lang == "ja"
+    n, k = x["n"], x["n_mw"]
+    pairs = [((ja if J else en), x["size"].get(ja, 0)) for _, _, ja, en in SIZE_BINS]
+    if J:
+        med = "、".join(f"{_vl(v, lang)}が{_g(m)}MW（{c}件）" for v, m, c in x["size_med"])
+        return f"""<section class="md" id="size"><div class="container">
+  <div class="section-label">規模</div>
+  <h2 class="md-h">規模の区分（出力 MW）</h2>
+  <p class="md-lead">出力（MW）の値がある{k}件を、規模で分けました（全{n}件のうち{n - k}件は値が無く、数えていません）。{f"中央値は、{med}です。" if med else ""}</p>
+  <div class="md-grid"><div>{bar_rows(pairs, k)}</div></div>
+  <p class="md-note">割合は値のある{k}件に対する割合です。中央値は、件数が{MIN_GROUP}件以上の電圧だけを出しています。</p>
+</div></section>
+"""
+    med = "; ".join(f"{_vl(v, lang).lower()} {_g(m)} MW ({c} projects)" for v, m, c in x["size_med"])
+    return f"""<section class="md" id="size"><div class="container">
+  <div class="section-label">Size</div>
+  <h2 class="md-h">Projects by size (MW)</h2>
+  <p class="md-lead">The {k} projects with a capacity value, grouped by size ({n - k} of the {n} projects have no value and are not counted).{f" Median size: {med}." if med else ""}</p>
+  <div class="md-grid"><div>{bar_rows(pairs, k, lang="en")}</div></div>
+  <p class="md-note">Shares are of the {k} projects with a value. Medians are shown only for voltage classes with at least {MIN_GROUP} projects.</p>
+</div></section>
+"""
+
+
+def section_lead_by_scheme(x, s, lang):
+    J = lang == "ja"
+    n, k = x["n"], x["n_lead"]
+    if not x["lead_s"]:
+        return ""
+    head = [("取得の形" if J else "Structure"), ("月数のある件" if J else "Projects with a figure"), ("中央値" if J else "Median")] + [
+        (ja if J else en) for ja, en in LEAD_BANDS]
+    body = "".join(
+        f'<tr><th scope="row">{_esc(_sl(r["k"], lang))}</th><td class="n">{r["n"]}</td><td class="n">{_g(r["med"])}{"か月" if J else " months"}</td>'
+        + "".join(f'<td class="n">{r["bands"].get(ja, 0)}</td>' for ja, _ in LEAD_BANDS) + "</tr>" for r in x["lead_s"])
+    if J:
+        vmed = "、".join(f"{_vl(r['k'], lang)}が{_g(r['med'])}か月（{r['n']}件）" for r in x["lead_v"])
+        other = f"月数のある件が{MIN_GROUP}件未満の取得の形（{x['lead_s_other']}件）は表に出していません。" if x["lead_s_other"] else ""
+        return f"""<section class="md" id="lead-structure"><div class="container">
+  <div class="section-label">連系までの月数×取得の形</div>
+  <h2 class="md-h">連系までの月数を、取得の形ごとに</h2>
+  <p class="md-lead">接続検討回答書に書かれた「連系までにかかる月数」がある{k}件を、取得の形ごとに数えました（全{n}件のうち{n - k}件は月数が無く、数えていません）。{f"電圧で分けると、中央値は{vmed}です。" if vmed else ""}</p>
+  <div class="md-scroll"><table class="md-t"><caption>取得の形ごとの、回答書の連系までの月数（中央値と区分ごとの件数・月数のある{k}件）</caption><thead><tr>{_ths(head)}</tr></thead><tbody>{body}</tbody></table></div>
+  <p class="md-note">月数は回答書の記載のままで、起点（工事費負担金の入金からなど）が書かれているのは{k - s['basis'].get('unspecified', 0)}件です（内訳は上の「月数の起点」）。運転開始の予定日から数えた月数ではありません。{other}</p>
+</div></section>
+"""
+    vmed = "; ".join(f"{_vl(r['k'], lang).lower()} {_g(r['med'])} months ({r['n']} projects)" for r in x["lead_v"])
+    other = (f" Structures with fewer than {MIN_GROUP} figures ({x['lead_s_other']} project{'' if x['lead_s_other'] == 1 else 's'}) are not shown."
+             if x["lead_s_other"] else "")
+    return f"""<section class="md" id="lead-structure"><div class="container">
+  <div class="section-label">Months to connection × structure</div>
+  <h2 class="md-h">Months to grid connection, by structure</h2>
+  <p class="md-lead">The {k} projects whose grid connection study answer states the months needed to connect, counted by structure ({n - k} of the {n} projects have no figure and are not counted).{f" By voltage class, the median is {vmed}." if vmed else ""}</p>
+  <div class="md-scroll"><table class="md-t"><caption>Months to grid connection stated in the utility&rsquo;s answer, by structure (median and counts per band, {k} projects with a figure)</caption><thead><tr>{_ths(head)}</tr></thead><tbody>{body}</tbody></table></div>
+  <p class="md-note">The months are as written in the utility&rsquo;s answer; {k - s['basis'].get('unspecified', 0)} of them state a start point (such as payment of the grid construction cost). These are not months from the planned commercial operation date.{other}</p>
+</div></section>
+"""
+
+
+def section_needs(nd, lang):
+    """買主のリクエストの条件（いま載っている件数と選択肢ごとの数だけ。買主の属性・載った日・推移は出さない）。"""
+    if not nd or not nd.get("n"):
+        return ""
+    J = lang == "ja"
+    n = nd["n"]
+    blocks = []
+    for k, ja, en in NEEDS_FIELDS:
+        pairs, unset, n_set = needs_pairs(nd, k)
+        if not J:
+            agg = Counter()
+            for v, c in pairs:
+                agg[needs_en(v) or "Other options"] += c
+            order = []
+            for v, _ in pairs:
+                lab = needs_en(v) or "Other options"
+                if lab not in order:
+                    order.append(lab)
+            pairs = [(lab, agg[lab]) for lab in order]
+        if unset:
+            pairs = pairs + [("指定なし" if J else "Not specified", unset)]
+        blocks.append(f'<div>{H3}{_esc(ja if J else en)}</h3>{bar_rows(pairs, n, lang=lang)}</div>')
+    asof = nd.get("asOf", "")
+    if J:
+        return f"""<section class="md" id="buyer-requests"><div class="container">
+  <div class="section-label">買主のリクエスト</div>
+  <h2 class="md-h">いま載っている買主のリクエストの条件（{n}件）</h2>
+  <p class="md-lead">蓄電所マーケットの<a href="{NEEDS_PAGE}" target="_top">買主のリクエスト</a>（買いたい案件の条件を、買主が載せたもの）に、いま載っている{n}件の条件を、選択肢ごとに数えました。売りたい案件が条件に合うかの見当付けにお使いください。</p>
+  <div class="md-grid">{"".join(blocks)}</div>
+  <p class="md-note">{n}件と少ないため、増え方（推移）は出していません。買主の会社の属性と、載った日も出していません。求めるエリアは1件で複数を選べるので延べの数で、割合は{n}件に対する割合です。{NEEDS_MIN}件未満の選択肢は「その他の選択肢」にまとめ、条件を書いていないリクエストは「指定なし」にしました。毎朝、蓄電所マーケットの公開の一覧から数え直しています（件数が最後に変わった日: <time datetime="{_esc(asof)}">{_esc(asof)}</time>）。</p>
+</div></section>
+"""
+    return f"""<section class="md" id="buyer-requests"><div class="container">
+  <div class="section-label">Buyer requests</div>
+  <h2 class="md-h">What buyers are asking for now ({n} requests)</h2>
+  <p class="md-lead">The conditions in the {n} <a href="{NEEDS_PAGE_EN}" target="_top">buyer requests</a> now listed on Chikudensho Market (conditions that buyers post for projects they want to buy), counted by option.</p>
+  <div class="md-grid">{"".join(blocks)}</div>
+  <p class="md-note">With only {n} requests, no trend over time is shown, and neither the buyers&rsquo; company profiles nor the dates posted are published. A request may name several grid areas, so area counts can add up to more than {n}; shares are of the {n} requests. Options chosen fewer than {NEEDS_MIN} times are combined as &ldquo;Other options&rdquo;; requests that leave a field blank are &ldquo;Not specified&rdquo;. Recounted every morning from the public list on Chikudensho Market (counts last changed: <time datetime="{_esc(asof)}">{_esc(asof)}</time>).</p>
+</div></section>
+"""
+
+
+def section_download(lang, generated, has_weekly, has_needs, name, url, extra=""):
+    J = lang == "ja"
+    c = CSV if J else CSV_EN
+    if J:
+        items = [(c["summary"], "集計（CSV）", "管内・都道府県（上位10）・電圧・取得の形・進み具合・電圧×取得の形・規模・連系までの月数・運転開始の予定・掲載月")]
+        if has_weekly:
+            items.append((c["weekly"], "週ごとの推移（CSV）", "週ごとの件数・合計出力・電圧と取得の形の内訳・新しく載った件"))
+        if has_needs:
+            items.append((c["needs"], "買主のリクエストの条件（CSV）", "いま載っている件数と、選択肢ごとの数"))
+        items.append(("/projects.json", "公開の一覧（JSON）", "案件ごとの公開項目（管内・県・電圧・規模・進み具合・取得の形・連系の見込み）"))
+        lis = "".join(f'<li><a href="{h}"{" download" if h.endswith(".csv") else ""}>{_esc(t)}</a><small>{_esc(d)}</small></li>' for h, t, d in items)
+        return f"""<section class="md" id="download"><div class="container">
+  <div class="section-label">ダウンロード・引用</div>
+  <h2 class="md-h">データのダウンロードと、引用のしかた</h2>
+  <p class="md-lead">この頁の集計は CSV でも取れます（UTF-8・BOM 付き）。毎朝、頁と同じデータから作り直しています。価格・案件名・所在地は入っていません。</p>
+  <ul class="md-dl">{lis}</ul>
+  {cite_html("ja", name, url, generated, extra)}
+</div></section>
+"""
+    items = [(c["summary"], "Summary tables (CSV)", "Grid area, prefecture (top 10), voltage, structure, status, voltage × structure, size, months to connection, planned COD, month first listed")]
+    if has_weekly:
+        items.append((c["weekly"], "Weekly figures (CSV)", "Projects and total MW per week, by voltage class and structure, new listings"))
+    if has_needs:
+        items.append((c["needs"], "Buyer request conditions (CSV)", "Requests now listed and counts per option"))
+    items.append(("/projects.json", "Public list (JSON)", "Public fields per project (grid area, prefecture, voltage, size, status, structure, expected COD; labels in Japanese)"))
+    lis = "".join(f'<li><a href="{h}"{" download" if h.endswith(".csv") else ""}>{_esc(t)}</a><small>{_esc(d)}</small></li>' for h, t, d in items)
+    return f"""<section class="md" id="download"><div class="container">
+  <div class="section-label">Download and citation</div>
+  <h2 class="md-h">Download the data, and how to cite it</h2>
+  <p class="md-lead">The tables on this page are also available as CSV (UTF-8 with BOM), rebuilt every morning from the same data. No prices, project names or sites are included.</p>
+  <ul class="md-dl">{lis}</ul>
+  {cite_html("en", name, url, generated, extra)}
+</div></section>
+"""
+
+
+def variables_ja():
+    P = lambda n, u=None: {"@type": "PropertyValue", "name": n, **({"unitText": u} if u else {})}  # noqa: E731
+    return [P("販売中の案件の件数", "件"), P("合計出力", "MW"), P("合計容量", "MWh"), P("管内（一般送配電事業者の供給区域）"), P("都道府県"),
+            P("電圧区分（高圧・特別高圧・低圧）"), P("取得の形（権利譲渡・完成渡し）"), P("進み具合（接続検討回答済・負担金確定・連系済）"),
+            P("規模の区分", "MW"), P("連系までの月数（接続検討回答書の記載・中央値と区分）", "か月"), P("運転開始の予定（年度・半期）"),
+            P("掲載月"), P("週ごとの件数と合計出力", "件・MW")]
+
+
+def variables_en():
+    P = lambda n, u=None: {"@type": "PropertyValue", "name": n, **({"unitText": u} if u else {})}  # noqa: E731
+    return [P("Number of projects listed for sale", "projects"), P("Total capacity", "MW"), P("Total energy", "MWh"),
+            P("Grid area (transmission and distribution operator)"), P("Prefecture"), P("Voltage class"),
+            P("Structure (transfer of rights or completed-build handover)"), P("Status"), P("Size band", "MW"),
+            P("Months to grid connection stated in the utility answer (median and bands)", "months"),
+            P("Planned commercial operation (fiscal half-year)"), P("Month first listed"), P("Projects and total MW per week", "projects, MW")]
+
+
+def needs_dataset(nd, lang, page_url):
+    if not nd or not nd.get("n"):
+        return None
+    J = lang == "ja"
+    c = CSV if J else CSV_EN
+    P = lambda n: {"@type": "PropertyValue", "name": n, "unitText": "件" if J else "requests"}  # noqa: E731
+    return {"@context": "https://schema.org", "@type": "Dataset", "@id": page_url + "#buyer-requests-dataset",
+            "name": "蓄電所マーケットの買主のリクエストの条件（選択肢ごとの数）" if J else "Buyer request conditions on Chikudensho Market (counts per option)",
+            "description": (f"蓄電所マーケットに買主が載せた、買いたい系統用蓄電池（蓄電所）の案件の条件を、いま載っている{nd['n']}件について選択肢ごとに数えたもの。"
+                            "買い方・電圧・求めるエリア・運転開始の希望・電力の手続き。買主の属性・載った日・推移は含まない。" if J else
+                            f"Conditions that buyers have posted on Chikudensho Market for grid-scale battery storage projects they want to buy, counted by option for the {nd['n']} requests now listed: "
+                            "purchase structure, voltage, grid areas, wanted operation date and grid-process stage. No buyer profiles, posting dates or trends."),
+            "url": page_url + "#buyer-requests", "inLanguage": lang, "creator": ORG if J else EN_ORG, "publisher": ORG if J else EN_ORG, "isAccessibleForFree": True,
+            "isBasedOn": NEEDS_PAGE if J else NEEDS_PAGE_EN, "spatialCoverage": {"@type": "Place", "name": "日本" if J else "Japan"},
+            "variableMeasured": [P(ja if J else en) for _, ja, en in NEEDS_FIELDS],
+            "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": BASE + c["needs"],
+                              "name": "買主のリクエストの条件（CSV）" if J else "Buyer request conditions (CSV)"}]}
+
+
 # ---------------------------------------------------------------- ページ
-def render_market(ps, today, generated, weekly=()):
+def render_market(ps, today, generated, weekly=(), nd=None):
     s = stats(ps, today)
+    x = extra_stats(ps)
+    weekly = list(weekly)
     path = "/market-data"
     title = f"系統用蓄電池の売り案件 市場データ｜管内別の件数・規模・連系の見込み（{s['n']}件・毎朝更新）｜サイエンスエックス"
     desc = (f"当社が扱う系統用蓄電池（蓄電所）の売り案件{s['n']}件・合計{s['mw']:,}MWを、管内別・都道府県別・電圧別・取得の形・"
@@ -493,37 +1125,45 @@ def render_market(ps, today, generated, weekly=()):
     band_pairs = [(b, s["bands"][b]) for b in band_order if s["bands"].get(b)]
     basis_label = {"payment": "工事費負担金の入金から", "apply": "接続契約の申込みから", "contract": "ご契約から", "unspecified": "起点の記載なし（回答書の記載のまま）"}
     basis_pairs = [(basis_label.get(k, k), v) for k, v in s["basis"].most_common()]
-    month_rows = "".join(f"<tr><td>{_esc(m)}</td><td class=\"n\">{n}</td></tr>" for m, n in s["first_seen"])
-    pref_rows = "".join(f"<tr><td>{_esc(p)}</td><td class=\"n\">{n}</td></tr>" for p, n in s["pref"].most_common(10))
+    month_rows = "".join(f'<tr><th scope="row"><time datetime="{_esc(m)}">{_esc(m)}</time></th><td class="n">{n}</td></tr>' for m, n in s["first_seen"])
+    pref_rows = "".join(f'<tr><th scope="row">{_esc(p)}</th><td class="n">{n}</td></tr>' for p, n in s["pref"].most_common(10))
     area_table = "".join(
-        f'<tr><td><a href="/projects-{slug}">{_esc(a)}（{_esc(nm)}）</a></td><td class="n">{s["area"].get(a, 0)}</td>'
+        f'<tr><th scope="row"><a href="/projects-{slug}">{_esc(a)}（{_esc(nm)}）</a></th><td class="n">{s["area"].get(a, 0)}</td>'
         f'<td class="n">{s["area_mw"].get(a, 0):,}</td></tr>' for a, slug, nm in AREAS if s["area"].get(a))
+    n_mw = sum(1 for p in ps if _num(p.get("mw")))
+    needs_ld = needs_dataset(nd, "ja", BASE + path)
     jsonld = "\n".join([
         ld({"@context": "https://schema.org", "@type": "WebPage", "@id": BASE + path + "#webpage", "url": BASE + path,
             "name": title, "description": desc, "inLanguage": "ja", "dateModified": generated,
             "isPartOf": {"@type": "WebSite", "url": BASE + "/", "name": "ScienceX"}, "publisher": ORG}),
         ld({"@context": "https://schema.org", "@type": "Dataset", "@id": BASE + path + "#dataset",
             "name": "系統用蓄電池の売り案件 市場データ（サイエンスエックス観測）",
-            "description": "系統用蓄電池（蓄電所）の売り案件の件数・規模・電圧区分・取得の形・連系の見込み・回答書の工期を、管内別・都道府県別に集計したデータ。接続検討の回答が出た案件のみ。価格・地番・売主は含まない。毎朝更新。",
+            "description": ("系統用蓄電池（蓄電所）の売り案件の件数・規模・電圧区分・取得の形・連系の見込み・回答書の工期を、管内別・都道府県別に集計したデータ。"
+                            "電圧×取得の形・規模の区分・連系までの月数の取得の形別と、週ごとの推移を含む。接続検討の回答が出た案件のみ。"
+                            "価格・単価・負担金の額・案件名・地番・売主は含まない。値のある件だけの集計は母数を併記。" + GROWTH_NOTE + "毎朝更新。"),
             "url": BASE + path, "inLanguage": "ja", "creator": ORG, "publisher": ORG, "isAccessibleForFree": True,
             "dateModified": generated, "temporalCoverage": f"2026-06/{generated[:7]}",
             "spatialCoverage": {"@type": "Place", "name": "日本（9電力管内）"},
             "keywords": ["系統用蓄電池", "蓄電所", "売り案件", "市場データ", "連系の見込み", "工事費負担金", "権利譲渡", "完成渡し"],
+            "measurementTechnique": "当社が蓄電所マーケットに載せた売り案件の公開項目（projects.json）を、毎朝数え直した集計",
+            "variableMeasured": variables_ja(),
             "creditText": f"出典: サイエンスエックス株式会社『系統用蓄電池の売り案件 市場データ』{BASE}{path}",
-            "distribution": {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": BASE + "/projects.json"},
+            "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": BASE + CSV["summary"], "name": "集計（CSV）"}]
+            + ([{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": BASE + CSV["weekly"], "name": "週ごとの推移（CSV）"}] if len(weekly) >= 2 else [])
+            + [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": BASE + "/projects.json", "name": "公開の一覧（JSON）"}],
             "mainEntityOfPage": BASE + path}),
         ld(crumbs([("ホーム", BASE + "/"), ("案件一覧", BASE + "/projects"), ("売り案件の市場データ", BASE + path)])),
-    ])
+    ] + ([ld(needs_ld)] if needs_ld else []))
     body = f"""{nav_crumbs([("ホーム", "/"), ("案件一覧", "/projects"), ("売り案件の市場データ", path)])}
 <section class="hero"><div class="container">
   <div class="section-label">毎朝更新・当社観測</div>
   <h1>系統用蓄電池の売り案件 市場データ</h1>
-  <p>当社が扱う売り案件{s['n']}件を、管内・都道府県・電圧・取得の形・連系の見込み・回答書の工期で数えました。どの管内に何件あり、いつ連系する見込みで、権利で買える案件と完成渡しの案件がどれだけあるか。案件を探す前の見当付けと、売る前の相場観（件数の分布）にお使いください。{_esc(generated)} 時点です。</p>
+  <p>当社が扱う売り案件{s['n']}件を、管内・都道府県・電圧・取得の形・連系の見込み・回答書の工期で数えました。どの管内に何件あり、いつ連系する見込みで、権利で買える案件と完成渡しの案件がどれだけあるか。案件を探す前の見当付けと、売る前の相場観（件数の分布）にお使いください。<time datetime="{_esc(generated)}">{_esc(generated)}</time> 時点です。集計は <a href="#download">CSV</a> でも取れます（<a href="/en/market-data" hreflang="en">English</a>）。</p>
   <div class="kpi">
     <div><b>{s['n']}件</b><span>販売中の案件</span></div>
     <div><b>{s['mw']:,}MW</b><span>合計出力（{s['mwh']:,}MWh）</span></div>
     <div><b>{len(s['pref'])}都道府県</b><span>{len(s['area'])}管内</span></div>
-    <div><b>{s['volt'].get('特別高圧', 0)}件</b><span>特別高圧（10MW以上）</span></div>
+    <div><b>{s['volt'].get('特別高圧', 0)}件</b><span>特別高圧（おおむね10MW以上）</span></div>
     <div><b>{s['new14']}件</b><span>この{NEW_DAYS}日の新着</span></div>
   </div>
   <p class="md-note" style="margin-top:14px">{NOTE_SCOPE}</p>
@@ -535,7 +1175,7 @@ def render_market(ps, today, generated, weekly=()):
   <p class="md-lead">一般送配電事業者の管内ごとの件数です。管内名を押すと、その管内の案件一覧に移ります。</p>
   <div class="md-grid">
     <div>{bar_rows(area_pairs, s['n'])}</div>
-    <div><table class="md-t"><thead><tr><th>管内</th><th>件数</th><th>合計MW</th></tr></thead><tbody>{area_table}</tbody></table></div>
+    <div><table class="md-t"><caption>管内別の件数と合計出力（合計MWは出力の値がある{n_mw}件の合計）</caption><thead><tr>{_ths(["管内", "件数", "合計MW"])}</tr></thead><tbody>{area_table}</tbody></table></div>
   </div>
 </div></section>
 
@@ -543,44 +1183,49 @@ def render_market(ps, today, generated, weekly=()):
   <div class="section-label">都道府県別</div>
   <h2 class="md-h">都道府県別（上位10）</h2>
   <p class="md-lead">案件の多い都道府県です。{len(s['pref'])}都道府県に案件があります。</p>
-  <table class="md-t"><thead><tr><th>都道府県</th><th>件数</th></tr></thead><tbody>{pref_rows}</tbody></table>
+  <table class="md-t"><caption>都道府県別の件数（上位10）</caption><thead><tr>{_ths(["都道府県", "件数"])}</tr></thead><tbody>{pref_rows}</tbody></table>
 </div></section>
 
 <section class="md"><div class="container">
   <div class="section-label">電圧・買い方・手続き</div>
   <h2 class="md-h">電圧区分・取得の形・進み具合</h2>
-  <p class="md-lead">高圧は2MW級が中心で、特別高圧は10MW以上です。取得の形は、権利で買って自分で建てる「権利譲渡」と、建った状態で受け取る「完成渡し」に分かれます。進み具合は、接続検討の回答までか、契約申込みの本回答まで進んで工事費負担金が確定しているか、連系済みかです。</p>
+  <p class="md-lead">高圧は2MW級が中心で、特別高圧はおおむね10MW以上です。取得の形は、権利で買って自分で建てる「権利譲渡」と、建った状態で受け取る「完成渡し」に分かれます。進み具合は、接続検討の回答までか、契約申込みの本回答まで進んで工事費負担金が確定しているか、連系済みかです。</p>
   <div class="md-grid">
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">電圧区分</h3>{bar_rows(s['volt'].most_common(), s['n'])}</div>
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">取得の形</h3>{bar_rows(s['scheme'].most_common(), s['n'])}</div>
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">進み具合</h3>{bar_rows(s['status'].most_common(), s['n'])}</div>
   </div>
 </div></section>
-
+{section_voltage_scheme(x, "ja")}{section_size(x, "ja")}
 <section class="md"><div class="container">
   <div class="section-label">連系の時期</div>
   <h2 class="md-h">連系の見込み</h2>
-  <p class="md-lead">運転開始の予定が決まっている案件は年度の上期・下期で、決まっていない案件は接続検討回答書に書かれた「連系までにかかる月数」で数えました。予定が決まっているのは{s['ym_known']}件、月数だけが分かるのは{len(s['lead'])}件、時期を確認中が{s['undecided'] - len([1 for p in ps if not p.get('live') and not (p.get('codYm') and p['codYm'] >= today.strftime('%Y-%m')) and isinstance(p.get('leadMonths'), (int, float))])}件です。月数は回答書の記載で、工事費負担金の入金から数えるものが中心です。</p>
+  <p class="md-lead">運転開始の予定が決まっている案件は年度の上期・下期で、決まっていない案件は接続検討回答書に書かれた「連系までにかかる月数」で数えました。予定が決まっているのは{s['ym_known']}件、予定は決まっていないが月数が分かるのは{s['lead_only']}件、時期を確認中が{s['undecided'] - len([1 for p in ps if not p.get('live') and not (p.get('codYm') and p['codYm'] >= today.strftime('%Y-%m')) and isinstance(p.get('leadMonths'), (int, float))])}件です。回答書に月数が書かれているのは、予定の決まっている件も合わせて{len(s['lead'])}件で、「回答書の工期」の図はこの{len(s['lead'])}件を数えています。月数は回答書の記載のままで、起点（工事費負担金の入金からなど）が書かれているのは{len(s['lead']) - s['basis'].get('unspecified', 0)}件です。</p>
   <div class="md-grid">
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">運転開始の予定（年度・半期）</h3>{bar_rows(half_pairs, s['ym_known'])}</div>
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">回答書の工期（連系までの月数）{f'　中央値 {s["lead_median"]}か月' if s['lead_median'] else ''}</h3>{bar_rows(band_pairs, len(s['lead']))}
       <h3 style="font-size:.95rem;color:var(--navy);margin:14px 0 6px">月数の起点</h3>{bar_rows(basis_pairs, len(s['lead']))}</div>
   </div>
 </div></section>
-
-{weekly_section_ja(list(weekly), generated)}
+{section_lead_by_scheme(x, s, "ja")}
+{weekly_section_ja(weekly, generated)}
 <section class="md"><div class="container">
   <div class="section-label">新着</div>
   <h2 class="md-h">掲載の推移</h2>
-  <p class="md-lead">月ごとに一覧へ載せた件数です。売却済み・売り止めで外した案件は含みません。</p>
-  <table class="md-t"><thead><tr><th>掲載月</th><th>件数</th></tr></thead><tbody>{month_rows}</tbody></table>
-  <div class="cite"><div class="cite-h">このデータの引用について</div>本ページの数値は、出典を明記していただければ、記事・資料・社内検討にそのままお使いいただけます。推奨する出典表記: 「出典: サイエンスエックス株式会社『系統用蓄電池の売り案件 市場データ』{BASE}{path}（確認日 YYYY-MM-DD）」。元データは <a href="/projects.json">projects.json</a>（公開項目のみ）です。数字の読み方は <a href="/column-project-price">蓄電所は、いくらで買えるのか</a>（取得価格の中央値）と <a href="/column-study-reply">接続検討回答書を毎日読む当社が、最初に見る6か所</a> に。</div>
+  <p class="md-lead">月ごとに一覧へ載せた件数です。売却済み・売り止めで外した案件は含みません。{GROWTH_NOTE}</p>
+  <table class="md-t"><caption>掲載月ごとの件数（件数のある月の新しい6つまで・いま販売中の案件）</caption><thead><tr>{_ths(["掲載月", "件数"])}</tr></thead><tbody>{month_rows}</tbody></table>
 </div></section>
+{section_needs(nd, "ja")}
+{section_download("ja", generated, len(weekly) >= 2, bool(nd and nd.get("n")), "系統用蓄電池の売り案件 市場データ", BASE + path,
+                  '<p>数字の読み方は <a href="/column-project-price">蓄電所は、いくらで買えるのか</a>（取得価格の中央値）と <a href="/column-study-reply">接続検討回答書を毎日読む当社が、最初に見る6か所</a> に。</p>')}
 {CTA}{FOOTER}
 </body>
 </html>
 """
-    return head(title, desc, path, jsonld) + body
+    h = head(title, desc, path, jsonld)
+    ja_alt = f'<link rel="alternate" hreflang="ja" href="{BASE}{path}">'
+    h = h.replace(ja_alt, ja_alt + f'\n<link rel="alternate" hreflang="en" href="{BASE}/en/market-data">', 1)
+    return h + body
 
 
 def render_area(ps_all, area, slug, operator, today, generated):
@@ -620,7 +1265,7 @@ def render_area(ps_all, area, slug, operator, today, generated):
     <div><b>{n}件</b><span>販売中の案件</span></div>
     <div><b>{s['mw']:,}MW</b><span>合計出力（{s['mwh']:,}MWh）</span></div>
     <div><b>{s['volt'].get('高圧', 0)}件</b><span>高圧（2MW級が中心）</span></div>
-    <div><b>{s['volt'].get('特別高圧', 0)}件</b><span>特別高圧（10MW以上）</span></div>
+    <div><b>{s['volt'].get('特別高圧', 0)}件</b><span>特別高圧（おおむね10MW以上）</span></div>
     <div><b>{s['scheme'].get('権利譲渡', 0)}件</b><span>権利譲渡（自分で建てる）</span></div>
   </div>
 </div></section>
@@ -740,6 +1385,7 @@ EN_FOOTER = """<footer class="scix-footer">
       <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
         <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
         <a href="https://dealroom.scix.co.jp/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Chikudensho Market</a>
+        <a href="/en/market-data" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Data</a>
         <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
         <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
         <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>
@@ -826,6 +1472,14 @@ def render_en_projects(ps, today, generated, weekly=()):
             "isPartOf": {"@type": "WebSite", "url": BASE + "/en", "name": "ScienceX"},
             "publisher": {"@type": "Organization", "@id": BASE + "/#organization", "name": "ScienceX", "legalName": "Science X Inc.", "url": BASE + "/en"},
             "mainEntity": {"@type": "ItemList", "numberOfItems": n, "itemListElement": items}}),
+        ld(en_dataset(path, "Grid-scale battery storage projects listed for sale in Japan: counts",
+                      ("Counts of the grid-scale battery storage projects ScienceX lists for sale in Japan: number of projects and total capacity "
+                       "by grid area, prefecture, voltage class, structure, status and expected grid connection, and weekly figures. "
+                       "Aggregate counts only; no prices, sites or sellers. " + GROWTH_NOTE_EN + " Updated every morning."),
+                      generated,
+                      [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": BASE + CSV_EN["summary"], "name": "Summary tables (CSV)"}]
+                      + ([{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": BASE + CSV_EN["weekly"], "name": "Weekly figures (CSV)"}] if len(list(weekly)) >= 2 else []),
+                      variables_en())),
         ld(crumbs([("Home", BASE + "/en"), ("Projects", url)])),
     ])
     head_html = (head(title, desc, path, jsonld)
@@ -881,6 +1535,9 @@ def render_en_projects(ps, today, generated, weekly=()):
   <h2 class="md-h">About this list</h2>
   <p class="md-lead">High-voltage (~2 MW) and extra-high-voltage battery storage projects, from development rights with grid connection answers to grid-connected assets. Sorted by earliest expected COD (commercial operation date). Total: about {mw:,} MW across {prefs} prefectures. Prices, exact sites and counterparties are not published here.</p>
   <p class="md-note" style="margin-top:14px">Area = the grid area of the transmission and distribution operator (Tokyo, Chubu, Kyushu and so on). Status: &ldquo;Grid connection study answered&rdquo; means the utility has issued its answer on the connection study; &ldquo;Grid cost confirmed&rdquo; means the grid construction cost has been fixed; &ldquo;Grid-connected&rdquo; means the project is already connected. Structure: &ldquo;Completed-build handover&rdquo; or &ldquo;Transfer of rights&rdquo; (the buyer builds). Expected COD is an estimate taken from the utility&rsquo;s answer and may change. These are ScienceX&rsquo;s own listings, not statistics for the whole Japanese market.</p>
+  <p class="md-lead" style="margin-top:14px">Counts by grid area, voltage class, structure, size and months to grid connection, with CSV downloads, are on <a href="/en/market-data">Market data</a>.</p>
+  {cite_html("en", "Grid-scale battery storage projects listed for sale in Japan: counts", url, generated,
+             f'<p>CSV: <a href="{CSV_EN["summary"]}" download>summary tables</a> &middot; <a href="{CSV_EN["weekly"]}" download>weekly figures</a> &middot; counts only, no prices or sites.</p>')}
 </div></section>
 
 <section class="cta"><div class="container">
@@ -922,6 +1579,150 @@ def render_en_projects(ps, today, generated, weekly=()):
     return head_html + body
 
 
+EN_BASIS = {"payment": "From payment of the grid construction cost", "apply": "From the connection application",
+            "contract": "From the contract", "unspecified": "Start point not stated (as written in the answer)"}
+EN_CTA_MD = """<section class="cta"><div class="container">
+  <h2>See the projects themselves on Chikudensho Market</h2>
+  <p>Current listings can be browsed on Chikudensho Market without registering. Prices and documents are shown after free registration, where you agree to a confidentiality undertaking on the registration screen (no signed paper is needed).</p>
+  <a class="btn-primary" href="https://dealroom.scix.co.jp/en" target="_top">Browse projects on Chikudensho Market &rarr;</a>
+  <a class="btn-secondary" href="/en/contact">Contact ScienceX</a>
+</div></section>
+"""
+
+
+def en_dataset(path, name, desc, generated, distribution, variables):
+    return {"@context": "https://schema.org", "@type": "Dataset", "@id": BASE + path + "#dataset", "name": name, "description": desc,
+            "url": BASE + path, "inLanguage": "en", "creator": EN_ORG, "publisher": EN_ORG, "isAccessibleForFree": True,
+            "dateModified": generated, "temporalCoverage": f"2026-06/{generated[:7]}",
+            "spatialCoverage": {"@type": "Place", "name": "Japan (9 grid areas)"},
+            "keywords": ["Japan", "grid-scale battery storage", "BESS", "projects for sale", "market data", "grid connection", "COD"],
+            "measurementTechnique": "Counts of the public fields of the projects ScienceX lists on Chikudensho Market (projects.json), recounted every morning",
+            "variableMeasured": variables,
+            "creditText": f"Source: Science X Inc., \u201c{name}\u201d, {BASE}{path}",
+            "distribution": distribution, "mainEntityOfPage": BASE + path}
+
+
+def en_head(title, desc, path, jsonld, ja_path):
+    url = BASE + path
+    return (head(title, desc, path, jsonld)
+            .replace('<html lang="ja">', '<html lang="en">')
+            .replace(f'<link rel="alternate" hreflang="ja" href="{url}">',
+                     f'<link rel="alternate" hreflang="en" href="{url}">\n<link rel="alternate" hreflang="ja" href="{BASE}{ja_path}">')
+            .replace('content="ja_JP"', 'content="en_US"')
+            .replace(f'{BASE}/img/ogp-m.png', f'{BASE}/img/ogp-m-en.png'))
+
+
+def render_en_market(ps, today, generated, weekly=(), nd=None):
+    """英語の市場データ（/en/market-data）。日本語の /market-data と同じ集計（件数・規模・月数だけ・価格なし）。"""
+    s = stats(ps, today)
+    x = extra_stats(ps)
+    weekly = list(weekly)
+    path = "/en/market-data"
+    n = s["n"]
+    n_mw = sum(1 for p in ps if _num(p.get("mw")))
+    title = "Japan BESS Projects for Sale: Market Data | ScienceX"
+    desc = (f"{n} grid-scale battery storage projects for sale in Japan, about {s['mw']:,} MW, counted by grid area, prefecture, voltage, "
+            "structure, size and months to grid connection. CSV. No prices. Updated daily.")
+    name = "Grid-scale battery storage projects for sale in Japan: market data"
+    dist = ([{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": BASE + CSV_EN["summary"], "name": "Summary tables (CSV)"}]
+            + ([{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": BASE + CSV_EN["weekly"], "name": "Weekly figures (CSV)"}] if len(weekly) >= 2 else [])
+            + [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": BASE + "/projects.json", "name": "Public list (JSON)"}])
+    ds_desc = ("Counts of the grid-scale battery storage projects for sale that ScienceX lists in Japan: number, capacity, voltage class, structure "
+               "(transfer of rights or completed-build handover), status, expected grid connection and the months to connection stated in the utility's answer, "
+               "by grid area and prefecture, with voltage × structure, size bands, months to connection by structure and weekly figures. "
+               "Only projects with a grid connection study answer. No prices, unit prices, grid cost amounts, project names, sites or sellers. "
+               "Tallies of values that exist state their base. " + GROWTH_NOTE_EN + " Updated every morning.")
+    needs_ld = needs_dataset(nd, "en", BASE + path)
+    jsonld = "\n".join([
+        ld({"@context": "https://schema.org", "@type": "WebPage", "@id": BASE + path + "#webpage", "url": BASE + path,
+            "name": title, "description": desc, "inLanguage": "en", "dateModified": generated,
+            "isPartOf": {"@type": "WebSite", "url": BASE + "/en", "name": "ScienceX"}, "publisher": EN_ORG}),
+        ld(en_dataset(path, name, ds_desc, generated, dist, variables_en())),
+        ld(crumbs([("Home", BASE + "/en"), ("Projects", BASE + "/en/projects"), ("Market data", BASE + path)])),
+    ] + ([ld(needs_ld)] if needs_ld else []))
+    area_pairs = [(EN_AREA.get(a, a), s["area"].get(a, 0)) for a, _, _ in AREAS if s["area"].get(a)]
+    area_table = "".join(f'<tr><th scope="row">{_esc(EN_AREA.get(a, a))}</th><td class="n">{s["area"].get(a, 0)}</td>'
+                         f'<td class="n">{s["area_mw"].get(a, 0):,}</td></tr>' for a, _, _ in AREAS if s["area"].get(a))
+    pref_rows = "".join(f'<tr><th scope="row">{_esc(EN_PREF.get(p_, p_))}</th><td class="n">{c}</td></tr>' for p_, c in s["pref"].most_common(10))
+    half_pairs = [(_en_label("half", h), c) for h, c in sorted(s["half"].items())]
+    band_pairs = [(en, s["bands"][ja]) for ja, en in LEAD_BANDS if s["bands"].get(ja)]
+    basis_pairs = [(EN_BASIS.get(k, k), v) for k, v in s["basis"].most_common()]
+    month_rows = "".join(f'<tr><th scope="row"><time datetime="{_esc(m)}">{_esc(m)}</time></th><td class="n">{c}</td></tr>' for m, c in s["first_seen"])
+    volt_pairs = [(_en_label("volt", k), v) for k, v in s["volt"].most_common()]
+    scheme_pairs = [(_en_label("scheme", k), v) for k, v in s["scheme"].most_common()]
+    status_pairs = [(_en_label("status", k), v) for k, v in s["status"].most_common()]
+    undated = s["undecided"] - sum(1 for p in ps if not p.get("live") and not (p.get("codYm") and p["codYm"] >= today.strftime("%Y-%m")) and _num(p.get("leadMonths")))
+    body = f"""{nav_crumbs([("Home", "/en"), ("Projects", "/en/projects"), ("Market data", path)])}
+<section class="hero"><div class="container">
+  <div class="section-label">Updated daily &middot; ScienceX listings</div>
+  <h1>Japan grid-scale battery storage projects for sale: market data</h1>
+  <p>The {n} projects we list, counted by grid area, prefecture, voltage class, structure, status, size and expected grid connection: where the projects are, when they are expected to connect, and how many can be bought as development rights or as completed-build handovers. As of <time datetime="{_esc(generated)}">{_esc(generated)}</time>. The tables are also available as <a href="#download">CSV</a> (<a href="/market-data" hreflang="ja">Japanese</a>).</p>
+  <div class="kpi">
+    <div><b>{n}</b><span>projects listed for sale</span></div>
+    <div><b>{s['mw']:,} MW</b><span>total capacity ({s['mwh']:,} MWh)</span></div>
+    <div><b>{len(s['pref'])}</b><span>prefectures, {len(s['area'])} grid areas</span></div>
+    <div><b>{s['volt'].get('特別高圧', 0)}</b><span>extra-high voltage (roughly 10 MW and above)</span></div>
+    <div><b>{s['new14']}</b><span>new in the last {NEW_DAYS} days</span></div>
+  </div>
+  <p class="md-note" style="margin-top:14px">These are the battery storage projects for sale that have been brought to ScienceX and cleared for listing, all with a grid connection study answer from the utility. They are ScienceX&rsquo;s own listings, not statistics for the whole Japanese market. Sites and sellers are not published (prices and documents are on Chikudensho Market after free registration). The figures are recounted every morning from the same data as the project list.</p>
+</div></section>
+
+<section class="md"><div class="container">
+  <div class="section-label">By grid area</div>
+  <h2 class="md-h">Projects and capacity by grid area</h2>
+  <p class="md-lead">Grid area = the service area of the general transmission and distribution operator.</p>
+  <div class="md-grid">
+    <div>{bar_rows(area_pairs, n, lang="en")}</div>
+    <div><table class="md-t"><caption>Projects and total capacity by grid area (total MW is the sum for the {n_mw} projects with a MW value)</caption><thead><tr>{_ths(["Grid area", "Projects", "Total MW"])}</tr></thead><tbody>{area_table}</tbody></table></div>
+  </div>
+</div></section>
+
+<section class="md"><div class="container">
+  <div class="section-label">By prefecture</div>
+  <h2 class="md-h">Projects by prefecture (top 10)</h2>
+  <p class="md-lead">There are projects in {len(s['pref'])} prefectures.</p>
+  <table class="md-t"><caption>Projects by prefecture (top 10)</caption><thead><tr>{_ths(["Prefecture", "Projects"])}</tr></thead><tbody>{pref_rows}</tbody></table>
+</div></section>
+
+<section class="md"><div class="container">
+  <div class="section-label">Voltage, structure, status</div>
+  <h2 class="md-h">Voltage class, structure and status</h2>
+  <p class="md-lead">High-voltage projects are mostly around 2 MW; extra-high-voltage projects are roughly 10 MW and above. A project is sold either as development rights that the buyer builds out (transfer of rights) or as a completed-build handover. Status shows whether the utility has answered the grid connection study, whether the grid construction cost has been fixed, or whether the project is already connected.</p>
+  <div class="md-grid">
+    <div>{H3}Voltage class</h3>{bar_rows(volt_pairs, n, lang="en")}</div>
+    <div>{H3}Structure</h3>{bar_rows(scheme_pairs, n, lang="en")}</div>
+    <div>{H3}Status</h3>{bar_rows(status_pairs, n, lang="en")}</div>
+  </div>
+</div></section>
+{section_voltage_scheme(x, "en")}{section_size(x, "en")}
+<section class="md"><div class="container">
+  <div class="section-label">Grid connection timing</div>
+  <h2 class="md-h">Expected grid connection</h2>
+  <p class="md-lead">Projects with a planned operation date are counted by Japanese fiscal half-year (the fiscal year starts in April); the others by the months to connection stated in the grid connection study answer. {s['ym_known']} projects have a planned date, {s['lead_only']} have no planned date but a stated number of months, and {undated} are under review. In all, {len(s['lead'])} projects (including some with a planned date) have a stated number of months; the &ldquo;Months to connection&rdquo; chart counts these {len(s['lead'])}.</p>
+  <div class="md-grid">
+    <div>{H3}Planned operation (fiscal half-year)</h3>{bar_rows(half_pairs, s['ym_known'], lang="en")}</div>
+    <div>{H3}Months to connection in the answer{f" &middot; median {s['lead_median']} months" if s['lead_median'] else ""}</h3>{bar_rows(band_pairs, len(s['lead']), lang="en")}
+      {H3B}Start point of the months</h3>{bar_rows(basis_pairs, len(s['lead']), lang="en")}</div>
+  </div>
+</div></section>
+{section_lead_by_scheme(x, s, "en")}
+{weekly_section_en(weekly, generated)}
+<section class="md"><div class="container">
+  <div class="section-label">New listings</div>
+  <h2 class="md-h">Listings by month first listed</h2>
+  <p class="md-lead">Projects now listed, by the month they were first listed. Projects taken off the list are not included. {GROWTH_NOTE_EN}</p>
+  <table class="md-t"><caption>Projects by month first listed (up to the latest six months with listings, projects now listed)</caption><thead><tr>{_ths(["Month first listed", "Projects"])}</tr></thead><tbody>{month_rows}</tbody></table>
+</div></section>
+{section_needs(nd, "en")}
+{section_download("en", generated, len(weekly) >= 2, bool(nd and nd.get("n")), name, BASE + path,
+                  '<p>The full project list in English is on <a href="/en/projects">Projects</a>; market prices (JEPX, capacity market) are on <a href="/en/report/data">Battery Storage Market Data</a>.</p>')}
+{EN_CTA_MD}{EN_FOOTER}
+</body>
+</html>
+"""
+    return en_head(title, desc, path, jsonld, "/market-data") + body
+
+
 def sync_area_sitemap(ps, today):
     """noindex の管内ページ（件数が MIN_INDEX 未満）は sitemap から外し、索引に出す管内は載せる。"""
     path = os.path.join(ROOT, "sitemap.xml")
@@ -941,6 +1742,27 @@ def sync_area_sitemap(ps, today):
     return "\n".join(lines)
 
 
+def sync_md_sitemap(text, generated):
+    """/market-data の行に hreflang en を足し、/en/market-data の行を（無ければ /market-data の次に）置く。lastmod は今の値を残す。"""
+    ja_u, en_u = f"{BASE}/market-data", f"{BASE}/en/market-data"
+    a_ja = f'<xhtml:link rel="alternate" hreflang="ja" href="{ja_u}"/>'
+    a_en = f'<xhtml:link rel="alternate" hreflang="en" href="{en_u}"/>'
+
+    def lastmod(u):
+        m = re.search(r"<url><loc>" + re.escape(u) + r"</loc>.*?<lastmod>([0-9-]{10})</lastmod>", text)
+        return m.group(1) if m else generated
+    pat_ja = re.compile(r"  <url><loc>" + re.escape(ja_u) + r"</loc>.*?</url>\n")
+    pat_en = re.compile(r"  <url><loc>" + re.escape(en_u) + r"</loc>.*?</url>\n")
+    if not pat_ja.search(text):
+        return text
+    line_ja = f"  <url><loc>{ja_u}</loc>{a_ja}{a_en}<priority>0.8</priority><lastmod>{lastmod(ja_u)}</lastmod></url>\n"
+    line_en = f"  <url><loc>{en_u}</loc>{a_en}{a_ja}<priority>0.7</priority><lastmod>{lastmod(en_u)}</lastmod></url>\n"
+    text = pat_ja.sub(lambda _m: line_ja, text, count=1)
+    if pat_en.search(text):
+        return pat_en.sub(lambda _m: line_en, text, count=1)
+    return text.replace(line_ja, line_ja + line_en, 1)
+
+
 def main():
     check = "--check" in sys.argv
     with open(os.path.join(ROOT, "projects.json"), encoding="utf-8") as f:
@@ -949,19 +1771,32 @@ def main():
     generated = data.get("generatedAt") or datetime.date.today().isoformat()
     today = datetime.date.today()
     weekly = weekly_series(ps, today)
-    pages = {"market-data.html": render_market(ps, today, generated, weekly)}
+    nd = fetch_needs(today) if "--fetch-needs" in sys.argv else load_needs()
+    pages = {"market-data.html": render_market(ps, today, generated, weekly, nd)}
     for area, slug, operator in AREAS:
         pages[f"projects-{slug}.html"] = render_area(ps, area, slug, operator, today, generated)
     pages["en/projects.html"] = render_en_projects(ps, today, generated, weekly)
-    pages["sitemap.xml"] = sync_area_sitemap(ps, today)
+    pages["en/market-data.html"] = render_en_market(ps, today, generated, weekly, nd)
+    rows = summary_rows(ps, stats(ps, today), extra_stats(ps), generated, today)
+    for lang, c in (("ja", CSV), ("en", CSV_EN)):
+        pages[c["summary"].lstrip("/")] = summary_csv(rows, lang, generated)
+        pages[c["weekly"].lstrip("/")] = weekly_csv(weekly, lang, generated)
+        if nd and nd.get("n"):
+            pages[c["needs"].lstrip("/")] = needs_csv(nd, lang)
+    if nd:
+        pages[NEEDS_JSON] = needs_text(nd)
+    pages["sitemap.xml"] = sync_md_sitemap(sync_area_sitemap(ps, today), generated)
     changed = []
     for name, html in pages.items():
         path = os.path.join(ROOT, name)
-        cur = open(path, encoding="utf-8").read() if os.path.exists(path) else None
-        if cur != html:
+        data_b = html.encode("utf-8")
+        cur = open(path, "rb").read() if os.path.exists(path) else None
+        if cur != data_b:
             changed.append(name)
             if not check:
-                open(path, "w", encoding="utf-8").write(html)
+                os.makedirs(os.path.dirname(path), exist_ok=True)
+                with open(path, "wb") as fh:
+                    fh.write(data_b)
     if check:
         print(f"[check] 要更新 {len(changed)} ファイル" + (": " + " ".join(changed) if changed else ""))
         return 1 if changed else 0
