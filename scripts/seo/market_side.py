@@ -2,12 +2,15 @@
 """マーケット側（dealroom.scix.co.jp）の検索を、週のブリーフに足す部品。
 
 会社のサイト（www.scix.co.jp）とは別のホストなので、これまでのブリーフ（ページ別・検索語別）には混ざって見えていた。
-ここで見るのは次の3つ（2026-11-22 中島「Seo 対策も徹底してやって」。マーケットの頁は 862 頁が 200 で返るのに、
+ここで見るのは次の4つ（2026-11-22 中島「Seo 対策も徹底してやって」。マーケットの頁は 862 頁が 200 で返るのに、
 検索からのクリックが 90 日で 2・URL 検査では試した 10 本すべて「Google に認識されていません」だった＝見つける道が無い）。
 
   1. マーケット側の検索の動き: www と dealroom に分けた表示・クリック、dealroom の頁の種類（案件・入口・トップと一覧）別、検索語の上位。
   2. 語の定点25語（売買10・解説10・英語5）: 28日の表示・クリック・順位と前28日の表示。語ごとの検索数は取れないので、当社の表示で見る。
   3. URL 検査の定点20本（案件5・入口11・トップと売りたいの入口4）: 索引に入ったかを毎週同じ頁で見る（Search Console の URL 検査 API・読み取り）。
+  4. 言葉の束ごとの表示・順位・割れ（12f）: 買う・売るの言葉を、どの頁が受けるかを決めた表
+     （docs/keyword-page-map.md・機械版 scripts/seo/keyword_page_map.json）に照らして、
+     束ごとの表示・クリック・順位・正の頁の表示の割合・正と副の外に出ている頁（割れ）・旧住所に残る表示を出す。
 
 案件の住所は公開リポジトリのコードに書かない（O16-19）＝案件の頁は projects.json（公開セーフ）から実行時に選ぶ。
 数字は Drive のブリーフにだけ出る（公開リポジトリ・コミット文・PR には写さない）。
@@ -17,6 +20,8 @@ from __future__ import annotations  # launchd の python3 は 3.9
 import datetime
 import json
 import os
+import re
+from urllib.parse import unquote, urlsplit
 
 MARKET = "https://dealroom.scix.co.jp"
 AREAS = ["hokkaido", "tohoku", "tokyo", "chubu", "hokuriku", "kansai", "chugoku", "shikoku", "kyushu"]
@@ -116,11 +121,170 @@ def fixed_rows(q_cur: dict, q_prev: dict) -> list:
     return out
 
 
+# ---- 言葉の束（1語1頁の表・2026-11-23）----------------------------------------------------------
+KEYWORD_MAP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "keyword_page_map.json")
+_CJK = re.compile("[\u3040-\u30ff\u3400-\u9fff\uff66-\uff9f]")
+
+
+def load_keyword_map(path: str = KEYWORD_MAP) -> dict:
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def address_of(page: str) -> str:
+    """検索の頁（ledger は www を /path・dealroom を完全な URL で持つ）を 'www:/path'・'dealroom:/path' にそろえる。"""
+    if page.startswith("/"):
+        host, path = "www", page
+    else:
+        u = urlsplit(page)
+        h = (u.netloc or "").lower()
+        host = "www" if h in ("www.scix.co.jp", "scix.co.jp") else ("dealroom" if h == "dealroom.scix.co.jp" else h or "?")
+        path = u.path or "/"
+    path = unquote(path.split("?")[0].split("#")[0])
+    if len(path) > 1:
+        path = path.rstrip("/")
+    return f"{host}:{path}"
+
+
+def _addr_in(addr: str, patterns) -> bool:
+    for p in patterns:
+        if p.endswith("*"):
+            if addr.startswith(p[:-1]):
+                return True
+        elif addr == p:
+            return True
+    return False
+
+
+def bundle_of(query: str, bundles: list):
+    """検索語が入る束（並びの順に最初に当たった1つ）。どれにも当たらなければ None。"""
+    ql = " ".join(query.lower().replace("\u3000", " ").split())
+    hay = ql + " " + ql.replace(" ", "")  # 「売り たい」のような空白の割れも拾う
+    cjk = bool(_CJK.search(ql))
+    for b in bundles:
+        if b["script"] == "cjk" and not cjk:
+            continue
+        if b["script"] == "ascii" and cjk:
+            continue
+        if b["need"] and not any(n in hay for n in b["need"]):
+            continue
+        if any(x in hay for x in b["exclude"]):
+            continue
+        if any(all(t in hay for t in g) for g in b["any"]):
+            return b
+    return None
+
+
+def redirect_sources(repo: str) -> dict:
+    """vercel.json の恒久の移し先（正規表現でない www の旧住所）。{'www:/land': '/sourcing', …}"""
+    try:
+        v = json.load(open(os.path.join(repo, "vercel.json"), encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    out = {}
+    for r in v.get("redirects", []):
+        src, dst = r.get("source", ""), r.get("destination", "")
+        if src.startswith("/") and not re.search(r"[%():*\u3000-\u9fff]", src) and dst.startswith("/"):
+            out["www:" + src] = dst
+    return out
+
+
+def _in_set(addr: str, b: dict) -> bool:
+    return _addr_in(addr, b["main"]) or _addr_in(addr, b["sub"]) or _addr_in(addr, b["pending"])
+
+
+def keyword_stats(rows, kmap: dict, old: dict) -> dict:
+    """rows = [{query, page, clicks, impressions, position}]。束ごとの集計と、束に入らない買う・売るの語。
+    割れ＝正（main）・副（sub）・決め待ち（pending）の外に出ている頁。旧住所（301 済み）は別に数える。"""
+    bundles = kmap["bundles"]
+    stats = {b["id"]: {"imp": 0, "clk": 0, "pos_w": 0.0, "main": 0, "sub": 0, "pending": 0, "old": 0,
+                       "other": {}, "pages": {}, "queries": {}} for b in bundles}
+    unassigned = {}
+    core = [c.lower() for c in kmap.get("watch_core", [])]
+    skip = [c.lower() for c in kmap.get("watch_skip", [])]
+    for r in rows:
+        q = r["query"]
+        b = bundle_of(q, bundles)
+        imp, clk, pos = r["impressions"], r["clicks"], r.get("position") or 0.0
+        if b is None:
+            ql = q.lower()
+            if any(c in ql for c in core) and not any(c in ql for c in skip):
+                u = unassigned.setdefault(q, [0, 0])
+                u[0] += imp
+                u[1] += clk
+            continue
+        s = stats[b["id"]]
+        addr = address_of(r["page"])
+        s["imp"] += imp
+        s["clk"] += clk
+        s["pos_w"] += pos * imp
+        s["pages"][addr] = s["pages"].get(addr, 0) + imp
+        s["queries"].setdefault(q, set()).add(addr)
+        if _addr_in(addr, b["main"]):
+            s["main"] += imp
+        elif _addr_in(addr, b["sub"]):
+            s["sub"] += imp
+        elif _addr_in(addr, b["pending"]):
+            s["pending"] += imp
+        elif addr in old:
+            s["old"] += imp
+        else:
+            s["other"][addr] = s["other"].get(addr, 0) + imp
+    for b in bundles:
+        s = stats[b["id"]]
+        s["position"] = (s["pos_w"] / s["imp"]) if s["imp"] else None
+        # 割れた語＝同じ語に、正・副・決め待ちの外（旧住所を除く）の頁が1つでも出ている語の数
+        s["split_q"] = sum(1 for addrs in s["queries"].values()
+                           if any(not _in_set(a, b) and a not in old for a in addrs))
+        s["queries_n"] = len(s["queries"])
+        del s["queries"], s["pos_w"]
+    return {"bundles": stats, "unassigned": unassigned}
+
+
+def render_keyword_map(L: list, cur: list, q_prev: dict, repo: str, fnum, pct) -> None:
+    """12f. 言葉の束ごとの表示・順位・割れ。受ける頁の表は docs/keyword-page-map.md（機械版 keyword_page_map.json）。"""
+    kmap = load_keyword_map()
+    old = redirect_sources(repo)
+    res = keyword_stats([x for r in cur for x in r["query_page"]], kmap, old)
+    L.append("\n### 12f. 言葉の束ごとの表示・順位・割れ（28日・1語1頁の表に照らす）\n")
+    L.append("受ける頁（正）は docs/keyword-page-map.md の表のとおり。**割れ**は、同じ束の語に、正・副・決め待ちの外の頁が出ていること。"
+             "**旧住所**は 301 で移した古い住所に残る表示。語は匿名の語を落とすので、見えるのは表示の一部だけ"
+             "（表示0＝語として見えていない）。地域の一覧（www と dealroom）の重なりは "
+             f"{kmap.get('decide_on')} に、この表の表示で決める。\n")
+    prev = {b["id"]: 0 for b in kmap["bundles"]}
+    for q, v in (q_prev or {}).items():
+        b = bundle_of(q, kmap["bundles"])
+        if b is not None:
+            prev[b["id"]] += v["impressions"]
+    L.append("| 束 | 正の頁 | 表示 | クリック | 順位 | 正の表示 | 割れた語／語 | 割れの頁（表示） | 旧住所 | 前28日の表示 |\n"
+             "|---|---|---|---|---|---|---|---|---|---|")
+    zero = []
+    for b in kmap["bundles"]:
+        s = res["bundles"][b["id"]]
+        if not s["imp"] and not prev[b["id"]]:
+            zero.append(b["label"])
+            continue
+        share = pct(s["main"] / s["imp"]) if s["imp"] else "—"
+        other = sorted(s["other"].items(), key=lambda kv: -kv[1])[:3]
+        other_s = "・".join(f"{a.split(':', 1)[1] if a.startswith('www:') else a}（{n}）" for a, n in other) or "なし"
+        main_s = "・".join(a.split(":", 1)[1] if a.startswith("www:") else a for a in b["main"])
+        L.append(f"| {b['label']} | {main_s} | {s['imp']} | {s['clk']} | {fnum(s['position']) if s['position'] else '—'} | {share} | "
+                 f"{s['split_q']}／{s['queries_n']} | {other_s} | {s['old']} | {prev[b['id']]} |")
+    if zero:
+        L.append(f"\n表示0の束（28日・前28日とも）: {'・'.join(zero)}")
+    un = sorted(res["unassigned"].items(), key=lambda kv: -kv[1][0])[:8]
+    if un:
+        L.append("\n**表に入らない買う・売るの語**（表への足し・束の語の直しの候補・上位8）: "
+                 + "・".join(f"{q}（{v[0]}表示／{v[1]}クリック）" for q, v in un))
+    else:
+        L.append("\n表に入らない買う・売るの語: なし")
+
+
 def render(L: list, cur: list, w7: list, w7p: list, q_cur: dict, q_prev: dict, ledger, repo: str, fnum, pct) -> None:
     """ブリーフに「マーケット側の検索」の節を足す。cur・w7・w7p は日ごとの GSC の記録、q_* は検索語別の集計。"""
     L.append("## 12. マーケット側の検索（dealroom.scix.co.jp）\n")
     L.append("会社のサイト（www）とマーケット（dealroom）を分けて見る。マーケットの頁は、索引に入っていない間は表示がほとんど出ない＝"
-             "まず 12e の「URL 検査の定点」で索引に入ったかを見る。\n")
+             "まず 12e の「URL 検査の定点」で索引に入ったかを見る。買う・売るの言葉をどの頁が受けているかは 12f。\n")
 
     def host_sum(recs):
         tot = {"www": [0, 0], "dealroom": [0, 0]}
@@ -163,15 +327,19 @@ def render(L: list, cur: list, w7: list, w7p: list, q_cur: dict, q_prev: dict, l
     files = sorted((ledger / "inspect_market").glob("????-??-??.json")) if (ledger / "inspect_market").exists() else []
     if not files:
         L.append("まだ検査していない（`collect_daily.py --inspect` か、週に1回の自動の回で台帳 inspect_market/ に溜まる）。")
-        return
-    j = json.load(open(files[-1], encoding="utf-8"))
-    rows = j.get("rows", [])
-    ok = [r for r in rows if r.get("verdict") == "PASS"]
-    L.append(f"検査日 {j.get('date')}・索引に入っている（PASS）{len(ok)}／{len(rows)}本\n")
-    L.append("| 頁 | 状態 | 最後の取得 |\n|---|---|---|")
-    for r in rows:
-        u = r["url"][len(MARKET):] or "/"
-        if r.get("error"):
-            L.append(f"| {u} | 検査できない（{r['error'][:40]}） | — |")
-        else:
-            L.append(f"| {u} | {r.get('state') or r.get('verdict') or '—'} | {(r.get('crawled') or '—')[:10]} |")
+    else:
+        j = json.load(open(files[-1], encoding="utf-8"))
+        rows = j.get("rows", [])
+        ok = [r for r in rows if r.get("verdict") == "PASS"]
+        L.append(f"検査日 {j.get('date')}・索引に入っている（PASS）{len(ok)}／{len(rows)}本\n")
+        L.append("| 頁 | 状態 | 最後の取得 |\n|---|---|---|")
+        for r in rows:
+            u = r["url"][len(MARKET):] or "/"
+            if r.get("error"):
+                L.append(f"| {u} | 検査できない（{r['error'][:40]}） | — |")
+            else:
+                L.append(f"| {u} | {r.get('state') or r.get('verdict') or '—'} | {(r.get('crawled') or '—')[:10]} |")
+    try:  # 12f はここが落ちても 12 節の残りを出す
+        render_keyword_map(L, cur, q_prev, repo, fnum, pct)
+    except Exception as e:  # noqa: BLE001
+        L.append(f"\n### 12f. 言葉の束ごとの表示・順位・割れ\n\n生成に失敗: {e}")
