@@ -12,6 +12,9 @@
   OGP        og:title・og:description・og:image が無い・og:image の画像がリポジトリに無い
   img        alt が無い
   sitemap    index の頁が sitemap に無い・sitemap の住所にファイルが無い・noindex の頁が sitemap にある
+「注意」（title・description の長さ）は --strict の判定に数えない（全頁の見直しが済むまでの目安）。
+表示幅は全角2・半角1で数える（検索結果の切れ目のおおよそ）。
+
   2026-11-22 に足した物（中島「Seo 対策も徹底してやって」）:
   FAQPage    問いが頁の本文に無い（画面に無い問いを構造化データに出さない）
   Article    author / publisher に @id が無い・ロゴが白（logo-white）・inLanguage が無い
@@ -22,8 +25,6 @@
   入口リンク コラムの末尾の蓄電所マーケットの入口が絞り込みの検索（?area=・?voltage=）・件数0の入口を指している
   市場データ 表に caption・th scope・time が無い・「いちばん新しい行の1文」の数字が表に無い・月報の img に width・height が無い
   対の頁     英語・中国語のコラムに「あわせて読む」・用語集へのリンクが無い（日本語の対にあるものだけ）
-「注意」（title・description の長さ）は --strict の判定に数えない（全頁の見直しが済むまでの目安）。
-表示幅は全角2・半角1で数える（検索結果の切れ目のおおよそ）。
 
 使い方:
     python3 scripts/seo/audit_pages.py            # 要約と、問題ごとの頁の一覧
