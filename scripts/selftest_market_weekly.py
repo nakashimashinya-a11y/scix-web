@@ -29,6 +29,13 @@ def main():
     html = b.weekly_section_ja(r, "2026-09-20") + b.weekly_section_en(r, "2026-09-20")
     for bad in ("T1", "T2", "売却", "sold"):
         assert bad not in html, bad
+    # MW が空の案件が5%を超える週は MW を出さない（表は「—」）・電圧未設定は注記で差を示す
+    d = [P("T%d" % i, None if i < 3 else 2.0, "高圧", "完成渡し", "2026-09-08") for i in range(10)] + [P("X", 1.0, None, None, "2026-09-09")]
+    rr = b.weekly_series(d, D(2026, 9, 20), [(D(2026, 9, 8), "a")], {"a": d}.get)
+    assert rr[-1]["mw_ok"] is False and rr[-1]["other_v"] == 1 and rr[0]["mw_missing"] == 3, rr
+    rr2 = [dict(rr[-1], week="2026-09-07", mw_ok=True, mw=100), rr[-1]]
+    h2 = b.weekly_section_ja(rr2, "2026-09-20")
+    assert "<td class=\"n\">—</td>" in h2 and "電圧が未設定の案件（直近は1件）" in h2, h2[:200]
     print("ok")
 
 

@@ -94,6 +94,9 @@ WEEKLY_FROM = "2026-09-07"
 WEEKLY_SHOW = 12   # 表と図に出す週の数（新しい方から）
 
 
+MW_MISSING_MAX = 0.03   # 出力(MW)が空の案件の割合の上限
+
+
 def _monday(d):
     return d - datetime.timedelta(days=d.weekday())
 
@@ -124,8 +127,14 @@ def _week_row(week, ps):
     mw = sum(p["mw"] for p in ps if isinstance(p.get("mw"), (int, float)))
     sc = Counter(p.get("scheme") for p in ps)
     vo = Counter(p.get("voltage") for p in ps)
-    return {"week": week.isoformat(), "n": len(ps), "mw": round(mw), "hv": vo.get("高圧", 0), "ehv": vo.get("特別高圧", 0),
-            "rights": sc.get("権利譲渡", 0), "built": sc.get("完成渡し", 0)}
+    n = len(ps)
+    mw_missing = sum(1 for p in ps if not isinstance(p.get("mw"), (int, float)))
+    hv, ehv = vo.get("高圧", 0), vo.get("特別高圧", 0)
+    # 出力(MW)が空の案件が週の件数の MW_MISSING_MAX を超える週は、合計 MW が実在庫の増減でなく欠けの影響になるので出さない
+    return {"week": week.isoformat(), "n": n, "mw": round(mw), "hv": hv, "ehv": ehv,
+            "rights": sc.get("権利譲渡", 0), "built": sc.get("完成渡し", 0),
+            "mw_missing": mw_missing, "mw_ok": bool(n) and mw_missing / n <= MW_MISSING_MAX,
+            "other_v": n - hv - ehv}
 
 
 def weekly_series(ps_now, today, hist=None, load=None):
@@ -194,7 +203,7 @@ def weekly_svg(rows, key_a, key_b, label_a, label_b, title, unit):
         out.append(f'<rect x="{x:.1f}" y="{T + ph - ha:.1f}" width="{bw:.1f}" height="{ha:.1f}" fill="var(--gold)"/>'
                    f'<rect x="{x:.1f}" y="{T + ph - ha - hb:.1f}" width="{bw:.1f}" height="{hb:.1f}" fill="var(--navy)"/>')
         tot = r[key_a] + r[key_b]
-        if i == len(rows) - 1 or i == 0 or tot == mx:
+        if tot and (i == len(rows) - 1 or i == 0 or tot == mx):
             out.append(f'<text x="{x + bw / 2:.1f}" y="{T + ph - ha - hb - 4:.1f}" text-anchor="middle" font-size="11" fill="var(--text-2)">{tot:,}</text>')
         if i % 2 == (len(rows) - 1) % 2:
             out.append(f'<text x="{x + bw / 2:.1f}" y="{H - 14}" text-anchor="middle" font-size="11" fill="var(--text-3)">{_short(r["week"])}</text>')
@@ -205,24 +214,34 @@ def weekly_svg(rows, key_a, key_b, label_a, label_b, title, unit):
     return "\n".join(out) + legend
 
 
+def _mwcell(r):
+    return f'{r["mw"]:,}' if r["mw_ok"] else "—"
+
+
+def _mw_rows(rows):
+    """MW の図用: 出力の欠けが多い週は棒を描かない（0 にして目盛りの外に置く）。"""
+    return [dict(r, a=(r["mw"] if r["mw_ok"] else 0), b=0) for r in rows]
+
+
 def weekly_section_ja(rows, generated):
     if len(rows) < 2:
         return ""
     last = rows[-1]
     body = "".join(
-        f'<tr><td>{_esc(_short(r["week"]))}{"（途中）" if i == len(rows) - 1 else ""}</td><td class="n">{r["n"]}</td><td class="n">{r["mw"]:,}</td>'
+        f'<tr><td>{_esc(_short(r["week"]))}{"（途中）" if i == len(rows) - 1 else ""}</td><td class="n">{r["n"]}</td><td class="n">{_mwcell(r)}</td>'
         f'<td class="n">{r["hv"]}</td><td class="n">{r["ehv"]}</td><td class="n">{r["rights"]}</td><td class="n">{r["built"]}</td>'
         f'<td class="n">{r["new"]}</td></tr>' for i, r in enumerate(rows))
+    nmw = sum(1 for r in rows if not r["mw_ok"])
     return f"""<section class="md"><div class="container">
   <div class="section-label">週ごとの推移</div>
   <h2 class="md-h">販売中の件数と規模の、週ごとの推移</h2>
   <p class="md-lead">毎週の終わり（日曜）に、買い手に見えていた案件の件数と合計出力です。直近{len(rows)}週を、月曜はじまりの週で並べています。今週は{_esc(generated)}時点の途中の数です。案件が載ると増え、一覧から外れると減ります。</p>
   <div class="md-grid">
-    <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">件数（高圧・特別高圧）</h3>{weekly_svg(rows, "hv", "ehv", "高圧", "特別高圧", "販売中の件数の週ごとの推移（高圧・特別高圧）", "件")}</div>
-    <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">合計出力（MW）</h3>{weekly_svg([dict(r, a=r["mw"], b=0) for r in rows], "a", "b", "合計MW", "", "販売中の合計出力（MW）の週ごとの推移", "MW")}</div>
+    <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">件数（高圧・特別高圧の積み上げ）</h3>{weekly_svg(rows, "hv", "ehv", "高圧", "特別高圧", "販売中の件数の週ごとの推移（高圧・特別高圧）", "件")}</div>
+    <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">合計出力（MW）</h3>{weekly_svg(_mw_rows(rows), "a", "b", "合計MW", "", "販売中の合計出力（MW）の週ごとの推移", "MW")}</div>
   </div>
   <div class="md-scroll"><table class="md-t"><thead><tr><th>週（月曜）</th><th>件数</th><th>合計MW</th><th>高圧</th><th>特別高圧</th><th>権利譲渡</th><th>完成渡し</th><th>新しく載った件</th></tr></thead><tbody>{body}</tbody></table></div>
-  <p class="md-note">「新しく載った件」は、その週に一覧へ載った案件の数です。取得の形が確認中の案件は、権利譲渡・完成渡しの列に入りません。当社の観測で、日本の市場全体の数ではありません。価格・案件名・所在地は載せていません。毎朝この表を作り直しています（直近は{last["n"]}件・{last["mw"]:,}MW）。</p>
+  <p class="md-note">図の件数は高圧と特別高圧の積み上げです。電圧が未設定の案件（直近は{last["other_v"]}件）は図に入らず、表の件数には入ります。{f"合計MWは、出力の値が空の案件が多い週（{nmw}週）を「—」にし、図も棒を描いていません。値の欠けで増減して見える週を、規模の推移として出さないためです。" if nmw else ""}「新しく載った件」は、その週に一覧へ載った案件の数です。取得の形が確認中の案件は、権利譲渡・完成渡しの列に入りません。当社の観測で、日本の市場全体の数ではありません。価格・案件名・所在地は載せていません。毎朝この表を作り直しています（直近は{last["n"]}件{f"・{last["mw"]:,}MW" if last["mw_ok"] else ""}）。</p>
 </div></section>
 """
 
@@ -230,8 +249,9 @@ def weekly_section_ja(rows, generated):
 def weekly_section_en(rows, generated):
     if len(rows) < 2:
         return ""
+    last = rows[-1]
     body = "".join(
-        f'<tr><td>{_esc(_short(r["week"]))}{" (partial)" if i == len(rows) - 1 else ""}</td><td class="n">{r["n"]}</td><td class="n">{r["mw"]:,}</td>'
+        f'<tr><td>{_esc(_short(r["week"]))}{" (partial)" if i == len(rows) - 1 else ""}</td><td class="n">{r["n"]}</td><td class="n">{_mwcell(r)}</td>'
         f'<td class="n">{r["hv"]}</td><td class="n">{r["ehv"]}</td><td class="n">{r["rights"]}</td><td class="n">{r["built"]}</td>'
         f'<td class="n">{r["new"]}</td></tr>' for i, r in enumerate(rows))
     return f"""<section class="md" id="weekly"><div class="container">
@@ -240,7 +260,7 @@ def weekly_section_en(rows, generated):
   <p class="md-lead">Number and total capacity of the projects visible to buyers at the end of each week (Monday-start weeks, last {len(rows)}). The latest week is partial, as of {_esc(generated)}.</p>
   {weekly_svg(rows, "hv", "ehv", "High voltage", "Extra-high voltage", "Listed projects per week (high voltage and extra-high voltage)", "projects")}
   <div class="md-scroll"><table class="md-t"><thead><tr><th>Week of</th><th>Projects</th><th>Total MW</th><th>High voltage</th><th>Extra-high</th><th>Transfer of rights</th><th>Completed-build</th><th>New listings</th></tr></thead><tbody>{body}</tbody></table></div>
-  <p class="md-note">ScienceX&rsquo;s own listings, not statistics for the whole Japanese market. Projects whose structure is under review are not in the last two structure columns. No prices, sites or names are published here.</p>
+  <p class="md-note">The chart stacks high voltage and extra-high voltage; projects without a voltage ({last["other_v"]} in the latest week) are not in the chart but are in the table counts. {"Total MW is shown as &ldquo;&mdash;&rdquo; for weeks when many projects had no capacity value, so that gaps in the data are not read as a change in market size. " if any(not r["mw_ok"] for r in rows) else ""}ScienceX&rsquo;s own listings, not statistics for the whole Japanese market. Projects whose structure is under review are not in the last two structure columns. No prices, sites or names are published here.</p>
 </div></section>
 """
 
