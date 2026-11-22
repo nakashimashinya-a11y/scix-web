@@ -51,6 +51,18 @@ import sys
 import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def modified_of(path, issued, text=None):
+    """頁の dateModified＝sitemap の lastmod。発行日と、sitemap の今の値（頁を変えた日に stamp_sitemap.py が進める）の新しいほう。
+    頁の JSON-LD と sitemap の2か所に同じ値を書き、焼き直しで値を戻さない（lastmod は前の値より古くしない＝O16-57）。"""
+    if text is None:
+        try:
+            text = open(os.path.join(ROOT, "sitemap.xml"), encoding="utf-8").read()
+        except OSError:
+            return issued
+    mt = re.search(r"<url><loc>" + re.escape(BASE + path) + r"</loc>.*?<lastmod>([0-9-]{10})</lastmod>", text)
+    return max(issued, mt.group(1)) if mt else issued
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import build_market_data as bmd  # noqa: E402  head / FOOTER / CSS / ld / crumbs / nav_crumbs / ORG を共用する
 import build_report_data as brd  # noqa: E402  市場データ（/report/data）とエリアの頁（/report/area/<slug>）
@@ -486,7 +498,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "Report", "@id": BASE + path + "#report", "url": BASE + path,
                 "name": title_h, "description": desc, "inLanguage": "ja", "datePublished": doc["issued"],
-                "dateModified": doc["issued"], "author": bmd.ORG, "publisher": PUBLISHER,
+                "dateModified": modified_of(path, doc["issued"]), "author": bmd.ORG, "publisher": PUBLISHER,
                 "encoding": {"@type": "MediaObject", "contentUrl": f"{BASE}{path}/{pdf_name}", "encodingFormat": "application/pdf"}}),
         bmd.ld(bmd.crumbs([("ホーム", BASE + "/"), ("市場ノート", BASE + "/report"), (title_h, BASE + path)])),
     ])
@@ -553,7 +565,7 @@ def render_month_en(m, doc, figs, nav=None):
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "Report", "@id": BASE + path + "#report", "url": BASE + path,
                 "name": title_h, "description": desc, "inLanguage": "en", "datePublished": doc["issued"],
-                "dateModified": doc["issued"], "author": EN_ORG, "publisher": EN_PUBLISHER,
+                "dateModified": modified_of(path, doc["issued"]), "author": EN_ORG, "publisher": EN_PUBLISHER,
                 "encoding": {"@type": "MediaObject", "contentUrl": f"{BASE}{path}/{pdf_name}", "encodingFormat": "application/pdf"}}),
         bmd.ld(bmd.crumbs([("Home", BASE + "/en"), ("Reports", BASE + "/en/report"), (title_h, BASE + path)])),
     ])
@@ -745,12 +757,12 @@ def put_home(rel, card):
 # ---------------------------------------------------------------- 書き出し
 def sitemap_add(text, rows, en_rows=()):
     """/report と各月の行を足す。英語版（en_rows＝英語のページがある月）があれば hreflang の相互の行も（日本語の行は書き直す）。
-    lastmod は発行日＝頁の JSON-LD の dateModified と同じ値（本文＝号の中身が変わった日だけ動く。2026-11-22 中島「Seo 対策も徹底して
-    やって」。2026-11-21 までは焼き直した日に進めていたが、頁の型だけを直した日まで「更新」になるので、dateModified に揃えた）。"""
+    lastmod は 発行日と今の sitemap の値の新しいほう＝頁の JSON-LD の dateModified と同じ値（modified_of。頁を変えた日は stamp_sitemap.py が
+    sitemap と頁の両方を進めるので、焼き直しで戻さない。2026-11-22 中島「Seo 対策も徹底して やって」）。"""
     en_keys = {r["key"] for r in en_rows}
 
     def lastmod_of(path, issued):
-        return issued
+        return modified_of(path, issued, text)
 
     def ent(path, lastmod, pr, en_path=None, lang="ja"):
         lastmod = lastmod_of(path, lastmod)

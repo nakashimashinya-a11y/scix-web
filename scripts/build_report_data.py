@@ -1122,7 +1122,8 @@ def build(br, months, docs):
     if not ja["jepx"] or not ja["latest"] or "cap" not in ja["latest"]["iss"]:
         notes.append("市場データ: 号の表が読めない（卸電気か容量市場の表が無い）。市場データの頁は焼かない")
         return files, sm, notes
-    _MOD["date"] = ja["latest"]["doc"]["issued"]
+    # 頁の dateModified＝sitemap の lastmod＝最新の号の発行日と、今の sitemap の値（頁を変えた日に stamp_sitemap.py が進める）の新しいほう
+    _MOD["date"] = br.modified_of("/report/data", ja["latest"]["doc"]["issued"])
     en_months = [m for m in months if m.get("en_md")]
     en = collect(en_months, docs, "en") if en_months else None
     has_en = False
@@ -1143,7 +1144,7 @@ def build(br, months, docs):
     files["report/data/long-term-decarbonization-auction.csv"] = lda_csv(ja, "ja").encode("utf-8")
     if SHOW_EPRX and ja["eprx"]:
         files["report/data/eprx-monthly.csv"] = eprx_csv(ja, "ja", "/report").encode("utf-8")
-    d = ja["latest"]["doc"]["issued"]
+    d = _MOD["date"]
     sm.append(("/report/data", d, "0.7", "/en/report/data" if has_en else None, "ja"))
     if has_en:
         en_order = en["jepx"][max(en["jepx"])]["order"]
