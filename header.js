@@ -442,8 +442,8 @@
     '<a href="/en/report" data-page="/report">' + ic('chart') + '<span>市场研究</span>' + EN_TAG + '</a>',
     '<a href="/en/company" data-page="/company">' + ic('co') + '<span>公司介绍</span>' + EN_TAG + '</a>',
     '<a href="/zh-contact" data-page="/contact">' + ic('mail') + '<span>联系我们</span></a>',
-    '<a href="' + MKT + '/en/login.html" class="scix-login">登录</a>',
-    '<a href="' + MKT + '/en/register.html" class="scix-mk scix-reg">免费注册</a>'
+    '<a href="' + MKT + '/en/login" class="scix-login">登录</a>',
+    '<a href="' + MKT + '/en/register" class="scix-mk scix-reg">免费注册</a>'
   ] : isEn ? [
     '<a href="' + MKT + '/en" class="scix-top-buy" data-k="buy">' + ic('buy') + '<span>Buy</span></a>',
     '<a href="' + MKT + '/en/needs" class="scix-top-sell" data-k="sell">' + ic('sell') + '<span>Sell</span></a>',
@@ -458,8 +458,8 @@
     ], 'chart'),
     '<a href="/en/company" data-page="/company">' + ic('co') + '<span>Company</span></a>',
     '<a href="/en/contact" data-page="/contact">' + ic('mail') + '<span>Contact</span></a>',
-    '<a href="' + MKT + '/en/login.html" class="scix-login">Log in</a>',
-    '<a href="' + MKT + '/en/register.html" class="scix-mk scix-reg">Sign up</a>'
+    '<a href="' + MKT + '/en/login" class="scix-login">Log in</a>',
+    '<a href="' + MKT + '/en/register" class="scix-mk scix-reg">Sign up</a>'
   ] : [
     ddSplit('buy', '買いたい', MKT + '/', [
       ['/transfer', '買うまでの流れ・買い方3つ'],
@@ -494,8 +494,8 @@
     ], 'chart'),
     '<a href="/company"  data-page="/company">' + ic('co') + '<span>会社案内</span></a>',
     '<a href="/contact"  data-page="/contact">' + ic('mail') + '<span>お問い合わせ</span></a>',
-    '<a href="' + MKT + '/login.html" class="scix-login">ログイン</a>',
-    '<a href="' + MKT + '/register.html" class="scix-mk scix-reg">無料で登録</a>'
+    '<a href="' + MKT + '/login" class="scix-login">ログイン</a>',
+    '<a href="' + MKT + '/register" class="scix-mk scix-reg">無料で登録</a>'
   ];
 
   // --------------- Language switcher (JA / EN / 简中) ---------------
