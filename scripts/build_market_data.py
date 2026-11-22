@@ -219,8 +219,19 @@ def _mwcell(r):
 
 
 def _mw_rows(rows):
-    """MW の図用: 出力の欠けが多い週は棒を描かない（0 にして目盛りの外に置く）。"""
-    return [dict(r, a=(r["mw"] if r["mw_ok"] else 0), b=0) for r in rows]
+    """MW の図用: 出力の欠けが多い週は図から外す（空の枠も残さない。表は「—」）。"""
+    return [dict(r, a=r["mw"], b=0) for r in rows if r["mw_ok"]]
+
+
+def _mw_chart_ja(rows):
+    ok = _mw_rows(rows)
+    if len(ok) < 2:
+        return '<p class="md-note">合計出力の図は、値の欠けの少ない週が2週以上そろうまで出しません（表を見てください）。</p>'
+    svg = weekly_svg(ok, "a", "b", "合計MW", "", "販売中の合計出力（MW）の週ごとの推移", "MW")
+    gone = len(rows) - len(ok)
+    if gone:
+        svg += f'<p class="md-note">値の欠けた{gone}週は図に出していません（表は「—」）。</p>'
+    return svg
 
 
 def weekly_section_ja(rows, generated):
@@ -232,16 +243,19 @@ def weekly_section_ja(rows, generated):
         f'<td class="n">{r["hv"]}</td><td class="n">{r["ehv"]}</td><td class="n">{r["rights"]}</td><td class="n">{r["built"]}</td>'
         f'<td class="n">{r["new"]}</td></tr>' for i, r in enumerate(rows))
     nmw = sum(1 for r in rows if not r["mw_ok"])
+    mw_note = (f"合計MWは、出力の値が空の案件が多い週（{nmw}週）を表で「—」にし、図からも外しています。"
+               "値の欠けで増減して見える週を、規模の推移として出さないためです。") if nmw else ""
+    last_mw = f"・{last['mw']:,}MW" if last["mw_ok"] else ""
     return f"""<section class="md"><div class="container">
   <div class="section-label">週ごとの推移</div>
   <h2 class="md-h">販売中の件数と規模の、週ごとの推移</h2>
   <p class="md-lead">毎週の終わり（日曜）に、買い手に見えていた案件の件数と合計出力です。直近{len(rows)}週を、月曜はじまりの週で並べています。今週は{_esc(generated)}時点の途中の数です。案件が載ると増え、一覧から外れると減ります。</p>
   <div class="md-grid">
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">件数（高圧・特別高圧の積み上げ）</h3>{weekly_svg(rows, "hv", "ehv", "高圧", "特別高圧", "販売中の件数の週ごとの推移（高圧・特別高圧）", "件")}</div>
-    <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">合計出力（MW）</h3>{weekly_svg(_mw_rows(rows), "a", "b", "合計MW", "", "販売中の合計出力（MW）の週ごとの推移", "MW")}</div>
+    <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">合計出力（MW）</h3>{_mw_chart_ja(rows)}</div>
   </div>
   <div class="md-scroll"><table class="md-t"><thead><tr><th>週（月曜）</th><th>件数</th><th>合計MW</th><th>高圧</th><th>特別高圧</th><th>権利譲渡</th><th>完成渡し</th><th>新しく載った件</th></tr></thead><tbody>{body}</tbody></table></div>
-  <p class="md-note">図の件数は高圧と特別高圧の積み上げです。電圧が未設定の案件（直近は{last["other_v"]}件）は図に入らず、表の件数には入ります。{f"合計MWは、出力の値が空の案件が多い週（{nmw}週）を「—」にし、図も棒を描いていません。値の欠けで増減して見える週を、規模の推移として出さないためです。" if nmw else ""}「新しく載った件」は、その週に一覧へ載った案件の数です。取得の形が確認中の案件は、権利譲渡・完成渡しの列に入りません。当社の観測で、日本の市場全体の数ではありません。価格・案件名・所在地は載せていません。毎朝この表を作り直しています（直近は{last["n"]}件{f"・{last["mw"]:,}MW" if last["mw_ok"] else ""}）。</p>
+  <p class="md-note">図の件数は高圧と特別高圧の積み上げです。電圧が未設定の案件（直近は{last["other_v"]}件）は図に入らず、表の件数には入ります。{mw_note}「新しく載った件」は、その週に一覧へ載った案件の数です。取得の形が確認中の案件は、権利譲渡・完成渡しの列に入りません。当社の観測で、日本の市場全体の数ではありません。価格・案件名・所在地は載せていません。毎朝この表を作り直しています（直近は{last["n"]}件{last_mw}）。</p>
 </div></section>
 """
 

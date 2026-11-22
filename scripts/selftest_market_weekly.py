@@ -36,6 +36,11 @@ def main():
     rr2 = [dict(rr[-1], week="2026-09-07", mw_ok=True, mw=100), rr[-1]]
     h2 = b.weekly_section_ja(rr2, "2026-09-20")
     assert "<td class=\"n\">—</td>" in h2 and "電圧が未設定の案件（直近は1件）" in h2, h2[:200]
+    # 欠けの週は MW の図から外す（空の枠を残さない）・MW の図に出せる週が2未満なら図を出さず表を案内する
+    assert len(b._mw_rows(rr2)) == 1 and "表を見てください" in b._mw_chart_ja(rr2)
+    rr3 = [dict(rr2[0], week="2026-08-31"), rr2[0], rr[-1]]
+    c3 = b._mw_chart_ja(rr3)
+    assert c3.count("<rect") == 2 * 2 and "値の欠けた1週は図に出していません" in c3, c3
     print("ok")
 
 
