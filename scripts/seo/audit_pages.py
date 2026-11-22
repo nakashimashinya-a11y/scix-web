@@ -213,7 +213,7 @@ def top_issues(rel: str, src: str):
     elif PRICE_RX.search(re.sub(r"<[^>]+>", " ", cards.group(1))):
         out.append(("トップの焼いた案件の行に価格・率の語がある", ""))
     for need, label in (("/company", "会社案内"), ("/contact", "お問い合わせ")):
-        if need not in first.replace("/zh-contact", "/contact").replace("/en/company", "/company").replace("/en/contact", "/contact"):
+        if need not in first.replace("/zh-contact", "/contact").replace("/zh-company", "/company").replace("/en/company", "/company").replace("/en/contact", "/contact"):
             out.append((f"トップの最初の節に {label} のリンクが無い", ""))
     if "/site-cards.js" not in src:
         out.append(("トップが /site-cards.js を読んでいない", ""))

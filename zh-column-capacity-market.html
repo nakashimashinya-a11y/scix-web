@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SNNK8MP9N9');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="applicable-device" content="pc,mobile">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-transform">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"></noscript>
+<style>
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#1F2A48;--text-light:#666666;--light-bg:#F7F7F7;--border:#E6E6E6;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#141B30 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-num{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:13px;color:rgba(255,255,255,0.5)}
+.header-date{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h2{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:32px 0 12px;line-height:1.5}
+p{margin-bottom:20px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.highlight-box strong{color:var(--navy)}
+.warning-box{background:#FFF8F0;border-left:4px solid #E67E22;padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.92em;line-height:2}
+.data-box{background:var(--light-bg);border:1px solid var(--border);padding:24px 28px;margin:28px 0;border-radius:6px;font-size:.92em;line-height:2}
+.data-box .num{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-weight:700;color:var(--navy);font-size:1.1em}
+.source{font-size:.75em;color:var(--text-light);margin-top:12px;font-style:italic}
+.comparison-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.88em}
+.comparison-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-weight:500;font-size:.82em;letter-spacing:.5px}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.comparison-table .em{font-weight:700;color:var(--navy)}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'问：';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text)}
+.faq-a::before{content:'答：';color:var(--text-light);font-weight:700}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px;transition:opacity .3s}
+.back-link:hover{opacity:.7}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:48px 28px;border-radius:8px;text-align:center;margin-top:48px}
+.cta-section h3{color:#fff;font-family:'Noto Sans SC','Noto Sans JP',sans-serif;margin:0 0 12px}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.88em;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 32px;border-radius:4px;font-weight:600;font-size:.88em;text-decoration:none;transition:all .3s}
+.cta-btn:hover{background:var(--accent-light);box-shadow:0 4px 20px rgba(196,154,60,.35)}
+.next-link{display:flex;align-items:center;justify-content:space-between;background:var(--light-bg);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-top:32px;text-decoration:none;transition:all .2s}
+.next-link:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(196,154,60,.15)}
+.next-link-label{font-size:.78em;color:var(--text-light);margin-bottom:4px}
+.next-link-title{font-weight:700;color:var(--navy);font-size:.95em}
+.next-link-arrow{font-size:1.4em;color:var(--accent)}
+@media(max-width:768px){.article-body{padding:32px 16px 60px}h2{font-size:1.2em}.comparison-table{font-size:.8em}.comparison-table th,.comparison-table td{padding:8px 10px}}
+.author-box{background:var(--light-bg,#F7F7F7);border:1px solid var(--border,#E6E6E6);border-radius:8px;padding:20px 24px;margin-top:32px;font-size:.88em;line-height:1.9}
+.author-box .ab-label{font-size:.8em;font-weight:700;color:var(--accent,#C49A3C);letter-spacing:.08em;margin-bottom:6px}
+.author-box .ab-name{font-weight:700;color:var(--navy,#1F2A48)}
+.ja-tag{display:inline-block;margin-left:.35em;padding:0 .4em;font-size:.66em;font-weight:700;letter-spacing:.07em;color:#A07916;background:rgba(196,154,60,.15);border-radius:2px;vertical-align:.14em;text-decoration:none}
+</style>
+<title>容量市场主拍卖与储能 — 单价（成交价格）的变迁与对收益的影响｜ScienceX</title>
+<meta name="description" content="依一手资料梳理日本容量市场主拍卖从第1次到第6次（2029年度交割·2026年1月公布）的单价（成交价格）变迁。总平均单价13,303日元/kW创历史新高，分为4个区块的区域单价、中标率、对储能收益的影响，以及与LDA的区别。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.scix.co.jp/zh-column-capacity-market">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-column-capacity-market">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/column-capacity-market">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/column-capacity-market">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/column-capacity-market">
+<meta property="og:type" content="article">
+<meta property="og:title" content="容量市场主拍卖与储能 — 单价（成交价格）的变迁与对收益的影响｜ScienceX">
+<meta property="og:description" content="依一手资料梳理日本容量市场主拍卖从第1次到第6次（2029年度交割·2026年1月公布）的单价（成交价格）变迁。总平均单价13,303日元/kW创历史新高，分为4个区块的区域单价、中标率、对储能收益的影响，以及与LDA的区别。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-column-capacity-market">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-m-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="容量市场主拍卖与储能 — 单价（成交价格）的变迁与对收益的影响｜ScienceX">
+<meta name="twitter:description" content="依一手资料梳理日本容量市场主拍卖从第1次到第6次（2029年度交割·2026年1月公布）的单价（成交价格）变迁。总平均单价13,303日元/kW创历史新高，分为4个区块的区域单价、中标率、对储能收益的影响，以及与LDA的区别。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-m-zh.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "容量市场主拍卖与储能 — 成交价格的变迁与对收益的影响",
+  "description": "依一手资料梳理日本容量市场主拍卖从第1次到第6次（2029年度交割·2026年1月公布）的单价（成交价格）变迁。总平均单价13,303日元/kW创历史新高，分为4个区块的区域单价、中标率、对储能收益的影响，以及与LDA的区别。",
+  "inLanguage": "zh-CN",
+  "author": {
+    "@type": "Person",
+    "@id": "https://www.scix.co.jp/company#shinya-nakashima",
+    "name": "中岛晋也",
+    "alternateName": "Shinya Nakashima",
+    "jobTitle": "代表董事（工学博士）",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Science X Inc."
+    },
+    "url": "https://www.scix.co.jp/zh-company",
+    "sameAs": [
+      "https://www.linkedin.com/in/dr-shinya-nakashima"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://www.scix.co.jp/#organization",
+    "name": "Science X Inc.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-navy.png"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-m-zh.png",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "2026-06-18",
+  "dateModified": "2026-11-22",
+  "mainEntityOfPage": "https://www.scix.co.jp/zh-column-capacity-market"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "什么是容量市场主拍卖？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "由电力广域运营推进机构（OCCTO）运营、预先确保未来供电能力（kW）的市场。在交割年度的4年前举行拍卖，对电源“存在并待命”支付对价。采用单一价格、原则上1年的合同，既有与新建的所有电源都能参加，储能1,000kW以上即可参加。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "容量市场的成交价格如何变化？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "总平均单价（扣除过渡措施后）为第1次（2024年度交割）9,534日元/kW、第2次3,109日元、第3次5,226日元、第4次7,847日元、第5次11,134日元、第6次（2029年度交割）13,303日元/kW。第2次成交价格由14,137日元急跌至3,495日元后转为上升，第6次的成交总额约2.2094万亿日元，为历史最高（OCCTO公布值、资源能源厅汇总）。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "容量市场的收入会因储能的选址而不同吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "会。第5次北海道、东北、东京为上限价格14,812日元/kW，九州13,177日元，中部10,280日元，北陆、关西、中国地区、四国8,785日元/kW，最高与最低相差约7成。第6次九州15,112日元，东北、东京15,111日元，北海道14,972日元，中部、北陆、关西、中国地区、四国12,388日元/kW，差距缩小到约2成，但即使是同样的储能，容量市场收入也会因设置区域而不同。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "容量市场主拍卖与LDA有何不同？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "主拍卖为原则1年合同、单一价格、面向全部电源，既有储能和不足3万kW的项目也能参加，并可全额享有其他市场的收益。LDA（长期脱碳电源拍卖）仅限新建、原则20年合同、多重价格，负有返还其他市场大部分收益的义务。两者的详细比较，在专栏《主拍卖 vs LDA》中解说。"
+      }
+    }
+  ]
+}
+</script>
+<meta property="article:published_time" content="2026-06-18">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://www.scix.co.jp/zh"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "洞见",
+      "item": "https://www.scix.co.jp/zh-knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "容量市场主拍卖与储能",
+      "item": "https://www.scix.co.jp/zh-column-capacity-market"
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8C8C8C"><a href="/zh" style="color:#555555;text-decoration:none">首页</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/zh-knowledge" style="color:#555555;text-decoration:none">洞见</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8C8C8C">容量市场主拍卖与储能</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-num">COLUMN 28</span>
+      <span class="header-tag">制度解说</span>
+      <time class="header-date" datetime="2026-06-18">2026.06.18</time>
+    </div>
+    <h1>容量市场主拍卖与储能<br>— <em>成交价格的变迁</em>与对收益的影响</h1>
+    <p class="header-desc">确保未来供电能力（kW）的容量市场主拍卖，让储能“只要存在”就能获得固定收入。本文依据OCCTO的公开数据，梳理从第1次到第6次（2026年1月公布）成交价格的波动、各区域的单价差异，以及它们如何作用于储能事业的收益。</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/zh-knowledge" class="back-link">← 返回洞见一览</a>
+
+<h2>什么是容量市场主拍卖 — 确保未来供电能力的市场</h2>
+<p>容量市场由<strong>电力广域运营推进机构（OCCTO）</strong>运营，用来预先确保未来的供电能力（kW）。它既不同于买卖电量（kWh）本身的日本电力交易所（JEPX），也不同于交易升降出力的调整力（ΔkW）的辅助服务市场（需給調整市場）：容量市场买的是“在指定年度，所需的发电、放电能力确实存在”。电源无论实际是否运行，都因作为供电能力存在并待命而获得对价。</p>
+<p>其中的核心是<strong>主拍卖</strong>，在交割年度（実需給年度）的4年前举行。储能<strong>1,000kW以上</strong>即可参加；拍卖采用<strong>单一价格</strong>（最后一个中标者的价格适用于所有人），合同<strong>原则上为1年（单一年度）</strong>。既有电源与新建电源在同一平台上参加，这一点与只面向新建的长期脱碳电源拍卖（長期脱炭素電源オークション，LDA）有根本区别。</p>
+<div class="highlight-box">
+  <strong>储能面对的3个电力市场：</strong><br>
+  · <strong>JEPX（电力批发市场）</strong> … 买卖电量（kWh）。在便宜的时段充电、在昂贵的时段放电的套利场所。<br>
+  · <strong>辅助服务市场（EPRX运营）</strong> … 交易调整力（ΔkW＝待命）。为保持可升降出力的状态等待而获得的对价。<br>
+  · <strong>容量市场（OCCTO运营）</strong> … 确保未来的供电能力（kW）。因存在而获得的固定容量收入。<br><br>
+  本文聚焦第3个容量市场，尤其是其中的<strong>主拍卖</strong>。如何叠加3个市场（收益堆叠）的全貌，请参阅<a target="_top" href="/zh-column-revenue" style="color:var(--accent);font-weight:600">储能的三大收益来源</a>。
+</div>
+
+
+<!-- scix-related-block:begin -->
+<!-- scix-readnext: 相关文章 -->
+<aside data-scix-readnext style="margin:32px 0;padding:14px 20px 10px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans SC','Noto Sans JP',sans-serif">
+  <div style="font-size:12px;font-weight:700;color:#555555;letter-spacing:.08em;margin-bottom:2px">相关文章</div>
+  <a target="_top" href="/zh-column-lda" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">什么是长期脱碳电源拍卖（LDA）— 储能中标率与第3次结果 →</a>
+  <a target="_top" href="/zh-column-long-term-contract" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">什么是容量租赁（Tolling）合约 →</a>
+  <a target="_top" href="/zh-column-regional-revenue" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">同样的2MW，年营收可以是2.9亿日元，也可以是6千万日元 — 电网侧储能赚钱的分区与赚法、9分区×3市场实测 →</a>
+</aside>
+<!-- scix-guide: glossary -->
+<aside data-scix-guide style="margin:32px 0;padding:14px 20px 12px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:14.5px;line-height:1.8;color:#1F2A48">
+  <p style="margin:0;font-size:13px;color:#555555">本文术语： <a target="_top" href="/zh-glossary#term-容量市场主拍卖" style="color:#1F2A48">容量市场</a>・<a target="_top" href="/zh-glossary#term-JEPX日本批发电力交易所" style="color:#1F2A48">JEPX</a>・<a target="_top" href="/zh-glossary#term-ΔkW" style="color:#1F2A48">ΔkW</a>・<a target="_top" href="/zh-glossary#term-辅助服务市场需給調整市場" style="color:#1F2A48">辅助服务市场</a>・<a target="_top" href="/zh-glossary#term-长期脱碳电源拍卖LDA" style="color:#1F2A48">长期脱碳电源拍卖</a>／<a target="_top" href="/zh-glossary" style="color:#1F2A48">术语表</a></p>
+  <p style="margin:8px 0 0;font-size:13px;color:#555555">市场数字： <a target="_top" href="/en/report/data" style="color:#1F2A48;font-weight:600">市场数据（英文页面）</a>・<a target="_top" href="/en/report" style="color:#1F2A48;font-weight:600">市场笔记（英文页面）</a></p>
+</aside>
+<!-- scix-related-block:end -->
+<h2>成交价格的变迁 — 从急跌转为上涨</h2>
+<p>主拍卖的价格从第1次到第6次大幅波动。第1次的成交价格（14,137日元/kW）是接近需求曲线上限的高价，第2次（3,495日元/kW）急跌到约4分之1，此后转为上升趋势。背景是数据中心、半导体工厂等新的电力需求在增加。</p>
+<table class="comparison-table">
+  <tr><th>次</th><th>交割年度</th><th>总平均单价（扣除过渡措施后）</th><th>备注</th></tr>
+  <tr><td class="em">第1次</td><td>2024年度</td><td>9,534日元/kW</td><td>成交价格全国统一为14,137日元/kW。接近需求曲线上限而受到批评</td></tr>
+  <tr><td class="em">第2次</td><td>2025年度</td><td>3,109日元/kW</td><td>成交价格3,495日元/kW（北海道、九州为5,242日元），比上一次急跌至约1/4</td></tr>
+  <tr><td class="em">第3次</td><td>2026年度</td><td>5,226日元/kW</td><td>出现按区域的市场分割</td></tr>
+  <tr><td class="em">第4次</td><td>2027年度</td><td>7,847日元/kW</td><td>转为上升趋势</td></tr>
+  <tr><td class="em">第5次</td><td>2028年度</td><td>11,134日元/kW</td><td>成交总额约1.8506万亿日元</td></tr>
+  <tr><td class="em">第6次</td><td>2029年度</td><td>13,303日元/kW</td><td>创历史新高。成交总额约2.2094万亿日元。区域分割为4个区块</td></tr>
+</table>
+<p>2026年1月20日公布结果的第6次（2029年度交割）总平均单价为<strong>13,303日元/kW</strong>（扣除过渡措施后），进一步超过第5次的11,134日元。成交总额<strong>约2.2094万亿日元</strong>，为历史最高。除第1次外，区域价格首次在所有区域都超过了指标价格（10,075日元/kW）。价格逐年度大幅变动，是靠每年更新来争取容量收入的主拍卖的宿命；既然不是长期固定收入，就必须把这种变动本身纳入事业设计。</p>
+<div class="source">出处：电力广域运营推进机构（OCCTO）各次成交结果／第6次（2026年1月20日公布、1月23日更正）／资源能源厅《容量市場について》（关于容量市场）（2026年1月23日 资料3-3 第5页。总平均单价＝成交总额（扣除过渡措施后）÷成交总容量）。收录截至2026年10月2日已公布的第6次为止的结果</div>
+
+<h2>单价因区域而分化 — 选址决定容量收入</h2>
+<p>自第3次起，容量市场不再全国统一成交，而是按区域分割成交。在第5次（2028年度交割）中，区域间的单价差距决定性地拉大。即使建造同样的储能，放在哪个区域，来自容量市场的年收入都会大不相同。</p>
+<table class="comparison-table">
+  <tr><th>区域</th><th>成交单价（日元/kW）</th><th>相对上限价格</th></tr>
+  <tr><td class="em">北海道、东北、东京</td><td>14,812日元/kW</td><td>以上限价格成交</td></tr>
+  <tr><td class="em">九州</td><td>13,177日元/kW</td><td>上限的89%</td></tr>
+  <tr><td>中部</td><td>10,280日元/kW</td><td>上限的69%</td></tr>
+  <tr><td>北陆、关西、中国地区、四国</td><td>8,785日元/kW</td><td>上限的59%</td></tr>
+</table>
+<p>第5次最高的区域（北海道、东北、东京的14,812日元/kW＝贴住上限价格）与最低的区域（北陆、关西、中国地区、四国的8,785日元/kW）相差<strong>约7成</strong>。容量市场的收入是每kW的固定收入，这一单价差会原样体现为年收入的差距。谈到储能的收益性时常说“选址决定一切”，正是因为不只是并网成本，容量市场、辅助服务市场的这些区域特性也在复合地发挥作用。结合各区域辅助服务市场数据的选址评估，在<a target="_top" href="/zh-column-revenue" style="color:var(--accent);font-weight:600">储能的三大收益来源</a>中也有讨论。</p>
+<div class="source">出处：电力广域运营推进机构（OCCTO）《容量市场主拍卖成交结果（对象交割年度：2028年度）》（2025年1月29日）</div>
+
+<p>第6次（2029年度交割）中，区域分为北海道／东北、东京／九州／中部、北陆、关西、中国地区、四国4个区块。最高与最低的差距缩小到约2成。东北、东京在追加处理之后供电能力仍然不足，连续2年成为不足区域。</p>
+<table class="comparison-table">
+  <tr><th>区域</th><th>成交单价（日元/kW）</th></tr>
+  <tr><td class="em">九州</td><td>15,112日元/kW</td></tr>
+  <tr><td class="em">东北、东京</td><td>15,111日元/kW</td></tr>
+  <tr><td class="em">北海道</td><td>14,972日元/kW</td></tr>
+  <tr><td>中部、北陆、关西、中国地区、四国</td><td>12,388日元/kW</td></tr>
+</table>
+<div class="source">出处：电力广域运营推进机构（OCCTO）《容量市场主拍卖成交结果（对象交割年度：2029年度）》（2026年1月20日公布、1月23日更正）第9～10页／资源能源厅《容量市場について》（关于容量市场）（2026年1月23日 资料3-3）第4页</div>
+
+<h2>对储能收益的影响 — “只要存在”的基础收入</h2>
+<p>主拍卖的容量收入，对储能来说是“不运行也能进账”的最稳定的收入。储能的中标率<strong>超过96%</strong>，几乎全部可以中标，只要参加，容量收入几乎可以确保。在这份基础收入之上，叠加JEPX的套利与辅助服务市场的收益，是主拍卖型（全市场型）收益设计的基本形。</p>
+<div class="data-box">
+  <strong>对参加主拍卖的储能有影响的要点：</strong><br>
+  · 中标率 <span class="num">超过96%</span> — 几乎全部中标，不易错失容量收入<br>
+  · 合同原则上为1年 — 直接承受每年成交价格的变动（不是长期固定）<br>
+  · 对其他市场的收益没有限制 — 可全额享有JEPX、辅助服务市场的收益<br>
+  · 最低容量 1,000kW — 小规模项目也能参加
+</div>
+<p>但需要注意，主拍卖是“可以全额拿到，但每年的价格变动风险由自己承担”的制度。一旦发生第1次到第2次那样的急跌，当年度的容量收入就会大幅缩水。在价格上升的阶段是顺风，但只把收益押在容量市场上的设计风险很高，只有以与JEPX、辅助服务市场的收益堆叠为前提才能成立。</p>
+<div class="warning-box">
+  <strong>⚠ “进入容量市场就高枕无忧”并非如此</strong><br><br>
+  主拍卖是单一年度合同，成交价格每年都在变动。第1次14,137日元→第2次3,495日元这样的急跌确实发生过。容量收入终究只是基础；如果要求LDA那样的收益稳定性，那是完全不同的制度设计。<br><br>
+  想用20年固定收入锁定收益，选LDA；想在争取每年价格变动的同时全额享有其他市场收益，选主拍卖——两者就是这样分工的。
+</div>
+
+<h2>主拍卖中几乎没有储能参加</h2>
+<p>尽管中标率高达96%以上，参加主拍卖投标的储能容量却极少。储能在主拍卖中的投标容量仅占整体的<strong>约0.1%（约24万kW）</strong>，大型储能多数为了20年固定收入流向了LDA。</p>
+<p>这并不是“因为主拍卖不受欢迎”，而是因为对新建的大型储能而言，便于组成项目融资的LDA 20年固定收入，与资金筹措更相配。反过来说，对<strong>既有的储能</strong>和<strong>不足3万kW、达不到LDA最低容量的项目</strong>来说，主拍卖是获取容量收入的现实选择。既有储能本来就不能参加LDA（仅限新建），因此只能选主拍卖。</p>
+<div class="highlight-box">
+  <strong>适合主拍卖的储能：</strong><br>
+  · <strong>既有储能</strong>（LDA仅限新建，无法参加）<br>
+  · <strong>不足3万kW的项目</strong>（达不到LDA的最低投标容量）<br>
+  · 拥有市场交易经验、能承担价格变动风险的<strong>全市场型</strong>企业<br><br>
+  新建的大规模项目、重视长期稳定收入的，以LDA一方的研究为中心。两种制度的7项比较，请参阅<a target="_top" href="/zh-column-auction" style="color:var(--accent);font-weight:600">主拍卖 vs LDA</a>。
+</div>
+
+<h2>主拍卖与LDA的定位</h2>
+<p>虽同在“容量市场”这把伞下，主拍卖与LDA的设计思想根本不同。本文聚焦主拍卖一方，但是否参加的判断，总是在两者的对照中做出。</p>
+<table class="comparison-table">
+  <tr><th>项目</th><th>主拍卖</th><th>LDA</th></tr>
+  <tr><td class="em">合同期间</td><td>原则1年（单一年度）</td><td>原则20年</td></tr>
+  <tr><td class="em">方式</td><td>单一价格</td><td>多重价格</td></tr>
+  <tr><td class="em">对象电源</td><td>既有、新建的全部电源</td><td>仅限新建、设备更新替换、改造</td></tr>
+  <tr><td class="em">储能的最低容量</td><td>1,000kW</td><td>3万kW（第2次起）</td></tr>
+  <tr><td class="em">其他市场的收益</td><td>没有限制（全额享有）</td><td>有义务返还大部分</td></tr>
+  <tr><td class="em">储能的中标率</td><td>超过96%</td><td>约20～46%（第1～3次）</td></tr>
+</table>
+<p>主拍卖是“包括维持既有电源在内、确保次年度供电能力”的市场，LDA是“保证新建脱碳电源20年投资回收”的市场。问题不在于哪个划算，而在于最优解会随既有还是新建、规模、风险承受度、资金筹措方式而改变。LDA一方的20年固定收入与返还规则的详情，见<a target="_top" href="/zh-column-lda" style="color:var(--accent);font-weight:600">什么是LDA（长期脱碳电源拍卖）</a>；两种制度的参与判断框架，在<a target="_top" href="/zh-column-auction" style="color:var(--accent);font-weight:600">主拍卖 vs LDA</a>中有详细整理。</p>
+<div class="source">出处：资源能源厅《容量市場について》（关于容量市场）（2025年2月5日）／OCCTO 各次成交结果、LDA成交结果</div>
+
+<h2>常见问题</h2>
+<div class="faq-item">
+  <div class="faq-q">什么是容量市场主拍卖？</div>
+  <div class="faq-a">由电力广域运营推进机构（OCCTO）运营、预先确保未来供电能力（kW）的市场。在交割年度的4年前举行拍卖，对电源“存在并待命”支付对价。采用单一价格、原则上1年的合同，既有与新建的所有电源都能参加，储能1,000kW以上即可参加。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">容量市场的成交价格如何变化？</div>
+  <div class="faq-a">总平均单价（扣除过渡措施后）为第1次（2024年度交割）9,534日元/kW、第2次3,109日元、第3次5,226日元、第4次7,847日元、第5次11,134日元、第6次（2029年度交割）13,303日元/kW。第2次成交价格由14,137日元急跌至3,495日元后转为上升，第6次的成交总额约2.2094万亿日元，为历史最高（OCCTO公布值、资源能源厅汇总）。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">容量市场的收入会因储能的选址而不同吗？</div>
+  <div class="faq-a">会。第5次北海道、东北、东京为上限价格14,812日元/kW，九州13,177日元，中部10,280日元，北陆、关西、中国地区、四国8,785日元/kW，最高与最低相差约7成。第6次九州15,112日元，东北、东京15,111日元，北海道14,972日元，中部、北陆、关西、中国地区、四国12,388日元/kW，差距缩小到约2成，但即使是同样的储能，容量市场收入也会因设置区域而不同。</div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">容量市场主拍卖与LDA有何不同？</div>
+  <div class="faq-a">主拍卖为原则1年合同、单一价格、面向全部电源，既有储能和不足3万kW的项目也能参加，并可全额享有其他市场的收益。LDA（长期脱碳电源拍卖）仅限新建、原则20年合同、多重价格，负有返还其他市场大部分收益的义务。两者的详细比较，在专栏《主拍卖 vs LDA》中解说。</div>
+</div>
+
+<a target="_top" href="/zh-column-revenue" class="next-link">
+  <div>
+    <div class="next-link-label">NEXT → COLUMN 02</div>
+    <div class="next-link-title">电池储能的三大收益来源 — JEPX、辅助服务、容量市场的堆叠策略</div>
+  </div>
+  <span class="next-link-arrow">→</span>
+</a>
+
+<div class="author-box">
+  <div class="ab-label">本文监修</div>
+  <div><span class="ab-name">中岛晋也</span>（Science X Inc. 代表董事、工学博士）</div>
+  <p style="margin:6px 0 0">从事日本电网侧储能电站的开发、买卖与技术尽职调查。本文基于实际项目的组建与评估经验撰写并监修。</p>
+</div>
+
+</div>
+
+<!-- scix-column-cta : 1記事1つ。ZH は単一ファネル（/zh-contact）。蓄電所マーケットの画面は日本語・英語のみ -->
+<div style="max-width:760px;margin:48px auto 0;padding:32px 28px;background:#F5F5F3;border:1px solid #E6E6E6;border-radius:8px;font-family:'Noto Sans SC','Noto Sans JP',sans-serif">
+  <h3 style="color:#1F2A48;font-size:1.12em;font-weight:600;margin:0 0 10px;line-height:1.55;text-align:center">容量市场的单价因管区而不同。项目一览可按管区筛选</h3>
+  <p style="color:#555555;font-size:14px;line-height:1.9;margin:0 0 22px;text-align:center">本公司经手的是已经拿到接入系统研究答复的项目。所在县、规模、电压、购买方式、手续进展和预计投运时间，无需登记即可查看；价格与资料在蓄电所市场免费登记后可见。</p>
+  <div style="text-align:center">
+    <a target="_top" href="https://www.scix.co.jp/zh-contact" style="display:inline-block;background:#C49A3C;color:#1F2A48;font-weight:700;font-size:14px;padding:13px 30px;border-radius:4px;text-decoration:none">联系我们 →</a>
+    <p style="color:#8C8C8C;font-size:12.5px;line-height:1.8;margin:10px 0 0">将打开咨询表单。请在留言栏写明您是买方还是卖方，以及关注的设备或项目。蓄电所市场的画面只有日文和英文，中文读者请用英文画面：<a target="_top" href="https://dealroom.scix.co.jp/en" style="color:#1F2A48">蓄电所市场的在售项目（英文页面）</a>。</p>
+  </div>
+</div>
+
+<!-- ScienceX Footer — self-contained (zh-CN) -->
+<style>
+  .scix-footer *{margin:0;padding:0;box-sizing:border-box}
+  .scix-footer{background-color:#1F2A48;color:rgba(255,255,255,0.85);font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+  .scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px}
+  .scix-footer-logo img{height:48px;width:auto;display:block;opacity:0.95}
+  .scix-footer-info{text-align:center}
+  .scix-footer-copyright{font-size:11px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);margin-top:20px}
+  .scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,0.8)}
+  .scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);margin-bottom:2px}
+  .scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,0.6);font-size:12px}
+  .scix-footer-company a{color:rgba(255,255,255,0.8);text-decoration:none;transition:color 0.2s ease}
+  .scix-footer-company a:hover{color:#C49A3C}
+  .scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(255,255,255,0.12);margin:0 auto}
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img width="300" height="118" src="/img/logo-white.png" alt="ScienceX Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        日本〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/zh" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">首页</a>
+        <a href="/zh-knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">洞见</a>
+        <a href="/zh-qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">问答</a>
+        <a href="/zh-glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">术语表</a>
+        <a href="/zh-company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">公司介绍</a>
+        <a href="/zh-contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">联系我们</a>
+        <a href="/zh-privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">隐私政策</a>
+      </div>
+      <div class="scix-footer-copyright">&copy; 2025–2026 Science X Inc. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

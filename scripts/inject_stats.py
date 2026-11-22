@@ -19,10 +19,10 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TARGETS = ["index.html", "en/index.html", "zh.html", "company.html", "en/company.html", "projects.html"]
+TARGETS = ["index.html", "en/index.html", "zh.html", "company.html", "en/company.html", "zh-company.html", "projects.html"]
 # トップ3頁の言葉（<!--S:cards-->・<!--S:count-->・<!--S:date--> の言葉）。projects.html は日本語。
-# 会社案内（company.html・en/company.html）は冒頭の札の <!--S:count-->・<!--S:prefs--> だけを焼く（中国語の会社案内の頁は無い）
-TARGET_LANG = {"index.html": "ja", "en/index.html": "en", "zh.html": "zh", "company.html": "ja", "en/company.html": "en", "projects.html": "ja"}
+# 会社案内（company.html・en/company.html・zh-company.html）は冒頭の札の <!--S:count-->・<!--S:prefs--> だけを焼く
+TARGET_LANG = {"index.html": "ja", "en/index.html": "en", "zh.html": "zh", "company.html": "ja", "en/company.html": "en", "zh-company.html": "zh", "projects.html": "ja"}
 
 
 def _esc(v):
@@ -219,6 +219,16 @@ CARD_TEXT = {
 }
 
 
+# 中国語のカードの県名・管内名は、日本の字（県・東・島…）を簡体字に替える（熊本県→熊本县・関西→关西）。名簿の値は日本語のまま
+ZH_PLACE = str.maketrans({"県": "县", "東": "东", "島": "岛", "岡": "冈", "賀": "贺", "児": "儿", "縄": "绳", "沖": "冲",
+                          "鳥": "鸟", "愛": "爱", "徳": "德", "広": "广", "馬": "马", "潟": "泻", "長": "长", "庫": "库",
+                          "宮": "宫", "葉": "叶", "関": "关", "陸": "陆"})
+
+
+def zh_place(s):
+    return (s or "").translate(ZH_PLACE)
+
+
 def card_cod(p, today_ym, lang):
     """カードの「連系の見込み」。ja は cod_text と同じ規則・短い言い方。en は build_market_data.en_cod と同じ規則。"""
     if p.get("live"):
@@ -254,8 +264,8 @@ def render_cards(ps, lang="ja", today=None):
         vk, art = CARD_ART.get(volt, ("hv", CARD_ART["高圧"][1]))
         pref_ja = p.get("pref") or ""
         area_ja = p.get("area") or ""
-        pref = (en_pref.get(pref_ja, pref_ja) if lang == "en" else pref_ja) or t["none"]
-        area = en_area.get(area_ja, area_ja) if lang == "en" else area_ja
+        pref = (en_pref.get(pref_ja, pref_ja) if lang == "en" else zh_place(pref_ja) if lang == "zh" else pref_ja) or t["none"]
+        area = en_area.get(area_ja, area_ja) if lang == "en" else zh_place(area_ja) if lang == "zh" else area_ja
         vname = t["vol"].get(volt, volt)
         mw, mwh = p.get("mw"), p.get("mwh")
         cells = []
