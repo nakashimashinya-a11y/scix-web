@@ -179,8 +179,15 @@
     '.scix-nav-dd.split{gap:0}',
     '.scix-nav-main{padding-right:4px!important}',
     '.scix-dd-split-btn{padding:0 10px 0 4px!important;gap:0!important}',
-    '.scix-header-nav a.scix-login{--pc:#1F2A48}',
-    '.scix-header-nav > a.scix-mk.scix-reg{padding:9px 18px}',
+    '/* 2026-11-22: ログイン・無料で登録は頁の案内の外（右端の1組）。ログインは枠だけの小さな丸、登録は橙の主ボタン */',
+    '.scix-auth{display:flex;align-items:center;gap:10px;margin-left:16px;flex-shrink:0}',
+    '.scix-auth-m{display:none}',
+    '.scix-auth a.scix-login,.scix-auth-m a.scix-login{display:inline-flex;align-items:center;gap:6px;height:auto;padding:7px 14px 7px 11px;border:1.5px solid #C9D2E3;border-radius:999px;background:#fff;color:#1F2A48;font-size:14px;font-weight:700;line-height:1.3;text-decoration:none;white-space:nowrap;transition:border-color .15s,background .15s}',
+    '.scix-auth a.scix-login svg,.scix-auth-m a.scix-login svg{width:18px;height:18px;flex:0 0 auto;display:block;color:#5B667A}',
+    '.scix-auth a.scix-login:hover,.scix-auth-m a.scix-login:hover{border-color:#1F2A48;background:#F3F5FA}',
+    '.scix-auth a.scix-mk,.scix-auth-m a.scix-mk{display:inline-flex;align-items:center;justify-content:center;height:auto;margin:0;padding:9px 18px;background:#D4610A;color:#fff;font-weight:900;font-size:15px;line-height:1.3;border-radius:999px;box-shadow:0 6px 16px rgba(212,97,10,.30);text-decoration:none;white-space:nowrap;transition:background .15s,box-shadow .15s,transform .15s}',
+    '.scix-auth a.scix-mk:hover,.scix-auth-m a.scix-mk:hover{background:#EF7A1A;color:#fff;box-shadow:0 8px 20px rgba(212,97,10,.38);transform:translateY(-1px)}',
+    '.scix-auth a:focus-visible,.scix-auth-m a:focus-visible{outline:2px solid #F97316;outline-offset:2px}',
     '.scix-en-tag{font-size:.66em;font-weight:800;color:#5B667A;border:1px solid #C9D2E3;border-radius:999px;padding:0 6px;margin-left:5px;line-height:1.6;white-space:nowrap}',
     '@media(max-width:1279px){.scix-ic{display:none}.scix-header-nav > a,.scix-nav-dd-toggle,.scix-nav-main{padding:0 9px;font-size:14px;gap:6px}.scix-nav-main{padding-right:3px}.scix-dd-split-btn{padding:0 8px 0 3px!important}.scix-header-nav{margin-left:10px}}',
     '@media(min-width:1280px) and (max-width:1360px){.scix-header-nav > a,.scix-nav-dd-toggle,.scix-nav-main{padding:0 10px;font-size:14px;gap:6px}.scix-ic{width:19px;height:19px}.scix-header-nav{margin-left:12px}.scix-nav-main{padding-right:4px}.scix-dd-split-btn{padding:0 8px 0 4px!important}}',
@@ -193,12 +200,6 @@
     '}',
     '.scix-header-nav a.scix-cta:hover{filter:brightness(1.06);color:#fff;background:linear-gradient(135deg,#F97316,#F59E0B)}',
     '.scix-header-nav a.scix-cta.active{color:#fff;background:linear-gradient(135deg,#F97316,#F59E0B)}',
-    '/* === 蓄電所マーケットへのボタン（2026-11-15 目立たなかったため変更）: マーケットと同じ橙の丸いボタンと印 === */',
-    '.scix-header-nav > a.scix-mk{display:inline-flex;align-items:center;align-self:center;height:auto;gap:8px;background:#D4610A;color:#fff;font-weight:900;font-size:15px;',
-    '  padding:9px 18px 9px 9px;border-radius:999px;margin-left:12px;box-shadow:0 6px 16px rgba(212,97,10,.30);white-space:nowrap}',
-    '.scix-header-nav > a.scix-mk.active{background:#D4610A}',
-    '.scix-header-nav > a.scix-mk:hover{background:#EF7A1A;color:#fff;box-shadow:0 8px 20px rgba(212,97,10,.38);transform:translateY(-1px)}',
-    '.scix-header-nav a.scix-mk svg{width:24px;height:24px;flex:0 0 auto;display:block}',
 
     '/* === Dropdown groups (ナレッジ / 買う / 売る) === */',
     '.scix-nav-dd{position:relative;display:flex;align-items:center;}',
@@ -306,8 +307,10 @@
     '    border-bottom:1px solid #EEE;',
     '    border-radius:12px;',
     '  }',
-    '  .scix-header-nav > a.scix-mk{align-self:stretch}',
-    '  .scix-header-nav > a.scix-mk.scix-reg{padding:13px 20px}',
+    '  .scix-auth{display:none}',
+    '  .scix-auth-m{display:flex;flex-direction:column;gap:10px;padding:0 0 14px;margin-bottom:6px;border-bottom:1px solid #EEE}',
+    '  .scix-auth-m a.scix-login{justify-content:center;padding:12px 20px;font-size:.95rem}',
+    '  .scix-auth-m a.scix-mk{padding:13px 20px;font-size:.95rem}',
     '  /* 割りボタン: 札の行（直接その画面へ）と ▾（中身の行を開く）を1行に並べ、中身はその下に開く */',
     '  .scix-nav-dd.split{flex-direction:row;flex-wrap:wrap;align-items:stretch}',
     '  .scix-nav-dd.split .scix-nav-main{flex:1 1 0;min-width:0;padding:14px 12px!important}',
@@ -319,7 +322,6 @@
     '    border-radius:999px;border-bottom:none;',
     '    padding:14px 20px;',
     '  }',
-    '  .scix-header-nav a.scix-mk{margin:18px 0 0;justify-content:center;padding:12px 20px 12px 12px}',
     '  .scix-nav-dd{flex-direction:column;align-items:stretch;}',
     '  .scix-nav-dd-toggle{justify-content:flex-start;width:100%;text-align:left;}',
     '  .scix-nav-dd.split .scix-dd-split-btn .scix-dd-caret{margin-left:0}',
@@ -441,9 +443,7 @@
     ], 'book'),
     '<a href="/en/report" data-page="/report">' + ic('chart') + '<span>市场研究</span>' + EN_TAG + '</a>',
     '<a href="/en/company" data-page="/company">' + ic('co') + '<span>公司介绍</span>' + EN_TAG + '</a>',
-    '<a href="/zh-contact" data-page="/contact">' + ic('mail') + '<span>联系我们</span></a>',
-    '<a href="' + MKT + '/en/login" class="scix-login">登录</a>',
-    '<a href="' + MKT + '/en/register" class="scix-mk scix-reg">免费注册</a>'
+    '<a href="/zh-contact" data-page="/contact">' + ic('mail') + '<span>联系我们</span></a>'
   ] : isEn ? [
     '<a href="' + MKT + '/en" class="scix-top-buy" data-k="buy">' + ic('buy') + '<span>Buy</span></a>',
     '<a href="' + MKT + '/en/needs" class="scix-top-sell" data-k="sell">' + ic('sell') + '<span>Sell</span></a>',
@@ -457,9 +457,7 @@
       ['/en/report/data', 'Market Data',  '', '/report/data']
     ], 'chart'),
     '<a href="/en/company" data-page="/company">' + ic('co') + '<span>Company</span></a>',
-    '<a href="/en/contact" data-page="/contact">' + ic('mail') + '<span>Contact</span></a>',
-    '<a href="' + MKT + '/en/login" class="scix-login">Log in</a>',
-    '<a href="' + MKT + '/en/register" class="scix-mk scix-reg">Sign up</a>'
+    '<a href="/en/contact" data-page="/contact">' + ic('mail') + '<span>Contact</span></a>'
   ] : [
     ddSplit('buy', '買いたい', MKT + '/', [
       ['/transfer', '買うまでの流れ・買い方3つ'],
@@ -493,10 +491,20 @@
       ['/market-data', '系統用蓄電池の売り案件 市場データ']
     ], 'chart'),
     '<a href="/company"  data-page="/company">' + ic('co') + '<span>会社案内</span></a>',
-    '<a href="/contact"  data-page="/contact">' + ic('mail') + '<span>お問い合わせ</span></a>',
-    '<a href="' + MKT + '/login" class="scix-login">ログイン</a>',
-    '<a href="' + MKT + '/register" class="scix-mk scix-reg">無料で登録</a>'
+    '<a href="/contact"  data-page="/contact">' + ic('mail') + '<span>お問い合わせ</span></a>'
   ];
+
+  // 2026-11-22: ログイン・無料で登録は頁の案内ではなく利用者の操作なので、メニューの並びから外し、右端（言語の切り替えの手前）に隣り合わせで置く。
+  // 広い画面は帯の右端の1組（.scix-auth）、畳んだメニューは開いた中の一番上の1組（.scix-auth-m）。同じ組を2か所に描いて、画面の幅でどちらかだけ見せる。
+  var AUTH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg>';
+  var AUTH = isZh ? { login: MKT + '/en/login', reg: MKT + '/en/register', lt: '登录', rt: '免费注册' }
+           : isEn ? { login: MKT + '/en/login', reg: MKT + '/en/register', lt: 'Log in', rt: 'Sign up' }
+           : { login: MKT + '/login', reg: MKT + '/register', lt: 'ログイン', rt: '無料で登録' };
+  function authHtml(cls) {
+    return '<div class="' + cls + '">' +
+      '<a href="' + AUTH.login + '" class="scix-login">' + AUTH_ICON + '<span>' + AUTH.lt + '</span></a>' +
+      '<a href="' + AUTH.reg + '" class="scix-mk scix-reg">' + AUTH.rt + '</a></div>';
+  }
 
   // --------------- Language switcher (JA / EN / 简中) ---------------
   // Targets resolve to the equivalent page where it exists, otherwise the
@@ -572,8 +580,10 @@
     '<div class="scix-header-inner">',
     '  <a href="' + logoHref + '" class="scix-header-logo"><img src="/img/logo-navy.png" alt="ScienceX" width="91" height="36" decoding="async"></a>',
     '  <nav class="scix-header-nav" id="scix-header-nav" aria-label="' + navLabel + '">',
+         authHtml('scix-auth-m'),
          nav.join('\n'),
     '  </nav>',
+       authHtml('scix-auth'),
        langSwitch,
     '  <button class="scix-header-burger" id="scix-header-burger" aria-label="' + burgerLabel + '" aria-expanded="false" aria-controls="scix-header-nav">',
     '    <span></span><span></span><span></span>',
@@ -992,7 +1002,7 @@
   // lang（言語切替）・logo のいずれか。
   header.addEventListener('click', function (e) {
     var t = e.target;
-    var a = t && t.closest ? t.closest('.scix-header-nav a, .scix-lang a, .scix-header-logo') : null;
+    var a = t && t.closest ? t.closest('.scix-header-nav a, .scix-auth a, .scix-lang a, .scix-header-logo') : null;
     if (!a || typeof window.gtag !== 'function') return;
     var group;
     if (a.classList.contains('scix-header-logo')) group = 'logo';
