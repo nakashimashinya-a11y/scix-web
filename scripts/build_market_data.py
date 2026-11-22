@@ -23,6 +23,7 @@ import datetime
 import json
 import os
 import re
+import subprocess
 import sys
 from collections import Counter
 
@@ -84,6 +85,164 @@ def stats(ps, today):
         "new14": sum(1 for p in ps if is_new(p, today)),
         "first_seen": sorted(fs.items())[-6:],
     }
+
+
+# ---------------------------------------------------------------- 週ごとの推移（量）
+# 公開一覧（projects.json）の git 履歴から、週の終わり時点で見えていた案件の数と MW を数える（公開と同じ物・価格や ID は持たない）。
+# 2026-09-05 より前は一覧が止まっていた時期で実際の在庫と違うため、WEEKLY_FROM の週から。売却済み・外れた数は出さない（成約件数は書かない決まり O16-8・O16-7）。
+WEEKLY_FROM = "2026-09-07"
+WEEKLY_SHOW = 12   # 表と図に出す週の数（新しい方から）
+
+
+def _monday(d):
+    return d - datetime.timedelta(days=d.weekday())
+
+
+def _git_snapshots():
+    """projects.json を変えた commit の [(JSTの日付, hash)] を古い順に。取れなければ None。"""
+    try:
+        out = subprocess.run(["git", "-C", ROOT, "log", "HEAD", "--format=%H %cI", "--", "projects.json"],
+                             capture_output=True, text=True, timeout=60)
+        if out.returncode != 0:
+            return None
+        jst = datetime.timezone(datetime.timedelta(hours=9))
+        rows = []
+        for ln in out.stdout.splitlines():
+            h, iso = ln.split(" ", 1)
+            rows.append((datetime.datetime.fromisoformat(iso).astimezone(jst).date(), h))
+        return sorted(rows, key=lambda x: x[0])
+    except (OSError, ValueError, subprocess.SubprocessError):
+        return None
+
+
+def _git_projects(h):
+    out = subprocess.run(["git", "-C", ROOT, "show", f"{h}:projects.json"], capture_output=True, text=True, timeout=60)
+    return json.loads(out.stdout).get("projects", [])
+
+
+def _week_row(week, ps):
+    mw = sum(p["mw"] for p in ps if isinstance(p.get("mw"), (int, float)))
+    sc = Counter(p.get("scheme") for p in ps)
+    vo = Counter(p.get("voltage") for p in ps)
+    return {"week": week.isoformat(), "n": len(ps), "mw": round(mw), "hv": vo.get("高圧", 0), "ehv": vo.get("特別高圧", 0),
+            "rights": sc.get("権利譲渡", 0), "built": sc.get("完成渡し", 0)}
+
+
+def weekly_series(ps_now, today, hist=None, load=None):
+    """[{week(月曜), n, mw, hv, ehv, rights, built, new}] を古い順に（WEEKLY_FROM から今週まで・最後の WEEKLY_SHOW 週）。
+    今週は渡された ps_now（いまの projects.json）の数。過去の週は、その週の日曜までの最後の commit の一覧。
+    履歴が取れない・足りないときは空（節を出さない）。hist/load は試験用の差し替え。"""
+    hist = _git_snapshots() if hist is None else hist
+    load = load or _git_projects
+    if not hist:
+        return []
+    start = max(_monday(hist[0][0]), datetime.date.fromisoformat(WEEKLY_FROM))
+    this = _monday(today)
+    snaps, rows, first, mw_of = {}, [], {}, {}
+    w = start
+    while w <= this:
+        end = w + datetime.timedelta(days=6)
+        if w == this:
+            ps = ps_now
+        else:
+            cand = [x for x in hist if x[0] <= end]
+            if not cand:
+                w += datetime.timedelta(days=7)
+                continue
+            h = cand[-1][1]
+            if h not in snaps:
+                snaps[h] = load(h)
+            ps = snaps[h]
+        rows.append(_week_row(w, ps))
+        for p in ps:
+            if p.get("id"):
+                fs = p.get("firstSeen")
+                if fs and (p["id"] not in first or fs < first[p["id"]]):
+                    first[p["id"]] = fs
+        w += datetime.timedelta(days=7)
+    for r in rows:
+        s0 = datetime.date.fromisoformat(r["week"])
+        e0 = (s0 + datetime.timedelta(days=6)).isoformat()
+        r["new"] = sum(1 for fs in first.values() if r["week"] <= fs <= e0)
+    return rows[-WEEKLY_SHOW:]
+
+
+def _short(week):
+    d = datetime.date.fromisoformat(week)
+    return f"{d.month}/{d.day}"
+
+
+def weekly_svg(rows, key_a, key_b, label_a, label_b, title, unit):
+    """週ごとの積み上げ棒（下が key_a・上が key_b）。JS なし・色は CSS 変数（札の色）。"""
+    if not rows:
+        return ""
+    W, H, L, B, T = 720, 230, 44, 34, 18
+    mx = max(r[key_a] + r[key_b] for r in rows) or 1
+    step = (W - L - 8) / len(rows)
+    bw = step * 0.62
+    ph = H - B - T
+    out = [f'<svg class="md-svg" viewBox="0 0 {W} {H}" role="img" aria-label="{_esc(title)}" xmlns="http://www.w3.org/2000/svg">',
+           f'<title>{_esc(title)}</title>']
+    for frac in (0, 0.5, 1):
+        y = T + ph * (1 - frac)
+        out.append(f'<line x1="{L}" y1="{y:.1f}" x2="{W - 8}" y2="{y:.1f}" stroke="var(--border)" stroke-width="1"/>'
+                   f'<text x="{L - 6}" y="{y + 4:.1f}" text-anchor="end" font-size="11" fill="var(--text-3)">{round(mx * frac):,}</text>')
+    for i, r in enumerate(rows):
+        x = L + step * i + (step - bw) / 2
+        ha = r[key_a] / mx * ph
+        hb = r[key_b] / mx * ph
+        out.append(f'<rect x="{x:.1f}" y="{T + ph - ha:.1f}" width="{bw:.1f}" height="{ha:.1f}" fill="var(--gold)"/>'
+                   f'<rect x="{x:.1f}" y="{T + ph - ha - hb:.1f}" width="{bw:.1f}" height="{hb:.1f}" fill="var(--navy)"/>')
+        tot = r[key_a] + r[key_b]
+        if i == len(rows) - 1 or i == 0 or tot == mx:
+            out.append(f'<text x="{x + bw / 2:.1f}" y="{T + ph - ha - hb - 4:.1f}" text-anchor="middle" font-size="11" fill="var(--text-2)">{tot:,}</text>')
+        if i % 2 == (len(rows) - 1) % 2:
+            out.append(f'<text x="{x + bw / 2:.1f}" y="{H - 14}" text-anchor="middle" font-size="11" fill="var(--text-3)">{_short(r["week"])}</text>')
+    out.append(f'<text x="{L}" y="12" font-size="11" fill="var(--text-3)">{_esc(unit)}</text>')
+    out.append("</svg>")
+    legend = (f'<p class="md-legend"><span><i style="background:var(--gold)"></i>{_esc(label_a)}</span>'
+              + (f'<span><i style="background:var(--navy)"></i>{_esc(label_b)}</span>' if label_b else "") + "</p>")
+    return "\n".join(out) + legend
+
+
+def weekly_section_ja(rows, generated):
+    if len(rows) < 2:
+        return ""
+    last = rows[-1]
+    body = "".join(
+        f'<tr><td>{_esc(_short(r["week"]))}{"（途中）" if i == len(rows) - 1 else ""}</td><td class="n">{r["n"]}</td><td class="n">{r["mw"]:,}</td>'
+        f'<td class="n">{r["hv"]}</td><td class="n">{r["ehv"]}</td><td class="n">{r["rights"]}</td><td class="n">{r["built"]}</td>'
+        f'<td class="n">{r["new"]}</td></tr>' for i, r in enumerate(rows))
+    return f"""<section class="md"><div class="container">
+  <div class="section-label">週ごとの推移</div>
+  <h2 class="md-h">販売中の件数と規模の、週ごとの推移</h2>
+  <p class="md-lead">毎週の終わり（日曜）に、買い手に見えていた案件の件数と合計出力です。直近{len(rows)}週を、月曜はじまりの週で並べています。今週は{_esc(generated)}時点の途中の数です。案件が載ると増え、売却済みなどで外れると減ります。</p>
+  <div class="md-grid">
+    <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">件数（高圧・特別高圧）</h3>{weekly_svg(rows, "hv", "ehv", "高圧", "特別高圧", "販売中の件数の週ごとの推移（高圧・特別高圧）", "件")}</div>
+    <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">合計出力（MW）</h3>{weekly_svg([dict(r, a=r["mw"], b=0) for r in rows], "a", "b", "合計MW", "", "販売中の合計出力（MW）の週ごとの推移", "MW")}</div>
+  </div>
+  <div class="md-scroll"><table class="md-t"><thead><tr><th>週（月曜）</th><th>件数</th><th>合計MW</th><th>高圧</th><th>特別高圧</th><th>権利譲渡</th><th>完成渡し</th><th>新しく載った件</th></tr></thead><tbody>{body}</tbody></table></div>
+  <p class="md-note">「新しく載った件」は、その週に一覧へ載った案件の数です。取得の形が確認中の案件は、権利譲渡・完成渡しの列に入りません。当社の観測で、日本の市場全体の数ではありません。価格・案件名・所在地は載せていません。毎朝この表を作り直しています（直近は{last["n"]}件・{last["mw"]:,}MW）。</p>
+</div></section>
+"""
+
+
+def weekly_section_en(rows, generated):
+    if len(rows) < 2:
+        return ""
+    body = "".join(
+        f'<tr><td>{_esc(_short(r["week"]))}{" (partial)" if i == len(rows) - 1 else ""}</td><td class="n">{r["n"]}</td><td class="n">{r["mw"]:,}</td>'
+        f'<td class="n">{r["hv"]}</td><td class="n">{r["ehv"]}</td><td class="n">{r["rights"]}</td><td class="n">{r["built"]}</td>'
+        f'<td class="n">{r["new"]}</td></tr>' for i, r in enumerate(rows))
+    return f"""<section class="md" id="weekly"><div class="container">
+  <div class="section-label">Weekly volume</div>
+  <h2 class="md-h">Listed projects by week</h2>
+  <p class="md-lead">Number and total capacity of the projects visible to buyers at the end of each week (Monday-start weeks, last {len(rows)}). The latest week is partial, as of {_esc(generated)}.</p>
+  {weekly_svg(rows, "hv", "ehv", "High voltage", "Extra-high voltage", "Listed projects per week (high voltage and extra-high voltage)", "projects")}
+  <div class="md-scroll"><table class="md-t"><thead><tr><th>Week of</th><th>Projects</th><th>Total MW</th><th>High voltage</th><th>Extra-high</th><th>Transfer of rights</th><th>Completed-build</th><th>New listings</th></tr></thead><tbody>{body}</tbody></table></div>
+  <p class="md-note">ScienceX&rsquo;s own listings, not statistics for the whole Japanese market. Projects whose structure is under review are not in the last two structure columns. No prices, sites or names are published here.</p>
+</div></section>
+"""
 
 
 # ---------------------------------------------------------------- 部品
@@ -168,6 +327,8 @@ table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}
 .scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,.8)}.scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,.92);margin-bottom:2px}
 .scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,.6);font-size:12px}.scix-footer-company a{color:rgba(255,255,255,.8);text-decoration:none}.scix-footer-company a:hover{color:#C49A3C}
 .scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(196,154,60,.5)}
+.md-svg{width:100%;height:auto;display:block;max-width:760px}.md-legend{display:flex;gap:16px;font-size:.8rem;color:var(--text-2);margin:4px 0 0}.md-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.md-scroll{overflow-x:auto;margin-top:18px}
 @media(max-width:640px){.md-bar{grid-template-columns:7em 1fr 7em;font-size:.82rem}.hero{padding:48px 0 32px}}
 """
 
@@ -290,7 +451,7 @@ NOTE_SCOPE = ("ここで数えているのは、当社に持ち込まれ、一�
 
 
 # ---------------------------------------------------------------- ページ
-def render_market(ps, today, generated):
+def render_market(ps, today, generated, weekly=()):
     s = stats(ps, today)
     path = "/market-data"
     title = f"系統用蓄電池の売り案件 市場データ｜管内別の件数・規模・連系の見込み（{s['n']}件・毎朝更新）｜サイエンスエックス"
@@ -379,6 +540,7 @@ def render_market(ps, today, generated):
   </div>
 </div></section>
 
+{weekly_section_ja(list(weekly), generated)}
 <section class="md"><div class="container">
   <div class="section-label">新着</div>
   <h2 class="md-h">掲載の推移</h2>
@@ -577,7 +739,7 @@ def en_cod(p, today_ym):
     return lead or "Under review"
 
 
-def render_en_projects(ps, today, generated):
+def render_en_projects(ps, today, generated, weekly=()):
     today_ym = today.strftime("%Y-%m")
     path = "/en/projects"
     url = BASE + path
@@ -686,6 +848,7 @@ def render_en_projects(ps, today, generated):
   </div>
 </div></section>
 
+{weekly_section_en(list(weekly), generated)}
 <section class="md" id="about"><div class="container">
   <h2 class="md-h">About this list</h2>
   <p class="md-lead">High-voltage (~2 MW) and extra-high-voltage battery storage projects, from development rights with grid connection answers to grid-connected assets. Sorted by earliest expected COD (commercial operation date). Total: about {mw:,} MW across {prefs} prefectures. Prices, exact sites and counterparties are not published here.</p>
@@ -757,10 +920,11 @@ def main():
     ps = data.get("projects", [])
     generated = data.get("generatedAt") or datetime.date.today().isoformat()
     today = datetime.date.today()
-    pages = {"market-data.html": render_market(ps, today, generated)}
+    weekly = weekly_series(ps, today)
+    pages = {"market-data.html": render_market(ps, today, generated, weekly)}
     for area, slug, operator in AREAS:
         pages[f"projects-{slug}.html"] = render_area(ps, area, slug, operator, today, generated)
-    pages["en/projects.html"] = render_en_projects(ps, today, generated)
+    pages["en/projects.html"] = render_en_projects(ps, today, generated, weekly)
     pages["sitemap.xml"] = sync_area_sitemap(ps, today)
     changed = []
     for name, html in pages.items():
