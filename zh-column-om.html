@@ -31,13 +31,27 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"></noscript>
-<!-- Google Analytics -->
+<!-- Google Analytics（scripts/build_ga_tag.py が全頁に入れる・手で直さない） -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-SNNK8MP9N9');
+  (function () {
+    var cfg = {}, q = null, mk = false;
+    // 本番（www.scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）からは送らない
+    try { if (location.hostname !== 'www.scix.co.jp' || navigator.webdriver) window['ga-disable-G-SNNK8MP9N9'] = true; }
+    catch (e) { window['ga-disable-G-SNNK8MP9N9'] = true; }
+    // 社内の印（?internal=1 で付く・?internal=0 で外れる・header.js の 7c と同じ鍵）。印のある端末だけ traffic_type を付ける
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try {
+      if (q === '1') localStorage.setItem('scix_internal', '1');
+      else if (q === '0') localStorage.removeItem('scix_internal');
+      mk = localStorage.getItem('scix_internal') === '1';
+    } catch (e) { mk = q === '1'; }
+    if (mk) cfg.traffic_type = 'internal';
+    gtag('js', new Date());
+    gtag('config', 'G-SNNK8MP9N9', cfg);
+  })();
 </script>
 <style>
 :root{--navy:#1F2A48;--navy-light:#2D3A5C;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#1F2A48;--text-light:#666666;--light-bg:#F7F7F7;--border:#E6E6E6;--white:#FFFFFF;--warn:#c44;--warn-bg:#fef2f2;--blue:#1a5276;--blue-bg:#eaf2f8;--orange:#b45309;--orange-bg:#fef9ee}
@@ -858,8 +872,9 @@ body{padding-top:64px}
         <a href="/zh-knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">洞见</a>
         <a href="/zh-qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">问答</a>
         <a href="/zh-glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">术语表</a>
+        <a href="/zh-company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">公司介绍</a>
         <a href="/zh-contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">联系我们</a>
-        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">隐私政策</a>
+        <a href="/zh-privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">隐私政策</a>
       </div>
       <div class="scix-footer-copyright">
         © 2026 Science X Inc. All Rights Reserved.

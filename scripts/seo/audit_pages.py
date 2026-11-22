@@ -26,6 +26,7 @@
   入口リンク コラムの末尾の蓄電所マーケットの入口が絞り込みの検索（?area=・?voltage=）・件数0の入口を指している
   市場データ 表に caption・th scope・time が無い・「いちばん新しい行の1文」の数字が表に無い・月報の img に width・height が無い
   対の頁     英語・中国語のコラムに「あわせて読む」・用語集へのリンクが無い（日本語の対にあるものだけ）
+  GA の区画  全 html（404・thanks も）の gtag の区画が scripts/build_ga_tag.py の形でない・無い・2個ある（2026-11-22 指示4＝計測のノイズ）
 「注意」（title・description の長さ）は --strict の判定に数えない（全頁の見直しが済むまでの目安）。
 
 使い方:
@@ -46,6 +47,8 @@ from collections import defaultdict
 from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+import build_ga_tag as ga_tag  # noqa: E402  GA の区画の決まった形（全頁で同じ）
 BASE = "https://www.scix.co.jp"
 TITLE_MAX = 70     # 表示幅（全角2）。おおよそ全角35字
 DESC_MIN = 70      # 全角35字
@@ -213,7 +216,7 @@ def top_issues(rel: str, src: str):
     elif PRICE_RX.search(re.sub(r"<[^>]+>", " ", cards.group(1))):
         out.append(("トップの焼いた案件の行に価格・率の語がある", ""))
     for need, label in (("/company", "会社案内"), ("/contact", "お問い合わせ")):
-        if need not in first.replace("/zh-contact", "/contact").replace("/en/company", "/company").replace("/en/contact", "/contact"):
+        if need not in first.replace("/zh-contact", "/contact").replace("/zh-company", "/company").replace("/en/company", "/company").replace("/en/contact", "/contact"):
             out.append((f"トップの最初の節に {label} のリンクが無い", ""))
     if "/site-cards.js" not in src:
         out.append(("トップが /site-cards.js を読んでいない", ""))
@@ -387,6 +390,14 @@ def main():
         lm = re.search(r"<lastmod>([^<]+)</lastmod>", blk)
         if dm and lm and dm.group(1) != lm.group(1):
             issues["sitemap の lastmod が頁の dateModified と違う"].append((f, f"{lm.group(1)} / {dm.group(1)}"))
+    # GA の区画（全 html・404 と thanks も）: 本番以外・自動操作は送らない・社内の印は traffic_type=internal（scripts/build_ga_tag.py の形）
+    for rel in ga_tag.html_files():
+        try:
+            why = ga_tag.problem(open(os.path.join(ROOT, rel), encoding="utf-8").read())
+        except Exception as e:  # noqa: BLE001
+            why = f"読めない（{e}）"
+        if why:
+            issues["GA の区画が決まった形でない（python3 scripts/build_ga_tag.py を回す）"].append((rel, why))
     lp = os.path.join(ROOT, "llms.txt")
     if not os.path.isfile(lp):
         issues["llms.txt が無い"].append(("llms.txt", ""))

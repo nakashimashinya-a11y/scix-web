@@ -5,6 +5,12 @@
     python3 scripts/seo/collect_daily.py --days 90     # 初回の積み上げ
     python3 scripts/seo/collect_daily.py --no-health   # 健診（本番へのアクセス）を飛ばす
     python3 scripts/seo/collect_daily.py --exclude-internal  # 当社の端末（header.js が付ける利用者の印 internal_user=1）の閲覧を外して数える
+    python3 scripts/seo/collect_daily.py --days 90 --ga4-refresh-all --no-gsc --no-health   # GA4 の台帳を今の取り方で取り直す
+
+GA4 の取り方（2026-11-22・指示4＝計測のノイズ）: どの表も hostName=www.scix.co.jp の閲覧だけ（localhost・127.0.0.1・プレビューを数えない。
+外した数は hosts に残す）。主に見る数は engagedSessions。機械らしい群（日本以外の Direct・Unassigned／画面 1280x1200・800x600／
+着地が無い＝(not set)）は mix（国×経路×画面×着地）から common.bot_reason で別枠に数え、本体の数からは引かない（引くのはブリーフ）。
+AI 経由（既定のチャネル AI Assistant か、参照元が AI の名前）は ai に残す。
 
 データの遅れ: GSC は2〜3日、GA4 は1〜2日。若い日付は毎回取り直して上書きする。
 収集のあと、origin/main に足された新規ページを変更台帳へ自動で記帳し（register_new_pages.py）、月1回の構成レビューの
@@ -25,8 +31,8 @@ import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import ga4_report as _ga4_report  # noqa: E402
-from common import (BASE, GA4_PROPERTY, GA4_TOKEN, GSC_SITE, LEDGER, REPO, SC_TOKEN, UA, Google, d, daterange,  # noqa: E402
-                    gsc_query, jdump, jload, log, path_of, today)
+from common import (AI_SOURCE_RX, BASE, GA4_PROPERTY, GA4_TOKEN, GSC_SITE, HOST, LEDGER, REPO, SC_TOKEN, UA,  # noqa: E402
+                    Google, bot_reason, d, daterange, gsc_query, jdump, jload, log, path_of, today)
 
 GSC_LAG = 2          # 今日-2 までを取る
 GSC_REFRESH = 5      # この日数より若い日は毎回取り直す
@@ -116,7 +122,36 @@ def without_internal(dim_filter):
     return {"andGroup": {"expressions": [dim_filter, ex]}} if dim_filter else ex
 
 
-def collect_ga4(days: int, exclude_internal: bool = False) -> int:
+HOST_FILTER = {"filter": {"fieldName": "hostName", "stringFilter": {"matchType": "EXACT", "value": HOST}}}
+
+
+def only_host(dim_filter):
+    """dim_filter に「hostName が www.scix.co.jp」を AND で足す（手元・プレビューの閲覧を数えない）。"""
+    return {"andGroup": {"expressions": [HOST_FILTER, dim_filter]}} if dim_filter else HOST_FILTER
+
+
+AI_FILTER = {"orGroup": {"expressions": [
+    {"filter": {"fieldName": "sessionDefaultChannelGroup", "stringFilter": {"matchType": "EXACT", "value": "AI Assistant"}}},
+    {"filter": {"fieldName": "sessionSource", "stringFilter": {"matchType": "PARTIAL_REGEXP", "value": AI_SOURCE_RX,
+                                                                "caseSensitive": False}}},
+]}}
+
+
+def mix_summary(rows, lead):
+    """mix の行から、機械らしい群の合計と理由ごとの内訳（重なりは先に当たった理由に1回だけ数える）。"""
+    out = {"sessions": 0, "engagedSessions": 0, lead: 0, "by_reason": {}}
+    for r in rows or []:
+        why = bot_reason(r.get("country"), r.get("sessionDefaultChannelGroup"), r.get("screenResolution"), r.get("landingPage"))
+        if not why:
+            continue
+        b = out["by_reason"].setdefault(why, {"sessions": 0, "engagedSessions": 0})
+        for k in ("sessions", "engagedSessions"):
+            out[k] += int(r.get(k) or 0); b[k] += int(r.get(k) or 0)
+        out[lead] += int(r.get(lead) or 0)
+    return out
+
+
+def collect_ga4(days: int, exclude_internal: bool = False, refresh_all: bool = False) -> int:
     if not GA4_TOKEN.exists():
         log(f"GA4: トークンが無いので飛ばす（python3 scripts/seo/ga4_auth.py で取得）: {GA4_TOKEN}")
         return 0
@@ -128,8 +163,9 @@ def collect_ga4(days: int, exclude_internal: bool = False) -> int:
             log(f"GA4: {INTERNAL_DIM} が GA4 のカスタム ディメンションに未登録＝社内の閲覧を外さずに数える"
                 "（GA4 管理 → カスタム定義 → ユーザー スコープ・ユーザー プロパティ internal_user を登録すると外せる）")
 
-    def ga4_report(g_, s_, e_, dims, mets, dim_filter=None, **kw):   # noqa: F811 — 下の呼び出しはそのまま、社内の閲覧だけ外す
-        return _ga4_report(g_, s_, e_, dims, mets, dim_filter=without_internal(dim_filter) if excluded else dim_filter, **kw)
+    def ga4_report(g_, s_, e_, dims, mets, dim_filter=None, **kw):   # noqa: F811 — 下の呼び出しはそのまま、本番の住所だけ・社内の閲覧を外す
+        f = without_internal(dim_filter) if excluded else dim_filter
+        return _ga4_report(g_, s_, e_, dims, mets, dim_filter=only_host(f), **kw)
     end = today() - datetime.timedelta(days=GA4_LAG)
     start = end - datetime.timedelta(days=days - 1)
     lead = "keyEvents:generate_lead"
@@ -137,7 +173,7 @@ def collect_ga4(days: int, exclude_internal: bool = False) -> int:
     for day in daterange(start, end):
         out = LEDGER / "ga4" / f"{day}.json"
         age = (today() - day).days
-        if out.exists() and age > GA4_REFRESH:
+        if out.exists() and age > GA4_REFRESH and not refresh_all:
             continue
         s = e = day
         totals = ga4_report(g, s, e, ["date"], ["sessions", "totalUsers", "newUsers", "engagedSessions",
@@ -146,17 +182,28 @@ def collect_ga4(days: int, exclude_internal: bool = False) -> int:
             log(f"GA4 {day}: データ無し")
             continue
         internal = {"filter": {"fieldName": "pageReferrer", "stringFilter": {"matchType": "CONTAINS", "value": "scix.co.jp"}}}
+        mix = _try(lambda: ga4_report(g, s, e, ["country", "sessionDefaultChannelGroup", "screenResolution", "landingPage"],
+                                      ["sessions", "engagedSessions", lead]), "mix")
         rec = {
             "date": str(day), "fetched": str(today()),
             "internal_excluded": excluded,
+            "host": HOST,   # 2026-11-22 から、どの表も hostName=www.scix.co.jp だけ（これが無い日は手元・プレビューの閲覧が混ざっている）
             "totals": {k: v for k, v in totals[0].items() if k != "date"},
+            # 外した住所の数（手元・プレビュー）。本体の数には入れない
+            "hosts": _try(lambda: _ga4_report(g, s, e, ["hostName"], ["sessions", "engagedSessions", "screenPageViews"]), "hostName"),
+            # 国×経路×画面×着地（機械らしい群を別枠に数える元）と、その合計
+            "mix": mix,
+            "bot_like": mix_summary(mix, lead) if mix is not None else None,
+            # AI 経由（チャネル AI Assistant か、参照元が AI の名前）
+            "ai": _try(lambda: ga4_report(g, s, e, ["sessionSource", "sessionDefaultChannelGroup", "landingPage"],
+                                          ["sessions", "engagedSessions", lead], dim_filter=AI_FILTER), "ai"),
             "landing": ga4_report(g, s, e, ["landingPage"], ["sessions", "engagedSessions", "newUsers",
                                                                 "averageSessionDuration", lead]),
             "pages": ga4_report(g, s, e, ["pagePath"], ["screenPageViews", "sessions", "userEngagementDuration"]),
             "transitions": [{"from": path_of(r["pageReferrer"]), "to": r["pagePath"], "views": r["screenPageViews"]}
                             for r in (ga4_report(g, s, e, ["pageReferrer", "pagePath"], ["screenPageViews"],
                                                  dim_filter=internal) or [])],
-            "channels": ga4_report(g, s, e, ["sessionDefaultChannelGroup"], ["sessions", lead]),
+            "channels": ga4_report(g, s, e, ["sessionDefaultChannelGroup"], ["sessions", "engagedSessions", lead]),
             "events": ga4_report(g, s, e, ["eventName"], ["eventCount"]),
             "lead_intent": _try(lambda: ga4_report(g, s, e, ["customEvent:intent", "landingPage"], [lead]), "intent"),
             # GA4 に登録済みのカスタムディメンションは intent / nav_group / form_type だけ（2026-09-19 実測）。
@@ -173,7 +220,9 @@ def collect_ga4(days: int, exclude_internal: bool = False) -> int:
             rec["lead_intent"] = [r for r in rec["lead_intent"] if r.get(lead)]
         jdump(out, rec)
         n += 1
-        log(f"GA4 {day}: sessions {rec['totals'].get('sessions')} leads {rec['totals'].get(lead)}")
+        bl = rec["bot_like"] or {}
+        log(f"GA4 {day}: sessions {rec['totals'].get('sessions')} engaged {rec['totals'].get('engagedSessions')} "
+            f"機械らしい {bl.get('sessions', '-')} leads {rec['totals'].get(lead)}")
     return n
 
 
@@ -365,6 +414,8 @@ def main() -> int:
     ap.add_argument("--no-inspect", action="store_true")
     ap.add_argument("--no-register", action="store_true", help="新規ページの自動記帳を飛ばす")
     ap.add_argument("--no-measure", action="store_true")
+    ap.add_argument("--ga4-refresh-all", action="store_true",
+                    help="GA4 を --days の窓の全日で取り直す（取り方を変えた後・既定は若い日だけ）")
     ap.add_argument("--exclude-internal", action="store_true",
                     help="当社の端末（利用者の印 internal_user=1）の閲覧を外して数える。GA4 に印が未登録なら外さずに数え、ログに出す")
     a = ap.parse_args()
@@ -381,7 +432,7 @@ def main() -> int:
             log(f"URL 検査で失敗: {e}"); rc = 1
     if not a.no_ga4:
         try:
-            collect_ga4(a.days, a.exclude_internal)
+            collect_ga4(a.days, a.exclude_internal, a.ga4_refresh_all)
         except Exception as e:  # noqa: BLE001
             log(f"GA4 収集で失敗: {e}"); rc = 1
     if not a.no_health:

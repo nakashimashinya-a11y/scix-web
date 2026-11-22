@@ -159,7 +159,7 @@ GLOSS = {
     "zh-glossary.html": {
         "set": f"{BASE}/zh-glossary#set",
         "page": f"{BASE}/zh-glossary",
-        "count": [r"的(\d+)个术语", r"术语表・(\d+)个术语"],
+        "count": [r"的(\d+)个术语", r"术语表\s*[・·]\s*(\d+)个术语"],
         "terms": {
             "c-0": [
                 ("term-bess", "BESS（电池储能系统）・grid-scale battery storage", None,

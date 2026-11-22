@@ -169,11 +169,19 @@ sitemap の lastmod は頁の JSON-LD `dateModified` と同じ値にし、前の
 | 仕組み | 中身 | 見る所 |
 |---|---|---|
 | 出所の印 | 蓄電所マーケット（dealroom.scix.co.jp）へのリンクを押す（触る）直前に `src=<頁の印>` を足す（すでに src があれば替えない・`lang=en` などは残す）。印はコラム `col-<slug>`・市場ノート `report`／`report-<YYYY-MM>`・ナレッジの一覧 `knowledge`・トップ `top`・ほか `site-<頁>`。英語は末尾 `-en`、中国語は `-zh`。形はマーケットの `public/src-mark.js`・`functions/_lib/signup_src.ts` と同じ（英数と `_-`・64字まで・最初の印を上書きしない） | マーケットの登録の `dealroom2_users.signup_src` |
-| 送客の数 | GA4 `market_click`（page_path・src_mark・placement＝header/card/hero/body/end/footer（card＝トップの案件カード）・link_path・legacy_event・legacy_target）。前からの各頁の `dr2_promo_click`・`dr2_register_click` は内訳として残し legacy_* に写す＝**マーケットへの送客は market_click だけで数える（足さない）** | GA4 のイベント |
+| 送客の数 | GA4 `market_click`（from_path・src_mark・placement＝header/card/hero/body/end/footer（card＝トップの案件カード）・link_path・legacy_event・legacy_target）。前からの各頁の `dr2_promo_click`・`dr2_register_click` は内訳として残し legacy_* に写す＝**マーケットへの送客は market_click だけで数える（足さない）** | GA4 のイベント |
 | 問い合わせの出所 | `/api/contact` へ送るフォームに隠し欄 `_entry_page`（最初に着いた頁）・`_entry_ref`（その前のサイトのホスト名だけ）・`_prev_page`（直前の頁）・`_src`・`_utm`（sessionStorage・最初の印を優先）。頁の住所は path だけ。受け口 `web-contact.ts` は「_」で始まる欄を断らずに本文から外す＝受け口に記録の行を足すまでは残らない。/fund のフォームは送る中身を手で組むので付かない | 受け口を直したあとの通知メール・記録 |
-| 社内の閲覧 | 一度 `https://www.scix.co.jp/?internal=1` を開いた端末は GA4 の利用者の印 `internal_user=1`（`?internal=0` で外す・localStorage）。gtag.js が header.js より先に読まれた頁では、その頁の最初の page_view に印が乗らないことがある | `collect_daily.py --exclude-internal` |
+| 社内の閲覧 | 一度 `https://www.scix.co.jp/?internal=1` を開いた端末は GA4 の利用者の印 `internal_user=1`（`?internal=0` で外す・localStorage）。gtag.js が header.js より先に読まれた頁では、その頁の最初の page_view に印が乗らないことがある。2026-11-22 から、各頁の head の GA の区画（`scripts/build_ga_tag.py`）が同じ鍵を読み、印のある端末だけ config に `traffic_type: internal` を付ける（最初の page_view から乗る） | GA4 のデータフィルタ「内部トラフィック」（有効にすると外れる）・`collect_daily.py --exclude-internal` |
+| 導線の押下 | `<a data-cta="<置き場>" data-cta-target="<行き先の名>">` を押すと `cta_click`（placement・target・src_mark・from_path・link_path）。押した頁の道は from_path で送る（`page_path` は gtag が予約語として外し、g/collect に届かない＝2026-11-22 実測。market_click は前からの page_path も残すが届くのは from_path だけ。頁の住所そのものは dl＝page_location で届く）。target が無ければ行き先から market／contact／sell_form／site-<頁>。onclick で cta_click を送る前からのリンクには足さない。マーケットへのリンクは market_click も1回出る（送客は market_click で数える） | GA4 のイベント |
 
 GA4 の管理画面（カスタム定義）で登録が要る物（代表）: ユーザー スコープ `internal_user`／イベント スコープ `src_mark`・`placement`・`legacy_target`。`internal_user` を登録するまで、`collect_daily.py --exclude-internal` は外さずに数えてログに出す（既定は今のまま外さない）。
+
+## GA の区画と、数える側の機械らしい群（2026-11-22）
+
+- **区画**: 全 html の `<head>` の gtag は `scripts/build_ga_tag.py` の1つの形（手で直さない・頁を足したら回す・`--check` でずれを見る・`audit_pages.py --strict` が止める）。住所が `www.scix.co.jp` 以外（localhost・127.0.0.1・プレビュー・file:）と、`navigator.webdriver` が真のブラウザは `ga-disable-G-SNNK8MP9N9` で送らない。社内の印のある端末だけ `traffic_type: internal`。
+- **注意**: `--headless=new` でリモートデバッグを付けただけの Chrome は `navigator.webdriver` が偽のまま（2026-11-22 実測）。本番の住所を headless で開く確かめは、`--enable-automation` を付けるか、GA4 の送り先を `--host-resolver-rules` で手元に向ける。
+- **収集**: `collect_daily.py` は GA4 のどの表も `hostName=www.scix.co.jp` だけで取る（外した住所の数は台帳の `hosts`）。取り方を変える前の日を取り直すときは `--days 90 --ga4-refresh-all --no-gsc --no-health`。主に見る数は engagedSessions。台帳の `mix`（国×経路×画面×着地）から、着地なし・画面 1280x1200／800x600・日本以外の Direct／Unassigned を機械らしい群として別枠に数える（`common.bot_reason`・本体の数からは引かない）。`ai` はチャネル AI Assistant か参照元が AI の名前（`common.AI_SOURCE_RX`）。
+- **ブリーフ**: 1 節にエンゲージのあるセッション（主に見る数）、5e に題の直しを見る語（表示100以上・同じ順位帯の語の CTR 中央値の半分未満・20位まで）、13 節に人らしい来訪と機械らしい群・国×経路・AI 経由。数字は Drive のブリーフにだけ出す。
 
 ## トップの案件カードと上の帯の並び（2026-11-22）
 

@@ -4,13 +4,27 @@
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-<!-- Google Analytics -->
+<!-- Google Analytics（scripts/build_ga_tag.py が全頁に入れる・手で直さない） -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-SNNK8MP9N9');
+  (function () {
+    var cfg = {}, q = null, mk = false;
+    // 本番（www.scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）からは送らない
+    try { if (location.hostname !== 'www.scix.co.jp' || navigator.webdriver) window['ga-disable-G-SNNK8MP9N9'] = true; }
+    catch (e) { window['ga-disable-G-SNNK8MP9N9'] = true; }
+    // 社内の印（?internal=1 で付く・?internal=0 で外れる・header.js の 7c と同じ鍵）。印のある端末だけ traffic_type を付ける
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try {
+      if (q === '1') localStorage.setItem('scix_internal', '1');
+      else if (q === '0') localStorage.removeItem('scix_internal');
+      mk = localStorage.getItem('scix_internal') === '1';
+    } catch (e) { mk = q === '1'; }
+    if (mk) cfg.traffic_type = 'internal';
+    gtag('js', new Date());
+    gtag('config', 'G-SNNK8MP9N9', cfg);
+  })();
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -346,8 +360,9 @@
         <a href="/zh-knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">洞见</a>
         <a href="/zh-qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">问答</a>
         <a href="/zh-glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">术语表</a>
+        <a href="/zh-company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">公司介绍</a>
         <a href="/zh-contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">联系我们</a>
-        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">隐私政策</a>
+        <a href="/zh-privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">隐私政策</a>
       </div>
       <div class="scix-footer-copyright">&copy; 2025–2026 Science X Inc. All Rights Reserved.</div>
     </div>
