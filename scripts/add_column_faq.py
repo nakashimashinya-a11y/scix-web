@@ -13,6 +13,7 @@
 
 2026-11-22 中島「これ全部やって。売上UPのために徹底的に進めて。すべて漏らさずやって。」（Gemini の助言の指示3）。
 """
+import html as _html
 import json
 import os
 import re
@@ -124,18 +125,46 @@ def fix_jsonld(s, items):
     return JSONLD.sub(sub, s)
 
 
+def screen_text(s):
+    """画面の本文の字（head・script・style・h1 を除く＝題と同じ字の問いを「出ている」と数えない）を norm した物。"""
+    t = re.sub(r"<head\b.*?</head>|<script\b.*?</script>|<style\b.*?</style>|<h1\b.*?</h1>", "", s, flags=re.S)
+    t = re.sub(r"<[^>]+>", "", t)
+    return re.sub(r"\s+", "", _html.unescape(t))
+
+
+def unseen_faqpage(s, names):
+    """前からある FAQPage の問いのうち、画面に無い物（データで足す問いは除く）。足すのは FAQPage にある文のまま。"""
+    seen = screen_text(s)
+    out = []
+    for m in JSONLD.finditer(s):
+        try:
+            o = json.loads(m.group(2))
+        except ValueError:
+            continue
+        if not isinstance(o, dict) or o.get("@type") != "FAQPage":
+            continue
+        for e in o.get("mainEntity", []):
+            n = plain(e.get("name", ""))
+            a = plain((e.get("acceptedAnswer") or {}).get("text", ""))
+            if n and a and n not in names and re.sub(r"\s+", "", _html.unescape(n)) not in seen:
+                out.append({"q": n, "a": a})
+    return out
+
+
 def apply(r, s):
     s = cb.strip(s, "faq")
     items = DATA.get(r)
     if not items:
         return s
     lang = cb.lang_of(r)
+    # 構造化データにだけあって画面に無い問いは、同じ文で画面にも出す（画面と構造化データを同じに保つ）
+    shown = unseen_faqpage(s, {plain(q["q"]) for q in items}) + items
     ex = existing_section(s)
     if ex and ex[1]:
         style, at = ex
         if s[at:at + 1] == "\n":
             at += 1
-        blk = cb.wrap("faq", "".join(item(style, lang, q) for q in items))
+        blk = cb.wrap("faq", "".join(item(style, lang, q) for q in shown))
         s = s[:at] + blk + s[at:]
     else:
         pos = cb.end_anchor(s)
@@ -144,7 +173,7 @@ def apply(r, s):
             return s
         idattr = ' id="faq"' if 'id="faq"' not in s else ""
         inner = (f'<section class="scix-faq" data-scix-faq{idattr}>\n<h2>{H2[lang]}</h2>\n'
-                 + "".join(item("new", lang, q) for q in items) + "</section>")
+                 + "".join(item("new", lang, q) for q in shown) + "</section>")
         s = cb.place(s, "faq", cb.wrap("faq", inner), pos)
     return fix_jsonld(s, items)
 

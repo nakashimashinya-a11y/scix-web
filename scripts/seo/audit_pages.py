@@ -94,8 +94,9 @@ def column_block_issues(rel, raw):
     tail = tail[: f.start()] if f else tail
     if not re.search(r'href="[^"]*(?:dealroom\.scix\.co\.jp|contact|sell-form)[^"]*"', tail):
         out.append(("コラムに末尾の導線が無い（add_column_entrances.py）", ""))
-    if i >= 0 and not re.search(r'class="ab-name"><a href="/(?:en/)?company"', raw):
-        out.append(("著者の欄の氏名に会社案内へのリンクが無い（fix_column_author.py）", ""))
+    want = "/en/company" if rel.startswith("en/") else ("/zh-company" if rel.startswith("zh-") else "/company")
+    if i >= 0 and f'class="ab-name"><a href="{want}"' not in raw:
+        out.append((f"著者の欄の氏名に、その言葉の会社案内（{want}）へのリンクが無い（fix_column_author.py）", ""))
     return out
 
 
@@ -345,7 +346,8 @@ def main():
         for o in ld_objects(h.ld):
             t = o.get("@type")
             if t == "FAQPage":
-                body = norm_text(re.sub(r"<script.*?</script>", "", raw, flags=re.S))
+                # 画面の本文だけで見る（head の title・h1 と同じ字の問いを「出ている」と数えない）
+                body = norm_text(re.sub(r"<head\b.*?</head>|<script.*?</script>|<h1\b.*?</h1>", "", raw, flags=re.S))
                 for q in o.get("mainEntity", []):
                     if norm_text(q.get("name", "")) not in body:
                         issues["FAQPage の問いが本文に無い"].append((rel, q.get("name", "")[:50]))

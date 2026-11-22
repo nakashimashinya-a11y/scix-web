@@ -2,6 +2,7 @@
 """コラムの本文の頭（要点の枠の下）に、日付つきの「追記」の枠を差す。本文の古くなった数字の、その後の公表値を書く所。
 
 データは scripts/data/column_update.json（{頁: {label, text, sources:[{name,url,date}], more?:{href,text}}}）。
+英語の頁の出典の名前は scripts/data/column_update_src_en.json で英訳の題を添えた形に替える（原題は残す）。
 書くのは公表資料（官公庁・OCCTO・EPRX・JEPX・電力会社）を原本で確かめた事と、当社の月報の数字だけ（O16-8）。
 本文と h1 は触らない。<!-- scix-update:begin/end --> の目印で囲み、何度回しても同じ結果になる。
 
@@ -20,9 +21,15 @@ SRC = {"ja": "出典：", "en": "Sources: ", "zh": "出处："}
 SEP = {"ja": "／", "en": "; ", "zh": "／"}
 MORE = {"ja": "続きの記事：", "en": "Follow-up: ", "zh": "后续文章："}
 DATA = cb.load("column_update.json")
+# 英語の頁の出典: 日本語の原題だけの名前に英訳の題を添え（原題は残す）、日本語の日付の注を英語にする。
+# {"names": {データの名前: 英語の頁に出す名前}, "dates": {データの日付: 英語の頁に出す日付}}
+SRC_EN = cb.load("column_update_src_en.json")
 
 
 def src_html(lang, x):
+    if lang == "en":
+        x = dict(x, name=SRC_EN["names"].get(x["name"], x["name"]),
+                 date=SRC_EN["dates"].get(x.get("date") or "", x.get("date") or ""))
     own = x["url"].startswith("https://www.scix.co.jp/")
     a = (f'<a href="{cb.esc(x["url"])}" target="_top">' if own else f'<a href="{cb.esc(x["url"])}" target="_blank" rel="noopener">') + cb.esc(x["name"]) + "</a>"
     d = x.get("date") or ""
