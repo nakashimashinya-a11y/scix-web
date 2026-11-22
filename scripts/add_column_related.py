@@ -12,6 +12,10 @@
   - 市場の数字の話題（需給調整・容量・卸電力）の頁には、英語の市場データ・市場ノート（/en/report/data・/en/report）への静的リンクを1行
     （中国語の頁へは英語の頁である旨を添える）。/fund へは足さない（O16-67）。
 
+語が重なる頁どうしの役割分け（2026-11-22 中島「これ全部やって。…すべて漏らさずやって。」＝Gemini の助言の指令3）:
+  scripts/data/column_roles.json（[{from, to, text}]）の組を、日本語・英語・中国語のコラムの末尾（よくある質問の後・著者の箱の前）に
+  「近い話題は、こちらの記事で」の1区画で張る。字は行き先の題に合わせた物（別の目を通した材料）。<!-- scix-role:begin/end --> で囲む。
+
     python3 scripts/add_column_related.py          # 書き換える
     python3 scripts/add_column_related.py --check  # 書き換えずに、ずれているかだけ見る（ずれていれば 1）
 
@@ -88,6 +92,11 @@ def glossary(f):
     return [(i, re.sub(r"<[^>]+>", "", d).strip()) for i, d in re.findall(r'id="(term-[^"]+)"><dt>(.*?)(?:<span>.*?</span>)?</dt>', s, re.S)]
 
 
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+try:
+    ROLES = __import__("json").load(open(os.path.join(ROOT, "scripts", "data", "column_roles.json"), encoding="utf-8"))
+except OSError:
+    ROLES = []
 G = {"ja": glossary("glossary.html"), "en": glossary("en/glossary.html"), "zh": glossary("zh-glossary.html")}
 assert len(G["ja"]) == len(G["en"]) == len(G["zh"]), "用語集の項目の数がそろっていない"
 
@@ -214,6 +223,27 @@ def process(path, lang):
     return s0[:pos] + blk + s0[pos:]
 
 
+ROLE_H = {"ja": "近い話題は、こちらの記事で", "en": "Covered in more detail elsewhere", "zh": "相关话题，详见以下文章"}
+
+
+def roles_apply(r, s):
+    import column_blocks as cb
+    s = cb.strip(s, "role")
+    me = cb.url_of(r)
+    links = [x for x in ROLES if x["from"] == me]
+    if not links:
+        return s
+    lang = cb.lang_of(r)
+    items = "".join('<a target="_top" href="%s">%s →</a>' % (html.escape(x["to"]), html.escape(re.sub(r"\s*→\s*$", "", x["text"]), quote=False))
+                    for x in links)
+    pos = cb.end_anchor(s)
+    if pos is None:
+        print("役割分けの置き場が見つからない:", r)
+        return s
+    blk = cb.wrap("role", f'<aside class="scix-role" data-scix-role><div class="sr-t">{ROLE_H[lang]}</div>{items}</aside>')
+    return cb.place(s, "role", blk, pos)
+
+
 def main():
     check = "--check" in sys.argv
     bad = 0
@@ -226,6 +256,8 @@ def main():
                     print("ずれ:", p); bad = 1
                 else:
                     open(p, "w", encoding="utf-8").write(out)
+    import column_blocks as cb
+    bad = max(bad, cb.run_all(roles_apply, check))
     return bad
 
 
