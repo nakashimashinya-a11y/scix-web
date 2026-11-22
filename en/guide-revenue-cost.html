@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics（scripts/build_ga_tag.py が全頁に入れる・手で直さない） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  (function () {
+    var cfg = {}, q = null, mk = false;
+    // 本番（www.scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）からは送らない
+    try { if (location.hostname !== 'www.scix.co.jp' || navigator.webdriver) window['ga-disable-G-SNNK8MP9N9'] = true; }
+    catch (e) { window['ga-disable-G-SNNK8MP9N9'] = true; }
+    // 社内の印（?internal=1 で付く・?internal=0 で外れる・header.js の 7c と同じ鍵）。印のある端末だけ traffic_type を付ける
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try {
+      if (q === '1') localStorage.setItem('scix_internal', '1');
+      else if (q === '0') localStorage.removeItem('scix_internal');
+      mk = localStorage.getItem('scix_internal') === '1';
+    } catch (e) { mk = q === '1'; }
+    if (mk) cfg.traffic_type = 'internal';
+    gtag('js', new Date());
+    gtag('config', 'G-SNNK8MP9N9', cfg);
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- scripts/build_guides.py が scripts/data/guides/guide-revenue-cost.en.md から作る頁（手で直さない） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"></noscript>
+<style>
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#1F2A48;--text-light:#666666;--light-bg:#F7F7F7;--border:#E6E6E6;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#141B30 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-date{font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h2{font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:28px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+ul,ol{margin:0 0 20px 1.4em}
+li{margin-bottom:8px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.95em;line-height:2}
+.highlight-box .box-label{font-weight:700;color:var(--navy);margin-bottom:6px}
+.highlight-box ul{margin-bottom:0}
+.source{font-size:.78em;color:var(--text-light);margin:-8px 0 20px}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.comparison-table{width:100%;border-collapse:collapse;font-size:.88em}
+.comparison-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-weight:500;font-size:.88em}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.guide-more{font-size:.9em;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:10px 16px}
+.guide-more a,.guide-go a,.article-body p a,.article-body li a{color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--accent)}
+.guide-go{font-weight:600}
+.guide-toc{margin:28px 0;padding:16px 22px;border:1px solid var(--border);border-radius:6px;font-size:.92em}
+.guide-toc .box-label{font-weight:700;margin-bottom:6px}
+.guide-toc ol{margin:0 0 0 1.4em}
+.guide-toc li{margin-bottom:2px}
+.guide-toc a{color:var(--navy);text-decoration:none}
+.guide-cta-top{margin:28px 0;padding:18px 22px;background:#F7F7F7;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;font-size:.95em;line-height:1.85}
+.guide-cta-top p{margin-bottom:12px}
+.guide-cta-top .sub{margin:12px 0 0;font-size:.92em;color:#555555}
+.cta-btn{display:inline-block;background:var(--accent);color:#1F2A48;padding:12px 28px;border-radius:4px;font-weight:700;font-size:.92em;text-decoration:none}
+.guide-cols ul{list-style:none;margin:0;padding:0}
+.guide-cols li{border-bottom:1px solid var(--border);margin:0;padding:10px 0}
+.guide-cols li a{color:var(--navy);font-weight:600;text-decoration:none}
+.guide-cols .note{font-size:.85em;color:var(--text-light)}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text)}
+.faq-a p:last-child{margin-bottom:0}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:40px 28px;border-radius:8px;margin-top:48px}
+.cta-section h2{color:#fff;border-bottom:0;margin:0 0 16px;padding:0}
+.cta-section p,.cta-section li{color:rgba(255,255,255,.8)}
+@media(max-width:768px){.article-body{padding:32px 16px 60px}h2{font-size:1.2em}.comparison-table{font-size:.8em}.comparison-table th,.comparison-table td{padding:8px 10px}}
+</style>
+<title>Battery Revenue Stacking and Cost in Japan | ScienceX</title>
+<meta name="description" content="Battery revenue stacking in Japan: JEPX, balancing and capacity markets, revenue by area, cost per kWh, IRR and DSCR.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.scix.co.jp/en/guide-revenue-cost">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/guide-revenue-cost">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/guide-revenue-cost">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-guide-revenue-cost">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/guide-revenue-cost">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Battery Revenue Stacking and Cost in Japan | ScienceX">
+<meta property="og:description" content="Battery revenue stacking in Japan: JEPX, balancing and capacity markets, revenue by area, cost per kWh, IRR and DSCR.">
+<meta property="og:url" content="https://www.scix.co.jp/en/guide-revenue-cost">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-m-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Battery Revenue Stacking and Cost in Japan | ScienceX">
+<meta name="twitter:description" content="Battery revenue stacking in Japan: JEPX, balancing and capacity markets, revenue by area, cost per kWh, IRR and DSCR.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-m-en.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://www.scix.co.jp/en/guide-revenue-cost#webpage",
+  "url": "https://www.scix.co.jp/en/guide-revenue-cost",
+  "name": "Battery Revenue Stacking and Cost in Japan | ScienceX",
+  "description": "Battery revenue stacking in Japan: JEPX, balancing and capacity markets, revenue by area, cost per kWh, IRR and DSCR.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://www.scix.co.jp/#website",
+    "url": "https://www.scix.co.jp/",
+    "name": "ScienceX"
+  },
+  "author": {
+    "@type": "Organization",
+    "@id": "https://www.scix.co.jp/#organization",
+    "name": "Science X Inc.",
+    "alternateName": "サイエンスエックス株式会社",
+    "url": "https://www.scix.co.jp/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-navy.png"
+    }
+  },
+  "publisher": {
+    "@id": "https://www.scix.co.jp/#organization"
+  },
+  "datePublished": "2026-11-22",
+  "dateModified": "2026-11-22",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-m-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "breadcrumb": {
+    "@id": "https://www.scix.co.jp/en/guide-revenue-cost#breadcrumb"
+  },
+  "mainEntity": {
+    "@id": "https://www.scix.co.jp/en/guide-revenue-cost#itemlist"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "https://www.scix.co.jp/en/guide-revenue-cost#breadcrumb",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Grid battery revenue and cost in Japan — revenue stacking, the nine areas, build cost and 20-year cash flow",
+      "item": "https://www.scix.co.jp/en/guide-revenue-cost"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "https://www.scix.co.jp/en/guide-revenue-cost#itemlist",
+  "name": "Columns in this guide (5)",
+  "numberOfItems": 5,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "url": "https://www.scix.co.jp/en/column-revenue",
+      "name": "Battery Revenue Stacking: 3 Revenue Sources"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "url": "https://www.scix.co.jp/en/column-regional-revenue",
+      "name": "Grid Battery Revenue Across Japan's 9 Areas × 3 Markets"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "url": "https://www.scix.co.jp/en/column-construction-cost",
+      "name": "BESS Price and Construction Cost in Japan | 68,000 yen/kWh Breakdown"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "url": "https://www.scix.co.jp/en/column-biz",
+      "name": "30MW+ vs 2MW"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "url": "https://www.scix.co.jp/en/column-cashflow",
+      "name": "Battery Storage Project IRR in Japan"
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8C8C8C"><a href="/en" style="color:#555555;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#555555;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8C8C8C">Grid battery revenue and cost in Japan — revenue stacking, the nine areas, build cost and 20-year cash flow</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-tag">Guide</span>
+      <time class="header-date" datetime="2026-11-22">Published 2026.11.22</time>
+    </div>
+    <h1>Grid battery revenue and cost in Japan — revenue stacking, the nine areas, build cost and 20-year cash flow</h1>
+    <p class="header-desc">Battery revenue stacking in Japan: JEPX, balancing and capacity markets, revenue by area, cost per kWh, IRR and DSCR.</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/en/knowledge" class="back-link">← Back to Knowledge</a>
+
+<div class="highlight-box" data-scix-guide-tldr>
+<div class="box-label">In three lines</div>
+<ul><li>A grid battery in Japan earns by stacking three markets: the balancing market, JEPX (wholesale price spreads) and the capacity market. On ScienceX's own tally of published market data for the last 12 months, a high-voltage 2 MW / 8 MWh unit's annual revenue has an all-market median of ¥270-290M, about 80% of it from the balancing market.</li><li>Read construction cost per kWh. The METI study group's FY2024 average for subsidised projects is 68,000 yen/kWh, and it includes neither land nor the grid connection contribution charge.</li><li>The balancing market — the body of that revenue — is exactly what the rules are cutting in stages. Whatever the scale or strategy, the one common success factor is securing a site with low grid connection costs.</li></ul>
+</div>
+
+<aside class="guide-cta-top" data-scix-guide-cta="top">
+<p>If you are buying, grid-scale BESS projects in Japan that hold a connection study response are for sale on Chikudensho Market, open to view without registration. If you are selling, we either buy the project ourselves or introduce you to a buyer.</p>
+<p><a href="https://dealroom.scix.co.jp/en" target="_top" class="cta-btn" data-cta="top" data-cta-target="market">See projects on Chikudensho Market →</a></p>
+<p class="sub">Questions are welcome through the contact form. <a href="/en/contact" target="_top" data-cta="top" data-cta-target="contact">Contact us</a></p>
+</aside>
+
+<nav class="guide-toc" aria-label="On this page">
+<div class="box-label">On this page</div>
+<ol>
+<li><a href="#g1">Revenue comes from stacking three markets</a></li>
+<li><a href="#g2">How much it earns — the area decides</a></li>
+<li><a href="#g3">What it costs to build — read it per kWh</a></li>
+<li><a href="#g4">Scale changes the business — over 30 MW vs 2 MW</a></li>
+<li><a href="#g5">Reading the 20-year cash flow — IRR and DSCR</a></li>
+<li><a href="#g6">What to watch — rule changes that move the revenue</a></li>
+<li><a href="#cols">Columns in this guide (5)</a></li>
+<li><a href="#faq">Frequently asked questions</a></li>
+</ol>
+</nav>
+
+<h2 id="g1">1. Revenue comes from stacking three markets</h2>
+<p>Grid-scale battery revenue does not come from a single market. It is built by "stacking" three of them — battery revenue stacking.</p>
+<ul><li><strong>JEPX arbitrage (wholesale power market)</strong>: JEPX trades 48 half-hour slots across 24 hours. A battery charges in low-price slots and discharges in high-price slots. In 2024 the average daily spread between the highest and lowest prices was about 20 yen/kWh, up five-fold from about 4 yen/kWh around 2020. The "duck curve" — daytime prices pushed to near zero by solar, then an evening peak spike — is the source of that arbitrage revenue.</li><li><strong>Balancing market</strong>: selling power "insurance". All five products (primary reserve, secondary reserve 1 and 2, tertiary reserve 1 and 2) began trading in April 2024. The most advantageous for batteries are primary reserve and secondary reserve 1.</li><li><strong>Capacity market (Main Auction)</strong>: auctions are held four years before actual delivery and pay power sources for "simply being there". Batteries can take part from 1,000 kW.</li></ul>
+<p>How you design the balance across the three markets is the biggest variable affecting IRR (internal rate of return). Taking part in all three at once needs advanced operational expertise, so many project owners use aggregators (market trading agents).</p>
+<p class="guide-more">Read more: <a href="/en/column-revenue" target="_top">3 Revenue Sources for Battery Storage — JEPX, Balancing Market &amp; Capacity Market Stacking Strategy</a></p>
+<h2 id="g2">2. How much it earns — the area decides</h2>
+<p>This column takes a high-voltage 2 MW / 8,000 kWh (4-hour) reference asset and tallies JEPX's published spot results and the balancing-market results that EPRX publishes (measurement window: deliveries 2025.07-2026.06, a full 365 days).</p>
+<ul><li>Annual revenue: an all-market median of ¥270-290M. The overall leader is Tohoku at about ¥290M. About 80% comes from the balancing market; JEPX and the capacity market together make up about 20%. The JEPX value assumes perfect foresight, so it is a theoretical upper bound, and the aggregator fee has not been deducted.</li><li>Hokkaido leads on JEPX, but for most of the 12 months the ΔkW market there was itself thin, so it could not capture the main revenue in full. The arbitrage map and the ΔkW map do not overlap.</li><li>Taking only the two layers that remain after the body is cut — the floor (capacity market, FY2029, estimate) and the core (JEPX ceiling, measured) — the gap between Hokkaido (first) and Kansai (last) is ¥15.02M a year for a 2 MW unit.</li><li>Capacity is credited not on nameplate kW but on expected capacity = installed capacity × derating coefficient. Even a 4-hour unit is credited at only about 56-90% depending on area and month; Tokyo at only about 70.8% on an annual average.</li><li>By season, in all nine areas spring (March-May) is the annual maximum and winter (December-February) the annual minimum.</li></ul>
+<p>The column closes on this point: the current standings and five-year resilience are different tables. Decide the strategy first and the area is decided; after that, the connection slot, the construction-cost contribution and contract design make a further difference of tens of millions of yen within the same area.</p>
+<p class="guide-more">Read more: <a href="/en/column-regional-revenue" target="_top">The same 2 MW earns ¥290M a year — or ¥60M — what divides them: the area, and how you earn</a></p>
+<h2 id="g3">3. What it costs to build — read it per kWh</h2>
+<ul><li>Compare construction cost per kWh, not per MW. The largest cost item, the battery cells, is priced by energy capacity (kWh), not by output (kW). Two projects can both be 2 MW, yet an 8 MWh unit contains twice as much battery as a 4 MWh one.</li><li>METI's Study Group on Expanding the Adoption of Stationary Storage Battery Systems (5th meeting, Document 3, 30 January 2025) puts the FY2024 average for subsidised projects at 68,000 yen/kWh, excluding tax and similar charges: battery 41,000, PCS 6,000, other 7,000 and construction works 14,000 yen/kWh. The battery alone is roughly 60% of the total.</li><li>The same study group's 3rd meeting (Document 3, 29 August 2024) states that cost levels of 20,000-40,000 yen/kWh are also observed on non-subsidised projects adopting overseas-made storage systems. The 5th-meeting document puts the system price above 50 MWh at 49,000 yen/kWh.</li><li>The 68,000 yen/kWh figure includes neither land nor the grid connection contribution charge. That charge is fixed project by project in the connection study response; there is no standard unit price.</li><li>In a sensitivity analysis submitted to the METI study group by Mitsubishi Research Institute, the conditions identified for profitability where revenue is not fixed by contract were a construction cost of 50,000 yen/kWh or below, or an upside in wholesale power price spreads.</li></ul>
+<p>When you line up quotations, first restate them all on a kWh basis, then ask each supplier for the four-way split: battery, PCS, other, construction works.</p>
+<p class="guide-more">Read more: <a href="/en/column-construction-cost" target="_top">Construction cost of a grid-scale battery: how much per kWh?</a></p>
+<h2 id="g4">4. Scale changes the business — over 30 MW vs 2 MW</h2>
+<ul><li>Above 30 MW there are two fundamentally different business models: the LDA type, which bids in the Long-Term Decarbonized Power Source Auction, and the full merchant type, which does not. Even for the same 50 MW project, the revenue structure, risk profile and financing approach differ entirely.</li><li>A 2 MW unit cannot take part in the LDA (minimum requirement 30 MW+), so it is a full merchant project that recovers all investment through market revenue. From Round 3 the LDA also requires continuous operation of 6 hours or more.</li><li>On financing: the LDA type's 20-year fixed income makes project finance DSCR structuring easier; the full merchant type faces high project-finance hurdles because market revenue is hard to forecast, so corporate finance is the practical option in most cases.</li><li>The FY2024 grid-scale battery system price was 54,000 yen/kWh, about 13% below the previous year's 62,000 yen/kWh.</li></ul>
+<p>At any scale and under either strategy, low grid connection costs are the biggest lever for profitability. Projects with low connection costs raise the probability of an LDA award and directly boost IRR for full merchant.</p>
+<p class="guide-more">Read more: <a href="/en/column-biz" target="_top">30MW+ vs 2MW — Completely Different Battery Business Models by Scale</a></p>
+<h2 id="g5">5. Reading the 20-year cash flow — IRR and DSCR</h2>
+<p>The column explains an investment decision framework rather than numbers for any specific project.</p>
+<ul><li><strong>IRR (internal rate of return)</strong> is the discount rate at which the present value of 20 years of cash flow equals the investment amount.</li><li><strong>DSCR (debt service coverage ratio)</strong> is annual net cash flow ÷ annual debt service. Below 1.0, that year's debt service cannot be met. It is the metric lenders value most in project finance.</li><li>The LDA type receives fixed capacity payments over 20 years, and about 10% of market revenue remains on top as additional income. Only market trading profits are subject to refund; the LDA capacity payment itself stays 100% with the operator. The full merchant type captures 100% of the revenue from the three markets, and, without 20-year fixed income, bears all of the market price fluctuation risk.</li><li>The variable with the greatest impact on IRR is grid connection construction cost. For the same 50 MW project, 200 million yen versus 2 billion yen in connection costs creates a 1.8 billion yen gap in total investment.</li><li>For a 20-year model, the column recommends examining base, optimistic and conservative cases for six variables: connection cost, the battery cell price decline rate, the JEPX spread, the balancing-market clearing rate and unit price, the capacity-market clearing price, and interest rates.</li></ul>
+<p class="guide-more">Read more: <a href="/en/column-cashflow" target="_top">20-Year Cash Flow Structure for Battery Business — Understanding IRR &amp; DSCR</a></p>
+<h2 id="g6">6. What to watch — rule changes that move the revenue</h2>
+<ul><li>From deliveries on 14 March 2026, the balancing-market cap for primary, secondary-① and the composite product was cut from ¥19.51 to ¥15.00 (secondary-② and tertiary-① stay at ¥7.21; tertiary-② remains uncapped). From the same deliveries, procurement for primary and secondary-① was cut from a 3σ to a 1σ equivalent (about 13% down).</li><li>From delivery on 1 September 2026, the cap for primary, secondary 1 and the combined product has fallen to 10.00 yen/ΔkW per 30 minutes.</li><li>The body of revenue — the balancing market, about 80% of the total — is exactly what the rules go to cut in stages. For existing owners the column's answer is two-footed: take the primary revenue that is there now in full, but lay down the decay curve before putting it on a five-year P&amp;L line.</li><li>The capacity market comes with obligations. Failure to meet the capacity-securing requirements carries an economic penalty; the floor is not "revenue you receive" but "revenue in exchange for obligations".</li></ul>
+<p class="guide-more">Read more: <a href="/en/column-regional-revenue" target="_top">The same 2 MW earns ¥290M a year — or ¥60M (Section 11, rules)</a> ・ <a href="/en/column-revenue" target="_top">3 Revenue Sources for Battery Storage (Pocket 2, balancing market)</a></p>
+<p class="guide-more">Related: <a href="/en/column-price-cap" target="_top">Balancing Market Price Cap Falls to ¥10 — What Disappears</a></p>
+
+<section class="guide-cols" id="cols">
+<h2>Columns in this guide (5)</h2>
+<p class="note">Each column gives the data window and sources for its figures.</p>
+<ul>
+<li><a href="/en/column-revenue" target="_top">Battery Revenue Stacking: 3 Revenue Sources</a></li>
+<li><a href="/en/column-regional-revenue" target="_top">Grid Battery Revenue Across Japan&#x27;s 9 Areas × 3 Markets</a></li>
+<li><a href="/en/column-construction-cost" target="_top">BESS Price and Construction Cost in Japan | 68,000 yen/kWh Breakdown</a></li>
+<li><a href="/en/column-biz" target="_top">30MW+ vs 2MW</a></li>
+<li><a href="/en/column-cashflow" target="_top">Battery Storage Project IRR in Japan</a></li>
+</ul>
+</section>
+
+<section id="faq">
+<h2>Frequently asked questions</h2>
+<div class="faq-item">
+  <div class="faq-q">How much does a grid battery earn in Japan?</div>
+  <div class="faq-a"><p>On ScienceX's tally for a high-voltage 2 MW / 8 MWh (4-hour) unit over deliveries 2025.07-2026.06, annual revenue had an all-market median of ¥270-290M, with Tohoku the overall leader at about ¥290M. About 80% came from the balancing market. The JEPX part is a perfect-foresight upper bound and the aggregator fee is not deducted. Within the same area, the connection slot, construction-cost contribution and contract design make a further difference of tens of millions of yen.</p>
+<p class="guide-more">Read more: <a href="/en/column-regional-revenue" target="_top">Grid Battery Revenue Across Japan's 9 Areas × 3 Markets</a></p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">What is battery revenue stacking?</div>
+  <div class="faq-a"><p>Building revenue not from one market but by layering three: JEPX arbitrage, the balancing market and the capacity market. How the balance across the three is designed is the biggest variable affecting IRR.</p>
+<p class="guide-more">Read more: <a href="/en/column-revenue" target="_top">Battery Revenue Stacking: 3 Revenue Sources — JEPX, Balancing, Capacity</a></p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">What does grid-scale battery storage cost per kWh in Japan?</div>
+  <div class="faq-a"><p>The METI study group's FY2024 average for subsidised projects is 68,000 yen/kWh, excluding tax and similar charges. Cost levels of 20,000-40,000 yen/kWh are also observed on non-subsidised projects adopting overseas-made systems. The 68,000 yen/kWh figure includes neither land nor the grid connection contribution charge.</p>
+<p class="guide-more">Read more: <a href="/en/column-construction-cost" target="_top">BESS Price and Construction Cost in Japan | 68,000 yen/kWh Breakdown</a></p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">How are IRR and DSCR used to compare battery storage projects?</div>
+  <div class="faq-a"><p>IRR is the discount rate that sets the present value of 20 years of cash flow equal to the investment amount; DSCR is annual net cash flow ÷ annual debt service, and below 1.0 that year's debt service cannot be met. The LDA type's 20-year fixed capacity payment allows DSCR structuring similar to solar FIT; the full merchant type risks years where DSCR falls below 1.0 due to market fluctuations, which makes project finance difficult. For either, the variable with the greatest impact on IRR is grid connection construction cost.</p>
+<p class="guide-more">Read more: <a href="/en/column-cashflow" target="_top">Battery Storage Project IRR in Japan — 20-Year Cash Flow</a></p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">Can a 2 MW battery bid in the LDA?</div>
+  <div class="faq-a"><p>No. The LDA has a minimum requirement of 30 MW+, so a 2 MW unit is a full merchant project that recovers its investment through market revenue.</p>
+<p class="guide-more">Read more: <a href="/en/column-biz" target="_top">30MW+ vs 2MW — Battery Business Models by Scale</a></p></div>
+</div>
+</section>
+
+<div class="cta-section" data-scix-guide-cta="end">
+<h2>What to do next</h2>
+<ul><li><strong>To buy a project</strong>: projects for sale are listed on Chikudensho Market, open to view without registration; prices and documents follow a free registration. → <a href="https://dealroom.scix.co.jp/en" target="_top" data-cta="end" data-cta-target="market">Chikudensho Market</a></li><li><strong>To sell a project</strong>: if you hold a project with a connection study response, we buy it ourselves or connect you with a buyer. → <a href="/en/contact" target="_top" data-cta="end" data-cta-target="contact">Contact us</a> ・ <a href="/sell-form" target="_top" data-cta="end" data-cta-target="sell_form">Free sale valuation (Japanese page)</a></li><li><strong>Start from the basics</strong>: <a href="/en/primer" target="_top" data-cta="end">Japan Grid-Scale Storage — A Primer for Overseas Investors</a> ・ <a href="/en/glossary" target="_top" data-cta="end">Glossary</a></li></ul>
+</div>
+
+</div>
+
+<!-- ScienceX Footer — self-contained -->
+<style>
+  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+  .scix-footer { background-color: #1F2A48; color: rgba(255,255,255, 0.85); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%; }
+  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: 0.95; }
+  .scix-footer-info { text-align: center; }
+  .scix-footer-copyright { font-size: 11px; letter-spacing: 0.04em; color: rgba(255,255,255, 0.55); margin-top: 20px; }
+  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255,255,255, 0.8); }
+  .scix-footer-company .company-name { font-weight: 500; font-size: 13.5px; color: rgba(255,255,255, 0.92); margin-bottom: 2px; }
+  .scix-footer-company .representative { margin-top: 4px; color: rgba(255,255,255, 0.6); font-size: 12px; }
+  .scix-footer-company a { color: rgba(255,255,255, 0.8); text-decoration: none; transition: color 0.2s ease; }
+  .scix-footer-company a:hover { color: #C49A3C; }
+  .scix-footer-divider { width: 60px; border: none; border-top: 1px solid rgba(255,255,255, 0.12); margin: 0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img width="300" height="118"
+        src="/img/logo-white.png"
+        alt="ScienceX - Science X Inc."
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="https://dealroom.scix.co.jp/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Chikudensho Market</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Company</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/en/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>

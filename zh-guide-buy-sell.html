@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics（scripts/build_ga_tag.py が全頁に入れる・手で直さない） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  (function () {
+    var cfg = {}, q = null, mk = false;
+    // 本番（www.scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）からは送らない
+    try { if (location.hostname !== 'www.scix.co.jp' || navigator.webdriver) window['ga-disable-G-SNNK8MP9N9'] = true; }
+    catch (e) { window['ga-disable-G-SNNK8MP9N9'] = true; }
+    // 社内の印（?internal=1 で付く・?internal=0 で外れる・header.js の 7c と同じ鍵）。印のある端末だけ traffic_type を付ける
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try {
+      if (q === '1') localStorage.setItem('scix_internal', '1');
+      else if (q === '0') localStorage.removeItem('scix_internal');
+      mk = localStorage.getItem('scix_internal') === '1';
+    } catch (e) { mk = q === '1'; }
+    if (mk) cfg.traffic_type = 'internal';
+    gtag('js', new Date());
+    gtag('config', 'G-SNNK8MP9N9', cfg);
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- scripts/build_guides.py が scripts/data/guides/guide-buy-sell.zh.md から作る頁（手で直さない） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"></noscript>
+<style>
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#1F2A48;--text-light:#666666;--light-bg:#F7F7F7;--border:#E6E6E6;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#141B30 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-date{font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h2{font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:28px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+ul,ol{margin:0 0 20px 1.4em}
+li{margin-bottom:8px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.95em;line-height:2}
+.highlight-box .box-label{font-weight:700;color:var(--navy);margin-bottom:6px}
+.highlight-box ul{margin-bottom:0}
+.source{font-size:.78em;color:var(--text-light);margin:-8px 0 20px}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.comparison-table{width:100%;border-collapse:collapse;font-size:.88em}
+.comparison-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-weight:500;font-size:.88em}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.guide-more{font-size:.9em;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:10px 16px}
+.guide-more a,.guide-go a,.article-body p a,.article-body li a{color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--accent)}
+.guide-go{font-weight:600}
+.guide-toc{margin:28px 0;padding:16px 22px;border:1px solid var(--border);border-radius:6px;font-size:.92em}
+.guide-toc .box-label{font-weight:700;margin-bottom:6px}
+.guide-toc ol{margin:0 0 0 1.4em}
+.guide-toc li{margin-bottom:2px}
+.guide-toc a{color:var(--navy);text-decoration:none}
+.guide-cta-top{margin:28px 0;padding:18px 22px;background:#F7F7F7;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;font-size:.95em;line-height:1.85}
+.guide-cta-top p{margin-bottom:12px}
+.guide-cta-top .sub{margin:12px 0 0;font-size:.92em;color:#555555}
+.cta-btn{display:inline-block;background:var(--accent);color:#1F2A48;padding:12px 28px;border-radius:4px;font-weight:700;font-size:.92em;text-decoration:none}
+.guide-cols ul{list-style:none;margin:0;padding:0}
+.guide-cols li{border-bottom:1px solid var(--border);margin:0;padding:10px 0}
+.guide-cols li a{color:var(--navy);font-weight:600;text-decoration:none}
+.guide-cols .note{font-size:.85em;color:var(--text-light)}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text)}
+.faq-a p:last-child{margin-bottom:0}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:40px 28px;border-radius:8px;margin-top:48px}
+.cta-section h2{color:#fff;border-bottom:0;margin:0 0 16px;padding:0}
+.cta-section p,.cta-section li{color:rgba(255,255,255,.8)}
+@media(max-width:768px){.article-body{padding:32px 16px 60px}h2{font-size:1.2em}.comparison-table{font-size:.8em}.comparison-table th,.comparison-table td{padding:8px 10px}}
+</style>
+<title>日本储能电站买卖指南 — 买法、价格、流程与购买前核查｜ScienceX</title>
+<meta name="description" content="一页读懂日本电网侧储能电站的买卖：在售标的的四个阶段、四种买法、价格由什么决定、到名义变更的顺序、购买前核查、为何多以现金成交、海外资本的关口，以及持有接入系统研究答复时的选择。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.scix.co.jp/zh-guide-buy-sell">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/guide-buy-sell">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/guide-buy-sell">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-guide-buy-sell">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/guide-buy-sell">
+<meta property="og:type" content="website">
+<meta property="og:title" content="日本储能电站买卖指南 — 买法、价格、流程与购买前核查｜ScienceX">
+<meta property="og:description" content="一页读懂日本电网侧储能电站的买卖：在售标的的四个阶段、四种买法、价格由什么决定、到名义变更的顺序、购买前核查、为何多以现金成交、海外资本的关口，以及持有接入系统研究答复时的选择。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-guide-buy-sell">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-m-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="日本储能电站买卖指南 — 买法、价格、流程与购买前核查｜ScienceX">
+<meta name="twitter:description" content="一页读懂日本电网侧储能电站的买卖：在售标的的四个阶段、四种买法、价格由什么决定、到名义变更的顺序、购买前核查、为何多以现金成交、海外资本的关口，以及持有接入系统研究答复时的选择。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-m-zh.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://www.scix.co.jp/zh-guide-buy-sell#webpage",
+  "url": "https://www.scix.co.jp/zh-guide-buy-sell",
+  "name": "日本储能电站买卖指南 — 买法、价格、流程与购买前核查｜ScienceX",
+  "description": "一页读懂日本电网侧储能电站的买卖：在售标的的四个阶段、四种买法、价格由什么决定、到名义变更的顺序、购买前核查、为何多以现金成交、海外资本的关口，以及持有接入系统研究答复时的选择。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://www.scix.co.jp/#website",
+    "url": "https://www.scix.co.jp/",
+    "name": "ScienceX"
+  },
+  "author": {
+    "@type": "Organization",
+    "@id": "https://www.scix.co.jp/#organization",
+    "name": "Science X Inc.",
+    "alternateName": "サイエンスエックス株式会社",
+    "url": "https://www.scix.co.jp/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-navy.png"
+    }
+  },
+  "publisher": {
+    "@id": "https://www.scix.co.jp/#organization"
+  },
+  "datePublished": "2026-11-22",
+  "dateModified": "2026-11-22",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-m-zh.png",
+    "width": 1200,
+    "height": 630
+  },
+  "breadcrumb": {
+    "@id": "https://www.scix.co.jp/zh-guide-buy-sell#breadcrumb"
+  },
+  "mainEntity": {
+    "@id": "https://www.scix.co.jp/zh-guide-buy-sell#itemlist"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "https://www.scix.co.jp/zh-guide-buy-sell#breadcrumb",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://www.scix.co.jp/zh"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "洞见",
+      "item": "https://www.scix.co.jp/zh-knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "日本储能电站的买卖 — 买法、价格、流程与购买前核查",
+      "item": "https://www.scix.co.jp/zh-guide-buy-sell"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "https://www.scix.co.jp/zh-guide-buy-sell#itemlist",
+  "name": "本主题的专栏（9篇）",
+  "numberOfItems": 9,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "url": "https://www.scix.co.jp/zh-column-trading",
+      "name": "储能电站的买卖如何推进"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "url": "https://www.scix.co.jp/zh-column-transfer",
+      "name": "储能开发权的转让"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "url": "https://www.scix.co.jp/zh-column-pricing",
+      "name": "储能的开发权值多少钱"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "url": "https://www.scix.co.jp/zh-column-buyer-structures",
+      "name": "储能电站的买法有四种"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "url": "https://www.scix.co.jp/zh-column-project-price",
+      "name": "储能电站，多少钱能买到｜不是用地，而是项目与设备的收购价格"
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "url": "https://www.scix.co.jp/zh-column-buyer-check",
+      "name": "那份\"已获许可\"是真的吗"
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "url": "https://www.scix.co.jp/zh-column-financing",
+      "name": "日本储能电站融资"
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "url": "https://www.scix.co.jp/zh-column-foreign-investor",
+      "name": "“向EPC下单就能建成储能电站”并非如此"
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "url": "https://www.scix.co.jp/zh-column-options",
+      "name": "取得接入系统研究答复但不事业化时的3个选项"
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8C8C8C"><a href="/zh" style="color:#555555;text-decoration:none">首页</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/zh-knowledge" style="color:#555555;text-decoration:none">洞见</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8C8C8C">日本储能电站的买卖 — 买法、价格、流程与购买前核查</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-tag">指南</span>
+      <time class="header-date" datetime="2026-11-22">发布 2026.11.22</time>
+    </div>
+    <h1>日本储能电站的买卖 — 买法、价格、流程与购买前核查</h1>
+    <p class="header-desc">一页读懂日本电网侧储能电站的买卖：在售标的的四个阶段、四种买法、价格由什么决定、到名义变更的顺序、购买前核查、为何多以现金成交、海外资本的关口，以及持有接入系统研究答复时的选择。</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/zh-knowledge" class="back-link">← 返回洞见一览</a>
+
+<div class="highlight-box" data-scix-guide-tldr>
+<div class="box-label">三句话说清</div>
+<ul><li>日本储能电站的在售标的，按用地、附接入系统研究答复的权利、已获并网承诺、已投运四个阶段而不同；买法有四种：完工交付、权利转让、SPC权益、已投运资产。</li><li>左右价格的不是分区，而是并网与并网工程费分摊；权利与完工交付的差额，大半是建设费。</li><li>购买前，用文件核实"已获许可"是否属实，只要有一处红灯就不付定金。卖方要在接入系统研究答复满1年之前做出决定。</li></ul>
+</div>
+
+<aside class="guide-cta-top" data-scix-guide-cta="top">
+<p>所在县、规模、电压、购买方式、手续阶段与预计投运时间，无需登记即可在蓄电所市场（Chikudensho Market）查看；所列仅限已取得接入系统研究答复的项目。蓄电所市场的画面只有日文和英文，中文读者请用英文画面。</p>
+<p><a href="https://dealroom.scix.co.jp/en" target="_top" class="cta-btn" data-cta="top" data-cta-target="market">在蓄电所市场（Chikudensho Market）查看案件 →</a></p>
+<p class="sub">持有已取得接入系统研究答复的项目，可由本公司收购，或为您介绍买方。 <a href="/zh-contact" target="_top" data-cta="top" data-cta-target="contact">联系我们</a></p>
+</aside>
+
+<nav class="guide-toc" aria-label="本页目录">
+<div class="box-label">本页目录</div>
+<ol>
+<li><a href="#g1">在售标的分四个阶段</a></li>
+<li><a href="#g2">&quot;开发权&quot;指的是什么 — 土地与权利分开签约</a></li>
+<li><a href="#g3">买法有四种</a></li>
+<li><a href="#g4">多少钱能买到 — 左右价格的是并网与分摊金</a></li>
+<li><a href="#g5">顺序是固定的 — 从上架到名义变更</a></li>
+<li><a href="#g6">购买前核查 — 那份&quot;已获许可&quot;是真的吗</a></li>
+<li><a href="#g7">为何多以现金成交 — 不是贷不到，而是来不及</a></li>
+<li><a href="#g8">海外投资者 — 收购前要跨越的关口</a></li>
+<li><a href="#g9">持有接入系统研究答复、但不打算事业化时</a></li>
+<li><a href="#cols">本主题的专栏（9篇）</a></li>
+<li><a href="#faq">常见问题</a></li>
+</ol>
+</nav>
+
+<h2 id="g1">1. 在售标的分四个阶段</h2>
+<p>同样说"买储能电站"，买到手的东西因阶段而不同：只有用地；拿到接入系统研究答复的权利；已与一般输配电企业签完合同、缴清分摊金的权利；以及已通电并参与市场的设备。价格的量级、最先核对的文件、买下之后剩下的工作，都随这四个阶段而变。</p>
+<div class="table-wrap"><table class="comparison-table"><thead><tr><th scope="col">阶段</th><th scope="col">在售标的</th><th scope="col">买下后剩下的工作</th></tr></thead><tbody><tr><td>① 用地</td><td>土地的所有权或租赁权</td><td>从接入系统研究的申请开始，全部都要做</td></tr><tr><td>② 附接入系统研究答复的权利</td><td>输配电企业的答复书与用地的权利</td><td>合同申请、缴纳分摊金、采购设备、施工</td></tr><tr><td>③ 已获并网承诺、分摊金已缴</td><td>已签完合同的权利（设备可能尚未建成）</td><td>完成施工、与聚合商签约、市场参与手续</td></tr><tr><td>④ 已投运</td><td>有营收业绩的设备</td><td>接手运营（市场参与资格不会自动转移）</td></tr></tbody></table></div>
+<p>同样是2MW，④会被按高于②的价格看待，因为营收已经看得见。通过长期脱碳电源拍卖（LDA）中标的项目以中标者自行建设、运营为前提，不在本页讨论范围内。</p>
+<p class="guide-more">详见 → <a href="/zh-column-trading" target="_top">储能电站的买卖如何推进</a></p>
+<h2 id="g2">2. &quot;开发权&quot;指的是什么 — 土地与权利分开签约</h2>
+<p>"开发权"在日本并无法律上的定义。实务上，是把下面三样打包来称呼：</p>
+<ul><li>接入系统研究答复书 — 输配电企业签发、记载并网条件（并网工程费分摊、工期、接入点等）的答复书，是开发权的核心</li><li>土地的使用权 — 事业用地的所有权或租赁权</li><li>各类调查、许可的成果物 — 地质调查、测量、农地转用许可、开发许可等</li></ul>
+<p>答复规定的是"在该地点、以该容量"接入的条件，所以土地与答复成套才有价值。权利部分的价值，取决于买方持有它之后能省下的时间、成本与风险：选址的工夫、结果可能为"不可"的接入系统研究所耗的时间、分摊金未知的不确定性，以及从选址到工程申请所需的1〜2年以上。</p>
+<p class="guide-more">详见 → <a href="/zh-column-transfer" target="_top">储能开发权的转让 — 手续与注意点</a>・<a href="/zh-column-pricing" target="_top">储能的开发权值多少钱</a></p>
+<h2 id="g3">3. 买法有四种</h2>
+<ul><li><strong>完工交付</strong> — 买下卖方建成的储能电站，连同设备与土地（或土地使用权）</li><li><strong>权利转让</strong> — 买下土地与并网相关的权利（接入系统研究答复、接入合同上的地位、并网工程费分摊），自行建设</li><li><strong>SPC权益</strong> — 买下持有电站的公司（SPC）的权益，把合同、许可、并网上的地位连同法人一并承接</li><li><strong>已投运资产</strong> — 买下已开始商业运行、拥有市场交易业绩的电站，买到的不是设备，而是按月累积起来的可验证的现金流</li></ul>
+<p>这四种没有优劣之分，答案随买方的能力与能承接的风险而变。买已投运资产时要注意，"业绩"分两层：成交单价、成交率、运行率等作为信息的业绩会随买卖一起过来；市场资格、合同上的地位能否留下，取决于合同主体（法人）是否改变。辅助服务市场的业绩挂在聚合商名义下，只买资产又更换聚合商，就可能要从审查重新来过。先定台阶（在哪个阶段买）与容器（买资产还是买权益），再看价格。</p>
+<p class="guide-more">详见 → <a href="/zh-column-buyer-structures" target="_top">储能电站的买法有四种</a></p>
+<h2 id="g4">4. 多少钱能买到 — 左右价格的是并网与分摊金</h2>
+<p>本公司统计了2026年1月〜9月所见的高压2MW级在售报价，每个项目取一个值（含土地与并网工程费分摊的单件总额、不含税、中位数；为本公司观测，并非公开统计）：权利1.2亿日元，完工交付（并网前）6.7亿日元，已并网、已投运7.5亿日元。</p>
+<p>权利与完工交付的差额，大半是建设费 — 政府研讨会给出的2024年度国内平均为6.8万日元/kWh，8MWh就是5.4亿日元。溢价明确出现是在并网之后：设备一分钱也没有增加，多出来的是"已接上电网"这一事实，以及省去了开始在市场赚钱之前的等待。</p>
+<p>把在售报价按电网分区拆开来看，差别几乎没有。左右价格的，是是否已并网、分摊金是否已确定、保证金与合同申请是否已办完。在开发权阶段，分摊金之低是最大的价格决定因子。</p>
+<p class="guide-more">详见 → <a href="/zh-column-project-price" target="_top">储能电站，多少钱能买到</a>・<a href="/zh-column-pricing" target="_top">储能的开发权值多少钱</a></p>
+<h2 id="g5">5. 顺序是固定的 — 从上架到名义变更</h2>
+<ol><li>项目在蓄电所市场上架 — 所在都道府县、规模、并网预期时间、推进程度，无需登记即可浏览</li><li>免费登记 — 在登记画面同意保密承诺，价格与资料可见</li><li>尽调资料一次性披露 — 接入系统研究答复书、登记簿、分摊金缴纳凭证、系统构成、JC-STAR、合同范本</li><li>提交写明金额与条件的购买意向书（LOI）— 到这一步才首次排在其他买方之前</li><li>定金 — 先在合同中写明正式答复导致条件变化时的处理，再支付</li><li>签订买卖合同，向输配电企业申请名义变更 — 通常在这一步支付大部分价款</li><li>名义变更完成，支付尾款</li></ol>
+<p>买方想快，就尽早提交购买意向书；卖方想快，就从一开始备齐第3步的资料。名义变更的审查因电力公司与项目而异，大致3〜6个月。买资产、买SPC权益还是承接整个业务，税务处理、建设业法的适用方式与合同承继方式都不同。</p>
+<p class="guide-more">详见 → <a href="/zh-column-trading" target="_top">储能电站的买卖如何推进</a>・<a href="/zh-column-transfer" target="_top">储能开发权的转让</a></p>
+<h2 id="g6">6. 购买前核查 — 那份&quot;已获许可&quot;是真的吗</h2>
+<p>截至2025年12月末，日本已并网的电网侧储能约64万kW，而接入系统研究受理中的约1.72亿kW。如今流入市场的项目，大半仍停留在纸面上：土地、电网相关的文件与一叠事业计划书。</p>
+<p>核查的要点有两条。卖方说的"已与输配电企业协商""已经付清"，在有第三方出具的文件（输配电企业的书面答复、汇款记录、登记簿等）之前，都只是主张；核查结果分为绿（推进）、黄（附条件推进：设为先决条件、计入价格或以陈述与保证兜底）、红（放弃，至少停止支付定金）三档。</p>
+<p>权利的阶梯共三级：已获接入系统研究答复 → 已提交接入合同申请（受理通知）→ 已获并网许可（许可通知）。号称"已获许可"、拿出来的却只有答复书，就属于红灯。专栏把电网权利、土地、法令、设备网络安全（JC-STAR）、劣化与保证、现场、电力合同、合同与授信整理为9大领域43项，并分为两段：付定金前的书面筛查，以及交割前的全面调查。</p>
+<p class="guide-more">详见 → <a href="/zh-column-buyer-check" target="_top">那份"已获许可"是真的吗 — 购买电网侧储能电站前的技术核查</a></p>
+<h2 id="g7">7. 为何多以现金成交 — 不是贷不到，而是来不及</h2>
+<p>卖方要求在一个月前后完成交割的情形并不少见；而公司贷款的内部审批加银行审查要1.5〜2个月，PF则须半年到一年（现场观察）。现金成为主流，并不是因为贷不到，而是来不及。</p>
+<p>储能设备可以通过集合动产让与担保等方式设定担保。决定能否贷到的不是担保，而是合同：收入有多少被合同固定、固定多少年。2023〜2026年间，日本国内公开的债务融资已集齐五种类型。单站独立做PF，尽职调查、合同起草等固定成本很重，数亿日元的项目无法通过利率完全消化，因此在结构上不利；买方的设计有三种：现金交割后在投运后再融资、先锁定长期合同再搭债务、活用租赁·分期。</p>
+<p class="guide-more">详见 → <a href="/zh-column-financing" target="_top">储能电站，为何以现金成交</a></p>
+<h2 id="g8">8. 海外投资者 — 收购前要跨越的关口</h2>
+<p>常被问到："只要委托日本的EPC，储能电站就能建起来吗？"设备能建起来。但要作为一项事业运转，除设备之外还需要四个条件：接入电网的容量额度、承载该额度的土地、外国资本进入日本电力事业时所涉的规制，以及把资本调出本国的路径。并网额度掌握在已经确保下来的企业手中，并不是EPC能卖的东西。</p>
+<p>专栏按顺序梳理了六道关口：出资国的资金能否汇出；外汇法（电气业属于指定行业，很可能需要事前申报；核心行业仅限5万kW以上，2MW级预计不在列）；稀缺的并网额度与土地；买权利还是买完工资产；设备给出口留下的影响（JC-STAR与美国各类清单）；以及土地与税（重要土地等调查法等）。第一道资金路径走不通，后面的环节再怎么细抠也无法推进。</p>
+<p class="guide-more">详见 → <a href="/zh-column-foreign-investor" target="_top">外国资本投资日本高压电网侧储能电站前需跨越的关口</a></p>
+<h2 id="g9">9. 持有接入系统研究答复、但不打算事业化时</h2>
+<p>拿到答复后，因分摊金超出预想、资金筹措无着落、公司方针转变等原因而放弃事业化的情形并不罕见。可选的有三条：自行事业化、出售开发权、撤回接入系统研究。就此放置是最亏的选择 — 答复超过1年的项目，连同稀缺性一起消失。</p>
+<p>出售前要备齐7份文件：接入研究答复书（原件PDF）、合同申请的存根与保证金收据、分摊金的确定通知、土地登记或租赁合同、PCS与EMS的型号及JC-STAR注册情况、已投运项目的成交与收入业绩、领取过补贴时的交付决定通知书。</p>
+<p>按项目而定，由本公司收购，或为您对接买方；成交之前不产生费用。</p>
+<p class="guide-more">详见 → <a href="/zh-column-options" target="_top">取得接入系统研究答复但不事业化时的3个选项</a>・<a href="/zh-column-project-price" target="_top">储能电站，多少钱能买到（从卖方看）</a></p>
+
+<section class="guide-cols" id="cols">
+<h2>本主题的专栏（9篇）</h2>
+<p class="note">各专栏写明了数字的统计区间与出处。</p>
+<ul>
+<li><a href="/zh-column-trading" target="_top">储能电站的买卖如何推进</a></li>
+<li><a href="/zh-column-transfer" target="_top">储能开发权的转让</a></li>
+<li><a href="/zh-column-pricing" target="_top">储能的开发权值多少钱</a></li>
+<li><a href="/zh-column-buyer-structures" target="_top">储能电站的买法有四种</a></li>
+<li><a href="/zh-column-project-price" target="_top">储能电站，多少钱能买到｜不是用地，而是项目与设备的收购价格</a></li>
+<li><a href="/zh-column-buyer-check" target="_top">那份&quot;已获许可&quot;是真的吗</a></li>
+<li><a href="/zh-column-financing" target="_top">日本储能电站融资</a></li>
+<li><a href="/zh-column-foreign-investor" target="_top">“向EPC下单就能建成储能电站”并非如此</a></li>
+<li><a href="/zh-column-options" target="_top">取得接入系统研究答复但不事业化时的3个选项</a></li>
+</ul>
+</section>
+
+<section id="faq">
+<h2>常见问题</h2>
+<div class="faq-item">
+  <div class="faq-q">储能项目的&quot;开发权&quot;&quot;电网权利&quot;是什么？</div>
+  <div class="faq-a"><p>常说的"电网权利"，就是本公司专栏所说的"开发权"，并无法律上的定义。实务上，是以输配电企业的接入系统研究答复书为核心，连同土地的使用权、各类调查与许可的成果物打包来称呼。答复规定的是"在该地点、以该容量"接入的条件，所以土地与答复成套才有价值。</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">在日本买一座储能电站要多少钱？</div>
+  <div class="faq-a"><p>高压2MW级（含土地与分摊金的单件总额、不含税），本公司在2026年1月〜9月所见在售报价的中位数为：权利1.2亿日元、完工交付6.7亿日元、已并网7.5亿日元（本公司观测，并非公开统计）。各项目的价格在蓄电所市场免费登记后可见。</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">买下已投运的储能电站，市场合同与资格能一起承继吗？</div>
+  <div class="faq-a"><p>取决于合同主体（法人）是否改变。买SPC权益，资格与合同原则上原样留下；只买资产，辅助服务市场的资格要由买方重新取得。容量市场是例外，取得OCCTO事前同意即可承继合同上的地位。</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">买日本的储能电站能贷到款吗？</div>
+  <div class="faq-a"><p>日本已有公开的融资案例。把"能贷到"和"贷不到"分开的不是担保，而是合同：收入有多少被合同固定、固定多少年。单站独立做PF因固定成本重而在结构上不利，可行的设计是现金交割后在投运后再融资、先锁定长期合同再搭债务、或活用租赁·分期。</p></div>
+</div>
+</section>
+
+<div class="cta-section" data-scix-guide-cta="end">
+<h2>下一步</h2>
+<p><strong>想买的一方</strong> — 在售项目在蓄电所市场上：所在都道府县、规模、并网预期时间、推进程度，无需登记即可浏览；价格与资料在免费登记后可见。蓄电所市场的画面只有日文和英文，中文读者请用英文画面。</p>
+<p class="guide-go">→ <a href="https://dealroom.scix.co.jp/en" target="_top" data-cta="end" data-cta-target="market">蓄电所市场的在售项目（英文页面）</a></p>
+<p><strong>想卖的一方</strong> — 请告诉我们所在地（都道府县、分区）、输出功率、出售方式、答复所处阶段、分摊金状态这5点。我们会在第一次回复中写明：是否有由本公司收购的可能、是否为对接买方的形式，以及还缺哪些文件。成交之前不产生费用。</p>
+<p class="guide-go">→ <a href="/zh-contact" target="_top" data-cta="end" data-cta-target="contact">联系我们</a></p>
+</div>
+
+</div>
+
+<!-- ScienceX Footer — self-contained -->
+<style>
+  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+  .scix-footer { background-color: #1F2A48; color: rgba(255,255,255,.85); font-family: 'Noto Sans SC','Noto Sans JP',sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%; }
+  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: .95; }
+  .scix-footer-info { text-align: center; }
+  .scix-footer-copyright { font-size: 11px; letter-spacing: .04em; color: rgba(255,255,255,.55); margin-top: 20px; }
+  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255,255,255,.8); }
+  .scix-footer-company .company-name { font-weight: 500; font-size: 13.5px; color: rgba(255,255,255,.92); margin-bottom: 2px; }
+  .scix-footer-company .representative { margin-top: 4px; color: rgba(255,255,255,.6); font-size: 12px; }
+  .scix-footer-company a { color: rgba(255,255,255,.8); text-decoration: none; transition: color .2s ease; }
+  .scix-footer-company a:hover { color: #C49A3C; }
+  .scix-footer-divider { width: 60px; border: none; border-top: 1px solid rgba(255,255,255,.12); margin: 0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img width="300" height="118" src="/img/logo-white.png" alt="ScienceX Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        日本〒103-0016 东京都中央区日本桥小网町 8-2<br>
+        BIZMARKS 日本桥茅场町 801<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/zh" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">首页</a>
+        <a href="/zh-knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">洞见</a>
+        <a href="/zh-qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">问答</a>
+        <a href="/zh-glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">术语表</a>
+        <a href="/zh-contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">联系我们</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">隐私政策</a>
+      </div>
+      <div class="scix-footer-copyright">&copy; 2025–2026 Science X Inc. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

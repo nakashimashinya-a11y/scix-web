@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics（scripts/build_ga_tag.py が全頁に入れる・手で直さない） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  (function () {
+    var cfg = {}, q = null, mk = false;
+    // 本番（www.scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）からは送らない
+    try { if (location.hostname !== 'www.scix.co.jp' || navigator.webdriver) window['ga-disable-G-SNNK8MP9N9'] = true; }
+    catch (e) { window['ga-disable-G-SNNK8MP9N9'] = true; }
+    // 社内の印（?internal=1 で付く・?internal=0 で外れる・header.js の 7c と同じ鍵）。印のある端末だけ traffic_type を付ける
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try {
+      if (q === '1') localStorage.setItem('scix_internal', '1');
+      else if (q === '0') localStorage.removeItem('scix_internal');
+      mk = localStorage.getItem('scix_internal') === '1';
+    } catch (e) { mk = q === '1'; }
+    if (mk) cfg.traffic_type = 'internal';
+    gtag('js', new Date());
+    gtag('config', 'G-SNNK8MP9N9', cfg);
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- scripts/build_guides.py が scripts/data/guides/guide-capacity-lda.ja.md から作る頁（手で直さない） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"></noscript>
+<style>
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#1F2A48;--text-light:#666666;--light-bg:#F7F7F7;--border:#E6E6E6;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#141B30 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-date{font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h2{font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:28px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+ul,ol{margin:0 0 20px 1.4em}
+li{margin-bottom:8px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.95em;line-height:2}
+.highlight-box .box-label{font-weight:700;color:var(--navy);margin-bottom:6px}
+.highlight-box ul{margin-bottom:0}
+.source{font-size:.78em;color:var(--text-light);margin:-8px 0 20px}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.comparison-table{width:100%;border-collapse:collapse;font-size:.88em}
+.comparison-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-weight:500;font-size:.88em}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.guide-more{font-size:.9em;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:10px 16px}
+.guide-more a,.guide-go a,.article-body p a,.article-body li a{color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--accent)}
+.guide-go{font-weight:600}
+.guide-toc{margin:28px 0;padding:16px 22px;border:1px solid var(--border);border-radius:6px;font-size:.92em}
+.guide-toc .box-label{font-weight:700;margin-bottom:6px}
+.guide-toc ol{margin:0 0 0 1.4em}
+.guide-toc li{margin-bottom:2px}
+.guide-toc a{color:var(--navy);text-decoration:none}
+.guide-cta-top{margin:28px 0;padding:18px 22px;background:#F7F7F7;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;font-size:.95em;line-height:1.85}
+.guide-cta-top p{margin-bottom:12px}
+.guide-cta-top .sub{margin:12px 0 0;font-size:.92em;color:#555555}
+.cta-btn{display:inline-block;background:var(--accent);color:#1F2A48;padding:12px 28px;border-radius:4px;font-weight:700;font-size:.92em;text-decoration:none}
+.guide-cols ul{list-style:none;margin:0;padding:0}
+.guide-cols li{border-bottom:1px solid var(--border);margin:0;padding:10px 0}
+.guide-cols li a{color:var(--navy);font-weight:600;text-decoration:none}
+.guide-cols .note{font-size:.85em;color:var(--text-light)}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text)}
+.faq-a p:last-child{margin-bottom:0}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:40px 28px;border-radius:8px;margin-top:48px}
+.cta-section h2{color:#fff;border-bottom:0;margin:0 0 16px;padding:0}
+.cta-section p,.cta-section li{color:rgba(255,255,255,.8)}
+@media(max-width:768px){.article-body{padding:32px 16px 60px}h2{font-size:1.2em}.comparison-table{font-size:.8em}.comparison-table th,.comparison-table td{padding:8px 10px}}
+</style>
+<title>容量市場・長期脱炭素電源オークション（LDA）・トーリング契約とは｜蓄電池の収入の組み方｜サイエンスエックス</title>
+<meta name="description" content="容量市場メインオークションの約定価格の推移、長期脱炭素電源オークション（LDA）の20年固定収入と落札率、トーリング契約とフルマーチャントの意味まで。蓄電池の収入の組み方を、当社のコラム5本から1頁にまとめました。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.scix.co.jp/guide-capacity-lda">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/guide-capacity-lda">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/guide-capacity-lda">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-guide-capacity-lda">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/guide-capacity-lda">
+<meta property="og:type" content="website">
+<meta property="og:title" content="容量市場・長期脱炭素電源オークション（LDA）・トーリング契約とは｜蓄電池の収入の組み方｜サイエンスエックス">
+<meta property="og:description" content="容量市場メインオークションの約定価格の推移、長期脱炭素電源オークション（LDA）の20年固定収入と落札率、トーリング契約とフルマーチャントの意味まで。蓄電池の収入の組み方を、当社のコラム5本から1頁にまとめました。">
+<meta property="og:url" content="https://www.scix.co.jp/guide-capacity-lda">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-m.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="容量市場・長期脱炭素電源オークション（LDA）・トーリング契約とは｜蓄電池の収入の組み方｜サイエンスエックス">
+<meta name="twitter:description" content="容量市場メインオークションの約定価格の推移、長期脱炭素電源オークション（LDA）の20年固定収入と落札率、トーリング契約とフルマーチャントの意味まで。蓄電池の収入の組み方を、当社のコラム5本から1頁にまとめました。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-m.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://www.scix.co.jp/guide-capacity-lda#webpage",
+  "url": "https://www.scix.co.jp/guide-capacity-lda",
+  "name": "容量市場・長期脱炭素電源オークション（LDA）・トーリング契約とは｜蓄電池の収入の組み方｜サイエンスエックス",
+  "description": "容量市場メインオークションの約定価格の推移、長期脱炭素電源オークション（LDA）の20年固定収入と落札率、トーリング契約とフルマーチャントの意味まで。蓄電池の収入の組み方を、当社のコラム5本から1頁にまとめました。",
+  "inLanguage": "ja",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://www.scix.co.jp/#website",
+    "url": "https://www.scix.co.jp/",
+    "name": "ScienceX"
+  },
+  "author": {
+    "@type": "Organization",
+    "@id": "https://www.scix.co.jp/#organization",
+    "name": "Science X Inc.",
+    "alternateName": "サイエンスエックス株式会社",
+    "url": "https://www.scix.co.jp/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-navy.png"
+    }
+  },
+  "publisher": {
+    "@id": "https://www.scix.co.jp/#organization"
+  },
+  "datePublished": "2026-11-22",
+  "dateModified": "2026-11-22",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-m.png",
+    "width": 1200,
+    "height": 630
+  },
+  "breadcrumb": {
+    "@id": "https://www.scix.co.jp/guide-capacity-lda#breadcrumb"
+  },
+  "mainEntity": {
+    "@id": "https://www.scix.co.jp/guide-capacity-lda#itemlist"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "https://www.scix.co.jp/guide-capacity-lda#breadcrumb",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://www.scix.co.jp/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ナレッジ",
+      "item": "https://www.scix.co.jp/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "容量市場・LDA・トーリング・フルマーチャント — 蓄電池の長い収入をどう組むか",
+      "item": "https://www.scix.co.jp/guide-capacity-lda"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "https://www.scix.co.jp/guide-capacity-lda#itemlist",
+  "name": "このテーマのコラム（5本）",
+  "numberOfItems": 5,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "url": "https://www.scix.co.jp/column-capacity-market",
+      "name": "容量市場メインオークションと蓄電池"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "url": "https://www.scix.co.jp/column-lda",
+      "name": "長期脱炭素電源オークションとは（LDA）"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "url": "https://www.scix.co.jp/column-auction",
+      "name": "蓄電池の容量市場オークションとLDA｜7つの違い"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "url": "https://www.scix.co.jp/column-merchant",
+      "name": "フルマーチャント（full merchant）とは"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "url": "https://www.scix.co.jp/column-long-term-contract",
+      "name": "トーリングとは・トーリング契約とは｜蓄電池（蓄電所）は契約でいくら儲かるか・特別高圧47MWの収益内訳"
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8C8C8C"><a href="/" style="color:#555555;text-decoration:none">ホーム</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/knowledge" style="color:#555555;text-decoration:none">ナレッジ</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8C8C8C">容量市場・LDA・トーリング・フルマーチャント — 蓄電池の長い収入をどう組むか</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-tag">ガイド</span>
+      <time class="header-date" datetime="2026-11-22">作成 2026.11.22</time>
+    </div>
+    <h1>容量市場・LDA・トーリング・フルマーチャント — 蓄電池の長い収入をどう組むか</h1>
+    <p class="header-desc">容量市場メインオークションの約定価格の推移、長期脱炭素電源オークション（LDA）の20年固定収入と落札率、トーリング契約とフルマーチャントの意味まで。蓄電池の収入の組み方を、当社のコラム5本から1頁にまとめました。</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/knowledge" class="back-link">← ナレッジ一覧に戻る</a>
+
+<div class="highlight-box" data-scix-guide-tldr>
+<div class="box-label">3行で言うと</div>
+<ul><li>容量市場のメインオークションは原則1年の契約で、約定価格は毎年動きます。LDA（長期脱炭素電源オークション）は新設・リプレース・改修だけが対象で、原則20年の固定収入です。</li><li>トーリング契約は、蓄電所の容量と運用権を固定料金で相手に渡す契約です。確認できた国内のオフテイクは、すべて20年でした。</li><li>固定収入に頼らず市場の収入だけで回すのがフルマーチャントです。2MW/8MWh級の高圧の案件は、LDAの最低入札容量（30MW）を満たさないため、100%フルマーチャント型になります。</li></ul>
+</div>
+
+<aside class="guide-cta-top" data-scix-guide-cta="top">
+<p>いま売りに出ている案件は、蓄電所マーケットで登録なしで見られます。所在県・規模・電圧・買い方・手続きの段・運転開始の見込みまで載せています。価格と資料は無料登録のあとです。</p>
+<p><a href="https://dealroom.scix.co.jp/" target="_top" class="cta-btn" data-cta="top" data-cta-target="market">蓄電所マーケットで案件を見る →</a></p>
+<p class="sub">接続検討の回答が出た案件をお持ちの方は、当社が買い取るか、買い手におつなぎします。 <a href="/sell-form" target="_top" data-cta="top" data-cta-target="sell_form">案件・権利の売却査定（無料）</a>・<a href="/contact" target="_top" data-cta="top" data-cta-target="contact">お問い合わせ</a></p>
+</aside>
+
+<nav class="guide-toc" aria-label="この頁の目次">
+<div class="box-label">この頁の目次</div>
+<ol>
+<li><a href="#g1">容量市場メインオークションとは</a></li>
+<li><a href="#g2">長期脱炭素電源オークション（LDA）とは</a></li>
+<li><a href="#g3">トーリング契約とは — 長期契約で収入を固定する</a></li>
+<li><a href="#g4">フルマーチャント（マーチャント）とは</a></li>
+<li><a href="#g5">容量市場の約定価格の推移と、エリアの差</a></li>
+<li><a href="#g6">LDAの落札の結果と、第4回の日程</a></li>
+<li><a href="#g7">長期契約は何年で、だれと組まれているか</a></li>
+<li><a href="#g8">気をつけること</a></li>
+<li><a href="#g9">どれを選ぶか — メインオークション、LDA、トーリング、フルマーチャント</a></li>
+<li><a href="#cols">このテーマのコラム（5本）</a></li>
+<li><a href="#faq">よくある質問</a></li>
+</ol>
+</nav>
+
+<h2 id="g1">1. 容量市場メインオークションとは</h2>
+<p>容量市場は、電力広域的運営推進機関（OCCTO）が運営する、将来の供給力（kW）をあらかじめ確保する市場です。電力量（kWh）を売買するJEPXとも、調整力（ΔkW）を取引する需給調整市場とも違い、買うのは「指定された年度に、必要な発電・放電能力が存在していること」です。実際に動いたかどうかにかかわらず、供給力として待機していることに対価が払われます。</p>
+<p>メインオークションは実需給の4年前に開かれます。蓄電池は1,000kW以上で参加でき、方式はシングルプライス（最後の落札者の価格が全員に適用される）、契約は原則1年（単年度）です。既存の電源も新しい電源も、同じ土俵で参加します。</p>
+<p class="guide-more">くわしくは: <a href="/column-capacity-market" target="_top">容量市場メインオークションと蓄電池 — 約定価格の推移と収益への効き方</a></p>
+<h2 id="g2">2. 長期脱炭素電源オークション（LDA）とは</h2>
+<p>LDAは、国が2023年度に容量市場の一部として作った制度で、OCCTOが管理します。落札すると、収入は「守り」と「攻め」の2つの層になります。建設費・人件費・修繕費などの固定費を賄う「守りの収入」が20年間OCCTOから定額で払われ（コアCPIに応じた年度補正あり）、JEPX・需給調整市場・非化石価値市場などで得る利益が「攻めの収入」として上に乗ります。方式は、各落札者の応札価格がそのまま約定価格になるマルチプライスです。</p>
+<p>市場で得た利益には還付があります。「90%還付ルール」と呼ばれますが、実際は還付率95%・90%・85%の3段階です。還付されるのは市場の売電益だけで、LDAの固定収入は100%手元に残ります。</p>
+<p>参加できるのは新設・リプレース・改修だけです。蓄電池は、最低入札容量が第2回以降3万kW（第1回は1万kW）、運転継続時間が第3回から6時間以上、供給力の提供開始は落札から4年以内で、接続検討回答書の取得が応札の前提です。</p>
+<p class="guide-more">くわしくは: <a href="/column-lda" target="_top">長期脱炭素電源オークション（LDA）とは — 蓄電池の落札率と第3回の結果</a></p>
+<h2 id="g3">3. トーリング契約とは — 長期契約で収入を固定する</h2>
+<p>トーリング契約は、蓄電所の容量と運用権を固定料金で相手（オフテイカー）に渡し、市場価格の変動リスクをその相手が引き受ける契約です。国内では「オフテイク契約」とほぼ同じ意味で使われ、火力のトーリング（委託加工）と同じ形です。</p>
+<p>蓄電池は正味では発電しないので、電力量（kWh）を固定価格で売り切るPPAはそのまま当てはまりません。蓄電所の長期契約が固定するのは、電力量ではなく容量と運用権です。だれが市場価格のリスクを負うのか。これが契約を読む唯一の軸になります。</p>
+<p>この軸で、長期契約は4つの型に分かれます。オフテイカーが全部を負う純トーリング、下はオフテイカー・上は分けるフロア＋レベニューシェア、設備の持ち主がリスクを残すフルサービスの最適化運用受託、一部をトール・一部をマーチャントにするハイブリッドです。契約で詰めるのは、可用率の保証（未達でフィー減額）、容量保証（経年劣化込み）、フィーのCPI連動の有無、充電電源の供給責任、ディスパッチ権とサイクル上限、そして信用補完（親会社保証・L/C・格付トリガー）です。</p>
+<p class="guide-more">くわしくは: <a href="/column-long-term-contract" target="_top">トーリングとは・トーリング契約とは — 蓄電所は契約でいくら儲かるか</a></p>
+<h2 id="g4">4. フルマーチャント（マーチャント）とは</h2>
+<p>フルマーチャントは、LDAなどの固定収入契約に頼らず、JEPX（卸電力市場）・需給調整市場・容量市場の市場収入だけで蓄電池事業を成り立たせる運用方針です。「マーチャント」は固定価格の長期契約を持たず、市場で売った分がそのまま収入になる形で、その市場価格の変動を自分で負うことを「マーチャントリスク」と呼びます。</p>
+<p>容量収入は、LDAの20年固定の容量支払いではなく、メインオークション（4年先渡し・単年約定）から得ます。リスクは、市場価格の変動を全て負う形です。キャッシュフローの予測が不確実なためプロジェクトファイナンスは組成が難しく、自己資金かコーポレートファイナンスが中心になります。</p>
+<p class="guide-more">くわしくは: <a href="/column-merchant" target="_top">フルマーチャントとは — 蓄電池が市場収入だけで成り立つ条件</a></p>
+<h2 id="g5">5. 容量市場の約定価格の推移と、エリアの差</h2>
+<p>メインオークションの価格は大きく振れてきました。第1回の約定価格（14,137円/kW）は需要曲線の上限に近い高値で、第2回（3,495円/kW）で約4分の1に急落し、その後は上昇基調に転じています。総平均単価（経過措置控除後）は次のとおりです。</p>
+<div class="table-wrap"><table class="comparison-table"><thead><tr><th scope="col">回</th><th scope="col">実需給年度</th><th scope="col">総平均単価（経過措置控除後）</th></tr></thead><tbody><tr><td>第1回</td><td>2024年度</td><td>9,534円/kW</td></tr><tr><td>第2回</td><td>2025年度</td><td>3,109円/kW</td></tr><tr><td>第3回</td><td>2026年度</td><td>5,226円/kW</td></tr><tr><td>第4回</td><td>2027年度</td><td>7,847円/kW</td></tr><tr><td>第5回</td><td>2028年度</td><td>11,134円/kW</td></tr><tr><td>第6回</td><td>2029年度</td><td>13,303円/kW</td></tr></tbody></table></div>
+<p>2026年1月20日に結果が出た第6回の総平均単価は13,303円/kWで、第5回の11,134円をさらに上回りました。約定総額は約2兆2,094億円で、過去最高です。</p>
+<p>単価はエリアで分かれます。第5回は、最高の北海道・東北・東京が上限価格の14,812円/kWに張り付き、最低の北陸・関西・中国・四国が8,785円/kWで、差は約7割でした。第6回はエリアが4ブロックに分かれ、九州15,112円/kW、東北・東京15,111円/kW、北海道14,972円/kW、中部・北陸・関西・中国・四国12,388円/kWで、最高と最低の差は約2割に縮まりました。容量市場の収入はkWあたりの固定収入なので、この単価の差はそのまま年間の収入の差として効きます。</p>
+<p>蓄電池の落札率は96%超で、ほぼ全量が落札されます。それでも、蓄電池のメインオークション応札容量は全体の約0.1%（約24万kW）にとどまり、大型の蓄電池の多くは20年固定収入を狙ってLDAに流れています。</p>
+<div class="source">出典: 電力広域的運営推進機関（OCCTO）各回約定結果／第6回（2026年1月20日公表・1月23日訂正）／資源エネルギー庁「容量市場について」（2026年1月23日 資料3-3 p.5。総平均単価は約定総額（経過措置控除後）÷約定総容量）。2026年10月2日時点で公表済みの第6回まで。</div>
+<p class="guide-more">くわしくは: <a href="/column-capacity-market" target="_top">容量市場メインオークションと蓄電池 — 約定価格の推移と収益への効き方</a></p>
+<h2 id="g6">6. LDAの落札の結果と、第4回の日程</h2>
+<div class="table-wrap"><table class="comparison-table"><thead><tr><th scope="col">項目</th><th scope="col">第1回（2024年4月公表）</th><th scope="col">第2回（2025年4月公表）</th><th scope="col">第3回（2026年5月公表）</th></tr></thead><tbody><tr><td>蓄電池 応札量</td><td>4,559MW</td><td>6,956MW</td><td>2,731MW</td></tr><tr><td>蓄電池 落札量</td><td>1,092MW・30件</td><td>1,370MW・27件</td><td>1,251MW・19件</td></tr><tr><td>蓄電池 落札率（落札量÷応札量）</td><td>約24%</td><td>約20%</td><td>約46%</td></tr></tbody></table></div>
+<p>第3回は蓄電池の応札が2,731MWと第2回の4割に減り、落札率は約46%（LiB 36%・LiB以外 58%）に上がりました。落札件数19件は3回で最少で、1件あたりの落札量は約66MWです。加重平均約定単価（脱炭素電源全体）は、第1回5.8万円/kW/年、第2回6.8万円/kW/年でした。</p>
+<p>第3回からは、蓄電池・揚水・LDESの募集上限が0.8GWになり、うちLiB＋揚水リプレースの枠は0.4GWに絞られました。あわせて運転継続時間は3時間以上から連続6時間以上に上がり、特定国からのセル調達は30%未満に制限されました。</p>
+<p>第4回の募集要綱は、2026年9月2日にOCCTOが公表しました。応札の受付は2027年1月19日〜26日で、その前に事業者情報の登録（2026年10月13日〜16日）と電源等情報の登録（10月19日〜23日）があり、ここに間に合わなければ応札できません（コラムの本文は2026年9月27日時点の確認。この2つの登録の期間は、2026年11月22日の時点で過ぎています）。募集上限は、リチウムイオン蓄電池（LiB）が40万kW、LiB以外の蓄電池が40万kWで、揚水とLDESは合計40万kWの別の枠です。経済安全保障推進法の供給確保計画の認定を受けたメーカーが自社の拠点でつくったセル（OEMは含まない）を使う「認定付き」のLiBが先に落札され、認定の無いLiBは、枠が残ったときにだけ落札の可能性があります。</p>
+<div class="source">出典: OCCTO 長期脱炭素電源オークション約定結果（応札年度2023・2024・2025年度／2024年4月26日・2025年4月28日・2026年5月13日公表）／OCCTO 長期脱炭素電源オークション募集要綱（応札年度2026年度・2026年9月2日公表）。</div>
+<p class="guide-more">くわしくは: <a href="/column-lda" target="_top">長期脱炭素電源オークション（LDA）とは — 蓄電池の落札率と第3回の結果</a></p>
+<h2 id="g7">7. 長期契約は何年で、だれと組まれているか</h2>
+<p>期間は、確認できた国内のオフテイクがすべて20年でした。広原・石狩・芦屋、そして2026年4月に加わったHDRE（泓徳能源）の案件も、いずれも約20年で、容量市場やLDAの20年とそろう形です。フロア契約だけは10年と短く、これはオフテイクとは別の形です。海外のトーリングは5〜15年と幅があります。年限が融資期間（テナー）を決めるので、フロアの10年はプロジェクトファイナンスの設計上の制約になります。</p>
+<p>系統用蓄電所で、20年・運用権移転・固定対価型のオフテイクを、オフテイカー（運用権を取る側）として複数案件・大規模に公表しているのは、現時点で東京ガスが突出しています。広原30MW・石狩30MW・芦屋50MWの3件に加え、2026年4月にはHDRE（泓徳能源）との約190MWが加わりました。ほかの形では、MIRARTHとPowerXがトーリング、BisonとエンゲルハートCTPが日本初の10年フロア（基本合意）です。国内の相対契約（トール／オフテイク／フロア）の単価は、当事者間で非開示です。</p>
+<p>融資の前例も出そろいました。いずれも三菱UFJ銀行が組成し、広原はオフテイクを与信の土台にした収益固定型（国内の蓄電所PF第1号）、石狩はオフテイク型、多奈川は市場収益だけを返済原資とするフルマーチャント・ノンリコース（国内初）です。</p>
+<div class="source">出典: 東京ガス（2024-04-24・2025-06-30）、HDRE（2026-04-16）、MIRARTH（2025-09-08）、共同通信PRワイヤー（Bison・2025-07-07）。</div>
+<p class="guide-more">くわしくは: <a href="/column-long-term-contract" target="_top">トーリングとは・トーリング契約とは — 蓄電所は契約でいくら儲かるか</a></p>
+<h2 id="g8">8. 気をつけること</h2>
+<ul><li>メインオークションは単年度の契約なので、約定価格は毎年動きます。第1回14,137円→第2回3,495円のような急落も実際に起きています。容量市場だけに収益を寄せる設計はリスクが高く、JEPX・需給調整市場と重ねる前提で初めて成り立ちます。（column-capacity-market）</li><li>LDAは「入札すれば通る」制度ではありません。第2回は5件に1件しか通らない競争で、最大の分かれ目は接続検討回答の事前取得と連系負担金の低さです。また第3回から連続6時間以上が要るので、3〜4時間型のLiB蓄電池はLDAへの参加が難しくなっています。（column-lda）</li><li>フルマーチャントは、需給調整市場の上限価格が引き下げの方向にあることを織り込みます（19.51円→15円、2026年9月1日の実需給分から10円。さらに7.21円への引下げも設計に入っています）。（column-merchant）</li><li>トーリングは、固定対価の支払元（大手電力・ガス等）が投資適格相当か、親会社保証があることが前提です。与信が弱いと長期融資が付きません。（column-long-term-contract）</li></ul>
+<h2 id="g9">9. どれを選ぶか — メインオークション、LDA、トーリング、フルマーチャント</h2>
+<p>メインオークションとLDAは、同じ「容量市場」の制度でありながら、設計の考え方が根本から違います。</p>
+<div class="table-wrap"><table class="comparison-table"><thead><tr><th scope="col">項目</th><th scope="col">メインオークション</th><th scope="col">LDA</th></tr></thead><tbody><tr><td>契約期間</td><td>1年（単年度）</td><td>原則20年</td></tr><tr><td>方式</td><td>シングルプライス</td><td>マルチプライス</td></tr><tr><td>対象電源</td><td>既存・新規の全電源</td><td>新設・リプレース・改修のみ</td></tr><tr><td>蓄電池の最低容量</td><td>1,000kW</td><td>30,000kW（第2回以降）</td></tr><tr><td>他市場での収益</td><td>制限なし（全額享受）</td><td>約9割を還付する義務あり</td></tr></tbody></table></div>
+<p>コラムが示す判断の順番は、4つの問いです。既設ならメインオークション一択（LDAは参加不可）。3万kW未満ならメインオークション一択。プロジェクトファイナンスが要るならLDAを優先。市場価格の変動リスクを取れる（市場運用の実力もある）ならメインオークション＋3市場のフルマーチャント、リスクを限定したいならLDAです。</p>
+<p>LDAに落札した電源は、メインオークションには参加しません。ただしLDAで落札できなかったときは、メインオークションに改めて参加できます。30MW以上の案件では、まずLDAに応札し、落札できなければフルマーチャントに切り替える「二段構え」もあります。</p>
+<p>長期契約まで含めると、問うべきは、マーチャント・トーリング・フロア・LDAのどれで、何年、いくら固定するか、そして相手はだれか、です。そしてメインオークションとLDAのどちらに出るにしても、系統連系コストが低い適地を確保できているかどうかが、収益性の最大の変数です。</p>
+<p class="guide-more">くわしくは: <a href="/column-auction" target="_top">蓄電池の容量市場オークションとLDA — 7つの違い</a>／<a href="/column-merchant" target="_top">フルマーチャントとは</a>／<a href="/column-long-term-contract" target="_top">トーリングとは・トーリング契約とは</a></p>
+
+<section class="guide-cols" id="cols">
+<h2>このテーマのコラム（5本）</h2>
+<p class="note">各コラムに、数字の集計の窓と出典があります。</p>
+<ul>
+<li><a href="/column-capacity-market" target="_top">容量市場メインオークションと蓄電池</a></li>
+<li><a href="/column-lda" target="_top">長期脱炭素電源オークションとは（LDA）</a></li>
+<li><a href="/column-auction" target="_top">蓄電池の容量市場オークションとLDA｜7つの違い</a></li>
+<li><a href="/column-merchant" target="_top">フルマーチャント（full merchant）とは</a></li>
+<li><a href="/column-long-term-contract" target="_top">トーリングとは・トーリング契約とは｜蓄電池（蓄電所）は契約でいくら儲かるか・特別高圧47MWの収益内訳</a></li>
+</ul>
+</section>
+
+<section id="faq">
+<h2>よくある質問</h2>
+<div class="faq-item">
+  <div class="faq-q">トーリング契約とは何ですか？</div>
+  <div class="faq-a"><p>蓄電所の容量と運用権を固定料金で相手（オフテイカー）に渡し、市場価格の変動リスクをその相手が引き受ける契約です。国内では「オフテイク契約」とほぼ同じ意味で使われます。確認できた国内のオフテイクは、すべて20年でした。</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">容量市場の約定価格はどう推移していますか？</div>
+  <div class="faq-a"><p>総平均単価（経過措置控除後）は第1回（2024年度実需給）9,534円/kW、第2回3,109円、第3回5,226円、第4回7,847円、第5回11,134円、第6回（2029年度実需給）13,303円/kWです。第2回で約定価格が14,137円から3,495円へ急落したあと上昇基調に転じ、第6回の約定総額は約2兆2,094億円で過去最高です（OCCTO公表値・資源エネルギー庁の集計）。</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">容量市場の上限価格に張り付いたエリアはありますか？</div>
+  <div class="faq-a"><p>第5回は、北海道・東北・東京が上限価格の14,812円/kWに張り付きました。最低の北陸・関西・中国・四国は8,785円/kWで、差は約7割でした。第6回は最高と最低の差が約2割に縮まっています。</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">長期脱炭素電源オークション（LDA）とは何ですか？</div>
+  <div class="faq-a"><p>国が2023年度に容量市場の一部として創設し、OCCTOが管理する制度です。新設・リプレース・改修の電源が対象で、落札すると固定費を賄う収入が20年間定額で払われます。市場で得た売電益は還付率95%・90%・85%の3段階で還付し、LDAの固定収入は100%手元に残ります。蓄電池は第2回以降3万kW以上、第3回から6時間以上が要件です。</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">フルマーチャント（マーチャント）とはどういう意味ですか？</div>
+  <div class="faq-a"><p>LDAなどの固定収入契約に頼らず、JEPX・需給調整市場・容量市場の市場収入だけで蓄電池事業を成り立たせる運用方針です。「マーチャント」は固定価格の長期契約を持たず、市場で売った分がそのまま収入になる形で、その市場価格の変動を自分で負うことを「マーチャントリスク」と呼びます。</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">メインオークションとLDAの両方に出られますか？</div>
+  <div class="faq-a"><p>LDAに落札した電源は、メインオークションには参加しません。LDAで落札できなかったときは、メインオークションに改めて参加できます。</p></div>
+</div>
+</section>
+
+<div class="cta-section" data-scix-guide-cta="end">
+<h2>次にすること</h2>
+<h3>案件を買いたい方</h3>
+<p>系統用蓄電池の案件を販売しています。蓄電所マーケットでは、所在県・規模・電圧・買い方・手続きの段・運転開始の見込みまで、登録なしで見られます。載せているのは接続検討の回答が出た案件だけで、価格と資料は無料登録のあとです。</p>
+<p class="guide-go">→ <a href="https://dealroom.scix.co.jp/" target="_top" data-cta="end" data-cta-target="market">蓄電所マーケットで案件を見る</a></p>
+<h3>案件を売りたい方</h3>
+<p>接続検討の回答が出た案件をお持ちの方へ。当社が買い取るか、買い手におつなぎします。</p>
+<p class="guide-go">→ <a href="/sell-form" target="_top" data-cta="end" data-cta-target="sell_form">案件・権利の売却のご相談</a></p>
+<p>ご質問・個別のご相談は <a href="/contact" target="_top" data-cta="end" data-cta-target="contact">お問い合わせ</a>から。</p>
+</div>
+
+</div>
+
+<!-- ScienceX Footer — self-contained -->
+<style>
+  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+  .scix-footer { background-color: #1F2A48; color: rgba(255,255,255, 0.85); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%; }
+  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: 0.95; }
+  .scix-footer-info { text-align: center; }
+  .scix-footer-copyright { font-size: 11px; letter-spacing: 0.04em; color: rgba(255,255,255, 0.55); margin-top: 20px; }
+  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255,255,255, 0.8); }
+  .scix-footer-company .company-name { font-weight: 500; font-size: 13.5px; color: rgba(255,255,255, 0.92); margin-bottom: 2px; }
+  .scix-footer-company .representative { margin-top: 4px; color: rgba(255,255,255, 0.6); font-size: 12px; }
+  .scix-footer-company a { color: rgba(255,255,255, 0.8); text-decoration: none; transition: color 0.2s ease; }
+  .scix-footer-company a:hover { color: #C49A3C; }
+  .scix-footer-divider { width: 60px; border: none; border-top: 1px solid rgba(255,255,255, 0.12); margin: 0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img width="300" height="118" src="/img/logo-white.png" alt="ScienceX サイエンスエックス株式会社" loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="https://dealroom.scix.co.jp/" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電所マーケット</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/sell-form" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利の売却査定</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">用語集</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/investors" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池への投資</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

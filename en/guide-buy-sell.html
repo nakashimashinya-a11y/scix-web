@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics（scripts/build_ga_tag.py が全頁に入れる・手で直さない） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  (function () {
+    var cfg = {}, q = null, mk = false;
+    // 本番（www.scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）からは送らない
+    try { if (location.hostname !== 'www.scix.co.jp' || navigator.webdriver) window['ga-disable-G-SNNK8MP9N9'] = true; }
+    catch (e) { window['ga-disable-G-SNNK8MP9N9'] = true; }
+    // 社内の印（?internal=1 で付く・?internal=0 で外れる・header.js の 7c と同じ鍵）。印のある端末だけ traffic_type を付ける
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try {
+      if (q === '1') localStorage.setItem('scix_internal', '1');
+      else if (q === '0') localStorage.removeItem('scix_internal');
+      mk = localStorage.getItem('scix_internal') === '1';
+    } catch (e) { mk = q === '1'; }
+    if (mk) cfg.traffic_type = 'internal';
+    gtag('js', new Date());
+    gtag('config', 'G-SNNK8MP9N9', cfg);
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- scripts/build_guides.py が scripts/data/guides/guide-buy-sell.en.md から作る頁（手で直さない） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"></noscript>
+<style>
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#1F2A48;--text-light:#666666;--light-bg:#F7F7F7;--border:#E6E6E6;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#141B30 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-date{font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h2{font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:28px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+ul,ol{margin:0 0 20px 1.4em}
+li{margin-bottom:8px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.95em;line-height:2}
+.highlight-box .box-label{font-weight:700;color:var(--navy);margin-bottom:6px}
+.highlight-box ul{margin-bottom:0}
+.source{font-size:.78em;color:var(--text-light);margin:-8px 0 20px}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.comparison-table{width:100%;border-collapse:collapse;font-size:.88em}
+.comparison-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-weight:500;font-size:.88em}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.guide-more{font-size:.9em;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:10px 16px}
+.guide-more a,.guide-go a,.article-body p a,.article-body li a{color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--accent)}
+.guide-go{font-weight:600}
+.guide-toc{margin:28px 0;padding:16px 22px;border:1px solid var(--border);border-radius:6px;font-size:.92em}
+.guide-toc .box-label{font-weight:700;margin-bottom:6px}
+.guide-toc ol{margin:0 0 0 1.4em}
+.guide-toc li{margin-bottom:2px}
+.guide-toc a{color:var(--navy);text-decoration:none}
+.guide-cta-top{margin:28px 0;padding:18px 22px;background:#F7F7F7;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;font-size:.95em;line-height:1.85}
+.guide-cta-top p{margin-bottom:12px}
+.guide-cta-top .sub{margin:12px 0 0;font-size:.92em;color:#555555}
+.cta-btn{display:inline-block;background:var(--accent);color:#1F2A48;padding:12px 28px;border-radius:4px;font-weight:700;font-size:.92em;text-decoration:none}
+.guide-cols ul{list-style:none;margin:0;padding:0}
+.guide-cols li{border-bottom:1px solid var(--border);margin:0;padding:10px 0}
+.guide-cols li a{color:var(--navy);font-weight:600;text-decoration:none}
+.guide-cols .note{font-size:.85em;color:var(--text-light)}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text)}
+.faq-a p:last-child{margin-bottom:0}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:40px 28px;border-radius:8px;margin-top:48px}
+.cta-section h2{color:#fff;border-bottom:0;margin:0 0 16px;padding:0}
+.cta-section p,.cta-section li{color:rgba(255,255,255,.8)}
+@media(max-width:768px){.article-body{padding:32px 16px 60px}h2{font-size:1.2em}.comparison-table{font-size:.8em}.comparison-table th,.comparison-table td{padding:8px 10px}}
+</style>
+<title>Buy or Sell a Battery Storage Plant in Japan | ScienceX</title>
+<meta name="description" content="Battery storage plants in Japan: four sale stages, four ways to buy, what sets price, transfer steps and checks.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.scix.co.jp/en/guide-buy-sell">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/guide-buy-sell">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/guide-buy-sell">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-guide-buy-sell">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/guide-buy-sell">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Buy or Sell a Battery Storage Plant in Japan | ScienceX">
+<meta property="og:description" content="Battery storage plants in Japan: four sale stages, four ways to buy, what sets price, transfer steps and checks.">
+<meta property="og:url" content="https://www.scix.co.jp/en/guide-buy-sell">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-m-en.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Buy or Sell a Battery Storage Plant in Japan | ScienceX">
+<meta name="twitter:description" content="Battery storage plants in Japan: four sale stages, four ways to buy, what sets price, transfer steps and checks.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-m-en.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://www.scix.co.jp/en/guide-buy-sell#webpage",
+  "url": "https://www.scix.co.jp/en/guide-buy-sell",
+  "name": "Buy or Sell a Battery Storage Plant in Japan | ScienceX",
+  "description": "Battery storage plants in Japan: four sale stages, four ways to buy, what sets price, transfer steps and checks.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://www.scix.co.jp/#website",
+    "url": "https://www.scix.co.jp/",
+    "name": "ScienceX"
+  },
+  "author": {
+    "@type": "Organization",
+    "@id": "https://www.scix.co.jp/#organization",
+    "name": "Science X Inc.",
+    "alternateName": "サイエンスエックス株式会社",
+    "url": "https://www.scix.co.jp/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-navy.png"
+    }
+  },
+  "publisher": {
+    "@id": "https://www.scix.co.jp/#organization"
+  },
+  "datePublished": "2026-11-22",
+  "dateModified": "2026-11-22",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-m-en.png",
+    "width": 1200,
+    "height": 630
+  },
+  "breadcrumb": {
+    "@id": "https://www.scix.co.jp/en/guide-buy-sell#breadcrumb"
+  },
+  "mainEntity": {
+    "@id": "https://www.scix.co.jp/en/guide-buy-sell#itemlist"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "https://www.scix.co.jp/en/guide-buy-sell#breadcrumb",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.scix.co.jp/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Knowledge",
+      "item": "https://www.scix.co.jp/en/knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Buying and selling a battery storage plant in Japan — ways to buy, price, steps",
+      "item": "https://www.scix.co.jp/en/guide-buy-sell"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "https://www.scix.co.jp/en/guide-buy-sell#itemlist",
+  "name": "Columns in this guide (9)",
+  "numberOfItems": 9,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "url": "https://www.scix.co.jp/en/column-trading",
+      "name": "How a Battery Storage Plant Changes Hands"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "url": "https://www.scix.co.jp/en/column-transfer",
+      "name": "Battery Development Rights Transfer"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "url": "https://www.scix.co.jp/en/column-pricing",
+      "name": "How Battery Development Rights Are Priced"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "url": "https://www.scix.co.jp/en/column-buyer-structures",
+      "name": "Four Ways to Buy a Battery Storage Plant in Japan"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "url": "https://www.scix.co.jp/en/column-project-price",
+      "name": "What Does It Cost to Buy a Battery Storage Plant in Japan?"
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "url": "https://www.scix.co.jp/en/column-buyer-check",
+      "name": "Buying Grid-Scale Battery Storage"
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "url": "https://www.scix.co.jp/en/column-financing",
+      "name": "Why Grid-Scale Storage Is Bought With Cash, Not Debt"
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "url": "https://www.scix.co.jp/en/column-foreign-investor",
+      "name": "Japan's Grid-Scale Storage"
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "url": "https://www.scix.co.jp/en/column-options",
+      "name": "Connection Study Response but Cannot Proceed?"
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8C8C8C"><a href="/en" style="color:#555555;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/knowledge" style="color:#555555;text-decoration:none">Knowledge</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8C8C8C">Buying and selling a battery storage plant in Japan — ways to buy, price, steps</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-tag">Guide</span>
+      <time class="header-date" datetime="2026-11-22">Published 2026.11.22</time>
+    </div>
+    <h1>Buying and selling a battery storage plant in Japan — ways to buy, price, steps</h1>
+    <p class="header-desc">Battery storage plants in Japan: four sale stages, four ways to buy, what sets price, transfer steps and checks.</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/en/knowledge" class="back-link">← Back to Knowledge</a>
+
+<div class="highlight-box" data-scix-guide-tldr>
+<div class="box-label">In three lines</div>
+<ul><li>A battery storage plant in Japan is sold at one of four stages — land, rights with a connection study response, interconnection approved, or operating — and there are four ways to buy it: completed asset, rights transfer, SPC equity, or an operating asset.</li><li>What moves the price is connection and the grid cost contribution, not the service area; the gap between rights and a completed plant is mostly construction cost.</li><li>Before you buy, check "approved" against paper, and do not pay a deposit while even one Red is visible. A seller decides before the connection study response turns one year old.</li></ul>
+</div>
+
+<aside class="guide-cta-top" data-scix-guide-cta="top">
+<p>If you are buying, grid-scale BESS projects in Japan that hold a connection study response are for sale on Chikudensho Market, open to view without registration. If you are selling, we either buy the project ourselves or introduce you to a buyer.</p>
+<p><a href="https://dealroom.scix.co.jp/en" target="_top" class="cta-btn" data-cta="top" data-cta-target="market">See projects on Chikudensho Market →</a></p>
+<p class="sub">Questions are welcome through the contact form. <a href="/en/contact" target="_top" data-cta="top" data-cta-target="contact">Contact us</a></p>
+</aside>
+
+<nav class="guide-toc" aria-label="On this page">
+<div class="box-label">On this page</div>
+<ol>
+<li><a href="#g1">What is for sale comes in four stages</a></li>
+<li><a href="#g2">What &quot;development rights&quot; are — land and rights are contracted separately</a></li>
+<li><a href="#g3">There are four ways to buy</a></li>
+<li><a href="#g4">What it costs — connection and the cost contribution move the price</a></li>
+<li><a href="#g5">The sequence — from listing to transfer of applicant status</a></li>
+<li><a href="#g6">Checks before you buy — is that &quot;approved&quot; for real?</a></li>
+<li><a href="#g7">Why plants are bought with cash — debt does not arrive in time</a></li>
+<li><a href="#g8">For overseas investors — the gates to clear before you buy</a></li>
+<li><a href="#g9">If you hold a connection study response and will not build</a></li>
+<li><a href="#cols">Columns in this guide (9)</a></li>
+<li><a href="#faq">Frequently asked questions</a></li>
+</ol>
+</nav>
+
+<h2 id="g1">1. What is for sale comes in four stages</h2>
+<p>"Buying a battery storage plant" means something different at each stage: land alone; rights backed by a connection study response; rights where the contract with the transmission and distribution company (TSO) is signed and the cost contribution paid; and a plant that is energized and trading in the markets. The price bracket, the documents you check first and the work left after you buy all change with the stage.</p>
+<div class="table-wrap"><table class="comparison-table"><thead><tr><th scope="col">Stage</th><th scope="col">What is for sale</th><th scope="col">What remains after buying</th></tr></thead><tbody><tr><td>① Land</td><td>Ownership or leasehold of the site</td><td>Everything, from the connection study application</td></tr><tr><td>② Rights with a connection study response</td><td>The TSO's response plus the land rights</td><td>Contract application, cost contribution, equipment, construction</td></tr><tr><td>③ Interconnection approved, contribution paid</td><td>Rights with the TSO contract signed (the plant may not be built yet)</td><td>Finishing construction, the aggregator agreement, market participation</td></tr><tr><td>④ Operating asset</td><td>A plant with a revenue record</td><td>Taking over operations — market qualifications do not transfer automatically</td></tr></tbody></table></div>
+<p>The same 2 MW is treated as worth more at ④ than at ②, because the revenue is already visible. Projects awarded in the Long-Term Decarbonized Power Source Auction (LDA) are not covered here: the scheme assumes the winner builds and runs the plant itself.</p>
+<p class="guide-more">Read more → <a href="/en/column-trading" target="_top">How a Battery Storage Plant Changes Hands</a></p>
+<h2 id="g2">2. What &quot;development rights&quot; are — land and rights are contracted separately</h2>
+<p>"Development rights" is not a legally defined term. In practice it means a bundle of three things:</p>
+<ul><li>The connection study response — the TSO's document setting the connection conditions (cost contribution, construction period, connection point). This is the core.</li><li>Land use rights — ownership or leasehold of the site.</li><li>Survey and permit deliverables — geological surveys, boundary surveys, farmland conversion and development permits.</li></ul>
+<p>Because the response sets the conditions "at that location, with that capacity", the land and the response only hold value as a set. The value of the rights is the time, cost and risk the buyer saves by holding them — site search, a connection study that may come back unworkable, an unknown cost contribution, and the one to two years or more it takes to get from site selection to a construction application.</p>
+<p class="guide-more">Read more → <a href="/en/column-transfer" target="_top">Battery Development Rights Transfer</a> · <a href="/en/column-pricing" target="_top">How Development Rights Are Priced</a></p>
+<h2 id="g3">3. There are four ways to buy</h2>
+<ul><li><strong>Completed-asset sale</strong> — you buy a plant the seller has finished, with the equipment and the land or land-use rights.</li><li><strong>Rights transfer</strong> — you buy the land and the grid connection position (connection study response, connection contract position, cost contribution) and build it yourself.</li><li><strong>SPC equity transfer</strong> — you buy the company that owns the plant, taking over its contracts, permits and grid position inside the entity.</li><li><strong>Operating acquisition</strong> — you buy a plant that has begun commercial operation and has a market trading history. What you are buying is not equipment but verifiable cash flow accumulated month by month.</li></ul>
+<p>These four are not ranked; the right one depends on what the buyer can do and what risk it can carry. When you buy an operating plant, its track record comes in two layers. Cleared prices and availability pass to you as information. Market qualifications and contract positions survive or not depending on the legal form — the dividing line is whether the contracting entity changes. Decide the rung and the vehicle first, then look at price.</p>
+<p class="guide-more">Read more → <a href="/en/column-buyer-structures" target="_top">Four Ways to Buy a Battery Storage Plant in Japan</a></p>
+<h2 id="g4">4. What it costs — connection and the cost contribution move the price</h2>
+<p>We counted the asking prices we saw for high-voltage 2 MW-class plants between January and September 2026, one figure per project (total including land and the grid cost contribution, excluding tax, median; our observation, not a published statistic). Rights: ¥120 million. Completed handover before connection: ¥670 million. Connected or operating: ¥750 million.</p>
+<p>The gap between rights and a completed plant is mostly construction cost — the government study group's FY2024 domestic average of ¥68,000/kWh comes to ¥540 million for 8 MWh. The premium only shows clearly once the plant is connected: not one yen of equipment is added, but the plant is on the grid and the wait before it earns is gone.</p>
+<p>Splitting the listings by service area shows little difference. What moves the price is whether the plant is connected, whether the cost contribution is final, and whether the deposit and contract application are done. For development rights, a low cost contribution is the largest price-determining factor.</p>
+<p class="guide-more">Read more → <a href="/en/column-project-price" target="_top">What Does It Cost to Buy a Battery Storage Plant in Japan?</a> · <a href="/en/column-pricing" target="_top">How Development Rights Are Priced</a></p>
+<h2 id="g5">5. The sequence — from listing to transfer of applicant status</h2>
+<ol><li>The project is listed on Chikudensho Market — prefecture, size, expected connection timing and progress, viewable without registering.</li><li>Free registration — the confidentiality undertaking is agreed on screen; prices and documents become visible.</li><li>Full disclosure of the due diligence package — connection study response, registry, cost contribution receipts, system configuration, JC-STAR, draft agreement.</li><li>Letter of intent with price and terms — the first point at which you stand ahead of other buyers.</li><li>Deposit — paid once the agreement spells out what happens if the contract application response changes the terms.</li><li>Purchase agreement and application to the TSO to transfer applicant status — most of the price is customarily paid here.</li><li>Transfer completed and the balance paid.</li></ol>
+<p>A buyer in a hurry should submit the letter of intent early; a seller in a hurry should have the step 3 package ready from the start. The TSO's review of the transfer typically takes three to six months. Whether you buy assets, SPC equity or the whole business changes tax treatment, how the Construction Business Act applies and how contracts carry over.</p>
+<p class="guide-more">Read more → <a href="/en/column-trading" target="_top">How a Battery Storage Plant Changes Hands</a> · <a href="/en/column-transfer" target="_top">Battery Development Rights Transfer</a></p>
+<h2 id="g6">6. Checks before you buy — is that &quot;approved&quot; for real?</h2>
+<p>At the end of December 2025, about 640 MW of grid-scale storage was connected in Japan, against about 172 GW under connection study. Most projects offered to buyers are not yet power plants: they are land, grid paperwork and a business plan.</p>
+<p>Two rules carry the whole check. Treat what the seller says ("agreed with the TSO", "already paid") as a claim until a third-party document — a TSO letter, a bank record, a registry — backs it. And sort every finding into Green (proceed), Yellow (proceed only with a condition, a price adjustment or a warranty) or Red (pass, or at least stop the deposit).</p>
+<p>The rights stage has three steps: connection study answered → contract application filed (receipt notice) → interconnection approved (approval notice). A project described as "approved" that can only show a study response is a Red. The column sets out 43 items across nine domains, from grid rights and land to JC-STAR, degradation warranties, the site, power contracts and credit, in two passes: desk screening before the deposit, and a full investigation before closing.</p>
+<p class="guide-more">Read more → <a href="/en/column-buyer-check" target="_top">Is That "Approved" for Real — technical checks before you buy</a></p>
+<h2 id="g7">7. Why plants are bought with cash — debt does not arrive in time</h2>
+<p>Sellers frequently want settlement within about a month, while a corporate loan takes one and a half to two months and project finance six months to a year (our field observation). Cash dominates not because debt is unavailable, but because it does not arrive in time.</p>
+<p>Battery equipment can be taken as collateral — for example through a security assignment over aggregate movables. What decides whether debt is available is not the collateral but the contract: how much of the revenue is fixed, and for how long. Five archetypes of domestic debt were disclosed between 2023 and 2026. Project finance on a single site is structurally disadvantaged: its fixed costs — due diligence, documentation, agency work — cannot be absorbed into the interest rate on a project of a few hundred million yen. The practical designs are cash first and refinancing once operating, locking in a long-term contract before raising debt, or leasing.</p>
+<p class="guide-more">Read more → <a href="/en/column-financing" target="_top">Why Grid-Scale Storage Is Bought With Cash, Not Debt</a></p>
+<h2 id="g8">8. For overseas investors — the gates to clear before you buy</h2>
+<p>"If we order from a Japanese EPC, will the plant get built?" The equipment, yes. But to run as a business a plant also needs four things beyond the hardware: the grid capacity to connect, the land to host that capacity, the regulation governing foreign capital entering Japan's electricity sector, and a route to move capital out of the home country. Grid capacity sits with the developers who already hold it; it is not something an EPC can sell.</p>
+<p>The column walks through six gates in order: whether the funds can leave the source country; FEFTA (the electricity business is a designated sector, so prior notification is likely, while core sectors are limited to plants of 50 MW and above, which a 2 MW-class asset does not reach); scarce grid capacity and land; buying rights or a completed asset; how equipment marks the exit (JC-STAR and the U.S. lists); and land and tax, including the Important Land Survey Act. If the first gate does not open, nothing downstream can move.</p>
+<p class="guide-more">Read more → <a href="/en/column-foreign-investor" target="_top">Japan's Grid-Scale Storage — Gates Foreign Capital Clears</a></p>
+<h2 id="g9">9. If you hold a connection study response and will not build</h2>
+<p>Dropping a project after the response arrives is not uncommon — the cost contribution came in above expectations, financing could not be secured, or corporate strategy changed. There are three options: develop it yourself, sell the development rights, or withdraw. Letting the response sit is the costliest choice: once a year has passed since the response, the project disappears, scarcity and all.</p>
+<p>Before putting a project on the market, assemble seven documents: the original connection study response as PDF, the contract application copy and deposit receipt, the final cost contribution notice, the land registry or lease, the PCS and EMS models with their JC-STAR status, the revenue record if it is operating, and the grant decision notice if it received a subsidy.</p>
+<p>Depending on the project, we buy it ourselves or introduce it to a buyer. There are no fees until a deal closes.</p>
+<p class="guide-more">Read more → <a href="/en/column-options" target="_top">You Have a Connection Study Response — 3 Options</a> · <a href="/en/column-project-price" target="_top">What Does It Cost to Buy a Battery Storage Plant in Japan? (the seller's side)</a></p>
+
+<section class="guide-cols" id="cols">
+<h2>Columns in this guide (9)</h2>
+<p class="note">Each column gives the data window and sources for its figures.</p>
+<ul>
+<li><a href="/en/column-trading" target="_top">How a Battery Storage Plant Changes Hands</a></li>
+<li><a href="/en/column-transfer" target="_top">Battery Development Rights Transfer</a></li>
+<li><a href="/en/column-pricing" target="_top">How Battery Development Rights Are Priced</a></li>
+<li><a href="/en/column-buyer-structures" target="_top">Four Ways to Buy a Battery Storage Plant in Japan</a></li>
+<li><a href="/en/column-project-price" target="_top">What Does It Cost to Buy a Battery Storage Plant in Japan?</a></li>
+<li><a href="/en/column-buyer-check" target="_top">Buying Grid-Scale Battery Storage</a></li>
+<li><a href="/en/column-financing" target="_top">Why Grid-Scale Storage Is Bought With Cash, Not Debt</a></li>
+<li><a href="/en/column-foreign-investor" target="_top">Japan&#x27;s Grid-Scale Storage</a></li>
+<li><a href="/en/column-options" target="_top">Connection Study Response but Cannot Proceed?</a></li>
+</ul>
+</section>
+
+<section id="faq">
+<h2>Frequently asked questions</h2>
+<div class="faq-item">
+  <div class="faq-q">What are &quot;grid rights&quot; or &quot;development rights&quot; for a battery storage project?</div>
+  <div class="faq-a"><p>What is often called "grid rights" is what our columns call development rights, and it is not a legally defined term. In practice it means the TSO's connection study response — the core — bundled with the land use rights and the survey and permit deliverables. The response sets the conditions "at that location, with that capacity", so the land and the response only hold value as a set.</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">How much does a battery storage plant cost to buy in Japan?</div>
+  <div class="faq-a"><p>For a high-voltage 2 MW-class plant (total including land and the cost contribution, excluding tax), the medians of the asking prices we saw from January to September 2026 were ¥120 million for rights, ¥670 million on completed handover and ¥750 million once connected — our observation, not a published statistic. Prices for individual projects are shown on Chikudensho Market after free registration.</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">If I buy an operating plant, do its market contracts and qualifications come with it?</div>
+  <div class="faq-a"><p>It depends on whether the contracting entity changes. Buy the SPC and its qualifications and contracts stay in place. Buy the assets alone and the buyer has to obtain balancing-market qualification again; the capacity market is the main exception, where the position can pass with OCCTO's prior consent.</p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">Can I get debt to buy a battery storage plant in Japan?</div>
+  <div class="faq-a"><p>Debt has been disclosed on Japanese plants. What separates the projects that get it from those that do not is not the collateral but the contract — how much of the revenue is fixed, and for how long. Project finance on a single site is structurally disadvantaged by its fixed costs, so the practical designs are paying cash and refinancing once the plant is operating, locking in a long-term contract before raising debt, or leasing.</p></div>
+</div>
+</section>
+
+<div class="cta-section" data-scix-guide-cta="end">
+<h2>What to do next</h2>
+<p><strong>If you are buying</strong> — battery storage projects for sale are listed on Chikudensho Market (English screens). For each project you can see the prefecture, size, expected connection timing and how far along it is without registering; prices and documents are available after free registration.</p>
+<p class="guide-go">→ <a href="https://dealroom.scix.co.jp/en" target="_top" data-cta="end" data-cta-target="market">See projects for sale on Chikudensho Market</a></p>
+<p><strong>If you are selling</strong> — send us five things: the location (prefecture and service area), the output, how you want to sell, the stage of the connection study response and the status of the cost contribution. Our first reply tells you whether we are likely to buy it ourselves or would introduce you to a buyer, and which documents are missing. There are no fees until a deal closes.</p>
+<p class="guide-go">→ <a href="/en/contact" target="_top" data-cta="end" data-cta-target="contact">Contact us</a></p>
+</div>
+
+</div>
+
+<!-- ScienceX Footer — self-contained -->
+<style>
+  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+  .scix-footer { background-color: #1F2A48; color: rgba(255,255,255, 0.85); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%; }
+  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: 0.95; }
+  .scix-footer-info { text-align: center; }
+  .scix-footer-copyright { font-size: 11px; letter-spacing: 0.04em; color: rgba(255,255,255, 0.55); margin-top: 20px; }
+  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255,255,255, 0.8); }
+  .scix-footer-company .company-name { font-weight: 500; font-size: 13.5px; color: rgba(255,255,255, 0.92); margin-bottom: 2px; }
+  .scix-footer-company .representative { margin-top: 4px; color: rgba(255,255,255, 0.6); font-size: 12px; }
+  .scix-footer-company a { color: rgba(255,255,255, 0.8); text-decoration: none; transition: color 0.2s ease; }
+  .scix-footer-company a:hover { color: #C49A3C; }
+  .scix-footer-divider { width: 60px; border: none; border-top: 1px solid rgba(255,255,255, 0.12); margin: 0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img width="300" height="118"
+        src="/img/logo-white.png"
+        alt="ScienceX - Science X Inc."
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016, Japan<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="https://dealroom.scix.co.jp/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Chikudensho Market</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Company</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/en/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>
