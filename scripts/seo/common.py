@@ -55,6 +55,26 @@ UA = "scix-web-metrics/1.0 (+https://www.scix.co.jp/company)"
 COMMERCIAL = ["/projects", "/transfer", "/sourcing", "/sell-form", "/investors", "/fund",
               "/contact", "/en/contact", "/zh-contact"]
 
+# GA4 の機械らしい群（2026-11-22・指示4／指示5）。本体の数から引かず、別枠に数える（collect_daily.py の mix・build_brief.py の 13 節）。
+# 根拠は 2026-11-22 の実測: 日本以外の Direct・Unassigned はエンゲージ率 5%（中国 Direct は画面 1280x1200 が 87%・米国 Direct は 800x600 と
+# Council Bluffs）、着地 (not set) はエンゲージ 6%。日本の Direct（本人が URL を開いて問い合わせる群）は機械に数えない。
+BOT_SCREENS = {"1280x1200", "800x600"}
+BOT_CHANNELS = {"Direct", "Unassigned"}
+# AI 経由の参照元（GA4 の既定チャネル AI Assistant に入らない openai・copilot.com なども拾う）。RE2 の部分一致・大文字小文字を問わない
+AI_SOURCE_RX = (r"chatgpt|openai|perplexity|gemini|copilot|claude\.ai|anthropic|deepseek|kimi|moonshot|doubao|"
+                r"yuanbao|tongyi|qianwen|grok|you\.com|phind|mistral|meta\.ai")
+
+
+def bot_reason(country, channel, screen, landing):
+    """GA4 の1行（国・既定のチャネル・画面・着地）が機械らしければ理由を、そうでなければ None を返す。重なりは先の理由に数える。"""
+    if (landing or "(not set)") in ("(not set)", ""):
+        return "着地なし"
+    if screen in BOT_SCREENS:
+        return f"画面 {screen}"
+    if country != "Japan" and channel in BOT_CHANNELS:
+        return f"日本以外の {channel}"
+    return None
+
 
 def log(msg: str) -> None:
     print(time.strftime("%F %T"), msg, flush=True)
