@@ -1,0 +1,1067 @@
+{
+ "version": "2026-11-23",
+ "decide_on": "2026-12-20",
+ "note": "言葉の束ごとに、受ける頁（main）・出てよい頁（sub）・決め待ちの頁（pending）を決めた表の機械版。人が読む版は docs/keyword-page-map.md。住所は www: と dealroom: の接頭辞で書き、末尾の * は前方一致。語・住所だけを置く（案件の ID・価格・DR2 の文は書かない＝O16-19）。",
+ "match_order": "bundles の並びの順に最初に当たった束へ入れる（1つの語は1つの束）",
+ "watch_core": [
+  "案件",
+  "売買",
+  "売却",
+  "売りたい",
+  "買取",
+  "買い取",
+  "仲介",
+  "物件",
+  "販売",
+  "買いたい",
+  "購入",
+  "マーケット",
+  "譲渡",
+  "権利",
+  "for sale",
+  "acquisition",
+  "marketplace",
+  "buy",
+  "sell",
+  "m&a"
+ ],
+ "watch_skip": [
+  "jcstar",
+  "jc-star",
+  "jcスター",
+  "取得製品",
+  "適合ラベル",
+  "税制",
+  "促進",
+  "需給調整",
+  "eprx",
+  "容量市場",
+  "騒音",
+  "トーリング"
+ ],
+ "bundles": [
+  {
+   "id": "brand",
+   "group": "社名・名前",
+   "label": "社名（サイエンスエックス）",
+   "who": "会社を探す",
+   "script": "any",
+   "any": [
+    [
+     "サイエンスエックス"
+    ],
+    [
+     "scix"
+    ],
+    [
+     "sciencex"
+    ],
+    [
+     "science x"
+    ]
+   ],
+   "need": [],
+   "exclude": [],
+   "main": [
+    "www:/"
+   ],
+   "sub": [
+    "www:/company",
+    "www:/en",
+    "www:/en/company",
+    "www:/zh",
+    "www:/zh-company"
+   ],
+   "pending": [
+    "dealroom:/"
+   ]
+  },
+  {
+   "id": "market-name",
+   "group": "社名・名前",
+   "label": "蓄電所マーケット（サービスの名前）",
+   "who": "マーケットを探す",
+   "script": "any",
+   "any": [
+    [
+     "蓄電所マーケット"
+    ],
+    [
+     "蓄電所 マーケット"
+    ],
+    [
+     "蓄電所市場"
+    ],
+    [
+     "chikudensho"
+    ]
+   ],
+   "need": [],
+   "exclude": [],
+   "main": [
+    "dealroom:/"
+   ],
+   "sub": [
+    "dealroom:/how",
+    "dealroom:/needs",
+    "dealroom:/en"
+   ],
+   "pending": [],
+   "note": "www の / は社名の頁なので、この語では出さない"
+  },
+  {
+   "id": "zh-list",
+   "group": "中国語",
+   "label": "中国語（储能・电网侧の項目・买卖）",
+   "who": "买方・卖方（中国語）",
+   "script": "cjk",
+   "any": [
+    [
+     "储能",
+     "项目"
+    ],
+    [
+     "储能",
+     "买卖"
+    ],
+    [
+     "储能",
+     "出售"
+    ],
+    [
+     "储能",
+     "出让"
+    ],
+    [
+     "储能",
+     "收购"
+    ],
+    [
+     "电网侧",
+     "项目"
+    ],
+    [
+     "电网侧",
+     "买卖"
+    ],
+    [
+     "电网侧",
+     "出售"
+    ]
+   ],
+   "need": [],
+   "exclude": [],
+   "main": [
+    "www:/zh"
+   ],
+   "sub": [
+    "www:/zh-guide-buy-sell",
+    "www:/zh-qa",
+    "www:/zh-knowledge"
+   ],
+   "pending": []
+  },
+  {
+   "id": "en-howto",
+   "group": "英語",
+   "label": "英語・買い方売り方",
+   "who": "buyer / seller (en)",
+   "script": "ascii",
+   "any": [
+    [
+     "how to"
+    ],
+    [
+     "sell"
+    ],
+    [
+     "buy"
+    ],
+    [
+     "process"
+    ],
+    [
+     "divest"
+    ]
+   ],
+   "need": [
+    "bess",
+    "battery",
+    "storage"
+   ],
+   "exclude": [],
+   "main": [
+    "www:/en/guide-buy-sell"
+   ],
+   "sub": [
+    "www:/en/column-trading",
+    "www:/en/column-transfer",
+    "www:/en/column-buyer-structures"
+   ],
+   "pending": []
+  },
+  {
+   "id": "en-list",
+   "group": "英語",
+   "label": "英語・売り案件・取得",
+   "who": "buyer (en)",
+   "script": "ascii",
+   "any": [
+    [
+     "for sale"
+    ],
+    [
+     "projects"
+    ],
+    [
+     "listings"
+    ],
+    [
+     "marketplace"
+    ],
+    [
+     "acquisition"
+    ],
+    [
+     "acquire"
+    ],
+    [
+     "development rights"
+    ],
+    [
+     "opportunit"
+    ]
+   ],
+   "need": [
+    "bess",
+    "battery",
+    "storage"
+   ],
+   "exclude": [],
+   "main": [
+    "www:/en/projects"
+   ],
+   "sub": [
+    "www:/en",
+    "www:/en/column-buyer-structures"
+   ],
+   "pending": [
+    "dealroom:/en",
+    "dealroom:/en/*"
+   ],
+   "note": "www /en/projects と dealroom /en の同じ言葉は 12/20 に表示の数で決める"
+  },
+  {
+   "id": "en-market",
+   "group": "英語",
+   "label": "英語・日本の市場を調べる",
+   "who": "investor (en)",
+   "script": "ascii",
+   "any": [
+    [
+     "market"
+    ],
+    [
+     "investment"
+    ],
+    [
+     "invest"
+    ],
+    [
+     "entry"
+    ],
+    [
+     "outlook"
+    ]
+   ],
+   "need": [
+    "bess",
+    "battery",
+    "storage"
+   ],
+   "exclude": [],
+   "main": [
+    "www:/en/market-entry-guide"
+   ],
+   "sub": [
+    "www:/en/knowledge",
+    "www:/en/column-revenue",
+    "www:/en/primer",
+    "www:/en/market-data",
+    "www:/en/qa"
+   ],
+   "pending": [],
+   "note": "調べる語。買う・売るへは記事と市場データの末尾の入口で渡す"
+  },
+  {
+   "id": "volt-ehv",
+   "group": "電圧",
+   "label": "特別高圧の売り案件",
+   "who": "買う（特別高圧）",
+   "script": "cjk",
+   "any": [
+    [
+     "特別高圧"
+    ],
+    [
+     "特高"
+    ]
+   ],
+   "need": [
+    "案件",
+    "物件",
+    "売り",
+    "販売",
+    "売却",
+    "売買",
+    "買"
+   ],
+   "exclude": [],
+   "main": [
+    "dealroom:/catalog/voltage/extra-high-voltage"
+   ],
+   "sub": [
+    "www:/projects",
+    "www:/transfer"
+   ],
+   "pending": [
+    "dealroom:/",
+    "dealroom:/en/catalog/voltage/*"
+   ],
+   "note": "www に特別高圧だけの頁は無い。マーケットの電圧の頁を受け口にする"
+  },
+  {
+   "id": "volt-hv",
+   "group": "電圧",
+   "label": "高圧の売り案件",
+   "who": "買う（高圧）",
+   "script": "cjk",
+   "any": [
+    [
+     "高圧"
+    ]
+   ],
+   "need": [
+    "案件",
+    "物件",
+    "売り",
+    "販売",
+    "売却",
+    "売買",
+    "買"
+   ],
+   "exclude": [
+    "特別高圧",
+    "特高",
+    "低圧",
+    "高圧ガス"
+   ],
+   "main": [
+    "dealroom:/catalog/voltage/high-voltage"
+   ],
+   "sub": [
+    "www:/projects",
+    "www:/transfer"
+   ],
+   "pending": [
+    "dealroom:/",
+    "dealroom:/en/catalog/voltage/*"
+   ]
+  },
+  {
+   "id": "area-tokyo",
+   "group": "管区",
+   "label": "東京・関東の売り案件",
+   "who": "買う（東京・関東）",
+   "script": "cjk",
+   "any": [
+    [
+     "東京"
+    ],
+    [
+     "関東"
+    ]
+   ],
+   "need": [
+    "案件",
+    "物件",
+    "売り",
+    "販売",
+    "蓄電所",
+    "蓄電池",
+    "売却"
+   ],
+   "exclude": [],
+   "main": [
+    "www:/projects-tokyo"
+   ],
+   "sub": [
+    "www:/projects"
+   ],
+   "pending": [
+    "dealroom:/catalog/area/tokyo",
+    "dealroom:/en/catalog/area/tokyo"
+   ],
+   "note": "www /projects-tokyo と dealroom /catalog/area/tokyo は同じ件数で題が違う。どちらを正にするかは 2026-12-20 に表示の数で決める（今は割れに数えない）"
+  },
+  {
+   "id": "area-chubu",
+   "group": "管区",
+   "label": "中部の売り案件",
+   "who": "買う（中部）",
+   "script": "cjk",
+   "any": [
+    [
+     "中部"
+    ],
+    [
+     "愛知"
+    ]
+   ],
+   "need": [
+    "案件",
+    "物件",
+    "売り",
+    "販売",
+    "蓄電所",
+    "蓄電池",
+    "売却"
+   ],
+   "exclude": [],
+   "main": [
+    "www:/projects-chubu"
+   ],
+   "sub": [
+    "www:/projects"
+   ],
+   "pending": [
+    "dealroom:/catalog/area/chubu",
+    "dealroom:/en/catalog/area/chubu"
+   ],
+   "note": "www /projects-chubu と dealroom /catalog/area/chubu は同じ件数で題が違う。どちらを正にするかは 2026-12-20 に表示の数で決める（今は割れに数えない）"
+  },
+  {
+   "id": "area-kansai",
+   "group": "管区",
+   "label": "関西の売り案件",
+   "who": "買う（関西）",
+   "script": "cjk",
+   "any": [
+    [
+     "関西"
+    ],
+    [
+     "大阪"
+    ]
+   ],
+   "need": [
+    "案件",
+    "物件",
+    "売り",
+    "販売",
+    "蓄電所",
+    "蓄電池",
+    "売却"
+   ],
+   "exclude": [],
+   "main": [
+    "www:/projects-kansai"
+   ],
+   "sub": [
+    "www:/projects"
+   ],
+   "pending": [
+    "dealroom:/catalog/area/kansai",
+    "dealroom:/en/catalog/area/kansai"
+   ],
+   "note": "www /projects-kansai と dealroom /catalog/area/kansai は同じ件数で題が違う。どちらを正にするかは 2026-12-20 に表示の数で決める（今は割れに数えない）"
+  },
+  {
+   "id": "area-kyushu",
+   "group": "管区",
+   "label": "九州の売り案件",
+   "who": "買う（九州）",
+   "script": "cjk",
+   "any": [
+    [
+     "九州"
+    ],
+    [
+     "福岡"
+    ]
+   ],
+   "need": [
+    "案件",
+    "物件",
+    "売り",
+    "販売",
+    "蓄電所",
+    "蓄電池",
+    "売却"
+   ],
+   "exclude": [],
+   "main": [
+    "www:/projects-kyushu"
+   ],
+   "sub": [
+    "www:/projects"
+   ],
+   "pending": [
+    "dealroom:/catalog/area/kyushu",
+    "dealroom:/en/catalog/area/kyushu"
+   ],
+   "note": "www /projects-kyushu と dealroom /catalog/area/kyushu は同じ件数で題が違う。どちらを正にするかは 2026-12-20 に表示の数で決める（今は割れに数えない）"
+  },
+  {
+   "id": "area-tohoku",
+   "group": "管区",
+   "label": "東北の売り案件",
+   "who": "買う（東北）",
+   "script": "cjk",
+   "any": [
+    [
+     "東北"
+    ],
+    [
+     "宮城"
+    ]
+   ],
+   "need": [
+    "案件",
+    "物件",
+    "売り",
+    "販売",
+    "蓄電所",
+    "蓄電池",
+    "売却"
+   ],
+   "exclude": [],
+   "main": [
+    "www:/projects-tohoku"
+   ],
+   "sub": [
+    "www:/projects"
+   ],
+   "pending": [
+    "dealroom:/catalog/area/tohoku",
+    "dealroom:/en/catalog/area/tohoku"
+   ],
+   "note": "www /projects-tohoku と dealroom /catalog/area/tohoku は同じ件数で題が違う。どちらを正にするかは 2026-12-20 に表示の数で決める（今は割れに数えない）"
+  },
+  {
+   "id": "area-chugoku",
+   "group": "管区",
+   "label": "中国の売り案件",
+   "who": "買う（中国）",
+   "script": "cjk",
+   "any": [
+    [
+     "中国電力"
+    ],
+    [
+     "中国地方"
+    ],
+    [
+     "広島"
+    ],
+    [
+     "岡山"
+    ]
+   ],
+   "need": [
+    "案件",
+    "物件",
+    "売り",
+    "販売",
+    "蓄電所",
+    "蓄電池",
+    "売却"
+   ],
+   "exclude": [],
+   "main": [
+    "www:/projects-chugoku"
+   ],
+   "sub": [
+    "www:/projects"
+   ],
+   "pending": [
+    "dealroom:/catalog/area/chugoku",
+    "dealroom:/en/catalog/area/chugoku"
+   ],
+   "note": "www /projects-chugoku と dealroom /catalog/area/chugoku は同じ件数で題が違う。どちらを正にするかは 2026-12-20 に表示の数で決める（今は割れに数えない）"
+  },
+  {
+   "id": "area-hokkaido",
+   "group": "管区",
+   "label": "北海道の売り案件",
+   "who": "買う（北海道）",
+   "script": "cjk",
+   "any": [
+    [
+     "北海道"
+    ]
+   ],
+   "need": [
+    "案件",
+    "物件",
+    "売り",
+    "販売",
+    "蓄電所",
+    "蓄電池",
+    "売却"
+   ],
+   "exclude": [],
+   "main": [
+    "dealroom:/catalog/area/hokkaido"
+   ],
+   "sub": [
+    "www:/projects"
+   ],
+   "pending": [
+    "dealroom:/en/catalog/area/hokkaido"
+   ],
+   "note": "www の /projects-hokkaido は件数が少なく noindex。マーケットの管区の頁を受け口にする"
+  },
+  {
+   "id": "area-hokuriku",
+   "group": "管区",
+   "label": "北陸の売り案件",
+   "who": "買う（北陸）",
+   "script": "cjk",
+   "any": [
+    [
+     "北陸"
+    ]
+   ],
+   "need": [
+    "案件",
+    "物件",
+    "売り",
+    "販売",
+    "蓄電所",
+    "蓄電池",
+    "売却"
+   ],
+   "exclude": [],
+   "main": [
+    "dealroom:/catalog/area/hokuriku"
+   ],
+   "sub": [
+    "www:/projects"
+   ],
+   "pending": [
+    "dealroom:/en/catalog/area/hokuriku"
+   ],
+   "note": "www の /projects-hokuriku は件数が少なく noindex。マーケットの管区の頁を受け口にする"
+  },
+  {
+   "id": "area-shikoku",
+   "group": "管区",
+   "label": "四国の売り案件",
+   "who": "買う（四国）",
+   "script": "cjk",
+   "any": [
+    [
+     "四国"
+    ]
+   ],
+   "need": [
+    "案件",
+    "物件",
+    "売り",
+    "販売",
+    "蓄電所",
+    "蓄電池",
+    "売却"
+   ],
+   "exclude": [],
+   "main": [
+    "dealroom:/catalog/area/shikoku"
+   ],
+   "sub": [
+    "www:/projects"
+   ],
+   "pending": [
+    "dealroom:/en/catalog/area/shikoku"
+   ],
+   "note": "www の /projects-shikoku は件数が少なく noindex。マーケットの管区の頁を受け口にする"
+  },
+  {
+   "id": "sell-form",
+   "group": "売る",
+   "label": "売却査定",
+   "who": "売る（査定を頼む）",
+   "script": "cjk",
+   "any": [
+    [
+     "査定"
+    ]
+   ],
+   "need": [
+    "蓄電",
+    "bess"
+   ],
+   "exclude": [
+    "用地",
+    "土地"
+   ],
+   "main": [
+    "www:/sell-form"
+   ],
+   "sub": [
+    "www:/sourcing"
+   ],
+   "pending": []
+  },
+  {
+   "id": "land",
+   "group": "売る",
+   "label": "用地・土地・蓄電池の買取（相場）",
+   "who": "土地の持ち主",
+   "script": "cjk",
+   "any": [
+    [
+     "用地"
+    ],
+    [
+     "土地"
+    ],
+    [
+     "相場"
+    ],
+    [
+     "蓄電池",
+     "買取"
+    ],
+    [
+     "蓄電池買取"
+    ],
+    [
+     "蓄電池",
+     "売却"
+    ]
+   ],
+   "need": [],
+   "exclude": [
+    "系統用",
+    "蓄電所",
+    "案件",
+    "権利",
+    "開発",
+    "投資",
+    "ファンド"
+   ],
+   "main": [
+    "www:/column-land-buyback"
+   ],
+   "sub": [
+    "www:/column-land-lease",
+    "www:/column-land-value",
+    "www:/column-land-zoning",
+    "www:/sourcing"
+   ],
+   "pending": [],
+   "note": "当社は土地だけの買取をしない（O16-5）。この語は記事（買取相場の解説）で受け、売る人へは記事の末尾から /sourcing へ渡す。新しい頁は作らない"
+  },
+  {
+   "id": "buy-types",
+   "group": "買う",
+   "label": "権利渡し・完成渡し・開発権",
+   "who": "買う（取得の形を知る）",
+   "script": "cjk",
+   "any": [
+    [
+     "権利渡し"
+    ],
+    [
+     "完成渡し"
+    ],
+    [
+     "開発権"
+    ],
+    [
+     "権利",
+     "売買"
+    ],
+    [
+     "権利",
+     "譲渡"
+    ],
+    [
+     "権利",
+     "買"
+    ],
+    [
+     "完成",
+     "渡し"
+    ],
+    [
+     "権利",
+     "購入"
+    ]
+   ],
+   "need": [],
+   "exclude": [],
+   "main": [
+    "www:/transfer"
+   ],
+   "sub": [
+    "www:/column-buyer-structures",
+    "www:/column-transfer",
+    "www:/column-four-labels",
+    "www:/guide-buy-sell"
+   ],
+   "pending": []
+  },
+  {
+   "id": "price-howto",
+   "group": "買う",
+   "label": "買い方・売り方・価格の相場",
+   "who": "買う・売る前に調べる",
+   "script": "cjk",
+   "any": [
+    [
+     "価格",
+     "相場"
+    ],
+    [
+     "いくら"
+    ],
+    [
+     "買い方"
+    ],
+    [
+     "売り方"
+    ],
+    [
+     "買う",
+     "方法"
+    ],
+    [
+     "売る",
+     "方法"
+    ],
+    [
+     "売買",
+     "流れ"
+    ],
+    [
+     "売買",
+     "進め方"
+    ]
+   ],
+   "need": [
+    "蓄電"
+   ],
+   "exclude": [
+    "買取",
+    "用地",
+    "土地"
+   ],
+   "main": [
+    "www:/guide-buy-sell"
+   ],
+   "sub": [
+    "www:/column-project-price",
+    "www:/column-trading",
+    "www:/column-buyer-structures"
+   ],
+   "pending": [],
+   "note": "調べる語を、買う・売るの入口の頁（柱）で受ける"
+  },
+  {
+   "id": "fund",
+   "group": "投資",
+   "label": "蓄電池ファンド",
+   "who": "投資家（ファンド）",
+   "script": "cjk",
+   "any": [
+    [
+     "ファンド"
+    ],
+    [
+     "投資信託"
+    ],
+    [
+     "出資"
+    ],
+    [
+     "gk-tk"
+    ],
+    [
+     "gktk"
+    ]
+   ],
+   "need": [
+    "蓄電",
+    "電池",
+    "蓄エネ"
+   ],
+   "exclude": [
+    "税制",
+    "促進"
+   ],
+   "main": [
+    "www:/fund"
+   ],
+   "sub": [],
+   "pending": [],
+   "note": "/fund は案内と取次ぎ（O16-14）。同じ投資の語を /investors と分け合っているので、ファンドの語は /fund、投資の語は /investors"
+  },
+  {
+   "id": "invest",
+   "group": "投資",
+   "label": "蓄電池への投資",
+   "who": "投資家（1棟で持つ・ファンドで持つ）",
+   "script": "cjk",
+   "any": [
+    [
+     "投資"
+    ],
+    [
+     "jesdi"
+    ]
+   ],
+   "need": [
+    "蓄電"
+   ],
+   "exclude": [
+    "税制",
+    "促進",
+    "需給",
+    "利回り"
+   ],
+   "main": [
+    "www:/investors"
+   ],
+   "sub": [
+    "www:/column-financing",
+    "www:/column-buyer-structures",
+    "www:/qa",
+    "www:/grid-storage"
+   ],
+   "pending": []
+  },
+  {
+   "id": "buy-list",
+   "group": "買う",
+   "label": "売り案件の一覧・物件",
+   "who": "買う（案件を探す）",
+   "script": "cjk",
+   "any": [
+    [
+     "案件"
+    ],
+    [
+     "物件"
+    ],
+    [
+     "販売中"
+    ],
+    [
+     "販売"
+    ],
+    [
+     "一覧"
+    ],
+    [
+     "買いたい"
+    ],
+    [
+     "購入"
+    ],
+    [
+     "買う"
+    ]
+   ],
+   "need": [
+    "蓄電"
+   ],
+   "exclude": [
+    "売りたい",
+    "売り たい",
+    "売却",
+    "買取",
+    "仲介",
+    "売買",
+    "ファンド",
+    "投資",
+    "税制",
+    "需給",
+    "騒音",
+    "jc"
+   ],
+   "main": [
+    "www:/projects"
+   ],
+   "sub": [
+    "www:/projects-*",
+    "www:/column-buyer-structures"
+   ],
+   "pending": [
+    "dealroom:/",
+    "dealroom:/catalog/*",
+    "dealroom:/needs"
+   ],
+   "note": "トップ（www の /）は同じカードを出すが、受ける頁は /projects にする。dealroom の / と www の /projects の重なりは 2026-12-20 に決める"
+  },
+  {
+   "id": "sell-project",
+   "group": "売る",
+   "label": "案件・権利の売却・売買・仲介",
+   "who": "売る（案件の持ち主）",
+   "script": "cjk",
+   "any": [
+    [
+     "売却"
+    ],
+    [
+     "売りたい"
+    ],
+    [
+     "売り たい"
+    ],
+    [
+     "買取"
+    ],
+    [
+     "買い取"
+    ],
+    [
+     "仲介"
+    ],
+    [
+     "売買"
+    ],
+    [
+     "譲渡"
+    ],
+    [
+     "売る"
+    ]
+   ],
+   "need": [
+    "蓄電",
+    "権利",
+    "案件"
+   ],
+   "exclude": [],
+   "main": [
+    "www:/sourcing"
+   ],
+   "sub": [
+    "www:/sell-form",
+    "www:/guide-buy-sell",
+    "www:/column-trading",
+    "www:/column-transfer"
+   ],
+   "pending": [
+    "dealroom:/how",
+    "dealroom:/sellers",
+    "dealroom:/needs",
+    "dealroom:/wanted"
+   ],
+   "note": "売買・仲介の語は、今 /sourcing に集まっている。買う人には /sourcing から一覧（/projects）へ渡す"
+  }
+ ]
+}
