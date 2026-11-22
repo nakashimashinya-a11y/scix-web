@@ -7,7 +7,7 @@
   上（top）: 本文の頭＝<div class="article-body"> の直後。その箱が無い頁は h1 の後の最初の h2 の直前。
              並びは 要点（summary）→ 追記（update）。
   途中（mid）: h1 の後の最初の h2 の直前（mid-cta）。上の区画と同じ所になる頁では、上の区画の後ろに並ぶ。
-  末尾（end）: 著者の箱（<div class="author-box">）の直前。並びは よくある質問（faq）→ 役割分け（role）。
+  末尾（end）: 著者の箱（<div class="author-box">）の直前。並びは よくある質問（faq）→ 役割分け（role）→ まとまりの柱の頁（cluster）。
 """
 import glob
 import html
@@ -17,7 +17,7 @@ import re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "scripts", "data")
 LAND = {"land-buyback", "land-lease", "land-value", "land-zoning"}   # 土地の持ち主向けの4本（O16-5・導線を入れない）
-ORDER = {"summary": 0, "update": 1, "mid-cta": 9, "faq": 20, "role": 21}
+ORDER = {"summary": 0, "update": 1, "mid-cta": 9, "faq": 20, "role": 21, "cluster": 22}
 BLOCK_RE = re.compile(r"<!-- scix-([a-z][a-z0-9-]*):begin -->.*?<!-- scix-\1:end -->\n?", re.S)
 
 

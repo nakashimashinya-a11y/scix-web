@@ -4,8 +4,8 @@
 
 各コラム（日英中）に2つを足す。どちらも本文（中島さんの文）と h1 の外で、何度回しても同じ結果になる。
   1. 「このテーマの全体像: <柱の頁の題>」の1行（<!-- scix-cluster:begin --> … <!-- scix-cluster:end --> で囲む）。
-     置き場は、要点の枠（<!-- scix-summary:end -->）があればその下（追記の枠など、続いて並ぶ区画の後ろ）、
-     無ければ末尾（著者の箱の直前。それも無ければ本文の箱の終わりの手前）。
+     置き場は末尾の区画の並び（よくある質問 → 役割分け → この1行）の最後＝著者の箱の直前
+     （著者の箱が無ければ本文の箱の終わりの手前）。並びの順は column_blocks.py の ORDER。
   2. パンくずの段: 画面のパンくず（nav[data-scix-breadcrumb]）の最後の段の前に柱の頁を1段（a[data-scix-cluster]）、
      構造化データの BreadcrumbList の最後の段の前にも同じ頁を1段。
 柱の頁がその言葉に無いまとまり（例: 接続検討の柱は日本語だけ）は、その言葉のコラムには足さない。柱の頁そのものにも足さない。
@@ -19,7 +19,7 @@
     python3 scripts/add_column_cluster.py --root DIR # 別の木で試す
 
 2026-11-22 中島「これ全部やって。売上UPのために徹底的に進めて。すべて漏らさずやって。」（Gemini の助言の指令1）。
-この生成器は作っただけで、コラムの頁にはまだ当てていない（コラムの頁を直す別の持ち場の後に当てる）。
+コラムを変える PR が入ったら、ほかの区画の生成器の後にこれを回す（--check が 0 になるまで）。
 """
 from __future__ import annotations  # launchd の python3 は 3.9
 
@@ -29,6 +29,9 @@ import json
 import os
 import re
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import column_blocks as cb  # noqa: E402  区画の置き場と並びの共通部品
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if "--root" in sys.argv:
@@ -63,6 +66,8 @@ LABEL = {"ja": "このテーマの全体像: ", "en": "The big picture on this t
 FONT = {"ja": "'Noto Sans JP',sans-serif", "en": "'Noto Sans JP',sans-serif", "zh": "'Noto Sans SC','Noto Sans JP',sans-serif"}
 SUFFIX_RX = re.compile(r"\s*(｜|\|)\s*(サイエンスエックス|ScienceX|Science X)\s*$")
 SEP = '<span style="color:#C49A3C;margin:0 7px">›</span>'
+# 画面のパンくずの区切りは頁によって3つの形がある（同じ見た目の › の実体参照・class="breadcrumb" の素の › ）
+SEPS = (SEP, '<span style="color:#C49A3C;margin:0 7px">&rsaquo;</span>', " › ")
 
 
 def file_of(p: str):
@@ -101,29 +106,16 @@ def targets():
 
 def strip_mine(s: str, pillars: set) -> str:
     s = re.sub(re.escape(B) + r".*?" + re.escape(E) + r"\n?", "", s, flags=re.S)
-    s = re.sub(r'<a data-scix-cluster [^>]*>.*?</a>' + re.escape(SEP), "", s)
+    s = re.sub(r'<a data-scix-cluster [^>]*>.*?</a>(?:' + "|".join(re.escape(x) for x in SEPS) + ")", "", s)
     return s
 
 
 def put_line(s: str, block: str) -> str:
-    m = re.search(r"<!-- scix-summary:end -->\n?", s)
-    if m:
-        at = m.end()
-        while True:   # 要点の枠に続いて並ぶ区画（追記の枠など）の後ろ
-            t = s[at:]
-            mm = re.match(r"\s*<!-- scix-([a-z][a-z0-9-]*):begin -->", t)
-            if not mm:
-                break
-            e = s.find(f"<!-- scix-{mm.group(1)}:end -->", at)
-            if e < 0:
-                break
-            at = e + len(f"<!-- scix-{mm.group(1)}:end -->")
-            if s[at:at + 1] == "\n":
-                at += 1
-        return s[:at] + block + s[at:]
-    m = re.search(r'<div class="author-box"', s)
-    if m:
-        return s[:m.start()] + block + s[m.start():]
+    # 末尾の区画の並び（よくある質問 → 役割分け → この1行）の最後＝著者の箱の直前。
+    # column_blocks.py の ORDER に cluster を載せてあるので、ほかの生成器を回しても並びは崩れない。
+    pos = cb.end_anchor(s)
+    if pos is not None:
+        return cb.place(s, "cluster", block, pos)
     m = re.search(r"\n</div>\s*\n\s*(?:<!-- scix-column-cta|<!-- scix-entrances|<!-- ScienceX Footer)", s)
     if m:
         return s[:m.start() + 1] + block + s[m.start() + 1:]
@@ -131,16 +123,18 @@ def put_line(s: str, block: str) -> str:
 
 
 def put_crumb(s: str, lg: str, pil: str, name: str) -> str:
-    m = re.search(r"<nav data-scix-breadcrumb[^>]*>.*?</nav>", s, re.S)
+    m = re.search(r"<nav\b[^>]*data-scix-breadcrumb[^>]*>.*?</nav>", s, re.S)
     if not m:
         return s
     nav = m.group(0)
-    i = nav.rfind(SEP)
+    i, sep = max((nav.rfind(x), x) for x in SEPS)
     if i < 0:
         return s
-    short = name if len(name) <= 28 else name[:27] + "…"
-    a = (f'<a data-scix-cluster href="{pil}" style="color:#555555;text-decoration:none">{html.escape(short, quote=False)}</a>')
-    nav2 = nav[:i + len(SEP)] + a + SEP + nav[i + len(SEP):]
+    lim = 56 if lg == "en" else 36   # 今の柱の題は全部この字数に収まる（切らずに出す）
+    short = name if len(name) <= lim else name[:lim - 1] + "…"
+    style = "" if sep == " › " else ' style="color:#555555;text-decoration:none"'
+    a = f'<a data-scix-cluster href="{pil}"{style}>{html.escape(short, quote=False)}</a>'
+    nav2 = nav[:i + len(sep)] + a + sep + nav[i + len(sep):]
     return s[:m.start()] + nav2 + s[m.end():]
 
 
@@ -170,6 +164,13 @@ def fix_ld(s: str, pil: str, name: str, pillars: set) -> str:
         else:
             ind = len(lines[1]) - len(lines[1].lstrip(" ")) or 2
             dumped = json.dumps(o, ensure_ascii=False, indent=ind)
+            if re.search(r'^\s*\{ "@type": "ListItem"', orig, re.M):   # 段を1行ずつ書く元の形
+                sp = " " * ind
+                rows = ",\n".join(sp * 2 + "{ " + ", ".join(f"{json.dumps(k)}: {json.dumps(v, ensure_ascii=False)}" for k, v in it.items()) + " }"
+                                  for it in items)
+                head = {k: v for k, v in o.items() if k != "itemListElement"}
+                dumped = "{\n" + "".join(f"{sp}{json.dumps(k)}: {json.dumps(v, ensure_ascii=False)},\n" for k, v in head.items()) \
+                    + f'{sp}"itemListElement": [\n{rows}\n{sp}]\n}}'
         return m.group(0).replace(orig, dumped, 1)
     return re.sub(r'<script type="application/ld\+json">\s*(\{.*?\})\s*</script>', one, s, flags=re.S)
 
