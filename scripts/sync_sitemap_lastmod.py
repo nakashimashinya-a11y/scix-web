@@ -6,6 +6,10 @@ Run from the repo root after publishing or editing pages:
     python3 scripts/sync_sitemap_lastmod.py          # report only
     python3 scripts/sync_sitemap_lastmod.py --write  # apply
 
+A page that carries a JSON-LD dateModified uses that date (so lastmod and
+dateModified stay identical; 2026-11-22). Pages without one fall back to the
+git commit date below.
+
 Only <lastmod> is touched. URLs, hreflang clusters and <priority> are left
 alone — adding or removing a <url> block is still a manual edit.
 
@@ -37,6 +41,15 @@ def url_to_file(url: str) -> Path | None:
     return candidate if candidate.exists() else None
 
 
+def modified_date(path: Path) -> str | None:
+    """頁の JSON-LD dateModified（あれば）。lastmod はこの値に揃える。"""
+    try:
+        m = re.search(r'"dateModified"\s*:\s*"(\d{4}-\d\d-\d\d)', path.read_text(encoding="utf-8"))
+    except OSError:
+        return None
+    return m.group(1) if m else None
+
+
 def git_date(path: Path) -> str | None:
     out = subprocess.run(
         ["git", "log", "-1", "--format=%cs", "--", str(path)],
@@ -62,7 +75,7 @@ def main() -> int:
         if f is None:
             unresolved.append(url)
             return m.group(0)
-        new = git_date(f)
+        new = modified_date(f) or git_date(f)
         if not new or new == m.group("date"):
             return m.group(0)
         changes.append((url, m.group("date"), new))

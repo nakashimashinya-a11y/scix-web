@@ -51,6 +51,18 @@ import sys
 import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def modified_of(path, issued, text=None):
+    """頁の dateModified＝sitemap の lastmod。発行日と、sitemap の今の値（頁を変えた日に stamp_sitemap.py が進める）の新しいほう。
+    頁の JSON-LD と sitemap の2か所に同じ値を書き、焼き直しで値を戻さない（lastmod は前の値より古くしない＝O16-57）。"""
+    if text is None:
+        try:
+            text = open(os.path.join(ROOT, "sitemap.xml"), encoding="utf-8").read()
+        except OSError:
+            return issued
+    mt = re.search(r"<url><loc>" + re.escape(BASE + path) + r"</loc>.*?<lastmod>([0-9-]{10})</lastmod>", text)
+    return max(issued, mt.group(1)) if mt else issued
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import build_market_data as bmd  # noqa: E402  head / FOOTER / CSS / ld / crumbs / nav_crumbs / ORG を共用する
 import build_report_data as brd  # noqa: E402  市場データ（/report/data）とエリアの頁（/report/area/<slug>）
@@ -82,6 +94,10 @@ READING = [
 ]
 MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 EN_ORG = {"@type": "Organization", "@id": bmd.BASE + "/#organization", "name": "ScienceX", "legalName": "Science X Inc.", "url": bmd.BASE + "/en"}
+# publisher には、会社と同じ @id・名前に、紺のロゴ（画面の img のロゴとは別。構造化データのロゴは白地で読める紺の版＝2026-11-22 中島「Seo 対策も徹底してやって」）
+_LOGO = {"@type": "ImageObject", "url": bmd.BASE + "/img/logo-navy.png"}
+PUBLISHER = {**bmd.ORG, "logo": _LOGO}
+EN_PUBLISHER = {**EN_ORG, "logo": _LOGO}
 
 # 公開してはいけない語。「円」「価格」は卸電気の価格や試算で正当に出るので語としては禁じない。
 FORBIDDEN = [
@@ -393,6 +409,18 @@ def en_date(iso):
     return f"{MONTHS_EN[int(m) - 1]} {int(d)}, {y}"
 
 
+def img_dims(path):
+    """PNG の幅と高さ（IHDR）を width・height の属性にする（読み込みの前に場所を確保＝CLS を出さない）。読めなければ空。"""
+    try:
+        with open(path, "rb") as fh:
+            head = fh.read(24)
+        if head[:8] == b"\x89PNG\r\n\x1a\n" and head[12:16] == b"IHDR":
+            return f' width="{int.from_bytes(head[16:20], "big")}" height="{int.from_bytes(head[20:24], "big")}"'
+    except (OSError, TypeError):
+        pass
+    return ""
+
+
 def render_section(sec, figs, month_key, used, lang="ja"):
     src_pre = "出典:" if lang == "ja" else "Source"
     base = "/report" if lang == "ja" else "/en/report"
@@ -432,7 +460,7 @@ def render_section(sec, figs, month_key, used, lang="ja"):
             src = figs.get(n)
             if src:
                 used.add(n)
-                out.append(f'<figure class="rp-fig"><img src="{base}/{month_key}/f{n}.png" alt="{esc(txt)}" loading="lazy">'
+                out.append(f'<figure class="rp-fig"><img src="{base}/{month_key}/f{n}.png"{img_dims(src)} alt="{esc(txt)}" loading="lazy">'
                            f"<figcaption>{esc(txt)}</figcaption></figure>")
             prev_fig = True
         i += 1
@@ -470,7 +498,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "Report", "@id": BASE + path + "#report", "url": BASE + path,
                 "name": title_h, "description": desc, "inLanguage": "ja", "datePublished": doc["issued"],
-                "dateModified": doc["issued"], "author": bmd.ORG, "publisher": bmd.ORG,
+                "dateModified": modified_of(path, doc["issued"]), "author": bmd.ORG, "publisher": PUBLISHER,
                 "encoding": {"@type": "MediaObject", "contentUrl": f"{BASE}{path}/{pdf_name}", "encodingFormat": "application/pdf"}}),
         bmd.ld(bmd.crumbs([("ホーム", BASE + "/"), ("市場ノート", BASE + "/report"), (title_h, BASE + path)])),
     ])
@@ -479,7 +507,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
     gallery = ""
     if not figs and page_imgs:
         gallery = ('<section class="md"><div class="container rp-body"><h2 class="md-h">PDF の各ページ</h2>'
-                   + "".join(f'<figure class="rp-fig"><img src="/report/{key}/p{n}.png" alt="{NAME} {y}年{int(mo)}月号 {n}ページ" loading="lazy"></figure>'
+                   + "".join(f'<figure class="rp-fig"><img src="/report/{key}/p{n}.png"{img_dims(page_imgs[n])} alt="{NAME} {y}年{int(mo)}月号 {n}ページ" loading="lazy"></figure>'
                              for n in sorted(page_imgs)) + "</div></section>")
     nl = (f'<p>毎月の更新は、LinkedIn のニュースレター「系統用蓄電池の一次データ」でもお届けしています。'
           f'<a href="{esc(doc["newsletter"])}" rel="noopener" target="_blank">ニュースレターを購読する →</a></p>') if doc["newsletter"] else ""
@@ -537,7 +565,7 @@ def render_month_en(m, doc, figs, nav=None):
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "Report", "@id": BASE + path + "#report", "url": BASE + path,
                 "name": title_h, "description": desc, "inLanguage": "en", "datePublished": doc["issued"],
-                "dateModified": doc["issued"], "author": EN_ORG, "publisher": EN_ORG,
+                "dateModified": modified_of(path, doc["issued"]), "author": EN_ORG, "publisher": EN_PUBLISHER,
                 "encoding": {"@type": "MediaObject", "contentUrl": f"{BASE}{path}/{pdf_name}", "encodingFormat": "application/pdf"}}),
         bmd.ld(bmd.crumbs([("Home", BASE + "/en"), ("Reports", BASE + "/en/report"), (title_h, BASE + path)])),
     ])
@@ -601,7 +629,7 @@ def render_index_en(rows):
     desc = "Monthly charts of Japan's EPRX balancing, JEPX wholesale and OCCTO capacity markets, from public data and our own records. Sources cited, PDF available."
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
-                "name": title, "description": desc, "inLanguage": "en", "publisher": EN_ORG,
+                "name": title, "description": desc, "inLanguage": "en", "publisher": EN_PUBLISHER,
                 "mainEntity": {"@type": "ItemList", "itemListElement": [
                     {"@type": "ListItem", "position": i + 1, "url": f"{BASE}/en/report/{r['key']}", "name": r["title_h"]}
                     for i, r in enumerate(rows)]}}),
@@ -634,7 +662,7 @@ def render_index(rows, has_en=False):
     desc = "蓄電所の3つの稼ぎ口（需給調整市場 EPRX・卸電気 JEPX・容量市場 OCCTO）の数字を、公表データと当社の記録から毎月まとめたノート。需給調整市場の商品ごとの値段・応札倍率・約定率・蓄電池の使われ方、卸電気の価格と1kWh あたりの値差、容量市場の約定価格。毎月発行、出典つき、PDF あり。"
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
-                "name": title, "description": desc, "inLanguage": "ja", "publisher": bmd.ORG,
+                "name": title, "description": desc, "inLanguage": "ja", "publisher": PUBLISHER,
                 "mainEntity": {"@type": "ItemList", "itemListElement": [
                     {"@type": "ListItem", "position": i + 1, "url": f"{BASE}/report/{r['key']}", "name": r["title_h"]}
                     for i, r in enumerate(rows)]}}),
@@ -727,16 +755,14 @@ def put_home(rel, card):
 
 
 # ---------------------------------------------------------------- 書き出し
-def sitemap_add(text, rows, en_rows=(), touched=(), today=""):
+def sitemap_add(text, rows, en_rows=()):
     """/report と各月の行を足す。英語版（en_rows＝英語のページがある月）があれば hreflang の相互の行も（日本語の行は書き直す）。
-    lastmod は 発行日・今の sitemap の値・（touched＝この回に中身が変わった頁なら）今日 のうち新しいもの（2026-11-21 までは
-    毎回発行日に戻していた＝11/13 の直しのあとも lastmod が 11/05 のままだった）。"""
+    lastmod は 発行日と今の sitemap の値の新しいほう＝頁の JSON-LD の dateModified と同じ値（modified_of。頁を変えた日は stamp_sitemap.py が
+    sitemap と頁の両方を進めるので、焼き直しで戻さない。2026-11-22 中島「Seo 対策も徹底して やって」）。"""
     en_keys = {r["key"] for r in en_rows}
 
     def lastmod_of(path, issued):
-        mt = re.search(r"<url><loc>" + re.escape(BASE + path) + r"</loc>.*?<lastmod>([0-9-]{10})</lastmod>", text)
-        cands = [issued] + ([mt.group(1)] if mt else []) + ([today] if path in touched and today else [])
-        return max(cands)
+        return modified_of(path, issued, text)
 
     def ent(path, lastmod, pr, en_path=None, lang="ja"):
         lastmod = lastmod_of(path, lastmod)
@@ -849,24 +875,11 @@ def main():
         files["report/latest.json"] = latest_json(
             lt, docs[lt["key"]], open(lt["md"], encoding="utf-8").read(),
             docs.get(lt["key"] + ":en"), open(lt["en_md"], encoding="utf-8").read() if lt["en_md"] else "").encode("utf-8")
-        # この回に中身が変わった頁（sitemap の lastmod を今日にする）
-        touched = set()
-        for rel, data in files.items():
-            if not rel.endswith("/index.html") or not rel.startswith(("report/", "en/report/")):
-                continue
-            p = os.path.join(ROOT, rel)
-            if (open(p, "rb").read() if os.path.isfile(p) else None) != data:
-                touched.add("/" + rel[: -len("/index.html")])
         sm_path = os.path.join(ROOT, "sitemap.xml")
         sm = open(sm_path, encoding="utf-8").read()
-        today = datetime.date.today().isoformat()
-        sm2 = sitemap_add(sm, rows, en_rows, touched, today)
-        # 市場データ・エリアの頁の lastmod も号の頁と同じ決め方（発行日・今の値・中身が変わった日のうち新しいもの）
-        rd_ent = []
-        for p_, d_, pr_, alt_, lang_ in rd_sm:
-            mt = re.search(r"<url><loc>" + re.escape(BASE + p_) + r"</loc>.*?<lastmod>([0-9-]{10})</lastmod>", sm2)
-            rd_ent.append((p_, max([d_] + ([mt.group(1)] if mt else []) + ([today] if p_ in touched else [])), pr_, alt_, lang_))
-        sm2 = brd.sitemap_add(sm2, rd_ent, BASE)
+        sm2 = sitemap_add(sm, rows, en_rows)
+        # 市場データ・エリアの頁の lastmod も号の頁と同じ（最新の号の発行日＝頁の dateModified）
+        sm2 = brd.sitemap_add(sm2, list(rd_sm), BASE)
         if sm2 != sm:
             files["sitemap.xml"] = sm2.encode("utf-8")
 

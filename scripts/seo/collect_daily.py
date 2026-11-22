@@ -25,7 +25,7 @@ import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import ga4_report as _ga4_report  # noqa: E402
-from common import (BASE, GA4_PROPERTY, GA4_TOKEN, LEDGER, SC_TOKEN, UA, Google, d, daterange,  # noqa: E402
+from common import (BASE, GA4_PROPERTY, GA4_TOKEN, GSC_SITE, LEDGER, REPO, SC_TOKEN, UA, Google, d, daterange,  # noqa: E402
                     gsc_query, jdump, jload, log, path_of, today)
 
 GSC_LAG = 2          # 今日-2 までを取る
@@ -67,6 +67,23 @@ def collect_gsc(days: int) -> int:
         jdump(out, rec)
         n += 1
         log(f"GSC {day}: clicks {t['clicks']} impr {t['impressions']} 検索語×ページ {len(rec['query_page'])}行")
+    return n
+
+
+# ---------------------------------------------------------------- URL 検査（マーケット側の定点20本）
+
+INSPECT_EVERY_DAYS = 7   # 週に1回（API の枠は1日2,000本だが、索引の状態は日ごとに変わらない）
+
+
+def collect_inspect(force: bool = False) -> int:
+    """マーケット（dealroom.scix.co.jp）の定点20本の索引の状態を台帳 inspect_market/ に足す。前の検査から7日たっていなければ飛ばす。"""
+    import market_side
+    out_dir = LEDGER / "inspect_market"
+    files = sorted(out_dir.glob("????-??-??.json")) if out_dir.exists() else []
+    if files and not force and (today() - d(files[-1].stem)).days < INSPECT_EVERY_DAYS:
+        return 0
+    n = market_side.collect_inspect(Google(SC_TOKEN), str(REPO), GSC_SITE, str(out_dir), today(), log)
+    log(f"URL 検査: マーケットの定点 {n} 本")
     return n
 
 
@@ -344,6 +361,8 @@ def main() -> int:
     ap.add_argument("--no-gsc", action="store_true")
     ap.add_argument("--no-ga4", action="store_true")
     ap.add_argument("--no-health", action="store_true")
+    ap.add_argument("--inspect", action="store_true", help="マーケットの URL 検査の定点20本を今日取る（既定は前の検査から7日たったら自動）")
+    ap.add_argument("--no-inspect", action="store_true")
     ap.add_argument("--no-register", action="store_true", help="新規ページの自動記帳を飛ばす")
     ap.add_argument("--no-measure", action="store_true")
     ap.add_argument("--exclude-internal", action="store_true",
@@ -355,6 +374,11 @@ def main() -> int:
             collect_gsc(a.days)
         except Exception as e:  # noqa: BLE001
             log(f"GSC 収集で失敗: {e}"); rc = 1
+    if not a.no_gsc and not a.no_inspect:
+        try:
+            collect_inspect(force=a.inspect)
+        except Exception as e:  # noqa: BLE001
+            log(f"URL 検査で失敗: {e}"); rc = 1
     if not a.no_ga4:
         try:
             collect_ga4(a.days, a.exclude_internal)

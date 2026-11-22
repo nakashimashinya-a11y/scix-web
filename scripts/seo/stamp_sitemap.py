@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """変更した HTML の sitemap <lastmod> を今日にする（変更したページだけ。全体を触らない）。
 
+頁に dateModified（JSON-LD）があれば、同じ日を頁の dateModified と article:modified_time にも書く
+＝ sitemap の lastmod と頁の dateModified をいつも同じ値に保つ（2026-11-22 中島「Seo 対策も徹底してやって」）。
+
     python3 scripts/seo/stamp_sitemap.py column-x.html en/column-x.html
 """
 import datetime
@@ -10,6 +13,18 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import file_to_url  # noqa: E402
+
+
+def bump_date_modified(path: str, today: str) -> None:
+    """頁に dateModified があれば今日にする（無い頁には足さない）。"""
+    try:
+        html = open(path, encoding="utf-8").read()
+    except OSError:
+        return
+    new = re.sub(r'("dateModified"\s*:\s*")\d{4}-\d\d-\d\d(")', lambda m: m.group(1) + today + m.group(2), html)
+    new = re.sub(r'(<meta property="article:modified_time" content=")[^"]*(")', lambda m: m.group(1) + today + m.group(2), new)
+    if new != html:
+        open(path, "w", encoding="utf-8").write(new)
 
 
 def main() -> int:
@@ -23,6 +38,7 @@ def main() -> int:
         url = file_to_url(f)
         if not url:
             continue
+        bump_date_modified(f, today)
         pat = re.compile(r"(<loc>" + re.escape(url) + r"</loc>.*?<lastmod>)([^<]+)(</lastmod>)", re.S)
         text, k = pat.subn(lambda m: m.group(1) + today + m.group(3), text, count=1)
         if k:

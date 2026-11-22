@@ -632,6 +632,13 @@ def render(days=28, for_latest=False, structure=False):
     except Exception as e:  # noqa: BLE001 — ここが落ちてもブリーフの他の節は出す
         L.append(f"## 11. アクセスが減ったページ\n\n生成に失敗: {e}\n")
 
+    # 12. マーケット側の検索（dealroom.scix.co.jp）・語の定点25語・URL 検査の定点20本（2026-11-22）
+    try:
+        import market_side
+        market_side.render(L, cur, w7, w7p, q, pq, LEDGER, str(REPO), fnum, pct)
+    except Exception as e:  # noqa: BLE001 — ここが落ちてもブリーフの他の節は出す
+        L.append(f"## 12. マーケット側の検索\n\n生成に失敗: {e}\n")
+
     # S1〜S8. 構成レビュー（月1回・--structure のときだけ）
     if structure:
         try:
