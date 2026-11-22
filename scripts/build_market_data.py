@@ -216,7 +216,7 @@ def weekly_section_ja(rows, generated):
     return f"""<section class="md"><div class="container">
   <div class="section-label">週ごとの推移</div>
   <h2 class="md-h">販売中の件数と規模の、週ごとの推移</h2>
-  <p class="md-lead">毎週の終わり（日曜）に、買い手に見えていた案件の件数と合計出力です。直近{len(rows)}週を、月曜はじまりの週で並べています。今週は{_esc(generated)}時点の途中の数です。案件が載ると増え、売却済みなどで外れると減ります。</p>
+  <p class="md-lead">毎週の終わり（日曜）に、買い手に見えていた案件の件数と合計出力です。直近{len(rows)}週を、月曜はじまりの週で並べています。今週は{_esc(generated)}時点の途中の数です。案件が載ると増え、一覧から外れると減ります。</p>
   <div class="md-grid">
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">件数（高圧・特別高圧）</h3>{weekly_svg(rows, "hv", "ehv", "高圧", "特別高圧", "販売中の件数の週ごとの推移（高圧・特別高圧）", "件")}</div>
     <div><h3 style="font-size:.95rem;color:var(--navy);margin-bottom:6px">合計出力（MW）</h3>{weekly_svg([dict(r, a=r["mw"], b=0) for r in rows], "a", "b", "合計MW", "", "販売中の合計出力（MW）の週ごとの推移", "MW")}</div>
