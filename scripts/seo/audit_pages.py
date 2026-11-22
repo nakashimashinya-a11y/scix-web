@@ -27,6 +27,12 @@
   市場データ 表に caption・th scope・time が無い・「いちばん新しい行の1文」の数字が表に無い・月報の img に width・height が無い
   対の頁     英語・中国語のコラムに「あわせて読む」・用語集へのリンクが無い（日本語の対にあるものだけ）
   GA の区画  全 html（404・thanks も）の gtag の区画が scripts/build_ga_tag.py の形でない・無い・2個ある（2026-11-22 指示4＝計測のノイズ）
+  コラムの区画（2026-11-22 中島「これ全部やって。…すべて漏らさずやって。」＝Gemini の助言の指示2・3・指令5）:
+             途中の導線（最初の h2 の前の scix-mid-cta か、日本語の立場別の導線の data-cta="mid"）が無い（土地の持ち主向けの4本は除く）・
+             末尾の導線（著者の箱より後ろのマーケット・問い合わせ・売却査定へのリンク）が無い・
+             scripts/data の要点・よくある質問のデータがある頁に、その区画が無い・
+             Article の author が /company の Person（@id）の参照でない・著者の欄の氏名に会社案内へのリンクが無い
+             （注意＝--strict に数えない: 要点の枠が無いコラム・画面に「よくある質問」が無いコラム。上位31本の後の回で埋める）
 「注意」（title・description の長さ）は --strict の判定に数えない（全頁の見直しが済むまでの目安）。
 
 使い方:
@@ -55,7 +61,43 @@ DESC_MIN = 70      # 全角35字
 DESC_MAX = 250     # 全角125字
 SKIP_DIRS = {".git", "node_modules", "files", "docs", "scripts", ".github", "img", "api"}
 SKIP_FILES = {"404.html", "thanks.html", "en/thanks.html", "zh-thanks.html"}
-ADVISORY = {"title 長すぎ", "description 長すぎ", "description 短すぎ"}
+ADVISORY = {"title 長すぎ", "description 長すぎ", "description 短すぎ", "コラムに要点の枠（3行で言うと）が無い", "コラムの画面に「よくある質問」が無い"}
+PERSON_ID = "https://www.scix.co.jp/company#shinya-nakashima"
+LAND_SLUGS = {"land-buyback", "land-lease", "land-value", "land-zoning"}
+FAQ_H2 = re.compile(r"<h2[^>]*>[^<]*(?:よくある質問|FAQ|Frequently [Aa]sked|常见问题)[^<]*</h2>")
+
+
+def _data(name):
+    try:
+        return json.load(open(os.path.join(ROOT, "scripts", "data", name), encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def column_block_issues(rel, raw):
+    """コラムの本文の外の区画（要点の枠・よくある質問・途中と末尾の導線・著者）の有無。"""
+    out = []
+    slug = re.sub(r"^(?:en/column-|zh-column-|column-)", "", rel)[:-5]
+    if 'class="sum3"' not in raw:
+        out.append(("コラムに要点の枠（3行で言うと）が無い", ""))
+    if not FAQ_H2.search(raw):
+        out.append(("コラムの画面に「よくある質問」が無い", ""))
+    if rel in _data("column_summary.json") and "data-scix-summary" not in raw:
+        out.append(("要点のデータがある頁に要点の枠が無い（add_column_summary.py）", ""))
+    if rel in _data("column_faq.json") and "<!-- scix-faq:begin -->" not in raw:
+        out.append(("よくある質問のデータがある頁に問いが無い（add_column_faq.py）", ""))
+    if slug not in LAND_SLUGS and 'data-cta="mid"' not in raw:
+        out.append(("コラムに途中の導線が無い（add_column_mid_cta.py）", ""))
+    i = raw.find('class="author-box"')
+    tail = raw[i:] if i >= 0 else ""
+    f = re.search(r"<!-- ScienceX Footer|<style>\s*\.scix-footer|<footer", tail)
+    tail = tail[: f.start()] if f else tail
+    if not re.search(r'href="[^"]*(?:dealroom\.scix\.co\.jp|contact|sell-form)[^"]*"', tail):
+        out.append(("コラムに末尾の導線が無い（add_column_entrances.py）", ""))
+    want = "/en/company" if rel.startswith("en/") else ("/zh-company" if rel.startswith("zh-") else "/company")
+    if i >= 0 and f'class="ab-name"><a href="{want}"' not in raw:
+        out.append((f"著者の欄の氏名に、その言葉の会社案内（{want}）へのリンクが無い（fix_column_author.py）", ""))
+    return out
 
 
 def width(s: str) -> int:
@@ -304,7 +346,8 @@ def main():
         for o in ld_objects(h.ld):
             t = o.get("@type")
             if t == "FAQPage":
-                body = norm_text(re.sub(r"<script.*?</script>", "", raw, flags=re.S))
+                # 画面の本文だけで見る（head の title・h1 と同じ字の問いを「出ている」と数えない）
+                body = norm_text(re.sub(r"<head\b.*?</head>|<script.*?</script>|<h1\b.*?</h1>", "", raw, flags=re.S))
                 for q in o.get("mainEntity", []):
                     if norm_text(q.get("name", "")) not in body:
                         issues["FAQPage の問いが本文に無い"].append((rel, q.get("name", "")[:50]))
@@ -316,6 +359,8 @@ def main():
                     issues["Article の publisher に @id 無し"].append((rel, ""))
                 if "inLanguage" not in o:
                     issues["Article に inLanguage 無し"].append((rel, ""))
+                if is_column(rel) and isinstance(a, dict) and (a.get("@id") != PERSON_ID or set(a) != {"@type", "@id", "name", "url"}):
+                    issues["コラムの Article の author が /company の Person の参照でない（fix_column_author.py）"].append((rel, ""))
             if t == "BreadcrumbList":
                 for it in o.get("itemListElement", []):
                     if "#" in str(it.get("item", "")):
@@ -355,6 +400,9 @@ def main():
                     issues["英語・中国語のコラムに「あわせて読む」無し"].append((rel, ""))
                 if "data-scix-guide" in ja_raw and not re.search(r"<aside data-scix-guide.*?glossary", raw, re.S):
                     issues["英語・中国語のコラムに用語集へのリンク無し"].append((rel, ""))
+        if is_column(rel):
+            for k, d in column_block_issues(rel, raw):
+                issues[k].append((rel, d))
         in_sm = me in sm_locs or me.rstrip("/") in sm_locs
         if noindex and in_sm:
             issues["noindex なのに sitemap にある"].append((rel, ""))

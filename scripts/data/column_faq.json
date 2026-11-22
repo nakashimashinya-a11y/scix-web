@@ -1,0 +1,1153 @@
+{
+ "column-aggregator-fee.html": [
+  {
+   "a": "系統用蓄電池の充放電を最適化し、需給調整市場（EPRX）や卸電力市場（JEPX）で取引する事業者です。需給調整市場ではアグリゲーターが取引主体になり、手数料・インバランスペナルティ・EPRX取引手数料を控除してからオーナーへ送金します。需給調整市場に参加するには、電気事業法に基づく「特定卸供給事業者」の登録が必要です。",
+   "q": "アグリゲーターとは何ですか？ 系統用蓄電池では何をしますか？"
+  },
+  {
+   "a": "グロスは、充電コストやペナルティを差し引く前の、市場で得た収入の総額です。ネット（市場利益）は、総売上から充電コスト・託送料・インバランスペナルティ等を差し引いた後の利益です。同じ「5%」でも、計算ベースが違えば手数料の実額は倍近く変わります。「売上の5%」と言われたら、その売上に容量市場収入が含まれるか、充電コストは控除前か控除後かを確かめます。",
+   "q": "アグリゲーター手数料の「グロス」と「ネット」は、何が違いますか？"
+  },
+  {
+   "a": "手数料の計算ベース（市場利益か総売上か）とその定義を契約書に書いてもらい、手数料が需給調整市場の収入だけにかかるのか、JEPXの裁定益や容量市場の収入にもかかるのかを確かめます。アグリゲーター側のシステム障害・指令ミスによるインバランスペナルティを誰が負うか、契約期間と解約条件（ロックインの年数）も確かめます。あわせて、過去12ヶ月の運用実績（MW単位の収益額・約定率・稼働率）を開示できるかを確かめます。",
+   "q": "アグリゲーター委託契約（運用委託契約）の前に、何を確かめればよいですか？"
+  }
+ ],
+ "column-area-data.html": [
+  {
+   "a": "電力需給調整力取引所（EPRX）が、取引実績として公開しています。本記事はそのうちTSO別（各エリアの送配電事業者が実際に調達した量）のデータを使い、2026年4〜6月は速報値、2025年度は確報値です。エリアをまたぐ広域融通があるため、「電源属地別」と「TSO別」では数値が異なります。",
+   "q": "需給調整市場の取引実績・約定結果はどこで見られますか？"
+  },
+  {
+   "a": "2026年4〜6月の平均落札単価は、一次オフラインが約12円/ΔkW・30分、一次オンラインが約5円でした。上限価格は2026年3月14日実需給分から19.51円が15円に下がり、2026年9月1日実需給分からは一次調整力（一次オフライン枠を含む）・二次調整力①・複合商品が10円になっています（二次調整力②・三次調整力①は7.21円のまま。EPRX「ΔkW上限価格について」2026年7月30日で確認）。",
+   "q": "需給調整市場の単価（約定価格）はいくらですか？上限価格は？"
+  },
+  {
+   "a": "EPRX取引規程により、一次オフラインに参入できる蓄電池は、設備容量1MW以上10MW未満（電圧階級が特別高圧または高圧）か、1MW未満の蓄電池をアグリゲートする場合に限られます。10MW以上の蓄電池は一次オフラインに入れず、一次調整力に参加するにはオンライン接続が必須です。この区分は事業者が自由に選べるものではありません。",
+   "q": "一次調整力のオフラインには、どの蓄電池が参加できますか？"
+  }
+ ],
+ "column-balancing-market.html": [
+  {
+   "a": "一次調整力、二次調整力①、二次調整力②、三次調整力①、三次調整力②の5商品です。商品の違いは「どれだけ速く反応できるか」と「どれだけ長く持続するか」で決まります。商品ごとの要件（商品要件）のうち応動時間は、一次調整力が10秒以内（オフラインは30秒以内）、二次調整力①②が5分以内、三次調整力①が15分以内、三次調整力②が60分以内です。継続時間は2026年度の仕様で、一次調整力（オンライン）が5分以上、二次調整力①から三次調整力②までが30分です。",
+   "q": "需給調整市場の商品一覧は？"
+  },
+  {
+   "a": "一次調整力・二次調整力①②・三次調整力①の4商品をまとめた入札方式（複合約定ロジック）で、独立した商品区分ではありません。1つの入札で複数の商品に同時にエントリーでき、約定は安い順に積み上げられ、最も高速な一次調整力から順に充足されます。三次調整力②は前日商品として独立した市場で取引され、複合商品の対象には含まれません。",
+   "q": "需給調整市場の複合商品とは？"
+  },
+  {
+   "a": "一次調整力とは、周波数の瞬時の変動を最初に吸収する商品で、応動（周波数の変動を検知して出力を調整する動き）は10秒以内、継続は5分以上が求められます（オフラインの応動は30秒以内）。蓄電池はインバータの自動応答でこれを担い、5商品の中で適性が最も高い商品です。専用線でつなぐオンラインと、専用線なしで動いた記録をあとから出すオフラインの2つの参加方式があり、設備容量10MW以上の蓄電池はオンライン接続が必須です（EPRX取引規程）。2025年度の一次調整力市場では、オフライン枠の落札量の97.8%を蓄電池が占めました。",
+   "q": "一次調整力とは？応動とは？"
+  }
+ ],
+ "column-balancing-saturation-volume.html": [
+  {
+   "a": "一次調整力の必要量は、日々の需要のぶれに備える平常時分と、管区でいちばん大きな発電所が1台止まったときに備える異常時分の足し算です（二次①も同じ考え方）。その必要量から、揚水発電の随意契約や容量市場の落札電源との余力活用契約など市場の外で確保する分を差し引いたものが、市場の募集量です。2026年度を2025年度で割ると、一次調整力は必要量0.55に対し募集量0.62で、「必要量」と「募集量」は別の数字です。",
+   "q": "需給調整市場の募集量とは？必要量との違いは？"
+  },
+  {
+   "a": "なっていません。1σは、正規分布で見ると平均より上に振れるぶれの84%を覆う量（3σは99.9%）です。ただ、幅を狭めても、σに関係しない異常時分（いちばん大きな発電所の備え）が残ります。EPRXの公表値から当社が割ると、一次調整力の必要量は0.55、募集量は0.62、複合商品は0.97で、3分の1になった商品×管区は一つもありません。全国の募集量で半分以下になったのは、蓄電池の落札が98〜100%を占める一次オフライン枠（0.45）だけです。",
+   "q": "1σ化で募集量は3分の1になった？"
+  },
+  {
+   "a": "一次・二次①・複合商品の上限価格は19.51円から15円/ΔkW・30分（2026年3月14日受渡分から）、9月1日実需給分から10円に下がりました。次の段階として7.21円が示されていますが、時期は未定です（条件付き）。発動条件は「市場における競争状況に改善が見られない場合」で、第110回制度検討作業部会の資料4は、前日取引開始後1か月、2か月、3か月、6か月などの実績で、募集量に対する応札量や応札価格の分布を見て判定するとしています。同じ資料には、十分な競争が確かめられれば募集量を増やす条項もあります。",
+   "q": "需給調整市場の上限価格はいくら？次の7.21円はいつ？"
+  }
+ ],
+ "column-bess-insurance.html": [
+  {
+   "a": "そのままでは使えません。太陽光で主流の動産総合保険は、出力500kW以上の発電所を対象外と各社の約款で定めていて、系統用蓄電所の本体は基本的に動産総合保険では受けられません。財物保険（企業財産包括）と機械保険に振り替え、BI・PL・サイバー・盗難を加えた6層で組み、蓄電池の実績がある代理店・ブローカーから見積を取ります。",
+   "q": "系統用蓄電池の保険は、太陽光の保険をそのまま使えますか？"
+  },
+  {
+   "a": "事故の時点で同じ設備を買い直すのに要る金額、つまり再調達価額で決めます。時価だと、電池の値下がりとSOHの劣化が二重に控除される可能性があり、受け取る保険金が新品で復旧する額を大きく下回るおそれがあります。保険金額が再調達価額を下回ると比例てん補で保険金が減るので、全額で付保するのが基本です。電力会社に払う工事費負担金は電力会社の設備になるため、原則として財物保険の対象外で、保険金額の算定から外します。",
+   "q": "蓄電池の火災保険（財物保険）の保険金額は、どう決めますか？"
+  },
+  {
+   "a": "カバーしたい事故の大きさで決めます。部分損だけなら90〜120日、中程度の損害までなら180日、全損まで想定するなら240〜365日が目安で、90日・180日・365日の3つの見積を取って保険料と補償額を比べるのが実務的です。免責期間は長いほど保険料が下がりますが、その間の逸失収益は自己負担になり、14日がBESSのグローバル標準です。",
+   "q": "BI保険（事業中断保険）の補償日数と免責期間は、どう決めますか？"
+  }
+ ],
+ "column-capacity-market.html": [
+  {
+   "a": "単価には需要曲線で決まる上限があり、第5回（2028年度実需給分）では北海道・東北・東京の約定単価14,812円/kWがその上限価格に張り付きました。九州は上限の89%、中部は69%、北陸・関西・中国・四国は59%でした。第6回（2029年度実需給分）では、第1回を除くと初めて、全エリアのエリアプライスが指標価格（10,075円/kW）を上回りました。",
+   "q": "容量市場の上限価格と指標価格は、いくらでしたか？"
+  },
+  {
+   "a": "容量市場（OCCTO運営）が買うのは、指定された年度に必要な発電・放電能力が存在していることで、電源は実際に動いたかどうかにかかわらず対価を受け取ります。需給調整市場（EPRX運営）は、出力を上下できる状態で待つ調整力（ΔkW）を取引する市場で、JEPXは電力量（kWh）そのものを売買します。蓄電池は3つの市場を重ねて（スタッキング）収益を組み立てます。",
+   "q": "容量市場とは何を買う市場で、需給調整市場とどう違いますか？"
+  }
+ ],
+ "column-construction-cost.html": [
+  {
+   "a": "経済産業省の定置用蓄電システム普及拡大検討会の資料では、補助事業案件の2024年度平均で6.8万円/kWh（システム5.4万円＋工事1.4万円、税等除く）です。50MWh超の大規模案件ではシステム価格が4.9万円/kWhに下がり、工事を足すと6.3万円/kWhになります。補助金事業以外で海外製の蓄電システムを採用する案件では、2〜4万円/kWhのコスト水準もみられると書かれています。",
+   "q": "系統用蓄電池の価格・コストは、1kWhあたりいくらですか？"
+  },
+  {
+   "a": "6.8万円/kWhは、設備に据付工事の費用を足した（工事費込みの）数字で、系統連系の工事費負担金と、土地の取得・造成は含みません。工事費負担金は案件ごとに接続検討回答書で確定し、標準単価という概念がありません。見積書の合計額にも、工事費負担金は入っていないのが通常です。運用中に毎年出ていく維持管理（O&M）費にも、公的に確立した標準単価はまだありません。",
+   "q": "系統用蓄電池の建設費に含まれていない費用は何ですか？"
+  }
+ ],
+ "column-contract-flow.html": [
+  {
+   "a": "同じ蓄電池が、充電するときは需要家、放電するときは発電者の扱いになるため、契約が二本要ります。充電側が接続供給契約（託送供給で受電地点に電気を届ける契約）、放電側が発電量調整供給契約（発調契約。発電者から逆潮流分を受電し、発電量を調整する契約）です。発電量調整供給契約だけを申し込み、充電側の接続供給契約が漏れたため、本申請の段で1〜2か月の手戻りになった例があります。",
+   "q": "発電量調整供給契約と接続供給契約の違いは？"
+  },
+  {
+   "a": "どちらも属地TSO（その地域の一般送配電事業者）への直接の申込みが標準です。接続供給兼基本契約申込書は、小売電気事業者または小売ライセンスを取った蓄電池事業者が、需要者（蓄電所オーナー）の承諾書を添えて出します。発電量調整供給兼基本契約申込書は発電契約者（オーナーまたはアグリゲーター）が出し、保証金が要ります。",
+   "q": "接続供給兼基本契約申込書と発電量調整供給兼基本契約申込書は、誰が、どこへ出しますか"
+  },
+  {
+   "a": "買主側のDDでは、契約申込みの状態が「未申込」「申込済」「承諾済」のどれかを確かめます。承諾の通知（連系申込書本回答＝供給承諾通知）は、売主から取り揃える13点の9番目です。あわせて、接続検討回答書の発行日と残りの有効期間（1年）、契約申込みの受領日が2026年4月1日の前か後か（保証金10%・分割払い初回50%以上の境目）を確かめます。",
+   "q": "契約申込みが「申込済」で承諾がまだのとき（託送供給の承諾待ち）、何を確かめればよいですか"
+  }
+ ],
+ "column-contracts.html": [
+  {
+   "a": "託送供給等約款 附則4の「揚水発電設備等が設置された需要場所に接続供給を行なう場合の特別措置」のことで、系統用蓄電池は2024年4月1日から正式に対象になりました。充電した電気の本体は託送料金の課金対象から外れ、損失相当分と自家消費分だけが残ります。「蓄電池特措」は経産省・電ガ小委の公式略称、「揚水特措」は業界の通称です。",
+   "q": "蓄電池特措（揚水特措）とは"
+  },
+  {
+   "a": "関西電力送配電が、逆潮流を伴う場合に別途提出を求める書類です。揚水特措は事前に申し出る制度で、入口は接続検討申込書 様式1(9)の特記事項欄です。「蓄電池特別措置適用の有無（予定）：有り」と書くのが、全TSO共通の出発点になります。",
+   "q": "揚水発電設備および蓄電池の特別措置に関する確認書とは。どこで申し出ますか"
+  },
+  {
+   "a": "TSOと結ぶ余力活用契約の運用の分け方です。OCCTO第105回調整力委員会資料2（2025年1月28日）が、ストレージ式運用と非ストレージ式運用の二つに分けて示しました。本稿の整理では、ストレージ式運用の対象は、①LDA落札の蓄電池、②容量市場メインオークション落札の蓄電池（安定電源）、③それ以外の蓄電池の3つです。いずれも10MW以上・専用線オンラインで、③は個別協議で対象にできます。",
+   "q": "蓄電池のストレージ式運用とは"
+  }
+ ],
+ "column-day-ahead.html": [
+  {
+   "a": "需給調整市場は2024年4月に全商品の取引が始まり、2026年3月12日までは、一次・二次①②・三次①を1週間分まとめて入札・約定する週間商品として取引していました。2026年3月13日の取引分から、前日14時に翌日分を入札する前日取引へ移りました。三次②はもともと前日商品として独立して取引されています。",
+   "q": "需給調整市場はいつから全商品の取引が始まり、前日取引はいつからですか？"
+  },
+  {
+   "a": "この頁の「③ 制度の方向性を織り込む」の段は、出典をEPRXの取引実績（確報値・2025年4月〜2026年2月）としています。エリア別・商品別の約定価格は「需給調整市場の取引実績 ── 9エリア×5商品の約定価格」に、商品別の単価レンジや充足率の実数は「需給調整市場の5商品」にまとめています。市場の数字は「蓄電所の市場データ」と「蓄電所の市場ノート」に載せています。",
+   "link": "/column-area-data",
+   "q": "需給調整市場の取引実績（約定結果・価格の推移）はどこで見られますか？"
+  }
+ ],
+ "column-development.html": [
+  {
+   "a": "グリーンフィールドの場合、適地スクリーニング1〜3ヶ月、用地確保・住民説明・行政確認3〜12ヶ月、系統接続検討・契約6〜18ヶ月、設計・調達（EPC選定）3〜6ヶ月、建設工事・系統連系12〜48ヶ月が目安です。フェーズ2と3は並行して進めることが多く、全工程で最短2年、通常3〜5年程度かかります。建設工事・系統連系の期間は、系統側の工事の規模で変わります。",
+   "q": "蓄電所の開発・建設には何年かかりますか？"
+  },
+  {
+   "a": "蓄電池は放電（逆潮流）と充電（順潮流）の両方で系統に影響するため、双方向の空き容量が要ります。PCSの運転音は45〜60dB、冷却システムは50〜65dBに達し、住居系用途地域の夜間基準は45dB以下なので、近隣住民への説明と同意が事実上必須です。収益は市場価格次第（LDAに落札すると一部が固定化）で、発電側課金はkW課金のみです。",
+   "q": "系統用蓄電池の開発は、太陽光発電と何が違いますか？"
+  },
+  {
+   "a": "EPC（設計・調達・建設）の選定はフェーズ4で、系統側の工事と並行して蓄電池・PCS・特高変圧器を選びます。期間は3〜6ヶ月が目安です。接続検討は容量（kW）・接続地点・系統影響を評価するため、回答後に蓄電池メーカーを変えることは実務上可能ですが、申込時の仕様から大幅に変更する場合は再検討が必要になることがあり、追加の時間と費用がかかる場合があります。",
+   "q": "系統用蓄電池のEPCはいつ選び、蓄電池メーカーは後から変えられますか？"
+  }
+ ],
+ "column-eprx.html": [
+  {
+   "a": "EPRXは取引実績を公表しており、どの商品が・どのエリアで・いくらで約定したかを確認できます。EPRXの公式サイト（eprx.or.jp）では「取引情報」の「取引実績」で見られます。エリア別・商品別の最新の数字は、当社のコラム「需給調整市場の約定実績データ」（9エリア×5商品）に整理しています。",
+   "link": "/column-area-data",
+   "q": "需給調整市場（EPRX）の取引実績はどこで見られる？"
+  },
+  {
+   "a": "需給調整市場（EPRX）は、出力を上下できる状態で待つ調整力（ΔkW）を取引し、待つことへの対価が支払われます。JEPX（卸電力市場）は電力量（kWh）を売買する場で、容量市場（OCCTO運営）は将来の供給力（kW）を確保する市場で、固定的な容量収入になります。蓄電池の事業性は、この3つの市場をどう組み合わせる（スタッキングする）かで決まります。",
+   "q": "需給調整市場と容量市場・JEPXの違いは？"
+  }
+ ],
+ "column-equipment.html": [
+  {
+   "a": "接続検討の回答を受けた後に、蓄電池やPCS、付帯設備を変える場合に、あらためて接続検討が必要かどうかを連系先の一般送配電事業者に確かめる手続きです。OCCTO（電力広域的運営推進機関）が定めた正式な手続きで、高圧用と特別高圧用の依頼書の様式（接続検討要否確認依頼書）が公開されています。検討料はかからず、回答は原則1か月で、「再検討不要」か「再検討が必要」のどちらかで返ります。",
+   "q": "接続検討の要否確認（要否確認）とは何ですか"
+  },
+  {
+   "a": "多くのケースで変えられます。回答書に書かれた設備の仕様は検討時の前提条件で、その設備を使う義務はありません。回答書が確定させるのは、接続点・連系電圧・工事負担金の概算額・系統側の増強工事という系統側の条件で、これを変えない範囲なら事業者側の設備は変更できます。系統への影響がはっきりしないメーカー変更やPCSの仕様変更は、要否確認で確かめます。",
+   "q": "接続検討回答書の蓄電池・PCSは、別のメーカーに変えられますか"
+  },
+  {
+   "a": "典型は、発電出力の増加（50MWを60MWにするなど）、別の変電所への接続点の変更、66kVから154kVへのような連系電圧の変更、系統に与える電気的特性が大きく変わる場合です。再度の接続検討は2〜3か月・約20万円かかります。東北電力ネットワークは仕様の変更があれば原則として再検討が必要としていますが、「原則として」なので、要否確認で「不要」と判断される余地は十分にあります。",
+   "q": "要否確認で「再検討が必要」となるのは、どんなときですか"
+  }
+ ],
+ "column-financing.html": [
+  {
+   "a": "デットサイジングとは、借入（デット）の額を収益の見込みに照らして決めることです。再エネのプロジェクトファイナンスの標準実務では、レンダーは保守的なP90シナリオ（超過確率90%の収益水準）でデットサイジングし、DSCR（元利金返済カバー率）で概ね1.2〜1.35倍程度を求めます。蓄電所は収益の大半が市場次第のマーチャント収益で、豪州の蓄電池向けレンダーは一過性の高収益イベントを債務サイジングに織り込まないと明言しています。収益のうち契約で固定された割合（固定収入比率）が高いほど、テナーとレバレッジの上限が上がります。",
+   "q": "デットサイジングとは？ 蓄電所ではどう決まりますか？"
+  },
+  {
+   "a": "フルエクイティは、借入れを使わず自己資金だけで買うことで、蓄電所の売買市場では多くの買い手がこの形で決済しています。筆者の現場観察では、売主は1ヶ月前後での決済を求めることが少なくなく、コーポレートローンでも1.5〜2ヶ月、プロジェクトファイナンスなら半年から1年かかるため、即断できる現金が勝ちます（審査期間の公表統計は確認できていません）。融資が付かないというより、間に合わないのです。そこに、中古の設備を売っても貸付金を回収できる見込みが立たない担保の事情と、運転実績の浅い変動収益が重なります。代わりに1基買えば資金が寝るので、稼働後にデットやリースで資金を回収して次の案件に回す「入口は現金、出口はリファイナンス」の設計が出てきています。",
+   "q": "フルエクイティとは？ なぜ蓄電所は現金で買われるのですか？"
+  },
+  {
+   "a": "付く案件があります。福島県西郷村の40MW/200MWhには長期脱炭素電源オークション（LDA）の20年の固定収入を土台に契約金額62億円・20年のシンジケートローンが付き、収益契約のないフルマーチャントの99MWにも市場収益だけを返済原資とするプロジェクトファイナンスが付きました（金額・テナーは非開示か控えめで、固定収入の厚さがデットの厚さを決めます）。高圧2MW/8MWhの1サイト単体は、デューデリジェンスや契約書作成の固定費が重くPFには構造的に不利ですが、全国14か所の高圧施設を束ねた貸付限度額49億円のノンリコース融資の例があります。",
+   "q": "系統用蓄電池（蓄電所）に融資やプロジェクトファイナンスは付きますか？"
+  }
+ ],
+ "column-four-labels.html": [
+  {
+   "a": "電気事業法が蓄電所の放電を発電事業の届出の対象にするのは、出力1,000kW以上で、かつ小売電気事業者などへ供給するための接続最大電力の合計が1万kW（10MW）を超える場合です（実際の該当には、発電した電力の多くを小売電気事業者等へ供給する要件も要り、本稿は目安として規模で示しています）。工事計画の届出・使用前自主検査・安全管理審査は、出力1万kW以上または容量8万kWh以上に限られます。約2MW／8MWhはどちらにも当たらず、最低限要るのは技術基準への適合維持、電気主任技術者の選任、保安規程の作成・届出の3つです。",
+   "q": "系統用蓄電池（蓄電所）は電気事業法の発電事業者に当たりますか"
+  },
+  {
+   "a": "本稿（2026年6月時点）の整理では、地方税法は電気事業法の届出の有無を問わず、現に電気を売っていれば「電気供給業」として扱い、法人事業税は所得でなく収入金額にかかります。標準税率は収入金額の0.75％で、特別法人事業税が上乗せされ、負担は実効で売電収入のおよそ1.05％です。赤字でも売電収入がある限りかかり、建設中で売電を始めていない段階は通常どおり所得への課税です。需給調整市場のΔkWが収入金額に入るかは名指しの公的見解が見当たらず、本店所在地の県税事務所への事前照会で確かめます。",
+   "q": "系統用蓄電池の法人事業税（収入割）とは"
+  },
+  {
+   "a": "系統用蓄電池の法定耐用年数は、現状17年（電気業用設備）です。蓄電池を収める筐体の支柱などが金属製のため、国税庁が「主として金属製のもの」とみなしているからで、「その他のもの」と整理されれば8年になります。業界団体は短縮や選択制を要望していますが、2026年6月時点で実現していません。",
+   "q": "系統用蓄電池の耐用年数は何年ですか（国税庁の扱い）"
+  }
+ ],
+ "column-grid-rules.html": [
+  {
+   "a": "事業化の見込みが低いまま系統の枠だけを押さえる申込みのことです。防災公園、他人の建物がある土地、地目上明らかに転用できない場所などで申し込まれ、本気で事業化を進める事業者の接続検討が渋滞する原因になりました。2025年3月末時点で接続検討申込みの累計は約1.1億kWだったのに対し、連系まで済んだ系統用蓄電池は約23万kWでした。",
+   "q": "系統用蓄電池の「空押さえ」とは"
+  },
+  {
+   "a": "2026年1月5日以降の申込みから、事業用地の調査結果の提出が要件になりました。設置場所の登記簿等の確認結果（地番・地目・面積）、土地所有者名、地権者との対応状況（交渉中・同意取得済み等）です。この段階では使用権原の取得までは求められません。非FIT/非FIPの系統用蓄電池などは、使用権原を連系承諾から2ヶ月以内に書類で示します。",
+   "q": "系統用蓄電池の接続検討申込で、2026年から何が必要ですか"
+  },
+  {
+   "a": "接続検討の申込時に、事業者が「上位系統増強の受容性の有無」と「工事費負担金の上限額」を示す仕組みです。検討の途中でその条件を超えると分かった段階で、速やかに「否」と回答されます。配電系統に連系する高圧の発電等設備から2026年4月に始まりました。特別高圧の導入時期は、本文を書いた2026年4月時点では未定です。",
+   "q": "「工事費負担金の上限額」の事前提示とは"
+  }
+ ],
+ "column-grid.html": [
+  {
+   "a": "工事費負担金は、事業者専用の電源線の敷設などを全額事業者が負う「特定負担」と、エリア全体の基幹系統の増強を託送料金で回収する「一般負担」に分かれます。最寄りの送電鉄塔や変電所から遠いと数kmの専用線が要り、費用が桁違いに膨らみます。増強の要らない空き容量のある系統に接続できるかどうかで、工事費負担金は数億円から数十億円まで変わります。",
+   "q": "工事費負担金の一般負担と特定負担とは"
+  },
+  {
+   "a": "一般送配電事業者への事前相談は無料で、接続検討の申込みは1件あたり約20万円です。回答書は原則、500kW未満で2ヶ月、それ以上で3ヶ月で届き、申込みが集中すると長くなります。回答書には連系の可否、必要な工事の概要、概算工期、工事費負担金が書かれ、有効期限は1年間です。",
+   "q": "接続検討の費用と、回答が出るまでの期間は"
+  },
+  {
+   "a": "蓄電池は充電と放電の両方向で系統に影響するからです。充電時の順潮流は電圧の低下を、放電時の逆潮流は電圧の上昇を起こし、逆潮流だけの太陽光と違って双方向の空き容量が要ります。北海道エリアでは順潮流側の空き容量不足が深刻になり、「N-1充電停止装置」の設置や「早期連系追加対策」（2025年4月開始）が導入されています。",
+   "q": "蓄電池の系統接続が太陽光より難しいのはなぜですか"
+  }
+ ],
+ "column-jcstar.html": [
+  {
+   "a": "IPA（情報処理推進機構）が「JC-STAR適合ラベル取得製品リスト」として公開していて、Excel形式でもダウンロードできます。2026年11月12日更新で395件、すべて★1でした。このうち太陽光・蓄電池まわりは当社の数えで189件で、登録番号・取得日・満了日つきの一覧は COLUMN 52-2 に置いています。調達の前には、使う機器が一覧に載っていて、ステータスが「有効」かを確かめます。",
+   "q": "JC-STAR（JCSTAR）の取得製品の一覧（リスト）はどこで見られますか？"
+  },
+  {
+   "a": "2026年11月12日版のIPAの取得製品リストに、HuaweiやSungrowなど中国の大手16社の自社名義の登録はありません。日経（2026年7月1日）は、中国側の「申請が却下されている」という主張と、個別の判断を明かさない経産省の姿勢を伝えていますが、理由は外からは確かめられません。中国系のPCSを前提にした案件は、取得の予定を照会し、IP通信を持たない構成で受け入れられるかも一般送配電事業者に確かめておきます。",
+   "q": "Huawei（ファーウェイ）やSungrowの機器はJC-STARを取得していますか？"
+  }
+ ],
+ "column-land-zoning.html": [
+  {
+   "a": "市街化調整区域では、造成を伴わなくても、第一種特定工作物の新設そのものに許可が要ります（都市計画法43条）。国都計第7号（2025年4月8日）は、電気事業（小売電気事業・特定卸供給事業を除く）の用に供する電気工作物に当たらない系統用蓄電池で危険物を含むものを、第一種特定工作物に当たり得ると整理しました。高圧2MW級の蓄電所は発電事業者に当たらないため、この除外に乗れず、第一種特定工作物として正面から開発許可を求めるケースが多くなります。調整区域での入口は、34条14号・施行令36条1項3号ホ（開発審査会の議を経るルート）です。",
+   "q": "系統用蓄電池に開発許可は要りますか？"
+  },
+  {
+   "a": "兵庫県（2026年6月時点）は、第一種特定工作物に当たる系統用蓄電池等について「市街化調整区域に設置する場合の許可基準を定めていません」とし、大津市（2026年4月時点）は許可基準が未策定で、適用除外に当たらないものは「設置（建築）できません」と明言しています。当社が確認した範囲では、該当する蓄電所を許可するための審査基準を定めたと公表している自治体は、2026年8月時点でまだ見当たりません。国は基準づくりを促しているので、自治体ごとの答えは今後変わり得ます。今の可否は、所管自治体への書面での事前照会で確かめるのが確実です。",
+   "q": "市街化調整区域に蓄電池を置く設置基準（許可基準）はありますか？"
+  }
+ ],
+ "column-lda.html": [
+  {
+   "a": "LDAは「長期脱炭素電源オークション」の略称です。国が2023年度に容量市場の一部として創設し、電力広域的運営推進機関（OCCTO）が管理しています。",
+   "q": "LDAとは何の略称ですか"
+  },
+  {
+   "a": "「90%還付ルール」として知られる取り決めですが、実際は3段階です。市場で得た利益（JEPX・需給調整市場・非化石価値市場など）のうち、応札価格に織り込んだ事業報酬額までは95%、それを超えてLDA約定単価とメインオークション約定価格の差額までは90%、それを超える部分は85%を還付します。還付の対象は市場の利益だけで、LDAの固定収入は100%手元に残ります。",
+   "q": "長期脱炭素電源オークションの「90%還付ルール」とは"
+  },
+  {
+   "a": "OCCTOが2026年9月2日に公表した募集要綱（PDF）で読めます。応札の受付は2027年1月19日〜26日です。募集上限はリチウムイオン蓄電池（LiB）が40万kW、LiB以外の蓄電池が40万kWで、揚水とLDESは合計40万kWの別の枠です。参加できる蓄電池は送電端3万kW以上で、連続6時間以上運転できるものに限られます。",
+   "link": "https://www.occto.or.jp/assets/260902_boshuyoukou_long_2026.pdf",
+   "q": "第4回（応札年度2026年度）の募集要綱はどこで読めますか。蓄電池の枠は"
+  }
+ ],
+ "column-long-term-contract.html": [
+  {
+   "a": "蓄電所の容量と運用権を固定料金で相手（オフテイカー）に渡し、市場価格の変動リスクをその相手が引き受ける契約です。国内では「オフテイク契約」とほぼ同じ意味で使われます（当局の定義として完全に同義というわけではありません）。東京ガスが「オフテイク契約」と呼ぶスキームは火力のトーリング（委託加工）と同型で、蓄電池を保有するSPCが運用権を渡して固定料金を受け取り、市場価格リスクは引き取られます。",
+   "q": "トーリング契約（tolling agreement）とは何ですか。オフテイク契約とは違いますか"
+  },
+  {
+   "a": "確認できた国内のオフテイクは、いずれも20年（HDRE案件は約20年）です。東京ガスが広原（宮崎・30MW）・石狩（北海道・30MW）・芦屋（福岡・50MW）で20年のオフテイクを公表し、2026年4月には、HDRE（泓徳能源）側のリリースで約190MWのオフテイクが示されました（東京ガス自社のリリースは触れていません）。MIRARTHとPowerXはトーリング（年限は非開示）、BisonとエンゲルハートCTPは10年のフロア契約（基本合意段階）です。海外のトーリングは5〜15年で、融資が付く目安は概ね10年以上かつ投資適格のオフテイカーとされています。",
+   "q": "蓄電池のトーリング契約は何年ですか。国内ではだれが結んでいますか"
+  },
+  {
+   "a": "可用率の保証（未達ならフィーを減額）、経年劣化を含む容量保証、フィーのCPI連動の有無、充電電源の供給責任、ディスパッチ権とサイクル上限、信用補完（親会社保証・L/C・格付トリガー）です。標準契約は非公開なので、具体的な水準は開示の進む海外から推し量ることになります。日本では2027年4月から新リース会計が強制適用され、トーリングがリースと識別されれば、オフテイカー（借手）側でオンバランスになり得ます。",
+   "q": "トーリング契約の諸条件では、何を詰めますか"
+  }
+ ],
+ "column-low-voltage.html": [
+  {
+   "a": "このコラムでは、受電電力50kW未満で系統に単独でつなぎ、放電（逆潮流）して売る系統用蓄電池（蓄電所）を指します。住宅用・自家消費用・太陽光併設は含みません。低圧の案件は49.5kWで設計されます。同じ49.5kWでも、太陽光は小規模事業用電気工作物ですが、蓄電所は出力にかかわらず事業用電気工作物で、保安規程の届出と電気主任技術者の選任が要ります。",
+   "q": "低圧系統用蓄電池（低圧蓄電池・低圧蓄電所）とは何ですか"
+  },
+  {
+   "a": "必要です。蓄電所は49.5kWでも事業用電気工作物なので、保安規程の届出（電気事業法第42条）と電気主任技術者の選任（第43条）が要ります。高圧以下で連系する出力5,000kW未満は外部委託承認制度で保安管理を委託できるので、自分で主任技術者になる必要はありません。ただし委託費は、1基ごとの年間固定費として乗ります。",
+   "q": "低圧蓄電所に電気主任技術者は必要ですか"
+  },
+  {
+   "a": "放電（逆潮流）する低圧の蓄電所は、一般送配電事業者各社とも「発電量調整供給契約」の区分で申し込みます。契約の当事者は設置者ではなく小売電気事業者（発電契約者）で、設置者は承諾書を出す側です。申込みの操作を電気工事店などが委任で代行できると書いている電力会社もあります（中国電力ネットワークなど）。2026年6月1日からは、放電側と充電側の申込みを同時に受け付けることが、契約申込の受付要件です。",
+   "q": "低圧系統用蓄電池の申請は、だれがするのですか"
+  }
+ ],
+ "column-merchant.html": [
+  {
+   "a": "固定価格の長期契約を持たず、市場で売った分がそのまま収入になる形のことです。蓄電池では、JEPX（卸電力市場）・需給調整市場・容量市場で売った分が収入になります。収入の全部をこの形で得る運用方針を「フルマーチャント」と呼びます。",
+   "q": "マーチャントとは？ 蓄電池でいう merchant の意味は？"
+  },
+  {
+   "a": "市場価格の変動を自分で負うことです。フルマーチャントには20年の固定収入がないため、市場価格の変動リスクを全て負います。需給調整市場の上限価格は引き下げ方向にあり（19.51円→15円、2026年9月1日の実需給分から10円）、制度が1段階動くだけで収支が大きく変わるので、収支計画は複数シナリオで見ます。",
+   "q": "マーチャントリスクとは？"
+  },
+  {
+   "a": "リスク許容度・資金調達・市場運用力・案件規模で分かれます。低リスクを重視しプロジェクトファイナンスで調達したいならLDA型、市場リスクを取れて自己資金やコーポレートファイナンス、自社かアグリゲーターでの運用ができるならフルマーチャント型が向きます。LDAの最低入札容量は30MWなので、2MW級の高圧案件はフルマーチャントになり、30MW以上ならまずLDAに応札し、落札できなければ切り替える二段構えもあります。",
+   "q": "蓄電池事業は、LDA型とフルマーチャント型のどちらを選べばよいですか？"
+  }
+ ],
+ "column-noise.html": [
+  {
+   "a": "電池セルそのものは音を出しません。音の元は、充放電の熱を処理する冷却装置と、PCS（パワーコンディショナ）に内蔵されたファンなどの周辺設備です。主要メーカーのデータシートでは、1m地点で蓄電コンテナの冷却装置が72〜75dBA程度、PCSのファンが機種により70〜80dBA程度で、住宅が50m以内に隣接していれば苦情が出る水準です。系統用蓄電池は24時間運転が基本で、夜に止める選択肢はほぼありません。",
+   "q": "系統用蓄電池（蓄電所）の音は、なぜうるさいのですか"
+  },
+  {
+   "a": "騒音規制法に「蓄電所」の施設区分はありません。ただし冷却装置は、騒音規制法施行令の「送風機」（原動機の定格出力7.5kW以上）に当たる可能性が高く、当たれば設置場所は「特定工場等」として規制基準を受けます。直接の対象外でも、多くの自治体が条例で規制値を定めているので、計画段階で自治体の環境担当部署に事前に相談します。",
+   "q": "蓄電所は騒音規制法の対象になりますか"
+  },
+  {
+   "a": "設計段階で検討する対策は、低騒音型の機器の選定（低減効果の目安5〜15dB）、配置計画（5〜10dB）、防音壁・防音フェンス（10〜20dB）、運用時間帯の制御（夜間の出力を絞る）の4つです。運用時間帯の制御は収益への影響が大きく、最終手段です。設計段階であれば数百万円で済む対策が、稼働後の後付けでは桁が変わります（後付けの防音工事は数百万〜千万円超）。トラブルが深刻になる最大の原因は説明不足なので、住民への事前説明会と連絡窓口は最低限押さえます。",
+   "q": "系統用蓄電池の騒音トラブルを防ぐ対策は何ですか"
+  }
+ ],
+ "column-nonfirm.html": [
+  {
+   "a": "2023年4月以降は、ローカル系統を含め、10kW未満の低圧を除く原則すべての新規接続にノンファーム型接続が適用されています。現在開発中の蓄電池案件は、ほぼ全てがノンファーム型接続です。系統混雑時の出力制御の方法は段階的に変わってきました。当初（2021年1月〜2022年12月）はノンファーム電源のみが一律に制御されていましたが、2022年12月21日からは調整電源を活用する「再給電方式（調整電源の活用）」が、2023年12月28日からは調整電源以外も含むすべての電源を一定の順序で制御する「再給電方式（一定の順序）」が適用されています。",
+   "q": "ノンファーム型接続はいつから、どの接続に適用されていますか？"
+  },
+  {
+   "a": "同意書には「本契約を締結することで、容量市場および需給調整市場に参加できない場合は、これを容認すること。」という文言が含まれます。これは将来の制限可能性に対する法的な留保で、現時点での一律禁止ではありません。容量市場は2027年度〜2029年度のメインオークションで、需給調整市場は当面（2028年度まで）、ノンファーム電源の参加が認められています。ただしどちらも年度ごとに判断される暫定的な措置で、恒久的な権利ではありません。",
+   "q": "ノンファーム型接続の同意書には何が書かれていますか？容量市場・需給調整市場に参加できなくなりますか？"
+  },
+  {
+   "a": "ノンファーム型接続の放電側の制御は、系統混雑時にオンラインで放電が抑制されるもので、比較的予見可能です。N-1電制（転送遮断）は、N-1故障が発生したときに蓄電池の出力を瞬時に遮断するもので、充電側にはN-1充電停止装置の設置が求められます。充電側の制限はN-1故障という突発的事象に連動するため、放電側とは性質が異なります。故障の頻度は接続検討回答書の「N-1故障実績」に記載され、「0.667回/年」であれば、3年間で2回の故障実績があることを意味します。",
+   "q": "N-1電制とノンファーム型接続の出力制御は、どう違いますか？"
+  }
+ ],
+ "column-om.html": [
+  {
+   "a": "高圧以上の蓄電所では、電気主任技術者の選任が必須で、自社選任と外部選任があります。選任に代えて保安管理業務を委託する外部委託承認制度（電気事業法施行規則第52条第2項）を使えるのは、出力5,000kW未満の太陽電池発電所又は蓄電所で、電圧7,000V以下で連系等をするものに限られます。特別高圧の蓄電所は、自社選任か外部選任（または統括・兼任承認）の二択です。外部委託では、保安業務担当者が原則2時間以内に担当の事業場へ到達できること（2時間ルール）と、受託できる事業場の換算値（点数）の合計が33を超えないことが求められます。",
+   "q": "蓄電所の電気主任技術者は外部委託できますか？（2時間ルール）"
+  },
+  {
+   "a": "まず、EMS・PCS・BESS・BMSの異常時に、誰が最初に切り分けて復旧に着手するかを契約に書きます。法は直流側を主任技術者の保安監督対象に含めていますが、その遂行を担う者は契約で別に定めないと空白になります。あわせて、ルータ設定・IP表・系統図の引渡し時の納品と通信の復旧責任者、年間の可用性保証の有無と免責範囲、メーカー保証とO&Mの境界も決めておきます。",
+   "q": "蓄電所のO&M契約（保守契約）では、何を決めておけばよいですか？"
+  }
+ ],
+ "column-price-cap.html": [
+  {
+   "a": "2026年9月1日の実需給分から、一次調整力（オフライン枠を含む）・二次調整力①・複合商品の上限価格は10.00円/ΔkW・30分です。二次調整力②・三次調整力①は7.21円のまま、三次調整力②にはもともと上限がありません。前日取引のため、新しい上限は9月1日分の約定処理が行われる8月31日から効いています。上限を超える札が約定しても、精算の段階で10円に切り下げられます。",
+   "q": "需給調整市場の上限価格はいくら？ 一次調整力の上限価格が10円になったのはいつから？"
+  },
+  {
+   "a": "一次調整力・二次調整力①・複合商品の上限価格は、導入時の2024年4月1日から19.51円、前日取引化と同時の2026年3月14日から15.00円、2026年9月1日から10.00円/ΔkW・30分です（日付は実需給日）。19.51円と7.21円は、三次調整力②の約定実績の加重平均単価1.06円に標準偏差の3倍・1倍を足した算定式から出た数字です。15円と10円は式から出た数字ではなく、上限張り付きを是正するためにその間を刻んだ水準です。",
+   "q": "需給調整市場の上限価格の推移は？ 引き下げは19.51円→15円→10円"
+  },
+  {
+   "a": "次の段は条件付きです。第110回制度検討作業部会（2026年1月23日・資料4）は、市場の競争状況に改善が見られない場合は10円、7.21円/ΔkW・30分等と段階的に引き下げるとし、改善が見られればそれ以上の引下げは行わないとも明記しています。判断の時期と定量の基準は一次資料に示されていません。EPRXは上限の変更を実需給日の2週間前までに公表するため、最も早く分かるのはEPRXの上限価格のページです。",
+   "q": "上限価格は次に7.21円へ下がる？ 第110回制度検討作業部会の整理は"
+  }
+ ],
+ "column-regional-revenue.html": [
+  {
+   "a": "本稿が2025年7月〜2026年6月受渡の実測で組んだ基準機（2MW/8,000kWh・4時間）の年商は、管区合計の中央値で2.7〜2.9億円です。内訳は需給調整市場が約8割、JEPXと容量市場が合わせて約2割で、需給調整市場に全振りすると年3.1億〜4.2億円の実測レンジになります。いずれもアグリゲーター手数料を引く前の数字で、JEPXの値は完全予見で計算した理論上限（器）です。",
+   "q": "系統用蓄電池（高圧2MW/8MWh）の年間収益はいくらですか？"
+  },
+  {
+   "a": "蓄電池を安定電源で登録すると、契約容量は名目ではなく「設備容量×調整係数」の期待容量で決まり、4時間機でもエリアと月により約56〜90%しか評価されません。FY2029の約定単価で2MWの実受取を概算すると、首位は東北の約2,629万円です。東京は約定単価が上限を1円下回る15,111円ですが、係数が年平均約70.8%のため約2,139万円にとどまり、単価12,388円の中国と同額になります。「15,112円×2,000kW＝3,022万円」という名目計算は上限値で、意思決定には使えません。また2MW・4時間機は長期脱炭素電源オークションの対象外で、新規参入で容量収入を得る入口はメインオークションだけです。",
+   "q": "容量市場で蓄電池はいくら受け取れますか？"
+  },
+  {
+   "a": "直近12ヶ月の実測では、需給調整市場の募集の厚さ・不足率・属地単価の3点がそろっていた東北が総合首位（年約2.9億円）でした。JEPXの裁定で首位の北海道は、需給調整の市場が細く、この稼ぎを取り切れていません。容量市場とJEPXの2層（床＋コア）だけで見ると、首位の北海道と最下位の関西の差は2MWで年約1,500万円です。裁定で攻めるか、調整力で取るか、床を固めて選んで買うか──先に戦略を決めると管区が決まります。",
+   "q": "系統用蓄電池は、どのエリア（管区）がいちばん稼げますか？"
+  }
+ ],
+ "column-revenue.html": [
+  {
+   "a": "1つの市場だけに頼らず、複数の市場の収益を重ねて組み立てることです。系統用蓄電池では、JEPXのアービトラージ（安く買って高く売る）、需給調整市場（電力の「保険」を売る）、容量市場（存在するだけで固定収入）の3つを重ねます。3つの市場をどう組み合わせるかが、事業の成否を分けます。3市場への同時参加には高度な運用ノウハウが必要で、多くの事業者はアグリゲーターを活用します。",
+   "q": "レベニュースタッキングとは？ 蓄電池の3つの収益源"
+  },
+  {
+   "a": "JEPX（卸電力市場）は1日を30分刻みの48コマで取引し、蓄電池は安値のコマで充電して高値のコマで放電する価格差取引（アービトラージ）で利益を得ます。太陽光の大量導入で、昼間は0.01円/kWh（特に九州エリア）まで下がり、夕方のピークは20円/kWhを超える「ダックカーブ」が常態化しています。2024年の1日の最高値と最安値の差は平均約20円/kWhで、2020年頃の約4円/kWhの5倍に広がりました。",
+   "q": "蓄電池のアービトラージとは？ 電力市場の値差で稼ぐしくみ"
+  },
+  {
+   "a": "容量市場（メインオークション）は、実需給の4年前にオークションを行い、電源が「存在する」ことに対価を支払う市場です。蓄電池は1,000kW以上で参加でき、落札率は96%超です。ただし、メインオークションでの蓄電池の応札容量は全体の約0.1%（約24万kW）にとどまり、大型の蓄電池の多くはLDA（長期脱炭素電源オークション）に流れています。最新のエリア別の約定価格は、この記事の追記と容量市場のコラムにまとめています。",
+   "link": "/column-capacity-market",
+   "q": "容量市場で蓄電池はどう収益を得る？"
+  }
+ ],
+ "column-subsidies.html": [
+  {
+   "a": "本文が参照するSII（一般社団法人環境共創イニシアチブ）の令和7年度の公募要領（公募期間2025年8月29日〜10月24日）では、最大受電電力10MW未満が1/3以内・上限10億円、10MW以上が1/2以内・上限40億円、長期エネルギー貯蔵（LDES）が2/3以内・上限20億円です（補助対象経費は税抜）。東京都の「再エネ導入拡大を見据えた系統用大規模蓄電池導入支援事業」は、2025年3月31日の報道発表で2/3・上限20億円、国の補助金と併せても合計2/3が上限とされています。その後、2026年9〜11月に公募された「令和7年度補正 系統用蓄電システム等導入支援事業」では、リチウムイオン電池の補助率と上限が最大受電電力の区分ごとに変わりました（2026年11月時点の追記）。",
+   "q": "東京都とSIIの系統用蓄電池の補助金は、補助率と上限がいくらですか"
+  },
+  {
+   "a": "なりません。令和7年度の公募要領p.14-15が補助対象とするのは、実施設計費・設備費（セル/モジュール、BMS、PCS、蓄電システム制御装置など）・設置工事費の3費目です。昇圧変圧器・主変圧器等の受変電設備と、保護継電器・開閉器等の所内設備は、土地造成やフェンス工事、系統連系工事費負担金とともに、明示的に対象外とされています。2026年9月公募の令和7年度補正の公募要領（p.18）も、昇圧変圧器・主変圧器等の受変電設備、保護継電器・開閉器等の所内設備と連系工事に関わる費用を補助対象外としています（筐体内にこれらの機器が含まれる設備は、事前にSIIへ相談する扱いです）。",
+   "q": "SIIの系統用蓄電池の補助金で、変圧器は補助対象になりますか"
+  },
+  {
+   "a": "補助金で取得した財産を、処分制限期間の内に処分（交付目的に反して使用・譲渡・交換・貸付・廃棄・担保に供すること）するには、SIIの事前承認が要ります。公募要領は期間を「導入した機器等の法定耐用年数」と書くだけで、17年は耐用年数省令の別表第二「電気業用設備／その他の設備／主として金属製のもの」を当てはめた結果です。補助対象設備を自社で活用する予定のない事業者（SPCへ譲渡を予定している場合など）は、事前にSIIに相談して指示を仰ぐよう、公募要領p.6に書かれています。",
+   "q": "補助金の処分制限期間とは何ですか。なぜ17年なのですか"
+  }
+ ],
+ "column-tax.html": [
+  {
+   "a": "業界で「一括償却できる」と言われているのは、令和8年度税制改正大綱に盛り込まれた大胆な投資促進税制（特定生産性向上設備等投資促進税制）のことで、買った金額の全額を初年度に経費にする即時償却か、7%の税額控除（建物・建物附属設備・構築物は4%）を選べます。ただ大綱の本文に「蓄電池」という品名はなく、対象になるかは経済産業省令の基準と、投資計画ごとの経済産業大臣の確認で決まります。また大綱は貸付けの用を対象から外しているため、SPCが持ってトーリングやリースで使わせる形は外れるおそれがあります。",
+   "q": "系統用蓄電池は一括償却（即時償却）できますか？"
+  },
+  {
+   "a": "蓄電池本体・PCSは税務上は基本的に機械装置に区分され、耐用年数省令の別表第二「電気業用設備」の「主として金属製のもの」に当たるという整理で、法定耐用年数は17年です。建物附属設備の「蓄電池電源設備」（6年）は停電時のバックアップ用で、系統に放電して収益を上げる系統用蓄電所には当てはまりません。ふつうは17年かけて経費にし、即時償却はこれを初年度に前倒しします。",
+   "q": "系統用蓄電池の減価償却の耐用年数（償却期間）は何年ですか？"
+  },
+  {
+   "a": "即時償却をしても、17年トータルで経費にできる額は同じで、納める税金の合計は1円も減りません。得られるのは税の先送りで、早く手元で使えるお金の時間価値がメリットの正体です。税そのものを減らすのは、買った金額の7%（建物・建物附属設備・構築物は4%）を法人税から直接差し引く税額控除のほうで、差し引ける上限はその年の法人税の20%までです。先送りのメリットは、本文の計算機で買った金額・実効税率・割引率を変えて試せます。",
+   "q": "即時償却は節税になりますか？"
+  }
+ ],
+ "en/column-aggregator-fee.html": [
+  {
+   "a": "The aggregator optimizes the battery's charge and discharge cycles and trades in the Balancing Market (EPRX) and the wholesale market (JEPX). In the Balancing Market the aggregator is the trading entity: fees, imbalance penalties and EPRX transaction charges are deducted before the money is remitted to the owner. To take part in the Balancing Market, the aggregator must be registered as a \"Specified Wholesale Supply Operator\" under the Electricity Business Act.",
+   "q": "What does an aggregator do for a grid-scale battery in Japan?"
+  },
+  {
+   "a": "A gross fee is charged on the total income earned from the market, before charging costs or penalties are deducted. A net fee is charged on market profit, after charging costs, wheeling charges and imbalance penalties are deducted. Even at the same 5%, a different base can nearly double the fee in yen. If you are told \"5% of revenue\", check whether that revenue includes capacity market income and whether charging costs are deducted first.",
+   "q": "What is the difference between a gross and a net aggregator fee?"
+  },
+  {
+   "a": "Have the fee base and the definition of \"market profit\" written into the contract, and confirm whether the fee applies only to Balancing Market revenue or also to JEPX arbitrage and capacity market income. Confirm who bears imbalance penalties caused by the aggregator's system failures or dispatch errors, and what the lock-in period and termination conditions are. Ask whether the aggregator can disclose the past 12 months of performance: revenue per MW, award rate and utilization rate.",
+   "q": "What should I check before signing an aggregator contract in Japan?"
+  }
+ ],
+ "en/column-area-data.html": [
+  {
+   "a": "The Electric Power Reserve Exchange (EPRX) publishes them as trading results. This article uses the data by TSO (the volume actually procured by each area's transmission and distribution operator); April–June 2026 are preliminary values and FY2025 final values. Because of cross-area interchange, the figures differ between \"by power source location\" and \"by TSO.\"",
+   "q": "Where are Japan's balancing market trading results published?"
+  },
+  {
+   "a": "In April–June 2026 the average awarded price was about 12 yen/delta-kW per 30 min for Primary Offline and about 5 yen for Primary Online. The cap fell from 19.51 yen to 15 yen from the March 14, 2026 delivery date. From September 1, 2026 delivery, the cap is 10 yen for Primary Reserve (including the Primary Offline category), Secondary Reserve 1 and Composite; Secondary 2 and Tertiary 1 stay at 7.21 yen (checked against EPRX's price-cap table of July 30, 2026).",
+   "q": "What are balancing market prices, and what is the price cap?"
+  },
+  {
+   "a": "Under EPRX trading rules, only batteries with installed capacity of 1 MW or more but less than 10 MW (at extra-high or high voltage), or aggregated batteries under 1 MW, are eligible. Batteries of 10 MW or more cannot enter Primary Offline and must use an Online connection to take part in Primary Reserve. Developers cannot freely choose between Online and Offline.",
+   "q": "Which batteries can bid into Primary Reserve Offline?"
+  }
+ ],
+ "en/column-balancing-market.html": [
+  {
+   "a": "Five: Primary Reserve, Secondary Reserve 1, Secondary Reserve 2, Tertiary Reserve 1 and Tertiary Reserve 2. They differ in how quickly they respond and how long they sustain output. Response time is within 10 seconds for Primary Reserve (within 30 seconds Offline), within 5 minutes for Secondary 1 and 2, within 15 minutes for Tertiary 1 and within 60 minutes for Tertiary 2. Under the FY2026 specification, duration is 5 minutes or more for Primary Online and 30 minutes for Secondary 1 through Tertiary 2.",
+   "q": "What products does Japan's balancing market have?"
+  },
+  {
+   "a": "A Composite bid bundles four products, Primary Reserve, Secondary Reserve 1 and 2 and Tertiary Reserve 1, using composite clearing logic; it is not an independent product category. One bid can be awarded in any of the four products. Awards are stacked from the lowest price and fill the fastest product, Primary, first. Tertiary Reserve 2 is traded separately as a day-ahead product and is outside the Composite scope.",
+   "q": "What is a composite bid in the balancing market?"
+  },
+  {
+   "a": "Primary Reserve and Secondary Reserve 1, which have the fastest response. In FY2025 the annual fulfillment rate was 40.8% for Primary Online and 3.4% for Primary Offline, so shortages continue, and battery awarded unit prices reach 3-6 times those of thermal.",
+   "q": "Which product is most advantageous for batteries?"
+  }
+ ],
+ "en/column-balancing-saturation-volume.html": [
+  {
+   "a": "σ is the unit for the width of the distribution of demand–supply fluctuation. In the normal-distribution picture, preparing to 1σ means buying the volume that covers 84% of the fluctuation above the mean, against 99.9% at 3σ; the remaining 16% is handled outside the market. From the 14 March 2026 delivery day, primary and secondary ① moved from 3σ-equivalent to 1σ-equivalent, and the combined product was 1σ-equivalent from the start.",
+   "q": "What does 1σ procurement volume mean in Japan's balancing market?"
+  },
+  {
+   "a": "No. For primary, required volume has two parts: a normal-condition portion that σ multiplies, and a contingency portion for the largest plant in an area stopping, which σ does not change. Divided out by ScienceX from EPRX figures, FY2026 against FY2025 is 0.55 for primary required volume, 0.62 for primary procurement volume and 0.97 for the combined product, and not one product × area combination fell to one third. Nationwide, the only procurement volume that fell by more than half is the primary offline frame (0.45), where batteries take 98–100% of the awarded volume.",
+   "q": "Did the move from 3σ to 1σ cut procurement volume to one third?"
+  },
+  {
+   "a": "For primary, secondary ① and the combined product the cap went from ¥19.51 to ¥15/ΔkW·30min from the 14 March 2026 delivery, and to ¥10 from the 1 September delivery. ¥7.21 is shown as the next step, but with no date set (it is conditional). The trigger is \"if no improvement is seen in the state of competition in the market,\" judged on the record 1, 2, 3 and 6 months and so on after day-ahead trading started. The same documents also say procurement volume will be increased once sufficient competition is confirmed.",
+   "q": "What is the balancing market price cap now, and is ¥7.21 next?"
+  }
+ ],
+ "en/column-bess-insurance.html": [
+  {
+   "a": "Not as it is. Movables comprehensive insurance, the mainstay for solar, excludes generation facilities of 500kW or more in each carrier's policy wording, so a grid-scale battery site cannot, in principle, be underwritten under it. Owners shift to property insurance plus machinery breakdown, add BI, liability, cyber and theft, and request quotes through a broker with battery storage experience.",
+   "q": "Can a solar insurance package cover a battery storage site in Japan?"
+  },
+  {
+   "a": "Use replacement cost, the amount needed to rebuild equivalent equipment at the time of loss, not market value. Japanese property insurance applies proportional indemnity: if the insured value is below replacement cost, the payout is reduced. The grid connection cost burden paid to the utility is for utility-owned equipment, so it is in principle outside property insurance and is excluded from the insured value.",
+   "q": "How should the insured value be set for battery storage property insurance?"
+  },
+  {
+   "a": "It depends on the loss you want to cover: 90–120 days for partial loss only, 180 days for moderate loss, and 240–365 days for total loss. In practice, request quotes for 90, 180 and 365 days and compare premium against coverage. A longer elimination period lowers the premium, but the owner bears the lost revenue in that window; 14 days is the global standard for BESS.",
+   "q": "How long should business interruption (BI) insurance cover a battery storage site?"
+  }
+ ],
+ "en/column-capacity-market.html": [
+  {
+   "a": "Unit prices are capped by the demand curve. In Round 5 (delivery year FY2028), Hokkaido, Tohoku and Tokyo cleared at ¥14,812/kW, pinned to the price cap, while Kyushu cleared at 89% of the cap, Chubu at 69%, and Hokuriku, Kansai, Chugoku and Shikoku at 59%. In Round 6 (FY2029), for the first time apart from Round 1, area prices exceeded the indicative price (¥10,075/kW) in every area.",
+   "q": "What are the price cap and the indicative price in the capacity market, and what were they?"
+  },
+  {
+   "a": "The capacity market, run by OCCTO, pays for the existence of generating and discharging capability in a specified year, whether or not the resource actually runs. The balancing market, operated by EPRX, trades balancing capacity (ΔkW): payment for waiting in a state where output can be raised or lowered. JEPX is where electrical energy (kWh) itself is bought and sold, and a battery stacks revenue across all three.",
+   "q": "How does the capacity market differ from the balancing market?"
+  }
+ ],
+ "en/column-construction-cost.html": [
+  {
+   "a": "In METI's study group documents, the FY2024 average for subsidised projects is 68,000 yen/kWh (system 54,000 yen plus construction works 14,000 yen, excluding tax). For projects above 50 MWh the system price falls to 49,000 yen/kWh, or 63,000 yen/kWh including works. On non-subsidised projects adopting overseas-made systems, cost levels of 20,000–40,000 yen/kWh are also observed.",
+   "q": "How much does a grid-scale battery (BESS) cost per kWh in Japan?"
+  },
+  {
+   "a": "It covers equipment and installation works only. The grid connection contribution charge payable to the transmission and distribution utility is a separate line, fixed project by project in the connection study response with no standard unit price, and land acquisition and site preparation are also excluded. There is still no officially established standard unit cost for O&M.",
+   "q": "What is not included in the 68,000 yen/kWh construction cost?"
+  }
+ ],
+ "en/column-contract-flow.html": [
+  {
+   "a": "The same battery is treated as a consumer when charging and as a generator when discharging, so it needs both. The Wheeling Service Contract (接続供給契約) covers the charging side; the Generation Output Adjustment Supply Contract (発電量調整供給契約) covers the discharging side. For grid-scale batteries, applications for both go directly to the TSO as standard.",
+   "q": "What is the difference between the Wheeling Service Contract and the Generation Output Adjustment Supply Contract?"
+  },
+  {
+   "a": "A Retail Electricity Provider, or a battery operator holding a retail license, files it with the area TSO, attaching the consent document of the consumer (the BESS owner). The application cannot proceed until the retailer is confirmed — an express requirement in all 10 TSOs' tariffs.",
+   "q": "Who files the Joint Wheeling Service / Basic Contract Application?"
+  },
+  {
+   "a": "One year, under OCCTO's Transmission and Distribution Business Guidelines, Art. 89(1)(vi). If the contract application (including the security deposit) is not received within that year, a re-study is needed. That brings a JPY 200,000-plus-tax study fee (some exemptions apply) and, in principle, a 3-month study period.",
+   "q": "How long is a Grid Connection Study Response valid?"
+  }
+ ],
+ "en/column-contracts.html": [
+  {
+   "a": "It is Annex 4 of the Wheeling Supply Tariff, \"Special Measures for Connection Supply to Demand Locations Where Pumped-Storage Generation Equipment Is Installed.\" Grid-scale batteries were formally brought into its scope on April 1, 2024. The body of the charged electricity drops out of the wheeling charge base; only the loss-equivalent portion and in-house consumption remain chargeable. \"Battery special measure\" is the official abbreviation (METI / Electricity-Gas Subcommittee); \"pumped-storage measure\" is the industry shorthand.",
+   "q": "What is the battery special measure (pumped-storage measure) in Japan's wheeling tariff?"
+  },
+  {
+   "a": "Yes, but only the kW component. The generation-side charge was introduced on April 1, 2024, and the kWh component is exempt for storage and pumped-storage, because the charged electricity was already charged when it was first generated. The kW component (basic charge) is levied as usual. Batteries co-located with already-approved FIT/FIP sources are treated separately.",
+   "q": "Do grid-scale batteries in Japan pay the generation-side charge?"
+  },
+  {
+   "a": "Either the owner runs its own BG, or it places the battery under an aggregator (a specified wholesale supply operator). A standalone BG keeps all imbalance risk and all revenue in-house, and in practice presupposes a 24-hour supply-balancing operating room. Under an aggregator, the owner can stay the contract holder on the GSA and connection supply contract while the aggregator handles market participation and BG operation; the EPRX Guide notes that the contract holder and the trading member need not be the same.",
+   "q": "Who handles the daily market operations and bidding for a battery storage project?"
+  }
+ ],
+ "en/column-day-ahead.html": [
+  {
+   "a": "Trading in all products started in April 2024, and until March 12, 2026 Primary, Secondary 1 and 2 and Tertiary 1 were traded as weekly products, bid and cleared a week at a time. From transactions on March 13, 2026 they moved to day-ahead trading, in which the next day is bid at 14:00 the day before. Tertiary 2 has already been traded separately as a day-ahead product.",
+   "q": "When did Japan's balancing market start trading all products, and when did day-ahead trading begin?"
+  }
+ ],
+ "en/column-development.html": [
+  {
+   "a": "For a greenfield site, the guide is 1-3 months for site screening, 3-12 months for land, residents and permits, 6-18 months for the grid connection study and contract, 3-6 months for design and procurement (EPC selection), and 12-48 months for construction and grid interconnection. Phases 2 and 3 are often run in parallel, and the whole process takes at least 2 years, typically 3-5 years. The construction and interconnection period depends on the scale of grid-side works.",
+   "q": "How long does it take to develop and build a grid-scale battery storage plant in Japan?"
+  },
+  {
+   "a": "A battery affects the grid in both directions — reverse flow when discharging and forward flow when charging — so it needs available capacity on both sides. PCS noise reaches 45-60dB and cooling systems 50-65dB, while residential zoning districts have a nighttime standard of 45dB or below, so explaining to and obtaining consent from neighbors is virtually mandatory. Revenue depends on market prices (partly fixed if the LDA is won), and only kW-based generator-side charges apply.",
+   "q": "How does battery storage development differ from solar?"
+  },
+  {
+   "a": "EPC selection is Phase 4, which takes about 3-6 months: in parallel with grid-side construction, the battery, PCS and extra-high-voltage transformer are selected and the EPC contract is signed. Because the connection study evaluates capacity (kW), connection point and grid impact, changing the battery manufacturer after the response is practically possible. A significant change from the original specifications may require re-review, with added time and cost.",
+   "q": "When is the EPC chosen, and can the battery maker be changed later?"
+  }
+ ],
+ "en/column-eprx.html": [
+  {
+   "a": "EPRX publishes its trading results, so you can confirm which product was awarded, in which area and at what price. On the EPRX website (eprx.or.jp) they are under \"Transaction Information\". We organize the latest data by area and by product in our column on Balancing Market award results (9 areas × 5 products).",
+   "link": "/en/column-area-data",
+   "q": "Where can I see EPRX trading results?"
+  }
+ ],
+ "en/column-equipment.html": [
+  {
+   "a": "It is the procedure for checking with the general transmission and distribution company at the connection point whether a new connection study is needed when you change all or part of the equipment — the battery, the PCS or ancillary equipment — after receiving a connection study response. It is an official procedure set by OCCTO, with request forms published for high-voltage and extra-high-voltage applications. There is no study fee, the response normally takes about one month, and it comes back as either \"no re-study required\" or \"re-study is required.\"",
+   "q": "What is a connection study necessity confirmation in Japan?"
+  },
+  {
+   "a": "In most cases, yes. The equipment specifications in the response are preconditions at the time of the study, not an obligation to use that equipment. What the response confirms are grid-side conditions — the connection point, the interconnection voltage, the estimated construction cost contribution and the grid-side reinforcement works — and developer-side equipment can be changed as long as those stay the same. A manufacturer change or PCS specification change whose grid impact is unclear goes through the necessity confirmation.",
+   "q": "Can I change the battery or PCS manufacturer after receiving the connection study response?"
+  },
+  {
+   "a": "Typical cases are an output increase (for example from 50MW to 60MW), a change of connection point to a different substation, a change of interconnection voltage such as from 66kV to 154kV, and significant changes to the electrical characteristics affecting the grid. A new connection study takes 2-3 months and costs approximately 200,000 yen. Tohoku Electric Power Network says a specification change requires a new study \"in principle,\" which leaves room for the necessity confirmation to find it \"not required.\"",
+   "q": "When is a new connection study required, and what does it cost?"
+  }
+ ],
+ "en/column-financing.html": [
+  {
+   "a": "Standard practice in renewable project finance is for lenders to size debt off a conservative P90 scenario — the revenue level exceeded with 90% probability — and to require a DSCR of roughly 1.2 to 1.35 times. Most storage revenue is merchant revenue from JEPX, the balancing market and the capacity market, and Australian lenders to battery projects say they do not size debt on one-off high-revenue events. The share of revenue fixed by contract sets the ceiling on tenor and leverage.",
+   "q": "What is debt sizing for a battery storage project in Japan?"
+  },
+  {
+   "a": "In the author's field observation, sellers often want settlement within about a month, while a corporate loan takes 1.5 to 2 months of internal approval and bank review and project finance six months to a year (no published statistics on review times could be confirmed). Cash that can decide today beats debt that is cheaper but slower: it isn't that debt won't come, it's that it won't come in time. Two further conditions add to this: the market for used batteries is immature, so collateral is hard to liquidate, and revenue is variable with a short operating record. Because storage is in principle all-equity, buying one unit ties up the capital, so buyers are starting to design cash at the entrance with refinancing at the exit.",
+   "q": "Why are battery storage plants in Japan bought all-equity, with cash?"
+  },
+  {
+   "a": "Yes, in some cases. A 40MW/200MWh project in Nishigo, Fukushima secured a ¥6.2 billion, 20-year syndicated loan backed by 20 years of fixed income from the Long-Term Decarbonized Power Source Auction, and even a 99MW full-merchant project secured project finance repaid solely from market revenue (amounts and tenors undisclosed or modest; the depth of fixed income sets the depth of the debt). A single high-voltage 2MW/8MWh site is structurally disadvantaged for PF because of heavy fixed costs, but one route is bundling: 14 high-voltage sites secured a ¥4.9 billion non-recourse commitment.",
+   "q": "Can a grid-scale battery in Japan get a bank loan or project finance?"
+  }
+ ],
+ "en/column-four-labels.html": [
+  {
+   "a": "Only when it is rated 1,000 kW or more and its total contracted capacity for supplying retailers exceeds 10,000 kW (10 MW), and it also meets further conditions such as supplying most of its output to retailers (the column flags this by size). The heavier procedures — construction-plan notification, pre-use self-inspection and safety-management review — apply only at 10,000 kW or more of output, or 80,000 kWh or more of capacity. A 2 MW / 8 MWh unit is at one-tenth of both thresholds; the minimum it still needs is compliance with technical standards, a chief electrical engineer, and filed safety regulations.",
+   "q": "Is a grid-scale battery a power-generation operator under Japan's Electricity Business Act?"
+  },
+  {
+   "a": "As of the column's June 2026 reading: under the Local Tax Act, anyone who actually sells electricity is an \"electricity-supply business,\" and its corporate enterprise tax falls on gross revenue rather than profit, even at a loss. The standard rate is 0.75% of revenue, plus a special corporate enterprise tax, for an effective burden of about 1.05% of sales. Whether balancing-market ΔkW counts as revenue has no published official view, so the practical step is an advance inquiry to the prefectural tax office covering your head office.",
+   "q": "What is the revenue levy (shūnyū-wari) on battery storage in Japan?"
+  }
+ ],
+ "en/column-grid-rules.html": [
+  {
+   "a": "They are applications that hold grid capacity without a realistic plan to build: disaster prevention parks, land with others' buildings, or sites that clearly cannot be converted under their land classification. They created backlogs for developers who were actually advancing projects. As of end of March 2025, cumulative connection study applications were about 110GW, while only about 230MW of grid-scale batteries had completed grid connection.",
+   "q": "What are \"speculative reservations\" of grid capacity in Japan?"
+  },
+  {
+   "a": "From applications submitted on or after January 5, 2026: registry confirmation results for the site (lot number, land classification, area), the land owner's name, and the status of dealings with landowners. Usage rights are not yet required at this stage. For non-FIT/non-FIP grid-scale storage and similar facilities, they must be proven within two months of connection consent.",
+   "q": "What land documents does a connection study application need from 2026?"
+  }
+ ],
+ "en/column-grid.html": [
+  {
+   "a": "The construction cost contribution splits into \"specific charges\" (dedicated power lines for the developer's exclusive use, fully borne by the developer) and \"general charges\" (trunk grid reinforcement for the whole area, recovered through wheeling charges). A site far from the nearest transmission tower or substation needs several kilometers of dedicated line, and costs balloon by orders of magnitude. Whether the battery can connect to a grid with available capacity, with no reinforcement, moves the contribution from several hundred million to several billion yen.",
+   "q": "What are specific charges and general charges in Japan's grid connection costs?"
+  },
+  {
+   "a": "A preliminary consultation with the general transmission and distribution company is free; a formal connection study costs about ¥200,000 per case. The response comes in 2 months in principle for projects under 500kW and 3 months for larger ones, and takes longer when applications pile up. It states connection feasibility, the outline of required works, the estimated construction period and the construction cost contribution, and is valid for one year.",
+   "q": "How much does a grid connection study cost in Japan, and how long does it take?"
+  },
+  {
+   "a": "A battery affects the grid in both directions. Charging (forward flow) causes voltage drop and discharging (reverse flow) causes voltage rise, so unlike solar, which only needs reverse-flow capacity, a battery needs available capacity both ways. In Hokkaido the shortage of forward-flow capacity has become severe, and \"N-1 charging cutoff devices\" and \"early connection additional measures\" (from April 2025) have been introduced.",
+   "q": "Why is grid interconnection harder for batteries than for solar?"
+  }
+ ],
+ "en/column-jcstar.html": [
+  {
+   "a": "The IPA publishes it as the \"JC-STAR conformance-label product list,\" which can also be downloaded in Excel. As of its 12 November 2026 update it had 395 entries, all ★1. Of these, 189 relate to solar and storage by our count; the full list with registration number, acquisition date and expiry date is in COLUMN 52-2. Before procurement, check that the device is on the list and that its status is \"valid.\"",
+   "q": "Where can I find the list of JC-STAR certified products?"
+  },
+  {
+   "a": "Not under their own names. The 12 November 2026 edition of the IPA list has no own-brand entry for the 16 major Chinese makers, including Huawei and Sungrow. Nikkei (1 July 2026) reported the Chinese side's claim that applications are being rejected, and METI does not disclose individual decisions, so the reason cannot be verified from outside. If a project is premised on a Chinese-affiliated PCS, ask for the acquisition schedule and ask the grid operator whether a configuration without IP communication would be accepted.",
+   "q": "Do Huawei or Sungrow hold JC-STAR ★1?"
+  }
+ ],
+ "en/column-lda.html": [
+  {
+   "a": "LDA is short for Japan's Long-Term Decarbonized Power Source Auction. The government created it in FY2023 as part of the capacity market, and it is managed by OCCTO (Organization for Cross-regional Coordination of Transmission Operators).",
+   "q": "What does LDA stand for?"
+  },
+  {
+   "a": "It is known as the \"90% refund rule,\" but it is actually three tiers. Market revenue up to the profit margin built into the bid price is refunded at 95%, the part above that up to the gap between the LDA and Main Auction contract prices at 90%, and anything above that at 85%. Only market profits are refunded; the LDA fixed income stays 100% with the operator.",
+   "q": "What is the LDA \"90% refund rule\"?"
+  },
+  {
+   "a": "OCCTO published the Round 4 call for bids on September 2, 2026, and bids are accepted January 19–26, 2027. The cap is 400MW for lithium-ion batteries and 400MW for non-LiB batteries, with pumped hydro and LDES in a separate 400MW category. Eligible batteries need 30MW or more at the transmission end and 6 continuous hours of operation.",
+   "link": "https://www.occto.or.jp/assets/260902_boshuyoukou_long_2026.pdf",
+   "q": "When is Round 4 of the LDA, and how much is open to batteries?"
+  }
+ ],
+ "en/column-long-term-contract.html": [
+  {
+   "a": "It is an arrangement in which the owner hands the storage asset's capacity and dispatch rights to a counterparty — the offtaker — for a fixed fee, and the offtaker takes on the market-price risk. In Japan the term is used almost interchangeably with \"offtake contract,\" though the two are not perfectly synonymous as a matter of regulatory definition. The scheme Tokyo Gas calls an \"offtake contract\" is the same shape as a thermal-plant toll: the SPC that owns the battery hands over dispatch rights and receives a fixed fee.",
+   "q": "What is a tolling contract for battery storage in Japan?"
+  },
+  {
+   "a": "Every domestic offtake we could confirm was 20 years (about 20 for the HDRE deal). Tokyo Gas has published 20-year offtakes at Hirohara (Miyazaki, 30 MW), Ishikari (Hokkaido, 30 MW) and Ashiya (Fukuoka, 50 MW), and in April 2026 HDRE's release described about 190 MW of offtake as well (Tokyo Gas's own release does not mention it). MIRARTH and PowerX have a tolling contract with an undisclosed tenor, and Bison and Englehart CTP a 10-year floor agreed in principle. Overseas tolling ranges from 5 to 15 years, and the rule of thumb for bankability is roughly 10 years or more with an investment-grade offtaker.",
+   "q": "How long are battery tolling and offtake contracts in Japan, and who signs them?"
+  },
+  {
+   "a": "Availability guarantees (with fee reductions on a shortfall), capacity guarantees including degradation, whether the fee is CPI-linked, responsibility for charging energy, dispatch rights and cycle limits, and credit support such as a parent guarantee, letter of credit or rating triggers. Because standard contracts are confidential in Japan, the concrete levels have to be inferred from overseas markets. Japan's new lease accounting standard becomes mandatory from April 2027, and if tolling is identified as a lease it can sit on the offtaker's balance sheet.",
+   "q": "What terms are negotiated in a battery tolling agreement?"
+  }
+ ],
+ "en/column-low-voltage.html": [
+  {
+   "a": "In this column it means a grid-scale battery (storage station) with a receiving capacity under 50 kW, connected to the grid on its own and selling by discharging (reverse power flow). Residential, self-consumption and solar-paired systems are not included. Low-voltage projects are designed at 49.5 kW; at that size solar counts as a small-scale business-use electrical facility, while a storage station is a business-use electrical facility whatever its output, which means a safety regulations filing and the appointment of a chief electrical engineer.",
+   "q": "What is a low-voltage grid-scale battery in Japan?"
+  },
+  {
+   "a": "Yes. Because a storage station is a business-use electrical facility even at 49.5 kW, it needs a safety regulations filing (Article 42 of the Electricity Business Act) and the appointment of a chief electrical engineer (Article 43). Facilities under 5,000 kW connected at high voltage or below can outsource safety management under the external outsourcing approval scheme, so you need not be the engineer yourself, but the fee lands as a fixed annual cost per unit.",
+   "q": "Does a low-voltage storage station need a chief electrical engineer?"
+  },
+  {
+   "a": "A discharging low-voltage storage station is filed under the Generation Output Adjustment Supply Contract, and the party to that contract is the retail electricity provider (the generation contract holder), not the owner; the owner issues a letter of consent. Some utilities, such as Chugoku Electric Power Network, state that an electrical contractor may file as agent. Since 1 June 2026, filing the discharge and charging sides together has been a condition of acceptance.",
+   "q": "Who files the application for a low-voltage grid battery?"
+  }
+ ],
+ "en/column-merchant.html": [
+  {
+   "a": "It means having no long-term fixed-price contract, so whatever is sold in the market becomes revenue as it is. For a battery, that market revenue comes from JEPX, the balancing market and the capacity market. Earning all revenue this way is the operating policy called full merchant.",
+   "q": "What does \"merchant\" mean for a battery storage project?"
+  },
+  {
+   "a": "It is bearing the fluctuation of the market price yourself. Without 20-year fixed income, a full merchant project bears all market price fluctuation risk. Balancing market price caps are trending downward (19.51 to 15 yen, then 10 yen from delivery on September 1, 2026), and a single policy step can change the economics, so income is planned across multiple scenarios.",
+   "q": "What is merchant risk?"
+  },
+  {
+   "a": "It depends on risk tolerance, financing, market operations capability and project scale. The LDA type suits owners who prioritize low risk and want project finance; full merchant suits those who can bear market risk, self-fund or use corporate finance, and operate through their own team or an aggregator. Because the LDA minimum bid is 30MW, 2MW-class high-voltage projects are full merchant, while projects over 30MW can bid in the LDA first and switch to full merchant if unsuccessful.",
+   "q": "LDA or full merchant — which should you choose?"
+  }
+ ],
+ "en/column-noise.html": [
+  {
+   "a": "The battery cells make no sound. The noise comes from the cooling systems that remove the heat of charging and discharging and from the fans built into the PCS. According to major manufacturers' data sheets, at 1 m a container's cooling system produces about 72–75 dBA and PCS fans about 70–80 dBA depending on the model — a level that draws complaints if homes are within 50 m. Grid-scale batteries fundamentally operate 24 hours, and shutting down at night effectively does not exist as an option.",
+   "q": "Why are battery storage sites noisy?"
+  },
+  {
+   "a": "The Act has no facility category for battery storage stations. However, their cooling systems are highly likely to qualify as \"blowers\" (prime mover rated output of 7.5 kW or more) under the Enforcement Order, in which case the site is regulated as a \"specified factory\". Even where it is not directly covered, many municipalities set their own limits by ordinance, so consult the municipality's environmental department at the planning stage.",
+   "q": "Does Japan's Noise Regulation Act apply to battery storage stations?"
+  },
+  {
+   "a": "Four measures are considered at the design stage: low-noise PCS and cooling equipment (estimated reduction 5–15 dB), layout (5–10 dB), soundproofing walls or fences (10–20 dB) and operating-hour controls, which are a last resort because of their effect on revenue. Measures that cost only several million yen at the design stage jump by an order of magnitude when retrofitted; retrofit soundproofing after operation costs from several million to over 10 million yen. The biggest reason noise problems escalate is insufficient explanation, so briefings for residents and a contact point are the minimum.",
+   "q": "How can noise trouble at a battery storage site be prevented?"
+  }
+ ],
+ "en/column-nonfirm.html": [
+  {
+   "a": "The non-firm connection consent form includes the language \"By executing this contract, the applicant accepts that participation in the capacity market and balancing market may not be possible.\" This is a legal reservation for future restriction possibilities, not a blanket prohibition at present. Non-firm power sources are permitted to participate in the FY2027-2029 capacity market main auctions and in the balancing market for the time being (until FY2028), but both are provisional measures decided on a fiscal year basis, not permanent rights.",
+   "q": "Can a battery on a non-firm connection still participate in the capacity and balancing markets?"
+  },
+  {
+   "a": "Under non-firm congestion management, discharge is curtailed online during grid congestion, which is relatively predictable. N-1 transfer tripping instantly cuts off battery output when an N-1 fault occurs, and on the charging side an N-1 charging stop device is required. Charging-side restrictions are linked to sudden N-1 fault events, so they differ in nature from discharge-side curtailment. The frequency is shown as \"N-1 fault records\" in the connection study response: \"0.667 times/year\" means 2 faults occurred over 3 years.",
+   "q": "How is N-1 transfer tripping different from non-firm curtailment?"
+  },
+  {
+   "a": "No. The LDA (Long-Term Decarbonized Power Source Auction) operates within the capacity market framework, and since non-firm power sources are permitted in the capacity market, LDA bidding is also possible. All new connections since April 2023 are in principle non-firm, and 30 battery projects (1,092MW) were awarded in the 1st LDA (January 2024) and 961MW of batteries in the 2nd LDA (January 2025), so non-firm connected projects are considered to have been awarded in the LDA.",
+   "q": "Does a non-firm connection prevent LDA bidding?"
+  }
+ ],
+ "en/column-om.html": [
+  {
+   "a": "For HV storage facilities and above, appointing a licensed chief electrical engineer is mandatory. The outsourcing-approval scheme (Art. 52(2) of the Enforcement Regulation of the Electricity Business Act) is available only to solar power plants or storage facilities with output below 5,000 kW that interconnect at 7,000 V or below, so an EHV facility must choose between in-house and external appointment (or consolidated / concurrent-duty approval). Outsourcing also carries the two-hour rule for reaching the site and a cap of 33 on the sum of converted site values.",
+   "q": "Does a grid-scale battery storage facility in Japan need a chief electrical engineer, and can the role be outsourced?"
+  },
+  {
+   "a": "First, who triages and begins recovery when the EMS, PCS, BESS or BMS fails: the law includes the DC side in the chief engineer's supervision, but unless execution is defined by contract it becomes a gap. Also fix the delivery of router settings, the IP table and the system diagram at handover and who recovers communications, the annual availability guarantee and its exclusions, and the boundary between the manufacturer warranty and O&M.",
+   "q": "What should an O&M contract for a grid-scale BESS in Japan specify?"
+  }
+ ],
+ "en/column-price-cap.html": [
+  {
+   "a": "From delivery on September 1, 2026, the cap for primary reserve (including the offline quota), secondary reserve 1 and the composite product is ¥10.00/ΔkW·30min. Secondary 2 and tertiary 1 stay at ¥7.21, and tertiary 2 has never had a cap. Because trading is day-ahead, the new cap bites from the August 31 clearing. A bid above the cap can still clear, but it is clipped down to ¥10 at settlement.",
+   "q": "What is the price cap in Japan's balancing market now, and since when is it ¥10?"
+  },
+  {
+   "a": "For primary reserve, secondary reserve 1 and the composite product the cap was ¥19.51 from delivery on April 1, 2024, ¥15.00 from March 14, 2026 (together with the shift to day-ahead trading) and ¥10.00/ΔkW·30min from September 1, 2026. ¥19.51 and ¥7.21 came from a formula: the weighted-average awarded price of tertiary reserve 2, ¥1.06, plus three or one standard deviations. ¥15 and ¥10 are discretionary waypoints set to correct cap-pinning.",
+   "q": "How has the balancing-market price cap changed: ¥19.51, ¥15, ¥10?"
+  },
+  {
+   "a": "The next step is conditional. The 110th System Design Working Group (January 23, 2026, Material 4) says the cap will be reduced in stages to ¥10, ¥7.21/ΔkW·30min, etc. if no improvement in competitive conditions is observed, and that no further cuts will be made if improvement is confirmed. ¥7.21 matches the current cap on secondary 2 and tertiary 1. No timing or quantitative criteria for the decision are given in the primary sources.",
+   "q": "Will the cap fall to ¥7.21 next?"
+  }
+ ],
+ "en/column-regional-revenue.html": [
+  {
+   "a": "Built on measured deliveries from July 2025 to June 2026, the reference asset (2 MW / 8,000 kWh, 4-hour) comes to an all-market median of ¥270–290M a year. Roughly 80% comes from the balancing market, with JEPX and the capacity market making up the rest; going all-in on balancing (48 slots) gives ¥310–420M a year. These figures are before the aggregator fee, and the JEPX value is a perfect-foresight ceiling.",
+   "q": "How much revenue does a 2 MW / 8 MWh grid battery (BESS) earn in Japan?"
+  },
+  {
+   "a": "A battery registered as a firm resource is contracted on expected capacity — installed capacity × derating coefficient — and even a 4-hour unit is credited at only about 56–90% depending on area and month. On FY2029 clearing prices, Tohoku has the highest actual receipt for a 2 MW unit (about ¥26.29M), while Tokyo, which cleared at ¥15,111 (one yen below the cap), receives about ¥21.39M because its coefficient averages about 70.8% — the same as Chugoku at ¥12,388. The nominal \"¥15,112 × 2,000 kW = ¥30.22M\" is a ceiling, not a basis for decisions. A 2 MW, 4-hour unit is outside the Long-Term Decarbonized Power Source Auction, so for a new build the entrance to capacity revenue is the main auction alone.",
+   "q": "How much does a battery actually receive from Japan's capacity market?"
+  },
+  {
+   "a": "Over the last 12 measured months, Tohoku was the overall leader at about ¥290M a year: it was the only area strong on all three balancing-market measures — procurement scale, shortfall rate and resident price. Hokkaido leads on JEPX arbitrage but could not capture ΔkW in full. On the capacity market plus JEPX alone, Hokkaido (first) and Kansai (last) differ by about ¥15M a year for 2 MW. Decide the strategy first — arbitrage, reserves, or the floor — and the area follows.",
+   "q": "Which area in Japan earns the most from a grid battery?"
+  }
+ ],
+ "en/column-revenue.html": [
+  {
+   "a": "Revenue stacking means layering income from several markets instead of relying on one. For a grid-scale battery in Japan the three layers are JEPX arbitrage (buy low, sell high), the balancing market (selling power \"insurance\") and the capacity market (fixed income for being there). How you combine the three markets determines success or failure. Running all three at once takes advanced operational expertise, so many project owners use aggregators.",
+   "q": "What is battery revenue stacking?"
+  },
+  {
+   "a": "The balancing market began trading all five products in April 2024, and primary reserve and secondary reserve 1 are the most advantageous for batteries. Bid shortfalls made it a seller's market in the first half of FY2024, but conditions have been improving since FY2025. The price cap for primary, secondary 1 and the combined product fell to 15 yen in March 2026 and to 10.00 yen/ΔkW per 30 min from delivery on September 1, 2026, and procurement volumes were cut from 3-sigma to 1-sigma equivalent.",
+   "q": "Which balancing-market products suit batteries in Japan, and what has changed?"
+  },
+  {
+   "a": "The capacity market (Main Auction) holds auctions four years before delivery and pays power sources for simply being there. Batteries of 1,000 kW or more can take part, with a win rate of over 96%. Battery bids in the Main Auction are only about 0.1% of the total (about 240 MW), as most large batteries go to the LDA. The latest clearing prices by area are in the update to this article.",
+   "link": "/en/column-capacity-market",
+   "q": "How does the capacity market pay batteries in Japan?"
+  }
+ ],
+ "en/column-subsidies.html": [
+  {
+   "a": "Under the SII FY2025 guidelines the article relies on (application window Aug 29–Oct 24, 2025), the rates were up to 1/3 with a JPY 1.0 billion cap for receiving capacity below 10 MW, up to 1/2 with a JPY 4.0 billion cap for 10 MW and above, and up to 2/3 with a JPY 2.0 billion cap for long-duration energy storage (LDES), with eligible costs exclusive of consumption tax. Tokyo's grid-scale battery program, per its March 31, 2025 announcement, sits at 2/3 with a JPY 2.0 billion cap, and the combined ceiling stays at 2/3 when stacked with national subsidies. The September–November 2026 SII round (the FY2025 supplementary-budget \"系統用蓄電システム等導入支援事業\") changed the capacity bands and caps for lithium-ion systems; see the November 2026 update.",
+   "q": "What are the SII subsidy rates and caps for grid-scale batteries in Japan?"
+  },
+  {
+   "a": "No. SII FY2025 guidelines pp. 14–15 limit eligible costs to detailed design, equipment (cells/modules, BMS, PCS, storage system control and essential ancillary equipment) and installation works. Step-up and primary transformers, and in-station equipment such as protection relays and switchgear, are explicitly excluded, along with site grading, fencing and the grid-interconnection construction-fee burden. The guidelines for the September 2026 round (p. 18) also exclude step-up and main transformers, protection relays, switchgear and interconnection works; if such equipment is built into an enclosure, SII asks applicants to consult it in advance.",
+   "q": "Are transformers eligible costs under the SII grid-scale BESS subsidy?"
+  },
+  {
+   "a": "During the disposal restriction period, sale, exchange, lease, disposal and pledging of assets acquired with subsidy funds all require SII pre-approval. The article explains the 17 years as coming from the standard useful life of grid-scale BESS under the statutory useful-life ordinance. It also notes that an SPC share transfer is not prohibited outright, but becomes risky if read as a substantive disposal of the subsidized assets, in which case pre-approval is needed and repayment may be ordered, so consult the administering agency in advance.",
+   "q": "What is the 17-year disposal restriction period on a BESS subsidy?"
+  }
+ ],
+ "en/column-tax.html": [
+  {
+   "a": "The \"one-year write-off\" headlines refer to the Bold Investment Promotion Tax Incentive (formally, the Tax Incentive for Investment in Specified Productivity-Enhancing Equipment), under which you choose either immediate depreciation of the full purchase price in year one or a 7% tax credit (4% for buildings, building attachments and structures). The words \"grid-scale battery\" never appear in the tax-reform outline, so eligibility depends on the METI ordinance and the Minister's confirmation. The outline also excludes equipment used for leasing, so an SPC that lets others operate the facility under a tolling or lease structure may fall out.",
+   "q": "Can grid-scale batteries in Japan be written off in one year (immediate depreciation)?"
+  },
+  {
+   "a": "Battery cells and the PCS are classified basically as machinery and apparatus, falling under \"mainly metal\" electricity-industry equipment in Appended Table 2 of the Ordinance on Useful Lives of Depreciable Assets, so the statutory useful life is 17 years. The 6-year \"storage-battery power supply\" category is for outage backup and does not apply to a facility that discharges into the grid. Immediate depreciation brings those 17 years of expense forward into year one.",
+   "q": "What is the useful life of a grid-scale battery for depreciation in Japan?"
+  },
+  {
+   "a": "It does not reduce the total tax you pay by a single yen: over 17 years the total expensed is the same. What it delivers is a deferral, and its real value is being able to use the cash sooner. The 7% tax credit (4% for buildings, building attachments and structures), by contrast, is a pure reduction of tax, capped at 20% of that year's corporate tax. The calculator on this page lets you try the value of the deferral with your own purchase price, tax rate and discount rate.",
+   "q": "Does immediate depreciation save tax?"
+  }
+ ],
+ "zh-column-aggregator-fee.html": [
+  {
+   "a": "聚合商优化储能的充放电，在辅助服务市场（EPRX）和批发电力市场（JEPX）交易。在辅助服务市场中，聚合商是交易主体，扣除费用、不平衡罚款、EPRX交易手续费后再汇给业主。要参与辅助服务市场，聚合商需依《电气事业法》登记为\"特定批发供给企业\"。",
+   "q": "聚合商在日本的电网级储能中做什么？"
+  },
+  {
+   "a": "毛额是在市场所得收入的总额，即扣除充电成本与罚款之前的金额；净额（市场利润）是从总营收中扣除充电成本、输电费、不平衡罚款等之后的利润。同样的\"5%\"，计算基准不同，费用实额会相差近一倍。听到\"营收的5%\"时，应确认该营收是否包含容量市场收入。",
+   "q": "聚合商费用的\"毛额\"与\"净额\"有什么区别？"
+  },
+  {
+   "a": "让合同明记费用的计算基准与\"市场利润\"的定义，确认费用仅针对辅助服务市场收入，还是也适用于JEPX套利收益与容量市场收入。确认因聚合商侧系统故障、指令失误而生的不平衡罚款由谁负担，以及合同期限、解约条件与锁定期。并确认对方能否披露过去12个月的实际数据（以MW计的收益额、成交率、可用率）。",
+   "q": "签聚合商合同前应确认什么？"
+  }
+ ],
+ "zh-column-area-data.html": [
+  {
+   "a": "由电力供需调整力交易所（EPRX）作为交易数据公开。本文使用其中的 TSO别（各分区输配电企业实际采购量）数据，2026年4〜6月为速报值，2025年度为确报值。因存在跨分区采购调整力的广域融通，“电源属地别”与“TSO别”的数值不同。",
+   "q": "日本辅助服务市场（需給調整市場）的交易数据在哪里看？"
+  },
+  {
+   "a": "2026年4〜6月的平均中标单价，一次离线约12日元/ΔkW·30分，一次在线约5日元。上限价自2026年3月14日实际供需日起由19.51日元降至15日元；自2026年9月1日实际供需日起，一次调频（含一次离线）、二次调频①、复合产品的上限价为10日元，二次调频②、三次备用①仍为7.21日元（已对照 EPRX 2026年7月30日公布的上限价表确认）。",
+   "q": "辅助服务市场的成交单价是多少？上限价格是多少？"
+  },
+  {
+   "a": "依 EPRX 交易规程，可参与一次离线的储能限定为设备容量1MW以上不足10MW（电压等级为特别高压或高压），或聚合不足1MW储能的情形。10MW以上的储能无法参与一次离线，参与一次调频必须在线接入。在线与离线的区分，并非企业可自由选择。",
+   "q": "哪些储能可以参与一次调频（离线）？"
+  }
+ ],
+ "zh-column-balancing-market.html": [
+  {
+   "a": "共 5 项：一次调频、二次调频①、二次调频②、三次备用①、三次备用②，差异由“反应多快”与“持续多久”决定。反应时间为一次调频 10 秒以内（离线 30 秒以内）、二次调频①② 5 分以内、三次备用① 15 分以内、三次备用② 60 分以内。持续时间按 2026 年度规格，一次在线为 5 分以上，二次调频①至三次备用② 为 30 分。",
+   "q": "日本辅助服务市场（调整力市场）有哪些商品？"
+  },
+  {
+   "a": "复合商品是捆绑一次、二次①②、三次① 4 项商品的投标方式（复合中标逻辑），并非独立商品区分。一次投标可同时报名多项调整力商品，中标依由低到高堆叠，自最高速的一次调频依序充足。三次备用② 以“前一日商品”于独立市场交易，不含于复合商品对象。",
+   "q": "复合商品是什么？"
+  },
+  {
+   "a": "反应速度快的一次调频与二次调频①。2025年度的年度充足率为一次在线40.8%、一次离线3.4%，供给不足持续，储能的中标单价达火力的3〜6倍。",
+   "q": "对储能最有利的商品是哪一个？"
+  }
+ ],
+ "zh-column-balancing-saturation-volume.html": [
+  {
+   "a": "σ是表示供需波动分布宽度的单位。按正态分布来看，备到3σ，是买下覆盖向平均值之上偏离的波动的99.9%的量；备到1σ，是止步于覆盖84%的量，其余16%以市场之外的手段筹措。自2026年3月14日交割分起，一次、二次①的募集量由“3σ相当量”改为“1σ相当量”，复合商品原本即为1σ相当量。",
+   "q": "辅助服务市场的“1σ相当量”是什么意思？"
+  },
+  {
+   "a": "没有。以一次为例，必要量由σ乘在其上的平常时部分，与为分区内最大发电厂停机做准备、不随σ变化的异常时部分相加而成。本公司按EPRX公布的数字相除，2026年度对2025年度，一次的必要量为0.55、募集量为0.62，复合商品为0.97，变成三分之一的商品×分区一个也没有。全国的募集量中，减到一半以下的，只有储能中标份额占98〜100%的一次离线额度（0.45）。",
+   "q": "由3σ改为1σ后，募集量变成三分之一了吗？"
+  }
+ ],
+ "zh-column-bess-insurance.html": [
+  {
+   "a": "不能直接沿用。光伏主流的动产综合保险，在各家条款中将出力500kW以上的发电站列为对象之外，电网级储能本体基本无法以动产综合保险承保。需转为财产保险（企业财产一揽子）＋机械保险，再加上BI、PL、网络、盗窃，按6层设计，经有储能承保业绩的代理、经纪取得报价。",
+   "q": "储能电站能直接沿用光伏的保险吗？"
+  },
+  {
+   "a": "宜以重置价值而非时价投保。日本的财产保险规定，保险金额低于重置价值时按\"比例赔付\"减少保险金，例如本文例中，对重置价值6亿日元以3亿日元投保（投保率50%），发生2亿日元的部分损，保险金削减为1亿日元。保险金额宜按重置价值的全额设定。",
+   "q": "储能电站财产保险的保险金额如何确定？"
+  },
+  {
+   "a": "取决于想覆盖的情景：仅覆盖部分损为90〜120天，覆盖至中度损为180天，覆盖至全损为240〜365天。实务上取得90天、180天、365天三份报价，比较保险费与补偿额的取舍。免赔期方面，14天是BESS行业的全球标准。",
+   "q": "储能电站的事业中断保险（BI）赔付天数如何决定？"
+  }
+ ],
+ "zh-column-construction-cost.html": [
+  {
+   "a": "根据日本经济产业省研讨会的资料，补贴项目案例的2024年度平均为6.8万日元/kWh（系统5.4万日元＋工程1.4万日元，均不含税费等）。超过50MWh的大型项目，系统价格降至4.9万日元/kWh，加上工程费合计为6.3万日元/kWh。在补贴项目之外采用海外制造储能系统的案例中，也可见到2〜4万日元/kWh的成本水平。",
+   "q": "日本电网侧储能每1kWh的建设成本是多少？"
+  },
+  {
+   "a": "6.8万日元/kWh是设备与安装工程的数字。向一般输配电企业支付的并网工程费分摊另计，逐个项目通过接入研究答复书确定，不存在标准单价；土地取得与场平也不包含在内。运维（O&M）费同样尚不存在公开确立的标准单价。",
+   "q": "6.8万日元/kWh的建设成本里不包含哪些费用？"
+  }
+ ],
+ "zh-column-contract-flow.html": [
+  {
+   "a": "同一台储能设备会随时段在两个法律身份之间切换：充电时为消费者，放电时为发电者，因此需要两份合同并行——充电侧为输电服务合同（接続供給契約），放电侧为发电量调整供给合同（発電量調整供給契約）。对电网级储能而言，发电侧的两项报送都以直接向TSO为标准，不经由零售商。",
+   "q": "发电量调整供给合同与输电服务合同有何区别？"
+  },
+  {
+   "a": "一年（OCCTO《输配电业务指针》第89条第1项第6号）。若一年内未受理签约申请（含保证金缴纳），便须重新研讨，产生20万日元另加税的研讨费（部分有豁免），研讨期原则上3个月。",
+   "q": "接入系统研究答复书的有效期多长？"
+  }
+ ],
+ "zh-column-contracts.html": [
+  {
+   "a": "指输电供给等条款附则4的\"对设有抽蓄发电设备等的需求场所进行输配电服务时的特别措施\"，电网级储能自2024年4月1日起被正式纳入对象。所充电力的本体不计入输电费的计费对象，只有损失相当分与自用消费分计费。\"储能特措\"是经产省、电燃小委的官方简称，\"抽蓄特措\"是业界通称。",
+   "q": "日本的储能特措（抽蓄特措）是什么"
+  },
+  {
+   "a": "要缴，但只缴kW部分。发电侧计费于2024年4月1日导入；储能与抽水蓄能的kWh部分被免除，因为充入的电力在发电时点已课过kWh计费。kW部分（基本费）照常计入。与既认定FIT/FIP电源并设的储能，另有整理。",
+   "q": "电网级储能要缴发电侧计费吗"
+  },
+  {
+   "a": "有两个选项：业主自行单独BG化，或纳入聚合商（特定批发供给企业）麾下。单独BG化由业主自己承担全部计划值同时同量责任与不平衡风险，收益也全部归自己，实务上以24小时供需管理体制为前提。纳入聚合商时，业主可保持发调合同、输配电服务合同的名义人，把市场参与与BG运营委托给聚合商；EPRX指南注明，合同签订者与交易会员无需为同一。",
+   "q": "储能电站的日常市场运营与投标由谁负责"
+  }
+ ],
+ "zh-column-development.html": [
+  {
+   "a": "以绿地新建为例，选址初筛1〜3个月，用地确保、居民说明、行政确认3〜12个月，并网接入系统研究与签约6〜18个月，设计、采购（EPC选定）3〜6个月，施工与并网12〜48个月。阶段2与阶段3多并行推进，全流程最短2年，通常约需3〜5年。施工与并网的周期，取决于电网侧工程的规模。",
+   "q": "日本的储能电站从开发到并网需要多久？"
+  },
+  {
+   "a": "储能在放电（逆潮流）与充电（顺潮流）两个方向都会影响电网，因此需要双向均有余量。PCS的运行噪声为45〜60dB，冷却系统可达50〜65dB，而居住类用途地域以夜间45dB以下为标准，向周边居民说明并取得同意事实上不可或缺。收益取决于市场价格（中标LDA可部分固定化），发电侧计费仅为kW计费。",
+   "q": "储能电站的开发与光伏有何不同？"
+  },
+  {
+   "a": "EPC（设计、采购、施工）的选定在阶段4，约需3〜6个月，与电网侧工程并行推进储能电池、PCS、特别高压变压器的选定与EPC合同的缔结。由于接入系统研究评估的是容量（kW）、接入地点与电网影响，取得答复后变更电池厂商在实务上可行；但若较申请时的规格大幅变更，可能需要重新研究，并产生额外的时间与成本。",
+   "q": "储能电站的EPC何时选定？取得答复后能否变更电池厂商？"
+  }
+ ],
+ "zh-column-eprx.html": [
+  {
+   "a": "EPRX 公开交易数据，可确认哪项商品、于哪一区域、以多少价格中标。EPRX 官网（eprx.or.jp）的“取引情報”（Transaction Information）栏目中公布交易实绩。分区域、分商品的最新数据，在本站专栏《辅助服务市场的中标结果数据》（9 个区域×5 项商品）中整理。",
+   "link": "/zh-column-area-data",
+   "q": "EPRX 的交易结果（中标数据）在哪里看？"
+  }
+ ],
+ "zh-column-equipment.html": [
+  {
+   "a": "是在取得接入系统研究答复后，若变更储能电池、PCS或附属设备，向并网所在的一般输配电企业确认是否需要重新进行接入系统研究的手续。这是OCCTO（电力广域运营推进机构）所定的正式手续，公开了高压用与特别高压用的申请书格式。必要性确认本身不收研究费，回复原则1个月，结果为“无需重新研究”或“需要重新研究”二者之一。",
+   "q": "日本的接入系统研究必要性确认是什么？"
+  },
+  {
+   "a": "多数情形下可以。答复书所载的设备规格是研究时的前提条件，并不强制使用该设备。答复书确定的是接入点、并网电压、并网工程费分摊的概算额、电网侧所需的增强工程这些电网侧的条件，在不改变这些条件的范围内，企业侧的设备可以变更。是否影响电网不明确的厂商变更或PCS规格变更，通过必要性确认来确认。",
+   "q": "接入系统研究答复后，能否更换储能电池或PCS的厂商？"
+  },
+  {
+   "a": "典型情形是发电出力增加（如50MW扩至60MW）、改接到别的变电站、并网电压由66kV改为154kV，以及对电网的电气特性大幅改变。再次接入系统研究的周期为2〜3个月，费用约20万日元。东北电力网络称规格变更“原则上”须重新研究，但既为“原则上”，以必要性确认判定为“不需要”的余地充分存在。",
+   "q": "什么情况下需要重新进行接入系统研究？费用多少？"
+  }
+ ],
+ "zh-column-financing.html": [
+  {
+   "a": "据笔者的现场观察，卖方常要求一个月左右交割；即便是公司贷款，内部审批加银行审查也要1.5〜2个月，项目融资则须半年到一年（审查期间没有可确认的公开统计），案件不会等人，于是能当场拍板的现金胜过便宜却慢的债务。与其说贷不到，不如说来不及。此外，二手设备难以变现、担保的清算价值不足，运营业绩短、收益又随行就市，也是原因。代价是储能电站原则上全额自有资金，买一座资金就躺在那里——因此“入口是现金，出口是再融资”的设计正在出现。",
+   "q": "日本储能电站为何多以现金（全额自有资金）成交？"
+  },
+  {
+   "a": "有这样的案例。福岛县西乡村的40MW/200MWh项目以长期脱碳电源拍卖（LDA）原则20年的固定收入为基础，获得合同金额62亿日元、期限20年的银团贷款；没有收益合同的99MW纯市场套利型项目，也获得了以市场收益为唯一还款来源的项目融资（金额·期限未公开或较保守，固定收入的厚度决定债务的厚度）。高压2MW/8MWh单站做PF因固定成本很重而在结构上不利，但有把全国14处高压设施捆在一起、拿到额度49亿日元无追索权融资的例子。",
+   "q": "日本电网侧储能能否获得项目融资（PF）？"
+  },
+  {
+   "a": "在再生能源项目融资的标准实务中，贷款方以保守的P90情景（超越概率90%的收益水平）确定债务规模，并要求DSCR大致在1.2〜1.35倍左右。储能电站收益的大半是随行就市的市场套利型收益，澳大利亚面向储能的贷款方明言一次性的高收益事件不计入债务规模测算。收入中由合同固定的比例越高，期限与杠杆的上限就越高。",
+   "q": "储能项目的债务规模（debt sizing）如何确定？"
+  }
+ ],
+ "zh-column-four-labels.html": [
+  {
+   "a": "只有在“输出功率1,000kW以上、且面向售电公司等的接入最大电力合计超过1万kW（10MW）”，并同时满足“把所发电力的大部分供给售电公司等”之类要件时，放电才被纳入发电事业的申报对象（本文以规模作大致标准）。施工计划申报、使用前自主检查、安全管理审查等更重的手续，仅在输出功率1万kW以上或容量8万kWh以上时才需要。约2MW／8MWh两个指标都只有门槛的十分之一；最低限度仍需做的是维持符合技术标准、选任电气主任技术者、编制并申报保安规程这三项。",
+   "q": "日本电网级储能电站算《电气事业法》上的“发电企业”吗？"
+  },
+  {
+   "a": "按本文（2026年6月时点）的梳理，《地方税法》不问是否在《电气事业法》下申报，只要实际在卖电就是“电气供给业”，法人事业税按“收入金额”而不是利润征收，亏损也要交。标准税率为收入金额的0.75％，再叠加特别法人事业税，实际负担约为售电收入的1.05％。辅助服务市场的ΔkW是否计入收入金额，目前没有当局点名的公开见解，实务上要向总部所在地主管的都道府县税务事务所事先照会。",
+   "q": "日本储能电站的“收入划”（法人事业税）是什么？"
+  },
+  {
+   "a": "目前为17年（按“电气业用设备”归类）。因为收纳电池的集装箱的支柱等为金属制，国税厅将其视为“主要为金属制之物”；若归为“其他之物”则为8年。行业团体一直呼吁缩短或改为可选制，但截至2026年6月尚未实现。",
+   "q": "日本电网级储能电池的折旧年限（耐用年数）是几年？"
+  }
+ ],
+ "zh-column-grid-rules.html": [
+  {
+   "a": "指事业化可能性低、只占住电网容量的申请，例如防灾公园、有他人建筑物的土地、地目上明显无法转用的场所。这类申请使认真推动事业化的企业的接入系统研究陷入积压。截至2025年3月底，接入系统研究申请累计约1.1亿kW，而实际完成并网的电网级储能仅约23万kW。",
+   "q": "日本电网的“空占”是什么"
+  },
+  {
+   "a": "企业在申请接入系统研究时，提示“上位系统增强的可受容性有无”与“并网工程费分摊的上限额”。审查途中判明将超过所提示的条件时，即迅速回复“否”。连接配电系统的高压发电等设备自2026年4月起开始；特别高压（日本的电压分类）的导入时期，在本文写作的2026年4月时点尚未确定。",
+   "q": "“上限额事前提示”制度是什么"
+  }
+ ],
+ "zh-column-grid.html": [
+  {
+   "a": "并网工程费分摊分为两类：企业专用电源线敷设等、全额由企业负担的“特定负担”，以及全区域基干电网增强、通过输配电费用回收的“一般负担”。距最近的输电铁塔或变电站较远时，需敷设数km专用线，费用呈数量级膨胀。能否接入无需增强、尚有可用容量的电网，会让并网工程费分摊在数亿日元到数十亿日元之间变动。",
+   "q": "并网工程费分摊的“特定负担”与“一般负担”是什么？"
+  },
+  {
+   "a": "向一般输配电企业的事前咨询免费，正式的接入系统研究每件约20万日元。答复原则上不足500kW为2个月，其余为3个月，申请集中时会更长。答复书载明并网可否、所需工程概要、概算工期与并网工程费分摊，有效期为1年。",
+   "q": "日本的接入系统研究（接続検討）要花多少钱、多长时间？"
+  },
+  {
+   "a": "因为储能在充电与放电两个方向都会影响电网。充电时的顺潮流引起电压下降，放电时的逆潮流引起电压上升；光伏只需逆潮流的容量，储能则需要双向的可用容量。北海道分区顺潮流侧的可用容量不足趋于严重，已导入“N-1充电停止装置”与“早期连系追加对策”（2025年4月开始）。",
+   "q": "为什么储能并网比光伏更难？"
+  }
+ ],
+ "zh-column-jcstar.html": [
+  {
+   "a": "IPA 以“JC-STAR 符合标签取得产品名单”公开，亦可下载 Excel 格式。2026年11月12日更新时为395件，全部为★1。其中光伏·储能相关，按本公司的统计为189件，附登记编号·取得日·到期日的全部清单放在 COLUMN 52-2。采购之前，要确认所用设备在这份名单上、且状态为“有效”。",
+   "q": "JC-STAR 的取得产品清单在哪里看？"
+  },
+  {
+   "a": "名单上没有以自家名义取得的记录。2026年11月12日版的名单中，华为、阳光电源等中国大型企业16家均无以自家名义取得的登记。日经（2026年7月1日）报道了中国方面“申请被驳回”的说法，以及经济产业省不公开个案判断的姿态，理由从外部无法确认。以中国系 PCS 为前提的项目，应查询其取得时间表，并向一般输配电企业确认不具备 IP 通信功能的构成能否被接受。",
+   "q": "华为（Huawei）、阳光电源（Sungrow）取得 JC-STAR 了吗？"
+  }
+ ],
+ "zh-column-lda.html": [
+  {
+   "a": "LDA指日本的\"长期脱碳电源拍卖\"（長期脱炭素電源オークション）。国家在2023年度作为容量市场的一部分创设，由电力广域运营推进机构（OCCTO）管理。",
+   "q": "LDA是什么的缩写？"
+  },
+  {
+   "a": "这是被称为\"九成返还规则\"的安排，实际是三阶段结构。至投标价中计入的事业报酬额为止的其他市场收益返还95%，超过后至LDA成交单价与主拍卖成交价之差额为止的部分返还90%，再超出的部分返还85%。返还对象仅为市场收益，LDA固定收入100%留在手中。",
+   "q": "LDA的\"九成返还规则\"是什么？"
+  },
+  {
+   "a": "OCCTO于2026年9月2日公布第4次募集要纲，投标受理时间为2027年1月19日〜26日。募集上限为锂离子电池40万kW、锂电池以外的储能40万kW，抽水蓄能与LDES另设合计40万kW的额度。可参与的储能限于送电端3万kW以上、可连续运行6小时以上者。",
+   "link": "https://www.occto.or.jp/assets/260902_boshuyoukou_long_2026.pdf",
+   "q": "第4次LDA何时投标？储能的额度是多少？"
+  }
+ ],
+ "zh-column-long-term-contract.html": [
+  {
+   "a": "是持有者把储能电站的容量与运营权以固定费用交给对方（包销方，offtaker），由对方承担市场价格波动风险的合约。在日本，“包销合约”与“容量租赁合约”在实务中几乎当作同义使用，但并非监管定义上的完全等同。东京燃气所称的“包销合约”与火电的tolling同型：持有储能的SPC让渡运营权、收取固定费用，市场价格风险由对方承接。",
+   "q": "储能电站的容量租赁（tolling）合约是什么？"
+  },
+  {
+   "a": "已确认的日本国内包销全部是20年（HDRE案例约20年）。东京燃气公布了广原（宫崎·30MW）、石狩（北海道·30MW）、芦屋（福冈·50MW）的20年包销；2026年4月，HDRE（泓德能源）一侧的发布又提到约190MW的包销（东京燃气自身的发布未提及此事）。MIRARTH与PowerX为容量租赁（年限未披露），Bison与Engelhart CTP为10年的保底合约（框架协议阶段）。海外的tolling在5〜15年之间，能获得融资的门槛大致是10年以上且包销方为投资级。",
+   "q": "日本储能的包销、容量租赁合约一般签几年？谁在签？"
+  },
+  {
+   "a": "可用率保证（未达则扣减费用）、含老化衰减的容量保证、费用是否与CPI挂钩、充电电源的供给责任、调度权与循环上限，以及信用增级（母公司担保、L/C、评级触发条款）。由于标准合约不公开，具体水平只能从披露更充分的海外去推断。日本自2027年4月起强制适用新租赁会计准则，一旦tolling被识别为租赁，包销方一侧就可能入表。",
+   "q": "容量租赁合约要谈定哪些条款？"
+  }
+ ],
+ "zh-column-low-voltage.html": [
+  {
+   "a": "本文中指受电功率不足50kW、单独接入电网、通过放电（逆潮流）售电的电网侧储能电池（储能站）。住宅用、自用消纳型和光伏配储不在其列。同样是49.5kW，光伏属于小规模事业用电气工作物，而储能站无论功率大小都属于事业用电气工作物，须提交保安规程并选任电气主任技术者。",
+   "q": "什么是低压电网侧储能电池？"
+  },
+  {
+   "a": "需要。储能站即使只有49.5kW也属于事业用电气工作物，须提交保安规程（电气事业法第42条）并选任电气主任技术者（第43条）。以高压及以下并网、功率不足5,000kW的设施，可通过外部委托承认制度委托保安管理，不必自己担任主任技术者，但委托费会作为每台机组的年度固定成本计入。",
+   "q": "低压储能站需要电气主任技术者吗？"
+  },
+  {
+   "a": "放电的低压储能站按「发电量调整供给合同」类别申请，合同当事人不是设置者，而是售电企业（发电合同人）；设置者是出具同意书的一方。中国电力Network等公司写明，申请操作可由电气工程店代办。自2026年6月1日起，发电侧（放电）与需求侧（充电）同时申请已成为受理条件。",
+   "q": "低压储能站由谁提出并网申请？"
+  }
+ ],
+ "zh-column-merchant.html": [
+  {
+   "a": "指没有固定价格的长期合同，在市场上卖出多少就获得多少收入的形态。对储能而言，收入来自JEPX（批发电力市场）、辅助服务市场、容量市场。全部收入都以这种形态取得的运营方针，称为全市场型（Full Merchant）。",
+   "q": "储能项目里的Merchant（商户型）是什么意思？"
+  },
+  {
+   "a": "指自行承担市场价格的波动。全市场型没有20年固定收入，须全数承受市场价格波动风险。辅助服务市场的上限价处于下调方向（19.51日元→15日元，自2026年9月1日的实际供需日起降至10日元），制度每变动一档收支便大不相同，因此收支计划要以多情景来看。",
+   "q": "什么是商户风险（merchant risk）？"
+  },
+  {
+   "a": "取决于风险承受度、资金筹措、市场运营力与项目规模。重视低风险、希望以项目融资筹措的适合LDA型；能够承担市场风险、具备自有资金或公司融资、可由自有团队或聚合商运营的适合全市场型。LDA最低投标容量为30MW，2MW级的高压项目属全市场型；30MW以上的项目可先投标LDA，未中标再切换为全市场型。",
+   "q": "LDA型与全市场型，该选哪一种？"
+  }
+ ],
+ "zh-column-noise.html": [
+  {
+   "a": "电芯本身不发声。声源是处理充放电发热的冷却装置，以及储能变流器（PCS）内置的风扇等周边设备。据主要厂商的数据表，在1m处，储能集装箱的冷却装置约72〜75dBA，PCS风扇视机型约70〜80dBA，住宅若在50m以内，便达可能引起投诉的水平。电网侧储能以24小时运行为基本，“夜间停机”这一选项在商业模式上几乎不存在。",
+   "q": "储能电站的噪声从哪里来？"
+  },
+  {
+   "a": "《噪声规制法》中没有“储能电站”的设施分类。但冷却装置很可能属于施行令中的“送风机”（原动机额定出力7.5kW以上），若属之，设置场所将作为“特定工厂等”受规制标准约束。即便不直接属对象，许多地方政府也以自有条例设定限值，规划阶段应向地方政府环境主管部门事前咨询。",
+   "q": "日本的《噪声规制法》适用于储能电站吗？"
+  },
+  {
+   "a": "设计阶段应研讨四项对策：选定低噪声型PCS与冷却装置（降噪效果参考值5〜15dB）、布置规划优化（5〜10dB）、设置隔音墙或围栏（10〜20dB），以及运行时段控制——后者对收益影响大，属最后手段。设计阶段数百万日元即可了结的对策，到运行后事后加装便变了数量级（事后加装隔音工程约需数百万〜逾千万日元）。噪声纠纷激化的最大原因是说明不足，事前召开说明会、设置联络窗口是最低限度。",
+   "q": "如何防止储能电站的噪声纠纷？"
+  }
+ ],
+ "zh-column-nonfirm.html": [
+  {
+   "a": "同意书中含有\"缔结本合同，即表示对无法参与容量市场及辅助服务市场的情形予以容认。\"的文字。这是对未来限制可能性的法律保留，并非现阶段的一律禁止。容量市场在2027年度〜2029年度的主拍卖中、辅助服务市场在当前（至2028年度）准许非确定性电源参与，但两者均为逐年度判断的暂定措施，并非恒久权利。",
+   "q": "非确定性并网的同意书写了什么？还能参与容量市场、辅助服务市场吗？"
+  },
+  {
+   "a": "非确定性并网的放电侧控制，是电网拥堵时在线抑制放电，相对可预见。N-1出力控制（转送切断）是发生N-1故障时瞬时切断储能的出力；充电侧则要求设置N-1充电停止装置。充电侧的限制联动于N-1故障这一突发事件，与放电侧性质不同。故障频率载于接入系统研究答复书的\"N-1故障记录\"，例如\"0.667次/年\"意味着3年内有2次故障记录。",
+   "q": "N-1出力控制（转送切断）与非确定性并网的出力控制有何不同？"
+  }
+ ],
+ "zh-column-om.html": [
+  {
+   "a": "高压以上的储能电站必须选任电气主任技术者。选任分自行选任与外部选任两种。以委托安全管理业务替代选任的外部委托许可制度（《电气事业法》施行规则第52条第2款），仅适用于出力未满5,000kW、且以7,000V以下并网的光伏电站或储能电站。特别高压的储能电站只能在自行选任与外部选任（或统括、兼任许可）之间二选一。外部委托还要求安全业务承担者原则上能在2小时以内到达事业场，可受托事业场的换算值合计不超过33。",
+   "q": "日本储能电站的电气主任技术者可以外部委托吗？"
+  },
+  {
+   "a": "首先要在合同中写明：EMS、PCS、BESS、BMS异常时，由谁最先切分、着手修复。法律已把直流侧纳入电气主任技术者的安全监督对象，但其履行的承担者若不在合同中另行约定便成空白。同时还要约定路由器设置、IP表、系统图在移交时的交付、通信的修复责任人，年可用率保障的有无与免责范围，还有厂商质保与运维的边界。",
+   "q": "储能电站的运维（O&M）合同应约定哪些事项？"
+  }
+ ],
+ "zh-column-price-cap.html": [
+  {
+   "a": "自2026年9月1日实际供需起，一次调频（含离线额度）、二次调频①、复合产品的上限价格为10.00日元/ΔkW·30分钟。二次②、三次①维持7.21日元，三次②本来就没有上限。由于实行日前交易，新上限从8月31日的成交处理起生效。超过上限的报单即便成交，也会在结算环节被削减至10日元。",
+   "q": "日本辅助服务市场的上限价格现在是多少？10日元从何时开始？"
+  },
+  {
+   "a": "一次、二次①、复合产品的上限：自2024年4月1日起为19.51日元，2026年3月14日与日前交易化同步降至15.00日元，2026年9月1日起为10.00日元/ΔkW·30分钟（日期均为实际供需日）。19.51日元和7.21日元由公式得出：三次备用②成交加权平均单价1.06日元，加3倍或1倍标准差。15日元和10日元并非由公式得出，而是为纠正\"顶格成交\"酌情切分的中间水平。",
+   "q": "上限价格是怎样一路下调的？19.51日元→15日元→10日元"
+  },
+  {
+   "a": "下一步是有条件的。第110次制度研讨工作组（2026/1/23、资料4）的整理是：若市场竞争状况未见改善，将分阶段下调至10日元、7.21日元/ΔkW·30分钟等水平；若竞争状况出现改善，则不再进一步下调。判断的时点与定量标准在一手资料中没有明示。EPRX规定上限变更须在实际供需日两周前公布，最早能获知的地方是EPRX的上限价格页面。",
+   "q": "上限价格下一步会降到7.21日元吗？"
+  }
+ ],
+ "zh-column-regional-revenue.html": [
+  {
+   "a": "以2025年7月～2026年6月交割的实测搭建，基准机组（2MW/8,000kWh·4小时）的年营收按分区合计中位数为2.7～2.9亿日元。其中约八成来自平衡调整市场，JEPX与容量市场合计约两成；若全押平衡调整（48时段），则为每年3.1亿～4.2亿日元。以上均为扣除聚合商手续费之前的数字，JEPX部分是完全预见下的理论上限（容器）。",
+   "q": "日本2MW/8MWh电网侧储能，一年能赚多少？"
+  },
+  {
+   "a": "储能以“稳定电源”登录时，合同容量不按名义，而按期望容量＝设备容量×调整系数确定，4小时机组因分区与月份只被认可约56～90%。按FY2029成交单价概算2MW的实收，东北约2,629万日元居首；东京成交单价为15,111日元（比上限低1日元），但因年平均系数约70.8%，实收约2,139万日元，与单价12,388日元的中国地区同额。“15,112日元×2,000kW＝3,022万日元”只是上限值，不能用于决策；2MW·4小时机组也不在长期脱碳电源拍卖之列，新进入者获得容量收入的入口只有主拍卖。",
+   "q": "在日本容量市场，储能电站实际能拿到多少？"
+  },
+  {
+   "a": "按最近12个月实测，招标规模、短缺率、属地单价三点全部满足的只有东北，综合首位为东北，约2.9亿日元。JEPX居首的北海道因平衡调整市场过细而吃不满行情。只看容量市场与JEPX两层（底座＋核心），首位北海道与末位关西之差按2MW每年约1,500万日元。以套利进攻、以调节力去取，还是稳住底座精选买入——先定战略，分区自然就定了。（文中“中国”指日本的中国地区。）",
+   "q": "日本哪个电网分区的储能收益最高？"
+  }
+ ],
+ "zh-column-revenue.html": [
+  {
+   "a": "指不依赖单一市场，而是叠加多个市场的收益。日本电网级储能叠加三者：JEPX 套利（低买高卖）、辅助服务市场（出售电力的“保险”）、容量市场（“只要存在”就有固定收入）。如何组合三个市场，决定事业的成败。同时参与三个市场需要高度的运营专业，多数企业会运用聚合商。",
+   "q": "什么是储能的收益叠加（revenue stacking）？"
+  },
+  {
+   "a": "JEPX 将 24 小时以 30 分钟为单位切成 48 个时段交易，储能在低价时段充电、于高价时段放电获利。光伏大量接入后，白天价格低至 0.01 日元/kWh（九州尤其常见），傍晚尖峰超过 20 日元/kWh。2024 年单日最高与最低价差平均约 20 日元/kWh，约为 2020 年前后（约 4 日元/kWh）的 5 倍。",
+   "q": "储能套利（JEPX 价差）是怎么赚钱的？"
+  },
+  {
+   "a": "容量市场（主拍卖）在实际供需的 4 年前举办拍卖，对电源“存在”本身支付对价。储能于 1,000kW 以上即可参与，中标率超过 96%。不过储能在主拍卖的投标容量仅占整体约 0.1%（约 24 万 kW），大型储能多流向 LDA。最新的分区中标价格见本文补记。",
+   "q": "容量市场如何向储能支付收入？"
+  }
+ ],
+ "zh-column-subsidies.html": [
+  {
+   "a": "按本文参照的SII令和7年度公募要领（公募期间2025年8月29日〜10月24日），最大受电功率不足10MW为1/3以内、上限10亿日元，10MW以上为1/2以内、上限40亿日元，长时储能（LDES）为2/3以内、上限20亿日元（补助对象经费不含税）。东京都的电网级大型储能导入支援事业，据2025年3月31日的报道发布为2/3、上限20亿日元，与国家补贴同时领取时合计亦以2/3为上限。此后2026年9〜11月公募的“令和7年度補正 系統用蓄電システム等導入支援事業”，锂离子电池的补贴率与上限已按最大受电功率的区间改变，见“2026年11月时点的补记”。",
+   "q": "日本SII与东京都的电网级储能补贴，补贴率与上限是多少？"
+  },
+  {
+   "a": "不属于。令和7年度公募要领p.14-15所定的补助对象经费，仅限实施设计费、设备费（电芯/模组、BMS、PCS、储能系统控制装置等）、设置工程费三费目。升压变压器、主变压器等变配电设备，以及保护继电器、开关等站内设备，与土地造成、围栏工程、并网工程费分摊一起，被明示为对象外。2026年9月公募的令和7年度补正的公募要领（p.18）同样把升压变压器、主变压器等变配电设备、保护继电器、开关等站内设备以及并网工程相关费用列为补助对象外（机箱内含有这些设备时，须事前向SII咨询）。",
+   "q": "SII电网级储能补贴中，变压器属于补助对象吗？"
+  },
+  {
+   "a": "以补贴取得的财产，在处分限制期内出售、交换、出借、废弃、提供担保，均需SII事前批准。公募要领只把期间定为“导入设备等的法定耐用年数”，17年是套用耐用年数省令别表第二“电气业用设备／其他设备／主要为金属制者”的结果。无在自社活用补助对象设备打算的企业（预定向SPC转让等），公募要领p.6要求事前向SII咨询并请求指示。",
+   "q": "补贴的处分限制期是什么？为什么是17年？"
+  }
+ ],
+ "zh-column-tax.html": [
+  {
+   "a": "业内所说的\"一年就能折完\"，指的是日本2026财年税制改革大纲中新设的大胆投资促进税制（正式名称：特定生产力提升设备投资税制），可在即时全额折旧（第一年将取得价款全额计入费用）与7%的税额抵免（建筑物、建筑物附属设备与构筑物为4%）之间二选一。但大纲中从未出现\"电网级储能\"等字眼，是否符合资格取决于METI省令与主管大臣的确认。大纲还将\"用于出租\"的设备排除在外，SPC持有、交由他方运营的代工型或租赁结构很可能落选。",
+   "q": "日本电网级储能可以\"一年折完\"（即时全额折旧）吗？"
+  },
+  {
+   "a": "电池电芯与PCS在税务上基本归类为\"机械装置\"，落入《折旧资产耐用年限省令》附表第二\"电力行业用设备\"中的\"主要为金属制\"，法定耐用年限为17年。建筑物附属设备中的\"蓄电池电源设备\"（6年）用于停电备份，不适用于向电网放电赚取收入的储能电站。即时全额折旧则把这17年的费用全部提前到第一年。",
+   "q": "日本电网级储能的折旧年限是多少年？"
+  },
+  {
+   "a": "在整整17年里，可计入费用的总额与普通折旧相同，缴纳的税款总额一日元都不会改变。它带来的是税款的递延，真正的价值在于能更早动用这笔现金（货币的时间价值）。真正减少税款的，是从法人税中直接扣减取得价款7%（建筑物、建筑物附属设备与构筑物为4%）的税额抵免，其上限为当年法人税的20%。递延的价值，可用本文的计算器，按自己的取得价款、实际税率与折现率来试算。",
+   "q": "即时全额折旧能节税吗？"
+  }
+ ]
+}

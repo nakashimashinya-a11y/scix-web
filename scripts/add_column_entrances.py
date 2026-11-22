@@ -4,6 +4,12 @@
 コラム本文は触らない。フッターの直前に、印のコメントで囲った1区画を入れる。
 もう入っていれば作り直す（何度走らせても同じ）。
 
+英語・中国語のコラム（en/column-*.html・zh-column-*.html）にも、言葉ごとの文と行き先で同じ区画を足す（2026-11-22 中島「これ全部やって。
+売上UPのために徹底的に進めて。すべて漏らさずやって。」＝Gemini の助言の指示2・5）。行き先は 蓄電所マーケット（https://dealroom.scix.co.jp/en）・
+問い合わせ（/en/contact・/zh-contact）・ナレッジ。頁の末尾に前から導線（cta-section・cta-block・scix-column-cta）がある頁は入口の札だけにし、
+無い頁（英語30・中国語27）は先頭の札を主ボタンの色にする（同じ行き先のボタンを2つ並べない）。押されたかは header.js の a[data-cta] の委任（cta_click・placement=end）で数える。
+土地の持ち主向けの頁（column-land-value の英語・中国語）には、売る・買う入口のほかを足さない（O16-5＝土地を呼ぶ札を作らない）。
+
     python3 scripts/add_column_entrances.py          # 書き換える
     python3 scripts/add_column_entrances.py --check  # 書き換えずに、ずれているかだけ見る（ずれていれば 1）
 """
@@ -114,20 +120,82 @@ def block(name, ps):
     )
 
 
+# ---- 英語・中国語（2026-11-22） ----
+INTL = {
+    "en": dict(pre="en/column-", font="'Noto Sans JP',sans-serif", h="Where to go next",
+               doors={"market": ("https://dealroom.scix.co.jp/en", "Projects for sale on Chikudensho Market", "No registration to browse", "market"),
+                      "sell": ("/en/contact", "Selling a project? Contact us", "We buy it or introduce a buyer", "contact"),
+                      "know": ("/en/knowledge", "Knowledge — regulation, technology and business", "All columns", "site-en/knowledge"),
+                      "data": ("/en/report/data", "Battery Storage Market Data", "JEPX and capacity prices", "site-en/report/data")}),
+    "zh": dict(pre="zh-column-", font="'Noto Sans SC','Noto Sans JP',sans-serif", h="下一步",
+               doors={"market": ("https://dealroom.scix.co.jp/en", "蓄电所市场的在售项目（英文页面）", "无需注册即可查看", "market"),
+                      "sell": ("/zh-contact", "想出售项目，请联系我们", "由本公司收购，或为您引荐买家", "contact"),
+                      "know": ("/zh-knowledge", "洞见：日本电网级储能的制度、收益、市场结构", "全部文章", "site-zh-knowledge"),
+                      "data": ("/en/report/data", "市场数据（英文页面）", "JEPX 与容量市场价格", "site-en/report/data")}),
+}
+END_CTA_RE = re.compile(r'class="(?:cta-section|cta-block|cta)[ "]|scix-column-cta')
+
+
+def has_end_cta(s):
+    """著者の箱より後ろに、前からある末尾の導線（マーケット・問い合わせ・売却査定へのリンク）があるか。"""
+    i = s.find('class="author-box"')
+    tail = s[i:] if i >= 0 else ""
+    f = re.search(r"<!-- ScienceX Footer|<style>\s*\.scix-footer|<footer", tail)
+    tail = tail[: f.start()] if f else tail
+    return bool(re.search(r'href="[^"]*(?:dealroom\.scix\.co\.jp|contact|sell-form)[^"]*"', tail))
+
+
+def block_intl(lang, name, end_cta):
+    L = INTL[lang]
+    land = name.startswith("land-")
+    seller = doors_for(name)[0] == "sell"
+    keys = ["sell", "market"] if (seller or land) else ["market", "sell"]
+    if not land:
+        keys.append("data" if DATA_RE.search(name) else "know")
+    # 前からある末尾の導線が無い頁は、先頭の札（買い手の記事はマーケット・売り手の記事は問い合わせ）を主ボタンの色にする
+    # （同じ行き先のボタンを札の下にもう1つ並べない）
+    def card(i, k):
+        d = L["doors"][k]
+        main = (i == 0 and not end_cta)
+        bg, fg, sub = ("#1F2A48", "#fff", "rgba(255,255,255,.78)") if main else ("#fff", "#1F2A48", "#8C8C8C")
+        return ('<a target="_top" href="%s" data-cta="end" data-cta-target="%s" style="display:block;padding:14px 16px;border:1px solid %s;background:%s;'
+                'text-decoration:none;color:%s;font-weight:700;font-size:14px;line-height:1.6">%s'
+                '<span style="display:block;font-weight:400;font-size:12px;color:%s">%s →</span></a>'
+                % (d[0], d[3], "#1F2A48" if main else "#E6E6E6", bg, fg, d[1], sub, d[2]))
+    cards = "".join(card(i, k) for i, k in enumerate(keys))
+    return (
+        BEGIN + "\n"
+        '<div style="max-width:760px;margin:28px auto 0;padding:0 28px;font-family:%s">\n' % L["font"]
+        + '  <h3 style="font-size:14px;color:#8C8C8C;margin:0 0 12px;font-weight:700">%s</h3>\n' % L["h"]
+        + '  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">' + cards + "</div>\n"
+        + "</div>\n" + END + "\n"
+    )
+
+
+def insert(p, s, blk):
+    s2 = re.sub(re.escape(BEGIN) + r".*?" + re.escape(END) + r"\n\n*", "", s, flags=re.S)
+    m = re.search(r"<!-- ScienceX Footer|<style>\s*\.scix-footer|<footer class=\"scix-footer\"|<footer style=\"background-color:#1F2A48", s2)
+    if not m:
+        print("フッターの位置が見つからない:", p)
+        return None
+    return s2[:m.start()] + blk(s2) + "\n" + s2[m.start():]
+
+
 def main():
     check = "--check" in sys.argv
     bad = 0
     ps = _projects()
-    for p in sorted(glob.glob("column-*.html")):
+    jobs = [(p, lambda s2, n=p[len("column-"):-len(".html")]: block(n, ps)) for p in sorted(glob.glob("column-*.html"))]
+    for lang, L in INTL.items():
+        for p in sorted(glob.glob(L["pre"] + "*.html")):
+            n = p[len(L["pre"]):-len(".html")]
+            jobs.append((p, lambda s2, n=n, lang=lang: block_intl(lang, n, has_end_cta(s2))))
+    for p, blk in jobs:
         s = open(p, encoding="utf-8").read()
-        name = p[len("column-"):-len(".html")]
-        s2 = re.sub(re.escape(BEGIN) + r".*?" + re.escape(END) + r"\n\n*", "", s, flags=re.S)
-        m = re.search(r"<!-- ScienceX Footer|<style>\s*\.scix-footer|<footer class=\"scix-footer\"|<footer style=\"background-color:#1F2A48", s2)
-        if not m:
-            print("フッターの位置が見つからない:", p)
+        out = insert(p, s, blk)
+        if out is None:
             bad = 1
             continue
-        out = s2[:m.start()] + block(name, ps) + "\n" + s2[m.start():]
         if out != s:
             if check:
                 print("ずれ:", p)
