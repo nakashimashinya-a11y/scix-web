@@ -107,7 +107,7 @@ const key = async (p, k, vk) => { await p.S('Input.dispatchKeyEvent', { type: 'r
 const tap = async (p, x, y) => { await p.S('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] }); await p.S('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await sleep(150); };
 
 for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
-  const groups = lg === 'ja' ? ['buy', 'sell', 'knowledge', 'research'] : ['knowledge', 'research'];
+  const groups = lg === 'ja' ? ['sell', 'knowledge', 'research'] : ['knowledge', 'research'];   // 2026-11-23（O16-72）: 日本語の買いたいは引き出しの無い札（マーケットの一覧へ直行）
   const sel = (g) => `.scix-nav-dd[data-group=${g}] .scix-nav-dd-toggle`;
   {   // マウス（1440・hover あり）
     const p = await page({ w: 1440 }); await p.go(BASE + url); await watch(p); const at = `[マウス ${lg}] `;
@@ -128,7 +128,7 @@ for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
     await p.eval(`document.querySelector(${JSON.stringify(sel('research'))}).focus()`); await p.eval('window.__dp = []'); await key(p, 'Enter', 13); await sleep(80);
     const dpk = await p.eval('window.__dp'); ok(at + 'キーボード Enter は頁へ', dpk.length === 1 && dpk[0].dp === false, JSON.stringify(dpk));
     await key(p, 'ArrowDown', 40); await sleep(80); st = await state(p); const f1 = await p.eval(`document.activeElement.getAttribute('href')`);
-    ok(at + 'キーボード ↓ で開いて最初のリンクへ', st.research[0] && st.research[1] === 'true' && /\/report$/.test(f1), JSON.stringify(st.research) + f1);
+    ok(at + 'キーボード ↓ で開いて最初のリンクへ', st.research[0] && st.research[1] === 'true' && /\/report\/flash$/.test(f1), JSON.stringify(st.research) + f1);
     await key(p, 'Escape', 27); await sleep(80); st = await state(p); ok(at + 'Esc で閉じて札へ戻る', !st.research[0] && st.research[1] === 'false' && /scix-nav-dd-toggle/.test(await p.eval('document.activeElement.className')), JSON.stringify(st.research));
     await p.close();
   }
@@ -203,7 +203,9 @@ for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
     ft.querySelectorAll('.scix-ft-cols a[href]').forEach((a) => { const h = a.getAttribute('href'), fl = strip(a); if (hd[h] && !hd[h].some((hl) => hl.includes(fl) || fl.includes(hl))) words.push(h + ' 下:' + fl + ' 上:' + hd[h].join('/')); });
     const R = (s) => { const b = ft.querySelector(s).getBoundingClientRect(); return { l: b.left, r: b.right, t: b.top }; };
     const cols = ft.querySelector('.scix-ft-cols');
-    return { built: true, W: innerWidth, sw: document.documentElement.scrollWidth, dups, words, logo: R('.scix-ft-logo'), mg: R('.scix-ft-mg'), auth: R('.scix-ft-auth'),
+    const colMax = Math.max(...[...cols.querySelectorAll('.scix-ft-col')].map((c) => c.querySelectorAll('a[href]').length));
+    const sellCol = cols.querySelector('.scix-ft-col.is-sell'); const sellFirst = sellCol && sellCol.querySelector('a[href]') ? strip(sellCol.querySelector('a[href]')) : '';
+    return { built: true, W: innerWidth, sw: document.documentElement.scrollWidth, dups, words, colMax, sellFirst, logo: R('.scix-ft-logo'), mg: R('.scix-ft-mg'), auth: R('.scix-ft-auth'),
       ncol: cols.querySelectorAll('.scix-ft-col').length, tracks: getComputedStyle(cols).gridTemplateColumns.split(' ').length };
   })()`;
   for (const [, url] of [['ja', '/column-aggregators-switching'], ['en', '/en'], ['zh', '/zh'], ['ja', '/fund']]) for (const w of [1440, 1280, 1101, 900, 768, 721, 390, 320]) {
@@ -214,6 +216,8 @@ for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
       ok(at + '頁が横に広がらない', m.sw <= m.W, `${m.sw}>${m.W}`);
       ok(at + '行き先は帯の中で1回（マーケットのトップだけ2回）', m.dups.length === 0, m.dups.join(' '));
       ok(at + '列の言葉は上の帯と食い違わない', m.words.length === 0, m.words.join(' / '));
+      ok(at + '列ごとに4つまで（O16-72）', m.colMax <= 4, String(m.colMax));
+      if (url === '/column-aggregators-switching' || url === '/fund') ok(at + '売りたいの列の先頭は「蓄電所を出す（無料）」', m.sellFirst === '蓄電所を出す（無料）', m.sellFirst);
       if (w > 1100) ok(at + '格子は列の数と同じ（空いた列を残さない）', m.tracks === m.ncol, `${m.tracks}/${m.ncol}`);
       if (w > 720) {
         const pad = w <= 768 ? 16 : 24, right = m.W - pad;   // 下の帯の中身は画面いっぱい（上の帯の .scix-header-inner と同じ左右 24px・〜768px は本文と同じ 16px）

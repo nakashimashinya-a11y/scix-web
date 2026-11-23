@@ -522,9 +522,9 @@
   // Pages that light up each group (beyond the links listed inside it).
   var GROUP_PAGES = {
     knowledge: ['/knowledge', '/qa', '/grid-storage', '/glossary', '/column-somosomo', '/primer', '/market-entry-guide'],
-    buy:   ['/projects', '/transfer', '/fund', '/investors', '/for/sme', '/for/major'],
+    buy:   ['/projects', '/transfer', '/fund', '/investors', '/for/sme', '/for/major', '/market-data'],
     sell:  ['/sourcing', '/sell-form', '/partners', '/for/dealers'],
-    research: ['/research', '/report', '/market-data']
+    research: ['/research', '/report']   // 2026-11-23: 市場の頁は速報（/report/flash）と月号（/report/<月>）の2本だけ。売り案件の市場データは「買いたい」へ戻した
   };
 
   // 2026-11-15 メニュー全体の見直し（重複をなくし、全体の整合をとった）:
@@ -575,46 +575,34 @@
       ['/en/market-entry-guide', 'Entry Guide', '', '/market-entry-guide']
     ], 'book'),
     ddNav('research', 'Market Research', '/en/research', [
-      ['/en/report',      'Market Notes', '', '/report'],
-      ['/en/report/data', 'Market Data',  '', '/report/data'],
-      ['/en/market-data', 'Japan BESS Projects for Sale: Market Data', '', '/market-data']
+      ['/en/report/flash', 'Market Notes: Daily Flash', '', '/report/flash'],
+      ['/en/report',       'Market Notes: Monthly Issue (on the 1st)', '', '/report']
     ], 'chart'),
     '<a href="/en/company" data-page="/company">' + ic('co') + '<span>Company</span></a>',
     '<a href="/en/contact" data-page="/contact">' + ic('mail') + '<span>Contact</span></a>'
   ] : [
+    // 2026-11-23 中島「メニュー多いのは良くない。シンプルに。」（共通ルール O16-72）: 買いたいは引き出し無しでマーケットの一覧へ直行。
+    // 売りたいの引き出しは2つ（マーケットに自分で出す・当社に査定）。外した行き先（/transfer・/fund・/investors・/sourcing・/partners・/market-data ほか）は下の帯の列に。
     mgroup(
-      ddNav('buy', '買いたい', MKT + '/', [
-      ['/transfer', '買うまでの流れ・買い方3つ'],
-      ['/fund',     'ファンドで持つ']
-    ], 'buy') +
+      '<a href="' + MKT + '/" class="scix-nav-main scix-top-buy" data-k="buy">' + ic('buy') + '<span>買いたい</span></a>' +
       ddNav('sell', '売りたい', MKT + '/needs', [
-      ['/sell-form', '当社に無料で売却査定'],
-      ['/sourcing',  '売るまでの流れ'],
-      ['/partners',  '案件・投資家を紹介する']
+      [MKT + '/start/sell', '蓄電所を出す（無料）'],
+      ['/sell-form',        '当社に無料で売却査定']
     ], 'sell')
     ),
     SEP,
+    // 2026-11-23: ナレッジの引き出しは3つ（分野の5つは記事の頁のタブにある・そもそも／しくみは下の帯へ）
     ddNav('knowledge', 'ナレッジ', '/knowledge', [
-      { head: 'テーマで読む', items: [
-        ['/knowledge',            'すべての記事（毎週更新）', 'scix-dd-all'],
-        ['/knowledge#cat-market', '収益・市場'],
-        ['/knowledge#cat-rules',  '税制・制度・規制'],
-        ['/knowledge#cat-deal',   '売買の実務'],
-        ['/knowledge#cat-land',   '土地・用地'],
-        ['/knowledge#cat-tech',   '技術・安全・運用']
-      ]},
-      { head: 'はじめての方', items: [
-        ['/qa',              '入門Q&amp;A（24問）'],
-        ['/column-somosomo', '蓄電池の、そもそも（連載20本）'],
-        ['/grid-storage',    '蓄電池事業のしくみ'],
-        ['/glossary',        '用語集']
-      ]}
+      ['/knowledge', 'すべての記事（毎週更新）', 'scix-dd-all'],
+      ['/qa',        '入門Q&amp;A（24問）'],
+      ['/glossary',  '用語集']
     ], 'book'),
-    // 市場リサーチ: 札そのものは入口の頁 /research へ（2026-11-23）。引き出しの中の札は、行き先の h1 と同じ言葉（O16-27）。売り案件の市場データは「買う」の引き出しからここへ移した（行き先は1か所に1回）
+    // 市場リサーチ: 札そのものは入口の頁 /research へ（2026-11-23）。引き出しの中の札は、行き先の h1 と同じ言葉（O16-27）。
+    // 2026-11-23 中島「メニュー多いのは良くない。シンプルに。速報で毎日の最新データ。毎月１日の前月最新データがいい。」＝引き出しは速報と月号の2つだけ。
+    // 号をまたいだ推移（/report/data）は速報・月号の頁の中から、売り案件の市場データ（/market-data）は「買いたい」の引き出しへ。
     ddNav('research', '市場リサーチ', '/research', [
-      ['/report',      '蓄電所の市場ノート'],
-      ['/report/data', '蓄電所の市場データ'],
-      ['/market-data', '系統用蓄電池の売り案件 市場データ']
+      ['/report/flash', '市場ノート 速報（毎日更新）'],
+      ['/report',       '市場ノート 月号（毎月1日）']
     ], 'chart'),
     '<a href="/company"  data-page="/company">' + ic('co') + '<span>会社案内</span></a>',
     '<a href="/contact"  data-page="/contact">' + ic('mail') + '<span>お問い合わせ</span></a>'
@@ -799,7 +787,7 @@
     // 2026-11-21: 市場ノート（/report・/report/<月>）にも登録の箱を出す。
     // 受け口は記事の箱と同じ /api/newsletter（_page に /report… が残るので、どの箱から来たかは名簿の page で分かる）。置き場所の名前は report_index／report_issue。
     // 文は今の約束（週1本の記事）のまま。毎月の号をメールで送る形にするときは、文もそれに合わせて替える。
-    var isReportPage = loc === '/report' || /^\/report\/\d{4}-\d{2}$/.test(loc);
+    var isReportPage = loc === '/report' || loc === '/report/flash' || /^\/report\/\d{4}-\d{2}$/.test(loc);   // 速報（/report/flash・2026-11-23）にも
 
     function nlMount(el, where, isRp) {
       el.className = 'scix-nl' + (isRp ? ' scix-nl-rp' : '');
@@ -878,7 +866,7 @@
           var rbox = document.createElement('div');
           at.parentNode.insertBefore(rbox, at);
           rbox.style.marginBottom = '48px';
-          nlMount(rbox, loc === '/report' ? 'report_index' : 'report_issue', true);
+          nlMount(rbox, loc === '/report' ? 'report_index' : (loc === '/report/flash' ? 'report_flash' : 'report_issue'), true);
         } catch (err) { /* 箱を出せなくても頁はそのまま */ }
         return;
       }
@@ -919,6 +907,12 @@
       links[i].classList.add('active');
     }
   }
+
+  // 2026-11-23: 日本語の「買いたい」は引き出しの無い札になった。買う側の頁（GROUP_PAGES.buy）にいる間は、引き出しのあった時と同じに札を光らせる
+  try {
+    var topBuy = document.querySelector('.scix-header-nav a.scix-top-buy');
+    if (topBuy && (GROUP_PAGES.buy || []).indexOf(loc) !== -1) topBuy.classList.add('active');
+  } catch (err) { /* 光らなくても帯はそのまま */ }
 
   // --------------- 3b. Dropdown groups (買いたい / 売りたい / ナレッジ / 市場リサーチ) ---------------
   // 2026-11-23: 引き出しのある札は全部同じ動き。札（a）そのものが頁へのリンクで、
@@ -1231,6 +1225,7 @@
       var m;
       if (isCol) m = 'col-' + loc.slice('/column-'.length);
       else if (loc === '/report') m = 'report';
+      else if (loc === '/report/flash') m = 'report-flash';
       else if (/^\/report\/\d{4}-\d{2}$/.test(loc)) m = 'report-' + loc.slice('/report/'.length);
       else if (loc === '/knowledge') m = 'knowledge';
       else if (loc === '/' || loc === '/index') m = (isZh && path !== '/zh') ? 'site-' + path.replace(/^\/zh-?/, '') : 'top';
@@ -1556,21 +1551,22 @@
     // 行き先は下の帯の中で1回（O16-70・まとまりの名前と買いたいがマーケットのトップを指すのは例外）: 1段目にある行き先（ロゴ・まとまり・買いたい・売りたい・ログイン・登録）は列に重ねない。
     // 英語・中国語の「買う」の列は1段目と同じ1本しか無いので、中身は空（前の下の帯から足す物があれば出す・空なら列ごと出さない）。会社の列の Home・首页 はロゴと同じなので外した。
     var COLS = isZh ? [
-      { k: 'buy', h: '购买', items: [] },
+      { k: 'buy', h: '购买', items: [['/zh-market-data', '市场数据']] },
       { k: 'knowledge', h: '洞见', items: [['/zh-knowledge', '洞见'], ['/zh-qa', '问答'], ['/zh-faq', '常见问题'], ['/zh-glossary', '术语表']] },
-      { k: 'research', h: '市场研究', items: [['/en/report', '市场研究' + TAG], ['/zh-market-data', '市场数据']] },
+      { k: 'research', h: '市场研究', items: [['/en/report', '市场研究' + TAG]] },
       { k: 'co', h: '公司', items: [['/zh-company', '公司介绍'], ['/zh-contact', '联系我们'], ['@privacy', '隐私政策']] }
     ] : isEn ? [
-      { k: 'buy', h: 'Buy', items: [] },
+      { k: 'buy', h: 'Buy', items: [['/en/market-data', 'Japan BESS Projects for Sale: Market Data']] },
       { k: 'knowledge', h: 'Knowledge', items: [['/en/knowledge', 'Knowledge'], ['/en/qa', 'Q&amp;A'], ['/en/glossary', 'Glossary'], ['/en/market-entry-guide', 'Market Entry Guide']] },
-      // /en/market-data は前の下の帯で「Market Data」。市場リサーチの /en/report/data（上の帯で Market Data）と同じ言葉になるので、行き先の title の言葉にした（O16-27）
-      { k: 'research', h: 'Market Research', items: [['/en/report', 'Market Notes'], ['/en/report/data', 'Market Data'], ['/en/market-data', 'Japan BESS Projects for Sale: Market Data']] },
+      // 2026-11-23: 市場リサーチは速報と月号の2本だけ（上の帯と同じ）。/en/market-data は行き先の title の言葉で「Buy」の列へ（O16-27）
+      { k: 'research', h: 'Market Research', items: [['/en/report/flash', 'Market Notes: Daily Flash'], ['/en/report', 'Market Notes: Monthly Issue (on the 1st)']] },
       { k: 'co', h: 'Company', items: [['/en/company', 'Company'], ['/en/contact', 'Contact'], ['@privacy', 'Privacy Policy']] }
     ] : [
-      { k: 'buy', h: '買いたい', items: [['/transfer', '買うまでの流れ・買い方3つ'], ['/fund', 'ファンドで持つ'], ['/investors', '系統用蓄電池への投資']] },
-      { k: 'sell', h: '売りたい', items: [['/sell-form', '当社に無料で売却査定'], ['/sourcing', '売るまでの流れ'], ['/partners', '案件・投資家を紹介する']] },
-      { k: 'knowledge', h: 'ナレッジ', items: [['/knowledge', 'すべての記事（毎週更新）'], ['/qa', '入門Q&amp;A'], ['/grid-storage', '蓄電池事業のしくみ'], ['/glossary', '用語集']] },
-      { k: 'research', h: '市場リサーチ', items: [['/report', '蓄電所の市場ノート'], ['/report/data', '蓄電所の市場データ'], ['/market-data', '系統用蓄電池の売り案件 市場データ']] },
+      // 2026-11-23（O16-72）: 列ごとに4つまで。上の帯から外した行き先の受け皿。売りたいの列の先頭は「蓄電所を出す（無料）」
+      { k: 'buy', h: '買いたい', items: [['/transfer', '買うまでの流れ・買い方3つ'], ['/fund', 'ファンドで持つ'], ['/investors', '系統用蓄電池への投資'], ['/market-data', '系統用蓄電池の売り案件 市場データ']] },
+      { k: 'sell', h: '売りたい', items: [[MKT + '/start/sell', '蓄電所を出す（無料）'], ['/sell-form', '当社に無料で売却査定'], ['/sourcing', '売るまでの流れ'], ['/partners', '案件・投資家を紹介する']] },
+      { k: 'knowledge', h: 'ナレッジ', items: [['/knowledge', 'すべての記事（毎週更新）'], ['/qa', '入門Q&amp;A'], ['/grid-storage', '蓄電池事業のしくみ'], ['/column-somosomo', '蓄電池の、そもそも（連載20本）']] },
+      { k: 'research', h: '市場リサーチ', items: [['/report/flash', '市場ノート 速報（毎日更新）'], ['/report', '市場ノート 月号（毎月1日）'], ['/report/data', '蓄電所の市場データ']] },
       { k: 'co', h: '会社', items: [['/company', '会社案内'], ['/contact', 'お問い合わせ'], ['@privacy', 'プライバシーポリシー']] }
     ];
     var PRIVACY_DEFAULT = isZh ? '/zh-privacy' : (isEn ? '/en/privacy' : '/privacy');
@@ -1578,8 +1574,8 @@
     function colFor(href) {
       var n = normHref(href);
       if (/needs$|\/(en\/)?(sourcing|sell-form|partners)$/.test(n)) return 'sell';
-      if (/^dealroom\.scix\.co\.jp|\/(en\/)?(transfer|investors|fund|projects)$|^\/for\//.test(n)) return 'buy';
-      if (/report|research|market-data/.test(n)) return 'research';
+      if (/^dealroom\.scix\.co\.jp|\/(en\/)?(transfer|investors|fund|projects)$|^\/for\/|market-data$/.test(n)) return 'buy';
+      if (/report|research/.test(n)) return 'research';
       if (/knowledge|qa$|faq$|glossary|grid-storage|primer|market-entry|guide-|column-/.test(n)) return 'knowledge';
       return 'co';
     }
@@ -1678,8 +1674,9 @@
         var want = colFor(olds[o][0]), put = null;
         for (var q = 0; q < cols.length; q++) if (cols[q].k === want) put = cols[q];
         if (!put) put = cols[cols.length - 1];
-        put.items.push([olds[o][0], olds[o][1]]);
         have[nh] = 1;
+        if (put.items.length >= 4) continue;   // 2026-11-23（O16-72）: 列ごとに4つまで。前の下の帯の行き先でも、列が埋まっていれば足さない
+        put.items.push([olds[o][0], olds[o][1]]);
       }
 
       // 会社の行: 頁の言葉そのまま（社名・<br> で区切られた行・代表者）。住所の続きの行は1つにまとめ、TEL・MAIL は別の区切りにする

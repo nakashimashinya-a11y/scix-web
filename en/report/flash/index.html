@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics（scripts/build_ga_tag.py が全頁に入れる・手で直さない） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  (function () {
+    var cfg = {}, q = null, mk = false;
+    // 本番（www.scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）からは送らない
+    try { if (location.hostname !== 'www.scix.co.jp' || navigator.webdriver) window['ga-disable-G-SNNK8MP9N9'] = true; }
+    catch (e) { window['ga-disable-G-SNNK8MP9N9'] = true; }
+    // 社内の印（?internal=1 で付く・?internal=0 で外れる・header.js の 7c と同じ鍵）。印のある端末だけ traffic_type を付ける
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try {
+      if (q === '1') localStorage.setItem('scix_internal', '1');
+      else if (q === '0') localStorage.removeItem('scix_internal');
+      mk = localStorage.getItem('scix_internal') === '1';
+    } catch (e) { mk = q === '1'; }
+    if (mk) cfg.traffic_type = 'internal';
+    gtag('js', new Date());
+    gtag('config', 'G-SNNK8MP9N9', cfg);
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Flash: Japan JEPX and EPRX figures | ScienceX</title>
+<meta name="description" content="Japan's latest JEPX wholesale and EPRX balancing figures, re-fetched every morning: area prices, 4-hour spreads, bid ratios and winning prices for this month so far, the latest day, last month and by week.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.scix.co.jp/en/report/flash">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/report/flash">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/report/flash">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Daily Flash: Japan JEPX and EPRX figures | ScienceX">
+<meta property="og:description" content="Japan's latest JEPX wholesale and EPRX balancing figures, re-fetched every morning: area prices, 4-hour spreads, bid ratios and winning prices for this month so far, the latest day, last month and by week.">
+<meta property="og:url" content="https://www.scix.co.jp/en/report/flash">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-m-en.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Daily Flash: Japan JEPX and EPRX figures | ScienceX">
+<meta name="twitter:description" content="Japan's latest JEPX wholesale and EPRX balancing figures, re-fetched every morning: area prices, 4-hour spreads, bid ratios and winning prices for this month so far, the latest day, last month and by week.">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-m-en.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"></noscript>
+<style>
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--gold:#C49A3C;--green:#1A7A4C;--white:#fff;--off-white:#F5F5F3;--text:#1F2A48;--text-2:#555555;--text-3:#8C8C8C;--border:#E6E6E6;--sans:'Noto Sans JP',sans-serif;--serif:'Noto Sans JP',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text);background:var(--white);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.section-label{font-size:.7rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.hero{padding:64px 0 40px;background:linear-gradient(160deg,var(--white) 0%,var(--off-white) 60%,#EEEEEC 100%)}
+.hero h1{font-family:var(--serif);font-size:clamp(1.5rem,3.4vw,2.2rem);font-weight:700;color:var(--navy);line-height:1.5;margin-bottom:16px}
+.hero p{font-size:.95rem;color:var(--text-2);max-width:760px}
+.badge{display:inline-block;margin-bottom:16px;padding:5px 14px;background:rgba(26,122,76,.1);color:var(--green);font-size:.72rem;font-weight:600;letter-spacing:1px;border-radius:4px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:28px 0 0}
+.kpi div{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:16px 18px}
+.kpi b{display:block;font-family:var(--serif);font-size:1.6rem;color:var(--navy);line-height:1.3}
+.kpi span{font-size:.78rem;color:var(--text-2)}
+section.md{padding:40px 0;border-top:1px solid var(--border)}
+h2.md-h{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--navy);margin-bottom:10px}
+.md-lead{font-size:.92rem;color:var(--text-2);margin-bottom:18px;max-width:760px}
+.md-bars{max-width:760px}.md-bar{display:grid;grid-template-columns:9.5em 1fr 8.5em;align-items:center;gap:10px;font-size:.88rem;padding:4px 0}
+.md-bar-l{color:var(--text)}.md-bar-t{height:12px;background:#EFECE6;border-radius:3px;overflow:hidden}.md-bar-f{display:block;height:100%;background:var(--gold)}
+.md-bar-v{color:var(--text-2);text-align:right}.md-bar-v small{color:var(--text-3);font-size:.8em;margin-left:2px}
+.md-note{font-size:.84rem;color:var(--text-3);margin-top:8px}
+.md-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px 40px}
+table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}.md-t th,.md-t td{border-bottom:1px solid var(--border);padding:7px 10px;text-align:left}.md-t th{color:var(--text-2);font-weight:500;background:var(--off-white)}.md-t td.n{text-align:right;font-variant-numeric:tabular-nums}.md-scroll .md-t th,.md-scroll .md-t td.n{white-space:nowrap}
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;max-width:900px}
+.areas a{display:block;border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--text);background:var(--white)}
+.areas a:hover{border-color:var(--gold)}.areas b{display:block;color:var(--navy);font-size:1rem}.areas span{font-size:.82rem;color:var(--text-2)}
+.pj-static{list-style:none;padding:0;margin:0;border-top:1px solid var(--border);max-width:900px}
+.pj-static li{padding:9px 0;border-bottom:1px solid var(--border);font-size:.88rem;line-height:1.7}.pj-static li a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold)}
+.cite{margin-top:28px;background:var(--off-white);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:.86rem;line-height:1.9;max-width:760px}
+.cite .cite-h{font-size:.8em;font-weight:700;color:var(--gold);letter-spacing:.08em;margin-bottom:6px}
+.cta{padding:56px 0;background:linear-gradient(160deg,var(--navy) 0%,var(--navy-light) 100%);text-align:center;color:#fff}
+.cta h2{font-family:var(--serif);font-size:1.4rem;font-weight:600;margin-bottom:10px}.cta p{color:rgba(255,255,255,.8);font-size:.92rem;margin-bottom:22px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:var(--gold);color:var(--navy);font-size:.9rem;font-weight:600;text-decoration:none;border-radius:4px;margin:4px}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:transparent;color:#fff;font-size:.88rem;font-weight:600;text-decoration:none;border-radius:4px;border:1px solid rgba(255,255,255,.45);margin:4px}
+.scix-footer{background-color:#1F2A48;color:rgba(255,255,255,0.85);font-family:'Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+.scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px}.scix-footer-logo img{height:48px;width:auto;display:block;opacity:.95}
+.scix-footer-info{text-align:center}.scix-footer-copyright{font-size:11px;letter-spacing:.04em;color:rgba(255,255,255,.55);margin-top:20px}
+.scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,.8)}.scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,.92);margin-bottom:2px}
+.scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,.6);font-size:12px}.scix-footer-company a{color:rgba(255,255,255,.8);text-decoration:none}.scix-footer-company a:hover{color:#C49A3C}
+.scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(196,154,60,.5)}
+.md-svg{width:100%;height:auto;display:block;max-width:760px}.md-legend{display:flex;gap:16px;font-size:.8rem;color:var(--text-2);margin:4px 0 0}.md-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.md-scroll{overflow-x:auto;margin-top:18px}
+.md-t tbody th{background:none;color:var(--text);font-weight:500}.md-t caption{caption-side:top;text-align:left;font-size:.8rem;color:var(--text-3);padding:0 0 6px}
+.cite p{margin:4px 0}.cite .cite-line{margin:8px 0;padding:8px 12px;background:#fff;border:1px solid var(--border);border-radius:6px;overflow-wrap:anywhere}.cite .cite-meta{font-size:.8rem;color:var(--text-3);overflow-wrap:anywhere}
+.md-dl{list-style:none;padding:0;margin:0 0 6px;max-width:760px}.md-dl li{padding:8px 0;border-bottom:1px solid var(--border);font-size:.9rem}.md-dl a{color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold)}.md-dl small{display:block;color:var(--text-3);font-size:.8rem}
+@media(max-width:640px){.md-bar{grid-template-columns:7em 1fr 7em;font-size:.82rem}.hero{padding:48px 0 32px}}
+
+.rp-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--border);max-width:900px}
+.rp-list li{padding:18px 0;border-bottom:1px solid var(--border)}
+.rp-list a.t{font-size:1.1rem;font-weight:700;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold)}
+.rp-list .d{font-size:.84rem;color:var(--text-3);margin:4px 0}
+.rp-list p{font-size:.92rem;line-height:1.85;color:var(--text-2);margin:6px 0 0}
+.rp-fig{margin:18px 0 6px;max-width:860px}.rp-fig img{display:block;width:100%;height:auto;border:1px solid var(--border);border-radius:6px;background:#fff}
+.rp-fig figcaption{font-size:.84rem;color:var(--text-2);margin-top:6px}
+.rp-body{max-width:860px}.rp-body p{line-height:1.95;margin:10px 0}.rp-body ul{padding-left:1.3em;line-height:1.9;margin:10px 0}
+.rp-body li{margin:4px 0}
+.rp-three{border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:8px;padding:6px 20px 10px;background:var(--off-white);max-width:860px}
+.rp-three li{margin:10px 0;line-height:1.9}
+.rp-btns{margin-top:18px}.rp-btns a{margin:4px 10px 4px 0}
+.rp-page{max-width:860px;display:flex;flex-direction:column;gap:14px}
+.rp-table{overflow-x:auto;margin:14px 0 6px;max-width:860px}
+.rp-table table{border-collapse:collapse;width:max-content;min-width:100%;font-size:.84rem;line-height:1.5}
+.rp-table th{background:var(--navy);color:#fff;font-weight:700;text-align:left;padding:7px 9px;vertical-align:bottom;min-width:5.5em;max-width:13em}
+.rp-table td{border-bottom:1px solid var(--border);padding:6px 9px;color:var(--text-2);white-space:nowrap}
+.rp-table td.rp-n{text-align:right;font-variant-numeric:tabular-nums}
+.rp-table tbody tr:nth-child(even){background:var(--off-white)}
+.rp-nav{margin-top:14px;font-size:.86rem}.rp-nav a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold)}.rp-nav-sep{margin:0 10px;color:var(--text-3)}
+
+.fl-asof{display:inline-flex;flex-direction:column;gap:4px;margin:14px 0 6px;padding:14px 18px;border:2px solid #138A62;border-radius:14px;background:#fff;max-width:860px}
+.fl-asof .h{font-size:.8rem;font-weight:800;color:#0F7A52;letter-spacing:.04em}
+.fl-asof b{font-size:clamp(1.05rem,2.6vw,1.35rem);color:var(--navy);line-height:1.5}
+.fl-asof span{font-size:.84rem;color:var(--text-2)}
+.fl-kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:18px 0 6px;max-width:960px}
+.fl-kpi div{background:#fff;border:1px solid var(--border);border-top:5px solid #138A62;border-radius:14px;padding:12px 14px}
+.fl-kpi b{display:block;font-size:clamp(1.4rem,3vw,1.9rem);font-weight:900;color:var(--navy);line-height:1.2;font-variant-numeric:tabular-nums}
+.fl-kpi b small{font-size:.78rem;font-weight:700;color:var(--text-2);margin-left:3px}
+.fl-kpi span{display:block;font-size:.8rem;font-weight:700;color:var(--text-2);margin-top:6px;line-height:1.5}
+.fl-kpi i{display:block;font-style:normal;font-size:.78rem;color:var(--text-3);margin-top:2px}
+.fl-chart{max-width:720px;margin:14px 0 4px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px 12px 6px}
+.fl-chart svg{display:block;width:100%;height:auto}
+.fl-two{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+.fl-two a{display:inline-block}
+.rp-body p,.rp-body li{overflow-wrap:anywhere}
+.fl-pair{font-size:1.02rem;line-height:1.8;color:var(--navy);margin:6px 0 4px}.fl-pair b{color:#0F7A52}
+#week .rp-body,#eprx .rp-body,#jepx .rp-body,#asof .rp-body{max-width:1120px}#week .rp-table,#eprx .rp-table,#jepx .rp-table,#asof .rp-table{max-width:1120px}
+.fl-scroll{display:none;font-size:.8rem;color:var(--text-3);margin:6px 0 -6px}
+@media(max-width:900px){.fl-scroll{display:block}}
+.fl-mk{max-width:1100px;margin:28px 0 0;padding:20px 24px;background:#F3F6FD;border:1.5px solid #D2DCF2;border-radius:18px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px}
+.fl-mk p{flex:1 1 320px;margin:0}
+</style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebPage",
+ "@id": "https://www.scix.co.jp/en/report/flash#webpage",
+ "url": "https://www.scix.co.jp/en/report/flash",
+ "name": "Daily Flash: Japan JEPX and EPRX figures | ScienceX",
+ "description": "Japan's latest JEPX wholesale and EPRX balancing figures, re-fetched every morning: area prices, 4-hour spreads, bid ratios and winning prices for this month so far, the latest day, last month and by week.",
+ "inLanguage": "en",
+ "publisher": {
+  "@type": "Organization",
+  "@id": "https://www.scix.co.jp/#organization",
+  "name": "ScienceX",
+  "legalName": "Science X Inc.",
+  "url": "https://www.scix.co.jp/en",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://www.scix.co.jp/img/logo-navy.png"
+  }
+ },
+ "datePublished": "2026-11-23",
+ "dateModified": "2026-11-23",
+ "isPartOf": {
+  "@type": "CollectionPage",
+  "url": "https://www.scix.co.jp/en/report"
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Dataset",
+ "@id": "https://www.scix.co.jp/en/report/flash#dataset",
+ "url": "https://www.scix.co.jp/en/report/flash",
+ "name": "Battery Storage Market Notes: Daily Flash: figures",
+ "description": "Average prices and 4-hour spreads for the 10 JEPX spot areas, and bid ratios and average winning prices for the 7 EPRX balancing products (preliminary), re-fetched from published data every day and aggregated by ScienceX: this month so far, the latest day, last month and by week.",
+ "inLanguage": "en",
+ "creator": {
+  "@type": "Organization",
+  "@id": "https://www.scix.co.jp/#organization",
+  "name": "ScienceX",
+  "legalName": "Science X Inc.",
+  "url": "https://www.scix.co.jp/en"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "@id": "https://www.scix.co.jp/#organization",
+  "name": "ScienceX",
+  "legalName": "Science X Inc.",
+  "url": "https://www.scix.co.jp/en",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://www.scix.co.jp/img/logo-navy.png"
+  }
+ },
+ "isAccessibleForFree": true,
+ "dateModified": "2026-11-23",
+ "temporalCoverage": "2026-09-28/2026-11-24",
+ "spatialCoverage": {
+  "@type": "Place",
+  "name": "Japan"
+ },
+ "creditText": "Source: Science X Inc., “Battery Storage Market Notes: Daily Flash”, https://www.scix.co.jp/en/report/flash",
+ "distribution": [
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://www.scix.co.jp/en/report/flash/jepx-daily.csv",
+   "name": "JEPX daily averages and 4-hour spreads (CSV)"
+  }
+ ],
+ "mainEntityOfPage": "https://www.scix.co.jp/en/report/flash"
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://www.scix.co.jp/en"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Market Notes",
+   "item": "https://www.scix.co.jp/en/report"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Daily Flash",
+   "item": "https://www.scix.co.jp/en/report/flash"
+  }
+ ]
+}
+</script>
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:1100px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8C8C8C"><a href="/en" style="color:#555555;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/report" style="color:#555555;text-decoration:none">Market Notes</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8C8C8C">Daily Flash</span></nav>
+<section class="hero"><div class="container">
+  <div class="section-label">Updated daily (flash)</div>
+  <h1>Battery Storage Market Notes: Daily Flash</h1>
+  <p class="fl-pair"><b>Daily Flash</b> = the latest figures, updated every morning (this page). <b>Monthly issue</b> = the whole previous month in charts and tables, out on the 1st.</p>
+  <div class="fl-asof"><div class="h">Data as of (re-fetched from published data on the morning of November 23, 2026)</div><b>JEPX wholesale: up to delivery on November 24, 2026</b><b>EPRX balancing market: up to delivery on November 23, 2026 (preliminary)</b><span>Dates are delivery days (the day the power is delivered). JEPX trades the day before, so it can run one day ahead.</span></div>
+  <p>Figures for two markets that pay battery storage sites in Japan, JEPX wholesale power and the EPRX balancing market, re-fetched from the latest published data every morning: this month so far, the latest day, last month (all days) and by week. The monthly issue, with charts and tables for the whole previous month, comes out on the 1st of each month.</p>
+  <p class="fl-two"><a class="btn-primary" href="/en/report/2026-11">Read the latest monthly issue (November 2026 issue, October 2026 data)</a><a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/report">All monthly issues</a></p>
+</div></section>
+<section class="md" id="kpi"><div class="container rp-body">
+<div class="fl-kpi"><div><b>28.41<small>yen/kWh</small></b><span>JEPX system price, average (Nov 1–Nov 24)</span><i>Last month (October 2026, all days): 22.51</i></div><div><b>17.92<small>yen/kWh</small></b><span>Tokyo 4-hour spread (Nov 1–Nov 24)</span><i>Last month (October 2026, all days): 17.14</i></div><div><b>23.98<small>yen/kWh</small></b><span>Kyushu 4-hour spread (Nov 1–Nov 24)</span><i>Last month (October 2026, all days): 19.30</i></div><div><b>131.1%<small></small></b><span>Primary reserve (online) bid ratio, preliminary (Nov 1–Nov 23)</span><i>Last month (October 2026, all days): 145.9%</i></div><div><b>3.70<small>yen</small></b><span>Tertiary reserve 2 average winning price (yen/kW per 30 min) (Nov 1–Nov 23)</span><i>Last month (October 2026, all days): 2.22</i></div></div><p class="md-note">4-hour spread = average of the day&#x27;s 4 most expensive hours minus its 4 cheapest (yen/kWh). Bid ratio = bids ÷ requirement. Neither is a revenue figure. Full tables below.</p>
+</div></section>
+<section class="md" id="week"><div class="container rp-body">
+  <h2 class="md-h">Last week (Nov 16–Nov 22)</h2>
+  <ul class="rp-three"><li>In the week of Nov 16–Nov 22, primary reserve (online) had a bid ratio of 136.9% and an average winning price of 3.07 yen/kW per 30 min (preliminary). The week before: 119.4% and 2.99 yen.</li><li>Tertiary reserve 2 had an average winning price of 4.32 yen/kW per 30 min (the week before: 4.17 yen).</li><li>The JEPX system price averaged 31.36 yen/kWh; the 4-hour spread (average of daily spreads) was 17.93 yen in Tokyo and 27.64 yen in Kyushu (the week before: 29.59, 17.62 and 26.25 yen).</li></ul>
+  <p>Weeks run Monday to Sunday; only weeks with all 7 days are shown. Balancing market figures are preliminary.</p>
+  <p class="fl-scroll">Swipe the table sideways to see all columns →</p>
+  <div class="rp-table"><table><thead><tr><th scope="col">Week (delivery days)</th><th scope="col">System price average (yen/kWh)</th><th scope="col">Tokyo 4-hour spread (yen/kWh)</th><th scope="col">Kyushu 4-hour spread (yen/kWh)</th><th scope="col">Primary (online) bid ratio</th><th scope="col">Primary (online) avg. winning price</th><th scope="col">Primary (offline) avg. winning price</th><th scope="col">Tertiary 2 avg. winning price</th></tr></thead><tbody><tr><th scope="row">Nov 16–Nov 22</th><td class="rp-n">31.36</td><td class="rp-n">17.93</td><td class="rp-n">27.64</td><td class="rp-n">136.9%</td><td class="rp-n">3.07</td><td class="rp-n">3.46</td><td class="rp-n">4.32</td></tr><tr><th scope="row">Nov 9–Nov 15</th><td class="rp-n">29.59</td><td class="rp-n">17.62</td><td class="rp-n">26.25</td><td class="rp-n">119.4%</td><td class="rp-n">2.99</td><td class="rp-n">2.84</td><td class="rp-n">4.17</td></tr><tr><th scope="row">Nov 2–Nov 8</th><td class="rp-n">24.05</td><td class="rp-n">18.24</td><td class="rp-n">18.88</td><td class="rp-n">131.4%</td><td class="rp-n">2.82</td><td class="rp-n">1.82</td><td class="rp-n">3.13</td></tr><tr><th scope="row">Oct 26–Nov 1</th><td class="rp-n">25.44</td><td class="rp-n">14.83</td><td class="rp-n">19.56</td><td class="rp-n">156.2%</td><td class="rp-n">2.95</td><td class="rp-n">1.75</td><td class="rp-n">1.82</td></tr><tr><th scope="row">Oct 19–Oct 25</th><td class="rp-n">27.68</td><td class="rp-n">13.70</td><td class="rp-n">22.09</td><td class="rp-n">145.6%</td><td class="rp-n">3.40</td><td class="rp-n">2.41</td><td class="rp-n">3.09</td></tr><tr><th scope="row">Oct 12–Oct 18</th><td class="rp-n">21.01</td><td class="rp-n">18.60</td><td class="rp-n">18.95</td><td class="rp-n">136.5%</td><td class="rp-n">3.43</td><td class="rp-n">2.75</td><td class="rp-n">2.45</td></tr><tr><th scope="row">Oct 5–Oct 11</th><td class="rp-n">19.43</td><td class="rp-n">20.50</td><td class="rp-n">16.97</td><td class="rp-n">141.0%</td><td class="rp-n">3.24</td><td class="rp-n">3.30</td><td class="rp-n">2.72</td></tr><tr><th scope="row">Sep 28–Oct 4</th><td class="rp-n">17.67</td><td class="rp-n">18.33</td><td class="rp-n">18.78</td><td class="rp-n">148.4%</td><td class="rp-n">3.27</td><td class="rp-n">4.45</td><td class="rp-n">1.44</td></tr></tbody></table></div>
+</div></section>
+<section class="md" id="eprx"><div class="container rp-body">
+  <h2 class="md-h">EPRX balancing market: this month so far</h2>
+  <p class="fl-scroll">Swipe the table sideways to see all columns →</p>
+  <div class="rp-table"><table><thead><tr><th scope="col">Product</th><th scope="col">Bid ratio, this month (Nov 1–Nov 23)</th><th scope="col">Bid ratio, latest day (Nov 23)</th><th scope="col">Bid ratio, last month (October 2026)</th><th scope="col">Avg. winning price, this month (Nov 1–Nov 23)</th><th scope="col">Avg. winning price, latest day</th><th scope="col">Avg. winning price, last month</th></tr></thead><tbody><tr><th scope="row">Primary reserve (online)</th><td class="rp-n">131.1%</td><td class="rp-n">159.1%</td><td class="rp-n">145.9%</td><td class="rp-n">2.91</td><td class="rp-n">2.31</td><td class="rp-n">3.22</td></tr><tr><th scope="row">Primary reserve (offline)</th><td class="rp-n">96.5%</td><td class="rp-n">101.7%</td><td class="rp-n">92.4%</td><td class="rp-n">2.66</td><td class="rp-n">2.77</td><td class="rp-n">2.69</td></tr><tr><th scope="row">Secondary reserve 1</th><td class="rp-n">156.5%</td><td class="rp-n">201.5%</td><td class="rp-n">180.1%</td><td class="rp-n">3.17</td><td class="rp-n">2.66</td><td class="rp-n">3.29</td></tr><tr><th scope="row">Secondary reserve 2</th><td class="rp-n">302.9%</td><td class="rp-n">307.9%</td><td class="rp-n">329.0%</td><td class="rp-n">2.71</td><td class="rp-n">1.96</td><td class="rp-n">2.86</td></tr><tr><th scope="row">Tertiary reserve 1</th><td class="rp-n">165.1%</td><td class="rp-n">209.4%</td><td class="rp-n">188.4%</td><td class="rp-n">2.48</td><td class="rp-n">1.74</td><td class="rp-n">2.60</td></tr><tr><th scope="row">Tertiary reserve 2</th><td class="rp-n">377.5%</td><td class="rp-n">305.1%</td><td class="rp-n">417.6%</td><td class="rp-n">3.70</td><td class="rp-n">2.28</td><td class="rp-n">2.22</td></tr><tr><th scope="row">Combined products</th><td class="rp-n">153.5%</td><td class="rp-n">185.3%</td><td class="rp-n">165.1%</td><td class="rp-n">2.48</td><td class="rp-n">1.80</td><td class="rp-n">2.65</td></tr></tbody></table></div>
+  <p class="md-note">Bid ratio = bids / procurement; average winning price = weighted by awarded volume (yen/kW per 30 min). National totals. This month&#x27;s figures are preliminary and change after the month ends; final values published later can differ slightly. Source: EPRX trading results (preliminary), aggregated by ScienceX.</p>
+</div></section>
+<section class="md" id="jepx"><div class="container rp-body">
+  <h2 class="md-h">JEPX wholesale power: this month so far</h2>
+  <p class="fl-scroll">Swipe the table sideways to see all columns →</p>
+  <div class="rp-table"><table><thead><tr><th scope="col">Area</th><th scope="col">Average, this month (Nov 1–Nov 24)</th><th scope="col">Average, latest day (Nov 24)</th><th scope="col">Average, last month (October 2026)</th><th scope="col">4-hour spread, this month (Nov 1–Nov 24)</th><th scope="col">4-hour spread, latest day</th><th scope="col">4-hour spread, last month</th></tr></thead><tbody><tr><th scope="row">System (Japan)</th><td class="rp-n">28.41</td><td class="rp-n">37.50</td><td class="rp-n">22.51</td><td class="rp-n">22.72</td><td class="rp-n">14.55</td><td class="rp-n">20.42</td></tr><tr><th scope="row">Hokkaido</th><td class="rp-n">26.64</td><td class="rp-n">29.56</td><td class="rp-n">20.49</td><td class="rp-n">23.31</td><td class="rp-n">15.71</td><td class="rp-n">29.02</td></tr><tr><th scope="row">Tohoku</th><td class="rp-n">26.75</td><td class="rp-n">31.40</td><td class="rp-n">23.99</td><td class="rp-n">25.39</td><td class="rp-n">13.89</td><td class="rp-n">24.74</td></tr><tr><th scope="row">Tokyo</th><td class="rp-n">32.10</td><td class="rp-n">37.45</td><td class="rp-n">27.02</td><td class="rp-n">17.92</td><td class="rp-n">12.36</td><td class="rp-n">17.14</td></tr><tr><th scope="row">Chubu</th><td class="rp-n">32.02</td><td class="rp-n">40.15</td><td class="rp-n">25.46</td><td class="rp-n">18.40</td><td class="rp-n">13.69</td><td class="rp-n">19.91</td></tr><tr><th scope="row">Hokuriku</th><td class="rp-n">26.40</td><td class="rp-n">39.77</td><td class="rp-n">19.70</td><td class="rp-n">21.53</td><td class="rp-n">15.92</td><td class="rp-n">19.18</td></tr><tr><th scope="row">Kansai</th><td class="rp-n">25.91</td><td class="rp-n">39.77</td><td class="rp-n">19.50</td><td class="rp-n">21.41</td><td class="rp-n">15.92</td><td class="rp-n">18.71</td></tr><tr><th scope="row">Chugoku</th><td class="rp-n">22.40</td><td class="rp-n">39.76</td><td class="rp-n">15.63</td><td class="rp-n">23.24</td><td class="rp-n">15.92</td><td class="rp-n">18.93</td></tr><tr><th scope="row">Shikoku</th><td class="rp-n">21.55</td><td class="rp-n">39.76</td><td class="rp-n">11.44</td><td class="rp-n">24.59</td><td class="rp-n">15.92</td><td class="rp-n">17.27</td></tr><tr><th scope="row">Kyushu</th><td class="rp-n">21.67</td><td class="rp-n">39.76</td><td class="rp-n">15.07</td><td class="rp-n">23.98</td><td class="rp-n">15.92</td><td class="rp-n">19.30</td></tr></tbody></table></div>
+  <p class="md-note">Averages are simple averages of half-hour slots. The 4-hour spread is the average of the 8 most expensive slots minus the average of the 8 cheapest, averaged over days (it ignores slot order, losses, fees, taxes and network charges, and is not a revenue figure). Source: JEPX spot market results, aggregated by ScienceX.</p>
+  <figure class="fl-chart"><svg viewBox="0 0 640 250" role="img" aria-label="Daily 4-hour spread (Tokyo and Kyushu, yen/kWh)"><title>Daily 4-hour spread (Tokyo and Kyushu, yen/kWh)</title><line x1="40" x2="628" y1="216.0" y2="216.0" stroke="#E2E8F0"/><text x="34" y="220.0" font-size="11" text-anchor="end" fill="#4A5568">0</text><line x1="40" x2="628" y1="178.0" y2="178.0" stroke="#E2E8F0"/><text x="34" y="182.0" font-size="11" text-anchor="end" fill="#4A5568">10</text><line x1="40" x2="628" y1="140.0" y2="140.0" stroke="#E2E8F0"/><text x="34" y="144.0" font-size="11" text-anchor="end" fill="#4A5568">20</text><line x1="40" x2="628" y1="102.0" y2="102.0" stroke="#E2E8F0"/><text x="34" y="106.0" font-size="11" text-anchor="end" fill="#4A5568">30</text><line x1="40" x2="628" y1="64.0" y2="64.0" stroke="#E2E8F0"/><text x="34" y="68.0" font-size="11" text-anchor="end" fill="#4A5568">40</text><line x1="40" x2="628" y1="26.0" y2="26.0" stroke="#E2E8F0"/><text x="34" y="30.0" font-size="11" text-anchor="end" fill="#4A5568">50</text><line x1="40.0" x2="40.0" y1="26" y2="216" stroke="#CBD5E1" stroke-dasharray="3 3"/><text x="43.0" y="232" font-size="11" fill="#4A5568">October 2026</text><line x1="377.6" x2="377.6" y1="26" y2="216" stroke="#CBD5E1" stroke-dasharray="3 3"/><text x="380.6" y="232" font-size="11" fill="#4A5568">November 2026</text><polyline fill="none" stroke="#1D4ED8" stroke-width="2" points="40.0,126.7 50.9,190.8 61.8,118.6 72.7,116.1 83.6,162.0 94.4,131.3 105.3,148.1 116.2,122.5 127.1,140.6 138.0,146.4 148.9,115.8 159.8,173.7 170.7,153.8 181.6,165.6 192.4,164.2 203.3,141.4 214.2,109.4 225.1,109.3 236.0,155.7 246.9,140.0 257.8,151.0 268.7,173.6 279.6,169.1 290.4,177.0 301.3,181.2 312.2,169.8 323.1,169.7 334.0,168.3 344.9,175.2 355.8,167.0 366.7,143.6 377.6,124.0 388.4,151.3 399.3,167.7 410.2,183.5 421.1,169.0 432.0,140.6 442.9,137.5 453.8,77.2 464.7,136.1 475.6,159.2 486.4,123.1 497.3,152.4 508.2,131.7 519.1,182.9 530.0,158.1 540.9,137.2 551.8,156.9 562.7,174.7 573.6,164.4 584.4,163.0 595.3,132.1 606.2,106.8 617.1,151.7 628.0,169.0"/><polyline fill="none" stroke="#C2560A" stroke-width="2" points="40.0,107.5 50.9,149.8 61.8,163.8 72.7,169.8 83.6,167.1 94.4,145.2 105.3,138.9 116.2,142.2 127.1,166.9 138.0,159.7 148.9,140.7 159.8,161.9 170.7,163.1 181.6,138.2 192.4,121.6 203.3,157.3 214.2,133.6 225.1,132.3 236.0,106.4 246.9,106.2 257.8,149.3 268.7,100.2 279.6,138.9 290.4,148.5 301.3,175.0 312.2,141.3 323.1,151.1 334.0,117.2 344.9,140.4 355.8,154.0 366.7,134.4 377.6,153.5 388.4,174.0 399.3,152.7 410.2,151.7 421.1,152.4 432.0,131.8 442.9,118.5 453.8,128.7 464.7,142.4 475.6,98.4 486.4,58.0 497.3,85.8 508.2,107.2 519.1,164.1 530.0,157.7 540.9,99.2 551.8,104.2 562.7,143.5 573.6,102.1 584.4,123.6 595.3,102.8 606.2,101.4 617.1,88.3 628.0,155.5"/><rect x="40" y="6" width="14" height="4" fill="#1D4ED8"/><text x="58" y="12" font-size="12" fill="#0B1530">Tokyo</text><rect x="130" y="6" width="14" height="4" fill="#C2560A"/><text x="148" y="12" font-size="12" fill="#0B1530">Kyushu</text><text x="628" y="12" font-size="11" text-anchor="end" fill="#4A5568">yen/kWh</text></svg><figcaption class="md-note">Figure: Daily 4-hour spread (Tokyo and Kyushu, yen/kWh), by delivery day for last month and this month. The spread is the average of the 8 most expensive half-hour slots (4 hours) minus the average of the 8 cheapest. Source: JEPX spot results, aggregated by ScienceX.</figcaption></figure>
+  <p class="md-note">JEPX daily figures (this month and last month, 10 areas): <a href="/en/report/flash/jepx-daily.csv" download>CSV (daily averages and 4-hour spreads)</a></p>
+</div></section>
+<section class="md" id="asof"><div class="container rp-body">
+  <h2 class="md-h">Data dates and sources</h2>
+  <div class="rp-table"><table><thead><tr><th scope="col">Source</th><th scope="col">Period</th><th scope="col">Type</th><th scope="col">Fetched on</th></tr></thead><tbody><tr><th scope="row">JEPX spot, this month</th><td>November 1, 2026 to Nov 24 (24 days, delivery)</td><td>Trading results (settled)</td><td>November 23, 2026</td></tr><tr><th scope="row">JEPX spot, last month</th><td>October 2026 (31 days)</td><td>Trading results (settled)</td><td>November 23, 2026</td></tr><tr><th scope="row">EPRX balancing market, this month</th><td>November 1, 2026 to Nov 23 (23 days, delivery)</td><td>Preliminary</td><td>November 23, 2026</td></tr><tr><th scope="row">EPRX balancing market, last month</th><td>October 2026 (31 days)</td><td>Preliminary</td><td>November 23, 2026</td></tr></tbody></table></div>
+  <ul><li>Figures are aggregated automatically by ScienceX from published data and rebuilt every morning. If a fetch fails, the previous day&#x27;s version stays (and so do the dates at the top).</li><li>Preliminary values are published right after the auction; final values are published after the month ends (with later additional procurement and corrections). All balancing market figures here are preliminary.</li><li>Delivery day is the day electricity is delivered. JEPX spot trades the day before, so figures can run to the next day&#x27;s delivery.</li></ul>
+  <ul class="rp-list" style="margin-top:14px"><li><a class="t" href="/en/report">Battery Storage Market Notes (monthly issue, 1st of each month)</a><p>The whole previous month in charts and tables: balancing, wholesale and capacity markets. PDF available.</p></li><li><a class="t" href="/en/report/data">Market Data (across issues, CSV)</a><p>Monthly JEPX figures by area and capacity market area prices.</p></li><li><a class="t" href="/en/market-data">Japan BESS Projects for Sale: Market Data</a><p>Counts of projects listed on our marketplace by area and voltage (updated daily).</p></li></ul><p class="md-note" style="margin-top:12px">Charts and figures may be reused with the source stated (<a href="/en/press">citation guide</a>).</p>
+  <div class="fl-mk"><p>Battery storage projects for sale in Japan are listed on our marketplace; browse without signing up (prices and documents after free registration).</p><a class="btn-primary" href="https://dealroom.scix.co.jp/en" data-cta="body" data-cta-target="market">See projects for sale</a></div>
+</div></section>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img width="300" height="118" src="/img/logo-white.png" alt="ScienceX — Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="https://dealroom.scix.co.jp/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Chikudensho Market</a>
+        <a href="/en/market-data" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Data</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Company</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/en/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">&copy; 2025–2026 Science X Inc. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
