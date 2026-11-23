@@ -66,6 +66,8 @@
     else if (path === '/zh-primer') loc = '/primer';
     else if (path === '/zh-company') loc = '/company';
     else if (path === '/zh-privacy') loc = '/privacy';
+    else if (path === '/zh-faq') loc = '/faq';
+    else if (path === '/zh-market-data') loc = '/market-data';
     else if (path.indexOf('/zh-column-') === 0) loc = '/column-' + path.slice('/zh-column-'.length);
     else if (path.indexOf('/zh-guide-') === 0) loc = '/guide-' + path.slice('/zh-guide-'.length);   // 柱の頁（scripts/build_guides.py）
     else loc = '/';
@@ -110,7 +112,8 @@
     '/projects': { en: '/en/projects', zh: '/zh' },
     '/knowledge': { en: '/en/knowledge', zh: '/zh-knowledge' },
     '/qa': { en: '/en/qa', zh: '/zh-qa' },
-    '/faq': { en: '/en/faq', zh: '/zh' },
+    '/faq': { en: '/en/faq', zh: '/zh-faq' },
+    '/market-data': { en: '/en/market-data', zh: '/zh-market-data' },
     '/glossary': { en: '/en/glossary', zh: '/zh-glossary' },
     '/contact': { en: '/en/contact', zh: '/zh-contact' },
     '/thanks': { en: '/en/thanks', zh: '/zh-thanks' },
