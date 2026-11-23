@@ -7,7 +7,7 @@ h1_sub: 商品・取引実績・上限価格・飽和を、1ページで
 description: EPRX（電力需給調整力取引所）が運営する需給調整市場を1ページで。5つの商品、9エリアの取引実績、2026年の前日取引化と上限10円、もう一枚の天井「一定額」、蓄電池は飽和したのかまで、コラム21本の要点を案内します。
 columns: column-balancing-market, column-eprx, column-area-data, column-day-ahead, column-price-cap, column-bidding-ceiling-market, column-bidding-ceiling, column-bidding-ceiling-law, column-bidding-ceiling-calc, column-bidding-ceiling-monitoring, column-balancing-saturation, column-balancing-saturation-volume, column-balancing-saturation-supply, column-balancing-saturation-floor, column-aggregator-fee, column-aggregators, column-aggregators-roster, column-aggregators-volume, column-aggregators-pricing, column-aggregators-switching, column-aggregators-overseas
 published: 2026-11-22
-modified: 2026-11-24
+modified: 2026-11-23
 ---
 
 ## @lead

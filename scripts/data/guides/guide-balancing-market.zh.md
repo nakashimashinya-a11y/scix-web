@@ -7,7 +7,7 @@ h1_sub: 商品、成交结果、上限价格与饱和，一页读懂
 description: 一页读懂由EPRX（电力供需调整力交易所）运营的日本辅助服务市场：五项商品、9分区成交结果、上限10日元、另一层天花板“一定额”，以及储能是否饱和。
 columns: zh-column-balancing-market, zh-column-eprx, zh-column-area-data, zh-column-price-cap, zh-column-bidding-ceiling-market, zh-column-bidding-ceiling, zh-column-bidding-ceiling-law, zh-column-bidding-ceiling-calc, zh-column-bidding-ceiling-monitoring, zh-column-balancing-saturation, zh-column-balancing-saturation-volume, zh-column-balancing-saturation-supply, zh-column-balancing-saturation-floor, zh-column-aggregator-fee, zh-column-aggregators, zh-column-aggregators-roster, zh-column-aggregators-volume, zh-column-aggregators-pricing, zh-column-aggregators-switching, zh-column-aggregators-overseas
 published: 2026-11-22
-modified: 2026-11-24
+modified: 2026-11-23
 ---
 
 ## @lead

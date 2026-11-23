@@ -7,7 +7,7 @@ h1_sub: Products, trading results, the price cap and saturation on one page
 description: EPRX and Japan's balancing market on one page: 5 products, area results, the ¥10 cap, the fixed-cost adder, saturation.
 columns: en/column-balancing-market, en/column-eprx, en/column-area-data, en/column-day-ahead, en/column-price-cap, en/column-bidding-ceiling-market, en/column-bidding-ceiling, en/column-bidding-ceiling-law, en/column-bidding-ceiling-calc, en/column-bidding-ceiling-monitoring, en/column-balancing-saturation, en/column-balancing-saturation-volume, en/column-balancing-saturation-supply, en/column-balancing-saturation-floor, en/column-aggregator-fee, en/column-aggregators, en/column-aggregators-roster, en/column-aggregators-volume, en/column-aggregators-pricing, en/column-aggregators-switching, en/column-aggregators-overseas
 published: 2026-11-22
-modified: 2026-11-24
+modified: 2026-11-23
 ---
 
 ## @lead
