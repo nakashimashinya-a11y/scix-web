@@ -303,6 +303,14 @@ blockquote cite::before{content:'— '}
   "mainEntity": [
     {
       "@type": "Question",
+      "name": "ΔkW（デルタ・キロワット）とは何ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "需給調整市場で売る「待機している力」のことです。値段は、1kWを30分待機させていくら、で表します（円／ΔkW・30分）。たとえば、1,000kWの蓄電池が30分のコマを1つ、10円で売ると、1万円です。"
+      }
+    },
+    {
+      "@type": "Question",
       "name": "需給調整市場では、高い値段で入札すれば高く売れますか？",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -386,10 +394,12 @@ blockquote cite::before{content:'— '}
 
 <div class="toc">
   <div class="toc-title">この記事の内容</div>
+  <a href="#nani">需給調整市場は、「待機」を売る市場</a>
   <a href="#shikumi">値段は「安い順」に決まる</a>
   <a href="#jougen">その天井が、1年で半分になった</a>
   <a href="#heikin">2025年度の平均は、1〜4円</a>
   <a href="#dare">高い札を入れていたのは、蓄電池だった</a>
+  <a href="#kugatsu">上限10円の最初の月、蓄電池の枠は5.81円</a>
   <a href="#mihari">市場で力が大きいとされた19社は、値付けを見張られている</a>
   <a href="#nokoru">いま差がつく、3つの場所</a>
   <a href="#ai">AIは効くのか</a>
@@ -401,11 +411,64 @@ blockquote cite::before{content:'— '}
 <!-- scix-mid-cta:begin -->
 <aside class="scix-midcta" data-scix-midcta data-side="buy"><p>接続検討の回答が出た案件を、蓄電所マーケットで販売しています。所在県・規模・電圧・手続きの段・運転開始の見込みは、登録なしで見られます。</p><a class="scix-midcta-btn" target="_top" href="https://dealroom.scix.co.jp/" data-cta="mid" data-cta-target="market">蓄電所マーケットで案件を見る →</a></aside>
 <!-- scix-mid-cta:end -->
-<h2 id="shikumi">値段は「安い順」に決まる</h2>
-<figure id="f1"><svg viewBox="0 0 780 288" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="需給調整市場の約定のしくみ。安い札から順に約定し、必要量で締め切る" font-family="'Noto Sans JP',sans-serif">
+<h2 id="nani">需給調整市場は、「待機」を売る市場</h2>
+<p>電気は、使う量と作る量がいつも同じでないと、周波数が乱れます。そのずれを埋めるために、送配電会社は「すぐ動ける力」を前もって買っておきます。その売り買いをするのが、需給調整市場です。</p>
+<p>売るのは、電気そのものではありません。「この30分、指令が来たら動けるように待っています」という約束です。この待機の力を、ΔkW（デルタ・キロワット）と呼びます。</p>
+<figure id="f1"><svg viewBox="0 0 780 232" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="1kW を30分待機させて10円。1,000kW なら1コマ1万円。1日は48コマ" font-family="'Noto Sans JP',sans-serif">
 <defs><marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
+<rect x="0.0" y="0.0" width="780.0" height="232.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">図1　「10円／ΔkW・30分」は、こう読む</text>
+<text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">単位の読み方の例。上限の10円で売れたときの額で、収入の見込みではない</text>
+<rect x="16.0" y="66.0" width="210.0" height="62.0" rx="10" fill="#FFFFFF" stroke="#1F2A48" stroke-width="1.6"/>
+<text x="121.0" y="104.0" font-size="14" fill="#1F2A48" text-anchor="middle" font-weight="700">1kW の力を</text>
+<text x="246.0" y="104.0" font-size="18" fill="#667085" text-anchor="middle" font-weight="700">×</text>
+<rect x="266.0" y="66.0" width="230.0" height="62.0" rx="10" fill="#FFFFFF" stroke="#1F2A48" stroke-width="1.6"/>
+<text x="381.0" y="104.0" font-size="14" fill="#1F2A48" text-anchor="middle" font-weight="700">30分、待機させる</text>
+<line x1="502.0" y1="97.0" x2="548.0" y2="97.0" stroke="#1F2A48" stroke-width="2" marker-end="url(#ar1)"/>
+<rect x="556.0" y="66.0" width="208.0" height="62.0" rx="10" fill="#EFE8FF" stroke="#7C4DDB" stroke-width="2"/>
+<text x="660.0" y="106.0" font-size="22" fill="#5B32B5" text-anchor="middle" font-weight="800">10円</text>
+<rect x="16.0" y="144.0" width="748.0" height="50.0" rx="8" fill="#F7F8FC" stroke="none" stroke-width="1.5"/>
+<text x="34.0" y="174.0" font-size="12.5" fill="#3A4560" text-anchor="start" font-weight="400">1,000kW（1MW）の蓄電池なら</text>
+<text x="746.0" y="175.0" font-size="15" fill="#C2560A" text-anchor="end" font-weight="800">10円 × 1,000kW ＝ 1コマ 1万円</text>
+<text x="390.0" y="218.0" font-size="12" fill="#667085" text-anchor="middle" font-weight="400">1日は48コマ（30分 × 48 ＝ 24時間）</text>
+</svg><figcaption>図1　1,000kW（1MW）の蓄電池が、30分のコマを1つ、上限の10円で売ると1万円。2025年度の一次調整力の平均（3.93円）なら3,930円です。売れなかったコマは0円です。</figcaption></figure>
+
+<p>商品は5つあります。違いは、指令が来てからどれだけ速く動けるかです。上限と、2025年度の平均の値段も、表に並べました。</p>
+<div class="wraptext">
+<table class="c52w">
+<caption>表1｜需給調整市場の商品（値段は円／ΔkW・30分）</caption>
+<thead><tr><th>商品</th><th>反応の速さ</th><th>いまの上限</th><th>2025年度の平均</th></tr></thead>
+<tbody>
+<tr class="exp"><td class="nw"><b>一次調整力</b></td><td>10秒以内</td><td class="nw">10円</td><td class="nw">3.93円</td></tr>
+<tr><td class="nw"><b>二次調整力①</b></td><td>5分以内</td><td class="nw">10円</td><td class="nw">2.79円</td></tr>
+<tr><td class="nw"><b>二次調整力②</b></td><td>5分以内</td><td class="nw">7.21円</td><td class="nw">2.53円</td></tr>
+<tr><td class="nw"><b>三次調整力①</b></td><td>15分以内</td><td class="nw">7.21円</td><td class="nw">2.47円</td></tr>
+<tr><td class="nw"><b>三次調整力②</b></td><td>60分以内</td><td class="nw">上限なし</td><td class="nw">1.15円</td></tr>
+<tr><td class="nw"><b>複合商品</b></td><td>一次から三次①までを、1つの札でまとめて入れる</td><td class="nw">10円</td><td class="nw">2.83円</td></tr>
+</tbody>
+</table>
+</div>
+<p>蓄電池は反応が速いので、いちばん速い一次調整力に向いています。平均の値段も、一次がいちばん高くなっています。このあと出てくる上限の話は、蓄電池に向いた「一次・二次①・複合」の3つの話です。</p>
+<!-- scix-guide -->
+<aside data-scix-guide style="margin:32px 0;padding:14px 20px 12px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif;font-size:14.5px;line-height:1.8;color:#1F2A48">
+  <p style="margin:0 0 8px">いま売りに出ている案件を見るなら、<a target="_top" href="https://dealroom.scix.co.jp/" style="color:#1F2A48;font-weight:600" data-cta="mid" data-cta-target="market">蓄電所マーケット</a>へ（登録なしで見られます）。所在県・規模・電圧・買い方・手続きの段・運転開始の見込みまで載せています。価格と資料は無料登録のあとです。買い方の順番は <a target="_top" href="/transfer" style="color:#1F2A48;font-weight:600">案件を買う</a> に。</p>
+  <p style="margin:0;font-size:13px;color:#555555">この記事の用語: <a target="_top" href="/glossary#term-アグリゲーター" style="color:#1F2A48">アグリゲーター</a> ・ <a target="_top" href="/glossary#term-容量市場メインオークション" style="color:#1F2A48">容量市場</a> ・ <a target="_top" href="/glossary#term-JEPX日本卸電力取引所" style="color:#1F2A48">JEPX</a> ・ <a target="_top" href="/glossary#term-需給調整市場" style="color:#1F2A48">需給調整市場</a> ・ <a target="_top" href="/glossary#term-ΔkWデルタキロワット" style="color:#1F2A48">ΔkW</a> ／ <a target="_top" href="/glossary" style="color:#1F2A48">用語集</a></p>
+</aside>
+
+<!-- scix-readnext -->
+<aside data-scix-readnext style="margin:32px 0;padding:14px 20px 10px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;font-weight:700;color:#555555;letter-spacing:.08em;margin-bottom:2px">あわせて読む</div>
+  <a target="_top" href="/column-bidding-ceiling" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">もう一枚の天井 — 需給調整市場ガイドラインの「一定額」（COLUMN 50） →</a>
+  <a target="_top" href="/column-bidding-ceiling-monitoring" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">ΔkW価格は誰がどう見てきたか — 5年の年表（COLUMN 50-5） →</a>
+  <a target="_top" href="/column-balancing-saturation" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">蓄電池は飽和したのか（COLUMN 47） →</a>
+</aside>
+
+
+<h2 id="shikumi">値段は「安い順」に決まる</h2>
+<figure id="f2"><svg viewBox="0 0 780 288" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="需給調整市場の約定のしくみ。安い札から順に約定し、必要量で締め切る" font-family="'Noto Sans JP',sans-serif">
+<defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
 <rect x="0.0" y="0.0" width="780.0" height="288.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
-<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">図1　値段は「安い順」に決まる。売れたら、自分の入れた値段</text>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">図2　値段は「安い順」に決まる。売れたら、自分の入れた値段</text>
 <text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">イメージ図（実際の札ではありません）。棒1本が1つの札、高さが値段</text>
 <line x1="40.0" y1="250.0" x2="740.0" y2="250.0" stroke="#C9CED8" stroke-width="1.5"/>
 <rect x="70.0" y="232.0" width="58.0" height="18.0" rx="3" fill="#7C4DDB" stroke="none" stroke-width="1.5"/>
@@ -424,29 +487,17 @@ blockquote cite::before{content:'— '}
 <text x="569.2" y="128.0" font-size="13" fill="#667085" text-anchor="middle" font-weight="800">売れ残り</text>
 <text x="70.0" y="274.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">← 安い</text>
 <text x="674.0" y="274.0" font-size="11" fill="#667085" text-anchor="end" font-weight="400">高い →</text>
-</svg><figcaption>図1　必要な量に届いたところで、締め切られます。高い札を入れるほど、売れ残りやすくなります。</figcaption></figure>
+</svg><figcaption>図2　必要な量に届いたところで、締め切られます。高い札を入れるほど、売れ残りやすくなります。</figcaption></figure>
 
 <p>需給調整市場では、売り手が「この値段で売ります」という札を入れます（入札）。安い札から順に売れていきます。売れたら、自分の入れた値段がそのまま収入になります。だから「いくらで入れるか」が腕だ、と言われてきました。</p>
-<!-- scix-guide -->
-<aside data-scix-guide style="margin:32px 0;padding:14px 20px 12px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif;font-size:14.5px;line-height:1.8;color:#1F2A48">
-  <p style="margin:0 0 8px">いま売りに出ている案件を見るなら、<a target="_top" href="https://dealroom.scix.co.jp/" style="color:#1F2A48;font-weight:600" data-cta="mid" data-cta-target="market">蓄電所マーケット</a>へ（登録なしで見られます）。所在県・規模・電圧・買い方・手続きの段・運転開始の見込みまで載せています。価格と資料は無料登録のあとです。買い方の順番は <a target="_top" href="/transfer" style="color:#1F2A48;font-weight:600">案件を買う</a> に。</p>
-  <p style="margin:0;font-size:13px;color:#555555">この記事の用語: <a target="_top" href="/glossary#term-アグリゲーター" style="color:#1F2A48">アグリゲーター</a> ・ <a target="_top" href="/glossary#term-容量市場メインオークション" style="color:#1F2A48">容量市場</a> ・ <a target="_top" href="/glossary#term-JEPX日本卸電力取引所" style="color:#1F2A48">JEPX</a> ・ <a target="_top" href="/glossary#term-需給調整市場" style="color:#1F2A48">需給調整市場</a> ・ <a target="_top" href="/glossary#term-ΔkWデルタキロワット" style="color:#1F2A48">ΔkW</a> ／ <a target="_top" href="/glossary" style="color:#1F2A48">用語集</a></p>
-</aside>
-
-<!-- scix-readnext -->
-<aside data-scix-readnext style="margin:32px 0;padding:14px 20px 10px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif">
-  <div style="font-size:12px;font-weight:700;color:#555555;letter-spacing:.08em;margin-bottom:2px">あわせて読む</div>
-  <a target="_top" href="/column-bidding-ceiling" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">もう一枚の天井 — 需給調整市場ガイドラインの「一定額」（COLUMN 50） →</a>
-  <a target="_top" href="/column-bidding-ceiling-monitoring" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">ΔkW価格は誰がどう見てきたか — 5年の年表（COLUMN 50-5） →</a>
-  <a target="_top" href="/column-balancing-saturation" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">蓄電池は飽和したのか（COLUMN 47） →</a>
-</aside>
-
+<p>卸電力市場の前日の取引では、同じコマ・同じ地域で売れた人は、全員が同じ値段になります（シングルプライス）。需給調整市場はちがいます。安く入れた人は安いまま、高く入れた人は高いまま売れます。この決め方を「マルチプライス」と呼びます。</p>
 
 <h2 id="jougen">その天井が、1年で半分になった</h2>
-<figure id="f2"><svg viewBox="0 0 780 284" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="上限価格が19.51円から15円、10円へ下がったことを示す棒グラフ" font-family="'Noto Sans JP',sans-serif">
-<defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
+<p>札の値段には、上限があります。蓄電池に向いた3つの商品の上限は、2026年に2回下がりました。</p>
+<figure id="f3"><svg viewBox="0 0 780 284" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="上限価格が19.51円から15円、10円へ下がったことを示す棒グラフ" font-family="'Noto Sans JP',sans-serif">
+<defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
 <rect x="0.0" y="0.0" width="780.0" height="284.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
-<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">図2　上限は、1年で半分になった</text>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">図3　上限は、1年で半分になった</text>
 <text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">需給調整市場の ΔkW の上限（一次・二次①・複合商品）。円／ΔkW・30分。EPRX の公表</text>
 <line x1="150.0" y1="232.0" x2="630.0" y2="232.0" stroke="#C9CED8" stroke-width="1.5"/>
 <rect x="190.0" y="92.0" width="80.0" height="140.0" rx="3" fill="#C9CED8" stroke="none" stroke-width="2"/>
@@ -458,14 +509,16 @@ blockquote cite::before{content:'— '}
 <rect x="510.0" y="160.2" width="80.0" height="71.8" rx="3" fill="#7C4DDB" stroke="none" stroke-width="2"/>
 <text x="550.0" y="153.2" font-size="12.5" fill="#1F2A48" text-anchor="middle" font-weight="700">10円</text>
 <text x="550.0" y="249.0" font-size="11" fill="#667085" text-anchor="middle" font-weight="400">9月1日から（いま）</text>
-</svg><figcaption>図2　2026年に2回下がりました。上限を超えた分は、精算で差し引かれます。</figcaption></figure>
+</svg><figcaption>図3　2026年に2回下がりました。上限を超えた分は、精算で差し引かれます。</figcaption></figure>
 
+<p>上限より高い札を入れても、売れたあとの精算で、上限を超えた分は差し引かれます。つまり、上限より高くは受け取れません。</p>
+<p>2026年3月14日は、取引のやり方が変わった日でもあります。それまで、一次から三次①までは、1週間分をまとめて入札していました。この日の分から、前の日に、あすの分を30分ごとに入札する形になりました。</p>
 
 <h2 id="heikin">2025年度の平均は、1〜4円</h2>
-<figure id="f3"><svg viewBox="0 0 780 282" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="需給調整市場の商品ごとの2025年度の平均約定価格と上限10円の線" font-family="'Noto Sans JP',sans-serif">
-<defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
+<figure id="f4"><svg viewBox="0 0 780 282" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="需給調整市場の商品ごとの2025年度の平均約定価格と上限10円の線" font-family="'Noto Sans JP',sans-serif">
+<defs><marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
 <rect x="0.0" y="0.0" width="780.0" height="282.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
-<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">図3　実際に売れた値段の平均は、上限よりずっと下</text>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">図4　実際に売れた値段の平均は、上限よりずっと下</text>
 <text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">2025年度の平均の約定価格（円／ΔkW・30分）。EPRX「2025年度の取引実績について」</text>
 <text x="140.0" y="92.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">一次調整力</text>
 <rect x="150.0" y="76.0" width="200.2" height="22.0" rx="3" fill="#7C4DDB" stroke="none" stroke-width="1.5"/>
@@ -487,15 +540,18 @@ blockquote cite::before{content:'— '}
 <text x="216.6" y="252.5" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">1.15円</text>
 <line x1="659.4" y1="68.0" x2="659.4" y2="268.0" stroke="#EF7A1A" stroke-width="2" stroke-dasharray="5 4"/>
 <text x="659.4" y="64.0" font-size="11" fill="#EF7A1A" text-anchor="middle" font-weight="700">上限10円（いま。一次・二次①・複合）</text>
-</svg><figcaption>図3　いちばん高い一次調整力でも、市場全体の平均は3.93円でした。上限いっぱいで売れ続けたわけではありません。ただし、蓄電池が売れた値段だけで見ると、月ごとの平均は8.82〜13.52円でした（2025年度・一次調整力）。二次調整力②と三次調整力①の上限は7.21円、三次調整力②には上限がありません。</figcaption></figure>
+</svg><figcaption>図4　いちばん高い一次調整力でも、市場全体の平均は3.93円でした。上限いっぱいで売れ続けたわけではありません。ただし、蓄電池が売れた値段だけで見ると、月ごとの平均は8.82〜13.52円でした（2025年度・一次調整力）。二次調整力②と三次調整力①の上限は7.21円、三次調整力②には上限がありません。</figcaption></figure>
 
+<p>図の点線が上限の10円、棒が平均です。上限は「これより高くは受け取れない」という天井です。「この値段で売れる」という意味ではありません。</p>
+<p>では、平均はなぜ、上限よりずっと低いのでしょうか。</p>
 <p>火力発電所などの安い札が、たくさん入っているからです。三次調整力②には上限がありませんが、平均は1.15円でした。ただ、取引が前日に変わった2026年3月14日から4月10日までの一次調整力では、上限15円の所で売れた札が多くありました（資源エネルギー庁 資料8）。</p>
 
 <h2 id="dare">高い札を入れていたのは、蓄電池だった</h2>
-<figure id="f4"><svg viewBox="0 0 780 224" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="14円を超える札に占める蓄電池の割合。一次は95.4%から81.2%、複合は84.4%から68.4%" font-family="'Noto Sans JP',sans-serif">
-<defs><marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
+<p>国は、取引のやり方が変わる前と後で、14円を超える高い札をだれが入れているかを調べました。</p>
+<figure id="f5"><svg viewBox="0 0 780 224" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="14円を超える札に占める蓄電池の割合。一次は95.4%から81.2%、複合は84.4%から68.4%" font-family="'Noto Sans JP',sans-serif">
+<defs><marker id="ar5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
 <rect x="0.0" y="0.0" width="780.0" height="224.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
-<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">図4　14円を超える高い札は、ほとんどが蓄電池だった</text>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">図5　14円を超える高い札は、ほとんどが蓄電池だった</text>
 <text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">14円を超える札（量）のうち、蓄電池の割合。前日の入札に変わる前（2026年2月14日〜3月13日）と6月6日〜7月3日。資源エネルギー庁 資料6</text>
 <text x="132.0" y="84.0" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">一次調整力</text>
 <text x="192.0" y="85.5" font-size="10.5" fill="#667085" text-anchor="end" font-weight="400">前</text>
@@ -511,29 +567,120 @@ blockquote cite::before{content:'— '}
 <text x="192.0" y="186.5" font-size="10.5" fill="#667085" text-anchor="end" font-weight="400">6〜7月</text>
 <rect x="200.0" y="171.0" width="273.6" height="21.0" rx="3" fill="#F6C79B" stroke="none" stroke-width="1.5"/>
 <text x="481.6" y="187.0" font-size="13" fill="#1F2A48" text-anchor="start" font-weight="700">68.4%</text>
-</svg><figcaption>図4　4〜7月の3つの期間でも、蓄電池は一次で81〜91%、複合で68〜80%でした。この数字が示された7月の国の会議のあと、上限は9月1日から10円に下がりました。</figcaption></figure>
+</svg><figcaption>図5　4〜7月の3つの期間でも、蓄電池は一次で81〜91%、複合で68〜80%でした。この数字が示された7月の国の会議のあと、上限は9月1日から10円に下がりました。</figcaption></figure>
 
+<p>図は「14円を超える札のうち、何%が蓄電池の札だったか」です。一次調整力では、変わる前が95.4%、2026年6〜7月が81.2%でした。</p>
 <p>天井の近くに札を入れる。そのやり方をしていたのは、7〜9割が蓄電池でした（2026年4〜7月）。国はこれを数字で確かめたうえで、天井を下げています。</p>
 
+<h2 id="kugatsu">上限10円の最初の月、蓄電池の枠は5.81円</h2>
+<p>上限が10円になった2026年9月、実際の値段はどうなったか。蓄電池がほとんどを占める枠で見ます。一次調整力のうち、専用線を引かずに参加できる「オフライン」の枠です。落札された量の99%超が蓄電池でした（2026年4月〜8月中旬）。</p>
+<figure id="f6"><svg viewBox="0 0 780 372" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="2026年9月の一次オフラインの地域別の平均落札価格。東北9.51円、東京8.58円、ほかの7地域は1〜3円台、全国5.81円" font-family="'Noto Sans JP',sans-serif">
+<defs><marker id="ar6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
+<rect x="0.0" y="0.0" width="780.0" height="372.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">図6　上限10円の最初の月。上限の近くで売れたのは、東北と東京だけ</text>
+<text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">一次調整力のオフライン枠（ほぼ蓄電池）の平均落札価格。2026年9月1〜29日・速報値。円／ΔkW・30分</text>
+<text x="100.0" y="99.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">東北</text>
+<rect x="110.0" y="84.0" width="399.1" height="20.0" rx="3" fill="#7C4DDB" stroke="none" stroke-width="1.5"/>
+<text x="501.1" y="99.0" font-size="12" fill="#FFFFFF" text-anchor="end" font-weight="700">9.51円</text>
+<text x="100.0" y="127.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">東京</text>
+<rect x="110.0" y="112.0" width="360.1" height="20.0" rx="3" fill="#7C4DDB" stroke="none" stroke-width="1.5"/>
+<text x="462.1" y="127.0" font-size="12" fill="#FFFFFF" text-anchor="end" font-weight="700">8.58円</text>
+<text x="100.0" y="155.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">中部</text>
+<rect x="110.0" y="140.0" width="154.8" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="272.8" y="155.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">3.69円</text>
+<text x="100.0" y="183.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">中国</text>
+<rect x="110.0" y="168.0" width="140.2" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="258.2" y="183.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">3.34円</text>
+<text x="100.0" y="211.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">関西</text>
+<rect x="110.0" y="196.0" width="136.8" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="254.8" y="211.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">3.26円</text>
+<text x="100.0" y="239.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">北陸</text>
+<rect x="110.0" y="224.0" width="133.9" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="251.9" y="239.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">3.19円</text>
+<text x="100.0" y="267.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">九州</text>
+<rect x="110.0" y="252.0" width="127.6" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="245.6" y="267.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">3.04円</text>
+<text x="100.0" y="295.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">四国</text>
+<rect x="110.0" y="280.0" width="115.0" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="233.0" y="295.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">2.74円</text>
+<text x="100.0" y="323.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">北海道</text>
+<rect x="110.0" y="308.0" width="58.3" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="176.3" y="323.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">1.39円</text>
+<text x="100.0" y="351.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">全国</text>
+<rect x="110.0" y="336.0" width="243.8" height="20.0" rx="3" fill="#1F2A48" stroke="none" stroke-width="1.5"/>
+<text x="361.8" y="351.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">5.81円</text>
+<line x1="529.6" y1="76.0" x2="529.6" y2="358.0" stroke="#EF7A1A" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="529.6" y="71.0" font-size="11" fill="#EF7A1A" text-anchor="middle" font-weight="700">上限10円</text>
+</svg><figcaption>図6　同じ月、同じ上限でも、地域で9.51円から1.39円まで分かれました。全国の平均は5.81円で、4〜8月の11.07円の約半分です。EPRX の取引結果を当社が集計。</figcaption></figure>
+
+<p>全国の平均は、4〜8月の11.07円から、9月は5.81円（速報値。確報値は5.80円）になりました。上限の近くに残ったのは、東北（9.51円）と東京（8.58円）だけです。ほかの7つの地域は、1〜3円台でした（当社の集計。<a target="_top" href="/column-bidding-ceiling-market">COLUMN 50-4</a>）。</p>
+<p>東北と東京は、出した札がほぼ全部売れる地域です（札が通る割合は、東北95.6%、東京85.1%）。同じ月、同じ上限でも、蓄電所がどの地域にあるかで、値段は9円台から1円台まで分かれました。当社の見方では、アグリゲーターの腕の前に、場所で決まる部分があります。</p>
+
 <h2 id="mihari">市場で力が大きいとされた19社は、値付けを見張られている</h2>
+<p>上限とは別に、札の値段の決め方にも、国の考え方があります。需給調整市場で待機すると、その時間は卸市場で売り買いできません。その「取りそこねた利益」に、少しの上乗せを足した額までにする、という考え方です。</p>
 <p>国のガイドラインは、札の値段を「ほかの市場で稼げたはずの利益＋一定額まで」にするのが望ましい、としています（義務ではありません。<a target="_top" href="/column-bidding-ceiling">COLUMN 50</a>）。市場で大きな力を持つ可能性が高いとされた事業者は、取引の前に、この考え方で札を入れているかを確かめられます。2026年度の対象として示されたのは、19社です。19社は、エリアごとの市場の占め方から選ばれました。会社の大きさで選ばれたわけではありません。</p>
+<p>上乗せ（一定額）は2種類あります。だれでも使える0.33円と、固定費をまだ取り戻していない間だけ使える、計算で出す額です（<a target="_top" href="/column-bidding-ceiling">COLUMN 50</a>）。</p>
 <blockquote>北海道電力、ENEOS Power、エナリス、東北電力、JERA、E-Flow、東京電力エナジーパートナー、東京電力リニューアブルパワー、東京ガス、中部電力ミライズ、北陸電力、関西電力、中国電力、大阪ガス、四国電力、電源開発、九州電力、アーバンエナジー、でんきの駅<cite>電力・ガス取引監視等委員会 第16回制度設計・監視専門会合 資料3（2025年12月26日・事務局の案）</cite></blockquote>
 <p>19社には、ほかの人の蓄電池を預かる会社も入っています。19社に入らない会社も、あとから監視を受けます（<a target="_top" href="/column-bidding-ceiling-monitoring">COLUMN 50-5</a>）。</p>
 
 <h2 id="nokoru">いま差がつく、3つの場所</h2>
-<div class="kpi" style="grid-template-columns:repeat(2,1fr)">
-<div class="kpi-item"><div class="k-label">約束の量を用意できなかった分の<br>ペナルティ</div><div class="k-value">1.5<span>倍</span></div><div class="k-sub">取引規程 第40条</div></div>
-<div class="kpi-item"><div class="k-label">同じ月・同じ設備・同じ商品で<br>落とすと取引停止も</div><div class="k-value">3<span>回</span></div><div class="k-sub">取引規程 第41条</div></div>
-</div>
+<p>高く売る余地は、狭くなりました。それでも、アグリゲーターによる差は残ります。場所は3つです。</p>
 <div class="six"><div class="n">1</div><h3>落とさない</h3></div>
 <p>約束したのに動けないと、ペナルティです。指令どおりに動けなかった30分のコマは、そのコマのΔkWの売上と同じ額です。同じ月に、同じ設備・同じ商品で、指令どおりに動けないことが3回あると、その設備はその商品の取引を止められることがあります。EPRX が2026年8月に公表した例（設備の種類は公表されていません）では、4月に4回落とし、8月21日から取引が止まりました。止まっている間、その商品の収入はありません。</p>
+<p>ペナルティは2種類あります。1つは、約束した量を用意できていなかったとき。もう1つは、指令が来たのに、そのとおりに動けなかったときです。たとえば、電池の残量が足りない、設備や通信が止まった、という場合です。</p>
+<figure id="f7"><svg viewBox="0 0 780 254" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="用意できなかった分は売上の1.5倍のペナルティ。指令どおりに動けなかったコマは売上と同じ額。同じ月に3回で取引停止も" font-family="'Noto Sans JP',sans-serif">
+<defs><marker id="ar7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
+<rect x="0.0" y="0.0" width="780.0" height="254.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">図7　約束を落とすと、どうなるか</text>
+<text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">EPRX 取引規程 第40条・第41条から。左が起きたこと、右がその結果</text>
+<rect x="16.0" y="66.0" width="330.0" height="50.0" rx="10" fill="#FFFFFF" stroke="#1F2A48" stroke-width="1.6"/>
+<text x="181.0" y="96.0" font-size="12.5" fill="#1F2A48" text-anchor="middle" font-weight="700">約束の量を、用意できなかった</text>
+<line x1="352.0" y1="91.0" x2="406.0" y2="91.0" stroke="#1F2A48" stroke-width="2" marker-end="url(#ar7)"/>
+<rect x="414.0" y="66.0" width="350.0" height="50.0" rx="10" fill="#FFF1E3" stroke="#EF7A1A" stroke-width="1.6"/>
+<text x="589.0" y="96.0" font-size="12.5" fill="#C2560A" text-anchor="middle" font-weight="800">その分の売上の 1.5倍 を払う</text>
+<rect x="16.0" y="128.0" width="330.0" height="50.0" rx="10" fill="#FFFFFF" stroke="#1F2A48" stroke-width="1.6"/>
+<text x="181.0" y="158.0" font-size="12.5" fill="#1F2A48" text-anchor="middle" font-weight="700">指令どおりに、動けなかった</text>
+<line x1="352.0" y1="153.0" x2="406.0" y2="153.0" stroke="#1F2A48" stroke-width="2" marker-end="url(#ar7)"/>
+<rect x="414.0" y="128.0" width="350.0" height="50.0" rx="10" fill="#FFF1E3" stroke="#EF7A1A" stroke-width="1.6"/>
+<text x="589.0" y="158.0" font-size="12.5" fill="#C2560A" text-anchor="middle" font-weight="800">そのコマの売上と 同じ額 を払う</text>
+<rect x="16.0" y="190.0" width="330.0" height="50.0" rx="10" fill="#FFFFFF" stroke="#1F2A48" stroke-width="1.6"/>
+<text x="181.0" y="214.0" font-size="12.5" fill="#1F2A48" text-anchor="middle" font-weight="700">同じ月に3回、指令どおりに動けなかった</text>
+<text x="181.0" y="230.0" font-size="10.5" fill="#667085" text-anchor="middle" font-weight="400">（同じ設備・同じ商品）</text>
+<line x1="352.0" y1="215.0" x2="406.0" y2="215.0" stroke="#1F2A48" stroke-width="2" marker-end="url(#ar7)"/>
+<rect x="414.0" y="190.0" width="350.0" height="50.0" rx="10" fill="#FFF1E3" stroke="#EF7A1A" stroke-width="1.6"/>
+<text x="589.0" y="220.0" font-size="12.5" fill="#C2560A" text-anchor="middle" font-weight="800">その商品の取引を 止められることがある</text>
+</svg><figcaption>図7　売ったあとで約束を守れないと、ペナルティがかかります。額は、その分の売上と同じか、その1.5倍です（取引規程 第40条）。同じ月に3回あると、その商品では売れなくなることがあります（第41条）。</figcaption></figure>
+
 <div class="six"><div class="n">2</div><h3>止めない</h3></div>
 <p>電池、通信、制御。どれかが止まれば、札を入れられません。故障に気づく早さと、直す段取りの差です。</p>
 <div class="six"><div class="n">3</div><h3>振り分ける</h3></div>
 <p>蓄電池は、電気を安く買って高く売る卸市場でも稼げます。あすのどの時間を、どちらの市場に出すか。天井が下がるほど、この判断が効いてきます。海外では、ここで差が開きました（<a target="_top" href="/column-aggregators-overseas">海外編</a>）。</p>
+<p>蓄電池は、充電を止める分も待機の力として出せます。ただ、どのコマで充電するかで、電池の残りと、出せる量が変わります。いつ充電するかの決め方も、振り分けに入ります。</p>
 
 <h2 id="ai">AIは効くのか</h2>
+<p>多くのアグリゲーターが「AIで最適化」をうたいます。AIや計算がするのは、あすの値段の予想と、48コマの振り分けです。どこで効きやすいかを、当社の見方で分けると、表2のようになります。</p>
+<div class="wraptext">
+<table class="c52w">
+<caption>表2｜AI や計算の出番（当社の見方）</caption>
+<thead><tr><th>アグリゲーターの仕事</th><th>出番</th><th>理由</th></tr></thead>
+<tbody>
+<tr><td>あすの値段を読む</td><td><b>大きい</b></td><td>卸市場の売り買いは、読みが当たるほど結果がよくなる</td></tr>
+<tr><td>48コマを、どの市場に出すか決める</td><td><b>大きい</b></td><td>組み合わせが多く、人の手では追いにくい</td></tr>
+<tr><td>需給調整市場の札の値段を決める</td><td>小さくなった</td><td>上限と見張りで、動かせる幅が狭くなった</td></tr>
+<tr><td>設備と通信を止めない</td><td>小さい</td><td>保守と段取りの仕事</td></tr>
+<tr><td>手数料や解約の条件を決める</td><td>無い</td><td>契約の話</td></tr>
+</tbody>
+</table>
+</div>
 <p>AIを使う会社と使わない会社の成績を、第三者が比べた資料は、日本では見つかりませんでした。確かめる方法は1つ。実績の数字を出してもらうことです。「市場の平均と比べて、いくらで売れましたか」「ペナルティと取引停止は、何回ありましたか」。</p>
+<p>相手に出してもらう数字を、5つ挙げます。</p>
+<ul class="checks">
+<li>過去12か月の、月ごと・市場ごとの収入</li>
+<li>入れた札のうち、売れた割合（約定率）</li>
+<li>市場の平均と比べた、売れた値段</li>
+<li>ペナルティと取引停止の回数</li>
+<li>設備が止まっていた時間（稼働率）</li>
+</ul>
 
 <h2 id="rensai">この連載の読み方</h2>
 <div class="cards n2">
@@ -547,6 +694,10 @@ blockquote cite::before{content:'— '}
 <div class="next">次は <a target="_top" href="/column-aggregators-overseas">53-5 海外編</a>。英国の9月の1位は、30MWの会社です。</div>
 
 <h2 id="faq">よくある質問</h2>
+<div class="faq-item">
+<p class="faq-q">ΔkW（デルタ・キロワット）とは何ですか？</p>
+<p class="faq-a">需給調整市場で売る「待機している力」のことです。値段は、1kWを30分待機させていくら、で表します（円／ΔkW・30分）。たとえば、1,000kWの蓄電池が30分のコマを1つ、10円で売ると、1万円です。</p>
+</div>
 <div class="faq-item">
 <p class="faq-q">需給調整市場では、高い値段で入札すれば高く売れますか？</p>
 <p class="faq-a">売れれば、入札した値段がそのまま収入になります。ただし、安い札から順に売れるので、高い札は売れ残りやすくなります。一方、札が足りない一次調整力などでは、上限近くの札も売れてきました。上限もあり、一次調整力・二次調整力①・複合商品は2026年9月から10円です。</p>
@@ -564,6 +715,7 @@ blockquote cite::before{content:'— '}
 <div class="refs">
 <h3>市場の決まりと実績</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://www.eprx.or.jp/outline/docs/kitei_ver.18_260701.pdf">EPRX 取引規程 ver.18（2026年7月1日実施・PDF）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.eprx.or.jp/outline/docs/yousuichikudenchi_guide_250401.pdf">EPRX「揚水発電設備または蓄電池設備を用いて需給調整市場に参入する場合の取扱いガイド」第2版（2025年4月1日・PDF）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.eprx.or.jp/information/docs/14b85fbe8942da7d3bdddda80243e7e170f64d9e.pdf">EPRX「需給調整市場のΔkW上限価格について」（2026年7月30日更新・PDF）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.eprx.or.jp/information/summary_2025.pdf">EPRX「2025年度の取引実績について」（2026年6月18日・PDF）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/stable_power_supply_wg/pdf/001_08_00.pdf">資源エネルギー庁「需給調整市場について」（総合資源エネルギー調査会 電力安定供給ワーキンググループ 第1回 資料8、2026年5月13日・PDF）</a></li>
@@ -572,7 +724,7 @@ blockquote cite::before{content:'— '}
 <li><a target="_blank" rel="noopener" href="https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/016_03_00.pdf">電力・ガス取引監視等委員会 第16回制度設計・監視専門会合 資料3（2025年12月26日・PDF）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.eprx.or.jp/memberinfo/202608201300_1_news.pdf">EPRX「取引会員の単独発電機または各リストパターンの取引停止のお知らせ」（2026年8月20日・管理No.28・PDF）</a></li>
 </ul>
-<h3>関連する記事</h3><ul><li><a target="_top" href="/column-bidding-ceiling">もう一枚の天井 — 需給調整市場ガイドラインの「一定額」（COLUMN 50）</a>／<a target="_top" href="/column-bidding-ceiling-monitoring">ΔkW価格は誰がどう見てきたか — 5年の年表（COLUMN 50-5）</a>／<a target="_top" href="/column-balancing-saturation">蓄電池は飽和したのか（COLUMN 47）</a>／<a target="_top" href="/column-somosomo-17">海外と日本の調整力市場（COLUMN 48-17）</a></li></ul>
+<h3>関連する記事</h3><ul><li><a target="_top" href="/column-bidding-ceiling">もう一枚の天井 — 需給調整市場ガイドラインの「一定額」（COLUMN 50）</a>／<a target="_top" href="/column-bidding-ceiling-market">上限10円の9月、一次オフラインは5.81円（COLUMN 50-4）</a>／<a target="_top" href="/column-bidding-ceiling-monitoring">ΔkW価格は誰がどう見てきたか — 5年の年表（COLUMN 50-5）</a>／<a target="_top" href="/column-balancing-saturation">蓄電池は飽和したのか（COLUMN 47）</a>／<a target="_top" href="/column-somosomo-17">海外と日本の調整力市場（COLUMN 48-17）</a>／<a target="_top" href="/guide-balancing-market">EPRXと需給調整市場のガイド</a></li></ul>
 </div>
 <!-- scix-cluster:begin -->
 <p class="scix-cluster" data-scix-cluster style="margin:20px 0;padding:10px 16px;background:#F7F7F7;border:1px solid #E6E6E6;border-radius:6px;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-height:1.8;color:#1F2A48">このテーマの全体像: <a target="_top" href="/guide-balancing-market" style="color:#1F2A48;font-weight:700">EPRX（電力需給調整力取引所）と需給調整市場のガイド →</a></p>

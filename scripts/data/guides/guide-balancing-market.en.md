@@ -62,7 +62,7 @@ From transactions on March 13, 2026, Primary through Tertiary 1 moved from weekl
 
 The cap then fell to ¥10.00 from delivery on September 1, 2026 (EPRX announcement, July 30, 2026). Secondary 2 and Tertiary 1 stay at ¥7.21; Tertiary 2 has never had a cap. The next step, ¥7.21, applies "if no improvement in competitive conditions is observed in the market."
 
-What matters in operation is the daily split with JEPX. Only volume bid into the JEPX spot market and left unsold can be offered into the balancing market, so every day an operator decides, for each of the next day's 48 slots, whether to sell on JEPX or stand by in the balancing market. Because a battery cannot offer into the market while it is charging, how many of the 48 slots it can put on the market directly determines its revenue.
+What matters in operation is the daily split with JEPX. Only volume bid into the JEPX spot market and left unsold can be offered into the balancing market, so every day an operator decides, for each of the next day's 48 slots, whether to sell on JEPX or stand by in the balancing market. A battery can also offer the charging it would pause as upward reserve (EPRX, guide for participating in the balancing market with pumped-storage or battery facilities, in Japanese: https://www.eprx.or.jp/outline/docs/yousuichikudenchi_guide_250401.pdf ). But the slots it charges in change its state of charge and how much it can offer, so how it plans charging and offers across the 48 slots directly determines its revenue.
 
 more: Read more: [The balancing market's shift to day-ahead trading](/en/column-day-ahead) / [The 5 products (FY2026 policy changes)](/en/column-balancing-market) / [The ceiling drops by five yen](/en/column-price-cap)
 
