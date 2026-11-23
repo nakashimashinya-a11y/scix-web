@@ -1006,7 +1006,7 @@
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
     if (isNarrowNow()) {
-      // Drawer: close it, keep the accordion state (the current-page group stays unfolded).
+      // Drawer: close it, keep the accordion state (groups start folded; the current-page group only lights up).
       if (header.classList.contains('scix-header-open')) {
         closeMenu();
         burger.focus();
