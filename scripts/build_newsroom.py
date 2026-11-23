@@ -45,6 +45,7 @@ BASE = "https://www.scix.co.jp"
 MARKET_HOSTS = ("https://dealroom.scix.co.jp",)
 VP_PREFIX = "https://www.value-press.com/"
 ORG_ID = BASE + "/#organization"
+YT_CHANNEL = "https://www.youtube.com/channel/UCH9WUVm8V2zsMc8s9WS2OYg"   # 会社の YouTube チャンネル（解説動画。Organization の sameAs と窓口の一行）
 SITE_ID = BASE + "/#website"
 PATHS = {"ja": "/newsroom", "en": "/en/newsroom"}
 FILES = {"ja": "newsroom.html", "en": "en/newsroom.html"}
@@ -91,6 +92,7 @@ L = {
         ],
         as_h="使える素材", as_lead="記事の数値・図表は、出典を明記すれば許諾の連絡なしにお使いいただけます。出典の書き方・使える範囲・図の埋め込みコードは、引用・転載ガイドにまとめています。",
         as_press=("引用・転載ガイド（出典の書き方・図表・埋め込みコード）を見る →", "/press"),
+        as_yt=("解説動画（YouTube チャンネル）を見る ↗", YT_CHANNEL),
         as_logo_h="ロゴと写真",
         as_logo=[("/img/logo-white.png", "ロゴ（白・透過 PNG。紺や濃い背景でお使いください）"),
                  ("/img/apple-touch-icon.png", "正方形のマーク（PNG）"),
@@ -151,6 +153,7 @@ L = {
         ],
         as_h="Media assets", as_lead="Figures and charts in our articles may be used without asking permission, as long as you credit the source. How to cite, what you may use and the embed code for charts are in our Citation & Press Guide.",
         as_press=("See the Citation & Press Guide (how to cite, charts, embed code) →", "/en/press"),
+        as_yt=("Explainer videos on the ScienceX YouTube channel (Japanese) ↗", YT_CHANNEL),
         as_logo_h="Logo and photo",
         as_logo=[("/img/logo-white.png", "Logo (white, transparent PNG; for use on navy or dark backgrounds)"),
                  ("/img/apple-touch-icon.png", "Square mark (PNG)"),
@@ -350,7 +353,8 @@ def render(d: dict, lg: str) -> str:
     rows = entries(d, lg)
     org = {"@type": "Organization", "@id": ORG_ID, "name": "ScienceX",
            "alternateName": ["サイエンスエックス", "サイエンスエックス株式会社", "Science X Inc.", "Science X"],
-           "url": BASE + "/", "logo": {"@type": "ImageObject", "url": BASE + "/img/logo-navy.png"}}
+           "url": BASE + "/", "logo": {"@type": "ImageObject", "url": BASE + "/img/logo-navy.png"},
+           "sameAs": [YT_CHANNEL]}
     items = []
     for n, (_dt, _i, r, x, _jo) in enumerate(rows, 1):
         page = x["page"]
@@ -498,6 +502,7 @@ def render(d: dict, lg: str) -> str:
 <h2 class="md-h">{e(c['as_h'])}</h2>
 <p class="md-lead">{e(c['as_lead'])}</p>
 <p class="md-more"><a href="{c['as_press'][1]}">{e(c['as_press'][0])}</a></p>
+<p class="md-more"><a href="{c['as_yt'][1]}" rel="noopener">{e(c['as_yt'][0])}</a></p>
 <h3 class="md-s">{e(c['as_logo_h'])}</h3>
 <ul class="nr-dl">
 {logos}
