@@ -15,6 +15,7 @@
 控え（同じ住所を1日に2度送らない・同じ lastmod の住所を2度送らない）は公開リポジトリの外に置く:
   既定 Drive `9_システム/scix-web解析/indexnow/sent.jsonl`（`SCIX_INDEXNOW_LEDGER` か --ledger で替えられる）。
   1行＝{"date": 送った日（JST）, "url", "lastmod", "status"}。200・202 の時だけ書く。
+  控えの置き場の1つ上（既定は scix-web解析/）が見えないときは、送らずに止める（別の場所にフォルダを作らない）。
 main への push ごとに変わった HTML は GitHub Action（.github/workflows/indexnow-on-push.yml）が scripts/ping_indexnow.py で送る。
 この台本は、それとは別に sitemap の lastmod を正にして、取りこぼした住所をまとめて拾い直すためのもの。
 デプロイ「後」に回す（本番にまだ無い住所を送っても意味がない）。Google は IndexNow に入っていない（sitemap と GSC が経路）。
@@ -145,6 +146,9 @@ def main(argv: list[str] | None = None) -> int:
     send, skip = pick(entries, since, ledger, today, extra)
 
     print(f"sitemap {len(entries) - len(extra)} 本・lastmod が {since} より新しくて送る住所 {len(send)} 本・外した {len(skip)} 本（控え {ledger_path}）")
+    ahead = sum(1 for u, lm in send if u not in extra and lm > today)
+    if ahead:
+        print(f"  （うち {ahead} 本は sitemap の lastmod が今日 {today} より先の日付。本番に出ている頁なら送ってよい。lastmod は公開日に合わせて直すのがよい）")
     for url, lm in send:
         print(f"  送る  {lm}  {url}")
     for url, lm, why in skip:
@@ -159,11 +163,16 @@ def main(argv: list[str] | None = None) -> int:
         print("\n一覧だけ（送っていない）。送るときは --apply。")
         return 0
 
+    # 控えを書けない所（Drive が見えない端末など）で送ると、同じ住所を何度も送る元になる＝送る前に止める
+    if not ledger_path.parent.is_dir() and not ledger_path.parent.parent.is_dir():
+        print(f"控えの置き場 {ledger_path.parent.parent} が見えない（Drive が未マウント？）。送らずに止めた。"
+              "Drive が見えている Mac で流すか、--ledger で置き場を指定する。", file=sys.stderr)
+        return 2
+    ledger_path.parent.mkdir(parents=True, exist_ok=True)
     status = post(key, [u for u, _ in send])
     print(f"\nHTTP {status} — {MEANING.get(status, '想定外の返事')}")
     if status not in (200, 202):
         return 1
-    ledger_path.parent.mkdir(parents=True, exist_ok=True)
     with ledger_path.open("a", encoding="utf-8") as f:
         for url, lm in send:
             f.write(json.dumps({"date": today, "url": url, "lastmod": lm, "status": status}, ensure_ascii=False) + "\n")

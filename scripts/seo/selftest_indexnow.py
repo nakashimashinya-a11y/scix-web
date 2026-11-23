@@ -57,6 +57,17 @@ def main():
         led2 = Path(td) / "sent2.jsonl"
         check(ip.main(["--sitemap", str(sm), "--ledger", str(led2), "--since", "2098-12-30", "--apply"]) == 1 and not led2.exists(),
               "429 で控えを書いた")
+        # 控えの置き場の1つ上が見えない（Drive 未マウント）なら送らずに止める・フォルダを作らない
+        sent = []
+        ip.post = lambda key, urls: (sent.append(list(urls)), 200)[1]
+        gone = Path(td) / "no-drive" / "scix-web解析" / "indexnow" / "sent.jsonl"
+        check(ip.main(["--sitemap", str(sm), "--ledger", str(gone), "--since", "2098-12-30", "--apply"]) == 2
+              and not sent and not gone.parent.parent.exists(), "Drive が見えないのに送った・フォルダを作った")
+        # 1つ上があれば indexnow/ を作って送る
+        (Path(td) / "drive" / "scix-web解析").mkdir(parents=True)
+        okp = Path(td) / "drive" / "scix-web解析" / "indexnow" / "sent.jsonl"
+        check(ip.main(["--sitemap", str(sm), "--ledger", str(okp), "--since", "2098-12-30", "--apply"]) == 0
+              and len(sent) == 1 and okp.is_file(), "置き場の1つ上があるのに送れない")
     # 鍵は決まりの形で、根の <鍵>.txt の中身と同じ
     key = ip.load_key()
     check(ip.KEY_RX.match(key) is not None, "鍵の形")
