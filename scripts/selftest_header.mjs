@@ -216,7 +216,8 @@ for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
       ok(at + '列の言葉は上の帯と食い違わない', m.words.length === 0, m.words.join(' / '));
       if (w > 1100) ok(at + '格子は列の数と同じ（空いた列を残さない）', m.tracks === m.ncol, `${m.tracks}/${m.ncol}`);
       if (w > 720) {
-        const right = (m.W + Math.min(m.W, 1240)) / 2 - (w <= 768 ? 16 : 24);
+        const pad = w <= 768 ? 16 : 24, right = m.W - pad;   // 下の帯の中身は画面いっぱい（上の帯の .scix-header-inner と同じ左右 24px・〜768px は本文と同じ 16px）
+        ok(at + 'ロゴの左端は帯の左の余白（上の帯のロゴと同じ並び）', Math.abs(m.logo.l - pad) <= 2, `${m.logo.l} ${pad}`);
         ok(at + 'まとまりはロゴのすぐ右', m.mg.l > m.logo.r && m.mg.l - m.logo.r <= 32 && Math.abs(m.mg.t - m.logo.t) < 12, JSON.stringify([m.logo, m.mg]));
         ok(at + 'ログインの組は右端', Math.abs(m.auth.r - right) <= 2, `${m.auth.r} ${right}`);
         if (w >= 768) ok(at + '1段目は1行', Math.abs(m.auth.t - m.mg.t) < 12, JSON.stringify([m.mg, m.auth]));

@@ -288,8 +288,8 @@
 
     '/* === Mobile / narrow breakpoint (drawer) === */',
     '@media(max-width:' + BP + 'px){',
-    '  .scix-header-nav{position:fixed;top:0;right:0;bottom:0;width:320px;max-width:86vw;background:#FFFCF5;border-radius:22px 0 0 22px;flex-direction:column;align-items:stretch;gap:0;padding:76px 18px 32px;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);z-index:10001;box-shadow:-4px 0 24px rgba(0,0,0,.15);overflow-y:auto;margin:0}',
-    '  .scix-header-open .scix-header-nav{transform:translateX(0)}',
+    '  .scix-header-nav{position:fixed;top:0;right:0;bottom:0;width:320px;max-width:86vw;background:#FFFCF5;border-radius:22px 0 0 22px;flex-direction:column;align-items:stretch;gap:0;padding:76px 18px 32px;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);z-index:10001;box-shadow:none;overflow-y:auto;margin:0}',
+    '  .scix-header-open .scix-header-nav{transform:translateX(0);box-shadow:-4px 0 24px rgba(0,0,0,.15)}',   // 影は開いた時だけ（閉じた引き出しの影が画面の右の縁ににじんでいた）
     '  .scix-ic{display:block!important;width:21px;height:21px}',
     '  .scix-nav-sep{display:none}',
     '  /* 畳んだメニューの中: 一番上に「蓄電所マーケット」の見出しつきのまとまり（買いたい・売りたい）→ ログイン・無料で登録 → 読み物と会社の札 */',
@@ -338,7 +338,7 @@
     'footer.scix-footer.scix-ft{display:block!important;background:#fff!important;background-image:none!important;border:0!important;border-top:2px solid #1F2A48!important;border-radius:0!important;box-shadow:none!important;margin:56px 0 0!important;padding:0!important;width:auto!important;color:#24304A!important;font-family:' + FT_FONT + '!important;font-feature-settings:"palt" 1;font-size:14px!important;font-weight:400!important;line-height:1.6!important;letter-spacing:0!important;text-align:left!important}',
     'footer.scix-ft::before,footer.scix-ft::after{display:none!important}',
     'footer.scix-ft *,footer.scix-ft *::before,footer.scix-ft *::after{box-sizing:border-box}',
-    'footer.scix-ft .scix-ft-in{max-width:1240px;margin:0 auto;padding:34px 24px 22px}',
+    'footer.scix-ft .scix-ft-in{max-width:none;margin:0;padding:34px 24px 22px}',   // 上の帯（.scix-header-inner）と同じ: 画面いっぱい・左右 24px（ロゴの左端と右端の部品が上下でそろう）
     'footer.scix-ft a{transition:color .15s,background .15s,border-color .15s,box-shadow .15s}',
     'footer.scix-ft a:focus-visible{outline:2px solid #F97316;outline-offset:2px}',
     '/* 1段目: ロゴ ／ 蓄電所マーケットのまとまり ／ ログイン・無料で登録 */',
@@ -363,10 +363,10 @@
     'footer.scix-ft a.scix-ft-reg:hover{background:#EF7A1A;color:#fff;box-shadow:0 8px 20px rgba(212,97,10,.38);transform:translateY(-1px)}',
     '/* 2段目: 入口ごとの列（見出しは側の色の短い縦棒）。字の色は白地で 4.5:1 以上の濃さ（--tc） */',
     // 列の数は言葉ごとに違う（日本語 5・英語と中国語 3）。格子は列の数に合わせ、右に空いた列を残さない（n3・n4・n5）
-    'footer.scix-ft .scix-ft-cols{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px 28px;margin:22px 0 0;padding:22px 0;border-top:1px solid #E3E8F2}',
-    'footer.scix-ft .scix-ft-cols.n4{grid-template-columns:repeat(4,minmax(0,1fr))}',
-    'footer.scix-ft .scix-ft-cols.n3{grid-template-columns:repeat(3,minmax(0,1fr))}',
-    'footer.scix-ft .scix-ft-cols.n2{grid-template-columns:repeat(2,minmax(0,1fr))}',
+    'footer.scix-ft .scix-ft-cols{display:grid;grid-template-columns:repeat(5,minmax(0,320px));justify-content:space-between;gap:8px 28px;margin:22px 0 0;padding:22px 0;border-top:1px solid #E3E8F2}',
+    'footer.scix-ft .scix-ft-cols.n4{grid-template-columns:repeat(4,minmax(0,320px))}',
+    'footer.scix-ft .scix-ft-cols.n3{grid-template-columns:repeat(3,minmax(0,320px))}',
+    'footer.scix-ft .scix-ft-cols.n2{grid-template-columns:repeat(2,minmax(0,320px))}',
     'footer.scix-ft .scix-ft-col{--pc:#1F2A48;--tc:#1F2A48;min-width:0;margin:0;padding:0}',
     'footer.scix-ft .scix-ft-col.is-buy{--pc:#2563EB;--tc:#2563EB}',
     'footer.scix-ft .scix-ft-col.is-sell{--pc:#D4610A;--tc:#C2560A}',
@@ -562,7 +562,8 @@
     ], 'book'),
     ddNav('research', 'Market Research', '/en/research', [
       ['/en/report',      'Market Notes', '', '/report'],
-      ['/en/report/data', 'Market Data',  '', '/report/data']
+      ['/en/report/data', 'Market Data',  '', '/report/data'],
+      ['/en/market-data', 'Japan BESS Projects for Sale: Market Data', '', '/market-data']
     ], 'chart'),
     '<a href="/en/company" data-page="/company">' + ic('co') + '<span>Company</span></a>',
     '<a href="/en/contact" data-page="/contact">' + ic('mail') + '<span>Contact</span></a>'
