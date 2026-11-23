@@ -169,7 +169,7 @@
     '.scix-nav-dd{position:relative;display:flex;align-items:center;--pc:#1F2A48}',
     '.scix-nav-dd[data-group=knowledge]{--pc:#7C4DDB}',
     '.scix-nav-dd[data-group=buy],.scix-mg a.scix-top-buy{--pc:#2563EB}',
-    '.scix-nav-dd[data-group=sell],.scix-mg a.scix-top-sell{--pc:#D4610A}',
+    '.scix-nav-dd[data-group=sell],.scix-mg a.scix-top-sell{--pc:#C2560A}',
     '.scix-nav-dd[data-group=research],.scix-header-nav > a[data-page="/report"]{--pc:#138A62}',
     '.scix-header-nav > a:hover,.scix-header-nav > .scix-nav-dd > .scix-nav-main:hover,.scix-header-nav > .scix-nav-dd.open > .scix-nav-main{background:#F3F5FA;box-shadow:inset 0 -4px 0 var(--pc)}',
     '.scix-header-nav > a.active,.scix-header-nav > .scix-nav-dd > .scix-nav-main.active{color:var(--pc);font-weight:700;background:none;box-shadow:inset 0 -4px 0 var(--pc)}',
@@ -192,8 +192,8 @@
     '.scix-auth a.scix-login,.scix-auth-m a.scix-login{display:inline-flex;align-items:center;gap:6px;height:auto;padding:7px 14px 7px 11px;border:1.5px solid #C9D2E3;border-radius:999px;background:#fff;color:#1F2A48;font-size:14px;font-weight:700;line-height:1.3;text-decoration:none;white-space:nowrap;transition:border-color .15s,background .15s}',
     '.scix-auth a.scix-login svg,.scix-auth-m a.scix-login svg{width:18px;height:18px;flex:0 0 auto;display:block;color:#5B667A}',
     '.scix-auth a.scix-login:hover,.scix-auth-m a.scix-login:hover{border-color:#1F2A48;background:#F3F5FA}',
-    '.scix-auth a.scix-mk,.scix-auth-m a.scix-mk{display:inline-flex;align-items:center;justify-content:center;height:auto;margin:0;padding:9px 18px;background:#D4610A;color:#fff;font-weight:900;font-size:15px;line-height:1.3;border-radius:999px;box-shadow:0 6px 16px rgba(212,97,10,.30);text-decoration:none;white-space:nowrap;transition:background .15s,box-shadow .15s,transform .15s}',
-    '.scix-auth a.scix-mk:hover,.scix-auth-m a.scix-mk:hover{background:#EF7A1A;color:#fff;box-shadow:0 8px 20px rgba(212,97,10,.38);transform:translateY(-1px)}',
+    '.scix-auth a.scix-mk,.scix-auth-m a.scix-mk{display:inline-flex;align-items:center;justify-content:center;height:auto;margin:0;padding:9px 18px;background:#C2560A;color:#fff;font-weight:900;font-size:15px;line-height:1.3;border-radius:999px;box-shadow:0 6px 16px rgba(194,86,10,.30);text-decoration:none;white-space:nowrap;transition:background .15s,box-shadow .15s,transform .15s}',
+    '.scix-auth a.scix-mk:hover,.scix-auth-m a.scix-mk:hover{background:#B8520A;color:#fff;box-shadow:0 8px 20px rgba(194,86,10,.38);transform:translateY(-1px)}',
     '.scix-auth a:focus-visible,.scix-auth-m a:focus-visible{outline:2px solid #F97316;outline-offset:2px}',
     '.scix-en-tag{font-size:.66em;font-weight:800;color:#5B667A;border:1px solid #C9D2E3;border-radius:999px;padding:0 6px;margin-left:5px;line-height:1.6;white-space:nowrap}',
     '/* 外の札（ナレッジ・市場リサーチ・会社案内・お問い合わせ）は絵を付けない＝まとまりの中の札だけが絵つきで一段強い（畳んだメニューの中は絵を戻す） */',
@@ -352,15 +352,15 @@
     'footer.scix-ft .scix-ft-mg-name:hover span{text-decoration:underline;text-underline-offset:3px}',
     'footer.scix-ft .scix-ft-mark{display:block;flex:0 0 auto;width:25px;height:25px}',
     'footer.scix-ft .scix-ft-side{--pc:#2563EB;display:inline-flex;align-items:center;gap:6px;height:38px;margin:0;padding:0 8px 0 7px;color:#1F2A48;font-size:15.5px;font-weight:900;line-height:1.2;text-decoration:none;white-space:nowrap;background:none;border:0;border-radius:12px}',
-    'footer.scix-ft .scix-ft-side.is-sell{--pc:#D4610A}',
+    'footer.scix-ft .scix-ft-side.is-sell{--pc:#C2560A}',
     'footer.scix-ft .scix-ft-side:hover{background:#fff;box-shadow:inset 0 0 0 2px var(--pc),0 3px 10px rgba(31,42,72,.10)}',
     'footer.scix-ft .scix-ft-ic{display:block;flex:0 0 auto;width:20px;height:20px;color:var(--pc)}',
     'footer.scix-ft .scix-ft-auth{display:flex;align-items:center;gap:10px;flex:0 0 auto;margin:0 0 0 auto}',
     'footer.scix-ft a.scix-ft-login{display:inline-flex;align-items:center;justify-content:center;gap:6px;margin:0;padding:7px 14px 7px 11px;border:1.5px solid #C9D2E3;border-radius:999px;background:#fff;color:#1F2A48;font-size:14px;font-weight:700;line-height:1.3;text-decoration:none;white-space:nowrap}',
     'footer.scix-ft a.scix-ft-login svg{display:block;flex:0 0 auto;width:18px;height:18px;color:#5B667A}',
     'footer.scix-ft a.scix-ft-login:hover{border-color:#1F2A48;background:#F3F5FA}',
-    'footer.scix-ft a.scix-ft-reg{display:inline-flex;align-items:center;justify-content:center;margin:0;padding:9px 18px;background:#D4610A;color:#fff;font-size:15px;font-weight:900;line-height:1.3;border:0;border-radius:999px;box-shadow:0 6px 16px rgba(212,97,10,.30);text-decoration:none;white-space:nowrap}',
-    'footer.scix-ft a.scix-ft-reg:hover{background:#EF7A1A;color:#fff;box-shadow:0 8px 20px rgba(212,97,10,.38);transform:translateY(-1px)}',
+    'footer.scix-ft a.scix-ft-reg{display:inline-flex;align-items:center;justify-content:center;margin:0;padding:9px 18px;background:#C2560A;color:#fff;font-size:15px;font-weight:900;line-height:1.3;border:0;border-radius:999px;box-shadow:0 6px 16px rgba(194,86,10,.30);text-decoration:none;white-space:nowrap}',
+    'footer.scix-ft a.scix-ft-reg:hover{background:#B8520A;color:#fff;box-shadow:0 8px 20px rgba(194,86,10,.38);transform:translateY(-1px)}',
     '/* 2段目: 入口ごとの列（見出しは側の色の短い縦棒）。字の色は白地で 4.5:1 以上の濃さ（--tc） */',
     // 列の数は言葉ごとに違う（日本語 5・英語と中国語 3）。格子は列の数に合わせ、右に空いた列を残さない（n3・n4・n5）
     'footer.scix-ft .scix-ft-cols{display:grid;grid-template-columns:repeat(5,minmax(0,320px));justify-content:space-between;gap:8px 28px;margin:22px 0 0;padding:22px 0;border-top:1px solid #E3E8F2}',
@@ -369,7 +369,7 @@
     'footer.scix-ft .scix-ft-cols.n2{grid-template-columns:repeat(2,minmax(0,320px))}',
     'footer.scix-ft .scix-ft-col{--pc:#1F2A48;--tc:#1F2A48;min-width:0;margin:0;padding:0}',
     'footer.scix-ft .scix-ft-col.is-buy{--pc:#2563EB;--tc:#2563EB}',
-    'footer.scix-ft .scix-ft-col.is-sell{--pc:#D4610A;--tc:#C2560A}',
+    'footer.scix-ft .scix-ft-col.is-sell{--pc:#C2560A;--tc:#C2560A}',
     'footer.scix-ft .scix-ft-col.is-knowledge{--pc:#7C4DDB;--tc:#7C4DDB}',
     'footer.scix-ft .scix-ft-col.is-research{--pc:#138A62;--tc:#0F7A52}',
     // 列の見出しは h2（読み上げで見出しとして拾われる）。頁の h2 の飾り（線・地・字間・::after）が入らないよう全部ここで決める
@@ -445,7 +445,21 @@
 
   // Floating mobile contact CTA — on mobile the nav collapses into the hamburger,
   // so keep a persistent, always-visible conversion path. white-on-black = WCAG AAA.
-  css += "\n.scix-float-cta{position:fixed;right:16px;bottom:16px;z-index:9000;display:none;align-items:center;gap:7px;padding:13px 20px;background:linear-gradient(135deg,#F97316,#F59E0B);color:#fff;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:900;text-decoration:none;border-radius:999px;box-shadow:0 8px 22px rgba(234,88,12,.38)}.scix-float-cta:active{transform:translateY(1px)}.scix-float-cta svg{width:16px;height:16px}@media(max-width:768px){.scix-float-cta{display:inline-flex;opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .2s,transform .2s}.scix-float-cta.on{opacity:1;transform:none;pointer-events:auto}}";
+  css += "\n.scix-float-cta{position:fixed;right:16px;bottom:16px;z-index:9000;display:none;align-items:center;gap:7px;padding:13px 20px;background:linear-gradient(135deg,#C2560A,#B45309);color:#fff;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:900;text-decoration:none;border-radius:999px;box-shadow:0 8px 22px rgba(234,88,12,.38)}.scix-float-cta:active{transform:translateY(1px)}.scix-float-cta svg{width:16px;height:16px}@media(max-width:768px){.scix-float-cta{display:inline-flex;opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .2s,transform .2s}.scix-float-cta.on{opacity:1;transform:none;pointer-events:auto}}";
+
+  // 中国語の頁の上の帯・下の帯は簡体字の書体を先頭に（前は Noto Sans JP が先頭で、JP に無い簡体字だけ別の書体に落ち、「购买」は細く「出售」は太く混ざった・2026-11-23）
+  var ZH_FONT = '"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans JP",sans-serif';
+  css += '\nhtml[lang^=zh] .scix-header,html[lang^=zh] footer.scix-footer.scix-ft,html[lang^=zh] .scix-ft-disc{font-family:' + ZH_FONT + '!important}' +
+    'html[lang^=zh] .scix-dd-head{font-family:"Inter Tight",' + ZH_FONT + '}';
+  // 〜1100px の言葉の切り替え（国旗だけ・見た目は高さ 26px のまま）: 押せる所を上下に広げて 38px に（2026-11-23）
+  css += '\n@media(max-width:' + BP + 'px){.scix-lang a{position:relative}.scix-lang a::after{content:"";position:absolute;left:0;right:0;top:-6px;bottom:-6px}}';
+  // 中国語の頁で Noto Sans SC を読んでいない頁（zh-faq・zh-glossary・zh-qa）には、帯の字のためにここで読む
+  if (isZh && !document.querySelector('link[href*="Noto+Sans+SC"]')) {
+    var scLink = document.createElement('link');
+    scLink.rel = 'stylesheet';
+    scLink.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800;900&display=swap';
+    document.head.appendChild(scLink);
+  }
 
   var style = document.createElement('style');
   style.id = 'scix-header-css';
@@ -751,8 +765,8 @@
       '.scix-nl input{flex:1 1 200px;min-width:0;font:inherit;font-size:.95rem;padding:12px 14px;border:2px solid #fff;border-radius:999px;background:#fff;color:#1F2A48;outline:none}',
       '.scix-nl input:focus{border-color:#7C4DDB;box-shadow:0 0 0 3px rgba(124,77,219,.25)}',
       '.scix-nl input.scix-nl-name{flex:0 1 160px}',
-      '.scix-nl button{flex:0 0 auto;font:inherit;font-size:.92rem;font-weight:700;padding:12px 24px;background:linear-gradient(135deg,#F97316,#F59E0B);color:#fff;font-weight:900;border:none;border-radius:999px;cursor:pointer;white-space:nowrap;box-shadow:0 6px 16px rgba(234,88,12,.30)}',
-      '.scix-nl button:hover{filter:brightness(1.06)}',
+      '.scix-nl button{flex:0 0 auto;font:inherit;font-size:.92rem;font-weight:700;padding:12px 24px;background:linear-gradient(135deg,#C2560A,#B45309);color:#fff;font-weight:900;border:none;border-radius:999px;cursor:pointer;white-space:nowrap;box-shadow:0 6px 16px rgba(234,88,12,.30)}',
+      '.scix-nl button:hover{filter:brightness(.94)}',
       '.scix-nl button[disabled]{opacity:.6;cursor:default}',
       '.scix-nl-note{font-size:.74rem;color:#4A5568;line-height:1.7;margin:10px 0 0}',
       '.scix-nl-note a{color:#5B32B5}',
@@ -770,7 +784,7 @@
     document.head.appendChild(nlStyle);
 
     var nlHtml = [
-      '<div class="scix-nl-label">NEWSLETTER</div>',
+      '<div class="scix-nl-label">メールのお知らせ</div>',
       '<h3>週1本の新しい記事を、メールで受け取る</h3>',
       '<p>毎週1本、その週に書いた記事の要点とリンクをお送りします。メールアドレスだけで登録できます。</p>',
       '<form novalidate>',
@@ -1767,6 +1781,28 @@
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', buildAll);
     else buildAll();
   })(); } catch (err) { /* 下の帯を組み替えられなくても頁はそのまま */ }
+
+  // --------------- 5b. 本文の表が画面より広い時は、表の中だけ横に動かす（2026-11-23） ---------------
+  // スマホ幅で列の多い表が頁を横に広げ、上の帯ごとずれていた。収まる表は今のまま（印を付けない）、はみ出す表だけ
+  // table.scix-tscroll（theme.css＝表を箱にして横に送る）にする。幅が変わったら測り直す。
+  try { (function () {
+    function mark() {
+      var ts = document.querySelectorAll('body table');
+      for (var i = 0; i < ts.length; i++) ts[i].classList.remove('scix-tscroll');
+      for (var j = 0; j < ts.length; j++) {
+        var t = ts[j], box = t.parentElement;
+        if (!box || t.closest('.rp-table, .md-scroll, .c47scroll, .c50scroll, .scix-header, footer')) continue;
+        var bs = getComputedStyle(box), ox = bs.overflowX;
+        if (ox === 'auto' || ox === 'scroll') continue;   // 頁が自分で横に送る箱に入れている表はそのまま
+        if (t.getBoundingClientRect().right > box.getBoundingClientRect().right - parseFloat(bs.paddingRight || 0) - parseFloat(bs.borderRightWidth || 0) + 1) t.classList.add('scix-tscroll');
+      }
+    }
+    var timer = 0, lastW = window.innerWidth;
+    function onResize() { if (window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(timer); timer = setTimeout(mark, 150); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mark); else mark();
+    window.addEventListener('load', mark);
+    window.addEventListener('resize', onResize);
+  })(); } catch (err) { /* 測れなくても表はそのまま */ }
 
   // --------------- 6. 面談の予約について ---------------
   // 2026-09-05 撤去。Googleカレンダーの「予約スケジュール」は Google Meet のリンクを発行するため、
