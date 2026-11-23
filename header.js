@@ -524,9 +524,9 @@
   else if (TRILINGUAL[loc]) zhHref = TRILINGUAL[loc].zh;
   else zhHref = '/zh';
 
-  // Report pages (/report, /report/<month>, /en/report...): follow the page's own hreflang
-  // alternates, so JP and EN land on the matching month and never on a month that has no English page.
-  if (loc === '/report' || loc.indexOf('/report/') === 0) {
+  // Report pages (/report, /report/<month>, /en/report...) and the research entry page (/research, /en/research): follow the page's own hreflang
+  // alternates, so JP and EN land on the matching page (and the matching month) and never on a page that has no counterpart.
+  if (loc === '/report' || loc.indexOf('/report/') === 0 || loc === '/research') {
     var altPath = function (lang) {
       var l = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
       if (!l) return '';
@@ -811,7 +811,6 @@
       });
     } catch (err) { /* ignore */ }
   }
-  var isNarrow = isNarrowNow();
   var dds = header.querySelectorAll('.scix-nav-dd');
 
   function setOpen(dd, open, by) {
@@ -858,8 +857,7 @@
       if (holdsCurrent) {
         toggle.classList.add('active');
         dd.classList.add('is-current');
-        // In the drawer, start with the visitor's own group unfolded.
-        if (isNarrow) setOpen(dd, true, 'click');
+        // 畳んだメニューも、マーケットの帯と同じに全部閉じて始まる（今の頁の札は光るだけ・1回目で開き2回目で頁へ）
       }
       // 押下: 指・畳んだメニューの1回目は開くだけ。それ以外は頁へ（既定の動き）
       toggle.addEventListener('click', function (e) {
@@ -1008,7 +1006,7 @@
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
     if (isNarrowNow()) {
-      // Drawer: close it, keep the accordion state (the current-page group stays unfolded).
+      // Drawer: close it, keep the accordion state (groups start folded; the current-page group only lights up).
       if (header.classList.contains('scix-header-open')) {
         closeMenu();
         burger.focus();
