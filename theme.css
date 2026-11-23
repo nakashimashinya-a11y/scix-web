@@ -9,6 +9,7 @@
    - 側ごとの色: 買う＝青・売る＝橙・案件＝緑・読む＝紫・トップと会社＝青→桃→黄（header.js が <html data-side> を付ける）
    - 札は角を丸め、白地に薄い影、上に色の太い線（色は順に青・橙・緑・紫）
    - 主なボタンは橙の丸いボタン、小見出しは白い丸い札に色の字
+   - 上の帯と下の帯は白地に紺の2pxの線（上の帯は下の縁・下の帯は上の縁）。下の帯の中身は header.js が組む（2026-11-23）
    変えないもの: ロゴ（名刺と同じ紺の字と金の X）・ゴシック体。
    戻さないもの: 紺一色の帯・明朝体・生成り色と金の差し色の組み合わせ（訴訟のページの型）・角を立てた白黒の札。
 
@@ -288,8 +289,7 @@ table td{border-color:#EEF1F6!important}
 .cred-item{background:#fff;border-radius:999px;padding:8px 16px 8px 9px!important;box-shadow:var(--m-shadow);color:var(--m-ink)!important;font-weight:800!important;font-size:.86rem!important;letter-spacing:0!important}
 .cred-icon{background:#10B981!important;color:#fff!important;border-radius:50%!important;width:24px!important;height:24px!important;display:inline-grid!important;place-items:center;font-size:.8rem!important;font-weight:900;margin-right:6px}
 
-/* ---------- 11. フッター: 名刺の紺のまま、上を丸めて色の線 ---------- */
-.scix-footer{border-top:0!important;border-radius:28px 28px 0 0;margin-top:56px;background-color:#1F2A48!important;background-image:linear-gradient(90deg,#2563EB,#F97316 50%,#10B981)!important;background-size:100% 5px!important;background-repeat:no-repeat!important;background-position:top!important}
+/* ---------- 11. フッター: 下の「下の帯」の区画にまとめた（2026-11-23） ---------- */
 
 /* ---------- 12. 独自の作りのページ（ファンド・系統用蓄電池とは）のヘッダー ---------- */
 body > header:not(.scix-header){background:rgba(255,252,245,.94)!important;backdrop-filter:blur(10px)!important;border-bottom:0!important;box-shadow:0 4px 18px rgba(31,42,72,.07)!important}
@@ -473,21 +473,24 @@ section:not(:is(.hero,.cta,.f-hero,.kh,.contact-hero,.legal-hero,.article-header
 .rp-list a.t:hover{color:var(--m-green)!important;text-decoration:underline}
 .rp-list .d{font-family:var(--m-num);font-weight:700;color:var(--m-green)!important}
 
-/* 下の帯: マーケットの下の帯と同じ（濃い紺・左寄せ・入口の行・会社の行） */
-.scix-footer{background:#13203D!important;margin-top:56px!important;padding:0!important;border-radius:0!important;border:0!important;color:#CBD5E1!important}
+/* 下の帯（2026-11-23）: 白地・上の縁に紺の2pxの線（上の帯の下の線の鏡）・字は紺。マーケットの下の帯と同じ形。
+   header.js が DOM の準備の後に中身を組み替える（footer.scix-footer.scix-ft・1段目 ロゴ／蓄電所マーケットのまとまり／ログイン・無料で登録、2段目 入口ごとの列、3段目 会社の行と言葉の切り替え、4段目 著作権）。
+   ここは JavaScript が動かない時と組み替える前の一瞬の形（同じ白い帯・左寄せ・文字のロゴは紺の画像のロゴに置き換える）。紺一色の帯に戻さない。 */
+.scix-footer{background:#fff!important;background-image:none!important;margin-top:56px!important;padding:0!important;border:0!important;border-top:2px solid #1F2A48!important;border-radius:0!important;box-shadow:none!important;color:#24304A!important;font-weight:400!important;text-align:left!important}
 .scix-footer::before{display:none!important}
-.scix-footer-inner{max-width:1180px!important;margin:0 auto!important;padding:30px 24px 34px!important;display:grid!important;gap:14px!important;justify-items:start!important;align-items:start!important}
-.scix-footer-logo img{height:30px!important;width:auto!important}
+.scix-footer-inner{max-width:1240px!important;margin:0 auto!important;padding:34px 24px 22px!important;display:grid!important;gap:14px!important;justify-items:start!important;align-items:start!important}
+.scix-footer-logo{display:block!important;width:97px!important;height:38px!important;background:url(/img/logo-navy.png) no-repeat left center/auto 38px!important;font-size:0!important;line-height:0!important;color:transparent!important;overflow:hidden!important;text-decoration:none!important}
+.scix-footer-logo img,.scix-footer-logo .x{display:none!important}
 .scix-footer-divider{display:none!important}
 .scix-footer-info{text-align:left!important;display:flex!important;flex-direction:column!important;gap:12px!important}
-.scix-footer-nav{order:-1;justify-content:flex-start!important;gap:6px 18px!important;margin:0!important}
-.scix-footer-nav a{color:#E2E8F0!important;border:0!important;font-weight:700!important;font-size:14px!important;text-decoration:none!important}
-.scix-footer-nav a:hover{text-decoration:underline!important}
-.scix-footer-company{font-size:13px!important;color:#CBD5E1!important;line-height:1.9!important}
-.scix-footer-company .company-name{color:#fff!important;font-weight:900!important;font-size:15px!important}
-.scix-footer-company a{color:#E2E8F0!important;font-weight:700}
-.scix-footer-company .representative{color:#CBD5E1!important}
-.scix-footer-copyright{margin:0!important;color:#94A3B8!important;font-size:12px!important}
+.scix-footer .scix-footer-nav{order:-1;justify-content:flex-start!important;gap:6px 18px!important;margin:0!important}
+.scix-footer .scix-footer-nav a{color:#24304A!important;border:0!important;font-weight:500!important;font-size:14px!important;text-decoration:none!important}
+.scix-footer .scix-footer-nav a:hover{color:#1F2A48!important;text-decoration:underline!important;text-underline-offset:3px}
+.scix-footer-company{font-size:13px!important;color:#4A5568!important;line-height:1.9!important}
+.scix-footer-company .company-name{color:#1F2A48!important;font-weight:900!important;font-size:14px!important}
+.scix-footer-company a{color:#1F2A48!important;font-weight:700}
+.scix-footer-company .representative{color:#4A5568!important}
+.scix-footer-copyright{margin:0!important;color:#6B7280!important;font-size:12px!important}
 
 /* トップ（日英中）: 会社の説明と、売る／買うの入口2つ（2026-11-15: 蓄電所の頁にはせず、飾らない説明にした） */
 .hero.x-top .xt h1{font-size:clamp(1.8rem,3.3vw,2.7rem)!important}
@@ -523,8 +526,18 @@ section.md{border-top:0!important}
 /* 区画の地と罫線: 横一面の色帯と線は敷かない（ページの中の札だけが白く浮く） */
 :is(.f-sec,.form-section,.form-wrap,.contact-section,.legal-body,.sec,.md,.page-section){background:transparent!important;border-top:0!important;border-bottom:0!important}
 :is(.f-hero,.kh,.contact-hero,.legal-hero,.hero){border-bottom:0!important}
-/* ファンドの下の帯もサイトの下の帯と同じ色 */
-body > footer:not(.scix-footer){background:#13203D!important;color:#CBD5E1!important}
+/* 独自の下の帯（ファンド・系統用蓄電池とは・契約の流れの記事）もサイトの下の帯と同じ白地・上に紺の線・読める色（中身は触らない） */
+body > footer:not(.scix-footer){background:#fff!important;background-image:none!important;border:0!important;border-top:2px solid #1F2A48!important;border-radius:0!important;box-shadow:none!important;color:#4A5568!important}
+body > footer:not(.scix-footer) :is(p,div,span,b,h5,.copy,.foot-info,.foot-brand){color:inherit!important}
+body > footer:not(.scix-footer) :is(h5,b,.foot-brand b){color:#1F2A48!important}
+body > footer:not(.scix-footer) .x{color:#C2560A!important}
+body > footer:not(.scix-footer) > div:first-child,body > footer:not(.scix-footer) .foot-brand b{color:#1F2A48!important}
+body > footer:not(.scix-footer) .disc{border-left-color:#D2DCF2!important}
+body > footer:not(.scix-footer) .foot-cols{border-top-color:#E3E8F2!important}
+body > footer:not(.scix-footer) .copy{color:#6B7280!important}
+body > footer:not(.scix-footer) a{color:#1F2A48!important;font-weight:700;border-bottom-color:#C9D2E3!important}
+body > footer:not(.scix-footer) .scix-footer-nav a{color:#24304A!important;font-weight:500!important;font-size:14px!important;border:0!important;text-decoration:none!important}
+body > footer:not(.scix-footer) .scix-footer-nav a:hover{color:#1F2A48!important;text-decoration:underline!important;text-underline-offset:3px}
 :is(.contact-main,.f-sec.alt){background:transparent!important;border-top:0!important;border-bottom:0!important}
 /* 数字の箱（市場データ・市場ノートの kpi）: トップの数字の札と同じ白い札 */
 .kpi div{background:#fff!important;border:0!important;border-radius:var(--m-r)!important;box-shadow:var(--m-shadow)!important;border-top:6px solid var(--cc,#2563EB)!important}

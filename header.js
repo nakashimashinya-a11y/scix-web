@@ -329,6 +329,94 @@
     '}'
   ].join('\n');
 
+  // --------------- 1b. 下の帯（footer.scix-footer を組み替えた形・2026-11-23） ---------------
+  // 白地・上の縁に紺の2pxの線（上の帯の下の線の鏡）。上の帯の部品（まとまり・ログイン・登録・言葉の切り替え）と同じ値を、
+  // 下の帯だけに効く名前（.scix-ft-*）で書く（上の帯の .scix-mg・.scix-ic・.scix-flag・.scix-lang は畳んだメニューの規則が全体に効くので使わない）。
+  // 頁の <style> にある古い下の帯の規則（.scix-footer *{margin:0;padding:0} など）に負けないよう、footer.scix-ft から書く。
+  var FT_FONT = '"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif';
+  css += '\n' + [
+    'footer.scix-footer.scix-ft{display:block!important;background:#fff!important;background-image:none!important;border:0!important;border-top:2px solid #1F2A48!important;border-radius:0!important;box-shadow:none!important;margin:56px 0 0!important;padding:0!important;width:auto!important;color:#24304A!important;font-family:' + FT_FONT + '!important;font-feature-settings:"palt" 1;font-size:14px!important;font-weight:400!important;line-height:1.6!important;letter-spacing:0!important;text-align:left!important}',
+    'footer.scix-ft::before,footer.scix-ft::after{display:none!important}',
+    'footer.scix-ft *,footer.scix-ft *::before,footer.scix-ft *::after{box-sizing:border-box}',
+    'footer.scix-ft .scix-ft-in{max-width:1240px;margin:0 auto;padding:34px 24px 22px}',
+    'footer.scix-ft a{transition:color .15s,background .15s,border-color .15s,box-shadow .15s}',
+    'footer.scix-ft a:focus-visible{outline:2px solid #F97316;outline-offset:2px}',
+    '/* 1段目: ロゴ ／ 蓄電所マーケットのまとまり ／ ログイン・無料で登録 */',
+    'footer.scix-ft .scix-ft-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px}',
+    'footer.scix-ft .scix-ft-logo{display:flex;align-items:center;flex:0 0 auto;margin:0;padding:0;text-decoration:none}',
+    'footer.scix-ft .scix-ft-logo img{display:block;height:38px;width:auto;margin:0}',
+    'footer.scix-ft .scix-ft-mg{display:flex;align-items:center;gap:2px;flex:0 0 auto;height:48px;margin:0;padding:0 5px;background:#F3F6FD;border:1.5px solid #D2DCF2;border-radius:16px}',
+    'footer.scix-ft .scix-ft-mg-name{display:inline-flex;align-items:center;gap:7px;position:relative;height:100%;margin:0;padding:0 11px 0 6px;color:#1F2A48;font-size:14px;font-weight:800;letter-spacing:.01em;line-height:1.2;text-decoration:none;white-space:nowrap}',
+    'footer.scix-ft .scix-ft-mg-name::after{content:"";position:absolute;right:0;top:50%;width:1px;height:24px;margin-top:-12px;background:#D2DCF2}',
+    'footer.scix-ft .scix-ft-mg-name:hover span{text-decoration:underline;text-underline-offset:3px}',
+    'footer.scix-ft .scix-ft-mark{display:block;flex:0 0 auto;width:25px;height:25px}',
+    'footer.scix-ft .scix-ft-side{--pc:#2563EB;display:inline-flex;align-items:center;gap:6px;height:38px;margin:0;padding:0 8px 0 7px;color:#1F2A48;font-size:15.5px;font-weight:900;line-height:1.2;text-decoration:none;white-space:nowrap;background:none;border:0;border-radius:12px}',
+    'footer.scix-ft .scix-ft-side.is-sell{--pc:#D4610A}',
+    'footer.scix-ft .scix-ft-side:hover{background:#fff;box-shadow:inset 0 0 0 2px var(--pc),0 3px 10px rgba(31,42,72,.10)}',
+    'footer.scix-ft .scix-ft-ic{display:block;flex:0 0 auto;width:20px;height:20px;color:var(--pc)}',
+    'footer.scix-ft .scix-ft-auth{display:flex;align-items:center;gap:10px;flex:0 0 auto;margin:0}',
+    'footer.scix-ft a.scix-ft-login{display:inline-flex;align-items:center;justify-content:center;gap:6px;margin:0;padding:7px 14px 7px 11px;border:1.5px solid #C9D2E3;border-radius:999px;background:#fff;color:#1F2A48;font-size:14px;font-weight:700;line-height:1.3;text-decoration:none;white-space:nowrap}',
+    'footer.scix-ft a.scix-ft-login svg{display:block;flex:0 0 auto;width:18px;height:18px;color:#5B667A}',
+    'footer.scix-ft a.scix-ft-login:hover{border-color:#1F2A48;background:#F3F5FA}',
+    'footer.scix-ft a.scix-ft-reg{display:inline-flex;align-items:center;justify-content:center;margin:0;padding:9px 18px;background:#D4610A;color:#fff;font-size:15px;font-weight:900;line-height:1.3;border:0;border-radius:999px;box-shadow:0 6px 16px rgba(212,97,10,.30);text-decoration:none;white-space:nowrap}',
+    'footer.scix-ft a.scix-ft-reg:hover{background:#EF7A1A;color:#fff;box-shadow:0 8px 20px rgba(212,97,10,.38);transform:translateY(-1px)}',
+    '/* 2段目: 入口ごとの列（見出しは側の色の短い縦棒）。字の色は白地で 4.5:1 以上の濃さ（--tc） */',
+    'footer.scix-ft .scix-ft-cols{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px 28px;margin:22px 0 0;padding:22px 0;border-top:1px solid #E3E8F2}',
+    'footer.scix-ft .scix-ft-col{--pc:#1F2A48;--tc:#1F2A48;min-width:0;margin:0;padding:0}',
+    'footer.scix-ft .scix-ft-col.is-buy{--pc:#2563EB;--tc:#2563EB}',
+    'footer.scix-ft .scix-ft-col.is-sell{--pc:#D4610A;--tc:#C2560A}',
+    'footer.scix-ft .scix-ft-col.is-knowledge{--pc:#7C4DDB;--tc:#7C4DDB}',
+    'footer.scix-ft .scix-ft-col.is-research{--pc:#138A62;--tc:#0F7A52}',
+    'footer.scix-ft .scix-ft-h{display:flex;align-items:center;gap:8px;margin:0 0 4px;padding:0;color:#1F2A48;font-size:13px;font-weight:900;line-height:1.5}',
+    'footer.scix-ft .scix-ft-h::before{content:"";display:block;flex:0 0 auto;width:4px;height:14px;border-radius:2px;background:var(--pc)}',
+    'footer.scix-ft .scix-ft-col ul{list-style:none;margin:0;padding:0}',
+    'footer.scix-ft .scix-ft-col li{list-style:none;margin:0;padding:0;background:none;border:0}',
+    'footer.scix-ft .scix-ft-col li::before{content:none}',
+    'footer.scix-ft .scix-ft-col a{display:inline-block;margin:0;padding:5px 0;color:#24304A;font-size:14px;font-weight:500;line-height:1.5;text-decoration:none;border:0;background:none}',
+    'footer.scix-ft .scix-ft-col a:hover{color:var(--tc);text-decoration:underline;text-underline-offset:3px}',
+    '/* 3段目: 会社の行（社名・住所・TEL・MAIL・代表者）と言葉の切り替え ／ 4段目: 著作権 */',
+    'footer.scix-ft .scix-ft-co{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;margin:0;padding:18px 0 0;border-top:1px solid #E3E8F2}',
+    '/* 区切りの細い縦線は各項目の左に置き、行の頭に来た線は枠の外（overflow:hidden）に隠す */',
+    'footer.scix-ft .scix-ft-info{flex:1 1 520px;min-width:0;margin:0;padding:0;overflow:hidden;color:#4A5568;font-size:13px;line-height:1.85}',
+    'footer.scix-ft .scix-ft-info-in{display:flex;flex-wrap:wrap;align-items:baseline;margin:0 0 0 -21px}',
+    'footer.scix-ft .scix-ft-seg{position:relative;flex:0 0 auto;padding-left:21px;white-space:nowrap}',
+    'footer.scix-ft .scix-ft-seg.is-addr{flex:0 1 auto;min-width:0;white-space:normal}',
+    'footer.scix-ft .scix-ft-seg::before{content:"";position:absolute;left:10px;top:50%;width:1px;height:12px;margin-top:-6px;background:#C9D2E3}',
+    'footer.scix-ft .scix-ft-name{color:#1F2A48;font-size:14px;font-weight:900}',
+    'footer.scix-ft .scix-ft-info a{color:#1F2A48;font-weight:700;text-decoration:none;border:0}',
+    'footer.scix-ft .scix-ft-info a:hover{text-decoration:underline;text-underline-offset:3px}',
+    'footer.scix-ft .scix-ft-lang{display:flex;align-items:center;gap:3px;flex:0 0 auto;margin:0;padding:3px;border:2px solid #1F2A48;border-radius:100px;background:#fff}',
+    'footer.scix-ft .scix-ft-lang a{display:inline-flex;align-items:center;margin:0;padding:5px 7px;border-radius:100px;color:#1F2A48;line-height:1.3;text-decoration:none}',
+    'footer.scix-ft .scix-ft-lang a:hover{background:#E9EBF1}',
+    'footer.scix-ft .scix-ft-lang a.active{background:#1F2A48}',
+    'footer.scix-ft .scix-ft-flag{display:block;flex-shrink:0;width:26px;height:17px;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.18)}',
+    'footer.scix-ft .scix-ft-lang a.active .scix-ft-flag{box-shadow:0 0 0 2px #fff}',
+    'footer.scix-ft .scix-ft-copy{margin:14px 0 0;padding:0;color:#6B7280;font-size:12px;line-height:1.6}',
+    '/* 721〜1100px: 1段目は折り返してよい・列は3列 */',
+    '@media(max-width:1100px){footer.scix-ft .scix-ft-cols{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:18px}}',
+    '/* 〜768px: 右下の浮いた橙のボタン（.scix-float-cta）に最後の行が隠れないよう下を空ける。左右は本文と同じ 16px */',
+    '@media(max-width:768px){footer.scix-ft .scix-ft-in{padding:30px 16px 88px}}',
+    '/* 〜720px: 1段目は縦積み（ロゴ → まとまり〔畳んだメニューの中と同じ形〕→ ログイン・無料で登録）・列は2列・会社の行も縦積み */',
+    '@media(max-width:720px){',
+    '  footer.scix-ft .scix-ft-top{flex-direction:column;align-items:stretch;gap:16px}',
+    '  footer.scix-ft .scix-ft-logo{align-self:flex-start}',
+    '  footer.scix-ft .scix-ft-mg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;height:auto;padding:10px;border-radius:20px}',
+    '  footer.scix-ft .scix-ft-mg-name{grid-column:1/-1;height:auto;gap:8px;padding:2px 6px 2px;font-size:.9rem}',
+    '  footer.scix-ft .scix-ft-mg-name::after{display:none}',
+    '  footer.scix-ft .scix-ft-mark{width:26px;height:26px}',
+    '  footer.scix-ft .scix-ft-side{justify-content:center;min-width:0;height:auto;padding:12px 8px;gap:8px;font-size:1rem;background:#fff;border:1.5px solid #E1E7F3;border-radius:14px}',
+    '  footer.scix-ft .scix-ft-side:hover{border-color:var(--pc);box-shadow:none}',
+    '  footer.scix-ft .scix-ft-auth{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}',
+    '  footer.scix-ft a.scix-ft-login,footer.scix-ft a.scix-ft-reg{min-width:0;padding:11px 10px;font-size:14px}',
+    '  footer.scix-ft .scix-ft-cols{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 16px}',
+    '  footer.scix-ft .scix-ft-co{flex-direction:column;align-items:flex-start}',
+    '  footer.scix-ft .scix-ft-info{flex:0 1 auto}',
+    '  footer.scix-ft .scix-ft-info-in{display:block;margin:0}',
+    '  footer.scix-ft .scix-ft-seg,footer.scix-ft .scix-ft-seg.is-addr{display:block;padding:0;white-space:normal}',
+    '  footer.scix-ft .scix-ft-seg::before{display:none}',
+    '}'
+  ].join('\n');
+
   // Floating mobile contact CTA — on mobile the nav collapses into the hamburger,
   // so keep a persistent, always-visible conversion path. white-on-black = WCAG AAA.
   css += "\n.scix-float-cta{position:fixed;right:16px;bottom:16px;z-index:9000;display:none;align-items:center;gap:7px;padding:13px 20px;background:linear-gradient(135deg,#F97316,#F59E0B);color:#fff;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:900;text-decoration:none;border-radius:999px;box-shadow:0 8px 22px rgba(234,88,12,.38)}.scix-float-cta:active{transform:translateY(1px)}.scix-float-cta svg{width:16px;height:16px}@media(max-width:768px){.scix-float-cta{display:inline-flex;opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .2s,transform .2s}.scix-float-cta.on{opacity:1;transform:none;pointer-events:auto}}";
@@ -1400,6 +1488,175 @@
     function onReady() { domReady = true; fillForms(); tryCard(); }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady); else onReady();
   })(); } catch (err) { /* 測る仕組みが失敗しても頁はそのまま */ }
+
+  // --------------- 8. 下の帯（2026-11-23） ---------------
+  // 中島「フッターがデザインがあってないどうだ？」（/column-aggregators-switching の画面の写しつき）。
+  // 前の下の帯は濃い紺の一枚の帯・太字のリンクの羅列・上の帯と違う書体の文字のロゴで、今日作り替えた上の帯と合っていなかった。
+  // 各頁の HTML にある <footer class="scix-footer"> を、DOM の準備ができたら組み替える（要素そのものは残し、class に scix-ft を足す・2回組まない）:
+  //   1段目 ロゴ（上の帯と同じ画像・同じ行き先）／蓄電所マーケットのまとまり（印と名前・買いたい・売りたい・引き出しなし）／ログイン・無料で登録
+  //   2段目 入口ごとの列（買いたい・売りたい・ナレッジ・市場リサーチ・会社）
+  //   3段目 会社の行（頁の .scix-footer-company の言葉そのまま）と言葉の切り替え ／ 4段目 著作権の行（頁の .scix-footer-copyright そのまま）
+  // 列の言葉は、上の帯の札・引き出しの言葉か、前の下の帯にある言葉だけ（O16-27）。前の下の帯にあった行き先で列に無い物は、その頁の言葉のまま近い列の末尾に足す（減らさない）。
+  // /fund へのリンクは下の帯に1本だけ（O16-67）。マーケットへのリンクの出所の印（7a・placement=footer）と電話・メールの計測（5）は、要素が footer.scix-footer の中なので今のまま効く。
+  // JavaScript が動かない時と組み替える前の一瞬は theme.css が同じ白い帯の形にする。
+  try { (function () {
+    function normHref(h) {
+      try {
+        var u = new URL(h, window.location.href);
+        if (u.hostname === 'www.scix.co.jp' || u.hostname === 'scix.co.jp' || u.hostname === window.location.hostname) {
+          var p = u.pathname.replace(/\.html$/, '').replace(/\/index$/, '').replace(/\/+$/, '');
+          return p || '/';
+        }
+        return u.hostname + (u.pathname.replace(/\/+$/, '') || '/');
+      } catch (err) { return h; }
+    }
+    var TAG = isZh ? EN_TAG : '';   // 中国語の画面でマーケット（英語の画面）と英語の市場ノートへ行く札には、上の帯と同じ「英文」の印
+    // 列: k＝側（色）・h＝見出し・items＝[行き先, 言葉]
+    var COLS = isZh ? [
+      { k: 'buy', h: '购买', items: [[MKT + '/en', '蓄电所市场' + TAG]] },
+      { k: 'knowledge', h: '洞见', items: [['/zh-knowledge', '洞见'], ['/zh-qa', '问答'], ['/zh-faq', '常见问题'], ['/zh-glossary', '术语表']] },
+      { k: 'research', h: '市场研究', items: [['/en/report', '市场研究' + TAG], ['/zh-market-data', '市场数据']] },
+      { k: 'co', h: '公司', items: [['/zh', '首页'], ['/zh-company', '公司介绍'], ['/zh-contact', '联系我们'], ['@privacy', '隐私政策']] }
+    ] : isEn ? [
+      { k: 'buy', h: 'Buy', items: [[MKT + '/en', 'Chikudensho Market']] },
+      { k: 'knowledge', h: 'Knowledge', items: [['/en/knowledge', 'Knowledge'], ['/en/qa', 'Q&amp;A'], ['/en/glossary', 'Glossary'], ['/en/market-entry-guide', 'Market Entry Guide']] },
+      // /en/market-data は前の下の帯で「Market Data」。市場リサーチの /en/report/data（上の帯で Market Data）と同じ言葉になるので、行き先の title の言葉にした（O16-27）
+      { k: 'research', h: 'Market Research', items: [['/en/report', 'Market Notes'], ['/en/report/data', 'Market Data'], ['/en/market-data', 'Japan BESS Projects for Sale: Market Data']] },
+      { k: 'co', h: 'Company', items: [['/en', 'Home'], ['/en/company', 'Company'], ['/en/contact', 'Contact'], ['@privacy', 'Privacy Policy']] }
+    ] : [
+      { k: 'buy', h: '買いたい', items: [[MKT + '/', '今ある案件'], ['/transfer', '買うまでの流れ・買い方3つ'], ['/fund', 'ファンドで持つ'], ['/investors', '系統用蓄電池への投資']] },
+      { k: 'sell', h: '売りたい', items: [[MKT + '/needs', '買主のリクエスト'], ['/sell-form', '当社に無料で売却査定'], ['/sourcing', '売るまでの流れ'], ['/partners', '案件・投資家を紹介する']] },
+      { k: 'knowledge', h: 'ナレッジ', items: [['/knowledge', 'すべての記事（毎週更新）'], ['/qa', '入門Q&amp;A'], ['/grid-storage', '蓄電池事業のしくみ'], ['/glossary', '用語集']] },
+      { k: 'research', h: '市場リサーチ', items: [['/report', '蓄電所の市場ノート'], ['/report/data', '蓄電所の市場データ'], ['/market-data', '系統用蓄電池の売り案件 市場データ']] },
+      { k: 'co', h: '会社', items: [['/company', '会社案内'], ['/contact', 'お問い合わせ'], ['@privacy', 'プライバシーポリシー']] }
+    ];
+    var PRIVACY_DEFAULT = isZh ? '/zh-privacy' : (isEn ? '/en/privacy' : '/privacy');
+    // 前の下の帯にあって列に無い行き先を足す列（無ければ会社の列）
+    function colFor(href) {
+      var n = normHref(href);
+      if (/needs$|\/(en\/)?(sourcing|sell-form|partners)$/.test(n)) return 'sell';
+      if (/^dealroom\.scix\.co\.jp|\/(en\/)?(transfer|investors|fund|projects)$|^\/for\//.test(n)) return 'buy';
+      if (/report|research|market-data/.test(n)) return 'research';
+      if (/knowledge|qa$|faq$|glossary|grid-storage|primer|market-entry|guide-|column-/.test(n)) return 'knowledge';
+      return 'co';
+    }
+    function flagSvg(code) {   // 上の帯の国旗と同じ絵。英国旗の clipPath の id は上の帯（scix-flag-uk）と重ならない名前にする
+      return FLAG[code].replace('class="scix-flag"', 'class="scix-ft-flag"').replace(/scix-flag-uk/g, 'scix-ft-flag-uk');
+    }
+    function ftIc(k) { return ic(k).replace('class="scix-ic"', 'class="scix-ft-ic"'); }
+
+    function build(ft) {
+      if (!ft || ft.classList.contains('scix-ft')) return;
+      var company = ft.querySelector('.scix-footer-company');
+      var copy = ft.querySelector('.scix-footer-copyright');
+      if (!company || !copy) return;   // 形の違う下の帯（無い頁）は組み替えない＝theme.css の白い帯のまま
+      // 前の下の帯のリンク（行き先と言葉）
+      var olds = [];
+      var oldLinks = ft.querySelectorAll('.scix-footer-nav a[href]');
+      for (var i = 0; i < oldLinks.length; i++) olds.push([oldLinks[i].getAttribute('href'), oldLinks[i].innerHTML.replace(/^\s+|\s+$/g, '')]);
+      var privacy = PRIVACY_DEFAULT;
+      for (var p = 0; p < olds.length; p++) if (/privacy$/.test(normHref(olds[p][0]))) { privacy = olds[p][0]; break; }
+
+      // 列を組む（無い列は出さない）
+      var cols = [], have = {};
+      for (var c = 0; c < COLS.length; c++) {
+        var col = { k: COLS[c].k, h: COLS[c].h, items: [] };
+        for (var j = 0; j < COLS[c].items.length; j++) {
+          var href = COLS[c].items[j][0] === '@privacy' ? privacy : COLS[c].items[j][0];
+          col.items.push([href, COLS[c].items[j][1]]);
+          have[normHref(href)] = 1;
+        }
+        cols.push(col);
+      }
+      for (var o = 0; o < olds.length; o++) {
+        var nh = normHref(olds[o][0]);
+        if (have[nh]) continue;
+        var want = colFor(olds[o][0]), put = null;
+        for (var q = 0; q < cols.length; q++) if (cols[q].k === want) put = cols[q];
+        if (!put) put = cols[cols.length - 1];
+        put.items.push([olds[o][0], olds[o][1]]);
+        have[nh] = 1;
+      }
+
+      // 会社の行: 頁の言葉そのまま（社名・<br> で区切られた行・代表者）。住所の続きの行は1つにまとめ、TEL・MAIL は別の区切りにする
+      var segs = [], name = '', rep = '', cur = null;
+      var nameEl = company.querySelector('.company-name'), repEl = company.querySelector('.representative');
+      if (nameEl) name = nameEl.innerHTML.replace(/^\s+|\s+$/g, '');
+      if (repEl) rep = repEl.innerHTML.replace(/^\s+|\s+$/g, '');
+      var kids = company.childNodes;
+      for (var kq = 0; kq < kids.length; kq++) {
+        var nd = kids[kq];
+        if (nd === nameEl || nd === repEl) continue;
+        if (nd.nodeType === 1 && nd.tagName === 'BR') { cur = null; continue; }
+        var htm = nd.nodeType === 3 ? nd.nodeValue.replace(/[&<>]/g, function (m) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]; }) : (nd.nodeType === 1 ? nd.outerHTML : '');
+        if (!htm.replace(/\s+/g, '')) { if (cur) cur.h += ' '; continue; }
+        var isContact = /^\s*(TEL|MAIL)\b/.test(nd.nodeType === 3 ? nd.nodeValue : '');
+        if (!cur) {
+          var prevSeg = segs[segs.length - 1];
+          if (!isContact && prevSeg && prevSeg.addr) { cur = prevSeg; cur.h += ' '; }
+          else { cur = { h: '', addr: !isContact }; segs.push(cur); }
+        }
+        cur.h += htm;
+      }
+      var info = (name ? '<span class="scix-ft-seg scix-ft-name">' + name + '</span>' : '');
+      for (var sg = 0; sg < segs.length; sg++) {
+        var t = segs[sg].h.replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, '');
+        if (t) info += '<span class="scix-ft-seg' + (segs[sg].addr ? ' is-addr' : '') + '">' + t + '</span>';
+      }
+      if (rep) info += '<span class="scix-ft-seg">' + rep + '</span>';
+
+      // 1段目
+      var mg = '<div class="scix-ft-mg" role="group" aria-label="' + MG.name + '">' +
+        '<a class="scix-ft-mg-name" href="' + MG.href + '" title="' + MG.title + '">' + MG_MARK.replace('class="scix-mg-mark"', 'class="scix-ft-mark"') + '<span>' + MG.name + '</span></a>' +
+        (isJa
+          ? '<a class="scix-ft-side is-buy" href="' + MKT + '/">' + ftIc('buy') + '<span>買いたい</span></a>' +
+            '<a class="scix-ft-side is-sell" href="' + MKT + '/needs">' + ftIc('sell') + '<span>売りたい</span></a>'
+          : '<a class="scix-ft-side is-buy" href="' + MKT + '/en">' + ftIc('buy') + '<span>' + (isZh ? '购买' : 'Buy') + '</span></a>' +
+            '<a class="scix-ft-side is-sell" href="' + MKT + '/en/needs">' + ftIc('sell') + '<span>' + (isZh ? '出售' : 'Sell') + '</span></a>') +
+        '</div>';
+      var auth = '<div class="scix-ft-auth">' +
+        '<a href="' + AUTH.login + '" class="scix-ft-login">' + AUTH_ICON + '<span>' + AUTH.lt + '</span></a>' +
+        '<a href="' + AUTH.reg + '" class="scix-ft-reg">' + AUTH.rt + '</a></div>';
+
+      // 2段目
+      var colsHtml = '';
+      for (var cc = 0; cc < cols.length; cc++) {
+        if (!cols[cc].items.length) continue;
+        var hid = 'scix-ft-h-' + cols[cc].k;
+        colsHtml += '<div class="scix-ft-col is-' + cols[cc].k + '"><p class="scix-ft-h" id="' + hid + '">' + cols[cc].h + '</p><ul aria-labelledby="' + hid + '">';
+        for (var ci = 0; ci < cols[cc].items.length; ci++) colsHtml += '<li><a href="' + cols[cc].items[ci][0] + '">' + cols[cc].items[ci][1] + '</a></li>';
+        colsHtml += '</ul></div>';
+      }
+
+      // 3段目の言葉の切り替え（行き先は上の帯と同じ）
+      function ftLang(code, href, label, on) {
+        return '<a href="' + href + '" hreflang="' + code + '" lang="' + code + '" aria-label="' + label + '"' +
+          (on ? ' class="active" aria-current="true"' : '') + '>' + flagSvg(code) + '</a>';
+      }
+      var lang = '<div class="scix-ft-lang" role="group" aria-label="' + (isEn ? 'Language' : (isZh ? '语言' : '言語')) + '">' +
+        ftLang('ja', jpHref, '日本語', isJa) + ftLang('en', enHref, 'English', isEn) + ftLang('zh', zhHref, '中文', isZh) + '</div>';
+
+      var copyHtml = copy.innerHTML.replace(/^\s+|\s+$/g, '');
+      ft.classList.add('scix-ft');
+      ft.innerHTML = '<div class="scix-ft-in">' +
+        '<div class="scix-ft-top">' +
+          '<a href="' + logoHref + '" class="scix-ft-logo"><img src="/img/logo-navy.png" alt="ScienceX" width="97" height="38" loading="lazy" decoding="async"></a>' +
+          mg + auth +
+        '</div>' +
+        '<nav class="scix-ft-cols" aria-label="' + (isEn ? 'Site map' : (isZh ? '网站导航' : 'サイトの案内')) + '">' + colsHtml + '</nav>' +
+        '<div class="scix-ft-co"><p class="scix-ft-info"><span class="scix-ft-info-in">' + info + '</span></p>' + lang + '</div>' +
+        '<p class="scix-ft-copy">' + copyHtml + '</p>' +
+      '</div>';
+    }
+    function buildAll() {
+      try {
+        var fts = document.querySelectorAll('footer.scix-footer');
+        for (var f = 0; f < fts.length; f++) build(fts[f]);
+      } catch (err) { /* 組み替えられなくても theme.css の白い帯のまま */ }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', buildAll);
+    else buildAll();
+  })(); } catch (err) { /* 下の帯を組み替えられなくても頁はそのまま */ }
 
   // --------------- 6. 面談の予約について ---------------
   // 2026-09-05 撤去。Googleカレンダーの「予約スケジュール」は Google Meet のリンクを発行するため、
