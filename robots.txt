@@ -2,7 +2,11 @@ User-agent: *
 Allow: /
 
 # NDA雛形などの配布ファイル。ページからは辿れるが検索結果には出さない。
+# ただし市場データの CSV（/files/market-data/・/files/press/）は Dataset の構造化データと
+# llms.txt が案内しているので取らせる（長い一致が勝つので Allow が Disallow: /files/ より優先）。
 Disallow: /files/
+Allow: /files/market-data/
+Allow: /files/press/
 
 # ── AI・LLM系クローラの方針（2026-08 中島判断）───────────────
 # 当社は解説記事で見つけてもらう戦略のため、AIの検索・回答に引用される
@@ -15,52 +19,74 @@ Disallow: /files/
 User-agent: GPTBot
 Allow: /
 Disallow: /files/
+Allow: /files/market-data/
+Allow: /files/press/
 
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /files/
+Allow: /files/market-data/
+Allow: /files/press/
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /files/
+Allow: /files/market-data/
+Allow: /files/press/
 
 # Anthropic
 User-agent: ClaudeBot
 Allow: /
 Disallow: /files/
+Allow: /files/market-data/
+Allow: /files/press/
 
 User-agent: Claude-Web
 Allow: /
 Disallow: /files/
+Allow: /files/market-data/
+Allow: /files/press/
 
 User-agent: anthropic-ai
 Allow: /
 Disallow: /files/
+Allow: /files/market-data/
+Allow: /files/press/
 
 # Perplexity
 User-agent: PerplexityBot
 Allow: /
 Disallow: /files/
+Allow: /files/market-data/
+Allow: /files/press/
 
 # Google（Gemini の学習・グラウンディング。通常のGooglebotとは別枠）
 User-agent: Google-Extended
 Allow: /
 Disallow: /files/
+Allow: /files/market-data/
+Allow: /files/press/
 
 # Microsoft（Bing 検索と Copilot。Copilot の回答と引用は Bing の索引＝bingbot が集めたものを使う）
 User-agent: bingbot
 Allow: /
 Disallow: /files/
+Allow: /files/market-data/
+Allow: /files/press/
 
 # Microsoft（Bing の画像）
 User-agent: msnbot-media
 Allow: /
 Disallow: /files/
+Allow: /files/market-data/
+Allow: /files/press/
 
 # Apple
 User-agent: Applebot-Extended
 Allow: /
 Disallow: /files/
+Allow: /files/market-data/
+Allow: /files/press/
 
 # ── 拒否 ─────────────────────────────────────────
 # 出典表示も流入もなく大量取得だけを行うクローラは除外する。

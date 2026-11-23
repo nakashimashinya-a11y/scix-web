@@ -760,7 +760,7 @@ def home_card(m, doc, figs, lang="ja"):
         lead = "A battery storage site earns from three markets: the balancing market (EPRX), wholesale power (JEPX) and the capacity market (OCCTO). Every month we chart the figures for all three from public data and our own records. Charts and tables may be reused with the source stated."
         btn, pdf_l, back = "Read this issue", "Download PDF", "All issues"
         back_href, label = "/en/report", "Market Notes"
-    fig = (f'<a class="rp-home-fig" href="{base}#s{sec_f["num"]}"><img src="{base}/f{fn}.png" alt="{esc(cap_f)}" loading="lazy">{esc(cap_f)}</a>'
+    fig = (f'<a class="rp-home-fig" href="{base}#s{sec_f["num"]}"><img src="{base}/f{fn}.png" alt="{esc(cap_f)}"{img_dims(figs[fn])} loading="lazy">{esc(cap_f)}</a>'
            if fn in figs and sec_f else "")
     return (f"""{HOME_MARK[0]}
 {HOME_CSS}

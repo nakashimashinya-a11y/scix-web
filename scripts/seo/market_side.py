@@ -25,6 +25,11 @@ from urllib.parse import unquote, urlsplit
 
 MARKET = "https://dealroom.scix.co.jp"
 AREAS = ["hokkaido", "tohoku", "tokyo", "chubu", "hokuriku", "kansai", "chugoku", "shikoku", "kyushu"]
+# URL 検査の定点に入れるエリアの入口。索引に出さない頁（shikoku＝件数が少なく noindex,follow）は数えるとノイズに
+# なるので外し、索引に出す入口（九州の高圧）を入れる。北海道は正規の住所（/catalog/pref/hokkaido）を見る。
+INSPECT_AREA_PATHS = ["catalog/pref/hokkaido", "catalog/area/tohoku", "catalog/area/tokyo", "catalog/area/chubu",
+                      "catalog/area/hokuriku", "catalog/area/kansai", "catalog/area/chugoku", "catalog/area/kyushu",
+                      "catalog/area/kyushu/high-voltage"]
 
 # 語の定点25語。語を空白で分け、全部を含む検索語（大文字小文字を問わない）を合算する。
 FIXED_QUERIES = {
@@ -71,7 +76,7 @@ def inspect_targets(repo: str) -> list:
     """URL 検査の定点20本＝案件5・入口11（エリア9＋電圧2）・トップと売りたいの入口4（日本語・英語）。
     301 で移る古い入口（/catalog・/wanted・/en/catalog）は入れない（移った先の / ・ /needs を見る）。"""
     urls = deal_urls(repo, 5)
-    urls += [f"{MARKET}/catalog/area/{a}" for a in AREAS]
+    urls += [f"{MARKET}/{p}" for p in INSPECT_AREA_PATHS]
     urls += [f"{MARKET}/catalog/voltage/extra-high-voltage", f"{MARKET}/catalog/voltage/high-voltage"]
     urls += [f"{MARKET}/", f"{MARKET}/en", f"{MARKET}/needs", f"{MARKET}/en/needs"]
     return urls
