@@ -1356,7 +1356,7 @@ def render_area(ps_all, area, slug, operator, today, generated):
 <section class="hero"><div class="container">
   <div class="section-label">登録不要・毎朝更新</div>
   <h1>{_esc(operator)}管内の系統用蓄電池 売り案件 {n}件</h1>
-  <p>{_esc(area)}エリア（{_esc(operator)}管内）で当社が扱う、接続検討の回答が出た系統用蓄電池（蓄電所）の案件です。所在県・電圧・規模・連系の見込み・進み具合・取得の形までは登録なしでご覧いただけます。価格と資料は蓄電所マーケットで、無料登録のあとに見られます。地番・売主は本ページでは載せていません。{_esc(generated)} 時点です。</p>
+  <p>{_esc(area)}エリア（{_esc(operator)}管内）で当社が扱う、接続検討の回答が出た系統用蓄電池（蓄電所）の案件です。所在県・電圧・規模・連系の見込み・進み具合・取得の形までは登録なしでご覧いただけます。蓄電所マーケットの一覧では、案件名・市区町村・写真まで登録なしで見られます。価格と資料は無料登録のあとです。地番・売主は本ページでは載せていません。{_esc(generated)} 時点です。</p>
   <div class="kpi">
     <div><b>{n}件</b><span>販売中の案件</span></div>
     <div><b>{s['mw']:,}MW</b><span>合計出力（{s['mwh']:,}MWh）</span></div>
@@ -1440,7 +1440,9 @@ EN_CSS = """
 .hb-list{background:var(--navy);color:#fff}.hb-dr{background:var(--gold);color:var(--navy)}
 section.pj-list{padding:20px 0 40px;border-top:none;scroll-margin-top:72px}
 .pj-lock{display:inline-block;padding:4px 12px;border:1.5px solid var(--navy);border-radius:100px;color:var(--navy);font-size:.76rem;font-weight:600;text-decoration:none;white-space:nowrap}
-.pj-lock::before{content:"\\01F512\\00A0"}.pj-lock:hover{background:var(--navy);color:#fff}
+.pj-lock:hover{background:var(--navy);color:#fff}
+.pj-idlk{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold)}
+.pj-reg{display:block;margin-top:5px;color:var(--text-2);font-size:.72rem;text-decoration:underline;white-space:nowrap}
 .pj-t th.c-lock,.pj-t td.c-lock{background:rgba(196,154,60,.07)}
 .pj-t tr.pj-band td{background:var(--navy);color:#fff;padding:9px 14px;border:none}
 .pj-t tr.pj-band td span{margin-right:14px;font-size:.82rem}
@@ -1456,7 +1458,9 @@ section.pj-list{padding:20px 0 40px;border-top:none;scroll-margin-top:72px}
   .pj-count{margin-left:0;width:100%}
   .pj-filter label{flex:1 1 44%}
   .pj-filter select{width:100%}
-  .pj-t td.c-lock{background:none;margin-top:6px}
+  .pj-t td.c-lock{background:none;margin-top:6px;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:6px 14px}
+  .pj-t td.c-lock::before{content:none}
+  .pj-t td.c-lock .pj-reg{display:inline-block;margin-top:0}
   .pj-t tr.pj-band{border:none;padding:0;margin:0 0 10px}
   .pj-t tr.pj-band td{display:block}.pj-t tr.pj-band td::before{content:none}
   .pj-t tr.pj-band td span{display:block;margin:0 0 6px}
@@ -1535,7 +1539,7 @@ def render_en_projects(ps, today, generated, weekly=()):
     reg = "https://dealroom.scix.co.jp/en/register"
 
     def band():
-        return ('<tr class="pj-band"><td colspan="9"><span>Prices, exact sites and documents are on Chikudensho Market (free registration)</span>'
+        return ('<tr class="pj-band"><td colspan="10"><span>Project pages open without registration; the Chikudensho Market list also shows each project&rsquo;s name, city and photos. Prices, exact sites and documents follow free registration.</span>'
                 f'<a class="pj-band-btn" href="{reg}" rel="nofollow" onclick="window.gtag&&gtag(\'event\',\'dr2_promo_click\',{{target:\'band_en\'}})">Register on Chikudensho Market &rarr;</a></td></tr>')
 
     rows = []
@@ -1546,7 +1550,7 @@ def render_en_projects(ps, today, generated, weekly=()):
         rows.append(
             f'<tr class="pj-row" id="p-{pid}" data-area="{_esc(p.get("area") or "")}" data-volt="{_esc(p.get("voltage") or "")}" '
             f'data-scheme="{_esc(p.get("scheme") or "")}" data-cod="{cod_bucket(p, today_ym)}">'
-            f'<td data-l="ID">{pid}{new}</td>'
+            f'<td data-l="ID"><a class="pj-idlk" href="https://dealroom.scix.co.jp/en/catalog/{pid}">{pid}</a>{new}</td>'
             f'<td data-l="Area">{EN_AREA.get(p.get("area"), "TBC")}</td>'
             f'<td data-l="Prefecture">{EN_PREF.get(p.get("pref"), "Under review")}</td>'
             f'<td data-l="Voltage">{EN_VOLT.get(p.get("voltage"), "—")}</td>'
@@ -1555,8 +1559,10 @@ def render_en_projects(ps, today, generated, weekly=()):
             f'<td data-l="Status">{EN_STATUS.get(p.get("status"), "—")}</td>'
             f'<td data-l="Structure">{EN_SCHEME.get(p.get("scheme"), "Under review")}</td>'
             f'<td data-l="Expected COD">{_esc(en_cod(p, today_ym))}</td>'
-            f'<td class="c-lock" data-l="Price, site, documents"><a class="pj-lock" href="https://dealroom.scix.co.jp/en/catalog/{pid}" '
-            f'onclick="window.gtag&&gtag(\'event\',\'dr2_promo_click\',{{target:\'row_en\'}})">View on Chikudensho Market</a></td></tr>')
+            f'<td class="c-lock" data-l="Details"><a class="pj-lock" href="https://dealroom.scix.co.jp/en/catalog/{pid}" '
+            f'onclick="window.gtag&&gtag(\'event\',\'dr2_promo_click\',{{target:\'row_en\'}})">View the project page</a>'
+            f'<a class="pj-reg" href="{reg}" rel="nofollow" '
+            f'onclick="window.gtag&&gtag(\'event\',\'dr2_promo_click\',{{target:\'row_register_en\'}})">Price &amp; documents (free registration)</a></td></tr>')
         if i % BAND_EVERY == 0 and i != len(ps):
             rows.append(band())
     rows.append(band())
@@ -1587,7 +1593,7 @@ def render_en_projects(ps, today, generated, weekly=()):
                  .replace(f"<style>{CSS}</style>", f"<style>{CSS}{EN_CSS}</style>"))
     body = f"""<section class="hero pj-hero"><div class="container">
   <h1>{n} grid-scale BESS projects for sale in Japan <span style="font-size:.7em;font-weight:500;color:var(--text-2)">(high voltage {volt.get('高圧', 0)} · extra-high voltage {volt.get('特別高圧', 0)})</span></h1>
-  <p class="sub">Location is shown to prefecture level. Prices, sites and documents are on Chikudensho Market (free registration).</p>
+  <p class="sub">Click a project ID to open its page on Chikudensho Market (no registration). The market list also shows project names, cities and photos; prices and documents follow free registration.</p>
   <div class="hero-btns">
     <a class="hb hb-list" href="#list">View the list</a>
     <a class="hb hb-dr" href="https://dealroom.scix.co.jp/en/register" rel="nofollow" onclick="window.gtag&&gtag('event','dr2_promo_click',{{target:'hero_en'}})">Register on Chikudensho Market</a>
@@ -1603,7 +1609,7 @@ def render_en_projects(ps, today, generated, weekly=()):
     <span class="pj-count" id="pj-count" aria-live="polite">{n} of {n} projects · updated {_esc(generated)}</span>
   </div>
   <table class="pj-t" id="pj-table">
-    <thead><tr><th>ID</th><th>Area</th><th>Prefecture</th><th>Voltage</th><th class="n">MW</th><th class="n">MWh</th><th>Status</th><th>Structure</th><th>Expected COD</th><th class="c-lock">&#128274; Price, site, documents</th></tr></thead>
+    <thead><tr><th>ID</th><th>Area</th><th>Prefecture</th><th>Voltage</th><th class="n">MW</th><th class="n">MWh</th><th>Status</th><th>Structure</th><th>Expected COD</th><th class="c-lock">Details</th></tr></thead>
     <tbody>
 {chr(10).join(rows)}
     </tbody>
@@ -1615,7 +1621,7 @@ def render_en_projects(ps, today, generated, weekly=()):
   <div class="section-label">Chikudensho Market</div>
   <h2 class="md-h">Detailed materials are on Chikudensho Market, after free registration</h2>
   <div class="pj-dr">
-    <p class="md-lead" style="margin-bottom:6px">This list shows only the public fields. Site details, technical documents, grid-utility correspondence and the Q&amp;A for each project are shown on Chikudensho Market, our marketplace for battery storage sites (English screens available).</p>
+    <p class="md-lead" style="margin-bottom:6px">This list shows the prefecture only. Chikudensho Market shows the project name, prefecture and city, voltage, sale type, scale, expected start of operation, grid procedure stage, photos and how many people have viewed it, without registration. Prices, site details, technical documents and the Q&amp;A for each project follow free registration (English screens available).</p>
     <ol>
       <li>Register on Chikudensho Market (free of charge) and agree to the confidentiality undertaking on the registration page &mdash; no signed or sealed paper is needed.</li>
       <li>After registering, you can open the prices and documents for each project.</li>

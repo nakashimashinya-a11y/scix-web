@@ -14,6 +14,7 @@
     python3 scripts/add_column_mid_cta.py --check  # 書き換えずに、ずれているかだけ見る（ずれていれば 1）
 
 2026-11-22 中島「これ全部やって。売上UPのために徹底的に進めて。すべて漏らさずやって。」（Gemini の助言の指示2・5）。
+登録なしで見られる範囲は蓄電所マーケットの /how と同じに書く（2026-11-23 中島「出し惜しみするな。全部出して売上UPだ」）。
 """
 import re
 import sys
@@ -25,17 +26,17 @@ SELLER_RE = re.compile(r"transfer|^pricing$|study-reply|development")
 MARKET = {"ja": "https://dealroom.scix.co.jp/", "en": "https://dealroom.scix.co.jp/en", "zh": "https://dealroom.scix.co.jp/en"}
 SELL = {"ja": ("/sell-form", "sell_form"), "en": ("/en/contact", "contact"), "zh": ("/zh-contact", "contact")}
 TEXT = {
-    ("ja", "buy"): ("接続検討の回答が出た案件を、蓄電所マーケットで販売しています。所在県・規模・電圧・手続きの段・運転開始の見込みは、登録なしで見られます。",
+    ("ja", "buy"): ("接続検討の回答が出た案件を、蓄電所マーケットで販売しています。案件名・県と市区町村・規模・電力の手続きの段・写真まで、登録なしで見られます。価格と資料は無料の登録のあとです。",
                     "蓄電所マーケットで案件を見る →"),
     ("ja", "sell"): ("接続検討の回答が出た案件をお持ちで、手放すか迷っているなら、無料の売却査定へ。当社が買い取るか、買い手におつなぎします。",
                      "無料で売却査定を依頼する →"),
-    ("en", "buy"): ("Projects that hold a grid connection study response are for sale on Chikudensho Market. Prefecture, scale, voltage, "
-                    "procedural stage and expected start of operation can be viewed without registration.",
+    ("en", "buy"): ("Projects that hold a grid connection study response are for sale on Chikudensho Market. Project name, prefecture and city, "
+                    "scale, grid procedure stage and photos can be viewed without registration; prices and documents follow free registration.",
                     "See projects on Chikudensho Market →"),
     ("en", "sell"): ("If you hold a project with a connection study response and are thinking of selling, we either buy it ourselves "
                      "or introduce you to a buyer.",
                      "Request a free sale assessment →"),
-    ("zh", "buy"): ("已取得接入系统研究答复的项目，在蓄电所市场销售。所在都道府县、规模、电压、手续阶段与预计投运时间，无需注册即可查看。",
+    ("zh", "buy"): ("已取得接入系统研究答复的项目，在蓄电所市场销售。项目名称、所在县市、规模、电力手续阶段与照片，无需注册即可查看；价格与资料在免费注册后查看。",
                     "在蓄电所市场查看在售项目（英文页面） →"),
     ("zh", "sell"): ("持有已取得接入系统研究答复的项目、正在考虑出售的，由本公司收购，或为您引荐买家。",
                      "申请免费出售评估 →"),

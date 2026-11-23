@@ -6,7 +6,7 @@ h1: 容量市场主拍卖、LDA、容量租赁与全市场型 — 日本储能�
 description: 日本容量市场主拍卖的价格变迁、长期脱碳电源拍卖（LDA）的20年固定收入与中标率、容量租赁（Tolling）合约与全市场型的含义，以本公司4篇洞见汇成一页指南。
 columns: zh-column-auction, zh-column-lda, zh-column-merchant, zh-column-long-term-contract, zh-column-capacity-market
 published: 2026-11-22
-modified: 2026-11-22
+modified: 2026-11-23
 ---
 
 ## @tldr
@@ -141,7 +141,7 @@ LDA中标的电源不参加主拍卖。若LDA未中标，可改为参加主拍�
 ## @next
 
 ### 想购买项目的读者
-我们在售日本的电网侧储能项目。蓄电所市场（Chikudensho Market）无需注册即可查看所在县、规模、电压、购买方式、手续阶段与预计运行开始时间；仅刊登已取得接入系统研究答复的项目，价格与资料在免费注册后查看。
+我们在售日本的电网侧储能项目。蓄电所市场（Chikudensho Market）无需注册即可查看项目名称、所在县市、规模、电压、购买方式、手续阶段、预计运行开始时间与照片；仅刊登已取得接入系统研究答复的项目，价格与资料在免费注册后查看。
 → [在蓄电所市场查看项目（英文页面）](https://dealroom.scix.co.jp/en)
 
 ### 想出售项目的读者
