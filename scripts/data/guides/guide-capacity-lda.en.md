@@ -6,7 +6,7 @@ h1: Capacity Market, LDA, Tolling and Full Merchant — How a Battery's Long-Ter
 description: Japan capacity market prices, LDA 20-year income and award rates, tolling and full merchant, in one guide.
 columns: en/column-capacity-market, en/column-lda, en/column-auction, en/column-merchant, en/column-long-term-contract
 published: 2026-11-22
-modified: 2026-11-22
+modified: 2026-11-23
 ---
 
 ## @tldr
@@ -154,7 +154,7 @@ Sources that win the LDA do not take part in the main auction. If unsuccessful i
 ## @next
 
 ### If you are buying
-Grid-scale BESS projects in Japan that hold a connection study response are for sale on Chikudensho Market. Prefecture, size, voltage, how the project is bought, the stage of the procedures and the expected start of operation can be viewed without registration; prices and documents are available after free registration.
+Grid-scale BESS projects in Japan that hold a connection study response are for sale on Chikudensho Market. Project name, prefecture and city, size, voltage, how the project is bought, the stage of the procedures, the expected start of operation and photos can be viewed without registration; prices and documents are available after free registration.
 → [See projects on Chikudensho Market](https://dealroom.scix.co.jp/en)
 
 ### If you are selling

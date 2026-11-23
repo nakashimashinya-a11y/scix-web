@@ -54,7 +54,7 @@ L = {
         family="'Noto Sans JP',sans-serif", home=("ホーム", "/"), kn=("ナレッジ", "/knowledge"),
         back="← ナレッジ一覧に戻る", tag="ガイド", date_label="作成", tldr="3行で言うと", toc="この頁の目次",
         faq="よくある質問", cols="このテーマのコラム（{n}本）", next="次にすること", logo_alt="ScienceX",
-        top=("いま売りに出ている案件は、蓄電所マーケットで登録なしで見られます。所在県・規模・電圧・買い方・手続きの段・運転開始の見込みまで載せています。"
+        top=("いま売りに出ている案件は、蓄電所マーケットで登録なしで見られます。案件名・県と市区町村・規模・電力の手続きの段・写真まで載せています。"
              "価格と資料は無料登録のあとです。"),
         top_btn=("蓄電所マーケットで案件を見る →", "https://dealroom.scix.co.jp/"),
         top_sub=("接続検討の回答が出た案件をお持ちの方は、当社が買い取るか、買い手におつなぎします。",
@@ -79,7 +79,7 @@ L = {
         family="'Noto Sans SC','Noto Sans JP',sans-serif", home=("首页", "/zh"), kn=("洞见", "/zh-knowledge"),
         back="← 返回洞见一览", tag="指南", date_label="发布", tldr="三句话说清", toc="本页目录",
         faq="常见问题", cols="本主题的专栏（{n}篇）", next="下一步", logo_alt="ScienceX",
-        top=("所在县、规模、电压、购买方式、手续阶段与预计投运时间，无需登记即可在蓄电所市场（Chikudensho Market）查看；"
+        top=("项目名称、所在县市、规模、电压、购买方式、手续阶段、预计投运时间与照片，无需登记即可在蓄电所市场（Chikudensho Market）查看；"
              "所列仅限已取得接入系统研究答复的项目。蓄电所市场的画面只有日文和英文，中文读者请用英文画面。"),
         top_btn=("在蓄电所市场（Chikudensho Market）查看案件 →", "https://dealroom.scix.co.jp/en"),
         top_sub=("持有已取得接入系统研究答复的项目，可由本公司收购，或为您介绍买方。", [("联系我们", "/zh-contact")], "・"),

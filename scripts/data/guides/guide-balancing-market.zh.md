@@ -22,7 +22,7 @@ modified: 2026-11-23
 
 ## @top
 
-所在县、规模、电压、购买方式、手续阶段与预计投运时间，无需登记即可在蓄电所市场查看；所列仅限已取得接入系统研究答复的项目。
+项目名称、所在县市、规模、电压、购买方式、手续阶段、预计投运时间与照片，无需登记即可在蓄电所市场查看；所列仅限已取得接入系统研究答复的项目。
 → [在蓄电所市场（Chikudensho Market）查看案件](https://dealroom.scix.co.jp/en)
 
 ## 辅助服务市场与EPRX是什么
@@ -107,7 +107,7 @@ more: 详见：[EPRX是什么（参与流程）](/zh-column-eprx)／[聚合商�
 
 ## @next
 
-- 想买的方：已取得接入系统研究答复的项目，可在[蓄电所市场（Chikudensho Market）](https://dealroom.scix.co.jp/en)无需登记查看所在县、规模、电压、购买方式、手续阶段与预计投运时间。
+- 想买的方：已取得接入系统研究答复的项目，可在[蓄电所市场（Chikudensho Market）](https://dealroom.scix.co.jp/en)无需登记查看项目名称、所在县市、规模、电压、购买方式、手续阶段、预计投运时间与照片。
 - 想卖的方（持有已取得接入系统研究答复的项目）：本公司收购，或为您介绍买方。→ [联系我们](/zh-contact)
 - 从收入整体读：[储能的三大收益来源](/zh-column-revenue)／[储能电站的分区收益](/zh-column-regional-revenue)
 - 术语：[术语表](/zh-glossary)／全部专栏：[洞见](/zh-knowledge)

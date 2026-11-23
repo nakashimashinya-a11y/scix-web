@@ -113,7 +113,7 @@ def _select(sid, label, options):
 
 
 def band_row(cols):
-    return (f'<tr class="pj-band"><td colspan="{cols}"><span>価格と資料は蓄電所マーケットで見られます（無料登録・登録画面で秘密保持の誓約に同意）</span>'
+    return (f'<tr class="pj-band"><td colspan="{cols}"><span>蓄電所マーケットの一覧では、案件名・市区町村・写真まで登録なしで見られます。価格と資料は無料の登録のあとです（登録画面で秘密保持の誓約に同意）</span>'
             f'<a target="_top" rel="nofollow" href="{DR2_REGISTER}" class="pj-band-btn" '
             f"onclick=\"window.gtag&&gtag('event','dr2_promo_click',{{target:'band'}})\">無料登録して価格と資料を見る →</a></td></tr>")
 
@@ -122,7 +122,8 @@ def render_list(ps, generated_at):
     """/projects の一覧（絞り込み・表）。静的に焼くので、JS を実行しない読み手（検索エンジンの一次クロール・
     AI検索）も全件の中身を読める。JS は絞り込みと並べ替えだけを受け持つ（行の見た目は変えない）。
     載せるのは projects.json の公開項目だけ（価格・住所・売主は元から無い）。
-    並びの既定は「連系が早い順・確認中は最後」。右端の 🔒 の列は蓄電所マーケット（その案件の頁）への入口。"""
+    並びの既定は「連系が早い順・確認中は最後」。案件番号と右端の列の1つ目は蓄電所マーケットのその案件の公開の頁（登録なし・電圧・規模・渡し方・電力の手続きの段）へ、
+    右端の列の2つ目は無料の登録へ（2026-11-23 中島「出し惜しみするな。全部出して売上UPだ」＝検索で来た人を登録の壁より先に案件の頁へ）。"""
     import datetime
     today = datetime.date.today()
     today_ym = today.strftime("%Y-%m")
@@ -146,7 +147,7 @@ def render_list(ps, generated_at):
     count_line = (f'<div class="count-line" id="countLine">全 {len(ps)} 件'
                   f'　｜　{_esc(generated_at)} 更新' + (f'　｜　この{NEW_DAYS}日の新着 {n_new} 件' if n_new else '') + '</div>')
     head = ('<thead><tr><th>案件</th><th>所在地</th><th>電圧</th><th>規模</th><th>連系の見込み</th>'
-            '<th>電力の手続き</th><th>買い方</th><th class="c-lock">🔒 価格・所在地・資料</th></tr></thead>')
+            '<th>電力の手続き</th><th>買い方</th><th class="c-lock">詳しく見る</th></tr></thead>')
     rows = []
     for i, p in enumerate(sorted(ps, key=key), 1):
         mw = p.get("mw"); mwh = p.get("mwh")
@@ -161,15 +162,17 @@ def render_list(ps, generated_at):
                  f'data-first="{_esc(p.get("firstSeen") or "")}" data-num="{num}"')
         rows.append(
             f'<tr class="pj-row" id="p-{pid}" {attrs}>'
-            f'<td class="c-id" data-l="案件"><label class="pick"><input type="checkbox" data-pick="{pid}" aria-label="{pid} を資料請求に加える"></label><b>{pid}</b>{tag}</td>'
+            f'<td class="c-id" data-l="案件"><label class="pick"><input type="checkbox" data-pick="{pid}" aria-label="{pid} を資料請求に加える"></label><b><a class="pj-idlk" target="_top" href="{DR2_CATALOG}/{pid}">{pid}</a></b>{tag}</td>'
             f'<td data-l="所在地">{_esc(p.get("pref") or "所在県 確認中")}<small>（{_esc(p.get("area") or "—")}管内）</small></td>'
             f'<td data-l="電圧">{_esc(p.get("voltage") or "—")}</td>'
             f'<td data-l="規模">{_esc(size)}</td>'
             f'<td data-l="連系の見込み">{_esc(cod_text(p, today_ym))}</td>'
             f'<td data-l="電力の手続き">{_esc(p.get("status") or "—")}</td>'
             f'<td data-l="買い方">{_esc(p.get("scheme") or "確認中")}</td>'
-            f'<td class="c-lock" data-l="🔒 価格・所在地・資料"><a class="pj-lock" target="_top" href="{DR2_CATALOG}/{pid}" '
-            f"onclick=\"window.gtag&&gtag('event','dr2_promo_click',{{target:'row'}})\">価格と資料を見る</a></td></tr>")
+            f'<td class="c-lock" data-l="詳しく見る"><a class="pj-lock" target="_top" href="{DR2_CATALOG}/{pid}" '
+            f"onclick=\"window.gtag&&gtag('event','dr2_promo_click',{{target:'row'}})\">案件の頁を見る</a>"
+            f'<a class="pj-reg" target="_top" rel="nofollow" href="{DR2_REGISTER}" '
+            f"onclick=\"window.gtag&&gtag('event','dr2_promo_click',{{target:'row_register'}})\">価格と資料（無料の登録）</a></td></tr>")
         if i % BAND_EVERY == 0 and i != len(ps):
             rows.append(band_row(8))
     rows.append(band_row(8))
