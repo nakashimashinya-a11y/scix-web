@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics（scripts/build_ga_tag.py が全頁に入れる・手で直さない） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  (function () {
+    var cfg = {}, q = null, mk = false;
+    // 本番（www.scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）からは送らない
+    try { if (location.hostname !== 'www.scix.co.jp' || navigator.webdriver) window['ga-disable-G-SNNK8MP9N9'] = true; }
+    catch (e) { window['ga-disable-G-SNNK8MP9N9'] = true; }
+    // 社内の印（?internal=1 で付く・?internal=0 で外れる・header.js の 7c と同じ鍵）。印のある端末だけ traffic_type を付ける
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try {
+      if (q === '1') localStorage.setItem('scix_internal', '1');
+      else if (q === '0') localStorage.removeItem('scix_internal');
+      mk = localStorage.getItem('scix_internal') === '1';
+    } catch (e) { mk = q === '1'; }
+    if (mk) cfg.traffic_type = 'internal';
+    gtag('js', new Date());
+    gtag('config', 'G-SNNK8MP9N9', cfg);
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蓄電所の案件を売りたい方へ｜買取・おつなぎ｜サイエンスエックス</title>
+<meta name="description" content="系統用蓄電池（蓄電所）の案件を売りたい方へ。当社が買い取るか、買い手におつなぎします。接続検討の回答が出た案件・連系承諾済みの権利・稼働中の蓄電所が対象です。売却査定も登録も無料、報酬は成約したときだけです。">
+<!-- 広告の着地の頁（2026-11-23）。検索の言葉は /sourcing・/projects などが受ける（docs/keyword-page-map.md の1語1頁）ので、ここは検索に載せず sitemap にも入れない -->
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://www.scix.co.jp/lp/sell">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/lp/sell">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/lp/sell">
+<meta property="og:type" content="website">
+<meta property="og:title" content="蓄電所の案件を売りたい方へ｜買取・おつなぎ｜サイエンスエックス">
+<meta property="og:description" content="系統用蓄電池（蓄電所）の案件を売りたい方へ。当社が買い取るか、買い手におつなぎします。接続検討の回答が出た案件・連系承諾済みの権利・稼働中の蓄電所が対象です。売却査定も登録も無料、報酬は成約したときだけです。">
+<meta property="og:url" content="https://www.scix.co.jp/lp/sell">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-m.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
+<style>
+:root{--navy:#1F2A48}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px}
+body{font-family:'Noto Sans JP',sans-serif;line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;background:#FFFCF5}
+.container{max-width:880px;margin:0 auto;padding:0 24px}
+.f-hero{padding:120px 0 48px}
+
+.lp-hero .container{max-width:880px}
+.lp-hero h1{font-size:clamp(1.8rem,4.6vw,2.7rem);margin:14px 0 14px}
+.lp-hero .lead{font-size:1.06rem;max-width:40em}
+.lp-hero .lead strong{font-weight:900}
+.lp-go{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin:22px 0 6px}
+.lp-go .btn-primary{display:inline-flex;align-items:center;padding:15px 30px;font-size:1.02rem;text-decoration:none}
+.lp-go .lp-sub{font-weight:800;color:var(--m-ink,#0B1530);text-decoration:underline;text-decoration-color:#F59E0B;text-decoration-thickness:3px;text-underline-offset:4px}
+.lp-note{font-size:.86rem;margin-top:8px}
+.lp-stat{margin:14px 0 0;font-size:.95rem}
+.lp-stat strong{font-family:"Inter Tight","Noto Sans JP",sans-serif;font-size:1.25rem;font-weight:900}
+.lp-sec{padding:40px 0 8px}
+.lp-sec .container{max-width:980px;margin:0 auto;padding:0 24px}
+.lp-sec h2{font-size:clamp(1.3rem,3vw,1.7rem);line-height:1.45;margin:0 0 18px;color:var(--m-ink,#0B1530)}
+.lp-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.lp-grid .strength-card{padding:22px 20px;border-radius:18px}
+.lp-grid .strength-card h3{font-size:1.06rem;line-height:1.5;margin:0 0 8px}
+.lp-grid .strength-card p{font-size:.93rem;line-height:1.85;margin:0}
+.lp-flow{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:0;margin:0}
+.lp-flow li{background:#fff;border-radius:18px;padding:20px;box-shadow:0 8px 22px rgba(31,42,72,.08)}
+.lp-flow .sellflow-num{margin-bottom:10px}
+.lp-flow h3{font-size:1.02rem;line-height:1.5;margin:0 0 6px}
+.lp-flow p{font-size:.92rem;line-height:1.85;margin:0}
+.lp-faq .faq-item{background:#fff;border:1px solid #E3E8F2;border-radius:14px;margin:0 0 10px;padding:0}
+.lp-faq summary{cursor:pointer;list-style:none;padding:16px 44px 16px 18px;font-weight:800;position:relative}
+.lp-faq summary::-webkit-details-marker{display:none}
+.lp-faq summary::after{content:"+";position:absolute;right:18px;top:12px;font-size:1.4rem;font-weight:400}
+.lp-faq details[open] summary::after{content:"−"}
+.lp-faq .faq-a{padding:0 18px 16px;font-size:.94rem;line-height:1.9}
+.lp-end{margin:36px 14px 40px;border-radius:28px;padding:36px 0 32px;background:linear-gradient(118deg,var(--h1) 0%,var(--h2) 52%,var(--h3) 100%)}
+.lp-end .container{max-width:880px;margin:0 auto;padding:0 24px}
+.lp-end h2{margin:0 0 6px}
+.lp-who{font-size:.86rem;margin-top:16px}
+@media(max-width:820px){.lp-grid,.lp-flow{grid-template-columns:1fr}}
+@media(max-width:1099px){.lp-hero.f-hero{padding-left:22px!important;padding-right:22px!important}}
+@media(max-width:600px){.lp-sec .container,.lp-end .container{padding:0 16px}.lp-go .btn-primary{width:100%;justify-content:center}.lp-end{margin:28px 8px 32px}}
+</style>
+<link rel="stylesheet" href="/theme.css">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.scix.co.jp/"}, {"@type": "ListItem", "position": 2, "name": "蓄電所の案件を売りたい方へ", "item": "https://www.scix.co.jp/lp/sell"}]}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<script>document.documentElement.setAttribute('data-side', 'sell');</script>
+<main>
+<section class="f-hero lp-hero"><div class="container">
+<div class="section-label">蓄電所マーケット｜売りたい方へ</div>
+<h1>蓄電所の案件を、<em>売りたい</em>方へ。</h1>
+<p class="lead"><strong>当社が買い取るか、買い手におつなぎします。</strong>接続検討の回答が出た案件、連系承諾済みの権利、稼働している蓄電所をお持ちの方へ。当社にお任せの場合、社名と場所は、秘密保持契約を結ぶまで伏せたままで進められます。</p>
+
+<div class="lp-go"><a class="btn-primary" target="_top" href="/sell-form" data-cta="hero" data-cta-target="sell_form">無料で売却査定を依頼する →</a><a class="lp-sub" target="_top" href="https://dealroom.scix.co.jp/register?side=sell" data-cta="hero" data-cta-target="market_register_sell">自分で蓄電所マーケットに出す（無料登録）→</a></div>
+<p class="lp-note">査定も登録も無料です。原則1営業日以内に、代表（中島）からお返事します。</p>
+</div></section>
+
+<section class="lp-sec"><div class="container">
+<h2>できること</h2>
+<div class="lp-grid">
+<div class="strength-card"><h3>買い取るか、おつなぎするか</h3><p>当社が買い取るか、買い手におつなぎします。どちらになるかは、最初のお返事でお伝えします。</p></div>
+<div class="strength-card"><h3>社名を伏せたまま進める</h3><p>当社にお任せの場合は秘密保持契約を結ぶまで、蓄電所マーケットにご自身で出す場合は面談の日時が決まるまで、社名は買い手に出ません。買い手に見せる資料は、名前・口座・受付番号・希望価格などを消した版で、売主様が確かめてから出します。</p></div>
+<div class="strength-card"><h3>届け方を選べる</h3><p>蓄電所マーケットの案件一覧に載せるか、条件の合う買主にだけ届けるかを選べます。いま出ている買主のリクエストに、提案することもできます。</p></div>
+</div>
+</div></section>
+
+<section class="lp-sec"><div class="container">
+<h2>進み方</h2>
+<ol class="lp-flow">
+<li><span class="sellflow-num">1</span><h3>無料の売却査定を依頼する</h3><p>お名前・メールアドレス・電話番号を入れて送るだけで始められます。接続検討の回答書があれば、その場で添付できます（任意）。蓄電所マーケットに無料で登録して、ご自身で出すこともできます。</p></li>
+<li><span class="sellflow-num">2</span><h3>買い取りか、おつなぎかをお伝えする</h3><p>原則1営業日以内に、代表からお返事します。おつなぎの場合は、名前などを消した買主向けの版を作り、売主様が確かめてから買主に届けます。</p></li>
+<li><span class="sellflow-num">3</span><h3>面談・契約へ</h3><p>面談の日時が決まったら、売主（権利者）と買主の社名と出席者をお互いに知らせます。報酬は成約したときだけです。</p></li>
+</ol>
+</div></section>
+
+<section class="lp-sec lp-faq"><div class="container">
+<h2>よくある質問</h2>
+<details class="faq-item"><summary class="faq-q">費用はかかりますか？</summary><div class="faq-a"><p>売却査定も、蓄電所マーケットへの登録も無料です。報酬は成約したときだけで、ご検討の途中で費用はいただきません。</p></div></details>
+<details class="faq-item"><summary class="faq-q">どんな案件を扱いますか？</summary><div class="faq-a"><p>接続検討の回答が出た案件、連系承諾済みの権利、稼働している蓄電所です。権利譲渡（開発中）・完成渡し・稼働中のどれでも扱います。土地だけ（接続検討の回答が出る前）の買取・お借り受けは、承っていません。</p></div></details>
+<details class="faq-item"><summary class="faq-q">社名は、いつ買い手に伝わりますか？</summary><div class="faq-a"><p>当社にお任せの場合は、秘密保持契約を結ぶまで、社名と場所を伏せたままで進められます。蓄電所マーケットにご自身で出す場合は、面談の日時が決まるまで出ません。日時が決まったら、当社が Zoom を用意し、売主（権利者）と買主の社名と出席者をお互いに知らせます。</p></div></details>
+<details class="faq-item"><summary class="faq-q">資料がそろっていなくても相談できますか？</summary><div class="faq-a"><p>できます。接続検討の回答書・登記簿・概要書など、手元にある物から始められます。写真でも読み取れます。</p></div></details>
+<details class="faq-item"><summary class="faq-q">仲介の立場でも相談できますか？</summary><div class="faq-a"><p>売主本人か、売主と直接話せる仲介の方からお預かりします。</p></div></details>
+<details class="faq-item"><summary class="faq-q">どんな買い手につなぎますか？</summary><div class="faq-a"><p>自分で建てる事業者、決算期に1棟持つ事業会社、まとめて持つ投資家です。いま出ている買主のリクエストは、<a href="https://dealroom.scix.co.jp/needs" target="_top">蓄電所マーケットで登録なしで見られます</a>。</p></div></details>
+</div></section>
+
+<section class="lp-end"><div class="container">
+<h2>まずは、無料の売却査定から</h2>
+<p>原則1営業日以内に、代表（中島）からお返事します。当社にお任せの場合、社名と場所は、秘密保持契約を結ぶまで伏せたままで進められます。</p>
+<div class="lp-go"><a class="btn-primary" target="_top" href="/sell-form" data-cta="end" data-cta-target="sell_form">無料で売却査定を依頼する →</a><a class="lp-sub" target="_top" href="https://dealroom.scix.co.jp/register?side=sell" data-cta="end" data-cta-target="market_register_sell">自分で蓄電所マーケットに出す（無料登録）→</a></div>
+<p class="lp-who">運営: サイエンスエックス株式会社（代表取締役 中島 晋也・工学博士）。特定のメーカー・EPC と資本関係がありません。<a href="/company">会社案内</a></p>
+</div></section>
+</main>
+<!-- ScienceX Footer — Wix HTML embed用 self-contained -->
+<style>
+
+  .scix-footer * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .scix-footer {
+    background-color: #1F2A48;
+    color: rgba(255,255,255, 0.85);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.9;
+    padding: 44px 28px 32px;
+    width: 100%;
+  }
+
+  .scix-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .scix-footer-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .scix-footer-info {
+    text-align: center;
+  }
+
+  .scix-footer-copyright {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255, 0.55);
+    margin-top: 20px;
+  }
+
+  .scix-footer-company {
+    font-size: 12.5px;
+    line-height: 2;
+    color: rgba(255,255,255, 0.8);
+  }
+
+  .scix-footer-company .company-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: rgba(255,255,255, 0.92);
+    margin-bottom: 2px;
+  }
+
+  .scix-footer-company .representative {
+    margin-top: 4px;
+    color: rgba(255,255,255, 0.6);
+    font-size: 12px;
+  }
+
+  .scix-footer-company a {
+    color: rgba(255,255,255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .scix-footer-company a:hover {
+    color: #C49A3C;
+  }
+
+  .scix-footer-divider {
+    width: 60px;
+    border: none;
+    border-top: 1px solid rgba(255,255,255, 0.12);
+    margin: 0 auto;
+  }
+</style>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+
+    <a href="https://www.scix.co.jp/" class="scix-footer-logo" aria-label="ScienceX ホーム">
+      <img width="300" height="118"
+        src="/img/logo-white.png"
+        alt="ScienceX サイエンスエックス株式会社"
+        loading="lazy"
+      />
+    </a>
+
+    <hr class="scix-footer-divider" />
+
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">サイエンスエックス株式会社</div>
+        〒103-0016 東京都中央区日本橋小網町8-2<br>
+        BIZMARKS日本橋茅場町<br>
+        TEL: <a href="tel:0366913484">03-6691-3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表取締役 中島 晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/grid-storage" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電池事業のしくみ</a>
+        <a href="/transfer" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件を買う</a>
+        <a href="https://dealroom.scix.co.jp/" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄電所マーケット</a>
+        <a href="/sourcing" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利を売る</a>
+        <a href="/sell-form" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">案件・権利の売却査定</a>
+        <a href="/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">ナレッジ</a>
+        <a href="/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">入門Q&amp;A</a>
+        <a href="/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">用語集</a>
+        <a href="/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">会社案内</a>
+        <a href="/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">お問い合わせ</a>
+        <a href="/investors" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池への投資</a>
+        <a href="/fund" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">系統用蓄電池ファンド</a>
+        <a href="/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">プライバシーポリシー</a>
+      </div>
+      <div class="scix-footer-copyright">
+        &copy; 2025–2026 Science X Inc. All Rights Reserved.
+      </div>
+    </div>
+
+  </div>
+</footer>
+<script>
+/* 浮く相談ボタンを、この頁の主ボタンと同じ行き先にする（2026-11-23・着地の頁だけ。出口を増やさない） */
+(function () {
+  try {
+    var f = document.querySelector('.scix-float-cta'), b = document.querySelector('.lp-go .btn-primary');
+    if (!f || !b) return;
+    f.setAttribute('href', b.getAttribute('href'));
+    f.setAttribute('aria-label', '無料で売却査定');
+    f.setAttribute('data-cta', 'float');
+    f.setAttribute('data-cta-target', b.getAttribute('data-cta-target') || '');
+    var svg = f.querySelector('svg');
+    f.textContent = '';
+    if (svg) f.appendChild(svg);
+    f.appendChild(document.createTextNode('無料で売却査定'));
+  } catch (e) { /* 差し替えられなければ元のまま */ }
+})();
+</script>
+<script>
+/* 広告の印（utm_*）を蓄電所マーケットの登録まで持ち越す（2026-11-23・着地の頁だけ）。値は英数と _.- だけ・64字まで */
+(function () {
+  try {
+    var K = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'], m = {}, any = false, q = new URLSearchParams(location.search);
+    K.forEach(function (k) { var v = String(q.get(k) || '').trim().slice(0, 64); if (v && /^[A-Za-z0-9_.-]+$/.test(v)) { m[k] = v; any = true; } });
+    if (!any) { try { var s = JSON.parse(sessionStorage.getItem('scix_mark') || '{}') || {}; K.forEach(function (k) { if (s[k] && /^[A-Za-z0-9_.-]{1,64}$/.test(s[k])) { m[k] = s[k]; any = true; } }); } catch (e) { /* 控えが読めない */ } }
+    if (!any) return;
+    var links = document.querySelectorAll('a[href^="https://dealroom.scix.co.jp"]');
+    for (var i = 0; i < links.length; i++) {
+      try {
+        var u = new URL(links[i].getAttribute('href'));
+        if (u.searchParams.get('utm_source')) continue;
+        K.forEach(function (k) { if (m[k]) u.searchParams.set(k, m[k]); });
+        links[i].setAttribute('href', u.toString());
+      } catch (e) { /* そのリンクはそのまま */ }
+    }
+  } catch (e) { /* 印を足せなくてもリンクはそのまま */ }
+})();
+</script>
+
+</body>
+</html>
