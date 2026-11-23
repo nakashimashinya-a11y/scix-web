@@ -128,6 +128,7 @@ MODE=structure DRY_RUN=1 bash scripts/seo/weekly_run.sh # 構成レビューを 
 MODE=structure bash scripts/seo/weekly_run.sh           # 構成レビューを手で 1 回（日付に関係なく。検査を通れば公開。今月のタグか枝が origin に既にあれば何もしない）
 NO_STRUCTURE=1 bash scripts/seo/weekly_run.sh           # 第 1 日曜でも構成レビューを続けて走らせない
 python3 scripts/seo/register_structure_merges.py --dry  # PR の経路（ナビを含む回）の提案の状態（proposed / merged / expired）と、記帳されるはずのマージを見る
+python3 scripts/seo/selftest_keyword_map.py            # 言葉と受ける頁の表（docs/keyword-page-map.md・keyword_page_map.json）と週報 12f の検査（正の頁の実在・表と束の一致・束の振り分け・割れの数え方・合成の行で 12f が出る）
 python3 scripts/seo/selftest_structure.py               # 検査（新規ファイル 0・導線の本数・ヒーロー・入れ子・本文の量・公開欄の件数・経路・凍結と差し戻し・規則の番号で止めるもの）とマージの記帳の合成テスト（複製の中で。本物に触らない）
 python3 scripts/seo/selftest_publish.py                 # weekly_run.sh を偽の origin とスタブ（claude・openclaw・gh・curl）で一周: 2 コミット・差し戻しが衝突しない・記帳の失敗と拾い直し
 python3 scripts/seo/register_auto_commits.py --dry      # 自動で公開したのに変更台帳に無いコミット（記帳の失敗）を、書かずに一覧
@@ -150,7 +151,8 @@ GA4 のトークンが無いときは GA4 だけ飛ばして動く。取得は `
 | `scripts/add_column_entrances.py` | 日本語のコラム末尾の入口の区画（マーケットの静的な入口・市場の数字への静的リンク）を作り直す | `python3 scripts/add_column_entrances.py [--check]`（projects.json の件数が変わって件数0の入口ができたら回す） |
 | `scripts/add_column_related.py` | 英語・中国語のコラムに、日本語の対と同じ「あわせて読む」・用語集・市場の数字のリンクを作る | `python3 scripts/add_column_related.py [--check]` |
 | `scripts/build_llms_txt.py` | `/llms.txt`（sitemap の頁の題と説明の一覧）を作る。title・description を変えたら回す | `python3 scripts/build_llms_txt.py [--check]` |
-| `scripts/seo/market_side.py` | 週のブリーフの「12. マーケット側の検索」（ホスト別・dealroom の頁の種類別・語の定点25語・URL 検査の定点20本）。URL 検査は週に1回、台帳 `inspect_market/` に溜める（案件の頁は projects.json から実行時に選ぶ＝案件の住所をコードに書かない。301 で移る古い入口 /catalog・/wanted は入れず、移った先の /・/needs を見る） | `collect_daily.py` が自動（`--inspect` で今日取る） |
+| `scripts/seo/market_side.py` | 週のブリーフの「12. マーケット側の検索」（ホスト別・dealroom の頁の種類別・語の定点25語・URL 検査の定点20本・**12f 言葉の束ごとの表示・順位・割れ**＝受ける頁の表 `docs/keyword-page-map.md`（機械版 `scripts/seo/keyword_page_map.json`）に照らす）。URL 検査は週に1回、台帳 `inspect_market/` に溜める（案件の頁は projects.json から実行時に選ぶ＝案件の住所をコードに書かない。301 で移る古い入口 /catalog・/wanted は入れず、移った先の /・/needs を見る） | `collect_daily.py` が自動（`--inspect` で今日取る） |
+| `docs/keyword-page-map.md` | 買う・売る・投資の意図の言葉を、どの頁が受けるか（1語1頁）を束ごとに決めた表。言葉と住所だけ（O16-19）。頁は変えない＝12/07 以後のコラム末尾・題・内部リンクの直しの向き先の正本。www /projects-<管区> と dealroom /catalog/area/<管区> の重なりは 2026-12-20 に 12f の表示で決める | 束・正・副を変えるときは `keyword_page_map.json` と同じ変更で直し、`selftest_keyword_map.py` を通す |
 
 sitemap の lastmod は頁の JSON-LD `dateModified` と同じ値にし、前の値より古くしない。題・説明・区画・リンクなど頁を変えた日に、その頁だけ `stamp_sitemap.py <頁>` で今日にする（lastmod と一緒に `dateModified`・`article:modified_time` も同じ日に動く）。構造化データ・robots・img の寸法だけの直しは頁を変えた日に数えない。月報の頁・市場データの頁は生成器（`build_reports.py`・`build_report_data.py`）が「発行日と今の sitemap の値の新しいほう」を JSON-LD と sitemap の両方に書くので、焼き直しで日付が戻らない。`sync_sitemap_lastmod.py --write` は頁の dateModified があればその値に揃え、無ければ最後の commit の日（広い直しの直後に回さない）。
 
