@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics（scripts/build_ga_tag.py が全頁に入れる・手で直さない） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  (function () {
+    var cfg = {}, q = null, mk = false;
+    // 本番（www.scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）からは送らない
+    try { if (location.hostname !== 'www.scix.co.jp' || navigator.webdriver) window['ga-disable-G-SNNK8MP9N9'] = true; }
+    catch (e) { window['ga-disable-G-SNNK8MP9N9'] = true; }
+    // 社内の印（?internal=1 で付く・?internal=0 で外れる・header.js の 7c と同じ鍵）。印のある端末だけ traffic_type を付ける
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try {
+      if (q === '1') localStorage.setItem('scix_internal', '1');
+      else if (q === '0') localStorage.removeItem('scix_internal');
+      mk = localStorage.getItem('scix_internal') === '1';
+    } catch (e) { mk = q === '1'; }
+    if (mk) cfg.traffic_type = 'internal';
+    gtag('js', new Date());
+    gtag('config', 'G-SNNK8MP9N9', cfg);
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buy Battery Storage Projects in Japan | Chikudensho Market</title>
+<meta name="description" content="Battery storage (BESS) projects for sale in Japan: completed or rights transfer, high and extra-high voltage, each with the date we last confirmed it with the seller. Browse free; prices and documents after free registration.">
+<!-- 広告の着地の頁（2026-11-23）。検索の言葉は /sourcing・/projects などが受ける（docs/keyword-page-map.md の1語1頁）ので、ここは検索に載せず sitemap にも入れない -->
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://www.scix.co.jp/en/lp/buy">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/lp/buy">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/lp/buy">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Buy Battery Storage Projects in Japan | Chikudensho Market">
+<meta property="og:description" content="Battery storage (BESS) projects for sale in Japan: completed or rights transfer, high and extra-high voltage, each with the date we last confirmed it with the seller. Browse free; prices and documents after free registration.">
+<meta property="og:url" content="https://www.scix.co.jp/en/lp/buy">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-m.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
+<style>
+:root{--navy:#1F2A48}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px}
+body{font-family:'Noto Sans JP',sans-serif;line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;background:#FFFCF5}
+.container{max-width:880px;margin:0 auto;padding:0 24px}
+.f-hero{padding:120px 0 48px}
+
+.lp-hero .container{max-width:880px}
+.lp-hero h1{font-size:clamp(1.8rem,4.6vw,2.7rem);margin:14px 0 14px}
+.lp-hero .lead{font-size:1.06rem;max-width:40em}
+.lp-hero .lead strong{font-weight:900}
+.lp-go{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin:22px 0 6px}
+.lp-go .btn-primary{display:inline-flex;align-items:center;padding:15px 30px;font-size:1.02rem;text-decoration:none}
+.lp-go .lp-sub{font-weight:800;color:var(--m-ink,#0B1530);text-decoration:underline;text-decoration-color:#F59E0B;text-decoration-thickness:3px;text-underline-offset:4px}
+.lp-note{font-size:.86rem;margin-top:8px}
+.lp-stat{margin:14px 0 0;font-size:.95rem}
+.lp-stat strong{font-family:"Inter Tight","Noto Sans JP",sans-serif;font-size:1.25rem;font-weight:900}
+.lp-sec{padding:40px 0 8px}
+.lp-sec .container{max-width:980px;margin:0 auto;padding:0 24px}
+.lp-sec h2{font-size:clamp(1.3rem,3vw,1.7rem);line-height:1.45;margin:0 0 18px;color:var(--m-ink,#0B1530)}
+.lp-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.lp-grid .strength-card{padding:22px 20px;border-radius:18px}
+.lp-grid .strength-card h3{font-size:1.06rem;line-height:1.5;margin:0 0 8px}
+.lp-grid .strength-card p{font-size:.93rem;line-height:1.85;margin:0}
+.lp-flow{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:0;margin:0}
+.lp-flow li{background:#fff;border-radius:18px;padding:20px;box-shadow:0 8px 22px rgba(31,42,72,.08)}
+.lp-flow .sellflow-num{margin-bottom:10px}
+.lp-flow h3{font-size:1.02rem;line-height:1.5;margin:0 0 6px}
+.lp-flow p{font-size:.92rem;line-height:1.85;margin:0}
+.lp-faq .faq-item{background:#fff;border:1px solid #E3E8F2;border-radius:14px;margin:0 0 10px;padding:0}
+.lp-faq summary{cursor:pointer;list-style:none;padding:16px 44px 16px 18px;font-weight:800;position:relative}
+.lp-faq summary::-webkit-details-marker{display:none}
+.lp-faq summary::after{content:"+";position:absolute;right:18px;top:12px;font-size:1.4rem;font-weight:400}
+.lp-faq details[open] summary::after{content:"−"}
+.lp-faq .faq-a{padding:0 18px 16px;font-size:.94rem;line-height:1.9}
+.lp-end{margin:36px 14px 40px;border-radius:28px;padding:36px 0 32px;background:linear-gradient(118deg,var(--h1) 0%,var(--h2) 52%,var(--h3) 100%)}
+.lp-end .container{max-width:880px;margin:0 auto;padding:0 24px}
+.lp-end h2{margin:0 0 6px}
+.lp-who{font-size:.86rem;margin-top:16px}
+@media(max-width:820px){.lp-grid,.lp-flow{grid-template-columns:1fr}}
+@media(max-width:1099px){.lp-hero.f-hero{padding-left:22px!important;padding-right:22px!important}}
+@media(max-width:600px){.lp-sec .container,.lp-end .container{padding:0 16px}.lp-go .btn-primary{width:100%;justify-content:center}.lp-end{margin:28px 8px 32px}}
+</style>
+<link rel="stylesheet" href="/theme.css">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.scix.co.jp/en"}, {"@type": "ListItem", "position": 2, "name": "Buy battery storage projects", "item": "https://www.scix.co.jp/en/lp/buy"}]}
+</script>
+</head>
+<body>
+<script src="/header.js"></script>
+<script>document.documentElement.setAttribute('data-side', 'buy');</script>
+<main>
+<section class="f-hero lp-hero"><div class="container">
+<div class="section-label">Chikudensho Market | For buyers</div>
+<h1>Buy battery storage projects <em>in Japan</em>.</h1>
+<p class="lead"><strong>Battery storage projects for sale in Japan, each shown with the date we last confirmed it with the seller.</strong> Completed or rights transfer, high or extra-high voltage. Browse the list without registering.</p>
+<p class="lp-stat" id="lpStat" hidden><strong id="lpN"></strong> projects listed for sale on Chikudensho Market, from <strong id="lpP"></strong> prefectures (updated every morning)</p>
+<div class="lp-go"><a class="btn-primary" target="_top" href="https://dealroom.scix.co.jp/en" data-cta="hero" data-cta-target="market_list">See projects for sale (no registration) →</a><a class="lp-sub" target="_top" href="https://dealroom.scix.co.jp/en/register?side=buy" data-cta="hero" data-cta-target="market_register_buy">See prices and documents (free registration) →</a></div>
+<p class="lp-note">Prices, documents and Q&amp;A are shown after free registration: a company email, your name and mobile number, and agreement to the confidentiality pledge. If we have not been in touch before, we check your registration first and email you.</p>
+</div></section>
+
+<section class="lp-sec"><div class="container">
+<h2>What you can do</h2>
+<div class="lp-grid">
+<div class="strength-card"><h3>Browse without registering</h3><p>Project name, prefecture and municipality, voltage, sale type, size, expected start of operation, grid procedure stage, photos and when the seller last confirmed: all visible before you register (except some restricted projects).</p></div>
+<div class="strength-card"><h3>Prices and documents after free registration</h3><p>The price of each project (excl. tax), the detailed location with map, documents with names and account details removed, and Q&amp;A.</p></div>
+<div class="strength-card"><h3>Post the project you want</h3><p>Choose area, voltage, price, timing and so on. Sellers see your conditions and a company profile, never your company name, and send matching projects.</p></div>
+</div>
+</div></section>
+
+<section class="lp-sec"><div class="container">
+<h2>How it works</h2>
+<ol class="lp-flow">
+<li><span class="sellflow-num">1</span><h3>Browse or post a request</h3><p>Pick from the project list, or post the conditions of the plant you want.</p></li>
+<li><span class="sellflow-num">2</span><h3>Reply with a button</h3><p>Press "Want to meet", "Ask a question" or "Pass". Your reason for passing goes to the seller.</p></li>
+<li><span class="sellflow-num">3</span><h3>Names are shared when a meeting is set</h3><p>ScienceX sets up a Zoom meeting and tells each side the other's company name and attendees, then helps with documents and terms after the meeting.</p></li>
+</ol>
+</div></section>
+
+<section class="lp-sec lp-faq"><div class="container">
+<h2>Frequently asked questions</h2>
+<details class="faq-item"><summary class="faq-q">Does registration cost anything?</summary><div class="faq-a"><p>Registration is free. You enter three things (company email, name and mobile number) and agree to the confidentiality pledge. If we have not been in touch before, we check your registration first and email you.</p></div></details>
+<details class="faq-item"><summary class="faq-q">When can I see prices and documents?</summary><div class="faq-a"><p>The price of each project (excl. tax), the detailed location with map, documents (with names and account details removed) and Q&amp;A are shown after free registration.</p></div></details>
+<details class="faq-item"><summary class="faq-q">What is the difference between "completed" and "rights transfer"?</summary><div class="faq-a"><p>Completed: you take over a finished, built plant. Rights transfer: you take over the land and the right to connect to the utility grid (development rights), and the buyer builds the plant.</p></div></details>
+<details class="faq-item"><summary class="faq-q">When is my company name shared?</summary><div class="faq-a"><p>Not until a meeting is set. Once the date is fixed, ScienceX sets up a Zoom meeting and tells each side the other's company name and attendees.</p></div></details>
+<details class="faq-item"><summary class="faq-q">Who runs Chikudensho Market?</summary><div class="faq-a"><p>Science X Inc., Tokyo. Our representative director, Shinya Nakashima, holds a PhD in engineering, and we have no capital ties to any manufacturer or EPC. Our fee is paid only when a deal closes. <a href="/en/company">Company</a></p></div></details>
+</div></section>
+
+<section class="lp-end"><div class="container">
+<h2>Start with the project list</h2>
+<p>Browse without registering. If you know what you want, post a request and sellers will send matching projects.</p>
+<div class="lp-go"><a class="btn-primary" target="_top" href="https://dealroom.scix.co.jp/en" data-cta="end" data-cta-target="market_list">See projects for sale (no registration) →</a><a class="lp-sub" target="_top" href="https://dealroom.scix.co.jp/en/register?side=buy&next=%2Fneed-edit" data-cta="end" data-cta-target="market_request">Post the project you want (free registration) →</a></div>
+<p class="lp-who">Operated by Science X Inc. We reply within 1 business day. <a href="/en/contact">Contact us</a></p>
+</div></section>
+</main>
+<style>
+  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+  .scix-footer { background-color: #1F2A48; color: rgba(255,255,255, 0.85); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%; }
+  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: 0.95; }
+  .scix-footer-info { text-align: center; }
+  .scix-footer-copyright { font-size: 11px; letter-spacing: 0.04em; color: rgba(255,255,255, 0.55); margin-top: 20px; }
+  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255,255,255, 0.8); }
+  .scix-footer-company .company-name { font-weight: 500; font-size: 13.5px; color: rgba(255,255,255, 0.92); margin-bottom: 2px; }
+  .scix-footer-company .representative { margin-top: 4px; color: rgba(255,255,255, 0.6); font-size: 12px; }
+  .scix-footer-company a { color: rgba(255,255,255, 0.8); text-decoration: none; transition: color 0.2s ease; }
+  .scix-footer-company a:hover { color: #C49A3C; }
+  .scix-footer-divider { width: 60px; border: none; border-top: 1px solid rgba(255,255,255, 0.12); margin: 0 auto; }
+</style>
+
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img width="300" height="118" src="/img/logo-white.png" alt="ScienceX — Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="https://dealroom.scix.co.jp/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Chikudensho Market</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Company</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/en/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">&copy; 2025–2026 Science X Inc. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+<script>
+/* 浮く相談ボタンを、この頁の主ボタンと同じ行き先にする（2026-11-23・着地の頁だけ。出口を増やさない） */
+(function () {
+  try {
+    var f = document.querySelector('.scix-float-cta'), b = document.querySelector('.lp-go .btn-primary');
+    if (!f || !b) return;
+    f.setAttribute('href', b.getAttribute('href'));
+    f.setAttribute('aria-label', 'See projects');
+    f.setAttribute('data-cta', 'float');
+    f.setAttribute('data-cta-target', b.getAttribute('data-cta-target') || '');
+    var svg = f.querySelector('svg');
+    f.textContent = '';
+    if (svg) f.appendChild(svg);
+    f.appendChild(document.createTextNode('See projects'));
+  } catch (e) { /* 差し替えられなければ元のまま */ }
+})();
+</script>
+<script>
+/* 広告の印（utm_*）を蓄電所マーケットの登録まで持ち越す（2026-11-23・着地の頁だけ）。値は英数と _.- だけ・64字まで */
+(function () {
+  try {
+    var K = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'], m = {}, any = false, q = new URLSearchParams(location.search);
+    K.forEach(function (k) { var v = String(q.get(k) || '').trim().slice(0, 64); if (v && /^[A-Za-z0-9_.-]+$/.test(v)) { m[k] = v; any = true; } });
+    if (!any) { try { var s = JSON.parse(sessionStorage.getItem('scix_mark') || '{}') || {}; K.forEach(function (k) { if (s[k] && /^[A-Za-z0-9_.-]{1,64}$/.test(s[k])) { m[k] = s[k]; any = true; } }); } catch (e) { /* 控えが読めない */ } }
+    if (!any) return;
+    var links = document.querySelectorAll('a[href^="https://dealroom.scix.co.jp"]');
+    for (var i = 0; i < links.length; i++) {
+      try {
+        var u = new URL(links[i].getAttribute('href'));
+        if (u.searchParams.get('utm_source')) continue;
+        K.forEach(function (k) { if (m[k]) u.searchParams.set(k, m[k]); });
+        links[i].setAttribute('href', u.toString());
+      } catch (e) { /* そのリンクはそのまま */ }
+    }
+  } catch (e) { /* 印を足せなくてもリンクはそのまま */ }
+})();
+</script>
+<script>
+/* 公開中の販売中の案件の数（毎朝の同期が焼き直す /projects.json を読む・読めなければ出さない） */
+(function () {
+  try {
+    fetch('/projects.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      var ps = (d && d.projects) || [], pf = {};
+      if (!ps.length) return;
+      ps.forEach(function (p) { if (p.pref) pf[p.pref] = 1; });
+      var el = document.getElementById('lpStat');
+      document.getElementById('lpN').textContent = ps.length.toLocaleString('en-US');
+      document.getElementById('lpP').textContent = Object.keys(pf).length;
+      el.hidden = false;
+    }).catch(function () { /* 出さない */ });
+  } catch (e) { /* 出さない */ }
+})();
+</script>
+</body>
+</html>

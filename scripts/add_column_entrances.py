@@ -69,10 +69,15 @@ def _projects():
         return []
 
 
+# エリアの入口のうち、マーケット側で正規の住所が別の頁にある物（北海道はエリア＝県なので /catalog/pref/hokkaido が正規）。
+# 重なる頁へ張るとリンクの重みが正規の頁に届かないので、正規の住所へ直接張る。
+CANONICAL_PATH = {("area", "hokkaido"): "catalog/pref/hokkaido"}
+
+
 def filter_href(kind, label, slug, ps):
     """静的な入口の頁。その電圧・エリアの案件が1件も無ければ（入口は404）マーケットのトップへ。"""
     n = sum(1 for x in ps if x.get(kind) == label)
-    return MARKET + ("catalog/%s/%s" % (kind, slug) if n else "")
+    return MARKET + (CANONICAL_PATH.get((kind, slug), "catalog/%s/%s" % (kind, slug)) if n else "")
 
 
 def data_line(name):

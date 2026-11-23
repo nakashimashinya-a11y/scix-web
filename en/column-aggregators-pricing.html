@@ -303,6 +303,14 @@ blockquote cite::before{content:'— '}
   "mainEntity": [
     {
       "@type": "Question",
+      "name": "What is ΔkW (delta kilowatt)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is the standby capacity sold in the balancing market. The price is quoted per kW kept on standby for 30 minutes (yen per ΔkW per 30 minutes). For example, a 1,000 kW battery selling one 30-minute slot at ¥10 earns ¥10,000."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "In Japan’s balancing market, does a higher bid sell for more?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -386,10 +394,12 @@ blockquote cite::before{content:'— '}
 
 <div class="toc">
   <div class="toc-title">In this article</div>
+  <a href="#nani">The balancing market sells standby</a>
   <a href="#shikumi">Prices are set cheapest first</a>
   <a href="#jougen">That ceiling halved in a year</a>
   <a href="#heikin">Fiscal 2025 averages: ¥1 to ¥4</a>
   <a href="#dare">The high bids came from batteries</a>
+  <a href="#kugatsu">First month under the ¥10 cap: ¥5.81 in the battery segment</a>
   <a href="#mihari">Nineteen operators judged to hold large market power have their pricing watched</a>
   <a href="#nokoru">Three places where the gap now opens</a>
   <a href="#ai">Does AI help?</a>
@@ -401,11 +411,64 @@ blockquote cite::before{content:'— '}
 <!-- scix-mid-cta:begin -->
 <aside class="scix-midcta" data-scix-midcta data-side="buy"><p>Projects that hold a grid connection study response are for sale on Chikudensho Market. Prefecture, scale, voltage, procedural stage and expected start of operation can be viewed without registration.</p><a class="scix-midcta-btn" target="_top" href="https://dealroom.scix.co.jp/en" data-cta="mid" data-cta-target="market">See projects on Chikudensho Market →</a></aside>
 <!-- scix-mid-cta:end -->
-<h2 id="shikumi">Prices are set cheapest first</h2>
-<figure id="f1"><svg viewBox="0 0 780 288" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="How the balancing market clears: cheapest bids first, cut off at the required volume" font-family="'Noto Sans JP',sans-serif">
+<h2 id="nani">The balancing market sells standby</h2>
+<p>Unless the power used and the power generated match at every moment, the grid’s frequency drifts. To cover the gap, the transmission and distribution companies buy, in advance, capacity that can respond at once. The balancing market is where that is traded.</p>
+<p>What is sold is not electricity itself. It is a promise: “for these 30 minutes I will stand by, ready to respond if called.” This standby capacity is called ΔkW (delta kilowatt).</p>
+<figure id="f1"><svg viewBox="0 0 780 232" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="¥10 for keeping 1 kW on standby for 30 minutes; ¥10,000 per slot for 1,000 kW; 48 slots a day" font-family="'Noto Sans JP',sans-serif">
 <defs><marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
+<rect x="0.0" y="0.0" width="780.0" height="232.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">Figure 1  How to read “¥10 per ΔkW per 30 minutes”</text>
+<text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">An example of reading the unit: the amount if sold at the ¥10 cap, not a revenue forecast</text>
+<rect x="16.0" y="66.0" width="210.0" height="62.0" rx="10" fill="#FFFFFF" stroke="#1F2A48" stroke-width="1.6"/>
+<text x="121.0" y="104.0" font-size="14" fill="#1F2A48" text-anchor="middle" font-weight="700">1 kW of power</text>
+<text x="246.0" y="104.0" font-size="18" fill="#667085" text-anchor="middle" font-weight="700">×</text>
+<rect x="266.0" y="66.0" width="230.0" height="62.0" rx="10" fill="#FFFFFF" stroke="#1F2A48" stroke-width="1.6"/>
+<text x="381.0" y="104.0" font-size="14" fill="#1F2A48" text-anchor="middle" font-weight="700">on standby for 30 minutes</text>
+<line x1="502.0" y1="97.0" x2="548.0" y2="97.0" stroke="#1F2A48" stroke-width="2" marker-end="url(#ar1)"/>
+<rect x="556.0" y="66.0" width="208.0" height="62.0" rx="10" fill="#EFE8FF" stroke="#7C4DDB" stroke-width="2"/>
+<text x="660.0" y="106.0" font-size="22" fill="#5B32B5" text-anchor="middle" font-weight="800">¥10</text>
+<rect x="16.0" y="144.0" width="748.0" height="50.0" rx="8" fill="#F7F8FC" stroke="none" stroke-width="1.5"/>
+<text x="34.0" y="174.0" font-size="12.5" fill="#3A4560" text-anchor="start" font-weight="400">For a 1,000 kW (1 MW) battery</text>
+<text x="746.0" y="175.0" font-size="15" fill="#C2560A" text-anchor="end" font-weight="800">¥10 × 1,000 kW = ¥10,000 per slot</text>
+<text x="390.0" y="218.0" font-size="12" fill="#667085" text-anchor="middle" font-weight="400">A day has 48 slots (30 minutes × 48 = 24 hours)</text>
+</svg><figcaption>Figure 1  A 1,000 kW (1 MW) battery selling one 30-minute slot at the ¥10 cap earns ¥10,000; at the fiscal 2025 primary-reserve average (¥3.93) it earns ¥3,930. Slots that do not sell earn nothing.</figcaption></figure>
+
+<p>There are five products. They differ in how fast the resource must respond after the instruction. The table also sets out the cap and the fiscal 2025 average price for each.</p>
+<div class="wraptext">
+<table class="c52w">
+<caption>Table 1 | Balancing-market products (prices in yen per ΔkW per 30 minutes)</caption>
+<thead><tr><th>Product</th><th>Response time</th><th>Current cap</th><th>Fiscal 2025 average</th></tr></thead>
+<tbody>
+<tr class="exp"><td class="nw"><b>Primary reserve</b></td><td>Within 10 seconds</td><td class="nw">¥10</td><td class="nw">¥3.93</td></tr>
+<tr><td class="nw"><b>Secondary ①</b></td><td>Within 5 minutes</td><td class="nw">¥10</td><td class="nw">¥2.79</td></tr>
+<tr><td class="nw"><b>Secondary ②</b></td><td>Within 5 minutes</td><td class="nw">¥7.21</td><td class="nw">¥2.53</td></tr>
+<tr><td class="nw"><b>Tertiary ①</b></td><td>Within 15 minutes</td><td class="nw">¥7.21</td><td class="nw">¥2.47</td></tr>
+<tr><td class="nw"><b>Tertiary ②</b></td><td>Within 60 minutes</td><td class="nw">No cap</td><td class="nw">¥1.15</td></tr>
+<tr><td class="nw"><b>Combined product</b></td><td>One bid covering primary through tertiary ①</td><td class="nw">¥10</td><td class="nw">¥2.83</td></tr>
+</tbody>
+</table>
+</div>
+<p>A battery responds fast, so it suits primary reserve, the fastest product. Primary also has the highest average price. The cap discussed below is the one for the three products that suit batteries: primary, secondary ① and the combined product.</p>
+<!-- scix-guide -->
+<aside data-scix-guide style="margin:32px 0;padding:14px 20px 12px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif;font-size:14.5px;line-height:1.8;color:#1F2A48">
+  <p style="margin:0 0 8px">To see the projects on sale now, open <a target="_top" href="https://dealroom.scix.co.jp/en" style="color:#1F2A48;font-weight:600">Chikudensho Market</a> (browsing needs no registration; prices and documents are available after free registration). How a purchase runs, step by step, is in <a target="_top" href="/en/column-transfer" style="color:#1F2A48;font-weight:600">buying a project</a>.</p>
+  <p style="margin:0;font-size:13px;color:#555555">Terms used here: <a target="_top" href="/en/glossary#term-aggregator" style="color:#1F2A48">Aggregator</a> · <a target="_top" href="/en/glossary#term-capacity-market" style="color:#1F2A48">Capacity Market, Main Auction</a> · <a target="_top" href="/en/glossary#term-jepx" style="color:#1F2A48">JEPX</a> · <a target="_top" href="/en/glossary#term-balancing-market" style="color:#1F2A48">Balancing Market</a> · <a target="_top" href="/en/glossary#term-delta-kw" style="color:#1F2A48">ΔkW</a> / <a target="_top" href="/en/glossary" style="color:#1F2A48">glossary</a></p>
+</aside>
+
+<!-- scix-readnext -->
+<aside data-scix-readnext style="margin:32px 0;padding:14px 20px 10px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif">
+  <div style="font-size:12px;font-weight:700;color:#555555;letter-spacing:.08em;margin-bottom:2px">Read next</div>
+  <a target="_top" href="/en/column-bidding-ceiling" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">The second ceiling on battery bids in Japan’s balancing market (COLUMN 50) →</a>
+  <a target="_top" href="/en/column-bidding-ceiling-monitoring" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">Who watches ΔkW prices, and how (COLUMN 50-5) →</a>
+  <a target="_top" href="/en/column-balancing-saturation" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">Are batteries saturated? (COLUMN 47) →</a>
+</aside>
+
+
+<h2 id="shikumi">Prices are set cheapest first</h2>
+<figure id="f2"><svg viewBox="0 0 780 288" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="How the balancing market clears: cheapest bids first, cut off at the required volume" font-family="'Noto Sans JP',sans-serif">
+<defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
 <rect x="0.0" y="0.0" width="780.0" height="288.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
-<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">Figure 1  Cheapest bids win first. If you sell, you get your own bid price</text>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">Figure 2  Cheapest bids win first. If you sell, you get your own bid price</text>
 <text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">Illustration only (not actual bids). Each bar is one bid; its height is the price</text>
 <line x1="40.0" y1="250.0" x2="740.0" y2="250.0" stroke="#C9CED8" stroke-width="1.5"/>
 <rect x="70.0" y="232.0" width="58.0" height="18.0" rx="3" fill="#7C4DDB" stroke="none" stroke-width="1.5"/>
@@ -424,29 +487,17 @@ blockquote cite::before{content:'— '}
 <text x="569.2" y="128.0" font-size="13" fill="#667085" text-anchor="middle" font-weight="800">Not sold</text>
 <text x="70.0" y="274.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">← cheap</text>
 <text x="674.0" y="274.0" font-size="11" fill="#667085" text-anchor="end" font-weight="400">dear →</text>
-</svg><figcaption>Figure 1  The auction stops once the required volume is filled. The higher the bid, the more likely it is left unsold.</figcaption></figure>
+</svg><figcaption>Figure 2  The auction stops once the required volume is filled. The higher the bid, the more likely it is left unsold.</figcaption></figure>
 
 <p>In the balancing market, sellers submit a bid saying “I will sell at this price”. The cheapest bids sell first. If yours sells, the price you bid is what you earn. That is why the bid price has been called the place where skill shows.</p>
-<!-- scix-guide -->
-<aside data-scix-guide style="margin:32px 0;padding:14px 20px 12px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif;font-size:14.5px;line-height:1.8;color:#1F2A48">
-  <p style="margin:0 0 8px">To see the projects on sale now, open <a target="_top" href="https://dealroom.scix.co.jp/en" style="color:#1F2A48;font-weight:600">Chikudensho Market</a> (browsing needs no registration; prices and documents are available after free registration). How a purchase runs, step by step, is in <a target="_top" href="/en/column-transfer" style="color:#1F2A48;font-weight:600">buying a project</a>.</p>
-  <p style="margin:0;font-size:13px;color:#555555">Terms used here: <a target="_top" href="/en/glossary#term-aggregator" style="color:#1F2A48">Aggregator</a> · <a target="_top" href="/en/glossary#term-capacity-market" style="color:#1F2A48">Capacity Market, Main Auction</a> · <a target="_top" href="/en/glossary#term-jepx" style="color:#1F2A48">JEPX</a> · <a target="_top" href="/en/glossary#term-balancing-market" style="color:#1F2A48">Balancing Market</a> · <a target="_top" href="/en/glossary#term-delta-kw" style="color:#1F2A48">ΔkW</a> / <a target="_top" href="/en/glossary" style="color:#1F2A48">glossary</a></p>
-</aside>
-
-<!-- scix-readnext -->
-<aside data-scix-readnext style="margin:32px 0;padding:14px 20px 10px;background:#F7F7F7;border:1px solid #E6E6E6;border-left:4px solid #C49A3C;border-radius:6px;font-family:'Noto Sans JP',sans-serif">
-  <div style="font-size:12px;font-weight:700;color:#555555;letter-spacing:.08em;margin-bottom:2px">Read next</div>
-  <a target="_top" href="/en/column-bidding-ceiling" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">The second ceiling on battery bids in Japan’s balancing market (COLUMN 50) →</a>
-  <a target="_top" href="/en/column-bidding-ceiling-monitoring" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">Who watches ΔkW prices, and how (COLUMN 50-5) →</a>
-  <a target="_top" href="/en/column-balancing-saturation" style="display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0">Are batteries saturated? (COLUMN 47) →</a>
-</aside>
-
+<p>In the day-ahead wholesale market, everyone who sells in the same slot and area gets the same price (single price). The balancing market is different: a low bid sells at its low price, a high bid at its high price. This is called multi-price (pay-as-bid).</p>
 
 <h2 id="jougen">That ceiling halved in a year</h2>
-<figure id="f2"><svg viewBox="0 0 780 284" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bars showing the cap falling from ¥19.51 to ¥15 and then ¥10" font-family="'Noto Sans JP',sans-serif">
-<defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
+<p>Bid prices have a cap. For the three products that suit batteries, it came down twice in 2026.</p>
+<figure id="f3"><svg viewBox="0 0 780 284" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bars showing the cap falling from ¥19.51 to ¥15 and then ¥10" font-family="'Noto Sans JP',sans-serif">
+<defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
 <rect x="0.0" y="0.0" width="780.0" height="284.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
-<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">Figure 2  The cap halved in a year</text>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">Figure 3  The cap halved in a year</text>
 <text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">ΔkW price cap in the balancing market (primary, secondary ①, combined product), yen per ΔkW per 30 minutes; published by EPRX</text>
 <line x1="150.0" y1="232.0" x2="630.0" y2="232.0" stroke="#C9CED8" stroke-width="1.5"/>
 <rect x="190.0" y="92.0" width="80.0" height="140.0" rx="3" fill="#C9CED8" stroke="none" stroke-width="2"/>
@@ -458,14 +509,16 @@ blockquote cite::before{content:'— '}
 <rect x="510.0" y="160.2" width="80.0" height="71.8" rx="3" fill="#7C4DDB" stroke="none" stroke-width="2"/>
 <text x="550.0" y="153.2" font-size="12.5" fill="#1F2A48" text-anchor="middle" font-weight="700">¥10</text>
 <text x="550.0" y="249.0" font-size="11" fill="#667085" text-anchor="middle" font-weight="400">From 1 September (now)</text>
-</svg><figcaption>Figure 2  It came down twice in 2026. Anything above the cap is deducted at settlement.</figcaption></figure>
+</svg><figcaption>Figure 3  It came down twice in 2026. Anything above the cap is deducted at settlement.</figcaption></figure>
 
+<p>Even if a bid above the cap sells, the part above the cap is deducted at settlement. In other words, no one receives more than the cap.</p>
+<p>14 March 2026 was also the day the trading method changed. Until then, bids for primary through tertiary ① were placed for a week at a time. From that day’s delivery on, they are placed the day before, for each 30-minute slot of the next day.</p>
 
 <h2 id="heikin">Fiscal 2025 averages: ¥1 to ¥4</h2>
-<figure id="f3"><svg viewBox="0 0 780 282" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fiscal 2025 average clearing price by product, with the ¥10 cap line" font-family="'Noto Sans JP',sans-serif">
-<defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
+<figure id="f4"><svg viewBox="0 0 780 282" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fiscal 2025 average clearing price by product, with the ¥10 cap line" font-family="'Noto Sans JP',sans-serif">
+<defs><marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
 <rect x="0.0" y="0.0" width="780.0" height="282.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
-<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">Figure 3  Average prices actually paid sit far below the cap</text>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">Figure 4  Average prices actually paid sit far below the cap</text>
 <text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">Average clearing prices in fiscal 2025 (yen per ΔkW per 30 minutes); EPRX trading results for fiscal 2025</text>
 <text x="140.0" y="92.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">Primary reserve</text>
 <rect x="150.0" y="76.0" width="200.2" height="22.0" rx="3" fill="#7C4DDB" stroke="none" stroke-width="1.5"/>
@@ -487,15 +540,18 @@ blockquote cite::before{content:'— '}
 <text x="216.6" y="252.5" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">¥1.15</text>
 <line x1="659.4" y1="68.0" x2="659.4" y2="268.0" stroke="#EF7A1A" stroke-width="2" stroke-dasharray="5 4"/>
 <text x="772.0" y="64.0" font-size="11" fill="#EF7A1A" text-anchor="end" font-weight="700">Cap ¥10 now (primary, sec. ①, combined)</text>
-</svg><figcaption>Figure 3  Even primary reserve, the dearest, averaged ¥3.93 across the whole market. Bids did not keep clearing at the cap. Looking only at the prices at which batteries sold, though, the monthly average was ¥8.82 to ¥13.52 (primary reserve, fiscal 2025). The cap for secondary ② and tertiary ① is ¥7.21; tertiary ② has no cap.</figcaption></figure>
+</svg><figcaption>Figure 4  Even primary reserve, the dearest, averaged ¥3.93 across the whole market. Bids did not keep clearing at the cap. Looking only at the prices at which batteries sold, though, the monthly average was ¥8.82 to ¥13.52 (primary reserve, fiscal 2025). The cap for secondary ② and tertiary ① is ¥7.21; tertiary ② has no cap.</figcaption></figure>
 
+<p>The dotted line in the figure is the ¥10 cap; the bars are the averages. The cap is a ceiling above which nothing is paid. It does not mean bids sell at that price.</p>
+<p>Why, then, is the average so far below the cap?</p>
 <p>That is because many cheap bids come from thermal plants and the like. Tertiary ② has no cap, yet its average was ¥1.15. In primary reserve from 14 March to 10 April 2026, however, after trading moved to the day before, many bids sold right at the ¥15 cap (ANRE, Document 8).</p>
 
 <h2 id="dare">The high bids came from batteries</h2>
-<figure id="f4"><svg viewBox="0 0 780 224" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Battery share of bids above ¥14: primary 95.4% to 81.2%, combined 84.4% to 68.4%" font-family="'Noto Sans JP',sans-serif">
-<defs><marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
+<p>The authorities looked at who was placing bids above ¥14, before and after the trading method changed.</p>
+<figure id="f5"><svg viewBox="0 0 780 224" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Battery share of bids above ¥14: primary 95.4% to 81.2%, combined 84.4% to 68.4%" font-family="'Noto Sans JP',sans-serif">
+<defs><marker id="ar5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
 <rect x="0.0" y="0.0" width="780.0" height="224.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
-<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">Figure 4  Bids above ¥14 came mostly from batteries</text>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">Figure 5  Bids above ¥14 came mostly from batteries</text>
 <text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">Battery share of bids above ¥14 (by volume): before day-ahead bidding (14 Feb–13 Mar 2026) and 6 Jun–3 Jul; ANRE, Document 6</text>
 <text x="167.0" y="84.0" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">Primary reserve</text>
 <text x="227.0" y="85.5" font-size="10.5" fill="#667085" text-anchor="end" font-weight="400">before</text>
@@ -511,29 +567,120 @@ blockquote cite::before{content:'— '}
 <text x="227.0" y="186.5" font-size="10.5" fill="#667085" text-anchor="end" font-weight="400">Jun–Jul</text>
 <rect x="235.0" y="171.0" width="273.6" height="21.0" rx="3" fill="#F6C79B" stroke="none" stroke-width="1.5"/>
 <text x="516.6" y="187.0" font-size="13" fill="#1F2A48" text-anchor="start" font-weight="700">68.4%</text>
-</svg><figcaption>Figure 4  In all three periods from April to July, batteries held 81–91% in primary reserve and 68–80% in the combined product. After the July government meeting where these figures were shown, the cap came down to ¥10 from 1 September.</figcaption></figure>
+</svg><figcaption>Figure 5  In all three periods from April to July, batteries held 81–91% in primary reserve and 68–80% in the combined product. After the July government meeting where these figures were shown, the cap came down to ¥10 from 1 September.</figcaption></figure>
 
+<p>The figure shows what share of the bids above ¥14 came from batteries. In primary reserve it was 95.4% before the change and 81.2% in June–July 2026.</p>
 <p>Bidding close to the ceiling: seven to nine in ten of such bids came from batteries (April–July 2026). The authorities confirmed this in numbers, and then lowered the ceiling.</p>
 
+<h2 id="kugatsu">First month under the ¥10 cap: ¥5.81 in the battery segment</h2>
+<p>What happened to actual prices in September 2026, when the cap became ¥10? Look at the segment that is almost all batteries: the “offline” segment of primary reserve, which can be joined without a dedicated line. Batteries made up over 99% of the volume awarded there (April to mid-August 2026).</p>
+<figure id="f6"><svg viewBox="0 0 780 372" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Average awarded price by area for primary offline in September 2026: Tohoku ¥9.51, Tokyo ¥8.58, the other seven areas ¥1–3, national ¥5.81" font-family="'Noto Sans JP',sans-serif">
+<defs><marker id="ar6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
+<rect x="0.0" y="0.0" width="780.0" height="372.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">Figure 6  First month under the ¥10 cap: only Tohoku and Tokyo sold near the cap</text>
+<text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">Average awarded price, offline segment of primary reserve (almost all batteries), 1–29 Sep 2026, preliminary. Yen per ΔkW per 30 min</text>
+<text x="100.0" y="99.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">Tohoku</text>
+<rect x="110.0" y="84.0" width="399.1" height="20.0" rx="3" fill="#7C4DDB" stroke="none" stroke-width="1.5"/>
+<text x="501.1" y="99.0" font-size="12" fill="#FFFFFF" text-anchor="end" font-weight="700">¥9.51</text>
+<text x="100.0" y="127.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">Tokyo</text>
+<rect x="110.0" y="112.0" width="360.1" height="20.0" rx="3" fill="#7C4DDB" stroke="none" stroke-width="1.5"/>
+<text x="462.1" y="127.0" font-size="12" fill="#FFFFFF" text-anchor="end" font-weight="700">¥8.58</text>
+<text x="100.0" y="155.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">Chubu</text>
+<rect x="110.0" y="140.0" width="154.8" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="272.8" y="155.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">¥3.69</text>
+<text x="100.0" y="183.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">Chugoku</text>
+<rect x="110.0" y="168.0" width="140.2" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="258.2" y="183.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">¥3.34</text>
+<text x="100.0" y="211.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">Kansai</text>
+<rect x="110.0" y="196.0" width="136.8" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="254.8" y="211.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">¥3.26</text>
+<text x="100.0" y="239.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">Hokuriku</text>
+<rect x="110.0" y="224.0" width="133.9" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="251.9" y="239.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">¥3.19</text>
+<text x="100.0" y="267.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">Kyushu</text>
+<rect x="110.0" y="252.0" width="127.6" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="245.6" y="267.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">¥3.04</text>
+<text x="100.0" y="295.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">Shikoku</text>
+<rect x="110.0" y="280.0" width="115.0" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="233.0" y="295.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">¥2.74</text>
+<text x="100.0" y="323.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">Hokkaido</text>
+<rect x="110.0" y="308.0" width="58.3" height="20.0" rx="3" fill="#B9A5F0" stroke="none" stroke-width="1.5"/>
+<text x="176.3" y="323.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">¥1.39</text>
+<text x="100.0" y="351.5" font-size="12" fill="#3A4560" text-anchor="end" font-weight="400">National</text>
+<rect x="110.0" y="336.0" width="243.8" height="20.0" rx="3" fill="#1F2A48" stroke="none" stroke-width="1.5"/>
+<text x="361.8" y="351.0" font-size="12" fill="#1F2A48" text-anchor="start" font-weight="700">¥5.81</text>
+<line x1="529.6" y1="76.0" x2="529.6" y2="358.0" stroke="#EF7A1A" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="529.6" y="71.0" font-size="11" fill="#EF7A1A" text-anchor="middle" font-weight="700">Cap ¥10</text>
+</svg><figcaption>Figure 6  Same month, same cap, yet the areas ranged from ¥9.51 down to ¥1.39. The national average was ¥5.81, about half the ¥11.07 of April–August. Our aggregation of EPRX trading results.</figcaption></figure>
+
+<p>The national average went from ¥11.07 in April–August to ¥5.81 in September (preliminary; ¥5.80 final). Only Tohoku (¥9.51) and Tokyo (¥8.58) stayed near the cap. The other seven areas were in the ¥1–3 range (our aggregation; <a target="_top" href="/en/column-bidding-ceiling-market">COLUMN 50-4</a>).</p>
+<p>Tohoku and Tokyo are areas where almost every bid sells (award rates of 95.6% and 85.1%). In the same month under the same cap, the price ranged from above ¥9 to just over ¥1 depending on where the battery plant sits. In our view, part of the result is set by location before the aggregator’s skill comes into it.</p>
+
 <h2 id="mihari">Nineteen operators judged to hold large market power have their pricing watched</h2>
+<p>Apart from the cap, the authorities also have a view on how a bid should be priced. While a battery stands by in the balancing market, it cannot trade in the wholesale market for those hours. The idea is to bid no more than that forgone profit plus a small addition.</p>
 <p>Under the government guideline, a bid should preferably stay within “the profit that could have been earned in other markets, plus a fixed amount” — it is not an obligation (<a target="_top" href="/en/column-bidding-ceiling">COLUMN 50</a>). Operators judged likely to hold large market power are checked before trading begins on whether they bid this way. Nineteen companies were named as the proposed scope for fiscal 2026. They were chosen by their share of the market in each area, not by company size.</p>
+<p>The addition (the “fixed amount”) comes in two kinds: ¥0.33, which anyone may use, and a calculated amount that may be used only while fixed costs have not yet been recovered (<a target="_top" href="/en/column-bidding-ceiling">COLUMN 50</a>).</p>
 <blockquote>Hokkaido Electric Power, ENEOS Power, ENERES, Tohoku Electric Power, JERA, E-Flow, TEPCO Energy Partner, TEPCO Renewable Power, Tokyo Gas, Chubu Electric Power Miraiz, Hokuriku Electric Power, Kansai Electric Power, Chugoku Electric Power, Osaka Gas, Shikoku Electric Power, J-POWER, Kyushu Electric Power, Urban Energy, Battery Station Kyushu (Denki no Eki)<cite>EGC, Expert Committee on System Design and Market Surveillance, 16th meeting, Document 3 (26 December 2025, secretariat proposal)</cite></blockquote>
 <p>The 19 include companies that run other owners’ batteries. Companies outside the 19 are monitored after the fact (<a target="_top" href="/en/column-bidding-ceiling-monitoring">COLUMN 50-5</a>).</p>
 
 <h2 id="nokoru">Three places where the gap now opens</h2>
-<div class="kpi" style="grid-template-columns:repeat(2,1fr)">
-<div class="kpi-item"><div class="k-label">Penalty on capacity<br>not kept available</div><div class="k-value">1.5<span>×</span></div><div class="k-sub">Trading Rules, Article 40</div></div>
-<div class="kpi-item"><div class="k-label">Failures on one resource, in one month<br>and one product, can mean suspension</div><div class="k-value">3</div><div class="k-sub">Trading Rules, Article 41</div></div>
-</div>
+<p>The room to sell high has narrowed. Even so, differences between aggregators remain, in three places.</p>
 <div class="six"><div class="n">1</div><h3>Not failing delivery</h3></div>
 <p>Fail to respond after promising, and there is a penalty. For a 30-minute slot in which you fail to follow the dispatch instruction, the penalty equals that slot’s ΔkW revenue. If the same resource fails to follow instructions three times in the same month in the same product, trading in that product can be suspended for that resource. In a case EPRX published in August 2026 (the type of equipment was not disclosed), four failures in April led to a suspension from 21 August. While suspended, that product earns nothing.</p>
+<p>There are two kinds of penalty. One applies when the promised capacity was not kept available; the other when an instruction came and the resource did not follow it. Examples: the battery was short of charge, or equipment or communications were down.</p>
+<figure id="f7"><svg viewBox="0 0 780 254" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Capacity not kept available: penalty of 1.5 times the revenue. A slot where dispatch was not followed: penalty equal to the revenue. Three in a month: possible suspension" font-family="'Noto Sans JP',sans-serif">
+<defs><marker id="ar7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F2A48"/></marker></defs>
+<rect x="0.0" y="0.0" width="780.0" height="254.0" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<text x="16.0" y="28.0" font-size="14" fill="#1F2A48" text-anchor="start" font-weight="700">Figure 7  What happens when a promise is missed</text>
+<text x="16.0" y="47.0" font-size="11" fill="#667085" text-anchor="start" font-weight="400">From EPRX Trading Rules, Articles 40 and 41. Left: what happened. Right: the result</text>
+<rect x="16.0" y="66.0" width="330.0" height="50.0" rx="10" fill="#FFFFFF" stroke="#1F2A48" stroke-width="1.6"/>
+<text x="181.0" y="96.0" font-size="12.5" fill="#1F2A48" text-anchor="middle" font-weight="700">Promised capacity was not kept available</text>
+<line x1="352.0" y1="91.0" x2="406.0" y2="91.0" stroke="#1F2A48" stroke-width="2" marker-end="url(#ar7)"/>
+<rect x="414.0" y="66.0" width="350.0" height="50.0" rx="10" fill="#FFF1E3" stroke="#EF7A1A" stroke-width="1.6"/>
+<text x="589.0" y="96.0" font-size="12.5" fill="#C2560A" text-anchor="middle" font-weight="800">Pay 1.5 times that part of the revenue</text>
+<rect x="16.0" y="128.0" width="330.0" height="50.0" rx="10" fill="#FFFFFF" stroke="#1F2A48" stroke-width="1.6"/>
+<text x="181.0" y="158.0" font-size="12.5" fill="#1F2A48" text-anchor="middle" font-weight="700">The dispatch instruction was not followed</text>
+<line x1="352.0" y1="153.0" x2="406.0" y2="153.0" stroke="#1F2A48" stroke-width="2" marker-end="url(#ar7)"/>
+<rect x="414.0" y="128.0" width="350.0" height="50.0" rx="10" fill="#FFF1E3" stroke="#EF7A1A" stroke-width="1.6"/>
+<text x="589.0" y="158.0" font-size="12.5" fill="#C2560A" text-anchor="middle" font-weight="800">Pay the same amount as that slot’s revenue</text>
+<rect x="16.0" y="190.0" width="330.0" height="50.0" rx="10" fill="#FFFFFF" stroke="#1F2A48" stroke-width="1.6"/>
+<text x="181.0" y="214.0" font-size="12.5" fill="#1F2A48" text-anchor="middle" font-weight="700">Three failures to follow dispatch in one month</text>
+<text x="181.0" y="230.0" font-size="10.5" fill="#667085" text-anchor="middle" font-weight="400">(same resource, same product)</text>
+<line x1="352.0" y1="215.0" x2="406.0" y2="215.0" stroke="#1F2A48" stroke-width="2" marker-end="url(#ar7)"/>
+<rect x="414.0" y="190.0" width="350.0" height="50.0" rx="10" fill="#FFF1E3" stroke="#EF7A1A" stroke-width="1.6"/>
+<text x="589.0" y="220.0" font-size="12.5" fill="#C2560A" text-anchor="middle" font-weight="800">Trading in that product can be suspended</text>
+</svg><figcaption>Figure 7  Miss the promise after selling and a penalty applies: the same as that part of the revenue, or 1.5 times it (Trading Rules, Article 40). Three in one month can shut the resource out of that product (Article 41).</figcaption></figure>
+
 <div class="six"><div class="n">2</div><h3>Not stopping</h3></div>
 <p>Battery, communications, control: if any one stops, no bids can be placed. The difference lies in how fast a fault is noticed and how the repair is arranged.</p>
 <div class="six"><div class="n">3</div><h3>Allocating</h3></div>
 <p>A battery can also earn in the wholesale market, buying power cheap and selling it dear. Which hours of tomorrow go to which market? The lower the ceiling, the more this judgement counts. Overseas, this is where the gap opened (<a target="_top" href="/en/column-aggregators-overseas">Overseas</a>).</p>
+<p>A battery can also offer the charging it would pause as standby. But the slots it charges in change how much charge is left and how much it can offer. Deciding when to charge is part of the allocation too.</p>
 
 <h2 id="ai">Does AI help?</h2>
+<p>Many aggregators advertise “AI optimisation”. What AI and computation do is forecast tomorrow’s prices and allocate the 48 slots. Table 2 sorts, in our view, where that is likely to count.</p>
+<div class="wraptext">
+<table class="c52w">
+<caption>Table 2 | Where AI and computation come in (our view)</caption>
+<thead><tr><th>The aggregator’s task</th><th>Role</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td>Forecasting tomorrow’s prices</td><td><b>Large</b></td><td>In wholesale trading, the better the forecast, the better the result</td></tr>
+<tr><td>Deciding which market each of the 48 slots goes to</td><td><b>Large</b></td><td>The combinations are many and hard to follow by hand</td></tr>
+<tr><td>Setting the bid price in the balancing market</td><td>Smaller than before</td><td>The cap and the monitoring have narrowed the room to move</td></tr>
+<tr><td>Keeping equipment and communications running</td><td>Small</td><td>A matter of maintenance and arrangements</td></tr>
+<tr><td>Setting fees and exit terms</td><td>None</td><td>A matter of contract</td></tr>
+</tbody>
+</table>
+</div>
 <p>We found no material in Japan in which a third party compares the results of companies that use AI with those that do not. There is one way to check: ask for the record in numbers. “Against the market average, at what price did you sell?” “How many penalties and suspensions have there been?”</p>
+<p>Here are five numbers to ask the company for.</p>
+<ul class="checks">
+<li>Revenue by month and by market for the past 12 months</li>
+<li>The share of bids placed that sold (the clearing rate)</li>
+<li>The price at which bids sold, against the market average</li>
+<li>The number of penalties and suspensions</li>
+<li>Time the equipment was out of service (availability)</li>
+</ul>
 
 <h2 id="rensai">How to read this series</h2>
 <div class="cards n2">
@@ -547,6 +694,10 @@ blockquote cite::before{content:'— '}
 <div class="next">Next is <a target="_top" href="/en/column-aggregators-overseas">53-5 Overseas</a>: Britain’s No. 1 in September ran 30 MW.</div>
 
 <h2 id="faq">Frequently asked questions</h2>
+<div class="faq-item">
+<p class="faq-q">What is ΔkW (delta kilowatt)?</p>
+<p class="faq-a">It is the standby capacity sold in the balancing market. The price is quoted per kW kept on standby for 30 minutes (yen per ΔkW per 30 minutes). For example, a 1,000 kW battery selling one 30-minute slot at ¥10 earns ¥10,000.</p>
+</div>
 <div class="faq-item">
 <p class="faq-q">In Japan’s balancing market, does a higher bid sell for more?</p>
 <p class="faq-a">If it sells, the bid price is what you earn. But the cheapest bids sell first, so a high bid is more likely to be left unsold. In products where bids fall short, such as primary reserve, though, bids near the cap have also sold. There is also a cap: ¥10 for primary reserve, secondary ① and the combined product from September 2026.</p>
@@ -564,6 +715,7 @@ blockquote cite::before{content:'— '}
 <div class="refs">
 <h3>Market rules and results</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://www.eprx.or.jp/outline/docs/kitei_ver.18_260701.pdf">EPRX, Trading Rules ver. 18 (in force 1 July 2026, PDF, in Japanese)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.eprx.or.jp/outline/docs/yousuichikudenchi_guide_250401.pdf">EPRX, Guide to participating in the balancing market with pumped-storage or battery facilities, 2nd edition (1 April 2025, PDF, in Japanese)</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.eprx.or.jp/information/docs/14b85fbe8942da7d3bdddda80243e7e170f64d9e.pdf">EPRX, ΔkW price caps in the balancing market (updated 30 July 2026, PDF, in Japanese)</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.eprx.or.jp/information/summary_2025.pdf">EPRX, trading results for fiscal 2025 (18 June 2026, PDF, in Japanese)</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/stable_power_supply_wg/pdf/001_08_00.pdf">ANRE, “On the balancing market” (Advisory Committee for Natural Resources and Energy, Stable Power Supply Working Group, 1st meeting, Document 8, 13 May 2026, PDF, in Japanese)</a></li>
@@ -572,7 +724,7 @@ blockquote cite::before{content:'— '}
 <li><a target="_blank" rel="noopener" href="https://www.egc.meti.go.jp/activity/emsc_systemsurveillance/pdf/016_03_00.pdf">EGC, Expert Committee on System Design and Market Surveillance, 16th meeting, Document 3 (26 December 2025, PDF, in Japanese)</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.eprx.or.jp/memberinfo/202608201300_1_news.pdf">EPRX, “Notice of suspension of trading for a trading member’s individual generator or list patterns” (20 August 2026, case No. 28, PDF, in Japanese)</a></li>
 </ul>
-<h3>Related articles</h3><ul><li><a target="_top" href="/en/column-bidding-ceiling">The second ceiling on battery bids in Japan’s balancing market (COLUMN 50)</a> / <a target="_top" href="/en/column-bidding-ceiling-monitoring">Who watches ΔkW prices, and how (COLUMN 50-5)</a> / <a target="_top" href="/en/column-balancing-saturation">Are batteries saturated? (COLUMN 47)</a> / <a target="_top" href="/en/column-somosomo-17">Balancing markets in Australia, the UK, Texas and Japan (COLUMN 48-17)</a></li></ul>
+<h3>Related articles</h3><ul><li><a target="_top" href="/en/column-bidding-ceiling">The second ceiling on battery bids in Japan’s balancing market (COLUMN 50)</a> / <a target="_top" href="/en/column-bidding-ceiling-market">September under the ¥10 cap: primary offline at ¥5.81 (COLUMN 50-4)</a> / <a target="_top" href="/en/column-bidding-ceiling-monitoring">Who watches ΔkW prices, and how (COLUMN 50-5)</a> / <a target="_top" href="/en/column-balancing-saturation">Are batteries saturated? (COLUMN 47)</a> / <a target="_top" href="/en/column-somosomo-17">Balancing markets in Australia, the UK, Texas and Japan (COLUMN 48-17)</a> / <a target="_top" href="/en/guide-balancing-market">EPRX and Japan’s Balancing Market: A Guide</a></li></ul>
 </div>
 <!-- scix-cluster:begin -->
 <p class="scix-cluster" data-scix-cluster style="margin:20px 0;padding:10px 16px;background:#F7F7F7;border:1px solid #E6E6E6;border-radius:6px;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-height:1.8;color:#1F2A48">The big picture on this topic: <a target="_top" href="/en/guide-balancing-market" style="color:#1F2A48;font-weight:700">EPRX and Japan's Balancing Market: A Guide →</a></p>

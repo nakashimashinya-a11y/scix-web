@@ -188,6 +188,45 @@ for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
   }
 }
 
+// ---- 4. 下の帯（header.js の 8・2026-11-23）: 組み替わる・行き先は帯の中で1回・列の言葉は上の帯と食い違わない・1段目の並び・横に広がらない ----
+// 列（header.js の 8 の COLS）は上の帯の定義（nav）と別の場所に手で写しているので、上の帯の言葉が変わったらここで落ちる（下の帯も直す）。
+{
+  const FT = `(() => {
+    const ft = document.querySelector('footer.scix-ft'); if (!ft) return { built: false };
+    const strip = (el) => { const c = el.cloneNode(true); c.querySelectorAll('.scix-en-tag, .scix-dd-caret').forEach((x) => x.remove()); return c.textContent.replace(/\\s+/g, ' ').trim(); };
+    const hd = {}; document.querySelectorAll('header.scix-header .scix-header-nav a[href]').forEach((a) => { (hd[a.getAttribute('href')] = hd[a.getAttribute('href')] || []).push(strip(a)); });
+    const hrefs = [...ft.querySelectorAll('a[href]')].filter((a) => !a.closest('.scix-ft-lang')).map((a) => a.getAttribute('href').replace(/\\/$/, ''));
+    const cnt = {}; hrefs.forEach((h) => { cnt[h] = (cnt[h] || 0) + 1; });
+    const mkTop = ft.querySelector('.scix-ft-mg-name').getAttribute('href').replace(/\\/$/, '');
+    const dups = Object.entries(cnt).filter(([h, n]) => n > (h === mkTop ? 2 : 1)).map(([h, n]) => h + 'x' + n);
+    const words = [];
+    ft.querySelectorAll('.scix-ft-cols a[href]').forEach((a) => { const h = a.getAttribute('href'), fl = strip(a); if (hd[h] && !hd[h].some((hl) => hl.includes(fl) || fl.includes(hl))) words.push(h + ' 下:' + fl + ' 上:' + hd[h].join('/')); });
+    const R = (s) => { const b = ft.querySelector(s).getBoundingClientRect(); return { l: b.left, r: b.right, t: b.top }; };
+    const cols = ft.querySelector('.scix-ft-cols');
+    return { built: true, W: innerWidth, sw: document.documentElement.scrollWidth, dups, words, logo: R('.scix-ft-logo'), mg: R('.scix-ft-mg'), auth: R('.scix-ft-auth'),
+      ncol: cols.querySelectorAll('.scix-ft-col').length, tracks: getComputedStyle(cols).gridTemplateColumns.split(' ').length };
+  })()`;
+  for (const [, url] of [['ja', '/column-aggregators-switching'], ['en', '/en'], ['zh', '/zh'], ['ja', '/fund']]) for (const w of [1440, 1280, 1101, 900, 768, 721, 390, 320]) {
+    const p = await page({ w, h: 800, mobile: w < 500 }); await p.go(BASE + url);
+    const m = await p.eval(FT); const at = `[下の帯 ${url} ${w}px] `;
+    ok(at + '組み替わる', m.built);
+    if (m.built) {
+      ok(at + '頁が横に広がらない', m.sw <= m.W, `${m.sw}>${m.W}`);
+      ok(at + '行き先は帯の中で1回（マーケットのトップだけ2回）', m.dups.length === 0, m.dups.join(' '));
+      ok(at + '列の言葉は上の帯と食い違わない', m.words.length === 0, m.words.join(' / '));
+      if (w > 1100) ok(at + '格子は列の数と同じ（空いた列を残さない）', m.tracks === m.ncol, `${m.tracks}/${m.ncol}`);
+      if (w > 720) {
+        const pad = w <= 768 ? 16 : 24, right = m.W - pad;   // 下の帯の中身は画面いっぱい（上の帯の .scix-header-inner と同じ左右 24px・〜768px は本文と同じ 16px）
+        ok(at + 'ロゴの左端は帯の左の余白（上の帯のロゴと同じ並び）', Math.abs(m.logo.l - pad) <= 2, `${m.logo.l} ${pad}`);
+        ok(at + 'まとまりはロゴのすぐ右', m.mg.l > m.logo.r && m.mg.l - m.logo.r <= 32 && Math.abs(m.mg.t - m.logo.t) < 12, JSON.stringify([m.logo, m.mg]));
+        ok(at + 'ログインの組は右端', Math.abs(m.auth.r - right) <= 2, `${m.auth.r} ${right}`);
+        if (w >= 768) ok(at + '1段目は1行', Math.abs(m.auth.t - m.mg.t) < 12, JSON.stringify([m.mg, m.auth]));
+      }
+    }
+    await p.close();
+  }
+}
+
 try { ws.close(); } catch { /* 閉じ済み */ }
 chrome.kill(); server.close(); await sleep(300); try { fs.rmSync(udir, { recursive: true, force: true }); } catch { /* 一時の置き場 */ }
 console.log(`${pass}/${pass + fails.length} 通過`);

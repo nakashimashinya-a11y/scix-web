@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics（scripts/build_ga_tag.py が全頁に入れる・手で直さない） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  (function () {
+    var cfg = {}, q = null, mk = false;
+    // 本番（www.scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）からは送らない
+    try { if (location.hostname !== 'www.scix.co.jp' || navigator.webdriver) window['ga-disable-G-SNNK8MP9N9'] = true; }
+    catch (e) { window['ga-disable-G-SNNK8MP9N9'] = true; }
+    // 社内の印（?internal=1 で付く・?internal=0 で外れる・header.js の 7c と同じ鍵）。印のある端末だけ traffic_type を付ける
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try {
+      if (q === '1') localStorage.setItem('scix_internal', '1');
+      else if (q === '0') localStorage.removeItem('scix_internal');
+      mk = localStorage.getItem('scix_internal') === '1';
+    } catch (e) { mk = q === '1'; }
+    if (mk) cfg.traffic_type = 'internal';
+    gtag('js', new Date());
+    gtag('config', 'G-SNNK8MP9N9', cfg);
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- scripts/build_guides.py が scripts/data/guides/guide-japan-bess-market.zh.md から作る頁（手で直さない） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"></noscript>
+<style>
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--accent:#C49A3C;--accent-light:#D4AF5C;--green:#1A7A4C;--text:#1F2A48;--text-light:#666666;--light-bg:#F7F7F7;--border:#E6E6E6;--white:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC','Noto Sans JP',sans-serif;color:var(--text);line-height:1.95;background:var(--white);font-size:15.5px}
+.article-header{background:linear-gradient(165deg,#141B30 0%,var(--navy) 45%,var(--navy-light) 100%);padding:72px 24px 64px;text-align:center;position:relative}
+.article-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent)}
+.header-inner{max-width:720px;margin:0 auto}
+.header-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.header-tag{display:inline-block;padding:4px 14px;background:rgba(196,154,60,0.15);color:var(--accent-light);font-size:12px;font-weight:600;letter-spacing:0.08em;border-radius:2px}
+.header-date{font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:.05em}
+.article-header h1{font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--white);line-height:1.55;margin-bottom:16px}
+.article-header h1 em{font-style:normal;color:var(--accent-light)}
+.header-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.85;max-width:560px;margin:0 auto}
+.article-body{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h2{font-size:1.35em;font-weight:600;color:var(--navy);margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent);line-height:1.5}
+h3{font-size:1.05em;font-weight:600;color:var(--navy);margin:28px 0 10px;line-height:1.5}
+p{margin-bottom:20px}
+ul,ol{margin:0 0 20px 1.4em}
+li{margin-bottom:8px}
+.highlight-box{background:var(--light-bg);border-left:4px solid var(--accent);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;font-size:.95em;line-height:2}
+.highlight-box .box-label{font-weight:700;color:var(--navy);margin-bottom:6px}
+.highlight-box ul{margin-bottom:0}
+.source{font-size:.78em;color:var(--text-light);margin:-8px 0 20px}
+.table-wrap{overflow-x:auto;margin:28px 0}
+.comparison-table{width:100%;border-collapse:collapse;font-size:.88em}
+.comparison-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-weight:500;font-size:.88em}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.comparison-table tr:nth-child(even){background:var(--light-bg)}
+.guide-more{font-size:.9em;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:10px 16px}
+.guide-more a,.guide-go a,.article-body p a,.article-body li a{color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--accent)}
+.guide-go{font-weight:600}
+.guide-toc{margin:28px 0;padding:16px 22px;border:1px solid var(--border);border-radius:6px;font-size:.92em}
+.guide-toc .box-label{font-weight:700;margin-bottom:6px}
+.guide-toc ol{margin:0 0 0 1.4em}
+.guide-toc li{margin-bottom:2px}
+.guide-toc a{color:var(--navy);text-decoration:none}
+.guide-cta-top{margin:28px 0;padding:18px 22px;background:#F7F7F7;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;font-size:.95em;line-height:1.85}
+.guide-cta-top p{margin-bottom:12px}
+.guide-cta-top .sub{margin:12px 0 0;font-size:.92em;color:#555555}
+.cta-btn{display:inline-block;background:var(--accent);color:#1F2A48;padding:12px 28px;border-radius:4px;font-weight:700;font-size:.92em;text-decoration:none}
+.guide-cols ul{list-style:none;margin:0;padding:0}
+.guide-cols li{border-bottom:1px solid var(--border);margin:0;padding:10px 0}
+.guide-cols li a{color:var(--navy);font-weight:600;text-decoration:none}
+.guide-cols .note{font-size:.85em;color:var(--text-light)}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:700;color:var(--navy);margin-bottom:10px}
+.faq-q::before{content:'Q. ';color:var(--accent)}
+.faq-a{font-size:.95em;color:var(--text)}
+.faq-a p:last-child{margin-bottom:0}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88em;font-weight:500;margin-bottom:32px}
+.cta-section{background:linear-gradient(160deg,var(--navy),var(--navy-light));padding:40px 28px;border-radius:8px;margin-top:48px}
+.cta-section h2{color:#fff;border-bottom:0;margin:0 0 16px;padding:0}
+.cta-section p,.cta-section li{color:rgba(255,255,255,.8)}
+@media(max-width:768px){.article-body{padding:32px 16px 60px}h2{font-size:1.2em}.comparison-table{font-size:.8em}.comparison-table th,.comparison-table td{padding:8px 10px}}
+</style>
+<title>日本电网侧储能市场概览 — 收益、并网与在售项目｜ScienceX</title>
+<meta name="description" content="一页读懂日本电网侧储能（BESS）市场：三个收益市场、并网手续的顺序、项目的取得方式、外汇法的问题、每月的数据与在售项目的入口。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.scix.co.jp/zh-guide-japan-bess-market">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/guide-japan-bess-market">
+<link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-guide-japan-bess-market">
+<link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/guide-japan-bess-market">
+<meta property="og:type" content="website">
+<meta property="og:title" content="日本电网侧储能市场概览 — 收益、并网与在售项目｜ScienceX">
+<meta property="og:description" content="一页读懂日本电网侧储能（BESS）市场：三个收益市场、并网手续的顺序、项目的取得方式、外汇法的问题、每月的数据与在售项目的入口。">
+<meta property="og:url" content="https://www.scix.co.jp/zh-guide-japan-bess-market">
+<meta property="og:image" content="https://www.scix.co.jp/img/ogp-m-zh.png">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="日本电网侧储能市场概览 — 收益、并网与在售项目｜ScienceX">
+<meta name="twitter:description" content="一页读懂日本电网侧储能（BESS）市场：三个收益市场、并网手续的顺序、项目的取得方式、外汇法的问题、每月的数据与在售项目的入口。">
+<meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-m-zh.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://www.scix.co.jp/zh-guide-japan-bess-market#webpage",
+  "url": "https://www.scix.co.jp/zh-guide-japan-bess-market",
+  "name": "日本电网侧储能市场概览 — 收益、并网与在售项目｜ScienceX",
+  "description": "一页读懂日本电网侧储能（BESS）市场：三个收益市场、并网手续的顺序、项目的取得方式、外汇法的问题、每月的数据与在售项目的入口。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://www.scix.co.jp/#website",
+    "url": "https://www.scix.co.jp/",
+    "name": "ScienceX"
+  },
+  "author": {
+    "@type": "Organization",
+    "@id": "https://www.scix.co.jp/#organization",
+    "name": "ScienceX",
+    "alternateName": [
+      "サイエンスエックス",
+      "サイエンスエックス株式会社",
+      "Science X Inc.",
+      "Science X"
+    ],
+    "url": "https://www.scix.co.jp/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.scix.co.jp/img/logo-navy.png"
+    }
+  },
+  "publisher": {
+    "@id": "https://www.scix.co.jp/#organization"
+  },
+  "datePublished": "2026-11-23",
+  "dateModified": "2026-11-23",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.scix.co.jp/img/ogp-m-zh.png",
+    "width": 1200,
+    "height": 630
+  },
+  "breadcrumb": {
+    "@id": "https://www.scix.co.jp/zh-guide-japan-bess-market#breadcrumb"
+  },
+  "mainEntity": {
+    "@id": "https://www.scix.co.jp/zh-guide-japan-bess-market#itemlist"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "https://www.scix.co.jp/zh-guide-japan-bess-market#breadcrumb",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://www.scix.co.jp/zh"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "洞见",
+      "item": "https://www.scix.co.jp/zh-knowledge"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "一页看懂日本电网侧储能（BESS）市场 — 以及每个问题该读哪一页",
+      "item": "https://www.scix.co.jp/zh-guide-japan-bess-market"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "https://www.scix.co.jp/zh-guide-japan-bess-market#itemlist",
+  "name": "本主题的专栏（15篇）",
+  "numberOfItems": 15,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "url": "https://www.scix.co.jp/zh-column-revenue",
+      "name": "电池储能的三大收益来源"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "url": "https://www.scix.co.jp/zh-column-balancing-market",
+      "name": "日本辅助服务市场的商品一览"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "url": "https://www.scix.co.jp/zh-column-eprx",
+      "name": "EPRX（电力供需调整力交易所）是什么"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "url": "https://www.scix.co.jp/zh-column-capacity-market",
+      "name": "容量市场主拍卖与储能"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "url": "https://www.scix.co.jp/zh-column-lda",
+      "name": "什么是长期脱碳电源拍卖（LDA）"
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "url": "https://www.scix.co.jp/zh-column-merchant",
+      "name": "什么是全市场型（Full Merchant）"
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "url": "https://www.scix.co.jp/zh-column-development",
+      "name": "储能电站开发的全流程"
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "url": "https://www.scix.co.jp/zh-column-grid",
+      "name": "并网工程费为何相差10倍"
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "url": "https://www.scix.co.jp/zh-column-grid-rules",
+      "name": "接入系统研究、合同申请的新规则"
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
+      "url": "https://www.scix.co.jp/zh-column-nonfirm",
+      "name": "非确定性并网（non-firm）与弃电风险"
+    },
+    {
+      "@type": "ListItem",
+      "position": 11,
+      "url": "https://www.scix.co.jp/zh-column-buyer-structures",
+      "name": "储能电站的买法有四种"
+    },
+    {
+      "@type": "ListItem",
+      "position": 12,
+      "url": "https://www.scix.co.jp/zh-column-transfer",
+      "name": "储能开发权的转让"
+    },
+    {
+      "@type": "ListItem",
+      "position": 13,
+      "url": "https://www.scix.co.jp/zh-column-buyer-check",
+      "name": "那份\"已获许可\"是真的吗"
+    },
+    {
+      "@type": "ListItem",
+      "position": 14,
+      "url": "https://www.scix.co.jp/zh-column-foreign-investor",
+      "name": "“向EPC下单就能建成储能电站”并非如此"
+    },
+    {
+      "@type": "ListItem",
+      "position": 15,
+      "url": "https://www.scix.co.jp/zh-column-jcstar",
+      "name": "JC-STAR 是什么｜★1至★4的区别·对象设备，储能的★1何时成为必备"
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:760px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans SC','Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8C8C8C"><a href="/zh" style="color:#555555;text-decoration:none">首页</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/zh-knowledge" style="color:#555555;text-decoration:none">洞见</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8C8C8C">一页看懂日本电网侧储能（BESS）市场 — 以及每个问题该读哪一页</span></nav>
+<div class="article-header">
+  <div class="header-inner">
+    <div class="header-meta">
+      <span class="header-tag">指南</span>
+      <time class="header-date" datetime="2026-11-23">发布 2026.11.23</time>
+    </div>
+    <h1>一页看懂日本电网侧储能（BESS）市场 — 以及每个问题该读哪一页<br><em>收益、并网、购买方式、市场数据与在售项目</em></h1>
+    <p class="header-desc">从海外看日本电网侧储能（BESS）市场时的入口。本页不重复本公司的指南与专栏，只用几行写出每个主题的轮廓，并告诉您下一个问题该读哪一页。数字保留其所在页面的日期与出处。</p>
+  </div>
+</div>
+<div class="article-body">
+<a target="_top" href="/zh-knowledge" class="back-link">← 返回洞见一览</a>
+
+<div class="highlight-box" data-scix-guide-tldr>
+<div class="box-label">三句话说清</div>
+<ul><li>日本的电网侧储能靠三个市场获得收入：辅助服务市场（EPRX）、批发电力（JEPX）与容量市场（OCCTO）。收入来自市场，而不是固定价格收购（FIT）。</li><li>瓶颈在并网。截至2026年6月末，已并网的电网侧储能为128万kW，已受理的接入系统研究约21,100万kW，已受理的合同申请约4,100万kW（资源能源厅）。</li><li>在蓄电所市场，已取得接入系统研究答复的项目以完工交付或权利转让的形式出售；本公司所列项目可免登记浏览。</li></ul>
+</div>
+
+<aside class="guide-cta-top" data-scix-guide-cta="top">
+<p>所在县、规模、电压、购买方式、手续阶段与预计投运时间，无需登记即可在蓄电所市场（Chikudensho Market）查看；所列仅限已取得接入系统研究答复的项目。蓄电所市场的画面只有日文和英文，中文读者请用英文画面。</p>
+<p><a href="https://dealroom.scix.co.jp/en" target="_top" class="cta-btn" data-cta="top" data-cta-target="market">在蓄电所市场（Chikudensho Market）查看案件 →</a></p>
+<p class="sub">持有已取得接入系统研究答复的项目，可由本公司收购，或为您介绍买方。 <a href="/zh-contact" target="_top" data-cta="top" data-cta-target="contact">联系我们</a></p>
+</aside>
+
+<nav class="guide-toc" aria-label="本页目录">
+<div class="box-label">本页目录</div>
+<ol>
+<li><a href="#g1">30秒读懂这个市场</a></li>
+<li><a href="#g2">市场与制度 — 收入从哪里来</a></li>
+<li><a href="#g3">并网与用地</a></li>
+<li><a href="#g4">项目的取得方式</a></li>
+<li><a href="#g5">市场数据与每月的市场笔记</a></li>
+<li><a href="#g6">蓄电所市场的在售项目</a></li>
+<li><a href="#cols">本主题的专栏（15篇）</a></li>
+<li><a href="#faq">常见问题</a></li>
+</ol>
+</nav>
+
+<h2 id="g1">1. 30秒读懂这个市场</h2>
+<ul><li><strong>三个收入来源。</strong> 辅助服务市场（EPRX）购买修正电力过剩与不足的"能力"；批发电力（JEPX）赚取便宜时段与昂贵时段的价差；容量市场（OCCTO）为将来某一年度"能够供电"付费。本公司的月度市场笔记按这个顺序排列。</li><li><strong>并网决定项目。</strong> 一般输配电企业的接入系统研究答复，写明接入点、工期与并网工程费分摊。已并网的容量相对排队量很小：2026年6月末，已并网128万kW，接入系统研究约21,100万kW，合同申请约4,100万kW。</li><li><strong>在售的是什么。</strong> 被买卖的项目多为已取得接入系统研究答复的项目，以买方自行建设的开发权（权利转让），或完工交付的形式出售。</li><li><strong>现在有多少项目在售。</strong> 本公司所列的件数每天早上重新统计，按分区、都道府县、电压与预计并网时间列在<a href="/zh-market-data" target="_top">市场数据</a>。这是本公司自己的项目列表，不是日本全国市场的统计。</li></ul>
+<div class="source">出处：资源能源厅《系統用蓄電池をはじめとする発電等設備の迅速な系統連系に向けた対応について》，第13次下一代电网工作组 资料2（2026年10月6日），第3页 — <a href="https://www.meti.go.jp/shingikai/enecho/denryoku_gas/saisei_kano/smart_power_grid_wg/pdf/013_02_00.pdf" target="_blank" rel="noopener">PDF，日文</a></div>
+<p class="guide-more">基础知识：<a href="/zh-primer" target="_top">日本电网级储能 — 面向海外投资者的入门指南</a>・<a href="/zh-glossary" target="_top">日本电网侧储能术语表｜辅助服务市场、接入系统研究、买卖的67个术语</a></p>
+<h2 id="g2">2. 市场与制度 — 收入从哪里来</h2>
+<h3>辅助服务市场（EPRX）</h3>
+<p>一般输配电企业在这里以30分钟为单位购买调整力（ΔkW）。反应快的一次调频、二次调频①最适合储能。自2026年3月13日交易分起改为前一日交易。一次、二次①与复合商品的上限价，自2026年9月1日交割起为10.00日元/ΔkW·30分（此前为15.00日元，2026年3月14日之前为19.51日元）。</p>
+<div class="source">出处：电力供需调整力交易所（EPRX）《需給調整市場のΔkW上限価格について》（2026年7月30日）— <a href="https://www.eprx.or.jp/information/docs/14b85fbe8942da7d3bdddda80243e7e170f64d9e.pdf" target="_blank" rel="noopener">PDF，日文</a></div>
+<p class="guide-more">完整指南：<a href="/zh-guide-balancing-market" target="_top">EPRX与日本辅助服务市场指南｜商品、成交结果、上限价格与饱和</a>・专栏：<a href="/zh-column-balancing-market" target="_top">日本辅助服务市场的商品一览 — 五商品、复合中标、在线连接的全貌</a>・<a href="/zh-column-price-cap" target="_top">天花板，下调5日元 ── 辅助服务市场上限价格降至10日元。以9区域×4产品细数即将消失的约300亿日元</a></p>
+<h3>批发电力（JEPX）</h3>
+<p>JEPX每天交易48个30分钟时段。储能在低价时段充电、高价时段放电；光伏压低白天的价格，傍晚的高峰抬高价格，这个价差就是套利收入的来源。各分区每月的价差，见本公司的市场笔记（英文）。</p>
+<p class="guide-more">详细阅读：<a href="/zh-column-revenue" target="_top">电池储能的三大收益来源 — JEPX、辅助服务、容量市场的收益叠加（revenue stacking）</a>・每月的数字：<a href="/en/report" target="_top">Battery Storage Market Notes（英文页面）</a></p>
+<h3>容量市场与LDA（OCCTO）</h3>
+<p>主拍卖为在交付年度"能够供电"的电源付费，原则上为1年合同，价格逐年变动。长期脱碳电源拍卖（LDA）仅限新建、更换、改造，原则上为20年的固定收入；2MW/8MWh级的高压项目不满足其最低投标容量（30MW），属全市场型。</p>
+<p class="guide-more">完整指南：<a href="/zh-guide-capacity-lda" target="_top">容量市场主拍卖、LDA、容量租赁与全市场型 — 日本储能收入指南</a>・专栏：<a href="/zh-column-capacity-market" target="_top">容量市场主拍卖与储能 — 单价（成交价格）的变迁与对收益的影响</a>・<a href="/zh-column-lda" target="_top">什么是长期脱碳电源拍卖（LDA）— 储能中标率与第3次结果</a>・<a href="/zh-column-merchant" target="_top">什么是全市场型（Full Merchant）— 储能仅靠市场收入成立的条件</a></p>
+<h3>收入与成本</h3>
+<p>三个市场如何叠加、收入因分区而异多少、建设费按每kWh是多少，汇总在一份指南中。</p>
+<p class="guide-more">完整指南：<a href="/zh-guide-revenue-cost" target="_top">日本电网侧储能的收益与价格｜三大收益来源·分区·建设成本·20年现金流</a></p>
+<h3>设备 — JC-STAR ★1</h3>
+<p>要求使用JC-STAR ★1产品（PCS、EMS、网关等以IP通信的设备，不含电池单体）的电网规范修订正在推进：特别高压与高压自2027年4月起，以合同申请为基准。方向已定；本公司撰写专栏时，承载这一规则的指南尚未公布。</p>
+<p class="guide-more">详细阅读：<a href="/zh-column-jcstar" target="_top">JC-STAR 是什么｜★1至★4的区别·对象设备，储能的★1何时成为必备</a></p>
+<h2 id="g3">3. 并网与用地</h2>
+<h3>手续的顺序</h3>
+<p>本公司的开发专栏把项目分为五个阶段——选址初筛；用地、居民与行政手续；接入系统研究与签约；设计与采购；施工与并网——整体至少2年，通常3〜5年。买下已取得接入系统研究答复并已确保用地的项目，可从第4阶段开始。</p>
+<p>电网一侧的顺序为：接入系统研究 → 合同申请 → 并网承诺 → 工事费分摊合同（承诺后1个月内）→ 施工 → 并网。目前影响时间的有三条规则：</p>
+<ul><li>接入系统研究答复，自答复日起满1年仍未提出合同申请的，即告失效。</li><li>自2026年10月1日起受理的合同申请（拟作为FIT、FIP电源的设备除外），原则上须在并网承诺后2个月内提交证明用地使用权的文件，否则已确定的并网预约将被取消。</li><li>自2026年8月1日起，各一般输配电企业对电网侧储能设定每家企业的接入系统研究件数上限。</li></ul>
+<div class="source">出处：电力广域的运营推进机关（OCCTO）《発電設備等に関する系統アクセスの流れ》（2026年9月修订），第11、14〜15、16〜19页 — <a href="https://www.occto.or.jp/assets/access_nagare_20260928.pdf" target="_blank" rel="noopener">PDF，日文</a></div>
+<p class="guide-more">详细阅读：<a href="/zh-column-development" target="_top">储能电站开发的全流程 — 从选址到并网，按什么顺序做什么｜ScienceX 洞见</a>・<a href="/zh-column-grid-rules" target="_top">接入系统研究、合同申请的新规则 — 2026 年 4 月“空占对策”改变了什么</a></p>
+<h3>费用与出力控制</h3>
+<p>在并网费用中，因地点不同而相差数个数量级的是并网工程费分摊。本公司的专栏举出三个因素：与电网的距离、储能充放电所需的双向容量，以及对接入系统研究的投机性占位。2023年4月以后，除不足10kW的低压外，新建接入原则上均为非确定性并网（non-firm），电网拥堵时出力——对储能而言还包括充电——可能被控制。</p>
+<p class="guide-more">详细阅读：<a href="/zh-column-grid" target="_top">并网工程费为何相差10倍 — 储能事业的选址决定一切</a>・<a href="/zh-column-nonfirm" target="_top">非确定性并网（non-firm）与弃电风险 — 对储能事业收益如何起作用｜ScienceX 洞见</a></p>
+<h3>用地的风险</h3>
+<p>冷却与PCS风扇在夜间的噪声、洪水与山体滑坡的风险、设备停机时由谁来修直流侧，以及保险如何搭建，是储能电站常见的问题来源。</p>
+<p class="guide-more">完整指南：<a href="/zh-guide-siting-risk" target="_top">储能电站的噪声与选址风险｜灾害·运维·保险</a></p>
+<h2 id="g4">4. 项目的取得方式</h2>
+<p>在本公司的列表上，项目以下列两种形式之一出售：</p>
+<ul><li><strong>权利转让（开发权）</strong> — 用地的权利与并网上的地位（接入系统研究答复、合同申请、并网工程费分摊），由买方建设电站。</li><li><strong>完工交付</strong> — 由卖方一侧建成电站，连同设备与土地（或土地使用权）一并交付。</li></ul>
+<p>除这两种之外，本公司的专栏还介绍买下持有电站的SPC，以及买下有交易业绩的已投运电站。哪种合适，取决于买方能建设什么、能承担多少风险；左右价格的，比起分区，更多是项目所处的阶段（已取得研究答复、已获并网承诺、已投运）。</p>
+<p class="guide-more">完整指南：<a href="/zh-guide-buy-sell" target="_top">日本储能电站买卖指南 — 买法、价格、流程与购买前核查</a>・专栏：<a href="/zh-column-buyer-structures" target="_top">储能电站的买法有四种 ── 权利、完工、业绩，以及“容器”。同样的2MW，为什么会有三个价格</a>・<a href="/zh-column-transfer" target="_top">储能开发权的转让 — 手续与注意点</a>・<a href="/zh-column-buyer-check" target="_top">那份"已获许可"是真的吗 — 购买电网侧储能电站前的技术核查，9大领域40余项要点</a></p>
+<h2 id="g5">5. 市场数据与每月的市场笔记</h2>
+<ul><li><strong><a href="/zh-market-data" target="_top">市场数据</a></strong> — 本公司所列项目，按分区、都道府县、电压、形式、规模与预计并网时间统计。每天早上重新统计，不含价格。</li><li><strong><a href="/en/report" target="_top">Battery Storage Market Notes（英文页面）</a></strong> — 依据公开数据，按月整理辅助服务市场、JEPX与容量市场的报告，附出处与PDF。每期以发行月份命名：<a href="/en/report/2026-11" target="_top">2026年11月号（英文页面）</a>收录2026年10月的市场。</li><li><strong><a href="/en/research" target="_top">Market research（英文页面）</a></strong> — 两者的入口。</li></ul>
+<h2 id="g6">6. 蓄电所市场的在售项目</h2>
+<p>蓄电所市场（Chikudensho Market）是本公司面向日本电网侧储能项目的交易平台，画面有日文和英文，中文读者请用英文画面。无需登记，即可查看所列各项目的都道府县、规模、电压、出售形式、手续阶段与预计投运时间。价格与资料在免费登记后可见，登记时在画面上同意保密承诺。</p>
+<p class="guide-go">→ <a href="https://dealroom.scix.co.jp/en" target="_top">在蓄电所市场查看在售项目（英文页面）</a></p>
+
+<section class="guide-cols" id="cols">
+<h2>本主题的专栏（15篇）</h2>
+<p class="note">各专栏写明了数字的统计区间与出处。</p>
+<ul>
+<li><a href="/zh-column-revenue" target="_top">电池储能的三大收益来源</a></li>
+<li><a href="/zh-column-balancing-market" target="_top">日本辅助服务市场的商品一览</a></li>
+<li><a href="/zh-column-eprx" target="_top">EPRX（电力供需调整力交易所）是什么</a></li>
+<li><a href="/zh-column-capacity-market" target="_top">容量市场主拍卖与储能</a></li>
+<li><a href="/zh-column-lda" target="_top">什么是长期脱碳电源拍卖（LDA）</a></li>
+<li><a href="/zh-column-merchant" target="_top">什么是全市场型（Full Merchant）</a></li>
+<li><a href="/zh-column-development" target="_top">储能电站开发的全流程</a></li>
+<li><a href="/zh-column-grid" target="_top">并网工程费为何相差10倍</a></li>
+<li><a href="/zh-column-grid-rules" target="_top">接入系统研究、合同申请的新规则</a></li>
+<li><a href="/zh-column-nonfirm" target="_top">非确定性并网（non-firm）与弃电风险</a></li>
+<li><a href="/zh-column-buyer-structures" target="_top">储能电站的买法有四种</a></li>
+<li><a href="/zh-column-transfer" target="_top">储能开发权的转让</a></li>
+<li><a href="/zh-column-buyer-check" target="_top">那份&quot;已获许可&quot;是真的吗</a></li>
+<li><a href="/zh-column-foreign-investor" target="_top">“向EPC下单就能建成储能电站”并非如此</a></li>
+<li><a href="/zh-column-jcstar" target="_top">JC-STAR 是什么｜★1至★4的区别·对象设备，储能的★1何时成为必备</a></li>
+</ul>
+</section>
+
+<section id="faq">
+<h2>常见问题</h2>
+<div class="faq-item">
+  <div class="faq-q">日本的电网侧储能市场是固定价格收购（FIT）的市场吗？</div>
+  <div class="faq-a"><p>不是。电网侧储能的收入来自辅助服务市场、批发电力与容量市场。由OCCTO运营的长期脱碳电源拍卖（LDA）原则上提供20年的固定收入，最低投标容量为30MW。容量租赁（Tolling）合约是另一条取得固定费用的途径：持有者把储能电站的容量与运营权交给对方。详见<a href="/zh-guide-capacity-lda" target="_top">容量市场、LDA与容量租赁指南</a>。</p>
+<p class="guide-more">详细阅读：<a href="/zh-column-revenue" target="_top">电池储能的三大收益来源 — JEPX、辅助服务、容量市场的收益叠加（revenue stacking）</a></p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">市场有多大？</div>
+  <div class="faq-a"><p>资源能源厅2026年6月末的数字：已并网的电网侧储能128万kW，已受理的接入系统研究约21,100万kW，已受理的合同申请约4,100万kW。并非所有接入系统研究都会走到并网（资源能源厅）。已取得接入系统研究答复的项目在蓄电所市场出售。</p>
+<p class="guide-more">详细阅读：<a href="/zh-column-grid-rules" target="_top">接入系统研究、合同申请的新规则 — 2026 年 4 月“空占对策”改变了什么</a></p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">外国企业能在日本买项目吗？</div>
+  <div class="faq-a"><p>外国资本确有收购，但收购之前有几道关口：资金调出本国的路径、外汇法下的对内直接投资规则、稀缺的并网额度与用地、设备，以及税务。本公司的专栏认为，在外汇法下电网侧储能电站属于指定行业，很可能成为事前申报的对象。是否适用、如何适用于您的架构，请个别咨询您自己的律师。</p>
+<p class="guide-more">详细阅读：<a href="/zh-column-foreign-investor" target="_top">“向EPC下单就能建成储能电站”并非如此 — 外国资本投资日本高压电网侧储能电站前需跨越的关口</a></p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">权利转让与完工交付有什么不同？</div>
+  <div class="faq-a"><p>权利转让是买下用地的权利与并网上的地位，自行建设电站；完工交付是由卖方一侧建成电站，连同设备一并交付。两者的差额，大半是建设费。</p>
+<p class="guide-more">详细阅读：<a href="/zh-guide-buy-sell" target="_top">日本储能电站买卖指南 — 买法、价格、流程与购买前核查</a></p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">在日本开发一座电网侧储能需要多久？</div>
+  <div class="faq-a"><p>按本公司的开发专栏，从选址初筛到并网至少2年，通常3〜5年。接入系统研究答复自答复日起满1年仍未提出合同申请的，即告失效。</p>
+<p class="guide-more">详细阅读：<a href="/zh-column-development" target="_top">储能电站开发的全流程 — 从选址到并网，按什么顺序做什么｜ScienceX 洞见</a></p></div>
+</div>
+<div class="faq-item">
+  <div class="faq-q">价格在哪里看？</div>
+  <div class="faq-a"><p>本网站不刊登价格。各所列项目的价格与资料，在蓄电所市场免费登记后可见。</p></div>
+</div>
+</section>
+
+<div class="cta-section" data-scix-guide-cta="end">
+<h2>下一步</h2>
+<ul><li><strong>想买项目的一方</strong>：本公司所列项目可在蓄电所市场免登记浏览；价格与资料在免费登记后可见。蓄电所市场的画面只有日文和英文，中文读者请用英文画面。→ <a href="https://dealroom.scix.co.jp/en" target="_top" data-cta="end" data-cta-target="market">蓄电所市场的在售项目（英文页面）</a></li><li><strong>想卖项目的一方</strong>：如持有已取得接入系统研究答复的项目，本公司收购，或为您对接买方。→ <a href="/zh-contact" target="_top" data-cta="end" data-cta-target="contact">联系我们</a></li><li><strong>继续阅读</strong>：<a href="/zh-primer" target="_top" data-cta="end">日本电网级储能 — 面向海外投资者的入门指南</a>・<a href="/zh-knowledge" target="_top" data-cta="end">洞见｜日本电网级储能的制度、收益、市场结构</a>・<a href="/zh-qa" target="_top" data-cta="end">日本电网侧储能是什么？入门问答 ── 原理、成本、收益、风险</a></li></ul>
+</div>
+
+</div>
+
+<!-- ScienceX Footer — self-contained -->
+<style>
+  .scix-footer * { margin: 0; padding: 0; box-sizing: border-box; }
+  .scix-footer { background-color: #1F2A48; color: rgba(255,255,255,.85); font-family: 'Noto Sans SC','Noto Sans JP',sans-serif; font-weight: 300; font-size: 12.5px; line-height: 1.9; padding: 44px 28px 32px; width: 100%; }
+  .scix-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .scix-footer-logo img { height: 48px; width: auto; display: block; opacity: .95; }
+  .scix-footer-info { text-align: center; }
+  .scix-footer-copyright { font-size: 11px; letter-spacing: .04em; color: rgba(255,255,255,.55); margin-top: 20px; }
+  .scix-footer-company { font-size: 12.5px; line-height: 2; color: rgba(255,255,255,.8); }
+  .scix-footer-company .company-name { font-weight: 500; font-size: 13.5px; color: rgba(255,255,255,.92); margin-bottom: 2px; }
+  .scix-footer-company .representative { margin-top: 4px; color: rgba(255,255,255,.6); font-size: 12px; }
+  .scix-footer-company a { color: rgba(255,255,255,.8); text-decoration: none; transition: color .2s ease; }
+  .scix-footer-company a:hover { color: #C49A3C; }
+  .scix-footer-divider { width: 60px; border: none; border-top: 1px solid rgba(255,255,255,.12); margin: 0 auto; }
+</style>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img width="300" height="118" src="/img/logo-white.png" alt="ScienceX Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        日本〒103-0016 东京都中央区日本桥小网町 8-2<br>
+        BIZMARKS 日本桥茅场町 801<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/zh" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">首页</a>
+        <a href="/zh-knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">洞见</a>
+        <a href="/zh-qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">问答</a>
+        <a href="/zh-glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">术语表</a>
+        <a href="/zh-contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">联系我们</a>
+        <a href="/zh-privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">隐私政策</a>
+      </div>
+      <div class="scix-footer-copyright">&copy; 2025–2026 Science X Inc. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -7,7 +7,7 @@ h1_sub: 商品、成交结果、上限价格与饱和，一页读懂
 description: 一页读懂由EPRX（电力供需调整力交易所）运营的日本辅助服务市场：五项商品、9分区成交结果、上限10日元、另一层天花板“一定额”，以及储能是否饱和。
 columns: zh-column-balancing-market, zh-column-eprx, zh-column-area-data, zh-column-price-cap, zh-column-bidding-ceiling-market, zh-column-bidding-ceiling, zh-column-bidding-ceiling-law, zh-column-bidding-ceiling-calc, zh-column-bidding-ceiling-monitoring, zh-column-balancing-saturation, zh-column-balancing-saturation-volume, zh-column-balancing-saturation-supply, zh-column-balancing-saturation-floor, zh-column-aggregator-fee, zh-column-aggregators, zh-column-aggregators-roster, zh-column-aggregators-volume, zh-column-aggregators-pricing, zh-column-aggregators-switching, zh-column-aggregators-overseas
 published: 2026-11-22
-modified: 2026-11-24
+modified: 2026-11-23
 ---
 
 ## @lead
@@ -62,7 +62,7 @@ more: 详见：[辅助服务市场的分区成交结果 — 9电力×5商品](/z
 
 上限随后自2026年9月1日交割起降为10.00日元（EPRX 2026年7月30日公布）。二次②、三次①维持7.21日元，三次②本来就没有上限。下一档7.21日元，附有“若市场竞争状况未见改善”的条件。
 
-运营上要紧的，是与JEPX的逐日取舍。规则是“仅JEPX现货投标后的卖剩量”才能投标辅助服务市场，所以企业每天都要就翌日48个时段，逐一判断“在JEPX出售，还是在辅助服务市场待命”。储能在充电中无法投标，“48个时段中能对市场投出几段”直接左右收益。
+运营上要紧的，是与JEPX的逐日取舍。规则是“仅JEPX现货投标后的卖剩量”才能投标辅助服务市场，所以企业每天都要就翌日48个时段，逐一判断“在JEPX出售，还是在辅助服务市场待命”。储能暂停充电的部分，也可以作为上调能力投标（EPRX《利用抽水蓄能或储能设备参与辅助服务市场的处理指南》，日文：https://www.eprx.or.jp/outline/docs/yousuichikudenchi_guide_250401.pdf ）。不过，在哪些时段充电，会改变电池的余量和可投标的量，所以48个时段的充电与投标如何安排，直接左右收益。
 
 more: 详见：[辅助服务市场的五项商品（2026年度的制度变更）](/zh-column-balancing-market)／[天花板，下调5日元](/zh-column-price-cap)
 

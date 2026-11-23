@@ -16,8 +16,10 @@ JEPX は出所の明示で利用可、OCCTO は出典の記載で利用可（編
 """
 from __future__ import annotations  # launchd の python3 は 3.9
 
+import csv
 import datetime
 import html
+import io
 import json
 import urllib.parse
 import os
@@ -177,19 +179,21 @@ def read_issue(doc, lang="ja"):
             is_jepx = head[0] == "Area" and head[1] == "Monthly average" and len(head) == len(JEPX_HEAD)
             is_spread = head[0] == "Area" and "2-hour" in head[1] and len(head) == len(SPREAD_HEAD)
             is_eprx = head[0] == "Product" and len(head) == len(EPRX_HEAD)
-            is_cap = head[0].startswith("Delivery fiscal year") and len(head) == 10
+            is_cap = head[0].strip() == "Delivery fiscal year" and len(head) == 10        # 追加オークションの表（見出しが "Delivery fiscal year of the additional auction"）はメインの表と取り違えない（2026-11-23）
             is_lda = len(head) == 3 and "Long-Term" in cap and "Decarbon" in cap
             ym = ym_en(cap)
         body = rows[1:]
         if is_jepx and ym:
             out["jepx"] = {"ym": ym, "rows": [(r[0], dict(zip(JEPX_KEYS, r[1:]))) for r in body]}
             out["src"]["jepx"] = src
+            out.setdefault("market_sec", sec["num"])
         elif is_spread:
             out["spread"] = {"rows": [(r[0], dict(zip(SPREAD_KEYS, r[1:]))) for r in body], "sec": sec["num"]}
             out["src"]["spread"] = src
         elif is_eprx and ym:
             out["eprx"] = {"ym": ym, "rows": [(r[0], dict(zip(EPRX_KEYS, r[1:]))) for r in body]}
             out["src"]["eprx"] = src
+            out.setdefault("market_sec", sec["num"])
         elif is_cap:
             out["cap"] = {"head": head, "rows": body}
         elif is_lda:
@@ -223,7 +227,9 @@ def sentences(text, n, lang="ja"):
 
 
 def occto_urls(doc, lang="ja"):
-    """前提と用語の OCCTO の出典の行から、{年度: URL}（容量市場）と {応札年度: URL}（長期脱炭素）を取る。"""
+    """前提と用語の OCCTO の出典の行から、{年度: URL}（容量市場）と {応札年度: URL}（長期脱炭素）を取る。
+    英語の言い回しは翻訳のたびに変わる（clearing results／auction results／market results）ので、言い回しでなく行の種類で決める:
+    長期脱炭素（Long-Term・Decarbon）→ ldau、追加オークション（additional）→ 読まない、それ以外の OCCTO の出典の行 → 容量市場のメインオークション（2026-11-23）。"""
     capu, ldau = {}, {}
     for t in terms(doc):
         if "OCCTO" not in t:
@@ -231,23 +237,26 @@ def occto_urls(doc, lang="ja"):
         pairs = re.findall(r"(\d{4})\D{0,12}?\s*(https://\S+?\.pdf)", t)
         if not pairs:
             continue
-        if ("容量市場の約定結果" in t) or ("capacity market clearing" in t):
-            capu = {y: u for y, u in pairs}
-        elif ("長期脱炭素" in t) or ("Long-Term" in t):
+        if ("長期脱炭素" in t) or re.search(r"Long-Term|Decarbon", t):
             ldau = {y: u for y, u in pairs}
+        elif ("追加オークション" in t) or re.search(r"additional", t, re.I):
+            continue
+        elif ("容量市場の約定結果" in t) or (lang == "en" and re.match(r"Sources? \(OCCTO", t)):
+            capu = {y: u for y, u in pairs}
     return capu, ldau
 
 
 # ---------------------------------------------------------------- まとめる
 def collect(months, docs, lang="ja"):
     """号（新しい順）→ 月ごとの数字。同じ月が2つの号にあれば新しい号を採る。"""
-    jepx, eprx, warn = {}, {}, []
+    jepx, eprx, warn, secmap = {}, {}, [], {}
     latest = None
     for m in months:
         doc = docs.get(m["key"] + (":en" if lang == "en" else ""))
         if not doc:
             continue
         iss = read_issue(doc, lang)
+        secmap[m["key"]] = iss.get("market_sec")            # 「市場の数字」の節の番号は号ごとに違う（2026-11-23〜 途中経過・データの時点の節が増えた）
         warn += [f"{m['key']} {lang}: {w}" for w in iss["warn"]]
         if latest is None:
             latest = {"key": m["key"], "doc": doc, "iss": iss}
@@ -258,12 +267,12 @@ def collect(months, docs, lang="ja"):
                 d = dict(v)
                 d.update(sp.get(a, {}))
                 rows[a] = d
-            jepx[iss["jepx"]["ym"]] = {"issue": m["key"], "issued": doc["issued"], "rows": rows,
+            jepx[iss["jepx"]["ym"]] = {"issue": m["key"], "issued": doc["issued"], "rows": rows, "sec": iss.get("market_sec"),
                                         "order": [a for a, _ in iss["jepx"]["rows"]], "spread_sec": iss.get("spread", {}).get("sec", "")}
         if "eprx" in iss and iss["eprx"]["ym"] not in eprx:
-            eprx[iss["eprx"]["ym"]] = {"issue": m["key"], "issued": doc["issued"], "rows": dict(iss["eprx"]["rows"]),
+            eprx[iss["eprx"]["ym"]] = {"issue": m["key"], "issued": doc["issued"], "rows": dict(iss["eprx"]["rows"]), "sec": iss.get("market_sec"),
                                         "order": [a for a, _ in iss["eprx"]["rows"]]}
-    return {"jepx": jepx, "eprx": eprx, "latest": latest, "warn": warn}
+    return {"jepx": jepx, "eprx": eprx, "latest": latest, "warn": warn, "secmap": secmap}
 
 
 def month_range(keys):
@@ -446,6 +455,8 @@ def month_cell(ym, rec, base, sec="s17", lang="ja"):
     t = f'<time datetime="{ym}">{esc(ym_label(ym, lang))}</time>'
     if not rec:
         return t
+    if rec.get("sec"):
+        sec = "s" + str(rec["sec"])
     return f'<a href="{base}/{rec["issue"]}#{sec}">{t}</a>'
 
 
@@ -550,7 +561,7 @@ def jepx_section(data, lang, base, latest_doc, csv_href, area_order, area_names)
                 f"{ym_label(last)}のエリア別の数字（{unit}）", "定義"),
          "en": ("② Wholesale electricity (JEPX): monthly averages and spreads by area", "Trend by area", f"Monthly average ({unit})",
                 f"4-hour spread ({unit})", f"2-hour spread ({unit})", f"Figures by area for {ym_label(last, 'en')} ({unit})", "Definitions")}[lang]
-    issue_link = f'<a href="{base}/{rec_last["issue"]}#s17">{esc(issue_label(rec_last["issue"], lang))}</a>'
+    issue_link = f'<a href="{base}/{rec_last["issue"]}#s{rec_last.get("sec") or "17"}">{esc(issue_label(rec_last["issue"], lang))}</a>'
     latest = latest_jepx_sentence(lang, last, area_names[sysn], v(last, sysn, "avg"), v(last, sysn, "s4"), unit, "JEPX スポット市場" if lang == "ja" else "JEPX spot market")
     return f"""<section class="md" id="jepx"><div class="container rp-body">
   <h2 class="md-h">{esc(h[0])}</h2>
@@ -595,7 +606,7 @@ def cap_lda_section(data, lang, base, latest_doc, csv_cap, csv_lda, area_only=No
     # 号の中の「出所は末尾の前提と用語」を指す括弧は、この頁では下の年度のリンクに当たるので外す
     src_clean = re.sub(r"（出所は[^）]*）|\s*\(sources? (?:are )?listed in the last section[^)]*\)\)?", "", src_clean)
     occ = "OCCTO"
-    issue_link = f'<a href="{base}/{key}#s17">{esc(issue_label(key, lang))}</a>'
+    issue_link = f'<a href="{base}/{key}#s{data.get("secmap", {}).get(key) or "17"}">{esc(issue_label(key, lang))}</a>'
     year_links = "".join(f'　<a href="{esc(u)}" rel="noopener" target="_blank">{esc(y + ("年度" if lang == "ja" else ""))}</a>' for y, u in sorted(capu.items()))
     lda_links = "".join(f'　<a href="{esc(u)}" rel="noopener" target="_blank">{esc(y + ("年度応札" if lang == "ja" else ""))}</a>' for y, u in sorted(ldau.items()))
     pre = "出典: " if lang == "ja" else "Source: "
@@ -681,7 +692,7 @@ def eprx_section(data, lang, base, latest_doc, csv_href, months):
     intro = sentences(first_p(sec3), 1, lang)
     head_t = "①需給調整市場（EPRX）" if lang == "ja" else "① Balancing market (EPRX)"
     if not SHOW_EPRX:
-        links = "".join(f'<a href="{base}/{m["key"]}#s17">{esc(issue_label(m["key"], lang))}</a>'
+        links = "".join(f'<a href="{base}/{m["key"]}#s{data.get("secmap", {}).get(m["key"]) or "17"}">{esc(issue_label(m["key"], lang))}</a>'
                         for m in months)
         lead = ("商品ごとの応札倍率・約定率・平均落札価格は、各号の「市場の数字」の節に:" if lang == "ja"
                 else "Bid ratios, award rates and average winning prices by product are in the \"Market numbers\" section of each issue:")
@@ -1114,6 +1125,22 @@ def en_matches(ja, en):
     return bad
 
 
+def source_gaps(files, d):
+    """容量市場・長期脱炭素の CSV の「出典」列が空の行があれば、「NG …」の知らせにする（build_reports.py の main が NG の知らせで止まる＝--check でも通らない）。
+    号の文の言い回しが変わって出典の住所を拾えなくなったとき、黙って空にしない（2026-11-23）。"""
+    out = []
+    for name in ("capacity-main-auction.csv", "long-term-decarbonization-auction.csv"):
+        text = files.get(f"{d}/{name}", b"").decode("utf-8-sig")
+        rows = list(csv.reader(io.StringIO(text)))
+        if not rows:
+            continue
+        src_i = len(rows[0]) - 1                         # 出典は最後の列
+        empty = [r[0] for r in rows[1:] if len(r) > src_i and not r[src_i].strip()]
+        if empty:
+            out.append(f"NG {d}/{name}: 出典の列が空の行が {len(empty)} 行（{', '.join(sorted(set(empty))[:6])}）。号の「前提と用語」の出典の行の言い回しを見直す")
+    return out
+
+
 def build(br, months, docs):
     """{相対パス: bytes}・sitemap に足す行 [(path, lastmod, priority, alt_path, lang)]・知らせ を返す。"""
     files, sm, notes = {}, [], []
@@ -1142,6 +1169,7 @@ def build(br, months, docs):
     files["report/data/jepx-spot-monthly.csv"] = jepx_csv(ja, "ja", order, names, "/report").encode("utf-8")
     files["report/data/capacity-main-auction.csv"] = cap_csv(ja, "ja", names).encode("utf-8")
     files["report/data/long-term-decarbonization-auction.csv"] = lda_csv(ja, "ja").encode("utf-8")
+    notes += source_gaps(files, "report/data")
     if SHOW_EPRX and ja["eprx"]:
         files["report/data/eprx-monthly.csv"] = eprx_csv(ja, "ja", "/report").encode("utf-8")
     d = _MOD["date"]
@@ -1153,6 +1181,7 @@ def build(br, months, docs):
         files["en/report/data/jepx-spot-monthly.csv"] = jepx_csv(en, "en", en_order, {a: a for a in en_order}, "/en/report").encode("utf-8")
         files["en/report/data/capacity-main-auction.csv"] = cap_csv(en, "en", {}).encode("utf-8")
         files["en/report/data/long-term-decarbonization-auction.csv"] = lda_csv(en, "en").encode("utf-8")
+        notes += source_gaps(files, "en/report/data")
         if SHOW_EPRX and en["eprx"]:
             files["en/report/data/eprx-monthly.csv"] = eprx_csv(en, "en", "/en/report").encode("utf-8")
         sm.append(("/en/report/data", d, "0.6", "/report/data", "en"))

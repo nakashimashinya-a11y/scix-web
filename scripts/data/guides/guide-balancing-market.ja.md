@@ -7,7 +7,7 @@ h1_sub: 商品・取引実績・上限価格・飽和を、1ページで
 description: EPRX（電力需給調整力取引所）が運営する需給調整市場を1ページで。5つの商品、9エリアの取引実績、2026年の前日取引化と上限10円、もう一枚の天井「一定額」、蓄電池は飽和したのかまで、コラム21本の要点を案内します。
 columns: column-balancing-market, column-eprx, column-area-data, column-day-ahead, column-price-cap, column-bidding-ceiling-market, column-bidding-ceiling, column-bidding-ceiling-law, column-bidding-ceiling-calc, column-bidding-ceiling-monitoring, column-balancing-saturation, column-balancing-saturation-volume, column-balancing-saturation-supply, column-balancing-saturation-floor, column-aggregator-fee, column-aggregators, column-aggregators-roster, column-aggregators-volume, column-aggregators-pricing, column-aggregators-switching, column-aggregators-overseas
 published: 2026-11-22
-modified: 2026-11-24
+modified: 2026-11-23
 ---
 
 ## @lead
@@ -62,7 +62,7 @@ more: くわしくは: [需給調整市場の取引実績 — 9エリア×5商�
 
 上限はさらに、2026年9月1日の実需給分から10.00円になりました（EPRXが2026年7月30日に公表）。二次②・三次①は7.21円のまま、三次②にはもともと上限がありません。次の段の7.21円は、「市場における競争状況に改善が見られない場合」という条件つきで示されています。
 
-運用で効くのは、JEPXとの日次の使い分けです。JEPXのスポット市場に入札した売れ残り分だけが需給調整市場に応札できるので、事業者は毎日、翌日の48コマそれぞれについて「JEPXで売るか、需給調整市場で待機するか」を決めます。蓄電池は充電中に応札できないため、48コマのうち何コマを市場に出せるかが収益を直接左右します。
+運用で効くのは、JEPXとの日次の使い分けです。JEPXのスポット市場に入札した売れ残り分だけが需給調整市場に応札できるので、事業者は毎日、翌日の48コマそれぞれについて「JEPXで売るか、需給調整市場で待機するか」を決めます。蓄電池は、充電を止める分も上げの調整力として応札できます（EPRX「揚水発電設備または蓄電池設備を用いて需給調整市場に参入する場合の取扱いガイド」 https://www.eprx.or.jp/outline/docs/yousuichikudenchi_guide_250401.pdf ）。ただ、どのコマで充電するかで電池の残りと出せる量が変わるため、48コマの充電と応札の組み立てが収益を直接左右します。
 
 more: くわしくは: [需給調整市場の前日取引化とは](/column-day-ahead)／[需給調整市場の5商品（2026年度の制度変更）](/column-balancing-market)／[天井が、5円下がる（上限10円化）](/column-price-cap)
 

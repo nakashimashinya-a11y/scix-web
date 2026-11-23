@@ -362,7 +362,7 @@ def latest_json(m, doc, md_text, en_doc=None, en_md=""):
                  r"対象の月: 需給調整市場（EPRX）は\s*(\d{4}年\d{1,2}月)", md_text)
     out = {"key": m["key"], "issued": doc["issued"], "title": f"{NAME} {y}年{int(mo)}月号", "url": f"/report/{m['key']}", **ja}
     if en_doc:
-        en, _ = pick(en_doc, "Source", r"balancing market \(EPRX\).*bid ratio", r"wholesale electricity \(JEPX\)",
+        en, _ = pick(en_doc, "Source", r"balancing market \(EPRX\).*bid ratio", r"wholesale (?:electricity|power) \(JEPX\)",
                      r"balancing market \(EPRX\) uses preliminary values for ([A-Z][a-z]+ \d{4})", en_md)
         out["en"] = {"title": en_doc["title"], "url": f"/en/report/{m['key']}", **en}
     return json.dumps(out, ensure_ascii=False, indent=1) + "\n"
@@ -760,7 +760,7 @@ def home_card(m, doc, figs, lang="ja"):
         lead = "A battery storage site earns from three markets: the balancing market (EPRX), wholesale power (JEPX) and the capacity market (OCCTO). Every month we chart the figures for all three from public data and our own records. Charts and tables may be reused with the source stated."
         btn, pdf_l, back = "Read this issue", "Download PDF", "All issues"
         back_href, label = "/en/report", "Market Notes"
-    fig = (f'<a class="rp-home-fig" href="{base}#s{sec_f["num"]}"><img src="{base}/f{fn}.png" alt="{esc(cap_f)}" loading="lazy">{esc(cap_f)}</a>'
+    fig = (f'<a class="rp-home-fig" href="{base}#s{sec_f["num"]}"><img src="{base}/f{fn}.png" alt="{esc(cap_f)}"{img_dims(figs[fn])} loading="lazy">{esc(cap_f)}</a>'
            if fn in figs and sec_f else "")
     return (f"""{HOME_MARK[0]}
 {HOME_CSS}
@@ -853,6 +853,8 @@ def main():
     rd_files, rd_sm, rd_notes = brd.build(sys.modules[__name__], months, docs)
     for n in rd_notes:
         print(n)
+    if any(n.startswith("NG") for n in rd_notes):        # 容量市場・長期脱炭素の CSV の出典の列が空など。--check でも通さない（2026-11-23）
+        return 2
     files.update(rd_files)
     DATA_PAGES.clear()
     DATA_PAGES.update(k for k in rd_files if k.endswith("/index.html"))
