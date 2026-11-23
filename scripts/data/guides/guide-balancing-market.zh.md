@@ -5,14 +5,14 @@ title: EPRX与日本辅助服务市场指南｜商品、成交结果、上限价
 h1: EPRX与日本辅助服务市场指南
 h1_sub: 商品、成交结果、上限价格与饱和，一页读懂
 description: 一页读懂由EPRX（电力供需调整力交易所）运营的日本辅助服务市场：五项商品、9分区成交结果、上限10日元、另一层天花板“一定额”，以及储能是否饱和。
-columns: zh-column-balancing-market, zh-column-eprx, zh-column-area-data, zh-column-price-cap, zh-column-bidding-ceiling-market, zh-column-bidding-ceiling, zh-column-bidding-ceiling-law, zh-column-bidding-ceiling-calc, zh-column-bidding-ceiling-monitoring, zh-column-balancing-saturation, zh-column-balancing-saturation-volume, zh-column-balancing-saturation-supply, zh-column-balancing-saturation-floor, zh-column-aggregator-fee
+columns: zh-column-balancing-market, zh-column-eprx, zh-column-area-data, zh-column-price-cap, zh-column-bidding-ceiling-market, zh-column-bidding-ceiling, zh-column-bidding-ceiling-law, zh-column-bidding-ceiling-calc, zh-column-bidding-ceiling-monitoring, zh-column-balancing-saturation, zh-column-balancing-saturation-volume, zh-column-balancing-saturation-supply, zh-column-balancing-saturation-floor, zh-column-aggregator-fee, zh-column-aggregators, zh-column-aggregators-roster, zh-column-aggregators-volume, zh-column-aggregators-pricing, zh-column-aggregators-switching, zh-column-aggregators-overseas
 published: 2026-11-22
-modified: 2026-11-22
+modified: 2026-11-24
 ---
 
 ## @lead
 
-辅助服务（供需调整）市场，是日本储能收入的支柱之一。本页把本公司关于这个市场的14篇中文专栏的要点，按读者想知道的顺序排好。数字保持各篇的统计窗口（什么时候、哪份数据）。依据与出处，见各篇专栏。
+辅助服务（供需调整）市场，是日本储能收入的支柱之一。本页把本公司关于这个市场的20篇中文专栏的要点，按读者想知道的顺序排好。数字保持各篇的统计窗口（什么时候、哪份数据）。依据与出处，见各篇专栏。
 
 ## @tldr
 
@@ -99,11 +99,11 @@ more: 详见：[储能饱和了吗](/zh-column-balancing-saturation)／[1σ化�
 
 ## 如何参与 — 交易会员与聚合商
 
-要在辅助服务市场应标，须登记为EPRX的交易会员，并与一般输配电企业签订发电销售合同、隶属于平衡集团。签订发电销售合同的主体与交易会员不必为同一者，可以“业主成为交易会员、运营由聚合商承担”，也可以“聚合商作为交易会员统一参与市场”。聚合商参与辅助服务市场，需依《电气事业法》登记为“特定批发供给企业”，截至2026年3月已有142家登记。
+要在辅助服务市场应标，须登记为EPRX的交易会员，并与一般输配电企业签订发电销售合同、隶属于平衡集团。签订发电销售合同的主体与交易会员不必为同一者，可以“业主成为交易会员、运营由聚合商承担”，也可以“聚合商作为交易会员统一参与市场”。作为聚合商参与的公司，须依《电气事业法》向国家备案“特定批发供给事业”（不是许可或登记）；截至2026年10月30日共187家（COLUMN 53）。
 
 前一日交易化之后，48个时段的配分依赖聚合商的运营算法，同一设备的年度收益也会出现差距。费用不能只比费率：同样的费率，计算基准是毛额（总营收）还是净额（市场利润），实得就不同。签约前要确认5点：以书面确认计算基准；费用的适用范围（仅辅助服务市场，还是也含JEPX套利益与容量市场收入）；不平衡罚款由谁负担；合同期限与解约条件；能否披露过去12个月的实际数据（以MW计的收益额、成交率、可用率）。
 
-more: 详见：[EPRX是什么（参与流程）](/zh-column-eprx)／[聚合商费用的“毛额与净额”](/zh-column-aggregator-fee)
+more: 详见：[EPRX是什么（参与流程）](/zh-column-eprx)／[聚合商费用的“毛额与净额”](/zh-column-aggregator-fee)／[数一数聚合商](/zh-column-aggregators)
 
 ## @next
 
