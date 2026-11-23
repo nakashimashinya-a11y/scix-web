@@ -3,6 +3,15 @@
      ScienceX — Shared Navigation Header (JP + EN + 简中)
      Single source of truth for all pages.
 
+     2026-11-23: 上の帯を「ロゴ固定＋蓄電所マーケットのまとまり」に組み替えた（中島「サブメニューを押さないと展開しないのが動きが嫌だ」「サイエンスエックスのロゴは左上固定で変えずに…」「買いたい売りたいが他のメニューとならびすぎ…会社の主体は蓄電所マーケット」）。
+       ・左上は ScienceX のロゴ（/img/logo-navy.png・高さ38px）で固定。蓄電所マーケット側の帯も同じ画像・同じ位置・同じ大きさにする（行き先は会社サイトのトップ・英語は /en）。
+       ・ロゴのすぐ右に、角丸の1つの枠（.scix-mg）で「蓄電所マーケット」のまとまり: 印と名前（マーケットのトップへ）→ 買いたい → 売りたい。ほかの札より一段強い。
+       ・細い区切りのあと、ナレッジ・市場リサーチ・会社案内・お問い合わせを一段軽く（普通の太さ・地色なし・絵なし）。
+       ・引き出しのある札（買いたい・売りたい・ナレッジ・市場リサーチ）は、札そのものが頁へのリンク。マウス（hover あり・広い帯）は合わせると開き押すと頁へ、
+         指と畳んだメニューは1回目の押下で開き（頁は移らない）2回目で頁へ、キーボードは Enter＝頁へ・↓＝開いて最初のリンクへ・Esc＝閉じる（3b）。割りボタン（▾ だけが開く形）は廃止。
+       ・市場リサーチの札は入口の頁 /research（英語 /en/research）へ。中国語は入口の頁を作らず、今の札（市场研究＝英語の市場ノート）のまま。
+       ・幅: 1600 以上は一回り大きく／1440 以上は外の札の余白を広げ／1359 以下はログインを人の印だけに／1199 以下は名前を枠の上の縁の見出し（12px）に／1100 以下は畳んだメニュー（一番上にまとまり）。蓄電所マーケットの帯（public/platform-nav.js・dr2.css）へ同じ値で写す。
+
      2026-11-22: 上の帯を蓄電所マーケットと同じ並びにした（買いたい・売りたい・ナレッジ・市場リサーチ・会社案内・お問い合わせ＋右端にログイン・無料で登録）。
        「買いたい」「売りたい」は札を押すとマーケットの画面へ直接行き（間の画面を挟まない）、横の ▾ だけが引き出しを開く（割りボタン）。
        「市場リサーチ」の引き出しに市場ノート・市場データを置いた（「買う」の引き出しにあった売り案件の市場データはここへ移した＝行き先は1か所に1回）。
@@ -70,7 +79,7 @@
   var side = loc === '/' ? 'home'
     : /^\/(transfer|projects|investors|market-data|fund|grid-storage|for\/)/.test(loc) ? 'buy'
     : /^\/(sourcing|sell-form|partners)/.test(loc) ? 'sell'
-    : /^\/(knowledge|column-|guide-|report|glossary|qa|faq|primer|market-entry|citation)/.test(loc) ? 'read'
+    : /^\/(knowledge|column-|guide-|report|research|glossary|qa|faq|primer|market-entry|citation)/.test(loc) ? 'read'
     : 'co';
   if (/^\/(projects|market-data)/.test(loc)) side = 'deal';
   document.documentElement.setAttribute('data-side', side);
@@ -131,7 +140,8 @@
     '  background:#fff;',
     '  z-index:9999;',
     '  border-bottom:2px solid #1F2A48;',
-    '  font-family:"Noto Sans JP",sans-serif;',
+    '  font-family:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;',
+    '  font-feature-settings:"palt" 1;',
     '}',
 
     '.scix-header-inner{',
@@ -149,36 +159,30 @@
     '}',
 
     '/* === Desktop nav === */',
-    '.scix-header-nav{',
-    '  display:flex;align-items:stretch;align-self:stretch;gap:2px;margin-left:22px;margin-right:auto;',
-    '}',
-    '.scix-header-nav > a,.scix-nav-dd-toggle,.scix-nav-main{',
-    '  display:inline-flex;align-items:center;gap:8px;height:100%;',
-    '  text-decoration:none;color:#1F2A48;',
-    '  font-size:15px;font-weight:800;letter-spacing:0;line-height:1.3;',
-    '  padding:0 14px;border-radius:0;',
-    '  background:none;border:none;cursor:pointer;font-family:inherit;',
-    '  transition:color .15s,background .15s,box-shadow .15s;',
-    '  white-space:nowrap;--pc:#1F2A48;',
-    '}',
-    '.scix-ic{width:21px;height:21px;flex:0 0 auto;display:block;color:var(--pc)}',
-    '.scix-nav-dd[data-group=knowledge] :is(.scix-nav-dd-toggle,.scix-nav-main){--pc:#7C4DDB}',
-    '.scix-nav-dd[data-group=buy] :is(.scix-nav-dd-toggle,.scix-nav-main){--pc:#2563EB}',
-    '.scix-nav-dd[data-group=sell] :is(.scix-nav-dd-toggle,.scix-nav-main){--pc:#D4610A}',
-    '.scix-nav-dd[data-group=research] :is(.scix-nav-dd-toggle,.scix-nav-main){--pc:#138A62}',
-    '.scix-header-nav > a.scix-top-buy{--pc:#2563EB}',
-    '.scix-header-nav > a.scix-top-sell{--pc:#D4610A}',
-    '.scix-header-nav > a[data-page="/report"]{--pc:#138A62}',
-    '.scix-header-nav > a[data-page="/qa"]{--pc:#7C4DDB}',
-    '.scix-header-nav > a[data-page="/knowledge"]{--pc:#7C4DDB}',
-    '.scix-header-nav > a[data-page="/market-entry-guide"]{--pc:#2563EB}',
-    '.scix-header-nav > a:hover,.scix-nav-dd-toggle:hover,.scix-nav-main:hover,.scix-nav-dd.split:hover :is(.scix-nav-main,.scix-dd-split-btn){color:#1F2A48;background:#F3F5FA;box-shadow:inset 0 -4px 0 var(--pc)}',
-    '.scix-header-nav > a.active,.scix-nav-dd-toggle.active,.scix-nav-main.active{color:#fff;font-weight:900;background:var(--pc);box-shadow:none}',
-    '.scix-header-nav > a.active .scix-ic,.scix-nav-dd-toggle.active .scix-ic,.scix-nav-main.active .scix-ic{color:#fff}',
-    '/* 割りボタン（買いたい・売りたい）: 札は直接その画面へ、横の ▾ だけが引き出しを開く */',
-    '.scix-nav-dd.split{gap:0}',
-    '.scix-nav-main{padding-right:4px!important}',
-    '.scix-dd-split-btn{padding:0 10px 0 4px!important;gap:0!important}',
+    '/* 2026-11-23: 左から ロゴ → 蓄電所マーケットのまとまり（名前・買いたい・売りたい）→ 細い区切り → 読み物と会社の札。まとまりは角の丸い1つの枠で、中の札は一段強く、外の札は一段軽い。蓄電所マーケットの帯（dr2.css）にも同じ形・同じ値で写す */',
+    '.scix-header-nav{--pc:#1F2A48;--fs:14.5px;--px:9px;display:flex;align-items:stretch;align-self:stretch;gap:0;margin-left:12px;margin-right:auto;min-width:0}',
+    '.scix-header-nav > a,.scix-header-nav > .scix-nav-dd > .scix-nav-main{display:inline-flex;align-items:center;gap:6px;height:100%;padding:0 var(--px);color:#1F2A48;font-size:var(--fs);font-weight:500;line-height:1.3;text-decoration:none;white-space:nowrap;background:none;border:0;border-radius:0;cursor:pointer;font-family:inherit;transition:color .15s,background .15s,box-shadow .15s}',
+    '.scix-ic{width:19px;height:19px;flex:0 0 auto;display:block;color:var(--pc)}',
+    '.scix-nav-dd{position:relative;display:flex;align-items:center;--pc:#1F2A48}',
+    '.scix-nav-dd[data-group=knowledge]{--pc:#7C4DDB}',
+    '.scix-nav-dd[data-group=buy],.scix-mg a.scix-top-buy{--pc:#2563EB}',
+    '.scix-nav-dd[data-group=sell],.scix-mg a.scix-top-sell{--pc:#D4610A}',
+    '.scix-nav-dd[data-group=research],.scix-header-nav > a[data-page="/report"]{--pc:#138A62}',
+    '.scix-header-nav > a:hover,.scix-header-nav > .scix-nav-dd > .scix-nav-main:hover,.scix-header-nav > .scix-nav-dd.open > .scix-nav-main{background:#F3F5FA;box-shadow:inset 0 -4px 0 var(--pc)}',
+    '.scix-header-nav > a.active,.scix-header-nav > .scix-nav-dd > .scix-nav-main.active{color:var(--pc);font-weight:700;background:none;box-shadow:inset 0 -4px 0 var(--pc)}',
+    '.scix-nav-sep{align-self:center;flex:0 0 auto;width:1px;height:28px;margin:0 6px 0 8px;background:#D5DCEA}',
+    '/* 蓄電所マーケットのまとまり: 淡い地色と細い枠の1つの角丸の枠。中は 名前（マーケットのトップへ）→ 買いたい → 売りたい */',
+    '.scix-mg{display:flex;align-items:center;align-self:center;gap:2px;flex:0 0 auto;position:relative;height:48px;padding:0 5px;background:#F3F6FD;border:1.5px solid #D2DCF2;border-radius:16px}',
+    '.scix-mg-name{display:inline-flex;align-items:center;gap:7px;position:relative;height:100%;padding:0 11px 0 6px;color:#1F2A48;font-size:14px;font-weight:800;letter-spacing:.01em;line-height:1.2;text-decoration:none;white-space:nowrap}',
+    '.scix-mg-name::after{content:"";position:absolute;right:0;top:50%;width:1px;height:24px;margin-top:-12px;background:#D2DCF2}',
+    '.scix-mg-mark{width:25px;height:25px;flex:0 0 auto;display:block}',
+    '.scix-mg-name:hover span{text-decoration:underline;text-underline-offset:3px}',
+    '.scix-mg > .scix-nav-dd{height:38px}',
+    '.scix-mg .scix-nav-main{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 8px 0 7px;color:#1F2A48;font-size:15.5px;font-weight:900;line-height:1.2;text-decoration:none;white-space:nowrap;background:none;border:0;border-radius:12px;cursor:pointer;font-family:inherit;transition:color .15s,background .15s,box-shadow .15s}',
+    '.scix-mg .scix-ic{width:20px;height:20px}',
+    '.scix-mg .scix-nav-main:hover,.scix-mg .scix-nav-dd.open > .scix-nav-main{background:#fff;box-shadow:inset 0 0 0 2px var(--pc),0 3px 10px rgba(31,42,72,.10)}',
+    '.scix-mg .scix-nav-main.active{background:var(--pc);color:#fff;box-shadow:none}',
+    '.scix-mg .scix-nav-main.active .scix-ic{color:#fff}',
     '/* 2026-11-22: ログイン・無料で登録は頁の案内の外（右端の1組）。ログインは枠だけの小さな丸、登録は橙の主ボタン */',
     '.scix-auth{display:flex;align-items:center;gap:10px;margin-left:16px;flex-shrink:0}',
     '.scix-auth-m{display:none}',
@@ -189,35 +193,29 @@
     '.scix-auth a.scix-mk:hover,.scix-auth-m a.scix-mk:hover{background:#EF7A1A;color:#fff;box-shadow:0 8px 20px rgba(212,97,10,.38);transform:translateY(-1px)}',
     '.scix-auth a:focus-visible,.scix-auth-m a:focus-visible{outline:2px solid #F97316;outline-offset:2px}',
     '.scix-en-tag{font-size:.66em;font-weight:800;color:#5B667A;border:1px solid #C9D2E3;border-radius:999px;padding:0 6px;margin-left:5px;line-height:1.6;white-space:nowrap}',
-    '@media(max-width:1279px){.scix-ic{display:none}.scix-header-nav > a,.scix-nav-dd-toggle,.scix-nav-main{padding:0 9px;font-size:14px;gap:6px}.scix-nav-main{padding-right:3px}.scix-dd-split-btn{padding:0 8px 0 3px!important}.scix-header-nav{margin-left:10px}}',
-    '@media(min-width:1280px) and (max-width:1360px){.scix-header-nav > a,.scix-nav-dd-toggle,.scix-nav-main{padding:0 10px;font-size:14px;gap:6px}.scix-ic{width:19px;height:19px}.scix-header-nav{margin-left:12px}.scix-nav-main{padding-right:4px}.scix-dd-split-btn{padding:0 8px 0 4px!important}}',
-    '.scix-header-nav a:focus-visible,.scix-nav-dd-toggle:focus-visible,.scix-nav-main:focus-visible{outline:2px solid #F97316;outline-offset:2px}',
+    '/* 外の札（ナレッジ・市場リサーチ・会社案内・お問い合わせ）は絵を付けない＝まとまりの中の札だけが絵つきで一段強い（畳んだメニューの中は絵を戻す） */',
+    '.scix-header-nav > a .scix-ic,.scix-header-nav > .scix-nav-dd > .scix-nav-main .scix-ic{display:none}',
+    '/* 幅ごとの値（広い→狭い）。基本は 1360px 前後の値／≥1600 は一回り大きく／≥1440 は外の札の余白を広げ／≤1359 はログインを人の印だけに／≤1299 は外の札の余白を詰め／≤1279 は買いたい・売りたいを詰め（1101〜1199 だけ名前を枠の上の縁の見出しにする） */',
+    '@media(min-width:1101px){.scix-header-inner .scix-lang .scix-flag{width:23px;height:15px}.scix-header-inner .scix-lang{margin-left:10px}}',
+    '@media(min-width:1440px){.scix-header-nav{--px:10px}.scix-mg-name{font-size:14.5px}.scix-mg .scix-nav-main{font-size:16px;padding:0 9px 0 8px}.scix-mg .scix-ic{width:22px;height:22px}.scix-header-inner .scix-lang .scix-flag{width:26px;height:17px}.scix-header-inner .scix-lang{margin-left:14px}}',
+    '@media(min-width:1600px){.scix-header-nav{--fs:15px;--px:12px;margin-left:18px}.scix-nav-sep{margin:0 8px 0 10px}.scix-mg-name{font-size:14.5px;gap:8px;padding:0 13px 0 7px}.scix-mg-mark{width:27px;height:27px}.scix-mg .scix-nav-main{font-size:16.5px;gap:7px;padding:0 11px 0 10px}.scix-mg .scix-ic{width:23px;height:23px}}',
+    '@media(min-width:1101px) and (max-width:1359px){.scix-auth a.scix-login{padding:8px 10px}.scix-auth a.scix-login span{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.scix-auth{gap:8px;margin-left:10px}.scix-auth a.scix-mk{padding:9px 15px;font-size:14px}}',
+    '@media(min-width:1101px) and (max-width:1299px){.scix-header-nav{--px:8px}}',
+    '@media(min-width:1101px) and (max-width:1279px){.scix-header-nav{--fs:13.5px;--px:6px;margin-left:8px}.scix-nav-sep{margin:0 4px 0 6px}.scix-header.is-ja .scix-mg .scix-nav-main{font-size:15.5px;gap:6px;padding:0 8px 0 7px}.scix-header.is-ja .scix-mg .scix-ic{width:20px;height:20px}}',
+    '/* 全言語とも 1200px から名前を枠の中に置き、1101〜1199 だけ枠の上の縁の見出し（12px・帯の中に収める）にする */',
+    '@media(min-width:1101px) and (max-width:1199px){.scix-header .scix-mg-name{position:absolute;left:13px;top:-7px;height:auto;gap:5px;padding:0 6px;background:#fff;font-size:12px;font-weight:800;color:#3A4663}.scix-header .scix-mg-name::after{display:none}.scix-header .scix-mg-mark{width:15px;height:15px}.scix-header .scix-mg .scix-nav-main{font-size:15.5px;gap:6px;padding:0 8px 0 7px}.scix-header .scix-mg .scix-ic{width:20px;height:20px}}',
+    '.scix-header-nav a:focus-visible,.scix-nav-dd-toggle:focus-visible,.scix-mg-name:focus-visible{outline:2px solid #F97316;outline-offset:2px}',
 
-    '/* === Primary CTA button (black) === */',
-    '.scix-header-nav a.scix-cta{',
-    '  background:linear-gradient(135deg,#F97316,#F59E0B);color:#fff;font-weight:900;letter-spacing:0;',
-    '  padding:10px 20px;border-radius:999px;margin-left:14px;box-shadow:0 6px 16px rgba(234,88,12,.30);',
-    '}',
-    '.scix-header-nav a.scix-cta:hover{filter:brightness(1.06);color:#fff;background:linear-gradient(135deg,#F97316,#F59E0B)}',
-    '.scix-header-nav a.scix-cta.active{color:#fff;background:linear-gradient(135deg,#F97316,#F59E0B)}',
-
-    '/* === Dropdown groups (ナレッジ / 買う / 売る) === */',
-    '.scix-nav-dd{position:relative;display:flex;align-items:center;}',
-    '.scix-nav-dd-toggle{display:inline-flex;align-items:center;gap:5px;}',
-    '.scix-dd-caret{font-size:.7em;transition:transform .25s;opacity:.85}',
-    '.scix-nav-dd-menu{',
-    '  position:absolute;top:100%;left:0;min-width:224px;',
-    '  background:#fff;border:0;border-radius:18px;',
-    '  padding:8px;display:none;flex-direction:column;gap:2px;',
-    '  box-shadow:0 18px 40px rgba(31,42,72,.18);z-index:10003;',
-    '}',
-    '.scix-nav-dd.open .scix-nav-dd-menu{display:flex}',
+    '/* === Dropdown groups (買いたい / 売りたい / ナレッジ / 市場リサーチ) === */',
+    '/* 2026-11-23: 引き出しのある札は全部「札そのものが頁へのリンク」＋合わせると開く（マウス）／1回目で開き2回目で頁へ（指・畳んだメニュー）。割りボタン（▾ だけが開く形）は作らない */',
+    '.scix-nav-dd-toggle{display:inline-flex;align-items:center}',
+    '.scix-dd-caret{font-size:.7em;transition:transform .25s;opacity:.85;margin-left:1px}',
+    '.scix-nav-dd-menu{position:absolute;top:100%;left:0;min-width:224px;width:max-content;max-width:calc(100vw - 24px);background:#fff;border:0;border-radius:18px;padding:8px;display:none;flex-direction:column;gap:2px;box-shadow:0 18px 40px rgba(31,42,72,.18);z-index:10003}',
+    '.scix-nav-dd.open > .scix-nav-dd-menu{display:flex}',
     '.scix-nav-dd.open .scix-dd-caret{transform:rotate(180deg)}',
-    '/* hover-open only where a real pointer exists (not iPad / touch laptops in the wide layout) */',
-    '@media(hover:hover){',
-    '  .scix-nav-dd:hover .scix-nav-dd-menu{display:flex}',
-    '  .scix-nav-dd:hover .scix-dd-caret{transform:rotate(180deg)}',
-    '}',
+    '.scix-mg .scix-nav-dd-menu{top:calc(100% + 14px)}',
+    '/* 札と引き出しの間のすき間は、引き出しの一部の透明な橋でふさぐ（マウスを下ろす途中で閉じない） */',
+    '.scix-nav-dd-menu::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px}',
     '.scix-nav-dd-menu a{padding:10px 12px;font-weight:500;border-radius:12px;color:#1F2A48;text-decoration:none;font-size:15px;line-height:1.5}',
     '.scix-nav-dd-menu a:hover{background:#FFF1E3;box-shadow:none}',
     '/* two-column menu (ナレッジ): テーマで読む | はじめての方 */',
@@ -249,7 +247,7 @@
     '.scix-flag{width:26px;height:17px;flex-shrink:0;display:block;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.18)}',
     '.scix-lang a.active .scix-flag{box-shadow:0 0 0 2px #fff}',
     '/* 英語のナビは項目が多いので、1380px 以下では国旗だけ（2026-11-15 丸いボタンにして 1280px で右端が切れた） */',
-    '@media(max-width:1380px){html[lang="en"] .scix-lang-label{display:none}html[lang="en"] .scix-lang a{padding:5px 7px;gap:0}html[lang="en"] .scix-header-nav a,html[lang="en"] .scix-nav-dd-toggle{padding:8px 9px}}',
+    '@media(max-width:1380px){html[lang="en"] .scix-lang-label{display:none}html[lang="en"] .scix-lang a{padding:5px 7px;gap:0}}',
     '/* 1100px 以下はナビと競るので、国旗だけにする（言語の名前は aria-label に残す） */',
     '@media(max-width:1120px){',
     '  .scix-lang-label{display:none}',
@@ -287,52 +285,33 @@
 
     '/* === Mobile / narrow breakpoint (drawer) === */',
     '@media(max-width:' + BP + 'px){',
-    '  .scix-header-nav{',
-    '    position:fixed;top:0;right:0;bottom:0;',
-    '    width:300px;max-width:84vw;',
-    '    background:#FFFCF5;border-radius:22px 0 0 22px;',
-    '    flex-direction:column;align-items:stretch;gap:0;',
-    '    padding:76px 20px 32px;',
-    '    transform:translateX(100%);',
-    '    transition:transform .35s cubic-bezier(.4,0,.2,1);',
-    '    z-index:10001;',
-    '    box-shadow:-4px 0 24px rgba(0,0,0,.15);',
-    '    overflow-y:auto;',
-    '  }',
+    '  .scix-header-nav{position:fixed;top:0;right:0;bottom:0;width:320px;max-width:86vw;background:#FFFCF5;border-radius:22px 0 0 22px;flex-direction:column;align-items:stretch;gap:0;padding:76px 18px 32px;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);z-index:10001;box-shadow:-4px 0 24px rgba(0,0,0,.15);overflow-y:auto;margin:0}',
     '  .scix-header-open .scix-header-nav{transform:translateX(0)}',
-    '  .scix-header-nav{margin:0}',
-    '  .scix-ic{display:block}',
-    '  .scix-header-nav > a,.scix-nav-dd-toggle,.scix-nav-main{',
-    '    height:auto;padding:14px 12px;font-size:.95rem;gap:8px;',
-    '    border-bottom:1px solid #EEE;',
-    '    border-radius:12px;',
-    '  }',
+    '  .scix-ic{display:block!important;width:21px;height:21px}',
+    '  .scix-nav-sep{display:none}',
+    '  /* 畳んだメニューの中: 一番上に「蓄電所マーケット」の見出しつきのまとまり（買いたい・売りたい）→ ログイン・無料で登録 → 読み物と会社の札 */',
+    '  .scix-mg{display:block;align-self:stretch;height:auto;padding:10px 10px 8px;margin:0 0 14px;border-radius:20px}',
+    '  .scix-mg-name{position:static;display:flex;height:auto;gap:8px;padding:2px 6px 10px;background:none;font-size:.9rem;font-weight:800;color:#1F2A48}',
+    '  .scix-mg-name::after{display:none}',
+    '  .scix-mg-mark{width:26px;height:26px}',
+    '  .scix-mg > .scix-nav-dd{display:block;height:auto}',
+    '  .scix-mg .scix-nav-main,.scix-mg > a.scix-nav-main{display:flex;width:100%;height:auto;padding:13px 12px;margin-top:6px;gap:9px;font-size:1.05rem;background:#fff;border:1.5px solid #E1E7F3;border-radius:14px;box-shadow:none}',
+    '  .scix-mg .scix-ic{width:23px;height:23px}',
+    '  .scix-mg .scix-nav-main:hover,.scix-mg .scix-nav-dd.open > .scix-nav-main{background:#fff;border-color:var(--pc);box-shadow:none}',
+    '  .scix-mg .scix-nav-main.active{background:var(--pc);border-color:var(--pc)}',
+    '  .scix-header-nav > a,.scix-header-nav > .scix-nav-dd > .scix-nav-main{display:flex;width:100%;height:auto;padding:14px 12px;font-size:.95rem;gap:8px;border-bottom:1px solid #EEE;border-radius:12px;box-shadow:none}',
+    '  .scix-header-nav > a:hover,.scix-header-nav > a.active,.scix-header-nav > .scix-nav-dd > .scix-nav-main:hover,.scix-header-nav > .scix-nav-dd > .scix-nav-main.active,.scix-header-nav > .scix-nav-dd.open > .scix-nav-main{box-shadow:none;background:none}',
     '  .scix-auth{display:none}',
     '  .scix-auth-m{display:flex;flex-direction:column;gap:10px;padding:0 0 14px;margin-bottom:6px;border-bottom:1px solid #EEE}',
     '  .scix-auth-m a.scix-login{justify-content:center;padding:12px 20px;font-size:.95rem}',
     '  .scix-auth-m a.scix-mk{padding:13px 20px;font-size:.95rem}',
-    '  /* 割りボタン: 札の行（直接その画面へ）と ▾（中身の行を開く）を1行に並べ、中身はその下に開く */',
-    '  .scix-nav-dd.split{flex-direction:row;flex-wrap:wrap;align-items:stretch}',
-    '  .scix-nav-dd.split .scix-nav-main{flex:1 1 0;min-width:0;padding:14px 12px!important}',
-    '  .scix-nav-dd.split .scix-dd-split-btn{flex:0 0 56px;width:56px;justify-content:center;padding:14px 0!important}',
-    '  .scix-nav-dd.split .scix-nav-dd-menu{flex:1 1 100%}',
-    '  .scix-header-nav a:hover,.scix-nav-dd-toggle:hover,.scix-header-nav a.active,.scix-nav-dd-toggle.active{box-shadow:none}',
-    '  .scix-header-nav a.scix-cta{',
-    '    margin:18px 0 0;text-align:center;',
-    '    border-radius:999px;border-bottom:none;',
-    '    padding:14px 20px;',
-    '  }',
-    '  .scix-nav-dd{flex-direction:column;align-items:stretch;}',
-    '  .scix-nav-dd-toggle{justify-content:flex-start;width:100%;text-align:left;}',
-    '  .scix-nav-dd.split .scix-dd-split-btn .scix-dd-caret{margin-left:0}',
-    '  .scix-nav-dd-toggle .scix-dd-caret{margin-left:auto}',
-    '  .scix-nav-dd-toggle.active{background:none;}',
-    '  .scix-nav-dd-menu{position:static;display:none;border:none;box-shadow:none;background:#FFF1E3;padding:2px 0;min-width:0;border-radius:14px;}',
-    '  .scix-nav-dd:hover:not(.open) .scix-nav-dd-menu{display:none}',
-    '  .scix-nav-dd:hover:not(.open) .scix-dd-caret{transform:none}',
-    '  .scix-nav-dd.open .scix-nav-dd-menu{display:flex}',
-    '  .scix-nav-dd.open .scix-dd-caret{transform:rotate(180deg)}',
-    '  .scix-nav-dd-menu a{padding:12px 12px 12px 28px;font-size:.88rem;border-bottom:1px solid rgba(31,42,72,.06);border-radius:0;}',
+    '  .scix-nav-dd{flex-direction:column;align-items:stretch}',
+    '  .scix-nav-dd-toggle .scix-dd-caret{margin-left:auto;font-size:.8em}',
+    '  .scix-nav-dd-menu{position:static;display:none;border:none;box-shadow:none;background:#FFF1E3;padding:2px 0;min-width:0;width:auto;max-width:none;border-radius:14px;margin-top:4px}',
+    '  .scix-mg .scix-nav-dd-menu{top:auto}',
+    '  .scix-nav-dd-menu::before{display:none}',
+    '  .scix-nav-dd.open > .scix-nav-dd-menu{display:flex}',
+    '  .scix-nav-dd-menu a{padding:12px 12px 12px 28px;font-size:.88rem;border-bottom:1px solid rgba(31,42,72,.06);border-radius:0}',
     '  .scix-nav-dd-menu a:last-child{border-bottom:none}',
     '  /* header bar: flags always visible next to the burger (not hidden in the drawer) */',
     '  .scix-lang{margin:0 14px 0 auto;padding:2px;gap:2px}',
@@ -372,12 +351,16 @@
     var page = href.indexOf('#') === -1 ? ' data-page="' + (it[3] || href) + '"' : '';   // it[3]＝言語をまたいだ頁の名前（英語の /en/report は '/report'）
     return '<a href="' + href + '"' + page + (cls ? ' class="' + cls + '"' : '') + '>' + label + '</a>';
   }
-  function ddGroup(key, label, items, icon) {
+  // 引き出しのある札（2026-11-23）: 札（a）そのものが行き先の頁へのリンク。
+  //   マウス（hover のできる端末・広い帯）＝合わせると開き、押すと頁へ行く／指・畳んだメニュー＝1回目の押下で開き（頁は移らない）、開いている札をもう一度押すと頁へ行く。
+  //   キーボード＝Enter は頁へ・↓ で開いて最初のリンクへ・Esc で閉じる（動きは下の 3b）。
+  //   買いたい・売りたい・ナレッジ・市場リサーチの全部が同じ形（割りボタン〔▾ だけが開く形〕は作らない）。
+  function ddNav(key, label, href, items, icon) {
     var wide = !!(items.length && items[0] && items[0].items);
     var out = '<div class="scix-nav-dd" data-group="' + key + '">' +
-      '<button type="button" class="scix-nav-dd-toggle" aria-expanded="false" aria-controls="scix-dd-' + key + '">' +
+      '<a class="scix-nav-main scix-nav-dd-toggle" href="' + href + '" aria-haspopup="true" aria-expanded="false" aria-controls="scix-dd-' + key + '">' +
         (icon ? ic(icon) : '') + '<span>' + label + '</span><span class="scix-dd-caret" aria-hidden="true">▾</span>' +
-      '</button>' +
+      '</a>' +
       '<div class="scix-nav-dd-menu' + (wide ? ' scix-dd-wide' : '') + (wide && items.length >= 3 ? ' scix-dd-3' : '') + '" id="scix-dd-' + key + '">';
     if (wide) {
       for (var c = 0; c < items.length; c++) {
@@ -388,18 +371,6 @@
     } else {
       for (var i = 0; i < items.length; i++) out += ddLink(items[i]);
     }
-    return out + '</div></div>';
-  }
-
-  // 割りボタン（2026-11-22 買いたい・売りたい）: 札（a）は押すとその画面へ直接行き、横の ▾（button）だけが引き出しを開く。
-  // 札の行き先はマーケットの入口＝間の画面を挟まない。引き出しの中身は当社の窓口（流れ・査定・ファンド・紹介）。
-  function ddSplit(key, label, href, items, icon, caretLabel) {
-    var out = '<div class="scix-nav-dd split" data-group="' + key + '">' +
-      '<a class="scix-nav-main" href="' + href + '">' + (icon ? ic(icon) : '') + '<span>' + label + '</span></a>' +
-      '<button type="button" class="scix-nav-dd-toggle scix-dd-split-btn" aria-expanded="false" aria-controls="scix-dd-' + key + '" aria-label="' + caretLabel + '">' +
-        '<span class="scix-dd-caret" aria-hidden="true">▾</span></button>' +
-      '<div class="scix-nav-dd-menu" id="scix-dd-' + key + '">';
-    for (var i = 0; i < items.length; i++) out += ddLink(items[i]);
     return out + '</div></div>';
   }
 
@@ -422,7 +393,7 @@
     knowledge: ['/knowledge', '/qa', '/grid-storage', '/glossary', '/column-somosomo', '/primer', '/market-entry-guide'],
     buy:   ['/projects', '/transfer', '/fund', '/investors', '/for/sme', '/for/major'],
     sell:  ['/sourcing', '/sell-form', '/partners', '/for/dealers'],
-    research: ['/report', '/market-data']
+    research: ['/research', '/report', '/market-data']
   };
 
   // 2026-11-15 メニュー全体の見直し（重複をなくし、全体の整合をとった）:
@@ -434,10 +405,27 @@
   // 札の言葉と行き先は、2つのリポジトリで同じ表を手で写す（片方の実行時にもう片方を読む形は、落ちたとき帯が欠けるので採らない）。
   var MKT = 'https://dealroom.scix.co.jp';
   var EN_TAG = '<span class="scix-en-tag">英文</span>';
+  // 2026-11-23 中島「左上がサイエンスエックスのロゴのときと蓄電所マーケットのロゴの時がある。…サイエンスエックスのロゴは左上固定で変えずに、蓄電所マーケットのロゴは位置が違うんじゃないの？」
+  //   「この買いたい売りたいってなんか他のメニューとならびすぎだよね。ここって蓄電所マーケットだよね。ただ、わけないほうがいいか。会社の主体は蓄電所マーケットなんだから」
+  // 左上は両サイトとも ScienceX のロゴで固定。ロゴのすぐ右に「蓄電所マーケット」のまとまり（印と名前 → 買いたい → 売りたい・1つの角丸の枠）を置き、枠の外に、ナレッジ・市場リサーチ・会社案内・お問い合わせを一段軽く並べる（帯は1本のまま）。
+  // 印は蓄電所マーケットの帯の左上にある物と同じ絵（scix-dealroom2 の functions/_lib/open_render.ts の MARK_SVG）。名前はマーケットのトップへのリンク。
+  var MG_MARK = '<svg class="scix-mg-mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect x="1" y="1" width="38" height="38" rx="11" fill="#1E3A8A"/><rect x="8.5" y="13" width="19.5" height="14" rx="3" fill="none" stroke="#fff" stroke-width="2.6"/><rect x="28" y="17.4" width="3.2" height="5.2" rx="1.2" fill="#fff"/><path d="M12.4 20.6h3.1l1.7-3.3 2.6 6.4 1.7-3.1h2.9" fill="none" stroke="#FBBF24" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var MG = isZh ? { name: '蓄电所市场', href: MKT + '/en', title: '前往蓄电所市场（英文页）' }
+         : isEn ? { name: 'Chikudensho Market', href: MKT + '/en', title: 'Go to Chikudensho Market' }
+         : { name: '蓄電所マーケット', href: MKT + '/', title: '蓄電所マーケットのトップへ' };
+  function mgroup(inner) {
+    return '<div class="scix-mg" role="group" aria-label="' + MG.name + '">' +
+      '<a class="scix-mg-name" href="' + MG.href + '" data-k="market" title="' + MG.title + '">' + MG_MARK + '<span>' + MG.name + '</span></a>' +
+      inner + '</div>';
+  }
+  var SEP = '<span class="scix-nav-sep" aria-hidden="true"></span>';
   var nav = isZh ? [
-    '<a href="' + MKT + '/en" class="scix-top-buy" data-k="buy">' + ic('buy') + '<span>购买</span></a>',
-    '<a href="' + MKT + '/en/needs" class="scix-top-sell" data-k="sell">' + ic('sell') + '<span>出售</span></a>',
-    ddGroup('knowledge', '洞见', [
+    mgroup(
+      '<a href="' + MKT + '/en" class="scix-nav-main scix-top-buy" data-k="buy">' + ic('buy') + '<span>购买</span></a>' +
+      '<a href="' + MKT + '/en/needs" class="scix-nav-main scix-top-sell" data-k="sell">' + ic('sell') + '<span>出售</span></a>'
+    ),
+    SEP,
+    ddNav('knowledge', '洞见', '/zh-knowledge', [
       ['/zh-knowledge', '洞见', '', '/knowledge'],
       ['/zh-qa',        '问答', '', '/qa']
     ], 'book'),
@@ -445,30 +433,36 @@
     '<a href="/zh-company" data-page="/company">' + ic('co') + '<span>公司介绍</span></a>',
     '<a href="/zh-contact" data-page="/contact">' + ic('mail') + '<span>联系我们</span></a>'
   ] : isEn ? [
-    '<a href="' + MKT + '/en" class="scix-top-buy" data-k="buy">' + ic('buy') + '<span>Buy</span></a>',
-    '<a href="' + MKT + '/en/needs" class="scix-top-sell" data-k="sell">' + ic('sell') + '<span>Sell</span></a>',
-    ddGroup('knowledge', 'Knowledge', [
+    mgroup(
+      '<a href="' + MKT + '/en" class="scix-nav-main scix-top-buy" data-k="buy">' + ic('buy') + '<span>Buy</span></a>' +
+      '<a href="' + MKT + '/en/needs" class="scix-nav-main scix-top-sell" data-k="sell">' + ic('sell') + '<span>Sell</span></a>'
+    ),
+    SEP,
+    ddNav('knowledge', 'Knowledge', '/en/knowledge', [
       ['/en/knowledge',          'Knowledge',   '', '/knowledge'],
       ['/en/qa',                 'Q&amp;A',     '', '/qa'],
       ['/en/market-entry-guide', 'Entry Guide', '', '/market-entry-guide']
     ], 'book'),
-    ddGroup('research', 'Market Research', [
+    ddNav('research', 'Market Research', '/en/research', [
       ['/en/report',      'Market Notes', '', '/report'],
       ['/en/report/data', 'Market Data',  '', '/report/data']
     ], 'chart'),
     '<a href="/en/company" data-page="/company">' + ic('co') + '<span>Company</span></a>',
     '<a href="/en/contact" data-page="/contact">' + ic('mail') + '<span>Contact</span></a>'
   ] : [
-    ddSplit('buy', '買いたい', MKT + '/', [
+    mgroup(
+      ddNav('buy', '買いたい', MKT + '/', [
       ['/transfer', '買うまでの流れ・買い方3つ'],
       ['/fund',     'ファンドで持つ']
-    ], 'buy', '買いたいのメニューを開く'),
-    ddSplit('sell', '売りたい', MKT + '/needs', [
+    ], 'buy') +
+      ddNav('sell', '売りたい', MKT + '/needs', [
       ['/sell-form', '当社に無料で売却査定'],
       ['/sourcing',  '売るまでの流れ'],
       ['/partners',  '案件・投資家を紹介する']
-    ], 'sell', '売りたいのメニューを開く'),
-    ddGroup('knowledge', 'ナレッジ', [
+    ], 'sell')
+    ),
+    SEP,
+    ddNav('knowledge', 'ナレッジ', '/knowledge', [
       { head: 'テーマで読む', items: [
         ['/knowledge',            'すべての記事（毎週更新）', 'scix-dd-all'],
         ['/knowledge#cat-market', '収益・市場'],
@@ -484,8 +478,8 @@
         ['/glossary',        '用語集']
       ]}
     ], 'book'),
-    // 市場リサーチ: 引き出しの中の札は、行き先の h1 と同じ言葉（O16-27）。売り案件の市場データは「買う」の引き出しからここへ移した（行き先は1か所に1回）
-    ddGroup('research', '市場リサーチ', [
+    // 市場リサーチ: 札そのものは入口の頁 /research へ（2026-11-23）。引き出しの中の札は、行き先の h1 と同じ言葉（O16-27）。売り案件の市場データは「買う」の引き出しからここへ移した（行き先は1か所に1回）
+    ddNav('research', '市場リサーチ', '/research', [
       ['/report',      '蓄電所の市場ノート'],
       ['/report/data', '蓄電所の市場データ'],
       ['/market-data', '系統用蓄電池の売り案件 市場データ']
@@ -498,7 +492,7 @@
   // 広い画面は帯の右端の1組（.scix-auth）、畳んだメニューは開いた中の一番上の1組（.scix-auth-m）。同じ組を2か所に描いて、画面の幅でどちらかだけ見せる。
   var AUTH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg>';
   var AUTH = isZh ? { login: MKT + '/en/login', reg: MKT + '/en/register', lt: '登录', rt: '免费注册' }
-           : isEn ? { login: MKT + '/en/login', reg: MKT + '/en/register', lt: 'Log in', rt: 'Sign up' }
+           : isEn ? { login: MKT + '/en/login', reg: MKT + '/en/register', lt: 'Log in', rt: 'Sign up free' }
            : { login: MKT + '/login', reg: MKT + '/register', lt: 'ログイン', rt: '無料で登録' };
   function authHtml(cls) {
     return '<div class="' + cls + '">' +
@@ -585,15 +579,16 @@
   var navLabel = isEn ? 'Main navigation' : (isZh ? '主导航' : 'メインナビゲーション');
 
   var header = document.createElement('header');
-  header.className = 'scix-header';
+  header.className = 'scix-header' + (isJa ? ' is-ja' : '');   // 日本語は名前が長いので、狭い幅（1101〜1279）で名前を枠の上の縁の見出しにする（CSS の .is-ja）
   header.id = 'scix-header';
   header.innerHTML = [
     '<div class="scix-header-overlay" id="scix-header-overlay"></div>',
     '<div class="scix-header-inner">',
     '  <a href="' + logoHref + '" class="scix-header-logo"><img src="/img/logo-navy.png" alt="ScienceX" width="91" height="36" decoding="async"></a>',
     '  <nav class="scix-header-nav" id="scix-header-nav" aria-label="' + navLabel + '">',
-         authHtml('scix-auth-m'),
-         nav.join('\n'),
+         nav[0],   // 蓄電所マーケットのまとまり（畳んだメニューでは一番上）
+         authHtml('scix-auth-m'),   // 畳んだメニューだけ（広い帯では右端の .scix-auth）
+         nav.slice(1).join('\n'),
     '  </nav>',
        authHtml('scix-auth'),
        langSwitch,
@@ -793,7 +788,12 @@
     }
   }
 
-  // --------------- 3b. Dropdown groups (ナレッジ / 買う / 売る) ---------------
+  // --------------- 3b. Dropdown groups (買いたい / 売りたい / ナレッジ / 市場リサーチ) ---------------
+  // 2026-11-23: 引き出しのある札は全部同じ動き。札（a）そのものが頁へのリンクで、
+  //   ・マウス（hover のできる端末・広い帯）: 合わせると開く／押すと頁へ行く（押して開いたままにする形は作らない）。札と引き出しの間のすき間は CSS の橋でふさぎ、離れてから 140ms 待って閉じる＝下ろす途中で閉じない。
+  //   ・指（touch・pen）と畳んだメニュー: 1回目の押下で開き（頁は移らない）、開いている札をもう一度押すと頁へ行く。
+  //   ・キーボード: Enter は頁へ（click の detail が 0）・↓ で開いて最初のリンクへ・↑↓ で中を動く・Esc で閉じて札へ戻る。aria-expanded は開閉のたびに合わせる。
+  //   別の札に合わせる・外を押す・Esc で閉じる。nav_open（open_by: hover／click／keyboard）はそのまま数える。
   function isNarrowNow() {
     return !!(window.matchMedia && window.matchMedia('(max-width:' + BP + 'px)').matches);
   }
@@ -814,64 +814,100 @@
   var isNarrow = isNarrowNow();
   var dds = header.querySelectorAll('.scix-nav-dd');
 
-  function setOpen(dd, open) {
+  function setOpen(dd, open, by) {
     dd.classList.toggle('open', open);
+    dd.setAttribute('data-by', open ? (by || dd.getAttribute('data-by') || 'click') : '');
     var t = dd.querySelector('.scix-nav-dd-toggle');
     if (t) t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    var menu = dd.querySelector('.scix-nav-dd-menu');
+    if (menu) {
+      menu.style.left = '';
+      if (open && !isNarrowNow()) {   // 右の端からはみ出す引き出しは、はみ出す分だけ左へ寄せる
+        var r = menu.getBoundingClientRect();
+        var over = r.right - (window.innerWidth - 12);
+        if (over > 0) menu.style.left = (-over) + 'px';
+      }
+    }
   }
   function closeAllDropdowns(except) {
     for (var k = 0; k < dds.length; k++) {
       if (dds[k] !== except) setOpen(dds[k], false);
     }
   }
+  // 札の押下が「引き出しを開くだけ」になるか（指・畳んだメニューで、まだ開いていない札の1回目）。キーボードの Enter・修飾キー付き・中ボタンは頁へ行く。
+  // 計測（nav_click・market_click）も、開くだけの押下は数えない。
+  function isTapMode(e) {
+    return isNarrowNow() || !hoverCapable() || !!(e && (e.pointerType === 'touch' || e.pointerType === 'pen'));
+  }
+  function opensOnly(a, e) {
+    if (!a || !a.classList || !a.classList.contains('scix-nav-dd-toggle')) return false;
+    var dd = a.closest ? a.closest('.scix-nav-dd') : null;
+    if (!dd || dd.classList.contains('open')) return false;
+    if (e && (e.detail === 0 || e.button || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey)) return false;
+    return isTapMode(e);
+  }
 
   for (var d = 0; d < dds.length; d++) {
     (function (dd) {
       var key = dd.getAttribute('data-group');
-      var toggle = dd.querySelector('.scix-nav-dd-toggle');
+      var toggle = dd.querySelector('.scix-nav-dd-toggle');   // 札（頁へのリンク）
+      var menu = dd.querySelector('.scix-nav-dd-menu');
       var pages = GROUP_PAGES[key] || [];
-      var main = dd.querySelector('.scix-nav-main');   // 割りボタンの札（買いたい・売りたい）
       var holdsCurrent = pages.indexOf(loc) !== -1 || (key === 'knowledge' && isCol) ||
         (key === 'research' && (loc === '/report' || loc.indexOf('/report/') === 0));   // 市場ノートの号は「市場リサーチ」が光る（2026-11-22）
       if (holdsCurrent) {
         toggle.classList.add('active');
-        if (main) main.classList.add('active');
         dd.classList.add('is-current');
         // In the drawer, start with the visitor's own group unfolded.
-        if (isNarrow) setOpen(dd, true);
+        if (isNarrow) setOpen(dd, true, 'click');
       }
-      // Click/tap toggle (touch + keyboard; desktop also opens on hover via CSS).
+      // 押下: 指・畳んだメニューの1回目は開くだけ。それ以外は頁へ（既定の動き）
       toggle.addEventListener('click', function (e) {
+        if (!opensOnly(toggle, e)) return;
         e.preventDefault();
-        e.stopPropagation();
-        var willOpen = !dd.classList.contains('open');
-        // Already visible through :hover → this click pins it, it is not a new open.
-        var shownByHover = !isNarrowNow() && hoverCapable() && !!(dd.matches && dd.matches(':hover'));
         closeAllDropdowns(dd);
-        setOpen(dd, willOpen);
-        if (willOpen && !shownByHover) trackOpen(key, 'click');
+        setOpen(dd, true, 'click');
+        trackOpen(key, 'click');
       });
-      // Keyboard: ArrowDown opens the group and moves focus to its first link;
-      // Enter / Space keep the native button click. Focus leaving the group
-      // (Tab past the last link) closes it so no menu is left hanging open.
+      // Keyboard: ↓ opens the group and moves focus to its first link; Enter keeps the native link (→ the page).
       toggle.addEventListener('keydown', function (e) {
         if (e.key !== 'ArrowDown') return;
         e.preventDefault();
         var wasOpen = dd.classList.contains('open');
         closeAllDropdowns(dd);
-        setOpen(dd, true);
+        setOpen(dd, true, 'key');
         if (!wasOpen) trackOpen(key, 'keyboard');
-        var first = dd.querySelector('.scix-nav-dd-menu a');
+        var first = menu && menu.querySelector('a');
         if (first) first.focus();
       });
-      var hoverCounted = false;
-      dd.addEventListener('mouseenter', function () {
-        if (isNarrowNow() || !hoverCapable()) return;
-        // Only one menu at a time: a click-pinned neighbour folds when hovering here.
-        closeAllDropdowns(dd);
+      // 引き出しの中: ↑↓ で行き来し、Esc で札へ戻る（Esc の閉じは下の keydown）
+      if (menu) menu.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+        var items = menu.querySelectorAll('a');
+        var at = Array.prototype.indexOf.call(items, document.activeElement);
+        if (at === -1) return;
+        e.preventDefault();
+        var nx = e.key === 'ArrowDown' ? at + 1 : at - 1;
+        if (nx < 0) { toggle.focus(); return; }
+        if (nx < items.length) items[nx].focus();
+      });
+      // マウス: 合わせると開き、離れて 140ms 後に閉じる（途中でカーソルが札と引き出しの間を通っても閉じない）
+      var hoverCounted = false, leaveTimer = 0;
+      dd.addEventListener('pointerenter', function (e) {
+        if (e.pointerType !== 'mouse' || isNarrowNow() || !hoverCapable()) return;
+        clearTimeout(leaveTimer);
+        closeAllDropdowns(dd);   // 一度に開くのは1つだけ（ほかの札に合わせたら、開いていた札は閉じる）
+        if (!dd.classList.contains('open')) setOpen(dd, true, 'hover');
         if (hoverCounted) return;
         hoverCounted = true;
         trackOpen(key, 'hover');
+      });
+      dd.addEventListener('pointerleave', function (e) {
+        if (e.pointerType !== 'mouse' || isNarrowNow()) return;
+        clearTimeout(leaveTimer);
+        leaveTimer = setTimeout(function () {
+          if (dd.getAttribute('data-by') === 'hover') setOpen(dd, false);
+        }, 140);
       });
       // WebKit does not focus buttons/links on pointer-down, so a tap inside the
       // group can fire focusout with relatedTarget=null before the click lands.
@@ -966,7 +1002,7 @@
   // Same-document hash links (/knowledge#cat-…) do not navigate away, so a
   // click-pinned dropdown would otherwise stay open over the scrolled content.
   for (var j = 0; j < links.length; j++) {
-    links[j].addEventListener('click', function () { closeMenu(); closeAllDropdowns(null); });
+    links[j].addEventListener('click', function (e) { if (e.defaultPrevented) return; closeMenu(); closeAllDropdowns(null); });   // 札の1回目の押下（開くだけ・preventDefault 済み）では畳んだメニューを閉じない
   }
 
   document.addEventListener('keydown', function (e) {
@@ -1016,8 +1052,10 @@
     var t = e.target;
     var a = t && t.closest ? t.closest('.scix-header-nav a, .scix-auth a, .scix-lang a, .scix-header-logo') : null;
     if (!a || typeof window.gtag !== 'function') return;
+    if (opensOnly(a, e)) return;   // 指・畳んだメニューの1回目（引き出しを開くだけ）は nav_open で数え、nav_click には数えない
     var group;
     if (a.classList.contains('scix-header-logo')) group = 'logo';
+    else if (a.classList.contains('scix-mg-name')) group = 'market';   // まとまりの名前（蓄電所マーケットのトップへ・2026-11-23）
     else if (a.classList.contains('scix-cta') || a.classList.contains('scix-mk') || a.classList.contains('scix-login')) group = 'cta';   // 蓄電所マーケットのボタン（無料で登録・ログイン）も cta に数える（2026-11-15）
     else if (a.classList.contains('scix-top-buy') || a.classList.contains('scix-top-sell')) group = a.getAttribute('data-k') || 'top';   // 英語・中国語の買う・売る（引き出しなし）
     else if (a.closest('.scix-lang')) group = 'lang';
@@ -1122,6 +1160,7 @@
         if (e.type === 'auxclick' && e.button !== 1) return;
         var a = linkOf(e);
         if (!a) return;
+        if (e.type === 'click' && opensOnly(a, e)) return;   // 札の1回目の押下（引き出しを開くだけ）は、マーケットへの送客に数えない
         var u = tagLink(a);
         if (!u || typeof window.gtag !== 'function') return;
         var lm = /(dr2_[a-z]+_click)'\s*,\s*\{\s*target\s*:\s*'([^']*)'/.exec(a.getAttribute('onclick') || '');
