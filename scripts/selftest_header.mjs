@@ -72,6 +72,7 @@ const MEASURE = `(() => {
   const lines = (el) => { const rg = document.createRange(); rg.selectNodeContents(el); return new Set([...rg.getClientRects()].filter((x) => x.width > 0).map((x) => Math.round(x.top / 4))).size; };
   for (const el of hdr.querySelectorAll('.scix-nav-main span, .scix-mg-name span, .scix-login span, .scix-mk, .scix-header-nav > a span')) if (el.getBoundingClientRect().width && lines(el) > 1) o.bad.push('折れ:' + el.textContent.trim().slice(0, 18));
   if (W > 1100) {
+    { const nb = hdr.querySelector('.scix-mg-name'); const nr = nb && nb.getBoundingClientRect(); if (nr && nr.width) { if (nr.top < 0 || nr.bottom > o.hdrH) o.bad.push('名前の箱が帯の外:' + Math.round(nr.top) + '-' + Math.round(nr.bottom)); if (parseFloat(getComputedStyle(nb).fontSize) < 12) o.bad.push('名前の字が12px未満'); } }
     const seq = [logo, mg, light, auth, lang];
     if (seq.some((x) => !x)) o.bad.push('部品が無い');
     else { for (let i = 1; i < seq.length; i++) if (seq[i].l < seq[i - 1].r + 2) o.bad.push('重なり:' + i); if (lang.r > W - 8) o.bad.push('右にはみ出し'); }
@@ -84,7 +85,7 @@ const MEASURE = `(() => {
   return o;
 })()`;
 const PAGES = [['ja', '/', '/'], ['en', '/en', '/en'], ['zh', '/zh', '/zh']];
-const WIDTHS = (process.env.WIDTHS || '320,375,420,768,1024,1100,1101,1180,1280,1366,1440,1920').split(',').map(Number);
+const WIDTHS = (process.env.WIDTHS || '320,375,420,768,1024,1100,1101,1150,1199,1200,1280,1366,1440,1920').split(',').map(Number);
 for (const [lg, url, logoHref] of PAGES) for (const w of WIDTHS) {
   const p = await page({ w, h: 700, mobile: w < 500 }); await p.go(BASE + url);
   const m = await p.eval(MEASURE); const at = `[${lg} ${w}px] `;

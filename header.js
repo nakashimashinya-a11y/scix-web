@@ -10,7 +10,7 @@
        ・引き出しのある札（買いたい・売りたい・ナレッジ・市場リサーチ）は、札そのものが頁へのリンク。マウス（hover あり・広い帯）は合わせると開き押すと頁へ、
          指と畳んだメニューは1回目の押下で開き（頁は移らない）2回目で頁へ、キーボードは Enter＝頁へ・↓＝開いて最初のリンクへ・Esc＝閉じる（3b）。割りボタン（▾ だけが開く形）は廃止。
        ・市場リサーチの札は入口の頁 /research（英語 /en/research）へ。中国語は入口の頁を作らず、今の札（市场研究＝英語の市場ノート）のまま。
-       ・幅: 1600 以上は一回り大きく／1440 以上は外の札の余白を広げ／1359 以下はログインを人の印だけに／1279 以下（日本語）・1179 以下（英語・中国語）は名前を枠の上の縁の見出しに／1100 以下は畳んだメニュー（一番上にまとまり）。蓄電所マーケットの帯（public/platform-nav.js・dr2.css）へ同じ値で写す。
+       ・幅: 1600 以上は一回り大きく／1440 以上は外の札の余白を広げ／1359 以下はログインを人の印だけに／1199 以下は名前を枠の上の縁の見出し（12px）に／1100 以下は畳んだメニュー（一番上にまとまり）。蓄電所マーケットの帯（public/platform-nav.js・dr2.css）へ同じ値で写す。
 
      2026-11-22: 上の帯を蓄電所マーケットと同じ並びにした（買いたい・売りたい・ナレッジ・市場リサーチ・会社案内・お問い合わせ＋右端にログイン・無料で登録）。
        「買いたい」「売りたい」は札を押すとマーケットの画面へ直接行き（間の画面を挟まない）、横の ▾ だけが引き出しを開く（割りボタン）。
@@ -140,7 +140,8 @@
     '  background:#fff;',
     '  z-index:9999;',
     '  border-bottom:2px solid #1F2A48;',
-    '  font-family:"Noto Sans JP",sans-serif;',
+    '  font-family:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;',
+    '  font-feature-settings:"palt" 1;',
     '}',
 
     '.scix-header-inner{',
@@ -194,15 +195,15 @@
     '.scix-en-tag{font-size:.66em;font-weight:800;color:#5B667A;border:1px solid #C9D2E3;border-radius:999px;padding:0 6px;margin-left:5px;line-height:1.6;white-space:nowrap}',
     '/* 外の札（ナレッジ・市場リサーチ・会社案内・お問い合わせ）は絵を付けない＝まとまりの中の札だけが絵つきで一段強い（畳んだメニューの中は絵を戻す） */',
     '.scix-header-nav > a .scix-ic,.scix-header-nav > .scix-nav-dd > .scix-nav-main .scix-ic{display:none}',
-    '/* 幅ごとの値（広い→狭い）。基本は 1360px 前後の値／≥1600 は一回り大きく／≥1440 は外の札の余白を広げ／≤1359 はログインを人の印だけに／≤1299 は外の札の余白を詰め／≤1279 は名前を枠の上の縁の小さな見出しにして、買いたい・売りたいを詰める（1101〜1279） */',
+    '/* 幅ごとの値（広い→狭い）。基本は 1360px 前後の値／≥1600 は一回り大きく／≥1440 は外の札の余白を広げ／≤1359 はログインを人の印だけに／≤1299 は外の札の余白を詰め／≤1279 は買いたい・売りたいを詰め（1101〜1199 だけ名前を枠の上の縁の見出しにする） */',
     '@media(min-width:1101px){.scix-header-inner .scix-lang .scix-flag{width:23px;height:15px}.scix-header-inner .scix-lang{margin-left:10px}}',
     '@media(min-width:1440px){.scix-header-nav{--px:10px}.scix-mg-name{font-size:14.5px}.scix-mg .scix-nav-main{font-size:16px;padding:0 9px 0 8px}.scix-mg .scix-ic{width:22px;height:22px}.scix-header-inner .scix-lang .scix-flag{width:26px;height:17px}.scix-header-inner .scix-lang{margin-left:14px}}',
     '@media(min-width:1600px){.scix-header-nav{--fs:15px;--px:12px;margin-left:18px}.scix-nav-sep{margin:0 8px 0 10px}.scix-mg-name{font-size:14.5px;gap:8px;padding:0 13px 0 7px}.scix-mg-mark{width:27px;height:27px}.scix-mg .scix-nav-main{font-size:16.5px;gap:7px;padding:0 11px 0 10px}.scix-mg .scix-ic{width:23px;height:23px}}',
     '@media(min-width:1101px) and (max-width:1359px){.scix-auth a.scix-login{padding:8px 10px}.scix-auth a.scix-login span{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.scix-auth{gap:8px;margin-left:10px}.scix-auth a.scix-mk{padding:9px 15px;font-size:14px}}',
     '@media(min-width:1101px) and (max-width:1299px){.scix-header-nav{--px:8px}}',
-    '@media(min-width:1101px) and (max-width:1279px){.scix-header-nav{--fs:13.5px;--px:6px;margin-left:8px}.scix-nav-sep{margin:0 4px 0 6px}.scix-header.is-ja .scix-mg-name{position:absolute;left:13px;top:-9px;height:auto;gap:5px;padding:0 6px;background:#fff;font-size:10.5px;font-weight:800;color:#3A4663}.scix-header.is-ja .scix-mg-name::after{display:none}.scix-header.is-ja .scix-mg-mark{width:14px;height:14px}.scix-header.is-ja .scix-mg .scix-nav-main{font-size:15.5px;gap:6px;padding:0 8px 0 7px}.scix-header.is-ja .scix-mg .scix-ic{width:20px;height:20px}}',
-    '/* 名前が長くない英語・中国語は 1180px から名前を枠の中に置く（1101〜1179 だけ見出しにする） */',
-    '@media(min-width:1101px) and (max-width:1179px){.scix-header .scix-mg-name{position:absolute;left:13px;top:-9px;height:auto;gap:5px;padding:0 6px;background:#fff;font-size:10.5px;font-weight:800;color:#3A4663}.scix-header .scix-mg-name::after{display:none}.scix-header .scix-mg-mark{width:14px;height:14px}.scix-header .scix-mg .scix-nav-main{font-size:15.5px;gap:6px;padding:0 8px 0 7px}.scix-header .scix-mg .scix-ic{width:20px;height:20px}}',
+    '@media(min-width:1101px) and (max-width:1279px){.scix-header-nav{--fs:13.5px;--px:6px;margin-left:8px}.scix-nav-sep{margin:0 4px 0 6px}.scix-header.is-ja .scix-mg .scix-nav-main{font-size:15.5px;gap:6px;padding:0 8px 0 7px}.scix-header.is-ja .scix-mg .scix-ic{width:20px;height:20px}}',
+    '/* 全言語とも 1200px から名前を枠の中に置き、1101〜1199 だけ枠の上の縁の見出し（12px・帯の中に収める）にする */',
+    '@media(min-width:1101px) and (max-width:1199px){.scix-header .scix-mg-name{position:absolute;left:13px;top:-7px;height:auto;gap:5px;padding:0 6px;background:#fff;font-size:12px;font-weight:800;color:#3A4663}.scix-header .scix-mg-name::after{display:none}.scix-header .scix-mg-mark{width:15px;height:15px}.scix-header .scix-mg .scix-nav-main{font-size:15.5px;gap:6px;padding:0 8px 0 7px}.scix-header .scix-mg .scix-ic{width:20px;height:20px}}',
     '.scix-header-nav a:focus-visible,.scix-nav-dd-toggle:focus-visible,.scix-mg-name:focus-visible{outline:2px solid #F97316;outline-offset:2px}',
 
     '/* === Dropdown groups (買いたい / 売りたい / ナレッジ / 市場リサーチ) === */',
@@ -491,7 +492,7 @@
   // 広い画面は帯の右端の1組（.scix-auth）、畳んだメニューは開いた中の一番上の1組（.scix-auth-m）。同じ組を2か所に描いて、画面の幅でどちらかだけ見せる。
   var AUTH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg>';
   var AUTH = isZh ? { login: MKT + '/en/login', reg: MKT + '/en/register', lt: '登录', rt: '免费注册' }
-           : isEn ? { login: MKT + '/en/login', reg: MKT + '/en/register', lt: 'Log in', rt: 'Sign up' }
+           : isEn ? { login: MKT + '/en/login', reg: MKT + '/en/register', lt: 'Log in', rt: 'Sign up free' }
            : { login: MKT + '/login', reg: MKT + '/register', lt: 'ログイン', rt: '無料で登録' };
   function authHtml(cls) {
     return '<div class="' + cls + '">' +
