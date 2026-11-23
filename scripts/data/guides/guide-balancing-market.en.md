@@ -5,14 +5,14 @@ title: EPRX and Japan's Balancing Market: A Guide | ScienceX
 h1: EPRX and Japan's balancing market — a guide
 h1_sub: Products, trading results, the price cap and saturation on one page
 description: EPRX and Japan's balancing market on one page: 5 products, area results, the ¥10 cap, the fixed-cost adder, saturation.
-columns: en/column-balancing-market, en/column-eprx, en/column-area-data, en/column-day-ahead, en/column-price-cap, en/column-bidding-ceiling-market, en/column-bidding-ceiling, en/column-bidding-ceiling-law, en/column-bidding-ceiling-calc, en/column-bidding-ceiling-monitoring, en/column-balancing-saturation, en/column-balancing-saturation-volume, en/column-balancing-saturation-supply, en/column-balancing-saturation-floor, en/column-aggregator-fee
+columns: en/column-balancing-market, en/column-eprx, en/column-area-data, en/column-day-ahead, en/column-price-cap, en/column-bidding-ceiling-market, en/column-bidding-ceiling, en/column-bidding-ceiling-law, en/column-bidding-ceiling-calc, en/column-bidding-ceiling-monitoring, en/column-balancing-saturation, en/column-balancing-saturation-volume, en/column-balancing-saturation-supply, en/column-balancing-saturation-floor, en/column-aggregator-fee, en/column-aggregators, en/column-aggregators-roster, en/column-aggregators-volume, en/column-aggregators-pricing, en/column-aggregators-switching, en/column-aggregators-overseas
 published: 2026-11-22
-modified: 2026-11-22
+modified: 2026-11-24
 ---
 
 ## @lead
 
-The balancing market is one of the main sources of income for a battery in Japan. This page walks through the key points of our 15 columns on this market, in the order readers usually ask. Figures keep each column's data window (which data, from when). The evidence and sources are in each column.
+The balancing market is one of the main sources of income for a battery in Japan. This page walks through the key points of our 21 columns on this market, in the order readers usually ask. Figures keep each column's data window (which data, from when). The evidence and sources are in each column.
 
 ## @tldr
 
@@ -99,11 +99,11 @@ more: Read more: [Are batteries saturated?](/en/column-balancing-saturation) / [
 
 ## Taking part — trading membership and the aggregator
 
-To bid in the balancing market, you register as an EPRX trading member and conclude a generation sales contract with a general transmission and distribution company to join a balancing group. The party that concludes the generation sales contract and the trading member need not be the same: the owner can be the trading member while an aggregator handles operations, or an aggregator can take part collectively as the trading member. Taking part as an aggregator requires registration as a Specified Wholesale Supply Operator under the Electricity Business Act; as of March 2026, 142 companies are registered.
+To bid in the balancing market, you register as an EPRX trading member and conclude a generation sales contract with a general transmission and distribution company to join a balancing group. The party that concludes the generation sales contract and the trading member need not be the same: the owner can be the trading member while an aggregator handles operations, or an aggregator can take part collectively as the trading member. A company taking part as an aggregator files a notification for a Specified Wholesale Supply business under the Electricity Business Act (it is not a licence or registration); 187 had filed as of 30 October 2026 (COLUMN 53).
 
 After the move to day-ahead trading, the allocation across 48 slots depends on the aggregator's algorithms, and the same facility can yield different annual revenue. Fee rates alone do not compare: with the same rate, a gross or a net calculation base changes what the owner keeps. Before signing, check five points — the calculation base in writing, the scope of the fee (balancing market only, or JEPX arbitrage and capacity market income too), who bears imbalance penalties, contract duration and termination, and whether the aggregator can disclose the past 12 months of performance (revenue per MW, award rate, utilization rate).
 
-more: Read more: [What is EPRX (steps to participate)](/en/column-eprx) / [Aggregator fees: gross vs net](/en/column-aggregator-fee)
+more: Read more: [What is EPRX (steps to participate)](/en/column-eprx) / [Aggregator fees: gross vs net](/en/column-aggregator-fee) / [Counting the aggregators](/en/column-aggregators)
 
 ## @next
 

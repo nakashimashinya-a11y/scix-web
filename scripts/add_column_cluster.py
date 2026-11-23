@@ -44,7 +44,8 @@ LAND = {"land-buyback", "land-lease", "land-value", "land-zoning"}   # 土地の
 CLUSTERS = {
     "C1": ({"ja": "/guide-balancing-market", "en": "/en/guide-balancing-market", "zh": "/zh-guide-balancing-market"},
            "eprx balancing-market area-data day-ahead price-cap balancing-saturation balancing-saturation-volume balancing-saturation-supply "
-           "balancing-saturation-floor bidding-ceiling bidding-ceiling-law bidding-ceiling-calc bidding-ceiling-market bidding-ceiling-monitoring aggregator-fee"),
+           "balancing-saturation-floor bidding-ceiling bidding-ceiling-law bidding-ceiling-calc bidding-ceiling-market bidding-ceiling-monitoring aggregator-fee "
+           "aggregators aggregators-roster aggregators-volume aggregators-pricing aggregators-overseas aggregators-switching"),
     "C2": ({"ja": "/guide-capacity-lda", "en": "/en/guide-capacity-lda", "zh": "/zh-guide-capacity-lda"},
            "capacity-market lda auction long-term-contract merchant"),
     "C3": ({"ja": "/guide-revenue-cost", "en": "/en/guide-revenue-cost", "zh": "/zh-guide-revenue-cost"},

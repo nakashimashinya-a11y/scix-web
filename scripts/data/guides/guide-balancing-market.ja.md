@@ -4,15 +4,15 @@ lang: ja
 title: EPRX（電力需給調整力取引所）と需給調整市場のガイド｜商品・取引実績・上限価格・飽和｜サイエンスエックス
 h1: EPRXと需給調整市場のガイド
 h1_sub: 商品・取引実績・上限価格・飽和を、1ページで
-description: EPRX（電力需給調整力取引所）が運営する需給調整市場を1ページで。5つの商品、9エリアの取引実績、2026年の前日取引化と上限10円、もう一枚の天井「一定額」、蓄電池は飽和したのかまで、コラム15本の要点を案内します。
-columns: column-balancing-market, column-eprx, column-area-data, column-day-ahead, column-price-cap, column-bidding-ceiling-market, column-bidding-ceiling, column-bidding-ceiling-law, column-bidding-ceiling-calc, column-bidding-ceiling-monitoring, column-balancing-saturation, column-balancing-saturation-volume, column-balancing-saturation-supply, column-balancing-saturation-floor, column-aggregator-fee
+description: EPRX（電力需給調整力取引所）が運営する需給調整市場を1ページで。5つの商品、9エリアの取引実績、2026年の前日取引化と上限10円、もう一枚の天井「一定額」、蓄電池は飽和したのかまで、コラム21本の要点を案内します。
+columns: column-balancing-market, column-eprx, column-area-data, column-day-ahead, column-price-cap, column-bidding-ceiling-market, column-bidding-ceiling, column-bidding-ceiling-law, column-bidding-ceiling-calc, column-bidding-ceiling-monitoring, column-balancing-saturation, column-balancing-saturation-volume, column-balancing-saturation-supply, column-balancing-saturation-floor, column-aggregator-fee, column-aggregators, column-aggregators-roster, column-aggregators-volume, column-aggregators-pricing, column-aggregators-switching, column-aggregators-overseas
 published: 2026-11-22
-modified: 2026-11-22
+modified: 2026-11-24
 ---
 
 ## @lead
 
-需給調整市場は、蓄電池の収入の柱のひとつです。このページは、当社がこの市場について書いてきたコラム15本の要点を、知りたい順に並べた案内です。数字は各コラムの集計の窓（いつの、どのデータか）のまま書いています。根拠と出典は、それぞれのコラムにあります。
+需給調整市場は、蓄電池の収入の柱のひとつです。このページは、当社がこの市場について書いてきたコラム21本の要点を、知りたい順に並べた案内です。数字は各コラムの集計の窓（いつの、どのデータか）のまま書いています。根拠と出典は、それぞれのコラムにあります。
 
 ## @tldr
 
@@ -99,11 +99,11 @@ more: くわしくは: [蓄電池は飽和したのか — 5つの数字](/colum
 
 ## 参加するには — 取引会員とアグリゲーター
 
-需給調整市場に応札するには、EPRXの取引会員として登録し、一般送配電事業者と発電販売契約を結んでバランシンググループに所属します。発電販売契約を結ぶ主体と取引会員は同じでなくてよく、「オーナーが取引会員となり、運用はアグリゲーターが担う」「アグリゲーターが取引会員として一括して参加する」といった分け方ができます。アグリゲーターとして参加するには電気事業法の「特定卸供給事業者」の登録が要り、2026年3月時点で142社が登録しています。
+需給調整市場に応札するには、EPRXの取引会員として登録し、一般送配電事業者と発電販売契約を結んでバランシンググループに所属します。発電販売契約を結ぶ主体と取引会員は同じでなくてよく、「オーナーが取引会員となり、運用はアグリゲーターが担う」「アグリゲーターが取引会員として一括して参加する」といった分け方ができます。アグリゲーターとして参加する会社は、電気事業法の「特定卸供給事業」を国に届け出ます（許可や登録ではありません）。2026年10月30日時点で187社です（COLUMN 53）。
 
 前日取引化のあと、48コマの配分はアグリゲーターの運用アルゴリズムに左右され、同じ設備でも年間収益に差が出ます。手数料は率だけでは比べられません。計算のもとが総売上（グロス）か市場利益（ネット）かで、同じ率でも手取りが変わります。契約の前に確かめるのは5つです。計算のもとの定義を書面にすること、手数料がかかる範囲（需給調整市場だけか、JEPXの裁定益や容量市場の収入にもかかるか）、インバランスペナルティの負担先、契約期間と解約の条件、そして運用実績（過去12か月の収益・約定率・稼働率）を開示できるかです。
 
-more: くわしくは: [EPRXとは（参加までの流れ）](/column-eprx)／[アグリゲーター手数料の「グロスとネット」](/column-aggregator-fee)
+more: くわしくは: [EPRXとは（参加までの流れ）](/column-eprx)／[アグリゲーター手数料の「グロスとネット」](/column-aggregator-fee)／[アグリゲーターを数える](/column-aggregators)
 
 ## @next
 
