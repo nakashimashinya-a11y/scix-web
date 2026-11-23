@@ -6,7 +6,7 @@ h1: 日本电网侧储能的收益与价格 — 三大收益来源、所在分�
 description: 一页读懂日本电网侧储能的收益与价格：JEPX套利、辅助服务市场、容量市场的收益叠加（revenue stacking），各分区的年营收，每1kWh的建设成本，规模差异，以及IRR与DSCR的看法。
 columns: zh-column-revenue, zh-column-regional-revenue, zh-column-construction-cost, zh-column-biz, zh-column-cashflow
 published: 2026-11-22
-modified: 2026-11-22
+modified: 2026-11-23
 ---
 
 ## @tldr

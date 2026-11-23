@@ -6,7 +6,7 @@ h1: Noise, Hazard and Siting Risk for Grid-Scale Battery Storage in Japan
 description: Battery storage in Japan: night-time noise, flood risk (EAL), DC-side O&M gaps, insurance and site checks before buying.
 columns: en/column-four-labels, en/column-noise, en/column-hazard-eal, en/column-om, en/column-bess-insurance, en/column-buyer-check
 published: 2026-11-22
-modified: 2026-11-22
+modified: 2026-11-23
 ---
 
 ## @tldr
@@ -75,7 +75,7 @@ more: Read more → [The Technical Checks Before You Buy a Grid-Scale Battery St
 
 ## @next
 
-- **If you are buying** — projects that hold a connection study response are for sale on Chikudensho Market, open to view without registration: prefecture, scale, voltage, how to buy, procedural stage and expected start of operation. For each project we write up and hand over the distance to occupied buildings and the expected noise at the site boundary.
+- **If you are buying** — projects that hold a connection study response are for sale on Chikudensho Market, open to view without registration: project name, prefecture and city, scale, voltage, how to buy, procedural stage, expected start of operation and photos. For each project we write up and hand over the distance to occupied buildings and the expected noise at the site boundary.
   → [See projects on Chikudensho Market](https://dealroom.scix.co.jp/en)
 - **If you are selling** — we either buy the project ourselves or introduce you to a buyer. We take projects that hold a connection study response, rights with interconnection approval, and operating storage plants. We do not buy or lease land alone.
   → [Request a free sale assessment](/en/contact)
