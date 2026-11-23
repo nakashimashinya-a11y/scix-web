@@ -72,7 +72,7 @@ const MEASURE = `(() => {
   const lines = (el) => { const rg = document.createRange(); rg.selectNodeContents(el); return new Set([...rg.getClientRects()].filter((x) => x.width > 0).map((x) => Math.round(x.top / 4))).size; };
   for (const el of hdr.querySelectorAll('.scix-nav-main span, .scix-mg-name span, .scix-login span, .scix-mk, .scix-header-nav > a span')) if (el.getBoundingClientRect().width && lines(el) > 1) o.bad.push('折れ:' + el.textContent.trim().slice(0, 18));
   if (W > 1100) {
-    { const nb = hdr.querySelector('.scix-mg-name'); const nr = nb && nb.getBoundingClientRect(); if (nr && nr.width) { if (nr.top < 0 || nr.bottom > o.hdrH) o.bad.push('名前の箱が帯の外:' + Math.round(nr.top) + '-' + Math.round(nr.bottom)); if (parseFloat(getComputedStyle(nb).fontSize) < 12) o.bad.push('名前の字が12px未満'); } }
+    { const nb = hdr.querySelector('.scix-mg-name'); const nr = nb && nb.getBoundingClientRect(); if (nr && nr.width) { if (nr.top < 0 || nr.bottom > o.hdrH) o.bad.push('名前の箱が帯の外:' + Math.round(nr.top) + '-' + Math.round(nr.bottom)); if (parseFloat(getComputedStyle(nb).fontSize) < 12) o.bad.push('名前の字が12px未満'); const mk = nb.querySelector('.scix-mg-mark'); if (mk && mk.getBoundingClientRect().top < 0) o.bad.push('名前の印が画面の上へはみ出す'); } }
     const seq = [logo, mg, light, auth, lang];
     if (seq.some((x) => !x)) o.bad.push('部品が無い');
     else { for (let i = 1; i < seq.length; i++) if (seq[i].l < seq[i - 1].r + 2) o.bad.push('重なり:' + i); if (lang.r > W - 8) o.bad.push('右にはみ出し'); }
@@ -156,6 +156,34 @@ for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
       await p.eval('window.__dp = []'); await tap(p, r.x, r.y); dp = await p.eval('window.__dp'); ok(at + `${g} 2回目の押下で頁へ`, dp.length === 1 && dp[0].dp === false, JSON.stringify(dp));
       await p.go(BASE + url); await watch(p); const b2 = await rectOf(p, '#scix-header-burger'); await tap(p, b2.x, b2.y);
     }
+    await p.close();
+  }
+}
+
+// ---- 3. 市場リサーチの入口の頁（/research・/en/research）: 言葉の対・畳んだメニューは全部閉じて始まる・札の題が語の途中で折れない ----
+{
+  const PAIRS = [['/research', 'ja', { en: '/en/research' }], ['/en/research', 'en', { ja: '/research' }]];
+  for (const [url, lg, want] of PAIRS) {
+    const p = await page({ w: 1440 }); await p.go(BASE + url); const at = `[${url}] `;
+    const hrefs = await p.eval(`(() => { const o = {}; document.querySelectorAll('.scix-lang a').forEach((a) => { o[a.getAttribute('hreflang')] = a.getAttribute('href'); }); return o; })()`);
+    for (const [code, h] of Object.entries(want)) ok(at + `言葉の切り替え ${code} は対の頁（${h}）`, hrefs[code] === h, JSON.stringify(hrefs));
+    ok(at + '言葉の切り替え 中文 は中国語のトップ（入口の頁は無い）', hrefs.zh === '/zh', JSON.stringify(hrefs));
+    await p.close();
+  }
+  for (const [lg, url] of [['ja', '/research'], ['en', '/en/research']]) {   // 畳んだメニュー: この頁を含む札（市場リサーチ）も閉じて始まる
+    const p = await page({ w: 375, h: 780, mobile: true, touch: true }); await p.go(BASE + url); await watch(p); const at = `[畳んだメニュー ${lg} ${url}] `;
+    const bu = await rectOf(p, '#scix-header-burger'); await tap(p, bu.x, bu.y);
+    let st = await state(p); ok(at + '開いたとき、引き出しは全部閉じている', Object.values(st).every((v) => !v[0] && v[1] === 'false' && v[2] === 'none'), JSON.stringify(st));
+    ok(at + '今の頁の札（市場リサーチ）は光っている', await p.eval(`!!document.querySelector('.scix-nav-dd[data-group=research] .scix-nav-dd-toggle.active')`));
+    const r = await rectOf(p, '.scix-nav-dd[data-group=research] .scix-nav-dd-toggle'); await p.eval('window.__dp = []'); await tap(p, r.x, r.y);
+    st = await state(p); let dp = await p.eval('window.__dp'); ok(at + '1回目の押下で開く（頁は移らない）', st.research[0] && dp.length === 1 && dp[0].dp === true, JSON.stringify(st.research) + JSON.stringify(dp));
+    await p.eval('window.__dp = []'); await tap(p, r.x, r.y); dp = await p.eval('window.__dp'); ok(at + '2回目の押下で頁へ', dp.length === 1 && dp[0].dp === false, JSON.stringify(dp));
+    await p.close();
+  }
+  for (const w of [320, 375, 768, 1000, 1280]) for (const url of ['/research', '/en/research']) {   // 札の題は、まとまりの途中で折れない（折れるのは「 」の所だけ）
+    const p = await page({ w, h: 800, mobile: w < 500 }); await p.go(BASE + url);
+    const bad = await p.eval(`(() => { const o = []; const lines = (el) => { const rg = document.createRange(); rg.selectNodeContents(el); return new Set([...rg.getClientRects()].filter((x) => x.width > 0).map((x) => Math.round(x.top / 4))).size; }; document.querySelectorAll('.rs-card b .nb').forEach((e) => { if (lines(e) > 1) o.push(e.textContent); }); return o; })()`);
+    ok(`[${url} ${w}px] 札の題が語の途中で折れない`, bad.length === 0, bad.join(' / '));
     await p.close();
   }
 }
