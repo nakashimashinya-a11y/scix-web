@@ -16,8 +16,10 @@ JEPX は出所の明示で利用可、OCCTO は出典の記載で利用可（編
 """
 from __future__ import annotations  # launchd の python3 は 3.9
 
+import csv
 import datetime
 import html
+import io
 import json
 import urllib.parse
 import os
@@ -225,7 +227,9 @@ def sentences(text, n, lang="ja"):
 
 
 def occto_urls(doc, lang="ja"):
-    """前提と用語の OCCTO の出典の行から、{年度: URL}（容量市場）と {応札年度: URL}（長期脱炭素）を取る。"""
+    """前提と用語の OCCTO の出典の行から、{年度: URL}（容量市場）と {応札年度: URL}（長期脱炭素）を取る。
+    英語の言い回しは翻訳のたびに変わる（clearing results／auction results／market results）ので、言い回しでなく行の種類で決める:
+    長期脱炭素（Long-Term・Decarbon）→ ldau、追加オークション（additional）→ 読まない、それ以外の OCCTO の出典の行 → 容量市場のメインオークション（2026-11-23）。"""
     capu, ldau = {}, {}
     for t in terms(doc):
         if "OCCTO" not in t:
@@ -233,10 +237,12 @@ def occto_urls(doc, lang="ja"):
         pairs = re.findall(r"(\d{4})\D{0,12}?\s*(https://\S+?\.pdf)", t)
         if not pairs:
             continue
-        if ("容量市場の約定結果" in t) or ("capacity market clearing" in t):
-            capu = {y: u for y, u in pairs}
-        elif ("長期脱炭素" in t) or ("Long-Term" in t):
+        if ("長期脱炭素" in t) or re.search(r"Long-Term|Decarbon", t):
             ldau = {y: u for y, u in pairs}
+        elif ("追加オークション" in t) or re.search(r"additional", t, re.I):
+            continue
+        elif ("容量市場の約定結果" in t) or (lang == "en" and re.match(r"Sources? \(OCCTO", t)):
+            capu = {y: u for y, u in pairs}
     return capu, ldau
 
 
@@ -1119,6 +1125,22 @@ def en_matches(ja, en):
     return bad
 
 
+def source_gaps(files, d):
+    """容量市場・長期脱炭素の CSV の「出典」列が空の行があれば、「NG …」の知らせにする（build_reports.py の main が NG の知らせで止まる＝--check でも通らない）。
+    号の文の言い回しが変わって出典の住所を拾えなくなったとき、黙って空にしない（2026-11-23）。"""
+    out = []
+    for name in ("capacity-main-auction.csv", "long-term-decarbonization-auction.csv"):
+        text = files.get(f"{d}/{name}", b"").decode("utf-8-sig")
+        rows = list(csv.reader(io.StringIO(text)))
+        if not rows:
+            continue
+        src_i = len(rows[0]) - 1                         # 出典は最後の列
+        empty = [r[0] for r in rows[1:] if len(r) > src_i and not r[src_i].strip()]
+        if empty:
+            out.append(f"NG {d}/{name}: 出典の列が空の行が {len(empty)} 行（{', '.join(sorted(set(empty))[:6])}）。号の「前提と用語」の出典の行の言い回しを見直す")
+    return out
+
+
 def build(br, months, docs):
     """{相対パス: bytes}・sitemap に足す行 [(path, lastmod, priority, alt_path, lang)]・知らせ を返す。"""
     files, sm, notes = {}, [], []
@@ -1147,6 +1169,7 @@ def build(br, months, docs):
     files["report/data/jepx-spot-monthly.csv"] = jepx_csv(ja, "ja", order, names, "/report").encode("utf-8")
     files["report/data/capacity-main-auction.csv"] = cap_csv(ja, "ja", names).encode("utf-8")
     files["report/data/long-term-decarbonization-auction.csv"] = lda_csv(ja, "ja").encode("utf-8")
+    notes += source_gaps(files, "report/data")
     if SHOW_EPRX and ja["eprx"]:
         files["report/data/eprx-monthly.csv"] = eprx_csv(ja, "ja", "/report").encode("utf-8")
     d = _MOD["date"]
@@ -1158,6 +1181,7 @@ def build(br, months, docs):
         files["en/report/data/jepx-spot-monthly.csv"] = jepx_csv(en, "en", en_order, {a: a for a in en_order}, "/en/report").encode("utf-8")
         files["en/report/data/capacity-main-auction.csv"] = cap_csv(en, "en", {}).encode("utf-8")
         files["en/report/data/long-term-decarbonization-auction.csv"] = lda_csv(en, "en").encode("utf-8")
+        notes += source_gaps(files, "en/report/data")
         if SHOW_EPRX and en["eprx"]:
             files["en/report/data/eprx-monthly.csv"] = eprx_csv(en, "en", "/en/report").encode("utf-8")
         sm.append(("/en/report/data", d, "0.6", "/report/data", "en"))
