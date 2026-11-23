@@ -334,6 +334,7 @@ PILLARS = {
         ("/en/guide-buy-sell", "Buying and selling projects", "Four ways to buy, the order of a sale, checks before buying"),
         ("/en/guide-siting-risk", "Siting and operating risks", "Zoning, noise, disasters, insurance, O&M"),
         ("/en/column-jcstar", "JC-STAR", "When the ★1 requirement applies and to which devices"),
+        ("/en/guide-japan-bess-market", "Japan BESS market overview", "Three revenue markets, grid connection steps, ways to acquire a project, FEFTA"),
     ],
     "zh": [
         ("/zh-guide-balancing-market", "辅助服务市场", "5个商品・成交实绩・上限价格・日前交易化"),
@@ -342,6 +343,7 @@ PILLARS = {
         ("/zh-guide-buy-sell", "项目买卖", "4种买法・买卖的顺序・购买前的确认"),
         ("/zh-guide-siting-risk", "选址与运营风险", "区域・噪音・灾害・保险・运维"),
         ("/zh-column-jcstar", "JC-STAR", "★1何时强制・对象设备"),
+        ("/zh-guide-japan-bess-market", "日本电网侧储能市场概览", "三个收益市场・并网手续的顺序・项目的取得方式・外汇法"),
     ],
 }
 
@@ -409,7 +411,7 @@ KNOW_LINES = {
         "tech": [("/guide-siting-risk", "立地と運用のリスク"), ("/column-jcstar", "JC-STAR")],
     },
     "en": {
-        "basics": [("/en/primer", "Japan grid-scale storage: a primer")],
+        "basics": [("/en/primer", "Japan grid-scale storage: a primer"), ("/en/guide-japan-bess-market", "Japan BESS market overview")],
         "land": [("/en/guide-siting-risk", "Siting and operating risks")],
         "market": [("/en/guide-balancing-market", "Balancing market"), ("/en/guide-capacity-lda", "Capacity market, LDA and long-term contracts"), ("/en/guide-revenue-cost", "Revenue and costs")],
         "rules": [("/en/column-jcstar", "JC-STAR")],
@@ -417,7 +419,7 @@ KNOW_LINES = {
         "tech": [("/en/guide-siting-risk", "Siting and operating risks"), ("/en/column-jcstar", "JC-STAR")],
     },
     "zh": {
-        "basics": [("/zh-primer", "日本电网级储能入门")],
+        "basics": [("/zh-primer", "日本电网级储能入门"), ("/zh-guide-japan-bess-market", "日本电网侧储能市场概览")],
         "land": [("/zh-guide-siting-risk", "选址与运营风险")],
         "market": [("/zh-guide-balancing-market", "辅助服务市场"), ("/zh-guide-capacity-lda", "容量市场与LDA・长期合同"), ("/zh-guide-revenue-cost", "收益与费用")],
         "rules": [("/zh-column-jcstar", "JC-STAR")],
