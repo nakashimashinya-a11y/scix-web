@@ -461,6 +461,27 @@
     document.head.appendChild(scLink);
   }
 
+  // 2026-11-23 ログインの持ち越し（中島「サイエンスのTOPに行くとログアウトする仕様はおかしい。ログインしたままにして。」・中身は下の 2b）:
+  // 蓄電所マーケットにログイン中の人は、上の帯・畳んだメニュー・下の帯の「ログイン」「無料で登録」を、人の印（頭文字）と名前・ログアウトに替える。
+  // 印（localStorage）がある間（data-mkt-signed="guess"）は「ログイン」「無料で登録」を見えなくし（幅は保つ）、答えで決め直す。登録を促す一行（.hm-pr）と一覧の帯（tr.pj-band）はログイン中は出さない。
+  css += '\nhtml[data-mkt-signed="guess"] .scix-auth>a,html[data-mkt-signed="guess"] .scix-auth-m>a,html[data-mkt-signed="guess"] .scix-ft-auth>a{visibility:hidden}' +
+    'html[data-mkt-signed] .hm-pr,html[data-mkt-signed] tr.pj-band{display:none!important}' +
+    'html[data-mkt-signed="1"] .pj-lock::before{content:none!important}' +   // 一覧（/projects）の「🔒 価格と資料を見る」の錠前（ログイン中は開いている）
+    '.scix-in{align-items:center;gap:8px}' +   // display は元の組の物のまま（広い帯は .scix-auth・畳んだメニューは .scix-auth-m だけが見える）
+    '.scix-in span.scix-me{display:inline-flex;align-items:center;gap:8px;max-width:220px;padding:5px 14px 5px 5px;border:1.5px solid #C9D2E3;border-radius:999px;background:#fff;color:#1F2A48;font-size:14px;font-weight:700;line-height:1.3;white-space:nowrap}' +
+    '.scix-in .scix-av{display:grid;place-items:center;flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:#1F2A48;color:#F2C14E;font-size:13px;font-weight:800;line-height:1}' +
+    '.scix-in .scix-av svg{width:17px;height:17px;color:#F2C14E}' +
+    '.scix-in .scix-un{overflow:hidden;text-overflow:ellipsis;min-width:0}' +
+    '.scix-in button.scix-out{flex:0 0 auto;margin:0;padding:7px 12px;border:0;border-radius:999px;background:none;color:#5B667A;font:inherit;font-size:13px;font-weight:700;line-height:1.3;white-space:nowrap;cursor:pointer}' +
+    '.scix-in button.scix-out:hover{background:#F3F5FA;color:#1F2A48}' +
+    '.scix-in button:focus-visible{outline:2px solid #F97316;outline-offset:2px}' +
+    '.scix-in button.scix-out[disabled]{opacity:.5;cursor:default}' +
+    '@media(min-width:1101px) and (max-width:1359px){.scix-auth.scix-in span.scix-me{padding:5px}.scix-auth.scix-in .scix-un{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.scix-auth.scix-in{gap:4px}}' +
+    '@media(max-width:' + BP + 'px){.scix-auth-m.scix-in{flex-direction:row;justify-content:space-between}.scix-auth-m.scix-in span.scix-me{flex:1 1 auto;max-width:none;padding:7px 16px 7px 7px;font-size:.95rem}}' +
+    'footer.scix-ft .scix-ft-auth.scix-in{display:flex}' +
+    '@media(max-width:720px){footer.scix-ft .scix-ft-auth.scix-in{display:flex;justify-content:space-between}footer.scix-ft .scix-ft-auth.scix-in span.scix-me{flex:1 1 auto;max-width:none}}' +
+    '@media print{.scix-in{display:none!important}}';
+
   var style = document.createElement('style');
   style.id = 'scix-header-css';
   style.textContent = css;
@@ -619,6 +640,132 @@
       '<a href="' + AUTH.login + '" class="scix-login">' + AUTH_ICON + '<span>' + AUTH.lt + '</span></a>' +
       '<a href="' + AUTH.reg + '" class="scix-mk scix-reg">' + AUTH.rt + '</a></div>';
   }
+
+  // --------------- 2b. ログインの持ち越し（2026-11-23） ---------------
+  // 中島「サイエンスのTOPに行くとログアウトする仕様はおかしい。ログインしたままにして。」（同じ日「ログインしているのに価格見えないおかしい。ヘッダーではログイン・中身ではログインしろ」）
+  // www.scix.co.jp と dealroom.scix.co.jp は同じサイト（scix.co.jp）なので、マーケットのログインの札（SameSite=Lax・host-only・HttpOnly）は
+  // マーケットの口への fetch(…, { credentials: 'include' }) に付く。マーケットは https://www.scix.co.jp・https://scix.co.jp にだけ資格つきの CORS を返す
+  // （scix-dealroom2 の functions/_lib/site_session.ts・/api/site/session＝名前と頭文字だけ・/api/site/prices＝トップのカードの価格）。
+  // ・頁の HTML はログインの有無で同じ。出し分けはここ（と site-cards.js）だけ。答えが無い・失敗したらログインなしの形のまま。
+  // ・印は localStorage の scix.mkt.signed（この住所の物・マーケットの dr2.signed とは別）。印があれば最初から「ログイン」「無料で登録」を見えなくし（data-mkt-signed="guess"）、答えで決め直す。
+  // ・名前は textContent だけで入れる（innerHTML に入れない）。人の印はリンクにしない（マーケットの帯の印と同じ・マーケットへの入口は左の「蓄電所マーケット」のまとまり＝行き先を帯の中で重ねない）＝GA4 の nav_click に名前は乗らない。
+  // ・www と apex 以外（invest.scix.co.jp・プレビューの住所）はマーケットが許していないので聞かない（手元の試しの localhost・127.0.0.1 だけ聞く＝許されず失敗→ログインなしの形）。
+  var MKT_IN_KEY = 'scix.mkt.signed';
+  var MKT_CARRY = /^(?:www\.scix\.co\.jp|scix\.co\.jp|localhost|127\.0\.0\.1)$/.test(location.hostname) && typeof fetch === 'function' && typeof Promise === 'function';
+  var AUTH_IN = isZh ? { out: '退出登录', you: '已登录蓄电所市场' }
+              : isEn ? { out: 'Log out', you: 'Signed in to Chikudensho Market' }
+              : { out: 'ログアウト', you: '蓄電所マーケットにログイン中' };
+  var MKT_ME = null;   // ログイン中と分かった時の { initial, name }
+  function mktSetIn(on) { try { if (on) localStorage.setItem(MKT_IN_KEY, '1'); else localStorage.removeItem(MKT_IN_KEY); } catch (e) { /* 印を持てなくても動く */ } }
+  function mktUnguess() { if (document.documentElement.getAttribute('data-mkt-signed') === 'guess') document.documentElement.removeAttribute('data-mkt-signed'); }
+  if (MKT_CARRY) {
+    try {
+      if (localStorage.getItem(MKT_IN_KEY) === '1') {
+        document.documentElement.setAttribute('data-mkt-signed', 'guess');
+        setTimeout(mktUnguess, 4000);   // 答えが来なければログインなしの形に戻す
+      }
+    } catch (e) { /* 印が読めなければログインなしの形のまま */ }
+  }
+  // ログイン中の形の1組（.scix-auth・.scix-auth-m・.scix-ft-auth のどれか）。名前と頭文字は textContent で入れる
+  function authInEl(cls) {
+    var d = document.createElement('div');
+    d.className = cls + ' scix-in';
+    d.innerHTML = '<span class="scix-me" title="' + AUTH_IN.you + '"><span class="scix-av" aria-hidden="true"></span><span class="scix-un"></span></span>' +
+      '<button type="button" class="scix-out" data-act="mkt-logout">' + AUTH_IN.out + '</button>';
+    var av = d.querySelector('.scix-av'), un = d.querySelector('.scix-un');
+    if (MKT_ME && MKT_ME.initial) av.textContent = MKT_ME.initial; else av.innerHTML = AUTH_ICON;
+    un.textContent = (MKT_ME && MKT_ME.name) || (isEn ? 'Signed in' : isZh ? '已登录' : 'ログイン中');
+    return d;
+  }
+  // root の中の「ログイン」「無料で登録」の組を、ログイン中の形に替える（もう替えた組は触らない）
+  function mktPaint(root) {
+    if (!MKT_ME || !root || !root.querySelectorAll) return;
+    var els = root.querySelectorAll('.scix-auth:not(.scix-in), .scix-auth-m:not(.scix-in), .scix-ft-auth:not(.scix-in)');
+    for (var i = 0; i < els.length; i++) {
+      var cls = els[i].classList.contains('scix-auth-m') ? 'scix-auth-m' : els[i].classList.contains('scix-ft-auth') ? 'scix-ft-auth' : 'scix-auth';
+      els[i].parentNode.replaceChild(authInEl(cls), els[i]);
+    }
+  }
+  // 頁の中の「無料登録」の誘い（マーケットの /register・/en/register へのリンク）の字を、ログイン中の言い方に替える（行き先はそのまま＝マーケットが next か入口へ送る）
+  var MKT_CTA_RULES = [
+    [/（[^（）]*無料登録[^（）]*）/g, ''],
+    [/無料登録して価格と資料を見る/g, '蓄電所マーケットで価格と資料を見る'],
+    [/蓄電所マーケットに無料登録(?:する)?/g, '蓄電所マーケットを開く'],
+    [/無料で登録/g, '蓄電所マーケットへ'],
+    [/\s*\(free registration\)/gi, ''],
+    [/Register free to see prices and documents?/g, 'See prices and documents'],
+    [/Register (?:on|for) Chikudensho Market/g, 'Open Chikudensho Market'],
+    [/Sign up free/g, 'Go to Chikudensho Market'],
+    [/免费注册蓄电所市场/g, '打开蓄电所市场']
+  ];
+  function mktCtaText() {
+    if (!MKT_ME || !document.body) return;
+    var as = document.querySelectorAll('a[href*="/register"]');
+    for (var i = 0; i < as.length; i++) {
+      if (as[i].getAttribute('data-mkt-in')) continue;
+      var u = null;
+      try { u = new URL(as[i].getAttribute('href') || '', window.location.href); } catch (err) { u = null; }
+      if (!u || !(u.hostname === 'dealroom.scix.co.jp' || u.origin === MKT) || !/^\/(?:en\/)?register$/.test(u.pathname)) continue;
+      as[i].setAttribute('data-mkt-in', '1');
+      var w = document.createTreeWalker(as[i], NodeFilter.SHOW_TEXT, null, false), n;
+      while ((n = w.nextNode())) {
+        var t = n.nodeValue, t2 = t;
+        for (var r = 0; r < MKT_CTA_RULES.length; r++) t2 = t2.replace(MKT_CTA_RULES[r][0], MKT_CTA_RULES[r][1]);
+        if (t2 !== t) n.nodeValue = t2;
+      }
+    }
+  }
+  // 頁の中の決まった言い方（ログイン中には当てはまらない物）: 括弧だけの「（無料登録）」「(free registration)」と、一覧の列の見出しの錠前「🔒」。字の節だけ替える（HTML は替えない）
+  function mktPageText() {
+    if (!MKT_ME || !document.body) return;
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false), n;
+    while ((n = w.nextNode())) {
+      var pe = n.parentNode && n.parentNode.nodeName;
+      if (pe === 'SCRIPT' || pe === 'STYLE' || pe === 'NOSCRIPT') continue;
+      var t = n.nodeValue;
+      if (t.indexOf('無料登録') < 0 && t.indexOf('free registration') < 0 && t.indexOf('\uD83D\uDD12') < 0) continue;
+      var t2 = t.replace(/で（無料登録）/g, 'で見られます').replace(/（無料登録）/g, '').replace(/\s*\(free registration\)/g, '');
+      if (n.parentNode && n.parentNode.classList && n.parentNode.classList.contains('c-lock')) t2 = t2.replace(/\uD83D\uDD12\s*/g, '');
+      if (t2 !== t) n.nodeValue = t2;
+    }
+    var ls = document.querySelectorAll('td.c-lock[data-l]');   // 狭い幅で列の見出しの代わりに出る札（data-l）の錠前も
+    for (var i = 0; i < ls.length; i++) ls[i].setAttribute('data-l', ls[i].getAttribute('data-l').replace(/\uD83D\uDD12\s*/g, ''));
+  }
+  function mktSignedIn(me) {
+    MKT_ME = { initial: Array.from(String(me.initial || '')).slice(0, 1).join(''), name: Array.from(String(me.name || '')).slice(0, 40).join('') };
+    document.documentElement.setAttribute('data-mkt-signed', '1');
+    mktSetIn(true);
+    mktPaint(document);
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { mktPaint(document); mktCtaText(); mktPageText(); });
+    else { mktCtaText(); mktPageText(); }
+  }
+  // マーケットに聞く（3.5秒で打ち切り）。答えは site-cards.js も使う（window.SCIX_MKT_SESSION＝{ initial, name } か null の Promise）
+  window.SCIX_MKT_SESSION = !MKT_CARRY ? (typeof Promise === 'function' ? Promise.resolve(null) : null) : new Promise(function (resolve) {
+    var done = false;
+    function fin(v) { if (done) return; done = true; resolve(v); }
+    var timer = setTimeout(function () { mktUnguess(); fin(null); }, 3500);
+    fetch(MKT + '/api/site/session', { mode: 'cors', credentials: 'include', cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        clearTimeout(timer);
+        if (done) return;
+        if (j && j.signed === true) { mktSignedIn(j); fin(MKT_ME); return; }
+        if (j && j.signed === false) mktSetIn(false);   // ログインしていないと答えた時だけ印を消す（通信の失敗では消さない）
+        mktUnguess();
+        fin(null);
+      })
+      .catch(function () { clearTimeout(timer); mktUnguess(); fin(null); });
+  });
+  // ログアウト: マーケットの口へ POST（Content-Type を付けない＝単純な要求・preflight なし）。成功でも失敗でも印を消して読み直す（札が残っていれば、次の答えでまたログイン中の形）
+  document.addEventListener('click', function (e) {
+    var b = e.target && e.target.closest ? e.target.closest('[data-act="mkt-logout"]') : null;
+    if (!b) return;
+    e.preventDefault();
+    b.disabled = true;
+    mktSetIn(false);
+    var back = function () { window.location.reload(); };
+    try { fetch(MKT + '/api/auth/logout', { method: 'POST', mode: 'cors', credentials: 'include' }).then(back, back); } catch (err) { back(); }
+  });
 
   // --------------- Language switcher (JA / EN / 简中) ---------------
   // Targets resolve to the equivalent page where it exists, otherwise the
@@ -1768,6 +1915,7 @@
         '<div class="scix-ft-co"><p class="scix-ft-info"><span class="scix-ft-info-in">' + info + '</span></p>' + lang + '</div>' +
         '<p class="scix-ft-copy">' + copyHtml + '</p>' +
       '</div>';
+      mktPaint(ft);   // ログイン中と分かっていれば、下の帯の「ログイン」「無料で登録」もログイン中の形に（2026-11-23）
     }
     function buildAll() {
       try {
