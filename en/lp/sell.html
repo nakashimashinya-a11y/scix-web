@@ -187,6 +187,23 @@ body{font-family:'Noto Sans JP',sans-serif;line-height:1.9;-webkit-font-smoothin
   </div>
 </footer>
 <script>
+/* 浮く相談ボタンを、この頁の主ボタンと同じ行き先にする（2026-11-23・着地の頁だけ。出口を増やさない） */
+(function () {
+  try {
+    var f = document.querySelector('.scix-float-cta'), b = document.querySelector('.lp-go .btn-primary');
+    if (!f || !b) return;
+    f.setAttribute('href', b.getAttribute('href'));
+    f.setAttribute('aria-label', 'List your project');
+    f.setAttribute('data-cta', 'float');
+    f.setAttribute('data-cta-target', b.getAttribute('data-cta-target') || '');
+    var svg = f.querySelector('svg');
+    f.textContent = '';
+    if (svg) f.appendChild(svg);
+    f.appendChild(document.createTextNode('List your project'));
+  } catch (e) { /* 差し替えられなければ元のまま */ }
+})();
+</script>
+<script>
 /* 広告の印（utm_*）を蓄電所マーケットの登録まで持ち越す（2026-11-23・着地の頁だけ）。値は英数と _.- だけ・64字まで */
 (function () {
   try {
