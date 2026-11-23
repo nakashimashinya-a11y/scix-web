@@ -2,8 +2,8 @@
 slug: guide-japan-bess-market
 lang: en
 title: Japan BESS Market Overview: Revenue, Grid, Projects | ScienceX
-h1: The Japan BESS market — an overview for investors and developers
-h1_sub: Revenue, grid connection, ways to buy, market data and projects for sale, on one page
+h1: Japan's grid-scale battery (BESS) market on one page — and where each question is answered
+h1_sub: Revenue, grid connection, ways to buy, market data and projects for sale
 description: Japan's grid-scale battery (BESS) market on one page: the three revenue markets, grid connection steps, ways to acquire a project, FEFTA questions, monthly data and projects for sale.
 columns: en/column-revenue, en/column-balancing-market, en/column-eprx, en/column-capacity-market, en/column-lda, en/column-merchant, en/column-development, en/column-grid, en/column-grid-rules, en/column-nonfirm, en/column-buyer-structures, en/column-transfer, en/column-buyer-check, en/column-foreign-investor, en/column-jcstar
 published: 2026-11-23
@@ -18,7 +18,7 @@ A starting point for anyone looking at Japan's grid-scale battery storage (BESS)
 
 - A grid-scale battery in Japan earns from three markets — the balancing market (EPRX), wholesale power (JEPX) and the capacity market (OCCTO) — on merchant revenue, not a feed-in tariff.
 - Grid access is the bottleneck. As of the end of June 2026, 1.28 GW of grid-scale batteries were connected, against about 211 GW of connection studies and about 41 GW of contract applications received (ANRE).
-- So a project that already holds a connection study response is what changes hands. Projects are sold as a completed-build handover or as a transfer of rights; the ones we list can be viewed on Chikudensho Market without registration.
+- On Chikudensho Market, projects that already hold a connection study response are sold as a completed-build handover or as a transfer of rights; the ones we list can be viewed without registration.
 
 ## @top
 
@@ -53,7 +53,7 @@ more: Read more: [](/en/column-revenue) · The monthly figures: [](/en/report)
 
 ### Capacity market and the LDA (OCCTO)
 
-The main auction pays power sources for being available in a delivery year, with contracts of in principle one year, so the clearing price moves every year. The Long-Term Decarbonized Power Source Auction (LDA) pays fixed income for 20 years in principle, for new build, replacement and renovation only; a 2 MW / 8 MWh high-voltage project cannot meet its 30 MW minimum, so it runs as full merchant.
+The main auction pays power sources for being available in a delivery year, with contracts of in principle one year, so the clearing price moves every year. The Long-Term Decarbonized Power Source Auction (LDA) is limited to new build, replacement and renovation and pays fixed income for 20 years in principle; a 2 MW / 8 MWh high-voltage project cannot meet its 30 MW minimum, so it runs as full merchant.
 
 more: The full guide: [](/en/guide-capacity-lda) · Columns: [](/en/column-capacity-market) · [](/en/column-lda) · [](/en/column-merchant)
 
@@ -130,11 +130,11 @@ Chikudensho Market is our marketplace for grid-scale battery projects in Japan, 
 ## @faq
 
 ### Is Japan's grid-scale battery market a feed-in tariff market?
-No. A grid-scale battery earns from the balancing market, wholesale power and the capacity market. Only projects that win the Long-Term Decarbonized Power Source Auction (LDA) get fixed income, for 20 years in principle, and the LDA has a 30 MW minimum.
+No. A grid-scale battery earns from the balancing market, wholesale power and the capacity market. The Long-Term Decarbonized Power Source Auction (LDA), run by OCCTO, pays fixed income for 20 years in principle and has a 30 MW minimum. A tolling contract is a separate route to a fixed fee: the owner hands the battery's capacity and dispatch rights to a counterparty. See [Capacity market, LDA and tolling](/en/guide-capacity-lda).
 more: Read more: [](/en/column-revenue)
 
 ### How large is the market?
-ANRE's figures for the end of June 2026: 1.28 GW of grid-scale batteries connected, about 211 GW of connection studies and about 41 GW of contract applications received. Most of the queue will not be built; that gap is why projects that already hold a connection study response are traded.
+ANRE's figures for the end of June 2026: 1.28 GW of grid-scale batteries connected, about 211 GW of connection studies and about 41 GW of contract applications received. Not every connection study leads to a grid connection (ANRE). Projects that already hold a connection study response are for sale on Chikudensho Market.
 more: Read more: [](/en/column-grid-rules)
 
 ### Can a foreign company buy a project in Japan?

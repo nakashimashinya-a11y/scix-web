@@ -2,8 +2,8 @@
 slug: guide-japan-bess-market
 lang: zh
 title: 日本电网侧储能市场概览 — 收益、并网与在售项目｜ScienceX
-h1: 日本电网侧储能（BESS）市场概览 — 面向投资者与开发商
-h1_sub: 收益、并网、购买方式、市场数据与在售项目，一页读懂
+h1: 一页看懂日本电网侧储能（BESS）市场 — 以及每个问题该读哪一页
+h1_sub: 收益、并网、购买方式、市场数据与在售项目
 description: 一页读懂日本电网侧储能（BESS）市场：三个收益市场、并网手续的顺序、项目的取得方式、外汇法的问题、每月的数据与在售项目的入口。
 columns: zh-column-revenue, zh-column-balancing-market, zh-column-eprx, zh-column-capacity-market, zh-column-lda, zh-column-merchant, zh-column-development, zh-column-grid, zh-column-grid-rules, zh-column-nonfirm, zh-column-buyer-structures, zh-column-transfer, zh-column-buyer-check, zh-column-foreign-investor, zh-column-jcstar
 published: 2026-11-23
@@ -18,7 +18,7 @@ modified: 2026-11-23
 
 - 日本的电网侧储能靠三个市场获得收入：辅助服务市场（EPRX）、批发电力（JEPX）与容量市场（OCCTO）。收入来自市场，而不是固定价格收购（FIT）。
 - 瓶颈在并网。截至2026年6月末，已并网的电网侧储能为128万kW，已受理的接入系统研究约21,100万kW，已受理的合同申请约4,100万kW（资源能源厅）。
-- 因此，被买卖的是已取得接入系统研究答复的项目。出售形式为完工交付或权利转让；本公司所列项目可在蓄电所市场免登记浏览。
+- 在蓄电所市场，已取得接入系统研究答复的项目以完工交付或权利转让的形式出售；本公司所列项目可免登记浏览。
 
 ## 30秒读懂这个市场
 
@@ -125,11 +125,11 @@ more: 完整指南：[](/zh-guide-buy-sell)・专栏：[](/zh-column-buyer-struc
 ## @faq
 
 ### 日本的电网侧储能市场是固定价格收购（FIT）的市场吗？
-不是。电网侧储能的收入来自辅助服务市场、批发电力与容量市场。获得固定收入的，只有在长期脱碳电源拍卖（LDA）中标的项目，原则上为20年，且LDA的最低投标容量为30MW。
+不是。电网侧储能的收入来自辅助服务市场、批发电力与容量市场。由OCCTO运营的长期脱碳电源拍卖（LDA）原则上提供20年的固定收入，最低投标容量为30MW。容量租赁（Tolling）合约是另一条取得固定费用的途径：持有者把储能电站的容量与运营权交给对方。详见[容量市场、LDA与容量租赁指南](/zh-guide-capacity-lda)。
 more: 详细阅读：[](/zh-column-revenue)
 
 ### 市场有多大？
-资源能源厅2026年6月末的数字：已并网的电网侧储能128万kW，已受理的接入系统研究约21,100万kW，已受理的合同申请约4,100万kW。排队中的大部分不会建成；正因为这个落差，已取得接入系统研究答复的项目才会被买卖。
+资源能源厅2026年6月末的数字：已并网的电网侧储能128万kW，已受理的接入系统研究约21,100万kW，已受理的合同申请约4,100万kW。并非所有接入系统研究都会走到并网（资源能源厅）。已取得接入系统研究答复的项目在蓄电所市场出售。
 more: 详细阅读：[](/zh-column-grid-rules)
 
 ### 外国企业能在日本买项目吗？
