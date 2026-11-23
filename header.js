@@ -120,6 +120,7 @@
     '/primer': { en: '/en/primer', zh: '/zh-primer' },
     '/market-entry-guide': { en: '/en/market-entry-guide', zh: '/zh' },
     '/press': { en: '/en/press', zh: '/zh' },
+    '/newsroom': { en: '/en/newsroom', zh: '/zh' },   // 報道資料室（scripts/build_newsroom.py・中国語の頁は無いので中国語のトップへ）
     '/company': { en: '/en/company', zh: '/zh-company' },
     '/privacy': { en: '/en/privacy', zh: '/zh-privacy' }
   };
