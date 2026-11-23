@@ -12,6 +12,7 @@
                               件数が MIN_INDEX 未満の管内は noindex（薄いページを索引に出さない）
   en/projects.html           英語の案件一覧（海外の買い手向け・1枚・価格なし・2026-10-31 新設）
   en/market-data.html         英語の市場データ（日本語の /market-data と同じ集計・hreflang で相互に結ぶ・2026-11-22 新設）
+  zh-market-data.html         中国語（簡体字）の市場データ（同じ集計・hreflang で3言語を相互に結ぶ・用語は docs/glossary-en-zh.md・CSV は英語版を指す・2026-11-23 新設）
   files/market-data/*.csv     集計の CSV（日英・UTF-8 BOM 付き・CRLF）: 集計・週ごとの推移・買主のリクエストの条件
   files/market-data/buyer-requests.json  買主のリクエスト（蓄電所マーケットの公開の口 /api/open/needs）の選択肢ごとの数の控え。
                               --fetch-needs のときだけ口を読み、数が変わったときだけ書き直す（件数と選択肢ごとの数だけ。
@@ -61,7 +62,7 @@ AREAS = [
     ("北陸", "hokuriku", "北陸電力送配電"),
     ("四国", "shikoku", "四国電力送配電"),
 ]
-OUTPUTS = ["market-data.html", "en/projects.html", "en/market-data.html"] + [f"projects-{slug}.html" for _, slug, _ in AREAS]
+OUTPUTS = ["market-data.html", "en/projects.html", "en/market-data.html", "zh-market-data.html"] + [f"projects-{slug}.html" for _, slug, _ in AREAS]
 
 # 2026-11-22 足した集計・CSV・買主のリクエスト
 MIN_GROUP = 5    # 新しい集計の区分（電圧・取得の形の行・月数の行・CSV の管内と都道府県）は、件数がこれ未満なら「その他」にまとめる
@@ -322,14 +323,16 @@ def weekly_section_en(rows, generated):
 def bar_rows(pairs, total, unit="件", lang="ja"):
     """横棒の行。pairs=[(ラベル, 値)]。CSS だけで描く（JS 無し）。"""
     if not pairs or not total:
-        return "<p class=\"md-note\">該当なし</p>" if lang == "ja" else "<p class=\"md-note\">None</p>"
+        return {"ja": "<p class=\"md-note\">該当なし</p>", "zh": "<p class=\"md-note\">无</p>"}.get(lang, "<p class=\"md-note\">None</p>")
+    if lang == "zh" and unit == "件":
+        unit = "个"
     mx = max(v for _, v in pairs) or 1
     out = ['<div class="md-bars">']
     for label, v in pairs:
         pct = v / total * 100
         out.append(f'<div class="md-bar"><span class="md-bar-l">{_esc(label)}</span>'
                    f'<span class="md-bar-t"><span class="md-bar-f" style="width:{v / mx * 100:.1f}%"></span></span>'
-                   + (f'<span class="md-bar-v">{v}{unit}<small>（{pct:.0f}%）</small></span></div>' if lang == "ja"
+                   + (f'<span class="md-bar-v">{v}{unit}<small>（{pct:.0f}%）</small></span></div>' if lang in ("ja", "zh")
                       else f'<span class="md-bar-v">{v}<small> ({pct:.0f}%)</small></span></div>'))
     out.append("</div>")
     return "\n".join(out)
@@ -730,6 +733,11 @@ def cite_html(lang, name, url, updated, extra=""):
                 f'<p>この頁の数字・図表の引用を歓迎します。記事・資料・社内の検討にお使いいただくときは、出典として次の1行をお書きください。</p>'
                 f'<p class="cite-line">出典: サイエンスエックス株式会社『{_esc(name)}』（{_esc(updated)} 更新） {_esc(url)}</p>'
                 f'<p class="cite-meta">頁の住所: <a href="{_esc(url)}">{_esc(url)}</a>　更新日: {t}</p>{extra}</div>')
+    if lang == "zh":
+        return (f'<div class="cite" id="cite"><div class="cite-h">引用方法</div>'
+                f'<p>欢迎引用本页的数字与图表。在文章、资料或内部研讨中使用时，请按下面的格式注明出处。</p>'
+                f'<p class="cite-line">出处：Science X Inc.《{_esc(name)}》（{_esc(updated)}更新） {_esc(url)}</p>'
+                f'<p class="cite-meta">页面地址：<a href="{_esc(url)}">{_esc(url)}</a>　更新日期：{t}</p>{extra}</div>')
     return (f'<div class="cite" id="cite"><div class="cite-h">How to cite</div>'
             f'<p>You are welcome to quote the figures and charts on this page. Please give the source as follows.</p>'
             f'<p class="cite-line">Source: Science X Inc., &ldquo;{_esc(name)}&rdquo; (updated {_esc(updated)}), {_esc(url)}</p>'
@@ -884,10 +892,14 @@ H3B = '<h3 style="font-size:.95rem;color:var(--navy);margin:14px 0 6px">'
 
 
 def _vl(v, lang):
+    if lang == "zh":
+        return _zh_label("volt", v, table=True)
     return (v if v != "確認中" else "電圧 確認中") if lang == "ja" else _en_label("volt", v)
 
 
 def _sl(v, lang):
+    if lang == "zh":
+        return _zh_label("scheme", v)
     return v if lang == "ja" else _en_label("scheme", v)
 
 
@@ -898,13 +910,29 @@ def _list_ja(items):
 def section_voltage_scheme(x, lang):
     cols = x["scols"]
     J = lang == "ja"
-    head = [("電圧" if J else "Voltage class")] + [_sl(c, lang) for c in cols] + [("計" if J else "Total")]
+    lab_v, lab_t = {"ja": ("電圧", "計"), "en": ("Voltage class", "Total"), "zh": ("电压", "合计")}[lang]
+    head = [lab_v] + [_sl(c, lang) for c in cols] + [lab_t]
     body = "".join(
         f'<tr><th scope="row">{_esc(_vl(v, lang))}</th>' + "".join(f'<td class="n">{x["cross"].get((v, c), 0)}</td>' for c in cols)
         + f'<td class="n">{x["vtotal"][v]}</td></tr>' for v in x["vrows"])
-    body += (f'<tr><th scope="row">{"計" if J else "Total"}</th>' + "".join(f'<td class="n">{x["stotal"].get(c, 0)}</td>' for c in cols)
+    body += (f'<tr><th scope="row">{lab_t}</th>' + "".join(f'<td class="n">{x["stotal"].get(c, 0)}</td>' for c in cols)
              + f'<td class="n">{x["n"]}</td></tr>')
     hv, ehv = x["vtotal"].get("高圧", 0), x["vtotal"].get("特別高圧", 0)
+    if lang == "zh":
+        say = ""
+        if hv and ehv:
+            say = (f"高压{hv}个项目中有{x['cross'].get(('高圧', '完成渡し'), 0)}个为完工交付，"
+                   f"特别高压{ehv}个项目中有{x['cross'].get(('特別高圧', '権利譲渡'), 0)}个为权利转让。")
+        merged = (f"项目数不足{MIN_GROUP}个的电压（{'、'.join(_zh_label('volt', v) for v in x['vmerged'])}）合并为“其他”。"
+                  if x["vmerged"] else "")
+        return f"""<section class="md" id="voltage-structure"><div class="container">
+  <div class="section-label">电压×取得方式</div>
+  <h2 class="md-h">电压与取得方式的组合</h2>
+  <p class="md-lead">按电压统计，通过权利取得、由买方自行建设的项目（权利转让）与以建成状态交付的项目（完工交付）各有多少。{say}</p>
+  <div class="md-scroll"><table class="md-t"><caption>按电压类别与取得方式组合统计的项目数（全部{x['n']}个）</caption><thead><tr>{_ths(head)}</tr></thead><tbody>{body}</tbody></table></div>
+  <p class="md-note">统计全部{x['n']}个项目。{merged}取得方式尚未确定的项目标为“待确认”。</p>
+</div></section>
+"""
     if J:
         say = ""
         if hv and ehv:
@@ -938,7 +966,17 @@ def section_voltage_scheme(x, lang):
 def section_size(x, lang):
     J = lang == "ja"
     n, k = x["n"], x["n_mw"]
-    pairs = [((ja if J else en), x["size"].get(ja, 0)) for _, _, ja, en in SIZE_BINS]
+    pairs = [((ja if J else (_zh_label("size", ja) if lang == "zh" else en)), x["size"].get(ja, 0)) for _, _, ja, en in SIZE_BINS]
+    if lang == "zh":
+        med = "；".join(f"{_vl(v, lang)}为{_g(m)}MW（{c}个）" for v, m, c in x["size_med"])
+        return f"""<section class="md" id="size"><div class="container">
+  <div class="section-label">规模</div>
+  <h2 class="md-h">按规模分类（输出功率 MW）</h2>
+  <p class="md-lead">将有输出功率（MW）数值的{k}个项目按规模分类（全部{n}个项目中有{n - k}个没有该数值，未计入）。{f"中位数：{med}。" if med else ""}</p>
+  <div class="md-grid"><div>{bar_rows(pairs, k, lang="zh")}</div></div>
+  <p class="md-note">占比为占有数值的{k}个项目的比例。中位数仅列出项目数不少于{MIN_GROUP}个的电压。</p>
+</div></section>
+"""
     if J:
         med = "、".join(f"{_vl(v, lang)}が{_g(m)}MW（{c}件）" for v, m, c in x["size_med"])
         return f"""<section class="md" id="size"><div class="container">
@@ -965,10 +1003,12 @@ def section_lead_by_scheme(x, s, lang):
     n, k = x["n"], x["n_lead"]
     if not x["lead_s"]:
         return ""
-    head = [("取得の形" if J else "Structure"), ("月数のある件" if J else "Projects with a figure"), ("中央値" if J else "Median")] + [
-        (ja if J else en) for ja, en in LEAD_BANDS]
+    h1_, h2_, h3_ = {"ja": ("取得の形", "月数のある件", "中央値"), "en": ("Structure", "Projects with a figure", "Median"),
+                     "zh": ("取得方式", "有月数的项目", "中位数")}[lang]
+    head = [h1_, h2_, h3_] + [(ja if J else (_zh_label("band", ja) if lang == "zh" else en)) for ja, en in LEAD_BANDS]
+    unit_m = {"ja": "か月", "en": " months", "zh": "个月"}[lang]
     body = "".join(
-        f'<tr><th scope="row">{_esc(_sl(r["k"], lang))}</th><td class="n">{r["n"]}</td><td class="n">{_g(r["med"])}{"か月" if J else " months"}</td>'
+        f'<tr><th scope="row">{_esc(_sl(r["k"], lang))}</th><td class="n">{r["n"]}</td><td class="n">{_g(r["med"])}{unit_m}</td>'
         + "".join(f'<td class="n">{r["bands"].get(ja, 0)}</td>' for ja, _ in LEAD_BANDS) + "</tr>" for r in x["lead_s"])
     if J:
         vmed = "、".join(f"{_vl(r['k'], lang)}が{_g(r['med'])}か月（{r['n']}件）" for r in x["lead_v"])
@@ -979,6 +1019,17 @@ def section_lead_by_scheme(x, s, lang):
   <p class="md-lead">接続検討回答書に書かれた「連系までにかかる月数」がある{k}件を、取得の形ごとに数えました（全{n}件のうち{n - k}件は月数が無く、数えていません）。{f"電圧で分けると、中央値は{vmed}です。" if vmed else ""}</p>
   <div class="md-scroll"><table class="md-t"><caption>取得の形ごとの、回答書の連系までの月数（中央値と区分ごとの件数・月数のある{k}件）</caption><thead><tr>{_ths(head)}</tr></thead><tbody>{body}</tbody></table></div>
   <p class="md-note">月数は回答書の記載のままで、起点（工事費負担金の入金からなど）が書かれているのは{k - s['basis'].get('unspecified', 0)}件です（内訳は上の「月数の起点」）。運転開始の予定日から数えた月数ではありません。{other}</p>
+</div></section>
+"""
+    if lang == "zh":
+        vmed = "；".join(f"{_vl(r['k'], lang)}为{_g(r['med'])}个月（{r['n']}个）" for r in x["lead_v"])
+        other = f"有月数的项目不足{MIN_GROUP}个的取得方式（{x['lead_s_other']}个）未列入表中。" if x["lead_s_other"] else ""
+        return f"""<section class="md" id="lead-structure"><div class="container">
+  <div class="section-label">并网所需月数×取得方式</div>
+  <h2 class="md-h">按取得方式看并网所需月数</h2>
+  <p class="md-lead">将接入系统研究答复书中写明“并网所需月数”的{k}个项目，按取得方式统计（全部{n}个项目中有{n - k}个没有月数，未计入）。{f"按电压区分，中位数为：{vmed}。" if vmed else ""}</p>
+  <div class="md-scroll"><table class="md-t"><caption>答复书所载并网所需月数，按取得方式统计（中位数与各区间项目数，有月数的{k}个项目）</caption><thead><tr>{_ths(head)}</tr></thead><tbody>{body}</tbody></table></div>
+  <p class="md-note">月数以答复书的记载为准，其中写明起点（如自并网工程费分摊款支付起算）的有{k - s['basis'].get('unspecified', 0)}个（明细见上方“月数的起点”）。这不是自预计投运日起算的月数。{other}</p>
 </div></section>
 """
     vmed = "; ".join(f"{_vl(r['k'], lang).lower()} {_g(r['med'])} months ({r['n']} projects)" for r in x["lead_v"])
@@ -1004,19 +1055,29 @@ def section_needs(nd, lang):
     for k, ja, en in NEEDS_FIELDS:
         pairs, unset, n_set = needs_pairs(nd, k)
         if not J:
+            tr, fb = (needs_zh, "其他选项") if lang == "zh" else (needs_en, "Other options")
             agg = Counter()
             for v, c in pairs:
-                agg[needs_en(v) or "Other options"] += c
+                agg[tr(v) or fb] += c
             order = []
             for v, _ in pairs:
-                lab = needs_en(v) or "Other options"
+                lab = tr(v) or fb
                 if lab not in order:
                     order.append(lab)
             pairs = [(lab, agg[lab]) for lab in order]
         if unset:
-            pairs = pairs + [("指定なし" if J else "Not specified", unset)]
-        blocks.append(f'<div>{H3}{_esc(ja if J else en)}</h3>{bar_rows(pairs, n, lang=lang)}</div>')
+            pairs = pairs + [({"ja": "指定なし", "en": "Not specified", "zh": "未指定"}[lang], unset)]
+        blocks.append(f'<div>{H3}{_esc(ja if J else (NEEDS_ZH_FIELD[k] if lang == "zh" else en))}</h3>{bar_rows(pairs, n, lang=lang)}</div>')
     asof = nd.get("asOf", "")
+    if lang == "zh":
+        return f"""<section class="md" id="buyer-requests"><div class="container">
+  <div class="section-label">买方的需求</div>
+  <h2 class="md-h">买方目前的需求条件（{n}条）</h2>
+  <p class="md-lead">蓄电所市场上，买方发布的<a href="{NEEDS_PAGE_EN}" target="_top">买方需求</a>（买方自行发布的想买项目的条件，英文页面）目前有{n}条，下面按选项统计各条件的数量。可用来大致判断您想出售的项目是否符合买方的条件。</p>
+  <div class="md-grid">{"".join(blocks)}</div>
+  <p class="md-note">由于仅有{n}条，不列出随时间的变化（走势）；也不公布买方公司的属性与发布日期。希望的区域可多选，因此按累计数统计，占比为占{n}条需求的比例。选择次数不足{NEEDS_MIN}次的选项合并为“其他选项”，未填写条件的需求计入“未指定”。每天早上根据蓄电所市场的公开一览重新统计（条数最后变动的日期：<time datetime="{_esc(asof)}">{_esc(asof)}</time>）。</p>
+</div></section>
+"""
     if J:
         return f"""<section class="md" id="buyer-requests"><div class="container">
   <div class="section-label">買主のリクエスト</div>
@@ -1055,6 +1116,22 @@ def section_download(lang, generated, has_weekly, has_needs, name, url, extra=""
   {cite_html("ja", name, url, generated, extra)}
 </div></section>
 """
+    if lang == "zh":
+        items = [(c["summary"], "汇总表（CSV）", "分区·都道府县（前10）·电压·取得方式·进展·电压×取得方式·规模·并网所需月数·预计投运·上线月份（列名与分类为英文）")]
+        if has_weekly:
+            items.append((c["weekly"], "每周变化（CSV）", "每周的项目数·合计输出功率·电压与取得方式明细·新增项目（列名为英文）"))
+        if has_needs:
+            items.append((c["needs"], "买方需求条件（CSV）", "目前的需求条数与各选项的数量（列名与选项为英文）"))
+        items.append(("/projects.json", "公开一览（JSON）", "各项目的公开字段（分区·县·电压·规模·进展·取得方式·并网预期；标签为日文）"))
+        lis = "".join(f'<li><a href="{h}"{" download" if h.endswith(".csv") else ""}>{_esc(t)}</a><small>{_esc(d)}</small></li>' for h, t, d in items)
+        return f"""<section class="md" id="download"><div class="container">
+  <div class="section-label">下载与引用</div>
+  <h2 class="md-h">数据下载与引用方法</h2>
+  <p class="md-lead">本页的汇总也可下载为 CSV（UTF-8，带 BOM）。每天早上依据与本页相同的数据重新生成。CSV 的列名与分类名为英文版（数字与本页一致）。不含价格、项目名称与所在地。</p>
+  <ul class="md-dl">{lis}</ul>
+  {cite_html("zh", name, url, generated, extra)}
+</div></section>
+"""
     items = [(c["summary"], "Summary tables (CSV)", "Grid area, prefecture (top 10), voltage, structure, status, voltage × structure, size, months to connection, planned COD, month first listed")]
     if has_weekly:
         items.append((c["weekly"], "Weekly figures (CSV)", "Projects and total MW per week, by voltage class and structure, new listings"))
@@ -1089,12 +1166,30 @@ def variables_en():
             P("Planned commercial operation (fiscal half-year)"), P("Month first listed"), P("Projects and total MW per week", "projects, MW")]
 
 
+def variables_zh():
+    P = lambda n, u=None: {"@type": "PropertyValue", "name": n, **({"unitText": u} if u else {})}  # noqa: E731
+    return [P("在售项目数", "个"), P("合计输出功率", "MW"), P("合计容量", "MWh"), P("分区（一般输配电企业的供电区域）"), P("都道府县"),
+            P("电压类别（高压·特别高压·低压）"), P("取得方式（权利转让·完工交付）"), P("进展（已取得接入系统研究答复·并网工程费分摊已确定·已并网）"),
+            P("规模区间", "MW"), P("并网所需月数（接入系统研究答复书所载，中位数与区间）", "个月"), P("预计投运（财年上下半期）"),
+            P("上线月份"), P("每周项目数与合计输出功率", "个·MW")]
+
+
 def needs_dataset(nd, lang, page_url):
     if not nd or not nd.get("n"):
         return None
     J = lang == "ja"
     c = CSV if J else CSV_EN
-    P = lambda n: {"@type": "PropertyValue", "name": n, "unitText": "件" if J else "requests"}  # noqa: E731
+    P = lambda n: {"@type": "PropertyValue", "name": n, "unitText": "件" if J else ("条" if lang == "zh" else "requests")}  # noqa: E731
+    if lang == "zh":
+        return {"@context": "https://schema.org", "@type": "Dataset", "@id": page_url + "#buyer-requests-dataset",
+                "name": "蓄电所市场的买方需求条件（各选项的数量）",
+                "description": (f"买方在蓄电所市场上发布的、想购买的电网侧储能（蓄电所）项目的条件，对目前的{nd['n']}条需求按选项统计的结果："
+                                "购买方式、电压、希望的区域、希望的投运时间、电力手续阶段。不含买方属性、发布日期与走势。"),
+                "url": page_url + "#buyer-requests", "inLanguage": "zh-CN", "creator": ZH_ORG, "publisher": ZH_ORG, "isAccessibleForFree": True,
+                "isBasedOn": NEEDS_PAGE_EN, "spatialCoverage": {"@type": "Place", "name": "日本"},
+                "variableMeasured": [P(NEEDS_ZH_FIELD[k]) for k, _, _ in NEEDS_FIELDS],
+                "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": BASE + c["needs"],
+                                  "name": "买方需求条件（CSV）"}]}
     return {"@context": "https://schema.org", "@type": "Dataset", "@id": page_url + "#buyer-requests-dataset",
             "name": "蓄電所マーケットの買主のリクエストの条件（選択肢ごとの数）" if J else "Buyer request conditions on Chikudensho Market (counts per option)",
             "description": (f"蓄電所マーケットに買主が載せた、買いたい系統用蓄電池（蓄電所）の案件の条件を、いま載っている{nd['n']}件について選択肢ごとに数えたもの。"
@@ -1224,7 +1319,8 @@ def render_market(ps, today, generated, weekly=(), nd=None):
 """
     h = head(title, desc, path, jsonld)
     ja_alt = f'<link rel="alternate" hreflang="ja" href="{BASE}{path}">'
-    h = h.replace(ja_alt, ja_alt + f'\n<link rel="alternate" hreflang="en" href="{BASE}/en/market-data">', 1)
+    h = h.replace(ja_alt, ja_alt + f'\n<link rel="alternate" hreflang="en" href="{BASE}/en/market-data">'
+                  f'\n<link rel="alternate" hreflang="zh-CN" href="{BASE}/zh-market-data">', 1)
     return h + body
 
 
@@ -1608,7 +1704,8 @@ def en_head(title, desc, path, jsonld, ja_path):
     return (head(title, desc, path, jsonld)
             .replace('<html lang="ja">', '<html lang="en">')
             .replace(f'<link rel="alternate" hreflang="ja" href="{url}">',
-                     f'<link rel="alternate" hreflang="en" href="{url}">\n<link rel="alternate" hreflang="ja" href="{BASE}{ja_path}">')
+                     f'<link rel="alternate" hreflang="en" href="{url}">\n<link rel="alternate" hreflang="ja" href="{BASE}{ja_path}">'
+                     f'\n<link rel="alternate" hreflang="zh-CN" href="{BASE}/zh-market-data">')
             .replace('content="ja_JP"', 'content="en_US"')
             .replace(f'{BASE}/img/ogp-m.png', f'{BASE}/img/ogp-m-en.png'))
 
@@ -1724,6 +1821,271 @@ def render_en_market(ps, today, generated, weekly=(), nd=None):
     return en_head(title, desc, path, jsonld, "/market-data") + body
 
 
+# ---------------------------------------------------------------- 中国語（簡体字）の市場データ（zh-market-data.html）
+# 日本語の /market-data と同じ集計（同じ projects.json の公開項目・同じ関数）を、用語は docs/glossary-en-zh.md と zh-faq.html にそろえて出す。
+# 価格・案件名・所在地・売主は持っていないので出せない（O16-19）。CSV は英語版（列名と区分が英語）を指す（中国語の CSV は作らない）。
+ZH_ORG = {"@type": "Organization", "@id": BASE + "/#organization", "name": "ScienceX", "legalName": "Science X Inc.", "url": BASE + "/zh"}
+ZH_AREA = {"北海道": "北海道", "東北": "东北", "東京": "东京", "中部": "中部", "北陸": "北陆", "関西": "关西",
+           "中国": "中国地区（日本本州西部）", "四国": "四国", "九州": "九州", "沖縄": "冲绳"}
+ZH_PREF = {
+    "北海道": "北海道", "青森県": "青森县", "岩手県": "岩手县", "宮城県": "宫城县", "秋田県": "秋田县", "山形県": "山形县",
+    "福島県": "福岛县", "茨城県": "茨城县", "栃木県": "栃木县", "群馬県": "群马县", "埼玉県": "埼玉县", "千葉県": "千叶县",
+    "東京都": "东京都", "神奈川県": "神奈川县", "新潟県": "新潟县", "富山県": "富山县", "石川県": "石川县", "福井県": "福井县",
+    "山梨県": "山梨县", "長野県": "长野县", "岐阜県": "岐阜县", "静岡県": "静冈县", "愛知県": "爱知县", "三重県": "三重县",
+    "滋賀県": "滋贺县", "京都府": "京都府", "大阪府": "大阪府", "兵庫県": "兵库县", "奈良県": "奈良县", "和歌山県": "和歌山县",
+    "鳥取県": "鸟取县", "島根県": "岛根县", "岡山県": "冈山县", "広島県": "广岛县", "山口県": "山口县",
+    "徳島県": "德岛县", "香川県": "香川县", "愛媛県": "爱媛县", "高知県": "高知县", "福岡県": "福冈县", "佐賀県": "佐贺县",
+    "長崎県": "长崎县", "熊本県": "熊本县", "大分県": "大分县", "宮崎県": "宫崎县", "鹿児島県": "鹿儿岛县",
+    "沖縄県": "冲绳县",
+}
+ZH_VOLT = {"高圧": "高压", "特別高圧": "特别高压", "低圧": "低压"}
+ZH_SCHEME = {"権利譲渡": "权利转让", "完成渡し": "完工交付"}
+ZH_STATUS = {"接続検討回答済": "已取得接入系统研究答复", "負担金確定": "并网工程费分摊已确定", "連系済": "已并网"}
+ZH_SIZE = {"2MW未満": "不足2MW", "2〜10MW未満": "2MW以上、不足10MW", "10〜30MW未満": "10MW以上、不足30MW", "30MW以上": "30MW以上"}
+ZH_BAND = {"6か月以内": "6个月以内", "7〜12か月": "7–12个月", "13〜24か月": "13–24个月", "25か月以上": "25个月以上"}
+ZH_BASIS = {"payment": "自并网工程费分摊款支付起", "apply": "自提出并网申请起", "contract": "自签约起", "unspecified": "未注明起点（以答复书记载为准）"}
+NEEDS_ZH = {"権利渡し": "权利转让", "完成渡し": "完工交付", "高圧": "高压", "特別高圧": "特别高压", "高圧・特別高圧": "高压或特别高压", "低圧": "低压",
+            "本回答あり（またはその先）": "已收到并网申请的答复（或更后阶段）",
+            "保証金支払済（またはその先）": "已支付并网保证金（或更后阶段）",
+            "工事負担金支払済（またはその先）": "已支付并网工程费分摊（或更后阶段）"}
+NEEDS_ZH_FIELD = {"sale_type": "购买方式", "voltage": "电压", "grid_area": "希望的区域（可多选，累计）",
+                  "cod": "希望的投运时间", "grid_stage": "电力手续阶段"}
+GROWTH_NOTE_ZH = "上线项目数量的增加，反映的是我们将项目录入一览的工作节奏（有些日子是集中录入），并不代表市场的增长。"
+FONTS_ZH = "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
+
+
+def _zh_label(kind, v, table=False):
+    """中国語の頁の区分の言い方（_en_label と同じ対応）。table=True は表の行見出し（電圧の確認中を「电压待确认」にする）。"""
+    if v == OTHER:
+        return "其他"
+    if kind == "area":
+        return ZH_AREA.get(v, v)
+    if kind == "pref":
+        return ZH_PREF.get(v, v)
+    if kind == "volt":
+        return ZH_VOLT.get(v, ("电压待确认" if table else "待确认") if v == "確認中" else v)
+    if kind == "scheme":
+        return ZH_SCHEME.get(v, "待确认" if v == "確認中" else v)
+    if kind == "status":
+        return ZH_STATUS.get(v, "待确认" if v == "確認中" else v)
+    if kind == "size":
+        return ZH_SIZE.get(v, v)
+    if kind == "band":
+        return ZH_BAND.get(v, v)
+    if kind == "half":
+        m = re.match(r"(\d{4})年度(上期|下期)", v)
+        return f"{m.group(1)}财年{'上半期（4–9月）' if m.group(2) == '上期' else '下半期（10月–次年3月）'}" if m else v
+    return v
+
+
+def needs_zh(v):
+    if v in NEEDS_ZH:
+        return NEEDS_ZH[v]
+    if v in ZH_AREA:
+        return ZH_AREA[v]
+    if v == "その他の選択肢":
+        return "其他选项"
+    m = re.match(r"(\d{4})年(\d{1,2})月まで$", v)
+    if m:
+        return f"至{m.group(1)}年{int(m.group(2))}月"
+    return None
+
+
+def weekly_section_zh(rows, generated):
+    if len(rows) < 2:
+        return ""
+    last = rows[-1]
+    body = "".join(
+        f'<tr><th scope="row"><time datetime="{r["week"]}">{_esc(_short(r["week"]))}</time>{"（统计中）" if i == len(rows) - 1 else ""}</th><td class="n">{r["n"]}</td><td class="n">{_mwcell(r)}</td>'
+        f'<td class="n">{r["hv"]}</td><td class="n">{r["ehv"]}</td><td class="n">{r["rights"]}</td><td class="n">{r["built"]}</td>'
+        f'<td class="n">{r["new"]}</td></tr>' for i, r in enumerate(rows))
+    mw_note = ("合计MW在输出功率数值缺失较多的周显示为“—”，以免把数据缺失误读为市场规模的变化。"
+               if any(not r["mw_ok"] for r in rows) else "")
+    return f"""<section class="md" id="weekly"><div class="container">
+  <div class="section-label">每周变化</div>
+  <h2 class="md-h">每周在售项目数</h2>
+  <p class="md-lead">每周末买方可见的项目数与合计输出功率（以周一为起点的周，最近{len(rows)}周）。最新一周为截至{_esc(generated)}的统计中数字。</p>
+  {weekly_svg(rows, "hv", "ehv", "高压", "特别高压", "每周在售项目数（高压与特别高压）", "个")}
+  <div class="md-scroll"><table class="md-t"><caption>每周在售项目数与合计输出功率（最近{len(rows)}周，按电压类别与取得方式）</caption><thead><tr>{_ths(["周（周一）", "项目数", "合计MW", "高压", "特别高压", "权利转让", "完工交付", "新增项目"])}</tr></thead><tbody>{body}</tbody></table></div>
+  <p class="md-note">图中为高压与特别高压的叠加；未设定电压的项目（最新一周为{last["other_v"]}个）不在图中，但计入表中的项目数。{mw_note}{GROWTH_NOTE_ZH}这是 ScienceX 自身挂牌的项目，并非日本全市场的统计。取得方式待确认的项目不计入最后两列。此处不公布价格、所在地与名称。</p>
+</div></section>
+"""
+
+
+ZH_CTA_MD = """<section class="cta"><div class="container">
+  <h2>项目本身，请在蓄电所市场查看</h2>
+  <p>现有项目无需注册即可在蓄电所市场（Chikudensho Market）浏览。价格与资料在免费注册后查看，在注册界面同意保密承诺即可（无需签署纸质文件）。蓄电所市场的页面为英文。</p>
+  <a class="btn-primary" href="https://dealroom.scix.co.jp/en" target="_top">在蓄电所市场查看项目 &rarr;</a>
+  <a class="btn-secondary" href="/zh-contact">联系 ScienceX</a>
+</div></section>
+"""
+
+ZH_FOOTER = """<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/zh" class="scix-footer-logo" aria-label="ScienceX 首页">
+      <img width="300" height="118" src="/img/logo-white.png" alt="ScienceX — Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.（赛恩斯艾克斯）</div>
+        日本〒103-0016 东京都中央区日本桥小网町8-2<br>
+        BIZMARKS日本桥茅场町<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">代表董事 中岛晋也（工学博士）</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/zh" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">首页</a>
+        <a href="https://dealroom.scix.co.jp/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">蓄电所市场</a>
+        <a href="/zh-market-data" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">市场数据</a>
+        <a href="/zh-knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">洞见</a>
+        <a href="/zh-qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">问答</a>
+        <a href="/zh-faq" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">常见问题</a>
+        <a href="/zh-glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">术语表</a>
+        <a href="/zh-company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">公司介绍</a>
+        <a href="/zh-contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">联系我们</a>
+        <a href="/zh-privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">隐私政策</a>
+      </div>
+      <div class="scix-footer-copyright">&copy; 2025–2026 Science X Inc. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>"""
+
+
+def zh_head(title, desc, path, jsonld):
+    """日本語の head を、中国語（簡体字）の頁の形に替える（lang・hreflang・og:locale・字体）。"""
+    url = BASE + path
+    h = (head(title, desc, path, jsonld)
+         .replace('<html lang="ja">', '<html lang="zh-CN">')
+         .replace(f'<link rel="alternate" hreflang="ja" href="{url}">',
+                  f'<link rel="alternate" hreflang="zh-CN" href="{url}">\n<link rel="alternate" hreflang="ja" href="{BASE}/market-data">\n'
+                  f'<link rel="alternate" hreflang="en" href="{BASE}/en/market-data">')
+         .replace('content="ja_JP"', 'content="zh_CN"')
+         .replace(FONTS, FONTS_ZH))
+    return h.replace("'Noto Sans JP',sans-serif", "'Noto Sans SC','Noto Sans JP',sans-serif")
+
+
+def render_zh_market(ps, today, generated, weekly=(), nd=None):
+    """中国語の市場データ（/zh-market-data）。日本語の /market-data と同じ集計（件数・規模・月数だけ・価格なし）。"""
+    s = stats(ps, today)
+    x = extra_stats(ps)
+    weekly = list(weekly)
+    path = "/zh-market-data"
+    n = s["n"]
+    n_mw = sum(1 for p in ps if _num(p.get("mw")))
+    title = "日本电网侧储能在售项目 市场数据｜ScienceX"
+    desc = (f"ScienceX 挂牌的日本电网侧储能（蓄电池）在售项目{n}个、合计约{s['mw']:,}MW，按分区、都道府县、电压、取得方式、规模与并网所需月数统计。"
+            "可下载CSV。不含价格。每天更新。")
+    name = "日本电网侧储能在售项目：市场数据"
+    dist = ([{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": BASE + CSV_EN["summary"], "name": "汇总表（CSV，英文版）"}]
+            + ([{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": BASE + CSV_EN["weekly"], "name": "每周变化（CSV，英文版）"}] if len(weekly) >= 2 else [])
+            + [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": BASE + "/projects.json", "name": "公开一览（JSON）"}])
+    ds_desc = ("ScienceX 在日本挂牌的电网侧储能在售项目的统计：项目数、容量、电压类别、取得方式（权利转让或完工交付）、进展、预计并网，"
+               "以及电力公司答复书所载的并网所需月数，按分区与都道府县统计，并含电压×取得方式、规模区间、按取得方式的并网所需月数与每周变化。"
+               "仅限已取得接入系统研究答复的项目。不含价格、单价、并网工程费分摊的金额、项目名称、所在地与卖方。"
+               "对有数值的项目的统计均注明母数。" + GROWTH_NOTE_ZH + "每天早上更新。")
+    needs_ld = needs_dataset(nd, "zh", BASE + path)
+    jsonld = "\n".join([
+        ld({"@context": "https://schema.org", "@type": "WebPage", "@id": BASE + path + "#webpage", "url": BASE + path,
+            "name": title, "description": desc, "inLanguage": "zh-CN", "dateModified": generated,
+            "isPartOf": {"@type": "WebSite", "url": BASE + "/zh", "name": "ScienceX"}, "publisher": ZH_ORG}),
+        ld({"@context": "https://schema.org", "@type": "Dataset", "@id": BASE + path + "#dataset", "name": name, "description": ds_desc,
+            "url": BASE + path, "inLanguage": "zh-CN", "creator": ZH_ORG, "publisher": ZH_ORG, "isAccessibleForFree": True,
+            "dateModified": generated, "temporalCoverage": f"2026-06/{generated[:7]}",
+            "spatialCoverage": {"@type": "Place", "name": "日本（9个电力分区）"},
+            "keywords": ["日本", "电网侧储能", "蓄电池", "在售项目", "市场数据", "并网", "投运"],
+            "measurementTechnique": "对 ScienceX 在蓄电所市场挂牌的项目的公开字段（projects.json）每天早上重新统计",
+            "variableMeasured": variables_zh(),
+            "creditText": f"出处：Science X Inc.《{name}》，{BASE}{path}",
+            "distribution": dist, "mainEntityOfPage": BASE + path}),
+        ld(crumbs([("首页", BASE + "/zh"), ("市场数据", BASE + path)])),
+    ] + ([ld(needs_ld)] if needs_ld else []))
+    area_pairs = [(_zh_label("area", a), s["area"].get(a, 0)) for a, _, _ in AREAS if s["area"].get(a)]
+    area_table = "".join(f'<tr><th scope="row">{_esc(_zh_label("area", a))}</th><td class="n">{s["area"].get(a, 0)}</td>'
+                         f'<td class="n">{s["area_mw"].get(a, 0):,}</td></tr>' for a, _, _ in AREAS if s["area"].get(a))
+    pref_rows = "".join(f'<tr><th scope="row">{_esc(_zh_label("pref", p_))}</th><td class="n">{c}</td></tr>' for p_, c in s["pref"].most_common(10))
+    half_pairs = [(_zh_label("half", h), c) for h, c in sorted(s["half"].items())]
+    band_pairs = [(_zh_label("band", b), s["bands"][b]) for b, _ in LEAD_BANDS if s["bands"].get(b)]
+    basis_pairs = [(ZH_BASIS.get(k, k), v) for k, v in s["basis"].most_common()]
+    month_rows = "".join(f'<tr><th scope="row"><time datetime="{_esc(m)}">{_esc(m)}</time></th><td class="n">{c}</td></tr>' for m, c in s["first_seen"])
+    volt_pairs = [(_zh_label("volt", k), v) for k, v in s["volt"].most_common()]
+    scheme_pairs = [(_zh_label("scheme", k), v) for k, v in s["scheme"].most_common()]
+    status_pairs = [(_zh_label("status", k), v) for k, v in s["status"].most_common()]
+    undated = s["undecided"] - sum(1 for p in ps if not p.get("live") and not (p.get("codYm") and p["codYm"] >= today.strftime("%Y-%m")) and _num(p.get("leadMonths")))
+    median = f"　中位数 {s['lead_median']}个月" if s["lead_median"] else ""
+    body = f"""{nav_crumbs([("首页", "/zh"), ("市场数据", path)])}
+<section class="hero"><div class="container">
+  <div class="section-label">每天更新 · ScienceX 挂牌项目</div>
+  <h1>日本电网侧储能在售项目 市场数据</h1>
+  <p>我们挂牌的{n}个在售项目，按分区、都道府县、电压类别、取得方式、进展、规模与预计并网统计：项目分布在哪些分区，预计何时并网，以及有多少可通过权利取得（权利转让）、有多少为建成后交付（完工交付）。统计截至<time datetime="{_esc(generated)}">{_esc(generated)}</time>。表格也可下载为 <a href="#download">CSV</a>（日文页面：<a href="/market-data" hreflang="ja">市場データ</a>；英文页面：<a href="/en/market-data" hreflang="en">Market data</a>）。</p>
+  <div class="kpi">
+    <div><b>{n}个</b><span>在售项目</span></div>
+    <div><b>{s['mw']:,} MW</b><span>合计输出功率（{s['mwh']:,} MWh）</span></div>
+    <div><b>{len(s['pref'])}个</b><span>都道府县，{len(s['area'])}个分区</span></div>
+    <div><b>{s['volt'].get('特別高圧', 0)}个</b><span>特别高压（大致10MW以上）</span></div>
+    <div><b>{s['new14']}个</b><span>最近{NEW_DAYS}日新增</span></div>
+  </div>
+  <p class="md-note" style="margin-top:14px">这里统计的是已提交给 ScienceX、并同意挂牌的电网侧储能（蓄电所）在售项目，均已取得电力公司的接入系统研究答复（接続検討の回答）。这是 ScienceX 自身挂牌的项目，并非日本全市场的统计。不公布项目所在地与卖方（价格与资料请在免费注册后于蓄电所市场查看）。数字每天早上依据与项目一览相同的数据重新统计。</p>
+</div></section>
+
+<section class="md"><div class="container">
+  <div class="section-label">按分区</div>
+  <h2 class="md-h">按分区统计的项目数与规模</h2>
+  <p class="md-lead">分区＝一般输配电企业（一般送配電事業者）的供电区域。</p>
+  <div class="md-grid">
+    <div>{bar_rows(area_pairs, n, lang="zh")}</div>
+    <div><table class="md-t"><caption>按分区统计的项目数与合计输出功率（合计MW为有输出功率数值的{n_mw}个项目之和）</caption><thead><tr>{_ths(["分区", "项目数", "合计MW"])}</tr></thead><tbody>{area_table}</tbody></table></div>
+  </div>
+</div></section>
+
+<section class="md"><div class="container">
+  <div class="section-label">按都道府县</div>
+  <h2 class="md-h">按都道府县统计（前10）</h2>
+  <p class="md-lead">项目分布在{len(s['pref'])}个都道府县。</p>
+  <table class="md-t"><caption>按都道府县统计的项目数（前10）</caption><thead><tr>{_ths(["都道府县", "项目数"])}</tr></thead><tbody>{pref_rows}</tbody></table>
+</div></section>
+
+<section class="md"><div class="container">
+  <div class="section-label">电压、取得方式、进展</div>
+  <h2 class="md-h">电压类别、取得方式与进展</h2>
+  <p class="md-lead">高压（日本的电压分类）项目以2MW左右为主；特别高压（日本的电压分类，并非中国800kV级的特高压）大致为10MW以上。取得方式分为两种：通过权利取得并由买方自行建设（权利转让），或以建成状态交付（完工交付）。进展表示：是否已取得接入系统研究（接続検討）的答复、并网工程费分摊（工事費負担金）是否已确定，或是否已并网。</p>
+  <div class="md-grid">
+    <div>{H3}电压类别</h3>{bar_rows(volt_pairs, n, lang="zh")}</div>
+    <div>{H3}取得方式</h3>{bar_rows(scheme_pairs, n, lang="zh")}</div>
+    <div>{H3}进展</h3>{bar_rows(status_pairs, n, lang="zh")}</div>
+  </div>
+</div></section>
+{section_voltage_scheme(x, "zh")}{section_size(x, "zh")}
+<section class="md"><div class="container">
+  <div class="section-label">并网时间</div>
+  <h2 class="md-h">预计并网</h2>
+  <p class="md-lead">已定预计投运日的项目按财年（日本的财年自4月起）上、下半期统计；其余项目按接入系统研究答复书中写明的“并网所需月数”统计。已定预计日期的有{s['ym_known']}个，没有预计日期但写明月数的有{s['lead_only']}个，时间待确认的有{undated}个。答复书中写明月数的项目（含已定预计日期的）共{len(s['lead'])}个，“答复书所载并网所需月数”的图统计的就是这{len(s['lead'])}个。月数以答复书的记载为准，其中写明起点（如自并网工程费分摊款支付起算）的有{len(s['lead']) - s['basis'].get('unspecified', 0)}个。</p>
+  <div class="md-grid">
+    <div>{H3}预计投运（财年上、下半期）</h3>{bar_rows(half_pairs, s['ym_known'], lang="zh")}</div>
+    <div>{H3}答复书所载并网所需月数{median}</h3>{bar_rows(band_pairs, len(s['lead']), lang="zh")}
+      {H3B}月数的起点</h3>{bar_rows(basis_pairs, len(s['lead']), lang="zh")}</div>
+  </div>
+</div></section>
+{section_lead_by_scheme(x, s, "zh")}
+{weekly_section_zh(weekly, generated)}
+<section class="md"><div class="container">
+  <div class="section-label">新增项目</div>
+  <h2 class="md-h">按上线月份统计</h2>
+  <p class="md-lead">按首次录入一览的月份统计目前在售的项目。已售出或已撤下的项目不计入。{GROWTH_NOTE_ZH}</p>
+  <table class="md-t"><caption>按上线月份统计的项目数（有项目的最近6个月，目前在售的项目）</caption><thead><tr>{_ths(["上线月份", "项目数"])}</tr></thead><tbody>{month_rows}</tbody></table>
+</div></section>
+{section_needs(nd, "zh")}
+{section_download("zh", generated, len(weekly) >= 2, bool(nd and nd.get("n")), name, BASE + path,
+                  '<p>项目一览请见<a href="/en/projects">Projects（英文页面）</a>；市场价格（JEPX、容量市场）请见<a href="/en/report/data">Battery Storage Market Data（英文页面）</a>。</p>')}
+{ZH_CTA_MD}{ZH_FOOTER}
+</body>
+</html>
+"""
+    body = body.replace("'Noto Sans JP',sans-serif", "'Noto Sans SC','Noto Sans JP',sans-serif")
+    return zh_head(title, desc, path, jsonld) + body
+
+
 def sync_area_sitemap(ps, today):
     """noindex の管内ページ（件数が MIN_INDEX 未満）は sitemap から外し、索引に出す管内は載せる。"""
     path = os.path.join(ROOT, "sitemap.xml")
@@ -1744,24 +2106,30 @@ def sync_area_sitemap(ps, today):
 
 
 def sync_md_sitemap(text, generated):
-    """/market-data の行に hreflang en を足し、/en/market-data の行を（無ければ /market-data の次に）置く。lastmod は今の値を残す。"""
-    ja_u, en_u = f"{BASE}/market-data", f"{BASE}/en/market-data"
-    a_ja = f'<xhtml:link rel="alternate" hreflang="ja" href="{ja_u}"/>'
-    a_en = f'<xhtml:link rel="alternate" hreflang="en" href="{en_u}"/>'
+    """/market-data・/en/market-data・/zh-market-data の行を、互いの hreflang つきで置く（無い行は /market-data の次に足す）。lastmod は今の値を残す。"""
+    urls = {"ja": f"{BASE}/market-data", "en": f"{BASE}/en/market-data", "zh-CN": f"{BASE}/zh-market-data"}
+    prio = {"ja": "0.8", "en": "0.7", "zh-CN": "0.6"}
+    alt = {k: f'<xhtml:link rel="alternate" hreflang="{k}" href="{u}"/>' for k, u in urls.items()}
 
     def lastmod(u):
         m = re.search(r"<url><loc>" + re.escape(u) + r"</loc>.*?<lastmod>([0-9-]{10})</lastmod>", text)
         return m.group(1) if m else generated
-    pat_ja = re.compile(r"  <url><loc>" + re.escape(ja_u) + r"</loc>.*?</url>\n")
-    pat_en = re.compile(r"  <url><loc>" + re.escape(en_u) + r"</loc>.*?</url>\n")
-    if not pat_ja.search(text):
+    pat = {k: re.compile(r"  <url><loc>" + re.escape(u) + r"</loc>.*?</url>\n") for k, u in urls.items()}
+    if not pat["ja"].search(text):
         return text
-    line_ja = f"  <url><loc>{ja_u}</loc>{a_ja}{a_en}<priority>0.8</priority><lastmod>{lastmod(ja_u)}</lastmod></url>\n"
-    line_en = f"  <url><loc>{en_u}</loc>{a_en}{a_ja}<priority>0.7</priority><lastmod>{lastmod(en_u)}</lastmod></url>\n"
-    text = pat_ja.sub(lambda _m: line_ja, text, count=1)
-    if pat_en.search(text):
-        return pat_en.sub(lambda _m: line_en, text, count=1)
-    return text.replace(line_ja, line_ja + line_en, 1)
+    # 自分の行は自分を先頭に、残りは ja・en・zh-CN の順（既存の ja・en の行の並びを変えない）
+    line = {}
+    for k, u in urls.items():
+        rest = [alt[o] for o in ("ja", "en", "zh-CN") if o != k]
+        line[k] = f"  <url><loc>{u}</loc>{alt[k]}{''.join(rest)}<priority>{prio[k]}</priority><lastmod>{lastmod(u)}</lastmod></url>\n"
+    text = pat["ja"].sub(lambda _m: line["ja"], text, count=1)
+    if pat["en"].search(text):
+        text = pat["en"].sub(lambda _m: line["en"], text, count=1)
+    else:
+        text = text.replace(line["ja"], line["ja"] + line["en"], 1)
+    if pat["zh-CN"].search(text):
+        return pat["zh-CN"].sub(lambda _m: line["zh-CN"], text, count=1)
+    return text.replace(line["en"], line["en"] + line["zh-CN"], 1)
 
 
 def main():
@@ -1778,6 +2146,7 @@ def main():
         pages[f"projects-{slug}.html"] = render_area(ps, area, slug, operator, today, generated)
     pages["en/projects.html"] = render_en_projects(ps, today, generated, weekly)
     pages["en/market-data.html"] = render_en_market(ps, today, generated, weekly, nd)
+    pages["zh-market-data.html"] = render_zh_market(ps, today, generated, weekly, nd)
     rows = summary_rows(ps, stats(ps, today), extra_stats(ps), generated, today)
     for lang, c in (("ja", CSV), ("en", CSV_EN)):
         pages[c["summary"].lstrip("/")] = summary_csv(rows, lang, generated)
