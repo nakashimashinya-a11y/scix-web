@@ -64,7 +64,7 @@
       sale: { '完成渡し': '竣工后转让', '権利渡し': '权利转让', '権利譲渡': '权利转让' },
       steps: { study: '已取得接入系统研究答复', apply: '已提交发电调整申请', deposit: '保证金已支付', ms: '已取得受理编号', approval: '已取得正式答复', cost: '并网工程费分摊已支付', complete: '已竣工', market: '已参与调整力市场' },
       ym: function (y, m) { return y + '年' + m + '月'; },
-      ask: '价格面议', askSub: '价格个别告知', nego: '可议价', perKw: function (u) { return 'JPY ' + Math.round(u).toLocaleString('en-US') + ' / kW'; },
+      ask: '价格面议', askSub: '价格个别告知', nego: '可议价', perKw: function (u) { return '每kW ' + (u >= 10000 ? (Math.round(u / 1000) / 10).toLocaleString('zh-CN') + '万日元' : Math.round(u).toLocaleString('zh-CN') + '日元'); },
       exTax: '不含税', inTax: '含税'
     }
   };
@@ -192,6 +192,7 @@
     return null;
   }
   function jpy(y) { var m = y / 1e6; return 'JPY ' + (m >= 1 ? m.toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' million' : Math.round(y).toLocaleString('en-US')); }
+  function cny(y) { return y >= 1e8 ? (Math.round(y / 1e6) / 100).toLocaleString('zh-CN') + '亿日元' : (Math.round(y / 1e3) / 10).toLocaleString('zh-CN') + '万日元'; }   // 中国語は 亿・万＋日元（英語の JPY を混ぜない）
   /* p＝/api/site/prices の1件 { price, status, mw, maxPower }。日本語はマーケットの字のまま（大きい数と注）、英語・中国語は JPY の数と税の注だけ */
   function priceHtml(p) {
     if (!p) return '';
@@ -200,13 +201,16 @@
     var m = shown.match(AMOUNT_RX), y = money(shown), big, rest = '';
     var ex = /税抜/.test(shown), inc = /税込/.test(shown) && !ex;
     if (ui === 'ja') { big = m ? m[1] : shown; rest = m ? shown.slice(m[1].length).trim() : ''; }
-    else { big = y != null ? jpy(y) : shown; rest = ex ? L.exTax : inc ? L.inTax : ''; }
+    else { big = y != null ? (ui === 'zh' ? cny(y) : jpy(y)) : shown; rest = ex ? L.exTax : inc ? L.inTax : ''; }
+    // 指値歓迎の札: 日本語は価格の行（短いので収まる）・英語と中国語は下の行（Offers invited が価格の行から落ちてカードの段がずれた＝別の目・2026-11-23）
+    var negoTag = nego ? '<span class="nego">' + esc(L.nego) + '</span>' : '';
     var head = '<div class="sc-price" title="' + esc(s0) + '"><b class="pn">' + esc(big) + '</b>' + (rest ? '<span class="ptax">' + esc(rest) + '</span>' : '') +
-      (nego ? '<span class="nego">' + esc(L.nego) + '</span>' : '') + '</div>';
+      (ui === 'ja' ? negoTag : '') + '</div>';
     var kw = Number(p.maxPower), mw = Number(p.mw);
     if (mw > 0 && (!(kw > 0) || Math.abs(kw - mw * 1000) > mw * 50)) kw = mw * 1000;
-    if (!m || y == null || !(kw > 0) || /別途必要/.test(shown)) return head;
-    return head + '<div class="sc-psub"><span>' + esc(L.perKw((inc ? y / 1.1 : y) / kw)) + '</span></div>';
+    var unit = m && y != null && kw > 0 && !/別途必要/.test(shown) ? '<span>' + esc(L.perKw((inc ? y / 1.1 : y) / kw)) + '</span>' : '';
+    var low = unit + (ui === 'ja' ? '' : negoTag);
+    return head + (low ? '<div class="sc-psub">' + low + '</div>' : '');
   }
   var WAIT = '<div class="sc-price wait" aria-hidden="true"><b class="pn">&nbsp;</b></div><div class="sc-psub wait" aria-hidden="true"><span>&nbsp;</span></div>';
   var PRICES = null;    // 読めた価格（id → 1件）。null＝まだ・読めない
@@ -216,7 +220,7 @@
     '#top-cards .sc-price .pn.none{font-size:15px;color:#5B667A}' +
     '#top-cards .sc-price .ptax{font-size:11.5px;font-weight:700;color:#5B667A}' +
     '#top-cards .sc-price .nego{font-size:11px;font-weight:800;color:#B45309;background:#FFF4E5;border-radius:999px;padding:1px 8px}' +
-    '#top-cards .sc-psub{margin:-4px 0 0;font-size:12px;font-weight:700;color:#5B667A;line-height:1.4}' +
+    '#top-cards .sc-psub{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;margin:-4px 0 0;font-size:12px;font-weight:700;color:#5B667A;line-height:1.4}' +
     '#top-cards .sc-price.wait .pn{display:inline-block;width:9em;border-radius:6px;background:linear-gradient(90deg,#EEF1F7,#F6F8FB,#EEF1F7)}' +
     '#top-cards .sc-psub.wait span{display:inline-block;width:7em;border-radius:6px;background:#F3F5FA}';
   function cssOnce() {

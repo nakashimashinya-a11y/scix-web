@@ -466,6 +466,7 @@
   // 印（localStorage）がある間（data-mkt-signed="guess"）は「ログイン」「無料で登録」を見えなくし（幅は保つ）、答えで決め直す。登録を促す一行（.hm-pr）と一覧の帯（tr.pj-band）はログイン中は出さない。
   css += '\nhtml[data-mkt-signed="guess"] .scix-auth>a,html[data-mkt-signed="guess"] .scix-auth-m>a,html[data-mkt-signed="guess"] .scix-ft-auth>a{visibility:hidden}' +
     'html[data-mkt-signed] .hm-pr,html[data-mkt-signed] tr.pj-band{display:none!important}' +
+    'html[data-mkt-signed="1"] .pj-lock::before{content:none!important}' +   // 一覧（/projects）の「🔒 価格と資料を見る」の錠前（ログイン中は開いている）
     '.scix-in{align-items:center;gap:8px}' +   // display は元の組の物のまま（広い帯は .scix-auth・畳んだメニューは .scix-auth-m だけが見える）
     '.scix-in span.scix-me{display:inline-flex;align-items:center;gap:8px;max-width:220px;padding:5px 14px 5px 5px;border:1.5px solid #C9D2E3;border-radius:999px;background:#fff;color:#1F2A48;font-size:14px;font-weight:700;line-height:1.3;white-space:nowrap}' +
     '.scix-in .scix-av{display:grid;place-items:center;flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:#1F2A48;color:#F2C14E;font-size:13px;font-weight:800;line-height:1}' +
@@ -714,13 +715,29 @@
       }
     }
   }
+  // 頁の中の決まった言い方（ログイン中には当てはまらない物）: 括弧だけの「（無料登録）」「(free registration)」と、一覧の列の見出しの錠前「🔒」。字の節だけ替える（HTML は替えない）
+  function mktPageText() {
+    if (!MKT_ME || !document.body) return;
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false), n;
+    while ((n = w.nextNode())) {
+      var pe = n.parentNode && n.parentNode.nodeName;
+      if (pe === 'SCRIPT' || pe === 'STYLE' || pe === 'NOSCRIPT') continue;
+      var t = n.nodeValue;
+      if (t.indexOf('無料登録') < 0 && t.indexOf('free registration') < 0 && t.indexOf('\uD83D\uDD12') < 0) continue;
+      var t2 = t.replace(/で（無料登録）/g, 'で見られます').replace(/（無料登録）/g, '').replace(/\s*\(free registration\)/g, '');
+      if (n.parentNode && n.parentNode.classList && n.parentNode.classList.contains('c-lock')) t2 = t2.replace(/\uD83D\uDD12\s*/g, '');
+      if (t2 !== t) n.nodeValue = t2;
+    }
+    var ls = document.querySelectorAll('td.c-lock[data-l]');   // 狭い幅で列の見出しの代わりに出る札（data-l）の錠前も
+    for (var i = 0; i < ls.length; i++) ls[i].setAttribute('data-l', ls[i].getAttribute('data-l').replace(/\uD83D\uDD12\s*/g, ''));
+  }
   function mktSignedIn(me) {
     MKT_ME = { initial: Array.from(String(me.initial || '')).slice(0, 1).join(''), name: Array.from(String(me.name || '')).slice(0, 40).join('') };
     document.documentElement.setAttribute('data-mkt-signed', '1');
     mktSetIn(true);
     mktPaint(document);
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { mktPaint(document); mktCtaText(); });
-    else mktCtaText();
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { mktPaint(document); mktCtaText(); mktPageText(); });
+    else { mktCtaText(); mktPageText(); }
   }
   // マーケットに聞く（3.5秒で打ち切り）。答えは site-cards.js も使う（window.SCIX_MKT_SESSION＝{ initial, name } か null の Promise）
   window.SCIX_MKT_SESSION = !MKT_CARRY ? (typeof Promise === 'function' ? Promise.resolve(null) : null) : new Promise(function (resolve) {
