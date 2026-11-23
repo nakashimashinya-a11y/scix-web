@@ -526,7 +526,8 @@ section.md{border-top:0!important}
 /* 区画の地と罫線: 横一面の色帯と線は敷かない（ページの中の札だけが白く浮く） */
 :is(.f-sec,.form-section,.form-wrap,.contact-section,.legal-body,.sec,.md,.page-section){background:transparent!important;border-top:0!important;border-bottom:0!important}
 :is(.f-hero,.kh,.contact-hero,.legal-hero,.hero){border-bottom:0!important}
-/* 独自の下の帯（ファンド・系統用蓄電池とは・契約の流れの記事）もサイトの下の帯と同じ白地・上に紺の線・読める色（中身は触らない） */
+/* 独自の下の帯（ファンド・系統用蓄電池とは・契約の流れの記事）: header.js がほかの頁と同じ形（scix-footer scix-ft）に組み替える（免責の段は帯の上の .scix-ft-disc へ）。
+   ここは JavaScript が動かない時と組み替える前の一瞬の形で、サイトの下の帯と同じ白地・上に紺の線・読める色にする（中身は触らない） */
 body > footer:not(.scix-footer){background:#fff!important;background-image:none!important;border:0!important;border-top:2px solid #1F2A48!important;border-radius:0!important;box-shadow:none!important;color:#4A5568!important}
 body > footer:not(.scix-footer) :is(p,div,span,b,h5,.copy,.foot-info,.foot-brand){color:inherit!important}
 body > footer:not(.scix-footer) :is(h5,b,.foot-brand b){color:#1F2A48!important}
@@ -538,6 +539,8 @@ body > footer:not(.scix-footer) .copy{color:#6B7280!important}
 body > footer:not(.scix-footer) a{color:#1F2A48!important;font-weight:700;border-bottom-color:#C9D2E3!important}
 body > footer:not(.scix-footer) .scix-footer-nav a{color:#24304A!important;font-weight:500!important;font-size:14px!important;border:0!important;text-decoration:none!important}
 body > footer:not(.scix-footer) .scix-footer-nav a:hover{color:#1F2A48!important;text-decoration:underline!important;text-underline-offset:3px}
+/* 〜768px: 右下の浮いた橙のボタンに著作権の行が隠れないよう、組み替えた下の帯と同じく下を 88px 空ける */
+@media(max-width:768px){body > footer:not(.scix-footer){padding-bottom:88px!important}}
 :is(.contact-main,.f-sec.alt){background:transparent!important;border-top:0!important;border-bottom:0!important}
 /* 数字の箱（市場データ・市場ノートの kpi）: トップの数字の札と同じ白い札 */
 .kpi div{background:#fff!important;border:0!important;border-radius:var(--m-r)!important;box-shadow:var(--m-shadow)!important;border-top:6px solid var(--cc,#2563EB)!important}
