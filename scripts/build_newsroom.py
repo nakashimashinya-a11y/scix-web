@@ -51,6 +51,7 @@ MARKET_EN = {"https://dealroom.scix.co.jp/": "https://dealroom.scix.co.jp/en"}  
 OUTLETS = {"valuepress": ("ValuePress!", re.compile(r"https://www\.value-press\.com/pressrelease/\d+")),
            "prtimes": ("PR TIMES", re.compile(r"https://prtimes\.jp/main/html/rd/p/\d+\.\d+\.html"))}
 ORG_ID = BASE + "/#organization"
+LI_COMPANY = "https://www.linkedin.com/company/sciencex-jp/"   # 会社の LinkedIn の頁（Organization の sameAs）
 YT_CHANNEL = "https://www.youtube.com/channel/UCH9WUVm8V2zsMc8s9WS2OYg"   # 会社の YouTube チャンネル（解説動画。Organization の sameAs と窓口の一行）
 SITE_ID = BASE + "/#website"
 PATHS = {"ja": "/newsroom", "en": "/en/newsroom"}
@@ -347,7 +348,7 @@ def render(d: dict, lg: str) -> str:
     org = {"@type": "Organization", "@id": ORG_ID, "name": "ScienceX",
            "alternateName": ["サイエンスエックス", "サイエンスエックス株式会社", "Science X Inc.", "Science X"],
            "url": BASE + "/", "logo": {"@type": "ImageObject", "url": BASE + "/img/logo-navy.png"},
-           "sameAs": [YT_CHANNEL]}
+           "sameAs": [YT_CHANNEL, LI_COMPANY]}
     items = [{"@type": "ListItem", "position": n, "url": r["url"], "name": r["title"]} for n, r in enumerate(rows, 1)]
     ld_page = {
         "@context": "https://schema.org", "@type": "CollectionPage", "@id": url + "#webpage", "url": url,
