@@ -1372,7 +1372,7 @@
     function pageMark() {
       var m;
       if (isCol) m = 'col-' + loc.slice('/column-'.length);
-      else if (loc === '/research') m = 'report';
+      // 入口の頁 /research（月号の一覧の段を含む）は site-research のまま（2026-11-25）。号と速報は下の report-YYYY-MM・report-flash
       else if (loc === '/research/flash') m = 'report-flash';
       else if (/^\/research\/\d{4}-\d{2}$/.test(loc)) m = 'report-' + loc.slice('/research/'.length);
       else if (loc === '/knowledge') m = 'knowledge';

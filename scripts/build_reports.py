@@ -3,7 +3,7 @@
 """「蓄電所の市場ノート」（旧名 系統用蓄電池の月報・Drive の _作成物/<YYYYMM>_月報/）から、公開のページを焼く。
 2026-11-03 改名（「月報」は他社の名称と紛らわしく、社内用に見えたため）。表に出る語に「月報」「レポート」を使わない。
 2026-11-25 住所を /report から /research へ移した（中島「市場レポートは https://www.scix.co.jp/research の URL のほうがいいよね」）。
-  /research は入口と月号の一覧を兼ねる1枚（前の手書きの入口の頁 research.html は畳んだ）。古い /report… は vercel.json の 308 で新しい住所へ。
+  /research は入口（頭は ENTRY＝前の手書きの research.html の字のまま）と月号の一覧の段（#monthly）の1枚。古い /report… は vercel.json の 308 で新しい住所へ。
 
 2026-11-01 新設。ただしコラムは代表が書くので、
 コラムとは別の「レポート」（毎月の機械発行のデータ月報）として /research と /research/<YYYY-MM> に置く。
@@ -758,76 +758,85 @@ def backnumber_note(rows, lang):
             'From the December 2026 issue, each issue comes out on the 1st of the month (the next business day if the 1st is a holiday) with the previous month\'s figures.</p>')
 
 
-def render_index_en(rows):
-    path = "/en/research"
-    title = "Japan Battery Storage Market Notes (Monthly) | ScienceX"
-    desc = "Monthly charts of Japan's EPRX balancing, JEPX wholesale and OCCTO capacity markets, from public data and our own records. Sources cited, PDF available."
-    jsonld = "\n".join([
+# ---------------------------------------------------------------- 入口の頁 /research（2026-11-25）
+# 中島さんの 11/23 の決めで作った入口（速報と月号の2枚の札・市場データへの1行・蓄電所マーケットへの案内・引用の案内）の頭を、字と並びのまま持つ。
+# 前の手書きの research.html・en/research.html から写した（リンクの先だけ新しい住所。「月号を読む →」は下の月号の一覧の段 #monthly へ）。
+# 手書きの頁はもう無い＝頭を直すときはここを直す。
+ENTRY = {'ja': {'title': '市場リサーチ｜市場ノート 速報と月号｜サイエンスエックス', 'desc': '蓄電所（系統用蓄電池）の市場を数字で見るための入口。卸電気と需給調整市場の最新の数字を毎日出す速報と、前の月の数字を毎月1日にまとめる月号の2本。出典つき、CSV と PDF あり。', 'css': '\n.rp-body ul.rs-cards{list-style:none;padding:0;margin:18px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;max-width:1100px}\n.rs-cards li{margin:0}\n.rp-body a.rs-card{border-bottom-color:transparent}\n.rs-card{display:flex;flex-direction:column;height:100%;padding:22px 22px 20px;background:#fff;border:1px solid #E3E8F2;border-top:5px solid #138A62;border-radius:18px;box-shadow:0 8px 22px rgba(31,42,72,.08);text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s}\n.rs-card:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(31,42,72,.15)}\n.rs-card:focus-visible{outline:2px solid #F97316;outline-offset:3px}\n.rs-card.rs-deal{border-top-color:#10B981}\n.rs-card b{display:block;text-wrap:balance;font-size:1.12rem;line-height:1.55;color:#1F2A48;margin-bottom:8px}\n.rs-card b .nb{display:inline;white-space:nowrap;font:inherit;line-height:inherit;color:inherit}\n.rs-card span{display:block;font-size:.9rem;line-height:1.85;color:#24304A}\n.rs-card em{display:block;margin-top:auto;padding-top:14px;font-style:normal;font-size:.86rem;font-weight:700;color:#0F7A52}\n.rs-mk{max-width:1100px;margin:28px 0 0;padding:20px 24px;background:#F3F6FD;border:1.5px solid #D2DCF2;border-radius:18px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px}\n.rs-mk p{flex:1 1 320px;font-size:.92rem;line-height:1.85;color:#24304A;margin:0}\n.rp-body .rs-mk a.rs-btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 26px;background:#D4610A;color:#fff;font-weight:900;font-size:.95rem;border:0;border-radius:999px;text-decoration:none;box-shadow:0 6px 16px rgba(212,97,10,.30);white-space:nowrap}\n.rp-body .rs-mk a.rs-btn:hover{background:#EF7A1A;color:#fff}\n@media(max-width:640px){.rs-mk{padding:18px}.rp-body .rs-mk a.rs-btn{width:100%;white-space:normal;text-align:center;line-height:1.5;text-wrap:balance;padding:13px 16px}}\n', 'body': '<section class="hero"><div class="container">\n  <div class="section-label">数字で見る</div>\n  <h1>市場リサーチ</h1>\n  <p>蓄電所（系統用蓄電池）の市場を、公表データと当社の記録から数字で見る頁です。</p>\n</div></section>\n<section class="md"><div class="container rp-body">\n  <ul class="rs-cards"><li><a class="rs-card" href="/research/flash"><b><span class="nb">市場ノート 速報</span> <span class="nb">（毎日更新）</span></b><span>卸電気（JEPX）と需給調整市場（EPRX）の数字を、公表された最新のデータを毎朝取り直して出します。今月ここまで・最新の1日・前の月との比べ・週ごと。</span><em>速報を見る &rarr;</em></a></li><li><a class="rs-card" href="/research#monthly"><b><span class="nb">市場ノート 月号</span> <span class="nb">（毎月1日）</span></b><span>前の月の全日の数字を、需給調整市場（EPRX）・卸電気（JEPX）・容量市場（OCCTO）の順に図と表でまとめた号です。出典つき、PDF あり。</span><em>月号を読む &rarr;</em></a></li></ul>\n  <p class="md-note" style="margin-top:14px">号をまたいだ月ごとの推移と CSV は<a href="/research/data">市場データ</a>、当社の蓄電所マーケットに載る売り案件の集計は<a href="/market-data">系統用蓄電池の売り案件 市場データ</a>にあります。</p>\n  <div class="rs-mk"><p>売り案件そのものは、蓄電所マーケットで登録なしで一覧できます（価格と資料は無料の登録のあと）。</p><a class="rs-btn" href="https://dealroom.scix.co.jp/" data-cta="body" data-cta-target="market">蓄電所マーケットで案件を見る</a></div>\n  <p class="md-note" style="margin-top:18px">図表や数値は、出典を明記すればそのままお使いいただけます（<a href="/press">引用・転載ガイド</a>）。</p>'}, 'en': {'title': 'Market Research | Daily Flash and Monthly Market Notes | ScienceX', 'desc': "Market research on Japan's grid-scale battery storage, in two products: a Daily Flash with the latest JEPX and EPRX figures, and monthly Market Notes on the previous month, out on the 1st. Sources cited.", 'css': '\n.rp-body ul.rs-cards{list-style:none;padding:0;margin:18px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;max-width:1100px}\n.rs-cards li{margin:0}\n.rp-body a.rs-card{border-bottom-color:transparent}\n.rs-card{display:flex;flex-direction:column;height:100%;padding:22px 22px 20px;background:#fff;border:1px solid #E3E8F2;border-top:5px solid #138A62;border-radius:18px;box-shadow:0 8px 22px rgba(31,42,72,.08);text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s}\n.rs-card:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(31,42,72,.15)}\n.rs-card:focus-visible{outline:2px solid #F97316;outline-offset:3px}\n.rs-card.rs-deal{border-top-color:#10B981}\n.rs-card b{display:block;text-wrap:balance;font-size:1.12rem;line-height:1.55;color:#1F2A48;margin-bottom:8px}\n.rs-card span{display:block;font-size:.9rem;line-height:1.85;color:#24304A}\n.rs-card em{display:block;margin-top:auto;padding-top:14px;font-style:normal;font-size:.86rem;font-weight:700;color:#0F7A52}\n.rs-mk{max-width:1100px;margin:28px 0 0;padding:20px 24px;background:#F3F6FD;border:1.5px solid #D2DCF2;border-radius:18px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px}\n.rs-mk p{flex:1 1 320px;font-size:.92rem;line-height:1.85;color:#24304A;margin:0}\n.rp-body .rs-mk a.rs-btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 26px;background:#D4610A;color:#fff;font-weight:900;font-size:.95rem;border:0;border-radius:999px;text-decoration:none;box-shadow:0 6px 16px rgba(212,97,10,.30);white-space:nowrap}\n.rp-body .rs-mk a.rs-btn:hover{background:#EF7A1A;color:#fff}\n@media(max-width:640px){.rs-mk{padding:18px}.rp-body .rs-mk a.rs-btn{width:100%;white-space:normal;text-align:center;line-height:1.5;text-wrap:balance;padding:13px 16px}}\n', 'body': '<section class="hero"><div class="container">\n  <div class="section-label">In figures</div>\n  <h1>Market Research</h1>\n  <p>Two places to see Japan\'s battery storage market in figures, from published data and our own records.</p>\n</div></section>\n<section class="md"><div class="container rp-body">\n  <ul class="rs-cards"><li><a class="rs-card" href="/en/research/flash"><b><span class="nb">Market Notes:</span> <span class="nb">Daily Flash</span></b><span>JEPX wholesale and EPRX balancing market figures, re-fetched from the latest published data every morning: this month so far, the latest day, last month and by week.</span><em>See the Daily Flash &rarr;</em></a></li><li><a class="rs-card" href="/en/research#monthly"><b><span class="nb">Market Notes:</span> <span class="nb">Monthly Issue (on the 1st)</span></b><span>The whole previous month in charts and tables: the balancing market (EPRX), wholesale power (JEPX) and the capacity market (OCCTO). Sources cited, PDF available.</span><em>Read the Market Notes &rarr;</em></a></li></ul>\n  <p class="md-note" style="margin-top:14px">Month-by-month figures across issues, with CSV, are on <a href="/en/research/data">Market Data</a>; counts of projects listed on our marketplace are on <a href="/en/market-data">Japan BESS Projects for Sale: Market Data</a>.</p>\n  <div class="rs-mk"><p>The projects themselves are listed at Chikudensho Market, without registration (prices and documents after free registration).</p><a class="rs-btn" href="https://dealroom.scix.co.jp/en" data-cta="body" data-cta-target="market">Browse projects at Chikudensho Market</a></div>\n  <p class="md-note" style="margin-top:18px">Figures may be used as they are with the source credited (<a href="/en/press">Citation guide</a>).</p>'}}
+
+
+def entry_body(lang):
+    """入口の頭（ENTRY の body）。東京・九州のエリアの市場データ（焼いた頁だけ）は、市場データの行のすぐ下に1行で足す。"""
+    b = ENTRY[lang]["body"]
+    areas = [(h, t) for h, t, _ in DATA_LINKS[lang] if "/area/" in h and h.lstrip("/") + "/index.html" in DATA_PAGES]
+    if areas:
+        note = ('  <p class="md-note">エリアごとの数字は ' + "・".join(f'<a href="{h}">{esc(t)}</a>' for h, t in areas) + ' に。</p>') if lang == "ja" else \
+               ('  <p class="md-note">By area: ' + " / ".join(f'<a href="{h}">{esc(t)}</a>' for h, t in areas) + '.</p>')
+        key = '<a href="/research/data">' if lang == "ja" else '<a href="/en/research/data">'
+        lines = b.split("\n")
+        k = next(n for n, l in enumerate(lines) if key in l)
+        lines.insert(k + 1, note)
+        b = "\n".join(lines)
+    return b
+
+
+def entry_jsonld(lang, rows):
+    J = lang == "ja"
+    path = "/research" if J else "/en/research"
+    e = ENTRY[lang]
+    items = [(BASE + path + "/flash", "蓄電所の市場ノート 速報" if J else "Battery Storage Market Notes: Daily Flash")]
+    items += [(f"{BASE}{path}/{r['key']}", r["title_h"]) for r in rows]
+    return "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
-                "name": title, "description": desc, "inLanguage": "en", "publisher": EN_PUBLISHER,
+                "name": e["title"], "description": e["desc"], "inLanguage": lang, "publisher": PUBLISHER if J else EN_PUBLISHER,
                 "mainEntity": {"@type": "ItemList", "itemListElement": [
-                    {"@type": "ListItem", "position": i + 1, "url": f"{BASE}/en/research/{r['key']}", "name": r["title_h"]}
-                    for i, r in enumerate(rows)]}}),
-        bmd.ld(bmd.crumbs([("Home", BASE + "/en"), ("Market Notes", BASE + path)])),
+                    {"@type": "ListItem", "position": i + 1, "url": u, "name": n} for i, (u, n) in enumerate(items)]}}),
+        bmd.ld(bmd.crumbs([("ホーム", BASE + "/"), ("市場リサーチ", BASE + path)] if J else [("Home", BASE + "/en"), ("Market Research", BASE + path)])),
     ])
+
+
+def render_index_en(rows):
+    """入口の頁 /en/research（頭は ENTRY["en"]・その下に月号の一覧の段 #monthly）。"""
+    path = "/en/research"
+    e = ENTRY["en"]
     li = "".join(
         f'<li><a class="t" href="/en/research/{r["key"]}">{esc(r["title_h"])}</a>'
         f'<div class="d">Published {en_date(r["issued"])} &middot; {esc(data_month_en(r["key"]))} data &middot; PDF available</div><p>{esc(r["lead"])}</p></li>' for r in rows)
-    body = f"""{bmd.nav_crumbs([("Home", "/en"), ("Market Notes", path)])}
-<section class="hero"><div class="container">
-  <div class="section-label">Published on the 1st of each month</div>
-  <h1>Battery Storage Market Notes</h1>
-  <p>A battery storage site earns from three markets: the balancing market (EPRX), wholesale power (JEPX) and the capacity market (OCCTO). On the 1st of each month we chart the previous month for all three, from published data and our own records. Newest first.</p>
+    body = f"""{bmd.nav_crumbs([("Home", "/en"), ("Market Research", path)])}
+{entry_body("en")}
 </div></section>
-{flash_section("en")}
-{data_section("en")}
-<section class="md"><div class="container rp-body">
+<section class="md" id="monthly"><div class="container rp-body">
+  <h2 class="md-h">Monthly issues</h2>
   <ul class="rp-list">{li}</ul>
   {backnumber_note(rows, "en")}
-  <p class="md-note" style="margin-top:16px">Charts and figures may be reused with the source stated (<a href="/en/press">citation guide</a>). For the projects we list, see <a href="/en/projects">Projects</a> and the counts on <a href="/en/market-data">Market data</a> (updated daily).</p>
-  <p class="md-note">The projects themselves are listed at Chikudensho Market, without registration (prices and documents after free registration). <a href="https://dealroom.scix.co.jp/en" data-cta="body" data-cta-target="market">Browse projects at Chikudensho Market</a></p>
 </div></section>
 {bmd.EN_FOOTER}
 </body>
 </html>
 """
-    return page_head_en(title, desc, path, jsonld, "/research") + body
+    return page_head_en(e["title"], e["desc"], path, entry_jsonld("en", rows), "/research").replace("</style>", e["css"] + "</style>", 1) + body
 
 
 def render_index(rows, has_en=False):
+    """入口の頁 /research（頭は ENTRY["ja"]・その下に月号の一覧の段 #monthly・新しい号が上）。"""
     path = "/research"
-    title = "蓄電所の市場ノート｜需給調整市場・卸電気・容量市場の数字を毎月｜サイエンスエックス"
-    desc = "蓄電所の3つの稼ぎ口（需給調整市場 EPRX・卸電気 JEPX・容量市場 OCCTO）の数字を、公表データと当社の記録から毎月まとめたノート。需給調整市場の商品ごとの値段・応札倍率・約定率・蓄電池の使われ方、卸電気の価格と1kWh あたりの値差、容量市場の約定価格。毎月発行、出典つき、PDF あり。"
-    jsonld = "\n".join([
-        bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
-                "name": title, "description": desc, "inLanguage": "ja", "publisher": PUBLISHER,
-                "mainEntity": {"@type": "ItemList", "itemListElement": [
-                    {"@type": "ListItem", "position": i + 1, "url": f"{BASE}/research/{r['key']}", "name": r["title_h"]}
-                    for i, r in enumerate(rows)]}}),
-        bmd.ld(bmd.crumbs([("ホーム", BASE + "/"), ("市場ノート", BASE + path)])),
-    ])
+    e = ENTRY["ja"]
     li = "".join(
         f'<li><a class="t" href="/research/{r["key"]}">{esc(r["title_h"])}</a>'
         f'<div class="d">発行 {jp_date(r["issued"])}・{esc(data_month_ja(r["key"]))}の数字・PDF あり</div><p>{esc(r["lead"])}</p></li>' for r in rows)
-    body = f"""{bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", path)])}
-<section class="hero"><div class="container">
-  <div class="section-label">毎月1日発行</div>
-  <h1>蓄電所の市場ノート</h1>
-  <p>蓄電所（系統用蓄電池）の収入は、①需給調整市場（EPRX）・②卸電気（JEPX）・③容量市場（OCCTO）の3つの市場から入ります。その3つの数字を、公表データと当社の記録から毎月1日に前の月の分をまとめています。新しい号が上です。</p>
+    body = f"""{bmd.nav_crumbs([("ホーム", "/"), ("市場リサーチ", path)])}
+{entry_body("ja")}
 </div></section>
-{flash_section("ja")}
-{data_section("ja")}
-<section class="md"><div class="container rp-body">
+<section class="md" id="monthly"><div class="container rp-body">
+  <h2 class="md-h">月号の一覧</h2>
   <ul class="rp-list">{li}</ul>
   {backnumber_note(rows, "ja")}
-  <p class="md-note" style="margin-top:16px">図表や数値は、出典を明記すればそのままお使いいただけます（<a href="/press">引用・転載ガイド</a>）。売り案件の集計は <a href="/market-data">市場データ</a>（毎朝更新）に。</p>
-  <p class="md-note">売り案件そのものは、蓄電所マーケットで登録なしで一覧できます（価格と資料は無料の登録のあと）。<a href="https://dealroom.scix.co.jp/" data-cta="body" data-cta-target="market">蓄電所マーケットで案件を見る</a></p>
 </div></section>
 {bmd.FOOTER}
 </body>
 </html>
 """
-    return page_head(title, desc, path, jsonld, "/en/research" if has_en else None) + body
+    return page_head(e["title"], e["desc"], path, entry_jsonld("ja", rows), "/en/research" if has_en else None).replace("</style>", e["css"] + "</style>", 1) + body
 
 
 # ---------------------------------------------------------------- トップの「今月の月報」の札（2026-11-03: 目立たなかったため追加）
