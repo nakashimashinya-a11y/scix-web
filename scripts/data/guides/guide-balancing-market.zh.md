@@ -7,7 +7,7 @@ h1_sub: 商品、成交结果、上限价格与饱和，一页读懂
 description: 一页读懂由EPRX（电力供需调整力交易所）运营的日本辅助服务市场：五项商品、9分区成交结果、上限10日元、另一层天花板“一定额”，以及储能是否饱和。
 columns: zh-column-balancing-market, zh-column-eprx, zh-column-area-data, zh-column-price-cap, zh-column-bidding-ceiling-market, zh-column-bidding-ceiling, zh-column-bidding-ceiling-law, zh-column-bidding-ceiling-calc, zh-column-bidding-ceiling-monitoring, zh-column-balancing-saturation, zh-column-balancing-saturation-volume, zh-column-balancing-saturation-supply, zh-column-balancing-saturation-floor, zh-column-aggregator-fee, zh-column-aggregators, zh-column-aggregators-roster, zh-column-aggregators-volume, zh-column-aggregators-pricing, zh-column-aggregators-switching, zh-column-aggregators-overseas
 published: 2026-11-22
-modified: 2026-11-23
+modified: 2026-11-24
 ---
 
 ## @lead
@@ -18,11 +18,11 @@ modified: 2026-11-23
 
 - 辅助服务市场，是一般输配电企业为保持频率而购买“调整力（ΔkW）”的市场，由EPRX（电力供需调整力交易所）运营。反应快的一次调频、二次调频①最适合储能。
 - 自2026年3月13日交易分起改为前一日交易、30分时段，一次、二次①、复合商品的上限价由19.51日元降至15日元；自2026年9月1日交割起为10.00日元（日元/ΔkW·30分）。
-- 上限10日元的第一个月，9月一次离线的全国平均为5.81日元。留在上限正下方的只有东北9.51日元、东京8.58日元；储能专属额度在8月仍空着一半（不足率53%）。
+- 上限10日元的第一个月，9月一次离线的全国平均为5.80日元（确报值）。留在上限正下方的只有东北9.51日元、东京8.57日元；储能专属额度在8月仍空着一半（不足率53%）。
 
 ## @top
 
-所在县、规模、电压、购买方式、手续阶段与预计投运时间，无需登记即可在蓄电所市场查看；所列仅限已取得接入系统研究答复的项目。
+项目名称、所在县市、规模、电压、购买方式、手续阶段、预计投运时间与照片，无需登记即可在蓄电所市场查看；所列仅限已取得接入系统研究答复的项目。
 → [在蓄电所市场（Chikudensho Market）查看案件](https://dealroom.scix.co.jp/en)
 
 ## 辅助服务市场与EPRX是什么
@@ -72,9 +72,9 @@ more: 详见：[辅助服务市场的五项商品（2026年度的制度变更）
 
 市场没有等到9月1日。一次离线的15日元顶格成交占比，在7～8月从83%崩落至10%；8月全国平均中标单价为9.80日元，在适用之前就已跌破10日元。
 
-上限10日元的第一个月，2026年9月（1日〜29日，速报值）一次离线的全国加权平均，由4〜8月的11.07日元降至5.81日元。留在上限正下方的是东北9.51日元、东京8.58日元，其余7个分区降到1〜3日元区间。把两组分开的是“中标比例”：东北95.6%、东京85.1%，所投报价几乎全部中标的分区，价格会贴近上限。
+上限10日元的第一个月，2026年9月一次离线的全国加权平均，由4〜8月的11.08日元降至5.80日元（均为确报值）。留在上限正下方的是东北9.51日元、东京8.57日元，其余7个分区降到1〜3日元区间。把两组分开的是“中标比例”：东北95.4%、东京84.8%，所投报价几乎全部中标的分区，价格会贴近上限。
 
-more: 详见：[天花板，下调5日元](/zh-column-price-cap)／[上限10日元的9月，一次离线为5.81日元](/zh-column-bidding-ceiling-market)
+more: 详见：[天花板，下调5日元](/zh-column-price-cap)／[上限10日元的9月，一次离线为5.80日元](/zh-column-bidding-ceiling-market)
 
 ## 另一层天花板“一定额”
 
@@ -107,7 +107,7 @@ more: 详见：[EPRX是什么（参与流程）](/zh-column-eprx)／[聚合商�
 
 ## @next
 
-- 想买的方：已取得接入系统研究答复的项目，可在[蓄电所市场（Chikudensho Market）](https://dealroom.scix.co.jp/en)无需登记查看所在县、规模、电压、购买方式、手续阶段与预计投运时间。
+- 想买的方：已取得接入系统研究答复的项目，可在[蓄电所市场（Chikudensho Market）](https://dealroom.scix.co.jp/en)无需登记查看项目名称、所在县市、规模、电压、购买方式、手续阶段、预计投运时间与照片。
 - 想卖的方（持有已取得接入系统研究答复的项目）：本公司收购，或为您介绍买方。→ [联系我们](/zh-contact)
 - 从收入整体读：[储能的三大收益来源](/zh-column-revenue)／[储能电站的分区收益](/zh-column-regional-revenue)
 - 术语：[术语表](/zh-glossary)／全部专栏：[洞见](/zh-knowledge)
@@ -127,4 +127,4 @@ EPRX在官网公开交易数据（https://www.eprx.or.jp/information/results.php
 自2026年9月1日交割起，一次调频（含离线额度）、二次调频①、复合商品的上限为10.00日元/ΔkW·30分（2026年3月14日〜8月31日交割分为15日元，更早为19.51日元）。二次②、三次①维持7.21日元，三次②没有上限。超过上限的报单即便成交，也会在结算环节被削减至10日元。
 
 ### 储能在辅助服务市场饱和了吗？
-按本公司的清点，“小的座位已开始被填满，房间仍然很宽”。储能专属额度（一次离线）在2026年8月的不足率仍为53%。不过9月一次离线的全国平均为5.81日元，在东北、东京以外的7个分区，碰到天花板之前，竞争已经决定了价格。
+按本公司的清点，“小的座位已开始被填满，房间仍然很宽”。储能专属额度（一次离线）在2026年8月的不足率仍为53%。不过9月一次离线的全国平均为5.80日元（确报值），在东北、东京以外的7个分区，碰到天花板之前，竞争已经决定了价格。

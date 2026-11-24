@@ -84,6 +84,23 @@ if [ "$DRY_RUN" != "1" ] && [ "$FAST_REMOVE" != "1" ] && [ "$(git rev-parse --ab
   fi
 fi
 
+# 市場ノートの速報（/report/flash・毎日更新・2026-11-23 中島「毎日最新データを落として速報」）。数字は作業域の bin/market_flash.py が
+# 同じ朝に公表データを取り直して state/market_flash/latest.json に書く（旗 state/market_flash_daily_enabled の後ろ）。ここは焼いて出すだけ。
+# 入力が無い・前の版より古い・公開してはいけない語がある＝build_flash.py が何も書かずに rc 2（頁は前の日の版のまま＝日付も前のまま）。止まっても案件の同期は続ける。
+if [ "$DRY_RUN" != "1" ] && [ "$FAST_REMOVE" != "1" ] && [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] \
+   && git diff --quiet -- sitemap.xml report/flash en/report/flash && git diff --cached --quiet && [ -z "$(git ls-files -o --exclude-standard report/flash en/report/flash)" ]; then
+  python3 scripts/build_flash.py; RC=$?
+  if [ "$RC" != "0" ]; then
+    log "NG 速報を焼けなかった（rc=$RC）。/report/flash は前の版のまま"
+  elif ! git diff --quiet -- sitemap.xml report/flash en/report/flash || [ -n "$(git ls-files -o --exclude-standard report/flash en/report/flash)" ]; then
+    git add report/flash en/report/flash sitemap.xml \
+      && git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" \
+           commit -q -m "chore(report): 市場ノートの速報を更新（scripts/build_flash.py による自動発行）" \
+      && git push -q origin main && log "OK 速報を /report/flash に公開した" \
+      || log "NG 速報の commit/push に失敗（commit が手元に残っていれば次回の冒頭で出し直す）"
+  fi
+fi
+
 # 生成。D1が引けなければ build 側が非ゼロで止まる（部分的な一覧を書かない）。
 # トークン更新の直後に1回だけ失敗することがある（2026-09-05 実測）ので、間を置いて3回まで試す。
 GEN_OK=0

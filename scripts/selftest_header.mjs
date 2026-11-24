@@ -1,4 +1,4 @@
-// 上の帯（header.js）の見た目と動きを、本物の Chrome（ヘッドレス）で確かめる試験（2026-11-23）。外へは出ない（手元で配信して読むだけ）。
+// 上の帯（header.js）の見た目と動きを、本物の Chrome（ヘッドレス）で確かめる試験（2026-11-23）。外へは出ない（手元で配信して読むだけ・マーケットへの要求は Chrome の中で差し止めて作り物で答える）。
 //   node scripts/selftest_header.mjs            # 全部
 //   CHROME_BIN=/path/to/chrome node …            # Chrome の場所を指す（無ければ試験は飛ばす）
 // 見ること:
@@ -41,12 +41,30 @@ for (let i = 0; i < 80 && !wsUrl; i++) { await sleep(250); try { wsUrl = (await 
 if (!wsUrl) { chrome.kill(); server.close(); console.error('Chrome の口が開かない'); process.exit(1); }
 const ws = new WebSocket(wsUrl); await new Promise((r, j) => { ws.onopen = r; ws.onerror = j; });
 let seq = 0; const waiting = new Map();
-ws.onmessage = (ev) => { const m = JSON.parse(ev.data); if (m.id && waiting.has(m.id)) { const { res, rej } = waiting.get(m.id); waiting.delete(m.id); m.error ? rej(new Error(m.error.message)) : res(m.result); } };
+const onEvent = new Map();   // sessionId → 出来事の受け手（マーケットへの要求の差し止め・2026-11-23）
+ws.onmessage = (ev) => { const m = JSON.parse(ev.data); if (m.id && waiting.has(m.id)) { const { res, rej } = waiting.get(m.id); waiting.delete(m.id); m.error ? rej(new Error(m.error.message)) : res(m.result); } else if (m.method && m.sessionId && onEvent.has(m.sessionId)) onEvent.get(m.sessionId)(m); };
 const send = (method, params = {}, sessionId) => new Promise((res, rej) => { const id = ++seq; waiting.set(id, { res, rej }); ws.send(JSON.stringify({ id, method, params, sessionId })); setTimeout(() => { if (waiting.has(id)) { waiting.delete(id); rej(new Error('timeout ' + method)); } }, 30000); });
-async function page({ w, h = 800, mobile = false, touch = false }) {
+// マーケット（dealroom.scix.co.jp）への要求は外へ出さず、ここで答える（2026-11-23 ログインの持ち越し）:
+//   /api/site/session → signed なら作り物の人（名前と頭文字）・そうでなければ { signed:false }。CORS は手元の元＋資格つき（本物は www と apex だけに返す）
+//   /api/site/prices → signed なら作り物の価格（id ごと）。ほかの道は通信の失敗（カードは焼いた行のまま）
+const FAKE_ME = { signed: true, initial: '試', name: '試験 花子' };
+async function page({ w, h = 800, mobile = false, touch = false, signed = false }) {
   const { targetId } = await send('Target.createTarget', { url: 'about:blank' });
   const { sessionId } = await send('Target.attachToTarget', { targetId, flatten: true });
   const S = (m, p) => send(m, p, sessionId);
+  onEvent.set(sessionId, (m) => {
+    if (m.method !== 'Fetch.requestPaused') return;
+    const u = new URL(m.params.request.url), id = m.params.requestId;
+    const cors = [{ name: 'Access-Control-Allow-Origin', value: BASE }, { name: 'Access-Control-Allow-Credentials', value: 'true' }, { name: 'Content-Type', value: 'application/json' }, { name: 'Cache-Control', value: 'private, no-store' }];
+    const body = (o) => Buffer.from(JSON.stringify(o)).toString('base64');
+    if (u.pathname === '/api/site/session') return S('Fetch.fulfillRequest', { requestId: id, responseCode: 200, responseHeaders: cors, body: body(signed ? FAKE_ME : { signed: false }) }).catch(() => {});
+    if (u.pathname === '/api/site/prices') {
+      const ids = (u.searchParams.get('ids') || '').split(',').filter(Boolean);
+      return S('Fetch.fulfillRequest', { requestId: id, responseCode: 200, responseHeaders: cors, body: body(signed ? { signed: true, prices: Object.fromEntries(ids.map((x, i) => [x, { price: (i % 4 === 3 ? '' : (i + 2) + '億円（税抜）'), status: '販売中', mw: 2, maxPower: 1999 }])) } : { signed: false }) }).catch(() => {});
+    }
+    return S('Fetch.failRequest', { requestId: id, errorReason: 'BlockedByClient' }).catch(() => {});
+  });
+  await S('Fetch.enable', { patterns: [{ urlPattern: 'https://dealroom.scix.co.jp/*', requestStage: 'Request' }] });
   await S('Page.enable'); await S('Runtime.enable');
   await S('Emulation.setDeviceMetricsOverride', { width: w, height: h, deviceScaleFactor: 1, mobile });
   if (touch) { await S('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 }); await S('Emulation.setEmitTouchEventsForMouse', { enabled: true, configuration: 'mobile' }); }
@@ -54,7 +72,7 @@ async function page({ w, h = 800, mobile = false, touch = false }) {
     S,
     async go(url) { await S('Page.navigate', { url }); for (let i = 0; i < 40; i++) { await sleep(250); try { if (await this.eval(`!!document.querySelector('header.scix-header .scix-lang')`)) break; } catch { /* まだ */ } } await sleep(500); },
     async eval(expr) { const r = await S('Runtime.evaluate', { expression: expr, returnByValue: true, awaitPromise: true }); if (r.exceptionDetails) throw new Error(r.exceptionDetails.text + ' ' + (r.exceptionDetails.exception?.description || '')); return r.result.value; },
-    async close() { try { await send('Target.closeTarget', { targetId }); } catch { /* 閉じ済み */ } }
+    async close() { onEvent.delete(sessionId); try { await send('Target.closeTarget', { targetId }); } catch { /* 閉じ済み */ } }
   };
 }
 
@@ -107,7 +125,7 @@ const key = async (p, k, vk) => { await p.S('Input.dispatchKeyEvent', { type: 'r
 const tap = async (p, x, y) => { await p.S('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] }); await p.S('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await sleep(150); };
 
 for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
-  const groups = lg === 'ja' ? ['buy', 'sell', 'knowledge', 'research'] : ['knowledge', 'research'];
+  const groups = lg === 'ja' ? ['sell', 'knowledge', 'research'] : ['knowledge', 'research'];   // 2026-11-23（O16-72）: 日本語の買いたいは引き出しの無い札（マーケットの一覧へ直行）
   const sel = (g) => `.scix-nav-dd[data-group=${g}] .scix-nav-dd-toggle`;
   {   // マウス（1440・hover あり）
     const p = await page({ w: 1440 }); await p.go(BASE + url); await watch(p); const at = `[マウス ${lg}] `;
@@ -128,7 +146,7 @@ for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
     await p.eval(`document.querySelector(${JSON.stringify(sel('research'))}).focus()`); await p.eval('window.__dp = []'); await key(p, 'Enter', 13); await sleep(80);
     const dpk = await p.eval('window.__dp'); ok(at + 'キーボード Enter は頁へ', dpk.length === 1 && dpk[0].dp === false, JSON.stringify(dpk));
     await key(p, 'ArrowDown', 40); await sleep(80); st = await state(p); const f1 = await p.eval(`document.activeElement.getAttribute('href')`);
-    ok(at + 'キーボード ↓ で開いて最初のリンクへ', st.research[0] && st.research[1] === 'true' && /\/report$/.test(f1), JSON.stringify(st.research) + f1);
+    ok(at + 'キーボード ↓ で開いて最初のリンクへ', st.research[0] && st.research[1] === 'true' && /\/report\/flash$/.test(f1), JSON.stringify(st.research) + f1);
     await key(p, 'Escape', 27); await sleep(80); st = await state(p); ok(at + 'Esc で閉じて札へ戻る', !st.research[0] && st.research[1] === 'false' && /scix-nav-dd-toggle/.test(await p.eval('document.activeElement.className')), JSON.stringify(st.research));
     await p.close();
   }
@@ -203,7 +221,9 @@ for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
     ft.querySelectorAll('.scix-ft-cols a[href]').forEach((a) => { const h = a.getAttribute('href'), fl = strip(a); if (hd[h] && !hd[h].some((hl) => hl.includes(fl) || fl.includes(hl))) words.push(h + ' 下:' + fl + ' 上:' + hd[h].join('/')); });
     const R = (s) => { const b = ft.querySelector(s).getBoundingClientRect(); return { l: b.left, r: b.right, t: b.top }; };
     const cols = ft.querySelector('.scix-ft-cols');
-    return { built: true, W: innerWidth, sw: document.documentElement.scrollWidth, dups, words, logo: R('.scix-ft-logo'), mg: R('.scix-ft-mg'), auth: R('.scix-ft-auth'),
+    const colMax = Math.max(...[...cols.querySelectorAll('.scix-ft-col')].map((c) => c.querySelectorAll('a[href]').length));
+    const sellCol = cols.querySelector('.scix-ft-col.is-sell'); const sellFirst = sellCol && sellCol.querySelector('a[href]') ? strip(sellCol.querySelector('a[href]')) : '';
+    return { built: true, W: innerWidth, sw: document.documentElement.scrollWidth, dups, words, colMax, sellFirst, logo: R('.scix-ft-logo'), mg: R('.scix-ft-mg'), auth: R('.scix-ft-auth'),
       ncol: cols.querySelectorAll('.scix-ft-col').length, tracks: getComputedStyle(cols).gridTemplateColumns.split(' ').length };
   })()`;
   for (const [, url] of [['ja', '/column-aggregators-switching'], ['en', '/en'], ['zh', '/zh'], ['ja', '/fund']]) for (const w of [1440, 1280, 1101, 900, 768, 721, 390, 320]) {
@@ -214,6 +234,8 @@ for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
       ok(at + '頁が横に広がらない', m.sw <= m.W, `${m.sw}>${m.W}`);
       ok(at + '行き先は帯の中で1回（マーケットのトップだけ2回）', m.dups.length === 0, m.dups.join(' '));
       ok(at + '列の言葉は上の帯と食い違わない', m.words.length === 0, m.words.join(' / '));
+      ok(at + '列ごとに4つまで（O16-72）', m.colMax <= 4, String(m.colMax));
+      if (url === '/column-aggregators-switching' || url === '/fund') ok(at + '売りたいの列の先頭は「蓄電所を出す（無料）」', m.sellFirst === '蓄電所を出す（無料）', m.sellFirst);
       if (w > 1100) ok(at + '格子は列の数と同じ（空いた列を残さない）', m.tracks === m.ncol, `${m.tracks}/${m.ncol}`);
       if (w > 720) {
         const pad = w <= 768 ? 16 : 24, right = m.W - pad;   // 下の帯の中身は画面いっぱい（上の帯の .scix-header-inner と同じ左右 24px・〜768px は本文と同じ 16px）
@@ -223,6 +245,47 @@ for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
         if (w >= 768) ok(at + '1段目は1行', Math.abs(m.auth.t - m.mg.t) < 12, JSON.stringify([m.mg, m.auth]));
       }
     }
+    await p.close();
+  }
+}
+
+// ---- 5. ログインの持ち越し（2026-11-23 中島「サイエンスのTOPに行くとログアウトする仕様はおかしい。ログインしたままにして。」） ----
+// マーケットにログイン中（作り物の答え）なら: 上の帯・畳んだメニュー・下の帯が人の印＋ログアウトになり「ログイン」「無料で登録」が無い・人の印はリンクでない・名前は字のまま（HTML にしない）・
+// 帯の寸法は今のまま（高さ 64px・重ならない・横に広がらない）・トップのカードに価格の段・「登録のあとに見られます」を出さない・頁の「無料登録」の誘いの字を替える。
+// ログインしていない答えなら今のまま。印（localStorage）だけ残っている人は、答えでログインなしの形に戻る。
+{
+  const SIGNED = `(() => {
+    const q = (s) => document.querySelector(s);
+    const vis = (e) => !!e && getComputedStyle(e).display !== 'none' && getComputedStyle(e).visibility !== 'hidden' && e.getBoundingClientRect().width > 0;
+    return { attr: document.documentElement.getAttribute('data-mkt-signed'), inN: document.querySelectorAll('.scix-auth.scix-in, .scix-auth-m.scix-in, .scix-ft-auth.scix-in').length,
+      logins: document.querySelectorAll('.scix-login, .scix-reg, .scix-ft-login, .scix-ft-reg').length, meLinks: document.querySelectorAll('.scix-in a').length,
+      name: (q('.scix-auth .scix-un') || {}).textContent || '', av: (q('.scix-auth .scix-av') || {}).textContent || '', nameHtml: (q('.scix-auth .scix-un') || {}).innerHTML || '',
+      prices: document.querySelectorAll('#top-cards .sc-price:not(.wait)').length, waits: document.querySelectorAll('#top-cards .sc-price.wait').length, hmPr: vis(q('.hm-pr')),
+      regText: [...document.querySelectorAll('a[href*="dealroom.scix.co.jp/register"], a[href*="dealroom.scix.co.jp/en/register"]')].map((a) => a.textContent).filter((t) => /無料登録|無料で登録|free registration|Register|Sign up|免费注册/.test(t)).length };
+  })()`;
+  const wait = async (p, expr, ms = 4000) => { for (let i = 0; i < ms / 100; i++) { if (await p.eval(expr)) return true; await sleep(100); } return false; };
+  for (const [lg, url, top] of [['ja', '/', true], ['en', '/en', true], ['zh', '/zh', true], ['ja', '/column-eprx', false], ['ja', '/projects', false]]) for (const w of [1440, 1200, 1101, 1024, 390]) {
+    const p = await page({ w, h: 800, mobile: w < 500, signed: true }); await p.go(BASE + url);
+    await wait(p, `document.documentElement.getAttribute('data-mkt-signed') === '1' && !!document.querySelector('footer .scix-ft-auth.scix-in')`);
+    if (top) await wait(p, `document.querySelectorAll('#top-cards .sc-price:not(.wait)').length > 0`);
+    const s = await p.eval(SIGNED), m = await p.eval(MEASURE); const at = `[ログイン中 ${lg} ${url} ${w}px] `;
+    ok(at + '3か所がログイン中の形・「ログイン」「無料で登録」が無い', s.attr === '1' && s.inN === 3 && s.logins === 0, JSON.stringify(s));
+    ok(at + '人の印はリンクでない・名前と頭文字は字のまま', s.meLinks === 0 && s.name === '試験 花子' && s.av === '試' && s.nameHtml === '試験 花子', JSON.stringify(s));
+    ok(at + '帯の高さ 64px・頁が横に広がらない・並び', m.hdrH === 64 && m.scrollW <= m.W && m.bad.length === 0, `${m.hdrH} ${m.scrollW}/${m.W} ${m.bad.join(' / ')}`);
+    ok(at + '頁の「無料登録」の誘いの字が残らない', s.regText === 0, String(s.regText));
+    if (top) ok(at + 'トップのカードに価格の段・仮置きが残らない・「登録のあと」を出さない', s.prices > 0 && s.waits === 0 && !s.hmPr, JSON.stringify(s));
+    await p.close();
+  }
+  {   // ログインしていない答え: 今のまま
+    const p = await page({ w: 1440, signed: false }); await p.go(BASE + '/'); await sleep(600);
+    const s = await p.eval(SIGNED);
+    ok('[ログインなし] 今のまま（ログイン・無料で登録・価格なし・「登録のあと」は見える）', !s.attr && s.inN === 0 && s.logins === 6 && s.prices === 0 && s.waits === 0 && s.hmPr, JSON.stringify(s));
+    await p.close();
+  }
+  {   // 印だけ残っている人: 最初は「ログイン」を隠し、答え（signed:false）で戻る・印を消す
+    const p = await page({ w: 1440, signed: false }); await p.go(BASE + '/'); await p.eval(`localStorage.setItem('scix.mkt.signed', '1')`); await p.go(BASE + '/'); await sleep(600);
+    const s = await p.eval(SIGNED), left = await p.eval(`localStorage.getItem('scix.mkt.signed')`);
+    ok('[印だけ] 答えでログインなしの形に戻り、仮置きも印も消える', !s.attr && s.logins === 6 && s.waits === 0 && s.hmPr && left === null, JSON.stringify(s) + left);
     await p.close();
   }
 }

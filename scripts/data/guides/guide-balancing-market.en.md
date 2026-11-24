@@ -7,7 +7,7 @@ h1_sub: Products, trading results, the price cap and saturation on one page
 description: EPRX and Japan's balancing market on one page: 5 products, area results, the ¥10 cap, the fixed-cost adder, saturation.
 columns: en/column-balancing-market, en/column-eprx, en/column-area-data, en/column-day-ahead, en/column-price-cap, en/column-bidding-ceiling-market, en/column-bidding-ceiling, en/column-bidding-ceiling-law, en/column-bidding-ceiling-calc, en/column-bidding-ceiling-monitoring, en/column-balancing-saturation, en/column-balancing-saturation-volume, en/column-balancing-saturation-supply, en/column-balancing-saturation-floor, en/column-aggregator-fee, en/column-aggregators, en/column-aggregators-roster, en/column-aggregators-volume, en/column-aggregators-pricing, en/column-aggregators-switching, en/column-aggregators-overseas
 published: 2026-11-22
-modified: 2026-11-23
+modified: 2026-11-24
 ---
 
 ## @lead
@@ -18,7 +18,7 @@ The balancing market is one of the main sources of income for a battery in Japan
 
 - The balancing market is where the general transmission and distribution companies buy balancing capacity (ΔkW) to keep frequency stable. It is run by EPRX (Electric Power Reserve Exchange). For batteries, the fast products, Primary Reserve and Secondary Reserve 1, are the most advantageous.
 - From transactions on March 13, 2026, trading moved to day-ahead, 30-minute slots, and the cap for Primary, Secondary 1 and the composite product fell from ¥19.51 to ¥15; from delivery on September 1, 2026 it is ¥10.00 (per ΔkW·30 min).
-- In September, the first month under the ¥10 cap, primary offline averaged ¥5.81 nationally. Only Tohoku (¥9.51) and Tokyo (¥8.58) stayed just under the cap, and in August the batteries-only frame was still half open (shortfall rate 53%).
+- In September, the first month under the ¥10 cap, primary offline averaged ¥5.80 nationally (final figures). Only Tohoku (¥9.51) and Tokyo (¥8.57) stayed just under the cap, and in August the batteries-only frame was still half open (shortfall rate 53%).
 
 ## @top
 
@@ -72,9 +72,9 @@ From EPRX's awarded-results CSVs (delivery 2026/3/14–8/18, 158 days), our cent
 
 The market did not wait for September 1. The share of primary-offline volume pinned at ¥15 collapsed from 83% in April to 10% in August, and the national average awarded price in August, ¥9.80, was already under the new ceiling before it applied.
 
-In September 2026 (1–29 September, preliminary figures), primary offline averaged ¥5.81 nationally, down from ¥11.07 in April–August. Tohoku at ¥9.51 and Tokyo at ¥8.58 stayed just under the cap; the other seven areas fell to the ¥1–3 range. What split them was the award rate — the share of bids that were awarded: Tohoku 95.6%, Tokyo 85.1%. Where almost every bid gets through, the price leans towards the cap.
+In September 2026, primary offline averaged ¥5.80 nationally, down from ¥11.08 in April–August (both final figures). Tohoku at ¥9.51 and Tokyo at ¥8.57 stayed just under the cap; the other seven areas fell to the ¥1–3 range. What split them was the award rate — the share of bids that were awarded: Tohoku 95.4%, Tokyo 84.8%. Where almost every bid gets through, the price leans towards the cap.
 
-more: Read more: [The ceiling drops by five yen](/en/column-price-cap) / [September under the ¥10 cap: primary offline at ¥5.81](/en/column-bidding-ceiling-market)
+more: Read more: [The ceiling drops by five yen](/en/column-price-cap) / [September under the ¥10 cap: primary offline at ¥5.80](/en/column-bidding-ceiling-market)
 
 ## The second ceiling — the fixed-cost adder
 
@@ -127,4 +127,4 @@ Five: Primary Reserve, Secondary Reserve 1, Secondary Reserve 2, Tertiary Reserv
 From delivery on September 1, 2026, the cap for primary reserve (including the offline quota), secondary reserve 1 and the composite product is ¥10.00 per ΔkW·30 min (¥15 for delivery from 14 March to 31 August 2026, ¥19.51 before that). Secondary 2 and tertiary 1 stay at ¥7.21; tertiary 2 has no cap. A bid above the cap can still clear but is clipped to ¥10 at settlement.
 
 ### Are batteries saturated in Japan's balancing market?
-On our count, the small seat has begun to fill and the room is still wide. The batteries-only frame (primary offline) still had a 53% shortfall rate in August 2026. In September, though, primary offline averaged ¥5.81, and outside Tohoku and Tokyo competition, not the cap, set the price.
+On our count, the small seat has begun to fill and the room is still wide. The batteries-only frame (primary offline) still had a 53% shortfall rate in August 2026. In September, though, primary offline averaged ¥5.80 (final figures), and outside Tohoku and Tokyo competition, not the cap, set the price.

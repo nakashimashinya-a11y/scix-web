@@ -455,10 +455,10 @@ def apply_knowledge(path: str, src: str, lang: str) -> str:
 
 CTA_TEXT = {
     "en": ("Looking at projects for sale?",
-           "Chikudensho Market lists them without registration — prefecture, size, voltage, sale type and procedural stage. Prices and documents follow free registration.",
+           "Chikudensho Market lists them without registration — project name, prefecture and city, size, voltage, sale type, procedural stage and photos. Prices and documents follow free registration.",
            "See projects on Chikudensho Market →", "Contact us", "/en/contact"),
     "zh": ("在找在售的项目吗？",
-           "在蓄电所市场无需注册即可查看所在县、规模、电压、交易方式与手续阶段；价格与资料在免费注册后可见。",
+           "在蓄电所市场无需注册即可查看项目名称、所在县市、规模、电压、交易方式、手续阶段与照片；价格与资料在免费注册后可见。",
            "在蓄电所市场查看项目 →", "联系我们", "/zh-contact"),
 }
 BTN = "display:inline-block;padding:12px 22px;margin:8px 10px 0 0;font-size:.95rem;text-decoration:none"

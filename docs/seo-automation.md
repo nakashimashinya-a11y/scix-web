@@ -201,12 +201,12 @@ GA4 の管理画面（カスタム定義）で登録が要る物（代表）: �
 
 | 札 | scix.co.jp（日本語） | マーケット |
 |---|---|---|
-| 買いたい | 札＝マーケットの `/`・▾＝/transfer・/fund | `/` |
-| 売りたい | 札＝マーケットの売りたいの入口（今は `/needs`）・▾＝/sell-form・/sourcing・/partners | `/needs`（今の sell） |
-| ナレッジ | 引き出しのみ（/knowledge ほか今のまま） | `https://www.scix.co.jp/knowledge` |
-| 市場リサーチ | 引き出しのみ（/report・/report/data・/market-data） | `https://www.scix.co.jp/report` |
+| 買いたい | 札＝マーケットの `/`（引き出し無し・2026-11-23 O16-72） | `/` |
+| 売りたい | 札＝マーケットの `/needs`・▾＝蓄電所を出す（無料）マーケットの `/start/sell`・当社に無料で売却査定 /sell-form | `/needs`（今の sell） |
+| ナレッジ | 引き出しは3つ（/knowledge・/qa・/glossary） | `https://www.scix.co.jp/knowledge` |
+| 市場リサーチ | 引き出しは2つ（速報 /report/flash・月号 /report。2026-11-23 中島「メニュー多いのは良くない。シンプルに」）。/report/data・/market-data・/transfer・/fund などは下の帯の列（列ごとに4つまで） | `https://www.scix.co.jp/report` |
 | 会社案内 | /company | `https://www.scix.co.jp/company` |
 | お問い合わせ | /contact | `https://www.scix.co.jp/contact` |
 | ログイン・無料で登録 | `https://dealroom.scix.co.jp/login`・`/register` | 右端 |
 
-英語は Buy（マーケットの `/en`）・Sell（`/en/needs`）・Knowledge・Market Research（/en/report・/en/report/data）・Company・Contact｜Log in・Sign up（マーケットの英語の頁）。中国語は 购买・出售（どちらもマーケットの英語の頁）・洞见・市场研究（英文）・公司介绍（英文）・联系我们｜登录・免费注册。
+英語は Buy（マーケットの `/en`）・Sell（`/en/needs`）・Knowledge・Market Research（/en/report/flash・/en/report）・Company・Contact｜Log in・Sign up（マーケットの英語の頁）。中国語は 购买・出售（どちらもマーケットの英語の頁）・洞见・市场研究（英文）・公司介绍（英文）・联系我们｜登录・免费注册。

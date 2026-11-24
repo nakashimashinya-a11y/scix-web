@@ -7,7 +7,7 @@
 並び（2026-11-23・AI の答えに先に拾われたい順）:
   会社は何か（トップの説明・英語の会社案内の説明）
   → 売り案件の市場データ（/market-data・/en/market-data・/zh-market-data と、その頁の CSV）
-  → 月の市場ノート（/research・/report → 各号〔新しい号から〕→ /report/data と、その頁の CSV → エリア別）
+  → 市場ノート（/research・/report → 速報 /report/flash → 各号〔新しい号から〕→ /report/data と、その頁の CSV → エリア別）
   → 蓄電所マーケット（登録なしで価格を除く一覧＝マーケットのトップと /projects・管内別の一覧）
   → 柱の頁（トップ・全体像・ガイド・買う／売るの入口・ナレッジの入口・会社案内）
   → コラム → その他（問い合わせ・個人情報の方針）
@@ -114,6 +114,8 @@ def issue_key(url):
     p = re.sub(r"^/(en/|zh-)", "/", url[len(BASE):])
     if p in ("/research", "/report"):
         return (0, 0)
+    if p == "/report/flash":                       # 毎日更新の速報は入口の次（2026-11-23・市場の頁は速報と月号の2本）
+        return (0, 1)
     m = re.search(r"^/report/(\d{4})-(\d{2})$", p)
     if m:
         return (1, -(int(m.group(1)) * 100 + int(m.group(2))))

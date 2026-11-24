@@ -337,6 +337,21 @@ DATA_LINKS = {
 }
 
 
+def flash_section(lang="ja"):
+    """一覧の頁の頭の、毎日更新の速報（/report/flash・scripts/build_flash.py）への入口。速報の頁が焼かれていなければ空（2026-11-23）。"""
+    rel = "report/flash/index.html" if lang == "ja" else "en/report/flash/index.html"
+    if not os.path.exists(os.path.join(ROOT, rel)):
+        return ""
+    if lang == "ja":
+        h2, body = "毎日の数字は「速報」で", ('卸電気（JEPX）と需給調整市場（EPRX）の今月ここまでの数字・最新の1日の数字・前の月との比べは、公表された最新のデータを毎朝取り直す'
+                                            '<a href="/report/flash">蓄電所の市場ノート 速報</a>に載せています（毎日更新）。月の号は、前の月の全日の数字です。')
+    else:
+        h2, body = "Daily figures: the Daily Flash", ('This month so far, the latest day and the comparison with last month for JEPX wholesale and the EPRX balancing market are on the '
+                                                   '<a href="/en/report/flash">Daily Flash</a>, re-fetched from the latest published data every morning. Each monthly issue covers the whole previous month.')
+    return (f'<section class="md" id="flash"><div class="container rp-body">\n  <h2 class="md-h">{h2}</h2>\n'
+            f'  <p>{body}</p>\n</div></section>')
+
+
 def data_section(lang="ja"):
     """市場データ（号をまたいだ推移）とエリアの頁への入口の段（一覧の頁と各号の頁）。頁が焼かれていなければ空。"""
     items = [(h, t, d) for h, t, d in DATA_LINKS[lang] if h.lstrip("/") + "/index.html" in DATA_PAGES]
@@ -449,6 +464,48 @@ def img_dims(path):
     return ""
 
 
+PARTIAL_RE = {"ja": re.compile(r"^(\d{4})年(\d{1,2})月の途中経過"), "en": re.compile(r"^([A-Z][a-z]+ \d{4}) so far")}
+PARTIAL_ROW = re.compile(r"（月の途中）|\(partway through the month\)")
+PARTIAL_NOTE = re.compile(r"の途中経過の節は|section shows preliminary figures from partway through the month")
+
+
+def move_partial(doc, lang="ja"):
+    """号の中の「（発行する月）の途中経過」の節を、毎日更新の速報（/report/flash）への案内に置き換える（2026-11-23 中島「毎日最新データを落として速報。
+    毎月１日に先月のデータを落として月報」＝月の号に当月の途中の数字は入れない）。節の番号は残す（本文の「3節」などの指し先を変えない）。
+    あわせて「この号のデータの時点」の表の月の途中の行と、前提と用語の途中経過の注を外す。前の月の数字の節は1字も変えない。返り: 置き換えたか。"""
+    hit = False
+    for sec in doc["sections"]:
+        m = PARTIAL_RE[lang].match(sec["title"])
+        if not m:
+            continue
+        hit = True
+        if lang == "ja":
+            mon = f"{m.group(1)}年{int(m.group(2))}月"
+            sec["title"] = f"{mon}の途中経過は「速報」へ移しました"
+            sec["items"] = [("html", f'<p>{esc(mon)}の途中の数字（今月ここまで・最新の1日・前の月との比べ・週ごと）は、公表された最新のデータを毎朝取り直す'
+                                     f'<a href="/report/flash">蓄電所の市場ノート 速報</a>に載せています。この号は前の月の全日の数字です。</p>')]
+        else:
+            mon = m.group(1)
+            sec["title"] = f"{mon} so far: moved to the Daily Flash"
+            sec["items"] = [("html", f'<p>Figures for {esc(mon)} so far (this month to date, the latest day, comparison with last month and by week) are on the '
+                                     f'<a href="/en/report/flash">Daily Flash</a>, re-fetched from the latest published data every morning. This issue covers the whole previous month.</p>')]
+    if not hit:
+        return False
+    for sec in doc["sections"]:
+        items = []
+        for kind, txt in sec["items"]:
+            if kind == "p":                              # 「…の途中の数字は、次の節に載せました。」→ 速報を指す（次の節にはもう数字が無い＝2026-11-23 別の目①）
+                txt = re.sub(r"(\d{4}年\d{1,2}月)の途中の数字は、次の節に載せました。", r"\1の途中の数字は、毎日更新の速報に移しました。", txt)
+                txt = re.sub(r"Figures for part of ([A-Z][a-z]+ \d{4}) are in the next section\.", r"Figures for part of \1 have moved to the Daily Flash.", txt)
+            if kind == "table":
+                txt = [r for i, r in enumerate(txt) if i == 0 or not PARTIAL_ROW.search(r[0])]
+            elif kind == "li" and PARTIAL_NOTE.search(txt):
+                continue
+            items.append((kind, txt))
+        sec["items"] = items
+    return True
+
+
 def render_section(sec, figs, month_key, used, lang="ja"):
     src_pre = "出典:" if lang == "ja" else "Source"
     base = "/report" if lang == "ja" else "/en/report"
@@ -482,6 +539,9 @@ def render_section(sec, figs, month_key, used, lang="ja"):
             out.append('<div class="rp-table"><table><thead><tr>' + "".join(f"<th>{esc(c)}</th>" for c in head) + "</tr></thead><tbody>"
                        + "".join("<tr>" + "".join(f'<td{" class=rp-n" if j and num.match(c) else ""}>{esc(c)}</td>' for j, c in enumerate(r)) + "</tr>" for r in body_rows)
                        + "</tbody></table></div>")
+            prev_fig = False
+        elif kind == "html":                           # move_partial が置く速報への案内（中身は決まった文だけ）
+            out.append(txt)
             prev_fig = False
         elif kind == "fig":
             n = int(re.match(r"(?:図|Figure )(\d+)", txt).group(1))
@@ -657,6 +717,45 @@ def page_count(m, en=False):
     return _PAGES[ck]
 
 
+def data_month(key):
+    """号の名前 → 中身の月（2026年11月号から、号の名前は発行する月・中身は前月＝bin/monthly_report.py の NAMING_FROM。2026年10月号までは同じ月）。"""
+    if key >= "2026-11":
+        y, m = int(key[:4]), int(key[5:])
+        return "%04d-%02d" % (y - (m == 1), 12 if m == 1 else m - 1)
+    return key
+
+
+def data_month_ja(key):
+    k = data_month(key)
+    return f"{k[:4]}年{int(k[5:])}月"
+
+
+def data_month_en(key):
+    k = data_month(key)
+    return f"{MONTHS_EN[int(k[5:]) - 1]} {k[:4]}"
+
+
+def backnumber_note(rows, lang):
+    """あとから作った号（発行日が中身の月の翌月より後）の注。「毎月1日発行」とうたう一覧で、発行日が月の1日でない号の訳を書く（2026-11-23 別の目②）。"""
+    late = []
+    for r in rows:
+        dm = data_month(r["key"])
+        y, m = int(dm[:4]), int(dm[5:])
+        lim = "%04d-%02d-31" % (y + (m == 12), m % 12 + 1)    # 中身の月の翌月の末まで＝その頃に出た号
+        if r["issued"] > lim:
+            late.append(r)
+    if not late:
+        return ""
+    keys = sorted(r["key"] for r in late)
+    when = max(r["issued"] for r in late)
+    if lang == "ja":
+        span = f"{int(keys[0][:4])}年{int(keys[0][5:])}月号〜{int(keys[-1][:4])}年{int(keys[-1][5:])}月号" if len(keys) > 1 else f"{int(keys[0][:4])}年{int(keys[0][5:])}月号"
+        return f'<p class="md-note" style="margin-top:12px">{esc(span)}は、{esc(jp_date(when))}までに公表データから作り直したバックナンバーです。2026年12月号から、毎月1日（休日のときは次の営業日）に前月の数字の号を出します。</p>'
+    span = f"{MONTHS_EN[int(keys[0][5:]) - 1]} {keys[0][:4]} to {MONTHS_EN[int(keys[-1][5:]) - 1]} {keys[-1][:4]}" if len(keys) > 1 else f"{MONTHS_EN[int(keys[0][5:]) - 1]} {keys[0][:4]}"
+    return (f'<p class="md-note" style="margin-top:12px">The {esc(span)} issues are back issues rebuilt from published data by {esc(en_date(when))}. '
+            'From the December 2026 issue, each issue comes out on the 1st of the month (the next business day if the 1st is a holiday) with the previous month\'s figures.</p>')
+
+
 def render_index_en(rows):
     path = "/en/report"
     title = "Japan Battery Storage Market Notes (Monthly) | ScienceX"
@@ -671,16 +770,18 @@ def render_index_en(rows):
     ])
     li = "".join(
         f'<li><a class="t" href="/en/report/{r["key"]}">{esc(r["title_h"])}</a>'
-        f'<div class="d">Published {en_date(r["issued"])} &middot; PDF available</div><p>{esc(r["lead"])}</p></li>' for r in rows)
+        f'<div class="d">Published {en_date(r["issued"])} &middot; {esc(data_month_en(r["key"]))} data &middot; PDF available</div><p>{esc(r["lead"])}</p></li>' for r in rows)
     body = f"""{bmd.nav_crumbs([("Home", "/en"), ("Market Notes", path)])}
 <section class="hero"><div class="container">
-  <div class="section-label">Published monthly</div>
+  <div class="section-label">Published on the 1st of each month</div>
   <h1>Battery Storage Market Notes</h1>
-  <p>A battery storage site earns from three markets: the balancing market (EPRX), wholesale power (JEPX) and the capacity market (OCCTO). Each month we chart the latest figures for all three, from published data and our own records. Newest first.</p>
+  <p>A battery storage site earns from three markets: the balancing market (EPRX), wholesale power (JEPX) and the capacity market (OCCTO). On the 1st of each month we chart the previous month for all three, from published data and our own records. Newest first.</p>
 </div></section>
+{flash_section("en")}
 {data_section("en")}
 <section class="md"><div class="container rp-body">
   <ul class="rp-list">{li}</ul>
+  {backnumber_note(rows, "en")}
   <p class="md-note" style="margin-top:16px">Charts and figures may be reused with the source stated (<a href="/en/press">citation guide</a>). For the projects we list, see <a href="/en/projects">Projects</a> and the counts on <a href="/en/market-data">Market data</a> (updated daily).</p>
 </div></section>
 {bmd.EN_FOOTER}
@@ -704,16 +805,18 @@ def render_index(rows, has_en=False):
     ])
     li = "".join(
         f'<li><a class="t" href="/report/{r["key"]}">{esc(r["title_h"])}</a>'
-        f'<div class="d">発行 {jp_date(r["issued"])}・PDF あり</div><p>{esc(r["lead"])}</p></li>' for r in rows)
+        f'<div class="d">発行 {jp_date(r["issued"])}・{esc(data_month_ja(r["key"]))}の数字・PDF あり</div><p>{esc(r["lead"])}</p></li>' for r in rows)
     body = f"""{bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", path)])}
 <section class="hero"><div class="container">
-  <div class="section-label">毎月発行</div>
+  <div class="section-label">毎月1日発行</div>
   <h1>蓄電所の市場ノート</h1>
-  <p>蓄電所（系統用蓄電池）の収入は、①需給調整市場（EPRX）・②卸電気（JEPX）・③容量市場（OCCTO）の3つの市場から入ります。その3つの数字を、公表データと当社の記録から毎月まとめています。新しい号が上です。</p>
+  <p>蓄電所（系統用蓄電池）の収入は、①需給調整市場（EPRX）・②卸電気（JEPX）・③容量市場（OCCTO）の3つの市場から入ります。その3つの数字を、公表データと当社の記録から毎月1日に前の月の分をまとめています。新しい号が上です。</p>
 </div></section>
+{flash_section("ja")}
 {data_section("ja")}
 <section class="md"><div class="container rp-body">
   <ul class="rp-list">{li}</ul>
+  {backnumber_note(rows, "ja")}
   <p class="md-note" style="margin-top:16px">図表や数値は、出典を明記すればそのままお使いいただけます（<a href="/press">引用・転載ガイド</a>）。売り案件の集計は <a href="/market-data">市場データ</a>（毎朝更新）に。</p>
 </div></section>
 {bmd.FOOTER}
@@ -754,12 +857,16 @@ def home_card(m, doc, figs, lang="ja"):
         lead = "蓄電所の3つの稼ぎ口、①需給調整市場（EPRX）・②卸電気（JEPX）・③容量市場（OCCTO）の数字を、公表データと当社の記録から毎月まとめています。図と表は、出典を書けば資料にそのままお使いいただけます。"
         btn, pdf_l, back = f"{int(mo)}月号を読む", "PDF をダウンロード", "バックナンバー"
         back_href, label = "/report", "蓄電所の市場ノート"
+        flash_href, flash_l = "/report/flash", "毎日の速報"
     else:
         base, pdf = f"/en/report/{key}", f"/en/report/{key}/scix-bess-monthly-{key}-en.pdf"
         title = doc["title"]
         lead = "A battery storage site earns from three markets: the balancing market (EPRX), wholesale power (JEPX) and the capacity market (OCCTO). Every month we chart the figures for all three from public data and our own records. Charts and tables may be reused with the source stated."
         btn, pdf_l, back = "Read this issue", "Download PDF", "All issues"
         back_href, label = "/en/report", "Market Notes"
+        flash_href, flash_l = "/en/report/flash", "Daily Flash"
+    flash_link = (f'<a href="{flash_href}" style="color:var(--navy);border-bottom:1px solid var(--gold);text-decoration:none">{flash_l}</a>'
+                  if os.path.exists(os.path.join(ROOT, flash_href.lstrip("/"), "index.html")) else "")
     fig = (f'<a class="rp-home-fig" href="{base}#s{sec_f["num"]}"><img src="{base}/f{fn}.png" alt="{esc(cap_f)}"{img_dims(figs[fn])} loading="lazy">{esc(cap_f)}</a>'
            if fn in figs and sec_f else "")
     return (f"""{HOME_MARK[0]}
@@ -770,7 +877,7 @@ def home_card(m, doc, figs, lang="ja"):
     <h2 class="section-title" style="margin-bottom:10px"><a href="{base}" style="color:inherit;text-decoration:none">{esc(title)}</a></h2>
     <p class="rp-home-lead">{esc(lead)}</p>
     <ul>{"".join(f"<li>{esc(t)}</li>" for t in moves)}</ul>
-    <p class="rp-home-btns"><a class="btn-primary" href="{base}">{btn}</a><a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="{pdf}" download>{pdf_l}</a><a href="{back_href}" style="color:var(--navy);border-bottom:1px solid var(--gold);text-decoration:none">{back}</a></p>
+    <p class="rp-home-btns"><a class="btn-primary" href="{base}">{btn}</a><a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="{pdf}" download>{pdf_l}</a><a href="{back_href}" style="color:var(--navy);border-bottom:1px solid var(--gold);text-decoration:none">{back}</a>{flash_link}</p>
   </div>
   {fig}
 </div></div></section>
@@ -837,10 +944,12 @@ def main():
         md_text = open(m["md"], encoding="utf-8").read()
         hits += safety_scan(m, md_text, pdf_text(m["pdf"]))
         docs[m["key"]] = parse_md(md_text)
+        move_partial(docs[m["key"]])                     # 月の途中の数字は速報の頁へ（2026-11-23）
         if m["en_md"]:
             en_text = open(m["en_md"], encoding="utf-8").read()
             hits += safety_scan(m, en_text, pdf_text(m["en_pdf"]), "en")
             docs[m["key"] + ":en"] = parse_md(en_text, "en")
+            move_partial(docs[m["key"] + ":en"], "en")
     if hits:
         print("NG 公開してはいけない語が月報の中にある。何も書かずに止める:")
         print("\n".join(hits))

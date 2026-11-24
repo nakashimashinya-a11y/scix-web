@@ -6,7 +6,7 @@ h1: Buying and selling a battery storage plant in Japan — ways to buy, price, 
 description: Battery storage plants in Japan: four sale stages, four ways to buy, what sets price, transfer steps and checks.
 columns: en/column-trading, en/column-transfer, en/column-pricing, en/column-buyer-structures, en/column-project-price, en/column-buyer-check, en/column-financing, en/column-foreign-investor, en/column-options
 published: 2026-11-22
-modified: 2026-11-22
+modified: 2026-11-23
 ---
 
 ## @tldr
@@ -65,7 +65,7 @@ more: Read more → [What Does It Cost to Buy a Battery Storage Plant in Japan?]
 
 ## The sequence — from listing to transfer of applicant status
 
-1. The project is listed on Chikudensho Market — prefecture, size, expected connection timing and progress, viewable without registering.
+1. The project is listed on Chikudensho Market — project name, prefecture and city, size, grid procedure stage and photos, viewable without registering.
 2. Free registration — the confidentiality undertaking is agreed on screen; prices and documents become visible.
 3. Full disclosure of the due diligence package — connection study response, registry, cost contribution receipts, system configuration, JC-STAR, draft agreement.
 4. Letter of intent with price and terms — the first point at which you stand ahead of other buyers.
@@ -115,7 +115,7 @@ more: Read more → [You Have a Connection Study Response — 3 Options](/en/col
 
 ## @next
 
-**If you are buying** — battery storage projects for sale are listed on Chikudensho Market (English screens). For each project you can see the prefecture, size, expected connection timing and how far along it is without registering; prices and documents are available after free registration.
+**If you are buying** — battery storage projects for sale are listed on Chikudensho Market (English screens). For each project you can see the project name, prefecture and city, size, expected connection timing, grid procedure stage and photos without registering; prices and documents are available after free registration.
 → [See projects for sale on Chikudensho Market](https://dealroom.scix.co.jp/en)
 
 **If you are selling** — send us five things: the location (prefecture and service area), the output, how you want to sell, the stage of the connection study response and the status of the cost contribution. Our first reply tells you whether we are likely to buy it ourselves or would introduce you to a buyer, and which documents are missing. There are no fees until a deal closes.
