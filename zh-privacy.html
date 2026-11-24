@@ -26,6 +26,43 @@
     gtag('config', 'G-SNNK8MP9N9', cfg);
   })();
 </script>
+<!-- LinkedIn Insight タグ（scripts/build_ga_tag.py が入力の欄の無い公開の頁にだけ入れる・手で直さない） -->
+<script>
+  (function () {
+    var h = '', q = null, mk = false;
+    // 本番（www.scix.co.jp・scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）では読まない
+    try { h = location.hostname; if (navigator.webdriver) return; } catch (e) { return; }
+    if (h !== 'www.scix.co.jp' && h !== 'scix.co.jp') return;
+    // 社内の印（GA の区画と同じ鍵 scix_internal・?internal=1）のある端末では読まない
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try { mk = localStorage.getItem('scix_internal') === '1'; } catch (e) { mk = false; }
+    if (q === '1' || mk) return;
+    function hasEntryForm() {
+      // 入力のフォーム（お問い合わせ・売却の相談など）のある頁では読まない。記事の検索の欄と、メールのお知らせの箱（.scix-nl）は除く
+      var els = document.querySelectorAll('form, textarea, input[type="email"], input[type="tel"], input[type="password"]');
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.closest && el.closest('.scix-nl')) continue;
+        if (el.tagName === 'FORM' && el.getAttribute('role') === 'search') continue;
+        if (el.closest && el.closest('form[role="search"]')) continue;
+        return true;
+      }
+      return false;
+    }
+    function load() {
+      try { if (hasEntryForm()) return; } catch (e) { return; }
+      window._linkedin_partner_id = '10484516';
+      window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+      window._linkedin_data_partner_ids.push(window._linkedin_partner_id);
+      if (!window.lintrk) { window.lintrk = function (a, b) { window.lintrk.q.push([a, b]); }; window.lintrk.q = []; }
+      var s = document.getElementsByTagName('script')[0], b = document.createElement('script');
+      b.type = 'text/javascript'; b.async = true;
+      b.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js';
+      s.parentNode.insertBefore(b, s);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', load); else load();
+  })();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="applicable-device" content="pc,mobile">
@@ -198,7 +235,7 @@
     </section>
     <section>
       <h2>5. 业务委托</h2>
-      <p>本公司可能在达成利用目的所需的范围内，将个人信息处理的全部或一部分委托给外部。在此情形下，本公司对受托方进行适当的监督。</p><p>您通过咨询表单发送的信息，经由 Cloudflare, Inc. 提供的基础设施送达本公司；发送邮件使用 Resend（Plus Five Five, Inc.）。洞见更新邮件的发送使用 RAKUS Co., Ltd. 提供的 Blastmail，并将您提供的邮箱地址与姓名登记在该服务中。为了解本公司网站的访问情况，使用 Google LLC 提供的 Google Analytics。上述服务都可能在日本境外的服务器上处理数据。</p>
+      <p>本公司可能在达成利用目的所需的范围内，将个人信息处理的全部或一部分委托给外部。在此情形下，本公司对受托方进行适当的监督。</p><p>您通过咨询表单发送的信息，经由 Cloudflare, Inc. 提供的基础设施送达本公司；发送邮件使用 Resend（Plus Five Five, Inc.）。洞见更新邮件的发送使用 RAKUS Co., Ltd. 提供的 Blastmail，并将您提供的邮箱地址与姓名登记在该服务中。为了解本公司网站的访问情况，使用 Google LLC 提供的 Google Analytics；为衡量 LinkedIn 广告的效果，使用 LinkedIn 的 Insight 标签（见第8条）。上述服务都可能在日本境外的服务器上处理数据。</p>
     </section>
     <section>
       <h2>6. 安全管理措施</h2>
@@ -219,6 +256,9 @@
       <p>如果您是从本公司的广告（Google Ads）访问的，我们还会将用于识别广告点击的编号（gclid 等。该编号由广告系统按每次点击分配，并非您的姓名或邮箱地址）连同页面地址一并发送给 Google Analytics，用于统计来自广告的访问是否带来了注册。如果您是从 LinkedIn 广告等其他广告访问的，我们只发送表示来自哪个广告的标记（utm）。</p>
       <p>姓名、公司名称、邮箱地址、电话号码等可直接识别个人的信息，以及登录之后的项目名称、所在地、价格、资料名称、搜索词和对方公司名称，均不发送给 Google Analytics。不使用广告相关功能（Google 信号、广告个性化）。由于本公司网站与该市场使用同一个 Cookie，如果您同时浏览两者，可能会被识别为同一用户的活动。</p>
       <p>您可以在浏览器设置中停用 Cookie，或安装 Google 提供的停用附加组件（<a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics 停用浏览器插件</a>），以停止 Google Analytics 的信息收集。</p>
+      <p>为衡量本公司在 LinkedIn 投放广告的效果并投放广告，本公司网站使用 LinkedIn 的“Insight 标签”。当您打开放置了该标签的页面时，页面地址、来源（引荐来源）、IP 地址、设备与浏览器的信息以及日期时间，会连同 LinkedIn 的 Cookie 一并发送给 LinkedIn。如果您已登录 LinkedIn，LinkedIn 会将这些信息与您的 LinkedIn 会员信息一并处理。这些信息可能在日本境外的服务器上处理。</p>
+      <p>咨询、出售洽谈、投资者申请的页面不放置该标签。本公司未使用将输入栏内容（如邮箱地址）传送给 LinkedIn 的设置（增强匹配）。在蓄电所市场（dealroom.scix.co.jp），该标签只放置在未登录访客浏览的公开页面，不放置在登录之后的页面以及注册、登录页面。</p>
+      <p>您可以在 LinkedIn 面向访客的设置页面（<a href="https://www.linkedin.com/psettings/guest-controls/retargeting-opt-out" target="_blank" rel="noopener">LinkedIn 再营销停用</a>）停止 LinkedIn 为广告目的收集信息。LinkedIn 会员也可以在 LinkedIn 的广告设置中停止。在浏览器设置中停用 Cookie 也可以停止。关于 LinkedIn 对信息的处理，请参阅 LinkedIn 的<a href="https://www.linkedin.com/legal/cookie-policy" target="_blank" rel="noopener">Cookie 政策</a>。</p>
     </section>
     <section>
       <h2>9. 咨询窗口</h2>
@@ -234,7 +274,7 @@
     </section>
     <div class="legal-meta">
       <div class="org">Science X Inc.</div>
-      制定日：2026年1月1日 ／ 最终修订日：2026年11月23日
+      制定日：2026年1月1日 ／ 最终修订日：2026年11月25日
     </div>
   </div>
 </section>

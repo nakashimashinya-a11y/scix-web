@@ -404,7 +404,7 @@ def render(d: dict, lg: str) -> str:
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-{ga_tag.BLOCK}
+{ga_tag.TAGS}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- scripts/build_newsroom.py が scripts/data/newsroom/releases.json から作る頁（手で直さない） -->

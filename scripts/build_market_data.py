@@ -47,7 +47,7 @@ from collections import Counter
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 from inject_stats import BAND_EVERY, NEW_DAYS, _esc, cod_bucket, cod_sort_key, cod_text, is_new  # noqa: E402
-from build_ga_tag import BLOCK as GA_BLOCK  # noqa: E402  全頁と同じ GA の区画（本番以外・自動操作は送らない・社内の印）
+from build_ga_tag import TAGS as GA_BLOCK  # noqa: E402  全頁と同じ GA の区画（本番以外・自動操作は送らない・社内の印）と LinkedIn のタグ（入力のフォームの無い頁）
 
 BASE = "https://www.scix.co.jp"
 MIN_INDEX = 5   # 管内の件数がこれ未満なら noindex

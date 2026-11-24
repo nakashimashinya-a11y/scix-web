@@ -26,6 +26,43 @@
     gtag('config', 'G-SNNK8MP9N9', cfg);
   })();
 </script>
+<!-- LinkedIn Insight タグ（scripts/build_ga_tag.py が入力の欄の無い公開の頁にだけ入れる・手で直さない） -->
+<script>
+  (function () {
+    var h = '', q = null, mk = false;
+    // 本番（www.scix.co.jp・scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）では読まない
+    try { h = location.hostname; if (navigator.webdriver) return; } catch (e) { return; }
+    if (h !== 'www.scix.co.jp' && h !== 'scix.co.jp') return;
+    // 社内の印（GA の区画と同じ鍵 scix_internal・?internal=1）のある端末では読まない
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try { mk = localStorage.getItem('scix_internal') === '1'; } catch (e) { mk = false; }
+    if (q === '1' || mk) return;
+    function hasEntryForm() {
+      // 入力のフォーム（お問い合わせ・売却の相談など）のある頁では読まない。記事の検索の欄と、メールのお知らせの箱（.scix-nl）は除く
+      var els = document.querySelectorAll('form, textarea, input[type="email"], input[type="tel"], input[type="password"]');
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.closest && el.closest('.scix-nl')) continue;
+        if (el.tagName === 'FORM' && el.getAttribute('role') === 'search') continue;
+        if (el.closest && el.closest('form[role="search"]')) continue;
+        return true;
+      }
+      return false;
+    }
+    function load() {
+      try { if (hasEntryForm()) return; } catch (e) { return; }
+      window._linkedin_partner_id = '10484516';
+      window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+      window._linkedin_data_partner_ids.push(window._linkedin_partner_id);
+      if (!window.lintrk) { window.lintrk = function (a, b) { window.lintrk.q.push([a, b]); }; window.lintrk.q = []; }
+      var s = document.getElementsByTagName('script')[0], b = document.createElement('script');
+      b.type = 'text/javascript'; b.async = true;
+      b.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js';
+      s.parentNode.insertBefore(b, s);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', load); else load();
+  })();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>個人情報保護方針（プライバシーポリシー）｜サイエンスエックス</title>
@@ -201,7 +238,7 @@
 
     <section>
       <h2>5. 業務委託</h2>
-      <p>当社は、利用目的の達成に必要な範囲で、個人情報の取扱いの全部または一部を外部に委託することがあります。この場合、委託先に対して適切な監督を行います。</p><p>お問い合わせフォームからお送りいただいた内容は、Cloudflare, Inc. が提供する基盤を経由して当社に届き、メールの送信には Resend（Plus Five Five, Inc.）を利用しています。ナレッジの更新メールの配信には、株式会社ラクスが提供する「ブラストメール」を利用し、ご登録いただいたメールアドレスとお名前を同サービスに登録します。アクセス状況の把握には Google LLC の Google アナリティクスを利用しています。いずれも国外のサーバーで処理される場合があります。</p>
+      <p>当社は、利用目的の達成に必要な範囲で、個人情報の取扱いの全部または一部を外部に委託することがあります。この場合、委託先に対して適切な監督を行います。</p><p>お問い合わせフォームからお送りいただいた内容は、Cloudflare, Inc. が提供する基盤を経由して当社に届き、メールの送信には Resend（Plus Five Five, Inc.）を利用しています。ナレッジの更新メールの配信には、株式会社ラクスが提供する「ブラストメール」を利用し、ご登録いただいたメールアドレスとお名前を同サービスに登録します。アクセス状況の把握には Google LLC の Google アナリティクスを、LinkedIn の広告の効果の測定には LinkedIn の Insight タグ（第8項）を利用しています。いずれも国外のサーバーで処理される場合があります。</p>
     </section>
 
     <section>
@@ -225,6 +262,9 @@
       <p>当社の広告（Google 広告）からお越しの場合は、広告のクリックを識別する番号（gclid など。広告の側がクリックごとに付ける番号で、氏名やメールアドレスではありません）もページの住所とともに Google アナリティクスへ送信し、広告からの訪問が登録につながったかを数えます。LinkedIn 広告などそのほかの広告からお越しの場合は、どの広告から来たかの印（utm）だけを送信します。</p>
       <p>氏名・会社名・メールアドレス・電話番号など個人を直接特定する情報、およびログインした後の案件名・所在地・価格・資料の名前・検索の語・相手の会社名は、Google アナリティクスに送信しません。広告向けの機能（Google シグナル・広告のパーソナライズ）は使用しません。当社ウェブサイトとマーケットは同じ Cookie を使うため、両方を閲覧された場合は、同じ利用者の動きとして把握されることがあります。</p>
       <p>Google アナリティクスによる情報の収集は、ブラウザの設定で Cookie を無効にするほか、Google が提供する無効化のアドオン（<a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google アナリティクス オプトアウト アドオン</a>）を導入することで停止できます。</p>
+      <p>当社ウェブサイトでは、当社が LinkedIn に出す広告の効果の測定と、広告の配信のため、LinkedIn の「Insight タグ」を使用しています。このタグを置いたページを開くと、ページの住所、どこから来たか（参照元）、IP アドレス、端末とブラウザの情報、日時が、LinkedIn の Cookie とともに LinkedIn へ送信されます。LinkedIn にログインしている方の場合、LinkedIn はこれを LinkedIn の会員の情報と結び付けて扱います。国外のサーバーで処理される場合があります。</p>
+      <p>お問い合わせ・売却のご相談・投資家向けのお申し込みのページには、このタグを置いていません。当社は、入力の欄の内容（メールアドレスなど）を LinkedIn に渡す設定（拡張の照合）を使っていません。蓄電所マーケット（dealroom.scix.co.jp）では、ログインしていない方が見る公開のページだけに置き、ログインした後のページと、登録・ログインのページには置きません。</p>
+      <p>LinkedIn による広告のための情報の収集は、LinkedIn のゲスト向けの設定のページ（<a href="https://www.linkedin.com/psettings/guest-controls/retargeting-opt-out" target="_blank" rel="noopener">LinkedIn のリターゲティングの停止</a>）で止められます。LinkedIn の会員の方は、LinkedIn の広告の設定でも止められます。ブラウザの設定で Cookie を無効にすることでも止められます。LinkedIn の情報の取扱いについては、LinkedIn の<a href="https://www.linkedin.com/legal/cookie-policy" target="_blank" rel="noopener">Cookie ポリシー</a>をご確認ください。</p>
     </section>
 
     <section>
@@ -243,7 +283,7 @@
 
     <div class="legal-meta">
       <div class="org">サイエンスエックス株式会社</div>
-      制定日：2026年1月1日　／　最終改定日：2026年11月23日
+      制定日：2026年1月1日　／　最終改定日：2026年11月25日
     </div>
   </div>
 </section>

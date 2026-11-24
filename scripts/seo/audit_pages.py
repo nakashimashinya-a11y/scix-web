@@ -441,7 +441,7 @@ def main():
     # GA の区画（全 html・404 と thanks も）: 本番以外・自動操作は送らない・社内の印は traffic_type=internal（scripts/build_ga_tag.py の形）
     for rel in ga_tag.html_files():
         try:
-            why = ga_tag.problem(open(os.path.join(ROOT, rel), encoding="utf-8").read())
+            why = ga_tag.problem(open(os.path.join(ROOT, rel), encoding="utf-8").read(), rel)
         except Exception as e:  # noqa: BLE001
             why = f"読めない（{e}）"
         if why:
