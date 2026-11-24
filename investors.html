@@ -26,6 +26,43 @@
     gtag('config', 'G-SNNK8MP9N9', cfg);
   })();
 </script>
+<!-- LinkedIn Insight タグ（scripts/build_ga_tag.py が入力の欄の無い公開の頁にだけ入れる・手で直さない） -->
+<script>
+  (function () {
+    var h = '', q = null, mk = false;
+    // 本番（www.scix.co.jp・scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）では読まない
+    try { h = location.hostname; if (navigator.webdriver) return; } catch (e) { return; }
+    if (h !== 'www.scix.co.jp' && h !== 'scix.co.jp') return;
+    // 社内の印（GA の区画と同じ鍵 scix_internal・?internal=1）のある端末では読まない
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try { mk = localStorage.getItem('scix_internal') === '1'; } catch (e) { mk = false; }
+    if (q === '1' || mk) return;
+    function hasEntryForm() {
+      // 入力のフォーム（お問い合わせ・売却の相談など）のある頁では読まない。記事の検索の欄と、メールのお知らせの箱（.scix-nl）は除く
+      var els = document.querySelectorAll('form, textarea, input[type="email"], input[type="tel"], input[type="password"]');
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.closest && el.closest('.scix-nl')) continue;
+        if (el.tagName === 'FORM' && el.getAttribute('role') === 'search') continue;
+        if (el.closest && el.closest('form[role="search"]')) continue;
+        return true;
+      }
+      return false;
+    }
+    function load() {
+      try { if (hasEntryForm()) return; } catch (e) { return; }
+      window._linkedin_partner_id = '10484516';
+      window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+      window._linkedin_data_partner_ids.push(window._linkedin_partner_id);
+      if (!window.lintrk) { window.lintrk = function (a, b) { window.lintrk.q.push([a, b]); }; window.lintrk.q = []; }
+      var s = document.getElementsByTagName('script')[0], b = document.createElement('script');
+      b.type = 'text/javascript'; b.async = true;
+      b.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js';
+      s.parentNode.insertBefore(b, s);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', load); else load();
+  })();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>系統用蓄電池への投資｜法人が1棟で持つ・ファンドで持つ｜サイエンスエックス</title>
