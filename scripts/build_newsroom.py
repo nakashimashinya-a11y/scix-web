@@ -1,28 +1,31 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""報道資料室（/newsroom・/en/newsroom）を、プレスリリースの一覧のデータ scripts/data/newsroom/releases.json から作る。
+"""報道資料室（/newsroom・/en/newsroom）を、配信済みのプレスリリースの一覧 scripts/data/newsroom/releases.json から作る。
 
-頁の中身: プレスリリースの一覧（新しい順・日付・題・自社の頁へのリンク・要点・配信後の ValuePress! の掲載頁）、
+頁の中身: 配信済みのプレスリリースの一覧（新しい順・配信の日・配信先・題＝配信先の頁へのリンク・関係する自社の頁）、
 会社概要と代表の略歴（/company の字のまま）、使える素材（ロゴ・写真・図表の使い方＝/press・公開の CSV）、
 取材・問い合わせの窓口（/press と同じ）、蓄電所マーケットの案内。
-構造化データ: CollectionPage（一覧）＋BreadcrumbList。リリースのうち、本文が scix.co.jp の頁に在る物だけを NewsArticle にする
-（蓄電所マーケットなど外の頁の物は ListItem の住所と題だけ）。
-題と要点は行き先の頁の字のまま書き、生成器が頁の本文と一字ずつ突き合わせる（作った数字・言い換えを入れない＝O16-8）。
-書かない物: 価格・手数料・利回り・実績（成約件数・取扱高・取引先名）・先行買取（O16-7・O16-8）。
+リリースの本文は載せない（本文は配信先の頁で読む）。データに持つのは 題・配信の日・配信先・配信後の住所・関係する自社の頁 だけ。
+載せるのは配信が済んだ本だけ（予約中・承認待ちの本を載せると、配信の前に題が出る＝解禁前の公開になる）。
+書かない物: 価格・手数料・利回り・実績（成約件数・取扱高・取引先名）・先行買取・個別の案件名（O16-7・O16-19）。
+
+■ 配信済みになった本を1行足す（毎営業日、配信の時刻を過ぎてから）
+    python3 scripts/build_newsroom.py add --outlet valuepress \
+        --url https://www.value-press.com/pressrelease/NNNNNN \
+        --title "配信した題（配信先の頁の字のまま）" --page /report/2026-12
+    python3 scripts/build_newsroom.py add --outlet prtimes \
+        --url https://prtimes.jp/main/html/rd/p/00000000N.000195288.html \
+        --title "…" --page https://dealroom.scix.co.jp/
+  - --date は配信の日（省くと今日・日本時間）。今日より先の日は受け付けない。
+  - add は配信先の住所を1回だけ読み、200 で、題がその頁に在るときだけ足す（まだ配信されていない本は 200 にならない）。
+    読めない所で足すときだけ --no-fetch（配信済みを自分の目で確かめてから）。
+  - --page は関係する自社の頁（/report/2026-11・/column-x）か蓄電所マーケット（https://dealroom.scix.co.jp/…）。英語の頁は頁の hreflang から引く。
+  - 足した後は git の枝で PR を出す（main へ直接 push しない）。作業域の台帳（~/.openclaw）はリポジトリから読まない。
 
     python3 scripts/build_newsroom.py            # 頁2本と sitemap の2行（lastmod）を書く
     python3 scripts/build_newsroom.py --check    # 書かずに、頁・sitemap がデータとずれていないか・決まりに触れていないかを見る（あれば 1）
 
-    # 次のリリースを足す（自社の頁＝題と要点は頁から取る。英語の頁は頁の hreflang から）
-    python3 scripts/build_newsroom.py add --date 2026-11-25 --page /column-xxx
-    # 自社の頁の無い物（蓄電所マーケットの話など）は、題と要点を公開の頁の字のまま渡す
-    python3 scripts/build_newsroom.py add --date 2026-11-27 --kind market --url https://dealroom.scix.co.jp/ \\
-        --ja-title "…" --ja-point "…" --en-url https://dealroom.scix.co.jp/en --en-title "…" --en-point "…"
-    # 配信の後に ValuePress! の掲載頁の住所を足す
-    python3 scripts/build_newsroom.py set-vp --id 2026-11-24-report-2026-11 --url https://www.value-press.com/pressrelease/NNNNNN
-
-add と set-vp は、データの modified を今日（日本時間）にして、頁と sitemap の lastmod を書き直す。
-2026-11-23 中島「無意味なページよりも、受注・売上になるページをどんどん出して」（ValuePress! の配信が続くので、記者が来る頁を1か所に）。
+2026-11-23 中島「無意味なページよりも、受注・売上になるページをどんどん出して」（ValuePress!・PR TIMES の配信が続くので、記者が来る頁を1か所に）。
 """
 from __future__ import annotations  # launchd の python3 は 3.9
 
@@ -43,14 +46,15 @@ PARTS = os.path.join(ROOT, "scripts", "data", "guides", "_parts")   # 下の帯�
 SITEMAP = os.path.join(ROOT, "sitemap.xml")
 BASE = "https://www.scix.co.jp"
 MARKET_HOSTS = ("https://dealroom.scix.co.jp",)
-VP_PREFIX = "https://www.value-press.com/"
+MARKET_EN = {"https://dealroom.scix.co.jp/": "https://dealroom.scix.co.jp/en"}   # 蓄電所マーケットの入口の英語
+# 配信先: 名前・配信後の住所の頭
+OUTLETS = {"valuepress": ("ValuePress!", re.compile(r"https://www\.value-press\.com/pressrelease/\d+")),
+           "prtimes": ("PR TIMES", re.compile(r"https://prtimes\.jp/main/html/rd/p/\d+\.\d+\.html"))}
 ORG_ID = BASE + "/#organization"
 YT_CHANNEL = "https://www.youtube.com/channel/UCH9WUVm8V2zsMc8s9WS2OYg"   # 会社の YouTube チャンネル（解説動画。Organization の sameAs と窓口の一行）
 SITE_ID = BASE + "/#website"
 PATHS = {"ja": "/newsroom", "en": "/en/newsroom"}
 FILES = {"ja": "newsroom.html", "en": "en/newsroom.html"}
-KINDS = {"report": ("市場ノート", "Market Notes"), "column": ("コラム", "Column"),
-         "market": ("蓄電所マーケット", "Chikudensho Market"), "news": ("お知らせ", "News")}
 # 素材に書かない語（価格・手数料・利回り・実績・先行買取・比べの語・投資をすすめる語）。市場の公表価格（落札価格など）は書いてよい
 NG = re.compile(r"手数料|利回り|IRR|成約|取扱高|取扱件数|先行買取|仕入|販売価格|売値|日本最大|業界初|No\.?\s?1|唯一|もうか|儲か|お得|確実|"
                 r"commission|brokerage fee|yield|track record|largest in Japan|first in the industry|guaranteed", re.I)
@@ -67,8 +71,9 @@ L = {
         lead="サイエンスエックスのプレスリリース、会社概要、図表とデータの使い方、取材の窓口を、この頁にまとめました。",
         toc=[("releases", "プレスリリース"), ("company", "会社概要"), ("profile", "代表の略歴"), ("assets", "使える素材"),
              ("contact", "取材・問い合わせの窓口"), ("market", "蓄電所マーケット")],
-        rel_h="プレスリリース", rel_lead="新しいものから並べています。本文と図表は、それぞれの頁にあります。",
-        read="頁を読む →", vp="ValuePress! の配信を見る ↗", ja_only="", list_name="サイエンスエックスのプレスリリース",
+        rel_h="プレスリリース", rel_lead="配信したものを、新しいものから並べています。本文は配信先（ValuePress!・PR TIMES）の頁でお読みください。",
+        read="{}で読む ↗", related="関係する頁を見る →", ja_only="", list_name="サイエンスエックスのプレスリリース",
+        none="まだありません。",
         co_h="会社概要", co_more=("会社案内を見る →", "/company"),
         co_rows=[
             ("商号", "サイエンスエックス株式会社（Science X Inc.）"),
@@ -126,8 +131,9 @@ L = {
         lead="Press releases from ScienceX, company facts, how to use our charts and data, and the contact for interviews, all on one page.",
         toc=[("releases", "Press releases"), ("company", "Company facts"), ("profile", "Founder profile"), ("assets", "Media assets"),
              ("contact", "Media contact"), ("market", "Chikudensho Market")],
-        rel_h="Press releases", rel_lead="Newest first. The full text and charts are on each page.",
-        read="Read the page →", vp="See the release on ValuePress! (Japanese) ↗", ja_only="Japanese only",
+        rel_h="Press releases", rel_lead="Releases we have distributed, newest first. Our press releases are in Japanese; the full text is on the distribution service's page (ValuePress! or PR TIMES).",
+        read="Read on {} (Japanese) ↗", related="Related page →", ja_only="In Japanese",
+        none="None yet.",
         list_name="Press releases from ScienceX",
         co_h="Company facts", co_more=("See the company page →", "/en/company"),
         co_rows=[
@@ -203,7 +209,6 @@ h3.md-s{font-size:1rem;font-weight:700;color:var(--navy);margin:22px 0 8px}
 .nr-kind{display:inline-block;padding:2px 10px;border-radius:999px;background:#EEF2FA;color:#1E3A8A;font-size:.76rem;font-weight:700}
 .nr-lang{font-size:.76rem;color:var(--text-3)}
 a.nr-t{display:inline-block;margin-top:6px;font-size:1.1rem;font-weight:700;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold);line-height:1.6}
-.nr-pts{margin:10px 0 0;padding-left:1.3em;font-size:.92rem;line-height:1.85;color:var(--text-2)}.nr-pts li{margin:4px 0}
 .nr-links{margin-top:10px;font-size:.88rem;display:flex;flex-wrap:wrap;gap:6px 22px}.nr-links a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold)}
 table.nr-t{border-collapse:collapse;font-size:.9rem;max-width:860px;width:100%}
 .nr-t th,.nr-t td{border-bottom:1px solid var(--border);padding:9px 12px;text-align:left;vertical-align:top;line-height:1.8}
@@ -253,69 +258,51 @@ def is_local(path: str) -> bool:
     return path.startswith("/") and not path.startswith("//")
 
 
-def body_text(src: str) -> str:
-    """頁の本文の字（タグ・空白を除き、文字参照を戻す）。突き合わせに使う。"""
-    s = re.sub(r"<head\b.*?</head>|<script\b.*?</script>|<style\b.*?</style>", " ", src, flags=re.S)
-    s = html.unescape(re.sub(r"<[^>]+>", " ", s))
-    return re.sub(r"\s+", "", s)
-
-
 def squash(s: str) -> str:
     return re.sub(r"\s+", "", html.unescape(re.sub(r"<[^>]+>", " ", s)))
 
 
-def head_meta(src: str, prop: str) -> str:
-    m = re.search(r'<meta (?:name|property)="%s" content="([^"]*)"' % re.escape(prop), src)
-    return html.unescape(m.group(1)).strip() if m else ""
-
-
 # ---------------------------------------------------------------- 点検
 
-def problems(d: dict) -> list:
+def problems(d: dict, today: str | None = None) -> list:
+    today = today or today_jst()
     out = []
-    ids = set()
+    ids, urls = set(), set()
     for r in d.get("releases", []):
         rid = r.get("id", "")
+        if set(r) - {"id", "date", "outlet", "url", "title", "page"}:
+            out.append(f"{rid}: 持たない欄がある: {sorted(set(r) - {'id', 'date', 'outlet', 'url', 'title', 'page'})}")
         if not re.fullmatch(r"\d{4}-\d\d-\d\d-[a-z0-9-]+", rid):
             out.append(f"id の形が違う: {rid!r}")
         if rid in ids:
             out.append(f"id が重なる: {rid}")
         ids.add(rid)
-        if not re.fullmatch(r"\d{4}-\d\d-\d\d", r.get("date", "")):
+        date = r.get("date", "")
+        if not re.fullmatch(r"\d{4}-\d\d-\d\d", date):
             out.append(f"{rid}: date の形が違う")
-        if r.get("kind") not in KINDS:
-            out.append(f"{rid}: kind は {sorted(KINDS)} のどれか")
-        vp = r.get("valuepress", "")
-        if vp and not vp.startswith(VP_PREFIX):
-            out.append(f"{rid}: valuepress は {VP_PREFIX} の住所だけ")
-        if "ja" not in r:
-            out.append(f"{rid}: ja が無い")
-        for lg in ("ja", "en"):
-            x = r.get(lg)
-            if not x:
-                continue
-            page, title, pts = x.get("page", ""), x.get("title", ""), x.get("points", [])
-            if not title or not page:
-                out.append(f"{rid}/{lg}: title と page が要る")
-                continue
-            for s in [title] + pts:
-                m = NG.search(s)
-                if m:
-                    out.append(f"{rid}/{lg}: 書かない語「{m.group(0)}」: {s[:40]}")
-            if is_local(page):
-                f = page_file(page)
-                if not f:
-                    out.append(f"{rid}/{lg}: 頁のファイルが無い: {page}")
-                    continue
-                if lg == "en" and not page.startswith("/en/"):
-                    out.append(f"{rid}/{lg}: 英語の頁は /en/ の下: {page}")
-                src = open(f, encoding="utf-8").read()
-                bt = body_text(src)
-                for s in [title] + pts:
-                    if squash(s) not in bt:
-                        out.append(f"{rid}/{lg}: 頁の本文に無い字: {s[:50]}")
-            elif not page.startswith(MARKET_HOSTS):
-                out.append(f"{rid}/{lg}: 行き先は自社の頁（/…）か蓄電所マーケットだけ: {page}")
+        elif date > today:
+            out.append(f"{rid}: 配信の日 {date} が今日より先（配信の前の本は載せない）")
+        outlet, url = r.get("outlet"), r.get("url", "")
+        if outlet not in OUTLETS:
+            out.append(f"{rid}: outlet は {sorted(OUTLETS)} のどれか")
+        elif not OUTLETS[outlet][1].fullmatch(url):
+            out.append(f"{rid}: url が {OUTLETS[outlet][0]} の配信後の住所の形でない: {url}")
+        if url in urls:
+            out.append(f"{rid}: url が重なる: {url}")
+        urls.add(url)
+        title, page = r.get("title", ""), r.get("page", "")
+        if not title:
+            out.append(f"{rid}: title が要る")
+        m = NG.search(title)
+        if m:
+            out.append(f"{rid}: 書かない語「{m.group(0)}」: {title[:40]}")
+        if not page:
+            out.append(f"{rid}: page（関係する自社の頁）が要る")
+        elif is_local(page):
+            if not page_file(page):
+                out.append(f"{rid}: 頁のファイルが無い: {page}")
+        elif not page.startswith(MARKET_HOSTS):
+            out.append(f"{rid}: page は自社の頁（/…）か蓄電所マーケットだけ: {page}")
     return out
 
 
@@ -336,46 +323,32 @@ def abs_url(page: str) -> str:
     return BASE + page if is_local(page) else page
 
 
-def entries(d: dict, lg: str) -> list:
-    """頁に出す並び（新しい日付から。同じ日はデータの後ろの物から）。英語の頁で英語の無い物は日本語のまま出す。"""
-    rows = []
-    for i, r in enumerate(d.get("releases", [])):
-        x = r.get(lg) or r.get("ja")
-        rows.append((r["date"], i, r, x, lg == "en" and not r.get("en")))
-    rows.sort(key=lambda t: (t[0], t[1]), reverse=True)
-    return rows
+def page_for(page: str, lg: str) -> str:
+    """関係する頁の、その言葉の住所（英語は頁の hreflang・蓄電所マーケットの入口は /en。無ければ日本語のまま）。"""
+    if lg == "ja":
+        return page
+    if is_local(page):
+        return en_of(page) or page
+    return MARKET_EN.get(page, page)
+
+
+def entries(d: dict) -> list:
+    """頁に出す並び（新しい日付から。同じ日はデータの後ろの物から）。"""
+    rows = list(enumerate(d.get("releases", [])))
+    rows.sort(key=lambda t: (t[1]["date"], t[0]), reverse=True)
+    return [r for _i, r in rows]
 
 
 def render(d: dict, lg: str) -> str:
     c = L[lg]
     e = lambda s: html.escape(s, quote=True)  # noqa: E731
     url = BASE + PATHS[lg]
-    rows = entries(d, lg)
+    rows = entries(d)
     org = {"@type": "Organization", "@id": ORG_ID, "name": "ScienceX",
            "alternateName": ["サイエンスエックス", "サイエンスエックス株式会社", "Science X Inc.", "Science X"],
            "url": BASE + "/", "logo": {"@type": "ImageObject", "url": BASE + "/img/logo-navy.png"},
            "sameAs": [YT_CHANNEL]}
-    items = []
-    for n, (_dt, _i, r, x, _jo) in enumerate(rows, 1):
-        page = x["page"]
-        li = {"@type": "ListItem", "position": n}
-        f = page_file(page) if is_local(page) else None
-        if f:   # 本文が自社の頁に在る物だけ NewsArticle
-            src = open(f, encoding="utf-8").read()
-            art = {"@type": "NewsArticle", "@id": url + "#" + r["id"], "headline": x["title"],
-                   "datePublished": r["date"], "inLanguage": "en" if page.startswith("/en/") else "ja",
-                   "url": abs_url(page), "mainEntityOfPage": abs_url(page),
-                   "author": {"@id": ORG_ID}, "publisher": {"@id": ORG_ID}}
-            img = head_meta(src, "og:image")
-            if img.startswith(BASE):
-                art["image"] = img
-            if r.get("valuepress"):
-                art["sameAs"] = r["valuepress"]
-            li["item"] = art
-        else:
-            li["url"] = abs_url(page)
-            li["name"] = x["title"]
-        items.append(li)
+    items = [{"@type": "ListItem", "position": n, "url": r["url"], "name": r["title"]} for n, r in enumerate(rows, 1)]
     ld_page = {
         "@context": "https://schema.org", "@type": "CollectionPage", "@id": url + "#webpage", "url": url,
         "name": c["title"], "description": c["desc"], "inLanguage": c["hreflang"],
@@ -390,26 +363,21 @@ def render(d: dict, lg: str) -> str:
         {"@type": "ListItem", "position": 1, "name": c["home"][0], "item": BASE + ("/" if c["home"][1] == "/" else c["home"][1])},
         {"@type": "ListItem", "position": 2, "name": c["h1"], "item": url}]}
 
-    # プレスリリースの一覧
+    # プレスリリースの一覧（題は配信先の頁へ・関係する自社の頁は別のリンク）
     lis = []
-    for _dt, _i, r, x, ja_only in rows:
-        kind = KINDS[r["kind"]][0 if lg == "ja" else 1]
-        page = x["page"]
-        ext = "" if is_local(page) else ' rel="noopener"'
-        pts = "".join(f"<li>{e(p)}</li>" for p in x.get("points", []))
-        links = [f'<a href="{e(page)}"{ext}>{e(c["read"])}</a>']
-        if r.get("valuepress"):
-            links.append(f'<a href="{e(r["valuepress"])}" rel="noopener">{e(c["vp"])}</a>')
-        mark = "" if r.get("valuepress") else f"\n    <!-- valuepress: 配信の後に scripts/build_newsroom.py set-vp --id {r['id']} --url … で足す -->"
-        lang_tag = f'<span class="nr-lang">{e(c["ja_only"])}</span>' if ja_only else ""
+    for r in rows:
+        oname = OUTLETS[r["outlet"]][0]
+        rel = page_for(r["page"], lg)
+        rel_ext = "" if is_local(rel) else ' rel="noopener"'
+        lang_tag = f'<span class="nr-lang">{e(c["ja_only"])}</span>' if c["ja_only"] else ""
         lis.append(
             f'  <li id="{e(r["id"])}">\n'
-            f'    <div class="nr-meta"><time datetime="{r["date"]}">{e(disp_date(r["date"], lg))}</time><span class="nr-kind">{e(kind)}</span>{lang_tag}</div>\n'
-            f'    <a class="nr-t" href="{e(page)}"{ext}>{e(x["title"])}</a>\n'
-            + (f'    <ul class="nr-pts">{pts}</ul>\n' if pts else "")
-            + f'    <p class="nr-links">{"".join(links)}</p>{mark}\n'
+            f'    <div class="nr-meta"><time datetime="{r["date"]}">{e(disp_date(r["date"], lg))}</time><span class="nr-kind">{e(oname)}</span>{lang_tag}</div>\n'
+            f'    <a class="nr-t" href="{e(r["url"])}" rel="noopener" lang="ja">{e(r["title"])}</a>\n'
+            f'    <p class="nr-links"><a href="{e(r["url"])}" rel="noopener">{e(c["read"].format(oname))}</a>'
+            f'<a href="{e(rel)}"{rel_ext}>{e(c["related"])}</a></p>\n'
             f"  </li>")
-    rel_html = "\n".join(lis)
+    rel_html = "\n".join(lis) if lis else f'  <li>{e(c["none"])}</li>'
 
     co = "\n".join(f"<tr><th scope=\"row\">{e(k)}</th><td>{v}</td></tr>" for k, v in c["co_rows"])
     pf = "\n".join(f"<tr><th scope=\"row\">{e(k)}</th><td>{e(v)}</td></tr>" for k, v in c["pf_rows"])
@@ -584,33 +552,6 @@ def build(check: bool) -> int:
 
 # ---------------------------------------------------------------- add・set-vp
 
-def from_page(page: str) -> tuple[str, list]:
-    """自社の頁から題（h1）と要点（「3行で言うと」の枠、無ければ meta description の文）を取る。"""
-    f = page_file(page)
-    if not f:
-        raise SystemExit(f"頁のファイルが無い: {page}（先に頁を公開してから足す）")
-    src = open(f, encoding="utf-8").read()
-    m = re.search(r"<h1\b[^>]*>(.*?)</h1>", src, re.S)
-    title = re.sub(r"\s+", " ", html.unescape(re.sub(r"<br\s*/?>", " ", re.sub(r"<(?!br)[^>]+>", "", m.group(1))))).strip() if m else ""
-    title = re.sub(r"<[^>]+>", "", title)
-    title = re.sub(r"(?<=[^\x00-\x7F])\s+(?=[^\x00-\x7F])", "", title)   # 日本語の改行（<br>）は詰める
-    pts = []
-    s3 = re.search(r'class="sum3"[^>]*>.*?<ol>(.*?)</ol>', src, re.S)
-    if s3:
-        pts = [re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", x))).strip() for x in re.findall(r"<li>(.*?)</li>", s3.group(1), re.S)]
-    if not pts:
-        desc = head_meta(src, "description")
-        if desc.endswith("…"):   # 切れた説明は、最後の文の終わりまでにする
-            cut = max(desc.rfind("。"), desc.rfind(". "))
-            desc = desc[: cut + 1].strip() if cut > 0 else ""
-        for head in (title + "。", title + ". "):   # 説明の頭に題が付いている頁（市場ノート）は、題を外す
-            if desc.startswith(head):
-                desc = desc[len(head):].strip()
-        if desc:
-            pts = [desc]
-    return title, pts
-
-
 def en_of(page: str) -> str:
     f = page_file(page)
     if not f:
@@ -622,66 +563,47 @@ def en_of(page: str) -> str:
     return p if page_file(p) else ""
 
 
-def kind_of(page: str) -> str:
-    if page.startswith(MARKET_HOSTS):
-        return "market"
-    p = re.sub(r"^/en", "", page)
-    if p.startswith("/report"):
-        return "report"
-    if p.startswith(("/column-", "/guide-")):
-        return "column"
-    return "news"
+def fetch_ok(url: str, title: str) -> str:
+    """配信先の住所を1回だけ読み、200 で題が頁に在れば ""、違えば訳を返す（User-Agent に社名・連絡先は付けない）。"""
+    import urllib.error
+    import urllib.request
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=20) as res:
+            code, body = res.status, res.read().decode("utf-8", "replace")
+    except urllib.error.HTTPError as ex:
+        return f"HTTP {ex.code}（まだ配信されていないか、住所が違う）"
+    except Exception as ex:   # noqa: BLE001
+        return f"読めない: {ex}"
+    if code != 200:
+        return f"HTTP {code}"
+    if squash(title) not in squash(body):
+        return "題が配信先の頁に無い（配信先の頁の字のまま渡す）"
+    return ""
 
 
 def cmd_add(a) -> int:
     d = load()
-    ja_page = a.page or a.url
-    if not ja_page:
-        raise SystemExit("--page（自社の頁）か --url（蓄電所マーケットの頁）が要る")
-    rec = {"date": a.date, "kind": a.kind or kind_of(ja_page), "valuepress": a.vp or ""}
-    if is_local(ja_page):
-        t, p = from_page(ja_page)
-        rec["ja"] = {"title": a.ja_title or t, "page": ja_page, "points": a.ja_point or p}
-        en_page = a.en_page or en_of(ja_page)
-        if en_page:
-            t2, p2 = from_page(en_page)
-            rec["en"] = {"title": a.en_title or t2, "page": en_page, "points": a.en_point or p2}
-    else:
-        if not a.ja_title:
-            raise SystemExit("外の頁は --ja-title（と --ja-point）を、公開の頁の字のまま渡す")
-        rec["ja"] = {"title": a.ja_title, "page": ja_page, "points": a.ja_point or []}
-        if a.en_title:
-            rec["en"] = {"title": a.en_title, "page": a.en_url or a.en_page or ja_page, "points": a.en_point or []}
-    slug = re.sub(r"[^a-z0-9]+", "-", re.sub(r"^https?://[^/]+", "", ja_page).lower()).strip("-") or "top"
-    if rec["kind"] == "market" and not is_local(ja_page):
-        slug = "market-" + slug if slug != "top" else "market"
-    rec["id"] = f"{a.date}-{slug}"[:80].rstrip("-")
-    if any(r["id"] == rec["id"] for r in d["releases"]):
-        raise SystemExit(f"同じ id が既にある: {rec['id']}")
-    rec = {k: rec[k] for k in ("id", "date", "kind", "valuepress", "ja", "en") if k in rec}
+    date = a.date or today_jst()
+    num = re.sub(r"\D+", "-", a.url.split("/")[-1].replace(".html", "")).strip("-")
+    rec = {"id": f"{date}-{a.outlet}-{num}", "date": date, "outlet": a.outlet, "url": a.url,
+           "title": a.title.strip(), "page": a.page}
+    if any(r["url"] == a.url for r in d["releases"]):
+        raise SystemExit(f"もう載っている: {a.url}")
     d["releases"].append(rec)
-    d["modified"] = today_jst()
     bad = problems(d)
     if bad:
         for b in bad:
             print("決まりに触れる:", b)
         return 1
-    save(d)
-    print("足した:", rec["id"], "／", rec["ja"]["title"])
-    return build(check=False)
-
-
-def cmd_set_vp(a) -> int:
-    d = load()
-    if not a.url.startswith(VP_PREFIX):
-        raise SystemExit(f"ValuePress! の住所（{VP_PREFIX}…）だけ")
-    hit = [r for r in d["releases"] if r["id"] == a.id]
-    if not hit:
-        raise SystemExit("id が無い: " + a.id + "（ある id: " + ", ".join(r["id"] for r in d["releases"]) + "）")
-    hit[0]["valuepress"] = a.url
+    if not a.no_fetch:
+        why = fetch_ok(a.url, rec["title"])
+        if why:
+            print("足さない:", why)
+            return 1
     d["modified"] = today_jst()
     save(d)
-    print("ValuePress! の住所を足した:", a.id)
+    print("足した:", rec["id"], "／", rec["title"])
     return build(check=False)
 
 
@@ -689,26 +611,16 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--check", action="store_true")
     sub = ap.add_subparsers(dest="cmd")
-    p = sub.add_parser("add", help="リリースを1本足す")
-    p.add_argument("--date", required=True, help="配信の日 YYYY-MM-DD")
-    p.add_argument("--page", help="自社の頁（/column-x・/report/2026-12）")
-    p.add_argument("--url", help="自社の頁の無い物の行き先（蓄電所マーケットの頁）")
-    p.add_argument("--kind", choices=sorted(KINDS))
-    p.add_argument("--en-page", help="英語の頁（省くと頁の hreflang から）")
-    p.add_argument("--en-url", help="外の頁の英語の行き先")
-    p.add_argument("--ja-title")
-    p.add_argument("--en-title")
-    p.add_argument("--ja-point", action="append", help="要点（何度でも）。省くと頁の「3行で言うと」か説明から")
-    p.add_argument("--en-point", action="append")
-    p.add_argument("--vp", help="ValuePress! の掲載頁（配信の後なら）")
-    q = sub.add_parser("set-vp", help="配信の後に ValuePress! の掲載頁を足す")
-    q.add_argument("--id", required=True)
-    q.add_argument("--url", required=True)
+    p = sub.add_parser("add", help="配信済みになった本を1行足す")
+    p.add_argument("--outlet", required=True, choices=sorted(OUTLETS))
+    p.add_argument("--url", required=True, help="配信後の住所")
+    p.add_argument("--title", required=True, help="配信した題（配信先の頁の字のまま）")
+    p.add_argument("--page", required=True, help="関係する自社の頁（/report/2026-12）か蓄電所マーケットの頁")
+    p.add_argument("--date", help="配信の日 YYYY-MM-DD（省くと今日・日本時間）")
+    p.add_argument("--no-fetch", action="store_true", help="配信先を読まずに足す（配信済みを目で確かめたときだけ）")
     a = ap.parse_args()
     if a.cmd == "add":
         return cmd_add(a)
-    if a.cmd == "set-vp":
-        return cmd_set_vp(a)
     return build(check=a.check)
 
 
