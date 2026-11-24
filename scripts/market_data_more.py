@@ -205,12 +205,13 @@ def _B():
 def _table(cx, J, caption, rowname, unit_total):
     B = _B()
     head = [rowname] + [(c if J else en(c)) for c in cx["cols"]] + [("計" if J else "Total")]
+    u = "件" if J else ""   # 日本語の表は単位つき（引用やリリースで数を書くとき、頁の字と同じになるように）
     body = "".join(
         f'<tr><th scope="row">{B._esc(r if J else en(r))}</th>'
-        + "".join(f'<td class="n">{cx["t"].get((r, c), 0)}</td>' for c in cx["cols"])
-        + f'<td class="n">{cx["rtot"][r]}</td></tr>' for r in cx["rows"])
-    tot = "".join(f'<td class="n">{sum(cx["t"].get((r, c), 0) for r in cx["rows"])}</td>' for c in cx["cols"])
-    body += f'<tr><th scope="row">{"計" if J else "Total"}</th>{tot}<td class="n">{unit_total}</td></tr>'
+        + "".join(f'<td class="n">{cx["t"].get((r, c), 0)}{u}</td>' for c in cx["cols"])
+        + f'<td class="n">{cx["rtot"][r]}{u}</td></tr>' for r in cx["rows"])
+    tot = "".join(f'<td class="n">{sum(cx["t"].get((r, c), 0) for r in cx["rows"])}{u}</td>' for c in cx["cols"])
+    body += f'<tr><th scope="row">{"計" if J else "Total"}</th>{tot}<td class="n">{unit_total}{u}</td></tr>'
     return (f'<div class="md-scroll"><table class="md-t"><caption>{B._esc(caption)}</caption><thead><tr>{B._ths(head)}</tr></thead>'
             f'<tbody>{body}</tbody></table></div>')
 
@@ -305,7 +306,8 @@ def section_views(cs, J):
         if small:
             smalls.append(("・".join(small) if J else ", ".join(en(s) for s in small)))
         head = [ja if J else en_name] + (["カードの件数", "見た人の数の中央値", "見た人の数の平均"] if J else ["Cards", "Median viewers", "Mean viewers"])
-        body = "".join(f'<tr><th scope="row">{B._esc(v if J else en(v))}</th><td class="n">{c}</td><td class="n">{_fmt(m)}</td><td class="n">{a:g}</td></tr>'
+        uc, up = ("件", "人") if J else ("", "")
+        body = "".join(f'<tr><th scope="row">{B._esc(v if J else en(v))}</th><td class="n">{c}{uc}</td><td class="n">{_fmt(m)}{up}</td><td class="n">{a:g}{up}</td></tr>'
                        for v, c, m, a in rows)
         cap = (f"{ja}ごとの、カード1件あたりの見た人の数" if J else f"Viewers per card by {en_name.lower()}")
         tables.append(f'<div class="md-scroll"><table class="md-t"><caption>{B._esc(cap)}</caption><thead><tr>{B._ths(head)}</tr></thead><tbody>{body}</tbody></table></div>')
@@ -406,7 +408,8 @@ def section_needs_supply(ps, nd, J):
     rights = st.get("権利渡し", 0)
     head = (["エリア", "求めるリクエスト（延べ）", "販売中の件数", "うち権利譲渡", "うち高圧"] if J
             else ["Grid area", "Requests naming it", "Projects listed", "of which transfer of rights", "of which high voltage"])
-    body = "".join(f'<tr><th scope="row">{B._esc(a if J else en(a))}</th><td class="n">{w}</td><td class="n">{c}</td><td class="n">{r}</td><td class="n">{h}</td></tr>'
+    u = "件" if J else ""
+    body = "".join(f'<tr><th scope="row">{B._esc(a if J else en(a))}</th><td class="n">{w}{u}</td><td class="n">{c}{u}</td><td class="n">{r}{u}</td><td class="n">{h}{u}</td></tr>'
                    for a, w, c, r, h in rows)
     asof = B._esc(nd.get("asOf", ""))
     tbl = f'<div class="md-scroll"><table class="md-t"><caption>{"買主のリクエストが求めるエリアと、そのエリアの販売中の件数" if J else "Areas named in buyer requests and projects listed there"}</caption><thead><tr>{B._ths(head)}</tr></thead><tbody>{body}</tbody></table></div>'
