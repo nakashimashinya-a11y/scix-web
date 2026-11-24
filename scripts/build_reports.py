@@ -1,28 +1,30 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """「蓄電所の市場ノート」（旧名 系統用蓄電池の月報・Drive の _作成物/<YYYYMM>_月報/）から、公開のページを焼く。
-2026-11-03 改名（「月報」は他社の名称と紛らわしく、社内用に見えたため）。表に出る語に「月報」「レポート」を使わない。URL の /report はそのまま。
+2026-11-03 改名（「月報」は他社の名称と紛らわしく、社内用に見えたため）。表に出る語に「月報」「レポート」を使わない。
+2026-11-25 住所を /report から /research へ移した（中島「市場レポートは https://www.scix.co.jp/research の URL のほうがいいよね」）。
+  /research は入口と月号の一覧を兼ねる1枚（前の手書きの入口の頁 research.html は畳んだ）。古い /report… は vercel.json の 308 で新しい住所へ。
 
 2026-11-01 新設。ただしコラムは代表が書くので、
-コラムとは別の「レポート」（毎月の機械発行のデータ月報）として /report と /report/<YYYY-MM> に置く。
+コラムとは別の「レポート」（毎月の機械発行のデータ月報）として /research と /research/<YYYY-MM> に置く。
 
 読むもの（Drive。リポジトリには置かない）:
   ~/マイドライブ/9_システム/_作成物/<YYYYMM>_月報/蓄電所の市場ノート_<YYYY-MM>.md と .pdf
   図: ~/.openclaw/workspace/build/*月報*/<YYYYMM>/figs/f1.png〜（monthly_report_figs.py の出力）。
       無ければ PDF の各ページを画像にして載せる。
 英語版（2026-11-02〜）: 同じフォルダの 蓄電所の市場ノート_<YYYY-MM>_en.md と _en.pdf、図は build/*月報*/<YYYYMM>/figs_en/（bin/monthly_report.py build-en が作る）が
-  そろった月だけ en/report/<YYYY-MM>/index.html と en/report/index.html を焼く（図Nのファイルは f<N>.png。図の番号→ファイルは FIG_FILE）。
+  そろった月だけ en/research/<YYYY-MM>/index.html と en/research/index.html を焼く（図Nのファイルは f<N>.png。図の番号→ファイルは FIG_FILE）。
   日本語のページとは hreflang で相互に結ぶ（sitemap.xml も）。
 生成するもの（全文を書き直す。手で直さない）:
-  report/index.html                 月報の一覧（新しい月が上）
-  report/<YYYY-MM>/index.html       各月のページ（今月の動き3つ・図・PDF・出典と試算の前提・引用の案内）
-  report/<YYYY-MM>/f1.png …, scix-bess-monthly-<YYYY-MM>.pdf
-  en/report/index.html, en/report/<YYYY-MM>/index.html, f1.png〜, scix-bess-monthly-<YYYY-MM>-en.pdf（英語版）
-  sitemap.xml                       /report と各月の行（無ければ足す。英語版があれば hreflang の相互の行も）
-  report/latest.json                最新号の要点（号・URL・今月の動きのうち需給調整市場と卸電気の1文ずつ・対象の月）。
+  research/index.html                 月報の一覧（新しい月が上）
+  research/<YYYY-MM>/index.html       各月のページ（今月の動き3つ・図・PDF・出典と試算の前提・引用の案内）
+  research/<YYYY-MM>/f1.png …, scix-bess-monthly-<YYYY-MM>.pdf
+  en/research/index.html, en/research/<YYYY-MM>/index.html, f1.png〜, scix-bess-monthly-<YYYY-MM>-en.pdf（英語版）
+  sitemap.xml                       /research と各月の行（無ければ足す。英語版があれば hreflang の相互の行も）
+  research/latest.json                最新号の要点（号・URL・今月の動きのうち需給調整市場と卸電気の1文ずつ・対象の月）。
                                     header.js が記事（需給調整市場・卸電気・容量市場）に「最新の数字」の札を出すのに読む（2026-11-21）。
                                     中身は号の頁（説明文・今月の動き3つ）に出している文だけで、新しい数字は作らない。
-  report/data/, en/report/data/, report/area/<slug>/   号をまたいだ推移の頁と CSV（scripts/build_report_data.py。号と同じ md の表から）
+  research/data/, en/research/data/, research/area/<slug>/   号をまたいだ推移の頁と CSV（scripts/build_report_data.py。号と同じ md の表から）
 2026-11-21（読まれやすくする第1段）:
   号の頁に「この号の数字の読み方」（関係する記事への段＝READING）を足し、SNS の画像（og:image）を号の図（OG_FIG・大きさと縦横比が合う物だけ）に。
   sitemap の lastmod は、焼き直して頁の中身が変わった日（変わらなければ前の値か発行日の新しいほう）にする。
@@ -65,7 +67,7 @@ def modified_of(path, issued, text=None):
     return max(issued, mt.group(1)) if mt else issued
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import build_market_data as bmd  # noqa: E402  head / FOOTER / CSS / ld / crumbs / nav_crumbs / ORG を共用する
-import build_report_data as brd  # noqa: E402  市場データ（/report/data）とエリアの頁（/report/area/<slug>）
+import build_report_data as brd  # noqa: E402  市場データ（/research/data）とエリアの頁（/research/area/<slug>）
 
 HOME = os.path.expanduser("~")
 SRC = os.environ.get("SCIX_REPORT_SRC", os.path.join(HOME, "マイドライブ", "9_システム", "_作成物"))
@@ -308,10 +310,10 @@ CSV_NAMES = {"jepx-spot-monthly.csv": ("卸電気（JEPX）の月ごとの数字
 
 
 def issue_dataset(path, title_h, desc, issued, modified, lang, pdf_url):
-    """号の頁の Dataset（2026-11-22・Gemini の助言 指令2）。この号の PDF と、号をまたいだ推移の CSV（/report/data・焼いた物だけ）へ結ぶ。
+    """号の頁の Dataset（2026-11-22・Gemini の助言 指令2）。この号の PDF と、号をまたいだ推移の CSV（/research/data・焼いた物だけ）へ結ぶ。
     license は付けない（利用条件を名乗るかは中島さんの決め）。数字は号の本文のまま・新しい数字は作らない。"""
     J = lang == "ja"
-    pre = "report/data/" if J else "en/report/data/"
+    pre = "research/data/" if J else "en/research/data/"
     csvs = sorted(k for k in DATA_CSVS if k.startswith(pre))
     dist = [{"@type": "DataDownload", "encodingFormat": "application/pdf", "contentUrl": pdf_url, "name": "この号の PDF" if J else "This issue (PDF)"}]
     dist += [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": f"{BASE}/{k}",
@@ -319,35 +321,35 @@ def issue_dataset(path, title_h, desc, issued, modified, lang, pdf_url):
     return {"@context": "https://schema.org", "@type": "Dataset", "@id": BASE + path + "#dataset", "url": BASE + path,
             "name": f"{title_h}の数字" if J else f"{title_h}: figures",
             "description": ((f"{title_h}に載せた、蓄電所の3つの稼ぎ口（需給調整市場 EPRX・卸電気 JEPX・容量市場 OCCTO）の数字と当社の記録の集計（図表・PDF）。"
-                             "数字は公表データの表示どおりで、出典は号の本文に書いた。号をまたいだ推移の CSV は市場データ（/report/data）。") if J else
+                             "数字は公表データの表示どおりで、出典は号の本文に書いた。号をまたいだ推移の CSV は市場データ（/research/data）。") if J else
                             (f"The figures in {title_h}: the three income streams of a battery storage site (EPRX balancing market, JEPX wholesale power, "
                              "OCCTO capacity market) and our own records, as charts, tables and a PDF. Sources are given in the issue. "
-                             "CSV files across issues are on the market data page (/en/report/data).")),
+                             "CSV files across issues are on the market data page (/en/research/data).")),
             "inLanguage": lang, "creator": bmd.ORG if J else EN_ORG, "publisher": PUBLISHER if J else EN_PUBLISHER,
             "isAccessibleForFree": True, "datePublished": issued, "dateModified": modified,
             "spatialCoverage": {"@type": "Place", "name": "日本" if J else "Japan"},
             "creditText": (f"出典: サイエンスエックス株式会社『{title_h}』{BASE}{path}" if J else f"Source: Science X Inc., \u201c{title_h}\u201d, {BASE}{path}"),
             "distribution": dist, "mainEntityOfPage": BASE + path}
 DATA_LINKS = {
-    "ja": [("/report/data", "市場データ（号をまたいだ推移）", "卸電気（JEPX）の月ごとの平均と4時間の値差、容量市場のエリアプライスを、エリア別に号をまたいで並べました。CSV もあります。"),
-           ("/report/area/tokyo", "東京エリアの市場データ", "東京エリアの卸電気の月ごとの推移と容量市場の約定価格、エリアの公開案件の件数。"),
-           ("/report/area/kyushu", "九州エリアの市場データ", "九州エリアの卸電気の月ごとの推移と容量市場の約定価格、エリアの公開案件の件数。")],
-    "en": [("/en/report/data", "Market Data: JEPX spot and capacity prices across issues",
+    "ja": [("/research/data", "市場データ（号をまたいだ推移）", "卸電気（JEPX）の月ごとの平均と4時間の値差、容量市場のエリアプライスを、エリア別に号をまたいで並べました。CSV もあります。"),
+           ("/research/area/tokyo", "東京エリアの市場データ", "東京エリアの卸電気の月ごとの推移と容量市場の約定価格、エリアの公開案件の件数。"),
+           ("/research/area/kyushu", "九州エリアの市場データ", "九州エリアの卸電気の月ごとの推移と容量市場の約定価格、エリアの公開案件の件数。")],
+    "en": [("/en/research/data", "Market Data: JEPX spot and capacity prices across issues",
             "Monthly JEPX averages and 4-hour spreads by area, and capacity market area prices, laid out across issues. CSV downloads included.")],
 }
 
 
 def flash_section(lang="ja"):
-    """一覧の頁の頭の、毎日更新の速報（/report/flash・scripts/build_flash.py）への入口。速報の頁が焼かれていなければ空（2026-11-23）。"""
-    rel = "report/flash/index.html" if lang == "ja" else "en/report/flash/index.html"
+    """一覧の頁の頭の、毎日更新の速報（/research/flash・scripts/build_flash.py）への入口。速報の頁が焼かれていなければ空（2026-11-23）。"""
+    rel = "research/flash/index.html" if lang == "ja" else "en/research/flash/index.html"
     if not os.path.exists(os.path.join(ROOT, rel)):
         return ""
     if lang == "ja":
         h2, body = "毎日の数字は「速報」で", ('卸電気（JEPX）と需給調整市場（EPRX）の今月ここまでの数字・最新の1日の数字・前の月との比べは、公表された最新のデータを毎朝取り直す'
-                                            '<a href="/report/flash">蓄電所の市場ノート 速報</a>に載せています（毎日更新）。月の号は、前の月の全日の数字です。')
+                                            '<a href="/research/flash">蓄電所の市場ノート 速報</a>に載せています（毎日更新）。月の号は、前の月の全日の数字です。')
     else:
         h2, body = "Daily figures: the Daily Flash", ('This month so far, the latest day and the comparison with last month for JEPX wholesale and the EPRX balancing market are on the '
-                                                   '<a href="/en/report/flash">Daily Flash</a>, re-fetched from the latest published data every morning. Each monthly issue covers the whole previous month.')
+                                                   '<a href="/en/research/flash">Daily Flash</a>, re-fetched from the latest published data every morning. Each monthly issue covers the whole previous month.')
     return (f'<section class="md" id="flash"><div class="container rp-body">\n  <h2 class="md-h">{h2}</h2>\n'
             f'  <p>{body}</p>\n</div></section>')
 
@@ -364,7 +366,7 @@ def data_section(lang="ja"):
 
 
 def latest_json(m, doc, md_text, en_doc=None, en_md=""):
-    """report/latest.json の中身。号の頁の「今月の動き3つ」の文をそのまま入れる（言い直さない・数字を作らない）。"""
+    """research/latest.json の中身。号の頁の「今月の動き3つ」の文をそのまま入れる（言い直さない・数字を作らない）。"""
     def pick(d, src, eprx_re, jepx_re, month_re, text):
         s1 = moves_sec(d)
         moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith(src)]
@@ -375,11 +377,11 @@ def latest_json(m, doc, md_text, en_doc=None, en_md=""):
     y, mo = m["key"].split("-")
     ja, _ = pick(doc, "出典:", r"需給調整市場（EPRX）.*応札倍率", r"卸電気（JEPX）",
                  r"対象の月: 需給調整市場（EPRX）は\s*(\d{4}年\d{1,2}月)", md_text)
-    out = {"key": m["key"], "issued": doc["issued"], "title": f"{NAME} {y}年{int(mo)}月号", "url": f"/report/{m['key']}", **ja}
+    out = {"key": m["key"], "issued": doc["issued"], "title": f"{NAME} {y}年{int(mo)}月号", "url": f"/research/{m['key']}", **ja}
     if en_doc:
         en, _ = pick(en_doc, "Source", r"balancing market \(EPRX\).*bid ratio", r"wholesale (?:electricity|power) \(JEPX\)",
                      r"balancing market \(EPRX\) uses preliminary values for ([A-Z][a-z]+ \d{4})", en_md)
-        out["en"] = {"title": en_doc["title"], "url": f"/en/report/{m['key']}", **en}
+        out["en"] = {"title": en_doc["title"], "url": f"/en/research/{m['key']}", **en}
     return json.dumps(out, ensure_ascii=False, indent=1) + "\n"
 
 
@@ -470,7 +472,7 @@ PARTIAL_NOTE = re.compile(r"の途中経過の節は|section shows preliminary f
 
 
 def move_partial(doc, lang="ja"):
-    """号の中の「（発行する月）の途中経過」の節を、毎日更新の速報（/report/flash）への案内に置き換える（2026-11-23 中島「毎日最新データを落として速報。
+    """号の中の「（発行する月）の途中経過」の節を、毎日更新の速報（/research/flash）への案内に置き換える（2026-11-23 中島「毎日最新データを落として速報。
     毎月１日に先月のデータを落として月報」＝月の号に当月の途中の数字は入れない）。節の番号は残す（本文の「3節」などの指し先を変えない）。
     あわせて「この号のデータの時点」の表の月の途中の行と、前提と用語の途中経過の注を外す。前の月の数字の節は1字も変えない。返り: 置き換えたか。"""
     hit = False
@@ -483,12 +485,12 @@ def move_partial(doc, lang="ja"):
             mon = f"{m.group(1)}年{int(m.group(2))}月"
             sec["title"] = f"{mon}の途中経過は「速報」へ移しました"
             sec["items"] = [("html", f'<p>{esc(mon)}の途中の数字（今月ここまで・最新の1日・前の月との比べ・週ごと）は、公表された最新のデータを毎朝取り直す'
-                                     f'<a href="/report/flash">蓄電所の市場ノート 速報</a>に載せています。この号は前の月の全日の数字です。</p>')]
+                                     f'<a href="/research/flash">蓄電所の市場ノート 速報</a>に載せています。この号は前の月の全日の数字です。</p>')]
         else:
             mon = m.group(1)
             sec["title"] = f"{mon} so far: moved to the Daily Flash"
             sec["items"] = [("html", f'<p>Figures for {esc(mon)} so far (this month to date, the latest day, comparison with last month and by week) are on the '
-                                     f'<a href="/en/report/flash">Daily Flash</a>, re-fetched from the latest published data every morning. This issue covers the whole previous month.</p>')]
+                                     f'<a href="/en/research/flash">Daily Flash</a>, re-fetched from the latest published data every morning. This issue covers the whole previous month.</p>')]
     if not hit:
         return False
     for sec in doc["sections"]:
@@ -508,7 +510,7 @@ def move_partial(doc, lang="ja"):
 
 def render_section(sec, figs, month_key, used, lang="ja"):
     src_pre = "出典:" if lang == "ja" else "Source"
-    base = "/report" if lang == "ja" else "/en/report"
+    base = "/research" if lang == "ja" else "/en/research"
     out = [f'<section class="md" id="s{sec["num"] or ""}"><div class="container rp-body">']
     if sec["num"]:
         out.append(f'<div class="section-label">{sec["num"].zfill(2)}</div>')
@@ -564,7 +566,7 @@ def issue_nav(nav, lang="ja"):
     def name(k):
         y, mo = k.split("-")
         return f"{y}年{int(mo)}月号" if lang == "ja" else f"{MONTHS_EN[int(mo) - 1]} {y}"
-    base = "/report" if lang == "ja" else "/en/report"
+    base = "/research" if lang == "ja" else "/en/research"
     parts = []
     if older:
         parts.append(f'<a href="{base}/{older}" rel="prev">← {"前の号" if lang == "ja" else "Previous"}: {esc(name(older))}</a>')
@@ -577,7 +579,7 @@ def issue_nav(nav, lang="ja"):
 def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
     key = m["key"]
     y, mo = key.split("-")
-    path = f"/report/{key}"
+    path = f"/research/{key}"
     title_h = f"{NAME} {y}年{int(mo)}月号"
     title = f"{title_h}｜需給調整市場・卸電気の価格・容量市場・接続検討｜サイエンスエックス"
     s1 = moves_sec(doc)
@@ -591,21 +593,21 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
                 "dateModified": mod, "author": bmd.ORG, "publisher": PUBLISHER,
                 "encoding": {"@type": "MediaObject", "contentUrl": f"{BASE}{path}/{pdf_name}", "encodingFormat": "application/pdf"}}),
         bmd.ld(issue_dataset(path, title_h, desc, doc["issued"], mod, "ja", f"{BASE}{path}/{pdf_name}")),
-        bmd.ld(bmd.crumbs([("ホーム", BASE + "/"), ("市場ノート", BASE + "/report"), (title_h, BASE + path)])),
+        bmd.ld(bmd.crumbs([("ホーム", BASE + "/"), ("市場ノート", BASE + "/research"), (title_h, BASE + path)])),
     ])
     used = set()
     secs = [render_section(s, figs, key, used) for s in doc["sections"]]
     gallery = ""
     if not figs and page_imgs:
         gallery = ('<section class="md"><div class="container rp-body"><h2 class="md-h">PDF の各ページ</h2>'
-                   + "".join(f'<figure class="rp-fig"><img src="/report/{key}/p{n}.png"{img_dims(page_imgs[n])} alt="{NAME} {y}年{int(mo)}月号 {n}ページ" loading="lazy"></figure>'
+                   + "".join(f'<figure class="rp-fig"><img src="/research/{key}/p{n}.png"{img_dims(page_imgs[n])} alt="{NAME} {y}年{int(mo)}月号 {n}ページ" loading="lazy"></figure>'
                              for n in sorted(page_imgs)) + "</div></section>")
     nl = (f'<p>毎月の更新は、LinkedIn のニュースレター「系統用蓄電池の一次データ」でもお届けしています。'
           f'<a href="{esc(doc["newsletter"])}" rel="noopener" target="_blank">ニュースレターを購読する →</a></p>') if doc["newsletter"] else ""
     cite = f"""<section class="md"><div class="container rp-body">
   {bmd.cite_html("ja", title_h, BASE + path, mod,
                  '<p>数字は公表データと当社の記録の集計です。値差は1kWh あたりの価格の差で、実際の収益を示すものではありません。集計のしかたは上の「前提と用語」に書きました。'
-                 '号をまたいだ推移は <a href="/report/data">市場データ</a>（CSV あり）に、転載の決まりは <a href="/press">引用・転載ガイド</a> に。</p>')}
+                 '号をまたいだ推移は <a href="/research/data">市場データ</a>（CSV あり）に、転載の決まりは <a href="/press">引用・転載ガイド</a> に。</p>')}
   {nl}
 </div></section>"""
     cta = """<section class="cta"><div class="container">
@@ -615,14 +617,14 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
   <a class="btn-secondary" href="https://dealroom.scix.co.jp/" target="_top">蓄電所マーケットで案件を見る</a>
 </div></section>
 """ % DR2_REGISTER
-    body = f"""{bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", "/report"), (title_h, path)])}
+    body = f"""{bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", "/research"), (title_h, path)])}
 <section class="hero"><div class="container">
   <div class="section-label">毎月発行・出典つき</div>
   <h1>{esc(title_h)}</h1>
   <p>{esc(doc["intro"])}</p>
   <p class="md-note">サイエンスエックス株式会社　発行 {jp_date(doc["issued"])}　A4・全{page_count(m)}ページ</p>
   <div class="rp-btns"><a class="btn-primary" href="{path}/{pdf_name}" download="{NAME}_{key}.pdf">PDF をダウンロード</a>
-  <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/report">これまでの号</a></div>
+  <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/research">これまでの号</a></div>
   {issue_nav(nav)}
 </div></section>
 {chr(10).join(secs)}
@@ -634,7 +636,7 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
 </body>
 </html>
 """
-    head = page_head(title, desc, path, jsonld, f"/en/report/{key}" if has_en else None).replace("</style>", READ_CSS + "</style>", 1)
+    head = page_head(title, desc, path, jsonld, f"/en/research/{key}" if has_en else None).replace("</style>", READ_CSS + "</style>", 1)
     og = pick_og(figs)
     if og:
         head = put_og(head, f"{BASE}{path}/f{og[0]}.png", og[1], og[2])
@@ -642,9 +644,9 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
 
 
 def render_month_en(m, doc, figs, nav=None):
-    """英語の市場ノートのページ（en/report/<YYYY-MM>/index.html）。図は図の番号 → パス。"""
+    """英語の市場ノートのページ（en/research/<YYYY-MM>/index.html）。図は図の番号 → パス。"""
     key = m["key"]
-    path = f"/en/report/{key}"
+    path = f"/en/research/{key}"
     title_h = doc["title"]
     title = f"{title_h} | ScienceX"
     s1 = moves_sec(doc)
@@ -660,7 +662,7 @@ def render_month_en(m, doc, figs, nav=None):
                 "dateModified": mod, "author": EN_ORG, "publisher": EN_PUBLISHER,
                 "encoding": {"@type": "MediaObject", "contentUrl": f"{BASE}{path}/{pdf_name}", "encodingFormat": "application/pdf"}}),
         bmd.ld(issue_dataset(path, title_h, desc, doc["issued"], mod, "en", f"{BASE}{path}/{pdf_name}")),
-        bmd.ld(bmd.crumbs([("Home", BASE + "/en"), ("Reports", BASE + "/en/report"), (title_h, BASE + path)])),
+        bmd.ld(bmd.crumbs([("Home", BASE + "/en"), ("Reports", BASE + "/en/research"), (title_h, BASE + path)])),
     ])
     used = set()
     secs = [render_section(s, figs, key, used, "en") for s in doc["sections"]]
@@ -669,7 +671,7 @@ def render_month_en(m, doc, figs, nav=None):
     cite = f"""<section class="md"><div class="container rp-body">
   {bmd.cite_html("en", title_h, BASE + path, mod,
                  '<p>The figures are tallies of published data and our own records. The price spread is a difference in price per kWh and does not show actual revenue. '
-                 'How we compiled them is in the last section, &ldquo;Assumptions and terms&rdquo;. Figures across issues are on <a href="/en/report/data">market data</a> (CSV), '
+                 'How we compiled them is in the last section, &ldquo;Assumptions and terms&rdquo;. Figures across issues are on <a href="/en/research/data">market data</a> (CSV), '
                  'and the reuse terms are in the <a href="/en/press">citation guide</a>.</p>')}
   {nl}
 </div></section>"""
@@ -680,14 +682,14 @@ def render_month_en(m, doc, figs, nav=None):
   <a class="btn-secondary" href="https://dealroom.scix.co.jp/en" target="_top">Browse projects on Chikudensho Market</a>
 </div></section>
 """ % DR2_REGISTER_EN
-    body = f"""{bmd.nav_crumbs([("Home", "/en"), ("Reports", "/en/report"), (title_h, path)])}
+    body = f"""{bmd.nav_crumbs([("Home", "/en"), ("Reports", "/en/research"), (title_h, path)])}
 <section class="hero"><div class="container">
   <div class="section-label">Monthly &middot; Sources cited</div>
   <h1>{esc(title_h)}</h1>
   <p>{esc(doc["intro"])}</p>
   <p class="md-note">Science X Inc. &middot; Published {en_date(doc["issued"])} &middot; A4, {page_count(m, True)} pages</p>
   <div class="rp-btns"><a class="btn-primary" href="{path}/{pdf_name}" download="{pdf_name}">Download the PDF</a>
-  <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/report">All reports</a></div>
+  <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/research">All reports</a></div>
   {issue_nav(nav, "en")}
 </div></section>
 {chr(10).join(secs)}
@@ -698,7 +700,7 @@ def render_month_en(m, doc, figs, nav=None):
 </body>
 </html>
 """
-    head = page_head_en(title, desc, path, jsonld, f"/report/{key}").replace("</style>", READ_CSS + "</style>", 1)
+    head = page_head_en(title, desc, path, jsonld, f"/research/{key}").replace("</style>", READ_CSS + "</style>", 1)
     og = pick_og(figs)
     if og:
         head = put_og(head, f"{BASE}{path}/f{og[0]}.png", og[1], og[2])
@@ -757,19 +759,19 @@ def backnumber_note(rows, lang):
 
 
 def render_index_en(rows):
-    path = "/en/report"
+    path = "/en/research"
     title = "Japan Battery Storage Market Notes (Monthly) | ScienceX"
     desc = "Monthly charts of Japan's EPRX balancing, JEPX wholesale and OCCTO capacity markets, from public data and our own records. Sources cited, PDF available."
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
                 "name": title, "description": desc, "inLanguage": "en", "publisher": EN_PUBLISHER,
                 "mainEntity": {"@type": "ItemList", "itemListElement": [
-                    {"@type": "ListItem", "position": i + 1, "url": f"{BASE}/en/report/{r['key']}", "name": r["title_h"]}
+                    {"@type": "ListItem", "position": i + 1, "url": f"{BASE}/en/research/{r['key']}", "name": r["title_h"]}
                     for i, r in enumerate(rows)]}}),
         bmd.ld(bmd.crumbs([("Home", BASE + "/en"), ("Market Notes", BASE + path)])),
     ])
     li = "".join(
-        f'<li><a class="t" href="/en/report/{r["key"]}">{esc(r["title_h"])}</a>'
+        f'<li><a class="t" href="/en/research/{r["key"]}">{esc(r["title_h"])}</a>'
         f'<div class="d">Published {en_date(r["issued"])} &middot; {esc(data_month_en(r["key"]))} data &middot; PDF available</div><p>{esc(r["lead"])}</p></li>' for r in rows)
     body = f"""{bmd.nav_crumbs([("Home", "/en"), ("Market Notes", path)])}
 <section class="hero"><div class="container">
@@ -783,28 +785,29 @@ def render_index_en(rows):
   <ul class="rp-list">{li}</ul>
   {backnumber_note(rows, "en")}
   <p class="md-note" style="margin-top:16px">Charts and figures may be reused with the source stated (<a href="/en/press">citation guide</a>). For the projects we list, see <a href="/en/projects">Projects</a> and the counts on <a href="/en/market-data">Market data</a> (updated daily).</p>
+  <p class="md-note">The projects themselves are listed at Chikudensho Market, without registration (prices and documents after free registration). <a href="https://dealroom.scix.co.jp/en" data-cta="body" data-cta-target="market">Browse projects at Chikudensho Market</a></p>
 </div></section>
 {bmd.EN_FOOTER}
 </body>
 </html>
 """
-    return page_head_en(title, desc, path, jsonld, "/report") + body
+    return page_head_en(title, desc, path, jsonld, "/research") + body
 
 
 def render_index(rows, has_en=False):
-    path = "/report"
+    path = "/research"
     title = "蓄電所の市場ノート｜需給調整市場・卸電気・容量市場の数字を毎月｜サイエンスエックス"
     desc = "蓄電所の3つの稼ぎ口（需給調整市場 EPRX・卸電気 JEPX・容量市場 OCCTO）の数字を、公表データと当社の記録から毎月まとめたノート。需給調整市場の商品ごとの値段・応札倍率・約定率・蓄電池の使われ方、卸電気の価格と1kWh あたりの値差、容量市場の約定価格。毎月発行、出典つき、PDF あり。"
     jsonld = "\n".join([
         bmd.ld({"@context": "https://schema.org", "@type": "CollectionPage", "@id": BASE + path + "#webpage", "url": BASE + path,
                 "name": title, "description": desc, "inLanguage": "ja", "publisher": PUBLISHER,
                 "mainEntity": {"@type": "ItemList", "itemListElement": [
-                    {"@type": "ListItem", "position": i + 1, "url": f"{BASE}/report/{r['key']}", "name": r["title_h"]}
+                    {"@type": "ListItem", "position": i + 1, "url": f"{BASE}/research/{r['key']}", "name": r["title_h"]}
                     for i, r in enumerate(rows)]}}),
         bmd.ld(bmd.crumbs([("ホーム", BASE + "/"), ("市場ノート", BASE + path)])),
     ])
     li = "".join(
-        f'<li><a class="t" href="/report/{r["key"]}">{esc(r["title_h"])}</a>'
+        f'<li><a class="t" href="/research/{r["key"]}">{esc(r["title_h"])}</a>'
         f'<div class="d">発行 {jp_date(r["issued"])}・{esc(data_month_ja(r["key"]))}の数字・PDF あり</div><p>{esc(r["lead"])}</p></li>' for r in rows)
     body = f"""{bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", path)])}
 <section class="hero"><div class="container">
@@ -818,12 +821,13 @@ def render_index(rows, has_en=False):
   <ul class="rp-list">{li}</ul>
   {backnumber_note(rows, "ja")}
   <p class="md-note" style="margin-top:16px">図表や数値は、出典を明記すればそのままお使いいただけます（<a href="/press">引用・転載ガイド</a>）。売り案件の集計は <a href="/market-data">市場データ</a>（毎朝更新）に。</p>
+  <p class="md-note">売り案件そのものは、蓄電所マーケットで登録なしで一覧できます（価格と資料は無料の登録のあと）。<a href="https://dealroom.scix.co.jp/" data-cta="body" data-cta-target="market">蓄電所マーケットで案件を見る</a></p>
 </div></section>
 {bmd.FOOTER}
 </body>
 </html>
 """
-    return page_head(title, desc, path, jsonld, "/en/report" if has_en else None) + body
+    return page_head(title, desc, path, jsonld, "/en/research" if has_en else None) + body
 
 
 # ---------------------------------------------------------------- トップの「今月の月報」の札（2026-11-03: 目立たなかったため追加）
@@ -852,19 +856,19 @@ def home_card(m, doc, figs, lang="ja"):
     hit = next(((s, t) for s in doc["sections"] for k, t in s["items"] if k == "fig" and fn and re.match(r"(?:図|Figure )%d\b" % fn, t)), (None, ""))
     sec_f, cap_f = hit
     if lang == "ja":
-        base, pdf = f"/report/{key}", f"/report/{key}/scix-bess-monthly-{key}.pdf"
+        base, pdf = f"/research/{key}", f"/research/{key}/scix-bess-monthly-{key}.pdf"
         title = f"{NAME} {y}年{int(mo)}月号"
         lead = "蓄電所の3つの稼ぎ口、①需給調整市場（EPRX）・②卸電気（JEPX）・③容量市場（OCCTO）の数字を、公表データと当社の記録から毎月まとめています。図と表は、出典を書けば資料にそのままお使いいただけます。"
         btn, pdf_l, back = f"{int(mo)}月号を読む", "PDF をダウンロード", "バックナンバー"
-        back_href, label = "/report", "蓄電所の市場ノート"
-        flash_href, flash_l = "/report/flash", "毎日の速報"
+        back_href, label = "/research", "蓄電所の市場ノート"
+        flash_href, flash_l = "/research/flash", "毎日の速報"
     else:
-        base, pdf = f"/en/report/{key}", f"/en/report/{key}/scix-bess-monthly-{key}-en.pdf"
+        base, pdf = f"/en/research/{key}", f"/en/research/{key}/scix-bess-monthly-{key}-en.pdf"
         title = doc["title"]
         lead = "A battery storage site earns from three markets: the balancing market (EPRX), wholesale power (JEPX) and the capacity market (OCCTO). Every month we chart the figures for all three from public data and our own records. Charts and tables may be reused with the source stated."
         btn, pdf_l, back = "Read this issue", "Download PDF", "All issues"
-        back_href, label = "/en/report", "Market Notes"
-        flash_href, flash_l = "/en/report/flash", "Daily Flash"
+        back_href, label = "/en/research", "Market Notes"
+        flash_href, flash_l = "/en/research/flash", "Daily Flash"
     flash_link = (f'<a href="{flash_href}" style="color:var(--navy);border-bottom:1px solid var(--gold);text-decoration:none">{flash_l}</a>'
                   if os.path.exists(os.path.join(ROOT, flash_href.lstrip("/"), "index.html")) else "")
     fig = (f'<a class="rp-home-fig" href="{base}#s{sec_f["num"]}"><img src="{base}/f{fn}.png" alt="{esc(cap_f)}"{img_dims(figs[fn])} loading="lazy">{esc(cap_f)}</a>'
@@ -897,7 +901,7 @@ def put_home(rel, card):
 
 # ---------------------------------------------------------------- 書き出し
 def sitemap_add(text, rows, en_rows=()):
-    """/report と各月の行を足す。英語版（en_rows＝英語のページがある月）があれば hreflang の相互の行も（日本語の行は書き直す）。
+    """/research と各月の行を足す。英語版（en_rows＝英語のページがある月）があれば hreflang の相互の行も（日本語の行は書き直す）。
     lastmod は 発行日と今の sitemap の値の新しいほう＝頁の JSON-LD の dateModified と同じ値（modified_of。頁を変えた日は stamp_sitemap.py が
     sitemap と頁の両方を進めるので、焼き直しで戻さない。2026-11-22 中島「Seo 対策も徹底して やって」）。"""
     en_keys = {r["key"] for r in en_rows}
@@ -915,11 +919,11 @@ def sitemap_add(text, rows, en_rows=()):
         else:
             links = f'<xhtml:link rel="alternate" hreflang="ja" href="{BASE}{path}"/>'
         return f"  <url><loc>{BASE}{path}</loc>{links}<priority>{pr}</priority><lastmod>{lastmod}</lastmod></url>\n"
-    want = [("/report", max(r["issued"] for r in rows), "0.7", "/en/report" if en_keys else None, "ja")] + [
-        (f"/report/{r['key']}", r["issued"], "0.6", f"/en/report/{r['key']}" if r["key"] in en_keys else None, "ja") for r in rows]
+    want = [("/research", max(r["issued"] for r in rows), "0.7", "/en/research" if en_keys else None, "ja")] + [
+        (f"/research/{r['key']}", r["issued"], "0.6", f"/en/research/{r['key']}" if r["key"] in en_keys else None, "ja") for r in rows]
     if en_keys:
-        want += [("/en/report", max(r["issued"] for r in en_rows), "0.6", "/report", "en")] + [
-            (f"/en/report/{r['key']}", r["issued"], "0.5", f"/report/{r['key']}", "en") for r in en_rows]
+        want += [("/en/research", max(r["issued"] for r in en_rows), "0.6", "/research", "en")] + [
+            (f"/en/research/{r['key']}", r["issued"], "0.5", f"/research/{r['key']}", "en") for r in en_rows]
     add = ""
     for p, d, pr, enp, lang in want:
         new = ent(p, d, pr, enp, lang)
@@ -978,7 +982,7 @@ def main():
             figs = en_fig_by_number(fig_sources(m))      # 図N → ファイル（図4 は f9.png など。日本語も同じ対応＝2026-11-02 まで図4〜10 が題と別の図だった）
             page_imgs = {} if figs else render_pdf_pages(m["pdf"], tmp)
             html_, _ = render_month(m, doc, figs, page_imgs, bool(m["en_md"]), nav)
-            d = f"report/{m['key']}"
+            d = f"research/{m['key']}"
             files[f"{d}/index.html"] = html_.encode("utf-8")
             files[f"{d}/scix-bess-monthly-{m['key']}.pdf"] = open(m["pdf"], "rb").read()
             for n, p in figs.items():
@@ -990,7 +994,7 @@ def main():
             y, mo = m["key"].split("-")
             rows.append({"key": m["key"], "issued": doc["issued"], "title_h": f"{NAME} {y}年{int(mo)}月号",
                          "lead": " ".join(moves[:2]) or doc["intro"]})
-        files["report/index.html"] = render_index(rows, any(m["en_md"] for m in months)).encode("utf-8")
+        files["research/index.html"] = render_index(rows, any(m["en_md"] for m in months)).encode("utf-8")
         latest = months[0]                                # find_months は新しい月が先（2026-11-05 バックナンバーを足したら [-1] は一番古い4月号になる。最新月が一番上に来るようにする）
         home = put_home("index.html", home_card(latest, docs[latest["key"]], en_fig_by_number(fig_sources(latest))))
         if home is not None:
@@ -1004,7 +1008,7 @@ def main():
                 print(f"NG {m['key']}: 英語版の発行日（Published …）が MD に無い"); return 2
             figs = en_fig_by_number(fig_sources(m, "figs_en"))
             html_, _ = render_month_en(m, doc, figs, nav_en)
-            d = f"en/report/{m['key']}"
+            d = f"en/research/{m['key']}"
             files[f"{d}/index.html"] = html_.encode("utf-8")
             files[f"{d}/scix-bess-monthly-{m['key']}-en.pdf"] = open(m["en_pdf"], "rb").read()
             for n, p in figs.items():
@@ -1013,13 +1017,13 @@ def main():
             moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith("Source")]
             en_rows.append({"key": m["key"], "issued": doc["issued"], "title_h": doc["title"], "lead": " ".join(moves[:2]) or doc["intro"]})
         if en_rows:
-            files["en/report/index.html"] = render_index_en(en_rows).encode("utf-8")
+            files["en/research/index.html"] = render_index_en(en_rows).encode("utf-8")
             le = [m for m in months if m["en_md"]][0]     # 英語版のある最新の月
             home = put_home("en/index.html", home_card(le, docs[le["key"] + ":en"], en_fig_by_number(fig_sources(le, "figs_en")), "en"))
             if home is not None:
                 files["en/index.html"] = home.encode("utf-8")
         lt = months[0]
-        files["report/latest.json"] = latest_json(
+        files["research/latest.json"] = latest_json(
             lt, docs[lt["key"]], open(lt["md"], encoding="utf-8").read(),
             docs.get(lt["key"] + ":en"), open(lt["en_md"], encoding="utf-8").read() if lt["en_md"] else "").encode("utf-8")
         sm_path = os.path.join(ROOT, "sitemap.xml")

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<!-- Google Analytics（scripts/build_ga_tag.py が全頁に入れる・手で直さない） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNNK8MP9N9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  (function () {
+    var cfg = {}, q = null, mk = false;
+    // 本番（www.scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）からは送らない
+    try { if (location.hostname !== 'www.scix.co.jp' || navigator.webdriver) window['ga-disable-G-SNNK8MP9N9'] = true; }
+    catch (e) { window['ga-disable-G-SNNK8MP9N9'] = true; }
+    // 社内の印（?internal=1 で付く・?internal=0 で外れる・header.js の 7c と同じ鍵）。印のある端末だけ traffic_type を付ける
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try {
+      if (q === '1') localStorage.setItem('scix_internal', '1');
+      else if (q === '0') localStorage.removeItem('scix_internal');
+      mk = localStorage.getItem('scix_internal') === '1';
+    } catch (e) { mk = q === '1'; }
+    if (mk) cfg.traffic_type = 'internal';
+    gtag('js', new Date());
+    gtag('config', 'G-SNNK8MP9N9', cfg);
+  })();
+</script>
+<!-- LinkedIn Insight タグ（scripts/build_ga_tag.py が入力の欄の無い公開の頁にだけ入れる・手で直さない） -->
+<script>
+  (function () {
+    var h = '', q = null, mk = false;
+    // 本番（www.scix.co.jp・scix.co.jp）以外の住所と、自動操作のブラウザ（navigator.webdriver）では読まない
+    try { h = location.hostname; if (navigator.webdriver) return; } catch (e) { return; }
+    if (h !== 'www.scix.co.jp' && h !== 'scix.co.jp') return;
+    // 社内の印（GA の区画と同じ鍵 scix_internal・?internal=1）のある端末では読まない
+    try { q = new URLSearchParams(location.search).get('internal'); } catch (e) { q = null; }
+    try { mk = localStorage.getItem('scix_internal') === '1'; } catch (e) { mk = false; }
+    if (q === '1' || mk) return;
+    function hasEntryForm() {
+      // 入力のフォーム（お問い合わせ・売却の相談など）のある頁では読まない。記事の検索の欄と、メールのお知らせの箱（.scix-nl）は除く
+      var els = document.querySelectorAll('form, textarea, input[type="email"], input[type="tel"], input[type="password"]');
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.closest && el.closest('.scix-nl')) continue;
+        if (el.tagName === 'FORM' && el.getAttribute('role') === 'search') continue;
+        if (el.closest && el.closest('form[role="search"]')) continue;
+        return true;
+      }
+      return false;
+    }
+    function load() {
+      try { if (hasEntryForm()) return; } catch (e) { return; }
+      window._linkedin_partner_id = '10484516';
+      window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+      window._linkedin_data_partner_ids.push(window._linkedin_partner_id);
+      if (!window.lintrk) { window.lintrk = function (a, b) { window.lintrk.q.push([a, b]); }; window.lintrk.q = []; }
+      var s = document.getElementsByTagName('script')[0], b = document.createElement('script');
+      b.type = 'text/javascript'; b.async = true;
+      b.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js';
+      s.parentNode.insertBefore(b, s);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', load); else load();
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Battery Storage Market Notes, June 2026 issue | ScienceX</title>
+<meta name="description" content="Battery Storage Market Notes, June 2026 issue. In the balancing market (EPRX), the bid-to-offer ratio for Primary reserve (online) was 106.8% this month…">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.scix.co.jp/en/research/2026-06">
+<link rel="alternate" hreflang="en" href="https://www.scix.co.jp/en/research/2026-06">
+<link rel="alternate" hreflang="ja" href="https://www.scix.co.jp/research/2026-06">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Battery Storage Market Notes, June 2026 issue | ScienceX">
+<meta property="og:description" content="Battery Storage Market Notes, June 2026 issue. In the balancing market (EPRX), the bid-to-offer ratio for Primary reserve (online) was 106.8% this month…">
+<meta property="og:url" content="https://www.scix.co.jp/en/research/2026-06">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="ScienceX">
+<meta property="og:image" content="https://www.scix.co.jp/en/research/2026-06/f4.png">
+<meta property="og:image:width" content="1504">
+<meta property="og:image:height" content="803">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Battery Storage Market Notes, June 2026 issue | ScienceX">
+<meta name="twitter:description" content="Battery Storage Market Notes, June 2026 issue. In the balancing market (EPRX), the bid-to-offer ratio for Primary reserve (online) was 106.8% this month…">
+<meta name="twitter:image" content="https://www.scix.co.jp/en/research/2026-06/f4.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"></noscript>
+<style>
+:root{--navy:#1F2A48;--navy-light:#2D3A5C;--gold:#C49A3C;--green:#1A7A4C;--white:#fff;--off-white:#F5F5F3;--text:#1F2A48;--text-2:#555555;--text-3:#8C8C8C;--border:#E6E6E6;--sans:'Noto Sans JP',sans-serif;--serif:'Noto Sans JP',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text);background:var(--white);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.section-label{font-size:.7rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.hero{padding:64px 0 40px;background:linear-gradient(160deg,var(--white) 0%,var(--off-white) 60%,#EEEEEC 100%)}
+.hero h1{font-family:var(--serif);font-size:clamp(1.5rem,3.4vw,2.2rem);font-weight:700;color:var(--navy);line-height:1.5;margin-bottom:16px}
+.hero p{font-size:.95rem;color:var(--text-2);max-width:760px}
+.badge{display:inline-block;margin-bottom:16px;padding:5px 14px;background:rgba(26,122,76,.1);color:var(--green);font-size:.72rem;font-weight:600;letter-spacing:1px;border-radius:4px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:28px 0 0}
+.kpi div{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:16px 18px}
+.kpi b{display:block;font-family:var(--serif);font-size:1.6rem;color:var(--navy);line-height:1.3}
+.kpi span{font-size:.78rem;color:var(--text-2)}
+section.md{padding:40px 0;border-top:1px solid var(--border)}
+h2.md-h{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--navy);margin-bottom:10px}
+.md-lead{font-size:.92rem;color:var(--text-2);margin-bottom:18px;max-width:760px}
+.md-bars{max-width:760px}.md-bar{display:grid;grid-template-columns:9.5em 1fr 8.5em;align-items:center;gap:10px;font-size:.88rem;padding:4px 0}
+.md-bar-l{color:var(--text)}.md-bar-t{height:12px;background:#EFECE6;border-radius:3px;overflow:hidden}.md-bar-f{display:block;height:100%;background:var(--gold)}
+.md-bar-v{color:var(--text-2);text-align:right}.md-bar-v small{color:var(--text-3);font-size:.8em;margin-left:2px}
+.md-note{font-size:.84rem;color:var(--text-3);margin-top:8px}
+.md-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px 40px}
+table.md-t{border-collapse:collapse;font-size:.88rem;max-width:760px;width:100%}.md-t th,.md-t td{border-bottom:1px solid var(--border);padding:7px 10px;text-align:left}.md-t th{color:var(--text-2);font-weight:500;background:var(--off-white)}.md-t td.n{text-align:right;font-variant-numeric:tabular-nums}.md-scroll .md-t th,.md-scroll .md-t td.n{white-space:nowrap}
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;max-width:900px}
+.areas a{display:block;border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--text);background:var(--white)}
+.areas a:hover{border-color:var(--gold)}.areas b{display:block;color:var(--navy);font-size:1rem}.areas span{font-size:.82rem;color:var(--text-2)}
+.pj-static{list-style:none;padding:0;margin:0;border-top:1px solid var(--border);max-width:900px}
+.pj-static li{padding:9px 0;border-bottom:1px solid var(--border);font-size:.88rem;line-height:1.7}.pj-static li a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold)}
+.cite{margin-top:28px;background:var(--off-white);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:.86rem;line-height:1.9;max-width:760px}
+.cite .cite-h{font-size:.8em;font-weight:700;color:var(--gold);letter-spacing:.08em;margin-bottom:6px}
+.cta{padding:56px 0;background:linear-gradient(160deg,var(--navy) 0%,var(--navy-light) 100%);text-align:center;color:#fff}
+.cta h2{font-family:var(--serif);font-size:1.4rem;font-weight:600;margin-bottom:10px}.cta p{color:rgba(255,255,255,.8);font-size:.92rem;margin-bottom:22px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:var(--gold);color:var(--navy);font-size:.9rem;font-weight:600;text-decoration:none;border-radius:4px;margin:4px}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:transparent;color:#fff;font-size:.88rem;font-weight:600;text-decoration:none;border-radius:4px;border:1px solid rgba(255,255,255,.45);margin:4px}
+.scix-footer{background-color:#1F2A48;color:rgba(255,255,255,0.85);font-family:'Noto Sans JP',sans-serif;font-weight:300;font-size:12.5px;line-height:1.9;padding:44px 28px 32px;width:100%}
+.scix-footer-inner{display:flex;flex-direction:column;align-items:center;gap:28px}.scix-footer-logo img{height:48px;width:auto;display:block;opacity:.95}
+.scix-footer-info{text-align:center}.scix-footer-copyright{font-size:11px;letter-spacing:.04em;color:rgba(255,255,255,.55);margin-top:20px}
+.scix-footer-company{font-size:12.5px;line-height:2;color:rgba(255,255,255,.8)}.scix-footer-company .company-name{font-weight:500;font-size:13.5px;color:rgba(255,255,255,.92);margin-bottom:2px}
+.scix-footer-company .representative{margin-top:4px;color:rgba(255,255,255,.6);font-size:12px}.scix-footer-company a{color:rgba(255,255,255,.8);text-decoration:none}.scix-footer-company a:hover{color:#C49A3C}
+.scix-footer-divider{width:60px;border:none;border-top:1px solid rgba(196,154,60,.5)}
+.md-svg{width:100%;height:auto;display:block;max-width:760px}.md-legend{display:flex;gap:16px;font-size:.8rem;color:var(--text-2);margin:4px 0 0}.md-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.md-scroll{overflow-x:auto;margin-top:18px}
+.md-t tbody th{background:none;color:var(--text);font-weight:500}.md-t caption{caption-side:top;text-align:left;font-size:.8rem;color:var(--text-3);padding:0 0 6px}
+.cite p{margin:4px 0}.cite .cite-line{margin:8px 0;padding:8px 12px;background:#fff;border:1px solid var(--border);border-radius:6px;overflow-wrap:anywhere}.cite .cite-meta{font-size:.8rem;color:var(--text-3);overflow-wrap:anywhere}
+.md-dl{list-style:none;padding:0;margin:0 0 6px;max-width:760px}.md-dl li{padding:8px 0;border-bottom:1px solid var(--border);font-size:.9rem}.md-dl a{color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold)}.md-dl small{display:block;color:var(--text-3);font-size:.8rem}
+@media(max-width:640px){.md-bar{grid-template-columns:7em 1fr 7em;font-size:.82rem}.hero{padding:48px 0 32px}}
+
+.rp-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--border);max-width:900px}
+.rp-list li{padding:18px 0;border-bottom:1px solid var(--border)}
+.rp-list a.t{font-size:1.1rem;font-weight:700;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold)}
+.rp-list .d{font-size:.84rem;color:var(--text-3);margin:4px 0}
+.rp-list p{font-size:.92rem;line-height:1.85;color:var(--text-2);margin:6px 0 0}
+.rp-fig{margin:18px 0 6px;max-width:860px}.rp-fig img{display:block;width:100%;height:auto;border:1px solid var(--border);border-radius:6px;background:#fff}
+.rp-fig figcaption{font-size:.84rem;color:var(--text-2);margin-top:6px}
+.rp-body{max-width:860px}.rp-body p{line-height:1.95;margin:10px 0}.rp-body ul{padding-left:1.3em;line-height:1.9;margin:10px 0}
+.rp-body li{margin:4px 0}
+.rp-three{border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:8px;padding:6px 20px 10px;background:var(--off-white);max-width:860px}
+.rp-three li{margin:10px 0;line-height:1.9}
+.rp-btns{margin-top:18px}.rp-btns a{margin:4px 10px 4px 0}
+.rp-page{max-width:860px;display:flex;flex-direction:column;gap:14px}
+.rp-table{overflow-x:auto;margin:14px 0 6px;max-width:860px}
+.rp-table table{border-collapse:collapse;width:max-content;min-width:100%;font-size:.84rem;line-height:1.5}
+.rp-table th{background:var(--navy);color:#fff;font-weight:700;text-align:left;padding:7px 9px;vertical-align:bottom;min-width:5.5em;max-width:13em}
+.rp-table td{border-bottom:1px solid var(--border);padding:6px 9px;color:var(--text-2);white-space:nowrap}
+.rp-table td.rp-n{text-align:right;font-variant-numeric:tabular-nums}
+.rp-table tbody tr:nth-child(even){background:var(--off-white)}
+.rp-nav{margin-top:14px;font-size:.86rem}.rp-nav a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold)}.rp-nav-sep{margin:0 10px;color:var(--text-3)}
+
+.rp-body p,.rp-body li,.rp-body .md-note{overflow-wrap:anywhere}
+.rp-read{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:14px}
+.rp-read-g{background:#fff;border:1px solid var(--border);border-top:4px solid #138A62;border-radius:16px;padding:14px 18px 10px}
+.rp-read-h{font-weight:800;color:var(--navy);font-size:.92rem;margin-bottom:6px}
+.rp-read-g ul{list-style:none;padding:0;margin:0}.rp-read-g li{margin:0;padding:7px 0;border-top:1px solid var(--border);line-height:1.6;font-size:.88rem}
+.rp-read-g li:first-child{border-top:0}.rp-read-g a{color:var(--navy);text-decoration:none;font-weight:600}.rp-read-g a:hover{text-decoration:underline}
+</style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Report",
+ "@id": "https://www.scix.co.jp/en/research/2026-06#report",
+ "url": "https://www.scix.co.jp/en/research/2026-06",
+ "name": "Battery Storage Market Notes, June 2026 issue",
+ "description": "Battery Storage Market Notes, June 2026 issue. In the balancing market (EPRX), the bid-to-offer ratio for Primary reserve (online) was 106.8% this month…",
+ "inLanguage": "en",
+ "datePublished": "2026-11-05",
+ "dateModified": "2026-11-22",
+ "author": {
+  "@type": "Organization",
+  "@id": "https://www.scix.co.jp/#organization",
+  "name": "ScienceX",
+  "legalName": "Science X Inc.",
+  "url": "https://www.scix.co.jp/en"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "@id": "https://www.scix.co.jp/#organization",
+  "name": "ScienceX",
+  "legalName": "Science X Inc.",
+  "url": "https://www.scix.co.jp/en",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://www.scix.co.jp/img/logo-navy.png"
+  }
+ },
+ "encoding": {
+  "@type": "MediaObject",
+  "contentUrl": "https://www.scix.co.jp/en/research/2026-06/scix-bess-monthly-2026-06-en.pdf",
+  "encodingFormat": "application/pdf"
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Dataset",
+ "@id": "https://www.scix.co.jp/en/research/2026-06#dataset",
+ "url": "https://www.scix.co.jp/en/research/2026-06",
+ "name": "Battery Storage Market Notes, June 2026 issue: figures",
+ "description": "The figures in Battery Storage Market Notes, June 2026 issue: the three income streams of a battery storage site (EPRX balancing market, JEPX wholesale power, OCCTO capacity market) and our own records, as charts, tables and a PDF. Sources are given in the issue. CSV files across issues are on the market data page (/en/research/data).",
+ "inLanguage": "en",
+ "creator": {
+  "@type": "Organization",
+  "@id": "https://www.scix.co.jp/#organization",
+  "name": "ScienceX",
+  "legalName": "Science X Inc.",
+  "url": "https://www.scix.co.jp/en"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "@id": "https://www.scix.co.jp/#organization",
+  "name": "ScienceX",
+  "legalName": "Science X Inc.",
+  "url": "https://www.scix.co.jp/en",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://www.scix.co.jp/img/logo-navy.png"
+  }
+ },
+ "isAccessibleForFree": true,
+ "datePublished": "2026-11-05",
+ "dateModified": "2026-11-22",
+ "spatialCoverage": {
+  "@type": "Place",
+  "name": "Japan"
+ },
+ "creditText": "Source: Science X Inc., “Battery Storage Market Notes, June 2026 issue”, https://www.scix.co.jp/en/research/2026-06",
+ "distribution": [
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "application/pdf",
+   "contentUrl": "https://www.scix.co.jp/en/research/2026-06/scix-bess-monthly-2026-06-en.pdf",
+   "name": "This issue (PDF)"
+  },
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://www.scix.co.jp/en/research/data/capacity-main-auction.csv",
+   "name": "Capacity market main auction area prices (CSV)"
+  },
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://www.scix.co.jp/en/research/data/jepx-spot-monthly.csv",
+   "name": "JEPX spot prices by month (CSV across issues)"
+  },
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://www.scix.co.jp/en/research/data/long-term-decarbonization-auction.csv",
+   "name": "Long-Term Decarbonization Power Source Auction results (CSV)"
+  }
+ ],
+ "mainEntityOfPage": "https://www.scix.co.jp/en/research/2026-06"
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://www.scix.co.jp/en"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Reports",
+   "item": "https://www.scix.co.jp/en/research"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Battery Storage Market Notes, June 2026 issue",
+   "item": "https://www.scix.co.jp/en/research/2026-06"
+  }
+ ]
+}
+</script>
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<script src="/header.js"></script>
+<nav data-scix-breadcrumb aria-label="breadcrumb" style="max-width:1100px;margin:0 auto;padding:14px 24px 0;font-family:'Noto Sans JP',sans-serif;font-size:12.5px;line-height:1.6;color:#8C8C8C"><a href="/en" style="color:#555555;text-decoration:none">Home</a><span style="color:#C49A3C;margin:0 7px">›</span><a href="/en/research" style="color:#555555;text-decoration:none">Reports</a><span style="color:#C49A3C;margin:0 7px">›</span><span style="color:#8C8C8C">Battery Storage Market Notes, June 2026 issue</span></nav>
+<section class="hero"><div class="container">
+  <div class="section-label">Monthly &middot; Sources cited</div>
+  <h1>Battery Storage Market Notes, June 2026 issue</h1>
+  <p>A &quot;grid-scale battery&quot; is a large battery connected to the power grid. It stores electricity and releases it again. It earns money by selling the &quot;capability&quot; to correct surpluses and shortages of electricity, and by using the price differences between times of day. These notes use published figures and our own records to show this month&#x27;s movements in figures and tables. This issue is a back issue, produced retroactively in November 2026. The grid connection study figures are as of the time of production (October 19, 2026).</p>
+  <p class="md-note">Science X Inc. &middot; Published November 5, 2026 &middot; A4, 14 pages</p>
+  <div class="rp-btns"><a class="btn-primary" href="/en/research/2026-06/scix-bess-monthly-2026-06-en.pdf" download="scix-bess-monthly-2026-06-en.pdf">Download the PDF</a>
+  <a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/research">All reports</a></div>
+  <p class="rp-nav"><a href="/en/research/2026-05" rel="prev">← Previous: May 2026</a><span class="rp-nav-sep">|</span><a href="/en/research/2026-07" rel="next">Next: July 2026 →</a></p>
+</div></section>
+<section class="md" id="s1"><div class="container rp-body">
+<div class="section-label">01</div>
+<h2 class="md-h">The three revenue streams of a battery storage plant (how to read these notes)</h2>
+<p>A battery storage plant (grid-scale battery) earns revenue from three markets. ① The balancing market (EPRX) is where the &quot;capability&quot; to correct surpluses and shortages of electricity is sold to grid operators. ② The wholesale electricity market (JEPX) is where electricity is bought and stored at cheap times and sold at expensive times. ③ The capacity market (OCCTO) is where the country buys future electricity supply capacity in advance. These notes present the figures in the order of these three markets. The ①②③ at the start of each section title shows which market the section covers.</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f1.png" width="1156" height="502" alt="Figure 1  The three revenue streams of a battery storage plant" loading="lazy"><figcaption>Figure 1  The three revenue streams of a battery storage plant</figcaption></figure>
+<p class="md-note">Source: Rules of the Japan Electric Power Exchange (JEPX), the Electric Power Reserve Exchange (EPRX) and the Organization for Cross-regional Coordination of Transmission Operators (OCCTO).</p>
+</div></section>
+<section class="md" id="s2"><div class="container rp-body">
+<div class="section-label">02</div>
+<h2 class="md-h">Three trends this month</h2>
+<p>We picked three movements this month from the figures of the three markets.</p>
+<ul class="rp-three"><li>In the balancing market (EPRX), the bid-to-offer ratio for Primary reserve (online) was 106.8% this month (June 2026). This is the first time it has exceeded 100% since April 2025. The average awarded price was 4.00 yen/kW per 30 min.</li><li>In the balancing market (EPRX), the top 10% of 30-minute slots by revenue for Tertiary reserve 2 accounted for 47.9% of the month&#x27;s revenue.</li><li>In the wholesale electricity market (JEPX), the monthly average spread between the average of the 4 most expensive hours and the average of the 4 cheapest hours was 12.89 yen/kWh in Tokyo and 8.89 yen/kWh in Kyushu.</li></ul>
+</div></section>
+<section class="md" id="s3"><div class="container rp-body">
+<div class="section-label">03</div>
+<h2 class="md-h">① Balancing market (EPRX) | 7 products, and prices by area</h2>
+<p>The balancing market is where grid operators buy, every 30 minutes, the &quot;capability&quot; to correct surpluses and shortages of electricity. Products are divided by how quickly output must change (Primary reserve responds to changes in frequency; Secondary and Tertiary reserves respond to instructions from the grid operator). Primary reserve is the fastest, and Tertiary reserve 2 is the slowest. Primary reserve is a product that senses changes in frequency on its own and responds. It has two categories: &quot;online&quot;, where the grid operator monitors operation over a dedicated line, and &quot;offline&quot;, where no dedicated line is installed and a record of operation is submitted afterwards. They are tendered and traded separately, so we show them separately. Composite product is a bid that combines several products. Prices are set in yen per 1 kW of available capacity per 30 minutes. kW is a unit of the size of power that can be delivered, which is different from kWh, a unit of the amount of electricity. Each 30-minute trading round is called a &quot;30-minute slot&quot;. The figure shows the range of awarded prices by area (by the area where the power source is located). The thin line runs from the cheapest bid to the most expensive bid in the month. The thick band is the price range that contains 8 out of every 10 slots with awards. The dot is the average awarded price. Nationwide figures are in the tables in the &quot;Market figures&quot; section.</p>
+<p>Among the area-level average awarded prices in the balancing market, the highest was 14.66 yen/kW per 30 min for Primary reserve (offline) in Tohoku, and the lowest was 0.30 yen/kW per 30 min for Tertiary reserve 2 in Shikoku.</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f2.png" width="1806" height="1930" alt="Figure 2  Range and average of awarded prices in the balancing market by area (June 2026 (1st–30th), by area where the power source is located)" loading="lazy"><figcaption>Figure 2  Range and average of awarded prices in the balancing market by area (June 2026 (1st–30th), by area where the power source is located)</figcaption></figure>
+<p class="md-note">Source: Trading results (preliminary) published by the Electric Power Reserve Exchange (EPRX). Compiled by us.</p>
+<div class="rp-table"><table><thead><tr><th>Product</th><th>Response time</th><th>Duration</th></tr></thead><tbody><tr><td>Primary reserve (online)</td><td>Within 10 seconds</td><td>5 minutes or more</td></tr><tr><td>Primary reserve (offline)</td><td>Within 30 seconds</td><td>No set duration</td></tr><tr><td>Secondary reserve 1</td><td>Within 5 minutes</td><td>30 minutes</td></tr><tr><td>Secondary reserve 2</td><td>Within 5 minutes</td><td>30 minutes</td></tr><tr><td>Tertiary reserve 1</td><td>Within 15 minutes</td><td>30 minutes</td></tr><tr><td>Tertiary reserve 2</td><td>Within 60 minutes</td><td>30 minutes</td></tr><tr><td>Composite product</td><td>Requirements of the combined products</td><td>Requirements of the combined products</td></tr></tbody></table></div>
+</div></section>
+<section class="md" id="s4"><div class="container rp-body">
+<div class="section-label">04</div>
+<h2 class="md-h">① Balancing market (EPRX) | Grid areas and times where bids win more easily</h2>
+<p>The award rate is the share of the bid volume that was awarded. The higher it is, the more easily bids are won. The figure plots the award rate for each product by time of day (every 30 minutes), for each grid area (the area where the power source is located). Where a line is broken, there were no bids at that time.</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f3.png" width="1514" height="1342" alt="Figure 3  Award rate in the balancing market (grid area (area where the power source is located) × time of day, June 2026 (1st–30th))" loading="lazy"><figcaption>Figure 3  Award rate in the balancing market (grid area (area where the power source is located) × time of day, June 2026 (1st–30th))</figcaption></figure>
+<p class="md-note">Source: Trading results (preliminary) published by the Electric Power Reserve Exchange (EPRX). Compiled by us.</p>
+</div></section>
+<section class="md" id="s5"><div class="container rp-body">
+<div class="section-label">05</div>
+<h2 class="md-h">① Balancing market (EPRX) | Primary reserve (online) became a contest for places</h2>
+<p>Primary reserve is the fastest product. It responds to changes in frequency and changes output within 10 seconds (online) or within 30 seconds (offline). Batteries are often used for it. The left panel shows the online category and the right panel the offline category. The bars show the bid-to-offer ratio (bid volume ÷ volume tendered by the grid operator). Above 100% means more bids came in than were tendered. Even below 100%, some bids are not awarded (see the award rate in the &quot;Market figures&quot; table). The bars rise both when bids increase and when the tendered volume falls. The line is the average awarded price. These are monthly figures from April 2025, the data we have on hand.</p>
+<p>In the balancing market, the bid-to-offer ratio for Primary reserve (online) was 106.8% this month, exceeding 100% for the first time. The average awarded price was 4.00 yen/kW per 30 min. The tendered volume was 3,066.1 MW in April 2025 and 1,388.0 MW this month. For Primary reserve (offline), the bid-to-offer ratio this month was 51.5% and the average awarded price 11.71 yen/kW per 30 min. The tendered volume was 1,122.5 MW in April 2025 and 497.1 MW this month.</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f4.png" width="1504" height="803" alt="Figure 4  Bid-to-offer ratio (bars) and average awarded price (line) for Primary reserve (monthly; left: online, right: offline; gold bars are months when bids exceeded the tendered volume)" loading="lazy"><figcaption>Figure 4  Bid-to-offer ratio (bars) and average awarded price (line) for Primary reserve (monthly; left: online, right: offline; gold bars are months when bids exceeded the tendered volume)</figcaption></figure>
+<p class="md-note">Source: Trading results (preliminary) published by the Electric Power Reserve Exchange (EPRX). Compiled by us.</p>
+</div></section>
+<section class="md" id="s6"><div class="container rp-body">
+<div class="section-label">06</div>
+<h2 class="md-h">① Balancing market (EPRX) | How prices have moved for each product</h2>
+<p>These are the average awarded prices for each product since April 2025 (monthly averages weighted by awarded volume). From March 14, 2026, Primary through Tertiary reserve 1 and Composite product moved from 3-hour trading to 30-minute trading (Tertiary reserve 2 was already traded every 30 minutes).</p>
+<p>The average awarded price for Primary reserve (online) in the balancing market (yen/kW per 30 min) was 2.89 yen in April 2025 and 4.00 yen this month. The highest was 4.90 yen in February 2026. For Tertiary reserve 2, it was 1.12 yen in April 2025 and 2.45 yen this month. The highest was 4.18 yen in May 2026.</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f5.png" width="1364" height="703" alt="Figure 5  Average awarded price by product in the balancing market (yen/kW per 30 min, monthly)" loading="lazy"><figcaption>Figure 5  Average awarded price by product in the balancing market (yen/kW per 30 min, monthly)</figcaption></figure>
+<p class="md-note">Source: Trading results (preliminary) published by the Electric Power Reserve Exchange (EPRX). Compiled by us.</p>
+</div></section>
+<section class="md" id="s7"><div class="container rp-body">
+<div class="section-label">07</div>
+<h2 class="md-h">① Balancing market (EPRX) | Which hours of the day are expensive</h2>
+<p>These are the average awarded prices for each product by hour, for June 2026 (1st–30th).</p>
+<p>The average awarded price for Primary reserve (online) in the balancing market was highest around 18:00, at 4.62 yen/kW per 30 min, and lowest around 2:00, at 3.20 yen/kW per 30 min.</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f6.png" width="1237" height="702" alt="Figure 6  Average awarded price by time of day in the balancing market (June 2026 (1st–30th), yen/kW per 30 min)" loading="lazy"><figcaption>Figure 6  Average awarded price by time of day in the balancing market (June 2026 (1st–30th), yen/kW per 30 min)</figcaption></figure>
+<p class="md-note">Source: Trading results (preliminary) published by the Electric Power Reserve Exchange (EPRX). Compiled by us.</p>
+</div></section>
+<section class="md" id="s8"><div class="container rp-body">
+<div class="section-label">08</div>
+<h2 class="md-h">① Balancing market (EPRX) | Which products batteries are used for</h2>
+<p>The figure shows the share of awarded volume held by batteries. The table compares the average awarded price of the volume won by batteries with the average awarded price of the product as a whole.</p>
+<p>For Primary reserve (online) in the balancing market, the battery share was 23.5%. The average awarded price of the volume won by batteries was 9.52 yen/kW per 30 min (overall: 4.00 yen/kW per 30 min).</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f7.png" width="1469" height="574" alt="Figure 7  Share held by batteries in the balancing market (%)" loading="lazy"><figcaption>Figure 7  Share held by batteries in the balancing market (%)</figcaption></figure>
+<p class="md-note">Source: Trading results (preliminary) by power source type, published by the Electric Power Reserve Exchange (EPRX). Compiled by us.</p>
+<div class="rp-table"><table><thead><tr><th>Product</th><th>Volume won by batteries (yen/kW per 30 min)</th><th>Product overall (yen/kW per 30 min)</th></tr></thead><tbody><tr><td>Primary reserve (online)</td><td class=rp-n>9.52</td><td class=rp-n>4.00</td></tr><tr><td>Primary reserve (offline)</td><td class=rp-n>11.70</td><td class=rp-n>11.71</td></tr><tr><td>Secondary reserve 1</td><td class=rp-n>10.67</td><td class=rp-n>2.55</td></tr><tr><td>Secondary reserve 2</td><td class=rp-n>11.41</td><td class=rp-n>2.23</td></tr><tr><td>Tertiary reserve 1</td><td class=rp-n>11.08</td><td class=rp-n>2.11</td></tr><tr><td>Tertiary reserve 2</td><td class=rp-n>41.95</td><td class=rp-n>2.45</td></tr><tr><td>Composite product</td><td class=rp-n>9.51</td><td class=rp-n>2.67</td></tr></tbody></table></div>
+<p>Both are averages weighted by awarded volume (June 2026, preliminary, nationwide). Batteries account for only 0.3% of the awarded volume for Tertiary reserve 2. The nationwide average awarded price of the slots that batteries won, weighted by battery awarded volume, is 5.18 yen. The battery average is high not because batteries are concentrated in high-priced slots, but because the batteries&#x27; own bid prices are high (each awarded bid is settled at its own bid price).</p>
+</div></section>
+<section class="md" id="s9"><div class="container rp-body">
+<div class="section-label">09</div>
+<h2 class="md-h">① Balancing market (EPRX) | Revenue is concentrated in a small number of slots</h2>
+<p>We ranked the month&#x27;s 30-minute slots with awards by revenue (average awarded price × awarded volume, nationwide), from highest to lowest, and plotted for each product what % of the month&#x27;s revenue the top slots account for. The more a curve bulges above the dotted line, the more revenue is concentrated in fewer slots. Tertiary reserve 2 is a product that covers forecast errors in renewable generation caused by weather. Its price is low in most slots and high in only a few.</p>
+<p>In the balancing market, the top 10% of slots accounted for 47.9% of the month&#x27;s revenue for Tertiary reserve 2 and 14.4% for Primary reserve (online). For the top 1%, the figures were 7.3% and 1.7%, in the same order.</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f8.png" width="1279" height="637" alt="Figure 8  Share of balancing market revenue concentrated in top slots (June 2026 (1st–30th), nationwide)" loading="lazy"><figcaption>Figure 8  Share of balancing market revenue concentrated in top slots (June 2026 (1st–30th), nationwide)</figcaption></figure>
+<p class="md-note">Source: Trading results (preliminary) published by the Electric Power Reserve Exchange (EPRX). Compiled by us.</p>
+<p>In June 2026, of the 1,199 slots with awards, the top 1% by revenue (average awarded price × awarded volume) accounted for 7.3% of the month&#x27;s revenue. There were 59 slots with a nationwide average awarded price of 10 yen/kW per 30 min or more, and 241 slots with no awards.</p>
+<p>Slots with the highest maximum awarded price (by area where the power source is located). The maximum awarded price is the price of the single highest awarded bid. The average awarded price for the same slot and area is shown to the right:</p>
+<div class="rp-table"><table><thead><tr><th>Date</th><th>Time</th><th>Area</th><th>Maximum awarded price (yen/kW per 30 min)</th><th>Average awarded price for the same slot and area (yen/kW per 30 min)</th></tr></thead><tbody><tr><td>June 1</td><td>9:30</td><td>Tokyo</td><td class=rp-n>97.00</td><td class=rp-n>46.97</td></tr><tr><td>June 1</td><td>10:00</td><td>Tokyo</td><td class=rp-n>97.00</td><td class=rp-n>27.53</td></tr><tr><td>June 2</td><td>9:00</td><td>Tokyo</td><td class=rp-n>97.00</td><td class=rp-n>35.54</td></tr><tr><td>June 2</td><td>11:30</td><td>Tokyo</td><td class=rp-n>97.00</td><td class=rp-n>20.60</td></tr><tr><td>June 4</td><td>9:00</td><td>Tokyo</td><td class=rp-n>97.00</td><td class=rp-n>17.95</td></tr></tbody></table></div>
+<ul><li>Source: Trading results (preliminary) for Tertiary reserve 2 published by the Electric Power Reserve Exchange (EPRX). Compiled by us.</li></ul>
+</div></section>
+<section class="md" id="s10"><div class="container rp-body">
+<div class="section-label">10</div>
+<h2 class="md-h">② Wholesale electricity (JEPX) | Average prices</h2>
+<p>Wholesale electricity is electricity bought and sold between power companies and retailers. Its price is set on the &quot;spot market&quot; of the Japan Electric Power Exchange (JEPX) (a market where electricity for the next day is traded the day before). &quot;System (nationwide)&quot; is the price when all of Japan is treated as one market (the system price). When the transmission lines between regions become congested, prices split by area, from Hokkaido to Kyushu (area prices).</p>
+<p>The monthly average for wholesale electricity, System (nationwide), was 15.10 yen/kWh, compared with 10.87 yen/kWh in the same month last year (a difference of 4.23 yen).</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f9.png" width="1449" height="651" alt="Figure 9  Average wholesale electricity price (yen/kWh). Navy is June 2026, grey is the same month last year" loading="lazy"><figcaption>Figure 9  Average wholesale electricity price (yen/kWh). Navy is June 2026, grey is the same month last year</figcaption></figure>
+<p class="md-note">Source: Spot market trading results published by the Japan Electric Power Exchange (JEPX). Simple average of 30-minute prices. Compiled by us.</p>
+</div></section>
+<section class="md" id="s11"><div class="container rp-body">
+<div class="section-label">11</div>
+<h2 class="md-h">② Wholesale electricity (JEPX) | How prices move during the day</h2>
+<p>Wholesale electricity prices change every 30 minutes. The figure shows the daily shape, averaging prices at the same time of day across the month. If a battery stores electricity at cheap times and releases it at expensive times, the difference becomes its revenue.</p>
+<p>The daily low and high for wholesale electricity were 16.25 yen around 5:30 and 27.93 yen around 18:30 in Tokyo, and 5.75 yen around 12:30 and 15.05 yen around 18:30 in Kyushu.</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f10.png" width="1274" height="636" alt="Figure 10  Daily peaks and troughs of wholesale electricity prices (June 2026 average, yen/kWh)" loading="lazy"><figcaption>Figure 10  Daily peaks and troughs of wholesale electricity prices (June 2026 average, yen/kWh)</figcaption></figure>
+<p class="md-note">Source: JEPX spot market. Compiled by us.</p>
+</div></section>
+<section class="md" id="s12"><div class="container rp-body">
+<div class="section-label">12</div>
+<h2 class="md-h">② Wholesale electricity (JEPX) | How large the spread is per kWh</h2>
+<p>For each day, we took the average price of the 4 most expensive hours minus the average price of the 4 cheapest hours, and show the monthly average by area. This equals the difference per kWh when 1 kWh is bought in the cheapest 4 hours and sold in the most expensive 4 hours. It is a simple difference: it does not subtract electricity lost in charging and discharging or fees, and it ignores the order of the cheap and expensive hours.</p>
+<p>The monthly average spread between the most expensive 4 hours and the cheapest 4 hours for wholesale electricity was largest in Tohoku, at 18.63 yen/kWh, and smallest in Kyushu, at 8.89 yen/kWh.</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f11.png" width="1424" height="621" alt="Figure 11  Wholesale electricity spread: average of the most expensive 4 hours − average of the cheapest 4 hours (June 2026, yen/kWh, monthly average)" loading="lazy"><figcaption>Figure 11  Wholesale electricity spread: average of the most expensive 4 hours − average of the cheapest 4 hours (June 2026, yen/kWh, monthly average)</figcaption></figure>
+<p class="md-note">Source: JEPX spot market. Compiled by us.</p>
+<div class="rp-table"><table><thead><tr><th>Area</th><th>2-hour spread (yen/kWh)</th><th>4-hour spread (yen/kWh)</th><th>Days with a 4-hour spread of 10 yen or more</th></tr></thead><tbody><tr><td>System (nationwide)</td><td class=rp-n>12.11</td><td class=rp-n>10.52</td><td class=rp-n>15</td></tr><tr><td>Hokkaido</td><td class=rp-n>18.90</td><td class=rp-n>16.70</td><td class=rp-n>25</td></tr><tr><td>Tohoku</td><td class=rp-n>20.71</td><td class=rp-n>18.63</td><td class=rp-n>25</td></tr><tr><td>Tokyo</td><td class=rp-n>15.65</td><td class=rp-n>12.89</td><td class=rp-n>23</td></tr><tr><td>Chubu</td><td class=rp-n>14.29</td><td class=rp-n>12.47</td><td class=rp-n>20</td></tr><tr><td>Hokuriku</td><td class=rp-n>12.81</td><td class=rp-n>10.72</td><td class=rp-n>14</td></tr><tr><td>Kansai</td><td class=rp-n>12.93</td><td class=rp-n>10.74</td><td class=rp-n>14</td></tr><tr><td>Chugoku</td><td class=rp-n>10.30</td><td class=rp-n>9.20</td><td class=rp-n>11</td></tr><tr><td>Shikoku</td><td class=rp-n>13.59</td><td class=rp-n>11.66</td><td class=rp-n>21</td></tr><tr><td>Kyushu</td><td class=rp-n>9.95</td><td class=rp-n>8.89</td><td class=rp-n>12</td></tr></tbody></table></div>
+<p>The spread is the monthly average of daily spreads. June 2026 covers 30 days.</p>
+</div></section>
+<section class="md" id="s13"><div class="container rp-body">
+<div class="section-label">13</div>
+<h2 class="md-h">② Wholesale electricity (JEPX) | There is a spread every day</h2>
+<p>We show the same 4-hour spread day by day. The larger the spread on a day, the more room a battery has to earn from it.</p>
+<p>Of the 30 days, the 4-hour spread for wholesale electricity was 10 yen or more on 25 days in Hokkaido and Tohoku, 23 days in Tokyo, 15 days in System (nationwide), 12 days in Kyushu and 11 days in Chugoku.</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f12.png" width="1254" height="643" alt="Figure 12  Daily wholesale electricity spread (average of the day&#x27;s most expensive 4 hours − average of the cheapest 4 hours, yen/kWh)" loading="lazy"><figcaption>Figure 12  Daily wholesale electricity spread (average of the day&#x27;s most expensive 4 hours − average of the cheapest 4 hours, yen/kWh)</figcaption></figure>
+<p class="md-note">Source: JEPX spot market. Compiled by us.</p>
+</div></section>
+<section class="md" id="s14"><div class="container rp-body">
+<div class="section-label">14</div>
+<h2 class="md-h">③ Capacity market (OCCTO) | A market that buys future supply capacity</h2>
+<p>The capacity market buys electricity supply capacity for 4 years ahead through an annual auction. Prices are set in yen per kW per year. The left figure shows the clearing prices of past main auctions. The right figure shows the battery and pumped hydro capacity contracted in the Long-Term Decarbonization Power Source Auction (a separate auction that, in principle, guarantees 20 years of capacity revenue for new decarbonized power sources and similar). These are published once a year, so they do not change monthly. The latest is for delivery FY2029 (published January 2026).</p>
+<p>The capacity market clearing prices for Tokyo for delivery FY2024–FY2029 were 14,137 yen/kW, 3,495 yen/kW, 5,834 yen/kW, 9,555 yen/kW, 14,812 yen/kW and 15,111 yen/kW. In the Long-Term Decarbonization Power Source Auction, the battery and pumped hydro capacity contracted in the FY2025 round was 819 MW for lithium-ion batteries and pumped hydro (excluding new build), and 886 MW for non-lithium-ion batteries, pumped hydro (new build) and LDES. Both are the latest figures from the once-a-year publication.</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f13.png" width="1580" height="640" alt="Figure 13  Capacity market clearing prices (left, yen/kW) and battery and pumped hydro capacity contracted in the Long-Term Decarbonization Power Source Auction (right, in units of 10,000 kW)" loading="lazy"><figcaption>Figure 13  Capacity market clearing prices (left, yen/kW) and battery and pumped hydro capacity contracted in the Long-Term Decarbonization Power Source Auction (right, in units of 10,000 kW)</figcaption></figure>
+<p class="md-note">Source: Clearing results and capacity assurance contract documents published by the Organization for Cross-regional Coordination of Transmission Operators (OCCTO) (sources listed in the last section (Assumptions and terms)). As published.</p>
+</div></section>
+<section class="md" id="s15"><div class="container rp-body">
+<div class="section-label">15</div>
+<h2 class="md-h">Our records | Where battery storage projects are increasing</h2>
+<p>We counted the projects newly listed this month on Chikudensho Market (our marketplace for battery storage sites), by grid operator&#x27;s grid area. These are figures for the projects we handled, not for the whole market. Transfer of rights is a sale in which the land and grid rights are transferred. Completed-build handover is a sale in which the facility is handed over once built.</p>
+<p>New listings on Chikudensho Market (our marketplace for battery storage sites) in June 2026 were 53 projects, 133.9 MW. By grid area, these included Kyushu with 10 projects, 48.0 MW; Chubu with 24 projects, 48.0 MW; Tokyo with 7 projects, 14.0 MW; and Kansai with 6 projects, 12.0 MW.</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f14.png" width="1237" height="569" alt="Figure 14  Output of projects listed on Chikudensho Market (our marketplace for battery storage sites) in June 2026 (MW)" loading="lazy"><figcaption>Figure 14  Output of projects listed on Chikudensho Market (our marketplace for battery storage sites) in June 2026 (MW)</figcaption></figure>
+<p class="md-note">Source: Records of Chikudensho Market (project locations are shown only to grid area level; prices and parties are not listed).</p>
+</div></section>
+<section class="md" id="s16"><div class="container rp-body">
+<div class="section-label">16</div>
+<h2 class="md-h">Our records | How many months and how much it costs to connect to the grid</h2>
+<p>A grid connection study is a procedure in which the grid operator examines &quot;whether connection is possible at this location, and how much the works will cost&quot;. The grid connection cost contribution is the part of the connection works cost borne by the applicant. Of the response documents we received, we compiled only the high-voltage cases (connections to 6,600 V distribution lines) by grid area. Extra-high-voltage cases are not included. Grid areas with fewer than 5 cases are not shown.</p>
+<p>In the high-voltage-only figures (as of October 19, 2026), the median construction period from the grid connection study ranged from 8.0 months in Tokyo to 17.0 months in Tohoku, and the median grid connection cost contribution from ¥3.02 million in Tokyo to ¥32.35 million in Tohoku.</p>
+<figure class="rp-fig"><img src="/en/research/2026-06/f15.png" width="1422" height="600" alt="Figure 15  Median grid connection study responses (high voltage) by grid area (left: months required for works, right: grid connection cost contribution, excluding tax)" loading="lazy"><figcaption>Figure 15  Median grid connection study responses (high voltage) by grid area (left: months required for works, right: grid connection cost contribution, excluding tax)</figcaption></figure>
+<p class="md-note">Source: Compilation of the high-voltage grid connection study response documents we received from general transmission and distribution operators (as of October 19, 2026).</p>
+</div></section>
+<section class="md" id="s17"><div class="container rp-body">
+<div class="section-label">17</div>
+<h2 class="md-h">Market figures (tables ready for use in documents)</h2>
+<p>These tables give the figures behind the charts in the main text, ready for use in documents: ① nationwide figures for each balancing market product (bid-to-offer ratio, award rate, price, battery share), ② wholesale electricity (JEPX) figures by area and trading volume, and ③ capacity market clearing prices.</p>
+<p>Balancing market (June 2026, preliminary, nationwide)</p>
+<div class="rp-table"><table><thead><tr><th>Product</th><th>Tendered volume (MW)</th><th>Bid volume (MW)</th><th>Awarded volume (MW)</th><th>Bid-to-offer ratio (bids ÷ tendered)</th><th>Award rate (awarded ÷ bids)</th><th>Average awarded price (yen/kW per 30 min)</th><th>Battery share</th></tr></thead><tbody><tr><td>Primary reserve (online)</td><td class=rp-n>1,388.0</td><td class=rp-n>1,481.9</td><td class=rp-n>1,202.1</td><td class=rp-n>106.8%</td><td class=rp-n>81.1%</td><td class=rp-n>4.00</td><td class=rp-n>23.5%</td></tr><tr><td>Primary reserve (offline)</td><td class=rp-n>497.1</td><td class=rp-n>256.1</td><td class=rp-n>175.7</td><td class=rp-n>51.5%</td><td class=rp-n>68.6%</td><td class=rp-n>11.71</td><td class=rp-n>99.2%</td></tr><tr><td>Secondary reserve 1</td><td class=rp-n>886.5</td><td class=rp-n>2,016.3</td><td class=rp-n>1,104.8</td><td class=rp-n>227.4%</td><td class=rp-n>54.8%</td><td class=rp-n>2.55</td><td class=rp-n>1.9%</td></tr><tr><td>Secondary reserve 2</td><td class=rp-n>981.7</td><td class=rp-n>3,370.4</td><td class=rp-n>2,077.0</td><td class=rp-n>343.3%</td><td class=rp-n>61.6%</td><td class=rp-n>2.23</td><td class=rp-n>0.7%</td></tr><tr><td>Tertiary reserve 1</td><td class=rp-n>2,263.2</td><td class=rp-n>5,484.1</td><td class=rp-n>2,929.1</td><td class=rp-n>242.3%</td><td class=rp-n>53.4%</td><td class=rp-n>2.11</td><td class=rp-n>0.5%</td></tr><tr><td>Tertiary reserve 2</td><td class=rp-n>542.6</td><td class=rp-n>1,386.3</td><td class=rp-n>522.9</td><td class=rp-n>255.5%</td><td class=rp-n>37.7%</td><td class=rp-n>2.45</td><td class=rp-n>0.3%</td></tr><tr><td>Composite product</td><td class=rp-n>3,190.6</td><td class=rp-n>6,023.2</td><td class=rp-n>3,400.0</td><td class=rp-n>188.8%</td><td class=rp-n>56.4%</td><td class=rp-n>2.67</td><td class=rp-n>8.4%</td></tr></tbody></table></div>
+<p>Volumes are averages per 30-minute slot. Products with a bid-to-offer ratio below 100% did not receive enough bids to cover the tendered volume. The award rate is the share of the bid volume that was awarded.</p>
+<ul><li>Source: Trading results (preliminary) and trading results by power source type, published by the Electric Power Reserve Exchange (EPRX). Compiled by us.</li></ul>
+<p>Wholesale electricity, JEPX spot market (June 2026, by area, yen/kWh)</p>
+<div class="rp-table"><table><thead><tr><th>Area</th><th>Monthly average</th><th>Same month last year</th><th>Daytime (8:00–16:00)</th><th>Evening (16:00–20:00)</th><th>4-hour spread</th><th>Maximum</th><th>Slots at 30 yen or more</th><th>Slots at 0.01 yen</th></tr></thead><tbody><tr><td>System (nationwide)</td><td class=rp-n>15.10</td><td class=rp-n>10.87</td><td class=rp-n>13.06</td><td class=rp-n>19.46</td><td class=rp-n>10.52</td><td class=rp-n>32.17</td><td class=rp-n>25</td><td class=rp-n>2</td></tr><tr><td>Hokkaido</td><td class=rp-n>14.51</td><td class=rp-n>9.37</td><td class=rp-n>8.51</td><td class=rp-n>21.22</td><td class=rp-n>16.70</td><td class=rp-n>40.00</td><td class=rp-n>24</td><td class=rp-n>81</td></tr><tr><td>Tohoku</td><td class=rp-n>15.29</td><td class=rp-n>11.05</td><td class=rp-n>9.05</td><td class=rp-n>22.51</td><td class=rp-n>18.63</td><td class=rp-n>46.00</td><td class=rp-n>54</td><td class=rp-n>115</td></tr><tr><td>Tokyo</td><td class=rp-n>20.01</td><td class=rp-n>12.96</td><td class=rp-n>20.99</td><td class=rp-n>24.60</td><td class=rp-n>12.89</td><td class=rp-n>50.01</td><td class=rp-n>118</td><td class=rp-n>0</td></tr><tr><td>Chubu</td><td class=rp-n>17.92</td><td class=rp-n>11.04</td><td class=rp-n>16.55</td><td class=rp-n>22.82</td><td class=rp-n>12.47</td><td class=rp-n>40.24</td><td class=rp-n>82</td><td class=rp-n>4</td></tr><tr><td>Hokuriku</td><td class=rp-n>13.94</td><td class=rp-n>10.68</td><td class=rp-n>14.12</td><td class=rp-n>17.36</td><td class=rp-n>10.72</td><td class=rp-n>40.14</td><td class=rp-n>35</td><td class=rp-n>4</td></tr><tr><td>Kansai</td><td class=rp-n>13.88</td><td class=rp-n>10.68</td><td class=rp-n>14.06</td><td class=rp-n>17.31</td><td class=rp-n>10.74</td><td class=rp-n>40.14</td><td class=rp-n>34</td><td class=rp-n>7</td></tr><tr><td>Chugoku</td><td class=rp-n>10.79</td><td class=rp-n>9.41</td><td class=rp-n>8.45</td><td class=rp-n>13.49</td><td class=rp-n>9.20</td><td class=rp-n>28.00</td><td class=rp-n>0</td><td class=rp-n>69</td></tr><tr><td>Shikoku</td><td class=rp-n>7.88</td><td class=rp-n>9.20</td><td class=rp-n>6.12</td><td class=rp-n>9.31</td><td class=rp-n>11.66</td><td class=rp-n>20.95</td><td class=rp-n>0</td><td class=rp-n>189</td></tr><tr><td>Kyushu</td><td class=rp-n>10.02</td><td class=rp-n>9.37</td><td class=rp-n>7.58</td><td class=rp-n>13.17</td><td class=rp-n>8.89</td><td class=rp-n>28.00</td><td class=rp-n>0</td><td class=rp-n>128</td></tr></tbody></table></div>
+<p>Trading volume (June 2026, total for 30 days): total contracted volume 28,588 million kWh (same month last year: 22,294 million kWh), sell bid volume 47,236 million kWh, buy bid volume 35,469 million kWh.</p>
+<ul><li>Source: Spot market trading results published by the Japan Electric Power Exchange (JEPX). Prices are simple averages of 30-minute slots. Compiled by us.</li></ul>
+<p>Capacity market main auction area prices (yen/kW per year)</p>
+<div class="rp-table"><table><thead><tr><th>Delivery fiscal year</th><th>Hokkaido</th><th>Tohoku</th><th>Tokyo</th><th>Chubu</th><th>Hokuriku</th><th>Kansai</th><th>Chugoku</th><th>Shikoku</th><th>Kyushu</th></tr></thead><tbody><tr><td>FY2024</td><td class=rp-n>14,137</td><td class=rp-n>14,137</td><td class=rp-n>14,137</td><td class=rp-n>14,137</td><td class=rp-n>14,137</td><td class=rp-n>14,137</td><td class=rp-n>14,137</td><td class=rp-n>14,137</td><td class=rp-n>14,137</td></tr><tr><td>FY2025</td><td class=rp-n>5,242</td><td class=rp-n>3,495</td><td class=rp-n>3,495</td><td class=rp-n>3,495</td><td class=rp-n>3,495</td><td class=rp-n>3,495</td><td class=rp-n>3,495</td><td class=rp-n>3,495</td><td class=rp-n>5,242</td></tr><tr><td>FY2026</td><td class=rp-n>8,749</td><td class=rp-n>5,833</td><td class=rp-n>5,834</td><td class=rp-n>5,832</td><td class=rp-n>5,832</td><td class=rp-n>5,832</td><td class=rp-n>5,832</td><td class=rp-n>5,832</td><td class=rp-n>8,748</td></tr><tr><td>FY2027</td><td class=rp-n>13,287</td><td class=rp-n>9,044</td><td class=rp-n>9,555</td><td class=rp-n>7,823</td><td class=rp-n>7,638</td><td class=rp-n>7,638</td><td class=rp-n>7,638</td><td class=rp-n>7,638</td><td class=rp-n>11,457</td></tr><tr><td>FY2028</td><td class=rp-n>14,812</td><td class=rp-n>14,812</td><td class=rp-n>14,812</td><td class=rp-n>10,280</td><td class=rp-n>8,785</td><td class=rp-n>8,785</td><td class=rp-n>8,785</td><td class=rp-n>8,785</td><td class=rp-n>13,177</td></tr><tr><td>FY2029</td><td class=rp-n>14,972</td><td class=rp-n>15,111</td><td class=rp-n>15,111</td><td class=rp-n>12,388</td><td class=rp-n>12,388</td><td class=rp-n>12,388</td><td class=rp-n>12,388</td><td class=rp-n>12,388</td><td class=rp-n>15,112</td></tr></tbody></table></div>
+<p>Battery and pumped hydro capacity contracted in the Long-Term Decarbonization Power Source Auction (10,000 kW)</p>
+<div class="rp-table"><table><thead><tr><th>Bid fiscal year</th><th>Category</th><th>Contracted capacity (10,000 kW)</th></tr></thead><tbody><tr><td>FY2023 round</td><td>Batteries and pumped hydro</td><td class=rp-n>166.9</td></tr><tr><td>FY2024 round</td><td>Continuous operation of 3 hours or more and less than 6 hours</td><td class=rp-n>96.1</td></tr><tr><td>FY2024 round</td><td>Continuous operation of 6 hours or more</td><td class=rp-n>76.9</td></tr><tr><td>FY2025 round</td><td>Lithium-ion batteries and pumped hydro (excluding new build)</td><td class=rp-n>81.9</td></tr><tr><td>FY2025 round</td><td>Non-lithium-ion batteries, pumped hydro (new build) and LDES</td><td class=rp-n>88.6</td></tr></tbody></table></div>
+<ul><li>Source: Clearing results and capacity assurance contract documents published by the Organization for Cross-regional Coordination of Transmission Operators (OCCTO) (sources listed in the last section (Assumptions and terms)). As published.</li></ul>
+</div></section>
+<section class="md" id="s18"><div class="container rp-body">
+<div class="section-label">18</div>
+<h2 class="md-h">Assumptions and terms</h2>
+<ul><li>Figures are compiled by us from the published values of the sources. We have not added up several months or converted to annual figures. We do not show revenue amounts for any single battery storage plant.</li><li>Months covered: the balancing market (EPRX) uses preliminary figures for June 2026 (delivery dates up to the 30th), and wholesale electricity (JEPX) uses June 2026 (30 days). For the balancing market, the month differs until the published figures for June 2026 are included in the compilation.</li><li>Balancing market: nationwide figures (total column) from EPRX preliminary data. Tendered volume is by grid operator (TSO); bid volume, awarded volume and average awarded price are by area where the power source is located. Volumes are averages per 30-minute slot. The average awarded price is weighted by awarded volume. Bid-to-offer ratio = bid volume ÷ tendered volume; award rate = awarded volume ÷ bid volume. For the 3-hour blocks up to March 13, 2026, each block was counted as six 30-minute slots.</li><li>Range of awarded prices: the thin line runs from the cheapest bid (minimum awarded price) to the most expensive bid (maximum awarded price) among the month&#x27;s slots with awards (published values by area where the power source is located). The published values for Primary reserve (online), Secondary reserve 1 and 2 and Tertiary reserve 1 also include Composite product bids (a single price for several combined products). So bids above the price cap of 15 yen for Primary reserve (online) and Secondary reserve 1 (for delivery up to August 31, 2026), and above 10 yen for Secondary reserve 2 and Tertiary reserve 1, that can be explained by Composite product bids in the same slot and area were excluded from the thin line. For Primary reserve (offline), bids above the price cap (15 yen this month) were excluded from the thin line (the balancing market system awards bids above the cap too, and lowers them to the cap at settlement). The thick band is the range from 10% to 90% from the bottom when the average awarded prices of slots with awards are sorted from cheapest. The dot is the average weighted by awarded volume.</li><li>Award rate by grid area × time of day: total awarded volume ÷ total bid volume for slots at the same time of day in the month (by area where the power source is located).</li><li>The response time and duration of each balancing market product are the FY2026 specifications (Electric Power Reserve Exchange, &quot;Product Requirements&quot;, 6th edition). Primary reserve senses changes in frequency on its own and responds. Online is the category where the grid operator monitors operation over a dedicated line; offline is the category where no dedicated line is installed and a record of operation is submitted afterwards. The response time for offline is within 30 seconds, and there is no set duration.</li><li>High-priced slots for Tertiary reserve 2: slots with a nationwide average awarded price of 10 yen/kW per 30 min or more. The top 1% is the top 1% of slots ranked by revenue (average awarded price × awarded volume), from highest (1% of the number of slots, rounded). The maximum awarded price is the published value by area where the power source is located, and is the price of the single highest awarded bid. In the balancing market, each awarded bid is settled at its own bid price (pay-as-bid (multi-price)), so the average awarded price for the same slot and area is lower than this.</li><li>Average prices are simple averages of 30-minute slots (not weighted by trading volume). Daytime is the slots from 8:00 to 16:00, and evening the slots from 16:00 to 20:00.</li><li>Spread: the day&#x27;s 30-minute slots are sorted by price, and the average of the cheapest 8 slots is subtracted from the average of the most expensive 8 slots (4 hours) (4 slots for 2 hours). It does not consider the order of cheap and expensive hours, electricity lost in charging and discharging, or fees, taxes and transmission charges. It does not show actual revenue.</li><li>Sources (OCCTO, capacity market clearing results): delivery FY2024 https://www.occto.or.jp/iinkai/youryou/kentoukai/2020/files/youryou_kentoukai_27_05.pdf / delivery FY2025 https://www.occto.or.jp/iinkai/youryou/kentoukai/2021/files/youryou_kentoukai_35_03_1.pdf / delivery FY2026 https://www.occto.or.jp/iinkai/youryou/kentoukai/2022/files/youryou_kentoukai_43_03.pdf / delivery FY2027 https://www.occto.or.jp/market-board/market/oshirase/2023/files/240124_mainauction_youryouyakujokekka_kouhyou_jitsujukyu2027.pdf / delivery FY2028 https://www.occto.or.jp/market-board/market/oshirase/2024/files/250129_mainauction_youryouyakujokekka_kouhyou_jitsujukyu2028.pdf / delivery FY2029 https://www.occto.or.jp/assets/news/capacity-market/260120_mainauction_youryouyakujokekka_kouhyou_jitsujukyu2029.pdf</li><li>Sources (OCCTO, Long-Term Decarbonization Power Source Auction): FY2023 round https://www.occto.or.jp/assets/260605_auction_keiyakujyoukyou_kouhyou.pdf / FY2024 round https://www.occto.or.jp/market-board/market/jitsujukyukanren/files/longauction_keiyakukekka_2024.pdf / FY2025 round https://www.occto.or.jp/assets/various/capacity-market/jitsujukyukanren/yoryokakuhokeiyaku/longauction_keiyakukekka_2025.pdf</li><li>Capacity market clearing results are published in different years for each delivery fiscal year (the FY2024 results in 2020, the FY2029 results in January 2026). The number of battery projects in the Long-Term Decarbonization Power Source Auction is not shown, because it is not included in the published summary tables.</li><li>Sources: Japan Electric Power Exchange (JEPX) spot market trading results / Electric Power Reserve Exchange (EPRX) trading results (preliminary) and trading results by power source type / Organization for Cross-regional Coordination of Transmission Operators (OCCTO) capacity market main auction clearing results and Long-Term Decarbonization Power Source Auction capacity assurance contract documents / our compilation of grid connection study response documents we received / records of Chikudensho Market.</li><li>Terms: System price (System (nationwide)) = the wholesale electricity price when all of Japan is treated as one market. Area price = the price that splits by area depending on transmission line congestion. The grid = the power companies&#x27; transmission network. Grid connection = connecting to the transmission network. MW = size of power (1 MW = 1,000 kW). MWh = amount of electricity that can be stored. yen/kWh = price per 1 kWh of electricity.</li></ul>
+</div></section>
+<section class="md" id="reading"><div class="container rp-body">
+  <h2 class="md-h">How to read the numbers in this issue</h2>
+  <div class="rp-read"><div class="rp-read-g"><div class="rp-read-h">① Balancing market (EPRX)</div><ul><li><a href="/en/column-balancing-market">Japan&#x27;s Balancing Market — Product List (5 Products) &amp; Composite Bidding</a></li><li><a href="/en/column-eprx">What Is EPRX — How Batteries Join Japan&#x27;s Balancing Market</a></li><li><a href="/en/column-area-data">Balancing Market Prices and Results — 9 Power Areas × 5 Products</a></li><li><a href="/en/column-price-cap">Balancing Market Price Cap Falls to ¥10 — What Disappears</a></li><li><a href="/en/column-balancing-saturation">Are Batteries Saturated? Their Seats Are Under 10%</a></li></ul></div><div class="rp-read-g"><div class="rp-read-h">② Wholesale power (JEPX) and stacking the three</div><ul><li><a href="/en/column-revenue">Battery Revenue Stacking: 3 Revenue Sources — JEPX, Balancing, Capacity</a></li><li><a href="/en/column-regional-revenue">Grid Battery Revenue Across Japan&#x27;s 9 Areas × 3 Markets</a></li><li><a href="/en/column-merchant">What Is Full Merchant? When Batteries Run on Market Revenue</a></li></ul></div><div class="rp-read-g"><div class="rp-read-h">③ Capacity market (OCCTO)</div><ul><li><a href="/en/column-capacity-market">Capacity Market Main Auction and Batteries: Unit Prices (Clearing Prices)</a></li><li><a href="/en/column-auction">Capacity Market Main Auction vs LDA — 7 Key Differences</a></li></ul></div><div class="rp-read-g"><div class="rp-read-h">Our records (connecting to the grid)</div><ul><li><a href="/en/column-grid">Why Battery Grid Connection Costs Vary by 10x — Location</a></li></ul></div></div>
+</div></section>
+<section class="md" id="data"><div class="container rp-body">
+  <h2 class="md-h">Figures across issues</h2>
+  <ul class="rp-list"><li><a class="t" href="/en/research/data">Market Data: JEPX spot and capacity prices across issues</a><p>Monthly JEPX averages and 4-hour spreads by area, and capacity market area prices, laid out across issues. CSV downloads included.</p></li></ul>
+</div></section>
+<section class="md"><div class="container rp-body">
+  <div class="cite" id="cite"><div class="cite-h">How to cite</div><p>You are welcome to quote the figures and charts on this page. Please give the source as follows.</p><p class="cite-line">Source: Science X Inc., &ldquo;Battery Storage Market Notes, June 2026 issue&rdquo; (updated 2026-11-22), https://www.scix.co.jp/en/research/2026-06</p><p class="cite-meta">Page: <a href="https://www.scix.co.jp/en/research/2026-06">https://www.scix.co.jp/en/research/2026-06</a> &middot; Updated: <time datetime="2026-11-22">2026-11-22</time></p><p>The figures are tallies of published data and our own records. The price spread is a difference in price per kWh and does not show actual revenue. How we compiled them is in the last section, &ldquo;Assumptions and terms&rdquo;. Figures across issues are on <a href="/en/research/data">market data</a> (CSV), and the reuse terms are in the <a href="/en/press">citation guide</a>.</p></div>
+  <p>Each month's update also arrives in our LinkedIn newsletter, &ldquo;Japan grid-scale BESS: primary data&rdquo;. <a href="https://www.linkedin.com/newsletters/7521830530569445376/" rel="noopener" target="_blank">Subscribe to the newsletter &rarr;</a></p>
+</div></section>
+<section class="cta"><div class="container">
+  <h2>Want to see the projects behind these numbers? Visit Chikudensho Market</h2>
+  <p>On Chikudensho Market, our marketplace for battery storage sites, you can browse current listings without registering. Prices and documents are available after free registration, where you agree to a confidentiality undertaking on the registration screen (no signed paper is needed).</p>
+  <a class="btn-primary" href="https://dealroom.scix.co.jp/en/register" target="_top" rel="nofollow">Register free to see prices and documents &rarr;</a>
+  <a class="btn-secondary" href="https://dealroom.scix.co.jp/en" target="_top">Browse projects on Chikudensho Market</a>
+</div></section>
+<footer class="scix-footer">
+  <div class="scix-footer-inner">
+    <a href="https://www.scix.co.jp/en" class="scix-footer-logo" aria-label="ScienceX Home">
+      <img width="300" height="118" src="/img/logo-white.png" alt="ScienceX — Science X Inc." loading="lazy" />
+    </a>
+    <hr class="scix-footer-divider" />
+    <div class="scix-footer-info">
+      <div class="scix-footer-company">
+        <div class="company-name">Science X Inc.</div>
+        8-2 Nihonbashi Koamicho, Chuo-ku, Tokyo 103-0016<br>
+        BIZMARKS Nihonbashi Kayabacho<br>
+        TEL: <a href="tel:+81366913484">+81 3 6691 3484</a><br>
+        MAIL: <a href="mailto:s@scix.co.jp">s@scix.co.jp</a>
+        <div class="representative">Shinya Nakashima, Ph.D. (Eng.), Representative Director</div>
+      </div>
+      <div class="scix-footer-nav" style="margin-top:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;">
+        <a href="/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Home</a>
+        <a href="https://dealroom.scix.co.jp/en" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Chikudensho Market</a>
+        <a href="/en/market-data" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Data</a>
+        <a href="/en/knowledge" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Knowledge</a>
+        <a href="/en/qa" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Q&amp;A</a>
+        <a href="/en/glossary" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Glossary</a>
+        <a href="/en/market-entry-guide" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Market Entry Guide</a>
+        <a href="/en/company" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Company</a>
+        <a href="/en/contact" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Contact</a>
+        <a href="/en/privacy" style="color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(196,154,60,0.4);">Privacy Policy</a>
+      </div>
+      <div class="scix-footer-copyright">&copy; 2025–2026 Science X Inc. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

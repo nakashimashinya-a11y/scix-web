@@ -59,7 +59,7 @@
 |---|---|---|---|---|---|
 | 英語・売り案件・取得（`en-list`） | japan bess for sale／projects／marketplace／acquisition／development rights | www:/en/projects | www:/en・www:/en/column-buyer-structures | 0 | dealroom /en と www /en/projects が同じ「BESS projects for sale in Japan」を言う。決め待ち（2026-12-20） |
 | 英語・買い方売り方（`en-howto`） | how to sell／buy a bess project | www:/en/guide-buy-sell | www:/en/column-trading・www:/en/column-transfer・www:/en/column-buyer-structures | 3・0・63.7／/en/market-entry-guide 3 | 売る・買うのやり方の語は /en/guide-buy-sell へ（今は /en/market-entry-guide に出ている） |
-| 英語・日本の市場を調べる（`en-market`） | japan battery storage market／investment／entry | www:/en/market-entry-guide | www:/en/knowledge・www:/en/column-revenue・www:/en/primer・www:/en/market-data・www:/en/report/flash・www:/en/qa・www:/en/guide-japan-bess-market | 702・1・47.9／/en/column-revenue 586・/en/market-entry-guide 85 | 調べる語。買う・売るへは記事と市場データの末尾の入口で渡す（12/07 以後）。/en/guide-japan-bess-market（2026-11-23 新設・市場の全体像の入口）は副。正を入れ替えるかは週報 12f の表示で決める |
+| 英語・日本の市場を調べる（`en-market`） | japan battery storage market／investment／entry | www:/en/market-entry-guide | www:/en/knowledge・www:/en/column-revenue・www:/en/primer・www:/en/market-data・www:/en/research/flash・www:/en/qa・www:/en/guide-japan-bess-market | 702・1・47.9／/en/column-revenue 586・/en/market-entry-guide 85 | 調べる語。買う・売るへは記事と市場データの末尾の入口で渡す（12/07 以後）。/en/guide-japan-bess-market（2026-11-23 新設・市場の全体像の入口）は副。正を入れ替えるかは週報 12f の表示で決める |
 | 中国語（`zh-list`） | 储能 項目／买卖／出售／收购、电网侧 项目 | www:/zh | www:/zh-guide-buy-sell・www:/zh-qa・www:/zh-knowledge | 2 | 語として見える表示がほぼ無い。中国語の売買の頁は /zh と /zh-guide-buy-sell の2つ |
 
 ## 2026-12-20 に決めること

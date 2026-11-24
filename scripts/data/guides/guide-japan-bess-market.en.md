@@ -49,7 +49,7 @@ more: The full guide: [](/en/guide-balancing-market) · Columns: [](/en/column-b
 
 JEPX trades 48 half-hour slots a day. A battery charges in low-price slots and discharges in high-price slots; solar pushes daytime prices down and the evening peak pushes them up, and that spread is the source of arbitrage revenue. Monthly spreads by area are in our Market Notes.
 
-more: Read more: [](/en/column-revenue) · The monthly figures: [](/en/report)
+more: Read more: [](/en/column-revenue) · The monthly figures: [](/en/research)
 
 ### Capacity market and the LDA (OCCTO)
 
@@ -111,8 +111,8 @@ more: The full guide: [](/en/guide-buy-sell) · Columns: [](/en/column-buyer-str
 ## Market data and the monthly Market Notes
 
 - **[Market data](/en/market-data)** — the projects we list, counted by grid area, prefecture, voltage, structure, size and expected connection. Recounted every morning; tables also as CSV. No prices.
-- **[Battery Storage Market Notes](/en/report)** — a monthly report on the balancing, JEPX and capacity markets from published data, with sources and a PDF. Each issue is named after the month it is published: the [November 2026 issue](/en/report/2026-11) covers October 2026.
-- **[Market data for the Notes](/en/report/data)** — the series behind the Notes, as CSV.
+- **[Battery Storage Market Notes](/en/research)** — a monthly report on the balancing, JEPX and capacity markets from published data, with sources and a PDF. Each issue is named after the month it is published: the [November 2026 issue](/en/research/2026-11) covers October 2026.
+- **[Market data for the Notes](/en/research/data)** — the series behind the Notes, as CSV.
 - **[Market research](/en/research)** — the entry page for both.
 
 ## Projects for sale on Chikudensho Market

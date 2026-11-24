@@ -9,7 +9,7 @@
   - 日本語の対が無い頁・日本語の対の頁に「あわせて読む」が無い頁は足さない。
   - 手で作った「あわせて読む」・用語集がある頁は作り直さない（足りない行き先だけ末尾に足す）。
   - 本文は書き換えない。1つ目の節のあと（2つ目の h2 の直前）に、印のコメントつきで入れる。もう入っていれば作り直す（何度走らせても同じ）。
-  - 市場の数字の話題（需給調整・容量・卸電力）の頁には、英語の市場データ・市場ノート（/en/report/data・/en/report）への静的リンクを1行
+  - 市場の数字の話題（需給調整・容量・卸電力）の頁には、英語の市場データ・市場ノート（/en/research/data・/en/research）への静的リンクを1行
     （中国語の頁へは英語の頁である旨を添える）。/fund へは足さない（O16-67）。
 
 語が重なる頁どうしの役割分け（2026-11-22 中島「これ全部やって。…すべて漏らさずやって。」＝Gemini の助言の指令3）:
@@ -38,10 +38,10 @@ STYLE_GUIDE = "margin:32px 0;padding:14px 20px 12px;background:#F7F7F7;border:1p
 LINK = "display:block;color:#1F2A48;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.7;padding:6px 0"
 LANGS = {
     "en": dict(pre="en/column-", url="/en/column-", gl="/en/glossary", gl_name="glossary", terms="Terms used here:", rn="Related reading",
-               font="'Noto Sans JP',sans-serif", report=[("/en/report/data", "Battery Storage Market Data"), ("/en/report", "Battery Storage Market Notes")],
+               font="'Noto Sans JP',sans-serif", report=[("/en/research/data", "Battery Storage Market Data"), ("/en/research", "Battery Storage Market Notes")],
                numbers="Market numbers:", sep=" · ", slash=" / "),
     "zh": dict(pre="zh-column-", url="/zh-column-", gl="/zh-glossary", gl_name="术语表", terms="本文术语：", rn="相关文章",
-               font="'Noto Sans SC','Noto Sans JP',sans-serif", report=[("/en/report/data", "市场数据（英文页面）"), ("/en/report", "市场笔记（英文页面）")],
+               font="'Noto Sans SC','Noto Sans JP',sans-serif", report=[("/en/research/data", "市场数据（英文页面）"), ("/en/research", "市场笔记（英文页面）")],
                numbers="市场数字：", sep="・", slash="／"),
 }
 # 受けが少ない頁へ、話題の合う頁から（相手の言葉の頁・あるものだけ）。(話題の slug の正規表現, 行き先の頁) 。行き先は読み込みの札が頁の h1・題。
@@ -197,7 +197,7 @@ def process(path, lang):
     terms = [(G[lang][ja_idx[t]][0], term_label(lang, G[lang][ja_idx[t]][1])) for t in ja_terms if t in ja_idx]
     need_guide = not has_guide
     # 手で作った用語集（guide）がある頁に、市場の数字の行だけ足す
-    if has_guide and DATA_RE.search(slug) and "/en/report" not in re.search(r"<aside data-scix-guide.*?</aside>", s0, re.S).group(0):
+    if has_guide and DATA_RE.search(slug) and "/en/research" not in re.search(r"<aside data-scix-guide.*?</aside>", s0, re.S).group(0):
         nums = L["sep"].join(f'<a target="_top" href="{u}" style="color:#1F2A48;font-weight:600">{t}</a>' for u, t in L["report"])
         line = f'  <p style="margin:8px 0 0;font-size:13px;color:#555555">{L["numbers"]} {nums}</p>\n'
         s0 = re.sub(r"(<aside data-scix-guide.*?)(</aside>)", lambda m: m.group(1) + line + m.group(2), s0, count=1, flags=re.S)

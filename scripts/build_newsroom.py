@@ -12,14 +12,14 @@
 ■ 配信済みになった本を1行足す（毎営業日、配信の時刻を過ぎてから）
     python3 scripts/build_newsroom.py add --outlet valuepress \
         --url https://www.value-press.com/pressrelease/NNNNNN \
-        --title "配信した題（配信先の頁の字のまま）" --page /report/2026-12
+        --title "配信した題（配信先の頁の字のまま）" --page /research/2026-12
     python3 scripts/build_newsroom.py add --outlet prtimes \
         --url https://prtimes.jp/main/html/rd/p/00000000N.000195288.html \
         --title "…" --page https://dealroom.scix.co.jp/
   - --date は配信の日（省くと今日・日本時間）。今日より先の日は受け付けない。
   - add は配信先の住所を1回だけ読み、200 で、題がその頁に在るときだけ足す（まだ配信されていない本は 200 にならない）。
     読めない所で足すときだけ --no-fetch（配信済みを自分の目で確かめてから）。
-  - --page は関係する自社の頁（/report/2026-11・/column-x）か蓄電所マーケット（https://dealroom.scix.co.jp/…）。英語の頁は頁の hreflang から引く。
+  - --page は関係する自社の頁（/research/2026-11・/column-x）か蓄電所マーケット（https://dealroom.scix.co.jp/…）。英語の頁は頁の hreflang から引く。
   - 足した後は git の枝で PR を出す（main へ直接 push しない）。作業域の台帳（~/.openclaw）はリポジトリから読まない。
 
     python3 scripts/build_newsroom.py            # 頁2本と sitemap の2行（lastmod）を書く
@@ -104,10 +104,10 @@ L = {
                  ("/img/apple-touch-icon.png", "正方形のマーク（PNG）"),
                  ("/img/nakashima.png", "代表 中島 晋也の写真（PNG）")],
         as_data_h="データ（CSV）",
-        as_data=[("蓄電所の市場データ", "/report/data", [
-                    ("/report/data/jepx-spot-monthly.csv", "卸電気（JEPX）のエリア別の月平均と値差（月×エリア・全指標）"),
-                    ("/report/data/capacity-main-auction.csv", "容量市場（OCCTO）メインオークションのエリアプライス"),
-                    ("/report/data/long-term-decarbonization-auction.csv", "長期脱炭素電源オークションの約定容量")]),
+        as_data=[("蓄電所の市場データ", "/research/data", [
+                    ("/research/data/jepx-spot-monthly.csv", "卸電気（JEPX）のエリア別の月平均と値差（月×エリア・全指標）"),
+                    ("/research/data/capacity-main-auction.csv", "容量市場（OCCTO）メインオークションのエリアプライス"),
+                    ("/research/data/long-term-decarbonization-auction.csv", "長期脱炭素電源オークションの約定容量")]),
                  ("系統用蓄電池の売り案件 市場データ", "/market-data", [
                     ("/files/market-data/market-data-summary.csv", "集計（管内別・電圧区分・連系の見込みなど）"),
                     ("/files/market-data/market-data-weekly.csv", "販売中の件数と規模の、週ごとの推移")])],
@@ -166,10 +166,10 @@ L = {
                  ("/img/apple-touch-icon.png", "Square mark (PNG)"),
                  ("/img/nakashima.png", "Photo of Shinya Nakashima, Representative Director (PNG)")],
         as_data_h="Data (CSV)",
-        as_data=[("Battery Storage Market Data", "/en/report/data", [
-                    ("/en/report/data/jepx-spot-monthly.csv", "Wholesale electricity (JEPX): monthly averages and spreads by area (month × area, all measures)"),
-                    ("/en/report/data/capacity-main-auction.csv", "Capacity market (OCCTO): main auction area prices"),
-                    ("/en/report/data/long-term-decarbonization-auction.csv", "Long-Term Decarbonization Power Source Auction: contracted capacity")]),
+        as_data=[("Battery Storage Market Data", "/en/research/data", [
+                    ("/en/research/data/jepx-spot-monthly.csv", "Wholesale electricity (JEPX): monthly averages and spreads by area (month × area, all measures)"),
+                    ("/en/research/data/capacity-main-auction.csv", "Capacity market (OCCTO): main auction area prices"),
+                    ("/en/research/data/long-term-decarbonization-auction.csv", "Long-Term Decarbonization Power Source Auction: contracted capacity")]),
                  ("Japan BESS Projects for Sale: Market Data", "/en/market-data", [
                     ("/files/market-data/market-data-summary-en.csv", "Summary tables (by grid area, voltage class, expected grid connection and more)"),
                     ("/files/market-data/market-data-weekly-en.csv", "Weekly figures for listed projects")])],
@@ -247,7 +247,7 @@ def today_jst() -> str:
 
 
 def page_file(path: str) -> str | None:
-    """自社の頁の住所（/report/2026-11・/column-x）を、リポジトリのファイルにする。無ければ None。"""
+    """自社の頁の住所（/research/2026-11・/column-x）を、リポジトリのファイルにする。無ければ None。"""
     p = path.split("#")[0].strip("/")
     for c in ([p + ".html", p + "/index.html"] if p else ["index.html"]):
         if os.path.isfile(os.path.join(ROOT, c)):
@@ -616,7 +616,7 @@ def main() -> int:
     p.add_argument("--outlet", required=True, choices=sorted(OUTLETS))
     p.add_argument("--url", required=True, help="配信後の住所")
     p.add_argument("--title", required=True, help="配信した題（配信先の頁の字のまま）")
-    p.add_argument("--page", required=True, help="関係する自社の頁（/report/2026-12）か蓄電所マーケットの頁")
+    p.add_argument("--page", required=True, help="関係する自社の頁（/research/2026-12）か蓄電所マーケットの頁")
     p.add_argument("--date", help="配信の日 YYYY-MM-DD（省くと今日・日本時間）")
     p.add_argument("--no-fetch", action="store_true", help="配信先を読まずに足す（配信済みを目で確かめたときだけ）")
     a = ap.parse_args()

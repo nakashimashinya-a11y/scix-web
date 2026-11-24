@@ -34,7 +34,7 @@
       ]
     },
     {
-      "source": "/(en/)?report/(.*)\\.png",
+      "source": "/(en/)?research/(.*)\\.png",
       "headers": [
         {
           "key": "Cache-Control",
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "source": "/(en/)?report/(.*)\\.svg",
+      "source": "/(en/)?research/(.*)\\.svg",
       "headers": [
         {
           "key": "Cache-Control",
@@ -82,19 +82,31 @@
       "destination": "/fund"
     },
     {
-      "source": "/research/:path+",
-      "destination": "/report/:path+"
-    },
-    {
-      "source": "/en/research/:path+",
-      "destination": "/en/report/:path+"
-    },
-    {
       "source": "/api/contact",
       "destination": "https://dealroom.scix.co.jp/api/web-contact"
     }
   ],
   "redirects": [
+    {
+      "source": "/report",
+      "destination": "/research",
+      "permanent": true
+    },
+    {
+      "source": "/report/:path*",
+      "destination": "/research/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/en/report",
+      "destination": "/en/research",
+      "permanent": true
+    },
+    {
+      "source": "/en/report/:path*",
+      "destination": "/en/research/:path*",
+      "permanent": true
+    },
     {
       "source": "/for/dealers",
       "destination": "/partners#dealers",

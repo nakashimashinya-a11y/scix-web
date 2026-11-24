@@ -45,7 +45,7 @@ more: 完整指南：[](/zh-guide-balancing-market)・专栏：[](/zh-column-bal
 
 JEPX每天交易48个30分钟时段。储能在低价时段充电、高价时段放电；光伏压低白天的价格，傍晚的高峰抬高价格，这个价差就是套利收入的来源。各分区每月的价差，见本公司的市场笔记（英文）。
 
-more: 详细阅读：[](/zh-column-revenue)・每月的数字：[Battery Storage Market Notes（英文页面）](/en/report)
+more: 详细阅读：[](/zh-column-revenue)・每月的数字：[Battery Storage Market Notes（英文页面）](/en/research)
 
 ### 容量市场与LDA（OCCTO）
 
@@ -107,7 +107,7 @@ more: 完整指南：[](/zh-guide-buy-sell)・专栏：[](/zh-column-buyer-struc
 ## 市场数据与每月的市场笔记
 
 - **[市场数据](/zh-market-data)** — 本公司所列项目，按分区、都道府县、电压、形式、规模与预计并网时间统计。每天早上重新统计，不含价格。
-- **[Battery Storage Market Notes（英文页面）](/en/report)** — 依据公开数据，按月整理辅助服务市场、JEPX与容量市场的报告，附出处与PDF。每期以发行月份命名：[2026年11月号（英文页面）](/en/report/2026-11)收录2026年10月的市场。
+- **[Battery Storage Market Notes（英文页面）](/en/research)** — 依据公开数据，按月整理辅助服务市场、JEPX与容量市场的报告，附出处与PDF。每期以发行月份命名：[2026年11月号（英文页面）](/en/research/2026-11)收录2026年10月的市场。
 - **[Market research（英文页面）](/en/research)** — 两者的入口。
 
 ## 蓄电所市场的在售项目

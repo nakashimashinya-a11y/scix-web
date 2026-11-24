@@ -9,7 +9,7 @@
        ・細い区切りのあと、ナレッジ・市場リサーチ・会社案内・お問い合わせを一段軽く（普通の太さ・地色なし・絵なし）。
        ・引き出しのある札（買いたい・売りたい・ナレッジ・市場リサーチ）は、札そのものが頁へのリンク。マウス（hover あり・広い帯）は合わせると開き押すと頁へ、
          指と畳んだメニューは1回目の押下で開き（頁は移らない）2回目で頁へ、キーボードは Enter＝頁へ・↓＝開いて最初のリンクへ・Esc＝閉じる（3b）。割りボタン（▾ だけが開く形）は廃止。
-       ・市場リサーチの札は入口の頁 /research（英語 /en/research）へ。中国語は入口の頁を作らず、今の札（市场研究＝英語の市場ノート）のまま。
+       ・市場リサーチの札は入口の頁 /research（英語 /en/research）へ。2026-11-25 から入口は月号の一覧を兼ね、速報・月号・市場データも /research の下（旧 /report は vercel.json で 308）。中国語は入口の頁を作らず、今の札（市场研究＝英語の市場ノート）のまま。
        ・幅: 1600 以上は一回り大きく／1440 以上は外の札の余白を広げ／1359 以下はログインを人の印だけに／1199 以下は名前を枠の上の縁の見出し（12px）に／1100 以下は畳んだメニュー（一番上にまとまり）。蓄電所マーケットの帯（public/platform-nav.js・dr2.css）へ同じ値で写す。
 
      2026-11-22: 上の帯を蓄電所マーケットと同じ並びにした（買いたい・売りたい・ナレッジ・市場リサーチ・会社案内・お問い合わせ＋右端にログイン・無料で登録）。
@@ -171,7 +171,7 @@
     '.scix-nav-dd[data-group=knowledge]{--pc:#7C4DDB}',
     '.scix-nav-dd[data-group=buy],.scix-mg a.scix-top-buy{--pc:#2563EB}',
     '.scix-nav-dd[data-group=sell],.scix-mg a.scix-top-sell{--pc:#C2560A}',
-    '.scix-nav-dd[data-group=research],.scix-header-nav > a[data-page="/report"]{--pc:#138A62}',
+    '.scix-nav-dd[data-group=research],.scix-header-nav > a[data-page="/research"]{--pc:#138A62}',
     '.scix-header-nav > a:hover,.scix-header-nav > .scix-nav-dd > .scix-nav-main:hover,.scix-header-nav > .scix-nav-dd.open > .scix-nav-main{background:#F3F5FA;box-shadow:inset 0 -4px 0 var(--pc)}',
     '.scix-header-nav > a.active,.scix-header-nav > .scix-nav-dd > .scix-nav-main.active{color:var(--pc);font-weight:700;background:none;box-shadow:inset 0 -4px 0 var(--pc)}',
     '.scix-nav-sep{align-self:center;flex:0 0 auto;width:1px;height:28px;margin:0 6px 0 8px;background:#D5DCEA}',
@@ -501,7 +501,7 @@
   //        they never light up as "current".
   function ddLink(it) {
     var href = it[0], label = it[1], cls = it[2] || '';
-    var page = href.indexOf('#') === -1 ? ' data-page="' + (it[3] || href) + '"' : '';   // it[3]＝言語をまたいだ頁の名前（英語の /en/report は '/report'）
+    var page = href.indexOf('#') === -1 ? ' data-page="' + (it[3] || href) + '"' : '';   // it[3]＝言語をまたいだ頁の名前（英語の /en/research は '/research'）
     return '<a href="' + href + '"' + page + (cls ? ' class="' + cls + '"' : '') + '>' + label + '</a>';
   }
   // 引き出しのある札（2026-11-23）: 札（a）そのものが行き先の頁へのリンク。
@@ -546,7 +546,7 @@
     knowledge: ['/knowledge', '/qa', '/grid-storage', '/glossary', '/column-somosomo', '/primer', '/market-entry-guide'],
     buy:   ['/projects', '/transfer', '/fund', '/investors', '/for/sme', '/for/major', '/market-data'],
     sell:  ['/sourcing', '/sell-form', '/partners', '/for/dealers'],
-    research: ['/research', '/report']   // 2026-11-23: 市場の頁は速報（/report/flash）と月号（/report/<月>）の2本だけ。売り案件の市場データは「買いたい」へ戻した
+    research: ['/research']   // 2026-11-25: 市場の頁は /research の下へ（入口＝月号の一覧）。2026-11-23: 市場の頁は速報（/research/flash）と月号（/research/<月>）の2本だけ。売り案件の市場データは「買いたい」へ戻した
   };
 
   // 2026-11-15 メニュー全体の見直し（重複をなくし、全体の整合をとった）:
@@ -582,7 +582,7 @@
       ['/zh-knowledge', '洞见', '', '/knowledge'],
       ['/zh-qa',        '问答', '', '/qa']
     ], 'book'),
-    '<a href="/en/report" data-page="/report">' + ic('chart') + '<span>市场研究</span>' + EN_TAG + '</a>',
+    '<a href="/en/research" data-page="/research">' + ic('chart') + '<span>市场研究</span>' + EN_TAG + '</a>',
     '<a href="/zh-company" data-page="/company">' + ic('co') + '<span>公司介绍</span></a>',
     '<a href="/zh-contact" data-page="/contact">' + ic('mail') + '<span>联系我们</span></a>'
   ] : isEn ? [
@@ -597,8 +597,8 @@
       ['/en/market-entry-guide', 'Entry Guide', '', '/market-entry-guide']
     ], 'book'),
     ddNav('research', 'Market Research', '/en/research', [
-      ['/en/report/flash', 'Market Notes: Daily Flash', '', '/report/flash'],
-      ['/en/report',       'Market Notes: Monthly Issue (on the 1st)', '', '/report']
+      ['/en/research/flash', 'Market Notes: Daily Flash', '', '/research/flash'],
+      ['/en/research',       'Market Notes: Monthly Issue (on the 1st)', '', '/research']
     ], 'chart'),
     '<a href="/en/company" data-page="/company">' + ic('co') + '<span>Company</span></a>',
     '<a href="/en/contact" data-page="/contact">' + ic('mail') + '<span>Contact</span></a>'
@@ -621,10 +621,10 @@
     ], 'book'),
     // 市場リサーチ: 札そのものは入口の頁 /research へ（2026-11-23）。引き出しの中の札は、行き先の h1 と同じ言葉（O16-27）。
     // 2026-11-23 中島「メニュー多いのは良くない。シンプルに。速報で毎日の最新データ。毎月１日の前月最新データがいい。」＝引き出しは速報と月号の2つだけ。
-    // 号をまたいだ推移（/report/data）は速報・月号の頁の中から、売り案件の市場データ（/market-data）は「買いたい」の引き出しへ。
+    // 号をまたいだ推移（/research/data）は速報・月号の頁の中から、売り案件の市場データ（/market-data）は「買いたい」の引き出しへ。
     ddNav('research', '市場リサーチ', '/research', [
-      ['/report/flash', '市場ノート 速報（毎日更新）'],
-      ['/report',       '市場ノート 月号（毎月1日）']
+      ['/research/flash', '市場ノート 速報（毎日更新）'],
+      ['/research',       '市場ノート 月号（毎月1日）']
     ], 'chart'),
     '<a href="/company"  data-page="/company">' + ic('co') + '<span>会社案内</span></a>',
     '<a href="/contact"  data-page="/contact">' + ic('mail') + '<span>お問い合わせ</span></a>'
@@ -792,9 +792,9 @@
   else if (TRILINGUAL[loc]) zhHref = TRILINGUAL[loc].zh;
   else zhHref = '/zh';
 
-  // Report pages (/report, /report/<month>, /en/report...) and the research entry page (/research, /en/research): follow the page's own hreflang
+  // Market Notes pages (/research = entry and monthly list, /research/<month>, /research/flash, /en/research...): follow the page's own hreflang
   // alternates, so JP and EN land on the matching page (and the matching month) and never on a page that has no counterpart.
-  if (loc === '/report' || loc.indexOf('/report/') === 0 || loc === '/research') {
+  if (loc === '/research' || loc.indexOf('/research/') === 0) {
     var altPath = function (lang) {
       var l = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
       if (!l) return '';
@@ -932,10 +932,10 @@
       '<p class="scix-nl-note">配信は各メールの末尾からいつでも解除できます。アドレスは更新のお知らせにだけ使います（<a href="/privacy" target="_top">プライバシーポリシー</a>）。</p>'
     ].join('\n');
 
-    // 2026-11-21: 市場ノート（/report・/report/<月>）にも登録の箱を出す。
-    // 受け口は記事の箱と同じ /api/newsletter（_page に /report… が残るので、どの箱から来たかは名簿の page で分かる）。置き場所の名前は report_index／report_issue。
+    // 2026-11-21: 市場ノート（/research・/research/<月>）にも登録の箱を出す。
+    // 受け口は記事の箱と同じ /api/newsletter（_page に /research… が残るので、どの箱から来たかは名簿の page で分かる）。置き場所の名前は report_index／report_issue。
     // 文は今の約束（週1本の記事）のまま。毎月の号をメールで送る形にするときは、文もそれに合わせて替える。
-    var isReportPage = loc === '/report' || loc === '/report/flash' || /^\/report\/\d{4}-\d{2}$/.test(loc);   // 速報（/report/flash・2026-11-23）にも
+    var isReportPage = loc === '/research' || loc === '/research/flash' || /^\/research\/\d{4}-\d{2}$/.test(loc);   // 速報（/research/flash・2026-11-23）にも
 
     function nlMount(el, where, isRp) {
       el.className = 'scix-nl' + (isRp ? ' scix-nl-rp' : '');
@@ -1014,7 +1014,7 @@
           var rbox = document.createElement('div');
           at.parentNode.insertBefore(rbox, at);
           rbox.style.marginBottom = '48px';
-          nlMount(rbox, loc === '/report' ? 'report_index' : (loc === '/report/flash' ? 'report_flash' : 'report_issue'), true);
+          nlMount(rbox, loc === '/research' ? 'report_index' : (loc === '/research/flash' ? 'report_flash' : 'report_issue'), true);
         } catch (err) { /* 箱を出せなくても頁はそのまま */ }
         return;
       }
@@ -1051,7 +1051,7 @@
     if (page === '/knowledge' && isCol && !exactHit) {
       links[i].classList.add('active');
     }
-    if (page === '/report' && loc.indexOf('/report') === 0) {
+    if (page === '/research' && loc.indexOf('/research') === 0) {
       links[i].classList.add('active');
     }
   }
@@ -1127,7 +1127,7 @@
       var menu = dd.querySelector('.scix-nav-dd-menu');
       var pages = GROUP_PAGES[key] || [];
       var holdsCurrent = pages.indexOf(loc) !== -1 || (key === 'knowledge' && isCol) ||
-        (key === 'research' && (loc === '/report' || loc.indexOf('/report/') === 0));   // 市場ノートの号は「市場リサーチ」が光る（2026-11-22）
+        (key === 'research' && (loc === '/research' || loc.indexOf('/research/') === 0));   // 市場ノートの号は「市場リサーチ」が光る（2026-11-22）
       if (holdsCurrent) {
         toggle.classList.add('active');
         dd.classList.add('is-current');
@@ -1359,7 +1359,7 @@
   //  7d. 問い合わせの出所: 最初に着いた頁・その前のサイト（ホスト名だけ）・直前に見ていた頁・出所の印（src・utm）を sessionStorage に覚え、
   //      /api/contact へ送るフォームに隠し欄（_entry_page・_entry_ref・_prev_page・_src・_utm）で渡す。受け口（web-contact.ts）は「_」で始まる欄を
   //      断らずに本文から外すので、今は届いても残らない（受け口に記録の行を足せば残る）。頁の住所は path だけ（問い合わせの引数は持たない）。
-  //  7e. 記事 → 市場ノート: 需給調整市場・卸電気・容量市場の記事に、/report/latest.json（build_reports.py が焼く）の「最新の数字」の札を出す。
+  //  7e. 記事 → 市場ノート: 需給調整市場・卸電気・容量市場の記事に、/research/latest.json（build_reports.py が焼く）の「最新の数字」の札を出す。
   //      JSON が読めなければ出さない。札の文は号の頁の「今月の動き」の文そのまま（言い直さない）。
   //  7f. 導線の押下: a[data-cta] が押されたら cta_click（placement・target・src_mark）を1回（2026-11-22）。
   try { (function () {
@@ -1372,9 +1372,9 @@
     function pageMark() {
       var m;
       if (isCol) m = 'col-' + loc.slice('/column-'.length);
-      else if (loc === '/report') m = 'report';
-      else if (loc === '/report/flash') m = 'report-flash';
-      else if (/^\/report\/\d{4}-\d{2}$/.test(loc)) m = 'report-' + loc.slice('/report/'.length);
+      else if (loc === '/research') m = 'report';
+      else if (loc === '/research/flash') m = 'report-flash';
+      else if (/^\/research\/\d{4}-\d{2}$/.test(loc)) m = 'report-' + loc.slice('/research/'.length);
       else if (loc === '/knowledge') m = 'knowledge';
       else if (loc === '/' || loc === '/index') m = (isZh && path !== '/zh') ? 'site-' + path.replace(/^\/zh-?/, '') : 'top';
       else m = 'site-' + loc.replace(/^\/+/, '');
@@ -1622,7 +1622,7 @@
     function placeCard(j) {
       try {
         var d = isEn ? j.en : j;
-        if (!d || !d.eprx || !/^\/(en\/)?report\/\d{4}-\d{2}$/.test(d.url || '') || !/^\d{4}-\d{2}$/.test(j.key || '')) return;
+        if (!d || !d.eprx || !/^\/(en\/)?research\/\d{4}-\d{2}$/.test(d.url || '') || !/^\d{4}-\d{2}$/.test(j.key || '')) return;
         var at = cardAnchor();
         if (!at || !at.parentNode) return;
         var st = document.createElement('style');
@@ -1644,7 +1644,7 @@
         }
         var go = document.createElement('a'); go.className = 'scix-rp-go'; go.href = d.url; go.setAttribute('target', '_top');
         go.textContent = isEn ? ('Read the ' + issueName(j.key, true) + ' →') : (issueName(j.key, false) + 'を読む →');
-        var all = document.createElement('a'); all.className = 'scix-rp-all'; all.href = isEn ? '/en/report' : '/report'; all.setAttribute('target', '_top');
+        var all = document.createElement('a'); all.className = 'scix-rp-all'; all.href = isEn ? '/en/research' : '/research'; all.setAttribute('target', '_top');
         all.textContent = isEn ? 'All issues' : 'これまでの号';
         box.appendChild(lb); box.appendChild(h); box.appendChild(ul); box.appendChild(go); box.appendChild(all);
         at.parentNode.insertBefore(box, at);
@@ -1662,7 +1662,7 @@
     function tryCard() { if (cardData && domReady) { placeCard(cardData); cardData = null; } }
     if (wantCard && window.fetch) {
       try {
-        window.fetch('/report/latest.json', { credentials: 'omit' })
+        window.fetch('/research/latest.json', { credentials: 'omit' })
           .then(function (r) { return r.ok ? r.json() : null; })
           .then(function (j) { if (j && typeof j === 'object') { cardData = j; tryCard(); } })
           .catch(function () { /* 読めなければ札を出さない */ });
@@ -1701,20 +1701,20 @@
     var COLS = isZh ? [
       { k: 'buy', h: '购买', items: [['/zh-market-data', '市场数据']] },
       { k: 'knowledge', h: '洞见', items: [['/zh-knowledge', '洞见'], ['/zh-qa', '问答'], ['/zh-faq', '常见问题'], ['/zh-glossary', '术语表']] },
-      { k: 'research', h: '市场研究', items: [['/en/report', '市场研究' + TAG]] },
+      { k: 'research', h: '市场研究', items: [['/en/research', '市场研究' + TAG]] },
       { k: 'co', h: '公司', items: [['/zh-company', '公司介绍'], ['/zh-contact', '联系我们'], ['@privacy', '隐私政策']] }
     ] : isEn ? [
       { k: 'buy', h: 'Buy', items: [['/en/market-data', 'Japan BESS Projects for Sale: Market Data']] },
       { k: 'knowledge', h: 'Knowledge', items: [['/en/knowledge', 'Knowledge'], ['/en/qa', 'Q&amp;A'], ['/en/glossary', 'Glossary'], ['/en/market-entry-guide', 'Market Entry Guide']] },
       // 2026-11-23: 市場リサーチは速報と月号の2本だけ（上の帯と同じ）。/en/market-data は行き先の title の言葉で「Buy」の列へ（O16-27）
-      { k: 'research', h: 'Market Research', items: [['/en/report/flash', 'Market Notes: Daily Flash'], ['/en/report', 'Market Notes: Monthly Issue (on the 1st)']] },
+      { k: 'research', h: 'Market Research', items: [['/en/research/flash', 'Market Notes: Daily Flash'], ['/en/research', 'Market Notes: Monthly Issue (on the 1st)']] },
       { k: 'co', h: 'Company', items: [['/en/company', 'Company'], ['/en/contact', 'Contact'], ['@privacy', 'Privacy Policy']] }
     ] : [
       // 2026-11-23（O16-72）: 列ごとに4つまで。上の帯から外した行き先の受け皿。売りたいの列の先頭は「蓄電所を出す（無料）」
       { k: 'buy', h: '買いたい', items: [['/transfer', '買うまでの流れ・買い方3つ'], ['/fund', 'ファンドで持つ'], ['/investors', '系統用蓄電池への投資'], ['/market-data', '系統用蓄電池の売り案件 市場データ']] },
       { k: 'sell', h: '売りたい', items: [[MKT + '/start/sell', '蓄電所を出す（無料）'], ['/sell-form', '当社に無料で売却査定'], ['/sourcing', '売るまでの流れ'], ['/partners', '案件・投資家を紹介する']] },
       { k: 'knowledge', h: 'ナレッジ', items: [['/knowledge', 'すべての記事（毎週更新）'], ['/qa', '入門Q&amp;A'], ['/grid-storage', '蓄電池事業のしくみ'], ['/column-somosomo', '蓄電池の、そもそも（連載20本）']] },
-      { k: 'research', h: '市場リサーチ', items: [['/report/flash', '市場ノート 速報（毎日更新）'], ['/report', '市場ノート 月号（毎月1日）'], ['/report/data', '蓄電所の市場データ']] },
+      { k: 'research', h: '市場リサーチ', items: [['/research/flash', '市場ノート 速報（毎日更新）'], ['/research', '市場ノート 月号（毎月1日）'], ['/research/data', '蓄電所の市場データ']] },
       { k: 'co', h: '会社', items: [['/company', '会社案内'], ['/contact', 'お問い合わせ'], ['@privacy', 'プライバシーポリシー']] }
     ];
     var PRIVACY_DEFAULT = isZh ? '/zh-privacy' : (isEn ? '/en/privacy' : '/privacy');
@@ -1723,7 +1723,7 @@
       var n = normHref(href);
       if (/needs$|\/(en\/)?(sourcing|sell-form|partners)$/.test(n)) return 'sell';
       if (/^dealroom\.scix\.co\.jp|\/(en\/)?(transfer|investors|fund|projects)$|^\/for\/|market-data$/.test(n)) return 'buy';
-      if (/report|research/.test(n)) return 'research';
+      if (/research/.test(n)) return 'research';
       if (/knowledge|qa$|faq$|glossary|grid-storage|primer|market-entry|guide-|column-/.test(n)) return 'knowledge';
       return 'co';
     }

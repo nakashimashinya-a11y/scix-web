@@ -68,35 +68,35 @@ if [ "$DRY_RUN" != "1" ] && [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ]; t
   fi
 fi
 
-# 月報（Drive の _作成物/<YYYYMM>_月報/）を /report に焼く。月報が出た月にだけ差分が出る（2026-11-01）。
+# 月報（Drive の _作成物/<YYYYMM>_月報/）を /research に焼く。月報が出た月にだけ差分が出る（2026-11-01）。
 # 公開してはいけない語が月報にあれば build_reports.py が何も書かずに止まる（rc 2）。止まっても案件の同期は続ける。
 if [ "$DRY_RUN" != "1" ] && [ "$FAST_REMOVE" != "1" ] && [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] \
-   && git diff --quiet -- sitemap.xml report en/report && git diff --cached --quiet && [ -z "$(git ls-files -o --exclude-standard report en/report)" ]; then
+   && git diff --quiet -- sitemap.xml research en/research && git diff --cached --quiet && [ -z "$(git ls-files -o --exclude-standard research en/research)" ]; then
   python3 scripts/build_reports.py; RC=$?
   if [ "$RC" = "2" ]; then
-    log "NG 月報に公開してはいけない語がある。/report は更新しない（月報を直すまで毎朝ここで止まる）"
-  elif [ "$RC" = "0" ] && { ! git diff --quiet -- sitemap.xml report en/report || [ -n "$(git ls-files -o --exclude-standard report en/report)" ]; }; then
-    git add report en/report sitemap.xml \
+    log "NG 月報に公開してはいけない語がある。/research は更新しない（月報を直すまで毎朝ここで止まる）"
+  elif [ "$RC" = "0" ] && { ! git diff --quiet -- sitemap.xml research en/research || [ -n "$(git ls-files -o --exclude-standard research en/research)" ]; }; then
+    git add research en/research sitemap.xml \
       && git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" \
-           commit -q -m "chore(report): 月報を /report に反映（scripts/build_reports.py による自動発行）" \
-      && git push -q origin main && log "OK 月報を /report に公開した" \
+           commit -q -m "chore(report): 月報を /research に反映（scripts/build_reports.py による自動発行）" \
+      && git push -q origin main && log "OK 月報を /research に公開した" \
       || log "NG 月報の commit/push に失敗（commit が手元に残っていれば次回の冒頭で出し直す）"
   fi
 fi
 
-# 市場ノートの速報（/report/flash・毎日更新・2026-11-23 中島「毎日最新データを落として速報」）。数字は作業域の bin/market_flash.py が
+# 市場ノートの速報（/research/flash・毎日更新・2026-11-23 中島「毎日最新データを落として速報」）。数字は作業域の bin/market_flash.py が
 # 同じ朝に公表データを取り直して state/market_flash/latest.json に書く（旗 state/market_flash_daily_enabled の後ろ）。ここは焼いて出すだけ。
 # 入力が無い・前の版より古い・公開してはいけない語がある＝build_flash.py が何も書かずに rc 2（頁は前の日の版のまま＝日付も前のまま）。止まっても案件の同期は続ける。
 if [ "$DRY_RUN" != "1" ] && [ "$FAST_REMOVE" != "1" ] && [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] \
-   && git diff --quiet -- sitemap.xml report/flash en/report/flash && git diff --cached --quiet && [ -z "$(git ls-files -o --exclude-standard report/flash en/report/flash)" ]; then
+   && git diff --quiet -- sitemap.xml research/flash en/research/flash && git diff --cached --quiet && [ -z "$(git ls-files -o --exclude-standard research/flash en/research/flash)" ]; then
   python3 scripts/build_flash.py; RC=$?
   if [ "$RC" != "0" ]; then
-    log "NG 速報を焼けなかった（rc=$RC）。/report/flash は前の版のまま"
-  elif ! git diff --quiet -- sitemap.xml report/flash en/report/flash || [ -n "$(git ls-files -o --exclude-standard report/flash en/report/flash)" ]; then
-    git add report/flash en/report/flash sitemap.xml \
+    log "NG 速報を焼けなかった（rc=$RC）。/research/flash は前の版のまま"
+  elif ! git diff --quiet -- sitemap.xml research/flash en/research/flash || [ -n "$(git ls-files -o --exclude-standard research/flash en/research/flash)" ]; then
+    git add research/flash en/research/flash sitemap.xml \
       && git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" \
            commit -q -m "chore(report): 市場ノートの速報を更新（scripts/build_flash.py による自動発行）" \
-      && git push -q origin main && log "OK 速報を /report/flash に公開した" \
+      && git push -q origin main && log "OK 速報を /research/flash に公開した" \
       || log "NG 速報の commit/push に失敗（commit が手元に残っていれば次回の冒頭で出し直す）"
   fi
 fi

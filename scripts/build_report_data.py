@@ -3,10 +3,10 @@
 """市場ノートの号（Drive の md）の「市場の数字」の表から、号をまたいだ推移の頁を焼く。build_reports.py の main から呼ぶ。
 
 生成するもの（全文を書き直す。手で直さない）:
-  report/data/index.html                 市場データ（卸電気のエリア別の月ごとの推移・容量市場・長期脱炭素電源オークション）
-  report/data/*.csv                      上の表の CSV（UTF-8・BOM 付き）
-  en/report/data/index.html, *.csv       英語版（英語の号の表の数字が日本語の号と一致するときだけ）
-  report/area/<slug>/index.html          エリアの頁（AREA_PAGES に挙げたエリアだけ。日本語だけ）
+  research/data/index.html                 市場データ（卸電気のエリア別の月ごとの推移・容量市場・長期脱炭素電源オークション）
+  research/data/*.csv                      上の表の CSV（UTF-8・BOM 付き）
+  en/research/data/index.html, *.csv       英語版（英語の号の表の数字が日本語の号と一致するときだけ）
+  research/area/<slug>/index.html          エリアの頁（AREA_PAGES に挙げたエリアだけ。日本語だけ）
 
 数字の元は、号の頁と同じ md の表だけ（手で写さない・文の中の数字は読まない）。表の形で無い月・指標は空欄（—）にし、号へのリンクを置く。
 説明の文は号の「前提と用語」と各節の冒頭の文をそのまま引く（新しく書くのは見出し・列名・リンクの文だけ）。
@@ -529,7 +529,7 @@ def jepx_section(data, lang, base, latest_doc, csv_href, area_order, area_names)
         aria = (f"{area_names[a]}の卸電気の月平均・前年同月・4時間の値差（円/kWh・{ym_label(yms[0])}〜{ym_label(last)}）" if lang == "ja"
                 else f"{area_names[a]}: JEPX monthly average, same month last year and 4-hour spread (yen/kWh, {ym_label(yms[0], 'en')}–{ym_label(last, 'en')})")
         slug = dict((x[0], x[1]) for x in AREA_PAGES).get(a) if lang == "ja" else None
-        cap = f'<a href="/report/area/{slug}">{esc(area_names[a])}</a>' if slug else esc(area_names[a])
+        cap = f'<a href="/research/area/{slug}">{esc(area_names[a])}</a>' if slug else esc(area_names[a])
         panels.append(f"<figure><figcaption>{cap}</figcaption>"
                       + svg_line(xl, ser, w=330, h=210, ymax=ymax, aria=aria, end_labels=False, fs=14) + "</figure>")
     lg = legend([(LB["avg"], C_PURPLE, False), (LB["yoy"], C_GRAY, True), (LB["s4"], C_ORANGE, False)])
@@ -666,7 +666,7 @@ def cap_lda_section(data, lang, base, latest_doc, csv_cap, csv_lda, area_only=No
                 "Download CSV (area prices)", "Download CSV (contracted capacity)", "Issue")}[lang]
     area_links = ""
     if lang == "ja":
-        area_links = '<div class="rd-links">' + "".join(f'<a href="/report/area/{s}">{esc(a)}エリアの頁 →</a>' for a, s in AREA_PAGES) + "</div>"
+        area_links = '<div class="rd-links">' + "".join(f'<a href="/research/area/{s}">{esc(a)}エリアの頁 →</a>' for a, s in AREA_PAGES) + "</div>"
     return f"""<section class="md" id="capacity"><div class="container rp-body">
   <h2 class="md-h">{esc(H[0])}</h2>
   {cap_latest}
@@ -853,8 +853,8 @@ def temporal_end_date(_):
 
 def render_data(br, data, months, lang, has_en):
     latest_doc = data["latest"]["doc"]
-    path = "/report/data" if lang == "ja" else "/en/report/data"
-    base = "/report" if lang == "ja" else "/en/report"
+    path = "/research/data" if lang == "ja" else "/en/research/data"
+    base = "/research" if lang == "ja" else "/en/research"
     J = data["jepx"]
     yms = month_range(J.keys())
     first, last = yms[0], yms[-1]
@@ -881,7 +881,7 @@ def render_data(br, data, months, lang, has_en):
             desc = "需給調整市場（EPRX）の商品ごとの応札倍率・平均落札価格、" + desc
         label = "毎月更新・出典つき・CSV あり"
         toc = [("#jepx", "②卸電気"), ("#capacity", "③容量市場")] + ([("#eprx", "①需給調整市場")])
-        crumbs = [("ホーム", "/"), ("市場ノート", "/report"), ("市場データ", path)]
+        crumbs = [("ホーム", "/"), ("市場ノート", "/research"), ("市場データ", path)]
         cite = br.bmd.cite_html("ja", h1, br.BASE + path, _MOD["date"],
                                 '<p>数字は公表データと当社の記録の集計です。値差は1kWh あたりの価格の差で、実際の収益を示すものではありません。'
                                 'CSV は各節の下から取れます。転載の決まりは <a href="/press">引用・転載ガイド</a> に。</p>')
@@ -897,7 +897,7 @@ def render_data(br, data, months, lang, has_en):
             desc = desc[:154].rsplit(" ", 1)[0].rstrip(" ,;:.") + "…"
         label = "Updated monthly · Sources cited · CSV"
         toc = [("#jepx", "② Wholesale (JEPX)"), ("#capacity", "③ Capacity (OCCTO)"), ("#eprx", "① Balancing (EPRX)")]
-        crumbs = [("Home", "/en"), ("Market Notes", "/en/report"), ("Market data", path)]
+        crumbs = [("Home", "/en"), ("Market Notes", "/en/research"), ("Market data", path)]
         cite = br.bmd.cite_html("en", h1, br.BASE + path, _MOD["date"],
                                 '<p>The figures are tallies of published data and our own records. The price spread is a difference in price per kWh and does not show actual revenue. '
                                 'CSV downloads are below each section; the reuse terms are in the <a href="/en/press">citation guide</a>.</p>')
@@ -932,10 +932,10 @@ def render_data(br, data, months, lang, has_en):
 </div></section>
 """
     if lang == "ja":
-        head = br.page_head(title, desc, path, jsonld, "/en/report/data" if has_en else None)
+        head = br.page_head(title, desc, path, jsonld, "/en/research/data" if has_en else None)
         foot = br.bmd.CTA + br.bmd.FOOTER
     else:
-        head = br.page_head_en(title, desc, path, jsonld, "/report/data")
+        head = br.page_head_en(title, desc, path, jsonld, "/research/data")
         foot = EN_CTA + br.bmd.EN_FOOTER
     return head.replace("</style>", CSS + "</style>", 1) + main + foot + "\n</body>\n</html>\n", main
 
@@ -1010,8 +1010,8 @@ def projects_block(br, area, slug):
 
 def render_area(br, data, months, docs, area, slug):
     latest_doc = data["latest"]["doc"]
-    path = f"/report/area/{slug}"
-    base = "/report"
+    path = f"/research/area/{slug}"
+    base = "/research"
     J = data["jepx"]
     yms = month_range(J.keys())
     first, last = yms[0], yms[-1]
@@ -1064,13 +1064,13 @@ def render_area(br, data, months, docs, area, slug):
     desc = (f"{area}エリアの卸電気（JEPX）の月平均・日中・夕方・4時間と2時間の値差を{ym_label(first)}〜{ym_label(last)}の月ごとに表と図で。"
             f"{ym_label(last)}の月平均は{v(last, 'avg')}円/kWh、4時間の値差は{v(last, 's4')}円/kWh。容量市場のエリアプライスと、このエリアの公開案件の件数も。")
     jsonld = "\n".join([
-        dataset_ld(br, f"{area}エリアの卸電気の月ごとの数字", desc, path, [("JEPX", "/report/data/jepx-spot-monthly.csv")],
+        dataset_ld(br, f"{area}エリアの卸電気の月ごとの数字", desc, path, [("JEPX", "/research/data/jepx-spot-monthly.csv")],
                    f"{first}/{last}", "ja", [JEPX_URL], f"{area}エリア", variables_measured("ja", lda=False)),
-        br.bmd.ld(br.bmd.crumbs([("ホーム", br.BASE + "/"), ("市場ノート", br.BASE + "/report"), ("市場データ", br.BASE + "/report/data"),
+        br.bmd.ld(br.bmd.crumbs([("ホーム", br.BASE + "/"), ("市場ノート", br.BASE + "/research"), ("市場データ", br.BASE + "/research/data"),
                                  (f"{area}エリア", br.BASE + path)])),
     ])
-    others = "".join(f'<a href="/report/area/{s}">{esc(a)}エリア →</a>' for a, s in AREA_PAGES if a != area)
-    main = f"""{br.bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", "/report"), ("市場データ", "/report/data"), (f"{area}エリア", path)])}
+    others = "".join(f'<a href="/research/area/{s}">{esc(a)}エリア →</a>' for a, s in AREA_PAGES if a != area)
+    main = f"""{br.bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", "/research"), ("市場データ", "/research/data"), (f"{area}エリア", path)])}
 <section class="hero"><div class="container">
   <div class="section-label">毎月更新・出典つき</div>
   <h1>{esc(area)}エリアの市場データ</h1>
@@ -1088,13 +1088,13 @@ def render_area(br, data, months, docs, area, slug):
   <div class="rd-card"><h3>値差（{unit}）</h3>{legend([(LB["s4"], C_ORANGE, False), (LB["s2"], C_GREEN, False)])}{ch2}</div></div>
   {table(head, rows, dks, dr, caption=f"{area}の卸電気の月ごとの数字（{unit}）・月平均・前年同月・日中・夕方・値差")}
   {src}
-  <a class="rd-dl" href="/report/data/jepx-spot-monthly.csv" download>CSV をダウンロード（全エリア）</a>
+  <a class="rd-dl" href="/research/data/jepx-spot-monthly.csv" download>CSV をダウンロード（全エリア）</a>
 </div></section>
 {cap_lda_section(data, "ja", base, latest_doc, "", "", area_only=area, area_names={area: area})}
 {qhtml}
 {projects_block(br, area, slug)}
 <section class="md"><div class="container rp-body">
-  <div class="rd-links"><a href="/report/data">全エリアの市場データ →</a>{others}<a href="/report">市場ノートの号の一覧 →</a></div>
+  <div class="rd-links"><a href="/research/data">全エリアの市場データ →</a>{others}<a href="/research">市場ノートの号の一覧 →</a></div>
   {br.bmd.cite_html("ja", f"{area}エリアの市場データ", br.BASE + path, _MOD["date"],
                     '<p>数字は公表データと当社の記録の集計です。値差は1kWh あたりの価格の差で、実際の収益を示すものではありません。'
                     '転載の決まりは <a href="/press">引用・転載ガイド</a> に。</p>')}
@@ -1150,7 +1150,7 @@ def build(br, months, docs):
         notes.append("市場データ: 号の表が読めない（卸電気か容量市場の表が無い）。市場データの頁は焼かない")
         return files, sm, notes
     # 頁の dateModified＝sitemap の lastmod＝最新の号の発行日と、今の sitemap の値（頁を変えた日に stamp_sitemap.py が進める）の新しいほう
-    _MOD["date"] = br.modified_of("/report/data", ja["latest"]["doc"]["issued"])
+    _MOD["date"] = br.modified_of("/research/data", ja["latest"]["doc"]["issued"])
     en_months = [m for m in months if m.get("en_md")]
     en = collect(en_months, docs, "en") if en_months else None
     has_en = False
@@ -1165,33 +1165,33 @@ def build(br, months, docs):
     order = ja["jepx"][max(ja["jepx"])]["order"]
     names = {a: a for a in order}
     page, main = render_data(br, ja, months, "ja", has_en)
-    pages = [("report/data/index.html", page, main, "ja")]
-    files["report/data/jepx-spot-monthly.csv"] = jepx_csv(ja, "ja", order, names, "/report").encode("utf-8")
-    files["report/data/capacity-main-auction.csv"] = cap_csv(ja, "ja", names).encode("utf-8")
-    files["report/data/long-term-decarbonization-auction.csv"] = lda_csv(ja, "ja").encode("utf-8")
-    notes += source_gaps(files, "report/data")
+    pages = [("research/data/index.html", page, main, "ja")]
+    files["research/data/jepx-spot-monthly.csv"] = jepx_csv(ja, "ja", order, names, "/research").encode("utf-8")
+    files["research/data/capacity-main-auction.csv"] = cap_csv(ja, "ja", names).encode("utf-8")
+    files["research/data/long-term-decarbonization-auction.csv"] = lda_csv(ja, "ja").encode("utf-8")
+    notes += source_gaps(files, "research/data")
     if SHOW_EPRX and ja["eprx"]:
-        files["report/data/eprx-monthly.csv"] = eprx_csv(ja, "ja", "/report").encode("utf-8")
+        files["research/data/eprx-monthly.csv"] = eprx_csv(ja, "ja", "/research").encode("utf-8")
     d = _MOD["date"]
-    sm.append(("/report/data", d, "0.7", "/en/report/data" if has_en else None, "ja"))
+    sm.append(("/research/data", d, "0.7", "/en/research/data" if has_en else None, "ja"))
     if has_en:
         en_order = en["jepx"][max(en["jepx"])]["order"]
         page_en, main_en = render_data(br, en, en_months, "en", True)
-        pages.append(("en/report/data/index.html", page_en, main_en, "en"))
-        files["en/report/data/jepx-spot-monthly.csv"] = jepx_csv(en, "en", en_order, {a: a for a in en_order}, "/en/report").encode("utf-8")
-        files["en/report/data/capacity-main-auction.csv"] = cap_csv(en, "en", {}).encode("utf-8")
-        files["en/report/data/long-term-decarbonization-auction.csv"] = lda_csv(en, "en").encode("utf-8")
-        notes += source_gaps(files, "en/report/data")
+        pages.append(("en/research/data/index.html", page_en, main_en, "en"))
+        files["en/research/data/jepx-spot-monthly.csv"] = jepx_csv(en, "en", en_order, {a: a for a in en_order}, "/en/research").encode("utf-8")
+        files["en/research/data/capacity-main-auction.csv"] = cap_csv(en, "en", {}).encode("utf-8")
+        files["en/research/data/long-term-decarbonization-auction.csv"] = lda_csv(en, "en").encode("utf-8")
+        notes += source_gaps(files, "en/research/data")
         if SHOW_EPRX and en["eprx"]:
-            files["en/report/data/eprx-monthly.csv"] = eprx_csv(en, "en", "/en/report").encode("utf-8")
-        sm.append(("/en/report/data", d, "0.6", "/report/data", "en"))
+            files["en/research/data/eprx-monthly.csv"] = eprx_csv(en, "en", "/en/research").encode("utf-8")
+        sm.append(("/en/research/data", d, "0.6", "/research/data", "en"))
     for area, slug in AREA_PAGES:
         if not any(area in rec["rows"] for rec in ja["jepx"].values()):
             notes.append(f"市場データ: {area} の卸電気の数字が号に無い。エリアの頁は焼かない")
             continue
         page, main = render_area(br, ja, months, docs, area, slug)
-        pages.append((f"report/area/{slug}/index.html", page, main, "ja"))
-        sm.append((f"/report/area/{slug}", d, "0.6", None, "ja"))
+        pages.append((f"research/area/{slug}/index.html", page, main, "ja"))
+        sm.append((f"/research/area/{slug}", d, "0.6", None, "ja"))
     # 公開してはいけない語を、焼いた頁の本文にも掛ける（フッターの住所は除く）
     hits = []
     for rel, page, main, lang in pages:

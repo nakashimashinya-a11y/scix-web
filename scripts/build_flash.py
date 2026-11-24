@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""「蓄電所の市場ノート 速報」（/report/flash・/en/report/flash・毎日更新）を焼く。
+"""「蓄電所の市場ノート 速報」（/research/flash・/en/research/flash・毎日更新）を焼く。
 
 2026-11-23 中島（対話画面）「市場レポートの考え方整理。毎日最新データを落として速報。毎月１日に先月のデータを落として月報。
 今色々あってわかりにくい。JEPXと需給調整のレポートを分ける必要ないよね。」「メニュー多いのは良くない。シンプルに。速報で毎日の最新データ。
-毎月１日の前月最新データがいい。」＝市場の頁は2本だけ: 速報（この頁・毎日）と月の号（/report/<YYYY-MM>・毎月1日・build_reports.py）。
+毎月１日の前月最新データがいい。」＝市場の頁は2本だけ: 速報（この頁・毎日）と月の号（/research/<YYYY-MM>・毎月1日・build_reports.py）。
 
 読むもの（リポジトリには置かない）: ~/.openclaw/workspace/state/market_flash/latest.json（bin/market_flash.py が毎朝、公表データを取り直して数える。
   数字と日付だけ。文はここで決まった型にはめる＝LLM を使わない）。SCIX_FLASH_JSON で替えられる。
@@ -13,12 +13,12 @@
 図は月号と同じ描き方（作業域の bin/market_flash_figs.py が描く SVG・11枚）、中身は当月1日からの日ごとと今月ここまで。週ごとの表は頁に出さない。
 
 生成するもの（全文を書き直す。手で直さない）:
-  report/flash/index.html, en/report/flash/index.html   頁（頭に「何月何日のデータまで」・今月の動き3つ・図11枚・今月ここまで／最新の1日／前月〔全日〕の表・日ごとの表）
-  report/flash/<名前>.svg, en/report/flash/<名前>.svg     図（速報の数字と同じ置き場の figs/{ja,en}/ から写す。数字と一緒に作られた物だけ＝入力の figs.ok）
-  report/flash/latest.json                              速報の要点（データの日付・今月の動きの文・週の印）。bin/press_release.py の速報の本が読む
-  report/flash/jepx-daily.csv, en/report/flash/jepx-daily.csv   卸電気の日ごとの平均と4時間の値差（今月と前月・10エリア）
-  sitemap.xml                                           /report/flash と /en/report/flash の行（hreflang・lastmod＝データを取り直した日）
-古いデータを新しく見せない: 入力の最新の受渡日が、いま焼いてある頁（report/flash/latest.json）より古ければ何も書かない（前の版のまま＝日付も前のまま）。
+  research/flash/index.html, en/research/flash/index.html   頁（頭に「何月何日のデータまで」・今月の動き3つ・図11枚・今月ここまで／最新の1日／前月〔全日〕の表・日ごとの表）
+  research/flash/<名前>.svg, en/research/flash/<名前>.svg     図（速報の数字と同じ置き場の figs/{ja,en}/ から写す。数字と一緒に作られた物だけ＝入力の figs.ok）
+  research/flash/latest.json                              速報の要点（データの日付・今月の動きの文・週の印）。bin/press_release.py の速報の本が読む
+  research/flash/jepx-daily.csv, en/research/flash/jepx-daily.csv   卸電気の日ごとの平均と4時間の値差（今月と前月・10エリア）
+  sitemap.xml                                           /research/flash と /en/research/flash の行（hreflang・lastmod＝データを取り直した日）
+古いデータを新しく見せない: 入力の最新の受渡日が、いま焼いてある頁（research/flash/latest.json）より古ければ何も書かない（前の版のまま＝日付も前のまま）。
 需給調整市場の数字は頁の表の集計だけ（日ごとの CSV は出さない＝build_report_data.py と同じ扱い）。
 
 使い方:
@@ -46,7 +46,7 @@ FIG_SRC = os.path.join(os.path.dirname(SRC), "figs")     # <言葉>/<名前>.svg
 FIG_NAMES = ["e1", "e2", "e3", "e4", "e5", "e6", "j1", "j2", "j3", "j4", "j5"]   # 頁に出す順＝図1〜図11（需給調整市場が先）
 FOUR = ["北海道", "東京", "関西", "九州"]               # 図の線に出す4エリア（月号と同じ）
 SPREAD_BIG = 10.0                                       # 4時間の値差がこの円/kWh 以上の日を数える（月号と同じ）
-PATH, PATH_EN = "/report/flash", "/en/report/flash"
+PATH, PATH_EN = "/research/flash", "/en/research/flash"
 FIRST = "2026-11-23"      # 頁を作った日（JSON-LD の datePublished。dateModified はデータを取り直した日）
 NAME, NAME_EN = "蓄電所の市場ノート 速報", "Battery Storage Market Notes: Daily Flash"
 AREAS = ["システム", "北海道", "東北", "東京", "中部", "北陸", "関西", "中国", "四国", "九州"]
@@ -617,7 +617,7 @@ def jsonld(d, lang, title, desc, modified):
     csv = "%s/%s/jepx-daily.csv" % (BASE, path.strip("/"))
     page = {"@context": "https://schema.org", "@type": "WebPage", "@id": BASE + path + "#webpage", "url": BASE + path, "name": title, "description": desc,
             "inLanguage": lang, "publisher": pub, "datePublished": FIRST, "dateModified": modified,
-            "isPartOf": {"@type": "CollectionPage", "url": BASE + ("/report" if J else "/en/report")}}
+            "isPartOf": {"@type": "CollectionPage", "url": BASE + ("/research" if J else "/en/research")}}
     ds = {"@context": "https://schema.org", "@type": "Dataset", "@id": BASE + path + "#dataset", "url": BASE + path,
           "name": (NAME + "の数字") if J else (NAME_EN + ": figures"),
           "description": ("卸電気（JEPX スポット市場）の10エリアの平均価格と4時間の値差、需給調整市場（EPRX）の7商品の応札倍率・平均落札価格（速報値）を、"
@@ -630,8 +630,8 @@ def jsonld(d, lang, title, desc, modified):
           "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": csv,
                             "name": "卸電気（JEPX）の日ごとの平均と4時間の値差（CSV）" if J else "JEPX daily averages and 4-hour spreads (CSV)"}],
           "mainEntityOfPage": BASE + path}
-    cr = bmd.crumbs([("ホーム", BASE + "/"), ("市場ノート", BASE + "/report"), ("速報", BASE + path)] if J else
-                    [("Home", BASE + "/en"), ("Market Notes", BASE + "/en/report"), ("Daily Flash", BASE + path)])
+    cr = bmd.crumbs([("ホーム", BASE + "/"), ("市場ノート", BASE + "/research"), ("速報", BASE + path)] if J else
+                    [("Home", BASE + "/en"), ("Market Notes", BASE + "/en/research"), ("Daily Flash", BASE + path)])
     return "\n".join(bmd.ld(x) for x in (page, ds, cr))
 
 
@@ -644,15 +644,15 @@ def render(d, lang, modified, latest_issue, figs):
         title = "市場ノート 速報｜需給調整市場・卸電気を毎日更新｜サイエンスエックス"
         desc = ("需給調整市場（EPRX）と卸電気（JEPX）の最新の数字を、公表データを毎朝取り直して出す速報。今月1日からの毎日の動きを月号と同じ図で、"
                 "7商品の応札倍率と平均落札価格、システムプライスと9エリアの平均価格と4時間の値差を、今月ここまで・最新の1日・前月（全日）の表で比べます。出典つき、CSV あり。")   # 日付は頁の頭と dateModified に（説明は毎日変えない＝llms.txt を日ごとに古くしない）
-        crumbs = bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", "/report"), ("速報", PATH)])
-        issue = ('<a class="btn-primary" href="/report/%s">最新の月号を読む（%s号＝%sの数字）</a>' % (latest_issue, mon_ja(latest_issue), mon_ja(issue_data_month(latest_issue)))) if latest_issue else ""
+        crumbs = bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", "/research"), ("速報", PATH)])
+        issue = ('<a class="btn-primary" href="/research/%s">最新の月号を読む（%s号＝%sの数字）</a>' % (latest_issue, mon_ja(latest_issue), mon_ja(issue_data_month(latest_issue)))) if latest_issue else ""
         hero = f"""<section class="hero"><div class="container">
   <div class="section-label">毎日更新（速報）</div>
   <h1>{esc(NAME)}</h1>
   <p class="fl-pair"><b>速報</b>＝今月1日からの毎日の動き（この頁・毎朝更新）。<b>月号</b>＝毎月1日に出す、前月まるごとの図と表。</p>
   <div class="fl-asof"><div class="h">データの時点（{esc(d_ja(d['made_on']))}の朝に公表データを取り直し）</div><b>需給調整市場（EPRX）: {esc(d_ja(e['latest_day'], True))}分まで（速報値）</b><b>卸電気（JEPX）: {esc(d_ja(j['latest_day'], True))}分まで</b><span>日付は電気を受け渡す日（受渡日）です。卸電気は前日に売買が決まるので、翌日分まで入ることがあります。</span></div>
   <p>需給調整市場（EPRX）と卸電気（JEPX）の、今月1日からの毎日の動きを、月号と同じ図と並びで出しています。数字は、公表された最新のデータから毎朝作り直します。</p>
-  <p class="fl-two">{issue}<a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/report">月号の一覧</a></p>
+  <p class="fl-two">{issue}<a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/research">月号の一覧</a></p>
 </div></section>"""
         same = e["month"] == j["month"]
         m_h = "今月の動き3つ（%s）" % (mon_ja(e["month"]) if same else "需給調整市場は%s・卸電気は%s" % (mon_ja(e["month"]), mon_ja(j["month"])))
@@ -666,15 +666,15 @@ def render(d, lang, modified, latest_issue, figs):
                   "月が終わると変わります。月が終わってから公表される確報値とは少し違うことがあります。出典: 電力需給調整力取引所（EPRX）公表の取引結果（速報値）。当社集計。")
         j_note = ("平均は30分コマの単純平均。4時間の値差は、その日の高い8コマ（4時間）の平均から安い8コマの平均を引いた差の、日ごとの平均です（安い時間と高い時間の順番、"
                   "充放電で失う電気、手数料・税・託送の費用は見ていません。収益を示すものではありません）。出典: 日本卸電力取引所（JEPX）公表のスポット市場の取引結果。当社集計。")
-        csvl = '<p class="md-note">卸電気の日ごとの数字（今月と前月・10エリア）: <a href="/report/flash/jepx-daily.csv" download>CSV（日ごとの平均と4時間の値差）</a></p>'
+        csvl = '<p class="md-note">卸電気の日ごとの数字（今月と前月・10エリア）: <a href="/research/flash/jepx-daily.csv" download>CSV（日ごとの平均と4時間の値差）</a></p>'
         asof_head = ["出所", "対象の期間", "種類", "取り直した日"]
         notes = ["数字は出典の公表値から当社が機械で集計したもので、図も表も毎朝作り直します。取り直せなかった日は、前の日の版のまま（上の「データの時点」の日付も前のまま）です。",
                  "「速報値」は約定した直後に公表される値、「確報値」は月が終わってから公表される値です（約定のあとの追加調達や訂正を反映）。この頁の需給調整市場の数字は全部速報値です。",
                  "受渡日は電気を受け渡す日です。卸電気のスポット市場は前の日に取引するので、翌日の受渡分まで出ることがあります。",
                  "図の横軸は月の1日から月末までで、日が進むと右へ伸びます。月が替わると、次の月の1日から始め直します（前月まるごとの図と表は月号にあります）。"]
         more = ('<ul class="rp-list" style="margin-top:14px">'
-                '<li><a class="t" href="/report">蓄電所の市場ノート（月号・毎月1日）</a><p>前月の全日の数字を、需給調整市場・卸電気・容量市場の順に図と表でまとめた号。PDF あり。</p></li>'
-                '<li><a class="t" href="/report/data">市場データ（号をまたいだ推移・CSV）</a><p>卸電気のエリア別の月ごとの推移と容量市場のエリアプライス。</p></li>'
+                '<li><a class="t" href="/research">蓄電所の市場ノート（月号・毎月1日）</a><p>前月の全日の数字を、需給調整市場・卸電気・容量市場の順に図と表でまとめた号。PDF あり。</p></li>'
+                '<li><a class="t" href="/research/data">市場データ（号をまたいだ推移・CSV）</a><p>卸電気のエリア別の月ごとの推移と容量市場のエリアプライス。</p></li>'
                 '<li><a class="t" href="/market-data">系統用蓄電池の売り案件 市場データ</a><p>当社の蓄電所マーケットに載る売り案件の、管内別・電圧別などの集計（毎朝更新）。</p></li>'
                 '</ul><p class="md-note" style="margin-top:12px">図表や数値は、出典を明記すればそのままお使いいただけます（<a href="/press">引用・転載ガイド</a>）。</p>')
         footer = bmd.FOOTER
@@ -682,15 +682,15 @@ def render(d, lang, modified, latest_issue, figs):
         title = "Daily Flash: Japan EPRX and JEPX figures | ScienceX"
         desc = ("Japan's latest EPRX balancing and JEPX wholesale figures, re-fetched every morning: daily charts from the 1st of the month in the same format as the "
                 "monthly issue, plus tables for the month so far, the latest day and last month.")
-        crumbs = bmd.nav_crumbs([("Home", "/en"), ("Market Notes", "/en/report"), ("Daily Flash", PATH_EN)])
-        issue = ('<a class="btn-primary" href="/en/report/%s">Read the latest monthly issue (%s issue, %s data)</a>' % (latest_issue, mon_en(latest_issue), mon_en(issue_data_month(latest_issue)))) if latest_issue else ""
+        crumbs = bmd.nav_crumbs([("Home", "/en"), ("Market Notes", "/en/research"), ("Daily Flash", PATH_EN)])
+        issue = ('<a class="btn-primary" href="/en/research/%s">Read the latest monthly issue (%s issue, %s data)</a>' % (latest_issue, mon_en(latest_issue), mon_en(issue_data_month(latest_issue)))) if latest_issue else ""
         hero = f"""<section class="hero"><div class="container">
   <div class="section-label">Updated daily (flash)</div>
   <h1>{esc(NAME_EN)}</h1>
   <p class="fl-pair"><b>Daily Flash</b> = every day of this month from the 1st (this page, updated each morning). <b>Monthly issue</b> = the whole previous month in charts and tables, out on the 1st.</p>
   <div class="fl-asof"><div class="h">Data as of (re-fetched from published data on the morning of {esc(d_en(d['made_on']))})</div><b>EPRX balancing market: up to delivery on {esc(d_en(e['latest_day']))} (preliminary)</b><b>JEPX wholesale: up to delivery on {esc(d_en(j['latest_day']))}</b><span>Dates are delivery days (the day the power is delivered). JEPX trades the day before, so it can run one day ahead.</span></div>
   <p>Daily movements since the 1st of the month for two markets that pay battery storage sites in Japan, the EPRX balancing market and JEPX wholesale power, in the same charts and order as the monthly issue. Figures are rebuilt from the latest published data every morning.</p>
-  <p class="fl-two">{issue}<a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/report">All monthly issues</a></p>
+  <p class="fl-two">{issue}<a class="btn-secondary" style="color:var(--navy);border-color:var(--navy)" href="/en/research">All monthly issues</a></p>
 </div></section>"""
         same = e["month"] == j["month"]
         m_h = "Three things this month (%s)" % (mon_en(e["month"]) if same else "balancing market: %s; wholesale: %s" % (mon_en(e["month"]), mon_en(j["month"])))
@@ -704,15 +704,15 @@ def render(d, lang, modified, latest_issue, figs):
                   "and change after the month ends; final values published later can differ slightly. Source: EPRX trading results (preliminary), aggregated by ScienceX.")
         j_note = ("Averages are simple averages of half-hour slots. The 4-hour spread is the average of the 8 most expensive slots minus the average of the 8 cheapest, averaged over days "
                   "(it ignores slot order, losses, fees, taxes and network charges, and is not a revenue figure). Source: JEPX spot market results, aggregated by ScienceX.")
-        csvl = '<p class="md-note">JEPX daily figures (this month and last month, 10 areas): <a href="/en/report/flash/jepx-daily.csv" download>CSV (daily averages and 4-hour spreads)</a></p>'
+        csvl = '<p class="md-note">JEPX daily figures (this month and last month, 10 areas): <a href="/en/research/flash/jepx-daily.csv" download>CSV (daily averages and 4-hour spreads)</a></p>'
         asof_head = ["Source", "Period", "Type", "Fetched on"]
         notes = ["Figures are aggregated automatically by ScienceX from published data; charts and tables are rebuilt every morning. If a fetch fails, the previous day's version stays (and so do the dates at the top).",
                  "Preliminary values are published right after the auction; final values are published after the month ends (with later additional procurement and corrections). All balancing market figures here are preliminary.",
                  "Delivery day is the day electricity is delivered. JEPX spot trades the day before, so figures can run to the next day's delivery.",
                  "The horizontal axis of the daily charts runs from the 1st to the end of the month and fills in as days pass. When the month changes, the charts start again from the 1st (the whole previous month is in the monthly issue)."]
         more = ('<ul class="rp-list" style="margin-top:14px">'
-                '<li><a class="t" href="/en/report">Battery Storage Market Notes (monthly issue, 1st of each month)</a><p>The whole previous month in charts and tables: balancing, wholesale and capacity markets. PDF available.</p></li>'
-                '<li><a class="t" href="/en/report/data">Market Data (across issues, CSV)</a><p>Monthly JEPX figures by area and capacity market area prices.</p></li>'
+                '<li><a class="t" href="/en/research">Battery Storage Market Notes (monthly issue, 1st of each month)</a><p>The whole previous month in charts and tables: balancing, wholesale and capacity markets. PDF available.</p></li>'
+                '<li><a class="t" href="/en/research/data">Market Data (across issues, CSV)</a><p>Monthly JEPX figures by area and capacity market area prices.</p></li>'
                 '<li><a class="t" href="/en/market-data">Japan BESS Projects for Sale: Market Data</a><p>Counts of projects listed on our marketplace by area and voltage (updated daily).</p></li>'
                 '</ul><p class="md-note" style="margin-top:12px">Charts and figures may be reused with the source stated (<a href="/en/press">citation guide</a>).</p>')
         footer = bmd.EN_FOOTER
@@ -805,7 +805,7 @@ def main():
         return 2
     cur = {}
     try:
-        cur = json.load(open(os.path.join(ROOT, "report/flash/latest.json"), encoding="utf-8"))
+        cur = json.load(open(os.path.join(ROOT, "research/flash/latest.json"), encoding="utf-8"))
     except (OSError, ValueError):
         pass
     for k_in, k_cur in (("jepx", "jepx_day"), ("eprx", "eprx_day")):
@@ -818,10 +818,10 @@ def main():
     modified = cur.get("made_on") if same_data else d["made_on"]     # 数字が同じなら dateModified も前のまま（毎日焼き直しても日付だけ進めない）
     latest_issue = ""
     try:
-        latest_issue = json.load(open(os.path.join(ROOT, "report/latest.json"), encoding="utf-8")).get("key") or ""
+        latest_issue = json.load(open(os.path.join(ROOT, "research/latest.json"), encoding="utf-8")).get("key") or ""
     except (OSError, ValueError):
         pass
-    if not os.path.exists(os.path.join(ROOT, "en/report", latest_issue, "index.html")):
+    if not os.path.exists(os.path.join(ROOT, "en/research", latest_issue, "index.html")):
         latest_issue_en = ""
     else:
         latest_issue_en = latest_issue
@@ -836,11 +836,11 @@ def main():
     if hits:
         print("NG 公開してはいけない語がある。何も書かない: " + "／".join(hits))
         return 2
-    files = {"report/flash/index.html": ja.encode("utf-8"), "en/report/flash/index.html": en.encode("utf-8"),
-             "report/flash/latest.json": flash_json(dd, mv_ja, mv_en, w),
-             "report/flash/jepx-daily.csv": csv_daily(d, "ja"), "en/report/flash/jepx-daily.csv": csv_daily(d, "en")}
+    files = {"research/flash/index.html": ja.encode("utf-8"), "en/research/flash/index.html": en.encode("utf-8"),
+             "research/flash/latest.json": flash_json(dd, mv_ja, mv_en, w),
+             "research/flash/jepx-daily.csv": csv_daily(d, "ja"), "en/research/flash/jepx-daily.csv": csv_daily(d, "en")}
     for (lang, n), b in figs.items():
-        files["%sreport/flash/%s.svg" % ("" if lang == "ja" else "en/", n)] = b
+        files["%sresearch/flash/%s.svg" % ("" if lang == "ja" else "en/", n)] = b
     sm2 = sitemap_rows(sm, modified)
     if sm2 != sm:
         files["sitemap.xml"] = sm2.encode("utf-8")

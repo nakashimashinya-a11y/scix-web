@@ -146,7 +146,7 @@ for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
     await p.eval(`document.querySelector(${JSON.stringify(sel('research'))}).focus()`); await p.eval('window.__dp = []'); await key(p, 'Enter', 13); await sleep(80);
     const dpk = await p.eval('window.__dp'); ok(at + 'キーボード Enter は頁へ', dpk.length === 1 && dpk[0].dp === false, JSON.stringify(dpk));
     await key(p, 'ArrowDown', 40); await sleep(80); st = await state(p); const f1 = await p.eval(`document.activeElement.getAttribute('href')`);
-    ok(at + 'キーボード ↓ で開いて最初のリンクへ', st.research[0] && st.research[1] === 'true' && /\/report\/flash$/.test(f1), JSON.stringify(st.research) + f1);
+    ok(at + 'キーボード ↓ で開いて最初のリンクへ', st.research[0] && st.research[1] === 'true' && /\/research\/flash$/.test(f1), JSON.stringify(st.research) + f1);
     await key(p, 'Escape', 27); await sleep(80); st = await state(p); ok(at + 'Esc で閉じて札へ戻る', !st.research[0] && st.research[1] === 'false' && /scix-nav-dd-toggle/.test(await p.eval('document.activeElement.className')), JSON.stringify(st.research));
     await p.close();
   }

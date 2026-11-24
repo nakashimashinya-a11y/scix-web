@@ -7,7 +7,7 @@
 並び（2026-11-23・AI の答えに先に拾われたい順）:
   会社は何か（トップの説明・英語の会社案内の説明）
   → 売り案件の市場データ（/market-data・/en/market-data・/zh-market-data と、その頁の CSV）
-  → 市場ノート（/research・/report → 速報 /report/flash → 各号〔新しい号から〕→ /report/data と、その頁の CSV → エリア別）
+  → 市場ノート（/research＝入口と月号の一覧 → 速報 /research/flash → 各号〔新しい号から〕→ /research/data と、その頁の CSV → エリア別）
   → 蓄電所マーケット（登録なしで価格を除く一覧＝マーケットのトップと /projects・管内別の一覧）
   → 柱の頁（トップ・全体像・ガイド・買う／売るの入口・ナレッジの入口・会社案内）
   → コラム → その他（問い合わせ・個人情報の方針）
@@ -97,7 +97,7 @@ def section_of(url):
     bare = re.sub(r"^/(en/|zh-)", "/", p)  # /en/x と /zh-x を /x にそろえる
     if bare in ("/market-data", "/press"):
         return "data"
-    if bare in ("/research", "/report") or bare.startswith("/report/"):
+    if bare == "/research" or bare.startswith("/research/"):
         return "notes"
     if bare == "/projects" or bare.startswith("/projects-"):
         return "market"
@@ -109,14 +109,14 @@ def section_of(url):
 
 
 def issue_key(url):
-    """市場ノートの区画の並び: 入口（/research・/report）→ 各号（新しい号を先に）→ 市場データ（/report/data・エリア）。
+    """市場ノートの区画の並び: 入口（/research＝月号の一覧を兼ねる）→ 各号（新しい号を先に）→ 市場データ（/research/data・エリア）。
     同じ段の中は sitemap の順のまま（安定な並べ替え）。"""
     p = re.sub(r"^/(en/|zh-)", "/", url[len(BASE):])
-    if p in ("/research", "/report"):
+    if p == "/research":
         return (0, 0)
-    if p == "/report/flash":                       # 毎日更新の速報は入口の次（2026-11-23・市場の頁は速報と月号の2本）
+    if p == "/research/flash":                       # 毎日更新の速報は入口の次（2026-11-23・市場の頁は速報と月号の2本）
         return (0, 1)
-    m = re.search(r"^/report/(\d{4})-(\d{2})$", p)
+    m = re.search(r"^/research/(\d{4})-(\d{2})$", p)
     if m:
         return (1, -(int(m.group(1)) * 100 + int(m.group(2))))
     return (2, 0)

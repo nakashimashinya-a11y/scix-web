@@ -33,9 +33,9 @@ FILTERS = [("voltage", "特別高圧", "extra-high-voltage"), ("voltage", "高�
 # /fund へは足さない（O16-67）。
 DATA_RE = re.compile(r"balancing|eprx|day-ahead|price-cap|bidding-ceiling|capacity|auction|^lda$|merchant|trading|long-term|revenue|area-data")
 AREA_RE = re.compile(r"regional-revenue|area-data")
-REPORT = ("/report", "蓄電所の市場ノート")
-REPORT_DATA = ("/report/data", "蓄電所の市場データ")
-REPORT_AREAS = [("/report/area/tokyo", "東京エリアの市場データ"), ("/report/area/kyushu", "九州エリアの市場データ")]
+REPORT = ("/research", "蓄電所の市場ノート")
+REPORT_DATA = ("/research/data", "蓄電所の市場データ")
+REPORT_AREAS = [("/research/area/tokyo", "東京エリアの市場データ"), ("/research/area/kyushu", "九州エリアの市場データ")]
 BEGIN = "<!-- scix-entrances:begin -->"
 END = "<!-- scix-entrances:end -->"
 DOORS = {
@@ -131,12 +131,12 @@ INTL = {
                doors={"market": ("https://dealroom.scix.co.jp/en", "Projects for sale on Chikudensho Market", "No registration to browse", "market"),
                       "sell": ("/en/contact", "Selling a project? Contact us", "We buy it or introduce a buyer", "contact"),
                       "know": ("/en/knowledge", "Knowledge — regulation, technology and business", "All columns", "site-en/knowledge"),
-                      "data": ("/en/report/data", "Battery Storage Market Data", "JEPX and capacity prices", "site-en/report/data")}),
+                      "data": ("/en/research/data", "Battery Storage Market Data", "JEPX and capacity prices", "site-en/report/data")}),
     "zh": dict(pre="zh-column-", font="'Noto Sans SC','Noto Sans JP',sans-serif", h="下一步",
                doors={"market": ("https://dealroom.scix.co.jp/en", "蓄电所市场的在售项目（英文页面）", "无需注册即可查看", "market"),
                       "sell": ("/zh-contact", "想出售项目，请联系我们", "由本公司收购，或为您引荐买家", "contact"),
                       "know": ("/zh-knowledge", "洞见：日本电网级储能的制度、收益、市场结构", "全部文章", "site-zh-knowledge"),
-                      "data": ("/en/report/data", "市场数据（英文页面）", "JEPX 与容量市场价格", "site-en/report/data")}),
+                      "data": ("/en/research/data", "市场数据（英文页面）", "JEPX 与容量市场价格", "site-en/report/data")}),
 }
 END_CTA_RE = re.compile(r'class="(?:cta-section|cta-block|cta)[ "]|scix-column-cta')
 

@@ -745,7 +745,7 @@ def cite_html(lang, name, url, updated, extra=""):
             f'<p class="cite-meta">Page: <a href="{_esc(url)}">{_esc(url)}</a> &middot; Updated: {t}</p>{extra}</div>')
 
 
-# ---------------------------------------------------------------- CSV（UTF-8 BOM 付き・CRLF。/report/data と同じ型）
+# ---------------------------------------------------------------- CSV（UTF-8 BOM 付き・CRLF。/research/data と同じ型）
 def csv_text(rows):
     def q(c):
         c = "" if c is None else str(c)
@@ -1820,7 +1820,7 @@ def render_en_market(ps, today, generated, weekly=(), nd=None, cs=None):
 </div></section>
 {more.sections(ps, today, cs, nd, "en")}{section_needs(nd, "en")}
 {section_download("en", generated, len(weekly) >= 2, bool(nd and nd.get("n")), name, BASE + path,
-                  '<p>The full project list in English is on <a href="/en/projects">Projects</a>; market prices (JEPX, capacity market) are on <a href="/en/report/data">Battery Storage Market Data</a>.</p>')}
+                  '<p>The full project list in English is on <a href="/en/projects">Projects</a>; market prices (JEPX, capacity market) are on <a href="/en/research/data">Battery Storage Market Data</a>.</p>')}
 {EN_CTA_MD}{EN_FOOTER}
 </body>
 </html>
@@ -2084,7 +2084,7 @@ def render_zh_market(ps, today, generated, weekly=(), nd=None):
 </div></section>
 {section_needs(nd, "zh")}
 {section_download("zh", generated, len(weekly) >= 2, bool(nd and nd.get("n")), name, BASE + path,
-                  '<p>项目一览请见<a href="/en/projects">Projects（英文页面）</a>；市场价格（JEPX、容量市场）请见<a href="/en/report/data">Battery Storage Market Data（英文页面）</a>。</p>')}
+                  '<p>项目一览请见<a href="/en/projects">Projects（英文页面）</a>；市场价格（JEPX、容量市场）请见<a href="/en/research/data">Battery Storage Market Data（英文页面）</a>。</p>')}
 {ZH_CTA_MD}{ZH_FOOTER}
 </body>
 </html>

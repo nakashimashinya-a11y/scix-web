@@ -21,7 +21,7 @@ vercel --prod
 - `contact.html` — お問い合わせ（FormSubmit.co）
 - `thanks.html` — サンクスページ
 - `column-*.html` — ナレッジコラム（19本）
-- `report/` — 月報（`scripts/build_reports.py` が Drive の `_作成物/<YYYYMM>_月報/` から焼く＝手で直さない。毎朝の同期から呼ぶ。`--check` でずれを見る。公開してはいけない語があれば書かずに止まる）
+- `research/`（と `en/research/`）— 市場ノート。入口と月号の一覧 `/research`・速報 `/research/flash`・月号 `/research/<YYYY-MM>`・市場データ `/research/data`（2026-11-25 に `/report` から移した。古い住所は vercel.json の 308）。月号は（`scripts/build_reports.py` が Drive の `_作成物/<YYYYMM>_月報/` から焼く＝手で直さない。毎朝の同期から呼ぶ。`--check` でずれを見る。公開してはいけない語があれば書かずに止まる）
 - `vercel.json` — URL設定（日本語URL→HTMLリダイレクト含む）
 
 ## SEO
