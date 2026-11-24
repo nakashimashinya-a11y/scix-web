@@ -47,6 +47,7 @@ from collections import Counter
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 from inject_stats import BAND_EVERY, NEW_DAYS, _esc, cod_bucket, cod_sort_key, cod_text, is_new  # noqa: E402
+import market_data_more as more  # noqa: E402  2026-11-25 足した集計の段（カードの段・土地・見た人の数・管内×規模・管内×運転開始・リクエストと売り物）
 from build_ga_tag import TAGS as GA_BLOCK  # noqa: E402  全頁と同じ GA の区画（本番以外・自動操作は送らない・社内の印）と LinkedIn のタグ（入力のフォームの無い頁）
 
 BASE = "https://www.scix.co.jp"
@@ -1204,7 +1205,7 @@ def needs_dataset(nd, lang, page_url):
 
 
 # ---------------------------------------------------------------- ページ
-def render_market(ps, today, generated, weekly=(), nd=None):
+def render_market(ps, today, generated, weekly=(), nd=None, cs=None):
     s = stats(ps, today)
     x = extra_stats(ps)
     weekly = list(weekly)
@@ -1310,7 +1311,7 @@ def render_market(ps, today, generated, weekly=(), nd=None):
   <p class="md-lead">月ごとに一覧へ載せた件数です。売却済み・売り止めで外した案件は含みません。{GROWTH_NOTE}</p>
   <table class="md-t"><caption>掲載月ごとの件数（件数のある月の新しい6つまで・いま販売中の案件）</caption><thead><tr>{_ths(["掲載月", "件数"])}</tr></thead><tbody>{month_rows}</tbody></table>
 </div></section>
-{section_needs(nd, "ja")}
+{more.sections(ps, today, cs, nd, "ja")}{section_needs(nd, "ja")}
 {section_download("ja", generated, len(weekly) >= 2, bool(nd and nd.get("n")), "系統用蓄電池の売り案件 市場データ", BASE + path,
                   '<p>数字の読み方は <a href="/column-project-price">蓄電所は、いくらで買えるのか</a>（取得価格の中央値）と <a href="/column-study-reply">接続検討回答書を毎日読む当社が、最初に見る6か所</a> に。</p>')}
 {CTA}{FOOTER}
@@ -1716,7 +1717,7 @@ def en_head(title, desc, path, jsonld, ja_path):
             .replace(f'{BASE}/img/ogp-m.png', f'{BASE}/img/ogp-m-en.png'))
 
 
-def render_en_market(ps, today, generated, weekly=(), nd=None):
+def render_en_market(ps, today, generated, weekly=(), nd=None, cs=None):
     """英語の市場データ（/en/market-data）。日本語の /market-data と同じ集計（件数・規模・月数だけ・価格なし）。"""
     s = stats(ps, today)
     x = extra_stats(ps)
@@ -1817,7 +1818,7 @@ def render_en_market(ps, today, generated, weekly=(), nd=None):
   <p class="md-lead">Projects now listed, by the month they were first listed. Projects taken off the list are not included. {GROWTH_NOTE_EN}</p>
   <table class="md-t"><caption>Projects by month first listed (up to the latest six months with listings, projects now listed)</caption><thead><tr>{_ths(["Month first listed", "Projects"])}</tr></thead><tbody>{month_rows}</tbody></table>
 </div></section>
-{section_needs(nd, "en")}
+{more.sections(ps, today, cs, nd, "en")}{section_needs(nd, "en")}
 {section_download("en", generated, len(weekly) >= 2, bool(nd and nd.get("n")), name, BASE + path,
                   '<p>The full project list in English is on <a href="/en/projects">Projects</a>; market prices (JEPX, capacity market) are on <a href="/en/report/data">Battery Storage Market Data</a>.</p>')}
 {EN_CTA_MD}{EN_FOOTER}
@@ -2147,11 +2148,12 @@ def main():
     today = datetime.date.today()
     weekly = weekly_series(ps, today)
     nd = fetch_needs(today) if "--fetch-needs" in sys.argv else load_needs()
-    pages = {"market-data.html": render_market(ps, today, generated, weekly, nd)}
+    cs = more.fetch_cards(today) if "--fetch-needs" in sys.argv else more.load_cards()   # 公開のカードの区分ごとの数（同じ毎朝の同期で読む）
+    pages = {"market-data.html": render_market(ps, today, generated, weekly, nd, cs)}
     for area, slug, operator in AREAS:
         pages[f"projects-{slug}.html"] = render_area(ps, area, slug, operator, today, generated)
     pages["en/projects.html"] = render_en_projects(ps, today, generated, weekly)
-    pages["en/market-data.html"] = render_en_market(ps, today, generated, weekly, nd)
+    pages["en/market-data.html"] = render_en_market(ps, today, generated, weekly, nd, cs)
     pages["zh-market-data.html"] = render_zh_market(ps, today, generated, weekly, nd)
     rows = summary_rows(ps, stats(ps, today), extra_stats(ps), generated, today)
     for lang, c in (("ja", CSV), ("en", CSV_EN)):
@@ -2161,6 +2163,8 @@ def main():
             pages[c["needs"].lstrip("/")] = needs_csv(nd, lang)
     if nd:
         pages[NEEDS_JSON] = needs_text(nd)
+    if cs:
+        pages[more.CARDS_JSON] = more.cards_text(cs)
     pages["sitemap.xml"] = sync_md_sitemap(sync_area_sitemap(ps, today), generated)
     changed = []
     for name, html in pages.items():
