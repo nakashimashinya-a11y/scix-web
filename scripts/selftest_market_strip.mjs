@@ -139,9 +139,9 @@ const LAND = new Set(['land-buyback', 'land-lease', 'land-value', 'land-zoning']
 const want = (slug) => !LAND.has(slug) && [...slug].reduce((a, ch) => a + ch.charCodeAt(0), 0) % 2 === 0;
 const onCol = colSlugs.filter(want), offCol = colSlugs.filter((s) => !LAND.has(s) && !want(s));
 const guides = fs.readdirSync(ROOT).filter((f) => /^guide-[a-z0-9-]+\.html$/.test(f)).map((f) => '/' + f.slice(0, -5)).sort();
-const MORE = ['/company', '/transfer', '/investors', '/for/major', '/for/sme', '/qa', '/faq', '/glossary', ...guides];   // 2026-11-25（2）で足した、案件の帯の頁
+const MORE = ['/company', '/transfer', '/investors', '/for/major', '/for/sme', '/qa', '/faq', '/glossary', '/market-data', ...guides];   // 2026-11-25（2）（2b）で足した、案件の帯の頁
 const YES = ['/research', '/research/flash', '/research/data', '/knowledge', ...fs.readdirSync(path.join(ROOT, 'research')).filter((d) => /^\d{4}-\d{2}$/.test(d)).slice(-1).map((d) => '/research/' + d), '/column-' + onCol[0], '/column-' + onCol[onCol.length - 1], ...MORE];
-const NO = ['/', '/en', '/zh', '/market-data', '/contact', '/sell-form', '/en/knowledge', '/column-' + offCol[0], '/column-land-value', '/column-land-buyback',
+const NO = ['/', '/en', '/zh', '/en/market-data', '/zh-market-data', '/contact', '/sell-form', '/en/knowledge', '/column-' + offCol[0], '/column-land-value', '/column-land-buyback',
   '/grid-storage', '/fund', '/partners', '/press', '/newsroom', '/thanks', '/privacy', '/lp/sell', '/lp/buy', '/en/company', '/zh-company', '/en/sourcing', '/en/transfer', '/en/qa', '/zh-qa'].filter((u) => u.length < 4 || fs.existsSync(path.join(ROOT, u.slice(1) + '.html')) || fs.existsSync(path.join(ROOT, u.slice(1), 'index.html')));
 if (fs.existsSync(path.join(ROOT, 'en', 'column-' + onCol[0] + '.html'))) NO.push('/en/column-' + onCol[0]);
 for (const url of YES) {
@@ -152,6 +152,10 @@ for (const url of YES) {
   ok(at + '写真のある物を先に・限定は使わない', REAL || JSON.stringify(s.ids) === JSON.stringify(['TS-4', 'TS-5', 'TS-6', 'TS-7']), JSON.stringify(s.ids));
   ok(at + '案件の帯（買主のリクエストの帯ではない）', s.kind === 'deals' && s.ncards === 0, JSON.stringify(s));
   if (url === '/company') ok(at + '「3つの入口」の段のすぐ後・代表メッセージの段の前', s.prev === 'entrances' && s.next === 'message', `${s.prev} / ${s.next}`);
+  if (url === '/market-data') {
+    const pos = await p.eval(`(() => { const w = document.querySelector('.mks-wrap'), a = w.previousElementSibling, b = w.nextElementSibling; return { prevHero: !!a && a.matches('section.hero'), nextMd: !!b && b.matches('section.md'), firstMd: document.querySelector('section.md') === w, h2: (b && b.querySelector('h2') || {}).textContent || '', top: Math.round(w.getBoundingClientRect().top + scrollY), h: document.documentElement.scrollHeight }; })()`);
+    ok(at + '冒頭の段のすぐ後・最初の集計の段の前（頁の上のほう）', pos.prevHero && pos.nextMd && pos.firstMd && pos.top < pos.h * 0.25, JSON.stringify(pos));
+  }
   if (url === '/transfer' || url === '/investors' || url === '/glossary') ok(at + '下の案内の段の前', /(^|\s)cta(\s|$)/.test(s.next) || s.next === 'contact', `${s.prev} / ${s.next}`);
   await p.shot('pc' + url.replace(/\//g, '_'));
   await p.close();
@@ -187,7 +191,7 @@ for (const url of NO) {
 }
 
 // ---- 3. 口が読めない・0枚のとき ----
-for (const cards of ['fail', 'empty']) for (const url of ['/research/flash', '/company', '/sourcing']) {
+for (const cards of ['fail', 'empty']) for (const url of ['/research/flash', '/company', '/market-data', '/sourcing']) {
   const p = await page({ cards }); await p.go(BASE + url); const s = await p.eval(STATE);
   ok(`[${url} 口が ${cards}] 何も出さない（枠も見出しも・仮の枠も残さない）`, s.loaded && s.n === 0 && s.slot === 0 && !(await p.eval(`!!document.querySelector('.mks-wrap, .mks-h, html[data-mks]')`)), JSON.stringify(s));
   await p.close();
@@ -195,7 +199,7 @@ for (const cards of ['fail', 'empty']) for (const url of ['/research/flash', '/c
 
 // ---- 4. 印と GA4 ----
 for (const [url, mark] of [['/column-' + onCol[0], 'col-' + onCol[0]], ['/research/flash', 'site-research-flash'], ['/knowledge', 'knowledge'],
-  ['/company', 'site-company'], ['/sourcing', 'site-sourcing'], ['/for/major', 'site-for-major'], [guides[0], 'site-' + guides[0].slice(1)], ['/qa', 'site-qa']]) {
+  ['/company', 'site-company'], ['/market-data', 'site-market-data'], ['/sourcing', 'site-sourcing'], ['/for/major', 'site-for-major'], [guides[0], 'site-' + guides[0].slice(1)], ['/qa', 'site-qa']]) {
   const p = await page(); await p.go(BASE + url);
   const r = await p.eval(`(() => {
     window.__ev = []; window.gtag = function (a, b, c) { if (b === 'market_click') window.__ev.push(c); };
@@ -216,7 +220,7 @@ for (const [url, mark] of [['/column-' + onCol[0], 'col-' + onCol[0]], ['/resear
 }
 
 // ---- 5. 携帯の幅 ----
-for (const url of ['/column-' + onCol[0], '/research/flash', '/knowledge', '/company', '/sourcing', '/qa', '/for/major', guides[0], '/faq']) {
+for (const url of ['/column-' + onCol[0], '/research/flash', '/knowledge', '/company', '/market-data', '/sourcing', '/qa', '/for/major', guides[0], '/faq']) {
   const p = await page({ w: 375, h: 812, mobile: true }); await p.go(BASE + url); const s = await p.eval(STATE);
   ok(`[${url} 375px] 帯が出る・頁が横に広がらない`, s.n === 1 && (url === '/sourcing' ? s.ncards === 3 : s.cards === 4) && s.scrollW <= s.W, JSON.stringify(s));
   await p.shot('sp' + url.replace(/\//g, '_'));

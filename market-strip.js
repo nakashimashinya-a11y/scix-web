@@ -29,7 +29,9 @@
              札は 買主の属性（資本・上場の区分・業種）と、決まった選択肢の行（エリア・電圧・買い方・運転開始・電力の手続き）だけ。価格・社名・自由に書いた文は出さない（口も返さない）。
              「この買主に提案する →」はマーケットの /needs?need=<番号>（ログイン中の売主はそのまま提案の窓・ログイン前は一覧）。
        元: 蓄電所マーケットのログイン前の買主のリクエストの口 /api/open/needs（マーケットの /needs の頁がログイン前に読む口と同じ）。
-     ・出さない頁: /grid-storage・/fund・入力のフォームの頁と送信後の頁・/market-data・/partners・報道の頁・方針の頁・広告の着地の頁・英語・中国語・トップ
+     ・出さない頁: /grid-storage・/fund・入力のフォームの頁と送信後の頁・/partners・報道の頁・方針の頁・広告の着地の頁・英語・中国語・トップ
+   2026-11-25（2b）: 売り案件の市場データ /market-data … 冒頭の段（題と数字の札）のすぐ後に案件の帯。
+     プレスリリースの1本目のリンクの着き先で、着いた人は頁の頭を見るので、終わりでなく上に出す（会社案内と同じ考え方）。
    ====================================================== */
 (function () {
   'use strict';
@@ -236,6 +238,15 @@
     if (path === '/knowledge') {
       var ka = document.querySelector('.kh-author'), kw = ka && ka.closest('.wrapper');
       return kw ? { before: kw, wrap: 'wrapper' } : null;
+    }
+    if (path === '/market-data') {   // 冒頭の段のすぐ後（最初の集計の段の前）。冒頭の段が無ければ、h1 より後の最初の集計の段の前
+      var mh = document.querySelector('section.hero'), mn = mh && mh.nextElementSibling;
+      if (!mn || !outside(mn) || mn.tagName !== 'SECTION') {
+        mn = null;
+        var ms = document.querySelectorAll('section.md');
+        for (var q = 0; q < ms.length && !mn; q++) if (after(ms[q]) && outside(ms[q])) mn = ms[q];
+      }
+      return mn && mn.parentNode ? { before: mn, wrap: 'md' } : null;
     }
     // 2026-11-25（2）: 段として差す頁。目印の段が無ければ、下の案内の段 → 最後の段 → 下の帯 の前
     function sec(id) { var el = id && document.getElementById(id); el = el && (el.tagName === 'SECTION' ? el : el.closest('section')); return el && after(el) && outside(el) ? el : null; }
