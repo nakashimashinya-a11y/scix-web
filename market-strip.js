@@ -29,9 +29,19 @@
              札は 買主の属性（資本・上場の区分・業種）と、決まった選択肢の行（エリア・電圧・買い方・運転開始・電力の手続き）だけ。価格・社名・自由に書いた文は出さない（口も返さない）。
              「この買主に提案する →」はマーケットの /needs?need=<番号>（ログイン中の売主はそのまま提案の窓・ログイン前は一覧）。
        元: 蓄電所マーケットのログイン前の買主のリクエストの口 /api/open/needs（マーケットの /needs の頁がログイン前に読む口と同じ）。
-     ・出さない頁: /grid-storage・/fund・入力のフォームの頁と送信後の頁・/partners・報道の頁・方針の頁・広告の着地の頁・英語・中国語・トップ
+     ・出さない頁: /grid-storage・/fund・入力のフォームの頁・/partners・報道の頁・方針の頁・広告の着地の頁・中国語・トップ
    2026-11-25（2b）: 売り案件の市場データ /market-data … 冒頭の段（題と数字の札）のすぐ後に案件の帯。
      プレスリリースの1本目のリンクの着き先で、着いた人は頁の頭を見るので、終わりでなく上に出す（会社案内と同じ考え方）。
+
+   2026-11-25（3）英語の頁と、送信後の頁（header.js が window.SCIX_STRIP.lang='en'・kind を渡す）:
+     ・英語の頁: /en/knowledge・/en/research とその下・英語のコラム全部（土地の持ち主向けを除く）・/en/company・/en/qa・/en/faq・/en/glossary・/en/guide-<slug>・
+       /en/market-data・/en/market-entry-guide・/en/primer・/en/thanks に、英語の案件の帯。差す所は日本語の頁と同じ決め方（/en を外した道で見る）。
+       元: カードの口 ?lang=en（英語の名前 name と場所 placeEn が返る）。英語で返らない欄は出さない（場所が無ければ空・名前に日本語の字が残る物は使わない・
+       渡し方と電力の手続きの段は、決まった言葉の表に当たる物だけ英語で出す）。言葉はトップの英語のカード（/site-cards.js の T.en）と同じ、
+       見出しはマーケットの英語の入口の見出し「Battery storage projects on sale now」、下のリンクは英語のトップと同じ「See all projects →」（マーケットの /en へ）。
+       カードの行き先は英語のトップのカードと同じ /deal?id=…&lang=en。出所の印は英語の頁の印（末尾 -en）。
+     ・送信後の頁 /thanks: 案件の帯（売却の相談の送信後は買主のリクエストの帯）。下の帯の前に差す。新しい計測は足さない。
+     ・中国語の頁には出さない（カードの口に中国語が無い・英語の帯を中国語の頁に出さない）。買主のリクエストの口は英語を返さないので、英語の頁に買主のリクエストの帯は出さない。
    ====================================================== */
 (function () {
   'use strict';
@@ -41,20 +51,36 @@
 
   var MARKET = 'https://dealroom.scix.co.jp';
   var SHOW = 4, ASK = 12, TIMEOUT_MS = 3000;
-  var KIND = (window.SCIX_STRIP && window.SCIX_STRIP.kind) === 'needs' ? 'needs' : 'deals';   // 帯の種類は header.js の 7g が決める
+  var LANG = (window.SCIX_STRIP && window.SCIX_STRIP.lang) === 'en' ? 'en' : 'ja';              // 帯の言葉も header.js の 7g が決める（英語の頁だけ 'en'）
+  var KIND = LANG === 'ja' && (window.SCIX_STRIP && window.SCIX_STRIP.kind) === 'needs' ? 'needs' : 'deals';   // 帯の種類は header.js の 7g が決める（買主のリクエストの帯は日本語だけ）
   var path = window.location.pathname.replace(/\.html$/, '').replace(/\/+$/, '').replace(/\/index$/, '') || '/';
+  if (LANG === 'en') path = path.replace(/^\/en(?=\/|$)/, '') || '/';   // 差す所は、/en を外した道で日本語の頁と同じに決める
 
-  // トップのカード（site-cards.js の T.ja）と同じ言葉
-  var L = {
-    pick: 'おすすめ', neu: '新着', photo: '完成時の写真', aerial: '航空写真',
-    out: '出力', cap: '容量', run: '運転中', op: '運転', cod: '運転開始', completed: '完工', now: 'いま', procNone: '電力の手続き —',
-    seen: function (n) { return '見た人 累計 ' + n + '人'; }, seenT: 'これまでにこの案件のページを開いた方の人数です',
-    volt: { '低圧': '低圧', '高圧': '高圧', '特別高圧': '特別高圧' },
-    sale: { '完成渡し': '完成渡し', '権利渡し': '権利渡し', '権利譲渡': '権利渡し' },
-    steps: { study: '接続検討 回答あり', apply: '発電調整 申込済', deposit: '保証金 支払済', ms: 'MS番号あり', approval: '本回答あり', cost: '負担金 支払済', complete: '完工済み', market: '需給調整参加済み' },
-    ym: function (y, m) { return y + '年' + m + '月'; },
-    head: 'いま売りに出ている蓄電所', more: '一覧を見る →'
+  // トップのカード（site-cards.js の T.ja・T.en）と同じ言葉
+  var T = {
+    ja: {
+      pick: 'おすすめ', neu: '新着', photo: '完成時の写真', aerial: '航空写真',
+      out: '出力', cap: '容量', run: '運転中', op: '運転', cod: '運転開始', completed: '完工', now: 'いま', procNone: '電力の手続き —',
+      seen: function (n) { return '見た人 累計 ' + n + '人'; }, seenT: 'これまでにこの案件のページを開いた方の人数です',
+      volt: { '低圧': '低圧', '高圧': '高圧', '特別高圧': '特別高圧' },
+      sale: { '完成渡し': '完成渡し', '権利渡し': '権利渡し', '権利譲渡': '権利渡し' },
+      steps: { study: '接続検討 回答あり', apply: '発電調整 申込済', deposit: '保証金 支払済', ms: 'MS番号あり', approval: '本回答あり', cost: '負担金 支払済', complete: '完工済み', market: '需給調整参加済み' },
+      ym: function (y, m) { return y + '年' + m + '月'; },
+      head: 'いま売りに出ている蓄電所', more: '一覧を見る →'
+    },
+    en: {
+      pick: 'Our pick', neu: 'New', photo: 'Photo of the completed site', aerial: 'Aerial photo',
+      out: 'Output', cap: 'Capacity', run: 'Operating', op: 'Operation', cod: 'COD', completed: 'Completed', now: 'Now', procNone: 'Grid procedure —',
+      seen: function (n) { return n + ' viewers so far'; }, seenT: 'People who have opened this project page so far',
+      volt: { '低圧': 'Low voltage', '高圧': 'High voltage', '特別高圧': 'Extra-high voltage' },
+      sale: { '完成渡し': 'Sold on completion', '権利渡し': 'Rights transfer', '権利譲渡': 'Rights transfer' },
+      steps: { study: 'Connection study answered', apply: 'Generation-adjustment application filed', deposit: 'Deposit paid', ms: 'Application number issued', approval: 'Formal reply received', cost: 'Construction cost paid', complete: 'Completed', market: 'In the balancing market' },
+      ym: function (y, m) { return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m - 1] + ' ' + y; },
+      head: 'Battery storage projects on sale now', more: 'See all projects →'
+    }
   };
+  var L = T[LANG];
+  var JA_RX = /[\u3040-\u30ff\u3400-\u9fff]/;   // 日本語の字（英語の帯に、訳されていない字を出さないために見る）
   var ART = { hv: '/img/market/deals.svg', ehv: '/img/market/how.svg', lv: '/img/market/wants.svg' };
   var ID_RX = /^[A-Za-z]{1,6}-\d{1,6}$/;
 
@@ -83,7 +109,10 @@
     var m = String(v || '').match(/^(20\d{2})-(\d{2})/);
     return m ? L.ym(m[1], +m[2]) : '';
   }
-  function place(c) { return [c.pref, c.muni].filter(Boolean).join(' '); }
+  function place(c) {
+    if (LANG === 'en') { var pe = typeof c.placeEn === 'string' ? c.placeEn : ''; return JA_RX.test(pe) ? '' : pe; }   // 英語で返らなければ出さない
+    return [c.pref, c.muni].filter(Boolean).join(' ');
+  }
   function stepKey(c) { var g = c.gs; return g && g.level >= 0 && g.steps && g.steps[g.level] ? String(g.steps[g.level].key || '') : ''; }
   function hasPhoto(c) { return !c.locked && (c.img === 'cover' || c.img === 'sat'); }
 
@@ -91,13 +120,14 @@
     var g = c.gs, k = stepKey(c);
     if (!g || !g.steps || !g.steps.length || !(g.level >= 0)) return '<div class="sc-gs none"><div class="bar"><i style="width:0"></i></div><span class="now">' + esc(L.procNone) + '</span></div>';
     var pct = Math.round((g.level + 1) / g.steps.length * 100);
-    var label = L.steps[k] || g.now || '';
+    var label = L.steps[k] || (LANG === 'ja' ? g.now : '') || '';
+    if (!label) return '<div class="sc-gs"><div class="bar"><i style="width:' + pct + '%"></i></div></div>';   // 英語の言葉が無い段は、棒だけ
     return '<div class="sc-gs"><div class="bar"><i style="width:' + pct + '%"></i></div><span class="now">' + esc(L.now) + ': <b>' + esc(label) + '</b></span></div>';
   }
   function specHtml(c) {
     var k = stepKey(c), op = c.op || {}, running = k === 'market' || k === 'complete' || op.running;
     var third = '';
-    if (running) third = '<div><small>' + esc(L.op) + '</small><b>' + esc(L.run) + '</b>' + (op.ym ? '<span class="sc-cm">' + esc(ymText(op.ym) + ' ' + L.completed) + '</span>' : '') + '</div>';
+    if (running) third = '<div><small>' + esc(L.op) + '</small><b>' + esc(L.run) + '</b>' + (op.ym && ymText(op.ym) ? '<span class="sc-cm">' + esc(LANG === 'en' ? L.completed + ' ' + ymText(op.ym) : ymText(op.ym) + ' ' + L.completed) + '</span>' : '') + '</div>';
     else if (op.cod) third = '<div><small>' + esc(L.cod) + '</small><b>' + esc(slash(op.cod)) + '</b></div>';
     var cells = [];
     if (c.mw) cells.push('<div><small>' + esc(L.out) + '</small><b>' + esc(c.mw) + '<i class="u"> MW</i></b></div>');
@@ -114,10 +144,11 @@
   function cardHtml(c) {
     var vk = voltKey(c.voltage), vname = voltJa(c.voltage);
     var vtag = vk ? '<span class="vtag ' + vk + '">' + esc(L.volt[vname] || vname) + '</span>' : '';
-    var sale = c.saleType ? '<span class="atag">' + esc(L.sale[c.saleType] || c.saleType) + '</span>' : '';
+    var saleT = L.sale[c.saleType] || (LANG === 'ja' ? c.saleType : '');
+    var sale = saleT ? '<span class="atag">' + esc(saleT) + '</span>' : '';
     var tl = (c.recommend ? '<span class="sc-rec">' + esc(L.pick) + '</span>' : '') + (isNew(c.firstSeen) ? '<span class="sc-new">' + esc(L.neu) + '</span>' : '');
     var name = c.name || '';
-    var href = MARKET + '/deal?id=' + encodeURIComponent(c.id);
+    var href = MARKET + '/deal?id=' + encodeURIComponent(c.id) + (LANG === 'en' ? '&lang=en' : '');   // 行き先はトップのカード（site-cards.js）と同じ
     var seen = Number(c.viewersTotal) >= 3 ? '<div class="sc-ft"><span class="seen" title="' + esc(L.seenT) + '">' + esc(L.seen(c.viewersTotal)) + '</span></div>' : '';
     return '<article class="sc" data-id="' + esc(c.id) + '"><div class="sc-img" data-v="' + esc(vk) + '">' + imgHtml(c) + (tl ? '<div class="sc-tl">' + tl + '</div>' : '') + '</div>' +
       '<div class="sc-body"><div class="sc-name" role="heading" aria-level="3" title="' + esc(name) + '"><a class="sc-lk" target="_top" href="' + esc(href) + '" data-placement="strip">' + esc(name) + '</a></div>' +
@@ -132,6 +163,7 @@
     for (var i = 0; i < j.cards.length; i++) {
       var c = j.cards[i];
       if (!c || typeof c !== 'object' || c.locked || !ID_RX.test(String(c.id || '')) || !c.name) continue;
+      if (LANG === 'en' && JA_RX.test(String(c.name))) continue;   // 英語の名前が返らない物は、英語の帯に使わない
       (hasPhoto(c) ? withPh : noPh).push(c);
     }
     var out = withPh.concat(noPh).slice(0, SHOW);
@@ -195,6 +227,7 @@
     'section.mks-sec{padding:28px 0 0!important;margin:0!important;background:none!important;border:0!important}' +
     '.mks-sec .mks{margin:0}' +
     'section.mks-sec.mks-end{padding-bottom:48px!important}' +   // すぐ後が下の帯のとき（下の案内の段が無い頁）
+    'section.mks-sec.mks-gap{padding-bottom:32px!important}' +   // すぐ後が段でない箱のとき（英語のナレッジの入口）
     // 買主のリクエストの札
     '.mkn-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0}' +
     '.mkn-c{position:relative;display:flex;flex-direction:column;gap:12px;min-width:0;background:#fff;border-radius:18px;border-top:5px solid #F97316;box-shadow:0 4px 16px rgba(31,42,72,.10);padding:16px 18px 18px;transition:box-shadow .15s,transform .15s}' +
@@ -235,9 +268,16 @@
       for (var i = 0; i < cs.length; i++) if (after(cs[i]) && outside(cs[i])) return { before: cs[i], wrap: '' };
       return null;
     }
+    function first(sel) { var xs = document.querySelectorAll(sel); for (var j = 0; j < xs.length; j++) if (after(xs[j]) && outside(xs[j])) return xs[j]; return null; }
     if (path === '/knowledge') {
       var ka = document.querySelector('.kh-author'), kw = ka && ka.closest('.wrapper');
-      return kw ? { before: kw, wrap: 'wrapper' } : null;
+      if (kw) return { before: kw, wrap: 'wrapper' };
+      var kc = LANG === 'en' ? first('div.cta') : null;   // 英語のナレッジの入口は、終わりの問い合わせの箱の前（箱は頁の幅いっぱいの段なので、帯も段として差す）
+      return kc ? { before: kc, wrap: 'sec' } : null;
+    }
+    if (path === '/market-entry-guide' || path === '/primer') {   // 海外の買い手向けの読み物（英語だけ）: 本文の終わり（関連の欄の前）
+      var ge = first('div.related, div.related-box, h2#topics');
+      return ge ? { before: ge, wrap: '' } : null;
     }
     if (path === '/market-data') {   // 冒頭の段のすぐ後（最初の集計の段の前）。冒頭の段が無ければ、h1 より後の最初の集計の段の前
       var mh = document.querySelector('section.hero'), mn = mh && mh.nextElementSibling;
@@ -262,7 +302,7 @@
       var gc = sec('cols') || sec('faq');
       return gc ? { before: gc, wrap: '' } : null;
     }
-    if (/^\/(?:transfer|investors|qa|faq|glossary|for\/[a-z0-9-]+)$/.test(path)) {
+    if (/^\/(?:transfer|investors|qa|faq|glossary|thanks|for\/[a-z0-9-]+)$/.test(path)) {
       var t1 = tail();
       return t1 && t1.parentNode ? { before: t1, wrap: 'sec' } : null;
     }
@@ -284,7 +324,7 @@
       inner = '<section class="mks" data-placement="strip" data-nosnippet aria-label="' + esc(L.head) + '">' +
         '<div class="mks-h" role="heading" aria-level="2">' + esc(L.head) + '</div>' +
         '<div class="sc-grid mks-grid">' + html + '</div>' +
-        '<p class="mks-more"><a target="_top" href="' + MARKET + '/" data-placement="strip">' + esc(L.more) + '</a></p></section>';
+        '<p class="mks-more"><a target="_top" href="' + MARKET + (LANG === 'en' ? '/en' : '/') + '" data-placement="strip">' + esc(L.more) + '</a></p></section>';
     }
     var box = document.createElement(wrap === 'md' || wrap === 'sec' ? 'section' : 'div');
     if (wrap === 'md') { box.className = 'md mks-wrap'; inner = '<div class="container rp-body">' + inner + '</div>'; }
@@ -309,7 +349,7 @@
     var timer = setTimeout(function () { late = true; if (ctl) ctl.abort(); }, TIMEOUT_MS);
     var opts = { mode: 'cors', credentials: 'omit', headers: { Accept: 'application/json' } };
     if (ctl) opts.signal = ctl.signal;
-    fetch(MARKET + (KIND === 'needs' ? '/api/open/needs?lang=ja' : '/api/open/cards?limit=' + ASK + '&lang=ja'), opts)
+    fetch(MARKET + (KIND === 'needs' ? '/api/open/needs?lang=ja' : '/api/open/cards?limit=' + ASK + '&lang=' + LANG), opts)
       .then(function (r) { clearTimeout(timer); return r.ok ? r.json() : null; })
       .then(function (j) {
         var cards = late ? null : (KIND === 'needs' ? pickNeeds(j) : pick(j));
@@ -319,7 +359,8 @@
         // 差す所が画面より上にあり、ブラウザが位置を保たない（overflow-anchor の無い）ときだけ、伸びた分を送って読んでいる所を動かさない
         var above = slot.getBoundingClientRect().top < 0;
         slot.parentNode.replaceChild(box, slot);
-        if (wrap === 'sec' && box.nextElementSibling && box.nextElementSibling.tagName === 'FOOTER') box.classList.add('mks-end');
+        var nx = wrap === 'sec' ? box.nextElementSibling : null;   // 段として差した帯の下の間: 次が下の帯なら広め・次が段でない箱（英語のナレッジの入口の問い合わせの箱）なら少し
+        if (nx) box.classList.add(nx.tagName === 'FOOTER' ? 'mks-end' : (nx.tagName !== 'SECTION' ? 'mks-gap' : 'mks-sec'));
         var anchorOk = !!(window.CSS && window.CSS.supports && window.CSS.supports('overflow-anchor', 'auto'));
         if (above && !anchorOk) window.scrollBy(0, box.getBoundingClientRect().height);
         document.documentElement.setAttribute('data-mks', String(cards.length));

@@ -4,6 +4,7 @@
 //   CHROME_BIN=/path/to/chrome node …                 # Chrome の場所を指す（無ければ試験は飛ばす）
 //   CARDS_JSON=<file> SHOTS=<dir> node …              # 手元で見た目を写すとき: 口の答えをその JSON で返し、頁の写しを <dir> に置く（倉には置かない）
 //   NEEDS_JSON=<file> …                                # 同じく、買主のリクエストの口の答え
+//   CARDS_EN_JSON=<file> …                             # 同じく、カードの口の英語（?lang=en）の答え
 // 見ること:
 //  ・出す頁（市場ノートの入口・速報・月号・市場データ・ナレッジ・半分のコラム）に、帯が1つ・カード4枚・「一覧を見る」が出る
 //  ・出さない頁（残りの半分のコラム・土地の持ち主向けの4本・英語・中国語・トップ・/market-data・お問い合わせ）には出ない（部品も読まない）
@@ -13,7 +14,11 @@
 //  ・価格の字が出ない・携帯の幅で頁が横に広がらない・トップのカード（#top-cards）は今のまま
 //  ・2026-11-25（2）: 会社案内（「3つの入口」のすぐ後）・買い手向けの頁・読み物の残り・柱の頁に案件の帯、売りたい方の頁（「売り方は2つ」のすぐ後）に買主のリクエストの帯
 //    （札3枚・決まった選択肢の行だけ＝口に価格や自由に書いた文の行があっても出さない・番号の形が違う物と行の足りない物は使わない・押すと /needs へ）。
-//    /grid-storage・/fund・/partners・報道の頁・送信後の頁・方針の頁・広告の着地の頁・英語と中国語の会社案内には出さない
+//    /grid-storage・/fund・/partners・報道の頁・方針の頁・広告の着地の頁・中国語の頁には出さない
+//  ・2026-11-25（3）: 英語の頁（ナレッジ・市場ノート・英語のコラム全部・会社案内・Q&A・FAQ・用語集・柱の頁・海外の買い手向けの読み物・送信後）に英語の案件の帯
+//    （見出しとリンクは英語・カードの口は ?lang=en・行き先は /deal?id=…&lang=en と /en・印は末尾 -en・帯の中に日本語の字が出ない・英語の名前が返らない物は使わない）。
+//    英語のトップ・報道と方針と広告の着地・英語の土地の記事・中国語の頁には出さない。/en/market-data は日本語と同じく冒頭の段のすぐ後。
+//    送信後の頁 /thanks は案件の帯、?intent=seller は買主のリクエストの帯、?type=land と /fund の送信後には出さない。日本語のコラムの半分の分け方は変わらない
 import http from 'node:http';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -27,11 +32,18 @@ if (!chromeBin) { console.log('SKIP: Chrome が見つからない（CHROME_BIN �
 const SHOTS = process.env.SHOTS || '';
 const REAL = process.env.CARDS_JSON ? fs.readFileSync(process.env.CARDS_JSON, 'utf8') : '';
 const REAL_NEEDS = process.env.NEEDS_JSON ? fs.readFileSync(process.env.NEEDS_JSON, 'utf8') : '';
+const REAL_EN = process.env.CARDS_EN_JSON ? fs.readFileSync(process.env.CARDS_EN_JSON, 'utf8') : '';
 
 // ---- 作り物のカード（実在の案件ではない・番号も名前も試験用） ----
 const fake = (i, o = {}) => ({ id: 'TS-' + (i + 1), name: '試験の案件' + (i + 1), pref: '試験県', muni: '試験市', voltage: i % 3 ? '高圧' : '特別高圧', saleType: '完成渡し', mw: 2, capacityMwh: 8, img: 'cover', recommend: i === 0, viewersTotal: 5, gs: { level: 0, steps: [{ key: 'study' }, { key: 'apply' }] }, ...o });
 const CARDS = {
   normal: { cards: [fake(0, { img: '' }), fake(1, { img: '' }), fake(2, { locked: true }), fake(3), fake(4), fake(5, { img: 'sat' }), fake(6), fake(7)] },
+  empty: { cards: [] }
+};
+// ---- 作り物の英語のカード（?lang=en の答えの形: 名前と placeEn は英語・電圧と渡し方は日本語の決まった値）。英語で返らない物も混ぜておく ----
+const fakeEn = (i, o = {}) => ({ id: 'TE-' + (i + 1), name: 'Test project ' + (i + 1), pref: '試験県', muni: '試験市', placeEn: 'Test City, Test Prefecture', voltage: i % 3 ? '高圧' : '特別高圧', saleType: '完成渡し', mw: 2, capacityMwh: 8, img: 'cover', recommend: i === 0, viewersTotal: 5, gs: { level: 0, now: '接続検討の回答', steps: [{ key: 'study' }, { key: 'apply' }] }, ...o });
+const CARDS_EN = {
+  normal: { cards: [fakeEn(0, { name: '試験の案件（英語の名前なし）' }), fakeEn(1, { locked: true }), fakeEn(2, { placeEn: '' }), fakeEn(3, { saleType: '試験の渡し方', gs: { level: 0, now: '試験の段', steps: [{ key: 'unknown' }] } }), fakeEn(4, { op: { running: true, ym: '2026-09' } }), fakeEn(5, { placeEn: '試験県 試験市' }), fakeEn(6)] },
   empty: { cards: [] }
 };
 // ---- 作り物の買主のリクエスト（実在のリクエストではない）。出してはいけない行（価格・自由に書いた文）も混ぜておく ----
@@ -74,14 +86,15 @@ async function page({ w = 1440, h = 900, mobile = false, cards = 'normal' } = {}
   const { targetId } = await send('Target.createTarget', { url: 'about:blank' });
   const { sessionId } = await send('Target.attachToTarget', { targetId, flatten: true });
   const S = (m, p) => send(m, p, sessionId);
-  const seen = [];
+  const seen = [], asked = [];
   onEvent.set(sessionId, (m) => {
     if (m.method !== 'Fetch.requestPaused') return;
     const u = new URL(m.params.request.url), id = m.params.requestId;
     seen.push(u.pathname);
     if (u.pathname === '/api/open/cards' && cards !== 'fail') {
       const hd = [{ name: 'Access-Control-Allow-Origin', value: '*' }, { name: 'Content-Type', value: 'application/json' }];
-      const body = REAL && cards === 'normal' ? REAL : JSON.stringify(CARDS[cards]);
+      const en = u.searchParams.get('lang') === 'en'; asked.push(u.searchParams.get('lang') || '');
+      const body = en ? (REAL_EN && cards === 'normal' ? REAL_EN : JSON.stringify(CARDS_EN[cards])) : (REAL && cards === 'normal' ? REAL : JSON.stringify(CARDS[cards]));
       return S('Fetch.fulfillRequest', { requestId: id, responseCode: 200, responseHeaders: hd, body: Buffer.from(body).toString('base64') }).catch(() => {});
     }
     if (u.pathname === '/api/open/needs' && cards !== 'fail') {
@@ -96,7 +109,7 @@ async function page({ w = 1440, h = 900, mobile = false, cards = 'normal' } = {}
   await S('Page.enable'); await S('Runtime.enable');
   await S('Emulation.setDeviceMetricsOverride', { width: w, height: h, deviceScaleFactor: 1, mobile });
   return {
-    S, seen,
+    S, seen, asked,
     async go(url) {
       await S('Page.navigate', { url });
       for (let i = 0; i < 40; i++) { await sleep(250); try { if (await this.eval(`document.readyState === 'complete' && !!document.querySelector('header.scix-header')`)) break; } catch { /* まだ */ } }
@@ -127,6 +140,9 @@ const STATE = `(() => {
     scrollW: document.documentElement.scrollWidth, W: innerWidth, top: !!document.querySelector('#top-cards'),
     kind: b ? (b.classList.contains('mkn') ? 'needs' : 'deals') : '', ncards: b ? b.querySelectorAll('article.mkn-c').length : 0, nids: b ? [...b.querySelectorAll('article.mkn-c')].map((a) => a.getAttribute('data-id')) : [],
     moreNeeds: b ? !!b.querySelector('.mks-more a[href="https://dealroom.scix.co.jp/needs"]') : false, text: b ? b.textContent : '',
+    moreEn: b ? !!b.querySelector('.mks-more a[href="https://dealroom.scix.co.jp/en"]') : false, moreText: b && b.querySelector('.mks-more a') ? b.querySelector('.mks-more a').textContent : '',
+    ja: b ? /[\u3040-\u30ff\u3400-\u9fff]/.test(b.textContent + [...b.querySelectorAll('[alt],[title],[aria-label]')].map((x) => (x.getAttribute('alt') || '') + (x.getAttribute('title') || '') + (x.getAttribute('aria-label') || '')).join('') + (b.getAttribute('aria-label') || '')) : false,
+    hrefs: b ? [...b.querySelectorAll('article.sc a')].map((a) => a.getAttribute('href')) : [], end: b && b.closest('.mks-wrap') ? b.closest('.mks-wrap').classList.contains('mks-end') : false,
     prev: b && b.closest('.mks-wrap') && b.closest('.mks-wrap').previousElementSibling ? b.closest('.mks-wrap').previousElementSibling.id || '' : '',
     next: b && b.closest('.mks-wrap') && b.closest('.mks-wrap').nextElementSibling ? b.closest('.mks-wrap').nextElementSibling.id || b.closest('.mks-wrap').nextElementSibling.className || b.closest('.mks-wrap').nextElementSibling.tagName : '' };
   if (b) { const h1 = document.querySelector('h1'); o.afterH1 = !h1 || !!(h1.compareDocumentPosition(b) & 4); const ft = document.querySelector('footer'); o.beforeFooter = !ft || !!(b.compareDocumentPosition(ft) & 4); }
@@ -141,9 +157,12 @@ const onCol = colSlugs.filter(want), offCol = colSlugs.filter((s) => !LAND.has(s
 const guides = fs.readdirSync(ROOT).filter((f) => /^guide-[a-z0-9-]+\.html$/.test(f)).map((f) => '/' + f.slice(0, -5)).sort();
 const MORE = ['/company', '/transfer', '/investors', '/for/major', '/for/sme', '/qa', '/faq', '/glossary', '/market-data', ...guides];   // 2026-11-25（2）（2b）で足した、案件の帯の頁
 const YES = ['/research', '/research/flash', '/research/data', '/knowledge', ...fs.readdirSync(path.join(ROOT, 'research')).filter((d) => /^\d{4}-\d{2}$/.test(d)).slice(-1).map((d) => '/research/' + d), '/column-' + onCol[0], '/column-' + onCol[onCol.length - 1], ...MORE];
-const NO = ['/', '/en', '/zh', '/en/market-data', '/zh-market-data', '/contact', '/sell-form', '/en/knowledge', '/column-' + offCol[0], '/column-land-value', '/column-land-buyback',
-  '/grid-storage', '/fund', '/partners', '/press', '/newsroom', '/thanks', '/privacy', '/lp/sell', '/lp/buy', '/en/company', '/zh-company', '/en/sourcing', '/en/transfer', '/en/qa', '/zh-qa'].filter((u) => u.length < 4 || fs.existsSync(path.join(ROOT, u.slice(1) + '.html')) || fs.existsSync(path.join(ROOT, u.slice(1), 'index.html')));
-if (fs.existsSync(path.join(ROOT, 'en', 'column-' + onCol[0] + '.html'))) NO.push('/en/column-' + onCol[0]);
+const zhCol = fs.readdirSync(ROOT).filter((f) => /^zh-column-[a-z0-9-]+\.html$/.test(f)).map((f) => '/' + f.slice(0, -5)).sort();
+const NO = ['/', '/en', '/zh', '/contact', '/sell-form', '/column-' + offCol[0], '/column-land-value', '/column-land-buyback',
+  '/grid-storage', '/fund', '/partners', '/press', '/newsroom', '/privacy', '/lp/sell', '/lp/buy', '/thanks?type=land',
+  '/en/contact', '/en/press', '/en/newsroom', '/en/privacy', '/en/lp/buy', '/en/lp/sell', '/en/column-land-value',
+  '/zh-company', '/zh-knowledge', '/zh-qa', '/zh-faq', '/zh-thanks', '/zh-contact', '/zh-market-data', zhCol[0], zhCol[zhCol.length - 1]]
+  .filter((u) => u && (u.length < 4 || fs.existsSync(path.join(ROOT, u.slice(1).split('?')[0] + '.html')) || fs.existsSync(path.join(ROOT, u.slice(1).split('?')[0], 'index.html'))));
 for (const url of YES) {
   const p = await page(); await p.go(BASE + url); const s = await p.eval(STATE); const at = `[${url}] `;
   ok(at + '帯が1つ・カード4枚・見出し・一覧へのリンク', s.n === 1 && s.cards === 4 && s.head === 'いま売りに出ている蓄電所' && s.more, JSON.stringify(s));
@@ -181,6 +200,61 @@ for (const url of NO) {
   await p.close();
 }
 
+// ---- 1c. 英語の頁: 英語の案件の帯 ----
+const enCols = fs.readdirSync(path.join(ROOT, 'en')).filter((f) => /^column-[a-z0-9-]+\.html$/.test(f)).map((f) => f.slice('column-'.length, -5)).sort();
+const enColOn = enCols.filter((x) => !LAND.has(x));
+const enGuides = fs.readdirSync(path.join(ROOT, 'en')).filter((f) => /^guide-[a-z0-9-]+\.html$/.test(f)).map((f) => '/en/' + f.slice(0, -5)).sort();
+// 日本語で出さない側のコラムの英語版にも出る（英語は全部）: 出さない側の slug で英語版がある物を1本入れる
+const enOfOff = offCol.find((x) => enColOn.includes(x));
+const YES_EN = ['/en/knowledge', '/en/research', '/en/research/flash', '/en/research/data', ...fs.readdirSync(path.join(ROOT, 'en', 'research')).filter((d) => /^\d{4}-\d{2}$/.test(d)).slice(-1).map((d) => '/en/research/' + d),
+  '/en/column-' + enColOn[0], '/en/column-' + enColOn[enColOn.length - 1], ...(enOfOff ? ['/en/column-' + enOfOff] : []), '/en/company', '/en/qa', '/en/faq', '/en/glossary', '/en/market-data', ...enGuides, '/en/market-entry-guide', '/en/primer', '/en/thanks'];
+for (const url of YES_EN) {
+  const p = await page(); await p.go(BASE + url); const s = await p.eval(STATE); const at = `[${url}] `;
+  ok(at + '英語の帯が1つ・カード4枚・英語の見出し・英語の一覧へのリンク', s.n === 1 && s.kind === 'deals' && s.cards === 4 && s.head === 'Battery storage projects on sale now' && s.moreEn && s.moreText === 'See all projects →', JSON.stringify(s));
+  ok(at + 'カードの口は ?lang=en だけを読む', JSON.stringify(p.asked) === JSON.stringify(['en']), JSON.stringify(p.asked));
+  ok(at + '帯の中に日本語の字が無い（見出し・カード・絵の説明）', REAL_EN ? true : !s.ja, s.text.slice(0, 300));
+  ok(at + '価格の字が無い・入れ物は data-placement=strip', !s.price && !/JPY|¥|price/i.test(s.text) && s.placement === 'strip', s.text.slice(0, 300));
+  ok(at + '英語の名前が返らない物・限定の物は使わない（口の並びの頭から）', REAL_EN || JSON.stringify(s.ids) === JSON.stringify(['TE-3', 'TE-4', 'TE-5', 'TE-6']), JSON.stringify(s.ids));
+  ok(at + 'カードの行き先は /deal?id=…&lang=en', s.hrefs.length === 4 && s.hrefs.every((h) => /^https:\/\/dealroom\.scix\.co\.jp\/deal\?id=[A-Za-z]+-\d+&lang=en$/.test(h)), JSON.stringify(s.hrefs));
+  ok(at + '本文の後・下の帯の前', s.afterH1 && s.beforeFooter, JSON.stringify(s));
+  if (url === '/en/company') ok(at + '3つの入口の段のすぐ後・代表メッセージの段の前', s.prev === 'entrances' && s.next === 'message', `${s.prev} / ${s.next}`);
+  if (url === '/en/market-data') {
+    const pos = await p.eval(`(() => { const w = document.querySelector('.mks-wrap'), a = w.previousElementSibling, b = w.nextElementSibling; return { prevHero: !!a && a.matches('section.hero'), nextMd: !!b && b.matches('section.md'), top: Math.round(w.getBoundingClientRect().top + scrollY), h: document.documentElement.scrollHeight }; })()`);
+    ok(at + '冒頭の段のすぐ後・最初の集計の段の前（頁の上のほう）', pos.prevHero && pos.nextMd && pos.top < pos.h * 0.25, JSON.stringify(pos));
+  }
+  if (url === '/en/knowledge') ok(at + '終わりの問い合わせの箱の前・頁の幅に収まる段として差す', await p.eval(`(() => { const w = document.querySelector('.mks-wrap'), b = document.querySelector('.mks'); const r = b.getBoundingClientRect(); return w.matches('section.mks-sec') && !!w.nextElementSibling && w.nextElementSibling.matches('div.cta') && r.left >= 16 && r.right <= innerWidth - 16 && r.width <= 1100; })()`), `${s.prev} / ${s.next}`);
+  if (url === '/en/thanks') ok(at + '下の帯のすぐ前', /scix-footer/.test(s.next) && s.end, `${s.prev} / ${s.next} / ${s.end}`);
+  if (!REAL_EN && url === '/en/knowledge') {
+    const c = await p.eval(`(() => { const a = [...document.querySelectorAll('.mks article.sc')]; return a.map((x) => ({ id: x.getAttribute('data-id'), name: x.querySelector('.sc-name').textContent, loc: x.querySelector('.sc-loc').textContent, tags: [...x.querySelectorAll('.sc-tags span')].map((t) => t.textContent), now: (x.querySelector('.sc-gs .now') || {}).textContent || '', cm: (x.querySelector('.sc-cm') || {}).textContent || '', seen: (x.querySelector('.seen') || {}).textContent || '' })); })()`);
+    ok(at + '札の中身: 英語の名前と場所・英語で返らない欄は出さない', c[0].name === 'Test project 3' && c[0].loc === '—' && c[1].loc === 'Test City, Test Prefecture' && JSON.stringify(c[1].tags) === JSON.stringify(['Extra-high voltage']) && c[1].now === '' && c[2].cm === 'Completed Sep 2026' && c[3].loc === '—' && JSON.stringify(c[0].tags) === JSON.stringify(['High voltage', 'Sold on completion']) && c[0].now === 'Now: Connection study answered' && c[0].seen === '5 viewers so far', JSON.stringify(c));
+  }
+  await p.shot('pc' + url.replace(/\//g, '_'));
+  await p.close();
+}
+{
+  const p = await page(); await p.go(BASE + '/en/knowledge');
+  const got = await p.eval(`(${JSON.stringify(enCols)}).filter((x) => window.SCIX_STRIP_KIND_EN('/column-' + x) === 'deals')`);
+  ok('英語のコラムは、土地の持ち主向けを除いて全部に出す', JSON.stringify(got) === JSON.stringify(enColOn) && enColOn.length > 0, `${got.length}/${enColOn.length}/${enCols.length}`);
+  const other = await p.eval(`['/', '/contact', '/press', '/newsroom', '/privacy', '/lp/buy', '/lp/sell', '/sourcing', '/transfer'].filter((x) => window.SCIX_STRIP_KIND_EN(x) !== '')`);
+  ok('英語で出さない頁（トップ・フォーム・報道・方針・広告の着地）', other.length === 0, JSON.stringify(other));
+  await p.close();
+}
+// ---- 1d. 送信後の頁 ----
+for (const [url, kind] of [['/thanks', 'deals'], ['/thanks?intent=buyer', 'deals'], ['/thanks?intent=other', 'deals'], ['/thanks?intent=seller', 'needs']]) {
+  const p = await page(); await p.go(BASE + url); const s = await p.eval(STATE); const at = `[${url}] `;
+  ok(at + (kind === 'needs' ? '買主のリクエストの帯（札3枚）' : '案件の帯（カード4枚）'), s.n === 1 && s.kind === kind && (kind === 'needs' ? s.ncards === 3 && s.head === 'いま買主が探している蓄電所' && s.moreNeeds : s.cards === 4 && s.head === 'いま売りに出ている蓄電所' && s.more), JSON.stringify(s));
+  ok(at + '送信後の札の後・下の帯のすぐ前・価格の字が無い', /scix-footer/.test(s.next) && s.end && !s.price && s.placement === 'strip' && s.afterH1, `${s.prev} / ${s.next} / ${s.end}`);
+  ok(at + '送信後の案内（h1・今後の流れ）は今のまま', await p.eval(`!!document.querySelector('.thanks-card h1') && document.querySelectorAll('.thanks-card .step-item').length >= 3 && !document.querySelector('.thanks-card .mks')`));
+  await p.shot('pc' + url.replace(/[\/?=]/g, '_'));
+  await p.close();
+}
+{
+  // ファンドの申込の送信後（直前の頁が /fund）には出さない
+  const p = await page(); await p.go(BASE + '/fund'); await p.go(BASE + '/thanks'); const s = await p.eval(STATE);
+  ok('[/fund → /thanks] 帯を出さない・部品も読まない', s.n === 0 && !s.loaded && s.slot === 0, JSON.stringify(s));
+  await p.close();
+}
+
 // ---- 2. 半分の分け方: header.js の stripWanted と式が全部のコラムで合う ----
 {
   const p = await page(); await p.go(BASE + '/knowledge');
@@ -191,7 +265,7 @@ for (const url of NO) {
 }
 
 // ---- 3. 口が読めない・0枚のとき ----
-for (const cards of ['fail', 'empty']) for (const url of ['/research/flash', '/company', '/market-data', '/sourcing']) {
+for (const cards of ['fail', 'empty']) for (const url of ['/research/flash', '/company', '/market-data', '/sourcing', '/en/knowledge', '/en/company', '/en/market-data', '/thanks', '/thanks?intent=seller']) {
   const p = await page({ cards }); await p.go(BASE + url); const s = await p.eval(STATE);
   ok(`[${url} 口が ${cards}] 何も出さない（枠も見出しも・仮の枠も残さない）`, s.loaded && s.n === 0 && s.slot === 0 && !(await p.eval(`!!document.querySelector('.mks-wrap, .mks-h, html[data-mks]')`)), JSON.stringify(s));
   await p.close();
@@ -199,7 +273,9 @@ for (const cards of ['fail', 'empty']) for (const url of ['/research/flash', '/c
 
 // ---- 4. 印と GA4 ----
 for (const [url, mark] of [['/column-' + onCol[0], 'col-' + onCol[0]], ['/research/flash', 'site-research-flash'], ['/knowledge', 'knowledge'],
-  ['/company', 'site-company'], ['/market-data', 'site-market-data'], ['/sourcing', 'site-sourcing'], ['/for/major', 'site-for-major'], [guides[0], 'site-' + guides[0].slice(1)], ['/qa', 'site-qa']]) {
+  ['/company', 'site-company'], ['/market-data', 'site-market-data'], ['/en/market-data', 'site-market-data-en'], ['/sourcing', 'site-sourcing'], ['/for/major', 'site-for-major'], [guides[0], 'site-' + guides[0].slice(1)], ['/qa', 'site-qa'],
+  ['/thanks', 'site-thanks'], ['/thanks?intent=seller', 'site-thanks'], ['/en/thanks', 'site-thanks-en'], ['/en/company', 'site-company-en'], ['/en/knowledge', 'knowledge-en'], ['/en/research/flash', 'site-research-flash-en'],
+  ['/en/column-' + enColOn[0], 'col-' + enColOn[0] + '-en'], [enGuides[0], 'site-' + enGuides[0].slice('/en/'.length) + '-en'], ['/en/market-entry-guide', 'site-market-entry-guide-en']]) {
   const p = await page(); await p.go(BASE + url);
   const r = await p.eval(`(() => {
     window.__ev = []; window.gtag = function (a, b, c) { if (b === 'market_click') window.__ev.push(c); };
@@ -211,7 +287,8 @@ for (const [url, mark] of [['/column-' + onCol[0], 'col-' + onCol[0]], ['/resear
     }
     return { src: out, paths, ev: window.__ev.map((e) => e.placement + ':' + e.src_mark), link: window.__ev.map((e) => e.link_path) };
   })()`);
-  if (url === '/sourcing') ok(`[${url}] 行き先はマーケットの /needs（札は ?need=<番号> つき）`, JSON.stringify(r.paths) === JSON.stringify(['/needs?need', '/needs']) && r.link.every((x) => x === '/needs'), JSON.stringify(r));
+  if (url === '/sourcing' || url === '/thanks?intent=seller') ok(`[${url}] 行き先はマーケットの /needs（札は ?need=<番号> つき）`, JSON.stringify(r.paths) === JSON.stringify(['/needs?need', '/needs']) && r.link.every((x) => x === '/needs'), JSON.stringify(r));
+  else if (url.indexOf('/en/') === 0) ok(`[${url}] 行き先は英語のトップのカードと同じ（札は /deal・一覧は /en）`, JSON.stringify(r.paths) === JSON.stringify(['/deal', '/en']), JSON.stringify(r));
   else ok(`[${url}] 行き先は今までどおり（札は /deal・一覧は /）`, JSON.stringify(r.paths) === JSON.stringify(['/deal', '/']), JSON.stringify(r));
   const SITE_MARK_RX = /^(top|top-card|knowledge|report(-\d{4}-\d{2})?|(col|site)-[a-z0-9][a-z0-9-]{0,40})(-en|-zh)?$/;   // dealroom の functions/_lib/open_visits.ts と同じ
   ok(`[${url}] 押すと ?src=${mark}（マーケットが読める形）`, r.src.every((x) => x === mark && x.length <= 48 && SITE_MARK_RX.test(x)), JSON.stringify(r));
@@ -220,10 +297,11 @@ for (const [url, mark] of [['/column-' + onCol[0], 'col-' + onCol[0]], ['/resear
 }
 
 // ---- 5. 携帯の幅 ----
-for (const url of ['/column-' + onCol[0], '/research/flash', '/knowledge', '/company', '/market-data', '/sourcing', '/qa', '/for/major', guides[0], '/faq']) {
+for (const url of ['/column-' + onCol[0], '/research/flash', '/knowledge', '/company', '/market-data', '/en/market-data', '/sourcing', '/qa', '/for/major', guides[0], '/faq',
+  '/thanks', '/thanks?intent=seller', '/en/thanks', '/en/company', '/en/knowledge', '/en/column-' + enColOn[0], '/en/market-entry-guide', '/en/primer', '/en/qa']) {
   const p = await page({ w: 375, h: 812, mobile: true }); await p.go(BASE + url); const s = await p.eval(STATE);
-  ok(`[${url} 375px] 帯が出る・頁が横に広がらない`, s.n === 1 && (url === '/sourcing' ? s.ncards === 3 : s.cards === 4) && s.scrollW <= s.W, JSON.stringify(s));
-  await p.shot('sp' + url.replace(/\//g, '_'));
+  ok(`[${url} 375px] 帯が出る・頁が横に広がらない`, s.n === 1 && (url === '/sourcing' || url === '/thanks?intent=seller' ? s.ncards === 3 : s.cards === 4) && s.scrollW <= s.W, JSON.stringify(s));
+  await p.shot('sp' + url.replace(/[\/?=]/g, '_'));
   await p.close();
 }
 
