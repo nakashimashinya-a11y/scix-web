@@ -152,12 +152,12 @@ case "$KIND" in
     [ "$FAST_REMOVE" = "1" ] && exit 0   # 速い回は外す物が無ければ黙って終わる
     # 中身は同じでも、月が替わると静的一覧の「◯年◯月ごろ」と件数の出し分けが変わる。ずれていたら焼き直して出す。
     if [ "$DRY_RUN" != "1" ] && [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] \
-       && git diff --quiet -- index.html en/index.html zh.html company.html en/company.html sitemap.xml feed.xml projects-feed.xml smartnews.xml market-data.html en/market-data.html zh-market-data.html files/market-data && git diff --cached --quiet \
+       && git diff --quiet -- index.html en/index.html zh.html company.html en/company.html zh-company.html sitemap.xml feed.xml projects-feed.xml smartnews.xml market-data.html en/market-data.html zh-market-data.html files/market-data && git diff --cached --quiet \
        && { ! python3 scripts/inject_stats.py --check >/dev/null 2>&1 || ! python3 scripts/build_feed.py --check >/dev/null 2>&1 || ! python3 scripts/build_market_data.py --check --fetch-needs >/dev/null 2>&1; }; then
       python3 scripts/inject_stats.py >/dev/null || fail "静的一覧の焼き直しに失敗"
       python3 scripts/build_feed.py >/dev/null || fail "フィードの焼き直しに失敗"
       python3 scripts/build_market_data.py --fetch-needs >/dev/null || fail "市場データの焼き直しに失敗"
-      git add index.html en/index.html zh.html company.html en/company.html feed.xml projects-feed.xml smartnews.xml market-data.html en/market-data.html zh-market-data.html files/market-data || fail "git add に失敗"
+      git add index.html en/index.html zh.html company.html en/company.html zh-company.html feed.xml projects-feed.xml smartnews.xml market-data.html en/market-data.html zh-market-data.html files/market-data || fail "git add に失敗"
       git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" \
           commit -q -m "chore(projects): 静的一覧を焼き直し（案件の中身は変化なし・日付の出し分けだけ）" || fail "commit に失敗"
       git push -q origin main || fail "push に失敗（commit は手元に残っている。次回の冒頭で出し直す）"
@@ -190,8 +190,8 @@ fi
 
 # 作業ツリーを汚さない。下で git add する3ファイルのどれかに未コミットの変更があれば、人の作業中とみなして見送る。
 # （projects.json だけを見ていた頃は、書きかけの index.html / が同期の commit に混ざって本番に出る穴があった）
-if ! git diff --quiet -- projects.json index.html en/index.html zh.html company.html en/company.html sitemap.xml feed.xml projects-feed.xml smartnews.xml market-data.html en/market-data.html zh-market-data.html files/market-data || ! git diff --cached --quiet; then
-  rm -f "$TMP"; fail "projects.json / index.html / en/index.html / zh.html / company.html / en/company.html / / sitemap.xml に未コミットの変更がある。人の作業中とみなして見送る。"
+if ! git diff --quiet -- projects.json index.html en/index.html zh.html company.html en/company.html zh-company.html sitemap.xml feed.xml projects-feed.xml smartnews.xml market-data.html en/market-data.html zh-market-data.html files/market-data || ! git diff --cached --quiet; then
+  rm -f "$TMP"; fail "projects.json / index.html / en/index.html / zh.html / company.html / en/company.html / zh-company.html / sitemap.xml に未コミットの変更がある。人の作業中とみなして見送る。"
 fi
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 [ "$BRANCH" = "main" ] || { rm -f "$TMP"; fail "main 以外（$BRANCH）なので見送る。"; }
@@ -199,8 +199,8 @@ BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 # ここから先は作業ツリーに生成物を書く。途中で落ちたら必ず元に戻す（残骸が残ると、翌朝はそれと比べて
 # 「変化なし」と記録しながら本番は古いまま、になる）。commit まで行けば解除する。
 rollback_generated() {
-  git reset -q HEAD -- projects.json index.html en/index.html zh.html company.html en/company.html sitemap.xml feed.xml projects-feed.xml smartnews.xml market-data.html en/market-data.html zh-market-data.html files/market-data >/dev/null 2>&1
-  git checkout -q -- projects.json index.html en/index.html zh.html company.html en/company.html sitemap.xml feed.xml projects-feed.xml smartnews.xml market-data.html en/market-data.html zh-market-data.html files/market-data >/dev/null 2>&1
+  git reset -q HEAD -- projects.json index.html en/index.html zh.html company.html en/company.html zh-company.html sitemap.xml feed.xml projects-feed.xml smartnews.xml market-data.html en/market-data.html zh-market-data.html files/market-data >/dev/null 2>&1
+  git checkout -q -- projects.json index.html en/index.html zh.html company.html en/company.html zh-company.html sitemap.xml feed.xml projects-feed.xml smartnews.xml market-data.html en/market-data.html zh-market-data.html files/market-data >/dev/null 2>&1
 }
 trap 'rollback_generated; release_lock' EXIT
 cp "$TMP" projects.json && rm -f "$TMP"
@@ -219,11 +219,12 @@ git diff --quiet -- en/index.html || STAMP="$STAMP en/index.html"
 git diff --quiet -- zh.html || STAMP="$STAMP zh.html"
 git diff --quiet -- company.html || STAMP="$STAMP company.html"
 git diff --quiet -- en/company.html || STAMP="$STAMP en/company.html"
+git diff --quiet -- zh-company.html || STAMP="$STAMP zh-company.html"
 for f in $MD_FILES; do git diff --quiet -- "$f" || STAMP="$STAMP $f"; done
 # shellcheck disable=SC2086
 [ -n "$STAMP" ] && { python3 scripts/seo/stamp_sitemap.py $STAMP >/dev/null 2>&1 || log "sitemap の lastmod 更新に失敗（続行）"; }
 # shellcheck disable=SC2086
-git add projects.json index.html en/index.html zh.html company.html en/company.html sitemap.xml feed.xml projects-feed.xml smartnews.xml $MD_FILES || fail "git add に失敗"
+git add projects.json index.html en/index.html zh.html company.html en/company.html zh-company.html sitemap.xml feed.xml projects-feed.xml smartnews.xml $MD_FILES || fail "git add に失敗"
 # 公開リポジトリのコミット文には案件ID・件数の増減・項目名を書かない（共通ルール サイトの決まり・2026-11-20 点検 W-01）。
 # 内訳（追加・削除・項目変更）は下の log（手元のログ）にだけ残す。
 git -c user.name="Shinya Nakashima" -c user.email="nakashima.shinya@me.com" \
