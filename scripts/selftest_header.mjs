@@ -264,7 +264,7 @@ for (const [lg, url] of [['ja', '/'], ['en', '/en']]) {
       regText: [...document.querySelectorAll('a[href*="dealroom.scix.co.jp/register"], a[href*="dealroom.scix.co.jp/en/register"]')].map((a) => a.textContent).filter((t) => /無料登録|無料で登録|free registration|Register|Sign up|免费注册/.test(t)).length };
   })()`;
   const wait = async (p, expr, ms = 4000) => { for (let i = 0; i < ms / 100; i++) { if (await p.eval(expr)) return true; await sleep(100); } return false; };
-  for (const [lg, url, top] of [['ja', '/', true], ['en', '/en', true], ['zh', '/zh', true], ['ja', '/column-eprx', false], ['ja', '/projects', false]]) for (const w of [1440, 1200, 1101, 1024, 390]) {
+  for (const [lg, url, top] of [['ja', '/', true], ['en', '/en', true], ['zh', '/zh', true], ['ja', '/column-eprx', false], ['ja', '/market-data', false]]) for (const w of [1440, 1200, 1101, 1024, 390]) {
     const p = await page({ w, h: 800, mobile: w < 500, signed: true }); await p.go(BASE + url);
     await wait(p, `document.documentElement.getAttribute('data-mkt-signed') === '1' && !!document.querySelector('footer .scix-ft-auth.scix-in')`);
     if (top) await wait(p, `document.querySelectorAll('#top-cards .sc-price:not(.wait)').length > 0`);

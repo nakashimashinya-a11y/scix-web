@@ -48,7 +48,6 @@ LANGS = {
 EXTRA = {
     "en": [
         (r"^(balancing-market|price-cap|eprx|bidding-ceiling.*|somosomo-14)$", "/en/column-day-ahead"),
-        (r"^(transfer|buyer-structures|project-price|financing|options|buyer-check)$", "/en/projects"),
         (r"^(transfer|foreign-investor|buyer-structures)$", "/en/faq"),
         (r"^(foreign-investor|revenue|cashflow|financing|trading)$", "/en/primer"),
         (r"^(bidding-ceiling-calc|bidding-ceiling-law|bidding-ceiling-market)$", "/en/column-bidding-ceiling-monitoring"),

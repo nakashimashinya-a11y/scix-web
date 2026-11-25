@@ -28,6 +28,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 BASE = "https://www.scix.co.jp"
+MARKET = "https://dealroom.scix.co.jp"   # 2026-11-25 案件の新着の行き先は蓄電所マーケットの案件の公開の頁（/catalog/<番号>）。会社サイトの /projects はやめた（308）
 JST = datetime.timezone(datetime.timedelta(hours=9))
 COLUMN_LIMIT = 30
 PROJECT_DAYS = 60
@@ -116,7 +117,7 @@ def project_items(today):
                          cod if p.get("live") else "連系の見込み " + cod]
                         + ([] if p.get("live") else [p.get("status") or "—"])
                         + [p.get("scheme") or "取得の形 確認中"])
-        items.append({"title": title, "link": f"{BASE}/projects#p-{pid}", "desc": desc, "date": d})
+        items.append({"title": title, "link": f"{MARKET}/catalog/{pid}", "desc": desc, "date": d})
     return items
 
 
@@ -298,7 +299,7 @@ def main():
         "feed.xml": render("サイエンスエックス ナレッジ（系統用蓄電池）", f"{BASE}/knowledge",
                            "系統用蓄電池の制度・市場・税制・用地・売買の解説コラムの新着。",
                            f"{BASE}/feed.xml", column_items()),
-        "projects-feed.xml": render("サイエンスエックス 販売中の系統用蓄電池案件（新着）", f"{BASE}/projects",
+        "projects-feed.xml": render("サイエンスエックス 販売中の系統用蓄電池案件（新着）", f"{MARKET}/",
                                     "サイエンスエックスが販売中の系統用蓄電池案件の新着。公開できる項目のみ。",
                                     f"{BASE}/projects-feed.xml", project_items(today)),
         "smartnews.xml": render_smartnews(smartnews_items()),

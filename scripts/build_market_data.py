@@ -63,7 +63,7 @@ AREAS = [
     ("北陸", "hokuriku", "北陸電力送配電"),
     ("四国", "shikoku", "四国電力送配電"),
 ]
-OUTPUTS = ["market-data.html", "en/projects.html", "en/market-data.html", "zh-market-data.html"] + [f"projects-{slug}.html" for _, slug, _ in AREAS]
+OUTPUTS = ["market-data.html", "en/market-data.html", "zh-market-data.html"]   # 2026-11-25 管内別の一覧 projects-<slug>.html と en/projects.html はやめた（蓄電所マーケットへ 308・vercel.json）
 
 # 2026-11-22 足した集計・CSV・買主のリクエスト
 MIN_GROUP = 5    # 新しい集計の区分（電圧・取得の形の行・月数の行・CSV の管内と都道府県）は、件数がこれ未満なら「その他」にまとめる
@@ -1224,7 +1224,7 @@ def render_market(ps, today, generated, weekly=(), nd=None, cs=None):
     month_rows = "".join(f'<tr><th scope="row"><time datetime="{_esc(m)}">{_esc(m)}</time></th><td class="n">{n}</td></tr>' for m, n in s["first_seen"])
     pref_rows = "".join(f'<tr><th scope="row">{_esc(p)}</th><td class="n">{n}</td></tr>' for p, n in s["pref"].most_common(10))
     area_table = "".join(
-        f'<tr><th scope="row"><a href="/projects-{slug}">{_esc(a)}（{_esc(nm)}）</a></th><td class="n">{s["area"].get(a, 0)}</td>'
+        f'<tr><th scope="row"><a href="https://dealroom.scix.co.jp/catalog/area/{slug}" target="_top">{_esc(a)}（{_esc(nm)}）</a></th><td class="n">{s["area"].get(a, 0)}</td>'
         f'<td class="n">{s["area_mw"].get(a, 0):,}</td></tr>' for a, slug, nm in AREAS if s["area"].get(a))
     n_mw = sum(1 for p in ps if _num(p.get("mw")))
     needs_ld = needs_dataset(nd, "ja", BASE + path)
@@ -1248,9 +1248,9 @@ def render_market(ps, today, generated, weekly=(), nd=None, cs=None):
             + ([{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": BASE + CSV["weekly"], "name": "週ごとの推移（CSV）"}] if len(weekly) >= 2 else [])
             + [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": BASE + "/projects.json", "name": "公開の一覧（JSON）"}],
             "mainEntityOfPage": BASE + path}),
-        ld(crumbs([("ホーム", BASE + "/"), ("案件一覧", BASE + "/projects"), ("売り案件の市場データ", BASE + path)])),
+        ld(crumbs([("ホーム", BASE + "/"), ("売り案件の市場データ", BASE + path)])),
     ] + ([ld(needs_ld)] if needs_ld else []))
-    body = f"""{nav_crumbs([("ホーム", "/"), ("案件一覧", "/projects"), ("売り案件の市場データ", path)])}
+    body = f"""{nav_crumbs([("ホーム", "/"), ("売り案件の市場データ", path)])}
 <section class="hero"><div class="container">
   <div class="section-label">毎朝更新・当社観測</div>
   <h1>系統用蓄電池の売り案件 市場データ</h1>
@@ -1743,7 +1743,7 @@ def render_en_market(ps, today, generated, weekly=(), nd=None, cs=None):
             "name": title, "description": desc, "inLanguage": "en", "dateModified": generated,
             "isPartOf": {"@type": "WebSite", "url": BASE + "/en", "name": "ScienceX"}, "publisher": EN_ORG}),
         ld(en_dataset(path, name, ds_desc, generated, dist, variables_en())),
-        ld(crumbs([("Home", BASE + "/en"), ("Projects", BASE + "/en/projects"), ("Market data", BASE + path)])),
+        ld(crumbs([("Home", BASE + "/en"), ("Market data", BASE + path)])),
     ] + ([ld(needs_ld)] if needs_ld else []))
     area_pairs = [(EN_AREA.get(a, a), s["area"].get(a, 0)) for a, _, _ in AREAS if s["area"].get(a)]
     area_table = "".join(f'<tr><th scope="row">{_esc(EN_AREA.get(a, a))}</th><td class="n">{s["area"].get(a, 0)}</td>'
@@ -1757,7 +1757,7 @@ def render_en_market(ps, today, generated, weekly=(), nd=None, cs=None):
     scheme_pairs = [(_en_label("scheme", k), v) for k, v in s["scheme"].most_common()]
     status_pairs = [(_en_label("status", k), v) for k, v in s["status"].most_common()]
     undated = s["undecided"] - sum(1 for p in ps if not p.get("live") and not (p.get("codYm") and p["codYm"] >= today.strftime("%Y-%m")) and _num(p.get("leadMonths")))
-    body = f"""{nav_crumbs([("Home", "/en"), ("Projects", "/en/projects"), ("Market data", path)])}
+    body = f"""{nav_crumbs([("Home", "/en"), ("Market data", path)])}
 <section class="hero"><div class="container">
   <div class="section-label">Updated daily &middot; ScienceX listings</div>
   <h1>Japan grid-scale battery storage projects for sale: market data</h1>
@@ -1820,7 +1820,7 @@ def render_en_market(ps, today, generated, weekly=(), nd=None, cs=None):
 </div></section>
 {more.sections(ps, today, cs, nd, "en")}{section_needs(nd, "en")}
 {section_download("en", generated, len(weekly) >= 2, bool(nd and nd.get("n")), name, BASE + path,
-                  '<p>The full project list in English is on <a href="/en/projects">Projects</a>; market prices (JEPX, capacity market) are on <a href="/en/research/data">Battery Storage Market Data</a>.</p>')}
+                  '<p>The full project list in English is on <a href="https://dealroom.scix.co.jp/en" target="_top">Chikudensho Market</a>; market prices (JEPX, capacity market) are on <a href="/en/research/data">Battery Storage Market Data</a>.</p>')}
 {EN_CTA_MD}{EN_FOOTER}
 </body>
 </html>
@@ -2084,13 +2084,19 @@ def render_zh_market(ps, today, generated, weekly=(), nd=None):
 </div></section>
 {section_needs(nd, "zh")}
 {section_download("zh", generated, len(weekly) >= 2, bool(nd and nd.get("n")), name, BASE + path,
-                  '<p>项目一览请见<a href="/en/projects">Projects（英文页面）</a>；市场价格（JEPX、容量市场）请见<a href="/en/research/data">Battery Storage Market Data（英文页面）</a>。</p>')}
+                  '<p>项目一览请见<a href="https://dealroom.scix.co.jp/en" target="_top">蓄电所市场（英文页面）</a>；市场价格（JEPX、容量市场）请见<a href="/en/research/data">Battery Storage Market Data（英文页面）</a>。</p>')}
 {ZH_CTA_MD}{ZH_FOOTER}
 </body>
 </html>
 """
     body = body.replace("'Noto Sans JP',sans-serif", "'Noto Sans SC','Noto Sans JP',sans-serif")
     return zh_head(title, desc, path, jsonld) + body
+
+
+def drop_projects_sitemap():
+    """やめた案件一覧の頁（/projects・/projects-<slug>・/en/projects）の行を sitemap から外す（2026-11-25・転送の頁を索引に出さない）。"""
+    text = open(os.path.join(ROOT, "sitemap.xml"), encoding="utf-8").read()
+    return re.sub(r"  <url><loc>" + re.escape(BASE) + r"(?:/en)?/projects(?:-[a-z]+)?</loc>.*?</url>\n", "", text)
 
 
 def sync_area_sitemap(ps, today):
@@ -2150,9 +2156,8 @@ def main():
     nd = fetch_needs(today) if "--fetch-needs" in sys.argv else load_needs()
     cs = more.fetch_cards(today) if "--fetch-needs" in sys.argv else more.load_cards()   # 公開のカードの区分ごとの数（同じ毎朝の同期で読む）
     pages = {"market-data.html": render_market(ps, today, generated, weekly, nd, cs)}
-    for area, slug, operator in AREAS:
-        pages[f"projects-{slug}.html"] = render_area(ps, area, slug, operator, today, generated)
-    pages["en/projects.html"] = render_en_projects(ps, today, generated, weekly)
+    # 2026-11-25 管内別の一覧（projects-<slug>.html）と英語の一覧（en/projects.html）は焼かない（中島「この画面は古いからもういらないよね」・
+    # 蓄電所マーケットの写真つきの一覧へ 308＝vercel.json）。render_area・render_en_projects は戻すときのために残す。
     pages["en/market-data.html"] = render_en_market(ps, today, generated, weekly, nd, cs)
     pages["zh-market-data.html"] = render_zh_market(ps, today, generated, weekly, nd)
     rows = summary_rows(ps, stats(ps, today), extra_stats(ps), generated, today)
@@ -2165,7 +2170,7 @@ def main():
         pages[NEEDS_JSON] = needs_text(nd)
     if cs:
         pages[more.CARDS_JSON] = more.cards_text(cs)
-    pages["sitemap.xml"] = sync_md_sitemap(sync_area_sitemap(ps, today), generated)
+    pages["sitemap.xml"] = sync_md_sitemap(drop_projects_sitemap(), generated)
     changed = []
     for name, html in pages.items():
         path = os.path.join(ROOT, name)

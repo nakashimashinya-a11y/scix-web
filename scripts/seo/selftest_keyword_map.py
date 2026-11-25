@@ -101,10 +101,11 @@ def test_stats() -> None:
     k = ms.load_keyword_map()
     old = {"www:/land": "/sourcing"}
     rows = [
-        {"query": "系統用蓄電池 案件", "page": "/projects", "clicks": 1, "impressions": 10, "position": 2.0},
+        # 2026-11-25 会社サイトの /projects・/projects-<管内> はやめてマーケットへ 308。受ける頁はマーケット（buy-list の正は dealroom:/）
+        {"query": "系統用蓄電池 案件", "page": "https://dealroom.scix.co.jp/", "clicks": 1, "impressions": 10, "position": 2.0},
         {"query": "系統用蓄電池 案件", "page": "/", "clicks": 0, "impressions": 30, "position": 50.0},
-        {"query": "系統用蓄電池 案件", "page": "https://dealroom.scix.co.jp/", "clicks": 0, "impressions": 5, "position": 9.0},
-        {"query": "系統用蓄電池 物件", "page": "/projects-kyushu", "clicks": 0, "impressions": 4, "position": 6.0},
+        {"query": "系統用蓄電池 案件", "page": "https://dealroom.scix.co.jp/catalog/area/kyushu", "clicks": 0, "impressions": 5, "position": 9.0},
+        {"query": "系統用蓄電池 物件", "page": "/column-buyer-structures", "clicks": 0, "impressions": 4, "position": 6.0},
         {"query": "系統用蓄電池 売却", "page": "/land", "clicks": 0, "impressions": 8, "position": 12.0},
         {"query": "系統用蓄電池 売却", "page": "/sourcing", "clicks": 0, "impressions": 2, "position": 10.0},
         {"query": "謎の売却の語", "page": "/knowledge", "clicks": 0, "impressions": 7, "position": 40.0},

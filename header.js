@@ -109,7 +109,6 @@
   // Pages that exist in all three languages under language-specific slugs.
   var TRILINGUAL = {
     '/': { en: '/en', zh: '/zh' },
-    '/projects': { en: '/en/projects', zh: '/zh' },
     '/knowledge': { en: '/en/knowledge', zh: '/zh-knowledge' },
     '/qa': { en: '/en/qa', zh: '/zh-qa' },
     '/faq': { en: '/en/faq', zh: '/zh-faq' },
@@ -544,7 +543,7 @@
   // Pages that light up each group (beyond the links listed inside it).
   var GROUP_PAGES = {
     knowledge: ['/knowledge', '/qa', '/grid-storage', '/glossary', '/column-somosomo', '/primer', '/market-entry-guide'],
-    buy:   ['/projects', '/transfer', '/fund', '/investors', '/for/sme', '/for/major', '/market-data'],
+    buy:   ['/transfer', '/fund', '/investors', '/for/sme', '/for/major', '/market-data'],
     sell:  ['/sourcing', '/sell-form', '/partners', '/for/dealers'],
     research: ['/research']   // 2026-11-25: 市場の頁は /research の下へ（入口＝月号の一覧）。2026-11-23: 市場の頁は速報（/research/flash）と月号（/research/<月>）の2本だけ。売り案件の市場データは「買いたい」へ戻した
   };
@@ -552,7 +551,7 @@
   // 2026-11-15 メニュー全体の見直し（重複をなくし、全体の整合をとった）:
   // 行き先は1か所に1回だけ。マーケット（案件を見る・リクエスト・自分で売る）は右端の橙のボタン1つにまとめ、
   // 買う・売るの中は当社の窓口（流れ・査定・ファンド・紹介）だけにする。市場ノートは上の段だけ（ナレッジの中に重ねない）。
-  // 地域別の案件一覧（/projects・/en/projects）はマーケットの一覧と同じ中身なのでメニューから外す（ページは検索から来た人のために残す）。
+  // 地域別の案件一覧（/projects・/projects-<管内>・/en/projects）は 2026-11-25 にやめ、蓄電所マーケットの写真つきの一覧へ 308（vercel.json）。
   // 2026-11-22: 上の帯は蓄電所マーケット（platform-nav.js）と同じ並び: 買いたい・売りたい・ナレッジ・市場リサーチ・会社案内・お問い合わせ＋右端のログイン・無料で登録。
   // 「買いたい」「売りたい」はマーケットへ直接（日本語の売りたいは買主のリクエストの一覧 /needs・英語と中国語は /en/needs）。中国語の画面はマーケットに無いので英語の画面へ。
   // 札の言葉と行き先は、2つのリポジトリで同じ表を手で写す（片方の実行時にもう片方を読む形は、落ちたとき帯が欠けるので採らない）。

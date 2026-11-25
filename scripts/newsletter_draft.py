@@ -39,8 +39,8 @@ def main() -> int:
         lines += [f"■ {c['title']}", f"{BASE}{c['href']}", "", c["desc"], ""]
     lines += [
         "――",
-        "販売中の案件一覧（NDA不要）",
-        f"{BASE}/projects",
+        "販売中の案件一覧（蓄電所マーケット・NDA不要）",
+        "https://dealroom.scix.co.jp/",
         "ナレッジ（全記事）",
         f"{BASE}/knowledge",
         "",
