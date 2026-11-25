@@ -100,6 +100,19 @@ def main():
                 page = f.read()
             for part in (M.section_grid_stage(cs, lang == "ja"), M.section_land(cs, lang == "ja"), M.section_views(cs, lang == "ja")):
                 ok(part and part in page, f"{name}: カードの段が控えのとおりに入っていない（build_market_data.py を回し直す）")
+    # 管内ごとの連系までの月数の表の「計」が、今ある全体の段（回答書の工期）の数と合うか
+    import build_market_data as B
+    gs = B.stats(ps, today)
+    mc = M.project_stats(ps, today)["area_months"]
+    ok(sum(mc["rtot"].values()) == len(gs["lead"]), "管内ごとの月数の計が、全体の段の件数と合わない")
+    for band, n in gs["bands"].items():
+        ok(sum(mc["t"].get((r, band), 0) for r in mc["rows"]) == n, f"管内ごとの月数の「{band}」の計が、全体の段と合わない")
+    ok(all(mc["med"][r] is None for r in mc["rows"] if mc["rtot"][r] < M.MIN_GROUP), "5件未満の行に中央値が出ている")
+    ok(all(r == M.OTHER or mc["rtot"][r] >= M.MIN_GROUP for r in mc["rows"]), "管内ごとの月数に5件未満の行が残っている")
+    if cs:
+        for name, lang in (("market-data.html", "ja"), ("en/market-data.html", "en")):
+            with open(os.path.join(ROOT, name), encoding="utf-8") as f:
+                ok(M.section_months_area(M.project_stats(ps, today), lang == "ja") in f.read(), f"{name}: 管内ごとの月数の段が入っていない（build_market_data.py を回し直す）")
     if live:
         cards = M.read_cards()
         now = M.cards_summary(cards)

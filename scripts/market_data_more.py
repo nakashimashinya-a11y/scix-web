@@ -11,6 +11,7 @@
   views            公開のカードの「見た人の数」を、取得の形・電圧・管内ごとに（件数・中央値・平均）
   area-size        規模の区分を、管内ごと・取得の形ごとに（projects.json）
   area-cod         運転開始の予定（年度）を、管内ごとに（projects.json）
+  grid-months-area 回答書の連系までの月数を、管内ごとに（projects.json。月数の元・数え方は今ある「回答書の工期」の段と同じ。2026-11-25 追加）
   needs-supply     買主のリクエストが求めるエリア（延べ）と、そのエリアの販売中の件数（projects.json と買主のリクエストの控え）
 
 カードの元: 蓄電所マーケットの公開の口 /api/open/cards（ログインなしで読める口）。--fetch-needs のとき（毎朝の同期）に読んで、
@@ -189,7 +190,17 @@ def project_stats(ps, today):
             break
     fy_label = (lambda p: (_fy(p["codYm"]) if not cut or _fy(p["codYm"]) < cut else f"{cut[:4]}年度以降"))
     ycols = [y for y in ykeep if not cut or y < cut] + ([f"{cut[:4]}年度以降"] if cut else [])
-    return {"n": len(ps), "n_mw": len(mw_ps), "n_cod": len(cod_ps),
+    lead_ps = [p for p in ps if _isnum(p.get("leadMonths"))]
+    mcx = cross(lead_ps, lambda p: p.get("area") or "確認中", lambda p: _B().lead_band(p["leadMonths"]), [ja for ja, _ in _B().LEAD_BANDS])
+    mrk = set(mcx["rows"])
+    mgrp = defaultdict(list)
+    for p in lead_ps:
+        a = p.get("area") or "確認中"
+        mgrp[a if a in mrk else OTHER].append(p["leadMonths"])
+    mcx["med"] = {r: (_B()._med(mgrp[r]) if len(mgrp[r]) >= MIN_GROUP else None) for r in mcx["rows"]}
+    mcx["all_med"] = _B()._med([p["leadMonths"] for p in lead_ps]) if len(lead_ps) >= MIN_GROUP else None
+    mcx["unspec"] = sum(1 for p in lead_ps if (p.get("leadBasis") or "unspecified") == "unspecified")
+    return {"asof": today.isoformat(), "n_lead": len(lead_ps), "area_months": mcx, "n": len(ps), "n_mw": len(mw_ps), "n_cod": len(cod_ps),
             "area_size": cross(mw_ps, lambda p: p.get("area") or "確認中", lambda p: _size_bin(p["mw"]), SIZE_BINS),
             "scheme_size": cross(mw_ps, lambda p: p.get("scheme") if p.get("scheme") in ("権利譲渡", "完成渡し") else "確認中",
                                  lambda p: _size_bin(p["mw"]), SIZE_BINS),
@@ -384,6 +395,56 @@ def section_area_cod(pst, J):
 """
 
 
+def _months_table(cx, J, k):
+    B = _B()
+    cols = cx["cols"]
+    if J:
+        head = ["管内"] + cols + ["計", "中央値（月）"]
+        u, mu = "件", "か月"
+        cap = f"管内ごとの、回答書の連系までの月数（区分ごとの件数と中央値・月数のある{k}件）"
+    else:
+        head = ["Grid area"] + [dict(B.LEAD_BANDS)[c] for c in cols] + ["Total", "Median (months)"]
+        u, mu = "", " months"
+        cap = f"Months to grid connection stated in the utility's answer, by grid area (counts per band and median, {k} projects with a figure)"
+
+    def med(v):
+        return "—" if v is None else f"{B._g(v)}{mu}"
+    body = "".join(
+        f'<tr><th scope="row">{B._esc(r if J else en(r))}</th>'
+        + "".join(f'<td class="n">{cx["t"].get((r, c), 0)}{u}</td>' for c in cols)
+        + f'<td class="n">{cx["rtot"][r]}{u}</td><td class="n">{med(cx["med"][r])}</td></tr>' for r in cx["rows"])
+    tot = "".join(f'<td class="n">{sum(cx["t"].get((r, c), 0) for r in cx["rows"])}{u}</td>' for c in cols)
+    body += f'<tr><th scope="row">{"計" if J else "Total"}</th>{tot}<td class="n">{k}{u}</td><td class="n">{med(cx["all_med"])}</td></tr>'
+    return (f'<div class="md-scroll"><table class="md-t"><caption>{B._esc(cap)}</caption><thead><tr>{B._ths(head)}</tr></thead>'
+            f'<tbody>{body}</tbody></table></div>')
+
+
+def section_months_area(pst, J):
+    k = pst["n_lead"]
+    if not k:
+        return ""
+    cx = pst["area_months"]
+    spec = k - cx["unspec"]
+    asof = pst["asof"]
+    if J:
+        return f"""<section class="md" id="grid-months-area"><div class="container">
+  <div class="section-label">連系までの月数×管内</div>
+  <h2 class="md-h">連系までの月数を、管内ごとに</h2>
+  <p class="md-lead">接続検討回答書に書かれた「連系までにかかる月数」がある{k}件を、管内ごとに数えました。どの管内で、回答書の月数がどのくらいの案件が多いかの見当付けにお使いください。</p>
+  {_months_table(cx, True, k)}
+  <p class="md-note">月数は回答書の記載のままで、起点（工事費負担金の入金からなど）が書かれているのは{spec}件です。起点が違う月数が混ざっており、運転開始の予定日から数えた月数ではありません。{_small_note(cx, J=True)}中央値は、その行の件数が{MIN_GROUP}件以上のときだけ出しています。毎朝、公開の一覧（projects.json）から数え直しています（<time datetime="{asof}">{asof}</time> 時点）。</p>
+</div></section>
+"""
+    return f"""<section class="md" id="grid-months-area"><div class="container">
+  <div class="section-label">Months to connection &times; grid area</div>
+  <h2 class="md-h">Months to grid connection, by grid area</h2>
+  <p class="md-lead">The {k} projects whose grid connection study answer states the months needed to connect, counted by grid area.</p>
+  {_months_table(cx, False, k)}
+  <p class="md-note">The months are as written in the utility&rsquo;s answer; {spec} of them state a start point (such as payment of the grid construction cost), so figures with different start points are mixed. These are not months from the planned commercial operation date.{_small_note(cx, J=False)} A median is shown only for rows with {MIN_GROUP} or more projects. Recounted every morning from the public project list (as of <time datetime="{asof}">{asof}</time>).</p>
+</div></section>
+"""
+
+
 def needs_supply_rows(ps, nd):
     """買主のリクエストの「求めるエリア」（延べ）と、そのエリアの販売中の件数・うち権利譲渡・うち高圧。"""
     if not nd or not nd.get("n"):
@@ -436,5 +497,5 @@ def sections(ps, today, cs, nd, lang):
     """足す段の全部（日本語は lang='ja'・英語は 'en'）。"""
     J = lang == "ja"
     pst = project_stats(ps, today)
-    return (section_grid_stage(cs, J) + section_land(cs, J) + section_size_cross(pst, J) + section_area_cod(pst, J)
+    return (section_grid_stage(cs, J) + section_land(cs, J) + section_size_cross(pst, J) + section_area_cod(pst, J) + section_months_area(pst, J)
             + section_views(cs, J) + section_needs_supply(ps, nd, J))
