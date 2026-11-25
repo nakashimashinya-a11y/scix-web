@@ -1384,7 +1384,20 @@
     window.SCIX_SRC_MARK = MARK;   // 確かめ用（ほかからは使わない）
     // トップの案件カード（data-placement="card"）の出所の印は top-card（英語 -en・中国語 -zh）。GA4 の placement も card
     var CARD_MARK = ('top-card' + langSfx);
-    function markOf(a) { return a && a.closest && a.closest('[data-placement="card"]') ? CARD_MARK : MARK; }
+    // 読み物の頁の終わりの案件の帯（/market-strip.js・data-placement="strip"・7g）の出所の印は頁の印のまま。
+    // ただしマーケットの来訪の表（dealroom の functions/_lib/open_visits.ts の SITE_MARK_RX・48字まで）が読めない形（例 report-flash）は site-<頁> に直す
+    var SITE_MARK_OK = /^(top|top-card|knowledge|report(-\d{4}-\d{2})?|(col|site)-[a-z0-9][a-z0-9-]{0,40})(-en|-zh)?$/;
+    function stripMark() {
+      if (MARK.length <= 48 && SITE_MARK_OK.test(MARK)) return MARK;
+      var m = cleanMark('site-' + loc.replace(/^\/+/, '')).toLowerCase().slice(0, 46).replace(/-+$/, '') + langSfx;
+      return SITE_MARK_OK.test(m) ? m : 'site-page' + langSfx;
+    }
+    var STRIP_MARK = stripMark();
+    function markOf(a) {
+      if (!a || !a.closest) return MARK;
+      if (a.closest('[data-placement="strip"]')) return STRIP_MARK;
+      return a.closest('[data-placement="card"]') ? CARD_MARK : MARK;
+    }
 
     // ---- 7a. 出所の印 ----
     function marketUrl(a) {
@@ -1418,6 +1431,7 @@
 
     // ---- 7b. GA4 market_click（1回の押下に1回） ----
     function placementOf(a) {
+      if (a.closest('[data-placement="strip"]')) return 'strip';   // 読み物の頁の終わりの案件の帯（7g）
       if (a.closest('[data-placement="card"]')) return 'card';
       if (a.closest('.scix-header')) return 'header';
       if (a.closest('footer, .scix-footer')) return 'footer';
@@ -1670,6 +1684,30 @@
 
     function onReady() { domReady = true; fillForms(); tryCard(); }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady); else onReady();
+
+    // ---- 7g. 読み物の頁の終わりの、写真つきの案件の帯（/market-strip.js・2026-11-25） ----
+    // GA4（日本からの来訪・2026-11-22〜25）で、写真つきの案件のカードのあるトップは押される率が高く、文字のリンクだけの読み物の頁はほとんど押されなかった
+    // （中島「クリック数とかで戦略を変えていって」）。読み物の頁の終わりに、トップと同じ写真つきのカードを4枚だけ出す。
+    // 出す頁かどうかはこの stripWanted だけで決める（式は market-strip.js の頭の説明にも書く）。出す頁のときだけ、load の後に /market-strip.js を読む。
+    // 帯のリンクの GA4 market_click は placement=strip・出所の印は頁の印（STRIP_MARK＝7a の上）。
+    function stripWanted(p) {
+      if (/^\/research(?:\/(?:flash|data|\d{4}-\d{2}))?$/.test(p)) return true;   // 市場ノート（入口・速報・月号・市場データ）は常に
+      if (p === '/knowledge') return true;                                       // ナレッジの入口も常に
+      var m = /^\/column-([a-z0-9-]+)$/.exec(p);
+      if (!m) return false;
+      if (/^land-(?:buyback|lease|value|zoning)$/.test(m[1])) return false;      // 土地の持ち主向けの4本には出さない（O16-5）
+      var s = 0;                                                                  // 日本語のコラムは半分だけ（効き目を比べる）:
+      for (var i = 0; i < m[1].length; i++) s += m[1].charCodeAt(i);              // slug の文字コードの和が偶数の頁に出す
+      return s % 2 === 0;
+    }
+    window.SCIX_STRIP_WANTED = stripWanted;   // 確かめ用（試験が読む・ほかからは使わない）
+    if (isJa && stripWanted(path.replace(/\/index$/, ''))) {
+      window.SCIX_STRIP = { mark: STRIP_MARK };
+      var loadStrip = function () {
+        try { var sc = document.createElement('script'); sc.src = '/market-strip.js'; sc.async = true; document.body.appendChild(sc); } catch (err) { /* 帯が無くても頁はそのまま */ }
+      };
+      if (document.readyState === 'complete') loadStrip(); else window.addEventListener('load', loadStrip);
+    }
   })(); } catch (err) { /* 測る仕組みが失敗しても頁はそのまま */ }
 
   // --------------- 8. 下の帯（2026-11-23） ---------------
