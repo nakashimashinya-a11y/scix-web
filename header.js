@@ -1732,7 +1732,9 @@
     //   ・買い手向けの頁 /transfer・/investors・/for/major・/for/sme と、読み物の残り /qa・/faq・/glossary・柱の頁 /guide-<slug> … 終わりに案件の帯
     //   ・売りたい方の頁 /sourcing … 「売り方は2つ」のすぐ後に、買主のリクエストの帯（kind=needs・マーケットのログイン前の口 /api/open/needs の決まった選択肢の行だけ）
     //   出さない頁: /grid-storage（案件の一覧を置かない＝O16-16）・/fund（O16-14）・入力のフォームの頁と送信後の頁・/market-data・/partners・報道の頁・方針の頁・広告の着地の頁・英語・中国語・トップ。
-    var STRIP_DEAL_PAGES = ['/company', '/transfer', '/investors', '/for/major', '/for/sme', '/qa', '/faq', '/glossary'];
+    //   2026-11-25（2b）: 売り案件の市場データ /market-data にも案件の帯（冒頭の段のすぐ後）。プレスリリースの1本目のリンクの着き先で、着いた人は頁の頭を見る。
+    //   （上の「出さない頁」の /market-data はこの行で改めた。）
+    var STRIP_DEAL_PAGES = ['/company', '/transfer', '/investors', '/for/major', '/for/sme', '/qa', '/faq', '/glossary', '/market-data'];
     function stripKind(p) {                                                       // '' ＝出さない・'deals' ＝案件の帯・'needs' ＝買主のリクエストの帯
       if (p === '/sourcing') return 'needs';
       if (/^\/research(?:\/(?:flash|data|\d{4}-\d{2}))?$/.test(p)) return 'deals';   // 市場ノート（入口・速報・月号・市場データ）は常に
