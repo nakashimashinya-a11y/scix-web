@@ -19,7 +19,7 @@
 
 - サイト改善の目的は検索のヒットと問い合わせを増やすこと。迷ったら問い合わせにつながるほうを先にする `O16-4`
 - 読者は 案件の買い手と案件の売り手（接続検討の回答が出た案件の持ち主）を最優先にし、投資家はその次にする。土地だけの買取・賃借はしないので、土地の持ち主を呼び込むページ・導線・title は作らない（2026-10-18 中島「土地は買いたくない。案件を売る・買うをメインに」） `O16-5`
-- 買い手の入口は、登録なしで見られる案件の一覧（トップのカード・/projects・マーケットの /）にし、価格と詳細だけをログインの後にする（一覧の前に登録・NDA を求める画面を挟まず、NDA を求める CTA を第一ボタンにしない）（2026-11-22 中島「この表示で、価格以外は見せるようにして。その中の詳細のページリンクはログイン後だよね」） `O16-6`
+- 買い手の入口は、登録なしで見られる案件の一覧（トップのカード・マーケットの / と入口ごとの頁）にし、価格と詳細だけをログインの後にする（一覧の前に登録・NDA を求める画面を挟まず、NDA を求める CTA を第一ボタンにしない）（2026-11-22 中島「この表示で、価格以外は見せるようにして。その中の詳細のページリンクはログイン後だよね」・2026-11-25 中島「もう、全部写真付きの蓄電池マーケットにいきなり行くべきじゃないか？」） `O16-6`
 - サイト全体（日英中・コラムの本文は除く）で、会社の商売の型（「仕入れて売る」・resell・买断后转售・采购并出售）を説明せず読む人の側から書き、買い手には「案件を販売しています」（for sale・在售/销售）、売り手には「当社が買い取るか、買い手におつなぎします」（buy/acquire・收购）、会社そのものは「案件の売買を行う会社」（buys and sells・买卖）とし、「中立」「neutral」「independent」を自称せず「メーカー・EPCと資本関係がない」と事実で書く（2026-11-22 中島「系統用蓄電池を売ってますだよね」「不動産会社も案件出してるけど、こんな言い方しないよね」「全言語見直して」） `O16-10`
 - LDA（長期脱炭素電源オークション）落札案件の売却・名義変更は、記事も導線も主題の提案も作らない（対象外と書く1文は除く） `O16-13`
 - /fund を noindex にも sitemap 除外にもせず、提案もしない（中島さんが明示で決める） `O16-15`
@@ -93,10 +93,10 @@
   - 生成は `scripts/build_projects_json.py`、同期（再生成→変化があれば main へ直接 commit/push）は `scripts/sync_projects_json.sh`。ふだんは毎朝 launchd が回す（DR2 で売却済み・非表示・販売中以外にした案件は、launchd `ai.scix.projects-json-fast` が10分おきに `FAST_REMOVE=1` で見て、公開一覧に残っていればその場で外す＝2026-10-31 中島さん「すぐ外して」。追加と項目の変更は毎朝の回）
   - 生成器は DR2（D1 `dealroom2_new_projects` ＋ `deal_edits`）から公開セーフな項目だけを書き出す: id / area / pref / voltage / mw / mwh / status / scheme ／ 連系の見込み（cod・codYm・leadMonths・leadBasis・live）／ firstSeen・updatedAt。項目を足すときの揃え先は `O16-23`
   - 同期は案件の出入りだけでなく項目の変更も公開する
-  - トップの件数は `scripts/inject_stats.py` が同時に焼き直す（`index.html`・`en/index.html`・`zh.html`・`company.html`・`en/company.html`・`zh-company.html`・`projects.html` の `<!--S:…-->` マーカーの中。トップの案件カード12件の匿名の行 `<!--S:cards-->` も。手で直さない）
+  - トップの件数は `scripts/inject_stats.py` が同時に焼き直す（`index.html`・`en/index.html`・`zh.html`・`company.html`・`en/company.html`・`zh-company.html` の `<!--S:…-->` マーカーの中。トップの案件カード12件の匿名の行 `<!--S:cards-->` も。手で直さない）
 - 連系の見込みは DR2 の運転開始予定日と月数から作り、connectionDate（回答日）は使わない `O16-21`
 - DR2 の自由記述（運転開始予定など）はサイトにそのまま出さず、年月・整数・列挙値だけにする。負担金は見込みの月数などに直す場合も含め、額をサイトに書き出さない `O16-20`
-- 公開項目や連系見込みの文言を足す・変えるときは、`scripts/build_projects_json.py` の `PUBLIC_KEYS`・`.github/workflows/projects-freshness.yml` の allowed・この一覧・`scripts/inject_stats.py`・`projects.html` の JS を同じ変更でそろえる `O16-23`
+- 公開項目や連系見込みの文言を足す・変えるときは、`scripts/build_projects_json.py` の `PUBLIC_KEYS`・`.github/workflows/projects-freshness.yml` の allowed・この一覧・`scripts/inject_stats.py` を同じ変更でそろえる `O16-23`
 
 ## DR2 登録（案件データはこのリポジトリに無い）
 

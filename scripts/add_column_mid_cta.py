@@ -50,10 +50,21 @@ def side(slug):
 
 def guide_cta(s):
     """日本語の頁の前からある立場別の導線の区画（マーケットか売却査定へのリンクを持つ物）。"""
+    # マーケットを名指しするリンク（字が「蓄電所マーケット」）か売却査定へのリンクがある時だけ（2026-11-25: /projects をやめてリンクの行き先だけ
+    # マーケットに替えた3本〔字は「販売中の案件一覧」〕は、文の中のリンクで目に付きにくいので区画を差す＝前の形に戻す）
     m = GUIDE_RE.search(s)
-    if m and re.search(r'href="(?:https://dealroom\.scix\.co\.jp/[^"]*|/sell-form)"', m.group(0)):
+    if m and re.search(r'<a\b[^>]*href="https://dealroom\.scix\.co\.jp/[^"]*"[^>]*>蓄電所マーケット</a>|href="/sell-form"', m.group(0)):
         return m
     return None
+
+
+def unmark_guide(s):
+    """区画を差す頁では、立場別の導線のリンクから途中の導線の印を外す（押された数を二重に数えない）。"""
+    m = GUIDE_RE.search(s)
+    if not m:
+        return s
+    g = m.group(0).replace(' data-cta="mid" data-cta-target="market"', '').replace(' data-cta="mid" data-cta-target="sell_form"', '')
+    return s[:m.start()] + g + s[m.end():]
 
 
 def mark_guide(s):
@@ -88,6 +99,8 @@ def apply(r, s):
     lang = cb.lang_of(r)
     if lang == "ja" and guide_cta(s):
         return mark_guide(s)
+    if lang == "ja":
+        s = unmark_guide(s)
     pos = cb.first_h2(s)
     if pos is None:
         print("置き場が見つからない:", r)

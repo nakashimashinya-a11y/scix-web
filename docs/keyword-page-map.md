@@ -24,10 +24,10 @@
 
 | 束（機械版の id） | 言葉の例 | 正 | 副（出てよい頁） | 90日の実際（束の表示・クリック・順位／出ている頁） | 割れと直す向き |
 |---|---|---|---|---|---|
-| 売り案件の一覧・物件（`buy-list`） | 系統用蓄電池 案件／売り案件／物件／販売中／一覧／買いたい | www:/projects | www:/projects-<管区>・www:/column-buyer-structures | 40・1・37.0／/projects 17・/ 6・/fund 4・/knowledge 4 | /・/fund・/knowledge・/investors が「案件」の語に出ている。トップは社名の頁なので題は触らない。/knowledge・/investors・/fund の説明で「案件を探す」を言う文は、/projects へ渡す1行に寄せる |
-| <管区>の売り案件（`area-tokyo` ほか9） | 東京・中部・関西・九州・東北・中国・北海道・北陸・四国 ＋ 案件／売り案件 | www:/projects-tokyo・-chubu・-kansai・-kyushu・-tohoku・-chugoku（北海道・北陸・四国は noindex のため dealroom:/catalog/area/<管区>） | www:/projects | 東京 15・中部 5・関西 10・九州 1（すべて www /projects-<管区> が受けている・dealroom は表示0。補助金・助成・条例・規制の語は束に入れない） | www /projects-<管区> と dealroom /catalog/area/<管区> は同じ件数で題が違う。**どちらを正にするかは 2026-12-20**（下の節） |
-| 特別高圧の売り案件（`volt-ehv`） | 特別高圧／特高 ＋ 案件／売却／買い | dealroom:/catalog/voltage/extra-high-voltage | www:/projects・www:/transfer | 0（語として見えていない） | www に特別高圧だけの頁は無いので、マーケットの電圧の頁を受け口にする。dealroom の索引が進んでから表示を見る |
-| 高圧の売り案件（`volt-hv`） | 高圧 ＋ 案件／売却／買い | dealroom:/catalog/voltage/high-voltage | www:/projects・www:/transfer | 0 | 同上 |
+| 売り案件の一覧・物件（`buy-list`） | 系統用蓄電池 案件／売り案件／物件／販売中／一覧／買いたい | dealroom:/ | www:/column-buyer-structures | 40・1・37.0／/projects 17・/ 6・/fund 4・/knowledge 4（www /projects の時の数） | 2026-11-25 に www /projects をやめてマーケットの / へ 308（`vercel.json`）。マーケットの入口の題を「系統用蓄電池（蓄電所）の売り案件一覧｜買う・売る｜蓄電所マーケット」に（DR2 の枝 seo-20261125）。決め待ちは dealroom:/catalog/*・dealroom:/needs |
+| <管区>の売り案件（`area-tokyo` ほか9） | 東京・中部・関西・九州・東北・中国・北海道・北陸・四国 ＋ 案件／売り案件 | dealroom:/catalog/area/<管区> | なし | 東京 15・中部 5・関西 10・九州 1（www /projects-<管区> の時の数） | 2026-11-25 に www /projects-<管区> 9本をやめてマーケットの /catalog/area/<管区> へ 308。マーケットのエリアの頁の説明に「〇〇電力…管内」を足す（DR2 の枝 seo-20261125）。英語の頁は決め待ち |
+| 特別高圧の売り案件（`volt-ehv`） | 特別高圧／特高 ＋ 案件／売却／買い | dealroom:/catalog/voltage/extra-high-voltage | www:/transfer | 0（語として見えていない） | www に特別高圧だけの頁は無いので、マーケットの電圧の頁を受け口にする。dealroom の索引が進んでから表示を見る |
+| 高圧の売り案件（`volt-hv`） | 高圧 ＋ 案件／売却／買い | dealroom:/catalog/voltage/high-voltage | www:/transfer | 0 | 同上 |
 | 権利渡し・完成渡し・開発権（`buy-types`） | 権利渡し／完成渡し／開発権／権利 売買／権利 譲渡 | www:/transfer | www:/column-buyer-structures・www:/column-transfer・www:/column-four-labels・www:/guide-buy-sell | 0 | 取得の形を言う語は /transfer が受ける（題に「権利譲渡・完成渡し・特別高圧」） |
 | 買い方・売り方・価格の相場（`price-howto`） | 蓄電所 価格 相場／いくら／買い方／売り方／売買 流れ | www:/guide-buy-sell | www:/column-project-price・www:/column-trading・www:/column-buyer-structures | 1・0・21.0／/column-construction-cost | 調べる語を、買う・売るの入口の頁（柱）で受ける。系統用の「価格 相場」は検索結果に専用の頁が出ない型で、空いている |
 
@@ -57,16 +57,15 @@
 
 | 束 | 言葉の例 | 正 | 副 | 90日の実際 | 割れと直す向き |
 |---|---|---|---|---|---|
-| 英語・売り案件・取得（`en-list`） | japan bess for sale／projects／marketplace／acquisition／development rights | www:/en/projects | www:/en・www:/en/column-buyer-structures | 0 | dealroom /en と www /en/projects が同じ「BESS projects for sale in Japan」を言う。決め待ち（2026-12-20） |
+| 英語・売り案件・取得（`en-list`） | japan bess for sale／projects／marketplace／acquisition／development rights | dealroom:/en | www:/en・www:/en/column-buyer-structures | 0 | 2026-11-25 に www /en/projects をやめてマーケットの /en へ 308。決め待ちは dealroom:/en/* |
 | 英語・買い方売り方（`en-howto`） | how to sell／buy a bess project | www:/en/guide-buy-sell | www:/en/column-trading・www:/en/column-transfer・www:/en/column-buyer-structures | 3・0・63.7／/en/market-entry-guide 3 | 売る・買うのやり方の語は /en/guide-buy-sell へ（今は /en/market-entry-guide に出ている） |
 | 英語・日本の市場を調べる（`en-market`） | japan battery storage market／investment／entry | www:/en/market-entry-guide | www:/en/knowledge・www:/en/column-revenue・www:/en/primer・www:/en/market-data・www:/en/research/flash・www:/en/qa・www:/en/guide-japan-bess-market | 702・1・47.9／/en/column-revenue 586・/en/market-entry-guide 85 | 調べる語。買う・売るへは記事と市場データの末尾の入口で渡す（12/07 以後）。/en/guide-japan-bess-market（2026-11-23 新設・市場の全体像の入口）は副。正を入れ替えるかは週報 12f の表示で決める |
 | 中国語（`zh-list`） | 储能 項目／买卖／出售／收购、电网侧 项目 | www:/zh | www:/zh-guide-buy-sell・www:/zh-qa・www:/zh-knowledge | 2 | 語として見える表示がほぼ無い。中国語の売買の頁は /zh と /zh-guide-buy-sell の2つ |
 
 ## 2026-12-20 に決めること
 
-- **地域の一覧の重なり**: www /projects-<管区>（6本）と dealroom /catalog/area/<管区>（9本・日英）は、同じ件数で題が違う。同じ組が東京・中部・関西・中国・東北・九州にある。dealroom は 2026-11-22 に sitemap を出したばかりで、索引に入った頁が約4割・検索の表示がほぼ0（2026-11-23 時点）。**今は題も canonical も変えない**。2026-12-20（sitemap 提出から4週）に、週報 12f の管区の束の表示（www と dealroom のどちらが取ったか）で、正をどちらにするか・住所を1つにするかを決める
-- **売り案件の一覧**: www /projects と dealroom の / も同じ中身（件数が一致）。決め待ちに置いてあり、同じ日に決める
-- この2つの決めが出るまでは、dealroom 側の題・canonical を替えない（索引のやり直しになる）
+- **地域の一覧・売り案件の一覧の重なり**は、2026-11-25 に www の /projects・/projects-<管区>・/en/projects をやめてマーケットへ 308 にしたので無くなった（受ける頁はマーケット）。12/20 は、週報 12f で管区の束と `buy-list`・`en-list` の表示が dealroom に移ったか（www の旧住所の表示が減ったか）を見る
+- 英語の入口の頁（dealroom:/en/catalog/area/*）を正に上げるかも同じ日に、表示の数で決める
 
 ## 旧住所
 
