@@ -1735,8 +1735,33 @@
     //   2026-11-25（2b）: 売り案件の市場データ /market-data にも案件の帯（冒頭の段のすぐ後）。プレスリリースの1本目のリンクの着き先で、着いた人は頁の頭を見る。
     //   （上の「出さない頁」の /market-data はこの行で改めた。）
     var STRIP_DEAL_PAGES = ['/company', '/transfer', '/investors', '/for/major', '/for/sme', '/qa', '/faq', '/glossary', '/market-data'];
+    // 2026-11-25（3）: 英語の頁と、送信後の頁にも出す。
+    //   ・英語の頁（stripKindEn）: 日本語で帯を出した頁に当たる英語の頁（/en/knowledge・/en/research とその下・英語のコラム全部・/en/company・/en/qa・/en/faq・/en/glossary・/en/market-data〔冒頭の段のすぐ後〕・
+    //     柱の頁 /en/guide-<slug>）と、海外の買い手向けの読み物 /en/market-entry-guide・/en/primer に、英語の案件の帯（カードの口 ?lang=en が英語の名前と場所を返す）。
+    //     英語のコラムは全部に出す（半分の比べは日本語のコラムだけ）。土地の持ち主向けの記事には出さない。英語のトップ /en（もうカードがある）・報道の頁・方針の頁・
+    //     広告の着地の頁（頁の中の台本が utm を足す作りで、主ボタンと副のリンクの数を決めてある）・入力のフォームの頁には出さない。
+    //     買主のリクエストの口は英語を返さないので、英語の頁に買主のリクエストの帯は出さない。中国語の頁は、カードの口に中国語が無いので出さない。
+    //   ・送信後の頁 /thanks: 案件の帯。売却の相談の送信後（?intent=seller）は買主のリクエストの帯。ファンドの申込の送信後（直前の頁が /fund）と、古い ?type=land には出さない。
+    //     /en/thanks は英語の案件の帯。/zh-thanks には出さない。送信後の頁に新しい計測の札やイベントは足していない（帯のリンクは、ほかの頁と同じ market_click だけ）。
+    var STRIP_DEAL_PAGES_EN = ['/company', '/qa', '/faq', '/glossary', '/market-data', '/market-entry-guide', '/primer', '/thanks'];
+    function thanksKind() {                                                       // 送信後の頁（日本語）: 用件と直前の頁で決める
+      var q = null;
+      try { q = new URLSearchParams(window.location.search); } catch (err) { q = null; }
+      if (q && q.get('type') === 'land') return '';
+      var ref = '';
+      try { ref = document.referrer ? new URL(document.referrer).pathname.replace(/\.html$/, '') : ''; } catch (err) { ref = ''; }
+      if (prev === '/fund' || ref === '/fund') return '';
+      return q && String(q.get('intent') || '').toLowerCase() === 'seller' ? 'needs' : 'deals';
+    }
+    function stripKindEn(p) {                                                     // 英語の頁（p＝/en を外した道）。'' か 'deals'
+      if (/^\/research(?:\/(?:flash|data|\d{4}-\d{2}))?$/.test(p) || p === '/knowledge') return 'deals';
+      if (STRIP_DEAL_PAGES_EN.indexOf(p) !== -1 || /^\/guide-[a-z0-9-]+$/.test(p)) return 'deals';
+      var m = /^\/column-([a-z0-9-]+)$/.exec(p);
+      return m && !/^land-(?:buyback|lease|value|zoning)$/.test(m[1]) ? 'deals' : '';
+    }
     function stripKind(p) {                                                       // '' ＝出さない・'deals' ＝案件の帯・'needs' ＝買主のリクエストの帯
       if (p === '/sourcing') return 'needs';
+      if (p === '/thanks') return thanksKind();
       if (/^\/research(?:\/(?:flash|data|\d{4}-\d{2}))?$/.test(p)) return 'deals';   // 市場ノート（入口・速報・月号・市場データ）は常に
       if (p === '/knowledge') return 'deals';                                    // ナレッジの入口も常に
       if (STRIP_DEAL_PAGES.indexOf(p) !== -1 || /^\/guide-[a-z0-9-]+$/.test(p)) return 'deals';
@@ -1750,8 +1775,10 @@
     function stripWanted(p) { return stripKind(p) !== ''; }
     window.SCIX_STRIP_WANTED = stripWanted;   // 確かめ用（試験が読む・ほかからは使わない）
     window.SCIX_STRIP_KIND = stripKind;       // 同上
-    if (isJa && stripWanted(path.replace(/\/index$/, ''))) {
-      window.SCIX_STRIP = { mark: STRIP_MARK, kind: stripKind(path.replace(/\/index$/, '')) };
+    window.SCIX_STRIP_KIND_EN = stripKindEn;  // 同上
+    var stripNow = isJa ? stripKind(path.replace(/\/index$/, '')) : (isEn ? stripKindEn(loc.replace(/\/index$/, '') || '/') : '');   // 中国語の頁は出さない
+    if (stripNow) {
+      window.SCIX_STRIP = { mark: STRIP_MARK, kind: stripNow, lang: isEn ? 'en' : 'ja' };
       var loadStrip = function () {
         try { var sc = document.createElement('script'); sc.src = '/market-strip.js'; sc.async = true; document.body.appendChild(sc); } catch (err) { /* 帯が無くても頁はそのまま */ }
       };
