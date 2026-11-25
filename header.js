@@ -1690,19 +1690,29 @@
     // （中島「クリック数とかで戦略を変えていって」）。読み物の頁の終わりに、トップと同じ写真つきのカードを4枚だけ出す。
     // 出す頁かどうかはこの stripWanted だけで決める（式は market-strip.js の頭の説明にも書く）。出す頁のときだけ、load の後に /market-strip.js を読む。
     // 帯のリンクの GA4 market_click は placement=strip・出所の印は頁の印（STRIP_MARK＝7a の上）。
-    function stripWanted(p) {
-      if (/^\/research(?:\/(?:flash|data|\d{4}-\d{2}))?$/.test(p)) return true;   // 市場ノート（入口・速報・月号・市場データ）は常に
-      if (p === '/knowledge') return true;                                       // ナレッジの入口も常に
+    // 2026-11-25（2）: GA4（日本・直近7日）で、表示が多いのにマーケットへ送れていない帯の無い頁へ広げた（コラムの半分の比べは変えない）。
+    //   ・会社案内 /company（表示はトップの次・読み終わりまで送る人が6割）… 「3つの入口」のすぐ後に案件の帯
+    //   ・買い手向けの頁 /transfer・/investors・/for/major・/for/sme と、読み物の残り /qa・/faq・/glossary・柱の頁 /guide-<slug> … 終わりに案件の帯
+    //   ・売りたい方の頁 /sourcing … 「売り方は2つ」のすぐ後に、買主のリクエストの帯（kind=needs・マーケットのログイン前の口 /api/open/needs の決まった選択肢の行だけ）
+    //   出さない頁: /grid-storage（案件の一覧を置かない＝O16-16）・/fund（O16-14）・入力のフォームの頁と送信後の頁・/market-data・/partners・報道の頁・方針の頁・広告の着地の頁・英語・中国語・トップ。
+    var STRIP_DEAL_PAGES = ['/company', '/transfer', '/investors', '/for/major', '/for/sme', '/qa', '/faq', '/glossary'];
+    function stripKind(p) {                                                       // '' ＝出さない・'deals' ＝案件の帯・'needs' ＝買主のリクエストの帯
+      if (p === '/sourcing') return 'needs';
+      if (/^\/research(?:\/(?:flash|data|\d{4}-\d{2}))?$/.test(p)) return 'deals';   // 市場ノート（入口・速報・月号・市場データ）は常に
+      if (p === '/knowledge') return 'deals';                                    // ナレッジの入口も常に
+      if (STRIP_DEAL_PAGES.indexOf(p) !== -1 || /^\/guide-[a-z0-9-]+$/.test(p)) return 'deals';
       var m = /^\/column-([a-z0-9-]+)$/.exec(p);
-      if (!m) return false;
-      if (/^land-(?:buyback|lease|value|zoning)$/.test(m[1])) return false;      // 土地の持ち主向けの4本には出さない（O16-5）
+      if (!m) return '';
+      if (/^land-(?:buyback|lease|value|zoning)$/.test(m[1])) return '';         // 土地の持ち主向けの4本には出さない（O16-5）
       var s = 0;                                                                  // 日本語のコラムは半分だけ（効き目を比べる）:
       for (var i = 0; i < m[1].length; i++) s += m[1].charCodeAt(i);              // slug の文字コードの和が偶数の頁に出す
-      return s % 2 === 0;
+      return s % 2 === 0 ? 'deals' : '';
     }
+    function stripWanted(p) { return stripKind(p) !== ''; }
     window.SCIX_STRIP_WANTED = stripWanted;   // 確かめ用（試験が読む・ほかからは使わない）
+    window.SCIX_STRIP_KIND = stripKind;       // 同上
     if (isJa && stripWanted(path.replace(/\/index$/, ''))) {
-      window.SCIX_STRIP = { mark: STRIP_MARK };
+      window.SCIX_STRIP = { mark: STRIP_MARK, kind: stripKind(path.replace(/\/index$/, '')) };
       var loadStrip = function () {
         try { var sc = document.createElement('script'); sc.src = '/market-strip.js'; sc.async = true; document.body.appendChild(sc); } catch (err) { /* 帯が無くても頁はそのまま */ }
       };

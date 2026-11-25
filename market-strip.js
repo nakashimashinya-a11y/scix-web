@@ -19,6 +19,17 @@
        読めない・0枚・形が違う → 何も出さない（枠も見出しも出さない）。
    遅れて読む: 帯の場所が画面の 600px 手前まで来たら（下へ飛んで通り過ぎたときも）口を読み、読めたときだけ差し込む（頁の初めの描画を遅らせない・画面の外で差し込むので本文は跳ねない）。
    印: 帯の入れ物とリンクに data-placement="strip"。header.js が押す直前に ?src=<頁の印>（col-<slug>・report-YYYY-MM・knowledge・site-…）を足し、GA4 の market_click は placement=strip。
+
+   2026-11-25（2）広げた（GA4・日本・直近7日: 表示が多いのにマーケットへ送れていない、帯の無い頁。コラムの半分の比べは変えない）:
+     ・会社案内 /company … 「3つの入口」の段のすぐ後（代表メッセージの段の前）に案件の帯
+     ・買い手向けの頁 /transfer・/investors・/for/major・/for/sme、読み物の残り /qa・/faq・/glossary … 終わり（下の案内の段の前・無ければ最後の段の前・無ければ下の帯の前）に案件の帯
+     ・柱の頁 /guide-<slug> … 本文の終わり（このテーマのコラムの段か、よくある質問の段の前）に案件の帯
+     ・売りたい方の頁 /sourcing … 「売り方は2つ」の段のすぐ後に、買主のリクエストの帯（header.js が window.SCIX_STRIP.kind='needs' を渡す）
+       中身: 見出し「いま買主が探している蓄電所」・札3枚（口の並びの頭から）・「買主のリクエストをすべて見る →」。
+             札は 買主の属性（資本・上場の区分・業種）と、決まった選択肢の行（エリア・電圧・買い方・運転開始・電力の手続き）だけ。価格・社名・自由に書いた文は出さない（口も返さない）。
+             「この買主に提案する →」はマーケットの /needs?need=<番号>（ログイン中の売主はそのまま提案の窓・ログイン前は一覧）。
+       元: 蓄電所マーケットのログイン前の買主のリクエストの口 /api/open/needs（マーケットの /needs の頁がログイン前に読む口と同じ）。
+     ・出さない頁: /grid-storage・/fund・入力のフォームの頁と送信後の頁・/market-data・/partners・報道の頁・方針の頁・広告の着地の頁・英語・中国語・トップ
    ====================================================== */
 (function () {
   'use strict';
@@ -28,6 +39,7 @@
 
   var MARKET = 'https://dealroom.scix.co.jp';
   var SHOW = 4, ASK = 12, TIMEOUT_MS = 3000;
+  var KIND = (window.SCIX_STRIP && window.SCIX_STRIP.kind) === 'needs' ? 'needs' : 'deals';   // 帯の種類は header.js の 7g が決める
   var path = window.location.pathname.replace(/\.html$/, '').replace(/\/+$/, '').replace(/\/index$/, '') || '/';
 
   // トップのカード（site-cards.js の T.ja）と同じ言葉
@@ -124,6 +136,46 @@
     return out.length ? out : null;
   }
 
+  // ---- 買主のリクエストの帯（kind=needs） ----
+  // 言葉はマーケットの /needs の頁と同じ（「この買主に提案する」「相談できる」「会社の概要は確認中」）
+  var N = { head: 'いま買主が探している蓄電所', more: '買主のリクエストをすべて見る →', go: 'この買主に提案する →', buyer: '買主', soft: '相談できる', unknown: '会社の概要は確認中' };
+  var NEED_KEYS = ['grid_area', 'voltage', 'sale_type', 'cod', 'grid_stage'];   // 出す行＝決まった選択肢の行だけ（ほかの行は口にあっても出さない）
+  var NEED_SHOW = 3;
+  function whoText(p) {
+    p = p && typeof p === 'object' ? p : {};
+    var t = [p.capital, p.listed, p.industry].filter(function (v) { return typeof v === 'string' && v; });
+    return t.length ? t.join('・').slice(0, 60) : N.unknown;
+  }
+  // 口の並びの頭から。番号の形が違う物・出せる行が2つ無い物は使わない
+  function pickNeeds(j) {
+    if (!j || !Array.isArray(j.needs)) return null;
+    var out = [];
+    for (var i = 0; i < j.needs.length && out.length < NEED_SHOW; i++) {
+      var n = j.needs[i];
+      if (!n || typeof n !== 'object' || !ID_RX.test(String(n.id || '')) || !Array.isArray(n.rows)) continue;
+      var rows = [];
+      for (var k = 0; k < NEED_KEYS.length; k++) {
+        for (var r = 0; r < n.rows.length; r++) {
+          var x = n.rows[r];
+          if (x && x.k === NEED_KEYS[k] && typeof x.label === 'string' && x.label && typeof x.value === 'string' && x.value) { rows.push(x); break; }
+        }
+      }
+      if (rows.length < 2) continue;
+      out.push({ id: String(n.id), who: whoText(n.profile), rows: rows });
+    }
+    return out.length ? out : null;
+  }
+  function needHtml(n) {
+    var rows = '';
+    for (var i = 0; i < n.rows.length; i++) {
+      var r = n.rows[i];
+      rows += '<div><dt>' + esc(r.label.slice(0, 20)) + '</dt><dd>' + esc(r.value.slice(0, 80)) + (r.must === 'must' ? '' : ' <span class="mkn-soft">' + esc(N.soft) + '</span>') + '</dd></div>';
+    }
+    return '<article class="mkn-c" data-id="' + esc(n.id) + '"><div class="mkn-who"><span class="mkn-tag">' + esc(N.buyer) + '</span><b>' + esc(n.who) + '</b></div>' +
+      '<dl class="mkn-rows">' + rows + '</dl>' +
+      '<a class="mkn-go" target="_top" href="' + esc(MARKET + '/needs?need=' + encodeURIComponent(n.id)) + '" data-placement="strip">' + esc(N.go) + '</a></article>';
+  }
+
   var STYLE = '.mks{container:mks/inline-size;margin:40px 0 32px;padding:0;border:0;background:none}' +
     '.md.mks-wrap .mks,.wrapper.mks-wrap .mks{margin:0}' +
     '.mks-h{margin:0 0 12px;font-size:1.15rem;font-weight:900;line-height:1.4;color:var(--m-ink,#1F2A48);letter-spacing:.01em}' +
@@ -136,7 +188,29 @@
     '.mks .sc-name::before,.mks .sc-name::after{content:none!important}' +
     '.mks .mks-more{margin:14px 0 0!important;padding:0!important;text-align:right;font-size:.95rem;line-height:1.7}' +
     '.mks .mks-more a{color:var(--m-ink,#1F2A48)!important;font-weight:800;text-decoration:underline!important;text-decoration-color:#F59E0B!important;text-decoration-thickness:2px!important;text-underline-offset:3px}' +
+    // 段として差す頁（会社案内・買い手向け・売りたい方の頁など）: 前後の段と同じ幅・同じ間
+    ':where(.mks-in){max-width:1100px;margin-left:auto;margin-right:auto;padding-left:24px;padding-right:24px;box-sizing:border-box}' +
+    'section.mks-sec{padding:28px 0 0!important;margin:0!important;background:none!important;border:0!important}' +
+    '.mks-sec .mks{margin:0}' +
+    'section.mks-sec.mks-end{padding-bottom:48px!important}' +   // すぐ後が下の帯のとき（下の案内の段が無い頁）
+    // 買主のリクエストの札
+    '.mkn-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0}' +
+    '.mkn-c{position:relative;display:flex;flex-direction:column;gap:12px;min-width:0;background:#fff;border-radius:18px;border-top:5px solid #F97316;box-shadow:0 4px 16px rgba(31,42,72,.10);padding:16px 18px 18px;transition:box-shadow .15s,transform .15s}' +
+    '.mkn-c:hover{box-shadow:0 10px 24px rgba(31,42,72,.16);transform:translateY(-2px)}' +
+    '.mkn-who{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15px;line-height:1.45;color:var(--m-ink,#0B1530)}' +
+    '.mkn-who b{font-weight:800;color:var(--m-ink,#0B1530)}' +
+    '.mkn-tag{flex:none;font-size:11.5px;font-weight:900;line-height:1.6;color:#B45309;background:#FFF1E3;border-radius:999px;padding:1px 10px}' +
+    '.mks .mkn-rows{margin:0!important;padding:0!important;display:block;flex:1;border:0!important;background:none!important}' +
+    '.mks .mkn-rows>div{display:grid;grid-template-columns:6.3em minmax(0,1fr);gap:10px;margin:0;padding:7px 0;border:0;border-top:1px solid #EEF1F6;font-size:13.5px;line-height:1.55;background:none}' +
+    '.mks .mkn-rows dt{margin:0!important;padding:0!important;font-weight:700;color:#6B7486!important;background:none!important;border:0!important;float:none;width:auto}' +
+    '.mks .mkn-rows dd{margin:0!important;padding:0!important;font-weight:700;color:var(--m-ink,#0B1530)!important;background:none!important;border:0!important}' +
+    '.mkn-soft{display:inline-block;font-size:11px;font-weight:800;line-height:1.6;color:#8A5A00;background:#FFF4D6;border-radius:999px;padding:0 8px;white-space:nowrap}' +
+    '.mks a.mkn-go{display:block;text-align:center;background:var(--m-go,#F97316)!important;color:#fff!important;font-weight:900;font-size:14.5px;line-height:1.4;padding:11px 14px;border-radius:999px;text-decoration:none!important}' +
+    '.mks a.mkn-go::after{content:"";position:absolute;inset:0;border-radius:18px}' +
+    '.mks a.mkn-go:focus-visible{outline:3px solid #1F2A48;outline-offset:2px}' +
     '@media (max-width:640px){' +
+      '.mkn-grid{display:flex;overflow-x:auto;gap:12px;padding:2px 2px 10px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}' +
+      '.mkn-c{flex:0 0 82%;scroll-snap-align:start}' +
       '.mks{margin:32px 0 24px}' +
       '.mks .mks-grid{display:flex;overflow-x:auto;gap:12px;padding:2px 2px 10px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}' +
       '.mks .sc{flex:0 0 76%;flex-direction:column;scroll-snap-align:start;border-radius:16px}' +
@@ -163,20 +237,47 @@
       var ka = document.querySelector('.kh-author'), kw = ka && ka.closest('.wrapper');
       return kw ? { before: kw, wrap: 'wrapper' } : null;
     }
+    // 2026-11-25（2）: 段として差す頁。目印の段が無ければ、下の案内の段 → 最後の段 → 下の帯 の前
+    function sec(id) { var el = id && document.getElementById(id); el = el && (el.tagName === 'SECTION' ? el : el.closest('section')); return el && after(el) && outside(el) ? el : null; }
+    function tail() {
+      var fs = document.querySelectorAll('section.f-sec');
+      return document.querySelector('section.cta') || (fs.length ? fs[fs.length - 1] : null) || document.querySelector('footer.scix-footer');
+    }
+    if (path === '/company' || path === '/sourcing') {
+      var t0 = sec(path === '/company' ? 'message' : 'what') || tail();
+      return t0 && t0.parentNode ? { before: t0, wrap: 'sec' } : null;
+    }
+    if (path.indexOf('/guide-') === 0) {
+      var gc = sec('cols') || sec('faq');
+      return gc ? { before: gc, wrap: '' } : null;
+    }
+    if (/^\/(?:transfer|investors|qa|faq|glossary|for\/[a-z0-9-]+)$/.test(path)) {
+      var t1 = tail();
+      return t1 && t1.parentNode ? { before: t1, wrap: 'sec' } : null;
+    }
     var cite = document.getElementById('cite'), citeSec = cite && cite.closest('section');
     var t = citeSec || document.querySelector('section.cta') || document.querySelector('footer.scix-footer');
     return t && t.parentNode ? { before: t, wrap: 'md' } : null;
   }
 
   function build(cards, wrap) {
-    var html = '';
-    for (var i = 0; i < cards.length; i++) html += cardHtml(cards[i]);
-    var inner = '<section class="mks" data-placement="strip" data-nosnippet aria-label="' + esc(L.head) + '">' +
-      '<div class="mks-h" role="heading" aria-level="2">' + esc(L.head) + '</div>' +
-      '<div class="sc-grid mks-grid">' + html + '</div>' +
-      '<p class="mks-more"><a target="_top" href="' + MARKET + '/" data-placement="strip">' + esc(L.more) + '</a></p></section>';
-    var box = document.createElement(wrap === 'md' ? 'section' : 'div');
+    var html = '', inner;
+    if (KIND === 'needs') {
+      for (var k = 0; k < cards.length; k++) html += needHtml(cards[k]);
+      inner = '<section class="mks mkn" data-placement="strip" data-nosnippet aria-label="' + esc(N.head) + '">' +
+        '<div class="mks-h" role="heading" aria-level="2">' + esc(N.head) + '</div>' +
+        '<div class="mkn-grid">' + html + '</div>' +
+        '<p class="mks-more"><a target="_top" href="' + MARKET + '/needs" data-placement="strip">' + esc(N.more) + '</a></p></section>';
+    } else {
+      for (var i = 0; i < cards.length; i++) html += cardHtml(cards[i]);
+      inner = '<section class="mks" data-placement="strip" data-nosnippet aria-label="' + esc(L.head) + '">' +
+        '<div class="mks-h" role="heading" aria-level="2">' + esc(L.head) + '</div>' +
+        '<div class="sc-grid mks-grid">' + html + '</div>' +
+        '<p class="mks-more"><a target="_top" href="' + MARKET + '/" data-placement="strip">' + esc(L.more) + '</a></p></section>';
+    }
+    var box = document.createElement(wrap === 'md' || wrap === 'sec' ? 'section' : 'div');
     if (wrap === 'md') { box.className = 'md mks-wrap'; inner = '<div class="container rp-body">' + inner + '</div>'; }
+    else if (wrap === 'sec') { box.className = 'mks-wrap mks-sec'; inner = '<div class="container mks-in">' + inner + '</div>'; }
     else if (wrap === 'wrapper') box.className = 'wrapper mks-wrap';
     else box.className = 'mks-wrap';
     box.setAttribute('data-nosnippet', '');
@@ -197,16 +298,17 @@
     var timer = setTimeout(function () { late = true; if (ctl) ctl.abort(); }, TIMEOUT_MS);
     var opts = { mode: 'cors', credentials: 'omit', headers: { Accept: 'application/json' } };
     if (ctl) opts.signal = ctl.signal;
-    fetch(MARKET + '/api/open/cards?limit=' + ASK + '&lang=ja', opts)
+    fetch(MARKET + (KIND === 'needs' ? '/api/open/needs?lang=ja' : '/api/open/cards?limit=' + ASK + '&lang=ja'), opts)
       .then(function (r) { clearTimeout(timer); return r.ok ? r.json() : null; })
       .then(function (j) {
-        var cards = late ? null : pick(j);
+        var cards = late ? null : (KIND === 'needs' ? pickNeeds(j) : pick(j));
         if (!cards || !slot.parentNode) { if (slot.parentNode) slot.parentNode.removeChild(slot); return; }
         cssOnce();
         var box = build(cards, wrap);
         // 差す所が画面より上にあり、ブラウザが位置を保たない（overflow-anchor の無い）ときだけ、伸びた分を送って読んでいる所を動かさない
         var above = slot.getBoundingClientRect().top < 0;
         slot.parentNode.replaceChild(box, slot);
+        if (wrap === 'sec' && box.nextElementSibling && box.nextElementSibling.tagName === 'FOOTER') box.classList.add('mks-end');
         var anchorOk = !!(window.CSS && window.CSS.supports && window.CSS.supports('overflow-anchor', 'auto'));
         if (above && !anchorOk) window.scrollBy(0, box.getBoundingClientRect().height);
         document.documentElement.setAttribute('data-mks', String(cards.length));
