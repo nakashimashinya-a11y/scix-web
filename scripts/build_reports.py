@@ -74,6 +74,8 @@ SRC = os.environ.get("SCIX_REPORT_SRC", os.path.join(HOME, "マイドライブ",
 FIGS = os.environ.get("SCIX_REPORT_FIGS", os.path.join(HOME, ".openclaw", "workspace", "build"))
 BASE = bmd.BASE
 DR2_REGISTER = "https://dealroom.scix.co.jp/register"
+# 題と説明に数字の月を書くのは、この号から（出ている号の題は変えない＝同じ頁を14日以内に2度変えない決まり・O16-37）
+TITLE_V2_FROM = "2026-12"
 DR2_REGISTER_EN = "https://dealroom.scix.co.jp/en/register"
 # 図N → 図のファイル（bin/monthly_report.py の FIG_FILE と同じ。月報の節の並び）
 FIG_FILE = {1: "f9", 2: "f15", 3: "f18", 4: "f16", 5: "f13", 6: "f14", 7: "f5", 8: "f17", 9: "f1", 10: "f2", 11: "f12", 12: "f3", 13: "f10", 14: "f6", 15: "f7"}   # bin/monthly_report.py の FIG_FILE と同じ（2026-11-05 の並び: 3つの稼ぎ口→①需給調整→②卸電気→③容量→当社の記録。2026-11-05 に図7＝管区ごとの約定率 f18 を足した）
@@ -585,6 +587,9 @@ def render_month(m, doc, figs, page_imgs, has_en=False, nav=None):
     s1 = moves_sec(doc)
     moves = [t for k, t in (s1["items"] if s1 else []) if k == "li" and not t.startswith("出典:")]
     desc = (f"{title_h}。" + (moves[0] if moves else doc["intro"]))[:160]
+    if key >= TITLE_V2_FROM:   # 号の名前は発行の月・中身は前月の数字（data_month）＝数字の月で探す人に分かるよう、題と説明に数字の月を書く。h1 は号の名前のまま
+        title = f"{title_h}（{data_month_ja(key)}の数字）｜需給調整市場・卸電気・容量市場｜サイエンスエックス"
+        desc = (f"{title_h}（{data_month_ja(key)}の数字）。" + (moves[0] if moves else doc["intro"]))[:160]
     pdf_name = f"scix-bess-monthly-{key}.pdf"
     mod = modified_of(path, doc["issued"])
     jsonld = "\n".join([
