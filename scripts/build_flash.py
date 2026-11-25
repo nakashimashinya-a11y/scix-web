@@ -48,6 +48,10 @@ FOUR = ["北海道", "東京", "関西", "九州"]               # 図の線に�
 SPREAD_BIG = 10.0                                       # 4時間の値差がこの円/kWh 以上の日を数える（月号と同じ）
 PATH, PATH_EN = "/research/flash", "/en/research/flash"
 FIRST = "2026-11-23"      # 頁を作った日（JSON-LD の datePublished。dateModified はデータを取り直した日）
+# 題・説明・頁の中のマーケットの入口の新しい版（日本語）を出し始める日。同じ頁を14日以内に2度変えない決まり（O16-37）のため、
+# 住所を /research へ移した 2026-11-25 の14日後から＝その日以降の最初の取り直しで切り替わる（構造化データは頁を変えた日に数えないので、すぐ出す）。
+HEAD_V2_FROM = "2026-12-09"
+MARKET = "https://dealroom.scix.co.jp"
 NAME, NAME_EN = "蓄電所の市場ノート 速報", "Battery Storage Market Notes: Daily Flash"
 AREAS = ["システム", "北海道", "東北", "東京", "中部", "北陸", "関西", "中国", "四国", "九州"]
 AREA_JA = {"システム": "システム（全国）"}
@@ -629,14 +633,47 @@ def jsonld(d, lang, title, desc, modified):
           "creditText": ("出典: サイエンスエックス株式会社『%s』%s%s" % (NAME, BASE, path)) if J else ("Source: Science X Inc., “%s”, %s%s" % (NAME_EN, BASE, path)),
           "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": csv,
                             "name": "卸電気（JEPX）の日ごとの平均と4時間の値差（CSV）" if J else "JEPX daily averages and 4-hour spreads (CSV)"}],
+          "isBasedOn": [EPRX_URL, JEPX_URL],
+          "keywords": (["需給調整市場", "EPRX", "取引実績", "落札価格", "応札倍率", "JEPX", "スポット市場", "エリアプライス", "値差", "系統用蓄電池", "蓄電所"] if J else
+                       ["Japan balancing market", "EPRX", "bid ratio", "winning price", "JEPX", "spot market", "area price", "price spread", "grid-scale battery storage", "BESS"]),
+          "variableMeasured": [{"@type": "PropertyValue", "name": n, "unitText": u} for n, u in (
+              [("需給調整市場の応札倍率（商品ごと）", "%"), ("需給調整市場の平均落札価格（商品ごと）", "円/kW・30分"),
+               ("卸電気のエリアの平均価格", "円/kWh"), ("卸電気の4時間の値差", "円/kWh")] if J else
+              [("Balancing market bid ratio by product", "%"), ("Balancing market average winning price by product", "JPY/kW per 30 min"),
+               ("Wholesale average price by area", "JPY/kWh"), ("Wholesale 4-hour spread", "JPY/kWh")])],
           "mainEntityOfPage": BASE + path}
     cr = bmd.crumbs([("ホーム", BASE + "/"), ("市場ノート", BASE + "/research"), ("速報", BASE + path)] if J else
                     [("Home", BASE + "/en"), ("Market Notes", BASE + "/en/research"), ("Daily Flash", BASE + path)])
     return "\n".join(bmd.ld(x) for x in (page, ds, cr))
 
 
-def render(d, lang, modified, latest_issue, figs):
+def market_links(areas, live):
+    """話題に合う蓄電所マーケットの入口（日本語・静的な入口の頁だけ）。①需給調整市場の表の下＝需給調整市場に参加済みの蓄電所／②卸電気の表の下＝エリアごとの売り案件。
+    areas＝[(エリア名, 入口の道)]（公開一覧 projects.json で1件以上あるエリアだけ）・live＝運転中の案件の数（0なら①は出さない）。数・価格は書かない。"""
+    at = ' target="_top" data-cta="body" data-cta-target="market"'
+    e = ('<p class="md-note">需給調整市場に参加している蓄電所の売り案件は、蓄電所マーケットの <a href="%s/catalog/stage/market"%s>「需給調整参加済み」の一覧</a> で'
+         '登録なしで見られます（価格と資料は無料の登録のあと）。</p>' % (MARKET, at)) if live else ""
+    j = ('<p class="md-note">エリアごとの売り案件（蓄電所マーケット・登録なしで一覧）: %s</p>' % " ／ ".join(
+        '<a href="%s/%s"%s>%s</a>' % (MARKET, path, at, esc(name)) for name, path in areas)) if areas else ""
+    return e, j
+
+
+def market_inputs(root=ROOT):
+    """公開一覧 projects.json（公開の項目だけ）から、売り案件のあるエリアの入口と、運転中の案件の数。読めなければ空（入口の行を出さない）。"""
+    try:
+        ps = json.load(open(os.path.join(root, "projects.json"), encoding="utf-8")).get("projects", [])
+    except (OSError, ValueError):
+        return [], 0
+    have = set(x.get("area") for x in ps)
+    canon = {"hokkaido": "catalog/pref/hokkaido"}          # 北海道はエリア＝都道府県（マーケットの正規の住所・add_column_entrances.py と同じ）
+    order = {a: i for i, a in enumerate(AREAS)}
+    areas = sorted(((a, canon.get(slug, "catalog/area/" + slug)) for a, slug, _t in bmd.AREAS if a in have), key=lambda x: order.get(x[0], 99))
+    return areas, sum(1 for x in ps if x.get("live"))
+
+
+def render(d, lang, modified, latest_issue, figs, areas=(), live=0):
     J = lang == "ja"
+    v2 = J and (modified or "") >= HEAD_V2_FROM          # 新しい版は日本語の頁だけ・切り替えの日から
     j, e = d["jepx"], d["eprx"]
     moves = month_moves(d, lang)
     ver = j["latest_day"].replace("-", "") + e["latest_day"][8:]        # 図の住所に付ける版（データの日付が変わると変わる＝古い図を読ませない）
@@ -644,6 +681,10 @@ def render(d, lang, modified, latest_issue, figs):
         title = "市場ノート 速報｜需給調整市場・卸電気を毎日更新｜サイエンスエックス"
         desc = ("需給調整市場（EPRX）と卸電気（JEPX）の最新の数字を、公表データを毎朝取り直して出す速報。今月1日からの毎日の動きを月号と同じ図で、"
                 "7商品の応札倍率と平均落札価格、システムプライスと9エリアの平均価格と4時間の値差を、今月ここまで・最新の1日・前月（全日）の表で比べます。出典つき、CSV あり。")   # 日付は頁の頭と dateModified に（説明は毎日変えない＝llms.txt を日ごとに古くしない）
+        if v2:   # 検索で多い言葉（需給調整市場の価格の推移・取引実績・落札＝約定の価格、卸電気のエリアの価格）を題と説明の頭に置く。h1 と本文は同じ
+            title = "需給調整市場の価格推移と取引実績（落札価格・応札倍率）｜JEPXエリア価格も毎日更新｜サイエンスエックス"
+            desc = ("需給調整市場（EPRX）の取引実績（速報値）から7商品の平均落札価格（約定価格の平均）と応札倍率を、卸電気（JEPX）からシステムプライスと9エリアの平均価格と4時間の値差を、"
+                    "公表データを毎朝取り直して図と表で出す速報。今月1日からの毎日の推移を、今月ここまで・最新の1日・前月（全日）と比べます。出典つき、CSV あり。")
         crumbs = bmd.nav_crumbs([("ホーム", "/"), ("市場ノート", "/research"), ("速報", PATH)])
         issue = ('<a class="btn-primary" href="/research/%s">最新の月号を読む（%s号＝%sの数字）</a>' % (latest_issue, mon_ja(latest_issue), mon_ja(issue_data_month(latest_issue)))) if latest_issue else ""
         hero = f"""<section class="hero"><div class="container">
@@ -723,9 +764,10 @@ def render(d, lang, modified, latest_issue, figs):
     fs = fig_sections(d, lang, figs, ver)
     parts = [("moves", m_h, "<p>%s</p>\n<ul class=\"rp-three\">%s</ul>\n%s" % (esc(m_lead), "".join("<li>%s</li>" % esc(m) for m in moves), kpis(d, lang)))]
     parts += [x for x in fs if x[0].startswith("e")]
-    parts.append(("eprx", s2h, "%s\n%s\n<p class=\"md-note\">%s</p>" % (scroll, eprx_table(d, lang), esc(e_note))))
+    mk_e, mk_j = market_links(areas, live) if v2 else ("", "")
+    parts.append(("eprx", s2h, "%s\n%s\n<p class=\"md-note\">%s</p>%s" % (scroll, eprx_table(d, lang), esc(e_note), ("\n" + mk_e) if mk_e else "")))
     parts += [x for x in fs if x[0].startswith("j")]
-    parts.append(("jepx", s3h, "%s\n%s\n<p class=\"md-note\">%s</p>\n%s" % (scroll, jepx_table(d, lang), esc(j_note), csvl)))
+    parts.append(("jepx", s3h, "%s\n%s\n<p class=\"md-note\">%s</p>\n%s%s" % (scroll, jepx_table(d, lang), esc(j_note), csvl, ("\n" + mk_j) if mk_j else "")))
     parts.append(("daily", s4h, "<p>%s</p>\n%s\n%s" % (esc(d_lead), scroll, daily_table(d, lang))))
     parts.append(("asof", s5h, "%s\n<ul>%s</ul>\n%s\n%s" % (table(asof_head, asof_rows(d, lang), 9), "".join("<li>%s</li>" % esc(n) for n in notes), more, mk)))
     sections = "\n".join('<section class="md" id="%s"><div class="container rp-body">\n<div class="section-label">%02d</div>\n<h2 class="md-h">%s</h2>\n%s\n</div></section>' % (
@@ -830,7 +872,8 @@ def main():
         print("NG " + ferr + "（何も書かない）")
         return 2
     dd = dict(d, made_on=modified)
-    ja, mv_ja, w, core_ja = render(dd, "ja", modified, latest_issue, figs)
+    areas, live = market_inputs()
+    ja, mv_ja, w, core_ja = render(dd, "ja", modified, latest_issue, figs, areas, live)
     en, mv_en, _, core_en = render(dd, "en", modified, latest_issue_en, figs)
     hits = safety([core_ja, json.dumps(d, ensure_ascii=False)]) + safety([core_en], brp.FORBIDDEN_EN)
     if hits:

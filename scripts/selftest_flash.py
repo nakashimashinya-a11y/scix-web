@@ -94,6 +94,22 @@ def main():
     ja = b.render(d, "ja", "2026-11-24", "2026-11", figs())[0]
     assert "<h2 class=\"md-h\">今月の動き3つ（2026年11月）</h2>" in ja
     assert "応札倍率が100%以上の日は23日のうち" in ja and "11月1日〜24日（24日分）のうち" in ja
+    # 題・説明・マーケットの入口の新しい版は、切り替えの日（HEAD_V2_FROM）から・日本語だけ。前の日までは今の版のまま（同じ頁を14日以内に2度変えない）
+    old_t = "<title>市場ノート 速報｜需給調整市場・卸電気を毎日更新｜サイエンスエックス</title>"
+    ar = [("東京", "catalog/area/tokyo"), ("九州", "catalog/area/kyushu")]
+    assert old_t in ja and "catalog/stage/market" not in ja and "catalog/area/" not in ja
+    assert old_t in b.render(d, "ja", "2026-12-08", "2026-11", figs(), ar, 5)[0], "切り替えの日の前"
+    v2 = b.render(d, "ja", b.HEAD_V2_FROM, "2026-11", figs(), ar, 5)[0]
+    check_page(v2, "ja", d)
+    assert "<title>需給調整市場の価格推移と取引実績" in v2 and old_t not in v2 and '<h1>蓄電所の市場ノート 速報</h1>' in v2
+    assert v2.count(b.MARKET + "/catalog/stage/market") == 1 and v2.count(b.MARKET + "/catalog/area/") == 2
+    assert v2.index("catalog/stage/market") < v2.index('id="j1"') < v2.index("catalog/area/tokyo") < v2.index('id="daily"'), "入口は話題の表の下"
+    v2n = b.render(d, "ja", b.HEAD_V2_FROM, "2026-11", figs(), [], 0)[0]
+    assert "catalog/stage/market" not in v2n and "catalog/area/" not in v2n, "案件が無ければ入口の行を出さない"
+    en2 = b.render(d, "en", b.HEAD_V2_FROM, "2026-11", figs(), ar, 5)[0]
+    assert "<title>Daily Flash: Japan EPRX and JEPX figures | ScienceX</title>" in en2 and "catalog/stage" not in en2, "英語は今のまま"
+    assert '"isBasedOn"' in ja and '"variableMeasured"' in ja and '"keywords"' in ja, "Dataset の欄"
+    assert not b.safety([v2.split("<footer")[0].split("</head>")[1]]), "新しい版に公開してはいけない語が無い"
     # 月の初め: 見出しと導入が2つの市場の月を分けて言う／1日分では「◯日のうち」と言わない／前月の値が欠けたら前月の句を出さない
     dd = make(e_month="2026-11", e_days=30, j_month="2026-12", j_days=1)
     t = b.render(dd, "ja", "2026-12-01", "", figs())[0]

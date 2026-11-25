@@ -883,7 +883,7 @@
     window.addEventListener('scroll', fctaTick, { passive: true }); fctaTick();
   }
 
-  // --------------- 2b. 週1本の更新をメールで受け取る（JAのみ・2026-09-17 追加。入力はなるべく簡単に） ---------------
+  // --------------- 2b. 新しい記事と月の市場ノートをメールで受け取る（JAのみ・2026-09-17 追加・2026-11-25 文と市場ノートの頁の置き場。入力はなるべく簡単に） ---------------
   // 入力はメールアドレスだけ（お名前は任意）。受け口は scix-dealroom2 の /api/newsletter（D1に積む→毎朝
   // blastmail_sync.py がブラストメールへ登録）。置き場所: <div data-scix-newsletter> があればそこ、
   // 無ければ JA コラムの末尾（関連記事の下・フッターの上）。コラムの1記事1CTA（案件/フォーム）とは別物＝更新通知。
@@ -911,6 +911,14 @@
       '.scix-nl.scix-nl-rp{background:linear-gradient(118deg,#BDEBD6 0%,#E8F8F0 52%,#FFF0D6 100%)}',
       '.scix-nl.scix-nl-rp .scix-nl-label{color:#0F7A52}',
       '.scix-nl.scix-nl-rp input:focus{border-color:#138A62;box-shadow:0 0 0 3px rgba(19,138,98,.22)}',
+      '.scix-nl.scix-nl-slim{max-width:1024px;margin:20px auto 0;padding:16px 20px 12px;border-radius:18px;box-shadow:0 6px 18px rgba(31,42,72,.08);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px 20px;align-items:center}',
+      '.scix-nl-slim .scix-nl-st b{display:block;font-size:1rem;font-weight:900;line-height:1.5;color:#0B1530}',
+      '.scix-nl-slim .scix-nl-st span{display:block;font-size:.82rem;line-height:1.7;color:#24304A}',
+      '.scix-nl-slim form{flex-wrap:nowrap}',
+      '.scix-nl-slim input{padding:10px 14px}',
+      '.scix-nl-slim button{padding:10px 22px}',
+      '.scix-nl-slim .scix-nl-note,.scix-nl-slim .scix-nl-done,.scix-nl-slim .scix-nl-err{grid-column:1 / -1;margin:2px 0 0}',
+      '@media(max-width:760px){.scix-nl.scix-nl-slim{grid-template-columns:minmax(0,1fr);margin:16px 16px 0}.scix-nl-slim form{flex-wrap:wrap}}',
       '@media(max-width:600px){.scix-nl{margin:32px 16px 0;padding:22px 18px 18px;border-radius:20px}.scix-nl input.scix-nl-name{flex:1 1 100%}.scix-nl button{flex:1 1 100%}}'
     ].join('\n');
     var nlStyle = document.createElement('style');
@@ -918,35 +926,55 @@
     nlStyle.textContent = nlCss;
     document.head.appendChild(nlStyle);
 
-    var nlHtml = [
-      '<div class="scix-nl-label">メールのお知らせ</div>',
-      '<h3>週1本の新しい記事を、メールで受け取る</h3>',
-      '<p>毎週1本、その週に書いた記事の要点とリンクをお送りします。メールアドレスだけで登録できます。</p>',
-      '<form novalidate>',
-      '  <input type="email" name="email" class="scix-nl-mail" placeholder="メールアドレス" autocomplete="email" inputmode="email" required aria-label="メールアドレス">',
-      '  <input type="text" name="name" class="scix-nl-name" placeholder="お名前（任意）" autocomplete="name" aria-label="お名前（任意）">',
-      '  <input type="text" name="_honey" class="scix-nl-hp" tabindex="-1" autocomplete="off">',
-      '  <button type="submit">受け取る</button>',
-      '</form>',
-      '<p class="scix-nl-note">配信は各メールの末尾からいつでも解除できます。アドレスは更新のお知らせにだけ使います（<a href="/privacy" target="_top">プライバシーポリシー</a>）。</p>'
-    ].join('\n');
+    // 2026-11-25: 文を、いま実際に届く便に合わせた（火曜の自動の便は止めてあり、届くのは 新しい記事の案内 と 月の市場ノート）。
+    // 記事の箱は「新しい記事と月の市場ノート」、市場ノートの頁の箱は市場ノートを先に言う。受け口・送る中身（email・name・_page・_lang）は同じ。
+    // slim＝市場ノートの頁の頭（冒頭の段のすぐ後）に出す細い箱（メールアドレスの欄とボタンだけ・お名前の欄なし）。
+    function nlHtmlOf(isRp, slim) {
+      var mail = '  <input type="email" name="email" class="scix-nl-mail" placeholder="メールアドレス" autocomplete="email" inputmode="email" required aria-label="メールアドレス">';
+      var hp = '  <input type="text" name="_honey" class="scix-nl-hp" tabindex="-1" autocomplete="off">';
+      if (slim) {
+        return [
+          '<div class="scix-nl-st"><b>月の市場ノートを、メールで受け取る</b><span>毎月1日の月号の要点と、新しい記事の案内をお送りします。</span></div>',
+          '<form novalidate>', mail, hp, '  <button type="submit">受け取る</button>', '</form>',
+          '<p class="scix-nl-note">メールアドレスだけで登録できます。配信は各メールの末尾からいつでも解除できます（<a href="/privacy" target="_top">プライバシーポリシー</a>）。</p>'
+        ].join('\n');
+      }
+      return [
+        '<div class="scix-nl-label">メールのお知らせ</div>',
+        '<h3>' + (isRp ? '月の市場ノートを、メールで受け取る' : '新しい記事と月の市場ノートを、メールで受け取る') + '</h3>',
+        '<p>' + (isRp
+          ? '毎月1日に出す月号（需給調整市場・卸電気・容量市場の前月の数字）の要点とリンクをお送りします。新しい記事の案内も届きます。メールアドレスだけで登録できます。'
+          : '新しい記事の要点とリンクと、毎月1日に出す市場ノート（需給調整市場・卸電気・容量市場の数字）の案内をお送りします。メールアドレスだけで登録できます。') + '</p>',
+        '<form novalidate>',
+        mail,
+        '  <input type="text" name="name" class="scix-nl-name" placeholder="お名前（任意）" autocomplete="name" aria-label="お名前（任意）">',
+        hp,
+        '  <button type="submit">受け取る</button>',
+        '</form>',
+        '<p class="scix-nl-note">配信は各メールの末尾からいつでも解除できます。アドレスは更新のお知らせにだけ使います（<a href="/privacy" target="_top">プライバシーポリシー</a>）。</p>'
+      ].join('\n');
+    }
 
     // 2026-11-21: 市場ノート（/research・/research/<月>）にも登録の箱を出す。
     // 受け口は記事の箱と同じ /api/newsletter（_page に /research… が残るので、どの箱から来たかは名簿の page で分かる）。置き場所の名前は report_index／report_issue。
     // 文は今の約束（週1本の記事）のまま。毎月の号をメールで送る形にするときは、文もそれに合わせて替える。
-    var isReportPage = loc === '/research' || loc === '/research/flash' || /^\/research\/\d{4}-\d{2}$/.test(loc);   // 速報（/research/flash・2026-11-23）にも
+    var isReportPage = loc === '/research' || loc === '/research/flash' || /^\/research\/\d{4}-\d{2}$/.test(loc)   // 速報（/research/flash・2026-11-23）にも
+      || loc === '/research/data' || /^\/research\/area\/[a-z]+$/.test(loc);                                      // 市場データとエリアの頁にも（2026-11-25）
+    var rpWhere = loc === '/research' ? 'report_index' : (loc === '/research/flash' ? 'report_flash'
+      : (loc === '/research/data' ? 'report_data' : (loc.indexOf('/research/area/') === 0 ? 'report_area' : 'report_issue')));
 
-    function nlMount(el, where, isRp) {
-      el.className = 'scix-nl' + (isRp ? ' scix-nl-rp' : '');
+    function nlMount(el, where, isRp, slim) {
+      el.className = 'scix-nl' + (isRp ? ' scix-nl-rp' : '') + (slim ? ' scix-nl-slim' : '');
       el.setAttribute('data-where', where);
-      el.innerHTML = nlHtml;
+      el.innerHTML = nlHtmlOf(isRp, slim);
       var form = el.querySelector('form');
       var mail = el.querySelector('.scix-nl-mail');
       var btn = el.querySelector('button');
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         var email = (mail.value || '').trim();
-        var name = (el.querySelector('.scix-nl-name').value || '').trim();
+        var nameEl = el.querySelector('.scix-nl-name');
+        var name = ((nameEl && nameEl.value) || '').trim();
         var old = el.querySelector('.scix-nl-err');
         if (old) old.parentNode.removeChild(old);
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) {
@@ -974,8 +1002,8 @@
             done.textContent = res.j.unsubscribed
               ? 'このアドレスは以前に配信を停止されています。再開をご希望の場合は s@scix.co.jp へ「更新メール再開希望」とお送りください。'
               : (res.j.already
-                ? 'このアドレスは登録済みです。次の記事からお届けします。'
-                : '登録しました。次の記事からお届けします。');
+                ? 'このアドレスは登録済みです。次の便からお届けします。'
+                : '登録しました。次の便からお届けします。');
             form.parentNode.replaceChild(done, form);
             try { done.focus(); } catch (err) { /* ignore */ }
             try {
@@ -1007,13 +1035,22 @@
       }
       if (isReportPage) {
         try {
+          // 頭の細い箱: 冒頭の段（section.hero）のすぐ後。長い頁（速報・月号・市場データ・エリアの頁）だけ＝下の箱まで読み進めない人の目に入る所に1つ（2026-11-25）
+          var hero = loc === '/research' ? null : document.querySelector('section.hero');
+          if (hero && hero.parentNode) {
+            var tbox = document.createElement('div');
+            hero.parentNode.insertBefore(tbox, hero.nextSibling);
+            nlMount(tbox, rpWhere + '_top', true, true);
+          }
+        } catch (err) { /* 箱を出せなくても頁はそのまま */ }
+        try {
           // 号の頁は「蓄電所マーケットで案件を見る」の帯（section.cta）の上、一覧の頁はフッターの上
           var at = document.querySelector('section.cta') || document.querySelector('footer.scix-footer');
           if (!at) return;
           var rbox = document.createElement('div');
           at.parentNode.insertBefore(rbox, at);
           rbox.style.marginBottom = '48px';
-          nlMount(rbox, loc === '/research' ? 'report_index' : (loc === '/research/flash' ? 'report_flash' : 'report_issue'), true);
+          nlMount(rbox, rpWhere, true);
         } catch (err) { /* 箱を出せなくても頁はそのまま */ }
         return;
       }
