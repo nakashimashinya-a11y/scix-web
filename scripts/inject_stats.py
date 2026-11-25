@@ -19,10 +19,10 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TARGETS = ["index.html", "en/index.html", "zh.html", "company.html", "en/company.html", "zh-company.html", "projects.html"]
+TARGETS = ["index.html", "en/index.html", "zh.html", "company.html", "en/company.html", "zh-company.html"]   # 2026-11-25 projects.html はやめた（蓄電所マーケットへ 308）
 # トップ3頁の言葉（<!--S:cards-->・<!--S:count-->・<!--S:date--> の言葉）。projects.html は日本語。
 # 会社案内（company.html・en/company.html・zh-company.html）は冒頭の札の <!--S:count-->・<!--S:prefs--> だけを焼く
-TARGET_LANG = {"index.html": "ja", "en/index.html": "en", "zh.html": "zh", "company.html": "ja", "en/company.html": "en", "zh-company.html": "zh", "projects.html": "ja"}
+TARGET_LANG = {"index.html": "ja", "en/index.html": "en", "zh.html": "zh", "company.html": "ja", "en/company.html": "en", "zh-company.html": "zh"}
 
 
 def _esc(v):
@@ -189,7 +189,7 @@ def render_new_line(ps):
     if not fresh:
         return ""
     ids = "・".join(_esc(p.get("id") or "") for p in fresh[:4]) + (" ほか" if len(fresh) > 4 else "")
-    return (f'<a target="_top" href="/projects?sort=new" style="color:inherit">'
+    return (f'<a target="_top" href="https://dealroom.scix.co.jp/" style="color:inherit">'
             f'この{NEW_DAYS}日の新着 {len(fresh)}件（{ids}）</a>')
 
 
