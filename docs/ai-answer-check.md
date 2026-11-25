@@ -20,7 +20,7 @@
 | J3 | 系統用蓄電池の案件を売りたいです。買い手はどうやって探せばよいですか？ | www:/sourcing・www:/sell-form |
 | J4 | 系統用蓄電所の売買価格の相場はいくらですか？ | www:/column-project-price・www:/guide-buy-sell |
 | J5 | 系統用蓄電池の売り案件は、電力会社の管内ごとにどれくらいありますか？ | www:/market-data |
-| J6 | 需給調整市場の一次調整力の最近の約定価格はいくらですか？ | www:/report/flash・www:/report・www:/column-bidding-ceiling-market |
+| J6 | 需給調整市場の一次調整力の最近の約定価格はいくらですか？ | www:/research/flash・www:/research・www:/column-bidding-ceiling-market |
 | J7 | 系統用蓄電池の権利渡しと完成渡しの違いは何ですか？ | www:/transfer・www:/column-buyer-structures |
 | J8 | 接続検討回答書は、買う前にどこを見ればよいですか？ | www:/column-study-reply |
 
@@ -32,7 +32,7 @@
 | E2 | Japan BESS projects for sale | www:/en/market-data・dealroom:/en |
 | E3 | How can a foreign investor buy a battery storage project in Japan? | www:/en/guide-buy-sell・www:/en/primer |
 | E4 | How many battery storage projects are for sale in Japan, by grid area? | www:/en/market-data |
-| E5 | What are the latest balancing market (EPRX) prices in Japan? | www:/en/report/flash・www:/en/report |
+| E5 | What are the latest balancing market (EPRX) prices in Japan? | www:/en/research/flash・www:/en/research |
 | E6 | How do the capacity market and the LDA work for battery storage in Japan? | www:/en/guide-capacity-lda |
 | E7 | How does battery storage earn money in Japan (JEPX, balancing and capacity markets)? | www:/en/guide-revenue-cost |
 | E8 | What is the difference between buying grid rights and buying a completed battery storage plant in Japan? | www:/en/guide-buy-sell |

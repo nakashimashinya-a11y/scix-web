@@ -371,13 +371,13 @@ def main():
             issues["robots に max-image-preview:large 無し"].append((rel, ""))
         if re.search(r"catalog\?(?:area|voltage)=", raw):
             issues["マーケットの絞り込み検索（?area=・?voltage=）へのリンク"].append((rel, ""))
-        if rel.startswith(("column-", "zh-column-", "en/column-")) or rel.startswith("report/area/"):
+        if rel.startswith(("column-", "zh-column-", "en/column-")) or rel.startswith("research/area/"):
             area_n, volt_n = projects_counts()
             for kind, slug in re.findall(r"dealroom\.scix\.co\.jp/catalog/(area|voltage)/([a-z-]+)", raw):
                 n = (area_n if kind == "area" else volt_n).get((AREA_SLUG if kind == "area" else VOLT_SLUG).get(slug), 0)
                 if not n:
                     issues["件数0の入口を指している（入口は404）"].append((rel, f"{kind}/{slug}"))
-        if rel.startswith(("report/", "en/report/")) and "<table" in raw:
+        if rel.startswith(("research/", "en/research/")) and "<table" in raw:
             n_tab = raw.count("<table")
             if raw.count("<caption>") < n_tab or len(re.findall(r'<th scope="(?:col|row)"', raw)) < n_tab or "<time " not in raw:
                 if "/data/" in rel or "/area/" in rel:
@@ -387,9 +387,9 @@ def main():
                 for num in re.findall(r"\d+\.\d+|\d{1,3}(?:,\d{3})+", re.sub(r"<[^>]+>", "", m.group(1))):
                     if norm_text(num) not in cells:
                         issues["「いちばん新しい行の1文」の数字が表に無い"].append((rel, num))
-        if rel.startswith(("report/", "en/report/")):
+        if rel.startswith(("research/", "en/research/")):
             for im in re.findall(r"<img\b[^>]*>", raw):
-                if "/report/" in im and ("width=" not in im or "height=" not in im) and "logo" not in im:
+                if "/research/" in im and ("width=" not in im or "height=" not in im) and "logo" not in im:
                     issues["月報の img に width・height 無し"].append((rel, im[:60]))
         if is_column(rel) and (rel.startswith("zh-") or rel.startswith("en/")):
             slug = os.path.basename(rel).split("column-", 1)[1]
