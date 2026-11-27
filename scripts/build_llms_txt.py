@@ -29,12 +29,12 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = "https://www.scix.co.jp"
 OUT = os.path.join(ROOT, "llms.txt")
 
-# 蓄電所マーケット（別のリポジトリ・別の住所）の頁の title と description。2026-11-23 に本番の頁で字を確かめて写した。
+# 蓄電所マーケット（別のリポジトリ・別の住所）の頁の title と description。2026-11-23 に本番の頁で字を確かめて写した（日本語は 2026-11-27 に写し直した）。
 MARKET = {
     "ja": ("https://dealroom.scix.co.jp/",
-           "蓄電所マーケット｜系統用蓄電池（蓄電所）を、買う。売る。",
-           "蓄電所マーケットは、系統用蓄電所（できあがった蓄電所、土地と系統の権利）を買いたい会社と売りたい会社をつなぐ場です。"
-           "低圧・高圧・特別高圧、完成渡し・権利渡し。登録は無料、社名は面談の日時が決まるまで出ません。運営 サイエンスエックス株式会社。"),
+           "系統用蓄電池（蓄電所）の売り案件一覧｜買う・売る｜蓄電所マーケット",
+           "いま売りに出ている系統用蓄電池（蓄電所）の売り案件を、写真つきの一覧で。高圧・特別高圧、完成渡し・権利渡し、エリア・電圧・電力の手続きの段から探せます。"
+           "蓄電所マーケットは、買いたい会社と売りたい会社をつなぐ売買の場です。登録は無料、社名は面談の日時が決まるまで出ません。運営 サイエンスエックス株式会社。"),
     "en": ("https://dealroom.scix.co.jp/en",
            "BESS projects for sale in Japan | Chikudensho Market",
            "Grid-scale battery storage (BESS) projects for sale in Japan: completed plants and land-and-grid-rights deals. "
