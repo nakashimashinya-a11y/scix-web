@@ -142,9 +142,10 @@ def drop_one_funnel_link(s):
 
 
 def reroute_one_funnel_link(s):
-    """収益ページへのリンクの行き先を 1 本だけ付け替える（/contact → /projects。本数は変わらない）。"""
+    """収益ページへのリンクの行き先を 1 本だけ付け替える（/contact → /sell-form。本数は変わらない）。
+    /projects は 2026-11-25 から蓄電所マーケットへの 308（vercel.json）で、サイトの外の行き先として数えるので付け替え先にしない。"""
     assert 'href="/contact"' in s, "/contact へのリンクが無い（selftest を直す）"
-    return s.replace('href="/contact"', 'href="/projects"', 1)
+    return s.replace('href="/contact"', 'href="/sell-form"', 1)
 
 
 def hero_below_next_section(s):
@@ -248,9 +249,10 @@ def add_article_section(s):
 
 
 def nav_swap(s):
-    """「買いたい」の引き出しの中で /transfer と /fund の順を入れ替える（ナビ定義の変更）。"""
-    a = "      ['/transfer', '買うまでの流れ・買い方3つ'],\n"
-    b = "      ['/fund',     'ファンドで持つ']\n"
+    """上の帯の「ナレッジ」の引き出し（日本語）の中で /qa と /glossary の順を入れ替える（ナビ定義＝GROUP_PAGES 〜 var nav = […]; の変更）。
+    下の帯の列（COLS）はナビ定義の外なので、ここで触らない（触ると「ナビ以外の変更」として止まるのが正しい）。"""
+    a = "      ['/qa',        '入門Q&amp;A（24問）'],\n"
+    b = "      ['/glossary',  '用語集']\n"
     assert a + b in s, "header.js のナビ定義が想定と違う（selftest を直す）"
     return s.replace(a + b, b.rstrip("\n") + ",\n" + a.rstrip(",\n") + "\n", 1)
 
@@ -315,7 +317,7 @@ def main() -> int:
         c.guard("収益ページへのリンクを、収益ページでない行き先に付け替えた（＝1 本減った）", {"changes": [dict(hub(), **{"class": "funnel-block"})]},
                 False, "導線が減っている", ref="selftest-quiet")
         edit(repo, "knowledge.html", reroute_one_funnel_link)
-        c.guard("行き先の付け替え（/contact → /projects・本数は同じ）は通す", {"changes": [dict(hub(), **{"class": "funnel-block"})]}, True,
+        c.guard("行き先の付け替え（/contact → /sell-form・本数は同じ）は通す", {"changes": [dict(hub(), **{"class": "funnel-block"})]}, True,
                 "経路: 自動公開", ref="selftest-quiet")
         edit(repo, "knowledge.html", lambda s: s.replace('</body>', '<p><a href="/investors?ref=hub#top">投資家の方へ</a></p>\n</body>', 1))
         c.guard("導線を 1 本足す（?query・#hash つきでも数える）", {"changes": [dict(hub(), **{"class": "funnel-block"})]}, True,
@@ -346,6 +348,14 @@ def main() -> int:
 
         edit(repo, "header.js", lambda s: s.replace(".scix-nav-dd{position:relative;", ".scix-nav-dd{position:static;", 1))
         c.guard("header.js の CSS を変更", {"changes": [nav]}, False, "ナビ定義と JA_ONLY_COLUMNS 以外", ref="selftest-quiet")
+
+        def footer_cols_swap(s):   # 下の帯の列（COLS）はナビ定義の外＝ナビの申告があっても止まること
+            a, b = "['/transfer', '買うまでの流れ・買い方3つ']", "['/fund', 'ファンドで持つ']"
+            assert a + ", " + b in s, "header.js の下の帯の列が想定と違う（selftest を直す）"
+            return s.replace(a + ", " + b, b + ", " + a, 1)
+        edit(repo, "header.js", footer_cols_swap)
+        c.guard("header.js の下の帯の列（ナビ定義の外）を変更", {"changes": [nav]}, False, "ナビ定義と JA_ONLY_COLUMNS 以外",
+                ref="selftest-quiet")
 
         edit(repo, "header.js", nav_swap)
         c.guard("週次プロファイルでナビを変更", {"changes": [dict(hub(files=["header.js"]), **{"class": "hub"})]}, False,
