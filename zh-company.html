@@ -824,7 +824,7 @@ body {
 }
 .k-more:hover { color: var(--gold-light); }
 </style>
-<meta name="description" content="Science X Inc.（サイエンスエックス株式会社，东京）的公司介绍。本公司从事日本电网侧储能项目的买卖，出售前由工学博士核对资料。与特定厂商·EPC均无资本关系。刊载代表致辞、代表简历与位于东京·日本桥的公司概要。">
+<meta name="description" content="Science X Inc.（サイエンスエックス株式会社，东京·日本桥）的公司介绍。本公司从事日本电网侧储能项目的买卖，并运营买卖平台“蓄电所市场”。2021年成立，出售前由工学博士核对资料，与特定厂商·EPC均无资本关系。刊载公司概要、董事与代表简历。">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://www.scix.co.jp/zh-company">
 <link rel="alternate" hreflang="zh-CN" href="https://www.scix.co.jp/zh-company">
@@ -833,14 +833,14 @@ body {
 <link rel="alternate" hreflang="x-default" href="https://www.scix.co.jp/en/company">
 <meta property="og:type" content="website">
 <meta property="og:title" content="公司介绍｜从事日本电网侧储能项目买卖的公司｜ScienceX">
-<meta property="og:description" content="Science X Inc.（サイエンスエックス株式会社，东京）的公司介绍。本公司从事日本电网侧储能项目的买卖，出售前由工学博士核对资料。与特定厂商·EPC均无资本关系。刊载代表致辞、代表简历与位于东京·日本桥的公司概要。">
+<meta property="og:description" content="Science X Inc.（サイエンスエックス株式会社，东京·日本桥）的公司介绍。本公司从事日本电网侧储能项目的买卖，并运营买卖平台“蓄电所市场”。2021年成立，出售前由工学博士核对资料，与特定厂商·EPC均无资本关系。刊载公司概要、董事与代表简历。">
 <meta property="og:url" content="https://www.scix.co.jp/zh-company">
 <meta property="og:image" content="https://www.scix.co.jp/img/ogp-m-zh.png">
 <meta property="og:site_name" content="ScienceX">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="公司介绍｜从事日本电网侧储能项目买卖的公司｜ScienceX">
-<meta name="twitter:description" content="Science X Inc.（サイエンスエックス株式会社，东京）的公司介绍。本公司从事日本电网侧储能项目的买卖，出售前由工学博士核对资料。与特定厂商·EPC均无资本关系。刊载代表致辞、代表简历与位于东京·日本桥的公司概要。">
+<meta name="twitter:description" content="Science X Inc.（サイエンスエックス株式会社，东京·日本桥）的公司介绍。本公司从事日本电网侧储能项目的买卖，并运营买卖平台“蓄电所市场”。2021年成立，出售前由工学博士核对资料，与特定厂商·EPC均无资本关系。刊载公司概要、董事与代表简历。">
 <meta name="twitter:image" content="https://www.scix.co.jp/img/ogp-m-zh.png">
 <script type="application/ld+json">
 {
@@ -928,6 +928,19 @@ body {
 /* 代表致辞的区块用浅色背景（与日文页面相同） */
 #message{background:var(--off-white);color:var(--text-primary)}
 #message .section-title{color:var(--navy)}
+/* 冒頭の事実の1行（所在地・設立・代表・法人番号）と、発信の入口の札 */
+.hero-facts{display:flex;flex-wrap:wrap;gap:4px 25px;overflow:hidden;margin:0 0 24px;padding:0;list-style:none;font-size:.86rem;line-height:1.7;color:var(--text-secondary)}
+.hero-facts li{position:relative;margin:0;padding:0;border:0;background:none}
+.hero-facts li::before{content:"";display:block;position:absolute;left:-13px;top:.4em;bottom:.4em;width:1px;height:auto;margin:0;border-radius:0;background:rgba(31,42,72,.28)}
+.hero .hero-desc{margin-bottom:16px}
+.co-note{max-width:1000px;margin:18px auto 0;font-size:.86rem;line-height:1.8;color:var(--text-secondary)}
+.co-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:8px 0 28px}
+a.co-link{display:block;padding:16px 18px;background:#fff;border:1px solid var(--border);border-radius:14px;text-decoration:none;color:var(--text-secondary);font-size:.86rem;line-height:1.75}
+a.co-link b{display:block;margin-bottom:2px;color:var(--navy);font-size:.98rem}
+a.co-link:hover{border-color:var(--navy);box-shadow:0 6px 18px rgba(31,42,72,.10)}
+.cta .cta-sub{margin:18px 0 0;font-size:.9rem;line-height:2}
+.cta .cta-sub a{display:inline-block;margin:0 10px}
+@media(max-width:640px){.co-links{grid-template-columns:1fr}.hero-facts{display:block}.hero-facts li::before{display:none}}
 /* 让首屏的网格随屏幕收缩 */
 .hero .container>*{min-width:0}
 .hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -966,10 +979,11 @@ body {
   <div class="hero-content">
     <div class="hero-label">公司介绍</div>
     <h1>公司介绍</h1>
-    <p class="hero-desc">本公司专注于电网侧储能，从事项目的买卖。项目在资料整理齐备之后才出售。<br>本公司与特定设备厂商、EPC均无资本关系，设备选型不会掺入“想卖某种产品”的考量。<br>买方可购买在售项目；卖方的项目，由我们收购或介绍给买方。</p>
+    <p class="hero-desc">Science X Inc.（サイエンスエックス株式会社）专注于日本的电网侧储能，从事项目的买卖，并运营项目的买卖平台“蓄电所市场”。项目在资料整理齐备之后才出售。<br>本公司与特定设备厂商、EPC均无资本关系，设备选型不会掺入“想卖某种产品”的考量。<br>买方可购买在售项目；卖方的项目，由我们收购或介绍给买方。</p>
+    <ul class="hero-facts"><li>东京·日本桥</li><li>2021年成立</li><li>代表董事 中岛晋也（工学博士）</li><li>法人编号 6010001215846</li></ul>
     <div class="hero-actions">
-      <a target="_top" href="#company" class="btn-primary">公司概要 →</a>
-      <a target="_top" href="/zh-contact" class="btn-secondary">联系我们</a>
+      <a target="_top" href="https://dealroom.scix.co.jp/en" class="btn-primary" data-cta="company-hero-market">在蓄电所市场查看项目 →</a>
+      <a target="_top" href="#company" class="btn-secondary">公司概要</a>
     </div>
   </div>
   <div class="hero-visual"><div class="hero-card">
@@ -1001,7 +1015,6 @@ body {
       <a href="https://www.linkedin.com/in/dr-shinya-nakashima" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:0.82rem;color:var(--gold);text-decoration:none;font-weight:500;">LinkedIn ↗</a>
     </div>
     <p style="margin-bottom:18px;">电网侧储能正在迅速成长为支撑可再生能源的社会基础设施。另一方面，要甄别优质项目、把它整理成可以投资或取得的形态，并在电力市场中运营，需要横跨技术、合同、电网与市场运营的专业能力。</p>
-    <p style="margin-bottom:10px;font-size:0.9rem;color:var(--text-secondary);">ScienceX、Science X Inc. 与 サイエンスエックス株式会社 是同一法人。法人编号 6010001215846（<a href="https://info.gbiz.go.jp/hojin/ichiran?hojinBango=6010001215846" target="_blank" rel="noopener" style="color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold);">可在日本政府的法人数据库 gBizINFO 上查询</a>）。</p>
     <p style="margin-bottom:18px;">ScienceX 与特定设备厂商、EPC均无资本关系，从发掘项目到设计运营，一并承接。项目由我们亲自确认，不足之处通过全国的合作网络补齐，再作为已经确认、资料齐全的项目，交付给投资的企业与取得项目的企业。作为工学博士，我将始终对数字与技术保持严谨，不受任何厂商、EPC的牵制。</p>
     <p style="text-align:right;margin-top:24px;font-weight:500;color:var(--text-primary);">Science X Inc.（サイエンスエックス株式会社）<br>代表董事　中岛晋也（工学博士）</p>
 
@@ -1009,12 +1022,39 @@ body {
   </div>
 </div></section>
 
+<!-- COMPANY + OFFICERS -->
+<section class="company" id="company" style="background:var(--off-white);"><div class="container">
+  <div class="company-header"><div class="section-label">公司介绍</div><h2 class="section-title">公司概要</h2></div>
+  <div class="company-grid">
+    <dl class="company-table">
+      <div class="company-row"><dt>公司名称</dt><dd>Science X Inc.<br><span style="font-size:0.78rem;color:var(--text-light)">サイエンスエックス株式会社</span></dd></div>
+      <div class="company-row"><dt>成立</dt><dd>2021年</dd></div>
+      <div class="company-row"><dt>代表</dt><dd>代表董事 中岛晋也（工学博士）</dd></div>
+      <div class="company-row"><dt>地址</dt><dd>日本〒103-0016<br>东京都中央区日本桥小网町8-2<br>BIZMARKS日本桥茅场町 801</dd></div>
+      <div class="company-row"><dt>注册资本</dt><dd>900万日元</dd></div>
+      <div class="company-row"><dt>业务内容</dt><dd>日本电网侧储能项目的买卖，以及买卖平台“蓄电所市场”的运营<br>电网侧储能项目的甄别、组成与运营设计<br>已确认项目的权利转让／实物资产投资的组成支持</dd></div>
+      <div class="company-row"><dt>运营网站</dt><dd><a href="https://dealroom.scix.co.jp/en" data-cta="company-table-market" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">蓄电所市场</a>（dealroom.scix.co.jp）<br><span style="font-size:0.78rem;color:var(--text-light)">连接想购买与想出售储能电站项目的企业的买卖平台（日文·英文）</span></dd></div>
+      <div class="company-row"><dt>法人编号</dt><dd>6010001215846<br><a href="https://info.gbiz.go.jp/hojin/ichiran?hojinBango=6010001215846" target="_blank" rel="noopener" style="font-size:0.78rem;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold);">可在日本政府的法人数据库 gBizINFO 上查询 ↗</a></dd></div>
+      <div class="company-row"><dt>电话</dt><dd><a href="tel:+81366913484" style="color:inherit;text-decoration:none">+81 3 6691 3484</a></dd></div>
+      <div class="company-row"><dt>邮箱</dt><dd><a href="mailto:s@scix.co.jp" style="color:inherit;text-decoration:none">s@scix.co.jp</a></dd></div>
+    </dl>
+    <div class="officer-section">
+      <h3>董事</h3>
+      <div class="officer-item"><div class="officer-role">代表董事</div><div><div class="officer-name">中岛晋也</div><div class="officer-title">工学博士</div></div></div>
+      <div class="officer-item"><div class="officer-role">董事 CTO</div><div><div class="officer-name">大井俊夫</div><div class="officer-title">原昭和电工董事（现 Resonac）</div></div></div>
+      <div class="officer-item"><div class="officer-role">董事 CFO</div><div><div class="officer-name">唐泽佳长</div><div class="officer-title">原帝人代表董事、副社长</div></div></div>
+      <div class="officer-item" style="margin-top:16px;padding-top:16px;"><div class="officer-role" style="color:var(--text-light);">主要股东</div><div><div class="officer-name" style="font-size:0.85rem;">东亚外业株式会社（Toa Gaigyo）</div><div class="officer-title">神户市中央区</div></div></div>
+    </div>
+  </div>
+  <p class="co-note">ScienceX、Science X Inc. 与 サイエンスエックス株式会社 是同一法人。</p>
+</div></section>
+
 <!-- PROFILE -->
 <section class="strengths" id="profile"><div class="container">
   <div style="max-width:820px;margin:0 auto;color:var(--text-secondary);line-height:2.1;">
     <div>
-      <div class="section-label" style="text-align:center;">公司概要</div>
-      <h3 style="font-family:var(--font-serif);font-size:1.35rem;font-weight:600;color:var(--navy);text-align:center;margin:8px 0 28px;">代表简历</h3>
+      <div class="section-label" style="text-align:center;">代表董事</div>
+      <h2 style="font-family:var(--font-serif);font-size:1.35rem;font-weight:600;color:var(--navy);text-align:center;margin:8px 0 28px;">代表简历</h2>
       <p style="font-family:var(--font-serif);font-size:1.08rem;font-weight:600;color:var(--navy);margin-bottom:18px;">电网侧储能，本质上是一套计量与控制的系统。</p>
       <p style="margin-bottom:18px;">代表董事中岛晋也于1990年作为制药公司的研究员，从事药品质量管理及向厚生省（现厚生劳动省）的药事申报。1993年起，在作为横河电机、惠普（Hewlett-Packard）代理商、经营从计量仪器、分析装置到工厂控制系统的专业商社——西川计测株式会社任职27年，参与化学分析系统与LIMS（实验室信息管理系统）的开发，以及以GC/MS分析残留农药、环境污染物的解决方案设计。在“计量、分析、控制”技术的第一线，走过了30年。</p>
       <p style="margin-bottom:18px;">他在职期间于熊本县立大学研究生院从事研究，2015年取得工学博士学位（环境·能源工学）。以生物质转换、半炭化处理制取碳中和燃料的研究，后来成为 ScienceX 的技术基础。除学术论文与专利外，自2021年起在东京家政大学担任化学讲师5年，讲授普通化学与有机化学。用非专业人士也能听懂的语言讲清艰深的技术——这份在讲台上磨练的能力，如今也直接用在储能项目的说明上。</p>
@@ -1037,40 +1077,26 @@ body {
   </div>
 </div></section>
 
-<!-- COMPANY + OFFICERS -->
-<section class="company" id="company" style="background:var(--off-white);"><div class="container">
-  <div class="company-header"><div class="section-label">公司介绍</div><h2 class="section-title">公司概要</h2></div>
-  <div class="company-grid">
-    <dl class="company-table">
-      <div class="company-row"><dt>公司名称</dt><dd>Science X Inc.<br><span style="font-size:0.78rem;color:var(--text-light)">サイエンスエックス株式会社</span></dd></div>
-      <div class="company-row"><dt>地址</dt><dd>日本〒103-0016<br>东京都中央区日本桥小网町8-2<br>BIZMARKS日本桥茅场町 801</dd></div>
-      <div class="company-row"><dt>注册资本</dt><dd>900万日元</dd></div>
-      <div class="company-row"><dt>业务内容</dt><dd>电网侧储能项目的甄别、组成与运营设计<br>已确认项目的权利转让／实物资产投资的组成支持</dd></div>
-      <div class="company-row"><dt>电话</dt><dd><a href="tel:+81366913484" style="color:inherit;text-decoration:none">+81 3 6691 3484</a></dd></div>
-      <div class="company-row"><dt>邮箱</dt><dd><a href="mailto:s@scix.co.jp" style="color:inherit;text-decoration:none">s@scix.co.jp</a></dd></div>
-    </dl>
-    <div class="officer-section">
-      <h3>董事</h3>
-      <div class="officer-item"><div class="officer-role">代表董事</div><div><div class="officer-name">中岛晋也</div><div class="officer-title">工学博士</div></div></div>
-      <div class="officer-item"><div class="officer-role">董事 CTO</div><div><div class="officer-name">大井俊夫</div><div class="officer-title">原昭和电工董事（现 Resonac）</div></div></div>
-      <div class="officer-item"><div class="officer-role">董事 CFO</div><div><div class="officer-name">唐泽佳长</div><div class="officer-title">原帝人代表董事、副社长</div></div></div>
-      <div class="officer-item" style="margin-top:16px;padding-top:16px;"><div class="officer-role" style="color:var(--text-light);">主要股东</div><div><div class="officer-name" style="font-size:0.85rem;">东亚外业株式会社（Toa Gaigyo）</div><div class="officer-title">神户市中央区</div></div></div>
-    </div>
-  </div>
-</div></section>
-
 <!-- CITATION & PRESS -->
 <section class="strengths" id="press" style="background:var(--off-white);"><div class="container" style="max-width:860px;">
-  <div class="section-label">引用与采访</div>
-  <h2 id="cite" class="section-title" style="scroll-margin-top:84px">关于引用与媒体采访</h2>
+  <div class="section-label">信息发布与媒体资料</div>
+  <h2 id="cite" class="section-title" style="scroll-margin-top:84px">媒体资料与引用、采访</h2>
+  <div class="co-links">
+    <a class="co-link" target="_top" href="/en/newsroom" data-cta="company-pr-newsroom"><b>新闻资料室（英文）→</b>已发布的新闻稿一览、公司概要、标志与照片、采访窗口。</a>
+    <a class="co-link" target="_top" href="/en/research" data-cta="company-pr-research"><b>市场研究（英文）→</b>辅助服务市场与批发电力市场（JEPX）的公开数据，分为每日速报与月刊。</a>
+    <a class="co-link" target="_top" href="/zh-knowledge" data-cta="company-pr-knowledge"><b>洞见 →</b>关于日本电网侧储能的制度、市场与买卖的文章。</a>
+    <a class="co-link" target="_top" href="/en/press" data-cta="company-pr-press"><b>引用与转载指南（英文）→</b>出处的写法、图表与数据下载（CSV、PNG）、采访窗口。</a>
+  </div>
   <p style="color:var(--text-secondary);line-height:2;">本公司公开的数据文章中的图表与数值，只要注明出处，即可直接用于报道、资料与内部讨论。建议的出处写法放在各篇文章的末尾。适用的是以下3篇：<a target="_top" href="/zh-column-area-data" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">辅助服务市场的交易结果</a>、<a target="_top" href="/zh-column-price-cap" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">上限价格的变迁</a>、<a target="_top" href="/zh-column-construction-cost" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">建设成本</a>。</p>
   <p style="color:var(--text-secondary);line-height:2;">采访、投稿与演讲的洽谈，请通过<a target="_top" href="/zh-contact" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">联系表单</a>提出。代表的照片可使用本页刊载的照片。</p>
+  <p style="color:var(--text-secondary);line-height:2;">公司的动态也发布在 <a href="https://www.linkedin.com/company/sciencex-jp/" target="_blank" rel="noopener" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">LinkedIn 公司主页 ↗</a> 与 <a href="https://www.youtube.com/channel/UCH9WUVm8V2zsMc8s9WS2OYg" target="_blank" rel="noopener" style="color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);">YouTube 频道 ↗</a>。</p>
 </div></section>
 
 <section class="cta" id="contact"><div class="container">
   <h2>联系我们</h2>
-  <p>项目的取得与出售、投资的咨询、采访与合作的洽谈，<br>欢迎与我们联系。</p>
+  <p>项目的取得与出售、投资的咨询、采访与合作的洽谈，<br>欢迎与我们联系。原则上1个工作日内回复。</p>
   <a target="_top" href="/zh-contact" class="btn-primary">联系我们 →</a>
+  <p class="cta-sub"><a target="_top" href="https://dealroom.scix.co.jp/en" data-cta="company-end-market">在蓄电所市场查看项目 →</a></p>
   <p style="margin-top:20px;font-size:0.75rem;color:rgba(255,255,255,0.35);">s@scix.co.jp ｜ +81 3 6691 3484</p>
 </div></section>
 
